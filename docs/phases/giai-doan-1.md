@@ -4,7 +4,7 @@
 
 **Mục tiêu:** học được mỗi ngày với chu trình **Ôn → Đọc → Nghe**.
 **AI:** chỉ dùng ở F2 (chú thích bài). AI lỗi thì mọi tính năng khác vẫn chạy.
-**Thứ tự làm đề xuất:** F1 → F2 → F3 → F4 → F5 → L → F6 → F12 → F13.
+**Thứ tự làm:** Khung dự án (dựng Angular, Go, Docker Compose theo [architecture.md](../architecture.md)) → F1 → F2 → F3 → F4 → F5 → L → F6 → F12 → F13.
 
 ---
 
