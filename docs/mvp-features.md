@@ -1,4 +1,4 @@
-# LingoStudy: Tính năng MVP
+# Luna: Tính năng MVP
 
 > Phiên bản: v6 (2026-09-29). v6 chốt 3 câu hỏi mở: mục tiêu gồm thanh tổng và 4 thanh kỹ năng, AI sinh bài ở giai đoạn 2, thêm F12 Cài đặt và F13 Sao lưu.
 > v5 chốt giao diện: bảng màu Oải hương, font Lexend, có chế độ tối (chi tiết ở [design-system.md](design-system.md)).
@@ -46,7 +46,7 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 
 ```
 ┌────────────────────────────────┐
-│ LingoStudy         🔥 12 ngày  │
+│ Luna               🔥 12 ngày  │
 │                                │
 │ Mục tiêu: Lộ trình A2 → B1     │
 │ ████████░░░░░░░░░   12/30 bài  │   ← thanh mục tiêu

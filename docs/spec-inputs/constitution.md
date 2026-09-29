@@ -5,7 +5,7 @@ Dán toàn bộ khối bên dưới vào sau lệnh `/speckit.constitution`.
 ---
 
 ```text
-Tạo constitution cho dự án LingoStudy: web app học tiếng Anh cá nhân, luyện 4 kỹ năng Nghe, Nói, Đọc, Viết quanh một bài học mỗi ngày. Viết constitution bằng tiếng Việt. Phiên bản 1.0.0, ngày phê chuẩn 2026-09-29.
+Tạo constitution cho dự án Luna: web app học tiếng Anh cá nhân, luyện 4 kỹ năng Nghe, Nói, Đọc, Viết quanh một bài học mỗi ngày. Viết constitution bằng tiếng Việt. Phiên bản 1.0.0, ngày phê chuẩn 2026-09-29.
 
 NGUYÊN TẮC CỐT LÕI
 

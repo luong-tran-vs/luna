@@ -1,4 +1,4 @@
-# LingoStudy: Màu sắc và chữ
+# Luna: Màu sắc và chữ
 
 > Phiên bản: v1 (2026-09-29). Đã chốt bảng màu **Oải hương**, font **Lexend** và có **chế độ tối**.
 > Tài liệu sản phẩm: [mvp-features.md](mvp-features.md). Code giao diện chỉ dùng màu và font qua các token trong file này, không viết mã màu trực tiếp.

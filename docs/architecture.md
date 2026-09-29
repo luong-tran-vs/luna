@@ -1,11 +1,11 @@
-# LingoStudy: Cấu trúc mã nguồn
+# Luna: Cấu trúc mã nguồn
 
 > Phiên bản: v1 (2026-09-29). Dùng làm đầu vào cho `/speckit.plan`.
 
 ## 1. Tổng quan repo
 
 ```
-LingoStudy/
+Luna/
 ├── frontend/        ← Angular
 ├── backend/         ← Go
 ├── deploy/          ← docker-compose, sao lưu (F13)
