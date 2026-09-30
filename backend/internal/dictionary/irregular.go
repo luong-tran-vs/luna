@@ -1,0 +1,58 @@
+package dictionary
+
+// irregular maps common irregular inflected forms to their base form. Rule-based guesses in
+// Candidates cover regular forms; this table covers what rules cannot.
+var irregular = map[string]string{
+	// be, have, do
+	"am": "be", "is": "be", "are": "be", "was": "be", "were": "be", "been": "be", "being": "be",
+	"has": "have", "had": "have", "having": "have",
+	"does": "do", "did": "do", "done": "do", "doing": "do",
+	// irregular verbs (past, past participle)
+	"arose": "arise", "arisen": "arise", "awoke": "awake", "awoken": "awake",
+	"bore": "bear", "borne": "bear", "beat": "beat", "beaten": "beat",
+	"became": "become", "began": "begin", "begun": "begin", "bent": "bend",
+	"bet": "bet", "bound": "bind", "bit": "bite", "bitten": "bite", "bled": "bleed",
+	"blew": "blow", "blown": "blow", "broke": "break", "broken": "break", "bred": "breed",
+	"brought": "bring", "built": "build", "burnt": "burn", "burst": "burst", "bought": "buy",
+	"caught": "catch", "chose": "choose", "chosen": "choose", "clung": "cling", "came": "come",
+	"cost": "cost", "crept": "creep", "cut": "cut", "dealt": "deal", "dug": "dig",
+	"dove": "dive", "drew": "draw", "drawn": "draw", "dreamt": "dream", "drank": "drink",
+	"drunk": "drink", "drove": "drive", "driven": "drive", "ate": "eat", "eaten": "eat",
+	"fell": "fall", "fallen": "fall", "fed": "feed", "felt": "feel", "fought": "fight",
+	"found": "find", "fled": "flee", "flung": "fling", "flew": "fly", "flown": "fly",
+	"forbade": "forbid", "forbidden": "forbid", "forgot": "forget", "forgotten": "forget",
+	"forgave": "forgive", "forgiven": "forgive", "froze": "freeze", "frozen": "freeze",
+	"got": "get", "gotten": "get", "gave": "give", "given": "give", "went": "go", "gone": "go",
+	"ground": "grind", "grew": "grow", "grown": "grow", "hung": "hang", "heard": "hear",
+	"hid": "hide", "hidden": "hide", "hit": "hit", "held": "hold", "hurt": "hurt",
+	"kept": "keep", "knelt": "kneel", "knew": "know", "known": "know", "laid": "lay",
+	"led": "lead", "leant": "lean", "leapt": "leap", "learnt": "learn", "left": "leave",
+	"lent": "lend", "let": "let", "lay": "lie", "lain": "lie", "lit": "light", "lost": "lose",
+	"made": "make", "meant": "mean", "met": "meet", "mistook": "mistake", "mistaken": "mistake",
+	"paid": "pay", "put": "put", "quit": "quit", "read": "read", "rode": "ride", "ridden": "ride",
+	"rang": "ring", "rung": "ring", "rose": "rise", "risen": "rise", "ran": "run", "said": "say",
+	"saw": "see", "seen": "see", "sought": "seek", "sold": "sell", "sent": "send", "set": "set",
+	"shook": "shake", "shaken": "shake", "shone": "shine", "shot": "shoot", "showed": "show",
+	"shown": "show", "shrank": "shrink", "shrunk": "shrink", "shut": "shut", "sang": "sing",
+	"sung": "sing", "sank": "sink", "sunk": "sink", "sat": "sit", "slept": "sleep",
+	"slid": "slide", "spoke": "speak", "spoken": "speak", "sped": "speed", "spent": "spend",
+	"spilt": "spill", "spun": "spin", "spat": "spit", "split": "split", "spread": "spread",
+	"sprang": "spring", "sprung": "spring", "stood": "stand", "stole": "steal", "stolen": "steal",
+	"stuck": "stick", "stung": "sting", "stank": "stink", "struck": "strike", "strove": "strive",
+	"swore": "swear", "sworn": "swear", "swept": "sweep", "swam": "swim", "swum": "swim",
+	"swung": "swing", "took": "take", "taken": "take", "taught": "teach", "tore": "tear",
+	"torn": "tear", "told": "tell", "thought": "think", "threw": "throw", "thrown": "throw",
+	"understood": "understand", "woke": "wake", "woken": "wake", "wore": "wear", "worn": "wear",
+	"wove": "weave", "woven": "weave", "wept": "weep", "won": "win", "wound": "wind",
+	"withdrew": "withdraw", "withdrawn": "withdraw", "wrote": "write", "written": "write",
+	"could": "can", "would": "will", "should": "shall", "might": "may",
+	// irregular plurals
+	"children": "child", "men": "man", "women": "woman", "people": "person", "mice": "mouse",
+	"feet": "foot", "teeth": "tooth", "geese": "goose", "oxen": "ox", "lives": "life",
+	"wives": "wife", "knives": "knife", "leaves": "leaf", "halves": "half", "wolves": "wolf",
+	"shelves": "shelf", "loaves": "loaf", "thieves": "thief", "potatoes": "potato",
+	"tomatoes": "tomato", "heroes": "hero", "analyses": "analysis", "crises": "crisis",
+	// irregular comparatives
+	"better": "good", "best": "good", "worse": "bad", "worst": "bad", "further": "far",
+	"farther": "far", "more": "much", "most": "much", "less": "little", "least": "little",
+}

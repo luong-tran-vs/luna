@@ -1,0 +1,94 @@
+/* One column at 360px: goal, today's lesson and the button fit the first screen (F6 research R11). */
+.home {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.streak {
+  flex: none;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-accent-ink);
+}
+
+.goal {
+  gap: var(--space-2);
+}
+
+.goal-bar {
+  --bar-height: 10px;
+
+  font-weight: 600;
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  --bar-height: 6px;
+}
+
+.change,
+.stats-link {
+  justify-self: start;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-primary-ink);
+}
+
+.card-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.lesson {
+  gap: var(--space-2);
+}
+
+/* Long titles wrap on two lines at most so the button stays on the first screen. */
+.lesson-title {
+  display: -webkit-box;
+  overflow: hidden;
+  font: var(--text-lg) var(--font-ui);
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.next {
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+}
+
+.tomorrow {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.form-alert {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.placeholder {
+  min-height: 360px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}

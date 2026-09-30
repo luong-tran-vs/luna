@@ -1,0 +1,99 @@
+<audio #audio class="word-audio" preload="none"></audio>
+
+<section class="reading">
+  @if (loadError(); as message) {
+    <p class="form-alert" role="alert">{{ message }} <a routerLink="/">Về trang chủ</a></p>
+  } @else if (lesson(); as l) {
+    <header class="reading-header">
+      <p class="step">Bước Đọc{{ review() ? ' · Xem lại' : '' }}</p>
+      <h1 class="title" lang="en">{{ l.title }}</h1>
+      <div class="meta">
+        <span class="tag">{{ l.level }}</span>
+        @if (l.topic) {
+          <span class="tag">{{ l.topic }}</span>
+        }
+      </div>
+      <p class="muted">Chạm vào một từ để tra nghĩa, hoặc bôi đen nhiều từ để tra cả cụm.</p>
+    </header>
+
+    @if (hint(); as message) {
+      <p class="hint" role="status">{{ message }}</p>
+    }
+
+    <article #article class="article" lang="en">
+      @for (paragraph of l.paragraphs; track $index) {
+        <p class="para">
+          @for (s of paragraph; track s) {
+            <span class="sentence" [attr.data-s]="s">
+              @for (tok of tokens()[s]; track tok.index) {
+                @if (tok.isWord) {
+                  @let k = key(s, tok.index);
+                  <span
+                    class="w"
+                    role="button"
+                    [attr.data-s]="s"
+                    [attr.data-t]="tok.index"
+                    [class.saved]="highlighted().has(k)"
+                    [class.active]="anchor() !== null && selected()?.sentence === s && tok.index >= selected()!.first && tok.index <= selected()!.last"
+                    [attr.tabindex]="focusKey() === k ? 0 : -1"
+                    (click)="onWordClick($event, s, tok.index)"
+                    >{{ tok.text }}</span
+                  >
+                } @else {{{ tok.text }}}
+              }
+            </span>{{ ' ' }}
+          }
+        </p>
+      }
+    </article>
+    <div #end class="end" aria-hidden="true"></div>
+
+    <lu-lesson-vocabulary [lessonId]="l.id" [saved]="saved()" (added)="onVocabularyAdded($event)" />
+
+    @if (!review()) {
+    <footer class="finish">
+      @if (done()) {
+        <p class="done" role="status">✓ Đã hoàn thành bước Đọc</p>
+      } @else {
+        @if (!reachedEnd()) {
+          <p class="muted" id="finish-hint">Đọc hết bài để hoàn thành.</p>
+        }
+        <button
+          type="button"
+          class="btn-primary"
+          [disabled]="!reachedEnd()"
+          [attr.aria-describedby]="reachedEnd() ? null : 'finish-hint'"
+          (click)="finish()"
+        >
+          Đã đọc xong
+        </button>
+      }
+    </footer>
+    }
+  } @else {
+    <p class="muted" role="status">Đang tải bài…</p>
+  }
+</section>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="anchor() ?? hostElement"
+  [cdkConnectedOverlayOpen]="anchor() !== null"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayPush]="true"
+  [cdkConnectedOverlayViewportMargin]="8"
+  (overlayOutsideClick)="onOutsideClick($event)"
+  (overlayKeydown)="onOverlayKeydown($event)"
+  (detach)="anchor() && close()"
+>
+  <lu-word-popup
+    [text]="selected()?.text ?? ''"
+    [state]="popupState()"
+    [saved]="popupSaved()"
+    [saving]="saving()"
+    [error]="popupError()"
+    (closed)="close()"
+    (save)="save($event)"
+    (listen)="play()"
+  />
+</ng-template>

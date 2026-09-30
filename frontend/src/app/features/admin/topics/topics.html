@@ -1,0 +1,106 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Chủ đề</h1>
+    <div class="actions">
+      <a class="btn" routerLink="/admin">Bài học</a>
+      <a class="btn" routerLink="/admin/roadmap">Lộ trình</a>
+      <button type="button" class="btn-primary" [disabled]="editing() === 'new'" (click)="startAdd()">Thêm chủ đề</button>
+    </div>
+  </header>
+
+  <p class="muted">Mỗi chủ đề thuộc một trình độ và có lộ trình bài riêng. Bài học chọn chủ đề khi tạo.</p>
+
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  <ng-template #topicForm>
+    <form class="card topic-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+      <div class="row">
+        <div class="field">
+          <label for="topic-name">Tên chủ đề</label>
+          <input id="topic-name" formControlName="name" [attr.aria-invalid]="!!fieldError('name')"
+            [attr.aria-describedby]="describedBy('name')" />
+          @if (fieldError('name'); as message) {
+            <p class="field-error" id="topic-name-error">{{ message }}</p>
+          }
+        </div>
+        <div class="field">
+          <label for="topic-level">Trình độ</label>
+          <select id="topic-level" formControlName="level" [attr.aria-invalid]="!!fieldError('level')"
+            [attr.aria-describedby]="describedBy('level')">
+            <option value="">Chọn trình độ</option>
+            @for (level of levels; track level) {
+              <option [value]="level">{{ level }}</option>
+            }
+          </select>
+          @if (fieldError('level'); as message) {
+            <p class="field-error" id="topic-level-error">{{ message }}</p>
+          }
+        </div>
+      </div>
+      <div class="field">
+        <label for="topic-description">Mô tả ngắn (không bắt buộc)</label>
+        <textarea id="topic-description" rows="2" formControlName="description"
+          [attr.aria-invalid]="!!fieldError('description')" [attr.aria-describedby]="describedBy('description')"></textarea>
+        @if (fieldError('description'); as message) {
+          <p class="field-error" id="topic-description-error">{{ message }}</p>
+        }
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn-primary" [disabled]="pending()">{{ editing() === 'new' ? 'Thêm' : 'Lưu' }}</button>
+        <button type="button" class="btn" (click)="cancel()">Huỷ</button>
+      </div>
+    </form>
+  </ng-template>
+
+  @if (editing() === 'new') {
+    <ng-container [ngTemplateOutlet]="topicForm" />
+  }
+
+  @if (topics(); as list) {
+    @if (list.length === 0) {
+      <p class="card muted">Chưa có chủ đề nào. Bấm "Thêm chủ đề" để tạo chủ đề đầu tiên.</p>
+    }
+    @for (group of groups(); track group.level) {
+      <section class="level" [attr.aria-labelledby]="'level-' + group.level">
+        <h2 class="level-heading" [id]="'level-' + group.level">{{ group.level }}</h2>
+        <ul class="list">
+          @for (t of group.topics; track t.id) {
+            <li class="topic">
+              @if (editing() === t.id) {
+                <ng-container [ngTemplateOutlet]="topicForm" />
+              } @else {
+                <div class="card topic-card">
+                  <div class="topic-body">
+                    <p class="topic-name">{{ t.name }}</p>
+                    @if (t.description) {
+                      <p class="description muted">{{ t.description }}</p>
+                    }
+                    <p class="counts muted">{{ t.lessonCount }} bài · {{ t.roadmapCount }} trong lộ trình</p>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" (click)="startEdit(t)">Sửa<span class="visually-hidden"> {{ t.name }}</span></button>
+                    <button type="button" class="btn" (click)="deleting.set(t)">Xoá<span class="visually-hidden"> {{ t.name }}</span></button>
+                  </div>
+                </div>
+              }
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  } @else if (!error()) {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  title="Xoá chủ đề?"
+  [message]="'Chủ đề “' + (deleting() ? label(deleting()!) : '') + '” sẽ bị xoá. Chỉ xoá được chủ đề không còn bài.'"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleting.set(null)"
+/>

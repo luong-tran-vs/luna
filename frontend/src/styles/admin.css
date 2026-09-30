@@ -1,0 +1,104 @@
+/* Shared layout for admin pages (F2). Tokens only (docs/design-system.md). */
+
+.page {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.page-title {
+  font: var(--text-xl) var(--font-ui);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-sm);
+}
+
+/* Secondary button; links styled as buttons use the same class. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-decoration: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.btn:disabled {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+a.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.btn-danger {
+  color: var(--color-on-primary);
+  background: var(--color-bad);
+}
+
+.banner-warning {
+  padding: var(--space-3);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-left: var(--space-1) solid var(--color-warn);
+  border-radius: var(--radius-md);
+}
+
+.banner-warning::before {
+  content: '! ';
+  font-weight: 700;
+  color: var(--color-warn);
+}
+
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}

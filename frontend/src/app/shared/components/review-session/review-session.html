@@ -1,0 +1,101 @@
+<lu-audio-player (failed)="onPlayFailed()" />
+
+@if (summary(); as s) {
+  <div class="summary card" role="status">
+    <p class="summary-title">✓ Đã ôn {{ s.reviewed }} thẻ</p>
+    <ul class="counts">
+      @for (r of ratings; track r.rating) {
+        <li>{{ r.name }} {{ s.counts[r.rating] }}</li>
+      }
+    </ul>
+  </div>
+} @else if (current(); as card) {
+  <p class="progress" aria-live="polite">Thẻ {{ index() + 1 }}/{{ queue().length }}</p>
+
+  <div class="card review-card">
+    @if (mode() === 'flip' || revealed()) {
+      <p class="word" lang="en">{{ card.text }}</p>
+    } @else {
+      <p class="listen-hint">Nghe và gõ lại từ</p>
+    }
+
+    <div class="tools">
+      @if (mode() === 'flip' && !revealed()) {
+        <button #face type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>
+      }
+      <button type="button" class="btn" (click)="play()">{{ mode() === 'listen' ? 'Nghe lại' : 'Nghe' }}</button>
+      @if (playError()) {
+        <p class="play-error field-error" role="alert">Chưa phát được âm thanh.</p>
+        @if (mode() === 'listen' && !revealed()) {
+          <button type="button" class="btn" (click)="flip()">Hiện từ</button>
+        }
+      }
+    </div>
+
+    @if (verdict(); as v) {
+      <p class="verdict" [class.correct]="v === 'correct'" [class.wrong]="v === 'wrong'" role="status">
+        {{ v === 'correct' ? '✓ Đúng' : '✗ Sai' }}
+      </p>
+    }
+
+    @if (revealed()) {
+      <div class="back">
+        @if (card.ipa) {
+          <p class="ipa">{{ card.ipa }}</p>
+        }
+        <p class="meaning">{{ card.meaningVi }}</p>
+        @if (card.contextSentence) {
+          <p class="example" lang="en">{{ card.contextSentence }}</p>
+        }
+      </div>
+    }
+  </div>
+
+  @if (revealed()) {
+    <div class="ratings" role="group" aria-label="Bạn nhớ từ này thế nào?">
+      @for (r of ratings; track r.rating) {
+        <button
+          type="button"
+          [class]="'rating rating-' + r.key"
+          [disabled]="saving()"
+          [attr.aria-keyshortcuts]="r.rating"
+          (click)="rate(r.rating)"
+        >
+          {{ label(card, r) }}
+        </button>
+      }
+    </div>
+    @if (saveError()) {
+      <div class="save-error banner-warning" role="alert">
+        Chưa lưu được đánh giá.
+        <button type="button" class="btn" (click)="retry()">Thử lại</button>
+      </div>
+    }
+  } @else if (mode() === 'listen') {
+    <form class="answer-bar" (submit)="check($event)">
+      <label class="visually-hidden" for="review-answer">Từ bạn nghe được</label>
+      <input
+        #answer
+        id="review-answer"
+        type="text"
+        lang="en"
+        placeholder="Gõ từ bạn nghe được"
+        autocapitalize="off"
+        autocorrect="off"
+        autocomplete="off"
+        spellcheck="false"
+        enterkeyhint="done"
+        maxlength="100"
+        [value]="typed()"
+        [attr.aria-invalid]="answerError() ? true : null"
+        [attr.aria-describedby]="answerError() ? 'review-answer-error' : null"
+        (input)="onInput($event)"
+        (focus)="onFocus($event)"
+      />
+      <button type="submit" class="btn-primary">Kiểm tra</button>
+      @if (answerError(); as message) {
+        <p class="answer-error field-error" id="review-answer-error" role="alert">{{ message }}</p>
+      }
+    </form>
+  }
+}

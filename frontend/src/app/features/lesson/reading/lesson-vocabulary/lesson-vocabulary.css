@@ -1,0 +1,92 @@
+.vocabulary {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.heading {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0;
+  font: inherit;
+  color: var(--color-text);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.toggle::after {
+  content: '▸';
+  color: var(--color-text-muted);
+}
+
+.toggle[aria-expanded='true']::after {
+  content: '▾';
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.save-all {
+  justify-self: start;
+}
+
+.items {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vocab-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.info {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lemma {
+  font-weight: 600;
+}
+
+.ipa {
+  font: var(--text-sm) var(--font-ipa);
+  color: var(--color-text-muted);
+}
+
+.meaning {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.saved {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}

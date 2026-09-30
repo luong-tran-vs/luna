@@ -1,0 +1,31 @@
+<section class="stats">
+  <a class="back" routerLink="/"><span aria-hidden="true">←</span> Màn hình chính</a>
+  <h1 class="title">Thống kê</h1>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được thống kê.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (data(); as s) {
+    <dl class="figures">
+      <div class="card figure">
+        <dt>Từ đã học</dt>
+        <dd>{{ s.cards }} từ đã học</dd>
+      </div>
+      <div class="card figure">
+        <dt>Chép chính tả</dt>
+        <dd>{{ s.dictation.sentences }} câu đã chép chính tả</dd>
+        <dd class="rate">Tỷ lệ đúng {{ rate() }}</dd>
+      </div>
+      <div class="card figure">
+        <dt>Bài học</dt>
+        <dd>Đọc: {{ s.lessons.read }} bài</dd>
+        <dd>Nghe: {{ s.lessons.listen }} bài</dd>
+        <dd>Hoàn thành: {{ s.lessons.completed }} bài</dd>
+      </div>
+    </dl>
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

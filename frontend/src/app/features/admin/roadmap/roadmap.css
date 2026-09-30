@@ -1,0 +1,139 @@
+.list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.handle {
+  width: 44px;
+  height: 44px;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: grab;
+  touch-action: none;
+}
+
+.position {
+  min-width: var(--space-5);
+  font: var(--text-lg) var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.body {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Controls wrap to their own row on phones. */
+.controls {
+  display: flex;
+  gap: var(--space-2);
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+}
+
+@media (min-width: 640px) {
+  .item {
+    grid-template-columns: auto auto 1fr auto;
+  }
+
+  .controls {
+    grid-column: auto;
+  }
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 var(--space-2) var(--space-5) color-mix(in srgb, var(--color-text) 25%, transparent);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.4;
+}
+
+.cdk-drag-animating,
+.list.cdk-drop-list-dragging .item:not(.cdk-drag-placeholder) {
+  transition: transform 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cdk-drag-animating,
+  .list.cdk-drop-list-dragging .item:not(.cdk-drag-placeholder) {
+    transition: none;
+  }
+}
+
+.topic-picker select {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+}
+
+.warning-list {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link-button {
+  min-height: 44px;
+  padding: 0;
+  font: inherit;
+  color: var(--color-primary-ink);
+  text-align: left;
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.section-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.available {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.available-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}

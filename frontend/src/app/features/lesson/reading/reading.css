@@ -1,0 +1,89 @@
+.reading {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
+.reading-header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.step {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  font: var(--text-xl) var(--font-ui);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.hint {
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+/* Reading text: 18/30 px, about 65 characters per line on wide screens (design-system §4.1). */
+.article {
+  max-width: 65ch;
+  font: var(--text-reading) var(--font-ui);
+  color: var(--color-text);
+}
+
+.para {
+  margin: 0 0 var(--space-4);
+}
+
+.w {
+  padding: 2px 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.w:hover,
+.w.active {
+  background: var(--color-primary-soft);
+}
+
+.w:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* Saved words: color plus a dotted underline, so the state is not shown by color alone. */
+.w.saved {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  text-decoration: underline dotted var(--color-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.end {
+  height: 1px;
+}
+
+.finish {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.done {
+  font-weight: 600;
+}

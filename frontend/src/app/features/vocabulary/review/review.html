@@ -1,0 +1,51 @@
+<section class="review">
+  <header class="review-header">
+    <h1 class="title">Ôn tập</h1>
+    <a class="btn" routerLink="/vocabulary">Sổ từ</a>
+  </header>
+
+  @if (loadError()) {
+    <p class="form-alert" role="alert">Không tải được thẻ cần ôn. <button type="button" class="btn" (click)="load()">Thử lại</button></p>
+  } @else if (due(); as list) {
+    @if (started()) {
+      <lu-review-session [cards]="list.cards" [mode]="mode()" (finished)="done.set(true)" />
+      @if (done()) {
+        <button type="button" class="btn-primary" (click)="load()">Ôn tiếp</button>
+      }
+    } @else if (list.total === 0) {
+      <div class="card empty" role="status">
+        <p class="empty-title">Không có thẻ nào đến hạn</p>
+        @if (nextDue(); as next) {
+          <p class="next-due muted">Thẻ tiếp theo đến hạn lúc {{ next }}.</p>
+        } @else {
+          <p class="muted">Lưu từ ở bước Đọc hoặc thêm thẻ trong Sổ từ để bắt đầu ôn.</p>
+        }
+      </div>
+    } @else {
+      <div class="card start">
+        <p class="due-count">{{ list.total }} thẻ đến hạn</p>
+        @if (list.total > list.cards.length) {
+          <p class="muted">Phiên này ôn {{ list.cards.length }} thẻ quá hạn lâu nhất.</p>
+        }
+        <div class="modes" role="radiogroup" aria-label="Kiểu ôn">
+          @for (m of modes; track m.value) {
+            <button
+              type="button"
+              role="radio"
+              class="mode"
+              [attr.aria-checked]="mode() === m.value"
+              [tabIndex]="mode() === m.value ? 0 : -1"
+              (click)="mode.set(m.value)"
+              (keydown)="onModeKeydown($event)"
+            >
+              {{ m.label }}
+            </button>
+          }
+        </div>
+        <button type="button" class="btn-primary" (click)="started.set(true)">Bắt đầu</button>
+      </div>
+    }
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

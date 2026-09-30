@@ -1,0 +1,76 @@
+<div class="popup" role="dialog" [attr.aria-labelledby]="titleId" tabindex="-1">
+  <div class="head">
+    <div class="title-row">
+      <span class="word" [id]="titleId" lang="en">{{ text() }}</span>
+      @if (showLemma()) {
+        <span class="lemma" lang="en">→ {{ result()!.lemma }}</span>
+      }
+    </div>
+    <div class="head-actions">
+      @if (state().kind !== 'loading') {
+        <button type="button" class="icon-btn" aria-label="Nghe phát âm" (click)="listen.emit()">▶</button>
+      }
+      <button type="button" class="icon-btn" aria-label="Đóng" (click)="closed.emit()">✕</button>
+    </div>
+  </div>
+
+  @switch (state().kind) {
+    @case ('loading') {
+      <p class="muted" role="status">Đang tra…</p>
+    }
+    @case ('result') {
+      @let r = result()!;
+      <div class="meta">
+        @if (r.ipa) {
+          <span class="ipa">{{ r.ipa }}</span>
+        }
+        <span class="source">{{ sourceLabel() }}</span>
+      </div>
+      <ul class="meanings">
+        @for (m of r.meanings.slice(0, 3); track $index) {
+          <li>
+            @if (m.pos) {
+              <span class="pos">{{ posName(m.pos) }}</span>
+            }
+            {{ m.text }}
+          </li>
+        }
+      </ul>
+      @if (saved()) {
+        <p class="saved" role="status">✓ Đã có trong sổ</p>
+      } @else {
+        <button type="button" class="btn-primary" [disabled]="saving()" (click)="save.emit(undefined)">
+          Lưu vào sổ từ
+        </button>
+      }
+    }
+    @case ('not-found') {
+      <p class="muted">Chưa có nghĩa. Bạn có thể tự nhập nghĩa để lưu.</p>
+      @if (saved()) {
+        <p class="saved" role="status">✓ Đã có trong sổ</p>
+      } @else {
+        <div class="field">
+          <label [for]="titleId + '-meaning'">Nghĩa tiếng Việt</label>
+          <input
+            [id]="titleId + '-meaning'"
+            name="meaning"
+            maxlength="250"
+            [value]="manualMeaning()"
+            (input)="manualMeaning.set($any($event.target).value)"
+            (keydown.enter)="saveManual()"
+            [attr.aria-invalid]="!!manualError()"
+            [attr.aria-describedby]="manualError() ? titleId + '-meaning-error' : null"
+          />
+          @if (manualError(); as message) {
+            <p class="field-error" [id]="titleId + '-meaning-error'">{{ message }}</p>
+          }
+        </div>
+        <button type="button" class="btn-primary" [disabled]="saving()" (click)="saveManual()">Lưu</button>
+      }
+    }
+  }
+
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+</div>

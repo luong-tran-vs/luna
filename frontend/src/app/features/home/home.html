@@ -1,0 +1,85 @@
+<section class="home">
+  <header class="top">
+    <h1 class="title">Hôm nay</h1>
+    @if (data(); as d) {
+      <p class="streak"><span aria-hidden="true">🔥</span> {{ d.streak }} ngày</p>
+    }
+  </header>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được màn hình chính.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (data(); as d) {
+    @if (d.goal; as g) {
+      <div class="card goal">
+        <lu-progress-bar class="goal-bar" [label]="g.level + ' · ' + g.topicName" [value]="g.completedLessons"
+          [max]="g.totalLessons" unit="bài" />
+        @if (d.skills; as s) {
+          <div class="skills">
+            <lu-progress-bar label="Đọc" tone="read" [value]="s.read" [max]="s.total" />
+            <lu-progress-bar label="Nghe" tone="listen" [value]="s.listen" [max]="s.total" />
+          </div>
+        }
+        <a class="change" routerLink="/goal">Đổi chủ đề</a>
+      </div>
+    }
+
+    @switch (d.kind) {
+      @case ('noGoal') {
+        <div class="card" role="status">
+          <p class="card-title">Bạn chưa chọn mục tiêu</p>
+          <p class="muted">Chọn trình độ và một chủ đề để mỗi ngày có một bài học.</p>
+          <a class="btn-primary" routerLink="/goal">Chọn chủ đề</a>
+        </div>
+      }
+      @case ('noNewLesson') {
+        <div class="card" role="status">
+          @if (d.goalCompleted) {
+            <p class="card-title">Chúc mừng, bạn đã học hết lộ trình!</p>
+          }
+          <p class="card-title">Chưa có bài mới</p>
+          <p class="muted">Lộ trình này chưa có bài tiếp theo. Bạn vẫn ôn được từ hoặc chọn chủ đề khác.</p>
+          <div class="actions">
+            <a class="btn-primary" routerLink="/vocabulary/review">Ôn tự do</a>
+            <a class="btn" routerLink="/goal">Chọn chủ đề khác</a>
+          </div>
+        </div>
+      }
+      @default {
+        @if (d.lesson; as l) {
+          <article class="card lesson" aria-labelledby="lesson-title">
+            <p class="muted">Bài hôm nay</p>
+            <h2 class="lesson-title" id="lesson-title">{{ l.title || 'Bài học' }}</h2>
+            @if (l.topicName) {
+              <p class="muted">{{ l.level }} · {{ l.topicName }}</p>
+            }
+            <lu-step-indicator [steps]="d.steps" />
+          </article>
+        }
+        @if (d.kind === 'doneToday') {
+          <div class="card" role="status">
+            <p class="card-title">Đã xong bài hôm nay, hẹn bạn ngày mai</p>
+            <a class="btn-primary" routerLink="/vocabulary/review">Ôn tự do</a>
+          </div>
+        } @else if (d.action) {
+          <a class="btn-primary next" routerLink="/today">{{ actionLabel() }} <span aria-hidden="true">▶</span></a>
+        }
+      }
+    }
+
+    <p class="tomorrow">
+      @if (d.tomorrowCards > 0) {
+        Ngày mai: {{ d.tomorrowCards }} thẻ cần ôn
+      } @else {
+        Ngày mai: không có thẻ cần ôn
+      }
+    </p>
+    <a class="stats-link" routerLink="/stats">Xem thống kê</a>
+  } @else {
+    <div class="placeholder" aria-busy="true">
+      <span class="visually-hidden" role="status">Đang tải…</span>
+    </div>
+  }
+</section>

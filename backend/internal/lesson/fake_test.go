@@ -1,0 +1,294 @@
+package lesson
+
+import (
+	"context"
+	"maps"
+	"slices"
+	"strconv"
+	"sync"
+	"time"
+
+	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/job"
+)
+
+// fakeLessons is an in-memory Repository.
+type fakeLessons struct {
+	mu     sync.Mutex
+	byID   map[string]Lesson
+	nextID int
+}
+
+func newFakeLessons() *fakeLessons { return &fakeLessons{byID: map[string]Lesson{}} }
+
+func (f *fakeLessons) Create(_ context.Context, l Lesson) (Lesson, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.nextID++
+	l.ID = "l" + strconv.Itoa(f.nextID)
+	f.byID[l.ID] = l
+	return l, nil
+}
+
+func (f *fakeLessons) Get(_ context.Context, id string) (Lesson, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	l, ok := f.byID[id]
+	if !ok {
+		return Lesson{}, ErrNotFound
+	}
+	l.Sentences = slices.Clone(l.Sentences)
+	l.Annotations = slices.Clone(l.Annotations)
+	return l, nil
+}
+
+func summaryOf(l Lesson) Summary {
+	return Summary{
+		ID: l.ID, Title: l.Title, Level: l.Level, TopicID: l.TopicID,
+		AudioStatus: l.AudioStatus, AnnotationStatus: l.AnnotationStatus, CreatedAt: l.CreatedAt,
+	}
+}
+
+func (f *fakeLessons) List(_ context.Context, flt Filter) ([]Summary, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []Summary
+	for _, l := range f.byID {
+		if (flt.Level == "" || l.Level == flt.Level) && (flt.TopicID == "" || l.TopicID == flt.TopicID) {
+			out = append(out, summaryOf(l))
+		}
+	}
+	slices.SortFunc(out, func(a, b Summary) int { return b.CreatedAt.Compare(a.CreatedAt) })
+	return out, nil
+}
+
+func (f *fakeLessons) Summaries(_ context.Context, ids []string) ([]Summary, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []Summary
+	for _, id := range ids {
+		if l, ok := f.byID[id]; ok {
+			out = append(out, summaryOf(l))
+		}
+	}
+	return out, nil
+}
+
+func (f *fakeLessons) update(id string, fn func(*Lesson) bool) (bool, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	l, ok := f.byID[id]
+	if !ok {
+		return false, ErrNotFound
+	}
+	if !fn(&l) {
+		return false, nil
+	}
+	f.byID[id] = l
+	return true, nil
+}
+
+func (f *fakeLessons) UpdateInfo(_ context.Context, id string, in Info) error {
+	_, err := f.update(id, func(l *Lesson) bool {
+		l.Title, l.Level, l.TopicID, l.Source, l.License = in.Title, in.Level, in.TopicID, in.Source, in.License
+		return true
+	})
+	return err
+}
+
+func (f *fakeLessons) ReplaceContent(_ context.Context, next Lesson) error {
+	_, err := f.update(next.ID, func(l *Lesson) bool { *l = next; return true })
+	return err
+}
+
+func (f *fakeLessons) SetStatus(_ context.Context, id string, rev int, t job.Type, st Status, msg string) (bool, error) {
+	return f.update(id, func(l *Lesson) bool {
+		if l.Revision != rev {
+			return false
+		}
+		if t == job.TypeTTS {
+			l.AudioStatus, l.AudioError = st, msg
+		} else {
+			l.AnnotationStatus, l.AnnotationError = st, msg
+		}
+		return true
+	})
+}
+
+func (f *fakeLessons) SaveAudio(_ context.Context, id string, rev int, paths []string) (bool, error) {
+	return f.update(id, func(l *Lesson) bool {
+		if l.Revision != rev {
+			return false
+		}
+		for i := range l.Sentences {
+			l.Sentences[i].AudioPath = paths[i]
+		}
+		l.AudioStatus, l.AudioError = StatusDone, ""
+		return true
+	})
+}
+
+func (f *fakeLessons) SaveAnnotations(_ context.Context, id string, rev int, anns []Annotation) (bool, error) {
+	return f.update(id, func(l *Lesson) bool {
+		if l.Revision != rev {
+			return false
+		}
+		l.Annotations, l.AnnotationStatus, l.AnnotationError = anns, StatusDone, ""
+		return true
+	})
+}
+
+func (f *fakeLessons) ReplaceAnnotations(_ context.Context, id string, anns []Annotation) error {
+	_, err := f.update(id, func(l *Lesson) bool {
+		l.Annotations, l.AnnotationStatus, l.AnnotationError = anns, StatusDone, ""
+		return true
+	})
+	return err
+}
+
+func (f *fakeLessons) Delete(_ context.Context, id string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	delete(f.byID, id)
+	return nil
+}
+
+// fakeTopics is an in-memory Topics port: topic-a1 (A1 Family), topic-b1 (B1 Work), and a
+// roadmap per topic.
+type fakeTopics struct {
+	mu       sync.Mutex
+	topics   map[string]TopicRef
+	roadmaps map[string][]string
+	moves    []string // "lesson:from>to"
+}
+
+func newFakeTopics() *fakeTopics {
+	return &fakeTopics{
+		topics: map[string]TopicRef{
+			"topic-a1": {ID: "topic-a1", Name: "Family", Level: "A1"},
+			"topic-b1": {ID: "topic-b1", Name: "Work", Level: "B1"},
+		},
+		roadmaps: map[string][]string{},
+	}
+}
+
+func (f *fakeTopics) Get(_ context.Context, id string) (TopicRef, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	t, ok := f.topics[id]
+	if !ok {
+		return TopicRef{}, ErrTopicNotFound
+	}
+	return t, nil
+}
+
+func (f *fakeTopics) Names(context.Context) (map[string]TopicRef, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return maps.Clone(f.topics), nil
+}
+
+func (f *fakeTopics) RoadmapLessonIDs(context.Context) (map[string]bool, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	out := map[string]bool{}
+	for _, ids := range f.roadmaps {
+		for _, id := range ids {
+			out[id] = true
+		}
+	}
+	return out, nil
+}
+
+func (f *fakeTopics) MoveLesson(_ context.Context, lessonID, from, to string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.moves = append(f.moves, lessonID+":"+from+">"+to)
+	if i := slices.Index(f.roadmaps[from], lessonID); i >= 0 {
+		f.roadmaps[from] = slices.Delete(f.roadmaps[from], i, i+1)
+		f.roadmaps[to] = append(f.roadmaps[to], lessonID)
+	}
+	return nil
+}
+
+func (f *fakeTopics) setRoadmap(topicID string, ids ...string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.roadmaps[topicID] = ids
+}
+
+// fakeJobs records enqueued jobs and deletions.
+type fakeJobs struct {
+	mu            sync.Mutex
+	jobs          []job.Job
+	deletedPend   []string
+	deletedLesson []string
+}
+
+func (f *fakeJobs) Enqueue(_ context.Context, j job.Job) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.jobs = append(f.jobs, j)
+	return nil
+}
+
+func (f *fakeJobs) ClaimNext(context.Context, time.Time) (job.Job, bool, error) {
+	return job.Job{}, false, nil
+}
+func (f *fakeJobs) Complete(context.Context, string) error                 { return nil }
+func (f *fakeJobs) Retry(context.Context, string, time.Time, string) error { return nil }
+func (f *fakeJobs) Fail(context.Context, string, string) error             { return nil }
+func (f *fakeJobs) ResetRunning(context.Context) (int64, error)            { return 0, nil }
+func (f *fakeJobs) DeletePending(_ context.Context, id string) error {
+	f.record(&f.deletedPend, id)
+	return nil
+}
+
+func (f *fakeJobs) DeleteForLesson(_ context.Context, id string) error {
+	f.record(&f.deletedLesson, id)
+	return nil
+}
+
+func (f *fakeJobs) record(list *[]string, id string) {
+	f.mu.Lock()
+	*list = append(*list, id)
+	f.mu.Unlock()
+}
+
+func (f *fakeJobs) all() []job.Job {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return slices.Clone(f.jobs)
+}
+
+// fakeTTS returns fixed audio and counts calls.
+type fakeTTS struct {
+	mu    sync.Mutex
+	calls int
+	err   error
+}
+
+func (f *fakeTTS) Synthesize(_ context.Context, text string) ([]byte, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.calls++
+	if f.err != nil {
+		return nil, f.err
+	}
+	return []byte("mp3:" + text), nil
+}
+
+// fakeAI returns fixed annotations and counts calls.
+type fakeAI struct {
+	mu     sync.Mutex
+	calls  int
+	result []ai.Annotation
+	err    error
+}
+
+func (f *fakeAI) Annotate(context.Context, []string, string) ([]ai.Annotation, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.calls++
+	return f.result, f.err
+}

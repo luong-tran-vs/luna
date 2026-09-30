@@ -1,0 +1,544 @@
+package lesson
+
+import (
+	"context"
+	"errors"
+	"log/slog"
+	"os"
+	"path/filepath"
+	"testing"
+	"time"
+
+	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/job"
+)
+
+type env struct {
+	svc      *Service
+	lessons  *fakeLessons
+	topics   *fakeTopics
+	jobs     *fakeJobs
+	tts      *fakeTTS
+	ai       *fakeAI
+	notified int
+	dir      string
+	now      time.Time
+}
+
+func newEnv(t *testing.T) *env {
+	t.Helper()
+	e := &env{
+		lessons: newFakeLessons(), topics: newFakeTopics(), jobs: &fakeJobs{},
+		tts: &fakeTTS{}, ai: &fakeAI{}, dir: t.TempDir(),
+		now: time.Date(2026, 9, 29, 8, 0, 0, 0, time.UTC),
+	}
+	e.svc = NewService(Deps{
+		Lessons: e.lessons, Topics: e.topics, Jobs: e.jobs, TTS: e.tts, AI: e.ai,
+		AudioDir: e.dir, Notify: func() { e.notified++ },
+		Now: func() time.Time { return e.now }, Log: slog.New(slog.DiscardHandler),
+	})
+	return e
+}
+
+const sampleContent = "We went to the park. He gave up smoking. It was a sunny day."
+
+func (e *env) create(t *testing.T, mutate ...func(*Input)) Lesson {
+	t.Helper()
+	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-b1", Source: "Tự viết", License: "CC BY"}
+	for _, m := range mutate {
+		m(&in)
+	}
+	l, err := e.svc.Create(t.Context(), in)
+	if err != nil {
+		t.Fatalf("Create: %v", err)
+	}
+	e.now = e.now.Add(time.Minute)
+	return l
+}
+
+func jobFor(l Lesson, t job.Type) job.Job {
+	return job.Job{Type: t, LessonID: l.ID, Revision: l.Revision}
+}
+
+// --- US1: create, get, list ---
+
+func TestCreate(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	l := e.create(t, func(in *Input) { in.Title = "  Park  " })
+
+	if l.Title != "Park" || l.Revision != 1 || len(l.Sentences) != 3 {
+		t.Fatalf("lesson = %+v", l)
+	}
+	if l.AudioStatus != StatusRunning || l.AnnotationStatus != StatusRunning {
+		t.Fatalf("statuses = %s/%s", l.AudioStatus, l.AnnotationStatus)
+	}
+	jobs := e.jobs.all()
+	if len(jobs) != 2 || jobs[0].Type != job.TypeTTS || jobs[1].Type != job.TypeAnnotate {
+		t.Fatalf("jobs = %+v", jobs)
+	}
+	for _, j := range jobs {
+		if j.LessonID != l.ID || j.Revision != 1 || j.Status != job.StatusPending {
+			t.Errorf("job = %+v", j)
+		}
+	}
+	if e.notified != 1 {
+		t.Errorf("worker notified %d times", e.notified)
+	}
+}
+
+func TestCreateInvalid(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	_, err := e.svc.Create(context.Background(), Input{Title: "x"})
+	var verr *ValidationError
+	if !errors.As(err, &verr) {
+		t.Fatalf("err = %v", err)
+	}
+	if len(e.lessons.byID) != 0 || len(e.jobs.all()) != 0 {
+		t.Fatal("stored something for invalid input")
+	}
+}
+
+func TestCreateTakesLevelFromTopic(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	l := e.create(t, func(in *Input) { in.TopicID = "topic-a1" })
+	if l.TopicID != "topic-a1" || l.Level != "A1" {
+		t.Fatalf("lesson = %s %s", l.TopicID, l.Level)
+	}
+
+	_, err := e.svc.Create(context.Background(), Input{Title: "x", Content: sampleContent, TopicID: "nope", Source: "s", License: "l"})
+	var verr *ValidationError
+	if !errors.As(err, &verr) || verr.Fields["topicId"] != "Chủ đề không tồn tại" {
+		t.Fatalf("unknown topic: %v", err)
+	}
+}
+
+func TestUpdateTopicMovesRoadmap(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t) // B1 Work
+	e.topics.setRoadmap("topic-b1", l.ID)
+
+	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-b1", Source: "s", License: "l"}
+	if _, err := e.svc.Update(ctx, l.ID, in); err != nil {
+		t.Fatal(err)
+	}
+	if len(e.topics.moves) != 0 {
+		t.Fatalf("same topic moved: %v", e.topics.moves)
+	}
+
+	in.TopicID = "topic-a1"
+	got, err := e.svc.Update(ctx, l.ID, in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.TopicID != "topic-a1" || got.Level != "A1" {
+		t.Fatalf("lesson = %s %s", got.TopicID, got.Level)
+	}
+	if len(e.topics.moves) != 1 || e.topics.moves[0] != l.ID+":topic-b1>topic-a1" {
+		t.Fatalf("moves = %v", e.topics.moves)
+	}
+	if ids, _ := e.topics.RoadmapLessonIDs(ctx); !ids[l.ID] || len(e.topics.roadmaps["topic-a1"]) != 1 {
+		t.Fatalf("roadmaps = %v", e.topics.roadmaps)
+	}
+
+	// A content change with a topic change also moves the lesson.
+	in.TopicID, in.Content = "topic-b1", "Brand new text."
+	if got, _ := e.svc.Update(ctx, l.ID, in); got.Level != "B1" || len(e.topics.moves) != 2 {
+		t.Fatalf("content + topic: %s %v", got.Level, e.topics.moves)
+	}
+}
+
+func TestGetAndList(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	a := e.create(t, func(in *Input) { in.TopicID = "topic-a1" })
+	b := e.create(t)
+	e.topics.setRoadmap("topic-a1", a.ID)
+
+	if _, err := e.svc.Get(ctx, "missing"); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("Get missing: %v", err)
+	}
+	all, _ := e.svc.List(ctx, Filter{})
+	if len(all) != 2 || all[0].ID != b.ID || !all[1].InRoadmap || all[0].InRoadmap ||
+		all[1].TopicName != "Family" || all[0].TopicName != "Work" {
+		t.Fatalf("list = %+v", all)
+	}
+	family, _ := e.svc.List(ctx, Filter{TopicID: "topic-a1"})
+	a1, _ := e.svc.List(ctx, Filter{Level: "A1"})
+	both, _ := e.svc.List(ctx, Filter{Level: "B1", TopicID: "topic-a1"})
+	if len(family) != 1 || len(a1) != 1 || family[0].ID != a.ID || len(both) != 0 {
+		t.Fatalf("filters: %+v %+v %+v", family, a1, both)
+	}
+	if _, err := e.svc.List(ctx, Filter{Level: "Z9"}); err == nil {
+		t.Fatal("bad level accepted")
+	}
+}
+
+// --- US2: background processing ---
+
+func TestProcessTTS(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+
+	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err != nil {
+		t.Fatalf("ProcessTTS: %v", err)
+	}
+	got, _ := e.lessons.Get(ctx, l.ID)
+	if got.AudioStatus != StatusDone || got.Sentences[2].AudioPath != "/api/audio/"+l.ID+"/1/2" {
+		t.Fatalf("lesson = %+v", got)
+	}
+	data, err := os.ReadFile(filepath.Join(e.dir, l.ID, "1", "0.mp3"))
+	if err != nil || string(data) != "mp3:We went to the park." {
+		t.Fatalf("file = %q, %v", data, err)
+	}
+	if e.tts.calls != 3 {
+		t.Fatalf("synth calls = %d", e.tts.calls)
+	}
+
+	// Running again (retry, restart) does not regenerate existing audio.
+	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err != nil {
+		t.Fatal(err)
+	}
+	if e.tts.calls != 3 {
+		t.Fatalf("audio regenerated: %d calls", e.tts.calls)
+	}
+	tmp, _ := filepath.Glob(filepath.Join(e.dir, l.ID, "1", "*.tmp"))
+	if len(tmp) != 0 {
+		t.Fatalf("temp files left: %v", tmp)
+	}
+}
+
+func TestProcessTTSResumesAfterError(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	dir := filepath.Join(e.dir, l.ID, "1")
+	_ = os.MkdirAll(dir, 0o750)
+	_ = os.WriteFile(filepath.Join(dir, "0.mp3"), []byte("old"), 0o600)
+
+	e.tts.err = errors.New("kokoro down")
+	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err == nil {
+		t.Fatal("error not returned")
+	}
+	e.tts.err = nil
+	e.tts.calls = 0
+	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err != nil {
+		t.Fatal(err)
+	}
+	if e.tts.calls != 2 {
+		t.Fatalf("synth calls = %d, want 2 (sentence 0 already existed)", e.tts.calls)
+	}
+}
+
+func TestProcessStaleRevisionIsDiscarded(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	e.ai.result = []ai.Annotation{{Text: "went", Lemma: "go", MeaningVi: "đi"}}
+	if _, err := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "New text here.", TopicID: "topic-b1", Source: "s", License: "l"}); err != nil {
+		t.Fatal(err)
+	}
+
+	old := jobFor(l, job.TypeTTS) // revision 1
+	if err := e.svc.ProcessTTS(ctx, old); err != nil {
+		t.Fatal(err)
+	}
+	if err := e.svc.ProcessAnnotate(ctx, jobFor(l, job.TypeAnnotate)); err != nil {
+		t.Fatal(err)
+	}
+	got, _ := e.lessons.Get(ctx, l.ID)
+	if got.AudioStatus != StatusRunning || got.AnnotationStatus != StatusRunning || len(got.Annotations) != 0 {
+		t.Fatalf("stale results were saved: %+v", got)
+	}
+	if e.tts.calls != 0 || e.ai.calls != 0 {
+		t.Fatalf("stale jobs did work: tts %d ai %d", e.tts.calls, e.ai.calls)
+	}
+}
+
+func TestProcessTTSRemovesOldRevisions(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
+	l2, _ := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "New text here.", TopicID: "topic-b1", Source: "s", License: "l"})
+
+	if err := e.svc.ProcessTTS(ctx, jobFor(l2, job.TypeTTS)); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := os.Stat(filepath.Join(e.dir, l.ID, "1")); !os.IsNotExist(err) {
+		t.Fatalf("old revision dir still exists: %v", err)
+	}
+	if _, err := os.Stat(filepath.Join(e.dir, l.ID, "2", "0.mp3")); err != nil {
+		t.Fatalf("new audio missing: %v", err)
+	}
+}
+
+func TestProcessAnnotate(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	e.ai.result = []ai.Annotation{
+		{Text: "gave up", Lemma: "give up", MeaningVi: "bỏ", SentenceIndex: 1},
+		{Text: "banana", Lemma: "banana", MeaningVi: "chuối"},
+	}
+
+	if err := e.svc.ProcessAnnotate(ctx, jobFor(l, job.TypeAnnotate)); err != nil {
+		t.Fatal(err)
+	}
+	got, _ := e.lessons.Get(ctx, l.ID)
+	if e.ai.calls != 1 || got.AnnotationStatus != StatusDone || len(got.Annotations) != 1 || got.Annotations[0].Lemma != "give up" {
+		t.Fatalf("calls %d lesson %+v", e.ai.calls, got)
+	}
+}
+
+func TestProcessAnnotateErrors(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name      string
+		err       error
+		result    []ai.Annotation
+		permanent bool
+	}{
+		{name: "not configured", err: ai.ErrNotConfigured, permanent: true},
+		{name: "invalid key", err: ai.ErrInvalidKey, permanent: true},
+		{name: "quota", err: ai.ErrQuota},
+		{name: "nothing valid", result: []ai.Annotation{{Text: "banana", Lemma: "b", MeaningVi: "c"}}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			e := newEnv(t)
+			l := e.create(t)
+			e.ai.err, e.ai.result = tt.err, tt.result
+
+			err := e.svc.ProcessAnnotate(t.Context(), jobFor(l, job.TypeAnnotate))
+			if err == nil || job.IsPermanent(err) != tt.permanent {
+				t.Fatalf("err = %v, permanent = %v, want %v", err, job.IsPermanent(err), tt.permanent)
+			}
+		})
+	}
+}
+
+func TestProcessDeletedLessonIsPermanent(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	err := e.svc.ProcessTTS(context.Background(), job.Job{Type: job.TypeTTS, LessonID: "gone", Revision: 1})
+	if !job.IsPermanent(err) {
+		t.Fatalf("err = %v, want permanent", err)
+	}
+}
+
+func TestJobFailedAndRetry(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+
+	if _, err := e.svc.Retry(ctx, l.ID, job.TypeAnnotate); !errors.Is(err, ErrNotFailed) {
+		t.Fatalf("retry while running: %v", err)
+	}
+
+	e.svc.JobFailed(ctx, jobFor(l, job.TypeAnnotate), ai.ErrNotConfigured)
+	got, _ := e.lessons.Get(ctx, l.ID)
+	if got.AnnotationStatus != StatusFailed || got.AnnotationError != "AI chưa được cấu hình" || got.AudioStatus != StatusRunning {
+		t.Fatalf("after failure: %+v", got)
+	}
+
+	before := len(e.jobs.all())
+	got, err := e.svc.Retry(ctx, l.ID, job.TypeAnnotate)
+	if err != nil || got.AnnotationStatus != StatusRunning || got.AnnotationError != "" {
+		t.Fatalf("Retry = %+v, %v", got, err)
+	}
+	jobs := e.jobs.all()
+	if len(jobs) != before+1 || jobs[len(jobs)-1].Type != job.TypeAnnotate {
+		t.Fatalf("jobs = %+v", jobs)
+	}
+
+	// A failure reported for an old revision does not touch the lesson.
+	e.svc.JobFailed(ctx, job.Job{Type: job.TypeTTS, LessonID: l.ID, Revision: 99}, errors.New("x"))
+	if got, _ := e.lessons.Get(ctx, l.ID); got.AudioStatus != StatusRunning {
+		t.Fatalf("stale failure applied: %+v", got)
+	}
+}
+
+func TestFailureMessages(t *testing.T) {
+	t.Parallel()
+	cases := map[string]string{
+		failureMessage(job.TypeAnnotate, ai.ErrQuota):              "AI hết hạn mức, thử lại sau",
+		failureMessage(job.TypeTTS, errors.New("dial tcp")):        "Không tạo được audio",
+		failureMessage(job.TypeAnnotate, ErrNoValidAnnotations):    "AI không trả về chú thích hợp lệ",
+		failureMessage(job.TypeAnnotate, ai.ErrInvalidKey):         "Khoá API của AI không hợp lệ",
+		failureMessage(job.TypeAnnotate, errors.New("status 500")): "Không chú thích được bài",
+	}
+	for got, want := range cases {
+		if got != want {
+			t.Errorf("got %q, want %q", got, want)
+		}
+	}
+}
+
+// --- US4: annotation editing ---
+
+func TestUpdateAnnotations(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	e.ai.result = []ai.Annotation{
+		{Text: "went", Lemma: "go", MeaningVi: "đã đi", SentenceIndex: 0},
+		{Text: "gave up", Lemma: "give up", MeaningVi: "bỏ", SentenceIndex: 1},
+		{Text: "sunny", Lemma: "sunny", MeaningVi: "nắng", SentenceIndex: 2},
+	}
+	if _, err := e.svc.UpdateAnnotations(ctx, l.ID, nil); !errors.Is(err, ErrAnnotationRunning) {
+		t.Fatalf("edit while running: %v", err)
+	}
+	_ = e.svc.ProcessAnnotate(ctx, jobFor(l, job.TypeAnnotate))
+
+	got, err := e.svc.UpdateAnnotations(ctx, l.ID, []AnnotationInput{
+		{Text: "went", Lemma: "go", MeaningVi: "đã đi"},                 // unchanged
+		{Text: "gave up", Lemma: "give up", MeaningVi: "từ bỏ"},         // meaning changed
+		{Text: "sunny day", Lemma: "sunny day", MeaningVi: "ngày nắng"}, // new
+	}) // "sunny" removed
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []Annotation{
+		{Text: "went", Lemma: "go", MeaningVi: "đã đi", SentenceIndex: 0, EditedByAdmin: false},
+		{Text: "gave up", Lemma: "give up", MeaningVi: "từ bỏ", SentenceIndex: 1, EditedByAdmin: true},
+		{Text: "sunny day", Lemma: "sunny day", MeaningVi: "ngày nắng", SentenceIndex: 2, EditedByAdmin: true},
+	}
+	if len(got.Annotations) != len(want) {
+		t.Fatalf("annotations = %+v", got.Annotations)
+	}
+	for i := range want {
+		if got.Annotations[i] != want[i] {
+			t.Errorf("item %d = %+v, want %+v", i, got.Annotations[i], want[i])
+		}
+	}
+}
+
+func TestUpdateAnnotationsValidation(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	e.svc.JobFailed(ctx, jobFor(l, job.TypeAnnotate), ai.ErrQuota)
+
+	_, err := e.svc.UpdateAnnotations(ctx, l.ID, []AnnotationInput{
+		{Text: "went", Lemma: "go", MeaningVi: "đi"},
+		{Text: "banana", Lemma: "banana", MeaningVi: "chuối"},
+		{Text: "park", Lemma: "", MeaningVi: ""},
+	})
+	var verr *ValidationError
+	if !errors.As(err, &verr) {
+		t.Fatalf("err = %v", err)
+	}
+	for _, k := range []string{"annotations.1.text", "annotations.2.lemma", "annotations.2.meaningVi"} {
+		if verr.Fields[k] == "" {
+			t.Errorf("missing %s in %v", k, verr.Fields)
+		}
+	}
+	if verr.Fields["annotations.1.text"] != "Cụm từ không có trong bài" {
+		t.Errorf("message = %q", verr.Fields["annotations.1.text"])
+	}
+
+	many := make([]AnnotationInput, 101)
+	if _, err := e.svc.UpdateAnnotations(ctx, l.ID, many); !errors.As(err, &verr) {
+		t.Fatalf("101 items accepted: %v", err)
+	}
+
+	// Manual annotations on a failed lesson mark the annotation work done.
+	got, err := e.svc.UpdateAnnotations(ctx, l.ID, []AnnotationInput{{Text: "went", Lemma: "go", MeaningVi: "đi"}})
+	if err != nil || got.AnnotationStatus != StatusDone || !got.Annotations[0].EditedByAdmin {
+		t.Fatalf("got %+v, %v", got, err)
+	}
+}
+
+// --- US5: edit and delete ---
+
+func TestUpdateInfoOnly(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
+	jobsBefore := len(e.jobs.all())
+
+	got, err := e.svc.Update(ctx, l.ID, Input{Title: "New title", Content: sampleContent, TopicID: "topic-a1", Source: "S", License: "L"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.Title != "New title" || got.Level != "A1" || got.TopicID != "topic-a1" || got.Revision != 1 || got.AudioStatus != StatusDone || got.Sentences[0].AudioPath == "" {
+		t.Fatalf("got %+v", got)
+	}
+	if len(e.jobs.all()) != jobsBefore {
+		t.Fatal("info-only edit enqueued jobs")
+	}
+}
+
+func TestUpdateContent(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
+	_ = e.lessons.ReplaceAnnotations(ctx, l.ID, []Annotation{{Text: "went", Lemma: "go", MeaningVi: "đi", EditedByAdmin: true}})
+
+	got, err := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "One. Two.", TopicID: "topic-b1", Source: "s", License: "l"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.Revision != 2 || len(got.Sentences) != 2 || got.Sentences[0].AudioPath != "" || len(got.Annotations) != 0 ||
+		got.AudioStatus != StatusRunning || got.AnnotationStatus != StatusRunning {
+		t.Fatalf("got %+v", got)
+	}
+	jobs := e.jobs.all()
+	last2 := jobs[len(jobs)-2:]
+	if last2[0].Revision != 2 || last2[1].Revision != 2 {
+		t.Fatalf("new jobs = %+v", last2)
+	}
+	if len(e.jobs.deletedPend) != 1 || e.jobs.deletedPend[0] != l.ID {
+		t.Fatalf("pending jobs not dropped: %v", e.jobs.deletedPend)
+	}
+}
+
+func TestDelete(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	e := newEnv(t)
+	l := e.create(t)
+	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
+	e.topics.setRoadmap("topic-b1", l.ID)
+
+	if err := e.svc.Delete(ctx, l.ID); !errors.Is(err, ErrInRoadmap) {
+		t.Fatalf("delete in roadmap: %v", err)
+	}
+	e.topics.setRoadmap("topic-b1")
+	if err := e.svc.Delete(ctx, l.ID); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := e.lessons.Get(ctx, l.ID); !errors.Is(err, ErrNotFound) {
+		t.Fatal("lesson still stored")
+	}
+	if _, err := os.Stat(filepath.Join(e.dir, l.ID)); !os.IsNotExist(err) {
+		t.Fatal("audio dir still exists")
+	}
+	if len(e.jobs.deletedLesson) != 1 {
+		t.Fatal("jobs not deleted")
+	}
+	if err := e.svc.Delete(ctx, l.ID); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("delete twice: %v", err)
+	}
+}

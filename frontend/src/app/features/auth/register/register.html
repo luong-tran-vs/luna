@@ -1,0 +1,51 @@
+<section class="auth">
+  <h1 class="auth-title">Đăng ký</h1>
+  <p class="auth-lead">Tạo tài khoản để lưu tiến độ học của bạn.</p>
+
+  <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    @if (serverError(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    <div class="field">
+      <label for="register-email">Email</label>
+      <input
+        id="register-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        formControlName="email"
+        [attr.aria-invalid]="!!emailError()"
+        [attr.aria-describedby]="emailError() ? 'register-email-error' : null"
+      />
+      @if (emailError(); as message) {
+        <p class="field-error" id="register-email-error">{{ message }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="register-password">Mật khẩu</label>
+      <input
+        id="register-password"
+        name="password"
+        type="password"
+        autocomplete="new-password"
+        formControlName="password"
+        [attr.aria-invalid]="!!passwordError()"
+        [attr.aria-describedby]="passwordError() ? 'register-password-error' : 'register-password-hint'"
+      />
+      @if (passwordError(); as message) {
+        <p class="field-error" id="register-password-error">{{ message }}</p>
+      } @else {
+        <p class="field-hint" id="register-password-hint">Ít nhất 8 ký tự.</p>
+      }
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="pending()">
+      {{ pending() ? 'Đang đăng ký…' : 'Đăng ký' }}
+    </button>
+  </form>
+
+  <p class="auth-switch">Đã có tài khoản? <a routerLink="/login">Đăng nhập</a></p>
+</section>

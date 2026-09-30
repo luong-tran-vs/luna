@@ -1,0 +1,95 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Lộ trình</h1>
+    <div class="actions">
+      <a class="btn" routerLink="/admin">Danh sách bài</a>
+      <a class="btn" routerLink="/admin/topics">Chủ đề</a>
+    </div>
+  </header>
+
+  <p class="muted">
+    Mỗi chủ đề có lộ trình riêng. Người học chọn chủ đề và nhận bài kế tiếp chưa học theo thứ tự này. Kéo tay nắm ⠿ hoặc
+    dùng nút Lên/Xuống để đổi thứ tự.
+  </p>
+
+  @if (lowTopics().length > 0) {
+    <div class="banner-warning topic-warnings" role="status">
+      <p>Chủ đề sắp hết bài:</p>
+      <ul class="warning-list">
+        @for (t of lowTopics(); track t.id) {
+          <li><button type="button" class="link-button" (click)="select(t.id)">{{ warningText(t) }}</button></li>
+        }
+      </ul>
+    </div>
+  }
+
+  <div class="field topic-picker">
+    <label for="roadmap-topic">Chủ đề</label>
+    <select id="roadmap-topic" name="topicId" [value]="selectedId()" (change)="select($any($event.target).value)">
+      <option value="">Chọn chủ đề</option>
+      @for (group of topicGroups(); track group.level) {
+        <optgroup [label]="group.level">
+          @for (t of group.topics; track t.id) {
+            <option [value]="t.id" [selected]="t.id === selectedId()">{{ topicLabel(t) }}</option>
+          }
+        </optgroup>
+      }
+    </select>
+  </div>
+
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  @if (!selectedId()) {
+    @if (topics()) {
+      <p class="card muted">Chọn một chủ đề để xếp lộ trình của chủ đề đó.</p>
+    }
+  } @else if (data()) {
+    @if (warning(); as message) {
+      <p class="banner-warning selected-warning" role="status">{{ message }}</p>
+    }
+
+    <ol class="list roadmap-list" cdkDropList [cdkDropListData]="lessons()" (cdkDropListDropped)="drop($event)">
+      @for (lesson of lessons(); track lesson.id; let i = $index, first = $first, last = $last) {
+        <li class="card item" cdkDrag cdkDragLockAxis="y" [attr.data-id]="lesson.id">
+          <button type="button" class="handle" cdkDragHandle [attr.aria-label]="'Kéo để đổi vị trí ' + lesson.title">⠿</button>
+          <span class="position" aria-hidden="true">{{ i + 1 }}</span>
+          <div class="body">
+            <a class="title" [routerLink]="['/admin/lessons', lesson.id]">{{ lesson.title }}</a>
+            <div class="meta">
+              <lu-status-chip label="Audio" [status]="lesson.audioStatus" />
+              <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />
+            </div>
+          </div>
+          <div class="controls">
+            <button type="button" class="btn" data-move="up" [disabled]="first || saving()"
+              [attr.aria-label]="'Lên: ' + lesson.title" (click)="move(i, -1)">↑</button>
+            <button type="button" class="btn" data-move="down" [disabled]="last || saving()"
+              [attr.aria-label]="'Xuống: ' + lesson.title" (click)="move(i, 1)">↓</button>
+            <button type="button" class="btn" [disabled]="saving()" [attr.aria-label]="'Gỡ khỏi lộ trình: ' + lesson.title" (click)="remove(i)">Gỡ</button>
+          </div>
+        </li>
+      }
+    </ol>
+
+    <section class="available" aria-labelledby="available-heading">
+      <h2 class="section-title" id="available-heading">Bài của chủ đề chưa có trong lộ trình</h2>
+      @if (available().length === 0) {
+        <p class="muted">Mọi bài của chủ đề đã có trong lộ trình.</p>
+      } @else {
+        <ul class="list">
+          @for (lesson of available(); track lesson.id) {
+            <li class="card available-item">
+              <span class="title">{{ lesson.title }}</span>
+              <button type="button" class="btn" [disabled]="saving()" [attr.aria-label]="'Thêm vào lộ trình: ' + lesson.title"
+                (click)="add(lesson)">Thêm</button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  } @else if (!error()) {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

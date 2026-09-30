@@ -1,0 +1,61 @@
+<section class="my-lessons">
+  <h1 class="title">Bài học</h1>
+
+  @if (error()) {
+    <p class="form-alert" role="alert">Không tải được danh sách bài học.</p>
+  } @else if (data(); as d) {
+    <section class="card today" aria-labelledby="today-heading">
+      <h2 class="section-title" id="today-heading">Hôm nay</h2>
+      @if (d.today; as t) {
+        <p class="title-line" lang="en">{{ t.title }}</p>
+        <a class="btn-primary" routerLink="/today">Học hôm nay</a>
+      } @else {
+        <p class="muted">Chưa có bài hôm nay.</p>
+        <a class="btn" routerLink="/goal">Chọn mục tiêu</a>
+      }
+    </section>
+
+    <section class="completed" aria-labelledby="completed-heading">
+      <h2 class="section-title" id="completed-heading">Đã học</h2>
+      @if (d.completed.length === 0) {
+        <p class="muted">Chưa học bài nào.</p>
+      } @else {
+        <ul class="list">
+          @for (l of d.completed; track l.id) {
+            <li class="card item">
+              <div class="item-body">
+                <p class="title" lang="en">{{ l.title }}</p>
+                <p class="muted">{{ l.topicName }} · {{ l.completedAt | date: 'dd/MM/yyyy' }}</p>
+              </div>
+              <div class="actions">
+                <a class="btn" [routerLink]="['/lessons', l.id, 'read']" [queryParams]="{ review: 1 }">
+                  Đọc lại<span class="visually-hidden"> {{ l.title }}</span>
+                </a>
+                <a class="btn" [routerLink]="['/lessons', l.id, 'listen']" [queryParams]="{ review: 1 }">
+                  Nghe lại<span class="visually-hidden"> {{ l.title }}</span>
+                </a>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+
+    @if (d.upcoming.length > 0) {
+      <section class="upcoming" aria-labelledby="upcoming-heading">
+        <h2 class="section-title" id="upcoming-heading">Sắp tới</h2>
+        <ol class="list">
+          @for (l of d.upcoming; track l.id) {
+            <li class="item locked">
+              <span aria-hidden="true">🔒</span>
+              <span class="title" lang="en">{{ l.title }}</span>
+              <span class="visually-hidden">chưa mở</span>
+            </li>
+          }
+        </ol>
+      </section>
+    }
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

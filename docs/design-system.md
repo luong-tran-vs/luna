@@ -12,8 +12,8 @@
 
 ## 2. Chế độ sáng và tối
 
-- Trong phần cài đặt có 3 lựa chọn: **Sáng**, **Tối**, **Theo hệ thống** (mặc định).
-- "Theo hệ thống" đọc `prefers-color-scheme` của thiết bị. Khi người dùng chọn Sáng hoặc Tối, lựa chọn đó ghi đè thiết lập của hệ thống và được lưu vào tài khoản.
+- Người dùng chỉ chọn **Sáng** hoặc **Tối**, qua một nút trên thanh trên cùng (hiện chế độ đang dùng, bấm vào mở menu) và trong trang Cài đặt.
+- Khi chưa chọn lần nào, app theo `prefers-color-scheme` của thiết bị. Lựa chọn Sáng hoặc Tối được lưu vào tài khoản (và trình duyệt, trước khi đăng nhập).
 - Gắn `data-theme="light"` hoặc `data-theme="dark"` lên thẻ `<html>`. Khi ở chế độ tối thì đặt thêm `color-scheme: dark` để thanh cuộn và ô nhập liệu của trình duyệt cũng đổi theo.
 
 ## 3. Bảng màu Oải hương
@@ -101,4 +101,4 @@ Chỉ nạp các bộ ký tự `latin`, `latin-ext`, `vietnamese` (và phần IP
 
 - Khai báo toàn bộ token trong `src/styles/tokens.css`: bộ màu sáng đặt trong `:root`, bộ màu tối đặt trong `[data-theme="dark"]` và trong `@media (prefers-color-scheme: dark)` khi chưa chọn chế độ.
 - Component chỉ dùng `var(--color-...)`, `var(--text-...)`, không viết mã màu hay cỡ chữ trực tiếp.
-- Một `ThemeService` đọc lựa chọn của người dùng (Sáng, Tối, Theo hệ thống) và gắn `data-theme` lên `<html>`.
+- Một `ThemeService` đọc lựa chọn của người dùng (Sáng hoặc Tối; mặc định theo thiết bị khi chưa chọn) và gắn `data-theme` lên `<html>`.

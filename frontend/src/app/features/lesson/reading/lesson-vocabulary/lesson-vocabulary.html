@@ -1,0 +1,58 @@
+<section class="vocabulary" aria-labelledby="vocab-toggle">
+  <h2 class="heading">
+    <button id="vocab-toggle" type="button" class="toggle" [attr.aria-expanded]="open()" aria-controls="vocab-panel"
+      (click)="toggle()">Từ vựng</button>
+  </h2>
+
+  @if (open()) {
+    <div id="vocab-panel" class="panel">
+      <lu-audio-player />
+      @if (loadError()) {
+        <p class="form-alert" role="alert">
+          Không tải được danh sách từ vựng. <button type="button" class="btn" (click)="load()">Thử lại</button>
+        </p>
+      } @else if (items(); as list) {
+        @if (!available() || list.length === 0) {
+          <p class="muted">Chưa có danh sách từ vựng.</p>
+        } @else {
+          @if (unsaved().length > 0) {
+            <button type="button" class="btn-primary save-all" [disabled]="saving()" (click)="save(unsaved())">Lưu tất cả</button>
+          }
+          @if (status(); as message) {
+            <p class="status" role="status">{{ message }}</p>
+          }
+          @if (error(); as message) {
+            <p class="field-error" role="alert">{{ message }}</p>
+          }
+          <ul class="items">
+            @for (item of list; track item.lemma) {
+              <li class="vocab-item">
+                <div class="info">
+                  <p class="lemma" lang="en">{{ item.lemma }}</p>
+                  @if (item.ipa) {
+                    <p class="ipa">{{ item.ipa }}</p>
+                  }
+                  <p class="meaning">{{ item.meaningVi }}</p>
+                </div>
+                <div class="item-actions">
+                  <button type="button" class="btn listen" (click)="play(item)">
+                    Nghe<span class="visually-hidden"> {{ item.lemma }}</span>
+                  </button>
+                  @if (isSaved(item)) {
+                    <span class="saved">✓ Đã lưu</span>
+                  } @else {
+                    <button type="button" class="btn save" [disabled]="saving()" (click)="save([item.lemma])">
+                      Lưu<span class="visually-hidden"> {{ item.lemma }}</span>
+                    </button>
+                  }
+                </div>
+              </li>
+            }
+          </ul>
+        }
+      } @else {
+        <p class="muted" role="status">Đang tải…</p>
+      }
+    </div>
+  }
+</section>

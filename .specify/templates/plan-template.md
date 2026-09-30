@@ -40,7 +40,15 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Đối chiếu `.specify/memory/constitution.md`. Mục nào không đạt PHẢI ghi lý do ở Complexity Tracking.
+
+- [ ] **I. docs/ là nguồn sự thật**: plan khớp `docs/`; tính năng thuộc giai đoạn đang làm; bao phủ đủ tiêu chí nghiệm thu
+- [ ] **II. Chi phí 0 đồng**: không dịch vụ trả phí; thư viện, font, dữ liệu có giấy phép miễn phí
+- [ ] **III. AI là phần bổ sung**: tính năng không cần AI vẫn chạy khi AI lỗi; AI qua interface, chạy nền, có trạng thái, chạy lại được, lưu kết quả
+- [ ] **IV. Mobile-first**: dùng tốt từ 360px; sáng/tối; chỉ dùng token trong `docs/design-system.md`; WCAG AA
+- [ ] **V. Dữ liệu người học**: kiểm tra quyền ở API; truy cập DB qua repository; mật khẩu băm; bí mật trong biến môi trường
+- [ ] **VI. Kiểm thử**: unit test cho logic nghiệp vụ; test endpoint (thành công, lỗi đầu vào, sai quyền); test không cần mạng
+- [ ] **VII. Đơn giản trước**: không thêm thư viện hay lớp trừu tượng chưa cần
 
 ## Project Structure
 

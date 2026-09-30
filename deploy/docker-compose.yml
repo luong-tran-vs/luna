@@ -1,0 +1,80 @@
+name: luna
+
+# Every variable has a default, so `docker compose -f deploy/docker-compose.yml up --build`
+# works on a fresh machine. Copy .env.example to .env (next to this file) to override.
+
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      # Localhost only: lets a backend started with `go run` reach the database during development.
+      - "127.0.0.1:27017:27017"
+
+  # Text-to-speech on the CPU (Kokoro-82M, Apache 2.0). Generates one mp3 per lesson sentence.
+  kokoro:
+    image: ghcr.io/remsky/kokoro-fastapi-cpu:v0.9.0
+    restart: unless-stopped
+    ports:
+      # Localhost only: lets a backend started with `go run` reach the TTS service.
+      - "127.0.0.1:8880:8880"
+
+  backend:
+    build: ../backend
+    restart: unless-stopped
+    environment:
+      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017}
+      MONGO_DATABASE: ${MONGO_DATABASE:-luna}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      # Set to true when the app is served over HTTPS.
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      TTS_URL: http://kokoro:8880
+      AUDIO_DIR: /data/audio
+      # Lesson annotations: gemini (needs GEMINI_API_KEY) or none.
+      AI_PROVIDER: ${AI_PROVIDER:-gemini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash-lite}
+      # Offline dictionary for the Reading step: run deploy/fetch-dictionary.sh (or .ps1) first.
+      DICTIONARY_PATH: /data/dictionary/dictionary.db
+    volumes:
+      - audio-data:/data/audio
+      - ./data/dictionary:/data/dictionary:ro
+    # Longer than the 10 s graceful shutdown so in-flight requests can finish.
+    stop_grace_period: 15s
+    depends_on:
+      - mongo
+      - kokoro
+
+  # Daily database backup at BACKUP_TIME (BACKUP_TZ), keeping the newest BACKUP_KEEP copies in
+  # deploy/backups/. Restore with deploy/backup/restore.sh: see "Sao lưu và khôi phục" in README.md.
+  backup:
+    image: mongo:8
+    restart: unless-stopped
+    entrypoint: ["bash", "/backup/backup.sh"]
+    environment:
+      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017}
+      MONGO_DATABASE: ${MONGO_DATABASE:-luna}
+      TZ: ${BACKUP_TZ:-Asia/Ho_Chi_Minh}
+      BACKUP_TIME: ${BACKUP_TIME:-03:00}
+      BACKUP_KEEP: ${BACKUP_KEEP:-7}
+      # 1: back up as soon as the service starts (then follow the schedule).
+      BACKUP_NOW: ${BACKUP_NOW:-0}
+    volumes:
+      - ./backup:/backup:ro
+      - ./backups:/backups
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ../frontend
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8000}:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
+  audio-data:

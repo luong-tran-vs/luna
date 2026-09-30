@@ -6,6 +6,8 @@
 
 **Status**: Draft
 
+**Mã tính năng**: [F1, F2..., L theo `docs/mvp-features.md`] | **Giai đoạn**: [theo `docs/phases/`]
+
 **Input**: User description: "$ARGUMENTS"
 
 ## User Scenarios & Testing *(mandatory)*

@@ -1,0 +1,28 @@
+@if (open()) {
+  <div class="backdrop">
+    <div
+      class="dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="confirm-title"
+      aria-describedby="confirm-message"
+      tabindex="-1"
+      (keydown)="trapTab($event)"
+    >
+      <h2 class="title" id="confirm-title">{{ title() }}</h2>
+      <p class="message" id="confirm-message">{{ message() }}</p>
+      <div class="actions">
+        <button #cancel type="button" class="btn" (click)="cancelled.emit()">Huỷ</button>
+        <button
+          #confirm
+          type="button"
+          class="btn-primary"
+          [class.btn-danger]="danger()"
+          (click)="confirmed.emit()"
+        >
+          {{ confirmLabel() }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

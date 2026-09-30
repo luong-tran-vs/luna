@@ -1,0 +1,200 @@
+.listening {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) 0;
+}
+
+.listening-header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.step {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  font: var(--text-xl) var(--font-ui);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+/* Sentence progress: number plus a check mark, so the state is not shown by color alone. */
+.progress {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.checked-count {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.chip.checked {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+}
+
+.chip.current {
+  border: 2px solid var(--color-primary);
+  font-weight: 600;
+}
+
+.counter {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.no-audio {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.speed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.speed-label {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.speed-option {
+  min-width: 52px;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.speed-option[aria-checked='true'] {
+  font-weight: 600;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.toggle {
+  justify-self: start;
+}
+
+.transcript {
+  font: var(--text-reading) var(--font-ui);
+}
+
+/* Result: text stays --color-text; only the decoration carries the state color. */
+.result-words {
+  font: var(--text-reading) var(--font-ui);
+  color: var(--color-text);
+}
+
+.word.wrong .typed,
+.word.extra .typed {
+  text-decoration: line-through 2px var(--color-bad);
+}
+
+.word.wrong b {
+  font-weight: 700;
+}
+
+.word.missing {
+  text-decoration: underline dotted 2px var(--color-warn);
+  text-underline-offset: 4px;
+}
+
+.score {
+  font-weight: 600;
+}
+
+.save-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.done {
+  font-weight: 600;
+}
+
+/* Answer bar stays above the on-screen keyboard (viewport uses interactive-widget=resizes-content). */
+.answer-bar {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2);
+  margin: 0 calc(-1 * var(--space-4));
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}
+
+.answer-bar input {
+  min-width: 0;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+}
+
+.answer-bar input[aria-invalid='true'] {
+  border-color: var(--color-bad);
+}
+
+.answer-error {
+  grid-column: 1 / -1;
+}

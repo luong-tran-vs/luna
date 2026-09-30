@@ -1,0 +1,49 @@
+<section class="auth">
+  <h1 class="auth-title">Đăng nhập</h1>
+  <p class="auth-lead">Chào mừng bạn quay lại với Luna.</p>
+
+  <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    @if (serverError(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    <div class="field">
+      <label for="login-email">Email</label>
+      <input
+        id="login-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        inputmode="email"
+        formControlName="email"
+        [attr.aria-invalid]="!!emailError()"
+        [attr.aria-describedby]="emailError() ? 'login-email-error' : null"
+      />
+      @if (emailError(); as message) {
+        <p class="field-error" id="login-email-error">{{ message }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="login-password">Mật khẩu</label>
+      <input
+        id="login-password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        formControlName="password"
+        [attr.aria-invalid]="!!passwordError()"
+        [attr.aria-describedby]="passwordError() ? 'login-password-error' : null"
+      />
+      @if (passwordError(); as message) {
+        <p class="field-error" id="login-password-error">{{ message }}</p>
+      }
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="pending()">
+      {{ pending() ? 'Đang đăng nhập…' : 'Đăng nhập' }}
+    </button>
+  </form>
+
+  <p class="auth-switch">Chưa có tài khoản? <a routerLink="/register">Đăng ký</a></p>
+</section>

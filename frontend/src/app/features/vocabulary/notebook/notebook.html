@@ -1,0 +1,99 @@
+<lu-audio-player />
+
+<section class="notebook">
+  <header class="notebook-header">
+    <h1 class="title">Sổ từ</h1>
+    <div class="actions">
+      <a class="btn-primary" routerLink="/vocabulary/review">Ôn tập{{ dueCount() !== null ? ' (' + dueCount() + ')' : '' }}</a>
+      <button type="button" class="btn" [disabled]="adding()" (click)="adding.set(true)">Thêm thẻ</button>
+    </div>
+  </header>
+
+  @if (adding()) {
+    <lu-card-form (saved)="onAdded()" (cancelled)="adding.set(false)" />
+  }
+
+  <div class="filters">
+    <div class="field">
+      <label for="notebook-search">Tìm từ</label>
+      <input id="notebook-search" type="search" lang="en" autocomplete="off" spellcheck="false" [value]="q()"
+        (input)="onSearch($event)" />
+    </div>
+    <div class="field">
+      <label for="notebook-lesson">Bài học</label>
+      <select id="notebook-lesson" [value]="lessonId()" (change)="onLessonChange($event)">
+        <option value="">Tất cả bài</option>
+        @for (l of lessons().lessons; track l.id) {
+          <option [value]="l.id">{{ l.title }} ({{ l.count }})</option>
+        }
+        @if (lessons().manualCount > 0) {
+          <option value="manual">Thẻ tự thêm ({{ lessons().manualCount }})</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  @if (actionError(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  @if (loadError(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  } @else if (!loading() && cards().length === 0) {
+    <p class="empty muted" role="status">
+      @if (filtered()) {
+        Không tìm thấy từ nào.
+      } @else {
+        Sổ từ còn trống. Lưu từ khi đọc bài, hoặc bấm “Thêm thẻ”.
+      }
+    </p>
+  }
+
+  @for (g of groups(); track g.day) {
+    <section class="day" [attr.aria-labelledby]="'day-' + g.day">
+      <h2 class="day-heading" [id]="'day-' + g.day">{{ g.label }}</h2>
+      <ul class="cards">
+        @for (c of g.cards; track c.id) {
+          <li class="card-item">
+            @if (editingId() === c.id) {
+              <lu-card-form [card]="c" (saved)="onEdited($event)" (cancelled)="editingId.set(null)" />
+            } @else {
+              <div class="card-main">
+                <p class="word" lang="en">{{ c.text }}</p>
+                @if (c.ipa) {
+                  <p class="ipa">{{ c.ipa }}</p>
+                }
+                <p class="meaning">{{ c.meaningVi }}</p>
+                @if (c.contextSentence) {
+                  <p class="example" lang="en">{{ c.contextSentence }}</p>
+                }
+              </div>
+              <div class="card-actions">
+                <button type="button" class="btn" (click)="play(c)">Nghe<span class="visually-hidden"> {{ c.text }}</span></button>
+                <button type="button" class="btn" (click)="editingId.set(c.id)">Sửa<span class="visually-hidden"> {{ c.text }}</span></button>
+                <button type="button" class="btn" (click)="deleting.set(c)">Xoá<span class="visually-hidden"> {{ c.text }}</span></button>
+              </div>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  @if (hasMore()) {
+    <button type="button" class="btn more" [disabled]="loading()" (click)="more()">Xem thêm</button>
+  }
+  @if (loading()) {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  title="Xoá thẻ?"
+  [message]="'Thẻ “' + (deleting()?.text ?? '') + '” và lịch sử ôn của thẻ sẽ bị xoá.'"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleting.set(null)"
+/>

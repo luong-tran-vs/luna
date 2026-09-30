@@ -1,0 +1,139 @@
+<section class="page">
+  <audio #player preload="none" class="player"></audio>
+
+  @if (notFound()) {
+    <p class="card">Không tìm thấy bài học. <a routerLink="/admin">Về danh sách bài</a></p>
+  } @else if (lesson(); as l) {
+    <header class="page-header">
+      <h1 class="page-title">{{ l.title }}</h1>
+      <div class="actions">
+        <a class="btn" routerLink="/admin">Danh sách</a>
+        <a class="btn" [routerLink]="['/lessons', l.id, 'read']">Mở bước Đọc</a>
+        <a class="btn" [routerLink]="['/lessons', l.id, 'listen']">Mở bước Nghe</a>
+        <a class="btn" [routerLink]="['/admin/lessons', l.id, 'edit']">Sửa</a>
+        <button type="button" class="btn" [disabled]="busy()" (click)="deleteOpen.set(true)">Xoá bài</button>
+      </div>
+    </header>
+
+    @if (error(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    <div class="card">
+      <div class="meta">
+        <span class="tag">{{ l.level }}</span>
+        @if (l.topicName) {
+          <span class="tag">{{ l.topicName }}</span>
+        }
+        @if (l.inRoadmap) {
+          <span class="tag">✓ Trong lộ trình</span>
+        }
+      </div>
+      <p class="muted">Nguồn: {{ l.source }} · Giấy phép: {{ l.license }}</p>
+
+      <div class="status-row">
+        <lu-status-chip label="Audio" [status]="l.audioStatus" />
+        @if (l.audioStatus === 'failed') {
+          <span class="muted">{{ l.audioError }}</span>
+          <button type="button" class="btn" [disabled]="busy()" (click)="retry('tts')">Chạy lại audio</button>
+        }
+      </div>
+      <div class="status-row">
+        <lu-status-chip label="Chú thích" [status]="l.annotationStatus" />
+        @if (l.annotationStatus === 'failed') {
+          <span class="muted">{{ l.annotationError }}</span>
+          <button type="button" class="btn" [disabled]="busy()" (click)="retry('annotate')">Chạy lại chú thích</button>
+        }
+      </div>
+    </div>
+
+    <h2 class="section-title">Câu ({{ l.sentences.length }})</h2>
+    <ol class="card sentences">
+      @for (s of l.sentences; track s.index) {
+        <li>
+          @if (s.audioUrl; as url) {
+            <button type="button" class="play" [attr.aria-label]="'Nghe câu ' + (s.index + 1)" (click)="play(url)">▶</button>
+          }
+          <span class="sentence-text" lang="en">{{ s.text }}</span>
+        </li>
+      }
+    </ol>
+
+    <div class="section-header">
+      <h2 class="section-title">Chú thích ({{ l.annotations.length }})</h2>
+      @if (!editing()) {
+        <button type="button" class="btn" [disabled]="l.annotationStatus === 'running'" (click)="startEditing()">
+          Sửa chú thích
+        </button>
+      }
+    </div>
+
+    @if (editing()) {
+      <div class="card editor">
+        @for (row of rows.controls; track row; let i = $index) {
+          <div class="annotation-edit" [formGroup]="row">
+            <div class="field">
+              <label [for]="'ann-text-' + i">Từ / cụm từ trong bài</label>
+              <input [id]="'ann-text-' + i" name="text" formControlName="text" lang="en" [readOnly]="i < existingCount()" />
+            </div>
+            <div class="field">
+              <label [for]="'ann-lemma-' + i">Dạng gốc</label>
+              <input [id]="'ann-lemma-' + i" name="lemma" formControlName="lemma" lang="en" />
+            </div>
+            <div class="field">
+              <label [for]="'ann-meaning-' + i">Nghĩa tiếng Việt</label>
+              <input [id]="'ann-meaning-' + i" name="meaningVi" formControlName="meaningVi" />
+            </div>
+            <button
+              type="button"
+              class="btn remove"
+              [attr.aria-label]="'Xoá chú thích ' + (row.controls.text.value || 'mới')"
+              (click)="removeRow(i)"
+            >
+              ✕
+            </button>
+            @if (rowError(i); as message) {
+              <p class="field-error row-error">{{ message }}</p>
+            }
+          </div>
+        }
+        <div class="actions">
+          <button type="button" class="btn" (click)="addRow()">Thêm chú thích</button>
+          <button type="button" class="btn" (click)="cancelEditing()">Huỷ sửa</button>
+          <button type="button" class="btn-primary" [disabled]="busy()" (click)="saveAnnotations()">Lưu chú thích</button>
+        </div>
+      </div>
+    } @else if (l.annotations.length === 0) {
+      <p class="card muted">Chưa có chú thích.</p>
+    } @else {
+      <ul class="card annotations">
+        @for (a of l.annotations; track $index) {
+          <li>
+            <span class="ann-text" lang="en">{{ a.text }}</span>
+            @if (a.lemma !== a.text) {
+              <span class="muted" lang="en">→ {{ a.lemma }}</span>
+            }
+            <span class="ann-meaning">{{ a.meaningVi }}</span>
+            @if (a.editedByAdmin) {
+              <span class="tag">Đã sửa tay</span>
+            }
+          </li>
+        }
+      </ul>
+    }
+  } @else if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="deleteOpen()"
+  title="Xoá bài học?"
+  message="Bài, audio và chú thích sẽ bị xoá và không khôi phục được."
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleteOpen.set(false)"
+/>

@@ -1,0 +1,16 @@
+<span class="chip" [attr.data-status]="status()">
+  <span class="icon" aria-hidden="true">
+    @switch (status()) {
+      @case ('running') {
+        <span class="spinner"></span>
+      }
+      @case ('done') {
+        ✓
+      }
+      @case ('failed') {
+        !
+      }
+    }
+  </span>
+  <span class="text">{{ text() }}</span>
+</span>

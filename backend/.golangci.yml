@@ -1,0 +1,69 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  default: none
+  enable:
+    # Correctness
+    - govet
+    - staticcheck
+    - unused
+    - errcheck
+    - errorlint
+    - nilerr
+    - copyloopvar
+    - durationcheck
+    # Style
+    - gocritic
+    - revive
+    - misspell
+    - predeclared
+    # Performance
+    - ineffassign
+    - unconvert
+    - perfsprint
+    # Security and resources
+    - gosec
+    - bodyclose
+    - noctx
+    - contextcheck
+    # Logging
+    - sloglint
+    # Testing
+    - thelper
+    - usetesting
+    # Modernization and lint hygiene
+    - modernize
+    - usestdlibvars
+    - nolintlint
+  settings:
+    sloglint:
+      kv-only: false
+      attr-only: false
+      no-global: default
+      context: scope
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    revive:
+      rules:
+        - name: exported
+          disabled: true
+  exclusions:
+    rules:
+      # Tests use fake passwords and bare request cookies on purpose.
+      - path: _test\.go
+        linters:
+          - gosec
+
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/luongtran/luna/backend

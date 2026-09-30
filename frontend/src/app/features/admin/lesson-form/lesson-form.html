@@ -1,0 +1,101 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">{{ isEdit() ? 'Sửa bài' : 'Thêm bài' }}</h1>
+    <a class="btn" [routerLink]="isEdit() ? ['/admin/lessons', id] : '/admin'">Quay lại</a>
+  </header>
+
+  @if (loadError(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  } @else {
+    <form class="auth-form lesson-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (serverError(); as message) {
+        <p class="form-alert" role="alert">{{ message }}</p>
+      }
+
+      <div class="field">
+        <label for="lesson-title">Tiêu đề</label>
+        <input id="lesson-title" name="title" formControlName="title"
+          [attr.aria-invalid]="!!error('title')" [attr.aria-describedby]="describedBy('title')" />
+        @if (error('title'); as message) {
+          <p class="field-error" id="lesson-title-error">{{ message }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="lesson-topic">Chủ đề</label>
+        @if (topics(); as list) {
+          @if (list.length === 0) {
+            <p class="banner-warning" id="lesson-topic-hint">
+              Chưa có chủ đề nào. <a routerLink="/admin/topics">Tạo chủ đề</a> trước khi thêm bài.
+            </p>
+          }
+        }
+        <select id="lesson-topic" name="topicId" formControlName="topicId"
+          [attr.aria-invalid]="!!error('topicId')" [attr.aria-describedby]="describedBy('topicId', 'lesson-topic-help')">
+          <option value="">Chọn chủ đề</option>
+          @for (group of topicGroups(); track group.level) {
+            <optgroup [label]="group.level">
+              @for (t of group.topics; track t.id) {
+                <option [value]="t.id">{{ topicLabel(t) }}</option>
+              }
+            </optgroup>
+          }
+        </select>
+        <p class="field-hint" id="lesson-topic-help">Trình độ của bài lấy theo chủ đề.</p>
+        @if (error('topicId'); as message) {
+          <p class="field-error" id="lesson-topicId-error">{{ message }}</p>
+        }
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="lesson-source">Nguồn</label>
+          <input id="lesson-source" name="source" formControlName="source"
+            [attr.aria-invalid]="!!error('source')" [attr.aria-describedby]="describedBy('source', 'lesson-source-hint')" />
+          <p class="field-hint" id="lesson-source-hint">Ví dụ: VOA Learning English, hoặc "Tự viết".</p>
+          @if (error('source'); as message) {
+            <p class="field-error" id="lesson-source-error">{{ message }}</p>
+          }
+        </div>
+
+        <div class="field">
+          <label for="lesson-license">Giấy phép</label>
+          <input id="lesson-license" name="license" formControlName="license"
+            [attr.aria-invalid]="!!error('license')" [attr.aria-describedby]="describedBy('license', 'lesson-license-hint')" />
+          <p class="field-hint" id="lesson-license-hint">Ví dụ: Public domain, CC BY 4.0.</p>
+          @if (error('license'); as message) {
+            <p class="field-error" id="lesson-license-error">{{ message }}</p>
+          }
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="lesson-content">Nội dung (tiếng Anh)</label>
+        <textarea id="lesson-content" name="content" rows="12" formControlName="content"
+          [attr.aria-invalid]="!!error('content')" [attr.aria-describedby]="describedBy('content', 'lesson-content-hint')"></textarea>
+        <p class="field-hint" id="lesson-content-hint">
+          {{ contentLength() }} / {{ maxContent }} ký tự. Dòng trống ngăn cách các đoạn.
+          @if (isEdit()) {
+            Sửa nội dung sẽ tạo lại câu, audio và chú thích.
+          }
+        </p>
+        @if (error('content'); as message) {
+          <p class="field-error" id="lesson-content-error">{{ message }}</p>
+        }
+      </div>
+
+      <button class="btn-primary" type="submit" [disabled]="pending()">
+        {{ pending() ? 'Đang lưu…' : 'Lưu bài' }}
+      </button>
+    </form>
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="confirmOpen()"
+  title="Làm lại chú thích?"
+  message="Các chú thích đã sửa tay sẽ bị thay mới khi nội dung bài thay đổi."
+  confirmLabel="Lưu và làm lại"
+  (confirmed)="confirmSave()"
+  (cancelled)="confirmOpen.set(false)"
+/>

@@ -1,0 +1,96 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Bài học</h1>
+    <div class="actions">
+      <a class="btn" routerLink="/admin/topics">Chủ đề</a>
+      <a class="btn" routerLink="/admin/roadmap">Lộ trình</a>
+      <a class="btn-primary" routerLink="/admin/lessons/new">Thêm bài</a>
+    </div>
+  </header>
+
+  @if (lowTopics() > 0) {
+    <p class="banner-warning" role="status">
+      {{ lowTopics() }} chủ đề sắp hết bài chưa học. <a routerLink="/admin/roadmap">Xem lộ trình</a>
+    </p>
+  }
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  <div class="filters">
+    <div class="field">
+      <label for="filter-level">Trình độ</label>
+      <select
+        id="filter-level"
+        name="level"
+        [value]="filter().level"
+        (change)="setLevel($any($event.target).value)"
+      >
+        <option value="">Tất cả</option>
+        @for (level of levels; track level) {
+          <option [value]="level">{{ level }}</option>
+        }
+      </select>
+    </div>
+    <div class="field">
+      <label for="filter-topic">Chủ đề</label>
+      <select
+        id="filter-topic"
+        name="topicId"
+        [value]="filter().topicId"
+        (change)="setTopic($any($event.target).value)"
+      >
+        <option value="">Tất cả</option>
+        @for (t of topicOptions(); track t.id) {
+          <option [value]="t.id" [selected]="t.id === filter().topicId">{{ topicLabel(t) }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  @if (data(); as d) {
+    @if (d.lessons.length === 0) {
+      <p class="card muted">Chưa có bài học nào khớp. Bấm "Thêm bài" để tạo bài đầu tiên.</p>
+    } @else {
+      <ul class="list">
+        @for (lesson of d.lessons; track lesson.id) {
+          <li class="card item">
+            <a class="item-title" [routerLink]="['/admin/lessons', lesson.id]">{{ lesson.title }}</a>
+            <div class="meta">
+              <span class="tag">{{ lesson.level }}</span>
+              @if (lesson.topicName) {
+                <span class="tag">{{ lesson.topicName }}</span>
+              }
+              @if (lesson.inRoadmap) {
+                <span class="tag">✓ Trong lộ trình</span>
+              }
+            </div>
+            <div class="meta">
+              <lu-status-chip label="Audio" [status]="lesson.audioStatus" />
+              <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />
+            </div>
+            <div class="actions">
+              @if (lesson.audioStatus === 'failed') {
+                <button type="button" class="btn" [disabled]="busy()" (click)="retry(lesson.id, 'tts')">
+                  Chạy lại audio
+                </button>
+              }
+              @if (lesson.annotationStatus === 'failed') {
+                <button type="button" class="btn" [disabled]="busy()" (click)="retry(lesson.id, 'annotate')">
+                  Chạy lại chú thích
+                </button>
+              }
+              @if (!lesson.inRoadmap) {
+                <button type="button" class="btn" [disabled]="busy()" (click)="addToRoadmap(lesson)">
+                  Thêm vào lộ trình
+                </button>
+              }
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  } @else if (!error()) {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

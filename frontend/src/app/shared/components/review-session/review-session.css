@@ -1,0 +1,173 @@
+:host {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.progress {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.review-card {
+  justify-items: center;
+  text-align: center;
+}
+
+.word {
+  font: var(--text-2xl) var(--font-ui);
+  color: var(--color-text);
+}
+
+.listen-hint {
+  color: var(--color-text-muted);
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.verdict {
+  font-weight: 700;
+}
+
+.verdict.correct {
+  color: var(--color-ok);
+}
+
+.verdict.wrong {
+  color: var(--color-bad);
+}
+
+.back {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ipa {
+  font: var(--text-base) var(--font-ipa);
+  color: var(--color-text-muted);
+}
+
+.meaning {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.example {
+  font: var(--text-reading) var(--font-ui);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* Four rating buttons: two per row on phones, one row when there is room. */
+.ratings {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+
+@media (min-width: 600px) {
+  .ratings {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.rating {
+  min-height: 52px;
+  padding: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-top: var(--space-1) solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.rating-again {
+  border-top-color: var(--color-bad);
+}
+
+.rating-hard {
+  border-top-color: var(--color-warn);
+}
+
+.rating-good {
+  border-top-color: var(--color-ok);
+}
+
+.rating-easy {
+  border-top-color: var(--color-primary);
+}
+
+.rating:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.rating:disabled {
+  cursor: progress;
+}
+
+.save-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.summary-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+}
+
+/* Same answer bar as the Listening step: stays above the on-screen keyboard. */
+.answer-bar {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  background: var(--color-bg);
+}
+
+.answer-bar input {
+  min-width: 0;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+}
+
+.answer-bar input[aria-invalid='true'] {
+  border-color: var(--color-bad);
+}
+
+.answer-error {
+  grid-column: 1 / -1;
+}
