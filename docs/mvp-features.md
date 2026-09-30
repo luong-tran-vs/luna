@@ -1,6 +1,9 @@
 # Luna: Tính năng MVP
 
-> Phiên bản: v6 (2026-09-29). v6 chốt 3 câu hỏi mở: mục tiêu gồm thanh tổng và 4 thanh kỹ năng, AI sinh bài ở giai đoạn 2, thêm F12 Cài đặt và F13 Sao lưu.
+> Phiên bản: v9 (2026-09-30). v9: chốt giai đoạn 2: F7 sinh nhiều bài trong lộ trình chủ đề, thêm F15 câu hỏi hiểu bài và ghi chú ngữ pháp, bước Viết bắt buộc.
+> v8: học theo chủ đề: mỗi cặp trình độ và chủ đề là một lộ trình riêng (R1, R6), thêm F14 Chủ đề và lộ trình theo trình độ.
+> v7 (2026-09-29) thêm cho người học: trang Bài học (R2), mục Từ vựng của bài và sổ từ theo ngày/bài (F5).
+> v6 chốt 3 câu hỏi mở: mục tiêu gồm thanh tổng và 4 thanh kỹ năng, AI sinh bài ở giai đoạn 2, thêm F12 Cài đặt và F13 Sao lưu.
 > v5 chốt giao diện: bảng màu Oải hương, font Lexend, có chế độ tối (chi tiết ở [design-system.md](design-system.md)).
 > v4 thêm trang quản trị để tự thêm bài học (F2), mục tiêu theo dõi theo 4 kỹ năng (R1), cơ sở dữ liệu dùng MongoDB (mục 7), quy trình phát triển dùng spec-kit (thư mục gốc dự án).
 > v3 chốt nguồn nghĩa tiếng Việt: AI chú thích một lần khi tạo bài, từ điển SQLite offline làm dự phòng (F2, F3, F5, F9, mục 7).
@@ -48,7 +51,7 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 ┌────────────────────────────────┐
 │ Luna               🔥 12 ngày  │
 │                                │
-│ Mục tiêu: Lộ trình A2 → B1     │
+│ Mục tiêu: A1 · Gia đình        │
 │ ████████░░░░░░░░░   12/30 bài  │   ← thanh mục tiêu
 │                                │
 │ Hôm nay: Bài 13, At the café   │
@@ -63,14 +66,17 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 ### 4.2. Quy tắc
 
 **R1. Mục tiêu và thanh mục tiêu**
-- Người học chọn một **lộ trình** gồm N bài học xếp theo thứ tự (mặc định 30 bài, tương đương khoảng 30 ngày).
-- Thanh mục tiêu hiển thị số bài đã hoàn thành trên N.
+- Người học tự chọn **trình độ** (A1–C2), rồi chọn **một chủ đề** của trình độ đó. Mỗi cặp trình độ và chủ đề là một **lộ trình** riêng, thứ tự bài do quản trị viên xếp (F14).
+- Mục tiêu là hoàn thành lộ trình đã chọn. Thanh mục tiêu ghi tên lộ trình (ví dụ "A1 · Gia đình") và số bài đã hoàn thành trên tổng số bài của lộ trình.
+- Chỉ học bài thuộc trình độ đang chọn, không xen kẽ các trình độ.
+- Đổi chủ đề hoặc trình độ: có hiệu lực ngay nếu bài hôm nay chưa bắt đầu, nếu đã bắt đầu thì từ ngày hôm sau. Tiến độ của từng lộ trình được lưu riêng, quay lại thì học tiếp bài đang dở. Streak không bị ảnh hưởng.
 - Bên dưới là **4 thanh nhỏ theo kỹ năng** Nghe, Nói, Đọc, Viết. Mỗi thanh đếm số bài đã hoàn thành bước của kỹ năng đó, để người học thấy kỹ năng nào đang bị bỏ lại. Thanh Nói và Viết chỉ hiện khi giai đoạn tương ứng đã làm xong.
-- Đi hết lộ trình thì app chúc mừng và mời người học đặt mục tiêu mới.
+- Đi hết lộ trình thì app chúc mừng và mời chọn chủ đề khác cùng trình độ, hoặc lên trình độ tiếp theo.
 
 **R2. Mỗi ngày một bài**
 - Bài của hôm nay là bài **tiếp theo chưa hoàn thành** trong lộ trình.
 - Học xong bài hôm nay thì bài kế tiếp chỉ mở vào ngày hôm sau. Trong lúc chờ, người học vẫn xem lại được bài cũ và ôn từ.
+- Trang **Bài học** liệt kê bài hôm nay, các bài đã học (mở lại tự do) và các bài sắp tới (khoá, chỉ hiện tên).
 - Nghỉ một ngày thì bài **không bị dồn**: hôm sau vẫn chỉ học một bài, là bài kế tiếp. Chỉ có chuỗi ngày học (streak) bị reset.
 - Một ngày được tính theo múi giờ của người học, sang ngày mới lúc 0h.
 
@@ -99,7 +105,7 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 - Xong bước cuối thì thanh mục tiêu tăng thêm 1 bài và chuỗi ngày học (streak) tăng thêm 1.
 
 **R6. Hết bài trong lộ trình**
-- Nếu bài hôm nay chưa có sẵn: app báo cho quản trị viên để thêm bài trong trang quản trị (F2). Trong lúc chờ, người học vẫn làm bước Ôn được.
+- Nếu lộ trình đang học chưa có bài tiếp theo: app báo cho quản trị viên để thêm bài (F2, F14). Trong lúc chờ, người học vẫn ôn được hoặc chọn chủ đề khác.
 
 ## 5. Tính năng theo giai đoạn
 
@@ -147,27 +153,38 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Lịch ôn dùng thuật toán **FSRS** (mã nguồn mở, chính xác hơn SM-2).
 - Có hai kiểu ôn: **nhìn từ đoán nghĩa**, và **nghe rồi gõ lại từ**. Sau mỗi thẻ, người học tự đánh giá mức Again, Hard, Good hoặc Easy.
 - Bước Ôn ở đầu mỗi bài học dùng chính sổ từ này (R3). Ngoài ra, người học có thể vào ôn thêm bất cứ lúc nào.
+- Sổ từ nhóm theo ngày lưu và lọc theo bài học.
+- **Từ vựng của bài:** bước Đọc có mục liệt kê các từ đã được AI chú thích, lưu từng từ hoặc "Lưu tất cả".
 
 **F6. Màn hình chính và tiến độ**
 - Màn hình chính hiển thị thanh mục tiêu, bài hôm nay kèm thanh tiến trình, streak và nút "Tiếp tục" (mục 4.1).
 - Thống kê: số từ đã học, số câu đã chép chính tả và tỷ lệ đúng, số bài hoàn thành theo từng kỹ năng.
 
 **F12. Cài đặt**
-- Chế độ giao diện: Sáng, Tối, hoặc Theo hệ thống (mặc định). Xem [design-system.md](design-system.md).
+- Chế độ giao diện: Sáng hoặc Tối (khi chưa chọn thì theo thiết bị). Xem [design-system.md](design-system.md).
 - Số thẻ ôn tối đa mỗi ngày (mặc định 30) và múi giờ dùng để tính ngày học.
 
 **F13. Sao lưu và xuất dữ liệu**
 - Tự động sao lưu MongoDB mỗi ngày, giữ lại 7 bản gần nhất.
 - Nút "Xuất dữ liệu" tải về một file JSON gồm sổ từ, lịch ôn, tiến độ và bài học.
 
+**F14. Chủ đề và lộ trình theo trình độ**
+- Quản trị viên quản lý danh mục chủ đề; mỗi chủ đề thuộc một trình độ (ví dụ "A1 · Gia đình").
+- Mỗi bài thuộc đúng một chủ đề; trình độ của bài là trình độ của chủ đề.
+- Mỗi chủ đề có lộ trình riêng, kéo thả để xếp thứ tự. Thay cho lộ trình chung duy nhất ở F2.
+
 ### Giai đoạn 2: AI chữ
 
 **F7. AI sinh bài học**
-- Là một nút trong trang quản trị (F2). Nhập chủ đề, trình độ CEFR và độ dài mong muốn; AI sinh bài đọc hoặc hội thoại.
-- Quản trị viên xem lại và sửa trước khi lưu. Bài được đánh dấu nguồn là "AI sinh".
+- Nút trong trang lộ trình của một chủ đề (F14): trình độ và chủ đề lấy sẵn. Chọn số bài (1–5), độ dài, dạng bài (bài đọc hoặc hội thoại); AI tránh lặp nội dung đã có.
+- Quản trị viên duyệt từng bản nháp rồi lưu; bài có nguồn "AI sinh" và được thêm vào cuối lộ trình.
+
+**F15. Câu hỏi hiểu bài và ghi chú ngữ pháp**
+- Cùng request chú thích bài, AI sinh thêm 3–5 câu hỏi trắc nghiệm, một ghi chú ngữ pháp tiếng Việt và đề viết cho F8.
+- Bước Đọc hoàn thành khi trả lời hết câu hỏi; bài chưa có câu hỏi thì dùng nút "Đã đọc xong".
 
 **F8. Viết**
-- Mỗi bài học có sẵn đề viết (trả lời câu hỏi, tóm tắt, hoặc viết tiếp) để người học làm.
+- Bước Viết bắt buộc sau bước Nghe; đề viết do AI sinh cùng lúc chú thích (F15), quản trị viên sửa được.
 - AI nhận xét theo 4 tiêu chí: hoàn thành yêu cầu, ngữ pháp, từ vựng, mạch lạc. Kèm bản đã sửa và phần so sánh với bản gốc.
 - Việc chấm chạy nền; người học có thể đi làm việc khác và quay lại xem khi có kết quả.
 
@@ -210,4 +227,3 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 
 - [ ] Máy có bao nhiêu RAM? Câu trả lời quyết định chạy được mô hình Ollama và Whisper cỡ nào (chỉ ảnh hưởng giai đoạn 2 và 3).
 - [ ] Điện thoại truy cập app từ bên ngoài bằng cách nào: Tailscale, Cloudflare Tunnel, hay chỉ dùng trong mạng nhà? (Chỉ cần chốt khi triển khai.)
-- [ ] Có thêm câu hỏi hiểu bài ở bước Đọc và ghi chú ngữ pháp cho mỗi bài không? (Cả hai do AI sinh, nếu làm thì thuộc giai đoạn 2.)
