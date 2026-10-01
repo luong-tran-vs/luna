@@ -1,4 +1,5 @@
-// Package job runs background work (audio generation, AI annotation) from a MongoDB-backed queue.
+// Package job runs background work (audio generation, AI annotation, writing grades) from a
+// MongoDB-backed queue.
 package job
 
 import (
@@ -12,6 +13,8 @@ type Type string
 const (
 	TypeTTS      Type = "tts"
 	TypeAnnotate Type = "annotate"
+	// TypeGrade grades a submitted writing (F8); its TargetID is the writing id.
+	TypeGrade Type = "grade"
 )
 
 // Status is the lifecycle state of a job.
@@ -27,11 +30,14 @@ const (
 // MaxAttempts is how many times a job runs before it is marked failed.
 const MaxAttempts = 3
 
-// Job is one unit of background work for a lesson revision.
+// Job is one unit of background work: for a lesson revision (tts, annotate) or for another
+// document named by TargetID (grade). Grade jobs have no LessonID, so cleaning up a deleted
+// lesson never removes them.
 type Job struct {
 	ID        string
 	Type      Type
 	LessonID  string
+	TargetID  string
 	Revision  int
 	Status    Status
 	Attempts  int

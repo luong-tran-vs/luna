@@ -111,8 +111,11 @@
     [saved]="popupSaved()"
     [saving]="saving()"
     [error]="popupError()"
+    [asking]="asking()"
+    [askError]="askError()"
     (closed)="close()"
     (save)="save($event)"
     (listen)="play()"
+    (ask)="ask()"
   />
 </ng-template>

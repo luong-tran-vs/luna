@@ -6,12 +6,20 @@ import (
 )
 
 // complete finishes the given steps of today's lesson for u1, failing the test on error.
+// Ending with listen also submits and completes the writing (F8), so tests written for three
+// steps still finish the lesson.
 func (e *studyEnv) complete(t *testing.T, steps ...Step) TodayView {
 	t.Helper()
+	if len(steps) > 0 && steps[len(steps)-1] == StepListen {
+		steps = append(steps, StepWrite)
+	}
 	var v TodayView
 	for _, s := range steps {
-		if s == StepListen {
+		switch s {
+		case StepListen:
 			e.finishDictation(t)
+		case StepWrite:
+			e.submitWriting(t)
 		}
 		var err error
 		if v, err = e.svc.CompleteStep(t.Context(), "u1", s); err != nil {
@@ -19,6 +27,16 @@ func (e *studyEnv) complete(t *testing.T, steps ...Step) TodayView {
 		}
 	}
 	return v
+}
+
+// submitWriting submits the writing of today's lesson (F8) so the write step can complete.
+func (e *studyEnv) submitWriting(t *testing.T) {
+	t.Helper()
+	v, err := e.svc.Today(t.Context(), "u1")
+	if err != nil || v.Lesson == nil {
+		t.Fatalf("today: %+v %v", v, err)
+	}
+	e.writings.submit("u1", v.Lesson.ID)
 }
 
 // finishDictation checks every sentence of today's lesson (F4) so the listen step can complete.

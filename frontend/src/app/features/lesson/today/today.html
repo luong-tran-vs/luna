@@ -73,6 +73,9 @@
               <lu-listening [lessonId]="l.id" [startSentence]="d.sentenceIndex" mode="study"
                 (completed)="complete('listen')" (position)="savePosition('listen', $event)" />
             }
+            @case ('write') {
+              <lu-writing [lessonId]="l.id" mode="study" (completed)="complete('write')" />
+            }
           }
           @if (completing()) {
             <p class="muted" role="status">Đang lưu…</p>

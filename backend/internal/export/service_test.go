@@ -31,6 +31,7 @@ func seed() *fakeRepo {
 		r.add(CollStudyDays, Doc{"_id": "day-" + u, "userId": u, "dayKey": "2026-09-30"})
 		r.add(CollDictationResults, Doc{"_id": "dict-" + u, "userId": u, "lessonId": "l1", "sentenceIndex": 0})
 		r.add(CollReadingAnswers, Doc{"_id": "ans-" + u, "userId": u, "lessonId": "l1", "questionIndex": 0, "correct": true})
+		r.add(CollWritings, Doc{"_id": "wr-" + u, "userId": u, "lessonId": "l1", "status": "draft", "text": "x"})
 	}
 	r.add(CollLessonProgress, Doc{"_id": "p1", "userId": "u1", "lessonId": "l1"})
 	r.add(CollLessonProgress, Doc{"_id": "p2", "userId": "u1", "lessonId": "gone"})
@@ -66,7 +67,7 @@ func TestBuildOnlyTheUsersData(t *testing.T) {
 	}
 	for name, docs := range map[string][]Doc{
 		"cards": e.Cards, "reviewLogs": e.ReviewLogs, "goals": e.Goals, "studyDays": e.StudyDays,
-		"dictationResults": e.DictationResults, "readingAnswers": e.ReadingAnswers,
+		"dictationResults": e.DictationResults, "readingAnswers": e.ReadingAnswers, "writings": e.Writings,
 	} {
 		if len(docs) != 1 || !strings.HasSuffix(docs[0]["_id"].(string), "-u1") {
 			t.Errorf("%s = %v", name, docs)
@@ -114,7 +115,7 @@ func TestBuildNewLearner(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "readingAnswers", "lessons"} {
+	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "readingAnswers", "writings", "lessons"} {
 		if !strings.Contains(string(out), `"`+key+`":[]`) {
 			t.Errorf("%s is not an empty list in %s", key, out)
 		}

@@ -27,10 +27,16 @@
           <dd class="muted">Trả lời câu hỏi ở bước Đọc để xem tỷ lệ.</dd>
         }
       </div>
+      <div class="card figure writing">
+        <dt>Bài viết</dt>
+        <dd>{{ s.writing.submitted }} bài viết</dd>
+        <dd class="rate">Điểm trung bình {{ writingAverage() }}</dd>
+      </div>
       <div class="card figure">
         <dt>Bài học</dt>
         <dd>Đọc: {{ s.lessons.read }} bài</dd>
         <dd>Nghe: {{ s.lessons.listen }} bài</dd>
+        <dd>Viết: {{ s.lessons.write }} bài</dd>
         <dd>Hoàn thành: {{ s.lessons.completed }} bài</dd>
       </div>
     </dl>

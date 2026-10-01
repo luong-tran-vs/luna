@@ -49,6 +49,18 @@ export const routes: Routes = [
     loadComponent: () => import('./features/settings/settings').then((m) => m.Settings),
   },
   {
+    path: 'writings',
+    canActivate: [authGuard],
+    title: 'Bài viết · Luna',
+    loadComponent: () => import('./features/writings/writing-list/writing-list').then((m) => m.WritingList),
+  },
+  {
+    path: 'writings/:id',
+    canActivate: [authGuard],
+    title: 'Bài viết · Luna',
+    loadComponent: () => import('./features/writings/writing-detail/writing-detail').then((m) => m.WritingDetail),
+  },
+  {
     path: 'stats',
     canActivate: [authGuard],
     title: 'Thống kê · Luna',

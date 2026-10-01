@@ -1,0 +1,48 @@
+<section class="writings">
+  <h1 class="title">Bài viết</h1>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được bài viết.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (writings(); as list) {
+    @if (list.length === 0) {
+      <div class="card empty">
+        <p>Chưa có bài viết. Học bài hôm nay để viết bài đầu tiên.</p>
+        <a class="btn-primary" routerLink="/today">Bài hôm nay</a>
+      </div>
+    } @else {
+      <ul class="list">
+        @for (w of list; track w.id) {
+          <li>
+            <a class="card row" [routerLink]="['/writings', w.id]">
+              <span class="row-main">
+                <span class="lesson" lang="en">{{ w.lessonTitle }}</span>
+                <span class="date muted">{{ w.submittedAt | date: 'dd/MM/yyyy' }}</span>
+              </span>
+              <span class="result">
+                @switch (w.gradeStatus) {
+                  @case ('done') {
+                    {{ formatScore(w.average ?? 0) }} / 5
+                  }
+                  @case ('failed') {
+                    Chấm lỗi
+                  }
+                  @default {
+                    Đang chấm
+                  }
+                }
+                @if (!w.seen && w.gradeStatus !== 'pending') {
+                  <span class="tag">Mới</span>
+                }
+              </span>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

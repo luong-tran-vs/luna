@@ -282,6 +282,7 @@ type studyEnv struct {
 	lessons   *fakeLessons
 	clock     *studyClock
 	quiz      *fakeQuiz
+	writings  *fakeWritings
 	// limit is the daily card limit from the settings (F12), 30 by default.
 	limit atomic.Int64
 }
@@ -298,6 +299,7 @@ func newStudyEnv() *studyEnv {
 		zones:    fakeZones{},
 		clock:    &studyClock{t: time.Date(2026, 9, 30, 10, 0, 0, 0, hcm)},
 		quiz:     &fakeQuiz{status: map[string][2]int{}},
+		writings: &fakeWritings{submitted: map[string]bool{}},
 	}
 	for _, t := range []TopicInfo{
 		{ID: "family", Name: "Gia đình", Level: "A1", LessonIDs: []string{"f1", "f2", "f3"}},
@@ -318,6 +320,7 @@ func newStudyEnv() *studyEnv {
 		Goals: e.goals, Progress: e.progress, Days: e.days, Dictation: e.dictation, Lessons: e.lessons,
 		Roadmaps: e.roadmaps, Titles: titles, Reviews: e.reviews, Timezones: e.zones, Now: e.clock.now,
 		Quiz:        e.quiz,
+		Writings:    e.writings,
 		ReviewLimit: func(context.Context, string) int { return int(e.limit.Load()) },
 	})
 	return e
@@ -336,6 +339,9 @@ func (f *fakeProgress) StepCounts(_ context.Context, userID string, lessonIDs []
 		}
 		if p.Done[StepListen] {
 			c.Listen++
+		}
+		if p.Done[StepWrite] {
+			c.Write++
 		}
 		if !p.CompletedAt.IsZero() {
 			c.Completed++
@@ -410,4 +416,31 @@ func (f *fakeQuiz) Totals(context.Context, string) (answered, correct int, err e
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	return f.totals[0], f.totals[1], f.err
+}
+
+// fakeWritings records submitted writings per "user/lesson" (F8).
+type fakeWritings struct {
+	mu        sync.Mutex
+	submitted map[string]bool
+	count     int
+	average   *float64
+	err       error
+}
+
+func (f *fakeWritings) submit(userID, lessonID string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.submitted[userID+"/"+lessonID] = true
+}
+
+func (f *fakeWritings) Submitted(_ context.Context, userID, lessonID string) (bool, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.submitted[userID+"/"+lessonID], f.err
+}
+
+func (f *fakeWritings) Stats(context.Context, string) (int, *float64, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.count, f.average, f.err
 }

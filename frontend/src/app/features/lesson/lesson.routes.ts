@@ -17,4 +17,9 @@ export const lessonRoutes: Routes = [
     title: 'Nghe · Luna',
     loadComponent: () => import('./listening/listening').then((m) => m.Listening),
   },
+  {
+    path: ':id/write',
+    title: 'Viết · Luna',
+    loadComponent: () => import('./writing/writing').then((m) => m.Writing),
+  },
 ];

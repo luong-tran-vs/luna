@@ -15,6 +15,8 @@ type StatsView struct {
 	// Reading counts the comprehension answers (F15); ReadingRate is nil when there are none.
 	Reading     ReadingTotals
 	ReadingRate *float64
+	// Writing counts submitted writings (F8); AverageScore is nil until one is graded.
+	Writing WritingTotals
 }
 
 // ReadingTotals counts a learner's comprehension answers.
@@ -49,5 +51,16 @@ func (s *StudyService) Stats(ctx context.Context, userID string) (StatsView, err
 		rate := float64(v.Reading.Correct) / float64(v.Reading.Answered)
 		v.ReadingRate = &rate
 	}
+	if s.d.Writings != nil {
+		if v.Writing.Submitted, v.Writing.AverageScore, err = s.d.Writings.Stats(ctx, userID); err != nil {
+			return StatsView{}, fmt.Errorf("progress: writing stats: %w", err)
+		}
+	}
 	return v, nil
+}
+
+// WritingTotals counts a learner's writings (F8).
+type WritingTotals struct {
+	Submitted    int
+	AverageScore *float64
 }

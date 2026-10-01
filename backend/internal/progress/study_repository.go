@@ -53,6 +53,15 @@ type ReadingQuiz interface {
 	Totals(ctx context.Context, userID string) (answered, correct int, err error)
 }
 
+// Writings is what the Write step and the stats need from the writings (F8, implemented over
+// writing.Service in main).
+type Writings interface {
+	// Submitted reports whether the learner has submitted the writing of the lesson.
+	Submitted(ctx context.Context, userID, lessonID string) (bool, error)
+	// Stats counts submitted writings and averages the graded ones (nil when none is graded).
+	Stats(ctx context.Context, userID string) (submitted int, average *float64, err error)
+}
+
 // LessonTitles gives the titles of the lessons that still exist among ids.
 type LessonTitles interface {
 	Titles(ctx context.Context, ids []string) (map[string]string, error)

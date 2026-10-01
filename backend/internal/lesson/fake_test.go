@@ -305,6 +305,12 @@ type fakeAI struct {
 	genBlock bool
 	genCalls int
 	genReq   ai.GenerateRequest
+
+	explanation  ai.Explanation
+	explainErr   error
+	explainGate  chan struct{}
+	explainCalls int
+	explainReq   ai.ExplainRequest
 }
 
 // Annotate returns result as annotations plus the configured extras.
@@ -403,4 +409,66 @@ func (f *fakeAnswers) Totals(_ context.Context, userID string) (answered, correc
 		}
 	}
 	return answered, correct, nil
+}
+
+// GradeWriting is unused by lessons (F8 grades writings).
+func (f *fakeAI) GradeWriting(context.Context, ai.GradeRequest) (ai.Grade, error) {
+	return ai.Grade{}, nil
+}
+
+// Explain returns the configured explanation or error and counts calls. With explainGate set it
+// waits on the channel (or the context) first.
+func (f *fakeAI) Explain(ctx context.Context, req ai.ExplainRequest) (ai.Explanation, error) {
+	f.mu.Lock()
+	f.explainCalls++
+	f.explainReq = req
+	gate, res, err := f.explainGate, f.explanation, f.explainErr
+	f.mu.Unlock()
+	if gate != nil {
+		select {
+		case <-gate:
+		case <-ctx.Done():
+			return ai.Explanation{}, ctx.Err()
+		}
+	}
+	return res, err
+}
+
+func (f *fakeAI) explains() (int, ai.ExplainRequest) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.explainCalls, f.explainReq
+}
+
+// fakeAsks is an in-memory AskRepository.
+type fakeAsks struct {
+	mu   sync.Mutex
+	rows map[AskKey]AskResult
+	puts int
+}
+
+func newFakeAsks() *fakeAsks { return &fakeAsks{rows: map[AskKey]AskResult{}} }
+
+func (f *fakeAsks) Get(_ context.Context, key AskKey) (AskResult, bool, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	r, ok := f.rows[key]
+	return r, ok, nil
+}
+
+func (f *fakeAsks) Put(_ context.Context, r AskResult) (AskResult, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.puts++
+	if old, ok := f.rows[r.AskKey]; ok {
+		return old, nil
+	}
+	f.rows[r.AskKey] = r
+	return r, nil
+}
+
+func (f *fakeAsks) count() int {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return len(f.rows)
 }

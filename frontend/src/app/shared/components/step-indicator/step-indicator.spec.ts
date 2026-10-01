@@ -9,7 +9,7 @@ import { StepIndicator } from './step-indicator';
   template: `<lu-step-indicator [steps]="steps()" />`,
 })
 class Host {
-  readonly steps = signal<Record<Step, StepState>>({ review: 'done', read: 'current', listen: 'locked' });
+  readonly steps = signal<Record<Step, StepState>>({ review: 'done', read: 'current', listen: 'locked', write: 'locked' });
 }
 
 describe('StepIndicator', () => {
@@ -23,12 +23,12 @@ describe('StepIndicator', () => {
     await fixture.whenStable();
   });
 
-  it('shows the three steps with their state in text, not only colour', () => {
+  it('shows the four steps with their state in text, not only colour', () => {
     const items = Array.from(el.querySelectorAll('li'));
-    expect(items.map((i) => text(i.querySelector('.mark')))).toEqual(['✓', '●', '🔒']);
-    expect(items.map((i) => text(i.querySelector('.label')))).toEqual(['Ôn', 'Đọc', 'Nghe']);
-    expect(items.map((i) => text(i.querySelector('.visually-hidden')))).toEqual(['(đã xong)', '(đang làm)', '(chưa mở)']);
-    expect(items.map((i) => i.dataset['state'])).toEqual(['done', 'current', 'locked']);
+    expect(items.map((i) => text(i.querySelector('.mark')))).toEqual(['✓', '●', '🔒', '🔒']);
+    expect(items.map((i) => text(i.querySelector('.label')))).toEqual(['Ôn', 'Đọc', 'Nghe', 'Viết']);
+    expect(items.map((i) => text(i.querySelector('.visually-hidden')))).toEqual(['(đã xong)', '(đang làm)', '(chưa mở)', '(chưa mở)']);
+    expect(items.map((i) => i.dataset['state'])).toEqual(['done', 'current', 'locked', 'locked']);
     expect(items[1].getAttribute('aria-current')).toBe('step');
     expect(items[0].getAttribute('aria-current')).toBeNull();
   });
@@ -36,11 +36,11 @@ describe('StepIndicator', () => {
   it('shows the progress as a progress bar', async () => {
     const bar = () => el.querySelector('.progress [role="progressbar"]')!;
     expect(bar().getAttribute('aria-valuenow')).toBe('1');
-    expect(bar().getAttribute('aria-valuemax')).toBe('3');
-    expect(text(el.querySelector('.progress .count'))).toBe('1/3 bước');
-    fixture.componentInstance.steps.set({ review: 'done', read: 'done', listen: 'done' });
+    expect(bar().getAttribute('aria-valuemax')).toBe('4');
+    expect(text(el.querySelector('.progress .count'))).toBe('1/4 bước');
+    fixture.componentInstance.steps.set({ review: 'done', read: 'done', listen: 'done', write: 'done' });
     await fixture.whenStable();
-    expect(bar().getAttribute('aria-valuenow')).toBe('3');
-    expect(text(el.querySelector('.progress .count'))).toBe('3/3 bước');
+    expect(bar().getAttribute('aria-valuenow')).toBe('4');
+    expect(text(el.querySelector('.progress .count'))).toBe('4/4 bước');
   });
 });

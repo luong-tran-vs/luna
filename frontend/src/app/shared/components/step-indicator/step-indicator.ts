@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { Step, StepState, STEPS } from '../../../core/models/study';
 import { ProgressBar } from '../progress-bar/progress-bar';
 
-const LABELS: Record<Step, string> = { review: 'Ôn', read: 'Đọc', listen: 'Nghe' };
+const LABELS: Record<Step, string> = { review: 'Ôn', read: 'Đọc', listen: 'Nghe', write: 'Viết' };
 const MARKS: Record<StepState, string> = { done: '✓', current: '●', locked: '🔒' };
 const STATES: Record<StepState, string> = { done: 'đã xong', current: 'đang làm', locked: 'chưa mở' };
 
-/** The steps of today's lesson (Ôn · Đọc · Nghe) with done / current / locked states (L). */
+/** The steps of today's lesson (Ôn · Đọc · Nghe · Viết) with done / current / locked states (L). */
 @Component({
   selector: 'lu-step-indicator',
   imports: [ProgressBar],
@@ -30,7 +30,7 @@ const STATES: Record<StepState, string> = { done: 'đã xong', current: 'đang l
     }
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: var(--space-2);
       margin: 0;
       padding: 0;

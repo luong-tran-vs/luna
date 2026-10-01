@@ -100,6 +100,20 @@ tra từ chỉ dùng chú thích của bài.
 Mở bước Đọc: trang chi tiết bài trong **Quản trị** → **Mở bước Đọc** (hoặc `/lessons/<id>/read`). Chạm một từ để tra,
 bôi đen nhiều từ để tra cụm, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu.
 
+### Hỏi AI
+
+Khi từ điển không có nghĩa, hoặc chỉ có nghĩa chung chung, popup hiện nút **Hỏi AI**. AI giải thích từ hoặc cụm đó theo
+đúng câu đang đọc: dạng gốc, nghĩa tiếng Việt và một ghi chú ngắn. Lưu vào sổ từ thì thẻ dùng nghĩa của AI.
+
+- Kết quả được lưu trong collection `ai_lookups`, dùng chung cho mọi người học, theo khoá (bài, phiên bản bài, câu, từ).
+  Lần tra sau trong cùng câu sẽ ra luôn kết quả này (trước cả từ điển), không gọi AI nữa.
+- Nhiều người hỏi cùng một khoá cùng lúc thì AI chỉ được gọi **một lần**.
+- Sửa nội dung bài (phiên bản mới) thì kết quả cũ không được dùng nữa.
+- AI lỗi thì popup báo lỗi ngay dưới nút; nghĩa từ điển hoặc ô tự nhập nghĩa vẫn dùng được. Kết quả lỗi không được lưu.
+  - `503 ai_not_configured`: chưa cấu hình AI hoặc khoá sai.
+  - `429 ai_quota`: hết lượt AI.
+  - `502 ai_failed`: AI lỗi, quá 12 giây, hoặc không trả nghĩa.
+
 ### Câu hỏi hiểu bài và ngữ pháp
 
 Khi chú thích một bài, AI viết luôn trong **cùng một request**:
@@ -146,8 +160,9 @@ quả cũ không còn được tính.
 - **Mục tiêu** (`/goal`): chọn trình độ rồi một chủ đề của trình độ đó; mục tiêu là học hết lộ trình của chủ đề. Tiến độ từng
   chủ đề lưu riêng; đổi chủ đề khi bài hôm nay đã bắt đầu thì có hiệu lực từ ngày mai.
 - **Bài hôm nay** (trang chủ → **Bắt đầu / Tiếp tục: <bước>**, `/today`): mỗi ngày một bài mới (sang ngày lúc 0 giờ theo múi giờ trong
-  Cài đặt), học theo thứ tự **Ôn** (thẻ đến hạn, tối đa 30 thẻ/ngày, đổi trong Cài đặt; không có thẻ thì tự xong) → **Đọc** → **Nghe**. Thoát ra
-  vào lại thì tiếp tục đúng bước và đúng câu. Xong bài: mục tiêu +1, chuỗi ngày học +1; nghỉ một ngày trọn thì chuỗi về 0.
+  Cài đặt), học theo thứ tự **Ôn** (thẻ đến hạn, tối đa 30 thẻ/ngày, đổi trong Cài đặt; không có thẻ thì tự xong) → **Đọc** → **Nghe** →
+  **Viết** (F8). Thoát ra vào lại thì tiếp tục đúng bước và đúng câu. Xong bài (nộp bài viết): mục tiêu +1, chuỗi ngày học +1; nghỉ một
+  ngày trọn thì chuỗi về 0. Bài đã xong trước khi có bước Viết vẫn tính là xong.
 - **Bài học** (header → **Bài học**, `/lessons`): bài hôm nay, các bài đã học (đọc/nghe lại, không đổi tiến độ), các bài sắp tới
   bị khoá — người học không mở được bài chưa tới lượt, quản trị viên thì được.
 
@@ -165,16 +180,39 @@ docker compose -f deploy/docker-compose.yml exec mongo mongosh luna --quiet --ev
 
 (`+ 7 * 3600e3` là múi giờ Việt Nam; đổi theo múi giờ của tài khoản.)
 
+## Bước Viết và bài viết
+
+Bước **Viết** (F8) đến sau bước Nghe và bắt buộc:
+
+- Bước Viết hiện đề viết của bài (F15), hoặc "Tóm tắt bài bằng 3–5 câu." khi bài chưa có đề.
+- Kèm theo là độ dài gợi ý theo trình độ (A1 30–60 từ, A2 50–80, B1 80–120, B2 120–180, C1 và C2 150–250).
+- Nháp tự lưu 1 giây sau khi ngừng gõ (`PUT /api/lessons/{id}/writing`); thoát ra vào lại hay mở máy khác vẫn còn.
+- **Nộp** (5–400 từ) hoàn thành bước Viết và bài hôm nay ngay, không chờ AI. Đã nộp thì không sửa hay nộp lại được.
+- Chỉ bài hôm nay đang ở bước Viết mới viết được; mở lại bài cũ (trang **Bài học** → **Bài viết**) chỉ xem.
+
+AI chấm ở nền (job `grade`, thử lại tối đa 3 lần, 1 request AI mỗi lần chấm):
+
+- Mỗi bài có điểm 1–5 và nhận xét tiếng Việt cho 4 tiêu chí: hoàn thành yêu cầu, ngữ pháp, từ vựng, mạch lạc.
+- Kèm theo là nhận xét chung, bản đã sửa và phần so sánh theo từ: gạch chân là chỗ thêm, gạch ngang là chỗ bớt, có nhãn cho trình
+  đọc màn hình.
+- Có kết quả thì header hiện số trên liên kết **Bài viết** và hiện một thông báo ngắn ở cuối trang. Trình duyệt chỉ hỏi máy chủ
+  mỗi 30 giây khi còn bài đang chấm.
+- Chấm lỗi (AI tắt, hết lượt, kết quả hỏng) thì bài viết vẫn còn, trang bài viết ghi lý do và có nút **Chấm lại**.
+
+Trang **Bài viết** (`/writings`) liệt kê bài đã nộp, mới nhất trước, kèm điểm trung bình hoặc trạng thái. Bài viết lưu trong
+collection `writings`, mỗi người một bài cho mỗi bài học.
+
 ## Màn hình chính và thống kê
 
-- **Màn hình chính** (`/`): chuỗi ngày học, thanh mục tiêu ("A1 · Gia đình", số bài đã xong / tổng số bài) kèm thanh Đọc và
-  Nghe (số bài của lộ trình hiện tại đã xong bước đó), bài hôm nay với thanh bước, nút **Bắt đầu: <bước>** (chưa xong bước nào) hoặc
+- **Màn hình chính** (`/`): chuỗi ngày học, thanh mục tiêu ("A1 · Gia đình", số bài đã xong / tổng số bài) kèm thanh Đọc,
+  Nghe và Viết (số bài của lộ trình hiện tại đã xong bước đó), bài hôm nay với thanh bước, nút **Bắt đầu: <bước>** (chưa xong bước nào) hoặc
   **Tiếp tục: <bước>** tới đúng bước đang dở, và số thẻ cần ôn tới hết ngày mai (gồm cả thẻ còn nợ). Chưa có mục tiêu → **Chọn
   chủ đề**; xong bài hôm nay → **Ôn tự do**; hết bài → **Ôn tự do** / **Chọn chủ đề khác**. Số liệu tải lại mỗi lần quay về trang;
   mở trang không làm bài hôm nay "bắt đầu".
 - **Thống kê** (màn hình chính → **Xem thống kê**, `/stats`): số từ đã học, số câu đã chép chính tả và tỷ lệ đúng, số bài đã
   xong bước Đọc / Nghe và số bài hoàn thành, tính trên mọi chủ đề. Thẻ **Hiểu bài** (F15) là tỷ lệ trả lời đúng câu hỏi hiểu bài
-  trên mọi câu đã trả lời (hiện "—" khi chưa trả lời câu nào).
+  trên mọi câu đã trả lời (hiện "—" khi chưa trả lời câu nào). Thẻ **Bài viết** (F8) có số bài viết đã nộp và điểm trung bình của
+  các bài đã chấm.
 - **Trạng thái kết nối** (F0) nằm ở chân trang và chỉ hiện khi không kết nối được máy chủ hoặc cơ sở dữ liệu (kiểm tra lại sau mỗi
   lần chuyển trang).
 
@@ -190,7 +228,8 @@ Thanh trên → **Cài đặt** (`/settings`); cài đặt lưu theo tài khoả
 - Cài đặt nằm trong `users.settings {theme, dailyReviewLimit, timezone}`; trường `timezone` cũ của tài khoản được chuyển vào đó tự
   động khi khởi động.
 - **Xuất dữ liệu** (nhóm Dữ liệu cuối trang, `GET /api/export`): tải file `luna-export-YYYYMMDD.json` gồm tài khoản (email, vai trò,
-  ngày tạo), cài đặt, sổ từ và lịch ôn, lịch sử ôn, mục tiêu, tiến độ từng bài, ngày học, kết quả chép chính tả, câu trả lời câu hỏi hiểu bài và nội dung các bài
+  ngày tạo), cài đặt, sổ từ và lịch ôn, lịch sử ôn, mục tiêu, tiến độ từng bài, ngày học, kết quả chép chính tả,
+  câu trả lời câu hỏi hiểu bài, bài viết (cả nháp) kèm nhận xét và nội dung các bài
   đã học (bài đã bị xoá ghi `deleted`). Chỉ có dữ liệu của tài khoản đang đăng nhập; không có mật khẩu hay phiên đăng nhập. Chưa
   nhập lại được từ file này.
 

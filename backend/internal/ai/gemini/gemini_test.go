@@ -294,3 +294,115 @@ func TestGenerateLessonsWithoutKeyMakesNoRequest(t *testing.T) {
 		t.Fatalf("made %d HTTP calls without a key", calls.Load())
 	}
 }
+
+func TestGradeWriting(t *testing.T) {
+	t.Parallel()
+
+	inner, _ := json.Marshal(ai.Grade{
+		Task: ai.Criterion{Score: 4, CommentVi: "Đúng đề."}, Grammar: ai.Criterion{Score: 3, CommentVi: "Sai thì."},
+		Vocabulary: ai.Criterion{Score: 4, CommentVi: "Đủ từ."}, Coherence: ai.Criterion{Score: 4, CommentVi: "Mạch lạc."},
+		OverallVi: "Khá tốt.", CorrectedText: "My family has four members.",
+	})
+	resp, _ := json.Marshal(map[string]any{"candidates": []any{map[string]any{
+		"content": map[string]any{"parts": []any{map[string]any{"text": string(inner)}}},
+	}}})
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewDecoder(r.Body).Decode(&body)
+		_, _ = w.Write(resp)
+	})
+
+	got, err := c.GradeWriting(t.Context(), ai.GradeRequest{
+		Level: "A1", LessonText: "Tom has a big family.", Prompt: "Write about your family.", Text: "My family have four people.",
+	})
+	if err != nil {
+		t.Fatalf("GradeWriting: %v", err)
+	}
+	if calls.Load() != 1 || got.Grammar.Score != 3 || got.CorrectedText != "My family has four members." {
+		t.Fatalf("calls %d got %+v", calls.Load(), got)
+	}
+
+	cfg := body["generationConfig"].(map[string]any)
+	if cfg["temperature"] != 0.3 {
+		t.Errorf("temperature = %v", cfg["temperature"])
+	}
+	schema := cfg["responseSchema"].(map[string]any)
+	props := schema["properties"].(map[string]any)
+	for _, k := range []string{"task", "grammar", "vocabulary", "coherence"} {
+		c, ok := props[k].(map[string]any)
+		if !ok || c["type"] != "OBJECT" || c["properties"].(map[string]any)["score"] == nil {
+			t.Errorf("criterion %s = %v", k, props[k])
+		}
+	}
+	if req, _ := json.Marshal(schema["required"]); string(req) != `["task","grammar","vocabulary","coherence","overallVi","correctedText"]` {
+		t.Errorf("required = %s", req)
+	}
+	prompt, _ := json.Marshal(body["contents"])
+	for _, s := range []string{"A1", "Write about your family.", "Tom has a big family.", "My family have four people.", "1 to 5"} {
+		if !strings.Contains(string(prompt), s) {
+			t.Errorf("prompt missing %q", s)
+		}
+	}
+}
+
+func TestGradeWritingErrors(t *testing.T) {
+	t.Parallel()
+	c, _ := newClient(t, "k", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusTooManyRequests) })
+	if _, err := c.GradeWriting(t.Context(), ai.GradeRequest{Text: "x"}); !errors.Is(err, ai.ErrQuota) {
+		t.Fatalf("429: %v", err)
+	}
+	noKey, calls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
+	if _, err := noKey.GradeWriting(t.Context(), ai.GradeRequest{Text: "x"}); !errors.Is(err, ai.ErrNotConfigured) || calls.Load() != 0 {
+		t.Fatalf("no key: %v, calls %d", err, calls.Load())
+	}
+}
+
+func TestExplain(t *testing.T) {
+	t.Parallel()
+
+	inner, _ := json.Marshal(ai.Explanation{Lemma: "make up for", MeaningVi: "bù lại", NoteVi: "Bù cho việc đến muộn."})
+	resp, _ := json.Marshal(map[string]any{"candidates": []any{map[string]any{
+		"content": map[string]any{"parts": []any{map[string]any{"text": string(inner)}}},
+	}}})
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewDecoder(r.Body).Decode(&body)
+		_, _ = w.Write(resp)
+	})
+
+	got, err := c.Explain(t.Context(), ai.ExplainRequest{
+		Text: "made up for", Sentence: "She made up for the lost time.", Level: "B1",
+	})
+	if err != nil {
+		t.Fatalf("Explain: %v", err)
+	}
+	if calls.Load() != 1 || got.Lemma != "make up for" || got.MeaningVi != "bù lại" || got.NoteVi == "" {
+		t.Fatalf("calls %d got %+v", calls.Load(), got)
+	}
+	cfg := body["generationConfig"].(map[string]any)
+	if cfg["temperature"] != 0.2 {
+		t.Errorf("temperature = %v", cfg["temperature"])
+	}
+	schema := cfg["responseSchema"].(map[string]any)
+	if req, _ := json.Marshal(schema["required"]); schema["type"] != "OBJECT" || string(req) != `["lemma","meaningVi","noteVi"]` {
+		t.Errorf("schema = %v", schema)
+	}
+	prompt, _ := json.Marshal(body["contents"])
+	for _, s := range []string{"B1", "She made up for the lost time.", "made up for"} {
+		if !strings.Contains(string(prompt), s) {
+			t.Errorf("prompt missing %q", s)
+		}
+	}
+}
+
+func TestExplainErrors(t *testing.T) {
+	t.Parallel()
+	c, _ := newClient(t, "k", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusTooManyRequests) })
+	if _, err := c.Explain(t.Context(), ai.ExplainRequest{Text: "x"}); !errors.Is(err, ai.ErrQuota) {
+		t.Fatalf("429: %v", err)
+	}
+	noKey, calls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
+	if _, err := noKey.Explain(t.Context(), ai.ExplainRequest{Text: "x"}); !errors.Is(err, ai.ErrNotConfigured) || calls.Load() != 0 {
+		t.Fatalf("no key: %v, calls %d", err, calls.Load())
+	}
+}

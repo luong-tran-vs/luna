@@ -32,6 +32,18 @@ describe('ReadingApiService', () => {
     await expect(result).resolves.toMatchObject({ lemma: 'give up' });
   });
 
+  it('asks the AI about a word of a sentence', async () => {
+    const result = firstValueFrom(api.ask('l1', 'gave up', 1));
+    const req = http.expectOne('/api/lessons/l1/ask');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ text: 'gave up', sentenceIndex: 1 });
+    req.flush({
+      result: { source: 'ai', text: 'gave up', lemma: 'give up', ipa: '', meanings: [{ pos: '', text: 'bỏ' }], note: 'n' },
+      cached: true,
+    });
+    await expect(result).resolves.toMatchObject({ cached: true, result: { lemma: 'give up', note: 'n' } });
+  });
+
   it('sends a comprehension answer', async () => {
     const result = firstValueFrom(api.answer('l1', { version: 2, questionIndex: 1, choice: 3 }));
     const req = http.expectOne('/api/lessons/l1/answers');

@@ -29,6 +29,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/tts"
 	"github.com/luongtran/luna/backend/internal/vocab"
+	"github.com/luongtran/luna/backend/internal/writing"
 )
 
 const (
@@ -103,21 +104,43 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	lessonTopics := lessonTopicsPort{topicSvc}
 	synth := tts.NewKokoro(cfg.TTSURL, cfg.TTSVoice, &http.Client{Timeout: ttsTimeout})
 	var worker *job.Worker
+	aiProvider := newAIProvider(cfg, log)
 	lessonSvc := lesson.NewService(lesson.Deps{
 		Lessons:  lessons,
 		Topics:   lessonTopics,
 		Jobs:     mongo.NewJobs(database),
 		TTS:      synth,
-		AI:       newAIProvider(cfg, log),
+		AI:       aiProvider,
 		AudioDir: cfg.AudioDir,
 		Notify:   func() { worker.Notify() },
 		Now:      time.Now,
 		Log:      log,
 	})
+	// The writing service needs the study service (Write step) and the other way round; the
+	// adapter gets the study service once it exists.
+	writeSteps := &writingSteps{}
+	writingSvc := writing.NewService(writing.Deps{
+		Repo:    mongo.NewWritings(database),
+		Lessons: writingLessons{lessons},
+		Steps:   writeSteps,
+		Jobs:    mongo.NewJobs(database),
+		AI:      aiProvider,
+		Notify:  func() { worker.Notify() },
+		Now:     time.Now,
+		Log:     log,
+	})
 	worker = job.NewWorker(mongo.NewJobs(database), map[job.Type]job.Handler{
 		job.TypeTTS:      lessonSvc.ProcessTTS,
 		job.TypeAnnotate: lessonSvc.ProcessAnnotate,
-	}, lessonSvc.JobFailed, time.Now, log)
+		job.TypeGrade:    writingSvc.ProcessGrade,
+	}, func(ctx context.Context, j job.Job, err error) {
+		// Grade jobs belong to a writing, the others to a lesson revision.
+		if j.Type == job.TypeGrade {
+			writingSvc.JobFailed(ctx, j, err)
+			return
+		}
+		lessonSvc.JobFailed(ctx, j, err)
+	}, time.Now, log)
 
 	// The worker must stop before the database connection closes (deferred above).
 	workerDone := make(chan struct{})
@@ -138,7 +161,7 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	exportSvc := export.NewService(mongo.NewExport(database), exportSettings{settingsSvc}, time.Now)
 	export.NewHandler(exportSvc, log).Register(mux, requireAuth)
 	lesson.NewHandler(lessonSvc, log).Register(mux, requireAuth, cfg.AudioDir)
-	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database))
+	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database), mongo.NewAILookups(database), aiProvider)
 	topic.NewHandler(topicSvc, log).Register(mux, requireAuth)
 	tts.NewWordAudio(synth, cfg.AudioDir).Register(mux, requireAuth)
 	vocabSvc := vocab.NewService(vocab.Deps{
@@ -169,6 +192,7 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Reviews:   dailyReviews{vocabSvc},
 		Timezones: settingsSvc,
 		Quiz:      readingQuiz{reader},
+		Writings:  writingSvc,
 		ReviewLimit: func(ctx context.Context, userID string) int {
 			n, err := settingsSvc.ReviewLimit(ctx, userID)
 			if err != nil {
@@ -184,6 +208,8 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	// Lesson content is guarded: learners open only today's lesson and lessons already started (L).
 	lesson.NewReadingHandler(reader, log).Register(mux, requireAuth, studyHandler.Guard)
 	progress.NewHandler(progressSvc, log).Register(mux, requireAuth, studyHandler.Guard)
+	writeSteps.svc = studySvc
+	writing.NewHandler(writingSvc, log).Register(mux, requireAuth, studyHandler.Guard)
 
 	srv := &http.Server{
 		Addr:              cfg.HTTPAddr,
@@ -451,4 +477,31 @@ func (q readingQuiz) Status(ctx context.Context, userID, lessonID string) (quest
 
 func (q readingQuiz) Totals(ctx context.Context, userID string) (answered, correct int, err error) {
 	return q.reader.Totals(ctx, userID)
+}
+
+// writingLessons adapts the lesson repository to writing.Lessons (F8).
+type writingLessons struct {
+	repo lesson.Repository
+}
+
+func (w writingLessons) Info(ctx context.Context, id string) (writing.LessonInfo, error) {
+	l, err := w.repo.Get(ctx, id)
+	if errors.Is(err, lesson.ErrNotFound) {
+		return writing.LessonInfo{}, writing.ErrNotFound
+	}
+	if err != nil {
+		return writing.LessonInfo{}, fmt.Errorf("get lesson: %w", err)
+	}
+	return writing.LessonInfo{
+		Title: l.Title, Level: string(l.Level), Content: l.Content, WritingPrompt: l.Extras.WritingPrompt, Revision: l.Revision,
+	}, nil
+}
+
+// writingSteps adapts progress.StudyService to writing.Steps; svc is set once it exists.
+type writingSteps struct {
+	svc *progress.StudyService
+}
+
+func (w *writingSteps) CanWrite(ctx context.Context, userID, lessonID string) (bool, error) {
+	return w.svc.CanWrite(ctx, userID, lessonID)
 }

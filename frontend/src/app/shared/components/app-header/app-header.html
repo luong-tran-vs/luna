@@ -18,6 +18,16 @@
     <nav class="account" aria-label="Tài khoản">
       <span class="email" [title]="user.email">{{ user.email }}</span>
       <a class="account-link" routerLink="/lessons">Bài học</a>
+      <a
+        class="account-link"
+        routerLink="/writings"
+        [attr.aria-label]="notifier.unseen() > 0 ? 'Bài viết, ' + notifier.unseen() + ' kết quả mới' : null"
+      >
+        Bài viết
+        @if (notifier.unseen() > 0) {
+          <span class="badge" aria-hidden="true">{{ notifier.unseen() }}</span>
+        }
+      </a>
       <a class="account-link" routerLink="/vocabulary">Sổ từ</a>
       <a class="account-link" routerLink="/settings">Cài đặt</a>
       @if (auth.isAdmin()) {

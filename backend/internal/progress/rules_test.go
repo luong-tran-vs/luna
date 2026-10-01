@@ -146,7 +146,8 @@ func TestNextStep(t *testing.T) {
 		{nil, StepReview},
 		{map[Step]bool{StepReview: true}, StepRead},
 		{map[Step]bool{StepReview: true, StepRead: true}, StepListen},
-		{map[Step]bool{StepReview: true, StepRead: true, StepListen: true}, StepDone},
+		{map[Step]bool{StepReview: true, StepRead: true, StepListen: true}, StepWrite},
+		{map[Step]bool{StepReview: true, StepRead: true, StepListen: true, StepWrite: true}, StepDone},
 		{map[Step]bool{StepRead: true}, StepReview},
 	}
 	for _, tc := range cases {

@@ -36,6 +36,9 @@
           </li>
         }
       </ul>
+      @if (r.note) {
+        <p class="note">{{ r.note }}</p>
+      }
       @if (saved()) {
         <p class="saved" role="status">✓ Đã có trong sổ</p>
       } @else {
@@ -68,6 +71,18 @@
         <button type="button" class="btn-primary" [disabled]="saving()" (click)="saveManual()">Lưu</button>
       }
     }
+  }
+
+  @if (canAsk()) {
+    <button type="button" class="btn-ask" [disabled]="asking()" (click)="ask.emit()">
+      {{ asking() ? 'Đang hỏi AI…' : 'Hỏi AI' }}
+    </button>
+    @if (asking()) {
+      <p class="visually-hidden" role="status">Đang hỏi AI…</p>
+    }
+  }
+  @if (askError(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
   }
 
   @if (error(); as message) {

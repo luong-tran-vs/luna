@@ -1,0 +1,58 @@
+.writing {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.prompt-label {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.prompt-text,
+.text {
+  font: var(--text-reading) var(--font-ui);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.field textarea {
+  width: 100%;
+  min-height: 12rem;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-reading) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+  resize: vertical;
+}
+
+.field textarea[aria-invalid='true'] {
+  border: 2px solid var(--color-bad);
+}
+
+.save-status {
+  min-height: 20px;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.save-error {
+  color: var(--color-bad);
+}
+
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.result a {
+  color: var(--color-primary-ink);
+  font-weight: 600;
+}

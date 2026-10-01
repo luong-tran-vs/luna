@@ -18,9 +18,9 @@ const studying = (over: Partial<Dashboard> = {}): Dashboard => ({
     effectiveFrom: '2026-09-30',
   },
   goalCompleted: false,
-  skills: { read: 3, listen: 2, total: 12 },
+  skills: { read: 3, listen: 2, write: 1, total: 12 },
   lesson: { id: 'l1', title: 'At the café', topicName: 'Gia đình', level: 'A1' },
-  steps: { review: 'done', read: 'current', listen: 'locked' },
+  steps: { review: 'done', read: 'current', listen: 'locked', write: 'locked' },
   currentStep: 'read',
   action: { kind: 'continue', step: 'read' },
   streak: 4,
@@ -34,7 +34,7 @@ const noGoal: Dashboard = {
   goal: null,
   skills: null,
   lesson: null,
-  steps: { review: 'locked', read: 'locked', listen: 'locked' },
+  steps: { review: 'locked', read: 'locked', listen: 'locked', write: 'locked' },
   currentStep: '',
   action: null,
   streak: 1,
@@ -133,7 +133,7 @@ describe('Home', () => {
     await open(
       studying({
         kind: 'doneToday',
-        steps: { review: 'done', read: 'done', listen: 'done' },
+        steps: { review: 'done', read: 'done', listen: 'done', write: 'done' },
         currentStep: 'done',
         action: null,
         tomorrowCards: 9,
@@ -141,7 +141,7 @@ describe('Home', () => {
     );
     expect(text(el.querySelector('[role="status"] .card-title'))).toBe('Đã xong bài hôm nay, hẹn bạn ngày mai');
     expect(link('Ôn tự do')?.getAttribute('href')).toBe('/vocabulary/review');
-    expect(el.querySelectorAll('.lesson li[data-state="done"]').length).toBe(3);
+    expect(el.querySelectorAll('.lesson li[data-state="done"]').length).toBe(4);
     expect(link('Tiếp tục: Đọc')).toBeNull();
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 9 thẻ cần ôn');
   });
@@ -161,20 +161,19 @@ describe('Home', () => {
 
   // --- US3 ---
 
-  it('shows the read and listen bars only', async () => {
+  it('shows the read, listen and write bars', async () => {
     await open(studying());
     const bars = Array.from(el.querySelectorAll('.skills lu-progress-bar'));
-    expect(bars.map((b) => text(b.querySelector('.label')))).toEqual(['Đọc', 'Nghe']);
-    expect(bars.map((b) => text(b.querySelector('.count')))).toEqual(['3/12', '2/12']);
-    expect(bars.map((b) => b.getAttribute('data-tone'))).toEqual(['read', 'listen']);
-    expect(text(el)).not.toContain('Viết');
+    expect(bars.map((b) => text(b.querySelector('.label')))).toEqual(['Đọc', 'Nghe', 'Viết']);
+    expect(bars.map((b) => text(b.querySelector('.count')))).toEqual(['3/12', '2/12', '1/12']);
+    expect(bars.map((b) => b.getAttribute('data-tone'))).toEqual(['read', 'listen', 'write']);
     expect(text(el)).not.toContain('Nói');
   });
 
   it('loads fresh numbers every time the page opens', async () => {
     await open(studying());
     fixture.destroy();
-    await open(studying({ skills: { read: 4, listen: 2, total: 12 }, action: { kind: 'continue', step: 'listen' } }));
+    await open(studying({ skills: { read: 4, listen: 2, write: 1, total: 12 }, action: { kind: 'continue', step: 'listen' } }));
     expect(text(el.querySelector('.skills lu-progress-bar .count'))).toBe('4/12');
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
   });

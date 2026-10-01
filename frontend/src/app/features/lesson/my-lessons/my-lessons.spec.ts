@@ -47,6 +47,7 @@ describe('MyLessons', () => {
     expect(text(done[0])).toContain('Gia đình');
     expect(done[0].querySelector('a[href="/lessons/l2/read?review=1"]')).toBeTruthy();
     expect(done[0].querySelector('a[href="/lessons/l2/listen?review=1"]')).toBeTruthy();
+    expect(done[0].querySelector('a[href="/lessons/l2/write?review=1"]')?.textContent).toContain('Bài viết');
 
     const upcoming = Array.from(el.querySelectorAll('.upcoming li'));
     expect(text(upcoming[0])).toContain('At the bank');

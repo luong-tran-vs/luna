@@ -61,6 +61,15 @@ export interface LookupResult {
   lemma: string;
   ipa: string;
   meanings: { pos: string; text: string }[];
+  /** Short Vietnamese explanation of an AI answer in context (F9); empty otherwise. */
+  note?: string;
+}
+
+/** POST /api/lessons/{id}/ask (F9). */
+export interface AskResult {
+  result: LookupResult;
+  /** Served from the stored answers, without calling the AI. */
+  cached: boolean;
 }
 
 /** One piece of a sentence: a clickable word or the text between words. */

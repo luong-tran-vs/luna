@@ -9,8 +9,9 @@ import { Stats } from './stats';
 const sample: StatsData = {
   cards: 25,
   dictation: { sentences: 40, correctWords: 328, totalWords: 400, rate: 0.82 },
-  lessons: { read: 6, listen: 5, completed: 5 },
+  lessons: { read: 6, listen: 5, write: 4, completed: 4 },
   reading: { answered: 0, correct: 0, rate: null },
+  writing: { submitted: 4, averageScore: 3.75 },
 };
 
 describe('Stats', () => {
@@ -46,7 +47,9 @@ describe('Stats', () => {
     expect(text(el.querySelector('.rate'))).toBe('Tỷ lệ đúng 82%');
     expect(page).toContain('Đọc: 6 bài');
     expect(page).toContain('Nghe: 5 bài');
-    expect(page).toContain('Hoàn thành: 5 bài');
+    expect(page).toContain('Viết: 4 bài');
+    expect(page).toContain('Hoàn thành: 4 bài');
+    expect(Array.from(el.querySelectorAll('.writing dd')).map((d) => text(d))).toEqual(['4 bài viết', 'Điểm trung bình 3,8']);
     expect(el.querySelector('a[href="/"]')).not.toBeNull();
   });
 
@@ -55,13 +58,15 @@ describe('Stats', () => {
     controller.expectOne('/api/stats').flush({
       cards: 0,
       dictation: { sentences: 0, correctWords: 0, totalWords: 0, rate: null },
-      lessons: { read: 0, listen: 0, completed: 0 },
+      lessons: { read: 0, listen: 0, write: 0, completed: 0 },
+      writing: { submitted: 0, averageScore: null },
       reading: { answered: 0, correct: 0, rate: null },
     });
     await fixture.whenStable();
     expect(text(el)).toContain('0 từ đã học');
     expect(text(el.querySelector('.rate'))).toBe('Tỷ lệ đúng —');
     expect(text(el.querySelector('.reading .rate'))).toBe('Trả lời đúng —');
+    expect(text(el.querySelector('.writing .rate'))).toBe('Điểm trung bình —');
     expect(text(el.querySelector('.reading'))).toContain('Trả lời câu hỏi ở bước Đọc để xem tỷ lệ.');
   });
 

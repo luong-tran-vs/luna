@@ -98,6 +98,40 @@ var generateSchema = map[string]any{
 	},
 }
 
+var criterionSchema = map[string]any{
+	"type": "OBJECT",
+	"properties": map[string]any{
+		"score":     map[string]any{"type": "INTEGER"},
+		"commentVi": map[string]any{"type": "STRING"},
+	},
+	"required": []string{"score", "commentVi"},
+}
+
+// gradeSchema forces the four fixed criteria, an overall comment and the corrected text (F8).
+var gradeSchema = map[string]any{
+	"type": "OBJECT",
+	"properties": map[string]any{
+		"task":          criterionSchema,
+		"grammar":       criterionSchema,
+		"vocabulary":    criterionSchema,
+		"coherence":     criterionSchema,
+		"overallVi":     map[string]any{"type": "STRING"},
+		"correctedText": map[string]any{"type": "STRING"},
+	},
+	"required": []string{"task", "grammar", "vocabulary", "coherence", "overallVi", "correctedText"},
+}
+
+// explainSchema forces the base form, the meaning in context and a short note (F9).
+var explainSchema = map[string]any{
+	"type": "OBJECT",
+	"properties": map[string]any{
+		"lemma":     map[string]any{"type": "STRING"},
+		"meaningVi": map[string]any{"type": "STRING"},
+		"noteVi":    map[string]any{"type": "STRING"},
+	},
+	"required": []string{"lemma", "meaningVi", "noteVi"},
+}
+
 type part struct {
 	Text string `json:"text"`
 }
@@ -144,6 +178,36 @@ func (c *Client) GenerateLessons(ctx context.Context, req ai.GenerateRequest) ([
 	var out []ai.LessonDraft
 	if err := json.Unmarshal([]byte(text), &out); err != nil {
 		return nil, fmt.Errorf("gemini: decode drafts: %w", err)
+	}
+	return out, nil
+}
+
+// GradeWriting sends one generateContent request that grades a writing on four criteria.
+// Only the word count is logged, never the text.
+func (c *Client) GradeWriting(ctx context.Context, req ai.GradeRequest) (ai.Grade, error) {
+	text, err := c.generate(ctx, "grade", gradePrompt(req), gradeSchema, 0.3,
+		slog.Int("words", len(strings.Fields(req.Text))))
+	if err != nil {
+		return ai.Grade{}, err
+	}
+	var out ai.Grade
+	if err := json.Unmarshal([]byte(text), &out); err != nil {
+		return ai.Grade{}, fmt.Errorf("gemini: decode grade: %w", err)
+	}
+	return out, nil
+}
+
+// Explain sends one generateContent request for the meaning of a word or phrase in its
+// sentence. Only the word count is logged, never the sentence.
+func (c *Client) Explain(ctx context.Context, req ai.ExplainRequest) (ai.Explanation, error) {
+	text, err := c.generate(ctx, "explain", explainPrompt(req), explainSchema, 0.2,
+		slog.Int("words", len(strings.Fields(req.Text))))
+	if err != nil {
+		return ai.Explanation{}, err
+	}
+	var out ai.Explanation
+	if err := json.Unmarshal([]byte(text), &out); err != nil {
+		return ai.Explanation{}, fmt.Errorf("gemini: decode explanation: %w", err)
 	}
 	return out, nil
 }
@@ -295,4 +359,42 @@ no stage directions.
 	}
 	b.WriteString("Return plain text only, no markdown, no headings inside the content.\n")
 	return b.String()
+}
+
+func gradePrompt(req ai.GradeRequest) string {
+	var b strings.Builder
+	fmt.Fprintf(&b, `You are an English teacher grading a short writing by a Vietnamese learner at CEFR level %s.
+The learner read the lesson below, then wrote about the writing task.
+Grade each criterion with an integer score from 1 to 5 (1 = very weak, 5 = excellent for this level):
+- task: does the writing answer the task and use the lesson?
+- grammar: accuracy of grammar,
+- vocabulary: range and correct use of words,
+- coherence: organisation and linking of ideas.
+For each criterion write commentVi: a short, specific comment in Vietnamese with one or two examples
+quoted from the learner's writing. Also write overallVi: two or three sentences of advice in Vietnamese.
+correctedText: the learner's writing with minimal corrections, keeping their ideas and structure.
+Plain text only, no markdown.
+
+Writing task: %s
+
+Lesson:
+%s
+
+Learner's writing:
+%s
+`, req.Level, req.Prompt, req.LessonText, req.Text)
+	return b.String()
+}
+
+func explainPrompt(req ai.ExplainRequest) string {
+	return fmt.Sprintf(`You help a Vietnamese learner of English at CEFR level %s.
+In the sentence below, explain the words "%s" exactly as they are used in this sentence.
+Return:
+- lemma: the dictionary form (e.g. "made up for" -> "make up for"),
+- meaningVi: a short Vietnamese meaning that fits this sentence,
+- noteVi: one short Vietnamese sentence explaining how it is used here.
+Plain text only, no markdown.
+
+Sentence: %s
+`, req.Level, req.Text, req.Sentence)
 }

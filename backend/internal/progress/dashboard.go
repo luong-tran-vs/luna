@@ -46,9 +46,9 @@ func NextAction(done map[Step]bool, current Step, reviewCount int) *Action {
 	return a
 }
 
-// SkillCounts are the lessons of the current roadmap with the read / listen step done.
+// SkillCounts are the lessons of the current roadmap with the read / listen / write step done.
 type SkillCounts struct {
-	Read, Listen, Total int
+	Read, Listen, Write, Total int
 }
 
 // DashboardLesson is today's lesson with its topic.
@@ -90,7 +90,7 @@ func (s *StudyService) Dashboard(ctx context.Context, userID string) (DashboardV
 		if err != nil {
 			return DashboardView{}, fmt.Errorf("progress: step counts: %w", err)
 		}
-		out.Skills = &SkillCounts{Read: c.Read, Listen: c.Listen, Total: len(d.topic.LessonIDs)}
+		out.Skills = &SkillCounts{Read: c.Read, Listen: c.Listen, Write: c.Write, Total: len(d.topic.LessonIDs)}
 	}
 	if v.Lesson != nil {
 		p, _, err := s.d.Progress.Get(ctx, userID, v.Lesson.ID)

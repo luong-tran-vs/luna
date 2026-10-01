@@ -34,6 +34,9 @@
                 <a class="btn" [routerLink]="['/lessons', l.id, 'listen']" [queryParams]="{ review: 1 }">
                   Nghe lại<span class="visually-hidden"> {{ l.title }}</span>
                 </a>
+                <a class="btn" [routerLink]="['/lessons', l.id, 'write']" [queryParams]="{ review: 1 }">
+                  Bài viết<span class="visually-hidden"> {{ l.title }}</span>
+                </a>
               </div>
             </li>
           }

@@ -11,14 +11,15 @@ import { ReviewSession } from '../../../shared/components/review-session/review-
 import { StepIndicator } from '../../../shared/components/step-indicator/step-indicator';
 import { Listening } from '../listening/listening';
 import { Reading } from '../reading/reading';
+import { Writing } from '../writing/writing';
 
 /** Delay before saving the reading or listening position (khối 2: debounce 1 s). */
 const POSITION_DELAY = 1000;
 
-/** Today's lesson (L): goal, streak, steps Ôn → Đọc → Nghe, and the current step itself. */
+/** Today's lesson (L): goal, streak, steps Ôn → Đọc → Nghe → Viết, and the current step itself. */
 @Component({
   selector: 'lu-today',
-  imports: [Listening, Reading, ReviewSession, RouterLink, StepIndicator],
+  imports: [Listening, Reading, ReviewSession, RouterLink, StepIndicator, Writing],
   templateUrl: './today.html',
   styleUrl: './today.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

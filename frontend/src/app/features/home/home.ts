@@ -8,7 +8,7 @@ import { DashboardApiService } from '../../core/services/dashboard-api.service';
 import { ProgressBar } from '../../shared/components/progress-bar/progress-bar';
 import { StepIndicator } from '../../shared/components/step-indicator/step-indicator';
 
-const STEP_LABELS: Record<Step, string> = { review: 'Ôn', read: 'Đọc', listen: 'Nghe' };
+const STEP_LABELS: Record<Step, string> = { review: 'Ôn', read: 'Đọc', listen: 'Nghe', write: 'Viết' };
 
 /**
  * The home page (F6): goal, skills, today's lesson and the button to its current step. Numbers

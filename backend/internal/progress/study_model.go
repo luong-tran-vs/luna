@@ -13,12 +13,13 @@ const (
 	StepReview Step = "review"
 	StepRead   Step = "read"
 	StepListen Step = "listen"
+	StepWrite  Step = "write"
 	// StepDone is the current step once every step is done.
 	StepDone Step = "done"
 )
 
-// Steps lists the steps in study order (phase 1: review, read, listen).
-var Steps = []Step{StepReview, StepRead, StepListen}
+// Steps lists the steps in study order (F8 adds write after listen).
+var Steps = []Step{StepReview, StepRead, StepListen, StepWrite}
 
 // ValidStep reports whether s is one of Steps.
 func ValidStep(s Step) bool { return slices.Contains(Steps, s) }
@@ -88,9 +89,9 @@ type TodayState struct {
 	Started bool
 }
 
-// StepCounts counts lessons by the steps done: Read and Listen steps, and completed lessons.
+// StepCounts counts lessons by the steps done (Read, Listen, Write) and completed lessons.
 type StepCounts struct {
-	Read, Listen, Completed int
+	Read, Listen, Write, Completed int
 }
 
 // TopicInfo is a topic with its roadmap (from F14).
@@ -107,6 +108,7 @@ var (
 	ErrStepLocked       = errors.New("progress: previous step not done")
 	ErrListenIncomplete = errors.New("progress: dictation not finished")
 	ErrReadIncomplete   = errors.New("progress: comprehension questions not answered")
+	ErrWriteIncomplete  = errors.New("progress: writing not submitted")
 	ErrNoLesson         = errors.New("progress: no lesson today")
 	ErrNotCurrentStep   = errors.New("progress: not the current step")
 	ErrLessonLocked     = errors.New("progress: lesson not open yet")

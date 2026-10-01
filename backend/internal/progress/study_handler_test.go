@@ -100,7 +100,7 @@ func TestTodayEndpoints(t *testing.T) {
 		want        string
 	}{
 		{"/api/today/steps/read/complete", "an", http.StatusConflict, `"step_locked"`},
-		{"/api/today/steps/write/complete", "an", http.StatusBadRequest, `"step"`},
+		{"/api/today/steps/speak/complete", "an", http.StatusBadRequest, `"step"`},
 		{"/api/today/steps/review/complete", "binh", http.StatusConflict, `"no_lesson"`},
 		{"/api/today/steps/review/complete", "", http.StatusUnauthorized, ""},
 	}
@@ -135,8 +135,18 @@ func TestTodayEndpoints(t *testing.T) {
 	}
 	e.finishDictation(t)
 	r = do(t, mux, http.MethodPost, "/api/today/steps/listen/complete", "an", "")
-	if !strings.Contains(r.text, `"kind":"doneToday"`) || !strings.Contains(r.text, `"streak":1`) || !strings.Contains(r.text, `"currentStep":"done"`) {
+	if !strings.Contains(r.text, `"currentStep":"write"`) || strings.Contains(r.text, `"kind":"doneToday"`) {
 		t.Fatalf("listen: %s", r.text)
+	}
+
+	// F8: the lesson is done once the writing is submitted.
+	if r := do(t, mux, http.MethodPost, "/api/today/steps/write/complete", "an", ""); r.code != http.StatusConflict || !strings.Contains(r.text, `"write_incomplete"`) {
+		t.Fatalf("write early: %d %s", r.code, r.text)
+	}
+	e.submitWriting(t)
+	r = do(t, mux, http.MethodPost, "/api/today/steps/write/complete", "an", "")
+	if !strings.Contains(r.text, `"kind":"doneToday"`) || !strings.Contains(r.text, `"streak":1`) || !strings.Contains(r.text, `"currentStep":"done"`) {
+		t.Fatalf("write: %s", r.text)
 	}
 }
 

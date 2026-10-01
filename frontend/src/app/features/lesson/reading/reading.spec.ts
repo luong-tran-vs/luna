@@ -184,6 +184,126 @@ describe('Reading', () => {
     });
   });
 
+  // --- F9: Hỏi AI ---
+
+  describe('asking the AI', () => {
+    const askedSmoking: LookupResult = {
+      source: 'ai', text: 'smoking', lemma: 'smoking', ipa: '',
+      meanings: [{ pos: '', text: 'việc hút thuốc' }], note: 'Danh động từ sau "gave up".',
+    };
+    const expectAsk = (text: string, sentenceIndex: number) => {
+      const req = http.expectOne('/api/lessons/l1/ask');
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({ text, sentenceIndex });
+      return req;
+    };
+    const openSmoking = async () => {
+      word(1, 'smoking').click();
+      await settle();
+      expectLookup('smoking', 1).flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
+      await settle();
+    };
+
+    beforeEach(() => setup());
+
+    it('asks about an unknown word, shows the answer and saves it as an AI meaning', async () => {
+      await openSmoking();
+      popupButton('Hỏi AI')!.click();
+      await settle();
+      expect(popupButton('Đang hỏi AI…')?.disabled).toBe(true);
+      expectAsk('smoking', 1).flush({ result: askedSmoking, cached: false });
+      await settle();
+      expect(popup()?.textContent).toContain('việc hút thuốc');
+      expect(popup()?.textContent).toContain('Danh động từ');
+      expect(popupButton('Hỏi AI')).toBeUndefined();
+
+      popupButton('Lưu vào sổ từ')!.click();
+      await settle();
+      const req = http.expectOne('/api/vocab/cards');
+      expect(req.request.body).toMatchObject({
+        text: 'smoking', lemma: 'smoking', meaningVi: 'việc hút thuốc', source: 'ai',
+        contextSentence: 'He gave up smoking last year in the city.',
+      });
+      req.flush({ card: { id: 'c3' } }, { status: 201, statusText: 'Created' });
+      await settle();
+    });
+
+    it('asks about a dictionary word', async () => {
+      word(0, 'park').click();
+      await settle();
+      expectLookup('park', 0).flush({ source: 'dictionary', text: 'park', lemma: 'park', ipa: '', meanings: [{ pos: 'N', text: 'Công viên.' }] });
+      await settle();
+      popupButton('Hỏi AI')!.click();
+      await settle();
+      expectAsk('park', 0).flush({
+        result: { source: 'ai', text: 'park', lemma: 'park', ipa: '', meanings: [{ pos: '', text: 'công viên' }], note: 'n' },
+        cached: true,
+      });
+      await settle();
+      expect(popup()?.textContent).toContain('AI · theo ngữ cảnh');
+    });
+
+    it('keeps the dictionary meaning and shows the server message when the AI fails', async () => {
+      word(0, 'park').click();
+      await settle();
+      expectLookup('park', 0).flush({ source: 'dictionary', text: 'park', lemma: 'park', ipa: '', meanings: [{ pos: 'N', text: 'Công viên.' }] });
+      await settle();
+      popupButton('Hỏi AI')!.click();
+      await settle();
+      expectAsk('park', 0).flush(
+        { error: 'ai_quota', message: 'Đã hết lượt AI, vui lòng thử lại sau.' },
+        { status: 429, statusText: 'Too Many Requests' },
+      );
+      await settle();
+      expect(popup()?.querySelector('[role="alert"]')?.textContent).toContain('Đã hết lượt AI');
+      expect(popup()?.textContent).toContain('Công viên.');
+      expect(popupButton('Hỏi AI')?.disabled).toBe(false);
+
+      popupButton('Lưu vào sổ từ')!.click();
+      await settle();
+      const req = http.expectOne('/api/vocab/cards');
+      expect(req.request.body).toMatchObject({ lemma: 'park', meaningVi: 'Công viên.', source: 'dictionary' });
+      req.flush({ card: { id: 'c4' } }, { status: 201, statusText: 'Created' });
+      await settle();
+    });
+
+    it('keeps the manual meaning field when the AI is not configured', async () => {
+      await openSmoking();
+      popupButton('Hỏi AI')!.click();
+      await settle();
+      expectAsk('smoking', 1).flush(
+        { error: 'ai_not_configured', message: 'AI chưa được cấu hình. Liên hệ người vận hành.' },
+        { status: 503, statusText: 'Service Unavailable' },
+      );
+      await settle();
+      expect(popup()?.querySelector('[role="alert"]')?.textContent).toContain('AI chưa được cấu hình');
+      expect(popup()?.querySelector('input[name="meaning"]')).not.toBeNull();
+    });
+
+    it('shows a generic message on a network error', async () => {
+      await openSmoking();
+      popupButton('Hỏi AI')!.click();
+      await settle();
+      expectAsk('smoking', 1).error(new ProgressEvent('error'));
+      await settle();
+      expect(popup()?.querySelector('[role="alert"]')?.textContent).toContain('Không hỏi được AI');
+    });
+
+    it('drops the answer when another word was opened meanwhile', async () => {
+      await openSmoking();
+      popupButton('Hỏi AI')!.click();
+      await settle();
+      const req = expectAsk('smoking', 1);
+      word(0, 'went').click();
+      await settle();
+      expect(req.cancelled).toBe(true);
+      expectLookup('went', 0).flush(wentResult);
+      await settle();
+      expect(popup()?.textContent).toContain('đã đi');
+      expect(popup()?.querySelector('[role="alert"]')).toBeNull();
+    });
+  });
+
   it('shows a message for a missing lesson', async () => {
     vi.stubGlobal('IntersectionObserver', undefined);
     await TestBed.configureTestingModule({

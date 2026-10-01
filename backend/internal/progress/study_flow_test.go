@@ -51,7 +51,7 @@ func TestCompleteStepOrderAndIdempotence(t *testing.T) {
 		t.Fatalf("read first: %v", err)
 	}
 	var verr *ValidationError
-	if _, err := e.svc.CompleteStep(t.Context(), "u1", "write"); !errors.As(err, &verr) {
+	if _, err := e.svc.CompleteStep(t.Context(), "u1", "speak"); !errors.As(err, &verr) {
 		t.Fatalf("unknown step: %v", err)
 	}
 	e.reviews.review("u1", 3, e.clock.now())

@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { ResolvedTheme, ThemeService } from '../../../core/services/theme.service';
+import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 
 interface ThemeOption {
   value: ResolvedTheme;
@@ -34,6 +35,7 @@ const MENU_POSITIONS: ConnectedPosition[] = [
 export class AppHeader {
   protected readonly theme = inject(ThemeService);
   protected readonly auth = inject(AuthService);
+  protected readonly notifier = inject(WritingNotifier);
   private readonly router = inject(Router);
   protected readonly options = OPTIONS;
   protected readonly menuPositions = MENU_POSITIONS;

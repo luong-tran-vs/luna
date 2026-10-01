@@ -4,6 +4,7 @@ import { provideRouter, Router } from '@angular/router';
 
 import { User } from '../../../core/models/user';
 import { AuthService } from '../../../core/services/auth.service';
+import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 import { ThemeService } from '../../../core/services/theme.service';
 import { AppHeader } from './app-header';
 
@@ -20,6 +21,7 @@ describe('AppHeader', () => {
   };
 
   const user = signal<User | null>(null);
+  const unseen = signal(0);
   const logout = vi.fn(async () => user.set(null));
   const authStub = {
     currentUser: user,
@@ -33,12 +35,17 @@ describe('AppHeader', () => {
   };
 
   beforeEach(async () => {
+    unseen.set(0);
     user.set(null);
     logout.mockClear();
     localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [AppHeader],
-      providers: [provideRouter([]), { provide: AuthService, useValue: authStub }],
+      providers: [
+        provideRouter([]),
+        { provide: AuthService, useValue: authStub },
+        { provide: WritingNotifier, useValue: { unseen } },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppHeader);
@@ -99,6 +106,20 @@ describe('AppHeader', () => {
       expect(el.querySelector('a[href="/vocabulary"]')?.textContent?.trim()).toBe('Sổ từ');
       expect(el.querySelector('a[href="/settings"]')?.textContent?.trim()).toBe('Cài đặt');
       expect(el.querySelector('a[href="/lessons"]')?.textContent?.trim()).toBe('Bài học');
+    });
+
+    it('links to the writings with the number of new results (F8)', async () => {
+      await loginAs('learner');
+      const link = () => el.querySelector('a[href="/writings"]')!;
+      expect(link().textContent?.trim()).toBe('Bài viết');
+      expect(link().getAttribute('aria-label')).toBeNull();
+      unseen.set(2);
+      await fixture.whenStable();
+      expect(link().querySelector('.badge')?.textContent?.trim()).toBe('2');
+      expect(link().getAttribute('aria-label')).toBe('Bài viết, 2 kết quả mới');
+      unseen.set(0);
+      await fixture.whenStable();
+      expect(link().querySelector('.badge')).toBeNull();
     });
 
     it('shows the email and a logout button when logged in', async () => {

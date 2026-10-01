@@ -1,0 +1,85 @@
+.detail {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.back {
+  justify-self: start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-primary-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.title {
+  font: var(--text-xl) var(--font-ui);
+}
+
+.label {
+  font-weight: 600;
+}
+
+.failed {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.average {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.criteria {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .criteria {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.criterion-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-weight: 600;
+}
+
+.section-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.text {
+  font: var(--text-reading) var(--font-ui);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Underline / strike-through carry the meaning; colour only adds to it. */
+ins {
+  text-decoration: underline 2px;
+  text-underline-offset: 3px;
+  color: var(--color-ok);
+}
+
+del {
+  text-decoration: line-through 2px;
+  color: var(--color-bad);
+}

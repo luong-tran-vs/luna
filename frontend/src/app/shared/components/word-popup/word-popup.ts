@@ -49,12 +49,17 @@ export class WordPopup {
   readonly saved = input(false);
   readonly saving = input(false);
   readonly error = input<string | null>(null);
+  /** An "Hỏi AI" request is running (F9). */
+  readonly asking = input(false);
+  readonly askError = input<string | null>(null);
 
   readonly closed = output<void>();
   /** Save with the shown meaning, or with a meaning typed by the learner. */
   readonly save = output<string | undefined>();
   /** The learner wants to hear the word (named listen: "play" is a DOM media event). */
   readonly listen = output<void>();
+  /** The learner asks the AI what the selection means in its sentence (F9). */
+  readonly ask = output<void>();
 
   protected readonly titleId = `word-popup-title-${nextId++}`;
   protected readonly manualMeaning = signal('');
@@ -67,6 +72,11 @@ export class WordPopup {
   protected readonly sourceLabel = computed(() => {
     const r = this.result();
     return r ? SOURCE_LABELS[r.source] : '';
+  });
+  /** Offered when nothing was found or the meaning does not come from the AI. */
+  protected readonly canAsk = computed(() => {
+    const s = this.state();
+    return s.kind === 'not-found' || (s.kind === 'result' && s.result.source !== 'ai');
   });
   protected readonly showLemma = computed(() => {
     const r = this.result();

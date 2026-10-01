@@ -349,6 +349,7 @@ func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonID
 			{Key: "_id", Value: nil},
 			{Key: "read", Value: count(bson.D{{Key: "$eq", Value: bson.A{"$steps.read", true}}})},
 			{Key: "listen", Value: count(bson.D{{Key: "$eq", Value: bson.A{"$steps.listen", true}}})},
+			{Key: "write", Value: count(bson.D{{Key: "$eq", Value: bson.A{"$steps.write", true}}})},
 			// A missing completedAt sorts below null; a date above it.
 			{Key: "completed", Value: count(bson.D{{Key: "$gt", Value: bson.A{"$completedAt", nil}}})},
 		}}},
@@ -359,6 +360,7 @@ func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonID
 	var rows []struct {
 		Read      int `bson:"read"`
 		Listen    int `bson:"listen"`
+		Write     int `bson:"write"`
 		Completed int `bson:"completed"`
 	}
 	if err := cur.All(ctx, &rows); err != nil {
@@ -367,7 +369,7 @@ func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonID
 	if len(rows) == 0 {
 		return progress.StepCounts{}, nil
 	}
-	return progress.StepCounts{Read: rows[0].Read, Listen: rows[0].Listen, Completed: rows[0].Completed}, nil
+	return progress.StepCounts{Read: rows[0].Read, Listen: rows[0].Listen, Write: rows[0].Write, Completed: rows[0].Completed}, nil
 }
 
 // LatestKey is the user's latest study day, "" when none.

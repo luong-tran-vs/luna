@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
-export type ProgressTone = 'primary' | 'read' | 'listen';
+export type ProgressTone = 'primary' | 'read' | 'listen' | 'write';
 
 /** A labelled progress bar with "value/max unit" text, readable by screen readers (F6). */
 @Component({
@@ -33,6 +33,9 @@ export type ProgressTone = 'primary' | 'read' | 'listen';
     }
     :host([data-tone='listen']) {
       --fill: var(--color-skill-listen);
+    }
+    :host([data-tone='write']) {
+      --fill: var(--color-skill-write);
     }
     .head {
       display: flex;

@@ -6,6 +6,7 @@ import { GoalView, Step, StepState, TodayKind } from './study';
 export interface SkillCounts {
   read: number;
   listen: number;
+  write: number;
   /** Lessons in the current roadmap. */
   total: number;
 }
@@ -49,6 +50,7 @@ export interface Stats {
   lessons: {
     read: number;
     listen: number;
+    write: number;
     completed: number;
   };
   /** Comprehension answers (F15). */
@@ -57,5 +59,10 @@ export interface Stats {
     correct: number;
     /** correct / answered (0–1); null when nothing was answered. */
     rate: number | null;
+  };
+  /** Writings (F8): averageScore is null until one is graded. */
+  writing: {
+    submitted: number;
+    averageScore: number | null;
   };
 }

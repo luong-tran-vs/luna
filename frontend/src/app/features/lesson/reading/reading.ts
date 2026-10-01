@@ -46,6 +46,21 @@ const POSITIONS: ConnectedPosition[] = [
 
 const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
 
+/** Message for a failed "Hỏi AI": the server message (or the field message for a bad selection). */
+function askErrorMessage(err: unknown): string {
+  if (err instanceof ApiError && err.kind === 'http') {
+    const body = (err.body ?? {}) as { message?: unknown; fields?: Record<string, unknown> };
+    const field = body.fields?.['text'] ?? body.fields?.['sentenceIndex'];
+    if (typeof field === 'string') {
+      return field;
+    }
+    if (typeof body.message === 'string' && err.status !== 400) {
+      return body.message;
+    }
+  }
+  return 'Không hỏi được AI, vui lòng thử lại.';
+}
+
 /**
  * The Reading step (F3): read the lesson, tap a word or select a phrase to look it up, hear
  * it, save it to the notebook, and finish when the end of the lesson has been seen.
@@ -106,6 +121,8 @@ export class Reading implements OnInit {
   protected readonly popupState = signal<PopupState>({ kind: 'loading' });
   protected readonly popupError = signal<string | null>(null);
   protected readonly saving = signal(false);
+  protected readonly asking = signal(false);
+  protected readonly askError = signal<string | null>(null);
   protected readonly hint = signal<string | null>(null);
   protected readonly popupSaved = computed(() => {
     const state = this.popupState();
@@ -121,6 +138,7 @@ export class Reading implements OnInit {
   private readonly end = viewChild<ElementRef<HTMLElement>>('end');
   private readonly audio = viewChild<ElementRef<HTMLAudioElement>>('audio');
   private lookupSub?: Subscription;
+  private askSub?: Subscription;
   private selectionTimer?: ReturnType<typeof setTimeout>;
 
   ngOnInit(): void {
@@ -207,6 +225,7 @@ export class Reading implements OnInit {
 
     inject(DestroyRef).onDestroy(() => {
       this.lookupSub?.unsubscribe();
+      this.askSub?.unsubscribe();
       clearTimeout(this.selectionTimer);
     });
   }
@@ -341,6 +360,7 @@ export class Reading implements OnInit {
     this.anchor.set(anchor);
     this.popupState.set({ kind: 'loading' });
     this.popupError.set(null);
+    this.stopAsking();
 
     this.lookupSub?.unsubscribe();
     this.lookupSub = this.api.lookup(this.id, text, sentence).subscribe({
@@ -359,9 +379,36 @@ export class Reading implements OnInit {
   protected close(): void {
     const anchor = this.anchor();
     this.lookupSub?.unsubscribe();
+    this.stopAsking();
     this.anchor.set(null);
     this.selected.set(null);
     anchor?.focus();
+  }
+
+  /** Asks the AI about the selection (F9). A newer selection or closing the popup drops the answer. */
+  protected ask(): void {
+    const sel = this.selected();
+    if (!sel || this.asking()) {
+      return;
+    }
+    this.asking.set(true);
+    this.askError.set(null);
+    this.askSub = this.api.ask(this.id, sel.text, sel.sentence).subscribe({
+      next: ({ result }) => {
+        this.asking.set(false);
+        this.popupState.set({ kind: 'result', result });
+      },
+      error: (err: unknown) => {
+        this.asking.set(false);
+        this.askError.set(askErrorMessage(err));
+      },
+    });
+  }
+
+  private stopAsking(): void {
+    this.askSub?.unsubscribe();
+    this.asking.set(false);
+    this.askError.set(null);
   }
 
   protected onOutsideClick(event: MouseEvent): void {

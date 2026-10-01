@@ -2,8 +2,8 @@ import { Level } from './lesson';
 
 /** Types for the study API (specs/008-daily-study-flow/contracts/study-api.md). */
 
-export type Step = 'review' | 'read' | 'listen';
-export const STEPS: readonly Step[] = ['review', 'read', 'listen'];
+export type Step = 'review' | 'read' | 'listen' | 'write';
+export const STEPS: readonly Step[] = ['review', 'read', 'listen', 'write'];
 
 export type StepState = 'done' | 'current' | 'locked';
 

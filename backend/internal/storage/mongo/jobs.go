@@ -16,7 +16,8 @@ import (
 type jobDoc struct {
 	ID        bson.ObjectID `bson:"_id,omitempty"`
 	Type      string        `bson:"type"`
-	LessonID  bson.ObjectID `bson:"lessonId"`
+	LessonID  bson.ObjectID `bson:"lessonId,omitempty"`
+	TargetID  bson.ObjectID `bson:"targetId,omitempty"`
 	Revision  int           `bson:"revision"`
 	Status    string        `bson:"status"`
 	Attempts  int           `bson:"attempts"`
@@ -28,10 +29,35 @@ type jobDoc struct {
 
 func (d jobDoc) toJob() job.Job {
 	return job.Job{
-		ID: d.ID.Hex(), Type: job.Type(d.Type), LessonID: d.LessonID.Hex(), Revision: d.Revision,
-		Status: job.Status(d.Status), Attempts: d.Attempts, Error: d.Error,
+		ID: d.ID.Hex(), Type: job.Type(d.Type), LessonID: hexOrEmpty(d.LessonID), TargetID: hexOrEmpty(d.TargetID),
+		Revision: d.Revision,
+		Status:   job.Status(d.Status), Attempts: d.Attempts, Error: d.Error,
 		RunAt: d.RunAt, CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt,
 	}
+}
+
+// newJobDoc builds a pending job document. LessonID and TargetID are optional (a grade job
+// has only a target), but each must be a valid id when set.
+func newJobDoc(j job.Job, now time.Time) (jobDoc, error) {
+	d := jobDoc{
+		ID: bson.NewObjectID(), Type: string(j.Type), Revision: j.Revision,
+		Status: string(job.StatusPending), RunAt: j.RunAt.UTC(), CreatedAt: now, UpdatedAt: now,
+	}
+	if j.Status != "" {
+		d.Status = string(j.Status)
+	}
+	var err error
+	if j.LessonID != "" {
+		if d.LessonID, err = bson.ObjectIDFromHex(j.LessonID); err != nil {
+			return jobDoc{}, fmt.Errorf("job lesson id: %w", err)
+		}
+	}
+	if j.TargetID != "" {
+		if d.TargetID, err = bson.ObjectIDFromHex(j.TargetID); err != nil {
+			return jobDoc{}, fmt.Errorf("job target id: %w", err)
+		}
+	}
+	return d, nil
 }
 
 // Jobs implements job.Repository on the "jobs" collection.
@@ -48,18 +74,9 @@ var _ job.Repository = (*Jobs)(nil)
 
 // Enqueue inserts a pending job.
 func (r *Jobs) Enqueue(ctx context.Context, j job.Job) error {
-	lid, err := bson.ObjectIDFromHex(j.LessonID)
+	d, err := newJobDoc(j, time.Now().UTC())
 	if err != nil {
-		return fmt.Errorf("job lesson id: %w", err)
-	}
-	now := time.Now().UTC()
-	status := j.Status
-	if status == "" {
-		status = job.StatusPending
-	}
-	d := jobDoc{
-		ID: bson.NewObjectID(), Type: string(j.Type), LessonID: lid, Revision: j.Revision,
-		Status: string(status), RunAt: j.RunAt.UTC(), CreatedAt: now, UpdatedAt: now,
+		return err
 	}
 	if _, err := r.coll.InsertOne(ctx, d); err != nil {
 		return fmt.Errorf("insert job: %w", err)

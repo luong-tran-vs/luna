@@ -138,7 +138,7 @@ func TestDashboardNoGoal(t *testing.T) {
 	if v.Kind != TodayNoGoal || v.Goal != nil || v.Skills != nil || v.Lesson != nil || v.Action != nil {
 		t.Fatalf("no goal = %+v", v)
 	}
-	if v.Streak != 1 || v.TomorrowCards != 1 || len(v.Steps) != 3 || v.Steps[StepReview] != StateLocked {
+	if v.Streak != 1 || v.TomorrowCards != 1 || len(v.Steps) != 4 || v.Steps[StepReview] != StateLocked {
 		t.Fatalf("no goal numbers = %+v", v)
 	}
 }
@@ -193,14 +193,14 @@ func TestDashboardSkills(t *testing.T) {
 
 	e.complete(t, StepReview, StepRead) // f2
 	v := e.dashboard(t, "u1")
-	if *v.Skills != (SkillCounts{Read: 2, Listen: 1, Total: 3}) || v.Goal.CompletedLessons != 1 || v.Streak != 1 {
+	if *v.Skills != (SkillCounts{Read: 2, Listen: 1, Write: 1, Total: 3}) || v.Goal.CompletedLessons != 1 || v.Streak != 1 {
 		t.Fatalf("after read = %+v %+v", v.Skills, v.Goal)
 	}
 	wantAction(t, v.Action, ActionContinue, StepListen)
 
 	e.complete(t, StepListen)
 	v = e.dashboard(t, "u1")
-	if *v.Skills != (SkillCounts{Read: 2, Listen: 2, Total: 3}) || v.Goal.CompletedLessons != 2 || v.Streak != 2 ||
+	if *v.Skills != (SkillCounts{Read: 2, Listen: 2, Write: 2, Total: 3}) || v.Goal.CompletedLessons != 2 || v.Streak != 2 ||
 		v.Kind != TodayDone {
 		t.Fatalf("after listen = %+v %+v", v.Skills, v)
 	}
@@ -245,7 +245,7 @@ func TestStats(t *testing.T) {
 		t.Fatal(err)
 	}
 	if v.Cards != 25 || v.Dictation != (DictationTotals{Sentences: 4, CorrectWords: 5, TotalWords: 8}) ||
-		v.Rate == nil || *v.Rate != 5.0/8 || v.Lessons != (StepCounts{Read: 2, Listen: 1, Completed: 1}) {
+		v.Rate == nil || *v.Rate != 5.0/8 || v.Lessons != (StepCounts{Read: 2, Listen: 1, Write: 1, Completed: 1}) {
 		t.Fatalf("stats = %+v rate %v", v, v.Rate)
 	}
 }

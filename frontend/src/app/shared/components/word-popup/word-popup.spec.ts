@@ -14,7 +14,7 @@ const dictResult: LookupResult = {
 describe('WordPopup', () => {
   let fixture: ComponentFixture<WordPopup>;
   let el: HTMLElement;
-  const events = { closed: vi.fn(), save: vi.fn(), play: vi.fn() };
+  const events = { closed: vi.fn(), save: vi.fn(), play: vi.fn(), ask: vi.fn() };
 
   const render = async (state: PopupState, extra: Record<string, unknown> = {}) => {
     fixture = TestBed.createComponent(WordPopup);
@@ -26,6 +26,7 @@ describe('WordPopup', () => {
     fixture.componentInstance.closed.subscribe(events.closed);
     fixture.componentInstance.save.subscribe(events.save);
     fixture.componentInstance.listen.subscribe(events.play);
+    fixture.componentInstance.ask.subscribe(events.ask);
     await fixture.whenStable();
     el = fixture.nativeElement as HTMLElement;
   };
@@ -116,5 +117,42 @@ describe('WordPopup', () => {
     await render({ kind: 'result', result: aiResult });
     el.querySelector<HTMLButtonElement>('button[aria-label="Nghe phát âm"]')!.click();
     expect(events.play).toHaveBeenCalled();
+  });
+
+  // --- F9: Hỏi AI ---
+
+  it('offers "Hỏi AI" when nothing was found or the meaning is from the dictionary', async () => {
+    await render({ kind: 'not-found' });
+    button('Hỏi AI')!.click();
+    expect(events.ask).toHaveBeenCalledTimes(1);
+
+    await render({ kind: 'result', result: dictResult });
+    expect(button('Hỏi AI')).toBeTruthy();
+  });
+
+  it('does not offer "Hỏi AI" for an AI meaning or while looking up', async () => {
+    await render({ kind: 'result', result: aiResult });
+    expect(button('Hỏi AI')).toBeUndefined();
+    await render({ kind: 'loading' });
+    expect(button('Hỏi AI')).toBeUndefined();
+  });
+
+  it('shows the asking state and the error', async () => {
+    await render({ kind: 'not-found' }, { asking: true });
+    const asking = button('Đang hỏi AI…')!;
+    expect(asking.disabled).toBe(true);
+    expect(el.querySelector('[role="status"]')?.textContent).toContain('Đang hỏi AI');
+
+    await render({ kind: 'result', result: dictResult }, { askError: 'Đã hết lượt AI, vui lòng thử lại sau.' });
+    expect(el.querySelector('[role="alert"]')?.textContent).toContain('Đã hết lượt AI');
+    // The dictionary meaning stays.
+    expect(el.textContent).toContain('Công viên.');
+  });
+
+  it('shows the note of an asked meaning', async () => {
+    await render({ kind: 'result', result: { ...aiResult, note: 'Quá khứ của go.' } });
+    expect(el.querySelector('.note')?.textContent?.trim()).toBe('Quá khứ của go.');
+    await render({ kind: 'result', result: dictResult });
+    expect(el.querySelector('.note')).toBeNull();
   });
 });

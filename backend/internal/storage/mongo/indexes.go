@@ -122,6 +122,30 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	if err != nil {
 		return fmt.Errorf("reading_answers index: %w", err)
 	}
+
+	// F8: one writing per learner and lesson; the list by date; the new-result count.
+	_, err = db.Collection("writings").Indexes().CreateMany(ctx, []mongo.IndexModel{
+		{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "lessonId", Value: 1}}, Options: options.Index().SetUnique(true)},
+		{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "submittedAt", Value: -1}}},
+		{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "grade.status", Value: 1}, {Key: "grade.seen", Value: 1}}},
+	})
+	if err != nil {
+		return fmt.Errorf("writings indexes: %w", err)
+	}
+
+	// F9: one AI explanation per lesson revision, sentence and text, shared by everyone.
+	_, err = db.Collection("ai_lookups").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys: bson.D{
+			{Key: "lessonId", Value: 1},
+			{Key: "revision", Value: 1},
+			{Key: "sentenceIndex", Value: 1},
+			{Key: "textLower", Value: 1},
+		},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("ai_lookups index: %w", err)
+	}
 	return nil
 }
 

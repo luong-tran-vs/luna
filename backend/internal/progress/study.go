@@ -29,6 +29,8 @@ type StudyDeps struct {
 	Timezones Timezones
 	// Quiz gates the Reading step on the comprehension questions (F15); nil means no questions.
 	Quiz ReadingQuiz
+	// Writings gates the Write step (F8); nil means a writing is never required.
+	Writings Writings
 	// ReviewLimit is the learner's daily card limit; nil means DefaultReviewLimit (F12 sets it).
 	ReviewLimit func(ctx context.Context, userID string) int
 	Now         func() time.Time
@@ -349,6 +351,15 @@ func (s *StudyService) completeStep(ctx context.Context, d *day, step Step) (Tod
 			return TodayView{}, ErrReadIncomplete
 		}
 	}
+	if step == StepWrite && s.d.Writings != nil {
+		submitted, err := s.d.Writings.Submitted(ctx, d.userID, lessonID)
+		if err != nil {
+			return TodayView{}, fmt.Errorf("progress: writing: %w", err)
+		}
+		if !submitted {
+			return TodayView{}, ErrWriteIncomplete
+		}
+	}
 	if step == StepListen {
 		sum, err := s.d.Dictation.Summary(ctx, d.userID, lessonID)
 		if err != nil {
@@ -487,6 +498,23 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 		}
 	}
 	return out, nil
+}
+
+// CanWrite reports whether the lesson is the learner's lesson today and its next step is Write
+// (F8): only then may the writing be drafted or submitted.
+func (s *StudyService) CanWrite(ctx context.Context, userID, lessonID string) (bool, error) {
+	d, err := s.load(ctx, userID)
+	if err != nil {
+		return false, err
+	}
+	if d.state.Kind != TodayStudying || d.state.LessonID != lessonID {
+		return false, nil
+	}
+	p, ok, err := s.d.Progress.Get(ctx, userID, lessonID)
+	if err != nil {
+		return false, fmt.Errorf("progress: lesson progress: %w", err)
+	}
+	return ok && NextStep(p.Done) == StepWrite, nil
 }
 
 // CanOpen reports whether a user may open a lesson's content: admins always; learners today's

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { AnswerInput, AnswerResult, LookupResult, ReadingLesson } from '../../core/models/reading';
+import { AnswerInput, AnswerResult, AskResult, LookupResult, ReadingLesson } from '../../core/models/reading';
 import { LessonVocabulary } from '../../core/models/vocab';
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +17,11 @@ export class ReadingApiService {
     return this.http.get<LookupResult>(`/api/lessons/${id}/lookup`, {
       params: { q, sentence: String(sentence) },
     });
+  }
+
+  /** Asks the AI what text means in that sentence (F9). */
+  ask(id: string, text: string, sentenceIndex: number): Observable<AskResult> {
+    return this.http.post<AskResult>(`/api/lessons/${id}/ask`, { text, sentenceIndex });
   }
 
   vocabulary(id: string): Observable<LessonVocabulary> {

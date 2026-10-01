@@ -1,0 +1,93 @@
+<section class="detail">
+  <a class="back" routerLink="/writings"><span aria-hidden="true">←</span> Bài viết</a>
+
+  @if (notFound()) {
+    <p class="card">Không tìm thấy bài viết.</p>
+  } @else if (loadError()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được bài viết.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (writing(); as w) {
+    <header class="header">
+      <h1 class="title" lang="en">{{ w.lessonTitle }}</h1>
+      <p class="prompt"><span class="label">Đề:</span> <span lang="en">{{ w.prompt }}</span></p>
+    </header>
+
+    <div class="status" role="status">
+      @switch (w.grade?.status) {
+        @case ('pending') {
+          <p class="pending">Đang chấm… Kết quả sẽ hiện khi AI chấm xong.</p>
+        }
+        @case ('failed') {
+          <div class="failed">
+            <p>Chấm lỗi: {{ w.grade!.error }}</p>
+            <button type="button" class="btn-primary" [disabled]="regrading()" (click)="regrade()">
+              {{ regrading() ? 'Đang gửi…' : 'Chấm lại' }}
+            </button>
+          </div>
+        }
+        @case ('done') {
+          <p class="average">
+            Điểm trung bình <strong>{{ formatScore(w.grade!.average ?? 0) }}</strong>/5
+          </p>
+        }
+      }
+    </div>
+    @if (actionError(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    @if (w.grade?.status === 'done') {
+      <ul class="criteria">
+        @for (c of w.grade!.criteria; track c.name) {
+          <li class="card criterion">
+            <p class="criterion-head">
+              <span class="criterion-name">{{ labels[c.name] }}<span class="visually-hidden">: </span></span>
+              <span class="score">{{ c.score }}/5 điểm</span>
+            </p>
+            <p>{{ c.commentVi }}</p>
+          </li>
+        }
+      </ul>
+      <section class="card" aria-labelledby="overall-heading">
+        <h2 class="section-title" id="overall-heading">Nhận xét chung</h2>
+        <p>{{ w.grade!.overallVi }}</p>
+      </section>
+    }
+
+    <section class="card" aria-labelledby="original-heading">
+      <h2 class="section-title" id="original-heading">Bài của bạn</h2>
+      <p class="text" lang="en">{{ w.text }}</p>
+    </section>
+
+    @if (w.grade?.status === 'done') {
+      <section class="card" aria-labelledby="corrected-heading">
+        <h2 class="section-title" id="corrected-heading">Bản đã sửa</h2>
+        <p class="text" lang="en">{{ w.grade!.correctedText }}</p>
+      </section>
+
+      <section class="card" aria-labelledby="diff-heading">
+        <h2 class="section-title" id="diff-heading">So sánh</h2>
+        <p class="legend muted"><ins>Gạch chân</ins>: thêm · <del>Gạch ngang</del>: bớt</p>
+        <p class="text diff" lang="en">
+          @for (part of diff(); track $index) {
+            @switch (part.kind) {
+              @case ('add') {
+                <ins><span class="visually-hidden">thêm: </span>{{ part.text }}</ins>
+              }
+              @case ('del') {
+                <del><span class="visually-hidden">bớt: </span>{{ part.text }}</del>
+              }
+              @default {
+                <span>{{ part.text }}</span>
+              }
+            }
+          }
+        </p>
+      </section>
+    }
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

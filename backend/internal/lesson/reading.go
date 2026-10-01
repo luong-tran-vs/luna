@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"strings"
 
+	"golang.org/x/sync/singleflight"
+
+	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/dictionary"
 )
 
@@ -59,20 +62,28 @@ type LookupResult struct {
 	Lemma    string
 	IPA      string
 	Meanings []LookupMeaning
+	// Note explains an asked AI meaning in context (F9); empty otherwise.
+	Note string
 }
 
-// Reader serves the Reading step. It never calls the AI provider: meanings come from stored
-// annotations or the offline dictionary.
+// Reader serves the Reading step. Lookups never call the AI provider: meanings come from stored
+// annotations, stored AI explanations or the offline dictionary. Only Ask calls the AI (F9).
 type Reader struct {
 	lessons Repository
 	dict    Dictionary
 	topics  Topics
 	answers AnswerRepository
+	// asks and ai serve "Hỏi AI" (F9); group makes one AI call per key at a time.
+	asks  AskRepository
+	ai    ai.Provider
+	group singleflight.Group
 }
 
 // NewReader returns a Reader.
-func NewReader(lessons Repository, dict Dictionary, topics Topics, answers AnswerRepository) *Reader {
-	return &Reader{lessons: lessons, dict: dict, topics: topics, answers: answers}
+func NewReader(lessons Repository, dict Dictionary, topics Topics, answers AnswerRepository, asks AskRepository,
+	provider ai.Provider,
+) *Reader {
+	return &Reader{lessons: lessons, dict: dict, topics: topics, answers: answers, asks: asks, ai: provider}
 }
 
 // View returns the lesson for reading, with base forms for highlighting saved words, the
@@ -138,7 +149,8 @@ func (r *Reader) View(ctx context.Context, userID, id string) (ReadingView, erro
 }
 
 // Lookup finds the meaning of q (a word or phrase from sentence): the lesson's annotations
-// first, preferring that sentence, then the offline dictionary.
+// first, preferring that sentence, then an explanation asked of the AI for that sentence (F9),
+// then the offline dictionary.
 func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (LookupResult, error) {
 	l, err := r.lessons.Get(ctx, lessonID)
 	if err != nil {
@@ -155,6 +167,16 @@ func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (
 			res.IPA = e.IPA
 		}
 		return res, nil
+	}
+
+	// F9: an explanation someone already asked the AI for, in this sentence of this revision.
+	if sentence >= 0 {
+		key := AskKey{LessonID: l.ID, Revision: l.Revision, SentenceIndex: sentence, Text: text}
+		if stored, ok, err := r.asks.Get(ctx, key); err != nil {
+			return LookupResult{}, fmt.Errorf("lesson: stored explanation: %w", err)
+		} else if ok {
+			return r.askResult(ctx, stored), nil
+		}
 	}
 
 	e, ok, err := r.dict.Resolve(ctx, text)

@@ -11,6 +11,7 @@ import { DueCard, ReviewContext, ReviewMode, ReviewSummary } from '../../../core
 import { ReviewSession } from '../../../shared/components/review-session/review-session';
 import { Listening } from '../listening/listening';
 import { Reading } from '../reading/reading';
+import { Writing } from '../writing/writing';
 import { Today } from './today';
 
 @Component({ selector: 'lu-review-session', template: '' })
@@ -30,6 +31,13 @@ class ReadingStub {
   readonly position = output<number>();
 }
 
+@Component({ selector: 'lu-writing', template: '' })
+class WritingStub {
+  readonly lessonId = input('');
+  readonly mode = input<string | null>(null);
+  readonly completed = output<void>();
+}
+
 @Component({ selector: 'lu-listening', template: '' })
 class ListeningStub {
   readonly lessonId = input('');
@@ -44,7 +52,7 @@ const goal = { topicId: 't1', topicName: 'Gia đình', level: 'A1' as const, com
 function today(over: Partial<TodayData> = {}): TodayData {
   return {
     kind: 'studying', goal, lesson: { id: 'l3', title: 'At the café' },
-    steps: { review: 'current', read: 'locked', listen: 'locked' }, currentStep: 'review', sentenceIndex: 0,
+    steps: { review: 'current', read: 'locked', listen: 'locked', write: 'locked' }, currentStep: 'review', sentenceIndex: 0,
     reviewCount: 12, streak: 4, goalCompleted: false, ...over,
   };
 }
@@ -74,8 +82,8 @@ describe('Today', () => {
       providers: [provideRouter([]), provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
     });
     TestBed.overrideComponent(Today, {
-      remove: { imports: [ReviewSession, Reading, Listening] },
-      add: { imports: [ReviewStub, ReadingStub, ListeningStub] },
+      remove: { imports: [ReviewSession, Reading, Listening, Writing] },
+      add: { imports: [ReviewStub, ReadingStub, ListeningStub, WritingStub] },
     });
     http = TestBed.inject(HttpTestingController);
     router = TestBed.inject(Router);
@@ -122,7 +130,7 @@ describe('Today', () => {
 
     child(ReviewStub)!.finished.emit({ reviewed: 1, counts: { 1: 0, 2: 0, 3: 1, 4: 0 } });
     await settle();
-    expectComplete('review').flush(today({ steps: { review: 'done', read: 'current', listen: 'locked' }, currentStep: 'read', sentenceIndex: 5 }));
+    expectComplete('review').flush(today({ steps: { review: 'done', read: 'current', listen: 'locked', write: 'locked' }, currentStep: 'read', sentenceIndex: 5 }));
     await settle();
     const reading = child(ReadingStub)!;
     expect(reading.lessonId()).toBe('l3');
@@ -131,7 +139,7 @@ describe('Today', () => {
 
     reading.completed.emit();
     await settle();
-    expectComplete('read').flush(today({ steps: { review: 'done', read: 'done', listen: 'current' }, currentStep: 'listen', sentenceIndex: 2 }));
+    expectComplete('read').flush(today({ steps: { review: 'done', read: 'done', listen: 'current', write: 'locked' }, currentStep: 'listen', sentenceIndex: 2 }));
     await settle();
     expect(child(ReadingStub)).toBeUndefined();
     const listening = child(ListeningStub)!;
@@ -140,7 +148,7 @@ describe('Today', () => {
     listening.completed.emit();
     await settle();
     expectComplete('listen').flush(
-      today({ kind: 'doneToday', steps: { review: 'done', read: 'done', listen: 'done' }, currentStep: 'done', streak: 5, goal: { ...goal, completedLessons: 3 } }),
+      today({ kind: 'doneToday', steps: { review: 'done', read: 'done', listen: 'done', write: 'done' }, currentStep: 'done', streak: 5, goal: { ...goal, completedLessons: 3 } }),
     );
     await settle();
     expect(el.textContent).toContain('Đã xong bài hôm nay, hẹn bạn ngày mai');
@@ -149,7 +157,7 @@ describe('Today', () => {
   });
 
   it('saves the position one second after the last move', async () => {
-    await setup(today({ steps: { review: 'done', read: 'current', listen: 'locked' }, currentStep: 'read', reviewCount: 0 }));
+    await setup(today({ steps: { review: 'done', read: 'current', listen: 'locked', write: 'locked' }, currentStep: 'read', reviewCount: 0 }));
     vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
     const reading = child(ReadingStub)!;
     reading.position.emit(2);
@@ -163,7 +171,7 @@ describe('Today', () => {
   });
 
   it('shows why a step cannot be completed', async () => {
-    await setup(today({ steps: { review: 'done', read: 'done', listen: 'current' }, currentStep: 'listen', reviewCount: 0 }));
+    await setup(today({ steps: { review: 'done', read: 'done', listen: 'current', write: 'locked' }, currentStep: 'listen', reviewCount: 0 }));
     child(ListeningStub)!.completed.emit();
     await settle();
     expectComplete('listen').flush(
@@ -174,8 +182,25 @@ describe('Today', () => {
     expect(text('[role="alert"]')).toBe('Hãy kiểm tra hết các câu của bước Nghe');
   });
 
+  it('shows the Write step and completes it after submitting (F8)', async () => {
+    await setup(
+      today({ steps: { review: 'done', read: 'done', listen: 'done', write: 'current' }, currentStep: 'write', reviewCount: 0 }),
+    );
+    const writing = child(WritingStub)!;
+    expect(writing.lessonId()).toBe('l3');
+    expect(writing.mode()).toBe('study');
+    writing.completed.emit();
+    await settle();
+    expectComplete('write').flush(
+      { error: 'write_incomplete', message: 'Hãy nộp bài viết' },
+      { status: 409, statusText: 'Conflict' },
+    );
+    await settle();
+    expect(text('[role="alert"]')).toBe('Hãy nộp bài viết');
+  });
+
   it('shows why the Reading step is not done yet (F15)', async () => {
-    await setup(today({ steps: { review: 'done', read: 'current', listen: 'locked' }, currentStep: 'read', reviewCount: 0 }));
+    await setup(today({ steps: { review: 'done', read: 'current', listen: 'locked', write: 'locked' }, currentStep: 'read', reviewCount: 0 }));
     child(ReadingStub)!.completed.emit();
     await settle();
     expectComplete('read').flush(
@@ -187,7 +212,7 @@ describe('Today', () => {
   });
 
   it('congratulates when the roadmap is finished', async () => {
-    await setup(today({ steps: { review: 'done', read: 'done', listen: 'current' }, currentStep: 'listen', reviewCount: 0 }));
+    await setup(today({ steps: { review: 'done', read: 'done', listen: 'current', write: 'locked' }, currentStep: 'listen', reviewCount: 0 }));
     child(ListeningStub)!.completed.emit();
     await settle();
     expectComplete('listen').flush(today({ kind: 'doneToday', currentStep: 'done', goalCompleted: true }));
@@ -196,7 +221,7 @@ describe('Today', () => {
   });
 
   it('says the lesson is done for today with ways to keep practising', async () => {
-    await setup(today({ kind: 'doneToday', currentStep: 'done', steps: { review: 'done', read: 'done', listen: 'done' } }));
+    await setup(today({ kind: 'doneToday', currentStep: 'done', steps: { review: 'done', read: 'done', listen: 'done', write: 'done' } }));
     expect(el.textContent).toContain('Đã xong bài hôm nay');
     expect(el.querySelector('a[href="/vocabulary/review"]')).toBeTruthy();
     expect(el.querySelector('a[href="/lessons"]')).toBeTruthy();

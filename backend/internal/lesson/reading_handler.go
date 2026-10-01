@@ -35,6 +35,7 @@ func (h *ReadingHandler) Register(mux *http.ServeMux, requireAuth, guard httpx.M
 	mux.Handle("GET /api/lessons/{id}/lookup", route(h.lookup))
 	mux.Handle("GET /api/lessons/{id}/vocabulary", route(h.vocabulary))
 	mux.Handle("POST /api/lessons/{id}/answers", route(h.answer))
+	mux.Handle("POST /api/lessons/{id}/ask", route(h.ask))
 }
 
 type readingJSON struct {
@@ -66,6 +67,7 @@ type lookupJSON struct {
 	Lemma    string        `json:"lemma"`
 	IPA      string        `json:"ipa"`
 	Meanings []meaningJSON `json:"meanings"`
+	Note     string        `json:"note"`
 }
 
 func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
@@ -124,11 +126,18 @@ func (h *ReadingHandler) lookup(w http.ResponseWriter, r *http.Request) {
 		h.writeError(w, r, err, "lesson_not_found")
 		return
 	}
-	out := lookupJSON{Source: res.Source, Text: res.Text, Lemma: res.Lemma, IPA: res.IPA, Meanings: make([]meaningJSON, len(res.Meanings))}
+	httpx.WriteJSON(w, http.StatusOK, toLookupJSON(res))
+}
+
+func toLookupJSON(res LookupResult) lookupJSON {
+	out := lookupJSON{
+		Source: res.Source, Text: res.Text, Lemma: res.Lemma, IPA: res.IPA,
+		Meanings: make([]meaningJSON, len(res.Meanings)), Note: res.Note,
+	}
 	for i, m := range res.Meanings {
 		out.Meanings[i] = meaningJSON(m)
 	}
-	httpx.WriteJSON(w, http.StatusOK, out)
+	return out
 }
 
 type vocabItemJSON struct {

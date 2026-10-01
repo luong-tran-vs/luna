@@ -11,6 +11,7 @@ import (
 type skillsJSON struct {
 	Read   int `json:"read"`
 	Listen int `json:"listen"`
+	Write  int `json:"write"`
 	Total  int `json:"total"`
 }
 
@@ -76,6 +77,7 @@ type statsJSON struct {
 	Lessons struct {
 		Read      int `json:"read"`
 		Listen    int `json:"listen"`
+		Write     int `json:"write"`
 		Completed int `json:"completed"`
 	} `json:"lessons"`
 	Reading struct {
@@ -83,6 +85,10 @@ type statsJSON struct {
 		Correct  int      `json:"correct"`
 		Rate     *float64 `json:"rate"`
 	} `json:"reading"`
+	Writing struct {
+		Submitted    int      `json:"submitted"`
+		AverageScore *float64 `json:"averageScore"`
+	} `json:"writing"`
 }
 
 // --- handlers ---
@@ -110,5 +116,7 @@ func (h *StudyHandler) stats(w http.ResponseWriter, r *http.Request) {
 	out.Dictation.Rate = v.Rate
 	out.Lessons.Read, out.Lessons.Listen, out.Lessons.Completed = v.Lessons.Read, v.Lessons.Listen, v.Lessons.Completed
 	out.Reading.Answered, out.Reading.Correct, out.Reading.Rate = v.Reading.Answered, v.Reading.Correct, v.ReadingRate
+	out.Lessons.Write = v.Lessons.Write
+	out.Writing.Submitted, out.Writing.AverageScore = v.Writing.Submitted, v.Writing.AverageScore
 	httpx.WriteJSON(w, http.StatusOK, out)
 }

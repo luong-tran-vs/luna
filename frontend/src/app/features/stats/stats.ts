@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 
 import { Stats as StatsData } from '../../core/models/dashboard';
+import { formatScore } from '../../core/models/writing';
 import { DashboardApiService } from '../../core/services/dashboard-api.service';
 
 /** The stats page (F6): words, dictation and lessons over every topic. */
@@ -24,6 +25,12 @@ export class Stats {
   protected readonly rate = computed(() => {
     const r = this.data()?.dictation.rate;
     return r === null || r === undefined ? '—' : `${Math.round(r * 100)}%`;
+  });
+
+  /** Mean writing score (F8), "3,8", or "—" until a writing is graded. */
+  protected readonly writingAverage = computed(() => {
+    const a = this.data()?.writing.averageScore;
+    return a === null || a === undefined ? '—' : formatScore(a);
   });
 
   /** Comprehension answers right, as a whole percentage (F15). */
