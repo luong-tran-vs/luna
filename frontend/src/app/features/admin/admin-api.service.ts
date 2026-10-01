@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
+import { GenerateInput, GenerateResult } from '../../core/models/generate';
 import {
   AnnotationInput,
+  ExtrasInput,
   JobKind,
   Lesson,
   LessonFilter,
@@ -53,6 +55,11 @@ export class AdminApiService {
     );
   }
 
+  /** Saves the questions, grammar note and writing prompt (F15). */
+  updateExtras(id: string, input: ExtrasInput): Observable<Lesson> {
+    return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/extras`, input));
+  }
+
   saveAnnotations(id: string, annotations: AnnotationInput[]): Observable<Lesson> {
     return this.unwrap(
       this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/annotations`, { annotations }),
@@ -82,6 +89,10 @@ export class AdminApiService {
 
   setTopicRoadmap(topicId: string, lessonIds: string[]): Observable<TopicRoadmap> {
     return this.http.put<TopicRoadmap>(`${BASE}/topics/${topicId}/roadmap`, { lessonIds });
+  }
+
+  generateLessons(topicId: string, input: GenerateInput): Observable<GenerateResult> {
+    return this.http.post<GenerateResult>(`${BASE}/topics/${topicId}/generate`, input);
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

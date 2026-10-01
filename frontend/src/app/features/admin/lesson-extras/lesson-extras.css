@@ -1,0 +1,113 @@
+.extras {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.extras-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.section-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.group {
+  margin: 0;
+}
+
+.group-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.question {
+  display: grid;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.options {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.options legend {
+  margin-bottom: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.option-row,
+.example-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.option-row input[type='radio'] {
+  flex: none;
+  width: 24px;
+  height: 44px;
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.option-field,
+.example-row .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.example-row .btn {
+  align-self: flex-end;
+}
+
+.field textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+  resize: vertical;
+}
+
+.field textarea[aria-invalid='true'] {
+  border: 2px solid var(--color-bad);
+}
+
+.remove {
+  justify-self: start;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+}
+
+.grammar,
+.examples {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.actions {
+  align-items: center;
+}

@@ -346,7 +346,8 @@ func TestJobFailedAndRetry(t *testing.T) {
 	e := newEnv(t)
 	l := e.create(t)
 
-	if _, err := e.svc.Retry(ctx, l.ID, job.TypeAnnotate); !errors.Is(err, ErrNotFailed) {
+	// F15: annotation can be retried unless it is running.
+	if _, err := e.svc.Retry(ctx, l.ID, job.TypeAnnotate); !errors.Is(err, ErrAnnotationRunning) {
 		t.Fatalf("retry while running: %v", err)
 	}
 

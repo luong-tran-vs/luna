@@ -1,0 +1,14 @@
+<details class="grammar" open>
+  <summary class="summary">Ngữ pháp: {{ note().title }}</summary>
+  <div class="body">
+    @for (p of paragraphs(); track $index) {
+      <p>{{ p }}</p>
+    }
+    <p class="examples-title">Ví dụ trong bài:</p>
+    <ul class="examples">
+      @for (e of note().examples; track $index) {
+        <li lang="en">{{ e }}</li>
+      }
+    </ul>
+  </div>
+</details>

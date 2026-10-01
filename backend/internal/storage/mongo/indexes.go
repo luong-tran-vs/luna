@@ -108,6 +108,20 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	if err != nil {
 		return fmt.Errorf("dictation_results index: %w", err)
 	}
+
+	_, err = db.Collection("reading_answers").Indexes().CreateOne(ctx, mongo.IndexModel{
+		// F15: one answer per question of a question-set version; a second answer is refused.
+		Keys: bson.D{
+			{Key: "userId", Value: 1},
+			{Key: "lessonId", Value: 1},
+			{Key: "quizVersion", Value: 1},
+			{Key: "questionIndex", Value: 1},
+		},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("reading_answers index: %w", err)
+	}
 	return nil
 }
 

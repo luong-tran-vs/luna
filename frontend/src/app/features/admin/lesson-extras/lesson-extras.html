@@ -1,0 +1,189 @@
+<section class="extras" aria-labelledby="extras-heading">
+  <div class="extras-header">
+    <h2 class="section-title" id="extras-heading">Câu hỏi, ngữ pháp, đề viết</h2>
+    @if (lesson().extrasEditedByAdmin) {
+      <span class="tag">Đã sửa tay</span>
+    }
+  </div>
+  @if (lesson().annotationStatus === 'running') {
+    <p class="muted" role="status">Chú thích đang chạy; sửa được khi chạy xong.</p>
+  }
+
+  <fieldset class="card group">
+    <legend class="group-title">Câu hỏi hiểu bài ({{ questions.length }}/{{ maxQuestions }})</legend>
+    @if (questions.length === 0) {
+      <p class="muted">Chưa có câu hỏi. Bước Đọc của bài dùng nút "Đã đọc xong".</p>
+    }
+    @if (err('questions'); as message) {
+      <p class="field-error">{{ message }}</p>
+    }
+    @for (q of questions.controls; track q; let i = $index) {
+      <div class="question" [formGroup]="q">
+        <div class="field">
+          <label [for]="'q-' + i + '-prompt'">Câu hỏi {{ i + 1 }}</label>
+          <input
+            [id]="'q-' + i + '-prompt'"
+            lang="en"
+            formControlName="prompt"
+            [attr.aria-invalid]="!!err('questions.' + i + '.prompt')"
+            [attr.aria-describedby]="describedBy('questions.' + i + '.prompt')"
+          />
+          @if (err('questions.' + i + '.prompt'); as message) {
+            <p class="field-error" [id]="errorId('questions.' + i + '.prompt')">{{ message }}</p>
+          }
+        </div>
+
+        <fieldset class="options">
+          <legend>Lựa chọn (chọn đáp án đúng)</legend>
+          @for (j of optionIndexes; track j) {
+            <div class="option-row">
+              <!-- Not formControlName: each question needs its own radio group name. -->
+              <input
+                type="radio"
+                [id]="'q-' + i + '-answer-' + j"
+                [name]="'q-' + i + '-answer'"
+                [checked]="q.controls.answerIndex.value === j"
+                (change)="q.controls.answerIndex.setValue(j)"
+                [attr.aria-label]="'Đáp án đúng: lựa chọn ' + (j + 1) + ' của câu ' + (i + 1)"
+              />
+              <div class="field option-field" formArrayName="options">
+                <label class="visually-hidden" [for]="'q-' + i + '-option-' + j">Lựa chọn {{ j + 1 }} của câu {{ i + 1 }}</label>
+                <input
+                  [id]="'q-' + i + '-option-' + j"
+                  lang="en"
+                  [formControlName]="j"
+                  [placeholder]="'Lựa chọn ' + (j + 1)"
+                  [attr.aria-invalid]="!!err('questions.' + i + '.options.' + j)"
+                  [attr.aria-describedby]="describedBy('questions.' + i + '.options.' + j)"
+                />
+                @if (err('questions.' + i + '.options.' + j); as message) {
+                  <p class="field-error" [id]="errorId('questions.' + i + '.options.' + j)">{{ message }}</p>
+                }
+              </div>
+            </div>
+          }
+          @if (err('questions.' + i + '.answerIndex'); as message) {
+            <p class="field-error">{{ message }}</p>
+          }
+        </fieldset>
+
+        <div class="field">
+          <label [for]="'q-' + i + '-explanation'">Giải thích (tiếng Việt)</label>
+          <textarea
+            [id]="'q-' + i + '-explanation'"
+            rows="2"
+            formControlName="explanationVi"
+            [attr.aria-invalid]="!!err('questions.' + i + '.explanationVi')"
+            [attr.aria-describedby]="describedBy('questions.' + i + '.explanationVi')"
+          ></textarea>
+          @if (err('questions.' + i + '.explanationVi'); as message) {
+            <p class="field-error" [id]="errorId('questions.' + i + '.explanationVi')">{{ message }}</p>
+          }
+        </div>
+        <button type="button" class="btn remove" (click)="removeQuestion(i)">Xoá câu hỏi {{ i + 1 }}</button>
+      </div>
+    }
+    <button type="button" class="btn" [disabled]="questions.length >= maxQuestions" (click)="addQuestion()">
+      Thêm câu hỏi
+    </button>
+  </fieldset>
+
+  <fieldset class="card group">
+    <legend class="group-title">Ngữ pháp</legend>
+    <label class="check">
+      <input type="checkbox" [formControl]="hasGrammar" />
+      <span>Có ghi chú ngữ pháp</span>
+    </label>
+    @if (hasGrammar.value) {
+      <div class="grammar" [formGroup]="grammar">
+        <div class="field">
+          <label for="grammar-title">Tiêu đề</label>
+          <input
+            id="grammar-title"
+            formControlName="title"
+            [attr.aria-invalid]="!!err('grammarNote.title')"
+            [attr.aria-describedby]="describedBy('grammarNote.title')"
+          />
+          @if (err('grammarNote.title'); as message) {
+            <p class="field-error" [id]="errorId('grammarNote.title')">{{ message }}</p>
+          }
+        </div>
+        <div class="field">
+          <label for="grammar-body">Giải thích (tiếng Việt)</label>
+          <textarea
+            id="grammar-body"
+            rows="4"
+            formControlName="bodyVi"
+            [attr.aria-invalid]="!!err('grammarNote.bodyVi')"
+            [attr.aria-describedby]="describedBy('grammarNote.bodyVi')"
+          ></textarea>
+          @if (err('grammarNote.bodyVi'); as message) {
+            <p class="field-error" [id]="errorId('grammarNote.bodyVi')">{{ message }}</p>
+          }
+        </div>
+        <div class="examples" formArrayName="examples">
+          <p class="field-hint">Ví dụ phải chép đúng từ bài.</p>
+          @if (err('grammarNote.examples'); as message) {
+            <p class="field-error">{{ message }}</p>
+          }
+          @for (e of grammar.controls.examples.controls; track e; let k = $index) {
+            <div class="example-row">
+              <div class="field">
+                <label [for]="'grammar-example-' + k">Ví dụ {{ k + 1 }}</label>
+                <input
+                  [id]="'grammar-example-' + k"
+                  lang="en"
+                  [formControlName]="k"
+                  [attr.aria-invalid]="!!err('grammarNote.examples.' + k)"
+                  [attr.aria-describedby]="describedBy('grammarNote.examples.' + k)"
+                />
+                @if (err('grammarNote.examples.' + k); as message) {
+                  <p class="field-error" [id]="errorId('grammarNote.examples.' + k)">{{ message }}</p>
+                }
+              </div>
+              <button type="button" class="btn" (click)="removeExample(k)">Xoá ví dụ {{ k + 1 }}</button>
+            </div>
+          }
+          <button
+            type="button"
+            class="btn"
+            [disabled]="grammar.controls.examples.length >= maxExamples"
+            (click)="addExample()"
+          >
+            Thêm ví dụ
+          </button>
+        </div>
+      </div>
+    }
+  </fieldset>
+
+  <div class="card group field">
+    <label for="writing-prompt">Đề viết (dùng ở bước Viết)</label>
+    <textarea
+      id="writing-prompt"
+      rows="3"
+      lang="en"
+      [formControl]="writingPrompt"
+      [attr.aria-invalid]="!!err('writingPrompt')"
+      [attr.aria-describedby]="describedBy('writingPrompt')"
+    ></textarea>
+    @if (err('writingPrompt'); as message) {
+      <p class="field-error" [id]="errorId('writingPrompt')">{{ message }}</p>
+    }
+  </div>
+
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+  <div class="actions">
+    <button
+      type="button"
+      class="btn-primary"
+      [disabled]="saving() || lesson().annotationStatus === 'running'"
+      (click)="save()"
+    >
+      {{ saving() ? 'Đang lưu…' : 'Lưu câu hỏi, ngữ pháp, đề viết' }}
+    </button>
+    <p class="muted save-status" role="status">{{ status() === 'saved' ? 'Đã lưu' : '' }}</p>
+  </div>
+</section>

@@ -281,6 +281,7 @@ type studyEnv struct {
 	dictation *Service
 	lessons   *fakeLessons
 	clock     *studyClock
+	quiz      *fakeQuiz
 	// limit is the daily card limit from the settings (F12), 30 by default.
 	limit atomic.Int64
 }
@@ -296,6 +297,7 @@ func newStudyEnv() *studyEnv {
 		reviews:  &fakeReviews{due: map[string]int{}, reviewed: map[string][]time.Time{}, cards: map[string][]fakeCard{}},
 		zones:    fakeZones{},
 		clock:    &studyClock{t: time.Date(2026, 9, 30, 10, 0, 0, 0, hcm)},
+		quiz:     &fakeQuiz{status: map[string][2]int{}},
 	}
 	for _, t := range []TopicInfo{
 		{ID: "family", Name: "Gia đình", Level: "A1", LessonIDs: []string{"f1", "f2", "f3"}},
@@ -315,6 +317,7 @@ func newStudyEnv() *studyEnv {
 	e.svc = NewStudyService(StudyDeps{
 		Goals: e.goals, Progress: e.progress, Days: e.days, Dictation: e.dictation, Lessons: e.lessons,
 		Roadmaps: e.roadmaps, Titles: titles, Reviews: e.reviews, Timezones: e.zones, Now: e.clock.now,
+		Quiz:        e.quiz,
 		ReviewLimit: func(context.Context, string) int { return int(e.limit.Load()) },
 	})
 	return e
@@ -380,4 +383,31 @@ func (f *fakeDays) LatestKey(_ context.Context, userID string) (string, error) {
 		}
 	}
 	return latest, nil
+}
+
+// fakeQuiz holds [questions, answered] per "user/lesson" and answer totals per user (F15).
+type fakeQuiz struct {
+	mu     sync.Mutex
+	status map[string][2]int
+	totals [2]int
+	err    error
+}
+
+func (f *fakeQuiz) set(userID, lessonID string, questions, answered int) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.status[userID+"/"+lessonID] = [2]int{questions, answered}
+}
+
+func (f *fakeQuiz) Status(_ context.Context, userID, lessonID string) (questions, answered int, err error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	s := f.status[userID+"/"+lessonID]
+	return s[0], s[1], f.err
+}
+
+func (f *fakeQuiz) Totals(context.Context, string) (answered, correct int, err error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.totals[0], f.totals[1], f.err
 }

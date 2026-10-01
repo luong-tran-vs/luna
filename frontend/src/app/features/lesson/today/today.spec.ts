@@ -174,6 +174,18 @@ describe('Today', () => {
     expect(text('[role="alert"]')).toBe('Hãy kiểm tra hết các câu của bước Nghe');
   });
 
+  it('shows why the Reading step is not done yet (F15)', async () => {
+    await setup(today({ steps: { review: 'done', read: 'current', listen: 'locked' }, currentStep: 'read', reviewCount: 0 }));
+    child(ReadingStub)!.completed.emit();
+    await settle();
+    expectComplete('read').flush(
+      { error: 'read_incomplete', message: 'Hãy trả lời hết câu hỏi hiểu bài' },
+      { status: 409, statusText: 'Conflict' },
+    );
+    await settle();
+    expect(text('[role="alert"]')).toBe('Hãy trả lời hết câu hỏi hiểu bài');
+  });
+
   it('congratulates when the roadmap is finished', async () => {
     await setup(today({ steps: { review: 'done', read: 'done', listen: 'current' }, currentStep: 'listen', reviewCount: 0 }));
     child(ListeningStub)!.completed.emit();

@@ -41,6 +41,9 @@ type ReadingView struct {
 	// Lemmas maps each distinct lowercase word of the lesson to its base form, when known.
 	Lemmas  map[string]string
 	Phrases []Phrase
+	// Quiz is nil when the lesson has no comprehension questions (F15).
+	Quiz        *QuizView
+	GrammarNote *GrammarNote
 }
 
 // LookupMeaning is one meaning; POS is the dictionary part-of-speech code (empty for AI).
@@ -64,16 +67,22 @@ type Reader struct {
 	lessons Repository
 	dict    Dictionary
 	topics  Topics
+	answers AnswerRepository
 }
 
 // NewReader returns a Reader.
-func NewReader(lessons Repository, dict Dictionary, topics Topics) *Reader {
-	return &Reader{lessons: lessons, dict: dict, topics: topics}
+func NewReader(lessons Repository, dict Dictionary, topics Topics, answers AnswerRepository) *Reader {
+	return &Reader{lessons: lessons, dict: dict, topics: topics, answers: answers}
 }
 
-// View returns the lesson for reading, with base forms for highlighting saved words.
-func (r *Reader) View(ctx context.Context, id string) (ReadingView, error) {
+// View returns the lesson for reading, with base forms for highlighting saved words, the
+// grammar note and the user's comprehension quiz (answers only for answered questions).
+func (r *Reader) View(ctx context.Context, userID, id string) (ReadingView, error) {
 	l, err := r.lessons.Get(ctx, id)
+	if err != nil {
+		return ReadingView{}, err
+	}
+	quiz, err := r.quiz(ctx, userID, l)
 	if err != nil {
 		return ReadingView{}, err
 	}
@@ -83,6 +92,7 @@ func (r *Reader) View(ctx context.Context, id string) (ReadingView, error) {
 		Paragraphs: paragraphs(l.Content, len(l.Sentences)),
 		Lemmas:     map[string]string{},
 		Phrases:    []Phrase{},
+		Quiz:       quiz, GrammarNote: l.Extras.GrammarNote,
 	}
 	switch t, err := r.topics.Get(ctx, l.TopicID); {
 	case err == nil:

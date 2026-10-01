@@ -32,6 +32,7 @@ type Export struct {
 	LessonProgress   []Doc          `json:"lessonProgress"`
 	StudyDays        []Doc          `json:"studyDays"`
 	DictationResults []Doc          `json:"dictationResults"`
+	ReadingAnswers   []Doc          `json:"readingAnswers"`
 	Lessons          []Doc          `json:"lessons"`
 }
 
@@ -44,12 +45,13 @@ const (
 	CollLessonProgress   = "lesson_progress"
 	CollStudyDays        = "study_days"
 	CollDictationResults = "dictation_results"
+	CollReadingAnswers   = "reading_answers"
 )
 
 // Allowed reports whether collection may be read by UserDocs.
 func Allowed(collection string) bool {
 	switch collection {
-	case CollCards, CollReviewLogs, CollGoals, CollLessonProgress, CollStudyDays, CollDictationResults:
+	case CollCards, CollReviewLogs, CollGoals, CollLessonProgress, CollStudyDays, CollDictationResults, CollReadingAnswers:
 		return true
 	}
 	return false

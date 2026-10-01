@@ -27,6 +27,8 @@ type StudyDeps struct {
 	Titles    LessonTitles
 	Reviews   Reviews
 	Timezones Timezones
+	// Quiz gates the Reading step on the comprehension questions (F15); nil means no questions.
+	Quiz ReadingQuiz
 	// ReviewLimit is the learner's daily card limit; nil means DefaultReviewLimit (F12 sets it).
 	ReviewLimit func(ctx context.Context, userID string) int
 	Now         func() time.Time
@@ -338,6 +340,15 @@ func (s *StudyService) CompleteStep(ctx context.Context, userID string, step Ste
 
 func (s *StudyService) completeStep(ctx context.Context, d *day, step Step) (TodayView, error) {
 	lessonID := d.state.LessonID
+	if step == StepRead && s.d.Quiz != nil {
+		questions, answered, err := s.d.Quiz.Status(ctx, d.userID, lessonID)
+		if err != nil {
+			return TodayView{}, fmt.Errorf("progress: reading quiz: %w", err)
+		}
+		if questions > 0 && answered < questions {
+			return TodayView{}, ErrReadIncomplete
+		}
+	}
 	if step == StepListen {
 		sum, err := s.d.Dictation.Summary(ctx, d.userID, lessonID)
 		if err != nil {

@@ -10,6 +10,8 @@ import { Listening } from './listening';
 
 const lesson: ReadingLesson = {
   id: 'l1',
+  quiz: null,
+  grammarNote: null,
   title: 'Apples',
   level: 'A2',
   topic: '',
@@ -91,7 +93,7 @@ describe('Listening', () => {
     await TestBed.configureTestingModule({
       imports: [Listening],
       providers: [
-        provideRouter([]),
+        provideRouter([{ path: 'forbidden', children: [] }]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
         {

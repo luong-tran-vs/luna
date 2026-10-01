@@ -33,6 +33,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware, aud
 	mux.Handle("DELETE /api/admin/lessons/{id}", admin(h.delete))
 	mux.Handle("PUT /api/admin/lessons/{id}/annotations", admin(h.updateAnnotations))
 	mux.Handle("POST /api/admin/lessons/{id}/retry", admin(h.retry))
+	mux.Handle("PUT /api/admin/lessons/{id}/extras", admin(h.updateExtras))
+	mux.Handle("POST /api/admin/topics/{id}/generate", admin(h.generate))
 	mux.Handle("GET /api/audio/{lessonId}/{revision}/{index}", requireAuth(AudioHandler(audioDir)))
 }
 
@@ -74,6 +76,41 @@ type lessonJSON struct {
 	AnnotationError string           `json:"annotationError"`
 	Sentences       []sentenceJSON   `json:"sentences"`
 	Annotations     []annotationJSON `json:"annotations"`
+	// F15
+	Questions           []questionJSON   `json:"questions"`
+	GrammarNote         *grammarNoteJSON `json:"grammarNote"`
+	WritingPrompt       string           `json:"writingPrompt"`
+	ExtrasEditedByAdmin bool             `json:"extrasEditedByAdmin"`
+	QuizVersion         int              `json:"quizVersion"`
+}
+
+type questionJSON struct {
+	Prompt        string   `json:"prompt"`
+	Options       []string `json:"options"`
+	AnswerIndex   int      `json:"answerIndex"`
+	ExplanationVi string   `json:"explanationVi"`
+}
+
+type grammarNoteJSON struct {
+	Title    string   `json:"title"`
+	BodyVi   string   `json:"bodyVi"`
+	Examples []string `json:"examples"`
+}
+
+func toQuestionsJSON(qs []Question) []questionJSON {
+	out := make([]questionJSON, len(qs))
+	for i, q := range qs {
+		out[i] = questionJSON(q)
+	}
+	return out
+}
+
+func toGrammarNoteJSON(n *GrammarNote) *grammarNoteJSON {
+	if n == nil {
+		return nil
+	}
+	j := grammarNoteJSON(*n)
+	return &j
 }
 
 func toSummaries(items []Summary) []summaryJSON {
@@ -94,6 +131,8 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 		AudioError: l.AudioError, AnnotationError: l.AnnotationError,
 		Sentences:   make([]sentenceJSON, len(l.Sentences)),
 		Annotations: make([]annotationJSON, len(l.Annotations)),
+		Questions:   toQuestionsJSON(l.Extras.Questions), GrammarNote: toGrammarNoteJSON(l.Extras.GrammarNote),
+		WritingPrompt: l.Extras.WritingPrompt, ExtrasEditedByAdmin: l.ExtrasEditedByAdmin, QuizVersion: l.QuizVersion,
 	}
 	for i, s := range l.Sentences {
 		out.Sentences[i] = sentenceJSON{Index: s.Index, Text: s.Text}
@@ -108,11 +147,12 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 }
 
 type inputJSON struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	TopicID string `json:"topicId"`
-	Source  string `json:"source"`
-	License string `json:"license"`
+	Title           string `json:"title"`
+	Content         string `json:"content"`
+	TopicID         string `json:"topicId"`
+	Source          string `json:"source"`
+	License         string `json:"license"`
+	AppendToRoadmap bool   `json:"appendToRoadmap"`
 }
 
 func (in inputJSON) toInput() Input { return Input(in) }

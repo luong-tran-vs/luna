@@ -20,7 +20,7 @@ func newVocabularyEnv(t *testing.T, status Status, anns []Annotation) (*Reader, 
 	if err != nil {
 		t.Fatal(err)
 	}
-	return NewReader(lessons, readingDict, newFakeTopics()), l.ID
+	return NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers()), l.ID
 }
 
 func TestVocabulary(t *testing.T) {

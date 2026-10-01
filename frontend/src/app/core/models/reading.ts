@@ -1,4 +1,4 @@
-import { Level, Sentence } from './lesson';
+import { GrammarNote, Level, Sentence } from './lesson';
 
 /** A lesson as a learner reads it (GET /api/lessons/{id}). */
 export interface ReadingLesson {
@@ -13,6 +13,44 @@ export interface ReadingLesson {
   lemmas: Record<string, string>;
   /** Multi-word annotations, for highlighting saved phrases. */
   phrases: { text: string; lemma: string }[];
+  /** Comprehension questions (F15); null when the lesson has none. */
+  quiz: Quiz | null;
+  grammarNote: GrammarNote | null;
+}
+
+/** A question as learners see it: no answer until they answer. */
+export interface QuizQuestion {
+  prompt: string;
+  options: string[];
+}
+
+export interface QuizAnswer {
+  questionIndex: number;
+  choice: number;
+  correct: boolean;
+  answerIndex: number;
+  explanationVi: string;
+}
+
+export interface Quiz {
+  version: number;
+  questions: QuizQuestion[];
+  /** This learner's answers to the current version. */
+  answers: QuizAnswer[];
+}
+
+/** POST /api/lessons/{id}/answers. */
+export interface AnswerInput {
+  version: number;
+  questionIndex: number;
+  choice: number;
+}
+
+export interface AnswerResult {
+  answer: QuizAnswer;
+  answered: number;
+  total: number;
+  correct: number;
 }
 
 export type LookupSource = 'ai' | 'dictionary';

@@ -1,0 +1,91 @@
+<dialog #dialog class="dialog" aria-labelledby="generate-title" (cancel)="onCancel($event)">
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate [attr.aria-busy]="busy()">
+    <h2 class="title" id="generate-title">Sinh bài bằng AI</h2>
+    <p class="topic">Chủ đề: <strong>{{ topicLabel() }}</strong></p>
+
+    <div class="row">
+      <div class="field">
+        <label for="generate-count">Số bài</label>
+        <input
+          id="generate-count"
+          type="number"
+          inputmode="numeric"
+          step="1"
+          [min]="minCount"
+          [max]="maxCount"
+          formControlName="count"
+          [attr.aria-invalid]="!!errors()['count']"
+          [attr.aria-describedby]="describedBy('count')"
+        />
+        @if (errors()['count']; as message) {
+          <p class="field-error" id="generate-count-error">{{ message }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="generate-words">Độ dài mỗi bài (số từ)</label>
+        <input
+          id="generate-words"
+          type="number"
+          inputmode="numeric"
+          step="10"
+          [min]="minWords"
+          [max]="maxWords"
+          formControlName="words"
+          [attr.aria-invalid]="!!errors()['words']"
+          [attr.aria-describedby]="describedBy('words', 'generate-words-hint')"
+        />
+        <p class="field-hint" id="generate-words-hint">
+          @if (range(); as r) {
+            Bài dài {{ r.min }}–{{ r.max }} từ được chấp nhận.
+          } @else {
+            Từ {{ minWords }} đến {{ maxWords }} từ.
+          }
+        </p>
+        @if (errors()['words']; as message) {
+          <p class="field-error" id="generate-words-error">{{ message }}</p>
+        }
+      </div>
+    </div>
+
+    <fieldset class="kinds">
+      <legend>Dạng bài</legend>
+      <label class="kind">
+        <input type="radio" formControlName="kind" value="reading" />
+        <span>Bài đọc</span>
+      </label>
+      <label class="kind">
+        <input type="radio" formControlName="kind" value="dialogue" />
+        <span>Hội thoại</span>
+      </label>
+    </fieldset>
+
+    <div class="field">
+      <label for="generate-idea">Ý chính (không bắt buộc)</label>
+      <textarea
+        id="generate-idea"
+        rows="3"
+        formControlName="idea"
+        placeholder="Ví dụ: một buổi dã ngoại cuối tuần"
+        [attr.aria-invalid]="!!errors()['idea']"
+        [attr.aria-describedby]="describedBy('idea', 'generate-idea-hint')"
+      ></textarea>
+      <p class="field-hint" id="generate-idea-hint">{{ ideaLength() }} / {{ maxIdea }} ký tự</p>
+      @if (errors()['idea']; as message) {
+        <p class="field-error" id="generate-idea-error">{{ message }}</p>
+      }
+    </div>
+
+    @if (error(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+    <p class="visually-hidden" role="status">{{ busy() ? 'Đang sinh bài, có thể mất đến một phút.' : '' }}</p>
+
+    <div class="actions">
+      <button type="button" class="btn" [disabled]="busy()" (click)="cancel()">Huỷ</button>
+      <button type="submit" class="btn-primary" [disabled]="busy()" [attr.aria-busy]="busy()">
+        {{ busy() ? 'Đang sinh…' : 'Sinh bài' }}
+      </button>
+    </div>
+  </form>
+</dialog>

@@ -28,6 +28,49 @@ type annotationDoc struct {
 	EditedByAdmin bool   `bson:"editedByAdmin"`
 }
 
+type questionDoc struct {
+	Prompt        string   `bson:"prompt"`
+	Options       []string `bson:"options"`
+	AnswerIndex   int      `bson:"answerIndex"`
+	ExplanationVi string   `bson:"explanationVi"`
+}
+
+type grammarNoteDoc struct {
+	Title    string   `bson:"title"`
+	BodyVi   string   `bson:"bodyVi"`
+	Examples []string `bson:"examples"`
+}
+
+// extrasSet is the $set of a lesson's questions, grammar note and writing prompt (F15).
+func extrasSet(x lesson.Extras) bson.D {
+	qs := make([]questionDoc, len(x.Questions))
+	for i, q := range x.Questions {
+		qs[i] = questionDoc(q)
+	}
+	var note *grammarNoteDoc
+	if x.GrammarNote != nil {
+		n := grammarNoteDoc(*x.GrammarNote)
+		note = &n
+	}
+	return bson.D{
+		{Key: "questions", Value: qs},
+		{Key: "grammarNote", Value: note},
+		{Key: "writingPrompt", Value: x.WritingPrompt},
+	}
+}
+
+func (d lessonDoc) extras() lesson.Extras {
+	x := lesson.Extras{Questions: make([]lesson.Question, len(d.Questions)), WritingPrompt: d.WritingPrompt}
+	for i, q := range d.Questions {
+		x.Questions[i] = lesson.Question(q)
+	}
+	if d.GrammarNote != nil {
+		n := lesson.GrammarNote(*d.GrammarNote)
+		x.GrammarNote = &n
+	}
+	return x
+}
+
 type lessonDoc struct {
 	ID               bson.ObjectID   `bson:"_id,omitempty"`
 	Title            string          `bson:"title"`
@@ -43,6 +86,11 @@ type lessonDoc struct {
 	AnnotationStatus string          `bson:"annotationStatus"`
 	AnnotationError  string          `bson:"annotationError"`
 	Annotations      []annotationDoc `bson:"annotations"`
+	Questions        []questionDoc   `bson:"questions"`
+	GrammarNote      *grammarNoteDoc `bson:"grammarNote"`
+	WritingPrompt    string          `bson:"writingPrompt"`
+	ExtrasEdited     bool            `bson:"extrasEditedByAdmin"`
+	QuizVersion      int             `bson:"quizVersion"`
 	CreatedAt        time.Time       `bson:"createdAt"`
 	UpdatedAt        time.Time       `bson:"updatedAt"`
 }
@@ -81,6 +129,7 @@ func (d lessonDoc) toLesson() lesson.Lesson {
 		Annotations: make([]lesson.Annotation, len(d.Annotations)),
 		CreatedAt:   d.CreatedAt, UpdatedAt: d.UpdatedAt,
 	}
+	l.Extras, l.ExtrasEditedByAdmin, l.QuizVersion = d.extras(), d.ExtrasEdited, d.QuizVersion
 	for i, s := range d.Sentences {
 		l.Sentences[i] = lesson.Sentence(s)
 	}
@@ -214,7 +263,7 @@ func (r *Lessons) UpdateInfo(ctx context.Context, id string, in lesson.Info) err
 // ReplaceContent overwrites every field except the id and creation time.
 func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 	d := fromLesson(l)
-	return r.updateOne(ctx, l.ID, bson.D{{Key: "$set", Value: bson.D{
+	return r.updateOne(ctx, l.ID, bson.D{{Key: "$set", Value: append(bson.D{
 		{Key: "title", Value: d.Title},
 		{Key: "content", Value: d.Content},
 		{Key: "level", Value: d.Level},
@@ -228,8 +277,10 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 		{Key: "annotationStatus", Value: d.AnnotationStatus},
 		{Key: "annotationError", Value: d.AnnotationError},
 		{Key: "annotations", Value: d.Annotations},
+		{Key: "extrasEditedByAdmin", Value: l.ExtrasEditedByAdmin},
+		{Key: "quizVersion", Value: l.QuizVersion},
 		{Key: "updatedAt", Value: d.UpdatedAt},
-	}}})
+	}, extrasSet(l.Extras)...)}})
 }
 
 // SetStatus changes one work status if the lesson is still at revision.
@@ -252,13 +303,31 @@ func (r *Lessons) SaveAudio(ctx context.Context, id string, revision int, paths 
 	return r.updateAtRevision(ctx, id, revision, set)
 }
 
-// SaveAnnotations stores AI annotations and marks them done if still at revision.
-func (r *Lessons) SaveAnnotations(ctx context.Context, id string, revision int, anns []lesson.Annotation) (bool, error) {
-	return r.updateAtRevision(ctx, id, revision, bson.D{
+// SaveAnnotations stores AI annotations and extras, marks them done and bumps quizVersion if
+// still at revision.
+func (r *Lessons) SaveAnnotations(ctx context.Context, id string, revision int, anns []lesson.Annotation,
+	x lesson.Extras,
+) (bool, error) {
+	set := append(bson.D{
 		{Key: "annotations", Value: fromAnnotations(anns)},
 		{Key: "annotationStatus", Value: string(lesson.StatusDone)},
 		{Key: "annotationError", Value: ""},
-	})
+		{Key: "extrasEditedByAdmin", Value: false},
+	}, extrasSet(x)...)
+	return r.updateAtRevisionInc(ctx, id, revision, set, bson.D{{Key: "quizVersion", Value: 1}})
+}
+
+// ReplaceExtras stores admin-edited extras and marks them edited; bumpQuiz bumps quizVersion.
+func (r *Lessons) ReplaceExtras(ctx context.Context, id string, x lesson.Extras, bumpQuiz bool) error {
+	set := append(extrasSet(x),
+		bson.E{Key: "extrasEditedByAdmin", Value: true},
+		bson.E{Key: "updatedAt", Value: time.Now().UTC()},
+	)
+	update := bson.D{{Key: "$set", Value: set}}
+	if bumpQuiz {
+		update = append(update, bson.E{Key: "$inc", Value: bson.D{{Key: "quizVersion", Value: 1}}})
+	}
+	return r.updateOne(ctx, id, update)
 }
 
 // ReplaceAnnotations stores admin-edited annotations and marks them done.
@@ -300,14 +369,22 @@ func (r *Lessons) updateOne(ctx context.Context, id string, update bson.D) error
 
 // updateAtRevision applies set only while the lesson is still at revision.
 func (r *Lessons) updateAtRevision(ctx context.Context, id string, revision int, set bson.D) (bool, error) {
+	return r.updateAtRevisionInc(ctx, id, revision, set, nil)
+}
+
+// updateAtRevisionInc is updateAtRevision with an optional $inc.
+func (r *Lessons) updateAtRevisionInc(ctx context.Context, id string, revision int, set, inc bson.D) (bool, error) {
 	oid, err := bson.ObjectIDFromHex(id)
 	if err != nil {
 		return false, lesson.ErrNotFound
 	}
 	set = append(set, bson.E{Key: "updatedAt", Value: time.Now().UTC()})
+	update := bson.D{{Key: "$set", Value: set}}
+	if len(inc) > 0 {
+		update = append(update, bson.E{Key: "$inc", Value: inc})
+	}
 	res, err := r.coll.UpdateOne(ctx,
-		bson.D{{Key: "_id", Value: oid}, {Key: "revision", Value: revision}},
-		bson.D{{Key: "$set", Value: set}})
+		bson.D{{Key: "_id", Value: oid}, {Key: "revision", Value: revision}}, update)
 	if err != nil {
 		return false, fmt.Errorf("update lesson: %w", err)
 	}

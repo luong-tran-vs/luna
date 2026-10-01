@@ -27,6 +27,8 @@ import { selectWords, TouchedWord } from '../../../shared/utils/selection';
 import { tokenize } from '../../../shared/utils/tokenize';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
+import { ComprehensionQuiz } from './comprehension-quiz/comprehension-quiz';
+import { GrammarNote } from './grammar-note/grammar-note';
 import { LessonVocabulary } from './lesson-vocabulary/lesson-vocabulary';
 
 interface Selected {
@@ -50,7 +52,7 @@ const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
  */
 @Component({
   selector: 'lu-reading',
-  imports: [CdkConnectedOverlay, LessonVocabulary, RouterLink, WordPopup],
+  imports: [CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, LessonVocabulary, RouterLink, WordPopup],
   templateUrl: './reading.html',
   styleUrl: './reading.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -123,6 +125,11 @@ export class Reading implements OnInit {
 
   ngOnInit(): void {
     // Inputs are set by now.
+    this.load();
+  }
+
+  /** Loads (or reloads, after the questions changed) the lesson and the saved words. */
+  protected load(): void {
     forkJoin({
       lesson: this.api.getLesson(this.id),
       words: this.vocab.words().pipe(catchError(() => of([]))),
@@ -438,6 +445,21 @@ export class Reading implements OnInit {
 
   protected finish(): void {
     if (!this.reachedEnd() || this.done()) {
+      return;
+    }
+    this.done.set(true);
+    this.completed.emit();
+  }
+
+  /** Every comprehension question answered before this visit (e.g. completing failed offline). */
+  protected readonly quizAnsweredOnLoad = computed(() => {
+    const quiz = this.lesson()?.quiz;
+    return !!quiz && quiz.answers.length >= quiz.questions.length;
+  });
+
+  /** F15: with questions, answering the last one finishes the step (the server checks it). */
+  protected finishQuiz(): void {
+    if (this.done() || this.review()) {
       return;
     }
     this.done.set(true);

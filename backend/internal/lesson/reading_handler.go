@@ -34,17 +34,20 @@ func (h *ReadingHandler) Register(mux *http.ServeMux, requireAuth, guard httpx.M
 	mux.Handle("GET /api/lessons/{id}", route(h.view))
 	mux.Handle("GET /api/lessons/{id}/lookup", route(h.lookup))
 	mux.Handle("GET /api/lessons/{id}/vocabulary", route(h.vocabulary))
+	mux.Handle("POST /api/lessons/{id}/answers", route(h.answer))
 }
 
 type readingJSON struct {
-	ID         string            `json:"id"`
-	Title      string            `json:"title"`
-	Level      Level             `json:"level"`
-	Topic      string            `json:"topic"`
-	Sentences  []sentenceJSON    `json:"sentences"`
-	Paragraphs [][]int           `json:"paragraphs"`
-	Lemmas     map[string]string `json:"lemmas"`
-	Phrases    []phraseJSON      `json:"phrases"`
+	ID          string            `json:"id"`
+	Title       string            `json:"title"`
+	Level       Level             `json:"level"`
+	Topic       string            `json:"topic"`
+	Sentences   []sentenceJSON    `json:"sentences"`
+	Paragraphs  [][]int           `json:"paragraphs"`
+	Lemmas      map[string]string `json:"lemmas"`
+	Phrases     []phraseJSON      `json:"phrases"`
+	Quiz        *quizJSON         `json:"quiz"`
+	GrammarNote *grammarNoteJSON  `json:"grammarNote"`
 }
 
 type phraseJSON struct {
@@ -66,7 +69,8 @@ type lookupJSON struct {
 }
 
 func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
-	v, err := h.reader.View(r.Context(), r.PathValue("id"))
+	p, _ := httpx.PrincipalFrom(r.Context())
+	v, err := h.reader.View(r.Context(), p.UserID, r.PathValue("id"))
 	if err != nil {
 		h.writeError(w, r, err, "not_found")
 		return
@@ -86,6 +90,8 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 	for i, p := range v.Phrases {
 		out.Phrases[i] = phraseJSON(p)
 	}
+	out.Quiz = toQuizJSON(v.Quiz)
+	out.GrammarNote = toGrammarNoteJSON(v.GrammarNote)
 	httpx.WriteJSON(w, http.StatusOK, map[string]readingJSON{"lesson": out})
 }
 
@@ -155,11 +161,18 @@ func (h *ReadingHandler) vocabulary(w http.ResponseWriter, r *http.Request) {
 // writeError maps lesson errors; lessonMissingCode distinguishes a missing lesson from a
 // word without meaning on the lookup endpoint.
 func (h *ReadingHandler) writeError(w http.ResponseWriter, r *http.Request, err error, lessonMissingCode string) {
+	var verr *ValidationError
 	switch {
 	case errors.Is(err, ErrLookupNotFound):
 		httpx.WriteError(w, http.StatusNotFound, "not_found", "Chưa có nghĩa")
 	case errors.Is(err, ErrNotFound):
 		httpx.WriteError(w, http.StatusNotFound, lessonMissingCode, "Không tìm thấy bài học")
+	case errors.As(err, &verr):
+		httpx.WriteFieldErrors(w, verr.Fields)
+	case errors.Is(err, ErrQuizChanged):
+		httpx.WriteError(w, http.StatusConflict, "quiz_changed", "Câu hỏi vừa được cập nhật, vui lòng tải lại")
+	case errors.Is(err, ErrNoQuiz):
+		httpx.WriteError(w, http.StatusConflict, "no_quiz", "Bài này chưa có câu hỏi")
 	default:
 		h.log.ErrorContext(r.Context(), "reading request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")

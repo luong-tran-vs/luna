@@ -26,6 +26,12 @@ export class Stats {
     return r === null || r === undefined ? '—' : `${Math.round(r * 100)}%`;
   });
 
+  /** Comprehension answers right, as a whole percentage (F15). */
+  protected readonly readingRate = computed(() => {
+    const r = this.data()?.reading.rate;
+    return r === null || r === undefined ? '—' : `${Math.round(r * 100)}%`;
+  });
+
   constructor() {
     this.load();
   }

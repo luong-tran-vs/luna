@@ -106,6 +106,7 @@ var (
 	ErrTopicNotFound    = errors.New("progress: topic not found")
 	ErrStepLocked       = errors.New("progress: previous step not done")
 	ErrListenIncomplete = errors.New("progress: dictation not finished")
+	ErrReadIncomplete   = errors.New("progress: comprehension questions not answered")
 	ErrNoLesson         = errors.New("progress: no lesson today")
 	ErrNotCurrentStep   = errors.New("progress: not the current step")
 	ErrLessonLocked     = errors.New("progress: lesson not open yet")

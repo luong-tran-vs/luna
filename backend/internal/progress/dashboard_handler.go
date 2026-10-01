@@ -78,6 +78,11 @@ type statsJSON struct {
 		Listen    int `json:"listen"`
 		Completed int `json:"completed"`
 	} `json:"lessons"`
+	Reading struct {
+		Answered int      `json:"answered"`
+		Correct  int      `json:"correct"`
+		Rate     *float64 `json:"rate"`
+	} `json:"reading"`
 }
 
 // --- handlers ---
@@ -104,5 +109,6 @@ func (h *StudyHandler) stats(w http.ResponseWriter, r *http.Request) {
 	out.Dictation.Sentences, out.Dictation.CorrectWords, out.Dictation.TotalWords = v.Dictation.Sentences, v.Dictation.CorrectWords, v.Dictation.TotalWords
 	out.Dictation.Rate = v.Rate
 	out.Lessons.Read, out.Lessons.Listen, out.Lessons.Completed = v.Lessons.Read, v.Lessons.Listen, v.Lessons.Completed
+	out.Reading.Answered, out.Reading.Correct, out.Reading.Rate = v.Reading.Answered, v.Reading.Correct, v.ReadingRate
 	httpx.WriteJSON(w, http.StatusOK, out)
 }

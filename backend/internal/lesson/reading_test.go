@@ -53,7 +53,7 @@ func newReaderEnv(t *testing.T) (*Reader, Lesson) {
 		},
 		AnnotationError: "secret", AudioError: "secret",
 	})
-	return NewReader(lessons, readingDict, newFakeTopics()), l
+	return NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers()), l
 }
 
 // --- reading view (foundation) ---
@@ -62,7 +62,7 @@ func TestReadingView(t *testing.T) {
 	t.Parallel()
 	r, l := newReaderEnv(t)
 
-	v, err := r.View(t.Context(), l.ID)
+	v, err := r.View(t.Context(), "u1", l.ID)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -85,7 +85,7 @@ func TestReadingView(t *testing.T) {
 		t.Errorf("phrases = %+v", v.Phrases)
 	}
 
-	if _, err := r.View(t.Context(), "missing"); !errors.Is(err, ErrNotFound) {
+	if _, err := r.View(t.Context(), "u1", "missing"); !errors.Is(err, ErrNotFound) {
 		t.Errorf("missing lesson: %v", err)
 	}
 }

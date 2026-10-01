@@ -51,4 +51,11 @@ export interface Stats {
     listen: number;
     completed: number;
   };
+  /** Comprehension answers (F15). */
+  reading: {
+    answered: number;
+    correct: number;
+    /** correct / answered (0–1); null when nothing was answered. */
+    rate: number | null;
+  };
 }

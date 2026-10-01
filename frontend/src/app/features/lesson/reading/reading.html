@@ -48,12 +48,31 @@
     </article>
     <div #end class="end" aria-hidden="true"></div>
 
+    @if (l.grammarNote; as note) {
+      <lu-grammar-note [note]="note" />
+    }
+    @if (l.quiz; as quiz) {
+      <lu-comprehension-quiz
+        [lessonId]="l.id"
+        [quiz]="quiz"
+        [review]="review()"
+        (allAnswered)="finishQuiz()"
+        (reload)="load()"
+      />
+    }
+
     <lu-lesson-vocabulary [lessonId]="l.id" [saved]="saved()" (added)="onVocabularyAdded($event)" />
 
     @if (!review()) {
     <footer class="finish">
       @if (done()) {
         <p class="done" role="status">✓ Đã hoàn thành bước Đọc</p>
+      } @else if (l.quiz) {
+        @if (quizAnsweredOnLoad()) {
+          <button type="button" class="btn-primary" (click)="finishQuiz()">Tiếp tục</button>
+        } @else {
+          <p class="muted">Trả lời hết câu hỏi để hoàn thành bước Đọc.</p>
+        }
       } @else {
         @if (!reachedEnd()) {
           <p class="muted" id="finish-hint">Đọc hết bài để hoàn thành.</p>

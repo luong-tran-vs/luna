@@ -62,8 +62,13 @@ type Lesson struct {
 	AnnotationStatus Status
 	AnnotationError  string
 	Annotations      []Annotation
-	CreatedAt        time.Time
-	UpdatedAt        time.Time
+	// Extras are the comprehension questions, grammar note and writing prompt (F15).
+	Extras              Extras
+	ExtrasEditedByAdmin bool
+	// QuizVersion is bumped whenever the question set is replaced; answers belong to one version.
+	QuizVersion int
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 // StatusOf returns the status of the given kind of background work.
@@ -106,6 +111,14 @@ var (
 	ErrTopicNotFound     = errors.New("lesson: topic not found")
 	ErrNotFailed         = errors.New("lesson: only failed work can be retried")
 	ErrAnnotationRunning = errors.New("lesson: annotation is running")
+	// ErrUnusableDraft means none of the generated drafts passed the checks.
+	ErrUnusableDraft = errors.New("lesson: AI returned no usable draft")
+	// ErrQuizChanged means an answer was sent for an older version of the questions.
+	ErrQuizChanged = errors.New("lesson: questions changed")
+	// ErrNoQuiz means the lesson has no comprehension questions.
+	ErrNoQuiz = errors.New("lesson: lesson has no questions")
+	// ErrAlreadyAnswered is matched by *AlreadyAnsweredError.
+	ErrAlreadyAnswered = errors.New("lesson: question already answered")
 )
 
 // ValidationError lists invalid input fields with Vietnamese messages for the admin.
@@ -116,3 +129,46 @@ type ValidationError struct {
 func (e *ValidationError) Error() string {
 	return fmt.Sprintf("lesson: invalid input %v", e.Fields)
 }
+
+// Question is a multiple-choice comprehension question about a lesson (F15).
+type Question struct {
+	Prompt        string
+	Options       []string
+	AnswerIndex   int
+	ExplanationVi string
+}
+
+// GrammarNote explains one grammar point of a lesson, with examples copied from it.
+type GrammarNote struct {
+	Title    string
+	BodyVi   string
+	Examples []string
+}
+
+// Extras are the parts of a lesson written with its annotations (F15). Any part may be empty.
+type Extras struct {
+	Questions     []Question
+	GrammarNote   *GrammarNote
+	WritingPrompt string
+}
+
+// Answer is a learner's answer to one question of one question-set version.
+type Answer struct {
+	UserID        string
+	LessonID      string
+	QuizVersion   int
+	QuestionIndex int
+	Choice        int
+	Correct       bool
+	AnsweredAt    time.Time
+}
+
+// AlreadyAnsweredError carries the answer stored first for a question answered again.
+type AlreadyAnsweredError struct {
+	Answer Answer
+}
+
+func (e *AlreadyAnsweredError) Error() string { return ErrAlreadyAnswered.Error() }
+
+// Is makes errors.Is(err, ErrAlreadyAnswered) true.
+func (e *AlreadyAnsweredError) Is(target error) bool { return target == ErrAlreadyAnswered }

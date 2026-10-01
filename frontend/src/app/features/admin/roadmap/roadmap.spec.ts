@@ -214,4 +214,264 @@ describe('Roadmap', () => {
     await flushTopic('t1', data([]), []);
     expect(text(el.querySelector('.selected-warning'))).toContain('Lộ trình chưa có bài');
   });
+
+  describe('AI drafts (F7)', () => {
+    const generateUrl = '/api/admin/topics/t1/generate';
+    const words = (n: number) => Array.from({ length: n }, (_, i) => `w${i}`).join(' ');
+    const generated = (...titles: string[]) => ({
+      drafts: titles.map((title) => ({ title, content: words(120), words: 120 })),
+      requested: titles.length,
+      dropped: 0,
+    });
+    const button = (label: string, root: ParentNode = el) =>
+      Array.from(root.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === label);
+    const dialog = () => el.querySelector('lu-generate-dialog')!;
+    const confirm = () => el.querySelector('lu-confirm-dialog')!;
+    const draftTitles = () =>
+      Array.from(el.querySelectorAll<HTMLInputElement>('lu-draft-list input[type="text"]')).map((i) => i.value);
+    const roadmap = () => fixture.componentInstance as unknown as { canLeave(): boolean | Promise<boolean> };
+
+    const openDialog = async () => {
+      button('Sinh bài bằng AI')!.click();
+      await settle();
+    };
+    const submitDialog = async () => {
+      dialog().querySelector<HTMLButtonElement>('button[type="submit"]')!.click();
+      await settle();
+    };
+    const generate = async (result: object) => {
+      await openDialog();
+      await submitDialog();
+      http.expectOne(generateUrl).flush(result);
+      await settle();
+    };
+    const expectReload = async (ids: string[]) => {
+      await flushTopic('t1', data(ids), ids.map((id) => item(id, `Bài ${id}`)));
+    };
+
+    beforeEach(async () => {
+      HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
+        this.setAttribute('open', '');
+      });
+      HTMLDialogElement.prototype.close = vi.fn(function (this: HTMLDialogElement) {
+        this.removeAttribute('open');
+      });
+      await setup('t1');
+      await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
+    });
+
+    it('opens the dialog with the topic and the default length of its level', async () => {
+      await openDialog();
+      expect(dialog().querySelector('dialog')!.hasAttribute('open')).toBe(true);
+      expect(text(dialog())).toContain('A1 · Gia đình');
+      expect(dialog().querySelector<HTMLInputElement>('#generate-words')!.value).toBe('120');
+      expect(dialog().querySelector<HTMLInputElement>('#generate-count')!.value).toBe('3');
+    });
+
+    it('generates drafts without touching the roadmap', async () => {
+      await openDialog();
+      await submitDialog();
+      const req = http.expectOne(generateUrl);
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '' });
+      expect(text(button('Đang sinh…', dialog()))).toBe('Đang sinh…');
+
+      req.flush({ ...generated('Sunday Lunch', 'The Picnic'), requested: 3, dropped: 1 });
+      await settle();
+      expect(dialog().querySelector('dialog')!.hasAttribute('open')).toBe(false);
+      expect(draftTitles()).toEqual(['Sunday Lunch', 'The Picnic']);
+      expect(text(el.querySelector('.generate-note'))).toBe(
+        'Đã thêm 2 bản nháp. Đã loại 1 bản không đạt yêu cầu (trùng tiêu đề hoặc sai độ dài).',
+      );
+      expect(titles()).toEqual(['Bài a']);
+    });
+
+    it('saves a draft to the end of the roadmap', async () => {
+      await generate(generated('Sunday Lunch', 'The Picnic'));
+      const title = el.querySelector<HTMLInputElement>('lu-draft-list input[type="text"]')!;
+      title.value = 'Sunday Lunch at Home';
+      title.dispatchEvent(new Event('input'));
+      await settle();
+
+      el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
+      await settle();
+      const req = http.expectOne('/api/admin/lessons');
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({
+        title: 'Sunday Lunch at Home',
+        content: words(120),
+        topicId: 't1',
+        source: 'AI sinh',
+        license: 'Nội dung do AI tạo',
+        appendToRoadmap: true,
+      });
+      req.flush({ lesson: { id: 'n1' } });
+      await settle();
+      await expectReload(['a', 'n1']);
+      expect(draftTitles()).toEqual(['The Picnic']);
+      expect(titles()).toEqual(['Bài a', 'Bài n1']);
+    });
+
+    it('discards a draft without any request', async () => {
+      await generate(generated('Sunday Lunch', 'The Picnic'));
+      el.querySelector<HTMLButtonElement>('button[aria-label="Bỏ bản nháp 2"]')!.click();
+      await settle();
+      expect(draftTitles()).toEqual(['Sunday Lunch']);
+    });
+
+    it('saves all drafts one after another and keeps the failed ones', async () => {
+      await generate(generated('One', 'Two', 'Three'));
+      button('Lưu tất cả')!.click();
+      await settle();
+
+      const first = http.expectOne('/api/admin/lessons');
+      expect(first.request.body.title).toBe('One');
+      first.flush({ lesson: { id: 'n1' } });
+      await settle();
+
+      const second = http.expectOne('/api/admin/lessons');
+      expect(second.request.body.title).toBe('Two');
+      second.flush(
+        { error: 'validation_failed', message: 'Dữ liệu không hợp lệ', fields: { title: 'Tối đa 200 ký tự' } },
+        { status: 400, statusText: 'Bad Request' },
+      );
+      await settle();
+
+      const third = http.expectOne('/api/admin/lessons');
+      expect(third.request.body.title).toBe('Three');
+      third.error(new ProgressEvent('error'));
+      await settle();
+
+      await expectReload(['a', 'n1']);
+      expect(draftTitles()).toEqual(['Two', 'Three']);
+      expect(text(el.querySelector('lu-draft-list .field-error'))).toBe('Tối đa 200 ký tự');
+      expect(text(el.querySelector('lu-draft-list [role="alert"]'))).toBe('Không lưu được, vui lòng thử lại.');
+    });
+
+    it('sends one request when Lưu is pressed twice', async () => {
+      await generate(generated('One'));
+      const save = el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!;
+      save.click();
+      save.click();
+      await settle();
+      http.expectOne('/api/admin/lessons').flush({ lesson: { id: 'n1' } });
+      await settle();
+      await expectReload(['a', 'n1']);
+    });
+
+    for (const [name, respond, message] of [
+      [
+        'quota',
+        { status: 429, body: { error: 'ai_quota', message: 'Đã hết lượt AI, vui lòng thử lại sau.' } },
+        'Đã hết lượt AI, vui lòng thử lại sau.',
+      ],
+      [
+        'not configured',
+        { status: 503, body: { error: 'ai_not_configured', message: 'AI chưa được cấu hình. Liên hệ người vận hành.' } },
+        'AI chưa được cấu hình. Liên hệ người vận hành.',
+      ],
+      [
+        'unusable',
+        { status: 502, body: { error: 'ai_unusable', message: 'AI trả về nội dung không dùng được, vui lòng thử lại.' } },
+        'AI trả về nội dung không dùng được, vui lòng thử lại.',
+      ],
+      ['network', 'network', 'Sinh bài thất bại, vui lòng thử lại.'],
+    ] as const) {
+      it(`keeps drafts and options when the AI fails (${name})`, async () => {
+        await generate(generated('Kept'));
+        const title = el.querySelector<HTMLInputElement>('lu-draft-list input[type="text"]')!;
+        title.value = 'Kept and edited';
+        title.dispatchEvent(new Event('input'));
+
+        await openDialog();
+        const idea = dialog().querySelector<HTMLTextAreaElement>('#generate-idea')!;
+        idea.value = 'a picnic';
+        idea.dispatchEvent(new Event('input'));
+        await submitDialog();
+        const req = http.expectOne(generateUrl);
+        if (respond === 'network') {
+          req.error(new ProgressEvent('error'));
+        } else {
+          req.flush(respond.body, { status: respond.status, statusText: 'Error' });
+        }
+        await settle();
+
+        expect(dialog().querySelector('dialog')!.hasAttribute('open')).toBe(true);
+        expect(text(dialog().querySelector('[role="alert"]'))).toBe(message);
+        expect(dialog().querySelector<HTMLTextAreaElement>('#generate-idea')!.value).toBe('a picnic');
+        expect(draftTitles()).toEqual(['Kept and edited']);
+      });
+    }
+
+    it('appends a new batch after the old drafts', async () => {
+      await generate(generated('First'));
+      await generate(generated('Second', 'Third'));
+      expect(draftTitles()).toEqual(['First', 'Second', 'Third']);
+    });
+
+    it('keeps the last options when the dialog opens again', async () => {
+      await openDialog();
+      const count = dialog().querySelector<HTMLInputElement>('#generate-count')!;
+      count.value = '1';
+      count.dispatchEvent(new Event('input'));
+      await submitDialog();
+      http.expectOne(generateUrl).flush(generated('One'));
+      await settle();
+      await openDialog();
+      expect(dialog().querySelector<HTMLInputElement>('#generate-count')!.value).toBe('1');
+    });
+
+    it('lets the page go when there are no drafts', () => {
+      expect(roadmap().canLeave()).toBe(true);
+    });
+
+    it('asks before leaving with drafts', async () => {
+      await generate(generated('One'));
+      const stay = roadmap().canLeave() as Promise<boolean>;
+      await settle();
+      expect(text(confirm())).toContain('Các bản nháp chưa lưu sẽ mất.');
+      button('Huỷ', confirm())!.click();
+      await expect(stay).resolves.toBe(false);
+      await settle();
+      expect(draftTitles()).toEqual(['One']);
+
+      const leave = roadmap().canLeave() as Promise<boolean>;
+      await settle();
+      button('Rời trang', confirm())!.click();
+      await expect(leave).resolves.toBe(true);
+    });
+
+    it('asks before switching topic with drafts', async () => {
+      await generate(generated('One'));
+      const select = el.querySelector<HTMLSelectElement>('select[name="topicId"]')!;
+      select.value = 't3';
+      select.dispatchEvent(new Event('change'));
+      await settle();
+      button('Huỷ', confirm())!.click();
+      await settle();
+      expect(select.value).toBe('t1');
+      expect(draftTitles()).toEqual(['One']);
+
+      select.value = 't3';
+      select.dispatchEvent(new Event('change'));
+      await settle();
+      button('Rời trang', confirm())!.click();
+      await settle();
+      http.expectOne('/api/admin/topics/t3/roadmap').flush({ ...data([]), topic: topics[2] });
+      http.expectOne((r) => r.url === '/api/admin/lessons').flush({ lessons: [] });
+      await settle();
+      expect(draftTitles()).toEqual([]);
+    });
+
+    it('asks the browser before unloading only with drafts', async () => {
+      const before = new Event('beforeunload', { cancelable: true });
+      window.dispatchEvent(before);
+      expect(before.defaultPrevented).toBe(false);
+
+      await generate(generated('One'));
+      const after = new Event('beforeunload', { cancelable: true });
+      window.dispatchEvent(after);
+      expect(after.defaultPrevented).toBe(true);
+    });
+  });
 });

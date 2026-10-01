@@ -1,0 +1,126 @@
+.quiz {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.quiz-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.questions {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.question {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.counter {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.prompt {
+  font-weight: 600;
+}
+
+.options {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.option {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  text-align: left;
+  background: var(--color-bg);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.option:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.option:disabled {
+  cursor: progress;
+}
+
+/* The words carry the result; colour only adds to it. */
+.verdict {
+  font-weight: 700;
+}
+
+.verdict.right {
+  color: var(--color-ok);
+}
+
+.verdict.wrong {
+  color: var(--color-bad);
+}
+
+.results {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.result.is-answer {
+  font-weight: 600;
+  border-left: var(--space-1) solid var(--color-ok);
+}
+
+.result.is-choice:not(.is-answer) {
+  border-left: var(--space-1) solid var(--color-bad);
+}
+
+.note {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.answer-note {
+  color: var(--color-text);
+}
+
+.explanation {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.changed {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.summary {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 600;
+}

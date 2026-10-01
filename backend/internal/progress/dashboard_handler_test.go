@@ -41,7 +41,7 @@ func TestStatsEndpoint(t *testing.T) {
 
 	r := do(t, mux, http.MethodGet, "/api/stats", "an", "")
 	want := `{"cards":0,"dictation":{"sentences":0,"correctWords":0,"totalWords":0,"rate":null},` +
-		`"lessons":{"read":0,"listen":0,"completed":0}}` + "\n"
+		`"lessons":{"read":0,"listen":0,"completed":0},"reading":{"answered":0,"correct":0,"rate":null}}` + "\n"
 	if r.code != http.StatusOK || r.text != want {
 		t.Fatalf("new learner: %d %s", r.code, r.text)
 	}

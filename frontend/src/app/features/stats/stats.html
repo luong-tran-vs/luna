@@ -18,6 +18,15 @@
         <dd>{{ s.dictation.sentences }} câu đã chép chính tả</dd>
         <dd class="rate">Tỷ lệ đúng {{ rate() }}</dd>
       </div>
+      <div class="card figure reading">
+        <dt>Hiểu bài</dt>
+        @if (s.reading.answered > 0) {
+          <dd class="rate">Trả lời đúng {{ readingRate() }} ({{ s.reading.answered }} câu)</dd>
+        } @else {
+          <dd class="rate">Trả lời đúng —</dd>
+          <dd class="muted">Trả lời câu hỏi ở bước Đọc để xem tỷ lệ.</dd>
+        }
+      </div>
       <div class="card figure">
         <dt>Bài học</dt>
         <dd>Đọc: {{ s.lessons.read }} bài</dd>

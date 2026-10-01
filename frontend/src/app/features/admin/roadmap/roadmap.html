@@ -25,7 +25,13 @@
 
   <div class="field topic-picker">
     <label for="roadmap-topic">Chủ đề</label>
-    <select id="roadmap-topic" name="topicId" [value]="selectedId()" (change)="select($any($event.target).value)">
+    <select
+      #topicSelect
+      id="roadmap-topic"
+      name="topicId"
+      [value]="selectedId()"
+      (change)="select($any($event.target).value)"
+    >
       <option value="">Chọn chủ đề</option>
       @for (group of topicGroups(); track group.level) {
         <optgroup [label]="group.level">
@@ -48,6 +54,24 @@
   } @else if (data()) {
     @if (warning(); as message) {
       <p class="banner-warning selected-warning" role="status">{{ message }}</p>
+    }
+
+    <div class="generate-bar">
+      <button type="button" class="btn-primary" (click)="openGenerate()">Sinh bài bằng AI</button>
+      <p class="muted generate-note" role="status">{{ generateNote() }}</p>
+    </div>
+
+    <lu-draft-list
+      [drafts]="drafts()"
+      [busy]="savingDrafts()"
+      (changed)="changeDraft($event)"
+      (save)="saveDraft($event)"
+      (discard)="discardDraft($event)"
+      (saveAll)="saveAllDrafts()"
+    />
+
+    @if (drafts().length > 0) {
+      <h2 class="section-title">Lộ trình hiện tại</h2>
     }
 
     <ol class="list roadmap-list" cdkDropList [cdkDropListData]="lessons()" (cdkDropListDropped)="drop($event)">
@@ -92,4 +116,26 @@
   } @else if (!error()) {
     <p class="muted" role="status">Đang tải…</p>
   }
+
+  @if (selectedTopic(); as t) {
+    <lu-generate-dialog
+      [open]="dialogOpen()"
+      [topicLabel]="topicLabel(t)"
+      [options]="options()"
+      [busy]="generating()"
+      [error]="generateError()"
+      (generate)="generate($event)"
+      (closed)="closeGenerate()"
+    />
+  }
+
+  <lu-confirm-dialog
+    [open]="leaveOpen()"
+    title="Rời trang?"
+    message="Các bản nháp chưa lưu sẽ mất."
+    confirmLabel="Rời trang"
+    [danger]="true"
+    (confirmed)="answerLeave(true)"
+    (cancelled)="answerLeave(false)"
+  />
 </section>

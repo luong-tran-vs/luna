@@ -21,17 +21,20 @@ type Input struct {
 	TopicID string
 	Source  string
 	License string
+	// AppendToRoadmap adds a new lesson at the end of its topic roadmap (F7); Update ignores it.
+	AppendToRoadmap bool
 }
 
 // ValidateInput trims every field, checks limits and splits the content. It returns the
 // cleaned input and the sentences, or a *ValidationError listing every invalid field.
 func ValidateInput(in Input) (Input, []string, error) {
 	in = Input{
-		Title:   strings.TrimSpace(in.Title),
-		Content: strings.TrimSpace(in.Content),
-		TopicID: strings.TrimSpace(in.TopicID),
-		Source:  strings.TrimSpace(in.Source),
-		License: strings.TrimSpace(in.License),
+		Title:           strings.TrimSpace(in.Title),
+		Content:         strings.TrimSpace(in.Content),
+		TopicID:         strings.TrimSpace(in.TopicID),
+		Source:          strings.TrimSpace(in.Source),
+		License:         strings.TrimSpace(in.License),
+		AppendToRoadmap: in.AppendToRoadmap,
 	}
 	fields := map[string]string{}
 

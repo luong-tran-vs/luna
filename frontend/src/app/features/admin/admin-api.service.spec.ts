@@ -53,6 +53,13 @@ describe('AdminApiService', () => {
     ).resolves.toEqual(lesson);
   });
 
+  it('saves the questions, grammar note and writing prompt', async () => {
+    const extras = { questions: [], grammarNote: null, writingPrompt: 'Write.' };
+    await expect(
+      call(api.updateExtras('l1', extras), 'PUT', '/api/admin/lessons/l1/extras', { lesson }, extras),
+    ).resolves.toEqual(lesson);
+  });
+
   it('lists, creates, updates and deletes topics', async () => {
     const topic = { id: 't1', name: 'Gia đình' };
     const topicInput = { name: 'Gia đình', level: 'A1' as const, description: '' };
@@ -69,5 +76,13 @@ describe('AdminApiService', () => {
     await expect(
       call(api.setTopicRoadmap('t1', ['a', 'b']), 'PUT', '/api/admin/topics/t1/roadmap', roadmap, { lessonIds: ['a', 'b'] }),
     ).resolves.toEqual(roadmap);
+  });
+
+  it('generates lesson drafts for a topic', async () => {
+    const result = { drafts: [{ title: 'T', content: 'C.', words: 1 }], requested: 1, dropped: 0 };
+    const body = { count: 1, words: 120, kind: 'reading' as const, idea: '' };
+    await expect(
+      call(api.generateLessons('t1', body), 'POST', '/api/admin/topics/t1/generate', result, body),
+    ).resolves.toEqual(result);
   });
 });

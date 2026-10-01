@@ -1,0 +1,76 @@
+@if (drafts().length > 0) {
+  <section class="drafts" aria-labelledby="drafts-heading">
+    <div class="drafts-header">
+      <h2 class="section-title" id="drafts-heading">Bản nháp chưa lưu ({{ drafts().length }})</h2>
+      @if (drafts().length >= 2) {
+        <button type="button" class="btn-primary" [disabled]="busy()" (click)="saveAll.emit()">Lưu tất cả</button>
+      }
+    </div>
+    <p class="muted">Bản nháp chỉ có trên trang này. Bấm Lưu để thêm bài vào cuối lộ trình.</p>
+
+    <ol class="list">
+      @for (d of drafts(); track d.key; let i = $index) {
+        <li class="card draft" [attr.aria-busy]="d.saving">
+          <div class="field">
+            <label [for]="'draft-' + d.key + '-title'">Tiêu đề bản nháp {{ i + 1 }}</label>
+            <input
+              [id]="'draft-' + d.key + '-title'"
+              type="text"
+              [value]="d.title"
+              [disabled]="d.saving"
+              [attr.aria-invalid]="!!d.fields['title']"
+              [attr.aria-describedby]="describedBy(d, 'title')"
+              (input)="onTitle(d.key, $event)"
+            />
+            @if (d.fields['title']; as message) {
+              <p class="field-error" [id]="'draft-' + d.key + '-title-error'">{{ message }}</p>
+            }
+          </div>
+
+          <div class="field">
+            <label [for]="'draft-' + d.key + '-content'">Nội dung bản nháp {{ i + 1 }}</label>
+            <textarea
+              [id]="'draft-' + d.key + '-content'"
+              [rows]="rows(d.content)"
+              [value]="d.content"
+              [disabled]="d.saving"
+              [attr.aria-invalid]="!!d.fields['content']"
+              [attr.aria-describedby]="describedBy(d, 'content', 'draft-' + d.key + '-words')"
+              (input)="onContent(d.key, $event)"
+            ></textarea>
+            <p class="field-hint" [id]="'draft-' + d.key + '-words'">{{ countWords(d.content) }} từ</p>
+            @if (d.fields['content']; as message) {
+              <p class="field-error" [id]="'draft-' + d.key + '-content-error'">{{ message }}</p>
+            }
+          </div>
+
+          @if (d.error; as message) {
+            <p class="form-alert" role="alert">{{ message }}</p>
+          }
+
+          <div class="actions">
+            <button
+              type="button"
+              class="btn"
+              [disabled]="d.saving"
+              [attr.aria-label]="'Bỏ bản nháp ' + (i + 1)"
+              (click)="discard.emit(d.key)"
+            >
+              Bỏ
+            </button>
+            <button
+              type="button"
+              class="btn-primary"
+              [disabled]="d.saving || busy()"
+              [attr.aria-busy]="d.saving"
+              [attr.aria-label]="(d.saving ? 'Đang lưu bản nháp ' : 'Lưu bản nháp ') + (i + 1)"
+              (click)="save.emit(d.key)"
+            >
+              {{ d.saving ? 'Đang lưu…' : 'Lưu' }}
+            </button>
+          </div>
+        </li>
+      }
+    </ol>
+  </section>
+}

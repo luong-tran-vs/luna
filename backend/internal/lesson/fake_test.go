@@ -128,12 +128,14 @@ func (f *fakeLessons) SaveAudio(_ context.Context, id string, rev int, paths []s
 	})
 }
 
-func (f *fakeLessons) SaveAnnotations(_ context.Context, id string, rev int, anns []Annotation) (bool, error) {
+func (f *fakeLessons) SaveAnnotations(_ context.Context, id string, rev int, anns []Annotation, x Extras) (bool, error) {
 	return f.update(id, func(l *Lesson) bool {
 		if l.Revision != rev {
 			return false
 		}
 		l.Annotations, l.AnnotationStatus, l.AnnotationError = anns, StatusDone, ""
+		l.Extras, l.ExtrasEditedByAdmin = x, false
+		l.QuizVersion++
 		return true
 	})
 }
@@ -141,6 +143,17 @@ func (f *fakeLessons) SaveAnnotations(_ context.Context, id string, rev int, ann
 func (f *fakeLessons) ReplaceAnnotations(_ context.Context, id string, anns []Annotation) error {
 	_, err := f.update(id, func(l *Lesson) bool {
 		l.Annotations, l.AnnotationStatus, l.AnnotationError = anns, StatusDone, ""
+		return true
+	})
+	return err
+}
+
+func (f *fakeLessons) ReplaceExtras(_ context.Context, id string, x Extras, bumpQuiz bool) error {
+	_, err := f.update(id, func(l *Lesson) bool {
+		l.Extras, l.ExtrasEditedByAdmin = x, true
+		if bumpQuiz {
+			l.QuizVersion++
+		}
 		return true
 	})
 	return err
@@ -156,10 +169,11 @@ func (f *fakeLessons) Delete(_ context.Context, id string) error {
 // fakeTopics is an in-memory Topics port: topic-a1 (A1 Family), topic-b1 (B1 Work), and a
 // roadmap per topic.
 type fakeTopics struct {
-	mu       sync.Mutex
-	topics   map[string]TopicRef
-	roadmaps map[string][]string
-	moves    []string // "lesson:from>to"
+	mu         sync.Mutex
+	topics     map[string]TopicRef
+	roadmaps   map[string][]string
+	moves      []string // "lesson:from>to"
+	failAppend error
 }
 
 func newFakeTopics() *fakeTopics {
@@ -283,12 +297,110 @@ type fakeAI struct {
 	mu     sync.Mutex
 	calls  int
 	result []ai.Annotation
+	extras ai.LessonExtras
 	err    error
+
+	drafts   []ai.LessonDraft
+	genErr   error
+	genBlock bool
+	genCalls int
+	genReq   ai.GenerateRequest
 }
 
-func (f *fakeAI) Annotate(context.Context, []string, string) ([]ai.Annotation, error) {
+// Annotate returns result as annotations plus the configured extras.
+func (f *fakeAI) Annotate(context.Context, []string, string) (ai.LessonExtras, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	f.calls++
-	return f.result, f.err
+	x := f.extras
+	x.Annotations = f.result
+	return x, f.err
+}
+
+// GenerateLessons returns the configured drafts or error and records the request. With
+// block set it waits until the context ends.
+func (f *fakeAI) GenerateLessons(ctx context.Context, req ai.GenerateRequest) ([]ai.LessonDraft, error) {
+	f.mu.Lock()
+	f.genCalls++
+	f.genReq = req
+	block, drafts, err := f.genBlock, f.drafts, f.genErr
+	f.mu.Unlock()
+	if block {
+		<-ctx.Done()
+		return nil, ctx.Err()
+	}
+	return drafts, err
+}
+
+func (f *fakeAI) lastRequest() (ai.GenerateRequest, int) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.genReq, f.genCalls
+}
+
+// AppendLesson adds a lesson at the end of a topic roadmap unless it is there; failAppend
+// makes it fail.
+func (f *fakeTopics) AppendLesson(_ context.Context, topicID, lessonID string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	if f.failAppend != nil {
+		return f.failAppend
+	}
+	if !slices.Contains(f.roadmaps[topicID], lessonID) {
+		f.roadmaps[topicID] = append(f.roadmaps[topicID], lessonID)
+	}
+	return nil
+}
+
+func (f *fakeTopics) roadmap(topicID string) []string {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return slices.Clone(f.roadmaps[topicID])
+}
+
+// fakeAnswers is an in-memory AnswerRepository with the unique key of reading_answers.
+type fakeAnswers struct {
+	mu   sync.Mutex
+	rows []Answer
+}
+
+func newFakeAnswers() *fakeAnswers { return &fakeAnswers{} }
+
+func (f *fakeAnswers) Insert(_ context.Context, a Answer) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for _, r := range f.rows {
+		if r.UserID == a.UserID && r.LessonID == a.LessonID && r.QuizVersion == a.QuizVersion && r.QuestionIndex == a.QuestionIndex {
+			return &AlreadyAnsweredError{Answer: r}
+		}
+	}
+	f.rows = append(f.rows, a)
+	return nil
+}
+
+func (f *fakeAnswers) List(_ context.Context, userID, lessonID string, version int) ([]Answer, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []Answer
+	for _, r := range f.rows {
+		if r.UserID == userID && r.LessonID == lessonID && r.QuizVersion == version {
+			out = append(out, r)
+		}
+	}
+	slices.SortFunc(out, func(a, b Answer) int { return a.QuestionIndex - b.QuestionIndex })
+	return out, nil
+}
+
+func (f *fakeAnswers) Totals(_ context.Context, userID string) (answered, correct int, err error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for _, r := range f.rows {
+		if r.UserID == userID {
+			answered++
+			if r.Correct {
+				correct++
+			}
+		}
+	}
+	return answered, correct, nil
 }

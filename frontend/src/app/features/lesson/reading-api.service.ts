@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { LookupResult, ReadingLesson } from '../../core/models/reading';
+import { AnswerInput, AnswerResult, LookupResult, ReadingLesson } from '../../core/models/reading';
 import { LessonVocabulary } from '../../core/models/vocab';
 
 @Injectable({ providedIn: 'root' })
@@ -21,5 +21,10 @@ export class ReadingApiService {
 
   vocabulary(id: string): Observable<LessonVocabulary> {
     return this.http.get<LessonVocabulary>(`/api/lessons/${id}/vocabulary`);
+  }
+
+  /** Sends one comprehension answer (F15). */
+  answer(id: string, input: AnswerInput): Observable<AnswerResult> {
+    return this.http.post<AnswerResult>(`/api/lessons/${id}/answers`, input);
   }
 }

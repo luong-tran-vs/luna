@@ -43,6 +43,16 @@ type Roadmaps interface {
 	Roadmap(ctx context.Context, topicID string) (TopicInfo, error)
 }
 
+// ReadingQuiz is what the Reading step needs from the comprehension questions (F15, implemented
+// over lesson.Reader in main).
+type ReadingQuiz interface {
+	// Status returns how many questions the lesson has and how many the learner answered in the
+	// current question set; 0 questions means the lesson has no quiz.
+	Status(ctx context.Context, userID, lessonID string) (questions, answered int, err error)
+	// Totals counts the learner's answers and the correct ones.
+	Totals(ctx context.Context, userID string) (answered, correct int, err error)
+}
+
 // LessonTitles gives the titles of the lessons that still exist among ids.
 type LessonTitles interface {
 	Titles(ctx context.Context, ids []string) (map[string]string, error)

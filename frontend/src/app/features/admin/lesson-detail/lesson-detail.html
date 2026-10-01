@@ -42,7 +42,9 @@
         <lu-status-chip label="Chú thích" [status]="l.annotationStatus" />
         @if (l.annotationStatus === 'failed') {
           <span class="muted">{{ l.annotationError }}</span>
-          <button type="button" class="btn" [disabled]="busy()" (click)="retry('annotate')">Chạy lại chú thích</button>
+        }
+        @if (l.annotationStatus !== 'running') {
+          <button type="button" class="btn" [disabled]="busy()" (click)="askRetryAnnotate()">Chạy lại chú thích</button>
         }
       </div>
     </div>
@@ -121,12 +123,23 @@
         }
       </ul>
     }
+
+    <lu-lesson-extras [lesson]="l" (saved)="lesson.set($event)" />
   } @else if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   } @else {
     <p class="muted" role="status">Đang tải…</p>
   }
 </section>
+
+<lu-confirm-dialog
+  [open]="retryOpen()"
+  title="Chạy lại chú thích?"
+  [message]="retryMessage()"
+  confirmLabel="Chạy lại"
+  (confirmed)="confirmRetryAnnotate()"
+  (cancelled)="retryOpen.set(false)"
+/>
 
 <lu-confirm-dialog
   [open]="deleteOpen()"

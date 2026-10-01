@@ -201,6 +201,25 @@ func TestMoveLesson(t *testing.T) {
 	}
 }
 
+func TestAppendLesson(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	a := e.create(t, "Gia đình", "A1")
+	_ = e.repo.SetLessons(t.Context(), a.ID, []string{"l1"})
+
+	for _, id := range []string{"l2", "l2"} {
+		if err := e.svc.AppendLesson(t.Context(), a.ID, id); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if ta, _ := e.repo.Get(t.Context(), a.ID); !slices.Equal(ta.LessonIDs, []string{"l1", "l2"}) {
+		t.Fatalf("roadmap = %v", ta.LessonIDs)
+	}
+	if err := e.svc.AppendLesson(t.Context(), "nope", "l3"); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("unknown topic: %v", err)
+	}
+}
+
 func TestPortLookups(t *testing.T) {
 	t.Parallel()
 	e := newEnv()

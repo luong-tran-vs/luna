@@ -31,6 +31,8 @@ type Deps struct {
 	Notify func()
 	Now    func() time.Time
 	Log    *slog.Logger
+	// GenerateTimeout bounds the AI call of a generation batch; 0 means 60 seconds.
+	GenerateTimeout time.Duration
 }
 
 // Service implements lesson management and the background work on lessons.
@@ -70,10 +72,30 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	if err != nil {
 		return Lesson{}, fmt.Errorf("lesson: create: %w", err)
 	}
+	if in.AppendToRoadmap {
+		if err := s.appendToRoadmap(ctx, l); err != nil {
+			return Lesson{}, err
+		}
+	}
 	if err := s.enqueue(ctx, l.ID, l.Revision, job.TypeTTS, job.TypeAnnotate); err != nil {
 		return Lesson{}, err
 	}
 	return l, nil
+}
+
+// appendToRoadmap adds a just-created lesson at the end of its topic roadmap. MongoDB runs
+// without transactions, so on failure the lesson is deleted again: a saved draft is either in
+// the roadmap or not saved at all.
+func (s *Service) appendToRoadmap(ctx context.Context, l Lesson) error {
+	err := s.Topics.AppendLesson(ctx, l.TopicID, l.ID)
+	if err == nil {
+		return nil
+	}
+	if derr := s.Lessons.Delete(ctx, l.ID); derr != nil {
+		s.Log.ErrorContext(ctx, "lesson: remove lesson after failed roadmap append",
+			slog.String("lesson", l.ID), slog.Any("error", derr))
+	}
+	return fmt.Errorf("lesson: append to roadmap: %w", err)
 }
 
 // Get returns a lesson or ErrNotFound.
@@ -175,6 +197,8 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 	next.Revision = cur.Revision + 1
 	next.Sentences = toSentences(sentences)
 	next.Annotations = nil
+	next.Extras, next.ExtrasEditedByAdmin = Extras{}, false
+	next.QuizVersion = cur.QuizVersion + 1 // old answers belong to the old text
 	next.AudioStatus, next.AudioError = StatusRunning, ""
 	next.AnnotationStatus, next.AnnotationError = StatusRunning, ""
 	next.UpdatedAt = s.Now()
@@ -212,13 +236,18 @@ func (s *Service) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-// Retry queues failed audio or annotation work again.
+// Retry queues audio or annotation work again. Audio is retried only after a failure;
+// annotation also when done, so lessons from before F15 get their questions (it replaces
+// admin edits, which the admin page warns about).
 func (s *Service) Retry(ctx context.Context, id string, t job.Type) (Lesson, error) {
 	l, err := s.Lessons.Get(ctx, id)
 	if err != nil {
 		return Lesson{}, err
 	}
-	if l.StatusOf(t) != StatusFailed {
+	switch st := l.StatusOf(t); {
+	case t == job.TypeAnnotate && st == StatusRunning:
+		return Lesson{}, ErrAnnotationRunning
+	case t == job.TypeTTS && st != StatusFailed:
 		return Lesson{}, ErrNotFailed
 	}
 	if _, err := s.Lessons.SetStatus(ctx, id, l.Revision, t, StatusRunning, ""); err != nil {
@@ -342,24 +371,26 @@ func (s *Service) ProcessTTS(ctx context.Context, j job.Job) error {
 	return nil
 }
 
-// ProcessAnnotate asks the AI provider once for the whole lesson and stores the cleaned result.
+// ProcessAnnotate asks the AI provider once for the whole lesson and stores the cleaned
+// annotations with the questions, grammar note and writing prompt (F15).
 func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	l, ok, err := s.current(ctx, j)
 	if !ok {
 		return err
 	}
-	items, err := s.AI.Annotate(ctx, sentenceTexts(l.Sentences), string(l.Level))
+	res, err := s.AI.Annotate(ctx, sentenceTexts(l.Sentences), string(l.Level))
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) {
 			return job.Permanent(err)
 		}
 		return err
 	}
-	anns, err := CleanAnnotations(items, sentenceTexts(l.Sentences))
+	anns, err := CleanAnnotations(res.Annotations, sentenceTexts(l.Sentences))
 	if err != nil {
 		return err
 	}
-	if _, err := s.Lessons.SaveAnnotations(ctx, l.ID, l.Revision, anns); err != nil {
+	extras := CleanExtras(res, l.Content)
+	if _, err := s.Lessons.SaveAnnotations(ctx, l.ID, l.Revision, anns, extras); err != nil {
 		return fmt.Errorf("lesson: save annotations: %w", err)
 	}
 	return nil

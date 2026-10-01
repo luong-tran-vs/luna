@@ -32,6 +32,15 @@ describe('ReadingApiService', () => {
     await expect(result).resolves.toMatchObject({ lemma: 'give up' });
   });
 
+  it('sends a comprehension answer', async () => {
+    const result = firstValueFrom(api.answer('l1', { version: 2, questionIndex: 1, choice: 3 }));
+    const req = http.expectOne('/api/lessons/l1/answers');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ version: 2, questionIndex: 1, choice: 3 });
+    req.flush({ answer: { questionIndex: 1 }, answered: 1, total: 3, correct: 0 });
+    await expect(result).resolves.toMatchObject({ total: 3 });
+  });
+
   it('loads the lesson vocabulary', async () => {
     const result = firstValueFrom(api.vocabulary('l1'));
     http.expectOne('/api/lessons/l1/vocabulary').flush({ available: false, items: [] });

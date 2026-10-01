@@ -270,6 +270,18 @@ func (s *Service) RoadmapLessonIDs(ctx context.Context) (map[string]bool, error)
 	return out, nil
 }
 
+// AppendLesson adds a lesson at the end of a topic roadmap unless it is already there;
+// ErrNotFound when the topic does not exist.
+func (s *Service) AppendLesson(ctx context.Context, topicID, lessonID string) error {
+	if _, err := s.repo.Get(ctx, topicID); err != nil {
+		return err
+	}
+	if err := s.repo.AppendLesson(ctx, topicID, lessonID); err != nil {
+		return fmt.Errorf("topic: append to roadmap: %w", err)
+	}
+	return nil
+}
+
 // MoveLesson takes a lesson out of from's roadmap and, if it was there, appends it to to's
 // roadmap. The removal comes first: a failure in between leaves the lesson out of both
 // roadmaps rather than in two.

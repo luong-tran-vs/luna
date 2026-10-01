@@ -30,6 +30,7 @@ func seed() *fakeRepo {
 		r.add(CollGoals, Doc{"_id": "goal-" + u, "userId": u, "topicId": "t1"})
 		r.add(CollStudyDays, Doc{"_id": "day-" + u, "userId": u, "dayKey": "2026-09-30"})
 		r.add(CollDictationResults, Doc{"_id": "dict-" + u, "userId": u, "lessonId": "l1", "sentenceIndex": 0})
+		r.add(CollReadingAnswers, Doc{"_id": "ans-" + u, "userId": u, "lessonId": "l1", "questionIndex": 0, "correct": true})
 	}
 	r.add(CollLessonProgress, Doc{"_id": "p1", "userId": "u1", "lessonId": "l1"})
 	r.add(CollLessonProgress, Doc{"_id": "p2", "userId": "u1", "lessonId": "gone"})
@@ -65,7 +66,7 @@ func TestBuildOnlyTheUsersData(t *testing.T) {
 	}
 	for name, docs := range map[string][]Doc{
 		"cards": e.Cards, "reviewLogs": e.ReviewLogs, "goals": e.Goals, "studyDays": e.StudyDays,
-		"dictationResults": e.DictationResults,
+		"dictationResults": e.DictationResults, "readingAnswers": e.ReadingAnswers,
 	} {
 		if len(docs) != 1 || !strings.HasSuffix(docs[0]["_id"].(string), "-u1") {
 			t.Errorf("%s = %v", name, docs)
@@ -113,7 +114,7 @@ func TestBuildNewLearner(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "lessons"} {
+	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "readingAnswers", "lessons"} {
 		if !strings.Contains(string(out), `"`+key+`":[]`) {
 			t.Errorf("%s is not an empty list in %s", key, out)
 		}

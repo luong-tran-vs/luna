@@ -59,6 +59,32 @@ Sau khi lưu bài, hệ thống tự làm nền:
   và chạy lại `docker compose -f deploy/docker-compose.yml up -d`. Không có khoá thì bài vẫn lưu và có audio,
   chú thích báo "AI chưa được cấu hình"; thêm khoá xong bấm **Chạy lại chú thích**. Tắt hẳn AI: `AI_PROVIDER=none`.
 
+### Sinh bài bằng AI
+
+Ở **Lộ trình**, chọn một chủ đề rồi bấm **Sinh bài bằng AI**. Trình độ và chủ đề lấy theo lộ trình đang mở; chọn:
+
+- **Số bài**: 1–5 (mặc định 3).
+- **Độ dài** mỗi bài: 50–800 từ, mặc định theo trình độ (A1 120, A2 160, B1 220, B2 300, C1 và C2 400). Bài lệch quá 20%
+  bị loại.
+- **Dạng bài**: bài đọc, hoặc hội thoại (mỗi lượt nói một dòng `Tên: câu nói`).
+- **Ý chính**: không bắt buộc, tối đa 500 ký tự.
+
+Mỗi lượt tốn **một** request AI cho cả lượt và có thể mất đến một phút. Các tiêu đề đã có trong chủ đề được gửi kèm để
+AI tránh lặp.
+
+Kết quả là các **bản nháp**, chỉ có trên trang đang mở và không được lưu vào cơ sở dữ liệu:
+
+- Sửa tiêu đề và nội dung từng bản, bấm **Lưu** hoặc **Bỏ**, hoặc **Lưu tất cả**.
+- Bài được lưu có nguồn "AI sinh", giấy phép "Nội dung do AI tạo". Bài được thêm vào cuối lộ trình rồi chạy audio và chú
+  thích như bài tạo tay.
+- Rời trang, tải lại hoặc đổi chủ đề khi còn bản nháp thì được hỏi lại, vì bản nháp sẽ mất.
+
+AI chưa cấu hình, khoá sai, hết lượt hoặc trả về nội dung không dùng được thì trang báo rõ lỗi. Bản nháp và các lựa chọn
+đã nhập vẫn giữ nguyên để thử lại.
+
+Request sinh bài dài hơn mọi request khác: nginx (`frontend/nginx.conf`) và backend chỉ cho riêng route
+`/api/admin/topics/{id}/generate` chờ tới 75 giây, các route còn lại vẫn 15 giây.
+
 ## Bước Đọc và từ điển
 
 Bước Đọc tra nghĩa bằng chú thích AI của bài, rồi bằng từ điển Anh–Việt offline
@@ -73,6 +99,35 @@ tra từ chỉ dùng chú thích của bài.
 
 Mở bước Đọc: trang chi tiết bài trong **Quản trị** → **Mở bước Đọc** (hoặc `/lessons/<id>/read`). Chạm một từ để tra,
 bôi đen nhiều từ để tra cụm, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu.
+
+### Câu hỏi hiểu bài và ngữ pháp
+
+Khi chú thích một bài, AI viết luôn trong **cùng một request**:
+
+- 3–5 câu hỏi trắc nghiệm hiểu bài: 4 lựa chọn, 1 đáp án, giải thích bằng tiếng Việt.
+- Một ghi chú ngữ pháp tiếng Việt, kèm ví dụ chép từ bài.
+- Một đề viết, dùng ở bước Viết (F8).
+
+Câu hỏi hỏng và ví dụ không có trong bài bị bỏ; thiếu phần nào thì phần đó để trống, chú thích từ vẫn được lưu.
+
+Ở bước Đọc:
+
+- Mục **Ngữ pháp** mở sẵn, thu gọn được.
+- Bài có câu hỏi thì không còn nút "Đã đọc xong": người học trả lời lần lượt từng câu.
+  - Chọn xong là thấy ngay "✓ Đúng" hoặc "✗ Sai", đáp án đúng và lời giải thích. Câu đã trả lời không đổi được.
+  - Thoát ra rồi vào lại vẫn tiếp tục đúng câu đang dở.
+  - Trả lời hết (kể cả khi sai) thì bước Đọc hoàn thành. Máy chủ kiểm tra việc này: `POST /api/today/steps/read/complete` trả 409
+    `read_incomplete` khi còn câu chưa trả lời.
+- Bài chưa có câu hỏi (AI lỗi hoặc bài cũ) vẫn dùng nút "Đã đọc xong".
+- Xem lại bài từ trang **Bài học** thì thấy các câu trả lời cũ.
+
+Câu trả lời được lưu trong collection `reading_answers`, mỗi câu một lần cho mỗi phiên bản bộ câu hỏi (`quizVersion`). Khi
+quản trị viên sửa câu hỏi, chạy lại chú thích hoặc sửa nội dung bài, bộ câu hỏi mới bắt đầu lại từ đầu; câu trả lời cũ vẫn
+tính vào thống kê.
+
+Quản trị viên sửa câu hỏi (thêm, xoá, đổi đáp án), ngữ pháp và đề viết ở trang chi tiết bài; ví dụ ngữ pháp phải chép đúng
+từ bài. **Chạy lại chú thích** dùng được cả khi chú thích đã xong, nên bài có từ trước F15 bấm nút này là có thêm câu hỏi.
+Nếu bài có chú thích từ hoặc câu hỏi đã sửa tay, trang hỏi xác nhận trước khi thay.
 
 ## Bước Nghe (chép chính tả)
 
@@ -118,7 +173,8 @@ docker compose -f deploy/docker-compose.yml exec mongo mongosh luna --quiet --ev
   chủ đề**; xong bài hôm nay → **Ôn tự do**; hết bài → **Ôn tự do** / **Chọn chủ đề khác**. Số liệu tải lại mỗi lần quay về trang;
   mở trang không làm bài hôm nay "bắt đầu".
 - **Thống kê** (màn hình chính → **Xem thống kê**, `/stats`): số từ đã học, số câu đã chép chính tả và tỷ lệ đúng, số bài đã
-  xong bước Đọc / Nghe và số bài hoàn thành, tính trên mọi chủ đề.
+  xong bước Đọc / Nghe và số bài hoàn thành, tính trên mọi chủ đề. Thẻ **Hiểu bài** (F15) là tỷ lệ trả lời đúng câu hỏi hiểu bài
+  trên mọi câu đã trả lời (hiện "—" khi chưa trả lời câu nào).
 - **Trạng thái kết nối** (F0) nằm ở chân trang và chỉ hiện khi không kết nối được máy chủ hoặc cơ sở dữ liệu (kiểm tra lại sau mỗi
   lần chuyển trang).
 
@@ -134,7 +190,7 @@ Thanh trên → **Cài đặt** (`/settings`); cài đặt lưu theo tài khoả
 - Cài đặt nằm trong `users.settings {theme, dailyReviewLimit, timezone}`; trường `timezone` cũ của tài khoản được chuyển vào đó tự
   động khi khởi động.
 - **Xuất dữ liệu** (nhóm Dữ liệu cuối trang, `GET /api/export`): tải file `luna-export-YYYYMMDD.json` gồm tài khoản (email, vai trò,
-  ngày tạo), cài đặt, sổ từ và lịch ôn, lịch sử ôn, mục tiêu, tiến độ từng bài, ngày học, kết quả chép chính tả và nội dung các bài
+  ngày tạo), cài đặt, sổ từ và lịch ôn, lịch sử ôn, mục tiêu, tiến độ từng bài, ngày học, kết quả chép chính tả, câu trả lời câu hỏi hiểu bài và nội dung các bài
   đã học (bài đã bị xoá ghi `deleted`). Chỉ có dữ liệu của tài khoản đang đăng nhập; không có mật khẩu hay phiên đăng nhập. Chưa
   nhập lại được từ file này.
 
@@ -206,7 +262,7 @@ cp deploy/.env.example deploy/.env
 | `AUDIO_DIR` | backend | Không | `./data/audio` (compose: `/data/audio`) | Thư mục lưu mp3 |
 | `AI_PROVIDER` | backend | Không | `gemini` | `gemini` hoặc `none` |
 | `GEMINI_API_KEY` | backend | Không | rỗng | Khoá Gemini (bí mật, chỉ để trong `.env`) |
-| `GEMINI_MODEL` | backend | Không | `gemini-3.5-flash-lite` | Model dùng để chú thích |
+| `GEMINI_MODEL` | backend | Không | `gemini-3.5-flash-lite` | Model dùng để chú thích và sinh bài |
 | `DICTIONARY_PATH` | backend | Không | `./data/dictionary/dictionary.db` (compose: `/data/dictionary/dictionary.db`) | File từ điển SQLite |
 | `BACKUP_TZ` | backup | Không | `Asia/Ho_Chi_Minh` | Múi giờ của giờ sao lưu và ngày trong tên bản sao lưu |
 | `BACKUP_TIME` | backup | Không | `03:00` | Giờ sao lưu mỗi ngày (HH:MM) |

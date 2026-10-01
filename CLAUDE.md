@@ -1,4 +1,4 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan: specs/011-backup-export/plan.md
+shell commands, and other important information, read the current plan: specs/013-reading-comprehension/plan.md
 <!-- SPECKIT END -->

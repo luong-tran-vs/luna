@@ -10,6 +10,11 @@ import { LessonForm } from './lesson-form';
 
 const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   id: 'l1',
+  questions: [],
+  grammarNote: null,
+  writingPrompt: '',
+  extrasEditedByAdmin: false,
+  quizVersion: 0,
   title: 'Park',
   level: 'B1',
   topicId: 't3',

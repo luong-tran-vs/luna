@@ -138,7 +138,7 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	exportSvc := export.NewService(mongo.NewExport(database), exportSettings{settingsSvc}, time.Now)
 	export.NewHandler(exportSvc, log).Register(mux, requireAuth)
 	lesson.NewHandler(lessonSvc, log).Register(mux, requireAuth, cfg.AudioDir)
-	reader := lesson.NewReader(lessons, dict, lessonTopics)
+	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database))
 	topic.NewHandler(topicSvc, log).Register(mux, requireAuth)
 	tts.NewWordAudio(synth, cfg.AudioDir).Register(mux, requireAuth)
 	vocabSvc := vocab.NewService(vocab.Deps{
@@ -168,6 +168,7 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Titles:    lessonTitles{lessons},
 		Reviews:   dailyReviews{vocabSvc},
 		Timezones: settingsSvc,
+		Quiz:      readingQuiz{reader},
 		ReviewLimit: func(ctx context.Context, userID string) int {
 			n, err := settingsSvc.ReviewLimit(ctx, userID)
 			if err != nil {
@@ -369,6 +370,14 @@ func (p lessonTopicsPort) RoadmapLessonIDs(ctx context.Context) (map[string]bool
 	return p.svc.RoadmapLessonIDs(ctx)
 }
 
+func (p lessonTopicsPort) AppendLesson(ctx context.Context, topicID, lessonID string) error {
+	err := p.svc.AppendLesson(ctx, topicID, lessonID)
+	if errors.Is(err, topic.ErrNotFound) {
+		return lesson.ErrTopicNotFound
+	}
+	return err
+}
+
 func (p lessonTopicsPort) MoveLesson(ctx context.Context, lessonID, from, to string) error {
 	return p.svc.MoveLesson(ctx, lessonID, from, to)
 }
@@ -429,4 +438,17 @@ func (e exportSettings) Values(ctx context.Context, userID string) (map[string]a
 
 func (e exportSettings) Location(ctx context.Context, userID string) (*time.Location, error) {
 	return e.svc.Location(ctx, userID)
+}
+
+// readingQuiz adapts lesson.Reader to progress.ReadingQuiz (F15).
+type readingQuiz struct {
+	reader *lesson.Reader
+}
+
+func (q readingQuiz) Status(ctx context.Context, userID, lessonID string) (questions, answered int, err error) {
+	return q.reader.QuizStatus(ctx, userID, lessonID)
+}
+
+func (q readingQuiz) Totals(ctx context.Context, userID string) (answered, correct int, err error) {
+	return q.reader.Totals(ctx, userID)
 }

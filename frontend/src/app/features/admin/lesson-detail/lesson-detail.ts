@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -9,6 +9,7 @@ import { isRunning, JobKind, Lesson } from '../../../core/models/lesson';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { pollWhile } from '../../../shared/utils/poll-while';
 import { AdminApiService } from '../admin-api.service';
+import { LessonExtras } from '../lesson-extras/lesson-extras';
 import { StatusChip } from '../status-chip/status-chip';
 
 type AnnotationRow = FormGroup<{
@@ -19,7 +20,7 @@ type AnnotationRow = FormGroup<{
 
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog],
+  imports: [RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras],
   templateUrl: './lesson-detail.html',
   styleUrl: './lesson-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -74,6 +75,38 @@ export class LessonDetail {
     }
     audio.src = url;
     void audio.play().catch(() => this.error.set('Không phát được audio.'));
+  }
+
+  // --- F15: running annotation again replaces admin edits, so it asks first ---
+
+  protected readonly retryOpen = signal(false);
+  /** Hand-edited parts that running annotation again would replace. */
+  private readonly editedParts = computed(() => {
+    const l = this.lesson();
+    const parts: string[] = [];
+    if (l?.annotations.some((a) => a.editedByAdmin)) {
+      parts.push('chú thích từ đã sửa tay');
+    }
+    if (l?.extrasEditedByAdmin) {
+      parts.push('câu hỏi, ngữ pháp, đề viết đã sửa tay');
+    }
+    return parts;
+  });
+  protected readonly retryMessage = computed(
+    () => `AI sẽ viết lại toàn bộ chú thích, câu hỏi, ngữ pháp và đề viết. Sẽ bị thay: ${this.editedParts().join('; ')}.`,
+  );
+
+  protected askRetryAnnotate(): void {
+    if (this.editedParts().length > 0) {
+      this.retryOpen.set(true);
+    } else {
+      void this.retry('annotate');
+    }
+  }
+
+  protected confirmRetryAnnotate(): void {
+    this.retryOpen.set(false);
+    void this.retry('annotate');
   }
 
   protected async retry(job: JobKind): Promise<void> {

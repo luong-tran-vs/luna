@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
-/** Admin area (F2, F14). Guards are applied on the parent `admin` route in app.routes.ts. */
+import { unsavedChangesGuard } from '../../core/guards/unsaved-changes.guard';
+
+/** Admin area (F2, F14, F7). Guards are applied on the parent `admin` route in app.routes.ts. */
 export const adminRoutes: Routes = [
   {
     path: '',
@@ -30,6 +32,7 @@ export const adminRoutes: Routes = [
   {
     path: 'roadmap',
     title: 'Lộ trình · Quản trị · Luna',
+    canDeactivate: [unsavedChangesGuard],
     loadComponent: () => import('./roadmap/roadmap').then((m) => m.Roadmap),
   },
 ];

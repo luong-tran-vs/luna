@@ -1,0 +1,62 @@
+<section class="quiz" aria-labelledby="quiz-heading">
+  <h2 class="quiz-title" id="quiz-heading">Câu hỏi hiểu bài</h2>
+
+  <ol class="questions">
+    @for (q of quiz().questions; track $index; let i = $index) {
+      @if (byIndex().get(i); as a) {
+        <li class="question answered">
+          <p class="prompt" lang="en">{{ i + 1 }}. {{ q.prompt }}</p>
+          <p class="verdict" [class.right]="a.correct" [class.wrong]="!a.correct">
+            {{ a.correct ? '✓ Đúng' : '✗ Sai' }}
+          </p>
+          <ul class="results">
+            @for (o of q.options; track $index; let j = $index) {
+              <li class="result" [class.is-answer]="j === a.answerIndex" [class.is-choice]="j === a.choice">
+                <span lang="en">{{ o }}</span>
+                @if (j === a.choice) {
+                  <span class="note"> (bạn chọn)</span>
+                }
+                @if (j === a.answerIndex) {
+                  <span class="note answer-note"> — Đáp án đúng</span>
+                }
+              </li>
+            }
+          </ul>
+          <p class="explanation">{{ a.explanationVi }}</p>
+        </li>
+      } @else if (i === current()) {
+        <li class="question active" [attr.aria-busy]="sending()">
+          <p class="counter">Câu {{ i + 1 }}/{{ total() }}</p>
+          <p class="prompt" lang="en" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
+          <div class="options" role="group" [attr.aria-labelledby]="'quiz-q-' + i">
+            @for (o of q.options; track $index; let j = $index) {
+              <button
+                type="button"
+                class="option"
+                lang="en"
+                [disabled]="sending() || changed()"
+                (click)="choose(i, j)"
+              >
+                {{ o }}
+              </button>
+            }
+          </div>
+        </li>
+      }
+    }
+  </ol>
+
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+  @if (changed()) {
+    <div class="form-alert changed" role="alert">
+      <p>Câu hỏi vừa được cập nhật.</p>
+      <button type="button" class="btn" (click)="reload.emit()">Tải lại</button>
+    </div>
+  }
+  @if (current() === -1) {
+    <p class="summary">Đúng {{ correct() }}/{{ total() }} câu</p>
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announcement() }}</p>
+</section>

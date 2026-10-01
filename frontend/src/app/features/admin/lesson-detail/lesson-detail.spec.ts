@@ -9,6 +9,11 @@ import { LessonDetail } from './lesson-detail';
 
 const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   id: 'l1',
+  questions: [],
+  grammarNote: null,
+  writingPrompt: '',
+  extrasEditedByAdmin: false,
+  quizVersion: 0,
   title: 'Park',
   level: 'B1',
   topicId: 't3',
@@ -117,6 +122,47 @@ describe('LessonDetail', () => {
       // Polling restarts with an immediate reload.
       await load(lesson({ annotationStatus: 'running', annotations: [] }));
       expect(el.textContent).toContain('Chú thích: Đang chạy');
+    });
+
+    it('runs a done annotation again at once when nothing was edited by hand (F15)', async () => {
+      await load(lesson({ annotations: [] }));
+      button('Chạy lại chú thích')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running' }) });
+      await settle();
+      await load(lesson({ annotationStatus: 'running' }));
+      expect(button('Chạy lại chú thích')).toBeUndefined();
+    });
+
+    it('warns before replacing hand-edited annotations and extras (F15)', async () => {
+      await load(lesson({ extrasEditedByAdmin: true }));
+      button('Chạy lại chú thích')!.click();
+      await settle();
+      const dialog = el.querySelector('[role="alertdialog"]');
+      expect(dialog?.textContent).toContain('chú thích từ đã sửa tay');
+      expect(dialog?.textContent).toContain('câu hỏi, ngữ pháp, đề viết đã sửa tay');
+      button('Huỷ')!.click();
+      await settle();
+      http.expectNone('/api/admin/lessons/l1/retry?job=annotate');
+
+      button('Chạy lại chú thích')!.click();
+      await settle();
+      button('Chạy lại')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running' }) });
+      await settle();
+      await load(lesson({ annotationStatus: 'running' }));
+    });
+
+    it('shows the questions editor and keeps the saved lesson (F15)', async () => {
+      await load(lesson());
+      const extras = el.querySelector('lu-lesson-extras');
+      expect(extras?.textContent).toContain('Câu hỏi, ngữ pháp, đề viết');
+      button('Lưu câu hỏi, ngữ pháp, đề viết')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/extras').flush({ lesson: lesson({ extrasEditedByAdmin: true }) });
+      await settle();
+      expect(extras?.textContent).toContain('Đã sửa tay');
     });
 
     it('shows annotations read-only with the manual-edit label', async () => {

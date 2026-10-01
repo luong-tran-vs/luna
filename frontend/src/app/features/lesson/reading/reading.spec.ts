@@ -4,11 +4,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
-import { LookupResult, ReadingLesson } from '../../../core/models/reading';
+import { LookupResult, QuizAnswer, ReadingLesson } from '../../../core/models/reading';
 import { Reading } from './reading';
 
 const lesson: ReadingLesson = {
   id: 'l1',
+  quiz: null,
+  grammarNote: null,
   title: 'A day at the park',
   level: 'B1',
   topic: 'Daily',
@@ -55,6 +57,7 @@ describe('Reading', () => {
       inputs?: Record<string, unknown>;
       query?: Record<string, string>;
       status?: number;
+      lesson?: ReadingLesson;
     } = {},
   ) => {
     observers = [];
@@ -75,7 +78,7 @@ describe('Reading', () => {
     await TestBed.configureTestingModule({
       imports: [Reading],
       providers: [
-        provideRouter([]),
+        provideRouter([{ path: 'forbidden', children: [] }]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
         {
@@ -99,7 +102,7 @@ describe('Reading', () => {
     if (options.status) {
       lessonReq.flush({ error: 'lesson_locked', message: 'x' }, { status: options.status, statusText: 'Error' });
     } else {
-      lessonReq.flush({ lesson });
+      lessonReq.flush({ lesson: options.lesson ?? lesson });
       wordsReq.flush({ words: options.words ?? [] });
     }
     await settle();
@@ -455,6 +458,100 @@ describe('Reading', () => {
     it('says a locked lesson opens later', async () => {
       await setup({ status: 403 });
       expect(el.textContent).toContain('Bài này sẽ mở khi tới lượt');
+    });
+  });
+
+  // --- F15: comprehension questions and grammar note ---
+
+  describe('comprehension questions', () => {
+    const withQuiz = (answers: QuizAnswer[] = []): ReadingLesson => ({
+      ...lesson,
+      quiz: {
+        version: 2,
+        questions: [
+          { prompt: 'Where did we go?', options: ['Park', 'Home', 'School', 'Work'] },
+          { prompt: 'Who goes home?', options: ['He', 'She', 'We', 'They'] },
+        ],
+        answers,
+      },
+      grammarNote: { title: 'Quá khứ đơn', bodyVi: 'Việc đã xong.', examples: ['We went to the park.'] },
+    });
+    const solved = (questionIndex: number, choice: number, answerIndex: number) => ({
+      questionIndex,
+      choice,
+      correct: choice === answerIndex,
+      answerIndex,
+      explanationVi: 'Vì vậy.',
+    });
+    const button = (label: string) =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => b.textContent?.trim() === label);
+    const choose = async (option: number, result: ReturnType<typeof solved>, answered: number) => {
+      el.querySelectorAll<HTMLButtonElement>('.question.active .option')[option].click();
+      await settle();
+      http.expectOne('/api/lessons/l1/answers').flush({ answer: result, answered, total: 2, correct: 0 });
+      await settle();
+    };
+
+    it('replaces Đã đọc xong with the questions and shows the grammar note', async () => {
+      await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
+      expect(button('Đã đọc xong')).toBeUndefined();
+      expect(el.querySelector('lu-comprehension-quiz')).not.toBeNull();
+      expect(el.querySelector('lu-grammar-note summary')?.textContent?.trim()).toBe('Ngữ pháp: Quá khứ đơn');
+      expect(el.textContent).toContain('Trả lời hết câu hỏi để hoàn thành bước Đọc.');
+    });
+
+    it('completes the step when the last question is answered, even wrongly', async () => {
+      await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
+      const completed = vi.fn();
+      fixture.componentInstance.completed.subscribe(completed);
+      await choose(1, solved(0, 1, 0), 1);
+      expect(completed).not.toHaveBeenCalled();
+      await choose(0, solved(1, 0, 2), 2);
+      expect(completed).toHaveBeenCalledTimes(1);
+      expect(el.textContent).toContain('✓ Đã hoàn thành bước Đọc');
+    });
+
+    it('offers Tiếp tục when every question was already answered', async () => {
+      await setup({ lesson: withQuiz([solved(0, 0, 0), solved(1, 2, 2)]), inputs: { mode: 'study' } });
+      const completed = vi.fn();
+      fixture.componentInstance.completed.subscribe(completed);
+      button('Tiếp tục')!.click();
+      await settle();
+      expect(completed).toHaveBeenCalledTimes(1);
+    });
+
+    it('shows past answers in review mode without completing', async () => {
+      await setup({ lesson: withQuiz([solved(0, 0, 0), solved(1, 1, 2)]), query: { review: '1' } });
+      const completed = vi.fn();
+      fixture.componentInstance.completed.subscribe(completed);
+      expect(el.querySelectorAll('.verdict').length).toBe(2);
+      expect(el.querySelectorAll('.question.active .option').length).toBe(0);
+      expect(button('Tiếp tục')).toBeUndefined();
+      expect(completed).not.toHaveBeenCalled();
+    });
+
+    it('reloads the lesson when the questions changed', async () => {
+      await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
+      el.querySelectorAll<HTMLButtonElement>('.question.active .option')[0].click();
+      await settle();
+      http
+        .expectOne('/api/lessons/l1/answers')
+        .flush({ error: 'quiz_changed', message: 'x' }, { status: 409, statusText: 'Conflict' });
+      await settle();
+      button('Tải lại')!.click();
+      await settle();
+      http.expectOne('/api/lessons/l1').flush({ lesson: { ...withQuiz(), quiz: null, grammarNote: null } });
+      http.expectOne('/api/vocab/words').flush({ words: [] });
+      await settle();
+      expect(el.querySelector('lu-comprehension-quiz')).toBeNull();
+      expect(button('Đã đọc xong')).toBeDefined();
+    });
+
+    it('keeps Đã đọc xong for a lesson without questions or grammar note', async () => {
+      await setup({ inputs: { mode: 'study' } });
+      expect(button('Đã đọc xong')).toBeDefined();
+      expect(el.querySelector('lu-comprehension-quiz')).toBeNull();
+      expect(el.querySelector('lu-grammar-note')).toBeNull();
     });
   });
 });

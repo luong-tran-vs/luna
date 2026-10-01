@@ -235,6 +235,8 @@ func (h *StudyHandler) fail(w http.ResponseWriter, r *http.Request, err error) {
 		httpx.WriteError(w, http.StatusNotFound, "not_found", "Không tìm thấy chủ đề")
 	case errors.Is(err, ErrStepLocked):
 		httpx.WriteError(w, http.StatusConflict, "step_locked", "Hoàn thành bước trước")
+	case errors.Is(err, ErrReadIncomplete):
+		httpx.WriteError(w, http.StatusConflict, "read_incomplete", "Hãy trả lời hết câu hỏi hiểu bài")
 	case errors.Is(err, ErrListenIncomplete):
 		httpx.WriteError(w, http.StatusConflict, "listen_incomplete", "Hãy kiểm tra hết các câu của bước Nghe")
 	case errors.Is(err, ErrNoLesson):

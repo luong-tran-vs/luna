@@ -42,6 +42,35 @@ export interface Lesson extends LessonSummary {
   annotationError: string;
   sentences: Sentence[];
   annotations: Annotation[];
+  // F15: comprehension questions, grammar note and writing prompt.
+  questions: Question[];
+  grammarNote: GrammarNote | null;
+  writingPrompt: string;
+  extrasEditedByAdmin: boolean;
+  /** Bumped whenever the question set is replaced; answers belong to one version. */
+  quizVersion: number;
+}
+
+/** A multiple-choice comprehension question as admins see it. */
+export interface Question {
+  prompt: string;
+  options: string[];
+  answerIndex: number;
+  explanationVi: string;
+}
+
+/** One grammar point of a lesson, with examples copied from it. */
+export interface GrammarNote {
+  title: string;
+  bodyVi: string;
+  examples: string[];
+}
+
+/** PUT /api/admin/lessons/{id}/extras. */
+export interface ExtrasInput {
+  questions: Question[];
+  grammarNote: GrammarNote | null;
+  writingPrompt: string;
 }
 
 export interface LessonInput {
@@ -50,6 +79,8 @@ export interface LessonInput {
   topicId: string;
   source: string;
   license: string;
+  /** Add the new lesson at the end of its topic roadmap in the same request (F7). */
+  appendToRoadmap?: boolean;
 }
 
 export interface AnnotationInput {

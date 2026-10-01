@@ -10,6 +10,7 @@ const sample: StatsData = {
   cards: 25,
   dictation: { sentences: 40, correctWords: 328, totalWords: 400, rate: 0.82 },
   lessons: { read: 6, listen: 5, completed: 5 },
+  reading: { answered: 0, correct: 0, rate: null },
 };
 
 describe('Stats', () => {
@@ -55,10 +56,21 @@ describe('Stats', () => {
       cards: 0,
       dictation: { sentences: 0, correctWords: 0, totalWords: 0, rate: null },
       lessons: { read: 0, listen: 0, completed: 0 },
+      reading: { answered: 0, correct: 0, rate: null },
     });
     await fixture.whenStable();
     expect(text(el)).toContain('0 từ đã học');
     expect(text(el.querySelector('.rate'))).toBe('Tỷ lệ đúng —');
+    expect(text(el.querySelector('.reading .rate'))).toBe('Trả lời đúng —');
+    expect(text(el.querySelector('.reading'))).toContain('Trả lời câu hỏi ở bước Đọc để xem tỷ lệ.');
+  });
+
+  it('shows the comprehension rate (F15)', async () => {
+    await open();
+    controller.expectOne('/api/stats').flush({ ...sample, reading: { answered: 12, correct: 9, rate: 0.75 } });
+    await fixture.whenStable();
+    expect(text(el.querySelector('.reading dt'))).toBe('Hiểu bài');
+    expect(text(el.querySelector('.reading .rate'))).toBe('Trả lời đúng 75% (12 câu)');
   });
 
   it('rounds the rate', async () => {
