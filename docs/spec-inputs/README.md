@@ -74,4 +74,12 @@ F15 phải xong trước F8, vì đề viết được sinh ở F15.
 
 ## Giai đoạn 3
 
-Chưa soạn đầu vào: F10 Nói, F11 Hội thoại nhập vai.
+**F16 → F10 → F11**
+
+| Thứ tự | Tính năng | specify | plan |
+|---|---|---|---|
+| 1 | F16 Vận hành | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f16-van-hanh.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f16-van-hanh.md` |
+| 2 | F10 Nói | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f10-noi.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f10-noi.md` |
+| 3 | F11 Hội thoại nhập vai | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f11-hoi-thoai.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f11-hoi-thoai.md` |
+
+F16 phải xong trước F10: trình duyệt điện thoại chỉ cho dùng micro trên HTTPS.

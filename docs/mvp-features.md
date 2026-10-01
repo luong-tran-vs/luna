@@ -1,6 +1,7 @@
 # Luna: Tính năng MVP
 
-> Phiên bản: v9 (2026-09-30). v9: chốt giai đoạn 2: F7 sinh nhiều bài trong lộ trình chủ đề, thêm F15 câu hỏi hiểu bài và ghi chú ngữ pháp, bước Viết bắt buộc.
+> Phiên bản: v10 (2026-10-01). v10: chốt giai đoạn 3: thêm F16 Vận hành (đặt lại mật khẩu, HTTPS qua Tailscale), bước Nói bắt buộc, Whisper small.en (máy 16GB RAM).
+> v9 (2026-09-30): chốt giai đoạn 2: F7 sinh nhiều bài trong lộ trình chủ đề, thêm F15 câu hỏi hiểu bài và ghi chú ngữ pháp, bước Viết bắt buộc.
 > v8: học theo chủ đề: mỗi cặp trình độ và chủ đề là một lộ trình riêng (R1, R6), thêm F14 Chủ đề và lộ trình theo trình độ.
 > v7 (2026-09-29) thêm cho người học: trang Bài học (R2), mục Từ vựng của bài và sổ từ theo ngày/bài (F5).
 > v6 chốt 3 câu hỏi mở: mục tiêu gồm thanh tổng và 4 thanh kỹ năng, AI sinh bài ở giai đoạn 2, thêm F12 Cài đặt và F13 Sao lưu.
@@ -194,12 +195,16 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 
 ### Giai đoạn 3: AI giọng nói
 
+**F16. Vận hành: đặt lại mật khẩu và truy cập từ điện thoại**
+- Lệnh đặt lại mật khẩu và liệt kê tài khoản chạy trong container backend.
+- Truy cập từ điện thoại qua HTTPS bằng Tailscale; HTTPS cần để dùng micro ở F10.
+
 **F10. Nói (shadowing)**
-- Nghe một câu, ghi âm lại ngay trên trình duyệt, rồi chuyển giọng nói thành chữ bằng Whisper.
+- Bước Nói bắt buộc sau bước Viết: nghe một câu, ghi âm lại ngay trên trình duyệt, rồi chuyển giọng nói thành chữ bằng Whisper.
 - So với câu gốc và tô màu từ đọc đúng, đọc sai và bị bỏ sót.
 
-**F11. Hội thoại nhập vai** *(có thể làm hoặc không)*
-- Trò chuyện với AI theo một tình huống, dùng lại từ vựng của bài học.
+**F11. Hội thoại nhập vai** *(không bắt buộc)*
+- Trò chuyện với AI theo tình huống của bài (tối đa 10 lượt), trả lời bằng giọng nói hoặc gõ chữ; AI có audio; cuối phiên tóm tắt lỗi.
 
 ## 6. Ngoài phạm vi MVP
 
@@ -218,12 +223,11 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 | Backend | Go (REST API) |
 | Cơ sở dữ liệu | **MongoDB**: bản Community tự chạy trong Docker, hoặc MongoDB Atlas gói M0 miễn phí (giới hạn 512MB). Có thể đổi sang cơ sở dữ liệu khác sau này, nên backend chỉ truy cập dữ liệu qua một lớp repository. File audio lưu trên ổ đĩa, không lưu trong cơ sở dữ liệu |
 | Đọc thành giọng nói (TTS) | Piper hoặc Kokoro chạy trên CPU, sinh sẵn và lưu file |
-| Giọng nói thành chữ (STT) | whisper.cpp ở chế độ server, dùng model `base.en` hoặc `small.en` trên CPU |
+| Giọng nói thành chữ (STT) | whisper.cpp ở chế độ server trên CPU, model **`small.en`** (khoảng 1GB RAM; máy có 16GB). Dự phòng `base.en` nếu chậm |
 | Mô hình ngôn ngữ (LLM) | Chính: gói miễn phí của Gemini (ưu tiên model Flash-Lite vì hạn mức cao hơn). Dự phòng: Groq, OpenRouter hoặc Ollama chạy trên máy |
 | Từ điển Anh–Việt | [minhqnd/dictionary](https://github.com/minhqnd/dictionary): file SQLite chạy offline, khoảng 357 nghìn mục từ, có IPA và ví dụ. Giấy phép dữ liệu CC BY-SA 4.0, phải ghi nguồn khi mở cho người khác |
 | Triển khai | Docker Compose |
 
 ## 8. Câu hỏi còn mở
 
-- [ ] Máy có bao nhiêu RAM? Câu trả lời quyết định chạy được mô hình Ollama và Whisper cỡ nào (chỉ ảnh hưởng giai đoạn 2 và 3).
-- [ ] Điện thoại truy cập app từ bên ngoài bằng cách nào: Tailscale, Cloudflare Tunnel, hay chỉ dùng trong mạng nhà? (Chỉ cần chốt khi triển khai.)
+- [x] Điện thoại truy cập app từ bên ngoài: **Tailscale** (`tailscale serve`, HTTPS, chỉ thiết bị của mình), xem F16.
