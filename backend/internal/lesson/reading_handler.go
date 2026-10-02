@@ -36,6 +36,7 @@ func (h *ReadingHandler) Register(mux *http.ServeMux, requireAuth, guard httpx.M
 	mux.Handle("GET /api/lessons/{id}/vocabulary", route(h.vocabulary))
 	mux.Handle("POST /api/lessons/{id}/answers", route(h.answer))
 	mux.Handle("POST /api/lessons/{id}/ask", route(h.ask))
+	mux.Handle("GET /api/lessons/{id}/practice", route(h.practice))
 }
 
 type readingJSON struct {

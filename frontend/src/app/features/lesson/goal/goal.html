@@ -1,16 +1,61 @@
-<section class="goal">
-  <header class="goal-header">
-    <h1 class="title">Mục tiêu</h1>
-    <a class="btn" routerLink="/today">Bài hôm nay</a>
+<section class="screen goal">
+  <header class="screen-bar">
+    <h1 class="screen-title">Khóa học</h1>
   </header>
+
+  @if (!congrats() && !startsTomorrow() && active(); as g) {
+    <section class="soft-card current" aria-labelledby="current-heading">
+      <h2 class="current-label" id="current-heading">Khóa học đang học</h2>
+      <div class="current-row">
+        <span class="icon-chip tone-read"><lu-icon name="layers" /></span>
+        <div class="current-text">
+          <p class="current-name">{{ g.level }} · {{ g.topicName }}</p>
+          <p class="muted">Đã học {{ g.completedLessons }}/{{ g.totalLessons }} bài</p>
+        </div>
+      </div>
+      <div
+        class="current-track"
+        role="progressbar"
+        aria-label="Tiến độ khóa học"
+        aria-valuemin="0"
+        [attr.aria-valuemax]="g.totalLessons"
+        [attr.aria-valuenow]="g.completedLessons"
+      >
+        <span class="current-fill" [style.width.%]="g.totalLessons ? (g.completedLessons / g.totalLessons) * 100 : 0"></span>
+      </div>
+      @switch (today()?.kind) {
+        @case ('noNewLesson') {
+          <p class="current-note" role="status">Khóa học này chưa có bài mới. Bạn có thể chọn chủ đề khác bên dưới.</p>
+        }
+        @case ('doneToday') {
+          <p class="current-note" role="status">Đã xong bài hôm nay, hẹn bạn ngày mai.</p>
+        }
+      }
+      <div class="actions">
+        @if (today()?.kind !== 'noNewLesson' && today()?.kind !== 'doneToday') {
+          <a class="btn-primary" routerLink="/today">{{ todayLabel() }}</a>
+        }
+        <a class="btn" routerLink="/lessons">Danh sách bài</a>
+      </div>
+    </section>
+  }
+
+  <div class="hero">
+    <div class="hero-text">
+      <p class="hero-title">Tiếng Anh theo chủ đề</p>
+      <p class="hero-lead">Mỗi ngày một bài: Ôn · Đọc · Nghe · Viết</p>
+    </div>
+    <span class="hero-icon"><lu-icon name="book" /></span>
+  </div>
 
   @if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   }
 
   @if (congrats() && active(); as g) {
-    <div class="card congrats" role="status">
-      <p class="congrats-title">🎉 Chúc mừng! Bạn đã học hết lộ trình {{ g.level }} · {{ g.topicName }}.</p>
+    <div class="soft-card congrats" role="status">
+      <span class="icon-chip tone-accent"><lu-icon name="trophy" /></span>
+      <p class="congrats-title">Chúc mừng! Bạn đã học hết lộ trình {{ g.level }} · {{ g.topicName }}.</p>
       <p class="muted">Chọn một chủ đề khác cùng trình độ, hoặc lên trình độ tiếp theo.</p>
       <div class="actions">
         <button type="button" class="btn-primary" (click)="selectLevel(g.level)">Chọn chủ đề khác cùng trình độ</button>
@@ -20,13 +65,13 @@
       </div>
     </div>
   } @else if (startsTomorrow()) {
-    <div class="card" role="status">
+    <div class="soft-card" role="status">
       <p>Chủ đề mới bắt đầu từ ngày mai. Hôm nay bạn học tiếp bài đang dở.</p>
-      <a class="btn-primary" routerLink="/today">Về bài hôm nay</a>
+      <a class="btn-primary btn-block" routerLink="/today">Về bài hôm nay</a>
     </div>
   } @else if (goals()) {
     <section class="step" aria-labelledby="level-heading">
-      <h2 class="step-title" id="level-heading">1. Chọn trình độ</h2>
+      <h2 class="section-title" id="level-heading">Chọn trình độ của bạn</h2>
       <div class="levels" role="radiogroup" aria-labelledby="level-heading">
         @for (l of levels; track l; let i = $index) {
           <button
@@ -38,7 +83,11 @@
             (click)="selectLevel(l)"
             (keydown)="onLevelKeydown($event, i)"
           >
-            {{ l }}
+            <span class="level-code">{{ l }}</span>
+            <span class="level-name" aria-hidden="true">{{ levelNames[l] }}</span>
+            @if (level() === l) {
+              <span class="level-check" aria-hidden="true"><lu-icon name="check" /></span>
+            }
           </button>
         }
       </div>
@@ -46,15 +95,16 @@
 
     @if (level(); as l) {
       <section class="step" aria-labelledby="topic-heading">
-        <h2 class="step-title" id="topic-heading">2. Chọn chủ đề {{ l }}</h2>
+        <h2 class="section-title" id="topic-heading">Chọn chủ đề {{ l }}</h2>
         @if (topics(); as list) {
           @if (list.length === 0) {
             <p class="muted">Trình độ này chưa có chủ đề.</p>
           }
           <ul class="topics">
-            @for (t of list; track t.id) {
+            @for (t of list; track t.id; let i = $index) {
               @let progress = progressOf(t.id);
-              <li class="topic card">
+              <li class="soft-card topic" [class.is-active]="progress?.status === 'active'">
+                <span class="icon-chip" [class]="tones[i % tones.length]"><lu-icon name="layers" /></span>
                 <div class="topic-body">
                   <p class="topic-name">{{ t.name }}</p>
                   @if (t.description) {

@@ -32,7 +32,8 @@ export class WritingNotifier {
 
   constructor() {
     effect(() => {
-      if (this.auth.isLoggedIn()) {
+      // Writings belong to learners; admins only manage content.
+      if (this.auth.isLoggedIn() && !this.auth.isAdmin()) {
         untracked(() => void this.refresh());
       } else {
         untracked(() => this.reset());

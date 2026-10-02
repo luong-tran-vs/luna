@@ -6,6 +6,7 @@ import { Card, DayCard, LessonCounts } from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { AudioPlayer } from '../../../shared/components/audio-player/audio-player';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { Icon } from '../../../shared/components/icon/icon';
 import { CardForm } from '../card-form/card-form';
 
 interface DayGroup {
@@ -19,7 +20,7 @@ const SEARCH_DELAY = 300;
 /** The notebook (F5): cards grouped by the day they were saved, search, lesson filter, edit. */
 @Component({
   selector: 'lu-notebook',
-  imports: [AudioPlayer, CardForm, ConfirmDialog, RouterLink],
+  imports: [AudioPlayer, CardForm, ConfirmDialog, Icon, RouterLink],
   templateUrl: './notebook.html',
   styleUrl: './notebook.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

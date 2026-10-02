@@ -19,6 +19,7 @@ import {
   AI_LICENSE,
   AI_SOURCE,
   DEFAULT_COUNT,
+  DEFAULT_TARGET_WORDS,
   DEFAULT_WORDS,
   GenerateInput,
   GenerateResult,
@@ -28,7 +29,7 @@ import { groupByLevel, Topic, topicLabel, TopicRoadmap } from '../../../core/mod
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { AdminApiService } from '../admin-api.service';
 import { DraftChange, DraftList, DraftState } from '../draft-list/draft-list';
-import { GenerateDialog } from '../generate-dialog/generate-dialog';
+import { GenerateDialog, GenerateOptions, GenerateRequest } from '../generate-dialog/generate-dialog';
 import { StatusChip } from '../status-chip/status-chip';
 
 const GENERATE_FAILED = 'Sinh bài thất bại, vui lòng thử lại.';
@@ -79,12 +80,16 @@ export class Roadmap implements CanLeave {
   protected readonly generateError = signal<string | null>(null);
   protected readonly generateNote = signal<string | null>(null);
   /** Last options used, shown again when the dialog reopens. */
-  protected readonly options = signal<GenerateInput>({
+  protected readonly options = signal<GenerateOptions>({
     count: DEFAULT_COUNT,
     words: DEFAULT_WORDS.A1,
     kind: 'reading',
     idea: '',
+    perLesson: DEFAULT_TARGET_WORDS.A1,
   });
+  /** F18: the selected topic's vocabulary, loaded each time the dialog opens (coverage changes). */
+  protected readonly topicWords = signal<string[]>([]);
+  private openingGenerate = false;
   private optionsLevel: Level | null = null;
   protected readonly drafts = signal<DraftState[]>([]);
   private nextKey = 1;
@@ -231,15 +236,33 @@ export class Roadmap implements CanLeave {
 
   // --- F7: generating ---
 
-  protected openGenerate(): void {
+  /** Loads the topic's words first so the dialog can suggest target words; without them it still opens. */
+  protected async openGenerate(): Promise<void> {
     const topic = this.selectedTopic();
-    if (!topic) {
+    if (!topic || this.openingGenerate) {
       return;
     }
     if (topic.level !== this.optionsLevel) {
-      this.options.update((o) => ({ ...o, words: DEFAULT_WORDS[topic.level] }));
+      this.options.update((o) => ({
+        ...o,
+        words: DEFAULT_WORDS[topic.level],
+        perLesson: DEFAULT_TARGET_WORDS[topic.level],
+      }));
       this.optionsLevel = topic.level;
     }
+    this.openingGenerate = true;
+    let words: string[] = [];
+    try {
+      words = (await firstValueFrom(this.api.topicWords(topic.id))).map((w) => w.text);
+    } catch {
+      // Generating without target words is still possible.
+    } finally {
+      this.openingGenerate = false;
+    }
+    if (this.selectedId() !== topic.id) {
+      return;
+    }
+    this.topicWords.set(words);
     this.generateError.set(null);
     this.dialogOpen.set(true);
   }
@@ -250,12 +273,14 @@ export class Roadmap implements CanLeave {
     }
   }
 
-  protected async generate(input: GenerateInput): Promise<void> {
+  protected async generate(request: GenerateRequest): Promise<void> {
     const id = this.selectedId();
     if (!id || this.generating()) {
       return;
     }
-    this.options.set(input);
+    const { perLesson, targetWords, ...rest } = request;
+    const input: GenerateInput = { ...rest, targetWords };
+    this.options.set({ ...rest, perLesson });
     this.generating.set(true);
     this.generateError.set(null);
     try {
@@ -269,6 +294,8 @@ export class Roadmap implements CanLeave {
           key: this.nextKey++,
           title: d.title,
           content: d.content,
+          targetWords: d.targetWords ?? [],
+          missingWords: d.missingWords ?? [],
           saving: false,
           error: null,
           fields: {},

@@ -6,7 +6,13 @@ import { ChangeDetectionStrategy, Component, effect, ElementRef, input, output, 
  */
 @Component({
   selector: 'lu-audio-player',
-  template: `<audio #audio hidden preload="none" (ended)="finished.emit()"></audio>`,
+  template: `<audio
+    #audio
+    hidden
+    preload="none"
+    (ended)="finished.emit()"
+    (timeupdate)="timeChange.emit(audio.currentTime)"
+  ></audio>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AudioPlayer {
@@ -16,6 +22,8 @@ export class AudioPlayer {
   readonly started = output<void>();
   readonly finished = output<void>();
   readonly failed = output<void>();
+  /** Current position in seconds, while playing. */
+  readonly timeChange = output<number>();
 
   private readonly audio = viewChild.required<ElementRef<HTMLAudioElement>>('audio');
 

@@ -1,4 +1,10 @@
 <section class="listening">
+  @if (mode() === null) {
+    <nav class="screen-bar back-bar" aria-label="Điều hướng">
+      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"><lu-icon name="arrow-left" /></a>
+      <span class="back-label">Danh sách bài</span>
+    </nav>
+  }
   @if (loadError(); as message) {
     <p class="form-alert" role="alert">{{ message }} <a routerLink="/">Về trang chủ</a></p>
   } @else if (lesson(); as l) {

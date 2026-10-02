@@ -28,7 +28,7 @@ func newAskEnv(t *testing.T) *askEnv {
 		Title: "Park", Level: "B1", TopicID: "topic-a1", Content: readingContent, Revision: 3,
 		Sentences: toSentences(SplitSentences(readingContent)),
 	})
-	e.r = NewReader(e.lessons, readingDict, newFakeTopics(), newFakeAnswers(), e.asks, e.ai)
+	e.r = NewReader(e.lessons, readingDict, newFakeTopics(), newFakeAnswers(), e.asks, e.ai, "")
 	return e
 }
 

@@ -53,6 +53,12 @@ describe('AdminApiService', () => {
     ).resolves.toEqual(lesson);
   });
 
+  it('regenerates the practice', async () => {
+    await expect(
+      call(api.regeneratePractice('l1'), 'POST', '/api/admin/lessons/l1/practice/regenerate', { lesson }),
+    ).resolves.toEqual(lesson);
+  });
+
   it('saves the questions, grammar note and writing prompt', async () => {
     const extras = { questions: [], grammarNote: null, writingPrompt: 'Write.' };
     await expect(
@@ -78,11 +84,32 @@ describe('AdminApiService', () => {
     ).resolves.toEqual(roadmap);
   });
 
-  it('generates lesson drafts for a topic', async () => {
-    const result = { drafts: [{ title: 'T', content: 'C.', words: 1 }], requested: 1, dropped: 0 };
-    const body = { count: 1, words: 120, kind: 'reading' as const, idea: '' };
+  it('generates lesson drafts for a topic with target words', async () => {
+    const result = {
+      drafts: [{ title: 'T', content: 'C.', words: 1, targetWords: ['Family'], missingWords: [] }],
+      requested: 1,
+      dropped: 0,
+    };
+    const body = { count: 1, words: 120, kind: 'reading' as const, idea: '', targetWords: [['Family']] };
     await expect(
       call(api.generateLessons('t1', body), 'POST', '/api/admin/topics/t1/generate', result, body),
     ).resolves.toEqual(result);
+  });
+
+  it('reads and replaces the vocabulary of a topic (F18)', async () => {
+    const words = [{ text: 'Family', used: true, lessonCount: 2 }];
+    await expect(call(api.topicWords('t1'), 'GET', '/api/admin/topics/t1/words', { words })).resolves.toEqual(words);
+    await expect(
+      call(api.setTopicWords('t1', ['Family', 'cousin']), 'PUT', '/api/admin/topics/t1/words', { words }, {
+        words: ['Family', 'cousin'],
+      }),
+    ).resolves.toEqual(words);
+  });
+
+  it('asks for a split of target words (F18)', async () => {
+    const groups = [['Family', 'cousin'], []];
+    await expect(
+      call(api.wordPlan('t1', 2, 8), 'GET', '/api/admin/topics/t1/word-plan?count=2&perLesson=8', { groups }),
+    ).resolves.toEqual(groups);
   });
 });

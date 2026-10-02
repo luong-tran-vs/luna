@@ -52,7 +52,7 @@ describe('Writing', () => {
     await vi.advanceTimersByTimeAsync(0);
   };
 
-  const setup = async (v: LessonWriting, mode: 'study' | 'review' = 'study') => {
+  const setup = async (v: LessonWriting, mode: 'study' | 'review' | null = 'study') => {
     vi.useFakeTimers();
     notifier.submitted.mockClear();
     await TestBed.configureTestingModule({
@@ -81,6 +81,16 @@ describe('Writing', () => {
   afterEach(() => {
     http.verify();
     vi.useRealTimers();
+  });
+
+  it('offers a way back to the lessons only when opened on its own', async () => {
+    await setup(view({ writing: writing({ status: 'draft', text: 'My family', submittedAt: null, grade: null }) }), null);
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons');
+    expect(fixture.nativeElement.classList).toContain('standalone');
+    fixture.destroy();
+    TestBed.resetTestingModule();
+    await setup(view({ writing: writing({ status: 'draft', text: 'My family', submittedAt: null, grade: null }) }));
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')).toBeNull();
   });
 
   it('shows the prompt, the suggested length and the word count', async () => {

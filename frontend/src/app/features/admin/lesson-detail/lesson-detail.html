@@ -8,8 +8,6 @@
       <h1 class="page-title">{{ l.title }}</h1>
       <div class="actions">
         <a class="btn" routerLink="/admin">Danh sách</a>
-        <a class="btn" [routerLink]="['/lessons', l.id, 'read']">Mở bước Đọc</a>
-        <a class="btn" [routerLink]="['/lessons', l.id, 'listen']">Mở bước Nghe</a>
         <a class="btn" [routerLink]="['/admin/lessons', l.id, 'edit']">Sửa</a>
         <button type="button" class="btn" [disabled]="busy()" (click)="deleteOpen.set(true)">Xoá bài</button>
       </div>
@@ -125,6 +123,8 @@
     }
 
     <lu-lesson-extras [lesson]="l" (saved)="lesson.set($event)" />
+
+    <lu-practice-section [lesson]="l" (regenerated)="onPracticeRegenerated($event)" />
   } @else if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   } @else {

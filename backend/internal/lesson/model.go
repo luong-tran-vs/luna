@@ -24,6 +24,8 @@ func ValidLevel(s string) bool { return slices.Contains(Levels, Level(s)) }
 type Status string
 
 const (
+	// StatusNone means the work has never been queued (only used for practice).
+	StatusNone    Status = ""
 	StatusRunning Status = "running"
 	StatusDone    Status = "done"
 	StatusFailed  Status = "failed"
@@ -67,16 +69,26 @@ type Lesson struct {
 	ExtrasEditedByAdmin bool
 	// QuizVersion is bumped whenever the question set is replaced; answers belong to one version.
 	QuizVersion int
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	// Practice is the vocabulary practice (F17), nil until generated.
+	Practice       *Practice
+	PracticeStatus Status
+	PracticeError  string
+	// PracticeVersion is bumped each time a practice is saved; practice audio files belong to one version.
+	PracticeVersion int
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
 }
 
 // StatusOf returns the status of the given kind of background work.
 func (l Lesson) StatusOf(t job.Type) Status {
-	if t == job.TypeTTS {
+	switch t {
+	case job.TypeTTS:
 		return l.AudioStatus
+	case job.TypePractice:
+		return l.PracticeStatus
+	default:
+		return l.AnnotationStatus
 	}
-	return l.AnnotationStatus
 }
 
 // Summary is the list view of a lesson.
@@ -103,6 +115,8 @@ type TopicRef struct {
 	ID    string
 	Name  string
 	Level Level
+	// Words is the topic vocabulary (F18).
+	Words []string
 }
 
 var (
@@ -119,6 +133,12 @@ var (
 	ErrNoQuiz = errors.New("lesson: lesson has no questions")
 	// ErrAlreadyAnswered is matched by *AlreadyAnsweredError.
 	ErrAlreadyAnswered = errors.New("lesson: question already answered")
+	// ErrNoValidPractice means nothing the AI wrote for the practice passed the checks.
+	ErrNoValidPractice = errors.New("lesson: AI returned no usable practice")
+	// ErrPracticeRunning means the practice is already being generated.
+	ErrPracticeRunning = errors.New("lesson: practice is running")
+	// ErrAnnotationNotDone means the practice needs the lesson annotations first.
+	ErrAnnotationNotDone = errors.New("lesson: annotations are not done")
 )
 
 // ValidationError lists invalid input fields with Vietnamese messages for the admin.

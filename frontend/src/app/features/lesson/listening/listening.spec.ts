@@ -137,6 +137,15 @@ describe('Listening', () => {
     vi.restoreAllMocks();
   });
 
+  it('offers a way back to the lessons only when opened on its own', async () => {
+    await setup();
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons');
+    fixture.destroy();
+    TestBed.resetTestingModule();
+    await setup({ inputs: { lessonId: 'l1', mode: 'study' } });
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')).toBeNull();
+  });
+
   describe('listening sentence by sentence', () => {
     it('shows the first sentence with previous disabled', async () => {
       await setup();

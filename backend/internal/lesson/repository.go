@@ -15,6 +15,12 @@ type Info struct {
 	License string
 }
 
+// RevisionRef names one revision of a lesson.
+type RevisionRef struct {
+	ID       string
+	Revision int
+}
+
 // Repository stores lessons. Implementations live in internal/storage.
 type Repository interface {
 	// Create stores l and returns it with its ID.
@@ -32,8 +38,15 @@ type Repository interface {
 	// SaveAudio stores sentence audio paths and marks audio done if still at revision.
 	SaveAudio(ctx context.Context, id string, revision int, paths []string) (bool, error)
 	// SaveAnnotations stores AI annotations and extras, marks them done, clears the extras
-	// edited flag and bumps QuizVersion, if still at revision.
+	// edited flag and bumps QuizVersion, if still at revision. It also drops the practice and
+	// marks it running, since a new practice is queued for the new annotations (F17).
 	SaveAnnotations(ctx context.Context, id string, revision int, anns []Annotation, extras Extras) (bool, error)
+	// SavePractice stores a practice, marks it done and bumps PracticeVersion, if the lesson is
+	// still at revision and PracticeVersion still equals prevVersion.
+	SavePractice(ctx context.Context, id string, revision, prevVersion int, p Practice) (bool, error)
+	// WithoutPractice lists the lessons whose annotations are done but whose practice was never
+	// queued (lessons annotated before F17).
+	WithoutPractice(ctx context.Context) ([]RevisionRef, error)
 	// ReplaceExtras stores admin-edited extras and sets the edited flag; bumpQuiz bumps
 	// QuizVersion (the questions changed).
 	ReplaceExtras(ctx context.Context, id string, extras Extras, bumpQuiz bool) error
@@ -55,4 +68,7 @@ type Topics interface {
 	// MoveLesson takes a lesson out of topic from's roadmap and, if it was there, appends it
 	// to topic to's roadmap.
 	MoveLesson(ctx context.Context, lessonID, from, to string) error
+	// Position is the 1-based place of a lesson in its topic roadmap, 0 when it is not there
+	// or the topic does not exist.
+	Position(ctx context.Context, topicID, lessonID string) (int, error)
 }

@@ -11,6 +11,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/wordmatch"
 )
 
 // Limits of a generation request (F7).
@@ -35,6 +36,8 @@ type GenerateInput struct {
 	Words int
 	Kind  string
 	Idea  string
+	// TargetWords lists the topic words each lesson must use (F18): empty, or one group per lesson.
+	TargetWords [][]string
 }
 
 // Draft is a generated lesson that passed the checks; it is never stored.
@@ -42,6 +45,11 @@ type Draft struct {
 	Title   string
 	Content string
 	Words   int
+	// TargetWords are the words asked for this draft; MissingWords those its content lacks (F18).
+	TargetWords  []string
+	MissingWords []string
+	// index is the position of the draft in the AI answer, which matches its target group.
+	index int
 }
 
 // GenerateResult is one batch of drafts. Dropped counts drafts the AI returned that were
@@ -86,6 +94,10 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	if err != nil {
 		return GenerateResult{}, err
 	}
+	targets, err := cleanTargets(in.TargetWords, in.Count, topic.Words)
+	if err != nil {
+		return GenerateResult{}, err
+	}
 	existing, err := s.Lessons.List(ctx, Filter{TopicID: topic.ID})
 	if err != nil {
 		return GenerateResult{}, fmt.Errorf("lesson: topic lessons: %w", err)
@@ -103,7 +115,7 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	defer cancel()
 	drafts, err := s.AI.GenerateLessons(actx, ai.GenerateRequest{
 		Level: string(topic.Level), TopicName: topic.Name, Count: in.Count, Words: in.Words,
-		Kind: ai.LessonKind(in.Kind), Idea: in.Idea, ExistingTitles: titles,
+		Kind: ai.LessonKind(in.Kind), Idea: in.Idea, ExistingTitles: titles, TargetWords: targets,
 	})
 	if err != nil {
 		return GenerateResult{}, fmt.Errorf("%w: %w", errGenerateAI, err)
@@ -113,6 +125,7 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	if len(out.Drafts) == 0 {
 		return GenerateResult{}, ErrUnusableDraft
 	}
+	markTargets(out.Drafts, targets)
 	return out, nil
 }
 
@@ -127,7 +140,7 @@ func filterDrafts(drafts []ai.LessonDraft, existing []string, count, words int) 
 	high := int(math.Floor(float64(words) * (1 + wordTolerance)))
 
 	out := GenerateResult{Drafts: []Draft{}, Requested: count}
-	for _, d := range drafts {
+	for i, d := range drafts {
 		title := strings.TrimSpace(d.Title)
 		content := strings.TrimSpace(strings.ReplaceAll(d.Content, "\r\n", "\n"))
 		n := len(strings.Fields(content))
@@ -142,7 +155,7 @@ func filterDrafts(drafts []ai.LessonDraft, existing []string, count, words int) 
 		}
 		seen[key] = true
 		if len(out.Drafts) < count {
-			out.Drafts = append(out.Drafts, Draft{Title: title, Content: content, Words: n})
+			out.Drafts = append(out.Drafts, Draft{Title: title, Content: content, Words: n, index: i})
 		}
 	}
 	return out
@@ -152,4 +165,68 @@ func filterDrafts(drafts []ai.LessonDraft, existing []string, count, words int) 
 func titleKey(title string) string {
 	key := strings.ToLower(strings.Join(strings.Fields(title), " "))
 	return strings.TrimRightFunc(key, unicode.IsPunct)
+}
+
+// maxTargetWords is the largest target word group of one lesson (F18).
+const maxTargetWords = 15
+
+// cleanTargets checks the target word groups of a generation against the topic words and
+// rewrites each word with the topic's spelling. No groups gives nil (generate as before F18).
+func cleanTargets(groups [][]string, count int, topicWords []string) ([][]string, error) {
+	if len(groups) == 0 {
+		return nil, nil
+	}
+	if len(groups) != count {
+		return nil, &ValidationError{Fields: map[string]string{"targetWords": "Số nhóm từ phải bằng số bài"}}
+	}
+	known := make(map[string]string, len(topicWords))
+	for _, w := range topicWords {
+		known[strings.ToLower(w)] = w
+	}
+	fields := map[string]string{}
+	out := make([][]string, len(groups))
+	for i, g := range groups {
+		if len(g) > maxTargetWords {
+			fields[fmt.Sprintf("targetWords.%d", i)] = fmt.Sprintf("Tối đa %d từ mỗi bài", maxTargetWords)
+			continue
+		}
+		out[i] = []string{}
+		seen := map[string]bool{}
+		for j, w := range g {
+			key := strings.ToLower(strings.Join(strings.Fields(w), " "))
+			word, ok := known[key]
+			switch {
+			case !ok:
+				fields[fmt.Sprintf("targetWords.%d.%d", i, j)] = "Từ không có trong danh sách của chủ đề"
+			case seen[key]:
+				fields[fmt.Sprintf("targetWords.%d.%d", i, j)] = "Từ bị trùng trong bài"
+			default:
+				seen[key] = true
+				out[i] = append(out[i], word)
+			}
+		}
+	}
+	if len(fields) > 0 {
+		return nil, &ValidationError{Fields: fields}
+	}
+	return out, nil
+}
+
+// markTargets sets each draft's target words (by its position in the AI answer) and the ones
+// its content lacks.
+func markTargets(drafts []Draft, targets [][]string) {
+	for i := range drafts {
+		d := &drafts[i]
+		d.TargetWords, d.MissingWords = []string{}, []string{}
+		if d.index >= len(targets) {
+			continue
+		}
+		d.TargetWords = targets[d.index]
+		content := wordmatch.New(d.Content, nil)
+		for _, w := range d.TargetWords {
+			if !content.Contains(w) {
+				d.MissingWords = append(d.MissingWords, w)
+			}
+		}
+	}
 }

@@ -96,6 +96,15 @@ Chỉ nạp các bộ ký tự `latin`, `latin-ext`, `vietnamese` (và phần IP
 | `--radius-lg` | 16px | Thẻ, popup |
 | `--radius-full` | 999px | Thanh tiến trình, chip streak |
 | `--space-*` | 4, 8, 12, 16, 24, 32px | Khoảng cách, theo bội số của 4 |
+| `--shadow-card` | bóng nhẹ (sáng) / `none` (tối) | Thẻ ở khu học |
+
+### 5.1. Bố cục khu học (theo ảnh phác thảo `anh_mau_client.png`)
+
+- Điện thoại: 4 tab cố định ở đáy (Trang chủ, Khóa học, Ôn tập, Tài khoản). Vào học bài hôm nay từ thẻ "Tiếp tục học" ở Trang chủ hoặc thẻ "Khóa học đang học" ở tab Khóa học. Khi đang học một bài (`/today`, `/lessons/:id/*`)
+  thì ẩn tab. Từ 768px trở lên, tab nằm trên thanh đầu trang.
+- Mỗi màn hình là một cột: thanh "← Tiêu đề", thẻ trắng bo `--radius-lg` có `--shadow-card`, hàng danh sách có ô icon.
+- Class dùng chung nằm ở `src/styles/screen.css`, icon ở `shared/components/icon`, vòng tiến độ ở `shared/components/progress-ring`.
+- Chế độ Sáng/Tối dùng công tắc ở trang Tài khoản.
 
 ## 6. Cách dùng trong Angular
 

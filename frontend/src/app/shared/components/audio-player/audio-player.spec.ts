@@ -11,6 +11,7 @@ import { AudioPlayer } from './audio-player';
     (started)="events.push('started')"
     (finished)="events.push('finished')"
     (failed)="events.push('failed')"
+    (timeChange)="events.push('time ' + $event)"
   />`,
 })
 class Host {
@@ -124,5 +125,11 @@ describe('AudioPlayer', () => {
   it('emits finished from the media event', () => {
     audio.dispatchEvent(new Event('ended'));
     expect(host.events).toEqual(['finished']);
+  });
+
+  it('emits the current time while playing', () => {
+    audio.currentTime = 1.5;
+    audio.dispatchEvent(new Event('timeupdate'));
+    expect(host.events).toEqual(['time 1.5']);
   });
 });

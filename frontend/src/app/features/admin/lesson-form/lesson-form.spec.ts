@@ -15,6 +15,9 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   writingPrompt: '',
   extrasEditedByAdmin: false,
   quizVersion: 0,
+  practice: null,
+  practiceStatus: 'none',
+  practiceError: '',
   title: 'Park',
   level: 'B1',
   topicId: 't3',
@@ -35,7 +38,7 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
 });
 
 const topic = (id: string, name: string, level: Topic['level']): Topic => ({
-  id, name, level, description: '', lessonCount: 0, roadmapCount: 0, remaining: 0, warning: true, createdAt: '',
+  id, name, level, description: '', lessonCount: 0, roadmapCount: 0, remaining: 0, warning: true, createdAt: '', wordCount: 0, usedWordCount: 0,
 });
 const topics = [topic('t1', 'Gia đình', 'A1'), topic('t2', 'Mua sắm', 'A1'), topic('t3', 'Công việc', 'B1')];
 

@@ -126,6 +126,8 @@ func (f *fakeRepo) AppendLesson(_ context.Context, id, lessonID string) error {
 type fakeLessons struct {
 	mu        sync.Mutex
 	lessons   map[string]LessonRef
+	texts     map[string]string // lesson id → content
+	textCalls int
 	levelSets []string // "topicID=level" of SetLevelByTopic calls
 }
 
@@ -196,4 +198,38 @@ func newEnv() *testEnv {
 	e := &testEnv{repo: &fakeRepo{}, lessons: newFakeLessons()}
 	e.svc = NewService(e.repo, e.lessons, func() time.Time { return testNow })
 	return e
+}
+
+func (f *fakeRepo) SetWords(_ context.Context, id string, words []string) (Topic, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	i := f.index(id)
+	if i < 0 {
+		return Topic{}, ErrNotFound
+	}
+	f.topics[i].Words, f.topics[i].WordsSeeded = slices.Clone(words), true
+	return f.topics[i], nil
+}
+
+// setText gives a lesson a content for coverage.
+func (f *fakeLessons) setText(id, content string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	if f.texts == nil {
+		f.texts = map[string]string{}
+	}
+	f.texts[id] = content
+}
+
+func (f *fakeLessons) Texts(_ context.Context, topicIDs []string) (map[string][]LessonText, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.textCalls++
+	out := map[string][]LessonText{}
+	for id, l := range f.lessons {
+		if slices.Contains(topicIDs, l.TopicID) {
+			out[l.TopicID] = append(out[l.TopicID], LessonText{Content: f.texts[id]})
+		}
+	}
+	return out, nil
 }

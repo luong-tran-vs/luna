@@ -81,5 +81,7 @@ F15 phải xong trước F8, vì đề viết được sinh ở F15.
 | 1 | F16 Vận hành | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f16-van-hanh.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f16-van-hanh.md` |
 | 2 | F10 Nói | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f10-noi.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f10-noi.md` |
 | 3 | F11 Hội thoại nhập vai | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f11-hoi-thoai.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f11-hoi-thoai.md` |
+| 4 | F17 Chi tiết bài và luyện tập từ vựng | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f17-luyen-tap-tu-vung.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f17-luyen-tap-tu-vung.md` |
+| 5 | F18 Từ vựng theo chủ đề | `/speckit-specify Tạo spec theo khối 1 trong @docs/spec-inputs/f18-tu-vung-chu-de.md` | `/speckit-plan Lập plan theo khối 2 trong @docs/spec-inputs/f18-tu-vung-chu-de.md` |
 
 F16 phải xong trước F10: trình duyệt điện thoại chỉ cho dùng micro trên HTTPS.

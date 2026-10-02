@@ -3,6 +3,13 @@
   gap: var(--space-4);
 }
 
+/* Opened on its own (/lessons/:id/write): page width and padding like the reading step. */
+:host(.standalone) .writing {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
 .title {
   font: var(--text-lg) var(--font-ui);
 }

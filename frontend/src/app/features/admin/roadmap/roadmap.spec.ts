@@ -23,7 +23,7 @@ const item = (id: string, title: string, inRoadmap = true): LessonSummary => ({
 
 const topic = (id: string, name: string, level: Topic['level'], roadmapCount: number): Topic => ({
   id, name, level, description: '', lessonCount: roadmapCount + 1, roadmapCount, remaining: roadmapCount,
-  warning: roadmapCount < 3, createdAt: '',
+  warning: roadmapCount < 3, createdAt: '', wordCount: 0, usedWordCount: 0,
 });
 
 const topics = [topic('t1', 'Gia đình', 'A1', 3), topic('t2', 'Mua sắm', 'A1', 0), topic('t3', 'Công việc', 'B1', 2)];
@@ -219,7 +219,7 @@ describe('Roadmap', () => {
     const generateUrl = '/api/admin/topics/t1/generate';
     const words = (n: number) => Array.from({ length: n }, (_, i) => `w${i}`).join(' ');
     const generated = (...titles: string[]) => ({
-      drafts: titles.map((title) => ({ title, content: words(120), words: 120 })),
+      drafts: titles.map((title) => ({ title, content: words(120), words: 120, targetWords: [], missingWords: [] })),
       requested: titles.length,
       dropped: 0,
     });
@@ -231,8 +231,12 @@ describe('Roadmap', () => {
       Array.from(el.querySelectorAll<HTMLInputElement>('lu-draft-list input[type="text"]')).map((i) => i.value);
     const roadmap = () => fixture.componentInstance as unknown as { canLeave(): boolean | Promise<boolean> };
 
-    const openDialog = async () => {
+    const wordsUrl = '/api/admin/topics/t1/words';
+    /** Opening loads the topic's words first (F18); by default the topic has none. */
+    const openDialog = async (topicWords: string[] = []) => {
       button('Sinh bài bằng AI')!.click();
+      await settle();
+      http.expectOne(wordsUrl).flush({ words: topicWords.map((text) => ({ text, used: false, lessonCount: 0 })) });
       await settle();
     };
     const submitDialog = async () => {
@@ -273,7 +277,7 @@ describe('Roadmap', () => {
       await submitDialog();
       const req = http.expectOne(generateUrl);
       expect(req.request.method).toBe('POST');
-      expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '' });
+      expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '', targetWords: [] });
       expect(text(button('Đang sinh…', dialog()))).toBe('Đang sinh…');
 
       req.flush({ ...generated('Sunday Lunch', 'The Picnic'), requested: 3, dropped: 1 });
@@ -402,6 +406,43 @@ describe('Roadmap', () => {
         expect(draftTitles()).toEqual(['Kept and edited']);
       });
     }
+
+    it('passes the topic words to the dialog and sends the suggested target words (F18)', async () => {
+      await openDialog(['Family', 'Parents', 'cousin']);
+      await settle();
+      const plan = http.expectOne((r) => r.url === '/api/admin/topics/t1/word-plan');
+      expect(plan.request.params.get('count')).toBe('3');
+      expect(plan.request.params.get('perLesson')).toBe('8');
+      plan.flush({ groups: [['Family'], ['Parents'], ['cousin']] });
+      await settle();
+      expect(dialog().querySelector<HTMLInputElement>('#generate-perLesson')!.value).toBe('8');
+      expect(dialog().querySelector('button[aria-label="Bỏ Parents khỏi bài 2"]')).toBeTruthy();
+
+      await submitDialog();
+      const req = http.expectOne(generateUrl);
+      expect(req.request.body.targetWords).toEqual([['Family'], ['Parents'], ['cousin']]);
+      req.flush({
+        drafts: [
+          { title: 'One', content: words(120), words: 120, targetWords: ['Family'], missingWords: [] },
+          { title: 'Two', content: words(120), words: 120, targetWords: ['Parents'], missingWords: ['Parents'] },
+        ],
+        requested: 3,
+        dropped: 1,
+      });
+      await settle();
+      const drafts = Array.from(el.querySelectorAll('lu-draft-list li.draft'));
+      expect(text(drafts[0].querySelector('.targets-used'))).toBe('Dùng 1/1 từ mục tiêu');
+      expect(text(drafts[1].querySelector('.targets-missing'))).toBe('Còn thiếu: Parents');
+    });
+
+    it('still opens the dialog, without target words, when the topic words fail to load', async () => {
+      button('Sinh bài bằng AI')!.click();
+      await settle();
+      http.expectOne(wordsUrl).flush({ error: 'internal_error' }, { status: 500, statusText: 'Error' });
+      await settle();
+      expect(dialog().querySelector('dialog')!.hasAttribute('open')).toBe(true);
+      expect(dialog().querySelector('#generate-perLesson')).toBeNull();
+    });
 
     it('appends a new batch after the old drafts', async () => {
       await generate(generated('First'));

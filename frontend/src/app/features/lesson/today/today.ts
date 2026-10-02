@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { Step, Today as TodayData } from '../../../core/models/study';
+import { Step, STEPS, Today as TodayData } from '../../../core/models/study';
 import { DueCard } from '../../../core/models/vocab';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
+import { Icon } from '../../../shared/components/icon/icon';
 import { ReviewSession } from '../../../shared/components/review-session/review-session';
 import { StepIndicator } from '../../../shared/components/step-indicator/step-indicator';
 import { Listening } from '../listening/listening';
@@ -19,7 +20,7 @@ const POSITION_DELAY = 1000;
 /** Today's lesson (L): goal, streak, steps Ôn → Đọc → Nghe → Viết, and the current step itself. */
 @Component({
   selector: 'lu-today',
-  imports: [Listening, Reading, ReviewSession, RouterLink, StepIndicator, Writing],
+  imports: [Icon, Listening, Reading, ReviewSession, RouterLink, StepIndicator, Writing],
   templateUrl: './today.html',
   styleUrl: './today.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +35,10 @@ export class Today {
   protected readonly error = signal<string | null>(null);
   protected readonly loadError = signal<string | null>(null);
   protected readonly completing = signal(false);
+  protected readonly doneSteps = computed(() => {
+    const steps = this.data()?.steps;
+    return steps ? STEPS.filter((s) => steps[s] === 'done').length : 0;
+  });
 
   private positionTimer?: ReturnType<typeof setTimeout>;
 

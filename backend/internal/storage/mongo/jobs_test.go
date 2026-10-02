@@ -38,3 +38,15 @@ func TestJobDocTargets(t *testing.T) {
 		t.Fatal("bad target id accepted")
 	}
 }
+
+func TestJobDocPracticeAudio(t *testing.T) {
+	t.Parallel()
+	lid := bson.NewObjectID().Hex()
+	d, err := newJobDoc(job.Job{Type: job.TypePracticeAudio, LessonID: lid, Revision: 3}, time.Now())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if j := d.toJob(); j.Type != job.TypePracticeAudio || j.LessonID != lid || j.Revision != 3 || j.TargetID != "" {
+		t.Fatalf("practice audio job = %+v", j)
+	}
+}

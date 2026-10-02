@@ -442,27 +442,34 @@ func (s *StudyService) SetPosition(ctx context.Context, userID string, step Step
 
 // --- lessons page and access ---
 
-// MyLessons lists today's lesson, the completed ones (newest first) and the locked upcoming
-// lessons of the active goal.
+// MyLessons lists the lessons of the active goal's topic: today's lesson, the completed ones (newest
+// first) and the locked upcoming ones. Lessons finished in other topics show up when that topic is
+// the goal again.
 func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsView, error) {
 	d, err := s.load(ctx, userID)
 	if err != nil {
 		return MyLessonsView{}, err
 	}
-	ids := []string{}
-	for _, p := range d.completed {
-		ids = append(ids, p.LessonID)
-	}
-	if d.state.LessonID != "" {
-		ids = append(ids, d.state.LessonID)
-	}
+	inTopic := map[string]bool{}
 	var upcoming []string
 	if d.topic != nil {
 		for _, id := range d.topic.LessonIDs {
+			inTopic[id] = true
 			if !d.done[id] && id != d.state.LessonID {
 				upcoming = append(upcoming, id)
 			}
 		}
+	}
+	var completed []LessonProgress
+	ids := []string{}
+	for _, p := range d.completed {
+		if inTopic[p.LessonID] {
+			completed = append(completed, p)
+			ids = append(ids, p.LessonID)
+		}
+	}
+	if d.state.LessonID != "" {
+		ids = append(ids, d.state.LessonID)
 	}
 	titles, err := s.d.Titles.Titles(ctx, append(ids, upcoming...))
 	if err != nil {
@@ -474,7 +481,7 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 		out.Today = &LessonRef{ID: d.state.LessonID, Title: titles[d.state.LessonID]}
 	}
 	topicNames := map[string]string{}
-	for _, p := range d.completed {
+	for _, p := range completed {
 		title, ok := titles[p.LessonID]
 		if !ok {
 			continue // lesson deleted

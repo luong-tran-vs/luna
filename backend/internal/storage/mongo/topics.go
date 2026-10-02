@@ -20,6 +20,8 @@ type topicDoc struct {
 	Level       string          `bson:"level"`
 	Description string          `bson:"description"`
 	LessonIDs   []bson.ObjectID `bson:"lessonIds"`
+	Words       []string        `bson:"words"`
+	WordsSeeded bool            `bson:"wordsSeeded"`
 	CreatedAt   time.Time       `bson:"createdAt"`
 	UpdatedAt   time.Time       `bson:"updatedAt"`
 }
@@ -28,6 +30,7 @@ func (d topicDoc) toTopic() topic.Topic {
 	t := topic.Topic{
 		ID: d.ID.Hex(), Name: d.Name, Level: d.Level, Description: d.Description,
 		LessonIDs: make([]string, len(d.LessonIDs)), CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt,
+		Words: d.Words, WordsSeeded: d.WordsSeeded,
 	}
 	for i, oid := range d.LessonIDs {
 		t.LessonIDs[i] = oid.Hex()
@@ -217,4 +220,29 @@ func (r *Topics) AppendLesson(ctx context.Context, id, lessonID string) error {
 		return fmt.Errorf("append to roadmap: %w", err)
 	}
 	return nil
+}
+
+// SetWords replaces the topic's words and marks them seeded, so the startup seed never
+// overwrites an admin edit (F18).
+func (r *Topics) SetWords(ctx context.Context, id string, words []string) (topic.Topic, error) {
+	f, err := r.filter(id)
+	if err != nil {
+		return topic.Topic{}, err
+	}
+	if words == nil {
+		words = []string{}
+	}
+	var d topicDoc
+	err = r.coll.FindOneAndUpdate(ctx, f, bson.D{{Key: "$set", Value: bson.D{
+		{Key: "words", Value: words},
+		{Key: "wordsSeeded", Value: true},
+		{Key: "updatedAt", Value: time.Now().UTC()},
+	}}}, options.FindOneAndUpdate().SetReturnDocument(options.After)).Decode(&d)
+	switch {
+	case errors.Is(err, mongo.ErrNoDocuments):
+		return topic.Topic{}, topic.ErrNotFound
+	case err != nil:
+		return topic.Topic{}, fmt.Errorf("set topic words: %w", err)
+	}
+	return d.toTopic(), nil
 }

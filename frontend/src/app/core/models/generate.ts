@@ -9,12 +9,18 @@ export interface GenerateInput {
   words: number;
   kind: LessonKind;
   idea: string;
+  /** F18: target words for each lesson; empty, or exactly `count` groups. */
+  targetWords: string[][];
 }
 
 export interface GeneratedDraft {
   title: string;
   content: string;
   words: number;
+  /** F18: target words asked for this draft (empty when none). */
+  targetWords: string[];
+  /** Target words not found in the content. */
+  missingWords: string[];
 }
 
 export interface GenerateResult {
@@ -39,6 +45,19 @@ export const DEFAULT_WORDS: Record<Level, number> = {
   C1: 400,
   C2: 400,
 };
+
+/** F18: suggested target words per lesson for each level. */
+export const DEFAULT_TARGET_WORDS: Record<Level, number> = {
+  A1: 8,
+  A2: 8,
+  B1: 10,
+  B2: 10,
+  C1: 12,
+  C2: 12,
+};
+
+/** F18: at most this many target words per lesson. */
+export const MAX_TARGET_WORDS = 15;
 
 /** Source and license of lessons saved from AI drafts. */
 export const AI_SOURCE = 'AI sinh';

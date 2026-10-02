@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { MyLessons as MyLessonsData } from '../../../core/models/study';
+import { Goals, MyLessons as MyLessonsData } from '../../../core/models/study';
 import { MyLessons } from './my-lessons';
 
 describe('MyLessons', () => {
@@ -13,7 +13,7 @@ describe('MyLessons', () => {
 
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
 
-  const setup = async (data: MyLessonsData) => {
+  const setup = async (data: MyLessonsData, goals: Goals = { active: null, others: [] }) => {
     TestBed.configureTestingModule({
       providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
     });
@@ -22,6 +22,7 @@ describe('MyLessons', () => {
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
     http.expectOne('/api/lessons/mine').flush(data);
+    http.expectOne('/api/goals').flush(goals);
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };
@@ -43,17 +44,42 @@ describe('MyLessons', () => {
     expect(today.querySelector('a[href="/today"]')).toBeTruthy();
 
     const done = Array.from(el.querySelectorAll('.completed li'));
-    expect(done.map((li) => text(li.querySelector('.title')))).toEqual(['My family', 'Shopping']);
-    expect(text(done[0])).toContain('Gia đình');
-    expect(done[0].querySelector('a[href="/lessons/l2/read?review=1"]')).toBeTruthy();
-    expect(done[0].querySelector('a[href="/lessons/l2/listen?review=1"]')).toBeTruthy();
-    expect(done[0].querySelector('a[href="/lessons/l2/write?review=1"]')?.textContent).toContain('Bài viết');
+    // Oldest first, numbered in the order they were studied.
+    expect(done.map((li) => text(li.querySelector('.title')))).toEqual(['Shopping', 'My family']);
+    expect(done.map((li) => text(li.querySelector('.num')))).toEqual(['1', '2']);
+    // Each row opens the lesson's detail page.
+    expect(done.map((li) => li.querySelector('a')?.getAttribute('href'))).toEqual(['/lessons/l1', '/lessons/l2']);
+    expect(text(done[1])).toContain('Đã học 29/09/2026');
+    expect(today.querySelector('a[href="/lessons/l3"]')).toBeTruthy();
 
     const upcoming = Array.from(el.querySelectorAll('.upcoming li'));
     expect(text(upcoming[0])).toContain('At the bank');
-    expect(text(upcoming[0])).toContain('🔒');
+    expect(text(today.querySelector('.num'))).toBe('3');
+    expect(text(upcoming[0].querySelector('.num'))).toBe('4');
+    expect(upcoming[0].querySelector('lu-icon[name="lock"]')).toBeTruthy();
     expect(text(upcoming[0].querySelector('.visually-hidden'))).toBe('chưa mở');
     expect(upcoming[0].querySelector('a')).toBeNull();
+  });
+
+  it('names the topic being studied with its progress', async () => {
+    await setup(
+      { today: null, completed: [], upcoming: [] },
+      {
+        active: {
+          topicId: 't1',
+          topicName: 'Gia đình',
+          level: 'A1',
+          completedLessons: 3,
+          totalLessons: 12,
+          status: 'active',
+          effectiveFrom: '2026-09-30',
+        },
+        others: [],
+      },
+    );
+    expect(text(el.querySelector('h1'))).toBe('A1 · Gia đình');
+    expect(text(el.querySelector('.progress-text'))).toBe('3 / 12 bài');
+    expect(el.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('3');
   });
 
   it('shows empty states', async () => {

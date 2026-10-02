@@ -270,3 +270,8 @@ func newEnv() *env {
 func (f *fakeGrader) Explain(context.Context, ai.ExplainRequest) (ai.Explanation, error) {
 	return ai.Explanation{}, nil
 }
+
+// Practice is unused by writings (F17 is lesson practice).
+func (f *fakeGrader) Practice(context.Context, ai.PracticeRequest) (ai.Practice, error) {
+	return ai.Practice{}, nil
+}

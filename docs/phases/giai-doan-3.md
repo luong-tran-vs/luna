@@ -5,7 +5,7 @@
 **Mục tiêu:** dùng app trên điện thoại ở mọi nơi qua HTTPS, và thêm kỹ năng **Nói**.
 **Các bước của bài:** Ôn → Đọc → Nghe → Viết → **Nói** (bắt buộc).
 **AI:** whisper.cpp chạy trên CPU, model `small.en` (máy 16GB RAM; dự phòng `base.en` nếu chậm). Hội thoại (F11) dùng Gemini và Kokoro.
-**Thứ tự làm:** F16 → F10 → F11.
+**Thứ tự làm:** F16 → F10 → F11. F17 và F18 (thêm 2026-10-02) độc lập, làm lúc nào cũng được.
 
 ---
 
@@ -54,6 +54,61 @@
 - [ ] Không bắt buộc để hoàn thành bài học; không ảnh hưởng tiến độ hay streak.
 - [ ] Mỗi lượt trò chuyện tốn tối đa 1 request AI.
 - [ ] AI lỗi hoặc hết lượt giữa phiên: báo rõ, giữ nội dung đã trò chuyện.
+
+---
+
+## F17. Trang chi tiết bài và luyện tập từ vựng *(không bắt buộc)*
+
+> Thêm 2026-10-02. Bố cục theo `design/screen1.png`, `design/screen2.png`, `design/screen3.png` (giữ màu Oải hương và font Lexend).
+> Không phụ thuộc F16/F10/F11, làm trước hay sau đều được.
+
+**Chức năng**
+- Sau khi chú thích bài, AI sinh thêm (1 request riêng) phần luyện tập xoay quanh từ vựng của bài: mục tiêu bài, câu ví dụ tiếng Anh
+  cho mỗi từ, hội thoại mẫu 2 người dùng các từ đó (kèm nghĩa tiếng Việt), mẹo ngữ pháp, 3–5 câu dịch Việt → Anh. Câu ví dụ và hội
+  thoại có audio.
+- Trang chi tiết bài (`/lessons/:id`): thanh trên (đóng, tiến độ 1/4, streak), "Bài N" + tiêu đề, mục tiêu, mức độ; tab **Bài học**
+  (4 bước) và **Bài đọc** (bài đọc gốc, ngữ pháp). Nút **Tiếp theo** cố định cuối màn hình.
+  1. **Từ vựng quan trọng:** từ, phiên âm, nghĩa tiếng Việt, nút loa, câu ví dụ tiếng Anh.
+  2. **Hội thoại mẫu:** nghe cả đoạn (tốc độ) hoặc từng lượt, bật/tắt nghĩa tiếng Việt.
+  3. **Điền vào ô trống:** hội thoại có ô trống ở từ vựng, chạm từ trong ngân hàng từ để điền, Kiểm tra, mẹo ngữ pháp.
+  4. **Dịch câu sang tiếng Anh:** ghép câu bằng các ô từ (có từ gây nhiễu), Làm lại, Kiểm tra từng câu.
+- Tổng kết cuối cùng, làm lại được. Không có điểm XP.
+- Quản trị viên xem phần luyện tập và bấm **Tạo lại phần luyện tập**.
+
+**Tiêu chí nghiệm thu**
+- [ ] Bài mới chú thích xong thì sau ít phút có phần luyện tập; mỗi câu ví dụ chứa đúng từ của nó; ô trống và đáp án đều là từ vựng
+  của bài.
+- [ ] Nghe được từng từ, từng câu ví dụ, từng lượt hội thoại và cả đoạn; đổi được tốc độ; bật/tắt được nghĩa tiếng Việt.
+- [ ] Điền vào ô trống: chạm từ để điền, gỡ được; Kiểm tra thấy đúng/sai từng ô (có chữ, không chỉ màu) và đáp án.
+- [ ] Dịch câu: ghép đúng thứ tự thì "Chính xác!", sai thì thấy câu đúng; Làm lại xoá câu đang ghép.
+- [ ] Thanh tiến độ và nút Tiếp theo chuyển đúng 4 bước; cuối cùng thấy tổng kết và làm lại được.
+- [ ] AI lỗi khi sinh phần luyện tập: chú thích từ, câu hỏi hiểu bài vẫn bình thường; bước 2–4 báo chưa có phần luyện tập.
+- [ ] Sửa nội dung bài thì phần luyện tập được sinh lại theo nội dung mới.
+- [ ] Không ảnh hưởng các bước của bài, tiến độ, streak, thống kê. Bài sắp tới vẫn không mở được.
+- [ ] Dùng tốt ở 360px, chế độ sáng và tối.
+
+---
+
+## F18. Từ vựng theo chủ đề *(quản trị)*
+
+> Thêm 2026-10-02. Dữ liệu ban đầu: [f18-topic-words.json](../spec-inputs/f18-topic-words.json), 1.257 từ tiếng Anh cho 42 chủ đề,
+> tham khảo danh sách của Langmaster (chỉ lấy từ tiếng Anh). Không phụ thuộc F16/F10/F11; làm sau F17 thì trang chi tiết bài dùng ngay.
+
+**Chức năng**
+- Mỗi chủ đề có danh sách từ vựng tiếng Anh cốt lõi; nạp sẵn từ file dữ liệu một lần, quản trị viên xem, thêm, xoá ở trang Chủ đề.
+- Trang Chủ đề hiện độ phủ "Từ vựng: đã dùng X/Y" (từ có trong bài của chủ đề) và đánh dấu từ đã dùng/chưa dùng.
+- Sinh bài bằng AI: mỗi bài được giao một nhóm từ mục tiêu, ưu tiên từ chưa dùng; quản trị viên chỉnh nhóm từ trước khi sinh; bản
+  nháp báo số từ mục tiêu đã dùng và từ còn thiếu.
+- Chú thích bài đưa các từ của chủ đề có trong bài vào danh sách từ vựng của bài.
+
+**Tiêu chí nghiệm thu**
+- [ ] Lần khởi động đầu, 42 chủ đề trùng tên nhận danh sách từ; khởi động lại không nạp lại, không ghi đè danh sách đã sửa.
+- [ ] Thêm nhiều từ một lần, xoá từ; từ trùng hoặc sai định dạng bị báo lỗi theo từng từ.
+- [ ] Độ phủ đúng: từ có trong nội dung bài của chủ đề (kể cả cụm, hoa/thường, số nhiều) là "đã dùng".
+- [ ] Sinh 3 bài với 8 từ mỗi bài: nhóm từ không trùng nhau, ưu tiên từ chưa dùng; vẫn 1 request AI; bản nháp báo từ còn thiếu.
+- [ ] Đặt 0 từ mục tiêu hoặc chủ đề chưa có từ: sinh bài như trước.
+- [ ] Bài mới chú thích xong có trong danh sách từ vựng mọi từ của chủ đề xuất hiện trong bài.
+- [ ] Không ảnh hưởng luồng học, tiến độ, streak, thống kê; dùng tốt ở 360px, sáng và tối, bằng bàn phím.
 
 ---
 

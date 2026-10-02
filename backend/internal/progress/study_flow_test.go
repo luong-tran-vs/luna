@@ -296,8 +296,9 @@ func TestMyLessonsAndAccess(t *testing.T) {
 	if mine.Today == nil || mine.Today.ID != "f2" {
 		t.Fatalf("today = %+v", mine.Today)
 	}
-	if len(mine.Completed) != 2 || mine.Completed[0].ID != "s1" || mine.Completed[0].TopicName != "Mua sắm" ||
-		mine.Completed[1].ID != "f1" || mine.Completed[1].Title != "Family 1" {
+	// Only the goal's topic: s1 was finished in "shopping", so it is listed there, not here.
+	if len(mine.Completed) != 1 || mine.Completed[0].ID != "f1" || mine.Completed[0].Title != "Family 1" ||
+		mine.Completed[0].TopicName != "Gia đình" {
 		t.Fatalf("completed = %+v", mine.Completed)
 	}
 	if len(mine.Upcoming) != 1 || mine.Upcoming[0].ID != "f3" || mine.Upcoming[0].Title != "Family 3" {

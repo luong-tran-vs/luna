@@ -22,6 +22,7 @@ import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { ReadingLesson, Token } from '../../../core/models/reading';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { CardInput } from '../../../core/models/vocab';
+import { Icon } from '../../../shared/components/icon/icon';
 import { PopupState, WordPopup } from '../../../shared/components/word-popup/word-popup';
 import { selectWords, TouchedWord } from '../../../shared/utils/selection';
 import { tokenize } from '../../../shared/utils/tokenize';
@@ -67,7 +68,7 @@ function askErrorMessage(err: unknown): string {
  */
 @Component({
   selector: 'lu-reading',
-  imports: [CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, LessonVocabulary, RouterLink, WordPopup],
+  imports: [CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, Icon, LessonVocabulary, RouterLink, WordPopup],
   templateUrl: './reading.html',
   styleUrl: './reading.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

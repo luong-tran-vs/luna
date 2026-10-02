@@ -77,13 +77,15 @@ type Reader struct {
 	asks  AskRepository
 	ai    ai.Provider
 	group singleflight.Group
+	// audioDir holds the practice audio files (F17).
+	audioDir string
 }
 
 // NewReader returns a Reader.
 func NewReader(lessons Repository, dict Dictionary, topics Topics, answers AnswerRepository, asks AskRepository,
-	provider ai.Provider,
+	provider ai.Provider, audioDir string,
 ) *Reader {
-	return &Reader{lessons: lessons, dict: dict, topics: topics, answers: answers, asks: asks, ai: provider}
+	return &Reader{lessons: lessons, dict: dict, topics: topics, answers: answers, asks: asks, ai: provider, audioDir: audioDir}
 }
 
 // View returns the lesson for reading, with base forms for highlighting saved words, the

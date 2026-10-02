@@ -1,15 +1,18 @@
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GenerateInput } from '../../../core/models/generate';
-import { GenerateDialog } from './generate-dialog';
+import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { GenerateDialog, GenerateOptions, GenerateRequest, PLAN_DEBOUNCE_MS } from './generate-dialog';
 
 describe('GenerateDialog', () => {
   let fixture: ComponentFixture<GenerateDialog>;
   let el: HTMLElement;
-  let emitted: GenerateInput[];
+  let emitted: GenerateRequest[];
+  let http: HttpTestingController;
   let closed: number;
 
-  const options: GenerateInput = { count: 3, words: 120, kind: 'reading', idea: '' };
+  const options: GenerateOptions = { count: 3, words: 120, kind: 'reading', idea: '', perLesson: 8 };
 
   beforeEach(async () => {
     // jsdom has no showModal/close.
@@ -20,7 +23,11 @@ describe('GenerateDialog', () => {
       this.removeAttribute('open');
     });
 
-    await TestBed.configureTestingModule({ imports: [GenerateDialog] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [GenerateDialog],
+      providers: [provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+    }).compileComponents();
+    http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(GenerateDialog);
     fixture.componentRef.setInput('topicLabel', 'A1 · Gia đình');
     fixture.componentRef.setInput('options', options);
@@ -32,6 +39,8 @@ describe('GenerateDialog', () => {
     el = fixture.nativeElement;
     await fixture.whenStable();
   });
+
+  afterEach(() => http.verify());
 
   const input = (id: string) => el.querySelector<HTMLInputElement | HTMLTextAreaElement>(`#${id}`)!;
   const type = async (id: string, value: string) => {
@@ -65,7 +74,11 @@ describe('GenerateDialog', () => {
     el.querySelector<HTMLInputElement>('input[value="dialogue"]')!.click();
     await type('generate-idea', '  một bữa tiệc  ');
     await submit();
-    expect(emitted).toEqual([{ count: 2, words: 200, kind: 'dialogue', idea: 'một bữa tiệc' }]);
+    expect(emitted).toEqual([
+      { count: 2, words: 200, kind: 'dialogue', idea: 'một bữa tiệc', targetWords: [], perLesson: 8 },
+    ]);
+    // A topic without words shows no target-word field and asks for no split.
+    expect(el.querySelector('#generate-perLesson')).toBeNull();
   });
 
   for (const [field, value, message] of [
@@ -129,11 +142,180 @@ describe('GenerateDialog', () => {
     await type('generate-count', '5');
     fixture.componentRef.setInput('open', false);
     await fixture.whenStable();
-    fixture.componentRef.setInput('options', { count: 1, words: 300, kind: 'dialogue', idea: 'x' });
+    fixture.componentRef.setInput('options', { count: 1, words: 300, kind: 'dialogue', idea: 'x', perLesson: 8 });
     fixture.componentRef.setInput('open', true);
     await fixture.whenStable();
     expect(input('generate-count').value).toBe('1');
     expect(input('generate-words').value).toBe('300');
     expect(el.querySelector<HTMLInputElement>('input[value="dialogue"]')!.checked).toBe(true);
+  });
+
+  describe('target words (F18)', () => {
+    const topicWords = ['Family', 'Parents', 'cousin', 'take a shower'];
+    const planUrl = '/api/admin/topics/t1/word-plan';
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const settle = async () => {
+      await wait(0);
+      await fixture.whenStable();
+    };
+    const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+    const byLabel = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`);
+    const groups = () =>
+      Array.from(el.querySelectorAll('.group')).map((g) =>
+        Array.from(g.querySelectorAll('.chip span')).map((c) => text(c)),
+      );
+    const expectPlan = async (count: number, perLesson: number, respond: string[][] | 'error') => {
+      await settle(); // the request leaves on the next tick (timer)
+      const req = http.expectOne((r) => r.url === planUrl);
+      expect(req.request.params.get('count')).toBe(String(count));
+      expect(req.request.params.get('perLesson')).toBe(String(perLesson));
+      if (respond === 'error') {
+        req.flush({ error: 'internal_error' }, { status: 500, statusText: 'Error' });
+      } else {
+        req.flush({ groups: respond });
+      }
+      await settle();
+    };
+    const addTo = async (group: number, value: string, how: 'enter' | 'button' = 'enter') => {
+      const box = input(`generate-add-${group}`) as HTMLInputElement;
+      box.value = value;
+      if (how === 'enter') {
+        box.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', cancelable: true }));
+      } else {
+        Array.from(box.parentElement!.querySelectorAll('button'))
+          .find((b) => text(b).startsWith('Thêm'))!
+          .click();
+      }
+      await settle();
+    };
+
+    beforeEach(async () => {
+      fixture.componentRef.setInput('open', false);
+      await fixture.whenStable();
+      fixture.componentRef.setInput('topicId', 't1');
+      fixture.componentRef.setInput('topicWords', topicWords);
+      fixture.componentRef.setInput('options', { ...options, count: 2 });
+      fixture.componentRef.setInput('open', true);
+      await settle();
+    });
+
+    it('shows the words per lesson and the suggested groups', async () => {
+      expect(input('generate-perLesson').value).toBe('8');
+      expect(text(el.querySelector('.targets [role="status"]'))).toBe('Đang chia từ…');
+      await expectPlan(2, 8, [['Family', 'Parents'], ['cousin']]);
+      expect(Array.from(el.querySelectorAll('.group legend')).map((l) => text(l))).toEqual([
+        'Bài 1 (2 từ)',
+        'Bài 2 (1 từ)',
+      ]);
+      expect(groups()).toEqual([['Family', 'Parents'], ['cousin']]);
+      // The add box offers the topic words not yet in the group.
+      const offered = Array.from(el.querySelectorAll<HTMLOptionElement>('#generate-add-1-options option')).map(
+        (o) => o.value,
+      );
+      expect(offered).toEqual(['Family', 'Parents', 'take a shower']);
+
+      await submit();
+      expect(emitted[0].targetWords).toEqual([['Family', 'Parents'], ['cousin']]);
+      expect(emitted[0].perLesson).toBe(8);
+    });
+
+    it('removes and adds words, rejecting unknown and duplicate ones', async () => {
+      await expectPlan(2, 8, [['Family', 'Parents'], ['cousin']]);
+      byLabel('Bỏ Parents khỏi bài 1')!.click();
+      await settle();
+      expect(groups()[0]).toEqual(['Family']);
+      expect(document.activeElement?.id).toBe('generate-add-0');
+
+      await addTo(0, 'grandma');
+      expect(text(el.querySelector('#generate-add-0-error'))).toBe('Từ không có trong danh sách');
+      expect(input('generate-add-0').getAttribute('aria-invalid')).toBe('true');
+      expect(emitted).toEqual([]);
+
+      await addTo(0, ' family ');
+      expect(text(el.querySelector('#generate-add-0-error'))).toBe('Từ đã có trong bài này');
+
+      await addTo(0, 'TAKE A SHOWER');
+      expect(el.querySelector('#generate-add-0-error')).toBeNull();
+      expect(groups()[0]).toEqual(['Family', 'take a shower']);
+      expect(input('generate-add-0').value).toBe('');
+
+      await addTo(1, 'parents', 'button');
+      expect(groups()[1]).toEqual(['cousin', 'Parents']);
+
+      await submit();
+      expect(emitted[0].targetWords).toEqual([['Family', 'take a shower'], ['cousin', 'Parents']]);
+    });
+
+    it('limits a lesson to 15 words', async () => {
+      const many = Array.from({ length: 16 }, (_, i) => `word${String.fromCharCode(97 + i)}`);
+      fixture.componentRef.setInput('topicWords', many);
+      await expectPlan(2, 8, [many.slice(0, 15), []]);
+      await addTo(0, many[15]);
+      expect(text(el.querySelector('#generate-add-0-error'))).toBe('Tối đa 15 từ mỗi bài');
+    });
+
+    it('asks for a new split when the counts change, keeping only the latest answer', async () => {
+      await expectPlan(2, 8, [['Family'], ['Parents']]);
+      await type('generate-count', '3');
+      await type('generate-count', '4');
+      await wait(PLAN_DEBOUNCE_MS + 50);
+      await fixture.whenStable();
+      // Debounced: one request for the last value only.
+      await expectPlan(4, 8, [['Family'], ['Parents'], ['cousin'], ['take a shower']]);
+      expect(groups()).toEqual([['Family'], ['Parents'], ['cousin'], ['take a shower']]);
+
+      await type('generate-perLesson', '2');
+      await wait(PLAN_DEBOUNCE_MS + 50);
+      const stale = http.expectOne((r) => r.url === planUrl);
+      await type('generate-perLesson', '1');
+      await wait(PLAN_DEBOUNCE_MS + 50);
+      expect(stale.cancelled).toBe(true);
+      await expectPlan(4, 1, [['Family'], ['Parents'], ['cousin'], ['take a shower']]);
+    });
+
+    it('with 0 words per lesson shows no groups and sends no target words', async () => {
+      await expectPlan(2, 8, [['Family'], ['Parents']]);
+      await type('generate-perLesson', '0');
+      await wait(PLAN_DEBOUNCE_MS + 50);
+      await fixture.whenStable();
+      expect(el.querySelectorAll('.group').length).toBe(0);
+      await submit();
+      expect(emitted[0].targetWords).toEqual([]);
+      expect(emitted[0].perLesson).toBe(0);
+    });
+
+    it('rejects words per lesson out of range', async () => {
+      await expectPlan(2, 8, [['Family'], ['Parents']]);
+      await type('generate-perLesson', '16');
+      await submit();
+      expect(emitted).toEqual([]);
+      expect(text(el.querySelector('#generate-perLesson-error'))).toBe('Số từ mục tiêu từ 0 đến 15');
+    });
+
+    it('offers to retry when the split fails', async () => {
+      await expectPlan(2, 8, 'error');
+      expect(text(el.querySelector('.plan-error'))).toContain('Không chia được từ, thử lại.');
+      el.querySelector<HTMLButtonElement>('.plan-error button')!.click();
+      await settle();
+      await expectPlan(2, 8, [['Family'], ['Parents']]);
+      expect(groups()).toEqual([['Family'], ['Parents']]);
+    });
+
+    it('keeps the edited groups after a generation error', async () => {
+      await expectPlan(2, 8, [['Family', 'Parents'], ['cousin']]);
+      byLabel('Bỏ Parents khỏi bài 1')!.click();
+      await settle();
+      await submit();
+      expect(emitted.length).toBe(1);
+      fixture.componentRef.setInput('busy', true);
+      await fixture.whenStable();
+      expect(byLabel('Bỏ Family khỏi bài 1')!.disabled).toBe(true);
+      fixture.componentRef.setInput('busy', false);
+      fixture.componentRef.setInput('error', 'Đã hết lượt AI, vui lòng thử lại sau.');
+      await wait(PLAN_DEBOUNCE_MS + 50);
+      await fixture.whenStable();
+      // No new split was asked for (http.verify), and the edits are still there.
+      expect(groups()).toEqual([['Family'], ['cousin']]);
+    });
   });
 });

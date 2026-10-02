@@ -1,11 +1,10 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { computed, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../core/interceptors/error-interceptor';
 import { Settings as SettingsData } from '../../core/models/settings';
-import { ThemePreference, ThemeSaveState, ThemeService } from '../../core/services/theme.service';
 import { Settings } from './settings';
 
 const stored: SettingsData = { theme: 'system', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' };
@@ -14,11 +13,6 @@ describe('Settings', () => {
   let fixture: ComponentFixture<Settings>;
   let controller: HttpTestingController;
   let el: HTMLElement;
-  const preference = signal<ThemePreference>('system');
-  const saveState = signal<ThemeSaveState>('idle');
-  const setTheme = vi.fn((p: ThemePreference) => preference.set(p));
-  // Device is light in these tests, so "system" resolves to light.
-  const resolved = computed(() => (preference() === 'dark' ? 'dark' : 'light'));
 
   const text = (node: Element | null) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const limitInput = () => el.querySelector('#settings-limit') as HTMLInputElement;
@@ -49,15 +43,12 @@ describe('Settings', () => {
   };
 
   beforeEach(async () => {
-    preference.set('system');
-    saveState.set('idle');
-    setTheme.mockClear();
     await TestBed.configureTestingModule({
       imports: [Settings],
       providers: [
+        provideRouter([]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
-        { provide: ThemeService, useValue: { preference, resolved, saveState, set: setTheme } },
       ],
     }).compileComponents();
     controller = TestBed.inject(HttpTestingController);
@@ -65,44 +56,18 @@ describe('Settings', () => {
 
   afterEach(() => controller.verify());
 
-  it('groups the settings under Giao diện, Học tập, Múi giờ and Dữ liệu', async () => {
+  it('groups the settings under Học tập, Múi giờ and Dữ liệu, with a way back to the account', async () => {
     await open();
-    expect(Array.from(el.querySelectorAll('h2')).map((h) => text(h))).toEqual(['Giao diện', 'Học tập', 'Múi giờ', 'Dữ liệu']);
+    expect(text(el.querySelector('h1'))).toBe('Cài đặt học tập');
+    expect(el.querySelector('a[aria-label="Quay lại Tài khoản"]')?.getAttribute('href')).toBe('/account');
+    expect(Array.from(el.querySelectorAll('h2')).map((h) => text(h))).toEqual(['Học tập', 'Múi giờ', 'Dữ liệu']);
+    // Light/dark moved to the account page.
+    expect(el.querySelector('input[type="radio"]')).toBeNull();
   });
 
-  // --- US1 ---
-
-  it('shows only light and dark, with the current one checked', async () => {
-    preference.set('dark');
-    await open();
-    const group = el.querySelector('[role="radiogroup"]')!;
-    expect(group.getAttribute('aria-labelledby')).toBe('theme-heading');
-    const radios = Array.from(group.querySelectorAll('input[type="radio"]')) as HTMLInputElement[];
-    expect(radios.map((r) => text(r.parentElement))).toEqual(['Sáng', 'Tối']);
-    expect(radios.map((r) => r.checked)).toEqual([false, true]);
-  });
-
-  it('applies and saves a theme at once', async () => {
-    await open();
-    const light = el.querySelector('input[value="light"]') as HTMLInputElement;
-    light.click();
-    await fixture.whenStable();
-    expect(setTheme).toHaveBeenCalledWith('light');
-    expect((el.querySelector('input[value="light"]') as HTMLInputElement).checked).toBe(true);
-
-    saveState.set('saved');
-    await fixture.whenStable();
-    expect(text(el.querySelector('.group .save-status'))).toBe('Đã lưu');
-    saveState.set('error');
-    await fixture.whenStable();
-    expect(text(el.querySelector('.group .save-status'))).toContain('Chưa lưu được vào tài khoản');
-  });
-
-  it('keeps the theme usable when the settings cannot be loaded', async () => {
+  it('offers a retry when the settings cannot be loaded', async () => {
     await open('error');
     expect(text(el.querySelector('[role="alert"] p'))).toBe('Không tải được cài đặt.');
-    (el.querySelector('input[value="dark"]') as HTMLInputElement).click();
-    expect(setTheme).toHaveBeenCalledWith('dark');
 
     (el.querySelector('[role="alert"] button') as HTMLButtonElement).click();
     controller.expectOne('/api/settings').flush(stored);

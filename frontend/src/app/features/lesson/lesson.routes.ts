@@ -8,6 +8,11 @@ export const lessonRoutes: Routes = [
     loadComponent: () => import('./my-lessons/my-lessons').then((m) => m.MyLessons),
   },
   {
+    path: ':id',
+    title: 'Bài học · Luna',
+    loadComponent: () => import('./lesson-detail/lesson-detail').then((m) => m.LessonDetail),
+  },
+  {
     path: ':id/read',
     title: 'Đọc · Luna',
     loadComponent: () => import('./reading/reading').then((m) => m.Reading),

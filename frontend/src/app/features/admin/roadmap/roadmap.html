@@ -1,27 +1,12 @@
 <section class="page">
   <header class="page-header">
     <h1 class="page-title">Lộ trình</h1>
-    <div class="actions">
-      <a class="btn" routerLink="/admin">Danh sách bài</a>
-      <a class="btn" routerLink="/admin/topics">Chủ đề</a>
-    </div>
   </header>
 
   <p class="muted">
     Mỗi chủ đề có lộ trình riêng. Người học chọn chủ đề và nhận bài kế tiếp chưa học theo thứ tự này. Kéo tay nắm ⠿ hoặc
     dùng nút Lên/Xuống để đổi thứ tự.
   </p>
-
-  @if (lowTopics().length > 0) {
-    <div class="banner-warning topic-warnings" role="status">
-      <p>Chủ đề sắp hết bài:</p>
-      <ul class="warning-list">
-        @for (t of lowTopics(); track t.id) {
-          <li><button type="button" class="link-button" (click)="select(t.id)">{{ warningText(t) }}</button></li>
-        }
-      </ul>
-    </div>
-  }
 
   <div class="field topic-picker">
     <label for="roadmap-topic">Chủ đề</label>
@@ -43,13 +28,25 @@
     </select>
   </div>
 
+  @if (lowTopics().length > 0) {
+    <!-- Collapsed: with many topics the list would push the roadmap and Sinh bài bằng AI far down. -->
+    <details class="banner-warning topic-warnings">
+      <summary>Chủ đề sắp hết bài ({{ lowTopics().length }})</summary>
+      <ul class="warning-list">
+        @for (t of lowTopics(); track t.id) {
+          <li><button type="button" class="link-button" (click)="select(t.id)">{{ warningText(t) }}</button></li>
+        }
+      </ul>
+    </details>
+  }
+
   @if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   }
 
   @if (!selectedId()) {
     @if (topics()) {
-      <p class="card muted">Chọn một chủ đề để xếp lộ trình của chủ đề đó.</p>
+      <p class="card muted">Chọn một chủ đề để xếp lộ trình hoặc sinh bài bằng AI cho chủ đề đó.</p>
     }
   } @else if (data()) {
     @if (warning(); as message) {
@@ -121,6 +118,8 @@
     <lu-generate-dialog
       [open]="dialogOpen()"
       [topicLabel]="topicLabel(t)"
+      [topicId]="t.id"
+      [topicWords]="topicWords()"
       [options]="options()"
       [busy]="generating()"
       [error]="generateError()"

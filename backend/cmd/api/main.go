@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"slices"
 	"syscall"
 	"time"
 
@@ -111,6 +112,7 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Jobs:     mongo.NewJobs(database),
 		TTS:      synth,
 		AI:       aiProvider,
+		Dict:     dict,
 		AudioDir: cfg.AudioDir,
 		Notify:   func() { worker.Notify() },
 		Now:      time.Now,
@@ -130,9 +132,11 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Log:     log,
 	})
 	worker = job.NewWorker(mongo.NewJobs(database), map[job.Type]job.Handler{
-		job.TypeTTS:      lessonSvc.ProcessTTS,
-		job.TypeAnnotate: lessonSvc.ProcessAnnotate,
-		job.TypeGrade:    writingSvc.ProcessGrade,
+		job.TypeTTS:           lessonSvc.ProcessTTS,
+		job.TypeAnnotate:      lessonSvc.ProcessAnnotate,
+		job.TypePractice:      lessonSvc.ProcessPractice,
+		job.TypePracticeAudio: lessonSvc.ProcessPracticeAudio,
+		job.TypeGrade:         writingSvc.ProcessGrade,
 	}, func(ctx context.Context, j job.Job, err error) {
 		// Grade jobs belong to a writing, the others to a lesson revision.
 		if j.Type == job.TypeGrade {
@@ -141,6 +145,8 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		}
 		lessonSvc.JobFailed(ctx, j, err)
 	}, time.Now, log)
+
+	queueMissingPractice(ctx, lessonSvc, aiProvider, log)
 
 	// The worker must stop before the database connection closes (deferred above).
 	workerDone := make(chan struct{})
@@ -161,7 +167,8 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	exportSvc := export.NewService(mongo.NewExport(database), exportSettings{settingsSvc}, time.Now)
 	export.NewHandler(exportSvc, log).Register(mux, requireAuth)
 	lesson.NewHandler(lessonSvc, log).Register(mux, requireAuth, cfg.AudioDir)
-	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database), mongo.NewAILookups(database), aiProvider)
+	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database), mongo.NewAILookups(database), aiProvider,
+		cfg.AudioDir)
 	topic.NewHandler(topicSvc, log).Register(mux, requireAuth)
 	tts.NewWordAudio(synth, cfg.AudioDir).Register(mux, requireAuth)
 	vocabSvc := vocab.NewService(vocab.Deps{
@@ -254,6 +261,21 @@ func newAIProvider(cfg config.Config, log *slog.Logger) ai.Provider {
 	return gemini.New(cfg.GeminiAPIKey, cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, log)
 }
 
+// queueMissingPractice queues the practice of lessons annotated before F17. Without an AI
+// provider it waits: the jobs would only fail, and failed lessons are not queued again.
+func queueMissingPractice(ctx context.Context, svc *lesson.Service, p ai.Provider, log *slog.Logger) {
+	if _, off := p.(ai.Disabled); off {
+		return
+	}
+	n, err := svc.QueueMissingPractice(ctx)
+	if err != nil {
+		log.ErrorContext(ctx, "queue missing practice failed", slog.Any("error", err))
+	}
+	if n > 0 {
+		log.InfoContext(ctx, "queued practice for older lessons", slog.Int("count", n))
+	}
+}
+
 // closableDictionary is the dictionary used by the Reading step.
 type closableDictionary interface {
 	lesson.Dictionary
@@ -341,6 +363,10 @@ func (t topicLessons) TopicOf(ctx context.Context, ids []string) (map[string]str
 	return t.repo.TopicOf(ctx, ids)
 }
 
+func (t topicLessons) Texts(ctx context.Context, topicIDs []string) (map[string][]topic.LessonText, error) {
+	return t.repo.TopicTexts(ctx, topicIDs)
+}
+
 func (t topicLessons) SetLevelByTopic(ctx context.Context, topicID, level string) error {
 	return t.repo.SetLevelByTopic(ctx, topicID, level)
 }
@@ -366,7 +392,7 @@ type lessonTopicsPort struct {
 }
 
 func toTopicRef(t topic.Topic) lesson.TopicRef {
-	return lesson.TopicRef{ID: t.ID, Name: t.Name, Level: lesson.Level(t.Level)}
+	return lesson.TopicRef{ID: t.ID, Name: t.Name, Level: lesson.Level(t.Level), Words: t.Words}
 }
 
 func (p lessonTopicsPort) Get(ctx context.Context, id string) (lesson.TopicRef, error) {
@@ -406,6 +432,17 @@ func (p lessonTopicsPort) AppendLesson(ctx context.Context, topicID, lessonID st
 
 func (p lessonTopicsPort) MoveLesson(ctx context.Context, lessonID, from, to string) error {
 	return p.svc.MoveLesson(ctx, lessonID, from, to)
+}
+
+func (p lessonTopicsPort) Position(ctx context.Context, topicID, lessonID string) (int, error) {
+	t, err := p.svc.Get(ctx, topicID)
+	if errors.Is(err, topic.ErrNotFound) {
+		return 0, nil
+	}
+	if err != nil {
+		return 0, fmt.Errorf("get topic: %w", err)
+	}
+	return slices.Index(t.LessonIDs, lessonID) + 1, nil
 }
 
 // topicRoadmaps adapts topic.Service to progress.Roadmaps.

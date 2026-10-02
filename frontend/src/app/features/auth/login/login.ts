@@ -4,11 +4,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { safeReturnUrl } from '../../../shared/utils/safe-return-url';
+import { AuthHero } from '../auth-hero';
 import { emailError, requestErrorMessage } from '../auth-messages';
 
 @Component({
   selector: 'lu-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [AuthHero, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

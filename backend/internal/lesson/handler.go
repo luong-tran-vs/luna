@@ -34,8 +34,11 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware, aud
 	mux.Handle("PUT /api/admin/lessons/{id}/annotations", admin(h.updateAnnotations))
 	mux.Handle("POST /api/admin/lessons/{id}/retry", admin(h.retry))
 	mux.Handle("PUT /api/admin/lessons/{id}/extras", admin(h.updateExtras))
+	mux.Handle("POST /api/admin/lessons/{id}/practice/regenerate", admin(h.regeneratePractice))
 	mux.Handle("POST /api/admin/topics/{id}/generate", admin(h.generate))
 	mux.Handle("GET /api/audio/{lessonId}/{revision}/{index}", requireAuth(AudioHandler(audioDir)))
+	mux.Handle("GET /api/audio/{lessonId}/{revision}/practice/{version}/{kind}/{index}",
+		requireAuth(PracticeAudioHandler(audioDir)))
 }
 
 // --- JSON shapes (contracts/admin-lessons-api.md) ---
@@ -82,6 +85,10 @@ type lessonJSON struct {
 	WritingPrompt       string           `json:"writingPrompt"`
 	ExtrasEditedByAdmin bool             `json:"extrasEditedByAdmin"`
 	QuizVersion         int              `json:"quizVersion"`
+	// F17
+	PracticeStatus string             `json:"practiceStatus"`
+	PracticeError  string             `json:"practiceError"`
+	Practice       *adminPracticeJSON `json:"practice"`
 }
 
 type questionJSON struct {
@@ -133,6 +140,8 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 		Annotations: make([]annotationJSON, len(l.Annotations)),
 		Questions:   toQuestionsJSON(l.Extras.Questions), GrammarNote: toGrammarNoteJSON(l.Extras.GrammarNote),
 		WritingPrompt: l.Extras.WritingPrompt, ExtrasEditedByAdmin: l.ExtrasEditedByAdmin, QuizVersion: l.QuizVersion,
+		PracticeStatus: practiceStatusJSON(l.PracticeStatus), PracticeError: l.PracticeError,
+		Practice: toAdminPracticeJSON(l.Practice),
 	}
 	for i, s := range l.Sentences {
 		out.Sentences[i] = sentenceJSON{Index: s.Index, Text: s.Text}
@@ -277,6 +286,10 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 		httpx.WriteError(w, http.StatusConflict, "not_failed", "Chỉ chạy lại được việc đang lỗi")
 	case errors.Is(err, ErrAnnotationRunning):
 		httpx.WriteError(w, http.StatusConflict, "annotation_running", "Chú thích đang được tạo, vui lòng chờ")
+	case errors.Is(err, ErrPracticeRunning):
+		httpx.WriteError(w, http.StatusConflict, "practice_running", "Phần luyện tập đang được tạo, vui lòng chờ")
+	case errors.Is(err, ErrAnnotationNotDone):
+		httpx.WriteError(w, http.StatusConflict, "annotation_not_done", "Cần chú thích xong trước")
 	default:
 		h.log.ErrorContext(r.Context(), "lesson request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")

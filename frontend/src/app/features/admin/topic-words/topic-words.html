@@ -1,0 +1,92 @@
+<section class="page">
+  @if (notFound()) {
+    <p class="card">Không tìm thấy chủ đề. <a routerLink="/admin/topics">Về danh sách chủ đề</a></p>
+  } @else if (loadError(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  } @else if (topic()) {
+    <header class="page-header">
+      <h1 class="page-title">{{ title() }}</h1>
+      <div class="actions">
+        <a class="btn" routerLink="/admin/topics">Chủ đề</a>
+      </div>
+    </header>
+    <p class="summary">Đã dùng {{ summary().used }}/{{ summary().total }} từ</p>
+
+    <p class="muted">
+      Từ vựng của chủ đề được ưu tiên khi sinh bài bằng AI và luôn được chú thích khi có trong bài. "Đã dùng" là từ có trong ít
+      nhất một bài của chủ đề.
+    </p>
+
+    @if (topError(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    @if (rows().length === 0) {
+      <p class="card muted">Chủ đề chưa có từ vựng. Thêm từ ở ô bên dưới.</p>
+    } @else {
+      <ul class="words" aria-label="Danh sách từ">
+        @for (row of rows(); track row.key) {
+          <li class="word" [class.removed]="row.removed" [class.new]="!row.saved">
+            <span class="word-text">{{ row.text }}</span>
+            <span class="word-status" [class.used]="row.saved?.used && !row.removed">{{ status(row) }}</span>
+            <button
+              type="button"
+              class="btn toggle"
+              [disabled]="saving()"
+              [attr.aria-label]="(row.removed ? 'Giữ lại ' : 'Xoá ') + row.text"
+              [attr.aria-describedby]="rowErrors()[row.key] ? 'word-' + row.key + '-error' : null"
+              (click)="toggle(row)"
+            >
+              {{ row.removed ? 'Giữ lại' : '✕' }}
+            </button>
+            @if (rowErrors()[row.key]; as message) {
+              <p class="field-error word-error" [id]="'word-' + row.key + '-error'">{{ message }}</p>
+            }
+          </li>
+        }
+      </ul>
+    }
+
+    <div class="field add">
+      <label for="topic-words-add">Thêm từ</label>
+      <textarea
+        #addBox
+        id="topic-words-add"
+        rows="4"
+        aria-describedby="topic-words-add-hint"
+        [value]="draft()"
+        [disabled]="saving()"
+        (input)="onDraft($event)"
+        (keydown)="onDraftKey($event)"
+      ></textarea>
+      <p class="field-hint" id="topic-words-add-hint">Mỗi dòng một từ hoặc cách nhau bằng dấu phẩy. Ctrl+Enter để thêm.</p>
+      <div class="actions">
+        <button type="button" class="btn" [disabled]="saving() || !draft().trim()" (click)="addDraft()">
+          Thêm vào danh sách
+        </button>
+      </div>
+    </div>
+
+    <p class="muted" role="status">
+      @if (saved()) {
+        Đã lưu
+      } @else if (note(); as message) {
+        {{ message }}
+      }
+    </p>
+
+    <div class="actions footer">
+      <button type="button" class="btn" [disabled]="saving()" (click)="cancel()">Huỷ</button>
+      <button type="button" class="btn-primary" [disabled]="saving()" [attr.aria-busy]="saving()" (click)="save()">
+        {{ saving() ? 'Đang lưu…' : 'Lưu' }}
+      </button>
+    </div>
+    @if (pendingCount().added || pendingCount().removed) {
+      <p class="field-hint pending">
+        Chưa lưu: {{ pendingCount().added }} từ mới, {{ pendingCount().removed }} từ sẽ xoá.
+      </p>
+    }
+  } @else {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>

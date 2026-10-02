@@ -2,7 +2,10 @@
 
 <section class="notebook">
   <header class="notebook-header">
-    <h1 class="title">Sổ từ</h1>
+    <div class="screen-bar">
+      <a class="round-btn" routerLink="/vocabulary/review" aria-label="Quay lại Ôn tập"><lu-icon name="arrow-left" /></a>
+      <h1 class="title screen-title">Sổ từ</h1>
+    </div>
     <div class="actions">
       <a class="btn-primary" routerLink="/vocabulary/review">Ôn tập{{ dueCount() !== null ? ' (' + dueCount() + ')' : '' }}</a>
       <button type="button" class="btn" [disabled]="adding()" (click)="adding.set(true)">Thêm thẻ</button>

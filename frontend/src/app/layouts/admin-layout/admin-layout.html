@@ -1,0 +1,21 @@
+<lu-app-header home="/admin" area="Quản trị" />
+<div class="shell">
+  <nav class="sidebar" aria-label="Quản trị">
+    <ul class="menu">
+      @for (link of links; track link.path) {
+        @let active = link.matches(path());
+        <li>
+          <a class="item" [class.active]="active" [routerLink]="link.path" [attr.aria-current]="active ? 'page' : null">
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
+<footer class="app-footer">
+  <lu-connection-status />
+</footer>

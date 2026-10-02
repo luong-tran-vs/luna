@@ -33,6 +33,9 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   writingPrompt: 'Write about a park.',
   extrasEditedByAdmin: false,
   quizVersion: 1,
+  practice: null,
+  practiceStatus: 'none',
+  practiceError: '',
   ...over,
 });
 

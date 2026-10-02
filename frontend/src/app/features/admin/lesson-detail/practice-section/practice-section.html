@@ -1,0 +1,103 @@
+<section class="practice" aria-labelledby="practice-heading">
+  <div class="practice-header">
+    <h2 class="section-title" id="practice-heading">Phần luyện tập</h2>
+    @if (chipStatus(); as s) {
+      <lu-status-chip label="Luyện tập" [status]="s" />
+    } @else {
+      <span class="none-chip">Luyện tập: Chưa có</span>
+    }
+  </div>
+
+  @if (lesson().practiceStatus === 'failed' && lesson().practiceError) {
+    <p class="muted failure">Lý do: {{ lesson().practiceError }}</p>
+  }
+
+  <div class="actions">
+    <button
+      type="button"
+      class="btn"
+      [disabled]="busy() || !!blockedReason()"
+      [attr.aria-describedby]="blockedReason() ? 'practice-blocked' : null"
+      (click)="regenerate()"
+    >
+      Tạo lại phần luyện tập
+    </button>
+    @if (blockedReason(); as reason) {
+      <span class="muted" id="practice-blocked">{{ reason }}</span>
+    }
+  </div>
+
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  @if (lesson().practice; as p) {
+    <div class="card content">
+      <div class="group">
+        <h3 class="group-title">Mục tiêu</h3>
+        <p>{{ p.objectiveVi || '—' }}</p>
+      </div>
+
+      <div class="group">
+        <h3 class="group-title">Câu ví dụ ({{ p.examples.length }})</h3>
+        @if (p.examples.length) {
+          <ul class="list">
+            @for (e of p.examples; track $index) {
+              <li>
+                <span class="key" lang="en">{{ e.lemma }}</span
+                >: <span lang="en">{{ e.sentence }}</span>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="muted">Không có.</p>
+        }
+      </div>
+
+      <div class="group">
+        <h3 class="group-title">Hội thoại</h3>
+        @if (p.dialogue; as d) {
+          <ol class="list">
+            @for (t of d.turns; track $index) {
+              <li>
+                <span class="key">{{ d.speakers[t.speaker] }}:</span>&ngsp;<span lang="en">{{
+                  t.text
+                }}</span>
+                <span class="muted meaning">{{ t.meaningVi }}</span>
+              </li>
+            }
+          </ol>
+        } @else {
+          <p class="muted">Không có.</p>
+        }
+      </div>
+
+      <div class="group">
+        <h3 class="group-title">Mẹo ngữ pháp</h3>
+        <p>{{ p.grammarTipVi || '—' }}</p>
+      </div>
+
+      <div class="group">
+        <h3 class="group-title">Câu dịch ({{ p.translations.length }})</h3>
+        @if (p.translations.length) {
+          <ol class="list">
+            @for (t of p.translations; track $index) {
+              <li>
+                <span>{{ t.vi }}</span> → <span lang="en">{{ t.en }}</span>
+                @if (t.distractors.length) {
+                  <span class="muted meaning"
+                    >Từ gây nhiễu: <span lang="en">{{ t.distractors.join(', ') }}</span></span
+                  >
+                }
+              </li>
+            }
+          </ol>
+        } @else {
+          <p class="muted">Không có.</p>
+        }
+      </div>
+    </div>
+  } @else {
+    <p class="card muted">Chưa có nội dung luyện tập.</p>
+  }
+</section>

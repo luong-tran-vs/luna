@@ -1,29 +1,95 @@
-.stats {
-  display: grid;
-  gap: var(--space-4);
-  max-width: 640px;
-  margin: 0 auto;
-  padding: var(--space-4);
-}
+/* Client sketch, screen 10: accuracy ring, skill bars, then the figures in a grid. */
 
-.back {
-  justify-self: start;
+.home-link {
+  flex: none;
   font: var(--text-sm) var(--font-ui);
   color: var(--color-primary-ink);
 }
 
-.title {
-  font: var(--text-xl) var(--font-ui);
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.overview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ring {
+  --ring-size: 88px;
+}
+
+.overview-text {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.skill-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill {
+  display: grid;
+  grid-template-columns: 48px 1fr 56px;
+  align-items: center;
+  gap: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+
+  --fill: var(--color-primary);
+}
+
+.skill[data-tone='read'] {
+  --fill: var(--color-skill-read);
+}
+
+.skill[data-tone='listen'] {
+  --fill: var(--color-skill-listen);
+}
+
+.skill[data-tone='write'] {
+  --fill: var(--color-skill-write);
+}
+
+.skill-track {
+  height: 8px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.skill-fill {
+  display: block;
+  height: 100%;
+  background: var(--fill);
+  border-radius: inherit;
+}
+
+.skill-value {
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .figures {
   display: grid;
-  gap: var(--space-3);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
   margin: 0;
 }
 
 .figure {
+  align-content: start;
   gap: var(--space-1);
+}
+
+.lessons {
+  grid-column: 1 / -1;
 }
 
 .figure dt {

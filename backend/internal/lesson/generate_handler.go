@@ -17,16 +17,19 @@ const generateWriteTimeout = 75 * time.Second
 // --- JSON shapes (contracts/generate-api.md) ---
 
 type generateJSON struct {
-	Count int    `json:"count"`
-	Words int    `json:"words"`
-	Kind  string `json:"kind"`
-	Idea  string `json:"idea"`
+	Count       int        `json:"count"`
+	Words       int        `json:"words"`
+	Kind        string     `json:"kind"`
+	Idea        string     `json:"idea"`
+	TargetWords [][]string `json:"targetWords"`
 }
 
 type draftJSON struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Words   int    `json:"words"`
+	Title        string   `json:"title"`
+	Content      string   `json:"content"`
+	Words        int      `json:"words"`
+	TargetWords  []string `json:"targetWords"`
+	MissingWords []string `json:"missingWords"`
 }
 
 type generateResultJSON struct {
@@ -51,7 +54,9 @@ func (h *Handler) generate(w http.ResponseWriter, r *http.Request) {
 	}
 	out := generateResultJSON{Drafts: make([]draftJSON, len(res.Drafts)), Requested: res.Requested, Dropped: res.Dropped}
 	for i, d := range res.Drafts {
-		out.Drafts[i] = draftJSON(d)
+		out.Drafts[i] = draftJSON{
+			Title: d.Title, Content: d.Content, Words: d.Words, TargetWords: d.TargetWords, MissingWords: d.MissingWords,
+		}
 	}
 	httpx.WriteJSON(w, http.StatusOK, out)
 }

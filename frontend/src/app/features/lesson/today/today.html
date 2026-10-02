@@ -2,19 +2,23 @@
   @if (loadError(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   } @else if (data(); as d) {
-    <header class="today-header">
-      @if (d.goal; as g) {
-        <div class="goal">
-          <p class="goal-name">{{ g.level }} · {{ g.topicName }}</p>
-          <div class="goal-bar" role="progressbar" [attr.aria-valuenow]="g.completedLessons" aria-valuemin="0"
-            [attr.aria-valuemax]="g.totalLessons" aria-label="Tiến độ mục tiêu">
-            <span class="goal-fill" [style.width.%]="g.totalLessons ? (g.completedLessons / g.totalLessons) * 100 : 0"></span>
-          </div>
-          <p class="goal-progress">{{ g.completedLessons }}/{{ g.totalLessons }} bài</p>
+    <header class="study-bar">
+      <a class="round-btn" routerLink="/" aria-label="Thoát bài học"><lu-icon name="x" /></a>
+      @if (d.lesson) {
+        <div class="study-track" role="progressbar" aria-label="Các bước đã xong" aria-valuemin="0" aria-valuemax="4"
+          [attr.aria-valuenow]="doneSteps()">
+          <span class="study-fill" [style.width.%]="doneSteps() * 25"></span>
         </div>
+        <span class="study-count" aria-hidden="true">{{ doneSteps() }}/4</span>
+      }
+    </header>
+    <div class="today-meta">
+      @if (d.goal; as g) {
+        <p class="goal-name">{{ g.level }} · {{ g.topicName }}</p>
+        <p class="goal-progress">{{ g.completedLessons }}/{{ g.totalLessons }} bài</p>
       }
       <p class="streak"><span aria-hidden="true">🔥</span> {{ d.streak }} ngày liên tiếp</p>
-    </header>
+    </div>
 
     @if (error(); as message) {
       <p class="form-alert" role="alert">{{ message }}</p>

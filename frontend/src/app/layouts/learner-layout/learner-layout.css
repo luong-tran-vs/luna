@@ -1,0 +1,183 @@
+/*
+ * Phone: the tabs are a bar fixed to the bottom (hidden while studying a lesson). --tabbar-h is
+ * inherited by the pages so their sticky bottom bars and toasts sit above it.
+ * From 768px: a top bar with the brand and the same tabs; Tài khoản and a dark mode switch sit on
+ * the right. On a phone the switch stays in Tài khoản only.
+ */
+:host {
+  --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px));
+
+  display: block;
+  min-height: 100dvh;
+  padding-bottom: var(--tabbar-h);
+}
+
+:host(.focus) {
+  --tabbar-h: 0px;
+}
+
+.bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}
+
+:host(.focus) .bar {
+  display: none;
+}
+
+.brand {
+  display: none;
+}
+
+.theme-toggle {
+  display: none;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 64px;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.tab-icon {
+  position: relative;
+  display: inline-flex;
+  padding: 2px 14px;
+  border-radius: var(--radius-full);
+
+  --icon-size: 22px;
+}
+
+.tab-icon .dot-badge {
+  top: -6px;
+  right: 0;
+}
+
+/* Current tab: ink color, bold label and a soft pill behind the icon (not color alone). */
+.tab[aria-current='page'] {
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+.tab[aria-current='page'] .tab-icon {
+  background: var(--color-primary-soft);
+}
+
+.tab:hover .tab-icon {
+  background: var(--color-primary-soft);
+}
+
+.app-footer {
+  bottom: var(--tabbar-h);
+}
+
+@media (min-width: 768px) {
+  :host,
+  :host(.focus) {
+    --tabbar-h: 0px;
+  }
+
+  .bar,
+  :host(.focus) .bar {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding: 0 var(--space-5);
+    border-top: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .brand {
+    display: block;
+    font: var(--text-lg) var(--font-ui);
+    color: var(--color-primary-ink);
+    text-decoration: none;
+  }
+
+  .tabs {
+    display: flex;
+    flex: 1;
+    gap: var(--space-1);
+    height: 60px;
+  }
+
+  .tab {
+    flex-direction: row;
+    gap: var(--space-2);
+    padding: 0 var(--space-3);
+    font: var(--text-sm) var(--font-ui);
+    font-weight: 600;
+  }
+
+  .tab-icon {
+    padding: 0;
+    background: none;
+
+    --icon-size: 20px;
+  }
+
+  .tab[aria-current='page'] .tab-icon,
+  .tab:hover .tab-icon {
+    background: none;
+  }
+
+  /* Current tab underlined, like the admin sidebar marks its current page. */
+  .tab[aria-current='page'] {
+    box-shadow: inset 0 -3px 0 var(--color-primary);
+  }
+
+  .tab:hover {
+    background: var(--color-primary-soft);
+  }
+
+  .tab-icon .dot-badge {
+    top: -8px;
+    right: -10px;
+  }
+
+  .tab-end {
+    margin-left: auto;
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    background: none;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-full);
+
+    --icon-size: 20px;
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-primary-ink);
+    background: var(--color-primary-soft);
+  }
+}

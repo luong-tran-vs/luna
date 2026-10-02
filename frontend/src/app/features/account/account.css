@@ -1,0 +1,47 @@
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.who {
+  display: grid;
+  min-width: 0;
+}
+
+.email {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.level {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.count {
+  flex: none;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.save-status:empty {
+  display: none;
+}
+
+.save-status {
+  margin-top: calc(-1 * var(--space-2));
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.logout-chip {
+  --chip-fg: var(--color-bad);
+  --chip-bg: color-mix(in srgb, var(--color-bad) 12%, transparent);
+}

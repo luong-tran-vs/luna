@@ -15,6 +15,10 @@ const (
 	TypeAnnotate Type = "annotate"
 	// TypeGrade grades a submitted writing (F8); its TargetID is the writing id.
 	TypeGrade Type = "grade"
+	// TypePractice writes the vocabulary practice of a lesson with one AI request (F17).
+	TypePractice Type = "practice"
+	// TypePracticeAudio makes the audio of the current practice of a lesson revision (F17).
+	TypePracticeAudio Type = "practice_audio"
 )
 
 // Status is the lifecycle state of a job.

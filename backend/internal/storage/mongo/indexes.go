@@ -149,13 +149,16 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	return nil
 }
 
-// PrepareInBackground runs the data migrations (MigrateTopics, MigrateUserSettings) and then EnsureIndexes, retrying
-// every interval until both succeed or ctx ends, so the backend can start while the database is
-// still down. With the database up, this finishes within moments of starting.
+// PrepareInBackground runs the data migrations (MigrateTopics, SeedTopicWords, MigrateUserSettings)
+// and then EnsureIndexes, retrying every interval until all succeed or ctx ends, so the backend can
+// start while the database is still down. With the database up, this finishes within moments of starting.
 func PrepareInBackground(ctx context.Context, db *mongo.Database, interval time.Duration, log *slog.Logger) {
 	go func() {
 		for {
 			err := MigrateTopics(ctx, db, log)
+			if err == nil {
+				err = seedTopicWords(ctx, db, log)
+			}
 			if err == nil {
 				err = MigrateUserSettings(ctx, db, log)
 			}

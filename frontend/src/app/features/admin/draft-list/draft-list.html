@@ -44,6 +44,15 @@
             }
           </div>
 
+          @if (d.targetWords.length > 0) {
+            <div class="targets">
+              <p class="targets-used">{{ usedTargets(d) }}</p>
+              @if (d.missingWords.length > 0) {
+                <p class="targets-missing">Còn thiếu: {{ d.missingWords.join(', ') }}</p>
+              }
+            </div>
+          }
+
           @if (d.error; as message) {
             <p class="form-alert" role="alert">{{ message }}</p>
           }

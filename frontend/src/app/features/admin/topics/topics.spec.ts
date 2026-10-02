@@ -10,7 +10,7 @@ import { Topics } from './topics';
 function topic(id: string, name: string, level: Topic['level'], over: Partial<Topic> = {}): Topic {
   return {
     id, name, level, description: '', lessonCount: 0, roadmapCount: 0, remaining: 0, warning: true,
-    createdAt: '2026-09-30T00:00:00Z', ...over,
+    createdAt: '2026-09-30T00:00:00Z', wordCount: 0, usedWordCount: 0, ...over,
   };
 }
 
@@ -67,6 +67,18 @@ describe('Topics', () => {
     expect(Array.from(el.querySelectorAll('.level-heading')).map((h) => text(h))).toEqual(['A1', 'B1']);
     expect(text(row('Gia đình').querySelector('.description'))).toBe('Người thân');
     expect(text(row('Gia đình').querySelector('.counts'))).toBe('4 bài · 2 trong lộ trình');
+  });
+
+  it('shows the vocabulary coverage and links to the word list (F18)', async () => {
+    await setup([
+      topic('t1', 'Gia đình', 'A1', { wordCount: 37, usedWordCount: 12 }),
+      topic('t2', 'Mua sắm', 'A1'),
+    ]);
+    expect(text(row('Gia đình').querySelector('.word-counts'))).toBe('Từ vựng: đã dùng 12/37');
+    expect(text(row('Mua sắm').querySelector('.word-counts'))).toBe('Chưa có từ vựng');
+    const link = row('Gia đình').querySelector<HTMLAnchorElement>('a')!;
+    expect(text(link)).toBe('Từ vựng Gia đình');
+    expect(link.getAttribute('href')).toBe('/admin/topics/t1/words');
   });
 
   it('shows an empty state', async () => {

@@ -93,4 +93,10 @@ describe('errorInterceptor', () => {
     expect(err).toBeInstanceOf(ApiError);
     expect(router.navigateByUrl).toHaveBeenCalledWith('/forbidden');
   });
+
+  it('leaves a locked lesson to the page, which explains it', async () => {
+    const err = await failWith('/api/lessons/l1', 403, { error: 'lesson_locked', message: 'x' });
+    expect((err as ApiError).status).toBe(403);
+    expect(router.navigateByUrl).not.toHaveBeenCalled();
+  });
 });

@@ -58,4 +58,12 @@ describe('ReadingApiService', () => {
     http.expectOne('/api/lessons/l1/vocabulary').flush({ available: false, items: [] });
     await expect(result).resolves.toEqual({ available: false, items: [] });
   });
+
+  it('loads the lesson practice', async () => {
+    const result = firstValueFrom(api.practice('l1'));
+    const req = http.expectOne('/api/lessons/l1/practice');
+    expect(req.request.method).toBe('GET');
+    req.flush({ status: 'none', lessonNumber: 0 });
+    await expect(result).resolves.toMatchObject({ status: 'none' });
+  });
 });

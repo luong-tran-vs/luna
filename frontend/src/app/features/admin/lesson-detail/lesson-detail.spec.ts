@@ -14,6 +14,9 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   writingPrompt: '',
   extrasEditedByAdmin: false,
   quizVersion: 0,
+  practice: null,
+  practiceStatus: 'none',
+  practiceError: '',
   title: 'Park',
   level: 'B1',
   topicId: 't3',
@@ -122,6 +125,19 @@ describe('LessonDetail', () => {
       // Polling restarts with an immediate reload.
       await load(lesson({ annotationStatus: 'running', annotations: [] }));
       expect(el.textContent).toContain('Chú thích: Đang chạy');
+    });
+
+    it('regenerates the practice and polls while it runs (F17)', async () => {
+      await load(lesson());
+      expect(el.textContent).toContain('Luyện tập: Chưa có');
+      button('Tạo lại phần luyện tập')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/practice/regenerate').flush({ lesson: lesson({ practiceStatus: 'running' }) });
+      await settle();
+      // Polling restarts with an immediate reload.
+      await load(lesson({ practiceStatus: 'running' }));
+      expect(el.textContent).toContain('Luyện tập: Đang chạy');
+      expect(button('Tạo lại phần luyện tập')!.disabled).toBe(true);
     });
 
     it('runs a done annotation again at once when nothing was edited by hand (F15)', async () => {
@@ -256,11 +272,10 @@ describe('LessonDetail', () => {
   describe('edit and delete', () => {
     const dialog = () => el.querySelector('[role="alertdialog"]');
 
-    it('links to the edit page and to the Reading step', async () => {
+    it('links to the edit page, not to the learner steps', async () => {
       await load(lesson());
       expect(el.querySelector('a[href="/admin/lessons/l1/edit"]')).not.toBeNull();
-      expect(el.querySelector('a[href="/lessons/l1/read"]')?.textContent?.trim()).toBe('Mở bước Đọc');
-      expect(el.querySelector('a[href="/lessons/l1/listen"]')?.textContent?.trim()).toBe('Mở bước Nghe');
+      expect(el.querySelector('a[href^="/lessons/"]')).toBeNull();
     });
 
     it('deletes after confirmation and goes back to the list', async () => {

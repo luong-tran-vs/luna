@@ -2,8 +2,6 @@
   <header class="page-header">
     <h1 class="page-title">Chủ đề</h1>
     <div class="actions">
-      <a class="btn" routerLink="/admin">Bài học</a>
-      <a class="btn" routerLink="/admin/roadmap">Lộ trình</a>
       <button type="button" class="btn-primary" [disabled]="editing() === 'new'" (click)="startAdd()">Thêm chủ đề</button>
     </div>
   </header>
@@ -78,8 +76,12 @@
                       <p class="description muted">{{ t.description }}</p>
                     }
                     <p class="counts muted">{{ t.lessonCount }} bài · {{ t.roadmapCount }} trong lộ trình</p>
+                    <p class="word-counts muted">
+                      {{ t.wordCount > 0 ? 'Từ vựng: đã dùng ' + t.usedWordCount + '/' + t.wordCount : 'Chưa có từ vựng' }}
+                    </p>
                   </div>
                   <div class="actions">
+                    <a class="btn" [routerLink]="['/admin/topics', t.id, 'words']">Từ vựng<span class="visually-hidden"> {{ t.name }}</span></a>
                     <button type="button" class="btn" (click)="startEdit(t)">Sửa<span class="visually-hidden"> {{ t.name }}</span></button>
                     <button type="button" class="btn" (click)="deleting.set(t)">Xoá<span class="visually-hidden"> {{ t.name }}</span></button>
                   </div>

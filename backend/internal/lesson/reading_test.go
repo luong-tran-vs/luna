@@ -53,7 +53,7 @@ func newReaderEnv(t *testing.T) (*Reader, Lesson) {
 		},
 		AnnotationError: "secret", AudioError: "secret",
 	})
-	return NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers(), newFakeAsks(), &fakeAI{}), l
+	return NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers(), newFakeAsks(), &fakeAI{}, ""), l
 }
 
 // --- reading view (foundation) ---

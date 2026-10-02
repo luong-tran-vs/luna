@@ -66,3 +66,9 @@ export interface Stats {
     averageScore: number | null;
   };
 }
+
+/** Mean of the comprehension and dictation rates that exist (0–1); null when neither has data. */
+export function accuracyOf(stats: Stats): number | null {
+  const rates = [stats.reading.rate, stats.dictation.rate].filter((r): r is number => r !== null);
+  return rates.length ? rates.reduce((a, b) => a + b, 0) / rates.length : null;
+}

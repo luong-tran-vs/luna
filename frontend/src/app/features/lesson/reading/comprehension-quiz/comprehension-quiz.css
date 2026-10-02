@@ -33,25 +33,57 @@
   font-weight: 600;
 }
 
+/* Client sketch, screen 6: options as cards lettered A–D (the letter is decoration, hidden from screen readers). */
 .options {
   display: grid;
   gap: var(--space-2);
+  counter-reset: option;
 }
 
 .option {
-  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 52px;
   padding: var(--space-2) var(--space-3);
   font: var(--text-base) var(--font-ui);
   color: var(--color-text);
   text-align: left;
-  background: var(--color-bg);
-  border: 1px solid var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
   cursor: pointer;
+  counter-increment: option;
+}
+
+.option::before {
+  content: counter(option, upper-alpha);
+  content: counter(option, upper-alpha) / '';
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
 }
 
 .option:hover:not(:disabled) {
+  color: var(--color-primary-ink);
   background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.option:hover:not(:disabled)::before {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .option:focus-visible {

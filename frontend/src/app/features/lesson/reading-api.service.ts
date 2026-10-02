@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
+import { PracticeView } from '../../core/models/practice';
 import { AnswerInput, AnswerResult, AskResult, LookupResult, ReadingLesson } from '../../core/models/reading';
 import { LessonVocabulary } from '../../core/models/vocab';
 
@@ -31,5 +32,10 @@ export class ReadingApiService {
   /** Sends one comprehension answer (F15). */
   answer(id: string, input: AnswerInput): Observable<AnswerResult> {
     return this.http.post<AnswerResult>(`/api/lessons/${id}/answers`, input);
+  }
+
+  /** The lesson's practice steps (F17); empty when not generated yet. */
+  practice(id: string): Observable<PracticeView> {
+    return this.http.get<PracticeView>(`/api/lessons/${id}/practice`);
   }
 }

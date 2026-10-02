@@ -1,36 +1,8 @@
-<section class="settings">
-  <h1 class="title">Cài đặt</h1>
-
-  <section class="card group" aria-labelledby="theme-heading">
-    <h2 class="group-title" id="theme-heading">Giao diện</h2>
-    <div class="themes" role="radiogroup" aria-labelledby="theme-heading">
-      @for (option of themes; track option.value) {
-        <label class="theme-option">
-          <input
-            type="radio"
-            name="theme"
-            [value]="option.value"
-            [checked]="theme.resolved() === option.value"
-            (click)="chooseTheme(option.value)"
-          />
-          <span>{{ option.label }}</span>
-        </label>
-      }
-    </div>
-    <p class="save-status" role="status">
-      @switch (theme.saveState()) {
-        @case ('saving') {
-          Đang lưu…
-        }
-        @case ('saved') {
-          Đã lưu
-        }
-        @case ('error') {
-          <span class="save-error">Chưa lưu được vào tài khoản. Giao diện vẫn áp dụng trên trình duyệt này.</span>
-        }
-      }
-    </p>
-  </section>
+<section class="screen settings">
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/account" aria-label="Quay lại Tài khoản"><lu-icon name="arrow-left" /></a>
+    <h1 class="screen-title">Cài đặt học tập</h1>
+  </header>
 
   @if (loadError()) {
     <div class="form-alert" role="alert">
@@ -39,7 +11,7 @@
     </div>
   } @else if (loaded()) {
     <form class="study" [formGroup]="form" (ngSubmit)="submit()" novalidate>
-      <section class="card group" aria-labelledby="study-heading">
+      <section class="soft-card group" aria-labelledby="study-heading">
         <h2 class="group-title" id="study-heading">Học tập</h2>
         <div class="field">
           <label for="settings-limit">Số thẻ ôn mỗi ngày</label>
@@ -61,7 +33,7 @@
         </div>
       </section>
 
-      <section class="card group" aria-labelledby="zone-heading">
+      <section class="soft-card group" aria-labelledby="zone-heading">
         <h2 class="group-title" id="zone-heading">Múi giờ</h2>
         <p class="field-hint">Dùng để tính lúc sang ngày học mới.</p>
         <div class="field">
@@ -109,7 +81,7 @@
     <p class="muted" role="status">Đang tải…</p>
   }
 
-  <section class="card group" aria-labelledby="data-heading">
+  <section class="soft-card group" aria-labelledby="data-heading">
     <h2 class="group-title" id="data-heading">Dữ liệu</h2>
     <p class="field-hint" id="export-hint">
       Tải về một file JSON gồm sổ từ, lịch sử ôn, tiến độ, cài đặt và các bài bạn đã học. File chỉ có dữ liệu của tài khoản này,

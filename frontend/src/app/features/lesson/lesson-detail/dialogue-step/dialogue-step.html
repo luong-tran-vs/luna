@@ -1,0 +1,76 @@
+<section class="soft-card" aria-labelledby="dialogue-heading">
+  <h2 class="step-title" id="dialogue-heading">2. Hội thoại mẫu</h2>
+
+  <div class="playbar">
+    <!-- One button, so focus stays on it when it turns into "Dừng". -->
+    <button
+      type="button"
+      class="icon-btn play-btn"
+      [attr.aria-label]="mode() === 'all' ? 'Dừng' : 'Nghe cả đoạn'"
+      (click)="mode() === 'all' ? stop() : playAll()"
+    >
+      <lu-icon [name]="mode() === 'all' ? 'pause' : 'play'" />
+    </button>
+    <div class="play-info">
+      <span class="time">{{ elapsed() }}</span
+      >&ngsp;
+      @if (mode() === 'all' && current() !== null) {
+        <span class="muted">Lượt {{ current()! + 1 }}/{{ dialogue().turns.length }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="speed" role="radiogroup" aria-label="Tốc độ">
+    <span class="speed-label" aria-hidden="true">Tốc độ</span>
+    @for (s of speeds; track s) {
+      <button
+        type="button"
+        role="radio"
+        class="speed-option"
+        [attr.aria-checked]="rate() === s"
+        [tabIndex]="rate() === s ? 0 : -1"
+        (click)="setRate(s)"
+        (keydown)="onSpeedKeydown($event)"
+      >
+        {{ s }}x
+      </button>
+    }
+  </div>
+
+  <button
+    type="button"
+    class="btn meaning-toggle"
+    [attr.aria-pressed]="showMeaning()"
+    (click)="showMeaning.set(!showMeaning())"
+  >
+    Nghĩa tiếng Việt
+  </button>
+
+  <ol class="turns">
+    @for (t of dialogue().turns; track $index; let i = $index) {
+      <li
+        class="turn"
+        [class.playing]="current() === i"
+        [attr.aria-current]="current() === i ? 'true' : null"
+      >
+        <div class="turn-head">
+          <span class="speaker">{{ speaker(t.speaker) }}</span>
+          @if (t.audioUrl) {
+            <button
+              type="button"
+              class="icon-btn"
+              [attr.aria-label]="'Nghe lượt ' + (i + 1)"
+              (click)="playOne(i)"
+            >
+              <lu-icon name="volume" />
+            </button>
+          }
+        </div>
+        <p class="turn-text" lang="en">{{ t.text }}</p>
+        @if (showMeaning()) {
+          <p class="turn-meaning">{{ t.meaningVi }}</p>
+        }
+      </li>
+    }
+  </ol>
+</section>

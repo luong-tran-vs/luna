@@ -14,6 +14,7 @@ import {
 } from '../../../core/models/writing';
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
+import { Icon } from '../../../shared/components/icon/icon';
 import { loadErrorMessage } from '../load-error';
 
 /** Delay after the last keystroke before the draft is saved (khối 2: 1 s). */
@@ -28,9 +29,10 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
  */
 @Component({
   selector: 'lu-writing',
-  imports: [RouterLink],
+  imports: [Icon, RouterLink],
   templateUrl: './writing.html',
   styleUrl: './writing.css',
+  host: { '[class.standalone]': 'mode() === null' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Writing implements OnInit {

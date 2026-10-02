@@ -16,6 +16,7 @@ import { DictationInput, DictationSummary } from '../../../core/models/dictation
 import { Sentence } from '../../../core/models/lesson';
 import { ReadingLesson } from '../../../core/models/reading';
 import { AudioPlayer } from '../../../shared/components/audio-player/audio-player';
+import { Icon } from '../../../shared/components/icon/icon';
 import { Comparison, compareDictation } from '../../../shared/utils/dictation-compare';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
@@ -35,7 +36,7 @@ const SPEEDS = [0.5, 0.75, 1, 1.25];
  */
 @Component({
   selector: 'lu-listening',
-  imports: [AudioPlayer, RouterLink],
+  imports: [AudioPlayer, Icon, RouterLink],
   templateUrl: './listening.html',
   styleUrl: './listening.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

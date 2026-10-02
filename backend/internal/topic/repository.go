@@ -19,6 +19,8 @@ type Repository interface {
 	RemoveLesson(ctx context.Context, id, lessonID string) (removed bool, err error)
 	// AppendLesson adds a lesson at the end of the roadmap unless it is already there.
 	AppendLesson(ctx context.Context, id, lessonID string) error
+	// SetWords replaces the word list and marks it seeded (an admin edit is never overwritten).
+	SetWords(ctx context.Context, id string, words []string) (Topic, error)
 }
 
 // Lessons is what topics need from lessons (implemented over lesson.Repository in main).
@@ -31,4 +33,6 @@ type Lessons interface {
 	Refs(ctx context.Context, ids []string) ([]LessonRef, error)
 	// SetLevelByTopic sets the level of every lesson of a topic.
 	SetLevelByTopic(ctx context.Context, topicID, level string) error
+	// Texts returns the lessons of each topic among topicIDs (F18 coverage).
+	Texts(ctx context.Context, topicIDs []string) (map[string][]LessonText, error)
 }

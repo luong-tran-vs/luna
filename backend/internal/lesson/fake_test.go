@@ -106,9 +106,12 @@ func (f *fakeLessons) SetStatus(_ context.Context, id string, rev int, t job.Typ
 		if l.Revision != rev {
 			return false
 		}
-		if t == job.TypeTTS {
+		switch t {
+		case job.TypeTTS:
 			l.AudioStatus, l.AudioError = st, msg
-		} else {
+		case job.TypePractice:
+			l.PracticeStatus, l.PracticeError = st, msg
+		default:
 			l.AnnotationStatus, l.AnnotationError = st, msg
 		}
 		return true
@@ -136,6 +139,7 @@ func (f *fakeLessons) SaveAnnotations(_ context.Context, id string, rev int, ann
 		l.Annotations, l.AnnotationStatus, l.AnnotationError = anns, StatusDone, ""
 		l.Extras, l.ExtrasEditedByAdmin = x, false
 		l.QuizVersion++
+		l.Practice, l.PracticeStatus, l.PracticeError = nil, StatusRunning, ""
 		return true
 	})
 }
@@ -234,6 +238,7 @@ func (f *fakeTopics) setRoadmap(topicID string, ids ...string) {
 // fakeJobs records enqueued jobs and deletions.
 type fakeJobs struct {
 	mu            sync.Mutex
+	enqueueErr    error
 	jobs          []job.Job
 	deletedPend   []string
 	deletedLesson []string
@@ -242,6 +247,9 @@ type fakeJobs struct {
 func (f *fakeJobs) Enqueue(_ context.Context, j job.Job) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+	if f.enqueueErr != nil {
+		return f.enqueueErr
+	}
 	f.jobs = append(f.jobs, j)
 	return nil
 }
@@ -300,6 +308,8 @@ type fakeAI struct {
 	extras ai.LessonExtras
 	err    error
 
+	annotateReq ai.AnnotateRequest
+
 	drafts   []ai.LessonDraft
 	genErr   error
 	genBlock bool
@@ -311,13 +321,19 @@ type fakeAI struct {
 	explainGate  chan struct{}
 	explainCalls int
 	explainReq   ai.ExplainRequest
+
+	practice      ai.Practice
+	practiceErr   error
+	practiceCalls int
+	practiceReq   ai.PracticeRequest
 }
 
-// Annotate returns result as annotations plus the configured extras.
-func (f *fakeAI) Annotate(context.Context, []string, string) (ai.LessonExtras, error) {
+// Annotate returns result as annotations plus the configured extras, and records the request.
+func (f *fakeAI) Annotate(_ context.Context, req ai.AnnotateRequest) (ai.LessonExtras, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	f.calls++
+	f.annotateReq = req
 	x := f.extras
 	x.Annotations = f.result
 	return x, f.err
@@ -471,4 +487,49 @@ func (f *fakeAsks) count() int {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	return len(f.rows)
+}
+
+func (f *fakeLessons) SavePractice(_ context.Context, id string, rev, prevVersion int, p Practice) (bool, error) {
+	return f.update(id, func(l *Lesson) bool {
+		if l.Revision != rev || l.PracticeVersion != prevVersion {
+			return false
+		}
+		l.Practice, l.PracticeStatus, l.PracticeError = &p, StatusDone, ""
+		l.PracticeVersion++
+		return true
+	})
+}
+
+func (f *fakeLessons) WithoutPractice(context.Context) ([]RevisionRef, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []RevisionRef
+	for _, l := range f.byID {
+		if l.AnnotationStatus == StatusDone && l.PracticeStatus == StatusNone {
+			out = append(out, RevisionRef{ID: l.ID, Revision: l.Revision})
+		}
+	}
+	return out, nil
+}
+
+// Position is the 1-based place of a lesson in the topic roadmap, 0 when absent.
+func (f *fakeTopics) Position(_ context.Context, topicID, lessonID string) (int, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return slices.Index(f.roadmaps[topicID], lessonID) + 1, nil
+}
+
+// Practice returns the configured practice or error, records the request and counts calls.
+func (f *fakeAI) Practice(_ context.Context, req ai.PracticeRequest) (ai.Practice, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.practiceCalls++
+	f.practiceReq = req
+	return f.practice, f.practiceErr
+}
+
+func (f *fakeAI) practices() (int, ai.PracticeRequest) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.practiceCalls, f.practiceReq
 }

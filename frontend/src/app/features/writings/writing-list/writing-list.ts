@@ -5,11 +5,12 @@ import { firstValueFrom } from 'rxjs';
 
 import { formatScore, WritingSummary } from '../../../core/models/writing';
 import { WritingApiService } from '../../../core/services/writing-api.service';
+import { Icon } from '../../../shared/components/icon/icon';
 
 /** The learner's submitted writings (F8), newest first. */
 @Component({
   selector: 'lu-writing-list',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, Icon, RouterLink],
   templateUrl: './writing-list.html',
   styleUrl: './writing-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

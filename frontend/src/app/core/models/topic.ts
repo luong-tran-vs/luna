@@ -13,6 +13,17 @@ export interface Topic {
   remaining: number;
   warning: boolean;
   createdAt: string;
+  /** F18: words in the topic's vocabulary list, and how many of them its lessons use. */
+  wordCount: number;
+  usedWordCount: number;
+}
+
+/** One word of a topic's vocabulary list with its coverage (specs/017-topic-vocabulary). */
+export interface TopicWord {
+  text: string;
+  used: boolean;
+  /** Lessons of the topic that use the word. */
+  lessonCount: number;
 }
 
 export interface TopicInput {

@@ -11,7 +11,7 @@ import {
 
 import { Role } from '../models/user';
 import { AuthService } from '../services/auth.service';
-import { adminGuard, authGuard, guestGuard } from './auth.guard';
+import { adminGuard, authGuard, guestGuard, learnerGuard } from './auth.guard';
 
 describe('auth guards', () => {
   const loggedIn = signal(false);
@@ -58,6 +58,11 @@ describe('auth guards', () => {
       login('learner');
       expect(asUrl(run(guestGuard, '/login'))).toBe('/');
     });
+
+    it('sends a logged-in admin to the admin area', () => {
+      login('admin');
+      expect(asUrl(run(guestGuard, '/login'))).toBe('/admin');
+    });
   });
 
   describe('adminGuard', () => {
@@ -69,6 +74,18 @@ describe('auth guards', () => {
     it('lets an admin through', () => {
       login('admin');
       expect(run(adminGuard, '/admin')).toBe(true);
+    });
+  });
+
+  describe('learnerGuard', () => {
+    it('lets a learner through', () => {
+      login('learner');
+      expect(run(learnerGuard, '/today')).toBe(true);
+    });
+
+    it('sends an admin to the admin area', () => {
+      login('admin');
+      expect(asUrl(run(learnerGuard, '/today'))).toBe('/admin');
     });
   });
 });

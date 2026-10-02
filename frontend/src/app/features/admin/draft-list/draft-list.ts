@@ -7,6 +7,9 @@ export interface DraftState {
   key: number;
   title: string;
   content: string;
+  /** F18: target words asked for this draft, and those not found in it (from generation). */
+  targetWords: string[];
+  missingWords: string[];
   saving: boolean;
   /** Save error not tied to a field (network, server). */
   error: string | null;
@@ -38,6 +41,11 @@ export class DraftList {
   readonly saveAll = output<void>();
 
   protected readonly countWords = countWords;
+
+  /** "Dùng 3/4 từ mục tiêu" (F18). */
+  protected usedTargets(d: DraftState): string {
+    return `Dùng ${d.targetWords.length - d.missingWords.length}/${d.targetWords.length} từ mục tiêu`;
+  }
 
   protected rows(content: string): number {
     return Math.min(20, Math.max(6, Math.ceil(content.length / 60) + content.split('\n').length));

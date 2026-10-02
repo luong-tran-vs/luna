@@ -4,9 +4,8 @@ import { provideRouter, Router } from '@angular/router';
 
 import { User } from '../../../core/models/user';
 import { AuthService } from '../../../core/services/auth.service';
-import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 import { ThemeService } from '../../../core/services/theme.service';
-import { AppHeader } from './app-header';
+import { AppHeader, NavLink } from './app-header';
 
 describe('AppHeader', () => {
   let fixture: ComponentFixture<AppHeader>;
@@ -21,7 +20,6 @@ describe('AppHeader', () => {
   };
 
   const user = signal<User | null>(null);
-  const unseen = signal(0);
   const logout = vi.fn(async () => user.set(null));
   const authStub = {
     currentUser: user,
@@ -35,7 +33,6 @@ describe('AppHeader', () => {
   };
 
   beforeEach(async () => {
-    unseen.set(0);
     user.set(null);
     logout.mockClear();
     localStorage.clear();
@@ -44,7 +41,6 @@ describe('AppHeader', () => {
       providers: [
         provideRouter([]),
         { provide: AuthService, useValue: authStub },
-        { provide: WritingNotifier, useValue: { unseen } },
       ],
     }).compileComponents();
 
@@ -57,6 +53,27 @@ describe('AppHeader', () => {
     const header = el.querySelector('header');
     expect(header).not.toBeNull();
     expect(header?.textContent).toContain('Luna');
+  });
+
+  it('publishes its height as --header-h for bars that stick under it', async () => {
+    let notify: (() => void) | undefined;
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        constructor(cb: () => void) {
+          notify = cb;
+        }
+        observe = vi.fn();
+        disconnect = vi.fn();
+      },
+    );
+    const header = TestBed.createComponent(AppHeader);
+    await header.whenStable();
+    vi.spyOn(header.nativeElement as HTMLElement, 'offsetHeight', 'get').mockReturnValue(72);
+    notify!();
+    expect(document.documentElement.style.getPropertyValue('--header-h')).toBe('72px');
+    header.destroy();
+    vi.unstubAllGlobals();
   });
 
   it('shows only the current theme on a menu button', () => {
@@ -95,31 +112,53 @@ describe('AppHeader', () => {
   });
 
   describe('account', () => {
+    const learnerLinks: NavLink[] = [
+      { path: '/lessons', label: 'Bài học' },
+      { path: '/writings', label: 'Bài viết', badge: 0, badgeLabel: 'kết quả mới' },
+      { path: '/vocabulary', label: 'Sổ từ' },
+    ];
+
     it('shows no account actions when logged out', () => {
+      fixture.componentRef.setInput('links', learnerLinks);
       expect(el.textContent).not.toContain('Đăng xuất');
-      expect(el.querySelector('a[href="/admin"]')).toBeNull();
+      expect(el.querySelector('a[href="/lessons"]')).toBeNull();
     });
 
-    it('links to the notebook when logged in', async () => {
-      expect(el.querySelector('a[href="/vocabulary"]')).toBeNull();
+    it('shows the links given by the layout when logged in', async () => {
+      fixture.componentRef.setInput('links', learnerLinks);
       await loginAs('learner');
-      expect(el.querySelector('a[href="/vocabulary"]')?.textContent?.trim()).toBe('Sổ từ');
-      expect(el.querySelector('a[href="/settings"]')?.textContent?.trim()).toBe('Cài đặt');
-      expect(el.querySelector('a[href="/lessons"]')?.textContent?.trim()).toBe('Bài học');
+      const links = Array.from(el.querySelectorAll('nav a')).map((a) => [a.getAttribute('href'), a.textContent?.trim()]);
+      expect(links).toEqual([
+        ['/lessons', 'Bài học'],
+        ['/writings', 'Bài viết'],
+        ['/vocabulary', 'Sổ từ'],
+      ]);
     });
 
-    it('links to the writings with the number of new results (F8)', async () => {
+    it('shows a badge with its count in the accessible name', async () => {
       await loginAs('learner');
       const link = () => el.querySelector('a[href="/writings"]')!;
-      expect(link().textContent?.trim()).toBe('Bài viết');
+      fixture.componentRef.setInput('links', learnerLinks);
+      await fixture.whenStable();
+      expect(link().querySelector('.badge')).toBeNull();
       expect(link().getAttribute('aria-label')).toBeNull();
-      unseen.set(2);
+
+      fixture.componentRef.setInput('links', [{ ...learnerLinks[1], badge: 2 }]);
       await fixture.whenStable();
       expect(link().querySelector('.badge')?.textContent?.trim()).toBe('2');
       expect(link().getAttribute('aria-label')).toBe('Bài viết, 2 kết quả mới');
-      unseen.set(0);
-      await fixture.whenStable();
-      expect(link().querySelector('.badge')).toBeNull();
+    });
+
+    it('links the brand to the area home and names the area', async () => {
+      expect(el.querySelector('.brand')?.getAttribute('href')).toBe('/');
+      expect(el.querySelector('.area')).toBeNull();
+
+      fixture.componentRef.setInput('home', '/admin');
+      fixture.componentRef.setInput('area', 'Quản trị');
+      await loginAs('admin');
+      expect(el.querySelector('.brand')?.getAttribute('href')).toBe('/admin');
+      expect(el.querySelector('.area')?.textContent?.trim()).toBe('Quản trị');
+      expect(el.querySelector('nav')?.getAttribute('aria-label')).toBe('Quản trị');
     });
 
     it('shows the email and a logout button when logged in', async () => {
@@ -142,14 +181,6 @@ describe('AppHeader', () => {
 
       expect(logout).toHaveBeenCalled();
       expect(navigate).toHaveBeenCalledWith('/login');
-    });
-
-    it('shows the admin link only to admins', async () => {
-      await loginAs('learner');
-      expect(el.querySelector('a[href="/admin"]')).toBeNull();
-
-      await loginAs('admin');
-      expect(el.querySelector('a[href="/admin"]')?.textContent?.trim()).toBe('Quản trị');
     });
   });
 });

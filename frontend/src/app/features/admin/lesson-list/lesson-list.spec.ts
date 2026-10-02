@@ -21,7 +21,7 @@ const summary = (over: Partial<LessonSummary>): LessonSummary => ({
 });
 
 const topic = (id: string, name: string, level: Topic['level'], over: Partial<Topic> = {}): Topic => ({
-  id, name, level, description: '', lessonCount: 1, roadmapCount: 5, remaining: 5, warning: false, createdAt: '', ...over,
+  id, name, level, description: '', lessonCount: 1, roadmapCount: 5, remaining: 5, warning: false, createdAt: '', wordCount: 0, usedWordCount: 0, ...over,
 });
 
 const topics = [topic('t1', 'Gia đình', 'A1'), topic('t2', 'Mua sắm', 'A1'), topic('t3', 'Công việc', 'B1')];
@@ -72,8 +72,6 @@ describe('LessonList', () => {
     expect(el.textContent).toContain('Audio: Lỗi');
     expect(el.textContent).toContain('Chú thích: Xong');
     expect(el.querySelector('a[href="/admin/lessons/new"]')).not.toBeNull();
-    expect(el.querySelector('a[href="/admin/roadmap"]')).not.toBeNull();
-    expect(el.querySelector('a[href="/admin/topics"]')?.textContent?.trim()).toBe('Chủ đề');
   });
 
   it('shows an empty state', async () => {

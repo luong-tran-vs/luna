@@ -11,6 +11,7 @@ import { pollWhile } from '../../../shared/utils/poll-while';
 import { AdminApiService } from '../admin-api.service';
 import { LessonExtras } from '../lesson-extras/lesson-extras';
 import { StatusChip } from '../status-chip/status-chip';
+import { PracticeSection } from './practice-section/practice-section';
 
 type AnnotationRow = FormGroup<{
   text: FormControl<string>;
@@ -20,7 +21,7 @@ type AnnotationRow = FormGroup<{
 
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras],
+  imports: [RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection],
   templateUrl: './lesson-detail.html',
   styleUrl: './lesson-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -114,6 +115,12 @@ export class LessonDetail {
       this.lesson.set(await firstValueFrom(this.api.retry(this.id, job)));
       this.startPolling();
     });
+  }
+
+  /** F17: regeneration was queued; poll until the practice is done. */
+  protected onPracticeRegenerated(lesson: Lesson): void {
+    this.lesson.set(lesson);
+    this.startPolling();
   }
 
   // --- annotations ---

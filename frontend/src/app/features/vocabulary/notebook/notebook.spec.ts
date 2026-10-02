@@ -132,7 +132,7 @@ describe('Notebook', () => {
 
   it('links to review with the number of due cards', async () => {
     await setup();
-    const link = el.querySelector<HTMLAnchorElement>('a[href="/vocabulary/review"]')!;
+    const link = el.querySelector<HTMLAnchorElement>('.actions a[href="/vocabulary/review"]')!;
     expect(text(link)).toBe('Ôn tập (4)');
   });
 

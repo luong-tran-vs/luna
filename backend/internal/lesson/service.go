@@ -21,11 +21,13 @@ const maxAnnotations = 100
 
 // Deps are the collaborators of Service.
 type Deps struct {
-	Lessons  Repository
-	Topics   Topics
-	Jobs     job.Repository
-	TTS      tts.Synthesizer
-	AI       ai.Provider
+	Lessons Repository
+	Topics  Topics
+	Jobs    job.Repository
+	TTS     tts.Synthesizer
+	AI      ai.Provider
+	// Dict gives the meaning of topic words the AI did not annotate (F18); may be nil.
+	Dict     Dictionary
 	AudioDir string
 	// Notify wakes the job worker after jobs are enqueued; may be nil.
 	Notify func()
@@ -161,7 +163,8 @@ func (s *Service) TopicName(ctx context.Context, id string) (string, error) {
 	return t.Name, nil
 }
 
-// Update edits a lesson. Changing the content re-splits it and redoes audio and annotations;
+// Update edits a lesson. Changing the content re-splits it and redoes audio and annotations
+// (then the practice);
 // other fields keep the existing sentences, audio and annotations. Changing the topic moves the
 // lesson to the end of the new topic's roadmap if it was in the old one.
 func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, error) {
@@ -201,6 +204,7 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 	next.QuizVersion = cur.QuizVersion + 1 // old answers belong to the old text
 	next.AudioStatus, next.AudioError = StatusRunning, ""
 	next.AnnotationStatus, next.AnnotationError = StatusRunning, ""
+	next.Practice, next.PracticeStatus, next.PracticeError = nil, StatusNone, "" // redone after the annotations
 	next.UpdatedAt = s.Now()
 	if err := s.Lessons.ReplaceContent(ctx, next); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: replace content: %w", err)
@@ -372,13 +376,18 @@ func (s *Service) ProcessTTS(ctx context.Context, j job.Job) error {
 }
 
 // ProcessAnnotate asks the AI provider once for the whole lesson and stores the cleaned
-// annotations with the questions, grammar note and writing prompt (F15).
+// annotations with the questions, grammar note and writing prompt (F15). Topic words found in
+// the lesson are sent along, and the ones the AI skipped are added from the dictionary (F18).
 func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	l, ok, err := s.current(ctx, j)
 	if !ok {
 		return err
 	}
-	res, err := s.AI.Annotate(ctx, sentenceTexts(l.Sentences), string(l.Level))
+	focus, err := s.topicFocus(ctx, l)
+	if err != nil {
+		return err
+	}
+	res, err := s.AI.Annotate(ctx, ai.AnnotateRequest{Sentences: sentenceTexts(l.Sentences), Level: string(l.Level), FocusWords: focus})
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) {
 			return job.Permanent(err)
@@ -389,15 +398,27 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	if err != nil {
 		return err
 	}
+	if anns, err = addMissedFocus(ctx, anns, focus, sentenceTexts(l.Sentences), s.Dict); err != nil {
+		return err
+	}
 	extras := CleanExtras(res, l.Content)
-	if _, err := s.Lessons.SaveAnnotations(ctx, l.ID, l.Revision, anns, extras); err != nil {
+	saved, err := s.Lessons.SaveAnnotations(ctx, l.ID, l.Revision, anns, extras)
+	if err != nil {
 		return fmt.Errorf("lesson: save annotations: %w", err)
 	}
-	return nil
+	if !saved {
+		return nil
+	}
+	// SaveAnnotations dropped the practice of the old annotations; write a new one (F17).
+	return s.enqueue(ctx, l.ID, l.Revision, job.TypePractice)
 }
 
 // JobFailed records a job that gave up on the lesson, with a short Vietnamese reason.
 func (s *Service) JobFailed(ctx context.Context, j job.Job, err error) {
+	if j.Type == job.TypePracticeAudio { // the practice stays usable without its audio
+		s.Log.WarnContext(ctx, "practice audio failed", slog.String("lesson_id", j.LessonID), slog.Any("error", err))
+		return
+	}
 	if _, serr := s.Lessons.SetStatus(ctx, j.LessonID, j.Revision, j.Type, StatusFailed, failureMessage(j.Type, err)); serr != nil &&
 		!errors.Is(serr, ErrNotFound) {
 		s.Log.ErrorContext(ctx, "record job failure", slog.String("lesson_id", j.LessonID), slog.Any("error", serr))
@@ -414,8 +435,14 @@ func failureMessage(t job.Type, err error) string {
 		return "AI hết hạn mức, thử lại sau"
 	case errors.Is(err, ErrNoValidAnnotations):
 		return "AI không trả về chú thích hợp lệ"
+	case errors.Is(err, ErrNoValidPractice):
+		return "AI không trả về phần luyện tập hợp lệ"
+	case errors.Is(err, ErrAnnotationNotDone):
+		return "Bài chưa có chú thích"
 	case t == job.TypeTTS:
 		return "Không tạo được audio"
+	case t == job.TypePractice:
+		return "Không tạo được phần luyện tập"
 	default:
 		return "Không chú thích được bài"
 	}
@@ -512,4 +539,17 @@ func sentenceTexts(ss []Sentence) []string {
 		out[i] = s.Text
 	}
 	return out
+}
+
+// topicFocus returns the words of the lesson's topic found in its content (F18); none when the
+// topic no longer exists.
+func (s *Service) topicFocus(ctx context.Context, l Lesson) ([]string, error) {
+	t, err := s.Topics.Get(ctx, l.TopicID)
+	if errors.Is(err, ErrTopicNotFound) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, fmt.Errorf("lesson: topic: %w", err)
+	}
+	return focusWords(l.Content, t.Words), nil
 }

@@ -88,6 +88,9 @@ func (s *Service) List(ctx context.Context, level string) ([]Summary, error) {
 	for i, t := range topics {
 		out[i] = summarize(t, counts[t.ID])
 	}
+	if err := s.fillCoverage(ctx, out); err != nil {
+		return nil, err
+	}
 	return out, nil
 }
 
@@ -96,7 +99,11 @@ func (s *Service) summary(ctx context.Context, t Topic) (Summary, error) {
 	if err != nil {
 		return Summary{}, fmt.Errorf("topic: count lessons: %w", err)
 	}
-	return summarize(t, counts[t.ID]), nil
+	out := []Summary{summarize(t, counts[t.ID])}
+	if err := s.fillCoverage(ctx, out); err != nil {
+		return Summary{}, err
+	}
+	return out[0], nil
 }
 
 // Create adds a topic; the name must be unique within its level.

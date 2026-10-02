@@ -30,6 +30,11 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./topics/topics').then((m) => m.Topics),
   },
   {
+    path: 'topics/:id/words',
+    title: 'Từ vựng chủ đề · Quản trị · Luna',
+    loadComponent: () => import('./topic-words/topic-words').then((m) => m.TopicWords),
+  },
+  {
     path: 'roadmap',
     title: 'Lộ trình · Quản trị · Luna',
     canDeactivate: [unsavedChangesGuard],

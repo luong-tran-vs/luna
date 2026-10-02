@@ -1,3 +1,11 @@
+/* Stays on top while the page scrolls (all areas). */
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: block;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -107,7 +115,7 @@
 
 /*
  * Navigation row: its own full-width row below brand + actions on narrow screens, between them
- * from 640px. When the links do not fit (five for an admin at 360px) the row scrolls sideways
+ * from 640px. When the links do not fit (at 360px) the row scrolls sideways
  * instead of widening the page. Block padding keeps focus outlines inside the scroll box.
  */
 .account {
@@ -184,4 +192,14 @@
   color: var(--color-on-primary);
   background: var(--color-primary);
   border-radius: 10px;
+}
+
+/* Area name next to the brand ("Quản trị"), so admins always know which area they are in. */
+.area {
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-sm);
 }

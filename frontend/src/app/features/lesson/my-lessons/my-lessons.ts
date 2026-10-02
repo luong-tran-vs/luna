@@ -1,25 +1,41 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { MyLessons as MyLessonsData } from '../../../core/models/study';
+import { GoalView, MyLessons as MyLessonsData } from '../../../core/models/study';
 import { StudyApiService } from '../../../core/services/study-api.service';
+import { Icon } from '../../../shared/components/icon/icon';
 
-/** The learner's lessons (L): today's, the ones studied (reopen freely), the locked upcoming ones. */
+/**
+ * The learner's lessons (L, client sketch screen 4): one numbered path — lessons studied (reopen
+ * freely), today's, then the locked upcoming ones — under the topic being studied.
+ */
 @Component({
   selector: 'lu-my-lessons',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, Icon, RouterLink],
   templateUrl: './my-lessons.html',
   styleUrl: './my-lessons.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyLessons {
   protected readonly data = signal<MyLessonsData | null>(null);
+  protected readonly goal = signal<GoalView | null>(null);
   protected readonly error = signal(false);
 
+  /** Oldest first, so the numbers follow the order the lessons were studied. */
+  protected readonly completed = computed(() => [...(this.data()?.completed ?? [])].reverse());
+  /** Number of today's lesson, right after the completed ones. */
+  protected readonly todayNumber = computed(() => this.completed().length + 1);
+  protected readonly upcomingStart = computed(() => this.todayNumber() + (this.data()?.today ? 1 : 0));
+  protected readonly title = computed(() => {
+    const g = this.goal();
+    return g ? `${g.level} · ${g.topicName}` : 'Bài học';
+  });
+
   constructor() {
-    inject(StudyApiService)
-      .myLessons()
-      .subscribe({ next: (d) => this.data.set(d), error: () => this.error.set(true) });
+    const api = inject(StudyApiService);
+    api.myLessons().subscribe({ next: (d) => this.data.set(d), error: () => this.error.set(true) });
+    // The header names the topic; without it the list still works.
+    api.goals().subscribe({ next: (g) => this.goal.set(g.active), error: () => undefined });
   }
 }

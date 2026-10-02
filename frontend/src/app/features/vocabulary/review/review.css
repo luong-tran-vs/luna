@@ -1,34 +1,28 @@
-.review {
-  display: grid;
-  gap: var(--space-4);
-  max-width: 640px;
-  margin: 0 auto;
-  padding: var(--space-5) var(--space-4) 0;
+/* Client sketch, screen 9: today's review card, then the schedule. */
+
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
 }
 
-.review-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
+.hub {
+  justify-items: center;
+  text-align: center;
 }
 
-.title {
-  font: var(--text-xl) var(--font-ui);
+.hub-label {
+  justify-self: start;
+  font-weight: 600;
 }
 
-.card {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
+.hub-icon {
+  display: inline-flex;
+  padding: var(--space-3);
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
   border-radius: var(--radius-lg);
-}
 
-.start {
-  justify-items: start;
+  --icon-size: 36px;
 }
 
 .due-count,
@@ -39,6 +33,7 @@
 .modes {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2);
 }
 
@@ -49,7 +44,7 @@
   color: var(--color-text);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   cursor: pointer;
 }
 
@@ -58,4 +53,16 @@
   color: var(--color-on-primary);
   background: var(--color-primary);
   border-color: var(--color-primary);
+}
+
+.schedule {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.when {
+  flex: none;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-accent-ink);
 }

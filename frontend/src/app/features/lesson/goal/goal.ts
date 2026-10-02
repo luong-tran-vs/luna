@@ -3,14 +3,29 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
+import { Dashboard } from '../../../core/models/dashboard';
 import { Level, LEVELS } from '../../../core/models/lesson';
 import { Goals, GoalView, PublicTopic } from '../../../core/models/study';
+import { DashboardApiService } from '../../../core/services/dashboard-api.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
+import { Icon } from '../../../shared/components/icon/icon';
 
-/** Choosing a goal (L): a level, then a topic of that level; congratulations at the end. */
+const LEVEL_NAMES: Record<Level, string> = {
+  A1: 'Mới bắt đầu',
+  A2: 'Sơ cấp',
+  B1: 'Trung cấp',
+  B2: 'Trung cấp cao',
+  C1: 'Nâng cao',
+  C2: 'Thành thạo',
+};
+
+/** Icon colors cycled over the topic rows. */
+const TONES = ['tone-read', 'tone-listen', 'tone-accent', 'tone-write'];
+
+/** Choosing a goal (L, client sketch screen 3): a level, then a topic of that level; congratulations at the end. */
 @Component({
   selector: 'lu-goal',
-  imports: [RouterLink],
+  imports: [Icon, RouterLink],
   templateUrl: './goal.html',
   styleUrl: './goal.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,6 +35,8 @@ export class Goal {
   private readonly router = inject(Router);
 
   protected readonly levels = LEVELS;
+  protected readonly levelNames = LEVEL_NAMES;
+  protected readonly tones = TONES;
   protected readonly goals = signal<Goals | null>(null);
   protected readonly level = signal<Level | null>(null);
   protected readonly topics = signal<PublicTopic[] | null>(null);
@@ -35,7 +52,15 @@ export class Goal {
     return i >= 0 && i + 1 < LEVELS.length ? LEVELS[i + 1] : null;
   });
 
+  /** Today's state of the current course, to offer the right action (null while loading or on error). */
+  protected readonly today = signal<Dashboard | null>(null);
+  protected readonly todayLabel = computed(() => (this.today()?.action?.kind === 'start' ? 'Bắt đầu học' : 'Tiếp tục học'));
+
   constructor() {
+    inject(DashboardApiService)
+      .dashboard()
+      // Without it the card falls back to a plain link to today's page.
+      .subscribe({ next: (d) => this.today.set(d), error: () => undefined });
     this.api.goals().subscribe({
       next: (g) => {
         this.goals.set(g);

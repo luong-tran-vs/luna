@@ -13,8 +13,14 @@ docker compose -f deploy/docker-compose.yml up --build
 ```
 
 Mở <http://localhost:8000>. Lần đầu, bấm **Đăng ký** để tạo tài khoản: **tài khoản đầu tiên là quản trị viên**,
-các tài khoản sau là người học. Sau khi đăng nhập là màn hình chính; nếu máy chủ hoặc cơ sở dữ liệu không chạy, chân trang
-báo lỗi kết nối (bình thường không hiện gì).
+các tài khoản sau là người học. App chia hai khu riêng, mỗi khu một menu:
+
+- **Khu học** (`/`): 4 tab Trang chủ, Khóa học, Ôn tập, Tài khoản (ở đáy màn hình điện thoại, trên đầu trang khi màn hình
+  rộng). Bài viết, Sổ từ, Thống kê, Cài đặt, chế độ tối và Đăng xuất nằm trong **Tài khoản**. Chỉ dành cho người học.
+- **Khu quản trị** (`/admin`): Bài học, Chủ đề, Lộ trình. Chỉ dành cho quản trị viên; quản trị viên đăng nhập vào thẳng
+  đây và mở trang học nào cũng được chuyển về `/admin`. Muốn tự học thì dùng một tài khoản người học riêng.
+
+Nếu máy chủ hoặc cơ sở dữ liệu không chạy, chân trang báo lỗi kết nối (bình thường không hiện gì).
 
 Dừng app: `Ctrl+C`, hoặc chạy nền bằng `up -d` rồi dừng bằng:
 
@@ -32,7 +38,7 @@ docker compose -f deploy/docker-compose.yml exec mongo mongosh luna --quiet --ev
 
 ## Soạn bài học (quản trị viên)
 
-Đăng nhập bằng tài khoản quản trị viên rồi mở **Quản trị** (`/admin`):
+Đăng nhập bằng tài khoản quản trị viên (vào thẳng khu **Quản trị**, `/admin`):
 
 1. **Chủ đề** (`/admin/topics`): tạo chủ đề theo trình độ, ví dụ "A1 · Gia đình". Tên không trùng trong cùng trình độ;
    chủ đề còn bài thì không xoá được.
@@ -85,6 +91,24 @@ AI chưa cấu hình, khoá sai, hết lượt hoặc trả về nội dung khô
 Request sinh bài dài hơn mọi request khác: nginx (`frontend/nginx.conf`) và backend chỉ cho riêng route
 `/api/admin/topics/{id}/generate` chờ tới 75 giây, các route còn lại vẫn 15 giây.
 
+### Từ vựng theo chủ đề
+
+Mỗi chủ đề có một danh sách từ vựng tiếng Anh cốt lõi, tối đa 100 từ hoặc cụm (ví dụ A1 · Gia đình: family, parents…).
+
+- **Dữ liệu ban đầu:** khi khởi động, chủ đề chưa từng được xét mà tên trùng một chủ đề trong
+  `backend/internal/topic/seed/topic-words.json` (42 chủ đề, 1.257 từ; chỉ lấy từ tiếng Anh, tham khảo danh sách của Langmaster)
+  nhận danh sách đó; chủ đề khác nhận danh sách rỗng. Mỗi chủ đề chỉ được xét một lần (cờ `wordsSeeded`), nên danh sách đã sửa,
+  kể cả xoá hết, không bao giờ bị nạp đè. Log: `topic words seeded`.
+- **Trang Chủ đề** hiện "Từ vựng: đã dùng X/Y"; **Từ vựng** mở trang sửa danh sách: thêm nhiều từ một lần (mỗi dòng hoặc dấu
+  phẩy), xoá từ, lỗi hiện dưới từng từ (trùng, quá 40 ký tự, ký tự ngoài chữ cái tiếng Anh, khoảng trắng, `-`, `'`, `/`).
+- **Đã dùng:** từ có trong nội dung ít nhất một bài của chủ đề (kể cả bài ngoài lộ trình), nguyên từ hoặc nguyên cụm, không phân
+  biệt hoa/thường, tính cả dạng số nhiều, -ed, -ing, bất quy tắc thường gặp và dạng gốc trong chú thích của bài.
+- **Sinh bài bằng AI:** chủ đề có từ vựng thì hộp thoại có "Từ mục tiêu mỗi bài" (mặc định 8/10/12 theo trình độ, 0 để sinh như
+  cũ). App chia sẵn nhóm từ cho từng bài (chưa dùng trước, rồi dùng ít nhất; không trùng giữa các bài khi đủ từ); quản trị viên bỏ
+  hoặc thêm từ rồi Sinh. Vẫn 1 request AI. Bản nháp hiện "Dùng a/b từ mục tiêu" và "Còn thiếu: …", không bị loại vì thiếu từ.
+- **Chú thích:** từ của chủ đề có trong bài được gửi kèm request chú thích (vẫn 1 request); từ AI bỏ sót được thêm với nghĩa từ từ
+  điển (từ điển không có thì bỏ qua). Người học không thấy danh sách từ của chủ đề.
+
 ## Bước Đọc và từ điển
 
 Bước Đọc tra nghĩa bằng chú thích AI của bài, rồi bằng từ điển Anh–Việt offline
@@ -97,7 +121,7 @@ Bước Đọc tra nghĩa bằng chú thích AI của bài, rồi bằng từ đ
 Script lưu vào `deploy/data/dictionary/dictionary.db` (git bỏ qua) và kiểm tra SHA-256. Thiếu file thì app vẫn chạy,
 tra từ chỉ dùng chú thích của bài.
 
-Mở bước Đọc: trang chi tiết bài trong **Quản trị** → **Mở bước Đọc** (hoặc `/lessons/<id>/read`). Chạm một từ để tra,
+Mở bước Đọc (tài khoản người học): **Hôm nay** → bước Đọc, hoặc `/lessons/<id>/read`. Chạm một từ để tra,
 bôi đen nhiều từ để tra cụm, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu.
 
 ### Hỏi AI
@@ -143,6 +167,32 @@ Quản trị viên sửa câu hỏi (thêm, xoá, đổi đáp án), ngữ pháp
 từ bài. **Chạy lại chú thích** dùng được cả khi chú thích đã xong, nên bài có từ trước F15 bấm nút này là có thêm câu hỏi.
 Nếu bài có chú thích từ hoặc câu hỏi đã sửa tay, trang hỏi xác nhận trước khi thay.
 
+## Trang chi tiết bài và luyện tập từ vựng
+
+Chạm một bài (bài hôm nay hoặc bài đã học) ở trang **Bài học** để mở `/lessons/<id>`. Bài sắp tới vẫn khoá: API trả 403
+`lesson_locked`. Trang gồm thanh trên (đóng, tiến độ 4 đoạn, streak), "Bài N" theo thứ tự trong lộ trình chủ đề, mục tiêu,
+mức độ, và hai tab **Bài học** / **Bài đọc**. Tab Bài học có 4 bước, chuyển bằng nút **Tiếp theo** cố định cuối màn hình:
+
+1. **Từ vựng quan trọng**: từ, phiên âm, nghĩa, nút nghe từ, câu ví dụ nghe được.
+2. **Hội thoại mẫu**: nghe cả đoạn (0.75×/1×/1.25×) hoặc từng lượt, bật/tắt nghĩa tiếng Việt.
+3. **Điền vào ô trống**: hội thoại có tối đa 5 ô trống ở từ vựng của bài; chạm từ trong ngân hàng từ để điền, **Kiểm tra**.
+4. **Dịch câu sang tiếng Anh**: ghép câu bằng các ô từ (có từ gây nhiễu), **Làm lại**, **Kiểm tra** từng câu.
+
+Cuối cùng là tổng kết (số ô điền đúng, số câu dịch đúng) và **Làm lại**. Phần luyện tập là tự chọn: chấm ngay trên trình
+duyệt, kết quả không gửi lên máy chủ, không ảnh hưởng các bước của bài, tiến độ, streak hay thống kê; không có điểm XP.
+
+Nội dung luyện tập (`GET /api/lessons/{id}/practice`):
+
+- Chú thích bài xong thành công thì job nền `practice` gọi AI **đúng 1 request**: mục tiêu bài, câu ví dụ cho mỗi từ, hội
+  thoại 2 người, mẹo ngữ pháp, 3–5 câu dịch. Phần hỏng bị bỏ (câu ví dụ không chứa từ, hội thoại dưới 4 lượt, câu dịch không
+  dùng từ vựng…); không còn gì dùng được thì báo lỗi, không gọi lại AI. Ô trống bước 3 do máy chủ tính, không cần AI.
+- Sau đó job `practice_audio` tạo mp3 vào `{AUDIO_DIR}/{id}/{revision}/practice/{version}/`; TTS lỗi thì chỉ chạy lại phần
+  audio. Câu chưa có audio thì ẩn nút nghe.
+- AI lỗi thì chỉ phần luyện tập trống (bước 2–4 báo "Bài này chưa có phần luyện tập"); chú thích, câu hỏi và các bước của bài
+  vẫn bình thường.
+- Sửa nội dung bài hoặc chạy lại chú thích thì phần luyện tập cũ bị bỏ và được sinh lại. Bài có từ trước F17 không tự sinh:
+  quản trị viên bấm **Tạo lại phần luyện tập** ở trang chi tiết bài (mục "Phần luyện tập": trạng thái, lỗi, nội dung).
+
 ## Bước Nghe (chép chính tả)
 
 Mở từ trang chi tiết bài → **Mở bước Nghe** (hoặc `/lessons/<id>/listen`); bài cần có audio "Xong". Nghe từng câu
@@ -164,7 +214,7 @@ quả cũ không còn được tính.
   **Viết** (F8). Thoát ra vào lại thì tiếp tục đúng bước và đúng câu. Xong bài (nộp bài viết): mục tiêu +1, chuỗi ngày học +1; nghỉ một
   ngày trọn thì chuỗi về 0. Bài đã xong trước khi có bước Viết vẫn tính là xong.
 - **Bài học** (header → **Bài học**, `/lessons`): bài hôm nay, các bài đã học (đọc/nghe lại, không đổi tiến độ), các bài sắp tới
-  bị khoá — người học không mở được bài chưa tới lượt, quản trị viên thì được.
+  bị khoá — người học không mở được bài chưa tới lượt.
 
 Thử sang ngày mới mà không phải chờ (lùi ngày học của tài khoản `hoc@example.com` về hôm qua):
 
@@ -319,6 +369,10 @@ Cần thêm Go 1.25 và Node 22. Chạy từng phần riêng:
 ```bash
 docker compose -f deploy/docker-compose.yml up -d mongo kokoro
 ```
+
+Dùng MongoDB Atlas (cloud) thay cho MongoDB trong Docker: đặt `MONGO_URI=mongodb+srv://...` trong `backend/.env`
+(chuỗi kết nối lấy ở Atlas → **Connect** → **Drivers**; thêm IP máy này ở **Network Access**), rồi chỉ chạy
+`docker compose -f deploy/docker-compose.yml up -d kokoro`. Backend tự tạo index trên DB mới. Kokoro vẫn cần để sinh audio.
 
 **2. Backend** (`http://localhost:8080`). Lần đầu, chép file cấu hình mẫu cho môi trường phát triển:
 

@@ -3,38 +3,48 @@
   gap: var(--space-4);
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-4) var(--space-6);
+  padding: var(--space-3) var(--space-4) var(--space-6);
 }
 
-.today-header {
+/* Client sketch, screen 5: close button, steps done as a bar and "n/4". */
+.study-bar {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
   gap: var(--space-3);
 }
 
-.goal {
-  display: grid;
-  gap: var(--space-1);
-  flex: 1 1 220px;
-}
-
-.goal-name {
-  font-weight: 600;
-}
-
-.goal-bar {
+.study-track {
+  flex: 1;
   height: 8px;
   overflow: hidden;
   background: var(--color-track);
   border-radius: var(--radius-full);
 }
 
-.goal-fill {
+.study-fill {
   display: block;
   height: 100%;
   background: var(--color-primary);
+  border-radius: inherit;
+}
+
+.study-count {
+  flex: none;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.today-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.goal-name {
+  font-weight: 600;
 }
 
 .goal-progress,
@@ -44,6 +54,7 @@
 }
 
 .streak {
+  margin-left: auto;
   font-weight: 600;
   color: var(--color-accent-ink);
 }

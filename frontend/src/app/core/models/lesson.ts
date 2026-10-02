@@ -1,5 +1,7 @@
 /** Types for the admin lesson API (specs/003-lesson-admin/contracts/admin-lessons-api.md). */
 
+import { AdminPractice, PracticeStatus } from './practice';
+
 export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export const LEVELS: readonly Level[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
@@ -49,6 +51,10 @@ export interface Lesson extends LessonSummary {
   extrasEditedByAdmin: boolean;
   /** Bumped whenever the question set is replaced; answers belong to one version. */
   quizVersion: number;
+  // F17: practice steps generated after annotation.
+  practice: AdminPractice | null;
+  practiceStatus: PracticeStatus;
+  practiceError: string;
 }
 
 /** A multiple-choice comprehension question as admins see it. */
@@ -94,7 +100,13 @@ export interface LessonFilter {
   topicId?: string;
 }
 
-/** True while audio or annotation work of the lesson is still running. */
-export function isRunning(l: Pick<LessonSummary, 'audioStatus' | 'annotationStatus'>): boolean {
-  return l.audioStatus === 'running' || l.annotationStatus === 'running';
+/** True while audio, annotation or practice work of the lesson is still running. */
+export function isRunning(
+  l: Pick<LessonSummary, 'audioStatus' | 'annotationStatus'> & { practiceStatus?: PracticeStatus },
+): boolean {
+  return (
+    l.audioStatus === 'running' ||
+    l.annotationStatus === 'running' ||
+    l.practiceStatus === 'running'
+  );
 }

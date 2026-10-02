@@ -57,6 +57,9 @@ trình vừa xong. Lỗi: 400 `step` lạ; 409 `step_locked` "Hoàn thành bư�
 
 `upcoming` = bài còn lại của lộ trình đang học sau bài hôm nay, chưa học, theo thứ tự; chỉ `id`, `title`.
 
+`completed` (sửa 2026-10-02) = chỉ bài đã học thuộc lộ trình đang học, mới nhất trước. Bài đã học ở chủ đề khác hiện lại khi
+người học chọn lại chủ đề đó; vẫn mở được bằng đường dẫn `/lessons/:id/read` (không bị chặn).
+
 ## Chặn bài chưa tới lượt (thay đổi F3, F4, F5)
 
 `GET /api/lessons/{id}`, `/lookup`, `/vocabulary`, `/dictation`, `/dictation/summary`: người học chỉ mở được bài hôm nay và bài đã

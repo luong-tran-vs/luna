@@ -6,6 +6,8 @@ const draft = (key: number, patch: Partial<DraftState> = {}): DraftState => ({
   key,
   title: `Bài ${key}`,
   content: 'We went to the park. It was fun.',
+  targetWords: [],
+  missingWords: [],
   saving: false,
   error: null,
   fields: {},
@@ -47,6 +49,21 @@ describe('DraftList', () => {
   it('renders nothing without drafts', async () => {
     await render([]);
     expect(el.querySelector('section')).toBeNull();
+  });
+
+  it('shows how many target words each draft uses and which are missing (F18)', async () => {
+    await render([
+      draft(1, { targetWords: ['park', 'fun', 'picnic', 'cousin'], missingWords: ['picnic', 'cousin'] }),
+      draft(2, { targetWords: ['park'], missingWords: [] }),
+      draft(3),
+    ]);
+    const items = Array.from(el.querySelectorAll('li.draft'));
+    const text = (n: Element | null) => n?.textContent?.replace(/\s+/g, ' ').trim() ?? null;
+    expect(text(items[0].querySelector('.targets-used'))).toBe('Dùng 2/4 từ mục tiêu');
+    expect(text(items[0].querySelector('.targets-missing'))).toBe('Còn thiếu: picnic, cousin');
+    expect(text(items[1].querySelector('.targets-used'))).toBe('Dùng 1/1 từ mục tiêu');
+    expect(items[1].querySelector('.targets-missing')).toBeNull();
+    expect(items[2].querySelector('.targets')).toBeNull();
   });
 
   it('shows editable title and content with labels and word count', async () => {
