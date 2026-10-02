@@ -86,7 +86,7 @@
     <button type="button" class="btn more" [disabled]="loading()" (click)="more()">Xem thêm</button>
   }
   @if (loading()) {
-    <p class="muted" role="status">Đang tải…</p>
+    <lu-loading />
   }
 </section>
 

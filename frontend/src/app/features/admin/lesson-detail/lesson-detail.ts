@@ -13,6 +13,7 @@ import { AdminApiService } from '../admin-api.service';
 import { LessonExtras } from '../lesson-extras/lesson-extras';
 import { StatusChip } from '../status-chip/status-chip';
 import { PracticeSection } from './practice-section/practice-section';
+import { Loading } from '../../../shared/components/loading/loading';
 
 type AnnotationRow = FormGroup<{
   text: FormControl<string>;
@@ -22,7 +23,7 @@ type AnnotationRow = FormGroup<{
 
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection],
+  imports: [Loading, RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection],
   templateUrl: './lesson-detail.html',
   styleUrl: './lesson-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

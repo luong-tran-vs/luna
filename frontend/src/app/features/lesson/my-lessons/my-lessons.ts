@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { GoalView, MyLessons as MyLessonsData } from '../../../core/models/study';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
+import { Loading } from '../../../shared/components/loading/loading';
 
 /**
  * The learner's lessons (L, client sketch screen 4): one numbered path — lessons studied (reopen
@@ -13,7 +14,7 @@ import { Icon } from '../../../shared/components/icon/icon';
  */
 @Component({
   selector: 'lu-my-lessons',
-  imports: [DatePipe, Icon, RouterLink],
+  imports: [Loading, DatePipe, Icon, RouterLink],
   templateUrl: './my-lessons.html',
   styleUrl: './my-lessons.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

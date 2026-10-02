@@ -9,6 +9,7 @@ import { Goals, GoalView, MyLessons, PublicTopic } from '../../../core/models/st
 import { DashboardApiService } from '../../../core/services/dashboard-api.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
+import { Loading } from '../../../shared/components/loading/loading';
 
 const LEVEL_NAMES: Record<Level, string> = {
   A1: 'Mới bắt đầu',
@@ -25,7 +26,7 @@ const TONES = ['tone-read', 'tone-listen', 'tone-accent', 'tone-write'];
 /** Choosing a goal (L, client sketch screen 3): a level, then a topic of that level; congratulations at the end. */
 @Component({
   selector: 'lu-goal',
-  imports: [Icon, RouterLink],
+  imports: [Loading, Icon, RouterLink],
   templateUrl: './goal.html',
   styleUrl: './goal.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

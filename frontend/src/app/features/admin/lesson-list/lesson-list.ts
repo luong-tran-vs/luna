@@ -9,6 +9,7 @@ import { Topic, topicLabel } from '../../../core/models/topic';
 import { pollWhile } from '../../../shared/utils/poll-while';
 import { AdminApiService } from '../admin-api.service';
 import { StatusChip } from '../status-chip/status-chip';
+import { Loading } from '../../../shared/components/loading/loading';
 
 interface ListData {
   lessons: LessonSummary[];
@@ -17,7 +18,7 @@ interface ListData {
 
 @Component({
   selector: 'lu-lesson-list',
-  imports: [RouterLink, StatusChip],
+  imports: [Loading, RouterLink, StatusChip],
   templateUrl: './lesson-list.html',
   styleUrl: './lesson-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -201,7 +201,7 @@ describe('GenerateDialog', () => {
 
     it('shows the words per lesson and the suggested groups', async () => {
       expect(input('generate-perLesson').value).toBe('8');
-      expect(text(el.querySelector('.targets .muted[role="status"]'))).toBe('Đang chia từ…');
+      expect(text(el.querySelector('.targets lu-loading'))).toBe('Đang chia từ…');
       await expectPlan(2, 8, [['Family', 'Parents'], ['cousin']]);
       expect(Array.from(el.querySelectorAll('.group legend')).map((l) => text(l))).toEqual([
         'Bài 1 (2 từ)',

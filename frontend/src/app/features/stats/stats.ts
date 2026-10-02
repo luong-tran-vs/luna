@@ -7,6 +7,7 @@ import { formatScore } from '../../core/models/writing';
 import { DashboardApiService } from '../../core/services/dashboard-api.service';
 import { Icon } from '../../shared/components/icon/icon';
 import { ProgressRing } from '../../shared/components/progress-ring/progress-ring';
+import { Loading } from '../../shared/components/loading/loading';
 
 /** Writing scores go from 1 to 5 (F8). */
 const MAX_SCORE = 5;
@@ -30,7 +31,7 @@ function percentText(rate: number | null | undefined): string {
 /** The stats page (F6, client sketch screen 10): accuracy, skills, words, dictation and lessons over every topic. */
 @Component({
   selector: 'lu-stats',
-  imports: [Icon, ProgressRing, RouterLink],
+  imports: [Loading, Icon, ProgressRing, RouterLink],
   templateUrl: './stats.html',
   styleUrl: './stats.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

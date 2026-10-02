@@ -102,7 +102,7 @@
 
         <p class="suggest-note" [class.error]="suggestNote()?.ok === false" role="status">{{ suggestNote()?.text }}</p>
         @if (planState() === 'loading') {
-          <p class="muted" role="status">Đang chia từ…</p>
+          <lu-loading class="inline" label="Đang chia từ…" />
         } @else if (planState() === 'error') {
           <div class="plan-error" role="alert">
             <span>Không chia được từ, thử lại.</span>

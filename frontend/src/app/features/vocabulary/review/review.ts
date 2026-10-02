@@ -5,6 +5,7 @@ import { DueList, ReviewMode } from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { ReviewSession } from '../../../shared/components/review-session/review-session';
+import { Loading } from '../../../shared/components/loading/loading';
 
 const SESSION_SIZE = 100;
 
@@ -18,7 +19,7 @@ const dateTime = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'short', timeStyl
 /** Free review (F5, client sketch screen 9): the cards due now, in the mode the learner picks. */
 @Component({
   selector: 'lu-review',
-  imports: [Icon, ReviewSession, RouterLink],
+  imports: [Loading, Icon, ReviewSession, RouterLink],
   templateUrl: './review.html',
   styleUrl: './review.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

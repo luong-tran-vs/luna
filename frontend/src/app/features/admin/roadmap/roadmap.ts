@@ -31,6 +31,7 @@ import { AdminApiService } from '../admin-api.service';
 import { DraftChange, DraftList, DraftState } from '../draft-list/draft-list';
 import { GenerateDialog, GenerateOptions, GenerateRequest } from '../generate-dialog/generate-dialog';
 import { StatusChip } from '../status-chip/status-chip';
+import { Loading } from '../../../shared/components/loading/loading';
 
 const GENERATE_FAILED = 'Sinh bài thất bại, vui lòng thử lại.';
 const SAVE_FAILED = 'Không lưu được, vui lòng thử lại.';
@@ -43,7 +44,7 @@ const DRAFT_FIELDS = ['title', 'content'];
  */
 @Component({
   selector: 'lu-roadmap',
-  imports: [RouterLink, CdkDropList, CdkDrag, CdkDragHandle, StatusChip, GenerateDialog, DraftList, ConfirmDialog],
+  imports: [Loading, RouterLink, CdkDropList, CdkDrag, CdkDragHandle, StatusChip, GenerateDialog, DraftList, ConfirmDialog],
   templateUrl: './roadmap.html',
   styleUrl: './roadmap.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { Topic, topicLabel, TopicWord } from '../../../core/models/topic';
 import { AdminApiService } from '../admin-api.service';
+import { Loading } from '../../../shared/components/loading/loading';
 
 /** One row of the list being edited: a saved word or a new one, until Lưu. */
 interface WordRow {
@@ -31,7 +32,7 @@ export function parseWords(text: string): string[] {
  */
 @Component({
   selector: 'lu-topic-words',
-  imports: [RouterLink],
+  imports: [Loading, RouterLink],
   templateUrl: './topic-words.html',
   styleUrl: './topic-words.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
