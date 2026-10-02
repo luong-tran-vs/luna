@@ -2,12 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   inject,
   input,
   OnInit,
   output,
   signal,
-  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, firstValueFrom, forkJoin, of } from 'rxjs';
@@ -15,8 +15,9 @@ import { catchError, firstValueFrom, forkJoin, of } from 'rxjs';
 import { DictationInput, DictationSummary } from '../../../core/models/dictation';
 import { Sentence } from '../../../core/models/lesson';
 import { ReadingLesson } from '../../../core/models/reading';
-import { AudioPlayer } from '../../../shared/components/audio-player/audio-player';
+import { SpeechService } from '../../../core/services/speech.service';
 import { Icon } from '../../../shared/components/icon/icon';
+import { Waveform } from '../../../shared/components/waveform/waveform';
 import { Comparison, compareDictation } from '../../../shared/utils/dictation-compare';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
@@ -29,14 +30,14 @@ interface Checked {
 
 const SPEEDS = [0.5, 0.75, 1, 1.25];
 
-
 /**
- * The Listening step (F4): play the lesson sentence by sentence at a chosen speed, type what
- * was heard, and see which words were right, wrong or missing. Results are saved per sentence.
+ * The Listening step (F4): the browser reads the lesson sentence by sentence at a chosen speed
+ * (no prepared audio), with an illustrative waveform that follows the sentence; the learner types
+ * what was heard and sees which words were right, wrong or missing. Results are saved per sentence.
  */
 @Component({
   selector: 'lu-listening',
-  imports: [AudioPlayer, Icon, RouterLink],
+  imports: [Icon, RouterLink, Waveform],
   templateUrl: './listening.html',
   styleUrl: './listening.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +46,7 @@ export class Listening implements OnInit {
   private readonly readingApi = inject(ReadingApiService);
   private readonly api = inject(ListeningApiService);
   private readonly route = inject(ActivatedRoute).snapshot;
+  protected readonly speech = inject(SpeechService);
 
   /** The lesson to open; defaults to the route's :id (used by the daily flow, L). */
   readonly lessonId = input('');
@@ -75,12 +77,14 @@ export class Listening implements OnInit {
   protected readonly typed = signal('');
   protected readonly answerError = signal<string | null>(null);
   protected readonly playError = signal<string | null>(null);
+  /** Whether the browser is reading the current sentence, and how much of it (0–1). */
+  protected readonly speaking = signal(false);
+  protected readonly progress = signal(0);
   protected readonly checked = signal<ReadonlyMap<number, Checked>>(new Map());
   protected readonly saveError = signal(false);
 
   protected readonly sentences = computed(() => this.lesson()?.sentences ?? []);
   protected readonly sentence = computed<Sentence | null>(() => this.sentences()[this.current()] ?? null);
-  protected readonly hasAudio = computed(() => this.sentences().some((s) => s.audioUrl));
   protected readonly result = computed(() => this.checked().get(this.current()) ?? null);
   protected readonly checkedCount = computed(() => this.checked().size);
   protected readonly done = computed(() => this.sentences().length > 0 && this.checkedCount() === this.sentences().length);
@@ -94,11 +98,14 @@ export class Listening implements OnInit {
     return total ? Math.round((correct / total) * 100) : 0;
   });
 
-  private readonly player = viewChild(AudioPlayer);
   /** Unsaved checks by sentence index, oldest first; only the latest check of a sentence is kept. */
   private readonly pending = new Map<number, DictationInput>();
   private saving = false;
   private emitted = false;
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => this.silence());
+  }
 
   ngOnInit(): void {
     // Inputs are set by now; review mode neither restores nor saves results.
@@ -128,6 +135,7 @@ export class Listening implements OnInit {
   // --- listening ---
 
   private show(index: number): void {
+    this.silence();
     this.current.set(index);
     this.typed.set(this.checked().get(index)?.typed ?? '');
     this.answerError.set(null);
@@ -140,17 +148,34 @@ export class Listening implements OnInit {
     }
     this.show(index);
     this.position.emit(index);
-    const src = this.sentence()?.audioUrl ?? null;
-    if (src) {
-      this.player()?.replay(src);
-    } else {
-      this.player()?.stop();
-    }
+    this.listen();
   }
 
+  /** Reads the current sentence from the start; the waveform follows the reading. */
   protected listen(): void {
+    const sentence = this.sentence();
+    if (!sentence || !this.speech.supported) {
+      return;
+    }
+    this.silence();
     this.playError.set(null);
-    this.player()?.replay(this.sentence()?.audioUrl ?? null);
+    this.speaking.set(true);
+    this.speech.speak(sentence.text, this.rate(), {
+      progress: (share) => this.progress.set(share),
+      ended: () => this.speaking.set(false),
+      failed: () => {
+        this.speaking.set(false);
+        this.progress.set(0);
+        this.playError.set('Chưa đọc được câu. Hãy thử lại.');
+      },
+    });
+  }
+
+  /** Stops reading and empties the waveform. */
+  private silence(): void {
+    this.speech.stop();
+    this.speaking.set(false);
+    this.progress.set(0);
   }
 
   protected setRate(rate: number): void {

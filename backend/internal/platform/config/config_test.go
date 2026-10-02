@@ -29,7 +29,6 @@ func TestLoad(t *testing.T) {
 			want: config.Config{
 				MongoURI: "mongodb://localhost:27017", MongoDatabase: "luna",
 				HTTPAddr: ":8080", LogLevel: "info", CookieSecure: false,
-				TTSURL: "http://localhost:8880", TTSVoice: "af_heart", AudioDir: "./data/audio",
 				AIProvider: "gemini", GeminiModel: "gemini-3.5-flash-lite",
 				DictionaryPath: "./data/dictionary/dictionary.db",
 			},
@@ -39,14 +38,12 @@ func TestLoad(t *testing.T) {
 			env: map[string]string{
 				"MONGO_URI": "mongodb://x", "MONGO_DATABASE": "luna_test", "HTTP_ADDR": ":9000",
 				"LOG_LEVEL": "debug", "COOKIE_SECURE": "TRUE",
-				"TTS_URL": "http://kokoro:8880", "TTS_VOICE": "bf_emma", "AUDIO_DIR": "/data/audio",
 				"AI_PROVIDER": "NONE", "GEMINI_API_KEY": "k", "GEMINI_MODEL": "gemini-x",
 				"DICTIONARY_PATH": "/data/dictionary/dictionary.db",
 			},
 			want: config.Config{
 				MongoURI: "mongodb://x", MongoDatabase: "luna_test",
 				HTTPAddr: ":9000", LogLevel: "debug", CookieSecure: true,
-				TTSURL: "http://kokoro:8880", TTSVoice: "bf_emma", AudioDir: "/data/audio",
 				AIProvider: "none", GeminiAPIKey: "k", GeminiModel: "gemini-x",
 				DictionaryPath: "/data/dictionary/dictionary.db",
 			},
@@ -60,11 +57,6 @@ func TestLoad(t *testing.T) {
 			name:     "invalid AI_PROVIDER",
 			env:      map[string]string{"MONGO_URI": "mongodb://x", "AI_PROVIDER": "openai"},
 			wantErrs: []string{"AI_PROVIDER must be gemini or none"},
-		},
-		{
-			name:     "invalid TTS_URL",
-			env:      map[string]string{"MONGO_URI": "mongodb://x", "TTS_URL": "kokoro:8880"},
-			wantErrs: []string{"TTS_URL must be an http or https URL"},
 		},
 		{
 			name:      "API key never appears in errors",

@@ -45,7 +45,7 @@ func (f *fakeLessons) Get(_ context.Context, id string) (Lesson, error) {
 func summaryOf(l Lesson) Summary {
 	return Summary{
 		ID: l.ID, Title: l.Title, Level: l.Level, TopicID: l.TopicID,
-		AudioStatus: l.AudioStatus, AnnotationStatus: l.AnnotationStatus, CreatedAt: l.CreatedAt,
+		AnnotationStatus: l.AnnotationStatus, CreatedAt: l.CreatedAt,
 	}
 }
 
@@ -107,26 +107,11 @@ func (f *fakeLessons) SetStatus(_ context.Context, id string, rev int, t job.Typ
 			return false
 		}
 		switch t {
-		case job.TypeTTS:
-			l.AudioStatus, l.AudioError = st, msg
 		case job.TypePractice:
 			l.PracticeStatus, l.PracticeError = st, msg
 		default:
 			l.AnnotationStatus, l.AnnotationError = st, msg
 		}
-		return true
-	})
-}
-
-func (f *fakeLessons) SaveAudio(_ context.Context, id string, rev int, paths []string) (bool, error) {
-	return f.update(id, func(l *Lesson) bool {
-		if l.Revision != rev {
-			return false
-		}
-		for i := range l.Sentences {
-			l.Sentences[i].AudioPath = paths[i]
-		}
-		l.AudioStatus, l.AudioError = StatusDone, ""
 		return true
 	})
 }
@@ -281,23 +266,6 @@ func (f *fakeJobs) all() []job.Job {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	return slices.Clone(f.jobs)
-}
-
-// fakeTTS returns fixed audio and counts calls.
-type fakeTTS struct {
-	mu    sync.Mutex
-	calls int
-	err   error
-}
-
-func (f *fakeTTS) Synthesize(_ context.Context, text string) ([]byte, error) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	f.calls++
-	if f.err != nil {
-		return nil, f.err
-	}
-	return []byte("mp3:" + text), nil
 }
 
 // fakeAI returns fixed annotations and counts calls.

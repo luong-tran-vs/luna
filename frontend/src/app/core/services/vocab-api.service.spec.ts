@@ -18,10 +18,6 @@ describe('VocabApiService', () => {
 
   afterEach(() => http.verify());
 
-  it('builds the pronunciation URL', () => {
-    expect(api.wordAudioUrl('give up')).toBe('/api/tts/word?text=give%20up');
-  });
-
   it('saves a card and lists saved words', async () => {
     const input: CardInput = {
       text: 'went', lemma: 'go', ipa: '', meaningVi: 'đã đi', contextSentence: 'We went.', lessonId: 'l1', source: 'ai',

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Card, DayCard, LessonCounts } from '../../../core/models/vocab';
+import { SpeechService } from '../../../core/services/speech.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
-import { AudioPlayer } from '../../../shared/components/audio-player/audio-player';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { Icon } from '../../../shared/components/icon/icon';
 import { CardForm } from '../card-form/card-form';
@@ -20,13 +20,14 @@ const SEARCH_DELAY = 300;
 /** The notebook (F5): cards grouped by the day they were saved, search, lesson filter, edit. */
 @Component({
   selector: 'lu-notebook',
-  imports: [AudioPlayer, CardForm, ConfirmDialog, Icon, RouterLink],
+  imports: [CardForm, ConfirmDialog, Icon, RouterLink],
   templateUrl: './notebook.html',
   styleUrl: './notebook.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Notebook {
   private readonly api = inject(VocabApiService);
+  private readonly speech = inject(SpeechService);
 
   protected readonly cards = signal<DayCard[]>([]);
   protected readonly today = signal('');
@@ -57,7 +58,6 @@ export class Notebook {
     return groups;
   });
 
-  private readonly player = viewChild(AudioPlayer);
   private page = 1;
   private listSub?: Subscription;
   private searchTimer?: ReturnType<typeof setTimeout>;
@@ -123,7 +123,7 @@ export class Notebook {
   }
 
   protected play(card: Card): void {
-    this.player()?.replay(this.api.wordAudioUrl(card.text));
+    this.speech.speak(card.text, 1);
   }
 
   protected onAdded(): void {

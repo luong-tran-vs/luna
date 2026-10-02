@@ -60,7 +60,10 @@ export class Roadmap implements CanLeave {
   protected readonly topics = signal<Topic[] | null>(null);
   protected readonly topicGroups = computed(() => groupByLevel(this.topics() ?? []));
   protected readonly lowTopics = computed(() => (this.topics() ?? []).filter((t) => t.warning));
-  protected readonly selectedId = signal(inject(ActivatedRoute).snapshot.queryParamMap.get('topicId') ?? '');
+  private readonly query = inject(ActivatedRoute).snapshot.queryParamMap;
+  protected readonly selectedId = signal(this.query.get('topicId') ?? '');
+  /** ?generate=1 (from the Chủ đề page) opens Sinh bài bằng AI once the topic is loaded. */
+  private generateOnLoad = this.query.get('generate') === '1';
   protected readonly selectedTopic = computed(() => this.topics()?.find((t) => t.id === this.selectedId()) ?? null);
 
   protected readonly data = signal<TopicRoadmap | null>(null);
@@ -114,7 +117,12 @@ export class Roadmap implements CanLeave {
       .then((list) => {
         this.topics.set(list);
         if (this.selectedId()) {
-          void this.load(this.selectedId());
+          void this.load(this.selectedId()).then(() => {
+            if (this.generateOnLoad && this.data()) {
+              this.generateOnLoad = false;
+              void this.openGenerate();
+            }
+          });
         }
       })
       .catch(() => this.error.set('Không tải được danh sách chủ đề.'));

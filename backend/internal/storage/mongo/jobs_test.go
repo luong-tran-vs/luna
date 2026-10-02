@@ -26,7 +26,7 @@ func TestJobDocTargets(t *testing.T) {
 	}
 
 	lid := bson.NewObjectID().Hex()
-	d, err = newJobDoc(job.Job{Type: job.TypeTTS, LessonID: lid, Revision: 2}, now)
+	d, err = newJobDoc(job.Job{Type: job.TypeAnnotate, LessonID: lid, Revision: 2}, now)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,17 +36,5 @@ func TestJobDocTargets(t *testing.T) {
 
 	if _, err := newJobDoc(job.Job{Type: job.TypeGrade, TargetID: "nope"}, now); err == nil {
 		t.Fatal("bad target id accepted")
-	}
-}
-
-func TestJobDocPracticeAudio(t *testing.T) {
-	t.Parallel()
-	lid := bson.NewObjectID().Hex()
-	d, err := newJobDoc(job.Job{Type: job.TypePracticeAudio, LessonID: lid, Revision: 3}, time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-	if j := d.toJob(); j.Type != job.TypePracticeAudio || j.LessonID != lid || j.Revision != 3 || j.TargetID != "" {
-		t.Fatalf("practice audio job = %+v", j)
 	}
 }

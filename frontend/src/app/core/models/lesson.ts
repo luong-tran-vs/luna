@@ -6,12 +6,12 @@ export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export const LEVELS: readonly Level[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 export type JobStatus = 'running' | 'done' | 'failed';
-export type JobKind = 'tts' | 'annotate';
+/** A background job an admin can run again (POST /api/admin/lessons/{id}/retry). */
+export type JobKind = 'annotate';
 
 export interface Sentence {
   index: number;
   text: string;
-  audioUrl: string | null;
 }
 
 export interface Annotation {
@@ -29,7 +29,6 @@ export interface LessonSummary {
   level: Level;
   topicId: string;
   topicName: string;
-  audioStatus: JobStatus;
   annotationStatus: JobStatus;
   inRoadmap: boolean;
   createdAt: string;
@@ -40,7 +39,6 @@ export interface Lesson extends LessonSummary {
   source: string;
   license: string;
   revision: number;
-  audioError: string;
   annotationError: string;
   sentences: Sentence[];
   annotations: Annotation[];
@@ -100,13 +98,9 @@ export interface LessonFilter {
   topicId?: string;
 }
 
-/** True while audio, annotation or practice work of the lesson is still running. */
+/** True while annotation or practice work of the lesson is still running. */
 export function isRunning(
-  l: Pick<LessonSummary, 'audioStatus' | 'annotationStatus'> & { practiceStatus?: PracticeStatus },
+  l: Pick<LessonSummary, 'annotationStatus'> & { practiceStatus?: PracticeStatus },
 ): boolean {
-  return (
-    l.audioStatus === 'running' ||
-    l.annotationStatus === 'running' ||
-    l.practiceStatus === 'running'
-  );
+  return l.annotationStatus === 'running' || l.practiceStatus === 'running';
 }

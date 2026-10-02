@@ -13,7 +13,6 @@ const summary = (over: Partial<LessonSummary>): LessonSummary => ({
   level: 'B1',
   topicId: 't3',
   topicName: 'Công việc',
-  audioStatus: 'done',
   annotationStatus: 'done',
   inRoadmap: false,
   createdAt: '2026-09-29T08:00:00Z',
@@ -63,14 +62,14 @@ describe('LessonList', () => {
   afterEach(() => http.verify());
 
   it('renders lessons with level, topic, status chips and links', async () => {
-    await flushLoad([summary({ audioStatus: 'failed' })]);
+    await flushLoad([summary({ annotationStatus: 'failed' })]);
 
     const link = el.querySelector<HTMLAnchorElement>('a[href="/admin/lessons/l1"]');
     expect(link?.textContent?.trim()).toBe('A day at the park');
     expect(el.textContent).toContain('B1');
     expect(el.textContent).toContain('Công việc');
-    expect(el.textContent).toContain('Audio: Lỗi');
-    expect(el.textContent).toContain('Chú thích: Xong');
+    expect(el.textContent).not.toContain('Audio');
+    expect(el.textContent).toContain('Chú thích: Lỗi');
     expect(el.querySelector('a[href="/admin/lessons/new"]')).not.toBeNull();
   });
 
@@ -115,17 +114,16 @@ describe('LessonList', () => {
   }
 
   it('offers retry only for failed work and reloads after it', async () => {
-    await flushLoad([summary({ audioStatus: 'failed', annotationStatus: 'done' })]);
-    expect(button('Chạy lại chú thích')).toBeUndefined();
+    await flushLoad([summary({ annotationStatus: 'failed' })]);
 
-    button('Chạy lại audio')!.click();
+    button('Chạy lại chú thích')!.click();
     await settle();
-    const req = http.expectOne('/api/admin/lessons/l1/retry?job=tts');
+    const req = http.expectOne('/api/admin/lessons/l1/retry?job=annotate');
     expect(req.request.method).toBe('POST');
-    req.flush({ lesson: summary({ audioStatus: 'running' }) });
+    req.flush({ lesson: summary({ annotationStatus: 'running' }) });
     await settle();
-    await flushLoad([summary({ audioStatus: 'done' })]);
-    expect(button('Chạy lại audio')).toBeUndefined();
+    await flushLoad([summary({ annotationStatus: 'done' })]);
+    expect(button('Chạy lại chú thích')).toBeUndefined();
   });
 
   it("adds a lesson to the end of its topic's roadmap", async () => {
@@ -161,9 +159,9 @@ describe('LessonList', () => {
   it('polls every 5 seconds while work is running', async () => {
     vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval', 'Date'] });
     try {
-      await flushLoad([summary({ audioStatus: 'running' })]);
+      await flushLoad([summary({ annotationStatus: 'running' })]);
       vi.advanceTimersByTime(5000);
-      await flushLoad([summary({ audioStatus: 'done' })]);
+      await flushLoad([summary({ annotationStatus: 'done' })]);
       vi.advanceTimersByTime(10000);
       http.expectNone((r) => r.url === '/api/admin/lessons');
     } finally {

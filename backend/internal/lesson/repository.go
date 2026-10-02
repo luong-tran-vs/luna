@@ -35,8 +35,6 @@ type Repository interface {
 	ReplaceContent(ctx context.Context, l Lesson) error
 	// SetStatus changes one work status if the lesson is still at revision; ok reports that.
 	SetStatus(ctx context.Context, id string, revision int, t job.Type, st Status, errMsg string) (bool, error)
-	// SaveAudio stores sentence audio paths and marks audio done if still at revision.
-	SaveAudio(ctx context.Context, id string, revision int, paths []string) (bool, error)
 	// SaveAnnotations stores AI annotations and extras, marks them done, clears the extras
 	// edited flag and bumps QuizVersion, if still at revision. It also drops the practice and
 	// marks it running, since a new practice is queued for the new annotations (F17).

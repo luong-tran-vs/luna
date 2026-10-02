@@ -7,13 +7,13 @@
   <div class="soft-card source">
     <div class="source-head">
       <span class="muted">Câu {{ index() + 1 }}/{{ count() }} · Tiếng Việt</span>
-      @if (translation().audioUrl; as url) {
+      @if (canSpeak) {
         <button
           type="button"
           class="icon-btn"
           aria-label="Nghe câu tiếng Anh đúng"
           [disabled]="result() === null"
-          (click)="playAudio.emit(url)"
+          (click)="readAloud.emit(translation().answer.join(' '))"
         >
           <lu-icon name="volume" />
         </button>

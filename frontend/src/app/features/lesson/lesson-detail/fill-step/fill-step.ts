@@ -1,4 +1,5 @@
 import {
+  inject,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -8,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { PracticeFill } from '../../../../core/models/practice';
+import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { checkFill, FillCheck, nextEmptyBlank, Score } from '../practice-logic';
 
@@ -25,15 +27,18 @@ type Part = { kind: 'text'; text: string } | { kind: 'blank'; index: number };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FillStep {
+  /** False when the browser has no voice: the listen buttons are hidden. */
+  protected readonly canSpeak = inject(SpeechService).supported;
   readonly fill = input.required<PracticeFill>();
   /** The word bank, already shuffled by the page. */
   readonly bank = input.required<string[]>();
   readonly speakers = input<string[]>([]);
-  /** Audio of each dialogue turn, by turn index. */
-  readonly turnAudio = input<(string | null)[]>([]);
+  /** Full text of each dialogue turn, to read aloud. */
+  readonly turnTexts = input<string[]>([]);
   readonly grammarTip = input('');
 
-  readonly playAudio = output<string>();
+  /** Text to read aloud with the browser's voice. */
+  readonly readAloud = output<string>();
   readonly checked = output<Score>();
 
   /** Bank index put in each blank, or null. Indexes keep tiles with the same word apart. */
@@ -68,8 +73,8 @@ export class FillStep {
     return this.speakers()[index] ?? '';
   }
 
-  protected audio(turnIndex: number): string | null {
-    return this.turnAudio()[turnIndex] ?? null;
+  protected turnText(turnIndex: number): string | null {
+    return this.canSpeak ? (this.turnTexts()[turnIndex] ?? null) : null;
   }
 
   protected blankLabel(index: number): string {

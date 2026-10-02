@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PracticeTranslation } from '../../../../core/models/practice';
+import { FakeSpeech, provideFakeSpeech } from '../../../../core/services/speech.service.testing';
 import { TranslateStep } from './translate-step';
 
 const translation: PracticeTranslation = {
   vi: 'Rất vui được gặp bạn.',
   answer: ['Nice', 'to', 'meet', 'you.'],
   tiles: ['Nice', 'to', 'meet', 'you.', 'see', 'glad'],
-  audioUrl: '/a/answer/0',
 };
 
 describe('TranslateStep', () => {
@@ -42,6 +42,7 @@ describe('TranslateStep', () => {
     t: PracticeTranslation = translation,
     tiles = ['see', 'meet', 'Nice', 'you.', 'glad', 'to'],
   ) => {
+    TestBed.configureTestingModule({ providers: [provideFakeSpeech(new FakeSpeech())] });
     fixture = TestBed.createComponent(TranslateStep);
     fixture.componentRef.setInput('translation', t);
     fixture.componentRef.setInput('tiles', tiles);
@@ -49,7 +50,7 @@ describe('TranslateStep', () => {
     fixture.componentRef.setInput('count', 4);
     played = [];
     results = [];
-    fixture.componentInstance.playAudio.subscribe((url) => played.push(url));
+    fixture.componentInstance.readAloud.subscribe((t) => played.push(t));
     fixture.componentInstance.checked.subscribe((r) => results.push(r));
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
@@ -104,7 +105,7 @@ describe('TranslateStep', () => {
     expect(results).toEqual([true]);
     expect(speaker.disabled).toBe(false);
     await click(speaker);
-    expect(played).toEqual(['/a/answer/0']);
+    expect(played).toEqual(['Nice to meet you.']);
     // Locked after checking.
     expect(bankButtons().every((b) => b.disabled)).toBe(true);
     expect(named('Kiểm tra').disabled).toBe(true);
@@ -126,15 +127,14 @@ describe('TranslateStep', () => {
       vi: 'Con mèo và con chó.',
       answer: ['the', 'cat', 'and', 'the', 'dog'],
       tiles: ['the', 'cat', 'and', 'the', 'dog'],
-      audioUrl: null,
     };
     await render(t, ['the', 'dog', 'the', 'and', 'cat']);
     await click(bankButton('the', 1));
     await tap('cat', 'and', 'the', 'dog');
     await click(named('Kiểm tra'));
     expect(status()).toBe('Chính xác!');
-    // No audio: no speaker button.
-    expect(el.querySelector('button[aria-label="Nghe câu tiếng Anh đúng"]')).toBeNull();
+    // Read by the browser, so every sentence has a speaker button.
+    expect(el.querySelector('button[aria-label="Nghe câu tiếng Anh đúng"]')).not.toBeNull();
   });
 
   it('starts empty again for the next sentence', async () => {

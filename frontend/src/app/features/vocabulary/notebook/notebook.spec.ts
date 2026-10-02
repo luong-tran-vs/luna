@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { CardPage, DayCard } from '../../../core/models/vocab';
 import { Notebook } from './notebook';
 
@@ -22,6 +23,7 @@ const page1: CardPage = {
 };
 
 describe('Notebook', () => {
+  let speech: FakeSpeech;
   let fixture: ComponentFixture<Notebook>;
   let el: HTMLElement;
   let http: HttpTestingController;
@@ -40,7 +42,12 @@ describe('Notebook', () => {
   const setup = async (page: CardPage = page1, manualCount = 1) => {
     TestBed.configureTestingModule({
       imports: [Notebook],
-      providers: [provideRouter([]), provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+        provideFakeSpeech(speech),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(Notebook);
@@ -53,8 +60,7 @@ describe('Notebook', () => {
   };
 
   beforeEach(() => {
-    vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined);
-    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
+    speech = new FakeSpeech();
   });
 
   afterEach(() => {
@@ -127,7 +133,7 @@ describe('Notebook', () => {
     await setup();
     button('Nghe went')!.click();
     await settle();
-    expect(el.querySelector('audio')!.getAttribute('src')).toBe('/api/tts/word?text=went');
+    expect(speech.texts()).toEqual(['went']);
   });
 
   it('links to review with the number of due cards', async () => {

@@ -2,8 +2,6 @@
   class="screen practice-page"
   [class.has-next]="lesson() && tab() === 'lesson' && !finished()"
 >
-  <lu-audio-player #audioPlayer [rate]="rate()" />
-
   @if (loadError(); as message) {
     <header class="screen-bar">
       <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"
@@ -105,14 +103,13 @@
             <lu-vocab-step
               [words]="words()"
               [examples]="practice()?.examples ?? []"
-              (playAudio)="play($event)"
+              (readAloud)="play($event)"
             />
           }
           @case (2) {
             @if (hasDialogue()) {
               <lu-dialogue-step
                 [dialogue]="practice()!.dialogue!"
-                [player]="audioPlayer"
                 [(rate)]="rate"
               />
             } @else {
@@ -128,9 +125,9 @@
                 [fill]="practice()!.fill!"
                 [bank]="fillBank()"
                 [speakers]="practice()?.dialogue?.speakers ?? []"
-                [turnAudio]="turnAudio()"
+                [turnTexts]="turnTexts()"
                 [grammarTip]="practice()!.grammarTipVi"
-                (playAudio)="play($event)"
+                (readAloud)="play($event)"
                 (checked)="onFillChecked($event)"
               />
             } @else {
@@ -147,7 +144,7 @@
                 [tiles]="translationTiles()[translateIndex()]"
                 [index]="translateIndex()"
                 [count]="practice()!.translations.length"
-                (playAudio)="play($event)"
+                (readAloud)="play($event)"
                 (checked)="onTranslationChecked(translateIndex(), $event)"
               />
             } @else {

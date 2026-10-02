@@ -16,7 +16,7 @@
 - Nhập: số bài (1–5), độ dài (số từ), dạng bài (bài đọc hoặc hội thoại), ý chính (không bắt buộc).
 - AI tránh lặp nội dung các bài đã có trong chủ đề.
 - Mỗi bài sinh ra là một **bản nháp**: quản trị viên xem, sửa, rồi **Lưu** hoặc **Bỏ** từng bài.
-- Bài đã lưu có nguồn "AI sinh", đi qua quy trình của F2 (tách câu, audio, chú thích) và được thêm vào **cuối lộ trình** của chủ đề.
+- Bài đã lưu có nguồn "AI sinh", đi qua quy trình của F2 (tách câu, chú thích) và được thêm vào **cuối lộ trình** của chủ đề.
 
 **Tiêu chí nghiệm thu**
 - [ ] Bản nháp đúng trình độ của chủ đề và đúng độ dài đã chọn (sai lệch không quá 20%).

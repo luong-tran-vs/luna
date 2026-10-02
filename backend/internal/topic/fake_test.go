@@ -136,7 +136,7 @@ func newFakeLessons() *fakeLessons { return &fakeLessons{lessons: map[string]Les
 func (f *fakeLessons) add(id, title, topicID string) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	f.lessons[id] = LessonRef{ID: id, Title: title, TopicID: topicID, AudioStatus: "done", AnnotationStatus: "done"}
+	f.lessons[id] = LessonRef{ID: id, Title: title, TopicID: topicID, AnnotationStatus: "done"}
 }
 
 func (f *fakeLessons) CountByTopic(context.Context) (map[string]int, error) {

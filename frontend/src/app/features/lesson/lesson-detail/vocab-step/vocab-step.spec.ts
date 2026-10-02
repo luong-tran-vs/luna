@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PracticeExample } from '../../../../core/models/practice';
 import { VocabItem } from '../../../../core/models/vocab';
+import { FakeSpeech, provideFakeSpeech } from '../../../../core/services/speech.service.testing';
 import { VocabStep } from './vocab-step';
 
 const words: VocabItem[] = [
@@ -19,8 +20,8 @@ const words: VocabItem[] = [
 ];
 
 const examples: PracticeExample[] = [
-  { lemma: 'hello', sentence: 'Hello, how are you?', audioUrl: '/a/example/0' },
-  { lemma: 'name', sentence: "What's your name?", audioUrl: null },
+  { lemma: 'hello', sentence: 'Hello, how are you?' },
+  { lemma: 'name', sentence: "What's your name?" },
 ];
 
 describe('VocabStep', () => {
@@ -32,12 +33,12 @@ describe('VocabStep', () => {
     node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
 
   const render = async (w: VocabItem[] = words, e: PracticeExample[] = examples) => {
-    TestBed.configureTestingModule({ providers: [provideHttpClient()] });
+    TestBed.configureTestingModule({ providers: [provideHttpClient(), provideFakeSpeech(new FakeSpeech())] });
     fixture = TestBed.createComponent(VocabStep);
     fixture.componentRef.setInput('words', w);
     fixture.componentRef.setInput('examples', e);
     played = [];
-    fixture.componentInstance.playAudio.subscribe((url) => played.push(url));
+    fixture.componentInstance.readAloud.subscribe((t) => played.push(t));
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
   };
@@ -51,22 +52,22 @@ describe('VocabStep', () => {
       'Ví dụ: "Hello, how are you?" (nghe câu)',
     );
     expect(text(items[1].querySelector('.word-text'))).toBe('name — tên');
-    expect(text(items[1].querySelector('.example'))).toBe(`Ví dụ: "What's your name?"`);
+    expect(text(items[1].querySelector('.example'))).toBe(`Ví dụ: "What's your name?" (nghe câu)`);
     expect(items[2].querySelector('.example')).toBeNull();
   });
 
-  it('plays the word from the dictionary voice', async () => {
+  it('reads the word aloud', async () => {
     await render();
     el.querySelector<HTMLButtonElement>('button[aria-label="Nghe từ hello"]')!.click();
-    expect(played).toEqual(['/api/tts/word?text=hello']);
+    expect(played).toEqual(['hello']);
   });
 
-  it('plays an example that has audio; one without audio is plain text', async () => {
+  it('reads every example aloud', async () => {
     await render();
     const buttons = el.querySelectorAll<HTMLButtonElement>('button.example');
-    expect(buttons.length).toBe(1);
-    buttons[0].click();
-    expect(played).toEqual(['/a/example/0']);
+    expect(buttons.length).toBe(2);
+    buttons[1].click();
+    expect(played).toEqual(["What's your name?"]);
   });
 
   it('collapses and expands the list', async () => {

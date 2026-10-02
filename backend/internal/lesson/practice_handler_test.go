@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"log/slog"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 
@@ -16,8 +14,7 @@ import (
 
 const practiceLessonID = "0123456789abcdef01234567"
 
-// newPracticeAPI serves a lesson (revision 3, practice version 2) in topic-a1 at position 2,
-// with the audio of example 0 only.
+// newPracticeAPI serves a lesson (revision 3, practice version 2) in topic-a1 at position 2.
 func newPracticeAPI(t *testing.T, withPractice bool, guard httpx.Middleware) (*http.ServeMux, string) {
 	t.Helper()
 	lessons := newFakeLessons()
@@ -43,20 +40,9 @@ func newPracticeAPI(t *testing.T, withPractice bool, guard httpx.Middleware) (*h
 	topics := newFakeTopics()
 	topics.setRoadmap("topic-a1", "other", l.ID)
 
-	dir := t.TempDir()
-	file := filepath.Join(dir, l.ID, "3", "practice", "2", "example-0.mp3")
-	if err := os.MkdirAll(filepath.Dir(file), 0o750); err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(file, []byte("mp3"), 0o600); err != nil {
-		t.Fatal(err)
-	}
-
-	r := NewReader(lessons, readingDict, topics, newFakeAnswers(), newFakeAsks(), &fakeAI{}, dir)
+	r := NewReader(lessons, readingDict, topics, newFakeAnswers(), newFakeAsks(), &fakeAI{})
 	mux := http.NewServeMux()
 	NewReadingHandler(r, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver), guard)
-	mux.Handle("GET /api/audio/{lessonId}/{revision}/practice/{version}/{kind}/{index}",
-		httpx.RequireAuth(resolver)(PracticeAudioHandler(dir)))
 	return mux, l.ID
 }
 
@@ -66,17 +52,15 @@ type practiceResponse struct {
 	ObjectiveVi  string `json:"objectiveVi"`
 	GrammarTipVi string `json:"grammarTipVi"`
 	Examples     []struct {
-		Lemma    string  `json:"lemma"`
-		Sentence string  `json:"sentence"`
-		AudioURL *string `json:"audioUrl"`
+		Lemma    string `json:"lemma"`
+		Sentence string `json:"sentence"`
 	} `json:"examples"`
 	Dialogue *struct {
 		Speakers []string `json:"speakers"`
 		Turns    []struct {
-			Speaker   int     `json:"speaker"`
-			Text      string  `json:"text"`
-			MeaningVi string  `json:"meaningVi"`
-			AudioURL  *string `json:"audioUrl"`
+			Speaker   int    `json:"speaker"`
+			Text      string `json:"text"`
+			MeaningVi string `json:"meaningVi"`
 		} `json:"turns"`
 	} `json:"dialogue"`
 	Fill *struct {
@@ -95,10 +79,9 @@ type practiceResponse struct {
 		WordBank []string `json:"wordBank"`
 	} `json:"fill"`
 	Translations []struct {
-		Vi       string   `json:"vi"`
-		Answer   []string `json:"answer"`
-		Tiles    []string `json:"tiles"`
-		AudioURL *string  `json:"audioUrl"`
+		Vi     string   `json:"vi"`
+		Answer []string `json:"answer"`
+		Tiles  []string `json:"tiles"`
 	} `json:"translations"`
 }
 
@@ -120,15 +103,16 @@ func TestPracticeEndpoint(t *testing.T) {
 	mux, id := newPracticeAPI(t, true, allowAll)
 	got := getPractice(t, mux, id)
 
+	if rec := get(t, mux, "/api/lessons/"+id+"/practice", "learner"); strings.Contains(rec.Body.String(), "audio") {
+		t.Fatalf("practice still mentions audio: %s", rec.Body)
+	}
 	if got.Status != "done" || got.LessonNumber != 2 || got.ObjectiveVi == "" || got.GrammarTipVi == "" {
 		t.Fatalf("header = %+v", got)
 	}
-	if len(got.Examples) != 2 || got.Examples[0].Lemma != "go" ||
-		got.Examples[0].AudioURL == nil || *got.Examples[0].AudioURL != "/api/audio/"+id+"/3/practice/2/example/0" ||
-		got.Examples[1].AudioURL != nil {
+	if len(got.Examples) != 2 || got.Examples[0].Lemma != "go" || got.Examples[0].Sentence != "I go to school." {
 		t.Fatalf("examples = %+v", got.Examples)
 	}
-	if got.Dialogue == nil || len(got.Dialogue.Turns) != 4 || got.Dialogue.Speakers[0] != "Minh" || got.Dialogue.Turns[0].AudioURL != nil {
+	if got.Dialogue == nil || len(got.Dialogue.Turns) != 4 || got.Dialogue.Speakers[0] != "Minh" || got.Dialogue.Turns[0].MeaningVi == "" {
 		t.Fatalf("dialogue = %+v", got.Dialogue)
 	}
 	if got.Fill == nil || len(got.Fill.Turns) != 4 || len(got.Fill.Blanks) != 4 {
@@ -142,7 +126,7 @@ func TestPracticeEndpoint(t *testing.T) {
 		t.Fatalf("blanks %+v bank %q", got.Fill.Blanks, got.Fill.WordBank)
 	}
 	tr := got.Translations
-	if len(tr) != 1 || strings.Join(tr[0].Answer, " ") != "I go to the park." || len(tr[0].Tiles) != 7 || tr[0].AudioURL != nil {
+	if len(tr) != 1 || strings.Join(tr[0].Answer, " ") != "I go to the park." || len(tr[0].Tiles) != 7 {
 		t.Fatalf("translations = %+v", tr)
 	}
 }
@@ -188,32 +172,6 @@ func TestPracticeEndpointErrors(t *testing.T) {
 	rec := get(t, locked, "/api/lessons/"+id+"/practice", "learner")
 	if rec.Code != http.StatusForbidden || !strings.Contains(rec.Body.String(), "lesson_locked") {
 		t.Errorf("locked: %d %s", rec.Code, rec.Body)
-	}
-}
-
-func TestPracticeAudioRoute(t *testing.T) {
-	t.Parallel()
-	mux, id := newPracticeAPI(t, true, allowAll)
-
-	rec := get(t, mux, "/api/audio/"+id+"/3/practice/2/example/0", "learner")
-	if rec.Code != http.StatusOK || rec.Body.String() != "mp3" || rec.Header().Get("Content-Type") != "audio/mpeg" ||
-		!strings.Contains(rec.Header().Get("Cache-Control"), "immutable") {
-		t.Fatalf("audio: %d %q %v", rec.Code, rec.Body, rec.Header())
-	}
-	for _, p := range []string{
-		"/api/audio/" + id + "/3/practice/2/example/1", // missing file
-		"/api/audio/" + id + "/3/practice/2/other/0",   // unknown kind
-		"/api/audio/" + id + "/-1/practice/2/example/0",
-		"/api/audio/" + id + "/3/practice/x/example/0",
-		"/api/audio/" + id + "/3/practice/2/example/-1",
-		"/api/audio/NOTHEX/3/practice/2/example/0",
-	} {
-		if rec := get(t, mux, p, "learner"); rec.Code != http.StatusNotFound {
-			t.Errorf("%s: %d", p, rec.Code)
-		}
-	}
-	if rec := get(t, mux, "/api/audio/"+id+"/3/practice/2/example/0", ""); rec.Code != http.StatusUnauthorized {
-		t.Errorf("anonymous: %d", rec.Code)
 	}
 }
 

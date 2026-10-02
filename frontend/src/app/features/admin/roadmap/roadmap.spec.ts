@@ -15,7 +15,6 @@ const item = (id: string, title: string, inRoadmap = true): LessonSummary => ({
   level: 'A1',
   topicId: 't1',
   topicName: 'Gia đình',
-  audioStatus: 'done',
   annotationStatus: 'done',
   inRoadmap,
   createdAt: '2026-09-29T08:00:00Z',
@@ -67,7 +66,7 @@ describe('Roadmap', () => {
     await settle();
   };
 
-  const setup = async (topicId: string | null) => {
+  const setup = async (topicId: string | null, extra: Record<string, string> = {}) => {
     await TestBed.configureTestingModule({
       imports: [Roadmap],
       providers: [
@@ -76,7 +75,7 @@ describe('Roadmap', () => {
         provideHttpClientTesting(),
         {
           provide: ActivatedRoute,
-          useValue: { snapshot: { queryParamMap: convertToParamMap(topicId ? { topicId } : {}) } },
+          useValue: { snapshot: { queryParamMap: convertToParamMap(topicId ? { topicId, ...extra } : extra) } },
         },
       ],
     }).compileComponents();
@@ -136,7 +135,8 @@ describe('Roadmap', () => {
     it('lists lessons in order with positions and status chips', () => {
       expect(titles()).toEqual(['Bài a', 'Bài b', 'Bài c']);
       expect(el.querySelector('.position')?.textContent?.trim()).toBe('1');
-      expect(el.textContent).toContain('Audio: Xong');
+      expect(el.textContent).toContain('Chú thích: Xong');
+      expect(el.textContent).not.toContain('Audio');
       expect(el.querySelector('.selected-warning')).toBeNull();
     });
 
@@ -207,6 +207,17 @@ describe('Roadmap', () => {
       await expectSave(['b', 'c', 'a']);
       expect(document.activeElement?.getAttribute('aria-label')).toBe('Lên: Bài a');
     });
+  });
+
+  it('opens Sinh bài bằng AI right away when asked from the Chủ đề page', async () => {
+    HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
+      this.setAttribute('open', '');
+    });
+    await setup('t1', { generate: '1' });
+    await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
+    http.expectOne('/api/admin/topics/t1/words').flush({ words: [] });
+    await settle();
+    expect(el.querySelector('lu-generate-dialog dialog')!.hasAttribute('open')).toBe(true);
   });
 
   it('warns that an empty roadmap has no lessons', async () => {

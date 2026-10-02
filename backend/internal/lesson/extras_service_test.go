@@ -84,14 +84,6 @@ func TestRetryAnnotateWhenDone(t *testing.T) {
 	if got.AnnotationStatus != StatusRunning || len(e.jobs.all()) != before+1 {
 		t.Fatalf("status %s, jobs %d → %d", got.AnnotationStatus, before, len(e.jobs.all()))
 	}
-
-	// Audio still needs a failure to retry.
-	if err := e.svc.ProcessTTS(t.Context(), jobFor(l, job.TypeTTS)); err != nil {
-		t.Fatal(err)
-	}
-	if _, err := e.svc.Retry(t.Context(), l.ID, job.TypeTTS); !errors.Is(err, ErrNotFailed) {
-		t.Fatalf("retry done audio: %v", err)
-	}
 }
 
 func TestUpdateClearsExtras(t *testing.T) {

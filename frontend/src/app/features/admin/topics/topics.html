@@ -82,6 +82,9 @@
                   </div>
                   <div class="actions">
                     <a class="btn" [routerLink]="['/admin/topics', t.id, 'words']">Từ vựng<span class="visually-hidden"> {{ t.name }}</span></a>
+                    <a class="btn" routerLink="/admin/roadmap" [queryParams]="{ topicId: t.id, generate: 1 }"
+                      >Sinh bài AI<span class="visually-hidden"> cho {{ t.name }}</span></a
+                    >
                     <button type="button" class="btn" (click)="startEdit(t)">Sửa<span class="visually-hidden"> {{ t.name }}</span></button>
                     <button type="button" class="btn" (click)="deleting.set(t)">Xoá<span class="visually-hidden"> {{ t.name }}</span></button>
                   </div>

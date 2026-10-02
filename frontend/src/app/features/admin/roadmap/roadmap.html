@@ -79,7 +79,6 @@
           <div class="body">
             <a class="title" [routerLink]="['/admin/lessons', lesson.id]">{{ lesson.title }}</a>
             <div class="meta">
-              <lu-status-chip label="Audio" [status]="lesson.audioStatus" />
               <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />
             </div>
           </div>

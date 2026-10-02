@@ -9,12 +9,12 @@
       <li class="soft-card turn">
         <div class="turn-head">
           <span class="speaker">{{ speaker(t.speaker) }}</span>
-          @if (audio(t.turnIndex); as url) {
+          @if (turnText(t.turnIndex); as sentence) {
             <button
               type="button"
               class="btn listen"
               [attr.aria-label]="'Nghe câu ' + (i + 1)"
-              (click)="playAudio.emit(url)"
+              (click)="readAloud.emit(sentence)"
             >
               <lu-icon name="volume" /> Nghe câu
             </button>

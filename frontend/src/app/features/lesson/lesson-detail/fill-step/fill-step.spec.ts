@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PracticeFill } from '../../../../core/models/practice';
 import { Score } from '../practice-logic';
+import { FakeSpeech, provideFakeSpeech } from '../../../../core/services/speech.service.testing';
 import { FillStep } from './fill-step';
 
 const fill: PracticeFill = {
@@ -52,15 +53,16 @@ describe('FillStep', () => {
     f: PracticeFill = fill,
     tip = 'Dùng "Nice to meet you".',
   ) => {
+    TestBed.configureTestingModule({ providers: [provideFakeSpeech(new FakeSpeech())] });
     fixture = TestBed.createComponent(FillStep);
     fixture.componentRef.setInput('fill', f);
     fixture.componentRef.setInput('bank', bank);
     fixture.componentRef.setInput('speakers', ['Minh', 'Anna']);
-    fixture.componentRef.setInput('turnAudio', ['/a/turn/0', null, '/a/turn/2']);
+    fixture.componentRef.setInput('turnTexts', ['Hello, my name is Minh.', 'Hi.', 'Nice to meet you!']);
     fixture.componentRef.setInput('grammarTip', tip);
     played = [];
     results = [];
-    fixture.componentInstance.playAudio.subscribe((url) => played.push(url));
+    fixture.componentInstance.readAloud.subscribe((t) => played.push(t));
     fixture.componentInstance.checked.subscribe((r) => results.push(r));
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
@@ -78,10 +80,10 @@ describe('FillStep', () => {
     expect(bankButtons().map((b) => text(b))).toEqual(['from', 'meet', 'name']);
   });
 
-  it('plays the turn of a line through "Nghe câu"', async () => {
+  it('reads the whole turn of a line through "Nghe câu"', async () => {
     await render();
     await click(el.querySelector<HTMLButtonElement>('button[aria-label="Nghe câu 2"]')!);
-    expect(played).toEqual(['/a/turn/2']);
+    expect(played).toEqual(['Nice to meet you!']);
   });
 
   it('fills the selected blank, fades the word and selects the next empty blank', async () => {

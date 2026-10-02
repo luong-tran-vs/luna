@@ -30,18 +30,20 @@
                 }
                 <span class="meaning">— {{ r.word.meaningVi }}</span>
               </p>
-              <button
-                type="button"
-                class="icon-btn"
-                [attr.aria-label]="'Nghe từ ' + r.word.lemma"
-                (click)="playWord(r.word.lemma)"
-              >
-                <lu-icon name="volume" />
-              </button>
+              @if (canSpeak) {
+                <button
+                  type="button"
+                  class="icon-btn"
+                  [attr.aria-label]="'Nghe từ ' + r.word.lemma"
+                  (click)="playWord(r.word.lemma)"
+                >
+                  <lu-icon name="volume" />
+                </button>
+              }
             </div>
             @if (r.example; as e) {
-              @if (e.audioUrl; as url) {
-                <button type="button" class="example example-btn" (click)="playAudio.emit(url)">
+              @if (canSpeak) {
+                <button type="button" class="example example-btn" (click)="readAloud.emit(e.sentence)">
                   <span
                     >Ví dụ: <span class="sentence" lang="en">"{{ e.sentence }}"</span></span
                   >

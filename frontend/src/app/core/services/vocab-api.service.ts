@@ -16,14 +16,10 @@ import {
   WordRef,
 } from '../models/vocab';
 
-/** The learner's notebook: cards, reviews and word audio (contracts/vocab-api.md). */
+/** The learner's notebook: cards and reviews (contracts/vocab-api.md). */
 @Injectable({ providedIn: 'root' })
 export class VocabApiService {
   private readonly http = inject(HttpClient);
-
-  wordAudioUrl(text: string): string {
-    return `/api/tts/word?text=${encodeURIComponent(text)}`;
-  }
 
   saveCard(input: CardInput): Observable<Card> {
     return this.http.post<{ card: Card }>('/api/vocab/cards', input).pipe(map((r) => r.card));

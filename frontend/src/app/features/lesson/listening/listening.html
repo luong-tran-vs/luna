@@ -13,10 +13,11 @@
       <h1 class="title" lang="en">{{ l.title }}</h1>
     </header>
 
-    @if (!hasAudio()) {
-      <p class="banner-warning" role="status">Audio của bài chưa sẵn sàng. Hãy quay lại sau.</p>
+    @if (!speech.supported) {
+      <p class="banner-warning" role="status">
+        Trình duyệt này không có giọng đọc. Hãy dùng Chrome, Edge hoặc Safari bản mới.
+      </p>
     } @else {
-      <lu-audio-player [src]="sentence()!.audioUrl ?? null" [rate]="rate()" (failed)="playError.set('Chưa phát được âm thanh.')" />
 
       <nav class="progress" aria-label="Các câu">
         <p class="checked-count">Đã kiểm tra {{ checkedCount() }}/{{ sentences().length }}</p>
@@ -45,14 +46,11 @@
 
       <div class="player card">
         <p class="counter" aria-live="polite">Câu {{ current() + 1 }}/{{ sentences().length }}</p>
+        <lu-waveform class="wave" [text]="sentence()!.text" [progress]="progress()" [bars]="64" />
 
         <div class="controls">
           <button type="button" class="btn" [disabled]="current() === 0" (click)="go(current() - 1)">Câu trước</button>
-          @if (sentence()!.audioUrl) {
-            <button type="button" class="btn-primary" (click)="listen()">Nghe câu</button>
-          } @else {
-            <p class="no-audio">Chưa có audio cho câu này</p>
-          }
+          <button type="button" class="btn-primary" (click)="listen()">Nghe câu</button>
           <button type="button" class="btn" [disabled]="current() === sentences().length - 1" (click)="go(current() + 1)">
             Câu sau
           </button>

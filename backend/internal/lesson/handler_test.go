@@ -35,7 +35,7 @@ func newAPI(t *testing.T) *api {
 	e := newEnv(t)
 	h := NewHandler(e.svc, slog.New(slog.DiscardHandler))
 	mux := http.NewServeMux()
-	h.Register(mux, httpx.RequireAuth(resolver), e.dir)
+	h.Register(mux, httpx.RequireAuth(resolver))
 	return &api{env: e, mux: mux}
 }
 
@@ -85,7 +85,7 @@ func TestAdminEndpointsRequireAdmin(t *testing.T) {
 		{http.MethodPut, "/api/admin/lessons/x", validBody},
 		{http.MethodDelete, "/api/admin/lessons/x", ""},
 		{http.MethodPut, "/api/admin/lessons/x/annotations", `{"annotations":[]}`},
-		{http.MethodPost, "/api/admin/lessons/x/retry?job=tts", ""},
+		{http.MethodPost, "/api/admin/lessons/x/retry?job=annotate", ""},
 	}
 	for _, ep := range endpoints {
 		if rec := a.do(t, ep.method, ep.path, "learner", ep.body); rec.Code != http.StatusForbidden {
@@ -104,7 +104,7 @@ func TestCreateAndGetEndpoints(t *testing.T) {
 	a := newAPI(t)
 	l := a.createLesson(t)
 
-	if l["audioStatus"] != "running" || l["annotationStatus"] != "running" || l["revision"] != float64(1) || l["inRoadmap"] != false {
+	if _, has := l["audioStatus"]; has || l["annotationStatus"] != "running" || l["revision"] != float64(1) || l["inRoadmap"] != false {
 		t.Fatalf("lesson = %v", l)
 	}
 	if l["topicId"] != "topic-b1" || l["topicName"] != "Work" || l["level"] != "B1" {
@@ -114,7 +114,7 @@ func TestCreateAndGetEndpoints(t *testing.T) {
 		t.Fatal("lesson still has topic")
 	}
 	sentences := l["sentences"].([]any)
-	if len(sentences) != 2 || sentences[0].(map[string]any)["audioUrl"] != nil {
+	if _, has := sentences[0].(map[string]any)["audioUrl"]; len(sentences) != 2 || has {
 		t.Fatalf("sentences = %v", sentences)
 	}
 
@@ -181,10 +181,12 @@ func TestRetryEndpoint(t *testing.T) {
 	if rec.Code != http.StatusAccepted || decodeBody(t, rec)["lesson"].(map[string]any)["annotationStatus"] != "running" {
 		t.Fatalf("retry failed: %d %s", rec.Code, rec.Body)
 	}
-	if rec := a.do(t, http.MethodPost, "/api/admin/lessons/"+id+"/retry?job=x", "admin", ""); rec.Code != http.StatusBadRequest {
-		t.Fatalf("bad job: %d", rec.Code)
+	for _, bad := range []string{"x", "tts"} { // audio is no longer generated (Kokoro was removed)
+		if rec := a.do(t, http.MethodPost, "/api/admin/lessons/"+id+"/retry?job="+bad, "admin", ""); rec.Code != http.StatusBadRequest {
+			t.Fatalf("job %s: %d", bad, rec.Code)
+		}
 	}
-	if rec := a.do(t, http.MethodPost, "/api/admin/lessons/missing/retry?job=tts", "admin", ""); rec.Code != http.StatusNotFound {
+	if rec := a.do(t, http.MethodPost, "/api/admin/lessons/missing/retry?job=annotate", "admin", ""); rec.Code != http.StatusNotFound {
 		t.Fatalf("missing: %d", rec.Code)
 	}
 }

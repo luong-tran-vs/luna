@@ -17,9 +17,8 @@ import (
 )
 
 type sentenceDoc struct {
-	Index     int    `bson:"index"`
-	Text      string `bson:"text"`
-	AudioPath string `bson:"audioPath"`
+	Index int    `bson:"index"`
+	Text  string `bson:"text"`
 }
 
 type annotationDoc struct {
@@ -83,8 +82,6 @@ type lessonDoc struct {
 	License          string          `bson:"license"`
 	Revision         int             `bson:"revision"`
 	Sentences        []sentenceDoc   `bson:"sentences"`
-	AudioStatus      string          `bson:"audioStatus"`
-	AudioError       string          `bson:"audioError"`
 	AnnotationStatus string          `bson:"annotationStatus"`
 	AnnotationError  string          `bson:"annotationError"`
 	Annotations      []annotationDoc `bson:"annotations"`
@@ -105,8 +102,7 @@ func fromLesson(l lesson.Lesson) lessonDoc {
 	d := lessonDoc{
 		Title: l.Title, Content: l.Content, Level: string(l.Level), TopicID: oidOrZero(l.TopicID),
 		Source: l.Source, License: l.License, Revision: l.Revision,
-		Sentences:   make([]sentenceDoc, len(l.Sentences)),
-		AudioStatus: string(l.AudioStatus), AudioError: l.AudioError,
+		Sentences:        make([]sentenceDoc, len(l.Sentences)),
 		AnnotationStatus: string(l.AnnotationStatus), AnnotationError: l.AnnotationError,
 		Annotations: fromAnnotations(l.Annotations),
 		CreatedAt:   l.CreatedAt.UTC(), UpdatedAt: l.UpdatedAt.UTC(),
@@ -129,8 +125,7 @@ func (d lessonDoc) toLesson() lesson.Lesson {
 	l := lesson.Lesson{
 		ID: d.ID.Hex(), Title: d.Title, Content: d.Content, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
 		Source: d.Source, License: d.License, Revision: d.Revision,
-		Sentences:   make([]lesson.Sentence, len(d.Sentences)),
-		AudioStatus: lesson.Status(d.AudioStatus), AudioError: d.AudioError,
+		Sentences:        make([]lesson.Sentence, len(d.Sentences)),
 		AnnotationStatus: lesson.Status(d.AnnotationStatus), AnnotationError: d.AnnotationError,
 		Annotations: make([]lesson.Annotation, len(d.Annotations)),
 		CreatedAt:   d.CreatedAt, UpdatedAt: d.UpdatedAt,
@@ -152,7 +147,6 @@ type summaryDoc struct {
 	Title            string        `bson:"title"`
 	Level            string        `bson:"level"`
 	TopicID          bson.ObjectID `bson:"topicId"`
-	AudioStatus      string        `bson:"audioStatus"`
 	AnnotationStatus string        `bson:"annotationStatus"`
 	CreatedAt        time.Time     `bson:"createdAt"`
 }
@@ -161,7 +155,6 @@ var summaryProjection = bson.D{
 	{Key: "title", Value: 1},
 	{Key: "level", Value: 1},
 	{Key: "topicId", Value: 1},
-	{Key: "audioStatus", Value: 1},
 	{Key: "annotationStatus", Value: 1},
 	{Key: "createdAt", Value: 1},
 }
@@ -169,8 +162,8 @@ var summaryProjection = bson.D{
 func (d summaryDoc) toSummary() lesson.Summary {
 	return lesson.Summary{
 		ID: d.ID.Hex(), Title: d.Title, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
-		AudioStatus: lesson.Status(d.AudioStatus), AnnotationStatus: lesson.Status(d.AnnotationStatus),
-		CreatedAt: d.CreatedAt,
+		AnnotationStatus: lesson.Status(d.AnnotationStatus),
+		CreatedAt:        d.CreatedAt,
 	}
 }
 
@@ -280,8 +273,6 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 		{Key: "license", Value: d.License},
 		{Key: "revision", Value: d.Revision},
 		{Key: "sentences", Value: d.Sentences},
-		{Key: "audioStatus", Value: d.AudioStatus},
-		{Key: "audioError", Value: d.AudioError},
 		{Key: "annotationStatus", Value: d.AnnotationStatus},
 		{Key: "annotationError", Value: d.AnnotationError},
 		{Key: "annotations", Value: d.Annotations},
@@ -298,8 +289,6 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 func (r *Lessons) SetStatus(ctx context.Context, id string, revision int, t job.Type, st lesson.Status, errMsg string) (bool, error) {
 	var status, errField string
 	switch t {
-	case job.TypeTTS:
-		status, errField = "audioStatus", "audioError"
 	case job.TypeAnnotate:
 		status, errField = "annotationStatus", "annotationError"
 	case job.TypePractice:
@@ -310,15 +299,6 @@ func (r *Lessons) SetStatus(ctx context.Context, id string, revision int, t job.
 	return r.updateAtRevision(ctx, id, revision, bson.D{
 		{Key: status, Value: string(st)}, {Key: errField, Value: errMsg},
 	})
-}
-
-// SaveAudio stores sentence audio paths and marks audio done if still at revision.
-func (r *Lessons) SaveAudio(ctx context.Context, id string, revision int, paths []string) (bool, error) {
-	set := bson.D{{Key: "audioStatus", Value: string(lesson.StatusDone)}, {Key: "audioError", Value: ""}}
-	for i, p := range paths {
-		set = append(set, bson.E{Key: fmt.Sprintf("sentences.%d.audioPath", i), Value: p})
-	}
-	return r.updateAtRevision(ctx, id, revision, set)
 }
 
 // SaveAnnotations stores AI annotations and extras, marks them done and bumps quizVersion if

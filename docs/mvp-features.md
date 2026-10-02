@@ -38,7 +38,7 @@ Bài học ┤
 2. **AI là phần bổ sung, không phải điều kiện để app chạy.** Khi AI lỗi, chậm hoặc hết lượt miễn phí, các tính năng Đọc, Nghe và Ôn từ vẫn hoạt động bình thường.
 3. **Nhà cung cấp AI thay được.** Mọi lời gọi AI đi qua một lớp trung gian chung, nên đổi từ Gemini sang Ollama hay dịch vụ khác chỉ cần sửa cấu hình.
 4. **Nội dung ghi rõ nguồn và giấy phép.** Ưu tiên nguồn cho phép tái sử dụng để sau này mở cho người khác không vướng bản quyền.
-5. **Máy không có GPU.** Tác vụ AI nặng chạy nền (bất đồng bộ) và lưu kết quả lại. Audio được sinh sẵn một lần rồi dùng lại.
+5. **Máy không có GPU.** Tác vụ AI nặng chạy nền (bất đồng bộ) và lưu kết quả lại. Phần nghe trên giao diện dùng giọng đọc của trình duyệt (Web Speech API), không chờ audio sinh sẵn.
 
 ## 4. Một ngày học
 
@@ -122,11 +122,11 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Trang riêng dành cho quản trị viên để thêm, sửa, xoá và xem trước bài học. Trang này cũng phải dùng được trên điện thoại.
 - Thêm bài bằng cách dán văn bản vào. Thông tin gồm tiêu đề, trình độ CEFR (A1–C2), chủ đề, nguồn và giấy phép.
 - Tự động tách bài thành từng câu.
-- Sinh audio cho từng câu bằng TTS chạy trên máy, lưu lại và dùng lại cho các lần sau.
+- Không sinh audio: các câu được đọc bằng giọng đọc của trình duyệt (bỏ Kokoro từ 2026-10-02).
 - **Chú thích bài bằng AI:** khi tạo bài, gửi **một request** tới LLM để lấy các từ và cụm từ đáng học (ví dụ *give up*), kèm dạng gốc (*went → go*) và nghĩa tiếng Việt **theo đúng ngữ cảnh** trong bài. Kết quả được lưu vào cơ sở dữ liệu, sau đó không gọi lại nữa.
   - Chú thích chạy nền. Nếu AI lỗi hoặc hết lượt miễn phí, bài vẫn được tạo, và quản trị viên có thể bấm "Chú thích lại" sau.
   - Quản trị viên xem và sửa được phần chú thích trước khi bài được đưa vào lộ trình.
-- Mỗi bài hiển thị trạng thái của audio và của phần chú thích (đang chạy, xong, lỗi), kèm nút chạy lại.
+- Mỗi bài hiển thị trạng thái của phần chú thích (đang chạy, xong, lỗi), kèm nút chạy lại.
   - Với khoảng 1 bài mỗi ngày, mỗi ngày chỉ tốn khoảng 1–3 request. Mức này thấp hơn nhiều so với hạn mức miễn phí (thấp nhất khoảng 20 request/ngày).
 - Danh sách bài học lọc được theo trình độ, chủ đề và trạng thái (chưa học, đang học, đã xong).
 - **Lộ trình:** quản trị viên xếp các bài vào một danh sách có thứ tự (kéo thả để đổi thứ tự) để app lấy ra làm bài của mỗi ngày (xem R1, R2).
@@ -144,12 +144,12 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Từ đã có trong sổ được tô màu khi gặp lại trong bất kỳ bài nào.
 
 **F4. Nghe**
-- Phát theo từng câu, có các nút câu trước, câu sau và lặp lại câu.
+- Phát theo từng câu, có các nút câu trước, câu sau và lặp lại câu; câu do giọng đọc của trình duyệt đọc, kèm dạng sóng minh hoạ.
 - Chỉnh tốc độ phát (0.5x đến 1.25x), ẩn hoặc hiện transcript.
 - **Chép chính tả:** nghe một câu, gõ lại, rồi được so sánh từng từ để thấy chỗ sai và chỗ thiếu.
 
 **F5. Sổ từ vựng và ôn tập**
-- Mỗi thẻ gồm từ, phiên âm, nghĩa, câu ví dụ lấy từ bài học và audio.
+- Mỗi thẻ gồm từ, phiên âm, nghĩa, câu ví dụ lấy từ bài học; nghe được bằng giọng đọc của trình duyệt.
 - Người học sửa, xoá hoặc tự thêm thẻ được. Nghĩa do AI hay từ điển đưa ra có thể sai, nên việc sửa tay là cần thiết.
 - Lịch ôn dùng thuật toán **FSRS** (mã nguồn mở, chính xác hơn SM-2).
 - Có hai kiểu ôn: **nhìn từ đoán nghĩa**, và **nghe rồi gõ lại từ**. Sau mỗi thẻ, người học tự đánh giá mức Again, Hard, Good hoặc Easy.
@@ -204,7 +204,7 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - So với câu gốc và tô màu từ đọc đúng, đọc sai và bị bỏ sót.
 
 **F11. Hội thoại nhập vai** *(không bắt buộc)*
-- Trò chuyện với AI theo tình huống của bài (tối đa 10 lượt), trả lời bằng giọng nói hoặc gõ chữ; AI có audio; cuối phiên tóm tắt lỗi.
+- Trò chuyện với AI theo tình huống của bài (tối đa 10 lượt), trả lời bằng giọng nói hoặc gõ chữ; câu của AI được đọc bằng giọng đọc của trình duyệt; cuối phiên tóm tắt lỗi.
 
 ## 6. Ngoài phạm vi MVP
 
@@ -221,8 +221,8 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 |---|---|
 | Frontend | Angular, responsive, có chế độ sáng và tối. Màu và font theo [design-system.md](design-system.md): bảng màu Oải hương, font Lexend, IPA dùng Noto Sans |
 | Backend | Go (REST API) |
-| Cơ sở dữ liệu | **MongoDB**: bản Community tự chạy trong Docker, hoặc MongoDB Atlas gói M0 miễn phí (giới hạn 512MB). Có thể đổi sang cơ sở dữ liệu khác sau này, nên backend chỉ truy cập dữ liệu qua một lớp repository. File audio lưu trên ổ đĩa, không lưu trong cơ sở dữ liệu |
-| Đọc thành giọng nói (TTS) | Piper hoặc Kokoro chạy trên CPU, sinh sẵn và lưu file |
+| Cơ sở dữ liệu | **MongoDB**: bản Community tự chạy trong Docker, hoặc MongoDB Atlas gói M0 miễn phí (giới hạn 512MB). Có thể đổi sang cơ sở dữ liệu khác sau này, nên backend chỉ truy cập dữ liệu qua một lớp repository |
+| Đọc thành giọng nói (TTS) | Giọng đọc của trình duyệt (Web Speech API) cho mọi chỗ nghe; không có dịch vụ TTS ở backend (bỏ Kokoro từ 2026-10-02) |
 | Giọng nói thành chữ (STT) | whisper.cpp ở chế độ server trên CPU, model **`small.en`** (khoảng 1GB RAM; máy có 16GB). Dự phòng `base.en` nếu chậm |
 | Mô hình ngôn ngữ (LLM) | Chính: gói miễn phí của Gemini (ưu tiên model Flash-Lite vì hạn mức cao hơn). Dự phòng: Groq, OpenRouter hoặc Ollama chạy trên máy |
 | Từ điển Anh–Việt | [minhqnd/dictionary](https://github.com/minhqnd/dictionary): file SQLite chạy offline, khoảng 357 nghìn mục từ, có IPA và ví dụ. Giấy phép dữ liệu CC BY-SA 4.0, phải ghi nguồn khi mở cho người khác |

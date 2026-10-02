@@ -28,7 +28,6 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/storage/mongo"
 	"github.com/luongtran/luna/backend/internal/topic"
-	"github.com/luongtran/luna/backend/internal/tts"
 	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/writing"
 )
@@ -38,7 +37,6 @@ const (
 	disconnectTimeout  = 5 * time.Second
 	healthPingTimeout  = 2 * time.Second
 	indexRetryInterval = 10 * time.Second
-	ttsTimeout         = 60 * time.Second
 	aiTimeout          = 90 * time.Second
 )
 
@@ -94,29 +92,23 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	authHandler := auth.NewHandler(authSvc, cfg.CookieSecure, log)
 	requireAuth := httpx.RequireAuth(authHandler.ResolvePrincipal)
 
-	if err := os.MkdirAll(cfg.AudioDir, 0o750); err != nil {
-		return fmt.Errorf("audio dir: %w", err)
-	}
 	dict := openDictionary(ctx, cfg.DictionaryPath, log)
 	defer func() { _ = dict.Close() }()
 
 	lessons := mongo.NewLessons(database)
 	topicSvc := topic.NewService(mongo.NewTopics(database), topicLessons{lessons}, time.Now)
 	lessonTopics := lessonTopicsPort{topicSvc}
-	synth := tts.NewKokoro(cfg.TTSURL, cfg.TTSVoice, &http.Client{Timeout: ttsTimeout})
 	var worker *job.Worker
 	aiProvider := newAIProvider(cfg, log)
 	lessonSvc := lesson.NewService(lesson.Deps{
-		Lessons:  lessons,
-		Topics:   lessonTopics,
-		Jobs:     mongo.NewJobs(database),
-		TTS:      synth,
-		AI:       aiProvider,
-		Dict:     dict,
-		AudioDir: cfg.AudioDir,
-		Notify:   func() { worker.Notify() },
-		Now:      time.Now,
-		Log:      log,
+		Lessons: lessons,
+		Topics:  lessonTopics,
+		Jobs:    mongo.NewJobs(database),
+		AI:      aiProvider,
+		Dict:    dict,
+		Notify:  func() { worker.Notify() },
+		Now:     time.Now,
+		Log:     log,
 	})
 	// The writing service needs the study service (Write step) and the other way round; the
 	// adapter gets the study service once it exists.
@@ -132,11 +124,9 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Log:     log,
 	})
 	worker = job.NewWorker(mongo.NewJobs(database), map[job.Type]job.Handler{
-		job.TypeTTS:           lessonSvc.ProcessTTS,
-		job.TypeAnnotate:      lessonSvc.ProcessAnnotate,
-		job.TypePractice:      lessonSvc.ProcessPractice,
-		job.TypePracticeAudio: lessonSvc.ProcessPracticeAudio,
-		job.TypeGrade:         writingSvc.ProcessGrade,
+		job.TypeAnnotate: lessonSvc.ProcessAnnotate,
+		job.TypePractice: lessonSvc.ProcessPractice,
+		job.TypeGrade:    writingSvc.ProcessGrade,
 	}, func(ctx context.Context, j job.Job, err error) {
 		// Grade jobs belong to a writing, the others to a lesson revision.
 		if j.Type == job.TypeGrade {
@@ -166,11 +156,9 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	settings.NewHandler(settingsSvc, log).Register(mux, requireAuth)
 	exportSvc := export.NewService(mongo.NewExport(database), exportSettings{settingsSvc}, time.Now)
 	export.NewHandler(exportSvc, log).Register(mux, requireAuth)
-	lesson.NewHandler(lessonSvc, log).Register(mux, requireAuth, cfg.AudioDir)
-	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database), mongo.NewAILookups(database), aiProvider,
-		cfg.AudioDir)
+	lesson.NewHandler(lessonSvc, log).Register(mux, requireAuth)
+	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database), mongo.NewAILookups(database), aiProvider)
 	topic.NewHandler(topicSvc, log).Register(mux, requireAuth)
-	tts.NewWordAudio(synth, cfg.AudioDir).Register(mux, requireAuth)
 	vocabSvc := vocab.NewService(vocab.Deps{
 		Repo: mongo.NewCards(database),
 		Logs: mongo.NewReviewLogs(database),
@@ -380,7 +368,7 @@ func (t topicLessons) Refs(ctx context.Context, ids []string) ([]topic.LessonRef
 	for i, s := range sums {
 		out[i] = topic.LessonRef{
 			ID: s.ID, Title: s.Title, Level: string(s.Level), TopicID: s.TopicID,
-			AudioStatus: string(s.AudioStatus), AnnotationStatus: string(s.AnnotationStatus), CreatedAt: s.CreatedAt,
+			AnnotationStatus: string(s.AnnotationStatus), CreatedAt: s.CreatedAt,
 		}
 	}
 	return out, nil

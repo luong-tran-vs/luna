@@ -6,6 +6,8 @@ import (
 	"slices"
 	"strings"
 	"testing"
+
+	"github.com/luongtran/luna/backend/internal/job"
 )
 
 // --- F7: saving a draft appends it to the roadmap in the same request ---
@@ -19,7 +21,7 @@ func TestCreateAppendsToRoadmap(t *testing.T) {
 	if got := e.topics.roadmap("topic-a1"); !slices.Equal(got, []string{"old", l.ID}) {
 		t.Fatalf("roadmap = %v, want lesson at the end", got)
 	}
-	if jobs := e.jobs.all(); len(jobs) != 2 {
+	if jobs := e.jobs.all(); len(jobs) != 1 || jobs[0].Type != job.TypeAnnotate {
 		t.Fatalf("jobs = %+v", jobs)
 	}
 }
@@ -75,7 +77,7 @@ func TestCreateEndpointAppendToRoadmap(t *testing.T) {
 		t.Fatalf("create: %d %s", rec.Code, rec.Body)
 	}
 	l := decodeBody(t, rec)["lesson"].(map[string]any)
-	if l["inRoadmap"] != true || l["audioStatus"] != "running" || l["annotationStatus"] != "running" {
+	if l["inRoadmap"] != true || l["annotationStatus"] != "running" {
 		t.Fatalf("lesson = %v", l)
 	}
 

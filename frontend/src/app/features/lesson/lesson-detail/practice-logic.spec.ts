@@ -75,13 +75,13 @@ describe('practice logic', () => {
     ]).toEqual([false, false, false, false]);
     const full: PracticeView = {
       ...empty,
-      examples: [{ lemma: 'meet', sentence: 'Nice to meet you.', audioUrl: null }],
+      examples: [{ lemma: 'meet', sentence: 'Nice to meet you.' }],
       dialogue: {
         speakers: ['Minh', 'Anna'],
-        turns: [{ speaker: 0, text: 'Hi.', meaningVi: 'Chào.', audioUrl: null }],
+        turns: [{ speaker: 0, text: 'Hi.', meaningVi: 'Chào.' }],
       },
       fill: { turns: [], blanks: [{ answer: 'meet' }], wordBank: ['meet'] },
-      translations: [{ vi: 'Chào.', answer: ['Hi.'], tiles: ['Hi.'], audioUrl: null }],
+      translations: [{ vi: 'Chào.', answer: ['Hi.'], tiles: ['Hi.'] }],
     };
     expect([hasExamples(full), hasDialogue(full), hasFill(full), hasTranslations(full)]).toEqual([
       true,

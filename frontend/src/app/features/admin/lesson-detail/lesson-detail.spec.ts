@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter, Router } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { Lesson } from '../../../core/models/lesson';
 import { LessonDetail } from './lesson-detail';
 
@@ -21,7 +22,6 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   level: 'B1',
   topicId: 't3',
   topicName: 'Công việc',
-  audioStatus: 'done',
   annotationStatus: 'done',
   inRoadmap: false,
   createdAt: '2026-09-29T08:00:00Z',
@@ -29,11 +29,10 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   source: 'VOA',
   license: 'Public domain',
   revision: 2,
-  audioError: '',
   annotationError: '',
   sentences: [
-    { index: 0, text: 'We went to the park.', audioUrl: '/api/audio/l1/2/0' },
-    { index: 1, text: 'He gave up smoking.', audioUrl: '/api/audio/l1/2/1' },
+    { index: 0, text: 'We went to the park.' },
+    { index: 1, text: 'He gave up smoking.' },
   ],
   annotations: [
     { text: 'went', lemma: 'go', meaningVi: 'đã đi', sentenceIndex: 0, editedByAdmin: false },
@@ -47,6 +46,7 @@ describe('LessonDetail', () => {
   let el: HTMLElement;
   let http: HttpTestingController;
   let router: Router;
+  let speech: FakeSpeech;
 
   const settle = async () => {
     await new Promise((resolve) => setTimeout(resolve));
@@ -60,6 +60,7 @@ describe('LessonDetail', () => {
   };
 
   beforeEach(async () => {
+    speech = new FakeSpeech();
     await TestBed.configureTestingModule({
       imports: [LessonDetail],
       providers: [
@@ -67,6 +68,7 @@ describe('LessonDetail', () => {
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ id: 'l1' }) } } },
+        provideFakeSpeech(speech),
       ],
     }).compileComponents();
     http = TestBed.inject(HttpTestingController);
@@ -83,9 +85,10 @@ describe('LessonDetail', () => {
     it('shows info, numbered sentences and status chips', async () => {
       await load(lesson());
       expect(el.querySelector('h1')?.textContent).toContain('Park');
-      for (const text of ['B1', 'Công việc', 'VOA', 'Public domain', 'Audio: Xong', 'Chú thích: Xong']) {
+      for (const text of ['B1', 'Công việc', 'VOA', 'Public domain', 'Chú thích: Xong']) {
         expect(el.textContent).toContain(text);
       }
+      expect(el.textContent).not.toContain('Audio');
       const items = Array.from(el.querySelectorAll('.sentences li')).map((li) => li.textContent);
       expect(items[0]).toContain('We went to the park.');
       expect(items[1]).toContain('He gave up smoking.');
@@ -99,24 +102,15 @@ describe('LessonDetail', () => {
   });
 
   describe('background work', () => {
-    it('plays a sentence through the shared audio element', async () => {
-      const play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue();
+    it('reads a sentence with the browser voice', async () => {
       await load(lesson());
       el.querySelector<HTMLButtonElement>('button[aria-label="Nghe câu 2"]')!.click();
-      expect(play).toHaveBeenCalled();
-      expect(el.querySelector('audio')?.getAttribute('src')).toBe('/api/audio/l1/2/1');
-    });
-
-    it('hides play buttons until audio exists', async () => {
-      await load(lesson({ audioStatus: 'running', sentences: [{ index: 0, text: 'Hi.', audioUrl: null }] }));
-      expect(el.querySelector('button[aria-label="Nghe câu 1"]')).toBeNull();
-      http.expectNone('/api/admin/lessons/l1'); // next poll only after 5 s
+      expect(speech.texts()).toEqual(['He gave up smoking.']);
     });
 
     it('shows the failure reason and retries', async () => {
       await load(lesson({ annotationStatus: 'failed', annotationError: 'AI chưa được cấu hình', annotations: [] }));
       expect(el.textContent).toContain('AI chưa được cấu hình');
-      expect(button('Chạy lại audio')).toBeUndefined();
 
       button('Chạy lại chú thích')!.click();
       await settle();

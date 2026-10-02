@@ -22,8 +22,8 @@ Người học mở một bài từ danh sách bài học (bài hôm nay hoặc 
 - nút **Tiếp theo →** cố định ở cuối màn hình.
 
 Bước 1 – **Từ vựng quan trọng**: mỗi từ có phiên âm, nghĩa tiếng Việt, nút loa đọc từ và một câu ví dụ tiếng Anh nghe được.
-Bước 2 – **Hội thoại mẫu**: đoạn hội thoại giữa 2 người dùng các từ của bài; nghe cả đoạn (đổi tốc độ) hoặc từng lượt, bật/tắt nghĩa
-tiếng Việt.
+Bước 2 – **Hội thoại mẫu**: đoạn hội thoại giữa 2 người dùng các từ của bài; nghe cả đoạn (đổi tốc độ) hoặc từng lượt. Lời
+ẩn sẵn để người học nghe trước; mỗi lượt có dạng sóng tô theo tiến độ phát; bấm "Hiện lời" để xem câu, bật/tắt nghĩa tiếng Việt.
 
 **Why this priority**: Đây là phần người học nhận giá trị đầu tiên: thấy từ trong câu, trong hội thoại thật, nghe được cách đọc. Bước 3
 và 4 đều dựa trên nội dung này.
@@ -43,8 +43,10 @@ và 4 đều dựa trên nội dung này.
 5. **Given** bước 1, **When** bấm thu gọn, **Then** danh sách từ ẩn đi; bấm lần nữa thì hiện lại.
 6. **Given** bước 2, **When** bấm phát cả đoạn, **Then** các lượt được đọc lần lượt; thanh phát hiện thời gian; đổi được tốc độ 0.75×, 1×,
    1.25×; dừng được giữa chừng.
-7. **Given** bước 2, **When** xem danh sách lượt, **Then** mỗi lượt có tên người nói, câu tiếng Anh, nút nghe lượt đó và nghĩa tiếng Việt;
-   nút bật/tắt nghĩa ẩn hoặc hiện nghĩa của mọi lượt.
+7. **Given** bước 2, **When** xem danh sách lượt, **Then** mỗi lượt có tên người nói, nút nghe lượt đó và dạng sóng; câu tiếng Anh
+   và nghĩa ẩn sẵn. Bấm "Hiện lời" ở một lượt (hoặc "Hiện lời tất cả") thì thấy câu; nút bật/tắt nghĩa ẩn hoặc hiện nghĩa của các lượt
+   đang hiện lời.
+7a. **Given** một lượt đang phát, **When** nhìn dạng sóng, **Then** phần đã phát được tô đậm theo thời gian; lượt đã phát xong tô kín.
 8. **Given** tab Bài đọc, **When** chọn, **Then** thấy bài đọc gốc và ghi chú ngữ pháp; quay lại tab Bài học vẫn ở đúng bước đang làm.
 9. **Given** bất kỳ bước nào, **When** bấm nút đóng, **Then** về danh sách bài học.
 
@@ -205,7 +207,9 @@ sinh", sau ít phút "Xong" và xem được nội dung.
 - **FR-013**: Bước 1 MUST hiện mọi từ vựng của bài với phiên âm, nghĩa tiếng Việt, nút nghe từ và câu ví dụ nghe được (nếu có); thu gọn
   được.
 - **FR-014**: Bước 2 MUST cho nghe cả đoạn (lần lượt từng lượt, có thời gian, tốc độ 0.75×/1×/1.25×, dừng được), nghe từng lượt, và
-  bật/tắt nghĩa tiếng Việt.
+  bật/tắt nghĩa tiếng Việt. Lời MUST ẩn sẵn, hiện theo từng lượt hoặc tất cả. Mỗi lượt có audio MUST có dạng sóng tô theo tiến độ
+  phát; dạng sóng là hình minh hoạ dựng từ câu chữ (nhịp âm tiết, chỗ ngắt ở dấu câu), không phải sóng giải mã từ audio, nên bị ẩn
+  khỏi trình đọc màn hình và không dùng để tua.
 - **FR-015**: Bước 3 MUST hoạt động như User Story 3: Ngân hàng từ gồm các đáp án và tối đa 2 từ vựng khác của bài, xáo trộn; điền, gỡ,
   thay; Kiểm tra chỉ khi đủ ô; chấm không phân biệt hoa/thường; hiện mẹo ngữ pháp.
 - **FR-016**: Bước 4 MUST hoạt động như User Story 4: ghép ô theo thứ tự chạm, gỡ, Làm lại, Kiểm tra từng câu; đúng khi các ô khớp đáp
@@ -251,6 +255,9 @@ sinh", sau ít phút "Xong" và xem được nội dung.
 
 ## Assumptions
 
+- **Cập nhật 2026-10-02:** mọi chỗ nghe trên trang (từ, câu ví dụ, hội thoại, "Nghe câu", câu dịch) đọc bằng giọng đọc của trình duyệt
+  (Web Speech API). Audio do backend tạo (FR-006) vẫn được tạo nhưng giao diện không dùng; trình duyệt không có giọng đọc thì nút
+  nghe và dạng sóng bị ẩn, lời hội thoại hiện sẵn.
 - Dùng AI và giọng đọc đã cấu hình cho chú thích và bài đọc (F2, F4); không thêm cấu hình mới. Hội thoại dùng một giọng cho cả hai người.
 - Trang `/lessons/:id` hiện có (bản đơn giản) được thay bằng trang chi tiết mới; các trang đọc lại, nghe lại, bài viết giữ nguyên.
 - "Bài N" là thứ tự của bài trong lộ trình chủ đề mà bài thuộc về; streak lấy từ số liệu streak hiện có.

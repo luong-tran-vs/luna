@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   ElementRef,
   inject,
   signal,
-  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, forkJoin, map, of } from 'rxjs';
@@ -16,7 +16,7 @@ import { MyLessons } from '../../../core/models/study';
 import { LessonVocabulary } from '../../../core/models/vocab';
 import { DashboardApiService } from '../../../core/services/dashboard-api.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
-import { AudioPlayer } from '../../../shared/components/audio-player/audio-player';
+import { SpeechService } from '../../../core/services/speech.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
@@ -54,7 +54,6 @@ const STEP_NAMES = [
 @Component({
   selector: 'lu-lesson-detail',
   imports: [
-    AudioPlayer,
     DialogueStep,
     FillStep,
     Icon,
@@ -70,7 +69,7 @@ const STEP_NAMES = [
 export class LessonDetail {
   private readonly reading = inject(ReadingApiService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly player = viewChild.required(AudioPlayer);
+  private readonly speech = inject(SpeechService);
 
   protected readonly id = inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
   protected readonly lesson = signal<ReadingLesson | null>(null);
@@ -116,8 +115,8 @@ export class LessonDetail {
   protected readonly translationTiles = computed(() =>
     (this.practice()?.translations ?? []).map((t, i) => shuffle(t.tiles, this.seed() + i + 1)),
   );
-  protected readonly turnAudio = computed(
-    () => this.practice()?.dialogue?.turns.map((t) => t.audioUrl) ?? [],
+  protected readonly turnTexts = computed(
+    () => this.practice()?.dialogue?.turns.map((t) => t.text) ?? [],
   );
 
   protected readonly progress = computed(() => (this.finished() ? STEPS : this.step()));
@@ -146,6 +145,7 @@ export class LessonDetail {
   });
 
   constructor() {
+    inject(DestroyRef).onDestroy(() => this.speech.stop());
     forkJoin({
       lesson: this.reading.getLesson(this.id),
       vocabulary: this.reading.vocabulary(this.id).pipe(catchError(() => of(null))),
@@ -173,11 +173,12 @@ export class LessonDetail {
     });
   }
 
-  protected play(url: string): void {
-    this.player().replay(url);
+  /** Reads a word or sentence of the practice with the browser's voice. */
+  protected play(text: string): void {
+    this.speech.speak(text, this.rate());
   }
 
-  /** Audio keeps playing across tabs; the Bài học tab stays as it was. */
+  /** Reading goes on across tabs; the Bài học tab stays as it was. */
   protected selectTab(tab: Tab): void {
     this.tab.set(tab);
   }
@@ -202,7 +203,7 @@ export class LessonDetail {
   }
 
   protected next(): void {
-    this.player().stop();
+    this.speech.stop();
     if (this.step() < STEPS) {
       this.step.update((s) => s + 1);
     } else if (!this.lastSentence()) {
@@ -215,7 +216,7 @@ export class LessonDetail {
 
   /** Làm lại: back to step 1 with every answer cleared and the banks shuffled again. */
   protected retry(): void {
-    this.player().stop();
+    this.speech.stop();
     this.finished.set(false);
     this.step.set(1);
     this.translateIndex.set(0);

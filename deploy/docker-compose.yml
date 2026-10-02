@@ -13,14 +13,6 @@ services:
       # Localhost only: lets a backend started with `go run` reach the database during development.
       - "127.0.0.1:27017:27017"
 
-  # Text-to-speech on the CPU (Kokoro-82M, Apache 2.0). Generates one mp3 per lesson sentence.
-  kokoro:
-    image: ghcr.io/remsky/kokoro-fastapi-cpu:v0.9.0
-    restart: unless-stopped
-    ports:
-      # Localhost only: lets a backend started with `go run` reach the TTS service.
-      - "127.0.0.1:8880:8880"
-
   backend:
     build: ../backend
     restart: unless-stopped
@@ -30,8 +22,6 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-info}
       # Set to true when the app is served over HTTPS.
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
-      TTS_URL: http://kokoro:8880
-      AUDIO_DIR: /data/audio
       # Lesson annotations: gemini (needs GEMINI_API_KEY) or none.
       AI_PROVIDER: ${AI_PROVIDER:-gemini}
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
@@ -39,13 +29,11 @@ services:
       # Offline dictionary for the Reading step: run deploy/fetch-dictionary.sh (or .ps1) first.
       DICTIONARY_PATH: /data/dictionary/dictionary.db
     volumes:
-      - audio-data:/data/audio
       - ./data/dictionary:/data/dictionary:ro
     # Longer than the 10 s graceful shutdown so in-flight requests can finish.
     stop_grace_period: 15s
     depends_on:
       - mongo
-      - kokoro
 
   # Daily database backup at BACKUP_TIME (BACKUP_TZ), keeping the newest BACKUP_KEEP copies in
   # deploy/backups/. Restore with deploy/backup/restore.sh: see "Sao lưu và khôi phục" in README.md.
@@ -77,4 +65,3 @@ services:
 
 volumes:
   mongo-data:
-  audio-data:

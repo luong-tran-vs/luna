@@ -22,7 +22,7 @@ func newHarness(t *testing.T, handler func(ctx context.Context, j Job) error) *h
 	t.Helper()
 	h := &harness{repo: newFakeRepo(), clock: &fakeClock{now: time.Date(2026, 9, 29, 8, 0, 0, 0, time.UTC)}}
 	h.worker = NewWorker(h.repo, map[Type]Handler{
-		TypeTTS: func(ctx context.Context, j Job) error {
+		TypeAnnotate: func(ctx context.Context, j Job) error {
 			h.mu.Lock()
 			h.calls++
 			h.mu.Unlock()
@@ -47,7 +47,7 @@ func (h *harness) enqueue(t *testing.T, typ Type) string {
 func TestWorkerSuccess(t *testing.T) {
 	t.Parallel()
 	h := newHarness(t, func(context.Context, Job) error { return nil })
-	id := h.enqueue(t, TypeTTS)
+	id := h.enqueue(t, TypeAnnotate)
 
 	if !h.worker.RunOnce(t.Context()) {
 		t.Fatal("RunOnce found no job")
@@ -64,7 +64,7 @@ func TestWorkerRetriesWithBackoffThenFails(t *testing.T) {
 	t.Parallel()
 	boom := errors.New("kokoro down")
 	h := newHarness(t, func(context.Context, Job) error { return boom })
-	id := h.enqueue(t, TypeTTS)
+	id := h.enqueue(t, TypeAnnotate)
 	start := h.clock.Now()
 
 	h.worker.RunOnce(t.Context())
@@ -94,7 +94,7 @@ func TestWorkerRetriesWithBackoffThenFails(t *testing.T) {
 func TestWorkerPermanentErrorFailsImmediately(t *testing.T) {
 	t.Parallel()
 	h := newHarness(t, func(context.Context, Job) error { return Permanent(errors.New("no api key")) })
-	id := h.enqueue(t, TypeTTS)
+	id := h.enqueue(t, TypeAnnotate)
 
 	h.worker.RunOnce(t.Context())
 	if got := h.repo.get(id); got.Status != StatusFailed || got.Attempts != 1 {
@@ -108,7 +108,7 @@ func TestWorkerPermanentErrorFailsImmediately(t *testing.T) {
 func TestWorkerUnknownTypeFails(t *testing.T) {
 	t.Parallel()
 	h := newHarness(t, func(context.Context, Job) error { return nil })
-	id := h.enqueue(t, TypeAnnotate) // no handler registered in the harness
+	id := h.enqueue(t, Type("tts")) // no handler registered in the harness (a removed kind)
 
 	h.worker.RunOnce(t.Context())
 	if got := h.repo.get(id); got.Status != StatusFailed {
@@ -124,7 +124,7 @@ func TestWorkerRunResetsRunningAndStops(t *testing.T) {
 		return nil
 	})
 	// A job left running by a crashed process.
-	_ = h.repo.Enqueue(t.Context(), Job{Type: TypeTTS, Status: StatusRunning, RunAt: h.clock.Now()})
+	_ = h.repo.Enqueue(t.Context(), Job{Type: TypeAnnotate, Status: StatusRunning, RunAt: h.clock.Now()})
 
 	ctx, cancel := context.WithCancel(t.Context())
 	stopped := make(chan struct{})
@@ -163,7 +163,7 @@ func TestWorkerNotifyWakesIdleWorker(t *testing.T) {
 	go h.worker.Run(ctx)
 	time.Sleep(50 * time.Millisecond) // let Run go idle
 
-	h.enqueue(t, TypeTTS)
+	h.enqueue(t, TypeAnnotate)
 	h.worker.Notify()
 	select {
 	case <-done:

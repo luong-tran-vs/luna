@@ -1,4 +1,5 @@
 import {
+  inject,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -8,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { PracticeTranslation } from '../../../../core/models/practice';
+import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { checkTranslation } from '../practice-logic';
 
@@ -24,6 +26,8 @@ import { checkTranslation } from '../practice-logic';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TranslateStep {
+  /** False when the browser has no voice: the listen buttons are hidden. */
+  protected readonly canSpeak = inject(SpeechService).supported;
   readonly translation = input.required<PracticeTranslation>();
   /** The tiles, already shuffled by the page. */
   readonly tiles = input.required<string[]>();
@@ -31,7 +35,8 @@ export class TranslateStep {
   readonly index = input(0);
   readonly count = input(1);
 
-  readonly playAudio = output<string>();
+  /** Text to read aloud with the browser's voice. */
+  readonly readAloud = output<string>();
   readonly checked = output<boolean>();
 
   /** Tile indexes in the order they were tapped. */

@@ -51,19 +51,18 @@
 **Chức năng**
 - Thêm, sửa, xoá, xem trước bài học.
 - Thông tin bài: tiêu đề, nội dung (dán văn bản), trình độ CEFR (A1–C2), chủ đề, nguồn, giấy phép.
-- Khi lưu bài, hệ thống chạy nền 3 việc:
+- Khi lưu bài, hệ thống:
   1. Tách bài thành từng câu.
-  2. Sinh audio cho từng câu (TTS chạy trên máy).
-  3. Gửi **1 request** AI để chú thích các từ và cụm từ đáng học: dạng gốc (*went → go*) và nghĩa tiếng Việt theo ngữ cảnh.
-- Mỗi bài hiện trạng thái của audio và của chú thích: *đang chạy*, *xong*, *lỗi*, kèm nút **Chạy lại**.
+  2. Chạy nền **1 request** AI để chú thích các từ và cụm từ đáng học: dạng gốc (*went → go*) và nghĩa tiếng Việt theo ngữ cảnh.
+- Mỗi bài hiện trạng thái của chú thích: *đang chạy*, *xong*, *lỗi*, kèm nút **Chạy lại**.
+- *Cập nhật 2026-10-02:* bỏ sinh audio bằng TTS (Kokoro); mọi chỗ nghe dùng giọng đọc của trình duyệt.
 - Quản trị viên xem và sửa được phần chú thích.
 - **Lộ trình:** danh sách bài có thứ tự, kéo thả để đổi thứ tự.
 - Cảnh báo khi lộ trình còn dưới 3 bài chưa học.
 
 **Tiêu chí nghiệm thu**
 - [ ] Lưu bài thành công ngay cả khi AI lỗi hoặc hết lượt; trạng thái chú thích là *lỗi* và bấm Chạy lại được.
-- [ ] Mỗi câu có một file audio riêng; audio sinh một lần, không sinh lại khi mở bài.
-- [ ] Sửa nội dung bài thì tách câu, audio và chú thích được làm lại.
+- [ ] Sửa nội dung bài thì tách câu và chú thích được làm lại.
 - [ ] Không xoá được bài mà người học đang học dở (phải gỡ khỏi lộ trình trước).
 - [ ] Trang quản trị dùng được trên điện thoại (từ 360px).
 
@@ -93,7 +92,8 @@
 ## F4. Nghe
 
 **Chức năng**
-- Phát theo từng câu: câu trước, câu sau, lặp lại câu.
+- Phát theo từng câu: câu trước, câu sau, lặp lại câu. Câu được đọc bằng giọng đọc của trình duyệt (cập nhật 2026-10-02, thay audio
+  tạo sẵn); chữ ẩn sẵn, kèm dạng sóng minh hoạ chạy theo câu đang đọc.
 - Tốc độ: 0.5x, 0.75x, 1x, 1.25x.
 - Ẩn hoặc hiện transcript.
 - **Chép chính tả:** nghe một câu, gõ lại, bấm Kiểm tra. So sánh từng từ và đánh dấu *đúng*, *sai* (kèm từ đúng), *thiếu*.
@@ -110,12 +110,12 @@
 ## F5. Sổ từ và ôn tập
 
 **Chức năng**
-- Thẻ gồm: từ, IPA, nghĩa, câu ví dụ từ bài học, audio.
+- Thẻ gồm: từ, IPA, nghĩa, câu ví dụ từ bài học; nghe bằng giọng đọc của trình duyệt.
 - Xem danh sách thẻ; sửa, xoá, tự thêm thẻ.
 - Lịch ôn theo thuật toán **FSRS**.
 - Hai kiểu ôn:
   - **Xem từ đoán nghĩa:** hiện từ, bấm để lật xem nghĩa.
-  - **Nghe rồi gõ:** nghe audio, gõ lại từ.
+  - **Nghe rồi gõ:** nghe từ, gõ lại từ.
 - Sau mỗi thẻ, người học chọn: **Again**, **Hard**, **Good**, **Easy**.
 - Ôn tự do được bất cứ lúc nào, ngoài bước Ôn bắt buộc.
 - **Sổ từ theo ngày và theo bài:** danh sách thẻ nhóm theo ngày lưu ("Hôm nay", "Hôm qua", ngày cụ thể); lọc theo bài học.
@@ -219,6 +219,6 @@
 ## Yêu cầu chung
 
 - Web responsive, dùng tốt từ 360px.
-- Không tốn phí: font OFL, AI gói miễn phí, TTS và từ điển chạy trên máy.
+- Không tốn phí: font OFL, AI gói miễn phí, giọng đọc của trình duyệt, từ điển chạy trên máy.
 - Nội dung bài học ghi nguồn và giấy phép.
 - Truy cập dữ liệu qua lớp repository (MongoDB hiện tại, có thể đổi sau).

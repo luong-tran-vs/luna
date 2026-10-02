@@ -2,8 +2,6 @@ package lesson
 
 import (
 	"net/http"
-	"path/filepath"
-	"strconv"
 
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
@@ -20,9 +18,8 @@ type practiceJSON struct {
 }
 
 type exampleJSON struct {
-	Lemma    string  `json:"lemma"`
-	Sentence string  `json:"sentence"`
-	AudioURL *string `json:"audioUrl"`
+	Lemma    string `json:"lemma"`
+	Sentence string `json:"sentence"`
 }
 
 type dialogueJSON struct {
@@ -31,10 +28,9 @@ type dialogueJSON struct {
 }
 
 type turnJSON struct {
-	Speaker   int     `json:"speaker"`
-	Text      string  `json:"text"`
-	MeaningVi string  `json:"meaningVi"`
-	AudioURL  *string `json:"audioUrl"`
+	Speaker   int    `json:"speaker"`
+	Text      string `json:"text"`
+	MeaningVi string `json:"meaningVi"`
 }
 
 type fillJSON struct {
@@ -61,10 +57,9 @@ type blankJSON struct {
 }
 
 type translationJSON struct {
-	Vi       string   `json:"vi"`
-	Answer   []string `json:"answer"`
-	Tiles    []string `json:"tiles"`
-	AudioURL *string  `json:"audioUrl"`
+	Vi     string   `json:"vi"`
+	Answer []string `json:"answer"`
+	Tiles  []string `json:"tiles"`
 }
 
 // practiceStatusJSON names the "not generated yet" status for clients.
@@ -75,13 +70,6 @@ func practiceStatusJSON(s Status) string {
 	return string(s)
 }
 
-func optionalURL(s string) *string {
-	if s == "" {
-		return nil
-	}
-	return &s
-}
-
 func toPracticeJSON(v PracticeView) practiceJSON {
 	out := practiceJSON{
 		Status: practiceStatusJSON(v.Status), LessonNumber: v.LessonNumber,
@@ -90,12 +78,12 @@ func toPracticeJSON(v PracticeView) practiceJSON {
 		Translations: make([]translationJSON, len(v.Translations)),
 	}
 	for i, e := range v.Examples {
-		out.Examples[i] = exampleJSON{Lemma: e.Lemma, Sentence: e.Sentence, AudioURL: optionalURL(e.AudioURL)}
+		out.Examples[i] = exampleJSON(e)
 	}
 	if v.Dialogue != nil {
 		out.Dialogue = &dialogueJSON{Speakers: v.Dialogue.Speakers, Turns: make([]turnJSON, len(v.Dialogue.Turns))}
 		for i, t := range v.Dialogue.Turns {
-			out.Dialogue.Turns[i] = turnJSON{Speaker: t.Speaker, Text: t.Text, MeaningVi: t.MeaningVi, AudioURL: optionalURL(t.AudioURL)}
+			out.Dialogue.Turns[i] = turnJSON(t)
 		}
 	}
 	if f := v.Fill; f != nil {
@@ -116,7 +104,7 @@ func toPracticeJSON(v PracticeView) practiceJSON {
 		}
 	}
 	for i, t := range v.Translations {
-		out.Translations[i] = translationJSON{Vi: t.Vi, Answer: t.Answer, Tiles: t.Tiles, AudioURL: optionalURL(t.AudioURL)}
+		out.Translations[i] = translationJSON(t)
 	}
 	return out
 }
@@ -128,32 +116,6 @@ func (h *ReadingHandler) practice(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	httpx.WriteJSON(w, http.StatusOK, toPracticeJSON(v))
-}
-
-// practiceAudioKinds are the valid {kind} values of a practice audio URL.
-var practiceAudioKinds = map[string]bool{audioExample: true, audioTurn: true, audioAnswer: true}
-
-// PracticeAudioHandler serves GET /api/audio/{lessonId}/{revision}/practice/{version}/{kind}/{index}
-// from dir. Like AudioHandler, path values are parsed strictly so no user text reaches the
-// file path.
-func PracticeAudioHandler(dir string) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		id, kind := r.PathValue("lessonId"), r.PathValue("kind")
-		revision, revErr := strconv.Atoi(r.PathValue("revision"))
-		version, verErr := strconv.Atoi(r.PathValue("version"))
-		index, idxErr := strconv.Atoi(r.PathValue("index"))
-		if !objectIDPattern.MatchString(id) || !practiceAudioKinds[kind] || revErr != nil || verErr != nil || idxErr != nil ||
-			revision < 0 || version < 0 || index < 0 {
-			http.NotFound(w, r)
-			return
-		}
-
-		file := filepath.Join(dir, id, strconv.Itoa(revision), "practice", strconv.Itoa(version), audioName(kind, index)+".mp3")
-		w.Header().Set("Content-Type", "audio/mpeg")
-		// The URL contains the content revision and practice version, so a given URL never changes.
-		w.Header().Set("Cache-Control", "private, max-age=31536000, immutable")
-		http.ServeFile(w, r, file) //nolint:gosec // file is built only from a validated hex id, a known kind and integers
-	})
 }
 
 // adminPracticeJSON is the stored practice as the admin lesson page shows it.

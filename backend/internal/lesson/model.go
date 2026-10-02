@@ -1,4 +1,4 @@
-// Package lesson manages lessons, their sentences, audio and AI annotations. Topics and their
+// Package lesson manages lessons, their sentences and AI annotations. Topics and their
 // roadmaps live in package topic, reached through the Topics port.
 package lesson
 
@@ -20,7 +20,7 @@ var Levels = []Level{"A1", "A2", "B1", "B2", "C1", "C2"}
 // ValidLevel reports whether s is one of Levels.
 func ValidLevel(s string) bool { return slices.Contains(Levels, Level(s)) }
 
-// Status is the state of a lesson's audio or annotation work.
+// Status is the state of a lesson's annotation or practice work.
 type Status string
 
 const (
@@ -31,11 +31,10 @@ const (
 	StatusFailed  Status = "failed"
 )
 
-// Sentence is one sentence of a lesson. AudioPath is the URL of its mp3, empty until ready.
+// Sentence is one sentence of a lesson.
 type Sentence struct {
-	Index     int
-	Text      string
-	AudioPath string
+	Index int
+	Text  string
 }
 
 // Annotation explains a word or phrase of a lesson in context.
@@ -59,8 +58,6 @@ type Lesson struct {
 	License          string
 	Revision         int
 	Sentences        []Sentence
-	AudioStatus      Status
-	AudioError       string
 	AnnotationStatus Status
 	AnnotationError  string
 	Annotations      []Annotation
@@ -73,7 +70,7 @@ type Lesson struct {
 	Practice       *Practice
 	PracticeStatus Status
 	PracticeError  string
-	// PracticeVersion is bumped each time a practice is saved; practice audio files belong to one version.
+	// PracticeVersion is bumped each time a practice is saved, so an old practice job cannot overwrite a newer one.
 	PracticeVersion int
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
@@ -82,8 +79,6 @@ type Lesson struct {
 // StatusOf returns the status of the given kind of background work.
 func (l Lesson) StatusOf(t job.Type) Status {
 	switch t {
-	case job.TypeTTS:
-		return l.AudioStatus
 	case job.TypePractice:
 		return l.PracticeStatus
 	default:
@@ -98,7 +93,6 @@ type Summary struct {
 	Level            Level
 	TopicID          string
 	TopicName        string
-	AudioStatus      Status
 	AnnotationStatus Status
 	InRoadmap        bool
 	CreatedAt        time.Time

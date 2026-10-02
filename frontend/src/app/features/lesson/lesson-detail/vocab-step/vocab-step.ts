@@ -1,8 +1,8 @@
 import {
+  inject,
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
   output,
   signal,
@@ -10,10 +10,10 @@ import {
 
 import { PracticeExample } from '../../../../core/models/practice';
 import { VocabItem } from '../../../../core/models/vocab';
-import { VocabApiService } from '../../../../core/services/vocab-api.service';
+import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 
-/** Step 1: the lesson's words with IPA, meaning, word audio and an example sentence to hear. */
+/** Step 1: the lesson's words with IPA, meaning and an example sentence to hear. */
 @Component({
   selector: 'lu-vocab-step',
   imports: [Icon],
@@ -22,15 +22,16 @@ import { Icon } from '../../../../shared/components/icon/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VocabStep {
-  private readonly vocab = inject(VocabApiService);
+  /** False when the browser has no voice: the listen buttons are hidden. */
+  protected readonly canSpeak = inject(SpeechService).supported;
 
   /** The lesson's words; empty when the lesson has none. */
   readonly words = input.required<VocabItem[]>();
   /** Example sentences by lemma; a word without one shows no example. */
   readonly examples = input<PracticeExample[]>([]);
 
-  /** Asks the page to play an audio URL. */
-  readonly playAudio = output<string>();
+  /** Text to read aloud with the browser's voice. */
+  readonly readAloud = output<string>();
 
   protected readonly open = signal(true);
 
@@ -43,6 +44,6 @@ export class VocabStep {
   });
 
   protected playWord(text: string): void {
-    this.playAudio.emit(this.vocab.wordAudioUrl(text));
+    this.readAloud.emit(text);
   }
 }

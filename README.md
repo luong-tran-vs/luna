@@ -51,10 +51,9 @@ Dữ liệu từ trước F14 (chủ đề gõ tự do, một lộ trình chung)
 các cặp trình độ và chủ đề của bài, bài chưa có chủ đề vào "Chung" cùng trình độ, lộ trình chung chia theo chủ đề giữ thứ
 tự. Chỉ chạy một lần (đánh dấu trong collection `migrations`).
 
-Sau khi lưu bài, hệ thống tự làm nền:
+Sau khi lưu bài, hệ thống tự làm nền **chú thích từ vựng** (phần nghe không cần tạo trước: app đọc bằng giọng
+đọc của trình duyệt):
 
-- **Audio từng câu** bằng [Kokoro](https://github.com/remsky/Kokoro-FastAPI) chạy trên CPU (service `kokoro`,
-  image khoảng 5 GB, tải một lần). Audio lưu ở volume `audio-data` và không tạo lại.
 - **Chú thích từ vựng** bằng Gemini (gói miễn phí). Cần khoá API: tạo tại
   <https://aistudio.google.com/apikey>, rồi ghi vào `deploy/.env`:
 
@@ -62,7 +61,7 @@ Sau khi lưu bài, hệ thống tự làm nền:
   GEMINI_API_KEY=khoá-của-bạn
   ```
 
-  và chạy lại `docker compose -f deploy/docker-compose.yml up -d`. Không có khoá thì bài vẫn lưu và có audio,
+  và chạy lại `docker compose -f deploy/docker-compose.yml up -d`. Không có khoá thì bài vẫn lưu và nghe được,
   chú thích báo "AI chưa được cấu hình"; thêm khoá xong bấm **Chạy lại chú thích**. Tắt hẳn AI: `AI_PROVIDER=none`.
 
 ### Sinh bài bằng AI
@@ -81,7 +80,7 @@ AI tránh lặp.
 Kết quả là các **bản nháp**, chỉ có trên trang đang mở và không được lưu vào cơ sở dữ liệu:
 
 - Sửa tiêu đề và nội dung từng bản, bấm **Lưu** hoặc **Bỏ**, hoặc **Lưu tất cả**.
-- Bài được lưu có nguồn "AI sinh", giấy phép "Nội dung do AI tạo". Bài được thêm vào cuối lộ trình rồi chạy audio và chú
+- Bài được lưu có nguồn "AI sinh", giấy phép "Nội dung do AI tạo". Bài được thêm vào cuối lộ trình rồi được chú
   thích như bài tạo tay.
 - Rời trang, tải lại hoặc đổi chủ đề khi còn bản nháp thì được hỏi lại, vì bản nháp sẽ mất.
 
@@ -174,7 +173,8 @@ Chạm một bài (bài hôm nay hoặc bài đã học) ở trang **Bài học*
 mức độ, và hai tab **Bài học** / **Bài đọc**. Tab Bài học có 4 bước, chuyển bằng nút **Tiếp theo** cố định cuối màn hình:
 
 1. **Từ vựng quan trọng**: từ, phiên âm, nghĩa, nút nghe từ, câu ví dụ nghe được.
-2. **Hội thoại mẫu**: nghe cả đoạn (0.75×/1×/1.25×) hoặc từng lượt, bật/tắt nghĩa tiếng Việt.
+2. **Hội thoại mẫu**: lời ẩn sẵn để nghe trước ("Hiện lời" từng lượt hoặc tất cả); mỗi lượt có dạng sóng tô theo tiến độ phát
+   (hình minh hoạ dựng từ câu, không phải sóng thật của audio); nghe cả đoạn (0.75×/1×/1.25×) hoặc từng lượt, bật/tắt nghĩa.
 3. **Điền vào ô trống**: hội thoại có tối đa 5 ô trống ở từ vựng của bài; chạm từ trong ngân hàng từ để điền, **Kiểm tra**.
 4. **Dịch câu sang tiếng Anh**: ghép câu bằng các ô từ (có từ gây nhiễu), **Làm lại**, **Kiểm tra** từng câu.
 
@@ -186,8 +186,8 @@ Nội dung luyện tập (`GET /api/lessons/{id}/practice`):
 - Chú thích bài xong thành công thì job nền `practice` gọi AI **đúng 1 request**: mục tiêu bài, câu ví dụ cho mỗi từ, hội
   thoại 2 người, mẹo ngữ pháp, 3–5 câu dịch. Phần hỏng bị bỏ (câu ví dụ không chứa từ, hội thoại dưới 4 lượt, câu dịch không
   dùng từ vựng…); không còn gì dùng được thì báo lỗi, không gọi lại AI. Ô trống bước 3 do máy chủ tính, không cần AI.
-- Sau đó job `practice_audio` tạo mp3 vào `{AUDIO_DIR}/{id}/{revision}/practice/{version}/`; TTS lỗi thì chỉ chạy lại phần
-  audio. Câu chưa có audio thì ẩn nút nghe.
+- Không tạo file audio: mọi chỗ nghe trong app (bước Đọc, Nghe, sổ từ, ôn tập, trang chi tiết bài, trang
+  quản trị) đọc bằng **giọng đọc của trình duyệt**; trình duyệt không có giọng đọc thì nút nghe bị ẩn.
 - AI lỗi thì chỉ phần luyện tập trống (bước 2–4 báo "Bài này chưa có phần luyện tập"); chú thích, câu hỏi và các bước của bài
   vẫn bình thường.
 - Sửa nội dung bài hoặc chạy lại chú thích thì phần luyện tập cũ bị bỏ và được sinh lại. Bài có từ trước F17 không tự sinh:
@@ -195,8 +195,9 @@ Nội dung luyện tập (`GET /api/lessons/{id}/practice`):
 
 ## Bước Nghe (chép chính tả)
 
-Mở từ trang chi tiết bài → **Mở bước Nghe** (hoặc `/lessons/<id>/listen`); bài cần có audio "Xong". Nghe từng câu
-(trước/sau, nghe lại, tốc độ 0.5x–1.25x, chữ ẩn mặc định), gõ lại câu rồi **Kiểm tra** (hoặc Enter):
+Mở từ **Hôm nay** (hoặc `/lessons/<id>/listen`). Câu được đọc bằng **giọng đọc của trình duyệt** (Web Speech API, không cần
+audio tạo sẵn), kèm dạng sóng minh hoạ chạy theo câu đang đọc. Nghe từng câu (trước/sau, nghe lại, tốc độ 0.5x–1.25x, chữ ẩn
+mặc định), gõ lại câu rồi **Kiểm tra** (hoặc Enter). Trình duyệt không có giọng đọc thì trang báo rõ. Cách so sánh:
 
 - từ sai bị gạch ngang, kèm từ đúng; từ thừa bị gạch ngang; từ thiếu được gạch chân chấm;
 - so sánh không phân biệt hoa thường và dấu câu; `don't` khác `dont`, `9.30` khác `9 30`.
@@ -304,9 +305,8 @@ docker compose -f deploy/docker-compose.yml exec mongo mongosh luna --quiet \
 
 Service `backup` (chạy cùng `docker compose … up`) tự sao lưu toàn bộ database mỗi ngày lúc **03:00** (giờ `BACKUP_TZ`, mặc định
 Việt Nam) vào `deploy/backups/luna-YYYYMMDD.archive.gz` và chỉ giữ **7 bản** mới nhất (bản thứ 8 làm bản cũ nhất bị xoá). Máy chủ
-tắt lúc 03:00 thì khi bật lại sẽ sao lưu bù. Sao lưu lỗi chỉ ghi log `ERROR`, không xoá bản nào, app vẫn chạy bình thường. File âm
-thanh (volume `audio-data`, không bị ảnh hưởng khi khôi phục) và từ điển không được sao lưu: từ điển tải lại bằng
-`deploy/fetch-dictionary.sh`, audio tạo lại bằng nút **Chạy lại audio** ở trang chi tiết bài. Nên chép `deploy/backups/` sang máy/ổ
+tắt lúc 03:00 thì khi bật lại sẽ sao lưu bù. Sao lưu lỗi chỉ ghi log `ERROR`, không xoá bản nào, app vẫn chạy bình thường. Từ điển
+không được sao lưu: tải lại bằng `deploy/fetch-dictionary.sh`. Nên chép `deploy/backups/` sang máy/ổ
 khác định kỳ.
 
 ```bash
@@ -346,9 +346,6 @@ cp deploy/.env.example deploy/.env
 | `LOG_LEVEL` | backend | Không | `info` | `debug`, `info`, `warn`, `error` |
 | `COOKIE_SECURE` | backend | Không | `false` | `true` khi chạy qua HTTPS (thêm cờ `Secure` cho cookie đăng nhập) |
 | `WEB_PORT` | compose | Không | `8000` | Cổng mở app trên máy |
-| `TTS_URL` | backend | Không | `http://localhost:8880` (compose: `http://kokoro:8880`) | Địa chỉ Kokoro |
-| `TTS_VOICE` | backend | Không | `af_heart` | Giọng đọc |
-| `AUDIO_DIR` | backend | Không | `./data/audio` (compose: `/data/audio`) | Thư mục lưu mp3 |
 | `AI_PROVIDER` | backend | Không | `gemini` | `gemini` hoặc `none` |
 | `GEMINI_API_KEY` | backend | Không | rỗng | Khoá Gemini (bí mật, chỉ để trong `.env`) |
 | `GEMINI_MODEL` | backend | Không | `gemini-3.5-flash-lite` | Model dùng để chú thích và sinh bài |
@@ -357,22 +354,22 @@ cp deploy/.env.example deploy/.env
 | `BACKUP_TIME` | backup | Không | `03:00` | Giờ sao lưu mỗi ngày (HH:MM) |
 | `BACKUP_KEEP` | backup | Không | `7` | Số bản sao lưu giữ lại |
 
-Thiếu `MONGO_URI`, hoặc `LOG_LEVEL` / `COOKIE_SECURE` / `AI_PROVIDER` / `TTS_URL` sai thì backend in lỗi nêu tên biến và dừng với mã 1.
+Thiếu `MONGO_URI`, hoặc `LOG_LEVEL` / `COOKIE_SECURE` / `AI_PROVIDER` sai thì backend in lỗi nêu tên biến và dừng với mã 1.
 Mọi file `.env` đều bị git bỏ qua; không commit bí mật vào repo.
 
 ## Phát triển
 
 Cần thêm Go 1.25 và Node 22. Chạy từng phần riêng:
 
-**1. Cơ sở dữ liệu và TTS** (MongoDB, Kokoro trong Docker, chỉ mở cổng trên localhost):
+**1. Cơ sở dữ liệu** (MongoDB trong Docker, chỉ mở cổng trên localhost):
 
 ```bash
-docker compose -f deploy/docker-compose.yml up -d mongo kokoro
+docker compose -f deploy/docker-compose.yml up -d mongo
 ```
 
 Dùng MongoDB Atlas (cloud) thay cho MongoDB trong Docker: đặt `MONGO_URI=mongodb+srv://...` trong `backend/.env`
-(chuỗi kết nối lấy ở Atlas → **Connect** → **Drivers**; thêm IP máy này ở **Network Access**), rồi chỉ chạy
-`docker compose -f deploy/docker-compose.yml up -d kokoro`. Backend tự tạo index trên DB mới. Kokoro vẫn cần để sinh audio.
+(chuỗi kết nối lấy ở Atlas → **Connect** → **Drivers**; thêm IP máy này ở **Network Access**), không cần chạy
+container nào. Backend tự tạo index trên DB mới.
 
 **2. Backend** (`http://localhost:8080`). Lần đầu, chép file cấu hình mẫu cho môi trường phát triển:
 
@@ -428,7 +425,7 @@ docker run --rm -v "${PWD}:/app" -w /app -v luna-go-mod:/go/pkg/mod -v luna-gola
 
 ```text
 frontend/   Angular 21 (standalone, signals, zoneless): core/, shared/, features/
-backend/    Go 1.25, net/http: cmd/api, internal/{auth,lesson,topic,job,tts,ai,dictionary,vocab,progress,health,platform,storage}
+backend/    Go 1.25, net/http: cmd/api, internal/{auth,lesson,topic,job,ai,dictionary,vocab,progress,health,platform,storage,wordmatch}
 deploy/     docker-compose.yml, .env.example, fetch-dictionary.sh/.ps1, data/ (dữ liệu tải về)
 docs/       Tài liệu sản phẩm (nguồn sự thật)
 specs/      Spec, plan, tasks của từng tính năng

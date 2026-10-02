@@ -23,7 +23,7 @@ func newQuizEnv(t *testing.T) (*Reader, *fakeLessons, *fakeAnswers, Lesson) {
 		Extras:      Extras{Questions: quizQuestions, GrammarNote: &GrammarNote{Title: "Quá khứ đơn", BodyVi: "b", Examples: []string{"We went home."}}, WritingPrompt: "secret prompt"},
 		QuizVersion: 2,
 	})
-	return NewReader(lessons, readingDict, newFakeTopics(), answers, newFakeAsks(), &fakeAI{}, ""), lessons, answers, l
+	return NewReader(lessons, readingDict, newFakeTopics(), answers, newFakeAsks(), &fakeAI{}), lessons, answers, l
 }
 
 func answer(t *testing.T, r *Reader, user, lessonID string, version, index, choice int) (AnswerResult, error) {

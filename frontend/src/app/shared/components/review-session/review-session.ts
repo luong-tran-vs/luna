@@ -21,7 +21,7 @@ import { DueCard, Intervals, Rating, ReviewContext, ReviewMode, ReviewSummary } 
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { isCorrectAnswer } from '../../utils/answer-match';
 import { intervalLabel } from '../../utils/interval-label';
-import { AudioPlayer } from '../audio-player/audio-player';
+import { SpeechService } from '../../../core/services/speech.service';
 
 interface RatingButton {
   rating: Rating;
@@ -43,7 +43,6 @@ const RATINGS: RatingButton[] = [
  */
 @Component({
   selector: 'lu-review-session',
-  imports: [AudioPlayer],
   templateUrl: './review-session.html',
   styleUrl: './review-session.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,6 +50,7 @@ const RATINGS: RatingButton[] = [
 })
 export class ReviewSession {
   private readonly api = inject(VocabApiService);
+  private readonly speech = inject(SpeechService);
   private readonly injector = inject(Injector);
 
   readonly cards = input.required<DueCard[]>();
@@ -73,7 +73,6 @@ export class ReviewSession {
   protected readonly saveError = signal(false);
   protected readonly summary = signal<ReviewSummary | null>(null);
 
-  private readonly player = viewChild(AudioPlayer);
   private readonly face = viewChild<ElementRef<HTMLButtonElement>>('face');
   private readonly answer = viewChild<ElementRef<HTMLInputElement>>('answer');
   private readonly requeued = new Set<string>();
@@ -85,8 +84,7 @@ export class ReviewSession {
     // Listen mode plays each new card on its own.
     effect(() => {
       const card = this.current();
-      const player = this.player();
-      if (card && player && this.mode() === 'listen') {
+      if (card && this.mode() === 'listen') {
         untracked(() => this.play());
       }
     });
@@ -100,7 +98,7 @@ export class ReviewSession {
     const card = this.current();
     if (card) {
       this.playError.set(false);
-      this.player()?.replay(this.api.wordAudioUrl(card.text));
+      this.speech.speak(card.text, 1, { failed: () => this.playError.set(true) });
     }
   }
 
@@ -203,7 +201,4 @@ export class ReviewSession {
     afterNextRender(() => (this.answer() ?? this.face())?.nativeElement.focus(), { injector: this.injector });
   }
 
-  protected onPlayFailed(): void {
-    this.playError.set(true);
-  }
 }

@@ -1,50 +1,63 @@
 <section class="soft-card" aria-labelledby="dialogue-heading">
   <h2 class="step-title" id="dialogue-heading">2. Hội thoại mẫu</h2>
 
-  <div class="playbar">
-    <!-- One button, so focus stays on it when it turns into "Dừng". -->
-    <button
-      type="button"
-      class="icon-btn play-btn"
-      [attr.aria-label]="mode() === 'all' ? 'Dừng' : 'Nghe cả đoạn'"
-      (click)="mode() === 'all' ? stop() : playAll()"
-    >
-      <lu-icon [name]="mode() === 'all' ? 'pause' : 'play'" />
-    </button>
-    <div class="play-info">
-      <span class="time">{{ elapsed() }}</span
-      >&ngsp;
-      @if (mode() === 'all' && current() !== null) {
-        <span class="muted">Lượt {{ current()! + 1 }}/{{ dialogue().turns.length }}</span>
-      }
-    </div>
-  </div>
-
-  <div class="speed" role="radiogroup" aria-label="Tốc độ">
-    <span class="speed-label" aria-hidden="true">Tốc độ</span>
-    @for (s of speeds; track s) {
+  @if (canSpeak) {
+    <div class="playbar">
+      <!-- One button, so focus stays on it when it turns into "Dừng". -->
       <button
         type="button"
-        role="radio"
-        class="speed-option"
-        [attr.aria-checked]="rate() === s"
-        [tabIndex]="rate() === s ? 0 : -1"
-        (click)="setRate(s)"
-        (keydown)="onSpeedKeydown($event)"
+        class="icon-btn play-btn"
+        [attr.aria-label]="mode() === 'all' ? 'Dừng' : 'Nghe cả đoạn'"
+        (click)="mode() === 'all' ? stop() : playAll()"
       >
-        {{ s }}x
+        <lu-icon [name]="mode() === 'all' ? 'pause' : 'play'" />
+      </button>
+      <div class="play-info">
+        <span class="time">{{ elapsed() }}</span
+        >&ngsp;
+        @if (mode() === 'all' && current() !== null) {
+          <span class="muted">Lượt {{ current()! + 1 }}/{{ dialogue().turns.length }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="speed" role="radiogroup" aria-label="Tốc độ">
+      <span class="speed-label" aria-hidden="true">Tốc độ</span>
+      @for (s of speeds; track s) {
+        <button
+          type="button"
+          role="radio"
+          class="speed-option"
+          [attr.aria-checked]="rate() === s"
+          [tabIndex]="rate() === s ? 0 : -1"
+          (click)="setRate(s)"
+          (keydown)="onSpeedKeydown($event)"
+        >
+          {{ s }}x
+        </button>
+      }
+    </div>
+
+    <p class="hint muted">Nghe trước rồi bấm “Hiện lời” để xem câu.</p>
+  } @else {
+    <p class="banner-warning" role="status">Trình duyệt này không có giọng đọc, nên lời được hiện sẵn.</p>
+  }
+
+  <div class="toggles">
+    @if (canSpeak) {
+      <button type="button" class="btn toggle" [attr.aria-pressed]="allRevealed()" (click)="toggleAll()">
+        Hiện lời tất cả
       </button>
     }
+    <button
+      type="button"
+      class="btn toggle meaning-toggle"
+      [attr.aria-pressed]="showMeaning()"
+      (click)="showMeaning.set(!showMeaning())"
+    >
+      Nghĩa tiếng Việt
+    </button>
   </div>
-
-  <button
-    type="button"
-    class="btn meaning-toggle"
-    [attr.aria-pressed]="showMeaning()"
-    (click)="showMeaning.set(!showMeaning())"
-  >
-    Nghĩa tiếng Việt
-  </button>
 
   <ol class="turns">
     @for (t of dialogue().turns; track $index; let i = $index) {
@@ -55,7 +68,7 @@
       >
         <div class="turn-head">
           <span class="speaker">{{ speaker(t.speaker) }}</span>
-          @if (t.audioUrl) {
+          @if (canSpeak) {
             <button
               type="button"
               class="icon-btn"
@@ -66,9 +79,28 @@
             </button>
           }
         </div>
-        <p class="turn-text" lang="en">{{ t.text }}</p>
-        @if (showMeaning()) {
-          <p class="turn-meaning">{{ t.meaningVi }}</p>
+        @if (canSpeak) {
+          <lu-waveform [text]="t.text" [progress]="progress(i)" />
+        }
+        @if (isRevealed(i)) {
+          <div class="lyrics" [id]="'turn-lyrics-' + i">
+            <p class="turn-text" lang="en">{{ t.text }}</p>
+            @if (showMeaning()) {
+              <p class="turn-meaning">{{ t.meaningVi }}</p>
+            }
+          </div>
+        }
+        @if (canSpeak) {
+          <button
+            type="button"
+            class="reveal"
+            [attr.aria-label]="(isRevealed(i) ? 'Ẩn lời' : 'Hiện lời') + ' lượt ' + (i + 1)"
+            [attr.aria-expanded]="isRevealed(i)"
+            [attr.aria-controls]="isRevealed(i) ? 'turn-lyrics-' + i : null"
+            (click)="toggleTurn(i)"
+          >
+            {{ isRevealed(i) ? 'Ẩn lời' : 'Hiện lời' }}
+          </button>
         }
       </li>
     }

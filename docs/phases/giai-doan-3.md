@@ -4,7 +4,7 @@
 
 **Mục tiêu:** dùng app trên điện thoại ở mọi nơi qua HTTPS, và thêm kỹ năng **Nói**.
 **Các bước của bài:** Ôn → Đọc → Nghe → Viết → **Nói** (bắt buộc).
-**AI:** whisper.cpp chạy trên CPU, model `small.en` (máy 16GB RAM; dự phòng `base.en` nếu chậm). Hội thoại (F11) dùng Gemini và Kokoro.
+**AI:** whisper.cpp chạy trên CPU, model `small.en` (máy 16GB RAM; dự phòng `base.en` nếu chậm). Hội thoại (F11) dùng Gemini; mọi chỗ nghe dùng giọng đọc của trình duyệt (bỏ Kokoro từ 2026-10-02).
 **Thứ tự làm:** F16 → F10 → F11. F17 và F18 (thêm 2026-10-02) độc lập, làm lúc nào cũng được.
 
 ---
@@ -29,7 +29,7 @@
 ## F10. Nói (shadowing)
 
 **Chức năng**
-- Bước **Nói** sau bước Viết, bắt buộc. Với từng câu của bài: nghe audio mẫu, bấm **Ghi âm**, đọc theo, bấm **Dừng**.
+- Bước **Nói** sau bước Viết, bắt buộc. Với từng câu của bài: nghe câu mẫu (giọng đọc của trình duyệt), bấm **Ghi âm**, đọc theo, bấm **Dừng**.
 - Whisper chuyển giọng nói thành chữ, so với câu gốc và tô từng từ: *đúng*, *sai*, *thiếu* (cùng quy ước F4).
 - Nghe lại bản ghi của mình; ghi lại câu đó bao nhiêu lần cũng được, lấy lần gần nhất.
 - Tỷ lệ đọc đúng của bài được lưu để thống kê.
@@ -47,7 +47,7 @@
 
 **Chức năng**
 - Từ bài học, chọn **Luyện hội thoại**: AI đóng một vai trong một tình huống gắn với bài (gọi món, hỏi đường…), dùng lại từ vựng của bài.
-- Người học trả lời bằng giọng nói (Whisper) hoặc gõ chữ; câu trả lời của AI có audio (Kokoro).
+- Người học trả lời bằng giọng nói (Whisper) hoặc gõ chữ; câu trả lời của AI được đọc bằng giọng đọc của trình duyệt.
 - Mỗi phiên tối đa 10 lượt; kết thúc thì AI tóm tắt lỗi thường gặp và gợi ý cách nói tốt hơn.
 
 **Tiêu chí nghiệm thu**
@@ -64,12 +64,13 @@
 
 **Chức năng**
 - Sau khi chú thích bài, AI sinh thêm (1 request riêng) phần luyện tập xoay quanh từ vựng của bài: mục tiêu bài, câu ví dụ tiếng Anh
-  cho mỗi từ, hội thoại mẫu 2 người dùng các từ đó (kèm nghĩa tiếng Việt), mẹo ngữ pháp, 3–5 câu dịch Việt → Anh. Câu ví dụ và hội
-  thoại có audio.
+  cho mỗi từ, hội thoại mẫu 2 người dùng các từ đó (kèm nghĩa tiếng Việt), mẹo ngữ pháp, 3–5 câu dịch Việt → Anh. Từ, câu ví dụ, hội
+  thoại và câu dịch được đọc bằng giọng đọc của trình duyệt.
 - Trang chi tiết bài (`/lessons/:id`): thanh trên (đóng, tiến độ 1/4, streak), "Bài N" + tiêu đề, mục tiêu, mức độ; tab **Bài học**
   (4 bước) và **Bài đọc** (bài đọc gốc, ngữ pháp). Nút **Tiếp theo** cố định cuối màn hình.
   1. **Từ vựng quan trọng:** từ, phiên âm, nghĩa tiếng Việt, nút loa, câu ví dụ tiếng Anh.
-  2. **Hội thoại mẫu:** nghe cả đoạn (tốc độ) hoặc từng lượt, bật/tắt nghĩa tiếng Việt.
+  2. **Hội thoại mẫu:** nghe cả đoạn (tốc độ) hoặc từng lượt; lời ẩn sẵn (nghe trước, bấm "Hiện lời" để xem), mỗi lượt có dạng sóng
+     tô theo tiến độ phát; bật/tắt nghĩa tiếng Việt.
   3. **Điền vào ô trống:** hội thoại có ô trống ở từ vựng, chạm từ trong ngân hàng từ để điền, Kiểm tra, mẹo ngữ pháp.
   4. **Dịch câu sang tiếng Anh:** ghép câu bằng các ô từ (có từ gây nhiễu), Làm lại, Kiểm tra từng câu.
 - Tổng kết cuối cùng, làm lại được. Không có điểm XP.

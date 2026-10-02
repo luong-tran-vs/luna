@@ -6,7 +6,6 @@
 
   @if (open()) {
     <div id="vocab-panel" class="panel">
-      <lu-audio-player />
       @if (loadError()) {
         <p class="form-alert" role="alert">
           Không tải được danh sách từ vựng. <button type="button" class="btn" (click)="load()">Thử lại</button>

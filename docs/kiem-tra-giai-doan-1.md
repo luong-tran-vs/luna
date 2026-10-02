@@ -20,7 +20,7 @@ Gom toàn bộ việc kiểm tra thủ công còn tồn của 11 spec (`specs/00
 - [ ] **Sao lưu dữ liệu hiện có trước khi làm gì khác:** `$COMPOSE run --rm -e BACKUP_NOW=1 -e BACKUP_ONCE=1 backup`.
 - [ ] `$COMPOSE up --build -d`, mở <http://localhost:8000>.
 - [ ] Hai tài khoản: `admin@example.com` (quản trị viên) và `hoc@example.com` (người học).
-- [ ] Dữ liệu mẫu: chủ đề **A1 · Gia đình** (≥ 4 bài) và **A1 · Mua sắm** (≥ 1 bài), mọi bài có audio và chú thích "Xong". Một bài dùng nội dung mẫu tách câu `[003 › 1]`, một bài dùng nội dung mẫu tra từ `[004 › chuẩn bị]`, một bài dùng nội dung mẫu chép chính tả `[005 › chuẩn bị]`.
+- [ ] Dữ liệu mẫu: chủ đề **A1 · Gia đình** (≥ 4 bài) và **A1 · Mua sắm** (≥ 1 bài), mọi bài có chú thích "Xong". Một bài dùng nội dung mẫu tách câu `[003 › 1]`, một bài dùng nội dung mẫu tra từ `[004 › chuẩn bị]`, một bài dùng nội dung mẫu chép chính tả `[005 › chuẩn bị]`.
 
 ## 1. Hệ thống (F0)
 
@@ -52,9 +52,9 @@ Gom toàn bộ việc kiểm tra thủ công còn tồn của 11 spec (`specs/00
 - [ ] Kiểm tra kết quả chuyển dữ liệu cũ: mọi bài có `topicId`, không còn `db.roadmap`, `db.migrations` có `f14-topics`; restart backend dữ liệu không đổi `[007 › 0.3–0.4]`.
 - [ ] Chủ đề: thêm, trùng tên cùng trình độ bị chặn, khác trình độ thì được; xoá chủ đề còn bài bị chặn `[007 › 1]`.
 - [ ] Form bài bắt buộc chọn chủ đề; đổi chủ đề của bài đang ở lộ trình → bài xuống cuối lộ trình mới; lọc theo trình độ và chủ đề `[007 › 2]`.
-- [ ] Sau khi lưu bài: trạng thái tự đổi "Xong" trong ≤ 10 giây; bấm ▶ từng câu nghe đúng; mở lại bài không sinh lại audio `[003 › 2.1–2.3]`.
+- [ ] Sau khi lưu bài: trạng thái tự đổi "Xong" trong ≤ 10 giây; bấm ▶ từng câu nghe được (giọng đọc của trình duyệt) `[003 › 2.1–2.3]`.
 - [ ] Không có key AI → chú thích "Lỗi"; thêm key, Chạy lại → "Xong", log `ai request` tăng đúng 1 `[003 › 2.4]`.
-- [ ] Tắt Kokoro → audio "Lỗi"; bật lại, Chạy lại → "Xong". Restart backend khi đang tạo audio → tự chạy tiếp `[003 › 2.5–2.6]`.
+- [ ] ~~Tắt Kokoro → audio "Lỗi"…~~ Bỏ từ 2026-10-02 (không còn sinh audio; nghe bằng giọng đọc của trình duyệt).
 - [ ] Sửa chú thích: sửa, thêm cụm có trong bài, cụm không có bị báo lỗi, xoá; nhãn "Đã sửa tay" `[003 › 4]`.
 - [ ] Lộ trình theo chủ đề: kéo thả bằng tay nắm, tải lại giữ thứ tự; Lên/Xuống bằng bàn phím; cảnh báo "còn dưới 3 bài" theo từng chủ đề; không thêm trùng `[003 › 3]` `[007 › 3]`.
 
@@ -77,7 +77,7 @@ Gom toàn bộ việc kiểm tra thủ công còn tồn của 11 spec (`specs/00
 - [ ] Mỗi lần tra < 300ms, log `ai request` không tăng `[004 › 1.4]`.
 - [ ] Lưu từ → ✓, tô màu ở mọi bài; lưu trùng không tạo thẻ mới; từ không có nghĩa → tự nhập `[004 › 2]`.
 - [ ] Bôi đen cụm (máy tính kéo, điện thoại chạm giữ); chọn một phần từ; chọn vắt hai câu; 7 từ → báo tối đa 6 `[004 › 3]`.
-- [ ] Phát âm ▶ không chồng tiếng; tắt Kokoro → "Chưa phát được âm thanh" `[004 › 4]`.
+- [ ] Phát âm ▶ không chồng tiếng; trình duyệt không đọc được → "Chưa đọc được từ này" `[004 › 4]`.
 - [ ] "Đã đọc xong": bài dài bật khi cuộn tới cuối, bài ngắn bật ngay `[004 › 5]`.
 - [ ] Mục Từ vựng: Lưu một từ, Lưu tất cả hai lần không trùng, lưu từ popup cập nhật ✓, bài chưa có chú thích → "Chưa có danh sách từ vựng" `[006 › 1]`.
 - [ ] Tài khoản khác không thấy từ của tài khoản trước `[004 › 6]`.

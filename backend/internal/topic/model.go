@@ -68,7 +68,6 @@ type LessonRef struct {
 	Title            string
 	Level            string
 	TopicID          string
-	AudioStatus      string
 	AnnotationStatus string
 	CreatedAt        time.Time
 }

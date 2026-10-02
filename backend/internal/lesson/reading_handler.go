@@ -85,10 +85,7 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 		Phrases: make([]phraseJSON, len(v.Phrases)),
 	}
 	for i, s := range v.Sentences {
-		out.Sentences[i] = sentenceJSON{Index: s.Index, Text: s.Text}
-		if s.AudioPath != "" {
-			out.Sentences[i].AudioURL = &s.AudioPath
-		}
+		out.Sentences[i] = sentenceJSON(s)
 	}
 	for i, p := range v.Phrases {
 		out.Phrases[i] = phraseJSON(p)

@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { PracticeView } from '../../../core/models/practice';
 import { ReadingLesson } from '../../../core/models/reading';
 import { MyLessons } from '../../../core/models/study';
@@ -16,9 +17,9 @@ const lesson: ReadingLesson = {
   level: 'A1',
   topic: 'Làm quen',
   sentences: [
-    { index: 0, text: 'Hello, my name is Minh.', audioUrl: null },
-    { index: 1, text: 'Nice to meet you.', audioUrl: null },
-    { index: 2, text: 'I am from Vietnam.', audioUrl: null },
+    { index: 0, text: 'Hello, my name is Minh.' },
+    { index: 1, text: 'Nice to meet you.' },
+    { index: 2, text: 'I am from Vietnam.' },
   ],
   paragraphs: [[0, 1], [2]],
   lemmas: {},
@@ -57,7 +58,7 @@ const practice: PracticeView = {
   status: 'done',
   lessonNumber: 3,
   objectiveVi: 'Bạn có thể chào hỏi và giới thiệu bản thân.',
-  examples: [{ lemma: 'name', sentence: "What's your name?", audioUrl: '/a/example/0' }],
+  examples: [{ lemma: 'name', sentence: "What's your name?" }],
   dialogue: {
     speakers: ['Minh', 'Anna'],
     turns: [
@@ -65,13 +66,11 @@ const practice: PracticeView = {
         speaker: 0,
         text: 'Hi, my name is Minh.',
         meaningVi: 'Chào, mình tên Minh.',
-        audioUrl: '/a/turn/0',
       },
       {
         speaker: 1,
         text: 'Nice to meet you.',
         meaningVi: 'Rất vui được gặp bạn.',
-        audioUrl: '/a/turn/1',
       },
     ],
   },
@@ -99,13 +98,11 @@ const practice: PracticeView = {
       vi: 'Tên tôi là Minh.',
       answer: ['My', 'name', 'is', 'Minh.'],
       tiles: ['My', 'name', 'is', 'Minh.', 'are'],
-      audioUrl: null,
     },
     {
       vi: 'Rất vui được gặp bạn.',
       answer: ['Nice', 'to', 'meet', 'you.'],
       tiles: ['Nice', 'to', 'meet', 'you.', 'see'],
-      audioUrl: null,
     },
   ],
 };
@@ -138,6 +135,7 @@ interface Options {
 }
 
 describe('LessonDetail', () => {
+  let speech: FakeSpeech;
   let fixture: ComponentFixture<LessonDetail>;
   let http: HttpTestingController;
   let el: HTMLElement;
@@ -153,14 +151,14 @@ describe('LessonDetail', () => {
   };
 
   const open = async (options: Options = {}) => {
-    vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined);
-    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
+    speech = new FakeSpeech();
     TestBed.configureTestingModule({
       imports: [LessonDetail],
       providers: [
         provideRouter([]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
+        provideFakeSpeech(speech),
         {
           provide: ActivatedRoute,
           useValue: { snapshot: { paramMap: convertToParamMap({ id: 'l1' }) } },
@@ -264,11 +262,11 @@ describe('LessonDetail', () => {
       expect(text(el.querySelector('lu-translate-step'))).toContain('Câu 1/2');
     });
 
-    it('plays a word through the page player', async () => {
+    it('reads a word with the browser voice', async () => {
       await open();
       el.querySelector<HTMLButtonElement>('button[aria-label="Nghe từ name"]')!.click();
       await fixture.whenStable();
-      expect(el.querySelector('audio')?.getAttribute('src')).toBe('/api/tts/word?text=name');
+      expect(speech.last()).toMatchObject({ text: 'name', rate: 1 });
     });
 
     it('without practice: words without examples, then "no practice" for steps 2–4', async () => {

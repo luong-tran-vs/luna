@@ -57,11 +57,18 @@
   border-color: var(--color-primary);
 }
 
-.meaning-toggle {
-  justify-self: start;
+.hint {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
 }
 
-.meaning-toggle[aria-pressed='true'] {
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.toggle[aria-pressed='true'] {
   background: var(--color-primary-soft);
   border-color: var(--color-primary);
 }
@@ -104,4 +111,23 @@
 .turn-meaning {
   font: var(--text-sm) var(--font-ui);
   color: var(--color-text-muted);
+}
+
+.lyrics {
+  display: grid;
+  gap: var(--space-1);
+}
+
+/* A text button with a 44px touch target. */
+.reveal {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
 }

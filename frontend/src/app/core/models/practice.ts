@@ -7,8 +7,6 @@ export type PracticeStatus = 'none' | 'running' | 'done' | 'failed';
 export interface PracticeExample {
   lemma: string;
   sentence: string;
-  /** Null until the audio file exists. */
-  audioUrl: string | null;
 }
 
 export interface PracticeTurn {
@@ -16,7 +14,6 @@ export interface PracticeTurn {
   speaker: number;
   text: string;
   meaningVi: string;
-  audioUrl: string | null;
 }
 
 export interface PracticeDialogue {
@@ -29,7 +26,7 @@ export type FillPart = { text: string } | { blank: number };
 
 export interface FillTurn {
   speaker: number;
-  /** Index of the dialogue turn this line comes from (its audio). */
+  /** Index of the dialogue turn this line comes from. */
   turnIndex: number;
   meaningVi: string;
   parts: FillPart[];
@@ -54,7 +51,6 @@ export interface PracticeTranslation {
   answer: string[];
   /** Answer tiles plus distractors, in a fixed order (the page shuffles them). */
   tiles: string[];
-  audioUrl: string | null;
 }
 
 /** GET /api/lessons/{id}/practice. */
