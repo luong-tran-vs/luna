@@ -6,6 +6,7 @@ import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/route
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { DictationResult, DictationSummary } from '../../../core/models/dictation';
 import { ReadingLesson } from '../../../core/models/reading';
+import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { Listening } from './listening';
 
 const lesson: ReadingLesson = {
@@ -16,16 +17,15 @@ const lesson: ReadingLesson = {
   level: 'A2',
   topic: '',
   sentences: [
-    { index: 0, text: "I don't like green apples.", audioUrl: '/audio/l1/0.wav' },
-    { index: 1, text: 'We went to the park at 9.30.', audioUrl: null },
-    { index: 2, text: 'Why?', audioUrl: '/audio/l1/2.wav' },
+    { index: 0, text: "I don't like green apples." },
+    { index: 1, text: 'We went to the park at 9.30.' },
+    { index: 2, text: 'Why?' },
   ],
   paragraphs: [[0, 1, 2]],
   lemmas: {},
   phrases: [],
 };
 
-const noAudio: ReadingLesson = { ...lesson, sentences: lesson.sentences.map((s) => ({ ...s, audioUrl: null })) };
 
 function summaryOf(results: DictationResult[], sentenceCount = 3): DictationSummary {
   const correctWords = results.reduce((n, r) => n + r.correctWords, 0);
@@ -53,8 +53,7 @@ describe('Listening', () => {
   let fixture: ComponentFixture<Listening>;
   let el: HTMLElement;
   let http: HttpTestingController;
-  let play: ReturnType<typeof vi.spyOn>;
-  let pause: ReturnType<typeof vi.spyOn>;
+  let speech: FakeSpeech;
   let completed: number;
 
   const settle = async () => {
@@ -64,7 +63,8 @@ describe('Listening', () => {
   const button = (text: string) =>
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === text) as HTMLButtonElement | undefined;
   const text = (selector: string) => el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
-  const audio = () => el.querySelector('audio')!;
+  /** Percent of the waveform shown as played. */
+  const filled = () => 100 - Number(/inset\(0 ([\d.]+)%/.exec(el.querySelector<SVGElement>('lu-waveform svg.played')!.style.clipPath)![1]);
   const input = () => el.querySelector<HTMLInputElement>('#answer')!;
   const type = async (value: string) => {
     input().value = value;
@@ -87,15 +87,19 @@ describe('Listening', () => {
       summary?: DictationSummary;
       inputs?: Record<string, unknown>;
       query?: Record<string, string>;
+      speech?: boolean;
     } = {},
   ) => {
     completed = 0;
+    speech = new FakeSpeech();
+    speech.supported = options.speech ?? true;
     await TestBed.configureTestingModule({
       imports: [Listening],
       providers: [
         provideRouter([{ path: 'forbidden', children: [] }]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
+        provideFakeSpeech(speech),
         {
           provide: ActivatedRoute,
           useValue: {
@@ -126,8 +130,6 @@ describe('Listening', () => {
   };
 
   beforeEach(() => {
-    play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined);
-    pause = vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
     // jsdom has no layout: scrollIntoView does not exist.
     Element.prototype.scrollIntoView = vi.fn();
   });
@@ -135,6 +137,15 @@ describe('Listening', () => {
   afterEach(() => {
     http?.verify();
     vi.restoreAllMocks();
+  });
+
+  it('offers a way back to the lessons only when opened on its own', async () => {
+    await setup();
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons');
+    fixture.destroy();
+    TestBed.resetTestingModule();
+    await setup({ inputs: { lessonId: 'l1', mode: 'study' } });
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')).toBeNull();
   });
 
   describe('listening sentence by sentence', () => {
@@ -145,17 +156,42 @@ describe('Listening', () => {
       expect(button('Câu sau')!.disabled).toBe(false);
     });
 
-    it('plays the current sentence and replays it from the start', async () => {
+    it('has the browser read the hidden sentence, and read it again from the start', async () => {
+      await setup();
+      expect(speech.spoken).toHaveLength(0);
+      button('Nghe câu')!.click();
+      await settle();
+      expect(speech.last()).toMatchObject({ text: "I don't like green apples.", rate: 1 });
+      speech.stops = 0;
+      button('Nghe câu')!.click();
+      await settle();
+      expect(speech.stops).toBeGreaterThan(0);
+      expect(speech.spoken).toHaveLength(2);
+    });
+
+    it('fills the waveform while reading and when done', async () => {
+      await setup();
+      expect(el.querySelector('lu-waveform')!.getAttribute('aria-hidden')).toBe('true');
+      expect(filled()).toBe(0);
+      button('Nghe câu')!.click();
+      await settle();
+      speech.last().handlers.progress!(0.5, 0.6);
+      await fixture.whenStable();
+      expect(filled()).toBe(50);
+      speech.last().handlers.progress!(1, 1.2);
+      speech.last().handlers.ended!();
+      await fixture.whenStable();
+      expect(filled()).toBe(100);
+    });
+
+    it('says so when the browser fails to read', async () => {
       await setup();
       button('Nghe câu')!.click();
       await settle();
-      expect(audio().getAttribute('src')).toBe('/audio/l1/0.wav');
-      expect(play).toHaveBeenCalledTimes(1);
-      audio().currentTime = 1.5;
-      button('Nghe câu')!.click();
-      await settle();
-      expect(audio().currentTime).toBe(0);
-      expect(play).toHaveBeenCalledTimes(2);
+      speech.last().handlers.failed!('synthesis-failed');
+      await fixture.whenStable();
+      expect(text('[role="alert"]')).toBe('Chưa đọc được câu. Hãy thử lại.');
+      expect(filled()).toBe(0);
     });
 
     it('moves between sentences and plays the new one', async () => {
@@ -165,7 +201,7 @@ describe('Listening', () => {
       await settle();
       expect(text('.counter')).toBe('Câu 3/3');
       expect(button('Câu sau')!.disabled).toBe(true);
-      expect(audio().getAttribute('src')).toBe('/audio/l1/2.wav');
+      expect(speech.last().text).toBe('Why?');
       button('Câu trước')!.click();
       await settle();
       expect(text('.counter')).toBe('Câu 2/3');
@@ -182,7 +218,7 @@ describe('Listening', () => {
       button('Câu sau')!.click();
       button('Câu sau')!.click();
       await settle();
-      expect(audio().playbackRate).toBe(0.75);
+      expect(speech.last().rate).toBe(0.75);
     });
 
     it('changes speed with arrow keys', async () => {
@@ -206,19 +242,25 @@ describe('Listening', () => {
       expect(el.querySelector('.transcript')).toBeNull();
     });
 
-    it('says so when a sentence has no audio but keeps the input', async () => {
+    it('reads every sentence', async () => {
       await setup();
       button('Câu sau')!.click();
       await settle();
-      expect(text('.no-audio')).toContain('Chưa có audio');
-      expect(button('Nghe câu')).toBeUndefined();
-      expect(input()).toBeTruthy();
+      expect(speech.last().text).toBe('We went to the park at 9.30.');
+      expect(button('Nghe câu')).toBeTruthy();
     });
 
-    it('shows a message and no dictation when the lesson has no audio', async () => {
-      await setup({ lesson: noAudio });
-      expect(el.textContent).toContain('Audio của bài chưa sẵn sàng');
+    it('shows a message and no dictation when the browser has no voice', async () => {
+      await setup({ speech: false });
+      expect(el.textContent).toContain('Trình duyệt này không có giọng đọc');
       expect(el.querySelector('#answer')).toBeNull();
+    });
+
+    it('stops reading when the page closes', async () => {
+      await setup();
+      speech.stops = 0;
+      fixture.destroy();
+      expect(speech.stops).toBeGreaterThan(0);
     });
 
     it('shows not found for an unknown lesson', async () => {
@@ -347,7 +389,6 @@ describe('Listening', () => {
       expectPost().flush({ summary: summaryOf([result(0, 'why', 0, 5)]) });
       await settle();
       expect(el.querySelector('.save-error')).toBeNull();
-      expect(pause).toBeDefined();
     });
   });
 

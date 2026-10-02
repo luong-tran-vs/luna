@@ -10,7 +10,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
 
-// Handler serves the admin lesson API and lesson audio.
+// Handler serves the admin lesson API.
 type Handler struct {
 	svc *Service
 	log *slog.Logger
@@ -21,9 +21,8 @@ func NewHandler(svc *Service, log *slog.Logger) *Handler {
 	return &Handler{svc: svc, log: log}
 }
 
-// Register adds the admin routes (behind requireAuth + admin role) and the audio route
-// (behind requireAuth, any role) to mux. audioDir is where mp3 files live.
-func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware, audioDir string) {
+// Register adds the admin routes (behind requireAuth + admin role) to mux.
+func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	admin := func(f http.HandlerFunc) http.Handler { return requireAuth(httpx.RequireAdmin(f)) }
 
 	mux.Handle("GET /api/admin/lessons", admin(h.list))
@@ -34,8 +33,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware, aud
 	mux.Handle("PUT /api/admin/lessons/{id}/annotations", admin(h.updateAnnotations))
 	mux.Handle("POST /api/admin/lessons/{id}/retry", admin(h.retry))
 	mux.Handle("PUT /api/admin/lessons/{id}/extras", admin(h.updateExtras))
+	mux.Handle("POST /api/admin/lessons/{id}/practice/regenerate", admin(h.regeneratePractice))
 	mux.Handle("POST /api/admin/topics/{id}/generate", admin(h.generate))
-	mux.Handle("GET /api/audio/{lessonId}/{revision}/{index}", requireAuth(AudioHandler(audioDir)))
 }
 
 // --- JSON shapes (contracts/admin-lessons-api.md) ---
@@ -46,16 +45,14 @@ type summaryJSON struct {
 	Level            Level     `json:"level"`
 	TopicID          string    `json:"topicId"`
 	TopicName        string    `json:"topicName"`
-	AudioStatus      Status    `json:"audioStatus"`
 	AnnotationStatus Status    `json:"annotationStatus"`
 	InRoadmap        bool      `json:"inRoadmap"`
 	CreatedAt        time.Time `json:"createdAt"`
 }
 
 type sentenceJSON struct {
-	Index    int     `json:"index"`
-	Text     string  `json:"text"`
-	AudioURL *string `json:"audioUrl"`
+	Index int    `json:"index"`
+	Text  string `json:"text"`
 }
 
 type annotationJSON struct {
@@ -72,7 +69,6 @@ type lessonJSON struct {
 	Source          string           `json:"source"`
 	License         string           `json:"license"`
 	Revision        int              `json:"revision"`
-	AudioError      string           `json:"audioError"`
 	AnnotationError string           `json:"annotationError"`
 	Sentences       []sentenceJSON   `json:"sentences"`
 	Annotations     []annotationJSON `json:"annotations"`
@@ -82,6 +78,10 @@ type lessonJSON struct {
 	WritingPrompt       string           `json:"writingPrompt"`
 	ExtrasEditedByAdmin bool             `json:"extrasEditedByAdmin"`
 	QuizVersion         int              `json:"quizVersion"`
+	// F17
+	PracticeStatus string             `json:"practiceStatus"`
+	PracticeError  string             `json:"practiceError"`
+	Practice       *adminPracticeJSON `json:"practice"`
 }
 
 type questionJSON struct {
@@ -125,20 +125,19 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 	out := lessonJSON{
 		summaryJSON: summaryJSON{
 			ID: l.ID, Title: l.Title, Level: l.Level, TopicID: l.TopicID, TopicName: topicName,
-			AudioStatus: l.AudioStatus, AnnotationStatus: l.AnnotationStatus, InRoadmap: inRoadmap, CreatedAt: l.CreatedAt,
+			AnnotationStatus: l.AnnotationStatus, InRoadmap: inRoadmap, CreatedAt: l.CreatedAt,
 		},
 		Content: l.Content, Source: l.Source, License: l.License, Revision: l.Revision,
-		AudioError: l.AudioError, AnnotationError: l.AnnotationError,
-		Sentences:   make([]sentenceJSON, len(l.Sentences)),
-		Annotations: make([]annotationJSON, len(l.Annotations)),
-		Questions:   toQuestionsJSON(l.Extras.Questions), GrammarNote: toGrammarNoteJSON(l.Extras.GrammarNote),
+		AnnotationError: l.AnnotationError,
+		Sentences:       make([]sentenceJSON, len(l.Sentences)),
+		Annotations:     make([]annotationJSON, len(l.Annotations)),
+		Questions:       toQuestionsJSON(l.Extras.Questions), GrammarNote: toGrammarNoteJSON(l.Extras.GrammarNote),
 		WritingPrompt: l.Extras.WritingPrompt, ExtrasEditedByAdmin: l.ExtrasEditedByAdmin, QuizVersion: l.QuizVersion,
+		PracticeStatus: practiceStatusJSON(l.PracticeStatus), PracticeError: l.PracticeError,
+		Practice: toAdminPracticeJSON(l.Practice),
 	}
 	for i, s := range l.Sentences {
-		out.Sentences[i] = sentenceJSON{Index: s.Index, Text: s.Text}
-		if s.AudioPath != "" {
-			out.Sentences[i].AudioURL = &s.AudioPath
-		}
+		out.Sentences[i] = sentenceJSON(s)
 	}
 	for i, a := range l.Annotations {
 		out.Annotations[i] = annotationJSON(a)
@@ -237,8 +236,8 @@ func (h *Handler) updateAnnotations(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) retry(w http.ResponseWriter, r *http.Request) {
 	t := job.Type(r.URL.Query().Get("job"))
-	if t != job.TypeTTS && t != job.TypeAnnotate {
-		httpx.WriteFieldErrors(w, map[string]string{"job": "Chỉ chạy lại được tts hoặc annotate"})
+	if t != job.TypeAnnotate {
+		httpx.WriteFieldErrors(w, map[string]string{"job": "Chỉ chạy lại được annotate"})
 		return
 	}
 	l, err := h.svc.Retry(r.Context(), r.PathValue("id"), t)
@@ -277,6 +276,10 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 		httpx.WriteError(w, http.StatusConflict, "not_failed", "Chỉ chạy lại được việc đang lỗi")
 	case errors.Is(err, ErrAnnotationRunning):
 		httpx.WriteError(w, http.StatusConflict, "annotation_running", "Chú thích đang được tạo, vui lòng chờ")
+	case errors.Is(err, ErrPracticeRunning):
+		httpx.WriteError(w, http.StatusConflict, "practice_running", "Phần luyện tập đang được tạo, vui lòng chờ")
+	case errors.Is(err, ErrAnnotationNotDone):
+		httpx.WriteError(w, http.StatusConflict, "annotation_not_done", "Cần chú thích xong trước")
 	default:
 		h.log.ErrorContext(r.Context(), "lesson request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")

@@ -4,6 +4,7 @@ import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { DueCard, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
 import { ReviewSession } from './review-session';
 
@@ -33,7 +34,7 @@ describe('ReviewSession', () => {
   let host: Host;
   let el: HTMLElement;
   let http: HttpTestingController;
-  let play: ReturnType<typeof vi.spyOn>;
+  let speech: FakeSpeech;
 
   const settle = async () => {
     await new Promise((resolve) => setTimeout(resolve));
@@ -59,7 +60,11 @@ describe('ReviewSession', () => {
 
   const setup = async (mode: ReviewMode = 'flip', cards?: DueCard[]) => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+        provideFakeSpeech(speech),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(Host);
@@ -73,8 +78,7 @@ describe('ReviewSession', () => {
   };
 
   beforeEach(() => {
-    play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined);
-    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
+    speech = new FakeSpeech();
     Element.prototype.scrollIntoView = vi.fn();
   });
 
@@ -136,8 +140,7 @@ describe('ReviewSession', () => {
       await setup();
       button('Nghe')!.click();
       await settle();
-      expect(el.querySelector('audio')!.getAttribute('src')).toBe('/api/tts/word?text=went');
-      expect(play).toHaveBeenCalled();
+      expect(speech.texts()).toContain('went');
     });
 
     it('shows a card rated Again once more at the end and reports the summary', async () => {
@@ -215,8 +218,7 @@ describe('ReviewSession', () => {
   describe('listen mode', () => {
     it('plays the word automatically and hides it', async () => {
       await setup('listen');
-      expect(el.querySelector('audio')!.getAttribute('src')).toBe('/api/tts/word?text=went');
-      expect(play).toHaveBeenCalled();
+      expect(speech.texts()).toContain('went');
       expect(el.querySelector('.word')).toBeNull();
       expect(button('Nghe lại')).toBeTruthy();
       expect(input().getAttribute('autocapitalize')).toBe('off');
@@ -249,10 +251,11 @@ describe('ReviewSession', () => {
       expect(text('.word')).toBe('went');
     });
 
-    it('lets the learner see the word when audio cannot play', async () => {
-      play.mockRejectedValue(new Error('NotAllowedError'));
+    it('lets the learner see the word when the browser cannot read it', async () => {
       await setup('listen');
-      expect(text('.play-error')).toContain('Chưa phát được âm thanh');
+      speech.last().handlers.failed!('not-allowed');
+      await settle();
+      expect(text('.play-error')).toContain('Chưa đọc được từ này');
       button('Hiện từ')!.click();
       await settle();
       expect(text('.word')).toBe('went');

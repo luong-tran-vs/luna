@@ -37,7 +37,7 @@
         />
         <p class="field-hint" id="generate-words-hint">
           @if (range(); as r) {
-            Bài dài {{ r.min }}–{{ r.max }} từ được chấp nhận.
+            Nên dài {{ r.min }}–{{ r.max }} từ; bài lệch vẫn được giữ, kèm cảnh báo để bạn xem lại.
           } @else {
             Từ {{ minWords }} đến {{ maxWords }} từ.
           }
@@ -75,6 +75,105 @@
         <p class="field-error" id="generate-idea-error">{{ message }}</p>
       }
     </div>
+
+    @if (hasWords()) {
+      <section class="targets" aria-labelledby="generate-targets-title">
+        <h3 class="targets-title" id="generate-targets-title">Từ mục tiêu</h3>
+        <div class="field">
+          <label for="generate-perLesson">Từ mục tiêu mỗi bài</label>
+          <input
+            id="generate-perLesson"
+            type="number"
+            inputmode="numeric"
+            step="1"
+            min="0"
+            [max]="maxTarget"
+            formControlName="perLesson"
+            [attr.aria-invalid]="!!errors()['perLesson']"
+            [attr.aria-describedby]="describedBy('perLesson', 'generate-perLesson-hint')"
+          />
+          <p class="field-hint" id="generate-perLesson-hint">
+            Từ 0 đến {{ maxTarget }}. Ưu tiên từ chưa dùng trong bài nào của chủ đề. 0 để không dùng từ mục tiêu.
+          </p>
+          @if (errors()['perLesson']; as message) {
+            <p class="field-error" id="generate-perLesson-error">{{ message }}</p>
+          }
+        </div>
+
+        <p class="suggest-note" [class.error]="suggestNote()?.ok === false" role="status">{{ suggestNote()?.text }}</p>
+        @if (planState() === 'loading') {
+          <p class="muted" role="status">Đang chia từ…</p>
+        } @else if (planState() === 'error') {
+          <div class="plan-error" role="alert">
+            <span>Không chia được từ, thử lại.</span>
+            <button type="button" class="btn" [disabled]="busy()" (click)="retryPlan()">Thử lại</button>
+          </div>
+        } @else {
+          @if (shortage() > 0) {
+            <div class="shortage">
+              <p>
+                Chủ đề thiếu {{ shortage() }} từ chưa dùng nên một số bài sẽ dùng lại từ của bài khác. AI có thể bổ
+                sung từ mới cho chủ đề.
+              </p>
+              <button type="button" class="btn" [disabled]="busy() || suggesting()" (click)="suggestWords()">
+                {{ suggesting() ? 'Đang bổ sung…' : 'Bổ sung bằng AI' }}
+              </button>
+            </div>
+          }
+          @for (group of groups(); track $index; let i = $index) {
+            <fieldset class="group">
+              <legend>Bài {{ i + 1 }} <span class="muted">({{ group.length }} từ)</span></legend>
+              @if (group.length > 0) {
+                <ul class="chips">
+                  @for (w of group; track w) {
+                    <li class="chip">
+                      <span>{{ w }}</span>
+                      <button
+                        type="button"
+                        class="chip-remove"
+                        [disabled]="busy()"
+                        [attr.aria-label]="'Bỏ ' + w + ' khỏi bài ' + (i + 1)"
+                        (click)="removeWord(i, w)"
+                      >
+                        ✕
+                      </button>
+                    </li>
+                  }
+                </ul>
+              } @else {
+                <p class="muted">Chưa có từ mục tiêu.</p>
+              }
+              <div class="add-row">
+                <label class="visually-hidden" [for]="'generate-add-' + i">Thêm từ cho bài {{ i + 1 }}</label>
+                <input
+                  #addBox
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Thêm từ…"
+                  [id]="'generate-add-' + i"
+                  [attr.list]="'generate-add-' + i + '-options'"
+                  [disabled]="busy()"
+                  [attr.aria-invalid]="!!addErrors()[i]"
+                  [attr.aria-describedby]="addErrors()[i] ? 'generate-add-' + i + '-error' : null"
+                  (keydown)="onAddKey($event, i, addBox)"
+                />
+                <datalist [id]="'generate-add-' + i + '-options'">
+                  @for (s of suggestions(group); track s) {
+                    <option [value]="s"></option>
+                  }
+                </datalist>
+                <button type="button" class="btn" [disabled]="busy()" (click)="addWord(i, addBox)">
+                  Thêm<span class="visually-hidden"> vào bài {{ i + 1 }}</span>
+                </button>
+              </div>
+              @if (addErrors()[i]; as message) {
+                <p class="field-error" [id]="'generate-add-' + i + '-error'">{{ message }}</p>
+              }
+            </fieldset>
+          }
+        }
+      </section>
+    }
 
     @if (error(); as message) {
       <p class="form-alert" role="alert">{{ message }}</p>

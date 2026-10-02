@@ -1,4 +1,4 @@
-// Package job runs background work (audio generation, AI annotation, writing grades) from a
+// Package job runs background work (AI annotation, practice, writing grades) from a
 // MongoDB-backed queue.
 package job
 
@@ -11,10 +11,11 @@ import (
 type Type string
 
 const (
-	TypeTTS      Type = "tts"
 	TypeAnnotate Type = "annotate"
 	// TypeGrade grades a submitted writing (F8); its TargetID is the writing id.
 	TypeGrade Type = "grade"
+	// TypePractice writes the vocabulary practice of a lesson with one AI request (F17).
+	TypePractice Type = "practice"
 )
 
 // Status is the lifecycle state of a job.

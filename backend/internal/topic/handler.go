@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
 
@@ -32,27 +33,34 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("DELETE /api/admin/topics/{id}", admin(h.delete))
 	mux.Handle("GET /api/admin/topics/{id}/roadmap", admin(h.getRoadmap))
 	mux.Handle("PUT /api/admin/topics/{id}/roadmap", admin(h.setRoadmap))
+	mux.Handle("GET /api/admin/topics/{id}/words", admin(h.getWords))
+	mux.Handle("PUT /api/admin/topics/{id}/words", admin(h.setWords))
+	mux.Handle("GET /api/admin/topics/{id}/word-plan", admin(h.wordPlan))
+	mux.Handle("POST /api/admin/topics/{id}/words/suggest", admin(h.suggestWords))
 	mux.Handle("GET /api/topics", requireAuth(http.HandlerFunc(h.public)))
 }
 
 // --- JSON shapes (contracts/topics-api.md) ---
 
 type topicJSON struct {
-	ID           string    `json:"id"`
-	Name         string    `json:"name"`
-	Level        string    `json:"level"`
-	Description  string    `json:"description"`
-	LessonCount  int       `json:"lessonCount"`
-	RoadmapCount int       `json:"roadmapCount"`
-	Remaining    int       `json:"remaining"`
-	Warning      bool      `json:"warning"`
-	CreatedAt    time.Time `json:"createdAt"`
+	ID            string    `json:"id"`
+	Name          string    `json:"name"`
+	Level         string    `json:"level"`
+	Description   string    `json:"description"`
+	LessonCount   int       `json:"lessonCount"`
+	RoadmapCount  int       `json:"roadmapCount"`
+	Remaining     int       `json:"remaining"`
+	Warning       bool      `json:"warning"`
+	WordCount     int       `json:"wordCount"`
+	UsedWordCount int       `json:"usedWordCount"`
+	CreatedAt     time.Time `json:"createdAt"`
 }
 
 func toJSON(s Summary) topicJSON {
 	return topicJSON{
 		ID: s.ID, Name: s.Name, Level: s.Level, Description: s.Description, LessonCount: s.LessonCount,
 		RoadmapCount: len(s.LessonIDs), Remaining: s.Remaining, Warning: s.Warning, CreatedAt: s.CreatedAt,
+		WordCount: s.WordCount, UsedWordCount: s.UsedWordCount,
 	}
 }
 
@@ -63,7 +71,6 @@ type lessonJSON struct {
 	Level            string    `json:"level"`
 	TopicID          string    `json:"topicId"`
 	TopicName        string    `json:"topicName"`
-	AudioStatus      string    `json:"audioStatus"`
 	AnnotationStatus string    `json:"annotationStatus"`
 	InRoadmap        bool      `json:"inRoadmap"`
 	CreatedAt        time.Time `json:"createdAt"`
@@ -84,7 +91,7 @@ func toRoadmapJSON(r Roadmap) roadmapJSON {
 	for i, l := range r.Lessons {
 		out.Lessons[i] = lessonJSON{
 			ID: l.ID, Title: l.Title, Level: l.Level, TopicID: r.Topic.ID, TopicName: r.Topic.Name,
-			AudioStatus: l.AudioStatus, AnnotationStatus: l.AnnotationStatus, InRoadmap: true, CreatedAt: l.CreatedAt,
+			AnnotationStatus: l.AnnotationStatus, InRoadmap: true, CreatedAt: l.CreatedAt,
 		}
 	}
 	return out
@@ -212,5 +219,103 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 	default:
 		h.log.ErrorContext(r.Context(), "topic request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")
+	}
+}
+
+type wordJSON struct {
+	Text        string `json:"text"`
+	Used        bool   `json:"used"`
+	LessonCount int    `json:"lessonCount"`
+}
+
+func writeWords(w http.ResponseWriter, uses []WordUse) {
+	out := make([]wordJSON, len(uses))
+	for i, u := range uses {
+		out[i] = wordJSON(u)
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string][]wordJSON{"words": out})
+}
+
+func (h *Handler) getWords(w http.ResponseWriter, r *http.Request) {
+	uses, err := h.svc.Words(r.Context(), r.PathValue("id"))
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	writeWords(w, uses)
+}
+
+func (h *Handler) setWords(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Words []string `json:"words"`
+	}
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	uses, err := h.svc.SetWords(r.Context(), r.PathValue("id"), body.Words)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	writeWords(w, uses)
+}
+
+func (h *Handler) wordPlan(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query()
+	count, countErr := strconv.Atoi(q.Get("count"))
+	perLesson, perErr := strconv.Atoi(q.Get("perLesson"))
+	if countErr != nil || perErr != nil {
+		fields := map[string]string{}
+		if countErr != nil {
+			fields["count"] = "Số bài không hợp lệ"
+		}
+		if perErr != nil {
+			fields["perLesson"] = "Số từ mỗi bài không hợp lệ"
+		}
+		httpx.WriteFieldErrors(w, fields)
+		return
+	}
+	plan, err := h.svc.WordPlan(r.Context(), r.PathValue("id"), count, perLesson)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, wordPlanJSON(plan))
+}
+
+type wordPlanJSON struct {
+	Groups   [][]string `json:"groups"`
+	Shortage int        `json:"shortage"`
+}
+
+type suggestWordsBody struct {
+	Count int `json:"count"`
+}
+
+// suggestWords adds AI-suggested words to the topic (F18) and returns the added words and the
+// whole list with coverage.
+func (h *Handler) suggestWords(w http.ResponseWriter, r *http.Request) {
+	var body suggestWordsBody
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	added, uses, err := h.svc.SuggestWords(r.Context(), r.PathValue("id"), body.Count)
+	switch {
+	case errors.Is(err, ai.ErrNotConfigured):
+		httpx.WriteError(w, http.StatusServiceUnavailable, "ai_not_configured", "AI chưa được cấu hình. Liên hệ người vận hành.")
+	case errors.Is(err, ai.ErrInvalidKey):
+		httpx.WriteError(w, http.StatusServiceUnavailable, "ai_not_configured", "Khoá AI không hợp lệ. Liên hệ người vận hành.")
+	case errors.Is(err, ai.ErrQuota):
+		httpx.WriteError(w, http.StatusTooManyRequests, "ai_quota", "Đã hết lượt AI, vui lòng thử lại sau.")
+	case errors.Is(err, ErrNoSuggestion):
+		httpx.WriteError(w, http.StatusBadGateway, "ai_unusable", "AI không gợi ý được từ mới, vui lòng thử lại.")
+	case err != nil:
+		h.writeError(w, r, err)
+	default:
+		out := make([]wordJSON, len(uses))
+		for i, u := range uses {
+			out[i] = wordJSON(u)
+		}
+		httpx.WriteJSON(w, http.StatusOK, map[string]any{"added": added, "words": out})
 	}
 }

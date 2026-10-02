@@ -20,8 +20,10 @@ import { catchError, firstValueFrom, forkJoin, of, Subscription } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { ReadingLesson, Token } from '../../../core/models/reading';
+import { SpeechService } from '../../../core/services/speech.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { CardInput } from '../../../core/models/vocab';
+import { Icon } from '../../../shared/components/icon/icon';
 import { PopupState, WordPopup } from '../../../shared/components/word-popup/word-popup';
 import { selectWords, TouchedWord } from '../../../shared/utils/selection';
 import { tokenize } from '../../../shared/utils/tokenize';
@@ -67,7 +69,7 @@ function askErrorMessage(err: unknown): string {
  */
 @Component({
   selector: 'lu-reading',
-  imports: [CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, LessonVocabulary, RouterLink, WordPopup],
+  imports: [CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, Icon, LessonVocabulary, RouterLink, WordPopup],
   templateUrl: './reading.html',
   styleUrl: './reading.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -82,11 +84,12 @@ function askErrorMessage(err: unknown): string {
 export class Reading implements OnInit {
   private readonly api = inject(ReadingApiService);
   private readonly vocab = inject(VocabApiService);
+  private readonly speech = inject(SpeechService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly route = inject(ActivatedRoute).snapshot;
   private readonly injector = inject(Injector);
 
-  /** The lesson to open; defaults to the route's :id (used by the daily flow, L). */
+  /** The lesson to open; defaults to the route's :id (used by the lesson page, L). */
   readonly lessonId = input('');
   /** Sentence to scroll to first (saved position). */
   readonly startSentence = input<number | null>(null);
@@ -136,7 +139,6 @@ export class Reading implements OnInit {
 
   private readonly article = viewChild<ElementRef<HTMLElement>>('article');
   private readonly end = viewChild<ElementRef<HTMLElement>>('end');
-  private readonly audio = viewChild<ElementRef<HTMLAudioElement>>('audio');
   private lookupSub?: Subscription;
   private askSub?: Subscription;
   private selectionTimer?: ReturnType<typeof setTimeout>;
@@ -196,7 +198,7 @@ export class Reading implements OnInit {
       onCleanup(() => observer.disconnect());
     });
 
-    // Report the first sentence on screen (saved as the position in the daily flow, L).
+    // Report the first sentence on screen (saved as the position on the lesson page, L).
     effect((onCleanup) => {
       const article = this.article()?.nativeElement;
       if (!article || typeof IntersectionObserver === 'undefined') {
@@ -467,25 +469,15 @@ export class Reading implements OnInit {
     this.saved.update((s) => new Set([...s, ...lemmas.map(normalize)]));
   }
 
+  /** Reads the looked-up word with the browser's voice. */
   protected play(): void {
-    const audio = this.audio()?.nativeElement;
     const state = this.popupState();
     const text = state.kind === 'result' ? state.result.lemma : this.selected()?.text;
-    if (!audio || !text) {
+    if (!text) {
       return;
     }
-    const url = this.vocab.wordAudioUrl(text);
-    if (audio.getAttribute('src') === url) {
-      try {
-        audio.currentTime = 0; // replay from the start instead of overlapping
-      } catch {
-        // some environments cannot seek before metadata loads; playing again is enough
-      }
-    } else {
-      audio.src = url;
-    }
     this.popupError.set(null);
-    audio.play().catch(() => this.popupError.set('Chưa phát được âm thanh.'));
+    this.speech.speak(text, 1, { failed: () => this.popupError.set('Chưa đọc được từ này.') });
   }
 
   // --- finishing ---

@@ -1,30 +1,91 @@
-.goal {
-  display: grid;
-  gap: var(--space-4);
-  max-width: 640px;
-  margin: 0 auto;
-  padding: var(--space-5) var(--space-4) var(--space-6);
+/* Client sketch, screen 3: banner, level cards with a check, topics as rows. */
+
+/* The course being studied, with the second way into today's lesson (the first is on the home page). */
+.current {
+  border: 2px solid var(--color-primary);
 }
 
-.goal-header {
+.current-label {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}
+
+.current-row {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.current-text {
+  display: grid;
+  min-width: 0;
+}
+
+.current-name {
+  font-weight: 600;
+}
+
+.current-note {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.current-track {
+  height: 8px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.current-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+}
+
+.hero {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-}
-
-.title {
-  font: var(--text-xl) var(--font-ui);
-}
-
-.card {
-  display: grid;
-  gap: var(--space-3);
   padding: var(--space-4);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
+  color: var(--color-on-primary);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-ink));
   border-radius: var(--radius-lg);
+}
+
+.hero-text {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.hero-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.hero-lead {
+  font: var(--text-sm) var(--font-ui);
+  opacity: 0.9;
+}
+
+.hero-icon {
+  display: inline-flex;
+  padding: var(--space-3);
+  background: rgb(255 255 255 / 0.18);
+  border-radius: var(--radius-md);
+
+  --icon-size: 32px;
+}
+
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.congrats {
+  justify-items: start;
 }
 
 .congrats-title {
@@ -42,37 +103,66 @@
   gap: var(--space-3);
 }
 
-.step-title {
-  font: var(--text-lg) var(--font-ui);
-}
-
 .levels {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-2);
 }
 
 @media (min-width: 600px) {
   .levels {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .level {
-  min-height: 48px;
-  font: var(--text-lg) var(--font-ui);
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  min-height: 64px;
+  padding: var(--space-3);
   color: var(--color-text);
+  text-align: left;
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
   cursor: pointer;
 }
 
-.level[aria-checked='true'] {
+.level:hover {
+  border-color: var(--color-primary);
+}
+
+.level-code {
+  font: var(--text-base) var(--font-ui);
   font-weight: 700;
+}
+
+.level-name {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* Selected: thick border, tinted background and a check (not color alone). */
+.level[aria-checked='true'] {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 2px solid var(--color-primary);
+}
+
+.level-check {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: inline-flex;
+  padding: 2px;
   color: var(--color-on-primary);
   background: var(--color-primary);
-  border-color: var(--color-primary);
+  border-radius: 50%;
+
+  --icon-size: 14px;
 }
 
 .topics {
@@ -87,12 +177,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   gap: var(--space-3);
+}
+
+.topic.is-active {
+  border: 2px solid var(--color-primary);
 }
 
 .topic-body {
   display: grid;
+  flex: 1 1 160px;
   gap: var(--space-1);
   min-width: 0;
 }

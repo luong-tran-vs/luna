@@ -6,6 +6,8 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/luongtran/luna/backend/internal/ai"
 )
 
 // fakeRepo is an in-memory Repository enforcing unique (level, name key).
@@ -126,6 +128,8 @@ func (f *fakeRepo) AppendLesson(_ context.Context, id, lessonID string) error {
 type fakeLessons struct {
 	mu        sync.Mutex
 	lessons   map[string]LessonRef
+	texts     map[string]string // lesson id → content
+	textCalls int
 	levelSets []string // "topicID=level" of SetLevelByTopic calls
 }
 
@@ -134,7 +138,7 @@ func newFakeLessons() *fakeLessons { return &fakeLessons{lessons: map[string]Les
 func (f *fakeLessons) add(id, title, topicID string) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	f.lessons[id] = LessonRef{ID: id, Title: title, TopicID: topicID, AudioStatus: "done", AnnotationStatus: "done"}
+	f.lessons[id] = LessonRef{ID: id, Title: title, TopicID: topicID, AnnotationStatus: "done"}
 }
 
 func (f *fakeLessons) CountByTopic(context.Context) (map[string]int, error) {
@@ -188,12 +192,62 @@ type testEnv struct {
 	svc     *Service
 	repo    *fakeRepo
 	lessons *fakeLessons
+	ai      *fakeSuggester
+}
+
+// fakeSuggester returns words or err and records the requests.
+type fakeSuggester struct {
+	mu    sync.Mutex
+	words []string
+	err   error
+	reqs  []ai.SuggestWordsRequest
+}
+
+func (f *fakeSuggester) SuggestWords(_ context.Context, req ai.SuggestWordsRequest) ([]string, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.reqs = append(f.reqs, req)
+	return f.words, f.err
 }
 
 var testNow = time.Date(2026, 9, 30, 8, 0, 0, 0, time.UTC)
 
 func newEnv() *testEnv {
-	e := &testEnv{repo: &fakeRepo{}, lessons: newFakeLessons()}
-	e.svc = NewService(e.repo, e.lessons, func() time.Time { return testNow })
+	e := &testEnv{repo: &fakeRepo{}, lessons: newFakeLessons(), ai: &fakeSuggester{err: ai.ErrNotConfigured}}
+	e.svc = NewService(e.repo, e.lessons, e.ai, func() time.Time { return testNow })
 	return e
+}
+
+func (f *fakeRepo) SetWords(_ context.Context, id string, words []string) (Topic, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	i := f.index(id)
+	if i < 0 {
+		return Topic{}, ErrNotFound
+	}
+	f.topics[i].Words, f.topics[i].WordsSeeded = slices.Clone(words), true
+	return f.topics[i], nil
+}
+
+// setText gives a lesson a content for coverage.
+func (f *fakeLessons) setText(id, content string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	if f.texts == nil {
+		f.texts = map[string]string{}
+	}
+	f.texts[id] = content
+}
+
+func (f *fakeLessons) Texts(_ context.Context, topicIDs []string) (map[string][]LessonText, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.textCalls++
+	out := map[string][]LessonText{}
+	for id, l := range f.lessons {
+		if slices.Contains(topicIDs, l.TopicID) {
+			out[l.TopicID] = append(out[l.TopicID], LessonText{Content: f.texts[id]})
+		}
+	}
+	return out, nil
 }

@@ -13,7 +13,6 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   level: 'A1',
   topicId: 't1',
   topicName: 'Gia đình',
-  audioStatus: 'done',
   annotationStatus: 'done',
   inRoadmap: false,
   createdAt: '',
@@ -21,7 +20,6 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   source: 's',
   license: 'l',
   revision: 1,
-  audioError: '',
   annotationError: '',
   sentences: [],
   annotations: [],
@@ -33,6 +31,9 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   writingPrompt: 'Write about a park.',
   extrasEditedByAdmin: false,
   quizVersion: 1,
+  practice: null,
+  practiceStatus: 'none',
+  practiceError: '',
   ...over,
 });
 

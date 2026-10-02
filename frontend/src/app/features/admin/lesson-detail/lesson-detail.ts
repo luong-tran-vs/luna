@@ -1,16 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, EMPTY, firstValueFrom, Subscription } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
+import { SpeechService } from '../../../core/services/speech.service';
 import { isRunning, JobKind, Lesson } from '../../../core/models/lesson';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { pollWhile } from '../../../shared/utils/poll-while';
 import { AdminApiService } from '../admin-api.service';
 import { LessonExtras } from '../lesson-extras/lesson-extras';
 import { StatusChip } from '../status-chip/status-chip';
+import { PracticeSection } from './practice-section/practice-section';
 
 type AnnotationRow = FormGroup<{
   text: FormControl<string>;
@@ -20,7 +22,7 @@ type AnnotationRow = FormGroup<{
 
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras],
+  imports: [RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection],
   templateUrl: './lesson-detail.html',
   styleUrl: './lesson-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,7 +44,7 @@ export class LessonDetail {
   protected readonly rowErrors = signal<Record<string, string>>({});
   protected readonly rows = new FormArray<AnnotationRow>([]);
 
-  private readonly player = viewChild<ElementRef<HTMLAudioElement>>('player');
+  private readonly speech = inject(SpeechService);
   private readonly destroy = takeUntilDestroyed<Lesson>();
   private poll?: Subscription;
 
@@ -68,13 +70,9 @@ export class LessonDetail {
       .subscribe((l) => this.lesson.set(l));
   }
 
-  protected play(url: string): void {
-    const audio = this.player()?.nativeElement;
-    if (!audio) {
-      return;
-    }
-    audio.src = url;
-    void audio.play().catch(() => this.error.set('Không phát được audio.'));
+  /** Reads a sentence with the browser's voice, as learners hear it. */
+  protected play(text: string): void {
+    this.speech.speak(text, 1, { failed: () => this.error.set('Trình duyệt chưa đọc được câu này.') });
   }
 
   // --- F15: running annotation again replaces admin edits, so it asks first ---
@@ -114,6 +112,12 @@ export class LessonDetail {
       this.lesson.set(await firstValueFrom(this.api.retry(this.id, job)));
       this.startPolling();
     });
+  }
+
+  /** F17: regeneration was queued; poll until the practice is done. */
+  protected onPracticeRegenerated(lesson: Lesson): void {
+    this.lesson.set(lesson);
+    this.startPolling();
   }
 
   // --- annotations ---

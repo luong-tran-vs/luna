@@ -1,5 +1,3 @@
-<lu-audio-player (failed)="onPlayFailed()" />
-
 @if (summary(); as s) {
   <div class="summary card" role="status">
     <p class="summary-title">✓ Đã ôn {{ s.reviewed }} thẻ</p>
@@ -25,7 +23,7 @@
       }
       <button type="button" class="btn" (click)="play()">{{ mode() === 'listen' ? 'Nghe lại' : 'Nghe' }}</button>
       @if (playError()) {
-        <p class="play-error field-error" role="alert">Chưa phát được âm thanh.</p>
+        <p class="play-error field-error" role="alert">Chưa đọc được từ này.</p>
         @if (mode() === 'listen' && !revealed()) {
           <button type="button" class="btn" (click)="flip()">Hiện từ</button>
         }

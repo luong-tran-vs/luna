@@ -3,7 +3,6 @@ package config
 
 import (
 	"errors"
-	"net/url"
 	"slices"
 	"strings"
 )
@@ -15,10 +14,6 @@ type Config struct {
 	HTTPAddr      string
 	LogLevel      string
 	CookieSecure  bool
-
-	TTSURL   string
-	TTSVoice string
-	AudioDir string
 
 	AIProvider   string
 	GeminiAPIKey string
@@ -37,9 +32,6 @@ func Load(getenv func(string) string) (Config, error) {
 		MongoDatabase:  valueOr(getenv("MONGO_DATABASE"), "luna"),
 		HTTPAddr:       valueOr(getenv("HTTP_ADDR"), ":8080"),
 		LogLevel:       strings.ToLower(valueOr(getenv("LOG_LEVEL"), "info")),
-		TTSURL:         strings.TrimRight(valueOr(getenv("TTS_URL"), "http://localhost:8880"), "/"),
-		TTSVoice:       valueOr(getenv("TTS_VOICE"), "af_heart"),
-		AudioDir:       valueOr(getenv("AUDIO_DIR"), "./data/audio"),
 		AIProvider:     strings.ToLower(valueOr(getenv("AI_PROVIDER"), "gemini")),
 		GeminiAPIKey:   strings.TrimSpace(getenv("GEMINI_API_KEY")),
 		GeminiModel:    valueOr(getenv("GEMINI_MODEL"), "gemini-3.5-flash-lite"),
@@ -59,9 +51,6 @@ func Load(getenv func(string) string) (Config, error) {
 	case "false":
 	default:
 		errs = append(errs, errors.New("config: COOKIE_SECURE must be true or false"))
-	}
-	if u, err := url.Parse(cfg.TTSURL); err != nil || (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" {
-		errs = append(errs, errors.New("config: TTS_URL must be an http or https URL"))
 	}
 	if cfg.AIProvider != "gemini" && cfg.AIProvider != "none" {
 		errs = append(errs, errors.New("config: AI_PROVIDER must be gemini or none"))

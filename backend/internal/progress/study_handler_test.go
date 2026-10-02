@@ -52,14 +52,11 @@ func TestGoalEndpoints(t *testing.T) {
 	if r := do(t, mux, http.MethodGet, "/api/goals", "an", ""); r.code != http.StatusOK || r.text != "{\"active\":null,\"others\":[]}\n" {
 		t.Fatalf("no goals: %d %s", r.code, r.text)
 	}
-	if r := do(t, mux, http.MethodGet, "/api/today", "an", ""); !strings.Contains(r.text, `"kind":"noGoal"`) {
-		t.Fatalf("today: %s", r.text)
-	}
 
 	r := do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
 	b := body(t, r)
 	active := b["active"].(map[string]any)
-	if r.code != http.StatusOK || b["startsTomorrow"] != false || b["effectiveFrom"] != "2026-09-30" ||
+	if r.code != http.StatusOK || len(b) != 1 || active["effectiveFrom"] != "2026-09-30" ||
 		active["topicName"] != "Gia đình" || active["totalLessons"] != 3.0 || active["status"] != "active" {
 		t.Fatalf("set goal: %d %s", r.code, r.text)
 	}
@@ -73,25 +70,33 @@ func TestGoalEndpoints(t *testing.T) {
 			t.Fatalf("%s: %d %s", payload, r.code, r.text)
 		}
 	}
-	for _, p := range []string{"/api/goals", "/api/today", "/api/lessons/mine"} {
+	for _, p := range []string{"/api/goals", "/api/lessons/f1/study", "/api/lessons/mine"} {
 		if r := do(t, mux, http.MethodGet, p, "", ""); r.code != http.StatusUnauthorized {
 			t.Fatalf("anonymous %s: %d", p, r.code)
 		}
 	}
+	// The daily page is gone (2026-10-02).
+	if r := do(t, mux, http.MethodGet, "/api/today", "an", ""); r.code != http.StatusNotFound {
+		t.Fatalf("today: %d", r.code)
+	}
 }
 
-func TestTodayEndpoints(t *testing.T) {
+func TestStudyEndpoints(t *testing.T) {
 	t.Parallel()
 	mux, e := newStudyAPI(t)
-	e.reviews.setDue("u1", 45)
 	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
 
-	r := do(t, mux, http.MethodGet, "/api/today", "an", "")
+	r := do(t, mux, http.MethodGet, "/api/lessons/f1/study", "an", "")
 	b := body(t, r)
 	steps := b["steps"].(map[string]any)
-	if b["kind"] != "studying" || b["currentStep"] != "review" || b["reviewCount"] != 30.0 || steps["read"] != "locked" ||
-		b["lesson"].(map[string]any)["title"] != "Family 1" || b["streak"] != 0.0 {
-		t.Fatalf("today: %s", r.text)
+	if r.code != http.StatusOK || b["status"] != "studying" || b["currentStep"] != "read" || steps["read"] != "current" ||
+		steps["listen"] != "locked" || len(steps) != 3 || b["next"] != nil || b["goal"].(map[string]any)["topicId"] != "family" ||
+		b["streak"] != 0.0 {
+		t.Fatalf("study: %d %s", r.code, r.text)
+	}
+	// An upcoming lesson is locked, as its content.
+	if r := do(t, mux, http.MethodGet, "/api/lessons/f2/study", "an", ""); r.code != http.StatusForbidden {
+		t.Fatalf("upcoming: %d %s", r.code, r.text)
 	}
 
 	cases := []struct {
@@ -99,10 +104,11 @@ func TestTodayEndpoints(t *testing.T) {
 		code        int
 		want        string
 	}{
-		{"/api/today/steps/read/complete", "an", http.StatusConflict, `"step_locked"`},
-		{"/api/today/steps/speak/complete", "an", http.StatusBadRequest, `"step"`},
-		{"/api/today/steps/review/complete", "binh", http.StatusConflict, `"no_lesson"`},
-		{"/api/today/steps/review/complete", "", http.StatusUnauthorized, ""},
+		{"/api/lessons/f1/steps/listen/complete", "an", http.StatusConflict, `"step_locked"`},
+		{"/api/lessons/f1/steps/speak/complete", "an", http.StatusBadRequest, `"step"`},
+		{"/api/lessons/f2/steps/read/complete", "an", http.StatusConflict, `"not_current_lesson"`},
+		{"/api/lessons/f1/steps/read/complete", "binh", http.StatusConflict, `"not_current_lesson"`},
+		{"/api/lessons/f1/steps/read/complete", "", http.StatusUnauthorized, ""},
 	}
 	for _, c := range cases {
 		if r := do(t, mux, http.MethodPost, c.path, c.token, ""); r.code != c.code || !strings.Contains(r.text, c.want) {
@@ -110,10 +116,7 @@ func TestTodayEndpoints(t *testing.T) {
 		}
 	}
 
-	if r := do(t, mux, http.MethodPost, "/api/today/steps/review/complete", "an", ""); !strings.Contains(r.text, `"currentStep":"read"`) {
-		t.Fatalf("review: %s", r.text)
-	}
-	if r := do(t, mux, http.MethodPut, "/api/today/position", "an", `{"step":"read","sentenceIndex":2}`); r.code != http.StatusNoContent {
+	if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", `{"step":"read","sentenceIndex":2}`); r.code != http.StatusNoContent {
 		t.Fatalf("position: %d %s", r.code, r.text)
 	}
 	for payload, code := range map[string]int{
@@ -121,32 +124,36 @@ func TestTodayEndpoints(t *testing.T) {
 		`{"step":"listen","sentenceIndex":1}`:     http.StatusConflict,
 		`{"step":"read","sentenceIndex":1,"x":1}`: http.StatusBadRequest,
 	} {
-		if r := do(t, mux, http.MethodPut, "/api/today/position", "an", payload); r.code != code {
+		if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", payload); r.code != code {
 			t.Fatalf("%s: %d %s", payload, r.code, r.text)
 		}
 	}
-	if r := do(t, mux, http.MethodGet, "/api/today", "an", ""); !strings.Contains(r.text, `"sentenceIndex":2`) {
+	if r := do(t, mux, http.MethodGet, "/api/lessons/f1/study", "an", ""); !strings.Contains(r.text, `"sentenceIndex":2`) {
 		t.Fatalf("saved position: %s", r.text)
 	}
 
-	do(t, mux, http.MethodPost, "/api/today/steps/read/complete", "an", "")
-	if r := do(t, mux, http.MethodPost, "/api/today/steps/listen/complete", "an", ""); r.code != http.StatusConflict || !strings.Contains(r.text, `"listen_incomplete"`) {
+	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/read/complete", "an", "")
+	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/listen/complete", "an", ""); r.code != http.StatusConflict || !strings.Contains(r.text, `"listen_incomplete"`) {
 		t.Fatalf("listen early: %d %s", r.code, r.text)
 	}
 	e.finishDictation(t)
-	r = do(t, mux, http.MethodPost, "/api/today/steps/listen/complete", "an", "")
-	if !strings.Contains(r.text, `"currentStep":"write"`) || strings.Contains(r.text, `"kind":"doneToday"`) {
+	r = do(t, mux, http.MethodPost, "/api/lessons/f1/steps/listen/complete", "an", "")
+	if !strings.Contains(r.text, `"currentStep":"write"`) || !strings.Contains(r.text, `"status":"studying"`) {
 		t.Fatalf("listen: %s", r.text)
 	}
 
-	// F8: the lesson is done once the writing is submitted.
-	if r := do(t, mux, http.MethodPost, "/api/today/steps/write/complete", "an", ""); r.code != http.StatusConflict || !strings.Contains(r.text, `"write_incomplete"`) {
+	// F8: the lesson is done once the writing is submitted, and the next one opens at once.
+	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/complete", "an", ""); r.code != http.StatusConflict || !strings.Contains(r.text, `"write_incomplete"`) {
 		t.Fatalf("write early: %d %s", r.code, r.text)
 	}
 	e.submitWriting(t)
-	r = do(t, mux, http.MethodPost, "/api/today/steps/write/complete", "an", "")
-	if !strings.Contains(r.text, `"kind":"doneToday"`) || !strings.Contains(r.text, `"streak":1`) || !strings.Contains(r.text, `"currentStep":"done"`) {
+	r = do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/complete", "an", "")
+	if !strings.Contains(r.text, `"status":"completed"`) || !strings.Contains(r.text, `"streak":1`) ||
+		!strings.Contains(r.text, `"currentStep":"done"`) || !strings.Contains(r.text, `"next":{"id":"f2","title":"Family 2"}`) {
 		t.Fatalf("write: %s", r.text)
+	}
+	if r := do(t, mux, http.MethodGet, "/api/lessons/f2/study", "an", ""); r.code != http.StatusOK || !strings.Contains(r.text, `"status":"studying"`) {
+		t.Fatalf("f2 after f1: %d %s", r.code, r.text)
 	}
 }
 
@@ -155,11 +162,10 @@ func TestMyLessonsAndGuardEndpoints(t *testing.T) {
 	mux, e := newStudyAPI(t)
 	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
 	e.studyLesson(t)
-	e.nextDay(1)
 
 	r := do(t, mux, http.MethodGet, "/api/lessons/mine", "an", "")
 	b := body(t, r)
-	if b["today"].(map[string]any)["id"] != "f2" || len(b["completed"].([]any)) != 1 || len(b["upcoming"].([]any)) != 1 {
+	if b["current"].(map[string]any)["id"] != "f2" || len(b["completed"].([]any)) != 1 || len(b["upcoming"].([]any)) != 1 {
 		t.Fatalf("mine: %s", r.text)
 	}
 	first := b["completed"].([]any)[0].(map[string]any)
@@ -178,5 +184,30 @@ func TestMyLessonsAndGuardEndpoints(t *testing.T) {
 	}
 	if r := do(t, mux, http.MethodGet, "/api/lessons/f3", "binh", ""); r.code != http.StatusOK {
 		t.Fatalf("admin: %d", r.code)
+	}
+	if r := do(t, mux, http.MethodGet, "/api/lessons/f3/study", "binh", ""); r.code != http.StatusOK || !strings.Contains(r.text, `"status":"other"`) {
+		t.Fatalf("admin study: %d %s", r.code, r.text)
+	}
+}
+
+func TestSkipWriteEndpoint(t *testing.T) {
+	t.Parallel()
+	mux, e := newStudyAPI(t)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+
+	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "", ""); r.code != http.StatusUnauthorized {
+		t.Fatalf("anonymous: %d", r.code)
+	}
+	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "an", ""); r.code != http.StatusConflict ||
+		!strings.Contains(r.text, `"step_locked"`) {
+		t.Fatalf("skip too early: %d %s", r.code, r.text)
+	}
+	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/read/complete", "an", "")
+	e.finishDictation(t)
+	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/listen/complete", "an", "")
+
+	r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "an", "")
+	if r.code != http.StatusOK || !strings.Contains(r.text, `"status":"completed"`) || !strings.Contains(r.text, `"streak":1`) {
+		t.Fatalf("skip: %d %s", r.code, r.text)
 	}
 }

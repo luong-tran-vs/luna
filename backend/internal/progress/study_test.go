@@ -5,15 +5,26 @@ import (
 	"testing"
 )
 
-// complete finishes the given steps of today's lesson for u1, failing the test on error.
-// Ending with listen also submits and completes the writing (F8), so tests written for three
-// steps still finish the lesson.
-func (e *studyEnv) complete(t *testing.T, steps ...Step) TodayView {
+// current is the lesson u1 studies now, failing the test when there is none.
+func (e *studyEnv) current(t *testing.T) string {
+	t.Helper()
+	mine, err := e.svc.MyLessons(t.Context(), "u1")
+	if err != nil || mine.Current == nil {
+		t.Fatalf("current lesson: %+v %v", mine, err)
+	}
+	return mine.Current.ID
+}
+
+// complete finishes the given steps of u1's current lesson, failing the test on error. Ending
+// with listen also submits and completes the writing (F8), so tests written for two steps still
+// finish the lesson.
+func (e *studyEnv) complete(t *testing.T, steps ...Step) LessonStudyView {
 	t.Helper()
 	if len(steps) > 0 && steps[len(steps)-1] == StepListen {
 		steps = append(steps, StepWrite)
 	}
-	var v TodayView
+	id := e.current(t)
+	var v LessonStudyView
 	for _, s := range steps {
 		switch s {
 		case StepListen:
@@ -22,41 +33,35 @@ func (e *studyEnv) complete(t *testing.T, steps ...Step) TodayView {
 			e.submitWriting(t)
 		}
 		var err error
-		if v, err = e.svc.CompleteStep(t.Context(), "u1", s); err != nil {
-			t.Fatalf("complete %s: %v", s, err)
+		if v, err = e.svc.CompleteStep(t.Context(), "u1", id, s); err != nil {
+			t.Fatalf("complete %s of %s: %v", s, id, err)
 		}
 	}
 	return v
 }
 
-// submitWriting submits the writing of today's lesson (F8) so the write step can complete.
+// submitWriting submits the writing of u1's current lesson (F8) so the write step can complete.
 func (e *studyEnv) submitWriting(t *testing.T) {
 	t.Helper()
-	v, err := e.svc.Today(t.Context(), "u1")
-	if err != nil || v.Lesson == nil {
-		t.Fatalf("today: %+v %v", v, err)
-	}
-	e.writings.submit("u1", v.Lesson.ID)
+	e.writings.submit("u1", e.current(t))
 }
 
-// finishDictation checks every sentence of today's lesson (F4) so the listen step can complete.
+// finishDictation checks every sentence of u1's current lesson (F4) so the listen step can
+// complete.
 func (e *studyEnv) finishDictation(t *testing.T) {
 	t.Helper()
-	v, err := e.svc.Today(t.Context(), "u1")
-	if err != nil || v.Lesson == nil {
-		t.Fatalf("today: %+v %v", v, err)
-	}
+	id := e.current(t)
 	for i := range 3 {
-		if _, err := e.dictation.Record(t.Context(), "u1", v.Lesson.ID, Input{SentenceIndex: i, Typed: "x", CorrectWords: 1, TotalWords: 1}); err != nil {
+		if _, err := e.dictation.Record(t.Context(), "u1", id, Input{SentenceIndex: i, Typed: "x", CorrectWords: 1, TotalWords: 1}); err != nil {
 			t.Fatal(err)
 		}
 	}
 }
 
-// studyLesson completes today's whole lesson for u1.
-func (e *studyEnv) studyLesson(t *testing.T) TodayView {
+// studyLesson completes u1's whole current lesson.
+func (e *studyEnv) studyLesson(t *testing.T) LessonStudyView {
 	t.Helper()
-	return e.complete(t, StepReview, StepRead, StepListen)
+	return e.complete(t, StepRead, StepListen)
 }
 
 // nextDay moves the clock to 10:00 the next day in Viet Nam.
@@ -64,13 +69,13 @@ func (e *studyEnv) nextDay(days int) {
 	e.clock.set(e.clock.now().AddDate(0, 0, days))
 }
 
-func (e *studyEnv) setGoal(t *testing.T, topicID string) SetGoalResult {
+func (e *studyEnv) setGoal(t *testing.T, topicID string) GoalView {
 	t.Helper()
-	r, err := e.svc.SetGoal(t.Context(), "u1", topicID)
+	g, err := e.svc.SetGoal(t.Context(), "u1", topicID)
 	if err != nil {
 		t.Fatalf("set goal %s: %v", topicID, err)
 	}
-	return r
+	return g
 }
 
 // --- US1: goals ---
@@ -82,9 +87,9 @@ func TestSetGoalAndGoals(t *testing.T) {
 		t.Fatalf("unknown topic: %v", err)
 	}
 
-	r := e.setGoal(t, "family")
-	if r.StartsTomorrow || r.EffectiveFrom != "2026-09-30" || r.Active.TopicName != "Gia đình" || r.Active.TotalLessons != 3 {
-		t.Fatalf("result = %+v", r)
+	g := e.setGoal(t, "family")
+	if g.EffectiveFrom != "2026-09-30" || g.TopicName != "Gia đình" || g.TotalLessons != 3 {
+		t.Fatalf("result = %+v", g)
 	}
 
 	goals, err := e.svc.Goals(t.Context(), "u1")
@@ -104,7 +109,6 @@ func TestGoalsCountCompletedLessonsOfCurrentRoadmap(t *testing.T) {
 	e := newStudyEnv()
 	e.setGoal(t, "family")
 	e.studyLesson(t)
-	e.nextDay(1)
 	e.studyLesson(t)
 
 	goals, _ := e.svc.Goals(t.Context(), "u1")
@@ -128,24 +132,30 @@ func TestGoalsCountCompletedLessonsOfCurrentRoadmap(t *testing.T) {
 	}
 }
 
-func TestTodayWithoutAndWithGoal(t *testing.T) {
+func TestCurrentLessonWithoutAndWithGoal(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	v, err := e.svc.Today(t.Context(), "u1")
-	if err != nil || v.Kind != TodayNoGoal || v.Lesson != nil || v.Goal != nil {
-		t.Fatalf("no goal = %+v, %v", v, err)
+	mine, err := e.svc.MyLessons(t.Context(), "u1")
+	if err != nil || mine.Current != nil || len(mine.Upcoming) != 0 {
+		t.Fatalf("no goal = %+v, %v", mine, err)
+	}
+	if v, _ := e.svc.LessonStudy(t.Context(), "u1", "f1"); v.Status != LessonOther || v.Goal != nil {
+		t.Fatalf("f1 without goal = %+v", v)
 	}
 
-	e.reviews.setDue("u1", 5)
 	e.setGoal(t, "family")
-	v, _ = e.svc.Today(t.Context(), "u1")
-	if v.Kind != TodayStudying || v.Lesson.ID != "f1" || v.Lesson.Title != "Family 1" || v.Goal.TopicID != "family" {
+	v, _ := e.svc.LessonStudy(t.Context(), "u1", "f1")
+	if v.Status != LessonStudying || v.CurrentStep != StepRead || v.Steps[StepRead] != StateCurrent ||
+		v.Steps[StepListen] != StateLocked || v.Steps[StepWrite] != StateLocked || v.Goal.TopicID != "family" || v.Next != nil {
 		t.Fatalf("with goal = %+v", v)
+	}
+	if v, _ := e.svc.LessonStudy(t.Context(), "u1", "f2"); v.Status != LessonOther || len(v.Steps) != 0 {
+		t.Fatalf("f2 = %+v", v)
 	}
 
 	e.setGoal(t, "empty")
-	if v, _ := e.svc.Today(t.Context(), "u1"); v.Kind != TodayNoNewLesson || v.Lesson != nil {
-		t.Fatalf("empty roadmap = %+v", v)
+	if mine, _ := e.svc.MyLessons(t.Context(), "u1"); mine.Current != nil {
+		t.Fatalf("empty roadmap = %+v", mine)
 	}
 }
 
@@ -154,15 +164,15 @@ func TestGoalCompletedAtEndOfRoadmap(t *testing.T) {
 	e := newStudyEnv()
 	e.setGoal(t, "work") // one lesson
 	v := e.studyLesson(t)
-	if !v.GoalCompleted || v.Kind != TodayDone {
+	if !v.GoalCompleted || v.Status != LessonCompleted || v.Next != nil {
 		t.Fatalf("last lesson = %+v", v)
 	}
 	goals, _ := e.svc.Goals(t.Context(), "u1")
 	if goals.Active.CompletedLessons != 1 || goals.Active.TotalLessons != 1 {
 		t.Fatalf("goal = %+v", goals.Active)
 	}
-	e.nextDay(1)
-	if v, _ := e.svc.Today(t.Context(), "u1"); v.Kind != TodayNoNewLesson || !v.GoalCompleted {
-		t.Fatalf("next day = %+v", v)
+	d, _ := e.svc.Dashboard(t.Context(), "u1")
+	if d.Kind != StudyNoNewLesson || !d.GoalCompleted {
+		t.Fatalf("dashboard = %+v", d)
 	}
 }

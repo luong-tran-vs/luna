@@ -24,17 +24,12 @@ type ProgressRepository interface {
 	StepCounts(ctx context.Context, userID string, lessonIDs []string) (StepCounts, error)
 }
 
-// DayRepository stores study days, one per (user, day).
+// DayRepository stores the days with a completed lesson, for the streak.
 type DayRepository interface {
-	// Get returns nil when the learner has not started a lesson that day.
-	Get(ctx context.Context, userID, dayKey string) (*StudyDay, error)
-	// Start records the day's lesson; an existing day keeps its lesson.
-	Start(ctx context.Context, userID, dayKey, lessonID string) error
-	Update(ctx context.Context, userID, dayKey string, reviewed int, completed bool) error
+	// MarkCompleted records that the learner completed a lesson on dayKey.
+	MarkCompleted(ctx context.Context, userID, dayKey string) error
 	// CompletedKeys lists the days with a completed lesson.
 	CompletedKeys(ctx context.Context, userID string) ([]string, error)
-	// LatestKey is the latest day the learner studied; "" when none.
-	LatestKey(ctx context.Context, userID string) (string, error)
 }
 
 // Roadmaps reads topics and their roadmaps (implemented over topic.Service in main).
@@ -67,12 +62,11 @@ type LessonTitles interface {
 	Titles(ctx context.Context, ids []string) (map[string]string, error)
 }
 
-// Reviews is what the review step needs from the notebook (implemented over vocab in main).
+// Reviews is what the home page and the stats need from the notebook (implemented over vocab in
+// main).
 type Reviews interface {
 	// DueCount is the number of cards due now.
 	DueCount(ctx context.Context, userID string) (int, error)
-	// ReviewedSince counts reviews made in the review step since t.
-	ReviewedSince(ctx context.Context, userID string, since time.Time) (int, error)
 	// DueBefore counts cards due before `before`; cards without a schedule count when saved
 	// before createdBefore (they are due the day after they were saved).
 	DueBefore(ctx context.Context, userID string, before, createdBefore time.Time) (int, error)

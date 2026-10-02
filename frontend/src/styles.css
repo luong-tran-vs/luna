@@ -4,6 +4,8 @@
 @import './styles/tokens.css';
 @import './styles/forms.css';
 @import './styles/admin.css';
+@import './styles/screen.css';
+@import './styles/motion.css';
 
 *,
 *::before,
@@ -12,6 +14,8 @@
 }
 
 html {
+  /* Keep scrolled-to content (e.g. the saved sentence) out from under the sticky header. */
+  scroll-padding-top: var(--header-h, 0px);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -52,4 +56,23 @@ button {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Layout footer (all areas): only has content on a connection error (F6); sticky so it is seen without scrolling. */
+.app-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Learner area: keep scrolled-to content clear of the tab bar (bottom on phones, top from 768px). */
+html:has(lu-learner-layout:not(.focus)) {
+  scroll-padding-bottom: 64px;
+}
+
+@media (min-width: 768px) {
+  html:has(lu-learner-layout) {
+    scroll-padding-top: 61px;
+    scroll-padding-bottom: 0;
+  }
 }

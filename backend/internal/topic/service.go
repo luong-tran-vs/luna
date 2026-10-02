@@ -20,12 +20,13 @@ const (
 type Service struct {
 	repo    Repository
 	lessons Lessons
+	ai      WordSuggester
 	now     func() time.Time
 }
 
 // NewService returns a Service.
-func NewService(repo Repository, lessons Lessons, now func() time.Time) *Service {
-	return &Service{repo: repo, lessons: lessons, now: now}
+func NewService(repo Repository, lessons Lessons, suggester WordSuggester, now func() time.Time) *Service {
+	return &Service{repo: repo, lessons: lessons, ai: suggester, now: now}
 }
 
 func cleanInput(in Input) Input {
@@ -88,6 +89,9 @@ func (s *Service) List(ctx context.Context, level string) ([]Summary, error) {
 	for i, t := range topics {
 		out[i] = summarize(t, counts[t.ID])
 	}
+	if err := s.fillCoverage(ctx, out); err != nil {
+		return nil, err
+	}
 	return out, nil
 }
 
@@ -96,7 +100,11 @@ func (s *Service) summary(ctx context.Context, t Topic) (Summary, error) {
 	if err != nil {
 		return Summary{}, fmt.Errorf("topic: count lessons: %w", err)
 	}
-	return summarize(t, counts[t.ID]), nil
+	out := []Summary{summarize(t, counts[t.ID])}
+	if err := s.fillCoverage(ctx, out); err != nil {
+		return Summary{}, err
+	}
+	return out[0], nil
 }
 
 // Create adds a topic; the name must be unique within its level.

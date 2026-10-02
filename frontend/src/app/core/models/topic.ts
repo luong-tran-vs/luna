@@ -13,6 +13,23 @@ export interface Topic {
   remaining: number;
   warning: boolean;
   createdAt: string;
+  /** F18: words in the topic's vocabulary list, and how many of them its lessons use. */
+  wordCount: number;
+  usedWordCount: number;
+}
+
+/** One word of a topic's vocabulary list with its coverage (specs/017-topic-vocabulary). */
+export interface TopicWord {
+  text: string;
+  used: boolean;
+  /** Lessons of the topic that use the word. */
+  lessonCount: number;
+}
+
+/** Target words for one generation (F18): one group per lesson, and how many more unused words the topic needs. */
+export interface WordPlan {
+  groups: string[][];
+  shortage: number;
 }
 
 export interface TopicInput {

@@ -33,8 +33,13 @@ type Topic struct {
 	Description string
 	// LessonIDs is the roadmap: lessons of this topic in study order.
 	LessonIDs []string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	// Words is the core vocabulary of the topic (F18), in the admin's order and spelling.
+	Words []string
+	// WordsSeeded is true once the startup seed considered the topic or an admin saved its words;
+	// the seed never touches it again.
+	WordsSeeded bool
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 // Input is what an admin submits to create or edit a topic.
@@ -52,6 +57,9 @@ type Summary struct {
 	// every roadmap lesson counts.
 	Remaining int
 	Warning   bool
+	// WordCount and UsedWordCount give the vocabulary coverage (F18).
+	WordCount     int
+	UsedWordCount int
 }
 
 // LessonRef is what the topic pages show of a lesson.
@@ -60,7 +68,6 @@ type LessonRef struct {
 	Title            string
 	Level            string
 	TopicID          string
-	AudioStatus      string
 	AnnotationStatus string
 	CreatedAt        time.Time
 }
@@ -108,4 +115,20 @@ func NameKey(name string) string {
 func summarize(t Topic, lessonCount int) Summary {
 	remaining := len(t.LessonIDs)
 	return Summary{Topic: t, LessonCount: lessonCount, Remaining: remaining, Warning: remaining < MinRemaining}
+}
+
+// WordUse is one topic word with its coverage in the topic's lessons (F18).
+type WordUse struct {
+	Text string
+	// Used is true when at least one lesson of the topic contains the word.
+	Used bool
+	// LessonCount is the number of lessons of the topic containing it.
+	LessonCount int
+}
+
+// LessonText is what coverage needs from a lesson: its content and the base forms of its
+// single-word annotations (lowercase word → lemma).
+type LessonText struct {
+	Content string
+	Lemmas  map[string]string
 }

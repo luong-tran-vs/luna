@@ -12,7 +12,7 @@ import {
   LessonInput,
   LessonSummary,
 } from '../../core/models/lesson';
-import { Topic, TopicInput, TopicRoadmap } from '../../core/models/topic';
+import { Topic, TopicInput, TopicRoadmap, TopicWord, WordPlan } from '../../core/models/topic';
 
 const BASE = '/api/admin';
 
@@ -60,6 +60,13 @@ export class AdminApiService {
     return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/extras`, input));
   }
 
+  /** Generates the practice again with one AI request (F17); 202 with the lesson. */
+  regeneratePractice(id: string): Observable<Lesson> {
+    return this.unwrap(
+      this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/practice/regenerate`, null),
+    );
+  }
+
   saveAnnotations(id: string, annotations: AnnotationInput[]): Observable<Lesson> {
     return this.unwrap(
       this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/annotations`, { annotations }),
@@ -93,6 +100,32 @@ export class AdminApiService {
 
   generateLessons(topicId: string, input: GenerateInput): Observable<GenerateResult> {
     return this.http.post<GenerateResult>(`${BASE}/topics/${topicId}/generate`, input);
+  }
+
+  /** F18: the topic's vocabulary list with coverage, in list order. */
+  topicWords(topicId: string): Observable<TopicWord[]> {
+    return this.http.get<{ words: TopicWord[] }>(`${BASE}/topics/${topicId}/words`).pipe(map((r) => r.words));
+  }
+
+  /** F18: replaces the whole vocabulary list; returns it normalized with coverage. */
+  setTopicWords(topicId: string, words: string[]): Observable<TopicWord[]> {
+    return this.http
+      .put<{ words: TopicWord[] }>(`${BASE}/topics/${topicId}/words`, { words })
+      .pipe(map((r) => r.words));
+  }
+
+  /**
+   * F18: target words split into `count` groups of up to `perLesson` words, least used first, and
+   * how many more unused words the topic needs (`shortage`).
+   */
+  wordPlan(topicId: string, count: number, perLesson: number): Observable<WordPlan> {
+    const params = { count, perLesson };
+    return this.http.get<WordPlan>(`${BASE}/topics/${topicId}/word-plan`, { params });
+  }
+
+  /** F18: asks the AI for `count` new words and adds them to the topic; returns the added words and the list. */
+  suggestTopicWords(topicId: string, count: number): Observable<{ added: string[]; words: TopicWord[] }> {
+    return this.http.post<{ added: string[]; words: TopicWord[] }>(`${BASE}/topics/${topicId}/words/suggest`, { count });
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

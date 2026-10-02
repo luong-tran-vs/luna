@@ -1,0 +1,64 @@
+<section class="soft-card" aria-labelledby="vocab-heading">
+  <h2 class="step-title">
+    <button
+      type="button"
+      class="collapse"
+      id="vocab-heading"
+      [attr.aria-expanded]="open()"
+      aria-controls="vocab-list"
+      (click)="open.set(!open())"
+    >
+      <span>{{ number() }}. Từ vựng quan trọng</span>
+      <lu-icon class="chevron" name="chevron-right" />
+    </button>
+  </h2>
+
+  <div id="vocab-list" [hidden]="!open()">
+    @if (rows().length === 0) {
+      <p class="empty">Bài này chưa có từ vựng.</p>
+    } @else {
+      <ul class="words">
+        @for (r of rows(); track r.word.lemma) {
+          <li class="word">
+            <div class="word-head">
+              <p class="word-text">
+                <span class="lemma" lang="en">{{ r.word.lemma }}</span
+                >&ngsp;
+                @if (r.word.ipa) {
+                  <span class="ipa">{{ r.word.ipa }}</span
+                  >&ngsp;
+                }
+                <span class="meaning">— {{ r.word.meaningVi }}</span>
+              </p>
+              @if (canSpeak) {
+                <button
+                  type="button"
+                  class="icon-btn"
+                  [attr.aria-label]="'Nghe từ ' + r.word.lemma"
+                  (click)="playWord(r.word.lemma)"
+                >
+                  <lu-icon name="volume" />
+                </button>
+              }
+            </div>
+            @if (r.example; as e) {
+              @if (canSpeak) {
+                <button type="button" class="example example-btn" (click)="readAloud.emit(e.sentence)">
+                  <span
+                    >Ví dụ: <span class="sentence" lang="en">"{{ e.sentence }}"</span></span
+                  >
+                  <lu-icon name="volume" />&ngsp;
+                  <span class="visually-hidden">(nghe câu)</span>
+                </button>
+              } @else {
+                <p class="example">
+                  Ví dụ: <span class="sentence" lang="en">"{{ e.sentence }}"</span>
+                </p>
+              }
+            }
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</section>

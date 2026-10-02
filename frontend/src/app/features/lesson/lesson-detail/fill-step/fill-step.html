@@ -1,0 +1,126 @@
+<section class="fill" aria-labelledby="fill-heading">
+  <div>
+    <h2 class="step-title" id="fill-heading">{{ number() }}. Điền vào ô trống</h2>
+    <p class="step-hint">
+      Gõ từ vào từng ô (Enter để sang ô kế tiếp), hoặc bấm một từ gợi ý bên dưới.
+    </p>
+  </div>
+
+  <ol class="turns">
+    @for (t of turns(); track $index; let i = $index) {
+      <li class="soft-card turn">
+        <div class="turn-head">
+          <span class="speaker">{{ speaker(t.speaker) }}</span>
+          @if (turnText(t.turnIndex); as sentence) {
+            <button
+              type="button"
+              class="btn listen"
+              [attr.aria-label]="'Nghe câu ' + (i + 1)"
+              (click)="readAloud.emit(sentence)"
+            >
+              <lu-icon name="volume" /> Nghe câu
+            </button>
+          }
+        </div>
+        <p class="line" lang="en">
+          @for (p of t.parts; track $index) {
+            @if (p.kind === 'text') {
+              <span>{{ p.text }}</span>
+            } @else {
+              <span
+                class="slot"
+                [class.slot-ok]="result()?.results?.[p.index] === true"
+                [class.slot-bad]="result()?.results?.[p.index] === false"
+              >
+                <input
+                  type="text"
+                  class="blank"
+                  lang="en"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  placeholder="gõ từ…"
+                  [id]="'fill-blank-' + p.index"
+                  [class.filled]="answers()[p.index].trim() !== ''"
+                  [class.selected]="selected() === p.index"
+                  [attr.size]="inputSize()"
+                  [attr.aria-label]="'Ô trống ' + (p.index + 1)"
+                  [value]="answers()[p.index]"
+                  [readOnly]="!!result()"
+                  (input)="type(p.index, $event)"
+                  (focus)="select(p.index)"
+                  (keydown.enter)="enter(p.index, $event)"
+                />
+                @if (result(); as r) {
+                  @if (r.results[p.index]) {
+                    <span class="mark mark-ok" lang="vi"><lu-icon name="check" /> Đúng</span>
+                  } @else {
+                    <span class="mark mark-bad" lang="vi">
+                      <lu-icon name="x" /> Sai · Đáp án:
+                      <span lang="en">{{ fill().blanks[p.index].answer }}</span>
+                    </span>
+                  }
+                }
+              </span>
+            }
+          }
+        </p>
+        <p class="meaning">{{ t.meaningVi }}</p>
+      </li>
+    }
+  </ol>
+
+  <div class="bank-head">
+    <h3 class="bank-title" id="fill-bank-heading">Ngân hàng từ</h3>
+    <span class="muted">Bấm từ để điền vào ô đang chọn</span>
+  </div>
+  <ul class="tiles" aria-labelledby="fill-bank-heading">
+    @for (w of bank(); track $index; let i = $index) {
+      <li>
+        <button
+          type="button"
+          class="tile"
+          lang="en"
+          [disabled]="used().has(i) || !!result()"
+          (click)="pick(i)"
+        >
+          {{ w }}
+        </button>
+      </li>
+    }
+  </ul>
+
+  <div class="actions">
+    <button
+      type="button"
+      class="btn-primary check-btn"
+      [disabled]="!complete() || !!result()"
+      (click)="check()"
+    >
+      Kiểm tra
+    </button>
+  </div>
+
+  <p
+    class="result"
+    role="status"
+    [class.result-card]="!!result()"
+    [class.result-ok]="result()?.correct === result()?.total"
+    [class.result-bad]="!!result() && result()!.correct !== result()!.total"
+  >
+    @if (result(); as r) {
+      @if (r.correct === r.total) {
+        <lu-icon name="check" /> Chính xác!
+      } @else {
+        <lu-icon name="x" /> Đúng {{ r.correct }}/{{ r.total }} ô
+      }
+    }
+  </p>
+
+  @if (result() && grammarTip()) {
+    <aside class="tip" aria-labelledby="fill-tip-heading">
+      <h3 class="tip-title" id="fill-tip-heading">Mẹo ngữ pháp</h3>
+      <p>{{ grammarTip() }}</p>
+    </aside>
+  }
+</section>

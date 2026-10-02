@@ -1,0 +1,196 @@
+/* F17 lesson detail page (design/screen1–3). Tokens only (docs/design-system.md). */
+
+/* Room for the fixed Next button, so it never hides the end of the page. */
+.practice-page.has-next {
+  padding-bottom: calc(48px + 2 * var(--space-3) + var(--space-6));
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+}
+
+.progress {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.segment {
+  height: 6px;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.segment.on {
+  background: var(--color-primary);
+}
+
+.progress-text {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.streak {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-full);
+
+  --icon-size: 16px;
+}
+
+.intro {
+  gap: var(--space-2);
+}
+
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+  font: var(--text-xl) var(--font-ui);
+}
+
+.unit {
+  padding: 2px var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-sm);
+}
+
+.objective {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.objective-label {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.level {
+  justify-self: start;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  padding: var(--space-1);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+
+  --icon-size: 18px;
+}
+
+.tab[aria-selected='true'] {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.step-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.empty {
+  padding: var(--space-4);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.reading {
+  display: grid;
+  gap: var(--space-3);
+  font: var(--text-reading) var(--font-ui);
+}
+
+.grammar-body {
+  font: var(--text-base) var(--font-ui);
+}
+
+.grammar-examples {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding-left: var(--space-5);
+  font-style: italic;
+}
+
+.next-bar {
+  position: fixed;
+  right: 0;
+  bottom: var(--tabbar-h, 0px);
+  left: 0;
+  z-index: 5;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-line);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 608px;
+  margin: 0 auto;
+}
+
+.nav .next {
+  flex: 1;
+}
+
+.done-card {
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.done-card .step-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--color-primary-ink);
+}
+
+/* Keeps the streak on the right when there is no progress bar (no practice steps). */
+.progress-spacer {
+  flex: 1;
+}

@@ -51,19 +51,18 @@
 **Chức năng**
 - Thêm, sửa, xoá, xem trước bài học.
 - Thông tin bài: tiêu đề, nội dung (dán văn bản), trình độ CEFR (A1–C2), chủ đề, nguồn, giấy phép.
-- Khi lưu bài, hệ thống chạy nền 3 việc:
+- Khi lưu bài, hệ thống:
   1. Tách bài thành từng câu.
-  2. Sinh audio cho từng câu (TTS chạy trên máy).
-  3. Gửi **1 request** AI để chú thích các từ và cụm từ đáng học: dạng gốc (*went → go*) và nghĩa tiếng Việt theo ngữ cảnh.
-- Mỗi bài hiện trạng thái của audio và của chú thích: *đang chạy*, *xong*, *lỗi*, kèm nút **Chạy lại**.
+  2. Chạy nền **1 request** AI để chú thích các từ và cụm từ đáng học: dạng gốc (*went → go*) và nghĩa tiếng Việt theo ngữ cảnh.
+- Mỗi bài hiện trạng thái của chú thích: *đang chạy*, *xong*, *lỗi*, kèm nút **Chạy lại**.
+- *Cập nhật 2026-10-02:* bỏ sinh audio bằng TTS (Kokoro); mọi chỗ nghe dùng giọng đọc của trình duyệt.
 - Quản trị viên xem và sửa được phần chú thích.
 - **Lộ trình:** danh sách bài có thứ tự, kéo thả để đổi thứ tự.
 - Cảnh báo khi lộ trình còn dưới 3 bài chưa học.
 
 **Tiêu chí nghiệm thu**
 - [ ] Lưu bài thành công ngay cả khi AI lỗi hoặc hết lượt; trạng thái chú thích là *lỗi* và bấm Chạy lại được.
-- [ ] Mỗi câu có một file audio riêng; audio sinh một lần, không sinh lại khi mở bài.
-- [ ] Sửa nội dung bài thì tách câu, audio và chú thích được làm lại.
+- [ ] Sửa nội dung bài thì tách câu và chú thích được làm lại.
 - [ ] Không xoá được bài mà người học đang học dở (phải gỡ khỏi lộ trình trước).
 - [ ] Trang quản trị dùng được trên điện thoại (từ 360px).
 
@@ -93,7 +92,8 @@
 ## F4. Nghe
 
 **Chức năng**
-- Phát theo từng câu: câu trước, câu sau, lặp lại câu.
+- Phát theo từng câu: câu trước, câu sau, lặp lại câu. Câu được đọc bằng giọng đọc của trình duyệt (cập nhật 2026-10-02, thay audio
+  tạo sẵn); chữ ẩn sẵn, kèm dạng sóng minh hoạ chạy theo câu đang đọc.
 - Tốc độ: 0.5x, 0.75x, 1x, 1.25x.
 - Ẩn hoặc hiện transcript.
 - **Chép chính tả:** nghe một câu, gõ lại, bấm Kiểm tra. So sánh từng từ và đánh dấu *đúng*, *sai* (kèm từ đúng), *thiếu*.
@@ -110,12 +110,12 @@
 ## F5. Sổ từ và ôn tập
 
 **Chức năng**
-- Thẻ gồm: từ, IPA, nghĩa, câu ví dụ từ bài học, audio.
+- Thẻ gồm: từ, IPA, nghĩa, câu ví dụ từ bài học; nghe bằng giọng đọc của trình duyệt.
 - Xem danh sách thẻ; sửa, xoá, tự thêm thẻ.
 - Lịch ôn theo thuật toán **FSRS**.
 - Hai kiểu ôn:
   - **Xem từ đoán nghĩa:** hiện từ, bấm để lật xem nghĩa.
-  - **Nghe rồi gõ:** nghe audio, gõ lại từ.
+  - **Nghe rồi gõ:** nghe từ, gõ lại từ.
 - Sau mỗi thẻ, người học chọn: **Again**, **Hard**, **Good**, **Easy**.
 - Ôn tự do được bất cứ lúc nào, ngoài bước Ôn bắt buộc.
 - **Sổ từ theo ngày và theo bài:** danh sách thẻ nhóm theo ngày lưu ("Hôm nay", "Hôm qua", ngày cụ thể); lọc theo bài học.
@@ -153,21 +153,20 @@
 
 **Chức năng**
 - **Mục tiêu:** người học tự chọn trình độ, rồi chọn một chủ đề của trình độ đó; mục tiêu là hoàn thành lộ trình của chủ đề (F14). Xong thì mời chọn chủ đề khác cùng trình độ hoặc lên trình độ tiếp theo.
-- **Đổi chủ đề hoặc trình độ:** có hiệu lực ngay nếu bài hôm nay chưa bắt đầu, nếu đã bắt đầu thì từ hôm sau. Tiến độ từng lộ trình lưu riêng.
-- **Mỗi ngày một bài:** bài hôm nay là bài tiếp theo chưa hoàn thành trong lộ trình đang học.
-- **Các bước của bài:** Ôn → Đọc → Nghe. Bước sau chỉ mở khi xong bước trước.
-- **Bước Ôn:** ôn các thẻ đến hạn, tối đa 30 thẻ mỗi ngày (chỉnh ở F12). Không có thẻ đến hạn thì bước tự hoàn thành.
-- **Hoàn thành bài:** thanh mục tiêu +1 bài, streak +1 ngày.
-- **Danh sách bài học:** trang "Bài học" gồm bài hôm nay, các bài đã học (mở lại để đọc, nghe bất cứ lúc nào) và các bài sắp tới ở trạng thái khoá (chỉ hiện tên).
+- **Đổi chủ đề hoặc trình độ:** có hiệu lực ngay (cập nhật 2026-10-02). Tiến độ từng lộ trình lưu riêng.
+- **Học lần lượt** (cập nhật 2026-10-02, thay cho "mỗi ngày một bài"): bài đang học là bài tiếp theo chưa hoàn thành trong lộ trình; học xong thì bài kế tiếp mở ngay, không giới hạn số bài mỗi ngày. Không có trang "Hôm nay": học ngay trong trang của bài.
+- **Các bước của bài:** Đọc → Nghe (bước Ôn bỏ từ 2026-10-02). Bước sau chỉ mở khi xong bước trước.
+- **Ôn thẻ:** ~~bước Ôn đầu bài~~ bỏ từ 2026-10-02; ôn thẻ đến hạn ở Từ vựng › Ôn tập.
+- **Hoàn thành bài:** thanh mục tiêu +1 bài, ngày đó tính vào streak, bài kế tiếp mở ngay.
+- **Danh sách bài học:** trang "Bài học" gồm bài đang học, các bài đã học (mở lại để đọc, nghe bất cứ lúc nào) và các bài sắp tới ở trạng thái khoá (chỉ hiện tên).
 
 **Tiêu chí nghiệm thu**
 - [ ] Chỉ học bài thuộc trình độ đang chọn; không có bài của trình độ khác xen vào.
 - [ ] Đổi sang chủ đề khác rồi quay lại: học tiếp đúng bài đang dở; streak không đổi.
 - [ ] Mở lại bài đã học không làm thay đổi tiến độ, streak hay mục tiêu.
-- [ ] Bài sắp tới không mở được trước ngày của nó.
-- [ ] Học xong bài hôm nay thì bài tiếp theo chỉ mở vào ngày hôm sau (sang ngày lúc 0h theo múi giờ ở F12).
-- [ ] Nghỉ một hoặc nhiều ngày: hôm quay lại chỉ có một bài, streak về 0.
-- [ ] Thẻ đến hạn vượt quá giới hạn ngày được chuyển sang hôm sau.
+- [ ] Bài sắp tới không mở được trước khi học xong các bài trước nó.
+- [ ] Học xong một bài thì bài tiếp theo mở ngay, học được nhiều bài trong một ngày (cập nhật 2026-10-02).
+- [ ] Nghỉ một hoặc nhiều ngày: streak về 0 (ngày tính theo múi giờ ở F12).
 - [ ] Thoát giữa chừng rồi vào lại thì tiếp tục đúng bước và đúng câu đang làm.
 - [ ] Lộ trình hết bài: người học thấy thông báo "chưa có bài mới", vẫn ôn được hoặc chọn chủ đề khác; quản trị viên thấy cảnh báo ở F14.
 
@@ -178,12 +177,12 @@
 **Chức năng**
 - **Thanh mục tiêu:** tên lộ trình (ví dụ "A1 · Gia đình") và số bài đã xong trên tổng số bài của lộ trình.
 - **Thanh kỹ năng:** Nghe và Đọc (Viết và Nói hiện ở giai đoạn sau), mỗi thanh đếm số bài đã xong bước của kỹ năng đó.
-- **Bài hôm nay:** tên bài, trình độ, chủ đề, thanh tiến trình các bước, nút **Tiếp tục: <bước>**.
+- **Bài đang học:** tên bài, trình độ, chủ đề, thanh tiến trình các bước, nút **Tiếp tục: <bước>**.
 - **Streak** (số ngày học liên tiếp) và số thẻ đến hạn ngày mai.
 - **Thống kê:** số từ đã học, số câu đã chép chính tả, tỷ lệ đúng, số bài hoàn thành theo kỹ năng.
 
 **Tiêu chí nghiệm thu**
-- [ ] Mở app là thấy ngay thanh mục tiêu, bài hôm nay và nút Tiếp tục, không phải cuộn trên điện thoại 360px.
+- [ ] Mở app là thấy ngay thanh mục tiêu, bài đang học và nút Tiếp tục, không phải cuộn trên điện thoại 360px.
 - [ ] Nút Tiếp tục đưa thẳng đến bước đang dở.
 - [ ] Số liệu cập nhật ngay sau khi hoàn thành một bước.
 
@@ -219,6 +218,6 @@
 ## Yêu cầu chung
 
 - Web responsive, dùng tốt từ 360px.
-- Không tốn phí: font OFL, AI gói miễn phí, TTS và từ điển chạy trên máy.
+- Không tốn phí: font OFL, AI gói miễn phí, giọng đọc của trình duyệt, từ điển chạy trên máy.
 - Nội dung bài học ghi nguồn và giấy phép.
 - Truy cập dữ liệu qua lớp repository (MongoDB hiện tại, có thể đổi sau).

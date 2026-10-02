@@ -1,4 +1,10 @@
 <section class="writing" aria-labelledby="writing-heading">
+  @if (mode() === null) {
+    <nav class="screen-bar back-bar" aria-label="Điều hướng">
+      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"><lu-icon name="arrow-left" /></a>
+      <span class="back-label">Danh sách bài</span>
+    </nav>
+  }
   <h2 class="title" id="writing-heading">Bước Viết{{ review() ? ' · Xem lại' : '' }}</h2>
 
   @if (loadError(); as message) {
@@ -51,7 +57,13 @@
         <button type="button" class="btn-primary" [disabled]="!canSubmit()" [attr.aria-busy]="submitting()" (click)="submit()">
           {{ submitting() ? 'Đang nộp…' : 'Nộp' }}
         </button>
+        @if (mode() === 'study') {
+          <button type="button" class="btn" [disabled]="submitting()" (click)="skip()">Bỏ qua</button>
+        }
       </div>
+      @if (mode() === 'study') {
+        <p class="skip-hint muted">Viết là tuỳ chọn: bấm Bỏ qua vẫn hoàn thành bài (không có bài để AI chấm).</p>
+      }
     } @else if (writing(); as w) {
       @if (w.status === 'submitted') {
         <div class="card submitted">

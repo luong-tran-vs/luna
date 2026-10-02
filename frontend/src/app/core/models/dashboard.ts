@@ -1,5 +1,5 @@
 import { Level } from './lesson';
-import { GoalView, Step, StepState, TodayKind } from './study';
+import { GoalView, Step, StepState, StudyKind } from './study';
 
 /** Types for the dashboard API (specs/009-home-dashboard/contracts/dashboard-api.md). */
 
@@ -25,7 +25,7 @@ export interface DashboardAction {
 }
 
 export interface Dashboard {
-  kind: TodayKind;
+  kind: StudyKind;
   goal: GoalView | null;
   goalCompleted: boolean;
   skills: SkillCounts | null;
@@ -65,4 +65,10 @@ export interface Stats {
     submitted: number;
     averageScore: number | null;
   };
+}
+
+/** Mean of the comprehension and dictation rates that exist (0–1); null when neither has data. */
+export function accuracyOf(stats: Stats): number | null {
+  const rates = [stats.reading.rate, stats.dictation.rate].filter((r): r is number => r !== null);
+  return rates.length ? rates.reduce((a, b) => a + b, 0) / rates.length : null;
 }

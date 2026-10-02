@@ -7,9 +7,9 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /api ./cmd/api
 
-# Audio directory owned by the distroless "nonroot" user (uid 65532). A new named volume
-# mounted here is initialised from the image, so it keeps this ownership.
-RUN mkdir -p /out/data/audio
+# Data directory owned by the distroless "nonroot" user (uid 65532); the dictionary is mounted
+# under it.
+RUN mkdir -p /out/data
 
 FROM gcr.io/distroless/static-debian12:nonroot
 COPY --from=build /api /api

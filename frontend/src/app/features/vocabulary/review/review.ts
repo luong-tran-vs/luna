@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { DueList, ReviewMode } from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
+import { Icon } from '../../../shared/components/icon/icon';
 import { ReviewSession } from '../../../shared/components/review-session/review-session';
 
 const SESSION_SIZE = 100;
@@ -14,10 +15,10 @@ const MODES: { value: ReviewMode; label: string }[] = [
 
 const dateTime = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
 
-/** Free review (F5): the cards due now, in the mode the learner picks. */
+/** Free review (F5, client sketch screen 9): the cards due now, in the mode the learner picks. */
 @Component({
   selector: 'lu-review',
-  imports: [ReviewSession, RouterLink],
+  imports: [Icon, ReviewSession, RouterLink],
   templateUrl: './review.html',
   styleUrl: './review.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

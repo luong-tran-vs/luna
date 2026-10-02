@@ -1,0 +1,40 @@
+<header class="bar">
+  <a class="brand" routerLink="/">Luna</a>
+  <nav class="tabs" aria-label="Menu chính">
+    @for (tab of tabs; track tab.path) {
+      @let badge = tab.path === '/account' ? notifier.unseen() : 0;
+      <a
+        class="tab"
+        [class.tab-end]="tab.path === '/account'"
+        [routerLink]="tab.path"
+        [attr.aria-current]="tab.matches(path()) ? 'page' : null"
+        [attr.aria-label]="badge > 0 ? tab.label + ', ' + badge + ' kết quả bài viết mới' : null"
+      >
+        <span class="tab-icon">
+          <lu-icon [name]="tab.icon" />
+          @if (badge > 0) {
+            <span class="dot-badge" aria-hidden="true">{{ badge }}</span>
+          }
+        </span>
+        <span class="tab-label">{{ tab.label }}</span>
+      </a>
+    }
+  </nav>
+  <button
+    type="button"
+    class="theme-toggle"
+    aria-label="Chế độ tối"
+    [attr.aria-pressed]="dark()"
+    [title]="dark() ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'"
+    (click)="toggleDark()"
+  >
+    <lu-icon [name]="dark() ? 'sun' : 'moon'" />
+  </button>
+</header>
+<main>
+  <router-outlet />
+</main>
+<footer class="app-footer">
+  <lu-connection-status />
+</footer>
+<lu-toast />

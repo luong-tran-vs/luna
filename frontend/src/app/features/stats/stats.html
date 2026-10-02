@@ -1,6 +1,9 @@
-<section class="stats">
-  <a class="back" routerLink="/"><span aria-hidden="true">←</span> Màn hình chính</a>
-  <h1 class="title">Thống kê</h1>
+<section class="screen stats">
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/account" aria-label="Quay lại Tài khoản"><lu-icon name="arrow-left" /></a>
+    <h1 class="screen-title">Thống kê</h1>
+    <a class="home-link" routerLink="/">Màn hình chính</a>
+  </header>
 
   @if (loadError()) {
     <div class="form-alert" role="alert">
@@ -8,17 +11,48 @@
       <button type="button" class="btn" (click)="load()">Thử lại</button>
     </div>
   } @else if (data(); as s) {
+    <div class="soft-card overview">
+      <lu-progress-ring class="ring" [value]="accuracy()" label="Độ chính xác" />
+      <div class="overview-text">
+        <p class="section-title">Độ chính xác</p>
+        <p class="muted">Trung bình của hiểu bài và chép chính tả</p>
+      </div>
+    </div>
+
+    <section class="soft-card skills" aria-labelledby="skills-heading">
+      <h2 class="section-title" id="skills-heading">Tiến độ theo kỹ năng</h2>
+      <ul class="skill-list">
+        @for (k of skills(); track k.label) {
+          <li class="skill" [attr.data-tone]="k.tone">
+            <span class="skill-label">{{ k.label }}</span>
+            <span
+              class="skill-track"
+              role="progressbar"
+              [attr.aria-label]="k.label + ': ' + k.hint"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [attr.aria-valuenow]="k.percent ?? 0"
+              [attr.aria-valuetext]="k.value"
+            >
+              <span class="skill-fill" [style.width.%]="k.percent ?? 0"></span>
+            </span>
+            <span class="skill-value">{{ k.value }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
     <dl class="figures">
-      <div class="card figure">
+      <div class="soft-card figure">
         <dt>Từ đã học</dt>
         <dd>{{ s.cards }} từ đã học</dd>
       </div>
-      <div class="card figure">
+      <div class="soft-card figure">
         <dt>Chép chính tả</dt>
         <dd>{{ s.dictation.sentences }} câu đã chép chính tả</dd>
         <dd class="rate">Tỷ lệ đúng {{ rate() }}</dd>
       </div>
-      <div class="card figure reading">
+      <div class="soft-card figure reading">
         <dt>Hiểu bài</dt>
         @if (s.reading.answered > 0) {
           <dd class="rate">Trả lời đúng {{ readingRate() }} ({{ s.reading.answered }} câu)</dd>
@@ -27,12 +61,12 @@
           <dd class="muted">Trả lời câu hỏi ở bước Đọc để xem tỷ lệ.</dd>
         }
       </div>
-      <div class="card figure writing">
+      <div class="soft-card figure writing">
         <dt>Bài viết</dt>
         <dd>{{ s.writing.submitted }} bài viết</dd>
         <dd class="rate">Điểm trung bình {{ writingAverage() }}</dd>
       </div>
-      <div class="card figure">
+      <div class="soft-card figure lessons">
         <dt>Bài học</dt>
         <dd>Đọc: {{ s.lessons.read }} bài</dd>
         <dd>Nghe: {{ s.lessons.listen }} bài</dd>

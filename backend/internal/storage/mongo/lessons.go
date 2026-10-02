@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -12,12 +13,12 @@ import (
 
 	"github.com/luongtran/luna/backend/internal/job"
 	"github.com/luongtran/luna/backend/internal/lesson"
+	"github.com/luongtran/luna/backend/internal/topic"
 )
 
 type sentenceDoc struct {
-	Index     int    `bson:"index"`
-	Text      string `bson:"text"`
-	AudioPath string `bson:"audioPath"`
+	Index int    `bson:"index"`
+	Text  string `bson:"text"`
 }
 
 type annotationDoc struct {
@@ -81,8 +82,6 @@ type lessonDoc struct {
 	License          string          `bson:"license"`
 	Revision         int             `bson:"revision"`
 	Sentences        []sentenceDoc   `bson:"sentences"`
-	AudioStatus      string          `bson:"audioStatus"`
-	AudioError       string          `bson:"audioError"`
 	AnnotationStatus string          `bson:"annotationStatus"`
 	AnnotationError  string          `bson:"annotationError"`
 	Annotations      []annotationDoc `bson:"annotations"`
@@ -91,6 +90,10 @@ type lessonDoc struct {
 	WritingPrompt    string          `bson:"writingPrompt"`
 	ExtrasEdited     bool            `bson:"extrasEditedByAdmin"`
 	QuizVersion      int             `bson:"quizVersion"`
+	Practice         *practiceDoc    `bson:"practice"`
+	PracticeStatus   string          `bson:"practiceStatus"`
+	PracticeError    string          `bson:"practiceError"`
+	PracticeVersion  int             `bson:"practiceVersion"`
 	CreatedAt        time.Time       `bson:"createdAt"`
 	UpdatedAt        time.Time       `bson:"updatedAt"`
 }
@@ -99,8 +102,7 @@ func fromLesson(l lesson.Lesson) lessonDoc {
 	d := lessonDoc{
 		Title: l.Title, Content: l.Content, Level: string(l.Level), TopicID: oidOrZero(l.TopicID),
 		Source: l.Source, License: l.License, Revision: l.Revision,
-		Sentences:   make([]sentenceDoc, len(l.Sentences)),
-		AudioStatus: string(l.AudioStatus), AudioError: l.AudioError,
+		Sentences:        make([]sentenceDoc, len(l.Sentences)),
 		AnnotationStatus: string(l.AnnotationStatus), AnnotationError: l.AnnotationError,
 		Annotations: fromAnnotations(l.Annotations),
 		CreatedAt:   l.CreatedAt.UTC(), UpdatedAt: l.UpdatedAt.UTC(),
@@ -123,13 +125,14 @@ func (d lessonDoc) toLesson() lesson.Lesson {
 	l := lesson.Lesson{
 		ID: d.ID.Hex(), Title: d.Title, Content: d.Content, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
 		Source: d.Source, License: d.License, Revision: d.Revision,
-		Sentences:   make([]lesson.Sentence, len(d.Sentences)),
-		AudioStatus: lesson.Status(d.AudioStatus), AudioError: d.AudioError,
+		Sentences:        make([]lesson.Sentence, len(d.Sentences)),
 		AnnotationStatus: lesson.Status(d.AnnotationStatus), AnnotationError: d.AnnotationError,
 		Annotations: make([]lesson.Annotation, len(d.Annotations)),
 		CreatedAt:   d.CreatedAt, UpdatedAt: d.UpdatedAt,
 	}
 	l.Extras, l.ExtrasEditedByAdmin, l.QuizVersion = d.extras(), d.ExtrasEdited, d.QuizVersion
+	l.Practice, l.PracticeStatus, l.PracticeError = d.Practice.toPractice(), lesson.Status(d.PracticeStatus), d.PracticeError
+	l.PracticeVersion = d.PracticeVersion
 	for i, s := range d.Sentences {
 		l.Sentences[i] = lesson.Sentence(s)
 	}
@@ -144,7 +147,6 @@ type summaryDoc struct {
 	Title            string        `bson:"title"`
 	Level            string        `bson:"level"`
 	TopicID          bson.ObjectID `bson:"topicId"`
-	AudioStatus      string        `bson:"audioStatus"`
 	AnnotationStatus string        `bson:"annotationStatus"`
 	CreatedAt        time.Time     `bson:"createdAt"`
 }
@@ -153,7 +155,6 @@ var summaryProjection = bson.D{
 	{Key: "title", Value: 1},
 	{Key: "level", Value: 1},
 	{Key: "topicId", Value: 1},
-	{Key: "audioStatus", Value: 1},
 	{Key: "annotationStatus", Value: 1},
 	{Key: "createdAt", Value: 1},
 }
@@ -161,8 +162,8 @@ var summaryProjection = bson.D{
 func (d summaryDoc) toSummary() lesson.Summary {
 	return lesson.Summary{
 		ID: d.ID.Hex(), Title: d.Title, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
-		AudioStatus: lesson.Status(d.AudioStatus), AnnotationStatus: lesson.Status(d.AnnotationStatus),
-		CreatedAt: d.CreatedAt,
+		AnnotationStatus: lesson.Status(d.AnnotationStatus),
+		CreatedAt:        d.CreatedAt,
 	}
 }
 
@@ -272,39 +273,36 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 		{Key: "license", Value: d.License},
 		{Key: "revision", Value: d.Revision},
 		{Key: "sentences", Value: d.Sentences},
-		{Key: "audioStatus", Value: d.AudioStatus},
-		{Key: "audioError", Value: d.AudioError},
 		{Key: "annotationStatus", Value: d.AnnotationStatus},
 		{Key: "annotationError", Value: d.AnnotationError},
 		{Key: "annotations", Value: d.Annotations},
 		{Key: "extrasEditedByAdmin", Value: l.ExtrasEditedByAdmin},
 		{Key: "quizVersion", Value: l.QuizVersion},
+		{Key: "practice", Value: fromPractice(l.Practice)},
+		{Key: "practiceStatus", Value: string(l.PracticeStatus)},
+		{Key: "practiceError", Value: l.PracticeError},
 		{Key: "updatedAt", Value: d.UpdatedAt},
 	}, extrasSet(l.Extras)...)}})
 }
 
 // SetStatus changes one work status if the lesson is still at revision.
 func (r *Lessons) SetStatus(ctx context.Context, id string, revision int, t job.Type, st lesson.Status, errMsg string) (bool, error) {
-	status, errField := "annotationStatus", "annotationError"
-	if t == job.TypeTTS {
-		status, errField = "audioStatus", "audioError"
+	var status, errField string
+	switch t {
+	case job.TypeAnnotate:
+		status, errField = "annotationStatus", "annotationError"
+	case job.TypePractice:
+		status, errField = "practiceStatus", "practiceError"
+	default:
+		return false, fmt.Errorf("set status: unknown job type %q", t)
 	}
 	return r.updateAtRevision(ctx, id, revision, bson.D{
 		{Key: status, Value: string(st)}, {Key: errField, Value: errMsg},
 	})
 }
 
-// SaveAudio stores sentence audio paths and marks audio done if still at revision.
-func (r *Lessons) SaveAudio(ctx context.Context, id string, revision int, paths []string) (bool, error) {
-	set := bson.D{{Key: "audioStatus", Value: string(lesson.StatusDone)}, {Key: "audioError", Value: ""}}
-	for i, p := range paths {
-		set = append(set, bson.E{Key: fmt.Sprintf("sentences.%d.audioPath", i), Value: p})
-	}
-	return r.updateAtRevision(ctx, id, revision, set)
-}
-
 // SaveAnnotations stores AI annotations and extras, marks them done and bumps quizVersion if
-// still at revision.
+// still at revision. The practice is dropped and marked running: a new one is queued (F17).
 func (r *Lessons) SaveAnnotations(ctx context.Context, id string, revision int, anns []lesson.Annotation,
 	x lesson.Extras,
 ) (bool, error) {
@@ -313,6 +311,9 @@ func (r *Lessons) SaveAnnotations(ctx context.Context, id string, revision int, 
 		{Key: "annotationStatus", Value: string(lesson.StatusDone)},
 		{Key: "annotationError", Value: ""},
 		{Key: "extrasEditedByAdmin", Value: false},
+		{Key: "practice", Value: nil},
+		{Key: "practiceStatus", Value: string(lesson.StatusRunning)},
+		{Key: "practiceError", Value: ""},
 	}, extrasSet(x)...)
 	return r.updateAtRevisionInc(ctx, id, revision, set, bson.D{{Key: "quizVersion", Value: 1}})
 }
@@ -452,4 +453,61 @@ func (r *Lessons) SetLevelByTopic(ctx context.Context, topicID, level string) er
 		return fmt.Errorf("update lesson levels: %w", err)
 	}
 	return nil
+}
+
+// topicTextDoc is the part of a lesson that topic vocabulary coverage reads (F18).
+type topicTextDoc struct {
+	TopicID     bson.ObjectID       `bson:"topicId"`
+	Content     string              `bson:"content"`
+	Annotations []annotationTextDoc `bson:"annotations"`
+}
+
+type annotationTextDoc struct {
+	Text  string `bson:"text"`
+	Lemma string `bson:"lemma"`
+}
+
+func (d topicTextDoc) toLessonText() topic.LessonText {
+	t := topic.LessonText{Content: d.Content, Lemmas: map[string]string{}}
+	for _, a := range d.Annotations {
+		text := strings.ToLower(strings.TrimSpace(a.Text))
+		if text != "" && !strings.Contains(text, " ") && a.Lemma != "" {
+			t.Lemmas[text] = strings.ToLower(strings.TrimSpace(a.Lemma))
+		}
+	}
+	return t
+}
+
+// TopicTexts returns the content and single-word annotation lemmas of every lesson of the
+// given topics, by topic id.
+func (r *Lessons) TopicTexts(ctx context.Context, topicIDs []string) (map[string][]topic.LessonText, error) {
+	oids := make([]bson.ObjectID, 0, len(topicIDs))
+	for _, id := range topicIDs {
+		if oid, err := bson.ObjectIDFromHex(id); err == nil {
+			oids = append(oids, oid)
+		}
+	}
+	out := map[string][]topic.LessonText{}
+	if len(oids) == 0 {
+		return out, nil
+	}
+	cur, err := r.coll.Find(ctx, bson.D{{Key: "topicId", Value: bson.D{{Key: "$in", Value: oids}}}},
+		options.Find().SetProjection(bson.D{
+			{Key: "topicId", Value: 1},
+			{Key: "content", Value: 1},
+			{Key: "annotations.text", Value: 1},
+			{Key: "annotations.lemma", Value: 1},
+		}))
+	if err != nil {
+		return nil, fmt.Errorf("find topic lessons: %w", err)
+	}
+	var docs []topicTextDoc
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("decode topic lessons: %w", err)
+	}
+	for _, d := range docs {
+		id := d.TopicID.Hex()
+		out[id] = append(out[id], d.toLessonText())
+	}
+	return out, nil
 }

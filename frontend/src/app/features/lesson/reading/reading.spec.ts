@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { LookupResult, QuizAnswer, ReadingLesson } from '../../../core/models/reading';
 import { Reading } from './reading';
 
@@ -15,9 +16,9 @@ const lesson: ReadingLesson = {
   level: 'B1',
   topic: 'Daily',
   sentences: [
-    { index: 0, text: 'We went to the park.', audioUrl: null },
-    { index: 1, text: 'He gave up smoking last year in the city.', audioUrl: null },
-    { index: 2, text: 'She goes home.', audioUrl: null },
+    { index: 0, text: 'We went to the park.' },
+    { index: 1, text: 'He gave up smoking last year in the city.' },
+    { index: 2, text: 'She goes home.' },
   ],
   paragraphs: [[0, 1], [2]],
   lemmas: { we: 'we', went: 'go', park: 'park', goes: 'go', gave: 'give' },
@@ -33,6 +34,7 @@ describe('Reading', () => {
   let el: HTMLElement;
   let http: HttpTestingController;
   let observers: { cb: IOCallback; disconnect: ReturnType<typeof vi.fn> }[];
+  let speech: FakeSpeech;
 
   const settle = async () => {
     await new Promise((resolve) => setTimeout(resolve));
@@ -75,9 +77,11 @@ describe('Reading', () => {
         },
       );
     }
+    speech = new FakeSpeech();
     await TestBed.configureTestingModule({
       imports: [Reading],
       providers: [
+        provideFakeSpeech(speech),
         provideRouter([{ path: 'forbidden', children: [] }]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
@@ -115,6 +119,15 @@ describe('Reading', () => {
   });
 
   // --- US1: render and look up ---
+
+  it('offers a way back to the lessons only when opened on its own', async () => {
+    await setup();
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons');
+    fixture.destroy();
+    TestBed.resetTestingModule();
+    await setup({ inputs: { lessonId: 'l1', mode: 'study' } });
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')).toBeNull();
+  });
 
   describe('reading and looking up', () => {
     beforeEach(() => setup());
@@ -477,28 +490,25 @@ describe('Reading', () => {
   describe('pronunciation', () => {
     beforeEach(() => setup());
 
-    it('plays the base form through one shared audio element', async () => {
-      const play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue();
+    it('reads the base form with the browser voice', async () => {
       word(0, 'went').click();
       await settle();
       expectLookup('went', 0).flush(wentResult);
       await settle();
       popup()!.querySelector<HTMLButtonElement>('button[aria-label="Nghe phát âm"]')!.click();
       popup()!.querySelector<HTMLButtonElement>('button[aria-label="Nghe phát âm"]')!.click();
-      expect(play).toHaveBeenCalledTimes(2);
-      expect(document.querySelectorAll('audio.word-audio')).toHaveLength(1);
-      expect(document.querySelector<HTMLAudioElement>('audio.word-audio')!.src).toContain('/api/tts/word?text=go');
+      expect(speech.texts()).toEqual(['go', 'go']);
     });
 
-    it('shows a message when audio cannot play', async () => {
-      vi.spyOn(HTMLMediaElement.prototype, 'play').mockRejectedValue(new Error('503'));
+    it('shows a message when the browser cannot read', async () => {
       word(0, 'park').click();
       await settle();
       expectLookup('park', 0).flush({ source: 'dictionary', text: 'park', lemma: 'park', ipa: '', meanings: [{ pos: 'N', text: 'Công viên.' }] });
       await settle();
       popup()!.querySelector<HTMLButtonElement>('button[aria-label="Nghe phát âm"]')!.click();
+      speech.last().handlers.failed!('synthesis-failed');
       await settle();
-      expect(popup()?.querySelector('[role="alert"]')?.textContent).toContain('Chưa phát được âm thanh');
+      expect(popup()?.querySelector('[role="alert"]')?.textContent).toContain('Chưa đọc được từ này');
       expect(popup()?.textContent).toContain('Công viên.');
     });
   });

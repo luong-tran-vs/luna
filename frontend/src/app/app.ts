@@ -1,15 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { AppHeader } from './shared/components/app-header/app-header';
-import { ConnectionStatusBar } from './shared/components/connection-status/connection-status';
-import { Toast } from './shared/components/toast/toast';
-
+/** Root: each area (learner, admin, public) brings its own layout through the routes. */
 @Component({
   selector: 'lu-root',
-  imports: [RouterOutlet, AppHeader, ConnectionStatusBar, Toast],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  imports: [RouterOutlet],
+  template: '<router-outlet />',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {}

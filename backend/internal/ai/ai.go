@@ -1,6 +1,6 @@
 // Package ai defines the AI provider used for lesson annotation (F2, F15), lesson generation
-// (F7) and writing grades (F8). Providers are chosen by configuration so the app never
-// depends on a specific vendor.
+// (F7), writing grades (F8), word explanations (F9) and vocabulary practice (F17). Providers
+// are chosen by configuration so the app never depends on a specific vendor.
 package ai
 
 import (
@@ -67,6 +67,9 @@ type GenerateRequest struct {
 	Idea string
 	// ExistingTitles are the lessons already in the topic, to avoid repeating them.
 	ExistingTitles []string
+	// TargetWords lists, for each lesson in order, the topic words it must use (F18); a group may be
+	// empty and the slice may be nil.
+	TargetWords [][]string
 }
 
 // LessonDraft is a generated lesson as returned by a provider, before any checks.
@@ -79,13 +82,17 @@ type LessonDraft struct {
 type Provider interface {
 	// Annotate annotates a lesson given its sentences (indexed from 0) and CEFR level, and writes
 	// its questions, grammar note and writing prompt, all in one request.
-	Annotate(ctx context.Context, sentences []string, level string) (LessonExtras, error)
+	Annotate(ctx context.Context, req AnnotateRequest) (LessonExtras, error)
 	// GenerateLessons writes lesson drafts in a single request.
 	GenerateLessons(ctx context.Context, req GenerateRequest) ([]LessonDraft, error)
 	// GradeWriting grades a learner's writing on four criteria in one request (F8).
 	GradeWriting(ctx context.Context, req GradeRequest) (Grade, error)
 	// Explain gives the meaning of a word or phrase in one sentence (F9).
 	Explain(ctx context.Context, req ExplainRequest) (Explanation, error)
+	// Practice writes the vocabulary practice of a lesson in one request (F17).
+	Practice(ctx context.Context, req PracticeRequest) (Practice, error)
+	// SuggestWords proposes new core words of a topic in one request (F18).
+	SuggestWords(ctx context.Context, req SuggestWordsRequest) ([]string, error)
 }
 
 var (
@@ -101,7 +108,7 @@ var (
 type Disabled struct{}
 
 // Annotate always returns ErrNotConfigured.
-func (Disabled) Annotate(context.Context, []string, string) (LessonExtras, error) {
+func (Disabled) Annotate(context.Context, AnnotateRequest) (LessonExtras, error) {
 	return LessonExtras{}, ErrNotConfigured
 }
 
@@ -156,4 +163,82 @@ type Explanation struct {
 	Lemma     string `json:"lemma"`
 	MeaningVi string `json:"meaningVi"`
 	NoteVi    string `json:"noteVi"`
+}
+
+// Practice always returns ErrNotConfigured.
+func (Disabled) Practice(context.Context, PracticeRequest) (Practice, error) {
+	return Practice{}, ErrNotConfigured
+}
+
+// PracticeWord is one vocabulary word of a lesson, as sent to the provider (F17).
+type PracticeWord struct {
+	Lemma     string
+	Text      string
+	MeaningVi string
+}
+
+// PracticeRequest asks for the vocabulary practice of a lesson (F17).
+type PracticeRequest struct {
+	Level     string
+	Title     string
+	Sentences []string
+	Words     []PracticeWord
+}
+
+// Example is an English example sentence for one vocabulary word.
+type Example struct {
+	Lemma    string `json:"lemma"`
+	Sentence string `json:"sentence"`
+}
+
+// Turn is one line of a dialogue; Speaker is 0 or 1.
+type Turn struct {
+	Speaker   int    `json:"speaker"`
+	Text      string `json:"text"`
+	MeaningVi string `json:"meaningVi"`
+}
+
+// Dialogue is a sample conversation between two named speakers.
+type Dialogue struct {
+	Speakers []string `json:"speakers"`
+	Turns    []Turn   `json:"turns"`
+}
+
+// Translation is a Vietnamese sentence with its English answer and distractor words.
+type Translation struct {
+	Vi          string   `json:"vi"`
+	En          string   `json:"en"`
+	Distractors []string `json:"distractors"`
+}
+
+// Practice is the vocabulary practice of a lesson as returned by a provider, before any checks.
+type Practice struct {
+	ObjectiveVi  string        `json:"objectiveVi"`
+	Examples     []Example     `json:"examples"`
+	Dialogue     Dialogue      `json:"dialogue"`
+	GrammarTipVi string        `json:"grammarTipVi"`
+	Translations []Translation `json:"translations"`
+}
+
+// AnnotateRequest is a lesson to annotate.
+type AnnotateRequest struct {
+	// Sentences are the lesson sentences, indexed from 0.
+	Sentences []string
+	Level     string
+	// FocusWords are topic words found in the lesson that must be annotated (F18); may be empty.
+	FocusWords []string
+}
+
+// SuggestWordsRequest asks for Count new core English words or short phrases of a topic, at a
+// CEFR level, none of them in Existing (F18).
+type SuggestWordsRequest struct {
+	Level     string
+	TopicName string
+	Existing  []string
+	Count     int
+}
+
+// SuggestWords always returns ErrNotConfigured.
+func (Disabled) SuggestWords(context.Context, SuggestWordsRequest) ([]string, error) {
+	return nil, ErrNotConfigured
 }

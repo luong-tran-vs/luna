@@ -1,0 +1,107 @@
+<section class="translate" aria-labelledby="translate-heading">
+  <div>
+    <h2 class="step-title" id="translate-heading">{{ number() }}. Dịch câu sang tiếng Anh</h2>
+    <p class="step-hint">Chạm các từ bên dưới theo đúng thứ tự để ghép thành câu dịch.</p>
+  </div>
+
+  <div class="soft-card source">
+    <div class="source-head">
+      <span class="muted">Câu {{ index() + 1 }}/{{ count() }} · Tiếng Việt</span>
+      @if (canSpeak) {
+        <button
+          type="button"
+          class="icon-btn"
+          aria-label="Nghe câu tiếng Anh đúng"
+          [disabled]="result() === null"
+          (click)="readAloud.emit(translation().answer.join(' '))"
+        >
+          <lu-icon name="volume" />
+        </button>
+      }
+    </div>
+    <p class="vi">"{{ translation().vi }}"</p>
+  </div>
+
+  <div class="soft-card built">
+    <div class="bank-head">
+      <h3 class="bank-title" id="built-heading">Câu dịch của bạn</h3>
+      <button
+        type="button"
+        class="btn"
+        [disabled]="result() !== null || chosen().length === 0"
+        (click)="clear()"
+      >
+        <lu-icon name="review" /> Làm lại
+      </button>
+    </div>
+    <ul class="tiles answer-area" aria-labelledby="built-heading">
+      @for (t of chosen(); track $index; let pos = $index) {
+        <li>
+          <button
+            type="button"
+            class="tile chosen"
+            lang="en"
+            [attr.aria-label]="'Gỡ từ ' + tiles()[t]"
+            [disabled]="result() !== null"
+            (click)="remove(pos)"
+          >
+            {{ tiles()[t] }}
+            @if (result() === null) {
+              <lu-icon name="x" />
+            }
+          </button>
+        </li>
+      } @empty {
+        <li class="muted placeholder">Chưa có từ nào.</li>
+      }
+    </ul>
+  </div>
+
+  <div class="bank-head">
+    <h3 class="bank-title" id="tiles-heading">Ngân hàng từ</h3>
+    <span class="muted">Chạm để chọn từ</span>
+  </div>
+  <ul class="tiles" aria-labelledby="tiles-heading">
+    @for (w of tiles(); track $index; let i = $index) {
+      <li>
+        <button
+          type="button"
+          class="tile"
+          lang="en"
+          [disabled]="used().has(i) || result() !== null"
+          (click)="pick(i)"
+        >
+          {{ w }}
+        </button>
+      </li>
+    }
+  </ul>
+
+  <div class="actions">
+    <button
+      type="button"
+      class="btn-primary check-btn"
+      [disabled]="chosen().length === 0 || result() !== null"
+      (click)="check()"
+    >
+      Kiểm tra
+    </button>
+  </div>
+
+  <div
+    class="result"
+    role="status"
+    [class.result-card]="result() !== null"
+    [class.result-ok]="result() === true"
+    [class.result-bad]="result() === false"
+  >
+    @if (result() === true) {
+      <p><lu-icon name="check" /> Chính xác!</p>
+    } @else if (result() === false) {
+      <p><lu-icon name="x" /> Chưa đúng</p>
+      <p class="correct">
+        Câu đúng: <span lang="en">{{ answerText() }}</span>
+      </p>
+    }
+  </div>
+</section>

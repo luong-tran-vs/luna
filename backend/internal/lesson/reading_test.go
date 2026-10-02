@@ -51,7 +51,7 @@ func newReaderEnv(t *testing.T) (*Reader, Lesson) {
 			{Text: "went", Lemma: "go", MeaningVi: "đã về", SentenceIndex: 3},
 			{Text: "gave up", Lemma: "give up", MeaningVi: "đã bỏ", SentenceIndex: 1},
 		},
-		AnnotationError: "secret", AudioError: "secret",
+		AnnotationError: "secret",
 	})
 	return NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers(), newFakeAsks(), &fakeAI{}), l
 }

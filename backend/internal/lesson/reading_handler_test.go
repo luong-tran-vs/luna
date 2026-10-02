@@ -57,12 +57,12 @@ func TestReadingLessonEndpoint(t *testing.T) {
 		t.Fatalf("status %d %s", rec.Code, rec.Body)
 	}
 	body := rec.Body.String()
-	for _, want := range []string{`"paragraphs":[[0,1],[2,3]]`, `"went":"go"`, `"phrases":[{"text":"gave up","lemma":"give up"}]`, `"audioUrl":null`, `"topic":"Family"`, `"level":"A1"`} {
+	for _, want := range []string{`"paragraphs":[[0,1],[2,3]]`, `"went":"go"`, `"phrases":[{"text":"gave up","lemma":"give up"}]`, `"topic":"Family"`, `"level":"A1"`} {
 		if !strings.Contains(body, want) {
 			t.Errorf("body missing %s: %s", want, body)
 		}
 	}
-	for _, leak := range []string{"annotations", "meaningVi", "secret", "revision"} {
+	for _, leak := range []string{"annotations", "meaningVi", "secret", "revision", "audioUrl"} {
 		if strings.Contains(body, leak) {
 			t.Errorf("body leaks %q: %s", leak, body)
 		}

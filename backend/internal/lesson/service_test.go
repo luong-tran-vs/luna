@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 	"log/slog"
-	"os"
-	"path/filepath"
 	"testing"
 	"time"
 
@@ -18,7 +16,6 @@ type env struct {
 	lessons  *fakeLessons
 	topics   *fakeTopics
 	jobs     *fakeJobs
-	tts      *fakeTTS
 	ai       *fakeAI
 	notified int
 	dir      string
@@ -29,13 +26,13 @@ func newEnv(t *testing.T) *env {
 	t.Helper()
 	e := &env{
 		lessons: newFakeLessons(), topics: newFakeTopics(), jobs: &fakeJobs{},
-		tts: &fakeTTS{}, ai: &fakeAI{}, dir: t.TempDir(),
+		ai: &fakeAI{}, dir: t.TempDir(),
 		now: time.Date(2026, 9, 29, 8, 0, 0, 0, time.UTC),
 	}
 	e.svc = NewService(Deps{
-		Lessons: e.lessons, Topics: e.topics, Jobs: e.jobs, TTS: e.tts, AI: e.ai,
-		AudioDir: e.dir, Notify: func() { e.notified++ },
-		Now: func() time.Time { return e.now }, Log: slog.New(slog.DiscardHandler),
+		Lessons: e.lessons, Topics: e.topics, Jobs: e.jobs, AI: e.ai,
+		Notify: func() { e.notified++ },
+		Now:    func() time.Time { return e.now }, Log: slog.New(slog.DiscardHandler),
 	})
 	return e
 }
@@ -70,11 +67,11 @@ func TestCreate(t *testing.T) {
 	if l.Title != "Park" || l.Revision != 1 || len(l.Sentences) != 3 {
 		t.Fatalf("lesson = %+v", l)
 	}
-	if l.AudioStatus != StatusRunning || l.AnnotationStatus != StatusRunning {
-		t.Fatalf("statuses = %s/%s", l.AudioStatus, l.AnnotationStatus)
+	if l.AnnotationStatus != StatusRunning {
+		t.Fatalf("annotation status = %s", l.AnnotationStatus)
 	}
 	jobs := e.jobs.all()
-	if len(jobs) != 2 || jobs[0].Type != job.TypeTTS || jobs[1].Type != job.TypeAnnotate {
+	if len(jobs) != 1 || jobs[0].Type != job.TypeAnnotate {
 		t.Fatalf("jobs = %+v", jobs)
 	}
 	for _, j := range jobs {
@@ -181,63 +178,6 @@ func TestGetAndList(t *testing.T) {
 
 // --- US2: background processing ---
 
-func TestProcessTTS(t *testing.T) {
-	t.Parallel()
-	ctx := context.Background()
-	e := newEnv(t)
-	l := e.create(t)
-
-	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err != nil {
-		t.Fatalf("ProcessTTS: %v", err)
-	}
-	got, _ := e.lessons.Get(ctx, l.ID)
-	if got.AudioStatus != StatusDone || got.Sentences[2].AudioPath != "/api/audio/"+l.ID+"/1/2" {
-		t.Fatalf("lesson = %+v", got)
-	}
-	data, err := os.ReadFile(filepath.Join(e.dir, l.ID, "1", "0.mp3"))
-	if err != nil || string(data) != "mp3:We went to the park." {
-		t.Fatalf("file = %q, %v", data, err)
-	}
-	if e.tts.calls != 3 {
-		t.Fatalf("synth calls = %d", e.tts.calls)
-	}
-
-	// Running again (retry, restart) does not regenerate existing audio.
-	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err != nil {
-		t.Fatal(err)
-	}
-	if e.tts.calls != 3 {
-		t.Fatalf("audio regenerated: %d calls", e.tts.calls)
-	}
-	tmp, _ := filepath.Glob(filepath.Join(e.dir, l.ID, "1", "*.tmp"))
-	if len(tmp) != 0 {
-		t.Fatalf("temp files left: %v", tmp)
-	}
-}
-
-func TestProcessTTSResumesAfterError(t *testing.T) {
-	t.Parallel()
-	ctx := context.Background()
-	e := newEnv(t)
-	l := e.create(t)
-	dir := filepath.Join(e.dir, l.ID, "1")
-	_ = os.MkdirAll(dir, 0o750)
-	_ = os.WriteFile(filepath.Join(dir, "0.mp3"), []byte("old"), 0o600)
-
-	e.tts.err = errors.New("kokoro down")
-	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err == nil {
-		t.Fatal("error not returned")
-	}
-	e.tts.err = nil
-	e.tts.calls = 0
-	if err := e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS)); err != nil {
-		t.Fatal(err)
-	}
-	if e.tts.calls != 2 {
-		t.Fatalf("synth calls = %d, want 2 (sentence 0 already existed)", e.tts.calls)
-	}
-}
-
 func TestProcessStaleRevisionIsDiscarded(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
@@ -248,38 +188,15 @@ func TestProcessStaleRevisionIsDiscarded(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	old := jobFor(l, job.TypeTTS) // revision 1
-	if err := e.svc.ProcessTTS(ctx, old); err != nil {
-		t.Fatal(err)
-	}
-	if err := e.svc.ProcessAnnotate(ctx, jobFor(l, job.TypeAnnotate)); err != nil {
+	if err := e.svc.ProcessAnnotate(ctx, jobFor(l, job.TypeAnnotate)); err != nil { // revision 1
 		t.Fatal(err)
 	}
 	got, _ := e.lessons.Get(ctx, l.ID)
-	if got.AudioStatus != StatusRunning || got.AnnotationStatus != StatusRunning || len(got.Annotations) != 0 {
+	if got.AnnotationStatus != StatusRunning || len(got.Annotations) != 0 {
 		t.Fatalf("stale results were saved: %+v", got)
 	}
-	if e.tts.calls != 0 || e.ai.calls != 0 {
-		t.Fatalf("stale jobs did work: tts %d ai %d", e.tts.calls, e.ai.calls)
-	}
-}
-
-func TestProcessTTSRemovesOldRevisions(t *testing.T) {
-	t.Parallel()
-	ctx := context.Background()
-	e := newEnv(t)
-	l := e.create(t)
-	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
-	l2, _ := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "New text here.", TopicID: "topic-b1", Source: "s", License: "l"})
-
-	if err := e.svc.ProcessTTS(ctx, jobFor(l2, job.TypeTTS)); err != nil {
-		t.Fatal(err)
-	}
-	if _, err := os.Stat(filepath.Join(e.dir, l.ID, "1")); !os.IsNotExist(err) {
-		t.Fatalf("old revision dir still exists: %v", err)
-	}
-	if _, err := os.Stat(filepath.Join(e.dir, l.ID, "2", "0.mp3")); err != nil {
-		t.Fatalf("new audio missing: %v", err)
+	if e.ai.calls != 0 {
+		t.Fatalf("stale job called the AI %d times", e.ai.calls)
 	}
 }
 
@@ -334,7 +251,7 @@ func TestProcessAnnotateErrors(t *testing.T) {
 func TestProcessDeletedLessonIsPermanent(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	err := e.svc.ProcessTTS(context.Background(), job.Job{Type: job.TypeTTS, LessonID: "gone", Revision: 1})
+	err := e.svc.ProcessAnnotate(context.Background(), job.Job{Type: job.TypeAnnotate, LessonID: "gone", Revision: 1})
 	if !job.IsPermanent(err) {
 		t.Fatalf("err = %v, want permanent", err)
 	}
@@ -353,7 +270,7 @@ func TestJobFailedAndRetry(t *testing.T) {
 
 	e.svc.JobFailed(ctx, jobFor(l, job.TypeAnnotate), ai.ErrNotConfigured)
 	got, _ := e.lessons.Get(ctx, l.ID)
-	if got.AnnotationStatus != StatusFailed || got.AnnotationError != "AI chưa được cấu hình" || got.AudioStatus != StatusRunning {
+	if got.AnnotationStatus != StatusFailed || got.AnnotationError != "AI chưa được cấu hình" {
 		t.Fatalf("after failure: %+v", got)
 	}
 
@@ -368,9 +285,15 @@ func TestJobFailedAndRetry(t *testing.T) {
 	}
 
 	// A failure reported for an old revision does not touch the lesson.
-	e.svc.JobFailed(ctx, job.Job{Type: job.TypeTTS, LessonID: l.ID, Revision: 99}, errors.New("x"))
-	if got, _ := e.lessons.Get(ctx, l.ID); got.AudioStatus != StatusRunning {
+	e.svc.JobFailed(ctx, job.Job{Type: job.TypeAnnotate, LessonID: l.ID, Revision: 99}, errors.New("x"))
+	if got, _ := e.lessons.Get(ctx, l.ID); got.AnnotationStatus != StatusRunning {
 		t.Fatalf("stale failure applied: %+v", got)
+	}
+
+	// A failed job of a removed kind (audio) changes nothing.
+	e.svc.JobFailed(ctx, job.Job{Type: "tts", LessonID: l.ID, Revision: l.Revision}, errors.New("x"))
+	if got, _ := e.lessons.Get(ctx, l.ID); got.AnnotationStatus != StatusRunning || got.PracticeStatus != StatusNone {
+		t.Fatalf("removed job kind applied: %+v", got)
 	}
 }
 
@@ -378,7 +301,6 @@ func TestFailureMessages(t *testing.T) {
 	t.Parallel()
 	cases := map[string]string{
 		failureMessage(job.TypeAnnotate, ai.ErrQuota):              "AI hết hạn mức, thử lại sau",
-		failureMessage(job.TypeTTS, errors.New("dial tcp")):        "Không tạo được audio",
 		failureMessage(job.TypeAnnotate, ErrNoValidAnnotations):    "AI không trả về chú thích hợp lệ",
 		failureMessage(job.TypeAnnotate, ai.ErrInvalidKey):         "Khoá API của AI không hợp lệ",
 		failureMessage(job.TypeAnnotate, errors.New("status 500")): "Không chú thích được bài",
@@ -474,14 +396,13 @@ func TestUpdateInfoOnly(t *testing.T) {
 	ctx := context.Background()
 	e := newEnv(t)
 	l := e.create(t)
-	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
 	jobsBefore := len(e.jobs.all())
 
 	got, err := e.svc.Update(ctx, l.ID, Input{Title: "New title", Content: sampleContent, TopicID: "topic-a1", Source: "S", License: "L"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got.Title != "New title" || got.Level != "A1" || got.TopicID != "topic-a1" || got.Revision != 1 || got.AudioStatus != StatusDone || got.Sentences[0].AudioPath == "" {
+	if got.Title != "New title" || got.Level != "A1" || got.TopicID != "topic-a1" || got.Revision != 1 || len(got.Sentences) != 3 {
 		t.Fatalf("got %+v", got)
 	}
 	if len(e.jobs.all()) != jobsBefore {
@@ -494,21 +415,18 @@ func TestUpdateContent(t *testing.T) {
 	ctx := context.Background()
 	e := newEnv(t)
 	l := e.create(t)
-	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
 	_ = e.lessons.ReplaceAnnotations(ctx, l.ID, []Annotation{{Text: "went", Lemma: "go", MeaningVi: "đi", EditedByAdmin: true}})
 
 	got, err := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "One. Two.", TopicID: "topic-b1", Source: "s", License: "l"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got.Revision != 2 || len(got.Sentences) != 2 || got.Sentences[0].AudioPath != "" || len(got.Annotations) != 0 ||
-		got.AudioStatus != StatusRunning || got.AnnotationStatus != StatusRunning {
+	if got.Revision != 2 || len(got.Sentences) != 2 || len(got.Annotations) != 0 || got.AnnotationStatus != StatusRunning {
 		t.Fatalf("got %+v", got)
 	}
 	jobs := e.jobs.all()
-	last2 := jobs[len(jobs)-2:]
-	if last2[0].Revision != 2 || last2[1].Revision != 2 {
-		t.Fatalf("new jobs = %+v", last2)
+	if last := jobs[len(jobs)-1]; last.Type != job.TypeAnnotate || last.Revision != 2 {
+		t.Fatalf("new job = %+v", last)
 	}
 	if len(e.jobs.deletedPend) != 1 || e.jobs.deletedPend[0] != l.ID {
 		t.Fatalf("pending jobs not dropped: %v", e.jobs.deletedPend)
@@ -520,7 +438,6 @@ func TestDelete(t *testing.T) {
 	ctx := context.Background()
 	e := newEnv(t)
 	l := e.create(t)
-	_ = e.svc.ProcessTTS(ctx, jobFor(l, job.TypeTTS))
 	e.topics.setRoadmap("topic-b1", l.ID)
 
 	if err := e.svc.Delete(ctx, l.ID); !errors.Is(err, ErrInRoadmap) {
@@ -532,9 +449,6 @@ func TestDelete(t *testing.T) {
 	}
 	if _, err := e.lessons.Get(ctx, l.ID); !errors.Is(err, ErrNotFound) {
 		t.Fatal("lesson still stored")
-	}
-	if _, err := os.Stat(filepath.Join(e.dir, l.ID)); !os.IsNotExist(err) {
-		t.Fatal("audio dir still exists")
 	}
 	if len(e.jobs.deletedLesson) != 1 {
 		t.Fatal("jobs not deleted")

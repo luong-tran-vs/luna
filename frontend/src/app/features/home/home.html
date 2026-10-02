@@ -1,9 +1,21 @@
-<section class="home">
-  <header class="top">
-    <h1 class="title">Hôm nay</h1>
-    @if (data(); as d) {
-      <p class="streak"><span aria-hidden="true">🔥</span> {{ d.streak }} ngày</p>
-    }
+<section class="screen home">
+  <header class="hello">
+    <div class="hello-text">
+      <h1 class="title">Xin chào{{ name() ? ', ' + name() : '' }} <span aria-hidden="true">👋</span></h1>
+      @if (data()) {
+        <p class="subtitle">{{ subtitle() }}</p>
+      }
+    </div>
+    <a
+      class="round-btn bell"
+      routerLink="/writings"
+      [attr.aria-label]="notifier.unseen() > 0 ? 'Bài viết, ' + notifier.unseen() + ' kết quả mới' : 'Bài viết'"
+    >
+      <lu-icon name="bell" />
+      @if (notifier.unseen() > 0) {
+        <span class="dot-badge" aria-hidden="true">{{ notifier.unseen() }}</span>
+      }
+    </a>
   </header>
 
   @if (loadError()) {
@@ -12,31 +24,47 @@
       <button type="button" class="btn" (click)="load()">Thử lại</button>
     </div>
   } @else if (data(); as d) {
-    @if (d.goal; as g) {
-      <div class="card goal">
-        <lu-progress-bar class="goal-bar" [label]="g.level + ' · ' + g.topicName" [value]="g.completedLessons"
-          [max]="g.totalLessons" unit="bài" />
-        @if (d.skills; as s) {
-          <div class="skills">
-            <lu-progress-bar label="Đọc" tone="read" [value]="s.read" [max]="s.total" />
-            <lu-progress-bar label="Nghe" tone="listen" [value]="s.listen" [max]="s.total" />
-            <lu-progress-bar label="Viết" tone="write" [value]="s.write" [max]="s.total" />
+    @if (d.lesson && d.kind === 'studying') {
+      <div class="soft-card today-goal">
+        <div class="today-goal-text">
+          <p class="section-title">Bài đang học</p>
+          <p class="muted">{{ doneSteps() }} / {{ stepCount }} bước của bài</p>
+          <div class="mini-track" aria-hidden="true">
+            <span class="mini-fill" [style.width.%]="stepPercent()"></span>
           </div>
-        }
-        <a class="change" routerLink="/goal">Đổi chủ đề</a>
+        </div>
+        <lu-progress-ring [value]="stepPercent()" label="Tiến độ bài đang học" />
       </div>
     }
 
+    <ul class="tiles" aria-label="Số liệu">
+      <li class="soft-card tile streak">
+        <span class="icon-chip tone-accent"><lu-icon name="flame" /></span>
+        <span class="tile-value">{{ d.streak }}</span>
+        <span class="tile-label">Ngày streak</span>
+      </li>
+      <li class="soft-card tile words">
+        <span class="icon-chip tone-read"><lu-icon name="cards" /></span>
+        <span class="tile-value">{{ stats()?.cards ?? '—' }}</span>
+        <span class="tile-label">Từ vựng</span>
+      </li>
+      <li class="soft-card tile accuracy">
+        <span class="icon-chip tone-listen"><lu-icon name="target" /></span>
+        <span class="tile-value">{{ accuracy() }}</span>
+        <span class="tile-label">Độ chính xác</span>
+      </li>
+    </ul>
+
     @switch (d.kind) {
       @case ('noGoal') {
-        <div class="card" role="status">
+        <div class="soft-card" role="status">
           <p class="card-title">Bạn chưa chọn mục tiêu</p>
-          <p class="muted">Chọn trình độ và một chủ đề để mỗi ngày có một bài học.</p>
-          <a class="btn-primary" routerLink="/goal">Chọn chủ đề</a>
+          <p class="muted">Chọn trình độ và một chủ đề để bắt đầu học.</p>
+          <a class="btn-primary btn-block" routerLink="/goal">Chọn chủ đề</a>
         </div>
       }
       @case ('noNewLesson') {
-        <div class="card" role="status">
+        <div class="soft-card" role="status">
           @if (d.goalCompleted) {
             <p class="card-title">Chúc mừng, bạn đã học hết lộ trình!</p>
           }
@@ -50,34 +78,70 @@
       }
       @default {
         @if (d.lesson; as l) {
-          <article class="card lesson" aria-labelledby="lesson-title">
-            <p class="muted">Bài hôm nay</p>
-            <h2 class="lesson-title" id="lesson-title">{{ l.title || 'Bài học' }}</h2>
-            @if (l.topicName) {
-              <p class="muted">{{ l.level }} · {{ l.topicName }}</p>
-            }
-            <lu-step-indicator [steps]="d.steps" />
-          </article>
-        }
-        @if (d.kind === 'doneToday') {
-          <div class="card" role="status">
-            <p class="card-title">Đã xong bài hôm nay, hẹn bạn ngày mai</p>
-            <a class="btn-primary" routerLink="/vocabulary/review">Ôn tự do</a>
-          </div>
-        } @else if (d.action) {
-          <a class="btn-primary next" routerLink="/today">{{ actionLabel() }} <span aria-hidden="true">▶</span></a>
+          <section class="continue" aria-labelledby="continue-heading">
+            <h2 class="section-title" id="continue-heading">Tiếp tục học</h2>
+            <article class="soft-card lesson">
+              <div class="lesson-head">
+                <span class="icon-chip lesson-chip"><lu-icon name="book" /></span>
+                <div class="lesson-text">
+                  <p class="lesson-title" lang="en">{{ l.title || 'Bài học' }}</p>
+                  @if (l.topicName) {
+                    <p class="muted">Chủ đề: {{ l.level }} · {{ l.topicName }}</p>
+                  }
+                </div>
+              </div>
+              @if (d.action) {
+                <div class="lesson-foot">
+                  <a class="btn-primary next" [routerLink]="['/lessons', l.id]">{{ actionLabel() }}</a>
+                  <lu-progress-bar
+                    class="steps-bar"
+                    label="Tiến độ bài"
+                    [value]="doneSteps()"
+                    [max]="stepCount"
+                    unit="bước"
+                  />
+                </div>
+              }
+            </article>
+          </section>
         }
       }
     }
 
-    <p class="tomorrow">
-      @if (d.tomorrowCards > 0) {
-        Ngày mai: {{ d.tomorrowCards }} thẻ cần ôn
-      } @else {
-        Ngày mai: không có thẻ cần ôn
-      }
-    </p>
-    <a class="stats-link" routerLink="/stats">Xem thống kê</a>
+    @if (d.goal; as g) {
+      <section class="course" aria-labelledby="course-heading">
+        <h2 class="section-title" id="course-heading">Khóa học của tôi</h2>
+        <div class="soft-card">
+          <a class="course-link" routerLink="/lessons">
+            <span class="icon-chip tone-read"><lu-icon name="layers" /></span>
+            <span class="course-text">
+              <span class="course-name">{{ g.level }} · {{ g.topicName }}</span>
+              <span class="muted">Đã học {{ g.completedLessons }}/{{ g.totalLessons }} bài</span>
+            </span>
+            <lu-icon class="chevron" name="chevron-right" />
+          </a>
+          @if (d.skills; as s) {
+            <div class="skills">
+              <lu-progress-bar label="Đọc" tone="read" [value]="s.read" [max]="s.total" />
+              <lu-progress-bar label="Nghe" tone="listen" [value]="s.listen" [max]="s.total" />
+              <lu-progress-bar label="Viết" tone="write" [value]="s.write" [max]="s.total" />
+            </div>
+          }
+        </div>
+      </section>
+    }
+
+    <a class="soft-card tomorrow" routerLink="/vocabulary/review">
+      <span class="icon-chip"><lu-icon name="calendar" /></span>
+      <span class="tomorrow-text">
+        @if (d.tomorrowCards > 0) {
+          Ngày mai: {{ d.tomorrowCards }} thẻ cần ôn
+        } @else {
+          Ngày mai: không có thẻ cần ôn
+        }
+      </span>
+      <lu-icon class="chevron" name="chevron-right" />
+    </a>
   } @else {
     <div class="placeholder" aria-busy="true">
       <span class="visually-hidden" role="status">Đang tải…</span>

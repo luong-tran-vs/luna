@@ -31,7 +31,7 @@ frontend/src/
 │   │   ├── services/         ← api, auth, theme
 │   │   └── models/           ← Lesson, Sentence, Card, Progress, Settings...
 │   ├── shared/               ← dùng lại giữa các tính năng
-│   │   ├── components/       ← progress-bar, step-indicator, word-popup, audio-player...
+│   │   ├── components/       ← progress-bar, step-indicator, word-popup, waveform...
 │   │   ├── pipes/
 │   │   ├── directives/
 │   │   └── utils/            ← hàm thuần, có unit test (so sánh chép chính tả, tách từ...)
@@ -70,8 +70,8 @@ backend/
 │   ├── settings/             ← F12
 │   ├── dictionary/           ← F3: tra từ điển SQLite
 │   ├── ai/                   ← interface Provider + gemini/, openrouter/, ollama/
-│   ├── tts/                  ← gọi Piper/Kokoro, lưu file audio
-│   ├── job/                  ← chạy nền: sinh audio, chú thích AI (trạng thái đang chạy/xong/lỗi)
+│   ├── wordmatch/            ← F18: khớp từ, cụm từ trong văn bản
+│   ├── job/                  ← chạy nền: chú thích AI, phần luyện tập, chấm bài viết (trạng thái đang chạy/xong/lỗi)
 │   ├── storage/
 │   │   └── mongo/            ← hiện thực các interface repository
 │   └── platform/

@@ -26,7 +26,7 @@ func TestJobDocTargets(t *testing.T) {
 	}
 
 	lid := bson.NewObjectID().Hex()
-	d, err = newJobDoc(job.Job{Type: job.TypeTTS, LessonID: lid, Revision: 2}, now)
+	d, err = newJobDoc(job.Job{Type: job.TypeAnnotate, LessonID: lid, Revision: 2}, now)
 	if err != nil {
 		t.Fatal(err)
 	}

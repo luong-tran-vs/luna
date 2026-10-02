@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -46,7 +47,7 @@ func TestAnnotate(t *testing.T) {
 		_, _ = w.Write([]byte(okResponse))
 	})
 
-	got, err := c.Annotate(t.Context(), []string{"We went home.", "It was late."}, "B1")
+	got, err := c.Annotate(t.Context(), ai.AnnotateRequest{Sentences: []string{"We went home.", "It was late."}, Level: "B1"})
 	if err != nil {
 		t.Fatalf("Annotate: %v", err)
 	}
@@ -99,7 +100,7 @@ func TestAnnotateDecodesExtras(t *testing.T) {
 	}}})
 	c, calls := newClient(t, "k", func(w http.ResponseWriter, _ *http.Request) { _, _ = w.Write(resp) })
 
-	got, err := c.Annotate(t.Context(), []string{"We went home."}, "A2")
+	got, err := c.Annotate(t.Context(), ai.AnnotateRequest{Sentences: []string{"We went home."}, Level: "A2"})
 	if err != nil {
 		t.Fatalf("Annotate: %v", err)
 	}
@@ -135,7 +136,7 @@ func TestAnnotateErrors(t *testing.T) {
 				w.WriteHeader(tt.status)
 				_, _ = w.Write([]byte(tt.body))
 			})
-			_, err := c.Annotate(t.Context(), []string{"Hi."}, "A1")
+			_, err := c.Annotate(t.Context(), ai.AnnotateRequest{Sentences: []string{"Hi."}, Level: "A1"})
 			if err == nil {
 				t.Fatal("error = nil")
 			}
@@ -150,7 +151,7 @@ func TestAnnotateWithoutKeyMakesNoRequest(t *testing.T) {
 	t.Parallel()
 
 	c, calls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
-	if _, err := c.Annotate(t.Context(), []string{"Hi."}, "A1"); !errors.Is(err, ai.ErrNotConfigured) {
+	if _, err := c.Annotate(t.Context(), ai.AnnotateRequest{Sentences: []string{"Hi."}, Level: "A1"}); !errors.Is(err, ai.ErrNotConfigured) {
 		t.Fatalf("error = %v, want ErrNotConfigured", err)
 	}
 	if calls.Load() != 0 {
@@ -404,5 +405,208 @@ func TestExplainErrors(t *testing.T) {
 	noKey, calls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
 	if _, err := noKey.Explain(t.Context(), ai.ExplainRequest{Text: "x"}); !errors.Is(err, ai.ErrNotConfigured) || calls.Load() != 0 {
 		t.Fatalf("no key: %v, calls %d", err, calls.Load())
+	}
+}
+
+func TestPractice(t *testing.T) {
+	t.Parallel()
+
+	want := ai.Practice{
+		ObjectiveVi: "Bạn có thể chào hỏi.",
+		Examples:    []ai.Example{{Lemma: "meet", Sentence: "Nice to meet you."}},
+		Dialogue: ai.Dialogue{Speakers: []string{"Minh", "Anna"}, Turns: []ai.Turn{
+			{Speaker: 0, Text: "Hi, I'm Minh.", MeaningVi: "Chào, mình là Minh."},
+		}},
+		GrammarTipVi: "Dùng I'm để giới thiệu.",
+		Translations: []ai.Translation{{Vi: "Rất vui được gặp bạn.", En: "Nice to meet you.", Distractors: []string{"see"}}},
+	}
+	inner, _ := json.Marshal(want)
+	resp, _ := json.Marshal(map[string]any{"candidates": []any{map[string]any{
+		"content": map[string]any{"parts": []any{map[string]any{"text": string(inner)}}},
+	}}})
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v1beta/models/gemini-test:generateContent" {
+			t.Errorf("path = %s", r.URL.Path)
+		}
+		_ = json.NewDecoder(r.Body).Decode(&body)
+		_, _ = w.Write(resp)
+	})
+
+	got, err := c.Practice(t.Context(), ai.PracticeRequest{
+		Level: "A2", Title: "Greetings",
+		Sentences: []string{"Hello, I am Lan.", "Nice to meet you."},
+		Words:     []ai.PracticeWord{{Lemma: "meet", Text: "meet", MeaningVi: "gặp"}},
+	})
+	if err != nil {
+		t.Fatalf("Practice: %v", err)
+	}
+	if calls.Load() != 1 {
+		t.Fatalf("calls = %d", calls.Load())
+	}
+	if got.ObjectiveVi != want.ObjectiveVi || len(got.Examples) != 1 || len(got.Dialogue.Turns) != 1 ||
+		got.Dialogue.Speakers[1] != "Anna" || got.Translations[0].Distractors[0] != "see" {
+		t.Fatalf("got %+v", got)
+	}
+	cfg := body["generationConfig"].(map[string]any)
+	if cfg["temperature"] != 0.5 || cfg["responseMimeType"] != "application/json" {
+		t.Errorf("config = %v", cfg)
+	}
+	schema := cfg["responseSchema"].(map[string]any)
+	req, _ := json.Marshal(schema["required"])
+	if schema["type"] != "OBJECT" ||
+		string(req) != `["objectiveVi","examples","dialogue","grammarTipVi","translations"]` {
+		t.Errorf("schema = %v", schema)
+	}
+	raw, _ := json.Marshal(schema)
+	if !strings.Contains(string(raw), `"speaker":{"type":"INTEGER"}`) {
+		t.Errorf("speaker must be an INTEGER: %s", raw)
+	}
+	prompt, _ := json.Marshal(body["contents"])
+	for _, s := range []string{"A2", "Greetings", "0: Hello, I am Lan.", "1: Nice to meet you.", "meet | meet | gặp"} {
+		if !strings.Contains(string(prompt), s) {
+			t.Errorf("prompt missing %q", s)
+		}
+	}
+}
+
+func TestPracticeErrors(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		status int
+		want   error
+	}{
+		{http.StatusTooManyRequests, ai.ErrQuota},
+		{http.StatusUnauthorized, ai.ErrInvalidKey},
+		{http.StatusForbidden, ai.ErrInvalidKey},
+	}
+	for _, tt := range tests {
+		c, _ := newClient(t, "k", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(tt.status) })
+		if _, err := c.Practice(t.Context(), ai.PracticeRequest{}); !errors.Is(err, tt.want) {
+			t.Errorf("status %d: err = %v, want %v", tt.status, err, tt.want)
+		}
+	}
+	bad, _ := newClient(t, "k", func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write([]byte(`{"candidates":[{"content":{"parts":[{"text":"not json"}]}}]}`))
+	})
+	if _, err := bad.Practice(t.Context(), ai.PracticeRequest{}); err == nil {
+		t.Error("invalid JSON must fail")
+	}
+}
+
+func TestPracticeWithoutKeyMakesNoRequest(t *testing.T) {
+	t.Parallel()
+	c, calls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
+	if _, err := c.Practice(t.Context(), ai.PracticeRequest{}); !errors.Is(err, ai.ErrNotConfigured) || calls.Load() != 0 {
+		t.Fatalf("err %v, calls %d", err, calls.Load())
+	}
+}
+
+// capturePrompt returns a client that records the prompt of each request and answers body.
+func capturePrompt(t *testing.T, body string) (*gemini.Client, *string) {
+	t.Helper()
+	var prompt string
+	c, _ := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		var req struct {
+			Contents []struct {
+				Parts []struct {
+					Text string `json:"text"`
+				} `json:"parts"`
+			} `json:"contents"`
+		}
+		_ = json.NewDecoder(r.Body).Decode(&req)
+		prompt = req.Contents[0].Parts[0].Text
+		_, _ = w.Write([]byte(`{"candidates":[{"content":{"parts":[{"text":` + jsonQuote(body) + `}]}}]}`))
+	})
+	return c, &prompt
+}
+
+func jsonQuote(s string) string {
+	b, _ := json.Marshal(s)
+	return string(b)
+}
+
+func TestGenerateLessonsTargetWords(t *testing.T) {
+	t.Parallel()
+
+	c, prompt := capturePrompt(t, "[]")
+	req := ai.GenerateRequest{
+		Level: "A1", TopicName: "Gia đình", Count: 3, Words: 150, Kind: ai.KindReading,
+		TargetWords: [][]string{{"Family", "take a shower"}, {}, {"Uncle"}},
+	}
+	if _, err := c.GenerateLessons(t.Context(), req); err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"Lesson 1 must use every one of these words or phrases", "Family, take a shower", "Lesson 3 must use", "Uncle"} {
+		if !strings.Contains(*prompt, want) {
+			t.Errorf("prompt missing %q:\n%s", want, *prompt)
+		}
+	}
+	if strings.Contains(*prompt, "Lesson 2 must use") {
+		t.Errorf("empty group must not be listed:\n%s", *prompt)
+	}
+
+	if _, err := c.GenerateLessons(t.Context(), ai.GenerateRequest{Level: "A1", TopicName: "x", Count: 1, Words: 100}); err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(*prompt, "must use") {
+		t.Errorf("no target words, but:\n%s", *prompt)
+	}
+}
+
+func TestAnnotateFocusWords(t *testing.T) {
+	t.Parallel()
+
+	c, prompt := capturePrompt(t, `{"annotations":[]}`)
+	req := ai.AnnotateRequest{Sentences: []string{"My family took a shower."}, Level: "A1", FocusWords: []string{"Family", "take a shower"}}
+	if _, err := c.Annotate(t.Context(), req); err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"Always include each of these topic words", "count toward the 25 items: Family, take a shower", "0: My family took a shower."} {
+		if !strings.Contains(*prompt, want) {
+			t.Errorf("prompt missing %q:\n%s", want, *prompt)
+		}
+	}
+	req.FocusWords = nil
+	if _, err := c.Annotate(t.Context(), req); err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(*prompt, "topic words") {
+		t.Errorf("no focus words, but:\n%s", *prompt)
+	}
+}
+
+func TestSuggestWords(t *testing.T) {
+	t.Parallel()
+
+	inner, _ := json.Marshal(map[string]any{"words": []string{"ladybug", "cicada"}})
+	resp, _ := json.Marshal(map[string]any{"candidates": []any{map[string]any{
+		"content": map[string]any{"parts": []any{map[string]any{"text": string(inner)}}},
+	}}})
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewDecoder(r.Body).Decode(&body)
+		_, _ = w.Write(resp)
+	})
+
+	got, err := c.SuggestWords(t.Context(), ai.SuggestWordsRequest{
+		Level: "A1", TopicName: "Côn trùng", Existing: []string{"Ant", "Bee"}, Count: 2,
+	})
+	if err != nil {
+		t.Fatalf("SuggestWords: %v", err)
+	}
+	if calls.Load() != 1 || !slices.Equal(got, []string{"ladybug", "cicada"}) {
+		t.Fatalf("calls %d got %v", calls.Load(), got)
+	}
+	prompt, _ := json.Marshal(body["contents"])
+	for _, s := range []string{"A1", "Côn trùng", "List 2 new", "Ant, Bee"} {
+		if !strings.Contains(string(prompt), s) {
+			t.Errorf("prompt missing %q", s)
+		}
+	}
+	noKey, noCalls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
+	if _, err := noKey.SuggestWords(t.Context(), ai.SuggestWordsRequest{Count: 1}); !errors.Is(err, ai.ErrNotConfigured) || noCalls.Load() != 0 {
+		t.Fatalf("no key: %v, calls %d", err, noCalls.Load())
 	}
 }

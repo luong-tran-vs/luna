@@ -1,7 +1,6 @@
-<section class="review">
-  <header class="review-header">
-    <h1 class="title">Ôn tập</h1>
-    <a class="btn" routerLink="/vocabulary">Sổ từ</a>
+<section class="screen review">
+  <header class="screen-bar">
+    <h1 class="screen-title">Ôn tập</h1>
   </header>
 
   @if (loadError()) {
@@ -10,10 +9,11 @@
     @if (started()) {
       <lu-review-session [cards]="list.cards" [mode]="mode()" (finished)="done.set(true)" />
       @if (done()) {
-        <button type="button" class="btn-primary" (click)="load()">Ôn tiếp</button>
+        <button type="button" class="btn-primary btn-block" (click)="load()">Ôn tiếp</button>
       }
     } @else if (list.total === 0) {
-      <div class="card empty" role="status">
+      <div class="soft-card hub empty" role="status">
+        <span class="hub-icon"><lu-icon name="calendar" /></span>
         <p class="empty-title">Không có thẻ nào đến hạn</p>
         @if (nextDue(); as next) {
           <p class="next-due muted">Thẻ tiếp theo đến hạn lúc {{ next }}.</p>
@@ -22,7 +22,9 @@
         }
       </div>
     } @else {
-      <div class="card start">
+      <div class="soft-card hub start">
+        <p class="hub-label">Ôn tập hôm nay</p>
+        <span class="hub-icon"><lu-icon name="calendar" /></span>
         <p class="due-count">{{ list.total }} thẻ đến hạn</p>
         @if (list.total > list.cards.length) {
           <p class="muted">Phiên này ôn {{ list.cards.length }} thẻ quá hạn lâu nhất.</p>
@@ -42,8 +44,36 @@
             </button>
           }
         </div>
-        <button type="button" class="btn-primary" (click)="started.set(true)">Bắt đầu</button>
+        <button type="button" class="btn-primary btn-block" (click)="started.set(true)">Bắt đầu</button>
       </div>
+    }
+
+    @if (!started()) {
+      <section class="schedule" aria-labelledby="schedule-heading">
+        <h2 class="section-title" id="schedule-heading">Lịch ôn tập</h2>
+        <ul class="menu-list">
+          <li>
+            <div class="menu-row">
+              <span class="icon-chip tone-accent"><lu-icon name="clock" /></span>
+              <span class="menu-label">
+                <span>Thẻ đến hạn</span>
+                <span class="menu-hint">{{ list.total }} thẻ</span>
+              </span>
+              <span class="when">{{ list.total > 0 ? 'Hôm nay' : (nextDue() ?? 'Chưa có') }}</span>
+            </div>
+          </li>
+          <li>
+            <a class="menu-row" routerLink="/vocabulary">
+              <span class="icon-chip"><lu-icon name="notebook" /></span>
+              <span class="menu-label">
+                <span>Sổ từ</span>
+                <span class="menu-hint">Xem, tìm và thêm thẻ</span>
+              </span>
+              <lu-icon class="chevron" name="chevron-right" />
+            </a>
+          </li>
+        </ul>
+      </section>
     }
   } @else {
     <p class="muted" role="status">Đang tải…</p>

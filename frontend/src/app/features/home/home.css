@@ -1,83 +1,196 @@
-/* One column at 360px: goal, today's lesson and the button fit the first screen (F6 research R11). */
-.home {
-  display: grid;
-  gap: var(--space-3);
-  max-width: 640px;
-  margin: 0 auto;
-  padding: var(--space-4);
-}
+/* Client sketch, screen 2. One column; the button to today's step stays on the first phone screen. */
 
-.top {
+.hello {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-3);
 }
 
-.title {
-  font: var(--text-lg) var(--font-ui);
-}
-
-.streak {
-  flex: none;
-  font: var(--text-sm) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-accent-ink);
-}
-
-.goal {
-  gap: var(--space-2);
-}
-
-.goal-bar {
-  --bar-height: 10px;
-
-  font-weight: 600;
-}
-
-.skills {
+.hello-text {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-  --bar-height: 6px;
+  gap: var(--space-1);
+  min-width: 0;
 }
 
-.change,
-.stats-link {
-  justify-self: start;
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-primary-ink);
-}
-
-.card-title {
-  font: var(--text-base) var(--font-ui);
-  font-weight: 600;
+.title {
+  font: var(--text-xl) var(--font-ui);
   overflow-wrap: anywhere;
 }
 
-.lesson {
+.subtitle,
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.bell {
+  margin: 0 calc(-1 * var(--space-2)) 0 0;
+}
+
+.today-goal {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.today-goal-text {
+  display: grid;
+  flex: 1;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.mini-track {
+  height: 6px;
+  margin-top: var(--space-1);
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.mini-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  justify-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+}
+
+.tile .icon-chip {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+
+  --icon-size: 18px;
+}
+
+.tile-value {
+  font: var(--text-lg) var(--font-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.tile-label {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.continue,
+.course {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.lesson-head,
+.course-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.lesson-chip {
+  width: 48px;
+  height: 48px;
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+
+  --icon-size: 24px;
+}
+
+.lesson-text,
+.course-text {
+  display: grid;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Long titles wrap on two lines at most so the button stays on the first screen. */
 .lesson-title {
   display: -webkit-box;
   overflow: hidden;
-  font: var(--text-lg) var(--font-ui);
+  font-weight: 600;
   overflow-wrap: anywhere;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
+.lesson-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
 .next {
+  flex: none;
   justify-content: center;
-  width: 100%;
-  min-height: 48px;
+}
+
+.steps-bar {
+  flex: 1 1 140px;
+  --bar-height: 6px;
+}
+
+.course-link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.course-name {
+  font-weight: 600;
+}
+
+.chevron {
+  color: var(--color-text-muted);
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+
+  --bar-height: 6px;
 }
 
 .tomorrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.tomorrow-text {
+  flex: 1;
   font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .form-alert {

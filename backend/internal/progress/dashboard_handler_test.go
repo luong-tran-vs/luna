@@ -7,16 +7,15 @@ import (
 
 func TestDashboardEndpoint(t *testing.T) {
 	t.Parallel()
-	mux, e := newStudyAPI(t)
+	mux, _ := newStudyAPI(t)
 
 	r := do(t, mux, http.MethodGet, "/api/dashboard", "an", "")
 	want := `{"kind":"noGoal","goal":null,"goalCompleted":false,"skills":null,"lesson":null,` +
-		`"steps":{"listen":"locked","read":"locked","review":"locked","write":"locked"},"currentStep":"","action":null,"streak":0,"tomorrowCards":0}` + "\n"
+		`"steps":{"listen":"locked","read":"locked","write":"locked"},"currentStep":"","action":null,"streak":0,"tomorrowCards":0}` + "\n"
 	if r.code != http.StatusOK || r.text != want {
 		t.Fatalf("no goal: %d %s", r.code, r.text)
 	}
 
-	e.reviews.setDue("u1", 2)
 	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
 	b := body(t, do(t, mux, http.MethodGet, "/api/dashboard", "an", ""))
 	goal, _ := b["goal"].(map[string]any)
@@ -26,7 +25,7 @@ func TestDashboardEndpoint(t *testing.T) {
 	if b["kind"] != "studying" || goal["topicName"] != "Gia đình" || goal["totalLessons"] != 3.0 ||
 		skills["read"] != 0.0 || skills["listen"] != 0.0 || skills["total"] != 3.0 ||
 		lesson["id"] != "f1" || lesson["title"] != "Family 1" || lesson["topicName"] != "Gia đình" || lesson["level"] != "A1" ||
-		action["kind"] != "start" || action["step"] != "review" || b["currentStep"] != "review" {
+		action["kind"] != "start" || action["step"] != "read" || b["currentStep"] != "read" {
 		t.Fatalf("studying: %v", b)
 	}
 

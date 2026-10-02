@@ -31,21 +31,17 @@ type StudyDeps struct {
 	Quiz ReadingQuiz
 	// Writings gates the Write step (F8); nil means a writing is never required.
 	Writings Writings
-	// ReviewLimit is the learner's daily card limit; nil means DefaultReviewLimit (F12 sets it).
-	ReviewLimit func(ctx context.Context, userID string) int
-	Now         func() time.Time
+	Now      func() time.Time
 }
 
-// StudyService runs the daily flow (L): goals, today's lesson and its steps, streak.
+// StudyService runs the study flow (L): goals, the lesson being studied and its steps, streak.
+// Lessons are studied one after another with no daily limit (updated 2026-10-02).
 type StudyService struct {
 	d StudyDeps
 }
 
 // NewStudyService returns a StudyService.
 func NewStudyService(d StudyDeps) *StudyService {
-	if d.ReviewLimit == nil {
-		d.ReviewLimit = func(context.Context, string) int { return DefaultReviewLimit }
-	}
 	return &StudyService{d: d}
 }
 
@@ -66,30 +62,24 @@ type GoalsView struct {
 	Others []GoalView
 }
 
-// SetGoalResult is the new active goal; StartsTomorrow when today's lesson had started.
-type SetGoalResult struct {
-	Active         GoalView
-	EffectiveFrom  string
-	StartsTomorrow bool
-}
-
 // LessonRef identifies a lesson for the learner.
 type LessonRef struct {
 	ID    string
 	Title string
 }
 
-// TodayView is what the today page shows.
-type TodayView struct {
-	Kind          TodayKind
-	Goal          *GoalView
-	Lesson        *LessonRef
+// LessonStudyView is a lesson's steps for the learner, as the lesson page shows them.
+type LessonStudyView struct {
+	Status LessonStatus
+	// Steps and CurrentStep are set for the lesson being studied and for completed lessons.
 	Steps         map[Step]StepState
 	CurrentStep   Step
 	SentenceIndex int
-	ReviewCount   int
-	Streak        int
+	// Next is the lesson to study now, once this one is completed.
+	Next          *LessonRef
+	Goal          *GoalView
 	GoalCompleted bool
+	Streak        int
 }
 
 // CompletedLesson is a lesson in the "Đã học" list.
@@ -101,7 +91,7 @@ type CompletedLesson struct {
 
 // MyLessonsView is the lessons page.
 type MyLessonsView struct {
-	Today     *LessonRef
+	Current   *LessonRef
 	Completed []CompletedLesson
 	Upcoming  []LessonRef
 }
@@ -112,13 +102,12 @@ type day struct {
 	now       time.Time
 	loc       *time.Location
 	today     string
-	studyDay  *StudyDay
 	goal      *Goal
 	topic     *TopicInfo
 	goals     []Goal
 	completed []LessonProgress
 	done      map[string]bool
-	state     TodayState
+	state     StudyState
 }
 
 func (s *StudyService) load(ctx context.Context, userID string) (*day, error) {
@@ -127,14 +116,7 @@ func (s *StudyService) load(ctx context.Context, userID string) (*day, error) {
 		return nil, fmt.Errorf("progress: timezone: %w", err)
 	}
 	d := &day{userID: userID, now: s.d.Now(), loc: loc}
-	latest, err := s.d.Days.LatestKey(ctx, userID)
-	if err != nil {
-		return nil, fmt.Errorf("progress: latest study day: %w", err)
-	}
-	d.today = EffectiveDayKey(DayKey(d.now, loc), latest)
-	if d.studyDay, err = s.d.Days.Get(ctx, userID, d.today); err != nil {
-		return nil, fmt.Errorf("progress: study day: %w", err)
-	}
+	d.today = DayKey(d.now, loc)
 	if d.goals, err = s.d.Goals.List(ctx, userID); err != nil {
 		return nil, fmt.Errorf("progress: goals: %w", err)
 	}
@@ -158,13 +140,8 @@ func (s *StudyService) load(ctx context.Context, userID string) (*day, error) {
 	if d.topic != nil {
 		roadmap = d.topic.LessonIDs
 	}
-	d.state = TodayLesson(d.goal, roadmap, d.done, d.studyDay)
+	d.state = CurrentLesson(d.goal, roadmap, d.done)
 	return d, nil
-}
-
-func (s *StudyService) startOfDay(d *day) time.Time {
-	y, m, dd := d.now.In(d.loc).Date()
-	return time.Date(y, m, dd, 0, 0, 0, 0, d.loc)
 }
 
 func goalView(g Goal, t TopicInfo, done map[string]bool) GoalView {
@@ -178,6 +155,15 @@ func goalView(g Goal, t TopicInfo, done map[string]bool) GoalView {
 		}
 	}
 	return v
+}
+
+// newProgress is the progress of a lesson started now.
+func newProgress(d *day, lessonID string) LessonProgress {
+	p := LessonProgress{UserID: d.userID, LessonID: lessonID, DayKey: d.today, StartedAt: d.now, Done: map[Step]bool{}}
+	if d.goal != nil {
+		p.TopicID = d.goal.TopicID
+	}
+	return p
 }
 
 // --- goals ---
@@ -207,52 +193,42 @@ func (s *StudyService) Goals(ctx context.Context, userID string) (GoalsView, err
 	return out, nil
 }
 
-// SetGoal makes topicID the learner's goal. When today's lesson has started, the learner
-// finishes it today and the new topic gives lessons from tomorrow.
-func (s *StudyService) SetGoal(ctx context.Context, userID, topicID string) (SetGoalResult, error) {
+// SetGoal makes topicID the learner's goal at once: its first lesson not completed is the one to
+// study now.
+func (s *StudyService) SetGoal(ctx context.Context, userID, topicID string) (GoalView, error) {
 	t, err := s.d.Roadmaps.Roadmap(ctx, topicID)
 	if err != nil {
-		return SetGoalResult{}, fmt.Errorf("progress: roadmap: %w", err)
+		return GoalView{}, fmt.Errorf("progress: roadmap: %w", err)
 	}
 	d, err := s.load(ctx, userID)
 	if err != nil {
-		return SetGoalResult{}, err
+		return GoalView{}, err
 	}
-	started := d.studyDay != nil && d.studyDay.LessonID != ""
-	effective := d.today
-	if started {
-		effective = NextDayKey(d.today)
-	}
-	g, err := s.d.Goals.Activate(ctx, userID, topicID, t.Level, effective, d.now)
+	g, err := s.d.Goals.Activate(ctx, userID, topicID, t.Level, d.today, d.now)
 	if err != nil {
-		return SetGoalResult{}, fmt.Errorf("progress: activate goal: %w", err)
+		return GoalView{}, fmt.Errorf("progress: activate goal: %w", err)
 	}
-	return SetGoalResult{Active: goalView(g, t, d.done), EffectiveFrom: effective, StartsTomorrow: started}, nil
+	return goalView(g, t, d.done), nil
 }
 
-// --- today ---
+// --- the lesson page ---
 
-// Today returns today's lesson and steps. With no card to review, opening the review step
-// completes it (and fixes today's lesson).
-func (s *StudyService) Today(ctx context.Context, userID string) (TodayView, error) {
+// LessonStudy returns a lesson's steps for the learner. It only reads.
+func (s *StudyService) LessonStudy(ctx context.Context, userID, lessonID string) (LessonStudyView, error) {
 	d, err := s.load(ctx, userID)
 	if err != nil {
-		return TodayView{}, err
+		return LessonStudyView{}, err
 	}
-	v, err := s.view(ctx, d)
-	if err != nil {
-		return TodayView{}, err
-	}
-	if v.Kind == TodayStudying && v.CurrentStep == StepReview && v.ReviewCount == 0 {
-		return s.completeStep(ctx, d, StepReview)
-	}
-	return v, nil
+	return s.view(ctx, d, lessonID)
 }
 
-func (s *StudyService) view(ctx context.Context, d *day) (TodayView, error) {
-	v := TodayView{Kind: d.state.Kind, Steps: map[Step]StepState{}}
-	for _, st := range Steps {
-		v.Steps[st] = StateLocked
+func (s *StudyService) view(ctx context.Context, d *day, lessonID string) (LessonStudyView, error) {
+	v := LessonStudyView{Status: LessonOther, Steps: map[Step]StepState{}}
+	switch {
+	case d.done[lessonID]:
+		v.Status = LessonCompleted
+	case d.state.Kind == StudyStudying && d.state.LessonID == lessonID:
+		v.Status = LessonStudying
 	}
 	if d.goal != nil {
 		g := goalView(*d.goal, *d.topic, d.done)
@@ -261,126 +237,124 @@ func (s *StudyService) view(ctx context.Context, d *day) (TodayView, error) {
 	}
 	keys, err := s.d.Days.CompletedKeys(ctx, d.userID)
 	if err != nil {
-		return TodayView{}, fmt.Errorf("progress: study days: %w", err)
+		return LessonStudyView{}, fmt.Errorf("progress: study days: %w", err)
 	}
 	v.Streak = Streak(keys, d.today)
-	if d.state.LessonID == "" {
+	if v.Status == LessonCompleted && d.state.Kind == StudyStudying {
+		titles, err := s.d.Titles.Titles(ctx, []string{d.state.LessonID})
+		if err != nil {
+			return LessonStudyView{}, fmt.Errorf("progress: lesson title: %w", err)
+		}
+		if title, ok := titles[d.state.LessonID]; ok {
+			v.Next = &LessonRef{ID: d.state.LessonID, Title: title}
+		}
+	}
+	if v.Status == LessonOther {
 		return v, nil
 	}
 
-	titles, err := s.d.Titles.Titles(ctx, []string{d.state.LessonID})
+	p, _, err := s.d.Progress.Get(ctx, d.userID, lessonID)
 	if err != nil {
-		return TodayView{}, fmt.Errorf("progress: lesson title: %w", err)
-	}
-	v.Lesson = &LessonRef{ID: d.state.LessonID, Title: titles[d.state.LessonID]}
-	p, _, err := s.d.Progress.Get(ctx, d.userID, d.state.LessonID)
-	if err != nil {
-		return TodayView{}, fmt.Errorf("progress: lesson progress: %w", err)
+		return LessonStudyView{}, fmt.Errorf("progress: lesson progress: %w", err)
 	}
 	v.CurrentStep = NextStep(p.Done)
+	if v.Status == LessonCompleted {
+		// A lesson completed before a step was added (F8 added Write) stays completed.
+		v.CurrentStep = StepDone
+	}
 	for _, st := range Steps {
 		switch {
-		case p.Done[st]:
+		case p.Done[st] || v.CurrentStep == StepDone:
 			v.Steps[st] = StateDone
 		case st == v.CurrentStep:
 			v.Steps[st] = StateCurrent
+		default:
+			v.Steps[st] = StateLocked
 		}
 	}
 	if p.CurrentStep == v.CurrentStep {
 		v.SentenceIndex = p.SentenceIndex
 	}
-	if v.CurrentStep == StepReview {
-		if v.ReviewCount, err = s.reviewCount(ctx, d); err != nil {
-			return TodayView{}, err
-		}
-	}
 	return v, nil
 }
 
-// reviewCount is the number of cards for today's review step: due cards within the quota left.
-func (s *StudyService) reviewCount(ctx context.Context, d *day) (int, error) {
-	reviewed, err := s.d.Reviews.ReviewedSince(ctx, d.userID, s.startOfDay(d))
-	if err != nil {
-		return 0, fmt.Errorf("progress: reviewed cards: %w", err)
-	}
-	due, err := s.d.Reviews.DueCount(ctx, d.userID)
-	if err != nil {
-		return 0, fmt.Errorf("progress: due cards: %w", err)
-	}
-	return min(due, ReviewQuota(s.d.ReviewLimit(ctx, d.userID), reviewed)), nil
+// CompleteStep records a step of the lesson being studied. Steps complete in order; completing a
+// done step again changes nothing. The last step completes the lesson (goal +1, the day counts
+// for the streak) and the next lesson opens at once.
+func (s *StudyService) CompleteStep(ctx context.Context, userID, lessonID string, step Step) (LessonStudyView, error) {
+	return s.finishStep(ctx, userID, lessonID, step, false)
 }
 
-// CompleteStep records a step of today's lesson. Steps complete in order; completing a done
-// step again changes nothing. The last step completes the lesson (goal +1, streak +1).
-func (s *StudyService) CompleteStep(ctx context.Context, userID string, step Step) (TodayView, error) {
+// SkipWrite completes the Write step without a writing: writing is optional (updated
+// 2026-10-02), so the learner may finish the lesson without it. Nothing is graded.
+func (s *StudyService) SkipWrite(ctx context.Context, userID, lessonID string) (LessonStudyView, error) {
+	return s.finishStep(ctx, userID, lessonID, StepWrite, true)
+}
+
+func (s *StudyService) finishStep(ctx context.Context, userID, lessonID string, step Step, skipWriting bool) (LessonStudyView, error) {
 	if !ValidStep(step) {
-		return TodayView{}, &ValidationError{Fields: map[string]string{"step": "Bước không hợp lệ"}}
+		return LessonStudyView{}, &ValidationError{Fields: map[string]string{"step": "Bước không hợp lệ"}}
 	}
 	d, err := s.load(ctx, userID)
 	if err != nil {
-		return TodayView{}, err
+		return LessonStudyView{}, err
 	}
-	switch d.state.Kind {
-	case TodayDone:
-		return s.view(ctx, d)
-	case TodayStudying:
-	default:
-		return TodayView{}, ErrNoLesson
+	if d.done[lessonID] {
+		return s.view(ctx, d, lessonID)
 	}
-	p, _, err := s.d.Progress.Get(ctx, userID, d.state.LessonID)
+	if d.state.Kind != StudyStudying || d.state.LessonID != lessonID {
+		return LessonStudyView{}, ErrNotCurrentLesson
+	}
+	p, _, err := s.d.Progress.Get(ctx, userID, lessonID)
 	if err != nil {
-		return TodayView{}, fmt.Errorf("progress: lesson progress: %w", err)
+		return LessonStudyView{}, fmt.Errorf("progress: lesson progress: %w", err)
 	}
 	if p.Done[step] {
-		return s.view(ctx, d)
+		return s.view(ctx, d, lessonID)
 	}
 	if NextStep(p.Done) != step {
-		return TodayView{}, ErrStepLocked
+		return LessonStudyView{}, ErrStepLocked
 	}
-	return s.completeStep(ctx, d, step)
+	return s.completeStep(ctx, d, step, skipWriting)
 }
 
-func (s *StudyService) completeStep(ctx context.Context, d *day, step Step) (TodayView, error) {
+// completeStep checks what the step needs and records it; skipWriting lets the Write step
+// complete without a submitted writing.
+func (s *StudyService) completeStep(ctx context.Context, d *day, step Step, skipWriting bool) (LessonStudyView, error) {
 	lessonID := d.state.LessonID
 	if step == StepRead && s.d.Quiz != nil {
 		questions, answered, err := s.d.Quiz.Status(ctx, d.userID, lessonID)
 		if err != nil {
-			return TodayView{}, fmt.Errorf("progress: reading quiz: %w", err)
+			return LessonStudyView{}, fmt.Errorf("progress: reading quiz: %w", err)
 		}
 		if questions > 0 && answered < questions {
-			return TodayView{}, ErrReadIncomplete
+			return LessonStudyView{}, ErrReadIncomplete
 		}
 	}
-	if step == StepWrite && s.d.Writings != nil {
+	if step == StepWrite && s.d.Writings != nil && !skipWriting {
 		submitted, err := s.d.Writings.Submitted(ctx, d.userID, lessonID)
 		if err != nil {
-			return TodayView{}, fmt.Errorf("progress: writing: %w", err)
+			return LessonStudyView{}, fmt.Errorf("progress: writing: %w", err)
 		}
 		if !submitted {
-			return TodayView{}, ErrWriteIncomplete
+			return LessonStudyView{}, ErrWriteIncomplete
 		}
 	}
 	if step == StepListen {
 		sum, err := s.d.Dictation.Summary(ctx, d.userID, lessonID)
 		if err != nil {
-			return TodayView{}, fmt.Errorf("progress: dictation: %w", err)
+			return LessonStudyView{}, fmt.Errorf("progress: dictation: %w", err)
 		}
 		if !sum.Completed {
-			return TodayView{}, ErrListenIncomplete
+			return LessonStudyView{}, ErrListenIncomplete
 		}
-	}
-	if err := s.d.Days.Start(ctx, d.userID, d.today, lessonID); err != nil {
-		return TodayView{}, fmt.Errorf("progress: start day: %w", err)
 	}
 	p, ok, err := s.d.Progress.Get(ctx, d.userID, lessonID)
 	if err != nil {
-		return TodayView{}, fmt.Errorf("progress: lesson progress: %w", err)
+		return LessonStudyView{}, fmt.Errorf("progress: lesson progress: %w", err)
 	}
 	if !ok {
-		p = LessonProgress{UserID: d.userID, LessonID: lessonID, DayKey: d.today, StartedAt: d.now}
-		if d.goal != nil {
-			p.TopicID = d.goal.TopicID
-		}
+		p = newProgress(d, lessonID)
 	}
 	if p.Done == nil {
 		p.Done = map[Step]bool{}
@@ -392,24 +366,23 @@ func (s *StudyService) completeStep(ctx context.Context, d *day, step Step) (Tod
 		p.CompletedAt = d.now
 	}
 	if err := s.d.Progress.Upsert(ctx, p); err != nil {
-		return TodayView{}, fmt.Errorf("progress: save progress: %w", err)
+		return LessonStudyView{}, fmt.Errorf("progress: save progress: %w", err)
 	}
-	reviewed, err := s.d.Reviews.ReviewedSince(ctx, d.userID, s.startOfDay(d))
-	if err != nil {
-		return TodayView{}, fmt.Errorf("progress: reviewed cards: %w", err)
-	}
-	if err := s.d.Days.Update(ctx, d.userID, d.today, reviewed, completed); err != nil {
-		return TodayView{}, fmt.Errorf("progress: update day: %w", err)
+	if completed {
+		if err := s.d.Days.MarkCompleted(ctx, d.userID, d.today); err != nil {
+			return LessonStudyView{}, fmt.Errorf("progress: study day: %w", err)
+		}
 	}
 	next, err := s.load(ctx, d.userID)
 	if err != nil {
-		return TodayView{}, err
+		return LessonStudyView{}, err
 	}
-	return s.view(ctx, next)
+	return s.view(ctx, next, lessonID)
 }
 
-// SetPosition saves the sentence of the current step of today's lesson.
-func (s *StudyService) SetPosition(ctx context.Context, userID string, step Step, sentence int) error {
+// SetPosition saves the sentence of the current step of the lesson being studied; the first save
+// starts the lesson.
+func (s *StudyService) SetPosition(ctx context.Context, userID, lessonID string, step Step, sentence int) error {
 	if !ValidStep(step) {
 		return &ValidationError{Fields: map[string]string{"step": "Bước không hợp lệ"}}
 	}
@@ -417,24 +390,29 @@ func (s *StudyService) SetPosition(ctx context.Context, userID string, step Step
 	if err != nil {
 		return err
 	}
-	if d.state.Kind != TodayStudying {
-		return ErrNoLesson
+	if d.state.Kind != StudyStudying || d.state.LessonID != lessonID {
+		return ErrNotCurrentLesson
 	}
-	p, _, err := s.d.Progress.Get(ctx, userID, d.state.LessonID)
+	p, ok, err := s.d.Progress.Get(ctx, userID, lessonID)
 	if err != nil {
 		return fmt.Errorf("progress: lesson progress: %w", err)
 	}
 	if NextStep(p.Done) != step {
 		return ErrNotCurrentStep
 	}
-	_, count, err := s.d.Lessons.Info(ctx, d.state.LessonID)
+	_, count, err := s.d.Lessons.Info(ctx, lessonID)
 	if err != nil {
 		return fmt.Errorf("progress: lesson: %w", err)
 	}
 	if sentence < 0 || sentence >= count {
 		return &ValidationError{Fields: map[string]string{"sentenceIndex": "Câu không có trong bài"}}
 	}
-	if err := s.d.Progress.SetPosition(ctx, userID, d.state.LessonID, step, sentence); err != nil {
+	if !ok {
+		if err := s.d.Progress.Upsert(ctx, newProgress(d, lessonID)); err != nil {
+			return fmt.Errorf("progress: start lesson: %w", err)
+		}
+	}
+	if err := s.d.Progress.SetPosition(ctx, userID, lessonID, step, sentence); err != nil {
 		return fmt.Errorf("progress: save position: %w", err)
 	}
 	return nil
@@ -442,27 +420,34 @@ func (s *StudyService) SetPosition(ctx context.Context, userID string, step Step
 
 // --- lessons page and access ---
 
-// MyLessons lists today's lesson, the completed ones (newest first) and the locked upcoming
-// lessons of the active goal.
+// MyLessons lists the lessons of the active goal's topic: the completed ones (newest first), the
+// lesson being studied and the locked upcoming ones. Lessons finished in other topics show up when
+// that topic is the goal again.
 func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsView, error) {
 	d, err := s.load(ctx, userID)
 	if err != nil {
 		return MyLessonsView{}, err
 	}
-	ids := []string{}
-	for _, p := range d.completed {
-		ids = append(ids, p.LessonID)
-	}
-	if d.state.LessonID != "" {
-		ids = append(ids, d.state.LessonID)
-	}
+	inTopic := map[string]bool{}
 	var upcoming []string
 	if d.topic != nil {
 		for _, id := range d.topic.LessonIDs {
+			inTopic[id] = true
 			if !d.done[id] && id != d.state.LessonID {
 				upcoming = append(upcoming, id)
 			}
 		}
+	}
+	var completed []LessonProgress
+	ids := []string{}
+	for _, p := range d.completed {
+		if inTopic[p.LessonID] {
+			completed = append(completed, p)
+			ids = append(ids, p.LessonID)
+		}
+	}
+	if d.state.LessonID != "" {
+		ids = append(ids, d.state.LessonID)
 	}
 	titles, err := s.d.Titles.Titles(ctx, append(ids, upcoming...))
 	if err != nil {
@@ -471,10 +456,10 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 
 	out := MyLessonsView{Completed: []CompletedLesson{}, Upcoming: []LessonRef{}}
 	if d.state.LessonID != "" {
-		out.Today = &LessonRef{ID: d.state.LessonID, Title: titles[d.state.LessonID]}
+		out.Current = &LessonRef{ID: d.state.LessonID, Title: titles[d.state.LessonID]}
 	}
 	topicNames := map[string]string{}
-	for _, p := range d.completed {
+	for _, p := range completed {
 		title, ok := titles[p.LessonID]
 		if !ok {
 			continue // lesson deleted
@@ -500,14 +485,14 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 	return out, nil
 }
 
-// CanWrite reports whether the lesson is the learner's lesson today and its next step is Write
-// (F8): only then may the writing be drafted or submitted.
+// CanWrite reports whether the lesson is the one being studied and its next step is Write (F8):
+// only then may the writing be drafted or submitted.
 func (s *StudyService) CanWrite(ctx context.Context, userID, lessonID string) (bool, error) {
 	d, err := s.load(ctx, userID)
 	if err != nil {
 		return false, err
 	}
-	if d.state.Kind != TodayStudying || d.state.LessonID != lessonID {
+	if d.state.Kind != StudyStudying || d.state.LessonID != lessonID {
 		return false, nil
 	}
 	p, ok, err := s.d.Progress.Get(ctx, userID, lessonID)
@@ -517,8 +502,8 @@ func (s *StudyService) CanWrite(ctx context.Context, userID, lessonID string) (b
 	return ok && NextStep(p.Done) == StepWrite, nil
 }
 
-// CanOpen reports whether a user may open a lesson's content: admins always; learners today's
-// lesson and lessons they started before.
+// CanOpen reports whether a user may open a lesson's content: admins always; learners the lesson
+// being studied and lessons they started before.
 func (s *StudyService) CanOpen(ctx context.Context, userID string, isAdmin bool, lessonID string) (bool, error) {
 	if isAdmin {
 		return true, nil

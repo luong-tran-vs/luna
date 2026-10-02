@@ -5,28 +5,24 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
-	"os"
-	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 	"unicode/utf8"
 
 	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/job"
-	"github.com/luongtran/luna/backend/internal/tts"
 )
 
 const maxAnnotations = 100
 
 // Deps are the collaborators of Service.
 type Deps struct {
-	Lessons  Repository
-	Topics   Topics
-	Jobs     job.Repository
-	TTS      tts.Synthesizer
-	AI       ai.Provider
-	AudioDir string
+	Lessons Repository
+	Topics  Topics
+	Jobs    job.Repository
+	AI      ai.Provider
+	// Dict gives the meaning of topic words the AI did not annotate (F18); may be nil.
+	Dict Dictionary
 	// Notify wakes the job worker after jobs are enqueued; may be nil.
 	Notify func()
 	Now    func() time.Time
@@ -48,7 +44,7 @@ func NewService(d Deps) *Service {
 	return &Service{Deps: d}
 }
 
-// Create validates and stores a lesson, then queues audio and annotation work.
+// Create validates and stores a lesson, then queues its annotation.
 func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	in, sentences, err := ValidateInput(in)
 	if err != nil {
@@ -64,7 +60,6 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 		Source: in.Source, License: in.License,
 		Revision:         1,
 		Sentences:        toSentences(sentences),
-		AudioStatus:      StatusRunning,
 		AnnotationStatus: StatusRunning,
 		CreatedAt:        now,
 		UpdatedAt:        now,
@@ -77,7 +72,7 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 			return Lesson{}, err
 		}
 	}
-	if err := s.enqueue(ctx, l.ID, l.Revision, job.TypeTTS, job.TypeAnnotate); err != nil {
+	if err := s.enqueue(ctx, l.ID, l.Revision, job.TypeAnnotate); err != nil {
 		return Lesson{}, err
 	}
 	return l, nil
@@ -161,9 +156,9 @@ func (s *Service) TopicName(ctx context.Context, id string) (string, error) {
 	return t.Name, nil
 }
 
-// Update edits a lesson. Changing the content re-splits it and redoes audio and annotations;
-// other fields keep the existing sentences, audio and annotations. Changing the topic moves the
-// lesson to the end of the new topic's roadmap if it was in the old one.
+// Update edits a lesson. Changing the content re-splits it and redoes the annotations (then the
+// practice); other fields keep the existing sentences and annotations. Changing the topic moves
+// the lesson to the end of the new topic's roadmap if it was in the old one.
 func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, error) {
 	cur, err := s.Lessons.Get(ctx, id)
 	if err != nil {
@@ -199,8 +194,8 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 	next.Annotations = nil
 	next.Extras, next.ExtrasEditedByAdmin = Extras{}, false
 	next.QuizVersion = cur.QuizVersion + 1 // old answers belong to the old text
-	next.AudioStatus, next.AudioError = StatusRunning, ""
 	next.AnnotationStatus, next.AnnotationError = StatusRunning, ""
+	next.Practice, next.PracticeStatus, next.PracticeError = nil, StatusNone, "" // redone after the annotations
 	next.UpdatedAt = s.Now()
 	if err := s.Lessons.ReplaceContent(ctx, next); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: replace content: %w", err)
@@ -208,13 +203,13 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 	if err := s.Jobs.DeletePending(ctx, id); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: drop old jobs: %w", err)
 	}
-	if err := s.enqueue(ctx, id, next.Revision, job.TypeTTS, job.TypeAnnotate); err != nil {
+	if err := s.enqueue(ctx, id, next.Revision, job.TypeAnnotate); err != nil {
 		return Lesson{}, err
 	}
 	return next, nil
 }
 
-// Delete removes a lesson that is not in its topic's roadmap, with its jobs and audio files.
+// Delete removes a lesson that is not in its topic's roadmap, with its jobs.
 func (s *Service) Delete(ctx context.Context, id string) error {
 	if _, err := s.Lessons.Get(ctx, id); err != nil {
 		return err
@@ -230,25 +225,18 @@ func (s *Service) Delete(ctx context.Context, id string) error {
 	if err := s.Jobs.DeleteForLesson(ctx, id); err != nil {
 		return fmt.Errorf("lesson: delete jobs: %w", err)
 	}
-	if err := os.RemoveAll(s.lessonDir(id)); err != nil {
-		s.Log.WarnContext(ctx, "remove lesson audio failed", slog.String("lesson_id", id), slog.Any("error", err))
-	}
 	return nil
 }
 
-// Retry queues audio or annotation work again. Audio is retried only after a failure;
-// annotation also when done, so lessons from before F15 get their questions (it replaces
-// admin edits, which the admin page warns about).
+// Retry queues the annotation again, also when done, so lessons from before F15 get their
+// questions (it replaces admin edits, which the admin page warns about).
 func (s *Service) Retry(ctx context.Context, id string, t job.Type) (Lesson, error) {
 	l, err := s.Lessons.Get(ctx, id)
 	if err != nil {
 		return Lesson{}, err
 	}
-	switch st := l.StatusOf(t); {
-	case t == job.TypeAnnotate && st == StatusRunning:
+	if l.StatusOf(t) == StatusRunning {
 		return Lesson{}, ErrAnnotationRunning
-	case t == job.TypeTTS && st != StatusFailed:
-		return Lesson{}, ErrNotFailed
 	}
 	if _, err := s.Lessons.SetStatus(ctx, id, l.Revision, t, StatusRunning, ""); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: set status: %w", err)
@@ -331,54 +319,19 @@ func (s *Service) UpdateAnnotations(ctx context.Context, id string, items []Anno
 	return s.Lessons.Get(ctx, id)
 }
 
-// ProcessTTS generates one mp3 per sentence. Files that already exist are kept, so a job
-// interrupted by an error or a restart resumes where it stopped.
-func (s *Service) ProcessTTS(ctx context.Context, j job.Job) error {
-	l, ok, err := s.current(ctx, j)
-	if !ok {
-		return err
-	}
-	dir := s.revisionDir(l.ID, l.Revision)
-	if err := os.MkdirAll(dir, 0o750); err != nil {
-		return fmt.Errorf("lesson: audio dir: %w", err)
-	}
-
-	paths := make([]string, len(l.Sentences))
-	for i, sent := range l.Sentences {
-		file := filepath.Join(dir, strconv.Itoa(i)+".mp3")
-		if info, err := os.Stat(file); err != nil || info.Size() == 0 {
-			audio, err := s.TTS.Synthesize(ctx, sent.Text)
-			if err != nil {
-				return fmt.Errorf("lesson: synthesize sentence %d: %w", i, err)
-			}
-			if err := writeFileAtomic(dir, file, audio); err != nil {
-				return err
-			}
-			s.Log.DebugContext(ctx, "tts synthesize", slog.String("lesson_id", l.ID), slog.Int("sentence", i))
-		}
-		paths[i] = AudioURL(l.ID, l.Revision, i)
-	}
-
-	saved, err := s.Lessons.SaveAudio(ctx, l.ID, l.Revision, paths)
-	if err != nil {
-		return fmt.Errorf("lesson: save audio: %w", err)
-	}
-	if !saved { // content changed meanwhile: these files belong to an old revision
-		_ = os.RemoveAll(dir)
-		return nil
-	}
-	s.removeOtherRevisions(ctx, l.ID, l.Revision)
-	return nil
-}
-
 // ProcessAnnotate asks the AI provider once for the whole lesson and stores the cleaned
-// annotations with the questions, grammar note and writing prompt (F15).
+// annotations with the questions, grammar note and writing prompt (F15). Topic words found in
+// the lesson are sent along, and the ones the AI skipped are added from the dictionary (F18).
 func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	l, ok, err := s.current(ctx, j)
 	if !ok {
 		return err
 	}
-	res, err := s.AI.Annotate(ctx, sentenceTexts(l.Sentences), string(l.Level))
+	focus, err := s.topicFocus(ctx, l)
+	if err != nil {
+		return err
+	}
+	res, err := s.AI.Annotate(ctx, ai.AnnotateRequest{Sentences: sentenceTexts(l.Sentences), Level: string(l.Level), FocusWords: focus})
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) {
 			return job.Permanent(err)
@@ -389,15 +342,28 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	if err != nil {
 		return err
 	}
+	if anns, err = addMissedFocus(ctx, anns, focus, sentenceTexts(l.Sentences), s.Dict); err != nil {
+		return err
+	}
 	extras := CleanExtras(res, l.Content)
-	if _, err := s.Lessons.SaveAnnotations(ctx, l.ID, l.Revision, anns, extras); err != nil {
+	saved, err := s.Lessons.SaveAnnotations(ctx, l.ID, l.Revision, anns, extras)
+	if err != nil {
 		return fmt.Errorf("lesson: save annotations: %w", err)
 	}
-	return nil
+	if !saved {
+		return nil
+	}
+	// SaveAnnotations dropped the practice of the old annotations; write a new one (F17).
+	return s.enqueue(ctx, l.ID, l.Revision, job.TypePractice)
 }
 
 // JobFailed records a job that gave up on the lesson, with a short Vietnamese reason.
 func (s *Service) JobFailed(ctx context.Context, j job.Job, err error) {
+	if j.Type != job.TypeAnnotate && j.Type != job.TypePractice {
+		// Jobs of removed kinds (audio before Kokoro was dropped) have nothing to record.
+		s.Log.WarnContext(ctx, "job of an unknown kind failed", slog.String("type", string(j.Type)), slog.Any("error", err))
+		return
+	}
 	if _, serr := s.Lessons.SetStatus(ctx, j.LessonID, j.Revision, j.Type, StatusFailed, failureMessage(j.Type, err)); serr != nil &&
 		!errors.Is(serr, ErrNotFound) {
 		s.Log.ErrorContext(ctx, "record job failure", slog.String("lesson_id", j.LessonID), slog.Any("error", serr))
@@ -414,8 +380,12 @@ func failureMessage(t job.Type, err error) string {
 		return "AI hết hạn mức, thử lại sau"
 	case errors.Is(err, ErrNoValidAnnotations):
 		return "AI không trả về chú thích hợp lệ"
-	case t == job.TypeTTS:
-		return "Không tạo được audio"
+	case errors.Is(err, ErrNoValidPractice):
+		return "AI không trả về phần luyện tập hợp lệ"
+	case errors.Is(err, ErrAnnotationNotDone):
+		return "Bài chưa có chú thích"
+	case t == job.TypePractice:
+		return "Không tạo được phần luyện tập"
 	default:
 		return "Không chú thích được bài"
 	}
@@ -452,52 +422,6 @@ func (s *Service) enqueue(ctx context.Context, id string, revision int, types ..
 	return nil
 }
 
-func (s *Service) lessonDir(id string) string { return filepath.Join(s.AudioDir, id) }
-
-func (s *Service) revisionDir(id string, revision int) string {
-	return filepath.Join(s.AudioDir, id, strconv.Itoa(revision))
-}
-
-func (s *Service) removeOtherRevisions(ctx context.Context, id string, keep int) {
-	entries, err := os.ReadDir(s.lessonDir(id))
-	if err != nil {
-		return
-	}
-	for _, e := range entries {
-		if e.IsDir() && e.Name() != strconv.Itoa(keep) {
-			if err := os.RemoveAll(filepath.Join(s.lessonDir(id), e.Name())); err != nil {
-				s.Log.WarnContext(ctx, "remove old audio failed", slog.String("lesson_id", id), slog.Any("error", err))
-			}
-		}
-	}
-}
-
-// AudioURL is the URL the backend serves a sentence's mp3 at.
-func AudioURL(id string, revision, index int) string {
-	return fmt.Sprintf("/api/audio/%s/%d/%d", id, revision, index)
-}
-
-func writeFileAtomic(dir, file string, data []byte) error {
-	tmp, err := os.CreateTemp(dir, "*.tmp")
-	if err != nil {
-		return fmt.Errorf("lesson: temp audio file: %w", err)
-	}
-	if _, err := tmp.Write(data); err != nil {
-		_ = tmp.Close()
-		_ = os.Remove(tmp.Name())
-		return fmt.Errorf("lesson: write audio: %w", err)
-	}
-	if err := tmp.Close(); err != nil {
-		_ = os.Remove(tmp.Name())
-		return fmt.Errorf("lesson: close audio: %w", err)
-	}
-	if err := os.Rename(tmp.Name(), file); err != nil {
-		_ = os.Remove(tmp.Name())
-		return fmt.Errorf("lesson: rename audio: %w", err)
-	}
-	return nil
-}
-
 func toSentences(texts []string) []Sentence {
 	out := make([]Sentence, len(texts))
 	for i, t := range texts {
@@ -512,4 +436,17 @@ func sentenceTexts(ss []Sentence) []string {
 		out[i] = s.Text
 	}
 	return out
+}
+
+// topicFocus returns the words of the lesson's topic found in its content (F18); none when the
+// topic no longer exists.
+func (s *Service) topicFocus(ctx context.Context, l Lesson) ([]string, error) {
+	t, err := s.Topics.Get(ctx, l.TopicID)
+	if errors.Is(err, ErrTopicNotFound) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, fmt.Errorf("lesson: topic: %w", err)
+	}
+	return focusWords(l.Content, t.Words), nil
 }

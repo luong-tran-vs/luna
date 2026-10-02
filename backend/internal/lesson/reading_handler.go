@@ -36,6 +36,7 @@ func (h *ReadingHandler) Register(mux *http.ServeMux, requireAuth, guard httpx.M
 	mux.Handle("GET /api/lessons/{id}/vocabulary", route(h.vocabulary))
 	mux.Handle("POST /api/lessons/{id}/answers", route(h.answer))
 	mux.Handle("POST /api/lessons/{id}/ask", route(h.ask))
+	mux.Handle("GET /api/lessons/{id}/practice", route(h.practice))
 }
 
 type readingJSON struct {
@@ -84,10 +85,7 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 		Phrases: make([]phraseJSON, len(v.Phrases)),
 	}
 	for i, s := range v.Sentences {
-		out.Sentences[i] = sentenceJSON{Index: s.Index, Text: s.Text}
-		if s.AudioPath != "" {
-			out.Sentences[i].AudioURL = &s.AudioPath
-		}
+		out.Sentences[i] = sentenceJSON(s)
 	}
 	for i, p := range v.Phrases {
 		out.Phrases[i] = phraseJSON(p)

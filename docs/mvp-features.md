@@ -38,7 +38,7 @@ Bài học ┤
 2. **AI là phần bổ sung, không phải điều kiện để app chạy.** Khi AI lỗi, chậm hoặc hết lượt miễn phí, các tính năng Đọc, Nghe và Ôn từ vẫn hoạt động bình thường.
 3. **Nhà cung cấp AI thay được.** Mọi lời gọi AI đi qua một lớp trung gian chung, nên đổi từ Gemini sang Ollama hay dịch vụ khác chỉ cần sửa cấu hình.
 4. **Nội dung ghi rõ nguồn và giấy phép.** Ưu tiên nguồn cho phép tái sử dụng để sau này mở cho người khác không vướng bản quyền.
-5. **Máy không có GPU.** Tác vụ AI nặng chạy nền (bất đồng bộ) và lưu kết quả lại. Audio được sinh sẵn một lần rồi dùng lại.
+5. **Máy không có GPU.** Tác vụ AI nặng chạy nền (bất đồng bộ) và lưu kết quả lại. Phần nghe trên giao diện dùng giọng đọc của trình duyệt (Web Speech API), không chờ audio sinh sẵn.
 
 ## 4. Một ngày học
 
@@ -46,7 +46,7 @@ Bài học ┤
 
 ### 4.1. Màn hình chính
 
-Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so với mục tiêu, bài của hôm nay, và đang ở bước nào trong bài.
+Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so với mục tiêu, bài đang học, và đang ở bước nào trong bài.
 
 ```
 ┌────────────────────────────────┐
@@ -55,10 +55,10 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 │ Mục tiêu: A1 · Gia đình        │
 │ ████████░░░░░░░░░   12/30 bài  │   ← thanh mục tiêu
 │                                │
-│ Hôm nay: Bài 13, At the café   │
-│  ✔─────✔─────●─────○─────○     │
-│  Ôn   Đọc   Nghe  Nói   Viết   │
-│ ██████░░░░░░░░░░░   2/5 bước   │   ← thanh tiến trình bài học
+│ Đang học: Bài 13, At the café  │
+│  ✔─────●─────○─────○           │
+│  Đọc  Nghe  Viết  Nói          │
+│ ██████░░░░░░░░░░░   1/4 bước   │   ← thanh tiến trình bài học
 │                                │
 │     [ Tiếp tục: Nghe ▶ ]       │
 └────────────────────────────────┘
@@ -70,40 +70,35 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 - Người học tự chọn **trình độ** (A1–C2), rồi chọn **một chủ đề** của trình độ đó. Mỗi cặp trình độ và chủ đề là một **lộ trình** riêng, thứ tự bài do quản trị viên xếp (F14).
 - Mục tiêu là hoàn thành lộ trình đã chọn. Thanh mục tiêu ghi tên lộ trình (ví dụ "A1 · Gia đình") và số bài đã hoàn thành trên tổng số bài của lộ trình.
 - Chỉ học bài thuộc trình độ đang chọn, không xen kẽ các trình độ.
-- Đổi chủ đề hoặc trình độ: có hiệu lực ngay nếu bài hôm nay chưa bắt đầu, nếu đã bắt đầu thì từ ngày hôm sau. Tiến độ của từng lộ trình được lưu riêng, quay lại thì học tiếp bài đang dở. Streak không bị ảnh hưởng.
+- Đổi chủ đề hoặc trình độ: có hiệu lực ngay (cập nhật 2026-10-02). Tiến độ của từng lộ trình được lưu riêng, quay lại thì học tiếp bài đang dở. Streak không bị ảnh hưởng.
 - Bên dưới là **4 thanh nhỏ theo kỹ năng** Nghe, Nói, Đọc, Viết. Mỗi thanh đếm số bài đã hoàn thành bước của kỹ năng đó, để người học thấy kỹ năng nào đang bị bỏ lại. Thanh Nói và Viết chỉ hiện khi giai đoạn tương ứng đã làm xong.
 - Đi hết lộ trình thì app chúc mừng và mời chọn chủ đề khác cùng trình độ, hoặc lên trình độ tiếp theo.
 
-**R2. Mỗi ngày một bài**
-- Bài của hôm nay là bài **tiếp theo chưa hoàn thành** trong lộ trình.
-- Học xong bài hôm nay thì bài kế tiếp chỉ mở vào ngày hôm sau. Trong lúc chờ, người học vẫn xem lại được bài cũ và ôn từ.
-- Trang **Bài học** liệt kê bài hôm nay, các bài đã học (mở lại tự do) và các bài sắp tới (khoá, chỉ hiện tên).
-- Nghỉ một ngày thì bài **không bị dồn**: hôm sau vẫn chỉ học một bài, là bài kế tiếp. Chỉ có chuỗi ngày học (streak) bị reset.
-- Một ngày được tính theo múi giờ của người học, sang ngày mới lúc 0h.
+**R2. Học lần lượt từng bài** (cập nhật 2026-10-02, thay cho "mỗi ngày một bài")
+- Bài đang học là bài **tiếp theo chưa hoàn thành** trong lộ trình. Không giới hạn số bài mỗi ngày: học xong bài 1 thì bài 2 mở ngay.
+- Không có trang "Hôm nay" riêng: người học học ngay trong trang chi tiết của bài (F17).
+- Trang **Bài học** liệt kê các bài đã học (mở lại tự do), bài đang học và các bài sắp tới (khoá, chỉ hiện tên). Bài nào có trong lộ trình thì hiện bài đó, không có ô "bài hôm nay" trống.
+- Streak đếm số ngày liên tiếp có hoàn thành ít nhất một bài. Một ngày được tính theo múi giờ của người học, sang ngày mới lúc 0h.
 
-**R3. Ôn flashcard trước khi vào bài mới**
-- Bước đầu tiên của mỗi bài là **Ôn**: ôn các thẻ từ vựng đã đến hạn theo lịch FSRS (xem F5).
-- Phải ôn xong phần thẻ này thì bước Đọc mới mở.
-- Mỗi ngày ôn tối đa **30 thẻ** (chỉnh được), để nghỉ vài ngày quay lại không bị dồn hàng trăm thẻ. Thẻ vượt giới hạn được chuyển sang hôm sau.
-- Nếu không có thẻ nào đến hạn (ví dụ ngày học đầu tiên), bước Ôn tự đánh dấu hoàn thành.
-- Vòng lặp này nối các bài học với nhau: từ lưu trong bài hôm nay sẽ xuất hiện ở bước Ôn của những ngày sau.
+**R3. Ôn flashcard** (cập nhật 2026-10-02)
+- Ôn thẻ đến hạn theo lịch FSRS (xem F5) không còn là bước của bài. Người học ôn ở mục **Từ vựng › Ôn tập** bất cứ lúc nào; trang chủ nhắc số thẻ đến hạn.
+- Vòng lặp vẫn nối các bài học với nhau: từ lưu trong bài sẽ đến hạn ôn ở những ngày sau.
 
 **R4. Thanh tiến trình bài học**
 - Bài học gồm các bước làm theo thứ tự; bước sau chỉ mở khi bước trước xong.
 
 | Bước | Hoàn thành khi | Có từ |
 |---|---|---|
-| Ôn | Ôn hết thẻ đến hạn trong giới hạn ngày | Giai đoạn 1 |
 | Đọc | Đọc hết bài và bấm "Đã đọc xong" | Giai đoạn 1 |
 | Nghe | Chép chính tả hết các câu. Câu sai vẫn tính là xong; tỷ lệ đúng được ghi vào thống kê | Giai đoạn 1 |
 | Viết | Nộp bài viết, không cần chờ AI chấm xong | Giai đoạn 2 |
 | Nói | Shadowing hết các câu | Giai đoạn 3 |
 
-- Ở giai đoạn 1, thanh tiến trình chỉ có **Ôn → Đọc → Nghe**. Bước Viết và Nói được thêm vào khi làm xong giai đoạn tương ứng.
+- Ở giai đoạn 1, thanh tiến trình chỉ có **Đọc → Nghe** (bước Ôn bỏ từ 2026-10-02). Bước Viết và Nói được thêm vào khi làm xong giai đoạn tương ứng.
 - Tiến độ được lưu liên tục. Thoát giữa chừng rồi quay lại thì tiếp tục đúng bước và đúng câu đang làm.
 
-**R5. Hoàn thành bài hôm nay**
-- Xong bước cuối thì thanh mục tiêu tăng thêm 1 bài và chuỗi ngày học (streak) tăng thêm 1.
+**R5. Hoàn thành bài**
+- Xong bước cuối thì thanh mục tiêu tăng thêm 1 bài, ngày hôm đó được tính vào chuỗi ngày học (streak) và bài kế tiếp mở ngay; trang bài có nút **Sang bài tiếp theo**.
 
 **R6. Hết bài trong lộ trình**
 - Nếu lộ trình đang học chưa có bài tiếp theo: app báo cho quản trị viên để thêm bài (F2, F14). Trong lúc chờ, người học vẫn ôn được hoặc chọn chủ đề khác.
@@ -122,11 +117,11 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Trang riêng dành cho quản trị viên để thêm, sửa, xoá và xem trước bài học. Trang này cũng phải dùng được trên điện thoại.
 - Thêm bài bằng cách dán văn bản vào. Thông tin gồm tiêu đề, trình độ CEFR (A1–C2), chủ đề, nguồn và giấy phép.
 - Tự động tách bài thành từng câu.
-- Sinh audio cho từng câu bằng TTS chạy trên máy, lưu lại và dùng lại cho các lần sau.
+- Không sinh audio: các câu được đọc bằng giọng đọc của trình duyệt (bỏ Kokoro từ 2026-10-02).
 - **Chú thích bài bằng AI:** khi tạo bài, gửi **một request** tới LLM để lấy các từ và cụm từ đáng học (ví dụ *give up*), kèm dạng gốc (*went → go*) và nghĩa tiếng Việt **theo đúng ngữ cảnh** trong bài. Kết quả được lưu vào cơ sở dữ liệu, sau đó không gọi lại nữa.
   - Chú thích chạy nền. Nếu AI lỗi hoặc hết lượt miễn phí, bài vẫn được tạo, và quản trị viên có thể bấm "Chú thích lại" sau.
   - Quản trị viên xem và sửa được phần chú thích trước khi bài được đưa vào lộ trình.
-- Mỗi bài hiển thị trạng thái của audio và của phần chú thích (đang chạy, xong, lỗi), kèm nút chạy lại.
+- Mỗi bài hiển thị trạng thái của phần chú thích (đang chạy, xong, lỗi), kèm nút chạy lại.
   - Với khoảng 1 bài mỗi ngày, mỗi ngày chỉ tốn khoảng 1–3 request. Mức này thấp hơn nhiều so với hạn mức miễn phí (thấp nhất khoảng 20 request/ngày).
 - Danh sách bài học lọc được theo trình độ, chủ đề và trạng thái (chưa học, đang học, đã xong).
 - **Lộ trình:** quản trị viên xếp các bài vào một danh sách có thứ tự (kéo thả để đổi thứ tự) để app lấy ra làm bài của mỗi ngày (xem R1, R2).
@@ -144,21 +139,21 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Từ đã có trong sổ được tô màu khi gặp lại trong bất kỳ bài nào.
 
 **F4. Nghe**
-- Phát theo từng câu, có các nút câu trước, câu sau và lặp lại câu.
+- Phát theo từng câu, có các nút câu trước, câu sau và lặp lại câu; câu do giọng đọc của trình duyệt đọc, kèm dạng sóng minh hoạ.
 - Chỉnh tốc độ phát (0.5x đến 1.25x), ẩn hoặc hiện transcript.
 - **Chép chính tả:** nghe một câu, gõ lại, rồi được so sánh từng từ để thấy chỗ sai và chỗ thiếu.
 
 **F5. Sổ từ vựng và ôn tập**
-- Mỗi thẻ gồm từ, phiên âm, nghĩa, câu ví dụ lấy từ bài học và audio.
+- Mỗi thẻ gồm từ, phiên âm, nghĩa, câu ví dụ lấy từ bài học; nghe được bằng giọng đọc của trình duyệt.
 - Người học sửa, xoá hoặc tự thêm thẻ được. Nghĩa do AI hay từ điển đưa ra có thể sai, nên việc sửa tay là cần thiết.
 - Lịch ôn dùng thuật toán **FSRS** (mã nguồn mở, chính xác hơn SM-2).
 - Có hai kiểu ôn: **nhìn từ đoán nghĩa**, và **nghe rồi gõ lại từ**. Sau mỗi thẻ, người học tự đánh giá mức Again, Hard, Good hoặc Easy.
-- Bước Ôn ở đầu mỗi bài học dùng chính sổ từ này (R3). Ngoài ra, người học có thể vào ôn thêm bất cứ lúc nào.
+- Người học ôn sổ từ này ở mục Từ vựng › Ôn tập bất cứ lúc nào (R3).
 - Sổ từ nhóm theo ngày lưu và lọc theo bài học.
 - **Từ vựng của bài:** bước Đọc có mục liệt kê các từ đã được AI chú thích, lưu từng từ hoặc "Lưu tất cả".
 
 **F6. Màn hình chính và tiến độ**
-- Màn hình chính hiển thị thanh mục tiêu, bài hôm nay kèm thanh tiến trình, streak và nút "Tiếp tục" (mục 4.1).
+- Màn hình chính hiển thị thanh mục tiêu, bài đang học kèm thanh tiến trình, streak và nút "Tiếp tục" (mục 4.1).
 - Thống kê: số từ đã học, số câu đã chép chính tả và tỷ lệ đúng, số bài hoàn thành theo từng kỹ năng.
 
 **F12. Cài đặt**
@@ -177,7 +172,7 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 ### Giai đoạn 2: AI chữ
 
 **F7. AI sinh bài học**
-- Nút trong trang lộ trình của một chủ đề (F14): trình độ và chủ đề lấy sẵn. Chọn số bài (1–5), độ dài, dạng bài (bài đọc hoặc hội thoại); AI tránh lặp nội dung đã có.
+- Nút trong trang lộ trình của một chủ đề (F14): trình độ và chủ đề lấy sẵn. Chọn số bài (1–10), độ dài, dạng bài (bài đọc hoặc hội thoại); AI tránh lặp nội dung đã có.
 - Quản trị viên duyệt từng bản nháp rồi lưu; bài có nguồn "AI sinh" và được thêm vào cuối lộ trình.
 
 **F15. Câu hỏi hiểu bài và ghi chú ngữ pháp**
@@ -185,7 +180,8 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Bước Đọc hoàn thành khi trả lời hết câu hỏi; bài chưa có câu hỏi thì dùng nút "Đã đọc xong".
 
 **F8. Viết**
-- Bước Viết bắt buộc sau bước Nghe; đề viết do AI sinh cùng lúc chú thích (F15), quản trị viên sửa được.
+- Bước Viết sau bước Nghe, **tuỳ chọn** (cập nhật 2026-10-02): viết và nộp thì được AI chấm; bấm **Bỏ qua** thì bài vẫn hoàn thành. Đề viết do AI sinh cùng lúc chú thích (F15), quản trị viên sửa được.
+- Trong trang bài có nút **← Bước trước** để xem lại các bước đã xong (Đọc, Nghe), rồi quay về bước đang làm.
 - AI nhận xét theo 4 tiêu chí: hoàn thành yêu cầu, ngữ pháp, từ vựng, mạch lạc. Kèm bản đã sửa và phần so sánh với bản gốc.
 - Việc chấm chạy nền; người học có thể đi làm việc khác và quay lại xem khi có kết quả.
 
@@ -204,7 +200,7 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - So với câu gốc và tô màu từ đọc đúng, đọc sai và bị bỏ sót.
 
 **F11. Hội thoại nhập vai** *(không bắt buộc)*
-- Trò chuyện với AI theo tình huống của bài (tối đa 10 lượt), trả lời bằng giọng nói hoặc gõ chữ; AI có audio; cuối phiên tóm tắt lỗi.
+- Trò chuyện với AI theo tình huống của bài (tối đa 10 lượt), trả lời bằng giọng nói hoặc gõ chữ; câu của AI được đọc bằng giọng đọc của trình duyệt; cuối phiên tóm tắt lỗi.
 
 ## 6. Ngoài phạm vi MVP
 
@@ -221,8 +217,8 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 |---|---|
 | Frontend | Angular, responsive, có chế độ sáng và tối. Màu và font theo [design-system.md](design-system.md): bảng màu Oải hương, font Lexend, IPA dùng Noto Sans |
 | Backend | Go (REST API) |
-| Cơ sở dữ liệu | **MongoDB**: bản Community tự chạy trong Docker, hoặc MongoDB Atlas gói M0 miễn phí (giới hạn 512MB). Có thể đổi sang cơ sở dữ liệu khác sau này, nên backend chỉ truy cập dữ liệu qua một lớp repository. File audio lưu trên ổ đĩa, không lưu trong cơ sở dữ liệu |
-| Đọc thành giọng nói (TTS) | Piper hoặc Kokoro chạy trên CPU, sinh sẵn và lưu file |
+| Cơ sở dữ liệu | **MongoDB**: bản Community tự chạy trong Docker, hoặc MongoDB Atlas gói M0 miễn phí (giới hạn 512MB). Có thể đổi sang cơ sở dữ liệu khác sau này, nên backend chỉ truy cập dữ liệu qua một lớp repository |
+| Đọc thành giọng nói (TTS) | Giọng đọc của trình duyệt (Web Speech API) cho mọi chỗ nghe; không có dịch vụ TTS ở backend (bỏ Kokoro từ 2026-10-02) |
 | Giọng nói thành chữ (STT) | whisper.cpp ở chế độ server trên CPU, model **`small.en`** (khoảng 1GB RAM; máy có 16GB). Dự phòng `base.en` nếu chậm |
 | Mô hình ngôn ngữ (LLM) | Chính: gói miễn phí của Gemini (ưu tiên model Flash-Lite vì hạn mức cao hơn). Dự phòng: Groq, OpenRouter hoặc Ollama chạy trên máy |
 | Từ điển Anh–Việt | [minhqnd/dictionary](https://github.com/minhqnd/dictionary): file SQLite chạy offline, khoảng 357 nghìn mục từ, có IPA và ví dụ. Giấy phép dữ liệu CC BY-SA 4.0, phải ghi nguồn khi mở cho người khác |

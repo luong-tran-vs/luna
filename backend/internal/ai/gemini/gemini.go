@@ -132,6 +132,59 @@ var explainSchema = map[string]any{
 	"required": []string{"lemma", "meaningVi", "noteVi"},
 }
 
+// practiceSchema forces every part of the vocabulary practice (F17); the lesson service drops
+// the parts that fail its checks.
+var practiceSchema = map[string]any{
+	"type": "OBJECT",
+	"properties": map[string]any{
+		"objectiveVi": map[string]any{"type": "STRING"},
+		"examples": map[string]any{
+			"type": "ARRAY",
+			"items": map[string]any{
+				"type": "OBJECT",
+				"properties": map[string]any{
+					"lemma":    map[string]any{"type": "STRING"},
+					"sentence": map[string]any{"type": "STRING"},
+				},
+				"required": []string{"lemma", "sentence"},
+			},
+		},
+		"dialogue": map[string]any{
+			"type": "OBJECT",
+			"properties": map[string]any{
+				"speakers": stringArray,
+				"turns": map[string]any{
+					"type": "ARRAY",
+					"items": map[string]any{
+						"type": "OBJECT",
+						"properties": map[string]any{
+							"speaker":   map[string]any{"type": "INTEGER"},
+							"text":      map[string]any{"type": "STRING"},
+							"meaningVi": map[string]any{"type": "STRING"},
+						},
+						"required": []string{"speaker", "text", "meaningVi"},
+					},
+				},
+			},
+			"required": []string{"speakers", "turns"},
+		},
+		"grammarTipVi": map[string]any{"type": "STRING"},
+		"translations": map[string]any{
+			"type": "ARRAY",
+			"items": map[string]any{
+				"type": "OBJECT",
+				"properties": map[string]any{
+					"vi":          map[string]any{"type": "STRING"},
+					"en":          map[string]any{"type": "STRING"},
+					"distractors": stringArray,
+				},
+				"required": []string{"vi", "en", "distractors"},
+			},
+		},
+	},
+	"required": []string{"objectiveVi", "examples", "dialogue", "grammarTipVi", "translations"},
+}
+
 type part struct {
 	Text string `json:"text"`
 }
@@ -154,9 +207,9 @@ type response struct {
 
 // Annotate sends one generateContent request for the whole lesson: annotations, questions,
 // grammar note and writing prompt.
-func (c *Client) Annotate(ctx context.Context, sentences []string, level string) (ai.LessonExtras, error) {
-	text, err := c.generate(ctx, "annotate", annotatePrompt(sentences, level), annotateSchema, 0.2,
-		slog.Int("sentences", len(sentences)))
+func (c *Client) Annotate(ctx context.Context, req ai.AnnotateRequest) (ai.LessonExtras, error) {
+	text, err := c.generate(ctx, "annotate", annotatePrompt(req), annotateSchema, 0.2,
+		slog.Int("sentences", len(req.Sentences)), slog.Int("focus_words", len(req.FocusWords)))
 	if err != nil {
 		return ai.LessonExtras{}, err
 	}
@@ -208,6 +261,21 @@ func (c *Client) Explain(ctx context.Context, req ai.ExplainRequest) (ai.Explana
 	var out ai.Explanation
 	if err := json.Unmarshal([]byte(text), &out); err != nil {
 		return ai.Explanation{}, fmt.Errorf("gemini: decode explanation: %w", err)
+	}
+	return out, nil
+}
+
+// Practice sends one generateContent request for the vocabulary practice of a lesson. Only
+// counts are logged, never the lesson text.
+func (c *Client) Practice(ctx context.Context, req ai.PracticeRequest) (ai.Practice, error) {
+	text, err := c.generate(ctx, "practice", practicePrompt(req), practiceSchema, 0.5,
+		slog.Int("words", len(req.Words)), slog.Int("sentences", len(req.Sentences)))
+	if err != nil {
+		return ai.Practice{}, err
+	}
+	var out ai.Practice
+	if err := json.Unmarshal([]byte(text), &out); err != nil {
+		return ai.Practice{}, fmt.Errorf("gemini: decode practice: %w", err)
 	}
 	return out, nil
 }
@@ -294,7 +362,7 @@ func (c *Client) logRequest(ctx context.Context, op string, start time.Time, sta
 	c.log.LogAttrs(ctx, slog.LevelInfo, "ai request", append(attrs, extra...)...)
 }
 
-func annotatePrompt(sentences []string, level string) string {
+func annotatePrompt(req ai.AnnotateRequest) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, `You help Vietnamese learners of English at CEFR level %[1]s.
 Read the numbered lesson sentences below and return a JSON object with:
@@ -319,9 +387,13 @@ correct option, and explanationVi: a short Vietnamese explanation pointing to th
 
 4. writingPrompt: one short English writing task related to the lesson, suitable for CEFR %[1]s.
 
-Sentences:
-`, level)
-	for i, s := range sentences {
+`, req.Level)
+	if len(req.FocusWords) > 0 {
+		fmt.Fprintf(&b, "Always include each of these topic words or phrases as annotations, with text copied exactly "+
+			"as it appears in the sentence; they count toward the 25 items: %s\n\n", strings.Join(req.FocusWords, ", "))
+	}
+	b.WriteString("Sentences:\n")
+	for i, s := range req.Sentences {
 		fmt.Fprintf(&b, "%d: %s\n", i, s)
 	}
 	return b.String()
@@ -350,6 +422,12 @@ no stage directions.
 	}
 	if req.Idea != "" {
 		fmt.Fprintf(&b, "Use this idea as inspiration: %s\n", req.Idea)
+	}
+	for i, words := range req.TargetWords {
+		if len(words) > 0 {
+			fmt.Fprintf(&b, "Lesson %d must use every one of these words or phrases "+
+				"(any natural form, e.g. plural or past tense): %s\n", i+1, strings.Join(words, ", "))
+		}
 	}
 	if len(req.ExistingTitles) > 0 {
 		b.WriteString("The topic already has these lessons; do not repeat their titles or stories:\n")
@@ -397,4 +475,80 @@ Plain text only, no markdown.
 
 Sentence: %s
 `, req.Level, req.Text, req.Sentence)
+}
+
+func practicePrompt(req ai.PracticeRequest) string {
+	var b strings.Builder
+	fmt.Fprintf(&b, `You write vocabulary practice for Vietnamese learners of English at CEFR level %[1]s.
+The lesson "%[2]s" and its vocabulary list are below. Everything must use simple English suitable for CEFR %[1]s.
+Return a JSON object with:
+
+1. objectiveVi: one Vietnamese sentence starting with "Bạn có thể" that says what the learner can do after this lesson.
+
+2. examples: for each vocabulary item, one short English sentence (at most 12 words) that contains the item
+exactly as written in its "text" or "lemma" column. Return the item's lemma with each sentence.
+
+3. dialogue: a natural conversation between two people.
+- speakers: exactly two first names, one Vietnamese and one English (e.g. "Minh", "Anna"),
+- turns: 6 to 10 turns that alternate between the speakers; speaker is 0 or 1 (index in speakers),
+  text is the English line, meaningVi its Vietnamese translation.
+Use as many vocabulary items as possible, each written exactly as in the list.
+
+4. grammarTipVi: one or two Vietnamese sentences about one useful way of saying something in the dialogue.
+
+5. translations: 3 to 5 short, simple Vietnamese sentences (vi), each with one correct English translation (en)
+that uses at least one vocabulary item, and 3 or 4 distractors: single English words that are not in en
+but could tempt the learner.
+
+Plain text only, no markdown.
+
+Lesson sentences:
+`, req.Level, req.Title)
+	for i, s := range req.Sentences {
+		fmt.Fprintf(&b, "%d: %s\n", i, s)
+	}
+	b.WriteString("\nVocabulary (lemma | text | Vietnamese meaning):\n")
+	for _, w := range req.Words {
+		fmt.Fprintf(&b, "- %s | %s | %s\n", w.Lemma, w.Text, w.MeaningVi)
+	}
+	return b.String()
+}
+
+// suggestWordsSchema is a plain list of words (F18).
+var suggestWordsSchema = map[string]any{
+	"type":       "OBJECT",
+	"properties": map[string]any{"words": stringArray},
+	"required":   []string{"words"},
+}
+
+// SuggestWords sends one generateContent request for new core words of a topic. The topic
+// service checks and deduplicates the answer.
+func (c *Client) SuggestWords(ctx context.Context, req ai.SuggestWordsRequest) ([]string, error) {
+	text, err := c.generate(ctx, "suggest_words", suggestWordsPrompt(req), suggestWordsSchema, 0.4,
+		slog.Int("count", req.Count), slog.Int("existing", len(req.Existing)))
+	if err != nil {
+		return nil, err
+	}
+	var out struct {
+		Words []string `json:"words"`
+	}
+	if err := json.Unmarshal([]byte(text), &out); err != nil {
+		return nil, fmt.Errorf("gemini: decode words: %w", err)
+	}
+	return out.Words, nil
+}
+
+func suggestWordsPrompt(req ai.SuggestWordsRequest) string {
+	existing := "(none)"
+	if len(req.Existing) > 0 {
+		existing = strings.Join(req.Existing, ", ")
+	}
+	return fmt.Sprintf(`You build vocabulary lists for Vietnamese learners of English at CEFR level %s.
+Topic: %s
+List %d new, common English words or short phrases that belong to this topic and suit this level.
+Rules:
+- Not in this list (ignoring case): %s
+- Dictionary form, lower case except proper nouns, English letters, spaces, hyphens or apostrophes only.
+- At most 3 words per phrase; no duplicates; no translations or explanations.
+`, req.Level, req.TopicName, req.Count, existing)
 }

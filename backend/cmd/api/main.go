@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"slices"
 	"syscall"
 	"time"
 
@@ -27,7 +28,6 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/storage/mongo"
 	"github.com/luongtran/luna/backend/internal/topic"
-	"github.com/luongtran/luna/backend/internal/tts"
 	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/writing"
 )
@@ -37,8 +37,7 @@ const (
 	disconnectTimeout  = 5 * time.Second
 	healthPingTimeout  = 2 * time.Second
 	indexRetryInterval = 10 * time.Second
-	ttsTimeout         = 60 * time.Second
-	aiTimeout          = 90 * time.Second
+	aiTimeout          = 130 * time.Second
 )
 
 func main() {
@@ -93,28 +92,23 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	authHandler := auth.NewHandler(authSvc, cfg.CookieSecure, log)
 	requireAuth := httpx.RequireAuth(authHandler.ResolvePrincipal)
 
-	if err := os.MkdirAll(cfg.AudioDir, 0o750); err != nil {
-		return fmt.Errorf("audio dir: %w", err)
-	}
 	dict := openDictionary(ctx, cfg.DictionaryPath, log)
 	defer func() { _ = dict.Close() }()
 
 	lessons := mongo.NewLessons(database)
-	topicSvc := topic.NewService(mongo.NewTopics(database), topicLessons{lessons}, time.Now)
-	lessonTopics := lessonTopicsPort{topicSvc}
-	synth := tts.NewKokoro(cfg.TTSURL, cfg.TTSVoice, &http.Client{Timeout: ttsTimeout})
-	var worker *job.Worker
 	aiProvider := newAIProvider(cfg, log)
+	topicSvc := topic.NewService(mongo.NewTopics(database), topicLessons{lessons}, aiProvider, time.Now)
+	lessonTopics := lessonTopicsPort{topicSvc}
+	var worker *job.Worker
 	lessonSvc := lesson.NewService(lesson.Deps{
-		Lessons:  lessons,
-		Topics:   lessonTopics,
-		Jobs:     mongo.NewJobs(database),
-		TTS:      synth,
-		AI:       aiProvider,
-		AudioDir: cfg.AudioDir,
-		Notify:   func() { worker.Notify() },
-		Now:      time.Now,
-		Log:      log,
+		Lessons: lessons,
+		Topics:  lessonTopics,
+		Jobs:    mongo.NewJobs(database),
+		AI:      aiProvider,
+		Dict:    dict,
+		Notify:  func() { worker.Notify() },
+		Now:     time.Now,
+		Log:     log,
 	})
 	// The writing service needs the study service (Write step) and the other way round; the
 	// adapter gets the study service once it exists.
@@ -130,8 +124,8 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Log:     log,
 	})
 	worker = job.NewWorker(mongo.NewJobs(database), map[job.Type]job.Handler{
-		job.TypeTTS:      lessonSvc.ProcessTTS,
 		job.TypeAnnotate: lessonSvc.ProcessAnnotate,
+		job.TypePractice: lessonSvc.ProcessPractice,
 		job.TypeGrade:    writingSvc.ProcessGrade,
 	}, func(ctx context.Context, j job.Job, err error) {
 		// Grade jobs belong to a writing, the others to a lesson revision.
@@ -141,6 +135,8 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		}
 		lessonSvc.JobFailed(ctx, j, err)
 	}, time.Now, log)
+
+	queueMissingPractice(ctx, lessonSvc, aiProvider, log)
 
 	// The worker must stop before the database connection closes (deferred above).
 	workerDone := make(chan struct{})
@@ -160,10 +156,9 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	settings.NewHandler(settingsSvc, log).Register(mux, requireAuth)
 	exportSvc := export.NewService(mongo.NewExport(database), exportSettings{settingsSvc}, time.Now)
 	export.NewHandler(exportSvc, log).Register(mux, requireAuth)
-	lesson.NewHandler(lessonSvc, log).Register(mux, requireAuth, cfg.AudioDir)
+	lesson.NewHandler(lessonSvc, log).Register(mux, requireAuth)
 	reader := lesson.NewReader(lessons, dict, lessonTopics, mongo.NewReadingAnswers(database), mongo.NewAILookups(database), aiProvider)
 	topic.NewHandler(topicSvc, log).Register(mux, requireAuth)
-	tts.NewWordAudio(synth, cfg.AudioDir).Register(mux, requireAuth)
 	vocabSvc := vocab.NewService(vocab.Deps{
 		Repo: mongo.NewCards(database),
 		Logs: mongo.NewReviewLogs(database),
@@ -193,19 +188,11 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Timezones: settingsSvc,
 		Quiz:      readingQuiz{reader},
 		Writings:  writingSvc,
-		ReviewLimit: func(ctx context.Context, userID string) int {
-			n, err := settingsSvc.ReviewLimit(ctx, userID)
-			if err != nil {
-				log.WarnContext(ctx, "review limit unavailable, using the default", slog.Any("error", err))
-				return settings.DefaultReviewLimit
-			}
-			return n
-		},
-		Now: time.Now,
+		Now:       time.Now,
 	})
 	studyHandler := progress.NewStudyHandler(studySvc, log)
 	studyHandler.Register(mux, requireAuth)
-	// Lesson content is guarded: learners open only today's lesson and lessons already started (L).
+	// Lesson content is guarded: learners open only the lesson being studied and lessons already started (L).
 	lesson.NewReadingHandler(reader, log).Register(mux, requireAuth, studyHandler.Guard)
 	progress.NewHandler(progressSvc, log).Register(mux, requireAuth, studyHandler.Guard)
 	writeSteps.svc = studySvc
@@ -252,6 +239,21 @@ func newAIProvider(cfg config.Config, log *slog.Logger) ai.Provider {
 		return ai.Disabled{}
 	}
 	return gemini.New(cfg.GeminiAPIKey, cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, log)
+}
+
+// queueMissingPractice queues the practice of lessons annotated before F17. Without an AI
+// provider it waits: the jobs would only fail, and failed lessons are not queued again.
+func queueMissingPractice(ctx context.Context, svc *lesson.Service, p ai.Provider, log *slog.Logger) {
+	if _, off := p.(ai.Disabled); off {
+		return
+	}
+	n, err := svc.QueueMissingPractice(ctx)
+	if err != nil {
+		log.ErrorContext(ctx, "queue missing practice failed", slog.Any("error", err))
+	}
+	if n > 0 {
+		log.InfoContext(ctx, "queued practice for older lessons", slog.Int("count", n))
+	}
 }
 
 // closableDictionary is the dictionary used by the Reading step.
@@ -341,6 +343,10 @@ func (t topicLessons) TopicOf(ctx context.Context, ids []string) (map[string]str
 	return t.repo.TopicOf(ctx, ids)
 }
 
+func (t topicLessons) Texts(ctx context.Context, topicIDs []string) (map[string][]topic.LessonText, error) {
+	return t.repo.TopicTexts(ctx, topicIDs)
+}
+
 func (t topicLessons) SetLevelByTopic(ctx context.Context, topicID, level string) error {
 	return t.repo.SetLevelByTopic(ctx, topicID, level)
 }
@@ -354,7 +360,7 @@ func (t topicLessons) Refs(ctx context.Context, ids []string) ([]topic.LessonRef
 	for i, s := range sums {
 		out[i] = topic.LessonRef{
 			ID: s.ID, Title: s.Title, Level: string(s.Level), TopicID: s.TopicID,
-			AudioStatus: string(s.AudioStatus), AnnotationStatus: string(s.AnnotationStatus), CreatedAt: s.CreatedAt,
+			AnnotationStatus: string(s.AnnotationStatus), CreatedAt: s.CreatedAt,
 		}
 	}
 	return out, nil
@@ -366,7 +372,7 @@ type lessonTopicsPort struct {
 }
 
 func toTopicRef(t topic.Topic) lesson.TopicRef {
-	return lesson.TopicRef{ID: t.ID, Name: t.Name, Level: lesson.Level(t.Level)}
+	return lesson.TopicRef{ID: t.ID, Name: t.Name, Level: lesson.Level(t.Level), Words: t.Words}
 }
 
 func (p lessonTopicsPort) Get(ctx context.Context, id string) (lesson.TopicRef, error) {
@@ -408,6 +414,17 @@ func (p lessonTopicsPort) MoveLesson(ctx context.Context, lessonID, from, to str
 	return p.svc.MoveLesson(ctx, lessonID, from, to)
 }
 
+func (p lessonTopicsPort) Position(ctx context.Context, topicID, lessonID string) (int, error) {
+	t, err := p.svc.Get(ctx, topicID)
+	if errors.Is(err, topic.ErrNotFound) {
+		return 0, nil
+	}
+	if err != nil {
+		return 0, fmt.Errorf("get topic: %w", err)
+	}
+	return slices.Index(t.LessonIDs, lessonID) + 1, nil
+}
+
 // topicRoadmaps adapts topic.Service to progress.Roadmaps.
 type topicRoadmaps struct {
 	svc *topic.Service
@@ -435,10 +452,6 @@ func (d dailyReviews) DueCount(ctx context.Context, userID string) (int, error) 
 		return 0, fmt.Errorf("due cards: %w", err)
 	}
 	return list.Total, nil
-}
-
-func (d dailyReviews) ReviewedSince(ctx context.Context, userID string, since time.Time) (int, error) {
-	return d.svc.ReviewedSince(ctx, userID, vocab.ContextDaily, since)
 }
 
 func (d dailyReviews) DueBefore(ctx context.Context, userID string, before, createdBefore time.Time) (int, error) {

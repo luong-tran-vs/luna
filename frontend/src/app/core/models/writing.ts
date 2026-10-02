@@ -39,7 +39,7 @@ export interface Writing {
 export interface LessonWriting {
   prompt: string;
   level: Level;
-  /** Today's lesson at the Write step. */
+  /** The lesson being studied, at the Write step. */
   canWrite: boolean;
   writing: Writing | null;
 }

@@ -12,26 +12,25 @@
 </ng-template>
 
 <header class="header">
-  <a class="brand" routerLink="/">Luna</a>
+  <a class="brand" [routerLink]="home()">Luna</a>
+  @if (area(); as name) {
+    <span class="area">{{ name }}</span>
+  }
 
   @if (auth.currentUser(); as user) {
-    <nav class="account" aria-label="Tài khoản">
+    <nav class="account" [attr.aria-label]="area() ?? 'Tài khoản'">
       <span class="email" [title]="user.email">{{ user.email }}</span>
-      <a class="account-link" routerLink="/lessons">Bài học</a>
-      <a
-        class="account-link"
-        routerLink="/writings"
-        [attr.aria-label]="notifier.unseen() > 0 ? 'Bài viết, ' + notifier.unseen() + ' kết quả mới' : null"
-      >
-        Bài viết
-        @if (notifier.unseen() > 0) {
-          <span class="badge" aria-hidden="true">{{ notifier.unseen() }}</span>
-        }
-      </a>
-      <a class="account-link" routerLink="/vocabulary">Sổ từ</a>
-      <a class="account-link" routerLink="/settings">Cài đặt</a>
-      @if (auth.isAdmin()) {
-        <a class="account-link" routerLink="/admin">Quản trị</a>
+      @for (link of links(); track link.path) {
+        <a
+          class="account-link"
+          [routerLink]="link.path"
+          [attr.aria-label]="link.badge ? link.label + ', ' + link.badge + ' ' + (link.badgeLabel ?? 'mới') : null"
+        >
+          {{ link.label }}
+          @if (link.badge) {
+            <span class="badge" aria-hidden="true">{{ link.badge }}</span>
+          }
+        </a>
       }
     </nav>
   }

@@ -1,4 +1,4 @@
-// Package lesson manages lessons, their sentences, audio and AI annotations. Topics and their
+// Package lesson manages lessons, their sentences and AI annotations. Topics and their
 // roadmaps live in package topic, reached through the Topics port.
 package lesson
 
@@ -20,20 +20,21 @@ var Levels = []Level{"A1", "A2", "B1", "B2", "C1", "C2"}
 // ValidLevel reports whether s is one of Levels.
 func ValidLevel(s string) bool { return slices.Contains(Levels, Level(s)) }
 
-// Status is the state of a lesson's audio or annotation work.
+// Status is the state of a lesson's annotation or practice work.
 type Status string
 
 const (
+	// StatusNone means the work has never been queued (only used for practice).
+	StatusNone    Status = ""
 	StatusRunning Status = "running"
 	StatusDone    Status = "done"
 	StatusFailed  Status = "failed"
 )
 
-// Sentence is one sentence of a lesson. AudioPath is the URL of its mp3, empty until ready.
+// Sentence is one sentence of a lesson.
 type Sentence struct {
-	Index     int
-	Text      string
-	AudioPath string
+	Index int
+	Text  string
 }
 
 // Annotation explains a word or phrase of a lesson in context.
@@ -57,8 +58,6 @@ type Lesson struct {
 	License          string
 	Revision         int
 	Sentences        []Sentence
-	AudioStatus      Status
-	AudioError       string
 	AnnotationStatus Status
 	AnnotationError  string
 	Annotations      []Annotation
@@ -67,16 +66,24 @@ type Lesson struct {
 	ExtrasEditedByAdmin bool
 	// QuizVersion is bumped whenever the question set is replaced; answers belong to one version.
 	QuizVersion int
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	// Practice is the vocabulary practice (F17), nil until generated.
+	Practice       *Practice
+	PracticeStatus Status
+	PracticeError  string
+	// PracticeVersion is bumped each time a practice is saved, so an old practice job cannot overwrite a newer one.
+	PracticeVersion int
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
 }
 
 // StatusOf returns the status of the given kind of background work.
 func (l Lesson) StatusOf(t job.Type) Status {
-	if t == job.TypeTTS {
-		return l.AudioStatus
+	switch t {
+	case job.TypePractice:
+		return l.PracticeStatus
+	default:
+		return l.AnnotationStatus
 	}
-	return l.AnnotationStatus
 }
 
 // Summary is the list view of a lesson.
@@ -86,7 +93,6 @@ type Summary struct {
 	Level            Level
 	TopicID          string
 	TopicName        string
-	AudioStatus      Status
 	AnnotationStatus Status
 	InRoadmap        bool
 	CreatedAt        time.Time
@@ -103,6 +109,8 @@ type TopicRef struct {
 	ID    string
 	Name  string
 	Level Level
+	// Words is the topic vocabulary (F18).
+	Words []string
 }
 
 var (
@@ -119,6 +127,12 @@ var (
 	ErrNoQuiz = errors.New("lesson: lesson has no questions")
 	// ErrAlreadyAnswered is matched by *AlreadyAnsweredError.
 	ErrAlreadyAnswered = errors.New("lesson: question already answered")
+	// ErrNoValidPractice means nothing the AI wrote for the practice passed the checks.
+	ErrNoValidPractice = errors.New("lesson: AI returned no usable practice")
+	// ErrPracticeRunning means the practice is already being generated.
+	ErrPracticeRunning = errors.New("lesson: practice is running")
+	// ErrAnnotationNotDone means the practice needs the lesson annotations first.
+	ErrAnnotationNotDone = errors.New("lesson: annotations are not done")
 )
 
 // ValidationError lists invalid input fields with Vietnamese messages for the admin.

@@ -1,12 +1,17 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
-import { countWords } from '../../../core/models/generate';
+import { countWords, wordRange } from '../../../core/models/generate';
 
 /** A generated lesson being reviewed on the roadmap page (F7). Never stored until saved. */
 export interface DraftState {
   key: number;
   title: string;
   content: string;
+  /** F18: target words asked for this draft, and those not found in it (from generation). */
+  targetWords: string[];
+  missingWords: string[];
+  /** The length asked for (words); a draft outside its ±20% range gets a warning. */
+  targetLength: number;
   saving: boolean;
   /** Save error not tied to a field (network, server). */
   error: string | null;
@@ -38,6 +43,24 @@ export class DraftList {
   readonly saveAll = output<void>();
 
   protected readonly countWords = countWords;
+
+  /** "Dùng 3/4 từ mục tiêu" (F18). */
+  protected usedTargets(d: DraftState): string {
+    return `Dùng ${d.targetWords.length - d.missingWords.length}/${d.targetWords.length} từ mục tiêu`;
+  }
+
+  /** Warning when the content is off the asked length, e.g. "ngắn hơn yêu cầu (96–144 từ)"; null otherwise. */
+  protected lengthWarning(d: DraftState): string | null {
+    if (!d.targetLength) {
+      return null;
+    }
+    const n = countWords(d.content);
+    const { min, max } = wordRange(d.targetLength);
+    if (n < min) {
+      return `ngắn hơn yêu cầu (${min}–${max} từ)`;
+    }
+    return n > max ? `dài hơn yêu cầu (${min}–${max} từ)` : null;
+  }
 
   protected rows(content: string): number {
     return Math.min(20, Math.max(6, Math.ceil(content.length / 60) + content.split('\n').length));

@@ -14,6 +14,7 @@ import {
 } from '../../../core/models/writing';
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
+import { Icon } from '../../../shared/components/icon/icon';
 import { loadErrorMessage } from '../load-error';
 
 /** Delay after the last keystroke before the draft is saved (khối 2: 1 s). */
@@ -23,14 +24,16 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
 /**
  * The Write step (F8): the lesson's prompt, a text box that saves a draft while typing, and
- * Nộp. Submitting finishes the step at once; the AI grades in the background. In review mode
+ * Nộp. Submitting finishes the step at once; the AI grades in the background. Writing is
+ * optional: on the lesson page, Bỏ qua finishes the lesson without a writing. In review mode
  * (or once submitted) it only shows the writing and its result.
  */
 @Component({
   selector: 'lu-writing',
-  imports: [RouterLink],
+  imports: [Icon, RouterLink],
   templateUrl: './writing.html',
   styleUrl: './writing.css',
+  host: { '[class.standalone]': 'mode() === null' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Writing implements OnInit {
@@ -44,6 +47,8 @@ export class Writing implements OnInit {
   readonly mode = input<'study' | 'review' | null>(null);
   /** Emitted once the writing is submitted (the page then completes the step). */
   readonly completed = output<void>();
+  /** Emitted when the learner skips writing (lesson page only; it then finishes the lesson). */
+  readonly skipped = output<void>();
 
   protected readonly minWords = MIN_WRITING_WORDS;
   protected readonly maxWords = MAX_WRITING_WORDS;
@@ -154,6 +159,10 @@ export class Writing implements OnInit {
 
   protected continue(): void {
     this.completed.emit();
+  }
+
+  protected skip(): void {
+    this.skipped.emit();
   }
 
   private setWriting(w: WritingData): void {

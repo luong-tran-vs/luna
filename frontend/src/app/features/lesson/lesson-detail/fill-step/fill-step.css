@@ -1,0 +1,131 @@
+.fill {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.turns {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.turn {
+  gap: var(--space-2);
+}
+
+.turn-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.speaker {
+  font-weight: 700;
+}
+
+.listen {
+  --icon-size: 18px;
+}
+
+.line {
+  font: var(--text-reading) var(--font-ui);
+  line-height: 48px;
+}
+
+.slot {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  max-width: 100%;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.blank {
+  min-width: 96px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-bg);
+  border: 2px dashed var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.blank::placeholder {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.blank.filled {
+  background: var(--color-primary-soft);
+  border-style: solid;
+  border-color: var(--color-primary-soft);
+}
+
+.blank.selected,
+.blank:focus-visible {
+  border-style: solid;
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.blank:read-only {
+  cursor: default;
+}
+
+.slot-ok .blank {
+  border-color: var(--color-ok);
+}
+
+.slot-bad .blank {
+  border-color: var(--color-bad);
+}
+
+.mark {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+
+  --icon-size: 16px;
+}
+
+.mark-ok {
+  --icon-color: var(--color-ok);
+}
+
+.mark-bad {
+  --icon-color: var(--color-bad);
+}
+
+.meaning {
+  font: var(--text-sm) var(--font-ui);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.tip {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-md);
+}
+
+.tip-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-accent-ink);
+}

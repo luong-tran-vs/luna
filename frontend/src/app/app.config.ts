@@ -5,7 +5,7 @@ import {
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { errorInterceptor } from './core/interceptors/error-interceptor';
@@ -15,7 +15,8 @@ import { AuthService } from './core/services/auth.service';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    // Pages cross-fade where the browser supports view transitions (styles/motion.css).
+    provideRouter(routes, withViewTransitions({ skipInitialTransition: true })),
     provideHttpClient(withInterceptors([errorInterceptor])),
     // Restore the session before the first navigation so route guards know who is logged in.
     provideAppInitializer(() => inject(AuthService).load()),

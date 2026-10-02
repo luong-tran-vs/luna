@@ -3,11 +3,12 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { AuthHero } from '../auth-hero';
 import { emailError, passwordError, requestErrorMessage } from '../auth-messages';
 
 @Component({
   selector: 'lu-register',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [AuthHero, ReactiveFormsModule, RouterLink],
   templateUrl: './register.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

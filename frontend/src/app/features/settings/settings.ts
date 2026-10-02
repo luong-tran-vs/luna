@@ -2,22 +2,13 @@ import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { ApiError } from '../../core/interceptors/error-interceptor';
 import { MAX_REVIEW_LIMIT, MIN_REVIEW_LIMIT, Settings as SettingsData } from '../../core/models/settings';
 import { ExportApiService } from '../../core/services/export-api.service';
 import { SettingsApiService } from '../../core/services/settings-api.service';
-import { ThemePreference, ThemeService } from '../../core/services/theme.service';
-
-interface ThemeOption {
-  value: ThemePreference;
-  label: string;
-}
-
-const THEMES: readonly ThemeOption[] = [
-  { value: 'light', label: 'Sáng' },
-  { value: 'dark', label: 'Tối' },
-];
+import { Icon } from '../../shared/components/icon/icon';
 
 const LIMIT_ERROR = 'Số thẻ từ 5 đến 200';
 
@@ -56,10 +47,10 @@ function searchKey(text: string): string {
   return text.toLowerCase().replace(/[/_]/g, ' ').trim();
 }
 
-/** Settings page (F12): theme, daily card limit, timezone. */
+/** Settings page (F12): daily card limit, timezone, data export. Light/dark lives on the account page. */
 @Component({
   selector: 'lu-settings',
-  imports: [ReactiveFormsModule],
+  imports: [Icon, ReactiveFormsModule, RouterLink],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -69,12 +60,10 @@ export class Settings {
   private readonly destroyRef = inject(DestroyRef);
   private readonly exporter = inject(ExportApiService);
   private readonly document = inject(DOCUMENT);
-  protected readonly theme = inject(ThemeService);
 
   protected readonly exporting = signal(false);
   protected readonly exportError = signal(false);
 
-  protected readonly themes = THEMES;
   protected readonly minLimit = MIN_REVIEW_LIMIT;
   protected readonly maxLimit = MAX_REVIEW_LIMIT;
 
@@ -146,9 +135,6 @@ export class Settings {
       });
   }
 
-  protected chooseTheme(value: ThemePreference): void {
-    this.theme.set(value);
-  }
 
   protected onZoneQuery(event: Event): void {
     this.zoneQuery.set((event.target as HTMLInputElement).value);

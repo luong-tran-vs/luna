@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { Goals, MyLessons, PublicTopic, SetGoalResult, Step, Today } from '../models/study';
+import { Goals, LessonStudy, MyLessons, PublicTopic, SetGoalResult, Step } from '../models/study';
 
-/** The daily flow (L): goals, today's lesson and its steps, the learner's lessons. */
+/** The study flow (L): goals, the learner's lessons and the steps of the lesson being studied. */
 @Injectable({ providedIn: 'root' })
 export class StudyApiService {
   private readonly http = inject(HttpClient);
@@ -21,16 +21,22 @@ export class StudyApiService {
     return this.http.post<SetGoalResult>('/api/goals', { topicId });
   }
 
-  today(): Observable<Today> {
-    return this.http.get<Today>('/api/today');
+  /** A lesson's steps for the learner; it only reads. */
+  lessonStudy(lessonId: string): Observable<LessonStudy> {
+    return this.http.get<LessonStudy>(`/api/lessons/${lessonId}/study`);
   }
 
-  completeStep(step: Step): Observable<Today> {
-    return this.http.post<Today>(`/api/today/steps/${step}/complete`, null);
+  completeStep(lessonId: string, step: Step): Observable<LessonStudy> {
+    return this.http.post<LessonStudy>(`/api/lessons/${lessonId}/steps/${step}/complete`, null);
   }
 
-  savePosition(step: Step, sentenceIndex: number): Observable<void> {
-    return this.http.put<void>('/api/today/position', { step, sentenceIndex });
+  /** Finishes the lesson without writing: the Write step is optional. */
+  skipWrite(lessonId: string): Observable<LessonStudy> {
+    return this.http.post<LessonStudy>(`/api/lessons/${lessonId}/steps/write/skip`, null);
+  }
+
+  savePosition(lessonId: string, step: Step, sentenceIndex: number): Observable<void> {
+    return this.http.put<void>(`/api/lessons/${lessonId}/position`, { step, sentenceIndex });
   }
 
   myLessons(): Observable<MyLessons> {

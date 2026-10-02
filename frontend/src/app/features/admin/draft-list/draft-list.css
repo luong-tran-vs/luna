@@ -40,3 +40,31 @@
 .actions {
   justify-content: flex-end;
 }
+
+/* F18: target words of the generation, as text (not color only). */
+.targets {
+  display: grid;
+  gap: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.targets-used {
+  font-weight: 600;
+}
+
+.targets-missing {
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.targets-missing::before {
+  content: '! ';
+  font-weight: 700;
+  color: var(--color-warn);
+}
+
+/* The draft is off the asked length: kept, but flagged (text says so, not only color). */
+.length-warning {
+  font-weight: 600;
+  color: var(--color-text);
+}

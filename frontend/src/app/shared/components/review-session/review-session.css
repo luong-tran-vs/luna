@@ -145,7 +145,7 @@
 /* Same answer bar as the Listening step: stays above the on-screen keyboard. */
 .answer-bar {
   position: sticky;
-  bottom: 0;
+  bottom: var(--tabbar-h, 0px);
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--space-2);

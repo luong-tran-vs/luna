@@ -4,6 +4,7 @@ import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { errorInterceptor } from '../../../../core/interceptors/error-interceptor';
+import { FakeSpeech, provideFakeSpeech } from '../../../../core/services/speech.service.testing';
 import { VocabItem } from '../../../../core/models/vocab';
 import { LessonVocabulary } from './lesson-vocabulary';
 
@@ -25,6 +26,7 @@ class Host {
 }
 
 describe('LessonVocabulary', () => {
+  let speech: FakeSpeech;
   let fixture: ComponentFixture<Host>;
   let host: Host;
   let el: HTMLElement;
@@ -50,10 +52,13 @@ describe('LessonVocabulary', () => {
   };
 
   beforeEach(async () => {
-    vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined);
-    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
+    speech = new FakeSpeech();
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+        provideFakeSpeech(speech),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(Host);
@@ -85,7 +90,7 @@ describe('LessonVocabulary', () => {
     await open();
     row('park').querySelector<HTMLButtonElement>('button.listen')!.click();
     await settle();
-    expect(el.querySelector('audio')!.getAttribute('src')).toBe('/api/tts/word?text=park');
+    expect(speech.texts()).toEqual(['park']);
   });
 
   it('saves one word', async () => {

@@ -1,0 +1,133 @@
+.playbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.play-btn {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+
+.play-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+}
+
+.time {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Same speed radiogroup as the Listening step. */
+.speed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.speed-label {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.speed-option {
+  min-width: 52px;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.speed-option[aria-checked='true'] {
+  font-weight: 600;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.hint {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.toggle[aria-pressed='true'] {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.turns {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.turn {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line);
+  border-left: var(--space-1) solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.turn.playing {
+  background: var(--color-primary-soft);
+  border-left-color: var(--color-primary);
+}
+
+.turn-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.speaker {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+.turn-meaning {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.lyrics {
+  display: grid;
+  gap: var(--space-1);
+}
+
+/* A text button with a 44px touch target. */
+.reveal {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}

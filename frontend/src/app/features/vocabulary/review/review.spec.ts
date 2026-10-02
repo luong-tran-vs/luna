@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { DueCard, DueList } from '../../../core/models/vocab';
 import { Review } from './review';
 
@@ -33,7 +34,12 @@ describe('Review', () => {
   const setup = async (list: DueList) => {
     TestBed.configureTestingModule({
       imports: [Review],
-      providers: [provideRouter([]), provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+        provideFakeSpeech(new FakeSpeech()),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(Review);
@@ -44,8 +50,6 @@ describe('Review', () => {
   };
 
   beforeEach(() => {
-    vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue(undefined);
-    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => undefined);
     Element.prototype.scrollIntoView = vi.fn();
   });
 

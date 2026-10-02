@@ -11,6 +11,7 @@ describe('WritingNotifier', () => {
   let notifier: WritingNotifier;
   let http: HttpTestingController;
   const loggedIn = signal(true);
+  const admin = signal(false);
 
   const count = (unseen: number, pending: number, latest: UnseenCount['latest'] = null): UnseenCount => ({
     unseen,
@@ -25,11 +26,12 @@ describe('WritingNotifier', () => {
   beforeEach(async () => {
     vi.useFakeTimers();
     loggedIn.set(true);
+    admin.set(false);
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: AuthService, useValue: { isLoggedIn: loggedIn } },
+        { provide: AuthService, useValue: { isLoggedIn: loggedIn, isAdmin: admin } },
       ],
     });
     http = TestBed.inject(HttpTestingController);
@@ -93,5 +95,16 @@ describe('WritingNotifier', () => {
     expect(notifier.toast()).toBeNull();
     await vi.advanceTimersByTimeAsync(POLL_INTERVAL * 2);
     http.expectNone('/api/writings/unseen-count');
+  });
+
+  it('does not ask for writings for an admin', async () => {
+    loggedIn.set(false);
+    TestBed.tick();
+    admin.set(true);
+    loggedIn.set(true);
+    TestBed.tick();
+    await vi.advanceTimersByTimeAsync(0);
+    http.expectNone('/api/writings/unseen-count');
+    expect(notifier.unseen()).toBe(0);
   });
 });

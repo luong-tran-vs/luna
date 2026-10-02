@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 import { VocabItem } from '../../../../core/models/vocab';
+import { SpeechService } from '../../../../core/services/speech.service';
 import { VocabApiService } from '../../../../core/services/vocab-api.service';
-import { AudioPlayer } from '../../../../shared/components/audio-player/audio-player';
 import { ReadingApiService } from '../../reading-api.service';
 
 const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
@@ -14,7 +14,6 @@ const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
  */
 @Component({
   selector: 'lu-lesson-vocabulary',
-  imports: [AudioPlayer],
   templateUrl: './lesson-vocabulary.html',
   styleUrl: './lesson-vocabulary.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +21,7 @@ const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
 export class LessonVocabulary {
   private readonly readingApi = inject(ReadingApiService);
   private readonly vocab = inject(VocabApiService);
+  private readonly speech = inject(SpeechService);
 
   readonly lessonId = input.required<string>();
   /** Base forms already in the notebook (normalized), shared with the reading page. */
@@ -41,7 +41,6 @@ export class LessonVocabulary {
     (this.items() ?? []).filter((i) => !this.saved().has(normalize(i.lemma))).map((i) => i.lemma),
   );
 
-  private readonly player = viewChild(AudioPlayer);
 
   protected isSaved(item: VocabItem): boolean {
     return this.saved().has(normalize(item.lemma));
@@ -66,7 +65,7 @@ export class LessonVocabulary {
   }
 
   protected play(item: VocabItem): void {
-    this.player()?.replay(this.vocab.wordAudioUrl(item.lemma));
+    this.speech.speak(item.lemma, 1);
   }
 
   protected save(lemmas: string[]): void {

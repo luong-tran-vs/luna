@@ -1,0 +1,66 @@
+<section class="screen account">
+  <header class="screen-bar">
+    <h1 class="screen-title">Tài khoản</h1>
+  </header>
+
+  @if (auth.currentUser(); as user) {
+    <div class="soft-card profile">
+      <span class="avatar" aria-hidden="true">{{ initial() }}</span>
+      <div class="who">
+        <p class="email" [title]="user.email">{{ user.email }}</p>
+        <p class="level">
+          @if (goal(); as g) {
+            Đang học: {{ g.level }} · {{ g.topicName }}
+          } @else {
+            Chưa chọn mục tiêu
+          }
+        </p>
+      </div>
+    </div>
+  }
+
+  <nav aria-label="Trang của tài khoản">
+    <ul class="menu-list">
+      @for (link of links; track link.path) {
+        @let badge = link.path === '/writings' ? notifier.unseen() : 0;
+        <li>
+          <a class="menu-row" [routerLink]="link.path">
+            <span class="icon-chip"><lu-icon [name]="link.icon" /></span>
+            <span class="menu-label">
+              <span>{{ link.label }}</span>
+              <span class="menu-hint">{{ link.hint }}</span>
+            </span>
+            @if (badge > 0) {
+              <span class="count">{{ badge }} mới</span>
+            }
+            <lu-icon class="chevron" name="chevron-right" />
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <ul class="menu-list">
+    <li>
+      <button type="button" class="menu-row" role="switch" [attr.aria-checked]="dark()" (click)="toggleDark()">
+        <span class="icon-chip"><lu-icon name="moon" /></span>
+        <span class="menu-label">Chế độ tối</span>
+        <span class="switch" aria-hidden="true"></span>
+      </button>
+    </li>
+  </ul>
+  <p class="save-status" role="status">
+    @if (theme.saveState() === 'error') {
+      Chưa lưu được vào tài khoản. Giao diện vẫn áp dụng trên trình duyệt này.
+    }
+  </p>
+
+  <ul class="menu-list">
+    <li>
+      <button type="button" class="menu-row danger" (click)="logout()">
+        <span class="icon-chip logout-chip"><lu-icon name="logout" /></span>
+        <span class="menu-label">Đăng xuất</span>
+      </button>
+    </li>
+  </ul>
+</section>

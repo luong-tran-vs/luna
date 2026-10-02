@@ -1,6 +1,4 @@
 <section class="page">
-  <audio #player preload="none" class="player"></audio>
-
   @if (notFound()) {
     <p class="card">Không tìm thấy bài học. <a routerLink="/admin">Về danh sách bài</a></p>
   } @else if (lesson(); as l) {
@@ -8,8 +6,6 @@
       <h1 class="page-title">{{ l.title }}</h1>
       <div class="actions">
         <a class="btn" routerLink="/admin">Danh sách</a>
-        <a class="btn" [routerLink]="['/lessons', l.id, 'read']">Mở bước Đọc</a>
-        <a class="btn" [routerLink]="['/lessons', l.id, 'listen']">Mở bước Nghe</a>
         <a class="btn" [routerLink]="['/admin/lessons', l.id, 'edit']">Sửa</a>
         <button type="button" class="btn" [disabled]="busy()" (click)="deleteOpen.set(true)">Xoá bài</button>
       </div>
@@ -32,13 +28,6 @@
       <p class="muted">Nguồn: {{ l.source }} · Giấy phép: {{ l.license }}</p>
 
       <div class="status-row">
-        <lu-status-chip label="Audio" [status]="l.audioStatus" />
-        @if (l.audioStatus === 'failed') {
-          <span class="muted">{{ l.audioError }}</span>
-          <button type="button" class="btn" [disabled]="busy()" (click)="retry('tts')">Chạy lại audio</button>
-        }
-      </div>
-      <div class="status-row">
         <lu-status-chip label="Chú thích" [status]="l.annotationStatus" />
         @if (l.annotationStatus === 'failed') {
           <span class="muted">{{ l.annotationError }}</span>
@@ -53,9 +42,7 @@
     <ol class="card sentences">
       @for (s of l.sentences; track s.index) {
         <li>
-          @if (s.audioUrl; as url) {
-            <button type="button" class="play" [attr.aria-label]="'Nghe câu ' + (s.index + 1)" (click)="play(url)">▶</button>
-          }
+          <button type="button" class="play" [attr.aria-label]="'Nghe câu ' + (s.index + 1)" (click)="play(s.text)">▶</button>
           <span class="sentence-text" lang="en">{{ s.text }}</span>
         </li>
       }
@@ -125,6 +112,8 @@
     }
 
     <lu-lesson-extras [lesson]="l" (saved)="lesson.set($event)" />
+
+    <lu-practice-section [lesson]="l" (regenerated)="onPracticeRegenerated($event)" />
   } @else if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   } @else {
@@ -144,7 +133,7 @@
 <lu-confirm-dialog
   [open]="deleteOpen()"
   title="Xoá bài học?"
-  message="Bài, audio và chú thích sẽ bị xoá và không khôi phục được."
+  message="Bài và chú thích sẽ bị xoá và không khôi phục được."
   confirmLabel="Xoá"
   [danger]="true"
   (confirmed)="confirmDelete()"

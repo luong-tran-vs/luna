@@ -1,0 +1,137 @@
+/* Shared by the practice steps (F17). Tokens only (docs/design-system.md). */
+
+:host {
+  display: block;
+}
+
+.step-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.step-hint,
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* Round 44px button holding a speaker or play icon; its name comes from aria-label. */
+.icon-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.icon-btn:disabled {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  cursor: not-allowed;
+}
+
+/* A word tile of a word bank. Used tiles stay in place, faded and disabled. */
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+.tile:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.tile:disabled {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  border-color: var(--color-track);
+  box-shadow: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bank-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.bank-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.check-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Result line: the icon and the words carry right/wrong, color only adds to them. */
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+}
+
+.result:empty {
+  display: none;
+}
+
+.result-ok {
+  --icon-color: var(--color-ok);
+}
+
+.result-bad {
+  --icon-color: var(--color-bad);
+}
+
+.result lu-icon,
+.mark lu-icon {
+  color: var(--icon-color, currentColor);
+}
+
+.result-card {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-left: var(--space-1) solid var(--icon-color, var(--color-line));
+  border-radius: var(--radius-md);
+}
+
+.empty {
+  padding: var(--space-4);
+  color: var(--color-text-muted);
+  text-align: center;
+}

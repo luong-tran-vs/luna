@@ -64,7 +64,7 @@ func TestEffectiveGoal(t *testing.T) {
 	}
 }
 
-func TestTodayLesson(t *testing.T) {
+func TestCurrentLesson(t *testing.T) {
 	t.Parallel()
 	goal := &Goal{TopicID: "family", Status: GoalActive}
 	roadmap := []string{"l1", "l2", "l3"}
@@ -73,32 +73,20 @@ func TestTodayLesson(t *testing.T) {
 		goal      *Goal
 		roadmap   []string
 		completed map[string]bool
-		day       *StudyDay
-		want      TodayState
+		want      StudyState
 	}{
-		{"no goal", nil, nil, nil, nil, TodayState{Kind: TodayNoGoal}},
-		{"first lesson", goal, roadmap, nil, nil, TodayState{Kind: TodayStudying, LessonID: "l1"}},
-		// Returning to a topic, or after days off: the first unfinished lesson, exactly one.
-		{"resume", goal, roadmap, map[string]bool{"l1": true, "l2": true}, nil, TodayState{Kind: TodayStudying, LessonID: "l3"}},
-		{"roadmap reordered", goal, []string{"l3", "l1", "l2"}, map[string]bool{"l1": true}, nil, TodayState{Kind: TodayStudying, LessonID: "l3"}},
-		{"all done", goal, roadmap, map[string]bool{"l1": true, "l2": true, "l3": true}, nil, TodayState{Kind: TodayNoNewLesson}},
-		{"empty roadmap", goal, nil, nil, nil, TodayState{Kind: TodayNoNewLesson}},
-		// Today's lesson is fixed once started, even if the roadmap or goal changed since.
-		{"started", goal, []string{"l2", "l3"}, nil, &StudyDay{LessonID: "l1"}, TodayState{Kind: TodayStudying, LessonID: "l1", Started: true}},
-		{"started, no goal", nil, nil, nil, &StudyDay{LessonID: "l1"}, TodayState{Kind: TodayStudying, LessonID: "l1", Started: true}},
-		{"done today", goal, roadmap, map[string]bool{"l1": true}, &StudyDay{LessonID: "l1", Completed: true}, TodayState{Kind: TodayDone, LessonID: "l1", Started: true}},
+		{"no goal", nil, nil, nil, StudyState{Kind: StudyNoGoal}},
+		{"first lesson", goal, roadmap, nil, StudyState{Kind: StudyStudying, LessonID: "l1"}},
+		// Returning to a topic, or right after a lesson: the first unfinished lesson.
+		{"resume", goal, roadmap, map[string]bool{"l1": true, "l2": true}, StudyState{Kind: StudyStudying, LessonID: "l3"}},
+		{"roadmap reordered", goal, []string{"l3", "l1", "l2"}, map[string]bool{"l1": true}, StudyState{Kind: StudyStudying, LessonID: "l3"}},
+		{"all done", goal, roadmap, map[string]bool{"l1": true, "l2": true, "l3": true}, StudyState{Kind: StudyNoNewLesson}},
+		{"empty roadmap", goal, nil, nil, StudyState{Kind: StudyNoNewLesson}},
 	}
 	for _, tc := range cases {
-		if got := TodayLesson(tc.goal, tc.roadmap, tc.completed, tc.day); got != tc.want {
+		if got := CurrentLesson(tc.goal, tc.roadmap, tc.completed); got != tc.want {
 			t.Errorf("%s: %+v, want %+v", tc.name, got, tc.want)
 		}
-	}
-}
-
-func TestCanStartNewLesson(t *testing.T) {
-	t.Parallel()
-	if !CanStartNewLesson(nil) || !CanStartNewLesson(&StudyDay{LessonID: "l1"}) || CanStartNewLesson(&StudyDay{LessonID: "l1", Completed: true}) {
-		t.Fatal("CanStartNewLesson")
 	}
 }
 
@@ -128,48 +116,23 @@ func TestStreak(t *testing.T) {
 	}
 }
 
-func TestReviewQuota(t *testing.T) {
-	t.Parallel()
-	for _, tc := range []struct{ limit, reviewed, want int }{{30, 0, 30}, {30, 12, 18}, {30, 30, 0}, {30, 40, 0}} {
-		if got := ReviewQuota(tc.limit, tc.reviewed); got != tc.want {
-			t.Errorf("ReviewQuota(%d, %d) = %d, want %d", tc.limit, tc.reviewed, got, tc.want)
-		}
-	}
-}
-
 func TestNextStep(t *testing.T) {
 	t.Parallel()
 	cases := []struct {
 		done map[Step]bool
 		want Step
 	}{
-		{nil, StepReview},
-		{map[Step]bool{StepReview: true}, StepRead},
-		{map[Step]bool{StepReview: true, StepRead: true}, StepListen},
-		{map[Step]bool{StepReview: true, StepRead: true, StepListen: true}, StepWrite},
-		{map[Step]bool{StepReview: true, StepRead: true, StepListen: true, StepWrite: true}, StepDone},
-		{map[Step]bool{StepRead: true}, StepReview},
+		{nil, StepRead},
+		{map[Step]bool{StepRead: true}, StepListen},
+		{map[Step]bool{StepRead: true, StepListen: true}, StepWrite},
+		{map[Step]bool{StepRead: true, StepListen: true, StepWrite: true}, StepDone},
+		{map[Step]bool{StepListen: true}, StepRead},
+		// The review step of progress saved before 2026-10-02 is ignored.
+		{map[Step]bool{"review": true}, StepRead},
 	}
 	for _, tc := range cases {
 		if got := NextStep(tc.done); got != tc.want {
 			t.Errorf("NextStep(%v) = %s, want %s", tc.done, got, tc.want)
-		}
-	}
-}
-
-func TestEffectiveDayKey(t *testing.T) {
-	t.Parallel()
-	cases := []struct{ local, latest, want string }{
-		{"2026-09-30", "", "2026-09-30"},
-		{"2026-09-30", "2026-09-29", "2026-09-30"},
-		{"2026-09-29", "2026-09-30", "2026-09-30"},
-		{"2026-09-30", "2026-09-30", "2026-09-30"},
-		{"2026-12-31", "2027-01-01", "2027-01-01"},
-		{"2027-01-01", "2026-12-31", "2027-01-01"},
-	}
-	for _, c := range cases {
-		if got := EffectiveDayKey(c.local, c.latest); got != c.want {
-			t.Errorf("EffectiveDayKey(%q, %q) = %q, want %q", c.local, c.latest, got, c.want)
 		}
 	}
 }

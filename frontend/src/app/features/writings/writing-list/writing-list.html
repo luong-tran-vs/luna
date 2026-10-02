@@ -1,5 +1,8 @@
 <section class="writings">
-  <h1 class="title">Bài viết</h1>
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/account" aria-label="Quay lại Tài khoản"><lu-icon name="arrow-left" /></a>
+    <h1 class="title screen-title">Bài viết</h1>
+  </header>
 
   @if (loadError()) {
     <div class="form-alert" role="alert">
@@ -9,8 +12,8 @@
   } @else if (writings(); as list) {
     @if (list.length === 0) {
       <div class="card empty">
-        <p>Chưa có bài viết. Học bài hôm nay để viết bài đầu tiên.</p>
-        <a class="btn-primary" routerLink="/today">Bài hôm nay</a>
+        <p>Chưa có bài viết. Học tới bước Viết của một bài để viết bài đầu tiên.</p>
+        <a class="btn-primary" routerLink="/lessons">Danh sách bài</a>
       </div>
     } @else {
       <ul class="list">

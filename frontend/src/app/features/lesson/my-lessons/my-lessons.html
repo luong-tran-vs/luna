@@ -1,61 +1,90 @@
-<section class="my-lessons">
-  <h1 class="title">Bài học</h1>
+<section class="screen my-lessons">
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/goal" aria-label="Quay lại Khóa học"><lu-icon name="arrow-left" /></a>
+    <h1 class="screen-title">{{ title() }}</h1>
+  </header>
+
+  @if (goal(); as g) {
+    <div class="progress">
+      <div
+        class="track"
+        role="progressbar"
+        aria-label="Tiến độ chủ đề"
+        aria-valuemin="0"
+        [attr.aria-valuemax]="g.totalLessons"
+        [attr.aria-valuenow]="g.completedLessons"
+      >
+        <span class="fill" [style.width.%]="g.totalLessons ? (g.completedLessons / g.totalLessons) * 100 : 0"></span>
+      </div>
+      <p class="progress-text">{{ g.completedLessons }} / {{ g.totalLessons }} bài</p>
+    </div>
+  }
 
   @if (error()) {
     <p class="form-alert" role="alert">Không tải được danh sách bài học.</p>
   } @else if (data(); as d) {
-    <section class="card today" aria-labelledby="today-heading">
-      <h2 class="section-title" id="today-heading">Hôm nay</h2>
-      @if (d.today; as t) {
-        <p class="title-line" lang="en">{{ t.title }}</p>
-        <a class="btn-primary" routerLink="/today">Học hôm nay</a>
-      } @else {
-        <p class="muted">Chưa có bài hôm nay.</p>
-        <a class="btn" routerLink="/goal">Chọn mục tiêu</a>
-      }
-    </section>
+    @if (!goal() && !d.current && completed().length === 0) {
+      <div class="soft-card" role="status">
+        <p class="muted">Bạn chưa chọn chủ đề nào.</p>
+        <a class="btn-primary" routerLink="/goal">Chọn chủ đề</a>
+      </div>
+    }
 
-    <section class="completed" aria-labelledby="completed-heading">
-      <h2 class="section-title" id="completed-heading">Đã học</h2>
-      @if (d.completed.length === 0) {
-        <p class="muted">Chưa học bài nào.</p>
-      } @else {
+    @if (completed().length > 0) {
+      <section class="completed" aria-labelledby="completed-heading">
+        <h2 class="visually-hidden" id="completed-heading">Đã học</h2>
         <ul class="list">
-          @for (l of d.completed; track l.id) {
-            <li class="card item">
-              <div class="item-body">
-                <p class="title" lang="en">{{ l.title }}</p>
-                <p class="muted">{{ l.topicName }} · {{ l.completedAt | date: 'dd/MM/yyyy' }}</p>
-              </div>
-              <div class="actions">
-                <a class="btn" [routerLink]="['/lessons', l.id, 'read']" [queryParams]="{ review: 1 }">
-                  Đọc lại<span class="visually-hidden"> {{ l.title }}</span>
-                </a>
-                <a class="btn" [routerLink]="['/lessons', l.id, 'listen']" [queryParams]="{ review: 1 }">
-                  Nghe lại<span class="visually-hidden"> {{ l.title }}</span>
-                </a>
-                <a class="btn" [routerLink]="['/lessons', l.id, 'write']" [queryParams]="{ review: 1 }">
-                  Bài viết<span class="visually-hidden"> {{ l.title }}</span>
-                </a>
+          @for (l of completed(); track l.id; let i = $index) {
+            <li class="soft-card item">
+              <a class="row row-link" [routerLink]="['/lessons', l.id]">
+                <span class="num done-num" aria-hidden="true">{{ i + 1 }}</span>
+                <span class="item-body">
+                  <span class="title" lang="en">{{ l.title }}</span>
+                  <span class="muted">Đã học {{ l.completedAt | date: 'dd/MM/yyyy' }}</span>
+                </span>
+                <span class="state-icon ok" aria-hidden="true"><lu-icon name="check" /></span>
+                <lu-icon class="chevron" name="chevron-right" />
+              </a>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (d.current; as c) {
+      <section class="soft-card today has-lesson" aria-labelledby="current-heading">
+        <h2 class="visually-hidden" id="current-heading">Đang học</h2>
+        <a class="row row-link" [routerLink]="['/lessons', c.id]">
+          <span class="num current-num" aria-hidden="true">{{ currentNumber() }}</span>
+          <span class="item-body">
+            <span class="title-line" lang="en">{{ c.title }}</span>
+            <span class="current-label">Đang học</span>
+          </span>
+          <lu-icon class="chevron" name="chevron-right" />
+        </a>
+      </section>
+    } @else if (goal() && completed().length > 0 && d.upcoming.length === 0) {
+      <p class="muted" role="status">Bạn đã học hết các bài hiện có của chủ đề này.</p>
+    }
+
+    @if (d.upcoming.length > 0) {
+      <section class="upcoming" aria-labelledby="upcoming-heading">
+        <h2 class="visually-hidden" id="upcoming-heading">Sắp tới</h2>
+        <ul class="list">
+          @for (l of d.upcoming; track l.id; let i = $index) {
+            <li class="soft-card item locked">
+              <div class="row">
+                <span class="num" aria-hidden="true">{{ upcomingStart() + i }}</span>
+                <span class="item-body">
+                  <span class="title" lang="en">{{ l.title }}</span>
+                  <span class="muted" aria-hidden="true">Chưa mở</span>
+                </span>
+                <span class="state-icon" aria-hidden="true"><lu-icon name="lock" /></span>
+                <span class="visually-hidden">chưa mở</span>
               </div>
             </li>
           }
         </ul>
-      }
-    </section>
-
-    @if (d.upcoming.length > 0) {
-      <section class="upcoming" aria-labelledby="upcoming-heading">
-        <h2 class="section-title" id="upcoming-heading">Sắp tới</h2>
-        <ol class="list">
-          @for (l of d.upcoming; track l.id) {
-            <li class="item locked">
-              <span aria-hidden="true">🔒</span>
-              <span class="title" lang="en">{{ l.title }}</span>
-              <span class="visually-hidden">chưa mở</span>
-            </li>
-          }
-        </ol>
       </section>
     }
   } @else {

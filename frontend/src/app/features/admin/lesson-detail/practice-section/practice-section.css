@@ -1,0 +1,58 @@
+.practice {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.practice-header,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.section-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+/* Same shape as the status chip, without a state color. */
+.none-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.content {
+  gap: var(--space-4);
+}
+
+.group {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.group-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.key {
+  font-weight: 600;
+}
+
+.meaning {
+  display: block;
+}

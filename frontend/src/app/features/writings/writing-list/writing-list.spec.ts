@@ -53,7 +53,7 @@ describe('WritingList', () => {
 
   it('invites to write the first one when there is none', async () => {
     await open([]);
-    expect(text(el.querySelector('.empty p'))).toBe('Chưa có bài viết. Học bài hôm nay để viết bài đầu tiên.');
-    expect(el.querySelector('.empty a')?.getAttribute('href')).toBe('/today');
+    expect(text(el.querySelector('.empty p'))).toBe('Chưa có bài viết. Học tới bước Viết của một bài để viết bài đầu tiên.');
+    expect(el.querySelector('.empty a')?.getAttribute('href')).toBe('/lessons');
   });
 });

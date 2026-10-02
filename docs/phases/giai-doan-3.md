@@ -4,8 +4,8 @@
 
 **Mục tiêu:** dùng app trên điện thoại ở mọi nơi qua HTTPS, và thêm kỹ năng **Nói**.
 **Các bước của bài:** Ôn → Đọc → Nghe → Viết → **Nói** (bắt buộc).
-**AI:** whisper.cpp chạy trên CPU, model `small.en` (máy 16GB RAM; dự phòng `base.en` nếu chậm). Hội thoại (F11) dùng Gemini và Kokoro.
-**Thứ tự làm:** F16 → F10 → F11.
+**AI:** whisper.cpp chạy trên CPU, model `small.en` (máy 16GB RAM; dự phòng `base.en` nếu chậm). Hội thoại (F11) dùng Gemini; mọi chỗ nghe dùng giọng đọc của trình duyệt (bỏ Kokoro từ 2026-10-02).
+**Thứ tự làm:** F16 → F10 → F11. F17 và F18 (thêm 2026-10-02) độc lập, làm lúc nào cũng được.
 
 ---
 
@@ -29,7 +29,7 @@
 ## F10. Nói (shadowing)
 
 **Chức năng**
-- Bước **Nói** sau bước Viết, bắt buộc. Với từng câu của bài: nghe audio mẫu, bấm **Ghi âm**, đọc theo, bấm **Dừng**.
+- Bước **Nói** sau bước Viết, bắt buộc. Với từng câu của bài: nghe câu mẫu (giọng đọc của trình duyệt), bấm **Ghi âm**, đọc theo, bấm **Dừng**.
 - Whisper chuyển giọng nói thành chữ, so với câu gốc và tô từng từ: *đúng*, *sai*, *thiếu* (cùng quy ước F4).
 - Nghe lại bản ghi của mình; ghi lại câu đó bao nhiêu lần cũng được, lấy lần gần nhất.
 - Tỷ lệ đọc đúng của bài được lưu để thống kê.
@@ -47,7 +47,7 @@
 
 **Chức năng**
 - Từ bài học, chọn **Luyện hội thoại**: AI đóng một vai trong một tình huống gắn với bài (gọi món, hỏi đường…), dùng lại từ vựng của bài.
-- Người học trả lời bằng giọng nói (Whisper) hoặc gõ chữ; câu trả lời của AI có audio (Kokoro).
+- Người học trả lời bằng giọng nói (Whisper) hoặc gõ chữ; câu trả lời của AI được đọc bằng giọng đọc của trình duyệt.
 - Mỗi phiên tối đa 10 lượt; kết thúc thì AI tóm tắt lỗi thường gặp và gợi ý cách nói tốt hơn.
 
 **Tiêu chí nghiệm thu**
@@ -57,8 +57,74 @@
 
 ---
 
+## F17. Trang chi tiết bài và luyện tập từ vựng *(không bắt buộc)*
+
+> Thêm 2026-10-02. Bố cục theo `design/screen1.png`, `design/screen2.png`, `design/screen3.png` (giữ màu Oải hương và font Lexend).
+> Không phụ thuộc F16/F10/F11, làm trước hay sau đều được.
+
+**Chức năng**
+- Sau khi chú thích bài, AI sinh thêm (1 request riêng) phần luyện tập xoay quanh từ vựng của bài: mục tiêu bài, câu ví dụ tiếng Anh
+  cho mỗi từ, hội thoại mẫu 2 người dùng các từ đó (kèm nghĩa tiếng Việt), mẹo ngữ pháp, 3–5 câu dịch Việt → Anh. Từ, câu ví dụ, hội
+  thoại và câu dịch được đọc bằng giọng đọc của trình duyệt.
+- Trang chi tiết bài (`/lessons/:id`): thanh trên (đóng, tiến độ 1/4, streak), "Bài N" + tiêu đề, mục tiêu, mức độ; tab **Bài học**
+  (4 bước) và **Bài đọc** (bài đọc gốc, ngữ pháp). Nút **Tiếp theo** cố định cuối màn hình.
+  1. **Từ vựng quan trọng:** từ, phiên âm, nghĩa tiếng Việt, nút loa, câu ví dụ tiếng Anh.
+  2. **Hội thoại mẫu:** nghe cả đoạn (tốc độ) hoặc từng lượt; lời ẩn sẵn (nghe trước, bấm "Hiện lời" để xem), mỗi lượt có dạng sóng
+     tô theo tiến độ phát; bật/tắt nghĩa tiếng Việt.
+  3. **Điền vào ô trống:** hội thoại có ô trống ở từ vựng; mỗi ô là ô nhập chữ, gõ từ vào (cập nhật 2026-10-02), hoặc bấm từ
+     trong ngân hàng từ (gợi ý) để điền vào ô đang chọn; Kiểm tra, mẹo ngữ pháp.
+  4. **Dịch câu sang tiếng Anh:** ghép câu bằng các ô từ (có từ gây nhiễu), Làm lại, Kiểm tra từng câu.
+- Tổng kết cuối cùng, làm lại được. Không có điểm XP.
+- **Học bài ngay trong trang này** (cập nhật 2026-10-02, thay trang "Hôm nay"): với bài đang học, sau các phần luyện tập là các bước
+  **Đọc → Nghe → Viết** (Viết tuỳ chọn, có **Bỏ qua**), cùng một thanh tiến độ; nút **← Bước trước** để xem lại bước đã qua. Vào lại
+  bài thì tiếp tục đúng bước đang dở. Xong bước cuối thì bài hoàn thành và có nút **Sang bài tiếp theo** (hoặc chúc mừng khi hết lộ trình).
+  Bài đã học thì chỉ có phần luyện tập, tổng kết có **Đọc lại / Nghe lại / Bài viết**.
+- Quản trị viên xem phần luyện tập và bấm **Tạo lại phần luyện tập**.
+
+**Tiêu chí nghiệm thu**
+- [ ] Bài mới chú thích xong thì sau ít phút có phần luyện tập; mỗi câu ví dụ chứa đúng từ của nó; ô trống và đáp án đều là từ vựng
+  của bài.
+- [ ] Nghe được từng từ, từng câu ví dụ, từng lượt hội thoại và cả đoạn; đổi được tốc độ; bật/tắt được nghĩa tiếng Việt.
+- [ ] Điền vào ô trống: gõ được vào từng ô (Enter sang ô kế), bấm từ gợi ý thì điền vào ô đang chọn, xoá/sửa được; Kiểm tra thấy đúng/sai từng ô (có chữ, không chỉ màu) và đáp án.
+- [ ] Dịch câu: ghép đúng thứ tự thì "Chính xác!", sai thì thấy câu đúng; Làm lại xoá câu đang ghép.
+- [ ] Thanh tiến độ và nút Tiếp theo chuyển đúng 4 bước; cuối cùng thấy tổng kết và làm lại được.
+- [ ] AI lỗi khi sinh phần luyện tập: chú thích từ, câu hỏi hiểu bài vẫn bình thường. Trang chi tiết bài chỉ hiện các bước có nội dung
+  (thanh tiến độ theo số bước thật); không có bước nào thì không có tab Bài học, chỉ hiện bài đọc (cập nhật 2026-10-02).
+- [ ] Sửa nội dung bài thì phần luyện tập được sinh lại theo nội dung mới.
+- [ ] Kết quả luyện tập (điền, dịch) không tính vào tiến độ, streak, thống kê. Bài sắp tới vẫn không mở được.
+- [ ] Bài đang học: làm xong luyện tập thì sang Đọc → Nghe → Viết trong cùng trang; bài chưa có luyện tập thì vào thẳng bước Đọc.
+  Thoát giữa chừng rồi vào lại thì tiếp tục đúng bước. Xong (nộp hoặc bỏ qua bước Viết) thì bấm **Sang bài tiếp theo** mở được ngay
+  bài kế tiếp, cùng ngày.
+- [ ] Dùng tốt ở 360px, chế độ sáng và tối.
+
+---
+
+## F18. Từ vựng theo chủ đề *(quản trị)*
+
+> Thêm 2026-10-02. Dữ liệu ban đầu: [f18-topic-words.json](../spec-inputs/f18-topic-words.json), 1.257 từ tiếng Anh cho 42 chủ đề,
+> tham khảo danh sách của Langmaster (chỉ lấy từ tiếng Anh). Không phụ thuộc F16/F10/F11; làm sau F17 thì trang chi tiết bài dùng ngay.
+
+**Chức năng**
+- Mỗi chủ đề có danh sách từ vựng tiếng Anh cốt lõi; nạp sẵn từ file dữ liệu một lần, quản trị viên xem, thêm, xoá ở trang Chủ đề.
+- Trang Chủ đề hiện độ phủ "Từ vựng: đã dùng X/Y" (từ có trong bài của chủ đề) và đánh dấu từ đã dùng/chưa dùng.
+- Sinh bài bằng AI: mỗi bài được giao một nhóm từ mục tiêu, ưu tiên từ chưa dùng; quản trị viên chỉnh nhóm từ trước khi sinh; bản
+  nháp báo số từ mục tiêu đã dùng và từ còn thiếu.
+- Thiếu từ chưa dùng: nút "Bổ sung bằng AI" gợi ý từ mới cho chủ đề rồi chia nhóm lại (thêm 2026-10-02).
+- Chú thích bài đưa các từ của chủ đề có trong bài vào danh sách từ vựng của bài.
+
+**Tiêu chí nghiệm thu**
+- [ ] Lần khởi động đầu, 42 chủ đề trùng tên nhận danh sách từ; khởi động lại không nạp lại, không ghi đè danh sách đã sửa.
+- [ ] Thêm nhiều từ một lần, xoá từ; từ trùng hoặc sai định dạng bị báo lỗi theo từng từ.
+- [ ] Độ phủ đúng: từ có trong nội dung bài của chủ đề (kể cả cụm, hoa/thường, số nhiều) là "đã dùng".
+- [ ] Sinh 3 bài với 8 từ mỗi bài: nhóm từ không trùng nhau, ưu tiên từ chưa dùng; vẫn 1 request AI; bản nháp báo từ còn thiếu.
+- [ ] Đặt 0 từ mục tiêu hoặc chủ đề chưa có từ: sinh bài như trước.
+- [ ] Bài mới chú thích xong có trong danh sách từ vựng mọi từ của chủ đề xuất hiện trong bài.
+- [ ] Không ảnh hưởng luồng học, tiến độ, streak, thống kê; dùng tốt ở 360px, sáng và tối, bằng bàn phím.
+
+---
+
 ## Thay đổi trên tính năng cũ
 
-- **L. Luồng một ngày học:** thêm bước Nói (bắt buộc) sau bước Viết.
+- **L. Luồng học** (cập nhật 2026-10-02): bỏ trang "Hôm nay" và giới hạn một bài mỗi ngày; học lần lượt từng bài ngay trong trang bài (F17): các phần luyện tập có nội dung, rồi Đọc → Nghe → Viết (tuỳ chọn). Học xong bài thì bài kế tiếp mở ngay. Bỏ bước Ôn khỏi bài (ôn ở Từ vựng › Ôn tập). Trang Khóa học: nút ở thẻ "Khóa học đang học" mở bài đang học; chủ đề đã hết bài mới thì nút **Xem lại bài gần nhất** mở bài học xong gần nhất. Sau này thêm bước Nói (bắt buộc) sau bước Viết.
 - **F6:** hiện thêm thanh kỹ năng **Nói**; thống kê thêm tỷ lệ đọc đúng.
 - **F13:** file xuất dữ liệu có thêm kết quả bước Nói và lịch sử hội thoại.
