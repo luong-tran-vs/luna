@@ -22,6 +22,7 @@ import { Comparison, compareDictation } from '../../../shared/utils/dictation-co
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
 import { ListeningApiService } from '../listening-api.service';
+import { Loading } from '../../../shared/components/loading/loading';
 
 interface Checked {
   typed: string;
@@ -37,7 +38,7 @@ const SPEEDS = [0.5, 0.75, 1, 1.25];
  */
 @Component({
   selector: 'lu-listening',
-  imports: [Icon, RouterLink, Waveform],
+  imports: [Loading, Icon, RouterLink, Waveform],
   templateUrl: './listening.html',
   styleUrl: './listening.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

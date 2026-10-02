@@ -9,6 +9,7 @@ import { Level, LEVELS } from '../../../core/models/lesson';
 import { groupByLevel, Topic, topicLabel } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { AdminApiService } from '../admin-api.service';
+import { Loading } from '../../../shared/components/loading/loading';
 
 type FieldName = 'name' | 'level' | 'description';
 
@@ -20,7 +21,7 @@ const REQUIRED: Partial<Record<FieldName, string>> = {
 /** Topic catalogue (F14): topics grouped by level, add and edit in place, delete with confirmation. */
 @Component({
   selector: 'lu-topics',
-  imports: [ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
+  imports: [Loading, ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
   templateUrl: './topics.html',
   styleUrl: './topics.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

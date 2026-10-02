@@ -39,6 +39,7 @@ import {
 import { PracticeSummary } from './practice-summary/practice-summary';
 import { TranslateStep } from './translate-step/translate-step';
 import { VocabStep } from './vocab-step/vocab-step';
+import { Loading } from '../../../shared/components/loading/loading';
 
 type Tab = 'lesson' | 'reading';
 
@@ -74,7 +75,7 @@ function isStudyStep(key: StepKey | null): key is Step {
  */
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [
+  imports: [Loading, 
     DialogueStep,
     FillStep,
     Icon,

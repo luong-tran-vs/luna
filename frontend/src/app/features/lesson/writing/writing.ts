@@ -16,6 +16,7 @@ import { WritingApiService } from '../../../core/services/writing-api.service';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { loadErrorMessage } from '../load-error';
+import { Loading } from '../../../shared/components/loading/loading';
 
 /** Delay after the last keystroke before the draft is saved (khối 2: 1 s). */
 const DRAFT_DELAY = 1000;
@@ -30,7 +31,7 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
  */
 @Component({
   selector: 'lu-writing',
-  imports: [Icon, RouterLink],
+  imports: [Loading, Icon, RouterLink],
   templateUrl: './writing.html',
   styleUrl: './writing.css',
   host: { '[class.standalone]': 'mode() === null' },

@@ -8,6 +8,7 @@ import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { Icon } from '../../../shared/components/icon/icon';
 import { CardForm } from '../card-form/card-form';
+import { Loading } from '../../../shared/components/loading/loading';
 
 interface DayGroup {
   day: string;
@@ -20,7 +21,7 @@ const SEARCH_DELAY = 300;
 /** The notebook (F5): cards grouped by the day they were saved, search, lesson filter, edit. */
 @Component({
   selector: 'lu-notebook',
-  imports: [CardForm, ConfirmDialog, Icon, RouterLink],
+  imports: [Loading, CardForm, ConfirmDialog, Icon, RouterLink],
   templateUrl: './notebook.html',
   styleUrl: './notebook.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

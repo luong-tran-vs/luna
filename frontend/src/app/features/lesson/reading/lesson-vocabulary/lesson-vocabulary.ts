@@ -5,6 +5,7 @@ import { VocabItem } from '../../../../core/models/vocab';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { VocabApiService } from '../../../../core/services/vocab-api.service';
 import { ReadingApiService } from '../../reading-api.service';
+import { Loading } from '../../../../shared/components/loading/loading';
 
 const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
 
@@ -14,6 +15,7 @@ const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
  */
 @Component({
   selector: 'lu-lesson-vocabulary',
+  imports: [Loading],
   templateUrl: './lesson-vocabulary.html',
   styleUrl: './lesson-vocabulary.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

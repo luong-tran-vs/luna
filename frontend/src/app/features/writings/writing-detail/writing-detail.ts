@@ -7,6 +7,7 @@ import { CRITERIA_LABELS, formatScore, Writing } from '../../../core/models/writ
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 import { wordDiff } from '../../../shared/utils/word-diff';
+import { Loading } from '../../../shared/components/loading/loading';
 
 /**
  * One writing (F8): the prompt and text, and once graded the four criteria, the comments, the
@@ -14,7 +15,7 @@ import { wordDiff } from '../../../shared/utils/word-diff';
  */
 @Component({
   selector: 'lu-writing-detail',
-  imports: [RouterLink],
+  imports: [Loading, RouterLink],
   templateUrl: './writing-detail.html',
   styleUrl: './writing-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

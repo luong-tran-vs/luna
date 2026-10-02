@@ -32,6 +32,7 @@ import { ReadingApiService } from '../reading-api.service';
 import { ComprehensionQuiz } from './comprehension-quiz/comprehension-quiz';
 import { GrammarNote } from './grammar-note/grammar-note';
 import { LessonVocabulary } from './lesson-vocabulary/lesson-vocabulary';
+import { Loading } from '../../../shared/components/loading/loading';
 
 interface Selected {
   sentence: number;
@@ -69,7 +70,7 @@ function askErrorMessage(err: unknown): string {
  */
 @Component({
   selector: 'lu-reading',
-  imports: [CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, Icon, LessonVocabulary, RouterLink, WordPopup],
+  imports: [Loading, CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, Icon, LessonVocabulary, RouterLink, WordPopup],
   templateUrl: './reading.html',
   styleUrl: './reading.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

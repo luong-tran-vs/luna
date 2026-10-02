@@ -9,6 +9,7 @@ import { MAX_REVIEW_LIMIT, MIN_REVIEW_LIMIT, Settings as SettingsData } from '..
 import { ExportApiService } from '../../core/services/export-api.service';
 import { SettingsApiService } from '../../core/services/settings-api.service';
 import { Icon } from '../../shared/components/icon/icon';
+import { Loading } from '../../shared/components/loading/loading';
 
 const LIMIT_ERROR = 'Số thẻ từ 5 đến 200';
 
@@ -50,7 +51,7 @@ function searchKey(text: string): string {
 /** Settings page (F12): daily card limit, timezone, data export. Light/dark lives on the account page. */
 @Component({
   selector: 'lu-settings',
-  imports: [Icon, ReactiveFormsModule, RouterLink],
+  imports: [Loading, Icon, ReactiveFormsModule, RouterLink],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

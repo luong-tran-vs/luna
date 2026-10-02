@@ -28,6 +28,7 @@ import {
 } from '../../../core/models/generate';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { AdminApiService } from '../admin-api.service';
+import { Loading } from '../../../shared/components/loading/loading';
 
 const INTEGER = /^\d+$/;
 /** Wait after the admin stops typing a number before asking for a new split. */
@@ -67,7 +68,7 @@ const MAX_SUGGEST = 50;
  */
 @Component({
   selector: 'lu-generate-dialog',
-  imports: [ReactiveFormsModule],
+  imports: [Loading, ReactiveFormsModule],
   templateUrl: './generate-dialog.html',
   styleUrl: './generate-dialog.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
