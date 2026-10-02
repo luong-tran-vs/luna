@@ -39,7 +39,7 @@ lại: danh sách giữ nguyên như đã sửa.
    thừa được bỏ.
 6. **Given** từ thêm vào trùng với từ đã có (không phân biệt hoa/thường), dài quá 40 ký tự hoặc có ký tự không cho phép, **When** bấm
    Lưu, **Then** không lưu gì và mỗi từ lỗi được báo lỗi riêng.
-7. **Given** danh sách đã có 100 từ, **When** thêm từ mới, **Then** báo lỗi "Tối đa 100 từ".
+7. **Given** danh sách đã có 300 từ, **When** thêm từ mới, **Then** báo lỗi "Tối đa 300 từ" (trước 2026-10-02 là 100).
 8. **Given** một từ trong danh sách, **When** xoá rồi Lưu, **Then** từ biến mất khỏi danh sách; các bài đã có không thay đổi.
 
 ---
@@ -117,7 +117,7 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 
 **Danh sách từ**
 
-- **FR-001**: Mỗi chủ đề MUST có một danh sách từ tiếng Anh (từ đơn hoặc cụm), tối đa 100 từ; mỗi từ tối đa 40 ký tự, chỉ gồm chữ
+- **FR-001**: Mỗi chủ đề MUST có một danh sách từ tiếng Anh (từ đơn hoặc cụm), tối đa 300 từ (đổi từ 100 ngày 2026-10-02); mỗi từ tối đa 40 ký tự, chỉ gồm chữ
   cái tiếng Anh, khoảng trắng, dấu gạch nối, dấu nháy đơn và "/"; không trùng trong một chủ đề (không phân biệt hoa/thường). Từ được
   bỏ khoảng trắng đầu cuối và gộp khoảng trắng giữa.
 - **FR-002**: Danh sách MUST chỉ lưu từ tiếng Anh; nghĩa và phiên âm vẫn lấy từ chú thích bài và từ điển của app.
@@ -196,6 +196,8 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 - Độ phủ và số bài dùng mỗi từ được tính khi xem, từ nội dung và chú thích hiện tại của các bài.
 - Nhóm từ đề xuất có thể khác nhau giữa các lần mở hộp thoại nếu bài trong chủ đề thay đổi.
 - Dùng AI, từ điển đã cấu hình (F2, F3, F7); không thêm cấu hình.
+- Đổi 2026-10-02: chủ đề thiếu từ chưa dùng thì hộp thoại sinh bài có nút "Bổ sung bằng AI" (1 request AI riêng, tối đa 50 từ mỗi
+  lần, chỉ thêm từ hợp lệ và chưa có); danh sách tối đa 300 từ; sinh tối đa 10 bài mỗi lượt.
 - Ngoài phạm vi: thẻ ôn tập theo chủ đề cho người học, người học xem danh sách từ của chủ đề, nhập phiên âm/nghĩa cho từ của chủ đề,
   nhập/xuất danh sách từ bằng file, tự động sinh bài cho đủ từ.
 - Phụ thuộc: F14 (chủ đề, lộ trình), F7 (sinh bài), F2 (chú thích), F3 (từ điển); F17 dùng ngay danh sách từ vựng của bài.

@@ -61,7 +61,7 @@ bỏ bớt. Bài chưa có phần luyện tập vẫn mở được bình thư�
 **Why this priority**: Không có nội dung thì US1, US3, US4 không có gì để hiện. Đồng thời phải giữ nguyên tắc "AI là phần bổ sung".
 
 **Independent Test**: Tạo một bài mới, đợi chú thích xong. Sau ít phút trang chi tiết bài có đủ 4 bước. Với AI giả lập lỗi: chú thích từ
-và câu hỏi hiểu bài vẫn có; bước 1 vẫn hiện từ vựng (không có câu ví dụ); bước 2–4 báo "Bài này chưa có phần luyện tập".
+và câu hỏi hiểu bài vẫn có; trang chỉ hiện các bước có nội dung (bước 1 nếu bài có từ vựng); không có bước nào thì chỉ hiện bài đọc.
 
 **Acceptance Scenarios**:
 
@@ -70,10 +70,10 @@ và câu hỏi hiểu bài vẫn có; bước 1 vẫn hiện từ vựng (không
 2. **Given** chú thích bài lỗi, **When** xem bài, **Then** không sinh phần luyện tập.
 3. **Given** AI lỗi hoặc trả nội dung không dùng được khi sinh phần luyện tập, **When** xem bài, **Then** chú thích từ, câu hỏi hiểu bài,
    đề viết và các bước Ôn → Đọc → Nghe → Viết vẫn bình thường; chỉ phần luyện tập trống.
-4. **Given** bài chưa có phần luyện tập (bài cũ, đang sinh, AI lỗi), **When** mở trang chi tiết bài, **Then** bước 1 hiện danh sách từ
-   vựng không có câu ví dụ; bước 2, 3, 4 báo "Bài này chưa có phần luyện tập"; vẫn chuyển bước và xem tab Bài đọc được.
+4. **Given** bài chưa có phần luyện tập (bài cũ, đang sinh, AI lỗi), **When** mở trang chi tiết bài, **Then** chỉ có bước Từ vựng (nếu bài có
+   từ vựng, không có câu ví dụ), tiến độ "1/1"; bài không có từ vựng thì không có tab Bài học, chỉ hiện bài đọc.
 5. **Given** AI trả về câu ví dụ không chứa từ của nó, **When** lưu, **Then** câu đó bị bỏ, từ đó hiện không có câu ví dụ.
-6. **Given** AI trả về hội thoại dưới 4 lượt, **When** lưu, **Then** bỏ cả hội thoại; bước 2 và 3 báo chưa có phần luyện tập.
+6. **Given** AI trả về hội thoại dưới 4 lượt, **When** lưu, **Then** bỏ cả hội thoại; các bước Hội thoại và Điền ô trống không hiện.
 7. **Given** một câu dịch có đáp án không ghép được từ các ô, **When** lưu, **Then** bỏ câu đó, các câu khác vẫn dùng.
 8. **Given** quản trị viên sửa nội dung bài hoặc chạy lại chú thích, **When** xong, **Then** phần luyện tập cũ bị bỏ và được sinh lại
    theo nội dung mới.
@@ -126,8 +126,9 @@ trống. Hoàn thành → tổng kết đúng số ô điền đúng và số c�
 5. **Given** đã kiểm tra một câu không phải câu cuối, **When** bấm Tiếp theo, **Then** sang câu kế tiếp (vẫn ở bước 4).
 6. **Given** đã kiểm tra câu cuối, **When** bấm Hoàn thành, **Then** hiện tổng kết: "Điền đúng x/y ô", "Dịch đúng a/b câu", nút **Làm
    lại** và nút về bài.
-7. **Given** tổng kết của bài hôm nay, **When** xem nút về bài, **Then** là "Học bài này" (vào luồng học hôm nay). Với bài đã học: các
-   nút Đọc lại, Nghe lại, Bài viết.
+7. **Given** bài đang học, **When** qua hết các bước luyện tập, **Then** không có tổng kết mà sang luôn các bước Đọc → Nghe → Viết
+   trên cùng trang (cập nhật 2026-10-02, bỏ trang "Hôm nay"); xong bài thì có nút "Sang bài tiếp theo". Với bài đã học: tổng kết
+   có các nút Đọc lại, Nghe lại, Bài viết.
 8. **Given** tổng kết, **When** bấm Làm lại, **Then** về bước 1, mọi ô điền và câu ghép xoá hết, ngân hàng từ xáo lại.
 
 ---
@@ -155,11 +156,11 @@ sinh", sau ít phút "Xong" và xem được nội dung.
 ### Edge Cases
 
 - Bài có ít từ vựng: ngân hàng từ bước 3 thêm tối đa 2 từ khác, có bao nhiêu dùng bấy nhiêu.
-- Hội thoại không chứa từ vựng nào của bài: bước 3 báo "Bài này chưa có phần luyện tập", bước 2 vẫn dùng được.
+- Hội thoại không chứa từ vựng nào của bài: bước Điền ô trống không hiện, bước Hội thoại vẫn dùng được.
 - Một từ vựng xuất hiện nhiều lần: mỗi ô trống có một thẻ đáp án riêng trong ngân hàng từ; ô trống được trải đều các lượt, tối đa 5.
 - Hai ô từ cùng chữ (trong ngân hàng từ của bước 3 hoặc 4): thay thế được cho nhau khi chấm.
 - Dấu câu dính theo từ ("you,", "Vietnam."): ô từ giữ nguyên dấu câu và chữ hoa; chấm câu dịch so đúng nội dung từng ô.
-- Mọi câu dịch đều hỏng: bước 4 báo "Bài này chưa có phần luyện tập"; tổng kết chỉ hiện phần có làm.
+- Mọi câu dịch đều hỏng: bước Dịch câu không hiện; tổng kết chỉ hiện phần có làm.
 - Audio của một câu chưa có hoặc lỗi: nút nghe của câu đó bị ẩn hoặc khoá, phần còn lại vẫn dùng được; phát cả đoạn bỏ qua lượt thiếu audio.
 - Phần luyện tập sinh xong khi người học đang mở trang: không tự đổi nội dung đang làm; mở lại trang thì thấy.
 - Rời trang hoặc tải lại giữa chừng: kết quả luyện tập mất, bắt đầu lại từ bước 1.
@@ -210,14 +211,16 @@ sinh", sau ít phút "Xong" và xem được nội dung.
   bật/tắt nghĩa tiếng Việt. Lời MUST ẩn sẵn, hiện theo từng lượt hoặc tất cả. Mỗi lượt có audio MUST có dạng sóng tô theo tiến độ
   phát; dạng sóng là hình minh hoạ dựng từ câu chữ (nhịp âm tiết, chỗ ngắt ở dấu câu), không phải sóng giải mã từ audio, nên bị ẩn
   khỏi trình đọc màn hình và không dùng để tua.
-- **FR-015**: Bước 3 MUST hoạt động như User Story 3: Ngân hàng từ gồm các đáp án và tối đa 2 từ vựng khác của bài, xáo trộn; điền, gỡ,
+- **FR-015** (cập nhật 2026-10-02: mỗi ô trống là ô nhập chữ, gõ trực tiếp; ngân hàng từ là gợi ý, bấm từ thì điền vào ô đang chọn): Bước 3 MUST hoạt động như User Story 3: Ngân hàng từ gồm các đáp án và tối đa 2 từ vựng khác của bài, xáo trộn; điền, gỡ,
   thay; Kiểm tra chỉ khi đủ ô; chấm không phân biệt hoa/thường; hiện mẹo ngữ pháp.
 - **FR-016**: Bước 4 MUST hoạt động như User Story 4: ghép ô theo thứ tự chạm, gỡ, Làm lại, Kiểm tra từng câu; đúng khi các ô khớp đáp
   án đúng thứ tự; sai thì hiện câu đúng; sau khi kiểm tra nghe được câu đúng.
 - **FR-017**: Tổng kết MUST hiện số ô điền đúng/tổng số ô và số câu dịch đúng/tổng số câu, nút Làm lại (xoá mọi kết quả, về bước 1) và
-  nút về bài theo loại bài (bài hôm nay: "Học bài này"; bài đã học: Đọc lại, Nghe lại, Bài viết).
-- **FR-018**: Khi bài chưa có phần luyện tập, bước 1 MUST vẫn hiện từ vựng (không có câu ví dụ) và các bước 2–4 MUST báo "Bài này chưa có
-  phần luyện tập".
+  nút về bài theo loại bài (bài đã học: Đọc lại, Nghe lại, Bài viết). Bài đang học không có tổng kết: sau luyện tập là Đọc → Nghe → Viết
+  ngay trên trang (cập nhật 2026-10-02).
+- **FR-018**: Trang MUST chỉ hiện các bước có nội dung (Từ vựng khi bài có từ vựng, Hội thoại, Điền ô trống, Dịch câu khi phần đó
+  có), đánh số và tính tiến độ theo các bước đang hiện; không có bước nào thì MUST bỏ tab Bài học và nút Tiếp theo, chỉ hiện bài đọc
+  (cập nhật 2026-10-02, thay cho việc báo "Bài này chưa có phần luyện tập").
 - **FR-019**: Chấm điểm MUST diễn ra ngay trên trang; kết quả chỉ giữ trong lần mở trang, MUST NOT gửi hay lưu lên máy chủ.
 - **FR-020**: Phần luyện tập MUST NOT ảnh hưởng các bước Ôn → Đọc → Nghe → Viết, tiến độ, streak hay thống kê; không có điểm XP.
 - **FR-021**: Đúng/sai MUST phân biệt được bằng chữ và biểu tượng, không chỉ bằng màu. Mọi thao tác (chọn ô, chạm từ, gỡ, Kiểm tra, Tiếp

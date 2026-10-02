@@ -5,7 +5,7 @@ import { ActivatedRoute, convertToParamMap, provideRouter, Router } from '@angul
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { Dashboard } from '../../../core/models/dashboard';
-import { GoalView, Goals, PublicTopic } from '../../../core/models/study';
+import { GoalView, Goals, MyLessons, PublicTopic } from '../../../core/models/study';
 import { Goal } from './goal';
 
 const goal = (over: Partial<GoalView> = {}): GoalView => ({
@@ -13,11 +13,14 @@ const goal = (over: Partial<GoalView> = {}): GoalView => ({
   effectiveFrom: '2026-09-30', ...over,
 });
 
-const today = (over: Partial<Dashboard> = {}): Dashboard => ({
-  kind: 'studying', goal: goal(), goalCompleted: false, skills: null, lesson: null,
-  steps: { review: 'done', read: 'current', listen: 'locked', write: 'locked' }, currentStep: 'read',
-  action: { kind: 'continue', step: 'read' }, streak: 1, tomorrowCards: 0, ...over,
+const dashboard = (over: Partial<Dashboard> = {}): Dashboard => ({
+  kind: 'studying', goal: goal(), goalCompleted: false, skills: null,
+  lesson: { id: 'l2', title: 'My family', topicName: 'Gia đình', level: 'A1' },
+  steps: { read: 'done', listen: 'current', write: 'locked' }, currentStep: 'listen',
+  action: { kind: 'continue', step: 'listen' }, streak: 1, tomorrowCards: 0, ...over,
 });
+
+const studyingMine: MyLessons = { current: { id: 'l2', title: 'My family' }, completed: [], upcoming: [] };
 
 const a1Topics: PublicTopic[] = [
   { id: 't1', name: 'Gia đình', level: 'A1', description: 'Người thân', lessonCount: 12 },
@@ -42,7 +45,12 @@ describe('Goal', () => {
   const topicRow = (name: string) =>
     Array.from(el.querySelectorAll('.topic')).find((t) => text(t.querySelector('.topic-name')) === name)!;
 
-  const setup = async (goals: Goals, query: Record<string, string> = {}, dashboard: Dashboard = today()) => {
+  const setup = async (
+    goals: Goals,
+    query: Record<string, string> = {},
+    home: Dashboard = dashboard(),
+    mine: MyLessons = studyingMine,
+  ) => {
     TestBed.configureTestingModule({
       imports: [Goal],
       providers: [
@@ -58,7 +66,8 @@ describe('Goal', () => {
     fixture = TestBed.createComponent(Goal);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/dashboard').flush(dashboard);
+    http.expectOne('/api/dashboard').flush(home);
+    http.expectOne('/api/lessons/mine').flush(mine);
     http.expectOne('/api/goals').flush(goals);
     await settle();
   };
@@ -71,7 +80,7 @@ describe('Goal', () => {
 
   afterEach(() => http.verify());
 
-  it('shows the course being studied with a way into today’s lesson', async () => {
+  it('shows the course being studied with a way into the lesson being studied', async () => {
     await setup({ active: goal(), others: [] });
     http.expectOne((r) => r.url === '/api/topics' && r.params.get('level') === 'A1').flush({ topics: a1Topics });
     await settle();
@@ -79,33 +88,45 @@ describe('Goal', () => {
     expect(text(current.querySelector('.current-name'))).toBe('A1 · Gia đình');
     expect(text(current)).toContain('Đã học 2/12 bài');
     expect(current.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('2');
-    expect(current.querySelector('a[href="/today"]')?.textContent?.trim()).toBe('Tiếp tục học');
+    expect(current.querySelector('a[href="/lessons/l2"]')?.textContent?.trim()).toBe('Tiếp tục học');
     expect(current.querySelector('a[href="/lessons"]')?.textContent?.trim()).toBe('Danh sách bài');
   });
 
-  const openCurrent = async (dashboard: Dashboard) => {
-    await setup({ active: goal(), others: [] }, {}, dashboard);
+  const openCurrent = async (home: Dashboard, mine: MyLessons = studyingMine) => {
+    await setup({ active: goal(), others: [] }, {}, home, mine);
     http.expectOne((r) => r.url === '/api/topics').flush({ topics: a1Topics });
     await settle();
     return el.querySelector('.current')!;
   };
 
-  it('says "Bắt đầu học" before any step of today’s lesson is done', async () => {
-    const current = await openCurrent(today({ action: { kind: 'start', step: 'review' } }));
-    expect(current.querySelector('a[href="/today"]')?.textContent?.trim()).toBe('Bắt đầu học');
+  it('says "Bắt đầu học" before any step of the lesson is done', async () => {
+    const current = await openCurrent(dashboard({ action: { kind: 'start', step: 'read' } }));
+    expect(current.querySelector('a[href="/lessons/l2"]')?.textContent?.trim()).toBe('Bắt đầu học');
   });
 
   it('offers no lesson to continue when the course has no new lesson', async () => {
-    const current = await openCurrent(today({ kind: 'noNewLesson', action: null }));
-    expect(current.querySelector('a[href="/today"]')).toBeNull();
+    const current = await openCurrent(dashboard({ kind: 'noNewLesson', lesson: null, action: null }), {
+      current: null,
+      completed: [],
+      upcoming: [],
+    });
+    expect(current.querySelector('.btn-primary')).toBeNull();
     expect(text(current.querySelector('[role="status"]'))).toContain('Khóa học này chưa có bài mới');
     expect(current.querySelector('a[href="/lessons"]')).not.toBeNull();
   });
 
-  it('says see you tomorrow when today’s lesson is done', async () => {
-    const current = await openCurrent(today({ kind: 'doneToday', action: null }));
-    expect(current.querySelector('a[href="/today"]')).toBeNull();
-    expect(text(current.querySelector('[role="status"]'))).toBe('Đã xong bài hôm nay, hẹn bạn ngày mai.');
+  it('opens the lesson finished last when the course has no new lesson', async () => {
+    const current = await openCurrent(dashboard({ kind: 'noNewLesson', lesson: null, action: null }), {
+      current: null,
+      completed: [
+        { id: 'l7', title: 'Newest', topicName: 'Gia đình', completedAt: '2026-10-01T10:00:00Z' },
+        { id: 'l6', title: 'Older', topicName: 'Gia đình', completedAt: '2026-09-30T10:00:00Z' },
+      ],
+      upcoming: [],
+    });
+    const link = current.querySelector('a.btn-primary')!;
+    expect(link.getAttribute('href')).toBe('/lessons/l7');
+    expect(link.textContent?.trim()).toBe('Xem lại bài gần nhất');
   });
 
   it('has no current course card before a goal is chosen', async () => {
@@ -133,7 +154,7 @@ describe('Goal', () => {
     expect(text(topicRow('Du lịch'))).toContain('Chưa có bài');
   });
 
-  it('sets the goal and goes to today', async () => {
+  it('sets the goal and goes to its lessons at once', async () => {
     await setup({ active: null, others: [] });
     await chooseLevel('A1');
     topicRow('Mua sắm').querySelector<HTMLButtonElement>('button')!.click();
@@ -141,21 +162,9 @@ describe('Goal', () => {
     const req = http.expectOne('/api/goals');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ topicId: 't2' });
-    req.flush({ active: goal({ topicId: 't2' }), effectiveFrom: '2026-09-30', startsTomorrow: false });
+    req.flush({ active: goal({ topicId: 't2' }) });
     await settle();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/today');
-  });
-
-  it('says when the new topic starts tomorrow', async () => {
-    await setup({ active: null, others: [] });
-    await chooseLevel('A1');
-    topicRow('Gia đình').querySelector<HTMLButtonElement>('button')!.click();
-    await settle();
-    http.expectOne('/api/goals').flush({ active: goal(), effectiveFrom: '2026-10-01', startsTomorrow: true });
-    await settle();
-    expect(text(el.querySelector('[role="status"]'))).toContain('Chủ đề mới bắt đầu từ ngày mai');
-    expect(router.navigateByUrl).not.toHaveBeenCalled();
-    expect(el.querySelector('a[href="/today"]')).toBeTruthy();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/lessons');
   });
 
   it('congratulates at the end of a roadmap', async () => {

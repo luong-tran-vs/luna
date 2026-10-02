@@ -38,7 +38,12 @@
               [attr.aria-describedby]="describedBy(d, 'content', 'draft-' + d.key + '-words')"
               (input)="onContent(d.key, $event)"
             ></textarea>
-            <p class="field-hint" [id]="'draft-' + d.key + '-words'">{{ countWords(d.content) }} từ</p>
+            <p class="field-hint" [class.length-warning]="!!lengthWarning(d)" [id]="'draft-' + d.key + '-words'">
+              {{ countWords(d.content) }} từ
+              @if (lengthWarning(d); as warning) {
+                <span>· ! {{ warning }}</span>
+              }
+            </p>
             @if (d.fields['content']; as message) {
               <p class="field-error" [id]="'draft-' + d.key + '-content-error'">{{ message }}</p>
             }

@@ -105,7 +105,7 @@ describe('App', () => {
   it('hides the tab bar while studying a lesson', async () => {
     loginAs('learner');
     const harness = await RouterTestingHarness.create();
-    await harness.navigateByUrl('/today');
+    await harness.navigateByUrl('/lessons/l1/listen');
     const layout = (harness.fixture.nativeElement as HTMLElement).querySelector('lu-learner-layout')!;
     expect(layout.classList).toContain('focus');
     await harness.navigateByUrl('/lessons');

@@ -1,8 +1,9 @@
 import {
-  inject,
   ChangeDetectionStrategy,
   Component,
   computed,
+  ElementRef,
+  inject,
   input,
   linkedSignal,
   output,
@@ -15,9 +16,11 @@ import { checkFill, FillCheck, nextEmptyBlank, Score } from '../practice-logic';
 
 type Part = { kind: 'text'; text: string } | { kind: 'blank'; index: number };
 
+const key = (word: string) => word.trim().toLowerCase();
+
 /**
- * Step 3: the dialogue with blanks. The selected blank takes the next word tapped in the bank;
- * a filled blank can be cleared (✕) or selected and replaced. Kiểm tra checks every blank at once.
+ * Step 3: the dialogue with blanks to type in. A word tapped in the bank (the hints) goes into the
+ * blank last focused. Kiểm tra checks every blank at once, ignoring case.
  */
 @Component({
   selector: 'lu-fill-step',
@@ -27,6 +30,8 @@ type Part = { kind: 'text'; text: string } | { kind: 'blank'; index: number };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FillStep {
+  /** Position of this step on the page, shown in its title (steps without content are left out). */
+  readonly number = input(1);
   /** False when the browser has no voice: the listen buttons are hidden. */
   protected readonly canSpeak = inject(SpeechService).supported;
   readonly fill = input.required<PracticeFill>();
@@ -41,11 +46,11 @@ export class FillStep {
   readonly readAloud = output<string>();
   readonly checked = output<Score>();
 
-  /** Bank index put in each blank, or null. Indexes keep tiles with the same word apart. */
-  protected readonly answers = linkedSignal<(number | null)[]>(() =>
-    this.fill().blanks.map(() => null),
-  );
-  /** The blank that takes the next word; -1 for none. */
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+
+  /** What the learner typed in each blank (updated 2026-10-02: the blanks are text inputs). */
+  protected readonly answers = linkedSignal<string[]>(() => this.fill().blanks.map(() => ''));
+  /** The blank a word of the bank goes to: the last one focused; -1 for none. */
   protected readonly selected = linkedSignal<number>(() =>
     this.fill().blanks.length > 0 ? 0 : -1,
   );
@@ -54,11 +59,29 @@ export class FillStep {
     computation: () => null,
   });
 
-  protected readonly words = computed(() =>
-    this.answers().map((i) => (i === null ? null : (this.bank()[i] ?? null))),
+  /** Bank tiles whose word is already in a blank, one tile per blank holding it. */
+  protected readonly used = computed(() => {
+    const left = new Map<string, number>();
+    for (const a of this.answers()) {
+      if (a.trim()) {
+        left.set(key(a), (left.get(key(a)) ?? 0) + 1);
+      }
+    }
+    const out = new Set<number>();
+    this.bank().forEach((w, i) => {
+      const n = left.get(key(w)) ?? 0;
+      if (n > 0) {
+        out.add(i);
+        left.set(key(w), n - 1);
+      }
+    });
+    return out;
+  });
+  protected readonly complete = computed(() => this.answers().every((a) => a.trim() !== ''));
+  /** Every input as wide as the longest answer, so the width does not give one away. */
+  protected readonly inputSize = computed(() =>
+    Math.max(8, ...this.fill().blanks.map((b) => b.answer.length + 2)),
   );
-  protected readonly used = computed(() => new Set(this.answers().filter((i) => i !== null)));
-  protected readonly complete = computed(() => this.answers().every((i) => i !== null));
 
   protected readonly turns = computed(() =>
     this.fill().turns.map((t) => ({
@@ -77,42 +100,60 @@ export class FillStep {
     return this.canSpeak ? (this.turnTexts()[turnIndex] ?? null) : null;
   }
 
-  protected blankLabel(index: number): string {
-    return `Ô trống ${index + 1}: ${this.words()[index] ?? 'trống'}`;
-  }
-
   protected select(index: number): void {
     if (!this.result()) {
       this.selected.set(index);
     }
   }
 
-  protected pick(bankIndex: number): void {
-    const target = this.selected();
-    if (this.result() || target < 0 || this.used().has(bankIndex)) {
-      return;
-    }
-    const answers = [...this.answers()];
-    answers[target] = bankIndex;
-    this.answers.set(answers);
-    this.selected.set(nextEmptyBlank(answers, target));
+  protected type(index: number, event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.answers.update((a) => a.map((v, i) => (i === index ? value : v)));
   }
 
-  protected remove(index: number): void {
-    if (this.result()) {
+  /** Enter goes to the next blank; on the last one it checks once every blank is filled. */
+  protected enter(index: number, event: Event): void {
+    event.preventDefault();
+    if (index + 1 < this.answers().length) {
+      this.focusBlank(index + 1);
+    } else {
+      this.check();
+    }
+  }
+
+  /**
+   * A word of the bank goes into the focused blank when it is empty, else into the next empty
+   * blank; with every blank filled it replaces the focused one. Then the next empty blank is focused.
+   */
+  protected pick(bankIndex: number): void {
+    const from = this.selected();
+    if (this.result() || from < 0 || this.used().has(bankIndex)) {
       return;
     }
-    this.answers.update((a) => a.map((v, i) => (i === index ? null : v)));
-    this.selected.set(index);
+    const empty = nextEmptyBlank(this.answers(), from - 1);
+    const target = empty < 0 ? from : empty;
+    const answers = this.answers().map((v, i) => (i === target ? this.bank()[bankIndex] : v));
+    this.answers.set(answers);
+    const next = nextEmptyBlank(answers, target);
+    if (next >= 0) {
+      this.focusBlank(next);
+    } else {
+      this.selected.set(target);
+    }
   }
 
   protected check(): void {
     if (!this.complete() || this.result()) {
       return;
     }
-    const r = checkFill(this.words(), this.fill().blanks);
+    const r = checkFill(this.answers(), this.fill().blanks);
     this.result.set(r);
     this.selected.set(-1);
     this.checked.emit({ correct: r.correct, total: r.total });
+  }
+
+  private focusBlank(index: number): void {
+    this.selected.set(index);
+    this.host.nativeElement.querySelector<HTMLInputElement>(`#fill-blank-${index}`)?.focus();
   }
 }

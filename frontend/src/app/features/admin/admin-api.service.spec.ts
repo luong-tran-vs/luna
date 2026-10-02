@@ -107,9 +107,16 @@ describe('AdminApiService', () => {
   });
 
   it('asks for a split of target words (F18)', async () => {
-    const groups = [['Family', 'cousin'], []];
+    const plan = { groups: [['Family', 'cousin'], []], shortage: 6 };
     await expect(
-      call(api.wordPlan('t1', 2, 8), 'GET', '/api/admin/topics/t1/word-plan?count=2&perLesson=8', { groups }),
-    ).resolves.toEqual(groups);
+      call(api.wordPlan('t1', 2, 8), 'GET', '/api/admin/topics/t1/word-plan?count=2&perLesson=8', plan),
+    ).resolves.toEqual(plan);
+  });
+
+  it('asks the AI for new topic words (F18)', async () => {
+    const body = { added: ['aunt'], words: [{ text: 'aunt', used: false, lessonCount: 0 }] };
+    await expect(
+      call(api.suggestTopicWords('t1', 6), 'POST', '/api/admin/topics/t1/words/suggest', body, { count: 6 }),
+    ).resolves.toEqual(body);
   });
 });

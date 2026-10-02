@@ -11,11 +11,11 @@ import { Icon } from '../../shared/components/icon/icon';
 import { ProgressBar } from '../../shared/components/progress-bar/progress-bar';
 import { ProgressRing } from '../../shared/components/progress-ring/progress-ring';
 
-const STEP_LABELS: Record<Step, string> = { review: 'Ôn', read: 'Đọc', listen: 'Nghe', write: 'Viết' };
+const STEP_LABELS: Record<Step, string> = { read: 'Đọc', listen: 'Nghe', write: 'Viết' };
 
 /**
- * The home page (F6, client sketch screen 2): greeting, today's progress, three figures, the button
- * to the current step and the topic being studied. Numbers are loaded every time the page opens.
+ * The home page (F6, client sketch screen 2): greeting, progress of the lesson being studied, three
+ * figures, the button into that lesson and the topic being studied. Numbers are loaded every time the page opens.
  */
 @Component({
   selector: 'lu-home',
@@ -36,6 +36,8 @@ export class Home {
   protected readonly loadError = signal(false);
 
   /** The part of the email before "@", as there is no display name. */
+  protected readonly stepCount = STEPS.length;
+
   protected readonly name = computed(() => this.auth.currentUser()?.email.split('@')[0] ?? '');
 
   protected readonly doneSteps = computed(() => {
@@ -49,20 +51,22 @@ export class Home {
     switch (d?.kind) {
       case 'noGoal':
         return 'Chọn một chủ đề để bắt đầu học nhé!';
-      case 'doneToday':
-        return 'Bạn đã xong bài hôm nay, giỏi lắm!';
       case 'noNewLesson':
         return 'Ôn lại từ đã học trong lúc chờ bài mới nhé!';
       default: {
         const left = STEPS.length - this.doneSteps();
-        return `Hôm nay còn ${left} bước nữa thôi!`;
+        return `Bài này còn ${left} bước nữa thôi!`;
       }
     }
   });
 
   protected readonly actionLabel = computed(() => {
     const a = this.data()?.action;
-    return a ? `${a.kind === 'start' ? 'Bắt đầu' : 'Tiếp tục'}: ${STEP_LABELS[a.step]}` : '';
+    if (!a) {
+      return '';
+    }
+    // The lesson opens on its practice first, so a new lesson just starts.
+    return a.kind === 'start' ? 'Bắt đầu học' : `Tiếp tục: ${STEP_LABELS[a.step]}`;
   });
 
   /** Comprehension and dictation together, as a whole percentage. */

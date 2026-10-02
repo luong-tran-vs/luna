@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
 
@@ -35,6 +36,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/topics/{id}/words", admin(h.getWords))
 	mux.Handle("PUT /api/admin/topics/{id}/words", admin(h.setWords))
 	mux.Handle("GET /api/admin/topics/{id}/word-plan", admin(h.wordPlan))
+	mux.Handle("POST /api/admin/topics/{id}/words/suggest", admin(h.suggestWords))
 	mux.Handle("GET /api/topics", requireAuth(http.HandlerFunc(h.public)))
 }
 
@@ -273,10 +275,47 @@ func (h *Handler) wordPlan(w http.ResponseWriter, r *http.Request) {
 		httpx.WriteFieldErrors(w, fields)
 		return
 	}
-	groups, err := h.svc.WordPlan(r.Context(), r.PathValue("id"), count, perLesson)
+	plan, err := h.svc.WordPlan(r.Context(), r.PathValue("id"), count, perLesson)
 	if err != nil {
 		h.writeError(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, http.StatusOK, map[string][][]string{"groups": groups})
+	httpx.WriteJSON(w, http.StatusOK, wordPlanJSON(plan))
+}
+
+type wordPlanJSON struct {
+	Groups   [][]string `json:"groups"`
+	Shortage int        `json:"shortage"`
+}
+
+type suggestWordsBody struct {
+	Count int `json:"count"`
+}
+
+// suggestWords adds AI-suggested words to the topic (F18) and returns the added words and the
+// whole list with coverage.
+func (h *Handler) suggestWords(w http.ResponseWriter, r *http.Request) {
+	var body suggestWordsBody
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	added, uses, err := h.svc.SuggestWords(r.Context(), r.PathValue("id"), body.Count)
+	switch {
+	case errors.Is(err, ai.ErrNotConfigured):
+		httpx.WriteError(w, http.StatusServiceUnavailable, "ai_not_configured", "AI chưa được cấu hình. Liên hệ người vận hành.")
+	case errors.Is(err, ai.ErrInvalidKey):
+		httpx.WriteError(w, http.StatusServiceUnavailable, "ai_not_configured", "Khoá AI không hợp lệ. Liên hệ người vận hành.")
+	case errors.Is(err, ai.ErrQuota):
+		httpx.WriteError(w, http.StatusTooManyRequests, "ai_quota", "Đã hết lượt AI, vui lòng thử lại sau.")
+	case errors.Is(err, ErrNoSuggestion):
+		httpx.WriteError(w, http.StatusBadGateway, "ai_unusable", "AI không gợi ý được từ mới, vui lòng thử lại.")
+	case err != nil:
+		h.writeError(w, r, err)
+	default:
+		out := make([]wordJSON, len(uses))
+		for i, u := range uses {
+			out[i] = wordJSON(u)
+		}
+		httpx.WriteJSON(w, http.StatusOK, map[string]any{"added": added, "words": out})
+	}
 }

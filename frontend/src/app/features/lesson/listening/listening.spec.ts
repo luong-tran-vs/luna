@@ -63,7 +63,8 @@ describe('Listening', () => {
   const button = (text: string) =>
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === text) as HTMLButtonElement | undefined;
   const text = (selector: string) => el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
-  const filled = () => Number(el.querySelector('lu-waveform clipPath rect')!.getAttribute('width'));
+  /** Percent of the waveform shown as played. */
+  const filled = () => 100 - Number(/inset\(0 ([\d.]+)%/.exec(el.querySelector<SVGElement>('lu-waveform svg.played')!.style.clipPath)![1]);
   const input = () => el.querySelector<HTMLInputElement>('#answer')!;
   const type = async (value: string) => {
     input().value = value;
@@ -170,17 +171,17 @@ describe('Listening', () => {
 
     it('fills the waveform while reading and when done', async () => {
       await setup();
-      expect(el.querySelector('lu-waveform svg')!.getAttribute('aria-hidden')).toBe('true');
+      expect(el.querySelector('lu-waveform')!.getAttribute('aria-hidden')).toBe('true');
       expect(filled()).toBe(0);
       button('Nghe câu')!.click();
       await settle();
       speech.last().handlers.progress!(0.5, 0.6);
       await fixture.whenStable();
-      expect(filled()).toBe(96);
+      expect(filled()).toBe(50);
       speech.last().handlers.progress!(1, 1.2);
       speech.last().handlers.ended!();
       await fixture.whenStable();
-      expect(filled()).toBe(192); // 64 bars × 3 units
+      expect(filled()).toBe(100);
     });
 
     it('says so when the browser fails to read', async () => {

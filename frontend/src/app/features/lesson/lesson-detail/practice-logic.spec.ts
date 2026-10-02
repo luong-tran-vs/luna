@@ -115,6 +115,7 @@ describe('practice logic', () => {
     it('finds the first empty blank', () => {
       expect(nextEmptyBlank([null, null])).toBe(0);
       expect(nextEmptyBlank(['a', null, null])).toBe(1);
+      expect(nextEmptyBlank(['a', '  ', ''])).toBe(1);
     });
 
     it('looks after the given blank first, then wraps around', () => {

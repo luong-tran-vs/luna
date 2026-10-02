@@ -26,6 +26,12 @@ export interface TopicWord {
   lessonCount: number;
 }
 
+/** Target words for one generation (F18): one group per lesson, and how many more unused words the topic needs. */
+export interface WordPlan {
+  groups: string[][];
+  shortage: number;
+}
+
 export interface TopicInput {
   name: string;
   level: Level | '';

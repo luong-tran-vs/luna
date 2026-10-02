@@ -1,7 +1,4 @@
-<section
-  class="screen practice-page"
-  [class.has-next]="lesson() && tab() === 'lesson' && !finished()"
->
+<section class="screen practice-page" [class.has-next]="lesson() && showBar()">
   @if (loadError(); as message) {
     <header class="screen-bar">
       <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"
@@ -16,20 +13,24 @@
       <a class="round-btn" routerLink="/lessons" aria-label="Đóng, về danh sách bài"
         ><lu-icon name="x"
       /></a>
-      <div
-        class="progress"
-        role="progressbar"
-        aria-label="Tiến độ luyện tập"
-        aria-valuemin="1"
-        [attr.aria-valuemax]="steps.length"
-        [attr.aria-valuenow]="progress()"
-        [attr.aria-valuetext]="progress() + '/' + steps.length"
-      >
-        @for (n of steps; track n) {
-          <span class="segment" [class.on]="n <= progress()"></span>
-        }
-      </div>
-      <span class="progress-text" aria-hidden="true">{{ progress() }}/{{ steps.length }}</span>
+      @if (hasSteps()) {
+        <div
+          class="progress"
+          role="progressbar"
+          aria-label="Tiến độ luyện tập"
+          aria-valuemin="1"
+          [attr.aria-valuemax]="steps().length"
+          [attr.aria-valuenow]="progress()"
+          [attr.aria-valuetext]="progress() + '/' + steps().length"
+        >
+          @for (key of steps(); track key; let n = $index) {
+            <span class="segment" [class.on]="n + 1 <= progress()"></span>
+          }
+        </div>
+        <span class="progress-text" aria-hidden="true">{{ progress() }}/{{ steps().length }}</span>
+      } @else {
+        <span class="progress-spacer"></span>
+      }
       @if (streak() !== null) {
         <span class="streak"><lu-icon name="flame" /> {{ streak() }} ngày</span>
       }
@@ -48,80 +49,100 @@
       }
       <span class="tag level">Mức độ: {{ level() }}</span>
 
-      <div class="tabs" role="tablist" aria-label="Nội dung bài">
-        <button
-          type="button"
-          role="tab"
-          id="tab-lesson"
-          class="tab"
-          aria-controls="panel-lesson"
-          [attr.aria-selected]="tab() === 'lesson'"
-          [tabIndex]="tab() === 'lesson' ? 0 : -1"
-          (click)="selectTab('lesson')"
-          (keydown)="onTabKeydown($event)"
-        >
-          <lu-icon name="book" /> Bài học
-        </button>
-        <button
-          type="button"
-          role="tab"
-          id="tab-reading"
-          class="tab"
-          aria-controls="panel-reading"
-          [attr.aria-selected]="tab() === 'reading'"
-          [tabIndex]="tab() === 'reading' ? 0 : -1"
-          (click)="selectTab('reading')"
-          (keydown)="onTabKeydown($event)"
-        >
-          <lu-icon name="notebook" /> Bài đọc
-        </button>
-      </div>
+      @if (hasSteps()) {
+        <div class="tabs" role="tablist" aria-label="Nội dung bài">
+          <button
+            type="button"
+            role="tab"
+            id="tab-lesson"
+            class="tab"
+            aria-controls="panel-lesson"
+            [attr.aria-selected]="tab() === 'lesson'"
+            [tabIndex]="tab() === 'lesson' ? 0 : -1"
+            (click)="selectTab('lesson')"
+            (keydown)="onTabKeydown($event)"
+          >
+            <lu-icon name="book" /> Bài học
+          </button>
+          <button
+            type="button"
+            role="tab"
+            id="tab-reading"
+            class="tab"
+            aria-controls="panel-reading"
+            [attr.aria-selected]="tab() === 'reading'"
+            [tabIndex]="tab() === 'reading' ? 0 : -1"
+            (click)="selectTab('reading')"
+            (keydown)="onTabKeydown($event)"
+          >
+            <lu-icon name="notebook" /> Bài đọc
+          </button>
+        </div>
+      }
     </div>
 
     <p class="visually-hidden" aria-live="polite">
-      {{ tab() === 'lesson' ? stepAnnouncement() : '' }}
+      {{ shownTab() === 'lesson' ? stepAnnouncement() : '' }}
     </p>
 
     <!-- Hidden rather than removed, so the step keeps its answers while Bài đọc is open. -->
-    <div
-      class="panel"
-      role="tabpanel"
-      id="panel-lesson"
-      aria-labelledby="tab-lesson"
-      [hidden]="tab() !== 'lesson'"
-    >
-      @if (finished()) {
-        <lu-practice-summary
-          [summary]="summary()"
-          [status]="status()"
-          [lessonId]="id"
-          (retry)="retry()"
-        />
-      } @else {
-        @switch (step()) {
-          @case (1) {
-            <lu-vocab-step
-              [words]="words()"
-              [examples]="practice()?.examples ?? []"
-              (readAloud)="play($event)"
-            />
-          }
-          @case (2) {
-            @if (hasDialogue()) {
+    @if (hasSteps()) {
+      <div
+        class="panel"
+        role="tabpanel"
+        id="panel-lesson"
+        aria-labelledby="tab-lesson"
+        [hidden]="shownTab() !== 'lesson'"
+      >
+        @if (lessonDone()) {
+          <section class="soft-card done-card" aria-labelledby="done-heading">
+            <h2 class="step-title" id="done-heading">
+              <lu-icon name="trophy" /> Hoàn thành bài học
+            </h2>
+            @if (streak(); as s) {
+              <p>
+                Chuỗi ngày học: <strong>{{ s }} ngày</strong>.
+              </p>
+            }
+            @if (study()?.next; as n) {
+              <a class="btn-primary btn-block" [routerLink]="['/lessons', n.id]"
+                >Sang bài tiếp theo: <span lang="en">{{ n.title }}</span>
+                <lu-icon name="arrow-right"
+              /></a>
+            } @else {
+              <p class="muted">
+                Chủ đề này chưa có bài tiếp theo. Bạn vẫn ôn được từ hoặc chọn chủ đề khác.
+              </p>
+            }
+            <a class="btn btn-block" routerLink="/lessons">Về danh sách bài</a>
+          </section>
+        } @else if (finished()) {
+          <lu-practice-summary
+            [summary]="summary()"
+            [status]="status()"
+            [lessonId]="id()"
+            (retry)="retry()"
+          />
+        } @else {
+          @switch (current()) {
+            @case ('words') {
+              <lu-vocab-step
+                [number]="step()"
+                [words]="words()"
+                [examples]="practice()?.examples ?? []"
+                (readAloud)="play($event)"
+              />
+            }
+            @case ('dialogue') {
               <lu-dialogue-step
+                [number]="step()"
                 [dialogue]="practice()!.dialogue!"
                 [(rate)]="rate"
               />
-            } @else {
-              <section class="soft-card" aria-labelledby="empty-heading">
-                <h2 class="step-title" id="empty-heading">2. Hội thoại mẫu</h2>
-                <p class="empty">Bài này chưa có phần luyện tập</p>
-              </section>
             }
-          }
-          @case (3) {
-            @if (hasFill()) {
+            @case ('fill') {
               <lu-fill-step
+                [number]="step()"
                 [fill]="practice()!.fill!"
                 [bank]="fillBank()"
                 [speakers]="practice()?.dialogue?.speakers ?? []"
@@ -130,16 +151,10 @@
                 (readAloud)="play($event)"
                 (checked)="onFillChecked($event)"
               />
-            } @else {
-              <section class="soft-card" aria-labelledby="empty-heading">
-                <h2 class="step-title" id="empty-heading">3. Điền vào ô trống</h2>
-                <p class="empty">Bài này chưa có phần luyện tập</p>
-              </section>
             }
-          }
-          @case (4) {
-            @if (hasTranslations()) {
+            @case ('translate') {
               <lu-translate-step
+                [number]="step()"
                 [translation]="practice()!.translations[translateIndex()]"
                 [tiles]="translationTiles()[translateIndex()]"
                 [index]="translateIndex()"
@@ -147,23 +162,62 @@
                 (readAloud)="play($event)"
                 (checked)="onTranslationChecked(translateIndex(), $event)"
               />
-            } @else {
-              <section class="soft-card" aria-labelledby="empty-heading">
-                <h2 class="step-title" id="empty-heading">4. Dịch câu sang tiếng Anh</h2>
-                <p class="empty">Bài này chưa có phần luyện tập</p>
-              </section>
+            }
+            @case ('read') {
+              @if (studyStepDone()) {
+                <lu-reading [lessonId]="id()" mode="review" />
+              } @else {
+                <lu-reading
+                  [lessonId]="id()"
+                  [startSentence]="study()?.sentenceIndex ?? null"
+                  mode="study"
+                  (completed)="complete('read')"
+                  (position)="savePosition('read', $event)"
+                />
+              }
+            }
+            @case ('listen') {
+              @if (studyStepDone()) {
+                <lu-listening [lessonId]="id()" mode="review" />
+              } @else {
+                <lu-listening
+                  [lessonId]="id()"
+                  [startSentence]="study()?.sentenceIndex ?? null"
+                  mode="study"
+                  (completed)="complete('listen')"
+                  (position)="savePosition('listen', $event)"
+                />
+              }
+            }
+            @case ('write') {
+              @if (studyStepDone()) {
+                <lu-writing [lessonId]="id()" mode="review" />
+              } @else {
+                <lu-writing
+                  [lessonId]="id()"
+                  mode="study"
+                  (completed)="complete('write')"
+                  (skipped)="skipWrite()"
+                />
+              }
             }
           }
+          @if (stepError(); as message) {
+            <p class="form-alert" role="alert">{{ message }}</p>
+          }
+          @if (saving()) {
+            <p class="muted" role="status">Đang lưu…</p>
+          }
         }
-      }
-    </div>
+      </div>
+    }
 
     <div
       class="panel"
-      role="tabpanel"
       id="panel-reading"
-      aria-labelledby="tab-reading"
-      [hidden]="tab() !== 'reading'"
+      [attr.aria-labelledby]="hasSteps() ? 'tab-reading' : null"
+      [attr.role]="hasSteps() ? 'tabpanel' : null"
+      [hidden]="shownTab() !== 'reading'"
     >
       <section class="soft-card" aria-labelledby="text-heading">
         <h2 class="step-title" id="text-heading">Bài đọc</h2>
@@ -188,11 +242,20 @@
       }
     </div>
 
-    @if (tab() === 'lesson' && !finished()) {
+    @if (showBar()) {
       <div class="next-bar">
-        <button type="button" class="btn-primary btn-block next" (click)="next()">
-          {{ nextLabel() }} <lu-icon name="arrow-right" />
-        </button>
+        <div class="nav">
+          @if (canGoBack()) {
+            <button type="button" class="btn back" (click)="back()">
+              <lu-icon name="arrow-left" /> Bước trước
+            </button>
+          }
+          @if (canGoOn()) {
+            <button type="button" class="btn-primary next" (click)="next()">
+              {{ nextLabel() }} <lu-icon name="arrow-right" />
+            </button>
+          }
+        </div>
       </div>
     }
   } @else {

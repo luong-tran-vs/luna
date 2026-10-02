@@ -28,8 +28,8 @@ func TestValidateGenerate(t *testing.T) {
 		field  string
 		msg    string
 	}{
-		{name: "count 0", mutate: func(in *GenerateInput) { in.Count = 0 }, field: "count", msg: "Số bài từ 1 đến 5"},
-		{name: "count 6", mutate: func(in *GenerateInput) { in.Count = 6 }, field: "count", msg: "Số bài từ 1 đến 5"},
+		{name: "count 0", mutate: func(in *GenerateInput) { in.Count = 0 }, field: "count", msg: "Số bài từ 1 đến 10"},
+		{name: "count 11", mutate: func(in *GenerateInput) { in.Count = 11 }, field: "count", msg: "Số bài từ 1 đến 10"},
 		{name: "words 49", mutate: func(in *GenerateInput) { in.Words = 49 }, field: "words", msg: "Độ dài từ 50 đến 800 từ"},
 		{name: "words 801", mutate: func(in *GenerateInput) { in.Words = 801 }, field: "words", msg: "Độ dài từ 50 đến 800 từ"},
 		{name: "kind", mutate: func(in *GenerateInput) { in.Kind = "poem" }, field: "kind", msg: "Dạng bài không hợp lệ"},
@@ -50,7 +50,7 @@ func TestValidateGenerate(t *testing.T) {
 
 	for _, in := range []GenerateInput{
 		{Count: 1, Words: 50, Kind: "reading"},
-		{Count: 5, Words: 800, Kind: "dialogue", Idea: "  " + strings.Repeat("ý", 500) + "  "},
+		{Count: 10, Words: 800, Kind: "dialogue", Idea: "  " + strings.Repeat("ý", 500) + "  "},
 	} {
 		got, err := ValidateGenerate(in)
 		if err != nil {
@@ -98,11 +98,11 @@ func TestGenerateFiltersDrafts(t *testing.T) {
 		{Title: "Empty", Content: "   "},                      // empty content
 		{Title: "sunday   lunch!", Content: text(100)},        // duplicate in the batch
 		{Title: "MY BROTHER TOM.", Content: text(100)},        // existing lesson
-		{Title: "Too Short", Content: text(79)},               // < 80
-		{Title: "Too Long", Content: text(121)},               // > 120
+		{Title: "Too Short", Content: text(79)},               // kept: off length only warns
+		{Title: "Too Long", Content: text(121)},               // kept
 		{Title: strings.Repeat("T", 201), Content: text(100)}, // title too long
-		{Title: "Edge Low", Content: text(80)},                // accepted
-		{Title: "Edge High", Content: text(120)},              // accepted
+		{Title: "Edge Low", Content: text(80)},                // beyond count, cut
+		{Title: "Edge High", Content: text(120)},              // beyond count, cut
 		{Title: "Extra", Content: text(100)},                  // beyond count, cut
 	}
 
@@ -110,21 +110,21 @@ func TestGenerateFiltersDrafts(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Generate: %v", err)
 	}
-	if got.Requested != 3 || got.Dropped != 7 {
-		t.Errorf("requested/dropped = %d/%d, want 3/7", got.Requested, got.Dropped)
+	if got.Requested != 3 || got.Dropped != 5 || got.DropReasons != (DropReasons{DuplicateTitle: 2, Empty: 2, TooLong: 1}) {
+		t.Errorf("requested/dropped = %d/%d %+v, want 3/5", got.Requested, got.Dropped, got.DropReasons)
 	}
 	titles := make([]string, len(got.Drafts))
 	for i, d := range got.Drafts {
 		titles[i] = d.Title
 	}
-	if strings.Join(titles, "|") != "Sunday Lunch|Edge Low|Edge High" {
+	if strings.Join(titles, "|") != "Sunday Lunch|Too Short|Too Long" {
 		t.Fatalf("titles = %v", titles)
 	}
 	first := got.Drafts[0]
 	if strings.Contains(first.Content, "\r") || strings.HasPrefix(first.Content, " ") || strings.HasSuffix(first.Content, "\n") {
 		t.Errorf("content not normalised: %q", first.Content)
 	}
-	if first.Words != 100 || got.Drafts[1].Words != 80 || got.Drafts[2].Words != 120 {
+	if first.Words != 100 || got.Drafts[1].Words != 79 || got.Drafts[2].Words != 121 {
 		t.Errorf("words = %d %d %d", first.Words, got.Drafts[1].Words, got.Drafts[2].Words)
 	}
 	if lessons, _ := e.lessons.List(t.Context(), Filter{TopicID: "topic-a1"}); len(lessons) != 1 {
@@ -147,7 +147,7 @@ func TestGenerateDropsContentOverLimit(t *testing.T) {
 func TestGenerateNothingUsable(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	e.ai.drafts = []ai.LessonDraft{{Title: "", Content: ""}, {Title: "Short", Content: text(10)}}
+	e.ai.drafts = []ai.LessonDraft{{Title: "", Content: ""}, {Title: "  ", Content: text(10)}}
 	if _, err := e.svc.Generate(t.Context(), "topic-a1", validGenerate()); !errors.Is(err, ErrUnusableDraft) {
 		t.Fatalf("error = %v, want ErrUnusableDraft", err)
 	}
@@ -165,7 +165,7 @@ func TestGenerateErrors(t *testing.T) {
 		t.Parallel()
 		e := newEnv(t)
 		in := validGenerate()
-		in.Count = 9
+		in.Count = 11
 		var verr *ValidationError
 		if _, err := e.svc.Generate(t.Context(), "topic-a1", in); !errors.As(err, &verr) {
 			t.Fatalf("error = %v, want ValidationError", err)

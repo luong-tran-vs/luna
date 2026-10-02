@@ -20,12 +20,13 @@ const (
 type Service struct {
 	repo    Repository
 	lessons Lessons
+	ai      WordSuggester
 	now     func() time.Time
 }
 
 // NewService returns a Service.
-func NewService(repo Repository, lessons Lessons, now func() time.Time) *Service {
-	return &Service{repo: repo, lessons: lessons, now: now}
+func NewService(repo Repository, lessons Lessons, suggester WordSuggester, now func() time.Time) *Service {
+	return &Service{repo: repo, lessons: lessons, ai: suggester, now: now}
 }
 
 func cleanInput(in Input) Input {

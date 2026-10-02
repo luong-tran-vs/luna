@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { LessonStatus } from '../../../../core/models/study';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { Summary } from '../practice-logic';
 
-/** Whether the lesson is today's lesson, a finished one or neither (from GET /api/lessons/mine). */
-export type LessonStatus = 'today' | 'completed' | 'other';
-
-/** End of the practice: scores (kept only on this page), Làm lại and the way into the lesson. */
+/**
+ * End of the practice of a lesson not being studied: scores (kept only on this page), Làm lại, and
+ * for a finished lesson the ways back into its steps.
+ */
 @Component({
   selector: 'lu-practice-summary',
   imports: [Icon, RouterLink],

@@ -27,30 +27,29 @@ func TestDashboardStudying(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 	e.setGoal(t, "family")
-	e.reviews.setDue("u1", 5)
 
 	v := e.dashboard(t, "u1")
-	if v.Kind != TodayStudying || v.Goal == nil || v.Goal.TopicName != "Gia đình" || v.Goal.Level != "A1" ||
+	if v.Kind != StudyStudying || v.Goal == nil || v.Goal.TopicName != "Gia đình" || v.Goal.Level != "A1" ||
 		v.Goal.CompletedLessons != 0 || v.Goal.TotalLessons != 3 || v.GoalCompleted {
 		t.Fatalf("goal = %+v", v)
 	}
 	if v.Lesson == nil || *v.Lesson != (DashboardLesson{ID: "f1", Title: "Family 1", TopicName: "Gia đình", Level: "A1"}) {
 		t.Fatalf("lesson = %+v", v.Lesson)
 	}
-	if v.Steps[StepReview] != StateCurrent || v.Steps[StepRead] != StateLocked || v.CurrentStep != StepReview {
+	if v.Steps[StepRead] != StateCurrent || v.Steps[StepListen] != StateLocked || v.CurrentStep != StepRead {
 		t.Fatalf("steps = %v %s", v.Steps, v.CurrentStep)
 	}
-	wantAction(t, v.Action, ActionStart, StepReview)
+	wantAction(t, v.Action, ActionStart, StepRead)
 
-	e.complete(t, StepReview)
+	e.complete(t, StepRead)
 	v = e.dashboard(t, "u1")
-	if v.Steps[StepReview] != StateDone || v.Steps[StepRead] != StateCurrent {
-		t.Fatalf("after review steps = %v", v.Steps)
+	if v.Steps[StepRead] != StateDone || v.Steps[StepListen] != StateCurrent {
+		t.Fatalf("after read steps = %v", v.Steps)
 	}
-	wantAction(t, v.Action, ActionContinue, StepRead)
+	wantAction(t, v.Action, ActionContinue, StepListen)
 
 	// Another learner sees their own home page.
-	if other := e.dashboard(t, "u2"); other.Kind != TodayNoGoal || other.Goal != nil {
+	if other := e.dashboard(t, "u2"); other.Kind != StudyNoGoal || other.Goal != nil {
 		t.Fatalf("u2 = %+v", other)
 	}
 }
@@ -58,7 +57,7 @@ func TestDashboardStudying(t *testing.T) {
 func TestDashboardIsReadOnly(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	e.setGoal(t, "family") // no card due
+	e.setGoal(t, "family")
 
 	for range 2 {
 		wantAction(t, e.dashboard(t, "u1").Action, ActionStart, StepRead)
@@ -66,18 +65,14 @@ func TestDashboardIsReadOnly(t *testing.T) {
 	if len(e.days.days) != 0 || len(e.progress.rows) != 0 {
 		t.Fatalf("dashboard wrote days %v, progress %v", e.days.days, e.progress.rows)
 	}
-	// Switching topic is still immediate: today's lesson has not started.
-	if r := e.setGoal(t, "shopping"); r.StartsTomorrow {
-		t.Fatalf("switch = %+v", r)
-	}
 }
 
 func TestDashboardStreakAndTomorrowCards(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv() // 2026-09-30 10:00 in Viet Nam
 	e.setGoal(t, "family")
-	e.days.put("u1", "2026-09-28", "x")
-	e.days.put("u1", "2026-09-29", "y")
+	e.days.put("u1", "2026-09-28")
+	e.days.put("u1", "2026-09-29")
 	for _, c := range []fakeCard{
 		{due: time.Date(2026, 9, 28, 8, 0, 0, 0, hcm)},     // overdue
 		{due: time.Date(2026, 10, 1, 23, 0, 0, 0, hcm)},    // tomorrow night
@@ -107,14 +102,9 @@ func TestDashboardStreakAndTomorrowCards(t *testing.T) {
 func TestDashboardLessonTopic(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	e.setGoal(t, "family")
-	e.complete(t, StepReview)
-	// Switching after starting: today's lesson stays f1 of "Gia đình".
-	if r := e.setGoal(t, "shopping"); !r.StartsTomorrow {
-		t.Fatalf("switch = %+v", r)
-	}
+	e.setGoal(t, "shopping")
 	v := e.dashboard(t, "u1")
-	if v.Lesson == nil || v.Lesson.ID != "f1" || v.Lesson.TopicName != "Gia đình" {
+	if v.Lesson == nil || v.Lesson.ID != "s1" || v.Lesson.TopicName != "Mua sắm" || v.Lesson.Level != "A1" {
 		t.Fatalf("lesson = %+v", v.Lesson)
 	}
 
@@ -132,32 +122,28 @@ func TestDashboardLessonTopic(t *testing.T) {
 func TestDashboardNoGoal(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	e.days.put("u1", "2026-09-29", "x")
+	e.days.put("u1", "2026-09-29")
 	e.reviews.addCard("u1", fakeCard{due: time.Date(2026, 9, 30, 8, 0, 0, 0, hcm)})
 	v := e.dashboard(t, "u1")
-	if v.Kind != TodayNoGoal || v.Goal != nil || v.Skills != nil || v.Lesson != nil || v.Action != nil {
+	if v.Kind != StudyNoGoal || v.Goal != nil || v.Skills != nil || v.Lesson != nil || v.Action != nil {
 		t.Fatalf("no goal = %+v", v)
 	}
-	if v.Streak != 1 || v.TomorrowCards != 1 || len(v.Steps) != 4 || v.Steps[StepReview] != StateLocked {
+	if v.Streak != 1 || v.TomorrowCards != 1 || len(v.Steps) != 3 || v.Steps[StepRead] != StateLocked {
 		t.Fatalf("no goal numbers = %+v", v)
 	}
 }
 
-func TestDashboardDoneToday(t *testing.T) {
+func TestDashboardAfterALesson(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 	e.setGoal(t, "family")
 	e.studyLesson(t)
+	// The next lesson is there at once, not tomorrow.
 	v := e.dashboard(t, "u1")
-	if v.Kind != TodayDone || v.Lesson == nil || v.Lesson.ID != "f1" || v.Action != nil || v.Streak != 1 ||
-		v.CurrentStep != StepDone {
-		t.Fatalf("done today = %+v", v)
+	if v.Kind != StudyStudying || v.Lesson == nil || v.Lesson.ID != "f2" || v.Streak != 1 || v.CurrentStep != StepRead {
+		t.Fatalf("after f1 = %+v", v)
 	}
-	for _, s := range Steps {
-		if v.Steps[s] != StateDone {
-			t.Fatalf("steps = %v", v.Steps)
-		}
-	}
+	wantAction(t, v.Action, ActionStart, StepRead)
 }
 
 func TestDashboardNoNewLesson(t *testing.T) {
@@ -167,9 +153,8 @@ func TestDashboardNoNewLesson(t *testing.T) {
 	e.studyLesson(t)
 	e.nextDay(1)
 	e.studyLesson(t)
-	e.nextDay(1)
 	v := e.dashboard(t, "u1")
-	if v.Kind != TodayNoNewLesson || !v.GoalCompleted || v.Lesson != nil || v.Action != nil ||
+	if v.Kind != StudyNoNewLesson || !v.GoalCompleted || v.Lesson != nil || v.Action != nil ||
 		v.Goal.CompletedLessons != 2 || v.Streak != 2 {
 		t.Fatalf("no new lesson = %+v", v)
 	}
@@ -177,7 +162,7 @@ func TestDashboardNoNewLesson(t *testing.T) {
 	// An empty roadmap: 0/0, not completed.
 	e.setGoal(t, "empty")
 	v = e.dashboard(t, "u1")
-	if v.Kind != TodayNoNewLesson || v.GoalCompleted || v.Goal.TotalLessons != 0 || v.Skills == nil || v.Skills.Total != 0 {
+	if v.Kind != StudyNoNewLesson || v.GoalCompleted || v.Goal.TotalLessons != 0 || v.Skills == nil || v.Skills.Total != 0 {
 		t.Fatalf("empty roadmap = %+v %+v", v, v.Skills)
 	}
 }
@@ -191,7 +176,7 @@ func TestDashboardSkills(t *testing.T) {
 	e.studyLesson(t) // f1
 	e.nextDay(1)
 
-	e.complete(t, StepReview, StepRead) // f2
+	e.complete(t, StepRead) // f2
 	v := e.dashboard(t, "u1")
 	if *v.Skills != (SkillCounts{Read: 2, Listen: 1, Write: 1, Total: 3}) || v.Goal.CompletedLessons != 1 || v.Streak != 1 {
 		t.Fatalf("after read = %+v %+v", v.Skills, v.Goal)
@@ -201,7 +186,7 @@ func TestDashboardSkills(t *testing.T) {
 	e.complete(t, StepListen)
 	v = e.dashboard(t, "u1")
 	if *v.Skills != (SkillCounts{Read: 2, Listen: 2, Write: 2, Total: 3}) || v.Goal.CompletedLessons != 2 || v.Streak != 2 ||
-		v.Kind != TodayDone {
+		v.Lesson == nil || v.Lesson.ID != "f3" {
 		t.Fatalf("after listen = %+v %+v", v.Skills, v)
 	}
 
@@ -227,7 +212,7 @@ func TestStats(t *testing.T) {
 	e.setGoal(t, "family")
 	e.studyLesson(t) // f1: 3 sentences checked, 1/1 word each
 	e.nextDay(1)
-	e.complete(t, StepReview, StepRead) // f2 read only
+	e.complete(t, StepRead) // f2 read only
 	e.nextDay(1)
 	e.setGoal(t, "shopping") // older topics still count
 	for range 25 {

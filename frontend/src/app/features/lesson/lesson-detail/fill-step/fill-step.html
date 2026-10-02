@@ -1,7 +1,9 @@
 <section class="fill" aria-labelledby="fill-heading">
   <div>
-    <h2 class="step-title" id="fill-heading">3. Điền vào ô trống</h2>
-    <p class="step-hint">Chọn một ô trống rồi chạm từ trong Ngân hàng từ để điền.</p>
+    <h2 class="step-title" id="fill-heading">{{ number() }}. Điền vào ô trống</h2>
+    <p class="step-hint">
+      Gõ từ vào từng ô (Enter để sang ô kế tiếp), hoặc bấm một từ gợi ý bên dưới.
+    </p>
   </div>
 
   <ol class="turns">
@@ -30,27 +32,25 @@
                 [class.slot-ok]="result()?.results?.[p.index] === true"
                 [class.slot-bad]="result()?.results?.[p.index] === false"
               >
-                <button
-                  type="button"
+                <input
+                  type="text"
                   class="blank"
-                  [class.filled]="words()[p.index] !== null"
-                  [attr.aria-pressed]="selected() === p.index"
-                  [attr.aria-label]="blankLabel(p.index)"
-                  [disabled]="!!result()"
-                  (click)="select(p.index)"
-                >
-                  {{ words()[p.index] ?? 'chạm để điền' }}
-                </button>
-                @if (words()[p.index] !== null && !result()) {
-                  <button
-                    type="button"
-                    class="remove"
-                    [attr.aria-label]="'Gỡ từ ' + words()[p.index]"
-                    (click)="remove(p.index)"
-                  >
-                    <lu-icon name="x" />
-                  </button>
-                }
+                  lang="en"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  placeholder="gõ từ…"
+                  [id]="'fill-blank-' + p.index"
+                  [class.filled]="answers()[p.index].trim() !== ''"
+                  [class.selected]="selected() === p.index"
+                  [attr.size]="inputSize()"
+                  [attr.aria-label]="'Ô trống ' + (p.index + 1)"
+                  [value]="answers()[p.index]"
+                  [readOnly]="!!result()"
+                  (input)="type(p.index, $event)"
+                  (focus)="select(p.index)"
+                  (keydown.enter)="enter(p.index, $event)"
+                />
                 @if (result(); as r) {
                   @if (r.results[p.index]) {
                     <span class="mark mark-ok" lang="vi"><lu-icon name="check" /> Đúng</span>
@@ -72,7 +72,7 @@
 
   <div class="bank-head">
     <h3 class="bank-title" id="fill-bank-heading">Ngân hàng từ</h3>
-    <span class="muted">Chạm từ để chọn</span>
+    <span class="muted">Bấm từ để điền vào ô đang chọn</span>
   </div>
   <ul class="tiles" aria-labelledby="fill-bank-heading">
     @for (w of bank(); track $index; let i = $index) {

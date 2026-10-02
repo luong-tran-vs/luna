@@ -8,7 +8,8 @@ import { Icon } from '../../../shared/components/icon/icon';
 
 /**
  * The learner's lessons (L, client sketch screen 4): one numbered path — lessons studied (reopen
- * freely), today's, then the locked upcoming ones — under the topic being studied.
+ * freely), the one being studied, then the locked upcoming ones — under the topic being studied.
+ * Only lessons that exist are shown: no empty "today" box (updated 2026-10-02).
  */
 @Component({
   selector: 'lu-my-lessons',
@@ -24,9 +25,9 @@ export class MyLessons {
 
   /** Oldest first, so the numbers follow the order the lessons were studied. */
   protected readonly completed = computed(() => [...(this.data()?.completed ?? [])].reverse());
-  /** Number of today's lesson, right after the completed ones. */
-  protected readonly todayNumber = computed(() => this.completed().length + 1);
-  protected readonly upcomingStart = computed(() => this.todayNumber() + (this.data()?.today ? 1 : 0));
+  /** Number of the lesson being studied, right after the completed ones. */
+  protected readonly currentNumber = computed(() => this.completed().length + 1);
+  protected readonly upcomingStart = computed(() => this.currentNumber() + (this.data()?.current ? 1 : 0));
   protected readonly title = computed(() => {
     const g = this.goal();
     return g ? `${g.level} · ${g.topicName}` : 'Bài học';

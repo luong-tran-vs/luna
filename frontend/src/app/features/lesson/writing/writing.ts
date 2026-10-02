@@ -24,7 +24,8 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
 /**
  * The Write step (F8): the lesson's prompt, a text box that saves a draft while typing, and
- * Nộp. Submitting finishes the step at once; the AI grades in the background. In review mode
+ * Nộp. Submitting finishes the step at once; the AI grades in the background. Writing is
+ * optional: on the lesson page, Bỏ qua finishes the lesson without a writing. In review mode
  * (or once submitted) it only shows the writing and its result.
  */
 @Component({
@@ -46,6 +47,8 @@ export class Writing implements OnInit {
   readonly mode = input<'study' | 'review' | null>(null);
   /** Emitted once the writing is submitted (the page then completes the step). */
   readonly completed = output<void>();
+  /** Emitted when the learner skips writing (lesson page only; it then finishes the lesson). */
+  readonly skipped = output<void>();
 
   protected readonly minWords = MIN_WRITING_WORDS;
   protected readonly maxWords = MAX_WRITING_WORDS;
@@ -156,6 +159,10 @@ export class Writing implements OnInit {
 
   protected continue(): void {
     this.completed.emit();
+  }
+
+  protected skip(): void {
+    this.skipped.emit();
   }
 
   private setWriting(w: WritingData): void {

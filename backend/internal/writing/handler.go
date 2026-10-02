@@ -230,7 +230,7 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 	case errors.Is(err, ErrSubmitted):
 		httpx.WriteError(w, http.StatusConflict, "already_submitted", "Bài viết đã được nộp")
 	case errors.Is(err, ErrLocked):
-		httpx.WriteError(w, http.StatusConflict, "write_locked", "Hãy học tới bước Viết của bài hôm nay")
+		httpx.WriteError(w, http.StatusConflict, "write_locked", "Hãy học tới bước Viết của bài đang học")
 	case errors.Is(err, ErrNotFailed):
 		httpx.WriteError(w, http.StatusConflict, "not_failed", "Chỉ chấm lại được bài chấm lỗi")
 	default:

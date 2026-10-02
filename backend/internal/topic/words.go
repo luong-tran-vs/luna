@@ -13,7 +13,7 @@ import (
 
 // Limits of a topic word list (F18).
 const (
-	MaxWords      = 100
+	MaxWords      = 300
 	maxWordLength = 40
 )
 
@@ -91,8 +91,10 @@ func Coverage(words []string, lessons []LessonText) []WordUse {
 
 // Limits of a target word plan.
 const (
-	MaxPlanLessons = 5
+	MaxPlanLessons = 10
 	MaxTargetWords = 15
+	// MaxSuggestWords is the most words one AI suggestion may add.
+	MaxSuggestWords = 50
 )
 
 // PlanWords splits the topic words into count groups of perLesson words for the lessons of one

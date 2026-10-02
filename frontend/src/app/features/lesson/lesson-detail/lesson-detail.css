@@ -166,7 +166,31 @@
   border-top: 1px solid var(--color-line);
 }
 
-.next {
+.nav {
+  display: flex;
+  gap: var(--space-3);
   max-width: 608px;
   margin: 0 auto;
+}
+
+.nav .next {
+  flex: 1;
+}
+
+.done-card {
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.done-card .step-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--color-primary-ink);
+}
+
+/* Keeps the streak on the right when there is no progress bar (no practice steps). */
+.progress-spacer {
+  flex: 1;
 }

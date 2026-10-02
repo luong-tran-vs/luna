@@ -132,7 +132,7 @@ func TestWordPlanEndpoint(t *testing.T) {
 	base := "/api/admin/topics/" + id + "/word-plan"
 
 	rec := a.do(t, http.MethodGet, base+"?count=2&perLesson=1", "admin", "")
-	if rec.Code != http.StatusOK || strings.TrimSpace(rec.Body.String()) != `{"groups":[["Cousin"],["Grandmother"]]}` {
+	if rec.Code != http.StatusOK || strings.TrimSpace(rec.Body.String()) != `{"groups":[["Cousin"],["Grandmother"]],"shortage":1}` {
 		t.Fatalf("plan: %d %s", rec.Code, rec.Body)
 	}
 	rec = a.do(t, http.MethodGet, base+"?count=0&perLesson=16", "admin", "")
@@ -147,6 +147,83 @@ func TestWordPlanEndpoint(t *testing.T) {
 		t.Fatalf("missing: %d", rec.Code)
 	}
 	if rec := a.do(t, http.MethodGet, base+"?count=1&perLesson=1", "learner", ""); rec.Code != http.StatusForbidden {
+		t.Fatalf("learner: %d", rec.Code)
+	}
+}
+
+func TestWordPlanShortage(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	id := e.familyTopic(t) // Cousin is the only unused word
+
+	plan, err := e.svc.WordPlan(t.Context(), id, 3, 2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if plan.Shortage != 5 || len(plan.Groups) != 3 {
+		t.Fatalf("plan = %+v", plan)
+	}
+	if plan, _ := e.svc.WordPlan(t.Context(), id, 1, 1); plan.Shortage != 0 {
+		t.Fatalf("enough words: %+v", plan)
+	}
+	empty := e.create(t, "Màu sắc", "A1").ID
+	if plan, err := e.svc.WordPlan(t.Context(), empty, 2, 3); err != nil || plan.Shortage != 6 || len(plan.Groups) != 2 {
+		t.Fatalf("no words: %+v, %v", plan, err)
+	}
+}
+
+func TestSuggestWords(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	id := e.familyTopic(t)
+	e.ai.err = nil
+	e.ai.words = []string{"aunt", "FAMILY", "uncle", "bad_word!", "  baby   sister ", "nephew"}
+
+	added, uses, err := e.svc.SuggestWords(t.Context(), id, 3)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Existing words (any case) and invalid ones are skipped; at most count words are added.
+	if !slices.Equal(added, []string{"aunt", "uncle", "baby sister"}) {
+		t.Fatalf("added = %v", added)
+	}
+	if len(uses) != 6 || uses[3].Text != "aunt" || uses[3].Used {
+		t.Fatalf("uses = %+v", uses)
+	}
+	req := e.ai.reqs[0]
+	if req.Level != "A1" || req.TopicName != "Gia đình" || req.Count != 3 || len(req.Existing) != 3 {
+		t.Fatalf("request = %+v", req)
+	}
+
+	e.ai.words = []string{"aunt"}
+	if _, _, err := e.svc.SuggestWords(t.Context(), id, 1); !errors.Is(err, ErrNoSuggestion) {
+		t.Fatalf("nothing new: %v", err)
+	}
+	var verr *ValidationError
+	if _, _, err := e.svc.SuggestWords(t.Context(), id, MaxSuggestWords+1); !errors.As(err, &verr) {
+		t.Fatalf("too many: %v", err)
+	}
+	if _, _, err := e.svc.SuggestWords(t.Context(), "missing", 1); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("missing: %v", err)
+	}
+}
+
+func TestSuggestWordsEndpoint(t *testing.T) {
+	t.Parallel()
+	a := newAPI(t)
+	id := a.env.familyTopic(t)
+	url := "/api/admin/topics/" + id + "/words/suggest"
+
+	if rec := a.do(t, http.MethodPost, url, "admin", `{"count":2}`); rec.Code != http.StatusServiceUnavailable {
+		t.Fatalf("not configured: %d %s", rec.Code, rec.Body)
+	}
+	a.env.ai.err, a.env.ai.words = nil, []string{"aunt", "uncle"}
+	rec := a.do(t, http.MethodPost, url, "admin", `{"count":2}`)
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"added":["aunt","uncle"]`) ||
+		!strings.Contains(rec.Body.String(), `{"text":"uncle","used":false,"lessonCount":0}`) {
+		t.Fatalf("suggest: %d %s", rec.Code, rec.Body)
+	}
+	if rec := a.do(t, http.MethodPost, url, "learner", `{"count":2}`); rec.Code != http.StatusForbidden {
 		t.Fatalf("learner: %d", rec.Code)
 	}
 }

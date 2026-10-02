@@ -6,11 +6,10 @@ import (
 	"time"
 )
 
-// Step is one step of a day's lesson (L).
+// Step is one step of a lesson (L).
 type Step string
 
 const (
-	StepReview Step = "review"
 	StepRead   Step = "read"
 	StepListen Step = "listen"
 	StepWrite  Step = "write"
@@ -18,14 +17,13 @@ const (
 	StepDone Step = "done"
 )
 
-// Steps lists the steps in study order (F8 adds write after listen).
-var Steps = []Step{StepReview, StepRead, StepListen, StepWrite}
+// Steps lists the steps in study order (F8 adds write after listen). The review step was dropped
+// on 2026-10-02: due cards are reviewed in the notebook, not in a lesson; progress saved before
+// may still hold it and it is ignored.
+var Steps = []Step{StepRead, StepListen, StepWrite}
 
 // ValidStep reports whether s is one of Steps.
 func ValidStep(s Step) bool { return slices.Contains(Steps, s) }
-
-// DefaultReviewLimit is the number of due cards reviewed in the review step per day.
-const DefaultReviewLimit = 30
 
 // GoalStatus is active for the topic being studied, paused for the others.
 type GoalStatus string
@@ -42,8 +40,7 @@ type Goal struct {
 	TopicID string
 	Level   string
 	Status  GoalStatus
-	// EffectiveFrom is the day (YYYY-MM-DD) from which the goal gives today's lesson: today, or
-	// tomorrow when it was chosen after today's lesson had started.
+	// EffectiveFrom is the day (YYYY-MM-DD) the goal was chosen; it takes effect at once.
 	EffectiveFrom string
 	StartedAt     time.Time
 }
@@ -53,7 +50,7 @@ type LessonProgress struct {
 	UserID   string
 	LessonID string
 	TopicID  string
-	// DayKey is the day the lesson was studied.
+	// DayKey is the day the lesson was started.
 	DayKey        string
 	Done          map[Step]bool
 	CurrentStep   Step
@@ -62,32 +59,32 @@ type LessonProgress struct {
 	CompletedAt   time.Time
 }
 
-// StudyDay is a learner's day: its lesson (fixed once a step is done), the cards reviewed in the
-// review step and whether the lesson was completed (for the streak).
-type StudyDay struct {
-	DayKey        string
-	LessonID      string
-	ReviewedCount int
-	Completed     bool
-}
-
-// TodayKind is the state of the day's lesson.
-type TodayKind string
+// StudyKind is where the learner stands in the goal's roadmap.
+type StudyKind string
 
 const (
-	TodayNoGoal      TodayKind = "noGoal"
-	TodayStudying    TodayKind = "studying"
-	TodayDone        TodayKind = "doneToday"
-	TodayNoNewLesson TodayKind = "noNewLesson"
+	StudyNoGoal      StudyKind = "noGoal"
+	StudyStudying    StudyKind = "studying"
+	StudyNoNewLesson StudyKind = "noNewLesson"
 )
 
-// TodayState is which lesson the learner has today.
-type TodayState struct {
-	Kind     TodayKind
+// StudyState is the lesson the learner studies now: the first lesson of the roadmap not completed.
+type StudyState struct {
+	Kind     StudyKind
 	LessonID string
-	// Started is true once a step of today's lesson is done (the lesson is then fixed).
-	Started bool
 }
+
+// LessonStatus is where one lesson stands for the learner.
+type LessonStatus string
+
+const (
+	// LessonStudying is the lesson the learner studies now.
+	LessonStudying LessonStatus = "studying"
+	// LessonCompleted is a lesson the learner finished.
+	LessonCompleted LessonStatus = "completed"
+	// LessonOther is any other lesson (started in another topic, or opened by an admin).
+	LessonOther LessonStatus = "other"
+)
 
 // StepCounts counts lessons by the steps done (Read, Listen, Write) and completed lessons.
 type StepCounts struct {
@@ -109,7 +106,7 @@ var (
 	ErrListenIncomplete = errors.New("progress: dictation not finished")
 	ErrReadIncomplete   = errors.New("progress: comprehension questions not answered")
 	ErrWriteIncomplete  = errors.New("progress: writing not submitted")
-	ErrNoLesson         = errors.New("progress: no lesson today")
+	ErrNotCurrentLesson = errors.New("progress: not the lesson being studied")
 	ErrNotCurrentStep   = errors.New("progress: not the current step")
 	ErrLessonLocked     = errors.New("progress: lesson not open yet")
 )

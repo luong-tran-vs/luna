@@ -100,11 +100,20 @@ Chỉ nạp các bộ ký tự `latin`, `latin-ext`, `vietnamese` (và phần IP
 
 ### 5.1. Bố cục khu học (theo ảnh phác thảo `anh_mau_client.png`)
 
-- Điện thoại: 4 tab cố định ở đáy (Trang chủ, Khóa học, Ôn tập, Tài khoản). Vào học bài hôm nay từ thẻ "Tiếp tục học" ở Trang chủ hoặc thẻ "Khóa học đang học" ở tab Khóa học. Khi đang học một bài (`/today`, `/lessons/:id/*`)
+- Điện thoại: 4 tab cố định ở đáy (Trang chủ, Khóa học, Ôn tập, Tài khoản). Vào học bài đang học từ thẻ "Tiếp tục học" ở Trang chủ hoặc danh sách bài ở tab Khóa học. Khi đang học một bài (`/lessons/:id/*`)
   thì ẩn tab. Từ 768px trở lên, tab nằm trên thanh đầu trang.
 - Mỗi màn hình là một cột: thanh "← Tiêu đề", thẻ trắng bo `--radius-lg` có `--shadow-card`, hàng danh sách có ô icon.
 - Class dùng chung nằm ở `src/styles/screen.css`, icon ở `shared/components/icon`, vòng tiến độ ở `shared/components/progress-ring`.
 - Chế độ Sáng/Tối dùng công tắc ở trang Tài khoản.
+
+### 5.2. Chuyển động (`src/styles/motion.css`)
+
+- Ngắn và nhẹ: `--motion-fast` 150ms (đổi màu nút, nhấn nút thu nhỏ còn 97%), `--motion-base` 240ms (nội dung xuất hiện:
+  mờ dần và nhích lên 4px; trang chuyển bằng view transition), `--motion-slow` 400ms (thanh tiến độ, vòng tiến độ); đường cong
+  `--ease-out`.
+- Thanh giả audio (`lu-waveform`): cột rộng 1 đơn vị, phần đã phát trượt liên tục bằng `clip-path` 200ms tuyến tính; phát lại từ
+  đầu thì nhảy về 0 không chạy ngược.
+- Không dùng hiệu ứng nảy, xoay hay lặp vô hạn. Hệ điều hành bật "giảm chuyển động" thì tắt hết.
 
 ## 6. Cách dùng trong Angular
 

@@ -6,6 +6,8 @@ import (
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/luongtran/luna/backend/internal/ai"
 )
 
 // fakeRepo is an in-memory Repository enforcing unique (level, name key).
@@ -190,13 +192,29 @@ type testEnv struct {
 	svc     *Service
 	repo    *fakeRepo
 	lessons *fakeLessons
+	ai      *fakeSuggester
+}
+
+// fakeSuggester returns words or err and records the requests.
+type fakeSuggester struct {
+	mu    sync.Mutex
+	words []string
+	err   error
+	reqs  []ai.SuggestWordsRequest
+}
+
+func (f *fakeSuggester) SuggestWords(_ context.Context, req ai.SuggestWordsRequest) ([]string, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.reqs = append(f.reqs, req)
+	return f.words, f.err
 }
 
 var testNow = time.Date(2026, 9, 30, 8, 0, 0, 0, time.UTC)
 
 func newEnv() *testEnv {
-	e := &testEnv{repo: &fakeRepo{}, lessons: newFakeLessons()}
-	e.svc = NewService(e.repo, e.lessons, func() time.Time { return testNow })
+	e := &testEnv{repo: &fakeRepo{}, lessons: newFakeLessons(), ai: &fakeSuggester{err: ai.ErrNotConfigured}}
+	e.svc = NewService(e.repo, e.lessons, e.ai, func() time.Time { return testNow })
 	return e
 }
 

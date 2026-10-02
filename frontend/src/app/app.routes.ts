@@ -29,11 +29,6 @@ export const routes: Routes = [
         loadChildren: () => import('./features/lesson/lesson.routes').then((m) => m.lessonRoutes),
       },
       {
-        path: 'today',
-        title: 'Hôm nay · Luna',
-        loadComponent: () => import('./features/lesson/today/today').then((m) => m.Today),
-      },
-      {
         path: 'goal',
         title: 'Mục tiêu · Luna',
         loadComponent: () => import('./features/lesson/goal/goal').then((m) => m.Goal),

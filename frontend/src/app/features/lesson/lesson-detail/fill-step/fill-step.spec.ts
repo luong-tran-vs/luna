@@ -32,7 +32,7 @@ describe('FillStep', () => {
 
   const text = (node: Element | null | undefined) =>
     node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
-  const blank = (n: number) => el.querySelectorAll<HTMLButtonElement>('.blank')[n];
+  const blank = (n: number) => el.querySelectorAll<HTMLInputElement>('input.blank')[n];
   const bankButtons = () =>
     Array.from(
       el.querySelectorAll<HTMLButtonElement>('ul[aria-labelledby="fill-bank-heading"] .tile'),
@@ -47,6 +47,13 @@ describe('FillStep', () => {
     b.click();
     await fixture.whenStable();
   };
+  const type = async (n: number, value: string) => {
+    const input = blank(n);
+    input.dispatchEvent(new Event('focus'));
+    input.value = value;
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+  };
 
   const render = async (
     bank = ['from', 'meet', 'name'],
@@ -58,7 +65,11 @@ describe('FillStep', () => {
     fixture.componentRef.setInput('fill', f);
     fixture.componentRef.setInput('bank', bank);
     fixture.componentRef.setInput('speakers', ['Minh', 'Anna']);
-    fixture.componentRef.setInput('turnTexts', ['Hello, my name is Minh.', 'Hi.', 'Nice to meet you!']);
+    fixture.componentRef.setInput('turnTexts', [
+      'Hello, my name is Minh.',
+      'Hi.',
+      'Nice to meet you!',
+    ]);
     fixture.componentRef.setInput('grammarTip', tip);
     played = [];
     results = [];
@@ -68,15 +79,17 @@ describe('FillStep', () => {
     await fixture.whenStable();
   };
 
-  it('shows each turn with its speaker, blanks and meaning; the first blank is selected', async () => {
+  it('shows each turn with its speaker, a text input per blank and the meaning', async () => {
     await render();
     const turns = el.querySelectorAll('.turn');
     expect(text(turns[0].querySelector('.speaker'))).toBe('Minh');
     expect(text(turns[0].querySelector('.meaning'))).toBe('Xin chào, tên mình là Minh.');
-    expect(text(turns[1].querySelector('.line'))).toBe('Nice to chạm để điền you!');
-    expect(blank(0).getAttribute('aria-pressed')).toBe('true');
-    expect(blank(1).getAttribute('aria-pressed')).toBe('false');
-    expect(blank(0).getAttribute('aria-label')).toBe('Ô trống 1: trống');
+    expect(text(turns[1].querySelector('.line'))).toBe('Nice to you!');
+    expect(blank(0).type).toBe('text');
+    expect(blank(0).getAttribute('aria-label')).toBe('Ô trống 1');
+    expect(blank(0).classList).toContain('selected');
+    // Same width for every blank: it does not give the answer away.
+    expect(blank(0).getAttribute('size')).toBe(blank(1).getAttribute('size'));
     expect(bankButtons().map((b) => text(b))).toEqual(['from', 'meet', 'name']);
   });
 
@@ -86,50 +99,60 @@ describe('FillStep', () => {
     expect(played).toEqual(['Nice to meet you!']);
   });
 
-  it('fills the selected blank, fades the word and selects the next empty blank', async () => {
+  it('typing fills a blank and fades its word in the bank', async () => {
     await render();
-    await click(bankButton('name'));
-    expect(blank(0).getAttribute('aria-label')).toBe('Ô trống 1: name');
-    expect(text(blank(0))).toBe('name');
+    await type(0, 'Name ');
+    expect(blank(0).classList).toContain('filled');
     expect(bankButton('name').disabled).toBe(true);
-    expect(blank(1).getAttribute('aria-pressed')).toBe('true');
-    expect(blank(0).getAttribute('aria-pressed')).toBe('false');
-  });
-
-  it('✕ removes the word, gives it back to the bank and selects that blank', async () => {
-    await render();
-    await click(bankButton('name'));
-    await click(el.querySelector<HTMLButtonElement>('button[aria-label="Gỡ từ name"]')!);
-    expect(blank(0).getAttribute('aria-label')).toBe('Ô trống 1: trống');
+    await type(0, '');
     expect(bankButton('name').disabled).toBe(false);
-    expect(blank(0).getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('a selected filled blank is replaced by the next word; the old word returns to the bank', async () => {
+  it('a word of the bank goes into the selected blank, then the next empty one is selected', async () => {
     await render();
-    await click(bankButton('from'));
-    await click(blank(0));
-    expect(blank(0).getAttribute('aria-pressed')).toBe('true');
     await click(bankButton('name'));
-    expect(text(blank(0))).toBe('name');
-    expect(bankButton('from').disabled).toBe(false);
+    expect(blank(0).value).toBe('name');
     expect(bankButton('name').disabled).toBe(true);
+    expect(blank(1).classList).toContain('selected');
+    // The focused blank is filled: the next word goes to the next empty one.
+    await type(0, 'name');
+    await click(bankButton('meet'));
+    expect(blank(1).value).toBe('meet');
+    // Every blank filled: the word replaces the focused one.
+    await type(0, 'name');
+    await click(bankButton('from'));
+    expect(blank(0).value).toBe('from');
+    expect(bankButton('name').disabled).toBe(false);
+  });
+
+  it('Enter goes to the next blank, and checks on the last one', async () => {
+    await render();
+    await type(0, 'name');
+    blank(0).dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    await fixture.whenStable();
+    expect(blank(1).classList).toContain('selected');
+    await type(1, 'meet');
+    blank(1).dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    await fixture.whenStable();
+    expect(status()).toBe('Chính xác!');
   });
 
   it('keeps Kiểm tra disabled until every blank is filled', async () => {
     await render();
     expect(checkButton().disabled).toBe(true);
-    await click(bankButton('name'));
+    await type(0, 'name');
     expect(checkButton().disabled).toBe(true);
-    await click(bankButton('meet'));
+    await type(1, '   ');
+    expect(checkButton().disabled).toBe(true);
+    await type(1, 'meet');
     expect(checkButton().disabled).toBe(false);
   });
 
   it('all correct: "Chính xác!", each blank marked Đúng, then the grammar tip', async () => {
     await render();
     expect(el.querySelector('.tip')).toBeNull();
-    await click(bankButton('name'));
-    await click(bankButton('meet'));
+    await type(0, 'name');
+    await type(1, 'meet');
     await click(checkButton());
     expect(status()).toBe('Chính xác!');
     expect(Array.from(el.querySelectorAll('.mark')).map((m) => text(m))).toEqual(['Đúng', 'Đúng']);
@@ -137,16 +160,15 @@ describe('FillStep', () => {
     expect(text(el.querySelector('.tip p'))).toBe('Dùng "Nice to meet you".');
     expect(results).toEqual([{ correct: 2, total: 2 }]);
     // Locked after checking.
-    expect(blank(0).disabled).toBe(true);
+    expect(blank(0).readOnly).toBe(true);
     expect(bankButton('from').disabled).toBe(true);
-    expect(el.querySelector('button[aria-label^="Gỡ từ"]')).toBeNull();
     expect(checkButton().disabled).toBe(true);
   });
 
   it('a wrong blank says "Sai" with the answer; the result counts right blanks', async () => {
     await render();
-    await click(bankButton('from'));
-    await click(bankButton('meet'));
+    await type(0, 'names');
+    await type(1, 'meet');
     await click(checkButton());
     expect(status()).toBe('Đúng 1/2 ô');
     expect(Array.from(el.querySelectorAll('.mark')).map((m) => text(m))).toEqual([
@@ -156,37 +178,27 @@ describe('FillStep', () => {
     expect(results).toEqual([{ correct: 1, total: 2 }]);
   });
 
-  it('checks without case differences and hides an empty grammar tip', async () => {
+  it('checks without case or spaces and hides an empty grammar tip', async () => {
     await render(['Name', 'MEET'], fill, '');
-    await click(bankButton('Name'));
+    await type(0, '  NAME');
     await click(bankButton('MEET'));
     await click(checkButton());
     expect(status()).toBe('Chính xác!');
     expect(el.querySelector('.tip')).toBeNull();
   });
 
-  it('treats bank tiles with the same word as interchangeable', async () => {
+  it('fades one bank tile per blank holding the same word', async () => {
     const twice: PracticeFill = {
       ...fill,
       blanks: [{ answer: 'meet' }, { answer: 'meet' }],
       wordBank: ['meet', 'meet'],
     };
     await render(['meet', 'meet', 'name'], twice);
+    await type(0, 'meet');
+    expect(bankButton('meet', 0).disabled).toBe(true);
+    expect(bankButton('meet', 1).disabled).toBe(false);
     await click(bankButton('meet', 1));
-    expect(bankButton('meet', 1).disabled).toBe(true);
-    expect(bankButton('meet', 0).disabled).toBe(false);
-    await click(bankButton('meet', 0));
     await click(checkButton());
     expect(status()).toBe('Chính xác!');
-  });
-
-  it('works with the keyboard: blanks, bank words and ✕ are buttons', async () => {
-    await render();
-    const controls = [blank(0), blank(1), ...bankButtons()];
-    expect(controls.every((b) => b.tagName === 'BUTTON' && b.type === 'button')).toBe(true);
-    await click(bankButton('meet'));
-    const remove = el.querySelector<HTMLButtonElement>('button[aria-label="Gỡ từ meet"]')!;
-    expect(remove.tagName).toBe('BUTTON');
-    expect(remove.tabIndex).toBe(0);
   });
 });

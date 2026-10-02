@@ -8,6 +8,7 @@ const draft = (key: number, patch: Partial<DraftState> = {}): DraftState => ({
   content: 'We went to the park. It was fun.',
   targetWords: [],
   missingWords: [],
+  targetLength: 0,
   saving: false,
   error: null,
   fields: {},
@@ -131,5 +132,19 @@ describe('DraftList', () => {
     const alerts = el.querySelectorAll('[role="alert"]');
     expect(alerts.length).toBe(1);
     expect(alerts[0].textContent?.trim()).toBe('Không lưu được, vui lòng thử lại.');
+  });
+
+  it('warns, without dropping it, when a draft is off the asked length', async () => {
+    const words = (n: number) => Array.from({ length: n }, () => 'word').join(' ');
+    await render([
+      draft(1, { content: words(90), targetLength: 120 }),
+      draft(2, { content: words(150), targetLength: 120 }),
+      draft(3, { content: words(120), targetLength: 120 }),
+    ]);
+    const hint = (key: number) => el.querySelector(`#draft-${key}-words`)!.textContent!.replace(/s+/g, ' ').trim();
+    expect(hint(1)).toBe('90 từ · ! ngắn hơn yêu cầu (96–144 từ)');
+    expect(hint(2)).toBe('150 từ · ! dài hơn yêu cầu (96–144 từ)');
+    expect(hint(3)).toBe('120 từ');
+    expect(el.querySelector('#draft-1-words')!.classList).toContain('length-warning');
   });
 });

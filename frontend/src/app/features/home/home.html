@@ -24,16 +24,16 @@
       <button type="button" class="btn" (click)="load()">Thử lại</button>
     </div>
   } @else if (data(); as d) {
-    @if (d.lesson && d.kind !== 'noNewLesson') {
+    @if (d.lesson && d.kind === 'studying') {
       <div class="soft-card today-goal">
         <div class="today-goal-text">
-          <p class="section-title">Mục tiêu hôm nay</p>
-          <p class="muted">{{ doneSteps() }} / 4 bước của bài hôm nay</p>
+          <p class="section-title">Bài đang học</p>
+          <p class="muted">{{ doneSteps() }} / {{ stepCount }} bước của bài</p>
           <div class="mini-track" aria-hidden="true">
             <span class="mini-fill" [style.width.%]="stepPercent()"></span>
           </div>
         </div>
-        <lu-progress-ring [value]="stepPercent()" label="Tiến độ bài hôm nay" />
+        <lu-progress-ring [value]="stepPercent()" label="Tiến độ bài đang học" />
       </div>
     }
 
@@ -59,7 +59,7 @@
       @case ('noGoal') {
         <div class="soft-card" role="status">
           <p class="card-title">Bạn chưa chọn mục tiêu</p>
-          <p class="muted">Chọn trình độ và một chủ đề để mỗi ngày có một bài học.</p>
+          <p class="muted">Chọn trình độ và một chủ đề để bắt đầu học.</p>
           <a class="btn-primary btn-block" routerLink="/goal">Chọn chủ đề</a>
         </div>
       }
@@ -90,15 +90,16 @@
                   }
                 </div>
               </div>
-              @if (d.kind === 'doneToday') {
-                <div role="status">
-                  <p class="card-title">Đã xong bài hôm nay, hẹn bạn ngày mai</p>
-                </div>
-                <a class="btn" routerLink="/vocabulary/review">Ôn tự do</a>
-              } @else if (d.action) {
+              @if (d.action) {
                 <div class="lesson-foot">
-                  <a class="btn-primary next" routerLink="/today">{{ actionLabel() }}</a>
-                  <lu-progress-bar class="steps-bar" label="Tiến độ bài" [value]="doneSteps()" [max]="4" unit="bước" />
+                  <a class="btn-primary next" [routerLink]="['/lessons', l.id]">{{ actionLabel() }}</a>
+                  <lu-progress-bar
+                    class="steps-bar"
+                    label="Tiến độ bài"
+                    [value]="doneSteps()"
+                    [max]="stepCount"
+                    unit="bước"
+                  />
                 </div>
               }
             </article>

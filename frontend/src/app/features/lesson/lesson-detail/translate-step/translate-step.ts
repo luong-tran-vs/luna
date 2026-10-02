@@ -26,6 +26,8 @@ import { checkTranslation } from '../practice-logic';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TranslateStep {
+  /** Position of this step on the page, shown in its title (steps without content are left out). */
+  readonly number = input(1);
   /** False when the browser has no voice: the listen buttons are hidden. */
   protected readonly canSpeak = inject(SpeechService).supported;
   readonly translation = input.required<PracticeTranslation>();

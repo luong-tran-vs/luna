@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"math"
 	"strings"
 	"time"
 	"unicode"
@@ -17,14 +16,12 @@ import (
 // Limits of a generation request (F7).
 const (
 	minGenerateCount = 1
-	maxGenerateCount = 5
+	maxGenerateCount = 10
 	minGenerateWords = 50
 	maxGenerateWords = 800
 	maxGenerateIdea  = 500
 	// generateTimeout bounds the AI call of one batch.
-	generateTimeout = 60 * time.Second
-	// wordTolerance is how far a draft may be from the requested length.
-	wordTolerance = 0.2
+	generateTimeout = 120 * time.Second
 )
 
 // errGenerateAI wraps every error of the AI call so handlers can tell it from storage errors.
@@ -53,11 +50,24 @@ type Draft struct {
 }
 
 // GenerateResult is one batch of drafts. Dropped counts drafts the AI returned that were
-// rejected; Requested - len(Drafts) can be larger when the AI returned fewer.
+// rejected, by reason in DropReasons; Requested - len(Drafts) can be larger when the AI returned
+// fewer.
 type GenerateResult struct {
-	Drafts    []Draft
-	Requested int
-	Dropped   int
+	Drafts      []Draft
+	Requested   int
+	Dropped     int
+	DropReasons DropReasons
+}
+
+// DropReasons counts rejected drafts by reason. A draft off the asked length is kept: the admin
+// sees a warning and decides.
+type DropReasons struct {
+	// DuplicateTitle: the title repeats another draft of the batch or a lesson of the topic.
+	DuplicateTitle int
+	// Empty: no title or no content.
+	Empty int
+	// TooLong: the title or content is over the lesson limits.
+	TooLong int
 }
 
 // ValidateGenerate trims the idea and checks the limits.
@@ -121,7 +131,7 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 		return GenerateResult{}, fmt.Errorf("%w: %w", errGenerateAI, err)
 	}
 
-	out := filterDrafts(drafts, titles, in.Count, in.Words)
+	out := filterDrafts(drafts, titles, in.Count)
 	if len(out.Drafts) == 0 {
 		return GenerateResult{}, ErrUnusableDraft
 	}
@@ -129,15 +139,14 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	return out, nil
 }
 
-// filterDrafts drops empty drafts, repeated titles (within the batch or of existing lessons),
-// drafts outside ±20% of words and drafts over the lesson limits, then keeps at most count.
-func filterDrafts(drafts []ai.LessonDraft, existing []string, count, words int) GenerateResult {
+// filterDrafts drops empty drafts, repeated titles (within the batch or of existing lessons) and
+// drafts over the lesson limits, counting each reason, then keeps at most count. Drafts off the
+// asked length are kept (the admin page warns about them).
+func filterDrafts(drafts []ai.LessonDraft, existing []string, count int) GenerateResult {
 	seen := map[string]bool{}
 	for _, t := range existing {
 		seen[titleKey(t)] = true
 	}
-	low := int(math.Ceil(float64(words) * (1 - wordTolerance)))
-	high := int(math.Floor(float64(words) * (1 + wordTolerance)))
 
 	out := GenerateResult{Drafts: []Draft{}, Requested: count}
 	for i, d := range drafts {
@@ -145,11 +154,18 @@ func filterDrafts(drafts []ai.LessonDraft, existing []string, count, words int) 
 		content := strings.TrimSpace(strings.ReplaceAll(d.Content, "\r\n", "\n"))
 		n := len(strings.Fields(content))
 		key := titleKey(title)
+		reason := &out.DropReasons
 		switch {
-		case title == "" || content == "",
-			utf8.RuneCountInString(title) > maxTitle || utf8.RuneCountInString(content) > maxContent,
-			seen[key],
-			n < low || n > high:
+		case title == "" || content == "":
+			reason.Empty++
+		case utf8.RuneCountInString(title) > maxTitle || utf8.RuneCountInString(content) > maxContent:
+			reason.TooLong++
+		case seen[key]:
+			reason.DuplicateTitle++
+		default:
+			reason = nil
+		}
+		if reason != nil {
 			out.Dropped++
 			continue
 		}

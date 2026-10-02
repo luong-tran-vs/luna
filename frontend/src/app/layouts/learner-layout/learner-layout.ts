@@ -23,7 +23,7 @@ const TABS: readonly Tab[] = [
     path: '/goal',
     label: 'Khóa học',
     icon: 'book',
-    matches: (p) => p.startsWith('/lessons') || p === '/today' || p === '/goal',
+    matches: (p) => p.startsWith('/lessons') || p === '/goal',
   },
   { path: '/vocabulary/review', label: 'Ôn tập', icon: 'review', matches: (p) => p.startsWith('/vocabulary') },
   {
@@ -36,7 +36,7 @@ const TABS: readonly Tab[] = [
 
 /** Studying a lesson takes the whole phone screen, like the sketch: no tab bar there. */
 function isFocusPage(path: string): boolean {
-  return path === '/today' || /^\/lessons\/[^/]+\/(read|listen|write)$/.test(path);
+  return /^\/lessons\/[^/]+\/(read|listen|write)$/.test(path);
 }
 
 /**

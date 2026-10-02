@@ -37,7 +37,7 @@ const (
 	disconnectTimeout  = 5 * time.Second
 	healthPingTimeout  = 2 * time.Second
 	indexRetryInterval = 10 * time.Second
-	aiTimeout          = 90 * time.Second
+	aiTimeout          = 130 * time.Second
 )
 
 func main() {
@@ -96,10 +96,10 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 	defer func() { _ = dict.Close() }()
 
 	lessons := mongo.NewLessons(database)
-	topicSvc := topic.NewService(mongo.NewTopics(database), topicLessons{lessons}, time.Now)
+	aiProvider := newAIProvider(cfg, log)
+	topicSvc := topic.NewService(mongo.NewTopics(database), topicLessons{lessons}, aiProvider, time.Now)
 	lessonTopics := lessonTopicsPort{topicSvc}
 	var worker *job.Worker
-	aiProvider := newAIProvider(cfg, log)
 	lessonSvc := lesson.NewService(lesson.Deps{
 		Lessons: lessons,
 		Topics:  lessonTopics,
@@ -188,19 +188,11 @@ func run(ctx context.Context, cfg config.Config, log *slog.Logger) error {
 		Timezones: settingsSvc,
 		Quiz:      readingQuiz{reader},
 		Writings:  writingSvc,
-		ReviewLimit: func(ctx context.Context, userID string) int {
-			n, err := settingsSvc.ReviewLimit(ctx, userID)
-			if err != nil {
-				log.WarnContext(ctx, "review limit unavailable, using the default", slog.Any("error", err))
-				return settings.DefaultReviewLimit
-			}
-			return n
-		},
-		Now: time.Now,
+		Now:       time.Now,
 	})
 	studyHandler := progress.NewStudyHandler(studySvc, log)
 	studyHandler.Register(mux, requireAuth)
-	// Lesson content is guarded: learners open only today's lesson and lessons already started (L).
+	// Lesson content is guarded: learners open only the lesson being studied and lessons already started (L).
 	lesson.NewReadingHandler(reader, log).Register(mux, requireAuth, studyHandler.Guard)
 	progress.NewHandler(progressSvc, log).Register(mux, requireAuth, studyHandler.Guard)
 	writeSteps.svc = studySvc
@@ -460,10 +452,6 @@ func (d dailyReviews) DueCount(ctx context.Context, userID string) (int, error) 
 		return 0, fmt.Errorf("due cards: %w", err)
 	}
 	return list.Total, nil
-}
-
-func (d dailyReviews) ReviewedSince(ctx context.Context, userID string, since time.Time) (int, error) {
-	return d.svc.ReviewedSince(ctx, userID, vocab.ContextDaily, since)
 }
 
 func (d dailyReviews) DueBefore(ctx context.Context, userID string, before, createdBefore time.Time) (int, error) {

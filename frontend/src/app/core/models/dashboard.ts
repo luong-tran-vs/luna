@@ -1,5 +1,5 @@
 import { Level } from './lesson';
-import { GoalView, Step, StepState, TodayKind } from './study';
+import { GoalView, Step, StepState, StudyKind } from './study';
 
 /** Types for the dashboard API (specs/009-home-dashboard/contracts/dashboard-api.md). */
 
@@ -25,7 +25,7 @@ export interface DashboardAction {
 }
 
 export interface Dashboard {
-  kind: TodayKind;
+  kind: StudyKind;
   goal: GoalView | null;
   goalCompleted: boolean;
   skills: SkillCounts | null;

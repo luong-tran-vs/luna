@@ -31,7 +31,8 @@ describe('DialogueStep', () => {
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const turns = () => Array.from(el.querySelectorAll('.turn'));
   const reveal = (i: number) => turns()[i].querySelector<HTMLButtonElement>('.reveal')!;
-  const filled = (i: number) => Number(turns()[i].querySelector('lu-waveform clipPath rect')!.getAttribute('width'));
+  /** Percent of turn i's waveform shown as played. */
+  const filled = (i: number) => 100 - Number(/inset\(0 ([\d.]+)%/.exec(turns()[i].querySelector<SVGElement>('lu-waveform svg.played')!.style.clipPath)![1]);
   const current = () => turns().findIndex((t) => t.getAttribute('aria-current') === 'true');
   const button = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
   const stable = () => fixture.whenStable();
@@ -50,7 +51,7 @@ describe('DialogueStep', () => {
     expect(turns().length).toBe(3);
     expect(text(turns()[0].querySelector('.speaker'))).toBe('Minh');
     expect(text(turns()[1].querySelector('.speaker'))).toBe('Anna');
-    expect(turns()[0].querySelector('lu-waveform svg')!.getAttribute('aria-hidden')).toBe('true');
+    expect(turns()[0].querySelector('lu-waveform')!.getAttribute('aria-hidden')).toBe('true');
     expect(el.querySelectorAll('.turn-text').length).toBe(0);
     expect(reveal(0).getAttribute('aria-label')).toBe('Hiện lời lượt 1');
     expect(reveal(0).getAttribute('aria-expanded')).toBe('false');
@@ -91,13 +92,13 @@ describe('DialogueStep', () => {
 
     speech.last().handlers.progress!(0.5, 1.2);
     await stable();
-    expect(filled(0)).toBe(72); // 48 bars × 3 units, half read
+    expect(filled(0)).toBe(50); // half read
     speech.last().handlers.progress!(1, 2.4);
     speech.last().handlers.ended!();
     await stable();
     expect(speech.last().text).toBe('Hello, Minh.');
     expect(current()).toBe(1);
-    expect(filled(0)).toBe(144);
+    expect(filled(0)).toBe(100);
     expect(filled(1)).toBe(0);
 
     speech.last().handlers.progress!(0.4, 1.5);

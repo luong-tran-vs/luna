@@ -304,6 +304,7 @@ export class Roadmap implements CanLeave {
           content: d.content,
           targetWords: d.targetWords ?? [],
           missingWords: d.missingWords ?? [],
+          targetLength: input.words,
           saving: false,
           error: null,
           fields: {},
@@ -430,11 +431,25 @@ function generateNote(result: GenerateResult): string {
   const got = result.drafts.length;
   let note = `Đã thêm ${got} bản nháp.`;
   if (result.dropped > 0) {
-    note += ` Đã loại ${result.dropped} bản không đạt yêu cầu (trùng tiêu đề hoặc sai độ dài).`;
+    note += ` Đã loại ${result.dropped} bản: ${dropReasonsText(result)}.`;
   } else if (got < result.requested) {
     note += ` AI chỉ trả về ${got} trên ${result.requested} bản.`;
   }
   return note;
+}
+
+/** "1 trùng tiêu đề, 2 thiếu tiêu đề hoặc nội dung". */
+function dropReasonsText(result: GenerateResult): string {
+  const r = result.dropReasons;
+  if (!r) {
+    return 'không đạt yêu cầu';
+  }
+  const parts = [
+    r.duplicateTitle > 0 ? `${r.duplicateTitle} trùng tiêu đề` : '',
+    r.empty > 0 ? `${r.empty} thiếu tiêu đề hoặc nội dung` : '',
+    r.tooLong > 0 ? `${r.tooLong} quá dài` : '',
+  ].filter(Boolean);
+  return parts.length ? parts.join(', ') : 'không đạt yêu cầu';
 }
 
 /** The server's Vietnamese message, when the error has one. */

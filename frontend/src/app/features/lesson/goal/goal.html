@@ -3,7 +3,7 @@
     <h1 class="screen-title">Khóa học</h1>
   </header>
 
-  @if (!congrats() && !startsTomorrow() && active(); as g) {
+  @if (!congrats() && active(); as g) {
     <section class="soft-card current" aria-labelledby="current-heading">
       <h2 class="current-label" id="current-heading">Khóa học đang học</h2>
       <div class="current-row">
@@ -23,17 +23,12 @@
       >
         <span class="current-fill" [style.width.%]="g.totalLessons ? (g.completedLessons / g.totalLessons) * 100 : 0"></span>
       </div>
-      @switch (today()?.kind) {
-        @case ('noNewLesson') {
-          <p class="current-note" role="status">Khóa học này chưa có bài mới. Bạn có thể chọn chủ đề khác bên dưới.</p>
-        }
-        @case ('doneToday') {
-          <p class="current-note" role="status">Đã xong bài hôm nay, hẹn bạn ngày mai.</p>
-        }
+      @if (dashboard()?.kind === 'noNewLesson') {
+        <p class="current-note" role="status">Khóa học này chưa có bài mới. Bạn có thể chọn chủ đề khác bên dưới.</p>
       }
       <div class="actions">
-        @if (today()?.kind !== 'noNewLesson' && today()?.kind !== 'doneToday') {
-          <a class="btn-primary" routerLink="/today">{{ todayLabel() }}</a>
+        @if (resume(); as r) {
+          <a class="btn-primary" [routerLink]="['/lessons', r.id]">{{ r.label }}</a>
         }
         <a class="btn" routerLink="/lessons">Danh sách bài</a>
       </div>
@@ -43,7 +38,7 @@
   <div class="hero">
     <div class="hero-text">
       <p class="hero-title">Tiếng Anh theo chủ đề</p>
-      <p class="hero-lead">Mỗi ngày một bài: Ôn · Đọc · Nghe · Viết</p>
+      <p class="hero-lead">Học lần lượt từng bài: Từ vựng · Đọc · Nghe · Viết</p>
     </div>
     <span class="hero-icon"><lu-icon name="book" /></span>
   </div>
@@ -63,11 +58,6 @@
           <button type="button" class="btn" (click)="selectLevel(next)">Lên trình độ {{ next }}</button>
         }
       </div>
-    </div>
-  } @else if (startsTomorrow()) {
-    <div class="soft-card" role="status">
-      <p>Chủ đề mới bắt đầu từ ngày mai. Hôm nay bạn học tiếp bài đang dở.</p>
-      <a class="btn-primary btn-block" routerLink="/today">Về bài hôm nay</a>
     </div>
   } @else if (goals()) {
     <section class="step" aria-labelledby="level-heading">

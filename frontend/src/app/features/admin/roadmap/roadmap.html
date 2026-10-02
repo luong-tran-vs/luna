@@ -123,6 +123,7 @@
       [busy]="generating()"
       [error]="generateError()"
       (generate)="generate($event)"
+      (wordsChanged)="topicWords.set($event)"
       (closed)="closeGenerate()"
     />
   }

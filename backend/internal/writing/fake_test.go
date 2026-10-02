@@ -275,3 +275,7 @@ func (f *fakeGrader) Explain(context.Context, ai.ExplainRequest) (ai.Explanation
 func (f *fakeGrader) Practice(context.Context, ai.PracticeRequest) (ai.Practice, error) {
 	return ai.Practice{}, nil
 }
+
+func (f *fakeGrader) SuggestWords(context.Context, ai.SuggestWordsRequest) ([]string, error) {
+	return nil, ai.ErrNotConfigured
+}

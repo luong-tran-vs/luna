@@ -33,6 +33,8 @@ type Mode = 'idle' | 'all' | 'one';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogueStep {
+  /** Position of this step on the page, shown in its title (steps without content are left out). */
+  readonly number = input(1);
   private readonly speech = inject(SpeechService);
 
   readonly dialogue = input.required<PracticeDialogue>();

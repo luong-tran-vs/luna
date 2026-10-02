@@ -23,11 +23,16 @@
   @if (error()) {
     <p class="form-alert" role="alert">Không tải được danh sách bài học.</p>
   } @else if (data(); as d) {
-    <section class="completed" aria-labelledby="completed-heading">
-      <h2 class="visually-hidden" id="completed-heading">Đã học</h2>
-      @if (completed().length === 0) {
-        <p class="muted">Chưa học bài nào.</p>
-      } @else {
+    @if (!goal() && !d.current && completed().length === 0) {
+      <div class="soft-card" role="status">
+        <p class="muted">Bạn chưa chọn chủ đề nào.</p>
+        <a class="btn-primary" routerLink="/goal">Chọn chủ đề</a>
+      </div>
+    }
+
+    @if (completed().length > 0) {
+      <section class="completed" aria-labelledby="completed-heading">
+        <h2 class="visually-hidden" id="completed-heading">Đã học</h2>
         <ul class="list">
           @for (l of completed(); track l.id; let i = $index) {
             <li class="soft-card item">
@@ -43,26 +48,24 @@
             </li>
           }
         </ul>
-      }
-    </section>
+      </section>
+    }
 
-    <section class="soft-card today" [class.has-lesson]="!!d.today" aria-labelledby="today-heading">
-      <h2 class="visually-hidden" id="today-heading">Hôm nay</h2>
-      @if (d.today; as t) {
-        <a class="row row-link" [routerLink]="['/lessons', t.id]">
-          <span class="num current-num" aria-hidden="true">{{ todayNumber() }}</span>
+    @if (d.current; as c) {
+      <section class="soft-card today has-lesson" aria-labelledby="current-heading">
+        <h2 class="visually-hidden" id="current-heading">Đang học</h2>
+        <a class="row row-link" [routerLink]="['/lessons', c.id]">
+          <span class="num current-num" aria-hidden="true">{{ currentNumber() }}</span>
           <span class="item-body">
-            <span class="title-line" lang="en">{{ t.title }}</span>
-            <span class="current-label">Bài hôm nay · Đang học</span>
+            <span class="title-line" lang="en">{{ c.title }}</span>
+            <span class="current-label">Đang học</span>
           </span>
           <lu-icon class="chevron" name="chevron-right" />
         </a>
-        <a class="btn-primary btn-block" routerLink="/today">Học hôm nay</a>
-      } @else {
-        <p class="muted">Chưa có bài hôm nay.</p>
-        <a class="btn" routerLink="/goal">Chọn mục tiêu</a>
-      }
-    </section>
+      </section>
+    } @else if (goal() && completed().length > 0 && d.upcoming.length === 0) {
+      <p class="muted" role="status">Bạn đã học hết các bài hiện có của chủ đề này.</p>
+    }
 
     @if (d.upcoming.length > 0) {
       <section class="upcoming" aria-labelledby="upcoming-heading">

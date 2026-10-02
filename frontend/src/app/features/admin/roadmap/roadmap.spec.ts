@@ -291,12 +291,17 @@ describe('Roadmap', () => {
       expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '', targetWords: [] });
       expect(text(button('Đang sinh…', dialog()))).toBe('Đang sinh…');
 
-      req.flush({ ...generated('Sunday Lunch', 'The Picnic'), requested: 3, dropped: 1 });
+      req.flush({
+        ...generated('Sunday Lunch', 'The Picnic'),
+        requested: 3,
+        dropped: 1,
+        dropReasons: { duplicateTitle: 1, empty: 0, tooLong: 0 },
+      });
       await settle();
       expect(dialog().querySelector('dialog')!.hasAttribute('open')).toBe(false);
       expect(draftTitles()).toEqual(['Sunday Lunch', 'The Picnic']);
       expect(text(el.querySelector('.generate-note'))).toBe(
-        'Đã thêm 2 bản nháp. Đã loại 1 bản không đạt yêu cầu (trùng tiêu đề hoặc sai độ dài).',
+        'Đã thêm 2 bản nháp. Đã loại 1 bản: 1 trùng tiêu đề.',
       );
       expect(titles()).toEqual(['Bài a']);
     });

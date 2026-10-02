@@ -57,7 +57,13 @@
         <button type="button" class="btn-primary" [disabled]="!canSubmit()" [attr.aria-busy]="submitting()" (click)="submit()">
           {{ submitting() ? 'Đang nộp…' : 'Nộp' }}
         </button>
+        @if (mode() === 'study') {
+          <button type="button" class="btn" [disabled]="submitting()" (click)="skip()">Bỏ qua</button>
+        }
       </div>
+      @if (mode() === 'study') {
+        <p class="skip-hint muted">Viết là tuỳ chọn: bấm Bỏ qua vẫn hoàn thành bài (không có bài để AI chấm).</p>
+      }
     } @else if (writing(); as w) {
       @if (w.status === 'submitted') {
         <div class="card submitted">

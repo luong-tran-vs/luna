@@ -26,6 +26,7 @@ import {
   MIN_WORDS,
   wordRange,
 } from '../../../core/models/generate';
+import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { AdminApiService } from '../admin-api.service';
 
 const INTEGER = /^\d+$/;
@@ -50,7 +51,11 @@ type PlanState = 'idle' | 'loading' | 'error';
 interface PlanResult {
   ok: boolean;
   groups: string[][];
+  shortage: number;
 }
+
+/** Most words one AI suggestion may add (backend MaxSuggestWords). */
+const MAX_SUGGEST = 50;
 
 /**
  * "Sinh bài bằng AI" dialog (F7). A native <dialog> opened with showModal(), so focus stays
@@ -81,6 +86,8 @@ export class GenerateDialog {
   readonly error = input<string | null>(null);
 
   readonly generate = output<GenerateRequest>();
+  /** F18: the topic's whole word list after the AI added words to it. */
+  readonly wordsChanged = output<string[]>();
   readonly closed = output<void>();
 
   protected readonly maxIdea = MAX_IDEA;
@@ -131,6 +138,11 @@ export class GenerateDialog {
   /** One group of target words per lesson, as suggested then edited. */
   protected readonly groups = signal<string[][]>([]);
   protected readonly planState = signal<PlanState>('idle');
+  /** How many more unused words the topic needs for this split (F18). */
+  protected readonly shortage = signal(0);
+  protected readonly suggesting = signal(false);
+  /** Result or error of the last AI suggestion, announced to screen readers. */
+  protected readonly suggestNote = signal<{ ok: boolean; text: string } | null>(null);
   /** Error of the add box of each group, by group index. */
   protected readonly addErrors = signal<Record<number, string>>({});
   private readonly planRequests = new Subject<{ count: number; perLesson: number; delay: number }>();
@@ -174,6 +186,8 @@ export class GenerateDialog {
           this.groups.set([]);
           this.addErrors.set({});
           this.planState.set('idle');
+          this.shortage.set(0);
+          this.suggestNote.set(null);
           this.requestPlan(0);
         });
         if (!el.open) {
@@ -204,6 +218,7 @@ export class GenerateDialog {
       )
       .subscribe((result) => {
         this.groups.set(result.groups);
+        this.shortage.set(result.shortage);
         this.addErrors.set({});
         this.planState.set(result.ok ? 'idle' : 'error');
       });
@@ -211,11 +226,11 @@ export class GenerateDialog {
 
   private loadPlan(count: number, perLesson: number): Observable<PlanResult> {
     if (perLesson === 0) {
-      return of({ ok: true, groups: [] });
+      return of({ ok: true, groups: [], shortage: 0 });
     }
     return this.api.wordPlan(this.topicId(), count, perLesson).pipe(
-      map((groups) => ({ ok: true, groups })),
-      catchError(() => of({ ok: false, groups: [] })),
+      map((plan) => ({ ok: true, groups: plan.groups, shortage: plan.shortage })),
+      catchError(() => of({ ok: false, groups: [], shortage: 0 })),
     );
   }
 
@@ -240,6 +255,30 @@ export class GenerateDialog {
   protected retryPlan(): void {
     this.plannedKey = null;
     this.requestPlan(0);
+  }
+
+  /** Asks the AI for the missing words, adds them to the topic, then splits again (F18). */
+  protected suggestWords(): void {
+    const count = Math.min(this.shortage(), MAX_SUGGEST);
+    if (count < 1 || this.suggesting() || this.busy()) {
+      return;
+    }
+    this.suggesting.set(true);
+    this.suggestNote.set(null);
+    this.api.suggestTopicWords(this.topicId(), count).subscribe({
+      next: (r) => {
+        this.suggesting.set(false);
+        this.wordsChanged.emit(r.words.map((w) => w.text));
+        this.suggestNote.set({ ok: true, text: `Đã thêm ${r.added.length} từ: ${r.added.join(', ')}.` });
+        this.retryPlan();
+      },
+      error: (err: unknown) => {
+        this.suggesting.set(false);
+        const message = err instanceof ApiError ? (err.body as { message?: unknown } | null)?.message : null;
+        const text = typeof message === 'string' && message ? message : 'Không bổ sung được từ, thử lại.';
+        this.suggestNote.set({ ok: false, text });
+      },
+    });
   }
 
   /** Topic words not yet in the group, offered by the add box. */

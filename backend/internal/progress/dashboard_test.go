@@ -36,26 +36,21 @@ func TestTomorrowCutoff(t *testing.T) {
 
 func TestAction(t *testing.T) {
 	t.Parallel()
-	none := map[Step]bool{}
-	reviewed := map[Step]bool{StepReview: true}
 	cases := map[string]struct {
 		done    map[Step]bool
 		current Step
-		cards   int
 		want    *Action
 	}{
-		"not started":          {none, StepReview, 5, &Action{Kind: ActionStart, Step: StepReview}},
-		"not started no cards": {none, StepReview, 0, &Action{Kind: ActionStart, Step: StepRead}},
-		"review done":          {reviewed, StepRead, 0, &Action{Kind: ActionContinue, Step: StepRead}},
-		"read done": {
-			map[Step]bool{StepReview: true, StepRead: true}, StepListen, 0, &Action{Kind: ActionContinue, Step: StepListen},
-		},
-		"all done": {map[Step]bool{StepReview: true, StepRead: true, StepListen: true}, StepDone, 0, nil},
+		"not started": {map[Step]bool{}, StepRead, &Action{Kind: ActionStart, Step: StepRead}},
+		// Progress saved before 2026-10-02 may hold the dropped review step.
+		"old review done": {map[Step]bool{"review": true}, StepRead, &Action{Kind: ActionStart, Step: StepRead}},
+		"read done":       {map[Step]bool{StepRead: true}, StepListen, &Action{Kind: ActionContinue, Step: StepListen}},
+		"all done":        {map[Step]bool{StepRead: true, StepListen: true, StepWrite: true}, StepDone, nil},
 	}
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
-			got := NextAction(tc.done, tc.current, tc.cards)
+			got := NextAction(tc.done, tc.current)
 			if (got == nil) != (tc.want == nil) || got != nil && *got != *tc.want {
 				t.Fatalf("action = %+v, want %+v", got, tc.want)
 			}

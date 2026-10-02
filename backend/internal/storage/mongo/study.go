@@ -226,11 +226,11 @@ func (r *LessonProgress) SetPosition(ctx context.Context, userID, lessonID strin
 
 // --- study_days ---
 
+// dayDoc is a study day. Days saved before 2026-10-02 also hold lessonId and reviewedCount, from
+// when a day had one lesson and a review step; they are no longer read.
 type dayDoc struct {
-	DayKey        string        `bson:"dayKey"`
-	LessonID      bson.ObjectID `bson:"lessonId"`
-	ReviewedCount int           `bson:"reviewedCount"`
-	Completed     bool          `bson:"completed"`
+	DayKey    string `bson:"dayKey"`
+	Completed bool   `bson:"completed"`
 }
 
 // StudyDays implements progress.DayRepository on "study_days".
@@ -253,49 +253,16 @@ func userDay(userID, dayKey string) (bson.D, error) {
 	return bson.D{{Key: "userId", Value: uid}, {Key: "dayKey", Value: dayKey}}, nil
 }
 
-// Get returns nil when the day has no lesson.
-func (r *StudyDays) Get(ctx context.Context, userID, dayKey string) (*progress.StudyDay, error) {
-	f, err := userDay(userID, dayKey)
-	if err != nil {
-		return nil, err
-	}
-	var d dayDoc
-	err = r.coll.FindOne(ctx, f).Decode(&d)
-	if errors.Is(err, mongo.ErrNoDocuments) {
-		return nil, nil
-	}
-	if err != nil {
-		return nil, fmt.Errorf("find study day: %w", err)
-	}
-	return &progress.StudyDay{DayKey: d.DayKey, LessonID: hexOrEmpty(d.LessonID), ReviewedCount: d.ReviewedCount, Completed: d.Completed}, nil
-}
-
-// Start records the day's lesson unless the day already has one.
-func (r *StudyDays) Start(ctx context.Context, userID, dayKey, lessonID string) error {
+// MarkCompleted records a completed lesson on dayKey (the streak counts such days).
+func (r *StudyDays) MarkCompleted(ctx context.Context, userID, dayKey string) error {
 	f, err := userDay(userID, dayKey)
 	if err != nil {
 		return err
 	}
-	_, err = r.coll.UpdateOne(ctx, f, bson.D{{Key: "$setOnInsert", Value: bson.D{
-		{Key: "lessonId", Value: oidOrZero(lessonID)}, {Key: "reviewedCount", Value: 0}, {Key: "completed", Value: false},
-	}}}, options.UpdateOne().SetUpsert(true))
+	_, err = r.coll.UpdateOne(ctx, f, bson.D{{Key: "$set", Value: bson.D{{Key: "completed", Value: true}}}},
+		options.UpdateOne().SetUpsert(true))
 	if err != nil {
-		return fmt.Errorf("start study day: %w", err)
-	}
-	return nil
-}
-
-// Update sets the reviewed count and completion of a day.
-func (r *StudyDays) Update(ctx context.Context, userID, dayKey string, reviewed int, completed bool) error {
-	f, err := userDay(userID, dayKey)
-	if err != nil {
-		return err
-	}
-	_, err = r.coll.UpdateOne(ctx, f, bson.D{{Key: "$set", Value: bson.D{
-		{Key: "reviewedCount", Value: reviewed}, {Key: "completed", Value: completed},
-	}}})
-	if err != nil {
-		return fmt.Errorf("update study day: %w", err)
+		return fmt.Errorf("mark study day: %w", err)
 	}
 	return nil
 }
@@ -370,22 +337,4 @@ func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonID
 		return progress.StepCounts{}, nil
 	}
 	return progress.StepCounts{Read: rows[0].Read, Listen: rows[0].Listen, Write: rows[0].Write, Completed: rows[0].Completed}, nil
-}
-
-// LatestKey is the user's latest study day, "" when none.
-func (r *StudyDays) LatestKey(ctx context.Context, userID string) (string, error) {
-	uid, err := bson.ObjectIDFromHex(userID)
-	if err != nil {
-		return "", fmt.Errorf("day user id: %w", err)
-	}
-	var d dayDoc
-	err = r.coll.FindOne(ctx, bson.D{{Key: "userId", Value: uid}},
-		options.FindOne().SetSort(bson.D{{Key: "dayKey", Value: -1}}).SetProjection(bson.D{{Key: "dayKey", Value: 1}})).Decode(&d)
-	if errors.Is(err, mongo.ErrNoDocuments) {
-		return "", nil
-	}
-	if err != nil {
-		return "", fmt.Errorf("find latest study day: %w", err)
-	}
-	return d.DayKey, nil
 }

@@ -14,7 +14,7 @@ bài bằng AI, mỗi bài được giao một nhóm từ trong danh sách đó,
 chủ đề là gặp đủ từ vựng của chủ đề, và trang chi tiết bài (F17) xoay quanh đúng các từ đó.
 
 Danh sách từ của chủ đề:
-- Mỗi chủ đề có danh sách từ tiếng Anh (từ đơn hoặc cụm như "sweet potato", "take a shower"); tối đa 100 từ, mỗi từ tối đa 40 ký tự,
+- Mỗi chủ đề có danh sách từ tiếng Anh (từ đơn hoặc cụm như "sweet potato", "take a shower"); tối đa 300 từ (đổi từ 100 ngày 2026-10-02), mỗi từ tối đa 40 ký tự,
   chỉ chữ cái tiếng Anh, khoảng trắng, dấu gạch nối, dấu nháy đơn và dấu "/". Không trùng trong một chủ đề (không phân biệt hoa/thường).
 - Chỉ lưu từ tiếng Anh; nghĩa và phiên âm vẫn đến từ chú thích bài (F2) và từ điển của app như hiện nay.
 - Dữ liệu ban đầu: khi khởi động, chủ đề nào trùng tên với một chủ đề trong file dữ liệu và chưa từng được nạp thì nhận danh sách từ

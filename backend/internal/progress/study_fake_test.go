@@ -5,8 +5,8 @@ import (
 	"maps"
 	"slices"
 	"strconv"
+	"strings"
 	"sync"
-	"sync/atomic"
 	"time"
 )
 
@@ -105,40 +105,18 @@ func (f *fakeProgress) SetPosition(_ context.Context, userID, lessonID string, s
 	return nil
 }
 
+// fakeDays holds the days with a completed lesson, per "user|day".
 type fakeDays struct {
 	mu   sync.Mutex
-	days map[string]StudyDay // user|day
+	days map[string]bool
 }
 
-func newFakeDays() *fakeDays { return &fakeDays{days: map[string]StudyDay{}} }
+func newFakeDays() *fakeDays { return &fakeDays{days: map[string]bool{}} }
 
-func (f *fakeDays) Get(_ context.Context, userID, dayKey string) (*StudyDay, error) {
+func (f *fakeDays) MarkCompleted(_ context.Context, userID, dayKey string) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	d, ok := f.days[userID+"|"+dayKey]
-	if !ok {
-		return nil, nil
-	}
-	return &d, nil
-}
-
-func (f *fakeDays) Start(_ context.Context, userID, dayKey, lessonID string) error {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	key := userID + "|" + dayKey
-	if _, ok := f.days[key]; !ok {
-		f.days[key] = StudyDay{DayKey: dayKey, LessonID: lessonID}
-	}
-	return nil
-}
-
-func (f *fakeDays) Update(_ context.Context, userID, dayKey string, reviewed int, completed bool) error {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	key := userID + "|" + dayKey
-	d := f.days[key]
-	d.DayKey, d.ReviewedCount, d.Completed = dayKey, reviewed, completed
-	f.days[key] = d
+	f.days[userID+"|"+dayKey] = true
 	return nil
 }
 
@@ -146,19 +124,19 @@ func (f *fakeDays) CompletedKeys(_ context.Context, userID string) ([]string, er
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	var out []string
-	for key, d := range f.days {
-		if d.Completed && key[:len(userID)+1] == userID+"|" {
-			out = append(out, d.DayKey)
+	for key := range f.days {
+		if day, ok := strings.CutPrefix(key, userID+"|"); ok {
+			out = append(out, day)
 		}
 	}
 	return out, nil
 }
 
 // put stores a finished day directly (to build a streak).
-func (f *fakeDays) put(userID, dayKey, lessonID string) {
+func (f *fakeDays) put(userID, dayKey string) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	f.days[userID+"|"+dayKey] = StudyDay{DayKey: dayKey, LessonID: lessonID, Completed: true}
+	f.days[userID+"|"+dayKey] = true
 }
 
 type fakeRoadmaps struct {
@@ -196,44 +174,15 @@ func (f fakeTitles) Titles(_ context.Context, ids []string) (map[string]string, 
 }
 
 type fakeReviews struct {
-	mu       sync.Mutex
-	due      map[string]int
-	reviewed map[string][]time.Time
-	cards    map[string][]fakeCard
+	mu    sync.Mutex
+	due   map[string]int
+	cards map[string][]fakeCard
 }
 
 func (f *fakeReviews) DueCount(_ context.Context, userID string) (int, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	return f.due[userID], nil
-}
-
-func (f *fakeReviews) ReviewedSince(_ context.Context, userID string, since time.Time) (int, error) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	n := 0
-	for _, t := range f.reviewed[userID] {
-		if !t.Before(since) {
-			n++
-		}
-	}
-	return n, nil
-}
-
-// review records n daily reviews at t, each lowering the due count.
-func (f *fakeReviews) review(userID string, n int, t time.Time) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	for range n {
-		f.reviewed[userID] = append(f.reviewed[userID], t)
-	}
-	f.due[userID] = max(0, f.due[userID]-n)
-}
-
-func (f *fakeReviews) setDue(userID string, n int) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	f.due[userID] = n
 }
 
 type fakeZones map[string]*time.Location
@@ -283,8 +232,6 @@ type studyEnv struct {
 	clock     *studyClock
 	quiz      *fakeQuiz
 	writings  *fakeWritings
-	// limit is the daily card limit from the settings (F12), 30 by default.
-	limit atomic.Int64
 }
 
 // newStudyEnv: topics "family" (A1, lessons f1..f3), "shopping" (A1, s1..s2), "work" (B1, w1),
@@ -295,7 +242,7 @@ func newStudyEnv() *studyEnv {
 		progress: newFakeProgress(),
 		days:     newFakeDays(),
 		roadmaps: &fakeRoadmaps{topics: map[string]TopicInfo{}},
-		reviews:  &fakeReviews{due: map[string]int{}, reviewed: map[string][]time.Time{}, cards: map[string][]fakeCard{}},
+		reviews:  &fakeReviews{due: map[string]int{}, cards: map[string][]fakeCard{}},
 		zones:    fakeZones{},
 		clock:    &studyClock{t: time.Date(2026, 9, 30, 10, 0, 0, 0, hcm)},
 		quiz:     &fakeQuiz{status: map[string][2]int{}},
@@ -314,14 +261,11 @@ func newStudyEnv() *studyEnv {
 		e.lessons.set(id, 1, 3)
 	}
 	e.dictation = NewService(newFakeRepo(), e.lessons, e.clock.now)
-	e.limit.Store(DefaultReviewLimit)
 	titles := fakeTitles{"f1": "Family 1", "f2": "Family 2", "f3": "Family 3", "s1": "Shop 1", "s2": "Shop 2", "w1": "Work 1"}
 	e.svc = NewStudyService(StudyDeps{
 		Goals: e.goals, Progress: e.progress, Days: e.days, Dictation: e.dictation, Lessons: e.lessons,
 		Roadmaps: e.roadmaps, Titles: titles, Reviews: e.reviews, Timezones: e.zones, Now: e.clock.now,
-		Quiz:        e.quiz,
-		Writings:    e.writings,
-		ReviewLimit: func(context.Context, string) int { return int(e.limit.Load()) },
+		Quiz: e.quiz, Writings: e.writings,
 	})
 	return e
 }
@@ -377,18 +321,6 @@ func (f *fakeReviews) addCard(userID string, c fakeCard) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	f.cards[userID] = append(f.cards[userID], c)
-}
-
-func (f *fakeDays) LatestKey(_ context.Context, userID string) (string, error) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	latest := ""
-	for key, d := range f.days {
-		if key[:len(userID)+1] == userID+"|" {
-			latest = max(latest, d.DayKey)
-		}
-	}
-	return latest, nil
 }
 
 // fakeQuiz holds [questions, answered] per "user/lesson" and answer totals per user (F15).

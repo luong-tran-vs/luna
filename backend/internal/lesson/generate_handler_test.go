@@ -25,7 +25,8 @@ func TestGenerateEndpoint(t *testing.T) {
 		t.Fatalf("status = %d %s", rec.Code, rec.Body)
 	}
 	body := decodeBody(t, rec)
-	if body["requested"] != float64(2) || body["dropped"] != float64(1) {
+	reasons, _ := body["dropReasons"].(map[string]any)
+	if body["requested"] != float64(2) || body["dropped"] != float64(1) || reasons["empty"] != float64(1) || reasons["duplicateTitle"] != float64(0) {
 		t.Errorf("body = %v", body)
 	}
 	drafts := body["drafts"].([]any)
@@ -57,11 +58,11 @@ func TestGenerateEndpointBadInput(t *testing.T) {
 	a := newAPI(t)
 	for _, body := range []string{
 		`{"count":0,"words":100,"kind":"reading"}`,
-		`{"count":6,"words":100,"kind":"reading"}`,
+		`{"count":11,"words":100,"kind":"reading"}`,
 	} {
 		rec := a.do(t, http.MethodPost, generatePath, "admin", body)
 		fields, _ := decodeBody(t, rec)["fields"].(map[string]any)
-		if rec.Code != http.StatusBadRequest || fields["count"] != "Số bài từ 1 đến 5" {
+		if rec.Code != http.StatusBadRequest || fields["count"] != "Số bài từ 1 đến 10" {
 			t.Errorf("%s: %d %s", body, rec.Code, rec.Body)
 		}
 	}
@@ -100,7 +101,7 @@ func TestGenerateEndpointAIErrors(t *testing.T) {
 			message: "Đã hết lượt AI, vui lòng thử lại sau.",
 		},
 		{
-			name: "unusable", drafts: []ai.LessonDraft{{Title: "x", Content: "too short"}}, status: http.StatusBadGateway,
+			name: "unusable", drafts: []ai.LessonDraft{{Title: "", Content: "no title"}}, status: http.StatusBadGateway,
 			code: "ai_unusable", message: "AI trả về nội dung không dùng được, vui lòng thử lại.",
 		},
 		{

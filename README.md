@@ -68,13 +68,13 @@ Sau khi lưu bài, hệ thống tự làm nền **chú thích từ vựng** (ph�
 
 Ở **Lộ trình**, chọn một chủ đề rồi bấm **Sinh bài bằng AI**. Trình độ và chủ đề lấy theo lộ trình đang mở; chọn:
 
-- **Số bài**: 1–5 (mặc định 3).
+- **Số bài**: 1–10 (mặc định 3).
 - **Độ dài** mỗi bài: 50–800 từ, mặc định theo trình độ (A1 120, A2 160, B1 220, B2 300, C1 và C2 400). Bài lệch quá 20%
-  bị loại.
+  vẫn được giữ, kèm cảnh báo "ngắn hơn/dài hơn yêu cầu" (từ 2026-10-02; trước đó bị loại).
 - **Dạng bài**: bài đọc, hoặc hội thoại (mỗi lượt nói một dòng `Tên: câu nói`).
 - **Ý chính**: không bắt buộc, tối đa 500 ký tự.
 
-Mỗi lượt tốn **một** request AI cho cả lượt và có thể mất đến một phút. Các tiêu đề đã có trong chủ đề được gửi kèm để
+Mỗi lượt tốn **một** request AI cho cả lượt và có thể mất đến hai phút (10 bài dài). Các tiêu đề đã có trong chủ đề được gửi kèm để
 AI tránh lặp.
 
 Kết quả là các **bản nháp**, chỉ có trên trang đang mở và không được lưu vào cơ sở dữ liệu:
@@ -83,12 +83,14 @@ Kết quả là các **bản nháp**, chỉ có trên trang đang mở và khôn
 - Bài được lưu có nguồn "AI sinh", giấy phép "Nội dung do AI tạo". Bài được thêm vào cuối lộ trình rồi được chú
   thích như bài tạo tay.
 - Rời trang, tải lại hoặc đổi chủ đề khi còn bản nháp thì được hỏi lại, vì bản nháp sẽ mất.
+- Bản AI trả về bị loại khi trùng tiêu đề (trong lượt hoặc với bài đã có), thiếu tiêu đề/nội dung, hoặc quá dài so với
+  giới hạn bài; thông báo sau khi sinh ghi số bản bị loại theo từng lý do.
 
 AI chưa cấu hình, khoá sai, hết lượt hoặc trả về nội dung không dùng được thì trang báo rõ lỗi. Bản nháp và các lựa chọn
 đã nhập vẫn giữ nguyên để thử lại.
 
 Request sinh bài dài hơn mọi request khác: nginx (`frontend/nginx.conf`) và backend chỉ cho riêng route
-`/api/admin/topics/{id}/generate` chờ tới 75 giây, các route còn lại vẫn 15 giây.
+`/api/admin/topics/{id}/generate` chờ tới 135 giây (AI tối đa 120 giây), các route còn lại vẫn 15 giây.
 
 ### Từ vựng theo chủ đề
 
@@ -105,6 +107,9 @@ Mỗi chủ đề có một danh sách từ vựng tiếng Anh cốt lõi, tối
 - **Sinh bài bằng AI:** chủ đề có từ vựng thì hộp thoại có "Từ mục tiêu mỗi bài" (mặc định 8/10/12 theo trình độ, 0 để sinh như
   cũ). App chia sẵn nhóm từ cho từng bài (chưa dùng trước, rồi dùng ít nhất; không trùng giữa các bài khi đủ từ); quản trị viên bỏ
   hoặc thêm từ rồi Sinh. Vẫn 1 request AI. Bản nháp hiện "Dùng a/b từ mục tiêu" và "Còn thiếu: …", không bị loại vì thiếu từ.
+  Chủ đề thiếu từ chưa dùng cho số bài đã chọn thì hộp thoại báo "Chủ đề thiếu N từ" và có nút **Bổ sung bằng AI**: AI gợi ý
+  tối đa 50 từ mới đúng chủ đề và trình độ (1 request riêng, `POST /api/admin/topics/{id}/words/suggest`), từ hợp lệ và chưa có
+  được thêm vào danh sách của chủ đề rồi app chia nhóm lại. Danh sách tối đa 300 từ.
 - **Chú thích:** từ của chủ đề có trong bài được gửi kèm request chú thích (vẫn 1 request); từ AI bỏ sót được thêm với nghĩa từ từ
   điển (từ điển không có thì bỏ qua). Người học không thấy danh sách từ của chủ đề.
 
@@ -120,7 +125,7 @@ Bước Đọc tra nghĩa bằng chú thích AI của bài, rồi bằng từ đ
 Script lưu vào `deploy/data/dictionary/dictionary.db` (git bỏ qua) và kiểm tra SHA-256. Thiếu file thì app vẫn chạy,
 tra từ chỉ dùng chú thích của bài.
 
-Mở bước Đọc (tài khoản người học): **Hôm nay** → bước Đọc, hoặc `/lessons/<id>/read`. Chạm một từ để tra,
+Mở bước Đọc (tài khoản người học): trang bài đang học → bước Đọc (sau phần luyện tập), hoặc `/lessons/<id>/read`. Chạm một từ để tra,
 bôi đen nhiều từ để tra cụm, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu.
 
 ### Hỏi AI
@@ -153,7 +158,7 @@ Câu hỏi hỏng và ví dụ không có trong bài bị bỏ; thiếu phần n
 - Bài có câu hỏi thì không còn nút "Đã đọc xong": người học trả lời lần lượt từng câu.
   - Chọn xong là thấy ngay "✓ Đúng" hoặc "✗ Sai", đáp án đúng và lời giải thích. Câu đã trả lời không đổi được.
   - Thoát ra rồi vào lại vẫn tiếp tục đúng câu đang dở.
-  - Trả lời hết (kể cả khi sai) thì bước Đọc hoàn thành. Máy chủ kiểm tra việc này: `POST /api/today/steps/read/complete` trả 409
+  - Trả lời hết (kể cả khi sai) thì bước Đọc hoàn thành. Máy chủ kiểm tra việc này: `POST /api/lessons/{id}/steps/read/complete` trả 409
     `read_incomplete` khi còn câu chưa trả lời.
 - Bài chưa có câu hỏi (AI lỗi hoặc bài cũ) vẫn dùng nút "Đã đọc xong".
 - Xem lại bài từ trang **Bài học** thì thấy các câu trả lời cũ.
@@ -168,17 +173,20 @@ Nếu bài có chú thích từ hoặc câu hỏi đã sửa tay, trang hỏi x�
 
 ## Trang chi tiết bài và luyện tập từ vựng
 
-Chạm một bài (bài hôm nay hoặc bài đã học) ở trang **Bài học** để mở `/lessons/<id>`. Bài sắp tới vẫn khoá: API trả 403
-`lesson_locked`. Trang gồm thanh trên (đóng, tiến độ 4 đoạn, streak), "Bài N" theo thứ tự trong lộ trình chủ đề, mục tiêu,
-mức độ, và hai tab **Bài học** / **Bài đọc**. Tab Bài học có 4 bước, chuyển bằng nút **Tiếp theo** cố định cuối màn hình:
+Chạm một bài (bài đang học hoặc bài đã học) ở trang **Bài học** để mở `/lessons/<id>`. Bài sắp tới vẫn khoá: API trả 403
+`lesson_locked`. Trang gồm thanh trên (đóng, tiến độ theo số bước, streak), "Bài N" theo thứ tự trong lộ trình chủ đề, mục tiêu,
+mức độ, và hai tab **Bài học** / **Bài đọc**. Tab Bài học có tối đa 4 bước luyện tập (chỉ những bước có nội dung), chuyển bằng
+nút **Tiếp theo** / **← Bước trước** cố định cuối màn hình:
 
 1. **Từ vựng quan trọng**: từ, phiên âm, nghĩa, nút nghe từ, câu ví dụ nghe được.
 2. **Hội thoại mẫu**: lời ẩn sẵn để nghe trước ("Hiện lời" từng lượt hoặc tất cả); mỗi lượt có dạng sóng tô theo tiến độ phát
    (hình minh hoạ dựng từ câu, không phải sóng thật của audio); nghe cả đoạn (0.75×/1×/1.25×) hoặc từng lượt, bật/tắt nghĩa.
-3. **Điền vào ô trống**: hội thoại có tối đa 5 ô trống ở từ vựng của bài; chạm từ trong ngân hàng từ để điền, **Kiểm tra**.
+3. **Điền vào ô trống**: hội thoại có tối đa 5 ô trống ở từ vựng của bài; gõ từ vào từng ô (Enter sang ô kế tiếp) hoặc bấm từ
+   trong ngân hàng từ để điền vào ô đang chọn, **Kiểm tra** (không phân biệt hoa thường).
 4. **Dịch câu sang tiếng Anh**: ghép câu bằng các ô từ (có từ gây nhiễu), **Làm lại**, **Kiểm tra** từng câu.
 
-Cuối cùng là tổng kết (số ô điền đúng, số câu dịch đúng) và **Làm lại**. Phần luyện tập là tự chọn: chấm ngay trên trình
+Với **bài đang học**, sau các bước luyện tập là **Đọc → Nghe → Viết** ngay trên trang này (xem "Học lần lượt từng bài"); xong
+bài thì có nút **Sang bài tiếp theo**. Với bài khác, cuối cùng là tổng kết (số ô điền đúng, số câu dịch đúng) và **Làm lại**. Phần luyện tập là tự chọn: chấm ngay trên trình
 duyệt, kết quả không gửi lên máy chủ, không ảnh hưởng các bước của bài, tiến độ, streak hay thống kê; không có điểm XP.
 
 Nội dung luyện tập (`GET /api/lessons/{id}/practice`):
@@ -188,14 +196,15 @@ Nội dung luyện tập (`GET /api/lessons/{id}/practice`):
   dùng từ vựng…); không còn gì dùng được thì báo lỗi, không gọi lại AI. Ô trống bước 3 do máy chủ tính, không cần AI.
 - Không tạo file audio: mọi chỗ nghe trong app (bước Đọc, Nghe, sổ từ, ôn tập, trang chi tiết bài, trang
   quản trị) đọc bằng **giọng đọc của trình duyệt**; trình duyệt không có giọng đọc thì nút nghe bị ẩn.
-- AI lỗi thì chỉ phần luyện tập trống (bước 2–4 báo "Bài này chưa có phần luyện tập"); chú thích, câu hỏi và các bước của bài
+- Trang chỉ hiện các bước có nội dung (số bước và thanh tiến độ theo số bước thật); bài chưa có từ vựng lẫn phần luyện tập
+  thì không có tab Bài học, chỉ hiện bài đọc. AI lỗi thì chỉ phần luyện tập trống; chú thích, câu hỏi và các bước của bài
   vẫn bình thường.
 - Sửa nội dung bài hoặc chạy lại chú thích thì phần luyện tập cũ bị bỏ và được sinh lại. Bài có từ trước F17 không tự sinh:
   quản trị viên bấm **Tạo lại phần luyện tập** ở trang chi tiết bài (mục "Phần luyện tập": trạng thái, lỗi, nội dung).
 
 ## Bước Nghe (chép chính tả)
 
-Mở từ **Hôm nay** (hoặc `/lessons/<id>/listen`). Câu được đọc bằng **giọng đọc của trình duyệt** (Web Speech API, không cần
+Mở từ trang bài đang học, sau bước Đọc (hoặc `/lessons/<id>/listen`). Câu được đọc bằng **giọng đọc của trình duyệt** (Web Speech API, không cần
 audio tạo sẵn), kèm dạng sóng minh hoạ chạy theo câu đang đọc. Nghe từng câu (trước/sau, nghe lại, tốc độ 0.5x–1.25x, chữ ẩn
 mặc định), gõ lại câu rồi **Kiểm tra** (hoặc Enter). Trình duyệt không có giọng đọc thì trang báo rõ. Cách so sánh:
 
@@ -206,40 +215,37 @@ Kết quả mới nhất của mỗi câu được lưu theo người học (`PO
 số từ (`GET /api/lessons/{id}/dictation/summary`). Kiểm tra hết các câu là hoàn thành bước Nghe. Sửa nội dung bài thì kết
 quả cũ không còn được tính.
 
-## Một ngày học
+## Học lần lượt từng bài
+
+Cập nhật 2026-10-02: bỏ trang "Hôm nay" và giới hạn một bài mỗi ngày, bỏ bước Ôn khỏi bài.
 
 - **Mục tiêu** (`/goal`): chọn trình độ rồi một chủ đề của trình độ đó; mục tiêu là học hết lộ trình của chủ đề. Tiến độ từng
-  chủ đề lưu riêng; đổi chủ đề khi bài hôm nay đã bắt đầu thì có hiệu lực từ ngày mai.
-- **Bài hôm nay** (trang chủ → **Bắt đầu / Tiếp tục: <bước>**, `/today`): mỗi ngày một bài mới (sang ngày lúc 0 giờ theo múi giờ trong
-  Cài đặt), học theo thứ tự **Ôn** (thẻ đến hạn, tối đa 30 thẻ/ngày, đổi trong Cài đặt; không có thẻ thì tự xong) → **Đọc** → **Nghe** →
-  **Viết** (F8). Thoát ra vào lại thì tiếp tục đúng bước và đúng câu. Xong bài (nộp bài viết): mục tiêu +1, chuỗi ngày học +1; nghỉ một
-  ngày trọn thì chuỗi về 0. Bài đã xong trước khi có bước Viết vẫn tính là xong.
-- **Bài học** (header → **Bài học**, `/lessons`): bài hôm nay, các bài đã học (đọc/nghe lại, không đổi tiến độ), các bài sắp tới
-  bị khoá — người học không mở được bài chưa tới lượt.
-
-Thử sang ngày mới mà không phải chờ (lùi ngày học của tài khoản `hoc@example.com` về hôm qua):
-
-```bash
-docker compose -f deploy/docker-compose.yml exec mongo mongosh luna --quiet --eval '
-  const u = db.users.findOne({email: "hoc@example.com"})._id;
-  const t = new Date(Date.now() + 7 * 3600e3); t.setUTCDate(t.getUTCDate() - 1);
-  const y = t.toISOString().slice(0, 10);
-  db.study_days.updateMany({userId: u}, {$set: {dayKey: y}});
-  db.lesson_progress.updateMany({userId: u}, {$set: {dayKey: y}});
-  db.goals.updateMany({userId: u}, {$set: {effectiveFrom: y}})'
-```
-
-(`+ 7 * 3600e3` là múi giờ Việt Nam; đổi theo múi giờ của tài khoản.)
+  chủ đề lưu riêng; đổi chủ đề có hiệu lực ngay.
+- **Bài đang học** là bài đầu tiên chưa xong trong lộ trình. Học ngay ở trang bài `/lessons/<id>` (trang chủ → **Bắt đầu học /
+  Tiếp tục: <bước>**, hoặc trang **Bài học**): các phần luyện tập có nội dung (F17), rồi **Đọc** → **Nghe** → **Viết** (F8, tuỳ
+  chọn), chung một thanh tiến độ. Thoát ra vào lại thì tiếp tục đúng bước và đúng câu. Nút **← Bước trước** mở lại bước đã qua
+  (bước Đọc, Nghe đã xong chỉ để xem, không đổi tiến độ).
+- Xong bài (nộp bài viết hoặc bấm **Bỏ qua** ở bước Viết): mục tiêu +1, ngày đó tính vào chuỗi ngày học, và nút **Sang bài tiếp
+  theo** mở ngay bài kế tiếp — học bao nhiêu bài một ngày cũng được. Nghỉ một ngày trọn thì chuỗi về 0. Bài đã xong trước khi có
+  bước Viết vẫn tính là xong.
+- **Bài học** (header → **Bài học**, `/lessons`): các bài đã học (đọc/nghe lại, không đổi tiến độ), bài đang học, các bài sắp tới
+  bị khoá — người học không mở được bài chưa tới lượt. Không có ô trống: bài nào có thì hiện bài đó.
+- Ôn thẻ đến hạn ở **Ôn tập** (`/vocabulary/review`), không còn là bước của bài.
+- API: `GET /api/lessons/{id}/study` (trạng thái các bước, bài kế tiếp), `POST /api/lessons/{id}/steps/{step}/complete`,
+  `POST /api/lessons/{id}/steps/write/skip`, `PUT /api/lessons/{id}/position`. Bài không phải bài đang học trả 409
+  `not_current_lesson`.
 
 ## Bước Viết và bài viết
 
-Bước **Viết** (F8) đến sau bước Nghe và bắt buộc:
+Bước **Viết** (F8) đến sau bước Nghe và là **tuỳ chọn**:
 
 - Bước Viết hiện đề viết của bài (F15), hoặc "Tóm tắt bài bằng 3–5 câu." khi bài chưa có đề.
 - Kèm theo là độ dài gợi ý theo trình độ (A1 30–60 từ, A2 50–80, B1 80–120, B2 120–180, C1 và C2 150–250).
 - Nháp tự lưu 1 giây sau khi ngừng gõ (`PUT /api/lessons/{id}/writing`); thoát ra vào lại hay mở máy khác vẫn còn.
-- **Nộp** (5–400 từ) hoàn thành bước Viết và bài hôm nay ngay, không chờ AI. Đã nộp thì không sửa hay nộp lại được.
-- Chỉ bài hôm nay đang ở bước Viết mới viết được; mở lại bài cũ (trang **Bài học** → **Bài viết**) chỉ xem.
+- **Nộp** (5–400 từ) hoàn thành bước Viết và bài ngay, không chờ AI. Đã nộp thì không sửa hay nộp lại được.
+- **Bỏ qua** hoàn thành bài mà không viết (`POST /api/lessons/{id}/steps/write/skip`): không có bài viết, không gọi AI.
+  `POST /api/lessons/{id}/steps/write/complete` vẫn trả 409 `write_incomplete` khi chưa nộp, để không lỡ tay bỏ qua.
+- Chỉ bài đang học, đang ở bước Viết mới viết được; mở lại bài cũ (trang **Bài học** → **Bài viết**) chỉ xem.
 
 AI chấm ở nền (job `grade`, thử lại tối đa 3 lần, 1 request AI mỗi lần chấm):
 
@@ -256,10 +262,9 @@ collection `writings`, mỗi người một bài cho mỗi bài học.
 ## Màn hình chính và thống kê
 
 - **Màn hình chính** (`/`): chuỗi ngày học, thanh mục tiêu ("A1 · Gia đình", số bài đã xong / tổng số bài) kèm thanh Đọc,
-  Nghe và Viết (số bài của lộ trình hiện tại đã xong bước đó), bài hôm nay với thanh bước, nút **Bắt đầu: <bước>** (chưa xong bước nào) hoặc
-  **Tiếp tục: <bước>** tới đúng bước đang dở, và số thẻ cần ôn tới hết ngày mai (gồm cả thẻ còn nợ). Chưa có mục tiêu → **Chọn
-  chủ đề**; xong bài hôm nay → **Ôn tự do**; hết bài → **Ôn tự do** / **Chọn chủ đề khác**. Số liệu tải lại mỗi lần quay về trang;
-  mở trang không làm bài hôm nay "bắt đầu".
+  Nghe và Viết (số bài của lộ trình hiện tại đã xong bước đó), bài đang học với thanh bước, nút **Bắt đầu học** (chưa xong bước nào) hoặc
+  **Tiếp tục: <bước>** mở trang bài, và số thẻ cần ôn tới hết ngày mai (gồm cả thẻ còn nợ). Chưa có mục tiêu → **Chọn
+  chủ đề**; hết bài → **Ôn tự do** / **Chọn chủ đề khác**. Số liệu tải lại mỗi lần quay về trang; mở trang không làm bài "bắt đầu".
 - **Thống kê** (màn hình chính → **Xem thống kê**, `/stats`): số từ đã học, số câu đã chép chính tả và tỷ lệ đúng, số bài đã
   xong bước Đọc / Nghe và số bài hoàn thành, tính trên mọi chủ đề. Thẻ **Hiểu bài** (F15) là tỷ lệ trả lời đúng câu hỏi hiểu bài
   trên mọi câu đã trả lời (hiện "—" khi chưa trả lời câu nào). Thẻ **Bài viết** (F8) có số bài viết đã nộp và điểm trung bình của
@@ -273,9 +278,9 @@ Thanh trên → **Cài đặt** (`/settings`); cài đặt lưu theo tài khoả
 
 - **Giao diện**: Sáng, Tối, Theo hệ thống (mặc định); đổi là có hiệu lực ngay. Nút giao diện nhanh ở thanh trên cũng lưu vào tài
   khoản. Trước khi đăng nhập app dùng lựa chọn lưu trên trình duyệt; sau khi đăng nhập lựa chọn của tài khoản được dùng.
-- **Số thẻ ôn mỗi ngày** (bước Ôn của bài hôm nay): 5–200, mặc định 30; tính cả số thẻ đã ôn trong ngày. Ôn tự do không giới hạn.
-- **Múi giờ** tính ngày học: mặc định là múi giờ lúc đăng ký. Đổi múi giờ không làm mất tiến độ: bài đang dở vẫn là bài hôm nay,
-  bước đã xong và vị trí đang học giữ nguyên; ngày học không bao giờ lùi, nên đổi sang múi giờ còn "hôm qua" không có thêm bài mới.
+- **Số thẻ ôn mỗi ngày**: 5–200, mặc định 30. Từ 2026-10-02 bài không còn bước Ôn nên giá trị này chưa được dùng; Ôn tập không giới hạn.
+- **Múi giờ** tính ngày cho chuỗi ngày học: mặc định là múi giờ lúc đăng ký. Đổi múi giờ không làm mất tiến độ: bài đang dở, bước
+  đã xong và vị trí đang học giữ nguyên.
 - Cài đặt nằm trong `users.settings {theme, dailyReviewLimit, timezone}`; trường `timezone` cũ của tài khoản được chuyển vào đó tự
   động khi khởi động.
 - **Xuất dữ liệu** (nhóm Dữ liệu cuối trang, `GET /api/export`): tải file `luna-export-YYYYMMDD.json` gồm tài khoản (email, vai trò,

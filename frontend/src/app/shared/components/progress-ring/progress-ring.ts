@@ -25,6 +25,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
           [attr.r]="radius"
           [attr.stroke-dasharray]="circumference"
           [attr.stroke-dashoffset]="offset()"
+          [style.--ring-empty]="circumference"
         />
       </svg>
       <span class="value" aria-hidden="true">{{ text() }}</span>
@@ -56,9 +57,17 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
     .track {
       stroke: var(--color-track);
     }
+    /* Fills up from empty when shown, then slides to new values (off with reduced motion, styles/motion.css). */
     .fill {
       stroke: var(--ring-color, var(--color-primary));
       stroke-linecap: round;
+      transition: stroke-dashoffset var(--motion-slow, 400ms) var(--ease-out, ease-out);
+      animation: ring-fill 700ms var(--ease-out, ease-out) both;
+    }
+    @keyframes ring-fill {
+      from {
+        stroke-dashoffset: var(--ring-empty);
+      }
     }
     .value {
       font: var(--text-sm) var(--font-ui);

@@ -3,7 +3,7 @@
 > Nguồn: [mvp-features.md](../mvp-features.md) v9. Cần xong [giai đoạn 1](giai-doan-1.md).
 
 **Mục tiêu:** AI giúp soạn bài; thêm kỹ năng **Viết**; bước Đọc có câu hỏi hiểu bài và ghi chú ngữ pháp.
-**Các bước của bài:** Ôn → Đọc → Nghe → **Viết** (bắt buộc).
+**Các bước của bài:** Ôn → Đọc → Nghe → **Viết** (tuỳ chọn, có nút Bỏ qua; cập nhật 2026-10-02).
 **AI:** Gemini gói miễn phí (ưu tiên Flash-Lite), dự phòng Groq, OpenRouter hoặc Ollama. AI lỗi thì mọi tính năng không cần AI vẫn chạy.
 **Thứ tự làm:** F7 → F15 → F8 → F9.
 
@@ -13,13 +13,13 @@
 
 **Chức năng**
 - Nút **Sinh bài bằng AI** trong trang lộ trình của một chủ đề (F14). Trình độ và chủ đề lấy theo lộ trình đang mở.
-- Nhập: số bài (1–5), độ dài (số từ), dạng bài (bài đọc hoặc hội thoại), ý chính (không bắt buộc).
+- Nhập: số bài (1–10; trước 2026-10-02 là 1–5), độ dài (số từ), dạng bài (bài đọc hoặc hội thoại), ý chính (không bắt buộc).
 - AI tránh lặp nội dung các bài đã có trong chủ đề.
 - Mỗi bài sinh ra là một **bản nháp**: quản trị viên xem, sửa, rồi **Lưu** hoặc **Bỏ** từng bài.
 - Bài đã lưu có nguồn "AI sinh", đi qua quy trình của F2 (tách câu, chú thích) và được thêm vào **cuối lộ trình** của chủ đề.
 
 **Tiêu chí nghiệm thu**
-- [ ] Bản nháp đúng trình độ của chủ đề và đúng độ dài đã chọn (sai lệch không quá 20%).
+- [ ] Bản nháp đúng trình độ của chủ đề và đúng độ dài đã chọn (sai lệch quá 20% thì có cảnh báo; đổi 2026-10-02, trước đó bị loại).
 - [ ] Không lưu tự động; bản nháp chưa lưu không xuất hiện trong danh sách bài hay lộ trình.
 - [ ] Sinh nhiều bài một lượt: các bài khác nội dung nhau và khác các bài đã có trong chủ đề.
 - [ ] AI lỗi hoặc hết lượt: thông báo rõ ràng, không mất các bản nháp đã sinh và dữ liệu đã nhập.
@@ -48,7 +48,8 @@
 ## F8. Viết
 
 **Chức năng**
-- Bước **Viết** sau bước Nghe, bắt buộc: người học viết theo đề của bài (F15) và bấm **Nộp**.
+- Bước **Viết** sau bước Nghe: người học viết theo đề của bài (F15) và bấm **Nộp**, hoặc bấm **Bỏ qua** để hoàn thành bài mà
+  không viết (cập nhật 2026-10-02: Viết là tuỳ chọn).
 - Bài viết nháp được tự lưu trong lúc gõ.
 - AI chấm nền và trả về:
   - Điểm 1–5 và nhận xét tiếng Việt cho 4 tiêu chí: hoàn thành yêu cầu, ngữ pháp, từ vựng, mạch lạc.
@@ -56,7 +57,7 @@
 - Có kết quả thì hiện thông báo trong app. Trang **Bài viết** liệt kê các bài đã nộp và nhận xét.
 
 **Tiêu chí nghiệm thu**
-- [ ] Bước Viết hoàn thành ngay khi nộp, không chờ AI chấm.
+- [ ] Bước Viết hoàn thành ngay khi nộp, không chờ AI chấm; bấm Bỏ qua cũng hoàn thành bước (không có bài viết, không gọi AI).
 - [ ] Có kết quả chấm thì hiện thông báo trong app.
 - [ ] Chấm lỗi thì bài viết vẫn được lưu, có nút Chấm lại.
 - [ ] Bài viết nháp được tự lưu, thoát ra vào lại không mất.
@@ -79,6 +80,7 @@
 
 ## Thay đổi trên tính năng cũ
 
-- **L. Luồng một ngày học:** thêm bước Viết (bắt buộc) sau bước Nghe; bước Đọc hoàn thành theo F15.
+- **L. Luồng một ngày học:** thêm bước Viết (tuỳ chọn, bỏ qua được) sau bước Nghe; bước Đọc hoàn thành theo F15. Có nút
+  **← Bước trước** để xem lại bước Đọc, Nghe đã xong mà không mất tiến độ.
 - **F6:** hiện thêm thanh kỹ năng **Viết**; thống kê thêm tỷ lệ đúng câu hỏi hiểu bài, số bài viết và điểm trung bình.
 - **F13:** file xuất dữ liệu có thêm câu trả lời hiểu bài và bài viết.

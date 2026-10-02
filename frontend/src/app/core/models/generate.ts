@@ -27,10 +27,18 @@ export interface GenerateResult {
   drafts: GeneratedDraft[];
   requested: number;
   dropped: number;
+  /** Rejected drafts by reason; a draft off the asked length is kept (with a warning). */
+  dropReasons?: DropReasons;
+}
+
+export interface DropReasons {
+  duplicateTitle: number;
+  empty: number;
+  tooLong: number;
 }
 
 export const MIN_COUNT = 1;
-export const MAX_COUNT = 5;
+export const MAX_COUNT = 10;
 export const DEFAULT_COUNT = 3;
 export const MIN_WORDS = 50;
 export const MAX_WORDS = 800;

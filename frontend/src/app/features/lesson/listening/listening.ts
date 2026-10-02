@@ -48,7 +48,7 @@ export class Listening implements OnInit {
   private readonly route = inject(ActivatedRoute).snapshot;
   protected readonly speech = inject(SpeechService);
 
-  /** The lesson to open; defaults to the route's :id (used by the daily flow, L). */
+  /** The lesson to open; defaults to the route's :id (used by the lesson page, L). */
   readonly lessonId = input('');
   /** Sentence to open first (saved position); defaults to the first unchecked sentence. */
   readonly startSentence = input<number | null>(null);

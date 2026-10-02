@@ -501,3 +501,7 @@ func (f *fakeAI) practices() (int, ai.PracticeRequest) {
 	defer f.mu.Unlock()
 	return f.practiceCalls, f.practiceReq
 }
+
+func (f *fakeAI) SuggestWords(context.Context, ai.SuggestWordsRequest) ([]string, error) {
+	return nil, ai.ErrNotConfigured
+}

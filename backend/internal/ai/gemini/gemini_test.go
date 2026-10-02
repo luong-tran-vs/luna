@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -573,5 +574,39 @@ func TestAnnotateFocusWords(t *testing.T) {
 	}
 	if strings.Contains(*prompt, "topic words") {
 		t.Errorf("no focus words, but:\n%s", *prompt)
+	}
+}
+
+func TestSuggestWords(t *testing.T) {
+	t.Parallel()
+
+	inner, _ := json.Marshal(map[string]any{"words": []string{"ladybug", "cicada"}})
+	resp, _ := json.Marshal(map[string]any{"candidates": []any{map[string]any{
+		"content": map[string]any{"parts": []any{map[string]any{"text": string(inner)}}},
+	}}})
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewDecoder(r.Body).Decode(&body)
+		_, _ = w.Write(resp)
+	})
+
+	got, err := c.SuggestWords(t.Context(), ai.SuggestWordsRequest{
+		Level: "A1", TopicName: "Côn trùng", Existing: []string{"Ant", "Bee"}, Count: 2,
+	})
+	if err != nil {
+		t.Fatalf("SuggestWords: %v", err)
+	}
+	if calls.Load() != 1 || !slices.Equal(got, []string{"ladybug", "cicada"}) {
+		t.Fatalf("calls %d got %v", calls.Load(), got)
+	}
+	prompt, _ := json.Marshal(body["contents"])
+	for _, s := range []string{"A1", "Côn trùng", "List 2 new", "Ant, Bee"} {
+		if !strings.Contains(string(prompt), s) {
+			t.Errorf("prompt missing %q", s)
+		}
+	}
+	noKey, noCalls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
+	if _, err := noKey.SuggestWords(t.Context(), ai.SuggestWordsRequest{Count: 1}); !errors.Is(err, ai.ErrNotConfigured) || noCalls.Load() != 0 {
+		t.Fatalf("no key: %v, calls %d", err, noCalls.Load())
 	}
 }

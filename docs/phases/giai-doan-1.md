@@ -153,21 +153,20 @@
 
 **Chức năng**
 - **Mục tiêu:** người học tự chọn trình độ, rồi chọn một chủ đề của trình độ đó; mục tiêu là hoàn thành lộ trình của chủ đề (F14). Xong thì mời chọn chủ đề khác cùng trình độ hoặc lên trình độ tiếp theo.
-- **Đổi chủ đề hoặc trình độ:** có hiệu lực ngay nếu bài hôm nay chưa bắt đầu, nếu đã bắt đầu thì từ hôm sau. Tiến độ từng lộ trình lưu riêng.
-- **Mỗi ngày một bài:** bài hôm nay là bài tiếp theo chưa hoàn thành trong lộ trình đang học.
-- **Các bước của bài:** Ôn → Đọc → Nghe. Bước sau chỉ mở khi xong bước trước.
-- **Bước Ôn:** ôn các thẻ đến hạn, tối đa 30 thẻ mỗi ngày (chỉnh ở F12). Không có thẻ đến hạn thì bước tự hoàn thành.
-- **Hoàn thành bài:** thanh mục tiêu +1 bài, streak +1 ngày.
-- **Danh sách bài học:** trang "Bài học" gồm bài hôm nay, các bài đã học (mở lại để đọc, nghe bất cứ lúc nào) và các bài sắp tới ở trạng thái khoá (chỉ hiện tên).
+- **Đổi chủ đề hoặc trình độ:** có hiệu lực ngay (cập nhật 2026-10-02). Tiến độ từng lộ trình lưu riêng.
+- **Học lần lượt** (cập nhật 2026-10-02, thay cho "mỗi ngày một bài"): bài đang học là bài tiếp theo chưa hoàn thành trong lộ trình; học xong thì bài kế tiếp mở ngay, không giới hạn số bài mỗi ngày. Không có trang "Hôm nay": học ngay trong trang của bài.
+- **Các bước của bài:** Đọc → Nghe (bước Ôn bỏ từ 2026-10-02). Bước sau chỉ mở khi xong bước trước.
+- **Ôn thẻ:** ~~bước Ôn đầu bài~~ bỏ từ 2026-10-02; ôn thẻ đến hạn ở Từ vựng › Ôn tập.
+- **Hoàn thành bài:** thanh mục tiêu +1 bài, ngày đó tính vào streak, bài kế tiếp mở ngay.
+- **Danh sách bài học:** trang "Bài học" gồm bài đang học, các bài đã học (mở lại để đọc, nghe bất cứ lúc nào) và các bài sắp tới ở trạng thái khoá (chỉ hiện tên).
 
 **Tiêu chí nghiệm thu**
 - [ ] Chỉ học bài thuộc trình độ đang chọn; không có bài của trình độ khác xen vào.
 - [ ] Đổi sang chủ đề khác rồi quay lại: học tiếp đúng bài đang dở; streak không đổi.
 - [ ] Mở lại bài đã học không làm thay đổi tiến độ, streak hay mục tiêu.
-- [ ] Bài sắp tới không mở được trước ngày của nó.
-- [ ] Học xong bài hôm nay thì bài tiếp theo chỉ mở vào ngày hôm sau (sang ngày lúc 0h theo múi giờ ở F12).
-- [ ] Nghỉ một hoặc nhiều ngày: hôm quay lại chỉ có một bài, streak về 0.
-- [ ] Thẻ đến hạn vượt quá giới hạn ngày được chuyển sang hôm sau.
+- [ ] Bài sắp tới không mở được trước khi học xong các bài trước nó.
+- [ ] Học xong một bài thì bài tiếp theo mở ngay, học được nhiều bài trong một ngày (cập nhật 2026-10-02).
+- [ ] Nghỉ một hoặc nhiều ngày: streak về 0 (ngày tính theo múi giờ ở F12).
 - [ ] Thoát giữa chừng rồi vào lại thì tiếp tục đúng bước và đúng câu đang làm.
 - [ ] Lộ trình hết bài: người học thấy thông báo "chưa có bài mới", vẫn ôn được hoặc chọn chủ đề khác; quản trị viên thấy cảnh báo ở F14.
 
@@ -178,12 +177,12 @@
 **Chức năng**
 - **Thanh mục tiêu:** tên lộ trình (ví dụ "A1 · Gia đình") và số bài đã xong trên tổng số bài của lộ trình.
 - **Thanh kỹ năng:** Nghe và Đọc (Viết và Nói hiện ở giai đoạn sau), mỗi thanh đếm số bài đã xong bước của kỹ năng đó.
-- **Bài hôm nay:** tên bài, trình độ, chủ đề, thanh tiến trình các bước, nút **Tiếp tục: <bước>**.
+- **Bài đang học:** tên bài, trình độ, chủ đề, thanh tiến trình các bước, nút **Tiếp tục: <bước>**.
 - **Streak** (số ngày học liên tiếp) và số thẻ đến hạn ngày mai.
 - **Thống kê:** số từ đã học, số câu đã chép chính tả, tỷ lệ đúng, số bài hoàn thành theo kỹ năng.
 
 **Tiêu chí nghiệm thu**
-- [ ] Mở app là thấy ngay thanh mục tiêu, bài hôm nay và nút Tiếp tục, không phải cuộn trên điện thoại 360px.
+- [ ] Mở app là thấy ngay thanh mục tiêu, bài đang học và nút Tiếp tục, không phải cuộn trên điện thoại 360px.
 - [ ] Nút Tiếp tục đưa thẳng đến bước đang dở.
 - [ ] Số liệu cập nhật ngay sau khi hoàn thành một bước.
 

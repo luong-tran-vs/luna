@@ -9,7 +9,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
 
-// StudyHandler serves the daily flow API (contracts/study-api.md) and guards lesson content.
+// StudyHandler serves the study flow API (contracts/study-api.md) and guards lesson content.
 type StudyHandler struct {
 	svc *StudyService
 	log *slog.Logger
@@ -24,15 +24,16 @@ func NewStudyHandler(svc *StudyService, log *slog.Logger) *StudyHandler {
 func (h *StudyHandler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/goals", requireAuth(http.HandlerFunc(h.goals)))
 	mux.Handle("POST /api/goals", requireAuth(http.HandlerFunc(h.setGoal)))
-	mux.Handle("GET /api/today", requireAuth(http.HandlerFunc(h.today)))
-	mux.Handle("POST /api/today/steps/{step}/complete", requireAuth(http.HandlerFunc(h.complete)))
-	mux.Handle("PUT /api/today/position", requireAuth(http.HandlerFunc(h.position)))
 	mux.Handle("GET /api/lessons/mine", requireAuth(http.HandlerFunc(h.mine)))
+	mux.Handle("GET /api/lessons/{id}/study", requireAuth(h.Guard(http.HandlerFunc(h.study))))
+	mux.Handle("POST /api/lessons/{id}/steps/{step}/complete", requireAuth(http.HandlerFunc(h.complete)))
+	mux.Handle("POST /api/lessons/{id}/steps/write/skip", requireAuth(http.HandlerFunc(h.skipWrite)))
+	mux.Handle("PUT /api/lessons/{id}/position", requireAuth(http.HandlerFunc(h.position)))
 	mux.Handle("GET /api/dashboard", requireAuth(http.HandlerFunc(h.dashboard)))
 	mux.Handle("GET /api/stats", requireAuth(http.HandlerFunc(h.stats)))
 }
 
-// Guard lets a learner open only today's lesson and lessons already started; admins pass.
+// Guard lets a learner open only the lesson being studied and lessons already started; admins pass.
 // It must run after RequireAuth on routes with an {id} lesson path value.
 func (h *StudyHandler) Guard(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -75,9 +76,7 @@ type goalsJSON struct {
 }
 
 type setGoalJSON struct {
-	Active         goalJSON `json:"active"`
-	EffectiveFrom  string   `json:"effectiveFrom"`
-	StartsTomorrow bool     `json:"startsTomorrow"`
+	Active goalJSON `json:"active"`
 }
 
 type lessonRefJSON struct {
@@ -85,29 +84,28 @@ type lessonRefJSON struct {
 	Title string `json:"title"`
 }
 
-type todayJSON struct {
-	Kind          string            `json:"kind"`
-	Goal          *goalJSON         `json:"goal"`
-	Lesson        *lessonRefJSON    `json:"lesson"`
+type studyJSON struct {
+	Status        string            `json:"status"`
 	Steps         map[string]string `json:"steps"`
 	CurrentStep   string            `json:"currentStep"`
 	SentenceIndex int               `json:"sentenceIndex"`
-	ReviewCount   int               `json:"reviewCount"`
-	Streak        int               `json:"streak"`
+	Next          *lessonRefJSON    `json:"next"`
+	Goal          *goalJSON         `json:"goal"`
 	GoalCompleted bool              `json:"goalCompleted"`
+	Streak        int               `json:"streak"`
 }
 
-func toTodayJSON(v TodayView) todayJSON {
-	out := todayJSON{
-		Kind: string(v.Kind), Steps: map[string]string{}, CurrentStep: string(v.CurrentStep),
-		SentenceIndex: v.SentenceIndex, ReviewCount: v.ReviewCount, Streak: v.Streak, GoalCompleted: v.GoalCompleted,
+func toStudyJSON(v LessonStudyView) studyJSON {
+	out := studyJSON{
+		Status: string(v.Status), Steps: map[string]string{}, CurrentStep: string(v.CurrentStep),
+		SentenceIndex: v.SentenceIndex, Streak: v.Streak, GoalCompleted: v.GoalCompleted,
 	}
 	if v.Goal != nil {
 		g := toGoalJSON(*v.Goal)
 		out.Goal = &g
 	}
-	if v.Lesson != nil {
-		out.Lesson = &lessonRefJSON{ID: v.Lesson.ID, Title: v.Lesson.Title}
+	if v.Next != nil {
+		out.Next = &lessonRefJSON{ID: v.Next.ID, Title: v.Next.Title}
 	}
 	for s, st := range v.Steps {
 		out.Steps[string(s)] = string(st)
@@ -123,7 +121,7 @@ type completedJSON struct {
 }
 
 type mineJSON struct {
-	Today     *lessonRefJSON  `json:"today"`
+	Current   *lessonRefJSON  `json:"current"`
 	Completed []completedJSON `json:"completed"`
 	Upcoming  []lessonRefJSON `json:"upcoming"`
 }
@@ -165,29 +163,38 @@ func (h *StudyHandler) setGoal(w http.ResponseWriter, r *http.Request) {
 		h.fail(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, http.StatusOK, setGoalJSON{
-		Active: toGoalJSON(res.Active), EffectiveFrom: res.EffectiveFrom, StartsTomorrow: res.StartsTomorrow,
-	})
+	httpx.WriteJSON(w, http.StatusOK, setGoalJSON{Active: toGoalJSON(res)})
 }
 
-func (h *StudyHandler) today(w http.ResponseWriter, r *http.Request) {
+func (h *StudyHandler) study(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())
-	v, err := h.svc.Today(r.Context(), p.UserID)
+	v, err := h.svc.LessonStudy(r.Context(), p.UserID, r.PathValue("id"))
 	if err != nil {
 		h.fail(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, http.StatusOK, toTodayJSON(v))
+	httpx.WriteJSON(w, http.StatusOK, toStudyJSON(v))
 }
 
 func (h *StudyHandler) complete(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())
-	v, err := h.svc.CompleteStep(r.Context(), p.UserID, Step(r.PathValue("step")))
+	v, err := h.svc.CompleteStep(r.Context(), p.UserID, r.PathValue("id"), Step(r.PathValue("step")))
 	if err != nil {
 		h.fail(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, http.StatusOK, toTodayJSON(v))
+	httpx.WriteJSON(w, http.StatusOK, toStudyJSON(v))
+}
+
+// skipWrite finishes the lesson without writing (the Write step is optional).
+func (h *StudyHandler) skipWrite(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	v, err := h.svc.SkipWrite(r.Context(), p.UserID, r.PathValue("id"))
+	if err != nil {
+		h.fail(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, toStudyJSON(v))
 }
 
 func (h *StudyHandler) position(w http.ResponseWriter, r *http.Request) {
@@ -199,7 +206,7 @@ func (h *StudyHandler) position(w http.ResponseWriter, r *http.Request) {
 	if httpx.DecodeJSON(w, r, &req) != nil {
 		return
 	}
-	if err := h.svc.SetPosition(r.Context(), p.UserID, Step(req.Step), req.SentenceIndex); err != nil {
+	if err := h.svc.SetPosition(r.Context(), p.UserID, r.PathValue("id"), Step(req.Step), req.SentenceIndex); err != nil {
 		h.fail(w, r, err)
 		return
 	}
@@ -214,8 +221,8 @@ func (h *StudyHandler) mine(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	out := mineJSON{Completed: make([]completedJSON, len(v.Completed)), Upcoming: make([]lessonRefJSON, len(v.Upcoming))}
-	if v.Today != nil {
-		out.Today = &lessonRefJSON{ID: v.Today.ID, Title: v.Today.Title}
+	if v.Current != nil {
+		out.Current = &lessonRefJSON{ID: v.Current.ID, Title: v.Current.Title}
 	}
 	for i, c := range v.Completed {
 		out.Completed[i] = completedJSON{ID: c.ID, Title: c.Title, TopicName: c.TopicName, CompletedAt: c.CompletedAt}
@@ -241,8 +248,8 @@ func (h *StudyHandler) fail(w http.ResponseWriter, r *http.Request, err error) {
 		httpx.WriteError(w, http.StatusConflict, "read_incomplete", "Hãy trả lời hết câu hỏi hiểu bài")
 	case errors.Is(err, ErrListenIncomplete):
 		httpx.WriteError(w, http.StatusConflict, "listen_incomplete", "Hãy kiểm tra hết các câu của bước Nghe")
-	case errors.Is(err, ErrNoLesson):
-		httpx.WriteError(w, http.StatusConflict, "no_lesson", "Hôm nay không có bài để học")
+	case errors.Is(err, ErrNotCurrentLesson):
+		httpx.WriteError(w, http.StatusConflict, "not_current_lesson", "Bài này không phải bài đang học")
 	case errors.Is(err, ErrNotCurrentStep):
 		httpx.WriteError(w, http.StatusConflict, "not_current_step", "Bước này không phải bước hiện tại")
 	default:

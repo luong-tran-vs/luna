@@ -24,9 +24,9 @@ const studying = (over: Partial<Dashboard> = {}): Dashboard => ({
   goalCompleted: false,
   skills: { read: 3, listen: 2, write: 1, total: 12 },
   lesson: { id: 'l1', title: 'At the café', topicName: 'Gia đình', level: 'A1' },
-  steps: { review: 'done', read: 'current', listen: 'locked', write: 'locked' },
-  currentStep: 'read',
-  action: { kind: 'continue', step: 'read' },
+  steps: { read: 'done', listen: 'current', write: 'locked' },
+  currentStep: 'listen',
+  action: { kind: 'continue', step: 'listen' },
   streak: 4,
   tomorrowCards: 17,
   ...over,
@@ -38,7 +38,7 @@ const noGoal: Dashboard = {
   goal: null,
   skills: null,
   lesson: null,
-  steps: { review: 'locked', read: 'locked', listen: 'locked', write: 'locked' },
+  steps: { read: 'locked', listen: 'locked', write: 'locked' },
   currentStep: '',
   action: null,
   streak: 1,
@@ -92,16 +92,17 @@ describe('Home', () => {
 
   // --- US1 ---
 
-  it('greets the learner and shows today’s progress, the lesson and the button to the current step', async () => {
+  it('greets the learner and shows the progress of the lesson being studied and the button into it', async () => {
     await open(studying());
     expect(text(el.querySelector('h1'))).toBe('Xin chào, minh 👋');
-    expect(text(el.querySelector('.subtitle'))).toBe('Hôm nay còn 3 bước nữa thôi!');
-    expect(el.querySelector('.today-goal [role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('25');
-    expect(text(el.querySelector('.today-goal'))).toContain('1 / 4 bước');
+    expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 2 bước nữa thôi!');
+    expect(text(el.querySelector('.today-goal'))).toContain('Bài đang học');
+    expect(text(el.querySelector('.today-goal'))).toContain('1 / 3 bước');
     expect(text(el.querySelector('.lesson-title'))).toBe('At the café');
     expect(text(el.querySelector('.lesson'))).toContain('Chủ đề: A1 · Gia đình');
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
-    expect(link('Tiếp tục: Đọc')?.getAttribute('href')).toBe('/today');
+    // No "today" page: the button opens the lesson itself.
+    expect(link('Tiếp tục: Nghe')?.getAttribute('href')).toBe('/lessons/l1');
   });
 
   it('shows the streak, the words learned and the accuracy', async () => {
@@ -130,7 +131,7 @@ describe('Home', () => {
     controller.expectOne('/api/stats').flush('down', { status: 500, statusText: 'Error' });
     await fixture.whenStable();
     expect(text(el.querySelector('.words .tile-value'))).toBe('—');
-    expect(link('Tiếp tục: Đọc')).not.toBeNull();
+    expect(link('Tiếp tục: Nghe')).not.toBeNull();
   });
 
   it('links the bell to the writings, with the number of new results', async () => {
@@ -142,14 +143,9 @@ describe('Home', () => {
     expect(text(bell)).toBe('2');
   });
 
-  it('says "Bắt đầu" before any step is done', async () => {
-    await open(studying({ action: { kind: 'start', step: 'review' } }));
-    expect(link('Bắt đầu: Ôn')?.getAttribute('href')).toBe('/today');
-  });
-
-  it('names the read step when there is no card to review', async () => {
+  it('says "Bắt đầu học" before any step is done', async () => {
     await open(studying({ action: { kind: 'start', step: 'read' }, tomorrowCards: 0 }));
-    expect(link('Bắt đầu: Đọc')).not.toBeNull();
+    expect(link('Bắt đầu học')?.getAttribute('href')).toBe('/lessons/l1');
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: không có thẻ cần ôn');
   });
 
@@ -174,7 +170,7 @@ describe('Home', () => {
     controller.expectOne('/api/stats').flush(stats());
     await fixture.whenStable();
     expect(el.querySelector('[role="alert"]')).toBeNull();
-    expect(link('Tiếp tục: Đọc')).not.toBeNull();
+    expect(link('Tiếp tục: Nghe')).not.toBeNull();
   });
 
   // --- US2 ---
@@ -189,25 +185,9 @@ describe('Home', () => {
     expect(text(el.querySelector('.streak .tile-value'))).toBe('1');
   });
 
-  it('says see you tomorrow once today’s lesson is done', async () => {
-    await open(
-      studying({
-        kind: 'doneToday',
-        steps: { review: 'done', read: 'done', listen: 'done', write: 'done' },
-        currentStep: 'done',
-        action: null,
-        tomorrowCards: 9,
-      }),
-    );
-    expect(text(el.querySelector('[role="status"] .card-title'))).toBe('Đã xong bài hôm nay, hẹn bạn ngày mai');
-    expect(link('Ôn tự do')?.getAttribute('href')).toBe('/vocabulary/review');
-    expect(el.querySelector('.today-goal [role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('100');
-    expect(link('Tiếp tục: Đọc')).toBeNull();
-    expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 9 thẻ cần ôn');
-  });
-
   it('says there is no new lesson and offers free review or another topic', async () => {
     await open(studying({ kind: 'noNewLesson', lesson: null, action: null, currentStep: '' }));
+    expect(el.querySelector('.today-goal')).toBeNull();
     expect(text(el.querySelector('[role="status"]'))).toContain('Chưa có bài mới');
     expect(text(el.querySelector('[role="status"]'))).not.toContain('Chúc mừng');
     expect(link('Ôn tự do')?.getAttribute('href')).toBe('/vocabulary/review');

@@ -12,7 +12,7 @@ import {
   LessonInput,
   LessonSummary,
 } from '../../core/models/lesson';
-import { Topic, TopicInput, TopicRoadmap, TopicWord } from '../../core/models/topic';
+import { Topic, TopicInput, TopicRoadmap, TopicWord, WordPlan } from '../../core/models/topic';
 
 const BASE = '/api/admin';
 
@@ -114,12 +114,18 @@ export class AdminApiService {
       .pipe(map((r) => r.words));
   }
 
-  /** F18: target words split into `count` groups of up to `perLesson` words, least used first. */
-  wordPlan(topicId: string, count: number, perLesson: number): Observable<string[][]> {
+  /**
+   * F18: target words split into `count` groups of up to `perLesson` words, least used first, and
+   * how many more unused words the topic needs (`shortage`).
+   */
+  wordPlan(topicId: string, count: number, perLesson: number): Observable<WordPlan> {
     const params = { count, perLesson };
-    return this.http
-      .get<{ groups: string[][] }>(`${BASE}/topics/${topicId}/word-plan`, { params })
-      .pipe(map((r) => r.groups));
+    return this.http.get<WordPlan>(`${BASE}/topics/${topicId}/word-plan`, { params });
+  }
+
+  /** F18: asks the AI for `count` new words and adds them to the topic; returns the added words and the list. */
+  suggestTopicWords(topicId: string, count: number): Observable<{ added: string[]; words: TopicWord[] }> {
+    return this.http.post<{ added: string[]; words: TopicWord[] }>(`${BASE}/topics/${topicId}/words/suggest`, { count });
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

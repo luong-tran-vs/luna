@@ -43,15 +43,15 @@ func TestCleanWordsErrors(t *testing.T) {
 		t.Fatalf("fields = %v", verr.Fields)
 	}
 
-	many := make([]string, 101)
+	many := make([]string, 301)
 	for i := range many {
 		many[i] = fmt.Sprintf("word%c%c", 'a'+i/26, 'a'+i%26)
 	}
-	if _, err := CleanWords(many); !errors.As(err, &verr) || verr.Fields["words"] != "Tối đa 100 từ" {
-		t.Fatalf("101 words: %v", err)
+	if _, err := CleanWords(many); !errors.As(err, &verr) || verr.Fields["words"] != "Tối đa 300 từ" {
+		t.Fatalf("301 words: %v", err)
 	}
-	if _, err := CleanWords(many[:100]); err != nil {
-		t.Fatalf("100 words: %v", err)
+	if _, err := CleanWords(many[:300]); err != nil {
+		t.Fatalf("300 words: %v", err)
 	}
 }
 

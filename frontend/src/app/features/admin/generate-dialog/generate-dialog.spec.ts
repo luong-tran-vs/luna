@@ -82,9 +82,9 @@ describe('GenerateDialog', () => {
   });
 
   for (const [field, value, message] of [
-    ['count', '0', 'Số bài từ 1 đến 5'],
-    ['count', '6', 'Số bài từ 1 đến 5'],
-    ['count', '2.5', 'Số bài từ 1 đến 5'],
+    ['count', '0', 'Số bài từ 1 đến 10'],
+    ['count', '11', 'Số bài từ 1 đến 10'],
+    ['count', '2.5', 'Số bài từ 1 đến 10'],
     ['words', '49', 'Độ dài từ 50 đến 800 từ'],
     ['words', '801', 'Độ dài từ 50 đến 800 từ'],
     ['idea', 'x'.repeat(501), 'Ý chính tối đa 500 ký tự'],
@@ -164,7 +164,7 @@ describe('GenerateDialog', () => {
       Array.from(el.querySelectorAll('.group')).map((g) =>
         Array.from(g.querySelectorAll('.chip span')).map((c) => text(c)),
       );
-    const expectPlan = async (count: number, perLesson: number, respond: string[][] | 'error') => {
+    const expectPlan = async (count: number, perLesson: number, respond: string[][] | 'error', shortage = 0) => {
       await settle(); // the request leaves on the next tick (timer)
       const req = http.expectOne((r) => r.url === planUrl);
       expect(req.request.params.get('count')).toBe(String(count));
@@ -172,7 +172,7 @@ describe('GenerateDialog', () => {
       if (respond === 'error') {
         req.flush({ error: 'internal_error' }, { status: 500, statusText: 'Error' });
       } else {
-        req.flush({ groups: respond });
+        req.flush({ groups: respond, shortage });
       }
       await settle();
     };
@@ -201,7 +201,7 @@ describe('GenerateDialog', () => {
 
     it('shows the words per lesson and the suggested groups', async () => {
       expect(input('generate-perLesson').value).toBe('8');
-      expect(text(el.querySelector('.targets [role="status"]'))).toBe('Đang chia từ…');
+      expect(text(el.querySelector('.targets .muted[role="status"]'))).toBe('Đang chia từ…');
       await expectPlan(2, 8, [['Family', 'Parents'], ['cousin']]);
       expect(Array.from(el.querySelectorAll('.group legend')).map((l) => text(l))).toEqual([
         'Bài 1 (2 từ)',
@@ -299,6 +299,39 @@ describe('GenerateDialog', () => {
       await settle();
       await expectPlan(2, 8, [['Family'], ['Parents']]);
       expect(groups()).toEqual([['Family'], ['Parents']]);
+    });
+
+    it('offers to add the missing words with AI, then splits again', async () => {
+      const changed: string[][] = [];
+      fixture.componentInstance.wordsChanged.subscribe((w) => changed.push(w));
+      await expectPlan(2, 8, [['Family', 'Parents'], ['cousin']], 12);
+      expect(text(el.querySelector('.shortage'))).toContain('Chủ đề thiếu 12 từ chưa dùng');
+
+      el.querySelector<HTMLButtonElement>('.shortage button')!.click();
+      await settle();
+      const req = http.expectOne('/api/admin/topics/t1/words/suggest');
+      expect(req.request.body).toEqual({ count: 12 });
+      expect(text(el.querySelector('.shortage button'))).toBe('Đang bổ sung…');
+      req.flush({ added: ['aunt', 'uncle'], words: [...topicWords, 'aunt', 'uncle'].map((t) => ({ text: t, used: false, lessonCount: 0 })) });
+      await settle();
+
+      expect(changed).toEqual([[...topicWords, 'aunt', 'uncle']]);
+      expect(text(el.querySelector('.suggest-note'))).toBe('Đã thêm 2 từ: aunt, uncle.');
+      await expectPlan(2, 8, [['aunt', 'Family'], ['uncle', 'cousin']]);
+      expect(groups()).toEqual([['aunt', 'Family'], ['uncle', 'cousin']]);
+      expect(el.querySelector('.shortage')).toBeNull();
+    });
+
+    it('shows the server message when the AI cannot add words', async () => {
+      await expectPlan(2, 8, [['Family'], ['Parents']], 3);
+      el.querySelector<HTMLButtonElement>('.shortage button')!.click();
+      await settle();
+      http
+        .expectOne('/api/admin/topics/t1/words/suggest')
+        .flush({ error: 'ai_quota', message: 'Đã hết lượt AI, vui lòng thử lại sau.' }, { status: 429, statusText: 'Too Many' });
+      await settle();
+      expect(text(el.querySelector('.suggest-note.error'))).toBe('Đã hết lượt AI, vui lòng thử lại sau.');
+      expect(el.querySelector<HTMLButtonElement>('.shortage button')!.disabled).toBe(false);
     });
 
     it('keeps the edited groups after a generation error', async () => {

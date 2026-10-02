@@ -513,3 +513,42 @@ Lesson sentences:
 	}
 	return b.String()
 }
+
+// suggestWordsSchema is a plain list of words (F18).
+var suggestWordsSchema = map[string]any{
+	"type":       "OBJECT",
+	"properties": map[string]any{"words": stringArray},
+	"required":   []string{"words"},
+}
+
+// SuggestWords sends one generateContent request for new core words of a topic. The topic
+// service checks and deduplicates the answer.
+func (c *Client) SuggestWords(ctx context.Context, req ai.SuggestWordsRequest) ([]string, error) {
+	text, err := c.generate(ctx, "suggest_words", suggestWordsPrompt(req), suggestWordsSchema, 0.4,
+		slog.Int("count", req.Count), slog.Int("existing", len(req.Existing)))
+	if err != nil {
+		return nil, err
+	}
+	var out struct {
+		Words []string `json:"words"`
+	}
+	if err := json.Unmarshal([]byte(text), &out); err != nil {
+		return nil, fmt.Errorf("gemini: decode words: %w", err)
+	}
+	return out.Words, nil
+}
+
+func suggestWordsPrompt(req ai.SuggestWordsRequest) string {
+	existing := "(none)"
+	if len(req.Existing) > 0 {
+		existing = strings.Join(req.Existing, ", ")
+	}
+	return fmt.Sprintf(`You build vocabulary lists for Vietnamese learners of English at CEFR level %s.
+Topic: %s
+List %d new, common English words or short phrases that belong to this topic and suit this level.
+Rules:
+- Not in this list (ignoring case): %s
+- Dictionary form, lower case except proper nouns, English letters, spaces, hyphens or apostrophes only.
+- At most 3 words per phrase; no duplicates; no translations or explanations.
+`, req.Level, req.TopicName, req.Count, existing)
+}

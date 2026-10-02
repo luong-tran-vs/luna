@@ -91,6 +91,8 @@ type Provider interface {
 	Explain(ctx context.Context, req ExplainRequest) (Explanation, error)
 	// Practice writes the vocabulary practice of a lesson in one request (F17).
 	Practice(ctx context.Context, req PracticeRequest) (Practice, error)
+	// SuggestWords proposes new core words of a topic in one request (F18).
+	SuggestWords(ctx context.Context, req SuggestWordsRequest) ([]string, error)
 }
 
 var (
@@ -225,4 +227,18 @@ type AnnotateRequest struct {
 	Level     string
 	// FocusWords are topic words found in the lesson that must be annotated (F18); may be empty.
 	FocusWords []string
+}
+
+// SuggestWordsRequest asks for Count new core English words or short phrases of a topic, at a
+// CEFR level, none of them in Existing (F18).
+type SuggestWordsRequest struct {
+	Level     string
+	TopicName string
+	Existing  []string
+	Count     int
+}
+
+// SuggestWords always returns ErrNotConfigured.
+func (Disabled) SuggestWords(context.Context, SuggestWordsRequest) ([]string, error) {
+	return nil, ErrNotConfigured
 }

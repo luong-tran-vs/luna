@@ -88,12 +88,12 @@ export function checkFill(
   return { results, correct: results.filter(Boolean).length, total: blanks.length };
 }
 
-/** The first empty blank after `from` (wrapping around), or -1 when all are filled. */
-export function nextEmptyBlank(answers: readonly unknown[], from = -1): number {
+/** The first empty (null or blank) blank after `from` (wrapping around), or -1 when all are filled. */
+export function nextEmptyBlank(answers: readonly (string | null)[], from = -1): number {
   const n = answers.length;
   for (let k = 1; k <= n; k++) {
     const i = (((from + k) % n) + n) % n;
-    if (answers[i] === null) {
+    if (!answers[i]?.trim()) {
       return i;
     }
   }

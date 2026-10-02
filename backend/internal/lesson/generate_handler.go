@@ -12,7 +12,7 @@ import (
 
 // generateWriteTimeout replaces the server's write timeout for the generate route, which
 // waits up to generateTimeout for the AI.
-const generateWriteTimeout = 75 * time.Second
+const generateWriteTimeout = 135 * time.Second
 
 // --- JSON shapes (contracts/generate-api.md) ---
 
@@ -33,9 +33,16 @@ type draftJSON struct {
 }
 
 type generateResultJSON struct {
-	Drafts    []draftJSON `json:"drafts"`
-	Requested int         `json:"requested"`
-	Dropped   int         `json:"dropped"`
+	Drafts      []draftJSON     `json:"drafts"`
+	Requested   int             `json:"requested"`
+	Dropped     int             `json:"dropped"`
+	DropReasons dropReasonsJSON `json:"dropReasons"`
+}
+
+type dropReasonsJSON struct {
+	DuplicateTitle int `json:"duplicateTitle"`
+	Empty          int `json:"empty"`
+	TooLong        int `json:"tooLong"`
 }
 
 func (h *Handler) generate(w http.ResponseWriter, r *http.Request) {
@@ -52,7 +59,10 @@ func (h *Handler) generate(w http.ResponseWriter, r *http.Request) {
 		h.writeGenerateError(w, r, err)
 		return
 	}
-	out := generateResultJSON{Drafts: make([]draftJSON, len(res.Drafts)), Requested: res.Requested, Dropped: res.Dropped}
+	out := generateResultJSON{
+		Drafts: make([]draftJSON, len(res.Drafts)), Requested: res.Requested, Dropped: res.Dropped,
+		DropReasons: dropReasonsJSON(res.DropReasons),
+	}
 	for i, d := range res.Drafts {
 		out.Drafts[i] = draftJSON{
 			Title: d.Title, Content: d.Content, Words: d.Words, TargetWords: d.TargetWords, MissingWords: d.MissingWords,

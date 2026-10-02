@@ -56,7 +56,7 @@ func TestGenerateTargetWords(t *testing.T) {
 	withFamilyWords(e)
 	long := text(100)
 	e.ai.drafts = []ai.LessonDraft{
-		{Title: "Too short", Content: text(10)}, // dropped: its group must not move to the next draft
+		{Title: "", Content: text(10)}, // dropped (no title): its group must not move to the next draft
 		{Title: "Brothers", Content: "My brothers took a shower. " + text(95)},
 		{Title: "Plain", Content: long},
 	}

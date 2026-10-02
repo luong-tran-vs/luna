@@ -89,7 +89,7 @@ export class Reading implements OnInit {
   private readonly route = inject(ActivatedRoute).snapshot;
   private readonly injector = inject(Injector);
 
-  /** The lesson to open; defaults to the route's :id (used by the daily flow, L). */
+  /** The lesson to open; defaults to the route's :id (used by the lesson page, L). */
   readonly lessonId = input('');
   /** Sentence to scroll to first (saved position). */
   readonly startSentence = input<number | null>(null);
@@ -198,7 +198,7 @@ export class Reading implements OnInit {
       onCleanup(() => observer.disconnect());
     });
 
-    // Report the first sentence on screen (saved as the position in the daily flow, L).
+    // Report the first sentence on screen (saved as the position on the lesson page, L).
     effect((onCleanup) => {
       const article = this.article()?.nativeElement;
       if (!article || typeof IntersectionObserver === 'undefined') {

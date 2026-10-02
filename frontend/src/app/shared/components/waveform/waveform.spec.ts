@@ -23,25 +23,27 @@ describe('Waveform', () => {
     await fixture.whenStable();
   });
 
-  const clipWidth = () => el.querySelector('clipPath rect')!.getAttribute('width');
+  const played = () => el.querySelector<SVGElement>('svg.played')!;
 
-  it('draws one bar per height, hidden from screen readers', () => {
-    const svg = el.querySelector('svg')!;
-    expect(svg.getAttribute('aria-hidden')).toBe('true');
-    expect(svg.getAttribute('viewBox')).toBe('0 0 30 24');
+  it('draws one thin bar per height, hidden from screen readers', () => {
+    expect(el.querySelector('lu-waveform')!.getAttribute('aria-hidden')).toBe('true');
+    expect(el.querySelector('svg')!.getAttribute('viewBox')).toBe('0 0 30 24');
     const d = el.querySelector('path.track')!.getAttribute('d')!;
     expect(d.match(/M/g)?.length).toBe(fakeWaveform('Nice to meet you.', 10).length);
-    expect(el.querySelector('path.played')!.getAttribute('d')).toBe(d);
+    expect(d).toContain('h1v');
+    expect(played().querySelector('path')!.getAttribute('d')).toBe(d);
   });
 
-  it('fills the played part and clamps the progress', async () => {
-    expect(clipWidth()).toBe('0');
+  it('fills the played part and clamps the progress, jumping back to the start', async () => {
+    expect(played().style.clipPath).toBe('inset(0 100.00% 0 0)');
+    expect(played().classList).toContain('restart');
     fixture.componentInstance.progress.set(0.5);
     await fixture.whenStable();
-    expect(clipWidth()).toBe('15');
+    expect(played().style.clipPath).toBe('inset(0 50.00% 0 0)');
+    expect(played().classList).not.toContain('restart');
     fixture.componentInstance.progress.set(3);
     await fixture.whenStable();
-    expect(clipWidth()).toBe('30');
+    expect(played().style.clipPath).toBe('inset(0 0.00% 0 0)');
   });
 
   it('changes shape with the text', async () => {

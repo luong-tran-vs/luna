@@ -1,0 +1,110 @@
+/*
+ * Motion (docs/design-system.md): short, soft transitions so changes never look abrupt.
+ * - Controls ease their colors and press in a little.
+ * - Progress fills slide instead of jumping.
+ * - Content that appears (a lesson step, a tab panel, a page, feedback) fades in and rises 4px.
+ * - Pages cross-fade (router view transitions).
+ * Everything is off when the system asks for reduced motion.
+ */
+
+:root {
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-fast: 150ms;
+  --motion-base: 240ms;
+  --motion-slow: 400ms;
+}
+
+@keyframes lu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes lu-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Controls: color, border and shadow ease; buttons press in slightly. */
+button,
+a,
+input,
+select,
+textarea,
+[role='tab'],
+[role='radio'],
+[role='switch'],
+[role='checkbox'] {
+  transition:
+    color var(--motion-fast) var(--ease-out),
+    background-color var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out),
+    box-shadow var(--motion-fast) var(--ease-out),
+    opacity var(--motion-fast) var(--ease-out),
+    transform var(--motion-fast) var(--ease-out);
+}
+
+button:not(:disabled):active,
+a[class]:active,
+[role='tab']:active,
+[role='radio']:active {
+  transform: scale(0.97);
+}
+
+/* Progress fills: bars and segments slide to their new value. */
+[role='progressbar'] > *,
+[role='progressbar'] .segment {
+  transition:
+    width var(--motion-slow) var(--ease-out),
+    background-color var(--motion-base) var(--ease-out);
+}
+
+/* Content that appears. Hosts of the learner pages and of the lesson steps, tab panels, cards
+   added to lists, alerts and dialogs. Runs once when the element is created. */
+main > *,
+[role='tabpanel'],
+lu-vocab-step,
+lu-dialogue-step,
+lu-fill-step,
+lu-translate-step,
+lu-practice-summary,
+lu-review-session,
+.soft-card,
+[role='alert'],
+.form-alert {
+  animation: lu-enter var(--motion-base) var(--ease-out) both;
+}
+
+dialog[open] {
+  animation: lu-enter var(--motion-base) var(--ease-out) both;
+}
+
+dialog[open]::backdrop {
+  animation: lu-fade var(--motion-base) var(--ease-out) both;
+}
+
+/* Pages cross-fade (provideRouter withViewTransitions). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--motion-base);
+  animation-timing-function: var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  *::backdrop {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

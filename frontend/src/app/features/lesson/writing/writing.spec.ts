@@ -172,10 +172,10 @@ describe('Writing', () => {
     await vi.advanceTimersByTimeAsync(0);
     http
       .expectOne('/api/lessons/l1/writing/submit')
-      .flush({ error: 'write_locked', message: 'Hãy học tới bước Viết của bài hôm nay' }, { status: 409, statusText: 'Conflict' });
+      .flush({ error: 'write_locked', message: 'Hãy học tới bước Viết của bài đang học' }, { status: 409, statusText: 'Conflict' });
     await vi.advanceTimersByTimeAsync(0);
     await fixture.whenStable();
-    expect(text(el.querySelector('[role="alert"]'))).toBe('Hãy học tới bước Viết của bài hôm nay');
+    expect(text(el.querySelector('[role="alert"]'))).toBe('Hãy học tới bước Viết của bài đang học');
     expect(completed).toBe(0);
   });
 
@@ -185,6 +185,22 @@ describe('Writing', () => {
     expect(text(el.querySelector('.text'))).toBe('My family has four people.');
     button('Tiếp tục')!.click();
     expect(completed).toBe(1);
+  });
+
+  it('lets the learner skip writing in the daily flow, without sending anything', async () => {
+    await setup(view({ writing: null }));
+    let skipped = 0;
+    fixture.componentInstance.skipped.subscribe(() => skipped++);
+    expect(text(el.querySelector('.skip-hint'))).toContain('Viết là tuỳ chọn');
+    button('Bỏ qua')!.click();
+    expect(skipped).toBe(1);
+    expect(completed).toBe(0);
+  });
+
+  it('has no skip outside the daily flow', async () => {
+    await setup(view({ writing: null }), null);
+    expect(button('Bỏ qua')).toBeUndefined();
+    expect(el.querySelector('.skip-hint')).toBeNull();
   });
 
   it('shows the result summary of a graded writing in review mode', async () => {
