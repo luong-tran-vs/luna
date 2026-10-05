@@ -24,19 +24,6 @@
       <button type="button" class="btn" (click)="load()">Thử lại</button>
     </div>
   } @else if (data(); as d) {
-    @if (d.lesson && d.kind === 'studying') {
-      <div class="soft-card today-goal">
-        <div class="today-goal-text">
-          <p class="section-title">Bài đang học</p>
-          <p class="muted">{{ doneSteps() }} / {{ stepCount }} bước của bài</p>
-          <div class="mini-track" aria-hidden="true">
-            <span class="mini-fill" [style.width.%]="stepPercent()"></span>
-          </div>
-        </div>
-        <lu-progress-ring [value]="stepPercent()" label="Tiến độ bài đang học" />
-      </div>
-    }
-
     <ul class="tiles" aria-label="Số liệu">
       <li class="soft-card tile streak">
         <span class="icon-chip tone-accent"><lu-icon name="flame" /></span>
@@ -51,9 +38,20 @@
       <li class="soft-card tile accuracy">
         <span class="icon-chip tone-listen"><lu-icon name="target" /></span>
         <span class="tile-value">{{ accuracy() }}</span>
-        <span class="tile-label">Độ chính xác</span>
+        <span class="tile-label">Đọc &amp; nghe đúng</span>
       </li>
     </ul>
+
+    @if (dueToday() > 0) {
+      <a class="soft-card due-today" routerLink="/vocabulary/review">
+        <span class="icon-chip tone-accent"><lu-icon name="cards" /></span>
+        <span class="tomorrow-text">
+          Hôm nay: {{ dueToday() }} thẻ cần ôn
+          <span class="muted due-hint">Ôn trước khi học bài mới, khoảng {{ dueMinutes() }} phút</span>
+        </span>
+        <lu-icon class="chevron" name="chevron-right" />
+      </a>
+    }
 
     @switch (d.kind) {
       @case ('noGoal') {
@@ -95,10 +93,10 @@
                   <a class="btn-primary next" [routerLink]="['/lessons', l.id]">{{ actionLabel() }}</a>
                   <lu-progress-bar
                     class="steps-bar"
-                    label="Tiến độ bài"
+                    label="Đọc · Nghe · Viết"
                     [value]="doneSteps()"
                     [max]="stepCount"
-                    unit="bước"
+                    unit="phần"
                   />
                 </div>
               }
@@ -120,11 +118,18 @@
             </span>
             <lu-icon class="chevron" name="chevron-right" />
           </a>
-          @if (d.skills; as s) {
-            <div class="skills">
-              <lu-progress-bar label="Đọc" tone="read" [value]="s.read" [max]="s.total" />
-              <lu-progress-bar label="Nghe" tone="listen" [value]="s.listen" [max]="s.total" />
-              <lu-progress-bar label="Viết" tone="write" [value]="s.write" [max]="s.total" />
+          @if (skillAccuracy(); as skills) {
+            <div class="skills" role="group" aria-label="Độ chính xác theo kỹ năng">
+              @for (s of skills; track s.key) {
+                @if (s.percent !== null) {
+                  <lu-progress-bar [label]="s.label" [tone]="s.key" [value]="s.percent" [max]="100" [percentage]="true" />
+                } @else {
+                  <div class="skill-empty">
+                    <span>{{ s.label }}</span>
+                    <span class="muted">Chưa có</span>
+                  </div>
+                }
+              }
             </div>
           }
         </div>

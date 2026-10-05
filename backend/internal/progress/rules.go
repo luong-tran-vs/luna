@@ -48,8 +48,13 @@ func CurrentLesson(goal *Goal, roadmap []string, completed map[string]bool) Stud
 	return StudyState{Kind: StudyNoNewLesson}
 }
 
+// FreezeEvery is how many study days must pass before another missed day is forgiven.
+const FreezeEvery = 7
+
 // Streak counts consecutive days with a completed lesson, ending today when today is done and
-// yesterday otherwise; a whole day missed resets it to 0.
+// yesterday otherwise. One missed day between two study days is forgiven (it is not counted), and
+// again only after FreezeEvery study days since the last one forgiven; two missed days in a row
+// reset it to 0. Nothing is stored: the rule reads the days alone.
 func Streak(completedDays []string, today string) int {
 	done := make(map[string]bool, len(completedDays))
 	for _, d := range completedDays {
@@ -59,12 +64,20 @@ func Streak(completedDays []string, today string) int {
 	if !done[day] {
 		day = PrevDayKey(today)
 	}
-	n := 0
-	for done[day] {
-		n++
-		day = PrevDayKey(day)
+	n, sinceFreeze := 0, FreezeEvery
+	for {
+		switch {
+		case done[day]:
+			n++
+			sinceFreeze++
+			day = PrevDayKey(day)
+		case sinceFreeze >= FreezeEvery && done[PrevDayKey(day)]:
+			sinceFreeze = 0
+			day = PrevDayKey(day)
+		default:
+			return n
+		}
 	}
-	return n
 }
 
 // NextStep is the first step not done, or StepDone.

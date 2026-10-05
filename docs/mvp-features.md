@@ -71,7 +71,7 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 - Mục tiêu là hoàn thành lộ trình đã chọn. Thanh mục tiêu ghi tên lộ trình (ví dụ "A1 · Gia đình") và số bài đã hoàn thành trên tổng số bài của lộ trình.
 - Chỉ học bài thuộc trình độ đang chọn, không xen kẽ các trình độ.
 - Đổi chủ đề hoặc trình độ: có hiệu lực ngay (cập nhật 2026-10-02). Tiến độ của từng lộ trình được lưu riêng, quay lại thì học tiếp bài đang dở. Streak không bị ảnh hưởng.
-- Bên dưới là **4 thanh nhỏ theo kỹ năng** Nghe, Nói, Đọc, Viết. Mỗi thanh đếm số bài đã hoàn thành bước của kỹ năng đó, để người học thấy kỹ năng nào đang bị bỏ lại. Thanh Nói và Viết chỉ hiện khi giai đoạn tương ứng đã làm xong.
+- Bên dưới là **4 thanh nhỏ theo kỹ năng** Nghe, Nói, Đọc, Viết. Mỗi thanh là **độ chính xác** của kỹ năng đó (cập nhật 2026-10-05, trước đây đếm số bài đã qua bước, mà bước Đọc và Nghe bắt buộc nên các thanh gần như luôn bằng nhau): Đọc = tỷ lệ trả lời đúng câu hỏi hiểu bài, Nghe = tỷ lệ từ đúng khi chép chính tả, Viết = điểm trung bình bài viết trên 5, Nói = tỷ lệ từ đọc đúng (khi có). Kỹ năng chưa có dữ liệu ghi "Chưa có". Nhờ vậy người học thấy kỹ năng nào đang yếu. Thanh Nói và Viết chỉ hiện khi giai đoạn tương ứng đã làm xong.
 - Đi hết lộ trình thì app chúc mừng và mời chọn chủ đề khác cùng trình độ, hoặc lên trình độ tiếp theo.
 
 **R2. Học lần lượt từng bài** (cập nhật 2026-10-02, thay cho "mỗi ngày một bài")
@@ -79,9 +79,12 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 - Không có trang "Hôm nay" riêng: người học học ngay trong trang chi tiết của bài (F17).
 - Trang **Bài học** liệt kê các bài đã học (mở lại tự do), bài đang học và các bài sắp tới (khoá, chỉ hiện tên). Bài nào có trong lộ trình thì hiện bài đó, không có ô "bài hôm nay" trống.
 - Streak đếm số ngày liên tiếp có hoàn thành ít nhất một bài. Một ngày được tính theo múi giờ của người học, sang ngày mới lúc 0h.
+- **Một ngày nghỉ được tha** (cập nhật 2026-10-05): bỏ lỡ đúng một ngày giữa hai ngày học thì chuỗi không đứt (ngày nghỉ không được tính vào số ngày). Lần tha tiếp theo cần ít nhất 7 ngày học kể từ lần tha trước. Bỏ lỡ hai ngày liền thì chuỗi về 0. Không lưu trạng thái, quy tắc chỉ đọc các ngày đã xong bài.
 
 **R3. Ôn flashcard** (cập nhật 2026-10-02)
-- Ôn thẻ đến hạn theo lịch FSRS (xem F5) không còn là bước của bài. Người học ôn ở mục **Từ vựng › Ôn tập** bất cứ lúc nào; trang chủ nhắc số thẻ đến hạn.
+- Ôn thẻ đến hạn theo lịch FSRS (xem F5) không còn là bước của bài. Người học ôn ở mục **Từ vựng › Ôn tập** bất cứ lúc nào; trang chủ nhắc số thẻ đến hạn hôm nay (thẻ nổi bật trên bài đang học) và ngày mai.
+- **Ôn trước bài mới** (cập nhật 2026-10-05): vì học bao nhiêu bài một ngày cũng được, xong bài mà còn thẻ đến hạn thì thẻ hoàn thành bài mời ôn trước (nút chính), nói rõ khi thẻ tồn nhiều (từ 30 thẻ); **Sang bài tiếp theo** vẫn một chạm. Không chặn người học.
+- **Lỗi sai vào lịch ôn** (cập nhật 2026-10-05): từ làm sai ở phần luyện tập của bài đang học (điền ô trống, câu dịch) thành thẻ đến hạn ngay, hoặc thẻ đã có được kéo về bây giờ (giữ trạng thái FSRS).
 - Vòng lặp vẫn nối các bài học với nhau: từ lưu trong bài sẽ đến hạn ôn ở những ngày sau.
 
 **R4. Thanh tiến trình bài học**
@@ -147,7 +150,7 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Mỗi thẻ gồm từ, phiên âm, nghĩa, câu ví dụ lấy từ bài học; nghe được bằng giọng đọc của trình duyệt.
 - Người học sửa, xoá hoặc tự thêm thẻ được. Nghĩa do AI hay từ điển đưa ra có thể sai, nên việc sửa tay là cần thiết.
 - Lịch ôn dùng thuật toán **FSRS** (mã nguồn mở, chính xác hơn SM-2).
-- Có hai kiểu ôn: **nhìn từ đoán nghĩa**, và **nghe rồi gõ lại từ**. Sau mỗi thẻ, người học tự đánh giá mức Again, Hard, Good hoặc Easy.
+- Có hai kiểu ôn: **nhìn từ đoán nghĩa**, và **nghe rồi gõ lại từ**. Sau mỗi thẻ, người học tự đánh giá mức Quên, Khó, Nhớ hoặc Dễ (tương ứng Again, Hard, Good, Easy của FSRS; nhãn tiếng Việt từ 2026-10-05).
 - Người học ôn sổ từ này ở mục Từ vựng › Ôn tập bất cứ lúc nào (R3).
 - Sổ từ nhóm theo ngày lưu và lọc theo bài học.
 - **Từ vựng của bài:** bước Đọc có mục liệt kê các từ đã được AI chú thích, lưu từng từ hoặc "Lưu tất cả".

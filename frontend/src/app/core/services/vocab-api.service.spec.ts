@@ -93,4 +93,13 @@ describe('VocabApiService', () => {
     req.flush({ added: 2, cards: [] });
     await expect(result).resolves.toEqual({ added: 2, cards: [] });
   });
+
+  it('sends the words missed in a lesson practice', async () => {
+    const result = firstValueFrom(api.practiceMisses('l1', ['went']));
+    const req = http.expectOne('/api/vocab/practice-misses');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ lessonId: 'l1', words: ['went'] });
+    req.flush({ added: 1, rescheduled: 0 });
+    await expect(result).resolves.toEqual({ added: 1, rescheduled: 0 });
+  });
 });

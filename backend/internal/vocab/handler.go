@@ -25,6 +25,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("POST /api/vocab/cards", requireAuth(http.HandlerFunc(h.save)))
 	mux.Handle("GET /api/vocab/words", requireAuth(http.HandlerFunc(h.words)))
 	mux.Handle("POST /api/vocab/cards/bulk", requireAuth(http.HandlerFunc(h.bulk)))
+	mux.Handle("POST /api/vocab/practice-misses", requireAuth(http.HandlerFunc(h.misses)))
 	mux.Handle("GET /api/vocab/cards", requireAuth(http.HandlerFunc(h.list)))
 	mux.Handle("GET /api/vocab/lessons", requireAuth(http.HandlerFunc(h.lessons)))
 	mux.Handle("PATCH /api/vocab/cards/{id}", requireAuth(http.HandlerFunc(h.update)))

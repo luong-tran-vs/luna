@@ -1,0 +1,407 @@
+<section class="page">
+  <a class="back" routerLink="/admin/grammar">← Danh sách ngữ pháp</a>
+
+  <header class="page-header">
+    <h1 class="page-title">{{ title() }}</h1>
+  </header>
+
+  @if (point(); as p) {
+    <div class="card point">
+      <p><span class="tag">{{ p.level }}</span> <span class="muted">{{ p.titleEn }}</span></p>
+      <p class="point-pattern"><strong>Cấu trúc:</strong> {{ p.pattern }}</p>
+      <p class="muted"><strong>Gợi ý của giáo trình:</strong> {{ p.hintVi }}</p>
+    </div>
+  }
+
+  <p class="visually-hidden" role="status">{{ note() }}</p>
+  @if (note()) {
+    <p class="banner-note" aria-hidden="true">{{ note() }}</p>
+  }
+  @if (actionError(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  @switch (state()) {
+    @case ('loading') {
+      <lu-loading />
+    }
+    @case ('error') {
+      <div class="form-alert load-error" role="alert">
+        <span>Không tải được bài ngữ pháp.</span>
+        <button type="button" class="btn" (click)="retry()">Thử lại</button>
+      </div>
+    }
+    @case ('empty') {
+      <div class="card empty">
+        <p>Điểm này chưa có bài ngữ pháp.</p>
+        <div class="actions">
+          <button type="button" class="btn-primary" [disabled]="busy() !== null" (click)="askGenerate()">
+            {{ busy() === 'generate' ? 'Đang sinh…' : 'Sinh bằng AI' }}
+          </button>
+        </div>
+      </div>
+    }
+    @case ('ready') {
+      @if (lesson(); as l) {
+        <div class="card status-card">
+          <p class="status-line">
+            <span class="status-label">Trạng thái:</span> <strong class="status">{{ statusText(l) }}</strong>
+          </p>
+          <p class="check-strip" [class.flagged]="flagCount() > 0">
+            <span class="status-label">Kiểm tra AI:</span> <strong class="check-status">{{ checkText() }}</strong>
+            @if (l.checkedAt) {
+              <span class="muted"> · {{ l.checkedAt | date: 'dd/MM/yyyy HH:mm' }}</span>
+            }
+          </p>
+          @if (l.verifiedAt) {
+            <p class="verified-line">
+              <strong class="verified">Đã xác nhận bởi quản trị</strong>
+              <span class="muted"> · {{ l.verifiedAt | date: 'dd/MM/yyyy HH:mm' }}</span>
+            </p>
+          }
+          @if (openFlags().length > 0) {
+            <div class="open-flags">
+              <p><strong>Các câu còn cờ chưa xác nhận:</strong></p>
+              <ul class="plain">
+                @for (c of openFlags(); track c.exerciseId) {
+                  <li>
+                    <button type="button" class="link" (click)="jump(c.exerciseId)">{{ exerciseLabel(c.exerciseId) }}</button>
+                    <span class="muted"> · {{ shortReason(c) }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+          <div class="actions">
+            <button type="button" class="btn" [disabled]="busy() !== null" (click)="askGenerate()">
+              {{ busy() === 'generate' ? 'Đang sinh…' : 'Sinh lại bằng AI' }}
+            </button>
+            <button type="button" class="btn" [disabled]="busy() !== null" (click)="check()">
+              {{ busy() === 'check' ? 'Đang kiểm tra…' : 'Kiểm tra bằng AI' }}
+            </button>
+            @if (l.verifiedAt) {
+              <button type="button" class="btn" disabled>Đã xác nhận</button>
+            } @else {
+              <button type="button" class="btn" [disabled]="busy() !== null || !l.checkedAt" (click)="askVerify()">
+                {{ busy() === 'verify' ? 'Đang xác nhận…' : 'Xác nhận đã kiểm tra xong' }}
+              </button>
+            }
+            @if (l.status === 'published') {
+              <button type="button" class="btn" [disabled]="busy() !== null" (click)="unpublish()">
+                {{ busy() === 'unpublish' ? 'Đang gỡ…' : 'Gỡ' }}
+              </button>
+            } @else {
+              <button type="button" class="btn-primary" [disabled]="busy() !== null" (click)="askPublish()">
+                {{ busy() === 'publish' ? 'Đang đăng…' : 'Đăng' }}
+              </button>
+            }
+          </div>
+          <p class="muted">Đăng dùng nội dung đã lưu. Sửa xong hãy bấm Lưu trước khi đăng.</p>
+        </div>
+
+        <article class="preview" aria-labelledby="preview-title">
+          <h2 class="section-title" id="preview-title">Xem trước</h2>
+
+          <section class="card" aria-labelledby="pv-objective">
+            <h3 class="part-title" id="pv-objective">Mục tiêu</h3>
+            <p>{{ l.content.objective }}</p>
+          </section>
+
+          <section class="card" aria-labelledby="pv-explanation">
+            <h3 class="part-title" id="pv-explanation">Giải thích</h3>
+            @for (para of l.content.explanation; track $index) {
+              <p>{{ para }}</p>
+            }
+            <h4 class="sub-title">Cách dùng</h4>
+            <ul class="plain">
+              @for (u of l.content.usage; track $index) {
+                <li>{{ u }}</li>
+              }
+            </ul>
+          </section>
+
+          <section class="card" aria-labelledby="pv-structures">
+            <h3 class="part-title" id="pv-structures">Cấu trúc</h3>
+            <ul class="plain">
+              @for (s of l.content.structures; track $index) {
+                <li>
+                  <strong>{{ s.label }}:</strong> <code>{{ s.pattern }}</code>
+                  <span class="muted"> Ví dụ: {{ s.example }}</span>
+                </li>
+              }
+            </ul>
+          </section>
+
+          <section class="card" aria-labelledby="pv-examples">
+            <h3 class="part-title" id="pv-examples">Ví dụ</h3>
+            <ul class="plain">
+              @for (e of l.content.examples; track $index) {
+                <li>{{ e.en }} <span class="muted">— {{ e.vi }}</span></li>
+              }
+            </ul>
+          </section>
+
+          <section class="card" aria-labelledby="pv-mistakes">
+            <h3 class="part-title" id="pv-mistakes">Lỗi thường gặp</h3>
+            @if (l.content.mistakes.length === 0) {
+              <p class="muted">Không có.</p>
+            }
+            <ul class="plain">
+              @for (m of l.content.mistakes; track $index) {
+                <li>
+                  <span class="wrong"><span class="visually-hidden">Sai: </span>{{ m.wrong }}</span>
+                  <span class="right"><span class="visually-hidden">Đúng: </span>{{ m.right }}</span>
+                  <span class="muted">{{ m.noteVi }}</span>
+                </li>
+              }
+            </ul>
+          </section>
+
+          <ng-template #exercises let-list>
+            <ol class="exercises">
+              @for (ex of list; track $index) {
+                <li class="exercise" [id]="'ex-' + ex.id" tabindex="-1">
+                  <p class="exercise-head">
+                    <span class="tag">{{ kindLabel(ex) }}</span>
+                    @if (ex.promptVi) {
+                      <span class="muted">{{ ex.promptVi }}</span>
+                    }
+                  </p>
+                  @if (checkOf(ex); as c) {
+                    @if (c.confirmed) {
+                      <p class="flag confirmed"><strong>Đã xác nhận</strong>@if (c.noteVi) {<span>. {{ c.noteVi }}</span>}</p>
+                    } @else {
+                      <p class="flag"><strong>{{ checkLabel(c) }}</strong>@if (c.noteVi) {<span>. {{ c.noteVi }}</span>}</p>
+                    }
+                  }
+                  @if (reportsOf(ex); as r) {
+                    <div class="reports">
+                      <p>
+                        <strong>{{ r.count }} báo lỗi từ người học</strong>
+                        <span class="muted"> · {{ reasons(r) }}</span>
+                      </p>
+                      @for (n of r.notes; track $index) {
+                        <p class="report-note">“{{ n }}”</p>
+                      }
+                      <button type="button" class="btn" [disabled]="busy() !== null || resolving() !== null" (click)="resolve(ex.id)">
+                        {{ resolving() === ex.id ? 'Đang xử lý…' : 'Đã xử lý' }}<span class="visually-hidden"> câu {{ ex.id }}</span>
+                      </button>
+                    </div>
+                  }
+                  @if (editing() === ex.id) {
+                    <form class="edit-form" [formGroup]="editForm" (ngSubmit)="saveEdit()" novalidate>
+                      <h4 class="sub-title">Sửa câu {{ ex.id }}</h4>
+                      @if (editError(); as message) {
+                        <p class="field-error" role="alert">{{ message }}</p>
+                      }
+                      @for (e of fieldErrors('_'); track $index) {
+                        <p class="field-error">{{ e }}</p>
+                      }
+                      <div class="field">
+                        <label for="edit-prompt">Yêu cầu (tiếng Việt)</label>
+                        <input id="edit-prompt" type="text" autocomplete="off" formControlName="promptVi" />
+                        @for (e of fieldErrors('promptVi'); track $index) {
+                          <p class="field-error">{{ e }}</p>
+                        }
+                      </div>
+                      <div class="field">
+                        <label for="edit-text">{{ textLabel() }}</label>
+                        <textarea id="edit-text" rows="3" formControlName="text"></textarea>
+                        @for (e of fieldErrors('text'); track $index) {
+                          <p class="field-error">{{ e }}</p>
+                        }
+                      </div>
+                      @switch (editKind()) {
+                        @case ('choice') {
+                          <fieldset class="field">
+                            <legend>Các lựa chọn (chọn một đáp án đúng)</legend>
+                            @for (i of optionSlots; track i) {
+                              <div class="option-row">
+                                <input type="radio" name="answerIndex" [value]="i" formControlName="answerIndex" [attr.aria-label]="'Lựa chọn ' + (i + 1) + ' là đáp án đúng'" />
+                                <input type="text" autocomplete="off" [formControlName]="'o' + i" [attr.aria-label]="'Lựa chọn ' + (i + 1)" />
+                              </div>
+                            }
+                            @for (e of fieldErrors('options'); track $index) {
+                              <p class="field-error">{{ e }}</p>
+                            }
+                            @for (e of fieldErrors('answerIndex'); track $index) {
+                              <p class="field-error">{{ e }}</p>
+                            }
+                          </fieldset>
+                        }
+                        @case ('fill') {
+                          <div class="field">
+                            <label for="edit-answers">Các đáp án chấp nhận (mỗi dòng một đáp án)</label>
+                            <textarea id="edit-answers" rows="3" formControlName="answersText"></textarea>
+                            @for (e of fieldErrors('answers'); track $index) {
+                              <p class="field-error">{{ e }}</p>
+                            }
+                          </div>
+                        }
+                        @case ('reorder') {
+                          <div class="field">
+                            <label for="edit-sentence">Câu đúng</label>
+                            <input id="edit-sentence" type="text" autocomplete="off" formControlName="sentence" />
+                            @for (e of fieldErrors('sentence'); track $index) {
+                              <p class="field-error">{{ e }}</p>
+                            }
+                          </div>
+                          <div class="field">
+                            <label for="edit-words">Các ô từ (cách nhau bằng dấu cách hoặc mỗi dòng một từ)</label>
+                            <textarea id="edit-words" rows="2" formControlName="wordsText"></textarea>
+                            @for (e of fieldErrors('words'); track $index) {
+                              <p class="field-error">{{ e }}</p>
+                            }
+                          </div>
+                        }
+                      }
+                      <div class="field">
+                        <label for="edit-explanation">Giải thích</label>
+                        <textarea id="edit-explanation" rows="3" formControlName="explanationVi"></textarea>
+                        @for (e of fieldErrors('explanationVi'); track $index) {
+                          <p class="field-error">{{ e }}</p>
+                        }
+                      </div>
+                      <div class="actions">
+                        <button type="submit" class="btn-primary" [disabled]="busy() !== null">
+                          {{ busy() === 'exercise' ? 'Đang lưu…' : 'Lưu câu' }}
+                        </button>
+                        <button type="button" class="btn" [disabled]="busy() !== null" (click)="cancelEdit()">Huỷ</button>
+                      </div>
+                    </form>
+                  } @else {
+                  @if (ex.text) {
+                    <p class="exercise-text">{{ ex.text }}</p>
+                  }
+                  @if (ex.kind === 'choice') {
+                    <ul class="plain options">
+                      @for (o of ex.options ?? []; track $index; let i = $index) {
+                        <li [class.correct]="isCorrect(ex, i)">
+                          {{ o }}@if (isCorrect(ex, i)) {<strong class="answer-mark"> (đáp án đúng)</strong>}
+                        </li>
+                      }
+                    </ul>
+                  } @else if (ex.kind === 'fill') {
+                    <p><strong>Đáp án đúng:</strong> {{ (ex.answers ?? []).join(' / ') }}</p>
+                  } @else {
+                    <p><strong>Câu đúng:</strong> {{ ex.sentence }}</p>
+                    <p class="muted">Các ô: {{ (ex.words ?? []).join(' · ') }}</p>
+                  }
+                  <p class="muted">Giải thích: {{ ex.explanationVi }}</p>
+                  @if (checkOf(ex); as c) {
+                    <div class="actions ex-actions">
+                      @if (!c.confirmed) {
+                        <button type="button" class="btn" [disabled]="busy() !== null" (click)="confirmFlag(ex.id)" [attr.aria-label]="'Xác nhận đúng câu ' + ex.id">Xác nhận đúng</button>
+                      }
+                      <button type="button" class="btn" [disabled]="busy() !== null" (click)="startEdit(ex)" [attr.aria-label]="'Sửa câu này ' + ex.id">Sửa câu này</button>
+                      <button type="button" class="btn" [disabled]="busy() !== null" (click)="askDelete(ex.id)" [attr.aria-label]="'Xoá câu này ' + ex.id">Xoá câu này</button>
+                    </div>
+                  } @else {
+                    <details class="ex-more">
+                      <summary>Thao tác</summary>
+                      <div class="actions ex-actions">
+                        <button type="button" class="btn" [disabled]="busy() !== null" (click)="startEdit(ex)" [attr.aria-label]="'Sửa câu này ' + ex.id">Sửa câu này</button>
+                        <button type="button" class="btn" [disabled]="busy() !== null" (click)="askDelete(ex.id)" [attr.aria-label]="'Xoá câu này ' + ex.id">Xoá câu này</button>
+                      </div>
+                    </details>
+                  }
+                  }
+                </li>
+              }
+            </ol>
+          </ng-template>
+
+          <section class="card" aria-labelledby="pv-practice">
+            <h3 class="part-title" id="pv-practice">Bài luyện tập ({{ l.content.practice.length }})</h3>
+            <ng-container [ngTemplateOutlet]="exercises" [ngTemplateOutletContext]="{ $implicit: l.content.practice }" />
+          </section>
+
+          <section class="card" aria-labelledby="pv-mastery">
+            <h3 class="part-title" id="pv-mastery">Bài kiểm tra ({{ l.content.mastery.length }})</h3>
+            <ng-container [ngTemplateOutlet]="exercises" [ngTemplateOutletContext]="{ $implicit: l.content.mastery }" />
+          </section>
+        </article>
+
+        <form class="card editor" [formGroup]="form" (ngSubmit)="save()" novalidate>
+          <h2 class="section-title" id="editor-title">Sửa nội dung</h2>
+          <div class="field">
+            <label for="grammar-json">Nội dung (JSON)</label>
+            <textarea
+              id="grammar-json"
+              class="json"
+              rows="24"
+              spellcheck="false"
+              autocomplete="off"
+              [formControl]="json"
+              [attr.aria-invalid]="!!jsonError() || serverFields().length > 0 || !!saveError()"
+              aria-describedby="grammar-json-hint grammar-json-errors"
+            ></textarea>
+            <p class="field-hint" id="grammar-json-hint">
+              Mã bài tập (p1, m1…) do máy chủ gán lại khi lưu, không cần nhập.
+            </p>
+          </div>
+          <div id="grammar-json-errors">
+            @if (jsonError(); as message) {
+              <p class="field-error">{{ message }}</p>
+            }
+            @if (saveError(); as message) {
+              <p class="field-error" role="alert">{{ message }}</p>
+            }
+            @if (serverFields().length > 0) {
+              <ul class="field-list" aria-label="Lỗi theo trường">
+                @for (line of serverFields(); track $index) {
+                  <li class="field-error">{{ line }}</li>
+                }
+              </ul>
+            }
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn-primary" [disabled]="busy() !== null">
+              {{ busy() === 'save' ? 'Đang lưu…' : 'Lưu' }}
+            </button>
+            <button type="button" class="btn" [disabled]="busy() !== null" (click)="reformat()">Định dạng lại</button>
+          </div>
+        </form>
+      }
+    }
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="confirming()"
+  title="Sinh lại bài ngữ pháp?"
+  [message]="confirmMessage()"
+  confirmLabel="Sinh lại"
+  [danger]="true"
+  (confirmed)="confirmGenerate()"
+  (cancelled)="confirming.set(false)"
+/>
+
+<lu-confirm-dialog
+  [open]="confirmingPublish()"
+  title="Đăng bài còn câu bị gắn cờ?"
+  [message]="publishMessage()"
+  confirmLabel="Vẫn đăng"
+  [danger]="true"
+  (confirmed)="confirmPublish()"
+  (cancelled)="confirmingPublish.set(false)"
+/>
+
+<lu-confirm-dialog
+  [open]="confirmingVerify()"
+  [title]="'Xác nhận ' + flagCount() + ' câu còn cờ là đúng?'"
+  [message]="verifyMessage()"
+  confirmLabel="Xác nhận"
+  (confirmed)="confirmVerify()"
+  (cancelled)="confirmingVerify.set(false)"
+/>
+
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  title="Xoá câu này?"
+  [message]="deleteMessage()"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleting.set(null)"
+/>

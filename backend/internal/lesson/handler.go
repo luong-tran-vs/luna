@@ -35,6 +35,39 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("PUT /api/admin/lessons/{id}/extras", admin(h.updateExtras))
 	mux.Handle("POST /api/admin/lessons/{id}/practice/regenerate", admin(h.regeneratePractice))
 	mux.Handle("POST /api/admin/topics/{id}/generate", admin(h.generate))
+	mux.Handle("GET /api/admin/grammar", admin(h.grammarPoints))
+}
+
+type grammarPointJSON struct {
+	ID          string   `json:"id"`
+	Level       string   `json:"level"`
+	TitleVi     string   `json:"titleVi"`
+	TitleEn     string   `json:"titleEn"`
+	Pattern     string   `json:"pattern"`
+	HintVi      string   `json:"hintVi"`
+	Examples    []string `json:"examples"`
+	LessonCount int      `json:"lessonCount"`
+}
+
+func (h *Handler) grammarPoints(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query()
+	pts, err := h.svc.GrammarPoints(r.Context(), q.Get("level"), q.Get("topicId"))
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	out := make([]grammarPointJSON, len(pts))
+	for i, p := range pts {
+		ex := p.Examples
+		if ex == nil {
+			ex = []string{}
+		}
+		out[i] = grammarPointJSON{
+			ID: p.ID, Level: p.Level, TitleVi: p.TitleVi, TitleEn: p.TitleEn, Pattern: p.Pattern,
+			HintVi: p.HintVi, Examples: ex, LessonCount: p.LessonCount,
+		}
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string][]grammarPointJSON{"points": out})
 }
 
 // --- JSON shapes (contracts/admin-lessons-api.md) ---
@@ -78,6 +111,8 @@ type lessonJSON struct {
 	WritingPrompt       string           `json:"writingPrompt"`
 	ExtrasEditedByAdmin bool             `json:"extrasEditedByAdmin"`
 	QuizVersion         int              `json:"quizVersion"`
+	GrammarPointID      string           `json:"grammarPointId"`
+	GrammarPointTitle   string           `json:"grammarPointTitle"`
 	// F17
 	PracticeStatus string             `json:"practiceStatus"`
 	PracticeError  string             `json:"practiceError"`
@@ -134,7 +169,8 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 		Questions:       toQuestionsJSON(l.Extras.Questions), GrammarNote: toGrammarNoteJSON(l.Extras.GrammarNote),
 		WritingPrompt: l.Extras.WritingPrompt, ExtrasEditedByAdmin: l.ExtrasEditedByAdmin, QuizVersion: l.QuizVersion,
 		PracticeStatus: practiceStatusJSON(l.PracticeStatus), PracticeError: l.PracticeError,
-		Practice: toAdminPracticeJSON(l.Practice),
+		Practice:       toAdminPracticeJSON(l.Practice),
+		GrammarPointID: l.GrammarPointID, GrammarPointTitle: GrammarTitle(l.GrammarPointID),
 	}
 	for i, s := range l.Sentences {
 		out.Sentences[i] = sentenceJSON(s)
@@ -146,15 +182,25 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 }
 
 type inputJSON struct {
-	Title           string `json:"title"`
-	Content         string `json:"content"`
-	TopicID         string `json:"topicId"`
-	Source          string `json:"source"`
-	License         string `json:"license"`
-	AppendToRoadmap bool   `json:"appendToRoadmap"`
+	Title           string  `json:"title"`
+	Content         string  `json:"content"`
+	TopicID         string  `json:"topicId"`
+	Source          string  `json:"source"`
+	License         string  `json:"license"`
+	GrammarPointID  *string `json:"grammarPointId"`
+	AppendToRoadmap bool    `json:"appendToRoadmap"`
 }
 
-func (in inputJSON) toInput() Input { return Input(in) }
+func (in inputJSON) toInput() Input {
+	out := Input{
+		Title: in.Title, Content: in.Content, TopicID: in.TopicID, Source: in.Source, License: in.License,
+		AppendToRoadmap: in.AppendToRoadmap, KeepGrammarPoint: in.GrammarPointID == nil,
+	}
+	if in.GrammarPointID != nil {
+		out.GrammarPointID = *in.GrammarPointID
+	}
+	return out
+}
 
 // --- handlers ---
 

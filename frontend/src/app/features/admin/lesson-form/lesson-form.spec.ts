@@ -35,6 +35,11 @@ const lesson = (over: Partial<Lesson> = {}): Lesson => ({
   ...over,
 });
 
+const point = (id: string, count = 0) => ({
+  id, level: 'B1', titleVi: `Điểm ${id}`, titleEn: id, pattern: 'p', hintVi: 'h', examples: [], lessonCount: count,
+});
+const b1Points = [point('b1-a', 2), point('b1-b')];
+
 const topic = (id: string, name: string, level: Topic['level']): Topic => ({
   id, name, level, description: '', lessonCount: 0, roadmapCount: 0, remaining: 0, warning: true, createdAt: '', wordCount: 0, usedWordCount: 0,
 });
@@ -67,9 +72,14 @@ describe('LessonForm', () => {
     el.querySelector('form')!.dispatchEvent(new Event('submit'));
     await settle();
   };
+  const flushPoints = async (level: string, topicId: string, points = b1Points) => {
+    http.expectOne(`/api/admin/grammar?level=${level}&topicId=${topicId}`).flush({ points });
+    await settle();
+  };
   const fillValid = async () => {
     await type('title', '  Park  ');
     await type('topicId', 't3');
+    await flushPoints('B1', 't3');
     await type('source', 'Tự viết');
     await type('license', 'CC BY');
     await type('content', 'We went to the park.');
@@ -134,11 +144,60 @@ describe('LessonForm', () => {
       const req = http.expectOne('/api/admin/lessons');
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({
-        title: 'Park', topicId: 't3', source: 'Tự viết', license: 'CC BY', content: 'We went to the park.',
+        title: 'Park', topicId: 't3', source: 'Tự viết', license: 'CC BY', content: 'We went to the park.', grammarPointId: '',
       });
       req.flush({ lesson: lesson() }, { status: 201, statusText: 'Created' });
       await settle();
       expect(router.navigateByUrl).toHaveBeenCalledWith('/admin/lessons/l1');
+    });
+
+    it('disables the grammar select with a hint until a topic is chosen', () => {
+      expect(field('grammarPointId').disabled).toBe(true);
+      expect(el.querySelector('#lesson-grammar-help')?.textContent).toContain('Chọn chủ đề trước');
+      expect(el.querySelector('label[for="lesson-grammar"]')?.textContent).toContain('Điểm ngữ pháp (tuỳ chọn)');
+    });
+
+    it('offers the points of the topic level and sends the chosen one', async () => {
+      await type('title', 'Park');
+      await type('topicId', 't3');
+      await flushPoints('B1', 't3');
+      const sel = field('grammarPointId') as HTMLSelectElement;
+      expect(sel.disabled).toBe(false);
+      expect(Array.from(sel.options).map((o) => o.textContent?.trim())).toEqual([
+        'Không gán', 'Điểm b1-a (2 bài)', 'Điểm b1-b (0 bài)',
+      ]);
+      await type('grammarPointId', 'b1-b');
+      await type('source', 'Tự viết');
+      await type('license', 'CC BY');
+      await type('content', 'We went.');
+      await submit();
+      const req = http.expectOne('/api/admin/lessons');
+      expect(req.request.body.grammarPointId).toBe('b1-b');
+      req.flush({ lesson: lesson() }, { status: 201, statusText: 'Created' });
+      await settle();
+    });
+
+    it('clears the point and reloads when the topic changes to another level', async () => {
+      await type('topicId', 't3');
+      await flushPoints('B1', 't3');
+      await type('grammarPointId', 'b1-a');
+      await type('topicId', 't1');
+      expect(field('grammarPointId').value).toBe('');
+      await flushPoints('A1', 't1', [{ ...point('a1-x'), level: 'A1' }]);
+      expect((field('grammarPointId') as HTMLSelectElement).options.length).toBe(2);
+    });
+
+    it('shows a server error for the grammar point', async () => {
+      await fillValid();
+      await submit();
+      http
+        .expectOne('/api/admin/lessons')
+        .flush(
+          { error: 'validation_failed', message: 'x', fields: { grammarPointId: 'Điểm ngữ pháp không thuộc trình độ này' } },
+          { status: 400, statusText: 'Bad Request' },
+        );
+      await settle();
+      expect(errorOf('grammarPointId')).toBe('Điểm ngữ pháp không thuộc trình độ này');
     });
 
     it('shows server field errors under the inputs', async () => {
@@ -166,6 +225,7 @@ describe('LessonForm', () => {
       await setup('l1');
       http.expectOne('/api/admin/lessons/l1').flush({ lesson: l });
       await settle();
+      await flushPoints('B1', 't3');
     };
     const dialog = () => el.querySelector('[role="alertdialog"]');
 
@@ -175,6 +235,30 @@ describe('LessonForm', () => {
       expect(field('topicId').value).toBe('t3');
       expect(field('content').value).toBe('We went to the park.');
       expect(el.querySelector('h1')?.textContent).toContain('Sửa bài');
+    });
+
+    it('keeps the lesson point selected and sends it back', async () => {
+      await load(lesson({ grammarPointId: 'b1-a', grammarPointTitle: 'Điểm b1-a' }));
+      expect(field('grammarPointId').value).toBe('b1-a');
+      await submit();
+      const req = http.expectOne('/api/admin/lessons/l1');
+      expect(req.request.body.grammarPointId).toBe('b1-a');
+      req.flush({ lesson: lesson() });
+      await settle();
+    });
+
+    it('leaves the point out when the list could not be loaded', async () => {
+      await setup('l1');
+      http.expectOne('/api/admin/lessons/l1').flush({ lesson: lesson({ grammarPointId: 'b1-a' }) });
+      await settle();
+      http.expectOne('/api/admin/grammar?level=B1&topicId=t3').flush({}, { status: 500, statusText: 'Error' });
+      await settle();
+      expect(el.querySelector('#lesson-grammar-help')?.textContent).toContain('Không tải được');
+      await submit();
+      const req = http.expectOne('/api/admin/lessons/l1');
+      expect('grammarPointId' in req.request.body).toBe(false);
+      req.flush({ lesson: lesson() });
+      await settle();
     });
 
     it('saves without a dialog when the content is unchanged', async () => {

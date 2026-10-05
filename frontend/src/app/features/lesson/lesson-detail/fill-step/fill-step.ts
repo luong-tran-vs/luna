@@ -12,7 +12,7 @@ import {
 import { PracticeFill } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
-import { checkFill, FillCheck, nextEmptyBlank, Score } from '../practice-logic';
+import { checkFill, FillCheck, missedBlanks, nextEmptyBlank, Score } from '../practice-logic';
 
 type Part = { kind: 'text'; text: string } | { kind: 'blank'; index: number };
 
@@ -45,6 +45,8 @@ export class FillStep {
   /** Text to read aloud with the browser's voice. */
   readonly readAloud = output<string>();
   readonly checked = output<Score>();
+  /** The words of the blanks that were wrong, sent after each check. */
+  readonly missed = output<string[]>();
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
@@ -150,6 +152,7 @@ export class FillStep {
     this.result.set(r);
     this.selected.set(-1);
     this.checked.emit({ correct: r.correct, total: r.total });
+    this.missed.emit(missedBlanks(this.fill().blanks, r.results));
   }
 
   private focusBlank(index: number): void {

@@ -54,7 +54,7 @@
     <div #end class="end" aria-hidden="true"></div>
 
     @if (l.grammarNote; as note) {
-      <lu-grammar-note [note]="note" />
+      <lu-grammar-note [note]="note" [pointId]="l.grammarPointId ?? ''" />
     }
     @if (l.quiz; as quiz) {
       <lu-comprehension-quiz

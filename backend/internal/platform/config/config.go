@@ -9,11 +9,15 @@ import (
 
 // Config holds every setting the backend reads at startup.
 type Config struct {
+	// DBDriver picks the database: "mongo" (default) or "mysql".
+	DBDriver      string
 	MongoURI      string
 	MongoDatabase string
-	HTTPAddr      string
-	LogLevel      string
-	CookieSecure  bool
+	// MySQL is read only when DBDriver is "mysql"; it is the zero value otherwise.
+	MySQL        MySQL
+	HTTPAddr     string
+	LogLevel     string
+	CookieSecure bool
 
 	AIProvider   string
 	GeminiAPIKey string
@@ -28,6 +32,7 @@ var logLevels = []string{"debug", "info", "warn", "error"}
 // It reports every problem at once and never includes variable values in errors.
 func Load(getenv func(string) string) (Config, error) {
 	cfg := Config{
+		DBDriver:       strings.ToLower(valueOr(getenv("DB_DRIVER"), "mongo")),
 		MongoURI:       strings.TrimSpace(getenv("MONGO_URI")),
 		MongoDatabase:  valueOr(getenv("MONGO_DATABASE"), "luna"),
 		HTTPAddr:       valueOr(getenv("HTTP_ADDR"), ":8080"),
@@ -39,8 +44,18 @@ func Load(getenv func(string) string) (Config, error) {
 	}
 
 	var errs []error
-	if cfg.MongoURI == "" {
-		errs = append(errs, errors.New("config: MONGO_URI is required"))
+	// Only the setting of the chosen database is required.
+	switch cfg.DBDriver {
+	case "mongo":
+		if cfg.MongoURI == "" {
+			errs = append(errs, errors.New("config: MONGO_URI is required"))
+		}
+	case "mysql":
+		var mysqlErrs []error
+		cfg.MySQL, mysqlErrs = loadMySQL(getenv)
+		errs = append(errs, mysqlErrs...)
+	default:
+		errs = append(errs, errors.New("config: DB_DRIVER must be mongo or mysql"))
 	}
 	if !slices.Contains(logLevels, cfg.LogLevel) {
 		errs = append(errs, errors.New("config: LOG_LEVEL must be one of debug, info, warn, error"))

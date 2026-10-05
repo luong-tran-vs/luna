@@ -59,6 +59,16 @@ export const routes: Routes = [
         loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),
       },
       {
+        path: 'grammar',
+        title: 'Ngữ pháp · Luna',
+        loadComponent: () => import('./features/grammar/grammar-list/grammar-list').then((m) => m.GrammarList),
+      },
+      {
+        path: 'grammar/:pointId',
+        title: 'Ngữ pháp · Luna',
+        loadComponent: () => import('./features/grammar/grammar-lesson/grammar-lesson').then((m) => m.GrammarLesson),
+      },
+      {
         path: 'vocabulary',
         loadChildren: () => import('./features/vocabulary/vocabulary.routes').then((m) => m.vocabularyRoutes),
       },

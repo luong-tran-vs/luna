@@ -1,0 +1,66 @@
+<div class="report">
+  <button
+    #trigger
+    type="button"
+    class="btn report-btn"
+    [attr.aria-disabled]="reported()"
+    [attr.aria-haspopup]="reported() ? null : 'dialog'"
+    (click)="open()"
+  >
+    {{ reported() ? 'Đã báo lỗi câu này' : 'Báo lỗi câu này' }}
+  </button>
+  <p class="muted done" role="status">
+    @if (reported()) {
+      Đã ghi nhận, cảm ơn bạn.
+    }
+  </p>
+
+  <dialog
+    #dialog
+    class="dialog"
+    [attr.aria-labelledby]="'report-title-' + exerciseId()"
+    (cancel)="onCancel($event)"
+    (close)="onClosed()"
+  >
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <h2 class="title" [id]="'report-title-' + exerciseId()">Báo lỗi câu này</h2>
+      <p class="muted">Cho chúng tôi biết câu này có vấn đề gì để người quản trị xem lại.</p>
+
+      <fieldset class="reasons" [attr.aria-describedby]="reasonMissing() ? 'report-reason-error-' + exerciseId() : null">
+        <legend>Lý do</legend>
+        @for (r of reasons; track r.value) {
+          <label class="reason">
+            <input type="radio" formControlName="reason" [value]="r.value" />
+            <span>{{ r.label }}</span>
+          </label>
+        }
+        @if (reasonMissing()) {
+          <p class="field-error" role="alert" [id]="'report-reason-error-' + exerciseId()">Hãy chọn một lý do.</p>
+        }
+      </fieldset>
+
+      <div class="field">
+        <label [for]="'report-note-' + exerciseId()">Ghi chú (không bắt buộc)</label>
+        <textarea
+          [id]="'report-note-' + exerciseId()"
+          formControlName="note"
+          rows="3"
+          [attr.maxlength]="maxNote"
+          [attr.aria-describedby]="'report-count-' + exerciseId()"
+        ></textarea>
+        <p class="muted count" [id]="'report-count-' + exerciseId()">{{ noteLength() }}/{{ maxNote }}</p>
+      </div>
+
+      @if (failed()) {
+        <p class="form-alert" role="alert">Không gửi được báo lỗi. Nội dung của bạn vẫn còn, hãy thử lại.</p>
+      }
+
+      <div class="actions">
+        <button type="submit" class="btn-primary" [disabled]="sending()">
+          {{ sending() ? 'Đang gửi…' : failed() ? 'Thử lại' : 'Gửi báo lỗi' }}
+        </button>
+        <button type="button" class="btn" [disabled]="sending()" (click)="cancel()">Huỷ</button>
+      </div>
+    </form>
+  </dialog>
+</div>

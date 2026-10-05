@@ -26,6 +26,9 @@
         }
       </div>
       <p class="muted">Nguồn: {{ l.source }} · Giấy phép: {{ l.license }}</p>
+      @if (l.grammarPointTitle) {
+        <p class="muted">Điểm ngữ pháp: {{ l.grammarPointTitle }}</p>
+      }
 
       <div class="status-row">
         <lu-status-chip label="Chú thích" [status]="l.annotationStatus" />

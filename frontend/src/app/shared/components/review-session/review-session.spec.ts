@@ -94,14 +94,14 @@ describe('ReviewSession', () => {
       expect(text('.word')).toBe('went');
       expect(button('Nghe')).toBeTruthy();
       expect(el.querySelector('.meaning')).toBeNull();
-      expect(buttonStarting('Good')).toBeUndefined();
+      expect(buttonStarting('Nhớ')).toBeUndefined();
 
       button('Lật thẻ')!.click();
       await settle();
       expect(text('.ipa')).toBe('/ɡəʊ/');
       expect(text('.meaning')).toBe('nghĩa của went');
       expect(text('.example')).toBe('We went home.');
-      expect(['Again · 1 phút', 'Hard · 5 phút', 'Good · 10 phút', 'Easy · 8 ngày'].map((l) => !!button(l))).toEqual([
+      expect(['Quên · 1 phút', 'Khó · 5 phút', 'Nhớ · 10 phút', 'Dễ · 8 ngày'].map((l) => !!button(l))).toEqual([
         true,
         true,
         true,
@@ -128,7 +128,7 @@ describe('ReviewSession', () => {
       await settle();
       button('Lật thẻ')!.click();
       await settle();
-      button('Good · 10 phút')!.click();
+      button('Nhớ · 10 phút')!.click();
       await settle();
       const req = expectReview('c1');
       expect(req.request.body).toEqual({ rating: 3, mode: 'flip', reps: 0, context: 'daily' });
@@ -147,14 +147,14 @@ describe('ReviewSession', () => {
       await setup();
       button('Lật thẻ')!.click();
       await settle();
-      button('Again · 1 phút')!.click();
+      button('Quên · 1 phút')!.click();
       await settle();
       expectReview('c1').flush({ card: { ...card('c1', 'went', 1), intervals: { ...intervals, good: 3600 } } });
       await settle();
 
       button('Lật thẻ')!.click();
       await settle();
-      button('Good · 10 phút')!.click();
+      button('Nhớ · 10 phút')!.click();
       await settle();
       expectReview('c2').flush({ card: { ...card('c2', 'gave up', 1), intervals } });
       await settle();
@@ -164,8 +164,8 @@ describe('ReviewSession', () => {
       expect(text('.progress')).toBe('Thẻ 3/3');
       button('Lật thẻ')!.click();
       await settle();
-      expect(button('Good · 1 giờ')).toBeTruthy();
-      button('Again · 1 phút')!.click();
+      expect(button('Nhớ · 1 giờ')).toBeTruthy();
+      button('Quên · 1 phút')!.click();
       await settle();
       const again = expectReview('c1');
       expect(again.request.body.reps).toBe(1);
@@ -174,8 +174,8 @@ describe('ReviewSession', () => {
 
       // Not re-queued a second time.
       expect(text('.summary')).toContain('Đã ôn 2 thẻ');
-      expect(text('.summary')).toContain('Again 2');
-      expect(text('.summary')).toContain('Good 1');
+      expect(text('.summary')).toContain('Quên 2');
+      expect(text('.summary')).toContain('Nhớ 1');
       expect(host.summaries).toEqual([{ reviewed: 2, counts: { 1: 2, 2: 0, 3: 1, 4: 0 } }]);
     });
 
@@ -183,7 +183,7 @@ describe('ReviewSession', () => {
       await setup();
       button('Lật thẻ')!.click();
       await settle();
-      button('Good · 10 phút')!.click();
+      button('Nhớ · 10 phút')!.click();
       await settle();
       expectReview('c1').flush(
         { error: 'review_conflict', message: 'x', card: card('c1', 'went', 1) },
@@ -197,7 +197,7 @@ describe('ReviewSession', () => {
       await setup();
       button('Lật thẻ')!.click();
       await settle();
-      button('Hard · 5 phút')!.click();
+      button('Khó · 5 phút')!.click();
       await settle();
       expectReview('c1').flush({ error: 'internal_error', message: 'x' }, { status: 500, statusText: 'Error' });
       await settle();
@@ -229,7 +229,7 @@ describe('ReviewSession', () => {
       await setup('listen');
       await typeAndCheck('  ');
       expect(text('.answer-error')).toBe('Hãy gõ từ bạn nghe được');
-      expect(buttonStarting('Good')).toBeUndefined();
+      expect(buttonStarting('Nhớ')).toBeUndefined();
     });
 
     it('accepts any case and shows the card', async () => {
@@ -238,8 +238,8 @@ describe('ReviewSession', () => {
       expect(text('.verdict')).toBe('✓ Đúng');
       expect(text('.word')).toBe('went');
       expect(text('.meaning')).toBe('nghĩa của went');
-      expect(buttonStarting('Good')).toBeTruthy();
-      button('Easy · 8 ngày')!.click();
+      expect(buttonStarting('Nhớ')).toBeTruthy();
+      button('Dễ · 8 ngày')!.click();
       await settle();
       expect(expectReview('c1').request.body).toEqual({ rating: 4, mode: 'listen', reps: 0, context: 'free' });
     });
@@ -259,7 +259,7 @@ describe('ReviewSession', () => {
       button('Hiện từ')!.click();
       await settle();
       expect(text('.word')).toBe('went');
-      expect(buttonStarting('Good')).toBeTruthy();
+      expect(buttonStarting('Nhớ')).toBeTruthy();
     });
   });
 });

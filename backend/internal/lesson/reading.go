@@ -47,6 +47,8 @@ type ReadingView struct {
 	// Quiz is nil when the lesson has no comprehension questions (F15).
 	Quiz        *QuizView
 	GrammarNote *GrammarNote
+	// GrammarPointID is the syllabus point the lesson teaches, "" when none is assigned (F20).
+	GrammarPointID string
 }
 
 // LookupMeaning is one meaning; POS is the dictionary part-of-speech code (empty for AI).
@@ -103,7 +105,7 @@ func (r *Reader) View(ctx context.Context, userID, id string) (ReadingView, erro
 		Paragraphs: paragraphs(l.Content, len(l.Sentences)),
 		Lemmas:     map[string]string{},
 		Phrases:    []Phrase{},
-		Quiz:       quiz, GrammarNote: l.Extras.GrammarNote,
+		Quiz:       quiz, GrammarNote: l.Extras.GrammarNote, GrammarPointID: l.GrammarPointID,
 	}
 	switch t, err := r.topics.Get(ctx, l.TopicID); {
 	case err == nil:

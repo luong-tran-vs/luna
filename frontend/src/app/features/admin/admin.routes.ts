@@ -35,6 +35,16 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./topic-words/topic-words').then((m) => m.TopicWords),
   },
   {
+    path: 'grammar',
+    title: 'Ngữ pháp · Quản trị · Luna',
+    loadComponent: () => import('./grammar-list/grammar-list').then((m) => m.GrammarList),
+  },
+  {
+    path: 'grammar/:pointId',
+    title: 'Bài ngữ pháp · Quản trị · Luna',
+    loadComponent: () => import('./grammar-detail/grammar-detail').then((m) => m.GrammarDetail),
+  },
+  {
     path: 'roadmap',
     title: 'Lộ trình · Quản trị · Luna',
     canDeactivate: [unsavedChangesGuard],

@@ -94,6 +94,16 @@ describe('LessonDetail', () => {
       expect(items[1]).toContain('He gave up smoking.');
     });
 
+    it('shows the grammar point only when the lesson has one', async () => {
+      await load(lesson({ grammarPointId: 'b1-a', grammarPointTitle: 'Thì quá khứ đơn' }));
+      expect(el.textContent).toContain('Điểm ngữ pháp: Thì quá khứ đơn');
+    });
+
+    it('hides the grammar line when none is assigned', async () => {
+      await load(lesson({ grammarPointId: '', grammarPointTitle: '' }));
+      expect(el.textContent).not.toContain('Điểm ngữ pháp:');
+    });
+
     it('shows a not-found message', async () => {
       http.expectOne('/api/admin/lessons/l1').flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
       await settle();

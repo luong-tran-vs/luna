@@ -563,7 +563,7 @@ func TestAnnotateFocusWords(t *testing.T) {
 	if _, err := c.Annotate(t.Context(), req); err != nil {
 		t.Fatal(err)
 	}
-	for _, want := range []string{"Always include each of these topic words", "count toward the 25 items: Family, take a shower", "0: My family took a shower."} {
+	for _, want := range []string{"Always include each of these topic words", "count toward the 12 items: Family, take a shower", "0: My family took a shower."} {
 		if !strings.Contains(*prompt, want) {
 			t.Errorf("prompt missing %q:\n%s", want, *prompt)
 		}
@@ -608,5 +608,106 @@ func TestSuggestWords(t *testing.T) {
 	noKey, noCalls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
 	if _, err := noKey.SuggestWords(t.Context(), ai.SuggestWordsRequest{Count: 1}); !errors.Is(err, ai.ErrNotConfigured) || noCalls.Load() != 0 {
 		t.Fatalf("no key: %v, calls %d", err, noCalls.Load())
+	}
+}
+
+func TestGrammarLesson(t *testing.T) {
+	t.Parallel()
+
+	lesson := `{"objective":"Bạn có thể nói về mình","explanation":["a"],"usage":["b"],"structures":[{"label":"l","pattern":"p","example":"e"}],` +
+		`"examples":[{"en":"I am.","vi":"Tôi là."}],"mistakes":[{"wrong":"w","right":"r","noteVi":"n"}],` +
+		`"practice":[{"kind":"choice","promptVi":"Chọn","text":"I ___ a boy.","options":["am","is","are","be"],"answerIndex":0,"explanationVi":"x"}],` +
+		`"mastery":[{"kind":"reorder","promptVi":"Sắp xếp","text":"Tôi là học sinh","sentence":"I am a student","words":["I","am","a","student","is"],"explanationVi":"y"}]}`
+	wrapped, err := json.Marshal(map[string]any{"candidates": []any{map[string]any{"content": map[string]any{
+		"parts": []any{map[string]any{"text": lesson}},
+	}}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Errorf("decode: %v", err)
+		}
+		_, _ = w.Write(wrapped)
+	})
+
+	got, err := c.GrammarLesson(t.Context(), ai.GrammarLessonRequest{Level: "A1", TitleEn: "Verb to be", TitleVi: "to be", Pattern: "S + be"})
+	if err != nil {
+		t.Fatalf("GrammarLesson: %v", err)
+	}
+	if calls.Load() != 1 {
+		t.Errorf("requests = %d, want 1", calls.Load())
+	}
+	if got.Objective == "" || len(got.Structures) != 1 || got.Examples[0].Vi != "Tôi là." || got.Mistakes[0].NoteVi != "n" {
+		t.Errorf("decoded %+v", got)
+	}
+	if p := got.Practice[0]; p.Kind != "choice" || p.AnswerIndex != 0 || len(p.Options) != 4 {
+		t.Errorf("practice[0] = %+v", p)
+	}
+	if m := got.Mastery[0]; m.Sentence != "I am a student" || len(m.Words) != 5 {
+		t.Errorf("mastery[0] = %+v", m)
+	}
+	cfg, _ := body["generationConfig"].(map[string]any)
+	if cfg["responseMimeType"] != "application/json" || cfg["responseSchema"] == nil {
+		t.Errorf("generationConfig = %v", cfg)
+	}
+
+	if _, err := gemini.New("", "m", http.DefaultClient, slog.New(slog.DiscardHandler)).GrammarLesson(t.Context(), ai.GrammarLessonRequest{}); !errors.Is(err, ai.ErrNotConfigured) {
+		t.Errorf("no key: %v", err)
+	}
+	if _, err := (ai.Disabled{}).GrammarLesson(t.Context(), ai.GrammarLessonRequest{}); !errors.Is(err, ai.ErrNotConfigured) {
+		t.Errorf("disabled: %v", err)
+	}
+}
+
+func TestSolveGrammarExercises(t *testing.T) {
+	t.Parallel()
+
+	solutions := `[{"exerciseId":"p1","choiceIndex":1,"ambiguous":false},` +
+		`{"exerciseId":"p2","answer":"am","ambiguous":false},` +
+		`{"exerciseId":"m1","sentence":"I am a student","ambiguous":false},` +
+		`{"exerciseId":"m2","ambiguous":true,"noteVi":"Hai đáp án đúng."}]`
+	wrapped, err := json.Marshal(map[string]any{"candidates": []any{map[string]any{"content": map[string]any{
+		"parts": []any{map[string]any{"text": solutions}},
+	}}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Errorf("decode: %v", err)
+		}
+		_, _ = w.Write(wrapped)
+	})
+
+	got, err := c.SolveGrammarExercises(t.Context(), ai.SolveRequest{
+		Level: "A1", TitleEn: "Verb to be", Pattern: "S + be",
+		Exercises: []ai.SolveExercise{{ID: "p1", Kind: "choice", Text: "She ___ a nurse.", Options: []string{"am", "is", "are", "be"}}},
+	})
+	if err != nil {
+		t.Fatalf("SolveGrammarExercises: %v", err)
+	}
+	if calls.Load() != 1 || len(got) != 4 {
+		t.Fatalf("requests = %d, solutions = %v", calls.Load(), got)
+	}
+	if got[0].ChoiceIndex == nil || *got[0].ChoiceIndex != 1 || got[1].Answer != "am" || got[2].Sentence != "I am a student" ||
+		!got[3].Ambiguous || got[3].NoteVi == "" || got[1].ChoiceIndex != nil {
+		t.Errorf("decoded %+v", got)
+	}
+	cfg, _ := body["generationConfig"].(map[string]any)
+	if cfg["responseMimeType"] != "application/json" || cfg["responseSchema"] == nil {
+		t.Errorf("generationConfig = %v", cfg)
+	}
+	if temp, _ := cfg["temperature"].(float64); temp > 0.3 {
+		t.Errorf("temperature = %v, want low", temp)
+	}
+
+	if _, err := gemini.New("", "m", http.DefaultClient, slog.New(slog.DiscardHandler)).SolveGrammarExercises(t.Context(), ai.SolveRequest{}); !errors.Is(err, ai.ErrNotConfigured) {
+		t.Errorf("no key: %v", err)
+	}
+	if _, err := (ai.Disabled{}).SolveGrammarExercises(t.Context(), ai.SolveRequest{}); !errors.Is(err, ai.ErrNotConfigured) {
+		t.Errorf("disabled: %v", err)
 	}
 }

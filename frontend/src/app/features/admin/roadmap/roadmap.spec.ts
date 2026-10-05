@@ -217,6 +217,8 @@ describe('Roadmap', () => {
     await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
     http.expectOne('/api/admin/topics/t1/words').flush({ words: [] });
     await settle();
+    http.expectOne((r) => r.url === '/api/admin/grammar').flush({ points: [] });
+    await settle();
     expect(el.querySelector('lu-generate-dialog dialog')!.hasAttribute('open')).toBe(true);
   });
 
@@ -244,10 +246,18 @@ describe('Roadmap', () => {
 
     const wordsUrl = '/api/admin/topics/t1/words';
     /** Opening loads the topic's words first (F18); by default the topic has none. */
-    const openDialog = async (topicWords: string[] = []) => {
+    const gpoint = (id: string, lessonCount: number) => ({
+      id, level: 'A1', titleVi: `Điểm ${id}`, titleEn: id, pattern: 'pat', hintVi: 'gợi ý', examples: [], lessonCount,
+    });
+    const openDialog = async (topicWords: string[] = [], points: object[] = []) => {
       button('Sinh bài bằng AI')!.click();
       await settle();
       http.expectOne(wordsUrl).flush({ words: topicWords.map((text) => ({ text, used: false, lessonCount: 0 })) });
+      await settle();
+      const grammar = http.expectOne((r) => r.url === '/api/admin/grammar');
+      expect(grammar.request.params.get('level')).toBe('A1');
+      expect(grammar.request.params.get('topicId')).toBe('t1');
+      grammar.flush({ points });
       await settle();
     };
     const submitDialog = async () => {
@@ -288,7 +298,7 @@ describe('Roadmap', () => {
       await submitDialog();
       const req = http.expectOne(generateUrl);
       expect(req.request.method).toBe('POST');
-      expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '', targetWords: [] });
+      expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '', targetWords: [], grammarPointId: '' });
       expect(text(button('Đang sinh…', dialog()))).toBe('Đang sinh…');
 
       req.flush({
@@ -324,12 +334,38 @@ describe('Roadmap', () => {
         source: 'AI sinh',
         license: 'Nội dung do AI tạo',
         appendToRoadmap: true,
+        grammarPointId: '',
       });
       req.flush({ lesson: { id: 'n1' } });
       await settle();
       await expectReload(['a', 'n1']);
       expect(draftTitles()).toEqual(['The Picnic']);
       expect(titles()).toEqual(['Bài a', 'Bài n1']);
+    });
+
+    it('generates with the chosen grammar point and saves drafts with it', async () => {
+      await openDialog([], [gpoint('g1', 2), gpoint('g2', 0), gpoint('g3', 0)]);
+      const select = dialog().querySelector<HTMLSelectElement>('#generate-grammar')!;
+      expect(select.value).toBe('');
+      select.value = 'g2';
+      select.dispatchEvent(new Event('change'));
+      await settle();
+      await submitDialog();
+      const gen = http.expectOne(generateUrl);
+      expect(gen.request.body.grammarPointId).toBe('g2');
+      gen.flush({
+        drafts: [{ title: 'One', content: words(120), words: 120, targetWords: [], missingWords: [], grammarPointId: 'g2' }],
+        requested: 1,
+        dropped: 0,
+      });
+      await settle();
+      el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
+      await settle();
+      const req = http.expectOne('/api/admin/lessons');
+      expect(req.request.body.grammarPointId).toBe('g2');
+      req.flush({ lesson: { id: 'n1' } });
+      await settle();
+      await expectReload(['a', 'n1']);
     });
 
     it('discards a draft without any request', async () => {
@@ -455,6 +491,8 @@ describe('Roadmap', () => {
       button('Sinh bài bằng AI')!.click();
       await settle();
       http.expectOne(wordsUrl).flush({ error: 'internal_error' }, { status: 500, statusText: 'Error' });
+      await settle();
+      http.expectOne((r) => r.url === '/api/admin/grammar').flush({ points: [] });
       await settle();
       expect(dialog().querySelector('dialog')!.hasAttribute('open')).toBe(true);
       expect(dialog().querySelector('#generate-perLesson')).toBeNull();

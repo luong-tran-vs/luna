@@ -31,6 +31,7 @@ const PATHS = {
   layers: 'M12 3 2 8l10 5 10-5zM2 13l10 5 10-5',
   play: 'M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z',
   pause: 'M7 4h3v16H7zM14 4h3v16h-3z',
+  grammar: 'M4 7V5h16v2M12 5v14M9 19h6',
   volume: 'M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19.5 5.5a9 9 0 0 1 0 13',
 } as const;
 

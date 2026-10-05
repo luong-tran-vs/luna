@@ -8,9 +8,11 @@ import {
   hasFill,
   hasTranslations,
   levelLabel,
+  missedBlanks,
   nextEmptyBlank,
   shuffle,
   summary,
+  wordsIn,
 } from './practice-logic';
 
 const empty: PracticeView = {
@@ -175,5 +177,42 @@ describe('practice logic', () => {
     expect(clock(0)).toBe('00:00');
     expect(clock(7.9)).toBe('00:07');
     expect(clock(72)).toBe('01:12');
+  });
+
+  describe('missedBlanks', () => {
+    const blanks = [{ answer: 'name' }, { answer: 'meet' }, { answer: 'name' }, { answer: ' ' }];
+
+    it('lists the answers of the wrong blanks once each', () => {
+      expect(missedBlanks(blanks, [false, true, false, false])).toEqual(['name']);
+      expect(missedBlanks(blanks, [true, false, true, true])).toEqual(['meet']);
+    });
+
+    it('is empty when everything is right', () => {
+      expect(missedBlanks(blanks, [true, true, true, true])).toEqual([]);
+    });
+  });
+
+  describe('wordsIn', () => {
+    const words = [
+      { lemma: 'go', text: 'went' },
+      { lemma: 'give up', text: 'gave up' },
+      { lemma: 'meet', text: 'meet' },
+    ];
+
+    it('finds words by their text or lemma, whole and ignoring case', () => {
+      expect(wordsIn('He WENT home.', words)).toEqual(['go']);
+      // In the order of the lesson's word list.
+      expect(wordsIn("Don't give up, go on.", words)).toEqual(['go', 'give up']);
+      expect(wordsIn('Nice to meet you.', words)).toEqual(['meet']);
+    });
+
+    it('does not match inside another word', () => {
+      expect(wordsIn('The meeting is on Monday.', words)).toEqual([]);
+      expect(wordsIn('Going to the gym.', words)).toEqual([]);
+    });
+
+    it('does not break on punctuation in a word', () => {
+      expect(wordsIn('Nothing here.', [{ lemma: 'a.b(c)', text: 'a.b(c)' }])).toEqual([]);
+    });
   });
 });

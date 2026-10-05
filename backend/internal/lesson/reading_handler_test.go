@@ -119,3 +119,20 @@ func TestLookupEndpoint(t *testing.T) {
 		t.Errorf("anonymous: %d", rec.Code)
 	}
 }
+
+func TestReadingLessonEndpointReturnsTheGrammarPoint(t *testing.T) {
+	t.Parallel()
+	lessons := newFakeLessons()
+	with, _ := lessons.Create(t.Context(), Lesson{Title: "A", Level: "A1", Content: readingContent, Sentences: toSentences(SplitSentences(readingContent)), GrammarPointID: "a1-to-be"})
+	without, _ := lessons.Create(t.Context(), Lesson{Title: "B", Level: "A1", Content: readingContent, Sentences: toSentences(SplitSentences(readingContent))})
+	r := NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers(), newFakeAsks(), &fakeAI{})
+	mux := http.NewServeMux()
+	NewReadingHandler(r, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver), allowAll)
+
+	if body := get(t, mux, "/api/lessons/"+with.ID, "learner").Body.String(); !strings.Contains(body, `"grammarPointId":"a1-to-be"`) {
+		t.Errorf("body = %s", body)
+	}
+	if body := get(t, mux, "/api/lessons/"+without.ID, "learner").Body.String(); !strings.Contains(body, `"grammarPointId":""`) {
+		t.Errorf("body = %s", body)
+	}
+}

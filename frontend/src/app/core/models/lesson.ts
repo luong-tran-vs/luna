@@ -53,6 +53,9 @@ export interface Lesson extends LessonSummary {
   practice: AdminPractice | null;
   practiceStatus: PracticeStatus;
   practiceError: string;
+  /** Curriculum grammar point assigned to the lesson; '' when none. */
+  grammarPointId?: string;
+  grammarPointTitle?: string;
 }
 
 /** A multiple-choice comprehension question as admins see it. */
@@ -83,6 +86,8 @@ export interface LessonInput {
   topicId: string;
   source: string;
   license: string;
+  /** Curriculum grammar point; '' clears it. */
+  grammarPointId?: string;
   /** Add the new lesson at the end of its topic roadmap in the same request (F7). */
   appendToRoadmap?: boolean;
 }

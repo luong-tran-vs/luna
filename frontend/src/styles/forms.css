@@ -47,6 +47,9 @@
 
 .field {
   display: grid;
+  /* Without this, a field stretched to the height of a taller neighbour (two columns) shares the
+     extra height among its rows, so its input grows and drops below the neighbour's. */
+  align-content: start;
   gap: var(--space-1);
 }
 

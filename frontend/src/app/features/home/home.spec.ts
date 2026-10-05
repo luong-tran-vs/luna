@@ -63,12 +63,19 @@ describe('Home', () => {
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const link = (label: string) => Array.from(el.querySelectorAll('a')).find((a) => text(a) === label) ?? null;
 
-  const open = async (data: Dashboard, figures: Stats = stats()) => {
+  /** The cards due now (the page asks for one card and reads the total). */
+  const flushDue = (total = 0) =>
+    controller
+      .expectOne((r) => r.url === '/api/vocab/review/due')
+      .flush({ cards: [], total, nextDue: null });
+
+  const open = async (data: Dashboard, figures: Stats = stats(), due = 0) => {
     fixture = TestBed.createComponent(Home);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
     controller.expectOne('/api/dashboard').flush(data);
     controller.expectOne('/api/stats').flush(figures);
+    flushDue(due);
     await fixture.whenStable();
   };
 
@@ -95,9 +102,11 @@ describe('Home', () => {
   it('greets the learner and shows the progress of the lesson being studied and the button into it', async () => {
     await open(studying());
     expect(text(el.querySelector('h1'))).toBe('Xin chào, minh 👋');
-    expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 2 bước nữa thôi!');
-    expect(text(el.querySelector('.today-goal'))).toContain('Bài đang học');
-    expect(text(el.querySelector('.today-goal'))).toContain('1 / 3 bước');
+    expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 2 phần nữa thôi (Đọc, Nghe, Viết)!');
+    // One card for the lesson being studied, with its progress (no second card repeating it).
+    expect(el.querySelector('.today-goal')).toBeNull();
+    expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Đọc · Nghe · Viết');
+    expect(text(el.querySelector('.lesson .steps-bar .count'))).toBe('1/3 phần');
     expect(text(el.querySelector('.lesson-title'))).toBe('At the café');
     expect(text(el.querySelector('.lesson'))).toContain('Chủ đề: A1 · Gia đình');
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
@@ -129,6 +138,7 @@ describe('Home', () => {
     await fixture.whenStable();
     controller.expectOne('/api/dashboard').flush(studying());
     controller.expectOne('/api/stats').flush('down', { status: 500, statusText: 'Error' });
+    flushDue();
     await fixture.whenStable();
     expect(text(el.querySelector('.words .tile-value'))).toBe('—');
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
@@ -162,12 +172,14 @@ describe('Home', () => {
 
     controller.expectOne('/api/dashboard').flush('down', { status: 500, statusText: 'Error' });
     controller.expectOne('/api/stats').flush(stats());
+    flushDue();
     await fixture.whenStable();
     expect(text(el.querySelector('[role="alert"] p'))).toBe('Không tải được màn hình chính.');
 
     (el.querySelector('[role="alert"] button') as HTMLButtonElement).click();
     controller.expectOne('/api/dashboard').flush(studying());
     controller.expectOne('/api/stats').flush(stats());
+    flushDue();
     await fixture.whenStable();
     expect(el.querySelector('[role="alert"]')).toBeNull();
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
@@ -207,18 +219,49 @@ describe('Home', () => {
     expect(course.getAttribute('href')).toBe('/lessons');
     expect(text(course.querySelector('.course-name'))).toBe('A1 · Gia đình');
     expect(text(course)).toContain('Đã học 2/12 bài');
+    // Accuracy, not lessons done: reading 90%, dictation 80%, writing 3.8 out of 5.
     const bars = Array.from(el.querySelectorAll('.skills lu-progress-bar'));
     expect(bars.map((b) => text(b.querySelector('.label')))).toEqual(['Đọc', 'Nghe', 'Viết']);
-    expect(bars.map((b) => text(b.querySelector('.count')))).toEqual(['3/12', '2/12', '1/12']);
+    expect(bars.map((b) => text(b.querySelector('.count')))).toEqual(['90%', '80%', '76%']);
     expect(bars.map((b) => b.getAttribute('data-tone'))).toEqual(['read', 'listen', 'write']);
     expect(text(el)).not.toContain('Nói');
+  });
+
+  it('says "Chưa có" for a skill that was not measured yet', async () => {
+    await open(
+      studying(),
+      stats({
+        reading: { answered: 0, correct: 0, rate: null },
+        writing: { submitted: 0, averageScore: null },
+      }),
+    );
+    const empty = Array.from(el.querySelectorAll('.skills .skill-empty'));
+    expect(empty.map((e) => text(e.children[0]))).toEqual(['Đọc', 'Viết']);
+    expect(empty.map((e) => text(e.children[1]))).toEqual(['Chưa có', 'Chưa có']);
+    expect(el.querySelectorAll('.skills lu-progress-bar').length).toBe(1);
   });
 
   it('loads fresh numbers every time the page opens', async () => {
     await open(studying());
     fixture.destroy();
-    await open(studying({ skills: { read: 4, listen: 2, write: 1, total: 12 }, action: { kind: 'continue', step: 'listen' } }));
-    expect(text(el.querySelector('.skills lu-progress-bar .count'))).toBe('4/12');
+    await open(studying({ action: { kind: 'continue', step: 'listen' } }), stats({ reading: { answered: 10, correct: 5, rate: 0.5 } }));
+    expect(text(el.querySelector('.skills lu-progress-bar .count'))).toBe('50%');
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
+  });
+
+  it('puts the cards due today first, with a way to review them', async () => {
+    await open(studying(), stats(), 12);
+    const card = el.querySelector('.due-today')!;
+    expect(text(card)).toContain('Hôm nay: 12 thẻ cần ôn');
+    expect(text(card)).toContain('khoảng 4 phút');
+    expect(card.getAttribute('href')).toBe('/vocabulary/review');
+    // Before the lesson, and the tomorrow line stays.
+    expect(card.compareDocumentPosition(el.querySelector('.continue')!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
+  });
+
+  it('shows no card for today when nothing is due', async () => {
+    await open(studying());
+    expect(el.querySelector('.due-today')).toBeNull();
   });
 });

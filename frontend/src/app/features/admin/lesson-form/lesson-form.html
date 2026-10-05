@@ -47,6 +47,31 @@
         }
       </div>
 
+      <div class="field">
+        <label for="lesson-grammar">Điểm ngữ pháp (tuỳ chọn)</label>
+        <select id="lesson-grammar" name="grammarPointId" formControlName="grammarPointId"
+          [attr.aria-invalid]="!!grammarError()" [attr.aria-describedby]="grammarError() ? 'lesson-grammar-help lesson-grammarPointId-error' : 'lesson-grammar-help'">
+          <option value="">Không gán</option>
+          @for (p of points(); track p.id) {
+            <option [value]="p.id">{{ pointLabel(p) }}</option>
+          }
+        </select>
+        <p class="field-hint" id="lesson-grammar-help">
+          @if (!form.controls.topicId.value) {
+            Chọn chủ đề trước.
+          } @else if (pointsState() === 'loading') {
+            Đang tải điểm ngữ pháp…
+          } @else if (pointsState() === 'error') {
+            Không tải được điểm ngữ pháp; bài giữ nguyên điểm hiện có.
+          } @else {
+            Điểm ngữ pháp của giáo trình cùng trình độ với chủ đề.
+          }
+        </p>
+        @if (grammarError(); as message) {
+          <p class="field-error" id="lesson-grammarPointId-error">{{ message }}</p>
+        }
+      </div>
+
       <div class="row">
         <div class="field">
           <label for="lesson-source">Nguồn</label>

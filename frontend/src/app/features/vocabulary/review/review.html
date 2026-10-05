@@ -9,7 +9,12 @@
     @if (started()) {
       <lu-review-session [cards]="list.cards" [mode]="mode()" (finished)="done.set(true)" />
       @if (done()) {
-        <button type="button" class="btn-primary btn-block" (click)="load()">Ôn tiếp</button>
+        @if (nextLesson) {
+          <a class="btn-primary btn-block" [routerLink]="['/lessons', nextLesson]">Học bài tiếp theo</a>
+          <button type="button" class="btn btn-block" (click)="load()">Ôn tiếp</button>
+        } @else {
+          <button type="button" class="btn-primary btn-block" (click)="load()">Ôn tiếp</button>
+        }
       }
     } @else if (list.total === 0) {
       <div class="soft-card hub empty" role="status">
@@ -19,6 +24,9 @@
           <p class="next-due muted">Thẻ tiếp theo đến hạn lúc {{ next }}.</p>
         } @else {
           <p class="muted">Lưu từ ở bước Đọc hoặc thêm thẻ trong Sổ từ để bắt đầu ôn.</p>
+        }
+        @if (nextLesson) {
+          <a class="btn-primary btn-block" [routerLink]="['/lessons', nextLesson]">Học bài tiếp theo</a>
         }
       </div>
     } @else {

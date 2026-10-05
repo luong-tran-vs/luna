@@ -26,7 +26,7 @@
             [attr.aria-invalid]="!!limitError()"
             [attr.aria-describedby]="limitError() ? 'settings-limit-hint settings-limit-error' : 'settings-limit-hint'"
           />
-          <p class="field-hint" id="settings-limit-hint">Từ 5 đến 200 thẻ, dùng cho bước Ôn của bài hôm nay.</p>
+          <p class="field-hint" id="settings-limit-hint">Từ 5 đến 200 thẻ, dùng cho mỗi phiên ôn tập.</p>
           @if (limitError(); as message) {
             <p class="field-error" id="settings-limit-error">{{ message }}</p>
           }

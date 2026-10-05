@@ -16,6 +16,7 @@ interface AdminLink {
 const ADMIN_LINKS: readonly AdminLink[] = [
   { path: '/admin', label: 'Bài học', matches: (p) => p === '/admin' || p.startsWith('/admin/lessons') },
   { path: '/admin/topics', label: 'Chủ đề', matches: (p) => p.startsWith('/admin/topics') },
+  { path: '/admin/grammar', label: 'Ngữ pháp', matches: (p) => p.startsWith('/admin/grammar') },
   { path: '/admin/roadmap', label: 'Lộ trình', matches: (p) => p.startsWith('/admin/roadmap') },
 ];
 

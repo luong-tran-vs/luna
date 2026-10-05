@@ -40,6 +40,14 @@ describe('ProgressBar', () => {
     expect((el.querySelector('.fill') as HTMLElement).style.width).toBe('100%');
   });
 
+  it('can show a percentage instead of a count', async () => {
+    const el = await render(76, 100, { percentage: true });
+    const bar = el.querySelector('[role="progressbar"]')!;
+    expect(el.querySelector('.count')!.textContent).toBe('76%');
+    expect(bar.getAttribute('aria-valuetext')).toBe('76%');
+    expect((el.querySelector('.fill') as HTMLElement).style.width).toBe('76%');
+  });
+
   it('marks its tone for the skill colour', async () => {
     const el = await render(1, 3, { tone: 'listen' });
     expect(el.getAttribute('data-tone')).toBe('listen');

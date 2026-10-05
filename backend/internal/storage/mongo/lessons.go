@@ -80,6 +80,7 @@ type lessonDoc struct {
 	TopicID          bson.ObjectID   `bson:"topicId"`
 	Source           string          `bson:"source"`
 	License          string          `bson:"license"`
+	GrammarPointID   string          `bson:"grammarPointId,omitempty"`
 	Revision         int             `bson:"revision"`
 	Sentences        []sentenceDoc   `bson:"sentences"`
 	AnnotationStatus string          `bson:"annotationStatus"`
@@ -101,7 +102,7 @@ type lessonDoc struct {
 func fromLesson(l lesson.Lesson) lessonDoc {
 	d := lessonDoc{
 		Title: l.Title, Content: l.Content, Level: string(l.Level), TopicID: oidOrZero(l.TopicID),
-		Source: l.Source, License: l.License, Revision: l.Revision,
+		Source: l.Source, License: l.License, GrammarPointID: l.GrammarPointID, Revision: l.Revision,
 		Sentences:        make([]sentenceDoc, len(l.Sentences)),
 		AnnotationStatus: string(l.AnnotationStatus), AnnotationError: l.AnnotationError,
 		Annotations: fromAnnotations(l.Annotations),
@@ -124,7 +125,7 @@ func fromAnnotations(anns []lesson.Annotation) []annotationDoc {
 func (d lessonDoc) toLesson() lesson.Lesson {
 	l := lesson.Lesson{
 		ID: d.ID.Hex(), Title: d.Title, Content: d.Content, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
-		Source: d.Source, License: d.License, Revision: d.Revision,
+		Source: d.Source, License: d.License, GrammarPointID: d.GrammarPointID, Revision: d.Revision,
 		Sentences:        make([]lesson.Sentence, len(d.Sentences)),
 		AnnotationStatus: lesson.Status(d.AnnotationStatus), AnnotationError: d.AnnotationError,
 		Annotations: make([]lesson.Annotation, len(d.Annotations)),
@@ -257,6 +258,7 @@ func (r *Lessons) UpdateInfo(ctx context.Context, id string, in lesson.Info) err
 		{Key: "topicId", Value: oidOrZero(in.TopicID)},
 		{Key: "source", Value: in.Source},
 		{Key: "license", Value: in.License},
+		{Key: "grammarPointId", Value: in.GrammarPointID},
 		{Key: "updatedAt", Value: time.Now().UTC()},
 	}}})
 }
@@ -271,6 +273,7 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 		{Key: "topicId", Value: d.TopicID},
 		{Key: "source", Value: d.Source},
 		{Key: "license", Value: d.License},
+		{Key: "grammarPointId", Value: d.GrammarPointID},
 		{Key: "revision", Value: d.Revision},
 		{Key: "sentences", Value: d.Sentences},
 		{Key: "annotationStatus", Value: d.AnnotationStatus},
@@ -445,14 +448,48 @@ func (r *Lessons) TopicOf(ctx context.Context, ids []string) (map[string]string,
 	return out, nil
 }
 
-// SetLevelByTopic sets the level of every lesson of a topic.
+// SetLevelByTopic sets the level of every lesson of a topic. A grammar point belongs to one level,
+// so lessons that change level lose theirs.
 func (r *Lessons) SetLevelByTopic(ctx context.Context, topicID, level string) error {
-	_, err := r.coll.UpdateMany(ctx, bson.D{{Key: "topicId", Value: oidOrZero(topicID)}},
+	filter := bson.D{{Key: "topicId", Value: oidOrZero(topicID)}}
+	_, err := r.coll.UpdateMany(ctx, append(filter, bson.E{Key: "level", Value: bson.D{{Key: "$ne", Value: level}}}),
+		bson.D{{Key: "$unset", Value: bson.D{{Key: "grammarPointId", Value: ""}}}})
+	if err != nil {
+		return fmt.Errorf("clear lesson grammar points: %w", err)
+	}
+	_, err = r.coll.UpdateMany(ctx, filter,
 		bson.D{{Key: "$set", Value: bson.D{{Key: "level", Value: level}}}})
 	if err != nil {
 		return fmt.Errorf("update lesson levels: %w", err)
 	}
 	return nil
+}
+
+// CountByGrammarPoint counts lessons per grammar point; topicID "" counts every topic.
+func (r *Lessons) CountByGrammarPoint(ctx context.Context, topicID string) (map[string]int, error) {
+	match := bson.D{{Key: "grammarPointId", Value: bson.D{{Key: "$exists", Value: true}, {Key: "$ne", Value: ""}}}}
+	if topicID != "" {
+		match = append(match, bson.E{Key: "topicId", Value: oidOrZero(topicID)})
+	}
+	cur, err := r.coll.Aggregate(ctx, mongo.Pipeline{
+		{{Key: "$match", Value: match}},
+		{{Key: "$group", Value: bson.D{{Key: "_id", Value: "$grammarPointId"}, {Key: "count", Value: bson.D{{Key: "$sum", Value: 1}}}}}},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("count grammar points: %w", err)
+	}
+	var rows []struct {
+		ID    string `bson:"_id"`
+		Count int    `bson:"count"`
+	}
+	if err := cur.All(ctx, &rows); err != nil {
+		return nil, fmt.Errorf("read grammar point counts: %w", err)
+	}
+	out := make(map[string]int, len(rows))
+	for _, row := range rows {
+		out[row.ID] = row.Count
+	}
+	return out, nil
 }
 
 // topicTextDoc is the part of a lesson that topic vocabulary coverage reads (F18).

@@ -21,7 +21,9 @@ import { LessonVocabulary } from '../../../core/models/vocab';
 import { Listening } from '../listening/listening';
 import { Reading } from '../reading/reading';
 import { Writing } from '../writing/writing';
+import { FillStep } from './fill-step/fill-step';
 import { LessonDetail } from './lesson-detail';
+import { TranslateStep } from './translate-step/translate-step';
 
 @Component({ selector: 'lu-reading', template: '' })
 class ReadingStub {
@@ -267,9 +269,12 @@ describe('LessonDetail', () => {
     await load('l1', options);
   };
 
+  beforeEach(() => localStorage.clear());
+
   afterEach(() => {
     http.verify();
     vi.restoreAllMocks();
+    localStorage.clear();
   });
 
   describe('header', () => {
@@ -575,17 +580,89 @@ describe('LessonDetail', () => {
       req.flush(body);
       await fixture.whenStable();
     };
-    const afterPractice = async () => {
-      for (let i = 0; i < 5; i++) {
-        await next(); // words, dialogue, fill, then the two sentences to translate
-      }
+    /** The cards due now, asked once the lesson is done. */
+    const flushDue = async (total: number) => {
+      http
+        .expectOne((r) => r.url === '/api/vocab/review/due')
+        .flush({ cards: [], total, nextDue: null });
+      await fixture.whenStable();
+    };
+    /** Studying lesson l1, up to the first step of the practice (Đọc and Nghe done). */
+    const toPractice = async () => {
+      await open({ study: studying() });
+      await next();
+      child(ReadingStub)!.completed.emit();
+      await reply(
+        '/api/lessons/l1/steps/read/complete',
+        studying({
+          steps: { read: 'done', listen: 'current', write: 'locked' },
+          currentStep: 'listen',
+        }),
+      );
+      child(ListeningStub)!.completed.emit();
+      await reply(
+        '/api/lessons/l1/steps/listen/complete',
+        studying({
+          steps: { read: 'done', listen: 'done', write: 'current' },
+          currentStep: 'write',
+        }),
+      );
     };
 
-    it('after the practice come Đọc, Nghe and Viết in the same progress bar', async () => {
+    it('puts the words got wrong in the practice into the review queue, once each', async () => {
+      await toPractice();
+      await next(); // dialogue → fill
+      child(FillStep)!.missed.emit(['name']);
+      const req = http.expectOne('/api/vocab/practice-misses');
+      expect(req.request.body).toEqual({ lessonId: 'l1', words: ['name'] });
+      req.flush({ added: 1, rescheduled: 0 });
+      await fixture.whenStable();
+      expect(text(el.querySelector('.miss-note'))).toBe('Đã đưa 1 từ làm sai vào lịch ôn.');
+
+      // The same word again sends nothing.
+      child(FillStep)!.missed.emit(['name']);
+      await next(); // translate, sentence 1 ("My name is Minh.")
+      child(TranslateStep)!.checked.emit(false);
+      http.expectNone('/api/vocab/practice-misses');
+
+      // A wrong sentence sends the lesson words it contains; a right one sends nothing.
+      await next(); // sentence 2 ("Nice to meet you.")
+      child(TranslateStep)!.checked.emit(true);
+      http.expectNone('/api/vocab/practice-misses');
+      child(TranslateStep)!.checked.emit(false);
+      const second = http.expectOne('/api/vocab/practice-misses');
+      expect(second.request.body).toEqual({ lessonId: 'l1', words: ['meet'] });
+      second.flush({ added: 0, rescheduled: 1 });
+      await fixture.whenStable();
+      expect(text(el.querySelector('.miss-note'))).toBe('Đã đưa 2 từ làm sai vào lịch ôn.');
+    });
+
+    it('ignores a failure of the review queue', async () => {
+      await toPractice();
+      await next();
+      child(FillStep)!.missed.emit(['name']);
+      http
+        .expectOne('/api/vocab/practice-misses')
+        .flush('down', { status: 500, statusText: 'Error' });
+      await fixture.whenStable();
+      expect(el.querySelector('.miss-note')).toBeNull();
+      expect(el.querySelector('[role="alert"]')).toBeNull();
+    });
+
+    it('sends nothing from a lesson that is not being studied', async () => {
+      await open(); // another lesson: the practice only
+      await next();
+      await next(); // fill
+      child(FillStep)!.missed.emit(['name']);
+      http.expectNone('/api/vocab/practice-misses');
+    });
+
+    it('goes words, Đọc, Nghe, the practice, then Viết in the same progress bar', async () => {
       await open({ study: studying() });
       expect(text(el.querySelector('.progress-text'))).toBe('1/7');
-      await afterPractice();
-      expect(text(el.querySelector('.progress-text'))).toBe('5/7');
+      expect(el.querySelector('lu-vocab-step')).not.toBeNull();
+      await next();
+      expect(text(el.querySelector('.progress-text'))).toBe('2/7');
       const reading = child(ReadingStub)!;
       expect(reading.mode()).toBe('study');
       expect(reading.lessonId()).toBe('l1');
@@ -601,7 +678,7 @@ describe('LessonDetail', () => {
           currentStep: 'listen',
         }),
       );
-      expect(text(el.querySelector('.progress-text'))).toBe('6/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('3/7');
       expect(child(ListeningStub)!.mode()).toBe('study');
 
       // Bước trước shows the reading again, read only; Tiếp theo comes back.
@@ -616,6 +693,15 @@ describe('LessonDetail', () => {
           currentStep: 'write',
         }),
       );
+      // The practice on the text comes before Viết.
+      expect(el.querySelector('lu-dialogue-step')).not.toBeNull();
+      await next();
+      expect(el.querySelector('lu-fill-step')).not.toBeNull();
+      await next();
+      expect(el.querySelector('lu-translate-step')).not.toBeNull();
+      await next(); // second sentence
+      await next();
+      expect(text(el.querySelector('.progress-text'))).toBe('7/7');
       expect(child(WritingStub)!.mode()).toBe('study');
       expect(el.querySelector('lu-practice-summary')).toBeNull();
     });
@@ -640,11 +726,13 @@ describe('LessonDetail', () => {
           streak: 4,
         }),
       );
+      await flushDue(0);
       expect(text(el.querySelector('#done-heading'))).toBe('Hoàn thành bài học');
       expect(text(el.querySelector('.done-card'))).toContain('4 ngày');
       const nextLesson = el.querySelector('.done-card a.btn-primary')!;
       expect(nextLesson.getAttribute('href')).toBe('/lessons/l2');
       expect(text(nextLesson)).toBe('Sang bài tiếp theo: Family 2');
+      expect(el.querySelector('.review-nudge')).toBeNull();
       expect(el.querySelector('.next-bar')).toBeNull();
 
       // Going to the next lesson loads it on the same page, from its start.
@@ -668,8 +756,64 @@ describe('LessonDetail', () => {
         '/api/lessons/l1/steps/write/complete',
         other({ status: 'completed', currentStep: 'done' }),
       );
+      await flushDue(35);
       expect(text(el.querySelector('.done-card'))).toContain('Chủ đề này chưa có bài tiếp theo');
       expect(el.querySelector('.done-card a[href="/lessons"]')).not.toBeNull();
+      // A large backlog is said so; with no next lesson the review link carries none.
+      const nudge = el.querySelector('.review-nudge')!;
+      expect(text(nudge)).toContain('35 thẻ');
+      expect(text(nudge)).toContain('khoảng 12 phút');
+      expect(text(nudge)).toContain('tồn nhiều');
+      expect(nudge.querySelector('a')!.getAttribute('href')).toBe('/vocabulary/review');
+    });
+
+    it('suggests reviewing the due cards before the next lesson, which stays one tap away', async () => {
+      await open({
+        study: studying({
+          steps: { read: 'done', listen: 'done', write: 'current' },
+          currentStep: 'write',
+        }),
+      });
+      child(WritingStub)!.skipped.emit();
+      await reply(
+        '/api/lessons/l1/steps/write/skip',
+        other({
+          status: 'completed',
+          currentStep: 'done',
+          next: { id: 'l2', title: 'Family 2' },
+        }),
+      );
+      await flushDue(5);
+      const nudge = el.querySelector('.review-nudge')!;
+      expect(text(nudge)).toContain('5 thẻ');
+      expect(text(nudge)).toContain('khoảng 2 phút');
+      expect(text(nudge)).not.toContain('tồn nhiều');
+      const review = nudge.querySelector('a')!;
+      expect(review.getAttribute('href')).toBe('/vocabulary/review?next=l2');
+      // Review is the main button now; the next lesson is a secondary one.
+      const nextLesson = el.querySelector('.done-card a[href="/lessons/l2"]')!;
+      expect(nextLesson.classList.contains('btn')).toBe(true);
+      expect(nextLesson.classList.contains('btn-primary')).toBe(false);
+    });
+
+    it('still finishes when the number of due cards cannot be loaded', async () => {
+      await open({
+        study: studying({
+          steps: { read: 'done', listen: 'done', write: 'current' },
+          currentStep: 'write',
+        }),
+      });
+      child(WritingStub)!.skipped.emit();
+      await reply(
+        '/api/lessons/l1/steps/write/skip',
+        other({ status: 'completed', currentStep: 'done', next: { id: 'l2', title: 'Family 2' } }),
+      );
+      http
+        .expectOne((r) => r.url === '/api/vocab/review/due')
+        .flush('down', { status: 500, statusText: 'Error' });
+      await fixture.whenStable();
+      expect(el.querySelector('.review-nudge')).toBeNull();
+      expect(el.querySelector('.done-card a.btn-primary')!.getAttribute('href')).toBe('/lessons/l2');
     });
 
     it('goes to the congratulations at the end of the roadmap', async () => {
@@ -732,9 +876,67 @@ describe('LessonDetail', () => {
       }
     });
 
+    describe('the step kept on this device', () => {
+      const writeCurrent = () =>
+        studying({
+          steps: { read: 'done', listen: 'done', write: 'current' },
+          currentStep: 'write',
+        });
+
+      it('is where the learner comes back to, not Viết, when they left in the practice', async () => {
+        localStorage.setItem('luna.lesson-step.l1', 'fill');
+        await open({ study: writeCurrent() });
+        expect(text(el.querySelector('.progress-text'))).toBe('5/7');
+        expect(el.querySelector('lu-fill-step')).not.toBeNull();
+        expect(child(WritingStub)).toBeUndefined();
+      });
+
+      it('never puts the learner behind what the server already knows', async () => {
+        localStorage.setItem('luna.lesson-step.l1', 'words');
+        await open({ study: writeCurrent() });
+        expect(text(el.querySelector('.progress-text'))).toBe('7/7');
+      });
+
+      it('ignores a saved step that does not exist any more', async () => {
+        localStorage.setItem('luna.lesson-step.l1', 'speaking');
+        await open({ study: writeCurrent() });
+        expect(text(el.querySelector('.progress-text'))).toBe('7/7');
+      });
+
+      it('is saved as the learner moves, and the opening does not overwrite it', async () => {
+        localStorage.setItem('luna.lesson-step.l1', 'translate');
+        await open({ study: writeCurrent() });
+        await fixture.whenStable();
+        expect(localStorage.getItem('luna.lesson-step.l1')).toBe('translate');
+        await back();
+        await fixture.whenStable();
+        expect(localStorage.getItem('luna.lesson-step.l1')).toBe('fill');
+      });
+
+      it('is not kept for a lesson that is not being studied', async () => {
+        await open(); // another lesson: the practice only
+        await next();
+        await fixture.whenStable();
+        expect(localStorage.getItem('luna.lesson-step.l1')).toBeNull();
+      });
+
+      it('is forgotten once the lesson is done', async () => {
+        localStorage.setItem('luna.lesson-step.l1', 'write');
+        await open({ study: writeCurrent() });
+        child(WritingStub)!.skipped.emit();
+        await reply(
+          '/api/lessons/l1/steps/write/skip',
+          other({ status: 'completed', currentStep: 'done', next: { id: 'l2', title: 'Family 2' } }),
+        );
+        await flushDue(0);
+        await fixture.whenStable();
+        expect(localStorage.getItem('luna.lesson-step.l1')).toBeNull();
+      });
+    });
+
     it('starts again where a saved position is', async () => {
       await open({ study: studying({ sentenceIndex: 4 }) });
-      expect(text(el.querySelector('.progress-text'))).toBe('5/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('2/7');
       expect(child(ReadingStub)!.startSentence()).toBe(4);
     });
   });

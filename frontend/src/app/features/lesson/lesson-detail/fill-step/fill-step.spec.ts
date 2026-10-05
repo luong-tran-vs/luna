@@ -79,6 +79,16 @@ describe('FillStep', () => {
     await fixture.whenStable();
   };
 
+  it('tells which words were wrong when it checks', async () => {
+    await render();
+    const missed: string[][] = [];
+    fixture.componentInstance.missed.subscribe((w) => missed.push(w));
+    await type(0, 'name');
+    await type(1, 'see');
+    await click(checkButton());
+    expect(missed).toEqual([['meet']]);
+  });
+
   it('shows each turn with its speaker, a text input per blank and the meaning', async () => {
     await render();
     const turns = el.querySelectorAll('.turn');

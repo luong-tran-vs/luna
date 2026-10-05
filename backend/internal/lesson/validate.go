@@ -21,6 +21,11 @@ type Input struct {
 	TopicID string
 	Source  string
 	License string
+	// GrammarPointID is an optional syllabus point of the lesson's level.
+	GrammarPointID string
+	// KeepGrammarPoint makes Update keep the lesson's current point and ignore GrammarPointID (the
+	// request left the field out). Create ignores it.
+	KeepGrammarPoint bool
 	// AppendToRoadmap adds a new lesson at the end of its topic roadmap (F7); Update ignores it.
 	AppendToRoadmap bool
 }
@@ -29,12 +34,14 @@ type Input struct {
 // cleaned input and the sentences, or a *ValidationError listing every invalid field.
 func ValidateInput(in Input) (Input, []string, error) {
 	in = Input{
-		Title:           strings.TrimSpace(in.Title),
-		Content:         strings.TrimSpace(in.Content),
-		TopicID:         strings.TrimSpace(in.TopicID),
-		Source:          strings.TrimSpace(in.Source),
-		License:         strings.TrimSpace(in.License),
-		AppendToRoadmap: in.AppendToRoadmap,
+		Title:            strings.TrimSpace(in.Title),
+		Content:          strings.TrimSpace(in.Content),
+		TopicID:          strings.TrimSpace(in.TopicID),
+		Source:           strings.TrimSpace(in.Source),
+		License:          strings.TrimSpace(in.License),
+		GrammarPointID:   strings.TrimSpace(in.GrammarPointID),
+		KeepGrammarPoint: in.KeepGrammarPoint,
+		AppendToRoadmap:  in.AppendToRoadmap,
 	}
 	fields := map[string]string{}
 

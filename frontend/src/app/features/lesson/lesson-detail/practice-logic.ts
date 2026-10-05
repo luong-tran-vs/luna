@@ -88,6 +88,27 @@ export function checkFill(
   return { results, correct: results.filter(Boolean).length, total: blanks.length };
 }
 
+/** The answers of the blanks that were wrong, without repeats. */
+export function missedBlanks(blanks: readonly FillBlank[], results: readonly boolean[]): string[] {
+  const words = blanks.filter((_, i) => !results[i]).map((b) => b.answer.trim());
+  return [...new Set(words.filter(Boolean))];
+}
+
+/** The lesson words (text or lemma) that appear whole in `sentence`, ignoring case. */
+export function wordsIn(sentence: string, words: readonly { lemma: string; text: string }[]): string[] {
+  const found = new Set<string>();
+  for (const w of words) {
+    for (const form of [w.text, w.lemma]) {
+      const escaped = form.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      if (escaped && new RegExp(`(?<![\\p{L}])${escaped}(?![\\p{L}])`, 'iu').test(sentence)) {
+        found.add(w.lemma);
+        break;
+      }
+    }
+  }
+  return [...found];
+}
+
 /** The first empty (null or blank) blank after `from` (wrapping around), or -1 when all are filled. */
 export function nextEmptyBlank(answers: readonly (string | null)[], from = -1): number {
   const n = answers.length;

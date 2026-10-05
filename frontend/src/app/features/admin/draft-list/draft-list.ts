@@ -10,6 +10,8 @@ export interface DraftState {
   /** F18: target words asked for this draft, and those not found in it (from generation). */
   targetWords: string[];
   missingWords: string[];
+  /** Grammar point the draft was written for; saved with the lesson. */
+  grammarPointId?: string;
   /** The length asked for (words); a draft outside its ±20% range gets a warning. */
   targetLength: number;
   saving: boolean;

@@ -1,0 +1,127 @@
+@let e = exercise();
+<div class="exercise">
+  @if (e.promptVi) {
+    <p class="prompt">{{ e.promptVi }}</p>
+  }
+
+  @switch (e.kind) {
+    @case ('choice') {
+      <p class="stem" lang="en">{{ e.text }}</p>
+      <ul class="options">
+        @for (o of options(); track $index; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="option"
+              lang="en"
+              [class.is-chosen]="chosen() === i"
+              [class.is-right]="isDone() && reveal() && e.answerIndex === i"
+              [class.is-wrong]="isDone() && reveal() && chosen() === i && e.answerIndex !== i"
+              [disabled]="isDone()"
+              (click)="choose(i)"
+            >
+              <span>{{ o }}</span>
+              @if (isDone() && reveal() && e.answerIndex === i) {
+                <span class="tag-text" lang="vi"><lu-icon name="check" /> Đáp án đúng</span>
+              } @else if (isDone() && reveal() && chosen() === i) {
+                <span class="tag-text" lang="vi"><lu-icon name="x" /> Bạn chọn</span>
+              } @else if (isDone() && chosen() === i) {
+                <span class="tag-text" lang="vi">Bạn chọn</span>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    }
+    @case ('fill') {
+      <p class="stem" lang="en">
+        {{ blank()[0] }}<input
+          type="text"
+          class="blank"
+          lang="en"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          aria-label="Ô trống"
+          [formControl]="typed"
+          (keydown.enter)="checkFill()"
+        />{{ blank()[1] }}
+      </p>
+      <div class="actions">
+        <button type="button" class="btn-primary" [disabled]="isDone() || typed.value.trim() === ''" (click)="checkFill()">
+          Kiểm tra
+        </button>
+      </div>
+    }
+    @case ('reorder') {
+      <p class="stem">{{ e.text }}</p>
+      <div class="built">
+        <div class="built-head">
+          <h4 class="bank-title" [id]="'built-' + e.id">Câu của bạn</h4>
+          <button type="button" class="btn" [disabled]="isDone() || picked().length === 0" (click)="clear()">
+            <lu-icon name="review" /> Làm lại
+          </button>
+        </div>
+        <ul class="tiles answer-area" [attr.aria-labelledby]="'built-' + e.id">
+          @for (w of built(); track $index; let pos = $index) {
+            <li>
+              <button
+                type="button"
+                class="tile chosen"
+                lang="en"
+                [attr.aria-label]="'Gỡ từ ' + w"
+                [disabled]="isDone()"
+                (click)="remove(pos)"
+              >
+                {{ w }}
+              </button>
+            </li>
+          } @empty {
+            <li class="muted placeholder">Chạm các từ bên dưới để ghép câu.</li>
+          }
+        </ul>
+      </div>
+      <ul class="tiles" aria-label="Các từ để ghép">
+        @for (w of tiles(); track $index; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="tile"
+              lang="en"
+              [disabled]="isDone() || picked().includes(i)"
+              (click)="pick(i)"
+            >
+              {{ w }}
+            </button>
+          </li>
+        }
+      </ul>
+      <div class="actions">
+        <button type="button" class="btn-primary" [disabled]="isDone() || picked().length === 0" (click)="checkReorder()">
+          Kiểm tra
+        </button>
+      </div>
+    }
+  }
+
+  <div class="feedback" role="status" [class.ok]="result() === true && reveal()" [class.bad]="result() === false && reveal()">
+    @if (result() !== null) {
+      @if (!reveal()) {
+        <p class="verdict">Đã ghi nhận câu trả lời.</p>
+      } @else if (result()) {
+        <p class="verdict"><lu-icon name="check" /> Đúng</p>
+        <p>{{ e.explanationVi }}</p>
+      } @else {
+        <p class="verdict"><lu-icon name="x" /> Sai</p>
+        @if (e.kind !== 'choice') {
+          <p>Đáp án đúng: <strong lang="en">{{ correctText() }}</strong></p>
+        }
+        <p>{{ e.explanationVi }}</p>
+      }
+    }
+  </div>
+
+  @if (result() !== null && reveal() && pointId()) {
+    <lu-report-exercise [pointId]="pointId()" [exerciseId]="e.id" />
+  }
+</div>

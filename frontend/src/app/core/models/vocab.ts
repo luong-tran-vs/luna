@@ -124,3 +124,11 @@ export interface BulkResult {
   added: number;
   cards: Card[];
 }
+
+/** POST /api/vocab/practice-misses: words got wrong in the practice, now due for review. */
+export interface PracticeMisses {
+  /** Cards created. */
+  added: number;
+  /** Saved cards brought forward to now. */
+  rescheduled: number;
+}

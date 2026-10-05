@@ -3,7 +3,7 @@ GOLANGCI_LINT_IMAGE := golangci/golangci-lint:v2.14.0
 .PHONY: run test lint build
 
 run:
-	go run ./cmd/api
+	go run ./cmd/server
 
 test:
 	go test ./...
@@ -16,4 +16,4 @@ lint:
 		$(GOLANGCI_LINT_IMAGE) golangci-lint run ./...
 
 build:
-	CGO_ENABLED=0 go build -trimpath -o bin/api ./cmd/api
+	CGO_ENABLED=0 go build -trimpath -o bin/server ./cmd/server

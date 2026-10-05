@@ -91,9 +91,22 @@ func (f *fakeLessons) update(id string, fn func(*Lesson) bool) (bool, error) {
 func (f *fakeLessons) UpdateInfo(_ context.Context, id string, in Info) error {
 	_, err := f.update(id, func(l *Lesson) bool {
 		l.Title, l.Level, l.TopicID, l.Source, l.License = in.Title, in.Level, in.TopicID, in.Source, in.License
+		l.GrammarPointID = in.GrammarPointID
 		return true
 	})
 	return err
+}
+
+func (f *fakeLessons) CountByGrammarPoint(_ context.Context, topicID string) (map[string]int, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	out := map[string]int{}
+	for _, l := range f.byID {
+		if l.GrammarPointID != "" && (topicID == "" || l.TopicID == topicID) {
+			out[l.GrammarPointID]++
+		}
+	}
+	return out, nil
 }
 
 func (f *fakeLessons) ReplaceContent(_ context.Context, next Lesson) error {
@@ -503,5 +516,13 @@ func (f *fakeAI) practices() (int, ai.PracticeRequest) {
 }
 
 func (f *fakeAI) SuggestWords(context.Context, ai.SuggestWordsRequest) ([]string, error) {
+	return nil, ai.ErrNotConfigured
+}
+
+func (f *fakeAI) GrammarLesson(context.Context, ai.GrammarLessonRequest) (ai.GrammarLessonContent, error) {
+	return ai.GrammarLessonContent{}, ai.ErrNotConfigured
+}
+
+func (f *fakeAI) SolveGrammarExercises(context.Context, ai.SolveRequest) ([]ai.Solution, error) {
 	return nil, ai.ErrNotConfigured
 }

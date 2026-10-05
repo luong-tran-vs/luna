@@ -1,0 +1,170 @@
+<section class="screen grammar">
+  <nav class="screen-bar" aria-label="Điều hướng">
+    <a class="round-btn" routerLink="/grammar" aria-label="Quay lại danh sách ngữ pháp"><lu-icon name="arrow-left" /></a>
+    <span class="back-label">Ngữ pháp</span>
+  </nav>
+
+  @if (error() === 'notFound') {
+    <div class="soft-card empty">
+      <h1 class="screen-title">Điểm này sắp có</h1>
+      <p class="muted">Bài ngữ pháp này chưa được đăng. Bạn hãy học các điểm khác trước nhé.</p>
+      <a class="btn-primary" routerLink="/grammar">Về danh sách ngữ pháp</a>
+    </div>
+  } @else if (error() === 'failed') {
+    <div class="form-alert" role="alert">
+      <p>Không tải được bài ngữ pháp.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (detail(); as d) {
+    @let c = d.content;
+    @let p = d.progress;
+    <header class="head">
+      <p class="muted">
+        <span class="tag">{{ d.point.level }}</span>
+        <span lang="en">{{ d.point.titleEn }}</span>
+      </p>
+      <h1 class="title">{{ d.point.titleVi }}</h1>
+      <p class="status" [class.is-mastered]="p.mastered">
+        @if (p.mastered) {
+          <lu-icon name="check" />
+        }
+        {{ statusLabels[p.status] }}
+        @if (p.bestMastery > 0) {
+          · Điểm kiểm tra tốt nhất: {{ p.bestMastery }}%
+        }
+      </p>
+    </header>
+
+    <div class="tablist" role="tablist" aria-label="Các phần của bài">
+      @for (t of tabs; track t.key; let i = $index) {
+        <button
+          type="button"
+          role="tab"
+          class="tab"
+          [id]="'gtab-' + t.key"
+          [attr.aria-selected]="tab() === t.key"
+          [attr.aria-controls]="'gpanel-' + t.key"
+          [tabIndex]="tab() === t.key ? 0 : -1"
+          (click)="select(t.key)"
+          (keydown)="onTabKeydown($event, i)"
+        >
+          {{ t.label }}
+        </button>
+      }
+    </div>
+
+    <div role="tabpanel" id="gpanel-learn" class="panel" tabindex="0" aria-labelledby="gtab-learn" [hidden]="tab() !== 'learn'">
+      <section class="soft-card" aria-labelledby="g-objective">
+        <h2 class="section-title" id="g-objective">Mục tiêu</h2>
+        <p>{{ c.objective }}</p>
+      </section>
+
+      <section class="soft-card" aria-labelledby="g-explain">
+        <h2 class="section-title" id="g-explain">Giải thích</h2>
+        @for (para of c.explanation; track $index) {
+          <p>{{ para }}</p>
+        }
+      </section>
+
+      <section class="soft-card" aria-labelledby="g-usage">
+        <h2 class="section-title" id="g-usage">Khi nào dùng</h2>
+        <ul class="bullets">
+          @for (u of c.usage; track $index) {
+            <li>{{ u }}</li>
+          }
+        </ul>
+      </section>
+
+      <section class="soft-card" aria-labelledby="g-structures">
+        <h2 class="section-title" id="g-structures">Cấu trúc</h2>
+        <div class="table-wrap" role="region" aria-labelledby="g-structures" tabindex="0">
+          <table class="structures">
+            <thead>
+              <tr>
+                <th scope="col">Dạng</th>
+                <th scope="col">Cấu trúc</th>
+                <th scope="col">Ví dụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (s of c.structures; track $index) {
+                <tr>
+                  <th scope="row">{{ s.label }}</th>
+                  <td lang="en"><code>{{ s.pattern }}</code></td>
+                  <td lang="en">{{ s.example }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="soft-card" aria-labelledby="g-examples">
+        <h2 class="section-title" id="g-examples">Ví dụ</h2>
+        <ul class="examples">
+          @for (e of c.examples; track $index) {
+            <li class="example">
+              <div class="example-text">
+                <p lang="en" class="en">{{ e.en }}</p>
+                <p class="vi">{{ e.vi }}</p>
+              </div>
+              @if (canSpeak) {
+                <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" (click)="listen(e.en)">
+                  <lu-icon name="volume" />
+                </button>
+              }
+            </li>
+          }
+        </ul>
+      </section>
+
+      @if (c.mistakes.length > 0) {
+        <section class="soft-card" aria-labelledby="g-mistakes">
+          <h2 class="section-title" id="g-mistakes">Lỗi thường gặp</h2>
+          <ul class="mistakes">
+            @for (m of c.mistakes; track $index) {
+              <li class="mistake">
+                <p class="wrong"><span class="mark">Sai</span>{{ ' ' }}<span lang="en">{{ m.wrong }}</span></p>
+                <p class="right"><span class="mark">Đúng</span>{{ ' ' }}<span lang="en">{{ m.right }}</span></p>
+                @if (m.noteVi) {
+                  <p class="muted">{{ m.noteVi }}</p>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      <div class="actions">
+        <button type="button" class="btn-primary" (click)="select('practice')">Sang phần Luyện tập</button>
+      </div>
+
+      @if (d.lessonCount > 0) {
+        <p class="muted lesson-count">
+          Có {{ d.lessonCount }} bài học theo chủ đề đang dùng điểm ngữ pháp này.
+          <a routerLink="/lessons">Xem các bài học</a>
+        </p>
+      }
+    </div>
+
+    <div role="tabpanel" id="gpanel-practice" class="panel" tabindex="0" aria-labelledby="gtab-practice" [hidden]="tab() !== 'practice'">
+      <p class="muted">Làm từng bài, xem đáp án ngay sau mỗi bài. Điểm luyện tập không ảnh hưởng đến việc nắm vững.</p>
+      <lu-grammar-quiz
+        kind="practice"
+        [pointId]="d.point.id"
+        [exercises]="c.practice"
+        [weak]="p.weak"
+        (recorded)="onRecorded($event)"
+      />
+    </div>
+
+    <div role="tabpanel" id="gpanel-test" class="panel" tabindex="0" aria-labelledby="gtab-test" [hidden]="tab() !== 'test'">
+      <p class="muted">
+        Bài kiểm tra mức nắm vững: không báo đúng sai từng câu, điểm hiện ở cuối. Đạt từ 80% là đã nắm vững.
+      </p>
+      <lu-grammar-quiz kind="mastery" [pointId]="d.point.id" [exercises]="c.mastery" (recorded)="onRecorded($event)" />
+    </div>
+  } @else {
+    <lu-loading label="Đang tải bài ngữ pháp…" />
+  }
+</section>

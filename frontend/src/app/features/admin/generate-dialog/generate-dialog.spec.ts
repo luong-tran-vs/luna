@@ -65,7 +65,8 @@ describe('GenerateDialog', () => {
     expect(input('generate-words').value).toBe('120');
     expect(el.querySelector<HTMLInputElement>('input[value="reading"]')!.checked).toBe(true);
     expect(input('generate-idea').value).toBe('');
-    expect(el.textContent).toContain('96–144 từ');
+    // A short hint: just the range, no explanation.
+    expect(el.querySelector('#generate-words-hint')!.textContent!.trim()).toBe('Nên 96–144 từ.');
   });
 
   it('emits trimmed valid values', async () => {
@@ -75,7 +76,7 @@ describe('GenerateDialog', () => {
     await type('generate-idea', '  một bữa tiệc  ');
     await submit();
     expect(emitted).toEqual([
-      { count: 2, words: 200, kind: 'dialogue', idea: 'một bữa tiệc', targetWords: [], perLesson: 8 },
+      { count: 2, words: 200, kind: 'dialogue', idea: 'một bữa tiệc', targetWords: [], grammarPointId: '', perLesson: 8 },
     ]);
     // A topic without words shows no target-word field and asks for no split.
     expect(el.querySelector('#generate-perLesson')).toBeNull();
@@ -148,6 +149,75 @@ describe('GenerateDialog', () => {
     expect(input('generate-count').value).toBe('1');
     expect(input('generate-words').value).toBe('300');
     expect(el.querySelector<HTMLInputElement>('input[value="dialogue"]')!.checked).toBe(true);
+  });
+
+  describe('grammar point', () => {
+    const point = (id: string, lessonCount: number) => ({
+      id, level: 'A1', titleVi: `Điểm ${id}`, titleEn: id, pattern: `mẫu ${id}`, hintVi: `gợi ý ${id}.`, examples: [], lessonCount,
+    });
+    const grammarUrl = '/api/admin/grammar';
+    const settle = async () => {
+      await new Promise((resolve) => setTimeout(resolve));
+      await fixture.whenStable();
+    };
+    const select = () => el.querySelector<HTMLSelectElement>('#generate-grammar');
+    const reopen = async () => {
+      fixture.componentRef.setInput('level', 'A1');
+      fixture.componentRef.setInput('topicId', 't1');
+      fixture.componentRef.setInput('open', false);
+      await fixture.whenStable();
+      fixture.componentRef.setInput('open', true);
+      await fixture.whenStable();
+    };
+    const respond = async (points: object[]) => {
+      const req = http.expectOne((r) => r.url === grammarUrl);
+      expect(req.request.params.get('level')).toBe('A1');
+      expect(req.request.params.get('topicId')).toBe('t1');
+      req.flush({ points });
+      await settle();
+    };
+
+    it('defaults to AI tự chọn, and shows the hint of a point once chosen', async () => {
+      await reopen();
+      await respond([point('g1', 2), point('g2', 1), point('g3', 1)]);
+      expect(select()!.value).toBe('');
+      expect(el.querySelector('#generate-grammar-hint')!.textContent).toContain('AI tự chọn');
+      select()!.value = 'g2';
+      select()!.dispatchEvent(new Event('change'));
+      await settle();
+      expect(el.querySelector('label[for="generate-grammar"]')?.textContent).toContain('Điểm ngữ pháp');
+      expect(Array.from(select()!.options).map((o) => o.textContent?.trim())).toEqual([
+        'AI tự chọn', 'Điểm g1 (2 bài)', 'Điểm g2 (1 bài)', 'Điểm g3 (1 bài)',
+      ]);
+      const hint = el.querySelector('#generate-grammar-hint')!.textContent!;
+      expect(hint).toContain('mẫu g2');
+      expect(hint).toContain('gợi ý g2.');
+      expect(hint).toContain('mọi bài trong lượt sinh');
+      expect(select()!.getAttribute('aria-describedby')).toBe('generate-grammar-hint');
+    });
+
+    it('emits the chosen point, or an empty one for AI tự chọn', async () => {
+      await reopen();
+      await respond([point('g1', 0), point('g2', 1)]);
+      await submit();
+      expect(emitted[0].grammarPointId).toBe('');
+      select()!.value = 'g1';
+      select()!.dispatchEvent(new Event('change'));
+      await settle();
+      await submit();
+      expect(emitted[1].grammarPointId).toBe('g1');
+    });
+
+    it('still generates when the list cannot be loaded', async () => {
+      await reopen();
+      http.expectOne((r) => r.url === grammarUrl).flush({}, { status: 500, statusText: 'Error' });
+      await settle();
+      expect(select()).toBeNull();
+      expect(el.textContent).toContain('Không tải được điểm ngữ pháp');
+      await submit();
+      expect(emitted.length).toBe(1);
+      expect(emitted[0].grammarPointId).toBe('');
+    });
   });
 
   describe('target words (F18)', () => {

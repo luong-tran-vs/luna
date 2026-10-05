@@ -70,6 +70,8 @@ type GenerateRequest struct {
 	// TargetWords lists, for each lesson in order, the topic words it must use (F18); a group may be
 	// empty and the slice may be nil.
 	TargetWords [][]string
+	// GrammarFocus is the grammar point every lesson must use clearly; nil means no requirement.
+	GrammarFocus *GrammarFocus
 }
 
 // LessonDraft is a generated lesson as returned by a provider, before any checks.
@@ -93,6 +95,11 @@ type Provider interface {
 	Practice(ctx context.Context, req PracticeRequest) (Practice, error)
 	// SuggestWords proposes new core words of a topic in one request (F18).
 	SuggestWords(ctx context.Context, req SuggestWordsRequest) ([]string, error)
+	// GrammarLesson writes the whole grammar lesson of one syllabus point in one request (F20).
+	GrammarLesson(ctx context.Context, req GrammarLessonRequest) (GrammarLessonContent, error)
+	// SolveGrammarExercises answers grammar exercises without seeing their keys, so the service can
+	// compare the answers with the stored ones (F21).
+	SolveGrammarExercises(ctx context.Context, req SolveRequest) ([]Solution, error)
 }
 
 var (
@@ -227,6 +234,18 @@ type AnnotateRequest struct {
 	Level     string
 	// FocusWords are topic words found in the lesson that must be annotated (F18); may be empty.
 	FocusWords []string
+	// GrammarFocus is the grammar point the lesson must teach; nil lets the AI choose.
+	GrammarFocus *GrammarFocus
+}
+
+// GrammarFocus is a grammar point from the syllabus that the AI is told to teach or to use.
+type GrammarFocus struct {
+	TitleVi string
+	TitleEn string
+	Pattern string
+	HintVi  string
+	// Example is one sentence that shows the pattern; may be empty.
+	Example string
 }
 
 // SuggestWordsRequest asks for Count new core English words or short phrases of a topic, at a

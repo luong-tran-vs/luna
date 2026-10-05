@@ -101,8 +101,21 @@ func TestStreak(t *testing.T) {
 		{"today only", []string{"2026-09-30"}, 1},
 		{"ends today", []string{"2026-09-28", "2026-09-29", "2026-09-30"}, 3},
 		{"today not done yet", []string{"2026-09-27", "2026-09-28", "2026-09-29"}, 3},
-		{"one full day missed", []string{"2026-09-27", "2026-09-28"}, 0},
-		{"gap in the middle", []string{"2026-09-25", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30"}, 4},
+		{"one full day missed is forgiven", []string{"2026-09-27", "2026-09-28"}, 2},
+		{"two full days missed", []string{"2026-09-26", "2026-09-27"}, 0},
+		{"three days missed", []string{"2026-09-25", "2026-09-26"}, 0},
+		{"one missed day in the middle is forgiven", []string{"2026-09-25", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30"}, 5},
+		{"two missed days in the middle end it", []string{"2026-09-24", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30"}, 4},
+		{
+			"a second forgiven day needs seven study days",
+			[]string{"2026-09-20", "2026-09-22", "2026-09-24", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30"},
+			6,
+		},
+		{
+			"a second forgiven day after seven study days",
+			[]string{"2026-09-19", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-30"},
+			10,
+		},
 		{"duplicates and order", []string{"2026-09-30", "2026-09-29", "2026-09-30"}, 2},
 		{"across a month", []string{"2026-08-31", "2026-09-01"}, 0},
 	}

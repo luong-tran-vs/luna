@@ -88,7 +88,7 @@
         <h2 class="section-title" id="topic-heading">Chọn chủ đề {{ l }}</h2>
         @if (topics(); as list) {
           @if (list.length === 0) {
-            <p class="muted">Trình độ này chưa có chủ đề.</p>
+            <p class="muted">Trình độ này chưa có chủ đề nào. Hãy chọn trình độ khác hoặc quay lại sau.</p>
           }
           <ul class="topics">
             @for (t of list; track t.id; let i = $index) {
@@ -110,7 +110,7 @@
                     <span class="tag">Đang học</span>
                   }
                 </div>
-                <button type="button" class="btn-primary" [disabled]="pending()" (click)="choose(t)">
+                <button type="button" class="btn-primary" [disabled]="pending() || t.lessonCount === 0" (click)="choose(t)">
                   {{ progress?.status === 'active' ? 'Tiếp tục' : 'Chọn' }}<span class="visually-hidden"> {{ t.name }}</span>
                 </button>
               </li>

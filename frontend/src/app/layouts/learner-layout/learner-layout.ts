@@ -25,6 +25,7 @@ const TABS: readonly Tab[] = [
     icon: 'book',
     matches: (p) => p.startsWith('/lessons') || p === '/goal',
   },
+  { path: '/grammar', label: 'Ngữ pháp', icon: 'grammar', matches: (p) => p.startsWith('/grammar') },
   { path: '/vocabulary/review', label: 'Ôn tập', icon: 'review', matches: (p) => p.startsWith('/vocabulary') },
   {
     path: '/account',

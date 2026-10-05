@@ -3,6 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { firstValueFrom, Observable } from 'rxjs';
 
+import { GrammarContent } from '../../core/models/grammar-admin';
 import { AdminApiService } from './admin-api.service';
 
 describe('AdminApiService', () => {
@@ -113,10 +114,72 @@ describe('AdminApiService', () => {
     ).resolves.toEqual(plan);
   });
 
+  it('lists grammar points of a level, with the topic when given', async () => {
+    const points = [{ id: 'a1-to-be', level: 'A1', titleVi: 'to be', titleEn: 'to be', pattern: 'p', hintVi: 'h', examples: [], lessonCount: 2 }];
+    await expect(call(api.grammarPoints('A1'), 'GET', '/api/admin/grammar?level=A1', { points })).resolves.toEqual(points);
+    await expect(call(api.grammarPoints('A1', 't1'), 'GET', '/api/admin/grammar?level=A1&topicId=t1', { points })).resolves.toEqual(points);
+  });
+
   it('asks the AI for new topic words (F18)', async () => {
     const body = { added: ['aunt'], words: [{ text: 'aunt', used: false, lessonCount: 0 }] };
     await expect(
       call(api.suggestTopicWords('t1', 6), 'POST', '/api/admin/topics/t1/words/suggest', body, { count: 6 }),
     ).resolves.toEqual(body);
+  });
+
+  describe('grammar lessons (F20)', () => {
+    const content = { objective: 'o' } as unknown as GrammarContent;
+    const lesson = { pointId: 'a1-to-be', status: 'draft', edited: false, updatedAt: 't', publishedAt: null, content, checks: [], checkedAt: null, verifiedAt: null };
+    const base = '/api/admin/grammar-lessons';
+
+    it('lists the lessons that exist', async () => {
+      const summary = { pointId: 'a1-to-be', status: 'draft', edited: false, updatedAt: 't', publishedAt: null, flags: 0, checked: false, verified: false };
+      await expect(call(api.grammarLessons(), 'GET', base, { lessons: [summary] })).resolves.toEqual([summary]);
+    });
+
+    it('reads one lesson', async () => {
+      await expect(call(api.grammarLesson('a1-to-be'), 'GET', `${base}/a1-to-be`, { lesson })).resolves.toEqual(lesson);
+    });
+
+    it('generates with the force flag', async () => {
+      await expect(
+        call(api.generateGrammarLesson('a1-to-be', true), 'POST', `${base}/a1-to-be/generate`, { lesson }, { force: true }),
+      ).resolves.toEqual(lesson);
+      await call(api.generateGrammarLesson('a1-to-be', false), 'POST', `${base}/a1-to-be/generate`, { lesson }, { force: false });
+    });
+
+    it('saves the content, publishes and unpublishes', async () => {
+      await expect(
+        call(api.saveGrammarLesson('a1-to-be', content), 'PUT', `${base}/a1-to-be`, { lesson }, { content }),
+      ).resolves.toEqual(lesson);
+      await call(api.publishGrammarLesson('a1-to-be'), 'POST', `${base}/a1-to-be/publish`, { lesson });
+      await call(api.unpublishGrammarLesson('a1-to-be'), 'POST', `${base}/a1-to-be/unpublish`, { lesson });
+    });
+
+    it('publishes with acknowledgeFlags only when asked', async () => {
+      await call(api.publishGrammarLesson('a1-to-be', true), 'POST', `${base}/a1-to-be/publish`, { lesson }, { acknowledgeFlags: true });
+    });
+
+    it('checks a lesson with the AI', async () => {
+      await expect(call(api.checkGrammarLesson('a1-to-be'), 'POST', `${base}/a1-to-be/check`, { lesson })).resolves.toEqual(lesson);
+    });
+
+    it('confirms a flag, verifies the lesson, saves and deletes an exercise', async () => {
+      await call(api.confirmGrammarCheck('a1-to-be', 'p1'), 'POST', `${base}/a1-to-be/checks/p1/confirm`, { lesson });
+      await call(api.verifyGrammarLesson('a1-to-be'), 'POST', `${base}/a1-to-be/verify`, { lesson });
+      const exercise = { kind: 'fill' as const, text: 'I ___ happy.', answers: ['am'], explanationVi: 'am' };
+      await expect(
+        call(api.saveGrammarExercise('a1-to-be', 'p2', exercise), 'PUT', `${base}/a1-to-be/exercises/p2`, { lesson }, exercise),
+      ).resolves.toEqual(lesson);
+      await call(api.deleteGrammarExercise('a1-to-be', 'p2'), 'DELETE', `${base}/a1-to-be/exercises/p2`, { lesson });
+    });
+
+    it('lists the open reports and resolves one exercise', async () => {
+      const reports = [{ pointId: 'a1-to-be', exerciseId: 'p3', count: 2, reasons: { typo: 2 }, notes: [], latestAt: 't' }];
+      await expect(call(api.grammarReports(), 'GET', '/api/admin/grammar-reports', { reports })).resolves.toEqual(reports);
+      await expect(
+        call(api.resolveGrammarReport('a1-to-be', 'p3'), 'POST', '/api/admin/grammar-reports/resolve', { resolved: 2 }, { pointId: 'a1-to-be', exerciseId: 'p3' }),
+      ).resolves.toBe(2);
+    });
   });
 });

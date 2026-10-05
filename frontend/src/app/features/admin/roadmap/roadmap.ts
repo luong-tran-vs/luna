@@ -305,6 +305,7 @@ export class Roadmap implements CanLeave {
           content: d.content,
           targetWords: d.targetWords ?? [],
           missingWords: d.missingWords ?? [],
+          grammarPointId: d.grammarPointId ?? input.grammarPointId ?? '',
           targetLength: input.words,
           saving: false,
           error: null,
@@ -379,6 +380,7 @@ export class Roadmap implements CanLeave {
           source: AI_SOURCE,
           license: AI_LICENSE,
           appendToRoadmap: true,
+          grammarPointId: draft.grammarPointId ?? '',
         }),
       );
       this.discardDraft(key);

@@ -75,8 +75,8 @@
      trong ngân hàng từ (gợi ý) để điền vào ô đang chọn; Kiểm tra, mẹo ngữ pháp.
   4. **Dịch câu sang tiếng Anh:** ghép câu bằng các ô từ (có từ gây nhiễu), Làm lại, Kiểm tra từng câu.
 - Tổng kết cuối cùng, làm lại được. Không có điểm XP.
-- **Học bài ngay trong trang này** (cập nhật 2026-10-02, thay trang "Hôm nay"): với bài đang học, sau các phần luyện tập là các bước
-  **Đọc → Nghe → Viết** (Viết tuỳ chọn, có **Bỏ qua**), cùng một thanh tiến độ; nút **← Bước trước** để xem lại bước đã qua. Vào lại
+- **Học bài ngay trong trang này** (cập nhật 2026-10-02, thay trang "Hôm nay"): với bài đang học, thứ tự là **Từ vựng → Đọc → Nghe → Hội thoại →
+  Điền ô trống → Dịch câu → Viết** (cập nhật 2026-10-05: hiểu bài trước, rồi mới luyện lại; Viết tuỳ chọn, có **Bỏ qua**), cùng một thanh tiến độ; nút **← Bước trước** để xem lại bước đã qua. Vào lại
   bài thì tiếp tục đúng bước đang dở. Xong bước cuối thì bài hoàn thành và có nút **Sang bài tiếp theo** (hoặc chúc mừng khi hết lộ trình).
   Bài đã học thì chỉ có phần luyện tập, tổng kết có **Đọc lại / Nghe lại / Bài viết**.
 - Quản trị viên xem phần luyện tập và bấm **Tạo lại phần luyện tập**.
@@ -92,7 +92,11 @@
   (thanh tiến độ theo số bước thật); không có bước nào thì không có tab Bài học, chỉ hiện bài đọc (cập nhật 2026-10-02).
 - [ ] Sửa nội dung bài thì phần luyện tập được sinh lại theo nội dung mới.
 - [ ] Kết quả luyện tập (điền, dịch) không tính vào tiến độ, streak, thống kê. Bài sắp tới vẫn không mở được.
-- [ ] Bài đang học: làm xong luyện tập thì sang Đọc → Nghe → Viết trong cùng trang; bài chưa có luyện tập thì vào thẳng bước Đọc.
+- [ ] Bài đang học (cập nhật 2026-10-05): từ làm sai ở bước điền ô trống hoặc có trong câu dịch làm sai trở thành thẻ đến hạn ngay (hoặc thẻ đã có được kéo về bây giờ, giữ trạng thái FSRS), mỗi từ một lần, trang ghi số từ đã đưa vào lịch ôn; lỗi gửi thì bỏ qua. Bài không phải bài đang học không gửi gì.
+- [ ] Xong bài mà còn thẻ đến hạn: thẻ hoàn thành bài mời "Ôn trước khi học tiếp" (số thẻ, thời gian ước tính, nói rõ khi từ 30 thẻ), vẫn có **Sang bài tiếp theo**; trang Ôn tập mở từ đó có nút **Học bài tiếp theo**. Không lấy được số thẻ thì không hiện gợi ý.
+- [ ] Trang chủ: thẻ "Hôm nay: N thẻ cần ôn" khi có thẻ đến hạn; ba thanh kỹ năng là độ chính xác (Đọc, Nghe, Viết trên 5), "Chưa có" khi thiếu dữ liệu.
+- [ ] Streak: nghỉ đúng một ngày thì chuỗi giữ, lần tha sau cách ít nhất 7 ngày học, nghỉ hai ngày liền thì về 0.
+- [ ] Bài đang học: Từ vựng → Đọc → Nghe → Hội thoại → Điền ô trống → Dịch câu → Viết trong cùng trang; bài chưa có luyện tập thì Đọc → Nghe → Viết. Hội thoại, ô trống và câu dịch bám sát bài đọc (cùng tình huống, dùng lại câu của bài), không phải một cảnh khác (cập nhật 2026-10-05).
   Thoát giữa chừng rồi vào lại thì tiếp tục đúng bước. Xong (nộp hoặc bỏ qua bước Viết) thì bấm **Sang bài tiếp theo** mở được ngay
   bài kế tiếp, cùng ngày.
 - [ ] Dùng tốt ở 360px, chế độ sáng và tối.
@@ -125,6 +129,93 @@
 
 ## Thay đổi trên tính năng cũ
 
-- **L. Luồng học** (cập nhật 2026-10-02): bỏ trang "Hôm nay" và giới hạn một bài mỗi ngày; học lần lượt từng bài ngay trong trang bài (F17): các phần luyện tập có nội dung, rồi Đọc → Nghe → Viết (tuỳ chọn). Học xong bài thì bài kế tiếp mở ngay. Bỏ bước Ôn khỏi bài (ôn ở Từ vựng › Ôn tập). Trang Khóa học: nút ở thẻ "Khóa học đang học" mở bài đang học; chủ đề đã hết bài mới thì nút **Xem lại bài gần nhất** mở bài học xong gần nhất. Sau này thêm bước Nói (bắt buộc) sau bước Viết.
+- **L. Luồng học** (cập nhật 2026-10-02): bỏ trang "Hôm nay" và giới hạn một bài mỗi ngày; học lần lượt từng bài ngay trong trang bài (F17): Từ vựng, Đọc → Nghe, các phần luyện tập có nội dung (hội thoại, điền ô trống, dịch câu; đổi thứ tự 2026-10-05, trước đây đứng trước bước Đọc), rồi Viết (tuỳ chọn). Học xong bài thì bài kế tiếp mở ngay. Bỏ bước Ôn khỏi bài (ôn ở Từ vựng › Ôn tập). Trang Khóa học: nút ở thẻ "Khóa học đang học" mở bài đang học; chủ đề đã hết bài mới thì nút **Xem lại bài gần nhất** mở bài học xong gần nhất. Sau này thêm bước Nói (bắt buộc) sau bước Viết.
 - **F6:** hiện thêm thanh kỹ năng **Nói**; thống kê thêm tỷ lệ đọc đúng.
 - **F13:** file xuất dữ liệu có thêm kết quả bước Nói và lịch sử hội thoại.
+
+---
+
+## F19. Giáo trình ngữ pháp theo trình độ *(quản trị)*
+
+> Thêm 2026-10-05, từ một cuộc thảo luận về việc đặt ngữ pháp trong bài học. Quyết định: làm bước nhỏ trước (mỗi bài được gán một điểm của
+> giáo trình), chưa làm lộ trình ngữ pháp riêng. Không phụ thuộc F16/F10/F11.
+
+**Vấn đề:** AI tự chọn điểm ngữ pháp cho mỗi bài nên bài nào cũng ra "thì hiện tại đơn", không có tiến trình trong một trình độ.
+
+**Chức năng**
+- **Giáo trình** (`backend/internal/grammar/syllabus.json`, nhúng vào binary): 67 điểm xếp theo thứ tự dạy (A1 15, A2 14, B1 13, B2 11, C1 8,
+  C2 6). Mỗi điểm có mã ổn định (ví dụ `a1-to-be`), tên tiếng Việt và tiếng Anh, cấu trúc mẫu, gợi ý một dòng, ví dụ. Sửa file này để thêm
+  hoặc đổi thứ tự điểm; không đổi hay dùng lại mã đã gán cho bài.
+- Mỗi bài có tối đa **một** điểm, thuộc đúng trình độ của chủ đề (đổi sang chủ đề khác trình độ thì điểm cũ bị bỏ, hoặc bị từ chối khi sửa bài).
+- **Sinh bài bằng AI:** hộp thoại có ô "Điểm ngữ pháp" (mặc định "AI tự chọn", chọn điểm cụ thể là tuỳ chọn); điểm được dùng cho mọi bài
+  trong lượt sinh, và AI phải dùng điểm đó rõ ràng trong bài.
+- **Chú thích:** ghi chú ngữ pháp của bài dạy đúng điểm được giao; tên ghi chú luôn là tên trong giáo trình (đặt bằng mã, không phụ thuộc AI).
+  Bài không có điểm thì giữ cách cũ (AI tự chọn).
+- **Thêm/sửa bài:** ô chọn điểm lọc theo trình độ của chủ đề; trang chi tiết bài hiện điểm đã gán.
+- API (quản trị): `GET /api/admin/grammar?level=A1&topicId=…` (điểm kèm số bài đang dùng); `grammarPointId` ở tạo/sửa bài (khi sửa, vắng mặt
+  nghĩa là giữ nguyên, `""` là bỏ gán), ở sinh bài và ở bản nháp; chi tiết bài trả thêm `grammarPointTitle`.
+- Đổi điểm mà không đổi nội dung bài thì ghi chú cũ **không** tự cập nhật: bấm **Chạy lại chú thích**.
+
+**Tiêu chí nghiệm thu**
+- [ ] Bài tạo với một điểm lưu đúng điểm đó (Mongo và MySQL); điểm không tồn tại hoặc sai trình độ bị báo lỗi theo trường `grammarPointId`.
+- [ ] Sinh bài với một điểm: AI nhận điểm trong prompt và các bài dùng điểm đó nhiều lần; mỗi bản nháp mang `grammarPointId`.
+- [ ] Chú thích bài có điểm: ghi chú ngữ pháp mang tên của điểm trong giáo trình.
+- [ ] Sửa bài không gửi `grammarPointId` thì giữ nguyên điểm; gửi `""` thì xoá; đổi chủ đề sang trình độ khác thì điểm cũ bị từ chối.
+- [ ] Hộp thoại sinh bài và form bài nạp danh sách điểm theo trình độ; nạp lỗi thì vẫn sinh/lưu bài được.
+
+---
+
+## F20. Phần học ngữ pháp riêng
+
+> Thêm 2026-10-05, tiếp F19. Quyết định của chủ dự án: ngữ pháp phải có trang học và luyện riêng, không chỉ là ghi chú trong bài. Hướng này là "hai lộ trình
+> liên kết" trong cuộc thảo luận về kiến trúc ngữ pháp (lộ trình Chủ đề và lộ trình Ngữ pháp, không khoá cứng nhau).
+
+**Chức năng**
+- Mỗi điểm của giáo trình (F19) có thể có một **bài ngữ pháp**: mục tiêu, giải thích, khi nào dùng, cấu trúc, ví dụ, lỗi thường gặp, bài luyện tập (6–12 bài)
+  và bài kiểm tra mức nắm vững (5–10 bài). Ba dạng bài tập: trắc nghiệm (4 lựa chọn), điền từ (một chỗ trống), sắp xếp câu (ô từ, có thể có từ gây nhiễu).
+- **Quản trị:** mục Ngữ pháp (`/admin/grammar`) liệt kê điểm theo trình độ với trạng thái Chưa có bài / Bản nháp / Đã đăng; **Sinh bằng AI** (đúng 1 request
+  AI, lọc bài tập hỏng, lưu bản nháp; đã sửa tay hoặc đã đăng thì hỏi trước khi thay), xem trước, sửa nội dung bằng JSON có kiểm tra theo từng trường, Đăng và Gỡ.
+- **Người học:** tab Ngữ pháp (`/grammar`): chọn trình độ, gợi ý "Học tiếp", trạng thái Mới / Đang học / Đã nắm vững kèm điểm tốt nhất, điểm chưa đăng ghi
+  "Sắp có". Trang học có ba tab: **Học**, **Luyện tập** (phản hồi ngay từng câu, "Luyện lại các câu sai"), **Kiểm tra** (không báo đúng sai từng câu, chấm cuối,
+  đạt từ 80% là đã nắm vững và giữ mãi, làm lại được).
+- Bài tập chấm trên trình duyệt; máy chủ nhận điểm (`POST /api/grammar/{id}/attempts`), kiểm tra số câu và id câu sai rồi cập nhật tiến độ. Không gọi AI khi làm bài.
+- Liên kết hai chiều với bài học theo chủ đề: ghi chú ngữ pháp trong bài có "Học kỹ điểm này →"; trang ngữ pháp cho biết có bao nhiêu bài học dùng điểm đó.
+- Dữ liệu: `grammar_lessons` (một bài mỗi điểm) và `grammar_progress` (mỗi người học và điểm) ở cả Mongo và MySQL; `grammar_progress` nằm trong file xuất dữ liệu.
+
+**Tiêu chí nghiệm thu**
+- [ ] Sinh bài ngữ pháp cho một điểm: bản nháp có đủ các phần, bài tập đúng giới hạn và đúng dạng; người học chưa thấy cho tới khi đăng.
+- [ ] Đăng: người học mở được bài; Gỡ: bài trở lại "Sắp có" và mở trực tiếp trả 404.
+- [ ] Luyện tập: phản hồi ngay có chữ Đúng/Sai và giải thích; điểm và câu sai được lưu; luyện lại các câu sai chạy được.
+- [ ] Kiểm tra: dưới 80% thì chưa đạt và nói còn thiếu bao nhiêu câu; từ 80% thì "Đã nắm vững", điểm tốt nhất được lưu, trạng thái không bao giờ về lại.
+- [ ] Sửa bài bằng JSON sai (đáp án ngoài phạm vi, thiếu chỗ trống...) bị báo lỗi theo từng trường, không lưu.
+- [ ] Dùng được ở 360px, chế độ sáng và tối, bằng bàn phím; không truyền thông tin chỉ bằng màu.
+
+---
+
+## F21. Kiểm soát chất lượng bài ngữ pháp
+
+> Thêm 2026-10-05, tiếp F20. AI có thể sai nội dung (đáp án đánh dấu nhầm, câu có hai đáp án đúng, đáp án điền từ thiếu biến thể); hệ thống chỉ kiểm tra được cấu trúc. Ba lớp bảo vệ.
+
+**Chức năng**
+- **AI giải lại độc lập (quản trị):** nút **Kiểm tra bằng AI** gửi bài tập (không kèm đáp án) cho AI giải, rồi so với đáp án đã lưu. Câu lệch hoặc mơ hồ bị gắn cờ kèm ghi chú
+  tiếng Việt, hiện trong phần xem trước và thành nhãn "N câu cần xem" ở danh sách. Bài vừa sinh tự được kiểm tra một lần (lỗi kiểm tra không làm hỏng việc sinh bài).
+  Sửa nội dung thì cờ bị xoá ("Chưa kiểm tra"). `POST /api/admin/grammar-lessons/{id}/check`.
+- **Cổng đăng:** còn cờ thì Đăng hỏi xác nhận; máy chủ trả 409 `grammar_flags_unresolved` trừ khi gửi `acknowledgeFlags: true`. Bài chưa từng kiểm tra không bị chặn.
+- **Mở rộng đáp án điền từ bằng mã:** `grammar.ExpandAnswers` thêm dạng viết tắt/đầy đủ hai chiều (`is not` ↔ `isn't`, `I am` ↔ `I'm`...), chuẩn hoá `’`. Áp dụng khi trả bài cho
+  người học và khi kiểm tra; nội dung lưu không đổi. Trình duyệt cũng chuẩn hoá `’`, khoảng trắng thừa, hoa/thường khi chấm.
+- **Người học báo lỗi:** nút "Báo lỗi câu này" (lý do + ghi chú ≤300 ký tự) sau mỗi câu luyện tập và trong phần "Xem lại từng câu" của bài kiểm tra.
+  `POST /api/grammar/{id}/reports`. Quản trị thấy mục **Câu bị báo lỗi** ở danh sách và số lượt/lý do ở từng bài tập, bấm **Đã xử lý** để đóng.
+- Dữ liệu: `checks` và `checkedAt` nằm trong bài; collection/bảng `grammar_reports` (duy nhất theo người học, điểm, bài tập) ở cả Mongo và MySQL.
+
+**Tiêu chí nghiệm thu**
+- [ ] Sinh bài xong có `checkedAt`; sửa một đáp án sai rồi bấm kiểm tra thì câu đó bị gắn cờ `mismatch`.
+- [ ] Đăng bài còn cờ không kèm `acknowledgeFlags` trả 409; kèm thì đăng được.
+- [ ] Đáp án điền từ viết tắt hoặc dấu nháy cong được chấp nhận.
+- [ ] Báo lỗi: bài tập không có trong bài bị từ chối 400; báo lại thì mở lại; quản trị thấy và đóng được.
+
+**F21b. Xử lý kết quả kiểm tra (bổ sung cùng ngày)**
+- Câu AI không trả lời bị gắn cờ `unchecked` ("Chưa kiểm tra được"), không còn im lặng.
+- Mỗi câu có cờ có **Xác nhận đúng** (`POST …/checks/{exerciseId}/confirm`), **Sửa câu này** (`PUT …/exercises/{exerciseId}`, không đổi dạng bài) và **Xoá câu này**
+  (`DELETE …/exercises/{exerciseId}`, không xuống dưới 6 bài luyện tập / 5 bài kiểm tra). Sửa hoặc xoá chỉ gỡ cờ của câu đó; id các câu khác giữ nguyên.
+- Nút **Xác nhận đã kiểm tra xong** (`POST …/verify`, cần đã kiểm tra bằng AI) đặt `verifiedAt` và xác nhận mọi cờ còn lại; danh sách hiện nhãn "Đã xác nhận".
+  Sửa nội dung hoặc kiểm tra lại thì xoá trạng thái này. Cổng Đăng và số "N câu cần xem" chỉ tính cờ chưa xác nhận.

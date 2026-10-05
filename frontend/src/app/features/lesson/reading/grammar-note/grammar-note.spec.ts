@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideRouter } from '@angular/router';
+
 import { GrammarNote } from './grammar-note';
 
 describe('GrammarNote', () => {
@@ -7,7 +9,7 @@ describe('GrammarNote', () => {
   let el: HTMLElement;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [GrammarNote] }).compileComponents();
+    await TestBed.configureTestingModule({ imports: [GrammarNote], providers: [provideRouter([])] }).compileComponents();
     fixture = TestBed.createComponent(GrammarNote);
     fixture.componentRef.setInput('note', {
       title: 'Thì quá khứ đơn',
@@ -29,6 +31,15 @@ describe('GrammarNote', () => {
       'We went to the park.',
       'He gave up smoking.',
     ]);
+  });
+
+  it('links to the grammar page only when the lesson has a grammar point', async () => {
+    expect(el.querySelector('a.more')).toBeNull();
+    fixture.componentRef.setInput('pointId', 'a1-to-be');
+    await fixture.whenStable();
+    const link = el.querySelector('a.more')!;
+    expect(link.textContent?.trim()).toBe('Học kỹ điểm này →');
+    expect(link.getAttribute('href')).toBe('/grammar/a1-to-be');
   });
 
   it('is open by default and collapses', () => {

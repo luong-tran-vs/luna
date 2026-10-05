@@ -115,7 +115,7 @@ func TestBuildNewLearner(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "readingAnswers", "writings", "lessons"} {
+	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "readingAnswers", "writings", "grammarProgress", "lessons"} {
 		if !strings.Contains(string(out), `"`+key+`":[]`) {
 			t.Errorf("%s is not an empty list in %s", key, out)
 		}
@@ -131,5 +131,26 @@ func TestBuildErrors(t *testing.T) {
 	r.fail = true
 	if _, _, err := newSvc(r, time.Now()).Build(t.Context(), "u1"); err == nil || errors.Is(err, ErrNotFound) {
 		t.Fatalf("db error: %v", err)
+	}
+}
+
+func TestBuildIncludesGrammarProgress(t *testing.T) {
+	t.Parallel()
+	r := seed()
+	r.add(CollGrammarProgress, Doc{"_id": "g1", "userId": "u1", "pointId": "a1-to-be", "status": "mastered"})
+	r.add(CollGrammarProgress, Doc{"_id": "g2", "userId": "u2", "pointId": "a1-articles", "status": "learning"})
+	e, _, err := newSvc(r, time.Now()).Build(t.Context(), "u1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(e.GrammarProgress) != 1 || e.GrammarProgress[0]["pointId"] != "a1-to-be" || e.GrammarProgress[0]["userId"] != nil {
+		t.Fatalf("grammar progress = %v", e.GrammarProgress)
+	}
+	if !Allowed(CollGrammarProgress) {
+		t.Error("grammar_progress must be allowed")
+	}
+	out, _ := json.Marshal(e)
+	if strings.Contains(string(out), "a1-articles") {
+		t.Error("another learner's progress leaked")
 	}
 }

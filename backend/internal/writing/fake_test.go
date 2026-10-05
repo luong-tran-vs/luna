@@ -279,3 +279,11 @@ func (f *fakeGrader) Practice(context.Context, ai.PracticeRequest) (ai.Practice,
 func (f *fakeGrader) SuggestWords(context.Context, ai.SuggestWordsRequest) ([]string, error) {
 	return nil, ai.ErrNotConfigured
 }
+
+func (f *fakeGrader) GrammarLesson(context.Context, ai.GrammarLessonRequest) (ai.GrammarLessonContent, error) {
+	return ai.GrammarLessonContent{}, ai.ErrNotConfigured
+}
+
+func (f *fakeGrader) SolveGrammarExercises(context.Context, ai.SolveRequest) ([]ai.Solution, error) {
+	return nil, ai.ErrNotConfigured
+}

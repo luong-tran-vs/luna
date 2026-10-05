@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { catchError, map, Observable, of, Subject, switchMap, timer } from 'rxjs';
+import { catchError, map, Observable, of, Subject, Subscription, switchMap, timer } from 'rxjs';
 
 import {
   GenerateInput,
@@ -26,6 +26,7 @@ import {
   MIN_WORDS,
   wordRange,
 } from '../../../core/models/generate';
+import { GrammarPoint, grammarOptionLabel } from '../../../core/models/grammar';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { AdminApiService } from '../admin-api.service';
 import { Loading } from '../../../shared/components/loading/loading';
@@ -46,6 +47,8 @@ export interface GenerateOptions {
 
 /** What the dialog emits: the request body plus the words per lesson to remember. */
 export type GenerateRequest = GenerateInput & { perLesson: number };
+
+type GrammarState = 'idle' | 'loading' | 'error';
 
 type PlanState = 'idle' | 'loading' | 'error';
 
@@ -80,6 +83,8 @@ export class GenerateDialog {
   /** "A1 · Gia đình". */
   readonly topicLabel = input.required<string>();
   readonly topicId = input('');
+  /** Level of the topic (A1…C2); picks the grammar points offered. */
+  readonly level = input('');
   /** The topic's vocabulary list; empty hides the target words. */
   readonly topicWords = input<string[]>([]);
   readonly options = input.required<GenerateOptions>();
@@ -123,6 +128,7 @@ export class GenerateDialog {
     ]),
     kind: new FormControl<LessonKind>('reading', { nonNullable: true }),
     idea: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(MAX_IDEA)] }),
+    grammarPointId: new FormControl('', { nonNullable: true }),
   });
 
   private readonly value = toSignal(this.form.valueChanges, { initialValue: this.form.value });
@@ -133,6 +139,15 @@ export class GenerateDialog {
     const words = Number(this.value().words);
     return Number.isInteger(words) && words >= MIN_WORDS && words <= MAX_WORDS ? wordRange(words) : null;
   });
+
+  // --- Grammar point of the curriculum ---
+  protected readonly grammarPoints = signal<GrammarPoint[]>([]);
+  protected readonly grammarState = signal<GrammarState>('idle');
+  protected readonly grammarLabel = grammarOptionLabel;
+  protected readonly selectedGrammar = computed(
+    () => this.grammarPoints().find((p) => p.id === this.value().grammarPointId) ?? null,
+  );
+  private grammarSub: Subscription | null = null;
 
   // --- F18: target words ---
   protected readonly hasWords = computed(() => this.topicWords().length > 0);
@@ -190,6 +205,7 @@ export class GenerateDialog {
           this.shortage.set(0);
           this.suggestNote.set(null);
           this.requestPlan(0);
+          this.loadGrammar();
         });
         if (!el.open) {
           el.showModal();
@@ -223,6 +239,25 @@ export class GenerateDialog {
         this.addErrors.set({});
         this.planState.set(result.ok ? 'idle' : 'error');
       });
+  }
+
+  /** Loads the level's grammar points; the default stays "AI tự chọn". A failure only hides the select. */
+  private loadGrammar(): void {
+    this.grammarSub?.unsubscribe();
+    this.grammarPoints.set([]);
+    const level = this.level();
+    if (!level) {
+      this.grammarState.set('idle');
+      return;
+    }
+    this.grammarState.set('loading');
+    this.grammarSub = this.api.grammarPoints(level, this.topicId() || undefined).subscribe({
+      next: (points) => {
+        this.grammarPoints.set(points);
+        this.grammarState.set('idle');
+      },
+      error: () => this.grammarState.set('error'),
+    });
   }
 
   private loadPlan(count: number, perLesson: number): Observable<PlanResult> {
@@ -363,6 +398,7 @@ export class GenerateDialog {
       kind: v.kind,
       idea: v.idea.trim(),
       targetWords,
+      grammarPointId: this.grammarState() === 'idle' ? v.grammarPointId : '',
       perLesson,
     });
   }

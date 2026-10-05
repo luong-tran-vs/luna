@@ -154,6 +154,13 @@ describe('Goal', () => {
     expect(text(topicRow('Du lịch'))).toContain('Chưa có bài');
   });
 
+  it('does not let the learner pick a topic that has no lesson yet', async () => {
+    await setup({ active: null, others: [] });
+    await chooseLevel('A1');
+    expect(topicRow('Du lịch').querySelector<HTMLButtonElement>('button')!.disabled).toBe(true);
+    expect(topicRow('Mua sắm').querySelector<HTMLButtonElement>('button')!.disabled).toBe(false);
+  });
+
   it('sets the goal and goes to its lessons at once', async () => {
     await setup({ active: null, others: [] });
     await chooseLevel('A1');

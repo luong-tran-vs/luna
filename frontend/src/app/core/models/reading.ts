@@ -16,6 +16,8 @@ export interface ReadingLesson {
   /** Comprehension questions (F15); null when the lesson has none. */
   quiz: Quiz | null;
   grammarNote: GrammarNote | null;
+  /** The grammar point of the lesson (F20); '' or missing when none is assigned. */
+  grammarPointId?: string;
 }
 
 /** A question as learners see it: no answer until they answer. */

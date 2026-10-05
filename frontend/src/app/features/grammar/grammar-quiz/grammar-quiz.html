@@ -1,0 +1,119 @@
+<div class="quiz">
+  @if (items().length === 0) {
+    <p class="muted">Chưa có bài tập.</p>
+  } @else if (finished()) {
+    <section class="soft-card summary" aria-labelledby="quiz-summary">
+      <h3 #heading tabindex="-1" id="quiz-summary" class="summary-title">
+        {{ kind() === 'mastery' ? 'Kết quả bài kiểm tra' : 'Kết quả luyện tập' }}
+      </h3>
+      <p class="score">Đúng {{ correct() }}/{{ total() }} câu ({{ score() }}%)</p>
+
+      @if (saving()) {
+        <p class="muted" role="status">Đang lưu điểm…</p>
+      }
+      @if (saveError()) {
+        <p class="form-alert" role="alert">Không lưu được điểm.</p>
+        <button type="button" class="btn" (click)="send()">Gửi lại điểm</button>
+      }
+      @if (!recording()) {
+        <p class="muted">Vòng luyện lại này không tính vào điểm của bạn.</p>
+      }
+
+      @if (kind() === 'mastery' && result(); as r) {
+        @if (r.passed) {
+          <p class="verdict ok" role="status"><lu-icon name="check" /> Đã nắm vững ✓</p>
+          <p class="muted">Điểm này đã được đánh dấu nắm vững. Bạn có thể làm lại bất cứ lúc nào để ôn.</p>
+        } @else {
+          <p class="verdict bad" role="status">
+            <lu-icon name="x" /> Chưa đạt. Cần đúng ít nhất 80%, còn thiếu {{ missing() }} câu đúng.
+          </p>
+        }
+      }
+
+      <div class="actions">
+        @if (wrongIds().length > 0 && kind() === 'practice') {
+          <button type="button" class="btn-primary" (click)="retryWrong(wrongIds())">
+            Luyện lại các câu sai ({{ wrongIds().length }})
+          </button>
+        }
+        <button type="button" [class]="kind() === 'mastery' || wrongIds().length === 0 ? 'btn-primary' : 'btn'" (click)="restart()">
+          {{ kind() === 'mastery' ? 'Làm bài kiểm tra lại' : 'Luyện lại cả bài' }}
+        </button>
+      </div>
+    </section>
+
+    @if (review().length > 0) {
+      <section class="soft-card review" aria-labelledby="quiz-review">
+        <h3 id="quiz-review" class="review-title">Xem lại từng câu</h3>
+        <p class="muted">Các câu sai nằm trước. Thấy câu nào có vấn đề, hãy báo lỗi để chúng tôi xem lại.</p>
+        <ol class="review-list">
+          @for (r of review(); track r.exercise.id) {
+            <li class="review-item" [class.is-wrong]="!r.correct" [class.is-right]="r.correct">
+              <p class="review-head">
+                @if (r.correct) {
+                  <lu-icon name="check" /> <span>Câu {{ r.number }}: Đúng</span>
+                } @else {
+                  <lu-icon name="x" /> <span>Câu {{ r.number }}: Sai</span>
+                }
+              </p>
+              @if (r.exercise.promptVi) {
+                <p class="muted">{{ r.exercise.promptVi }}</p>
+              }
+              <p class="review-q" lang="en">{{ r.exercise.text }}</p>
+              <p>Bạn trả lời: <strong lang="en">{{ r.given || '(bỏ trống)' }}</strong></p>
+              @if (!r.correct) {
+                <p>Đáp án đúng: <strong lang="en">{{ r.right }}</strong></p>
+              }
+              <p>{{ r.exercise.explanationVi }}</p>
+              <lu-report-exercise [pointId]="pointId()" [exerciseId]="r.exercise.id" />
+            </li>
+          }
+        </ol>
+      </section>
+    }
+  } @else if (current(); as ex) {
+    <div class="head">
+      <h3 #heading tabindex="-1" class="count">Câu {{ index() + 1 }}/{{ total() }}</h3>
+      <div
+        class="bar"
+        role="progressbar"
+        aria-label="Tiến độ"
+        aria-valuemin="0"
+        [attr.aria-valuemax]="total()"
+        [attr.aria-valuenow]="index() + (answeredCurrent() ? 1 : 0)"
+      >
+        <span class="fill" [style.width.%]="((index() + (answeredCurrent() ? 1 : 0)) / total()) * 100"></span>
+      </div>
+    </div>
+
+    @if (canRetryWeak()) {
+      <div class="soft-card weak">
+        <p>Lần trước bạn làm sai {{ weakIds().length }} câu.</p>
+        <button type="button" class="btn" (click)="retryWrong(weakIds())">
+          Luyện lại các câu sai ({{ weakIds().length }})
+        </button>
+      </div>
+    }
+    @if (!recording()) {
+      <p class="muted">Đang luyện lại các câu sai: vòng này không tính vào điểm.</p>
+    }
+
+    <section class="soft-card" [attr.aria-label]="'Câu ' + (index() + 1)">
+      <lu-grammar-exercise
+        [exercise]="ex"
+        [reveal]="reveal()"
+        [pointId]="pointId()"
+        (given)="onGiven($event)"
+        (answered)="onAnswered($event)"
+      />
+    </section>
+
+    @if (answeredCurrent()) {
+      <div class="actions">
+        <button type="button" class="btn-primary" (click)="next()">
+          {{ isLast() ? 'Xem kết quả' : 'Câu tiếp theo' }}
+        </button>
+      </div>
+    }
+  }
+</div>

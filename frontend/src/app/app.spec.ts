@@ -77,7 +77,7 @@ describe('App', () => {
       a.getAttribute('href'),
     );
 
-  it('shows learners only the four learning tabs, inside main with the connection footer', async () => {
+  it('shows learners only the five learning tabs, inside main with the connection footer', async () => {
     loginAs('learner');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/');
@@ -86,13 +86,15 @@ describe('App', () => {
     expect(el.querySelector('lu-learner-layout footer lu-connection-status')).not.toBeNull();
     expect(el.querySelector('lu-app-header')).toBeNull();
     const tabs = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-learner-layout .tabs a'));
-    expect(tabs().map((a) => a.getAttribute('href'))).toEqual(['/', '/goal', '/vocabulary/review', '/account']);
+    expect(tabs().map((a) => a.getAttribute('href'))).toEqual(['/', '/goal', '/grammar', '/vocabulary/review', '/account']);
     const current = () => tabs().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 
     for (const [url, tab] of [
       ['/goal', 'Khóa học'],
       ['/lessons', 'Khóa học'],
+      ['/grammar', 'Ngữ pháp'],
+      ['/grammar/a1-to-be', 'Ngữ pháp'],
       ['/vocabulary', 'Ôn tập'],
       ['/settings', 'Tài khoản'],
       ['/writings', 'Tài khoản'],
@@ -123,7 +125,7 @@ describe('App', () => {
     // The admin menu is the sidebar, not the header.
     expect(navLinks(harness)).toEqual([]);
     const sidebar = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar a'));
-    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/topics', '/admin/roadmap']);
+    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/topics', '/admin/grammar', '/admin/roadmap']);
     const current = () => sidebar().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Bài học']);
 

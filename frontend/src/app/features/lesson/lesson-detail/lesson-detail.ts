@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   ElementRef,
   inject,
   signal,
@@ -18,6 +19,7 @@ import { LessonStudy, Step, STEPS } from '../../../core/models/study';
 import { LessonVocabulary } from '../../../core/models/vocab';
 import { SpeechService } from '../../../core/services/speech.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
+import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Listening } from '../listening/listening';
 import { loadErrorMessage } from '../load-error';
@@ -35,6 +37,7 @@ import {
   Score,
   shuffle,
   summary,
+  wordsIn,
 } from './practice-logic';
 import { PracticeSummary } from './practice-summary/practice-summary';
 import { TranslateStep } from './translate-step/translate-step';
@@ -57,6 +60,34 @@ const STEP_NAMES: Record<StepKey, string> = {
   write: 'Viết',
 };
 
+/** Cards due from which the done card says the backlog is large. */
+const BACKLOG = 30;
+/** About how long one card takes to review, in seconds. */
+const SECONDS_PER_CARD = 20;
+
+/** Where the learner stopped is kept on this device, since the server does not track the practice steps. */
+const STEP_KEY = (lessonId: string) => `luna.lesson-step.${lessonId}`;
+
+function readSavedStep(lessonId: string): string | null {
+  try {
+    return localStorage.getItem(STEP_KEY(lessonId));
+  } catch {
+    return null;
+  }
+}
+
+function writeSavedStep(lessonId: string, step: string | null): void {
+  try {
+    if (step === null) {
+      localStorage.removeItem(STEP_KEY(lessonId));
+    } else {
+      localStorage.setItem(STEP_KEY(lessonId), step);
+    }
+  } catch {
+    // Storage can be blocked (private window): the lesson then resumes from the server state alone.
+  }
+}
+
 /** Delay before saving the reading or listening position (debounce 1 s). */
 const POSITION_DELAY = 1000;
 
@@ -68,9 +99,9 @@ function isStudyStep(key: StepKey | null): key is Step {
  * A lesson's page (F17, L): header, then the Bài học tab with the practice steps that have content
  * (words, dialogue, fill-in, translation) or the Bài đọc tab with the text and grammar note.
  *
- * The lesson being studied is learnt here (updated 2026-10-02, no "today" page): after the
- * practice come Đọc → Nghe → Viết (optional), recorded on the server; "← Bước trước" shows an
- * earlier step again. Once done, "Sang bài tiếp theo" opens the next lesson at once. Other lessons
+ * The lesson being studied is learnt here (updated 2026-10-02, no "today" page): words, then
+ * Đọc → Nghe, then the practice on the text, then Viết (optional). Đọc, Nghe and Viết are recorded
+ * on the server; "← Bước trước" shows an earlier step again. Once done, "Sang bài tiếp theo" opens the next lesson at once. Other lessons
  * keep the practice only, ending on its summary. Practice results stay on this page.
  */
 @Component({
@@ -97,6 +128,7 @@ export class LessonDetail {
   private readonly router = inject(Router);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly speech = inject(SpeechService);
+  private readonly vocabApi = inject(VocabApiService);
 
   protected readonly id = signal('');
   protected readonly lesson = signal<ReadingLesson | null>(null);
@@ -109,6 +141,19 @@ export class LessonDetail {
   /** The lesson was completed on this page. */
   protected readonly lessonDone = signal(false);
   protected readonly saving = signal(false);
+  /** Cards due now, shown once the lesson is done so the learner can review before the next one. */
+  protected readonly dueCount = signal(0);
+  protected readonly backlog = BACKLOG;
+  protected readonly dueMinutes = computed(() =>
+    Math.max(1, Math.ceil((this.dueCount() * SECONDS_PER_CARD) / 60)),
+  );
+  /** Words got wrong in this lesson's practice that were put in the review queue (one per word). */
+  private readonly missedSent = new Set<string>();
+  protected readonly missCount = signal(0);
+  protected readonly missNote = computed(() => {
+    const n = this.missCount();
+    return n > 0 ? `Đã đưa ${n} từ làm sai vào lịch ôn.` : null;
+  });
   protected readonly stepError = signal<string | null>(null);
 
   protected readonly tab = signal<Tab>('lesson');
@@ -135,22 +180,25 @@ export class LessonDetail {
   protected readonly hasFill = computed(() => hasFill(this.practice()));
   protected readonly hasTranslations = computed(() => hasTranslations(this.practice()));
 
-  /** Steps with content, in order, then the lesson's steps when it is being studied. */
+  /**
+   * Steps with content, in order. A lesson being studied goes words → Đọc → Nghe → dialogue → fill →
+   * translate → Viết (understand the text first, then produce); any other lesson has the practice only.
+   */
   protected readonly steps = computed<StepKey[]>(() => {
-    const out: StepKey[] = [];
-    if (this.words().length > 0) {
-      out.push('words');
-    }
+    const words: StepKey[] = this.words().length > 0 ? ['words'] : [];
+    const practice: StepKey[] = [];
     if (this.hasDialogue()) {
-      out.push('dialogue');
+      practice.push('dialogue');
     }
     if (this.hasFill()) {
-      out.push('fill');
+      practice.push('fill');
     }
     if (this.hasTranslations()) {
-      out.push('translate');
+      practice.push('translate');
     }
-    return this.studyFlow() ? [...out, ...STEPS] : out;
+    return this.studyFlow()
+      ? [...words, 'read', 'listen', ...practice, 'write']
+      : [...words, ...practice];
   });
   protected readonly hasSteps = computed(() => this.steps().length > 0);
   protected readonly current = computed<StepKey | null>(
@@ -230,7 +278,18 @@ export class LessonDetail {
   private positionTimer?: ReturnType<typeof setTimeout>;
   private loading?: Subscription;
 
+  /** True once the saved step has been applied: before that, the step on screen must not overwrite it. */
+  private readonly restored = signal(false);
+
   constructor() {
+    // Remember the step on screen so that coming back lands on it, not on the first step or on Viết.
+    effect(() => {
+      const key = this.steps()[this.step() - 1];
+      if (!this.restored() || !this.studyFlow() || !key) {
+        return;
+      }
+      writeSavedStep(this.id(), this.lessonDone() ? null : key);
+    });
     inject(DestroyRef).onDestroy(() => {
       this.speech.stop();
       clearTimeout(this.positionTimer);
@@ -250,7 +309,11 @@ export class LessonDetail {
     this.loadError.set(null);
     this.study.set(null);
     this.studyFlow.set(false);
+    this.restored.set(false);
     this.lessonDone.set(false);
+    this.dueCount.set(0);
+    this.missedSent.clear();
+    this.missCount.set(0);
     this.stepError.set(null);
     this.tab.set('lesson');
     this.step.set(1);
@@ -272,10 +335,29 @@ export class LessonDetail {
         this.translateResults.set((r.practice?.translations ?? []).map(() => null));
         this.studyFlow.set(r.study?.status === 'studying');
         this.resumeStep(r.study);
+        this.restoreSavedStep();
+        this.restored.set(true);
         this.lesson.set(r.lesson);
       },
       error: (err: unknown) => this.loadError.set(loadErrorMessage(err)),
     });
+  }
+
+  /** The furthest of the server state and the step saved on this device (the practice is only known here). */
+  private restoreSavedStep(): void {
+    if (!this.studyFlow()) {
+      return;
+    }
+    const saved = readSavedStep(this.id());
+    const steps = this.steps();
+    const index = saved ? steps.indexOf(saved as StepKey) : -1;
+    // The saved step may be behind where the server puts the learner (the practice sits before
+    // Viết), but never behind a step the server knows is done: the floor is the one after the last.
+    const doneAt = STEPS.filter((s) => this.study()?.steps[s] === 'done').map((s) => steps.indexOf(s));
+    const floor = Math.max(-1, ...doneAt) + 1;
+    if (index >= floor) {
+      this.step.set(index + 1);
+    }
   }
 
   /** Back to the lesson's step in progress, when one was done or a position saved. */
@@ -285,6 +367,7 @@ export class LessonDetail {
     }
     const started = STEPS.some((s) => study.steps[s] === 'done') || study.sentenceIndex > 0;
     if (started) {
+      // The server does not track the practice, so a learner who left after Nghe resumes on Viết.
       this.step.set(this.steps().indexOf(study.currentStep as Step) + 1);
     }
   }
@@ -316,6 +399,26 @@ export class LessonDetail {
 
   protected onTranslationChecked(index: number, ok: boolean): void {
     this.translateResults.update((r) => r.map((v, i) => (i === index ? ok : v)));
+    const answer = this.practice()?.translations[index]?.answer.join(' ') ?? '';
+    if (!ok && answer) {
+      this.sendMisses(wordsIn(answer, this.words()));
+    }
+  }
+
+  /**
+   * Words got wrong in the practice go to the review queue, due now. Only the lesson being studied
+   * does this, once per word; a failure is ignored, the practice does not depend on it.
+   */
+  protected sendMisses(words: string[]): void {
+    const fresh = words.filter((w) => !this.missedSent.has(w.toLowerCase()));
+    if (!this.studyFlow() || fresh.length === 0) {
+      return;
+    }
+    fresh.forEach((w) => this.missedSent.add(w.toLowerCase()));
+    this.vocabApi.practiceMisses(this.id(), fresh).subscribe({
+      next: (r) => this.missCount.update((n) => n + r.added + r.rescheduled),
+      error: () => undefined,
+    });
   }
 
   protected next(): void {
@@ -375,6 +478,7 @@ export class LessonDetail {
           return;
         }
         this.lessonDone.set(true);
+        this.loadDue();
       } else if (this.step() < this.steps().length) {
         this.step.update((s) => s + 1);
       }
@@ -385,6 +489,14 @@ export class LessonDetail {
     } finally {
       this.saving.set(false);
     }
+  }
+
+  /** How many cards are due now: the done card suggests reviewing them before the next lesson. */
+  private loadDue(): void {
+    this.vocabApi.due(1).subscribe({
+      next: (list) => this.dueCount.set(list.total),
+      error: () => undefined,
+    });
   }
 
   /** Saves where the learner is, once they stop moving for a second. */

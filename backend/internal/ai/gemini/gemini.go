@@ -362,13 +362,40 @@ func (c *Client) logRequest(ctx context.Context, op string, start time.Time, sta
 	c.log.LogAttrs(ctx, slog.LevelInfo, "ai request", append(attrs, extra...)...)
 }
 
+// annotationRange is how many words a lesson should teach at a level: beginners get few, so a
+// 90-word text does not hand them sixteen new words at once.
+func annotationRange(level string) (lo, hi int) {
+	switch level {
+	case "A1", "A2":
+		return 6, 12
+	case "B1", "B2":
+		return 8, 16
+	default:
+		return 8, 25
+	}
+}
+
+// grammarWords is the longest grammar note, in words: short for beginners.
+func grammarWords(level string) int {
+	switch level {
+	case "A1", "A2":
+		return 60
+	case "B1", "B2":
+		return 90
+	default:
+		return 120
+	}
+}
+
 func annotatePrompt(req ai.AnnotateRequest) string {
 	var b strings.Builder
+	lo, hi := annotationRange(req.Level)
 	fmt.Fprintf(&b, `You help Vietnamese learners of English at CEFR level %[1]s.
 Read the numbered lesson sentences below and return a JSON object with:
 
-1. annotations: pick 8 to 25 words or phrases worth learning at this level
+1. annotations: pick %[2]d to %[3]d words or phrases worth learning at this level
 (phrasal verbs, collocations and idioms count as one item, e.g. "give up").
+Skip very basic words a learner at this level already knows (for example "hello", "family", "school").
 For each item return:
 - text: copied exactly as it appears in the sentence (same spelling and inflection),
 - lemma: the dictionary form (e.g. "went" -> "go", "gave up" -> "give up"),
@@ -378,19 +405,21 @@ Do not invent text that is not in the sentences.
 
 2. questions: 3 to 5 multiple-choice questions in English that check understanding of the lesson,
 at CEFR %[1]s. Each has a prompt, exactly 4 different options, answerIndex (0 to 3) of the only
-correct option, and explanationVi: a short Vietnamese explanation pointing to the lesson.
+correct option, and explanationVi: a short Vietnamese explanation of why that option is right.
+The questions must be of different kinds. At most one may ask for a plain detail (who, what, when,
+where). At least one must ask what a word or phrase of the lesson means as used there (for example
+'In the lesson, what does "get dressed" mean?', with options in English). At least one must need a
+simple inference or a reason (why, how, or what you can tell about a person). explanationVi must say why
+the answer is right; you may quote the sentence but you must add the reason.
 
-3. grammarNote: one notable grammar point used in the lesson, for this level:
-- title: a short Vietnamese title (e.g. "Thì quá khứ đơn"),
-- bodyVi: a short explanation in Vietnamese (at most 120 words),
-- examples: 1 to 3 sentences or phrases copied exactly from the lesson that use this point.
-
+%[5]s
 4. writingPrompt: one short English writing task related to the lesson, suitable for CEFR %[1]s.
+Do not say how many sentences or words to write: the app shows the length separately.
 
-`, req.Level)
+`, req.Level, lo, hi, grammarWords(req.Level), grammarSection(req))
 	if len(req.FocusWords) > 0 {
 		fmt.Fprintf(&b, "Always include each of these topic words or phrases as annotations, with text copied exactly "+
-			"as it appears in the sentence; they count toward the 25 items: %s\n\n", strings.Join(req.FocusWords, ", "))
+			"as it appears in the sentence; they count toward the %d items: %s\n\n", hi, strings.Join(req.FocusWords, ", "))
 	}
 	b.WriteString("Sentences:\n")
 	for i, s := range req.Sentences {
@@ -399,7 +428,31 @@ correct option, and explanationVi: a short Vietnamese explanation pointing to th
 	return b.String()
 }
 
-// generatePrompt asks for 0.9–1.1× the target length so drafts stay inside the ±20% the
+// grammarSection is item 3 of the annotate prompt. With a syllabus point it must teach exactly
+// that point; without one the AI picks the structure that stands out.
+func grammarSection(req ai.AnnotateRequest) string {
+	if g := req.GrammarFocus; g != nil {
+		return fmt.Sprintf(`3. grammarNote: teach exactly this grammar point of the course, not another one:
+%s (%s), pattern: %s
+- title: exactly "%s" (copy it unchanged),
+- bodyVi: teach only this point, not other tenses or structures; explain the structure "%s" in simple Vietnamese (at most %d words, no grammar jargon a
+  beginner would not know),
+- examples: sentences copied exactly from the lesson that use this point (up to 3). If no sentence of
+  the lesson uses it, return an empty array.
+`, g.TitleEn, g.TitleVi, g.Pattern, g.TitleVi, g.Pattern, grammarWords(req.Level))
+	}
+	return fmt.Sprintf(`3. grammarNote: one grammar point used in the lesson, for this level:
+- title: a short Vietnamese title (e.g. "Cấu trúc There is / There are"),
+- bodyVi: a short explanation in simple Vietnamese (at most %d words, no grammar jargon a beginner
+  would not know),
+- examples: 1 to 3 sentences or phrases copied exactly from the lesson that use this point.
+Pick the structure that stands out in this lesson (for example "like + noun", "can", "There is/are",
+"have/has", a time expression). Choose the simple present tense only if nothing else stands out.
+`, grammarWords(req.Level))
+}
+
+// generatePrompt asks for 0.9–1.1× the target length and, since the model tends to write short, for
+// the long end, so drafts stay inside the ±20% the
 // lesson service accepts.
 func generatePrompt(req ai.GenerateRequest) string {
 	low, high := req.Words*9/10, req.Words*11/10
@@ -407,11 +460,15 @@ func generatePrompt(req ai.GenerateRequest) string {
 	fmt.Fprintf(&b, `You write English lessons for Vietnamese learners at CEFR level %s.
 Topic: %s.
 Write exactly %d different lessons about this topic. Each lesson must have about %d words
-(between %d and %d words; count every word of the content).
+(between %d and %d words; count every word of the content). Write at the long end of that range:
+a lesson shorter than %d words is too short.
 Use only vocabulary and grammar suitable for CEFR %s.
+Write natural, connected text, as a real person would say or write it. Do not write a list of
+unrelated sentences that each introduce one word. Use idiomatic structures (for example "There are
+four people in my family", not "We are four people in my house").
 Each lesson needs a short title (at most 8 words). Titles must be different from each other,
 and each lesson must tell a different story or situation.
-`, req.Level, req.TopicName, req.Count, req.Words, low, high, req.Level)
+`, req.Level, req.TopicName, req.Count, req.Words, low, high, low, req.Level)
 	if req.Kind == ai.KindDialogue {
 		b.WriteString(`Form: a dialogue between two or three people with first names.
 Write one turn per line in the form "Name: what they say". No empty lines, no narration,
@@ -423,10 +480,21 @@ no stage directions.
 	if req.Idea != "" {
 		fmt.Fprintf(&b, "Use this idea as inspiration: %s\n", req.Idea)
 	}
+	if g := req.GrammarFocus; g != nil {
+		fmt.Fprintf(&b, "Grammar focus: every lesson must use this grammar point clearly, at least 3 times, in natural "+
+			"sentences: %s (%s). Pattern: %s.\n", g.TitleEn, g.TitleVi, g.Pattern)
+		if g.Example != "" {
+			fmt.Fprintf(&b, "Example: %s\n", g.Example)
+		}
+		fmt.Fprintf(&b, "The rest of the grammar stays at CEFR %s.\n", req.Level)
+	}
 	for i, words := range req.TargetWords {
 		if len(words) > 0 {
 			fmt.Fprintf(&b, "Lesson %d must use every one of these words or phrases "+
-				"(any natural form, e.g. plural or past tense): %s\n", i+1, strings.Join(words, ", "))
+				"(any natural form, e.g. plural or past tense): %s\n"+
+				"Use each one in a natural sentence at this level. Leave a word out only if it cannot be used "+
+				"naturally at CEFR %s; never make the text harder or odder to fit it in.\n",
+				i+1, strings.Join(words, ", "), req.Level)
 		}
 	}
 	if len(req.ExistingTitles) > 0 {
@@ -488,7 +556,9 @@ Return a JSON object with:
 2. examples: for each vocabulary item, one short English sentence (at most 12 words) that contains the item
 exactly as written in its "text" or "lemma" column. Return the item's lemma with each sentence.
 
-3. dialogue: a natural conversation between two people.
+3. dialogue: a natural conversation between two people. It must stay on the lesson text: the same
+situation, the same kind of people, and the lesson's own phrases and sentence patterns (reuse or lightly
+rewrite lesson sentences), not a new unrelated scene.
 - speakers: exactly two first names, one Vietnamese and one English (e.g. "Minh", "Anna"),
 - turns: 6 to 10 turns that alternate between the speakers; speaker is 0 or 1 (index in speakers),
   text is the English line, meaningVi its Vietnamese translation.
@@ -497,7 +567,7 @@ Use as many vocabulary items as possible, each written exactly as in the list.
 4. grammarTipVi: one or two Vietnamese sentences about one useful way of saying something in the dialogue.
 
 5. translations: 3 to 5 short, simple Vietnamese sentences (vi), each with one correct English translation (en)
-that uses at least one vocabulary item, and 3 or 4 distractors: single English words that are not in en
+that uses at least one vocabulary item and, where possible, follows the wording of a lesson sentence, and 3 or 4 distractors: single English words that are not in en
 but could tempt the learner.
 
 Plain text only, no markdown.

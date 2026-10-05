@@ -8,7 +8,7 @@ export type ProgressTone = 'primary' | 'read' | 'listen' | 'write';
   template: `
     <div class="head">
       <span class="label">{{ label() }}</span>
-      <span class="count">{{ value() }}/{{ max() }}{{ unit() ? ' ' + unit() : '' }}</span>
+      <span class="count">{{ text() }}</span>
     </div>
     <div
       class="track"
@@ -17,7 +17,7 @@ export type ProgressTone = 'primary' | 'read' | 'listen' | 'write';
       aria-valuemin="0"
       [attr.aria-valuemax]="max()"
       [attr.aria-valuenow]="value()"
-      [attr.aria-valuetext]="value() + '/' + max() + (unit() ? ' ' + unit() : '')"
+      [attr.aria-valuetext]="text()"
     >
       <div class="fill" [style.width.%]="percent()"></div>
     </div>
@@ -73,6 +73,14 @@ export class ProgressBar {
   /** Shown after the count, e.g. "bài" or "bước". */
   readonly unit = input('');
   readonly tone = input<ProgressTone>('primary');
+  /** Show "value%" instead of "value/max" (give `max` as 100). */
+  readonly percentage = input(false);
+
+  protected readonly text = computed(() =>
+    this.percentage()
+      ? `${this.value()}%`
+      : `${this.value()}/${this.max()}${this.unit() ? ' ' + this.unit() : ''}`,
+  );
 
   protected readonly percent = computed(() => {
     const max = this.max();

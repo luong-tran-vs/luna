@@ -10,5 +10,8 @@
         <li lang="en">{{ e }}</li>
       }
     </ul>
+    @if (pointId()) {
+      <a class="more" [routerLink]="['/grammar', pointId()]">Học kỹ điểm này →</a>
+    }
   </div>
 </details>

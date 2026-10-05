@@ -1,0 +1,106 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Ngữ pháp</h1>
+  </header>
+
+  <p class="muted">
+    Mỗi điểm của giáo trình có một bài ngữ pháp riêng: AI sinh bản nháp, bạn xem và sửa, rồi đăng để người học thấy.
+  </p>
+
+  <div class="levels" role="group" aria-label="Trình độ">
+    @for (l of levels; track l) {
+      <button type="button" class="btn level" [attr.aria-pressed]="l === level()" (click)="selectLevel(l)">{{ l }}</button>
+    }
+  </div>
+
+  <p class="visually-hidden" role="status">{{ note() }}</p>
+  @if (note()) {
+    <p class="banner-note" aria-hidden="true">{{ note() }}</p>
+  }
+
+  @if (reports().length > 0) {
+    <section class="card reports" aria-labelledby="reports-title">
+      <h2 class="reports-title" id="reports-title">Câu bị báo lỗi ({{ reports().length }})</h2>
+      <ul class="report-list">
+        @for (r of reports(); track r.pointId + r.exerciseId) {
+          <li class="report">
+            <a [routerLink]="['/admin/grammar', r.pointId]">{{ reportTitle(r.pointId) }}<span class="visually-hidden"> câu {{ r.exerciseId }}</span></a>
+            <span class="muted">{{ r.count }} lượt · {{ reasons(r.reasons) }}</span>
+            @for (n of r.notes; track $index) {
+              <span class="report-note">“{{ n }}”</span>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  @if (loadError(); as message) {
+    <div class="form-alert" role="alert">
+      <span>{{ message }}</span>
+      <button type="button" class="btn" (click)="retry()">Thử lại</button>
+    </div>
+  } @else if (points(); as list) {
+    <p class="summary" id="grammar-summary">{{ published() }}/{{ list.length }} điểm đã đăng ở trình độ {{ level() }}</p>
+    <ul class="list" aria-describedby="grammar-summary">
+      @for (p of list; track p.id) {
+        <li class="card point" [attr.data-point]="p.id">
+          <div class="point-body">
+            <p class="point-name">{{ p.titleVi }}</p>
+            <p class="muted">{{ p.titleEn }} · {{ p.pattern }}</p>
+            <p class="point-status">
+              <span class="status-label">Trạng thái:</span> <strong class="status">{{ statusText(lessonOf(p)) }}</strong>
+            </p>
+            @if (lessonOf(p); as lesson) {
+              <p class="badges">
+                @if (lesson.flags > 0) {
+                  <span class="tag flag-tag">{{ lesson.flags }} câu cần xem</span>
+                }
+                @if (lesson.verified) {
+                  <span class="tag">Đã xác nhận</span>
+                } @else if (!lesson.checked) {
+                  <span class="muted">Chưa kiểm tra</span>
+                }
+                @if (reportCount(p) > 0) {
+                  <span class="tag flag-tag">{{ reportCount(p) }} báo lỗi</span>
+                }
+              </p>
+            }
+            @if (errorOf(p); as message) {
+              <p class="row-error" role="alert">{{ message }}</p>
+            }
+          </div>
+          <div class="actions">
+            <button type="button" class="btn" [disabled]="busy() !== null" (click)="askGenerate(p)">
+              {{ busy() === p.id && busyAction() === 'generate' ? 'Đang sinh…' : 'Sinh bằng AI' }}<span class="visually-hidden"> {{ p.titleVi }}</span>
+            </button>
+            @if (lessonOf(p); as lesson) {
+              <a class="btn" [routerLink]="['/admin/grammar', p.id]">Xem / sửa<span class="visually-hidden"> {{ p.titleVi }}</span></a>
+              @if (lesson.status === 'published') {
+                <button type="button" class="btn" [disabled]="busy() !== null" (click)="unpublish(p)">
+                  {{ busy() === p.id && busyAction() === 'unpublish' ? 'Đang gỡ…' : 'Gỡ' }}<span class="visually-hidden"> {{ p.titleVi }}</span>
+                </button>
+              } @else {
+                <button type="button" class="btn" [disabled]="busy() !== null" (click)="publish(p)">
+                  {{ busy() === p.id && busyAction() === 'publish' ? 'Đang đăng…' : 'Đăng' }}<span class="visually-hidden"> {{ p.titleVi }}</span>
+                </button>
+              }
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  } @else {
+    <lu-loading />
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="confirming() !== null"
+  title="Sinh lại bài ngữ pháp?"
+  [message]="confirmMessage()"
+  confirmLabel="Sinh lại"
+  [danger]="true"
+  (confirmed)="confirmGenerate()"
+  (cancelled)="confirming.set(null)"
+/>

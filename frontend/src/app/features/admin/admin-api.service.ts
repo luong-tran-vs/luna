@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
+import { GrammarPoint } from '../../core/models/grammar';
+import { GrammarContent, GrammarExerciseInput, GrammarLessonAdmin, GrammarLessonSummary, GrammarReportGroup } from '../../core/models/grammar-admin';
 import { GenerateInput, GenerateResult } from '../../core/models/generate';
 import {
   AnnotationInput,
@@ -126,6 +128,105 @@ export class AdminApiService {
   /** F18: asks the AI for `count` new words and adds them to the topic; returns the added words and the list. */
   suggestTopicWords(topicId: string, count: number): Observable<{ added: string[]; words: TopicWord[] }> {
     return this.http.post<{ added: string[]; words: TopicWord[] }>(`${BASE}/topics/${topicId}/words/suggest`, { count });
+  }
+
+  /** Grammar points of the curriculum for a level, in curriculum order, with how many lessons use each. */
+  grammarPoints(level: string, topicId?: string): Observable<GrammarPoint[]> {
+    let params = new HttpParams().set('level', level);
+    if (topicId) {
+      params = params.set('topicId', topicId);
+    }
+    return this.http.get<{ points: GrammarPoint[] }>(`${BASE}/grammar`, { params }).pipe(map((r) => r.points));
+  }
+
+  /** F20: the grammar lessons that exist (points without a lesson are absent). */
+  grammarLessons(): Observable<GrammarLessonSummary[]> {
+    return this.http.get<{ lessons: GrammarLessonSummary[] }>(`${BASE}/grammar-lessons`).pipe(map((r) => r.lessons));
+  }
+
+  /** F20: one grammar lesson with its content; 404 when the point has none. */
+  grammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(this.http.get<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}`));
+  }
+
+  /** F20: one AI request; saves a draft. `force` replaces an edited or published lesson. */
+  generateGrammarLesson(pointId: string, force: boolean): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/generate`, { force }),
+    );
+  }
+
+  saveGrammarLesson(pointId: string, content: GrammarContent): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.put<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}`, { content }),
+    );
+  }
+
+  /** `acknowledgeFlags` publishes although the AI check left flagged exercises (otherwise 409). */
+  publishGrammarLesson(pointId: string, acknowledgeFlags = false): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.post<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/publish`,
+        acknowledgeFlags ? { acknowledgeFlags: true } : null,
+      ),
+    );
+  }
+
+  /** F21: one AI request that solves the exercises on its own and flags the ones that disagree. */
+  checkGrammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/check`, null),
+    );
+  }
+
+  /** F21b: the admin says a flagged exercise is right as it is. */
+  confirmGrammarCheck(pointId: string, exerciseId: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/checks/${exerciseId}/confirm`, null),
+    );
+  }
+
+  /** F21b: marks the lesson as checked by the admin; 409 grammar_not_checked before any AI check. */
+  verifyGrammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/verify`, null),
+    );
+  }
+
+  /** F21b: replaces one exercise (same kind). */
+  saveGrammarExercise(pointId: string, exerciseId: string, exercise: GrammarExerciseInput): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.put<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/exercises/${exerciseId}`, exercise),
+    );
+  }
+
+  /** F21b: removes one exercise; 400 when the section would fall under its minimum. */
+  deleteGrammarExercise(pointId: string, exerciseId: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.delete<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/exercises/${exerciseId}`),
+    );
+  }
+
+  /** F21: open learner reports, grouped by (point, exercise), newest first. */
+  grammarReports(): Observable<GrammarReportGroup[]> {
+    return this.http.get<{ reports: GrammarReportGroup[] }>(`${BASE}/grammar-reports`).pipe(map((r) => r.reports));
+  }
+
+  /** F21: closes the open reports of one exercise; returns how many were closed. */
+  resolveGrammarReport(pointId: string, exerciseId: string): Observable<number> {
+    return this.http
+      .post<{ resolved: number }>(`${BASE}/grammar-reports/resolve`, { pointId, exerciseId })
+      .pipe(map((r) => r.resolved));
+  }
+
+  unpublishGrammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
+    return this.unwrapGrammar(
+      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/unpublish`, null),
+    );
+  }
+
+  private unwrapGrammar(obs: Observable<{ lesson: GrammarLessonAdmin }>): Observable<GrammarLessonAdmin> {
+    return obs.pipe(map((r) => r.lesson));
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

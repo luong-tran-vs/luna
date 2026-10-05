@@ -37,7 +37,7 @@ describe('LearnerLayout', () => {
 
   it('puts Tài khoản last, marked to sit at the end of the bar', () => {
     const tabs = Array.from(el.querySelectorAll('.tab'));
-    expect(tabs.map((t) => t.textContent?.trim())).toEqual(['Trang chủ', 'Khóa học', 'Ôn tập', 'Tài khoản']);
+    expect(tabs.map((t) => t.textContent?.trim())).toEqual(['Trang chủ', 'Khóa học', 'Ngữ pháp', 'Ôn tập', 'Tài khoản']);
     expect(tabs.filter((t) => t.classList.contains('tab-end')).map((t) => t.getAttribute('href'))).toEqual([
       '/account',
     ]);

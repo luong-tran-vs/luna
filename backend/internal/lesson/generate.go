@@ -35,6 +35,8 @@ type GenerateInput struct {
 	Idea  string
 	// TargetWords lists the topic words each lesson must use (F18): empty, or one group per lesson.
 	TargetWords [][]string
+	// GrammarPointID is an optional syllabus point of the topic's level that every draft must use.
+	GrammarPointID string
 }
 
 // Draft is a generated lesson that passed the checks; it is never stored.
@@ -45,6 +47,8 @@ type Draft struct {
 	// TargetWords are the words asked for this draft; MissingWords those its content lacks (F18).
 	TargetWords  []string
 	MissingWords []string
+	// GrammarPointID repeats the point asked for, "" when none.
+	GrammarPointID string
 	// index is the position of the draft in the AI answer, which matches its target group.
 	index int
 }
@@ -74,6 +78,7 @@ type DropReasons struct {
 func ValidateGenerate(in GenerateInput) (GenerateInput, error) {
 	in.Kind = strings.TrimSpace(in.Kind)
 	in.Idea = strings.TrimSpace(in.Idea)
+	in.GrammarPointID = strings.TrimSpace(in.GrammarPointID)
 	fields := map[string]string{}
 	if in.Count < minGenerateCount || in.Count > maxGenerateCount {
 		fields["count"] = fmt.Sprintf("Số bài từ %d đến %d", minGenerateCount, maxGenerateCount)
@@ -104,6 +109,9 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	if err != nil {
 		return GenerateResult{}, err
 	}
+	if err := checkGrammarPoint(in.GrammarPointID, topic.Level); err != nil {
+		return GenerateResult{}, err
+	}
 	targets, err := cleanTargets(in.TargetWords, in.Count, topic.Words)
 	if err != nil {
 		return GenerateResult{}, err
@@ -126,6 +134,7 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	drafts, err := s.AI.GenerateLessons(actx, ai.GenerateRequest{
 		Level: string(topic.Level), TopicName: topic.Name, Count: in.Count, Words: in.Words,
 		Kind: ai.LessonKind(in.Kind), Idea: in.Idea, ExistingTitles: titles, TargetWords: targets,
+		GrammarFocus: grammarFocus(in.GrammarPointID),
 	})
 	if err != nil {
 		return GenerateResult{}, fmt.Errorf("%w: %w", errGenerateAI, err)
@@ -136,6 +145,9 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 		return GenerateResult{}, ErrUnusableDraft
 	}
 	markTargets(out.Drafts, targets)
+	for i := range out.Drafts {
+		out.Drafts[i].GrammarPointID = in.GrammarPointID
+	}
 	return out, nil
 }
 

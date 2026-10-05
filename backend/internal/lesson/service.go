@@ -54,10 +54,13 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	if err != nil {
 		return Lesson{}, err
 	}
+	if err := checkGrammarPoint(in.GrammarPointID, topic.Level); err != nil {
+		return Lesson{}, err
+	}
 	now := s.Now()
 	l, err := s.Lessons.Create(ctx, Lesson{
 		Title: in.Title, Content: in.Content, Level: topic.Level, TopicID: topic.ID,
-		Source: in.Source, License: in.License,
+		Source: in.Source, License: in.License, GrammarPointID: in.GrammarPointID,
 		Revision:         1,
 		Sentences:        toSentences(sentences),
 		AnnotationStatus: StatusRunning,
@@ -172,7 +175,16 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 	if err != nil {
 		return Lesson{}, err
 	}
-	info := Info{Title: in.Title, Level: topic.Level, TopicID: topic.ID, Source: in.Source, License: in.License}
+	if in.KeepGrammarPoint {
+		in.GrammarPointID = cur.GrammarPointID
+	}
+	if err := checkGrammarPoint(in.GrammarPointID, topic.Level); err != nil {
+		return Lesson{}, err
+	}
+	info := Info{
+		Title: in.Title, Level: topic.Level, TopicID: topic.ID, Source: in.Source, License: in.License,
+		GrammarPointID: in.GrammarPointID,
+	}
 	if cur.TopicID != topic.ID {
 		if err := s.Topics.MoveLesson(ctx, id, cur.TopicID, topic.ID); err != nil {
 			return Lesson{}, fmt.Errorf("lesson: move to topic: %w", err)
@@ -188,6 +200,7 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 
 	next := cur
 	next.Title, next.Level, next.TopicID, next.Source, next.License = info.Title, info.Level, info.TopicID, info.Source, info.License
+	next.GrammarPointID = info.GrammarPointID
 	next.Content = in.Content
 	next.Revision = cur.Revision + 1
 	next.Sentences = toSentences(sentences)
@@ -331,7 +344,8 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	if err != nil {
 		return err
 	}
-	res, err := s.AI.Annotate(ctx, ai.AnnotateRequest{Sentences: sentenceTexts(l.Sentences), Level: string(l.Level), FocusWords: focus})
+	res, err := s.AI.Annotate(ctx, ai.AnnotateRequest{Sentences: sentenceTexts(l.Sentences), Level: string(l.Level), FocusWords: focus,
+		GrammarFocus: grammarFocus(l.GrammarPointID)})
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) {
 			return job.Permanent(err)
@@ -346,6 +360,10 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 		return err
 	}
 	extras := CleanExtras(res, l.Content)
+	// The note is about the point the lesson was given; its title is the syllabus's, whatever the AI wrote.
+	if title := GrammarTitle(l.GrammarPointID); title != "" && extras.GrammarNote != nil {
+		extras.GrammarNote.Title = title
+	}
 	saved, err := s.Lessons.SaveAnnotations(ctx, l.ID, l.Revision, anns, extras)
 	if err != nil {
 		return fmt.Errorf("lesson: save annotations: %w", err)

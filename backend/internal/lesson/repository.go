@@ -13,6 +13,8 @@ type Info struct {
 	TopicID string
 	Source  string
 	License string
+	// GrammarPointID is "" to clear the assigned point.
+	GrammarPointID string
 }
 
 // RevisionRef names one revision of a lesson.
@@ -51,6 +53,9 @@ type Repository interface {
 	// ReplaceAnnotations stores admin-edited annotations and marks them done.
 	ReplaceAnnotations(ctx context.Context, id string, anns []Annotation) error
 	Delete(ctx context.Context, id string) error
+	// CountByGrammarPoint returns how many lessons use each grammar point; topicID "" counts
+	// every topic. Lessons without a point are not counted.
+	CountByGrammarPoint(ctx context.Context, topicID string) (map[string]int, error)
 }
 
 // Topics is what lessons need from topics (implemented over topic.Service in main).

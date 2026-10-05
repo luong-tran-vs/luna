@@ -1,0 +1,73 @@
+<section class="screen grammar-list">
+  <header class="screen-bar">
+    <h1 class="screen-title">Ngữ pháp</h1>
+  </header>
+
+  <div class="levels" role="radiogroup" aria-label="Trình độ">
+    @for (l of levels; track l; let i = $index) {
+      <button
+        type="button"
+        role="radio"
+        class="level"
+        [attr.aria-checked]="level() === l"
+        [tabIndex]="level() === l ? 0 : -1"
+        (click)="select(l)"
+        (keydown)="onLevelKeydown($event, i)"
+      >
+        {{ l }}
+      </button>
+    }
+  </div>
+
+  @if (failed()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được danh sách ngữ pháp.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (data()) {
+    @if (nextPoint(); as n) {
+      <a class="soft-card next" [routerLink]="['/grammar', n.id]">
+        <span class="next-label">Học tiếp</span>
+        <span class="next-title">{{ n.titleVi }}</span>
+        <span class="next-go">Bắt đầu <lu-icon name="arrow-right" /></span>
+      </a>
+    }
+
+    @if (points().length === 0) {
+      <p class="soft-card empty">Trình độ này chưa có điểm ngữ pháp nào.</p>
+    } @else {
+      <ol class="points">
+        @for (p of points(); track p.id) {
+          <li>
+            @if (p.available) {
+              <a class="point" [routerLink]="['/grammar', p.id]">
+                <span class="point-text">
+                  <span class="point-title">{{ p.titleVi }}</span>
+                  <span class="point-en" lang="en">{{ p.titleEn }}</span>
+                  <span class="point-hint">{{ p.hintVi }}</span>
+                </span>
+                <span class="state" [class.is-mastered]="p.status === 'mastered'">
+                  @if (p.status === 'mastered') {
+                    <lu-icon name="check" />
+                  }
+                  {{ statusText(p) }}
+                </span>
+              </a>
+            } @else {
+              <div class="point is-soon">
+                <span class="point-text">
+                  <span class="point-title">{{ p.titleVi }}</span>
+                  <span class="point-en" lang="en">{{ p.titleEn }}</span>
+                  <span class="point-hint">{{ p.hintVi }}</span>
+                </span>
+                <span class="state">Sắp có</span>
+              </div>
+            }
+          </li>
+        }
+      </ol>
+    }
+  } @else {
+    <lu-loading label="Đang tải ngữ pháp…" />
+  }
+</section>

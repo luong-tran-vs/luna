@@ -146,6 +146,28 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	if err != nil {
 		return fmt.Errorf("ai_lookups index: %w", err)
 	}
+
+	// F20: one grammar lesson per syllabus point; one progress record per learner and point.
+	_, err = db.Collection("grammar_lessons").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys: bson.D{{Key: "pointId", Value: 1}}, Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("grammar_lessons index: %w", err)
+	}
+	_, err = db.Collection("grammar_progress").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys: bson.D{{Key: "userId", Value: 1}, {Key: "pointId", Value: 1}}, Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("grammar_progress index: %w", err)
+	}
+	// F21: one report per learner and exercise.
+	_, err = db.Collection("grammar_reports").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "userId", Value: 1}, {Key: "pointId", Value: 1}, {Key: "exerciseId", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("grammar_reports index: %w", err)
+	}
 	return nil
 }
 

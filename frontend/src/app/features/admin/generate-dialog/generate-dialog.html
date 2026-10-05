@@ -37,7 +37,7 @@
         />
         <p class="field-hint" id="generate-words-hint">
           @if (range(); as r) {
-            Nên dài {{ r.min }}–{{ r.max }} từ; bài lệch vẫn được giữ, kèm cảnh báo để bạn xem lại.
+            Nên {{ r.min }}–{{ r.max }} từ.
           } @else {
             Từ {{ minWords }} đến {{ maxWords }} từ.
           }
@@ -75,6 +75,29 @@
         <p class="field-error" id="generate-idea-error">{{ message }}</p>
       }
     </div>
+
+    @if (grammarState() === 'loading') {
+      <lu-loading class="inline" label="Đang tải điểm ngữ pháp…" />
+    } @else if (grammarState() === 'error') {
+      <p class="field-hint" role="status">Không tải được điểm ngữ pháp; AI sẽ tự chọn.</p>
+    } @else if (grammarPoints().length > 0) {
+      <div class="field">
+        <label for="generate-grammar">Điểm ngữ pháp</label>
+        <select id="generate-grammar" formControlName="grammarPointId" aria-describedby="generate-grammar-hint">
+          <option value="">AI tự chọn</option>
+          @for (p of grammarPoints(); track p.id) {
+            <option [value]="p.id">{{ grammarLabel(p) }}</option>
+          }
+        </select>
+        <p class="field-hint" id="generate-grammar-hint">
+          @if (selectedGrammar(); as g) {
+            <strong>{{ g.pattern }}</strong>. {{ g.hintVi }} Điểm này dùng cho mọi bài trong lượt sinh.
+          } @else {
+            AI tự chọn điểm ngữ pháp phù hợp cho từng bài.
+          }
+        </p>
+      </div>
+    }
 
     @if (hasWords()) {
       <section class="targets" aria-labelledby="generate-targets-title">

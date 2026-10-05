@@ -13,12 +13,52 @@ services:
       # Localhost only: lets a backend started with `go run` reach the database during development.
       - "127.0.0.1:27017:27017"
 
+  # MySQL for DB_DRIVER=mysql. It starts only with the profile:
+  #   docker compose -f deploy/docker-compose.yml --profile mysql up --build
+  # together with DB_DRIVER=mysql in deploy/.env. MYSQL_PASSWORD defaults to a development value:
+  # set your own in deploy/.env.
+  mysql:
+    image: mysql:8
+    profiles: [mysql]
+    restart: unless-stopped
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_bin"]
+    environment:
+      # The same MYSQL_* variables the backend reads below (the image refuses MYSQL_USER=root).
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-luna}
+      MYSQL_USER: ${MYSQL_USER:-luna}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-luna}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${MYSQL_USER:-luna}", "-p${MYSQL_PASSWORD:-luna}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      # Localhost only, like mongo.
+      - "127.0.0.1:3306:3306"
+
   backend:
     build: ../backend
     restart: unless-stopped
     environment:
+      # Which database the backend uses: mongo (default) or mysql (also start the mysql profile).
+      DB_DRIVER: ${DB_DRIVER:-mongo}
       MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017}
       MONGO_DATABASE: ${MONGO_DATABASE:-luna}
+      # MySQL (used only when DB_DRIVER=mysql). Inside compose the host is the service name "mysql".
+      # MYSQL_DSN, when set, replaces the parts. An empty pool setting means the backend default.
+      MYSQL_DSN: ${MYSQL_DSN:-}
+      MYSQL_HOST: ${MYSQL_HOST:-mysql}
+      MYSQL_PORT: ${MYSQL_PORT:-3306}
+      MYSQL_USER: ${MYSQL_USER:-luna}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-luna}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-luna}
+      MYSQL_MAX_OPEN_CONNS: ${MYSQL_MAX_OPEN_CONNS:-}
+      MYSQL_MAX_IDLE_CONNS: ${MYSQL_MAX_IDLE_CONNS:-}
+      MYSQL_CONN_MAX_LIFETIME: ${MYSQL_CONN_MAX_LIFETIME:-}
+      MYSQL_DIAL_TIMEOUT: ${MYSQL_DIAL_TIMEOUT:-}
       LOG_LEVEL: ${LOG_LEVEL:-info}
       # Set to true when the app is served over HTTPS.
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
@@ -65,3 +105,4 @@ services:
 
 volumes:
   mongo-data:
+  mysql-data:

@@ -12,6 +12,7 @@ import {
   DueCard,
   DueList,
   LessonCounts,
+  PracticeMisses,
   ReviewInput,
   WordRef,
 } from '../models/vocab';
@@ -63,5 +64,10 @@ export class VocabApiService {
   /** Saves words of a lesson's Vocabulary section; words already saved are skipped. */
   bulk(lessonId: string, lemmas: string[]): Observable<BulkResult> {
     return this.http.post<BulkResult>('/api/vocab/cards/bulk', { lessonId, lemmas });
+  }
+
+  /** Puts words of a lesson's practice that were answered wrong into the review queue, due now. */
+  practiceMisses(lessonId: string, words: string[]): Observable<PracticeMisses> {
+    return this.http.post<PracticeMisses>('/api/vocab/practice-misses', { lessonId, words });
   }
 }

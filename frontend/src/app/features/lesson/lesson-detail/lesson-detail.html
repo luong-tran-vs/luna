@@ -104,8 +104,30 @@
                 Chuỗi ngày học: <strong>{{ s }} ngày</strong>.
               </p>
             }
+            @if (dueCount() > 0) {
+              <div class="review-nudge" role="status">
+                <p>
+                  Bạn có <strong>{{ dueCount() }} thẻ</strong> cần ôn, khoảng {{ dueMinutes() }} phút.
+                  @if (dueCount() >= backlog) {
+                    Thẻ đang tồn nhiều, nên ôn trước để không quên từ cũ.
+                  } @else {
+                    Ôn trước khi học tiếp giúp nhớ lâu hơn.
+                  }
+                </p>
+                <a
+                  class="btn-primary btn-block"
+                  routerLink="/vocabulary/review"
+                  [queryParams]="study()?.next ? { next: study()!.next!.id } : {}"
+                  >Ôn trước khi học tiếp <lu-icon name="arrow-right"
+                /></a>
+              </div>
+            }
             @if (study()?.next; as n) {
-              <a class="btn-primary btn-block" [routerLink]="['/lessons', n.id]"
+              <a
+                class="btn-block"
+                [class.btn-primary]="dueCount() === 0"
+                [class.btn]="dueCount() > 0"
+                [routerLink]="['/lessons', n.id]"
                 >Sang bài tiếp theo: <span lang="en">{{ n.title }}</span>
                 <lu-icon name="arrow-right"
               /></a>
@@ -150,6 +172,7 @@
                 [grammarTip]="practice()!.grammarTipVi"
                 (readAloud)="play($event)"
                 (checked)="onFillChecked($event)"
+                (missed)="sendMisses($event)"
               />
             }
             @case ('translate') {
@@ -207,6 +230,9 @@
           }
           @if (saving()) {
             <p class="muted" role="status">Đang lưu…</p>
+          }
+          @if (missNote(); as note) {
+            <p class="muted miss-note" role="status">{{ note }}</p>
           }
         }
       </div>

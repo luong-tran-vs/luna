@@ -30,10 +30,10 @@ interface RatingButton {
 }
 
 const RATINGS: RatingButton[] = [
-  { rating: 1, name: 'Again', key: 'again' },
-  { rating: 2, name: 'Hard', key: 'hard' },
-  { rating: 3, name: 'Good', key: 'good' },
-  { rating: 4, name: 'Easy', key: 'easy' },
+  { rating: 1, name: 'Quên', key: 'again' },
+  { rating: 2, name: 'Khó', key: 'hard' },
+  { rating: 3, name: 'Nhớ', key: 'good' },
+  { rating: 4, name: 'Dễ', key: 'easy' },
 ];
 
 /**

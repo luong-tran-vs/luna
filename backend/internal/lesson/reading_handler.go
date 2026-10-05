@@ -50,6 +50,8 @@ type readingJSON struct {
 	Phrases     []phraseJSON      `json:"phrases"`
 	Quiz        *quizJSON         `json:"quiz"`
 	GrammarNote *grammarNoteJSON  `json:"grammarNote"`
+
+	GrammarPointID string `json:"grammarPointId"`
 }
 
 type phraseJSON struct {
@@ -82,7 +84,7 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 		ID: v.ID, Title: v.Title, Level: v.Level, Topic: v.Topic,
 		Sentences:  make([]sentenceJSON, len(v.Sentences)),
 		Paragraphs: v.Paragraphs, Lemmas: v.Lemmas,
-		Phrases: make([]phraseJSON, len(v.Phrases)),
+		Phrases: make([]phraseJSON, len(v.Phrases)), GrammarPointID: v.GrammarPointID,
 	}
 	for i, s := range v.Sentences {
 		out.Sentences[i] = sentenceJSON(s)

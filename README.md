@@ -125,7 +125,7 @@ Bước Đọc tra nghĩa bằng chú thích AI của bài, rồi bằng từ đ
 Script lưu vào `deploy/data/dictionary/dictionary.db` (git bỏ qua) và kiểm tra SHA-256. Thiếu file thì app vẫn chạy,
 tra từ chỉ dùng chú thích của bài.
 
-Mở bước Đọc (tài khoản người học): trang bài đang học → bước Đọc (sau phần luyện tập), hoặc `/lessons/<id>/read`. Chạm một từ để tra,
+Mở bước Đọc (tài khoản người học): trang bài đang học → bước Đọc (sau bước Từ vựng), hoặc `/lessons/<id>/read`. Chạm một từ để tra,
 bôi đen nhiều từ để tra cụm, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu.
 
 ### Hỏi AI
@@ -185,9 +185,14 @@ nút **Tiếp theo** / **← Bước trước** cố định cuối màn hình:
    trong ngân hàng từ để điền vào ô đang chọn, **Kiểm tra** (không phân biệt hoa thường).
 4. **Dịch câu sang tiếng Anh**: ghép câu bằng các ô từ (có từ gây nhiễu), **Làm lại**, **Kiểm tra** từng câu.
 
-Với **bài đang học**, sau các bước luyện tập là **Đọc → Nghe → Viết** ngay trên trang này (xem "Học lần lượt từng bài"); xong
+Với **bài đang học** (cập nhật 2026-10-05: hiểu bài trước, luyện lại sau), thứ tự trên trang này là **Từ vựng → Đọc → Nghe →
+Hội thoại → Điền ô trống → Dịch câu → Viết** (xem "Học lần lượt từng bài"); xong
 bài thì có nút **Sang bài tiếp theo**. Với bài khác, cuối cùng là tổng kết (số ô điền đúng, số câu dịch đúng) và **Làm lại**. Phần luyện tập là tự chọn: chấm ngay trên trình
-duyệt, kết quả không gửi lên máy chủ, không ảnh hưởng các bước của bài, tiến độ, streak hay thống kê; không có điểm XP.
+duyệt, điểm không gửi lên máy chủ, không ảnh hưởng các bước của bài, tiến độ, streak hay thống kê; không có điểm XP.
+Riêng **bài đang học** (cập nhật 2026-10-05): từ làm sai ở bước Điền ô trống, hoặc có trong câu dịch làm sai, được đưa vào lịch ôn
+(`POST /api/vocab/practice-misses`): từ chưa có trong sổ thành thẻ mới đến hạn ngay (nghĩa, phiên âm, câu lấy từ chú thích của bài,
+không lấy từ trình duyệt); thẻ đã có mà đến hạn muộn hơn thì được kéo về bây giờ, giữ nguyên trạng thái FSRS. Mỗi từ chỉ gửi một
+lần mỗi lần mở bài; trang ghi "Đã đưa N từ làm sai vào lịch ôn". Gửi lỗi thì bỏ qua, bài học không bị ảnh hưởng.
 
 Nội dung luyện tập (`GET /api/lessons/{id}/practice`):
 
@@ -222,15 +227,50 @@ Cập nhật 2026-10-02: bỏ trang "Hôm nay" và giới hạn một bài mỗi
 - **Mục tiêu** (`/goal`): chọn trình độ rồi một chủ đề của trình độ đó; mục tiêu là học hết lộ trình của chủ đề. Tiến độ từng
   chủ đề lưu riêng; đổi chủ đề có hiệu lực ngay.
 - **Bài đang học** là bài đầu tiên chưa xong trong lộ trình. Học ngay ở trang bài `/lessons/<id>` (trang chủ → **Bắt đầu học /
-  Tiếp tục: <bước>**, hoặc trang **Bài học**): các phần luyện tập có nội dung (F17), rồi **Đọc** → **Nghe** → **Viết** (F8, tuỳ
-  chọn), chung một thanh tiến độ. Thoát ra vào lại thì tiếp tục đúng bước và đúng câu. Nút **← Bước trước** mở lại bước đã qua
+  Tiếp tục: <bước>**, hoặc trang **Bài học**): **Từ vựng** (F17), **Đọc** → **Nghe**, rồi phần luyện tập trên chính bài (**Hội
+  thoại** → **Điền ô trống** → **Dịch câu**, F17), cuối cùng **Viết** (F8, tuỳ chọn), chung một thanh tiến độ (cập nhật 2026-10-05: trước
+  đây luyện tập đứng trước bước Đọc). Thoát ra vào lại thì tiếp tục đúng bước và đúng câu. Máy chủ chỉ biết Đọc, Nghe, Viết, nên bước đang
+  học được nhớ thêm **trên thiết bị** (`localStorage`, cập nhật 2026-10-05): vào lại giữa phần luyện tập thì mở đúng bước đó, không nhảy
+  tới Viết hay về bước 1; không bao giờ lùi về trước bước mà máy chủ đã ghi là xong; xoá khi xong bài. Đổi máy hoặc xoá dữ liệu trình
+  duyệt thì chỉ còn trạng thái của máy chủ (vào lại sau bước Nghe sẽ mở bước Viết, **← Bước trước** để quay lại). Nút **← Bước trước** mở lại bước đã qua
   (bước Đọc, Nghe đã xong chỉ để xem, không đổi tiến độ).
 - Xong bài (nộp bài viết hoặc bấm **Bỏ qua** ở bước Viết): mục tiêu +1, ngày đó tính vào chuỗi ngày học, và nút **Sang bài tiếp
-  theo** mở ngay bài kế tiếp — học bao nhiêu bài một ngày cũng được. Nghỉ một ngày trọn thì chuỗi về 0. Bài đã xong trước khi có
+  theo** mở ngay bài kế tiếp — học bao nhiêu bài một ngày cũng được. Nghỉ **đúng một ngày** thì chuỗi vẫn giữ (ngày nghỉ không được tính; cập nhật 2026-10-05), nhưng lần tha sau phải cách ít nhất 7 ngày
+  học; nghỉ hai ngày liền thì chuỗi về 0. Không lưu gì thêm, chỉ tính từ các ngày đã xong bài. Bài đã xong trước khi có
   bước Viết vẫn tính là xong.
 - **Bài học** (header → **Bài học**, `/lessons`): các bài đã học (đọc/nghe lại, không đổi tiến độ), bài đang học, các bài sắp tới
   bị khoá — người học không mở được bài chưa tới lượt. Không có ô trống: bài nào có thì hiện bài đó.
-- Ôn thẻ đến hạn ở **Ôn tập** (`/vocabulary/review`), không còn là bước của bài.
+- Ôn thẻ đến hạn ở **Ôn tập** (`/vocabulary/review`), không còn là bước của bài. Nhưng (cập nhật 2026-10-05) khi xong bài mà còn thẻ
+  đến hạn, thẻ **Hoàn thành bài học** hiện "Ôn trước khi học tiếp" (số thẻ, thời gian ước tính ~20 giây/thẻ; từ 30 thẻ trở lên nói rõ
+  là đang tồn nhiều). Nút này là nút chính, **Sang bài tiếp theo** thành nút phụ và vẫn bấm được ngay. Ôn xong, trang Ôn tập có nút
+  **Học bài tiếp theo** (`/vocabulary/review?next=<id bài>`). Hỏi số thẻ lỗi thì không hiện gợi ý.
+- **Trang chủ** (cập nhật 2026-10-05): thẻ "Hôm nay: N thẻ cần ôn" nằm trên bài đang học khi có thẻ đến hạn; "Ngày mai: N thẻ" vẫn
+  ở cuối. Ba thanh kỹ năng là **độ chính xác**, không phải số bài đã qua: Đọc = tỷ lệ trả lời đúng câu hỏi hiểu bài, Nghe = tỷ lệ từ
+  đúng khi chép chính tả, Viết = điểm trung bình bài viết chia cho 5; kỹ năng chưa có dữ liệu ghi "Chưa có". Ô thứ ba là "Đọc & nghe
+  đúng" (trung bình đọc và nghe). Bài đang học chỉ có **một** thẻ (trước đây có thêm thẻ vòng tròn lặp lại tiến độ); tiến độ của nó ghi
+  "x/3 phần" vì máy chủ chỉ đếm ba phần chính Đọc, Nghe, Viết (phần Từ vựng và luyện tập không được đếm), không còn ghi "bước" gây
+  lệch với 7 bước trong trang bài.
+- **Chọn chủ đề** (cập nhật 2026-10-05): chủ đề chưa có bài vẫn hiện (ghi "Chưa có bài") nhưng nút chọn bị khoá, để người học không
+  rơi vào một khoá rỗng; trình độ chưa có chủ đề nào thì báo rõ.
+- **Nội dung do AI tạo** (cập nhật 2026-10-05, chỉ áp dụng cho bài tạo hoặc chú thích lại từ nay): số từ chú thích theo trình độ (A1–A2
+  6–12, B1–B2 8–16, C 8–25) và bỏ qua từ quá cơ bản; câu hỏi hiểu bài phải đa dạng: tối đa một câu hỏi chi tiết thuần tuý, ít nhất một câu hỏi nghĩa của từ trong ngữ cảnh và ít nhất một câu hỏi suy luận hoặc "vì sao", lời giải thích nêu lý do chứ không chỉ chép lại câu; ghi chú ngữ pháp ngắn hơn cho người mới (A1–A2 tối đa 60 từ, B 90, C 120),
+  chọn cấu trúc nổi bật của bài thay vì luôn là thì hiện tại đơn; đề viết không nêu số câu hoặc số từ (độ dài hiển thị riêng theo
+  trình độ); khi sinh bài, AI phải viết đủ độ dài, văn tự nhiên, và được bỏ một từ mục tiêu nếu không dùng tự nhiên được ở trình độ đó.
+  Bài đã có thì bấm **Chạy lại chú thích** để dùng quy tắc mới.
+- **Giáo trình ngữ pháp** (cập nhật 2026-10-05, F19): `backend/internal/grammar/syllabus.json` có 67 điểm theo trình độ (A1 15, A2 14, B1 13, B2 11,
+  C1 8, C2 6), xếp theo thứ tự dạy. Quản trị viên gán cho mỗi bài tối đa một điểm của đúng trình độ: ở ô **Điểm ngữ pháp** trong hộp thoại
+  **Sinh bài bằng AI** (mặc định là "AI tự chọn": AI tự lồng ngữ pháp vào bài cho người học quen dần; chọn một điểm cụ thể chỉ khi muốn) và trong form thêm/sửa bài. AI sinh bài phải dùng điểm
+  đó và ghi chú ngữ pháp của bài dạy đúng điểm đó, với tên lấy từ giáo trình. Sửa giáo trình bằng cách sửa file JSON (không đổi hay dùng lại mã đã
+  gán). Đổi điểm của bài đã chú thích rồi thì bấm **Chạy lại chú thích** để ghi chú theo điểm mới. Chi tiết: `docs/phases/giai-doan-3.md`, mục F19.
+- **Học ngữ pháp riêng** (cập nhật 2026-10-05, F20): tab **Ngữ pháp** (`/grammar`) là chỗ học và luyện ngữ pháp có hệ thống, tách khỏi bài học theo
+  chủ đề. Mỗi điểm của giáo trình có một **bài ngữ pháp**: mục tiêu, giải thích, khi nào dùng, bảng cấu trúc, ví dụ (nghe được), lỗi thường gặp, bài
+  **luyện tập** (phản hồi ngay từng câu) và bài **kiểm tra mức nắm vững** (chấm cuối bài; đạt từ 80% là "Đã nắm vững", không bao giờ mất). Ba dạng
+  bài tập: trắc nghiệm, điền từ, sắp xếp câu, tự chấm trên trình duyệt (không gọi AI); câu làm sai được ghi để luyện lại. Danh sách theo trình độ,
+  gợi ý điểm kế tiếp, không khoá cứng. Bài ngữ pháp do **AI sinh rồi quản trị viên duyệt và đăng** ở mục **Ngữ pháp** của khu quản trị
+  (`/admin/grammar`: Sinh bằng AI, xem trước, sửa nội dung bằng JSON, Đăng/Gỡ); người học chỉ thấy bài đã đăng, điểm chưa đăng ghi "Sắp có".
+  Mỗi bài sinh tốn **một** request AI. Từ trang đọc bài, ghi chú ngữ pháp có liên kết "Học kỹ điểm này →" tới bài ngữ pháp của điểm đó.
+  Dữ liệu tiến độ (`grammar_progress`) nằm trong file xuất dữ liệu. Chưa có: đưa câu sai vào lịch ôn FSRS, thư viện tra cứu, kiểm tra trình độ.
+- **Kiểm soát chất lượng bài ngữ pháp** (cập nhật 2026-10-05, F21): nút **Kiểm tra bằng AI** cho AI giải lại bài tập không kèm đáp án rồi so với đáp án đã lưu; câu lệch hoặc mơ hồ bị gắn cờ và Đăng sẽ hỏi xác nhận (`acknowledgeFlags`). Đáp án điền từ được mở rộng bằng mã (viết tắt, dấu nháy cong). Người học có nút **Báo lỗi câu này**; quản trị xem ở mục *Câu bị báo lỗi* và bấm *Đã xử lý*. Bảng/collection `grammar_reports`. Từng câu bị cờ có thể xác nhận, sửa hoặc xoá, và cả bài có nút "Xác nhận đã kiểm tra xong".
 - API: `GET /api/lessons/{id}/study` (trạng thái các bước, bài kế tiếp), `POST /api/lessons/{id}/steps/{step}/complete`,
   `POST /api/lessons/{id}/steps/write/skip`, `PUT /api/lessons/{id}/position`. Bài không phải bài đang học trả 409
   `not_current_lesson`.
@@ -295,7 +335,7 @@ Thanh trên → **Cài đặt** (`/settings`); cài đặt lưu theo tài khoả
   tài khoản; tìm theo từ, lọc theo bài hoặc "Thẻ tự thêm"; thêm thẻ, sửa nghĩa/IPA/câu ví dụ (lịch ôn giữ nguyên), xoá thẻ
   (xoá cả lịch sử ôn).
 - **Ôn tập** (`/vocabulary/review`): các thẻ đến hạn, kiểu *Xem từ đoán nghĩa* (Space lật thẻ) hoặc *Nghe rồi gõ* (không phân
-  biệt hoa thường); chọn Again / Hard / Good / Easy (phím 1–4), ngày ôn tiếp theo tính bằng FSRS
+  biệt hoa thường); chọn Quên / Khó / Nhớ / Dễ (tương ứng Again / Hard / Good / Easy của FSRS; phím 1–4), ngày ôn tiếp theo tính bằng FSRS
   ([go-fsrs](https://github.com/open-spaced-repetition/go-fsrs), tham số mặc định). Thẻ mới đến hạn lần đầu lúc 0 giờ hôm sau.
 - **Mục Từ vựng** ở cuối bước Đọc: các từ đã chú thích của bài, nút Lưu / Lưu tất cả (không tạo thẻ trùng), không gọi AI.
 
@@ -345,7 +385,9 @@ cp deploy/.env.example deploy/.env
 
 | Biến | Dùng ở | Bắt buộc | Mặc định | Ý nghĩa |
 |---|---|---|---|---|
-| `MONGO_URI` | backend | Có | `mongodb://mongo:27017` (compose) | Chuỗi kết nối MongoDB |
+| `DB_DRIVER` | backend | Không | `mongo` | Loại cơ sở dữ liệu: `mongo` hoặc `mysql` (không phân biệt hoa thường); xem "Chọn cơ sở dữ liệu" |
+| `MONGO_URI` | backend | Có khi `DB_DRIVER=mongo` | `mongodb://mongo:27017` (compose) | Chuỗi kết nối MongoDB |
+| `MYSQL_*` | backend (và service `mysql`) | Khi `DB_DRIVER=mysql` | xem "Chọn cơ sở dữ liệu" | Máy chủ, cổng, người dùng, mật khẩu, database, pool; hoặc cả chuỗi `MYSQL_DSN`. Mật khẩu chỉ đặt trong `.env` |
 | `HTTP_ADDR` | backend | Không | `:8080` | Địa chỉ backend lắng nghe |
 | `MONGO_DATABASE` | backend | Không | `luna` | Tên database |
 | `LOG_LEVEL` | backend | Không | `info` | `debug`, `info`, `warn`, `error` |
@@ -359,8 +401,58 @@ cp deploy/.env.example deploy/.env
 | `BACKUP_TIME` | backup | Không | `03:00` | Giờ sao lưu mỗi ngày (HH:MM) |
 | `BACKUP_KEEP` | backup | Không | `7` | Số bản sao lưu giữ lại |
 
-Thiếu `MONGO_URI`, hoặc `LOG_LEVEL` / `COOKIE_SECURE` / `AI_PROVIDER` sai thì backend in lỗi nêu tên biến và dừng với mã 1.
+Thiếu `MONGO_URI` (khi `DB_DRIVER=mongo`) hoặc `MYSQL_USER`/`MYSQL_DSN` (khi `DB_DRIVER=mysql`), `DB_DRIVER` không phải `mongo`/`mysql`, hoặc `LOG_LEVEL` / `COOKIE_SECURE` / `AI_PROVIDER` sai thì backend in lỗi nêu tên biến và dừng với mã 1.
 Mọi file `.env` đều bị git bỏ qua; không commit bí mật vào repo.
+
+### Chọn cơ sở dữ liệu
+
+Backend chọn CSDL lúc khởi động theo `DB_DRIVER` (mặc định `mongo`), không cần sửa code. Chỉ biến của loại đã chọn được đọc: `mongo`
+dùng `MONGO_URI` và `MONGO_DATABASE`, `mysql` dùng các biến `MYSQL_*` ở bảng dưới (không được kiểm tra khi chọn `mongo`). Log có dòng
+`database selected` ghi loại đang dùng.
+
+| Biến MySQL | Bắt buộc | Mặc định | Ý nghĩa |
+|---|---|---|---|
+| `MYSQL_HOST` | Không | `localhost` (trong compose: `mysql`) | Máy chủ MySQL |
+| `MYSQL_PORT` | Không | `3306` | Cổng (1–65535) |
+| `MYSQL_USER` | Có, trừ khi dùng `MYSQL_DSN` | | Tên người dùng (trong compose không được là `root`) |
+| `MYSQL_PASSWORD` | Không | trống (compose: `luna`) | Mật khẩu; ký tự đặc biệt như `@ / : ? &` dùng được, không cần mã hoá |
+| `MYSQL_DATABASE` | Không | `luna` | Tên database; phải tạo sẵn khi chạy ngoài compose |
+| `MYSQL_DSN` | Không | trống | Chuỗi `user:password@tcp(host:3306)/database`; nếu đặt thì **thay** năm biến trên |
+| `MYSQL_MAX_OPEN_CONNS` | Không | `20` | Số kết nối tối đa của pool |
+| `MYSQL_MAX_IDLE_CONNS` | Không | `5` | Số kết nối nhàn rỗi giữ lại |
+| `MYSQL_CONN_MAX_LIFETIME` | Không | `5m` | Thời gian tối đa dùng lại một kết nối (ví dụ `30s`, `10m`) |
+| `MYSQL_DIAL_TIMEOUT` | Không | `2s` | Thời gian chờ tối đa khi nối tới máy chủ |
+
+Số hoặc thời lượng sai (ví dụ `MYSQL_PORT=abc`, `MYSQL_CONN_MAX_LIFETIME=5`) thì backend in lỗi nêu tên biến rồi dừng; lỗi không bao giờ
+chứa giá trị, nên mật khẩu không lộ ra log. Backend luôn tự thêm `parseTime`, múi giờ UTC và `utf8mb4`.
+
+**Trạng thái:** cả hai loại chạy đầy đủ tính năng (MongoDB và MySQL 8.0.19 trở lên). Chuyển loại không tự chuyển dữ liệu: mỗi CSDL
+là một kho riêng, bắt đầu rỗng (tài khoản đầu tiên vẫn là quản trị viên). MySQL tự tạo bảng lúc khởi động (`schema_migrations` ghi các
+đợt đã chạy; có khoá nên hai backend khởi động cùng lúc không đạp nhau) và nạp từ vựng chủ đề như MongoDB.
+
+Chạy bằng MySQL trong Docker Compose: đặt `DB_DRIVER=mysql` trong `deploy/.env`, rồi
+
+```bash
+docker compose -f deploy/docker-compose.yml --profile mysql up --build
+```
+
+Service `mysql` chỉ chạy khi có `--profile mysql`; mật khẩu mặc định `luna` là giá trị phát triển, hãy đặt `MYSQL_PASSWORD` riêng trong
+`deploy/.env` (service `mysql` và backend cùng đọc các biến `MYSQL_*` nên luôn khớp nhau). Chạy backend ngoài Docker thì đặt
+`DB_DRIVER=mysql` và các biến `MYSQL_*` trong `backend/.env`.
+
+**Chưa có cho MySQL:** sao lưu và khôi phục (`deploy/backup` dùng `mongodump`, cần bản `mysqldump` tương ứng). Với MySQL, hãy tự sao lưu
+volume `mysql-data` hoặc dùng `mysqldump` cho đến khi có.
+
+**Test MySQL:** test tích hợp ở `backend/internal/storage/mysql` cần một server MySQL và tự bỏ qua nếu thiếu biến `MYSQL_TEST_DSN`:
+
+```bash
+docker run -d --name luna-mysql-test -e MYSQL_ROOT_PASSWORD=luna -p 127.0.0.1:3307:3306 mysql:8
+MYSQL_TEST_DSN='root:luna@tcp(127.0.0.1:3307)/' go test ./internal/storage/mysql/   # trong thư mục backend
+```
+
+Mỗi test tạo một database riêng rồi xoá, nên không đụng dữ liệu thật.
+
+Cách thêm một loại CSDL: xem `docs/architecture.md`, mục "Lớp lưu trữ".
 
 ## Phát triển
 

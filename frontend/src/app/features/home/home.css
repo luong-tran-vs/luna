@@ -28,34 +28,6 @@
   margin: 0 calc(-1 * var(--space-2)) 0 0;
 }
 
-.today-goal {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.today-goal-text {
-  display: grid;
-  flex: 1;
-  gap: var(--space-1);
-  min-width: 0;
-}
-
-.mini-track {
-  height: 6px;
-  margin-top: var(--space-1);
-  overflow: hidden;
-  background: var(--color-track);
-  border-radius: var(--radius-full);
-}
-
-.mini-fill {
-  display: block;
-  height: 100%;
-  background: var(--color-primary);
-  border-radius: inherit;
-}
-
 .tiles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -173,7 +145,8 @@
   --bar-height: 6px;
 }
 
-.tomorrow {
+.tomorrow,
+.due-today {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -181,10 +154,25 @@
   text-decoration: none;
 }
 
+.due-today {
+  background: var(--color-primary-soft);
+}
+
 .tomorrow-text {
   flex: 1;
   font: var(--text-sm) var(--font-ui);
   font-weight: 600;
+}
+
+.due-hint {
+  display: block;
+  font-weight: 400;
+}
+
+.skill-empty {
+  display: grid;
+  gap: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
 }
 
 .actions {

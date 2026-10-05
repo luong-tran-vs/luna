@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { DueList, ReviewMode } from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
@@ -26,6 +26,8 @@ const dateTime = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'short', timeStyl
 })
 export class Review {
   private readonly api = inject(VocabApiService);
+  /** The lesson to go on with after the review, when the learner came from a finished lesson. */
+  protected readonly nextLesson = inject(ActivatedRoute).snapshot.queryParamMap.get('next');
 
   protected readonly modes = MODES;
   protected readonly due = signal<DueList | null>(null);

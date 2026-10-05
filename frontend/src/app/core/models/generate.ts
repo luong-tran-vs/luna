@@ -11,6 +11,8 @@ export interface GenerateInput {
   idea: string;
   /** F18: target words for each lesson; empty, or exactly `count` groups. */
   targetWords: string[][];
+  /** Curriculum grammar point for every lesson of this run; '' lets the AI choose. */
+  grammarPointId?: string;
 }
 
 export interface GeneratedDraft {
@@ -21,6 +23,8 @@ export interface GeneratedDraft {
   targetWords: string[];
   /** Target words not found in the content. */
   missingWords: string[];
+  /** Grammar point the draft was written for ('' when none). */
+  grammarPointId?: string;
 }
 
 export interface GenerateResult {

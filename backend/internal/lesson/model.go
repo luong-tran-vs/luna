@@ -52,10 +52,12 @@ type Lesson struct {
 	Title   string
 	Content string
 	// Level always equals the level of the lesson's topic.
-	Level            Level
-	TopicID          string
-	Source           string
-	License          string
+	Level   Level
+	TopicID string
+	Source  string
+	License string
+	// GrammarPointID is the syllabus point the lesson teaches, "" when none is assigned.
+	GrammarPointID   string
 	Revision         int
 	Sentences        []Sentence
 	AnnotationStatus Status

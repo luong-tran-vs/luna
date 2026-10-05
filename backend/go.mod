@@ -3,6 +3,7 @@ module github.com/luongtran/luna/backend
 go 1.25.1
 
 require (
+	github.com/go-sql-driver/mysql v1.9.3
 	github.com/open-spaced-repetition/go-fsrs/v3 v3.3.1
 	go.mongodb.org/mongo-driver/v2 v2.9.1
 	golang.org/x/crypto v0.55.0
@@ -11,6 +12,7 @@ require (
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.19.2 // indirect
