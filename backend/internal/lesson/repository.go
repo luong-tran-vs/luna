@@ -33,6 +33,8 @@ type Repository interface {
 	// Summaries returns the lessons that exist among ids, in any order.
 	Summaries(ctx context.Context, ids []string) ([]Summary, error)
 	UpdateInfo(ctx context.Context, id string, info Info) error
+	// Every method that writes content (ReplaceContent, SaveAnnotations, SavePractice, ReplaceExtras,
+	// ReplaceAnnotations) also drops the review, whose flags point into the old arrays (F22).
 	// ReplaceContent overwrites content, revision, sentences, annotations and statuses.
 	ReplaceContent(ctx context.Context, l Lesson) error
 	// SetStatus changes one work status if the lesson is still at revision; ok reports that.
@@ -52,6 +54,9 @@ type Repository interface {
 	ReplaceExtras(ctx context.Context, id string, extras Extras, bumpQuiz bool) error
 	// ReplaceAnnotations stores admin-edited annotations and marks them done.
 	ReplaceAnnotations(ctx context.Context, id string, anns []Annotation) error
+	// SaveReview stores the AI check of a lesson (F22) if it is still at revision; ok is false when the
+	// lesson was rewritten meanwhile. r is nil to clear the review. It leaves updated_at alone.
+	SaveReview(ctx context.Context, id string, revision int, r *Review) (bool, error)
 	Delete(ctx context.Context, id string) error
 	// CountByGrammarPoint returns how many lessons use each grammar point; topicID "" counts
 	// every topic. Lessons without a point are not counted.

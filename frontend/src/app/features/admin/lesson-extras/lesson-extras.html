@@ -80,6 +80,13 @@
             <p class="field-error" [id]="errorId('questions.' + i + '.explanationVi')">{{ message }}</p>
           }
         </div>
+        @if (flagFor(i); as f) {
+          <lu-flag-note [flag]="f" [subject]="'câu hỏi ' + (i + 1)" [disabled]="flagBusy()" (confirm)="confirm.emit($event)">
+            <button type="button" class="btn" [attr.aria-label]="'Sửa câu hỏi ' + (i + 1)" (click)="editQuestion(i)">Sửa câu này</button>
+            <button type="button" class="btn" [disabled]="saving() || lesson().annotationStatus === 'running'" [attr.aria-label]="'Xoá câu hỏi ' + (i + 1)" (click)="deleteAt.set(i)">Xoá câu này</button>
+            <span class="muted">Sửa tại chỗ rồi nhớ bấm Lưu ở cuối phần này.</span>
+          </lu-flag-note>
+        }
         <button type="button" class="btn remove" (click)="removeQuestion(i)">Xoá câu hỏi {{ i + 1 }}</button>
       </div>
     }
@@ -187,3 +194,13 @@
     <p class="muted save-status" role="status">{{ status() === 'saved' ? 'Đã lưu' : '' }}</p>
   </div>
 </section>
+
+<lu-confirm-dialog
+  [open]="deleteAt() !== null"
+  title="Xoá câu hỏi?"
+  [message]="'Xoá câu hỏi ' + ((deleteAt() ?? 0) + 1) + ' và lưu ngay. Các thay đổi chưa lưu khác trong phần này cũng được lưu.'"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDeleteQuestion()"
+  (cancelled)="deleteAt.set(null)"
+/>

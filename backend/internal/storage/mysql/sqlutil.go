@@ -20,6 +20,9 @@ const tableOptions = "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin"
 // errDuplicate is MySQL's "Duplicate entry for key" error number.
 const errDuplicate = 1062
 
+// errDuplicateColumn is MySQL's "Duplicate column name" error number.
+const errDuplicateColumn = 1060
+
 // newID returns a new 24-character lowercase hex id (12 random bytes, like a Mongo ObjectID).
 func newID() string {
 	var b [12]byte

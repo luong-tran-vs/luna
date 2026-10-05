@@ -54,6 +54,14 @@ describe('AdminApiService', () => {
     ).resolves.toEqual(lesson);
   });
 
+  it('checks, confirms a flag and verifies a lesson (F22)', async () => {
+    await expect(call(api.checkLesson('l1'), 'POST', '/api/admin/lessons/l1/check', { lesson })).resolves.toEqual(lesson);
+    await expect(
+      call(api.confirmLessonFlag('l1', 'question', 2), 'POST', '/api/admin/lessons/l1/check/confirm', { lesson }, { area: 'question', index: 2 }),
+    ).resolves.toEqual(lesson);
+    await expect(call(api.verifyLesson('l1'), 'POST', '/api/admin/lessons/l1/check/verify', { lesson })).resolves.toEqual(lesson);
+  });
+
   it('regenerates the practice', async () => {
     await expect(
       call(api.regeneratePractice('l1'), 'POST', '/api/admin/lessons/l1/practice/regenerate', { lesson }),
@@ -64,6 +72,13 @@ describe('AdminApiService', () => {
     const extras = { questions: [], grammarNote: null, writingPrompt: 'Write.' };
     await expect(
       call(api.updateExtras('l1', extras), 'PUT', '/api/admin/lessons/l1/extras', { lesson }, extras),
+    ).resolves.toEqual(lesson);
+  });
+
+  it('replaces the practice translations', async () => {
+    const translations = [{ vi: 'Xin chào', en: 'Hello', distractors: ['hi'] }];
+    await expect(
+      call(api.updateTranslations('l1', translations), 'PUT', '/api/admin/lessons/l1/practice/translations', { lesson }, { translations }),
     ).resolves.toEqual(lesson);
   });
 

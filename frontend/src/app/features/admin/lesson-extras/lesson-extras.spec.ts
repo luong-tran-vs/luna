@@ -164,4 +164,52 @@ describe('LessonExtras', () => {
     expect(el.textContent).toContain('Đã sửa tay');
     expect(el.textContent).toContain('Chú thích đang chạy');
   });
+
+  it('shows the flag on the flagged question only and emits confirm (F22)', async () => {
+    await setup(lesson());
+    const flag = { area: 'question' as const, index: 1, kind: 'ambiguous' as const, noteVi: 'Hai đáp án đều đúng', confirmed: false };
+    fixture.componentRef.setInput('flags', [flag]);
+    const got: unknown[] = [];
+    fixture.componentInstance.confirm.subscribe((f) => got.push(f));
+    await fixture.whenStable();
+    const notes = el.querySelectorAll('lu-flag-note');
+    expect(notes.length).toBe(1);
+    expect(notes[0].textContent).toContain('AI thấy câu mơ hồ');
+    expect(notes[0].textContent).toContain('Hai đáp án đều đúng');
+    expect(el.querySelectorAll('.question')[1].contains(notes[0])).toBe(true);
+    el.querySelector<HTMLButtonElement>('button[aria-label="Giữ nguyên câu hỏi 2"]')!.click();
+    expect(got).toEqual([flag]);
+  });
+
+  it('shows no flag when none is given', async () => {
+    await setup(lesson());
+    expect(el.querySelector('lu-flag-note')).toBeNull();
+  });
+
+  it('offers edit and delete on the flagged question, with a reminder to save', async () => {
+    await setup(lesson());
+    fixture.componentRef.setInput('flags', [{ area: 'question', index: 1, kind: 'wrong', noteVi: 'Sai', confirmed: false }]);
+    await fixture.whenStable();
+    const note = el.querySelector('lu-flag-note')!;
+    expect(note.textContent).toContain('nhớ bấm Lưu');
+    note.querySelector<HTMLButtonElement>('button[aria-label="Sửa câu hỏi 2"]')!.click();
+    expect(document.activeElement).toBe(input('q-1-prompt'));
+  });
+
+  it('deletes a flagged question after confirming, saving the current form values', async () => {
+    await setup(lesson());
+    fixture.componentRef.setInput('flags', [{ area: 'question', index: 1, kind: 'wrong', noteVi: 'Sai', confirmed: false }]);
+    await fixture.whenStable();
+    await type('q-0-prompt', 'Where did they go?');
+    el.querySelector<HTMLButtonElement>('button[aria-label="Xoá câu hỏi 2"]')!.click();
+    await fixture.whenStable();
+    expect(http.match('/api/admin/lessons/l1/extras')).toEqual([]);
+    (Array.from(el.querySelectorAll('lu-confirm-dialog button')).find((b) => b.textContent?.trim() === 'Xoá') as HTMLButtonElement).click();
+    await settle();
+    const r = http.expectOne('/api/admin/lessons/l1/extras');
+    expect(r.request.body.questions.map((q: { prompt: string }) => q.prompt)).toEqual(['Where did they go?']);
+    r.flush({ lesson: lesson({ questions: [lesson().questions[0]] }) });
+    await settle();
+    expect(saved.length).toBe(1);
+  });
 });

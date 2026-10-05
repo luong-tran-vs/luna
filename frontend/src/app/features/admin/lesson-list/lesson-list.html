@@ -66,6 +66,13 @@
             </div>
             <div class="meta">
               <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />
+              @if ((lesson.flags ?? 0) > 0) {
+                <span class="check-label flagged">{{ lesson.flags }} chỗ cần xem</span>
+              } @else if (lesson.verified) {
+                <span class="check-label ok">Đã kiểm tra</span>
+              } @else if (!lesson.checked) {
+                <span class="check-label">Chưa kiểm tra</span>
+              }
             </div>
             <div class="actions">
               @if (lesson.annotationStatus === 'failed') {

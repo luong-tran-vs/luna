@@ -88,3 +88,22 @@
 .row-error {
   grid-column: 1 / -1;
 }
+
+.check-strip {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: var(--space-1) solid var(--color-line);
+}
+
+.check-strip.flagged {
+  border-left-color: var(--color-bad);
+}
+
+.ann-flag {
+  flex-basis: 100%;
+}
+
+.sentences lu-flag-note {
+  display: block;
+  margin-top: var(--space-1);
+}

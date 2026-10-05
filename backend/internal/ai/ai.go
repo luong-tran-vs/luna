@@ -100,6 +100,9 @@ type Provider interface {
 	// SolveGrammarExercises answers grammar exercises without seeing their keys, so the service can
 	// compare the answers with the stored ones (F21).
 	SolveGrammarExercises(ctx context.Context, req SolveRequest) ([]Solution, error)
+	// ReviewLesson reads over the AI-written parts of a lesson in one request and reports what looks
+	// wrong, answering the comprehension questions without seeing their keys (F22).
+	ReviewLesson(ctx context.Context, req ReviewRequest) (ReviewResult, error)
 }
 
 var (

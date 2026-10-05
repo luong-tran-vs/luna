@@ -234,5 +234,6 @@ func (s *Service) UpdateExtras(ctx context.Context, id string, in ExtrasInput) (
 	if err := s.Lessons.ReplaceExtras(ctx, id, x, !sameQuestions(l.Extras.Questions, x.Questions)); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: replace extras: %w", err)
 	}
+	s.keepReview(ctx, l, AreaQuestion, questionKeys(l.Extras.Questions), questionKeys(x.Questions))
 	return s.Lessons.Get(ctx, id)
 }

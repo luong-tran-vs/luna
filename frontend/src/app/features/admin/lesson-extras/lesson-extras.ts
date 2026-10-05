@@ -3,8 +3,10 @@ import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveForm
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { ExtrasInput, Lesson, Question } from '../../../core/models/lesson';
+import { ExtrasInput, Lesson, LessonFlag, Question } from '../../../core/models/lesson';
 import { AdminApiService } from '../admin-api.service';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { FlagNote } from '../flag-note/flag-note';
 
 const MAX_QUESTIONS = 5;
 const MAX_EXAMPLES = 3;
@@ -22,7 +24,7 @@ type QuestionForm = FormGroup<{
  */
 @Component({
   selector: 'lu-lesson-extras',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FlagNote, ConfirmDialog],
   templateUrl: './lesson-extras.html',
   styleUrl: './lesson-extras.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,6 +35,10 @@ export class LessonExtras {
 
   readonly lesson = input.required<Lesson>();
   readonly saved = output<Lesson>();
+  /** F22: flags on the questions (index = question position); empty when not checked. */
+  readonly flags = input<LessonFlag[]>([]);
+  readonly flagBusy = input(false);
+  readonly confirm = output<LessonFlag>();
 
   protected readonly maxQuestions = MAX_QUESTIONS;
   protected readonly maxExamples = MAX_EXAMPLES;
@@ -47,6 +53,7 @@ export class LessonExtras {
   });
   protected readonly writingPrompt = new FormControl('', { nonNullable: true });
 
+  protected readonly deleteAt = signal<number | null>(null);
   protected readonly saving = signal(false);
   protected readonly status = signal<'idle' | 'saved'>('idle');
   protected readonly error = signal<string | null>(null);
@@ -81,6 +88,26 @@ export class LessonExtras {
       answerIndex: [q?.answerIndex ?? -1],
       explanationVi: [q?.explanationVi ?? ''],
     });
+  }
+
+  protected flagFor(i: number): LessonFlag | null {
+    return this.flags().find((f) => f.index === i) ?? null;
+  }
+
+  /** Puts the cursor in the question's text box. */
+  protected editQuestion(index: number): void {
+    document.getElementById('q-' + index + '-prompt')?.focus();
+  }
+
+  /** Removes the question from the form (unsaved changes included) and saves the rest. */
+  protected async confirmDeleteQuestion(): Promise<void> {
+    const index = this.deleteAt();
+    this.deleteAt.set(null);
+    if (index === null || index >= this.questions.length) {
+      return;
+    }
+    this.removeQuestion(index);
+    await this.save();
   }
 
   protected err(key: string): string | null {

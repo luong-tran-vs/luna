@@ -1,15 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, inject, Injector, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, EMPTY, firstValueFrom, Subscription } from 'rxjs';
 
+import { DatePipe } from '@angular/common';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { SpeechService } from '../../../core/services/speech.service';
-import { isRunning, JobKind, Lesson } from '../../../core/models/lesson';
+import { AnnotationInput, flagsOf, isRunning, JobKind, Lesson, LessonFlag, openFlagCount } from '../../../core/models/lesson';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { pollWhile } from '../../../shared/utils/poll-while';
 import { AdminApiService } from '../admin-api.service';
+import { lessonCheckFailure } from '../lesson-check-errors';
+import { FlagNote } from '../flag-note/flag-note';
 import { LessonExtras } from '../lesson-extras/lesson-extras';
 import { StatusChip } from '../status-chip/status-chip';
 import { PracticeSection } from './practice-section/practice-section';
@@ -23,7 +26,7 @@ type AnnotationRow = FormGroup<{
 
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [Loading, RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection],
+  imports: [Loading, RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection, FlagNote, DatePipe],
   templateUrl: './lesson-detail.html',
   styleUrl: './lesson-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +34,7 @@ type AnnotationRow = FormGroup<{
 export class LessonDetail {
   private readonly api = inject(AdminApiService);
   private readonly router = inject(Router);
+  private readonly injector = inject(Injector);
   private readonly fb = inject(NonNullableFormBuilder);
   protected readonly id = inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
 
@@ -44,6 +48,9 @@ export class LessonDetail {
   protected readonly existingCount = signal(0);
   protected readonly rowErrors = signal<Record<string, string>>({});
   protected readonly rows = new FormArray<AnnotationRow>([]);
+  /** Position each edited row had in the saved list, so its flag stays with it after removals. */
+  private readonly origin = new WeakMap<AnnotationRow, number>();
+  protected readonly deleteAnnotationAt = signal<number | null>(null);
 
   private readonly speech = inject(SpeechService);
   private readonly destroy = takeUntilDestroyed<Lesson>();
@@ -121,6 +128,88 @@ export class LessonDetail {
     this.startPolling();
   }
 
+  // --- F22: AI check ---
+
+  protected readonly checking = signal(false);
+  protected readonly checkError = signal<string | null>(null);
+  protected readonly flagBusy = signal(false);
+
+  protected readonly sentenceFlags = computed(() => flagsOf(this.lesson()?.review, 'sentence'));
+  protected readonly annotationFlags = computed(() => flagsOf(this.lesson()?.review, 'annotation'));
+  protected readonly questionFlags = computed(() => flagsOf(this.lesson()?.review, 'question'));
+  protected readonly translationFlags = computed(() => flagsOf(this.lesson()?.review, 'translation'));
+  protected readonly openFlags = computed(() => openFlagCount(this.lesson()?.review));
+
+  /** Why the check cannot run now, or null. */
+  protected readonly checkBlocked = computed(() => {
+    const l = this.lesson();
+    return l && l.annotationStatus !== 'done' ? 'Cần chú thích xong trước' : null;
+  });
+
+  protected readonly checkText = computed(() => {
+    const r = this.lesson()?.review;
+    if (!r) {
+      return 'Chưa kiểm tra';
+    }
+    if (r.verifiedAt) {
+      return 'Đã xác nhận kiểm tra xong';
+    }
+    const open = this.openFlags();
+    if (open > 0) {
+      return `${open} chỗ cần xem`;
+    }
+    return r.flags.length === 0 ? 'Đã kiểm tra, không có chỗ nào bị gắn cờ' : 'Đã xem hết các chỗ bị gắn cờ';
+  });
+
+  protected flagAt(flags: LessonFlag[], index: number): LessonFlag | null {
+    return flags.find((f) => f.index === index) ?? null;
+  }
+
+  protected check(): Promise<void> {
+    return this.runCheck(
+      this.checking,
+      () => this.api.checkLesson(this.id),
+      'Không kiểm tra được, vui lòng thử lại.',
+      true,
+    );
+  }
+
+  protected confirmFlag(flag: LessonFlag): Promise<void> {
+    return this.runCheck(
+      this.flagBusy,
+      () => this.api.confirmLessonFlag(this.id, flag.area, flag.index),
+      'Không xác nhận được, vui lòng thử lại.',
+    );
+  }
+
+  protected verify(): Promise<void> {
+    return this.runCheck(
+      this.flagBusy,
+      () => this.api.verifyLesson(this.id),
+      'Không xác nhận được, vui lòng thử lại.',
+    );
+  }
+
+  private async runCheck(
+    flag: { set(v: boolean): void; (): boolean },
+    call: () => ReturnType<AdminApiService['checkLesson']>,
+    fallback: string,
+    ai = false,
+  ): Promise<void> {
+    if (flag() || this.checking() || this.flagBusy()) {
+      return;
+    }
+    flag.set(true);
+    this.checkError.set(null);
+    try {
+      this.lesson.set(await firstValueFrom(call()));
+    } catch (err) {
+      this.checkError.set(lessonCheckFailure(err, fallback, ai));
+    } finally {
+      flag.set(false);
+    }
+  }
+
   // --- annotations ---
 
   protected startEditing(): void {
@@ -130,11 +219,57 @@ export class LessonDetail {
     }
     this.rows.clear();
     for (const a of l.annotations) {
-      this.rows.push(this.row(a.text, a.lemma, a.meaningVi));
+      const row = this.row(a.text, a.lemma, a.meaningVi);
+      this.origin.set(row, this.rows.length);
+      this.rows.push(row);
     }
     this.existingCount.set(l.annotations.length);
     this.rowErrors.set({});
     this.editing.set(true);
+  }
+
+  /** Flag of the annotation a row in the editor started as; null for new rows. */
+  protected flagOfRow(row: AnnotationRow): LessonFlag | null {
+    const at = this.origin.get(row);
+    return at === undefined ? null : this.flagAt(this.annotationFlags(), at);
+  }
+
+  /** Opens the editor (if needed) and puts the cursor in the meaning of that annotation's row. */
+  protected editAnnotation(index: number, row?: AnnotationRow): void {
+    if (!this.editing()) {
+      this.startEditing();
+    }
+    const position = row ? this.rows.controls.indexOf(row) : index;
+    afterNextRender(() => document.getElementById('ann-meaning-' + position)?.focus(), { injector: this.injector });
+  }
+
+  protected askDeleteAnnotation(index: number): void {
+    this.deleteAnnotationAt.set(index);
+  }
+
+  /** Saves the list without that annotation, using what is in the editor when it is open. */
+  protected async confirmDeleteAnnotation(): Promise<void> {
+    const index = this.deleteAnnotationAt();
+    this.deleteAnnotationAt.set(null);
+    const l = this.lesson();
+    if (index === null || !l) {
+      return;
+    }
+    let list: AnnotationInput[];
+    if (this.editing()) {
+      list = this.rows.controls.filter((r) => this.origin.get(r) !== index).map((r) => r.getRawValue());
+    } else {
+      list = l.annotations.filter((_, i) => i !== index).map((a) => ({ text: a.text, lemma: a.lemma, meaningVi: a.meaningVi }));
+    }
+    this.rowErrors.set({});
+    await this.act(async () => {
+      this.lesson.set(await firstValueFrom(this.api.saveAnnotations(this.id, list)));
+      this.cancelEditing();
+    });
+  }
+
+  protected annotationAt(index: number): string {
+    return this.lesson()?.annotations[index]?.text ?? '';
   }
 
   protected addRow(): void {

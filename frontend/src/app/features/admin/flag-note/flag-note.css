@@ -1,0 +1,27 @@
+.flag {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border-left: var(--space-1) solid var(--color-bad);
+}
+
+.flag.confirmed {
+  border-left-color: var(--color-ok);
+}
+
+.flag-text {
+  margin: 0;
+}
+
+.flag-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.flag-actions:empty {
+  display: none;
+}

@@ -79,6 +79,7 @@ describe('PracticeSection', () => {
     fixture.componentRef.setInput('lesson', l);
     emitted = [];
     fixture.componentInstance.regenerated.subscribe((x) => emitted.push(x));
+    fixture.componentInstance.updated.subscribe((x) => emitted.push(x));
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
   };
@@ -157,5 +158,132 @@ describe('PracticeSection', () => {
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Đang sinh phần luyện tập.');
     expect(emitted).toEqual([]);
+  });
+
+  it('shows the flag on the flagged translation and emits confirm (F22)', async () => {
+    await render(lesson());
+    const flag = { area: 'translation' as const, index: 0, kind: 'wrong' as const, noteVi: 'Dịch chưa tự nhiên', confirmed: false };
+    const got: unknown[] = [];
+    fixture.componentInstance.confirm.subscribe((f) => got.push(f));
+    fixture.componentRef.setInput('flags', [flag]);
+    await fixture.whenStable();
+    const note = el.querySelector('lu-flag-note')!;
+    expect(text(note)).toContain('AI thấy có thể sai');
+    expect(text(note)).toContain('Dịch chưa tự nhiên');
+    Array.from(note.querySelectorAll('button')).find((b) => text(b) === 'Giữ nguyên')!.click();
+    expect(got).toEqual([flag]);
+  });
+
+  it('shows no flags by default', async () => {
+    await render(lesson());
+    expect(el.querySelector('lu-flag-note')).toBeNull();
+  });
+
+  describe('editing translations', () => {
+    const many = (over: Partial<Lesson> = {}) =>
+      lesson({
+        practice: {
+          ...practice,
+          translations: [
+            { vi: 'Rất vui được gặp bạn.', en: 'Nice to meet you.', distractors: ['see', 'glad'] },
+            { vi: 'Tôi là Minh.', en: 'I am Minh.', distractors: [] },
+          ],
+        },
+        ...over,
+      });
+    const btn = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
+    const save = () => (Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Lưu') as HTMLButtonElement).click();
+    const field = (id: string) => el.querySelector<HTMLInputElement>('#' + id)!;
+    const type = async (id: string, value: string) => {
+      field(id).value = value;
+      field(id).dispatchEvent(new Event('input'));
+      await fixture.whenStable();
+    };
+    const url = '/api/admin/lessons/l1/practice/translations';
+
+    it('has edit and delete buttons on every translation, flagged or not', async () => {
+      await render(many());
+      fixture.componentRef.setInput('flags', [{ area: 'translation', index: 1, kind: 'wrong', noteVi: 'x', confirmed: false }]);
+      await fixture.whenStable();
+      for (const n of [1, 2]) {
+        expect(btn('Sửa câu dịch ' + n)).toBeTruthy();
+        expect(btn('Xoá câu dịch ' + n)).toBeTruthy();
+      }
+      expect(el.querySelector('lu-flag-note')!.contains(btn('Sửa câu dịch 2'))).toBe(true);
+    });
+
+    it('edits one sentence and sends the whole list', async () => {
+      await render(many());
+      btn('Sửa câu dịch 1').click();
+      await fixture.whenStable();
+      expect(field('tr-dis-0').value).toBe('see, glad');
+      await type('tr-vi-0', 'Hân hạnh gặp bạn.');
+      await type('tr-dis-0', ' see , ,glad,  ');
+      const done = many();
+      save();
+      await settle();
+      const r = http.expectOne(url);
+      expect(r.request.method).toBe('PUT');
+      expect(r.request.body).toEqual({
+        translations: [
+          { vi: 'Hân hạnh gặp bạn.', en: 'Nice to meet you.', distractors: ['see', 'glad'] },
+          { vi: 'Tôi là Minh.', en: 'I am Minh.', distractors: [] },
+        ],
+      });
+      r.flush({ lesson: done });
+      await settle();
+      expect(emitted).toEqual([done]);
+      expect(el.querySelector('form')).toBeNull();
+    });
+
+    it('shows field errors under each box and keeps the form open', async () => {
+      await render(many());
+      btn('Sửa câu dịch 2').click();
+      await fixture.whenStable();
+      save();
+      await settle();
+      http.expectOne(url).flush(
+        { error: 'invalid_input', fields: { 'translations.1.en': 'Câu tiếng Anh không được trống', 'translations.1.distractors': 'Tối đa 4 từ' } },
+        { status: 400, statusText: 'Bad Request' },
+      );
+      await settle();
+      expect(text(el.querySelector('#tr-en-error'))).toBe('Câu tiếng Anh không được trống');
+      expect(text(el.querySelector('#tr-dis-error'))).toBe('Tối đa 4 từ');
+      expect(field('tr-en-1').getAttribute('aria-invalid')).toBe('true');
+      expect(el.querySelector('form')).not.toBeNull();
+      expect(emitted).toEqual([]);
+    });
+
+    it('shows the 409 message', async () => {
+      await render(many());
+      btn('Sửa câu dịch 1').click();
+      await fixture.whenStable();
+      save();
+      await settle();
+      http.expectOne(url).flush({ error: 'practice_changed', message: 'Phần luyện tập đã đổi, hãy tải lại trang.' }, { status: 409, statusText: 'Conflict' });
+      await settle();
+      expect(text(el.querySelector('form [role="alert"]'))).toBe('Phần luyện tập đã đổi, hãy tải lại trang.');
+    });
+
+    it('deletes after confirming and sends the list without it', async () => {
+      await render(many());
+      btn('Xoá câu dịch 1').click();
+      await fixture.whenStable();
+      expect(http.match(url)).toEqual([]);
+      (Array.from(el.querySelectorAll('lu-confirm-dialog button')).find((b) => text(b) === 'Xoá') as HTMLButtonElement).click();
+      await settle();
+      const r = http.expectOne(url);
+      expect(r.request.body).toEqual({ translations: [{ vi: 'Tôi là Minh.', en: 'I am Minh.', distractors: [] }] });
+      r.flush({ lesson: many() });
+      await settle();
+      expect(emitted.length).toBe(1);
+    });
+
+    it('cannot edit or delete while the practice is running, and says why', async () => {
+      await render(many({ practiceStatus: 'running' }));
+      expect(btn('Sửa câu dịch 1').disabled).toBe(true);
+      expect(btn('Xoá câu dịch 2').disabled).toBe(true);
+      expect(text(el.querySelector('#translations-blocked'))).toContain('Đang sinh');
+    });
   });
 });

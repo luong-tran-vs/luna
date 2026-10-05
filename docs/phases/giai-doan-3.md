@@ -219,3 +219,36 @@
   (`DELETE …/exercises/{exerciseId}`, không xuống dưới 6 bài luyện tập / 5 bài kiểm tra). Sửa hoặc xoá chỉ gỡ cờ của câu đó; id các câu khác giữ nguyên.
 - Nút **Xác nhận đã kiểm tra xong** (`POST …/verify`, cần đã kiểm tra bằng AI) đặt `verifiedAt` và xác nhận mọi cờ còn lại; danh sách hiện nhãn "Đã xác nhận".
   Sửa nội dung hoặc kiểm tra lại thì xoá trạng thái này. Cổng Đăng và số "N câu cần xem" chỉ tính cờ chưa xác nhận.
+
+---
+
+## F22. Kiểm tra bằng AI cho bài học
+
+> Thêm 2026-10-05, tiếp F21. Bài học cũng do AI viết (câu của bài, chú thích, câu hỏi đọc hiểu, câu dịch ở phần luyện tập) và có thể sai: đáp án đánh dấu nhầm, nghĩa chú thích lệch theo câu, câu dịch tiếng Việt và tiếng Anh không cùng nghĩa. Trang quản trị bài học (`/admin/lessons/:id`) có cùng cách kiểm tra như bài ngữ pháp.
+
+**Chức năng**
+- **AI đọc lại độc lập (quản trị):** nút **Kiểm tra bằng AI** gửi cả bài trong một lần gọi (nhiệt độ 0,1) cho một AI thứ hai làm như giáo viên tiếng Anh cẩn thận: trả lời các câu hỏi
+  đọc hiểu mà không thấy đáp án, và chỉ báo những câu, chú thích, câu dịch mà nó chắc là sai. Bài cần chú thích xong trước (409 `annotation_not_done`).
+  `POST /api/admin/lessons/{id}/check`. **Không tự chạy** sau khi sinh hoặc chú thích, để tiết kiệm hạn mức AI; chỉ chạy khi quản trị bấm.
+- **Cờ:** mỗi cờ có `area` (`sentence`, `annotation`, `question`, `translation`), `index` (vị trí trong mảng tương ứng của bài), `kind` và ghi chú tiếng Việt `noteVi`.
+  Câu hỏi: `mismatch` (AI chọn đáp án khác), `ambiguous` (mơ hồ, nhiều đáp án hoặc không có), `unchecked` (AI không trả lời). Câu, chú thích, câu dịch: `wrong`. Chỉ số ngoài phạm vi bị bỏ.
+- **Xử lý:** **Xác nhận đúng** từng cờ (`POST …/check/confirm`, body `{"area":"question","index":2}`), sửa hoặc xoá bằng các màn sửa sẵn có, rồi **Xác nhận đã kiểm tra xong**
+  (`POST …/check/verify`). Chưa kiểm tra thì 409 `not_checked`; còn cờ chưa xác nhận thì 409 `flags_unresolved` kèm `count`.
+- **Cờ gắn với chỉ số**, nên đổi nội dung bài, chú thích lại hoặc tạo lại phần luyện tập thì xoá kết quả kiểm tra (sửa câu hỏi, chú thích, câu dịch thì giữ cờ, xem F22b) ("Chưa kiểm tra"). Đổi tiêu đề, trình độ, chủ đề không xoá.
+  Nếu bài đổi trong lúc AI đang đọc, kết quả cũ bị bỏ và bài được trả về như hiện tại.
+- Danh sách `GET /api/admin/lessons` thêm `flags` (chỉ cờ chưa xác nhận), `checked`, `verified`; JSON bài của quản trị thêm `review` (`null` hoặc `checkedAt`, `verifiedAt`, `flags`).
+  Học viên không thấy gì của phần này.
+- Dữ liệu: trường lồng `review` trong bài (Mongo) / cột `review JSON NULL` (MySQL, migration `016_lesson_review`, chạy lại an toàn).
+
+**Tiêu chí nghiệm thu**
+- [ ] Bài chưa chú thích xong bấm kiểm tra trả 409 `annotation_not_done`; lỗi AI (503, 429, 502) không làm đổi bài.
+- [ ] Sửa một đáp án sai rồi kiểm tra thì câu hỏi đó bị gắn cờ `mismatch`; chú thích hoặc câu dịch sai bị gắn cờ `wrong`.
+- [ ] Còn cờ chưa xác nhận thì xác nhận xong bị 409 `flags_unresolved`; xác nhận hết rồi mới đặt được `verifiedAt`.
+- [ ] Sửa nội dung bài thì `review` về `null`; sửa tiêu đề thì giữ.
+
+**F22b. Sửa ngay chỗ bị cờ (bổ sung cùng ngày)**
+- **Giữ cờ qua lần sửa phần phụ:** sửa câu hỏi (`PUT …/extras`), chú thích (`PUT …/annotations`) hoặc câu dịch thì bài vẫn còn `review`: `checkedAt` giữ nguyên, `verifiedAt` về rỗng (nội dung đã đổi), cờ của các phần khác giữ nguyên.
+  Cờ của phần vừa sửa được dời theo **nội dung**: mục còn y nguyên thì giữ cờ (và trạng thái đã xác nhận) và theo chỉ số mới (xoá một câu hỏi thì các câu sau dịch lên); mục bị sửa hoặc bị xoá thì mất cờ. Ghi lại cờ lỗi thì chỉ ghi log, lần sửa vẫn thành công.
+- **Xoá một chú thích hoặc câu hỏi** dùng chính PUT annotations/extras với danh sách không còn mục đó.
+- **Sửa câu dịch:** `PUT /api/admin/lessons/{id}/practice/translations`, body `{"translations":[{"vi","en","distractors"}]}`, trả `{"lesson":…}`. Cùng luật với khi AI sinh (2–15 ô chữ, tối đa 5 câu và 4 từ gây nhiễu; admin tự sửa nên không bắt `en` chứa từ của bài)
+  nhưng báo lỗi 400 theo trường (`translations.N.vi|en|distractors`) thay vì bỏ lặng lẽ. Danh sách rỗng là xoá hết câu dịch. 409 `no_practice` (chưa có phần luyện tập), `practice_running`, `practice_changed`.

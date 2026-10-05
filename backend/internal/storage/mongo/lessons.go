@@ -95,6 +95,7 @@ type lessonDoc struct {
 	PracticeStatus   string          `bson:"practiceStatus"`
 	PracticeError    string          `bson:"practiceError"`
 	PracticeVersion  int             `bson:"practiceVersion"`
+	Review           *reviewDoc      `bson:"review,omitempty"`
 	CreatedAt        time.Time       `bson:"createdAt"`
 	UpdatedAt        time.Time       `bson:"updatedAt"`
 }
@@ -106,6 +107,7 @@ func fromLesson(l lesson.Lesson) lessonDoc {
 		Sentences:        make([]sentenceDoc, len(l.Sentences)),
 		AnnotationStatus: string(l.AnnotationStatus), AnnotationError: l.AnnotationError,
 		Annotations: fromAnnotations(l.Annotations),
+		Review:      fromReview(l.Review),
 		CreatedAt:   l.CreatedAt.UTC(), UpdatedAt: l.UpdatedAt.UTC(),
 	}
 	for i, s := range l.Sentences {
@@ -134,6 +136,7 @@ func (d lessonDoc) toLesson() lesson.Lesson {
 	l.Extras, l.ExtrasEditedByAdmin, l.QuizVersion = d.extras(), d.ExtrasEdited, d.QuizVersion
 	l.Practice, l.PracticeStatus, l.PracticeError = d.Practice.toPractice(), lesson.Status(d.PracticeStatus), d.PracticeError
 	l.PracticeVersion = d.PracticeVersion
+	l.Review = d.Review.toReview()
 	for i, s := range d.Sentences {
 		l.Sentences[i] = lesson.Sentence(s)
 	}
@@ -149,6 +152,7 @@ type summaryDoc struct {
 	Level            string        `bson:"level"`
 	TopicID          bson.ObjectID `bson:"topicId"`
 	AnnotationStatus string        `bson:"annotationStatus"`
+	Review           *reviewDoc    `bson:"review,omitempty"`
 	CreatedAt        time.Time     `bson:"createdAt"`
 }
 
@@ -157,15 +161,18 @@ var summaryProjection = bson.D{
 	{Key: "level", Value: 1},
 	{Key: "topicId", Value: 1},
 	{Key: "annotationStatus", Value: 1},
+	{Key: "review", Value: 1},
 	{Key: "createdAt", Value: 1},
 }
 
 func (d summaryDoc) toSummary() lesson.Summary {
-	return lesson.Summary{
+	out := lesson.Summary{
 		ID: d.ID.Hex(), Title: d.Title, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
 		AnnotationStatus: lesson.Status(d.AnnotationStatus),
 		CreatedAt:        d.CreatedAt,
 	}
+	out.Flags, out.Checked, out.Verified = lesson.SummaryOf(d.Review.toReview())
+	return out
 }
 
 // Lessons implements lesson.Repository on the "lessons" collection.
@@ -285,7 +292,7 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 		{Key: "practiceStatus", Value: string(l.PracticeStatus)},
 		{Key: "practiceError", Value: l.PracticeError},
 		{Key: "updatedAt", Value: d.UpdatedAt},
-	}, extrasSet(l.Extras)...)}})
+	}, extrasSet(l.Extras)...)}, {Key: "$unset", Value: reviewUnset}})
 }
 
 // SetStatus changes one work status if the lesson is still at revision.
@@ -318,7 +325,7 @@ func (r *Lessons) SaveAnnotations(ctx context.Context, id string, revision int, 
 		{Key: "practiceStatus", Value: string(lesson.StatusRunning)},
 		{Key: "practiceError", Value: ""},
 	}, extrasSet(x)...)
-	return r.updateAtRevisionInc(ctx, id, revision, set, bson.D{{Key: "quizVersion", Value: 1}})
+	return r.updateAtRevisionInc(ctx, id, revision, set, bson.D{{Key: "quizVersion", Value: 1}}, reviewUnset)
 }
 
 // ReplaceExtras stores admin-edited extras and marks them edited; bumpQuiz bumps quizVersion.
@@ -327,7 +334,7 @@ func (r *Lessons) ReplaceExtras(ctx context.Context, id string, x lesson.Extras,
 		bson.E{Key: "extrasEditedByAdmin", Value: true},
 		bson.E{Key: "updatedAt", Value: time.Now().UTC()},
 	)
-	update := bson.D{{Key: "$set", Value: set}}
+	update := bson.D{{Key: "$set", Value: set}, {Key: "$unset", Value: reviewUnset}}
 	if bumpQuiz {
 		update = append(update, bson.E{Key: "$inc", Value: bson.D{{Key: "quizVersion", Value: 1}}})
 	}
@@ -341,7 +348,7 @@ func (r *Lessons) ReplaceAnnotations(ctx context.Context, id string, anns []less
 		{Key: "annotationStatus", Value: string(lesson.StatusDone)},
 		{Key: "annotationError", Value: ""},
 		{Key: "updatedAt", Value: time.Now().UTC()},
-	}}})
+	}}, {Key: "$unset", Value: reviewUnset}})
 }
 
 // Delete removes a lesson; deleting a missing lesson is not an error.
@@ -373,17 +380,20 @@ func (r *Lessons) updateOne(ctx context.Context, id string, update bson.D) error
 
 // updateAtRevision applies set only while the lesson is still at revision.
 func (r *Lessons) updateAtRevision(ctx context.Context, id string, revision int, set bson.D) (bool, error) {
-	return r.updateAtRevisionInc(ctx, id, revision, set, nil)
+	return r.updateAtRevisionInc(ctx, id, revision, set, nil, nil)
 }
 
-// updateAtRevisionInc is updateAtRevision with an optional $inc.
-func (r *Lessons) updateAtRevisionInc(ctx context.Context, id string, revision int, set, inc bson.D) (bool, error) {
+// updateAtRevisionInc is updateAtRevision with an optional $inc and an optional $unset.
+func (r *Lessons) updateAtRevisionInc(ctx context.Context, id string, revision int, set, inc, unset bson.D) (bool, error) {
 	oid, err := bson.ObjectIDFromHex(id)
 	if err != nil {
 		return false, lesson.ErrNotFound
 	}
 	set = append(set, bson.E{Key: "updatedAt", Value: time.Now().UTC()})
 	update := bson.D{{Key: "$set", Value: set}}
+	if len(unset) > 0 {
+		update = append(update, bson.E{Key: "$unset", Value: unset})
+	}
 	if len(inc) > 0 {
 		update = append(update, bson.E{Key: "$inc", Value: inc})
 	}

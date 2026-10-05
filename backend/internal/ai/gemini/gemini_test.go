@@ -711,3 +711,55 @@ func TestSolveGrammarExercises(t *testing.T) {
 		t.Errorf("disabled: %v", err)
 	}
 }
+
+func TestReviewLesson(t *testing.T) {
+	t.Parallel()
+
+	review := `{"sentences":[{"index":2,"noteVi":"Câu sai."}],"annotations":[],"translations":[{"index":0,"noteVi":"Lệch nghĩa."}],` +
+		`"answers":[{"index":0,"choiceIndex":1,"ambiguous":false},{"index":1,"ambiguous":true,"noteVi":"Hai đáp án đúng."}]}`
+	wrapped, err := json.Marshal(map[string]any{"candidates": []any{map[string]any{"content": map[string]any{
+		"parts": []any{map[string]any{"text": review}},
+	}}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Errorf("decode: %v", err)
+		}
+		_, _ = w.Write(wrapped)
+	})
+
+	got, err := c.ReviewLesson(t.Context(), ai.ReviewRequest{
+		Level: "A2", Title: "Park", Sentences: []string{"We went to the park."},
+		Questions: []ai.ReviewQuestion{{Index: 0, Prompt: "Where?", Options: []string{"a", "b"}}},
+	})
+	if err != nil {
+		t.Fatalf("ReviewLesson: %v", err)
+	}
+	if calls.Load() != 1 || len(got.Sentences) != 1 || got.Sentences[0].Index != 2 || len(got.Annotations) != 0 ||
+		len(got.Translations) != 1 || len(got.Answers) != 2 {
+		t.Fatalf("requests = %d, result = %+v", calls.Load(), got)
+	}
+	if a := got.Answers[0]; a.ChoiceIndex == nil || *a.ChoiceIndex != 1 || a.Ambiguous {
+		t.Errorf("answer 0 = %+v", a)
+	}
+	if a := got.Answers[1]; a.ChoiceIndex != nil || !a.Ambiguous || a.NoteVi == "" {
+		t.Errorf("answer 1 = %+v", a)
+	}
+	cfg, _ := body["generationConfig"].(map[string]any)
+	if cfg["responseMimeType"] != "application/json" || cfg["responseSchema"] == nil {
+		t.Errorf("generationConfig = %v", cfg)
+	}
+	if temp, _ := cfg["temperature"].(float64); temp > 0.3 {
+		t.Errorf("temperature = %v, want low", temp)
+	}
+
+	if _, err := gemini.New("", "m", http.DefaultClient, slog.New(slog.DiscardHandler)).ReviewLesson(t.Context(), ai.ReviewRequest{}); !errors.Is(err, ai.ErrNotConfigured) {
+		t.Errorf("no key: %v", err)
+	}
+	if _, err := (ai.Disabled{}).ReviewLesson(t.Context(), ai.ReviewRequest{}); !errors.Is(err, ai.ErrNotConfigured) {
+		t.Errorf("disabled: %v", err)
+	}
+}

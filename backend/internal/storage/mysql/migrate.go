@@ -3,7 +3,11 @@ package mysql
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
+	"slices"
+
+	drv "github.com/go-sql-driver/mysql"
 )
 
 // migration is a named, ordered group of DDL statements. Statements must be idempotent
@@ -12,6 +16,9 @@ import (
 type migration struct {
 	ID    string
 	Stmts []string
+	// Ignore lists MySQL error numbers a statement may fail with when it was already applied, so a run that
+	// stopped before recording the migration can be repeated (ADD COLUMN: 1060 duplicate column name).
+	Ignore []uint16
 }
 
 // migrations lists the schema of every domain, in the order they are applied. To change a table
@@ -33,6 +40,7 @@ func migrations() []migration {
 		{ID: "013_study", Stmts: studySchema()},
 		{ID: "014_grammar", Stmts: grammarSchema()},
 		{ID: "015_grammar_reports", Stmts: grammarReportsSchema()},
+		{ID: "016_lesson_review", Stmts: lessonReviewSchema(), Ignore: []uint16{errDuplicateColumn}},
 	}
 }
 
@@ -72,7 +80,7 @@ func migrate(ctx context.Context, db *sql.DB, list []migration) error {
 			continue
 		}
 		for i, stmt := range m.Stmts {
-			if _, err := conn.ExecContext(ctx, stmt); err != nil {
+			if _, err := conn.ExecContext(ctx, stmt); err != nil && !ignorable(err, m.Ignore) {
 				return fmt.Errorf("mysql migrate: %s statement %d: %w", m.ID, i+1, err)
 			}
 		}
@@ -81,4 +89,10 @@ func migrate(ctx context.Context, db *sql.DB, list []migration) error {
 		}
 	}
 	return nil
+}
+
+// ignorable reports whether err is a MySQL error whose number is in ignore.
+func ignorable(err error, ignore []uint16) bool {
+	var me *drv.MySQLError
+	return errors.As(err, &me) && slices.Contains(ignore, me.Number)
 }

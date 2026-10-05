@@ -1,0 +1,17 @@
+<div class="flag" [class.confirmed]="flag().confirmed" role="group" [attr.aria-label]="'Kết quả kiểm tra ' + subject()">
+  <p class="flag-text">
+    <strong>{{ label() }}</strong>
+    @if (flag().noteVi) {
+      <span>. {{ flag().noteVi }}</span>
+    }
+  </p>
+  <div class="flag-actions">
+    <!-- Where to fix the flagged spot: buttons or a link projected by the page. -->
+    <ng-content />
+    @if (!flag().confirmed) {
+      <button type="button" class="btn" [disabled]="disabled()" [attr.aria-label]="'Giữ nguyên ' + subject()" (click)="confirm.emit(flag())">
+        Giữ nguyên
+      </button>
+    }
+  </div>
+</div>

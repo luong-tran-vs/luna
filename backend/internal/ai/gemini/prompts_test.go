@@ -136,3 +136,35 @@ func TestGrammarSolvePromptHidesTheKeyAndAsksForHonestAmbiguity(t *testing.T) {
 		}
 	}
 }
+
+func TestReviewPromptHidesTheKeysAndReportsOnlyWhatIsSure(t *testing.T) {
+	t.Parallel()
+	prompt := reviewPrompt(ai.ReviewRequest{
+		Level: "A2", Title: "At the park",
+		Sentences:    []string{"Mai: We went to the park.", "He gave up smoking."},
+		Annotations:  []ai.ReviewAnnotation{{Index: 0, Text: "gave up", Lemma: "give up", MeaningVi: "từ bỏ", SentenceIndex: 1}},
+		Questions:    []ai.ReviewQuestion{{Index: 0, Prompt: "Where did they go?", Options: []string{"Park", "Home"}}},
+		Translations: []ai.ReviewTranslation{{Index: 0, Vi: "Tôi đi công viên.", En: "I go to the park."}},
+	})
+	for _, want := range []string{
+		"careful English teacher", "CEFR level A2", `"At the park"`, "You have no answer key", "Do not guess what the author intended",
+		"Report only what you are sure about", "Name: sentence", "Do not correct the spelling of names",
+		"sentences:", "annotations:", "translations:", "answers:", "choiceIndex", "ambiguous", "noteVi",
+		"Do not mark a question ambiguous just to be safe", "empty arrays",
+		`{"index":1,"text":"He gave up smoking."}`, `"meaningVi":"từ bỏ"`, `"prompt":"Where did they go?"`, `"en":"I go to the park."`,
+	} {
+		if !strings.Contains(prompt, want) {
+			t.Errorf("prompt missing %q", want)
+		}
+	}
+	for _, key := range []string{"answerIndex", "explanationVi"} {
+		if strings.Contains(prompt, key+`":`) {
+			t.Errorf("prompt leaks %q", key)
+		}
+	}
+	// Lists with nothing in them are sent as [], never null.
+	empty := reviewPrompt(ai.ReviewRequest{Level: "A1", Title: "x"})
+	if strings.Contains(empty, "null") {
+		t.Errorf("empty prompt has null:\n%s", empty)
+	}
+}

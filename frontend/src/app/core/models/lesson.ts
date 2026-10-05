@@ -32,6 +32,11 @@ export interface LessonSummary {
   annotationStatus: JobStatus;
   inRoadmap: boolean;
   createdAt: string;
+  // F22: AI check state; absent on older responses.
+  /** Flags the admin has not confirmed yet. */
+  flags?: number;
+  checked?: boolean;
+  verified?: boolean;
 }
 
 export interface Lesson extends LessonSummary {
@@ -56,6 +61,35 @@ export interface Lesson extends LessonSummary {
   /** Curriculum grammar point assigned to the lesson; '' when none. */
   grammarPointId?: string;
   grammarPointTitle?: string;
+  /** F22: result of the AI check; null until checked, and again after any content edit. */
+  review?: LessonReview | null;
+}
+
+/** Which part of the lesson a flag points at; `index` is the position in that array. */
+export type FlagArea = 'sentence' | 'annotation' | 'question' | 'translation';
+export type FlagKind = 'mismatch' | 'ambiguous' | 'wrong' | 'unchecked';
+
+export interface LessonFlag {
+  area: FlagArea;
+  index: number;
+  kind: FlagKind;
+  noteVi: string;
+  confirmed: boolean;
+}
+
+export interface LessonReview {
+  checkedAt: string;
+  verifiedAt: string | null;
+  flags: LessonFlag[];
+}
+
+/** Flags of one area. */
+export function flagsOf(review: LessonReview | null | undefined, area: FlagArea): LessonFlag[] {
+  return (review?.flags ?? []).filter((f) => f.area === area);
+}
+
+export function openFlagCount(review: LessonReview | null | undefined): number {
+  return (review?.flags ?? []).filter((f) => !f.confirmed).length;
 }
 
 /** A multiple-choice comprehension question as admins see it. */
@@ -78,6 +112,13 @@ export interface ExtrasInput {
   questions: Question[];
   grammarNote: GrammarNote | null;
   writingPrompt: string;
+}
+
+/** One translation sentence of the practice, as sent to PUT .../practice/translations. */
+export interface TranslationInput {
+  vi: string;
+  en: string;
+  distractors: string[];
 }
 
 export interface LessonInput {

@@ -8,6 +8,8 @@ import { GenerateInput, GenerateResult } from '../../core/models/generate';
 import {
   AnnotationInput,
   ExtrasInput,
+  TranslationInput,
+  FlagArea,
   JobKind,
   Lesson,
   LessonFilter,
@@ -62,11 +64,31 @@ export class AdminApiService {
     return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/extras`, input));
   }
 
+  /** Replaces the practice's translation sentences (the full list); 409 no_practice / practice_running / practice_changed. */
+  updateTranslations(id: string, translations: TranslationInput[]): Observable<Lesson> {
+    return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/practice/translations`, { translations }));
+  }
+
   /** Generates the practice again with one AI request (F17); 202 with the lesson. */
   regeneratePractice(id: string): Observable<Lesson> {
     return this.unwrap(
       this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/practice/regenerate`, null),
     );
+  }
+
+  /** F22: a second AI re-checks the generated parts and flags what looks wrong. */
+  checkLesson(id: string): Observable<Lesson> {
+    return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check`, null));
+  }
+
+  /** F22: keeps a flagged spot as it is, after the admin looked at it. */
+  confirmLessonFlag(id: string, area: FlagArea, index: number): Observable<Lesson> {
+    return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/confirm`, { area, index }));
+  }
+
+  /** F22: marks the check as finished; the server refuses while flags are unconfirmed. */
+  verifyLesson(id: string): Observable<Lesson> {
+    return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/verify`, null));
   }
 
   saveAnnotations(id: string, annotations: AnnotationInput[]): Observable<Lesson> {

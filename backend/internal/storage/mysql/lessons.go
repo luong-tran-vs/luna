@@ -63,10 +63,10 @@ func lessonsSchema() []string {
 const lessonCols = `id, title, content, level, topic_id, source, license, grammar_point_id, revision, sentences,
 	annotation_status, annotation_error, annotations, questions, grammar_note, writing_prompt,
 	extras_edited, quiz_version, practice, practice_status, practice_error, practice_version,
-	created_at, updated_at`
+	created_at, updated_at, review`
 
 // lessonSummaryCols lists the columns lessonScanSummary reads.
-const lessonSummaryCols = `id, title, level, topic_id, annotation_status, created_at`
+const lessonSummaryCols = `id, title, level, topic_id, annotation_status, created_at, review`
 
 // lessonValidID reports whether id has the shape newID makes (24 lowercase hex characters).
 func lessonValidID(id string) bool {
@@ -132,7 +132,7 @@ func lessonAnnotationsJSON(anns []lesson.Annotation) (string, error) {
 // lessonWriteArgs holds the encoded columns shared by Create and ReplaceContent.
 type lessonWriteArgs struct {
 	sentences, annotations, questions, prompt string
-	note, practice                            any
+	note, practice, review                    any
 }
 
 func lessonEncode(l lesson.Lesson) (lessonWriteArgs, error) {
@@ -151,7 +151,10 @@ func lessonEncode(l lesson.Lesson) (lessonWriteArgs, error) {
 	if a.questions, a.note, a.prompt, err = lessonExtrasValues(l.Extras); err != nil {
 		return a, err
 	}
-	a.practice, err = lessonPracticeValue(l.Practice)
+	if a.practice, err = lessonPracticeValue(l.Practice); err != nil {
+		return a, err
+	}
+	a.review, err = lessonReviewValue(l.Review)
 	return a, err
 }
 
@@ -177,11 +180,11 @@ func (r *Lessons) Create(ctx context.Context, l lesson.Lesson) (lesson.Lesson, e
 	l.ID = newID()
 	l.TopicID = lessonTopicKey(l.TopicID)
 	_, err = r.db.ExecContext(ctx, `INSERT INTO lessons (`+lessonCols+`)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		l.ID, l.Title, l.Content, string(l.Level), l.TopicID, l.Source, l.License, l.GrammarPointID, l.Revision, enc.sentences,
 		string(l.AnnotationStatus), l.AnnotationError, enc.annotations, enc.questions, enc.note, enc.prompt,
 		l.ExtrasEditedByAdmin, l.QuizVersion, enc.practice, string(l.PracticeStatus), l.PracticeError, l.PracticeVersion,
-		nullTime(l.CreatedAt), nullTime(l.UpdatedAt))
+		nullTime(l.CreatedAt), nullTime(l.UpdatedAt), enc.review)
 	if err != nil {
 		return lesson.Lesson{}, fmt.Errorf("mysql insert lesson: %w", err)
 	}
@@ -197,12 +200,13 @@ func lessonScan(s lessonRowScanner) (lesson.Lesson, error) {
 		l                                    lesson.Lesson
 		level, annStatus, pracStatus         string
 		sentences, anns, questions, note, pr []byte
+		reviewRaw                            []byte
 		created, updated                     sql.NullTime
 	)
 	err := s.Scan(&l.ID, &l.Title, &l.Content, &level, &l.TopicID, &l.Source, &l.License, &l.GrammarPointID, &l.Revision, &sentences,
 		&annStatus, &l.AnnotationError, &anns, &questions, &note, &l.Extras.WritingPrompt,
 		&l.ExtrasEditedByAdmin, &l.QuizVersion, &pr, &pracStatus, &l.PracticeError, &l.PracticeVersion,
-		&created, &updated)
+		&created, &updated, &reviewRaw)
 	if err != nil {
 		return lesson.Lesson{}, err
 	}
@@ -223,6 +227,9 @@ func lessonScan(s lessonRowScanner) (lesson.Lesson, error) {
 			return lesson.Lesson{}, err
 		}
 	}
+	if l.Review, err = lessonReviewFrom(reviewRaw); err != nil {
+		return lesson.Lesson{}, err
+	}
 	if l.Practice, err = lessonPracticeFrom(pr); err != nil {
 		return lesson.Lesson{}, err
 	}
@@ -235,11 +242,17 @@ func lessonScanSummary(s lessonRowScanner) (lesson.Summary, error) {
 		sm            lesson.Summary
 		level, status string
 		created       sql.NullTime
+		reviewRaw     []byte
 	)
-	if err := s.Scan(&sm.ID, &sm.Title, &level, &sm.TopicID, &status, &created); err != nil {
+	if err := s.Scan(&sm.ID, &sm.Title, &level, &sm.TopicID, &status, &created, &reviewRaw); err != nil {
 		return lesson.Summary{}, err
 	}
 	sm.Level, sm.AnnotationStatus, sm.CreatedAt = lesson.Level(level), lesson.Status(status), timeOf(created)
+	rev, err := lessonReviewFrom(reviewRaw)
+	if err != nil {
+		return lesson.Summary{}, err
+	}
+	sm.Flags, sm.Checked, sm.Verified = lesson.SummaryOf(rev)
 	return sm, nil
 }
 
@@ -330,7 +343,7 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 	return r.updateOne(ctx, l.ID, `title = ?, content = ?, level = ?, topic_id = ?, source = ?, license = ?, grammar_point_id = ?,
 		revision = ?, sentences = ?, annotation_status = ?, annotation_error = ?, annotations = ?,
 		extras_edited = ?, quiz_version = ?, practice = ?, practice_status = ?, practice_error = ?,
-		updated_at = ?, questions = ?, grammar_note = ?, writing_prompt = ?`,
+		updated_at = ?, questions = ?, grammar_note = ?, writing_prompt = ?, review = NULL`,
 		l.Title, l.Content, string(l.Level), lessonTopicKey(l.TopicID), l.Source, l.License, l.GrammarPointID,
 		l.Revision, enc.sentences, string(l.AnnotationStatus), l.AnnotationError, enc.annotations,
 		l.ExtrasEditedByAdmin, l.QuizVersion, enc.practice, string(l.PracticeStatus), l.PracticeError,
@@ -367,7 +380,7 @@ func (r *Lessons) SaveAnnotations(ctx context.Context, id string, revision int, 
 	return r.updateAtRevision(ctx, id, revision, `quiz_version = quiz_version + 1`,
 		`annotations = ?, annotation_status = ?, annotation_error = '', extras_edited = 0,
 		practice = NULL, practice_status = ?, practice_error = '',
-		questions = ?, grammar_note = ?, writing_prompt = ?`,
+		questions = ?, grammar_note = ?, writing_prompt = ?, review = NULL`,
 		a, string(lesson.StatusDone), string(lesson.StatusRunning), questions, note, prompt)
 }
 
@@ -377,7 +390,7 @@ func (r *Lessons) ReplaceExtras(ctx context.Context, id string, x lesson.Extras,
 	if err != nil {
 		return err
 	}
-	set := `questions = ?, grammar_note = ?, writing_prompt = ?, extras_edited = 1, updated_at = ?`
+	set := `questions = ?, grammar_note = ?, writing_prompt = ?, extras_edited = 1, updated_at = ?, review = NULL`
 	if bumpQuiz {
 		set += `, quiz_version = quiz_version + 1`
 	}
@@ -390,7 +403,7 @@ func (r *Lessons) ReplaceAnnotations(ctx context.Context, id string, anns []less
 	if err != nil {
 		return err
 	}
-	return r.updateOne(ctx, id, `annotations = ?, annotation_status = ?, annotation_error = '', updated_at = ?`,
+	return r.updateOne(ctx, id, `annotations = ?, annotation_status = ?, annotation_error = '', updated_at = ?, review = NULL`,
 		a, string(lesson.StatusDone), utc(time.Now()))
 }
 

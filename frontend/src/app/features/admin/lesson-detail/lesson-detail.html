@@ -41,12 +41,60 @@
       </div>
     </div>
 
+    <div class="card check-card">
+      <p class="check-strip" [class.flagged]="openFlags() > 0" role="status">
+        <span class="muted">Kiểm tra AI:</span> <strong class="check-status">{{ checkText() }}</strong>
+        @if (l.review; as r) {
+          <span class="muted"> · {{ (r.verifiedAt ?? r.checkedAt) | date: 'dd/MM/yyyy HH:mm' }}</span>
+        }
+      </p>
+      <div class="actions">
+        <button
+          type="button"
+          class="btn"
+          [disabled]="checking() || flagBusy() || busy() || !!checkBlocked() || l.practiceStatus === 'running'"
+          [attr.aria-describedby]="checkBlocked() ? 'check-blocked' : null"
+          (click)="check()"
+        >
+          {{ checking() ? 'Đang kiểm tra…' : l.review ? 'Kiểm tra lại' : 'Kiểm tra bằng AI' }}
+        </button>
+        @if (l.review && !l.review.verifiedAt) {
+          <button
+            type="button"
+            class="btn-primary"
+            [disabled]="checking() || flagBusy() || openFlags() > 0"
+            [attr.aria-describedby]="openFlags() > 0 ? 'verify-blocked' : null"
+            (click)="verify()"
+          >
+            Xác nhận đã kiểm tra xong
+          </button>
+        }
+        @if (checkBlocked(); as reason) {
+          <span class="muted" id="check-blocked">{{ reason }}</span>
+        } @else if (checking()) {
+          <span class="muted" role="status">AI có thể mất tới khoảng 1 phút.</span>
+        }
+        @if (l.review && !l.review.verifiedAt && openFlags() > 0) {
+          <span class="muted" id="verify-blocked">Còn {{ openFlags() }} chỗ chưa xác nhận.</span>
+        }
+      </div>
+      @if (checkError(); as message) {
+        <p class="form-alert" role="alert">{{ message }}</p>
+      }
+    </div>
+
     <h2 class="section-title">Câu ({{ l.sentences.length }})</h2>
     <ol class="card sentences">
       @for (s of l.sentences; track s.index) {
         <li>
           <button type="button" class="play" [attr.aria-label]="'Nghe câu ' + (s.index + 1)" (click)="play(s.text)">▶</button>
           <span class="sentence-text" lang="en">{{ s.text }}</span>
+          @if (flagAt(sentenceFlags(), $index); as f) {
+            <lu-flag-note [flag]="f" [subject]="'câu ' + ($index + 1)" [disabled]="flagBusy() || checking()" (confirm)="confirmFlag($event)">
+              <a class="btn" [routerLink]="['/admin/lessons', l.id, 'edit']">Sửa nội dung bài</a>
+              <span class="muted">Sửa nội dung sẽ chạy lại chú thích và xoá kết quả kiểm tra.</span>
+            </lu-flag-note>
+          }
         </li>
       }
     </ol>
@@ -87,6 +135,12 @@
             @if (rowError(i); as message) {
               <p class="field-error row-error">{{ message }}</p>
             }
+            @if (flagOfRow(row); as f) {
+              <lu-flag-note class="row-error" [flag]="f" [subject]="'chú thích ' + (row.controls.text.value || 'mới')" [disabled]="flagBusy() || checking()" (confirm)="confirmFlag($event)">
+                <button type="button" class="btn" [attr.aria-label]="'Sửa nghĩa chú thích ' + row.controls.text.value" (click)="editAnnotation(i, row)">Sửa</button>
+                <button type="button" class="btn" [disabled]="busy()" [attr.aria-label]="'Xoá chú thích ' + row.controls.text.value + ' khỏi bài'" (click)="askDeleteAnnotation(f.index)">Xoá</button>
+              </lu-flag-note>
+            }
           </div>
         }
         <div class="actions">
@@ -109,14 +163,33 @@
             @if (a.editedByAdmin) {
               <span class="tag">Đã sửa tay</span>
             }
+            @if (flagAt(annotationFlags(), $index); as f) {
+              <lu-flag-note class="ann-flag" [flag]="f" [subject]="'chú thích ' + a.text" [disabled]="flagBusy() || checking()" (confirm)="confirmFlag($event)">
+                <button type="button" class="btn" [disabled]="busy() || l.annotationStatus === 'running'" [attr.aria-label]="'Sửa chú thích ' + a.text" (click)="editAnnotation($index)">Sửa</button>
+                <button type="button" class="btn" [disabled]="busy() || l.annotationStatus === 'running'" [attr.aria-label]="'Xoá chú thích ' + a.text + ' khỏi bài'" (click)="askDeleteAnnotation($index)">Xoá</button>
+              </lu-flag-note>
+            }
           </li>
         }
       </ul>
     }
 
-    <lu-lesson-extras [lesson]="l" (saved)="lesson.set($event)" />
+    <lu-lesson-extras
+      [lesson]="l"
+      [flags]="questionFlags()"
+      [flagBusy]="flagBusy() || checking()"
+      (saved)="lesson.set($event)"
+      (confirm)="confirmFlag($event)"
+    />
 
-    <lu-practice-section [lesson]="l" (regenerated)="onPracticeRegenerated($event)" />
+    <lu-practice-section
+      [lesson]="l"
+      [flags]="translationFlags()"
+      [flagBusy]="flagBusy() || checking()"
+      (regenerated)="onPracticeRegenerated($event)"
+      (updated)="lesson.set($event)"
+      (confirm)="confirmFlag($event)"
+    />
   } @else if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   } @else {
@@ -141,4 +214,14 @@
   [danger]="true"
   (confirmed)="confirmDelete()"
   (cancelled)="deleteOpen.set(false)"
+/>
+
+<lu-confirm-dialog
+  [open]="deleteAnnotationAt() !== null"
+  title="Xoá chú thích?"
+  [message]="'Xoá chú thích &quot;' + annotationAt(deleteAnnotationAt() ?? -1) + '&quot; khỏi bài. Các cờ khác được giữ nguyên.'"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDeleteAnnotation()"
+  (cancelled)="deleteAnnotationAt.set(null)"
 />

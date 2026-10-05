@@ -83,11 +83,53 @@
           <ol class="list">
             @for (t of p.translations; track $index) {
               <li>
-                <span>{{ t.vi }}</span> → <span lang="en">{{ t.en }}</span>
-                @if (t.distractors.length) {
-                  <span class="muted meaning"
-                    >Từ gây nhiễu: <span lang="en">{{ t.distractors.join(', ') }}</span></span
-                  >
+                @if (editIndex() === $index) {
+                  <form class="edit" (submit)="$event.preventDefault(); saveEdit()">
+                    <div class="field">
+                      <label [for]="'tr-vi-' + $index">Tiếng Việt</label>
+                      <input [id]="'tr-vi-' + $index" [formControl]="vi" [attr.aria-invalid]="!!fieldError('vi')" [attr.aria-describedby]="fieldError('vi') ? 'tr-vi-error' : null" />
+                      @if (fieldError('vi'); as message) {
+                        <p class="field-error" id="tr-vi-error">{{ message }}</p>
+                      }
+                    </div>
+                    <div class="field">
+                      <label [for]="'tr-en-' + $index">Tiếng Anh</label>
+                      <input [id]="'tr-en-' + $index" lang="en" [formControl]="en" [attr.aria-invalid]="!!fieldError('en')" [attr.aria-describedby]="fieldError('en') ? 'tr-en-error' : null" />
+                      @if (fieldError('en'); as message) {
+                        <p class="field-error" id="tr-en-error">{{ message }}</p>
+                      }
+                    </div>
+                    <div class="field">
+                      <label [for]="'tr-dis-' + $index">Từ gây nhiễu (cách nhau bằng dấu phẩy)</label>
+                      <input [id]="'tr-dis-' + $index" lang="en" [formControl]="distractors" [attr.aria-invalid]="!!fieldError('distractors')" [attr.aria-describedby]="fieldError('distractors') ? 'tr-dis-error' : null" />
+                      @if (fieldError('distractors'); as message) {
+                        <p class="field-error" id="tr-dis-error">{{ message }}</p>
+                      }
+                    </div>
+                    @if (editError(); as message) {
+                      <p class="form-alert" role="alert">{{ message }}</p>
+                    }
+                    <div class="actions">
+                      <button type="submit" class="btn-primary" [disabled]="saving()">{{ saving() ? 'Đang lưu…' : 'Lưu' }}</button>
+                      <button type="button" class="btn" [disabled]="saving()" (click)="cancelEdit()">Huỷ</button>
+                    </div>
+                  </form>
+                } @else {
+                  <span>{{ t.vi }}</span> → <span lang="en">{{ t.en }}</span>
+                  @if (t.distractors.length) {
+                    <span class="muted meaning"
+                      >Từ gây nhiễu: <span lang="en">{{ t.distractors.join(', ') }}</span></span
+                    >
+                  }
+                }
+                @if (flagFor($index); as f) {
+                  <lu-flag-note [flag]="f" [subject]="'câu dịch ' + ($index + 1)" [disabled]="flagBusy()" (confirm)="confirm.emit($event)">
+                    <ng-container [ngTemplateOutlet]="rowActions" [ngTemplateOutletContext]="{ $implicit: $index }" />
+                  </lu-flag-note>
+                } @else {
+                  <div class="row-actions">
+                    <ng-container [ngTemplateOutlet]="rowActions" [ngTemplateOutletContext]="{ $implicit: $index }" />
+                  </div>
                 }
               </li>
             }
@@ -95,9 +137,32 @@
         } @else {
           <p class="muted">Không có.</p>
         }
+        @if (editBlocked(); as reason) {
+          <p class="muted" id="translations-blocked">{{ reason }}</p>
+        }
+        @if (editIndex() === null && editError(); as message) {
+          <p class="form-alert" role="alert">{{ message }}</p>
+        }
       </div>
     </div>
   } @else {
     <p class="card muted">Chưa có nội dung luyện tập.</p>
   }
 </section>
+
+<ng-template #rowActions let-i>
+  @if (editIndex() !== i) {
+    <button type="button" class="btn" [disabled]="!!editBlocked() || saving()" [attr.aria-describedby]="editBlocked() ? 'translations-blocked' : null" [attr.aria-label]="'Sửa câu dịch ' + (i + 1)" (click)="startEdit(i)">Sửa</button>
+    <button type="button" class="btn" [disabled]="!!editBlocked() || saving()" [attr.aria-describedby]="editBlocked() ? 'translations-blocked' : null" [attr.aria-label]="'Xoá câu dịch ' + (i + 1)" (click)="deleteIndex.set(i)">Xoá</button>
+  }
+</ng-template>
+
+<lu-confirm-dialog
+  [open]="deleteIndex() !== null"
+  title="Xoá câu dịch?"
+  [message]="'Câu dịch ' + ((deleteIndex() ?? 0) + 1) + ' sẽ bị xoá khỏi phần luyện tập.'"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleteIndex.set(null)"
+/>

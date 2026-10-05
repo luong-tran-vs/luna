@@ -61,6 +61,21 @@ describe('LessonList', () => {
 
   afterEach(() => http.verify());
 
+  it('shows the AI check state in words (F22)', async () => {
+    await flushLoad([
+      summary({ id: 'a', title: 'Cờ', flags: 3, checked: true }),
+      summary({ id: 'b', title: 'Xong', flags: 0, checked: true, verified: true }),
+      summary({ id: 'c', title: 'Mới', flags: 0, checked: false, verified: false }),
+      summary({ id: 'd', title: 'Đã chạy', flags: 0, checked: true, verified: false }),
+    ]);
+    const items = Array.from(el.querySelectorAll('li.item')).map((li) => li.textContent ?? '');
+    expect(items[0]).toContain('3 chỗ cần xem');
+    expect(items[1]).toContain('Đã kiểm tra');
+    expect(items[2]).toContain('Chưa kiểm tra');
+    expect(items[3]).not.toContain('Chưa kiểm tra');
+    expect(items[3]).not.toContain('chỗ cần xem');
+  });
+
   it('renders lessons with level, topic, status chips and links', async () => {
     await flushLoad([summary({ annotationStatus: 'failed' })]);
 

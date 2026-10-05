@@ -114,6 +114,7 @@ func (r *Lessons) SavePractice(ctx context.Context, id string, revision, prevVer
 			{Key: "updatedAt", Value: time.Now().UTC()},
 		}},
 		{Key: "$inc", Value: bson.D{{Key: "practiceVersion", Value: 1}}},
+		{Key: "$unset", Value: reviewUnset},
 	}
 	res, err := r.coll.UpdateOne(ctx, filter, update)
 	if err != nil {

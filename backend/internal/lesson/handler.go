@@ -33,7 +33,11 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("PUT /api/admin/lessons/{id}/annotations", admin(h.updateAnnotations))
 	mux.Handle("POST /api/admin/lessons/{id}/retry", admin(h.retry))
 	mux.Handle("PUT /api/admin/lessons/{id}/extras", admin(h.updateExtras))
+	mux.Handle("PUT /api/admin/lessons/{id}/practice/translations", admin(h.updateTranslations))
 	mux.Handle("POST /api/admin/lessons/{id}/practice/regenerate", admin(h.regeneratePractice))
+	mux.Handle("POST /api/admin/lessons/{id}/check", admin(h.check))
+	mux.Handle("POST /api/admin/lessons/{id}/check/confirm", admin(h.confirmFlag))
+	mux.Handle("POST /api/admin/lessons/{id}/check/verify", admin(h.verify))
 	mux.Handle("POST /api/admin/topics/{id}/generate", admin(h.generate))
 	mux.Handle("GET /api/admin/grammar", admin(h.grammarPoints))
 }
@@ -80,6 +84,9 @@ type summaryJSON struct {
 	TopicName        string    `json:"topicName"`
 	AnnotationStatus Status    `json:"annotationStatus"`
 	InRoadmap        bool      `json:"inRoadmap"`
+	Flags            int       `json:"flags"`
+	Checked          bool      `json:"checked"`
+	Verified         bool      `json:"verified"`
 	CreatedAt        time.Time `json:"createdAt"`
 }
 
@@ -117,6 +124,8 @@ type lessonJSON struct {
 	PracticeStatus string             `json:"practiceStatus"`
 	PracticeError  string             `json:"practiceError"`
 	Practice       *adminPracticeJSON `json:"practice"`
+	// F22
+	Review *reviewJSON `json:"review"`
 }
 
 type questionJSON struct {
@@ -157,10 +166,12 @@ func toSummaries(items []Summary) []summaryJSON {
 }
 
 func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJSON {
+	flags, checked, verified := SummaryOf(l.Review)
 	out := lessonJSON{
 		summaryJSON: summaryJSON{
 			ID: l.ID, Title: l.Title, Level: l.Level, TopicID: l.TopicID, TopicName: topicName,
 			AnnotationStatus: l.AnnotationStatus, InRoadmap: inRoadmap, CreatedAt: l.CreatedAt,
+			Flags: flags, Checked: checked, Verified: verified,
 		},
 		Content: l.Content, Source: l.Source, License: l.License, Revision: l.Revision,
 		AnnotationError: l.AnnotationError,
@@ -171,6 +182,7 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 		PracticeStatus: practiceStatusJSON(l.PracticeStatus), PracticeError: l.PracticeError,
 		Practice:       toAdminPracticeJSON(l.Practice),
 		GrammarPointID: l.GrammarPointID, GrammarPointTitle: GrammarTitle(l.GrammarPointID),
+		Review: toReviewJSON(l.Review),
 	}
 	for i, s := range l.Sentences {
 		out.Sentences[i] = sentenceJSON(s)
@@ -324,6 +336,11 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 		httpx.WriteError(w, http.StatusConflict, "annotation_running", "Chú thích đang được tạo, vui lòng chờ")
 	case errors.Is(err, ErrPracticeRunning):
 		httpx.WriteError(w, http.StatusConflict, "practice_running", "Phần luyện tập đang được tạo, vui lòng chờ")
+	case errors.Is(err, ErrNoPractice):
+		httpx.WriteError(w, http.StatusConflict, "no_practice", "Bài chưa có phần luyện tập")
+	case errors.Is(err, ErrPracticeChanged):
+		httpx.WriteError(w, http.StatusConflict, "practice_changed", "Phần luyện tập vừa thay đổi, hãy tải lại")
+	case writeFlagError(w, err):
 	case errors.Is(err, ErrAnnotationNotDone):
 		httpx.WriteError(w, http.StatusConflict, "annotation_not_done", "Cần chú thích xong trước")
 	default:

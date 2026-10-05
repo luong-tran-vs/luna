@@ -209,6 +209,7 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 	next.QuizVersion = cur.QuizVersion + 1 // old answers belong to the old text
 	next.AnnotationStatus, next.AnnotationError = StatusRunning, ""
 	next.Practice, next.PracticeStatus, next.PracticeError = nil, StatusNone, "" // redone after the annotations
+	next.Review = nil                                                            // its flags point into the old text
 	next.UpdatedAt = s.Now()
 	if err := s.Lessons.ReplaceContent(ctx, next); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: replace content: %w", err)
@@ -329,6 +330,7 @@ func (s *Service) UpdateAnnotations(ctx context.Context, id string, items []Anno
 	if err := s.Lessons.ReplaceAnnotations(ctx, id, out); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: save annotations: %w", err)
 	}
+	s.keepReview(ctx, l, AreaAnnotation, annotationKeys(l.Annotations), annotationKeys(out))
 	return s.Lessons.Get(ctx, id)
 }
 

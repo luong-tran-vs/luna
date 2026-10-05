@@ -74,8 +74,10 @@ type Lesson struct {
 	PracticeError  string
 	// PracticeVersion is bumped each time a practice is saved, so an old practice job cannot overwrite a newer one.
 	PracticeVersion int
-	CreatedAt       time.Time
-	UpdatedAt       time.Time
+	// Review is the AI check of the lesson (F22), nil until an admin runs it. Writing the content drops it.
+	Review    *Review
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 // StatusOf returns the status of the given kind of background work.
@@ -97,7 +99,12 @@ type Summary struct {
 	TopicName        string
 	AnnotationStatus Status
 	InRoadmap        bool
-	CreatedAt        time.Time
+	// Flags counts the flags of the AI check the admin has not confirmed; Checked and Verified say
+	// whether the lesson was checked and whether the admin marked the check as done (F22).
+	Flags     int
+	Checked   bool
+	Verified  bool
+	CreatedAt time.Time
 }
 
 // Filter narrows the lesson list; empty fields match everything.

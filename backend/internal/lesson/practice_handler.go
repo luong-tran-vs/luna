@@ -188,3 +188,25 @@ func (h *Handler) regeneratePractice(w http.ResponseWriter, r *http.Request) {
 	}
 	h.writeLesson(w, r, http.StatusAccepted, l)
 }
+
+type translationsInputJSON struct {
+	Translations []adminTranslationJSON `json:"translations"`
+}
+
+// updateTranslations saves the translation sentences of the practice (F22b).
+func (h *Handler) updateTranslations(w http.ResponseWriter, r *http.Request) {
+	var in translationsInputJSON
+	if httpx.DecodeJSON(w, r, &in) != nil {
+		return
+	}
+	items := make([]TranslationInput, len(in.Translations))
+	for i, t := range in.Translations {
+		items[i] = TranslationInput(t)
+	}
+	l, err := h.svc.UpdateTranslations(r.Context(), r.PathValue("id"), items)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	h.writeLesson(w, r, http.StatusOK, l)
+}

@@ -2,6 +2,7 @@ package lesson
 
 import (
 	"context"
+	"errors"
 	"maps"
 	"slices"
 	"strconv"
@@ -17,6 +18,9 @@ type fakeLessons struct {
 	mu     sync.Mutex
 	byID   map[string]Lesson
 	nextID int
+	// failSaveReview makes SaveReview fail; beforeSavePractice runs just before SavePractice stores.
+	failSaveReview     bool
+	beforeSavePractice func()
 }
 
 func newFakeLessons() *fakeLessons { return &fakeLessons{byID: map[string]Lesson{}} }
@@ -39,6 +43,11 @@ func (f *fakeLessons) Get(_ context.Context, id string) (Lesson, error) {
 	}
 	l.Sentences = slices.Clone(l.Sentences)
 	l.Annotations = slices.Clone(l.Annotations)
+	if l.Review != nil {
+		rv := *l.Review
+		rv.Flags = slices.Clone(rv.Flags)
+		l.Review = &rv
+	}
 	return l, nil
 }
 
@@ -46,6 +55,7 @@ func summaryOf(l Lesson) Summary {
 	return Summary{
 		ID: l.ID, Title: l.Title, Level: l.Level, TopicID: l.TopicID,
 		AnnotationStatus: l.AnnotationStatus, CreatedAt: l.CreatedAt,
+		Flags: l.Review.Open(), Checked: l.Review != nil, Verified: l.Review != nil && !l.Review.VerifiedAt.IsZero(),
 	}
 }
 
@@ -110,7 +120,7 @@ func (f *fakeLessons) CountByGrammarPoint(_ context.Context, topicID string) (ma
 }
 
 func (f *fakeLessons) ReplaceContent(_ context.Context, next Lesson) error {
-	_, err := f.update(next.ID, func(l *Lesson) bool { *l = next; return true })
+	_, err := f.update(next.ID, func(l *Lesson) bool { *l = next; l.Review = nil; return true })
 	return err
 }
 
@@ -135,9 +145,11 @@ func (f *fakeLessons) SaveAnnotations(_ context.Context, id string, rev int, ann
 			return false
 		}
 		l.Annotations, l.AnnotationStatus, l.AnnotationError = anns, StatusDone, ""
+		l.Review = nil
 		l.Extras, l.ExtrasEditedByAdmin = x, false
 		l.QuizVersion++
 		l.Practice, l.PracticeStatus, l.PracticeError = nil, StatusRunning, ""
+		l.Review = nil
 		return true
 	})
 }
@@ -145,6 +157,7 @@ func (f *fakeLessons) SaveAnnotations(_ context.Context, id string, rev int, ann
 func (f *fakeLessons) ReplaceAnnotations(_ context.Context, id string, anns []Annotation) error {
 	_, err := f.update(id, func(l *Lesson) bool {
 		l.Annotations, l.AnnotationStatus, l.AnnotationError = anns, StatusDone, ""
+		l.Review = nil
 		return true
 	})
 	return err
@@ -153,6 +166,7 @@ func (f *fakeLessons) ReplaceAnnotations(_ context.Context, id string, anns []An
 func (f *fakeLessons) ReplaceExtras(_ context.Context, id string, x Extras, bumpQuiz bool) error {
 	_, err := f.update(id, func(l *Lesson) bool {
 		l.Extras, l.ExtrasEditedByAdmin = x, true
+		l.Review = nil
 		if bumpQuiz {
 			l.QuizVersion++
 		}
@@ -307,6 +321,13 @@ type fakeAI struct {
 	practiceErr   error
 	practiceCalls int
 	practiceReq   ai.PracticeRequest
+
+	review      ai.ReviewResult
+	reviewErr   error
+	reviewCalls int
+	reviewReq   ai.ReviewRequest
+	// reviewHook runs inside ReviewLesson, to change the lesson during the call.
+	reviewHook func()
 }
 
 // Annotate returns result as annotations plus the configured extras, and records the request.
@@ -471,12 +492,16 @@ func (f *fakeAsks) count() int {
 }
 
 func (f *fakeLessons) SavePractice(_ context.Context, id string, rev, prevVersion int, p Practice) (bool, error) {
+	if f.beforeSavePractice != nil {
+		f.beforeSavePractice()
+	}
 	return f.update(id, func(l *Lesson) bool {
 		if l.Revision != rev || l.PracticeVersion != prevVersion {
 			return false
 		}
 		l.Practice, l.PracticeStatus, l.PracticeError = &p, StatusDone, ""
 		l.PracticeVersion++
+		l.Review = nil
 		return true
 	})
 }
@@ -525,4 +550,29 @@ func (f *fakeAI) GrammarLesson(context.Context, ai.GrammarLessonRequest) (ai.Gra
 
 func (f *fakeAI) SolveGrammarExercises(context.Context, ai.SolveRequest) ([]ai.Solution, error) {
 	return nil, ai.ErrNotConfigured
+}
+
+func (f *fakeLessons) SaveReview(_ context.Context, id string, rev int, r *Review) (bool, error) {
+	if f.failSaveReview {
+		return false, errors.New("boom")
+	}
+	return f.update(id, func(l *Lesson) bool {
+		if l.Revision != rev {
+			return false
+		}
+		l.Review = r
+		return true
+	})
+}
+
+// ReviewLesson returns the configured review or error and records the request.
+func (f *fakeAI) ReviewLesson(_ context.Context, req ai.ReviewRequest) (ai.ReviewResult, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.reviewCalls++
+	f.reviewReq = req
+	if f.reviewHook != nil {
+		f.reviewHook()
+	}
+	return f.review, f.reviewErr
 }

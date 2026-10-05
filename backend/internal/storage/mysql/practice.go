@@ -59,7 +59,7 @@ func (r *Lessons) SavePractice(ctx context.Context, id string, revision, prevVer
 		return false, err
 	}
 	res, err := r.db.ExecContext(ctx, `UPDATE lessons
-		SET practice = ?, practice_status = ?, practice_error = '', updated_at = ?, practice_version = practice_version + 1
+		SET practice = ?, practice_status = ?, practice_error = '', updated_at = ?, practice_version = practice_version + 1, review = NULL
 		WHERE id = ? AND revision = ? AND practice_version = ?`,
 		v, string(lesson.StatusDone), utc(time.Now()), id, revision, prevVersion)
 	if err != nil {

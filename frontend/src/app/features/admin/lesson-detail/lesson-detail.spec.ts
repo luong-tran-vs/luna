@@ -311,4 +311,194 @@ describe('LessonDetail', () => {
       expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
   });
+
+  describe('AI check (F22)', () => {
+    type Flag = NonNullable<Lesson['review']>['flags'][number];
+    const review = (flags: Flag[], verifiedAt: string | null = null) => ({
+      checkedAt: '2026-10-05T08:00:00Z',
+      verifiedAt,
+      flags,
+    });
+    const flag = (area: Flag['area'], index: number, kind: Flag['kind'] = 'wrong', confirmed = false): Flag => ({
+      area, index, kind, noteVi: 'Ghi chú ' + area, confirmed,
+    });
+    const err = () => el.querySelector('[role="alert"]')?.textContent ?? '';
+    const withContent = {
+      questions: [
+        { prompt: 'Q1?', options: ['a', 'b', 'c', 'd'], answerIndex: 0, explanationVi: 'x' },
+        { prompt: 'Q2?', options: ['a', 'b', 'c', 'd'], answerIndex: 1, explanationVi: 'y' },
+      ],
+      practice: {
+        objectiveVi: 'm', examples: [], dialogue: null, grammarTipVi: 't',
+        translations: [{ vi: 'Xin chào', en: 'Hello', distractors: [] }],
+      },
+      practiceStatus: 'done' as const,
+    };
+
+    it('starts unchecked and runs the check, showing flags at the right spots', async () => {
+      await load(lesson({ ...withContent, review: null }));
+      expect(el.querySelector('.check-strip')?.textContent).toContain('Chưa kiểm tra');
+      button('Kiểm tra bằng AI')!.click();
+      await settle();
+      expect(button('Đang kiểm tra…')!.disabled).toBe(true);
+      const r = http.expectOne('/api/admin/lessons/l1/check');
+      expect(r.request.method).toBe('POST');
+      r.flush({
+        lesson: lesson({
+          ...withContent,
+          review: review([flag('sentence', 1, 'ambiguous'), flag('annotation', 0, 'wrong'), flag('question', 1, 'mismatch'), flag('translation', 0, 'unchecked')]),
+        }),
+      });
+      await settle();
+      expect(el.querySelector('.check-strip')?.textContent).toContain('4 chỗ cần xem');
+      expect(button('Kiểm tra lại')).toBeTruthy();
+      const sentences = Array.from(el.querySelectorAll('.sentences li'));
+      expect(sentences[0].textContent).not.toContain('AI thấy câu mơ hồ');
+      expect(sentences[1].textContent).toContain('AI thấy câu mơ hồ');
+      expect(el.querySelector('.annotations li')?.textContent).toContain('AI thấy có thể sai');
+      expect(el.querySelector('lu-lesson-extras')?.textContent).toContain('Cần xem: AI giải ra đáp án khác');
+      expect(el.querySelector('lu-practice-section')?.textContent).toContain('AI chưa kiểm tra được câu này');
+    });
+
+    it('disables the check until annotation is done', async () => {
+      await load(lesson({ annotationStatus: 'failed' }));
+      expect(button('Kiểm tra bằng AI')!.disabled).toBe(true);
+      expect(el.textContent).toContain('Cần chú thích xong trước');
+    });
+
+    it('says nothing is flagged and lets the admin verify', async () => {
+      await load(lesson({ review: review([]) }));
+      expect(el.querySelector('.check-strip')?.textContent).toContain('Đã kiểm tra, không có chỗ nào bị gắn cờ');
+      button('Xác nhận đã kiểm tra xong')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/check/verify').flush({ lesson: lesson({ review: review([], '2026-10-05T09:00:00Z') }) });
+      await settle();
+      expect(el.querySelector('.check-strip')?.textContent).toContain('Đã xác nhận kiểm tra xong');
+      expect(button('Xác nhận đã kiểm tra xong')).toBeUndefined();
+    });
+
+    for (const [status, text] of [
+      [503, 'AI chưa được cấu hình'],
+      [429, 'Đã hết lượt AI'],
+      [502, 'AI trả về nội dung không dùng được'],
+    ] as const) {
+      it('shows a clear message for ' + status, async () => {
+        await load(lesson());
+        button('Kiểm tra bằng AI')!.click();
+        await settle();
+        http.expectOne('/api/admin/lessons/l1/check').flush({ error: 'x' }, { status, statusText: 'E' });
+        await settle();
+        expect(err()).toContain(text);
+        expect(button('Kiểm tra bằng AI')!.disabled).toBe(false);
+      });
+    }
+
+    it('shows the annotation_not_done conflict', async () => {
+      await load(lesson());
+      button('Kiểm tra bằng AI')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/check').flush({ error: 'annotation_not_done' }, { status: 409, statusText: 'Conflict' });
+      await settle();
+      expect(err()).toContain('Chú thích chưa chạy xong');
+    });
+
+    it('keeps a flag as it is and relabels it', async () => {
+      await load(lesson({ review: review([flag('sentence', 0, 'wrong'), flag('sentence', 1, 'wrong')]) }));
+      el.querySelector<HTMLButtonElement>('button[aria-label="Giữ nguyên câu 1"]')!.click();
+      await settle();
+      const r = http.expectOne('/api/admin/lessons/l1/check/confirm');
+      expect(r.request.body).toEqual({ area: 'sentence', index: 0 });
+      r.flush({ lesson: lesson({ review: review([flag('sentence', 0, 'wrong', true), flag('sentence', 1, 'wrong')]) }) });
+      await settle();
+      expect(el.querySelector('.sentences li')?.textContent).toContain('Đã xem, giữ nguyên');
+      expect(el.querySelector('.check-strip')?.textContent).toContain('1 chỗ cần xem');
+    });
+
+    it('blocks verifying while flags are open', async () => {
+      await load(lesson({ review: review([flag('sentence', 0, 'wrong')]) }));
+      expect(button('Xác nhận đã kiểm tra xong')!.disabled).toBe(true);
+      expect(el.textContent).toContain('Còn 1 chỗ chưa xác nhận');
+    });
+
+    it('shows the count when the server answers flags_unresolved', async () => {
+      await load(lesson({ review: review([flag('sentence', 0, 'wrong', true)]) }));
+      button('Xác nhận đã kiểm tra xong')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/check/verify').flush({ error: 'flags_unresolved', count: 3 }, { status: 409, statusText: 'Conflict' });
+      await settle();
+      expect(err()).toContain('Còn 3 chỗ bị AI gắn cờ chưa xác nhận');
+    });
+
+    it('shows not_checked from verify', async () => {
+      await load(lesson({ review: review([]) }));
+      button('Xác nhận đã kiểm tra xong')!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/check/verify').flush({ error: 'not_checked' }, { status: 409, statusText: 'Conflict' });
+      await settle();
+      expect(err()).toContain('chưa được kiểm tra bằng AI');
+    });
+
+    describe('fixing flagged spots', () => {
+      const flagged = (flags: Flag[]) => lesson({ ...withContent, review: review(flags) });
+      const dialogYes = () =>
+        (Array.from(el.querySelectorAll('lu-confirm-dialog button')).find((b) => b.textContent?.trim() === 'Xoá') as HTMLButtonElement).click();
+
+      it('links a flagged sentence to the lesson editor', async () => {
+        await load(flagged([flag('sentence', 1)]));
+        const link = el.querySelector<HTMLAnchorElement>('.sentences lu-flag-note a')!;
+        expect(link.textContent?.trim()).toBe('Sửa nội dung bài');
+        expect(link.getAttribute('href')).toBe('/admin/lessons/l1/edit');
+        expect(el.querySelector('.sentences lu-flag-note')?.textContent).toContain('chạy lại chú thích và xoá kết quả kiểm tra');
+      });
+
+      it('edits a flagged annotation in place and keeps its flag visible while editing', async () => {
+        await load(flagged([flag('annotation', 1)]));
+        el.querySelector<HTMLButtonElement>('lu-flag-note button[aria-label="Sửa chú thích gave up"]')!.click();
+        await settle();
+        expect(el.querySelector('.editor')).not.toBeNull();
+        expect(document.activeElement?.id).toBe('ann-meaning-1');
+        const rows = el.querySelectorAll('.annotation-edit');
+        expect(rows[0].querySelector('lu-flag-note')).toBeNull();
+        expect(rows[1].querySelector('lu-flag-note')?.textContent).toContain('AI thấy có thể sai');
+      });
+
+      it('deletes a flagged annotation after confirming', async () => {
+        await load(flagged([flag('annotation', 0)]));
+        el.querySelector<HTMLButtonElement>('lu-flag-note button[aria-label="Xoá chú thích went khỏi bài"]')!.click();
+        await settle();
+        expect(http.match('/api/admin/lessons/l1/annotations')).toEqual([]);
+        dialogYes();
+        await settle();
+        const r = http.expectOne('/api/admin/lessons/l1/annotations');
+        expect(r.request.method).toBe('PUT');
+        expect(r.request.body).toEqual({ annotations: [{ text: 'gave up', lemma: 'give up', meaningVi: 'bỏ' }] });
+        r.flush({ lesson: { ...flagged([]), annotations: flagged([]).annotations.slice(1) } });
+        await settle();
+        expect(el.querySelector('.annotations')?.textContent).not.toContain('went');
+      });
+
+      it('deleting from the editor keeps the other rows as typed', async () => {
+        await load(flagged([flag('annotation', 0)]));
+        button('Sửa chú thích')!.click();
+        await settle();
+        const meaning = el.querySelector<HTMLInputElement>('#ann-meaning-1')!;
+        meaning.value = 'từ bỏ';
+        meaning.dispatchEvent(new Event('input'));
+        el.querySelector<HTMLButtonElement>('lu-flag-note button[aria-label="Xoá chú thích went khỏi bài"]')!.click();
+        await settle();
+        dialogYes();
+        await settle();
+        expect(http.expectOne('/api/admin/lessons/l1/annotations').request.body).toEqual({ annotations: [{ text: 'gave up', lemma: 'give up', meaningVi: 'từ bỏ' }] });
+      });
+
+      it('shows edit and delete on a flagged question and translation', async () => {
+        await load(flagged([flag('question', 0), flag('translation', 0)]));
+        expect(el.querySelector('lu-lesson-extras lu-flag-note')?.textContent).toContain('Sửa câu này');
+        expect(el.querySelector('lu-lesson-extras lu-flag-note')?.textContent).toContain('Xoá câu này');
+        expect(el.querySelector('lu-practice-section lu-flag-note')?.textContent).toContain('Sửa');
+        expect(el.querySelector('lu-practice-section lu-flag-note')?.textContent).toContain('Xoá');
+      });
+    });
+
+  });
 });
