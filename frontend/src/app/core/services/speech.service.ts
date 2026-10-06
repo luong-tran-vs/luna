@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
 
 import { estimateSeconds } from '../../shared/utils/fake-waveform';
+import { Clip, NaturalVoiceService } from '../natural-voice/natural-voice.service';
 
 /** What a caller hears about one utterance; errors from stopping it on purpose are not reported. */
 export interface SpeakHandlers {
@@ -23,21 +24,92 @@ const PROGRESS_MS = 100;
 const PROGRESS_CAP = 0.95;
 
 /**
- * Reads English text aloud with the browser's own voice (Web Speech API), so listening needs no
- * prepared audio files (F3, F4, F5, F17). One utterance at a time: speaking again stops the
- * previous one.
+ * Reads English text aloud, so listening needs no prepared audio files (F3, F4, F5, F17), and
+ * always starts at once. With the natural voice on (NaturalVoiceService), a text it has already
+ * generated plays in that voice at the chosen speed; any other text is read by the browser's own
+ * voice (Web Speech API) while the natural voice generates it for next time. One utterance at a
+ * time: speaking again stops the previous one.
  */
 @Injectable({ providedIn: 'root' })
 export class SpeechService {
   private readonly synth = inject(DOCUMENT).defaultView?.speechSynthesis ?? null;
+  private readonly voice = inject(NaturalVoiceService);
+  private readonly audio: HTMLAudioElement | null = typeof Audio === 'undefined' ? null : new Audio();
   private current: SpeechSynthesisUtterance | null = null;
   private timer: ReturnType<typeof setInterval> | null = null;
+  /** Bumped by every speak and stop, so events of a clip that was stopped are ignored. */
+  private token = 0;
+  /** An online browser voice failed (no network): use voices on the device only. */
+  private onlineFailed = false;
 
-  /** False when the browser has no speech synthesis. */
-  readonly supported = this.synth !== null && typeof SpeechSynthesisUtterance !== 'undefined';
+  private readonly browserSupported = this.synth !== null && typeof SpeechSynthesisUtterance !== 'undefined';
+
+  /** True while the natural voice is loaded (texts can be generated ahead). */
+  readonly natural = this.voice.ready;
+
+  /** False when the browser has no speech synthesis and the natural voice is off. */
+  readonly supported = this.browserSupported || this.voice.enabled();
 
   speak(text: string, rate: number, handlers: SpeakHandlers = {}): void {
-    if (!this.synth || !this.supported) {
+    const clip = this.audio && this.voice.ready() ? this.voice.cached(text) : null;
+    if (clip) {
+      this.stop();
+      this.play(clip, rate, handlers);
+      return;
+    }
+    this.voice.want(text);
+    this.speakBrowser(text, rate, handlers);
+  }
+
+  /** Texts likely to be heard soon: the natural voice generates them ahead (no-op when it is off). */
+  prefetch(texts: readonly string[]): void {
+    this.voice.prefetch(texts);
+  }
+
+  /** Plays a generated clip; the speed changes the playback rate (the pitch is kept). */
+  private play(clip: Clip, rate: number, handlers: SpeakHandlers): void {
+    const audio = this.audio!;
+    const token = this.token;
+    const own = () => token === this.token;
+    audio.onplaying = () => own() && handlers.started?.();
+    audio.onended = () => {
+      if (own()) {
+        this.finish();
+        handlers.progress?.(1, clip.seconds / rate);
+        handlers.ended?.();
+      }
+    };
+    audio.onerror = () => {
+      if (own()) {
+        this.finish();
+        handlers.failed?.('audio');
+      }
+    };
+    if (handlers.progress) {
+      this.timer = setInterval(
+        () =>
+          handlers.progress?.(
+            Math.min(PROGRESS_CAP, audio.currentTime / Math.max(0.1, clip.seconds)),
+            audio.currentTime / rate,
+          ),
+        PROGRESS_MS,
+      );
+    }
+    // Loading a new source resets playbackRate to defaultPlaybackRate, so set both.
+    audio.defaultPlaybackRate = rate;
+    audio.src = clip.url;
+    audio.playbackRate = rate;
+    audio.play().catch((e: unknown) => {
+      if (own()) {
+        this.finish();
+        handlers.failed?.(String(e));
+      }
+    });
+  }
+
+  /** localOnly: skip the online voices (one of them just failed). */
+  private speakBrowser(text: string, rate: number, handlers: SpeakHandlers, localOnly = this.onlineFailed): void {
+    if (!this.synth || !this.browserSupported) {
       handlers.failed?.('unsupported');
       return;
     }
@@ -45,7 +117,7 @@ export class SpeechService {
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
     u.rate = rate;
-    const voice = this.englishVoice();
+    const voice = this.englishVoice(localOnly);
     if (voice) {
       u.voice = voice;
       u.lang = voice.lang;
@@ -82,6 +154,13 @@ export class SpeechService {
         return; // stopped or replaced on purpose
       }
       this.finish();
+      // An online voice (Edge "Natural", Chrome "Google") needs the network: read with a voice on
+      // the device instead, and keep to those for the rest of the visit.
+      if (voice && !voice.localService && e.error !== 'interrupted' && e.error !== 'canceled') {
+        this.onlineFailed = true;
+        this.speakBrowser(text, rate, handlers, true);
+        return;
+      }
       handlers.failed?.(e.error);
     };
     this.current = u;
@@ -89,7 +168,11 @@ export class SpeechService {
   }
 
   stop(): void {
+    this.token++;
     this.finish();
+    if (this.audio && !this.audio.paused) {
+      this.audio.pause();
+    }
     this.synth?.cancel();
   }
 
@@ -101,14 +184,44 @@ export class SpeechService {
     }
   }
 
-  /** A local US voice when there is one, else any English voice; null lets the browser choose. */
-  private englishVoice(): SpeechSynthesisVoice | null {
-    const english = (this.synth?.getVoices() ?? []).filter((v) => v.lang.toLowerCase().startsWith('en'));
-    return (
-      english.find((v) => v.lang === 'en-US' && v.localService) ??
-      english.find((v) => v.lang === 'en-US') ??
-      english[0] ??
-      null
-    );
+  /** The best English voice of the browser (see voiceScore); null lets the browser choose. */
+  private englishVoice(localOnly: boolean): SpeechSynthesisVoice | null {
+    let best: SpeechSynthesisVoice | null = null;
+    let bestScore = -1;
+    for (const v of this.synth?.getVoices() ?? []) {
+      if (!v.lang.toLowerCase().startsWith('en') || (localOnly && !v.localService)) {
+        continue;
+      }
+      const score = voiceScore(v);
+      if (score > bestScore) {
+        best = v;
+        bestScore = score;
+      }
+    }
+    return best;
   }
+}
+
+
+/**
+ * Ranks an English browser voice: the neural ones first (Edge "Microsoft … Online (Natural)",
+ * Chrome "Google US English", Apple "Enhanced"/"Premium"), then US English, then voices on the
+ * device. The neural ones sound far less robotic; the online ones need the network.
+ */
+export function voiceScore(v: Pick<SpeechSynthesisVoice, 'name' | 'lang' | 'localService'>): number {
+  const name = v.name.toLowerCase();
+  let score = 0;
+  if (/natural|neural/.test(name)) {
+    score += 8;
+  }
+  if (name.includes('google') || /enhanced|premium/.test(name)) {
+    score += 4;
+  }
+  if (v.lang.replace('_', '-') === 'en-US') {
+    score += 2;
+  }
+  if (v.localService) {
+    score += 1;
+  }
+  return score;
 }

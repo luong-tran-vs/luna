@@ -1,8 +1,14 @@
+import { signal } from '@angular/core';
+
 import { SpeakHandlers, SpeechService } from './speech.service';
 
 /** A SpeechService for specs: records what the page asks the browser to read. */
-export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | 'stop'> {
+export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | 'stop' | 'prefetch' | 'natural'> {
   supported = true;
+  /** Set to true to act as if the natural voice were ready. */
+  readonly natural = signal(false);
+  /** Every prefetch() call. */
+  readonly prefetched: (readonly string[])[] = [];
   readonly spoken: { text: string; rate: number; handlers: SpeakHandlers }[] = [];
   /** Number of stop() calls. */
   stops = 0;
@@ -13,6 +19,10 @@ export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | '
 
   stop(): void {
     this.stops++;
+  }
+
+  prefetch(texts: readonly string[]): void {
+    this.prefetched.push(texts);
   }
 
   last(): { text: string; rate: number; handlers: SpeakHandlers } {

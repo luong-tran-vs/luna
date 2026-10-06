@@ -6,6 +6,7 @@ import { provideRouter, Router } from '@angular/router';
 
 import { Goals } from '../../core/models/study';
 import { User } from '../../core/models/user';
+import { NaturalVoiceService, NaturalVoiceState } from '../../core/natural-voice/natural-voice.service';
 import { AuthService } from '../../core/services/auth.service';
 import { PALETTE_STORAGE_KEY } from '../../core/services/palette.service';
 import { ThemePreference, ThemeSaveState, ThemeService } from '../../core/services/theme.service';
@@ -21,6 +22,15 @@ describe('Account', () => {
   const setTheme = vi.fn((p: ThemePreference) => preference.set(p));
   const resolved = computed(() => (preference() === 'dark' ? 'dark' : 'light'));
   const unseen = signal(0);
+  const voiceState = signal<NaturalVoiceState>('off');
+  const voice = {
+    supported: true,
+    state: voiceState,
+    enabled: computed(() => voiceState() !== 'off'),
+    percent: signal(40),
+    enable: vi.fn(() => voiceState.set('loading')),
+    disable: vi.fn(() => voiceState.set('off')),
+  };
   const logout = vi.fn(async () => undefined);
 
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
@@ -40,6 +50,7 @@ describe('Account', () => {
   };
 
   beforeEach(async () => {
+    voiceState.set('off');
     preference.set('light');
     saveState.set('idle');
     setTheme.mockClear();
@@ -55,6 +66,7 @@ describe('Account', () => {
         { provide: AuthService, useValue: { currentUser: signal(user), logout } },
         { provide: ThemeService, useValue: { preference, resolved, saveState, set: setTheme } },
         { provide: WritingNotifier, useValue: { unseen } },
+        { provide: NaturalVoiceService, useValue: voice },
       ],
     }).compileComponents();
     http = TestBed.inject(HttpTestingController);
@@ -124,6 +136,26 @@ describe('Account', () => {
     expect(el.querySelector('input[name="palette"]')).toBeNull();
     localStorage.clear();
     document.documentElement.removeAttribute('data-palette');
+  });
+
+  it('turns the natural voice on and off, saying what it costs and how far it got', async () => {
+    await open();
+    const toggle = () => Array.from(el.querySelectorAll<HTMLButtonElement>('[role="switch"]')).find((b) => text(b).includes('Giọng đọc tự nhiên'))!;
+    expect(toggle().getAttribute('aria-checked')).toBe('false');
+    expect(text(toggle())).toContain('Tải khoảng 60MB một lần');
+
+    toggle().click();
+    await fixture.whenStable();
+    expect(voice.enable).toHaveBeenCalled();
+    expect(toggle().getAttribute('aria-checked')).toBe('true');
+    expect(text(toggle())).toContain('Đang tải giọng đọc… 40%');
+
+    voiceState.set('error');
+    await fixture.whenStable();
+    expect(text(toggle())).toContain('đang dùng giọng của trình duyệt');
+
+    toggle().click();
+    expect(voice.disable).toHaveBeenCalled();
   });
 
   it('logs out and goes to the login page', async () => {

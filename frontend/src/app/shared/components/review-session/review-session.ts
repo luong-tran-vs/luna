@@ -94,6 +94,13 @@ export class ReviewSession {
   private lastRating: Rating | null = null;
 
   constructor() {
+    // With the natural voice, generate the words of the session ahead.
+    effect(() => {
+      const texts = this.cards().map((c) => c.text);
+      if (this.speech.natural()) {
+        this.speech.prefetch(texts);
+      }
+    });
     // Listen mode plays each new card on its own (not the rated ones viewed again).
     effect(() => {
       const card = this.current();

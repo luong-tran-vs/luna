@@ -55,4 +55,9 @@ export const adminRoutes: Routes = [
     title: 'Giao diện · Quản trị · Luna',
     loadComponent: () => import('./appearance/appearance').then((m) => m.Appearance),
   },
+  {
+    path: 'tts-lab',
+    title: 'Thử giọng đọc · Quản trị · Luna',
+    loadComponent: () => import('./tts-lab/tts-lab').then((m) => m.TtsLab),
+  },
 ];

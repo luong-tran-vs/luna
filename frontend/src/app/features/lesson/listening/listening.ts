@@ -3,11 +3,13 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   input,
   OnInit,
   output,
   signal,
+  untracked,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, firstValueFrom, forkJoin, of } from 'rxjs';
@@ -112,6 +114,15 @@ export class Listening implements OnInit {
 
   constructor() {
     inject(DestroyRef).onDestroy(() => this.silence());
+    // With the natural voice, generate the sentences ahead, from the current one.
+    effect(() => {
+      const texts = this.sentences().map((s) => s.text);
+      if (!this.speech.natural()) {
+        return;
+      }
+      const from = untracked(() => this.current());
+      this.speech.prefetch([...texts.slice(from), ...texts.slice(0, from)]);
+    });
   }
 
   ngOnInit(): void {

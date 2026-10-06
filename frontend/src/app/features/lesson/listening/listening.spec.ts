@@ -149,6 +149,14 @@ describe('Listening', () => {
     expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')).toBeNull();
   });
 
+  it('generates the sentences ahead once the natural voice is ready', async () => {
+    await setup();
+    expect(speech.prefetched).toHaveLength(0);
+    speech.natural.set(true);
+    await settle();
+    expect(speech.prefetched.at(-1)).toEqual(lesson.sentences.map((s) => s.text));
+  });
+
   describe('listening sentence by sentence', () => {
     it('shows the first sentence with previous disabled', async () => {
       await setup();

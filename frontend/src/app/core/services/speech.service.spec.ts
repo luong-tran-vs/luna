@@ -1,5 +1,8 @@
 import { DOCUMENT } from '@angular/common';
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+
+import { Clip, NaturalVoiceService } from '../natural-voice/natural-voice.service';
 
 import { SpeechService } from './speech.service';
 
@@ -57,6 +60,34 @@ describe('SpeechService', () => {
     create().speak('Hi.', 1);
     expect(spoken().voice).toBeNull();
     expect(spoken().lang).toBe('en-US');
+  });
+
+  it('prefers a neural voice (Edge "Natural", Chrome "Google") over the plain ones', () => {
+    voices = [
+      { lang: 'en-US', localService: true, name: 'Microsoft David - English (United States)' },
+      { lang: 'en-US', localService: false, name: 'Google US English' },
+      { lang: 'en-GB', localService: false, name: 'Microsoft Sonia Online (Natural) - English (United Kingdom)' },
+      { lang: 'en-US', localService: false, name: 'Microsoft Aria Online (Natural) - English (United States)' },
+    ];
+    create().speak('Hi.', 1);
+    expect((spoken().voice as unknown as { name: string }).name).toContain('Aria Online (Natural)');
+  });
+
+  it('reads with a voice on the device when an online voice fails, and keeps to those', () => {
+    voices = [
+      { lang: 'en-US', localService: true, name: 'Microsoft David' },
+      { lang: 'en-US', localService: false, name: 'Microsoft Aria Online (Natural)' },
+    ];
+    const failed = vi.fn();
+    const speech = create();
+    speech.speak('Hi.', 1, { failed });
+    spoken().onerror!({ error: 'network' });
+    expect(failed).not.toHaveBeenCalled();
+    expect((spoken().voice as unknown as { name: string }).name).toBe('Microsoft David');
+    expect(spoken().text).toBe('Hi.');
+
+    speech.speak('Again.', 1);
+    expect((spoken().voice as unknown as { name: string }).name).toBe('Microsoft David');
   });
 
   it('reports start, words and end', () => {
@@ -129,5 +160,108 @@ describe('SpeechService', () => {
     expect(speech.supported).toBe(false);
     speech.speak('Hi.', 1, { failed });
     expect(failed).toHaveBeenCalledWith('unsupported');
+  });
+});
+
+/** Minimal Audio for jsdom (whose play() is not implemented). */
+class FakeAudio {
+  static last: FakeAudio;
+  src = '';
+  paused = true;
+  currentTime = 0;
+  playbackRate = 1;
+  defaultPlaybackRate = 1;
+  readonly played: { src: string; rate: number }[] = [];
+  onplaying: (() => void) | null = null;
+  onended: (() => void) | null = null;
+  onerror: (() => void) | null = null;
+  constructor() {
+    FakeAudio.last = this;
+  }
+  play(): Promise<void> {
+    this.paused = false;
+    this.played.push({ src: this.src, rate: this.playbackRate });
+    return Promise.resolve();
+  }
+  pause(): void {
+    this.paused = true;
+  }
+}
+
+describe('SpeechService with the natural voice', () => {
+  let synth: { speak: ReturnType<typeof vi.fn>; cancel: ReturnType<typeof vi.fn>; getVoices: () => unknown[] };
+  let clips: Map<string, Clip>;
+  const voice = {
+    ready: signal(true),
+    enabled: signal(true),
+    cached: (text: string) => clips.get(text) ?? null,
+    want: vi.fn(),
+    prefetch: vi.fn(),
+  };
+
+  const create = () => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: DOCUMENT, useValue: { defaultView: { speechSynthesis: synth } } },
+        { provide: NaturalVoiceService, useValue: voice },
+      ],
+    });
+    return TestBed.inject(SpeechService);
+  };
+
+  beforeEach(() => {
+    clips = new Map([['Hello.', { url: 'blob:hello', seconds: 2 }]]);
+    voice.ready.set(true);
+    voice.want.mockClear();
+    voice.prefetch.mockClear();
+    synth = { speak: vi.fn(), cancel: vi.fn(), getVoices: () => [] };
+    vi.stubGlobal('SpeechSynthesisUtterance', FakeUtterance);
+    vi.stubGlobal('Audio', FakeAudio);
+  });
+
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('plays a generated text at once, at the chosen speed, and reports start, progress and end', () => {
+    const events: string[] = [];
+    const speech = create();
+    expect(speech.natural()).toBe(true);
+    speech.speak('Hello.', 0.75, {
+      started: () => events.push('start'),
+      ended: () => events.push('end'),
+      progress: (share, seconds) => events.push(`${share} ${seconds.toFixed(2)}`),
+    });
+    const audio = FakeAudio.last;
+    expect(audio.played).toEqual([{ src: 'blob:hello', rate: 0.75 }]);
+    audio.onplaying!();
+    audio.onended!();
+    // 2 s of audio at 0.75× lasts 2.67 s.
+    expect(events).toEqual(['start', '1 2.67', 'end']);
+    expect(synth.speak).not.toHaveBeenCalled();
+    expect(voice.want).not.toHaveBeenCalled();
+  });
+
+  it('reads a text not generated yet with the browser voice at once, and asks for it', () => {
+    create().speak('Not yet.', 1);
+    expect((synth.speak.mock.calls.at(-1)![0] as FakeUtterance).text).toBe('Not yet.');
+    expect(voice.want).toHaveBeenCalledWith('Not yet.');
+  });
+
+  it('ignores the events of a clip that was stopped', () => {
+    const ended = vi.fn();
+    const speech = create();
+    speech.speak('Hello.', 1, { ended });
+    speech.stop();
+    FakeAudio.last.onended!();
+    expect(ended).not.toHaveBeenCalled();
+    expect(FakeAudio.last.paused).toBe(true);
+  });
+
+  it('uses the browser voice while the model is not ready, and passes prefetches on', () => {
+    voice.ready.set(false);
+    const speech = create();
+    speech.speak('Hello.', 1);
+    expect(synth.speak).toHaveBeenCalled();
+    speech.prefetch(['A.']);
+    expect(voice.prefetch).toHaveBeenCalledWith(['A.']);
   });
 });

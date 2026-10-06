@@ -38,7 +38,7 @@ Bài học ┤
 2. **AI là phần bổ sung, không phải điều kiện để app chạy.** Khi AI lỗi, chậm hoặc hết lượt miễn phí, các tính năng Đọc, Nghe và Ôn từ vẫn hoạt động bình thường.
 3. **Nhà cung cấp AI thay được.** Mọi lời gọi AI đi qua một lớp trung gian chung, nên đổi từ Gemini sang Ollama hay dịch vụ khác chỉ cần sửa cấu hình.
 4. **Nội dung ghi rõ nguồn và giấy phép.** Ưu tiên nguồn cho phép tái sử dụng để sau này mở cho người khác không vướng bản quyền.
-5. **Máy không có GPU.** Tác vụ AI nặng chạy nền (bất đồng bộ) và lưu kết quả lại. Phần nghe trên giao diện dùng giọng đọc của trình duyệt (Web Speech API), không chờ audio sinh sẵn.
+5. **Máy không có GPU.** Tác vụ AI nặng chạy nền (bất đồng bộ) và lưu kết quả lại. Phần nghe trên giao diện dùng giọng đọc của trình duyệt (Web Speech API), không chờ audio sinh sẵn. Người học có thể bật **Giọng đọc tự nhiên** (cập nhật 2026-10-06): giọng Piper chạy ngay trong trình duyệt của họ, không chạy trên server.
 
 ## 4. Một ngày học
 
@@ -221,7 +221,7 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 | Frontend | Angular, responsive, có chế độ sáng và tối. Màu và font theo [design-system.md](design-system.md): bảng màu Oải hương, font Lexend, IPA dùng Noto Sans |
 | Backend | Go (REST API) |
 | Cơ sở dữ liệu | **MongoDB**: bản Community tự chạy trong Docker, hoặc MongoDB Atlas gói M0 miễn phí (giới hạn 512MB). Có thể đổi sang cơ sở dữ liệu khác sau này, nên backend chỉ truy cập dữ liệu qua một lớp repository |
-| Đọc thành giọng nói (TTS) | Giọng đọc của trình duyệt (Web Speech API) cho mọi chỗ nghe; không có dịch vụ TTS ở backend (bỏ Kokoro từ 2026-10-02) |
+| Đọc thành giọng nói (TTS) | Mặc định giọng đọc của trình duyệt (Web Speech API) cho mọi chỗ nghe; không có dịch vụ TTS ở backend (bỏ Kokoro trên server từ 2026-10-02). Tuỳ chọn **Giọng đọc tự nhiên** ở trang Tài khoản (2026-10-06): giọng Piper `en_US-hfc_female-medium` (VITS, khoảng 60MB, tải một lần, trình duyệt giữ lại) chạy trên CPU của người học bằng `@mintplex-labs/piper-tts-web` trong Web Worker; thử Kokoro-82M trước đó nhưng sinh một câu mất 5–10 giây trên CPU nên đổi sang Piper. Giọng trình duyệt ưu tiên giọng neural (Edge "Natural", Chrome "Google"). Không bao giờ bắt người học chờ: mở bài là sinh sẵn câu, từ, hội thoại; câu đã sinh thì phát ngay (đổi tốc độ bằng tốc độ phát), câu chưa có thì đọc ngay bằng giọng trình duyệt và được sinh trước cho lần sau; chưa tải xong hoặc lỗi thì dùng giọng trình duyệt. Server gửi header COOP/COEP để WASM chạy nhiều luồng |
 | Giọng nói thành chữ (STT) | whisper.cpp ở chế độ server trên CPU, model **`small.en`** (khoảng 1GB RAM; máy có 16GB). Dự phòng `base.en` nếu chậm |
 | Mô hình ngôn ngữ (LLM) | Chính: gói miễn phí của Gemini (ưu tiên model Flash-Lite vì hạn mức cao hơn). Dự phòng: Groq, OpenRouter hoặc Ollama chạy trên máy |
 | Từ điển Anh–Việt | [minhqnd/dictionary](https://github.com/minhqnd/dictionary): file SQLite chạy offline, khoảng 357 nghìn mục từ, có IPA và ví dụ. Giấy phép dữ liệu CC BY-SA 4.0, phải ghi nguồn khi mở cho người khác |

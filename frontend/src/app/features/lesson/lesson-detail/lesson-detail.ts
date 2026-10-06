@@ -283,6 +283,22 @@ export class LessonDetail {
   private readonly restored = signal(false);
 
   constructor() {
+    // With the natural voice, generate everything the lesson may read aloud, in the order of the steps.
+    effect(() => {
+      const words = this.words();
+      const lesson = this.lesson();
+      const practice = this.practice();
+      if (!this.speech.natural()) {
+        return;
+      }
+      this.speech.prefetch([
+        ...words.map((w) => w.lemma),
+        ...(practice?.examples ?? []).map((e) => e.sentence),
+        ...(lesson?.sentences ?? []).map((s) => s.text),
+        ...(practice?.dialogue?.turns ?? []).map((t) => t.text),
+        ...(practice?.translations ?? []).map((t) => t.answer.join(' ')),
+      ]);
+    });
     // Remember the step on screen so that coming back lands on it, not on the first step or on Viết.
     effect(() => {
       const key = this.steps()[this.step() - 1];

@@ -1,0 +1,133 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Thử giọng đọc</h1>
+    <span class="tag">Bản thử</span>
+  </header>
+
+  <p class="muted">
+    Chạy giọng Piper ngay trong trình duyệt (trong Web Worker, như "Giọng đọc tự nhiên" của người học) và đo thời gian.
+    Lần đầu phải tải giọng (khoảng 60MB); các lần sau trình duyệt dùng lại bản đã lưu.
+  </p>
+
+  <section class="card" aria-labelledby="env-heading">
+    <h2 class="section-heading" id="env-heading">Máy này</h2>
+    <dl class="facts">
+      <div><dt>Số luồng CPU</dt><dd>{{ cores || 'Không rõ' }}</dd></div>
+      <div><dt>RAM (trình duyệt báo)</dt><dd>{{ memory ? memory + ' GB' : 'Không rõ' }}</dd></div>
+      <div><dt>CPU đa luồng (WASM)</dt><dd>{{ isolated ? 'Có' : 'Không — chỉ 1 luồng' }}</dd></div>
+      <div><dt>Giọng trình duyệt</dt><dd>{{ speechSupported ? 'Có' : 'Không có' }}</dd></div>
+    </dl>
+  </section>
+
+  <section class="card" aria-labelledby="model-heading">
+    <h2 class="section-heading" id="model-heading">1. Tải giọng</h2>
+    <div class="field">
+      <label for="lab-voice">Giọng Piper</label>
+      <select id="lab-voice" [value]="voice()" (change)="voice.set($any($event.target).value)" [disabled]="loadState() === 'loading'">
+        @for (v of voices; track v.id) {
+          <option [value]="v.id">{{ v.label }}</option>
+        }
+      </select>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn-primary" (click)="load()" [disabled]="loadState() === 'loading'">
+        {{ loadState() === 'ready' ? 'Tải giọng đã chọn' : 'Tải giọng' }}
+      </button>
+    </div>
+
+    @if (loadState() === 'loading') {
+      <div class="progress" role="status">
+        <span class="track"><span class="fill" [style.width.%]="downloadPercent()"></span></span>
+        <span class="muted">
+          @if (downloaded().total > 0) {
+            Đã tải {{ downloaded().loaded / 1048576 | number: '1.0-0' }} / {{ downloaded().total / 1048576 | number: '1.0-0' }} MB
+          } @else {
+            Đang chuẩn bị…
+          }
+        </span>
+      </div>
+    }
+    @if (loadState() === 'ready') {
+      <p class="ok-line" role="status">
+        Đã tải giọng {{ loadedVoice() }} trong {{ loadSeconds() | number: '1.1-1' }} giây, khởi động thêm
+        {{ warmupSeconds() | number: '1.1-1' }} giây.
+      </p>
+    }
+    @if (loadError(); as e) {
+      <p class="form-alert" role="alert">Không tải được giọng: {{ e }}</p>
+    }
+  </section>
+
+  <section class="card" aria-labelledby="speak-heading">
+    <h2 class="section-heading" id="speak-heading">2. Đọc thử</h2>
+    <div class="field">
+      <label for="lab-text">Văn bản (đọc từng câu)</label>
+      <textarea id="lab-text" rows="5" [value]="text()" (input)="text.set($any($event.target).value)"></textarea>
+    </div>
+    <div class="grid">
+      <div class="field">
+        <label for="lab-speed">Tốc độ: {{ speed() | number: '1.1-1' }}×</label>
+        <input id="lab-speed" type="range" min="0.6" max="1.4" step="0.1" [value]="speed()" (input)="speed.set(+$any($event.target).value)" />
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn-primary" (click)="speakModel()" [disabled]="loadState() !== 'ready' || running()">
+        Đọc bằng Piper
+      </button>
+      <button type="button" class="btn" (click)="speakBrowser()" [disabled]="!speechSupported">Đọc bằng giọng trình duyệt</button>
+    </div>
+    @if (loadState() !== 'ready') {
+      <p class="muted">Tải giọng ở bước 1 trước khi đọc bằng Piper.</p>
+    }
+    @if (browserSeconds() !== null) {
+      <p class="muted" role="status">Giọng trình duyệt đọc hết trong {{ browserSeconds() | number: '1.1-1' }} giây (bắt đầu ngay, không phải chờ).</p>
+    }
+  </section>
+
+  @if (rows().length > 0) {
+    <section class="card" aria-labelledby="result-heading">
+      <h2 class="section-heading" id="result-heading">3. Kết quả</h2>
+      @if (summary(); as s) {
+        <dl class="facts">
+          <div><dt>Chờ câu đầu</dt><dd>{{ s.first | number: '1.2-2' }} giây</dd></div>
+          <div><dt>Tổng thời gian sinh</dt><dd>{{ s.generated | number: '1.1-1' }} giây</dd></div>
+          <div><dt>Tổng độ dài audio</dt><dd>{{ s.seconds | number: '1.1-1' }} giây</dd></div>
+          <div>
+            <dt>Tỉ lệ sinh / nghe</dt>
+            <dd>
+              {{ s.ratio | number: '1.2-2' }}
+              <span class="verdict" [class.good]="s.ratio < 1">{{ s.ratio < 1 ? 'kịp phát liên tục' : 'chậm hơn thời gian nghe' }}</span>
+            </dd>
+          </div>
+        </dl>
+      }
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Câu</th><th scope="col">Sinh (giây)</th><th scope="col">Dài (giây)</th><th scope="col"><span class="visually-hidden">Nghe lại</span></th></tr>
+          </thead>
+          <tbody>
+            @for (r of rows(); track r.id) {
+              <tr>
+                <td lang="en">{{ r.text }}</td>
+                <td class="num">
+                  @if (r.error) {
+                    <span class="error-text">Lỗi</span>
+                  } @else if (r.generated === null) {
+                    …
+                  } @else {
+                    {{ r.generated | number: '1.2-2' }}
+                  }
+                </td>
+                <td class="num">{{ r.seconds === null ? '' : (r.seconds | number: '1.1-1') }}</td>
+                <td>
+                  <button type="button" class="btn" (click)="replay(r)" [disabled]="!r.url" [attr.aria-label]="'Nghe lại câu: ' + r.text">Nghe</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  }
+</section>

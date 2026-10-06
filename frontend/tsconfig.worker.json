@@ -1,0 +1,12 @@
+/* Web workers (the .worker.ts files): the webworker lib instead of the DOM. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/worker",
+    "lib": ["es2022", "webworker"],
+    "types": []
+  },
+  "include": [
+    "src/**/*.worker.ts"
+  ]
+}

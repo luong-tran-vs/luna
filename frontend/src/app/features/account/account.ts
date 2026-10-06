@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { Router, RouterLink } from '@angular/router';
 
 import { GoalView } from '../../core/models/study';
+import { NaturalVoiceService } from '../../core/natural-voice/natural-voice.service';
 import { AuthService } from '../../core/services/auth.service';
 import { PALETTES, PaletteService } from '../../core/services/palette.service';
 import { StudyApiService } from '../../core/services/study-api.service';
@@ -39,12 +40,25 @@ export class Account {
   protected readonly theme = inject(ThemeService);
   protected readonly notifier = inject(WritingNotifier);
   private readonly palette = inject(PaletteService);
+  protected readonly voice = inject(NaturalVoiceService);
   private readonly router = inject(Router);
 
   protected readonly links = LINKS;
   protected readonly goal = signal<GoalView | null>(null);
   protected readonly dark = computed(() => this.theme.resolved() === 'dark');
   protected readonly paletteName = computed(() => PALETTES.find((p) => p.id === this.palette.palette())?.name ?? '');
+  protected readonly voiceHint = computed(() => {
+    switch (this.voice.state()) {
+      case 'loading':
+        return `Đang tải giọng đọc… ${this.voice.percent()}%`;
+      case 'ready':
+        return 'Đang dùng. Câu chưa chuẩn bị kịp sẽ tạm đọc bằng giọng của trình duyệt';
+      case 'error':
+        return 'Chưa tải được, đang dùng giọng của trình duyệt. Tắt rồi bật lại để thử lại.';
+      default:
+        return 'Tải khoảng 60MB một lần, nên dùng Wi-Fi';
+    }
+  });
   protected readonly initial = computed(() => this.auth.currentUser()?.email.charAt(0) ?? '?');
 
   constructor() {
@@ -56,6 +70,14 @@ export class Account {
 
   protected toggleDark(): void {
     this.theme.set(this.dark() ? 'light' : 'dark');
+  }
+
+  protected toggleNaturalVoice(): void {
+    if (this.voice.enabled()) {
+      this.voice.disable();
+    } else {
+      this.voice.enable();
+    }
   }
 
   protected async logout(): Promise<void> {

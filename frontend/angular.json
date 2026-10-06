@@ -22,6 +22,11 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+            "webWorkerTsConfig": "tsconfig.worker.json",
+            "externalDependencies": [
+              "fs",
+              "path"
+            ],
             "assets": [
               {
                 "glob": "**/*",
@@ -59,7 +64,16 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "headers": {
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "credentialless"
+            },
+            "prebundle": {
+              "exclude": [
+                "@mintplex-labs/piper-tts-web"
+              ]
+            }
           },
           "configurations": {
             "production": {

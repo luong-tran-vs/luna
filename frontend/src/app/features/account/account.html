@@ -48,6 +48,25 @@
         <span class="switch" aria-hidden="true"></span>
       </button>
     </li>
+    @if (voice.supported) {
+      <li>
+        <button
+          type="button"
+          class="menu-row"
+          role="switch"
+          [attr.aria-checked]="voice.enabled()"
+          aria-describedby="natural-voice-hint"
+          (click)="toggleNaturalVoice()"
+        >
+          <span class="icon-chip"><lu-icon name="volume" /></span>
+          <span class="menu-label">
+            <span>Giọng đọc tự nhiên</span>
+            <span class="menu-hint" id="natural-voice-hint">{{ voiceHint() }}</span>
+          </span>
+          <span class="switch" aria-hidden="true"></span>
+        </button>
+      </li>
+    }
     <li>
       <a class="menu-row" routerLink="/colors">
         <span class="icon-chip"><lu-icon name="palette" /></span>
