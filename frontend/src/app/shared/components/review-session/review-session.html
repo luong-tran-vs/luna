@@ -8,35 +8,48 @@
     </ul>
   </div>
 } @else if (current(); as card) {
-  <p class="progress" aria-live="polite">Thẻ {{ index() + 1 }}/{{ queue().length }}</p>
+  <div class="nav">
+    <button type="button" class="btn" aria-keyshortcuts="ArrowLeft" [disabled]="!canBack()" (click)="back()">Lui</button>
+    <p class="progress" aria-live="polite">Thẻ {{ index() + 1 }}/{{ queue().length }}</p>
+    <button
+      type="button"
+      class="btn"
+      aria-keyshortcuts="ArrowRight"
+      [attr.title]="reviewing() ? null : 'Bỏ qua thẻ này, ôn lại ở cuối'"
+      [disabled]="!canForward()"
+      (click)="forward()"
+    >
+      Tới
+    </button>
+  </div>
 
   <div class="card review-card">
-    @if (mode() === 'flip' || revealed()) {
+    @if (mode() === 'flip' || shown()) {
       <p class="word" lang="en">{{ card.text }}</p>
     } @else {
       <p class="listen-hint">Nghe và gõ lại từ</p>
     }
 
     <div class="tools">
-      @if (mode() === 'flip' && !revealed()) {
+      @if (mode() === 'flip' && !shown()) {
         <button #face type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>
       }
       <button type="button" class="btn" (click)="play()">{{ mode() === 'listen' ? 'Nghe lại' : 'Nghe' }}</button>
       @if (playError()) {
         <p class="play-error field-error" role="alert">Chưa đọc được từ này.</p>
-        @if (mode() === 'listen' && !revealed()) {
+        @if (mode() === 'listen' && !shown()) {
           <button type="button" class="btn" (click)="flip()">Hiện từ</button>
         }
       }
     </div>
 
-    @if (verdict(); as v) {
+    @if (!reviewing() && verdict(); as v) {
       <p class="verdict" [class.correct]="v === 'correct'" [class.wrong]="v === 'wrong'" role="status">
         {{ v === 'correct' ? '✓ Đúng' : '✗ Sai' }}
       </p>
     }
 
-    @if (revealed()) {
+    @if (shown()) {
       <div class="back">
         @if (card.ipa) {
           <p class="ipa">{{ card.ipa }}</p>
@@ -49,7 +62,9 @@
     }
   </div>
 
-  @if (revealed()) {
+  @if (reviewing()) {
+    <p class="given" role="status">Bạn đã chấm: {{ ratingName(given()[index()]) }}</p>
+  } @else if (revealed()) {
     <div class="ratings" role="group" aria-label="Bạn nhớ từ này thế nào?">
       @for (r of ratings; track r.rating) {
         <button

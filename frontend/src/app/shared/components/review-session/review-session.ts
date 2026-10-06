@@ -39,7 +39,9 @@ const RATINGS: RatingButton[] = [
 /**
  * One review session over the given cards (F5, reused by the daily flow L). Flip mode shows the
  * word and flips to the meaning; listen mode plays the word and checks what the learner types.
- * Each rating is saved right away; a card rated Again comes back once at the end.
+ * Each rating is saved right away; a card rated Again comes back once at the end. Back and
+ * forward move through the cards already rated (view only); forward on the current card skips
+ * it to the end of the session.
  */
 @Component({
   selector: 'lu-review-session',
@@ -62,8 +64,15 @@ export class ReviewSession {
 
   protected readonly ratings = RATINGS;
   protected readonly queue = linkedSignal(() => [...this.cards()]);
+  /** The card on screen. */
   protected readonly index = signal(0);
+  /** The first card not rated yet; every card before it is rated and only viewed again. */
+  private readonly frontier = signal(0);
   protected readonly current = computed<DueCard | null>(() => this.queue()[this.index()] ?? null);
+  protected readonly reviewing = computed(() => this.index() < this.frontier());
+  protected readonly shown = computed(() => this.reviewing() || this.revealed());
+  /** The rating given to each card before the frontier, by position. */
+  protected readonly given = signal<Rating[]>([]);
   protected readonly revealed = signal(false);
   protected readonly typed = signal('');
   protected readonly verdict = signal<'correct' | 'wrong' | null>(null);
@@ -72,6 +81,10 @@ export class ReviewSession {
   protected readonly saving = signal(false);
   protected readonly saveError = signal(false);
   protected readonly summary = signal<ReviewSummary | null>(null);
+  protected readonly canBack = computed(() => this.index() > 0 && !this.saving());
+  protected readonly canForward = computed(
+    () => !this.saving() && (this.reviewing() || this.frontier() + 1 < this.queue().length),
+  );
 
   private readonly face = viewChild<ElementRef<HTMLButtonElement>>('face');
   private readonly answer = viewChild<ElementRef<HTMLInputElement>>('answer');
@@ -81,10 +94,10 @@ export class ReviewSession {
   private lastRating: Rating | null = null;
 
   constructor() {
-    // Listen mode plays each new card on its own.
+    // Listen mode plays each new card on its own (not the rated ones viewed again).
     effect(() => {
       const card = this.current();
-      if (card && this.mode() === 'listen') {
+      if (card && this.mode() === 'listen' && !this.reviewing()) {
         untracked(() => this.play());
       }
     });
@@ -92,6 +105,34 @@ export class ReviewSession {
 
   protected label(card: DueCard, r: RatingButton): string {
     return `${r.name} · ${intervalLabel(card.intervals[r.key])}`;
+  }
+
+  protected ratingName(rating: Rating): string {
+    return RATINGS[rating - 1].name;
+  }
+
+  protected back(): void {
+    if (this.canBack()) {
+      this.index.update((i) => i - 1);
+    }
+  }
+
+  /** Forward through rated cards, or skip the current one to the end of the session. */
+  protected forward(): void {
+    if (!this.canForward()) {
+      return;
+    }
+    if (this.reviewing()) {
+      this.index.update((i) => i + 1);
+      if (!this.reviewing()) {
+        this.focusAnswer();
+      }
+      return;
+    }
+    const at = this.frontier();
+    this.queue.update((q) => [...q.slice(0, at), ...q.slice(at + 1), q[at]]);
+    this.resetCard();
+    this.focusAnswer();
   }
 
   protected play(): void {
@@ -136,6 +177,18 @@ export class ReviewSession {
     if (target.tagName === 'INPUT' || this.summary()) {
       return;
     }
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      if (event.key === 'ArrowLeft') {
+        this.back();
+      } else {
+        this.forward();
+      }
+      return;
+    }
+    if (this.reviewing()) {
+      return;
+    }
     if (!this.revealed()) {
       if (this.mode() === 'flip' && (event.key === ' ' || event.key === 'Enter') && target.tagName !== 'BUTTON') {
         event.preventDefault();
@@ -158,7 +211,7 @@ export class ReviewSession {
 
   protected async rate(rating: Rating): Promise<void> {
     const card = this.current();
-    if (!card || !this.revealed() || this.saving()) {
+    if (!card || !this.revealed() || this.saving() || this.reviewing()) {
       return;
     }
     this.lastRating = rating;
@@ -168,6 +221,7 @@ export class ReviewSession {
       const updated = await firstValueFrom(this.api.review(card.id, { rating, mode: this.mode(), reps: card.reps, context: this.context() }));
       this.counts = { ...this.counts, [rating]: this.counts[rating] + 1 };
       this.reviewed.add(card.id);
+      this.given.update((g) => [...g, rating]);
       if (rating === 1 && !this.requeued.has(card.id)) {
         this.requeued.add(card.id);
         this.queue.update((q) => [...q, updated]);
@@ -175,6 +229,7 @@ export class ReviewSession {
       this.advance();
     } catch (err) {
       if (err instanceof ApiError && err.status === 409) {
+        this.given.update((g) => [...g, rating]);
         this.advance(); // already rated (e.g. a retry after a lost response)
       } else {
         this.saveError.set(true);
@@ -185,19 +240,30 @@ export class ReviewSession {
   }
 
   private advance(): void {
-    this.revealed.set(false);
-    this.typed.set('');
-    this.verdict.set(null);
-    this.answerError.set(null);
-    this.playError.set(false);
-    this.lastRating = null;
-    if (this.index() + 1 >= this.queue().length) {
+    this.resetCard();
+    if (this.frontier() + 1 >= this.queue().length) {
       const summary: ReviewSummary = { reviewed: this.reviewed.size, counts: this.counts };
       this.summary.set(summary);
       this.finished.emit(summary);
       return;
     }
-    this.index.update((i) => i + 1);
+    this.frontier.update((f) => f + 1);
+    this.index.set(this.frontier());
+    this.focusAnswer();
+  }
+
+  /** Clears what the learner did on the current card. */
+  private resetCard(): void {
+    this.revealed.set(false);
+    this.typed.set('');
+    this.verdict.set(null);
+    this.answerError.set(null);
+    this.playError.set(false);
+    this.saveError.set(false);
+    this.lastRating = null;
+  }
+
+  private focusAnswer(): void {
     afterNextRender(() => (this.answer() ?? this.face())?.nativeElement.focus(), { injector: this.injector });
   }
 

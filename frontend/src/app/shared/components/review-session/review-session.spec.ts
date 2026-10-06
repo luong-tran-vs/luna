@@ -215,6 +215,54 @@ describe('ReviewSession', () => {
     });
   });
 
+  describe('back and forward', () => {
+    it('views a rated card again without rating it', async () => {
+      await setup();
+      expect(button('Lui')!.disabled).toBe(true);
+      button('Lật thẻ')!.click();
+      await settle();
+      button('Khó · 5 phút')!.click();
+      await settle();
+      expectReview('c1').flush({ card: { ...card('c1', 'went', 1), intervals } });
+      await settle();
+
+      button('Lui')!.click();
+      await settle();
+      expect(text('.progress')).toBe('Thẻ 1/2');
+      expect(text('.word')).toBe('went');
+      expect(text('.meaning')).toBe('nghĩa của went');
+      expect(text('.given')).toBe('Bạn đã chấm: Khó');
+      expect(buttonStarting('Nhớ')).toBeUndefined();
+      await keydown('3'); // no rating while viewing
+
+      await keydown('ArrowRight');
+      expect(text('.word')).toBe('gave up');
+      expect(el.querySelector('.given')).toBeNull();
+      expect(button('Lật thẻ')).toBeTruthy();
+    });
+
+    it('skips the current card to the end', async () => {
+      await setup('flip', [card('c1', 'went'), card('c2', 'gave up'), card('c3', 'ran')]);
+      button('Tới')!.click();
+      await settle();
+      expect(text('.word')).toBe('gave up');
+      expect(text('.progress')).toBe('Thẻ 1/3');
+
+      for (const id of ['c2', 'c3']) {
+        button('Lật thẻ')!.click();
+        await settle();
+        button('Nhớ · 10 phút')!.click();
+        await settle();
+        expectReview(id).flush({ card: { ...card(id, id, 1), intervals } });
+        await settle();
+      }
+      expect(text('.word')).toBe('went');
+      expect(text('.progress')).toBe('Thẻ 3/3');
+      // The last card left cannot be skipped.
+      expect(button('Tới')!.disabled).toBe(true);
+    });
+  });
+
   describe('listen mode', () => {
     it('plays the word automatically and hides it', async () => {
       await setup('listen');
