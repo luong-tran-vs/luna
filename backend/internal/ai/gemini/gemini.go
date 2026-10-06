@@ -468,7 +468,8 @@ Pick the structure that stands out in this lesson (for example "like + noun", "c
 func generatePrompt(req ai.GenerateRequest) string {
 	low, high := req.Words*9/10, req.Words*11/10
 	var b strings.Builder
-	fmt.Fprintf(&b, `You write English lessons for Vietnamese learners at CEFR level %s.
+	fmt.Fprintf(&b, `You are an experienced English teacher.
+You write English lessons for Vietnamese learners at CEFR level %s.
 Topic: %s.
 Write exactly %d different lessons about this topic. Each lesson must have about %d words
 (between %d and %d words; count every word of the content). Write at the long end of that range:

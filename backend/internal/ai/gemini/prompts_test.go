@@ -83,6 +83,14 @@ func TestAnnotatePromptTeachesTheGrammarFocus(t *testing.T) {
 	}
 }
 
+func TestGeneratePromptStartsWithTheTeacherRole(t *testing.T) {
+	t.Parallel()
+	prompt := generatePrompt(ai.GenerateRequest{Level: "A1", TopicName: "Food", Count: 1, Words: 100})
+	if !strings.HasPrefix(prompt, "You are an experienced English teacher.\nYou write English lessons") {
+		t.Fatalf("prompt starts with:\n%s", prompt[:min(len(prompt), 120)])
+	}
+}
+
 func TestGeneratePromptUsesTheGrammarFocus(t *testing.T) {
 	t.Parallel()
 	g := &ai.GrammarFocus{TitleVi: "Thì hiện tại đơn", TitleEn: "Present simple", Pattern: "I, you + verb", Example: "I get up at six."}
