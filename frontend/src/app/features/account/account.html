@@ -48,6 +48,16 @@
         <span class="switch" aria-hidden="true"></span>
       </button>
     </li>
+    <li>
+      <a class="menu-row" routerLink="/colors">
+        <span class="icon-chip"><lu-icon name="palette" /></span>
+        <span class="menu-label">
+          <span>Màu giao diện</span>
+          <span class="menu-hint">Đang dùng: {{ paletteName() }}</span>
+        </span>
+        <lu-icon class="chevron" name="chevron-right" />
+      </a>
+    </li>
   </ul>
   <p class="save-status" role="status">
     @if (theme.saveState() === 'error') {

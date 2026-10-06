@@ -1,0 +1,55 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Giao diện</h1>
+  </header>
+
+  <p class="muted">
+    Chọn chế độ và màu giao diện. Cả trang đổi màu ngay khi bạn chọn. Màu được nhớ trên trình duyệt này và
+    áp dụng cho mọi trang của app trên trình duyệt đó.
+  </p>
+
+  <section class="card" aria-labelledby="mode-heading">
+    <h2 class="section-heading" id="mode-heading">Chế độ</h2>
+    <div class="modes" role="group" aria-labelledby="mode-heading">
+      @for (m of modes; track m.id) {
+        <button type="button" class="btn" [attr.aria-pressed]="theme.preference() === m.id" (click)="chooseMode(m.id)">
+          {{ m.label }}
+        </button>
+      }
+    </div>
+    @if (theme.saveState() === 'error') {
+      <p class="form-alert" role="alert">Chưa lưu được chế độ vào tài khoản. Chế độ vẫn áp dụng trên trình duyệt này.</p>
+    }
+  </section>
+
+  <section class="card" aria-labelledby="palette-heading">
+    <h2 class="section-heading" id="palette-heading">Màu giao diện</h2>
+    <lu-palette-picker labelledBy="palette-heading" />
+  </section>
+
+  <section class="card" aria-labelledby="sample-heading">
+    <h2 class="section-heading" id="sample-heading">Xem trước</h2>
+    <div class="actions">
+      <button type="button" class="btn-primary">Sinh bài bằng AI</button>
+      <button type="button" class="btn">Thêm bài</button>
+      <button type="button" class="btn btn-danger">Xoá</button>
+    </div>
+    <div class="sample-row">
+      <span class="tag">Gia đình</span>
+      <span class="flag">3 cờ AI</span>
+      <lu-status-chip status="done" label="Chú thích" />
+      <lu-status-chip status="running" label="Luyện tập" />
+      <lu-status-chip status="failed" label="Hình ảnh" />
+    </div>
+    <div class="field">
+      <label for="appearance-sample">Ý tưởng cho bài</label>
+      <input id="appearance-sample" type="text" value="Một buổi dã ngoại cuối tuần" />
+      <span class="field-hint">Ô nhập mẫu, không lưu.</span>
+    </div>
+    <div class="sample-progress">
+      <span class="track" role="presentation"><span class="fill"></span></span>
+      <span class="muted">25 / 40 từ của chủ đề đã dùng</span>
+    </div>
+    <p class="banner-warning">Bản nháp 1 còn thiếu từ mục tiêu: take a shower</p>
+  </section>
+</section>

@@ -1,0 +1,224 @@
+/*
+ * Admin color palettes. The default palette ("luna") is in tokens.css. Each palette redefines the
+ * base, primary and accent colors (and may redefine the skill colors); ok/bad/warn, type and shapes
+ * stay from tokens.css.
+ * A palette applies to the whole page through <html data-palette> (PaletteService, admin area only)
+ * or to one element with data-palette (the picker's swatches). This file is loaded after tokens.css,
+ * so on <html> it wins over the default palette at equal specificity. Keep the ids in sync with
+ * PALETTES in core/services/palette.service.ts.
+ */
+
+/* Xanh dương: blue, violet accent. */
+[data-palette='ocean'] {
+  --color-bg: #f3f6fb;
+  --color-surface: #ffffff;
+  --color-text: #142033;
+  --color-text-muted: #56657d;
+  --color-line: #d8e0ec;
+  --color-track: #e2e8f1;
+  --color-primary: #1f5fbf;
+  --color-on-primary: #ffffff;
+  --color-primary-soft: #e1ecfb;
+  --color-primary-ink: #174a96;
+  --color-accent: #7a4fd1;
+  --color-accent-soft: #efe8fc;
+  --color-accent-ink: #5b35a8;
+}
+
+[data-theme='dark'][data-palette='ocean'],
+[data-theme='dark'] [data-palette='ocean'] {
+  --color-bg: #0e1420;
+  --color-surface: #172031;
+  --color-text: #e4ebf5;
+  --color-text-muted: #9aa8bf;
+  --color-line: #26324a;
+  --color-track: #202b40;
+  --color-primary: #7fb0f5;
+  --color-on-primary: #0a1a33;
+  --color-primary-soft: #1c2d4d;
+  --color-primary-ink: #b5d0fa;
+  --color-accent: #b39af5;
+  --color-accent-soft: #2e2552;
+  --color-accent-ink: #d4c6fa;
+}
+
+/* Xanh ngọc: teal, blue accent. */
+[data-palette='jade'] {
+  --color-bg: #f3f8f7;
+  --color-surface: #ffffff;
+  --color-text: #12302b;
+  --color-text-muted: #53706a;
+  --color-line: #d5e5e1;
+  --color-track: #e0ece9;
+  --color-primary: #0f7a6c;
+  --color-on-primary: #ffffff;
+  --color-primary-soft: #dcf2ee;
+  --color-primary-ink: #0b5e53;
+  --color-accent: #2f6fd0;
+  --color-accent-soft: #e3edfb;
+  --color-accent-ink: #1f52a3;
+}
+
+[data-theme='dark'][data-palette='jade'],
+[data-theme='dark'] [data-palette='jade'] {
+  --color-bg: #0c1716;
+  --color-surface: #142321;
+  --color-text: #e2f0ed;
+  --color-text-muted: #93b1aa;
+  --color-line: #233834;
+  --color-track: #1d2f2c;
+  --color-primary: #4fd1bc;
+  --color-on-primary: #04241f;
+  --color-primary-soft: #173a35;
+  --color-primary-ink: #9be5d8;
+  --color-accent: #7fb0f5;
+  --color-accent-soft: #1c2d4d;
+  --color-accent-ink: #b5d0fa;
+}
+
+/* Hồng: plum pink, teal accent. */
+[data-palette='rose'] {
+  --color-bg: #fbf5f6;
+  --color-surface: #ffffff;
+  --color-text: #2d1820;
+  --color-text-muted: #735962;
+  --color-line: #ecdbe0;
+  --color-track: #f1e4e8;
+  --color-primary: #b23a5e;
+  --color-on-primary: #ffffff;
+  --color-primary-soft: #f9e3ea;
+  --color-primary-ink: #8e2b49;
+  --color-accent: #2f7d6d;
+  --color-accent-soft: #dcefeb;
+  --color-accent-ink: #1f5a4e;
+}
+
+[data-theme='dark'][data-palette='rose'],
+[data-theme='dark'] [data-palette='rose'] {
+  --color-bg: #1a1013;
+  --color-surface: #26181d;
+  --color-text: #f3e6ea;
+  --color-text-muted: #b99ca6;
+  --color-line: #3b2830;
+  --color-track: #322128;
+  --color-primary: #f08bab;
+  --color-on-primary: #3a0a1a;
+  --color-primary-soft: #44202d;
+  --color-primary-ink: #f7bccf;
+  --color-accent: #5cc4ae;
+  --color-accent-soft: #12312b;
+  --color-accent-ink: #94dccb;
+}
+
+/* Xanh lá: forest green, steel blue accent. */
+[data-palette='forest'] {
+  --color-bg: #f6f7f2;
+  --color-surface: #ffffff;
+  --color-text: #1f2619;
+  --color-text-muted: #5c6752;
+  --color-line: #dfe3d5;
+  --color-track: #e7eadf;
+  --color-primary: #3f6b2a;
+  --color-on-primary: #ffffff;
+  --color-primary-soft: #e6efdc;
+  --color-primary-ink: #2f521f;
+  --color-accent: #3a6ea5;
+  --color-accent-soft: #e2ecf6;
+  --color-accent-ink: #2a5280;
+}
+
+[data-theme='dark'][data-palette='forest'],
+[data-theme='dark'] [data-palette='forest'] {
+  --color-bg: #11140e;
+  --color-surface: #1a1f16;
+  --color-text: #e8eddf;
+  --color-text-muted: #a3ad96;
+  --color-line: #2c3424;
+  --color-track: #252c1e;
+  --color-primary: #9cc97c;
+  --color-on-primary: #142409;
+  --color-primary-soft: #263620;
+  --color-primary-ink: #c4e2ad;
+  --color-accent: #8db8e6;
+  --color-accent-soft: #1e3047;
+  --color-accent-ink: #bdd6f2;
+}
+
+/* Xám: blue-grey, teal accent. */
+[data-palette='graphite'] {
+  --color-bg: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-text: #1a1d24;
+  --color-text-muted: #5b6170;
+  --color-line: #dde0e6;
+  --color-track: #e6e8ec;
+  --color-primary: #3b4a6b;
+  --color-on-primary: #ffffff;
+  --color-primary-soft: #e5e9f2;
+  --color-primary-ink: #2b3752;
+  --color-accent: #0f8a7e;
+  --color-accent-soft: #d9f2ee;
+  --color-accent-ink: #0b6159;
+}
+
+[data-theme='dark'][data-palette='graphite'],
+[data-theme='dark'] [data-palette='graphite'] {
+  --color-bg: #111318;
+  --color-surface: #1a1d24;
+  --color-text: #e6e8ee;
+  --color-text-muted: #9ca2b0;
+  --color-line: #2a2e38;
+  --color-track: #23262f;
+  --color-primary: #9fb3dd;
+  --color-on-primary: #101a30;
+  --color-primary-soft: #252d40;
+  --color-primary-ink: #c6d3ee;
+  --color-accent: #4fd1bc;
+  --color-accent-soft: #143531;
+  --color-accent-ink: #9be5d8;
+}
+
+/*
+ * Xanh da trời: bright blue, teal accent (light colors chosen by the product owner; dark ones derived).
+ * No yellow or orange: its skill colors are blue, teal, purple and pink.
+ */
+[data-palette='sky'] {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #17365d;
+  --color-text-muted: #64748b;
+  --color-line: #dce6f0;
+  --color-track: #e8eef5;
+  --color-primary: #2f80ed;
+  --color-on-primary: #ffffff;
+  --color-primary-soft: #e8f3ff;
+  --color-primary-ink: #1d5fbf;
+  --color-accent: #2db7a3;
+  --color-accent-soft: #e8f8f5;
+  --color-accent-ink: #11695c;
+  --color-skill-listen: #2f80ed;
+  --color-skill-read: #2db7a3;
+  --color-skill-speak: #8b5cf6;
+  --color-skill-write: #d6458f;
+}
+
+[data-theme='dark'][data-palette='sky'],
+[data-theme='dark'] [data-palette='sky'] {
+  --color-bg: #0f1a2a;
+  --color-surface: #172538;
+  --color-text: #e6eef8;
+  --color-text-muted: #9db0c7;
+  --color-line: #26384f;
+  --color-track: #1f3045;
+  --color-primary: #6fa8f5;
+  --color-on-primary: #0a1e3d;
+  --color-primary-soft: #1a3456;
+  --color-primary-ink: #a9ccfa;
+  --color-accent: #5cd1bf;
+  --color-accent-soft: #133a35;
+  --color-accent-ink: #9be5d8;
+  --color-skill-listen: #6fa8f5;
+  --color-skill-read: #5cd1bf;
+  --color-skill-speak: #a98bfa;
+  --color-skill-write: #f08bbd;
+}

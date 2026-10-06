@@ -39,6 +39,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/account/account').then((m) => m.Account),
       },
       {
+        path: 'colors',
+        title: 'Màu giao diện · Luna',
+        loadComponent: () => import('./features/colors/colors').then((m) => m.Colors),
+      },
+      {
         path: 'settings',
         title: 'Cài đặt · Luna',
         loadComponent: () => import('./features/settings/settings').then((m) => m.Settings),

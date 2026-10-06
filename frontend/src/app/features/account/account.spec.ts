@@ -7,6 +7,7 @@ import { provideRouter, Router } from '@angular/router';
 import { Goals } from '../../core/models/study';
 import { User } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
+import { PALETTE_STORAGE_KEY } from '../../core/services/palette.service';
 import { ThemePreference, ThemeSaveState, ThemeService } from '../../core/services/theme.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
 import { Account } from './account';
@@ -112,6 +113,17 @@ describe('Account', () => {
     saveState.set('error');
     await fixture.whenStable();
     expect(text(el.querySelector('.save-status'))).toContain('Chưa lưu được vào tài khoản');
+  });
+
+  it('links to the color page with the color in use, without listing the colors here', async () => {
+    localStorage.setItem(PALETTE_STORAGE_KEY, 'jade');
+    await open();
+    const link = el.querySelector('a[href="/colors"]');
+    expect(text(link)).toContain('Màu giao diện');
+    expect(text(link)).toContain('Đang dùng: Xanh ngọc');
+    expect(el.querySelector('input[name="palette"]')).toBeNull();
+    localStorage.clear();
+    document.documentElement.removeAttribute('data-palette');
   });
 
   it('logs out and goes to the login page', async () => {

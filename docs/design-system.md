@@ -32,15 +32,15 @@
 | `--color-on-primary` | Chữ trên nền màu chính | `#FFFFFF` | `#140B2E` |
 | `--color-primary-soft` | Nền nhạt: nhãn, từ đã lưu trong sổ | `#E9E3FA` | `#2E2552` |
 | `--color-primary-ink` | Chữ màu chính trên nền nhạt | `#472F96` | `#C9B9FA` |
-| `--color-accent` | Điểm nhấn: biểu tượng streak, cụm từ đang chọn | `#D98E04` | `#F6B93B` |
-| `--color-accent-soft` | Nền nhạt của điểm nhấn | `#FCEFD2` | `#3A2C0F` |
-| `--color-accent-ink` | Chữ màu điểm nhấn trên nền nhạt | `#855600` | `#F8CD72` |
+| `--color-accent` | Điểm nhấn: biểu tượng streak, cụm từ đang chọn | `#0F8A7E` | `#4FD1BC` |
+| `--color-accent-soft` | Nền nhạt của điểm nhấn | `#D9F2EE` | `#143531` |
+| `--color-accent-ink` | Chữ màu điểm nhấn trên nền nhạt | `#0B6159` | `#9BE5D8` |
 
-**Lưu ý:** `--color-accent` (vàng) **không dùng làm màu chữ** trên nền sáng vì không đủ tương phản. Chữ màu vàng luôn dùng `--color-accent-ink`, ví dụ số ngày trong chip streak.
+**Lưu ý:** màu điểm nhấn là xanh ngọc; app không dùng vàng hay cam làm điểm nhấn (vàng chỉ còn ở `--color-warn` để báo trạng thái). `--color-accent` **không dùng làm màu chữ** trên nền sáng; chữ màu điểm nhấn luôn dùng `--color-accent-ink`, ví dụ số ngày trong chip streak. Các bảng màu khác nằm ở `styles/palettes.css`.
 
 ### 3.2. Màu 4 kỹ năng
 
-Dùng cho 4 thanh kỹ năng dưới thanh mục tiêu, và cho nhãn kỹ năng ở các màn hình khác. Các màu được chọn để không trùng với màu chính (tím) và màu điểm nhấn (vàng).
+Dùng cho 4 thanh kỹ năng dưới thanh mục tiêu, và cho nhãn kỹ năng ở các màn hình khác. Các màu được chọn để không trùng với màu chính (tím) và màu điểm nhấn (xanh ngọc).
 
 | Token | Kỹ năng | Sáng | Tối |
 |---|---|---|---|

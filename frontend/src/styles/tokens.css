@@ -2,9 +2,11 @@
  * Design tokens from docs/design-system.md. Components only use var(--...).
  * Light values live on :root; dark values apply when data-theme="dark",
  * or when no theme is set yet and the device prefers dark.
+ * [data-palette='luna'] lets an element show this default palette inside another one (palettes.css).
  */
 
-:root {
+:root,
+[data-palette='luna'] {
   color-scheme: light;
 
   /* 3.1 Base colors */
@@ -18,9 +20,9 @@
   --color-on-primary: #ffffff;
   --color-primary-soft: #e9e3fa;
   --color-primary-ink: #472f96;
-  --color-accent: #d98e04;
-  --color-accent-soft: #fcefd2;
-  --color-accent-ink: #855600;
+  --color-accent: #0f8a7e;
+  --color-accent-soft: #d9f2ee;
+  --color-accent-ink: #0b6159;
 
   /* 3.2 Skills */
   --color-skill-listen: #2f7fd8;
@@ -61,7 +63,8 @@
   --space-6: 32px;
 }
 
-:root[data-theme='dark'] {
+:root[data-theme='dark'],
+[data-theme='dark'] [data-palette='luna'] {
   color-scheme: dark;
 
   --color-bg: #13101f;
@@ -74,9 +77,9 @@
   --color-on-primary: #140b2e;
   --color-primary-soft: #2e2552;
   --color-primary-ink: #c9b9fa;
-  --color-accent: #f6b93b;
-  --color-accent-soft: #3a2c0f;
-  --color-accent-ink: #f8cd72;
+  --color-accent: #4fd1bc;
+  --color-accent-soft: #143531;
+  --color-accent-ink: #9be5d8;
 
   --color-skill-listen: #6aaaf0;
   --color-skill-speak: #f07ba6;
@@ -104,9 +107,9 @@
     --color-on-primary: #140b2e;
     --color-primary-soft: #2e2552;
     --color-primary-ink: #c9b9fa;
-    --color-accent: #f6b93b;
-    --color-accent-soft: #3a2c0f;
-    --color-accent-ink: #f8cd72;
+    --color-accent: #4fd1bc;
+    --color-accent-soft: #143531;
+    --color-accent-ink: #9be5d8;
 
     --color-skill-listen: #6aaaf0;
     --color-skill-speak: #f07ba6;

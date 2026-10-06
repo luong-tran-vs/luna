@@ -15,6 +15,11 @@
         var dark = pref === 'dark' ||
           (pref !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        // Color palette; key must match PALETTE_STORAGE_KEY in core/services/palette.service.ts.
+        var palette = localStorage.getItem('luna.palette');
+        if (palette && palette !== 'luna') {
+          document.documentElement.setAttribute('data-palette', palette);
+        }
       } catch (e) {
         // Storage blocked: the prefers-color-scheme rule in tokens.css still applies.
       }

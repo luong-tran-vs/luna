@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { GoalView } from '../../core/models/study';
 import { AuthService } from '../../core/services/auth.service';
+import { PALETTES, PaletteService } from '../../core/services/palette.service';
 import { StudyApiService } from '../../core/services/study-api.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
@@ -22,7 +23,10 @@ const LINKS: readonly AccountLink[] = [
   { path: '/settings', label: 'Cài đặt học tập', hint: 'Số thẻ ôn, múi giờ, xuất dữ liệu', icon: 'sliders' },
 ];
 
-/** The account tab (client sketch, screen 11): who is logged in, links to the other pages, dark mode, logout. */
+/**
+ * The account tab (client sketch, screen 11): who is logged in, links to the other pages, dark mode,
+ * a link to the color page, logout.
+ */
 @Component({
   selector: 'lu-account',
   imports: [Icon, RouterLink],
@@ -34,11 +38,13 @@ export class Account {
   protected readonly auth = inject(AuthService);
   protected readonly theme = inject(ThemeService);
   protected readonly notifier = inject(WritingNotifier);
+  private readonly palette = inject(PaletteService);
   private readonly router = inject(Router);
 
   protected readonly links = LINKS;
   protected readonly goal = signal<GoalView | null>(null);
   protected readonly dark = computed(() => this.theme.resolved() === 'dark');
+  protected readonly paletteName = computed(() => PALETTES.find((p) => p.id === this.palette.palette())?.name ?? '');
   protected readonly initial = computed(() => this.auth.currentUser()?.email.charAt(0) ?? '?');
 
   constructor() {

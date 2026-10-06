@@ -50,4 +50,9 @@ export const adminRoutes: Routes = [
     canDeactivate: [unsavedChangesGuard],
     loadComponent: () => import('./roadmap/roadmap').then((m) => m.Roadmap),
   },
+  {
+    path: 'appearance',
+    title: 'Giao diện · Quản trị · Luna',
+    loadComponent: () => import('./appearance/appearance').then((m) => m.Appearance),
+  },
 ];
