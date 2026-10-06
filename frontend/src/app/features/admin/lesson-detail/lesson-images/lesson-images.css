@@ -1,0 +1,145 @@
+.images,
+.form {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.images-header,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.section-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+/* Same shape as the status chip, without a state color. */
+.none-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* Label on the left, the shared on/off switch (.switch, styles/screen.css) on the right. */
+.words-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.words {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.word {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.thumb {
+  width: 72px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-sm);
+}
+
+.thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.word-text {
+  display: grid;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lemma {
+  font-weight: 600;
+}
+
+.word-actions,
+.word-note {
+  grid-column: 1 / -1;
+}
+
+.word-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.word-note {
+  font: var(--text-sm) var(--font-ui);
+}
+
+@media (min-width: 640px) {
+  .word {
+    grid-template-columns: 72px minmax(0, 1fr) auto;
+  }
+
+  .word-actions {
+    grid-column: auto;
+  }
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: left;
+  background: transparent;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.switch-row:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.switch-row:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.switch-row:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}

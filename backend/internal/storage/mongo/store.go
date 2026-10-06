@@ -61,6 +61,7 @@ func (s *Store) Topics() topic.Repository                       { return NewTopi
 func (s *Store) ReadingAnswers() lesson.AnswerRepository        { return NewReadingAnswers(s.db) }
 func (s *Store) AILookups() lesson.AskRepository                { return NewAILookups(s.db) }
 func (s *Store) Writings() writing.Repository                   { return NewWritings(s.db) }
+func (s *Store) WordImages() lesson.ImageRepository             { return NewWordImages(s.db) }
 func (s *Store) Cards() vocab.Repository                        { return NewCards(s.db) }
 func (s *Store) ReviewLogs() vocab.ReviewLogRepository          { return NewReviewLogs(s.db) }
 func (s *Store) DictationResults() progress.DictationRepository { return NewDictationResults(s.db) }

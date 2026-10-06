@@ -62,6 +62,8 @@ type Store interface {
 	ReadingAnswers() lesson.AnswerRepository
 	AILookups() lesson.AskRepository
 	Writings() writing.Repository
+	// WordImages keeps the picture settings of lessons and their word pictures (F23).
+	WordImages() lesson.ImageRepository
 
 	Cards() vocab.Repository
 	ReviewLogs() vocab.ReviewLogRepository

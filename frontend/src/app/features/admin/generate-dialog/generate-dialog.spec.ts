@@ -12,7 +12,15 @@ describe('GenerateDialog', () => {
   let http: HttpTestingController;
   let closed: number;
 
-  const options: GenerateOptions = { count: 3, words: 120, kind: 'reading', idea: '', perLesson: 8 };
+  const options: GenerateOptions = {
+    count: 3,
+    words: 120,
+    kind: 'reading',
+    idea: '',
+    perLesson: 8,
+    images: false,
+    imageStyle: 'flat illustration',
+  };
 
   beforeEach(async () => {
     // jsdom has no showModal/close.
@@ -69,6 +77,30 @@ describe('GenerateDialog', () => {
     expect(el.querySelector('#generate-words-hint')!.textContent!.trim()).toBe('Nên 96–144 từ.');
   });
 
+  it('F23: shows the picture style only when pictures are on, and emits both', async () => {
+    const toggle = el.querySelector<HTMLButtonElement>('button[role="switch"]')!;
+    expect(toggle.getAttribute('aria-checked')).toBe('false');
+    expect(toggle.textContent?.trim()).toBe('Sinh ảnh cho từ vựng');
+    expect(el.querySelector('#generate-imageStyle')).toBeNull();
+    toggle.click();
+    await fixture.whenStable();
+    expect(toggle.getAttribute('aria-checked')).toBe('true');
+    expect(input('generate-imageStyle').value).toBe('flat illustration');
+    await type('generate-imageStyle', '  tranh màu nước  ');
+    await submit();
+    expect(emitted[0].images).toBe(true);
+    expect(emitted[0].imageStyle).toBe('tranh màu nước');
+  });
+
+  it('F23: refuses a picture style that is too long', async () => {
+    el.querySelector<HTMLButtonElement>('button[role="switch"]')!.click();
+    await fixture.whenStable();
+    await type('generate-imageStyle', 'x'.repeat(501));
+    await submit();
+    expect(emitted).toEqual([]);
+    expect(errorOf('imageStyle')).toBe('Mô tả ảnh tối đa 500 ký tự');
+  });
+
   it('emits trimmed valid values', async () => {
     await type('generate-count', '2');
     await type('generate-words', '200');
@@ -76,7 +108,17 @@ describe('GenerateDialog', () => {
     await type('generate-idea', '  một bữa tiệc  ');
     await submit();
     expect(emitted).toEqual([
-      { count: 2, words: 200, kind: 'dialogue', idea: 'một bữa tiệc', targetWords: [], grammarPointId: '', perLesson: 8 },
+      {
+        count: 2,
+        words: 200,
+        kind: 'dialogue',
+        idea: 'một bữa tiệc',
+        targetWords: [],
+        grammarPointId: '',
+        perLesson: 8,
+        images: false,
+        imageStyle: 'flat illustration',
+      },
     ]);
     // A topic without words shows no target-word field and asks for no split.
     expect(el.querySelector('#generate-perLesson')).toBeNull();

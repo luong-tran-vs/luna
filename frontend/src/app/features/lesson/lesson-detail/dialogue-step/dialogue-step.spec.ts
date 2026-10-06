@@ -31,8 +31,8 @@ describe('DialogueStep', () => {
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const turns = () => Array.from(el.querySelectorAll('.turn'));
   const reveal = (i: number) => turns()[i].querySelector<HTMLButtonElement>('.reveal')!;
-  /** Percent of turn i's waveform shown as played. */
-  const filled = (i: number) => 100 - Number(/inset\(0 ([\d.]+)%/.exec(turns()[i].querySelector<SVGElement>('lu-waveform svg.played')!.style.clipPath)![1]);
+  /** Percent of turn i's player track shown as played. */
+  const filled = (i: number) => parseFloat(turns()[i].querySelector<HTMLElement>('lu-audio-bar .played')!.style.width || '0');
   const current = () => turns().findIndex((t) => t.getAttribute('aria-current') === 'true');
   const button = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
   const stable = () => fixture.whenStable();
@@ -46,12 +46,12 @@ describe('DialogueStep', () => {
     await stable();
   };
 
-  it('lists each turn with its speaker and a waveform, words hidden until revealed', async () => {
+  it('lists each turn with its speaker and a player bar, words hidden until revealed', async () => {
     await setup();
     expect(turns().length).toBe(3);
     expect(text(turns()[0].querySelector('.speaker'))).toBe('Minh');
     expect(text(turns()[1].querySelector('.speaker'))).toBe('Anna');
-    expect(turns()[0].querySelector('lu-waveform')!.getAttribute('aria-hidden')).toBe('true');
+    expect(turns()[0].querySelector('lu-audio-bar .track')!.getAttribute('aria-hidden')).toBe('true');
     expect(el.querySelectorAll('.turn-text').length).toBe(0);
     expect(reveal(0).getAttribute('aria-label')).toBe('Hiện lời lượt 1');
     expect(reveal(0).getAttribute('aria-expanded')).toBe('false');
@@ -82,7 +82,7 @@ describe('DialogueStep', () => {
     expect(el.querySelectorAll('.turn-text').length).toBe(0);
   });
 
-  it('reads all turns in order with the elapsed time, filling each waveform', async () => {
+  it('reads all turns in order with the elapsed time, filling each player bar', async () => {
     await setup();
     button('Nghe cả đoạn').click();
     await stable();
@@ -141,10 +141,23 @@ describe('DialogueStep', () => {
     await stable();
     expect(speech.last().text).toBe('Nice to meet you.');
     expect(current()).toBe(2);
+    expect(button('Dừng lượt 3')).not.toBeNull();
     speech.last().handlers.ended!();
     await stable();
     expect(current()).toBe(-1);
     expect(speech.spoken.length).toBe(1);
+  });
+
+  it('stops a single turn from its own player button', async () => {
+    await setup();
+    button('Nghe lượt 2').click();
+    await stable();
+    speech.stops = 0;
+    button('Dừng lượt 2').click();
+    await stable();
+    expect(speech.stops).toBeGreaterThan(0);
+    expect(current()).toBe(-1);
+    expect(button('Nghe lượt 2')).not.toBeNull();
   });
 
   it('reads at the chosen speed', async () => {
@@ -181,7 +194,7 @@ describe('DialogueStep', () => {
     await setup(false);
     expect(el.textContent).toContain('Trình duyệt này không có giọng đọc');
     expect(el.querySelector('.playbar')).toBeNull();
-    expect(el.querySelector('lu-waveform')).toBeNull();
+    expect(el.querySelector('lu-audio-bar')).toBeNull();
     expect(el.querySelectorAll('.turn-text').length).toBe(3);
   });
 

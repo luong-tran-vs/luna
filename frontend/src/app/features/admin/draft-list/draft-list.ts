@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 import { countWords, wordRange } from '../../../core/models/generate';
+import { ImageSettingsInput } from '../../../core/models/lesson';
 
 /** A generated lesson being reviewed on the roadmap page (F7). Never stored until saved. */
 export interface DraftState {
@@ -14,6 +15,8 @@ export interface DraftState {
   grammarPointId?: string;
   /** The length asked for (words); a draft outside its ±20% range gets a warning. */
   targetLength: number;
+  /** F23: pictures for the vocabulary words of the saved lesson; null for none. */
+  images?: ImageSettingsInput | null;
   saving: boolean;
   /** Save error not tied to a field (network, server). */
   error: string | null;

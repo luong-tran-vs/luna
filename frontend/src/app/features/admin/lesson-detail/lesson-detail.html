@@ -190,6 +190,8 @@
       (updated)="lesson.set($event)"
       (confirm)="confirmFlag($event)"
     />
+
+    <lu-lesson-images [lessonId]="l.id" />
   } @else if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   } @else {

@@ -316,6 +316,30 @@ describe('Roadmap', () => {
       expect(titles()).toEqual(['Bài a']);
     });
 
+    it('F23: saves the picture settings chosen in the dialog with each draft', async () => {
+      await openDialog();
+      dialog().querySelector<HTMLButtonElement>('button[role="switch"]')!.click();
+      await settle();
+      const style = dialog().querySelector<HTMLTextAreaElement>('#generate-imageStyle')!;
+      style.value = 'watercolor';
+      style.dispatchEvent(new Event('input'));
+      await submitDialog();
+      const gen = http.expectOne(generateUrl);
+      // The picture settings stay on the page: the generation itself draws nothing.
+      expect(gen.request.body.images).toBeUndefined();
+      gen.flush(generated('Sunday Lunch'));
+      await settle();
+      expect(text(el.querySelector('lu-draft-list .images-note'))).toBe('Sẽ sinh ảnh cho từ vựng sau khi lưu.');
+
+      el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
+      await settle();
+      const req = http.expectOne('/api/admin/lessons');
+      expect(req.request.body.images).toEqual({ enabled: true, style: 'watercolor' });
+      req.flush({ lesson: { id: 'n1' } });
+      await settle();
+      await expectReload(['a', 'n1']);
+    });
+
     it('saves a draft to the end of the roadmap', async () => {
       await generate(generated('Sunday Lunch', 'The Picnic'));
       const title = el.querySelector<HTMLInputElement>('lu-draft-list input[type="text"]')!;

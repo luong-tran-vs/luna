@@ -34,6 +34,7 @@ func (h *ReadingHandler) Register(mux *http.ServeMux, requireAuth, guard httpx.M
 	mux.Handle("GET /api/lessons/{id}", route(h.view))
 	mux.Handle("GET /api/lessons/{id}/lookup", route(h.lookup))
 	mux.Handle("GET /api/lessons/{id}/vocabulary", route(h.vocabulary))
+	mux.Handle("GET /api/lessons/{id}/images/{lemma}", route(h.image))
 	mux.Handle("POST /api/lessons/{id}/answers", route(h.answer))
 	mux.Handle("POST /api/lessons/{id}/ask", route(h.ask))
 	mux.Handle("GET /api/lessons/{id}/practice", route(h.practice))
@@ -147,6 +148,8 @@ type vocabItemJSON struct {
 	IPA           string `json:"ipa"`
 	SentenceIndex int    `json:"sentenceIndex"`
 	Sentence      string `json:"sentence"`
+	// ImageURL is the word's picture (F23), "" when it has none.
+	ImageURL string `json:"imageUrl"`
 }
 
 type vocabularyJSON struct {
@@ -162,7 +165,13 @@ func (h *ReadingHandler) vocabulary(w http.ResponseWriter, r *http.Request) {
 	}
 	out := vocabularyJSON{Available: available, Items: make([]vocabItemJSON, len(items))}
 	for i, it := range items {
-		out.Items[i] = vocabItemJSON(it)
+		out.Items[i] = vocabItemJSON{
+			Lemma: it.Lemma, Text: it.Text, MeaningVi: it.MeaningVi, IPA: it.IPA,
+			SentenceIndex: it.SentenceIndex, Sentence: it.Sentence,
+		}
+		if it.HasImage {
+			out.Items[i].ImageURL = imageURL(r.PathValue("id"), it.Lemma)
+		}
 	}
 	httpx.WriteJSON(w, http.StatusOK, out)
 }

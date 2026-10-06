@@ -41,6 +41,7 @@ func migrations() []migration {
 		{ID: "014_grammar", Stmts: grammarSchema()},
 		{ID: "015_grammar_reports", Stmts: grammarReportsSchema()},
 		{ID: "016_lesson_review", Stmts: lessonReviewSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "017_word_images", Stmts: wordImagesSchema()},
 	}
 }
 

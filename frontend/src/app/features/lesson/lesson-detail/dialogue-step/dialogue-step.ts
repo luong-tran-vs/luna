@@ -12,7 +12,8 @@ import {
 import { PracticeDialogue } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
-import { Waveform } from '../../../../shared/components/waveform/waveform';
+import { AudioBar } from '../../../../shared/components/audio-bar/audio-bar';
+import { estimateSeconds } from '../../../../shared/utils/fake-waveform';
 import { clock } from '../practice-logic';
 
 const SPEEDS = [0.75, 1, 1.25];
@@ -22,12 +23,11 @@ type Mode = 'idle' | 'all' | 'one';
 /**
  * Step 2: the sample dialogue, read by the browser's voice. "Play all" reads the turns one after
  * another (a turn the browser fails to read is skipped); each turn can also be heard alone. The
- * words start hidden so the learner listens first; each turn shows an illustrative waveform filled
- * as it is read.
+ * words start hidden so the learner listens first; each turn has a player bar filled as it is read.
  */
 @Component({
   selector: 'lu-dialogue-step',
-  imports: [Icon, Waveform],
+  imports: [Icon, AudioBar],
   templateUrl: './dialogue-step.html',
   styleUrls: ['../practice.css', './dialogue-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -95,8 +95,14 @@ export class DialogueStep {
     );
   }
 
+  /** Estimated reading time of turn `index` at the chosen speed, in seconds. */
+  protected duration(index: number): number {
+    const turn = this.dialogue().turns[index];
+    return turn ? estimateSeconds(turn.text) / this.rate() : 0;
+  }
+
   /**
-   * Part of a turn's waveform to fill: the read share of the current turn, and full for turns
+   * Part of a turn's player bar to fill: the read share of the current turn, and full for turns
    * already read in "play all".
    */
   protected progress(index: number): number {
@@ -119,6 +125,15 @@ export class DialogueStep {
   protected playOne(index: number): void {
     this.mode.set('one');
     this.read(index);
+  }
+
+  /** A turn's player button: stops that turn when it is being read, else reads it alone. */
+  protected toggleOne(index: number): void {
+    if (this.current() === index) {
+      this.stop();
+    } else {
+      this.playOne(index);
+    }
   }
 
   protected stop(): void {

@@ -28,6 +28,8 @@ type Input struct {
 	KeepGrammarPoint bool
 	// AppendToRoadmap adds a new lesson at the end of its topic roadmap (F7); Update ignores it.
 	AppendToRoadmap bool
+	// Images are the word pictures of a new lesson (F23); nil leaves them off. Update ignores it.
+	Images *ImageInput
 }
 
 // ValidateInput trims every field, checks limits and splits the content. It returns the
@@ -42,6 +44,7 @@ func ValidateInput(in Input) (Input, []string, error) {
 		GrammarPointID:   strings.TrimSpace(in.GrammarPointID),
 		KeepGrammarPoint: in.KeepGrammarPoint,
 		AppendToRoadmap:  in.AppendToRoadmap,
+		Images:           in.Images,
 	}
 	fields := map[string]string{}
 

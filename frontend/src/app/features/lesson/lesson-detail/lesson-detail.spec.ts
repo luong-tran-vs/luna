@@ -24,6 +24,7 @@ import { Writing } from '../writing/writing';
 import { FillStep } from './fill-step/fill-step';
 import { LessonDetail } from './lesson-detail';
 import { TranslateStep } from './translate-step/translate-step';
+import { VocabStep } from './vocab-step/vocab-step';
 
 @Component({ selector: 'lu-reading', template: '' })
 class ReadingStub {
@@ -200,8 +201,14 @@ describe('LessonDetail', () => {
     Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === label);
   const progress = () => el.querySelector('[role="progressbar"]')!;
   const nextButton = () => el.querySelector<HTMLButtonElement>('.next-bar .next');
+  /** Tiếp theo at the bottom; on the words step, its own button from the last word. */
   const next = async () => {
-    nextButton()!.click();
+    const words = child(VocabStep);
+    if (words) {
+      words.done.emit();
+    } else {
+      nextButton()!.click();
+    }
     await fixture.whenStable();
   };
   const back = async () => {
@@ -316,9 +323,23 @@ describe('LessonDetail', () => {
   describe('steps', () => {
     it('starts on step 1 with the words and their examples', async () => {
       await open();
-      expect(text(el.querySelector('#vocab-heading'))).toContain('1. Từ vựng quan trọng');
-      expect(el.querySelectorAll('.word').length).toBe(2);
-      expect(text(el.querySelector('.example'))).toContain(`Ví dụ: "What's your name?"`);
+      expect(text(el.querySelector('#vocab-heading'))).toBe('1. Từ vựng – Chủ đề: Làm quen');
+      expect(text(el.querySelector('.word .lemma'))).toBe('name');
+      expect(text(el.querySelector('.example .sentence'))).toBe("What's your name?");
+      // The card has its own Tiếp theo: no bar at the bottom.
+      expect(el.querySelector('.next-bar')).toBeNull();
+    });
+
+    it('goes through the words on the card, then to step 2', async () => {
+      await open();
+      const cardNext = () => el.querySelector<HTMLButtonElement>('lu-vocab-step .next-word')!;
+      cardNext().click();
+      await fixture.whenStable();
+      expect(text(el.querySelector('.word .lemma'))).toBe('meet');
+      cardNext().click();
+      await fixture.whenStable();
+      expect(progress().getAttribute('aria-valuenow')).toBe('2');
+      expect(el.querySelector('lu-dialogue-step')).not.toBeNull();
     });
 
     it('Next moves through the 4 steps and updates the progress', async () => {
@@ -360,11 +381,14 @@ describe('LessonDetail', () => {
 
     it('without practice: only the words step, numbered 1/1, and no empty steps', async () => {
       await open({ practice: 'error' });
-      expect(el.querySelectorAll('.word').length).toBe(2);
       expect(el.querySelector('.example')).toBeNull();
       expect(progress().getAttribute('aria-valuemax')).toBe('1');
       expect(text(el.querySelector('.progress-text'))).toBe('1/1');
-      expect(text(nextButton())).toBe('Hoàn thành');
+      const cardNext = () => el.querySelector<HTMLButtonElement>('lu-vocab-step .next-word')!;
+      expect(text(cardNext())).toBe('Tiếp theo');
+      cardNext().click();
+      await fixture.whenStable();
+      expect(text(cardNext())).toBe('Hoàn thành');
       expect(el.textContent).not.toContain('chưa có phần luyện tập');
     });
 

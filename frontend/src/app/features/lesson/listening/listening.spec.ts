@@ -63,8 +63,9 @@ describe('Listening', () => {
   const button = (text: string) =>
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === text) as HTMLButtonElement | undefined;
   const text = (selector: string) => el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
-  /** Percent of the waveform shown as played. */
-  const filled = () => 100 - Number(/inset\(0 ([\d.]+)%/.exec(el.querySelector<SVGElement>('lu-waveform svg.played')!.style.clipPath)![1]);
+  /** Percent of the player track shown as played. */
+  const filled = () => parseFloat(el.querySelector<HTMLElement>('lu-audio-bar .played')!.style.width || '0');
+  const play = () => el.querySelector<HTMLButtonElement>('lu-audio-bar .play')!;
   const input = () => el.querySelector<HTMLInputElement>('#answer')!;
   const type = async (value: string) => {
     input().value = value;
@@ -159,21 +160,28 @@ describe('Listening', () => {
     it('has the browser read the hidden sentence, and read it again from the start', async () => {
       await setup();
       expect(speech.spoken).toHaveLength(0);
-      button('Nghe câu')!.click();
+      play().click();
       await settle();
       expect(speech.last()).toMatchObject({ text: "I don't like green apples.", rate: 1 });
+      expect(play().getAttribute('aria-label')).toBe('Dừng nghe');
+      // The button stops the reading, then reads the sentence again from the start.
       speech.stops = 0;
-      button('Nghe câu')!.click();
+      play().click();
       await settle();
       expect(speech.stops).toBeGreaterThan(0);
+      expect(speech.spoken).toHaveLength(1);
+      expect(play().getAttribute('aria-label')).toBe('Nghe câu');
+      play().click();
+      await settle();
       expect(speech.spoken).toHaveLength(2);
     });
 
-    it('fills the waveform while reading and when done', async () => {
+    it('fills the player bar while reading and when done', async () => {
       await setup();
-      expect(el.querySelector('lu-waveform')!.getAttribute('aria-hidden')).toBe('true');
+      expect(el.querySelector('lu-audio-bar .track')!.getAttribute('aria-hidden')).toBe('true');
+      expect(text('lu-audio-bar .time')).toMatch(/^Đã nghe 00:00 \/ 00:0\d$/);
       expect(filled()).toBe(0);
-      button('Nghe câu')!.click();
+      play().click();
       await settle();
       speech.last().handlers.progress!(0.5, 0.6);
       await fixture.whenStable();
@@ -186,7 +194,7 @@ describe('Listening', () => {
 
     it('says so when the browser fails to read', async () => {
       await setup();
-      button('Nghe câu')!.click();
+      play().click();
       await settle();
       speech.last().handlers.failed!('synthesis-failed');
       await fixture.whenStable();
@@ -247,7 +255,7 @@ describe('Listening', () => {
       button('Câu sau')!.click();
       await settle();
       expect(speech.last().text).toBe('We went to the park at 9.30.');
-      expect(button('Nghe câu')).toBeTruthy();
+      expect(play().getAttribute('aria-label')).toBe('Dừng nghe');
     });
 
     it('shows a message and no dictation when the browser has no voice', async () => {
@@ -317,7 +325,7 @@ describe('Listening', () => {
       await settle();
       expect(text('.score')).toBe('5/5 từ đúng');
       expect(el.querySelectorAll('.result .word.ok')).toHaveLength(5);
-      expect(button('Nghe câu')!.disabled).toBe(false);
+      expect(play().disabled).toBe(false);
     });
   });
 

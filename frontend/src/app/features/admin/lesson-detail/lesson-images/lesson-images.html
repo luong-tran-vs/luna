@@ -1,0 +1,136 @@
+<section class="images" aria-labelledby="images-heading">
+  <div class="images-header">
+    <h2 class="section-title" id="images-heading">Ảnh từ vựng</h2>
+    @if (status(); as s) {
+      <lu-status-chip label="Ảnh" [status]="s" />
+    } @else if (state()) {
+      <span class="none-chip">Ảnh: Tắt</span>
+    }
+    @if (state(); as st) {
+      <span class="muted count">{{ st.count }} từ đã có ảnh</span>
+    }
+  </div>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      Không tải được cài đặt ảnh.
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (state(); as st) {
+    @if (st.status === 'failed' && st.error) {
+      <p class="muted">Lý do: {{ st.error }}</p>
+    }
+    <form class="form" [formGroup]="form" (ngSubmit)="save()">
+      <button
+        type="button"
+        class="switch-row"
+        role="switch"
+        [attr.aria-checked]="form.controls.enabled.value"
+        [disabled]="saving()"
+        (click)="toggle()"
+      >
+        <span>Sinh ảnh cho từ vựng</span>
+        <span class="switch" aria-hidden="true"></span>
+      </button>
+      @if (form.controls.enabled.value) {
+        <div class="field">
+          <label for="images-style">Mô tả phong cách ảnh</label>
+          <textarea
+            id="images-style"
+            rows="3"
+            formControlName="style"
+            aria-describedby="images-style-hint"
+          ></textarea>
+          <p class="field-hint" id="images-style-hint">
+            Dùng chung cho mọi ảnh của bài; tối đa {{ maxStyle }} ký tự. Từ đã có ảnh giữ nguyên ảnh
+            cũ.
+          </p>
+        </div>
+      }
+      <div class="actions">
+        <button type="submit" class="btn" [disabled]="saving()" [attr.aria-busy]="saving()">
+          {{
+            saving()
+              ? 'Đang lưu…'
+              : form.controls.enabled.value
+                ? 'Lưu và sinh ảnh còn thiếu'
+                : 'Lưu'
+          }}
+        </button>
+      </div>
+    </form>
+    <p class="muted" role="status">{{ note() }}</p>
+    @if (error(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    <h3 class="words-title">Ảnh từng từ</h3>
+    @if (st.words.length === 0) {
+      <p class="muted">Bài chưa chú thích xong nên chưa có từ vựng để gắn ảnh.</p>
+    } @else {
+      <p class="field-hint">
+        Tự tải ảnh lên cho từng từ (JPEG, PNG hoặc GIF, tối đa 5 MB). Máy chủ thu nhỏ ảnh; AI không
+        vẽ đè lên ảnh đã có.
+      </p>
+      <ul class="words">
+        @for (w of st.words; track w.lemma) {
+          <li class="word" [attr.aria-busy]="busyWord() === w.lemma">
+            <div class="thumb">
+              @if (w.imageUrl) {
+                <img [src]="thumb(w)" [alt]="'Ảnh của ' + w.lemma" />
+              } @else {
+                <span class="thumb-empty">Chưa có ảnh</span>
+              }
+            </div>
+            <div class="word-text">
+              <span class="lemma" lang="en">{{ w.lemma }}</span>
+              <span class="muted">{{ w.meaningVi }}</span>
+            </div>
+            <div class="word-actions">
+              <input
+                #file
+                type="file"
+                class="visually-hidden"
+                tabindex="-1"
+                aria-hidden="true"
+                [accept]="accept"
+                (change)="upload(w, $event)"
+              />
+              <button
+                type="button"
+                class="btn upload-btn"
+                [disabled]="busyWord() !== null"
+                (click)="file.click()"
+              >
+                {{ busyWord() === w.lemma ? 'Đang xử lý…' : w.imageUrl ? 'Đổi ảnh' : 'Tải ảnh lên'
+                }}<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
+              </button>
+              @if (w.imageUrl) {
+                <button
+                  type="button"
+                  class="btn remove-btn"
+                  [disabled]="busyWord() !== null"
+                  [attr.aria-label]="'Xoá ảnh của ' + w.lemma"
+                  (click)="remove(w)"
+                >
+                  Xoá ảnh
+                </button>
+              }
+            </div>
+            @if (wordNote(); as n) {
+              @if (n.lemma === w.lemma) {
+                <p
+                  class="word-note"
+                  [class.field-error]="n.error"
+                  [attr.role]="n.error ? 'alert' : 'status'"
+                >
+                  {{ n.text }}
+                </p>
+              }
+            }
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

@@ -46,11 +46,18 @@
 
       <div class="player card">
         <p class="counter" aria-live="polite">Câu {{ current() + 1 }}/{{ sentences().length }}</p>
-        <lu-waveform class="wave" [text]="sentence()!.text" [progress]="progress()" [bars]="64" />
+        <lu-audio-bar
+          class="audio"
+          [progress]="progress()"
+          [duration]="duration()"
+          [playing]="speaking()"
+          playLabel="Nghe câu"
+          stopLabel="Dừng nghe"
+          (playPressed)="togglePlay()"
+        />
 
         <div class="controls">
           <button type="button" class="btn" [disabled]="current() === 0" (click)="go(current() - 1)">Câu trước</button>
-          <button type="button" class="btn-primary" (click)="listen()">Nghe câu</button>
           <button type="button" class="btn" [disabled]="current() === sentences().length - 1" (click)="go(current() + 1)">
             Câu sau
           </button>

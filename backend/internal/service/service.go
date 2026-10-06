@@ -36,8 +36,10 @@ type Container struct {
 	lessons storage.LessonStore
 	jobs    job.Repository
 
-	ai   ai.Provider
-	dict closableDictionary
+	ai ai.Provider
+	// imageAI draws the vocabulary pictures (F23).
+	imageAI ai.ImageProvider
+	dict    closableDictionary
 
 	auth        *auth.Service
 	authHandler *auth.Handler

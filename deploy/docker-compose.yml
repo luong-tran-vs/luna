@@ -66,6 +66,7 @@ services:
       AI_PROVIDER: ${AI_PROVIDER:-gemini}
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash-lite}
+      GEMINI_IMAGE_MODEL: ${GEMINI_IMAGE_MODEL:-gemini-2.5-flash-image}
       # Offline dictionary for the Reading step: run deploy/fetch-dictionary.sh (or .ps1) first.
       DICTIONARY_PATH: /data/dictionary/dictionary.db
     volumes:

@@ -35,6 +35,11 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("PUT /api/admin/lessons/{id}/extras", admin(h.updateExtras))
 	mux.Handle("PUT /api/admin/lessons/{id}/practice/translations", admin(h.updateTranslations))
 	mux.Handle("POST /api/admin/lessons/{id}/practice/regenerate", admin(h.regeneratePractice))
+	mux.Handle("GET /api/admin/lessons/{id}/images", admin(h.images))
+	mux.Handle("PUT /api/admin/lessons/{id}/images", admin(h.setImages))
+	mux.Handle("GET /api/admin/lessons/{id}/images/{lemma}", admin(h.adminImage))
+	mux.Handle("PUT /api/admin/lessons/{id}/images/{lemma}", admin(h.uploadImage))
+	mux.Handle("DELETE /api/admin/lessons/{id}/images/{lemma}", admin(h.deleteImage))
 	mux.Handle("POST /api/admin/lessons/{id}/check", admin(h.check))
 	mux.Handle("POST /api/admin/lessons/{id}/check/confirm", admin(h.confirmFlag))
 	mux.Handle("POST /api/admin/lessons/{id}/check/verify", admin(h.verify))
@@ -201,6 +206,13 @@ type inputJSON struct {
 	License         string  `json:"license"`
 	GrammarPointID  *string `json:"grammarPointId"`
 	AppendToRoadmap bool    `json:"appendToRoadmap"`
+	// Images turns on the word pictures of a new lesson (F23); omitted leaves them off.
+	Images *imageInputJSON `json:"images"`
+}
+
+type imageInputJSON struct {
+	Enabled bool   `json:"enabled"`
+	Style   string `json:"style"`
 }
 
 func (in inputJSON) toInput() Input {
@@ -210,6 +222,10 @@ func (in inputJSON) toInput() Input {
 	}
 	if in.GrammarPointID != nil {
 		out.GrammarPointID = *in.GrammarPointID
+	}
+	if in.Images != nil {
+		images := ImageInput(*in.Images)
+		out.Images = &images
 	}
 	return out
 }
@@ -343,6 +359,10 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 	case writeFlagError(w, err):
 	case errors.Is(err, ErrAnnotationNotDone):
 		httpx.WriteError(w, http.StatusConflict, "annotation_not_done", "Cần chú thích xong trước")
+	case errors.Is(err, ErrNotLessonWord):
+		httpx.WriteError(w, http.StatusNotFound, "not_lesson_word", "Từ này không thuộc từ vựng của bài")
+	case errors.Is(err, ErrImagesUnavailable):
+		httpx.WriteError(w, http.StatusServiceUnavailable, "images_unavailable", "Máy chủ chưa hỗ trợ ảnh từ vựng")
 	default:
 		h.log.ErrorContext(r.Context(), "lesson request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")

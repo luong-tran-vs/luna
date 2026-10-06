@@ -99,6 +99,45 @@
       </div>
     }
 
+    <section class="images" aria-labelledby="generate-images-title">
+      <h3 class="visually-hidden" id="generate-images-title">Ảnh từ vựng</h3>
+      <button
+        type="button"
+        class="switch-row"
+        role="switch"
+        [attr.aria-checked]="imagesOn()"
+        aria-describedby="generate-images-hint"
+        [disabled]="busy()"
+        (click)="toggleImages()"
+      >
+        <span>Sinh ảnh cho từ vựng</span>
+        <span class="switch" aria-hidden="true"></span>
+      </button>
+      <p class="field-hint" id="generate-images-hint">
+        Sau khi lưu bài, mỗi từ vựng được AI vẽ một ảnh minh hoạ (tính phí theo ảnh).
+      </p>
+      @if (imagesOn()) {
+        <div class="field">
+          <label for="generate-imageStyle">Mô tả phong cách ảnh</label>
+          <textarea
+            id="generate-imageStyle"
+            rows="3"
+            formControlName="imageStyle"
+            placeholder="Ví dụ: tranh màu nước, nền trắng, không có chữ"
+            [attr.aria-invalid]="!!errors()['imageStyle']"
+            [attr.aria-describedby]="describedBy('imageStyle', 'generate-imageStyle-hint')"
+          ></textarea>
+          <p class="field-hint" id="generate-imageStyle-hint">
+            Dùng chung cho mọi ảnh; hệ thống tự ghép thêm từ, nghĩa và câu ví dụ. {{ imageStyleLength() }} /
+            {{ maxImageStyle }} ký tự
+          </p>
+          @if (errors()['imageStyle']; as message) {
+            <p class="field-error" id="generate-imageStyle-error">{{ message }}</p>
+          }
+        </div>
+      }
+    </section>
+
     @if (hasWords()) {
       <section class="targets" aria-labelledby="generate-targets-title">
         <h3 class="targets-title" id="generate-targets-title">Từ mục tiêu</h3>

@@ -89,7 +89,7 @@ func TestVocabularyEndpoint(t *testing.T) {
 	mux := newReadingMux(r)
 
 	rec := get(t, mux, "/api/lessons/"+id+"/vocabulary", "learner")
-	want := `{"available":true,"items":[{"lemma":"go","text":"went","meaningVi":"đi","ipa":"/ɡəʊ/","sentenceIndex":0,"sentence":"We went to the park."}]}` + "\n"
+	want := `{"available":true,"items":[{"lemma":"go","text":"went","meaningVi":"đi","ipa":"/ɡəʊ/","sentenceIndex":0,"sentence":"We went to the park.","imageUrl":""}]}` + "\n"
 	if rec.Code != http.StatusOK || rec.Body.String() != want {
 		t.Fatalf("vocabulary: %d %s", rec.Code, rec.Body)
 	}

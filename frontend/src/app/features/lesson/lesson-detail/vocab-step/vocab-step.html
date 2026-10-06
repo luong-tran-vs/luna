@@ -1,64 +1,137 @@
 <section class="soft-card" aria-labelledby="vocab-heading">
-  <h2 class="step-title">
-    <button
-      type="button"
-      class="collapse"
-      id="vocab-heading"
-      [attr.aria-expanded]="open()"
-      aria-controls="vocab-list"
-      (click)="open.set(!open())"
-    >
-      <span>{{ number() }}. Từ vựng quan trọng</span>
-      <lu-icon class="chevron" name="chevron-right" />
-    </button>
-  </h2>
-
-  <div id="vocab-list" [hidden]="!open()">
-    @if (rows().length === 0) {
-      <p class="empty">Bài này chưa có từ vựng.</p>
-    } @else {
-      <ul class="words">
-        @for (r of rows(); track r.word.lemma) {
-          <li class="word">
-            <div class="word-head">
-              <p class="word-text">
-                <span class="lemma" lang="en">{{ r.word.lemma }}</span
-                >&ngsp;
-                @if (r.word.ipa) {
-                  <span class="ipa">{{ r.word.ipa }}</span
-                  >&ngsp;
-                }
-                <span class="meaning">— {{ r.word.meaningVi }}</span>
-              </p>
-              @if (canSpeak) {
-                <button
-                  type="button"
-                  class="icon-btn"
-                  [attr.aria-label]="'Nghe từ ' + r.word.lemma"
-                  (click)="playWord(r.word.lemma)"
-                >
-                  <lu-icon name="volume" />
-                </button>
-              }
-            </div>
-            @if (r.example; as e) {
-              @if (canSpeak) {
-                <button type="button" class="example example-btn" (click)="readAloud.emit(e.sentence)">
-                  <span
-                    >Ví dụ: <span class="sentence" lang="en">"{{ e.sentence }}"</span></span
-                  >
-                  <lu-icon name="volume" />&ngsp;
-                  <span class="visually-hidden">(nghe câu)</span>
-                </button>
-              } @else {
-                <p class="example">
-                  Ví dụ: <span class="sentence" lang="en">"{{ e.sentence }}"</span>
-                </p>
-              }
-            }
-          </li>
-        }
-      </ul>
+  <div class="card-head">
+    <h2 class="step-title" id="vocab-heading">
+      {{ number() }}. Từ vựng
+      @if (topic()) {
+        <span class="topic"
+          >– Chủ đề: <span lang="en">{{ topic() }}</span></span
+        >
+      }
+    </h2>
+    @if (rows().length > 0) {
+      <div class="count-row">
+        <div
+          class="track"
+          role="progressbar"
+          aria-label="Từ đang học"
+          aria-valuemin="1"
+          [attr.aria-valuemax]="rows().length"
+          [attr.aria-valuenow]="index() + 1"
+          [attr.aria-valuetext]="index() + 1 + '/' + rows().length"
+        >
+          <div class="fill" [style.width.%]="percent()"></div>
+        </div>
+        <span class="count" aria-hidden="true">{{ index() + 1 }}/{{ rows().length }}</span>
+      </div>
     }
   </div>
+
+  @if (row(); as r) {
+    <article class="word" aria-live="polite">
+      <div class="word-main">
+        <div class="picture">
+          @if (showImage()) {
+            <img
+              [src]="r.image"
+              alt=""
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              (error)="imageFailed(r.word.lemma)"
+            />
+          } @else {
+            <span class="picture-fallback" aria-hidden="true" lang="en">{{
+              r.word.lemma.charAt(0).toUpperCase()
+            }}</span>
+          }
+        </div>
+        <div class="word-text">
+          <div class="word-line">
+            <p class="lemma" lang="en">{{ r.word.lemma }}</p>
+            @if (canSpeak) {
+              <button
+                type="button"
+                class="icon-btn"
+                [attr.aria-label]="'Nghe từ ' + r.word.lemma"
+                (click)="playWord(r.word.lemma)"
+              >
+                <lu-icon name="volume" />
+              </button>
+            }
+          </div>
+          @if (r.word.ipa) {
+            <p class="ipa">{{ r.word.ipa }}</p>
+          }
+          <p class="meaning">{{ r.word.meaningVi }}</p>
+        </div>
+      </div>
+
+      @if (r.example; as e) {
+        <div class="example">
+          <p class="example-label">Ví dụ:</p>
+          @if (canSpeak) {
+            <button type="button" class="example-btn" (click)="readAloud.emit(e.sentence)">
+              <span class="sentence" lang="en"
+                >{{ e.before }}<strong>{{ e.hit }}</strong
+                >{{ e.after }}</span
+              >
+              <lu-icon name="volume" />&ngsp;
+              <span class="visually-hidden">(nghe câu)</span>
+            </button>
+          } @else {
+            <p class="sentence" lang="en">
+              {{ e.before }}<strong>{{ e.hit }}</strong
+              >{{ e.after }}
+            </p>
+          }
+        </div>
+      }
+    </article>
+
+    <div class="learn">
+      @if (learned().has(r.word.lemma)) {
+        <p class="learned"><lu-icon name="check" /> Đã lưu vào thẻ ôn tập</p>
+      } @else {
+        <button
+          type="button"
+          class="learn-btn"
+          [disabled]="saving() !== null"
+          [attr.aria-busy]="saving() === r.word.lemma"
+          (click)="learn(r.word.lemma)"
+        >
+          <lu-icon name="check" />
+          {{ saving() === r.word.lemma ? 'Đang lưu…' : 'Đã học – lưu vào ôn tập' }}
+        </button>
+      }
+      <p class="visually-hidden" role="status">{{ learnStatus() }}</p>
+      @if (learnError(); as message) {
+        <p class="field-error" role="alert">{{ message }}</p>
+      }
+    </div>
+
+    <div class="word-nav">
+      <button
+        type="button"
+        class="nav-btn prev"
+        aria-label="Từ trước"
+        [disabled]="isFirst()"
+        (click)="previous()"
+      >
+        <lu-icon name="arrow-left" />
+      </button>
+      <button type="button" class="btn-primary next-word" (click)="nextOrDone()">
+        {{ isLast() ? finishLabel() : 'Tiếp theo' }}
+      </button>
+      <button
+        type="button"
+        class="nav-btn forward"
+        aria-label="Từ sau"
+        [disabled]="isLast()"
+        (click)="forward()"
+      >
+        <lu-icon name="arrow-right" />
+      </button>
+    </div>
+  } @else {
+    <p class="empty">Bài này chưa có từ vựng.</p>
+  }
 </section>

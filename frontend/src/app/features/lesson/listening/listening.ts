@@ -17,7 +17,8 @@ import { Sentence } from '../../../core/models/lesson';
 import { ReadingLesson } from '../../../core/models/reading';
 import { SpeechService } from '../../../core/services/speech.service';
 import { Icon } from '../../../shared/components/icon/icon';
-import { Waveform } from '../../../shared/components/waveform/waveform';
+import { AudioBar } from '../../../shared/components/audio-bar/audio-bar';
+import { estimateSeconds } from '../../../shared/utils/fake-waveform';
 import { Comparison, compareDictation } from '../../../shared/utils/dictation-compare';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
@@ -38,7 +39,7 @@ const SPEEDS = [0.5, 0.75, 1, 1.25];
  */
 @Component({
   selector: 'lu-listening',
-  imports: [Loading, Icon, RouterLink, Waveform],
+  imports: [Loading, Icon, RouterLink, AudioBar],
   templateUrl: './listening.html',
   styleUrl: './listening.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -86,6 +87,11 @@ export class Listening implements OnInit {
 
   protected readonly sentences = computed(() => this.lesson()?.sentences ?? []);
   protected readonly sentence = computed<Sentence | null>(() => this.sentences()[this.current()] ?? null);
+  /** Estimated reading time of the current sentence at the chosen speed, in seconds. */
+  protected readonly duration = computed(() => {
+    const s = this.sentence();
+    return s ? estimateSeconds(s.text) / this.rate() : 0;
+  });
   protected readonly result = computed(() => this.checked().get(this.current()) ?? null);
   protected readonly checkedCount = computed(() => this.checked().size);
   protected readonly done = computed(() => this.sentences().length > 0 && this.checkedCount() === this.sentences().length);
@@ -152,7 +158,7 @@ export class Listening implements OnInit {
     this.listen();
   }
 
-  /** Reads the current sentence from the start; the waveform follows the reading. */
+  /** Reads the current sentence from the start; the player bar follows it. */
   protected listen(): void {
     const sentence = this.sentence();
     if (!sentence || !this.speech.supported) {
@@ -172,7 +178,16 @@ export class Listening implements OnInit {
     });
   }
 
-  /** Stops reading and empties the waveform. */
+  /** The player button: stops the reading, or reads the sentence again from the start. */
+  protected togglePlay(): void {
+    if (this.speaking()) {
+      this.silence();
+    } else {
+      this.listen();
+    }
+  }
+
+  /** Stops reading and empties the player bar. */
   private silence(): void {
     this.speech.stop();
     this.speaking.set(false);

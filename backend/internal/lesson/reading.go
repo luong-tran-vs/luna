@@ -79,6 +79,8 @@ type Reader struct {
 	asks  AskRepository
 	ai    ai.Provider
 	group singleflight.Group
+	// images serves the word pictures (F23); nil when there are none.
+	images ImageRepository
 }
 
 // NewReader returns a Reader.

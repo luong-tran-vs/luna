@@ -113,6 +113,8 @@ export interface VocabItem {
   ipa: string;
   sentenceIndex: number;
   sentence: string;
+  /** F23: the word's AI-drawn picture; '' or missing when it has none. */
+  imageUrl?: string;
 }
 
 export interface LessonVocabulary {

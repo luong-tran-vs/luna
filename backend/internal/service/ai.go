@@ -18,9 +18,11 @@ func (c *Container) initAI() {
 	if c.cfg.AIProvider != "gemini" || c.cfg.GeminiAPIKey == "" {
 		c.log.Info("ai provider disabled: annotations will fail until configured", slog.String("provider", c.cfg.AIProvider))
 		c.ai = ai.Disabled{}
+		c.imageAI = ai.DisabledImages{}
 		return
 	}
 	c.ai = gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
+	c.imageAI = gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
 }
 
 // queueMissingPractice queues the practice of lessons annotated before F17. Without an AI

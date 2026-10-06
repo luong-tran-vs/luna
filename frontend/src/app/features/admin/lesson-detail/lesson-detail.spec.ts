@@ -79,7 +79,11 @@ describe('LessonDetail', () => {
     await fixture.whenStable();
   });
 
-  afterEach(() => http.verify());
+  // F23: the picture section loads its own settings; tests of it live in lesson-images.spec.ts.
+  afterEach(() => {
+    http.match((r) => r.url.endsWith('/images'));
+    http.verify();
+  });
 
   describe('preview', () => {
     it('shows info, numbered sentences and status chips', async () => {

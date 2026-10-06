@@ -61,7 +61,10 @@ func (l lessonVocabulary) Vocabulary(ctx context.Context, id string) ([]vocab.Vo
 	}
 	out := make([]vocab.VocabItem, len(items))
 	for i, it := range items {
-		out[i] = vocab.VocabItem(it)
+		out[i] = vocab.VocabItem{
+			Lemma: it.Lemma, Text: it.Text, MeaningVi: it.MeaningVi, IPA: it.IPA,
+			SentenceIndex: it.SentenceIndex, Sentence: it.Sentence,
+		}
 	}
 	return out, nil
 }

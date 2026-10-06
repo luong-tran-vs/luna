@@ -131,6 +131,34 @@ export interface LessonInput {
   grammarPointId?: string;
   /** Add the new lesson at the end of its topic roadmap in the same request (F7). */
   appendToRoadmap?: boolean;
+  /** F23: draw a picture for each vocabulary word of the new lesson, in this style. */
+  images?: ImageSettingsInput;
+}
+
+/** F23: whether the vocabulary words of a lesson get an AI-drawn picture, and in which style. */
+export interface ImageSettingsInput {
+  enabled: boolean;
+  /** How the pictures should look; '' uses the server's default style. */
+  style: string;
+}
+
+/** F23: the picture settings of a lesson (GET/PUT /api/admin/lessons/{id}/images). */
+export interface LessonImages extends ImageSettingsInput {
+  /** '' (off), 'running', 'done' or 'failed'. */
+  status: '' | 'running' | 'done' | 'failed';
+  error: string;
+  /** Words that have a picture. */
+  count: number;
+  /** The lesson's vocabulary words; empty until the annotation is done. */
+  words: ImageWord[];
+}
+
+/** F23: one vocabulary word of a lesson as the admin picture list shows it. */
+export interface ImageWord {
+  lemma: string;
+  meaningVi: string;
+  /** Admin URL of the word's picture; '' when it has none. */
+  imageUrl: string;
 }
 
 export interface AnnotationInput {

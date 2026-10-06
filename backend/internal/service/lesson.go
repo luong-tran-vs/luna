@@ -24,13 +24,17 @@ func (c *Container) initLesson() {
 		Notify:  func() { c.worker.Notify() },
 		Now:     time.Now,
 		Log:     c.log,
+		// Word pictures (F23).
+		ImageStore: c.store.WordImages(),
+		ImageAI:    c.imageAI,
 	})
 }
 
 // initReader builds the learner-facing lesson reader: text, vocabulary lookups, comprehension
 // quiz and "Hỏi AI" (F3, F15).
 func (c *Container) initReader() {
-	c.reader = lesson.NewReader(c.lessons, c.dict, c.lessonTopics, c.store.ReadingAnswers(), c.store.AILookups(), c.ai)
+	c.reader = lesson.NewReader(c.lessons, c.dict, c.lessonTopics, c.store.ReadingAnswers(), c.store.AILookups(), c.ai).
+		WithImages(c.store.WordImages())
 }
 
 // lessonTopicsPort adapts topic.Service to lesson.Topics.

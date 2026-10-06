@@ -150,9 +150,13 @@
             @case ('words') {
               <lu-vocab-step
                 [number]="step()"
+                [topic]="l.topic"
                 [words]="words()"
                 [examples]="practice()?.examples ?? []"
+                [finishLabel]="nextLabel()"
+                [lessonId]="id()"
                 (readAloud)="play($event)"
+                (done)="next()"
               />
             }
             @case ('dialogue') {

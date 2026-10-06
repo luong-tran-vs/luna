@@ -29,6 +29,10 @@ type Deps struct {
 	Log    *slog.Logger
 	// GenerateTimeout bounds the AI call of a generation batch; 0 means 60 seconds.
 	GenerateTimeout time.Duration
+	// ImageStore keeps the word pictures (F23); nil turns them off.
+	ImageStore ImageRepository
+	// ImageAI draws the word pictures; nil fails every drawing.
+	ImageAI ai.ImageProvider
 }
 
 // Service implements lesson management and the background work on lessons.
@@ -57,6 +61,15 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	if err := checkGrammarPoint(in.GrammarPointID, topic.Level); err != nil {
 		return Lesson{}, err
 	}
+	var images ImageInput
+	if in.Images != nil && in.Images.Enabled {
+		if s.ImageStore == nil {
+			return Lesson{}, ErrImagesUnavailable
+		}
+		if images, err = validateImageInput(*in.Images); err != nil {
+			return Lesson{}, err
+		}
+	}
 	now := s.Now()
 	l, err := s.Lessons.Create(ctx, Lesson{
 		Title: in.Title, Content: in.Content, Level: topic.Level, TopicID: topic.ID,
@@ -72,6 +85,12 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	}
 	if in.AppendToRoadmap {
 		if err := s.appendToRoadmap(ctx, l); err != nil {
+			return Lesson{}, err
+		}
+	}
+	// Saved before the annotation is queued: the drawing starts once the words are known (F23).
+	if images.Enabled {
+		if err := s.applyImages(ctx, l, images); err != nil {
 			return Lesson{}, err
 		}
 	}
@@ -239,6 +258,11 @@ func (s *Service) Delete(ctx context.Context, id string) error {
 	if err := s.Jobs.DeleteForLesson(ctx, id); err != nil {
 		return fmt.Errorf("lesson: delete jobs: %w", err)
 	}
+	if s.ImageStore != nil {
+		if err := s.ImageStore.DeleteForLesson(ctx, id); err != nil {
+			return fmt.Errorf("lesson: delete images: %w", err)
+		}
+	}
 	return nil
 }
 
@@ -331,6 +355,10 @@ func (s *Service) UpdateAnnotations(ctx context.Context, id string, items []Anno
 		return Lesson{}, fmt.Errorf("lesson: save annotations: %w", err)
 	}
 	s.keepReview(ctx, l, AreaAnnotation, annotationKeys(l.Annotations), annotationKeys(out))
+	// New words get their picture too (F23).
+	if err := s.queueImages(ctx, id, l.Revision); err != nil {
+		return Lesson{}, err
+	}
 	return s.Lessons.Get(ctx, id)
 }
 
@@ -374,11 +402,18 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 		return nil
 	}
 	// SaveAnnotations dropped the practice of the old annotations; write a new one (F17).
-	return s.enqueue(ctx, l.ID, l.Revision, job.TypePractice)
+	if err := s.enqueue(ctx, l.ID, l.Revision, job.TypePractice); err != nil {
+		return err
+	}
+	return s.queueImages(ctx, l.ID, l.Revision)
 }
 
 // JobFailed records a job that gave up on the lesson, with a short Vietnamese reason.
 func (s *Service) JobFailed(ctx context.Context, j job.Job, err error) {
+	if j.Type == job.TypeImages {
+		s.imagesFailed(ctx, j, err)
+		return
+	}
 	if j.Type != job.TypeAnnotate && j.Type != job.TypePractice {
 		// Jobs of removed kinds (audio before Kokoro was dropped) have nothing to record.
 		s.Log.WarnContext(ctx, "job of an unknown kind failed", slog.String("type", string(j.Type)), slog.Any("error", err))
@@ -406,6 +441,8 @@ func failureMessage(t job.Type, err error) string {
 		return "Bài chưa có chú thích"
 	case t == job.TypePractice:
 		return "Không tạo được phần luyện tập"
+	case t == job.TypeImages:
+		return "Không sinh được ảnh cho một số từ"
 	default:
 		return "Không chú thích được bài"
 	}

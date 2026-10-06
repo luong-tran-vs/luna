@@ -19,6 +19,7 @@ import {
   AI_LICENSE,
   AI_SOURCE,
   DEFAULT_COUNT,
+  DEFAULT_IMAGE_STYLE,
   DEFAULT_TARGET_WORDS,
   DEFAULT_WORDS,
   GenerateInput,
@@ -90,6 +91,8 @@ export class Roadmap implements CanLeave {
     kind: 'reading',
     idea: '',
     perLesson: DEFAULT_TARGET_WORDS.A1,
+    images: false,
+    imageStyle: DEFAULT_IMAGE_STYLE,
   });
   /** F18: the selected topic's vocabulary, loaded each time the dialog opens (coverage changes). */
   protected readonly topicWords = signal<string[]>([]);
@@ -287,9 +290,9 @@ export class Roadmap implements CanLeave {
     if (!id || this.generating()) {
       return;
     }
-    const { perLesson, targetWords, ...rest } = request;
+    const { perLesson, targetWords, images, imageStyle, ...rest } = request;
     const input: GenerateInput = { ...rest, targetWords };
-    this.options.set({ ...rest, perLesson });
+    this.options.set({ ...rest, perLesson, images, imageStyle });
     this.generating.set(true);
     this.generateError.set(null);
     try {
@@ -307,6 +310,7 @@ export class Roadmap implements CanLeave {
           missingWords: d.missingWords ?? [],
           grammarPointId: d.grammarPointId ?? input.grammarPointId ?? '',
           targetLength: input.words,
+          images: images ? { enabled: true, style: imageStyle } : null,
           saving: false,
           error: null,
           fields: {},
@@ -381,6 +385,7 @@ export class Roadmap implements CanLeave {
           license: AI_LICENSE,
           appendToRoadmap: true,
           grammarPointId: draft.grammarPointId ?? '',
+          ...(draft.images ? { images: draft.images } : {}),
         }),
       );
       this.discardDraft(key);

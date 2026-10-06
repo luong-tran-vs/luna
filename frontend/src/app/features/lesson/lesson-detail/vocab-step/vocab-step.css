@@ -1,9 +1,128 @@
-.collapse {
+.soft-card {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.card-head {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.topic {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.count-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.track {
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+  transition: width 0.2s;
+}
+
+.count {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.word {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.word-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.picture {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
+.picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Drawn when the picture cannot load: the word's first letter on the brand tint. */
+.picture-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font: var(--text-2xl) var(--font-ui);
+  font-size: 48px;
+  color: var(--color-primary-ink);
+  background: linear-gradient(135deg, var(--color-primary-soft), var(--color-accent-soft));
+}
+
+.word-text {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.word-line {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  width: 100%;
+}
+
+.lemma {
+  min-width: 0;
+  font: var(--text-xl) var(--font-ui);
+  color: var(--color-primary-ink);
+  overflow-wrap: anywhere;
+}
+
+.ipa {
+  font: var(--text-base) var(--font-ipa);
+  color: var(--color-text-muted);
+}
+
+.meaning {
+  font: var(--text-base) var(--font-ui);
+}
+
+.example {
+  display: grid;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.example-label {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.example-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   min-height: 44px;
   padding: 0;
   font: inherit;
@@ -12,96 +131,106 @@
   background: transparent;
   border: 0;
   cursor: pointer;
-}
-
-.chevron {
-  color: var(--color-text-muted);
-  transform: rotate(-90deg);
-  transition: transform 0.15s;
-}
-
-.collapse[aria-expanded='true'] .chevron {
-  transform: rotate(90deg);
-}
-
-.words {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.word {
-  display: grid;
-  gap: var(--space-1);
-  padding: var(--space-3) 0;
-}
-
-.word + .word {
-  border-top: 1px solid var(--color-line);
-}
-
-.word-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.word-text {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-1) var(--space-2);
-  min-width: 0;
-}
-
-.lemma {
-  font-weight: 600;
-  color: var(--color-primary-ink);
-}
-
-.ipa {
-  font: var(--text-sm) var(--font-ipa);
-  color: var(--color-text-muted);
-}
-
-.meaning {
-  font: var(--text-sm) var(--font-ui);
-}
-
-.example {
-  padding-left: var(--space-3);
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
-  border-left: 2px solid var(--color-line);
-}
-
-.example-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: 44px;
-  text-align: left;
-  background: transparent;
-  border-top: 0;
-  border-right: 0;
-  border-bottom: 0;
-  cursor: pointer;
 
   --icon-size: 16px;
 }
 
-.example-btn:hover .sentence {
+.example-btn lu-icon {
+  color: var(--color-text-muted);
+}
+
+.example-btn:hover lu-icon {
   color: var(--color-primary-ink);
 }
 
-.sentence {
-  font-style: italic;
+.sentence strong {
+  color: var(--color-primary-ink);
+}
+
+.learn {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.learn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--color-ok);
+  background: var(--color-surface);
+  border: 1px solid var(--color-ok);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.learn-btn:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.learn-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Saved: the check and the words say it, the color only adds to them. */
+.learned {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--color-ok);
+}
+
+.word-nav {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.nav-btn:disabled {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.next-word {
+  width: 100%;
+  min-height: 44px;
+}
+
+@media (max-width: 420px) {
+  .word-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .chevron {
+  .fill {
     transition: none;
   }
 }

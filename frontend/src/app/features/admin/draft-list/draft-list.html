@@ -58,6 +58,10 @@
             </div>
           }
 
+          @if (d.images?.enabled) {
+            <p class="field-hint images-note">Sẽ sinh ảnh cho từ vựng sau khi lưu.</p>
+          }
+
           @if (d.error; as message) {
             <p class="form-alert" role="alert">{{ message }}</p>
           }

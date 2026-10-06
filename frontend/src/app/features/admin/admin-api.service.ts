@@ -10,9 +10,11 @@ import {
   ExtrasInput,
   TranslationInput,
   FlagArea,
+  ImageSettingsInput,
   JobKind,
   Lesson,
   LessonFilter,
+  LessonImages,
   LessonInput,
   LessonSummary,
 } from '../../core/models/lesson';
@@ -67,6 +69,28 @@ export class AdminApiService {
   /** Replaces the practice's translation sentences (the full list); 409 no_practice / practice_running / practice_changed. */
   updateTranslations(id: string, translations: TranslationInput[]): Observable<Lesson> {
     return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/practice/translations`, { translations }));
+  }
+
+  /** F23: the picture settings of a lesson and how many of its words have a picture. */
+  lessonImages(id: string): Observable<LessonImages> {
+    return this.http.get<LessonImages>(`${BASE}/lessons/${id}/images`);
+  }
+
+  /** F23: turns the word pictures on (drawing the words that have none) or off. */
+  setLessonImages(id: string, input: ImageSettingsInput): Observable<LessonImages> {
+    return this.http.put<LessonImages>(`${BASE}/lessons/${id}/images`, input);
+  }
+
+  /** F23: uploads the picture of one word (the file is the body); the server scales it down. */
+  uploadWordImage(id: string, lemma: string, file: Blob): Observable<LessonImages> {
+    return this.http.put<LessonImages>(`${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`, file, {
+      headers: { 'Content-Type': file.type || 'application/octet-stream' },
+    });
+  }
+
+  /** F23: removes the picture of one word. */
+  deleteWordImage(id: string, lemma: string): Observable<LessonImages> {
+    return this.http.delete<LessonImages>(`${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`);
   }
 
   /** Generates the practice again with one AI request (F17); 202 with the lesson. */

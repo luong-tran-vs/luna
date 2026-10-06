@@ -16,6 +16,8 @@ const (
 	TypeGrade Type = "grade"
 	// TypePractice writes the vocabulary practice of a lesson with one AI request (F17).
 	TypePractice Type = "practice"
+	// TypeImages draws a picture for each vocabulary word of a lesson that has none (F23).
+	TypeImages Type = "images"
 )
 
 // Status is the lifecycle state of a job.

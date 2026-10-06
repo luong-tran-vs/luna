@@ -66,21 +66,16 @@
         [class.playing]="current() === i"
         [attr.aria-current]="current() === i ? 'true' : null"
       >
-        <div class="turn-head">
-          <span class="speaker">{{ speaker(t.speaker) }}</span>
-          @if (canSpeak) {
-            <button
-              type="button"
-              class="icon-btn"
-              [attr.aria-label]="'Nghe lượt ' + (i + 1)"
-              (click)="playOne(i)"
-            >
-              <lu-icon name="volume" />
-            </button>
-          }
-        </div>
+        <span class="speaker">{{ speaker(t.speaker) }}</span>
         @if (canSpeak) {
-          <lu-waveform [text]="t.text" [progress]="progress(i)" />
+          <lu-audio-bar
+            [progress]="progress(i)"
+            [duration]="duration(i)"
+            [playing]="current() === i"
+            [playLabel]="'Nghe lượt ' + (i + 1)"
+            [stopLabel]="'Dừng lượt ' + (i + 1)"
+            (playPressed)="toggleOne(i)"
+          />
         }
         @if (isRevealed(i)) {
           <div class="lyrics" [id]="'turn-lyrics-' + i">

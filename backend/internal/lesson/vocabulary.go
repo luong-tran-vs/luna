@@ -15,6 +15,14 @@ type VocabItem struct {
 	IPA           string
 	SentenceIndex int
 	Sentence      string
+	// HasImage says the word has a picture (F23).
+	HasImage bool
+}
+
+// WithImages lets the reader serve word pictures (F23); without it no word has one.
+func (r *Reader) WithImages(images ImageRepository) *Reader {
+	r.images = images
+	return r
 }
 
 // Vocabulary lists the lesson's annotations, one item per base form in the order they first
@@ -28,29 +36,31 @@ func (r *Reader) Vocabulary(ctx context.Context, id string) (items []VocabItem, 
 	if l.AnnotationStatus != StatusDone || len(l.Annotations) == 0 {
 		return []VocabItem{}, false, nil
 	}
-
-	anns := slices.Clone(l.Annotations)
-	slices.SortStableFunc(anns, func(a, b Annotation) int { return a.SentenceIndex - b.SentenceIndex })
-	seen := map[string]bool{}
-	items = []VocabItem{}
-	for _, a := range anns {
-		lemma := normalize(a.Lemma)
-		if lemma == "" || seen[lemma] {
-			continue
+	var pictured []string
+	if r.images != nil {
+		if pictured, err = r.images.Lemmas(ctx, id); err != nil {
+			return nil, false, fmt.Errorf("lesson: image lemmas: %w", err)
 		}
-		seen[lemma] = true
-		item := VocabItem{Lemma: lemma, Text: a.Text, MeaningVi: a.MeaningVi, SentenceIndex: a.SentenceIndex}
-		if a.SentenceIndex >= 0 && a.SentenceIndex < len(l.Sentences) {
-			item.Sentence = l.Sentences[a.SentenceIndex].Text
-		}
-		e, ok, err := r.dict.Resolve(ctx, lemma)
+	}
+	items = vocabularyWords(l)
+	for i := range items {
+		item := &items[i]
+		e, ok, err := r.dict.Resolve(ctx, item.Lemma)
 		if err != nil {
-			return nil, false, fmt.Errorf("lesson: resolve %q: %w", lemma, err)
+			return nil, false, fmt.Errorf("lesson: resolve %q: %w", item.Lemma, err)
 		}
-		if ok && e.Word == lemma {
+		if ok && e.Word == item.Lemma {
 			item.IPA = e.IPA
 		}
-		items = append(items, item)
+		item.HasImage = slices.Contains(pictured, item.Lemma)
 	}
 	return items, true, nil
+}
+
+// Image returns the picture of one word of a lesson, or ErrImageNotFound.
+func (r *Reader) Image(ctx context.Context, id, lemma string) (WordImage, error) {
+	if r.images == nil {
+		return WordImage{}, ErrImageNotFound
+	}
+	return r.images.Get(ctx, id, normalize(lemma))
 }

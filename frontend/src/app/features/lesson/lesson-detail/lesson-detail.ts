@@ -247,10 +247,11 @@ export class LessonDetail {
   /** Tiếp theo is there, except on a lesson step still to do: that step has its own buttons. */
   protected readonly canGoOn = computed(() => !this.studyStep() || this.studyStepDone());
   protected readonly canGoBack = computed(() => this.step() > 1 || this.translateIndex() > 0);
-  /** The bar at the bottom, with Bước trước and Tiếp theo when they apply. */
+  /** The bar at the bottom, with Bước trước and Tiếp theo when they apply. The words card has its own. */
   protected readonly showBar = computed(
     () =>
       this.shownTab() === 'lesson' &&
+      this.current() !== 'words' &&
       !this.finished() &&
       !this.lessonDone() &&
       (this.canGoBack() || this.canGoOn()),

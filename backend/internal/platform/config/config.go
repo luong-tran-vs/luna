@@ -22,6 +22,8 @@ type Config struct {
 	AIProvider   string
 	GeminiAPIKey string
 	GeminiModel  string
+	// GeminiImageModel draws the vocabulary pictures (F23).
+	GeminiImageModel string
 
 	DictionaryPath string
 }
@@ -32,15 +34,16 @@ var logLevels = []string{"debug", "info", "warn", "error"}
 // It reports every problem at once and never includes variable values in errors.
 func Load(getenv func(string) string) (Config, error) {
 	cfg := Config{
-		DBDriver:       strings.ToLower(valueOr(getenv("DB_DRIVER"), "mongo")),
-		MongoURI:       strings.TrimSpace(getenv("MONGO_URI")),
-		MongoDatabase:  valueOr(getenv("MONGO_DATABASE"), "luna"),
-		HTTPAddr:       valueOr(getenv("HTTP_ADDR"), ":8080"),
-		LogLevel:       strings.ToLower(valueOr(getenv("LOG_LEVEL"), "info")),
-		AIProvider:     strings.ToLower(valueOr(getenv("AI_PROVIDER"), "gemini")),
-		GeminiAPIKey:   strings.TrimSpace(getenv("GEMINI_API_KEY")),
-		GeminiModel:    valueOr(getenv("GEMINI_MODEL"), "gemini-3.5-flash-lite"),
-		DictionaryPath: valueOr(getenv("DICTIONARY_PATH"), "./data/dictionary/dictionary.db"),
+		DBDriver:         strings.ToLower(valueOr(getenv("DB_DRIVER"), "mongo")),
+		MongoURI:         strings.TrimSpace(getenv("MONGO_URI")),
+		MongoDatabase:    valueOr(getenv("MONGO_DATABASE"), "luna"),
+		HTTPAddr:         valueOr(getenv("HTTP_ADDR"), ":8080"),
+		LogLevel:         strings.ToLower(valueOr(getenv("LOG_LEVEL"), "info")),
+		AIProvider:       strings.ToLower(valueOr(getenv("AI_PROVIDER"), "gemini")),
+		GeminiAPIKey:     strings.TrimSpace(getenv("GEMINI_API_KEY")),
+		GeminiModel:      valueOr(getenv("GEMINI_MODEL"), "gemini-3.5-flash-lite"),
+		GeminiImageModel: valueOr(getenv("GEMINI_IMAGE_MODEL"), "gemini-2.5-flash-image"),
+		DictionaryPath:   valueOr(getenv("DICTIONARY_PATH"), "./data/dictionary/dictionary.db"),
 	}
 
 	var errs []error
