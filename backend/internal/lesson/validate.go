@@ -30,6 +30,9 @@ type Input struct {
 	AppendToRoadmap bool
 	// Images are the word pictures of a new lesson (F23); nil leaves them off. Update ignores it.
 	Images *ImageInput
+	// TargetWords are the topic words a generated draft was asked to use (F18); at most
+	// maxTargetWords. Update ignores it.
+	TargetWords []string
 }
 
 // ValidateInput trims every field, checks limits and splits the content. It returns the
@@ -45,8 +48,12 @@ func ValidateInput(in Input) (Input, []string, error) {
 		KeepGrammarPoint: in.KeepGrammarPoint,
 		AppendToRoadmap:  in.AppendToRoadmap,
 		Images:           in.Images,
+		TargetWords:      cleanWordList(in.TargetWords),
 	}
 	fields := map[string]string{}
+	if len(in.TargetWords) > maxTargetWords {
+		fields["targetWords"] = fmt.Sprintf("Tối đa %d từ mục tiêu", maxTargetWords)
+	}
 
 	required(fields, "title", in.Title, "Vui lòng nhập tiêu đề", maxTitle)
 	required(fields, "source", in.Source, "Vui lòng nhập nguồn", maxSource)

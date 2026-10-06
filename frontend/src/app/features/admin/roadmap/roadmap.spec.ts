@@ -509,6 +509,12 @@ describe('Roadmap', () => {
       const drafts = Array.from(el.querySelectorAll('lu-draft-list li.draft'));
       expect(text(drafts[0].querySelector('.targets-used'))).toBe('Dùng 1/1 từ mục tiêu');
       expect(text(drafts[1].querySelector('.targets-missing'))).toBe('Còn thiếu: Parents');
+
+      // The target words go with the saved lesson: they become its whole vocabulary.
+      el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
+      await settle();
+      const save = http.expectOne('/api/admin/lessons');
+      expect(save.request.body.targetWords).toEqual(['Family']);
     });
 
     it('still opens the dialog, without target words, when the topic words fail to load', async () => {

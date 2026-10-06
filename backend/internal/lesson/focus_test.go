@@ -1,6 +1,7 @@
 package lesson
 
 import (
+	"fmt"
 	"slices"
 	"testing"
 
@@ -87,5 +88,81 @@ func TestProcessAnnotateWithoutTopicWords(t *testing.T) {
 	}
 	if len(e.ai.annotateReq.FocusWords) != 0 || e.ai.annotateReq.Level != "B1" || len(e.ai.annotateReq.Sentences) != 3 {
 		t.Fatalf("request = %+v", e.ai.annotateReq)
+	}
+}
+
+func TestCleanWordList(t *testing.T) {
+	t.Parallel()
+	got := cleanWordList([]string{" park ", "", "Park", "give  up", "family"})
+	if want := []string{"park", "give up", "family"}; !slices.Equal(got, want) {
+		t.Fatalf("words = %q", got)
+	}
+}
+
+// A lesson generated with 2 target words gets exactly those 2 as vocabulary, even when the AI
+// adds others and the content holds more topic words (F18).
+func TestProcessAnnotateTargetWords(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	e.svc.Dict = focusDict
+	e.topics.mu.Lock()
+	b1 := e.topics.topics["topic-b1"]
+	b1.Words = []string{"park", "Family", "give up"}
+	e.topics.topics["topic-b1"] = b1
+	e.topics.mu.Unlock()
+	l := e.create(t, func(in *Input) {
+		in.Content = "We went to the park with my family. He gave up smoking."
+		in.TargetWords = []string{"family", "give up"}
+	})
+	if !slices.Equal(l.TargetWords, []string{"family", "give up"}) {
+		t.Fatalf("stored targets = %q", l.TargetWords)
+	}
+	e.ai.result = []ai.Annotation{
+		{Text: "gave up", Lemma: "give up", MeaningVi: "đã bỏ", SentenceIndex: 1},
+		{Text: "smoking", Lemma: "smoke", MeaningVi: "hút thuốc", SentenceIndex: 1},
+		{Text: "park", Lemma: "park", MeaningVi: "công viên", SentenceIndex: 0},
+	}
+
+	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(l, job.TypeAnnotate)); err != nil {
+		t.Fatal(err)
+	}
+	req := e.ai.annotateReq
+	if !req.OnlyFocus || !slices.Equal(req.FocusWords, []string{"family", "give up"}) {
+		t.Fatalf("request = %+v", req)
+	}
+	got, _ := e.lessons.Get(t.Context(), l.ID)
+	var texts []string
+	for _, a := range got.Annotations {
+		texts = append(texts, a.Text)
+	}
+	if want := []string{"gave up", "family"}; !slices.Equal(texts, want) {
+		t.Fatalf("annotations = %q", texts)
+	}
+}
+
+// Target words no longer in the content (it was rewritten) fall back to the topic's words.
+func TestProcessAnnotateTargetWordsGone(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	e.svc.Dict = focusDict
+	l := e.create(t, func(in *Input) { in.TargetWords = []string{"cousin"} })
+	e.ai.result = []ai.Annotation{{Text: "gave up", Lemma: "give up", MeaningVi: "đã bỏ", SentenceIndex: 1}}
+	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(l, job.TypeAnnotate)); err != nil {
+		t.Fatal(err)
+	}
+	if e.ai.annotateReq.OnlyFocus {
+		t.Fatalf("request = %+v", e.ai.annotateReq)
+	}
+}
+
+func TestValidateInputTargetWords(t *testing.T) {
+	t.Parallel()
+	in := Input{Title: "T", Content: "Hello there.", TopicID: "x", Source: "s", License: "l",
+		TargetWords: make([]string, 0, maxTargetWords+1)}
+	for i := range maxTargetWords + 1 {
+		in.TargetWords = append(in.TargetWords, fmt.Sprintf("word%d", i))
+	}
+	if _, _, err := ValidateInput(in); err == nil {
+		t.Fatal("want error for too many target words")
 	}
 }

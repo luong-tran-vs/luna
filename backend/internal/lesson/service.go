@@ -33,6 +33,8 @@ type Deps struct {
 	ImageStore ImageRepository
 	// ImageAI draws the word pictures; nil fails every drawing.
 	ImageAI ai.ImageProvider
+	// FetchImage downloads a picture from a link an admin pasted (NewImageFetcher); nil turns links off.
+	FetchImage ImageFetcher
 }
 
 // Service implements lesson management and the background work on lessons.
@@ -73,7 +75,7 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	now := s.Now()
 	l, err := s.Lessons.Create(ctx, Lesson{
 		Title: in.Title, Content: in.Content, Level: topic.Level, TopicID: topic.ID,
-		Source: in.Source, License: in.License, GrammarPointID: in.GrammarPointID,
+		Source: in.Source, License: in.License, GrammarPointID: in.GrammarPointID, TargetWords: in.TargetWords,
 		Revision:         1,
 		Sentences:        toSentences(sentences),
 		AnnotationStatus: StatusRunning,
@@ -370,12 +372,17 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	if !ok {
 		return err
 	}
-	focus, err := s.topicFocus(ctx, l)
-	if err != nil {
-		return err
+	// A lesson generated around target words teaches exactly those found in it; when none is
+	// (the content was rewritten), it is annotated like any other lesson of its topic.
+	focus, only := focusWords(l.Content, l.TargetWords), true
+	if len(focus) == 0 {
+		if focus, err = s.topicFocus(ctx, l); err != nil {
+			return err
+		}
+		only = false
 	}
 	res, err := s.AI.Annotate(ctx, ai.AnnotateRequest{Sentences: sentenceTexts(l.Sentences), Level: string(l.Level), FocusWords: focus,
-		GrammarFocus: grammarFocus(l.GrammarPointID)})
+		OnlyFocus: only, GrammarFocus: grammarFocus(l.GrammarPointID)})
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) {
 			return job.Permanent(err)
@@ -383,6 +390,11 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 		return err
 	}
 	anns, err := CleanAnnotations(res.Annotations, sentenceTexts(l.Sentences))
+	if only {
+		// The AI may still add words of its own, or give nothing usable: keep only the targets
+		// and fill the gaps from the dictionary.
+		anns, err = onlyFocus(anns, focus), nil
+	}
 	if err != nil {
 		return err
 	}

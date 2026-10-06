@@ -385,6 +385,7 @@ export class Roadmap implements CanLeave {
           license: AI_LICENSE,
           appendToRoadmap: true,
           grammarPointId: draft.grammarPointId ?? '',
+          ...(draft.targetWords.length > 0 ? { targetWords: draft.targetWords } : {}),
           ...(draft.images ? { images: draft.images } : {}),
         }),
       );

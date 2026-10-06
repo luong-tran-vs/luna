@@ -27,6 +27,7 @@ func (c *Container) initLesson() {
 		// Word pictures (F23).
 		ImageStore: c.store.WordImages(),
 		ImageAI:    c.imageAI,
+		FetchImage: lesson.NewImageFetcher(),
 	})
 }
 

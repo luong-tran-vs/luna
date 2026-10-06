@@ -389,13 +389,10 @@ func grammarWords(level string) int {
 
 func annotatePrompt(req ai.AnnotateRequest) string {
 	var b strings.Builder
-	lo, hi := annotationRange(req.Level)
 	fmt.Fprintf(&b, `You help Vietnamese learners of English at CEFR level %[1]s.
 Read the numbered lesson sentences below and return a JSON object with:
 
-1. annotations: pick %[2]d to %[3]d words or phrases worth learning at this level
-(phrasal verbs, collocations and idioms count as one item, e.g. "give up").
-Skip very basic words a learner at this level already knows (for example "hello", "family", "school").
+1. annotations: %[2]s
 For each item return:
 - text: copied exactly as it appears in the sentence (same spelling and inflection),
 - lemma: the dictionary form (e.g. "went" -> "go", "gave up" -> "give up"),
@@ -412,12 +409,13 @@ where). At least one must ask what a word or phrase of the lesson means as used 
 simple inference or a reason (why, how, or what you can tell about a person). explanationVi must say why
 the answer is right; you may quote the sentence but you must add the reason.
 
-%[5]s
+%[3]s
 4. writingPrompt: one short English writing task related to the lesson, suitable for CEFR %[1]s.
 Do not say how many sentences or words to write: the app shows the length separately.
 
-`, req.Level, lo, hi, grammarWords(req.Level), grammarSection(req))
-	if len(req.FocusWords) > 0 {
+`, req.Level, annotationsTask(req), grammarSection(req))
+	if len(req.FocusWords) > 0 && !req.OnlyFocus {
+		_, hi := annotationRange(req.Level)
 		fmt.Fprintf(&b, "Always include each of these topic words or phrases as annotations, with text copied exactly "+
 			"as it appears in the sentence; they count toward the %d items: %s\n\n", hi, strings.Join(req.FocusWords, ", "))
 	}
@@ -426,6 +424,19 @@ Do not say how many sentences or words to write: the app shows the length separa
 		fmt.Fprintf(&b, "%d: %s\n", i, s)
 	}
 	return b.String()
+}
+
+// annotationsTask is item 1 of the annotate prompt: how many words to pick, or, for a lesson
+// generated around target words (F18), exactly those words and nothing else.
+func annotationsTask(req ai.AnnotateRequest) string {
+	if req.OnlyFocus && len(req.FocusWords) > 0 {
+		return fmt.Sprintf(`annotate exactly these %d words or phrases and nothing else, once each, in the
+first sentence that contains them: %s.`, len(req.FocusWords), strings.Join(req.FocusWords, ", "))
+	}
+	lo, hi := annotationRange(req.Level)
+	return fmt.Sprintf(`pick %d to %d words or phrases worth learning at this level
+(phrasal verbs, collocations and idioms count as one item, e.g. "give up").
+Skip very basic words a learner at this level already knows (for example "hello", "family", "school").`, lo, hi)
 }
 
 // grammarSection is item 3 of the annotate prompt. With a syllabus point it must teach exactly

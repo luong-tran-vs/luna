@@ -125,9 +125,13 @@
   color: var(--color-text-muted);
 }
 
-/* The whole row opens the lesson's detail page. */
+/* The whole card opens the lesson's detail page: the link, not the card, holds the padding, so
+   its hover background fills the card whatever the border. */
+.link-card {
+  padding: 0;
+}
+
 .row-link {
-  margin: calc(-1 * var(--space-4));
   padding: var(--space-4);
   color: var(--color-text);
   text-decoration: none;
@@ -140,10 +144,6 @@
 
 .today.has-lesson .row-link:hover {
   background: color-mix(in srgb, var(--color-primary) 12%, var(--color-primary-soft));
-}
-
-.today .row-link {
-  margin-bottom: 0;
 }
 
 .chevron {

@@ -202,7 +202,7 @@ func TestImagesDrawnAfterAnnotation(t *testing.T) {
 		t.Fatalf("image = %+v, %v", img.MIME, err)
 	}
 	cfg, err := jpeg.DecodeConfig(bytes.NewReader(img.Data))
-	if err != nil || cfg.Width != imageSide || cfg.Height != 384 {
+	if err != nil || cfg.Width != imageSide || cfg.Height != 288 {
 		t.Fatalf("stored picture %dx%d, %v", cfg.Width, cfg.Height, err)
 	}
 	if set, _ := e.store.Settings(t.Context(), l.ID); set.Status != StatusDone {
@@ -400,7 +400,7 @@ func TestUploadImageResizesAndReplaces(t *testing.T) {
 		t.Fatalf("image = %s, %v", img.MIME, err)
 	}
 	cfg, err := jpeg.DecodeConfig(bytes.NewReader(img.Data))
-	if err != nil || cfg.Width != imageSide || cfg.Height != 240 {
+	if err != nil || cfg.Width != imageSide || cfg.Height != 180 {
 		t.Fatalf("stored %dx%d, %v", cfg.Width, cfg.Height, err)
 	}
 

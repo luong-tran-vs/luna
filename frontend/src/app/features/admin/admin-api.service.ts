@@ -88,6 +88,11 @@ export class AdminApiService {
     });
   }
 
+  /** F23: the server downloads the picture behind a link and stores it for one word. */
+  importWordImage(id: string, lemma: string, url: string): Observable<LessonImages> {
+    return this.http.post<LessonImages>(`${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}/import`, { url });
+  }
+
   /** F23: removes the picture of one word. */
   deleteWordImage(id: string, lemma: string): Observable<LessonImages> {
     return this.http.delete<LessonImages>(`${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`);

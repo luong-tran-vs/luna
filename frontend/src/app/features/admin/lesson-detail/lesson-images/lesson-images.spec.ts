@@ -123,6 +123,75 @@ describe('LessonImages', () => {
       );
     });
 
+    describe('from a link', () => {
+      const openLink = async (row: Element) => {
+        row.querySelector<HTMLButtonElement>('.link-btn')!.click();
+        await fixture.whenStable();
+      };
+      const submitLink = async (row: Element, value: string) => {
+        const input = row.querySelector<HTMLInputElement>('.link-form input')!;
+        input.value = value;
+        row.querySelector<HTMLButtonElement>('.link-form button[type="submit"]')!.click();
+        await fixture.whenStable();
+      };
+
+      it('opens one link field at a time', async () => {
+        await open(base);
+        expect(el.querySelector('.link-form')).toBeNull();
+        await openLink(rows()[0]);
+        expect(rows()[0].querySelector('.link-form')).not.toBeNull();
+        expect(rows()[0].querySelector('.link-btn')!.getAttribute('aria-expanded')).toBe('true');
+        await openLink(rows()[1]);
+        expect(rows()[0].querySelector('.link-form')).toBeNull();
+        expect(rows()[1].querySelector('.link-form')).not.toBeNull();
+      });
+
+      it('sends the link to the server, which fetches the picture', async () => {
+        await open(base);
+        await openLink(rows()[0]);
+        await submitLink(rows()[0], '  https://example.com/cup.jpg ');
+        const req = http.expectOne('/api/admin/lessons/l1/images/coffee/import');
+        expect(req.request.method).toBe('POST');
+        expect(req.request.body).toEqual({ url: 'https://example.com/cup.jpg' });
+        req.flush({
+          ...base,
+          count: 2,
+          words: [{ ...words[0], imageUrl: '/api/admin/lessons/l1/images/coffee' }, words[1]],
+        });
+        await settle();
+        expect(rows()[0].querySelector('img')).not.toBeNull();
+        expect(rows()[0].querySelector('.link-form')).toBeNull();
+        expect(text('.word [role="status"]')).toBe('Đã lấy ảnh từ link.');
+      });
+
+      it('refuses what is not a link, and shows why the server could not use one', async () => {
+        await open(base);
+        await openLink(rows()[0]);
+        await submitLink(rows()[0], 'cup.jpg');
+        expect(text('.word [role="alert"]')).toBe(
+          'Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://',
+        );
+
+        await submitLink(rows()[0], 'https://example.com/page');
+        http
+          .expectOne('/api/admin/lessons/l1/images/coffee/import')
+          .flush(
+            {
+              fields: {
+                url: 'Link này không phải ảnh JPEG, PNG hoặc GIF. Hãy dùng link trỏ thẳng tới file ảnh.',
+              },
+            },
+            { status: 400, statusText: 'Bad Request' },
+          );
+        await settle();
+        expect(text('.word [role="alert"]')).toBe(
+          'Link này không phải ảnh JPEG, PNG hoặc GIF. Hãy dùng link trỏ thẳng tới file ảnh.',
+        );
+        // The field stays open to try another link.
+        expect(rows()[0].querySelector('.link-form')).not.toBeNull();
+      });
+    });
+
     it('removes a picture', async () => {
       await open(base);
       rows()[1].querySelector<HTMLButtonElement>('.remove-btn')!.click();

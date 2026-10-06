@@ -92,6 +92,23 @@ func (h *Handler) uploadImage(w http.ResponseWriter, r *http.Request) {
 	h.writeImageState(w, r, id)
 }
 
+// importImage serves POST /api/admin/lessons/{id}/images/{lemma}/import with {"url": "..."}: the
+// server downloads the picture behind the link and stores it like an uploaded one.
+func (h *Handler) importImage(w http.ResponseWriter, r *http.Request) {
+	var in struct {
+		URL string `json:"url"`
+	}
+	if httpx.DecodeJSON(w, r, &in) != nil {
+		return
+	}
+	id := r.PathValue("id")
+	if err := h.svc.ImportImage(r.Context(), id, r.PathValue("lemma"), in.URL); err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	h.writeImageState(w, r, id)
+}
+
 // deleteImage serves DELETE /api/admin/lessons/{id}/images/{lemma}.
 func (h *Handler) deleteImage(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")

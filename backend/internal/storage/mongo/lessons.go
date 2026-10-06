@@ -81,6 +81,7 @@ type lessonDoc struct {
 	Source           string          `bson:"source"`
 	License          string          `bson:"license"`
 	GrammarPointID   string          `bson:"grammarPointId,omitempty"`
+	TargetWords      []string        `bson:"targetWords,omitempty"`
 	Revision         int             `bson:"revision"`
 	Sentences        []sentenceDoc   `bson:"sentences"`
 	AnnotationStatus string          `bson:"annotationStatus"`
@@ -104,6 +105,7 @@ func fromLesson(l lesson.Lesson) lessonDoc {
 	d := lessonDoc{
 		Title: l.Title, Content: l.Content, Level: string(l.Level), TopicID: oidOrZero(l.TopicID),
 		Source: l.Source, License: l.License, GrammarPointID: l.GrammarPointID, Revision: l.Revision,
+		TargetWords:      l.TargetWords,
 		Sentences:        make([]sentenceDoc, len(l.Sentences)),
 		AnnotationStatus: string(l.AnnotationStatus), AnnotationError: l.AnnotationError,
 		Annotations: fromAnnotations(l.Annotations),
@@ -128,6 +130,7 @@ func (d lessonDoc) toLesson() lesson.Lesson {
 	l := lesson.Lesson{
 		ID: d.ID.Hex(), Title: d.Title, Content: d.Content, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
 		Source: d.Source, License: d.License, GrammarPointID: d.GrammarPointID, Revision: d.Revision,
+		TargetWords:      d.TargetWords,
 		Sentences:        make([]lesson.Sentence, len(d.Sentences)),
 		AnnotationStatus: lesson.Status(d.AnnotationStatus), AnnotationError: d.AnnotationError,
 		Annotations: make([]lesson.Annotation, len(d.Annotations)),

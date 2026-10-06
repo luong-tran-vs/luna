@@ -40,6 +40,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/lessons/{id}/images/{lemma}", admin(h.adminImage))
 	mux.Handle("PUT /api/admin/lessons/{id}/images/{lemma}", admin(h.uploadImage))
 	mux.Handle("DELETE /api/admin/lessons/{id}/images/{lemma}", admin(h.deleteImage))
+	mux.Handle("POST /api/admin/lessons/{id}/images/{lemma}/import", admin(h.importImage))
 	mux.Handle("POST /api/admin/lessons/{id}/check", admin(h.check))
 	mux.Handle("POST /api/admin/lessons/{id}/check/confirm", admin(h.confirmFlag))
 	mux.Handle("POST /api/admin/lessons/{id}/check/verify", admin(h.verify))
@@ -208,6 +209,8 @@ type inputJSON struct {
 	AppendToRoadmap bool    `json:"appendToRoadmap"`
 	// Images turns on the word pictures of a new lesson (F23); omitted leaves them off.
 	Images *imageInputJSON `json:"images"`
+	// TargetWords are the topic words of a generated draft (F18); omitted means none.
+	TargetWords []string `json:"targetWords"`
 }
 
 type imageInputJSON struct {
@@ -219,6 +222,7 @@ func (in inputJSON) toInput() Input {
 	out := Input{
 		Title: in.Title, Content: in.Content, TopicID: in.TopicID, Source: in.Source, License: in.License,
 		AppendToRoadmap: in.AppendToRoadmap, KeepGrammarPoint: in.GrammarPointID == nil,
+		TargetWords: in.TargetWords,
 	}
 	if in.GrammarPointID != nil {
 		out.GrammarPointID = *in.GrammarPointID

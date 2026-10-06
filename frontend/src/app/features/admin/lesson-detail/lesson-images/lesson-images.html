@@ -105,6 +105,15 @@
                 {{ busyWord() === w.lemma ? 'Đang xử lý…' : w.imageUrl ? 'Đổi ảnh' : 'Tải ảnh lên'
                 }}<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
               </button>
+              <button
+                type="button"
+                class="btn link-btn"
+                [disabled]="busyWord() !== null"
+                [attr.aria-expanded]="linkFor() === w.lemma"
+                (click)="toggleLink(w)"
+              >
+                Dán link ảnh<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
+              </button>
               @if (w.imageUrl) {
                 <button
                   type="button"
@@ -117,6 +126,25 @@
                 </button>
               }
             </div>
+            @if (linkFor() === w.lemma) {
+              <form class="link-form" (submit)="$event.preventDefault(); importLink(w, link)">
+                <label class="visually-hidden" [for]="'image-link-' + w.lemma"
+                  >Link ảnh cho từ {{ w.lemma }}</label
+                >
+                <input
+                  #link
+                  type="url"
+                  inputmode="url"
+                  autocomplete="off"
+                  placeholder="https://…/anh.jpg"
+                  [id]="'image-link-' + w.lemma"
+                  [disabled]="busyWord() !== null"
+                />
+                <button type="submit" class="btn" [disabled]="busyWord() !== null">
+                  {{ busyWord() === w.lemma ? 'Đang lấy…' : 'Lấy ảnh' }}
+                </button>
+              </form>
+            }
             @if (wordNote(); as n) {
               @if (n.lemma === w.lemma) {
                 <p

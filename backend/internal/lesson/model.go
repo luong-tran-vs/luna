@@ -57,7 +57,10 @@ type Lesson struct {
 	Source  string
 	License string
 	// GrammarPointID is the syllabus point the lesson teaches, "" when none is assigned.
-	GrammarPointID   string
+	GrammarPointID string
+	// TargetWords are the topic words the lesson was generated to teach (F18), set when it is
+	// created. While some of them are in the content, they are the lesson's whole vocabulary.
+	TargetWords      []string
 	Revision         int
 	Sentences        []Sentence
 	AnnotationStatus Status

@@ -35,7 +35,7 @@
         <h2 class="visually-hidden" id="completed-heading">Đã học</h2>
         <ul class="list">
           @for (l of completed(); track l.id; let i = $index) {
-            <li class="soft-card item">
+            <li class="soft-card item link-card">
               <a class="row row-link" [routerLink]="['/lessons', l.id]">
                 <span class="num done-num" aria-hidden="true">{{ i + 1 }}</span>
                 <span class="item-body">
@@ -52,7 +52,7 @@
     }
 
     @if (d.current; as c) {
-      <section class="soft-card today has-lesson" aria-labelledby="current-heading">
+      <section class="soft-card today has-lesson link-card" aria-labelledby="current-heading">
         <h2 class="visually-hidden" id="current-heading">Đang học</h2>
         <a class="row row-link" [routerLink]="['/lessons', c.id]">
           <span class="num current-num" aria-hidden="true">{{ currentNumber() }}</span>

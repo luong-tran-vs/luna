@@ -168,3 +168,20 @@ func TestReviewPromptHidesTheKeysAndReportsOnlyWhatIsSure(t *testing.T) {
 		t.Errorf("empty prompt has null:\n%s", empty)
 	}
 }
+
+// A lesson generated around target words asks for exactly them, without the usual 6 to 12 (F18).
+func TestAnnotatePromptOnlyFocus(t *testing.T) {
+	t.Parallel()
+	req := ai.AnnotateRequest{Level: "A1", Sentences: []string{"My family went to the park."}, FocusWords: []string{"family", "park"}}
+	if p := annotatePrompt(req); !strings.Contains(p, "pick 6 to 12") || !strings.Contains(p, "Always include each of these topic words") {
+		t.Fatalf("topic focus prompt:\n%s", p)
+	}
+	req.OnlyFocus = true
+	p := annotatePrompt(req)
+	if !strings.Contains(p, "annotate exactly these 2 words or phrases and nothing else") || !strings.Contains(p, "family, park") {
+		t.Fatalf("only focus prompt:\n%s", p)
+	}
+	if strings.Contains(p, "pick 6 to 12") || strings.Contains(p, "Always include") {
+		t.Fatalf("only focus prompt keeps the usual count:\n%s", p)
+	}
+}

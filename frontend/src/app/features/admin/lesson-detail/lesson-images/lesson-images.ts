@@ -57,6 +57,8 @@ export class LessonImages {
   /** Changes after each upload so the browser shows the new picture under the same URL. */
   private readonly version = signal(Date.now());
   protected readonly accept = UPLOAD_TYPES.join(',');
+  /** The word whose "Dán link ảnh" field is open, or null; one at a time. */
+  protected readonly linkFor = signal<string | null>(null);
 
   protected readonly form = new FormGroup({
     enabled: new FormControl(false, { nonNullable: true }),
@@ -110,6 +112,33 @@ export class LessonImages {
     await this.changeImage(w, 'Đã tải ảnh lên.', () =>
       this.api.uploadWordImage(this.lessonId(), w.lemma, file),
     );
+  }
+
+  protected toggleLink(w: ImageWord): void {
+    this.linkFor.update((l) => (l === w.lemma ? null : w.lemma));
+    this.wordNote.set(null);
+  }
+
+  /** Lấy ảnh: the server downloads the picture behind the link, scales it down and stores it. */
+  protected async importLink(w: ImageWord, input: HTMLInputElement): Promise<void> {
+    const url = input.value.trim();
+    if (this.busyWord() !== null) {
+      return;
+    }
+    if (!/^https?:\/\/\S+$/i.test(url)) {
+      this.wordNote.set({
+        lemma: w.lemma,
+        text: 'Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://',
+        error: true,
+      });
+      return;
+    }
+    await this.changeImage(w, 'Đã lấy ảnh từ link.', () =>
+      this.api.importWordImage(this.lessonId(), w.lemma, url),
+    );
+    if (!this.wordNote()?.error) {
+      this.linkFor.set(null);
+    }
   }
 
   protected async remove(w: ImageWord): Promise<void> {
@@ -184,7 +213,7 @@ export class LessonImages {
 function messageOf(err: unknown): string | null {
   if (err instanceof ApiError && err.kind === 'http') {
     const body = err.body as { message?: unknown; fields?: Record<string, string> } | null;
-    const field = body?.fields?.['imageStyle'] ?? body?.fields?.['image'];
+    const field = body?.fields?.['imageStyle'] ?? body?.fields?.['image'] ?? body?.fields?.['url'];
     if (field) {
       return field;
     }

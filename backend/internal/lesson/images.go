@@ -25,8 +25,11 @@ const MaxImageStyle = 500
 // maxImagesPerJob bounds the pictures one job draws, so a long lesson cannot run up the bill.
 const maxImagesPerJob = 30
 
-// imageSide is the longest side of a stored picture, in pixels: enough for the word card.
-const imageSide = 480
+// imageSide is the longest side of a stored picture, in pixels: enough for the word card on a phone.
+const imageSide = 360
+
+// jpegQuality is the JPEG quality of a stored picture (1–100): small files, no visible loss at card size.
+const jpegQuality = 70
 
 // MaxUploadBytes is the largest picture an admin may upload for a word.
 const MaxUploadBytes = 5 << 20
@@ -397,7 +400,7 @@ func shrinkImage(data []byte) ([]byte, error) {
 		}
 	}
 	var out bytes.Buffer
-	if err := jpeg.Encode(&out, dst, &jpeg.Options{Quality: 80}); err != nil {
+	if err := jpeg.Encode(&out, dst, &jpeg.Options{Quality: jpegQuality}); err != nil {
 		return nil, fmt.Errorf("lesson: encode image: %w", err)
 	}
 	return out.Bytes(), nil

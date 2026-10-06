@@ -237,6 +237,9 @@ type AnnotateRequest struct {
 	Level     string
 	// FocusWords are topic words found in the lesson that must be annotated (F18); may be empty.
 	FocusWords []string
+	// OnlyFocus asks for the focus words and no other annotation: the lesson was generated to
+	// teach exactly them (F18).
+	OnlyFocus bool
 	// GrammarFocus is the grammar point the lesson must teach; nil lets the AI choose.
 	GrammarFocus *GrammarFocus
 }

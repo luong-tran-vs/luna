@@ -133,6 +133,8 @@ export interface LessonInput {
   appendToRoadmap?: boolean;
   /** F23: draw a picture for each vocabulary word of the new lesson, in this style. */
   images?: ImageSettingsInput;
+  /** F18: the topic words a generated draft was asked to use; they become the lesson's whole vocabulary. */
+  targetWords?: string[];
 }
 
 /** F23: whether the vocabulary words of a lesson get an AI-drawn picture, and in which style. */
