@@ -92,7 +92,73 @@ dialog[open]::backdrop {
   animation-timing-function: var(--ease-out);
 }
 
+/*
+ * Play buttons (SpeakButton, AudioBar): a spinning ring while the text waits for the natural
+ * voice, a stop square while it is read. It replaces the button's icon (lu-icon), or its whole
+ * label when it has none. What it replaces only turns transparent, so screen readers still read
+ * the button's name.
+ */
+.preparing {
+  cursor: progress;
+}
+
+:is(.preparing, .speaking):not(:has(lu-icon)),
+:is(.preparing, .speaking) lu-icon {
+  position: relative;
+}
+
+:is(.preparing, .speaking):not(:has(lu-icon)) {
+  -webkit-text-fill-color: transparent;
+}
+
+:is(.preparing, .speaking):not(:has(lu-icon)) > *,
+:is(.preparing, .speaking) lu-icon > * {
+  opacity: 0;
+}
+
+:is(.preparing, .speaking):not(:has(lu-icon))::after,
+:is(.preparing, .speaking) lu-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 1.1em;
+  height: 1.1em;
+  margin: auto;
+}
+
+:is(.preparing, .speaking) lu-icon::after {
+  width: 80%;
+  height: 80%;
+}
+
+.preparing:not(:has(lu-icon))::after,
+.preparing lu-icon::after {
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: lu-spin 0.8s linear infinite;
+}
+
+.speaking:not(:has(lu-icon))::after,
+.speaking lu-icon::after {
+  background: currentColor;
+  border-radius: 2px;
+  transform: scale(0.7);
+}
+
+@keyframes lu-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* The spinner keeps turning, slowly: it is the only sign that the audio is coming. */
+  .preparing:not(:has(lu-icon))::after,
+  .preparing lu-icon::after {
+    animation: lu-spin 2s linear infinite !important;
+  }
+
   *,
   *::before,
   *::after,

@@ -28,8 +28,9 @@ type Repository interface {
 	List(ctx context.Context, userID string) ([]Writing, error)
 	// Unseen counts the learner's new results and gradings in progress.
 	Unseen(ctx context.Context, userID string) (UnseenCount, error)
-	// Stats counts submitted writings and averages the graded ones (nil when none).
-	Stats(ctx context.Context, userID string) (submitted int, average *float64, err error)
+	// Stats counts the writings submitted at or after since (nil = all) and averages the graded
+	// ones among them (nil when none).
+	Stats(ctx context.Context, userID string, since *time.Time) (submitted int, average *float64, err error)
 }
 
 // Lessons gives lesson details (implemented over lesson.Repository in main).

@@ -86,7 +86,7 @@ type Writing struct {
 type LessonView struct {
 	Prompt string
 	Level  string
-	// CanWrite is true for today's lesson at the Write step.
+	// CanWrite is true for the lesson being studied while its Write step is not done.
 	CanWrite bool
 	Writing  *Writing
 }

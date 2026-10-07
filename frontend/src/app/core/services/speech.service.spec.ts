@@ -194,7 +194,9 @@ describe('SpeechService with the natural voice', () => {
   const voice = {
     ready: signal(true),
     enabled: signal(true),
+    exclusive: signal(false),
     cached: (text: string) => clips.get(text) ?? null,
+    request: vi.fn(),
     want: vi.fn(),
     prefetch: vi.fn(),
   };
@@ -212,6 +214,8 @@ describe('SpeechService with the natural voice', () => {
   beforeEach(() => {
     clips = new Map([['Hello.', { url: 'blob:hello', seconds: 2 }]]);
     voice.ready.set(true);
+    voice.exclusive.set(false);
+    voice.request.mockReset();
     voice.want.mockClear();
     voice.prefetch.mockClear();
     synth = { speak: vi.fn(), cancel: vi.fn(), getVoices: () => [] };
@@ -232,8 +236,10 @@ describe('SpeechService with the natural voice', () => {
     });
     const audio = FakeAudio.last;
     expect(audio.played).toEqual([{ src: 'blob:hello', rate: 0.75 }]);
+    expect(speech.playing()).toBe('Hello.');
     audio.onplaying!();
     audio.onended!();
+    expect(speech.playing()).toBeNull();
     // 2 s of audio at 0.75× lasts 2.67 s.
     expect(events).toEqual(['start', '1 2.67', 'end']);
     expect(synth.speak).not.toHaveBeenCalled();
@@ -241,8 +247,12 @@ describe('SpeechService with the natural voice', () => {
   });
 
   it('reads a text not generated yet with the browser voice at once, and asks for it', () => {
-    create().speak('Not yet.', 1);
+    const speech = create();
+    speech.speak('Not yet.', 1);
     expect((synth.speak.mock.calls.at(-1)![0] as FakeUtterance).text).toBe('Not yet.');
+    expect(speech.playing()).toBe('Not yet.');
+    speech.stop();
+    expect(speech.playing()).toBeNull();
     expect(voice.want).toHaveBeenCalledWith('Not yet.');
   });
 
@@ -254,6 +264,39 @@ describe('SpeechService with the natural voice', () => {
     FakeAudio.last.onended!();
     expect(ended).not.toHaveBeenCalled();
     expect(FakeAudio.last.paused).toBe(true);
+  });
+
+  it('with the browser voice off, waits for the text to be generated and plays it', async () => {
+    voice.exclusive.set(true);
+    let done!: (clip: Clip | null) => void;
+    voice.request.mockReturnValue(new Promise((resolve) => (done = resolve)));
+    const speech = create();
+    speech.speak(' Not yet. ', 1.25);
+    expect(voice.request).toHaveBeenCalledWith(' Not yet. ');
+    expect(speech.preparing()).toBe('Not yet.');
+    done({ url: 'blob:later', seconds: 1 });
+    await Promise.resolve();
+    expect(speech.preparing()).toBeNull();
+    expect(FakeAudio.last.played).toEqual([{ src: 'blob:later', rate: 1.25 }]);
+    expect(synth.speak).not.toHaveBeenCalled();
+  });
+
+  it('with the browser voice off, drops a text stopped while waiting and reports one that failed', async () => {
+    voice.exclusive.set(true);
+    const speech = create();
+    voice.request.mockResolvedValue({ url: 'blob:late', seconds: 1 });
+    speech.speak('Stopped.', 1);
+    speech.stop();
+    expect(speech.preparing()).toBeNull();
+    await Promise.resolve();
+    expect(FakeAudio.last.played).toEqual([]);
+
+    const failed = vi.fn();
+    voice.request.mockResolvedValue(null);
+    speech.speak('Failed.', 1, { failed });
+    await Promise.resolve();
+    expect(failed).toHaveBeenCalledWith('natural-voice');
+    expect(synth.speak).not.toHaveBeenCalled();
   });
 
   it('uses the browser voice while the model is not ready, and passes prefetches on', () => {

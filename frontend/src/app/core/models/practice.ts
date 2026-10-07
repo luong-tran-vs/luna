@@ -7,6 +7,8 @@ export type PracticeStatus = 'none' | 'running' | 'done' | 'failed';
 export interface PracticeExample {
   lemma: string;
   sentence: string;
+  /** The sentence in Vietnamese; empty for practice generated before it was asked for. */
+  meaningVi?: string;
 }
 
 export interface PracticeTurn {
@@ -69,7 +71,7 @@ export interface PracticeView {
 /** Practice content as admins see it (GET /api/admin/lessons/{id}). */
 export interface AdminPractice {
   objectiveVi: string;
-  examples: { lemma: string; sentence: string }[];
+  examples: PracticeExample[];
   dialogue: {
     speakers: string[];
     turns: { speaker: number; text: string; meaningVi: string }[];

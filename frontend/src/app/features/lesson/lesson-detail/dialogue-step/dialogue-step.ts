@@ -6,6 +6,7 @@ import {
   inject,
   input,
   model,
+  output,
   signal,
 } from '@angular/core';
 
@@ -15,19 +16,21 @@ import { Icon } from '../../../../shared/components/icon/icon';
 import { AudioBar } from '../../../../shared/components/audio-bar/audio-bar';
 import { estimateSeconds } from '../../../../shared/utils/fake-waveform';
 import { clock } from '../practice-logic';
+import { SpeakButton } from '../../../../shared/directives/speak-button';
 
 const SPEEDS = [0.75, 1, 1.25];
 
 type Mode = 'idle' | 'all' | 'one';
 
 /**
- * Step 2: the sample dialogue, read by the browser's voice. "Play all" reads the turns one after
- * another (a turn the browser fails to read is skipped); each turn can also be heard alone. The
+ * Step 2: the sample dialogue, read by the browser's voice, one turn on screen at a time with
+ * ← Lượt tiếp theo →. "Play all" reads the turns one after another, the screen following along
+ * (a turn the browser fails to read is skipped); each turn can also be heard alone. The
  * words start hidden so the learner listens first; each turn has a player bar filled as it is read.
  */
 @Component({
   selector: 'lu-dialogue-step',
-  imports: [Icon, AudioBar],
+  imports: [Icon, AudioBar, SpeakButton],
   templateUrl: './dialogue-step.html',
   styleUrls: ['../practice.css', './dialogue-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,10 +43,16 @@ export class DialogueStep {
   readonly dialogue = input.required<PracticeDialogue>();
   /** Reading speed, shared with the page. */
   readonly rate = model(1);
+  /** Hoàn thành on the last turn: go to the next step. */
+  readonly finished = output<void>();
 
   protected readonly canSpeak = this.speech.supported;
   protected readonly speeds = SPEEDS;
   protected readonly mode = signal<Mode>('idle');
+  /** Turn on screen: one at a time, as in the Listening step. */
+  protected readonly shown = signal(0);
+  protected readonly turn = computed(() => this.dialogue().turns[this.shown()] ?? null);
+  protected readonly isLast = computed(() => this.shown() >= this.dialogue().turns.length - 1);
   /** Turn being read, or null. */
   protected readonly current = signal<number | null>(null);
   protected readonly showMeaning = signal(true);
@@ -68,6 +77,17 @@ export class DialogueStep {
         this.speech.stop();
       }
     });
+  }
+
+  /** Shows the turn at index; a turn read alone stops when the learner moves on. */
+  protected show(index: number): void {
+    if (index < 0 || index >= this.dialogue().turns.length) {
+      return;
+    }
+    if (this.mode() === 'one') {
+      this.stop();
+    }
+    this.shown.set(index);
   }
 
   protected speaker(index: number): string {
@@ -172,6 +192,7 @@ export class DialogueStep {
       return;
     }
     this.current.set(index);
+    this.shown.set(index);
     this.now.set(0);
     this.share.set(0);
     this.speech.speak(turn.text, this.rate(), {

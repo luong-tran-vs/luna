@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 
 import { LookupResult } from '../../../core/models/reading';
+import { SpeakButton } from '../../directives/speak-button';
 
 export type PopupState =
   | { kind: 'loading' }
@@ -39,6 +40,7 @@ let nextId = 0;
 /** Popup content for a looked-up word or phrase. Positioning is done by the reading page. */
 @Component({
   selector: 'lu-word-popup',
+  imports: [SpeakButton],
   templateUrl: './word-popup.html',
   styleUrl: './word-popup.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -69,6 +71,8 @@ export class WordPopup {
     const s = this.state();
     return s.kind === 'result' ? s.result : null;
   });
+  /** What the play button reads: the dictionary form when found, else the selected text. */
+  protected readonly spoken = computed(() => this.result()?.lemma ?? this.text());
   protected readonly sourceLabel = computed(() => {
     const r = this.result();
     return r ? SOURCE_LABELS[r.source] : '';

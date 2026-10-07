@@ -45,7 +45,7 @@ func goodAIPractice() ai.Practice {
 	return ai.Practice{
 		ObjectiveVi: "  Bạn có thể   chào hỏi. ",
 		Examples: []ai.Example{
-			{Lemma: "meet", Sentence: "Nice to meet you."},
+			{Lemma: "meet", Sentence: "Nice to meet you.", MeaningVi: " Rất vui được gặp bạn. "},
 			{Lemma: "introduce", Sentence: "Let me introduce Anna."},
 			{Lemma: "friend", Sentence: "He is my best buddy."},    // no word: dropped
 			{Lemma: "meet", Sentence: "We meet every day."},        // duplicate lemma: dropped
@@ -81,7 +81,7 @@ func TestCleanPractice(t *testing.T) {
 	if p.ObjectiveVi != "Bạn có thể chào hỏi." {
 		t.Errorf("objective = %q", p.ObjectiveVi)
 	}
-	wantEx := []Example{{Lemma: "meet", Sentence: "Nice to meet you."}, {Lemma: "introduce", Sentence: "Let me introduce Anna."}}
+	wantEx := []Example{{Lemma: "meet", Sentence: "Nice to meet you.", MeaningVi: "Rất vui được gặp bạn."}, {Lemma: "introduce", Sentence: "Let me introduce Anna."}}
 	if !slices.Equal(p.Examples, wantEx) {
 		t.Errorf("examples = %+v", p.Examples)
 	}

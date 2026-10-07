@@ -67,12 +67,14 @@ func toDashboardJSON(v DashboardView) dashboardJSON {
 }
 
 type statsJSON struct {
-	Cards     int `json:"cards"`
+	Period    string `json:"period"`
+	Cards     int    `json:"cards"`
 	Dictation struct {
 		Sentences    int      `json:"sentences"`
 		CorrectWords int      `json:"correctWords"`
 		TotalWords   int      `json:"totalWords"`
 		Rate         *float64 `json:"rate"`
+		Lessons      int      `json:"lessons"`
 	} `json:"dictation"`
 	Lessons struct {
 		Read      int `json:"read"`
@@ -89,6 +91,9 @@ type statsJSON struct {
 		Submitted    int      `json:"submitted"`
 		AverageScore *float64 `json:"averageScore"`
 	} `json:"writing"`
+	Grammar struct {
+		Lessons int `json:"lessons"`
+	} `json:"grammar"`
 }
 
 // --- handlers ---
@@ -105,15 +110,16 @@ func (h *StudyHandler) dashboard(w http.ResponseWriter, r *http.Request) {
 
 func (h *StudyHandler) stats(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())
-	v, err := h.svc.Stats(r.Context(), p.UserID)
+	v, err := h.svc.Stats(r.Context(), p.UserID, Period(r.URL.Query().Get("period")))
 	if err != nil {
 		h.fail(w, r, err)
 		return
 	}
 	var out statsJSON
-	out.Cards = v.Cards
+	out.Period, out.Cards = string(v.Period), v.Cards
 	out.Dictation.Sentences, out.Dictation.CorrectWords, out.Dictation.TotalWords = v.Dictation.Sentences, v.Dictation.CorrectWords, v.Dictation.TotalWords
-	out.Dictation.Rate = v.Rate
+	out.Dictation.Rate, out.Dictation.Lessons = v.Rate, v.Dictation.Lessons
+	out.Grammar.Lessons = v.GrammarLessons
 	out.Lessons.Read, out.Lessons.Listen, out.Lessons.Completed = v.Lessons.Read, v.Lessons.Listen, v.Lessons.Completed
 	out.Reading.Answered, out.Reading.Correct, out.Reading.Rate = v.Reading.Answered, v.Reading.Correct, v.ReadingRate
 	out.Lessons.Write = v.Lessons.Write

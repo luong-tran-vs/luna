@@ -41,6 +41,8 @@ type DictationTotals struct {
 	Sentences    int
 	CorrectWords int
 	TotalWords   int
+	// Lessons counts the distinct lessons with at least one result.
+	Lessons int
 }
 
 // ErrLessonNotFound is returned when the lesson does not exist.

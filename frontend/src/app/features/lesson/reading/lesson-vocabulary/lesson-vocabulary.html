@@ -34,7 +34,7 @@
                   <p class="meaning">{{ item.meaningVi }}</p>
                 </div>
                 <div class="item-actions">
-                  <button type="button" class="btn listen" (click)="play(item)">
+                  <button type="button" class="btn listen" [luSpeak]="item.lemma" (click)="play(item)">
                     Nghe<span class="visually-hidden"> {{ item.lemma }}</span>
                   </button>
                   @if (isSaved(item)) {

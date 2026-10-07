@@ -3,16 +3,50 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { Stats as StatsData } from '../../core/models/dashboard';
+import { Dashboard, Stats as StatsData } from '../../core/models/dashboard';
 import { Stats } from './stats';
 
-const sample: StatsData = {
-  cards: 25,
-  dictation: { sentences: 40, correctWords: 328, totalWords: 400, rate: 0.82 },
-  lessons: { read: 6, listen: 5, write: 4, completed: 4 },
-  reading: { answered: 0, correct: 0, rate: null },
-  writing: { submitted: 4, averageScore: 3.75 },
+const allTime: StatsData = {
+  period: 'all',
+  cards: 120,
+  dictation: { sentences: 40, lessons: 5, correctWords: 328, totalWords: 400, rate: 0.82 },
+  lessons: { read: 12, listen: 5, write: 3, completed: 4 },
+  reading: { answered: 12, correct: 9, rate: 0.75 },
+  writing: { submitted: 3, averageScore: 3.75 },
+  grammar: { lessons: 8 },
 };
+
+const week: StatsData = {
+  period: 'week',
+  cards: 14,
+  dictation: { sentences: 6, lessons: 2, correctWords: 30, totalWords: 40, rate: 0.75 },
+  lessons: { read: 2, listen: 2, write: 1, completed: 1 },
+  reading: { answered: 0, correct: 0, rate: null },
+  writing: { submitted: 1, averageScore: null },
+  grammar: { lessons: 1 },
+};
+
+const dashboard = (over: Partial<Dashboard> = {}): Dashboard => ({
+  kind: 'studying',
+  goal: {
+    topicId: 't1',
+    topicName: 'Gia đình',
+    level: 'A1',
+    completedLessons: 7,
+    totalLessons: 20,
+    status: 'active',
+    effectiveFrom: '2026-09-01',
+  },
+  goalCompleted: false,
+  skills: null,
+  lesson: null,
+  steps: { read: 'done', listen: 'current', write: 'locked' },
+  currentStep: 'listen',
+  action: null,
+  streak: 9,
+  tomorrowCards: 0,
+  ...over,
+});
 
 describe('Stats', () => {
   let fixture: ComponentFixture<Stats>;
@@ -20,10 +54,22 @@ describe('Stats', () => {
   let el: HTMLElement;
 
   const text = (node: Element | null) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const tab = (label: string) =>
+    Array.from(el.querySelectorAll<HTMLButtonElement>('[role="tab"]')).find((b) => text(b) === label)!;
+  const counts = () =>
+    Array.from(el.querySelectorAll('.count')).map((c) =>
+      Array.from(c.children).map((part) => text(part)).filter(Boolean).join(' '),
+    );
 
-  const open = async () => {
+  /** Opens the page: every-day figures and the dashboard, then this week's figures. */
+  const open = async (weekly: StatsData = week, dash: Dashboard = dashboard()) => {
     fixture = TestBed.createComponent(Stats);
     el = fixture.nativeElement as HTMLElement;
+    await fixture.whenStable();
+    controller.expectOne((r) => r.url === '/api/stats' && !r.params.has('period')).flush(allTime);
+    controller.expectOne('/api/dashboard').flush(dash);
+    await fixture.whenStable();
+    controller.expectOne((r) => r.url === '/api/stats' && r.params.get('period') === 'week').flush(weekly);
     await fixture.whenStable();
   };
 
@@ -37,62 +83,81 @@ describe('Stats', () => {
 
   afterEach(() => controller.verify());
 
-  it('shows words, dictation and lessons', async () => {
+  it("opens on this week's figures by skill, next to the roadmap ring", async () => {
     await open();
-    controller.expectOne('/api/stats').flush(sample);
-    await fixture.whenStable();
-    const page = text(el);
-    expect(page).toContain('25 từ đã học');
-    expect(page).toContain('40 câu đã chép chính tả');
-    expect(text(el.querySelector('.rate'))).toBe('Tỷ lệ đúng 82%');
-    expect(page).toContain('Đọc: 6 bài');
-    expect(page).toContain('Nghe: 5 bài');
-    expect(page).toContain('Viết: 4 bài');
-    expect(page).toContain('Hoàn thành: 4 bài');
-    expect(Array.from(el.querySelectorAll('.writing dd')).map((d) => text(d))).toEqual(['4 bài viết', 'Điểm trung bình 3,8']);
-    expect(el.querySelector('a[href="/"]')).not.toBeNull();
+    expect(text(el.querySelector('h1'))).toBe('Lộ trình & Tiến độ');
+    expect(tab('Tuần').getAttribute('aria-selected')).toBe('true');
+    expect(counts()).toEqual([
+      'Từ vựng 14 từ',
+      'Ngữ pháp 1 bài',
+      'Luyện nghe 2 bài',
+      'Luyện nói —',
+      'Luyện đọc 2 bài',
+      'Luyện viết 1 bài',
+    ]);
+    expect(el.querySelector('lu-progress-ring')?.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('35');
+    expect(text(el.querySelector('.goal'))).toContain('7/20 bài · A1 Gia đình');
+    expect(text(el.querySelector('#skills-heading'))).toBe('Độ chính xác tuần này');
   });
 
-  it('shows zeros and "—" for a new learner', async () => {
+  it('asks for the month, and shows every day without asking again', async () => {
     await open();
-    controller.expectOne('/api/stats').flush({
-      cards: 0,
-      dictation: { sentences: 0, correctWords: 0, totalWords: 0, rate: null },
-      lessons: { read: 0, listen: 0, write: 0, completed: 0 },
-      writing: { submitted: 0, averageScore: null },
-      reading: { answered: 0, correct: 0, rate: null },
-    });
+    tab('Tháng').click();
     await fixture.whenStable();
-    expect(text(el)).toContain('0 từ đã học');
-    expect(text(el.querySelector('.rate'))).toBe('Tỷ lệ đúng —');
-    expect(text(el.querySelector('.reading .rate'))).toBe('Trả lời đúng —');
-    expect(text(el.querySelector('.writing .rate'))).toBe('Điểm trung bình —');
-    expect(text(el.querySelector('.reading'))).toContain('Trả lời câu hỏi ở bước Đọc để xem tỷ lệ.');
+    controller
+      .expectOne((r) => r.url === '/api/stats' && r.params.get('period') === 'month')
+      .flush({ ...week, period: 'month', cards: 50 });
+    await fixture.whenStable();
+    expect(counts()[0]).toBe('Từ vựng 50 từ');
+
+    tab('Tổng').click();
+    await fixture.whenStable();
+    controller.expectNone('/api/stats');
+    expect(counts()[0]).toBe('Từ vựng 120 từ');
+    expect(text(el.querySelector('#skills-heading'))).toBe('Độ chính xác từ trước tới nay');
   });
 
-  it('shows the comprehension rate (F15)', async () => {
+  it('moves between the periods with the arrow keys', async () => {
     await open();
-    controller.expectOne('/api/stats').flush({ ...sample, reading: { answered: 12, correct: 9, rate: 0.75 } });
+    tab('Tuần').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
     await fixture.whenStable();
-    expect(text(el.querySelector('.reading dt'))).toBe('Hiểu bài');
-    expect(text(el.querySelector('.reading .rate'))).toBe('Trả lời đúng 75% (12 câu)');
+    expect(tab('Tổng').getAttribute('aria-selected')).toBe('true');
+    expect(document.activeElement === tab('Tổng') || !el.isConnected).toBe(true);
   });
 
-  it('rounds the rate', async () => {
+  it('shows the badges earned from every-day figures and the streak', async () => {
     await open();
-    controller.expectOne('/api/stats').flush({ ...sample, dictation: { ...sample.dictation, rate: 2 / 3 } });
-    await fixture.whenStable();
-    expect(text(el.querySelector('.rate'))).toBe('Tỷ lệ đúng 67%');
+    expect(text(el.querySelector('.badges-head .muted'))).toBe('Đã đạt 3/6');
+    const earned = Array.from(el.querySelectorAll('.badge.earned .badge-label')).map((b) => text(b));
+    expect(earned).toEqual(['Học đều', 'Từ vựng', 'Luyện đọc']);
+    const listen = Array.from(el.querySelectorAll('.badge')).find((b) => text(b).startsWith('Luyện nghe'))!;
+    expect(text(listen)).toContain('Chưa đạt: Xong bước Nghe 10 bài (5/10)');
+  });
+
+  it('says when no roadmap is chosen, and "—" for figures an older server leaves out', async () => {
+    const noGrammar: StatsData = { ...week };
+    delete noGrammar.grammar;
+    await open({ ...noGrammar, dictation: { ...week.dictation, lessons: undefined } }, dashboard({ goal: null }));
+    expect(text(el.querySelector('.goal'))).toContain('Chưa chọn lộ trình');
+    expect(counts()[1]).toBe('Ngữ pháp —');
+    expect(counts()[2]).toBe('Luyện nghe 2 bài');
   });
 
   it('offers a retry when loading fails', async () => {
-    await open();
+    fixture = TestBed.createComponent(Stats);
+    el = fixture.nativeElement as HTMLElement;
+    await fixture.whenStable();
     controller.expectOne('/api/stats').flush('down', { status: 500, statusText: 'Error' });
+    controller.match('/api/dashboard');
     await fixture.whenStable();
-    expect(text(el.querySelector('[role="alert"] p'))).toBe('Không tải được thống kê.');
-    (el.querySelector('[role="alert"] button') as HTMLButtonElement).click();
-    controller.expectOne('/api/stats').flush(sample);
+    expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được thống kê.');
+    el.querySelector<HTMLButtonElement>('[role="alert"] button')!.click();
     await fixture.whenStable();
-    expect(text(el)).toContain('25 từ đã học');
+    controller.expectOne('/api/stats').flush(allTime);
+    controller.expectOne('/api/dashboard').flush(dashboard());
+    await fixture.whenStable();
+    controller.expectOne((r) => r.params.get('period') === 'week').flush(week);
+    await fixture.whenStable();
+    expect(counts()).toHaveLength(6);
   });
 });

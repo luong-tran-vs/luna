@@ -51,8 +51,11 @@ type LessonProgress struct {
 	LessonID string
 	TopicID  string
 	// DayKey is the day the lesson was started.
-	DayKey        string
-	Done          map[Step]bool
+	DayKey string
+	Done   map[Step]bool
+	// DoneAt is when each step was done. It is recorded since 2026-10-07: older progress has
+	// steps in Done without a time.
+	DoneAt        map[Step]time.Time
 	CurrentStep   Step
 	SentenceIndex int
 	StartedAt     time.Time
@@ -102,11 +105,10 @@ type TopicInfo struct {
 var (
 	ErrNoGoal           = errors.New("progress: no goal")
 	ErrTopicNotFound    = errors.New("progress: topic not found")
-	ErrStepLocked       = errors.New("progress: previous step not done")
 	ErrListenIncomplete = errors.New("progress: dictation not finished")
 	ErrReadIncomplete   = errors.New("progress: comprehension questions not answered")
 	ErrWriteIncomplete  = errors.New("progress: writing not submitted")
 	ErrNotCurrentLesson = errors.New("progress: not the lesson being studied")
-	ErrNotCurrentStep   = errors.New("progress: not the current step")
+	ErrNotCurrentStep   = errors.New("progress: step already done")
 	ErrLessonLocked     = errors.New("progress: lesson not open yet")
 )

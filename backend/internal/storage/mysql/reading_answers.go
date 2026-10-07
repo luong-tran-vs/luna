@@ -4,12 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/luongtran/luna/backend/internal/lesson"
 )
 
 // ReadingAnswers implements lesson.AnswerRepository on "reading_answers" (F15). The unique
-// (user_id, lesson_id, quiz_version, question_index) key makes each answer final.
+// (user_id, lesson_id, quiz_version, question_index) key keeps one answer per question: the latest.
 type ReadingAnswers struct {
 	db *sql.DB
 }
@@ -45,24 +46,25 @@ func scanReadingAnswer(s interface{ Scan(dest ...any) error }) (lesson.Answer, e
 	return a, nil
 }
 
-// Insert stores a new answer; a second answer to the same question returns the first one in
-// a *lesson.AlreadyAnsweredError.
-func (r *ReadingAnswers) Insert(ctx context.Context, a lesson.Answer) error {
-	_, err := r.db.ExecContext(ctx, "INSERT INTO reading_answers (id, "+readingAnswerCols+") VALUES (?,?,?,?,?,?,?,?)",
+// Upsert stores a, replacing the learner's earlier answer to the same question.
+func (r *ReadingAnswers) Upsert(ctx context.Context, a lesson.Answer) error {
+	_, err := r.db.ExecContext(ctx, "INSERT INTO reading_answers (id, "+readingAnswerCols+`) VALUES (?,?,?,?,?,?,?,?) AS new
+ON DUPLICATE KEY UPDATE choice = new.choice, correct = new.correct, answered_at = new.answered_at`,
 		newID(), a.UserID, a.LessonID, a.QuizVersion, a.QuestionIndex, a.Choice, a.Correct, utc(a.AnsweredAt))
-	switch {
-	case err == nil:
-		return nil
-	case !isDuplicate(err):
-		return fmt.Errorf("mysql insert reading answer: %w", err)
-	}
-	first, err := scanReadingAnswer(r.db.QueryRowContext(ctx,
-		"SELECT "+readingAnswerCols+" FROM reading_answers WHERE user_id = ? AND lesson_id = ? AND quiz_version = ? AND question_index = ?",
-		a.UserID, a.LessonID, a.QuizVersion, a.QuestionIndex))
 	if err != nil {
-		return fmt.Errorf("mysql find existing reading answer: %w", err)
+		return fmt.Errorf("mysql upsert reading answer: %w", err)
 	}
-	return &lesson.AlreadyAnsweredError{Answer: first}
+	return nil
+}
+
+// Delete removes a learner's answers to one question-set version of a lesson.
+func (r *ReadingAnswers) Delete(ctx context.Context, userID, lessonID string, version int) error {
+	_, err := r.db.ExecContext(ctx,
+		"DELETE FROM reading_answers WHERE user_id = ? AND lesson_id = ? AND quiz_version = ?", userID, lessonID, version)
+	if err != nil {
+		return fmt.Errorf("mysql delete reading answers: %w", err)
+	}
+	return nil
 }
 
 // List returns a learner's answers to one question-set version of a lesson, by question.
@@ -88,10 +90,12 @@ func (r *ReadingAnswers) List(ctx context.Context, userID, lessonID string, vers
 	return out, nil
 }
 
-// Totals counts every answer of the learner and the correct ones.
-func (r *ReadingAnswers) Totals(ctx context.Context, userID string) (answered, correct int, err error) {
+// Totals counts the learner's answers given at or after since (nil = all) and the correct ones.
+func (r *ReadingAnswers) Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error) {
+	where, params := sinceClause("answered_at", since)
 	err = r.db.QueryRowContext(ctx,
-		"SELECT COUNT(*), CAST(COALESCE(SUM(correct), 0) AS SIGNED) FROM reading_answers WHERE user_id = ?", userID).
+		"SELECT COUNT(*), CAST(COALESCE(SUM(correct), 0) AS SIGNED) FROM reading_answers WHERE user_id = ?"+where,
+		append([]any{userID}, params...)...).
 		Scan(&answered, &correct)
 	if err != nil {
 		return 0, 0, fmt.Errorf("mysql reading answer totals: %w", err)

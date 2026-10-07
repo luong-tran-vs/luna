@@ -34,6 +34,7 @@ const PATHS = {
   pause: 'M7 4h3v16H7zM14 4h3v16h-3z',
   grammar: 'M4 7V5h16v2M12 5v14M9 19h6',
   volume: 'M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19.5 5.5a9 9 0 0 1 0 13',
+  mic: 'M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8',
 } as const;
 
 export type IconName = keyof typeof PATHS;

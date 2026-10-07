@@ -1,4 +1,4 @@
-/* Client sketch, screen 10: accuracy ring, skill bars, then the figures in a grid. */
+/* Design screen 8: figures of a period next to the roadmap ring, accuracy bars, badges. */
 
 .home-link {
   flex: none;
@@ -11,20 +11,6 @@
   color: var(--color-text-muted);
 }
 
-.overview {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.ring {
-  --ring-size: 88px;
-}
-
-.overview-text {
-  display: grid;
-  gap: var(--space-1);
-}
 
 .skill-list {
   display: grid;
@@ -76,38 +62,152 @@
   font-variant-numeric: tabular-nums;
 }
 
-.figures {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2);
-  margin: 0;
-}
-
-.figure {
-  align-content: start;
-  gap: var(--space-1);
-}
-
-.lessons {
-  grid-column: 1 / -1;
-}
-
-.figure dt {
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
-}
-
-.figure dd {
-  margin: 0;
-  font: var(--text-base) var(--font-ui);
-}
-
-.rate {
-  font-weight: 600;
-}
 
 .form-alert {
   display: grid;
   gap: var(--space-2);
   justify-items: start;
+}
+
+/* Tuần · Tháng · Tổng as a segmented control. */
+.periods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.period {
+  min-height: 40px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.period[aria-selected='true'] {
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.summary-body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.goal {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  max-width: 120px;
+  text-align: center;
+}
+
+.ring {
+  --ring-size: 96px;
+}
+
+.goal-label {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.counts {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.count {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.count .icon-chip {
+  width: 28px;
+  height: 28px;
+
+  --icon-size: 16px;
+}
+
+.count-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.badges-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  text-align: center;
+}
+
+.badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+
+  --icon-size: 26px;
+}
+
+/* Earned: in color with a ring; not yet: grey (the hint also says it in words). */
+.badge.earned .badge-icon {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-soft);
+}
+
+.badge-label {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.badge-hint {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 380px) {
+  .summary-body {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .counts {
+    width: 100%;
+  }
 }

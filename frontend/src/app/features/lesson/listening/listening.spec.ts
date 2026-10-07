@@ -321,6 +321,37 @@ describe('Listening', () => {
       expect(text('.correct-sentence')).toContain("I don't like green apples.");
     });
 
+    it('says how the check went, whether it is saved, and offers the next sentence', async () => {
+      await setup();
+      await check('i dont like green apples');
+      expect(text('.verdict-label')).toBe('Gần đúng');
+      expect(el.querySelector('.result')!.classList.contains('result-close')).toBe(true);
+      expect(text('.save-status')).toBe('Đang lưu…');
+      expect(text('.announcement')).toBe('Gần đúng 4/5 từ đúng.');
+      expectPost().flush({ summary: summaryOf([result(0, 'x', 4, 5)]) });
+      await settle();
+      expect(text('.save-status')).toBe('✓ Đã lưu kết quả');
+
+      await check("I don't like green apples");
+      expect(text('.verdict-label')).toBe('Chính xác!');
+      expect(el.querySelector('.result')!.classList.contains('result-ok')).toBe(true);
+      expectPost().flush({ error: 'internal_error', message: 'x' }, { status: 500, statusText: 'Error' });
+      await settle();
+      expect(text('.save-status')).toBe('Chưa lưu được');
+
+      button('Câu tiếp theo')!.click();
+      await settle();
+      expect(text('.counter')).toBe('Câu 2/3');
+    });
+
+    it('marks a check with fewer than half the words right as wrong, and says review mode does not save', async () => {
+      await setup({ inputs: { mode: 'review' } });
+      await check('why');
+      expect(text('.verdict-label')).toBe('Chưa đúng');
+      expect(el.querySelector('.result')!.classList.contains('result-bad')).toBe(true);
+      expect(text('.save-status')).toBe('Xem lại · không lưu');
+    });
+
     it('replaces the result when checking again and keeps audio available', async () => {
       await setup();
       await check('i dont like green apples');
@@ -405,6 +436,78 @@ describe('Listening', () => {
       expectPost().flush({ summary: summaryOf([result(0, 'why', 0, 5)]) });
       await settle();
       expect(el.querySelector('.save-error')).toBeNull();
+    });
+  });
+
+  describe('doing it again', () => {
+    const expectDelete = (): TestRequest =>
+      http.expectOne((r) => r.url === '/api/lessons/l1/dictation' && r.method === 'DELETE');
+
+    it('Làm lại câu này clears the answer and reads the sentence again', async () => {
+      await setup();
+      await check('i dont like apples');
+      expectPost().flush({ summary: summaryOf([result(0, 'i dont like apples', 4, 5)]) });
+      await settle();
+      const spoken = speech.spoken.length;
+      button('Làm lại câu này')!.click();
+      await settle();
+      expect(input().value).toBe('');
+      expect(speech.spoken.length).toBe(spoken + 1);
+      expect(speech.last().text).toBe("I don't like green apples.");
+    });
+
+    it('Làm lại bước này forgets every result and starts again from sentence 1', async () => {
+      await setup({ summary: summaryOf([result(0, 'i dont like green apples', 4, 5), result(1, 'we went to the park at 9.30', 7, 7)]) });
+      expect(text('.counter')).toBe('Câu 3/3');
+      await check('why');
+      expectPost().flush({
+        summary: summaryOf([result(0, 'a', 4, 5), result(1, 'b', 7, 7), result(2, 'why', 1, 1)]),
+      });
+      await settle();
+      expect(completed).toBe(1);
+
+      button('Làm lại bước này')!.click();
+      await settle();
+      expectDelete().flush(null, { status: 204, statusText: 'No Content' });
+      await settle();
+      expect(text('.counter')).toBe('Câu 1/3');
+      expect(text('.checked-count')).toBe('Đã kiểm tra 0/3');
+      expect(el.querySelector('.result')).toBeNull();
+      expect(button('Làm lại bước này')).toBeUndefined();
+
+      // Done again: the step completes again.
+      for (const [i, typed] of ["I don't like green apples", 'We went to the park at 9.30', 'Why'].entries()) {
+        if (i > 0) {
+          button('Câu sau')!.click();
+          await settle();
+        }
+        await check(typed);
+        expectPost().flush({ summary: summaryOf([result(0, 'a', 5, 5)]) });
+        await settle();
+      }
+      expect(completed).toBe(2);
+    });
+
+    it('in review mode starts again without asking the server', async () => {
+      await setup({ inputs: { mode: 'review' } });
+      await check("I don't like green apples");
+      button('Làm lại bước này')!.click();
+      await settle();
+      http.expectNone((r) => r.url === '/api/lessons/l1/dictation');
+      expect(text('.checked-count')).toBe('Đã kiểm tra 0/3');
+    });
+
+    it('keeps the results when they cannot be forgotten', async () => {
+      await setup();
+      await check("I don't like green apples");
+      expectPost().flush({ summary: summaryOf([result(0, 'x', 5, 5)]) });
+      await settle();
+      button('Làm lại bước này')!.click();
+      await settle();
+      expectDelete().flush('down', { status: 500, statusText: 'Error' });
+      await settle();
+      expect(text('.listening-header [role="alert"]')).toBe('Chưa làm lại được, vui lòng thử lại.');
+      expect(text('.checked-count')).toBe('Đã kiểm tra 1/3');
     });
   });
 

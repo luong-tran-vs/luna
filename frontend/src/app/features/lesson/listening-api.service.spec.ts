@@ -37,4 +37,12 @@ describe('ListeningApiService', () => {
     req.flush({ summary });
     await expect(result).resolves.toEqual(summary);
   });
+
+  it('forgets the dictation results of a lesson', async () => {
+    const result = firstValueFrom(api.reset('l1'), { defaultValue: undefined });
+    const req = http.expectOne('/api/lessons/l1/dictation');
+    expect(req.request.method).toBe('DELETE');
+    req.flush(null, { status: 204, statusText: 'No Content' });
+    await expect(result).resolves.toBeNull();
+  });
 });

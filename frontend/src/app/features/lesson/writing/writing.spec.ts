@@ -96,9 +96,9 @@ describe('Writing', () => {
   it('shows the prompt, the suggested length and the word count', async () => {
     await setup(view({ writing: writing({ status: 'draft', text: 'My family', submittedAt: null, grade: null }) }));
     expect(text(el.querySelector('.prompt-text'))).toBe('Write about your family.');
-    expect(text(el.querySelector('.prompt'))).toContain('Gợi ý: 30–60 từ');
+    expect(text(el.querySelector('.step-card-head'))).toContain('Viết 30–60 từ');
     expect(textarea()!.value).toBe('My family');
-    expect(text(el.querySelector('#writing-count'))).toBe('2 từ · Bài viết cần ít nhất 5 từ.');
+    expect(text(el.querySelector('#writing-count'))).toBe('2/60 từ · Bài viết cần ít nhất 5 từ.');
     expect(button('Nộp')!.disabled).toBe(true);
   });
 

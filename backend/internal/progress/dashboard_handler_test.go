@@ -39,9 +39,9 @@ func TestStatsEndpoint(t *testing.T) {
 	mux, e := newStudyAPI(t)
 
 	r := do(t, mux, http.MethodGet, "/api/stats", "an", "")
-	want := `{"cards":0,"dictation":{"sentences":0,"correctWords":0,"totalWords":0,"rate":null},` +
+	want := `{"period":"all","cards":0,"dictation":{"sentences":0,"correctWords":0,"totalWords":0,"rate":null,"lessons":0},` +
 		`"lessons":{"read":0,"listen":0,"write":0,"completed":0},"reading":{"answered":0,"correct":0,"rate":null},` +
-		`"writing":{"submitted":0,"averageScore":null}}` + "\n"
+		`"writing":{"submitted":0,"averageScore":null},"grammar":{"lessons":0}}` + "\n"
 	if r.code != http.StatusOK || r.text != want {
 		t.Fatalf("new learner: %d %s", r.code, r.text)
 	}
@@ -49,10 +49,25 @@ func TestStatsEndpoint(t *testing.T) {
 	if _, err := e.dictation.Record(t.Context(), "u1", "f1", Input{SentenceIndex: 0, Typed: "x", CorrectWords: 4, TotalWords: 5}); err != nil {
 		t.Fatal(err)
 	}
+	e.grammar.mastered = 2
 	b := body(t, do(t, mux, http.MethodGet, "/api/stats", "an", ""))
 	d, _ := b["dictation"].(map[string]any)
-	if d["sentences"] != 1.0 || d["rate"] != 0.8 {
+	g, _ := b["grammar"].(map[string]any)
+	if b["period"] != "all" || d["sentences"] != 1.0 || d["rate"] != 0.8 || d["lessons"] != 1.0 || g["lessons"] != 2.0 {
 		t.Fatalf("stats: %v", b)
+	}
+
+	for _, p := range []string{"week", "month", "all"} {
+		b := body(t, do(t, mux, http.MethodGet, "/api/stats?period="+p, "an", ""))
+		if b["period"] != p {
+			t.Fatalf("period %s: %v", p, b)
+		}
+	}
+	r = do(t, mux, http.MethodGet, "/api/stats?period=year", "an", "")
+	b = body(t, r)
+	fields, _ := b["fields"].(map[string]any)
+	if r.code != http.StatusBadRequest || b["error"] != "validation_failed" || fields["period"] == nil {
+		t.Fatalf("bad period: %d %s", r.code, r.text)
 	}
 
 	if r := do(t, mux, http.MethodGet, "/api/stats", "", ""); r.code != http.StatusUnauthorized {

@@ -73,27 +73,15 @@
   border-color: var(--color-primary);
 }
 
-.turns {
-  display: grid;
-  gap: var(--space-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
+/* One turn at a time, in a practice card (design screens 4–5). */
 .turn {
-  display: grid;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--color-line);
   border-left: var(--space-1) solid var(--color-line);
-  border-radius: var(--radius-md);
 }
 
 .turn.playing {
-  background: var(--color-primary-soft);
   border-left-color: var(--color-primary);
 }
+
 
 .speaker {
   font: var(--text-sm) var(--font-ui);

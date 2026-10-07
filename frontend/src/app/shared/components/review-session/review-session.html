@@ -34,7 +34,7 @@
       @if (mode() === 'flip' && !shown()) {
         <button #face type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>
       }
-      <button type="button" class="btn" (click)="play()">{{ mode() === 'listen' ? 'Nghe lại' : 'Nghe' }}</button>
+      <button type="button" class="btn" [luSpeak]="current()?.text" (click)="play()">{{ mode() === 'listen' ? 'Nghe lại' : 'Nghe' }}</button>
       @if (playError()) {
         <p class="play-error field-error" role="alert">Chưa đọc được từ này.</p>
         @if (mode() === 'listen' && !shown()) {

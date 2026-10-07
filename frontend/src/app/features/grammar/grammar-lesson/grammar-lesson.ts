@@ -9,6 +9,7 @@ import { SpeechService } from '../../../core/services/speech.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
 import { GrammarQuiz } from '../grammar-quiz/grammar-quiz';
+import { SpeakButton } from '../../../shared/directives/speak-button';
 
 type TabKey = 'learn' | 'practice' | 'test';
 
@@ -21,7 +22,7 @@ const TABS: readonly { key: TabKey; label: string }[] = [
 /** One grammar point (F20): learn it, practise it, then pass the mastery test. */
 @Component({
   selector: 'lu-grammar-lesson',
-  imports: [RouterLink, Icon, Loading, GrammarQuiz],
+  imports: [RouterLink, Icon, Loading, GrammarQuiz, SpeakButton],
   templateUrl: './grammar-lesson.html',
   styleUrl: './grammar-lesson.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

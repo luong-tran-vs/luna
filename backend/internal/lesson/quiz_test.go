@@ -34,9 +34,9 @@ func answer(t *testing.T, r *Reader, user, lessonID string, version, index, choi
 func TestQuizViewHidesAnswers(t *testing.T) {
 	t.Parallel()
 	r, _, answers, l := newQuizEnv(t)
-	_ = answers.Insert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 2, QuestionIndex: 1, Choice: 3})
-	_ = answers.Insert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 1, QuestionIndex: 0, Choice: 0, Correct: true})
-	_ = answers.Insert(t.Context(), Answer{UserID: "u2", LessonID: l.ID, QuizVersion: 2, QuestionIndex: 0, Choice: 0, Correct: true})
+	_ = answers.Upsert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 2, QuestionIndex: 1, Choice: 3})
+	_ = answers.Upsert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 1, QuestionIndex: 0, Choice: 0, Correct: true})
+	_ = answers.Upsert(t.Context(), Answer{UserID: "u2", LessonID: l.ID, QuizVersion: 2, QuestionIndex: 0, Choice: 0, Correct: true})
 
 	v, err := r.View(t.Context(), "u1", l.ID)
 	if err != nil {
@@ -89,26 +89,73 @@ func TestAnswer(t *testing.T) {
 		t.Fatalf("right answer result = %+v, %v", res, err)
 	}
 
-	// The first answer stays.
+	// Answering again replaces the stored answer: the latest attempt counts.
 	res, err = answer(t, r, "u1", l.ID, 2, 0, 0)
-	var already *AlreadyAnsweredError
-	if !errors.As(err, &already) || !errors.Is(err, ErrAlreadyAnswered) {
+	if err != nil {
 		t.Fatalf("second answer err = %v", err)
 	}
-	if res.Answer.Choice != 2 || res.Answer.Correct || res.Answered != 2 {
-		t.Fatalf("second answer result = %+v, want the stored one", res)
+	if res.Answer.Choice != 0 || !res.Answer.Correct || res.Answered != 2 || res.Correct != 2 {
+		t.Fatalf("second answer result = %+v, want the new one", res)
 	}
 
 	// Another learner answers on their own.
-	if res, err := answer(t, r, "u2", l.ID, 2, 0, 0); err != nil || !res.Answer.Correct || res.Answered != 1 {
+	if res, err := answer(t, r, "u2", l.ID, 2, 0, 2); err != nil || res.Answer.Correct || res.Answered != 1 {
 		t.Fatalf("u2 = %+v, %v", res, err)
 	}
 
 	if q, a, err := r.QuizStatus(t.Context(), "u1", l.ID); err != nil || q != 3 || a != 2 {
 		t.Fatalf("status = %d/%d, %v", a, q, err)
 	}
-	if n, c, err := r.Totals(t.Context(), "u1"); err != nil || n != 2 || c != 1 {
-		t.Fatalf("totals = %d/%d, %v", c, n, err)
+	if n, c, err := r.Totals(t.Context(), "u1", nil); err != nil || n != 2 || c != 2 {
+		t.Fatalf("totals = %d/%d, %v, want the latest answers", c, n, err)
+	}
+	v, err := r.View(t.Context(), "u1", l.ID)
+	if err != nil || len(v.Quiz.Answers) != 2 || v.Quiz.Answers[0].Choice != 0 {
+		t.Fatalf("view answers = %+v, %v", v.Quiz, err)
+	}
+}
+
+func TestResetAnswers(t *testing.T) {
+	t.Parallel()
+	r, lessons, answers, l := newQuizEnv(t)
+	_ = answers.Upsert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 1, QuestionIndex: 0, Correct: true})
+	if _, err := answer(t, r, "u1", l.ID, 2, 0, 0); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := answer(t, r, "u1", l.ID, 2, 1, 0); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := answer(t, r, "u2", l.ID, 2, 0, 0); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := r.ResetAnswers(t.Context(), "u1", l.ID); err != nil {
+		t.Fatal(err)
+	}
+	if _, a, err := r.QuizStatus(t.Context(), "u1", l.ID); err != nil || a != 0 {
+		t.Fatalf("u1 answered after reset = %d, %v", a, err)
+	}
+	// Other learners and older question sets are kept.
+	if _, a, _ := r.QuizStatus(t.Context(), "u2", l.ID); a != 1 {
+		t.Fatalf("u2 answered = %d, want 1", a)
+	}
+	if got, _ := answers.List(t.Context(), "u1", l.ID, 1); len(got) != 1 {
+		t.Fatalf("version 1 answers = %+v", got)
+	}
+	// The quiz can be taken again.
+	if res, err := answer(t, r, "u1", l.ID, 2, 0, 1); err != nil || res.Answered != 1 || res.Correct != 0 {
+		t.Fatalf("answer after reset = %+v, %v", res, err)
+	}
+	// Resetting twice, or a lesson without questions, is fine.
+	if err := r.ResetAnswers(t.Context(), "u3", l.ID); err != nil {
+		t.Fatalf("reset without answers: %v", err)
+	}
+	plain, _ := lessons.Create(t.Context(), Lesson{Title: "x", Content: "Hi.", Sentences: toSentences([]string{"Hi."})})
+	if err := r.ResetAnswers(t.Context(), "u1", plain.ID); err != nil {
+		t.Fatalf("reset without questions: %v", err)
+	}
+	if err := r.ResetAnswers(t.Context(), "u1", "missing"); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("reset missing lesson: %v", err)
 	}
 }
 

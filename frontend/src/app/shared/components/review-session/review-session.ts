@@ -22,6 +22,7 @@ import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { isCorrectAnswer } from '../../utils/answer-match';
 import { intervalLabel } from '../../utils/interval-label';
 import { SpeechService } from '../../../core/services/speech.service';
+import { SpeakButton } from '../../directives/speak-button';
 
 interface RatingButton {
   rating: Rating;
@@ -45,6 +46,7 @@ const RATINGS: RatingButton[] = [
  */
 @Component({
   selector: 'lu-review-session',
+  imports: [SpeakButton],
   templateUrl: './review-session.html',
   styleUrl: './review-session.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -149,3 +149,35 @@ func TestNextStep(t *testing.T) {
 		}
 	}
 }
+
+func TestPeriodStart(t *testing.T) {
+	t.Parallel()
+	hcm := load(t, "Asia/Ho_Chi_Minh")
+	ny := load(t, "America/New_York")
+	for _, tt := range []struct {
+		name   string
+		period Period
+		now    time.Time
+		loc    *time.Location
+		want   time.Time
+	}{
+		{"week midweek", PeriodWeek, time.Date(2026, 9, 30, 10, 0, 0, 0, hcm), hcm, time.Date(2026, 9, 28, 0, 0, 0, 0, hcm)},
+		{"week on Monday 0:00", PeriodWeek, time.Date(2026, 9, 28, 0, 0, 0, 0, hcm), hcm, time.Date(2026, 9, 28, 0, 0, 0, 0, hcm)},
+		{"week on Sunday night", PeriodWeek, time.Date(2026, 10, 4, 23, 59, 0, 0, hcm), hcm, time.Date(2026, 9, 28, 0, 0, 0, 0, hcm)},
+		{"week across a month", PeriodWeek, time.Date(2026, 10, 1, 8, 0, 0, 0, hcm), hcm, time.Date(2026, 9, 28, 0, 0, 0, 0, hcm)},
+		{"month", PeriodMonth, time.Date(2026, 9, 30, 10, 0, 0, 0, hcm), hcm, time.Date(2026, 9, 1, 0, 0, 0, 0, hcm)},
+		{"month on the 1st", PeriodMonth, time.Date(2026, 10, 1, 0, 0, 0, 0, hcm), hcm, time.Date(2026, 10, 1, 0, 0, 0, 0, hcm)},
+		// 2026-09-30 20:00 UTC is already Thursday 2026-10-01 03:00 in Viet Nam.
+		{"month in the learner's zone", PeriodMonth, time.Date(2026, 9, 30, 20, 0, 0, 0, time.UTC), hcm, time.Date(2026, 10, 1, 0, 0, 0, 0, hcm)},
+		// 2026-09-28 02:00 UTC is still Sunday 2026-09-27 in New York.
+		{"week in the learner's zone", PeriodWeek, time.Date(2026, 9, 28, 2, 0, 0, 0, time.UTC), ny, time.Date(2026, 9, 21, 0, 0, 0, 0, ny)},
+	} {
+		got := PeriodStart(tt.period, tt.now, tt.loc)
+		if got == nil || !got.Equal(tt.want) {
+			t.Errorf("%s: start = %v, want %v", tt.name, got, tt.want)
+		}
+	}
+	if got := PeriodStart(PeriodAll, time.Now(), hcm); got != nil {
+		t.Errorf("all: start = %v, want nil", got)
+	}
+}

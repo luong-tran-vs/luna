@@ -78,13 +78,16 @@
 }
 
 .counter {
-  font: var(--text-lg) var(--font-ui);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.controls {
+/* Speed and Hiện chữ on one row, under the player. */
+.tools {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-2);
 }
 
@@ -151,6 +154,57 @@
   text-underline-offset: 4px;
 }
 
+/* The result of a check: drawn anew each time (enter animation), its edge in the verdict's color. */
+.result {
+  border-left: var(--space-1) solid var(--verdict-color, var(--color-line));
+  animation: lu-enter var(--motion-base) var(--ease-out) both;
+}
+
+.result-ok {
+  --verdict-color: var(--color-ok);
+}
+
+.result-close {
+  --verdict-color: var(--color-warn);
+}
+
+.result-bad {
+  --verdict-color: var(--color-bad);
+}
+
+.verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.verdict-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.verdict-label lu-icon {
+  color: var(--verdict-color);
+}
+
+.save-status {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.save-status.failed {
+  color: var(--color-bad);
+}
+
+.next {
+  justify-self: start;
+}
+
 .score {
   font-weight: 600;
 }
@@ -166,20 +220,20 @@
   font-weight: 600;
 }
 
-/* Answer bar stays above the on-screen keyboard (viewport uses interactive-widget=resizes-content). */
-.answer-bar {
-  position: sticky;
-  bottom: 0;
+/* The answer, inside the card, above ← Kiểm tra →. */
+.answer {
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: var(--space-2);
-  margin: 0 calc(-1 * var(--space-4));
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-surface);
+  padding-top: var(--space-3);
   border-top: 1px solid var(--color-line);
 }
 
-.answer-bar input {
+.answer-label {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.answer input {
   min-width: 0;
   min-height: 44px;
   padding: var(--space-2) var(--space-3);
@@ -190,10 +244,22 @@
   border-radius: var(--radius-md);
 }
 
-.answer-bar input[aria-invalid='true'] {
+.answer input[aria-invalid='true'] {
   border-color: var(--color-bad);
 }
 
-.answer-error {
-  grid-column: 1 / -1;
+.restart {
+  justify-self: start;
+
+  --icon-size: 16px;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.redo {
+  --icon-size: 16px;
 }

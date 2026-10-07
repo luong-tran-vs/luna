@@ -147,6 +147,61 @@ func TestLessonProgressLifecycle(t *testing.T) {
 	if !got.CompletedAt.Equal(c1) {
 		t.Fatalf("CompletedAt = %v, want kept %v", got.CompletedAt, c1)
 	}
+
+	// Step times read back, and a missing one keeps the stored time.
+	if got.DoneAt != nil {
+		t.Fatalf("DoneAt without times = %v", got.DoneAt)
+	}
+	p.DoneAt = map[progress.Step]time.Time{progress.StepRead: started, progress.StepWrite: c1}
+	if err := repo.Upsert(ctx, p); err != nil {
+		t.Fatal(err)
+	}
+	p.DoneAt = map[progress.Step]time.Time{progress.StepListen: c2}
+	if err := repo.Upsert(ctx, p); err != nil {
+		t.Fatal(err)
+	}
+	got, _, _ = repo.Get(ctx, u, l1)
+	if len(got.DoneAt) != 3 || !got.DoneAt[progress.StepRead].Equal(started) || !got.DoneAt[progress.StepListen].Equal(c2) ||
+		!got.DoneAt[progress.StepWrite].Equal(c1) {
+		t.Fatalf("DoneAt = %v", got.DoneAt)
+	}
+}
+
+func TestLessonProgressStepCountsSince(t *testing.T) {
+	t.Parallel()
+	ctx := t.Context()
+	repo := NewLessonProgress(testDB(t))
+	u := newID()
+	since := time.Date(2026, 9, 28, 0, 0, 0, 0, time.UTC)
+	before, after := since.Add(-time.Hour), since.Add(time.Hour)
+	all := map[progress.Step]bool{progress.StepRead: true, progress.StepListen: true, progress.StepWrite: true}
+	for _, p := range []progress.LessonProgress{
+		// Done before since.
+		{UserID: u, LessonID: newID(), Done: all, StartedAt: before, CompletedAt: before,
+			DoneAt: map[progress.Step]time.Time{progress.StepRead: before, progress.StepListen: before, progress.StepWrite: before}},
+		// Read before since, the rest after.
+		{UserID: u, LessonID: newID(), Done: all, StartedAt: before, CompletedAt: after,
+			DoneAt: map[progress.Step]time.Time{progress.StepRead: before, progress.StepListen: after, progress.StepWrite: after}},
+		// Read exactly at since.
+		{UserID: u, LessonID: newID(), Done: map[progress.Step]bool{progress.StepRead: true}, StartedAt: since,
+			DoneAt: map[progress.Step]time.Time{progress.StepRead: since}},
+		// Saved before the step times existed: counts only without since.
+		{UserID: u, LessonID: newID(), Done: map[progress.Step]bool{progress.StepRead: true}, StartedAt: after},
+		{UserID: newID(), LessonID: newID(), Done: all, StartedAt: after, CompletedAt: after,
+			DoneAt: map[progress.Step]time.Time{progress.StepRead: after, progress.StepListen: after, progress.StepWrite: after}},
+	} {
+		if err := repo.Upsert(ctx, p); err != nil {
+			t.Fatal(err)
+		}
+	}
+	got, err := repo.StepCounts(ctx, u, nil, nil)
+	if err != nil || got != (progress.StepCounts{Read: 4, Listen: 2, Write: 2, Completed: 2}) {
+		t.Fatalf("all = %+v, %v", got, err)
+	}
+	got, err = repo.StepCounts(ctx, u, nil, &since)
+	if err != nil || got != (progress.StepCounts{Read: 1, Listen: 1, Write: 1, Completed: 1}) {
+		t.Fatalf("since = %+v, %v", got, err)
+	}
 }
 
 func TestLessonProgressStepCounts(t *testing.T) {
@@ -157,7 +212,7 @@ func TestLessonProgressStepCounts(t *testing.T) {
 	l := []string{newID(), newID(), newID()}
 	started := time.Date(2026, 9, 30, 1, 0, 0, 0, time.UTC)
 
-	if c, err := repo.StepCounts(ctx, u, nil); err != nil || c != (progress.StepCounts{}) {
+	if c, err := repo.StepCounts(ctx, u, nil, nil); err != nil || c != (progress.StepCounts{}) {
 		t.Fatalf("empty StepCounts = %+v, %v", c, err)
 	}
 	put := func(user, lesson string, steps []progress.Step, completed bool) {
@@ -178,15 +233,15 @@ func TestLessonProgressStepCounts(t *testing.T) {
 	put(u, l[2], []progress.Step{progress.StepRead}, false)
 	put(newID(), l[0], progress.Steps, true)
 
-	all, err := repo.StepCounts(ctx, u, nil)
+	all, err := repo.StepCounts(ctx, u, nil, nil)
 	if err != nil || all != (progress.StepCounts{Read: 3, Listen: 2, Write: 1, Completed: 1}) {
 		t.Fatalf("all = %+v, %v", all, err)
 	}
-	some, err := repo.StepCounts(ctx, u, []string{l[1], l[2], newID()})
+	some, err := repo.StepCounts(ctx, u, []string{l[1], l[2], newID()}, nil)
 	if err != nil || some != (progress.StepCounts{Read: 2, Listen: 1}) {
 		t.Fatalf("some = %+v, %v", some, err)
 	}
-	none, err := repo.StepCounts(ctx, u, []string{})
+	none, err := repo.StepCounts(ctx, u, []string{}, nil)
 	if err != nil || none != (progress.StepCounts{}) {
 		t.Fatalf("empty list = %+v, %v", none, err)
 	}

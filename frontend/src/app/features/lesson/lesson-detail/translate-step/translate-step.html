@@ -1,6 +1,13 @@
 <section class="translate" aria-labelledby="translate-heading">
   <div>
-    <h2 class="step-title" id="translate-heading">{{ number() }}. Dịch câu sang tiếng Anh</h2>
+    <div class="title-row">
+      <h2 class="step-title" id="translate-heading">{{ number() }}. Dịch câu sang tiếng Anh</h2>
+      @if (result() !== null || index() > 0) {
+        <button type="button" class="btn restart" (click)="restartAll()">
+          <lu-icon name="review" /> Làm lại bước này
+        </button>
+      }
+    </div>
     <p class="step-hint">Chạm các từ bên dưới theo đúng thứ tự để ghép thành câu dịch.</p>
   </div>
 
@@ -13,6 +20,7 @@
           class="icon-btn"
           aria-label="Nghe câu tiếng Anh đúng"
           [disabled]="result() === null"
+          [luSpeak]="translation().answer.join(' ')"
           (click)="readAloud.emit(translation().answer.join(' '))"
         >
           <lu-icon name="volume" />
@@ -77,16 +85,34 @@
     }
   </ul>
 
-  <div class="actions">
+  <div class="step-nav">
+    <button type="button" class="nav-btn" [disabled]="index() === 0" (click)="go.emit(index() - 1)">
+      <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
+    </button>
+    @if (result() === null) {
+      <button
+        type="button"
+        class="btn-primary check-btn"
+        [disabled]="chosen().length === 0"
+        (click)="check()"
+      >
+        Kiểm tra
+      </button>
+    } @else if (index() < count() - 1) {
+      <button type="button" class="btn-primary" (click)="go.emit(index() + 1)">Câu tiếp theo</button>
+    } @else {
+      <button type="button" class="btn-primary" (click)="done.emit()">Hoàn thành</button>
+    }
     <button
       type="button"
-      class="btn-primary check-btn"
-      [disabled]="chosen().length === 0 || result() !== null"
-      (click)="check()"
+      class="nav-btn"
+      [disabled]="index() >= count() - 1"
+      (click)="go.emit(index() + 1)"
     >
-      Kiểm tra
+      <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
     </button>
   </div>
+
 
   <div
     class="result"
@@ -104,4 +130,9 @@
       </p>
     }
   </div>
+  @if (result() !== null) {
+    <button type="button" class="btn redo" (click)="redo()">
+      <lu-icon name="review" /> Làm lại câu này
+    </button>
+  }
 </section>

@@ -89,3 +89,33 @@ func NextStep(done map[Step]bool) Step {
 	}
 	return StepDone
 }
+
+// Period is the span the stats page covers.
+type Period string
+
+const (
+	PeriodWeek  Period = "week"
+	PeriodMonth Period = "month"
+	PeriodAll   Period = "all"
+)
+
+// ValidPeriod reports whether p is one of the periods.
+func ValidPeriod(p Period) bool { return p == PeriodWeek || p == PeriodMonth || p == PeriodAll }
+
+// PeriodStart is when the calendar period holding now starts in loc: Monday 0:00 for a week, the
+// 1st at 0:00 for a month. It is nil for PeriodAll (no lower bound).
+func PeriodStart(p Period, now time.Time, loc *time.Location) *time.Time {
+	t := now.In(loc)
+	y, m, d := t.Date()
+	var start time.Time
+	switch p {
+	case PeriodWeek:
+		// Weekday counts from Sunday; shift it so Monday is 0.
+		start = time.Date(y, m, d-(int(t.Weekday())+6)%7, 0, 0, 0, 0, loc)
+	case PeriodMonth:
+		start = time.Date(y, m, 1, 0, 0, 0, 0, loc)
+	default:
+		return nil
+	}
+	return &start
+}

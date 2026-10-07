@@ -351,12 +351,12 @@ func (f *fakeRepo) CountDue(_ context.Context, userID string, before, createdBef
 	return n, nil
 }
 
-func (f *fakeRepo) Count(_ context.Context, userID string) (int, error) {
+func (f *fakeRepo) Count(_ context.Context, userID string, since *time.Time) (int, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	n := 0
 	for _, c := range f.cards {
-		if c.UserID == userID {
+		if c.UserID == userID && (since == nil || !c.CreatedAt.Before(*since)) {
 			n++
 		}
 	}

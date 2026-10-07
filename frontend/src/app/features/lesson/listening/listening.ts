@@ -1,15 +1,19 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
   effect,
+  ElementRef,
   inject,
+  Injector,
   input,
   OnInit,
   output,
   signal,
   untracked,
+  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, firstValueFrom, forkJoin, of } from 'rxjs';
@@ -33,6 +37,11 @@ interface Checked {
 }
 
 const SPEEDS = [0.5, 0.75, 1, 1.25];
+
+/** How a check went: every word right, at least half of them, or fewer. */
+type Verdict = 'ok' | 'close' | 'bad';
+
+const VERDICT_LABELS: Record<Verdict, string> = { ok: 'Chính xác!', close: 'Gần đúng', bad: 'Chưa đúng' };
 
 /**
  * The Listening step (F4): the browser reads the lesson sentence by sentence at a chosen speed
@@ -86,6 +95,16 @@ export class Listening implements OnInit {
   protected readonly progress = signal(0);
   protected readonly checked = signal<ReadonlyMap<number, Checked>>(new Map());
   protected readonly saveError = signal(false);
+  protected readonly restartError = signal(false);
+  /** Sentences whose latest check is not saved yet (mirrors pending, for the template). */
+  private readonly unsaved = signal<ReadonlySet<number>>(new Set());
+  /** Bumped by every check: the result card is drawn anew, so it shows up again even when unchanged. */
+  protected readonly checks = signal(0);
+  /** Read out after a check (the result card is drawn anew, so it cannot be the live region). */
+  protected readonly announcement = signal('');
+  private readonly resultCard = viewChild<ElementRef<HTMLElement>>('resultCard');
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly injector = inject(Injector);
 
   protected readonly sentences = computed(() => this.lesson()?.sentences ?? []);
   protected readonly sentence = computed<Sentence | null>(() => this.sentences()[this.current()] ?? null);
@@ -95,6 +114,31 @@ export class Listening implements OnInit {
     return s ? estimateSeconds(s.text) / this.rate() : 0;
   });
   protected readonly result = computed(() => this.checked().get(this.current()) ?? null);
+  protected readonly verdict = computed<Verdict | null>(() => {
+    const c = this.result()?.comparison;
+    if (!c) {
+      return null;
+    }
+    if (c.totalWords > 0 && c.correctWords === c.totalWords) {
+      return 'ok';
+    }
+    return c.correctWords * 2 >= c.totalWords ? 'close' : 'bad';
+  });
+  protected readonly verdictLabel = computed(() => {
+    const v = this.verdict();
+    return v ? VERDICT_LABELS[v] : '';
+  });
+  /** Whether the current sentence's result is saved, being saved, or (review) not saved at all. */
+  protected readonly saveStatus = computed<'review' | 'saving' | 'failed' | 'saved'>(() => {
+    if (this.review()) {
+      return 'review';
+    }
+    if (this.unsaved().has(this.current())) {
+      return this.saveError() ? 'failed' : 'saving';
+    }
+    return 'saved';
+  });
+  protected readonly isLastSentence = computed(() => this.current() >= this.sentences().length - 1);
   protected readonly checkedCount = computed(() => this.checked().size);
   protected readonly done = computed(() => this.sentences().length > 0 && this.checkedCount() === this.sentences().length);
   protected readonly ratePercent = computed(() => {
@@ -158,6 +202,38 @@ export class Listening implements OnInit {
     this.typed.set(this.checked().get(index)?.typed ?? '');
     this.answerError.set(null);
     this.playError.set(null);
+  }
+
+  /** Làm lại câu này: the answer is cleared to type again; the new check replaces the result. */
+  protected redoSentence(): void {
+    this.typed.set('');
+    this.answerError.set(null);
+    this.host.nativeElement.querySelector<HTMLInputElement>('#answer')?.focus();
+    this.listen();
+  }
+
+  /**
+   * Làm lại bước này: every result is forgotten (on the server too, outside review mode) and the
+   * step starts again at the first sentence.
+   */
+  protected async restart(): Promise<void> {
+    this.restartError.set(false);
+    if (!this.review()) {
+      try {
+        await firstValueFrom(this.api.reset(this.id));
+      } catch {
+        this.restartError.set(true);
+        return;
+      }
+    }
+    this.pending.clear();
+    this.unsaved.set(new Set());
+    this.saveError.set(false);
+    this.checked.set(new Map());
+    this.emitted = false;
+    this.announcement.set('');
+    this.show(0);
+    this.position.emit(0);
   }
 
   protected go(index: number): void {
@@ -246,6 +322,16 @@ export class Listening implements OnInit {
     }
     const comparison = compareDictation(sentence.text, typed);
     this.checked.update((m) => new Map(m).set(sentence.index, { typed, comparison }));
+    this.checks.update((n) => n + 1);
+    this.announcement.set(`${this.verdictLabel()} ${comparison.correctWords}/${comparison.totalWords} từ đúng.`);
+    // Bring the result into view: on a phone it is often below the fold, under the answer bar.
+    afterNextRender(
+      () => {
+        const smooth = !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        this.resultCard()?.nativeElement.scrollIntoView?.({ block: 'nearest', behavior: smooth ? 'smooth' : 'auto' });
+      },
+      { injector: this.injector },
+    );
 
     if (this.review()) {
       return; // replaying a finished lesson: nothing is saved
@@ -262,6 +348,7 @@ export class Listening implements OnInit {
       correctWords: comparison.correctWords,
       totalWords: comparison.totalWords,
     });
+    this.unsaved.set(new Set(this.pending.keys()));
     void this.flush();
   }
 
@@ -276,6 +363,7 @@ export class Listening implements OnInit {
         await firstValueFrom(this.api.record(this.id, input));
         if (this.pending.get(index) === input) {
           this.pending.delete(index);
+          this.unsaved.set(new Set(this.pending.keys()));
         }
       }
       this.saveError.set(false);

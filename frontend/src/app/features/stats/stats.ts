@@ -1,16 +1,24 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { forkJoin, Subscription } from 'rxjs';
 
-import { accuracyOf, Stats as StatsData } from '../../core/models/dashboard';
+import { Dashboard, Stats as StatsData, StatsPeriod } from '../../core/models/dashboard';
 import { formatScore } from '../../core/models/writing';
 import { DashboardApiService } from '../../core/services/dashboard-api.service';
-import { Icon } from '../../shared/components/icon/icon';
+import { Icon, IconName } from '../../shared/components/icon/icon';
 import { ProgressRing } from '../../shared/components/progress-ring/progress-ring';
 import { Loading } from '../../shared/components/loading/loading';
+import { badges } from './badges';
 
 /** Writing scores go from 1 to 5 (F8). */
 const MAX_SCORE = 5;
+
+const PERIODS: readonly { id: StatsPeriod; label: string; scope: string }[] = [
+  { id: 'week', label: 'Tuần', scope: 'tuần này' },
+  { id: 'month', label: 'Tháng', scope: 'tháng này' },
+  { id: 'all', label: 'Tổng', scope: 'từ trước tới nay' },
+];
 
 interface SkillBar {
   label: string;
@@ -23,12 +31,25 @@ interface SkillBar {
   hint: string;
 }
 
+/** One line of the period's figures: "Từ vựng · 120 từ". */
+interface CountRow {
+  label: string;
+  icon: IconName;
+  tone: string;
+  /** "120 từ", or "—" when the app does not record it. */
+  value: string;
+}
+
 /** "75%" for a 0–1 rate, "—" when nothing was measured. */
 function percentText(rate: number | null | undefined): string {
   return rate === null || rate === undefined ? '—' : `${Math.round(rate * 100)}%`;
 }
 
-/** The stats page (F6, client sketch screen 10): accuracy, skills, words, dictation and lessons over every topic. */
+/**
+ * The stats page (F6; design/ungdunghoctienganh.png, screen 8 "Lộ trình & Tiến độ"): this week's,
+ * this month's or every day's figures by skill next to the roadmap ring, the accuracy by skill,
+ * and badges for milestones.
+ */
 @Component({
   selector: 'lu-stats',
   imports: [Loading, Icon, ProgressRing, RouterLink],
@@ -40,30 +61,48 @@ export class Stats {
   private readonly api = inject(DashboardApiService);
   private readonly destroyRef = inject(DestroyRef);
 
-  protected readonly data = signal<StatsData | null>(null);
+  protected readonly periods = PERIODS;
+  protected readonly period = signal<StatsPeriod>('week');
+  /** Every-day figures (badges) and the dashboard (streak, roadmap). */
+  protected readonly allTime = signal<StatsData | null>(null);
+  protected readonly dashboard = signal<Dashboard | null>(null);
+  /** Figures of the chosen period; null while they load. */
+  private readonly periodFigures = signal<StatsData | null>(null);
   protected readonly loadError = signal(false);
+  protected readonly periodError = signal(false);
+  private periodLoad?: Subscription;
 
-  /** The dictation correct rate as a whole percentage, "—" when nothing was checked. */
-  protected readonly rate = computed(() => percentText(this.data()?.dictation.rate));
+  protected readonly figures = computed(() => (this.period() === 'all' ? this.allTime() : this.periodFigures()));
+  protected readonly scope = computed(() => PERIODS.find((p) => p.id === this.period())!.scope);
 
-  /** Mean writing score (F8), "3,8", or "—" until a writing is graded. */
-  protected readonly writingAverage = computed(() => {
-    const a = this.data()?.writing.averageScore;
-    return a === null || a === undefined ? '—' : formatScore(a);
+  /** The roadmap done, 0–100; null without a goal. */
+  protected readonly goalPercent = computed(() => {
+    const g = this.dashboard()?.goal;
+    return g && g.totalLessons > 0 ? (g.completedLessons / g.totalLessons) * 100 : null;
+  });
+  protected readonly goalLine = computed(() => {
+    const g = this.dashboard()?.goal;
+    return g ? `${g.completedLessons}/${g.totalLessons} bài · ${g.level} ${g.topicName}` : 'Chưa chọn lộ trình';
   });
 
-  /** Comprehension answers right, as a whole percentage (F15). */
-  protected readonly readingRate = computed(() => percentText(this.data()?.reading.rate));
-
-  /** For the ring: 0–100, or null before any answer. */
-  protected readonly accuracy = computed(() => {
-    const s = this.data();
-    const a = s ? accuracyOf(s) : null;
-    return a === null ? null : a * 100;
+  protected readonly counts = computed<CountRow[]>(() => {
+    const s = this.figures();
+    if (!s) {
+      return [];
+    }
+    return [
+      { label: 'Từ vựng', icon: 'notebook', tone: 'accent', value: `${s.cards} từ` },
+      { label: 'Ngữ pháp', icon: 'grammar', tone: 'read', value: s.grammar ? `${s.grammar.lessons} bài` : '—' },
+      { label: 'Luyện nghe', icon: 'headphones', tone: 'listen', value: `${s.dictation.lessons ?? s.lessons.listen} bài` },
+      // The Speaking practice keeps its results on the page: nothing to count yet.
+      { label: 'Luyện nói', icon: 'mic', tone: 'listen', value: '—' },
+      { label: 'Luyện đọc', icon: 'book', tone: 'read', value: `${s.lessons.read} bài` },
+      { label: 'Luyện viết', icon: 'pencil', tone: 'write', value: `${s.writing.submitted} bài` },
+    ];
   });
 
   protected readonly skills = computed<SkillBar[]>(() => {
-    const s = this.data();
+    const s = this.figures();
     if (!s) {
       return [];
     }
@@ -93,18 +132,71 @@ export class Stats {
     ];
   });
 
+  protected readonly badges = computed(() => {
+    const s = this.allTime();
+    return s ? badges(s, this.dashboard()?.streak ?? 0) : [];
+  });
+  protected readonly earnedCount = computed(() => this.badges().filter((b) => b.earned).length);
+
   constructor() {
     this.load();
   }
 
   protected load(): void {
     this.loadError.set(false);
-    this.api
-      .stats()
+    forkJoin({ all: this.api.stats(), dashboard: this.api.dashboard() })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (s) => this.data.set(s),
+        next: ({ all, dashboard }) => {
+          this.allTime.set(all);
+          this.dashboard.set(dashboard);
+          this.loadPeriod();
+        },
         error: () => this.loadError.set(true),
       });
+  }
+
+  protected choose(period: StatsPeriod): void {
+    if (period !== this.period()) {
+      this.period.set(period);
+      this.loadPeriod();
+    }
+  }
+
+  /** Tuần, Tháng, Tổng as tabs: arrow keys move between them. */
+  protected onPeriodKeydown(event: KeyboardEvent): void {
+    const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+    if (!step) {
+      return;
+    }
+    event.preventDefault();
+    const i = PERIODS.findIndex((p) => p.id === this.period());
+    const next = PERIODS[(i + step + PERIODS.length) % PERIODS.length];
+    this.choose(next.id);
+    (event.currentTarget as HTMLElement).parentElement
+      ?.querySelector<HTMLElement>(`[data-period="${next.id}"]`)
+      ?.focus();
+  }
+
+  /** Every-day figures are loaded already; a week or a month is asked for. */
+  private loadPeriod(): void {
+    this.periodLoad?.unsubscribe();
+    this.periodError.set(false);
+    this.periodFigures.set(null);
+    const period = this.period();
+    if (period === 'all') {
+      return;
+    }
+    this.periodLoad = this.api
+      .stats(period)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (s) => this.periodFigures.set(s),
+        error: () => this.periodError.set(true),
+      });
+  }
+
+  protected retryPeriod(): void {
+    this.loadPeriod();
   }
 }

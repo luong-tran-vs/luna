@@ -112,11 +112,24 @@ func validate(in Input, sentenceCount int) error {
 	return nil
 }
 
-// Totals sums the user's dictation results over every lesson.
-func (s *Service) Totals(ctx context.Context, userID string) (DictationTotals, error) {
-	t, err := s.repo.Totals(ctx, userID)
+// Totals sums the user's dictation results over every lesson, checked at or after since (nil = all).
+func (s *Service) Totals(ctx context.Context, userID string, since *time.Time) (DictationTotals, error) {
+	t, err := s.repo.Totals(ctx, userID, since)
 	if err != nil {
 		return DictationTotals{}, fmt.Errorf("progress: dictation totals: %w", err)
 	}
 	return t, nil
+}
+
+// Reset deletes the user's dictation results for the lesson so the Listening step can be done
+// again. The table keeps one result per sentence whatever the revision, so every result of the
+// lesson goes. Lesson progress (steps already done) is not touched.
+func (s *Service) Reset(ctx context.Context, userID, lessonID string) error {
+	if _, _, err := s.lessons.Info(ctx, lessonID); err != nil {
+		return fmt.Errorf("progress: lesson: %w", err)
+	}
+	if err := s.repo.Delete(ctx, userID, lessonID); err != nil {
+		return fmt.Errorf("progress: delete dictation: %w", err)
+	}
+	return nil
 }

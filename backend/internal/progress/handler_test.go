@@ -173,3 +173,53 @@ func TestEndpointsNotFoundAndUnauthenticated(t *testing.T) {
 		t.Fatalf("get 401: %d", rec.Code)
 	}
 }
+
+func TestResetDictationEndpoint(t *testing.T) {
+	t.Parallel()
+	mux := newAPI(t)
+	body := `{"sentenceIndex":0,"typed":"a","correctWords":1,"totalWords":1}`
+	for _, token := range []string{"an", "binh"} {
+		if rec := call(t, mux, http.MethodPost, dictationPath, token, body); rec.Code != http.StatusOK {
+			t.Fatalf("post %s: %d", token, rec.Code)
+		}
+	}
+
+	rec := call(t, mux, http.MethodDelete, dictationPath, "an", "")
+	if rec.Code != http.StatusNoContent || rec.Body.Len() != 0 {
+		t.Fatalf("delete: %d %s", rec.Code, rec.Body)
+	}
+	if b := decode(t, call(t, mux, http.MethodGet, dictationPath+"/summary", "an", "")); b.Summary.CheckedCount != 0 || b.Summary.Completed {
+		t.Fatalf("own summary after delete = %+v", b.Summary)
+	}
+	// Another user's results are untouched.
+	if b := decode(t, call(t, mux, http.MethodGet, dictationPath+"/summary", "binh", "")); b.Summary.CheckedCount != 1 {
+		t.Fatalf("other user's summary = %+v", b.Summary)
+	}
+	// Deleting again is fine; the step can be redone.
+	if rec := call(t, mux, http.MethodDelete, dictationPath, "an", ""); rec.Code != http.StatusNoContent {
+		t.Fatalf("delete again: %d", rec.Code)
+	}
+	if rec := call(t, mux, http.MethodPost, dictationPath, "an", body); rec.Code != http.StatusOK || decode(t, rec).Summary.CheckedCount != 1 {
+		t.Fatalf("post after delete: %d %s", rec.Code, rec.Body)
+	}
+
+	if rec := call(t, mux, http.MethodDelete, "/api/lessons/nope/dictation", "an", ""); rec.Code != http.StatusNotFound {
+		t.Fatalf("delete 404: %d", rec.Code)
+	}
+	if rec := call(t, mux, http.MethodDelete, dictationPath, "", ""); rec.Code != http.StatusUnauthorized {
+		t.Fatalf("delete 401: %d", rec.Code)
+	}
+}
+
+func TestResetDictationIsGuarded(t *testing.T) {
+	t.Parallel()
+	svc, _ := newTestService()
+	mux := http.NewServeMux()
+	deny := func(http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusForbidden) })
+	}
+	NewHandler(svc, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver), deny)
+	if rec := call(t, mux, http.MethodDelete, dictationPath, "an", ""); rec.Code != http.StatusForbidden {
+		t.Fatalf("delete: %d", rec.Code)
+	}
+}

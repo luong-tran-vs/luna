@@ -5,12 +5,18 @@
  * main thread, for the natural voice (NaturalVoiceService) and the TTS lab. Messages in: load (one
  * voice), speak (one text). Messages out: progress, loaded (with a warm-up run), audio (a WAV buffer
  * with timings), error. Texts are generated one at a time in the order they arrive. The library
- * keeps the voice in the origin private file system, so it downloads once.
+ * keeps the voice in the origin private file system, so it downloads once; where it cannot write
+ * there, model-cache.ts keeps it in IndexedDB instead.
  */
 
 import { TtsSession } from '@mintplex-labs/piper-tts-web';
 
+import { cachingFetch, indexedDbStore, isVoiceFile, libraryCanStore } from './model-cache';
 import { PiperRequest, PiperResponse } from './piper.messages';
+
+if (!libraryCanStore() && typeof indexedDB !== 'undefined') {
+  self.fetch = cachingFetch(self.fetch.bind(self), indexedDbStore(), isVoiceFile);
+}
 
 /**
  * The ONNX runtime files must match the onnxruntime-web the library imports (1.30.0, pinned in

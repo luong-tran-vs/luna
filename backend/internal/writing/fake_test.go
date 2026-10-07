@@ -143,10 +143,15 @@ func (f *fakeRepo) Unseen(_ context.Context, userID string) (UnseenCount, error)
 	return out, nil
 }
 
-func (f *fakeRepo) Stats(_ context.Context, userID string) (int, *float64, error) {
+func (f *fakeRepo) Stats(_ context.Context, userID string, since *time.Time) (int, *float64, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	list := f.submitted(userID)
+	var list []Writing
+	for _, w := range f.submitted(userID) {
+		if since == nil || !w.SubmittedAt.Before(*since) {
+			list = append(list, w)
+		}
+	}
 	sum, n := 0.0, 0
 	for _, w := range list {
 		if a := Average(w.Grade); a != nil {

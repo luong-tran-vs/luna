@@ -199,6 +199,8 @@ type PracticeRequest struct {
 type Example struct {
 	Lemma    string `json:"lemma"`
 	Sentence string `json:"sentence"`
+	// MeaningVi is the sentence in Vietnamese.
+	MeaningVi string `json:"meaningVi"`
 }
 
 // Turn is one line of a dialogue; Speaker is 0 or 1.

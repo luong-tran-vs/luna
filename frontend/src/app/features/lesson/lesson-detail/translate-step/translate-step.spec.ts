@@ -15,6 +15,8 @@ describe('TranslateStep', () => {
   let el: HTMLElement;
   let played: string[];
   let results: boolean[];
+  let moves: number[];
+  let done: number;
 
   const text = (node: Element | null | undefined) =>
     node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
@@ -52,6 +54,10 @@ describe('TranslateStep', () => {
     results = [];
     fixture.componentInstance.readAloud.subscribe((t) => played.push(t));
     fixture.componentInstance.checked.subscribe((r) => results.push(r));
+    moves = [];
+    done = 0;
+    fixture.componentInstance.go.subscribe((i) => moves.push(i));
+    fixture.componentInstance.done.subscribe(() => done++);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
   };
@@ -106,9 +112,36 @@ describe('TranslateStep', () => {
     expect(speaker.disabled).toBe(false);
     await click(speaker);
     expect(played).toEqual(['Nice to meet you.']);
-    // Locked after checking.
+    // Locked after checking; the main button now moves on.
     expect(bankButtons().every((b) => b.disabled)).toBe(true);
-    expect(named('Kiểm tra').disabled).toBe(true);
+    expect(named('Kiểm tra')).toBeUndefined();
+    expect(named('Câu tiếp theo')).toBeDefined();
+  });
+
+  it('moves between the sentences with ← Câu tiếp theo →, and Hoàn thành after the last one', async () => {
+    await render();
+    expect(named('Câu trước').disabled).toBe(true);
+    await click(named('Câu sau'));
+    expect(moves).toEqual([1]);
+
+    await tap('Nice');
+    await click(named('Kiểm tra'));
+    await click(named('Câu tiếp theo'));
+    expect(moves).toEqual([1, 1]);
+
+    fixture.componentRef.setInput('index', 3);
+    await fixture.whenStable();
+    expect(named('Câu sau').disabled).toBe(true);
+    await click(named('Câu trước'));
+    expect(moves).toEqual([1, 1, 2]);
+    expect(done).toBe(0);
+    fixture.componentRef.setInput('translation', { ...translation, vi: 'Câu cuối.' });
+    await fixture.whenStable();
+    await tap('Nice');
+    await click(named('Kiểm tra'));
+    expect(named('Câu tiếp theo')).toBeUndefined();
+    await click(named('Hoàn thành'));
+    expect(done).toBe(1);
   });
 
   it('wrong order: "Chưa đúng" with the right sentence', async () => {
@@ -159,5 +192,41 @@ describe('TranslateStep', () => {
     expect(
       controls.every((b) => b.tagName === 'BUTTON' && b.type === 'button' && b.tabIndex === 0),
     ).toBe(true);
+  });
+
+  it('Làm lại câu này, after a check, clears the tiles and the result', async () => {
+    let redone = 0;
+    await render();
+    fixture.componentInstance.redone.subscribe(() => redone++);
+    await tap('see', 'to', 'meet', 'you.');
+    await click(named('Kiểm tra'));
+    expect(status()).toContain('Chưa đúng');
+    const redo = named('Làm lại câu này');
+    // The button is not part of the result read out by screen readers.
+    expect(el.querySelector('[role="status"]')!.contains(redo)).toBe(false);
+
+    await click(redo);
+    expect(redone).toBe(1);
+    expect(chosen()).toEqual([]);
+    expect(status()).toBe('');
+    expect(bankButtons().every((b) => !b.disabled)).toBe(true);
+    await tap('Nice', 'to', 'meet', 'you.');
+    await click(named('Kiểm tra'));
+    expect(results).toEqual([false, true]);
+  });
+
+  it('Làm lại bước này clears the sentence and asks the page to start again', async () => {
+    let restarts = 0;
+    await render();
+    fixture.componentInstance.restart.subscribe(() => restarts++);
+    expect(Array.from(el.querySelectorAll('button')).some((b) => text(b) === 'Làm lại bước này')).toBe(false);
+    await tap('Nice', 'to', 'meet', 'you.');
+    await click(named('Kiểm tra'));
+
+    await click(named('Làm lại bước này'));
+    expect(restarts).toBe(1);
+    expect(chosen()).toEqual([]);
+    expect(status()).toBe('');
+    expect(named('Kiểm tra').disabled).toBe(true);
   });
 });

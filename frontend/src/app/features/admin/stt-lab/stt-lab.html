@@ -1,0 +1,161 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Thử nhận dạng giọng nói</h1>
+    <span class="tag">Bản thử</span>
+  </header>
+
+  <p class="muted">
+    Ghi âm một câu ngắn rồi chuyển thành chữ bằng model chạy ngay trong trình duyệt (Web Worker), để chọn model cho
+    bước Nói. Mở trang này trên điện thoại thật để đo. Mỗi model chỉ tải một lần, các lần sau trình duyệt dùng lại.
+  </p>
+
+  <section class="card" aria-labelledby="env-heading">
+    <h2 class="section-heading" id="env-heading">Máy này</h2>
+    <dl class="facts">
+      <div><dt>Số luồng CPU</dt><dd>{{ cores || 'Không rõ' }}</dd></div>
+      <div><dt>RAM (trình duyệt báo)</dt><dd>{{ memory ? memory + ' GB' : 'Không rõ' }}</dd></div>
+      <div><dt>CPU đa luồng (WASM)</dt><dd>{{ isolated ? 'Có' : 'Không, chỉ 1 luồng' }}</dd></div>
+      <div><dt>GPU (WebGPU)</dt><dd>{{ webgpu ? 'Có' : 'Không có' }}</dd></div>
+      <div><dt>Micro</dt><dd>{{ micAllowed ? 'Dùng được' : 'Không dùng được' }}</dd></div>
+    </dl>
+    @if (!micAllowed) {
+      <p class="form-alert" role="alert">
+        Trình duyệt chỉ cho dùng micro khi trang mở qua HTTPS hoặc localhost. Địa chỉ http://&lt;IP&gt; trong mạng LAN
+        không ghi âm được.
+      </p>
+    }
+  </section>
+
+  <section class="card" aria-labelledby="model-heading">
+    <h2 class="section-heading" id="model-heading">1. Tải model</h2>
+    <div class="grid">
+      <div class="field">
+        <label for="stt-model">Model</label>
+        <select id="stt-model" [value]="model()" (change)="model.set($any($event.target).value)" [disabled]="loadState() === 'loading'">
+          @for (m of models; track m.id) {
+            <option [value]="m.id">{{ m.label }}</option>
+          }
+        </select>
+      </div>
+      <div class="field">
+        <label for="stt-device">Chạy bằng</label>
+        <select id="stt-device" [value]="device()" (change)="device.set($any($event.target).value)" [disabled]="loadState() === 'loading'">
+          <option value="wasm">CPU (WASM)</option>
+          <option value="webgpu" [disabled]="!webgpu">GPU (WebGPU){{ webgpu ? '' : ' – máy này không có' }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn-primary" (click)="load()" [disabled]="loadState() === 'loading'">
+        {{ loadState() === 'ready' ? 'Tải model đã chọn' : 'Tải model' }}
+      </button>
+    </div>
+
+    @if (loadState() === 'loading') {
+      <div class="progress" role="status">
+        <span class="track"><span class="fill" [style.width.%]="downloadPercent()"></span></span>
+        <span class="muted">
+          @if (downloaded().total > 0 && downloaded().loaded < downloaded().total) {
+            Đã tải {{ downloaded().loaded / 1048576 | number: '1.0-0' }} / {{ downloaded().total / 1048576 | number: '1.0-0' }} MB
+          } @else {
+            Đang khởi động model…
+          }
+        </span>
+      </div>
+    }
+    @if (loaded(); as l) {
+      <p class="ok-line" role="status">
+        Đã tải {{ modelLabel(l.model) }} ({{ l.device === 'webgpu' ? 'GPU' : 'CPU' }}) trong
+        {{ loadSeconds() | number: '1.1-1' }} giây, chạy thử thêm {{ warmupSeconds() | number: '1.1-1' }} giây.
+      </p>
+    }
+    @if (loadError(); as e) {
+      <p class="form-alert" role="alert">Không tải được model: {{ e }}</p>
+    }
+  </section>
+
+  <section class="card" aria-labelledby="say-heading">
+    <h2 class="section-heading" id="say-heading">2. Đọc một câu</h2>
+    <div class="field">
+      <label for="stt-sentence">Câu cần đọc</label>
+      <input id="stt-sentence" type="text" lang="en" [value]="sentence()" (input)="sentence.set($any($event.target).value)" />
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" (click)="nextSentence()">Câu khác</button>
+      <button type="button" class="btn" (click)="listen()">Nghe mẫu</button>
+      <button
+        type="button"
+        class="btn-primary"
+        [class.recording]="recording()"
+        (click)="record()"
+        [disabled]="!micAllowed"
+      >
+        {{ recording() ? 'Dừng' : 'Ghi âm' }}
+      </button>
+      <button type="button" class="btn" (click)="recognize()" [disabled]="!hasRecording() || loadState() !== 'ready' || recording()">
+        Nhận dạng lại bản ghi
+      </button>
+    </div>
+    @if (recording()) {
+      <div class="progress" role="status">
+        <span class="track" aria-hidden="true"><span class="fill level" [style.width.%]="levelPercent()"></span></span>
+        <span class="muted">Đang nghe… {{ elapsed() | number: '1.1-1' }} / {{ maxSeconds }} giây. Ngừng nói khoảng 1 giây là tự dừng.</span>
+      </div>
+    }
+    @if (recordError(); as e) {
+      <p class="form-alert" role="alert">{{ e }}</p>
+    }
+    @if (loadState() !== 'ready') {
+      <p class="muted">Tải model ở bước 1 để bản ghi được nhận dạng ngay khi dừng.</p>
+    } @else {
+      <p class="muted">Đổi model ở bước 1 rồi bấm "Nhận dạng lại bản ghi" để so các model trên cùng một bản ghi.</p>
+    }
+  </section>
+
+  @if (rows().length > 0) {
+    <section class="card" aria-labelledby="result-heading">
+      <h2 class="section-heading" id="result-heading">3. Kết quả</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Model</th>
+              <th scope="col">Câu / nghe được</th>
+              <th scope="col">Từ đúng</th>
+              <th scope="col">Ghi (giây)</th>
+              <th scope="col">Nhận dạng (giây)</th>
+              <th scope="col"><span class="visually-hidden">Nghe lại</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of rows(); track r.id) {
+              <tr>
+                <td>{{ modelLabel(r.model) }} · {{ r.device === 'webgpu' ? 'GPU' : 'CPU' }}</td>
+                <td>
+                  <span class="sentence" lang="en">{{ r.sentence }}</span>
+                  @if (r.error) {
+                    <span class="error-text">Lỗi: {{ r.error }}</span>
+                  } @else if (r.heard === null) {
+                    <span class="muted">Đang nhận dạng…</span>
+                  } @else {
+                    <span class="heard" lang="en">→ {{ r.heard || '(không nghe được gì)' }}</span>
+                  }
+                </td>
+                <td class="num">
+                  @if (r.comparison; as c) {
+                    <span class="verdict" [class.good]="c.correctWords === c.totalWords">{{ c.correctWords }}/{{ c.totalWords }}</span>
+                  }
+                </td>
+                <td class="num">{{ r.seconds | number: '1.1-1' }}</td>
+                <td class="num">{{ r.took === null ? '' : (r.took | number: '1.2-2') }}</td>
+                <td>
+                  <button type="button" class="btn" (click)="play(r)" [attr.aria-label]="'Nghe lại bản ghi: ' + r.sentence">Nghe</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  }
+</section>

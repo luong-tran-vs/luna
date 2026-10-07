@@ -18,7 +18,7 @@ func TestDictationUpsertListTotals(t *testing.T) {
 	if err != nil || len(got) != 0 {
 		t.Fatalf("empty List = %v, %v", got, err)
 	}
-	if tot, err := repo.Totals(ctx, u); err != nil || tot != (progress.DictationTotals{}) {
+	if tot, err := repo.Totals(ctx, u, nil); err != nil || tot != (progress.DictationTotals{}) {
 		t.Fatalf("empty Totals = %+v, %v", tot, err)
 	}
 
@@ -57,11 +57,53 @@ func TestDictationUpsertListTotals(t *testing.T) {
 		t.Fatalf("after replace = %+v", got)
 	}
 
-	tot, err := repo.Totals(ctx, u)
+	tot, err := repo.Totals(ctx, u, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if want := (progress.DictationTotals{Sentences: 3, CorrectWords: 2 + 4 + 1, TotalWords: 2 + 4 + 3}); tot != want {
+	if want := (progress.DictationTotals{Sentences: 3, CorrectWords: 2 + 4 + 1, TotalWords: 2 + 4 + 3, Lessons: 2}); tot != want {
 		t.Fatalf("Totals = %+v, want %+v", tot, want)
+	}
+	// Only the results checked at or after since count.
+	if tot, err := repo.Totals(ctx, u, &at); err != nil || tot.Sentences != 3 || tot.Lessons != 2 {
+		t.Fatalf("Totals since at = %+v, %v", tot, err)
+	}
+	tot, err = repo.Totals(ctx, u, &at2)
+	if want := (progress.DictationTotals{Sentences: 1, CorrectWords: 4, TotalWords: 4, Lessons: 1}); err != nil || tot != want {
+		t.Fatalf("Totals since at2 = %+v, %v; want %+v", tot, err, want)
+	}
+}
+
+func TestDictationDelete(t *testing.T) {
+	t.Parallel()
+	ctx := t.Context()
+	repo := NewDictationResults(testDB(t))
+	u, other, l1, l2 := newID(), newID(), newID(), newID()
+	at := time.Date(2026, 9, 30, 3, 4, 5, 0, time.UTC)
+	for _, c := range []struct {
+		user, lesson string
+		revision     int
+		sentence     int
+	}{{u, l1, 1, 0}, {u, l1, 2, 1}, {u, l2, 1, 0}, {other, l1, 1, 0}} {
+		r := progress.Result{SentenceIndex: c.sentence, Typed: "x", CorrectWords: 1, TotalWords: 2, CheckedAt: at}
+		if err := repo.Upsert(ctx, c.user, c.lesson, c.revision, r); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	if err := repo.Delete(ctx, u, l1); err != nil {
+		t.Fatal(err)
+	}
+	if got, err := repo.List(ctx, u, l1); err != nil || len(got) != 0 {
+		t.Fatalf("after delete = %v, %v", got, err)
+	}
+	if got, _ := repo.List(ctx, u, l2); len(got) != 1 {
+		t.Fatalf("other lesson = %v", got)
+	}
+	if got, _ := repo.List(ctx, other, l1); len(got) != 1 {
+		t.Fatalf("other user = %v", got)
+	}
+	if err := repo.Delete(ctx, u, l1); err != nil {
+		t.Fatalf("delete again: %v", err)
 	}
 }

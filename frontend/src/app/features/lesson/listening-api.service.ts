@@ -14,6 +14,11 @@ export class ListeningApiService {
       .pipe(map((r) => r.summary));
   }
 
+  /** Forgets this learner's dictation results of the lesson, to do the Listening step again. */
+  reset(lessonId: string): Observable<void> {
+    return this.http.delete<void>(`/api/lessons/${lessonId}/dictation`);
+  }
+
   record(lessonId: string, input: DictationInput): Observable<DictationSummary> {
     return this.http
       .post<{ summary: DictationSummary }>(`/api/lessons/${lessonId}/dictation`, input)

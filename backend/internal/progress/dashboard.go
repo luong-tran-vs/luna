@@ -87,7 +87,7 @@ func (s *StudyService) Dashboard(ctx context.Context, userID string) (DashboardV
 		}
 	}
 	if d.topic != nil {
-		c, err := s.d.Progress.StepCounts(ctx, userID, d.topic.LessonIDs)
+		c, err := s.d.Progress.StepCounts(ctx, userID, d.topic.LessonIDs, nil)
 		if err != nil {
 			return DashboardView{}, fmt.Errorf("progress: step counts: %w", err)
 		}

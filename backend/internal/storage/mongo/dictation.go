@@ -96,28 +96,30 @@ func (r *DictationResults) List(ctx context.Context, userID, lessonID string) ([
 	return out, nil
 }
 
-// Totals sums the user's results over every lesson.
-func (r *DictationResults) Totals(ctx context.Context, userID string) (progress.DictationTotals, error) {
+// Totals sums the user's results over every lesson, checked at or after since (nil = all).
+func (r *DictationResults) Totals(ctx context.Context, userID string, since *time.Time) (progress.DictationTotals, error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
 		return progress.DictationTotals{}, fmt.Errorf("dictation user id: %w", err)
 	}
 	cur, err := r.coll.Aggregate(ctx, mongo.Pipeline{
-		{{Key: "$match", Value: bson.D{{Key: "userId", Value: uid}}}},
+		{{Key: "$match", Value: withSince(bson.D{{Key: "userId", Value: uid}}, "checkedAt", since)}},
 		{{Key: "$group", Value: bson.D{
 			{Key: "_id", Value: nil},
 			{Key: "sentences", Value: bson.D{{Key: "$sum", Value: 1}}},
 			{Key: "correct", Value: bson.D{{Key: "$sum", Value: "$correctWords"}}},
 			{Key: "total", Value: bson.D{{Key: "$sum", Value: "$totalWords"}}},
+			{Key: "lessons", Value: bson.D{{Key: "$addToSet", Value: "$lessonId"}}},
 		}}},
 	})
 	if err != nil {
 		return progress.DictationTotals{}, fmt.Errorf("aggregate dictation totals: %w", err)
 	}
 	var rows []struct {
-		Sentences int `bson:"sentences"`
-		Correct   int `bson:"correct"`
-		Total     int `bson:"total"`
+		Sentences int             `bson:"sentences"`
+		Correct   int             `bson:"correct"`
+		Total     int             `bson:"total"`
+		Lessons   []bson.ObjectID `bson:"lessons"`
 	}
 	if err := cur.All(ctx, &rows); err != nil {
 		return progress.DictationTotals{}, fmt.Errorf("read dictation totals: %w", err)
@@ -125,5 +127,19 @@ func (r *DictationResults) Totals(ctx context.Context, userID string) (progress.
 	if len(rows) == 0 {
 		return progress.DictationTotals{}, nil
 	}
-	return progress.DictationTotals{Sentences: rows[0].Sentences, CorrectWords: rows[0].Correct, TotalWords: rows[0].Total}, nil
+	return progress.DictationTotals{
+		Sentences: rows[0].Sentences, CorrectWords: rows[0].Correct, TotalWords: rows[0].Total, Lessons: len(rows[0].Lessons),
+	}, nil
+}
+
+// Delete removes the user's results for the lesson, of every revision.
+func (r *DictationResults) Delete(ctx context.Context, userID, lessonID string) error {
+	uid, lid, err := dictationIDs(userID, lessonID)
+	if err != nil {
+		return err
+	}
+	if _, err := r.coll.DeleteMany(ctx, bson.D{{Key: "userId", Value: uid}, {Key: "lessonId", Value: lid}}); err != nil {
+		return fmt.Errorf("delete dictation results: %w", err)
+	}
+	return nil
 }

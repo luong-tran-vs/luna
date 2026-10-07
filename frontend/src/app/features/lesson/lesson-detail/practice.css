@@ -135,3 +135,20 @@
   color: var(--color-text-muted);
   text-align: center;
 }
+
+/* Title of a step with its Làm lại bước này button. */
+.title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+/* Làm lại: the step (next to the title) or the item just checked (under its result). */
+.restart,
+.redo {
+  justify-self: start;
+
+  --icon-size: 16px;
+}

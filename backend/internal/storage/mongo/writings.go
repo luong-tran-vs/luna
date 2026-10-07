@@ -287,14 +287,15 @@ func (r *Writings) Unseen(ctx context.Context, userID string) (writing.UnseenCou
 	return out, nil
 }
 
-// Stats counts submitted writings and averages the mean score of the graded ones.
-func (r *Writings) Stats(ctx context.Context, userID string) (int, *float64, error) {
+// Stats counts the writings submitted at or after since (nil = all) and averages the mean score of
+// the graded ones among them.
+func (r *Writings) Stats(ctx context.Context, userID string, since *time.Time) (int, *float64, error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
 		return 0, nil, fmt.Errorf("writing user id: %w", err)
 	}
 	cur, err := r.coll.Aggregate(ctx, mongo.Pipeline{
-		{{Key: "$match", Value: submittedFilter(uid)}},
+		{{Key: "$match", Value: withSince(submittedFilter(uid), "submittedAt", since)}},
 		{{Key: "$group", Value: bson.D{
 			{Key: "_id", Value: nil},
 			{Key: "submitted", Value: bson.D{{Key: "$sum", Value: 1}}},

@@ -38,10 +38,18 @@ export interface Dashboard {
   tomorrowCards: number;
 }
 
+/** The span of GET /api/stats: this calendar week (from Monday), this month, or every day. */
+export type StatsPeriod = 'week' | 'month' | 'all';
+
+/** Figures of a period (every figure counts only what happened in it). */
 export interface Stats {
+  /** Missing from servers older than the period filter. */
+  period?: StatsPeriod;
   cards: number;
   dictation: {
     sentences: number;
+    /** Distinct lessons with a dictation result. */
+    lessons?: number;
     correctWords: number;
     totalWords: number;
     /** correctWords / totalWords (0–1); null when nothing was checked. */
@@ -64,6 +72,10 @@ export interface Stats {
   writing: {
     submitted: number;
     averageScore: number | null;
+  };
+  /** Grammar lessons done (F20). */
+  grammar?: {
+    lessons: number;
   };
 }
 

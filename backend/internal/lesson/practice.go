@@ -28,6 +28,8 @@ const (
 type Example struct {
 	Lemma    string
 	Sentence string
+	// MeaningVi is the sentence in Vietnamese; empty for practice generated before it was asked for.
+	MeaningVi string
 }
 
 // Turn is one line of the sample dialogue; Speaker is 0 or 1.
@@ -111,7 +113,7 @@ func cleanExamples(items []ai.Example, words []ai.PracticeWord) []Example {
 			continue
 		}
 		seen[lemma] = true
-		out = append(out, Example{Lemma: lemma, Sentence: sentence})
+		out = append(out, Example{Lemma: lemma, Sentence: sentence, MeaningVi: limited(it.MeaningVi, maxPracticeText)})
 	}
 	return out
 }

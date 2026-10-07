@@ -29,6 +29,19 @@ describe('AudioBar', () => {
     await fixture.whenStable();
   });
 
+  it('says the audio is being prepared, once for screen readers', async () => {
+    fixture.componentRef.setInput('preparing', true);
+    await fixture.whenStable();
+    expect(button().classList.contains('preparing')).toBe(true);
+    expect(button().getAttribute('aria-busy')).toBe('true');
+    expect(text('.time')).toBe('Đang chuẩn bị…');
+    expect(text('[role="status"]')).toBe('Đang chuẩn bị giọng đọc');
+    fixture.componentRef.setInput('preparing', false);
+    await fixture.whenStable();
+    expect(text('.time')).toBe('Đã nghe 00:00 / 01:12');
+    expect(text('[role="status"]')).toBe('');
+  });
+
   it('shows the played time over the length, and the played part of the track', async () => {
     expect(text('.time')).toBe('Đã nghe 00:00 / 01:12');
     fixture.componentRef.setInput('progress', 0.5);

@@ -6,6 +6,7 @@ import {
   effect,
   ElementRef,
   inject,
+  InjectionToken,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -40,14 +41,17 @@ import {
   wordsIn,
 } from './practice-logic';
 import { PracticeSummary } from './practice-summary/practice-summary';
+import { SpeakStep } from './speak-step/speak-step';
 import { TranslateStep } from './translate-step/translate-step';
 import { VocabStep } from './vocab-step/vocab-step';
 import { Loading } from '../../../shared/components/loading/loading';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { ListeningApiService } from '../listening-api.service';
 
 type Tab = 'lesson' | 'reading';
 
 /** The practice steps (shown when the lesson has their content), then the lesson's own steps. */
-type PracticeKey = 'words' | 'dialogue' | 'fill' | 'translate';
+type PracticeKey = 'words' | 'dialogue' | 'fill' | 'translate' | 'speak';
 type StepKey = PracticeKey | Step;
 
 const STEP_NAMES: Record<StepKey, string> = {
@@ -55,10 +59,21 @@ const STEP_NAMES: Record<StepKey, string> = {
   dialogue: 'Hội thoại mẫu',
   fill: 'Điền vào ô trống',
   translate: 'Dịch câu sang tiếng Anh',
+  speak: 'Luyện nói',
   read: 'Đọc',
   listen: 'Nghe',
   write: 'Viết',
 };
+
+/** Whether lessons have the Speaking step (Luyện nói); specs of the other steps turn it off. */
+export const SPEAKING_PRACTICE = new InjectionToken<boolean>('SPEAKING_PRACTICE', {
+  providedIn: 'root',
+  factory: () => true,
+});
+
+/** Sentences of the Speaking step: short ones, a few of them. */
+const SPEAK_MAX_WORDS = 15;
+const SPEAK_COUNT = 6;
 
 /** Cards due from which the done card says the backlog is large. */
 const BACKLOG = 30;
@@ -100,13 +115,13 @@ function isStudyStep(key: StepKey | null): key is Step {
  * (words, dialogue, fill-in, translation) or the Bài đọc tab with the text and grammar note.
  *
  * The lesson being studied is learnt here (updated 2026-10-02, no "today" page): words, then
- * Đọc → Nghe, then the practice on the text, then Viết (optional). Đọc, Nghe and Viết are recorded
+ * Đọc → Nghe → Luyện nói, then the practice on the text, then Viết (optional). Đọc, Nghe and Viết are recorded
  * on the server; "← Bước trước" shows an earlier step again. Once done, "Sang bài tiếp theo" opens the next lesson at once. Other lessons
  * keep the practice only, ending on its summary. Practice results stay on this page.
  */
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [Loading, 
+  imports: [Loading, ConfirmDialog, 
     DialogueStep,
     FillStep,
     Icon,
@@ -114,6 +129,7 @@ function isStudyStep(key: StepKey | null): key is Step {
     PracticeSummary,
     Reading,
     RouterLink,
+    SpeakStep,
     TranslateStep,
     VocabStep,
     Writing,
@@ -129,6 +145,8 @@ export class LessonDetail {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly speech = inject(SpeechService);
   private readonly vocabApi = inject(VocabApiService);
+  private readonly listeningApi = inject(ListeningApiService);
+  private readonly speakingOn = inject(SPEAKING_PRACTICE);
 
   protected readonly id = signal('');
   protected readonly lesson = signal<ReadingLesson | null>(null);
@@ -138,6 +156,13 @@ export class LessonDetail {
   protected readonly loadError = signal<string | null>(null);
   /** Whether the page leads through Đọc → Nghe → Viết: set once, for the lesson being studied. */
   protected readonly studyFlow = signal(false);
+  /**
+   * A completed lesson learnt again from the start ("Học lại bài"): every step, the latest results
+   * count, the lesson's progress does not change.
+   */
+  protected readonly relearn = signal(false);
+  protected readonly relearnAsk = signal(false);
+  protected readonly relearnError = signal(false);
   /** The lesson was completed on this page. */
   protected readonly lessonDone = signal(false);
   protected readonly saving = signal(false);
@@ -179,10 +204,23 @@ export class LessonDetail {
   protected readonly hasDialogue = computed(() => hasDialogue(this.practice()));
   protected readonly hasFill = computed(() => hasFill(this.practice()));
   protected readonly hasTranslations = computed(() => hasTranslations(this.practice()));
+  /**
+   * Sentences to repeat in the Speaking step: the dialogue's turns (short, spoken English), else the
+   * short sentences of the text.
+   */
+  protected readonly speakSentences = computed(() => {
+    const turns = this.practice()?.dialogue?.turns.map((t) => t.text) ?? [];
+    const source = turns.length > 0 ? turns : (this.lesson()?.sentences ?? []).map((s) => s.text);
+    return source
+      .map((t) => t.trim())
+      .filter((t) => t && t.split(/\s+/).length <= SPEAK_MAX_WORDS)
+      .slice(0, SPEAK_COUNT);
+  });
 
   /**
-   * Steps with content, in order. A lesson being studied goes words → Đọc → Nghe → dialogue → fill →
-   * translate → Viết (understand the text first, then produce); any other lesson has the practice only.
+   * Steps with content, in order. A lesson being studied goes words → Đọc → Nghe → Luyện nói →
+   * dialogue → fill → translate → Viết (understand the text first, then produce); any other lesson
+   * has the practice only, Luyện nói last.
    */
   protected readonly steps = computed<StepKey[]>(() => {
     const words: StepKey[] = this.words().length > 0 ? ['words'] : [];
@@ -196,9 +234,10 @@ export class LessonDetail {
     if (this.hasTranslations()) {
       practice.push('translate');
     }
-    return this.studyFlow()
-      ? [...words, 'read', 'listen', ...practice, 'write']
-      : [...words, ...practice];
+    const speak: StepKey[] = this.speakingOn && this.speakSentences().length > 0 ? ['speak'] : [];
+    return this.studyFlow() || this.relearn()
+      ? [...words, 'read', 'listen', ...speak, ...practice, 'write']
+      : [...words, ...practice, ...speak];
   });
   protected readonly hasSteps = computed(() => this.steps().length > 0);
   protected readonly current = computed<StepKey | null>(
@@ -211,8 +250,14 @@ export class LessonDetail {
   });
   protected readonly studyStepDone = computed(() => {
     const s = this.studyStep();
+    if (this.relearn()) {
+      // Learning a finished lesson again: Đọc and Nghe are done again, the writing is only shown.
+      return s === 'write';
+    }
     return !!s && (this.lessonDone() || this.study()?.steps[s] === 'done');
   });
+  /** "Học lại bài" is offered on a completed lesson that is not being learnt again already. */
+  protected readonly canRelearn = computed(() => this.status() === 'completed' && !this.relearn());
   /** The tab on screen: always Bài đọc when there is nothing to practise. */
   protected readonly shownTab = computed<Tab>(() => (this.hasSteps() ? this.tab() : 'reading'));
 
@@ -240,13 +285,18 @@ export class LessonDetail {
     const key = this.current();
     return key ? `Bước ${this.step()}/${this.steps().length}: ${STEP_NAMES[key]}` : '';
   });
-  protected readonly lastSentence = computed(
-    () => this.translateIndex() >= (this.practice()?.translations.length ?? 0) - 1,
-  );
   protected readonly nextLabel = computed(() => (this.isLast() ? 'Hoàn thành' : 'Tiếp theo'));
-  /** Tiếp theo is there, except on a lesson step still to do: that step has its own buttons. */
-  protected readonly canGoOn = computed(() => !this.studyStep() || this.studyStepDone());
-  protected readonly canGoBack = computed(() => this.step() > 1 || this.translateIndex() > 0);
+  /**
+   * The bar's main button: Tiếp theo, or "Sang kỹ năng tiếp theo" on a lesson step still to do
+   * (the learner may leave it for later and come back). Not on the last step still to do (Viết has
+   * its own Nộp and Bỏ qua), nor on the words, which must be gone through first.
+   */
+  protected readonly canGoOn = computed(
+    () => !this.studyStep() || this.studyStepDone() || !this.isLast(),
+  );
+  /** True on a lesson step still to do: moving on leaves it for later. */
+  protected readonly skipping = computed(() => !!this.studyStep() && !this.studyStepDone());
+  protected readonly canGoBack = computed(() => this.step() > 1);
   /** The bar at the bottom, with Bước trước and Tiếp theo when they apply. The words card has its own. */
   protected readonly showBar = computed(
     () =>
@@ -256,11 +306,21 @@ export class LessonDetail {
       !this.lessonDone() &&
       (this.canGoBack() || this.canGoOn()),
   );
-  /** On the last step, and on its last sentence when it is the translation. */
-  private readonly isLast = computed(
-    () =>
-      this.step() >= this.steps().length && (this.current() !== 'translate' || this.lastSentence()),
-  );
+  private readonly isLast = computed(() => this.step() >= this.steps().length);
+  /**
+   * Lesson steps left for later, once the learner is on the last step: the lesson completes only
+   * when every one is done, in any order.
+   */
+  protected readonly leftBehind = computed<Step[]>(() => {
+    const study = this.study();
+    if (!this.studyFlow() || this.lessonDone() || !study || !this.isLast()) {
+      return [];
+    }
+    const current = this.studyStep();
+    return STEPS.filter((s) => s !== current && study.steps[s] !== 'done');
+  });
+  protected readonly stepNames = STEP_NAMES;
+
   protected readonly summary = computed(() =>
     summary(this.practice()?.fill?.blanks.length ?? 0, this.fillScore(), this.translateResults()),
   );
@@ -328,6 +388,9 @@ export class LessonDetail {
     this.studyFlow.set(false);
     this.restored.set(false);
     this.lessonDone.set(false);
+    this.relearn.set(false);
+    this.relearnAsk.set(false);
+    this.relearnError.set(false);
     this.dueCount.set(0);
     this.missedSent.clear();
     this.missCount.set(0);
@@ -440,9 +503,7 @@ export class LessonDetail {
 
   protected next(): void {
     this.speech.stop();
-    if (this.current() === 'translate' && !this.lastSentence()) {
-      this.translateIndex.update((i) => i + 1);
-    } else if (this.step() < this.steps().length) {
+    if (this.step() < this.steps().length) {
       this.step.update((s) => s + 1);
     } else {
       this.finished.set(true);
@@ -453,13 +514,31 @@ export class LessonDetail {
   /** ← Bước trước: an earlier step again; the lesson's progress does not change. */
   protected back(): void {
     this.speech.stop();
-    if (this.current() === 'translate' && this.translateIndex() > 0) {
-      this.translateIndex.update((i) => i - 1);
-    } else if (this.step() > 1) {
+    if (this.step() > 1) {
       this.step.update((s) => s - 1);
     }
     this.toTop();
   }
+
+  /** Back to a lesson step left for later. */
+  protected goToStep(key: StepKey): void {
+    const index = this.steps().indexOf(key);
+    if (index >= 0) {
+      this.speech.stop();
+      this.step.set(index + 1);
+      this.toTop();
+    }
+  }
+
+  /** ← → and Câu tiếp theo of the translation card. */
+  protected goTranslation(index: number): void {
+    const count = this.practice()?.translations.length ?? 0;
+    if (index >= 0 && index < count) {
+      this.speech.stop();
+      this.translateIndex.set(index);
+    }
+  }
+
 
   /** Làm lại: back to step 1 with every answer cleared and the banks shuffled again. */
   protected retry(): void {
@@ -474,7 +553,47 @@ export class LessonDetail {
   }
 
   protected complete(step: Step): Promise<void> {
+    if (this.relearn()) {
+      // Nothing to record: the lesson is completed already. On to the next step.
+      if (this.step() < this.steps().length) {
+        this.step.update((s) => s + 1);
+        this.toTop();
+      }
+      return Promise.resolve();
+    }
     return this.record(this.studyApi.completeStep(this.id(), step));
+  }
+
+  /**
+   * Học lại bài: forgets this learner's comprehension answers and dictation results of the lesson
+   * (the new ones count), then goes through every step again from the words.
+   */
+  protected async relearnLesson(): Promise<void> {
+    this.relearnAsk.set(false);
+    this.relearnError.set(false);
+    try {
+      await firstValueFrom(
+        forkJoin([this.reading.resetAnswers(this.id()), this.listeningApi.reset(this.id())]),
+      );
+    } catch {
+      this.relearnError.set(true);
+      return;
+    }
+    this.lessonDone.set(false);
+    this.relearn.set(true);
+    this.tab.set('lesson');
+    this.retry();
+  }
+
+  /** Làm lại câu này in the translation: its result is forgotten until it is checked again. */
+  protected onTranslationRedone(index: number): void {
+    this.translateResults.update((r) => r.map((v, i) => (i === index ? null : v)));
+  }
+
+  /** Làm lại bước này in the translation: every result forgotten, back to the first sentence. */
+  protected restartTranslations(): void {
+    this.translateResults.set((this.practice()?.translations ?? []).map(() => null));
+    this.translateIndex.set(0);
   }
 
   /** Bỏ qua in the Write step: the lesson is done without a writing. */
@@ -518,6 +637,9 @@ export class LessonDetail {
 
   /** Saves where the learner is, once they stop moving for a second. */
   protected savePosition(step: Step, sentenceIndex: number): void {
+    if (this.relearn()) {
+      return; // the lesson is completed: there is no position to keep
+    }
     clearTimeout(this.positionTimer);
     const id = this.id();
     this.positionTimer = setTimeout(() => {

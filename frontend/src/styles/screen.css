@@ -250,3 +250,69 @@ button.menu-row:hover:not(:disabled) {
   font-weight: 600;
   color: var(--color-text-muted);
 }
+
+/*
+ * Practice card of a lesson step (design/ungdunghoctienganh.png, screens 2–7): a white card whose
+ * first line says what to do ("Listen and repeat"), then the exercise, then a .step-nav.
+ */
+.step-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.step-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.step-card-title {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* ← [main action] →: icon buttons around the full-width primary button. */
+.step-nav {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.step-nav > .btn-primary,
+.step-nav > .btn {
+  width: 100%;
+  min-height: 44px;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.nav-btn:disabled {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}

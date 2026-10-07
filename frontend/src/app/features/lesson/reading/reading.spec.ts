@@ -616,9 +616,14 @@ describe('Reading', () => {
     const button = (label: string) =>
       Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => b.textContent?.trim() === label);
     const choose = async (option: number, result: ReturnType<typeof solved>, answered: number) => {
-      el.querySelectorAll<HTMLButtonElement>('.question.active .option')[option].click();
+      el.querySelectorAll<HTMLInputElement>('.question.active .option input')[option].click();
+      await fixture.whenStable();
+      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .step-nav .check')!.click();
       await settle();
       http.expectOne('/api/lessons/l1/answers').flush({ answer: result, answered, total: 2, correct: 0 });
+      await settle();
+      // The answered question stays on screen: move to the next one.
+      button('Câu tiếp theo')?.click();
       await settle();
     };
 
@@ -654,15 +659,21 @@ describe('Reading', () => {
       await setup({ lesson: withQuiz([solved(0, 0, 0), solved(1, 1, 2)]), query: { review: '1' } });
       const completed = vi.fn();
       fixture.componentInstance.completed.subscribe(completed);
-      expect(el.querySelectorAll('.verdict').length).toBe(2);
+      // One question at a time: the first one with its result, the second one behind →.
+      expect(el.querySelectorAll('.verdict').length).toBe(1);
       expect(el.querySelectorAll('.question.active .option').length).toBe(0);
+      el.querySelectorAll<HTMLButtonElement>('lu-comprehension-quiz .step-nav .nav-btn')[1].click();
+      await settle();
+      expect(el.querySelector('.verdict')?.textContent).toContain('Sai');
       expect(button('Tiếp tục')).toBeUndefined();
       expect(completed).not.toHaveBeenCalled();
     });
 
     it('reloads the lesson when the questions changed', async () => {
       await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
-      el.querySelectorAll<HTMLButtonElement>('.question.active .option')[0].click();
+      el.querySelectorAll<HTMLInputElement>('.question.active .option input')[0].click();
+      await fixture.whenStable();
+      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .step-nav .check')!.click();
       await settle();
       http
         .expectOne('/api/lessons/l1/answers')

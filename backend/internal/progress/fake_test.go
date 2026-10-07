@@ -6,6 +6,7 @@ import (
 	"slices"
 	"strings"
 	"sync"
+	"time"
 )
 
 type fakeRepo struct {
@@ -41,6 +42,19 @@ func (f *fakeRepo) List(_ context.Context, userID, lessonID string) ([]StoredRes
 	return out, nil
 }
 
+func (f *fakeRepo) Delete(_ context.Context, userID, lessonID string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	prefix := userID + "|" + lessonID + "|"
+	f.keys = slices.DeleteFunc(f.keys, func(k string) bool { return strings.HasPrefix(k, prefix) })
+	for k := range f.rows {
+		if strings.HasPrefix(k, prefix) {
+			delete(f.rows, k)
+		}
+	}
+	return nil
+}
+
 type lessonInfo struct{ revision, sentences int }
 
 type fakeLessons struct {
@@ -64,16 +78,19 @@ func (f *fakeLessons) set(id string, revision, sentences int) {
 	f.lessons[id] = lessonInfo{revision, sentences}
 }
 
-func (f *fakeRepo) Totals(_ context.Context, userID string) (DictationTotals, error) {
+func (f *fakeRepo) Totals(_ context.Context, userID string, since *time.Time) (DictationTotals, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	var t DictationTotals
+	lessons := map[string]bool{}
 	for k, r := range f.rows {
-		if strings.HasPrefix(k, userID+"|") {
+		if strings.HasPrefix(k, userID+"|") && (since == nil || !r.CheckedAt.Before(*since)) {
 			t.Sentences++
 			t.CorrectWords += r.CorrectWords
 			t.TotalWords += r.TotalWords
+			lessons[strings.Split(k, "|")[1]] = true
 		}
 	}
+	t.Lessons = len(lessons)
 	return t, nil
 }

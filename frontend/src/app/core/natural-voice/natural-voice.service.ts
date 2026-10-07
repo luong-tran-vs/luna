@@ -6,6 +6,8 @@ import { PiperRequest, PiperResponse } from '../piper/piper.messages';
 
 /** Also read on start-up; "on" when the learner turned the natural voice on. */
 export const NATURAL_VOICE_STORAGE_KEY = 'luna.naturalVoice';
+/** "on" when the learner turned the browser voice off: only the natural voice reads. */
+export const NATURAL_VOICE_ONLY_STORAGE_KEY = 'luna.naturalVoiceOnly';
 
 /** The Piper voice (about 60MB, US English, female). */
 const VOICE = 'en_US-hfc_female-medium';
@@ -32,6 +34,10 @@ export interface Clip {
  * one at a time, and SpeechService plays a text with this voice only once it is ready (cached),
  * reading it with the browser voice meanwhile. A text asked for and not ready yet (want) goes to
  * the front of the queue so the next time it is.
+ *
+ * With "only" on, the browser voice is never used: a text not ready yet is generated first and
+ * played once it is (request), even while the model is still loading; when the model cannot load,
+ * nothing is read (the learner sees an error) rather than falling back to the browser voice.
  */
 @Injectable({ providedIn: 'root' })
 export class NaturalVoiceService {
@@ -50,10 +56,23 @@ export class NaturalVoiceService {
   readonly error = this._error.asReadonly();
   readonly enabled = computed(() => this._state() !== 'off');
   readonly ready = computed(() => this._state() === 'ready');
+  private readonly _only = signal(this.readStored(NATURAL_VOICE_ONLY_STORAGE_KEY));
+  /** The learner turned the browser voice off (kept even while the natural voice is off). */
+  readonly only = this._only.asReadonly();
+  /** True when the browser voice must not read: "only" is on and the natural voice is turned on. */
+  readonly exclusive = computed(() => this._only() && this._state() !== 'off');
   /** Download progress of the model files, 0–100. */
   readonly percent = computed(() => {
     const { loaded, total } = this._downloaded();
     return total > 0 ? Math.min(100, Math.round((loaded / total) * 100)) : 0;
+  });
+  /**
+   * Loading with nothing (left) to download: the voice comes from the browser's storage and the
+   * model is starting, which takes a few seconds on every visit.
+   */
+  readonly starting = computed(() => {
+    const { loaded, total } = this._downloaded();
+    return this._state() === 'loading' && (total === 0 || loaded >= total);
   });
 
   private worker: Worker | null = null;
@@ -64,9 +83,11 @@ export class NaturalVoiceService {
   private queue: string[] = [];
   /** The text the worker is on, by message id. */
   private running: { id: number; text: string } | null = null;
+  /** Callers of request() waiting for a text, by text. */
+  private readonly waiters = new Map<string, ((clip: Clip | null) => void)[]>();
 
   constructor() {
-    if (this.readStored() && this.supported) {
+    if (this.readStored(NATURAL_VOICE_STORAGE_KEY) && this.supported) {
       this.start();
     }
     inject(DestroyRef).onDestroy(() => this.shutdown());
@@ -77,17 +98,21 @@ export class NaturalVoiceService {
     if (!this.supported) {
       return;
     }
-    this.writeStored(true);
-    // Ask the browser not to evict the model when space runs low; refusal is fine.
-    void this.window?.navigator.storage?.persist?.().catch(() => false);
+    this.writeStored(NATURAL_VOICE_STORAGE_KEY, true);
     this.start();
   }
 
   /** Turns it off: the browser voice is used again. The downloaded model stays in the browser cache. */
   disable(): void {
-    this.writeStored(false);
+    this.writeStored(NATURAL_VOICE_STORAGE_KEY, false);
     this.shutdown();
     this._state.set('off');
+  }
+
+  /** Turns the browser voice off (only the natural voice reads) or back on. */
+  setOnly(on: boolean): void {
+    this.writeStored(NATURAL_VOICE_ONLY_STORAGE_KEY, on);
+    this._only.set(on);
   }
 
   /** The text's audio when it is already generated, else null. */
@@ -110,6 +135,25 @@ export class NaturalVoiceService {
     }
     this.queue = [text, ...this.queue.filter((t) => t !== text)];
     this.pump();
+  }
+
+  /**
+   * The text's audio, generated next when not ready: resolves once it is, or with null when the
+   * model fails on it, cannot load or is turned off. Works while the model is still loading.
+   */
+  request(raw: string): Promise<Clip | null> {
+    const text = raw.trim();
+    const clip = this.cached(text);
+    if (clip || !text || (this._state() !== 'loading' && this._state() !== 'ready')) {
+      return Promise.resolve(clip);
+    }
+    return new Promise((resolve) => {
+      this.waiters.set(text, [...(this.waiters.get(text) ?? []), resolve]);
+      if (this.running?.text !== text) {
+        this.queue = [text, ...this.queue.filter((t) => t !== text)];
+        this.pump();
+      }
+    });
   }
 
   /** Texts likely to be heard soon: generate them, in order, after those already waiting. */
@@ -144,6 +188,12 @@ export class NaturalVoiceService {
     this.send({ type: 'speak', id, text });
   }
 
+  private resolve(text: string, clip: Clip | null): void {
+    const waiting = this.waiters.get(text);
+    this.waiters.delete(text);
+    waiting?.forEach((done) => done(clip));
+  }
+
   private store(text: string, clip: Clip): void {
     this.clips.set(text, clip);
     while (this.clips.size > MAX_CACHED) {
@@ -158,6 +208,9 @@ export class NaturalVoiceService {
       return;
     }
     this._state.set('loading');
+    // Ask the browser not to evict the stored model when space runs low (also for learners who
+    // turned the voice on before this was asked); refusal is fine.
+    void this.window?.navigator.storage?.persist?.().catch(() => false);
     this._error.set(null);
     this._downloaded.set({ loaded: 0, total: 0 });
     try {
@@ -191,9 +244,12 @@ export class NaturalVoiceService {
           return;
         }
         this.running = null;
+        let clip: Clip | null = null;
         if (data.type === 'audio') {
-          this.store(run.text, { url: URL.createObjectURL(new Blob([data.wav], { type: 'audio/wav' })), seconds: data.seconds });
+          clip = { url: URL.createObjectURL(new Blob([data.wav], { type: 'audio/wav' })), seconds: data.seconds };
+          this.store(run.text, clip);
         }
+        this.resolve(run.text, clip);
         // A text the model failed on is not kept: the browser voice reads it, and a later want() retries.
         this.pump();
         break;
@@ -213,6 +269,7 @@ export class NaturalVoiceService {
     this.worker = null;
     this.running = null;
     this.queue = [];
+    [...this.waiters.keys()].forEach((text) => this.resolve(text, null));
     this.clips.forEach((c) => URL.revokeObjectURL(c.url));
     this.clips.clear();
   }
@@ -221,20 +278,20 @@ export class NaturalVoiceService {
     this.worker?.postMessage(message);
   }
 
-  private readStored(): boolean {
+  private readStored(key: string): boolean {
     try {
-      return this.storage?.getItem(NATURAL_VOICE_STORAGE_KEY) === 'on';
+      return this.storage?.getItem(key) === 'on';
     } catch {
       return false;
     }
   }
 
-  private writeStored(on: boolean): void {
+  private writeStored(key: string, on: boolean): void {
     try {
       if (on) {
-        this.storage?.setItem(NATURAL_VOICE_STORAGE_KEY, 'on');
+        this.storage?.setItem(key, 'on');
       } else {
-        this.storage?.removeItem(NATURAL_VOICE_STORAGE_KEY);
+        this.storage?.removeItem(key);
       }
     } catch {
       // Storage blocked: the choice holds for this visit only.

@@ -18,6 +18,7 @@ import { StatusChip } from '../status-chip/status-chip';
 import { LessonImages } from './lesson-images/lesson-images';
 import { PracticeSection } from './practice-section/practice-section';
 import { Loading } from '../../../shared/components/loading/loading';
+import { SpeakButton } from '../../../shared/directives/speak-button';
 
 type AnnotationRow = FormGroup<{
   text: FormControl<string>;
@@ -27,7 +28,7 @@ type AnnotationRow = FormGroup<{
 
 @Component({
   selector: 'lu-lesson-detail',
-  imports: [Loading, RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection, LessonImages, FlagNote, DatePipe],
+  imports: [Loading, RouterLink, ReactiveFormsModule, StatusChip, ConfirmDialog, LessonExtras, PracticeSection, LessonImages, FlagNote, DatePipe, SpeakButton],
   templateUrl: './lesson-detail.html',
   styleUrl: './lesson-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -64,6 +64,13 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Hidden until this word's picture has loaded, so the previous word's never shows. */
+  opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-out);
+}
+
+.picture img.loaded {
+  opacity: 1;
 }
 
 /* Drawn when the picture cannot load: the word's first letter on the brand tint. */
@@ -147,6 +154,13 @@
   color: var(--color-primary-ink);
 }
 
+/* Design screen 2: the example in Vietnamese, under it, in grey italics. */
+.example-vi {
+  font: var(--text-sm) var(--font-ui);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
 .learn {
   display: grid;
   gap: var(--space-2);
@@ -185,42 +199,6 @@
   min-height: 44px;
   font-weight: 600;
   color: var(--color-ok);
-}
-
-.word-nav {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 44px;
-  gap: var(--space-3);
-  align-items: center;
-}
-
-.nav-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  color: var(--color-primary-ink);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-}
-
-.nav-btn:hover:not(:disabled) {
-  background: var(--color-primary-soft);
-}
-
-.nav-btn:disabled {
-  color: var(--color-text-muted);
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.next-word {
-  width: 100%;
-  min-height: 44px;
 }
 
 @media (max-width: 420px) {

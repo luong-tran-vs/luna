@@ -87,7 +87,7 @@
     <ol class="card sentences">
       @for (s of l.sentences; track s.index) {
         <li>
-          <button type="button" class="play" [attr.aria-label]="'Nghe câu ' + (s.index + 1)" (click)="play(s.text)">▶</button>
+          <button type="button" class="play" [attr.aria-label]="'Nghe câu ' + (s.index + 1)" [luSpeak]="s.text" (click)="play(s.text)">▶</button>
           <span class="sentence-text" lang="en">{{ s.text }}</span>
           @if (flagAt(sentenceFlags(), $index); as f) {
             <lu-flag-note [flag]="f" [subject]="'câu ' + ($index + 1)" [disabled]="flagBusy() || checking()" (confirm)="confirmFlag($event)">

@@ -81,6 +81,17 @@ func studySchema() []string {
 	}
 }
 
+// stepTimesSchema adds when each step of a lesson was done, for the stats by period. Rows saved
+// before have NULL times. One column per statement, so a rerun skips the ones already added (the
+// migration ignores "duplicate column name").
+func stepTimesSchema() []string {
+	return []string{
+		`ALTER TABLE lesson_progress ADD COLUMN step_read_at DATETIME(6) NULL`,
+		`ALTER TABLE lesson_progress ADD COLUMN step_listen_at DATETIME(6) NULL`,
+		`ALTER TABLE lesson_progress ADD COLUMN step_write_at DATETIME(6) NULL`,
+	}
+}
+
 // studyValidID reports whether id has the shape of an id made by newID.
 func studyValidID(id string) bool {
 	if len(id) != 24 {
@@ -163,20 +174,30 @@ ON DUPLICATE KEY UPDATE status = new.status, level = new.level, effective_from =
 
 // --- lesson_progress ---
 
-const studyProgressCols = "user_id, lesson_id, topic_id, day_key, step_read, step_listen, step_write, current_step, sentence_index, started_at, completed_at"
+const studyProgressCols = "user_id, lesson_id, topic_id, day_key, step_read, step_listen, step_write, current_step, sentence_index, started_at, completed_at, " +
+	"step_read_at, step_listen_at, step_write_at"
 
 func studyScanProgress(sc interface{ Scan(...any) error }) (progress.LessonProgress, error) {
 	var p progress.LessonProgress
 	var read, listen, write bool
 	var step string
-	var completed sql.NullTime
-	if err := sc.Scan(&p.UserID, &p.LessonID, &p.TopicID, &p.DayKey, &read, &listen, &write, &step, &p.SentenceIndex, &p.StartedAt, &completed); err != nil {
+	var completed, readAt, listenAt, writeAt sql.NullTime
+	if err := sc.Scan(&p.UserID, &p.LessonID, &p.TopicID, &p.DayKey, &read, &listen, &write, &step, &p.SentenceIndex, &p.StartedAt, &completed,
+		&readAt, &listenAt, &writeAt); err != nil {
 		return progress.LessonProgress{}, err
 	}
 	p.Done = map[progress.Step]bool{}
 	for s, done := range map[progress.Step]bool{progress.StepRead: read, progress.StepListen: listen, progress.StepWrite: write} {
 		if done {
 			p.Done[s] = true
+		}
+	}
+	for s, at := range map[progress.Step]sql.NullTime{progress.StepRead: readAt, progress.StepListen: listenAt, progress.StepWrite: writeAt} {
+		if at.Valid {
+			if p.DoneAt == nil {
+				p.DoneAt = map[progress.Step]time.Time{}
+			}
+			p.DoneAt[s] = timeOf(at)
 		}
 	}
 	p.CurrentStep = progress.Step(step)
@@ -221,16 +242,20 @@ func (r *LessonProgress) Completed(ctx context.Context, userID string) ([]progre
 }
 
 // Upsert writes the whole progress of a lesson. Like the MongoDB repository, a zero CompletedAt
-// leaves an existing completion time alone.
+// or step time leaves an existing one alone.
 func (r *LessonProgress) Upsert(ctx context.Context, p progress.LessonProgress) error {
 	_, err := r.db.ExecContext(ctx, `INSERT INTO lesson_progress (`+studyProgressCols+`)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) AS new
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) AS new
 ON DUPLICATE KEY UPDATE topic_id = new.topic_id, day_key = new.day_key, step_read = new.step_read,
   step_listen = new.step_listen, step_write = new.step_write, current_step = new.current_step,
   sentence_index = new.sentence_index, started_at = new.started_at,
-  completed_at = COALESCE(new.completed_at, lesson_progress.completed_at)`,
+  completed_at = COALESCE(new.completed_at, lesson_progress.completed_at),
+  step_read_at = COALESCE(new.step_read_at, lesson_progress.step_read_at),
+  step_listen_at = COALESCE(new.step_listen_at, lesson_progress.step_listen_at),
+  step_write_at = COALESCE(new.step_write_at, lesson_progress.step_write_at)`,
 		p.UserID, p.LessonID, p.TopicID, p.DayKey, p.Done[progress.StepRead], p.Done[progress.StepListen], p.Done[progress.StepWrite],
-		string(p.CurrentStep), p.SentenceIndex, utc(p.StartedAt), nullTime(p.CompletedAt))
+		string(p.CurrentStep), p.SentenceIndex, utc(p.StartedAt), nullTime(p.CompletedAt),
+		nullTime(p.DoneAt[progress.StepRead]), nullTime(p.DoneAt[progress.StepListen]), nullTime(p.DoneAt[progress.StepWrite]))
 	if err != nil {
 		return fmt.Errorf("mysql upsert progress: %w", err)
 	}
@@ -247,12 +272,22 @@ func (r *LessonProgress) SetPosition(ctx context.Context, userID, lessonID strin
 	return nil
 }
 
-// StepCounts counts the user's lessons among lessonIDs (nil = every lesson) by steps done.
-func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonIDs []string) (progress.StepCounts, error) {
+// StepCounts counts the user's lessons among lessonIDs (nil = every lesson) by steps done. With
+// since set it counts steps done and lessons completed at or after since; steps done before the
+// step times existed are NULL and never count then.
+func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonIDs []string, since *time.Time) (progress.StepCounts, error) {
 	query := `SELECT CAST(COALESCE(SUM(step_read), 0) AS SIGNED), CAST(COALESCE(SUM(step_listen), 0) AS SIGNED),
   CAST(COALESCE(SUM(step_write), 0) AS SIGNED), CAST(COALESCE(SUM(completed_at IS NOT NULL), 0) AS SIGNED)
 FROM lesson_progress WHERE user_id = ?`
 	params := []any{userID}
+	if since != nil {
+		// A NULL comparison adds nothing to the sum.
+		query = `SELECT CAST(COALESCE(SUM(step_read_at >= ?), 0) AS SIGNED), CAST(COALESCE(SUM(step_listen_at >= ?), 0) AS SIGNED),
+  CAST(COALESCE(SUM(step_write_at >= ?), 0) AS SIGNED), CAST(COALESCE(SUM(completed_at >= ?), 0) AS SIGNED)
+FROM lesson_progress WHERE user_id = ?`
+		at := utc(*since)
+		params = []any{at, at, at, at, userID}
+	}
 	if lessonIDs != nil {
 		if len(lessonIDs) == 0 {
 			return progress.StepCounts{}, nil

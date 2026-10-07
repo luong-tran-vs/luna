@@ -215,3 +215,21 @@ func TestSubmittedBeatsLocked(t *testing.T) {
 		t.Fatalf("draft after the lesson: %v", err)
 	}
 }
+
+func TestStatsSince(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	for i, at := range []time.Time{e.now.AddDate(0, 0, -7), e.now} {
+		in := Writing{UserID: "u1", LessonID: "l" + string(rune('a'+i)), SubmittedAt: at}
+		if _, err := e.repo.Submit(t.Context(), in); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if n, avg, err := e.svc.Stats(t.Context(), "u1", nil); err != nil || n != 2 || avg != nil {
+		t.Fatalf("all = %d %v %v", n, avg, err)
+	}
+	since := e.now.AddDate(0, 0, -1)
+	if n, _, err := e.svc.Stats(t.Context(), "u1", &since); err != nil || n != 1 {
+		t.Fatalf("since = %d %v; want 1", n, err)
+	}
+}

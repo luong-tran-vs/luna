@@ -159,9 +159,10 @@ func (s *Service) Submitted(ctx context.Context, userID, lessonID string) (bool,
 	return ok && w.Status == StatusSubmitted, nil
 }
 
-// Stats counts the learner's submitted writings and averages the graded ones (progress port).
-func (s *Service) Stats(ctx context.Context, userID string) (submitted int, average *float64, err error) {
-	submitted, average, err = s.d.Repo.Stats(ctx, userID)
+// Stats counts the learner's writings submitted since `since` (nil = all) and averages the graded
+// ones among them (progress port).
+func (s *Service) Stats(ctx context.Context, userID string, since *time.Time) (submitted int, average *float64, err error) {
+	submitted, average, err = s.d.Repo.Stats(ctx, userID, since)
 	if err != nil {
 		return 0, nil, fmt.Errorf("writing: stats: %w", err)
 	}

@@ -23,11 +23,15 @@ describe('Account', () => {
   const resolved = computed(() => (preference() === 'dark' ? 'dark' : 'light'));
   const unseen = signal(0);
   const voiceState = signal<NaturalVoiceState>('off');
+  const voiceOnly = signal(false);
   const voice = {
     supported: true,
     state: voiceState,
     enabled: computed(() => voiceState() !== 'off'),
+    only: voiceOnly,
+    setOnly: vi.fn((on: boolean) => voiceOnly.set(on)),
     percent: signal(40),
+    starting: signal(false),
     enable: vi.fn(() => voiceState.set('loading')),
     disable: vi.fn(() => voiceState.set('off')),
   };
@@ -51,6 +55,7 @@ describe('Account', () => {
 
   beforeEach(async () => {
     voiceState.set('off');
+    voiceOnly.set(false);
     preference.set('light');
     saveState.set('idle');
     setTheme.mockClear();
@@ -150,12 +155,34 @@ describe('Account', () => {
     expect(toggle().getAttribute('aria-checked')).toBe('true');
     expect(text(toggle())).toContain('Đang tải giọng đọc… 40%');
 
+    // Stored in the browser: nothing to download, the model starts.
+    voice.starting.set(true);
+    await fixture.whenStable();
+    expect(text(toggle())).toContain('Đang khởi động giọng đọc…');
+    voice.starting.set(false);
+
     voiceState.set('error');
     await fixture.whenStable();
     expect(text(toggle())).toContain('đang dùng giọng của trình duyệt');
 
     toggle().click();
     expect(voice.disable).toHaveBeenCalled();
+  });
+
+  it('turns the machine voice off right under the natural voice, once that is on', async () => {
+    await open();
+    const machine = () => Array.from(el.querySelectorAll<HTMLButtonElement>('[role="switch"]')).find((b) => text(b).includes('Giọng máy'));
+    expect(machine()).toBeUndefined();
+
+    voiceState.set('ready');
+    await fixture.whenStable();
+    expect(machine()!.getAttribute('aria-checked')).toBe('true');
+
+    machine()!.click();
+    await fixture.whenStable();
+    expect(voice.setOnly).toHaveBeenCalledWith(true);
+    expect(machine()!.getAttribute('aria-checked')).toBe('false');
+    expect(text(machine())).toContain('chỉ dùng giọng tự nhiên');
   });
 
   it('logs out and goes to the login page', async () => {

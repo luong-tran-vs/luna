@@ -62,12 +62,12 @@ func TestReadIncompleteEndpoint(t *testing.T) {
 func TestStatsReadingAccuracy(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	v, err := e.svc.Stats(t.Context(), "u1")
+	v, err := e.svc.Stats(t.Context(), "u1", PeriodAll)
 	if err != nil || v.Reading.Answered != 0 || v.ReadingRate != nil {
 		t.Fatalf("no answers = %+v, %v", v, err)
 	}
 	e.quiz.totals = [2]int{12, 9}
-	v, _ = e.svc.Stats(t.Context(), "u1")
+	v, _ = e.svc.Stats(t.Context(), "u1", PeriodAll)
 	if v.Reading.Answered != 12 || v.Reading.Correct != 9 || v.ReadingRate == nil || *v.ReadingRate != 0.75 {
 		t.Fatalf("12/9 = %+v", v)
 	}

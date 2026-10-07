@@ -7,15 +7,18 @@ import (
 	"time"
 )
 
-// AnswerRepository stores learners' answers to comprehension questions (F15). Each question of
-// a question-set version is answered at most once per learner.
+// AnswerRepository stores learners' answers to comprehension questions (F15). A learner keeps
+// one answer per question of a question-set version: the latest one.
 type AnswerRepository interface {
-	// Insert stores a; an existing answer for the same question returns *AlreadyAnsweredError.
-	Insert(ctx context.Context, a Answer) error
+	// Upsert stores a, replacing the learner's earlier answer to the same question and version.
+	Upsert(ctx context.Context, a Answer) error
+	// Delete removes a learner's answers to one version of a lesson's questions.
+	Delete(ctx context.Context, userID, lessonID string, version int) error
 	// List returns a learner's answers to one version of a lesson's questions, by question.
 	List(ctx context.Context, userID, lessonID string, version int) ([]Answer, error)
-	// Totals counts a learner's answers (every version) and the correct ones.
-	Totals(ctx context.Context, userID string) (answered, correct int, err error)
+	// Totals counts a learner's answers (every version) answered at or after since (nil = all)
+	// and the correct ones.
+	Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error)
 }
 
 // QuizQuestion is a question as learners see it before answering: no answer, no explanation.
@@ -78,8 +81,8 @@ func (r *Reader) quiz(ctx context.Context, userID string, l Lesson) (*QuizView, 
 	return v, nil
 }
 
-// Answer checks and stores a learner's answer. Answering a question again returns the stored
-// answer with an *AlreadyAnsweredError; answers to an older question set are refused.
+// Answer checks and stores a learner's answer. Answering a question again replaces the stored
+// answer (the latest attempt counts); answers to an older question set are refused.
 func (r *Reader) Answer(ctx context.Context, userID, lessonID string, in AnswerInput) (AnswerResult, error) {
 	l, err := r.lessons.Get(ctx, lessonID)
 	if err != nil {
@@ -108,13 +111,8 @@ func (r *Reader) Answer(ctx context.Context, userID, lessonID string, in AnswerI
 		UserID: userID, LessonID: l.ID, QuizVersion: l.QuizVersion, QuestionIndex: in.QuestionIndex,
 		Choice: in.Choice, Correct: in.Choice == q.AnswerIndex, AnsweredAt: time.Now().UTC(),
 	}
-	insertErr := r.answers.Insert(ctx, a)
-	var already *AlreadyAnsweredError
-	switch {
-	case errors.As(insertErr, &already):
-		a = already.Answer
-	case insertErr != nil:
-		return AnswerResult{}, fmt.Errorf("lesson: save answer: %w", insertErr)
+	if err := r.answers.Upsert(ctx, a); err != nil {
+		return AnswerResult{}, fmt.Errorf("lesson: save answer: %w", err)
 	}
 
 	res := AnswerResult{Answer: answerView(a, q), Total: len(qs)}
@@ -128,7 +126,21 @@ func (r *Reader) Answer(ctx context.Context, userID, lessonID string, in AnswerI
 			res.Correct++
 		}
 	}
-	return res, insertErr
+	return res, nil
+}
+
+// ResetAnswers deletes the learner's answers to the current question set of a lesson so the
+// quiz can be taken again. Answers to older question sets are kept: they belong to questions
+// that are no longer shown and only count in statistics. Lesson progress is not touched.
+func (r *Reader) ResetAnswers(ctx context.Context, userID, lessonID string) error {
+	l, err := r.lessons.Get(ctx, lessonID)
+	if err != nil {
+		return err
+	}
+	if err := r.answers.Delete(ctx, userID, l.ID, l.QuizVersion); err != nil {
+		return fmt.Errorf("lesson: delete answers: %w", err)
+	}
+	return nil
 }
 
 // QuizStatus returns how many questions the lesson has and how many of them the learner has
@@ -151,9 +163,9 @@ func (r *Reader) QuizStatus(ctx context.Context, userID, lessonID string) (quest
 	return len(l.Extras.Questions), len(answers), nil
 }
 
-// Totals counts a learner's answers and the correct ones, for statistics.
-func (r *Reader) Totals(ctx context.Context, userID string) (answered, correct int, err error) {
-	return r.answers.Totals(ctx, userID)
+// Totals counts a learner's answers since `since` (nil = all) and the correct ones, for statistics.
+func (r *Reader) Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error) {
+	return r.answers.Totals(ctx, userID, since)
 }
 
 func answerView(a Answer, q Question) AnswerView {

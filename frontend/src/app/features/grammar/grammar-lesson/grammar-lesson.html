@@ -109,7 +109,7 @@
                 <p class="vi">{{ e.vi }}</p>
               </div>
               @if (canSpeak) {
-                <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" (click)="listen(e.en)">
+                <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" [luSpeak]="e.en" (click)="listen(e.en)">
                   <lu-icon name="volume" />
                 </button>
               }

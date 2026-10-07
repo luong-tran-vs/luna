@@ -233,7 +233,7 @@ func TestWritingsUnseenAndStats(t *testing.T) {
 	if c, err := r.Unseen(ctx, "u1"); err != nil || c.Unseen != 0 || c.Pending != 0 || c.Latest != nil {
 		t.Fatalf("empty Unseen = %+v %v", c, err)
 	}
-	if n, avg, err := r.Stats(ctx, "u1"); err != nil || n != 0 || avg != nil {
+	if n, avg, err := r.Stats(ctx, "u1", nil); err != nil || n != 0 || avg != nil {
 		t.Fatalf("empty Stats = %d %v %v", n, avg, err)
 	}
 	if _, err := r.SaveDraft(ctx, "u1", "l0", "draft", writingsT0); err != nil {
@@ -276,7 +276,7 @@ func TestWritingsUnseenAndStats(t *testing.T) {
 		t.Fatalf("other learner Unseen = %+v", other)
 	}
 
-	n, avg, err := r.Stats(ctx, "u1")
+	n, avg, err := r.Stats(ctx, "u1", nil)
 	if err != nil || n != 4 || avg == nil {
 		t.Fatalf("Stats = %d %v %v", n, avg, err)
 	}
@@ -284,11 +284,16 @@ func TestWritingsUnseenAndStats(t *testing.T) {
 	if *avg < 3.499 || *avg > 3.501 {
 		t.Fatalf("average = %v, want 3.5", *avg)
 	}
+	// since l2's submission: l2, l3 and l4, averaged over l2 alone
+	since := writingsT0.Add(time.Hour)
+	if n, avg, err := r.Stats(ctx, "u1", &since); err != nil || n != 3 || avg == nil || *avg < 3.249 || *avg > 3.251 {
+		t.Fatalf("Stats since = %d %v %v", n, avg, err)
+	}
 	// only pending and failed: submitted counted, no average
 	if _, err := r.Submit(ctx, writingsIn("u3", "l1", "t", writingsT0)); err != nil {
 		t.Fatal(err)
 	}
-	if n, avg, err := r.Stats(ctx, "u3"); err != nil || n != 1 || avg != nil {
+	if n, avg, err := r.Stats(ctx, "u3", nil); err != nil || n != 1 || avg != nil {
 		t.Fatalf("pending Stats = %d %v %v", n, avg, err)
 	}
 }

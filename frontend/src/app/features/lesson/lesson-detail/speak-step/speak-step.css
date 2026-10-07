@@ -1,0 +1,175 @@
+.soft-card {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.step-hint {
+  margin-top: calc(-1 * var(--space-2));
+}
+
+/* "Listen and repeat": the sentence, the sample button and the microphone (design/luyen noi.png). */
+.practice-card {
+  justify-items: center;
+}
+
+/* Full width inside the centred card. */
+.practice-card > .step-card-head,
+.practice-card > .result,
+.practice-card > .step-nav {
+  justify-self: stretch;
+}
+
+.target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.sentence {
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+}
+
+.mic-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.bars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+}
+
+.bars.mirrored {
+  flex-direction: row-reverse;
+}
+
+.bar {
+  width: 4px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  opacity: 0.6;
+  transition: height 80ms linear;
+}
+
+.mic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  padding: 0;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 8px var(--color-primary-soft);
+  cursor: pointer;
+
+  --icon-size: 30px;
+}
+
+.mic.recording {
+  background: var(--color-bad);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-bad) 20%, transparent);
+  animation: mic-pulse 1.2s ease-in-out infinite;
+}
+
+.mic:disabled {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+@keyframes mic-pulse {
+  50% {
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--color-bad) 12%, transparent);
+  }
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  text-align: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-bad);
+  border-radius: var(--radius-full);
+}
+
+/* Result: text stays --color-text; the edge and the icon carry the verdict (as in Nghe). */
+.result {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-left: var(--space-1) solid var(--verdict-color, var(--color-line));
+  border-radius: var(--radius-md);
+  animation: lu-enter var(--motion-base) var(--ease-out) both;
+}
+
+.result-ok {
+  --verdict-color: var(--color-ok);
+}
+
+.result-close {
+  --verdict-color: var(--color-warn);
+}
+
+.result-bad {
+  --verdict-color: var(--color-bad);
+}
+
+.verdict-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.verdict-label lu-icon {
+  color: var(--verdict-color);
+}
+
+.score {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.result-words {
+  font: var(--text-reading) var(--font-ui);
+}
+
+.word.wrong .said,
+.word.extra .said {
+  text-decoration: line-through 2px var(--color-bad);
+}
+
+.word.wrong b {
+  font-weight: 700;
+}
+
+.word.missing {
+  text-decoration: underline dotted 2px var(--color-warn);
+  text-underline-offset: 4px;
+}
+

@@ -68,3 +68,35 @@
   margin: 0;
   font: var(--text-sm) var(--font-ui);
 }
+
+/* Design screen 7: the prompt, the text, the counts and Nộp in one card. */
+.prompt-text {
+  font-weight: 600;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.count {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+}
+
+.actions .submit:only-child {
+  grid-column: 1 / -1;
+}
+
+.submit {
+  min-height: 44px;
+}

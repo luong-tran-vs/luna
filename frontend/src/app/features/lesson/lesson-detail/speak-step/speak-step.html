@@ -1,0 +1,164 @@
+<section class="soft-card" aria-labelledby="speak-heading">
+  <div class="title-row">
+    <h2 class="step-title" id="speak-heading">
+      {{ number() }}. Luyện nói <span lang="en">(Speaking)</span>
+    </h2>
+    @if (triedCount() > 0) {
+      <button type="button" class="btn restart" [disabled]="phase() !== 'idle'" (click)="restart()">
+        <lu-icon name="review" /> Làm lại bước này
+      </button>
+    }
+  </div>
+  <p class="step-hint">Luyện phát âm, ghi âm và nhận phản hồi</p>
+
+  @if (!micAllowed) {
+    <p class="banner-warning" role="status">
+      Trình duyệt chỉ cho dùng micro khi app mở qua HTTPS. Bạn vẫn nghe được câu mẫu, hoặc bỏ qua
+      bước này bằng nút Tiếp theo.
+    </p>
+  }
+  <div class="practice-card step-card">
+    <div class="step-card-head">
+      <span class="step-card-title" lang="en">Listen and repeat</span>
+      <span class="muted" aria-live="polite">Câu {{ index() + 1 }}/{{ sentences().length }}</span>
+    </div>
+
+    <div class="target">
+      <p class="sentence" lang="en">{{ sentence() }}</p>
+      <button
+        type="button"
+        class="icon-btn"
+        aria-label="Nghe câu mẫu"
+        [luSpeak]="sentence()"
+        [disabled]="phase() !== 'idle'"
+        (click)="speech.speak(sentence(), 1)"
+      >
+        <lu-icon name="volume" />
+      </button>
+    </div>
+
+    <div class="mic-row">
+      <span class="bars" aria-hidden="true">
+        @for (h of bars(); track $index) {
+          <span class="bar" [style.height.%]="h"></span>
+        }
+      </span>
+      <button
+        type="button"
+        class="mic"
+        [class.recording]="phase() === 'recording'"
+        [attr.aria-label]="phase() === 'recording' ? 'Dừng ghi âm' : 'Ghi âm câu này'"
+        [attr.aria-pressed]="phase() === 'recording'"
+        [disabled]="phase() !== 'recording' && !canRecordNow()"
+        (click)="toggleRecord()"
+      >
+        <lu-icon name="mic" />
+      </button>
+      <span class="bars mirrored" aria-hidden="true">
+        @for (h of bars(); track $index) {
+          <span class="bar" [style.height.%]="h"></span>
+        }
+      </span>
+    </div>
+
+    <p class="status" role="status">
+      @if (phase() === 'recording') {
+        <span class="dot" aria-hidden="true"></span>
+      }
+      {{ status() }}
+      @if (phase() === 'recording') {
+        <span class="muted">{{ elapsed().toFixed(0) }}/{{ maxSeconds }} giây</span>
+      }
+    </p>
+    @if (recognizer.state() === 'error') {
+      <button type="button" class="btn" (click)="retryLoad()">Tải lại bộ chấm</button>
+    }
+    @if (error(); as e) {
+      <p class="field-error" role="alert">{{ e }}</p>
+    }
+
+    @if (attempt(); as a) {
+      <div
+        class="result"
+        [class.result-ok]="verdict() === 'ok'"
+        [class.result-close]="verdict() === 'close'"
+        [class.result-bad]="verdict() === 'bad'"
+      >
+        <p class="verdict-label">
+          <lu-icon [name]="verdict() === 'ok' ? 'check' : 'x'" />
+          {{ verdictLabel() }}
+          <span class="score"
+            >{{ a.comparison.correctWords }}/{{ a.comparison.totalWords }} từ đúng</span
+          >
+        </p>
+        <p class="result-words" lang="en">
+          @for (w of a.comparison.words; track $index) {
+            @switch (w.status) {
+              @case ('ok') {
+                <span class="word ok">{{ w.word }}</span>
+              }
+              @case ('missing') {
+                <span class="word missing"
+                  >{{ w.expected }}<span class="visually-hidden" lang="vi">bỏ sót</span></span
+                >
+              }
+              @default {
+                @if (w.expected) {
+                  <span class="word wrong"
+                    ><span class="said">{{ w.word }}</span
+                    ><span aria-hidden="true">
+                      → <b>{{ w.expected }}</b></span
+                    ><span class="visually-hidden" lang="vi"
+                      >nghe thành {{ w.word }}, đúng là {{ w.expected }}</span
+                    ></span
+                  >
+                } @else {
+                  <span class="word extra"
+                    ><span class="said">{{ w.word }}</span
+                    ><span class="visually-hidden" lang="vi">thừa</span></span
+                  >
+                }
+              }
+            }
+            {{ ' ' }}
+          }
+        </p>
+        <p class="heard muted">
+          Máy nghe được: <span lang="en">"{{ a.heard || '(không nghe rõ)' }}"</span>
+        </p>
+        <p class="legend muted">Gạch ngang: đọc sai hoặc thừa · Gạch chân chấm: bỏ sót</p>
+        <div class="actions">
+          <button type="button" class="btn" (click)="playBack()">Nghe lại giọng mình</button>
+        </div>
+      </div>
+    }
+
+    <p class="tried muted">Đã đọc {{ triedCount() }}/{{ sentences().length }} câu</p>
+    <div class="step-nav">
+      <button
+        type="button"
+        class="nav-btn"
+        [disabled]="isFirst() || phase() !== 'idle'"
+        (click)="go(index() - 1)"
+      >
+        <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
+      </button>
+      <button
+        type="button"
+        class="btn-primary"
+        [disabled]="phase() !== 'idle'"
+        (click)="isLast() ? done.emit() : go(index() + 1)"
+      >
+        {{ isLast() ? 'Hoàn thành' : 'Câu tiếp theo' }}
+      </button>
+      <button
+        type="button"
+        class="nav-btn"
+        [disabled]="isLast() || phase() !== 'idle'"
+        (click)="go(index() + 1)"
+      >
+        <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
+      </button>
+    </div>
+  </div>
+</section>

@@ -31,7 +31,7 @@ func (d readingAnswerDoc) toAnswer() lesson.Answer {
 }
 
 // ReadingAnswers implements lesson.AnswerRepository on "reading_answers" (F15). The unique
-// (userId, lessonId, quizVersion, questionIndex) index makes each answer final.
+// (userId, lessonId, quizVersion, questionIndex) index keeps one answer per question: the latest.
 type ReadingAnswers struct {
 	coll *mongo.Collection
 }
@@ -55,34 +55,52 @@ func answerIDs(userID, lessonID string) (bson.ObjectID, bson.ObjectID, error) {
 	return uid, lid, nil
 }
 
-// Insert stores a new answer; a second answer to the same question returns the first one in
-// an *lesson.AlreadyAnsweredError.
-func (r *ReadingAnswers) Insert(ctx context.Context, a lesson.Answer) error {
-	uid, lid, err := answerIDs(a.UserID, a.LessonID)
-	if err != nil {
-		return err
-	}
-	_, err = r.coll.InsertOne(ctx, readingAnswerDoc{
-		UserID: uid, LessonID: lid, QuizVersion: a.QuizVersion, QuestionIndex: a.QuestionIndex,
-		Choice: a.Choice, Correct: a.Correct, AnsweredAt: a.AnsweredAt.UTC(),
-	})
-	switch {
-	case err == nil:
-		return nil
-	case !mongo.IsDuplicateKeyError(err):
-		return fmt.Errorf("insert reading answer: %w", err)
-	}
-	var d readingAnswerDoc
-	err = r.coll.FindOne(ctx, bson.D{
+// answerUpsert returns the filter and update that store a as the answer to its question.
+func answerUpsert(uid, lid bson.ObjectID, a lesson.Answer) (filter, update bson.D) {
+	filter = bson.D{
 		{Key: "userId", Value: uid},
 		{Key: "lessonId", Value: lid},
 		{Key: "quizVersion", Value: a.QuizVersion},
 		{Key: "questionIndex", Value: a.QuestionIndex},
-	}).Decode(&d)
-	if err != nil {
-		return fmt.Errorf("find existing reading answer: %w", err)
 	}
-	return &lesson.AlreadyAnsweredError{Answer: d.toAnswer()}
+	update = bson.D{{Key: "$set", Value: bson.D{
+		{Key: "choice", Value: a.Choice},
+		{Key: "correct", Value: a.Correct},
+		{Key: "answeredAt", Value: a.AnsweredAt.UTC()},
+	}}}
+	return filter, update
+}
+
+// Upsert stores a, replacing the learner's earlier answer to the same question.
+func (r *ReadingAnswers) Upsert(ctx context.Context, a lesson.Answer) error {
+	uid, lid, err := answerIDs(a.UserID, a.LessonID)
+	if err != nil {
+		return err
+	}
+	filter, update := answerUpsert(uid, lid, a)
+	_, err = r.coll.UpdateOne(ctx, filter, update, options.UpdateOne().SetUpsert(true))
+	if mongo.IsDuplicateKeyError(err) {
+		// Two upserts raced to insert the same question; the retry updates the winner's document.
+		_, err = r.coll.UpdateOne(ctx, filter, update, options.UpdateOne().SetUpsert(true))
+	}
+	if err != nil {
+		return fmt.Errorf("upsert reading answer: %w", err)
+	}
+	return nil
+}
+
+// Delete removes a learner's answers to one question-set version of a lesson.
+func (r *ReadingAnswers) Delete(ctx context.Context, userID, lessonID string, version int) error {
+	uid, lid, err := answerIDs(userID, lessonID)
+	if err != nil {
+		return err
+	}
+	_, err = r.coll.DeleteMany(ctx,
+		bson.D{{Key: "userId", Value: uid}, {Key: "lessonId", Value: lid}, {Key: "quizVersion", Value: version}})
+	if err != nil {
+		return fmt.Errorf("delete reading answers: %w", err)
+	}
+	return nil
 }
 
 // List returns a learner's answers to one question-set version of a lesson, by question.
@@ -108,14 +126,14 @@ func (r *ReadingAnswers) List(ctx context.Context, userID, lessonID string, vers
 	return out, nil
 }
 
-// Totals counts every answer of the learner and the correct ones.
-func (r *ReadingAnswers) Totals(ctx context.Context, userID string) (answered, correct int, err error) {
+// Totals counts the learner's answers given at or after since (nil = all) and the correct ones.
+func (r *ReadingAnswers) Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
 		return 0, 0, fmt.Errorf("answer user id: %w", err)
 	}
 	cur, err := r.coll.Aggregate(ctx, mongo.Pipeline{
-		{{Key: "$match", Value: bson.D{{Key: "userId", Value: uid}}}},
+		{{Key: "$match", Value: withSince(bson.D{{Key: "userId", Value: uid}}, "answeredAt", since)}},
 		{{Key: "$group", Value: bson.D{
 			{Key: "_id", Value: nil},
 			{Key: "answered", Value: bson.D{{Key: "$sum", Value: 1}}},

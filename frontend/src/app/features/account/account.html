@@ -66,6 +66,25 @@
           <span class="switch" aria-hidden="true"></span>
         </button>
       </li>
+      @if (voice.enabled()) {
+        <li>
+          <button
+            type="button"
+            class="menu-row"
+            role="switch"
+            [attr.aria-checked]="!voice.only()"
+            aria-describedby="machine-voice-hint"
+            (click)="voice.setOnly(!voice.only())"
+          >
+            <span class="icon-chip"><lu-icon name="volume" /></span>
+            <span class="menu-label">
+              <span>Giọng máy</span>
+              <span class="menu-hint" id="machine-voice-hint">{{ machineHint() }}</span>
+            </span>
+            <span class="switch" aria-hidden="true"></span>
+          </button>
+        </li>
+      }
     }
     <li>
       <a class="menu-row" routerLink="/colors">

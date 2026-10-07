@@ -240,8 +240,6 @@ func (h *StudyHandler) fail(w http.ResponseWriter, r *http.Request, err error) {
 		httpx.WriteFieldErrors(w, verr.Fields)
 	case errors.Is(err, ErrTopicNotFound):
 		httpx.WriteError(w, http.StatusNotFound, "not_found", "Không tìm thấy chủ đề")
-	case errors.Is(err, ErrStepLocked):
-		httpx.WriteError(w, http.StatusConflict, "step_locked", "Hoàn thành bước trước")
 	case errors.Is(err, ErrWriteIncomplete):
 		httpx.WriteError(w, http.StatusConflict, "write_incomplete", "Hãy nộp bài viết")
 	case errors.Is(err, ErrReadIncomplete):
@@ -251,7 +249,7 @@ func (h *StudyHandler) fail(w http.ResponseWriter, r *http.Request, err error) {
 	case errors.Is(err, ErrNotCurrentLesson):
 		httpx.WriteError(w, http.StatusConflict, "not_current_lesson", "Bài này không phải bài đang học")
 	case errors.Is(err, ErrNotCurrentStep):
-		httpx.WriteError(w, http.StatusConflict, "not_current_step", "Bước này không phải bước hiện tại")
+		httpx.WriteError(w, http.StatusConflict, "not_current_step", "Bước này đã hoàn thành")
 	default:
 		h.log.ErrorContext(r.Context(), "study request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")

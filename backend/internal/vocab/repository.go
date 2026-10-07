@@ -35,8 +35,8 @@ type Repository interface {
 	// CountDue counts cards due before `before`; cards without a schedule count when saved
 	// before createdBefore.
 	CountDue(ctx context.Context, userID string, before, createdBefore time.Time) (int, error)
-	// Count is the number of the user's cards.
-	Count(ctx context.Context, userID string) (int, error)
+	// Count is the number of the user's cards created at or after since (nil = every card).
+	Count(ctx context.Context, userID string, since *time.Time) (int, error)
 	// Delete removes the card; ok is false when it did not exist.
 	Delete(ctx context.Context, userID, id string) (ok bool, err error)
 }

@@ -62,6 +62,7 @@ func newFakeProgress() *fakeProgress { return &fakeProgress{rows: map[string]Les
 
 func clone(p LessonProgress) LessonProgress {
 	p.Done = maps.Clone(p.Done)
+	p.DoneAt = maps.Clone(p.DoneAt)
 	return p
 }
 
@@ -232,6 +233,7 @@ type studyEnv struct {
 	clock     *studyClock
 	quiz      *fakeQuiz
 	writings  *fakeWritings
+	grammar   *fakeGrammar
 }
 
 // newStudyEnv: topics "family" (A1, lessons f1..f3), "shopping" (A1, s1..s2), "work" (B1, w1),
@@ -247,6 +249,7 @@ func newStudyEnv() *studyEnv {
 		clock:    &studyClock{t: time.Date(2026, 9, 30, 10, 0, 0, 0, hcm)},
 		quiz:     &fakeQuiz{status: map[string][2]int{}},
 		writings: &fakeWritings{submitted: map[string]bool{}},
+		grammar:  &fakeGrammar{},
 	}
 	for _, t := range []TopicInfo{
 		{ID: "family", Name: "Gia đình", Level: "A1", LessonIDs: []string{"f1", "f2", "f3"}},
@@ -265,29 +268,36 @@ func newStudyEnv() *studyEnv {
 	e.svc = NewStudyService(StudyDeps{
 		Goals: e.goals, Progress: e.progress, Days: e.days, Dictation: e.dictation, Lessons: e.lessons,
 		Roadmaps: e.roadmaps, Titles: titles, Reviews: e.reviews, Timezones: e.zones, Now: e.clock.now,
-		Quiz: e.quiz, Writings: e.writings,
+		Quiz: e.quiz, Writings: e.writings, Grammar: e.grammar,
 	})
 	return e
 }
 
-func (f *fakeProgress) StepCounts(_ context.Context, userID string, lessonIDs []string) (StepCounts, error) {
+func (f *fakeProgress) StepCounts(_ context.Context, userID string, lessonIDs []string, since *time.Time) (StepCounts, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+	// in reports whether t counts: any done step without since, a time at or after it otherwise.
+	in := func(done bool, t time.Time) bool {
+		if since == nil {
+			return done
+		}
+		return !t.IsZero() && !t.Before(*since)
+	}
 	var c StepCounts
 	for _, p := range f.rows {
 		if p.UserID != userID || lessonIDs != nil && !slices.Contains(lessonIDs, p.LessonID) {
 			continue
 		}
-		if p.Done[StepRead] {
+		if in(p.Done[StepRead], p.DoneAt[StepRead]) {
 			c.Read++
 		}
-		if p.Done[StepListen] {
+		if in(p.Done[StepListen], p.DoneAt[StepListen]) {
 			c.Listen++
 		}
-		if p.Done[StepWrite] {
+		if in(p.Done[StepWrite], p.DoneAt[StepWrite]) {
 			c.Write++
 		}
-		if !p.CompletedAt.IsZero() {
+		if in(!p.CompletedAt.IsZero(), p.CompletedAt) {
 			c.Completed++
 		}
 	}
@@ -311,10 +321,16 @@ func (f *fakeReviews) DueBefore(_ context.Context, userID string, before, create
 	return n, nil
 }
 
-func (f *fakeReviews) CardCount(_ context.Context, userID string) (int, error) {
+func (f *fakeReviews) CardCount(_ context.Context, userID string, since *time.Time) (int, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	return len(f.cards[userID]), nil
+	n := 0
+	for _, c := range f.cards[userID] {
+		if since == nil || !c.created.Before(*since) {
+			n++
+		}
+	}
+	return n, nil
 }
 
 func (f *fakeReviews) addCard(userID string, c fakeCard) {
@@ -329,6 +345,8 @@ type fakeQuiz struct {
 	status map[string][2]int
 	totals [2]int
 	err    error
+	// since is the lower bound of the last Totals call.
+	since *time.Time
 }
 
 func (f *fakeQuiz) set(userID, lessonID string, questions, answered int) {
@@ -344,9 +362,10 @@ func (f *fakeQuiz) Status(_ context.Context, userID, lessonID string) (questions
 	return s[0], s[1], f.err
 }
 
-func (f *fakeQuiz) Totals(context.Context, string) (answered, correct int, err error) {
+func (f *fakeQuiz) Totals(_ context.Context, _ string, since *time.Time) (answered, correct int, err error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+	f.since = since
 	return f.totals[0], f.totals[1], f.err
 }
 
@@ -357,6 +376,8 @@ type fakeWritings struct {
 	count     int
 	average   *float64
 	err       error
+	// since is the lower bound of the last Stats call.
+	since *time.Time
 }
 
 func (f *fakeWritings) submit(userID, lessonID string) {
@@ -371,8 +392,23 @@ func (f *fakeWritings) Submitted(_ context.Context, userID, lessonID string) (bo
 	return f.submitted[userID+"/"+lessonID], f.err
 }
 
-func (f *fakeWritings) Stats(context.Context, string) (int, *float64, error) {
+func (f *fakeWritings) Stats(_ context.Context, _ string, since *time.Time) (int, *float64, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
+	f.since = since
 	return f.count, f.average, f.err
+}
+
+// fakeGrammar returns a fixed count of mastered points and records the lower bound asked (F20).
+type fakeGrammar struct {
+	mu       sync.Mutex
+	mastered int
+	since    *time.Time
+}
+
+func (f *fakeGrammar) MasteredCount(_ context.Context, _ string, since *time.Time) (int, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.since = since
+	return f.mastered, nil
 }

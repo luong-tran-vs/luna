@@ -46,6 +46,9 @@
               <li>
                 <span class="key" lang="en">{{ e.lemma }}</span
                 >: <span lang="en">{{ e.sentence }}</span>
+                @if (e.meaningVi) {
+                  <span class="muted"> — {{ e.meaningVi }}</span>
+                }
               </li>
             }
           </ul>

@@ -1,11 +1,22 @@
-<section class="quiz" aria-labelledby="quiz-heading">
-  <h2 class="quiz-title" id="quiz-heading">Câu hỏi hiểu bài</h2>
+<section class="quiz step-card" aria-labelledby="quiz-heading">
+  <div class="step-card-head">
+    <h2 class="quiz-title" id="quiz-heading">Câu hỏi hiểu bài</h2>
+    <span class="muted" lang="en">Read the passage and answer the questions</span>
+  </div>
+  @if (answers().length > 0) {
+    <button type="button" class="btn restart" [disabled]="sending()" (click)="restart()">
+      <lu-icon name="review" /> Làm lại tất cả câu hỏi
+    </button>
+  }
 
-  <ol class="questions">
-    @for (q of quiz().questions; track $index; let i = $index) {
+
+  @if (quiz().questions[shown()]; as q) {
+    @let i = shown();
+    <div class="questions">
       @if (byIndex().get(i); as a) {
-        <li class="question answered">
-          <p class="prompt" lang="en">{{ i + 1 }}. {{ q.prompt }}</p>
+        <div class="question answered">
+          <p class="counter">Câu {{ i + 1 }}/{{ total() }}</p>
+          <p class="prompt" lang="en">{{ q.prompt }}</p>
           <p class="verdict" [class.right]="a.correct" [class.wrong]="!a.correct">
             {{ a.correct ? '✓ Đúng' : '✗ Sai' }}
           </p>
@@ -23,28 +34,57 @@
             }
           </ul>
           <p class="explanation">{{ a.explanationVi }}</p>
-        </li>
-      } @else if (i === current()) {
-        <li class="question active" [attr.aria-busy]="sending()">
+          <button type="button" class="btn redo" (click)="redo(i)">
+            <lu-icon name="review" /> Trả lời lại câu này
+          </button>
+        </div>
+      } @else {
+        <div class="question active" [attr.aria-busy]="sending()">
           <p class="counter">Câu {{ i + 1 }}/{{ total() }}</p>
           <p class="prompt" lang="en" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
-          <div class="options" role="group" [attr.aria-labelledby]="'quiz-q-' + i">
+          <div class="options" role="radiogroup" [attr.aria-labelledby]="'quiz-q-' + i">
             @for (o of q.options; track $index; let j = $index) {
-              <button
-                type="button"
-                class="option"
-                lang="en"
-                [disabled]="sending() || changed()"
-                (click)="choose(i, j)"
-              >
-                {{ o }}
-              </button>
+              <label class="option" [class.picked]="picked() === j">
+                <input
+                  type="radio"
+                  [name]="'quiz-' + i"
+                  [checked]="picked() === j"
+                  [disabled]="sending() || changed()"
+                  (change)="picked.set(j)"
+                />
+                <span class="letter" aria-hidden="true">{{ letters[j] }}.</span>
+                <span lang="en">{{ o }}</span>
+              </label>
             }
           </div>
-        </li>
+        </div>
       }
-    }
-  </ol>
+    </div>
+
+    <div class="step-nav">
+      <button type="button" class="nav-btn" [disabled]="i === 0" (click)="show(i - 1)">
+        <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
+      </button>
+      @if (!byIndex().has(i)) {
+        <button
+          type="button"
+          class="btn-primary check"
+          [disabled]="picked() === null || sending() || changed()"
+          (click)="choose(i, picked()!)"
+        >
+          {{ sending() ? 'Đang kiểm tra…' : 'Kiểm tra' }}
+        </button>
+      } @else if (nextOpen() !== -1) {
+        <button type="button" class="btn-primary" (click)="show(nextOpen())">Câu tiếp theo</button>
+      } @else {
+        <button type="button" class="btn-primary" disabled>Đã trả lời hết</button>
+      }
+      <button type="button" class="nav-btn" [disabled]="i >= total() - 1" (click)="show(i + 1)">
+        <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
+      </button>
+    </div>
+  }
+
 
   @if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>

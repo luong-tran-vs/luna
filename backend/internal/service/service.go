@@ -79,8 +79,8 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initWorker()
 	c.initReader()
 	c.initVocab()
-	c.initProgress()
 	c.initGrammar()
+	c.initProgress()
 	c.initExport()
 
 	c.queueMissingPractice(ctx)

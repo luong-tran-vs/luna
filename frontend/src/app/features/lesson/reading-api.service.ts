@@ -34,6 +34,11 @@ export class ReadingApiService {
     return this.http.post<AnswerResult>(`/api/lessons/${id}/answers`, input);
   }
 
+  /** Forgets this learner's comprehension answers, to answer the questions again. */
+  resetAnswers(id: string): Observable<void> {
+    return this.http.delete<void>(`/api/lessons/${id}/answers`);
+  }
+
   /** The lesson's practice steps (F17); empty when not generated yet. */
   practice(id: string): Observable<PracticeView> {
     return this.http.get<PracticeView>(`/api/lessons/${id}/practice`);

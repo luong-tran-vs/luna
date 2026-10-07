@@ -36,6 +36,7 @@ func (h *ReadingHandler) Register(mux *http.ServeMux, requireAuth, guard httpx.M
 	mux.Handle("GET /api/lessons/{id}/vocabulary", route(h.vocabulary))
 	mux.Handle("GET /api/lessons/{id}/images/{lemma}", route(h.image))
 	mux.Handle("POST /api/lessons/{id}/answers", route(h.answer))
+	mux.Handle("DELETE /api/lessons/{id}/answers", route(h.resetAnswers))
 	mux.Handle("POST /api/lessons/{id}/ask", route(h.ask))
 	mux.Handle("GET /api/lessons/{id}/practice", route(h.practice))
 }

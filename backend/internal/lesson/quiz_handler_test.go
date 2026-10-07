@@ -87,12 +87,19 @@ func TestAnswerEndpoint(t *testing.T) {
 		t.Fatalf("answer: %d %v", code, body)
 	}
 
+	// Answering again replaces the stored answer and returns the same shape.
+	code, body = postAnswer(t, mux, l.ID, "learner", `{"version":2,"questionIndex":1,"choice":0}`)
+	answer, _ = body["answer"].(map[string]any)
+	if code != http.StatusOK || answer["choice"] != float64(0) || answer["correct"] != false || answer["answerIndex"] != float64(1) ||
+		body["answered"] != float64(1) || body["total"] != float64(3) || body["correct"] != float64(0) {
+		t.Fatalf("answer again: %d %v", code, body)
+	}
+
 	tests := []struct {
 		name, token, body string
 		status            int
 		code              string
 	}{
-		{"again", "learner", `{"version":2,"questionIndex":1,"choice":0}`, http.StatusConflict, "already_answered"},
 		{"old version", "learner", `{"version":1,"questionIndex":0,"choice":0}`, http.StatusConflict, "quiz_changed"},
 		{"bad index", "learner", `{"version":2,"questionIndex":9,"choice":0}`, http.StatusBadRequest, "validation_failed"},
 		{"broken json", "learner", `{"version":`, http.StatusBadRequest, "invalid_body"},
@@ -103,11 +110,6 @@ func TestAnswerEndpoint(t *testing.T) {
 		if code != tt.status || body["error"] != tt.code {
 			t.Errorf("%s: %d %v", tt.name, code, body)
 		}
-		if tt.name == "again" {
-			if a, _ := body["answer"].(map[string]any); a["choice"] != float64(1) || a["correct"] != true {
-				t.Errorf("again: stored answer = %v", body["answer"])
-			}
-		}
 	}
 
 	if code, body := postAnswer(t, mux, "missing", "learner", `{"version":2,"questionIndex":0,"choice":0}`); code != http.StatusNotFound {
@@ -117,5 +119,76 @@ func TestAnswerEndpoint(t *testing.T) {
 	if code, body := postAnswer(t, plainMux, plain, "learner", `{"version":0,"questionIndex":0,"choice":0}`); code != http.StatusConflict ||
 		body["error"] != "no_quiz" {
 		t.Errorf("no quiz: %d %v", code, body)
+	}
+}
+
+func deleteAnswers(t *testing.T, mux http.Handler, lessonID, token string) *httptest.ResponseRecorder {
+	t.Helper()
+	req := httptest.NewRequestWithContext(t.Context(), http.MethodDelete, "/api/lessons/"+lessonID+"/answers", nil)
+	if token != "" {
+		req.AddCookie(&http.Cookie{Name: httpx.SessionCookieName, Value: token})
+	}
+	rec := httptest.NewRecorder()
+	mux.ServeHTTP(rec, req)
+	return rec
+}
+
+func TestResetAnswersEndpoint(t *testing.T) {
+	t.Parallel()
+	mux, l := newQuizAPI(t)
+	for _, token := range []string{"learner", "admin"} {
+		if code, body := postAnswer(t, mux, l.ID, token, `{"version":2,"questionIndex":0,"choice":0}`); code != http.StatusOK {
+			t.Fatalf("answer %s: %d %v", token, code, body)
+		}
+	}
+
+	if rec := deleteAnswers(t, mux, l.ID, "learner"); rec.Code != http.StatusNoContent || rec.Body.Len() != 0 {
+		t.Fatalf("delete: %d %s", rec.Code, rec.Body)
+	}
+	answersOf := func(token string) []any {
+		var out struct {
+			Lesson struct {
+				Quiz struct {
+					Answers []any `json:"answers"`
+				} `json:"quiz"`
+			} `json:"lesson"`
+		}
+		_ = json.Unmarshal(get(t, mux, "/api/lessons/"+l.ID, token).Body.Bytes(), &out)
+		return out.Lesson.Quiz.Answers
+	}
+	if a := answersOf("learner"); len(a) != 0 {
+		t.Fatalf("learner answers after delete = %v", a)
+	}
+	// Another user's answers are untouched.
+	if a := answersOf("admin"); len(a) != 1 {
+		t.Fatalf("admin answers = %v", a)
+	}
+	// The quiz can be taken again.
+	if code, body := postAnswer(t, mux, l.ID, "learner", `{"version":2,"questionIndex":0,"choice":1}`); code != http.StatusOK ||
+		body["answered"] != float64(1) || body["correct"] != float64(0) {
+		t.Fatalf("answer after delete: %d %v", code, body)
+	}
+
+	if rec := deleteAnswers(t, mux, "missing", "learner"); rec.Code != http.StatusNotFound {
+		t.Errorf("missing lesson: %d", rec.Code)
+	}
+	if rec := deleteAnswers(t, mux, l.ID, ""); rec.Code != http.StatusUnauthorized {
+		t.Errorf("no session: %d", rec.Code)
+	}
+	plainMux, plain := newReadingAPI(t)
+	if rec := deleteAnswers(t, plainMux, plain, "learner"); rec.Code != http.StatusNoContent {
+		t.Errorf("no quiz: %d %s", rec.Code, rec.Body)
+	}
+
+	r, _, _, l2 := newQuizEnv(t)
+	locked := http.NewServeMux()
+	deny := func(http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+			httpx.WriteError(w, http.StatusForbidden, "lesson_locked", "Bài này sẽ mở khi tới lượt")
+		})
+	}
+	NewReadingHandler(r, slog.New(slog.DiscardHandler)).Register(locked, httpx.RequireAuth(resolver), deny)
+	if rec := deleteAnswers(t, locked, l2.ID, "learner"); rec.Code != http.StatusForbidden || !strings.Contains(rec.Body.String(), "lesson_locked") {
+		t.Errorf("locked: %d %s", rec.Code, rec.Body)
 	}
 }

@@ -28,7 +28,7 @@ const words: VocabItem[] = [
 ];
 
 const examples: PracticeExample[] = [
-  { lemma: 'hello', sentence: 'Hello, how are you?' },
+  { lemma: 'hello', sentence: 'Hello, how are you?', meaningVi: 'Xin chào, bạn khoẻ không?' },
   { lemma: 'name', sentence: "What's your name?" },
 ];
 
@@ -126,6 +126,32 @@ describe('VocabStep', () => {
     expect(text(el.querySelector('.example-label'))).toBe('Ví dụ:');
     expect(text(el.querySelector('.example-btn'))).toBe('Hello, how are you? (nghe câu)');
     expect(text(el.querySelector('.example strong'))).toBe('Hello');
+    expect(text(el.querySelector('.example-vi'))).toBe('Xin chào, bạn khoẻ không?');
+  });
+
+  it('leaves out the Vietnamese line when the example has none', async () => {
+    await render();
+    el.querySelector<HTMLButtonElement>('.next-word')!.click();
+    await fixture.whenStable();
+    expect(text(el.querySelector('.example-btn'))).toContain("What's your name?");
+    expect(el.querySelector('.example-vi')).toBeNull();
+  });
+
+  it("hides the previous word's picture until the next word's has loaded", async () => {
+    await render();
+    const img = () => el.querySelector('img')!;
+    expect(img().classList.contains('loaded')).toBe(false);
+    img().dispatchEvent(new Event('load'));
+    await fixture.whenStable();
+    expect(img().classList.contains('loaded')).toBe(true);
+
+    el.querySelector<HTMLButtonElement>('.next-word')!.click();
+    await fixture.whenStable();
+    expect(img().getAttribute('src')).toBe(placeholderImage(words[1].lemma));
+    expect(img().classList.contains('loaded')).toBe(false);
+    img().dispatchEvent(new Event('load'));
+    await fixture.whenStable();
+    expect(img().classList.contains('loaded')).toBe(true);
   });
 
   it('draws the first letter when the picture does not load', async () => {

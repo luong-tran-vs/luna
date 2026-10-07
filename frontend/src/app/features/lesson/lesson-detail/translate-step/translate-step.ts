@@ -12,6 +12,7 @@ import { PracticeTranslation } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { checkTranslation } from '../practice-logic';
+import { SpeakButton } from '../../../../shared/directives/speak-button';
 
 /**
  * Step 4, one sentence: build the English translation by tapping tiles in order. Tiles can be
@@ -20,7 +21,7 @@ import { checkTranslation } from '../practice-logic';
  */
 @Component({
   selector: 'lu-translate-step',
-  imports: [Icon],
+  imports: [Icon, SpeakButton],
   templateUrl: './translate-step.html',
   styleUrls: ['../practice.css', './translate-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,6 +41,14 @@ export class TranslateStep {
   /** Text to read aloud with the browser's voice. */
   readonly readAloud = output<string>();
   readonly checked = output<boolean>();
+  /** ← and →, Câu tiếp theo: the sentence to show (the page keeps the index). */
+  readonly go = output<number>();
+  /** Hoàn thành after the last sentence: go to the next step. */
+  readonly done = output<void>();
+  /** Làm lại câu này: the sentence is cleared; the page forgets its result until checked again. */
+  readonly redone = output<void>();
+  /** Làm lại bước này: the page clears every result and goes back to the first sentence. */
+  readonly restart = output<void>();
 
   /** Tile indexes in the order they were tapped. */
   protected readonly chosen = linkedSignal<PracticeTranslation, number[]>({
@@ -70,6 +79,20 @@ export class TranslateStep {
     if (this.result() === null) {
       this.chosen.set([]);
     }
+  }
+
+  /** Làm lại câu này, after a check. */
+  protected redo(): void {
+    this.chosen.set([]);
+    this.result.set(null);
+    this.redone.emit();
+  }
+
+  /** Làm lại bước này: this sentence is cleared here, the others by the page. */
+  protected restartAll(): void {
+    this.chosen.set([]);
+    this.result.set(null);
+    this.restart.emit();
   }
 
   protected check(): void {

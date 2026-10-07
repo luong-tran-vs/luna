@@ -21,7 +21,9 @@ type ProgressRepository interface {
 	Upsert(ctx context.Context, p LessonProgress) error
 	SetPosition(ctx context.Context, userID, lessonID string, step Step, sentence int) error
 	// StepCounts counts the learner's lessons among lessonIDs (nil = every lesson) by steps done.
-	StepCounts(ctx context.Context, userID string, lessonIDs []string) (StepCounts, error)
+	// With since set, a step counts only when done at or after since (by DoneAt, so steps done
+	// before DoneAt was recorded never count) and a lesson only when completed at or after since.
+	StepCounts(ctx context.Context, userID string, lessonIDs []string, since *time.Time) (StepCounts, error)
 }
 
 // DayRepository stores the days with a completed lesson, for the streak.
@@ -44,8 +46,8 @@ type ReadingQuiz interface {
 	// Status returns how many questions the lesson has and how many the learner answered in the
 	// current question set; 0 questions means the lesson has no quiz.
 	Status(ctx context.Context, userID, lessonID string) (questions, answered int, err error)
-	// Totals counts the learner's answers and the correct ones.
-	Totals(ctx context.Context, userID string) (answered, correct int, err error)
+	// Totals counts the learner's answers and the correct ones, answered at or after since (nil = all).
+	Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error)
 }
 
 // Writings is what the Write step and the stats need from the writings (F8, implemented over
@@ -53,8 +55,9 @@ type ReadingQuiz interface {
 type Writings interface {
 	// Submitted reports whether the learner has submitted the writing of the lesson.
 	Submitted(ctx context.Context, userID, lessonID string) (bool, error)
-	// Stats counts submitted writings and averages the graded ones (nil when none is graded).
-	Stats(ctx context.Context, userID string) (submitted int, average *float64, err error)
+	// Stats counts the writings submitted at or after since (nil = all) and averages the graded
+	// ones among them (nil when none is graded).
+	Stats(ctx context.Context, userID string, since *time.Time) (submitted int, average *float64, err error)
 }
 
 // LessonTitles gives the titles of the lessons that still exist among ids.
@@ -70,8 +73,15 @@ type Reviews interface {
 	// DueBefore counts cards due before `before`; cards without a schedule count when saved
 	// before createdBefore (they are due the day after they were saved).
 	DueBefore(ctx context.Context, userID string, before, createdBefore time.Time) (int, error)
-	// CardCount is the number of cards in the notebook.
-	CardCount(ctx context.Context, userID string) (int, error)
+	// CardCount is the number of cards in the notebook created at or after since (nil = all).
+	CardCount(ctx context.Context, userID string, since *time.Time) (int, error)
+}
+
+// Grammar is what the stats need from the grammar lessons (F20, implemented over grammar.Service
+// in main).
+type Grammar interface {
+	// MasteredCount counts the grammar points the learner mastered at or after since (nil = all).
+	MasteredCount(ctx context.Context, userID string, since *time.Time) (int, error)
 }
 
 // Timezones gives a learner's timezone.

@@ -60,4 +60,9 @@ export const adminRoutes: Routes = [
     title: 'Thử giọng đọc · Quản trị · Luna',
     loadComponent: () => import('./tts-lab/tts-lab').then((m) => m.TtsLab),
   },
+  {
+    path: 'stt-lab',
+    title: 'Thử nhận dạng giọng nói · Quản trị · Luna',
+    loadComponent: () => import('./stt-lab/stt-lab').then((m) => m.SttLab),
+  },
 ];

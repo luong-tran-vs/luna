@@ -7,6 +7,7 @@
       <button
         type="button"
         class="icon-btn play-btn"
+        luSpeak
         [attr.aria-label]="mode() === 'all' ? 'Dừng' : 'Nghe cả đoạn'"
         (click)="mode() === 'all' ? stop() : playAll()"
       >
@@ -59,45 +60,58 @@
     </button>
   </div>
 
-  <ol class="turns">
-    @for (t of dialogue().turns; track $index; let i = $index) {
-      <li
-        class="turn"
-        [class.playing]="current() === i"
-        [attr.aria-current]="current() === i ? 'true' : null"
-      >
+  @if (turn(); as t) {
+    <div
+      class="turn step-card"
+      [class.playing]="current() === shown()"
+      [attr.aria-current]="current() === shown() ? 'true' : null"
+    >
+      <div class="step-card-head">
         <span class="speaker">{{ speaker(t.speaker) }}</span>
-        @if (canSpeak) {
-          <lu-audio-bar
-            [progress]="progress(i)"
-            [duration]="duration(i)"
-            [playing]="current() === i"
-            [playLabel]="'Nghe lượt ' + (i + 1)"
-            [stopLabel]="'Dừng lượt ' + (i + 1)"
-            (playPressed)="toggleOne(i)"
-          />
-        }
-        @if (isRevealed(i)) {
-          <div class="lyrics" [id]="'turn-lyrics-' + i">
-            <p class="turn-text" lang="en">{{ t.text }}</p>
-            @if (showMeaning()) {
-              <p class="turn-meaning">{{ t.meaningVi }}</p>
-            }
-          </div>
-        }
-        @if (canSpeak) {
-          <button
-            type="button"
-            class="reveal"
-            [attr.aria-label]="(isRevealed(i) ? 'Ẩn lời' : 'Hiện lời') + ' lượt ' + (i + 1)"
-            [attr.aria-expanded]="isRevealed(i)"
-            [attr.aria-controls]="isRevealed(i) ? 'turn-lyrics-' + i : null"
-            (click)="toggleTurn(i)"
-          >
-            {{ isRevealed(i) ? 'Ẩn lời' : 'Hiện lời' }}
-          </button>
-        }
-      </li>
-    }
-  </ol>
+        <span class="muted" aria-live="polite">Lượt {{ shown() + 1 }}/{{ dialogue().turns.length }}</span>
+      </div>
+      @if (canSpeak) {
+        <lu-audio-bar
+          [progress]="progress(shown())"
+          [duration]="duration(shown())"
+          [playing]="current() === shown()"
+          [playLabel]="'Nghe lượt ' + (shown() + 1)"
+          [stopLabel]="'Dừng lượt ' + (shown() + 1)"
+          (playPressed)="toggleOne(shown())"
+        />
+      }
+      @if (isRevealed(shown())) {
+        <div class="lyrics" [id]="'turn-lyrics-' + shown()">
+          <p class="turn-text" lang="en">{{ t.text }}</p>
+          @if (showMeaning()) {
+            <p class="turn-meaning">{{ t.meaningVi }}</p>
+          }
+        </div>
+      }
+      @if (canSpeak) {
+        <button
+          type="button"
+          class="reveal"
+          [attr.aria-label]="(isRevealed(shown()) ? 'Ẩn lời' : 'Hiện lời') + ' lượt ' + (shown() + 1)"
+          [attr.aria-expanded]="isRevealed(shown())"
+          [attr.aria-controls]="isRevealed(shown()) ? 'turn-lyrics-' + shown() : null"
+          (click)="toggleTurn(shown())"
+        >
+          {{ isRevealed(shown()) ? 'Ẩn lời' : 'Hiện lời' }}
+        </button>
+      }
+      <div class="step-nav">
+        <button type="button" class="nav-btn" [disabled]="shown() === 0" (click)="show(shown() - 1)">
+          <lu-icon name="arrow-left" /><span class="visually-hidden">Lượt trước</span>
+        </button>
+        <button type="button" class="btn-primary" (click)="isLast() ? finished.emit() : show(shown() + 1)">
+          {{ isLast() ? 'Hoàn thành' : 'Lượt tiếp theo' }}
+        </button>
+        <button type="button" class="nav-btn" [disabled]="isLast()" (click)="show(shown() + 1)">
+          <lu-icon name="arrow-right" /><span class="visually-hidden">Lượt sau</span>
+        </button>
+      </div>
+    </div>
+  }
+
 </section>

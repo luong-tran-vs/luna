@@ -293,6 +293,23 @@ func (s *Service) List(ctx context.Context, userID, level string) (Overview, err
 	return out, nil
 }
 
+// MasteredCount counts the points the learner mastered at or after since (nil = every mastered
+// point), for the stats page. Mastering a point (passing its mastery check) is what finishes a
+// grammar lesson, and MasteredAt is set once, on the first pass, so it dates the finish.
+func (s *Service) MasteredCount(ctx context.Context, userID string, since *time.Time) (int, error) {
+	records, err := s.progress.List(ctx, userID)
+	if err != nil {
+		return 0, fmt.Errorf("grammar: list progress: %w", err)
+	}
+	n := 0
+	for _, p := range records {
+		if p.Status == ProgressMastered && (since == nil || !p.MasteredAt.Before(*since)) {
+			n++
+		}
+	}
+	return n, nil
+}
+
 // Detail is the study page of a published point.
 type Detail struct {
 	Point       Point

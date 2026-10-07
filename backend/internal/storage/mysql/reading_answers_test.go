@@ -1,7 +1,6 @@
 package mysql
 
 import (
-	"errors"
 	"testing"
 	"time"
 
@@ -15,14 +14,14 @@ func readingAnswer(user, les string, version, q, choice int, correct bool) lesso
 	}
 }
 
-func TestReadingAnswersInsertListAndFinal(t *testing.T) {
+func TestReadingAnswersUpsertListAndDelete(t *testing.T) {
 	t.Parallel()
 	r := NewReadingAnswers(testDB(t))
 	ctx := t.Context()
 	u, l := newID(), newID()
 
 	for _, q := range []int{2, 0, 1} {
-		if err := r.Insert(ctx, readingAnswer(u, l, 1, q, q, q != 1)); err != nil {
+		if err := r.Upsert(ctx, readingAnswer(u, l, 1, q, q, q != 1)); err != nil {
 			t.Fatalf("insert %d: %v", q, err)
 		}
 	}
@@ -38,29 +37,59 @@ func TestReadingAnswersInsertListAndFinal(t *testing.T) {
 		}
 	}
 
-	// A second answer is refused and returns the first.
-	err = r.Insert(ctx, readingAnswer(u, l, 1, 1, 3, true))
-	var already *lesson.AlreadyAnsweredError
-	if !errors.As(err, &already) || !errors.Is(err, lesson.ErrAlreadyAnswered) {
-		t.Fatalf("second insert = %v", err)
+	// A second answer replaces the first, with its new time.
+	again := readingAnswer(u, l, 1, 1, 3, true)
+	again.AnsweredAt = again.AnsweredAt.Add(time.Hour)
+	if err := r.Upsert(ctx, again); err != nil {
+		t.Fatalf("second answer: %v", err)
 	}
-	if already.Answer.Choice != 1 || already.Answer.Correct {
-		t.Fatalf("first answer = %+v", already.Answer)
-	}
-	if got, _ := r.List(ctx, u, l, 1); got[1].Choice != 1 || got[1].Correct {
-		t.Fatalf("answer was overwritten: %+v", got[1])
+	got, _ = r.List(ctx, u, l, 1)
+	if len(got) != 3 || got[1].Choice != 3 || !got[1].Correct || !got[1].AnsweredAt.Equal(again.AnsweredAt) {
+		t.Fatalf("after replace = %+v", got)
 	}
 
 	// Another version, user or lesson answers the same question again.
+	other, otherLesson := newID(), newID()
 	for _, a := range []lesson.Answer{
-		readingAnswer(u, l, 2, 1, 0, true), readingAnswer(newID(), l, 1, 1, 0, true), readingAnswer(u, newID(), 1, 1, 0, true),
+		readingAnswer(u, l, 2, 1, 0, true), readingAnswer(other, l, 1, 1, 0, true), readingAnswer(u, otherLesson, 1, 1, 0, true),
 	} {
-		if err := r.Insert(ctx, a); err != nil {
+		if err := r.Upsert(ctx, a); err != nil {
 			t.Fatalf("insert %+v: %v", a, err)
 		}
 	}
 	if got, _ := r.List(ctx, u, l, 2); len(got) != 1 {
 		t.Fatalf("version 2 = %v", got)
+	}
+
+	// Delete removes only the learner's answers to that version of that lesson.
+	if err := r.Delete(ctx, u, l, 1); err != nil {
+		t.Fatal(err)
+	}
+	if got, err := r.List(ctx, u, l, 1); err != nil || len(got) != 0 {
+		t.Fatalf("after delete = %v, %v", got, err)
+	}
+	for _, c := range []struct {
+		user, lesson string
+		version      int
+	}{{u, l, 2}, {other, l, 1}, {u, otherLesson, 1}} {
+		if got, _ := r.List(ctx, c.user, c.lesson, c.version); len(got) != 1 {
+			t.Fatalf("kept %+v = %v", c, got)
+		}
+	}
+	if err := r.Delete(ctx, u, l, 1); err != nil {
+		t.Fatalf("delete again: %v", err)
+	}
+}
+
+func TestReadingAnswersTotalsCountLatest(t *testing.T) {
+	t.Parallel()
+	r := NewReadingAnswers(testDB(t))
+	ctx := t.Context()
+	u, l := newID(), newID()
+	_ = r.Upsert(ctx, readingAnswer(u, l, 1, 0, 1, false))
+	_ = r.Upsert(ctx, readingAnswer(u, l, 1, 0, 0, true))
+	if a, c, err := r.Totals(ctx, u, nil); err != nil || a != 1 || c != 1 {
+		t.Fatalf("totals = %d, %d, %v", a, c, err)
 	}
 }
 
@@ -78,16 +107,23 @@ func TestReadingAnswersTotals(t *testing.T) {
 	r := NewReadingAnswers(testDB(t))
 	ctx := t.Context()
 	u := newID()
-	if a, c, err := r.Totals(ctx, u); err != nil || a != 0 || c != 0 {
+	if a, c, err := r.Totals(ctx, u, nil); err != nil || a != 0 || c != 0 {
 		t.Fatalf("empty totals = %d, %d, %v", a, c, err)
 	}
 	l := newID()
-	_ = r.Insert(ctx, readingAnswer(u, l, 1, 0, 0, true))
-	_ = r.Insert(ctx, readingAnswer(u, l, 1, 1, 0, false))
-	_ = r.Insert(ctx, readingAnswer(u, l, 2, 0, 0, true)) // another version still counts
-	_ = r.Insert(ctx, readingAnswer(newID(), l, 1, 0, 0, true))
-	a, c, err := r.Totals(ctx, u)
+	_ = r.Upsert(ctx, readingAnswer(u, l, 1, 0, 0, true))
+	_ = r.Upsert(ctx, readingAnswer(u, l, 1, 1, 0, false))
+	_ = r.Upsert(ctx, readingAnswer(u, l, 2, 0, 0, true)) // another version still counts
+	_ = r.Upsert(ctx, readingAnswer(newID(), l, 1, 0, 0, true))
+	a, c, err := r.Totals(ctx, u, nil)
 	if err != nil || a != 3 || c != 2 {
 		t.Fatalf("totals = %d, %d, %v", a, c, err)
+	}
+	// An answer given later counts alone since then.
+	late := readingAnswer(u, l, 2, 1, 0, true)
+	late.AnsweredAt = late.AnsweredAt.Add(24 * time.Hour)
+	_ = r.Upsert(ctx, late)
+	if a, c, err := r.Totals(ctx, u, &late.AnsweredAt); err != nil || a != 1 || c != 1 {
+		t.Fatalf("totals since = %d, %d, %v", a, c, err)
 	}
 }

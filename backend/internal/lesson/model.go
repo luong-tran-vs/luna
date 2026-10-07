@@ -137,8 +137,6 @@ var (
 	ErrQuizChanged = errors.New("lesson: questions changed")
 	// ErrNoQuiz means the lesson has no comprehension questions.
 	ErrNoQuiz = errors.New("lesson: lesson has no questions")
-	// ErrAlreadyAnswered is matched by *AlreadyAnsweredError.
-	ErrAlreadyAnswered = errors.New("lesson: question already answered")
 	// ErrNoValidPractice means nothing the AI wrote for the practice passed the checks.
 	ErrNoValidPractice = errors.New("lesson: AI returned no usable practice")
 	// ErrPracticeRunning means the practice is already being generated.
@@ -188,13 +186,3 @@ type Answer struct {
 	Correct       bool
 	AnsweredAt    time.Time
 }
-
-// AlreadyAnsweredError carries the answer stored first for a question answered again.
-type AlreadyAnsweredError struct {
-	Answer Answer
-}
-
-func (e *AlreadyAnsweredError) Error() string { return ErrAlreadyAnswered.Error() }
-
-// Is makes errors.Is(err, ErrAlreadyAnswered) true.
-func (e *AlreadyAnsweredError) Is(target error) bool { return target == ErrAlreadyAnswered }

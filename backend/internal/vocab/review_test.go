@@ -267,10 +267,14 @@ func TestDueBeforeAndCount(t *testing.T) {
 	if n, err := e.svc.DueBefore(t.Context(), "u1", cutoff, tomorrow); err != nil || n != 3 {
 		t.Fatalf("due before = %d, %v; want 3", n, err)
 	}
-	if n, err := e.svc.Count(t.Context(), "u1"); err != nil || n != 5 {
+	if n, err := e.svc.Count(t.Context(), "u1", nil); err != nil || n != 5 {
 		t.Fatalf("count = %d, %v; want 5", n, err)
 	}
-	if n, _ := e.svc.Count(t.Context(), "nobody"); n != 0 {
+	if n, _ := e.svc.Count(t.Context(), "nobody", nil); n != 0 {
 		t.Fatalf("count nobody = %d", n)
+	}
+	since := now.Add(-time.Hour) // only "l" and "n" were saved since
+	if n, err := e.svc.Count(t.Context(), "u1", &since); err != nil || n != 2 {
+		t.Fatalf("count since = %d, %v; want 2", n, err)
 	}
 }

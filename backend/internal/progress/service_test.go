@@ -128,3 +128,37 @@ func TestSummaryEmptyLesson(t *testing.T) {
 		t.Fatalf("empty lesson = %+v, %v", s, err)
 	}
 }
+
+func TestReset(t *testing.T) {
+	t.Parallel()
+	svc, lessons := newTestService()
+	ctx := t.Context()
+	lessons.set("l2", 1, 3)
+	for _, c := range []struct{ user, lesson string }{{"u1", "l1"}, {"u1", "l2"}, {"u2", "l1"}} {
+		if _, err := svc.Record(ctx, c.user, c.lesson, Input{SentenceIndex: 0, Typed: "a", CorrectWords: 1, TotalWords: 2}); err != nil {
+			t.Fatal(err)
+		}
+	}
+	// A result of an older revision goes too.
+	lessons.set("l1", 2, 3)
+	if _, err := svc.Record(ctx, "u1", "l1", Input{SentenceIndex: 1, Typed: "b", CorrectWords: 2, TotalWords: 2}); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := svc.Reset(ctx, "u1", "l1"); err != nil {
+		t.Fatal(err)
+	}
+	if sum, err := svc.Summary(ctx, "u1", "l1"); err != nil || sum.CheckedCount != 0 {
+		t.Fatalf("u1 l1 = %+v, %v", sum, err)
+	}
+	tot, err := svc.Totals(ctx, "u1", nil)
+	if err != nil || tot.Sentences != 1 || tot.Lessons != 1 {
+		t.Fatalf("u1 totals = %+v, %v; want only l2", tot, err)
+	}
+	if tot, _ := svc.Totals(ctx, "u2", nil); tot.Sentences != 1 {
+		t.Fatalf("u2 totals = %+v", tot)
+	}
+	if err := svc.Reset(ctx, "u1", "missing"); !errors.Is(err, ErrLessonNotFound) {
+		t.Fatalf("missing lesson: %v", err)
+	}
+}

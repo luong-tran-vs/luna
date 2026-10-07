@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 
 import { estimateSeconds } from '../../shared/utils/fake-waveform';
 import { Clip, NaturalVoiceService } from '../natural-voice/natural-voice.service';
@@ -27,7 +27,8 @@ const PROGRESS_CAP = 0.95;
  * Reads English text aloud, so listening needs no prepared audio files (F3, F4, F5, F17), and
  * always starts at once. With the natural voice on (NaturalVoiceService), a text it has already
  * generated plays in that voice at the chosen speed; any other text is read by the browser's own
- * voice (Web Speech API) while the natural voice generates it for next time. One utterance at a
+ * voice (Web Speech API) while the natural voice generates it for next time — unless the learner
+ * turned the browser voice off, then the text plays once generated. One utterance at a
  * time: speaking again stops the previous one.
  */
 @Injectable({ providedIn: 'root' })
@@ -44,6 +45,16 @@ export class SpeechService {
 
   private readonly browserSupported = this.synth !== null && typeof SpeechSynthesisUtterance !== 'undefined';
 
+  private readonly _preparing = signal<string | null>(null);
+  /**
+   * The text (trimmed) waiting for the natural voice before it plays, while the browser voice is
+   * off; null otherwise. Play buttons show it as "đang chuẩn bị" (see SpeakButton).
+   */
+  readonly preparing = this._preparing.asReadonly();
+  private readonly _playing = signal<string | null>(null);
+  /** The text (trimmed) being read aloud, by either voice; null when silent. */
+  readonly playing = this._playing.asReadonly();
+
   /** True while the natural voice is loaded (texts can be generated ahead). */
   readonly natural = this.voice.ready;
 
@@ -54,7 +65,25 @@ export class SpeechService {
     const clip = this.audio && this.voice.ready() ? this.voice.cached(text) : null;
     if (clip) {
       this.stop();
-      this.play(clip, rate, handlers);
+      this.play(text, clip, rate, handlers);
+      return;
+    }
+    if (this.audio && this.voice.exclusive()) {
+      // The browser voice is off: wait for the natural voice to generate the text, then play it.
+      this.stop();
+      const token = this.token;
+      this._preparing.set(text.trim());
+      void this.voice.request(text).then((ready) => {
+        if (token !== this.token) {
+          return; // stopped or replaced meanwhile
+        }
+        this._preparing.set(null);
+        if (ready) {
+          this.play(text, ready, rate, handlers);
+        } else {
+          handlers.failed?.('natural-voice');
+        }
+      });
       return;
     }
     this.voice.want(text);
@@ -67,8 +96,9 @@ export class SpeechService {
   }
 
   /** Plays a generated clip; the speed changes the playback rate (the pitch is kept). */
-  private play(clip: Clip, rate: number, handlers: SpeakHandlers): void {
+  private play(text: string, clip: Clip, rate: number, handlers: SpeakHandlers): void {
     const audio = this.audio!;
+    this._playing.set(text.trim());
     const token = this.token;
     const own = () => token === this.token;
     audio.onplaying = () => own() && handlers.started?.();
@@ -164,11 +194,13 @@ export class SpeechService {
       handlers.failed?.(e.error);
     };
     this.current = u;
+    this._playing.set(text.trim());
     this.synth.speak(u);
   }
 
   stop(): void {
     this.token++;
+    this._preparing.set(null);
     this.finish();
     if (this.audio && !this.audio.paused) {
       this.audio.pause();
@@ -178,6 +210,7 @@ export class SpeechService {
 
   private finish(): void {
     this.current = null;
+    this._playing.set(null);
     if (this.timer !== null) {
       clearInterval(this.timer);
       this.timer = null;

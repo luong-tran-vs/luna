@@ -3,10 +3,14 @@ import { signal } from '@angular/core';
 import { SpeakHandlers, SpeechService } from './speech.service';
 
 /** A SpeechService for specs: records what the page asks the browser to read. */
-export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | 'stop' | 'prefetch' | 'natural'> {
+export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | 'stop' | 'prefetch' | 'natural' | 'preparing' | 'playing'> {
   supported = true;
   /** Set to true to act as if the natural voice were ready. */
   readonly natural = signal(false);
+  /** Set to a text to act as if it were waiting for the natural voice. */
+  readonly preparing = signal<string | null>(null);
+  /** Set to a text to act as if it were being read aloud. */
+  readonly playing = signal<string | null>(null);
   /** Every prefetch() call. */
   readonly prefetched: (readonly string[])[] = [];
   readonly spoken: { text: string; rate: number; handlers: SpeakHandlers }[] = [];
@@ -19,6 +23,7 @@ export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | '
 
   stop(): void {
     this.stops++;
+    this.playing.set(null);
   }
 
   prefetch(texts: readonly string[]): void {

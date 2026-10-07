@@ -31,7 +31,9 @@ type StudyDeps struct {
 	Quiz ReadingQuiz
 	// Writings gates the Write step (F8); nil means a writing is never required.
 	Writings Writings
-	Now      func() time.Time
+	// Grammar counts mastered grammar points for the stats (F20); nil counts none.
+	Grammar Grammar
+	Now     func() time.Time
 }
 
 // StudyService runs the study flow (L): goals, the lesson being studied and its steps, streak.
@@ -269,6 +271,8 @@ func (s *StudyService) view(ctx context.Context, d *day, lessonID string) (Lesso
 		case st == v.CurrentStep:
 			v.Steps[st] = StateCurrent
 		default:
+			// Not done yet and after the current step. Steps complete in any order, so this only
+			// tells the step indicator how to draw it; nothing is blocked.
 			v.Steps[st] = StateLocked
 		}
 	}
@@ -278,15 +282,17 @@ func (s *StudyService) view(ctx context.Context, d *day, lessonID string) (Lesso
 	return v, nil
 }
 
-// CompleteStep records a step of the lesson being studied. Steps complete in order; completing a
-// done step again changes nothing. The last step completes the lesson (goal +1, the day counts
-// for the streak) and the next lesson opens at once.
+// CompleteStep records a step of the lesson being studied. Steps complete in any order: the learner
+// may move on to another skill and come back later. Completing a done step again changes nothing.
+// Once every step is done the lesson completes (goal +1, the day counts for the streak) and the
+// next lesson opens at once.
 func (s *StudyService) CompleteStep(ctx context.Context, userID, lessonID string, step Step) (LessonStudyView, error) {
 	return s.finishStep(ctx, userID, lessonID, step, false)
 }
 
 // SkipWrite completes the Write step without a writing: writing is optional (updated
-// 2026-10-02), so the learner may finish the lesson without it. Nothing is graded.
+// 2026-10-02), so the learner may finish the lesson without it. Nothing is graded. Like any step
+// it may be skipped before the others are done; the lesson then completes with the last of them.
 func (s *StudyService) SkipWrite(ctx context.Context, userID, lessonID string) (LessonStudyView, error) {
 	return s.finishStep(ctx, userID, lessonID, StepWrite, true)
 }
@@ -311,9 +317,6 @@ func (s *StudyService) finishStep(ctx context.Context, userID, lessonID string, 
 	}
 	if p.Done[step] {
 		return s.view(ctx, d, lessonID)
-	}
-	if NextStep(p.Done) != step {
-		return LessonStudyView{}, ErrStepLocked
 	}
 	return s.completeStep(ctx, d, step, skipWriting)
 }
@@ -360,8 +363,17 @@ func (s *StudyService) completeStep(ctx context.Context, d *day, step Step, skip
 		p.Done = map[Step]bool{}
 	}
 	p.Done[step] = true
-	p.CurrentStep, p.SentenceIndex = NextStep(p.Done), 0
-	completed := p.CurrentStep == StepDone
+	if p.DoneAt == nil {
+		p.DoneAt = map[Step]time.Time{}
+	}
+	p.DoneAt[step] = d.now
+	// Steps may finish in any order, so the lesson completes only when none is left. A saved
+	// position is kept when it belongs to another step still to do.
+	remaining := NextStep(p.Done)
+	completed := remaining == StepDone
+	if completed || !ValidStep(p.CurrentStep) || p.Done[p.CurrentStep] {
+		p.CurrentStep, p.SentenceIndex = remaining, 0
+	}
 	if completed {
 		p.CompletedAt = d.now
 	}
@@ -380,8 +392,8 @@ func (s *StudyService) completeStep(ctx context.Context, d *day, step Step, skip
 	return s.view(ctx, next, lessonID)
 }
 
-// SetPosition saves the sentence of the current step of the lesson being studied; the first save
-// starts the lesson.
+// SetPosition saves the sentence of a step of the lesson being studied; any step not done yet may
+// be worked on, whatever the order. The first save starts the lesson.
 func (s *StudyService) SetPosition(ctx context.Context, userID, lessonID string, step Step, sentence int) error {
 	if !ValidStep(step) {
 		return &ValidationError{Fields: map[string]string{"step": "Bước không hợp lệ"}}
@@ -397,7 +409,7 @@ func (s *StudyService) SetPosition(ctx context.Context, userID, lessonID string,
 	if err != nil {
 		return fmt.Errorf("progress: lesson progress: %w", err)
 	}
-	if NextStep(p.Done) != step {
+	if p.Done[step] {
 		return ErrNotCurrentStep
 	}
 	_, count, err := s.d.Lessons.Info(ctx, lessonID)
@@ -485,8 +497,9 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 	return out, nil
 }
 
-// CanWrite reports whether the lesson is the one being studied and its next step is Write (F8):
-// only then may the writing be drafted or submitted.
+// CanWrite reports whether the lesson is the one being studied and its Write step is not done yet
+// (F8): only then may the writing be drafted or submitted. Steps complete in any order, so the
+// other steps need not be done first.
 func (s *StudyService) CanWrite(ctx context.Context, userID, lessonID string) (bool, error) {
 	d, err := s.load(ctx, userID)
 	if err != nil {
@@ -495,11 +508,11 @@ func (s *StudyService) CanWrite(ctx context.Context, userID, lessonID string) (b
 	if d.state.Kind != StudyStudying || d.state.LessonID != lessonID {
 		return false, nil
 	}
-	p, ok, err := s.d.Progress.Get(ctx, userID, lessonID)
+	p, _, err := s.d.Progress.Get(ctx, userID, lessonID)
 	if err != nil {
 		return false, fmt.Errorf("progress: lesson progress: %w", err)
 	}
-	return ok && NextStep(p.Done) == StepWrite, nil
+	return !p.Done[StepWrite], nil
 }
 
 // CanOpen reports whether a user may open a lesson's content: admins always; learners the lesson

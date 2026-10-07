@@ -53,6 +53,14 @@ describe('ReadingApiService', () => {
     await expect(result).resolves.toMatchObject({ total: 3 });
   });
 
+  it('forgets the comprehension answers of a lesson', async () => {
+    const result = firstValueFrom(api.resetAnswers('l1'), { defaultValue: undefined });
+    const req = http.expectOne('/api/lessons/l1/answers');
+    expect(req.request.method).toBe('DELETE');
+    req.flush(null, { status: 204, statusText: 'No Content' });
+    await expect(result).resolves.toBeNull();
+  });
+
   it('loads the lesson vocabulary', async () => {
     const result = firstValueFrom(api.vocabulary('l1'));
     http.expectOne('/api/lessons/l1/vocabulary').flush({ available: false, items: [] });

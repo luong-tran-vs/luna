@@ -1,6 +1,9 @@
 package progress
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
 // DictationRepository stores dictation results. Implementations live in internal/storage.
 type DictationRepository interface {
@@ -8,8 +11,11 @@ type DictationRepository interface {
 	Upsert(ctx context.Context, userID, lessonID string, revision int, r Result) error
 	// List returns all of the user's results for the lesson, of any revision, in any order.
 	List(ctx context.Context, userID, lessonID string) ([]StoredResult, error)
-	// Totals sums the user's results over every lesson (one result per sentence).
-	Totals(ctx context.Context, userID string) (DictationTotals, error)
+	// Delete removes all of the user's results for the lesson, of any revision.
+	Delete(ctx context.Context, userID, lessonID string) error
+	// Totals sums the user's results over every lesson (one result per sentence), counting only
+	// the results checked at or after since (nil = every result).
+	Totals(ctx context.Context, userID string, since *time.Time) (DictationTotals, error)
 }
 
 // Lessons reads what progress needs from a lesson (implemented over lesson.Repository in main).

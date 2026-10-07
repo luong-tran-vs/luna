@@ -24,6 +24,7 @@ func NewHandler(svc *Service, log *slog.Logger) *Handler {
 func (h *Handler) Register(mux *http.ServeMux, requireAuth, guard httpx.Middleware) {
 	mux.Handle("POST /api/lessons/{id}/dictation", requireAuth(guard(http.HandlerFunc(h.record))))
 	mux.Handle("GET /api/lessons/{id}/dictation/summary", requireAuth(guard(http.HandlerFunc(h.summary))))
+	mux.Handle("DELETE /api/lessons/{id}/dictation", requireAuth(guard(http.HandlerFunc(h.reset))))
 }
 
 type recordRequest struct {
@@ -92,4 +93,14 @@ func (h *Handler) write(w http.ResponseWriter, r *http.Request, sum Summary, err
 		h.log.ErrorContext(r.Context(), "dictation failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")
 	}
+}
+
+// reset deletes the session user's dictation results for the lesson; lesson progress is kept.
+func (h *Handler) reset(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	if err := h.svc.Reset(r.Context(), p.UserID, r.PathValue("id")); err != nil {
+		h.write(w, r, Summary{}, err)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

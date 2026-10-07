@@ -390,12 +390,13 @@ type fakeAnswers struct {
 
 func newFakeAnswers() *fakeAnswers { return &fakeAnswers{} }
 
-func (f *fakeAnswers) Insert(_ context.Context, a Answer) error {
+func (f *fakeAnswers) Upsert(_ context.Context, a Answer) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	for _, r := range f.rows {
+	for i, r := range f.rows {
 		if r.UserID == a.UserID && r.LessonID == a.LessonID && r.QuizVersion == a.QuizVersion && r.QuestionIndex == a.QuestionIndex {
-			return &AlreadyAnsweredError{Answer: r}
+			f.rows[i] = a
+			return nil
 		}
 	}
 	f.rows = append(f.rows, a)
@@ -415,11 +416,11 @@ func (f *fakeAnswers) List(_ context.Context, userID, lessonID string, version i
 	return out, nil
 }
 
-func (f *fakeAnswers) Totals(_ context.Context, userID string) (answered, correct int, err error) {
+func (f *fakeAnswers) Totals(_ context.Context, userID string, since *time.Time) (answered, correct int, err error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	for _, r := range f.rows {
-		if r.UserID == userID {
+		if r.UserID == userID && (since == nil || !r.AnsweredAt.Before(*since)) {
 			answered++
 			if r.Correct {
 				correct++
@@ -575,4 +576,13 @@ func (f *fakeAI) ReviewLesson(_ context.Context, req ai.ReviewRequest) (ai.Revie
 		f.reviewHook()
 	}
 	return f.review, f.reviewErr
+}
+
+func (f *fakeAnswers) Delete(_ context.Context, userID, lessonID string, version int) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.rows = slices.DeleteFunc(f.rows, func(r Answer) bool {
+		return r.UserID == userID && r.LessonID == lessonID && r.QuizVersion == version
+	})
+	return nil
 }

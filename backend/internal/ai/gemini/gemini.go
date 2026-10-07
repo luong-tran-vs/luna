@@ -143,10 +143,11 @@ var practiceSchema = map[string]any{
 			"items": map[string]any{
 				"type": "OBJECT",
 				"properties": map[string]any{
-					"lemma":    map[string]any{"type": "STRING"},
-					"sentence": map[string]any{"type": "STRING"},
+					"lemma":     map[string]any{"type": "STRING"},
+					"sentence":  map[string]any{"type": "STRING"},
+					"meaningVi": map[string]any{"type": "STRING"},
 				},
-				"required": []string{"lemma", "sentence"},
+				"required": []string{"lemma", "sentence", "meaningVi"},
 			},
 		},
 		"dialogue": map[string]any{
@@ -566,7 +567,8 @@ Return a JSON object with:
 1. objectiveVi: one Vietnamese sentence starting with "Bạn có thể" that says what the learner can do after this lesson.
 
 2. examples: for each vocabulary item, one short English sentence (at most 12 words) that contains the item
-exactly as written in its "text" or "lemma" column. Return the item's lemma with each sentence.
+exactly as written in its "text" or "lemma" column. Return the item's lemma with each sentence, and
+meaningVi: a natural Vietnamese translation of the sentence.
 
 3. dialogue: a natural conversation between two people. It must stay on the lesson text: the same
 situation, the same kind of people, and the lesson's own phrases and sentence patterns (reuse or lightly

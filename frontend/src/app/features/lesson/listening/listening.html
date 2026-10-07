@@ -1,7 +1,9 @@
 <section class="listening">
   @if (mode() === null) {
     <nav class="screen-bar back-bar" aria-label="Điều hướng">
-      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"><lu-icon name="arrow-left" /></a>
+      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"
+        ><lu-icon name="arrow-left"
+      /></a>
       <span class="back-label">Danh sách bài</span>
     </nav>
   }
@@ -11,6 +13,14 @@
     <header class="listening-header">
       <p class="step">Bước Nghe{{ review() ? ' · Xem lại' : '' }}</p>
       <h1 class="title" lang="en">{{ l.title }}</h1>
+      @if (checkedCount() > 0) {
+        <button type="button" class="btn restart" (click)="restart()">
+          <lu-icon name="review" /> Làm lại bước này
+        </button>
+      }
+      @if (restartError()) {
+        <p class="field-error" role="alert">Chưa làm lại được, vui lòng thử lại.</p>
+      }
     </header>
 
     @if (!speech.supported) {
@@ -18,7 +28,6 @@
         Trình duyệt này không có giọng đọc. Hãy dùng Chrome, Edge hoặc Safari bản mới.
       </p>
     } @else {
-
       <nav class="progress" aria-label="Các câu">
         <p class="checked-count">Đã kiểm tra {{ checkedCount() }}/{{ sentences().length }}</p>
         <ol class="chips">
@@ -44,87 +53,183 @@
         </ol>
       </nav>
 
-      <div class="player card">
-        <p class="counter" aria-live="polite">Câu {{ current() + 1 }}/{{ sentences().length }}</p>
+      <div class="player step-card">
+        <div class="step-card-head">
+          <span class="step-card-title" lang="en">Listen and type what you hear</span>
+          <span class="counter" aria-live="polite">Câu {{ current() + 1 }}/{{ sentences().length }}</span>
+        </div>
         <lu-audio-bar
           class="audio"
           [progress]="progress()"
           [duration]="duration()"
           [playing]="speaking()"
+          [preparing]="speech.preparing() !== null"
           playLabel="Nghe câu"
           stopLabel="Dừng nghe"
           (playPressed)="togglePlay()"
         />
 
-        <div class="controls">
-          <button type="button" class="btn" [disabled]="current() === 0" (click)="go(current() - 1)">Câu trước</button>
-          <button type="button" class="btn" [disabled]="current() === sentences().length - 1" (click)="go(current() + 1)">
-            Câu sau
-          </button>
-        </div>
-
         @if (playError(); as message) {
           <p class="field-error" role="alert">{{ message }}</p>
         }
 
-        <div class="speed" role="radiogroup" aria-label="Tốc độ">
-          <span class="speed-label" aria-hidden="true">Tốc độ</span>
-          @for (s of speeds; track s) {
-            <button
-              type="button"
-              role="radio"
-              class="speed-option"
-              [attr.aria-checked]="rate() === s"
-              [tabIndex]="rate() === s ? 0 : -1"
-              (click)="setRate(s)"
-              (keydown)="onSpeedKeydown($event)"
-            >
-              {{ s }}x
-            </button>
-          }
+        <div class="tools">
+          <div class="speed" role="radiogroup" aria-label="Tốc độ">
+            <span class="speed-label" aria-hidden="true">Tốc độ</span>
+            @for (s of speeds; track s) {
+              <button
+                type="button"
+                role="radio"
+                class="speed-option"
+                [attr.aria-checked]="rate() === s"
+                [tabIndex]="rate() === s ? 0 : -1"
+                (click)="setRate(s)"
+                (keydown)="onSpeedKeydown($event)"
+              >
+                {{ s }}x
+              </button>
+            }
+          </div>
+          <button
+            type="button"
+            class="btn toggle"
+            [attr.aria-expanded]="showText()"
+            (click)="showText.set(!showText())"
+          >
+            {{ showText() ? 'Ẩn chữ' : 'Hiện chữ' }}
+          </button>
         </div>
-
-        <button type="button" class="btn toggle" [attr.aria-expanded]="showText()" (click)="showText.set(!showText())">
-          {{ showText() ? 'Ẩn chữ' : 'Hiện chữ' }}
-        </button>
         @if (showText()) {
           <p class="transcript" lang="en">{{ sentence()!.text }}</p>
         }
+
+        <form class="answer" (submit)="check($event)">
+          <label class="answer-label" for="answer">Câu bạn nghe được</label>
+          <input
+            id="answer"
+            type="text"
+            lang="en"
+            placeholder="Gõ câu bạn nghe được"
+            autocapitalize="off"
+            autocorrect="off"
+            autocomplete="off"
+            spellcheck="false"
+            enterkeyhint="done"
+            maxlength="1000"
+            [value]="typed()"
+            [attr.aria-invalid]="answerError() ? true : null"
+            [attr.aria-describedby]="answerError() ? 'answer-error' : null"
+            (input)="onInput($event)"
+            (focus)="onFocus($event)"
+          />
+          @if (answerError(); as message) {
+            <p class="answer-error field-error" id="answer-error" role="alert">{{ message }}</p>
+          }
+          <div class="step-nav">
+            <button
+              type="button"
+              class="nav-btn"
+              [disabled]="current() === 0"
+              (click)="go(current() - 1)"
+            >
+              <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
+            </button>
+            <button type="submit" class="btn-primary">Kiểm tra</button>
+            <button
+              type="button"
+              class="nav-btn"
+              [disabled]="current() === sentences().length - 1"
+              (click)="go(current() + 1)"
+            >
+              <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
+            </button>
+          </div>
+        </form>
       </div>
 
+      <p class="announcement visually-hidden" role="status">{{ announcement() }}</p>
       @if (result(); as r) {
-        <div class="result card" aria-live="polite">
-          <p class="result-words" lang="en">
-            @for (w of r.comparison.words; track $index) {
-              @switch (w.status) {
-                @case ('ok') {
-                  <span class="word ok">{{ w.word }}</span>
-                }
-                @case ('missing') {
-                  <span class="word missing">{{ w.expected }}<span class="visually-hidden" lang="vi">thiếu</span></span>
-                }
-                @default {
-                  @if (w.expected) {
-                    <span class="word wrong"
-                      ><span class="typed">{{ w.word }}</span
-                      ><span aria-hidden="true"> → <b>{{ w.expected }}</b></span
-                      ><span class="visually-hidden" lang="vi">sai, đúng là {{ w.expected }}</span></span
-                    >
-                  } @else {
-                    <span class="word extra"
-                      ><span class="typed">{{ w.word }}</span
-                      ><span class="visually-hidden" lang="vi">thừa</span></span
-                    >
+        @for (k of [checks()]; track k) {
+          <div
+            #resultCard
+            class="result card"
+            [class.result-ok]="verdict() === 'ok'"
+            [class.result-close]="verdict() === 'close'"
+            [class.result-bad]="verdict() === 'bad'"
+          >
+            <div class="verdict">
+              <p class="verdict-label">
+                <lu-icon [name]="verdict() === 'ok' ? 'check' : 'x'" />
+                {{ verdictLabel() }}
+              </p>
+              <p class="save-status" [class.failed]="saveStatus() === 'failed'">
+                @switch (saveStatus()) {
+                  @case ('saved') {
+                    ✓ Đã lưu kết quả
+                  }
+                  @case ('saving') {
+                    Đang lưu…
+                  }
+                  @case ('failed') {
+                    Chưa lưu được
+                  }
+                  @default {
+                    Xem lại · không lưu
                   }
                 }
+              </p>
+            </div>
+            <p class="result-words" lang="en">
+              @for (w of r.comparison.words; track $index) {
+                @switch (w.status) {
+                  @case ('ok') {
+                    <span class="word ok">{{ w.word }}</span>
+                  }
+                  @case ('missing') {
+                    <span class="word missing"
+                      >{{ w.expected }}<span class="visually-hidden" lang="vi">thiếu</span></span
+                    >
+                  }
+                  @default {
+                    @if (w.expected) {
+                      <span class="word wrong"
+                        ><span class="typed">{{ w.word }}</span
+                        ><span aria-hidden="true">
+                          → <b>{{ w.expected }}</b></span
+                        ><span class="visually-hidden" lang="vi"
+                          >sai, đúng là {{ w.expected }}</span
+                        ></span
+                      >
+                    } @else {
+                      <span class="word extra"
+                        ><span class="typed">{{ w.word }}</span
+                        ><span class="visually-hidden" lang="vi">thừa</span></span
+                      >
+                    }
+                  }
+                }
+                {{ ' ' }}
               }
-              {{ ' ' }}
-            }
-          </p>
-          <p class="score">{{ r.comparison.correctWords }}/{{ r.comparison.totalWords }} từ đúng</p>
-          <p class="correct-sentence">Câu đúng: <span lang="en">{{ sentence()!.text }}</span></p>
-          <p class="legend muted">Gạch ngang: sai hoặc thừa · Gạch chân chấm: thiếu</p>
-        </div>
+            </p>
+            <p class="score">
+              {{ r.comparison.correctWords }}/{{ r.comparison.totalWords }} từ đúng
+            </p>
+            <p class="correct-sentence">
+              Câu đúng: <span lang="en">{{ sentence()!.text }}</span>
+            </p>
+            <p class="legend muted">Gạch ngang: sai hoặc thừa · Gạch chân chấm: thiếu</p>
+            <div class="result-actions">
+              <button type="button" class="btn redo" (click)="redoSentence()">
+                <lu-icon name="review" /> Làm lại câu này
+              </button>
+              @if (!isLastSentence()) {
+                <button type="button" class="btn-primary next" (click)="go(current() + 1)">
+                  Câu tiếp theo
+                </button>
+              }
+            </div>
+          </div>
+        }
       }
 
       @if (saveError()) {
@@ -135,33 +240,10 @@
       }
 
       @if (done()) {
-        <p class="done" role="status">✓ Đã hoàn thành bước Nghe · Tỷ lệ đúng {{ ratePercent() }}%</p>
+        <p class="done" role="status">
+          ✓ Đã hoàn thành bước Nghe · Tỷ lệ đúng {{ ratePercent() }}%
+        </p>
       }
-
-      <form class="answer-bar" (submit)="check($event)">
-        <label class="visually-hidden" for="answer">Câu bạn nghe được</label>
-        <input
-          id="answer"
-          type="text"
-          lang="en"
-          placeholder="Gõ câu bạn nghe được"
-          autocapitalize="off"
-          autocorrect="off"
-          autocomplete="off"
-          spellcheck="false"
-          enterkeyhint="done"
-          maxlength="1000"
-          [value]="typed()"
-          [attr.aria-invalid]="answerError() ? true : null"
-          [attr.aria-describedby]="answerError() ? 'answer-error' : null"
-          (input)="onInput($event)"
-          (focus)="onFocus($event)"
-        />
-        <button type="submit" class="btn-primary">Kiểm tra</button>
-        @if (answerError(); as message) {
-          <p class="answer-error field-error" id="answer-error" role="alert">{{ message }}</p>
-        }
-      </form>
     }
   } @else {
     <lu-loading label="Đang tải bài…" />

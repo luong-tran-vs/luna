@@ -409,3 +409,28 @@ func TestRecordAttemptNeedsAPublishedLesson(t *testing.T) {
 		t.Errorf("unknown point: %v", err)
 	}
 }
+
+func TestMasteredCount(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	for _, p := range []Progress{
+		{UserID: "u1", PointID: "old", Status: ProgressMastered, MasteredAt: testNow.AddDate(0, 0, -10)},
+		{UserID: "u1", PointID: "new", Status: ProgressMastered, MasteredAt: testNow},
+		{UserID: "u1", PointID: "learning", Status: ProgressLearning, UpdatedAt: testNow},
+		{UserID: "u2", PointID: "other", Status: ProgressMastered, MasteredAt: testNow},
+	} {
+		if err := e.progress.Save(t.Context(), p); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if n, err := e.svc.MasteredCount(t.Context(), "u1", nil); err != nil || n != 2 {
+		t.Fatalf("all = %d, %v; want 2", n, err)
+	}
+	since := testNow.AddDate(0, 0, -1)
+	if n, err := e.svc.MasteredCount(t.Context(), "u1", &since); err != nil || n != 1 {
+		t.Fatalf("since = %d, %v; want 1", n, err)
+	}
+	if n, _ := e.svc.MasteredCount(t.Context(), "u1", &testNow); n != 1 {
+		t.Fatalf("since exactly then = %d; want 1", n)
+	}
+}

@@ -416,13 +416,13 @@ func (r *Cards) CountDue(ctx context.Context, userID string, before, createdBefo
 	return int(n), nil
 }
 
-// Count is the number of the user's cards.
-func (r *Cards) Count(ctx context.Context, userID string) (int, error) {
+// Count is the number of the user's cards created at or after since (nil = every card).
+func (r *Cards) Count(ctx context.Context, userID string, since *time.Time) (int, error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
 		return 0, fmt.Errorf("card user id: %w", err)
 	}
-	n, err := r.coll.CountDocuments(ctx, bson.D{{Key: "userId", Value: uid}})
+	n, err := r.coll.CountDocuments(ctx, withSince(bson.D{{Key: "userId", Value: uid}}, "createdAt", since))
 	if err != nil {
 		return 0, fmt.Errorf("count cards: %w", err)
 	}

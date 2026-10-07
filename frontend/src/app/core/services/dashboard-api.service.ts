@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Dashboard, Stats } from '../models/dashboard';
+import { Dashboard, Stats, StatsPeriod } from '../models/dashboard';
 
 /** The home dashboard and the stats page (F6). Never cached: every call reads fresh numbers. */
 @Injectable({ providedIn: 'root' })
@@ -13,7 +13,8 @@ export class DashboardApiService {
     return this.http.get<Dashboard>('/api/dashboard');
   }
 
-  stats(): Observable<Stats> {
-    return this.http.get<Stats>('/api/stats');
+  /** Every-day figures by default; a period limits them to this week or this month. */
+  stats(period?: StatsPeriod): Observable<Stats> {
+    return period ? this.http.get<Stats>('/api/stats', { params: { period } }) : this.http.get<Stats>('/api/stats');
   }
 }

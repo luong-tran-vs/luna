@@ -1,7 +1,9 @@
 <section class="writing" aria-labelledby="writing-heading">
   @if (mode() === null) {
     <nav class="screen-bar back-bar" aria-label="Điều hướng">
-      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"><lu-icon name="arrow-left" /></a>
+      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"
+        ><lu-icon name="arrow-left"
+      /></a>
       <span class="back-label">Danh sách bài</span>
     </nav>
   }
@@ -10,88 +12,106 @@
   @if (loadError(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
   } @else if (view(); as v) {
-    <div class="card prompt">
-      <p class="prompt-label">Đề viết</p>
+    <div class="step-card">
+      <div class="step-card-head">
+        <span class="prompt-label">Đề viết</span>
+        @if (suggestion(); as s) {
+          <span class="muted">Viết {{ s.min }}–{{ s.max }} từ (trình độ {{ v.level }})</span>
+        }
+      </div>
       <p class="prompt-text" lang="en">{{ v.prompt }}</p>
-      @if (suggestion(); as s) {
-        <p class="muted">Gợi ý: {{ s.min }}–{{ s.max }} từ (trình độ {{ v.level }})</p>
+
+      @if (editable()) {
+        <div class="field">
+          <label class="visually-hidden" for="writing-text">Bài viết của bạn</label>
+          <textarea
+            id="writing-text"
+            rows="8"
+            lang="en"
+            placeholder="Bài viết của bạn…"
+            [value]="text()"
+            [attr.aria-invalid]="!!submitError()"
+            aria-describedby="writing-count writing-status"
+            (input)="onInput($event)"
+          ></textarea>
+          <div class="meta-row">
+            <p class="save-status" id="writing-status" aria-live="polite">
+              @switch (saveState()) {
+                @case ('saving') {
+                  Đang lưu…
+                }
+                @case ('saved') {
+                  Đã lưu nháp
+                }
+                @case ('error') {
+                  <span class="save-error">Chưa lưu được nháp</span>
+                }
+              }
+            </p>
+            <p class="count field-hint" id="writing-count">
+              {{ words() }}{{ suggestion() ? '/' + suggestion()!.max : '' }} từ
+              @if (lengthHint(); as hint) {
+                · {{ hint }}
+              }
+            </p>
+          </div>
+        </div>
+        @if (submitError(); as message) {
+          <p class="form-alert" role="alert">{{ message }}</p>
+        }
+        <div class="actions">
+          <button
+            type="button"
+            class="btn-primary submit"
+            [disabled]="!canSubmit()"
+            [attr.aria-busy]="submitting()"
+            (click)="submit()"
+          >
+            {{ submitting() ? 'Đang nộp…' : 'Nộp' }}
+          </button>
+          @if (mode() === 'study') {
+            <button type="button" class="btn" [disabled]="submitting()" (click)="skip()">
+              Bỏ qua
+            </button>
+          }
+        </div>
+        @if (mode() === 'study') {
+          <p class="skip-hint muted">
+            Viết là tuỳ chọn: bấm Bỏ qua vẫn hoàn thành bài (không có bài để AI chấm).
+          </p>
+        }
       }
     </div>
-
-    @if (editable()) {
-      <div class="field">
-        <label for="writing-text">Bài viết của bạn</label>
-        <textarea
-          id="writing-text"
-          rows="10"
-          lang="en"
-          [value]="text()"
-          [attr.aria-invalid]="!!submitError()"
-          aria-describedby="writing-count writing-status"
-          (input)="onInput($event)"
-        ></textarea>
-        <p class="count field-hint" id="writing-count">
-          {{ words() }} từ
-          @if (lengthHint(); as hint) {
-            · {{ hint }}
+    @if (!editable()) {
+      @if (writing(); as w) {
+        @if (w.status === 'submitted') {
+          <div class="card submitted">
+            <p class="prompt-label">Bài viết của bạn</p>
+            <p class="text" lang="en">{{ w.text }}</p>
+          </div>
+          <p class="result" role="status">
+            @switch (w.grade?.status) {
+              @case ('done') {
+                Điểm trung bình {{ formatScore(w.grade!.average ?? 0) }}/5.
+              }
+              @case ('failed') {
+                Chấm lỗi: {{ w.grade!.error }}
+              }
+              @default {
+                Đã nộp, AI đang chấm.
+              }
+            }
+            <a [routerLink]="['/writings', w.id]">Xem bài viết</a>
+          </p>
+          @if (showContinue()) {
+            <button type="button" class="btn-primary" (click)="continue()">Tiếp tục</button>
           }
-        </p>
-        <p class="save-status" id="writing-status" aria-live="polite">
-          @switch (saveState()) {
-            @case ('saving') {
-              Đang lưu…
-            }
-            @case ('saved') {
-              Đã lưu nháp
-            }
-            @case ('error') {
-              <span class="save-error">Chưa lưu được nháp</span>
-            }
-          }
-        </p>
-      </div>
-      @if (submitError(); as message) {
-        <p class="form-alert" role="alert">{{ message }}</p>
-      }
-      <div class="actions">
-        <button type="button" class="btn-primary" [disabled]="!canSubmit()" [attr.aria-busy]="submitting()" (click)="submit()">
-          {{ submitting() ? 'Đang nộp…' : 'Nộp' }}
-        </button>
-        @if (mode() === 'study') {
-          <button type="button" class="btn" [disabled]="submitting()" (click)="skip()">Bỏ qua</button>
-        }
-      </div>
-      @if (mode() === 'study') {
-        <p class="skip-hint muted">Viết là tuỳ chọn: bấm Bỏ qua vẫn hoàn thành bài (không có bài để AI chấm).</p>
-      }
-    } @else if (writing(); as w) {
-      @if (w.status === 'submitted') {
-        <div class="card submitted">
-          <p class="prompt-label">Bài viết của bạn</p>
-          <p class="text" lang="en">{{ w.text }}</p>
-        </div>
-        <p class="result" role="status">
-          @switch (w.grade?.status) {
-            @case ('done') {
-              Điểm trung bình {{ formatScore(w.grade!.average ?? 0) }}/5.
-            }
-            @case ('failed') {
-              Chấm lỗi: {{ w.grade!.error }}
-            }
-            @default {
-              Đã nộp, AI đang chấm.
-            }
-          }
-          <a [routerLink]="['/writings', w.id]">Xem bài viết</a>
-        </p>
-        @if (showContinue()) {
-          <button type="button" class="btn-primary" (click)="continue()">Tiếp tục</button>
+        } @else {
+          <p class="muted">Bài viết chưa được nộp.</p>
         }
       } @else {
-        <p class="muted">Bài viết chưa được nộp.</p>
+        <p class="muted">Bài này chưa có bài viết.</p>
       }
-    } @else {
-      <p class="muted">Bài này chưa có bài viết.</p>
     }
   } @else {
     <lu-loading />

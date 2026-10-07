@@ -68,8 +68,9 @@ func TestCanWrite(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 	e.setGoal(t, "family")
-	if ok, _ := e.svc.CanWrite(t.Context(), "u1", "f1"); ok {
-		t.Fatal("can write before the write step")
+	// Steps complete in any order, so the writing may come before Read and Listen.
+	if ok, err := e.svc.CanWrite(t.Context(), "u1", "f1"); err != nil || !ok {
+		t.Fatalf("before the other steps: %v %v", ok, err)
 	}
 	e.toWriteStep(t)
 	if ok, err := e.svc.CanWrite(t.Context(), "u1", "f1"); err != nil || !ok {
@@ -91,12 +92,12 @@ func TestCanWrite(t *testing.T) {
 func TestStatsWriting(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	if v, err := e.svc.Stats(t.Context(), "u1"); err != nil || v.Writing.Submitted != 0 || v.Writing.AverageScore != nil {
+	if v, err := e.svc.Stats(t.Context(), "u1", PeriodAll); err != nil || v.Writing.Submitted != 0 || v.Writing.AverageScore != nil {
 		t.Fatalf("no writing = %+v, %v", v.Writing, err)
 	}
 	avg := 3.8
 	e.writings.count, e.writings.average = 2, &avg
-	v, _ := e.svc.Stats(t.Context(), "u1")
+	v, _ := e.svc.Stats(t.Context(), "u1", PeriodAll)
 	if v.Writing.Submitted != 2 || v.Writing.AverageScore == nil || *v.Writing.AverageScore != 3.8 {
 		t.Fatalf("writing = %+v", v.Writing)
 	}
@@ -107,10 +108,6 @@ func TestSkipWriteFinishesTheLesson(t *testing.T) {
 	e := newStudyEnv()
 	e.setGoal(t, "family")
 
-	// Only the Write step can be skipped, and only when it is the next step.
-	if _, err := e.svc.SkipWrite(t.Context(), "u1", "f1"); !errors.Is(err, ErrStepLocked) {
-		t.Fatalf("skip before listen: %v", err)
-	}
 	e.toWriteStep(t)
 	v, err := e.svc.SkipWrite(t.Context(), "u1", "f1")
 	if err != nil || v.Status != LessonCompleted || v.Streak != 1 || v.Goal.CompletedLessons != 1 || v.Next == nil || v.Next.ID != "f2" {
@@ -122,5 +119,29 @@ func TestSkipWriteFinishesTheLesson(t *testing.T) {
 	// Skipping again on a finished lesson changes nothing.
 	if v, err := e.svc.SkipWrite(t.Context(), "u1", "f1"); err != nil || v.Status != LessonCompleted || v.Streak != 1 {
 		t.Fatalf("skip again = %+v, %v", v, err)
+	}
+}
+
+func TestSkipWriteBeforeTheOtherSteps(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.setGoal(t, "family")
+
+	// Write may be skipped first; the lesson waits for Read and Listen.
+	v, err := e.svc.SkipWrite(t.Context(), "u1", "f1")
+	if err != nil || v.Status != LessonStudying || v.CurrentStep != StepRead || v.Steps[StepWrite] != StateDone ||
+		v.Streak != 0 || v.Goal.CompletedLessons != 0 {
+		t.Fatalf("skip first = %+v, %v", v, err)
+	}
+	if ok, _ := e.svc.CanWrite(t.Context(), "u1", "f1"); ok {
+		t.Fatal("can write after skipping")
+	}
+	if v = e.complete(t, StepRead); v.Status != LessonStudying || v.CurrentStep != StepListen {
+		t.Fatalf("after read = %+v", v)
+	}
+	e.finishDictation(t)
+	v, err = e.svc.CompleteStep(t.Context(), "u1", "f1", StepListen)
+	if err != nil || v.Status != LessonCompleted || v.Streak != 1 || v.Goal.CompletedLessons != 1 {
+		t.Fatalf("after listen = %+v, %v", v, err)
 	}
 }

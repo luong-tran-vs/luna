@@ -18,7 +18,7 @@ interface AccountLink {
 }
 
 const LINKS: readonly AccountLink[] = [
-  { path: '/stats', label: 'Thống kê', hint: 'Từ đã học, độ chính xác, bài viết', icon: 'chart' },
+  { path: '/stats', label: 'Lộ trình & Tiến độ', hint: 'Thống kê theo tuần, tháng và huy hiệu', icon: 'chart' },
   { path: '/writings', label: 'Bài viết', hint: 'Kết quả chấm bài viết', icon: 'pencil' },
   { path: '/vocabulary', label: 'Sổ từ', hint: 'Các từ đã lưu', icon: 'notebook' },
   { path: '/settings', label: 'Cài đặt học tập', hint: 'Số thẻ ôn, múi giờ, xuất dữ liệu', icon: 'sliders' },
@@ -50,15 +50,26 @@ export class Account {
   protected readonly voiceHint = computed(() => {
     switch (this.voice.state()) {
       case 'loading':
-        return `Đang tải giọng đọc… ${this.voice.percent()}%`;
+        return this.voice.starting()
+          ? 'Đang khởi động giọng đọc…'
+          : `Đang tải giọng đọc… ${this.voice.percent()}%`;
       case 'ready':
-        return 'Đang dùng. Câu chưa chuẩn bị kịp sẽ tạm đọc bằng giọng của trình duyệt';
+        return this.voice.only()
+          ? 'Đang dùng'
+          : 'Đang dùng. Câu chưa chuẩn bị kịp sẽ tạm đọc bằng giọng của trình duyệt';
       case 'error':
-        return 'Chưa tải được, đang dùng giọng của trình duyệt. Tắt rồi bật lại để thử lại.';
+        return this.voice.only()
+          ? 'Chưa tải được giọng đọc. Tắt rồi bật lại để thử lại.'
+          : 'Chưa tải được, đang dùng giọng của trình duyệt. Tắt rồi bật lại để thử lại.';
       default:
         return 'Tải khoảng 60MB một lần, nên dùng Wi-Fi';
     }
   });
+  protected readonly machineHint = computed(() =>
+    this.voice.only()
+      ? 'Đã tắt: chỉ dùng giọng tự nhiên, câu chưa sẵn sàng sẽ chờ tải xong rồi phát'
+      : 'Câu giọng tự nhiên chưa chuẩn bị kịp sẽ tạm đọc bằng giọng máy',
+  );
   protected readonly initial = computed(() => this.auth.currentUser()?.email.charAt(0) ?? '?');
 
   constructor() {

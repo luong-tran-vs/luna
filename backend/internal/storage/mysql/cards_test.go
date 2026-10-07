@@ -90,8 +90,12 @@ func TestCardsWordsCountDelete(t *testing.T) {
 	if w, _ := r.Words(ctx, newID()); len(w) != 0 {
 		t.Fatalf("other user's words = %v", w)
 	}
-	if n, _ := r.Count(ctx, user); n != 3 {
+	if n, _ := r.Count(ctx, user, nil); n != 3 {
 		t.Fatalf("Count = %d", n)
+	}
+	since := base.Add(time.Minute) // "a" and "c" were created since
+	if n, err := r.Count(ctx, user, &since); err != nil || n != 2 {
+		t.Fatalf("Count since = %d, %v", n, err)
 	}
 	if ok, err := r.Delete(ctx, newID(), ids[0]); ok || err != nil {
 		t.Fatalf("Delete other user = %v, %v", ok, err)
@@ -105,7 +109,7 @@ func TestCardsWordsCountDelete(t *testing.T) {
 	if ok, err := r.Delete(ctx, user, "bad"); ok || err != nil {
 		t.Fatalf("Delete malformed = %v, %v", ok, err)
 	}
-	if n, _ := r.Count(ctx, user); n != 2 {
+	if n, _ := r.Count(ctx, user, nil); n != 2 {
 		t.Fatalf("Count after delete = %d", n)
 	}
 }

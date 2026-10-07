@@ -561,3 +561,11 @@ func (r *Lessons) TopicTexts(ctx context.Context, topicIDs []string) (map[string
 	}
 	return out, nil
 }
+
+// withSince narrows filter to documents whose field is at or after since; nil leaves it alone.
+func withSince(filter bson.D, field string, since *time.Time) bson.D {
+	if since == nil {
+		return filter
+	}
+	return append(filter, bson.E{Key: field, Value: bson.D{{Key: "$gte", Value: since.UTC()}}})
+}

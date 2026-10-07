@@ -18,8 +18,9 @@ type practiceJSON struct {
 }
 
 type exampleJSON struct {
-	Lemma    string `json:"lemma"`
-	Sentence string `json:"sentence"`
+	Lemma     string `json:"lemma"`
+	Sentence  string `json:"sentence"`
+	MeaningVi string `json:"meaningVi"`
 }
 
 type dialogueJSON struct {
@@ -128,8 +129,9 @@ type adminPracticeJSON struct {
 }
 
 type adminExampleJSON struct {
-	Lemma    string `json:"lemma"`
-	Sentence string `json:"sentence"`
+	Lemma     string `json:"lemma"`
+	Sentence  string `json:"sentence"`
+	MeaningVi string `json:"meaningVi"`
 }
 
 type adminDialogueJSON struct {

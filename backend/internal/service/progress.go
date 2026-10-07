@@ -13,8 +13,9 @@ import (
 )
 
 // initProgress builds the dictation totals and the study flow (goals, the lesson being studied, its
-// steps, streak, stats; L, F4, F6). It is the last one to need the others, and it hands the study
-// service back to the writing domain, which needs it for the Write step.
+// steps, streak, stats; L, F4, F6). It is the last one to need the others (grammar included, for
+// the stats), and it hands the study service back to the writing domain, which needs it for the
+// Write step.
 func (c *Container) initProgress() {
 	c.progress = progress.NewService(c.store.DictationResults(), progressLessons{c.lessons}, time.Now)
 	c.study = progress.NewStudyService(progress.StudyDeps{
@@ -29,6 +30,7 @@ func (c *Container) initProgress() {
 		Timezones: c.settings,
 		Quiz:      readingQuiz{c.reader},
 		Writings:  c.writing,
+		Grammar:   c.grammar,
 		Now:       time.Now,
 	})
 	c.writeSteps.svc = c.study
@@ -83,8 +85,8 @@ func (d dailyReviews) DueBefore(ctx context.Context, userID string, before, crea
 	return d.svc.DueBefore(ctx, userID, before, createdBefore)
 }
 
-func (d dailyReviews) CardCount(ctx context.Context, userID string) (int, error) {
-	return d.svc.Count(ctx, userID)
+func (d dailyReviews) CardCount(ctx context.Context, userID string, since *time.Time) (int, error) {
+	return d.svc.Count(ctx, userID, since)
 }
 
 // readingQuiz adapts lesson.Reader to progress.ReadingQuiz (F15).
@@ -96,6 +98,6 @@ func (q readingQuiz) Status(ctx context.Context, userID, lessonID string) (quest
 	return q.reader.QuizStatus(ctx, userID, lessonID)
 }
 
-func (q readingQuiz) Totals(ctx context.Context, userID string) (answered, correct int, err error) {
-	return q.reader.Totals(ctx, userID)
+func (q readingQuiz) Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error) {
+	return q.reader.Totals(ctx, userID, since)
 }

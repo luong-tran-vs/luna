@@ -48,6 +48,19 @@
         <p class="objective"><span class="objective-label">Mục tiêu:</span> {{ objective }}</p>
       }
       <span class="tag level">Mức độ: {{ level() }}</span>
+      @if (canRelearn()) {
+        <button type="button" class="btn relearn" (click)="relearnAsk.set(true)">
+          <lu-icon name="review" /> Học lại bài
+        </button>
+      }
+      @if (relearn()) {
+        <p class="muted relearn-note" role="status">
+          Đang học lại bài: làm lại mọi bước, kết quả mới thay kết quả cũ, tiến độ không đổi.
+        </p>
+      }
+      @if (relearnError()) {
+        <p class="field-error" role="alert">Chưa học lại được, vui lòng thử lại.</p>
+      }
 
       @if (hasSteps()) {
         <div class="tabs" role="tablist" aria-label="Nội dung bài">
@@ -136,6 +149,9 @@
                 Chủ đề này chưa có bài tiếp theo. Bạn vẫn ôn được từ hoặc chọn chủ đề khác.
               </p>
             }
+            <button type="button" class="btn btn-block" (click)="relearnAsk.set(true)">
+              <lu-icon name="review" /> Học lại bài này
+            </button>
             <a class="btn btn-block" routerLink="/lessons">Về danh sách bài</a>
           </section>
         } @else if (finished()) {
@@ -164,6 +180,7 @@
                 [number]="step()"
                 [dialogue]="practice()!.dialogue!"
                 [(rate)]="rate"
+                (finished)="next()"
               />
             }
             @case ('fill') {
@@ -177,6 +194,7 @@
                 (readAloud)="play($event)"
                 (checked)="onFillChecked($event)"
                 (missed)="sendMisses($event)"
+                (restarted)="fillScore.set(null)"
               />
             }
             @case ('translate') {
@@ -188,7 +206,14 @@
                 [count]="practice()!.translations.length"
                 (readAloud)="play($event)"
                 (checked)="onTranslationChecked(translateIndex(), $event)"
+                (redone)="onTranslationRedone(translateIndex())"
+                (restart)="restartTranslations()"
+                (go)="goTranslation($event)"
+                (done)="next()"
               />
+            }
+            @case ('speak') {
+              <lu-speak-step [number]="step()" [sentences]="speakSentences()" (done)="next()" />
             }
             @case ('read') {
               @if (studyStepDone()) {
@@ -228,6 +253,16 @@
                 />
               }
             }
+          }
+          @if (leftBehind().length > 0) {
+            <div class="left-behind banner-warning" role="status">
+              <p>Bài hoàn thành khi xong cả các bước. Còn để lại:</p>
+              <div class="left-steps">
+                @for (s of leftBehind(); track s) {
+                  <button type="button" class="btn" (click)="goToStep(s)">Làm bước {{ stepNames[s] }}</button>
+                }
+              </div>
+            </div>
           }
           @if (stepError(); as message) {
             <p class="form-alert" role="alert">{{ message }}</p>
@@ -281,8 +316,14 @@
             </button>
           }
           @if (canGoOn()) {
-            <button type="button" class="btn-primary next" (click)="next()">
-              {{ nextLabel() }} <lu-icon name="arrow-right" />
+            <button
+              type="button"
+              class="next"
+              [class.btn-primary]="!skipping()"
+              [class.btn]="skipping()"
+              (click)="next()"
+            >
+              {{ skipping() ? 'Sang kỹ năng tiếp theo' : nextLabel() }} <lu-icon name="arrow-right" />
             </button>
           }
         </div>
@@ -292,3 +333,12 @@
     <lu-loading />
   }
 </section>
+
+<lu-confirm-dialog
+  [open]="relearnAsk()"
+  title="Học lại bài này?"
+  message="Các câu trả lời hiểu bài và kết quả chép chính tả của bài sẽ được xoá để làm lại; kết quả mới sẽ thay thế. Tiến độ và bài viết đã nộp vẫn giữ nguyên."
+  confirmLabel="Học lại"
+  (confirmed)="relearnLesson()"
+  (cancelled)="relearnAsk.set(false)"
+/>

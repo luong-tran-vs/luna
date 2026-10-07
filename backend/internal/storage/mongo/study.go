@@ -97,15 +97,17 @@ func (r *Goals) Activate(ctx context.Context, userID, topicID, level, effectiveF
 // --- lesson_progress ---
 
 type progressDoc struct {
-	UserID        bson.ObjectID   `bson:"userId"`
-	LessonID      bson.ObjectID   `bson:"lessonId"`
-	TopicID       bson.ObjectID   `bson:"topicId,omitempty"`
-	DayKey        string          `bson:"dayKey"`
-	Steps         map[string]bool `bson:"steps"`
-	CurrentStep   string          `bson:"currentStep"`
-	SentenceIndex int             `bson:"sentenceIndex"`
-	StartedAt     time.Time       `bson:"startedAt"`
-	CompletedAt   time.Time       `bson:"completedAt,omitempty"`
+	UserID   bson.ObjectID   `bson:"userId"`
+	LessonID bson.ObjectID   `bson:"lessonId"`
+	TopicID  bson.ObjectID   `bson:"topicId,omitempty"`
+	DayKey   string          `bson:"dayKey"`
+	Steps    map[string]bool `bson:"steps"`
+	// StepsDoneAt is when each step was done; progress saved before 2026-10-07 has none.
+	StepsDoneAt   map[string]time.Time `bson:"stepsDoneAt,omitempty"`
+	CurrentStep   string               `bson:"currentStep"`
+	SentenceIndex int                  `bson:"sentenceIndex"`
+	StartedAt     time.Time            `bson:"startedAt"`
+	CompletedAt   time.Time            `bson:"completedAt,omitempty"`
 }
 
 func (d progressDoc) toProgress() progress.LessonProgress {
@@ -117,6 +119,12 @@ func (d progressDoc) toProgress() progress.LessonProgress {
 	for s, done := range d.Steps {
 		if done {
 			p.Done[progress.Step(s)] = true
+		}
+	}
+	if len(d.StepsDoneAt) > 0 {
+		p.DoneAt = map[progress.Step]time.Time{}
+		for s, at := range d.StepsDoneAt {
+			p.DoneAt[progress.Step(s)] = at.UTC()
 		}
 	}
 	return p
@@ -201,6 +209,12 @@ func (r *LessonProgress) Upsert(ctx context.Context, p progress.LessonProgress) 
 	}
 	if !p.CompletedAt.IsZero() {
 		set = append(set, bson.E{Key: "completedAt", Value: p.CompletedAt.UTC()})
+	}
+	// Like completedAt, a step time is only ever added: a missing one leaves the stored one alone.
+	for _, s := range progress.Steps {
+		if at := p.DoneAt[s]; !at.IsZero() {
+			set = append(set, bson.E{Key: "stepsDoneAt." + string(s), Value: at.UTC()})
+		}
 	}
 	update := bson.D{{Key: "$set", Value: set}}
 	if _, err := r.coll.UpdateOne(ctx, f, update, options.UpdateOne().SetUpsert(true)); err != nil {
@@ -290,8 +304,10 @@ func (r *StudyDays) CompletedKeys(ctx context.Context, userID string) ([]string,
 }
 
 // StepCounts counts the user's lessons among lessonIDs (nil = every lesson) with the read step
-// done, the listen step done, and completed.
-func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonIDs []string) (progress.StepCounts, error) {
+// done, the listen step done, and completed. With since set it counts steps done (stepsDoneAt) and
+// lessons completed at or after since; steps done before stepsDoneAt existed have no time and
+// never count then.
+func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonIDs []string, since *time.Time) (progress.StepCounts, error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
 		return progress.StepCounts{}, fmt.Errorf("progress user id: %w", err)
@@ -310,15 +326,26 @@ func (r *LessonProgress) StepCounts(ctx context.Context, userID string, lessonID
 	count := func(cond bson.D) bson.D {
 		return bson.D{{Key: "$sum", Value: bson.D{{Key: "$cond", Value: bson.A{cond, 1, 0}}}}}
 	}
+	step := func(s progress.Step) bson.D {
+		if since == nil {
+			return bson.D{{Key: "$eq", Value: bson.A{"$steps." + string(s), true}}}
+		}
+		// A missing time sorts below any date, so it never counts.
+		return bson.D{{Key: "$gte", Value: bson.A{"$stepsDoneAt." + string(s), since.UTC()}}}
+	}
+	// A missing completedAt sorts below null; a date above it.
+	completed := bson.D{{Key: "$gt", Value: bson.A{"$completedAt", nil}}}
+	if since != nil {
+		completed = bson.D{{Key: "$gte", Value: bson.A{"$completedAt", since.UTC()}}}
+	}
 	cur, err := r.coll.Aggregate(ctx, mongo.Pipeline{
 		{{Key: "$match", Value: match}},
 		{{Key: "$group", Value: bson.D{
 			{Key: "_id", Value: nil},
-			{Key: "read", Value: count(bson.D{{Key: "$eq", Value: bson.A{"$steps.read", true}}})},
-			{Key: "listen", Value: count(bson.D{{Key: "$eq", Value: bson.A{"$steps.listen", true}}})},
-			{Key: "write", Value: count(bson.D{{Key: "$eq", Value: bson.A{"$steps.write", true}}})},
-			// A missing completedAt sorts below null; a date above it.
-			{Key: "completed", Value: count(bson.D{{Key: "$gt", Value: bson.A{"$completedAt", nil}}})},
+			{Key: "read", Value: count(step(progress.StepRead))},
+			{Key: "listen", Value: count(step(progress.StepListen))},
+			{Key: "write", Value: count(step(progress.StepWrite))},
+			{Key: "completed", Value: count(completed)},
 		}}},
 	})
 	if err != nil {

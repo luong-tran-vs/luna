@@ -1,7 +1,6 @@
 package lesson
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
@@ -67,12 +66,6 @@ func (h *ReadingHandler) answer(w http.ResponseWriter, r *http.Request) {
 	}
 	p, _ := httpx.PrincipalFrom(r.Context())
 	res, err := h.reader.Answer(r.Context(), p.UserID, r.PathValue("id"), AnswerInput(in))
-	if errors.Is(err, ErrAlreadyAnswered) {
-		httpx.WriteJSON(w, http.StatusConflict, map[string]any{
-			"error": "already_answered", "message": "Câu này đã được trả lời", "answer": answerJSON(res.Answer),
-		})
-		return
-	}
 	if err != nil {
 		h.writeError(w, r, err, "not_found")
 		return
@@ -80,4 +73,15 @@ func (h *ReadingHandler) answer(w http.ResponseWriter, r *http.Request) {
 	httpx.WriteJSON(w, http.StatusOK, answerResultJSON{
 		Answer: answerJSON(res.Answer), Answered: res.Answered, Total: res.Total, Correct: res.Correct,
 	})
+}
+
+// resetAnswers deletes the session learner's answers to the lesson's current questions so the
+// quiz can be taken again; lesson progress is kept.
+func (h *ReadingHandler) resetAnswers(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	if err := h.reader.ResetAnswers(r.Context(), p.UserID, r.PathValue("id")); err != nil {
+		h.writeError(w, r, err, "not_found")
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

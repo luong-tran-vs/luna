@@ -310,10 +310,12 @@ func (r *Cards) CountDue(ctx context.Context, userID string, before, createdBefo
 	return n, nil
 }
 
-// Count is the number of the user's cards.
-func (r *Cards) Count(ctx context.Context, userID string) (int, error) {
+// Count is the number of the user's cards created at or after since (nil = every card).
+func (r *Cards) Count(ctx context.Context, userID string, since *time.Time) (int, error) {
 	var n int
-	if err := r.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM cards WHERE user_id = ?", userID).Scan(&n); err != nil {
+	where, params := sinceClause("created_at", since)
+	err := r.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM cards WHERE user_id = ?"+where, append([]any{userID}, params...)...).Scan(&n)
+	if err != nil {
 		return 0, fmt.Errorf("mysql count cards: %w", err)
 	}
 	return n, nil

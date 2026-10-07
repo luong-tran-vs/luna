@@ -308,11 +308,13 @@ func (r *Writings) Unseen(ctx context.Context, userID string) (writing.UnseenCou
 	return out, nil
 }
 
-// Stats counts submitted writings and averages the mean score of the graded ones.
-func (r *Writings) Stats(ctx context.Context, userID string) (int, *float64, error) {
+// Stats counts the writings submitted at or after since (nil = all) and averages the mean score of
+// the graded ones among them.
+func (r *Writings) Stats(ctx context.Context, userID string, since *time.Time) (int, *float64, error) {
+	where, params := sinceClause("submitted_at", since)
 	rows, err := r.db.QueryContext(ctx,
-		"SELECT grade_status, grade_criteria FROM writings WHERE user_id = ? AND status = ?",
-		userID, string(writing.StatusSubmitted))
+		"SELECT grade_status, grade_criteria FROM writings WHERE user_id = ? AND status = ?"+where,
+		append([]any{userID, string(writing.StatusSubmitted)}, params...)...)
 	if err != nil {
 		return 0, nil, fmt.Errorf("mysql aggregate writings: %w", err)
 	}

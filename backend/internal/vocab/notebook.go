@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"slices"
 	"strings"
+	"time"
 	"unicode/utf8"
 )
 
@@ -127,9 +128,9 @@ func (s *Service) Delete(ctx context.Context, userID, cardID string) error {
 	return nil
 }
 
-// Count is the number of cards in the user's notebook.
-func (s *Service) Count(ctx context.Context, userID string) (int, error) {
-	n, err := s.repo.Count(ctx, userID)
+// Count is the number of cards in the user's notebook created at or after since (nil = all).
+func (s *Service) Count(ctx context.Context, userID string, since *time.Time) (int, error) {
+	n, err := s.repo.Count(ctx, userID, since)
 	if err != nil {
 		return 0, fmt.Errorf("vocab: count cards: %w", err)
 	}

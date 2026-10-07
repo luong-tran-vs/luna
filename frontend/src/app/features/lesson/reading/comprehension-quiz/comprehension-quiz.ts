@@ -3,6 +3,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../../core/interceptors/error-interceptor';
 import { Quiz, QuizAnswer } from '../../../../core/models/reading';
+import { Icon } from '../../../../shared/components/icon/icon';
 import { ReadingApiService } from '../../reading-api.service';
 
 export interface QuizScore {
@@ -13,12 +14,14 @@ export interface QuizScore {
 const SEND_FAILED = 'Không gửi được câu trả lời, vui lòng thử lại.';
 
 /**
- * Comprehension questions of the Reading step (F15): one question at a time, the result
- * (text and symbol, not only colour) right after choosing, no second answer. Answers come
- * from the server, so reloading resumes at the first unanswered question.
+ * Comprehension questions of the Reading step (F15): one question on screen at a time, with ← →
+ * to move between them; pick an option then Kiểm tra; the result (text and symbol, not only
+ * colour) shows at once, no second answer. Answers come from the server, so reloading resumes at
+ * the first unanswered question.
  */
 @Component({
   selector: 'lu-comprehension-quiz',
+  imports: [Icon],
   templateUrl: './comprehension-quiz.html',
   styleUrl: './comprehension-quiz.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +44,9 @@ export class ComprehensionQuiz {
   protected readonly error = signal<string | null>(null);
   protected readonly changed = signal(false);
   protected readonly announcement = signal('');
+  /** The option picked for the current question, checked with Kiểm tra (design screen 6). */
+  protected readonly picked = signal<number | null>(null);
+  protected readonly letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 
   protected readonly byIndex = computed(() => new Map(this.answers().map((a) => [a.questionIndex, a])));
   protected readonly total = computed(() => this.quiz().questions.length);
@@ -48,6 +54,26 @@ export class ComprehensionQuiz {
   protected readonly current = computed(() => {
     const answered = this.byIndex();
     return this.quiz().questions.findIndex((_, i) => !answered.has(i));
+  });
+  /**
+   * The question on screen: one at a time; it opens on the first one not answered, and stays put
+   * after an answer so its result shows.
+   */
+  protected readonly shown = linkedSignal({
+    source: this.quiz,
+    computation: (q) => Math.max(0, q.questions.findIndex((_, i) => !q.answers.some((a) => a.questionIndex === i))),
+  });
+  /** The next question not answered after the one on screen (wrapping round), or -1. */
+  protected readonly nextOpen = computed(() => {
+    const n = this.total();
+    const answered = this.byIndex();
+    for (let k = 1; k < n; k++) {
+      const i = (this.shown() + k) % n;
+      if (!answered.has(i)) {
+        return i;
+      }
+    }
+    return -1;
   });
   protected readonly correct = computed(() => this.answers().filter((a) => a.correct).length);
 
@@ -76,7 +102,41 @@ export class ComprehensionQuiz {
     }
   }
 
+  /** Trả lời lại: the question on screen opens again; the new answer replaces the stored one. */
+  protected redo(index: number): void {
+    this.picked.set(null);
+    this.answers.update((list) => list.filter((a) => a.questionIndex !== index));
+  }
+
+  /** Làm lại tất cả: every answer is forgotten on the server too, back to the first question. */
+  protected async restart(): Promise<void> {
+    if (this.sending()) {
+      return;
+    }
+    this.sending.set(true);
+    this.error.set(null);
+    try {
+      await firstValueFrom(this.api.resetAnswers(this.lessonId()));
+      this.answers.set([]);
+      this.picked.set(null);
+      this.shown.set(0);
+      this.announcement.set('Đã xoá các câu trả lời, làm lại từ câu 1.');
+    } catch {
+      this.error.set('Chưa làm lại được, vui lòng thử lại.');
+    } finally {
+      this.sending.set(false);
+    }
+  }
+
+  protected show(index: number): void {
+    if (index >= 0 && index < this.total()) {
+      this.picked.set(null);
+      this.shown.set(index);
+    }
+  }
+
   private record(answer: QuizAnswer): void {
+    this.picked.set(null);
     this.answers.update((list) =>
       [...list.filter((a) => a.questionIndex !== answer.questionIndex), answer].sort(
         (a, b) => a.questionIndex - b.questionIndex,

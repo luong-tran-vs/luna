@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/luongtran/luna/backend/internal/progress"
 )
@@ -72,14 +73,25 @@ FROM dictation_results WHERE user_id = ? AND lesson_id = ? ORDER BY sentence_ind
 }
 
 // Totals sums the user's results over every lesson (one result per sentence), as the MongoDB
-// repository does: the service filters by revision where it matters.
-func (r *DictationResults) Totals(ctx context.Context, userID string) (progress.DictationTotals, error) {
+// repository does: the service filters by revision where it matters. Only results checked at or
+// after since count (nil = all).
+func (r *DictationResults) Totals(ctx context.Context, userID string, since *time.Time) (progress.DictationTotals, error) {
 	var t progress.DictationTotals
+	where, params := sinceClause("checked_at", since)
 	err := r.db.QueryRowContext(ctx, `SELECT COUNT(*), CAST(COALESCE(SUM(correct_words), 0) AS SIGNED),
-  CAST(COALESCE(SUM(total_words), 0) AS SIGNED) FROM dictation_results WHERE user_id = ?`, userID).
-		Scan(&t.Sentences, &t.CorrectWords, &t.TotalWords)
+  CAST(COALESCE(SUM(total_words), 0) AS SIGNED), COUNT(DISTINCT lesson_id) FROM dictation_results WHERE user_id = ?`+where,
+		append([]any{userID}, params...)...).
+		Scan(&t.Sentences, &t.CorrectWords, &t.TotalWords, &t.Lessons)
 	if err != nil {
 		return progress.DictationTotals{}, fmt.Errorf("mysql dictation totals: %w", err)
 	}
 	return t, nil
+}
+
+// Delete removes the user's results for the lesson, of every revision.
+func (r *DictationResults) Delete(ctx context.Context, userID, lessonID string) error {
+	if _, err := r.db.ExecContext(ctx, "DELETE FROM dictation_results WHERE user_id = ? AND lesson_id = ?", userID, lessonID); err != nil {
+		return fmt.Errorf("mysql delete dictation results: %w", err)
+	}
+	return nil
 }

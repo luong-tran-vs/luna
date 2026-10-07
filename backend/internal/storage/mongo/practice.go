@@ -14,8 +14,9 @@ import (
 // Practice documents (F17) are embedded in the lesson document.
 
 type exampleDoc struct {
-	Lemma    string `bson:"lemma"`
-	Sentence string `bson:"sentence"`
+	Lemma     string `bson:"lemma"`
+	Sentence  string `bson:"sentence"`
+	MeaningVi string `bson:"meaningVi,omitempty"`
 }
 
 type turnDoc struct {

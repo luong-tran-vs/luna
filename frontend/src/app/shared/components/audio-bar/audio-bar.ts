@@ -11,7 +11,8 @@ export function clock(seconds: number): string {
 /**
  * Audio player bar: a play/stop button, the played part of the track with a knob, and the time
  * as "00:03 / 00:12". The browser voice cannot seek, so the track only shows progress; the time
- * is an estimate from the text length (see estimateSeconds).
+ * is an estimate from the text length (see estimateSeconds). While the audio is being prepared
+ * (natural voice, browser voice off) the button shows a spinner and the time says so.
  */
 @Component({
   selector: 'lu-audio-bar',
@@ -20,6 +21,8 @@ export function clock(seconds: number): string {
     <button
       type="button"
       class="play"
+      [class.preparing]="preparing()"
+      [attr.aria-busy]="preparing() || null"
       [attr.aria-label]="playing() ? stopLabel() : playLabel()"
       [disabled]="disabled()"
       (click)="playPressed.emit()"
@@ -31,8 +34,14 @@ export function clock(seconds: number): string {
       <span class="knob" [class.restart]="share() === 0" [style.left.%]="share() * 100"></span>
     </div>
     <span class="time">
-      <span class="visually-hidden">Đã nghe </span>{{ elapsed() }} / {{ total() }}
+      @if (preparing()) {
+        <span aria-hidden="true">Đang chuẩn bị…</span>
+      } @else {
+        <span class="visually-hidden">Đã nghe </span>{{ elapsed() }} / {{ total() }}
+      }
     </span>
+    <!-- Said once, not on every tick of the time. -->
+    <span class="visually-hidden" role="status">{{ preparing() ? 'Đang chuẩn bị giọng đọc' : '' }}</span>
   `,
   styles: `
     :host {
@@ -111,6 +120,8 @@ export class AudioBar {
   /** Length of the audio in seconds. */
   readonly duration = input(0);
   readonly playing = input(false);
+  /** The audio is being generated before it plays. */
+  readonly preparing = input(false);
   readonly disabled = input(false);
   readonly playLabel = input('Phát');
   readonly stopLabel = input('Dừng');

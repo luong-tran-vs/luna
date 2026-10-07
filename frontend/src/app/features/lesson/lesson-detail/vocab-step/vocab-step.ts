@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   input,
   linkedSignal,
   output,
@@ -15,6 +16,7 @@ import { VocabItem } from '../../../../core/models/vocab';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { VocabApiService } from '../../../../core/services/vocab-api.service';
 import { Icon } from '../../../../shared/components/icon/icon';
+import { SpeakButton } from '../../../../shared/directives/speak-button';
 
 /** An example sentence cut around the word being learnt; `hit` is empty when it is not found. */
 export interface Example {
@@ -61,7 +63,7 @@ export function highlight(sentence: string, forms: string[]): Example {
 /** Step 1: the lesson's words one card at a time, with a picture, IPA, meaning and an example. */
 @Component({
   selector: 'lu-vocab-step',
-  imports: [Icon],
+  imports: [Icon, SpeakButton],
   templateUrl: './vocab-step.html',
   styleUrls: ['../practice.css', './vocab-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -101,15 +103,23 @@ export class VocabStep {
   protected readonly index = linkedSignal({ source: this.words, computation: () => 0 });
   /** Words whose picture failed to load: they show the drawn placeholder instead. */
   private readonly brokenImages = signal<ReadonlySet<string>>(new Set());
+  /**
+   * The last picture that finished loading. The <img> is reused from word to word, and a browser
+   * keeps showing the old picture until the new one has loaded: it stays hidden until then.
+   */
+  private readonly loadedImage = signal<string | null>(null);
 
   protected readonly rows = computed(() => {
-    const byLemma = new Map(this.examples().map((e) => [e.lemma.toLowerCase(), e.sentence]));
+    const byLemma = new Map(this.examples().map((e) => [e.lemma.toLowerCase(), e]));
     return this.words().map((w) => {
-      const sentence = byLemma.get(w.lemma.toLowerCase()) ?? w.sentence ?? '';
+      const example = byLemma.get(w.lemma.toLowerCase());
+      const sentence = example?.sentence ?? w.sentence ?? '';
       return {
         word: w,
         image: w.imageUrl || placeholderImage(w.lemma),
         example: sentence ? highlight(sentence, [w.text, w.lemma]) : null,
+        // Only the generated example has a translation; the sentence of the text has none.
+        exampleVi: example?.meaningVi ?? '',
       };
     });
   });
@@ -125,6 +135,30 @@ export class VocabStep {
     const r = this.row();
     return r !== null && !this.brokenImages().has(r.word.lemma);
   });
+
+  protected readonly imageLoaded = computed(() => this.row()?.image === this.loadedImage());
+
+  constructor() {
+    // Load the pictures of the words before and after, so moving to them shows theirs at once.
+    effect(() => {
+      const rows = this.rows();
+      const i = this.index();
+      if (typeof Image === 'undefined') {
+        return;
+      }
+      for (const r of [rows[i + 1], rows[i - 1]]) {
+        if (r && !this.brokenImages().has(r.word.lemma)) {
+          const img = new Image();
+          img.referrerPolicy = 'no-referrer';
+          img.src = r.image;
+        }
+      }
+    });
+  }
+
+  protected onImageLoad(src: string): void {
+    this.loadedImage.set(src);
+  }
 
   protected playWord(text: string): void {
     this.readAloud.emit(text);

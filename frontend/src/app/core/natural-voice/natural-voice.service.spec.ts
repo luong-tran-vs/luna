@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { PIPER_WORKER } from '../piper/create-piper-worker';
 import { PiperRequest, PiperResponse } from '../piper/piper.messages';
-import { NATURAL_VOICE_STORAGE_KEY, NaturalVoiceService } from './natural-voice.service';
+import { NATURAL_VOICE_ONLY_STORAGE_KEY, NATURAL_VOICE_STORAGE_KEY, NaturalVoiceService } from './natural-voice.service';
 
 /** Stands in for the Piper worker: records what it is asked and answers on demand. */
 class FakeWorker {
@@ -80,9 +80,13 @@ describe('NaturalVoiceService', () => {
     expect(localStorage.getItem(NATURAL_VOICE_STORAGE_KEY)).toBe('on');
     expect(worker().posted[0]).toEqual({ type: 'load', voice: 'en_US-hfc_female-medium' });
     expect(service.state()).toBe('loading');
+    expect(service.starting()).toBe(true);
 
     worker().answer({ type: 'progress', loaded: 45, total: 90 });
     expect(service.percent()).toBe(50);
+    expect(service.starting()).toBe(false);
+    worker().answer({ type: 'progress', loaded: 90, total: 90 });
+    expect(service.starting()).toBe(true);
 
     worker().answer({ type: 'loaded', ms: 10, warmupMs: 5, isolated: true });
     expect(service.ready()).toBe(true);
@@ -138,6 +142,45 @@ describe('NaturalVoiceService', () => {
     service.want('Hi.');
     expect(worker().speaks()).toEqual([]);
     expect(service.cached('Hi.')).toBeNull();
+  });
+
+  it('remembers that the browser voice is off, and is exclusive while the natural voice is on, even failing', () => {
+    const service = create();
+    service.setOnly(true);
+    expect(localStorage.getItem(NATURAL_VOICE_ONLY_STORAGE_KEY)).toBe('on');
+    expect(service.exclusive()).toBe(false);
+    service.enable();
+    expect(service.exclusive()).toBe(true);
+    worker().answer({ type: 'error', message: 'no network' });
+    expect(service.exclusive()).toBe(true);
+    service.disable();
+    expect(service.exclusive()).toBe(false);
+    service.setOnly(false);
+    expect(localStorage.getItem(NATURAL_VOICE_ONLY_STORAGE_KEY)).toBeNull();
+  });
+
+  it('generates a requested text first, even while loading, and resolves when it is ready', async () => {
+    const service = create();
+    service.enable();
+    service.prefetch(['Later.']);
+    const clip = service.request('Now.');
+    expect(worker().speaks()).toEqual([]);
+    worker().answer({ type: 'loaded', ms: 10, warmupMs: 5, isolated: true });
+    expect(worker().speaks().map((m) => m.text)).toEqual(['Now.']);
+    audio(worker().speaks()[0].id);
+    expect(await clip).toEqual({ url: 'blob:1', seconds: 2 });
+    expect(await service.request('Now.')).toEqual({ url: 'blob:1', seconds: 2 });
+  });
+
+  it('resolves a request with null when the model fails on it or is turned off', async () => {
+    const service = ready();
+    const hard = service.request('Hard.');
+    const other = service.request('Other.');
+    worker().answer({ type: 'error', id: worker().speaks()[0].id, message: 'boom' });
+    expect(await hard).toBeNull();
+    service.disable();
+    expect(await other).toBeNull();
+    expect(await service.request('Off.')).toBeNull();
   });
 
   it('reports a model that cannot load, and turns off on request', () => {

@@ -60,7 +60,7 @@ export const routes: Routes = [
       },
       {
         path: 'stats',
-        title: 'Thống kê · Luna',
+        title: 'Lộ trình & Tiến độ · Luna',
         loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),
       },
       {

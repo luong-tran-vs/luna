@@ -71,7 +71,7 @@
                 }
               </div>
               <div class="card-actions">
-                <button type="button" class="btn" (click)="play(c)">Nghe<span class="visually-hidden"> {{ c.text }}</span></button>
+                <button type="button" class="btn" [luSpeak]="c.text" (click)="play(c)">Nghe<span class="visually-hidden"> {{ c.text }}</span></button>
                 <button type="button" class="btn" (click)="editingId.set(c.id)">Sửa<span class="visually-hidden"> {{ c.text }}</span></button>
                 <button type="button" class="btn" (click)="deleting.set(c)">Xoá<span class="visually-hidden"> {{ c.text }}</span></button>
               </div>

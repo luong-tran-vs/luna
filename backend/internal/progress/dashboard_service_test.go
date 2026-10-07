@@ -1,6 +1,7 @@
 package progress
 
 import (
+	"errors"
 	"testing"
 	"time"
 )
@@ -204,7 +205,7 @@ func TestStats(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 
-	v, err := e.svc.Stats(t.Context(), "u1")
+	v, err := e.svc.Stats(t.Context(), "u1", PeriodAll)
 	if err != nil || v.Cards != 0 || v.Dictation != (DictationTotals{}) || v.Rate != nil || v.Lessons != (StepCounts{}) {
 		t.Fatalf("new learner = %+v, %v", v, err)
 	}
@@ -225,12 +226,72 @@ func TestStats(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	v, err = e.svc.Stats(t.Context(), "u1")
+	v, err = e.svc.Stats(t.Context(), "u1", PeriodAll)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if v.Cards != 25 || v.Dictation != (DictationTotals{Sentences: 4, CorrectWords: 5, TotalWords: 8}) ||
+	if v.Cards != 25 || v.Dictation != (DictationTotals{Sentences: 4, CorrectWords: 5, TotalWords: 8, Lessons: 2}) ||
 		v.Rate == nil || *v.Rate != 5.0/8 || v.Lessons != (StepCounts{Read: 2, Listen: 1, Write: 1, Completed: 1}) {
 		t.Fatalf("stats = %+v rate %v", v, v.Rate)
+	}
+}
+
+func TestStatsByPeriod(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.zones["u1"] = hcm
+	weekStart := time.Date(2026, 9, 28, 0, 0, 0, 0, hcm) // Monday of 2026-09-30
+	monthStart := time.Date(2026, 9, 1, 0, 0, 0, 0, hcm)
+
+	// f1 studied on 2026-09-10 (this month, an earlier week).
+	e.clock.set(time.Date(2026, 9, 10, 10, 0, 0, 0, hcm))
+	e.setGoal(t, "family")
+	e.studyLesson(t)
+	// f2 read on 2026-09-30 (this week).
+	e.clock.set(time.Date(2026, 9, 30, 10, 0, 0, 0, hcm))
+	e.complete(t, StepRead)
+	// Progress saved before the step times existed: steps done without DoneAt.
+	if err := e.progress.Upsert(t.Context(), LessonProgress{
+		UserID: "u1", LessonID: "w1", Done: map[Step]bool{StepRead: true, StepListen: true}, CurrentStep: StepWrite,
+	}); err != nil {
+		t.Fatal(err)
+	}
+	e.reviews.addCard("u1", fakeCard{created: time.Date(2026, 8, 20, 9, 0, 0, 0, hcm)})
+	e.reviews.addCard("u1", fakeCard{created: time.Date(2026, 9, 10, 9, 0, 0, 0, hcm)})
+	e.reviews.addCard("u1", fakeCard{created: weekStart})
+
+	for _, tt := range []struct {
+		period    Period
+		since     *time.Time
+		cards     int
+		dictation DictationTotals
+		lessons   StepCounts
+	}{
+		{PeriodAll, nil, 3, DictationTotals{Sentences: 3, CorrectWords: 3, TotalWords: 3, Lessons: 1},
+			StepCounts{Read: 3, Listen: 2, Write: 1, Completed: 1}},
+		{PeriodMonth, &monthStart, 2, DictationTotals{Sentences: 3, CorrectWords: 3, TotalWords: 3, Lessons: 1},
+			StepCounts{Read: 2, Listen: 1, Write: 1, Completed: 1}},
+		{PeriodWeek, &weekStart, 1, DictationTotals{}, StepCounts{Read: 1}},
+	} {
+		v, err := e.svc.Stats(t.Context(), "u1", tt.period)
+		if err != nil {
+			t.Fatalf("%s: %v", tt.period, err)
+		}
+		if v.Period != tt.period || v.Cards != tt.cards || v.Dictation != tt.dictation || v.Lessons != tt.lessons {
+			t.Errorf("%s: stats = %+v", tt.period, v)
+		}
+		for name, got := range map[string]*time.Time{"quiz": e.quiz.since, "writings": e.writings.since, "grammar": e.grammar.since} {
+			if (got == nil) != (tt.since == nil) || got != nil && !got.Equal(*tt.since) {
+				t.Errorf("%s: %s since = %v, want %v", tt.period, name, got, tt.since)
+			}
+		}
+	}
+
+	if v, err := e.svc.Stats(t.Context(), "u1", ""); err != nil || v.Period != PeriodAll || v.Cards != 3 {
+		t.Errorf("default period = %+v, %v", v, err)
+	}
+	var verr *ValidationError
+	if _, err := e.svc.Stats(t.Context(), "u1", "year"); !errors.As(err, &verr) || verr.Fields["period"] == "" {
+		t.Errorf("bad period: %v", err)
 	}
 }

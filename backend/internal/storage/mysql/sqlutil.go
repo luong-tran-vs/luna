@@ -124,3 +124,11 @@ func changed(res sql.Result) (bool, error) {
 	}
 	return n > 0, nil
 }
+
+// sinceClause narrows a WHERE clause to rows whose column is at or after since; nil adds nothing.
+func sinceClause(column string, since *time.Time) (string, []any) {
+	if since == nil {
+		return "", nil
+	}
+	return " AND " + column + " >= ?", []any{utc(*since)}
+}

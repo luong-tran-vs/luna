@@ -20,6 +20,7 @@ const ADMIN_LINKS: readonly AdminLink[] = [
   { path: '/admin/roadmap', label: 'Lộ trình', matches: (p) => p.startsWith('/admin/roadmap') },
   { path: '/admin/appearance', label: 'Giao diện', matches: (p) => p.startsWith('/admin/appearance') },
   { path: '/admin/tts-lab', label: 'Thử giọng đọc', matches: (p) => p.startsWith('/admin/tts-lab') },
+  { path: '/admin/stt-lab', label: 'Thử nhận dạng giọng nói', matches: (p) => p.startsWith('/admin/stt-lab') },
 ];
 
 /**

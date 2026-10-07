@@ -104,7 +104,7 @@ func TestStudyEndpoints(t *testing.T) {
 		code        int
 		want        string
 	}{
-		{"/api/lessons/f1/steps/listen/complete", "an", http.StatusConflict, `"step_locked"`},
+		{"/api/lessons/f1/steps/listen/complete", "an", http.StatusConflict, `"listen_incomplete"`},
 		{"/api/lessons/f1/steps/speak/complete", "an", http.StatusBadRequest, `"step"`},
 		{"/api/lessons/f2/steps/read/complete", "an", http.StatusConflict, `"not_current_lesson"`},
 		{"/api/lessons/f1/steps/read/complete", "binh", http.StatusConflict, `"not_current_lesson"`},
@@ -121,7 +121,6 @@ func TestStudyEndpoints(t *testing.T) {
 	}
 	for payload, code := range map[string]int{
 		`{"step":"read","sentenceIndex":-1}`:      http.StatusBadRequest,
-		`{"step":"listen","sentenceIndex":1}`:     http.StatusConflict,
 		`{"step":"read","sentenceIndex":1,"x":1}`: http.StatusBadRequest,
 	} {
 		if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", payload); r.code != code {
@@ -133,6 +132,11 @@ func TestStudyEndpoints(t *testing.T) {
 	}
 
 	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/read/complete", "an", "")
+	// A done step takes no position.
+	if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", `{"step":"read","sentenceIndex":1}`); r.code != http.StatusConflict ||
+		!strings.Contains(r.text, `"not_current_step"`) {
+		t.Fatalf("position of a done step: %d %s", r.code, r.text)
+	}
 	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/listen/complete", "an", ""); r.code != http.StatusConflict || !strings.Contains(r.text, `"listen_incomplete"`) {
 		t.Fatalf("listen early: %d %s", r.code, r.text)
 	}
@@ -198,16 +202,50 @@ func TestSkipWriteEndpoint(t *testing.T) {
 	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "", ""); r.code != http.StatusUnauthorized {
 		t.Fatalf("anonymous: %d", r.code)
 	}
-	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "an", ""); r.code != http.StatusConflict ||
-		!strings.Contains(r.text, `"step_locked"`) {
-		t.Fatalf("skip too early: %d %s", r.code, r.text)
-	}
 	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/read/complete", "an", "")
 	e.finishDictation(t)
-	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/listen/complete", "an", "")
 
-	r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "an", "")
+	// Write may be skipped before Listen; the lesson completes with Listen.
+	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "an", ""); r.code != http.StatusOK ||
+		!strings.Contains(r.text, `"status":"studying"`) {
+		t.Fatalf("skip before listen: %d %s", r.code, r.text)
+	}
+	r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/listen/complete", "an", "")
 	if r.code != http.StatusOK || !strings.Contains(r.text, `"status":"completed"`) || !strings.Contains(r.text, `"streak":1`) {
 		t.Fatalf("skip: %d %s", r.code, r.text)
+	}
+}
+
+// TestRedoCompletedLesson checks that a learner may send and delete dictation results of a
+// lesson already completed (redoing it), but not of a locked lesson, and that the steps stay done.
+func TestRedoCompletedLesson(t *testing.T) {
+	t.Parallel()
+	mux, e := newStudyAPI(t)
+	auth := httpx.RequireAuth(resolver)
+	NewHandler(e.dictation, slog.New(slog.DiscardHandler)).
+		Register(mux, auth, NewStudyHandler(e.svc, slog.New(slog.DiscardHandler)).Guard)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	e.studyLesson(t) // f1 completed, f2 current, f3 locked
+
+	record := `{"sentenceIndex":0,"typed":"again","correctWords":1,"totalWords":2}`
+	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/dictation", "an", record); r.code != http.StatusOK || !strings.Contains(r.text, `"typed":"again"`) {
+		t.Fatalf("record completed lesson: %d %s", r.code, r.text)
+	}
+	if r := do(t, mux, http.MethodDelete, "/api/lessons/f1/dictation", "an", ""); r.code != http.StatusNoContent {
+		t.Fatalf("delete completed lesson: %d %s", r.code, r.text)
+	}
+	if r := do(t, mux, http.MethodGet, "/api/lessons/f1/dictation/summary", "an", ""); !strings.Contains(r.text, `"checkedCount":0`) {
+		t.Fatalf("summary after delete: %s", r.text)
+	}
+	// Deleting the results does not touch the lesson progress.
+	if r := do(t, mux, http.MethodGet, "/api/lessons/f1/study", "an", ""); r.code != http.StatusOK || !strings.Contains(r.text, `"status":"completed"`) {
+		t.Fatalf("f1 study after delete: %d %s", r.code, r.text)
+	}
+
+	for _, req := range []struct{ method, body string }{{http.MethodPost, record}, {http.MethodDelete, ""}} {
+		r := do(t, mux, req.method, "/api/lessons/f3/dictation", "an", req.body)
+		if r.code != http.StatusForbidden || !strings.Contains(r.text, `"lesson_locked"`) {
+			t.Fatalf("%s locked lesson: %d %s", req.method, r.code, r.text)
+		}
 	}
 }
