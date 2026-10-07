@@ -278,3 +278,32 @@ func TestDueBeforeAndCount(t *testing.T) {
 		t.Fatalf("count since = %d, %v; want 2", n, err)
 	}
 }
+
+func TestDueFillsMissingIPA(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	house := e.dueCard("house", Schedule{Reps: 1})
+	saved := e.repo.put(Card{
+		UserID: "u1", Text: "home", Lemma: "home", IPA: "/hoʊm/", MeaningVi: "nhà", Source: SourceManual,
+		CreatedAt: e.clock.Now().AddDate(0, 0, -3), Schedule: Schedule{Due: e.clock.Now().Add(-time.Hour), Reps: 1},
+	})
+	unknown := e.dueCard("good morning", Schedule{Reps: 1})
+
+	list, err := e.svc.Due(t.Context(), "u1", 50)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]string{}
+	for _, c := range list.Cards {
+		got[c.ID] = c.IPA
+	}
+	// Missing IPA comes from the dictionary; a saved one is kept; an unknown word stays empty.
+	if got[house.ID] != "/haʊs/" || got[saved.ID] != "/hoʊm/" || got[unknown.ID] != "" {
+		t.Fatalf("ipa = %v", got)
+	}
+	// The filled IPA is stored, the schedule untouched.
+	stored, _ := e.repo.Get(t.Context(), "u1", house.ID)
+	if stored.IPA != "/haʊs/" || stored.Schedule.Reps != 1 {
+		t.Fatalf("stored = %+v", stored)
+	}
+}

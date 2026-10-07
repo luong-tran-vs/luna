@@ -270,6 +270,13 @@ func (f fakeVocabulary) Vocabulary(_ context.Context, lessonID string) ([]VocabI
 	return items, nil
 }
 
+// fakePronunciations knows the IPA of a few base forms.
+type fakePronunciations map[string]string
+
+func (f fakePronunciations) IPA(_ context.Context, lemma string) (string, error) {
+	return f[lemma], nil
+}
+
 type fakeTitles map[string]string
 
 func (f fakeTitles) Titles(_ context.Context, ids []string) (map[string]string, error) {
@@ -325,8 +332,9 @@ func newEnv() *testEnv {
 			},
 			"lesson2": {},
 		},
-		Titles: fakeTitles{"lesson1": "A day at the park"},
-		Now:    e.clock.Now,
+		Titles:         fakeTitles{"lesson1": "A day at the park"},
+		Pronunciations: fakePronunciations{"house": "/haʊs/", "home": "/həʊm/"},
+		Now:            e.clock.Now,
 	})
 	return e
 }

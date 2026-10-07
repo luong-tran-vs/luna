@@ -125,6 +125,8 @@ thẻ trùng. Mở bài chưa có chú thích thấy "Chưa có danh sách từ 
 
 - **FR-001**: Mỗi thẻ PHẢI có: từ (hoặc cụm từ), từ gốc dùng để chống trùng, IPA (có thể trống), nghĩa tiếng Việt, câu ví dụ
   (có thể trống), bài học nguồn (có thể không có), ngày lưu; audio của từ phát được từ thẻ.
+  *(Sửa 2026-10-07)* Khi lấy thẻ ra ôn, thẻ trống IPA mà từ điển offline có đúng từ gốc đó thì được điền IPA từ từ điển
+  (cụm từ: ghép IPA của từng từ, chỉ khi từ điển có đủ mọi từ) và lưu lại (lịch ôn không đổi); tra hoặc lưu lỗi thì thẻ vẫn ôn bình thường, không có IPA.
 - **FR-002**: Sổ từ PHẢI liệt kê thẻ của người học, nhóm theo ngày lưu tính theo múi giờ của người học: "Hôm nay", "Hôm qua",
   các ngày khác dạng ngày/tháng/năm; mới nhất trước.
 - **FR-003**: Sổ từ PHẢI tìm được theo từ hoặc từ gốc (chứa chuỗi tìm, không phân biệt hoa thường) và lọc được theo bài học

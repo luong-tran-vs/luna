@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/lesson"
@@ -22,10 +23,11 @@ func (c *Container) initVocab() {
 			}
 			return err == nil, err
 		},
-		Timezones:  c.settings,
-		Vocabulary: lessonVocabulary{c.reader},
-		Titles:     lessonTitles{c.lessons},
-		Now:        time.Now,
+		Timezones:      c.settings,
+		Vocabulary:     lessonVocabulary{c.reader},
+		Titles:         lessonTitles{c.lessons},
+		Pronunciations: pronunciations{c.dict},
+		Now:            time.Now,
 	})
 }
 
@@ -67,4 +69,39 @@ func (l lessonVocabulary) Vocabulary(ctx context.Context, id string) ([]vocab.Vo
 		}
 	}
 	return out, nil
+}
+
+// pronunciations adapts the offline dictionary to vocab.Pronunciations.
+type pronunciations struct {
+	dict lesson.Dictionary
+}
+
+// IPA is the transcription of lemma when the dictionary has that word itself. A phrase joins the
+// transcriptions of its words ("good morning" → "/ˈɡʊd ˈmɔr.nɪŋ/"), only when it knows every word.
+func (p pronunciations) IPA(ctx context.Context, lemma string) (string, error) {
+	words := strings.Fields(lemma)
+	if len(words) < 2 {
+		return p.word(ctx, lemma)
+	}
+	parts := make([]string, 0, len(words))
+	for _, w := range words {
+		ipa, err := p.word(ctx, w)
+		if err != nil || ipa == "" {
+			return "", err
+		}
+		parts = append(parts, strings.Trim(ipa, "/[] "))
+	}
+	return "/" + strings.Join(parts, " ") + "/", nil
+}
+
+// word is the transcription of one word, "" unless the dictionary has that exact form.
+func (p pronunciations) word(ctx context.Context, w string) (string, error) {
+	e, ok, err := p.dict.Resolve(ctx, w)
+	if err != nil {
+		return "", fmt.Errorf("dictionary: resolve %q: %w", w, err)
+	}
+	if !ok || e.Word != w {
+		return "", nil
+	}
+	return e.IPA, nil
 }

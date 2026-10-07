@@ -61,6 +61,11 @@ type LessonVocabulary interface {
 	Vocabulary(ctx context.Context, lessonID string) ([]VocabItem, error)
 }
 
+// Pronunciations gives the IPA of a base form from the offline dictionary, "" when unknown.
+type Pronunciations interface {
+	IPA(ctx context.Context, lemma string) (string, error)
+}
+
 // LessonTitles gives the titles of the lessons that still exist among ids.
 type LessonTitles interface {
 	Titles(ctx context.Context, ids []string) (map[string]string, error)

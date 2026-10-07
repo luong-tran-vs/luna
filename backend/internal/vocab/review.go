@@ -35,6 +35,7 @@ func (s *Service) Due(ctx context.Context, userID string, limit int) (DueList, e
 	}
 	list := DueList{Cards: make([]DueCard, len(cards)), Total: total}
 	for i, c := range cards {
+		c.IPA = s.fillIPA(ctx, userID, c)
 		c.Schedule = effective(c, loc)
 		list.Cards[i] = DueCard{Card: c, Intervals: intervalsFor(c.Schedule, now)}
 	}
@@ -44,6 +45,22 @@ func (s *Service) Due(ctx context.Context, userID string, limit int) (DueList, e
 		list.NextDue = next
 	}
 	return list, nil
+}
+
+// fillIPA returns the card's IPA; a card saved without one gets it from the dictionary, stored
+// so the next review has it too. Best effort: a failed lookup or save leaves the card as it is.
+func (s *Service) fillIPA(ctx context.Context, userID string, c Card) string {
+	if c.IPA != "" || s.pronunciations == nil {
+		return c.IPA
+	}
+	ipa, err := s.pronunciations.IPA(ctx, c.Lemma)
+	if err != nil || ipa == "" {
+		return ""
+	}
+	if _, err := s.repo.UpdateDetails(ctx, userID, c.ID, Details{IPA: &ipa}); err != nil {
+		return ""
+	}
+	return ipa
 }
 
 // Review records rating for a card and reschedules it with FSRS. *ConflictError when the card

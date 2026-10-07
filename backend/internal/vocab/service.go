@@ -29,25 +29,28 @@ type Deps struct {
 	Timezones    Timezones
 	Vocabulary   LessonVocabulary
 	Titles       LessonTitles
-	Now          func() time.Time
+	// Pronunciations fills the missing IPA of due cards; nil leaves them as saved.
+	Pronunciations Pronunciations
+	Now            func() time.Time
 }
 
 // Service manages notebook cards and their reviews. The user is always the session user.
 type Service struct {
-	repo         Repository
-	logs         ReviewLogRepository
-	lessonExists func(ctx context.Context, id string) (bool, error)
-	timezones    Timezones
-	vocabulary   LessonVocabulary
-	titles       LessonTitles
-	now          func() time.Time
+	repo           Repository
+	logs           ReviewLogRepository
+	lessonExists   func(ctx context.Context, id string) (bool, error)
+	timezones      Timezones
+	vocabulary     LessonVocabulary
+	titles         LessonTitles
+	pronunciations Pronunciations
+	now            func() time.Time
 }
 
 // NewService returns a Service.
 func NewService(d Deps) *Service {
 	return &Service{
 		repo: d.Repo, logs: d.Logs, lessonExists: d.LessonExists, timezones: d.Timezones,
-		vocabulary: d.Vocabulary, titles: d.Titles, now: d.Now,
+		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, now: d.Now,
 	}
 }
 
