@@ -1,0 +1,129 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Kho từ vựng</h1>
+    <div class="actions">
+      <button
+        type="button"
+        class="btn"
+        [disabled]="importing()"
+        [attr.aria-busy]="importing()"
+        (click)="importTopics()"
+      >
+        {{ importing() ? 'Đang nhập…' : 'Nhập từ các chủ đề' }}
+      </button>
+    </div>
+  </header>
+
+  <p class="muted">
+    Mỗi từ có một mục dùng chung cho mọi bài: từ nào trong bài chưa có ảnh riêng sẽ hiện ảnh ở đây, và phiên âm ở đây được
+    ưu tiên hơn từ điển (cả khi ôn tập). Ảnh riêng của từng bài vẫn được giữ và ưu tiên.
+  </p>
+
+  <form class="card add-form" [formGroup]="form" (ngSubmit)="add()" aria-labelledby="bank-add-heading">
+    <h2 class="section-title" id="bank-add-heading">Thêm từ</h2>
+    <div class="add-fields">
+      <div class="field">
+        <label for="bank-lemma">Từ hoặc cụm từ</label>
+        <input
+          id="bank-lemma"
+          type="text"
+          lang="en"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          formControlName="lemma"
+          [attr.maxlength]="maxLemma"
+          [attr.aria-invalid]="addError() ? true : null"
+          [attr.aria-describedby]="addError() ? 'bank-add-error' : 'bank-add-hint'"
+        />
+      </div>
+      <div class="field">
+        <label for="bank-meaning">Nghĩa tiếng Việt</label>
+        <input id="bank-meaning" type="text" autocomplete="off" formControlName="meaningVi" />
+      </div>
+      <div class="field">
+        <label for="bank-ipa">Phiên âm (IPA)</label>
+        <input id="bank-ipa" type="text" autocomplete="off" formControlName="ipa" />
+      </div>
+    </div>
+    <p class="field-hint" id="bank-add-hint">Để trống nghĩa hoặc phiên âm thì lấy từ từ điển (nếu có).</p>
+    @if (addError(); as message) {
+      <p class="field-error" id="bank-add-error" role="alert">{{ message }}</p>
+    }
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" [disabled]="adding()" [attr.aria-busy]="adding()">
+        {{ adding() ? 'Đang thêm…' : 'Thêm' }}
+      </button>
+    </div>
+  </form>
+
+  <p class="muted note" role="status">{{ note() }}</p>
+
+  <div class="toolbar">
+    <div class="field search">
+      <label for="bank-search">Tìm từ hoặc nghĩa</label>
+      <input
+        id="bank-search"
+        type="search"
+        autocomplete="off"
+        [value]="search()"
+        (input)="setSearch($any($event.target).value)"
+      />
+    </div>
+    <div class="field">
+      <label for="bank-missing">Lọc</label>
+      <select id="bank-missing" [value]="missing()" (change)="setMissing($any($event.target).value)">
+        @for (o of missingOptions; track o.value) {
+          <option [value]="o.value" [selected]="o.value === missing()">{{ o.label }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  @if (loadError(); as message) {
+    <div class="form-alert" role="alert">
+      {{ message }}
+      <button type="button" class="btn" (click)="reload()">Thử lại</button>
+    </div>
+  }
+
+  @if (words(); as ws) {
+    <p class="summary" aria-live="polite">{{ total() }} từ</p>
+    @if (ws.length === 0) {
+      <p class="card muted">
+        @if (search() || missing()) {
+          Không có từ nào khớp.
+        } @else {
+          Kho chưa có từ nào. Thêm từ ở trên hoặc bấm "Nhập từ các chủ đề".
+        }
+      </p>
+    } @else {
+      <ul class="words" aria-label="Danh sách từ">
+        @for (w of ws; track w.lemma) {
+          <li>
+            <lu-bank-word-row [word]="w" (changed)="replace($event)" (removeRequested)="deleting.set($event)" />
+          </li>
+        }
+      </ul>
+      @if (hasMore()) {
+        <div class="more">
+          <button type="button" class="btn" [disabled]="loadingMore()" [attr.aria-busy]="loadingMore()" (click)="loadMore()">
+            {{ loadingMore() ? 'Đang tải…' : 'Xem thêm' }}
+          </button>
+        </div>
+      }
+    }
+  } @else if (!loadError()) {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  title="Xoá từ này?"
+  [message]="deleteMessage()"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleting.set(null)"
+/>

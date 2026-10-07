@@ -25,6 +25,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/vocab"
+	"github.com/luongtran/luna/backend/internal/wordbank"
 	"github.com/luongtran/luna/backend/internal/writing"
 )
 
@@ -63,6 +64,8 @@ type Store interface {
 	Writings() writing.Repository
 	// WordImages keeps the picture settings of lessons and their word pictures (F23).
 	WordImages() lesson.ImageRepository
+	// WordBank keeps the shared word bank and its pictures (F24).
+	WordBank() wordbank.Repository
 
 	Cards() vocab.Repository
 	ReviewLogs() vocab.ReviewLogRepository

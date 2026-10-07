@@ -20,6 +20,7 @@ import {
 } from '../../core/models/lesson';
 import { Level } from '../../core/models/lesson';
 import { Topic, TopicInput, TopicRoadmap, TopicWord, TopicWordInput, WordPlan } from '../../core/models/topic';
+import { BankMissing, BankPage, BankWord, BankWordDetails, BankWordInput } from '../../core/models/word-bank';
 
 const BASE = '/api/admin';
 
@@ -275,6 +276,55 @@ export class AdminApiService {
     return this.unwrapGrammar(
       this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/unpublish`, null),
     );
+  }
+
+  /** F24: one page (from 1) of the word bank, filtered by text and by what the words lack. */
+  bankWords(q: string, missing: BankMissing, page: number): Observable<BankPage> {
+    let params = new HttpParams().set('page', page);
+    if (q) {
+      params = params.set('q', q);
+    }
+    if (missing) {
+      params = params.set('missing', missing);
+    }
+    return this.http.get<BankPage>(`${BASE}/words`, { params });
+  }
+
+  /** F24: adds a word; an empty IPA or meaning is filled from the dictionary. */
+  addBankWord(input: BankWordInput): Observable<BankWord> {
+    return this.http.post<BankWord>(`${BASE}/words`, input);
+  }
+
+  /** F24: adds the topic words missing from the bank; returns how many were added. */
+  importBankWords(): Observable<number> {
+    return this.http.post<{ added: number }>(`${BASE}/words/import`, null).pipe(map((r) => r.added));
+  }
+
+  updateBankWord(lemma: string, details: BankWordDetails): Observable<BankWord> {
+    return this.http.patch<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}`, details);
+  }
+
+  deleteBankWord(lemma: string): Observable<void> {
+    return this.http.delete<void>(`${BASE}/words/${encodeURIComponent(lemma)}`);
+  }
+
+  uploadBankImage(lemma: string, file: Blob): Observable<BankWord> {
+    return this.http.put<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image`, file, {
+      headers: { 'Content-Type': file.type || 'application/octet-stream' },
+    });
+  }
+
+  importBankImage(lemma: string, url: string): Observable<BankWord> {
+    return this.http.post<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image/import`, { url });
+  }
+
+  /** F24: one AI request that draws the word's picture (paid). */
+  generateBankImage(lemma: string, style = ''): Observable<BankWord> {
+    return this.http.post<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image/generate`, { style });
+  }
+
+  deleteBankImage(lemma: string): Observable<BankWord> {
+    return this.http.delete<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image`);
   }
 
   private unwrapGrammar(obs: Observable<{ lesson: GrammarLessonAdmin }>): Observable<GrammarLessonAdmin> {

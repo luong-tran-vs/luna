@@ -2,8 +2,11 @@ package lesson
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"slices"
+
+	"github.com/luongtran/luna/backend/internal/dictionary"
 )
 
 // VocabItem is one annotated word or phrase of a lesson, by base form, as listed in the
@@ -15,8 +18,22 @@ type VocabItem struct {
 	IPA           string
 	SentenceIndex int
 	Sentence      string
-	// HasImage says the word has a picture (F23).
+	// HasImage says the word has a picture (F23), its own or the word bank's (F24).
 	HasImage bool
+}
+
+// BankWord is what the shared word bank knows of a word (F24).
+type BankWord struct {
+	IPA      string
+	HasImage bool
+}
+
+// WordBank is the shared word bank (F24), implemented over wordbank.Service.
+type WordBank interface {
+	// Words returns the entries of the bank among lemmas, by lemma.
+	Words(ctx context.Context, lemmas []string) (map[string]BankWord, error)
+	// Image returns ErrImageNotFound when the word has no picture in the bank.
+	Image(ctx context.Context, lemma string) (WordImage, error)
 }
 
 // WithImages lets the reader serve word pictures (F23); without it no word has one.
@@ -25,9 +42,17 @@ func (r *Reader) WithImages(images ImageRepository) *Reader {
 	return r
 }
 
+// WithWordBank gives the words of a lesson the IPA and picture of the word bank (F24) when the
+// lesson has none of its own.
+func (r *Reader) WithWordBank(bank WordBank) *Reader {
+	r.bank = bank
+	return r
+}
+
 // Vocabulary lists the lesson's annotations, one item per base form in the order they first
-// appear, with IPA from the offline dictionary. It never calls the AI provider. available is
-// false until the annotations are done.
+// appear. IPA comes from the word bank, else the offline dictionary; a word without a picture of
+// its own in the lesson shows the bank's. It never calls the AI provider. available is false until
+// the annotations are done.
 func (r *Reader) Vocabulary(ctx context.Context, id string) (items []VocabItem, available bool, err error) {
 	l, err := r.lessons.Get(ctx, id)
 	if err != nil {
@@ -43,24 +68,42 @@ func (r *Reader) Vocabulary(ctx context.Context, id string) (items []VocabItem, 
 		}
 	}
 	items = vocabularyWords(l)
+	bank := map[string]BankWord{}
+	if r.bank != nil {
+		lemmas := make([]string, len(items))
+		for i, it := range items {
+			lemmas[i] = it.Lemma
+		}
+		if bank, err = r.bank.Words(ctx, lemmas); err != nil {
+			return nil, false, fmt.Errorf("lesson: word bank: %w", err)
+		}
+	}
 	for i := range items {
 		item := &items[i]
-		e, ok, err := r.dict.Resolve(ctx, item.Lemma)
-		if err != nil {
-			return nil, false, fmt.Errorf("lesson: resolve %q: %w", item.Lemma, err)
+		b := bank[item.Lemma]
+		item.IPA = b.IPA
+		if item.IPA == "" {
+			if item.IPA, err = dictionary.IPA(ctx, r.dict, item.Lemma); err != nil {
+				return nil, false, fmt.Errorf("lesson: %w", err)
+			}
 		}
-		if ok && e.Word == item.Lemma {
-			item.IPA = e.IPA
-		}
-		item.HasImage = slices.Contains(pictured, item.Lemma)
+		item.HasImage = b.HasImage || slices.Contains(pictured, item.Lemma)
 	}
 	return items, true, nil
 }
 
-// Image returns the picture of one word of a lesson, or ErrImageNotFound.
+// Image returns the picture of one word of a lesson, the lesson's own or else the word bank's, or
+// ErrImageNotFound.
 func (r *Reader) Image(ctx context.Context, id, lemma string) (WordImage, error) {
-	if r.images == nil {
+	lemma = normalize(lemma)
+	if r.images != nil {
+		img, err := r.images.Get(ctx, id, lemma)
+		if !errors.Is(err, ErrImageNotFound) {
+			return img, err
+		}
+	}
+	if r.bank == nil {
 		return WordImage{}, ErrImageNotFound
 	}
-	return r.images.Get(ctx, id, normalize(lemma))
+	return r.bank.Image(ctx, lemma)
 }

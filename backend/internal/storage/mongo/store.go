@@ -17,6 +17,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/storage"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/vocab"
+	"github.com/luongtran/luna/backend/internal/wordbank"
 	"github.com/luongtran/luna/backend/internal/writing"
 )
 
@@ -62,6 +63,7 @@ func (s *Store) ReadingAnswers() lesson.AnswerRepository        { return NewRead
 func (s *Store) AILookups() lesson.AskRepository                { return NewAILookups(s.db) }
 func (s *Store) Writings() writing.Repository                   { return NewWritings(s.db) }
 func (s *Store) WordImages() lesson.ImageRepository             { return NewWordImages(s.db) }
+func (s *Store) WordBank() wordbank.Repository                  { return NewWordBank(s.db) }
 func (s *Store) Cards() vocab.Repository                        { return NewCards(s.db) }
 func (s *Store) ReviewLogs() vocab.ReviewLogRepository          { return NewReviewLogs(s.db) }
 func (s *Store) DictationResults() progress.DictationRepository { return NewDictationResults(s.db) }

@@ -23,6 +23,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/storage"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/vocab"
+	"github.com/luongtran/luna/backend/internal/wordbank"
 	"github.com/luongtran/luna/backend/internal/writing"
 )
 
@@ -56,6 +57,7 @@ type Container struct {
 	writeSteps *writingSteps
 	worker     *job.Worker
 	vocab      *vocab.Service
+	wordBank   *wordbank.Service
 	grammar    *grammar.Service
 	progress   *progress.Service
 	study      *progress.StudyService
@@ -74,6 +76,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initAI()
 	c.initSettings()
 	c.initTopic()
+	c.initWordBank()
 	c.initLesson()
 	c.initWriting()
 	c.initWorker()

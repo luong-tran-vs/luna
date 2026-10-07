@@ -350,7 +350,7 @@ func TestDeleteRemovesImages(t *testing.T) {
 
 func TestShrinkImageKeepsSmallPictures(t *testing.T) {
 	t.Parallel()
-	data, err := shrinkImage(testPNG(200, 100))
+	data, err := ShrinkImage(testPNG(200, 100))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -358,7 +358,7 @@ func TestShrinkImageKeepsSmallPictures(t *testing.T) {
 	if err != nil || cfg.Width != 200 || cfg.Height != 100 {
 		t.Fatalf("%dx%d, %v", cfg.Width, cfg.Height, err)
 	}
-	if _, err := shrinkImage([]byte("not an image")); err == nil {
+	if _, err := ShrinkImage([]byte("not an image")); err == nil {
 		t.Fatal("garbage decoded")
 	}
 }

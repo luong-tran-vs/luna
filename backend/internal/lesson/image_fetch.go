@@ -137,29 +137,52 @@ func (s *Service) ImportImage(ctx context.Context, id, lemma, rawURL string) err
 	if _, err := lessonWord(l, lemma); err != nil {
 		return err
 	}
-	rawURL = strings.TrimSpace(rawURL)
-	if rawURL == "" || len(rawURL) > maxImageURL {
-		return urlError("Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://")
-	}
-	data, err := s.FetchImage(ctx, rawURL)
-	switch {
-	case errors.Is(err, errBadImageURL):
-		return urlError("Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://")
-	case errors.Is(err, errBlockedHost):
-		return urlError("Không được lấy ảnh từ địa chỉ nội bộ.")
-	case errors.Is(err, errFetchTooLarge):
-		return urlError(fmt.Sprintf("Ảnh ở link này lớn hơn %d MB.", MaxUploadBytes>>20))
-	case err != nil:
-		s.Log.InfoContext(ctx, "lesson: fetch word image", "lesson_id", id, "error", err)
-		return urlError("Không tải được ảnh từ link này. Hãy thử link khác hoặc tải file lên.")
+	data, err := FetchImageLink(ctx, s.FetchImage, rawURL)
+	if err != nil {
+		var verr *ValidationError
+		if !errors.As(err, &verr) {
+			return err
+		}
+		if cause := errors.Unwrap(err); cause != nil {
+			s.Log.InfoContext(ctx, "lesson: fetch word image", "lesson_id", id, "error", cause)
+		}
+		return err
 	}
 	var verr *ValidationError
 	if err := s.UploadImage(ctx, id, lemma, data); errors.As(err, &verr) {
-		return urlError("Link này không phải ảnh JPEG, PNG hoặc GIF. Hãy dùng link trỏ thẳng tới file ảnh.")
+		return urlError(NotAnImageMessage)
 	} else if err != nil {
 		return err
 	}
 	return nil
+}
+
+// NotAnImageMessage tells the admin a link gave something that is not a picture.
+const NotAnImageMessage = "Link này không phải ảnh JPEG, PNG hoặc GIF. Hãy dùng link trỏ thẳng tới file ảnh."
+
+// FetchImageLink downloads the picture behind an admin's link with fetch. A link that cannot be
+// used is a *ValidationError on field "url" with a Vietnamese message (wrapping the download error,
+// if any, for the log). The data is not checked to be a picture.
+func FetchImageLink(ctx context.Context, fetch ImageFetcher, rawURL string) ([]byte, error) {
+	rawURL = strings.TrimSpace(rawURL)
+	if rawURL == "" || len(rawURL) > maxImageURL {
+		return nil, urlError("Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://")
+	}
+	data, err := fetch(ctx, rawURL)
+	switch {
+	case errors.Is(err, errBadImageURL):
+		return nil, urlError("Vui lòng dán link ảnh bắt đầu bằng http:// hoặc https://")
+	case errors.Is(err, errBlockedHost):
+		return nil, urlError("Không được lấy ảnh từ địa chỉ nội bộ.")
+	case errors.Is(err, errFetchTooLarge):
+		return nil, urlError(fmt.Sprintf("Ảnh ở link này lớn hơn %d MB.", MaxUploadBytes>>20))
+	case err != nil:
+		return nil, &ValidationError{
+			Fields: map[string]string{"url": "Không tải được ảnh từ link này. Hãy thử link khác hoặc tải file lên."},
+			cause:  err,
+		}
+	}
+	return data, nil
 }
 
 func urlError(msg string) error {

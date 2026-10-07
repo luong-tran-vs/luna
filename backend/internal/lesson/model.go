@@ -174,11 +174,16 @@ var (
 // ValidationError lists invalid input fields with Vietnamese messages for the admin.
 type ValidationError struct {
 	Fields map[string]string
+	// cause is the error behind the message, if any, kept for the log.
+	cause error
 }
 
 func (e *ValidationError) Error() string {
 	return fmt.Sprintf("lesson: invalid input %v", e.Fields)
 }
+
+// Unwrap returns the error behind the message, nil for a plain invalid input.
+func (e *ValidationError) Unwrap() error { return e.cause }
 
 // Question is a multiple-choice comprehension question about a lesson (F15).
 type Question struct {

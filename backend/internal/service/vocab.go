@@ -4,11 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strings"
 	"time"
 
+	"github.com/luongtran/luna/backend/internal/dictionary"
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/vocab"
+	"github.com/luongtran/luna/backend/internal/wordbank"
 )
 
 // initVocab builds the vocabulary service: the notebook and the FSRS review (F5).
@@ -26,7 +27,7 @@ func (c *Container) initVocab() {
 		Timezones:      c.settings,
 		Vocabulary:     lessonVocabulary{c.reader},
 		Titles:         lessonTitles{c.lessons},
-		Pronunciations: pronunciations{c.dict},
+		Pronunciations: pronunciations{c.wordBank, c.dict},
 		Now:            time.Now,
 	})
 }
@@ -71,37 +72,22 @@ func (l lessonVocabulary) Vocabulary(ctx context.Context, id string) ([]vocab.Vo
 	return out, nil
 }
 
-// pronunciations adapts the offline dictionary to vocab.Pronunciations.
+// pronunciations adapts the word bank (F24) and the offline dictionary to vocab.Pronunciations.
 type pronunciations struct {
+	bank *wordbank.Service
 	dict lesson.Dictionary
 }
 
-// IPA is the transcription of lemma when the dictionary has that word itself. A phrase joins the
-// transcriptions of its words ("good morning" → "/ˈɡʊd ˈmɔr.nɪŋ/"), only when it knows every word.
+// IPA is the word bank's IPA of lemma, else the dictionary's (dictionary.IPA).
 func (p pronunciations) IPA(ctx context.Context, lemma string) (string, error) {
-	words := strings.Fields(lemma)
-	if len(words) < 2 {
-		return p.word(ctx, lemma)
-	}
-	parts := make([]string, 0, len(words))
-	for _, w := range words {
-		ipa, err := p.word(ctx, w)
-		if err != nil || ipa == "" {
+	if p.bank != nil {
+		words, err := p.bank.Words(ctx, []string{lemma})
+		if err != nil {
 			return "", err
 		}
-		parts = append(parts, strings.Trim(ipa, "/[] "))
+		if w := words[wordbank.Normalize(lemma)]; w.IPA != "" {
+			return w.IPA, nil
+		}
 	}
-	return "/" + strings.Join(parts, " ") + "/", nil
-}
-
-// word is the transcription of one word, "" unless the dictionary has that exact form.
-func (p pronunciations) word(ctx context.Context, w string) (string, error) {
-	e, ok, err := p.dict.Resolve(ctx, w)
-	if err != nil {
-		return "", fmt.Errorf("dictionary: resolve %q: %w", w, err)
-	}
-	if !ok || e.Word != w {
-		return "", nil
-	}
-	return e.IPA, nil
+	return dictionary.IPA(ctx, p.dict, lemma)
 }

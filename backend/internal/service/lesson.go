@@ -35,7 +35,8 @@ func (c *Container) initLesson() {
 // quiz and "Hỏi AI" (F3, F15).
 func (c *Container) initReader() {
 	c.reader = lesson.NewReader(c.lessons, c.dict, c.lessonTopics, c.store.ReadingAnswers(), c.store.AILookups(), c.ai).
-		WithImages(c.store.WordImages())
+		WithImages(c.store.WordImages()).
+		WithWordBank(lessonWordBank{c.wordBank})
 }
 
 // lessonTopicsPort adapts topic.Service to lesson.Topics.

@@ -81,6 +81,8 @@ type Reader struct {
 	group singleflight.Group
 	// images serves the word pictures (F23); nil when there are none.
 	images ImageRepository
+	// bank is the shared word bank (F24): IPA and pictures for words the lesson has none of.
+	bank WordBank
 }
 
 // NewReader returns a Reader.

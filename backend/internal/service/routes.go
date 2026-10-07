@@ -13,6 +13,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/vocab"
+	"github.com/luongtran/luna/backend/internal/wordbank"
 	"github.com/luongtran/luna/backend/internal/writing"
 )
 
@@ -41,6 +42,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	lesson.NewHandler(c.lesson, log).Register(mux, auth)
 	topic.NewHandler(c.topic, log).Register(mux, auth)
 	vocab.NewHandler(c.vocab, log).Register(mux, auth)
+	wordbank.NewHandler(c.wordBank, log).Register(mux, auth)
 	grammar.NewHandler(c.grammar, log).Register(mux, auth)
 
 	studyHandler := progress.NewStudyHandler(c.study, log)

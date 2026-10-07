@@ -156,7 +156,7 @@ func (s *Service) UploadImage(ctx context.Context, id, lemma string, data []byte
 	if len(data) > MaxUploadBytes {
 		return &ValidationError{Fields: map[string]string{"image": fmt.Sprintf("Ảnh tối đa %d MB", MaxUploadBytes>>20)}}
 	}
-	small, err := shrinkImage(data)
+	small, err := ShrinkImage(data)
 	if err != nil {
 		return &ValidationError{Fields: map[string]string{"image": "Không đọc được ảnh. Hãy dùng ảnh JPEG, PNG hoặc GIF."}}
 	}
@@ -318,7 +318,7 @@ func (s *Service) drawImage(ctx context.Context, lessonID string, w VocabItem, s
 	if err != nil {
 		return err
 	}
-	data, err := shrinkImage(img.Data)
+	data, err := ShrinkImage(img.Data)
 	if err != nil {
 		return err
 	}
@@ -367,9 +367,9 @@ func vocabularyWords(l Lesson) []VocabItem {
 	return out
 }
 
-// shrinkImage scales a picture down so its longest side is at most imageSide and encodes it as
+// ShrinkImage scales a picture down so its longest side is at most imageSide and encodes it as
 // JPEG on white: a word card needs no more, and the database keeps tens of kilobytes instead of megabytes.
-func shrinkImage(data []byte) ([]byte, error) {
+func ShrinkImage(data []byte) ([]byte, error) {
 	src, _, err := image.Decode(bytes.NewReader(data))
 	if err != nil {
 		return nil, fmt.Errorf("lesson: decode image: %w", err)

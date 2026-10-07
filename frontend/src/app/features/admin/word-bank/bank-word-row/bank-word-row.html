@@ -1,0 +1,102 @@
+@let w = word();
+<div class="thumb">
+  @if (w.imageUrl) {
+    <img [src]="w.imageUrl" [alt]="'Ảnh của ' + w.lemma" />
+  } @else {
+    <span class="thumb-empty">Chưa có ảnh</span>
+  }
+</div>
+
+<div class="word-text">
+  <span class="lemma" lang="en">{{ w.lemma }}</span>
+  @if (w.ipa) {
+    <span class="ipa">{{ w.ipa }}</span>
+  } @else {
+    <span class="missing">Chưa có phiên âm</span>
+  }
+  @if (w.meaningVi) {
+    <span class="meaning">{{ w.meaningVi }}</span>
+  } @else {
+    <span class="missing">Chưa có nghĩa</span>
+  }
+</div>
+
+@if (editing()) {
+  <form class="edit-form" [formGroup]="form" (ngSubmit)="save()">
+    <div class="field">
+      <label [for]="id('meaning')">Nghĩa tiếng Việt</label>
+      <input [id]="id('meaning')" type="text" autocomplete="off" formControlName="meaningVi" />
+    </div>
+    <div class="field">
+      <label [for]="id('ipa')">Phiên âm (IPA)</label>
+      <input [id]="id('ipa')" type="text" autocomplete="off" class="ipa-input" formControlName="ipa" />
+    </div>
+    <div class="row-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="busy() !== null">
+        {{ busy() === 'save' ? 'Đang lưu…' : 'Lưu' }}
+      </button>
+      <button type="button" class="btn" [disabled]="busy() !== null" (click)="cancelEdit()">Huỷ</button>
+    </div>
+  </form>
+} @else {
+  <div class="row-actions">
+    <button type="button" class="btn" [disabled]="busy() !== null" (click)="startEdit()">
+      Sửa<span class="visually-hidden"> nghĩa và phiên âm của {{ w.lemma }}</span>
+    </button>
+    <input
+      #file
+      type="file"
+      class="visually-hidden"
+      tabindex="-1"
+      aria-hidden="true"
+      [accept]="accept"
+      (change)="upload($event)"
+    />
+    <button type="button" class="btn" [disabled]="busy() !== null" (click)="file.click()">
+      {{ busy() === 'image' ? 'Đang xử lý…' : w.imageUrl ? 'Đổi ảnh' : 'Tải ảnh lên'
+      }}<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
+    </button>
+    <button
+      type="button"
+      class="btn"
+      [disabled]="busy() !== null"
+      [attr.aria-expanded]="linkOpen()"
+      (click)="toggleLink()"
+    >
+      Dán link ảnh<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
+    </button>
+    <button type="button" class="btn" [disabled]="busy() !== null" [attr.aria-busy]="busy() === 'draw'" (click)="draw()">
+      {{ busy() === 'draw' ? 'Đang sinh ảnh…' : 'Sinh ảnh AI' }}<span class="visually-hidden"> cho từ {{ w.lemma }}</span>
+    </button>
+    @if (w.imageUrl) {
+      <button type="button" class="btn" [disabled]="busy() !== null" (click)="removeImage()">
+        Xoá ảnh<span class="visually-hidden"> của {{ w.lemma }}</span>
+      </button>
+    }
+    <button type="button" class="btn btn-danger" [disabled]="busy() !== null" (click)="removeRequested.emit(w)">
+      Xoá từ<span class="visually-hidden"> {{ w.lemma }}</span>
+    </button>
+  </div>
+}
+
+@if (linkOpen() && !editing()) {
+  <form class="link-form" (submit)="$event.preventDefault(); importLink(link)">
+    <label class="visually-hidden" [for]="id('link')">Link ảnh cho từ {{ w.lemma }}</label>
+    <input
+      #link
+      type="url"
+      inputmode="url"
+      autocomplete="off"
+      placeholder="https://…/anh.jpg"
+      [id]="id('link')"
+      [disabled]="busy() !== null"
+    />
+    <button type="submit" class="btn" [disabled]="busy() !== null">
+      {{ busy() === 'image' ? 'Đang lấy…' : 'Lấy ảnh' }}
+    </button>
+  </form>
+}
+
+@if (note(); as n) {
+  <p class="row-note" [class.field-error]="n.error" [attr.role]="n.error ? 'alert' : 'status'">{{ n.text }}</p>
+}
