@@ -374,3 +374,29 @@ func TestMergeSharedTopics(t *testing.T) {
 		t.Fatalf("work = %+v", w)
 	}
 }
+
+func TestAddExtraTopicsOnce(t *testing.T) {
+	t.Parallel()
+	db := testDB(t)
+	ctx := t.Context()
+	r := NewTopics(db)
+	music := topicsMake(t, r, "âm nhạc") // already there: kept as it is
+	if err := addExtraTopics(ctx, db, topicsLog()); err != nil {
+		t.Fatal(err)
+	}
+	all, _ := r.List(ctx)
+	if len(all) != 24 {
+		t.Fatalf("topics = %d, want 24 (23 added + the existing one)", len(all))
+	}
+	if got := topicsWords(t, db, music.ID); got.Name != "âm nhạc" || len(got.Words) != 0 {
+		t.Fatalf("existing topic changed: %+v", got)
+	}
+	// Deleted afterwards, a topic is not created again.
+	_ = r.Delete(ctx, all[0].ID)
+	if err := addExtraTopics(ctx, db, topicsLog()); err != nil {
+		t.Fatal(err)
+	}
+	if again, _ := r.List(ctx); len(again) != 23 {
+		t.Fatalf("topics after a second run = %d", len(again))
+	}
+}

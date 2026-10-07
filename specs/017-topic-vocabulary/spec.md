@@ -227,6 +227,10 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 - Dùng AI, từ điển đã cấu hình (F2, F3, F7); không thêm cấu hình.
 - Đổi 2026-10-02: chủ đề thiếu từ chưa dùng thì hộp thoại sinh bài có nút "Bổ sung bằng AI" (1 request AI riêng, tối đa 50 từ mỗi
   lần, chỉ thêm từ hợp lệ và chưa có); danh sách tối đa 300 từ; sinh tối đa 10 bài mỗi lượt.
+- Thêm 2026-10-07: 24 chủ đề bổ sung (chào hỏi, thời gian, nhà cửa, cơ thể, sở thích, thành phố, nhà hàng, âm nhạc, công nghệ,
+  giao tiếp, các mối quan hệ, lễ kỷ niệm, khách sạn và sân bay, thiên nhiên, sách, nấu ăn, báo chí, khoa học, nghệ thuật, lịch sử,
+  giáo dục đại học, kinh doanh, pháp luật, xã hội) kèm từ có trình độ (`docs/spec-inputs/f18-extra-topics.json`), được tạo đúng một
+  lần khi khởi động nếu chưa có chủ đề cùng tên; xoá sau đó thì không tạo lại. Danh sách từ do Claude soạn, không lấy từ nguồn ngoài.
 - Ngoài phạm vi: thẻ ôn tập theo chủ đề cho người học, người học xem danh sách từ của chủ đề, nhập phiên âm/nghĩa cho từ của chủ đề,
   nhập/xuất danh sách từ bằng file, tự động sinh bài cho đủ từ.
 - Phụ thuộc: F14 (chủ đề, lộ trình), F7 (sinh bài), F2 (chú thích), F3 (từ điển); F17 dùng ngay danh sách từ vựng của bài.
