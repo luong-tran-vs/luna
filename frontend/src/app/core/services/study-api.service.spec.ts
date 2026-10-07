@@ -36,7 +36,7 @@ describe('StudyApiService', () => {
     const goals = { active: null, others: [] };
     await expect(call(api.goals(), 'GET', '/api/goals', goals)).resolves.toEqual(goals);
     const result = { active: {} };
-    await expect(call(api.setGoal('t1'), 'POST', '/api/goals', result, { topicId: 't1' })).resolves.toEqual(result);
+    await expect(call(api.setGoal('t1', 'A2'), 'POST', '/api/goals', result, { topicId: 't1', level: 'A2' })).resolves.toEqual(result);
   });
 
   it("reads a lesson's steps, completes them and saves the position", async () => {

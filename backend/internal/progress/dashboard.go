@@ -125,10 +125,11 @@ func (s *StudyService) lessonTopic(ctx context.Context, d *day, topicID string, 
 		}
 		return nil
 	}
-	t, err := s.d.Roadmaps.Roadmap(ctx, topicID)
+	// A topic is shared by every level; only its name is known here.
+	t, err := s.d.Roadmaps.Roadmap(ctx, topicID, "")
 	switch {
 	case err == nil:
-		l.TopicName, l.Level = t.Name, t.Level
+		l.TopicName = t.Name
 	case !errors.Is(err, ErrTopicNotFound):
 		return fmt.Errorf("progress: lesson topic: %w", err)
 	}

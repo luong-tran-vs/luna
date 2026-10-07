@@ -16,7 +16,7 @@ func TestDashboardEndpoint(t *testing.T) {
 		t.Fatalf("no goal: %d %s", r.code, r.text)
 	}
 
-	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family","level":"A1"}`)
 	b := body(t, do(t, mux, http.MethodGet, "/api/dashboard", "an", ""))
 	goal, _ := b["goal"].(map[string]any)
 	skills, _ := b["skills"].(map[string]any)

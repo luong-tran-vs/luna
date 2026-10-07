@@ -12,7 +12,7 @@ import (
 
 // --- goals ---
 
-// Goals is the progress.GoalRepository on "goals": one row per (user, topic).
+// Goals is the progress.GoalRepository on "goals": one row per (user, topic, level).
 type Goals struct {
 	db *sql.DB
 }
@@ -139,7 +139,8 @@ func (r *Goals) List(ctx context.Context, userID string) ([]progress.Goal, error
 	return out, nil
 }
 
-// Activate pauses the user's other active goals and makes topicID's goal active (creating it).
+// Activate pauses the user's other active goals and makes the goal of (topicID, level) active
+// (creating it).
 func (r *Goals) Activate(ctx context.Context, userID, topicID, level, effectiveFrom string, now time.Time) (progress.Goal, error) {
 	if !studyValidID(topicID) {
 		return progress.Goal{}, progress.ErrTopicNotFound
@@ -150,17 +151,17 @@ func (r *Goals) Activate(ctx context.Context, userID, topicID, level, effectiveF
 		if _, err := tx.ExecContext(ctx, "SELECT id FROM goals WHERE user_id = ? FOR UPDATE", userID); err != nil {
 			return fmt.Errorf("mysql lock goals: %w", err)
 		}
-		if _, err := tx.ExecContext(ctx, "UPDATE goals SET status = ? WHERE user_id = ? AND status = ? AND topic_id <> ?",
-			string(progress.GoalPaused), userID, string(progress.GoalActive), topicID); err != nil {
+		if _, err := tx.ExecContext(ctx, "UPDATE goals SET status = ? WHERE user_id = ? AND status = ? AND (topic_id <> ? OR level <> ?)",
+			string(progress.GoalPaused), userID, string(progress.GoalActive), topicID, level); err != nil {
 			return fmt.Errorf("mysql pause goals: %w", err)
 		}
 		if _, err := tx.ExecContext(ctx, `INSERT INTO goals (`+studyGoalCols+`) VALUES (?, ?, ?, ?, ?, ?, ?) AS new
-ON DUPLICATE KEY UPDATE status = new.status, level = new.level, effective_from = new.effective_from`,
+ON DUPLICATE KEY UPDATE status = new.status, effective_from = new.effective_from`,
 			newID(), userID, topicID, level, string(progress.GoalActive), effectiveFrom, utc(now)); err != nil {
 			return fmt.Errorf("mysql activate goal: %w", err)
 		}
 		var err error
-		g, err = studyScanGoal(tx.QueryRowContext(ctx, "SELECT "+studyGoalCols+" FROM goals WHERE user_id = ? AND topic_id = ?", userID, topicID))
+		g, err = studyScanGoal(tx.QueryRowContext(ctx, "SELECT "+studyGoalCols+" FROM goals WHERE user_id = ? AND topic_id = ? AND level = ?", userID, topicID, level))
 		if err != nil {
 			return fmt.Errorf("mysql read goal: %w", err)
 		}

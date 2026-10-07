@@ -91,3 +91,16 @@ Request thêm `targetWords` (tuỳ chọn; rỗng hoặc đúng `count` nhóm):
 
 - `GET /api/topics` (người học): không có từ vựng.
 - Các API chú thích bài: kết quả chú thích có thể có thêm từ của chủ đề.
+
+## Sửa 2026-10-07: từ có trình độ (chủ đề dùng chung)
+
+- `GET /api/admin/topics/{id}/words`: mỗi từ thêm `level` (`"A1"`–`"C2"` hoặc `""`):
+  `{ "text": "Family", "level": "", "used": true, "lessonCount": 3 }`. Tham số tuỳ chọn `?level=A2` chỉ trả từ A2.
+- `PUT /api/admin/topics/{id}/words`: body `{ "words": [{ "text": "cousin", "level": "A2" }, …] }`; vẫn nhận phần tử là chuỗi
+  (= `level: ""`). `level` sai → 400 `fields["words.{i}.level"]` "Trình độ không hợp lệ". Tối đa 300 từ.
+- `GET /api/admin/topics/{id}/word-plan?level=A2&count=3&perLesson=8`: `level` bắt buộc; chỉ chia từ có trình độ ≤ A2 hoặc trống.
+  200 thêm `shortage` (số từ hợp trình độ còn thiếu).
+- `POST /api/admin/topics/{id}/words/suggest` `{ "count": 20, "level": "A2" }`: `level` bắt buộc; từ thêm mang `level`.
+- `POST /api/admin/topics/{id}/generate`: body thêm `level` bắt buộc (xem `specs/012-ai-lesson-generation`); `targetWords.{i}.{j}`
+  báo lỗi cả khi từ không hợp trình độ ("Từ này thuộc trình độ B1").
+- `GET /api/admin/topics`: `wordCount`/`usedWordCount` tính trên mọi từ của chủ đề.

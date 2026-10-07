@@ -16,6 +16,19 @@ type LegacyLesson struct {
 	CreatedAt time.Time
 }
 
+// LegacyTopic is a topic as F14 stored it before topics were shared by every level (2026-10-07):
+// one level, one roadmap.
+type LegacyTopic struct {
+	ID          string
+	Name        string
+	Level       string
+	Description string
+	LessonIDs   []string
+	Words       []Word
+	WordsSeeded bool
+	CreatedAt   time.Time
+}
+
 // Key identifies a topic by level and name key.
 type Key struct {
 	Level   string
@@ -45,9 +58,9 @@ type Plan struct {
 // topic in "Chung" of their level, and the old global roadmap split per topic keeping the
 // relative order. Existing topics with the same key are reused, so running it again after an
 // interrupted migration gives the same result. It is pure: storage applies the plan.
-func PlanMigration(lessons []LegacyLesson, roadmap []string, existing []Topic) Plan {
-	byID := map[string]Topic{}
-	byKey := map[Key]Topic{}
+func PlanMigration(lessons []LegacyLesson, roadmap []string, existing []LegacyTopic) Plan {
+	byID := map[string]LegacyTopic{}
+	byKey := map[Key]LegacyTopic{}
 	for _, t := range existing {
 		byID[t.ID] = t
 		byKey[Key{t.Level, NameKey(t.Name)}] = t

@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { LessonSummary } from '../../../core/models/lesson';
-import { Topic, TopicRoadmap } from '../../../core/models/topic';
+import { Topic, TopicLevel, TopicRoadmap } from '../../../core/models/topic';
 import { LessonList } from './lesson-list';
 
 const summary = (over: Partial<LessonSummary>): LessonSummary => ({
@@ -19,11 +19,15 @@ const summary = (over: Partial<LessonSummary>): LessonSummary => ({
   ...over,
 });
 
-const topic = (id: string, name: string, level: Topic['level'], over: Partial<Topic> = {}): Topic => ({
-  id, name, level, description: '', lessonCount: 1, roadmapCount: 5, remaining: 5, warning: false, createdAt: '', wordCount: 0, usedWordCount: 0, ...over,
+/** A topic with enough lessons in the roadmap of each given level. */
+const topic = (id: string, name: string, levels: TopicLevel[] = [], over: Partial<Topic> = {}): Topic => ({
+  id, name, description: '', lessonCount: 5, levels, createdAt: '', wordCount: 0, usedWordCount: 0, ...over,
+});
+const lv = (level: TopicLevel['level'], remaining = 5): TopicLevel => ({
+  level, lessonCount: 5, roadmapCount: remaining, remaining, warning: remaining < 3,
 });
 
-const topics = [topic('t1', 'Gia đình', 'A1'), topic('t2', 'Mua sắm', 'A1'), topic('t3', 'Công việc', 'B1')];
+const topics = [topic('t1', 'Gia đình', [lv('A1')]), topic('t2', 'Mua sắm', [lv('A1')]), topic('t3', 'Công việc', [lv('B1')])];
 
 describe('LessonList', () => {
   let fixture: ComponentFixture<LessonList>;
@@ -93,13 +97,13 @@ describe('LessonList', () => {
     expect(el.textContent).toContain('Chưa có bài học');
   });
 
-  it('filters by level and by topic of that level', async () => {
+  it('filters by level and by topic, independently', async () => {
     await flushLoad([summary({})]);
     expect(Array.from(select('topicId').options).map((o) => o.textContent?.trim())).toEqual([
       'Tất cả',
-      'A1 · Gia đình',
-      'A1 · Mua sắm',
-      'B1 · Công việc',
+      'Công việc',
+      'Gia đình',
+      'Mua sắm',
     ]);
 
     await choose('topicId', 't3');
@@ -107,19 +111,13 @@ describe('LessonList', () => {
     expect(byTopic.request.params.get('topicId')).toBe('t3');
     await flushLoadRest(byTopic);
 
-    // Choosing A1 keeps only A1 topics and clears the B1 topic.
+    // A topic is shared by every level: choosing a level keeps the topic and every topic choice.
     await choose('level', 'A1');
-    const byLevel = http.expectOne((r) => r.url === '/api/admin/lessons');
-    expect(byLevel.request.params.get('level')).toBe('A1');
-    expect(byLevel.request.params.has('topicId')).toBe(false);
-    await flushLoadRest(byLevel);
-    expect(Array.from(select('topicId').options).map((o) => o.value)).toEqual(['', 't1', 't2']);
-
-    await choose('topicId', 't1');
     const both = http.expectOne((r) => r.url === '/api/admin/lessons');
     expect(both.request.params.get('level')).toBe('A1');
-    expect(both.request.params.get('topicId')).toBe('t1');
+    expect(both.request.params.get('topicId')).toBe('t3');
     await flushLoadRest(both);
+    expect(Array.from(select('topicId').options).map((o) => o.value)).toEqual(['', 't3', 't1', 't2']);
   });
 
   async function flushLoadRest(req: TestRequest): Promise<void> {
@@ -141,28 +139,29 @@ describe('LessonList', () => {
     expect(button('Chạy lại chú thích')).toBeUndefined();
   });
 
-  it("adds a lesson to the end of its topic's roadmap", async () => {
+  it('adds a lesson to the end of the roadmap of its topic and level', async () => {
     await flushLoad([summary({}), summary({ id: 'l0', title: 'Old', inRoadmap: true })]);
     expect(el.textContent).toContain('Trong lộ trình');
 
     button('Thêm vào lộ trình')!.click();
     await settle();
     const roadmap: TopicRoadmap = {
-      topic: topics[2], lessons: [summary({ id: 'l0', inRoadmap: true })], remaining: 1, warning: true,
+      topic: topics[2], level: 'B1', lessons: [summary({ id: 'l0', inRoadmap: true })], remaining: 1, warning: true,
     };
-    http.expectOne('/api/admin/topics/t3/roadmap').flush(roadmap);
+    http.expectOne('/api/admin/topics/t3/roadmap?level=B1').flush(roadmap);
     await settle();
     const put = http.expectOne((r) => r.url === '/api/admin/topics/t3/roadmap' && r.method === 'PUT');
+    expect(put.request.params.get('level')).toBe('B1');
     expect(put.request.body).toEqual({ lessonIds: ['l0', 'l1'] });
     put.flush(roadmap);
     await settle();
     await flushLoad([summary({ inRoadmap: true }), summary({ id: 'l0', title: 'Old', inRoadmap: true })]);
   });
 
-  it('points to the roadmap page when topics run low', async () => {
-    await flushLoad([], [topic('t1', 'Gia đình', 'A1', { remaining: 2, warning: true }), topic('t2', 'Mua sắm', 'A1', { remaining: 0, warning: true }), topics[2]]);
+  it('points to the roadmap page when roadmaps run low', async () => {
+    await flushLoad([], [topic('t1', 'Gia đình', [lv('A1', 2), lv('B1', 0)]), topic('t2', 'Mua sắm', [lv('A1')]), topics[2]]);
     const banner = el.querySelector('.banner-warning')!;
-    expect(banner.textContent).toContain('2 chủ đề sắp hết bài chưa học');
+    expect(banner.textContent).toContain('2 lộ trình sắp hết bài chưa học');
     expect(banner.querySelector('a[href="/admin/roadmap"]')).not.toBeNull();
   });
 

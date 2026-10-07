@@ -320,7 +320,7 @@ func TestContentWritesDropTheReview(t *testing.T) {
 			return e.lessons.ReplaceAnnotations(t.Context(), l.ID, nil)
 		},
 		"Update with new content": func(e *env, l Lesson) error {
-			_, err := e.svc.Update(t.Context(), l.ID, Input{Title: "Park", Content: "A new text.", TopicID: "topic-b1", Source: "s", License: "l"})
+			_, err := e.svc.Update(t.Context(), l.ID, Input{Title: "Park", Content: "A new text.", TopicID: "topic-b1", Level: "B1", Source: "s", License: "l"})
 			return err
 		},
 		"SaveAnnotations": func(e *env, l Lesson) error {
@@ -352,7 +352,7 @@ func TestInfoAndStatusKeepTheReview(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	l := e.checked(t)
-	if _, err := e.svc.Update(t.Context(), l.ID, Input{Title: "New title", Content: l.Content, TopicID: "topic-b1", Source: "s", License: "l"}); err != nil {
+	if _, err := e.svc.Update(t.Context(), l.ID, Input{Title: "New title", Content: l.Content, TopicID: "topic-b1", Level: "B1", Source: "s", License: "l"}); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := e.lessons.SetStatus(t.Context(), l.ID, l.Revision, "practice", StatusFailed, "x"); err != nil {

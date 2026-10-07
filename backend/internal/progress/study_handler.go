@@ -4,10 +4,14 @@ import (
 	"errors"
 	"log/slog"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
+
+// goalLevels are the CEFR levels a goal can be set at.
+var goalLevels = []string{"A1", "A2", "B1", "B2", "C1", "C2"}
 
 // StudyHandler serves the study flow API (contracts/study-api.md) and guards lesson content.
 type StudyHandler struct {
@@ -150,15 +154,23 @@ func (h *StudyHandler) setGoal(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())
 	var req struct {
 		TopicID string `json:"topicId"`
+		Level   string `json:"level"`
 	}
 	if httpx.DecodeJSON(w, r, &req) != nil {
 		return
 	}
+	fields := map[string]string{}
 	if req.TopicID == "" {
-		httpx.WriteFieldErrors(w, map[string]string{"topicId": "Vui lòng chọn chủ đề"})
+		fields["topicId"] = "Vui lòng chọn chủ đề"
+	}
+	if !slices.Contains(goalLevels, req.Level) {
+		fields["level"] = "Vui lòng chọn trình độ"
+	}
+	if len(fields) > 0 {
+		httpx.WriteFieldErrors(w, fields)
 		return
 	}
-	res, err := h.svc.SetGoal(r.Context(), p.UserID, req.TopicID)
+	res, err := h.svc.SetGoal(r.Context(), p.UserID, req.TopicID, req.Level)
 	if err != nil {
 		h.fail(w, r, err)
 		return

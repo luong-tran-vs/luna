@@ -105,6 +105,9 @@
 
 ## F18. Từ vựng theo chủ đề *(quản trị)*
 
+> **Sửa 2026-10-07**: mỗi từ có trình độ (hoặc để trống); sinh bài trình độ X chỉ giao từ có trình độ ≤ X hoặc để trống.
+> Xem `specs/017-topic-vocabulary/spec.md`.
+
 > Thêm 2026-10-02. Dữ liệu ban đầu: [f18-topic-words.json](../spec-inputs/f18-topic-words.json), 1.257 từ tiếng Anh cho 42 chủ đề,
 > tham khảo danh sách của Langmaster (chỉ lấy từ tiếng Anh). Không phụ thuộc F16/F10/F11; làm sau F17 thì trang chi tiết bài dùng ngay.
 

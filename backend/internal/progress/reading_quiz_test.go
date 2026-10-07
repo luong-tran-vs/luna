@@ -51,7 +51,7 @@ func TestReadStepQuizError(t *testing.T) {
 func TestReadIncompleteEndpoint(t *testing.T) {
 	t.Parallel()
 	mux, e := newStudyAPI(t)
-	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family","level":"A1"}`)
 	e.quiz.set("u1", "f1", 3, 0)
 	r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/read/complete", "an", "")
 	if r.code != http.StatusConflict || !strings.Contains(r.text, `"read_incomplete"`) {

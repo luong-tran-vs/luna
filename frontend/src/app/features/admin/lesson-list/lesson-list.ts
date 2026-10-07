@@ -5,7 +5,7 @@ import { catchError, EMPTY, firstValueFrom, forkJoin, switchMap } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { isRunning, JobKind, Level, LessonFilter, LessonSummary, LEVELS } from '../../../core/models/lesson';
-import { Topic, topicLabel } from '../../../core/models/topic';
+import { lowRoadmaps, sortTopics, Topic } from '../../../core/models/topic';
 import { pollWhile } from '../../../shared/utils/poll-while';
 import { AdminApiService } from '../admin-api.service';
 import { StatusChip } from '../status-chip/status-chip';
@@ -27,7 +27,6 @@ export class LessonList {
   private readonly api = inject(AdminApiService);
 
   protected readonly levels = LEVELS;
-  protected readonly topicLabel = topicLabel;
   protected readonly filter = signal<LessonFilter>({ level: '', topicId: '' });
   private readonly reloads = signal(0);
 
@@ -36,13 +35,10 @@ export class LessonList {
   protected readonly busy = signal(false);
 
   private readonly topics = computed(() => this.data()?.topics ?? []);
-  /** Topic choices of the selected level. */
-  protected readonly topicOptions = computed(() => {
-    const level = this.filter().level;
-    return this.topics().filter((t) => !level || t.level === level);
-  });
-  /** Number of topics whose roadmap is running low (details on the roadmap page). */
-  protected readonly lowTopics = computed(() => this.topics().filter((t) => t.warning).length);
+  /** Topic choices: every topic, as topics are shared by every level. */
+  protected readonly topicOptions = computed(() => sortTopics(this.topics()));
+  /** Number of roadmaps (topic and level) running low (details on the roadmap page). */
+  protected readonly lowTopics = computed(() => lowRoadmaps(this.topics()).length);
 
   constructor() {
     toObservable(computed(() => ({ filter: this.filter(), reload: this.reloads() })))
@@ -66,13 +62,8 @@ export class LessonList {
       });
   }
 
-  /** Changing the level clears a topic of another level. */
   protected setLevel(value: string): void {
-    const level = value as Level | '';
-    this.filter.update((f) => {
-      const topic = this.topics().find((t) => t.id === f.topicId);
-      return { level, topicId: topic && level && topic.level !== level ? '' : f.topicId };
-    });
+    this.filter.update((f) => ({ ...f, level: value as Level | '' }));
   }
 
   protected setTopic(value: string): void {
@@ -83,11 +74,11 @@ export class LessonList {
     await this.run(() => firstValueFrom(this.api.retry(id, job)));
   }
 
-  /** Adds a lesson at the end of its topic's roadmap. */
+  /** Adds a lesson at the end of the roadmap of its topic and level. */
   protected async addToRoadmap(lesson: LessonSummary): Promise<void> {
     await this.run(async () => {
-      const rm = await firstValueFrom(this.api.topicRoadmap(lesson.topicId));
-      await firstValueFrom(this.api.setTopicRoadmap(lesson.topicId, [...rm.lessons.map((l) => l.id), lesson.id]));
+      const rm = await firstValueFrom(this.api.topicRoadmap(lesson.topicId, lesson.level));
+      await firstValueFrom(this.api.setTopicRoadmap(lesson.topicId, lesson.level, [...rm.lessons.map((l) => l.id), lesson.id]));
     });
   }
 

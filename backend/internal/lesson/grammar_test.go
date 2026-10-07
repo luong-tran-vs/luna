@@ -22,11 +22,11 @@ func grammarField(t *testing.T, err error) string {
 func TestCreateGrammarPoint(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	l := e.create(t, func(in *Input) { in.TopicID = "topic-a1"; in.GrammarPointID = "a1-to-be" })
+	l := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.GrammarPointID = "a1-to-be" })
 	if l.GrammarPointID != "a1-to-be" {
 		t.Fatalf("lesson = %+v", l)
 	}
-	in := Input{Title: "x", Content: sampleContent, TopicID: "topic-a1", Source: "s", License: "l"}
+	in := Input{Title: "x", Content: sampleContent, TopicID: "topic-a1", Level: "A1", Source: "s", License: "l"}
 
 	in.GrammarPointID = "nope"
 	_, err := e.svc.Create(t.Context(), in)
@@ -43,8 +43,8 @@ func TestCreateGrammarPoint(t *testing.T) {
 func TestUpdateGrammarPoint(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	l := e.create(t, func(in *Input) { in.TopicID = "topic-a1"; in.GrammarPointID = "a1-to-be" })
-	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-a1", Source: "s", License: "l", GrammarPointID: "a1-articles"}
+	l := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.GrammarPointID = "a1-to-be" })
+	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-a1", Level: "A1", Source: "s", License: "l", GrammarPointID: "a1-articles"}
 
 	got, err := e.svc.Update(t.Context(), l.ID, in)
 	if err != nil || got.GrammarPointID != "a1-articles" {
@@ -59,8 +59,8 @@ func TestUpdateGrammarPoint(t *testing.T) {
 	if got, err = e.svc.Update(t.Context(), l.ID, in); err != nil || got.GrammarPointID != "a1-articles" {
 		t.Fatalf("content change: %+v %v", got, err)
 	}
-	// Moving to a B1 topic with an A1 point is refused.
-	in.TopicID = "topic-b1"
+	// Moving to level B1 with an A1 point is refused.
+	in.Level = "B1"
 	_, err = e.svc.Update(t.Context(), l.ID, in)
 	if grammarField(t, err) == "" {
 		t.Fatal("level change should refuse the old point")
@@ -71,7 +71,7 @@ func TestProcessAnnotatePassesGrammarFocus(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	e.ai.result = []ai.Annotation{{Text: "park", Lemma: "park", MeaningVi: "công viên", SentenceIndex: 0}}
-	l := e.create(t, func(in *Input) { in.TopicID = "topic-a1"; in.GrammarPointID = "a1-to-be" })
+	l := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.GrammarPointID = "a1-to-be" })
 	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(l, job.TypeAnnotate)); err != nil {
 		t.Fatal(err)
 	}
@@ -81,7 +81,7 @@ func TestProcessAnnotatePassesGrammarFocus(t *testing.T) {
 		t.Fatalf("GrammarFocus = %+v", g)
 	}
 
-	plain := e.create(t, func(in *Input) { in.TopicID = "topic-a1" })
+	plain := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1" })
 	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(plain, job.TypeAnnotate)); err != nil {
 		t.Fatal(err)
 	}
@@ -100,7 +100,7 @@ func TestProcessAnnotateForcesTheSyllabusTitle(t *testing.T) {
 		GrammarNote: &ai.GrammarNote{Title: "Thì hiện tại đơn với to be và động từ thường", BodyVi: "Giải thích.", Examples: []string{"We went to the park."}},
 	}
 
-	withPoint := e.create(t, func(in *Input) { in.TopicID = "topic-a1"; in.GrammarPointID = "a1-to-be" })
+	withPoint := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.GrammarPointID = "a1-to-be" })
 	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(withPoint, job.TypeAnnotate)); err != nil {
 		t.Fatal(err)
 	}
@@ -112,7 +112,7 @@ func TestProcessAnnotateForcesTheSyllabusTitle(t *testing.T) {
 		t.Errorf("the body must stay the AI's: %+v", got.Extras.GrammarNote)
 	}
 
-	plain := e.create(t, func(in *Input) { in.TopicID = "topic-a1" })
+	plain := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1" })
 	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(plain, job.TypeAnnotate)); err != nil {
 		t.Fatal(err)
 	}
@@ -126,7 +126,7 @@ func TestGenerateGrammarPoint(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	e.ai.drafts = []ai.LessonDraft{{Title: "Hello", Content: text(100)}}
-	res, err := e.svc.Generate(t.Context(), "topic-a1", GenerateInput{Count: 1, Words: 100, Kind: "reading", GrammarPointID: "a1-to-be"})
+	res, err := e.svc.Generate(t.Context(), "topic-a1", GenerateInput{Level: "A1", Count: 1, Words: 100, Kind: "reading", GrammarPointID: "a1-to-be"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -136,7 +136,7 @@ func TestGenerateGrammarPoint(t *testing.T) {
 	if req, _ := e.ai.lastRequest(); req.GrammarFocus == nil || req.GrammarFocus.TitleEn != "The verb to be" {
 		t.Fatalf("request = %+v", req)
 	}
-	_, err = e.svc.Generate(t.Context(), "topic-a1", GenerateInput{Count: 1, Words: 100, Kind: "reading", GrammarPointID: "b1-present-perfect"})
+	_, err = e.svc.Generate(t.Context(), "topic-a1", GenerateInput{Level: "A1", Count: 1, Words: 100, Kind: "reading", GrammarPointID: "b1-present-perfect"})
 	if grammarField(t, err) == "" {
 		t.Fatal("wrong level should be refused")
 	}
@@ -145,8 +145,8 @@ func TestGenerateGrammarPoint(t *testing.T) {
 func TestGrammarEndpoint(t *testing.T) {
 	t.Parallel()
 	a := newAPI(t)
-	a.env.create(t, func(in *Input) { in.TopicID = "topic-a1"; in.GrammarPointID = "a1-to-be" })
-	a.env.create(t, func(in *Input) { in.TopicID = "topic-a1"; in.GrammarPointID = "a1-to-be" })
+	a.env.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.GrammarPointID = "a1-to-be" })
+	a.env.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.GrammarPointID = "a1-to-be" })
 	a.env.create(t, func(in *Input) { in.TopicID = "topic-b1"; in.GrammarPointID = "b1-present-perfect" })
 
 	rec := a.do(t, http.MethodGet, "/api/admin/grammar?level=A1", "admin", "")
@@ -184,7 +184,7 @@ func TestGrammarEndpoint(t *testing.T) {
 func TestLessonEndpointsGrammarPoint(t *testing.T) {
 	t.Parallel()
 	a := newAPI(t)
-	body := strings.Replace(validBody, `"topic-b1"`, `"topic-a1"`, 1)
+	body := strings.Replace(validBody, `"topic-b1","level":"B1"`, `"topic-a1","level":"A1"`, 1)
 	rec := a.do(t, http.MethodPost, "/api/admin/lessons", "admin",
 		strings.Replace(body, `"license":"CC BY"`, `"license":"CC BY","grammarPointId":"a1-to-be"`, 1))
 	if rec.Code != http.StatusCreated {
@@ -215,7 +215,7 @@ func TestLessonEndpointsGrammarPoint(t *testing.T) {
 func TestUpdateEndpointGrammarPointAbsentEmptyOrSet(t *testing.T) {
 	t.Parallel()
 	a := newAPI(t)
-	base := strings.Replace(validBody, `"topic-b1"`, `"topic-a1"`, 1)
+	base := strings.Replace(validBody, `"topic-b1","level":"B1"`, `"topic-a1","level":"A1"`, 1)
 	withPoint := func(v string) string {
 		return strings.Replace(base, `"license":"CC BY"`, `"license":"CC BY","grammarPointId":`+v, 1)
 	}

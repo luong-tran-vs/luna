@@ -468,21 +468,24 @@ func (r *Lessons) updateAtRevision(ctx context.Context, id string, revision int,
 
 // --- topic.Lessons (F14), adapted in main ---
 
-// CountByTopic counts lessons per topic id.
-func (r *Lessons) CountByTopic(ctx context.Context) (map[string]int, error) {
-	rows, err := r.db.QueryContext(ctx, `SELECT topic_id, COUNT(*) FROM lessons GROUP BY topic_id`)
+// CountByTopic counts lessons per topic id and level.
+func (r *Lessons) CountByTopic(ctx context.Context) (map[string]map[string]int, error) {
+	rows, err := r.db.QueryContext(ctx, `SELECT topic_id, level, COUNT(*) FROM lessons GROUP BY topic_id, level`)
 	if err != nil {
 		return nil, fmt.Errorf("mysql count lessons: %w", err)
 	}
 	defer func() { _ = rows.Close() }()
-	out := map[string]int{}
+	out := map[string]map[string]int{}
 	for rows.Next() {
-		var id string
+		var id, level string
 		var n int
-		if err := rows.Scan(&id, &n); err != nil {
+		if err := rows.Scan(&id, &level, &n); err != nil {
 			return nil, fmt.Errorf("mysql read lesson counts: %w", err)
 		}
-		out[id] += n
+		if out[id] == nil {
+			out[id] = map[string]int{}
+		}
+		out[id][level] += n
 	}
 	if err := rows.Err(); err != nil {
 		return nil, fmt.Errorf("mysql read lesson counts: %w", err)
@@ -490,32 +493,17 @@ func (r *Lessons) CountByTopic(ctx context.Context) (map[string]int, error) {
 	return out, nil
 }
 
-// TopicOf returns the topic id of each existing lesson among ids.
-func (r *Lessons) TopicOf(ctx context.Context, ids []string) (map[string]string, error) {
+// PlaceOf returns the topic and level of each existing lesson among ids.
+func (r *Lessons) PlaceOf(ctx context.Context, ids []string) (map[string]topic.Place, error) {
 	sums, err := r.Summaries(ctx, ids)
 	if err != nil {
 		return nil, err
 	}
-	out := make(map[string]string, len(sums))
+	out := make(map[string]topic.Place, len(sums))
 	for _, s := range sums {
-		out[s.ID] = s.TopicID
+		out[s.ID] = topic.Place{TopicID: s.TopicID, Level: string(s.Level)}
 	}
 	return out, nil
-}
-
-// SetLevelByTopic sets the level of every lesson of a topic. A malformed or empty topic id has no
-// lessons, so it changes nothing. A grammar point belongs to one level, so lessons that change
-// level lose theirs (MySQL reads the old level in the first assignment).
-func (r *Lessons) SetLevelByTopic(ctx context.Context, topicID, level string) error {
-	if !lessonValidID(topicID) {
-		return nil
-	}
-	if _, err := r.db.ExecContext(ctx,
-		`UPDATE lessons SET grammar_point_id = IF(level <> ?, '', grammar_point_id), level = ? WHERE topic_id = ?`,
-		level, level, topicID); err != nil {
-		return fmt.Errorf("mysql update lesson levels: %w", err)
-	}
-	return nil
 }
 
 // CountByGrammarPoint counts lessons per grammar point; topicID "" counts every topic.

@@ -9,6 +9,7 @@ import (
 
 	"github.com/luongtran/luna/backend/internal/job"
 	"github.com/luongtran/luna/backend/internal/lesson"
+	"github.com/luongtran/luna/backend/internal/topic"
 )
 
 const (
@@ -408,58 +409,32 @@ func TestLessonsCountByTopic(t *testing.T) {
 	now := time.Now().UTC()
 	lessonTestCreate(t, r, lessonTestBase("1", "A1", lessonTestTopicA, now))
 	lessonTestCreate(t, r, lessonTestBase("2", "A1", lessonTestTopicA, now))
+	lessonTestCreate(t, r, lessonTestBase("5", "B2", lessonTestTopicA, now))
 	lessonTestCreate(t, r, lessonTestBase("3", "A1", lessonTestTopicB, now))
 	lessonTestCreate(t, r, lessonTestBase("4", "A1", "", now))
 	got, err := r.CountByTopic(t.Context())
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]int{lessonTestTopicA: 2, lessonTestTopicB: 1, "": 1}
+	want := map[string]map[string]int{lessonTestTopicA: {"A1": 2, "B2": 1}, lessonTestTopicB: {"A1": 1}, "": {"A1": 1}}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("counts = %v, want %v", got, want)
 	}
 }
 
-func TestLessonsTopicOf(t *testing.T) {
+func TestLessonsPlaceOf(t *testing.T) {
 	t.Parallel()
 	r := NewLessons(testDB(t))
 	now := time.Now().UTC()
-	a := lessonTestCreate(t, r, lessonTestBase("1", "A1", lessonTestTopicA, now))
+	a := lessonTestCreate(t, r, lessonTestBase("1", "A2", lessonTestTopicA, now))
 	b := lessonTestCreate(t, r, lessonTestBase("2", "A1", "", now))
-	got, err := r.TopicOf(t.Context(), []string{a.ID, b.ID, "bad", lessonTestTopicB})
+	got, err := r.PlaceOf(t.Context(), []string{a.ID, b.ID, "bad", lessonTestTopicB})
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := map[string]string{a.ID: lessonTestTopicA, b.ID: ""}
+	want := map[string]topic.Place{a.ID: {TopicID: lessonTestTopicA, Level: "A2"}, b.ID: {Level: "A1"}}
 	if !reflect.DeepEqual(got, want) {
-		t.Fatalf("TopicOf = %v, want %v", got, want)
-	}
-}
-
-func TestLessonsSetLevelByTopic(t *testing.T) {
-	t.Parallel()
-	r := NewLessons(testDB(t))
-	now := time.Now().UTC()
-	a1 := lessonTestCreate(t, r, lessonTestBase("1", "A1", lessonTestTopicA, now))
-	a2 := lessonTestCreate(t, r, lessonTestBase("2", "A1", lessonTestTopicA, now))
-	b := lessonTestCreate(t, r, lessonTestBase("3", "A1", lessonTestTopicB, now))
-	none := lessonTestCreate(t, r, lessonTestBase("4", "A1", "", now))
-
-	if err := r.SetLevelByTopic(t.Context(), lessonTestTopicA, "C1"); err != nil {
-		t.Fatal(err)
-	}
-	for id, want := range map[string]lesson.Level{a1.ID: "C1", a2.ID: "C1", b.ID: "A1", none.ID: "A1"} {
-		if got, _ := r.Get(t.Context(), id); got.Level != want {
-			t.Fatalf("level of %s = %q, want %q", id, got.Level, want)
-		}
-	}
-	for _, id := range []string{"", "bad"} {
-		if err := r.SetLevelByTopic(t.Context(), id, "B2"); err != nil {
-			t.Fatalf("SetLevelByTopic(%q) = %v", id, err)
-		}
-	}
-	if got, _ := r.Get(t.Context(), none.ID); got.Level != "A1" {
-		t.Fatalf("topicless lesson changed: %q", got.Level)
+		t.Fatalf("PlaceOf = %v, want %v", got, want)
 	}
 }
 
@@ -557,17 +532,4 @@ func TestLessonsGrammarPoint(t *testing.T) {
 		t.Fatalf("ReplaceContent = %q", got.GrammarPointID)
 	}
 
-	// A level change drops the point; the same level keeps it.
-	if err := r.SetLevelByTopic(t.Context(), lessonTestTopicA, "A1"); err != nil {
-		t.Fatal(err)
-	}
-	if got, _ := r.Get(t.Context(), a.ID); got.GrammarPointID != "a1-to-be" {
-		t.Fatalf("same level = %q", got.GrammarPointID)
-	}
-	if err := r.SetLevelByTopic(t.Context(), lessonTestTopicA, "B1"); err != nil {
-		t.Fatal(err)
-	}
-	if got, _ := r.Get(t.Context(), a.ID); got.GrammarPointID != "" || got.Level != "B1" {
-		t.Fatalf("level change = %+v", got)
-	}
 }

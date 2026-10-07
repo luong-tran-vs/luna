@@ -17,8 +17,9 @@ export class StudyApiService {
     return this.http.get<Goals>('/api/goals');
   }
 
-  setGoal(topicId: string): Observable<SetGoalResult> {
-    return this.http.post<SetGoalResult>('/api/goals', { topicId });
+  /** A goal is the roadmap of a topic at one level. */
+  setGoal(topicId: string, level: string): Observable<SetGoalResult> {
+    return this.http.post<SetGoalResult>('/api/goals', { topicId, level });
   }
 
   /** A lesson's steps for the learner; it only reads. */

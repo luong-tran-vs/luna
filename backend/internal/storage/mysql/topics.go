@@ -3,6 +3,7 @@ package mysql
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -12,8 +13,10 @@ import (
 	"github.com/luongtran/luna/backend/internal/topic"
 )
 
-// Topics implements topic.Repository on the "topics" table; the roadmap is the lesson_ids JSON array
-// of each topic and the word list is the words JSON array (NULL until first set).
+// Topics implements topic.Repository on the "topics" table; the roadmaps are the roadmaps JSON object
+// (level → lesson ids) of each topic and the word list is the words JSON array (NULL until first set).
+// The level and lesson_ids columns only hold topics from before topics were shared by every level
+// (mergeSharedTopics empties them).
 type Topics struct {
 	db *sql.DB
 }
@@ -40,27 +43,102 @@ func topicsSchema() []string {
 	) ` + tableOptions}
 }
 
-const topicCols = "id, name, level, description, lesson_ids, words, words_seeded, created_at, updated_at"
+// sharedTopicsSchema makes topics shared by every level (2026-10-07): one roadmap per level, names
+// unique only once the data is merged (mergeSharedTopics adds that key), one goal per (topic, level).
+func sharedTopicsSchema() []string {
+	return []string{
+		`ALTER TABLE topics ADD COLUMN roadmaps JSON NULL`,
+		`ALTER TABLE topics DROP INDEX topics_level_name_key`,
+		`ALTER TABLE goals DROP INDEX goals_user_topic`,
+		`ALTER TABLE goals ADD UNIQUE KEY goals_user_topic_level (user_id, topic_id, level)`,
+		`ALTER TABLE lessons ADD KEY lessons_topic_level (topic_id, level)`,
+	}
+}
+
+// wordJSON is a topic word in the words column. Words stored before they had a level are plain
+// strings; they decode as a word for every level.
+type wordJSON topic.Word
+
+func (w *wordJSON) UnmarshalJSON(b []byte) error {
+	var text string
+	if json.Unmarshal(b, &text) == nil {
+		*w = wordJSON{Text: text}
+		return nil
+	}
+	var obj struct {
+		Text  string `json:"text"`
+		Level string `json:"level"`
+	}
+	if err := json.Unmarshal(b, &obj); err != nil {
+		return err
+	}
+	*w = wordJSON(obj)
+	return nil
+}
+
+func (w wordJSON) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		Text  string `json:"text"`
+		Level string `json:"level"`
+	}{w.Text, w.Level})
+}
+
+func decodeWords(raw []byte) ([]topic.Word, error) {
+	var ws []wordJSON
+	if err := fromJSON(raw, &ws); err != nil {
+		return nil, err
+	}
+	out := make([]topic.Word, len(ws))
+	for i, w := range ws {
+		out[i] = topic.Word(w)
+	}
+	return out, nil
+}
+
+func encodeWords(words []topic.Word) ([]byte, error) {
+	ws := make([]wordJSON, len(words))
+	for i, w := range words {
+		ws[i] = wordJSON(w)
+	}
+	return toJSON(ws)
+}
+
+func decodeRoadmaps(raw []byte) (map[string][]string, error) {
+	out := map[string][]string{}
+	if err := fromJSON(raw, &out); err != nil {
+		return nil, err
+	}
+	if out == nil {
+		out = map[string][]string{}
+	}
+	return out, nil
+}
+
+func encodeRoadmaps(roadmaps map[string][]string) ([]byte, error) {
+	if roadmaps == nil {
+		roadmaps = map[string][]string{}
+	}
+	return toJSON(roadmaps)
+}
+
+const topicCols = "id, name, description, roadmaps, words, words_seeded, created_at, updated_at"
 
 type topicScanner interface{ Scan(dest ...any) error }
 
 func scanTopicRow(s topicScanner) (topic.Topic, error) {
 	var (
 		t               topic.Topic
-		lessons, words  []byte
+		roadmaps, words []byte
 		created, update time.Time
 	)
-	if err := s.Scan(&t.ID, &t.Name, &t.Level, &t.Description, &lessons, &words, &t.WordsSeeded, &created, &update); err != nil {
+	if err := s.Scan(&t.ID, &t.Name, &t.Description, &roadmaps, &words, &t.WordsSeeded, &created, &update); err != nil {
 		return topic.Topic{}, err
 	}
-	t.LessonIDs = []string{}
-	if err := fromJSON(lessons, &t.LessonIDs); err != nil {
+	var err error
+	if t.Roadmaps, err = decodeRoadmaps(roadmaps); err != nil {
 		return topic.Topic{}, err
 	}
-	if t.LessonIDs == nil {
-		t.LessonIDs = []string{}
-	}
-	if err := fromJSON(words, &t.Words); err != nil {
+	if t.Words, err = decodeWords(words); err != nil {
 		return topic.Topic{}, err
 	}
 	t.CreatedAt, t.UpdatedAt = created.UTC(), update.UTC()
@@ -82,30 +160,23 @@ func topicGet(ctx context.Context, q execer, id string, forUpdate bool) (topic.T
 	return t, nil
 }
 
-// Create inserts t; the unique (level, name_key) key turns duplicates into ErrNameTaken.
+// Create inserts t; the unique name_key key turns duplicates into ErrNameTaken.
 func (r *Topics) Create(ctx context.Context, t topic.Topic) (topic.Topic, error) {
-	ids := t.LessonIDs
-	if ids == nil {
-		ids = []string{}
-	}
-	raw, err := toJSON(ids)
+	raw, err := encodeRoadmaps(t.Roadmaps)
 	if err != nil {
 		return topic.Topic{}, err
 	}
 	id := newID()
 	_, err = r.db.ExecContext(ctx,
-		"INSERT INTO topics (id, name, name_key, level, description, lesson_ids, words_seeded, created_at, updated_at) VALUES (?,?,?,?,?,?,0,?,?)",
-		id, t.Name, topic.NameKey(t.Name), t.Level, t.Description, raw, utc(t.CreatedAt), utc(t.UpdatedAt))
+		"INSERT INTO topics (id, name, name_key, level, description, lesson_ids, roadmaps, words_seeded, created_at, updated_at) VALUES (?,?,?,'',?,'[]',?,0,?,?)",
+		id, t.Name, topic.NameKey(t.Name), t.Description, raw, utc(t.CreatedAt), utc(t.UpdatedAt))
 	if err != nil {
 		if isDuplicate(err) {
 			return topic.Topic{}, topic.ErrNameTaken
 		}
 		return topic.Topic{}, fmt.Errorf("mysql insert topic: %w", err)
 	}
-	return topic.Topic{
-		ID: id, Name: t.Name, Level: t.Level, Description: t.Description, LessonIDs: slices.Clone(ids),
-		CreatedAt: utc(t.CreatedAt), UpdatedAt: utc(t.UpdatedAt),
-	}, nil
+	return topicGet(ctx, r.db, id, false)
 }
 
 // Get returns topic.ErrNotFound for unknown or malformed ids.
@@ -113,16 +184,9 @@ func (r *Topics) Get(ctx context.Context, id string) (topic.Topic, error) {
 	return topicGet(ctx, r.db, id, false)
 }
 
-// List returns the topics of level ("" = all); the service sorts them. Ordered by id for stability.
-func (r *Topics) List(ctx context.Context, level string) ([]topic.Topic, error) {
-	query := "SELECT " + topicCols + " FROM topics"
-	var a []any
-	if level != "" {
-		query += " WHERE level = ?"
-		a = append(a, level)
-	}
-	query += " ORDER BY id"
-	rows, err := r.db.QueryContext(ctx, query, a...)
+// List returns every topic; the service sorts them. Ordered by id for stability.
+func (r *Topics) List(ctx context.Context) ([]topic.Topic, error) {
+	rows, err := r.db.QueryContext(ctx, "SELECT "+topicCols+" FROM topics ORDER BY id")
 	if err != nil {
 		return nil, fmt.Errorf("mysql find topics: %w", err)
 	}
@@ -141,13 +205,13 @@ func (r *Topics) List(ctx context.Context, level string) ([]topic.Topic, error) 
 	return out, nil
 }
 
-// Update changes name, level and description.
+// Update changes name and description.
 func (r *Topics) Update(ctx context.Context, id string, in topic.Input) (topic.Topic, error) {
 	var out topic.Topic
 	err := inTx(ctx, r.db, func(tx *sql.Tx) error {
 		res, err := tx.ExecContext(ctx,
-			"UPDATE topics SET name = ?, name_key = ?, level = ?, description = ?, updated_at = ? WHERE id = ?",
-			in.Name, topic.NameKey(in.Name), in.Level, in.Description, utc(time.Now()), id)
+			"UPDATE topics SET name = ?, name_key = ?, description = ?, updated_at = ? WHERE id = ?",
+			in.Name, topic.NameKey(in.Name), in.Description, utc(time.Now()), id)
 		if err != nil {
 			if isDuplicate(err) {
 				return topic.ErrNameTaken
@@ -178,57 +242,38 @@ func (r *Topics) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-// SetLessons replaces the roadmap.
-func (r *Topics) SetLessons(ctx context.Context, id string, lessonIDs []string) error {
-	if lessonIDs == nil {
-		lessonIDs = []string{}
-	}
-	raw, err := toJSON(lessonIDs)
-	if err != nil {
-		return err
-	}
-	res, err := r.db.ExecContext(ctx, "UPDATE topics SET lesson_ids = ?, updated_at = ? WHERE id = ?", raw, utc(time.Now()), id)
-	if err != nil {
-		return fmt.Errorf("mysql set roadmap: %w", err)
-	}
-	ok, err := changed(res)
-	if err != nil {
-		return err
-	}
-	if !ok {
-		return topic.ErrNotFound
-	}
-	return nil
-}
-
-// topicRoadmapEdit reads the roadmap under a row lock, lets edit change it and writes it back when
+// roadmapEdit reads the roadmap of level under a row lock, lets edit change it and writes it back when
 // edit says so; it reports whether the topic exists and edit changed it.
-func (r *Topics) topicRoadmapEdit(ctx context.Context, id string, edit func(ids []string) ([]string, bool)) (found, wrote bool, err error) {
+func (r *Topics) roadmapEdit(ctx context.Context, id, level string, edit func(ids []string) ([]string, bool)) (found, wrote bool, err error) {
+	if !topic.ValidLevel(level) {
+		return false, false, fmt.Errorf("mysql roadmap level %q", level)
+	}
 	err = inTx(ctx, r.db, func(tx *sql.Tx) error {
 		var raw []byte
-		if err := tx.QueryRowContext(ctx, "SELECT lesson_ids FROM topics WHERE id = ? FOR UPDATE", id).Scan(&raw); err != nil {
+		if err := tx.QueryRowContext(ctx, "SELECT roadmaps FROM topics WHERE id = ? FOR UPDATE", id).Scan(&raw); err != nil {
 			if errors.Is(err, sql.ErrNoRows) {
 				return nil
 			}
 			return fmt.Errorf("mysql read roadmap: %w", err)
 		}
 		found = true
-		var ids []string
-		if err := fromJSON(raw, &ids); err != nil {
+		roadmaps, err := decodeRoadmaps(raw)
+		if err != nil {
 			return err
 		}
-		next, write := edit(ids)
+		next, write := edit(roadmaps[level])
 		if !write {
 			return nil
 		}
 		if next == nil {
 			next = []string{}
 		}
-		b, err := toJSON(next)
+		roadmaps[level] = next
+		b, err := encodeRoadmaps(roadmaps)
 		if err != nil {
 			return err
 		}
-		if _, err := tx.ExecContext(ctx, "UPDATE topics SET lesson_ids = ?, updated_at = ? WHERE id = ?", b, utc(time.Now()), id); err != nil {
+		if _, err := tx.ExecContext(ctx, "UPDATE topics SET roadmaps = ?, updated_at = ? WHERE id = ?", b, utc(time.Now()), id); err != nil {
 			return fmt.Errorf("mysql write roadmap: %w", err)
 		}
 		wrote = true
@@ -237,9 +282,24 @@ func (r *Topics) topicRoadmapEdit(ctx context.Context, id string, edit func(ids 
 	return found, wrote, err
 }
 
-// RemoveLesson pulls a lesson out of the roadmap; removed is false when it was not there.
-func (r *Topics) RemoveLesson(ctx context.Context, id, lessonID string) (bool, error) {
-	_, wrote, err := r.topicRoadmapEdit(ctx, id, func(ids []string) ([]string, bool) {
+// SetLessons replaces the roadmap of level.
+func (r *Topics) SetLessons(ctx context.Context, id, level string, lessonIDs []string) error {
+	found, _, err := r.roadmapEdit(ctx, id, level, func([]string) ([]string, bool) { return lessonIDs, true })
+	if err != nil {
+		return err
+	}
+	if !found {
+		return topic.ErrNotFound
+	}
+	return nil
+}
+
+// RemoveLesson pulls a lesson out of the roadmap of level; removed is false when it was not there.
+func (r *Topics) RemoveLesson(ctx context.Context, id, level, lessonID string) (bool, error) {
+	if !topic.ValidLevel(level) {
+		return false, nil
+	}
+	_, wrote, err := r.roadmapEdit(ctx, id, level, func(ids []string) ([]string, bool) {
 		if !slices.Contains(ids, lessonID) {
 			return nil, false
 		}
@@ -248,10 +308,10 @@ func (r *Topics) RemoveLesson(ctx context.Context, id, lessonID string) (bool, e
 	return wrote, err
 }
 
-// AppendLesson pushes a lesson at the end of the roadmap unless it is already there. Like Mongo's
-// update with a filter, an unknown topic is not an error.
-func (r *Topics) AppendLesson(ctx context.Context, id, lessonID string) error {
-	_, _, err := r.topicRoadmapEdit(ctx, id, func(ids []string) ([]string, bool) {
+// AppendLesson pushes a lesson at the end of the roadmap of level unless it is already there. Like
+// Mongo's update with a filter, an unknown topic is not an error.
+func (r *Topics) AppendLesson(ctx context.Context, id, level, lessonID string) error {
+	_, _, err := r.roadmapEdit(ctx, id, level, func(ids []string) ([]string, bool) {
 		if slices.Contains(ids, lessonID) {
 			return nil, false
 		}
@@ -262,11 +322,8 @@ func (r *Topics) AppendLesson(ctx context.Context, id, lessonID string) error {
 
 // SetWords replaces the topic's words and marks them seeded, so the startup seed never
 // overwrites an admin edit (F18).
-func (r *Topics) SetWords(ctx context.Context, id string, words []string) (topic.Topic, error) {
-	if words == nil {
-		words = []string{}
-	}
-	raw, err := toJSON(words)
+func (r *Topics) SetWords(ctx context.Context, id string, words []topic.Word) (topic.Topic, error) {
+	raw, err := encodeWords(words)
 	if err != nil {
 		return topic.Topic{}, err
 	}

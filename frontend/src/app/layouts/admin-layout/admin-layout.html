@@ -1,17 +1,53 @@
-<lu-app-header home="/admin" area="Quản trị" />
 <div class="shell">
-  <nav class="sidebar" aria-label="Quản trị">
-    <ul class="menu">
-      @for (link of links; track link.path) {
-        @let active = link.matches(path());
-        <li>
-          <a class="item" [class.active]="active" [routerLink]="link.path" [attr.aria-current]="active ? 'page' : null">
-            {{ link.label }}
-          </a>
-        </li>
+  <aside class="sidebar">
+    <div class="brand-row">
+      <a class="brand" routerLink="/admin">Luna</a>
+      <span class="area">Quản trị</span>
+    </div>
+
+    @if (auth.currentUser(); as user) {
+      <div class="user" [title]="user.email">
+        <span class="avatar" aria-hidden="true">{{ initial() }}</span>
+        <span class="user-text">
+          <span class="hello">Xin chào,</span>
+          <span class="user-name">{{ name() }}</span>
+        </span>
+      </div>
+    }
+
+    <nav class="nav" aria-label="Quản trị">
+      <ul class="menu">
+        @for (link of links; track link.path) {
+          @let active = link.matches(path());
+          <li>
+            <a class="item" [class.active]="active" [routerLink]="link.path" [attr.aria-current]="active ? 'page' : null">
+              <lu-icon [name]="link.icon" />
+              <span class="item-label">{{ link.label }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="tools">
+      <button
+        type="button"
+        class="tool"
+        [attr.aria-pressed]="dark()"
+        [title]="dark() ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'"
+        (click)="toggleDark()"
+      >
+        <lu-icon [name]="dark() ? 'sun' : 'moon'" />
+        <span class="tool-label">Chế độ tối</span>
+      </button>
+      @if (auth.currentUser()) {
+        <button type="button" class="tool" (click)="logout()">
+          <lu-icon name="logout" />
+          <span class="tool-label">Đăng xuất</span>
+        </button>
       }
-    </ul>
-  </nav>
+    </div>
+  </aside>
   <main class="content">
     <router-outlet />
   </main>

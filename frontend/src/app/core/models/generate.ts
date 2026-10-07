@@ -5,6 +5,8 @@ import { Level } from './lesson';
 export type LessonKind = 'reading' | 'dialogue';
 
 export interface GenerateInput {
+  /** Level of the lessons to write; topics are shared by every level. */
+  level: Level;
   count: number;
   words: number;
   kind: LessonKind;

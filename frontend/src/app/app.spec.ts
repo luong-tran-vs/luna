@@ -60,7 +60,7 @@ describe('App', () => {
 
     loginAs('admin');
     await harness.navigateByUrl('/admin');
-    expect(page(harness, 'lu-admin-layout lu-lesson-list')).not.toBeNull();
+    expect(page(harness, 'lu-admin-layout lu-admin-dashboard')).not.toBeNull();
   });
 
   it('redirects unknown routes to the home page', async () => {
@@ -119,16 +119,18 @@ describe('App', () => {
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/admin');
     const el = harness.fixture.nativeElement as HTMLElement;
-    expect(el.querySelector('lu-admin-layout main lu-lesson-list')).not.toBeNull();
+    expect(el.querySelector('lu-admin-layout main lu-admin-dashboard')).not.toBeNull();
     expect(el.querySelector('lu-learner-layout')).toBeNull();
     expect(el.querySelector('.area')?.textContent?.trim()).toBe('Quản trị');
     // The admin menu is the sidebar, not the header.
     expect(navLinks(harness)).toEqual([]);
-    const sidebar = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar a'));
-    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/topics', '/admin/grammar', '/admin/roadmap', '/admin/appearance', '/admin/tts-lab', '/admin/stt-lab']);
+    const sidebar = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar .menu a'));
+    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/grammar', '/admin/roadmap', '/admin/appearance', '/admin/tts-lab', '/admin/stt-lab']);
     const current = () => sidebar().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
-    expect(current()).toEqual(['Bài học']);
+    expect(current()).toEqual(['Trang chủ']);
 
+    await harness.navigateByUrl('/admin/lessons');
+    expect(current()).toEqual(['Bài học']);
     await harness.navigateByUrl('/admin/topics');
     expect(current()).toEqual(['Chủ đề']);
     await harness.navigateByUrl('/admin/lessons/new');

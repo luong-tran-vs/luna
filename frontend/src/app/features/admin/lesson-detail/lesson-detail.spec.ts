@@ -297,7 +297,7 @@ describe('LessonDetail', () => {
       expect(req.request.method).toBe('DELETE');
       req.flush(null, { status: 204, statusText: 'No Content' });
       await settle();
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/admin');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/admin/lessons');
     });
 
     it('explains why a roadmap lesson cannot be deleted', async () => {

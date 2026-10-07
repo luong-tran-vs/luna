@@ -182,25 +182,29 @@ func (f *fakeLessons) Delete(_ context.Context, id string) error {
 	return nil
 }
 
-// fakeTopics is an in-memory Topics port: topic-a1 (A1 Family), topic-b1 (B1 Work), and a
-// roadmap per topic.
+// fakeTopics is an in-memory Topics port: topic-a1 (Family), topic-b1 (Work), and a roadmap per
+// topic. Tests use topic-a1 for A1 lessons and topic-b1 for B1 ones; roadmaps are kept per topic and
+// the moves record the levels.
 type fakeTopics struct {
 	mu         sync.Mutex
 	topics     map[string]TopicRef
 	roadmaps   map[string][]string
-	moves      []string // "lesson:from>to"
+	moves      []string // "lesson:topic/level>topic/level"
+	appends    []Place
 	failAppend error
 }
 
 func newFakeTopics() *fakeTopics {
 	return &fakeTopics{
 		topics: map[string]TopicRef{
-			"topic-a1": {ID: "topic-a1", Name: "Family", Level: "A1"},
-			"topic-b1": {ID: "topic-b1", Name: "Work", Level: "B1"},
+			"topic-a1": {ID: "topic-a1", Name: "Family"},
+			"topic-b1": {ID: "topic-b1", Name: "Work"},
 		},
 		roadmaps: map[string][]string{},
 	}
 }
+
+func placeName(p Place) string { return p.TopicID + "/" + string(p.Level) }
 
 func (f *fakeTopics) Get(_ context.Context, id string) (TopicRef, error) {
 	f.mu.Lock()
@@ -230,13 +234,13 @@ func (f *fakeTopics) RoadmapLessonIDs(context.Context) (map[string]bool, error) 
 	return out, nil
 }
 
-func (f *fakeTopics) MoveLesson(_ context.Context, lessonID, from, to string) error {
+func (f *fakeTopics) MoveLesson(_ context.Context, lessonID string, from, to Place) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	f.moves = append(f.moves, lessonID+":"+from+">"+to)
-	if i := slices.Index(f.roadmaps[from], lessonID); i >= 0 {
-		f.roadmaps[from] = slices.Delete(f.roadmaps[from], i, i+1)
-		f.roadmaps[to] = append(f.roadmaps[to], lessonID)
+	f.moves = append(f.moves, lessonID+":"+placeName(from)+">"+placeName(to))
+	if i := slices.Index(f.roadmaps[from.TopicID], lessonID); i >= 0 {
+		f.roadmaps[from.TopicID] = slices.Delete(f.roadmaps[from.TopicID], i, i+1)
+		f.roadmaps[to.TopicID] = append(f.roadmaps[to.TopicID], lessonID)
 	}
 	return nil
 }
@@ -364,14 +368,15 @@ func (f *fakeAI) lastRequest() (ai.GenerateRequest, int) {
 
 // AppendLesson adds a lesson at the end of a topic roadmap unless it is there; failAppend
 // makes it fail.
-func (f *fakeTopics) AppendLesson(_ context.Context, topicID, lessonID string) error {
+func (f *fakeTopics) AppendLesson(_ context.Context, p Place, lessonID string) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	if f.failAppend != nil {
 		return f.failAppend
 	}
-	if !slices.Contains(f.roadmaps[topicID], lessonID) {
-		f.roadmaps[topicID] = append(f.roadmaps[topicID], lessonID)
+	f.appends = append(f.appends, p)
+	if !slices.Contains(f.roadmaps[p.TopicID], lessonID) {
+		f.roadmaps[p.TopicID] = append(f.roadmaps[p.TopicID], lessonID)
 	}
 	return nil
 }
@@ -520,10 +525,10 @@ func (f *fakeLessons) WithoutPractice(context.Context) ([]RevisionRef, error) {
 }
 
 // Position is the 1-based place of a lesson in the topic roadmap, 0 when absent.
-func (f *fakeTopics) Position(_ context.Context, topicID, lessonID string) (int, error) {
+func (f *fakeTopics) Position(_ context.Context, p Place, lessonID string) (int, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	return slices.Index(f.roadmaps[topicID], lessonID) + 1, nil
+	return slices.Index(f.roadmaps[p.TopicID], lessonID) + 1, nil
 }
 
 // Practice returns the configured practice or error, records the request and counts calls.

@@ -16,6 +16,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { catchError, map, Observable, of, Subject, Subscription, switchMap, timer } from 'rxjs';
 
 import {
+  DEFAULT_TARGET_WORDS,
+  DEFAULT_WORDS,
   GenerateInput,
   LessonKind,
   MAX_COUNT,
@@ -28,9 +30,12 @@ import {
   wordRange,
 } from '../../../core/models/generate';
 import { GrammarPoint, grammarOptionLabel } from '../../../core/models/grammar';
+import { Level, LEVELS } from '../../../core/models/lesson';
+import { TopicWord } from '../../../core/models/topic';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { AdminApiService } from '../admin-api.service';
 import { Loading } from '../../../shared/components/loading/loading';
+import { LevelPicker } from '../../../shared/components/level-picker/level-picker';
 
 const INTEGER = /^\d+$/;
 /** Wait after the admin stops typing a number before asking for a new split. */
@@ -79,7 +84,7 @@ const MAX_SUGGEST = 50;
  */
 @Component({
   selector: 'lu-generate-dialog',
-  imports: [Loading, ReactiveFormsModule],
+  imports: [Loading, ReactiveFormsModule, LevelPicker],
   templateUrl: './generate-dialog.html',
   styleUrl: './generate-dialog.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -91,17 +96,17 @@ export class GenerateDialog {
   /** "A1 · Gia đình". */
   readonly topicLabel = input.required<string>();
   readonly topicId = input('');
-  /** Level of the topic (A1…C2); picks the grammar points offered. */
-  readonly level = input('');
+  /** Level the dialog opens with (the roadmap's); the admin may pick another. It picks the grammar points offered. */
+  readonly level = input<Level>('A1');
   /** The topic's vocabulary list; empty hides the target words. */
-  readonly topicWords = input<string[]>([]);
+  readonly topicWords = input<TopicWord[]>([]);
   readonly options = input.required<GenerateOptions>();
   readonly busy = input(false);
   readonly error = input<string | null>(null);
 
   readonly generate = output<GenerateRequest>();
   /** F18: the topic's whole word list after the AI added words to it. */
-  readonly wordsChanged = output<string[]>();
+  readonly wordsChanged = output<TopicWord[]>();
   readonly closed = output<void>();
 
   protected readonly maxIdea = MAX_IDEA;
@@ -117,6 +122,7 @@ export class GenerateDialog {
   private readonly submitted = signal(false);
 
   protected readonly form = new FormGroup({
+    level: new FormControl<Level>('A1', { nonNullable: true }),
     count: new FormControl<number | null>(null, [
       Validators.required,
       Validators.min(MIN_COUNT),
@@ -164,6 +170,13 @@ export class GenerateDialog {
 
   // --- F18: target words ---
   protected readonly hasWords = computed(() => this.topicWords().length > 0);
+  /** Topic words that may go to a lesson of the chosen level: of that level or lower, or of any level. */
+  private readonly fitWords = computed(() => {
+    const rank = LEVELS.indexOf((this.value().level ?? 'A1') as Level);
+    return this.topicWords()
+      .filter((w) => !w.level || LEVELS.indexOf(w.level) <= rank)
+      .map((w) => w.text);
+  });
   /** One group of target words per lesson, as suggested then edited. */
   protected readonly groups = signal<string[][]>([]);
   protected readonly planState = signal<PlanState>('idle');
@@ -174,10 +187,12 @@ export class GenerateDialog {
   protected readonly suggestNote = signal<{ ok: boolean; text: string } | null>(null);
   /** Error of the add box of each group, by group index. */
   protected readonly addErrors = signal<Record<number, string>>({});
-  private readonly planRequests = new Subject<{ count: number; perLesson: number; delay: number }>();
-  /** "count:perLesson" of the split shown or being loaded; avoids asking again for the same one. */
+  private readonly planRequests = new Subject<{ level: Level; count: number; perLesson: number; delay: number }>();
+  /** "level:count:perLesson" of the split shown or being loaded; avoids asking again for the same one. */
   private plannedKey: string | null = null;
   private resetting = false;
+  /** Level the form shows, to tell a level change from enable()/disable() emitting it again. */
+  private shownLevel: Level = 'A1';
 
   protected readonly errors = computed(() => {
     this.status();
@@ -212,7 +227,8 @@ export class GenerateDialog {
         untracked(() => {
           this.submitted.set(false);
           this.resetting = true;
-          this.form.reset(this.options());
+          this.form.reset({ ...this.options(), level: this.level() });
+          this.shownLevel = this.level();
           this.resetting = false;
           this.plannedKey = null;
           this.groups.set([]);
@@ -243,10 +259,20 @@ export class GenerateDialog {
         this.requestPlan(PLAN_DEBOUNCE_MS);
       }
     });
+    // Another level: its default length and words per lesson, and its grammar points. enable()
+    // and disable() emit the same level again, which changes nothing.
+    this.form.controls.level.valueChanges.pipe(takeUntilDestroyed()).subscribe((level) => {
+      if (this.resetting || level === this.shownLevel) {
+        return;
+      }
+      this.shownLevel = level;
+      this.form.patchValue({ words: DEFAULT_WORDS[level], perLesson: DEFAULT_TARGET_WORDS[level], grammarPointId: '' });
+      this.loadGrammar();
+    });
     // switchMap drops a pending or running request when a newer one comes.
     this.planRequests
       .pipe(
-        switchMap((r) => timer(r.delay).pipe(switchMap(() => this.loadPlan(r.count, r.perLesson)))),
+        switchMap((r) => timer(r.delay).pipe(switchMap(() => this.loadPlan(r.level, r.count, r.perLesson)))),
         takeUntilDestroyed(),
       )
       .subscribe((result) => {
@@ -261,8 +287,8 @@ export class GenerateDialog {
   private loadGrammar(): void {
     this.grammarSub?.unsubscribe();
     this.grammarPoints.set([]);
-    const level = this.level();
-    if (!level) {
+    const level = this.form.controls.level.value;
+    if (!this.topicId()) {
       this.grammarState.set('idle');
       return;
     }
@@ -276,11 +302,11 @@ export class GenerateDialog {
     });
   }
 
-  private loadPlan(count: number, perLesson: number): Observable<PlanResult> {
+  private loadPlan(level: Level, count: number, perLesson: number): Observable<PlanResult> {
     if (perLesson === 0) {
       return of({ ok: true, groups: [], shortage: 0 });
     }
-    return this.api.wordPlan(this.topicId(), count, perLesson).pipe(
+    return this.api.wordPlan(this.topicId(), level, count, perLesson).pipe(
       map((plan) => ({ ok: true, groups: plan.groups, shortage: plan.shortage })),
       catchError(() => of({ ok: false, groups: [], shortage: 0 })),
     );
@@ -291,17 +317,17 @@ export class GenerateDialog {
     if (!this.open() || this.busy() || !this.hasWords()) {
       return;
     }
-    const { count, perLesson } = this.form.controls;
+    const { level, count, perLesson } = this.form.controls;
     if (count.invalid || perLesson.invalid) {
       return;
     }
-    const key = `${Number(count.value)}:${Number(perLesson.value)}`;
+    const key = `${level.value}:${Number(count.value)}:${Number(perLesson.value)}`;
     if (key === this.plannedKey) {
       return;
     }
     this.plannedKey = key;
     this.planState.set(Number(perLesson.value) === 0 ? 'idle' : 'loading');
-    this.planRequests.next({ count: Number(count.value), perLesson: Number(perLesson.value), delay });
+    this.planRequests.next({ level: level.value, count: Number(count.value), perLesson: Number(perLesson.value), delay });
   }
 
   protected retryPlan(): void {
@@ -317,10 +343,10 @@ export class GenerateDialog {
     }
     this.suggesting.set(true);
     this.suggestNote.set(null);
-    this.api.suggestTopicWords(this.topicId(), count).subscribe({
+    this.api.suggestTopicWords(this.topicId(), this.form.controls.level.value, count).subscribe({
       next: (r) => {
         this.suggesting.set(false);
-        this.wordsChanged.emit(r.words.map((w) => w.text));
+        this.wordsChanged.emit(r.words);
         this.suggestNote.set({ ok: true, text: `Đã thêm ${r.added.length} từ: ${r.added.join(', ')}.` });
         this.retryPlan();
       },
@@ -333,10 +359,10 @@ export class GenerateDialog {
     });
   }
 
-  /** Topic words not yet in the group, offered by the add box. */
+  /** Topic words of the chosen level not yet in the group, offered by the add box. */
   protected suggestions(group: readonly string[]): string[] {
     const taken = new Set(group.map((w) => w.toLowerCase()));
-    return this.topicWords().filter((w) => !taken.has(w.toLowerCase()));
+    return this.fitWords().filter((w) => !taken.has(w.toLowerCase()));
   }
 
   protected removeWord(groupIndex: number, word: string): void {
@@ -359,10 +385,11 @@ export class GenerateDialog {
       return;
     }
     const lower = typed.toLowerCase();
-    const word = this.topicWords().find((w) => w.toLowerCase() === lower);
+    const word = this.fitWords().find((w) => w.toLowerCase() === lower);
     const group = this.groups()[groupIndex] ?? [];
     if (!word) {
-      this.setAddError(groupIndex, 'Từ không có trong danh sách');
+      const other = this.topicWords().find((w) => w.text.toLowerCase() === lower);
+      this.setAddError(groupIndex, other ? `Từ này thuộc trình độ ${other.level}` : 'Từ không có trong danh sách');
       return;
     }
     if (group.some((w) => w.toLowerCase() === lower)) {
@@ -414,6 +441,7 @@ export class GenerateDialog {
     const groups = this.groups();
     const targetWords = this.hasWords() && perLesson > 0 && groups.length === count ? groups.map((g) => [...g]) : [];
     this.generate.emit({
+      level: v.level,
       count,
       words: Number(v.words),
       kind: v.kind,

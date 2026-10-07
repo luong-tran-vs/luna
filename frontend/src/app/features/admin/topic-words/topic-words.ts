@@ -3,14 +3,20 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { Topic, topicLabel, TopicWord } from '../../../core/models/topic';
+import { Level, LEVELS } from '../../../core/models/lesson';
+import { Topic, TopicWord } from '../../../core/models/topic';
 import { AdminApiService } from '../admin-api.service';
 import { Loading } from '../../../shared/components/loading/loading';
+import { LevelOption, LevelPicker } from '../../../shared/components/level-picker/level-picker';
+
+const LEVEL_CODES: LevelOption[] = LEVELS.map((l) => ({ value: l, label: l }));
 
 /** One row of the list being edited: a saved word or a new one, until Lưu. */
 interface WordRow {
   key: number;
   text: string;
+  /** Lowest level the word is meant for; '' for every level. */
+  level: Level | '';
   /** Null for a word added on this page. */
   saved: TopicWord | null;
   /** Saved word marked for removal (kept on screen so it can be restored). */
@@ -25,14 +31,18 @@ export function parseWords(text: string): string[] {
     .filter((w) => w.length > 0);
 }
 
+/** What the list shows: every word, the words for every level (''), or the words of one level. */
+type WordFilter = 'all' | '' | Level;
+
 /**
- * Vocabulary list of one topic (F18): coverage of each word in the topic's lessons, remove
- * words, add many at once, and save the whole list. Server errors `words.{i}` point into the
- * array sent, so they are shown under the matching row.
+ * Vocabulary list of one topic (F18): coverage of each word in the topic's lessons, the level of
+ * each word (a topic is shared by every level; AI generation at level X only gives words of X or
+ * lower, or for every level), remove words, add many at once with a level, and save the whole
+ * list. Server errors `words.{i}` point into the array sent, so they are shown under the matching row.
  */
 @Component({
   selector: 'lu-topic-words',
-  imports: [Loading, RouterLink],
+  imports: [Loading, RouterLink, LevelPicker],
   templateUrl: './topic-words.html',
   styleUrl: './topic-words.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,7 +55,22 @@ export class TopicWords {
   protected readonly topic = signal<Topic | null>(null);
   protected readonly title = computed(() => {
     const t = this.topic();
-    return t ? `Từ vựng · ${topicLabel(t)}` : 'Từ vựng';
+    return t ? `Từ vựng · ${t.name}` : 'Từ vựng';
+  });
+  protected readonly levels = LEVELS;
+  protected readonly filterOptions: LevelOption[] = [
+    { value: 'all', label: 'Tất cả' },
+    { value: '', label: 'Mọi trình độ' },
+    ...LEVEL_CODES,
+  ];
+  protected readonly addLevelOptions: LevelOption[] = [{ value: '', label: 'Mọi trình độ' }, ...LEVEL_CODES];
+  /** Level given to the words added from the box. */
+  protected readonly addLevel = signal<Level | ''>('');
+  protected readonly filter = signal<WordFilter>('all');
+  /** Rows shown under the filter (new rows always stay visible). */
+  protected readonly shownRows = computed(() => {
+    const f = this.filter();
+    return f === 'all' ? this.rows() : this.rows().filter((r) => !r.saved || r.level === f);
   });
   protected readonly notFound = signal(false);
   protected readonly loadError = signal<string | null>(null);
@@ -62,13 +87,19 @@ export class TopicWords {
   protected readonly topError = signal<string | null>(null);
   protected readonly rowErrors = signal<Record<number, string>>({});
 
+  /** Coverage of the words under the filter. */
   protected readonly summary = computed(() => {
-    const list = this.loaded() ?? [];
+    const f = this.filter();
+    const list = (this.loaded() ?? []).filter((w) => f === 'all' || w.level === f);
     return { used: list.filter((w) => w.used).length, total: list.length };
   });
   protected readonly pendingCount = computed(() => {
     const rows = this.rows();
-    return { added: rows.filter((r) => !r.saved).length, removed: rows.filter((r) => r.removed).length };
+    return {
+      added: rows.filter((r) => !r.saved).length,
+      removed: rows.filter((r) => r.removed).length,
+      changed: rows.filter((r) => r.saved && !r.removed && r.level !== r.saved.level).length,
+    };
   });
 
   constructor() {
@@ -99,7 +130,7 @@ export class TopicWords {
 
   private reset(words: TopicWord[]): void {
     this.loaded.set(words);
-    this.rows.set(words.map((w) => ({ key: this.nextKey++, text: w.text, saved: w, removed: false })));
+    this.rows.set(words.map((w) => ({ key: this.nextKey++, text: w.text, level: w.level, saved: w, removed: false })));
     this.rowErrors.set({});
     this.topError.set(null);
   }
@@ -146,7 +177,7 @@ export class TopicWords {
         continue;
       }
       seen.add(lower);
-      added.push({ key: this.nextKey++, text, saved: null, removed: false });
+      added.push({ key: this.nextKey++, text, level: this.addLevel(), saved: null, removed: false });
     }
     this.rows.update((rows) => [...rows, ...added]);
     this.note.set(
@@ -157,6 +188,20 @@ export class TopicWords {
         .filter(Boolean)
         .join(' '),
     );
+  }
+
+  protected setFilter(value: string): void {
+    this.filter.set(value as WordFilter);
+  }
+
+  protected setAddLevel(value: string): void {
+    this.addLevel.set(value as Level | '');
+  }
+
+  protected setRowLevel(row: WordRow, value: string): void {
+    this.saved.set(false);
+    this.clearError(row.key);
+    this.rows.update((rows) => rows.map((r) => (r.key === row.key ? { ...r, level: value as Level | '' } : r)));
   }
 
   /** ✕ on a saved word marks it removed (and back); on a new word drops it. */
@@ -198,7 +243,7 @@ export class TopicWords {
     this.topError.set(null);
     this.rowErrors.set({});
     try {
-      const words = await firstValueFrom(this.api.setTopicWords(this.id, sent.map((r) => r.text)));
+      const words = await firstValueFrom(this.api.setTopicWords(this.id, sent.map((r) => ({ text: r.text, level: r.level }))));
       this.reset(words);
       this.note.set(null);
       this.saved.set(true);
@@ -219,7 +264,7 @@ export class TopicWords {
     const rowErrors: Record<number, string> = {};
     const other: string[] = [];
     for (const [field, message] of Object.entries(fields)) {
-      const match = /^words\.(\d+)$/.exec(field);
+      const match = /^words\.(\d+)(\.level)?$/.exec(field);
       const row = match ? sent[Number(match[1])] : undefined;
       if (row) {
         rowErrors[row.key] = message;

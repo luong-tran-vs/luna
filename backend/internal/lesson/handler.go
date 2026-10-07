@@ -203,6 +203,7 @@ type inputJSON struct {
 	Title           string  `json:"title"`
 	Content         string  `json:"content"`
 	TopicID         string  `json:"topicId"`
+	Level           Level   `json:"level"`
 	Source          string  `json:"source"`
 	License         string  `json:"license"`
 	GrammarPointID  *string `json:"grammarPointId"`
@@ -220,7 +221,7 @@ type imageInputJSON struct {
 
 func (in inputJSON) toInput() Input {
 	out := Input{
-		Title: in.Title, Content: in.Content, TopicID: in.TopicID, Source: in.Source, License: in.License,
+		Title: in.Title, Content: in.Content, TopicID: in.TopicID, Level: in.Level, Source: in.Source, License: in.License,
 		AppendToRoadmap: in.AppendToRoadmap, KeepGrammarPoint: in.GrammarPointID == nil,
 		TargetWords: in.TargetWords,
 	}

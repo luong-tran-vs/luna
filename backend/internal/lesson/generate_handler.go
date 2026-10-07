@@ -17,6 +17,7 @@ const generateWriteTimeout = 135 * time.Second
 // --- JSON shapes (contracts/generate-api.md) ---
 
 type generateJSON struct {
+	Level          Level      `json:"level"`
 	Count          int        `json:"count"`
 	Words          int        `json:"words"`
 	Kind           string     `json:"kind"`

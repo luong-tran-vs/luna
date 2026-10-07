@@ -44,7 +44,15 @@ type lessonTopicsPort struct {
 }
 
 func toTopicRef(t topic.Topic) lesson.TopicRef {
-	return lesson.TopicRef{ID: t.ID, Name: t.Name, Level: lesson.Level(t.Level), Words: t.Words}
+	words := make([]lesson.TopicWord, len(t.Words))
+	for i, w := range t.Words {
+		words[i] = lesson.TopicWord{Text: w.Text, Level: lesson.Level(w.Level)}
+	}
+	return lesson.TopicRef{ID: t.ID, Name: t.Name, Words: words}
+}
+
+func toPlace(p lesson.Place) topic.Place {
+	return topic.Place{TopicID: p.TopicID, Level: string(p.Level)}
 }
 
 func (p lessonTopicsPort) Get(ctx context.Context, id string) (lesson.TopicRef, error) {
@@ -74,25 +82,25 @@ func (p lessonTopicsPort) RoadmapLessonIDs(ctx context.Context) (map[string]bool
 	return p.svc.RoadmapLessonIDs(ctx)
 }
 
-func (p lessonTopicsPort) AppendLesson(ctx context.Context, topicID, lessonID string) error {
-	err := p.svc.AppendLesson(ctx, topicID, lessonID)
+func (p lessonTopicsPort) AppendLesson(ctx context.Context, place lesson.Place, lessonID string) error {
+	err := p.svc.AppendLesson(ctx, toPlace(place), lessonID)
 	if errors.Is(err, topic.ErrNotFound) {
 		return lesson.ErrTopicNotFound
 	}
 	return err
 }
 
-func (p lessonTopicsPort) MoveLesson(ctx context.Context, lessonID, from, to string) error {
-	return p.svc.MoveLesson(ctx, lessonID, from, to)
+func (p lessonTopicsPort) MoveLesson(ctx context.Context, lessonID string, from, to lesson.Place) error {
+	return p.svc.MoveLesson(ctx, lessonID, toPlace(from), toPlace(to))
 }
 
-func (p lessonTopicsPort) Position(ctx context.Context, topicID, lessonID string) (int, error) {
-	t, err := p.svc.Get(ctx, topicID)
+func (p lessonTopicsPort) Position(ctx context.Context, place lesson.Place, lessonID string) (int, error) {
+	t, err := p.svc.Get(ctx, place.TopicID)
 	if errors.Is(err, topic.ErrNotFound) {
 		return 0, nil
 	}
 	if err != nil {
 		return 0, fmt.Errorf("get topic: %w", err)
 	}
-	return slices.Index(t.LessonIDs, lessonID) + 1, nil
+	return slices.Index(t.Roadmap(string(place.Level)), lessonID) + 1, nil
 }

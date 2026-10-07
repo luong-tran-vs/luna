@@ -29,6 +29,8 @@ var errGenerateAI = errors.New("lesson: generate")
 
 // GenerateInput is what an admin asks for when generating lessons for a topic.
 type GenerateInput struct {
+	// Level is the level of the lessons to write; topics are shared by every level.
+	Level Level
 	Count int
 	Words int
 	Kind  string
@@ -79,7 +81,11 @@ func ValidateGenerate(in GenerateInput) (GenerateInput, error) {
 	in.Kind = strings.TrimSpace(in.Kind)
 	in.Idea = strings.TrimSpace(in.Idea)
 	in.GrammarPointID = strings.TrimSpace(in.GrammarPointID)
+	in.Level = Level(strings.ToUpper(strings.TrimSpace(string(in.Level))))
 	fields := map[string]string{}
+	if !ValidLevel(string(in.Level)) {
+		fields["level"] = "Vui lòng chọn trình độ"
+	}
 	if in.Count < minGenerateCount || in.Count > maxGenerateCount {
 		fields["count"] = fmt.Sprintf("Số bài từ %d đến %d", minGenerateCount, maxGenerateCount)
 	}
@@ -109,10 +115,10 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	if err != nil {
 		return GenerateResult{}, err
 	}
-	if err := checkGrammarPoint(in.GrammarPointID, topic.Level); err != nil {
+	if err := checkGrammarPoint(in.GrammarPointID, in.Level); err != nil {
 		return GenerateResult{}, err
 	}
-	targets, err := cleanTargets(in.TargetWords, in.Count, topic.Words)
+	targets, err := cleanTargets(in.TargetWords, in.Count, topic.Words, in.Level)
 	if err != nil {
 		return GenerateResult{}, err
 	}
@@ -132,7 +138,7 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	actx, cancel := context.WithTimeout(ctx, timeout)
 	defer cancel()
 	drafts, err := s.AI.GenerateLessons(actx, ai.GenerateRequest{
-		Level: string(topic.Level), TopicName: topic.Name, Count: in.Count, Words: in.Words,
+		Level: string(in.Level), TopicName: topic.Name, Count: in.Count, Words: in.Words,
 		Kind: ai.LessonKind(in.Kind), Idea: in.Idea, ExistingTitles: titles, TargetWords: targets,
 		GrammarFocus: grammarFocus(in.GrammarPointID),
 	})
@@ -200,16 +206,16 @@ const maxTargetWords = 15
 
 // cleanTargets checks the target word groups of a generation against the topic words and
 // rewrites each word with the topic's spelling. No groups gives nil (generate as before F18).
-func cleanTargets(groups [][]string, count int, topicWords []string) ([][]string, error) {
+func cleanTargets(groups [][]string, count int, topicWords []TopicWord, level Level) ([][]string, error) {
 	if len(groups) == 0 {
 		return nil, nil
 	}
 	if len(groups) != count {
 		return nil, &ValidationError{Fields: map[string]string{"targetWords": "Số nhóm từ phải bằng số bài"}}
 	}
-	known := make(map[string]string, len(topicWords))
+	known := make(map[string]TopicWord, len(topicWords))
 	for _, w := range topicWords {
-		known[strings.ToLower(w)] = w
+		known[strings.ToLower(w.Text)] = w
 	}
 	fields := map[string]string{}
 	out := make([][]string, len(groups))
@@ -226,11 +232,13 @@ func cleanTargets(groups [][]string, count int, topicWords []string) ([][]string
 			switch {
 			case !ok:
 				fields[fmt.Sprintf("targetWords.%d.%d", i, j)] = "Từ không có trong danh sách của chủ đề"
+			case !word.fits(level):
+				fields[fmt.Sprintf("targetWords.%d.%d", i, j)] = "Từ này thuộc trình độ " + string(word.Level)
 			case seen[key]:
 				fields[fmt.Sprintf("targetWords.%d.%d", i, j)] = "Từ bị trùng trong bài"
 			default:
 				seen[key] = true
-				out[i] = append(out[i], word)
+				out[i] = append(out[i], word.Text)
 			}
 		}
 	}

@@ -3,6 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { TopicWord } from '../../../core/models/topic';
 import { GenerateDialog, GenerateOptions, GenerateRequest, PLAN_DEBOUNCE_MS } from './generate-dialog';
 
 describe('GenerateDialog', () => {
@@ -109,6 +110,7 @@ describe('GenerateDialog', () => {
     await submit();
     expect(emitted).toEqual([
       {
+        level: 'A1',
         count: 2,
         words: 200,
         kind: 'dialogue',
@@ -264,6 +266,12 @@ describe('GenerateDialog', () => {
 
   describe('target words (F18)', () => {
     const topicWords = ['Family', 'Parents', 'cousin', 'take a shower'];
+    /** Topic words for every level unless given as "word@B1". */
+    const words = (...texts: string[]): TopicWord[] =>
+      texts.map((t) => {
+        const [text, level] = t.split('@');
+        return { text, level: (level ?? '') as TopicWord['level'], used: false, lessonCount: 0 };
+      });
     const planUrl = '/api/admin/topics/t1/word-plan';
     const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     const settle = async () => {
@@ -305,9 +313,12 @@ describe('GenerateDialog', () => {
       fixture.componentRef.setInput('open', false);
       await fixture.whenStable();
       fixture.componentRef.setInput('topicId', 't1');
-      fixture.componentRef.setInput('topicWords', topicWords);
+      fixture.componentRef.setInput('topicWords', words(...topicWords));
       fixture.componentRef.setInput('options', { ...options, count: 2 });
       fixture.componentRef.setInput('open', true);
+      await settle();
+      // With a topic the grammar points of the level are offered too.
+      http.expectOne((r) => r.url === '/api/admin/grammar').flush({ points: [] });
       await settle();
     });
 
@@ -360,7 +371,7 @@ describe('GenerateDialog', () => {
 
     it('limits a lesson to 15 words', async () => {
       const many = Array.from({ length: 16 }, (_, i) => `word${String.fromCharCode(97 + i)}`);
-      fixture.componentRef.setInput('topicWords', many);
+      fixture.componentRef.setInput('topicWords', words(...many));
       await expectPlan(2, 8, [many.slice(0, 15), []]);
       await addTo(0, many[15]);
       expect(text(el.querySelector('#generate-add-0-error'))).toBe('Tối đa 15 từ mỗi bài');
@@ -415,16 +426,16 @@ describe('GenerateDialog', () => {
 
     it('offers to add the missing words with AI, then splits again', async () => {
       const changed: string[][] = [];
-      fixture.componentInstance.wordsChanged.subscribe((w) => changed.push(w));
+      fixture.componentInstance.wordsChanged.subscribe((w) => changed.push(w.map((x) => x.text)));
       await expectPlan(2, 8, [['Family', 'Parents'], ['cousin']], 12);
       expect(text(el.querySelector('.shortage'))).toContain('Chủ đề thiếu 12 từ chưa dùng');
 
       el.querySelector<HTMLButtonElement>('.shortage button')!.click();
       await settle();
       const req = http.expectOne('/api/admin/topics/t1/words/suggest');
-      expect(req.request.body).toEqual({ count: 12 });
+      expect(req.request.body).toEqual({ count: 12, level: 'A1' });
       expect(text(el.querySelector('.shortage button'))).toBe('Đang bổ sung…');
-      req.flush({ added: ['aunt', 'uncle'], words: [...topicWords, 'aunt', 'uncle'].map((t) => ({ text: t, used: false, lessonCount: 0 })) });
+      req.flush({ added: ['aunt', 'uncle'], words: words(...topicWords, 'aunt@A1', 'uncle@A1') });
       await settle();
 
       expect(changed).toEqual([[...topicWords, 'aunt', 'uncle']]);

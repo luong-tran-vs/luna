@@ -1,7 +1,6 @@
 package topic
 
 import (
-	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -32,7 +31,6 @@ func NewService(repo Repository, lessons Lessons, suggester WordSuggester, now f
 func cleanInput(in Input) Input {
 	return Input{
 		Name:        strings.Join(strings.Fields(in.Name), " "),
-		Level:       strings.ToUpper(strings.TrimSpace(in.Level)),
 		Description: strings.TrimSpace(in.Description),
 	}
 }
@@ -45,9 +43,6 @@ func validate(in Input) error {
 	case n > maxName:
 		fields["name"] = fmt.Sprintf("Tên chủ đề tối đa %d ký tự", maxName)
 	}
-	if !ValidLevel(in.Level) {
-		fields["level"] = "Vui lòng chọn trình độ từ A1 đến C2"
-	}
 	if utf8.RuneCountInString(in.Description) > maxDescription {
 		fields["description"] = fmt.Sprintf("Mô tả tối đa %d ký tự", maxDescription)
 	}
@@ -57,26 +52,25 @@ func validate(in Input) error {
 	return nil
 }
 
-func nameTaken(level string) error {
-	return &ValidationError{Fields: map[string]string{"name": "Chủ đề này đã có ở trình độ " + level}}
+func nameTaken() error {
+	return &ValidationError{Fields: map[string]string{"name": "Chủ đề này đã có"}}
+}
+
+// checkLevel rejects a missing or unknown level with the error of field.
+func checkLevel(level, field string) error {
+	if !ValidLevel(level) {
+		return &ValidationError{Fields: map[string]string{field: "Vui lòng chọn trình độ từ A1 đến C2"}}
+	}
+	return nil
 }
 
 func sortTopics(topics []Topic) {
-	slices.SortFunc(topics, func(a, b Topic) int {
-		if c := cmp.Compare(levelRank(a.Level), levelRank(b.Level)); c != 0 {
-			return c
-		}
-		return strings.Compare(NameKey(a.Name), NameKey(b.Name))
-	})
+	slices.SortFunc(topics, func(a, b Topic) int { return strings.Compare(NameKey(a.Name), NameKey(b.Name)) })
 }
 
-// List returns the topics of level ("" = all), A1 → C2 then by name, with lesson counts and
-// roadmap warnings.
-func (s *Service) List(ctx context.Context, level string) ([]Summary, error) {
-	if level != "" && !ValidLevel(level) {
-		return nil, &ValidationError{Fields: map[string]string{"level": "Trình độ không hợp lệ"}}
-	}
-	topics, err := s.repo.List(ctx, level)
+// List returns every topic by name, with lesson counts and roadmap warnings per level.
+func (s *Service) List(ctx context.Context) ([]Summary, error) {
+	topics, err := s.repo.List(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("topic: list: %w", err)
 	}
@@ -107,7 +101,7 @@ func (s *Service) summary(ctx context.Context, t Topic) (Summary, error) {
 	return out[0], nil
 }
 
-// Create adds a topic; the name must be unique within its level.
+// Create adds a topic; the name must be unique.
 func (s *Service) Create(ctx context.Context, in Input) (Summary, error) {
 	in = cleanInput(in)
 	if err := validate(in); err != nil {
@@ -115,43 +109,34 @@ func (s *Service) Create(ctx context.Context, in Input) (Summary, error) {
 	}
 	now := s.now()
 	t, err := s.repo.Create(ctx, Topic{
-		Name: in.Name, Level: in.Level, Description: in.Description, LessonIDs: []string{}, CreatedAt: now, UpdatedAt: now,
+		Name: in.Name, Description: in.Description, Roadmaps: map[string][]string{}, CreatedAt: now, UpdatedAt: now,
 	})
 	if errors.Is(err, ErrNameTaken) {
-		return Summary{}, nameTaken(in.Level)
+		return Summary{}, nameTaken()
 	}
 	if err != nil {
 		return Summary{}, fmt.Errorf("topic: create: %w", err)
 	}
-	return summarize(t, 0), nil
+	return summarize(t, nil), nil
 }
 
-// Update edits a topic. Changing its level changes the level of all its lessons.
+// Update edits a topic's name and description.
 func (s *Service) Update(ctx context.Context, id string, in Input) (Summary, error) {
 	in = cleanInput(in)
 	if err := validate(in); err != nil {
 		return Summary{}, err
 	}
-	cur, err := s.repo.Get(ctx, id)
-	if err != nil {
-		return Summary{}, err
-	}
 	t, err := s.repo.Update(ctx, id, in)
 	switch {
 	case errors.Is(err, ErrNameTaken):
-		return Summary{}, nameTaken(in.Level)
+		return Summary{}, nameTaken()
 	case err != nil:
-		return Summary{}, fmt.Errorf("topic: update: %w", err)
-	}
-	if cur.Level != in.Level {
-		if err := s.lessons.SetLevelByTopic(ctx, id, in.Level); err != nil {
-			return Summary{}, fmt.Errorf("topic: update lesson levels: %w", err)
-		}
+		return Summary{}, err
 	}
 	return s.summary(ctx, t)
 }
 
-// Delete removes a topic without lessons; *InUseError while lessons remain.
+// Delete removes a topic without lessons at any level; *InUseError while lessons remain.
 func (s *Service) Delete(ctx context.Context, id string) error {
 	if _, err := s.repo.Get(ctx, id); err != nil {
 		return err
@@ -160,7 +145,11 @@ func (s *Service) Delete(ctx context.Context, id string) error {
 	if err != nil {
 		return fmt.Errorf("topic: count lessons: %w", err)
 	}
-	if n := counts[id]; n > 0 {
+	n := 0
+	for _, c := range counts[id] {
+		n += c
+	}
+	if n > 0 {
 		return &InUseError{Count: n}
 	}
 	if err := s.repo.Delete(ctx, id); err != nil {
@@ -169,25 +158,31 @@ func (s *Service) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-// Public lists the topics of a level for learners, with the number of roadmap lessons.
+// Public lists, for learners, the topics that have a roadmap at level, with its number of lessons.
 func (s *Service) Public(ctx context.Context, level string) ([]Public, error) {
-	if level != "" && !ValidLevel(level) {
-		return nil, &ValidationError{Fields: map[string]string{"level": "Trình độ không hợp lệ"}}
+	if err := checkLevel(level, "level"); err != nil {
+		return nil, err
 	}
-	topics, err := s.repo.List(ctx, level)
+	topics, err := s.repo.List(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("topic: list: %w", err)
 	}
 	sortTopics(topics)
-	out := make([]Public, len(topics))
-	for i, t := range topics {
-		out[i] = Public{ID: t.ID, Name: t.Name, Level: t.Level, Description: t.Description, LessonCount: len(t.LessonIDs)}
+	out := []Public{}
+	for _, t := range topics {
+		if n := len(t.Roadmap(level)); n > 0 {
+			out = append(out, Public{ID: t.ID, Name: t.Name, Level: level, Description: t.Description, LessonCount: n})
+		}
 	}
 	return out, nil
 }
 
-// Roadmap returns a topic's roadmap with its lessons in order; deleted lessons are skipped.
-func (s *Service) Roadmap(ctx context.Context, id string) (Roadmap, error) {
+// Roadmap returns the roadmap of a topic at level with its lessons in order; deleted lessons are
+// skipped.
+func (s *Service) Roadmap(ctx context.Context, id, level string) (Roadmap, error) {
+	if err := checkLevel(level, "level"); err != nil {
+		return Roadmap{}, err
+	}
 	t, err := s.repo.Get(ctx, id)
 	if err != nil {
 		return Roadmap{}, err
@@ -196,7 +191,8 @@ func (s *Service) Roadmap(ctx context.Context, id string) (Roadmap, error) {
 	if err != nil {
 		return Roadmap{}, err
 	}
-	refs, err := s.lessons.Refs(ctx, t.LessonIDs)
+	ids := t.Roadmap(level)
+	refs, err := s.lessons.Refs(ctx, ids)
 	if err != nil {
 		return Roadmap{}, fmt.Errorf("topic: roadmap lessons: %w", err)
 	}
@@ -204,8 +200,8 @@ func (s *Service) Roadmap(ctx context.Context, id string) (Roadmap, error) {
 	for _, r := range refs {
 		byID[r.ID] = r
 	}
-	out := Roadmap{Topic: sum, Lessons: []LessonRef{}}
-	for _, lid := range t.LessonIDs {
+	out := Roadmap{Topic: sum, Level: level, Lessons: []LessonRef{}}
+	for _, lid := range ids {
 		if r, ok := byID[lid]; ok {
 			out.Lessons = append(out.Lessons, r)
 		}
@@ -213,8 +209,12 @@ func (s *Service) Roadmap(ctx context.Context, id string) (Roadmap, error) {
 	return out, nil
 }
 
-// SetRoadmap replaces a topic's roadmap. Lessons must be unique, exist and belong to the topic.
-func (s *Service) SetRoadmap(ctx context.Context, id string, lessonIDs []string) (Roadmap, error) {
+// SetRoadmap replaces the roadmap of a topic at level. Lessons must be unique, exist and belong
+// to the topic at that level.
+func (s *Service) SetRoadmap(ctx context.Context, id, level string, lessonIDs []string) (Roadmap, error) {
+	if err := checkLevel(level, "level"); err != nil {
+		return Roadmap{}, err
+	}
 	if _, err := s.repo.Get(ctx, id); err != nil {
 		return Roadmap{}, err
 	}
@@ -226,25 +226,27 @@ func (s *Service) SetRoadmap(ctx context.Context, id string, lessonIDs []string)
 		}
 		seen[lid] = true
 	}
-	topicOf, err := s.lessons.TopicOf(ctx, lessonIDs)
+	places, err := s.lessons.PlaceOf(ctx, lessonIDs)
 	if err != nil {
 		return Roadmap{}, fmt.Errorf("topic: lesson topics: %w", err)
 	}
 	for _, lid := range lessonIDs {
-		switch tid, ok := topicOf[lid]; {
+		switch p, ok := places[lid]; {
 		case !ok:
 			return Roadmap{}, bad("Lộ trình có bài không tồn tại")
-		case tid != id:
+		case p.TopicID != id:
 			return Roadmap{}, bad("Chỉ thêm được bài của chủ đề này")
+		case p.Level != level:
+			return Roadmap{}, bad("Chỉ thêm được bài " + level + " của chủ đề này")
 		}
 	}
 	if lessonIDs == nil {
 		lessonIDs = []string{}
 	}
-	if err := s.repo.SetLessons(ctx, id, lessonIDs); err != nil {
+	if err := s.repo.SetLessons(ctx, id, level, lessonIDs); err != nil {
 		return Roadmap{}, fmt.Errorf("topic: save roadmap: %w", err)
 	}
-	return s.Roadmap(ctx, id)
+	return s.Roadmap(ctx, id, level)
 }
 
 // --- used by lessons (lesson.Topics port, adapted in main) ---
@@ -256,7 +258,7 @@ func (s *Service) Get(ctx context.Context, id string) (Topic, error) {
 
 // All returns every topic.
 func (s *Service) All(ctx context.Context) ([]Topic, error) {
-	topics, err := s.repo.List(ctx, "")
+	topics, err := s.repo.List(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("topic: list: %w", err)
 	}
@@ -271,20 +273,20 @@ func (s *Service) RoadmapLessonIDs(ctx context.Context) (map[string]bool, error)
 	}
 	out := map[string]bool{}
 	for _, t := range topics {
-		for _, lid := range t.LessonIDs {
+		for _, lid := range t.AllRoadmapLessons() {
 			out[lid] = true
 		}
 	}
 	return out, nil
 }
 
-// AppendLesson adds a lesson at the end of a topic roadmap unless it is already there;
+// AppendLesson adds a lesson at the end of the roadmap of p unless it is already there;
 // ErrNotFound when the topic does not exist.
-func (s *Service) AppendLesson(ctx context.Context, topicID, lessonID string) error {
-	if _, err := s.repo.Get(ctx, topicID); err != nil {
+func (s *Service) AppendLesson(ctx context.Context, p Place, lessonID string) error {
+	if _, err := s.repo.Get(ctx, p.TopicID); err != nil {
 		return err
 	}
-	if err := s.repo.AppendLesson(ctx, topicID, lessonID); err != nil {
+	if err := s.repo.AppendLesson(ctx, p.TopicID, p.Level, lessonID); err != nil {
 		return fmt.Errorf("topic: append to roadmap: %w", err)
 	}
 	return nil
@@ -293,18 +295,18 @@ func (s *Service) AppendLesson(ctx context.Context, topicID, lessonID string) er
 // MoveLesson takes a lesson out of from's roadmap and, if it was there, appends it to to's
 // roadmap. The removal comes first: a failure in between leaves the lesson out of both
 // roadmaps rather than in two.
-func (s *Service) MoveLesson(ctx context.Context, lessonID, from, to string) error {
-	if from == "" || from == to {
+func (s *Service) MoveLesson(ctx context.Context, lessonID string, from, to Place) error {
+	if from.TopicID == "" || from == to {
 		return nil
 	}
-	removed, err := s.repo.RemoveLesson(ctx, from, lessonID)
+	removed, err := s.repo.RemoveLesson(ctx, from.TopicID, from.Level, lessonID)
 	if err != nil {
 		return fmt.Errorf("topic: remove from roadmap: %w", err)
 	}
 	if !removed {
 		return nil
 	}
-	if err := s.repo.AppendLesson(ctx, to, lessonID); err != nil {
+	if err := s.repo.AppendLesson(ctx, to.TopicID, to.Level, lessonID); err != nil {
 		return fmt.Errorf("topic: append to roadmap: %w", err)
 	}
 	return nil

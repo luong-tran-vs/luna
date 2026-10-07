@@ -71,7 +71,7 @@ func TestPlanMigration(t *testing.T) {
 
 func TestPlanMigrationReusesExistingTopics(t *testing.T) {
 	t.Parallel()
-	existing := []Topic{
+	existing := []LegacyTopic{
 		{ID: "t1", Name: "Gia Đình", Level: "A1", LessonIDs: []string{"x"}},
 		{ID: "t2", Name: "Du lịch", Level: "A2", LessonIDs: []string{}},
 	}

@@ -40,10 +40,10 @@ const point = (id: string, count = 0) => ({
 });
 const b1Points = [point('b1-a', 2), point('b1-b')];
 
-const topic = (id: string, name: string, level: Topic['level']): Topic => ({
-  id, name, level, description: '', lessonCount: 0, roadmapCount: 0, remaining: 0, warning: true, createdAt: '', wordCount: 0, usedWordCount: 0,
+const topic = (id: string, name: string): Topic => ({
+  id, name, description: '', lessonCount: 0, levels: [], createdAt: '', wordCount: 0, usedWordCount: 0,
 });
-const topics = [topic('t1', 'Gia đình', 'A1'), topic('t2', 'Mua sắm', 'A1'), topic('t3', 'Công việc', 'B1')];
+const topics = [topic('t1', 'Gia đình'), topic('t2', 'Mua sắm'), topic('t3', 'Công việc')];
 
 describe('LessonForm', () => {
   let fixture: ComponentFixture<LessonForm>;
@@ -57,7 +57,17 @@ describe('LessonForm', () => {
   };
   const field = (name: string) =>
     el.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(`[name="${name}"]`)!;
+  /** The level is a group of radio cards, not an input. */
+  const levelGroup = () => el.querySelector<HTMLElement>('#lesson-level [role="radiogroup"]')!;
+  const chosenLevel = () => levelGroup().querySelector('[aria-checked="true"] .code')?.textContent?.trim() ?? '';
   const type = async (name: string, value: string) => {
+    if (name === 'level') {
+      Array.from(levelGroup().querySelectorAll<HTMLButtonElement>('[role="radio"]'))
+        .find((b) => b.querySelector('.code')?.textContent?.trim() === value)!
+        .click();
+      await fixture.whenStable();
+      return;
+    }
     const f = field(name);
     f.value = value;
     f.dispatchEvent(new Event(f instanceof HTMLSelectElement ? 'change' : 'input'));
@@ -65,7 +75,8 @@ describe('LessonForm', () => {
     await fixture.whenStable();
   };
   const errorOf = (name: string) => {
-    const id = field(name).getAttribute('aria-describedby')?.split(' ').find((x) => x.endsWith('-error'));
+    const target = name === 'level' ? levelGroup() : field(name);
+    const id = target.getAttribute('aria-describedby')?.split(' ').find((x) => x.endsWith('-error'));
     return id ? el.querySelector(`#${id}`)?.textContent?.trim() : undefined;
   };
   const submit = async () => {
@@ -79,6 +90,7 @@ describe('LessonForm', () => {
   const fillValid = async () => {
     await type('title', '  Park  ');
     await type('topicId', 't3');
+    await type('level', 'B1');
     await flushPoints('B1', 't3');
     await type('source', 'Tự viết');
     await type('license', 'CC BY');
@@ -115,6 +127,7 @@ describe('LessonForm', () => {
       expect(errorOf('title')).toBe('Vui lòng nhập tiêu đề');
       expect(errorOf('content')).toBe('Vui lòng dán nội dung bài');
       expect(errorOf('topicId')).toBe('Vui lòng chọn chủ đề');
+      expect(errorOf('level')).toBe('Vui lòng chọn trình độ');
       expect(errorOf('source')).toBe('Vui lòng nhập nguồn');
       expect(errorOf('license')).toBe('Vui lòng nhập giấy phép');
       http.expectNone('/api/admin/lessons');
@@ -125,15 +138,19 @@ describe('LessonForm', () => {
       expect(errorOf('title')).toBe('Tối đa 200 ký tự');
     });
 
-    it('offers one topic select grouped by level instead of level and topic inputs', async () => {
-      expect(el.querySelector('[name="level"]')).toBeNull();
-      expect(el.querySelector('[name="topic"]')).toBeNull();
-      const groups = Array.from(el.querySelectorAll<HTMLOptGroupElement>('select[name="topicId"] optgroup'));
-      expect(groups.map((g) => g.label)).toEqual(['A1', 'B1']);
-      expect(Array.from(groups[0].querySelectorAll('option')).map((o) => o.textContent?.trim())).toEqual([
-        'A1 · Gia đình',
-        'A1 · Mua sắm',
-      ]);
+    it('offers every topic by name and the levels as radio cards', async () => {
+      const options = Array.from(el.querySelectorAll<HTMLOptionElement>('select[name="topicId"] option')).map((o) => o.textContent?.trim());
+      expect(el.querySelector('select[name="topicId"] optgroup')).toBeNull();
+      expect(options).toEqual(['Chọn chủ đề', 'Công việc', 'Gia đình', 'Mua sắm']);
+      const radios = Array.from(levelGroup().querySelectorAll('[role="radio"]'));
+      expect(radios.map((r) => r.querySelector('.code')?.textContent?.trim())).toEqual(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']);
+      expect(radios[1].querySelector('.hint')?.textContent?.trim()).toBe('Sơ cấp');
+      expect(levelGroup().getAttribute('aria-labelledby')).toBe('lesson-level-label');
+      expect(chosenLevel()).toBe('');
+      await type('level', 'B2');
+      expect(chosenLevel()).toBe('B2');
+      http.expectOne('/api/admin/grammar?level=B2').flush({ points: [] });
+      await settle();
     });
 
     it('posts trimmed values, disables submit while pending, then opens the lesson', async () => {
@@ -144,22 +161,24 @@ describe('LessonForm', () => {
       const req = http.expectOne('/api/admin/lessons');
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({
-        title: 'Park', topicId: 't3', source: 'Tự viết', license: 'CC BY', content: 'We went to the park.', grammarPointId: '',
+        title: 'Park', topicId: 't3', level: 'B1', source: 'Tự viết', license: 'CC BY', content: 'We went to the park.', grammarPointId: '',
       });
       req.flush({ lesson: lesson() }, { status: 201, statusText: 'Created' });
       await settle();
       expect(router.navigateByUrl).toHaveBeenCalledWith('/admin/lessons/l1');
     });
 
-    it('disables the grammar select with a hint until a topic is chosen', () => {
+    it('disables the grammar select with a hint until a level is chosen', async () => {
+      await type('topicId', 't3');
       expect(field('grammarPointId').disabled).toBe(true);
-      expect(el.querySelector('#lesson-grammar-help')?.textContent).toContain('Chọn chủ đề trước');
+      expect(el.querySelector('#lesson-grammar-help')?.textContent).toContain('Chọn trình độ trước');
       expect(el.querySelector('label[for="lesson-grammar"]')?.textContent).toContain('Điểm ngữ pháp (tuỳ chọn)');
     });
 
     it('offers the points of the topic level and sends the chosen one', async () => {
       await type('title', 'Park');
       await type('topicId', 't3');
+      await type('level', 'B1');
       await flushPoints('B1', 't3');
       const sel = field('grammarPointId') as HTMLSelectElement;
       expect(sel.disabled).toBe(false);
@@ -177,14 +196,25 @@ describe('LessonForm', () => {
       await settle();
     });
 
-    it('clears the point and reloads when the topic changes to another level', async () => {
+    it('clears the point and reloads when the level changes', async () => {
       await type('topicId', 't3');
+      await type('level', 'B1');
+      await flushPoints('B1', 't3');
+      await type('grammarPointId', 'b1-a');
+      await type('level', 'A1');
+      expect(field('grammarPointId').value).toBe('');
+      await flushPoints('A1', 't3', [{ ...point('a1-x'), level: 'A1' }]);
+      expect((field('grammarPointId') as HTMLSelectElement).options.length).toBe(2);
+    });
+
+    it('keeps the point when only the topic changes (the counts are reloaded)', async () => {
+      await type('topicId', 't3');
+      await type('level', 'B1');
       await flushPoints('B1', 't3');
       await type('grammarPointId', 'b1-a');
       await type('topicId', 't1');
-      expect(field('grammarPointId').value).toBe('');
-      await flushPoints('A1', 't1', [{ ...point('a1-x'), level: 'A1' }]);
-      expect((field('grammarPointId') as HTMLSelectElement).options.length).toBe(2);
+      await flushPoints('B1', 't1');
+      expect(field('grammarPointId').value).toBe('b1-a');
     });
 
     it('shows a server error for the grammar point', async () => {
@@ -233,6 +263,7 @@ describe('LessonForm', () => {
       await load(lesson());
       expect(field('title').value).toBe('Park');
       expect(field('topicId').value).toBe('t3');
+      expect(chosenLevel()).toBe('B1');
       expect(field('content').value).toBe('We went to the park.');
       expect(el.querySelector('h1')?.textContent).toContain('Sửa bài');
     });

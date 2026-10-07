@@ -14,7 +14,7 @@ func withFamilyWords(e *env) {
 	e.topics.mu.Lock()
 	defer e.topics.mu.Unlock()
 	t := e.topics.topics["topic-a1"]
-	t.Words = []string{"Family", "Brother", "take a shower", "Uncle"}
+	t.Words = []TopicWord{{Text: "Family"}, {Text: "Brother", Level: "A1"}, {Text: "take a shower"}, {Text: "Uncle"}, {Text: "Nephew", Level: "B1"}}
 	e.topics.topics["topic-a1"] = t
 }
 
@@ -30,6 +30,7 @@ func TestGenerateTargetWordsValidation(t *testing.T) {
 		{"unknown word", [][]string{{"Family"}, {"banana"}, {}}, "targetWords.1.0"},
 		{"duplicate in group", [][]string{{"Family", "family"}, {}, {}}, "targetWords.0.1"},
 		{"too many", [][]string{slices.Repeat([]string{"x"}, 16), {}, {}}, "targetWords.0"},
+		{"word of a higher level", [][]string{{"Family", "Nephew"}, {}, {}}, "targetWords.0.1"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -108,12 +109,12 @@ func TestGenerateEndpointTargetWords(t *testing.T) {
 	a.env.ai.drafts = []ai.LessonDraft{{Title: "Brothers", Content: "My brother is here. " + text(96)}}
 
 	rec := a.do(t, "POST", "/api/admin/topics/topic-a1/generate", "admin",
-		`{"count":1,"words":100,"kind":"reading","idea":"","targetWords":[["Brother","Uncle"]]}`)
+		`{"level":"A1","count":1,"words":100,"kind":"reading","idea":"","targetWords":[["Brother","Uncle"]]}`)
 	if rec.Code != 200 || !strings.Contains(rec.Body.String(), `"targetWords":["Brother","Uncle"],"missingWords":["Uncle"]`) {
 		t.Fatalf("generate: %d %s", rec.Code, rec.Body)
 	}
 	rec = a.do(t, "POST", "/api/admin/topics/topic-a1/generate", "admin",
-		`{"count":1,"words":100,"kind":"reading","idea":"","targetWords":[["banana"]]}`)
+		`{"level":"A1","count":1,"words":100,"kind":"reading","idea":"","targetWords":[["banana"]]}`)
 	if rec.Code != 400 || !strings.Contains(rec.Body.String(), `"targetWords.0.0"`) {
 		t.Fatalf("invalid: %d %s", rec.Code, rec.Body)
 	}

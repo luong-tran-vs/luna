@@ -6,7 +6,9 @@
     </div>
   </header>
 
-  <p class="muted">Mỗi chủ đề thuộc một trình độ và có lộ trình bài riêng. Bài học chọn chủ đề khi tạo.</p>
+  <p class="muted">
+    Chủ đề dùng chung cho mọi trình độ. Mỗi trình độ của một chủ đề có lộ trình bài riêng; trình độ chọn ở từng bài.
+  </p>
 
   @if (error(); as message) {
     <p class="form-alert" role="alert">{{ message }}</p>
@@ -14,28 +16,13 @@
 
   <ng-template #topicForm>
     <form class="card topic-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
-      <div class="row">
-        <div class="field">
-          <label for="topic-name">Tên chủ đề</label>
-          <input id="topic-name" formControlName="name" [attr.aria-invalid]="!!fieldError('name')"
-            [attr.aria-describedby]="describedBy('name')" />
-          @if (fieldError('name'); as message) {
-            <p class="field-error" id="topic-name-error">{{ message }}</p>
-          }
-        </div>
-        <div class="field">
-          <label for="topic-level">Trình độ</label>
-          <select id="topic-level" formControlName="level" [attr.aria-invalid]="!!fieldError('level')"
-            [attr.aria-describedby]="describedBy('level')">
-            <option value="">Chọn trình độ</option>
-            @for (level of levels; track level) {
-              <option [value]="level">{{ level }}</option>
-            }
-          </select>
-          @if (fieldError('level'); as message) {
-            <p class="field-error" id="topic-level-error">{{ message }}</p>
-          }
-        </div>
+      <div class="field">
+        <label for="topic-name">Tên chủ đề</label>
+        <input id="topic-name" formControlName="name" [attr.aria-invalid]="!!fieldError('name')"
+          [attr.aria-describedby]="describedBy('name')" />
+        @if (fieldError('name'); as message) {
+          <p class="field-error" id="topic-name-error">{{ message }}</p>
+        }
       </div>
       <div class="field">
         <label for="topic-description">Mô tả ngắn (không bắt buộc)</label>
@@ -59,41 +46,58 @@
   @if (topics(); as list) {
     @if (list.length === 0) {
       <p class="card muted">Chưa có chủ đề nào. Bấm "Thêm chủ đề" để tạo chủ đề đầu tiên.</p>
-    }
-    @for (group of groups(); track group.level) {
-      <section class="level" [attr.aria-labelledby]="'level-' + group.level">
-        <h2 class="level-heading" [id]="'level-' + group.level">{{ group.level }}</h2>
-        <ul class="list">
-          @for (t of group.topics; track t.id) {
-            <li class="topic">
-              @if (editing() === t.id) {
-                <ng-container [ngTemplateOutlet]="topicForm" />
-              } @else {
-                <div class="card topic-card">
-                  <div class="topic-body">
-                    <p class="topic-name">{{ t.name }}</p>
-                    @if (t.description) {
-                      <p class="description muted">{{ t.description }}</p>
-                    }
-                    <p class="counts muted">{{ t.lessonCount }} bài · {{ t.roadmapCount }} trong lộ trình</p>
-                    <p class="word-counts muted">
-                      {{ t.wordCount > 0 ? 'Từ vựng: đã dùng ' + t.usedWordCount + '/' + t.wordCount : 'Chưa có từ vựng' }}
-                    </p>
-                  </div>
-                  <div class="actions">
-                    <a class="btn" [routerLink]="['/admin/topics', t.id, 'words']">Từ vựng<span class="visually-hidden"> {{ t.name }}</span></a>
-                    <a class="btn" routerLink="/admin/roadmap" [queryParams]="{ topicId: t.id, generate: 1 }"
-                      >Sinh bài AI<span class="visually-hidden"> cho {{ t.name }}</span></a
-                    >
-                    <button type="button" class="btn" (click)="startEdit(t)">Sửa<span class="visually-hidden"> {{ t.name }}</span></button>
-                    <button type="button" class="btn" (click)="deleting.set(t)">Xoá<span class="visually-hidden"> {{ t.name }}</span></button>
-                  </div>
+    } @else {
+      <div class="level-picker" role="group" aria-label="Lọc theo trình độ">
+        @for (f of filters(); track f.id) {
+          <button type="button" class="level-btn" [attr.aria-pressed]="f.id === shownFilter()" (click)="filter.set(f.id)">
+            {{ f.label }} <span class="level-count">{{ f.count }}</span>
+          </button>
+        }
+      </div>
+      <h2 class="level-heading">{{ heading() }}</h2>
+      <ul class="list">
+        @for (t of shown(); track t.id) {
+          <li class="topic">
+            @if (editing() === t.id) {
+              <ng-container [ngTemplateOutlet]="topicForm" />
+            } @else {
+              <div class="card topic-card">
+                <div class="topic-body">
+                  <p class="topic-name">{{ t.name }}</p>
+                  @if (t.description) {
+                    <p class="description muted">{{ t.description }}</p>
+                  }
+                  @if (t.levels.length === 0) {
+                    <p class="counts muted">Chưa có bài</p>
+                  } @else {
+                    <ul class="level-counts" [attr.aria-label]="'Bài theo trình độ của ' + t.name">
+                      @for (l of t.levels; track l.level) {
+                        <li class="level-count-item" [class.current]="l.level === shownFilter()">
+                          <span class="tag">{{ l.level }}</span>
+                          <span class="muted">{{ l.lessonCount }} bài · {{ l.roadmapCount }} trong lộ trình</span>
+                        </li>
+                      }
+                    </ul>
+                  }
+                  <p class="word-counts muted">
+                    {{ t.wordCount > 0 ? 'Từ vựng: đã dùng ' + t.usedWordCount + '/' + t.wordCount : 'Chưa có từ vựng' }}
+                  </p>
                 </div>
-              }
-            </li>
-          }
-        </ul>
-      </section>
+                <div class="actions">
+                  <a class="btn" [routerLink]="['/admin/topics', t.id, 'words']">Từ vựng<span class="visually-hidden"> {{ t.name }}</span></a>
+                  <a class="btn" routerLink="/admin/roadmap" [queryParams]="generateParams(t)"
+                    >Sinh bài AI<span class="visually-hidden"> cho {{ t.name }}</span></a
+                  >
+                  <button type="button" class="btn" (click)="startEdit(t)">Sửa<span class="visually-hidden"> {{ t.name }}</span></button>
+                  <button type="button" class="btn" (click)="deleting.set(t)">Xoá<span class="visually-hidden"> {{ t.name }}</span></button>
+                </div>
+              </div>
+            }
+          </li>
+        } @empty {
+          <li class="card muted">Không có chủ đề nào ở mục này.</li>
+        }
+      </ul>
     }
   } @else if (!error()) {
     <lu-loading />
@@ -103,7 +107,7 @@
 <lu-confirm-dialog
   [open]="deleting() !== null"
   title="Xoá chủ đề?"
-  [message]="'Chủ đề “' + (deleting() ? label(deleting()!) : '') + '” sẽ bị xoá. Chỉ xoá được chủ đề không còn bài.'"
+  [message]="'Chủ đề “' + (deleting()?.name ?? '') + '” sẽ bị xoá. Chỉ xoá được chủ đề không còn bài.'"
   confirmLabel="Xoá"
   [danger]="true"
   (confirmed)="confirmDelete()"

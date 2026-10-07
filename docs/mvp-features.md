@@ -1,5 +1,6 @@
 # Luna: Tính năng MVP
 
+> Sửa 2026-10-07: chủ đề dùng chung cho mọi trình độ; trình độ thuộc về bài, mỗi cặp (chủ đề, trình độ) vẫn là một lộ trình (F14, F7, F18).
 > Phiên bản: v10 (2026-10-01). v10: chốt giai đoạn 3: thêm F16 Vận hành (đặt lại mật khẩu, HTTPS qua Tailscale), bước Nói bắt buộc, Whisper small.en (máy 16GB RAM).
 > v9 (2026-09-30): chốt giai đoạn 2: F7 sinh nhiều bài trong lộ trình chủ đề, thêm F15 câu hỏi hiểu bài và ghi chú ngữ pháp, bước Viết bắt buộc.
 > v8: học theo chủ đề: mỗi cặp trình độ và chủ đề là một lộ trình riêng (R1, R6), thêm F14 Chủ đề và lộ trình theo trình độ.
@@ -67,7 +68,7 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 ### 4.2. Quy tắc
 
 **R1. Mục tiêu và thanh mục tiêu**
-- Người học tự chọn **trình độ** (A1–C2), rồi chọn **một chủ đề** của trình độ đó. Mỗi cặp trình độ và chủ đề là một **lộ trình** riêng, thứ tự bài do quản trị viên xếp (F14).
+- Người học tự chọn **trình độ** (A1–C2), rồi chọn **một chủ đề** có bài ở trình độ đó. Mỗi cặp trình độ và chủ đề là một **lộ trình** riêng, thứ tự bài do quản trị viên xếp (F14).
 - Mục tiêu là hoàn thành lộ trình đã chọn. Thanh mục tiêu ghi tên lộ trình (ví dụ "A1 · Gia đình") và số bài đã hoàn thành trên tổng số bài của lộ trình.
 - Chỉ học bài thuộc trình độ đang chọn, không xen kẽ các trình độ.
 - Đổi chủ đề hoặc trình độ: có hiệu lực ngay (cập nhật 2026-10-02). Tiến độ của từng lộ trình được lưu riêng, quay lại thì học tiếp bài đang dở. Streak không bị ảnh hưởng.
@@ -168,14 +169,15 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 - Nút "Xuất dữ liệu" tải về một file JSON gồm sổ từ, lịch ôn, tiến độ và bài học.
 
 **F14. Chủ đề và lộ trình theo trình độ**
-- Quản trị viên quản lý danh mục chủ đề; mỗi chủ đề thuộc một trình độ (ví dụ "A1 · Gia đình").
-- Mỗi bài thuộc đúng một chủ đề; trình độ của bài là trình độ của chủ đề.
-- Mỗi chủ đề có lộ trình riêng, kéo thả để xếp thứ tự. Thay cho lộ trình chung duy nhất ở F2.
+- Quản trị viên quản lý danh mục chủ đề; chủ đề dùng chung cho mọi trình độ (ví dụ một "Gia đình" có bài A1, A2, B1…) (sửa 2026-10-07).
+- Mỗi bài thuộc đúng một chủ đề và có trình độ riêng, chọn trong form bài.
+- Mỗi cặp (chủ đề, trình độ) có lộ trình riêng, kéo thả để xếp thứ tự. Thay cho lộ trình chung duy nhất ở F2.
+- Các chủ đề cũ cùng tên ở nhiều trình độ được gộp tự động, giữ lộ trình, từ vựng và tiến độ người học.
 
 ### Giai đoạn 2: AI chữ
 
 **F7. AI sinh bài học**
-- Nút trong trang lộ trình của một chủ đề (F14): trình độ và chủ đề lấy sẵn. Chọn số bài (1–10), độ dài, dạng bài (bài đọc hoặc hội thoại); AI tránh lặp nội dung đã có.
+- Nút trong trang lộ trình của một chủ đề (F14): chủ đề lấy sẵn; trình độ mặc định theo lộ trình đang mở, đổi được, AI sinh bài hợp trình độ đó (sửa 2026-10-07). Chọn số bài (1–10), độ dài, dạng bài (bài đọc hoặc hội thoại); AI tránh lặp nội dung đã có.
 - Quản trị viên duyệt từng bản nháp rồi lưu; bài có nguồn "AI sinh" và được thêm vào cuối lộ trình.
 
 **F15. Câu hỏi hiểu bài và ghi chú ngữ pháp**

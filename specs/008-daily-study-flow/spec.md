@@ -10,12 +10,17 @@
 
 **Input**: User description: "Tạo spec theo khối 1 trong @docs/spec-inputs/l-luong-mot-ngay-hoc.md"
 
+**Sửa 2026-10-07 — chủ đề dùng chung cho mọi trình độ** (`specs/007-topic-roadmaps`): chủ đề không còn gắn một trình độ; mục tiêu
+là một cặp (trình độ, chủ đề), tức một lộ trình. Người học vẫn chọn trình độ rồi chủ đề; ở mỗi trình độ chỉ thấy chủ đề có bài ở
+trình độ đó. Các chỗ thay đổi được đánh dấu *(sửa 2026-10-07)*.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Đặt mục tiêu: chọn trình độ và chủ đề (Priority: P1)
 
-Người học mới (hoặc chưa có mục tiêu) chọn trình độ A1–C2, rồi chọn một chủ đề của trình độ đó. Danh sách chủ đề hiện số bài
-của mỗi chủ đề và tiến độ nếu đã học dở. Mục tiêu là hoàn thành lộ trình của chủ đề theo thứ tự quản trị viên xếp (F14).
+Người học mới (hoặc chưa có mục tiêu) chọn trình độ A1–C2, rồi chọn một chủ đề có lộ trình ở trình độ đó
+*(sửa 2026-10-07)*. Danh sách chủ đề hiện số bài của mỗi chủ đề và tiến độ nếu đã học dở. Mục tiêu là hoàn thành
+lộ trình (trình độ, chủ đề) theo thứ tự quản trị viên xếp (F14).
 
 **Why this priority**: Không có mục tiêu thì không biết bài hôm nay là bài nào; mọi thứ khác của L dựa vào đây.
 
@@ -25,8 +30,8 @@ hôm nay là bài đầu tiên của lộ trình.
 **Acceptance Scenarios**:
 
 1. **Given** người học chưa có mục tiêu, **When** mở "Học hôm nay", **Then** được dẫn tới bước chọn trình độ.
-2. **Given** chọn trình độ A1, **When** sang bước chọn chủ đề, **Then** chỉ thấy các chủ đề A1, mỗi chủ đề kèm số bài trong lộ
-   trình; chủ đề chưa có bài hiện "Chưa có bài" nhưng vẫn chọn được.
+2. **Given** chọn trình độ A1, **When** sang bước chọn chủ đề, **Then** chỉ thấy các chủ đề có lộ trình A1, mỗi chủ đề
+   kèm số bài trong lộ trình A1 *(sửa 2026-10-07: chủ đề chưa có bài A1 không hiện, vì chủ đề giờ dùng chung cho mọi trình độ)*.
 3. **Given** chọn "A1 · Gia đình", **When** xác nhận, **Then** mục tiêu là "A1 · Gia đình" với tiến độ 0/N bài và bài hôm nay
    là bài đầu tiên của lộ trình.
 4. **Given** đã học 3 bài của "A1 · Gia đình" rồi chuyển sang chủ đề khác, **When** mở lại danh sách chủ đề A1, **Then**
@@ -148,8 +153,10 @@ bài đã học để nghe hết mà tiến độ và streak không đổi; mở
 - Bài hôm nay chưa có audio (bước Nghe không làm được): hiện thông báo của F4 và người học quay lại sau; không tự bỏ qua bước.
 - Hết thẻ trong phiên Ôn nhưng có thẻ chọn Again (đến hạn lại sau vài phút): bước Ôn hoàn thành khi phiên ôn kết thúc, không
   chờ thẻ đó.
-- Chủ đề bị quản trị viên xoá (chỉ khi không còn bài) hoặc đổi trình độ: mục tiêu theo chủ đề đó hiện theo tên và trình độ mới;
-  chủ đề không còn thì người học được mời chọn chủ đề khác.
+- Chủ đề bị quản trị viên xoá (chỉ khi không còn bài) hoặc đổi tên: mục tiêu theo chủ đề đó hiện theo tên mới; chủ đề không còn
+  thì người học được mời chọn chủ đề khác. *(sửa 2026-10-07: chủ đề không còn "đổi trình độ".)*
+- *(sửa 2026-10-07)* Học "A1 · Gia đình" rồi chọn "A2 · Gia đình": là hai lộ trình khác nhau, tiến độ lưu riêng.
+- *(sửa 2026-10-07)* Quản trị viên gộp chủ đề trùng tên (F14, US5): mục tiêu và tiến độ giữ nguyên.
 - Mở lại bài đã học ở chế độ xem lại khi bài hôm nay là chính bài đó (vừa xong hôm nay): không đổi gì.
 - Màn hình 360px, bàn phím, sáng và tối: chọn mục tiêu, bài hôm nay, trang Bài học dùng được, không cuộn ngang.
 
@@ -159,9 +166,9 @@ bài đã học để nghe hết mà tiến độ và streak không đổi; mở
 
 **Mục tiêu**
 
-- **FR-001**: Người học PHẢI đặt được mục tiêu bằng cách chọn trình độ A1–C2 rồi chọn một chủ đề của trình độ đó; danh sách
-  chủ đề hiện số bài trong lộ trình và tiến độ đã học (nếu có).
-- **FR-002**: Mỗi người học có tối đa một mục tiêu đang học; mục tiêu là hoàn thành lộ trình của chủ đề (theo thứ tự quản trị
+- **FR-001** *(sửa 2026-10-07)*: Người học PHẢI đặt được mục tiêu bằng cách chọn trình độ A1–C2 rồi chọn một chủ đề có lộ trình ở
+  trình độ đó; danh sách chủ đề hiện số bài trong lộ trình của trình độ đó và tiến độ đã học (nếu có).
+- **FR-002**: Mỗi người học có tối đa một mục tiêu đang học; mục tiêu là hoàn thành lộ trình (trình độ, chủ đề) (theo thứ tự quản trị
   viên xếp, gồm cả bài được thêm sau).
 - **FR-003**: Tiến độ mỗi lộ trình PHẢI lưu riêng; quay lại chủ đề cũ thì tiếp tục từ bài chưa hoàn thành đầu tiên.
 - **FR-004**: Đổi chủ đề hoặc trình độ PHẢI có hiệu lực ngay nếu bài hôm nay chưa có bước nào hoàn thành; ngược lại có hiệu lực
@@ -212,7 +219,8 @@ bài đã học để nghe hết mà tiến độ và streak không đổi; mở
 
 ### Key Entities
 
-- **Mục tiêu (Goal)**: của một người học; chủ đề (và trình độ của chủ đề), trạng thái đang học / tạm dừng / đã hoàn thành, thời
+- **Mục tiêu (Goal)**: của một người học; chủ đề và trình độ *(sửa 2026-10-07: trình độ lưu cùng mục tiêu, không lấy từ
+  chủ đề)*, trạng thái đang học / tạm dừng / đã hoàn thành, thời
   điểm bắt đầu, ngày bắt đầu có hiệu lực, thời điểm hoàn thành.
 - **Tiến độ bài (Lesson progress)**: của một người học với một bài; ngày học (theo múi giờ), trạng thái từng bước, bước hiện tại,
   vị trí câu, thời điểm hoàn thành.

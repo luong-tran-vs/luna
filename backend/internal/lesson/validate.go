@@ -19,6 +19,8 @@ type Input struct {
 	Title   string
 	Content string
 	TopicID string
+	// Level is the lesson's own level; a topic is shared by every level.
+	Level   Level
 	Source  string
 	License string
 	// GrammarPointID is an optional syllabus point of the lesson's level.
@@ -42,6 +44,7 @@ func ValidateInput(in Input) (Input, []string, error) {
 		Title:            strings.TrimSpace(in.Title),
 		Content:          strings.TrimSpace(in.Content),
 		TopicID:          strings.TrimSpace(in.TopicID),
+		Level:            Level(strings.ToUpper(strings.TrimSpace(string(in.Level)))),
 		Source:           strings.TrimSpace(in.Source),
 		License:          strings.TrimSpace(in.License),
 		GrammarPointID:   strings.TrimSpace(in.GrammarPointID),
@@ -60,6 +63,9 @@ func ValidateInput(in Input) (Input, []string, error) {
 	required(fields, "license", in.License, "Vui lòng nhập giấy phép", maxLicense)
 	if in.TopicID == "" {
 		fields["topicId"] = "Vui lòng chọn chủ đề"
+	}
+	if !ValidLevel(string(in.Level)) {
+		fields["level"] = "Vui lòng chọn trình độ"
 	}
 
 	var sentences []string

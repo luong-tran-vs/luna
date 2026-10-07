@@ -10,12 +10,17 @@
 
 **Input**: User description: "Tạo spec theo khối 1 trong @docs/spec-inputs/f18-tu-vung-chu-de.md"
 
+**Sửa 2026-10-07 — chủ đề dùng chung cho mọi trình độ** (`specs/007-topic-roadmaps`): một chủ đề có bài ở nhiều trình độ, nên mỗi
+từ của chủ đề có thêm **trình độ** (A1–C2) hoặc để trống (dùng cho mọi trình độ). Khi sinh bài trình độ X, app chỉ giao những từ có
+trình độ X trở xuống hoặc để trống. Từ của các chủ đề cũ cùng tên được gộp. Các chỗ thay đổi được đánh dấu *(sửa 2026-10-07)*.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Danh sách từ vựng của chủ đề và độ phủ (Priority: P1)
 
-Mỗi chủ đề có một danh sách từ vựng tiếng Anh cốt lõi (ví dụ A1 · Gia đình: family, parents, father, mother…). Lần khởi động đầu,
-các chủ đề có tên trùng với file dữ liệu ban đầu (42 chủ đề, 1.257 từ) tự nhận danh sách. Ở trang **Chủ đề**, mỗi chủ đề hiện
+Mỗi chủ đề có một danh sách từ vựng tiếng Anh cốt lõi (ví dụ Gia đình: family, parents, father, mother…), mỗi từ có thể gắn một
+trình độ *(sửa 2026-10-07)*. Lần khởi động đầu, các chủ đề có tên trùng với file dữ liệu ban đầu (42 chủ đề, 1.257 từ) tự nhận
+danh sách. Ở trang **Chủ đề**, mỗi chủ đề hiện
 "Từ vựng: đã dùng X/Y". Quản trị viên mở một chủ đề để xem danh sách, biết từ nào đã có trong bài, thêm nhiều từ một lần và xoá từ.
 
 **Why this priority**: Là nền cho mọi phần còn lại: không có danh sách từ thì không chia được từ khi sinh bài, cũng không biết lộ trình
@@ -41,13 +46,19 @@ lại: danh sách giữ nguyên như đã sửa.
    Lưu, **Then** không lưu gì và mỗi từ lỗi được báo lỗi riêng.
 7. **Given** danh sách đã có 300 từ, **When** thêm từ mới, **Then** báo lỗi "Tối đa 300 từ" (trước 2026-10-02 là 100).
 8. **Given** một từ trong danh sách, **When** xoá rồi Lưu, **Then** từ biến mất khỏi danh sách; các bài đã có không thay đổi.
+9. *(sửa 2026-10-07)* **Given** ô thêm từ có ô chọn trình độ (mặc định "Mọi trình độ"), **When** chọn A2 rồi thêm "cousin, nephew",
+   **Then** hai từ được lưu với trình độ A2; danh sách hiện nhãn trình độ cạnh mỗi từ ("Mọi trình độ" khi để trống) và đổi được
+   trình độ của từng từ.
+10. *(sửa 2026-10-07)* **Given** danh sách có từ ở nhiều trình độ, **When** chọn lọc "A2", **Then** chỉ thấy từ A2; số "đã dùng X/Y"
+    của bộ lọc tính trên các từ đang thấy.
 
 ---
 
 ### User Story 2 - Sinh bài bằng AI theo từ mục tiêu (Priority: P1)
 
 Khi quản trị viên sinh bài bằng AI cho một chủ đề có từ vựng, hộp thoại có thêm mục "Từ mục tiêu mỗi bài". App chia sẵn cho từng bài
-một nhóm từ, ưu tiên từ chưa dùng, rồi đến từ dùng ít nhất; các bài trong một lượt không trùng từ khi còn đủ từ. Quản trị viên bỏ hoặc
+một nhóm từ trong các từ hợp trình độ đang sinh *(sửa 2026-10-07)*, ưu tiên từ chưa dùng, rồi đến từ dùng ít nhất; các bài trong
+một lượt không trùng từ khi còn đủ từ. Quản trị viên bỏ hoặc
 thêm từ cho từng bài rồi bấm Sinh. AI phải dùng các từ được giao. Mỗi bản nháp báo đã dùng bao nhiêu từ mục tiêu và còn thiếu từ nào.
 
 **Why this priority**: Đây là mục tiêu chính của F18: học hết lộ trình của chủ đề là gặp đủ từ vựng của chủ đề.
@@ -66,7 +77,12 @@ và "Còn thiếu: …" nếu có.
    dùng ít nhất giữa các bài), hoặc nhận toàn bộ danh sách nếu danh sách ít hơn số từ mỗi bài.
 4. **Given** nhóm từ của một bài, **When** quản trị viên bỏ một từ hoặc thêm một từ của chủ đề (có gợi ý từ danh sách), **Then** nhóm
    cập nhật; không thêm được từ ngoài danh sách của chủ đề hay từ đã có trong nhóm.
-5. **Given** đổi số bài hoặc số từ mỗi bài, **When** hộp thoại tính lại, **Then** các nhóm được chia lại.
+5. **Given** đổi số bài, số từ mỗi bài hoặc trình độ, **When** hộp thoại tính lại, **Then** các nhóm được chia lại.
+9. *(sửa 2026-10-07)* **Given** chủ đề có từ A1, từ B2 và từ để trống trình độ, **When** sinh bài A2, **Then** nhóm từ chỉ gồm từ A1,
+   A2 và từ để trống; từ B2 không được đề xuất và không thêm tay được. Từ đúng trình độ A2 chưa dùng được chọn trước từ trình độ thấp
+   hơn hoặc để trống.
+10. *(sửa 2026-10-07)* **Given** bấm "Bổ sung bằng AI" khi đang sinh bài A2, **When** AI trả từ, **Then** các từ mới được lưu với
+    trình độ A2.
 6. **Given** bấm Sinh, **When** AI trả về, **Then** cả lượt chỉ tốn 1 request AI, và mỗi bản nháp hiện "Dùng a/b từ mục tiêu" kèm
    "Còn thiếu: …" khi có từ không xuất hiện trong bài. Bản nháp thiếu từ không bị loại.
 7. **Given** chọn 0 từ mục tiêu, hoặc chủ đề chưa có từ vựng, **When** sinh bài, **Then** sinh như hiện nay, không có nhóm từ và
@@ -104,6 +120,9 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 - Dạng biến đổi đơn giản ("grandmothers", "watched", "watching") tính là đã dùng; dạng bất quy tắc ("went" cho "go") chỉ tính khi chú
   thích của bài cho dạng gốc đó.
 - Bài đã chuyển sang chủ đề khác: chỉ tính vào chủ đề hiện tại của bài.
+- *(sửa 2026-10-07)* Từ dùng trong bài ở bất kỳ trình độ nào của chủ đề đều tính là đã dùng, kể cả bài thấp hơn trình độ của từ.
+- *(sửa 2026-10-07)* Gộp hai chủ đề cũ cùng tên mà cùng có một từ ở hai trình độ: giữ một từ, trình độ thấp hơn.
+- *(sửa 2026-10-07)* Sinh bài A1 khi chỉ có từ B1: không có nhóm từ, hộp thoại báo "Chưa có từ A1" và mời bổ sung bằng AI.
 - Bài chưa có trong lộ trình nhưng thuộc chủ đề: vẫn tính vào độ phủ.
 - Đổi tên chủ đề sau khi đã nạp: danh sách không đổi. Chủ đề tạo mới mà trùng tên trong file dữ liệu: nhận danh sách ở lần khởi động
   kế tiếp nếu chưa từng được nạp hay sửa.
@@ -119,9 +138,10 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 
 - **FR-001**: Mỗi chủ đề MUST có một danh sách từ tiếng Anh (từ đơn hoặc cụm), tối đa 300 từ (đổi từ 100 ngày 2026-10-02); mỗi từ tối đa 40 ký tự, chỉ gồm chữ
   cái tiếng Anh, khoảng trắng, dấu gạch nối, dấu nháy đơn và "/"; không trùng trong một chủ đề (không phân biệt hoa/thường). Từ được
-  bỏ khoảng trắng đầu cuối và gộp khoảng trắng giữa.
+  bỏ khoảng trắng đầu cuối và gộp khoảng trắng giữa. *(Sửa 2026-10-07)* Mỗi từ có trình độ A1–C2 hoặc để trống (= mọi trình độ);
+  quản trị viên chọn trình độ khi thêm và đổi được cho từng từ; danh sách lọc được theo trình độ.
 - **FR-002**: Danh sách MUST chỉ lưu từ tiếng Anh; nghĩa và phiên âm vẫn lấy từ chú thích bài và từ điển của app.
-- **FR-003**: Khi khởi động, mỗi chủ đề chưa từng được nạp mà tên trùng một chủ đề trong file dữ liệu ban đầu (so tên đã chuẩn hoá,
+- **FR-003** *(sửa 2026-10-07: từ nạp từ file dữ liệu để trống trình độ)*: Khi khởi động, mỗi chủ đề chưa từng được nạp mà tên trùng một chủ đề trong file dữ liệu ban đầu (so tên đã chuẩn hoá,
   không phân biệt hoa/thường và cách đặt dấu thanh) MUST nhận danh sách từ đó, đúng một lần. Danh sách đã được nạp hoặc đã được quản trị
   viên sửa (kể cả xoá hết) MUST NOT bị ghi đè.
 - **FR-004**: Quản trị viên MUST xem, thêm (nhiều từ một lần: mỗi dòng một từ hoặc cách nhau bằng dấu phẩy) và xoá từ của một chủ đề.
@@ -141,15 +161,24 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 
 - **FR-009**: Hộp thoại Sinh bài bằng AI của chủ đề có từ vựng MUST có trường "Từ mục tiêu mỗi bài" (0–15), mặc định 8 (A1–A2),
   10 (B1–B2), 12 (C1–C2).
-- **FR-010**: Hệ thống MUST đề xuất nhóm từ cho từng bài: theo thứ tự từ chưa dùng, rồi số bài đã dùng tăng dần, rồi thứ tự trong danh
-  sách; các bài trong một lượt không trùng từ khi danh sách đủ từ; mỗi nhóm có tối đa số từ đã chọn.
-- **FR-011**: Quản trị viên MUST bỏ hoặc thêm từ cho từng nhóm trước khi sinh; chỉ được thêm từ thuộc danh sách của chủ đề, không trùng
-  trong nhóm, tối đa 15 từ mỗi nhóm. Hệ thống MUST từ chối nhóm có từ không thuộc danh sách (báo lỗi theo từ).
+- **FR-010** *(sửa 2026-10-07)*: Khi sinh bài trình độ X, hệ thống MUST chỉ xét các từ có trình độ ≤ X hoặc để trống. Hệ thống MUST
+  đề xuất nhóm từ cho từng bài: theo thứ tự từ chưa dùng (từ đúng trình độ X trước, rồi từ trình độ thấp hơn hoặc để trống), rồi
+  số bài đã dùng tăng dần, rồi thứ tự trong danh sách; các bài trong một lượt không trùng từ khi danh sách đủ từ; mỗi nhóm có tối đa số từ đã chọn.
+- **FR-011**: Quản trị viên MUST bỏ hoặc thêm từ cho từng nhóm trước khi sinh; chỉ được thêm từ thuộc danh sách của chủ đề và hợp trình
+  độ đang sinh (theo FR-010), không trùng trong nhóm, tối đa 15 từ mỗi nhóm. Hệ thống MUST từ chối nhóm có từ không thuộc danh sách (báo lỗi theo từ).
 - **FR-012**: AI MUST được yêu cầu dùng mọi từ của nhóm trong bài tương ứng; cả lượt sinh vẫn chỉ 1 request AI.
 - **FR-013**: Mỗi bản nháp MUST hiện "Dùng a/b từ mục tiêu" (theo cách khớp của FR-006) và liệt kê từ còn thiếu; bản nháp MUST NOT bị
   loại vì thiếu từ.
 - **FR-014**: Với 0 từ mục tiêu hoặc chủ đề chưa có từ vựng, sinh bài MUST như hiện nay.
 - **FR-015**: AI lỗi khi sinh bài MUST báo lỗi như hiện nay và giữ nguyên các lựa chọn, nhóm từ trong hộp thoại.
+- **FR-024** *(mới 2026-10-07)*: Từ do "Bổ sung bằng AI" thêm MUST mang trình độ đang sinh; AI MUST được yêu cầu gợi ý từ hợp trình độ đó.
+
+**Gộp chủ đề** *(mới 2026-10-07)*
+
+- **FR-025** *(mới 2026-10-07)*: Khi gộp các chủ đề cũ cùng tên (F14, FR-022), danh sách từ MUST được gộp: mỗi từ mang trình độ của
+  chủ đề cũ chứa nó; từ có ở nhiều chủ đề cũ giữ một lần, trình độ thấp nhất, theo thứ tự của chủ đề ở trình độ thấp nhất rồi các
+  chủ đề kế tiếp; cờ "đã nạp dữ liệu ban đầu" bật nếu một chủ đề cũ đã bật. Danh sách gộp vượt 300 từ thì giữ đủ, chỉ chặn thêm từ
+  mới.
 
 **Chú thích**
 
@@ -166,8 +195,8 @@ xong: danh sách từ vựng của bài có cả ba từ, kèm các từ khác A
 
 ### Key Entities
 
-- **Danh sách từ của chủ đề**: thuộc một chủ đề; các từ tiếng Anh theo thứ tự quản trị viên nhập; cờ "đã nạp dữ liệu ban đầu" để không
-  nạp lại.
+- **Danh sách từ của chủ đề**: thuộc một chủ đề; các từ tiếng Anh theo thứ tự quản trị viên nhập, mỗi từ có trình độ hoặc để trống
+  *(sửa 2026-10-07)*; cờ "đã nạp dữ liệu ban đầu" để không nạp lại.
 - **Độ phủ từ**: với mỗi từ của chủ đề: đã dùng hay chưa, số bài của chủ đề có dùng từ đó (tính khi xem, không lưu).
 - **Nhóm từ mục tiêu**: các từ giao cho một bài trong một lượt sinh; đi kèm bản nháp với các từ đã dùng và còn thiếu.
 - **Dữ liệu ban đầu**: 42 chủ đề, 1.257 từ tiếng Anh (`docs/spec-inputs/f18-topic-words.json`), đóng gói cùng app.

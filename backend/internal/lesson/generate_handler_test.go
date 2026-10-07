@@ -12,7 +12,7 @@ import (
 
 const (
 	generatePath = "/api/admin/topics/topic-a1/generate"
-	generateBody = `{"count":2,"words":100,"kind":"reading","idea":""}`
+	generateBody = `{"level":"A1","count":2,"words":100,"kind":"reading","idea":""}`
 )
 
 func TestGenerateEndpoint(t *testing.T) {
@@ -57,8 +57,8 @@ func TestGenerateEndpointBadInput(t *testing.T) {
 	t.Parallel()
 	a := newAPI(t)
 	for _, body := range []string{
-		`{"count":0,"words":100,"kind":"reading"}`,
-		`{"count":11,"words":100,"kind":"reading"}`,
+		`{"level":"A1","count":0,"words":100,"kind":"reading"}`,
+		`{"level":"A1","count":11,"words":100,"kind":"reading"}`,
 	} {
 		rec := a.do(t, http.MethodPost, generatePath, "admin", body)
 		fields, _ := decodeBody(t, rec)["fields"].(map[string]any)
@@ -66,7 +66,7 @@ func TestGenerateEndpointBadInput(t *testing.T) {
 			t.Errorf("%s: %d %s", body, rec.Code, rec.Body)
 		}
 	}
-	if rec := a.do(t, http.MethodPost, generatePath, "admin", `{"count":`); rec.Code != http.StatusBadRequest ||
+	if rec := a.do(t, http.MethodPost, generatePath, "admin", `{"level":"A1","count":`); rec.Code != http.StatusBadRequest ||
 		decodeBody(t, rec)["error"] != "invalid_body" {
 		t.Errorf("broken JSON: %d %s", rec.Code, rec.Body)
 	}

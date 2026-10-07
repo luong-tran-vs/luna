@@ -6,6 +6,11 @@ import { unsavedChangesGuard } from '../../core/guards/unsaved-changes.guard';
 export const adminRoutes: Routes = [
   {
     path: '',
+    title: 'Tổng quan · Quản trị · Luna',
+    loadComponent: () => import('./dashboard/dashboard').then((m) => m.Dashboard),
+  },
+  {
+    path: 'lessons',
     title: 'Bài học · Quản trị · Luna',
     loadComponent: () => import('./lesson-list/lesson-list').then((m) => m.LessonList),
   },

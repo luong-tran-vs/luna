@@ -5,16 +5,18 @@ import { firstValueFrom, Subscription } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { GrammarPoint, grammarOptionLabel } from '../../../core/models/grammar';
-import { Lesson, LessonInput } from '../../../core/models/lesson';
-import { groupByLevel, Topic, topicLabel } from '../../../core/models/topic';
+import { Lesson, LessonInput, Level } from '../../../core/models/lesson';
+import { sortTopics, Topic } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { LevelPicker } from '../../../shared/components/level-picker/level-picker';
 import { AdminApiService } from '../admin-api.service';
 
-type FieldName = 'title' | 'topicId' | 'source' | 'license' | 'content';
+type FieldName = 'title' | 'topicId' | 'level' | 'source' | 'license' | 'content';
 
 const REQUIRED_MESSAGE: Record<FieldName, string> = {
   title: 'Vui lòng nhập tiêu đề',
   topicId: 'Vui lòng chọn chủ đề',
+  level: 'Vui lòng chọn trình độ',
   source: 'Vui lòng nhập nguồn',
   license: 'Vui lòng nhập giấy phép',
   content: 'Vui lòng dán nội dung bài',
@@ -26,7 +28,7 @@ export const MAX_CONTENT = 10000;
 
 @Component({
   selector: 'lu-lesson-form',
-  imports: [ReactiveFormsModule, RouterLink, ConfirmDialog],
+  imports: [ReactiveFormsModule, RouterLink, ConfirmDialog, LevelPicker],
   templateUrl: './lesson-form.html',
   styleUrl: './lesson-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,12 +39,13 @@ export class LessonForm {
   protected readonly id = inject(ActivatedRoute).snapshot.paramMap.get('id');
 
   protected readonly topics = signal<Topic[] | null>(null);
-  protected readonly topicGroups = computed(() => groupByLevel(this.topics() ?? []));
-  protected readonly topicLabel = topicLabel;
+  /** Every topic by name: topics are shared by every level. */
+  protected readonly topicOptions = computed(() => sortTopics(this.topics() ?? []));
   protected readonly maxContent = MAX_CONTENT;
   protected readonly form = inject(NonNullableFormBuilder).group({
     title: ['', [Validators.required, Validators.maxLength(200)]],
     topicId: ['', Validators.required],
+    level: ['' as Level | '', Validators.required],
     source: ['', [Validators.required, Validators.maxLength(200)]],
     license: ['', [Validators.required, Validators.maxLength(100)]],
     content: ['', [Validators.required, Validators.maxLength(MAX_CONTENT)]],
@@ -70,15 +73,11 @@ export class LessonForm {
   constructor() {
     this.form.controls.content.valueChanges.subscribe((v) => this.contentLength.set(v.length));
     this.form.controls.grammarPointId.disable();
-    this.form.controls.topicId.valueChanges.subscribe((topicId) => this.loadPoints(topicId, ''));
+    // The points belong to the lesson's level; the topic only counts the lessons using each.
+    this.form.controls.level.valueChanges.subscribe(() => this.loadPoints(''));
+    this.form.controls.topicId.valueChanges.subscribe(() => this.loadPoints(this.form.controls.grammarPointId.value));
     this.api.topics().subscribe({
-      next: (list) => {
-        this.topics.set(list);
-        const topicId = this.form.controls.topicId.value;
-        if (topicId && this.pointsState() === 'loading' && !this.pointsSub) {
-          this.loadPoints(topicId, this.form.controls.grammarPointId.value);
-        }
-      },
+      next: (list) => this.topics.set(list),
       error: () => this.loadError.set('Không tải được danh sách chủ đề.'),
     });
     if (this.id) {
@@ -91,44 +90,32 @@ export class LessonForm {
       const l = await firstValueFrom(this.api.get(id));
       this.original.set(l);
       this.form.patchValue(
-        { title: l.title, topicId: l.topicId, source: l.source, license: l.license, content: l.content },
+        { title: l.title, topicId: l.topicId, level: l.level, source: l.source, license: l.license, content: l.content },
         { emitEvent: false },
       );
       this.contentLength.set(l.content.length);
-      this.loadPoints(l.topicId, l.grammarPointId ?? '');
+      this.loadPoints(l.grammarPointId ?? '');
     } catch {
       this.loadError.set('Không tải được bài học.');
     }
   }
 
-  /** Level of the chosen topic; while the topic list loads, the edited lesson's own level. */
-  private levelOf(topicId: string): string {
-    const original = this.original();
-    return this.topics()?.find((t) => t.id === topicId)?.level ?? (original?.topicId === topicId ? original.level : '');
-  }
-
-  /** Loads the grammar points of the topic's level; `keep` is the point to keep selected when it is still offered. */
-  private loadPoints(topicId: string, keep: string): void {
+  /** Loads the grammar points of the chosen level; `keep` is the point to keep selected when it is still offered. */
+  private loadPoints(keep: string): void {
     this.pointsSub?.unsubscribe();
     this.pointsSub = null;
     const control = this.form.controls.grammarPointId;
+    const { level, topicId } = this.form.getRawValue();
     this.points.set([]);
     control.setValue(keep);
-    if (!topicId) {
+    if (!level) {
       control.disable();
       this.pointsState.set('idle');
       return;
     }
-    const level = this.levelOf(topicId);
-    if (!level) {
-      // Topic list not loaded yet: ask again once it is.
-      control.disable();
-      this.pointsState.set('loading');
-      return;
-    }
     this.pointsState.set('loading');
     control.disable();
-    this.pointsSub = this.api.grammarPoints(level, topicId).subscribe({
+    this.pointsSub = this.api.grammarPoints(level, topicId || undefined).subscribe({
       next: (list) => {
         this.points.set(list);
         control.setValue(list.some((p) => p.id === keep) ? keep : '');
@@ -188,6 +175,7 @@ export class LessonForm {
     const input: LessonInput = {
       title: v.title.trim(),
       topicId: v.topicId,
+      level: v.level as Level,
       source: v.source.trim(),
       license: v.license.trim(),
       content: v.content.trim(),

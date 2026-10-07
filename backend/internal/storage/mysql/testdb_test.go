@@ -3,6 +3,7 @@ package mysql
 import (
 	"context"
 	"database/sql"
+	"log/slog"
 	"os"
 	"testing"
 	"time"
@@ -55,6 +56,10 @@ func testDB(t *testing.T) *sql.DB {
 	t.Cleanup(func() { _ = db.Close() })
 	if err := migrate(ctx, db, migrations()); err != nil {
 		t.Fatalf("migrate: %v", err)
+	}
+	// Adds the unique topic name key, as Prepare does after the migrations.
+	if err := mergeSharedTopics(ctx, db, slog.New(slog.DiscardHandler)); err != nil {
+		t.Fatalf("merge shared topics: %v", err)
 	}
 	return db
 }

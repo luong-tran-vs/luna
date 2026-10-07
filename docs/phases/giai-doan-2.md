@@ -11,6 +11,9 @@
 
 ## F7. AI sinh bài học
 
+> **Sửa 2026-10-07**: hộp sinh bài có ô trình độ (mặc định theo lộ trình đang mở); AI sinh bài đúng chủ đề ở trình độ đã chọn.
+> Xem `specs/012-ai-lesson-generation/spec.md`.
+
 **Chức năng**
 - Nút **Sinh bài bằng AI** trong trang lộ trình của một chủ đề (F14). Trình độ và chủ đề lấy theo lộ trình đang mở.
 - Nhập: số bài (1–10; trước 2026-10-02 là 1–5), độ dài (số từ), dạng bài (bài đọc hoặc hội thoại), ý chính (không bắt buộc).

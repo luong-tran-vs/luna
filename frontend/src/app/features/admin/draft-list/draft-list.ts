@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 import { countWords, wordRange } from '../../../core/models/generate';
-import { ImageSettingsInput } from '../../../core/models/lesson';
+import { ImageSettingsInput, Level } from '../../../core/models/lesson';
 
 /** A generated lesson being reviewed on the roadmap page (F7). Never stored until saved. */
 export interface DraftState {
   key: number;
+  /** Level the draft was written for; it is saved to the roadmap of that level. */
+  level: Level;
   title: string;
   content: string;
   /** F18: target words asked for this draft, and those not found in it (from generation). */

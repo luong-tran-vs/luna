@@ -37,7 +37,7 @@ func (f *fakeGoals) Activate(_ context.Context, userID, topicID, level, effectiv
 		if g.UserID != userID {
 			continue
 		}
-		if g.TopicID == topicID {
+		if g.TopicID == topicID && g.Level == level {
 			idx = i
 		} else if g.Status == GoalActive {
 			g.Status = GoalPaused
@@ -145,13 +145,18 @@ type fakeRoadmaps struct {
 	topics map[string]TopicInfo
 }
 
-func (f *fakeRoadmaps) Roadmap(_ context.Context, topicID string) (TopicInfo, error) {
+// Roadmap returns the topic's lessons at its own level and an empty roadmap at any other level.
+func (f *fakeRoadmaps) Roadmap(_ context.Context, topicID, level string) (TopicInfo, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	t, ok := f.topics[topicID]
 	if !ok {
 		return TopicInfo{}, ErrTopicNotFound
 	}
+	if level != t.Level {
+		t.LessonIDs = nil
+	}
+	t.Level = level
 	t.LessonIDs = slices.Clone(t.LessonIDs)
 	return t, nil
 }

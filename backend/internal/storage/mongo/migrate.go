@@ -47,14 +47,14 @@ func MigrateTopics(ctx context.Context, db *mongo.Database, log *slog.Logger) er
 	if err != nil {
 		return err
 	}
-	topics := NewTopics(db)
-	existing, err := topics.List(ctx, "")
+	coll := db.Collection("topics")
+	existing, err := readLegacyTopics(ctx, coll)
 	if err != nil {
 		return err
 	}
 
 	plan := topic.PlanMigration(lessons, roadmap, existing)
-	ids, err := applyTopics(ctx, topics.coll, plan, hasRoadmap)
+	ids, err := applyTopics(ctx, coll, plan, hasRoadmap)
 	if err != nil {
 		return err
 	}
@@ -105,6 +105,27 @@ func readLegacyLessons(ctx context.Context, db *mongo.Database) ([]topic.LegacyL
 		out[i] = topic.LegacyLesson{
 			ID: d.ID.Hex(), Level: d.Level, TopicName: d.Topic, TopicID: hexOrEmpty(d.TopicID), CreatedAt: d.CreatedAt,
 		}
+	}
+	return out, nil
+}
+
+// readLegacyTopics reads the topics as F14 stored them before they were shared by every level.
+func readLegacyTopics(ctx context.Context, coll *mongo.Collection) ([]topic.LegacyTopic, error) {
+	cur, err := coll.Find(ctx, bson.D{}, options.Find().SetProjection(bson.D{{Key: "name", Value: 1}, {Key: "level", Value: 1}}))
+	if err != nil {
+		return nil, fmt.Errorf("find topics: %w", err)
+	}
+	var docs []struct {
+		ID    bson.ObjectID `bson:"_id"`
+		Name  string        `bson:"name"`
+		Level string        `bson:"level"`
+	}
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("read topics: %w", err)
+	}
+	out := make([]topic.LegacyTopic, len(docs))
+	for i, d := range docs {
+		out[i] = topic.LegacyTopic{ID: d.ID.Hex(), Name: d.Name, Level: d.Level}
 	}
 	return out, nil
 }

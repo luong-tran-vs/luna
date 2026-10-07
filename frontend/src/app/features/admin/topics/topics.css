@@ -1,6 +1,23 @@
-.level {
+/* Lessons of each level of a topic; the level being listed is marked with a bar, not color alone. */
+.level-counts {
   display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.level-count-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-2);
+  padding-left: var(--space-2);
+  border-left: 3px solid transparent;
+}
+
+.level-count-item.current {
+  border-left-color: var(--color-primary);
 }
 
 .level-heading {
@@ -59,4 +76,45 @@
 
 .topic-form [aria-invalid='true'] {
   border-color: var(--color-bad);
+}
+
+/* One button per level that has topics; the pressed one is the level listed below. */
+.level-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.level-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.level-btn:hover {
+  background: var(--color-primary-soft);
+}
+
+.level-btn[aria-pressed='true'] {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.level-count {
+  min-width: 20px;
+  padding: 0 6px;
+  font: var(--text-xs) var(--font-ui);
+  text-align: center;
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: var(--radius-full);
 }

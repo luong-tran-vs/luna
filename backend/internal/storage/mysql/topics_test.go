@@ -15,9 +15,14 @@ import (
 
 var topicsT0 = time.Date(2026, 9, 30, 8, 0, 0, 0, time.UTC)
 
-func topicsMake(t *testing.T, r *Topics, name, level string, lessons ...string) topic.Topic {
+// topicsMake creates a topic whose A1 roadmap holds lessons.
+func topicsMake(t *testing.T, r *Topics, name string, lessons ...string) topic.Topic {
 	t.Helper()
-	got, err := r.Create(t.Context(), topic.Topic{Name: name, Level: level, Description: "d", LessonIDs: lessons, CreatedAt: topicsT0, UpdatedAt: topicsT0})
+	roadmaps := map[string][]string{}
+	if len(lessons) > 0 {
+		roadmaps["A1"] = lessons
+	}
+	got, err := r.Create(t.Context(), topic.Topic{Name: name, Description: "d", Roadmaps: roadmaps, CreatedAt: topicsT0, UpdatedAt: topicsT0})
 	if err != nil {
 		t.Fatalf("Create %q: %v", name, err)
 	}
@@ -29,21 +34,21 @@ func TestTopicsCreateGet(t *testing.T) {
 	r := NewTopics(testDB(t))
 	ctx := t.Context()
 	l1, l2 := newID(), newID()
-	made := topicsMake(t, r, "Gia đình", "A1", l1, l2)
-	if len(made.ID) != 24 || made.Words != nil || made.WordsSeeded {
+	made := topicsMake(t, r, "Gia đình", l1, l2)
+	if len(made.ID) != 24 || len(made.Words) != 0 || made.WordsSeeded {
 		t.Fatalf("created = %+v", made)
 	}
 	got, err := r.Get(ctx, made.ID)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got.Name != "Gia đình" || got.Level != "A1" || got.Description != "d" || !slices.Equal(got.LessonIDs, []string{l1, l2}) ||
+	if got.Name != "Gia đình" || got.Description != "d" || !slices.Equal(got.Roadmap("A1"), []string{l1, l2}) ||
 		!got.CreatedAt.Equal(topicsT0) || !got.UpdatedAt.Equal(topicsT0) || len(got.Words) != 0 || got.WordsSeeded {
 		t.Fatalf("got = %+v", got)
 	}
-	empty := topicsMake(t, r, "Rỗng", "A1")
-	if g, _ := r.Get(ctx, empty.ID); g.LessonIDs == nil || len(g.LessonIDs) != 0 {
-		t.Fatalf("empty roadmap = %#v", g.LessonIDs)
+	empty := topicsMake(t, r, "Rỗng")
+	if g, _ := r.Get(ctx, empty.ID); g.Roadmaps == nil || len(g.Roadmap("A1")) != 0 {
+		t.Fatalf("empty roadmaps = %#v", g.Roadmaps)
 	}
 }
 
@@ -57,22 +62,21 @@ func TestTopicsGetNotFound(t *testing.T) {
 	}
 }
 
-func TestTopicsNameUniquePerLevel(t *testing.T) {
+func TestTopicsNameUnique(t *testing.T) {
 	t.Parallel()
 	r := NewTopics(testDB(t))
 	ctx := t.Context()
-	a := topicsMake(t, r, "Gia đình", "A1")
-	_, err := r.Create(ctx, topic.Topic{Name: "  GIA   đình ", Level: "A1", CreatedAt: topicsT0, UpdatedAt: topicsT0})
+	a := topicsMake(t, r, "Gia đình")
+	_, err := r.Create(ctx, topic.Topic{Name: "  GIA   đình ", CreatedAt: topicsT0, UpdatedAt: topicsT0})
 	if !errors.Is(err, topic.ErrNameTaken) {
 		t.Fatalf("duplicate create = %v", err)
 	}
-	b := topicsMake(t, r, "Gia đình", "A2") // another level is fine
-	// Update into a taken name.
-	if _, err := r.Update(ctx, b.ID, topic.Input{Name: "gia đình", Level: "A1"}); !errors.Is(err, topic.ErrNameTaken) {
+	b := topicsMake(t, r, "Du lịch")
+	if _, err := r.Update(ctx, b.ID, topic.Input{Name: "gia đình"}); !errors.Is(err, topic.ErrNameTaken) {
 		t.Fatalf("update into taken = %v", err)
 	}
 	// Keeping its own name is fine.
-	if _, err := r.Update(ctx, a.ID, topic.Input{Name: "Gia đình", Level: "A1", Description: "new"}); err != nil {
+	if _, err := r.Update(ctx, a.ID, topic.Input{Name: "Gia đình", Description: "new"}); err != nil {
 		t.Fatalf("update to itself: %v", err)
 	}
 }
@@ -80,20 +84,10 @@ func TestTopicsNameUniquePerLevel(t *testing.T) {
 func TestTopicsList(t *testing.T) {
 	t.Parallel()
 	r := NewTopics(testDB(t))
-	ctx := t.Context()
-	topicsMake(t, r, "A", "A1")
-	topicsMake(t, r, "B", "A2")
-	topicsMake(t, r, "C", "A1")
-	all, err := r.List(ctx, "")
-	if err != nil || len(all) != 3 {
+	topicsMake(t, r, "A")
+	topicsMake(t, r, "B")
+	if all, err := r.List(t.Context()); err != nil || len(all) != 2 {
 		t.Fatalf("all = %d, %v", len(all), err)
-	}
-	a1, err := r.List(ctx, "A1")
-	if err != nil || len(a1) != 2 {
-		t.Fatalf("A1 = %d, %v", len(a1), err)
-	}
-	if none, err := r.List(ctx, "C2"); err != nil || len(none) != 0 {
-		t.Fatalf("C2 = %d, %v", len(none), err)
 	}
 }
 
@@ -102,21 +96,21 @@ func TestTopicsUpdate(t *testing.T) {
 	r := NewTopics(testDB(t))
 	ctx := t.Context()
 	l := newID()
-	made := topicsMake(t, r, "Cũ", "A1", l)
-	got, err := r.Update(ctx, made.ID, topic.Input{Name: "Mới", Level: "B1", Description: "mô tả"})
+	made := topicsMake(t, r, "Cũ", l)
+	got, err := r.Update(ctx, made.ID, topic.Input{Name: "Mới", Description: "mô tả"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got.Name != "Mới" || got.Level != "B1" || got.Description != "mô tả" || !slices.Equal(got.LessonIDs, []string{l}) ||
+	if got.Name != "Mới" || got.Description != "mô tả" || !slices.Equal(got.Roadmap("A1"), []string{l}) ||
 		!got.CreatedAt.Equal(topicsT0) || !got.UpdatedAt.After(topicsT0) {
 		t.Fatalf("updated = %+v", got)
 	}
 	// The name key follows the name: the old name is free again.
-	topicsMake(t, r, "Cũ", "A1")
-	if _, err := r.Update(ctx, newID(), topic.Input{Name: "X", Level: "A1"}); !errors.Is(err, topic.ErrNotFound) {
+	topicsMake(t, r, "Cũ")
+	if _, err := r.Update(ctx, newID(), topic.Input{Name: "X"}); !errors.Is(err, topic.ErrNotFound) {
 		t.Fatalf("update unknown = %v", err)
 	}
-	if _, err := r.Update(ctx, "bad", topic.Input{Name: "X", Level: "A1"}); !errors.Is(err, topic.ErrNotFound) {
+	if _, err := r.Update(ctx, "bad", topic.Input{Name: "X"}); !errors.Is(err, topic.ErrNotFound) {
 		t.Fatalf("update malformed = %v", err)
 	}
 }
@@ -125,7 +119,7 @@ func TestTopicsDelete(t *testing.T) {
 	t.Parallel()
 	r := NewTopics(testDB(t))
 	ctx := t.Context()
-	made := topicsMake(t, r, "X", "A1")
+	made := topicsMake(t, r, "X")
 	if err := r.Delete(ctx, made.ID); err != nil {
 		t.Fatal(err)
 	}
@@ -140,56 +134,62 @@ func TestTopicsDelete(t *testing.T) {
 	}
 }
 
-func TestTopicsRoadmap(t *testing.T) {
+func TestTopicsRoadmapPerLevel(t *testing.T) {
 	t.Parallel()
 	r := NewTopics(testDB(t))
 	ctx := t.Context()
-	made := topicsMake(t, r, "X", "A1")
+	made := topicsMake(t, r, "X")
 	a, b, c := newID(), newID(), newID()
 
-	if err := r.SetLessons(ctx, made.ID, []string{a, b}); err != nil {
+	if err := r.SetLessons(ctx, made.ID, "A1", []string{a, b}); err != nil {
 		t.Fatal(err)
 	}
-	if err := r.AppendLesson(ctx, made.ID, c); err != nil {
+	if err := r.AppendLesson(ctx, made.ID, "A1", c); err != nil {
 		t.Fatal(err)
 	}
-	if err := r.AppendLesson(ctx, made.ID, a); err != nil { // already there: no change
+	if err := r.AppendLesson(ctx, made.ID, "A1", a); err != nil { // already there: no change
+		t.Fatal(err)
+	}
+	if err := r.AppendLesson(ctx, made.ID, "B2", a); err != nil { // another level is another roadmap
 		t.Fatal(err)
 	}
 	got, _ := r.Get(ctx, made.ID)
-	if !slices.Equal(got.LessonIDs, []string{a, b, c}) {
-		t.Fatalf("roadmap = %v", got.LessonIDs)
+	if !slices.Equal(got.Roadmap("A1"), []string{a, b, c}) || !slices.Equal(got.Roadmap("B2"), []string{a}) {
+		t.Fatalf("roadmaps = %v", got.Roadmaps)
 	}
 
-	removed, err := r.RemoveLesson(ctx, made.ID, b)
+	removed, err := r.RemoveLesson(ctx, made.ID, "A1", b)
 	if err != nil || !removed {
 		t.Fatalf("remove = %v, %v", removed, err)
 	}
-	removed, err = r.RemoveLesson(ctx, made.ID, b)
+	removed, err = r.RemoveLesson(ctx, made.ID, "A1", b)
 	if err != nil || removed {
 		t.Fatalf("remove again = %v, %v", removed, err)
 	}
-	if removed, err = r.RemoveLesson(ctx, newID(), a); err != nil || removed {
+	if removed, err = r.RemoveLesson(ctx, newID(), "A1", a); err != nil || removed {
 		t.Fatalf("remove from unknown topic = %v, %v", removed, err)
 	}
-	if removed, err = r.RemoveLesson(ctx, "bad", "bad"); err != nil || removed {
+	if removed, err = r.RemoveLesson(ctx, "bad", "A1", "bad"); err != nil || removed {
 		t.Fatalf("remove malformed = %v, %v", removed, err)
 	}
+	if removed, err = r.RemoveLesson(ctx, made.ID, "Z9", a); err != nil || removed {
+		t.Fatalf("remove at unknown level = %v, %v", removed, err)
+	}
 	got, _ = r.Get(ctx, made.ID)
-	if !slices.Equal(got.LessonIDs, []string{a, c}) {
-		t.Fatalf("roadmap = %v", got.LessonIDs)
+	if !slices.Equal(got.Roadmap("A1"), []string{a, c}) {
+		t.Fatalf("roadmap = %v", got.Roadmaps)
 	}
 
-	if err := r.SetLessons(ctx, made.ID, nil); err != nil {
+	if err := r.SetLessons(ctx, made.ID, "A1", nil); err != nil {
 		t.Fatal(err)
 	}
-	if got, _ = r.Get(ctx, made.ID); got.LessonIDs == nil || len(got.LessonIDs) != 0 {
-		t.Fatalf("emptied roadmap = %#v", got.LessonIDs)
+	if got, _ = r.Get(ctx, made.ID); len(got.Roadmap("A1")) != 0 || len(got.Roadmap("B2")) != 1 {
+		t.Fatalf("emptied roadmap = %#v", got.Roadmaps)
 	}
-	if err := r.SetLessons(ctx, newID(), []string{a}); !errors.Is(err, topic.ErrNotFound) {
+	if err := r.SetLessons(ctx, newID(), "A1", []string{a}); !errors.Is(err, topic.ErrNotFound) {
 		t.Fatalf("SetLessons unknown = %v", err)
 	}
-	if err := r.SetLessons(ctx, "bad", nil); !errors.Is(err, topic.ErrNotFound) {
+	if err := r.SetLessons(ctx, "bad", "A1", nil); !errors.Is(err, topic.ErrNotFound) {
 		t.Fatalf("SetLessons malformed = %v", err)
 	}
 }
@@ -198,7 +198,7 @@ func TestTopicsAppendKeepsEveryConcurrentLesson(t *testing.T) {
 	t.Parallel()
 	r := NewTopics(testDB(t))
 	ctx := t.Context()
-	made := topicsMake(t, r, "X", "A1")
+	made := topicsMake(t, r, "X")
 	const n = 12
 	ids := make([]string, n)
 	var wg sync.WaitGroup
@@ -207,15 +207,15 @@ func TestTopicsAppendKeepsEveryConcurrentLesson(t *testing.T) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if err := r.AppendLesson(ctx, made.ID, ids[i]); err != nil {
+			if err := r.AppendLesson(ctx, made.ID, "A1", ids[i]); err != nil {
 				t.Error(err)
 			}
 		}()
 	}
 	wg.Wait()
 	got, _ := r.Get(ctx, made.ID)
-	if len(got.LessonIDs) != n {
-		t.Fatalf("roadmap has %d lessons, want %d", len(got.LessonIDs), n)
+	if len(got.Roadmap("A1")) != n {
+		t.Fatalf("roadmap has %d lessons, want %d", len(got.Roadmap("A1")), n)
 	}
 }
 
@@ -223,16 +223,17 @@ func TestTopicsSetWords(t *testing.T) {
 	t.Parallel()
 	r := NewTopics(testDB(t))
 	ctx := t.Context()
-	made := topicsMake(t, r, "X", "A1", newID())
-	got, err := r.SetWords(ctx, made.ID, []string{"Family", "take a shower"})
+	made := topicsMake(t, r, "X", newID())
+	want := []topic.Word{{Text: "Family"}, {Text: "take a shower", Level: "B1"}}
+	got, err := r.SetWords(ctx, made.ID, want)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !slices.Equal(got.Words, []string{"Family", "take a shower"}) || !got.WordsSeeded || len(got.LessonIDs) != 1 {
+	if !slices.Equal(got.Words, want) || !got.WordsSeeded || len(got.Roadmap("A1")) != 1 {
 		t.Fatalf("set = %+v", got)
 	}
 	got, err = r.SetWords(ctx, made.ID, nil)
-	if err != nil || got.Words == nil || len(got.Words) != 0 || !got.WordsSeeded {
+	if err != nil || len(got.Words) != 0 || !got.WordsSeeded {
 		t.Fatalf("emptied = %#v, %v", got, err)
 	}
 	if _, err := r.SetWords(ctx, newID(), nil); !errors.Is(err, topic.ErrNotFound) {
@@ -259,15 +260,19 @@ func TestSeedTopicWords(t *testing.T) {
 	db := testDB(t)
 	r := NewTopics(db)
 	ctx := t.Context()
-	seed := topic.Seed{Topics: []topic.SeedTopic{{Name: "Gia đình", Words: []string{"family", "mother"}}}}
+	seed := topic.Seed{Topics: []topic.SeedTopic{
+		{Name: "Gia đình", Words: []string{"family", "mother"}},
+		{Name: "Du lịch", Words: []string{"trip"}},
+		{Name: "Mua sắm", Words: []string{"shop"}},
+	}}
 
-	matched := topicsMake(t, r, "gia đình", "A1")
-	other := topicsMake(t, r, "Lạ", "A1")
-	edited, err := r.SetWords(ctx, topicsMake(t, r, "Gia đình", "A2").ID, []string{"mine"})
+	matched := topicsMake(t, r, "gia đình")
+	other := topicsMake(t, r, "Lạ")
+	edited, err := r.SetWords(ctx, topicsMake(t, r, "Du lịch").ID, []topic.Word{{Text: "mine"}})
 	if err != nil {
 		t.Fatal(err)
 	}
-	emptied, err := r.SetWords(ctx, topicsMake(t, r, "Gia đình", "B1").ID, nil)
+	emptied, err := r.SetWords(ctx, topicsMake(t, r, "Mua sắm").ID, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -275,13 +280,13 @@ func TestSeedTopicWords(t *testing.T) {
 	if err := SeedTopicWords(ctx, db, seed, topicsLog()); err != nil {
 		t.Fatal(err)
 	}
-	if got := topicsWords(t, db, matched.ID); !slices.Equal(got.Words, []string{"family", "mother"}) || !got.WordsSeeded {
+	if got := topicsWords(t, db, matched.ID); !slices.Equal(got.Words, []topic.Word{{Text: "family"}, {Text: "mother"}}) || !got.WordsSeeded {
 		t.Fatalf("matched = %+v", got)
 	}
-	if got := topicsWords(t, db, other.ID); got.Words == nil || len(got.Words) != 0 || !got.WordsSeeded {
+	if got := topicsWords(t, db, other.ID); len(got.Words) != 0 || !got.WordsSeeded {
 		t.Fatalf("unmatched = %#v", got)
 	}
-	if got := topicsWords(t, db, edited.ID); !slices.Equal(got.Words, []string{"mine"}) {
+	if got := topicsWords(t, db, edited.ID); !slices.Equal(got.Words, []topic.Word{{Text: "mine"}}) {
 		t.Fatalf("edited was overwritten: %+v", got)
 	}
 	if got := topicsWords(t, db, emptied.ID); len(got.Words) != 0 {
@@ -296,7 +301,7 @@ func TestSeedTopicWords(t *testing.T) {
 	if got := topicsWords(t, db, other.ID); len(got.Words) != 0 {
 		t.Fatalf("seeded twice: %+v", got)
 	}
-	if got := topicsWords(t, db, matched.ID); !slices.Equal(got.Words, []string{"family", "mother"}) {
+	if got := topicsWords(t, db, matched.ID); !slices.Equal(got.Words, []topic.Word{{Text: "family"}, {Text: "mother"}}) {
 		t.Fatalf("seeded twice: %+v", got)
 	}
 }
@@ -304,11 +309,68 @@ func TestSeedTopicWords(t *testing.T) {
 func TestSeedTopicWordsWithEmbeddedSeed(t *testing.T) {
 	t.Parallel()
 	db := testDB(t)
-	topicsMake(t, NewTopics(db), "Chủ đề lạ", "A1")
+	topicsMake(t, NewTopics(db), "Chủ đề lạ")
 	if err := seedTopicWords(t.Context(), db, topicsLog()); err != nil {
 		t.Fatal(err)
 	}
 	if err := seedTopicWords(t.Context(), db, topicsLog()); err != nil {
 		t.Fatal(err)
+	}
+}
+
+// legacyTopic inserts a topic as it was stored before topics were shared by every level.
+func legacyTopic(t *testing.T, db *sql.DB, name, level string, lessons ...string) string {
+	t.Helper()
+	id := newID()
+	raw, _ := toJSON(append([]string{}, lessons...))
+	_, err := db.ExecContext(t.Context(),
+		"INSERT INTO topics (id, name, name_key, level, description, lesson_ids, words, words_seeded, created_at, updated_at) VALUES (?,?,?,?,'',?,'[\"Family\"]',1,?,?)",
+		id, name, topic.NameKey(name)+"#"+level, level, raw, topicsT0, topicsT0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return id
+}
+
+func TestMergeSharedTopics(t *testing.T) {
+	t.Parallel()
+	db := testDB(t)
+	ctx := t.Context()
+	l1, l2, l3 := newID(), newID(), newID()
+	// Legacy rows of one name get distinct keys here, since the shared unique key already exists
+	// in a migrated test database.
+	a1 := legacyTopic(t, db, "Gia đình", "A1", l1)
+	a2 := legacyTopic(t, db, "gia đình", "A2", l2, l3)
+	work := legacyTopic(t, db, "Công việc", "B1")
+	if _, err := db.ExecContext(ctx, "INSERT INTO goals (id, user_id, topic_id, level, status, effective_from, started_at) VALUES (?,?,?,?,?,?,?)",
+		newID(), newID(), a2, "A2", "active", "2026-09-30", topicsT0); err != nil {
+		t.Fatal(err)
+	}
+
+	for range 2 { // a second run changes nothing
+		if err := mergeSharedTopics(ctx, db, topicsLog()); err != nil {
+			t.Fatal(err)
+		}
+	}
+	all, err := NewTopics(db).List(ctx)
+	if err != nil || len(all) != 2 {
+		t.Fatalf("topics = %+v, %v", all, err)
+	}
+	family := topicsWords(t, db, a1)
+	if family.Name != "Gia đình" || !slices.Equal(family.Roadmap("A1"), []string{l1}) || !slices.Equal(family.Roadmap("A2"), []string{l2, l3}) {
+		t.Fatalf("family = %+v", family)
+	}
+	if !slices.Equal(family.Words, []topic.Word{{Text: "Family", Level: "A1"}}) {
+		t.Fatalf("words = %+v", family.Words)
+	}
+	if _, err := NewTopics(db).Get(ctx, a2); !errors.Is(err, topic.ErrNotFound) {
+		t.Fatalf("merged topic still there: %v", err)
+	}
+	var goalTopic string
+	if err := db.QueryRowContext(ctx, "SELECT topic_id FROM goals").Scan(&goalTopic); err != nil || goalTopic != a1 {
+		t.Fatalf("goal topic = %s, %v", goalTopic, err)
+	}
+	if w := topicsWords(t, db, work); len(w.Roadmap("B1")) != 0 {
+		t.Fatalf("work = %+v", w)
 	}
 }

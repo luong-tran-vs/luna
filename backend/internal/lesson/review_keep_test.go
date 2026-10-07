@@ -216,7 +216,7 @@ func TestContentUpdateStillDropsReview(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	l := e.reviewed(t)
-	if _, err := e.svc.Update(t.Context(), l.ID, Input{Title: "Park", Content: "A new text.", TopicID: "topic-b1", Source: "s", License: "l"}); err != nil {
+	if _, err := e.svc.Update(t.Context(), l.ID, Input{Title: "Park", Content: "A new text.", TopicID: "topic-b1", Level: "B1", Source: "s", License: "l"}); err != nil {
 		t.Fatal(err)
 	}
 	if got, _ := e.lessons.Get(t.Context(), l.ID); got.Review != nil {

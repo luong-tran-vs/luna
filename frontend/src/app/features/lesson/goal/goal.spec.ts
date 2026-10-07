@@ -168,7 +168,7 @@ describe('Goal', () => {
     await settle();
     const req = http.expectOne('/api/goals');
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ topicId: 't2' });
+    expect(req.request.body).toEqual({ topicId: 't2', level: 'A1' });
     req.flush({ active: goal({ topicId: 't2' }) });
     await settle();
     expect(router.navigateByUrl).toHaveBeenCalledWith('/lessons');

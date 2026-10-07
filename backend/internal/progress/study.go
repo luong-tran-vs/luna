@@ -123,7 +123,7 @@ func (s *StudyService) load(ctx context.Context, userID string) (*day, error) {
 		return nil, fmt.Errorf("progress: goals: %w", err)
 	}
 	if g, ok := EffectiveGoal(d.goals); ok {
-		t, err := s.d.Roadmaps.Roadmap(ctx, g.TopicID)
+		t, err := s.d.Roadmaps.Roadmap(ctx, g.TopicID, g.Level)
 		switch {
 		case err == nil:
 			d.goal, d.topic = &g, &t
@@ -178,7 +178,7 @@ func (s *StudyService) Goals(ctx context.Context, userID string) (GoalsView, err
 	}
 	out := GoalsView{Others: []GoalView{}}
 	for _, g := range d.goals {
-		t, err := s.d.Roadmaps.Roadmap(ctx, g.TopicID)
+		t, err := s.d.Roadmaps.Roadmap(ctx, g.TopicID, g.Level)
 		if errors.Is(err, ErrTopicNotFound) {
 			continue
 		}
@@ -195,10 +195,10 @@ func (s *StudyService) Goals(ctx context.Context, userID string) (GoalsView, err
 	return out, nil
 }
 
-// SetGoal makes topicID the learner's goal at once: its first lesson not completed is the one to
-// study now.
-func (s *StudyService) SetGoal(ctx context.Context, userID, topicID string) (GoalView, error) {
-	t, err := s.d.Roadmaps.Roadmap(ctx, topicID)
+// SetGoal makes the roadmap of topicID at level the learner's goal at once: its first lesson not
+// completed is the one to study now.
+func (s *StudyService) SetGoal(ctx context.Context, userID, topicID, level string) (GoalView, error) {
+	t, err := s.d.Roadmaps.Roadmap(ctx, topicID, level)
 	if err != nil {
 		return GoalView{}, fmt.Errorf("progress: roadmap: %w", err)
 	}
@@ -206,7 +206,7 @@ func (s *StudyService) SetGoal(ctx context.Context, userID, topicID string) (Goa
 	if err != nil {
 		return GoalView{}, err
 	}
-	g, err := s.d.Goals.Activate(ctx, userID, topicID, t.Level, d.today, d.now)
+	g, err := s.d.Goals.Activate(ctx, userID, topicID, level, d.today, d.now)
 	if err != nil {
 		return GoalView{}, fmt.Errorf("progress: activate goal: %w", err)
 	}
@@ -478,7 +478,7 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 		}
 		name, known := topicNames[p.TopicID]
 		if !known && p.TopicID != "" {
-			if t, err := s.d.Roadmaps.Roadmap(ctx, p.TopicID); err == nil {
+			if t, err := s.d.Roadmaps.Roadmap(ctx, p.TopicID, ""); err == nil {
 				name = t.Name
 			} else if !errors.Is(err, ErrTopicNotFound) {
 				return MyLessonsView{}, fmt.Errorf("progress: roadmap: %w", err)

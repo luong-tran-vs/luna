@@ -53,7 +53,9 @@
   gap: var(--space-1);
 }
 
-.field label {
+/* .label names a group that has no single input (a radio group). */
+.field label,
+.field .label {
   font: var(--text-sm) var(--font-ui);
   font-weight: 600;
 }

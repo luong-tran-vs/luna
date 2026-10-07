@@ -63,7 +63,7 @@ func (r *Goals) List(ctx context.Context, userID string) ([]progress.Goal, error
 	return out, nil
 }
 
-// Activate pauses the other active goal and makes topicID's goal active (upsert).
+// Activate pauses the other active goal and makes the goal of (topicID, level) active (upsert).
 func (r *Goals) Activate(ctx context.Context, userID, topicID, level, effectiveFrom string, now time.Time) (progress.Goal, error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
@@ -76,15 +76,18 @@ func (r *Goals) Activate(ctx context.Context, userID, topicID, level, effectiveF
 	_, err = r.coll.UpdateMany(ctx, bson.D{
 		{Key: "userId", Value: uid},
 		{Key: "status", Value: string(progress.GoalActive)},
-		{Key: "topicId", Value: bson.D{{Key: "$ne", Value: tid}}},
+		{Key: "$or", Value: bson.A{
+			bson.D{{Key: "topicId", Value: bson.D{{Key: "$ne", Value: tid}}}},
+			bson.D{{Key: "level", Value: bson.D{{Key: "$ne", Value: level}}}},
+		}},
 	}, bson.D{{Key: "$set", Value: bson.D{{Key: "status", Value: string(progress.GoalPaused)}}}})
 	if err != nil {
 		return progress.Goal{}, fmt.Errorf("pause goals: %w", err)
 	}
 	var d goalDoc
-	err = r.coll.FindOneAndUpdate(ctx, bson.D{{Key: "userId", Value: uid}, {Key: "topicId", Value: tid}}, bson.D{
+	err = r.coll.FindOneAndUpdate(ctx, bson.D{{Key: "userId", Value: uid}, {Key: "topicId", Value: tid}, {Key: "level", Value: level}}, bson.D{
 		{Key: "$set", Value: bson.D{
-			{Key: "status", Value: string(progress.GoalActive)}, {Key: "level", Value: level}, {Key: "effectiveFrom", Value: effectiveFrom},
+			{Key: "status", Value: string(progress.GoalActive)}, {Key: "effectiveFrom", Value: effectiveFrom},
 		}},
 		{Key: "$setOnInsert", Value: bson.D{{Key: "startedAt", Value: now.UTC()}}},
 	}, options.FindOneAndUpdate().SetUpsert(true).SetReturnDocument(options.After)).Decode(&d)

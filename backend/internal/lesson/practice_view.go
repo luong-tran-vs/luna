@@ -34,7 +34,7 @@ func (r *Reader) Practice(ctx context.Context, id string) (PracticeView, error) 
 	if err != nil {
 		return PracticeView{}, err
 	}
-	n, err := r.topics.Position(ctx, l.TopicID, l.ID)
+	n, err := r.topics.Position(ctx, Place{TopicID: l.TopicID, Level: l.Level}, l.ID)
 	if err != nil {
 		return PracticeView{}, fmt.Errorf("lesson: roadmap position: %w", err)
 	}

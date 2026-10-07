@@ -33,15 +33,15 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	_, err = db.Collection("lessons").Indexes().CreateMany(ctx, []mongo.IndexModel{
 		{Keys: bson.D{{Key: "createdAt", Value: -1}}},
 		{Keys: bson.D{{Key: "level", Value: 1}}},
-		{Keys: bson.D{{Key: "topicId", Value: 1}}},
+		{Keys: bson.D{{Key: "topicId", Value: 1}, {Key: "level", Value: 1}}},
 	})
 	if err != nil {
 		return fmt.Errorf("lessons indexes: %w", err)
 	}
 
 	_, err = db.Collection("topics").Indexes().CreateOne(ctx, mongo.IndexModel{
-		// Topic names are unique within a level, ignoring case and extra spaces (F14).
-		Keys:    bson.D{{Key: "level", Value: 1}, {Key: "nameKey", Value: 1}},
+		// Topic names are unique, ignoring case and extra spaces (F14); topics are shared by every level.
+		Keys:    bson.D{{Key: "nameKey", Value: 1}},
 		Options: options.Index().SetUnique(true),
 	})
 	if err != nil {
@@ -80,7 +80,8 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 
 	// Daily flow (L).
 	_, err = db.Collection("goals").Indexes().CreateMany(ctx, []mongo.IndexModel{
-		{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "topicId", Value: 1}}, Options: options.Index().SetUnique(true)},
+		// One goal per roadmap: a topic at one level.
+		{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "topicId", Value: 1}, {Key: "level", Value: 1}}, Options: options.Index().SetUnique(true)},
 		{Keys: bson.D{{Key: "userId", Value: 1}, {Key: "status", Value: 1}}},
 	})
 	if err != nil {
@@ -179,7 +180,8 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	return nil
 }
 
-// PrepareInBackground runs the data migrations (MigrateTopics, SeedTopicWords, MigrateUserSettings)
+// PrepareInBackground runs the data migrations (MigrateTopics, SeedTopicWords, MigrateSharedTopics,
+// MigrateUserSettings)
 // and then EnsureIndexes, retrying every interval until all succeed or ctx ends, so the backend can
 // start while the database is still down. With the database up, this finishes within moments of starting.
 func PrepareInBackground(ctx context.Context, db *mongo.Database, interval time.Duration, log *slog.Logger) {
@@ -188,6 +190,9 @@ func PrepareInBackground(ctx context.Context, db *mongo.Database, interval time.
 			err := MigrateTopics(ctx, db, log)
 			if err == nil {
 				err = seedTopicWords(ctx, db, log)
+			}
+			if err == nil {
+				err = MigrateSharedTopics(ctx, db, log)
 			}
 			if err == nil {
 				err = MigrateUserSettings(ctx, db, log)

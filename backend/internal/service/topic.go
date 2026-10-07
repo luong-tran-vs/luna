@@ -19,20 +19,16 @@ type topicLessons struct {
 	repo storage.LessonStore
 }
 
-func (t topicLessons) CountByTopic(ctx context.Context) (map[string]int, error) {
+func (t topicLessons) CountByTopic(ctx context.Context) (map[string]map[string]int, error) {
 	return t.repo.CountByTopic(ctx)
 }
 
-func (t topicLessons) TopicOf(ctx context.Context, ids []string) (map[string]string, error) {
-	return t.repo.TopicOf(ctx, ids)
+func (t topicLessons) PlaceOf(ctx context.Context, ids []string) (map[string]topic.Place, error) {
+	return t.repo.PlaceOf(ctx, ids)
 }
 
 func (t topicLessons) Texts(ctx context.Context, topicIDs []string) (map[string][]topic.LessonText, error) {
 	return t.repo.TopicTexts(ctx, topicIDs)
-}
-
-func (t topicLessons) SetLevelByTopic(ctx context.Context, topicID, level string) error {
-	return t.repo.SetLevelByTopic(ctx, topicID, level)
 }
 
 func (t topicLessons) Refs(ctx context.Context, ids []string) ([]topic.LessonRef, error) {

@@ -3,6 +3,17 @@
     <h2 class="title" id="generate-title">Sinh bài bằng AI</h2>
     <p class="topic">Chủ đề: <strong>{{ topicLabel() }}</strong></p>
 
+    <div class="field">
+      <span class="label" id="generate-level-label">Trình độ</span>
+      <lu-level-picker
+        id="generate-level"
+        formControlName="level"
+        labelledBy="generate-level-label"
+        describedBy="generate-level-help"
+      />
+      <p class="field-hint" id="generate-level-help">AI viết bài hợp trình độ này; bài lưu vào lộ trình của chủ đề ở trình độ này.</p>
+    </div>
+
     <div class="row">
       <div class="field">
         <label for="generate-count">Số bài</label>

@@ -8,7 +8,7 @@ import (
 // GoalRepository stores learners' goals. At most one goal per user is active.
 type GoalRepository interface {
 	List(ctx context.Context, userID string) ([]Goal, error)
-	// Activate makes the goal of topicID active (creating it if needed) and pauses the others.
+	// Activate makes the goal of (topicID, level) active (creating it if needed) and pauses the others.
 	Activate(ctx context.Context, userID, topicID, level, effectiveFrom string, now time.Time) (Goal, error)
 }
 
@@ -36,8 +36,9 @@ type DayRepository interface {
 
 // Roadmaps reads topics and their roadmaps (implemented over topic.Service in main).
 type Roadmaps interface {
-	// Roadmap returns ErrTopicNotFound when the topic does not exist.
-	Roadmap(ctx context.Context, topicID string) (TopicInfo, error)
+	// Roadmap returns the topic with its roadmap at level ("" gives the topic with no roadmap);
+	// ErrTopicNotFound when the topic does not exist.
+	Roadmap(ctx context.Context, topicID, level string) (TopicInfo, error)
 }
 
 // ReadingQuiz is what the Reading step needs from the comprehension questions (F15, implemented

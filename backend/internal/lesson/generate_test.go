@@ -16,7 +16,7 @@ func text(n int) string {
 }
 
 func validGenerate() GenerateInput {
-	return GenerateInput{Count: 3, Words: 100, Kind: "reading"}
+	return GenerateInput{Level: "A1", Count: 3, Words: 100, Kind: "reading"}
 }
 
 func TestValidateGenerate(t *testing.T) {
@@ -33,6 +33,7 @@ func TestValidateGenerate(t *testing.T) {
 		{name: "words 49", mutate: func(in *GenerateInput) { in.Words = 49 }, field: "words", msg: "Độ dài từ 50 đến 800 từ"},
 		{name: "words 801", mutate: func(in *GenerateInput) { in.Words = 801 }, field: "words", msg: "Độ dài từ 50 đến 800 từ"},
 		{name: "kind", mutate: func(in *GenerateInput) { in.Kind = "poem" }, field: "kind", msg: "Dạng bài không hợp lệ"},
+		{name: "level", mutate: func(in *GenerateInput) { in.Level = "" }, field: "level", msg: "Vui lòng chọn trình độ"},
 		{name: "idea", mutate: func(in *GenerateInput) { in.Idea = strings.Repeat("ý", 501) }, field: "idea", msg: "Ý chính tối đa 500 ký tự"},
 	}
 	for _, tt := range tests {
@@ -49,8 +50,8 @@ func TestValidateGenerate(t *testing.T) {
 	}
 
 	for _, in := range []GenerateInput{
-		{Count: 1, Words: 50, Kind: "reading"},
-		{Count: 10, Words: 800, Kind: "dialogue", Idea: "  " + strings.Repeat("ý", 500) + "  "},
+		{Level: "A1", Count: 1, Words: 50, Kind: "reading"},
+		{Level: "c2", Count: 10, Words: 800, Kind: "dialogue", Idea: "  " + strings.Repeat("ý", 500) + "  "},
 	} {
 		got, err := ValidateGenerate(in)
 		if err != nil {
@@ -65,7 +66,7 @@ func TestValidateGenerate(t *testing.T) {
 func TestGeneratePassesTopicAndExistingTitles(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	e.create(t, func(in *Input) { in.Title = "My Brother Tom"; in.TopicID = "topic-a1" })
+	e.create(t, func(in *Input) { in.Title = "My Brother Tom"; in.TopicID, in.Level = "topic-a1", "A1" })
 	e.create(t, func(in *Input) { in.Title = "Office Day"; in.TopicID = "topic-b1" })
 	e.ai.drafts = []ai.LessonDraft{{Title: "Sunday Lunch", Content: text(100)}}
 
@@ -91,7 +92,7 @@ func TestGeneratePassesTopicAndExistingTitles(t *testing.T) {
 func TestGenerateFiltersDrafts(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	e.create(t, func(in *Input) { in.Title = "My Brother Tom"; in.TopicID = "topic-a1" })
+	e.create(t, func(in *Input) { in.Title = "My Brother Tom"; in.TopicID, in.Level = "topic-a1", "A1" })
 	e.ai.drafts = []ai.LessonDraft{
 		{Title: "  Sunday Lunch ", Content: " " + strings.ReplaceAll(text(100), "word word", "word\r\nword") + "\n"},
 		{Title: "", Content: text(100)},                       // empty title

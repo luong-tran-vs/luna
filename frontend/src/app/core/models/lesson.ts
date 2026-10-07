@@ -5,6 +5,16 @@ import { AdminPractice, PracticeStatus } from './practice';
 export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export const LEVELS: readonly Level[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
+/** Vietnamese name of each level. */
+export const LEVEL_NAMES: Record<Level, string> = {
+  A1: 'Mới bắt đầu',
+  A2: 'Sơ cấp',
+  B1: 'Trung cấp',
+  B2: 'Trung cấp cao',
+  C1: 'Nâng cao',
+  C2: 'Thành thạo',
+};
+
 export type JobStatus = 'running' | 'done' | 'failed';
 /** A background job an admin can run again (POST /api/admin/lessons/{id}/retry). */
 export type JobKind = 'annotate';
@@ -125,6 +135,8 @@ export interface LessonInput {
   title: string;
   content: string;
   topicId: string;
+  /** The lesson's own level; a topic is shared by every level. */
+  level: Level;
   source: string;
   license: string;
   /** Curriculum grammar point; '' clears it. */

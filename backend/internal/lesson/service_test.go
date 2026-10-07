@@ -41,7 +41,7 @@ const sampleContent = "We went to the park. He gave up smoking. It was a sunny d
 
 func (e *env) create(t *testing.T, mutate ...func(*Input)) Lesson {
 	t.Helper()
-	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-b1", Source: "Tự viết", License: "CC BY"}
+	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-b1", Level: "B1", Source: "Tự viết", License: "CC BY"}
 	for _, m := range mutate {
 		m(&in)
 	}
@@ -97,15 +97,16 @@ func TestCreateInvalid(t *testing.T) {
 	}
 }
 
-func TestCreateTakesLevelFromTopic(t *testing.T) {
+func TestCreateKeepsItsOwnLevel(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	l := e.create(t, func(in *Input) { in.TopicID = "topic-a1" })
-	if l.TopicID != "topic-a1" || l.Level != "A1" {
+	// A topic is shared by every level: the lesson's level is the one given.
+	l := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "c1" })
+	if l.TopicID != "topic-a1" || l.Level != "C1" {
 		t.Fatalf("lesson = %s %s", l.TopicID, l.Level)
 	}
 
-	_, err := e.svc.Create(context.Background(), Input{Title: "x", Content: sampleContent, TopicID: "nope", Source: "s", License: "l"})
+	_, err := e.svc.Create(context.Background(), Input{Title: "x", Content: sampleContent, TopicID: "nope", Level: "A1", Source: "s", License: "l"})
 	var verr *ValidationError
 	if !errors.As(err, &verr) || verr.Fields["topicId"] != "Chủ đề không tồn tại" {
 		t.Fatalf("unknown topic: %v", err)
@@ -119,7 +120,7 @@ func TestUpdateTopicMovesRoadmap(t *testing.T) {
 	l := e.create(t) // B1 Work
 	e.topics.setRoadmap("topic-b1", l.ID)
 
-	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-b1", Source: "s", License: "l"}
+	in := Input{Title: "Park", Content: sampleContent, TopicID: "topic-b1", Level: "B1", Source: "s", License: "l"}
 	if _, err := e.svc.Update(ctx, l.ID, in); err != nil {
 		t.Fatal(err)
 	}
@@ -127,7 +128,7 @@ func TestUpdateTopicMovesRoadmap(t *testing.T) {
 		t.Fatalf("same topic moved: %v", e.topics.moves)
 	}
 
-	in.TopicID = "topic-a1"
+	in.TopicID, in.Level = "topic-a1", "A1"
 	got, err := e.svc.Update(ctx, l.ID, in)
 	if err != nil {
 		t.Fatal(err)
@@ -135,7 +136,16 @@ func TestUpdateTopicMovesRoadmap(t *testing.T) {
 	if got.TopicID != "topic-a1" || got.Level != "A1" {
 		t.Fatalf("lesson = %s %s", got.TopicID, got.Level)
 	}
-	if len(e.topics.moves) != 1 || e.topics.moves[0] != l.ID+":topic-b1>topic-a1" {
+	if len(e.topics.moves) != 1 || e.topics.moves[0] != l.ID+":topic-b1/B1>topic-a1/A1" {
+		t.Fatalf("moves = %v", e.topics.moves)
+	}
+
+	// Changing only the level moves the lesson to that level's roadmap of the same topic.
+	in.Level = "A2"
+	if got, err = e.svc.Update(ctx, l.ID, in); err != nil || got.Level != "A2" {
+		t.Fatalf("level change = %+v, %v", got, err)
+	}
+	if len(e.topics.moves) != 2 || e.topics.moves[1] != l.ID+":topic-a1/A1>topic-a1/A2" {
 		t.Fatalf("moves = %v", e.topics.moves)
 	}
 	if ids, _ := e.topics.RoadmapLessonIDs(ctx); !ids[l.ID] || len(e.topics.roadmaps["topic-a1"]) != 1 {
@@ -144,8 +154,8 @@ func TestUpdateTopicMovesRoadmap(t *testing.T) {
 
 	// A content change with a topic change also moves the lesson.
 	in.TopicID, in.Content = "topic-b1", "Brand new text."
-	if got, _ := e.svc.Update(ctx, l.ID, in); got.Level != "B1" || len(e.topics.moves) != 2 {
-		t.Fatalf("content + topic: %s %v", got.Level, e.topics.moves)
+	if got, _ := e.svc.Update(ctx, l.ID, in); got.TopicID != "topic-b1" || len(e.topics.moves) != 3 {
+		t.Fatalf("content + topic: %s %v", got.TopicID, e.topics.moves)
 	}
 }
 
@@ -153,7 +163,7 @@ func TestGetAndList(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
 	e := newEnv(t)
-	a := e.create(t, func(in *Input) { in.TopicID = "topic-a1" })
+	a := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1" })
 	b := e.create(t)
 	e.topics.setRoadmap("topic-a1", a.ID)
 
@@ -184,7 +194,7 @@ func TestProcessStaleRevisionIsDiscarded(t *testing.T) {
 	e := newEnv(t)
 	l := e.create(t)
 	e.ai.result = []ai.Annotation{{Text: "went", Lemma: "go", MeaningVi: "đi"}}
-	if _, err := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "New text here.", TopicID: "topic-b1", Source: "s", License: "l"}); err != nil {
+	if _, err := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "New text here.", TopicID: "topic-b1", Level: "B1", Source: "s", License: "l"}); err != nil {
 		t.Fatal(err)
 	}
 
@@ -398,7 +408,7 @@ func TestUpdateInfoOnly(t *testing.T) {
 	l := e.create(t)
 	jobsBefore := len(e.jobs.all())
 
-	got, err := e.svc.Update(ctx, l.ID, Input{Title: "New title", Content: sampleContent, TopicID: "topic-a1", Source: "S", License: "L"})
+	got, err := e.svc.Update(ctx, l.ID, Input{Title: "New title", Content: sampleContent, TopicID: "topic-a1", Level: "A1", Source: "S", License: "L"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -417,7 +427,7 @@ func TestUpdateContent(t *testing.T) {
 	l := e.create(t)
 	_ = e.lessons.ReplaceAnnotations(ctx, l.ID, []Annotation{{Text: "went", Lemma: "go", MeaningVi: "đi", EditedByAdmin: true}})
 
-	got, err := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "One. Two.", TopicID: "topic-b1", Source: "s", License: "l"})
+	got, err := e.svc.Update(ctx, l.ID, Input{Title: "Park", Content: "One. Two.", TopicID: "topic-b1", Level: "B1", Source: "s", License: "l"})
 	if err != nil {
 		t.Fatal(err)
 	}

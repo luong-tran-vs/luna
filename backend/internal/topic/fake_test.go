@@ -2,6 +2,7 @@ package topic
 
 import (
 	"context"
+	"maps"
 	"slices"
 	"strconv"
 	"sync"
@@ -10,7 +11,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/ai"
 )
 
-// fakeRepo is an in-memory Repository enforcing unique (level, name key).
+// fakeRepo is an in-memory Repository enforcing unique name keys.
 type fakeRepo struct {
 	mu     sync.Mutex
 	topics []Topic
@@ -21,47 +22,53 @@ func (f *fakeRepo) index(id string) int {
 	return slices.IndexFunc(f.topics, func(t Topic) bool { return t.ID == id })
 }
 
-func (f *fakeRepo) taken(level, name, except string) bool {
+func (f *fakeRepo) taken(name, except string) bool {
 	return slices.ContainsFunc(f.topics, func(t Topic) bool {
-		return t.ID != except && t.Level == level && NameKey(t.Name) == NameKey(name)
+		return t.ID != except && NameKey(t.Name) == NameKey(name)
 	})
+}
+
+// clone copies the roadmaps and words so callers never share them with the store.
+func clone(t Topic) Topic {
+	t.Roadmaps = maps.Clone(t.Roadmaps)
+	for l, ids := range t.Roadmaps {
+		t.Roadmaps[l] = slices.Clone(ids)
+	}
+	if t.Roadmaps == nil {
+		t.Roadmaps = map[string][]string{}
+	}
+	t.Words = slices.Clone(t.Words)
+	return t
 }
 
 func (f *fakeRepo) Create(_ context.Context, t Topic) (Topic, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	if f.taken(t.Level, t.Name, "") {
+	if f.taken(t.Name, "") {
 		return Topic{}, ErrNameTaken
 	}
 	f.nextID++
 	t.ID = "t" + strconv.Itoa(f.nextID)
-	if t.LessonIDs == nil {
-		t.LessonIDs = []string{}
-	}
+	t = clone(t)
 	f.topics = append(f.topics, t)
-	return t, nil
+	return clone(t), nil
 }
 
 func (f *fakeRepo) Get(_ context.Context, id string) (Topic, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	if i := f.index(id); i >= 0 {
-		t := f.topics[i]
-		t.LessonIDs = slices.Clone(t.LessonIDs)
-		return t, nil
+		return clone(f.topics[i]), nil
 	}
 	return Topic{}, ErrNotFound
 }
 
-func (f *fakeRepo) List(_ context.Context, level string) ([]Topic, error) {
+func (f *fakeRepo) List(context.Context) ([]Topic, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	var out []Topic
 	for _, t := range f.topics {
-		if level == "" || t.Level == level {
-			t.LessonIDs = slices.Clone(t.LessonIDs)
-			out = append(out, t)
-		}
+		out = append(out, clone(t))
 	}
 	return out, nil
 }
@@ -73,11 +80,11 @@ func (f *fakeRepo) Update(_ context.Context, id string, in Input) (Topic, error)
 	if i < 0 {
 		return Topic{}, ErrNotFound
 	}
-	if f.taken(in.Level, in.Name, id) {
+	if f.taken(in.Name, id) {
 		return Topic{}, ErrNameTaken
 	}
-	f.topics[i].Name, f.topics[i].Level, f.topics[i].Description = in.Name, in.Level, in.Description
-	return f.topics[i], nil
+	f.topics[i].Name, f.topics[i].Description = in.Name, in.Description
+	return clone(f.topics[i]), nil
 }
 
 func (f *fakeRepo) Delete(_ context.Context, id string) error {
@@ -89,75 +96,88 @@ func (f *fakeRepo) Delete(_ context.Context, id string) error {
 	return nil
 }
 
-func (f *fakeRepo) SetLessons(_ context.Context, id string, ids []string) error {
+func (f *fakeRepo) SetLessons(_ context.Context, id, level string, ids []string) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	i := f.index(id)
 	if i < 0 {
 		return ErrNotFound
 	}
-	f.topics[i].LessonIDs = slices.Clone(ids)
+	f.topics[i].Roadmaps[level] = slices.Clone(ids)
 	return nil
 }
 
-func (f *fakeRepo) RemoveLesson(_ context.Context, id, lessonID string) (bool, error) {
+func (f *fakeRepo) RemoveLesson(_ context.Context, id, level, lessonID string) (bool, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	i := f.index(id)
-	if i < 0 || !slices.Contains(f.topics[i].LessonIDs, lessonID) {
+	if i < 0 || !slices.Contains(f.topics[i].Roadmaps[level], lessonID) {
 		return false, nil
 	}
-	f.topics[i].LessonIDs = slices.DeleteFunc(f.topics[i].LessonIDs, func(l string) bool { return l == lessonID })
+	f.topics[i].Roadmaps[level] = slices.DeleteFunc(f.topics[i].Roadmaps[level], func(l string) bool { return l == lessonID })
 	return true, nil
 }
 
-func (f *fakeRepo) AppendLesson(_ context.Context, id, lessonID string) error {
+func (f *fakeRepo) AppendLesson(_ context.Context, id, level, lessonID string) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	i := f.index(id)
 	if i < 0 {
 		return ErrNotFound
 	}
-	if !slices.Contains(f.topics[i].LessonIDs, lessonID) {
-		f.topics[i].LessonIDs = append(f.topics[i].LessonIDs, lessonID)
+	if !slices.Contains(f.topics[i].Roadmaps[level], lessonID) {
+		f.topics[i].Roadmaps[level] = append(f.topics[i].Roadmaps[level], lessonID)
 	}
 	return nil
 }
 
-// fakeLessons knows each lesson's topic and title.
+func (f *fakeRepo) SetWords(_ context.Context, id string, words []Word) (Topic, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	i := f.index(id)
+	if i < 0 {
+		return Topic{}, ErrNotFound
+	}
+	f.topics[i].Words, f.topics[i].WordsSeeded = slices.Clone(words), true
+	return clone(f.topics[i]), nil
+}
+
+// fakeLessons knows each lesson's topic, level and title.
 type fakeLessons struct {
 	mu        sync.Mutex
 	lessons   map[string]LessonRef
 	texts     map[string]string // lesson id → content
 	textCalls int
-	levelSets []string // "topicID=level" of SetLevelByTopic calls
 }
 
 func newFakeLessons() *fakeLessons { return &fakeLessons{lessons: map[string]LessonRef{}} }
 
-func (f *fakeLessons) add(id, title, topicID string) {
+func (f *fakeLessons) add(id, title, topicID, level string) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	f.lessons[id] = LessonRef{ID: id, Title: title, TopicID: topicID, AnnotationStatus: "done"}
+	f.lessons[id] = LessonRef{ID: id, Title: title, TopicID: topicID, Level: level, AnnotationStatus: "done"}
 }
 
-func (f *fakeLessons) CountByTopic(context.Context) (map[string]int, error) {
+func (f *fakeLessons) CountByTopic(context.Context) (map[string]map[string]int, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	out := map[string]int{}
+	out := map[string]map[string]int{}
 	for _, l := range f.lessons {
-		out[l.TopicID]++
+		if out[l.TopicID] == nil {
+			out[l.TopicID] = map[string]int{}
+		}
+		out[l.TopicID][l.Level]++
 	}
 	return out, nil
 }
 
-func (f *fakeLessons) TopicOf(_ context.Context, ids []string) (map[string]string, error) {
+func (f *fakeLessons) PlaceOf(_ context.Context, ids []string) (map[string]Place, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	out := map[string]string{}
+	out := map[string]Place{}
 	for _, id := range ids {
 		if l, ok := f.lessons[id]; ok {
-			out[id] = l.TopicID
+			out[id] = Place{TopicID: l.TopicID, Level: l.Level}
 		}
 	}
 	return out, nil
@@ -175,17 +195,27 @@ func (f *fakeLessons) Refs(_ context.Context, ids []string) ([]LessonRef, error)
 	return out, nil
 }
 
-func (f *fakeLessons) SetLevelByTopic(_ context.Context, topicID, level string) error {
+// setText gives a lesson a content for coverage.
+func (f *fakeLessons) setText(id, content string) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	f.levelSets = append(f.levelSets, topicID+"="+level)
+	if f.texts == nil {
+		f.texts = map[string]string{}
+	}
+	f.texts[id] = content
+}
+
+func (f *fakeLessons) Texts(_ context.Context, topicIDs []string) (map[string][]LessonText, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.textCalls++
+	out := map[string][]LessonText{}
 	for id, l := range f.lessons {
-		if l.TopicID == topicID {
-			l.Level = level
-			f.lessons[id] = l
+		if slices.Contains(topicIDs, l.TopicID) {
+			out[l.TopicID] = append(out[l.TopicID], LessonText{Content: f.texts[id]})
 		}
 	}
-	return nil
+	return out, nil
 }
 
 type testEnv struct {
@@ -218,36 +248,11 @@ func newEnv() *testEnv {
 	return e
 }
 
-func (f *fakeRepo) SetWords(_ context.Context, id string, words []string) (Topic, error) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	i := f.index(id)
-	if i < 0 {
-		return Topic{}, ErrNotFound
+// words builds topic words without a level.
+func words(texts ...string) []Word {
+	out := make([]Word, len(texts))
+	for i, t := range texts {
+		out[i] = Word{Text: t}
 	}
-	f.topics[i].Words, f.topics[i].WordsSeeded = slices.Clone(words), true
-	return f.topics[i], nil
-}
-
-// setText gives a lesson a content for coverage.
-func (f *fakeLessons) setText(id, content string) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	if f.texts == nil {
-		f.texts = map[string]string{}
-	}
-	f.texts[id] = content
-}
-
-func (f *fakeLessons) Texts(_ context.Context, topicIDs []string) (map[string][]LessonText, error) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	f.textCalls++
-	out := map[string][]LessonText{}
-	for id, l := range f.lessons {
-		if slices.Contains(topicIDs, l.TopicID) {
-			out[l.TopicID] = append(out[l.TopicID], LessonText{Content: f.texts[id]})
-		}
-	}
-	return out, nil
+	return out
 }

@@ -325,7 +325,7 @@ func TestCreateWithImagesWithoutStore(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	_, err := e.svc.Create(t.Context(), Input{
-		Title: "Park", Content: sampleContent, TopicID: "topic-b1", Source: "Tự viết", License: "CC BY",
+		Title: "Park", Content: sampleContent, TopicID: "topic-b1", Level: "B1", Source: "Tự viết", License: "CC BY",
 		Images: &ImageInput{Enabled: true},
 	})
 	if !errors.Is(err, ErrImagesUnavailable) {

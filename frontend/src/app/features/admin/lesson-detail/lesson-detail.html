@@ -1,11 +1,11 @@
 <section class="page">
   @if (notFound()) {
-    <p class="card">Không tìm thấy bài học. <a routerLink="/admin">Về danh sách bài</a></p>
+    <p class="card">Không tìm thấy bài học. <a routerLink="/admin/lessons">Về danh sách bài</a></p>
   } @else if (lesson(); as l) {
     <header class="page-header">
       <h1 class="page-title">{{ l.title }}</h1>
       <div class="actions">
-        <a class="btn" routerLink="/admin">Danh sách</a>
+        <a class="btn" routerLink="/admin/lessons">Danh sách</a>
         <a class="btn" [routerLink]="['/admin/lessons', l.id, 'edit']">Sửa</a>
         <button type="button" class="btn" [disabled]="busy()" (click)="deleteOpen.set(true)">Xoá bài</button>
       </div>

@@ -68,3 +68,25 @@ Không đổi. Độ phủ đọc `topicId`, `content`, `annotations.text`, `ann
 - `core/models/generate.ts`: `GenerateInput` thêm `targetWords: string[][]`; `GeneratedDraft` thêm `targetWords: string[]`,
   `missingWords: string[]`; `DEFAULT_TARGET_WORDS` theo trình độ (8/10/12), `MAX_TARGET_WORDS = 15`.
 - `DraftState` (draft-list) thêm `targetWords`, `missingWords`.
+
+## Sửa 2026-10-07: từ có trình độ (chủ đề dùng chung)
+
+`topics.words` đổi từ `[string]` thành `[{text: string, level: string}]`; `level` là "A1"–"C2" hoặc "" (mọi trình độ). Đọc dữ liệu
+cũ dạng chuỗi coi như `level: ""`. Tối đa 300 từ (FR-001, đổi từ 100 ngày 2026-10-02). Nạp từ file dữ liệu ban đầu: `level: ""`.
+
+Khi gộp chủ đề cùng tên (`specs/007-topic-roadmaps/data-model.md` mục 7): mỗi từ của chủ đề cũ nhận `level` = trình độ của chủ đề
+cũ đó (kể cả từ đã nạp từ file); trùng (chữ thường) thì giữ một, trình độ thấp nhất; `wordsSeeded` = OR của các chủ đề cũ.
+
+```go
+// internal/topic
+type Word struct { Text, Level string }
+type WordStat struct { Text, Level string; Used bool; LessonCount int }
+// WordPlan(ctx, topicID, level string, count, perLesson int): chỉ xét từ có Level == "" hoặc Level ≤ level;
+// chưa dùng trước (đúng level trước, rồi thấp hơn/trống), rồi LessonCount tăng dần, rồi thứ tự danh sách.
+// SuggestWords(ctx, topicID, level string, count int): từ mới mang level.
+```
+
+```ts
+export interface TopicWord { text: string; level: Level | ''; used: boolean; lessonCount: number }
+export interface WordInput { text: string; level: Level | '' }
+```

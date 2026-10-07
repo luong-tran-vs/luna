@@ -32,10 +32,9 @@ import (
 // (topic.Lessons); both are answered from the same lessons data.
 type LessonStore interface {
 	lesson.Repository
-	CountByTopic(ctx context.Context) (map[string]int, error)
-	TopicOf(ctx context.Context, ids []string) (map[string]string, error)
+	CountByTopic(ctx context.Context) (map[string]map[string]int, error)
+	PlaceOf(ctx context.Context, ids []string) (map[string]topic.Place, error)
 	TopicTexts(ctx context.Context, topicIDs []string) (map[string][]topic.LessonText, error)
-	SetLevelByTopic(ctx context.Context, topicID, level string) error
 }
 
 // Store is one opened database with all the repositories of the app. Each call returns a

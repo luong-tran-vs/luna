@@ -1,5 +1,8 @@
 # Đầu vào cho F14: Chủ đề và lộ trình theo trình độ
 
+> **Sửa 2026-10-07**: chủ đề không còn trình độ, dùng chung cho mọi trình độ; trình độ chọn ở từng bài; mỗi cặp (chủ đề, trình độ) là
+> một lộ trình; chủ đề cũ cùng tên được gộp tự động. Spec hiện hành: `specs/007-topic-roadmaps/spec.md`. Phần dưới giữ để biết lịch sử.
+
 Nguồn: [giai-doan-1.md › F14](../phases/giai-doan-1.md), [mvp-features.md › R1, F14](../mvp-features.md).
 
 Làm sau F5, trước L. Thay đổi phần quản trị đã có ở F2 (003-lesson-admin).

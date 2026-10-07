@@ -7,11 +7,11 @@ import (
 	"testing"
 )
 
-func (e *testEnv) create(t *testing.T, name, level string) Summary {
+func (e *testEnv) create(t *testing.T, name string) Summary {
 	t.Helper()
-	s, err := e.svc.Create(t.Context(), Input{Name: name, Level: level})
+	s, err := e.svc.Create(t.Context(), Input{Name: name})
 	if err != nil {
-		t.Fatalf("create %s %s: %v", level, name, err)
+		t.Fatalf("create %s: %v", name, err)
 	}
 	return s
 }
@@ -33,10 +33,9 @@ func TestCreateValidation(t *testing.T) {
 		in    Input
 		field string
 	}{
-		"empty name":       {Input{Name: "  ", Level: "A1"}, "name"},
-		"long name":        {Input{Name: strings.Repeat("ă", 61), Level: "A1"}, "name"},
-		"bad level":        {Input{Name: "Gia đình", Level: "D1"}, "level"},
-		"long description": {Input{Name: "Gia đình", Level: "A1", Description: strings.Repeat("a", 201)}, "description"},
+		"empty name":       {Input{Name: "  "}, "name"},
+		"long name":        {Input{Name: strings.Repeat("ă", 61)}, "name"},
+		"long description": {Input{Name: "Gia đình", Description: strings.Repeat("a", 201)}, "description"},
 	}
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -50,88 +49,70 @@ func TestCreateValidation(t *testing.T) {
 func TestCreateTrimsAndRejectsDuplicates(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	s, err := e.svc.Create(t.Context(), Input{Name: "  Gia  đình ", Level: "a1", Description: " Người thân "})
+	s, err := e.svc.Create(t.Context(), Input{Name: "  Gia  đình ", Description: " Người thân "})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if s.Name != "Gia đình" || s.Level != "A1" || s.Description != "Người thân" || !s.CreatedAt.Equal(testNow) || s.LessonIDs == nil {
+	if s.Name != "Gia đình" || s.Description != "Người thân" || !s.CreatedAt.Equal(testNow) || s.Roadmaps == nil || s.Levels == nil {
 		t.Fatalf("topic = %+v", s)
 	}
 
-	_, err = e.svc.Create(t.Context(), Input{Name: "GIA ĐÌNH", Level: "A1"})
-	if msg := fieldErr(t, err, "name"); msg != "Chủ đề này đã có ở trình độ A1" {
+	_, err = e.svc.Create(t.Context(), Input{Name: "GIA ĐÌNH"})
+	if msg := fieldErr(t, err, "name"); msg != "Chủ đề này đã có" {
 		t.Fatalf("message = %q", msg)
-	}
-	if _, err := e.svc.Create(t.Context(), Input{Name: "Gia đình", Level: "A2"}); err != nil {
-		t.Fatalf("same name in A2: %v", err)
 	}
 }
 
-func TestListSortedWithCountsAndWarnings(t *testing.T) {
+func TestListSortedWithCountsPerLevel(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	work := e.create(t, "Công việc", "B1")
-	shop := e.create(t, "Mua sắm", "A1")
-	family := e.create(t, "Gia đình", "A1")
+	e.create(t, "Mua sắm")
+	family := e.create(t, "Gia đình")
+	e.create(t, "Công việc")
 	for _, id := range []string{"l1", "l2", "l3"} {
-		e.lessons.add(id, id, family.ID)
+		e.lessons.add(id, id, family.ID, "A1")
 	}
-	_ = e.repo.SetLessons(t.Context(), family.ID, []string{"l1", "l2", "l3"})
+	e.lessons.add("l4", "l4", family.ID, "B1")
+	_ = e.repo.SetLessons(t.Context(), family.ID, "A1", []string{"l1", "l2", "l3"})
 
-	list, err := e.svc.List(t.Context(), "")
+	list, err := e.svc.List(t.Context())
 	if err != nil {
 		t.Fatal(err)
 	}
 	var order []string
 	for _, s := range list {
-		order = append(order, s.Level+" "+s.Name)
+		order = append(order, s.Name)
 	}
-	if strings.Join(order, ",") != "A1 Gia đình,A1 Mua sắm,B1 Công việc" {
+	if strings.Join(order, ",") != "Công việc,Gia đình,Mua sắm" {
 		t.Fatalf("order = %v", order)
 	}
-	if list[0].LessonCount != 3 || list[0].Remaining != 3 || list[0].Warning {
-		t.Fatalf("family = %+v", list[0])
+	f := list[1]
+	want := []LevelSummary{
+		{Level: "A1", LessonCount: 3, RoadmapCount: 3, Remaining: 3},
+		{Level: "B1", LessonCount: 1, Warning: true},
 	}
-	if list[1].ID != shop.ID || list[1].Remaining != 0 || !list[1].Warning {
-		t.Fatalf("shopping = %+v", list[1])
+	if f.LessonCount != 4 || !slices.Equal(f.Levels, want) {
+		t.Fatalf("family = %+v", f)
 	}
-
-	b1, _ := e.svc.List(t.Context(), "B1")
-	if len(b1) != 1 || b1[0].ID != work.ID {
-		t.Fatalf("B1 = %+v", b1)
-	}
-	if _, err := e.svc.List(t.Context(), "Z9"); err == nil {
-		t.Fatal("bad level accepted")
+	if len(list[0].Levels) != 0 || list[0].LessonCount != 0 {
+		t.Fatalf("empty topic = %+v", list[0])
 	}
 }
 
 func TestUpdate(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	family := e.create(t, "Gia đình", "A1")
-	e.create(t, "Gia đình", "A2")
-	e.lessons.add("l1", "Lesson", family.ID)
+	family := e.create(t, "Gia đình")
+	e.create(t, "Du lịch")
 
-	got, err := e.svc.Update(t.Context(), family.ID, Input{Name: "Gia đình và bạn bè", Level: "A1", Description: "x"})
-	if err != nil || got.Name != "Gia đình và bạn bè" || got.Description != "x" || len(e.lessons.levelSets) != 0 {
-		t.Fatalf("rename = %+v, %v, %v", got, err, e.lessons.levelSets)
+	got, err := e.svc.Update(t.Context(), family.ID, Input{Name: "Gia đình và bạn bè", Description: "x"})
+	if err != nil || got.Name != "Gia đình và bạn bè" || got.Description != "x" {
+		t.Fatalf("rename = %+v, %v", got, err)
 	}
-
-	// Moving to a level that already has the name is rejected.
-	e.create(t, "Du lịch", "B1")
-	_, err = e.svc.Update(t.Context(), family.ID, Input{Name: "du lịch", Level: "B1"})
+	_, err = e.svc.Update(t.Context(), family.ID, Input{Name: "du lịch"})
 	fieldErr(t, err, "name")
 
-	// Changing the level carries the lessons along.
-	got, err = e.svc.Update(t.Context(), family.ID, Input{Name: "Gia đình và bạn bè", Level: "A2"})
-	if err != nil || got.Level != "A2" || !slices.Equal(e.lessons.levelSets, []string{family.ID + "=A2"}) {
-		t.Fatalf("level change = %+v, %v, %v", got, err, e.lessons.levelSets)
-	}
-	if e.lessons.lessons["l1"].Level != "A2" {
-		t.Fatal("lesson level not updated")
-	}
-
-	if _, err := e.svc.Update(t.Context(), "nope", Input{Name: "x", Level: "A1"}); !errors.Is(err, ErrNotFound) {
+	if _, err := e.svc.Update(t.Context(), "nope", Input{Name: "x"}); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("unknown: %v", err)
 	}
 }
@@ -139,16 +120,16 @@ func TestUpdate(t *testing.T) {
 func TestDelete(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	family := e.create(t, "Gia đình", "A1")
-	for _, id := range []string{"l1", "l2", "l3"} {
-		e.lessons.add(id, id, family.ID)
-	}
+	family := e.create(t, "Gia đình")
+	e.lessons.add("l1", "l1", family.ID, "A1")
+	e.lessons.add("l2", "l2", family.ID, "A1")
+	e.lessons.add("l3", "l3", family.ID, "B2")
 	var inUse *InUseError
 	if err := e.svc.Delete(t.Context(), family.ID); !errors.As(err, &inUse) || inUse.Count != 3 {
 		t.Fatalf("delete in use: %v", err)
 	}
 
-	empty := e.create(t, "Mua sắm", "A1")
+	empty := e.create(t, "Mua sắm")
 	if err := e.svc.Delete(t.Context(), empty.ID); err != nil {
 		t.Fatal(err)
 	}
@@ -160,16 +141,25 @@ func TestDelete(t *testing.T) {
 	}
 }
 
-func TestPublic(t *testing.T) {
+func TestPublicOnlyTopicsWithARoadmapAtTheLevel(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	family := e.create(t, "Gia đình", "A1")
-	e.create(t, "Công việc", "B1")
-	_ = e.repo.SetLessons(t.Context(), family.ID, []string{"l1", "l2"})
+	family := e.create(t, "Gia đình")
+	work := e.create(t, "Công việc")
+	_ = e.repo.SetLessons(t.Context(), family.ID, "A1", []string{"l1", "l2"})
+	_ = e.repo.SetLessons(t.Context(), family.ID, "B1", []string{"l3"})
+	_ = e.repo.SetLessons(t.Context(), work.ID, "B1", []string{"l4"})
 
 	list, err := e.svc.Public(t.Context(), "A1")
 	if err != nil || len(list) != 1 || list[0] != (Public{ID: family.ID, Name: "Gia đình", Level: "A1", LessonCount: 2}) {
-		t.Fatalf("public = %+v, %v", list, err)
+		t.Fatalf("public A1 = %+v, %v", list, err)
+	}
+	list, _ = e.svc.Public(t.Context(), "B1")
+	if len(list) != 2 || list[0].Name != "Công việc" || list[1].LessonCount != 1 {
+		t.Fatalf("public B1 = %+v", list)
+	}
+	if _, err := e.svc.Public(t.Context(), ""); err == nil {
+		t.Fatal("missing level accepted")
 	}
 }
 
@@ -178,44 +168,52 @@ func TestPublic(t *testing.T) {
 func TestMoveLesson(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	a := e.create(t, "Gia đình", "A1")
-	b := e.create(t, "Du lịch", "A2")
-	_ = e.repo.SetLessons(t.Context(), a.ID, []string{"l1", "l2"})
-	_ = e.repo.SetLessons(t.Context(), b.ID, []string{"l9"})
+	a := e.create(t, "Gia đình")
+	b := e.create(t, "Du lịch")
+	_ = e.repo.SetLessons(t.Context(), a.ID, "A1", []string{"l1", "l2"})
+	_ = e.repo.SetLessons(t.Context(), b.ID, "A1", []string{"l9"})
 
-	if err := e.svc.MoveLesson(t.Context(), "l1", a.ID, b.ID); err != nil {
+	if err := e.svc.MoveLesson(t.Context(), "l1", Place{a.ID, "A1"}, Place{b.ID, "A1"}); err != nil {
 		t.Fatal(err)
 	}
 	ta, _ := e.repo.Get(t.Context(), a.ID)
 	tb, _ := e.repo.Get(t.Context(), b.ID)
-	if !slices.Equal(ta.LessonIDs, []string{"l2"}) || !slices.Equal(tb.LessonIDs, []string{"l9", "l1"}) {
-		t.Fatalf("roadmaps = %v %v", ta.LessonIDs, tb.LessonIDs)
+	if !slices.Equal(ta.Roadmap("A1"), []string{"l2"}) || !slices.Equal(tb.Roadmap("A1"), []string{"l9", "l1"}) {
+		t.Fatalf("roadmaps = %v %v", ta.Roadmaps, tb.Roadmaps)
+	}
+
+	// Same topic, other level: the lesson moves to that level's roadmap.
+	if err := e.svc.MoveLesson(t.Context(), "l2", Place{a.ID, "A1"}, Place{a.ID, "A2"}); err != nil {
+		t.Fatal(err)
+	}
+	if ta, _ := e.repo.Get(t.Context(), a.ID); len(ta.Roadmap("A1")) != 0 || !slices.Equal(ta.Roadmap("A2"), []string{"l2"}) {
+		t.Fatalf("level move = %v", ta.Roadmaps)
 	}
 
 	// A lesson that was not in the old roadmap does not join the new one.
-	if err := e.svc.MoveLesson(t.Context(), "l7", a.ID, b.ID); err != nil {
+	if err := e.svc.MoveLesson(t.Context(), "l7", Place{a.ID, "A1"}, Place{b.ID, "A1"}); err != nil {
 		t.Fatal(err)
 	}
-	if tb, _ := e.repo.Get(t.Context(), b.ID); len(tb.LessonIDs) != 2 {
-		t.Fatalf("l7 added: %v", tb.LessonIDs)
+	if tb, _ := e.repo.Get(t.Context(), b.ID); len(tb.Roadmap("A1")) != 2 {
+		t.Fatalf("l7 added: %v", tb.Roadmaps)
 	}
 }
 
 func TestAppendLesson(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	a := e.create(t, "Gia đình", "A1")
-	_ = e.repo.SetLessons(t.Context(), a.ID, []string{"l1"})
+	a := e.create(t, "Gia đình")
+	_ = e.repo.SetLessons(t.Context(), a.ID, "A1", []string{"l1"})
 
 	for _, id := range []string{"l2", "l2"} {
-		if err := e.svc.AppendLesson(t.Context(), a.ID, id); err != nil {
+		if err := e.svc.AppendLesson(t.Context(), Place{a.ID, "A1"}, id); err != nil {
 			t.Fatal(err)
 		}
 	}
-	if ta, _ := e.repo.Get(t.Context(), a.ID); !slices.Equal(ta.LessonIDs, []string{"l1", "l2"}) {
-		t.Fatalf("roadmap = %v", ta.LessonIDs)
+	if ta, _ := e.repo.Get(t.Context(), a.ID); !slices.Equal(ta.Roadmap("A1"), []string{"l1", "l2"}) {
+		t.Fatalf("roadmap = %v", ta.Roadmaps)
 	}
-	if err := e.svc.AppendLesson(t.Context(), "nope", "l3"); !errors.Is(err, ErrNotFound) {
+	if err := e.svc.AppendLesson(t.Context(), Place{"nope", "A1"}, "l3"); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("unknown topic: %v", err)
 	}
 }
@@ -223,13 +221,14 @@ func TestAppendLesson(t *testing.T) {
 func TestPortLookups(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	a := e.create(t, "Gia đình", "A1")
-	b := e.create(t, "Du lịch", "A2")
-	_ = e.repo.SetLessons(t.Context(), a.ID, []string{"l1"})
-	_ = e.repo.SetLessons(t.Context(), b.ID, []string{"l2"})
+	a := e.create(t, "Gia đình")
+	b := e.create(t, "Du lịch")
+	_ = e.repo.SetLessons(t.Context(), a.ID, "A1", []string{"l1"})
+	_ = e.repo.SetLessons(t.Context(), a.ID, "B1", []string{"l3"})
+	_ = e.repo.SetLessons(t.Context(), b.ID, "A2", []string{"l2"})
 
 	got, err := e.svc.Get(t.Context(), b.ID)
-	if err != nil || got.Name != "Du lịch" || got.Level != "A2" {
+	if err != nil || got.Name != "Du lịch" || !slices.Equal(got.Roadmap("A2"), []string{"l2"}) {
 		t.Fatalf("get = %+v, %v", got, err)
 	}
 	if _, err := e.svc.Get(t.Context(), "nope"); !errors.Is(err, ErrNotFound) {
@@ -240,60 +239,69 @@ func TestPortLookups(t *testing.T) {
 		t.Fatalf("all = %+v", all)
 	}
 	ids, _ := e.svc.RoadmapLessonIDs(t.Context())
-	if len(ids) != 2 || !ids["l1"] || !ids["l2"] {
+	if len(ids) != 3 || !ids["l1"] || !ids["l2"] || !ids["l3"] {
 		t.Fatalf("roadmap ids = %v", ids)
 	}
 }
 
-// --- US3: roadmap per topic ---
+// --- US3: roadmap per topic and level ---
 
 func TestRoadmap(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	family := e.create(t, "Gia đình", "A1")
-	work := e.create(t, "Công việc", "B1")
+	family := e.create(t, "Gia đình")
+	work := e.create(t, "Công việc")
 	for _, id := range []string{"a", "b", "c"} {
-		e.lessons.add(id, "Lesson "+id, family.ID)
+		e.lessons.add(id, "Lesson "+id, family.ID, "A1")
 	}
-	e.lessons.add("w", "Work lesson", work.ID)
+	e.lessons.add("w", "Work lesson", work.ID, "A1")
+	e.lessons.add("x", "Harder", family.ID, "A2")
 
-	r, err := e.svc.Roadmap(t.Context(), family.ID)
-	if err != nil || len(r.Lessons) != 0 || r.Topic.Remaining != 0 || !r.Topic.Warning || r.Lessons == nil {
+	r, err := e.svc.Roadmap(t.Context(), family.ID, "A1")
+	lv := r.Topic.Level("A1")
+	if err != nil || len(r.Lessons) != 0 || lv.Remaining != 0 || !lv.Warning || r.Lessons == nil || r.Level != "A1" {
 		t.Fatalf("empty = %+v, %v", r, err)
 	}
 
 	for n, ids := range [][]string{{"c"}, {"c", "a"}, {"c", "a", "b"}} {
-		r, err = e.svc.SetRoadmap(t.Context(), family.ID, ids)
+		r, err = e.svc.SetRoadmap(t.Context(), family.ID, "A1", ids)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if r.Topic.Remaining != n+1 || r.Topic.Warning != (n+1 < MinRemaining) || r.Lessons[0].ID != "c" {
+		lv := r.Topic.Level("A1")
+		if lv.Remaining != n+1 || lv.Warning != (n+1 < MinRemaining) || r.Lessons[0].ID != "c" {
 			t.Fatalf("%d lessons: %+v", n+1, r)
 		}
 	}
-	if r.Lessons[2].ID != "b" || r.Lessons[2].Title != "Lesson b" || r.Topic.LessonCount != 3 {
+	if r.Lessons[2].ID != "b" || r.Lessons[2].Title != "Lesson b" || r.Topic.Level("A1").LessonCount != 3 {
 		t.Fatalf("roadmap = %+v", r)
 	}
 
-	cases := map[string][]string{
-		"duplicate":     {"a", "a"},
-		"unknown":       {"a", "zzz"},
-		"another topic": {"a", "w"},
+	cases := map[string]struct {
+		ids []string
+		msg string
+	}{
+		"duplicate":     {[]string{"a", "a"}, "Lộ trình có bài bị trùng"},
+		"unknown":       {[]string{"a", "zzz"}, "Lộ trình có bài không tồn tại"},
+		"another topic": {[]string{"a", "w"}, "Chỉ thêm được bài của chủ đề này"},
+		"another level": {[]string{"a", "x"}, "Chỉ thêm được bài A1 của chủ đề này"},
 	}
-	for name, ids := range cases {
-		_, err := e.svc.SetRoadmap(t.Context(), family.ID, ids)
-		msg := fieldErr(t, err, "lessonIds")
-		if name == "another topic" && msg != "Chỉ thêm được bài của chủ đề này" {
-			t.Fatalf("message = %q", msg)
+	for name, tc := range cases {
+		_, err := e.svc.SetRoadmap(t.Context(), family.ID, "A1", tc.ids)
+		if msg := fieldErr(t, err, "lessonIds"); msg != tc.msg {
+			t.Fatalf("%s: message = %q", name, msg)
 		}
+	}
+	if _, err := e.svc.SetRoadmap(t.Context(), family.ID, "Z1", nil); err == nil {
+		t.Fatal("bad level accepted")
 	}
 
 	// A lesson deleted behind the roadmap's back is skipped.
 	delete(e.lessons.lessons, "a")
-	if r, _ := e.svc.Roadmap(t.Context(), family.ID); len(r.Lessons) != 2 {
+	if r, _ := e.svc.Roadmap(t.Context(), family.ID, "A1"); len(r.Lessons) != 2 {
 		t.Fatalf("deleted lesson shown: %+v", r.Lessons)
 	}
-	if _, err := e.svc.Roadmap(t.Context(), "nope"); !errors.Is(err, ErrNotFound) {
+	if _, err := e.svc.Roadmap(t.Context(), "nope", "A1"); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("unknown topic: %v", err)
 	}
 }

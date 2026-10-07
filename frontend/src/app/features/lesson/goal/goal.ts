@@ -4,21 +4,12 @@ import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { Dashboard } from '../../../core/models/dashboard';
-import { Level, LEVELS } from '../../../core/models/lesson';
+import { Level, LEVEL_NAMES, LEVELS } from '../../../core/models/lesson';
 import { Goals, GoalView, MyLessons, PublicTopic } from '../../../core/models/study';
 import { DashboardApiService } from '../../../core/services/dashboard-api.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
-
-const LEVEL_NAMES: Record<Level, string> = {
-  A1: 'Mới bắt đầu',
-  A2: 'Sơ cấp',
-  B1: 'Trung cấp',
-  B2: 'Trung cấp cao',
-  C1: 'Nâng cao',
-  C2: 'Thành thạo',
-};
 
 /** Icon colors cycled over the topic rows. */
 const TONES = ['tone-read', 'tone-listen', 'tone-accent', 'tone-write'];
@@ -89,10 +80,11 @@ export class Goal {
     });
   }
 
-  /** Progress on a topic already studied (active or paused goal). */
+  /** Progress on a topic already studied at the chosen level (active or paused goal). */
   protected progressOf(topicId: string): GoalView | undefined {
     const g = this.goals();
-    return [g?.active, ...(g?.others ?? [])].find((x) => x?.topicId === topicId) ?? undefined;
+    const level = this.level();
+    return [g?.active, ...(g?.others ?? [])].find((x) => x?.topicId === topicId && x.level === level) ?? undefined;
   }
 
   protected selectLevel(level: Level): void {
@@ -121,7 +113,7 @@ export class Goal {
     this.pending.set(true);
     this.error.set(null);
     try {
-      await firstValueFrom(this.api.setGoal(topic.id));
+      await firstValueFrom(this.api.setGoal(topic.id, topic.level));
       // The new topic takes effect at once: its lessons are listed, the next one open.
       await this.router.navigateByUrl('/lessons');
     } catch (err) {

@@ -158,7 +158,8 @@ trình bị chặn, gỡ khỏi lộ trình rồi xoá được.
 
 **Bài học**
 
-- **FR-001** *(ô trình độ và chủ đề gõ tự do thay bởi ô chọn chủ đề ở F14, `specs/007-topic-roadmaps`)*: Quản trị viên
+- **FR-001** *(ô chủ đề gõ tự do thay bởi ô chọn chủ đề ở F14, `specs/007-topic-roadmaps`; từ 2026-10-07 ô trình độ vẫn
+  chọn riêng vì chủ đề dùng chung cho mọi trình độ)*: Quản trị viên
   PHẢI tạo được bài với: tiêu đề (bắt buộc, ≤ 200 ký tự), nội dung tiếng Anh (bắt buộc,
   ≤ 10.000 ký tự), trình độ CEFR (bắt buộc, một trong A1, A2, B1, B2, C1, C2), chủ đề (tuỳ chọn, ≤ 60 ký tự), nguồn
   (bắt buộc) và giấy phép (bắt buộc).

@@ -23,6 +23,12 @@ const errDuplicate = 1062
 // errDuplicateColumn is MySQL's "Duplicate column name" error number.
 const errDuplicateColumn = 1060
 
+// errDuplicateKeyName is MySQL's "Duplicate key name": the key already exists.
+const errDuplicateKeyName = 1061
+
+// errCantDropKey is MySQL's "Can't DROP ...; check that column/key exists": the key is already gone.
+const errCantDropKey = 1091
+
 // newID returns a new 24-character lowercase hex id (12 random bytes, like a Mongo ObjectID).
 func newID() string {
 	var b [12]byte

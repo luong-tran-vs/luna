@@ -60,7 +60,7 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	if err != nil {
 		return Lesson{}, err
 	}
-	if err := checkGrammarPoint(in.GrammarPointID, topic.Level); err != nil {
+	if err := checkGrammarPoint(in.GrammarPointID, in.Level); err != nil {
 		return Lesson{}, err
 	}
 	var images ImageInput
@@ -74,7 +74,7 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 	}
 	now := s.Now()
 	l, err := s.Lessons.Create(ctx, Lesson{
-		Title: in.Title, Content: in.Content, Level: topic.Level, TopicID: topic.ID,
+		Title: in.Title, Content: in.Content, Level: in.Level, TopicID: topic.ID,
 		Source: in.Source, License: in.License, GrammarPointID: in.GrammarPointID, TargetWords: in.TargetWords,
 		Revision:         1,
 		Sentences:        toSentences(sentences),
@@ -106,7 +106,7 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 // without transactions, so on failure the lesson is deleted again: a saved draft is either in
 // the roadmap or not saved at all.
 func (s *Service) appendToRoadmap(ctx context.Context, l Lesson) error {
-	err := s.Topics.AppendLesson(ctx, l.TopicID, l.ID)
+	err := s.Topics.AppendLesson(ctx, Place{TopicID: l.TopicID, Level: l.Level}, l.ID)
 	if err == nil {
 		return nil
 	}
@@ -199,15 +199,16 @@ func (s *Service) Update(ctx context.Context, id string, in Input) (Lesson, erro
 	if in.KeepGrammarPoint {
 		in.GrammarPointID = cur.GrammarPointID
 	}
-	if err := checkGrammarPoint(in.GrammarPointID, topic.Level); err != nil {
+	if err := checkGrammarPoint(in.GrammarPointID, in.Level); err != nil {
 		return Lesson{}, err
 	}
 	info := Info{
-		Title: in.Title, Level: topic.Level, TopicID: topic.ID, Source: in.Source, License: in.License,
+		Title: in.Title, Level: in.Level, TopicID: topic.ID, Source: in.Source, License: in.License,
 		GrammarPointID: in.GrammarPointID,
 	}
-	if cur.TopicID != topic.ID {
-		if err := s.Topics.MoveLesson(ctx, id, cur.TopicID, topic.ID); err != nil {
+	from, to := Place{TopicID: cur.TopicID, Level: cur.Level}, Place{TopicID: topic.ID, Level: in.Level}
+	if from != to {
+		if err := s.Topics.MoveLesson(ctx, id, from, to); err != nil {
 			return Lesson{}, fmt.Errorf("lesson: move to topic: %w", err)
 		}
 	}
@@ -517,5 +518,5 @@ func (s *Service) topicFocus(ctx context.Context, l Lesson) ([]string, error) {
 	if err != nil {
 		return nil, fmt.Errorf("lesson: topic: %w", err)
 	}
-	return focusWords(l.Content, t.Words), nil
+	return focusWords(l.Content, t.WordTexts()), nil
 }

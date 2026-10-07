@@ -426,56 +426,49 @@ func hexOrEmpty(oid bson.ObjectID) string {
 
 // --- topic.Lessons (F14), adapted in main ---
 
-// CountByTopic counts lessons per topic id.
-func (r *Lessons) CountByTopic(ctx context.Context) (map[string]int, error) {
+// CountByTopic counts lessons per topic id and level.
+func (r *Lessons) CountByTopic(ctx context.Context) (map[string]map[string]int, error) {
 	cur, err := r.coll.Aggregate(ctx, mongo.Pipeline{
-		{{Key: "$group", Value: bson.D{{Key: "_id", Value: "$topicId"}, {Key: "count", Value: bson.D{{Key: "$sum", Value: 1}}}}}},
+		{{Key: "$group", Value: bson.D{
+			{Key: "_id", Value: bson.D{{Key: "topic", Value: "$topicId"}, {Key: "level", Value: "$level"}}},
+			{Key: "count", Value: bson.D{{Key: "$sum", Value: 1}}},
+		}}},
 	})
 	if err != nil {
 		return nil, fmt.Errorf("count lessons: %w", err)
 	}
 	var rows []struct {
-		ID    bson.ObjectID `bson:"_id"`
-		Count int           `bson:"count"`
+		ID struct {
+			Topic bson.ObjectID `bson:"topic"`
+			Level string        `bson:"level"`
+		} `bson:"_id"`
+		Count int `bson:"count"`
 	}
 	if err := cur.All(ctx, &rows); err != nil {
 		return nil, fmt.Errorf("read lesson counts: %w", err)
 	}
-	out := make(map[string]int, len(rows))
+	out := map[string]map[string]int{}
 	for _, row := range rows {
-		out[hexOrEmpty(row.ID)] += row.Count
+		id := hexOrEmpty(row.ID.Topic)
+		if out[id] == nil {
+			out[id] = map[string]int{}
+		}
+		out[id][row.ID.Level] += row.Count
 	}
 	return out, nil
 }
 
-// TopicOf returns the topic id of each existing lesson among ids.
-func (r *Lessons) TopicOf(ctx context.Context, ids []string) (map[string]string, error) {
+// PlaceOf returns the topic and level of each existing lesson among ids.
+func (r *Lessons) PlaceOf(ctx context.Context, ids []string) (map[string]topic.Place, error) {
 	sums, err := r.Summaries(ctx, ids)
 	if err != nil {
 		return nil, err
 	}
-	out := make(map[string]string, len(sums))
+	out := make(map[string]topic.Place, len(sums))
 	for _, s := range sums {
-		out[s.ID] = s.TopicID
+		out[s.ID] = topic.Place{TopicID: s.TopicID, Level: string(s.Level)}
 	}
 	return out, nil
-}
-
-// SetLevelByTopic sets the level of every lesson of a topic. A grammar point belongs to one level,
-// so lessons that change level lose theirs.
-func (r *Lessons) SetLevelByTopic(ctx context.Context, topicID, level string) error {
-	filter := bson.D{{Key: "topicId", Value: oidOrZero(topicID)}}
-	_, err := r.coll.UpdateMany(ctx, append(filter, bson.E{Key: "level", Value: bson.D{{Key: "$ne", Value: level}}}),
-		bson.D{{Key: "$unset", Value: bson.D{{Key: "grammarPointId", Value: ""}}}})
-	if err != nil {
-		return fmt.Errorf("clear lesson grammar points: %w", err)
-	}
-	_, err = r.coll.UpdateMany(ctx, filter,
-		bson.D{{Key: "$set", Value: bson.D{{Key: "level", Value: level}}}})
-	if err != nil {
-		return fmt.Errorf("update lesson levels: %w", err)
-	}
-	return nil
 }
 
 // CountByGrammarPoint counts lessons per grammar point; topicID "" counts every topic.

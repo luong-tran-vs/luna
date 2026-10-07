@@ -8,11 +8,12 @@ import { Topic, TopicWord } from '../../../core/models/topic';
 import { parseWords, TopicWords } from './topic-words';
 
 const topic = (id: string, name: string): Topic => ({
-  id, name, level: 'A1', description: '', lessonCount: 2, roadmapCount: 2, remaining: 2, warning: true, createdAt: '',
-  wordCount: 3, usedWordCount: 1,
+  id, name, description: '', lessonCount: 2, levels: [], createdAt: '', wordCount: 3, usedWordCount: 1,
 });
 
-const word = (text: string, lessonCount = 0): TopicWord => ({ text, used: lessonCount > 0, lessonCount });
+const word = (text: string, lessonCount = 0, level: TopicWord['level'] = ''): TopicWord => ({ text, level, used: lessonCount > 0, lessonCount });
+/** The body of PUT .../words for words of every level. */
+const anyLevel = (...texts: string[]) => texts.map((text) => ({ text, level: '' }));
 
 const words = [word('Family', 3), word('Parents'), word('take a shower')];
 const url = '/api/admin/topics/t1/words';
@@ -70,7 +71,7 @@ describe('TopicWords', () => {
 
   it('shows the topic, the coverage summary and a text label for each word', async () => {
     await setup();
-    expect(text(el.querySelector('h1'))).toBe('Từ vựng · A1 · Gia đình');
+    expect(text(el.querySelector('h1'))).toBe('Từ vựng · Gia đình');
     expect(el.querySelector('a[href="/admin/topics"]')).toBeTruthy();
     expect(text(el.querySelector('.summary'))).toBe('Đã dùng 1/3 từ');
     expect(rows()).toEqual(['Family | Đã dùng · 3 bài', 'Parents | Chưa dùng', 'take a shower | Chưa dùng']);
@@ -143,7 +144,7 @@ describe('TopicWords', () => {
     await settle();
     const req = http.expectOne(url);
     expect(req.request.method).toBe('PUT');
-    expect(req.request.body).toEqual({ words: ['Family', 'take a shower', 'cousin', 'uncle'] });
+    expect(req.request.body).toEqual({ words: anyLevel('Family', 'take a shower', 'cousin', 'uncle') });
     expect(button('Đang lưu…').disabled).toBe(true);
     req.flush({ words: [word('Family', 3), word('take a shower'), word('cousin', 1), word('uncle')] });
     await settle();
@@ -165,7 +166,7 @@ describe('TopicWords', () => {
     button('Lưu').click();
     await settle();
     const req = http.expectOne(url);
-    expect(req.request.body).toEqual({ words: ['Parents', 'take a shower', 'Parents2', 'nephew'] });
+    expect(req.request.body).toEqual({ words: anyLevel('Parents', 'take a shower', 'Parents2', 'nephew') });
     req.flush(
       {
         error: 'validation_failed',
@@ -209,5 +210,41 @@ describe('TopicWords', () => {
     await settle();
     expect(rows()).toEqual(['Family | Đã dùng · 3 bài', 'Parents | Chưa dùng', 'take a shower | Chưa dùng']);
     expect(box().value).toBe('');
+  });
+
+  it('gives added words a level, changes the level of a word and filters by level', async () => {
+    await setup([word('Family', 3), word('cousin', 0, 'A2')]);
+    /** Clicks the card labelled label in the level picker id. */
+    const select = (id: string, label: string) => {
+      Array.from(el.querySelectorAll<HTMLButtonElement>(`${id} [role="radio"]`))
+        .find((b) => text(b.querySelector('.code')) === label)!
+        .click();
+    };
+    select('#topic-words-filter', 'A2');
+    await settle();
+    expect(rows()).toEqual(['cousin | Chưa dùng']);
+    expect(text(el.querySelector('.summary'))).toBe('Đã dùng 0/1 từ');
+    select('#topic-words-filter', 'Tất cả');
+    await settle();
+
+    select('#topic-words-add-level', 'B1');
+    await typeWords('nephew');
+    button('Thêm vào danh sách').click();
+    await settle();
+    const familyLevel = rowOf('Family').querySelector<HTMLSelectElement>('select')!;
+    expect(familyLevel.getAttribute('aria-label')).toBe('Trình độ của Family');
+    familyLevel.value = 'A1';
+    familyLevel.dispatchEvent(new Event('change'));
+    await settle();
+    expect(text(el.querySelector('.pending'))).toContain('1 từ đổi trình độ');
+
+    button('Lưu').click();
+    await settle();
+    const req = http.expectOne(url);
+    expect(req.request.body).toEqual({
+      words: [{ text: 'Family', level: 'A1' }, { text: 'cousin', level: 'A2' }, { text: 'nephew', level: 'B1' }],
+    });
+    req.flush({ words: [word('Family', 3, 'A1'), word('cousin', 0, 'A2'), word('nephew', 0, 'B1')] });
+    await settle();
   });
 });

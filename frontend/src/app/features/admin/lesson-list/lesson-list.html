@@ -9,7 +9,7 @@
 
   @if (lowTopics() > 0) {
     <p class="banner-warning" role="status">
-      {{ lowTopics() }} chủ đề sắp hết bài chưa học. <a routerLink="/admin/roadmap">Xem lộ trình</a>
+      {{ lowTopics() }} lộ trình sắp hết bài chưa học. <a routerLink="/admin/roadmap">Xem lộ trình</a>
     </p>
   }
   @if (error(); as message) {
@@ -41,7 +41,7 @@
       >
         <option value="">Tất cả</option>
         @for (t of topicOptions(); track t.id) {
-          <option [value]="t.id" [selected]="t.id === filter().topicId">{{ topicLabel(t) }}</option>
+          <option [value]="t.id" [selected]="t.id === filter().topicId">{{ t.name }}</option>
         }
       </select>
     </div>

@@ -71,12 +71,11 @@ type Topics interface {
 	Names(ctx context.Context) (map[string]TopicRef, error)
 	// RoadmapLessonIDs is the set of lessons in any topic roadmap.
 	RoadmapLessonIDs(ctx context.Context) (map[string]bool, error)
-	// AppendLesson adds a lesson at the end of a topic roadmap unless it is already there.
-	AppendLesson(ctx context.Context, topicID, lessonID string) error
-	// MoveLesson takes a lesson out of topic from's roadmap and, if it was there, appends it
-	// to topic to's roadmap.
-	MoveLesson(ctx context.Context, lessonID, from, to string) error
-	// Position is the 1-based place of a lesson in its topic roadmap, 0 when it is not there
-	// or the topic does not exist.
-	Position(ctx context.Context, topicID, lessonID string) (int, error)
+	// AppendLesson adds a lesson at the end of the roadmap p unless it is already there.
+	AppendLesson(ctx context.Context, p Place, lessonID string) error
+	// MoveLesson takes a lesson out of roadmap from and, if it was there, appends it to roadmap to.
+	MoveLesson(ctx context.Context, lessonID string, from, to Place) error
+	// Position is the 1-based place of a lesson in the roadmap p, 0 when it is not there or the
+	// topic does not exist.
+	Position(ctx context.Context, p Place, lessonID string) (int, error)
 }

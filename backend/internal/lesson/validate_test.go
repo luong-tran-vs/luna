@@ -11,6 +11,7 @@ func validInput() Input {
 		Title:   "A day at the park",
 		Content: "We went to the park. It was sunny.",
 		TopicID: "topic-b1",
+		Level:   "B1",
 		Source:  "Tự viết",
 		License: "CC BY 4.0",
 	}
@@ -47,12 +48,14 @@ func TestValidateInputErrors(t *testing.T) {
 		{name: "long content", mutate: func(in *Input) { in.Content = strings.Repeat("ă", 10001) }, fields: []string{"content"}},
 		{name: "too many sentences", mutate: func(in *Input) { in.Content = strings.Repeat("Go. ", 201) }, fields: []string{"content"}},
 		{name: "no topic", mutate: func(in *Input) { in.TopicID = "  " }, fields: []string{"topicId"}},
+		{name: "no level", mutate: func(in *Input) { in.Level = "" }, fields: []string{"level"}},
+		{name: "bad level", mutate: func(in *Input) { in.Level = "D1" }, fields: []string{"level"}},
 		{name: "empty source", mutate: func(in *Input) { in.Source = "" }, fields: []string{"source"}},
 		{name: "long license", mutate: func(in *Input) { in.License = strings.Repeat("l", 101) }, fields: []string{"license"}},
 		{
 			name:   "all together",
 			mutate: func(in *Input) { *in = Input{} },
-			fields: []string{"title", "content", "topicId", "source", "license"},
+			fields: []string{"title", "content", "topicId", "level", "source", "license"},
 		},
 	}
 

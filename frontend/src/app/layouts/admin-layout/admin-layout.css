@@ -7,21 +7,60 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* Sticks right under the sticky header (--header-h is set by the header). */
+/*
+ * Narrow screens: a sticky top bar. Brand and the two tools share the first row; the menu is a
+ * second row that scrolls sideways instead of widening the page. The admin's name is left out.
+ */
 .sidebar {
   position: sticky;
-  top: var(--header-h, 57px);
+  top: 0;
   z-index: 9;
+  display: grid;
+  grid-template-areas:
+    'brand tools'
+    'nav nav';
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-line);
 }
 
-/* Narrow screens: one row that scrolls sideways instead of widening the page. */
+.brand-row {
+  grid-area: brand;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+}
+
+.brand {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.area {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.user {
+  display: none;
+}
+
+.nav {
+  grid-area: nav;
+  min-width: 0;
+}
+
 .menu {
   display: flex;
   gap: var(--space-1);
   margin: 0;
-  padding: var(--space-2) var(--space-4);
+  padding: 0 var(--space-4) var(--space-2);
   list-style: none;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -31,48 +70,163 @@
 .item {
   display: flex;
   align-items: center;
+  gap: var(--space-2);
   min-height: 44px;
   padding: 0 var(--space-3);
   font: var(--text-sm) var(--font-ui);
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--color-text-muted);
   white-space: nowrap;
   text-decoration: none;
   border-radius: var(--radius-md);
+
+  --icon-size: 18px;
 }
 
 .item:hover {
+  color: var(--color-text);
   background: var(--color-primary-soft);
 }
 
-/* Current section: tinted background plus a bar, not color alone. */
+/* Current section: tinted background, stronger text and a bar, not color alone. */
 .item.active {
   color: var(--color-primary-ink);
   background: var(--color-primary-soft);
   box-shadow: inset 3px 0 0 var(--color-primary);
 }
 
+.tools {
+  grid-area: tools;
+  display: flex;
+  gap: var(--space-1);
+  padding: 0 var(--space-3);
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.tool:hover {
+  color: var(--color-text);
+  background: var(--color-primary-soft);
+}
+
+/* Icon only on narrow screens; the text stays for screen readers. */
+.tool-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 .content {
   min-width: 0;
 }
 
-/* Wide screens: sidebar on the left, sticky under the header. */
+/* Wide screens: a full-height sidebar on the left. */
 @media (min-width: 768px) {
   .shell {
-    grid-template-columns: 200px minmax(0, 1fr);
+    grid-template-columns: 240px minmax(0, 1fr);
     align-items: start;
   }
 
   .sidebar {
-    height: calc(100dvh - var(--header-h, 57px));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    height: 100dvh;
+    padding: var(--space-4) var(--space-3);
     overflow-y: auto;
     border-bottom: 0;
     border-right: 1px solid var(--color-line);
   }
 
+  .brand-row {
+    padding: 0 var(--space-3);
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+  }
+
+  .avatar {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    font: var(--text-lg) var(--font-ui);
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+  }
+
+  .user-text {
+    display: grid;
+    min-width: 0;
+  }
+
+  .hello {
+    font: var(--text-xs) var(--font-ui);
+    color: var(--color-text-muted);
+  }
+
+  .user-name {
+    overflow: hidden;
+    font: var(--text-sm) var(--font-ui);
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .menu {
     flex-direction: column;
-    padding: var(--space-4) var(--space-3);
+    padding: 0;
     overflow-x: visible;
+  }
+
+  .item {
+    white-space: normal;
+  }
+
+  .tools {
+    flex-direction: column;
+    margin-top: auto;
+    padding: var(--space-3) 0 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .tool {
+    justify-content: flex-start;
+    padding: 0 var(--space-3);
+  }
+
+  .tool-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
   }
 }

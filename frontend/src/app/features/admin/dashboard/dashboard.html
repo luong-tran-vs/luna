@@ -1,0 +1,117 @@
+<section class="dashboard">
+  <header class="hero">
+    <div class="hero-text">
+      <h1 class="hero-title">{{ greeting }}</h1>
+      <p class="hero-sub">
+        @if (!data()) {
+          Đang xem hôm nay có gì cần làm…
+        } @else if (todoTotal() > 0) {
+          Hôm nay có {{ todos().length }} loại việc đang chờ bạn xử lý.
+        } @else {
+          Mọi thứ đều ổn, cùng thêm nội dung mới nhé!
+        }
+      </p>
+    </div>
+    <blockquote class="quote" lang="en">“Small steps every day lead to big results.”</blockquote>
+  </header>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được trang tổng quan.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (data()) {
+    <div class="columns">
+      <div class="col">
+        <section class="soft-card" aria-labelledby="progress-heading">
+          <h2 class="section-title" id="progress-heading">Tiến độ nội dung</h2>
+          <lu-progress-bar label="Bài đã kiểm tra xong" [value]="checkedPercent()" [max]="100" [percentage]="true" />
+          <p class="muted">
+            Đã kiểm tra {{ verifiedCount() }}/{{ lessonCount() }} bài · {{ roadmapCount() }} bài đang trong lộ trình
+          </p>
+        </section>
+
+        <section class="block" aria-labelledby="actions-heading">
+          <h2 class="section-title" id="actions-heading">Bắt đầu</h2>
+          <ul class="actions-grid">
+            @for (a of actions; track a.link) {
+              <li>
+                <a class="action" [class]="'tone-' + a.tone" [routerLink]="a.link">
+                  <span class="action-label">{{ a.label }}</span>
+                  <span class="action-hint">{{ a.hint }}</span>
+                  <lu-icon class="action-icon" [name]="a.icon" />
+                </a>
+              </li>
+            }
+          </ul>
+        </section>
+
+        <section class="block" aria-labelledby="recent-heading">
+          <div class="block-head">
+            <h2 class="section-title" id="recent-heading">Bài mới thêm</h2>
+            <a class="see-all" routerLink="/admin/lessons">Xem tất cả</a>
+          </div>
+          @if (recent().length === 0) {
+            <p class="soft-card muted">Chưa có bài học nào. Bấm "Thêm bài" để tạo bài đầu tiên.</p>
+          } @else {
+            <ul class="recent">
+              @for (l of recent(); track l.id) {
+                <li>
+                  <a class="soft-card recent-item" [routerLink]="['/admin/lessons', l.id]">
+                    <span class="icon-chip tone-accent"><lu-icon name="book" /></span>
+                    <span class="recent-text">
+                      <span class="recent-title">{{ l.title }}</span>
+                      <span class="muted">{{ l.level }}{{ l.topicName ? ' · ' + l.topicName : '' }}</span>
+                    </span>
+                    <lu-icon class="chevron" name="chevron-right" />
+                  </a>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+      </div>
+
+      <div class="col">
+        <section class="soft-card" aria-labelledby="today-heading">
+          <div class="today-head">
+            <span class="icon-chip"><lu-icon name="calendar" /></span>
+            <span class="today-text">
+              <h2 class="section-title" id="today-heading">Việc cần làm hôm nay</h2>
+              <span class="muted">{{ today }}</span>
+            </span>
+          </div>
+          @if (todos().length === 0) {
+            <p class="muted done"><lu-icon name="check" /> Không còn việc tồn đọng.</p>
+          } @else {
+            <ul class="todos">
+              @for (t of todos(); track t.label) {
+                <li>
+                  <a class="todo" [routerLink]="t.link">
+                    <span class="todo-count">{{ t.count }}</span>
+                    <span class="todo-label">{{ t.label }}</span>
+                  </a>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+
+        <section class="soft-card" aria-labelledby="stats-heading">
+          <h2 class="section-title" id="stats-heading">Số liệu</h2>
+          <ul class="stats">
+            @for (s of stats(); track s.label) {
+              <li class="stat">
+                <span class="icon-chip" [class]="s.tone"><lu-icon [name]="s.icon" /></span>
+                <span class="stat-value">{{ s.value }}</span>
+                <span class="stat-label">{{ s.label }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    </div>
+  } @else {
+    <lu-loading />
+  }
+</section>

@@ -204,7 +204,7 @@ func TestUpdateContentDropsPractice(t *testing.T) {
 	l := e.withPractice(t)
 
 	got, err := e.svc.Update(t.Context(), l.ID, Input{
-		Title: l.Title, Content: "A new text. With two sentences.", TopicID: l.TopicID, Source: l.Source, License: l.License,
+		Title: l.Title, Content: "A new text. With two sentences.", TopicID: l.TopicID, Level: l.Level, Source: l.Source, License: l.License,
 	})
 	if err != nil {
 		t.Fatal(err)

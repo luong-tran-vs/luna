@@ -6,19 +6,31 @@ import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { Level, LEVELS } from '../../../core/models/lesson';
-import { groupByLevel, Topic, topicLabel } from '../../../core/models/topic';
+import { sortTopics, Topic } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { AdminApiService } from '../admin-api.service';
 import { Loading } from '../../../shared/components/loading/loading';
 
-type FieldName = 'name' | 'level' | 'description';
+type FieldName = 'name' | 'description';
 
 const REQUIRED: Partial<Record<FieldName, string>> = {
   name: 'Vui lòng nhập tên chủ đề',
-  level: 'Vui lòng chọn trình độ',
 };
 
-/** Topic catalogue (F14): topics grouped by level, add and edit in place, delete with confirmation. */
+/** What the list shows: the topics with lessons at a level, or every topic. */
+type TopicFilter = Level | 'all';
+
+interface FilterOption {
+  id: TopicFilter;
+  label: string;
+  count: number;
+}
+
+/**
+ * Topic catalogue (F14). Topics are shared by every level; each card counts the lessons of each
+ * level. The list shows the topics with lessons at one level at a time (the first such level by
+ * default), or every topic; add and edit in place, delete with confirmation.
+ */
 @Component({
   selector: 'lu-topics',
   imports: [Loading, ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
@@ -29,10 +41,34 @@ const REQUIRED: Partial<Record<FieldName, string>> = {
 export class Topics {
   private readonly api = inject(AdminApiService);
 
-  protected readonly levels = LEVELS;
-  protected readonly label = topicLabel;
   protected readonly topics = signal<Topic[] | null>(null);
-  protected readonly groups = computed(() => groupByLevel(this.topics() ?? []));
+  /** The filter picked above the list; null (or a level left without topics) shows the first one. */
+  protected readonly filter = signal<TopicFilter | null>(null);
+  /** One button per level that has lessons, then "Tất cả". */
+  protected readonly filters = computed<FilterOption[]>(() => {
+    const list = this.topics() ?? [];
+    const levels = LEVELS.map((level) => ({
+      id: level as TopicFilter,
+      label: level,
+      count: list.filter((t) => t.levels.some((l) => l.level === level && l.lessonCount > 0)).length,
+    })).filter((f) => f.count > 0);
+    return [...levels, { id: 'all', label: 'Tất cả', count: list.length }];
+  });
+  protected readonly shownFilter = computed<TopicFilter>(() => {
+    const options = this.filters();
+    return options.find((f) => f.id === this.filter())?.id ?? options[0].id;
+  });
+  /** The topics of the picked filter, by name; a long catalogue stays short. */
+  protected readonly shown = computed(() => {
+    const list = sortTopics(this.topics() ?? []);
+    const f = this.shownFilter();
+    return f === 'all' ? list : list.filter((t) => t.levels.some((l) => l.level === f && l.lessonCount > 0));
+  });
+  protected readonly heading = computed(() => {
+    const f = this.shownFilter();
+    const n = this.shown().length;
+    return f === 'all' ? `Tất cả · ${n} chủ đề` : `Có bài ${f} · ${n} chủ đề`;
+  });
   protected readonly error = signal<string | null>(null);
   /** "new", the id of the topic being edited, or null. */
   protected readonly editing = signal<string | null>(null);
@@ -43,7 +79,6 @@ export class Topics {
 
   protected readonly form = inject(NonNullableFormBuilder).group({
     name: ['', [Validators.required, Validators.maxLength(60)]],
-    level: ['' as Level | '', Validators.required],
     description: ['', Validators.maxLength(200)],
   });
 
@@ -59,14 +94,21 @@ export class Topics {
   }
 
   protected startAdd(): void {
-    this.open('new', { name: '', level: '', description: '' });
+    this.open('new', { name: '', description: '' });
   }
 
   protected startEdit(t: Topic): void {
-    this.open(t.id, { name: t.name, level: t.level, description: t.description });
+    this.open(t.id, { name: t.name, description: t.description });
   }
 
-  private open(target: string, value: { name: string; level: Level | ''; description: string }): void {
+  /** Query parameters of "Sinh bài AI": the roadmap page opens on the topic, at the level being listed. */
+  protected generateParams(t: Topic): Record<string, string | number> {
+    const f = this.shownFilter();
+    const level = f === 'all' ? (t.levels.at(0)?.level ?? 'A1') : f;
+    return { topicId: t.id, level, generate: 1 };
+  }
+
+  private open(target: string, value: { name: string; description: string }): void {
     this.form.reset(value);
     this.submitted.set(false);
     this.serverFields.set({});
@@ -104,11 +146,15 @@ export class Topics {
       return;
     }
     const v = this.form.getRawValue();
-    const input = { name: v.name.trim(), level: v.level, description: v.description.trim() };
+    const input = { name: v.name.trim(), description: v.description.trim() };
     this.pending.set(true);
     try {
       await firstValueFrom(target === 'new' ? this.api.createTopic(input) : this.api.updateTopic(target, input));
       this.editing.set(null);
+      // A new topic has no lesson yet: only "Tất cả" lists it.
+      if (target === 'new') {
+        this.filter.set('all');
+      }
       this.load();
     } catch (err) {
       const body = err instanceof ApiError ? (err.body as { message?: string; fields?: Record<string, string> } | null) : null;

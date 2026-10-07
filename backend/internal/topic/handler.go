@@ -1,9 +1,11 @@
 package topic
 
 import (
+	"encoding/json"
 	"errors"
 	"log/slog"
 	"net/http"
+	"slices"
 	"strconv"
 	"time"
 
@@ -42,26 +44,35 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 
 // --- JSON shapes (contracts/topics-api.md) ---
 
+type levelJSON struct {
+	Level        string `json:"level"`
+	LessonCount  int    `json:"lessonCount"`
+	RoadmapCount int    `json:"roadmapCount"`
+	Remaining    int    `json:"remaining"`
+	Warning      bool   `json:"warning"`
+}
+
 type topicJSON struct {
-	ID            string    `json:"id"`
-	Name          string    `json:"name"`
-	Level         string    `json:"level"`
-	Description   string    `json:"description"`
-	LessonCount   int       `json:"lessonCount"`
-	RoadmapCount  int       `json:"roadmapCount"`
-	Remaining     int       `json:"remaining"`
-	Warning       bool      `json:"warning"`
-	WordCount     int       `json:"wordCount"`
-	UsedWordCount int       `json:"usedWordCount"`
-	CreatedAt     time.Time `json:"createdAt"`
+	ID            string      `json:"id"`
+	Name          string      `json:"name"`
+	Description   string      `json:"description"`
+	LessonCount   int         `json:"lessonCount"`
+	Levels        []levelJSON `json:"levels"`
+	WordCount     int         `json:"wordCount"`
+	UsedWordCount int         `json:"usedWordCount"`
+	CreatedAt     time.Time   `json:"createdAt"`
 }
 
 func toJSON(s Summary) topicJSON {
-	return topicJSON{
-		ID: s.ID, Name: s.Name, Level: s.Level, Description: s.Description, LessonCount: s.LessonCount,
-		RoadmapCount: len(s.LessonIDs), Remaining: s.Remaining, Warning: s.Warning, CreatedAt: s.CreatedAt,
+	out := topicJSON{
+		ID: s.ID, Name: s.Name, Description: s.Description, LessonCount: s.LessonCount,
+		Levels: make([]levelJSON, len(s.Levels)), CreatedAt: s.CreatedAt,
 		WordCount: s.WordCount, UsedWordCount: s.UsedWordCount,
 	}
+	for i, l := range s.Levels {
+		out.Levels[i] = levelJSON(l)
+	}
+	return out
 }
 
 // lessonJSON matches the admin lesson summary (contracts/admin-lessons-api.md).
@@ -78,15 +89,17 @@ type lessonJSON struct {
 
 type roadmapJSON struct {
 	Topic     topicJSON    `json:"topic"`
+	Level     string       `json:"level"`
 	Lessons   []lessonJSON `json:"lessons"`
 	Remaining int          `json:"remaining"`
 	Warning   bool         `json:"warning"`
 }
 
 func toRoadmapJSON(r Roadmap) roadmapJSON {
+	lv := r.Topic.Level(r.Level)
 	out := roadmapJSON{
-		Topic: toJSON(r.Topic), Lessons: make([]lessonJSON, len(r.Lessons)),
-		Remaining: r.Topic.Remaining, Warning: r.Topic.Warning,
+		Topic: toJSON(r.Topic), Level: r.Level, Lessons: make([]lessonJSON, len(r.Lessons)),
+		Remaining: lv.Remaining, Warning: lv.Warning,
 	}
 	for i, l := range r.Lessons {
 		out.Lessons[i] = lessonJSON{
@@ -107,7 +120,6 @@ type publicJSON struct {
 
 type inputJSON struct {
 	Name        string `json:"name"`
-	Level       string `json:"level"`
 	Description string `json:"description"`
 }
 
@@ -120,7 +132,7 @@ type inUseBody struct {
 // --- handlers ---
 
 func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
-	items, err := h.svc.List(r.Context(), r.URL.Query().Get("level"))
+	items, err := h.svc.List(r.Context())
 	if err != nil {
 		h.writeError(w, r, err)
 		return
@@ -167,7 +179,7 @@ func (h *Handler) delete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) getRoadmap(w http.ResponseWriter, r *http.Request) {
-	rm, err := h.svc.Roadmap(r.Context(), r.PathValue("id"))
+	rm, err := h.svc.Roadmap(r.Context(), r.PathValue("id"), r.URL.Query().Get("level"))
 	if err != nil {
 		h.writeError(w, r, err)
 		return
@@ -182,7 +194,7 @@ func (h *Handler) setRoadmap(w http.ResponseWriter, r *http.Request) {
 	if httpx.DecodeJSON(w, r, &body) != nil {
 		return
 	}
-	rm, err := h.svc.SetRoadmap(r.Context(), r.PathValue("id"), body.LessonIDs)
+	rm, err := h.svc.SetRoadmap(r.Context(), r.PathValue("id"), r.URL.Query().Get("level"), body.LessonIDs)
 	if err != nil {
 		h.writeError(w, r, err)
 		return
@@ -224,35 +236,68 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 
 type wordJSON struct {
 	Text        string `json:"text"`
+	Level       string `json:"level"`
 	Used        bool   `json:"used"`
 	LessonCount int    `json:"lessonCount"`
 }
 
-func writeWords(w http.ResponseWriter, uses []WordUse) {
+func toWordsJSON(uses []WordUse) []wordJSON {
 	out := make([]wordJSON, len(uses))
 	for i, u := range uses {
 		out[i] = wordJSON(u)
 	}
-	httpx.WriteJSON(w, http.StatusOK, map[string][]wordJSON{"words": out})
+	return out
 }
 
+func writeWords(w http.ResponseWriter, uses []WordUse) {
+	httpx.WriteJSON(w, http.StatusOK, map[string][]wordJSON{"words": toWordsJSON(uses)})
+}
+
+// wordInJSON is a word of PUT .../words: {"text", "level"}, or a plain string (any level).
+type wordInJSON Word
+
+func (w *wordInJSON) UnmarshalJSON(b []byte) error {
+	var text string
+	if json.Unmarshal(b, &text) == nil {
+		*w = wordInJSON{Text: text}
+		return nil
+	}
+	var obj struct {
+		Text  string `json:"text"`
+		Level string `json:"level"`
+	}
+	if err := json.Unmarshal(b, &obj); err != nil {
+		return err
+	}
+	*w = wordInJSON(obj)
+	return nil
+}
+
+// getWords lists the topic's words; ?level= keeps the words of exactly that level.
 func (h *Handler) getWords(w http.ResponseWriter, r *http.Request) {
 	uses, err := h.svc.Words(r.Context(), r.PathValue("id"))
 	if err != nil {
 		h.writeError(w, r, err)
 		return
 	}
+	if level := r.URL.Query().Get("level"); level != "" {
+		uses = slices.DeleteFunc(uses, func(u WordUse) bool { return u.Level != level })
+	}
 	writeWords(w, uses)
 }
 
 func (h *Handler) setWords(w http.ResponseWriter, r *http.Request) {
 	var body struct {
-		Words []string `json:"words"`
+		Words []wordInJSON `json:"words"`
 	}
 	if httpx.DecodeJSON(w, r, &body) != nil {
 		return
 	}
-	uses, err := h.svc.SetWords(r.Context(), r.PathValue("id"), body.Words)
+	words := make([]Word, len(body.Words))
+	for i, wd := range body.Words {
+		words[i] = Word(wd)
+	}
+	uses, err := h.svc.SetWords(r.Context(), r.PathValue("id"), words)
 	if err != nil {
 		h.writeError(w, r, err)
 		return
@@ -275,7 +320,7 @@ func (h *Handler) wordPlan(w http.ResponseWriter, r *http.Request) {
 		httpx.WriteFieldErrors(w, fields)
 		return
 	}
-	plan, err := h.svc.WordPlan(r.Context(), r.PathValue("id"), count, perLesson)
+	plan, err := h.svc.WordPlan(r.Context(), r.PathValue("id"), q.Get("level"), count, perLesson)
 	if err != nil {
 		h.writeError(w, r, err)
 		return
@@ -289,7 +334,8 @@ type wordPlanJSON struct {
 }
 
 type suggestWordsBody struct {
-	Count int `json:"count"`
+	Count int    `json:"count"`
+	Level string `json:"level"`
 }
 
 // suggestWords adds AI-suggested words to the topic (F18) and returns the added words and the
@@ -299,7 +345,7 @@ func (h *Handler) suggestWords(w http.ResponseWriter, r *http.Request) {
 	if httpx.DecodeJSON(w, r, &body) != nil {
 		return
 	}
-	added, uses, err := h.svc.SuggestWords(r.Context(), r.PathValue("id"), body.Count)
+	added, uses, err := h.svc.SuggestWords(r.Context(), r.PathValue("id"), body.Level, body.Count)
 	switch {
 	case errors.Is(err, ai.ErrNotConfigured):
 		httpx.WriteError(w, http.StatusServiceUnavailable, "ai_not_configured", "AI chưa được cấu hình. Liên hệ người vận hành.")
@@ -312,10 +358,6 @@ func (h *Handler) suggestWords(w http.ResponseWriter, r *http.Request) {
 	case err != nil:
 		h.writeError(w, r, err)
 	default:
-		out := make([]wordJSON, len(uses))
-		for i, u := range uses {
-			out[i] = wordJSON(u)
-		}
-		httpx.WriteJSON(w, http.StatusOK, map[string]any{"added": added, "words": out})
+		httpx.WriteJSON(w, http.StatusOK, map[string]any{"added": added, "words": toWordsJSON(uses)})
 	}
 }

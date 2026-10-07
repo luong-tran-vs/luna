@@ -4,6 +4,7 @@ import { DraftChange, DraftList, DraftState } from './draft-list';
 
 const draft = (key: number, patch: Partial<DraftState> = {}): DraftState => ({
   key,
+  level: 'A1',
   title: `Bài ${key}`,
   content: 'We went to the park. It was fun.',
   targetWords: [],

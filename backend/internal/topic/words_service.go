@@ -52,7 +52,7 @@ func (s *Service) Words(ctx context.Context, id string) ([]WordUse, error) {
 
 // SetWords replaces the topic's words after CleanWords; the startup seed never overwrites them
 // afterwards, even when the list is empty.
-func (s *Service) SetWords(ctx context.Context, id string, words []string) ([]WordUse, error) {
+func (s *Service) SetWords(ctx context.Context, id string, words []Word) ([]WordUse, error) {
 	if _, err := s.repo.Get(ctx, id); err != nil {
 		return nil, err
 	}
@@ -86,9 +86,13 @@ type TargetPlan struct {
 	Shortage int
 }
 
-// WordPlan proposes target words for count lessons of perLesson words each (see PlanWords).
-func (s *Service) WordPlan(ctx context.Context, id string, count, perLesson int) (TargetPlan, error) {
+// WordPlan proposes target words for count lessons of level with perLesson words each (see
+// PlanWords).
+func (s *Service) WordPlan(ctx context.Context, id, level string, count, perLesson int) (TargetPlan, error) {
 	fields := map[string]string{}
+	if !ValidLevel(level) {
+		fields["level"] = "Vui lòng chọn trình độ từ A1 đến C2"
+	}
 	if count < 1 || count > MaxPlanLessons {
 		fields["count"] = fmt.Sprintf("Số bài từ 1 đến %d", MaxPlanLessons)
 	}
@@ -103,13 +107,13 @@ func (s *Service) WordPlan(ctx context.Context, id string, count, perLesson int)
 		return TargetPlan{}, err
 	}
 	unused := 0
-	for _, u := range uses {
+	for _, u := range FitWords(uses, level) {
 		if !u.Used {
 			unused++
 		}
 	}
 	shortage := max(0, min(count*perLesson-unused, MaxWords-len(uses)))
-	return TargetPlan{Groups: PlanWords(uses, count, perLesson), Shortage: shortage}, nil
+	return TargetPlan{Groups: PlanWords(uses, level, count, perLesson), Shortage: shortage}, nil
 }
 
 // WordSuggester asks an AI provider for new core words of a topic (implemented by ai.Provider).
@@ -120,14 +124,19 @@ type WordSuggester interface {
 // ErrNoSuggestion means the AI suggested no word that is valid and new to the topic.
 var ErrNoSuggestion = errors.New("topic: AI suggested no usable word")
 
-// SuggestWords asks the AI once for count new words of the topic and appends the usable ones
-// (valid by CleanWords rules, not already in the list) up to MaxWords. It returns the added
-// words and the new coverage of the whole list.
-func (s *Service) SuggestWords(ctx context.Context, id string, count int) ([]string, []WordUse, error) {
+// SuggestWords asks the AI once for count new words of the topic at level and appends the usable
+// ones (valid by CleanWords rules, not already in the list) with that level, up to MaxWords. It
+// returns the added words and the new coverage of the whole list.
+func (s *Service) SuggestWords(ctx context.Context, id, level string, count int) ([]string, []WordUse, error) {
+	fields := map[string]string{}
 	if count < 1 || count > MaxSuggestWords {
-		return nil, nil, &ValidationError{Fields: map[string]string{
-			"count": fmt.Sprintf("Số từ từ 1 đến %d", MaxSuggestWords),
-		}}
+		fields["count"] = fmt.Sprintf("Số từ từ 1 đến %d", MaxSuggestWords)
+	}
+	if !ValidLevel(level) {
+		fields["level"] = "Vui lòng chọn trình độ từ A1 đến C2"
+	}
+	if len(fields) > 0 {
+		return nil, nil, &ValidationError{Fields: fields}
 	}
 	t, err := s.repo.Get(ctx, id)
 	if err != nil {
@@ -139,14 +148,14 @@ func (s *Service) SuggestWords(ctx context.Context, id string, count int) ([]str
 	}
 	count = min(count, room)
 	suggested, err := s.ai.SuggestWords(ctx, ai.SuggestWordsRequest{
-		Level: t.Level, TopicName: t.Name, Existing: t.Words, Count: count,
+		Level: level, TopicName: t.Name, Existing: Texts(t.Words), Count: count,
 	})
 	if err != nil {
 		return nil, nil, err
 	}
 	seen := make(map[string]bool, len(t.Words))
 	for _, w := range t.Words {
-		seen[strings.ToLower(w)] = true
+		seen[strings.ToLower(w.Text)] = true
 	}
 	added := []string{}
 	for _, raw := range suggested {
@@ -160,7 +169,11 @@ func (s *Service) SuggestWords(ctx context.Context, id string, count int) ([]str
 	if len(added) == 0 {
 		return nil, nil, ErrNoSuggestion
 	}
-	updated, err := s.repo.SetWords(ctx, id, append(slices.Clone(t.Words), added...))
+	words := slices.Clone(t.Words)
+	for _, w := range added {
+		words = append(words, Word{Text: w, Level: level})
+	}
+	updated, err := s.repo.SetWords(ctx, id, words)
 	if err != nil {
 		return nil, nil, fmt.Errorf("topic: set words: %w", err)
 	}

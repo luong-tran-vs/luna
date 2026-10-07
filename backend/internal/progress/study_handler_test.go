@@ -53,7 +53,7 @@ func TestGoalEndpoints(t *testing.T) {
 		t.Fatalf("no goals: %d %s", r.code, r.text)
 	}
 
-	r := do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	r := do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family","level":"A1"}`)
 	b := body(t, r)
 	active := b["active"].(map[string]any)
 	if r.code != http.StatusOK || len(b) != 1 || active["effectiveFrom"] != "2026-09-30" ||
@@ -62,9 +62,11 @@ func TestGoalEndpoints(t *testing.T) {
 	}
 
 	for payload, code := range map[string]int{
-		`{"topicId":""}`:            http.StatusBadRequest,
-		`{"topicId":"x","extra":1}`: http.StatusBadRequest,
-		`{"topicId":"nope"}`:        http.StatusNotFound,
+		`{"topicId":""}`:                    http.StatusBadRequest,
+		`{"topicId":"family"}`:              http.StatusBadRequest,
+		`{"topicId":"family","level":"Z1"}`: http.StatusBadRequest,
+		`{"topicId":"x","extra":1}`:         http.StatusBadRequest,
+		`{"topicId":"nope","level":"A1"}`:   http.StatusNotFound,
 	} {
 		if r := do(t, mux, http.MethodPost, "/api/goals", "an", payload); r.code != code {
 			t.Fatalf("%s: %d %s", payload, r.code, r.text)
@@ -84,7 +86,7 @@ func TestGoalEndpoints(t *testing.T) {
 func TestStudyEndpoints(t *testing.T) {
 	t.Parallel()
 	mux, e := newStudyAPI(t)
-	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family","level":"A1"}`)
 
 	r := do(t, mux, http.MethodGet, "/api/lessons/f1/study", "an", "")
 	b := body(t, r)
@@ -164,7 +166,7 @@ func TestStudyEndpoints(t *testing.T) {
 func TestMyLessonsAndGuardEndpoints(t *testing.T) {
 	t.Parallel()
 	mux, e := newStudyAPI(t)
-	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family","level":"A1"}`)
 	e.studyLesson(t)
 
 	r := do(t, mux, http.MethodGet, "/api/lessons/mine", "an", "")
@@ -197,7 +199,7 @@ func TestMyLessonsAndGuardEndpoints(t *testing.T) {
 func TestSkipWriteEndpoint(t *testing.T) {
 	t.Parallel()
 	mux, e := newStudyAPI(t)
-	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family","level":"A1"}`)
 
 	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "", ""); r.code != http.StatusUnauthorized {
 		t.Fatalf("anonymous: %d", r.code)
@@ -224,7 +226,7 @@ func TestRedoCompletedLesson(t *testing.T) {
 	auth := httpx.RequireAuth(resolver)
 	NewHandler(e.dictation, slog.New(slog.DiscardHandler)).
 		Register(mux, auth, NewStudyHandler(e.svc, slog.New(slog.DiscardHandler)).Guard)
-	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family"}`)
+	do(t, mux, http.MethodPost, "/api/goals", "an", `{"topicId":"family","level":"A1"}`)
 	e.studyLesson(t) // f1 completed, f2 current, f3 locked
 
 	record := `{"sentenceIndex":0,"typed":"again","correctWords":1,"totalWords":2}`

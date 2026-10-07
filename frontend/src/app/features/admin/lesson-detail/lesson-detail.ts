@@ -313,7 +313,7 @@ export class LessonDetail {
     this.deleteOpen.set(false);
     await this.act(async () => {
       await firstValueFrom(this.api.remove(this.id));
-      await this.router.navigateByUrl('/admin');
+      await this.router.navigateByUrl('/admin/lessons');
     });
   }
 

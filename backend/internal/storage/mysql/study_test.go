@@ -52,11 +52,11 @@ func TestGoalsActivate(t *testing.T) {
 
 	// Re-activating the first goal pauses the second and keeps the first's id and start time.
 	t2 := t1.Add(time.Hour)
-	again, err := repo.Activate(ctx, u, a, "A2", "2026-09-03", t2)
+	again, err := repo.Activate(ctx, u, a, "A1", "2026-09-03", t2)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if again.ID != ga.ID || !again.StartedAt.Equal(t0) || again.Level != "A2" || again.EffectiveFrom != "2026-09-03" || again.Status != progress.GoalActive {
+	if again.ID != ga.ID || !again.StartedAt.Equal(t0) || again.Level != "A1" || again.EffectiveFrom != "2026-09-03" || again.Status != progress.GoalActive {
 		t.Fatalf("re-activated = %+v", again)
 	}
 	list, _ = repo.List(ctx, u)
@@ -64,8 +64,15 @@ func TestGoalsActivate(t *testing.T) {
 		t.Fatalf("List = %+v", list)
 	}
 	// Activating the active goal again changes nothing else.
-	if _, err := repo.Activate(ctx, u, a, "A2", "2026-09-03", t2); err != nil {
+	if _, err := repo.Activate(ctx, u, a, "A1", "2026-09-03", t2); err != nil {
 		t.Fatal(err)
+	}
+	// The same topic at another level is another goal.
+	if ga2, err := repo.Activate(ctx, u, a, "A2", "2026-09-04", t2); err != nil || ga2.ID == ga.ID || ga2.Level != "A2" {
+		t.Fatalf("A2 goal = %+v, %v", ga2, err)
+	}
+	if list, _ = repo.List(ctx, u); len(list) != 3 || list[0].Status != progress.GoalPaused {
+		t.Fatalf("List = %+v", list)
 	}
 	if o, _ := repo.List(ctx, other.UserID); len(o) != 1 || o[0].Status != progress.GoalActive {
 		t.Fatalf("other user's goals = %+v", o)

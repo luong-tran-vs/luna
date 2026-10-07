@@ -54,7 +54,7 @@ func TestProcessAnnotateFocusWords(t *testing.T) {
 	e.svc.Dict = focusDict
 	e.topics.mu.Lock()
 	b1 := e.topics.topics["topic-b1"]
-	b1.Words = []string{"park", "Family", "give up"}
+	b1.Words = []TopicWord{{Text: "park"}, {Text: "Family"}, {Text: "give up"}}
 	e.topics.topics["topic-b1"] = b1
 	e.topics.mu.Unlock()
 	l := e.create(t, func(in *Input) { in.Content = "We went to the park with my family. He gave up smoking." })
@@ -107,7 +107,7 @@ func TestProcessAnnotateTargetWords(t *testing.T) {
 	e.svc.Dict = focusDict
 	e.topics.mu.Lock()
 	b1 := e.topics.topics["topic-b1"]
-	b1.Words = []string{"park", "Family", "give up"}
+	b1.Words = []TopicWord{{Text: "park"}, {Text: "Family"}, {Text: "give up"}}
 	e.topics.topics["topic-b1"] = b1
 	e.topics.mu.Unlock()
 	l := e.create(t, func(in *Input) {

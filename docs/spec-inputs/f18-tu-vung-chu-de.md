@@ -1,5 +1,8 @@
 # Đầu vào cho F18: Từ vựng theo chủ đề
 
+> **Sửa 2026-10-07**: chủ đề dùng chung cho mọi trình độ, nên mỗi từ có thêm trình độ (hoặc để trống = mọi trình độ); sinh bài trình độ
+> X chỉ giao từ có trình độ ≤ X hoặc để trống. Spec hiện hành: `specs/017-topic-vocabulary/spec.md`.
+
 Nguồn: [giai-doan-3.md › F18](../phases/giai-doan-3.md). Dữ liệu ban đầu: [f18-topic-words.json](f18-topic-words.json), gồm 1.257 từ
 tiếng Anh cho 42 chủ đề. Danh sách từ chỉ tham khảo từ trang Langmaster "3000 từ vựng tiếng Anh thông dụng theo chủ đề"; **chỉ lấy
 từ tiếng Anh**, không chép phiên âm hay nghĩa. Sửa chủ đề (F14), sinh bài bằng AI (F7), chú thích (F2).

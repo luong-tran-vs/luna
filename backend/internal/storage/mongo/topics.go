@@ -13,29 +13,89 @@ import (
 	"github.com/luongtran/luna/backend/internal/topic"
 )
 
+// wordDoc is a topic word (F18). Words stored before they had a level are plain strings; they
+// decode as a word for every level.
+type wordDoc struct {
+	Text  string `bson:"text"`
+	Level string `bson:"level"`
+}
+
+// UnmarshalBSONValue accepts {text, level} or a plain string.
+func (w *wordDoc) UnmarshalBSONValue(typ byte, data []byte) error {
+	raw := bson.RawValue{Type: bson.Type(typ), Value: data}
+	if s, ok := raw.StringValueOK(); ok {
+		*w = wordDoc{Text: s}
+		return nil
+	}
+	var d struct {
+		Text  string `bson:"text"`
+		Level string `bson:"level"`
+	}
+	if err := raw.Unmarshal(&d); err != nil {
+		return fmt.Errorf("topic word: %w", err)
+	}
+	*w = wordDoc(d)
+	return nil
+}
+
+func toWordDocs(words []topic.Word) []wordDoc {
+	out := make([]wordDoc, len(words))
+	for i, w := range words {
+		out[i] = wordDoc(w)
+	}
+	return out
+}
+
+func fromWordDocs(docs []wordDoc) []topic.Word {
+	out := make([]topic.Word, len(docs))
+	for i, d := range docs {
+		out[i] = topic.Word(d)
+	}
+	return out
+}
+
 type topicDoc struct {
-	ID          bson.ObjectID   `bson:"_id,omitempty"`
-	Name        string          `bson:"name"`
-	NameKey     string          `bson:"nameKey"`
-	Level       string          `bson:"level"`
-	Description string          `bson:"description"`
-	LessonIDs   []bson.ObjectID `bson:"lessonIds"`
-	Words       []string        `bson:"words"`
-	WordsSeeded bool            `bson:"wordsSeeded"`
-	CreatedAt   time.Time       `bson:"createdAt"`
-	UpdatedAt   time.Time       `bson:"updatedAt"`
+	ID          bson.ObjectID              `bson:"_id,omitempty"`
+	Name        string                     `bson:"name"`
+	NameKey     string                     `bson:"nameKey"`
+	Description string                     `bson:"description"`
+	Roadmaps    map[string][]bson.ObjectID `bson:"roadmaps"`
+	Words       []wordDoc                  `bson:"words"`
+	WordsSeeded bool                       `bson:"wordsSeeded"`
+	CreatedAt   time.Time                  `bson:"createdAt"`
+	UpdatedAt   time.Time                  `bson:"updatedAt"`
 }
 
 func (d topicDoc) toTopic() topic.Topic {
 	t := topic.Topic{
-		ID: d.ID.Hex(), Name: d.Name, Level: d.Level, Description: d.Description,
-		LessonIDs: make([]string, len(d.LessonIDs)), CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt,
-		Words: d.Words, WordsSeeded: d.WordsSeeded,
-	}
-	for i, oid := range d.LessonIDs {
-		t.LessonIDs[i] = oid.Hex()
+		ID: d.ID.Hex(), Name: d.Name, Description: d.Description, Roadmaps: hexRoadmaps(d.Roadmaps),
+		CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt, Words: fromWordDocs(d.Words), WordsSeeded: d.WordsSeeded,
 	}
 	return t
+}
+
+func hexRoadmaps(in map[string][]bson.ObjectID) map[string][]string {
+	out := make(map[string][]string, len(in))
+	for level, oids := range in {
+		ids := make([]string, len(oids))
+		for i, oid := range oids {
+			ids[i] = oid.Hex()
+		}
+		out[level] = ids
+	}
+	return out
+}
+
+func oidRoadmaps(in map[string][]string) (map[string][]bson.ObjectID, error) {
+	out := make(map[string][]bson.ObjectID, len(in))
+	for level, ids := range in {
+		oids, err := toOIDs(ids)
+		if err != nil {
+			return nil, err
+		}
+		out[level] = oids
+	}
+	return out, nil
 }
 
 func toOIDs(ids []string) ([]bson.ObjectID, error) {
@@ -50,8 +110,16 @@ func toOIDs(ids []string) ([]bson.ObjectID, error) {
 	return oids, nil
 }
 
-// Topics implements topic.Repository on the "topics" collection; the roadmap is the
-// lessonIds array of each topic.
+// roadmapField is the path of the roadmap of level inside a topic document.
+func roadmapField(level string) (string, error) {
+	if !topic.ValidLevel(level) {
+		return "", fmt.Errorf("roadmap level %q", level)
+	}
+	return "roadmaps." + level, nil
+}
+
+// Topics implements topic.Repository on the "topics" collection; the roadmaps are the
+// roadmaps.<level> arrays of each topic.
 type Topics struct {
 	coll *mongo.Collection
 }
@@ -63,15 +131,15 @@ func NewTopics(db *mongo.Database) *Topics {
 
 var _ topic.Repository = (*Topics)(nil)
 
-// Create inserts t; the unique (level, nameKey) index turns duplicates into ErrNameTaken.
+// Create inserts t; the unique nameKey index turns duplicates into ErrNameTaken.
 func (r *Topics) Create(ctx context.Context, t topic.Topic) (topic.Topic, error) {
-	oids, err := toOIDs(t.LessonIDs)
+	roadmaps, err := oidRoadmaps(t.Roadmaps)
 	if err != nil {
 		return topic.Topic{}, err
 	}
 	d := topicDoc{
-		ID: bson.NewObjectID(), Name: t.Name, NameKey: topic.NameKey(t.Name), Level: t.Level,
-		Description: t.Description, LessonIDs: oids, CreatedAt: t.CreatedAt.UTC(), UpdatedAt: t.UpdatedAt.UTC(),
+		ID: bson.NewObjectID(), Name: t.Name, NameKey: topic.NameKey(t.Name), Description: t.Description,
+		Roadmaps: roadmaps, Words: []wordDoc{}, CreatedAt: t.CreatedAt.UTC(), UpdatedAt: t.UpdatedAt.UTC(),
 	}
 	if _, err := r.coll.InsertOne(ctx, d); err != nil {
 		if mongo.IsDuplicateKeyError(err) {
@@ -106,13 +174,9 @@ func (r *Topics) Get(ctx context.Context, id string) (topic.Topic, error) {
 	return d.toTopic(), nil
 }
 
-// List returns the topics of level ("" = all); the service sorts them.
-func (r *Topics) List(ctx context.Context, level string) ([]topic.Topic, error) {
-	filter := bson.D{}
-	if level != "" {
-		filter = append(filter, bson.E{Key: "level", Value: level})
-	}
-	cur, err := r.coll.Find(ctx, filter)
+// List returns every topic; the service sorts them.
+func (r *Topics) List(ctx context.Context) ([]topic.Topic, error) {
+	cur, err := r.coll.Find(ctx, bson.D{})
 	if err != nil {
 		return nil, fmt.Errorf("find topics: %w", err)
 	}
@@ -127,7 +191,7 @@ func (r *Topics) List(ctx context.Context, level string) ([]topic.Topic, error) 
 	return out, nil
 }
 
-// Update changes name, level and description.
+// Update changes name and description.
 func (r *Topics) Update(ctx context.Context, id string, in topic.Input) (topic.Topic, error) {
 	f, err := r.filter(id)
 	if err != nil {
@@ -137,7 +201,6 @@ func (r *Topics) Update(ctx context.Context, id string, in topic.Input) (topic.T
 	err = r.coll.FindOneAndUpdate(ctx, f, bson.D{{Key: "$set", Value: bson.D{
 		{Key: "name", Value: in.Name},
 		{Key: "nameKey", Value: topic.NameKey(in.Name)},
-		{Key: "level", Value: in.Level},
 		{Key: "description", Value: in.Description},
 		{Key: "updatedAt", Value: time.Now().UTC()},
 	}}}, options.FindOneAndUpdate().SetReturnDocument(options.After)).Decode(&d)
@@ -164,9 +227,13 @@ func (r *Topics) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-// SetLessons replaces the roadmap.
-func (r *Topics) SetLessons(ctx context.Context, id string, lessonIDs []string) error {
+// SetLessons replaces the roadmap of level.
+func (r *Topics) SetLessons(ctx context.Context, id, level string, lessonIDs []string) error {
 	f, err := r.filter(id)
+	if err != nil {
+		return err
+	}
+	field, err := roadmapField(level)
 	if err != nil {
 		return err
 	}
@@ -175,7 +242,7 @@ func (r *Topics) SetLessons(ctx context.Context, id string, lessonIDs []string) 
 		return err
 	}
 	res, err := r.coll.UpdateOne(ctx, f, bson.D{{Key: "$set", Value: bson.D{
-		{Key: "lessonIds", Value: oids}, {Key: "updatedAt", Value: time.Now().UTC()},
+		{Key: field, Value: oids}, {Key: "updatedAt", Value: time.Now().UTC()},
 	}}})
 	if err != nil {
 		return fmt.Errorf("set roadmap: %w", err)
@@ -186,27 +253,35 @@ func (r *Topics) SetLessons(ctx context.Context, id string, lessonIDs []string) 
 	return nil
 }
 
-// RemoveLesson pulls a lesson out of the roadmap.
-func (r *Topics) RemoveLesson(ctx context.Context, id, lessonID string) (bool, error) {
+// RemoveLesson pulls a lesson out of the roadmap of level.
+func (r *Topics) RemoveLesson(ctx context.Context, id, level, lessonID string) (bool, error) {
 	f, err := r.filter(id)
 	if err != nil {
 		return false, nil //nolint:nilerr // a malformed topic id has no roadmap
+	}
+	field, err := roadmapField(level)
+	if err != nil {
+		return false, nil //nolint:nilerr // an unknown level has no roadmap
 	}
 	lid, err := bson.ObjectIDFromHex(lessonID)
 	if err != nil {
 		return false, nil //nolint:nilerr // a malformed lesson id is in no roadmap
 	}
-	res, err := r.coll.UpdateOne(ctx, append(f, bson.E{Key: "lessonIds", Value: lid}),
-		bson.D{{Key: "$pull", Value: bson.D{{Key: "lessonIds", Value: lid}}}})
+	res, err := r.coll.UpdateOne(ctx, append(f, bson.E{Key: field, Value: lid}),
+		bson.D{{Key: "$pull", Value: bson.D{{Key: field, Value: lid}}}})
 	if err != nil {
 		return false, fmt.Errorf("remove from roadmap: %w", err)
 	}
 	return res.ModifiedCount == 1, nil
 }
 
-// AppendLesson pushes a lesson at the end of the roadmap unless it is already there.
-func (r *Topics) AppendLesson(ctx context.Context, id, lessonID string) error {
+// AppendLesson pushes a lesson at the end of the roadmap of level unless it is already there.
+func (r *Topics) AppendLesson(ctx context.Context, id, level, lessonID string) error {
 	f, err := r.filter(id)
+	if err != nil {
+		return err
+	}
+	field, err := roadmapField(level)
 	if err != nil {
 		return err
 	}
@@ -214,8 +289,8 @@ func (r *Topics) AppendLesson(ctx context.Context, id, lessonID string) error {
 	if err != nil {
 		return fmt.Errorf("lesson id: %w", err)
 	}
-	_, err = r.coll.UpdateOne(ctx, append(f, bson.E{Key: "lessonIds", Value: bson.D{{Key: "$ne", Value: lid}}}),
-		bson.D{{Key: "$push", Value: bson.D{{Key: "lessonIds", Value: lid}}}})
+	_, err = r.coll.UpdateOne(ctx, append(f, bson.E{Key: field, Value: bson.D{{Key: "$ne", Value: lid}}}),
+		bson.D{{Key: "$push", Value: bson.D{{Key: field, Value: lid}}}})
 	if err != nil {
 		return fmt.Errorf("append to roadmap: %w", err)
 	}
@@ -224,17 +299,14 @@ func (r *Topics) AppendLesson(ctx context.Context, id, lessonID string) error {
 
 // SetWords replaces the topic's words and marks them seeded, so the startup seed never
 // overwrites an admin edit (F18).
-func (r *Topics) SetWords(ctx context.Context, id string, words []string) (topic.Topic, error) {
+func (r *Topics) SetWords(ctx context.Context, id string, words []topic.Word) (topic.Topic, error) {
 	f, err := r.filter(id)
 	if err != nil {
 		return topic.Topic{}, err
 	}
-	if words == nil {
-		words = []string{}
-	}
 	var d topicDoc
 	err = r.coll.FindOneAndUpdate(ctx, f, bson.D{{Key: "$set", Value: bson.D{
-		{Key: "words", Value: words},
+		{Key: "words", Value: toWordDocs(words)},
 		{Key: "wordsSeeded", Value: true},
 		{Key: "updatedAt", Value: time.Now().UTC()},
 	}}}, options.FindOneAndUpdate().SetReturnDocument(options.After)).Decode(&d)

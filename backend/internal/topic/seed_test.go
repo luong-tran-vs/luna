@@ -17,7 +17,7 @@ func TestLoadSeedIsValid(t *testing.T) {
 	}
 	total := 0
 	for _, st := range seed.Topics {
-		words, err := CleanWords(st.Words)
+		words, err := CleanWords(words(st.Words...))
 		if err != nil {
 			t.Errorf("%s: %v", st.Name, err)
 		}

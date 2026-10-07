@@ -10,14 +10,18 @@
 
 **Input**: User description: "tạo spec theo khối 1 trong @docs/spec-inputs/f7-ai-sinh-bai.md"
 
+**Sửa 2026-10-07 — chủ đề dùng chung cho mọi trình độ** (`specs/007-topic-roadmaps`): chủ đề không còn trình độ. Hộp sinh bài có ô
+**Trình độ** (mặc định theo lộ trình đang mở, đổi được); AI sinh bài đúng chủ đề ở trình độ đã chọn, bài lưu vào lộ trình (chủ đề,
+trình độ đó). Các chỗ thay đổi được đánh dấu *(sửa 2026-10-07)*.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Sinh bản nháp cho lộ trình của một chủ đề (Priority: P1)
 
-Ở trang lộ trình của một chủ đề (ví dụ "A1 · Gia đình"), quản trị viên bấm **Sinh bài bằng AI**, chọn số bài (1–5), độ dài (số
-từ, có gợi ý mặc định theo trình độ), dạng bài (bài đọc hoặc hội thoại) và ý chính nếu muốn. Trình độ và chủ đề lấy theo lộ
-trình đang mở, không phải chọn lại. Hệ thống sinh các bản nháp, mỗi bản có tiêu đề và nội dung; trong lúc chờ có trạng thái
-đang sinh.
+Ở trang lộ trình của một chủ đề và trình độ (ví dụ "A1 · Gia đình"), quản trị viên bấm **Sinh bài bằng AI**, chọn số bài (1–5),
+độ dài (số từ, có gợi ý mặc định theo trình độ), dạng bài (bài đọc hoặc hội thoại) và ý chính nếu muốn. Chủ đề lấy theo lộ trình
+đang mở; trình độ mặc định theo lộ trình đang mở và đổi được *(sửa 2026-10-07)*. Hệ thống sinh các bản nháp, mỗi bản có tiêu đề
+và nội dung; trong lúc chờ có trạng thái đang sinh.
 
 **Why this priority**: Là giá trị cốt lõi của F7: lấp đầy lộ trình nhanh mà không phải tự viết từng bài.
 
@@ -27,11 +31,11 @@ nội dung và số từ; danh sách bài và lộ trình chưa thay đổi.
 **Acceptance Scenarios**:
 
 1. **Given** quản trị viên đang ở lộ trình "A1 · Gia đình", **When** mở hộp sinh bài, **Then** trình độ A1 và chủ đề "Gia đình"
-   được hiển thị sẵn, độ dài gợi ý theo A1, dạng bài mặc định là bài đọc, ý chính để trống.
+   được hiển thị sẵn, độ dài gợi ý theo A1, dạng bài mặc định là bài đọc, ý chính để trống. *(sửa 2026-10-07)* Đổi trình độ sang
+   B1 thì độ dài gợi ý đổi theo B1 (nếu chưa sửa tay) và bài lưu vào lộ trình "B1 · Gia đình".
 2. **Given** các lựa chọn hợp lệ, **When** bấm sinh, **Then** trang hiện trạng thái đang sinh, không cho bấm sinh lần nữa trong lúc
    chờ, và khi xong hiện đúng số bản nháp đã yêu cầu (hoặc ít hơn kèm thông báo nếu có bản bị loại).
-3. **Given** độ dài yêu cầu N từ, **When** nhận bản nháp, **Then** mỗi bản có số từ nằm trong khoảng N ± 20% và đúng trình độ của
-   chủ đề.
+3. **Given** độ dài yêu cầu N từ, **When** nhận bản nháp, **Then** mỗi bản có số từ nằm trong khoảng N ± 20% và đúng trình độ đã chọn.
 4. **Given** sinh nhiều bài một lượt, **When** xem các bản nháp, **Then** các bài khác nội dung nhau và khác các bài đã có trong chủ
    đề (không trùng tiêu đề, không lặp cùng một câu chuyện).
 5. **Given** dạng bài là hội thoại, **When** nhận bản nháp, **Then** nội dung là lời thoại giữa các nhân vật, mỗi lượt nói một dòng
@@ -120,15 +124,16 @@ các lựa chọn vẫn còn. Bấm sang trang khác: được hỏi xác nhận
 
 - **FR-001**: Trang lộ trình của một chủ đề MUST có nút **Sinh bài bằng AI**, chỉ quản trị viên thấy và dùng được; mọi yêu cầu sinh
   bài từ người không phải quản trị viên MUST bị từ chối.
-- **FR-002**: Hộp sinh bài MUST lấy trình độ và chủ đề theo lộ trình đang mở và cho chọn: số bài (số nguyên 1–5, mặc định 3), độ
+- **FR-002** *(sửa 2026-10-07)*: Hộp sinh bài MUST lấy chủ đề theo lộ trình đang mở và cho chọn: trình độ (A1–C2, mặc định trình
+  độ của lộ trình đang mở), số bài (số nguyên 1–5, mặc định 3), độ
   dài (số từ, 50–800, mặc định theo trình độ: A1 120, A2 160, B1 220, B2 300, C1 và C2 400), dạng bài (bài đọc hoặc hội thoại, mặc
   định bài đọc), ý chính (không bắt buộc, tối đa 500 ký tự).
 - **FR-003**: Đầu vào sai MUST báo lỗi ngay ở ô tương ứng bằng tiếng Việt và không gửi yêu cầu sinh.
 - **FR-004**: Trong lúc sinh, giao diện MUST hiện trạng thái đang sinh và chặn gửi thêm yêu cầu sinh cho tới khi xong; một lượt sinh
   MUST kết thúc (thành công hoặc báo lỗi) trong tối đa 60 giây.
-- **FR-005**: Mỗi bản nháp MUST có tiêu đề và nội dung tiếng Anh đúng trình độ của chủ đề, liên quan tới chủ đề, dài trong khoảng
+- **FR-005**: Mỗi bản nháp MUST có tiêu đề và nội dung tiếng Anh đúng trình độ đã chọn *(sửa 2026-10-07)*, liên quan tới chủ đề, dài trong khoảng
   ±20% số từ yêu cầu, theo dạng bài đã chọn (hội thoại: mỗi lượt nói một dòng, bắt đầu bằng tên người nói).
-- **FR-006**: Hệ thống MUST cung cấp cho AI tiêu đề các bài đã có trong chủ đề để tránh lặp, và MUST loại bản nháp rỗng, trùng
+- **FR-006**: Hệ thống MUST cung cấp cho AI tiêu đề các bài đã có trong chủ đề (mọi trình độ) để tránh lặp, và MUST loại bản nháp rỗng, trùng
   tiêu đề với bài đã có hoặc trùng nhau trong cùng lượt; nếu có bản bị loại MUST báo số bản đã loại.
 - **FR-007**: Nếu sau khi loại không còn bản nháp nào, hệ thống MUST báo "AI trả về nội dung không dùng được".
 - **FR-008**: Bản nháp MUST chỉ tồn tại trên trang đang mở; hệ thống MUST NOT lưu bản nháp vào dữ liệu bài học, danh sách bài hay lộ
@@ -136,9 +141,9 @@ các lựa chọn vẫn còn. Bấm sang trang khác: được hỏi xác nhận
 - **FR-009**: Quản trị viên MUST sửa được tiêu đề và nội dung của từng bản nháp; mỗi bản nháp MUST hiển thị số từ của nội dung hiện
   tại.
 - **FR-010**: Mỗi bản nháp MUST có nút **Lưu** và **Bỏ**; danh sách MUST có nút **Lưu tất cả** khi có từ hai bản nháp trở lên.
-- **FR-011**: Bài được lưu MUST có nguồn "AI sinh", giấy phép "Nội dung do AI tạo", thuộc chủ đề đang mở, theo cùng quy tắc kiểm tra
+- **FR-011**: Bài được lưu MUST có nguồn "AI sinh", giấy phép "Nội dung do AI tạo", thuộc chủ đề đang mở và có trình độ đã chọn *(sửa 2026-10-07)*, theo cùng quy tắc kiểm tra
   của F2 (tiêu đề, nội dung, độ dài), và MUST đi qua quy trình của F2 (tách câu, audio, chú thích) như bài tạo tay.
-- **FR-012**: Bài được lưu MUST được thêm vào cuối lộ trình của chủ đề ngay trong cùng thao tác lưu (không có lúc bài đã tạo mà chưa
+- **FR-012**: Bài được lưu MUST được thêm vào cuối lộ trình (chủ đề, trình độ đã chọn) ngay trong cùng thao tác lưu (không có lúc bài đã tạo mà chưa
   vào lộ trình); Lưu tất cả MUST giữ thứ tự đang hiển thị.
 - **FR-013**: Sau khi lưu, lộ trình MUST tải lại và hiện bài mới ở cuối kèm trạng thái xử lý (audio, chú thích) như F2.
 - **FR-014**: Lưu thất bại MUST giữ nguyên bản nháp (kể cả phần đã sửa) kèm thông báo lỗi; một bản nháp MUST NOT tạo ra hai bài khi
@@ -156,12 +161,12 @@ các lựa chọn vẫn còn. Bấm sang trang khác: được hỏi xác nhận
 
 ### Key Entities
 
-- **Yêu cầu sinh bài**: chủ đề (kèm trình độ), số bài, độ dài mục tiêu (số từ), dạng bài, ý chính; chỉ dùng trong một lượt, không
+- **Yêu cầu sinh bài**: chủ đề, trình độ *(sửa 2026-10-07: chọn trong hộp, không lấy từ chủ đề)*, số bài, độ dài mục tiêu (số từ), dạng bài, ý chính; chỉ dùng trong một lượt, không
   lưu lại.
 - **Bản nháp**: tiêu đề, nội dung, số từ, trạng thái trên trang (chưa lưu, đang lưu, lỗi lưu kèm thông báo); chỉ tồn tại trên trang
   của quản trị viên, mất khi rời trang.
 - **Bài học** (F2, đã có): bản nháp sau khi lưu trở thành bài học với nguồn "AI sinh", giấy phép "Nội dung do AI tạo".
-- **Lộ trình chủ đề** (F14, đã có): thứ tự bài trong chủ đề; bài mới từ bản nháp được nối vào cuối.
+- **Lộ trình chủ đề** (F14, đã có): thứ tự bài của một cặp (chủ đề, trình độ); bài mới từ bản nháp được nối vào cuối.
 
 ## Success Criteria *(mandatory)*
 

@@ -16,7 +16,7 @@ func TestCreateAppendsToRoadmap(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	e.topics.setRoadmap("topic-a1", "old")
-	l := e.create(t, func(in *Input) { in.TopicID = "topic-a1"; in.AppendToRoadmap = true })
+	l := e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.AppendToRoadmap = true })
 
 	if got := e.topics.roadmap("topic-a1"); !slices.Equal(got, []string{"old", l.ID}) {
 		t.Fatalf("roadmap = %v, want lesson at the end", got)
@@ -29,7 +29,7 @@ func TestCreateAppendsToRoadmap(t *testing.T) {
 func TestCreateWithoutFlagDoesNotAppend(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
-	e.create(t, func(in *Input) { in.TopicID = "topic-a1" })
+	e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1" })
 	if got := e.topics.roadmap("topic-a1"); len(got) != 0 {
 		t.Fatalf("roadmap = %v, want empty", got)
 	}
@@ -42,7 +42,7 @@ func TestCreateAppendFailureRemovesLesson(t *testing.T) {
 	e.topics.failAppend = boom
 
 	_, err := e.svc.Create(t.Context(), Input{
-		Title: "Park", Content: sampleContent, TopicID: "topic-a1", Source: "AI sinh", License: "Nội dung do AI tạo",
+		Title: "Park", Content: sampleContent, TopicID: "topic-a1", Level: "A1", Source: "AI sinh", License: "Nội dung do AI tạo",
 		AppendToRoadmap: true,
 	})
 	if !errors.Is(err, boom) {
@@ -60,7 +60,7 @@ func TestCreateAppendValidatesFirst(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	var verr *ValidationError
-	if _, err := e.svc.Create(t.Context(), Input{TopicID: "topic-a1", AppendToRoadmap: true}); !errors.As(err, &verr) {
+	if _, err := e.svc.Create(t.Context(), Input{TopicID: "topic-a1", Level: "A1", AppendToRoadmap: true}); !errors.As(err, &verr) {
 		t.Fatalf("error = %v, want ValidationError", err)
 	}
 	if got := e.topics.roadmap("topic-a1"); len(got) != 0 {

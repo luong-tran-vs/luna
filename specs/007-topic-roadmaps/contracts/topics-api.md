@@ -66,3 +66,38 @@ Body như POST. 200 `{topic}`; đổi `level` thì mọi bài của chủ đề 
 - Bài: thiếu `topicId` → 400; đổi chủ đề khi ở lộ trình → chuyển cuối lộ trình mới; khi không ở lộ trình → không vào.
 - Lọc `level`, `topicId`.
 - Learner 403 trên `/api/admin/topics`; learner 200 trên `/api/topics`; 401 không cookie.
+
+## Sửa 2026-10-07: chủ đề dùng chung cho mọi trình độ
+
+Các mục dưới đây thay các mục tương ứng ở trên.
+
+**Topic JSON (quản trị)**
+
+```json
+{ "id": "…", "name": "Gia đình", "description": "Người thân, nhà cửa", "lessonCount": 7,
+  "levels": [ { "level": "A1", "lessonCount": 4, "roadmapCount": 2, "remaining": 2, "warning": true },
+              { "level": "A2", "lessonCount": 3, "roadmapCount": 3, "remaining": 3, "warning": false } ],
+  "createdAt": "…", "wordCount": 120, "usedWordCount": 40 }
+```
+
+`levels` chỉ có trình độ có ít nhất một bài, theo A1 → C2.
+
+- `GET /api/admin/topics` → 200 `{topics}` sắp theo tên; bỏ tham số `level`.
+- `POST /api/admin/topics`, `PUT /api/admin/topics/{id}`: body `{name, description}` (`level` → 400 `invalid_body`). Trùng tên
+  → 400 `fields.name` "Chủ đề này đã có".
+- `DELETE /api/admin/topics/{id}`: 409 `topic_in_use` khi còn bài ở bất kỳ trình độ nào.
+- `GET /api/admin/topics/{id}/roadmap?level=A1` (bắt buộc; thiếu/sai → 400) → 200 `{topic, level, lessons, remaining, warning}`.
+- `PUT /api/admin/topics/{id}/roadmap?level=A1` `{lessonIds}` → như GET. 400 thêm: bài khác trình độ ("Chỉ thêm được bài A1
+  của chủ đề này").
+- `GET /api/topics?level=A1` (người học, `level` bắt buộc): 200 `{topics: [{id, name, level, description, lessonCount}]}` — chỉ
+  chủ đề có lộ trình A1 không trống; `level` = tham số, `lessonCount` = số bài trong lộ trình A1.
+
+**Admin Lessons API**
+
+- `POST/PUT /api/admin/lessons`: body `{title, content, topicId, level, source, license}`; `level` trống → "Vui lòng chọn trình
+  độ". Đổi `topicId` hoặc `level` khi bài đang ở lộ trình → bài ở cuối lộ trình (chủ đề, trình độ) mới.
+- `inRoadmap` = có trong lộ trình (chủ đề, trình độ) của bài.
+
+**Test hợp đồng thêm**: trùng tên khác hoa thường → 400; `level` trong body chủ đề → 400; lộ trình nhận bài khác trình độ → 400;
+đổi trình độ bài đang ở lộ trình → chuyển cuối lộ trình mới; `/api/topics?level=` chỉ trả chủ đề có lộ trình ở trình độ đó; gộp
+dữ liệu chạy 2 lần cho cùng kết quả.

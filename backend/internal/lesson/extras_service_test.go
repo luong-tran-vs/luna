@@ -95,7 +95,7 @@ func TestUpdateClearsExtras(t *testing.T) {
 	_ = e.svc.ProcessAnnotate(t.Context(), jobFor(l, job.TypeAnnotate))
 	done, _ := e.lessons.Get(t.Context(), l.ID)
 
-	next, err := e.svc.Update(t.Context(), l.ID, Input{Title: "Park", Content: "New text here.", TopicID: "topic-b1", Source: "s", License: "l"})
+	next, err := e.svc.Update(t.Context(), l.ID, Input{Title: "Park", Content: "New text here.", TopicID: "topic-b1", Level: "B1", Source: "s", License: "l"})
 	if err != nil {
 		t.Fatal(err)
 	}

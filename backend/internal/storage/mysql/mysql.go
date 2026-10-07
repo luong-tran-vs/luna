@@ -167,6 +167,9 @@ func (s *Store) Prepare(ctx context.Context, interval time.Duration, log *slog.L
 				err = seedTopicWords(ctx, s.db, log)
 			}
 			if err == nil {
+				err = mergeSharedTopics(ctx, s.db, log)
+			}
+			if err == nil {
 				log.InfoContext(ctx, "mysql ready: schema and seed data")
 				return
 			}

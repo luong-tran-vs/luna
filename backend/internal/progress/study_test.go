@@ -71,7 +71,7 @@ func (e *studyEnv) nextDay(days int) {
 
 func (e *studyEnv) setGoal(t *testing.T, topicID string) GoalView {
 	t.Helper()
-	g, err := e.svc.SetGoal(t.Context(), "u1", topicID)
+	g, err := e.svc.SetGoal(t.Context(), "u1", topicID, e.roadmaps.topics[topicID].Level)
 	if err != nil {
 		t.Fatalf("set goal %s: %v", topicID, err)
 	}
@@ -83,7 +83,7 @@ func (e *studyEnv) setGoal(t *testing.T, topicID string) GoalView {
 func TestSetGoalAndGoals(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	if _, err := e.svc.SetGoal(t.Context(), "u1", "nope"); !errors.Is(err, ErrTopicNotFound) {
+	if _, err := e.svc.SetGoal(t.Context(), "u1", "nope", "A1"); !errors.Is(err, ErrTopicNotFound) {
 		t.Fatalf("unknown topic: %v", err)
 	}
 
@@ -174,5 +174,21 @@ func TestGoalCompletedAtEndOfRoadmap(t *testing.T) {
 	d, _ := e.svc.Dashboard(t.Context(), "u1")
 	if d.Kind != StudyNoNewLesson || !d.GoalCompleted {
 		t.Fatalf("dashboard = %+v", d)
+	}
+}
+
+func TestSameTopicAtTwoLevelsIsTwoGoals(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.setGoal(t, "family")
+	e.studyLesson(t)
+
+	g, err := e.svc.SetGoal(t.Context(), "u1", "family", "A2")
+	if err != nil || g.Level != "A2" || g.TotalLessons != 0 {
+		t.Fatalf("A2 goal = %+v, %v", g, err)
+	}
+	goals, _ := e.svc.Goals(t.Context(), "u1")
+	if goals.Active.Level != "A2" || len(goals.Others) != 1 || goals.Others[0].Level != "A1" || goals.Others[0].CompletedLessons != 1 {
+		t.Fatalf("goals = %+v", goals)
 	}
 }

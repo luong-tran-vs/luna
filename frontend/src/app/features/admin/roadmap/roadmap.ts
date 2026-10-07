@@ -25,9 +25,10 @@ import {
   GenerateInput,
   GenerateResult,
 } from '../../../core/models/generate';
-import { Level, LessonSummary } from '../../../core/models/lesson';
-import { groupByLevel, Topic, topicLabel, TopicRoadmap } from '../../../core/models/topic';
+import { Level, LEVELS, LessonSummary } from '../../../core/models/lesson';
+import { lowRoadmaps, roadmapLabel, sortTopics, Topic, TopicLevel, TopicRoadmap, TopicWord } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { LevelOption, LevelPicker } from '../../../shared/components/level-picker/level-picker';
 import { AdminApiService } from '../admin-api.service';
 import { DraftChange, DraftList, DraftState } from '../draft-list/draft-list';
 import { GenerateDialog, GenerateOptions, GenerateRequest } from '../generate-dialog/generate-dialog';
@@ -39,13 +40,14 @@ const SAVE_FAILED = 'Không lưu được, vui lòng thử lại.';
 const DRAFT_FIELDS = ['title', 'content'];
 
 /**
- * One roadmap per topic (F14): choose a topic, then add, remove and reorder its lessons.
- * F7: generate lesson drafts with AI, review them here and save them to the end of the roadmap.
- * Drafts live only in this page; leaving or switching topic with drafts asks first.
+ * One roadmap per topic and level (F14): choose a topic and a level, then add, remove and reorder
+ * the lessons of that topic at that level.
+ * F7: generate lesson drafts with AI, review them here and save them to the end of the roadmap of
+ * their level. Drafts live only in this page; leaving or switching topic with drafts asks first.
  */
 @Component({
   selector: 'lu-roadmap',
-  imports: [Loading, RouterLink, CdkDropList, CdkDrag, CdkDragHandle, StatusChip, GenerateDialog, DraftList, ConfirmDialog],
+  imports: [Loading, RouterLink, CdkDropList, CdkDrag, CdkDragHandle, StatusChip, GenerateDialog, DraftList, ConfirmDialog, LevelPicker],
   templateUrl: './roadmap.html',
   styleUrl: './roadmap.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,15 +60,31 @@ export class Roadmap implements CanLeave {
   private readonly injector = inject(Injector);
   private readonly topicSelect = viewChild<ElementRef<HTMLSelectElement>>('topicSelect');
 
-  protected readonly topicLabel = topicLabel;
+  protected readonly levels = LEVELS;
   protected readonly topics = signal<Topic[] | null>(null);
-  protected readonly topicGroups = computed(() => groupByLevel(this.topics() ?? []));
-  protected readonly lowTopics = computed(() => (this.topics() ?? []).filter((t) => t.warning));
+  protected readonly topicOptions = computed(() => sortTopics(this.topics() ?? []));
+  protected readonly lowTopics = computed(() => lowRoadmaps(this.topics() ?? []));
   private readonly query = inject(ActivatedRoute).snapshot.queryParamMap;
   protected readonly selectedId = signal(this.query.get('topicId') ?? '');
+  /** Level of the roadmap; ?level= or, once the topic is known, its first level with lessons. */
+  protected readonly selectedLevel = signal<Level | null>(asLevel(this.query.get('level')));
   /** ?generate=1 (from the Chủ đề page) opens Sinh bài bằng AI once the topic is loaded. */
   private generateOnLoad = this.query.get('generate') === '1';
   protected readonly selectedTopic = computed(() => this.topics()?.find((t) => t.id === this.selectedId()) ?? null);
+  /** One card per level, with how many lessons of the topic it has. */
+  protected readonly levelOptions = computed<LevelOption[]>(() => {
+    const t = this.selectedTopic();
+    return this.levels.map((level) => {
+      const n = t?.levels.find((l) => l.level === level)?.lessonCount ?? 0;
+      return { value: level, label: level, hint: n > 0 ? `${n} bài` : 'Chưa có bài' };
+    });
+  });
+  /** "A1 · Gia đình" */
+  protected readonly selectedLabel = computed(() => {
+    const t = this.selectedTopic();
+    const level = this.selectedLevel();
+    return t && level ? roadmapLabel(level, t) : '';
+  });
 
   protected readonly data = signal<TopicRoadmap | null>(null);
   /** All lessons of the selected topic, to offer those not in the roadmap. */
@@ -95,7 +113,7 @@ export class Roadmap implements CanLeave {
     imageStyle: DEFAULT_IMAGE_STYLE,
   });
   /** F18: the selected topic's vocabulary, loaded each time the dialog opens (coverage changes). */
-  protected readonly topicWords = signal<string[]>([]);
+  protected readonly topicWords = signal<TopicWord[]>([]);
   private openingGenerate = false;
   private optionsLevel: Level | null = null;
   protected readonly drafts = signal<DraftState[]>([]);
@@ -112,7 +130,7 @@ export class Roadmap implements CanLeave {
       return null;
     }
     return d.remaining === 0
-      ? 'Lộ trình chưa có bài. Thêm bài của chủ đề này bên dưới.'
+      ? 'Lộ trình chưa có bài. Thêm bài của chủ đề ở trình độ này bên dưới.'
       : `Lộ trình chỉ còn ${d.remaining} bài chưa học. Hãy thêm bài mới.`;
   });
 
@@ -121,6 +139,7 @@ export class Roadmap implements CanLeave {
       .then((list) => {
         this.topics.set(list);
         if (this.selectedId()) {
+          this.selectedLevel.update((l) => l ?? firstLevel(this.selectedTopic()));
           void this.load(this.selectedId()).then(() => {
             if (this.generateOnLoad && this.data()) {
               this.generateOnLoad = false;
@@ -132,15 +151,33 @@ export class Roadmap implements CanLeave {
       .catch(() => this.error.set('Không tải được danh sách chủ đề.'));
   }
 
-  protected warningText(t: Topic): string {
-    return t.remaining === 0
-      ? `${topicLabel(t)}: lộ trình chưa có bài`
-      : `${topicLabel(t)}: còn ${t.remaining} bài chưa học`;
+  protected warningText(t: Topic, l: TopicLevel): string {
+    return l.remaining === 0
+      ? `${roadmapLabel(l.level, t)}: lộ trình chưa có bài`
+      : `${roadmapLabel(l.level, t)}: còn ${l.remaining} bài chưa học`;
   }
 
-  /** Switches topic; with unsaved drafts (they belong to the current topic) asks first. */
-  protected async select(id: string): Promise<void> {
+  /** Switches level of the same topic. Drafts stay: each one is saved to the roadmap of its own level. */
+  protected selectLevel(value: string): void {
+    const level = asLevel(value);
+    if (!level || level === this.selectedLevel()) {
+      return;
+    }
+    this.selectedLevel.set(level);
+    void this.router.navigate([], { queryParams: { topicId: this.selectedId() || null, level }, replaceUrl: true });
+    this.data.set(null);
+    this.topicLessons.set([]);
+    if (this.selectedId()) {
+      void this.load(this.selectedId());
+    }
+  }
+
+  /** Switches topic (and level, from a warning); with unsaved drafts (they belong to the current topic) asks first. */
+  protected async select(id: string, level?: Level): Promise<void> {
     if (id === this.selectedId()) {
+      if (level) {
+        this.selectLevel(level);
+      }
       return;
     }
     if (this.drafts().length > 0 && !(await this.askLeave())) {
@@ -153,7 +190,8 @@ export class Roadmap implements CanLeave {
     this.drafts.set([]);
     this.generateNote.set(null);
     this.selectedId.set(id);
-    void this.router.navigate([], { queryParams: { topicId: id || null }, replaceUrl: true });
+    this.selectedLevel.set(level ?? firstLevel(this.selectedTopic()));
+    void this.router.navigate([], { queryParams: { topicId: id || null, level: id ? this.selectedLevel() : null }, replaceUrl: true });
     this.data.set(null);
     this.topicLessons.set([]);
     if (id) {
@@ -162,13 +200,14 @@ export class Roadmap implements CanLeave {
   }
 
   private async load(id: string): Promise<void> {
+    const level = this.selectedLevel() ?? 'A1';
     this.error.set(null);
     try {
       const [roadmap, lessons] = await Promise.all([
-        firstValueFrom(this.api.topicRoadmap(id)),
-        firstValueFrom(this.api.list({ topicId: id })),
+        firstValueFrom(this.api.topicRoadmap(id, level)),
+        firstValueFrom(this.api.list({ topicId: id, level })),
       ]);
-      if (this.selectedId() === id) {
+      if (this.selectedId() === id && this.selectedLevel() === level) {
         this.data.set(roadmap);
         this.topicLessons.set(lessons);
         this.updateTopic(roadmap.topic);
@@ -210,14 +249,15 @@ export class Roadmap implements CanLeave {
   private async save(next: LessonSummary[]): Promise<void> {
     const previous = this.data();
     const id = this.selectedId();
-    if (!previous || !id) {
+    const level = this.selectedLevel();
+    if (!previous || !id || !level) {
       return;
     }
     this.data.set({ ...previous, lessons: next });
     this.error.set(null);
     this.saving.set(true);
     try {
-      const saved = await firstValueFrom(this.api.setTopicRoadmap(id, next.map((l) => l.id)));
+      const saved = await firstValueFrom(this.api.setTopicRoadmap(id, level, next.map((l) => l.id)));
       this.data.set(saved);
       this.updateTopic(saved.topic);
     } catch {
@@ -251,21 +291,22 @@ export class Roadmap implements CanLeave {
   /** Loads the topic's words first so the dialog can suggest target words; without them it still opens. */
   protected async openGenerate(): Promise<void> {
     const topic = this.selectedTopic();
-    if (!topic || this.openingGenerate) {
+    const level = this.selectedLevel();
+    if (!topic || !level || this.openingGenerate) {
       return;
     }
-    if (topic.level !== this.optionsLevel) {
+    if (level !== this.optionsLevel) {
       this.options.update((o) => ({
         ...o,
-        words: DEFAULT_WORDS[topic.level],
-        perLesson: DEFAULT_TARGET_WORDS[topic.level],
+        words: DEFAULT_WORDS[level],
+        perLesson: DEFAULT_TARGET_WORDS[level],
       }));
-      this.optionsLevel = topic.level;
+      this.optionsLevel = level;
     }
     this.openingGenerate = true;
-    let words: string[] = [];
+    let words: TopicWord[] = [];
     try {
-      words = (await firstValueFrom(this.api.topicWords(topic.id))).map((w) => w.text);
+      words = await firstValueFrom(this.api.topicWords(topic.id));
     } catch {
       // Generating without target words is still possible.
     } finally {
@@ -290,9 +331,10 @@ export class Roadmap implements CanLeave {
     if (!id || this.generating()) {
       return;
     }
-    const { perLesson, targetWords, images, imageStyle, ...rest } = request;
-    const input: GenerateInput = { ...rest, targetWords };
+    const { perLesson, targetWords, images, imageStyle, level, ...rest } = request;
+    const input: GenerateInput = { ...rest, level, targetWords };
     this.options.set({ ...rest, perLesson, images, imageStyle });
+    this.optionsLevel = level;
     this.generating.set(true);
     this.generateError.set(null);
     try {
@@ -304,6 +346,7 @@ export class Roadmap implements CanLeave {
         ...list,
         ...result.drafts.map((d) => ({
           key: this.nextKey++,
+          level,
           title: d.title,
           content: d.content,
           targetWords: d.targetWords ?? [],
@@ -316,7 +359,7 @@ export class Roadmap implements CanLeave {
           fields: {},
         })),
       ]);
-      this.generateNote.set(generateNote(result));
+      this.generateNote.set(generateNote(result, level === this.selectedLevel() ? null : level));
       this.dialogOpen.set(false);
     } catch (err) {
       this.generateError.set(messageOf(err) ?? GENERATE_FAILED);
@@ -381,6 +424,7 @@ export class Roadmap implements CanLeave {
           title: draft.title,
           content: draft.content,
           topicId,
+          level: draft.level,
           source: AI_SOURCE,
           license: AI_LICENSE,
           appendToRoadmap: true,
@@ -436,9 +480,20 @@ export class Roadmap implements CanLeave {
   }
 }
 
-function generateNote(result: GenerateResult): string {
+/** A level from a query parameter, or null. */
+function asLevel(value: string | null): Level | null {
+  return LEVELS.find((l) => l === value) ?? null;
+}
+
+/** The first level of a topic that has lessons, else A1. */
+function firstLevel(topic: Topic | null): Level {
+  return topic?.levels.find((l) => l.lessonCount > 0)?.level ?? topic?.levels.at(0)?.level ?? 'A1';
+}
+
+/** otherLevel: the drafts were written for another level than the roadmap shown. */
+function generateNote(result: GenerateResult, otherLevel: Level | null): string {
   const got = result.drafts.length;
-  let note = `Đã thêm ${got} bản nháp.`;
+  let note = `Đã thêm ${got} bản nháp${otherLevel ? ` trình độ ${otherLevel} (lưu vào lộ trình ${otherLevel})` : ''}.`;
   if (result.dropped > 0) {
     note += ` Đã loại ${result.dropped} bản: ${dropReasonsText(result)}.`;
   } else if (got < result.requested) {

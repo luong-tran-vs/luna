@@ -62,7 +62,7 @@ func decodeBody(t *testing.T, rec *httptest.ResponseRecorder) map[string]any {
 	return out
 }
 
-const validBody = `{"title":"Park","content":"We went to the park. He gave up smoking.","topicId":"topic-b1","source":"Tự viết","license":"CC BY"}`
+const validBody = `{"title":"Park","content":"We went to the park. He gave up smoking.","topicId":"topic-b1","level":"B1","source":"Tự viết","license":"CC BY"}`
 
 func (a *api) createLesson(t *testing.T) map[string]any {
 	t.Helper()
@@ -200,7 +200,7 @@ func TestOldBodyAndRoadmapRoutesAreGone(t *testing.T) {
 	if rec := a.do(t, http.MethodPost, "/api/admin/lessons", "admin", old); rec.Code != http.StatusBadRequest {
 		t.Fatalf("old body: %d", rec.Code)
 	}
-	unknown := `{"title":"Park","content":"We went.","topicId":"nope","source":"s","license":"l"}`
+	unknown := `{"title":"Park","content":"We went.","topicId":"nope","level":"B1","source":"s","license":"l"}`
 	rec := a.do(t, http.MethodPost, "/api/admin/lessons", "admin", unknown)
 	if rec.Code != http.StatusBadRequest || decodeBody(t, rec)["fields"].(map[string]any)["topicId"] != "Chủ đề không tồn tại" {
 		t.Fatalf("unknown topic: %d %s", rec.Code, rec.Body)

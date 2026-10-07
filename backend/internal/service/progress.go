@@ -57,7 +57,7 @@ type topicRoadmaps struct {
 	svc *topic.Service
 }
 
-func (t topicRoadmaps) Roadmap(ctx context.Context, topicID string) (progress.TopicInfo, error) {
+func (t topicRoadmaps) Roadmap(ctx context.Context, topicID, level string) (progress.TopicInfo, error) {
 	tp, err := t.svc.Get(ctx, topicID)
 	if errors.Is(err, topic.ErrNotFound) {
 		return progress.TopicInfo{}, progress.ErrTopicNotFound
@@ -65,7 +65,7 @@ func (t topicRoadmaps) Roadmap(ctx context.Context, topicID string) (progress.To
 	if err != nil {
 		return progress.TopicInfo{}, fmt.Errorf("get topic: %w", err)
 	}
-	return progress.TopicInfo{ID: tp.ID, Name: tp.Name, Level: tp.Level, LessonIDs: tp.LessonIDs}, nil
+	return progress.TopicInfo{ID: tp.ID, Name: tp.Name, Level: level, LessonIDs: tp.Roadmap(level)}, nil
 }
 
 // dailyReviews adapts vocab.Service to progress.Reviews.

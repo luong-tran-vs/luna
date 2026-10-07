@@ -134,6 +134,9 @@
 
 ## F14. Chủ đề và lộ trình theo trình độ
 
+> **Sửa 2026-10-07**: chủ đề dùng chung cho mọi trình độ; trình độ chọn ở từng bài; mỗi cặp (chủ đề, trình độ) là một lộ trình;
+> chủ đề cũ cùng tên được gộp tự động. Xem `specs/007-topic-roadmaps/spec.md`.
+
 **Chức năng**
 - Danh mục chủ đề: quản trị viên thêm, sửa, xoá chủ đề. Mỗi chủ đề có tên, trình độ (A1–C2), mô tả ngắn.
 - Mỗi bài thuộc đúng một chủ đề (bắt buộc). Form bài chọn chủ đề từ danh sách, thay cho ô chủ đề gõ tự do và ô trình độ riêng.

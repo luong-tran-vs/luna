@@ -44,6 +44,7 @@ func migrations() []migration {
 		{ID: "017_word_images", Stmts: wordImagesSchema()},
 		{ID: "018_lesson_target_words", Stmts: lessonTargetWordsSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "019_lesson_progress_step_times", Stmts: stepTimesSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "020_shared_topics", Stmts: sharedTopicsSchema(), Ignore: []uint16{errDuplicateColumn, errCantDropKey, errDuplicateKeyName}},
 	}
 }
 

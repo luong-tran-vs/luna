@@ -1,7 +1,7 @@
 <section class="page">
   <header class="page-header">
     <h1 class="page-title">{{ isEdit() ? 'Sửa bài' : 'Thêm bài' }}</h1>
-    <a class="btn" [routerLink]="isEdit() ? ['/admin/lessons', id] : '/admin'">Quay lại</a>
+    <a class="btn" [routerLink]="isEdit() ? ['/admin/lessons', id] : '/admin/lessons'">Quay lại</a>
   </header>
 
   @if (loadError(); as message) {
@@ -33,17 +33,28 @@
         <select id="lesson-topic" name="topicId" formControlName="topicId"
           [attr.aria-invalid]="!!error('topicId')" [attr.aria-describedby]="describedBy('topicId', 'lesson-topic-help')">
           <option value="">Chọn chủ đề</option>
-          @for (group of topicGroups(); track group.level) {
-            <optgroup [label]="group.level">
-              @for (t of group.topics; track t.id) {
-                <option [value]="t.id">{{ topicLabel(t) }}</option>
-              }
-            </optgroup>
+          @for (t of topicOptions(); track t.id) {
+            <option [value]="t.id">{{ t.name }}</option>
           }
         </select>
-        <p class="field-hint" id="lesson-topic-help">Trình độ của bài lấy theo chủ đề.</p>
+        <p class="field-hint" id="lesson-topic-help">Chủ đề dùng chung cho mọi trình độ.</p>
         @if (error('topicId'); as message) {
           <p class="field-error" id="lesson-topicId-error">{{ message }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <span class="label" id="lesson-level-label">Trình độ</span>
+        <lu-level-picker
+          id="lesson-level"
+          formControlName="level"
+          labelledBy="lesson-level-label"
+          [invalid]="!!error('level')"
+          [describedBy]="describedBy('level', 'lesson-level-help')"
+        />
+        <p class="field-hint" id="lesson-level-help">Bài nằm trong lộ trình của chủ đề ở trình độ này.</p>
+        @if (error('level'); as message) {
+          <p class="field-error" id="lesson-level-error">{{ message }}</p>
         }
       </div>
 
@@ -57,14 +68,14 @@
           }
         </select>
         <p class="field-hint" id="lesson-grammar-help">
-          @if (!form.controls.topicId.value) {
-            Chọn chủ đề trước.
+          @if (!form.controls.level.value) {
+            Chọn trình độ trước.
           } @else if (pointsState() === 'loading') {
             Đang tải điểm ngữ pháp…
           } @else if (pointsState() === 'error') {
             Không tải được điểm ngữ pháp; bài giữ nguyên điểm hiện có.
           } @else {
-            Điểm ngữ pháp của giáo trình cùng trình độ với chủ đề.
+            Điểm ngữ pháp của giáo trình cùng trình độ với bài.
           }
         </p>
         @if (grammarError(); as message) {

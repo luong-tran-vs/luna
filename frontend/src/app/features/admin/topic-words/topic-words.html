@@ -14,8 +14,21 @@
 
     <p class="muted">
       Từ vựng của chủ đề được ưu tiên khi sinh bài bằng AI và luôn được chú thích khi có trong bài. "Đã dùng" là từ có trong ít
-      nhất một bài của chủ đề.
+      nhất một bài của chủ đề. Mỗi từ có trình độ: sinh bài trình độ nào chỉ dùng từ của trình độ đó trở xuống, hoặc từ để
+      "Mọi trình độ".
     </p>
+
+    <div class="field word-filter">
+      <span class="label" id="topic-words-filter-label">Xem</span>
+      <lu-level-picker
+        id="topic-words-filter"
+        labelledBy="topic-words-filter-label"
+        [compact]="true"
+        [options]="filterOptions"
+        [value]="filter()"
+        (changed)="setFilter($event)"
+      />
+    </div>
 
     @if (topError(); as message) {
       <p class="form-alert" role="alert">{{ message }}</p>
@@ -23,11 +36,24 @@
 
     @if (rows().length === 0) {
       <p class="card muted">Chủ đề chưa có từ vựng. Thêm từ ở ô bên dưới.</p>
+    } @else if (shownRows().length === 0) {
+      <p class="card muted">Không có từ nào ở mục này.</p>
     } @else {
       <ul class="words" aria-label="Danh sách từ">
-        @for (row of rows(); track row.key) {
+        @for (row of shownRows(); track row.key) {
           <li class="word" [class.removed]="row.removed" [class.new]="!row.saved">
             <span class="word-text">{{ row.text }}</span>
+            <select
+              class="word-level"
+              [attr.aria-label]="'Trình độ của ' + row.text"
+              [disabled]="saving() || row.removed"
+              (change)="setRowLevel(row, $any($event.target).value)"
+            >
+              <option value="" [selected]="row.level === ''">Mọi trình độ</option>
+              @for (l of levels; track l) {
+                <option [value]="l" [selected]="row.level === l">{{ l }}</option>
+              }
+            </select>
             <span class="word-status" [class.used]="row.saved?.used && !row.removed">{{ status(row) }}</span>
             <button
               type="button"
@@ -60,6 +86,17 @@
         (keydown)="onDraftKey($event)"
       ></textarea>
       <p class="field-hint" id="topic-words-add-hint">Mỗi dòng một từ hoặc cách nhau bằng dấu phẩy. Ctrl+Enter để thêm.</p>
+      <div class="add-level">
+        <span class="label" id="topic-words-add-level-label">Trình độ của các từ thêm</span>
+        <lu-level-picker
+          id="topic-words-add-level"
+          labelledBy="topic-words-add-level-label"
+          [compact]="true"
+          [options]="addLevelOptions"
+          [value]="addLevel()"
+          (changed)="setAddLevel($event)"
+        />
+      </div>
       <div class="actions">
         <button type="button" class="btn" [disabled]="saving() || !draft().trim()" (click)="addDraft()">
           Thêm vào danh sách
@@ -81,9 +118,10 @@
         {{ saving() ? 'Đang lưu…' : 'Lưu' }}
       </button>
     </div>
-    @if (pendingCount().added || pendingCount().removed) {
+    @if (pendingCount().added || pendingCount().removed || pendingCount().changed) {
       <p class="field-hint pending">
-        Chưa lưu: {{ pendingCount().added }} từ mới, {{ pendingCount().removed }} từ sẽ xoá.
+        Chưa lưu: {{ pendingCount().added }} từ mới, {{ pendingCount().removed }} từ sẽ xoá,
+        {{ pendingCount().changed }} từ đổi trình độ.
       </p>
     }
   } @else {

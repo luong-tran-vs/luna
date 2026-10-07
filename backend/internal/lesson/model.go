@@ -116,13 +116,39 @@ type Filter struct {
 	TopicID string
 }
 
-// TopicRef is what lessons need to know about their topic.
-type TopicRef struct {
-	ID    string
-	Name  string
+// TopicWord is a word of the topic vocabulary (F18); Level is the lowest level it is meant for,
+// "" for every level.
+type TopicWord struct {
+	Text  string
 	Level Level
+}
+
+// fits reports whether the word may be given to a lesson of level.
+func (w TopicWord) fits(level Level) bool {
+	return w.Level == "" || slices.Index(Levels, w.Level) <= slices.Index(Levels, level)
+}
+
+// TopicRef is what lessons need to know about their topic. A topic is shared by every level.
+type TopicRef struct {
+	ID   string
+	Name string
 	// Words is the topic vocabulary (F18).
-	Words []string
+	Words []TopicWord
+}
+
+// WordTexts returns the texts of the topic words.
+func (t TopicRef) WordTexts() []string {
+	out := make([]string, len(t.Words))
+	for i, w := range t.Words {
+		out[i] = w.Text
+	}
+	return out
+}
+
+// Place is a roadmap: a topic at one level.
+type Place struct {
+	TopicID string
+	Level   Level
 }
 
 var (

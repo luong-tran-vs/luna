@@ -30,7 +30,7 @@ describe('AdminApiService', () => {
   };
 
   const lesson = { id: 'l1', title: 'T' };
-  const input = { title: 'T', content: 'C.', topicId: 't1', source: 's', license: 'l' };
+  const input = { title: 'T', content: 'C.', topicId: 't1', level: 'A1' as const, source: 's', license: 'l' };
 
   it('lists lessons with filters, skipping empty ones', async () => {
     await expect(
@@ -84,19 +84,18 @@ describe('AdminApiService', () => {
 
   it('lists, creates, updates and deletes topics', async () => {
     const topic = { id: 't1', name: 'Gia đình' };
-    const topicInput = { name: 'Gia đình', level: 'A1' as const, description: '' };
+    const topicInput = { name: 'Gia đình', description: '' };
     await expect(call(api.topics(), 'GET', '/api/admin/topics', { topics: [topic] })).resolves.toEqual([topic]);
-    await call(api.topics('A1'), 'GET', '/api/admin/topics?level=A1', { topics: [] });
     await expect(call(api.createTopic(topicInput), 'POST', '/api/admin/topics', { topic }, topicInput)).resolves.toEqual(topic);
     await expect(call(api.updateTopic('t1', topicInput), 'PUT', '/api/admin/topics/t1', { topic }, topicInput)).resolves.toEqual(topic);
     await call(api.deleteTopic('t1'), 'DELETE', '/api/admin/topics/t1', null);
   });
 
-  it('reads and saves a topic roadmap', async () => {
-    const roadmap = { topic: {}, lessons: [], remaining: 0, warning: true };
-    await expect(call(api.topicRoadmap('t1'), 'GET', '/api/admin/topics/t1/roadmap', roadmap)).resolves.toEqual(roadmap);
+  it('reads and saves the roadmap of a topic at one level', async () => {
+    const roadmap = { topic: {}, level: 'B1', lessons: [], remaining: 0, warning: true };
+    await expect(call(api.topicRoadmap('t1', 'B1'), 'GET', '/api/admin/topics/t1/roadmap?level=B1', roadmap)).resolves.toEqual(roadmap);
     await expect(
-      call(api.setTopicRoadmap('t1', ['a', 'b']), 'PUT', '/api/admin/topics/t1/roadmap', roadmap, { lessonIds: ['a', 'b'] }),
+      call(api.setTopicRoadmap('t1', 'B1', ['a', 'b']), 'PUT', '/api/admin/topics/t1/roadmap?level=B1', roadmap, { lessonIds: ['a', 'b'] }),
     ).resolves.toEqual(roadmap);
   });
 
@@ -106,26 +105,25 @@ describe('AdminApiService', () => {
       requested: 1,
       dropped: 0,
     };
-    const body = { count: 1, words: 120, kind: 'reading' as const, idea: '', targetWords: [['Family']] };
+    const body = { level: 'A2' as const, count: 1, words: 120, kind: 'reading' as const, idea: '', targetWords: [['Family']] };
     await expect(
       call(api.generateLessons('t1', body), 'POST', '/api/admin/topics/t1/generate', result, body),
     ).resolves.toEqual(result);
   });
 
   it('reads and replaces the vocabulary of a topic (F18)', async () => {
-    const words = [{ text: 'Family', used: true, lessonCount: 2 }];
+    const words = [{ text: 'Family', level: '' as const, used: true, lessonCount: 2 }];
+    const sent = [{ text: 'Family', level: '' as const }, { text: 'cousin', level: 'A2' as const }];
     await expect(call(api.topicWords('t1'), 'GET', '/api/admin/topics/t1/words', { words })).resolves.toEqual(words);
     await expect(
-      call(api.setTopicWords('t1', ['Family', 'cousin']), 'PUT', '/api/admin/topics/t1/words', { words }, {
-        words: ['Family', 'cousin'],
-      }),
+      call(api.setTopicWords('t1', sent), 'PUT', '/api/admin/topics/t1/words', { words }, { words: sent }),
     ).resolves.toEqual(words);
   });
 
   it('asks for a split of target words (F18)', async () => {
     const plan = { groups: [['Family', 'cousin'], []], shortage: 6 };
     await expect(
-      call(api.wordPlan('t1', 2, 8), 'GET', '/api/admin/topics/t1/word-plan?count=2&perLesson=8', plan),
+      call(api.wordPlan('t1', 'A2', 2, 8), 'GET', '/api/admin/topics/t1/word-plan?level=A2&count=2&perLesson=8', plan),
     ).resolves.toEqual(plan);
   });
 
@@ -136,9 +134,9 @@ describe('AdminApiService', () => {
   });
 
   it('asks the AI for new topic words (F18)', async () => {
-    const body = { added: ['aunt'], words: [{ text: 'aunt', used: false, lessonCount: 0 }] };
+    const body = { added: ['aunt'], words: [{ text: 'aunt', level: 'B1', used: false, lessonCount: 0 }] };
     await expect(
-      call(api.suggestTopicWords('t1', 6), 'POST', '/api/admin/topics/t1/words/suggest', body, { count: 6 }),
+      call(api.suggestTopicWords('t1', 'B1', 6), 'POST', '/api/admin/topics/t1/words/suggest', body, { count: 6, level: 'B1' }),
     ).resolves.toEqual(body);
   });
 
