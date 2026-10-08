@@ -146,7 +146,7 @@ func (r *Users) Update(ctx context.Context, id string, c auth.AccountChange) err
 var userData = []string{
 	"sessions", export.CollCards, export.CollReviewLogs, export.CollGoals, export.CollLessonProgress,
 	export.CollStudyDays, export.CollDictationResults, export.CollReadingAnswers, export.CollWritings,
-	export.CollGrammarProgress,
+	export.CollGrammarProgress, "ask_usage",
 }
 
 // Delete removes an account and its rows in one transaction.

@@ -111,6 +111,7 @@ type annotationJSON struct {
 	MeaningVi     string `json:"meaningVi"`
 	SentenceIndex int    `json:"sentenceIndex"`
 	EditedByAdmin bool   `json:"editedByAdmin"`
+	POS           string `json:"pos"`
 }
 
 type lessonJSON struct {

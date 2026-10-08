@@ -1,0 +1,237 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Sử dụng AI</h1>
+    <div class="actions">
+      <button type="button" class="btn" [disabled]="loading()" [attr.aria-busy]="loading()" (click)="refresh()">
+        {{ loading() ? 'Đang tải…' : 'Làm mới' }}
+      </button>
+    </div>
+  </header>
+
+  <p class="muted">
+    Mọi request gửi tới Gemini đều được ghi lại kèm số token Google trả về, lưu 30 ngày. Gói miễn phí giới hạn
+    <strong>request/phút</strong>, <strong>token/phút</strong> và <strong>request/ngày</strong> theo từng model; mức
+    giới hạn cụ thể xem ở
+    <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank" rel="noopener">trang giới hạn của Google</a>.
+    @if (updatedAt()) {
+      Cập nhật lúc {{ updatedAt() }}, tự làm mới mỗi 30 giây.
+    }
+  </p>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      Không tải được số liệu sử dụng AI.
+      <button type="button" class="btn" (click)="refresh()">Thử lại</button>
+    </div>
+  }
+
+  @if (usage(); as u) {
+    <ul class="stats" aria-label="Số liệu chính">
+      <li class="card stat">
+        <span class="stat-label">Phút vừa qua</span>
+        <span class="stat-value">{{ n(lastMinute().requests) }} <small>request</small></span>
+        <span class="stat-sub">{{ n(lastMinute().totalTokens) }} token</span>
+      </li>
+      <li class="card stat">
+        <span class="stat-label">Phút cao nhất trong 1 giờ</span>
+        <span class="stat-value">{{ n(u.peakMinute.requests) }} <small>request</small></span>
+        <span class="stat-sub">{{ n(u.peakMinute.totalTokens) }} token</span>
+      </li>
+      <li class="card stat">
+        <span class="stat-label">Hôm nay (từ {{ dayStart() }})</span>
+        <span class="stat-value">{{ n(today().requests) }} <small>request</small></span>
+        <span class="stat-sub">{{ n(today().totalTokens) }} token</span>
+      </li>
+      <li class="card stat">
+        <span class="stat-label">Lỗi hôm nay</span>
+        <span class="stat-value">{{ n(today().errors + today().quota) }} <small>request</small></span>
+        <span class="stat-sub">{{ n(today().quota) }} lần hết lượt (429)</span>
+      </li>
+    </ul>
+    <p class="muted small">
+      "Hôm nay" tính theo ngày của Google: giới hạn request/ngày được đặt lại lúc nửa đêm giờ Thái Bình Dương, tức
+      {{ dayStart() }} theo giờ của bạn.
+    </p>
+
+    @if (u.today.length > 1) {
+      <div class="card">
+        <h2 class="section-title">Hôm nay theo model</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Model</th>
+                <th scope="col" class="num">Request</th>
+                <th scope="col" class="num">Lỗi / hết lượt</th>
+                <th scope="col" class="num">Token</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (m of u.today; track m.model) {
+                <tr>
+                  <th scope="row">{{ m.model }}</th>
+                  <td class="num">{{ n(m.requests) }}</td>
+                  <td class="num">{{ n(m.errors) }} / {{ n(m.quota) }}</td>
+                  <td class="num">{{ n(m.totalTokens) }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    <div class="card">
+      <h2 class="section-title" id="ai-minutes-title">Request mỗi phút, 60 phút qua</h2>
+      <p class="muted small">
+        Tổng {{ n(hourTotal().requests) }} request, {{ n(hourTotal().totalTokens) }} token. Rê chuột hoặc dùng phím Tab
+        trên từng cột để xem chi tiết.
+      </p>
+      <div class="chart">
+        <div class="chart-axis" aria-hidden="true">
+          <span>{{ barTop() }}</span>
+          <span>0</span>
+        </div>
+        <ol class="bars" aria-labelledby="ai-minutes-title" (mouseleave)="active.set(null)">
+          @for (b of bars(); track $index) {
+            <li
+              class="bar-slot"
+              tabindex="0"
+              [attr.aria-label]="b.label + ': ' + b.requests + ' request, ' + b.tokens + ' token'"
+              (mouseenter)="active.set($index)"
+              (focus)="active.set($index)"
+              (blur)="active.set(null)"
+            >
+              <span class="bar" [class.bar-empty]="b.requests === 0" [style.height.%]="b.height"></span>
+            </li>
+          }
+        </ol>
+      </div>
+      <div class="chart-foot" aria-hidden="true">
+        <span>{{ bars()[0]?.label }}</span>
+        <span>{{ bars()[bars().length - 1]?.label }}</span>
+      </div>
+      <p class="tooltip" aria-live="polite">
+        @if (activeBar(); as b) {
+          <strong>{{ b.label }}</strong> · {{ n(b.requests) }} request · {{ n(b.tokens) }} token
+        }
+      </p>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">7 ngày qua, theo chức năng</h2>
+      @if (u.week.length === 0) {
+        <p class="muted">Chưa có request nào trong 7 ngày qua.</p>
+      } @else {
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Chức năng</th>
+                <th scope="col" class="num">Request</th>
+                <th scope="col" class="num">Lỗi / hết lượt</th>
+                <th scope="col" class="num">Token vào</th>
+                <th scope="col" class="num">Token ra</th>
+                <th scope="col" class="num">Tổng token</th>
+                <th scope="col" class="num">TB / request</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (o of u.week; track o.op) {
+                <tr>
+                  <th scope="row">{{ opLabel(o.op) }}</th>
+                  <td class="num">{{ n(o.requests) }}</td>
+                  <td class="num">{{ n(o.errors) }} / {{ n(o.quota) }}</td>
+                  <td class="num">{{ n(o.promptTokens) }}</td>
+                  <td class="num">{{ n(o.outputTokens) }}</td>
+                  <td class="num">{{ n(o.totalTokens) }}</td>
+                  <td class="num">{{ perRequest(o) }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="muted small">Tổng token có thể lớn hơn vào + ra: phần chênh là token "suy nghĩ" của model.</p>
+      }
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Request gần đây</h2>
+      @if (u.recent.length === 0) {
+        <p class="muted">Chưa có request nào.</p>
+      } @else {
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Lúc</th>
+                <th scope="col">Chức năng</th>
+                <th scope="col">Model</th>
+                <th scope="col">Kết quả</th>
+                <th scope="col" class="num">Token vào / ra</th>
+                <th scope="col" class="num">Tổng</th>
+                <th scope="col" class="num">Thời gian</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of u.recent; track $index) {
+                <tr>
+                  <td class="num">{{ time(c.at) }}</td>
+                  <td>{{ opLabel(c.op) }}</td>
+                  <td>{{ c.model }}</td>
+                  <td>
+                    <span class="outcome" [class.outcome-bad]="c.outcome !== 'ok'">
+                      <span class="outcome-mark" aria-hidden="true">{{ c.outcome === 'ok' ? '✓' : '!' }}</span>
+                      {{ outcome(c) }}
+                    </span>
+                  </td>
+                  <td class="num">{{ n(c.promptTokens) }} / {{ n(c.outputTokens) }}</td>
+                  <td class="num">{{ n(c.totalTokens) }}</td>
+                  <td class="num">{{ seconds(c.durationMs) }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  } @else if (!loadError()) {
+    <p class="muted" role="status">Đang tải…</p>
+  }
+
+  <div class="card">
+    <h2 class="section-title">Mỗi chức năng tốn bao nhiêu request</h2>
+    <p class="muted small">
+      Số request cho một lần dùng. Job nền (chú thích, luyện tập, ảnh, chấm bài viết) tự thử lại tối đa 3 lần khi AI trả
+      về hỏng hoặc hết lượt; các nút quản trị không tự thử lại.
+    </p>
+    @for (g of featureCosts; track g.title) {
+      <h3 class="group-title">{{ g.title }}</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Chức năng</th>
+              <th scope="col">Ở đâu</th>
+              <th scope="col">Request mỗi lần</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of g.rows; track r.feature) {
+              <tr>
+                <th scope="row">
+                  {{ r.feature }}
+                  @if (r.paid) {
+                    <span class="tag">có tính phí</span>
+                  }
+                </th>
+                <td>{{ r.where }}</td>
+                <td>{{ r.requests }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</section>

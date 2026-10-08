@@ -1,8 +1,8 @@
 /*
  * Phone: the tabs are a bar fixed to the bottom (hidden while studying a lesson). --tabbar-h is
  * inherited by the pages so their sticky bottom bars and toasts sit above it.
- * From 768px: a top bar with the brand and the same tabs; Tài khoản and a dark mode switch sit on
- * the right. On a phone the switch stays in Tài khoản only.
+ * From 1024px (six tabs need the room): a top bar with the brand and the same tabs; Tài khoản and
+ * a dark mode switch sit on the right. On phones and tablets the switch stays in Tài khoản only.
  */
 :host {
   --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px));
@@ -41,7 +41,7 @@
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   height: 64px;
 }
 
@@ -52,15 +52,27 @@
   justify-content: center;
   gap: 2px;
   min-width: 0;
+  padding: 0 2px;
   font: var(--text-xs) var(--font-ui);
+  /* Six tabs share the phone's width: the longest bold label ("Trang chủ", ~5.2em) must fit a
+     sixth of it, so the size follows the screen (12px from 400px, 10px at most narrow). */
+  font-size: clamp(10px, 3vw, 12px);
   color: var(--color-text-muted);
   text-decoration: none;
+}
+
+/* One line always: a label that wrapped pushed the bar out of shape. */
+.tab-label {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tab-icon {
   position: relative;
   display: inline-flex;
-  padding: 2px 14px;
+  padding: 2px 10px;
   border-radius: var(--radius-full);
 
   --icon-size: 22px;
@@ -89,7 +101,7 @@
   bottom: var(--tabbar-h);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   :host,
   :host(.focus) {
     --tabbar-h: 0px;

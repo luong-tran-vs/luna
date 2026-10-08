@@ -1,0 +1,238 @@
+:host {
+  display: block;
+}
+
+/* --- wide screens: a table --- */
+
+.table {
+  width: 100%;
+  font: var(--text-base) var(--font-ui);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+thead th {
+  padding: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: start;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.tag-v {
+  margin-left: 4px;
+  padding: 1px 6px;
+  font-size: 0.8em;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+tbody {
+  scroll-margin-top: 80px;
+  outline: none;
+}
+
+.letter-row th {
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  text-align: start;
+  background: var(--color-primary-soft);
+}
+
+.verb > * {
+  padding: var(--space-2) var(--space-3);
+  text-align: start;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.verb:hover > * {
+  background: color-mix(in srgb, var(--color-primary-soft) 45%, transparent);
+}
+
+/* The row being read: tinted, with a bar on the left (not color alone). */
+.verb.playing > * {
+  background: var(--color-primary-soft);
+}
+
+.verb.playing > .v1 {
+  box-shadow: inset 4px 0 0 var(--color-primary);
+}
+
+.v1 {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.common {
+  margin-left: 4px;
+  color: var(--color-accent-ink);
+  vertical-align: -2px;
+
+  --icon-size: 14px;
+}
+
+.v2 .spelling {
+  color: var(--color-primary-ink);
+}
+
+.or,
+.note {
+  color: var(--color-text-muted);
+}
+
+.note {
+  display: block;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.listen {
+  width: 1%;
+}
+
+.listen-btn,
+.reveal {
+  cursor: pointer;
+}
+
+.listen-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: 50%;
+}
+
+.listen-btn:hover,
+.listen-btn[aria-pressed='true'] {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+
+/* Self-test: a hatched box hides the form until tapped. */
+.reveal {
+  min-width: 72px;
+  min-height: 32px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: repeating-linear-gradient(-45deg, var(--color-track) 0 6px, var(--color-bg) 6px 12px);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.reveal:hover {
+  color: var(--color-primary-ink);
+  border-color: var(--color-primary);
+}
+
+.listen-btn:focus-visible,
+.reveal:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* --- phones: one card per verb, V2 and V3 side by side --- */
+
+@media (max-width: 639px) {
+  .table,
+  tbody,
+  tr {
+    display: block;
+  }
+
+  .table {
+    background: none;
+    border: 0;
+    overflow: visible;
+  }
+
+  thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .letter-row th {
+    display: block;
+    width: fit-content;
+    margin: var(--space-3) 0 var(--space-2);
+    border-radius: var(--radius-full);
+  }
+
+  .verb {
+    display: grid;
+    grid-template: 'v1 v1 listen' 'v2 v3 listen' 'vi vi vi' / 1fr 1fr auto;
+    gap: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-2);
+    padding: var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+  }
+
+  .verb > * {
+    padding: 0;
+    border: 0;
+  }
+
+  .verb:hover > *,
+  .verb.playing > * {
+    background: none;
+    box-shadow: none;
+  }
+
+  .verb.playing {
+    background: var(--color-primary-soft);
+    border-color: var(--color-primary);
+  }
+
+  .v1 {
+    grid-area: v1;
+    font-size: 1.125rem;
+  }
+
+  .v2 {
+    grid-area: v2;
+  }
+
+  .v3 {
+    grid-area: v3;
+  }
+
+  .vi {
+    grid-area: vi;
+    padding-top: var(--space-2);
+    font: var(--text-sm) var(--font-ui);
+    border-top: 1px dashed var(--color-line);
+  }
+
+  .listen {
+    grid-area: listen;
+    align-self: center;
+  }
+
+  .form::before {
+    content: attr(data-label);
+    display: block;
+    font: var(--text-xs) var(--font-ui);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .reveal {
+    width: 100%;
+  }
+}

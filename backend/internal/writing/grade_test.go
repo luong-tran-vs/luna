@@ -162,3 +162,79 @@ func TestRegrade(t *testing.T) {
 		t.Fatalf("done: %v", err)
 	}
 }
+
+// lastJob is the last queued job.
+func (e *env) lastJob() job.Job {
+	jobs := e.jobs.all()
+	return jobs[len(jobs)-1]
+}
+
+func TestResubmitUsesTheSecondGrading(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	w, j := e.submitted(t)
+	if w.Gradings != 1 {
+		t.Fatalf("first gradings = %d", w.Gradings)
+	}
+	if _, err := e.svc.Resubmit(t.Context(), "u1", w.ID, "My family has four people now."); !errors.Is(err, ErrGrading) {
+		t.Fatalf("while grading: %v", err)
+	}
+	_ = e.svc.ProcessGrade(t.Context(), j)
+
+	if _, err := e.svc.Resubmit(t.Context(), "u1", w.ID, "Too short"); err == nil {
+		t.Fatal("short text accepted")
+	}
+	if _, err := e.svc.Resubmit(t.Context(), "u2", w.ID, "My family has four people now."); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("other user: %v", err)
+	}
+	before := len(e.jobs.all())
+	got, err := e.svc.Resubmit(t.Context(), "u1", w.ID, "  My family has four people now.  ")
+	if err != nil || got.Gradings != 2 || got.Text != "My family has four people now." || got.Grade.Status != GradePending {
+		t.Fatalf("resubmit = %+v, %v", got, err)
+	}
+	if len(e.jobs.all()) != before+1 || e.lastJob().TargetID != w.ID {
+		t.Fatalf("jobs = %+v", e.jobs.all())
+	}
+	stored, _ := e.repo.Get(t.Context(), w.ID)
+	if stored.Text != got.Text || stored.Gradings != 2 {
+		t.Fatalf("stored = %+v", stored)
+	}
+
+	// The second grading was the last: no resubmit, no regrade after a failure.
+	e.svc.JobFailed(t.Context(), e.lastJob(), ai.ErrQuota)
+	if _, err := e.svc.Regrade(t.Context(), "u1", w.ID); !errors.Is(err, ErrNoGradings) {
+		t.Fatalf("regrade after two gradings: %v", err)
+	}
+	if _, err := e.svc.Resubmit(t.Context(), "u1", w.ID, "My family has four people again."); !errors.Is(err, ErrNoGradings) {
+		t.Fatalf("third submit: %v", err)
+	}
+}
+
+func TestRegradeCountsAsTheSecondGrading(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	w, j := e.submitted(t)
+	e.svc.JobFailed(t.Context(), j, ai.ErrQuota)
+	got, err := e.svc.Regrade(t.Context(), "u1", w.ID)
+	if err != nil || got.Gradings != 2 {
+		t.Fatalf("regrade = %+v, %v", got, err)
+	}
+	_ = e.svc.ProcessGrade(t.Context(), e.lastJob())
+	if _, err := e.svc.Resubmit(t.Context(), "u1", w.ID, "My family has four people now."); !errors.Is(err, ErrNoGradings) {
+		t.Fatalf("resubmit after regrade: %v", err)
+	}
+}
+
+func TestWritingsBeforeTheCountUsedOneGrading(t *testing.T) {
+	t.Parallel()
+	if got := GradingsUsed(Writing{Status: StatusSubmitted}); got != 1 {
+		t.Fatalf("legacy = %d", got)
+	}
+	e := newEnv()
+	w, j := e.submitted(t)
+	_ = e.svc.ProcessGrade(t.Context(), j)
+	_, _ = e.repo.update(w.ID, func(w *Writing) { w.Gradings = 0 })
+	if got, err := e.svc.Resubmit(t.Context(), "u1", w.ID, "My family has four people now."); err != nil || got.Gradings != 2 {
+		t.Fatalf("legacy resubmit = %+v, %v", got, err)
+	}
+}

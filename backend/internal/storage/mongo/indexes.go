@@ -9,6 +9,8 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
+
+	"github.com/luongtran/luna/backend/internal/aiusage"
 )
 
 // EnsureIndexes creates the indexes the repositories rely on. It is idempotent.
@@ -148,6 +150,15 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 		return fmt.Errorf("ai_lookups index: %w", err)
 	}
 
+	// F9 limit: one record per learner, lesson and asked word.
+	_, err = db.Collection("ask_usage").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "userId", Value: 1}, {Key: "lessonId", Value: 1}, {Key: "textLower", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("ask_usage index: %w", err)
+	}
+
 	// F20: one grammar lesson per syllabus point; one progress record per learner and point.
 	_, err = db.Collection("grammar_lessons").Indexes().CreateOne(ctx, mongo.IndexModel{
 		Keys: bson.D{{Key: "pointId", Value: 1}}, Options: options.Index().SetUnique(true),
@@ -176,6 +187,14 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	})
 	if err != nil {
 		return fmt.Errorf("word_images index: %w", err)
+	}
+	// AI usage page: requests by time, dropped after aiusage.Keep.
+	_, err = db.Collection("ai_usage").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "at", Value: 1}},
+		Options: options.Index().SetExpireAfterSeconds(int32(aiusage.Keep.Seconds())),
+	})
+	if err != nil {
+		return fmt.Errorf("ai_usage index: %w", err)
 	}
 	return nil
 }

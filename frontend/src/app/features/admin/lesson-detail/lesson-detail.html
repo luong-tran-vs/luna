@@ -187,6 +187,9 @@
               <span class="muted" lang="en">→ {{ a.lemma }}</span>
             }
             <span class="ann-meaning">{{ a.meaningVi }}</span>
+            @if (posLabel(a.pos); as pos) {
+              <span class="muted">({{ pos }})</span>
+            }
             @if (a.editedByAdmin) {
               <span class="tag">Đã sửa tay</span>
             }

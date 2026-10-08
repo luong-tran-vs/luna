@@ -21,6 +21,7 @@ func CleanAnnotations(items []ai.Annotation, sentences []string) ([]Annotation, 
 			Text:      strings.TrimSpace(it.Text),
 			Lemma:     strings.TrimSpace(it.Lemma),
 			MeaningVi: strings.TrimSpace(it.MeaningVi),
+			POS:       NormalizePOS(it.POS),
 		}
 		if a.Text == "" || a.Lemma == "" || a.MeaningVi == "" {
 			continue

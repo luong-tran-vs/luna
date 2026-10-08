@@ -22,9 +22,13 @@
         @case ('failed') {
           <div class="failed">
             <p>Chấm lỗi: {{ w.grade!.error }}</p>
-            <button type="button" class="btn-primary" [disabled]="regrading()" (click)="regrade()">
-              {{ regrading() ? 'Đang gửi…' : 'Chấm lại' }}
-            </button>
+            @if (gradingsLeft() > 0) {
+              <button type="button" class="btn-primary" [disabled]="regrading()" (click)="regrade()">
+                {{ regrading() ? 'Đang gửi…' : 'Chấm lại (còn ' + gradingsLeft() + ' lượt)' }}
+              </button>
+            } @else {
+              <p class="muted">Bài viết này đã dùng hết lượt chấm.</p>
+            }
           </div>
         }
         @case ('done') {
@@ -34,6 +38,9 @@
         }
       }
     </div>
+    @if (w.gradings; as g) {
+      <p class="gradings muted">Lượt chấm: {{ g.used }}/{{ g.max }}</p>
+    }
     @if (actionError(); as message) {
       <p class="form-alert" role="alert">{{ message }}</p>
     }
@@ -86,6 +93,41 @@
           }
         </p>
       </section>
+    }
+
+    @if (w.grade?.status === 'done' && gradingsLeft() > 0) {
+      <section class="card resubmit" aria-labelledby="resubmit-heading">
+        <h2 class="section-title" id="resubmit-heading">Sửa và nộp lại</h2>
+        @if (editing() === null) {
+          <p class="muted">
+            Bạn còn {{ gradingsLeft() }} lượt chấm. Sửa bài theo nhận xét rồi nộp lại để AI chấm điểm mới (điểm mới thay
+            điểm cũ).
+          </p>
+          <button type="button" class="btn-primary" (click)="startEditing()">Sửa bài</button>
+        } @else {
+          <div class="field">
+            <label for="resubmit-text">Bài viết đã sửa</label>
+            <textarea
+              id="resubmit-text"
+              rows="8"
+              lang="en"
+              spellcheck="false"
+              [value]="editing()"
+              (input)="editing.set($any($event.target).value)"
+              aria-describedby="resubmit-count"
+            ></textarea>
+            <p class="field-hint" id="resubmit-count">{{ editWords() }} từ (từ {{ minWords }} đến {{ maxWords }})</p>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn-primary" [disabled]="resubmitting()" (click)="resubmit()">
+              {{ resubmitting() ? 'Đang nộp…' : 'Nộp lại để chấm' }}
+            </button>
+            <button type="button" class="btn" [disabled]="resubmitting()" (click)="editing.set(null)">Huỷ</button>
+          </div>
+        }
+      </section>
+    } @else if (w.grade?.status === 'done' && w.gradings) {
+      <p class="muted">Bài viết này đã dùng hết {{ w.gradings.max }} lượt chấm.</p>
     }
   } @else {
     <lu-loading />

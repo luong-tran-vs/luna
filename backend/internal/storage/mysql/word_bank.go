@@ -95,6 +95,14 @@ func (r *WordBank) List(ctx context.Context, q wordbank.ListQuery) ([]wordbank.W
 	case wordbank.MissingMeaning:
 		where += " AND meaning_vi = ''"
 	}
+	switch {
+	case q.Lemmas == nil:
+	case len(q.Lemmas) == 0:
+		where += " AND 1 = 0"
+	default:
+		where += " AND lemma IN (" + placeholders(len(q.Lemmas)) + ")"
+		a = append(a, args(q.Lemmas)...)
+	}
 	var total int
 	if err := r.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM word_bank WHERE "+where, a...).Scan(&total); err != nil {
 		return nil, 0, fmt.Errorf("count word bank: %w", err)

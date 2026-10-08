@@ -1,6 +1,7 @@
 package mongo
 
 import (
+	"reflect"
 	"testing"
 	"time"
 
@@ -29,7 +30,7 @@ func TestBankWordDoc(t *testing.T) {
 	if err := bson.Unmarshal(raw, &d); err != nil {
 		t.Fatal(err)
 	}
-	if got := d.toWord(); got != w || got.HasImage() {
+	if got := d.toWord(); !reflect.DeepEqual(got, w) || got.HasImage() {
 		t.Fatalf("word = %+v", got)
 	}
 	d.ImageAt = &at

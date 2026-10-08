@@ -3,6 +3,7 @@ package wordbank
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
@@ -18,6 +19,10 @@ import (
 // drawTimeout is how long drawing one picture may keep the request open: longer than the server's
 // write timeout, which suits ordinary requests.
 const drawTimeout = 90 * time.Second
+
+// meaningsTimeout is how long filling the meanings and IPA of a topic (up to 300 words in one AI
+// request) may keep the request open.
+const meaningsTimeout = 150 * time.Second
 
 // Handler serves the admin word bank API (F24).
 type Handler struct {
@@ -37,6 +42,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/words", admin(h.list))
 	mux.Handle("POST /api/admin/words", admin(h.add))
 	mux.Handle("POST /api/admin/words/import", admin(h.importTopics))
+	mux.Handle("POST /api/admin/words/fill-missing", admin(h.fillMissing))
 	mux.Handle("PATCH /api/admin/words/{lemma}", admin(h.update))
 	mux.Handle("DELETE /api/admin/words/{lemma}", admin(h.delete))
 	mux.Handle("GET /api/admin/words/{lemma}/image", admin(h.image))
@@ -53,10 +59,20 @@ type wordJSON struct {
 	// ImageURL is "" when the word has no picture; it changes when the picture does.
 	ImageURL  string    `json:"imageUrl"`
 	UpdatedAt time.Time `json:"updatedAt"`
+	// Topics are the topics whose word list holds the word, by name.
+	Topics []topicJSON `json:"topics"`
+}
+
+type topicJSON struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
 }
 
 func toJSON(w Word) wordJSON {
-	out := wordJSON{Lemma: w.Lemma, MeaningVi: w.MeaningVi, IPA: w.IPA, UpdatedAt: w.UpdatedAt}
+	out := wordJSON{Lemma: w.Lemma, MeaningVi: w.MeaningVi, IPA: w.IPA, UpdatedAt: w.UpdatedAt, Topics: make([]topicJSON, len(w.Topics))}
+	for i, t := range w.Topics {
+		out.Topics[i] = topicJSON(t)
+	}
 	if w.HasImage() {
 		out.ImageURL = "/api/admin/words/" + url.PathEscape(w.Lemma) + "/image?v=" + strconv.FormatInt(w.ImageAt.UnixMilli(), 10)
 	}
@@ -69,7 +85,7 @@ type pageJSON struct {
 	HasMore bool       `json:"hasMore"`
 }
 
-// list serves GET /api/admin/words?q=&missing=image|ipa|meaning&page=1.
+// list serves GET /api/admin/words?q=&missing=image|ipa|meaning&topicId=&page=1.
 func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	page := 1
@@ -81,7 +97,7 @@ func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 		}
 		page = n
 	}
-	p, err := h.svc.List(r.Context(), q.Get("q"), Missing(q.Get("missing")), page)
+	p, err := h.svc.List(r.Context(), q.Get("q"), Missing(q.Get("missing")), q.Get("topicId"), page)
 	if err != nil {
 		h.writeError(w, r, err)
 		return
@@ -97,21 +113,44 @@ type inputJSON struct {
 	Lemma     string `json:"lemma"`
 	MeaningVi string `json:"meaningVi"`
 	IPA       string `json:"ipa"`
+	TopicID   string `json:"topicId"`
 }
 
-// add serves POST /api/admin/words: 201 with the word, IPA and meaning filled from the dictionary
-// when left empty.
+// addedJSON is the word Add stored, with what it did: "inBank" when the word was in the bank
+// already, "topic" the topic it was added to (null without one).
+type addedJSON struct {
+	wordJSON
+	InBank bool       `json:"inBank"`
+	Topic  *topicJSON `json:"topic"`
+}
+
+// add serves POST /api/admin/words with {"lemma", "meaningVi"?, "ipa"?, "topicId"?}: 201 with the
+// word, IPA and meaning filled from the dictionary when left empty; 200 when the word was in the
+// bank already and only went into the topic.
 func (h *Handler) add(w http.ResponseWriter, r *http.Request) {
 	var in inputJSON
 	if httpx.DecodeJSON(w, r, &in) != nil {
 		return
 	}
-	wd, err := h.svc.Add(r.Context(), Input(in))
+	wd, added, err := h.svc.Add(r.Context(), Input(in))
+	if errors.Is(err, ErrInTopic) {
+		httpx.WriteFieldErrors(w, map[string]string{"lemma": fmt.Sprintf("Từ này đã có trong chủ đề \"%s\"", added.Topic.Name)})
+		return
+	}
 	if err != nil {
 		h.writeError(w, r, err)
 		return
 	}
-	httpx.WriteJSON(w, http.StatusCreated, toJSON(wd))
+	out := addedJSON{wordJSON: toJSON(wd), InBank: added.InBank}
+	if added.Topic.ID != "" {
+		t := topicJSON(added.Topic)
+		out.Topic = &t
+	}
+	status := http.StatusCreated
+	if added.InBank {
+		status = http.StatusOK
+	}
+	httpx.WriteJSON(w, status, out)
 }
 
 // importTopics serves POST /api/admin/words/import: adds the topic words missing from the bank.
@@ -122,6 +161,26 @@ func (h *Handler) importTopics(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string]int{"added": n})
+}
+
+// fillMissing serves POST /api/admin/words/fill-missing with {"topicId"}: one AI request for what
+// the topic's words lack (meaning, IPA), answered with {"asked", "meanings", "ipas"}.
+func (h *Handler) fillMissing(w http.ResponseWriter, r *http.Request) {
+	var in struct {
+		TopicID string `json:"topicId"`
+	}
+	if httpx.DecodeJSON(w, r, &in) != nil {
+		return
+	}
+	if err := http.NewResponseController(w).SetWriteDeadline(time.Now().Add(meaningsTimeout)); err != nil {
+		h.log.WarnContext(r.Context(), "word bank: extend write deadline", slog.Any("error", err))
+	}
+	f, err := h.svc.FillMissing(r.Context(), in.TopicID)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]int{"asked": f.Asked, "meanings": f.Meanings, "ipas": f.IPAs})
 }
 
 type detailsJSON struct {
@@ -246,6 +305,9 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 	case errors.Is(err, ErrDrawFailed):
 		h.log.WarnContext(r.Context(), "word bank: draw picture", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusBadGateway, "ai_failed", "Sinh ảnh thất bại, vui lòng thử lại.")
+	case errors.Is(err, ErrMeaningsFailed):
+		h.log.WarnContext(r.Context(), "word bank: fill missing", slog.Any("error", err))
+		httpx.WriteError(w, http.StatusBadGateway, "ai_failed", "AI chưa điền được nghĩa và phiên âm, vui lòng thử lại.")
 	default:
 		h.log.ErrorContext(r.Context(), "word bank request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")

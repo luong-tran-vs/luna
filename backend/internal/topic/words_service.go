@@ -183,3 +183,32 @@ func (s *Service) SuggestWords(ctx context.Context, id, level string, count int)
 	}
 	return added, uses, nil
 }
+
+// ErrWordInList means the topic's list already holds the word (ignoring case).
+var ErrWordInList = errors.New("topic: word already in list")
+
+// AddWord appends one word, for every level, to the end of the topic's list (from the word bank,
+// F24). An invalid word or a full list gives a ValidationError keyed "word"; a word already in the
+// list gives ErrWordInList.
+func (s *Service) AddWord(ctx context.Context, id, text string) error {
+	t, err := s.repo.Get(ctx, id)
+	if err != nil {
+		return err
+	}
+	w, msg := cleanWord(text)
+	if msg != "" {
+		return &ValidationError{Fields: map[string]string{"word": msg}}
+	}
+	for _, have := range t.Words {
+		if strings.EqualFold(have.Text, w) {
+			return ErrWordInList
+		}
+	}
+	if len(t.Words) >= MaxWords {
+		return &ValidationError{Fields: map[string]string{"word": fmt.Sprintf("Chủ đề đã đủ %d từ", MaxWords)}}
+	}
+	if _, err := s.repo.SetWords(ctx, id, append(slices.Clone(t.Words), Word{Text: w})); err != nil {
+		return fmt.Errorf("topic: set words: %w", err)
+	}
+	return nil
+}

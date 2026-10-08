@@ -33,6 +33,21 @@ nghĩa, lọc từ thiếu ảnh / thiếu phiên âm / thiếu nghĩa, thêm t�
    ảnh riêng của bài.
 7. **Given** các chủ đề có từ vựng (F18), **When** bấm "Nhập từ các chủ đề", **Then** mọi từ của chủ đề chưa có trong kho được
    thêm (phiên âm và nghĩa từ từ điển), báo "Đã thêm N từ từ các chủ đề."; từ đã có giữ nguyên; bấm lại thì không thêm gì.
+8. *(sửa 2026-10-08)* **Given** "house" có trong danh sách từ của chủ đề "Nhà cửa" và "Chào hỏi", **When** mở trang, **Then**
+   dòng "house" hiện nhãn hai chủ đề (theo tên); từ không thuộc chủ đề nào hiện "Chưa thuộc chủ đề nào". Chọn chủ đề ở ô
+   "Chủ đề" thì chỉ còn các từ của kho nằm trong danh sách từ của chủ đề đó (kết hợp được với tìm kiếm và lọc thiếu).
+9. *(sửa 2026-10-08)* **Given** form Thêm từ có ô "Thêm vào chủ đề", **When** chọn "Nhà cửa" và thêm "window", **Then** từ
+   được thêm vào kho và vào cuối danh sách từ của chủ đề (mọi trình độ), báo `Đã thêm "window" vào kho và chủ đề "Nhà cửa".`;
+   từ đã có trong kho nhưng chưa có trong chủ đề thì chỉ thêm vào chủ đề, báo `"window" đã có trong kho, đã thêm vào chủ đề
+   "Nhà cửa".`; từ đã có trong chủ đề (không phân biệt hoa thường) thì không thêm gì, báo `Từ này đã có trong chủ đề "Nhà cửa"`
+   dưới form. Chủ đề vẫn được chọn sau khi thêm. Từ chủ đề không nhận (ký tự ngoài chữ cái, - ' /, quá 40 ký tự, chủ đề đủ
+   300 từ) bị từ chối kèm lý do.
+10. *(sửa 2026-10-08)* **Given** đang lọc "Thiếu nghĩa" hoặc "Thiếu phiên âm" và đã chọn một chủ đề, **When** bấm "Điền nghĩa
+    và phiên âm bằng AI", **Then** mọi từ của kho thuộc chủ đề đó mà thiếu nghĩa hoặc thiếu phiên âm được gửi cho AI trong
+    **một** request (kèm tên chủ đề để chọn đúng nghĩa), mỗi từ đánh dấu phần còn thiếu (`[meaning, ipa]`, `[ipa]`…) để AI
+    chỉ viết phần đó (đỡ token); chỉ phần còn trống được lưu, phần đã có giữ nguyên; báo "AI đã xử lý N từ còn thiếu: điền
+    nghĩa cho X từ, phiên âm cho Y từ.". Không còn từ thiếu thì không gửi request. Lỗi AI (chưa cấu hình, hết lượt, trả về
+    hỏng) hiện thông báo tiếng Việt.
 
 ### User Story 2 - Ảnh của từ (Priority: P1)
 
@@ -80,6 +95,9 @@ Mỗi từ có tối đa một ảnh: tải lên, lấy từ link, sinh bằng A
 - **FR-005**: Bước Từ vựng và ảnh từ của bài PHẢI dùng ảnh của kho khi bài không có ảnh riêng cho từ đó; phiên âm của kho được
   ưu tiên hơn từ điển ở từ vựng của bài và khi bổ sung phiên âm cho thẻ ôn tập.
 - **FR-006**: AI không tự sinh ảnh cho kho; ảnh AI chỉ sinh khi quản trị viên bấm cho từng từ.
+- **FR-007** *(sửa 2026-10-08)*: Chủ đề của một từ suy ra từ danh sách từ của các chủ đề (F18, so theo dạng chuẩn hoá), không
+  lưu riêng. `GET /api/admin/words` nhận `topicId` để lọc và trả `topics` cho mỗi từ; `POST /api/admin/words` nhận `topicId`
+  tuỳ chọn, trả thêm `inBank` và `topic` (200 khi từ đã có trong kho, 201 khi tạo mới).
 
 ### Key Entities
 

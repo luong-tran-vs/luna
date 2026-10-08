@@ -247,3 +247,27 @@ func TestSuggestWordsEndpoint(t *testing.T) {
 		t.Fatalf("learner: %d", rec.Code)
 	}
 }
+
+func TestAddWord(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	id := e.familyTopic(t)
+
+	if err := e.svc.AddWord(t.Context(), id, "  uncle "); err != nil {
+		t.Fatal(err)
+	}
+	got, _ := e.svc.Words(t.Context(), id)
+	if last := got[len(got)-1]; len(got) != 4 || last.Text != "uncle" || last.Level != "" {
+		t.Fatalf("words = %+v", got)
+	}
+	if err := e.svc.AddWord(t.Context(), id, "FAMILY"); !errors.Is(err, ErrWordInList) {
+		t.Fatalf("duplicate: %v", err)
+	}
+	var verr *ValidationError
+	if err := e.svc.AddWord(t.Context(), id, "covid-19"); !errors.As(err, &verr) || verr.Fields["word"] == "" {
+		t.Fatalf("bad word: %v", err)
+	}
+	if err := e.svc.AddWord(t.Context(), "nope", "aunt"); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("unknown topic: %v", err)
+	}
+}

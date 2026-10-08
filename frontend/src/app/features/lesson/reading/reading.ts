@@ -19,7 +19,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, firstValueFrom, forkJoin, of, Subscription } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { ReadingLesson, Token } from '../../../core/models/reading';
+import { AskQuota, ReadingLesson, Token } from '../../../core/models/reading';
 import { SpeechService } from '../../../core/services/speech.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { CardInput } from '../../../core/models/vocab';
@@ -94,6 +94,18 @@ export class Reading implements OnInit {
   readonly lessonId = input('');
   /** Sentence to scroll to first (saved position). */
   readonly startSentence = input<number | null>(null);
+  /** F9: the learner's "Hỏi AI" quota in this lesson; null until loaded or when unlimited. */
+  private readonly askQuota = signal<AskQuota | null>(null);
+  /** AI asks left for the selected text: null when unlimited or already asked (asking again is free). */
+  protected readonly askLeft = computed(() => {
+    const q = this.askQuota();
+    const sel = this.selected();
+    if (!q || q.limit === 0 || (sel && q.asked.includes(normalize(sel.text)))) {
+      return null;
+    }
+    return Math.max(0, q.limit - q.asked.length);
+  });
+  protected readonly askLimit = computed(() => this.askQuota()?.limit ?? 0);
   /** "review" rereads a finished lesson (no "Đã đọc xong"); defaults to ?review=1. */
   readonly mode = input<'study' | 'review' | null>(null);
 
@@ -158,6 +170,7 @@ export class Reading implements OnInit {
       next: ({ lesson, words }) => {
         this.saved.set(new Set(words.map((w) => normalize(w.lemma))));
         this.lesson.set(lesson);
+        this.askQuota.set(lesson.askQuota ?? null);
         const firstWord = this.tokens()[0]?.find((t) => t.isWord);
         this.focusKey.set(`0:${firstWord?.index ?? 0}`);
         this.scrollToStart();
@@ -397,13 +410,20 @@ export class Reading implements OnInit {
     this.asking.set(true);
     this.askError.set(null);
     this.askSub = this.api.ask(this.id, sel.text, sel.sentence).subscribe({
-      next: ({ result }) => {
+      next: ({ result, quota }) => {
         this.asking.set(false);
         this.popupState.set({ kind: 'result', result });
+        if (quota) {
+          this.askQuota.set(quota);
+        }
       },
       error: (err: unknown) => {
         this.asking.set(false);
         this.askError.set(askErrorMessage(err));
+        const quota = err instanceof ApiError ? (err.body as { quota?: AskQuota } | null)?.quota : undefined;
+        if (quota) {
+          this.askQuota.set(quota);
+        }
       },
     });
   }

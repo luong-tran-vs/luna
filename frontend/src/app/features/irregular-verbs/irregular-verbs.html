@@ -1,0 +1,46 @@
+<section class="screen verbs">
+  <header class="screen-bar">
+    <h1 class="screen-title">Động từ bất quy tắc</h1>
+  </header>
+  <p class="intro">
+    {{ total }} động từ, trong đó {{ commonTotal }} động từ thông dụng.
+    @if (canSpeak) {
+      Bấm <lu-icon name="volume" class="inline-icon" /> để nghe cả ba dạng.
+    }
+  </p>
+
+  <lu-verb-filters
+    [(query)]="query"
+    [(commonOnly)]="commonOnly"
+    [(pattern)]="pattern"
+    [(testing)]="testing"
+    [total]="total"
+    [commonTotal]="commonTotal"
+    [counts]="counts()"
+  />
+
+  @if (letters().length > 1) {
+    <nav class="letters" aria-label="Đến chữ cái">
+      @for (l of letters(); track l) {
+        <button type="button" class="letter" [attr.aria-label]="'Đến chữ ' + l" (click)="jump(l)">{{ l }}</button>
+      }
+    </nav>
+  }
+
+  <p class="result" role="status">
+    @if (shown().length === total) {
+      Hiện tất cả {{ total }} động từ
+    } @else {
+      Hiện {{ shown().length }} / {{ total }} động từ
+    }
+  </p>
+
+  @if (shown().length === 0) {
+    <div class="soft-card empty">
+      <p>Không tìm thấy động từ nào.</p>
+      <p class="muted">Thử gõ dạng khác (ví dụ "went" hoặc "gone"), hoặc bỏ bớt bộ lọc.</p>
+    </div>
+  } @else {
+    <lu-verb-table [groups]="groups()" [testing]="testing()" />
+  }
+</section>

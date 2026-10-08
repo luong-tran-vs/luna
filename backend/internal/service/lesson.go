@@ -36,7 +36,8 @@ func (c *Container) initLesson() {
 func (c *Container) initReader() {
 	c.reader = lesson.NewReader(c.lessons, c.dict, c.lessonTopics, c.store.ReadingAnswers(), c.store.AILookups(), c.ai).
 		WithImages(c.store.WordImages()).
-		WithWordBank(lessonWordBank{c.wordBank})
+		WithWordBank(lessonWordBank{c.wordBank}).
+		WithAskLimit(c.store.AskUsage())
 }
 
 // lessonTopicsPort adapts topic.Service to lesson.Topics.

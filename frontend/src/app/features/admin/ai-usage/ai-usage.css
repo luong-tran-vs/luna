@@ -1,0 +1,166 @@
+.section-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.group-title {
+  margin-top: var(--space-2);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.small {
+  font-size: 0.875rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stat {
+  gap: var(--space-1);
+}
+
+.stat-label,
+.stat-sub {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.stat-value {
+  font: var(--text-2xl) var(--font-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-value small {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* Requests per minute: one series, thin bars with a 2px gap, rounded at the top only. */
+.chart {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--space-2);
+  height: 160px;
+}
+
+.chart-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  font: var(--text-xs) var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+.bars {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.bar-slot {
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-end;
+  min-width: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.bar-slot:hover,
+.bar-slot:focus-visible {
+  background: var(--color-primary-soft);
+}
+
+.bar-slot:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  min-height: 2px;
+  background: var(--color-primary);
+  border-radius: 4px 4px 0 0;
+}
+
+.bar-empty {
+  background: var(--color-line);
+}
+
+.chart-foot {
+  display: flex;
+  justify-content: space-between;
+  padding-left: calc(2rem + var(--space-2));
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.tooltip {
+  min-height: 1.5em;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--text-sm) var(--font-ui);
+}
+
+th,
+td {
+  padding: var(--space-2);
+  text-align: left;
+  vertical-align: middle;
+  border-top: 1px solid var(--color-line);
+}
+
+thead th {
+  color: var(--color-text-muted);
+  border-top: 0;
+}
+
+tbody th {
+  font-weight: 600;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.outcome {
+  white-space: nowrap;
+}
+
+/* The state is said in words; the mark only repeats it. */
+.outcome-bad {
+  font-weight: 600;
+}
+
+.outcome-bad .outcome-mark {
+  color: var(--color-bad);
+}
+
+.outcome-mark {
+  color: var(--color-ok);
+}
+
+.tag {
+  margin-left: var(--space-1);
+}

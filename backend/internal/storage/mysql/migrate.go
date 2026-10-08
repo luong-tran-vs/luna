@@ -47,6 +47,9 @@ func migrations() []migration {
 		{ID: "020_shared_topics", Stmts: sharedTopicsSchema(), Ignore: []uint16{errDuplicateColumn, errCantDropKey, errDuplicateKeyName}},
 		{ID: "021_word_bank", Stmts: wordBankSchema()},
 		{ID: "022_lesson_draft", Stmts: lessonDraftSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "023_ai_usage", Stmts: aiUsageSchema()},
+		{ID: "024_ask_usage", Stmts: askUsageSchema()},
+		{ID: "025_writing_gradings", Stmts: writingGradingsSchema(), Ignore: []uint16{errDuplicateColumn}},
 	}
 }
 

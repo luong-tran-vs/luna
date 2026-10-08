@@ -8,6 +8,7 @@ import (
 
 	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/ai/gemini"
+	"github.com/luongtran/luna/backend/internal/aiusage"
 )
 
 // aiTimeout bounds one request to the AI provider (a generation batch can take two minutes).
@@ -15,14 +16,21 @@ const aiTimeout = 130 * time.Second
 
 // initAI picks the annotation provider from configuration (constitution III).
 func (c *Container) initAI() {
+	c.aiUsage = aiusage.NewService(c.store.AIUsage(), time.Now, c.log)
 	if c.cfg.AIProvider != "gemini" || c.cfg.GeminiAPIKey == "" {
 		c.log.Info("ai provider disabled: annotations will fail until configured", slog.String("provider", c.cfg.AIProvider))
 		c.ai = ai.Disabled{}
 		c.imageAI = ai.DisabledImages{}
+		c.meaningAI = ai.DisabledMeanings{}
 		return
 	}
-	c.ai = gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
-	c.imageAI = gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
+	text := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
+	text.Usage = c.aiUsage
+	c.ai = text
+	c.meaningAI = text
+	images := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
+	images.Usage = c.aiUsage
+	c.imageAI = images
 }
 
 // queueMissingPractice queues the practice of lessons annotated before F17. Without an AI

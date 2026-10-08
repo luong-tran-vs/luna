@@ -75,6 +75,9 @@ func (r *WordBank) List(ctx context.Context, q wordbank.ListQuery) ([]wordbank.W
 	case wordbank.MissingMeaning:
 		filter = append(filter, bson.E{Key: "meaningVi", Value: ""})
 	}
+	if q.Lemmas != nil {
+		filter = append(filter, bson.E{Key: "_id", Value: bson.D{{Key: "$in", Value: q.Lemmas}}})
+	}
 	total, err := r.words.CountDocuments(ctx, filter)
 	if err != nil {
 		return nil, 0, fmt.Errorf("count bank words: %w", err)

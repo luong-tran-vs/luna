@@ -17,6 +17,7 @@ import { SpeechService } from '../../../../core/services/speech.service';
 import { VocabApiService } from '../../../../core/services/vocab-api.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
+import { posLabel } from '../../../../shared/utils/part-of-speech';
 
 /** An example sentence cut around the word being learnt; `hit` is empty when it is not found. */
 export interface Example {
@@ -75,6 +76,7 @@ export class VocabStep {
   readonly topic = input('');
   /** False when the browser has no voice: the listen buttons are hidden. */
   protected readonly canSpeak = inject(SpeechService).supported;
+  protected readonly posLabel = posLabel;
 
   /** The lesson's words; empty when the lesson has none. */
   readonly words = input.required<VocabItem[]>();

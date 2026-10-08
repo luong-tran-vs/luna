@@ -35,6 +35,12 @@ func TestWordBank(t *testing.T) {
 	if words, total, _ = r.List(ctx, wordbank.ListQuery{Search: tag, Limit: 1, Skip: 1}); total != 2 || len(words) != 1 || words[0].Lemma != table {
 		t.Fatalf("page 2 = %+v (%d)", words, total)
 	}
+	if words, total, _ = r.List(ctx, wordbank.ListQuery{Lemmas: []string{house, "nope"}, Limit: 10}); total != 1 || words[0].Lemma != house {
+		t.Fatalf("by lemmas = %+v (%d)", words, total)
+	}
+	if _, total, _ = r.List(ctx, wordbank.ListQuery{Search: tag, Lemmas: []string{}, Limit: 10}); total != 0 {
+		t.Fatalf("no lemmas = %d", total)
+	}
 
 	upd := wordbank.Word{Lemma: house, MeaningVi: "căn nhà", IPA: "/haʊs/", UpdatedAt: at.Add(time.Hour)}
 	if err := r.Update(ctx, upd); err != nil {

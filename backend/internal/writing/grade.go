@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 	"strings"
+	"time"
 	"unicode/utf8"
 
 	"github.com/luongtran/luna/backend/internal/ai"
@@ -116,7 +117,17 @@ func failureMessage(err error) string {
 	}
 }
 
-// Regrade queues the grading again for a writing whose grading failed.
+// MaxGradings is how many times one writing can be graded: the first submission plus one more,
+// either a resubmission of the edited text or a regrade after a failed grading.
+const MaxGradings = 2
+
+// GradingsUsed is how many gradings the writing used (at least one once submitted).
+func GradingsUsed(w Writing) int {
+	return max(w.Gradings, 1)
+}
+
+// Regrade queues the grading again for a writing whose grading failed. It uses one of the
+// writing's MaxGradings gradings.
 func (s *Service) Regrade(ctx context.Context, userID, id string) (Writing, error) {
 	w, err := s.own(ctx, userID, id)
 	if err != nil {
@@ -125,13 +136,41 @@ func (s *Service) Regrade(ctx context.Context, userID, id string) (Writing, erro
 	if w.Grade == nil || w.Grade.Status != GradeFailed {
 		return Writing{}, ErrNotFailed
 	}
-	g := Grade{Status: GradePending, Seen: true}
-	if err := s.d.Repo.SetGrade(ctx, w.ID, g); err != nil {
-		return Writing{}, fmt.Errorf("writing: reset grade: %w", err)
+	return s.regrade(ctx, w, w.Text, w.SubmittedAt)
+}
+
+// Resubmit sends the learner's edited writing to grading again, once its grading is over (done or
+// failed). It uses one of the writing's MaxGradings gradings; the new grade replaces the old one.
+func (s *Service) Resubmit(ctx context.Context, userID, id, text string) (Writing, error) {
+	w, err := s.own(ctx, userID, id)
+	if err != nil {
+		return Writing{}, err
+	}
+	if w.Status != StatusSubmitted {
+		return Writing{}, ErrNotFound
+	}
+	if w.Grade != nil && w.Grade.Status == GradePending {
+		return Writing{}, ErrGrading
+	}
+	text, err = checkLength(text)
+	if err != nil {
+		return Writing{}, err
+	}
+	return s.regrade(ctx, w, text, s.d.Now().UTC())
+}
+
+func (s *Service) regrade(ctx context.Context, w Writing, text string, submittedAt time.Time) (Writing, error) {
+	used := GradingsUsed(w)
+	if used >= MaxGradings {
+		return Writing{}, ErrNoGradings
+	}
+	if err := s.d.Repo.Regrade(ctx, w.ID, text, submittedAt, used+1); err != nil {
+		return Writing{}, fmt.Errorf("writing: regrade: %w", err)
 	}
 	if err := s.enqueue(ctx, w.ID); err != nil {
 		return Writing{}, err
 	}
-	w.Grade = &g
+	w.Text, w.SubmittedAt, w.Gradings = text, submittedAt, used+1
+	w.Grade = &Grade{Status: GradePending, Seen: true}
 	return w, nil
 }

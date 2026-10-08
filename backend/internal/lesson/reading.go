@@ -85,6 +85,8 @@ type Reader struct {
 	images ImageRepository
 	// bank is the shared word bank (F24): IPA and pictures for words the lesson has none of.
 	bank WordBank
+	// usage limits the AI asks of each learner per lesson (AskLimit); nil means no limit.
+	usage AskUsageRepository
 }
 
 // NewReader returns a Reader.

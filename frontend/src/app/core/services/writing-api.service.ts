@@ -37,6 +37,11 @@ export class WritingApiService {
     return this.unwrap(this.http.post<{ writing: Writing }>(`/api/writings/${id}/regrade`, null));
   }
 
+  /** Sends the edited writing to grading again (one of its gradings). */
+  resubmit(id: string, text: string): Observable<Writing> {
+    return this.unwrap(this.http.post<{ writing: Writing }>(`/api/writings/${id}/resubmit`, { text }));
+  }
+
   unseenCount(): Observable<UnseenCount> {
     return this.http.get<UnseenCount>('/api/writings/unseen-count');
   }

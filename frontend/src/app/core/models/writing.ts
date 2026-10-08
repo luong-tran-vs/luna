@@ -33,6 +33,8 @@ export interface Writing {
   submittedAt: string | null;
   /** null while it is a draft. */
   grade: Grade | null;
+  /** How many of its gradings (submit, resubmit, regrade) the writing used; at most max (2). */
+  gradings?: { used: number; max: number };
 }
 
 /** GET /api/lessons/{id}/writing. */

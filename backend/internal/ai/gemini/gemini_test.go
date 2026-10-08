@@ -763,3 +763,41 @@ func TestReviewLesson(t *testing.T) {
 		t.Errorf("disabled: %v", err)
 	}
 }
+
+func TestWordMeanings(t *testing.T) {
+	t.Parallel()
+
+	inner, _ := json.Marshal(map[string]any{"words": []map[string]string{
+		{"word": "family", "meaningVi": "gia đình", "ipa": "/ˈfæməli/"},
+		{"word": "police officer", "meaningVi": "cảnh sát", "ipa": ""},
+	}})
+	resp, _ := json.Marshal(map[string]any{"candidates": []any{map[string]any{
+		"content": map[string]any{"parts": []any{map[string]any{"text": string(inner)}}},
+	}}})
+	var body map[string]any
+	c, calls := newClient(t, "k", func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewDecoder(r.Body).Decode(&body)
+		_, _ = w.Write(resp)
+	})
+
+	got, err := c.WordMeanings(t.Context(), ai.MeaningsRequest{TopicName: "Gia đình", Words: []ai.WordNeed{
+		{Word: "family", Meaning: true, IPA: true}, {Word: "police officer", Meaning: true},
+	}})
+	if err != nil {
+		t.Fatalf("WordMeanings: %v", err)
+	}
+	want := []ai.WordMeaning{{Word: "family", MeaningVi: "gia đình", IPA: "/ˈfæməli/"}, {Word: "police officer", MeaningVi: "cảnh sát"}}
+	if calls.Load() != 1 || !slices.Equal(got, want) {
+		t.Fatalf("calls %d got %+v", calls.Load(), got)
+	}
+	prompt, _ := json.Marshal(body["contents"])
+	for _, s := range []string{"Gia đình", "- family [meaning, ipa]", "- police officer [meaning]", "Leave meaningVi or ipa"} {
+		if !strings.Contains(string(prompt), s) {
+			t.Errorf("prompt missing %q", s)
+		}
+	}
+	noKey, noCalls := newClient(t, "", func(http.ResponseWriter, *http.Request) {})
+	if _, err := noKey.WordMeanings(t.Context(), ai.MeaningsRequest{Words: []ai.WordNeed{{Word: "x", IPA: true}}}); !errors.Is(err, ai.ErrNotConfigured) || noCalls.Load() != 0 {
+		t.Fatalf("no key: %v, calls %d", err, noCalls.Load())
+	}
+}

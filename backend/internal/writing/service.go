@@ -43,6 +43,18 @@ func NewService(d Deps) *Service {
 
 func countWords(s string) int { return len(strings.Fields(s)) }
 
+// checkLength trims a writing and checks its length (5–400 words).
+func checkLength(text string) (string, error) {
+	text = strings.TrimSpace(text)
+	switch n := countWords(text); {
+	case n < MinWords:
+		return "", &ValidationError{Fields: map[string]string{"text": "Bài viết cần ít nhất 5 từ"}}
+	case n > MaxWords || utf8.RuneCountInString(text) > maxChars:
+		return "", &ValidationError{Fields: map[string]string{"text": "Bài viết tối đa 400 từ"}}
+	}
+	return text, nil
+}
+
 // Get returns the Write step of a lesson: the prompt, the level, whether the learner can write
 // now, and their writing (draft or submitted) if any.
 func (s *Service) Get(ctx context.Context, userID, lessonID string) (LessonView, error) {
@@ -112,12 +124,9 @@ func (s *Service) SaveDraft(ctx context.Context, userID, lessonID, text string) 
 // Submit checks the length (5–400 words), stores the writing with the lesson's prompt as it
 // is now, and queues the grading. A writing is submitted once.
 func (s *Service) Submit(ctx context.Context, userID, lessonID, text string) (Writing, error) {
-	text = strings.TrimSpace(text)
-	switch n := countWords(text); {
-	case n < MinWords:
-		return Writing{}, &ValidationError{Fields: map[string]string{"text": "Bài viết cần ít nhất 5 từ"}}
-	case n > MaxWords || utf8.RuneCountInString(text) > maxChars:
-		return Writing{}, &ValidationError{Fields: map[string]string{"text": "Bài viết tối đa 400 từ"}}
+	text, err := checkLength(text)
+	if err != nil {
+		return Writing{}, err
 	}
 	info, err := s.d.Lessons.Info(ctx, lessonID)
 	if err != nil {
@@ -128,7 +137,7 @@ func (s *Service) Submit(ctx context.Context, userID, lessonID, text string) (Wr
 	}
 	w, err := s.d.Repo.Submit(ctx, Writing{
 		UserID: userID, LessonID: lessonID, LessonRevision: info.Revision, LessonTitle: info.Title,
-		Prompt: promptOf(info), Text: text, SubmittedAt: s.d.Now().UTC(),
+		Prompt: promptOf(info), Text: text, SubmittedAt: s.d.Now().UTC(), Gradings: 1,
 	})
 	if errors.Is(err, ErrSubmitted) {
 		return Writing{}, err

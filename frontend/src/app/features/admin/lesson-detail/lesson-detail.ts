@@ -19,6 +19,7 @@ import { LessonImages } from './lesson-images/lesson-images';
 import { PracticeSection } from './practice-section/practice-section';
 import { Loading } from '../../../shared/components/loading/loading';
 import { SpeakButton } from '../../../shared/directives/speak-button';
+import { posLabel } from '../../../shared/utils/part-of-speech';
 
 type AnnotationRow = FormGroup<{
   text: FormControl<string>;
@@ -38,6 +39,7 @@ export class LessonDetail {
   private readonly router = inject(Router);
   private readonly injector = inject(Injector);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected readonly posLabel = posLabel;
   private readonly fb = inject(NonNullableFormBuilder);
   protected readonly id = inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
 

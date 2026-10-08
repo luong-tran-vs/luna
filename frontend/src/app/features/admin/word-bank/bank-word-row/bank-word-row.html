@@ -19,6 +19,15 @@
   } @else {
     <span class="missing">Chưa có nghĩa</span>
   }
+  @if (w.topics.length) {
+    <ul class="topics" [attr.aria-label]="'Chủ đề có từ ' + w.lemma">
+      @for (t of w.topics; track t.id) {
+        <li class="topic">{{ t.name }}</li>
+      }
+    </ul>
+  } @else {
+    <span class="missing">Chưa thuộc chủ đề nào</span>
+  }
 </div>
 
 @if (editing()) {

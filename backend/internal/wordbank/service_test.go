@@ -2,6 +2,7 @@ package wordbank
 
 import (
 	"errors"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -12,7 +13,7 @@ import (
 func TestAddFillsFromDictionary(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	w, err := e.svc.Add(t.Context(), Input{Lemma: "  House "})
+	w, _, err := e.svc.Add(t.Context(), Input{Lemma: "  House "})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -20,15 +21,15 @@ func TestAddFillsFromDictionary(t *testing.T) {
 		t.Fatalf("word = %+v", w)
 	}
 	// A phrase gets the joined IPA; a typed meaning or IPA is kept.
-	w, err = e.svc.Add(t.Context(), Input{Lemma: "Good morning", MeaningVi: "chào buổi sáng"})
+	w, _, err = e.svc.Add(t.Context(), Input{Lemma: "Good morning", MeaningVi: "chào buổi sáng"})
 	if err != nil || w.IPA != "/ɡʊd ˈmɔːnɪŋ/" || w.MeaningVi != "chào buổi sáng" {
 		t.Fatalf("phrase = %+v, %v", w, err)
 	}
-	w, err = e.svc.Add(t.Context(), Input{Lemma: "table", IPA: "/ˈteɪbl/"})
+	w, _, err = e.svc.Add(t.Context(), Input{Lemma: "table", IPA: "/ˈteɪbl/"})
 	if err != nil || w.IPA != "/ˈteɪbl/" || w.MeaningVi != "" {
 		t.Fatalf("unknown word = %+v, %v", w, err)
 	}
-	if _, err := e.svc.Add(t.Context(), Input{Lemma: "HOUSE"}); !errors.Is(err, ErrExists) {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "HOUSE"}); !errors.Is(err, ErrExists) {
 		t.Fatalf("duplicate: %v", err)
 	}
 }
@@ -36,12 +37,12 @@ func TestAddFillsFromDictionary(t *testing.T) {
 func TestAddValidation(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	_, err := e.svc.Add(t.Context(), Input{Lemma: " ", MeaningVi: strings.Repeat("a", MaxMeaning+1), IPA: strings.Repeat("a", MaxIPA+1)})
+	_, _, err := e.svc.Add(t.Context(), Input{Lemma: " ", MeaningVi: strings.Repeat("a", MaxMeaning+1), IPA: strings.Repeat("a", MaxIPA+1)})
 	var verr *ValidationError
 	if !errors.As(err, &verr) || verr.Fields["lemma"] == "" || verr.Fields["meaningVi"] == "" || verr.Fields["ipa"] == "" {
 		t.Fatalf("err = %v", err)
 	}
-	if _, err := e.svc.Add(t.Context(), Input{Lemma: strings.Repeat("a", MaxLemma+1)}); !errors.As(err, &verr) || verr.Fields["lemma"] == "" {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: strings.Repeat("a", MaxLemma+1)}); !errors.As(err, &verr) || verr.Fields["lemma"] == "" {
 		t.Fatalf("long lemma: %v", err)
 	}
 }
@@ -49,7 +50,7 @@ func TestAddValidation(t *testing.T) {
 func TestUpdateAndDelete(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	if _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
 		t.Fatal(err)
 	}
 	meaning, ipa := " căn nhà ", ""
@@ -77,7 +78,7 @@ func TestImport(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
 	meaning := "nhà riêng"
-	if _, err := e.svc.Add(t.Context(), Input{Lemma: "house", MeaningVi: meaning}); err != nil {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house", MeaningVi: meaning}); err != nil {
 		t.Fatal(err)
 	}
 	n, err := e.svc.Import(t.Context())
@@ -100,22 +101,22 @@ func TestList(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
 	for _, l := range []string{"house", "good", "table"} {
-		if _, err := e.svc.Add(t.Context(), Input{Lemma: l}); err != nil {
+		if _, _, err := e.svc.Add(t.Context(), Input{Lemma: l}); err != nil {
 			t.Fatal(err)
 		}
 	}
-	p, err := e.svc.List(t.Context(), "", MissingNone, 1)
+	p, err := e.svc.List(t.Context(), "", MissingNone, "", 1)
 	if err != nil || p.Total != 3 || p.HasMore || p.Words[0].Lemma != "good" {
 		t.Fatalf("all = %+v, %v", p, err)
 	}
-	if p, _ = e.svc.List(t.Context(), " NHÀ ", MissingNone, 1); p.Total != 1 || p.Words[0].Lemma != "house" {
+	if p, _ = e.svc.List(t.Context(), " NHÀ ", MissingNone, "", 1); p.Total != 1 || p.Words[0].Lemma != "house" {
 		t.Fatalf("search meaning = %+v", p)
 	}
-	if p, _ = e.svc.List(t.Context(), "", MissingIPA, 1); p.Total != 1 || p.Words[0].Lemma != "table" {
+	if p, _ = e.svc.List(t.Context(), "", MissingIPA, "", 1); p.Total != 1 || p.Words[0].Lemma != "table" {
 		t.Fatalf("missing ipa = %+v", p)
 	}
 	var verr *ValidationError
-	if _, err := e.svc.List(t.Context(), "", "colour", 0); !errors.As(err, &verr) || verr.Fields["missing"] == "" || verr.Fields["page"] == "" {
+	if _, err := e.svc.List(t.Context(), "", "colour", "", 0); !errors.As(err, &verr) || verr.Fields["missing"] == "" || verr.Fields["page"] == "" {
 		t.Fatalf("bad query: %v", err)
 	}
 }
@@ -123,7 +124,7 @@ func TestList(t *testing.T) {
 func TestImages(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	if _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
 		t.Fatal(err)
 	}
 	// Upload: scaled down to a JPEG.
@@ -181,11 +182,141 @@ func TestImages(t *testing.T) {
 func TestWords(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	if _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
 		t.Fatal(err)
 	}
 	got, err := e.svc.Words(t.Context(), []string{"House", "table", ""})
 	if err != nil || len(got) != 1 || got["house"].IPA != "/haʊs/" {
 		t.Fatalf("words = %+v, %v", got, err)
+	}
+}
+
+func TestAddToTopic(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	// A new word goes into the bank and the topic.
+	w, added, err := e.svc.Add(t.Context(), Input{Lemma: " Window ", TopicID: "t1"})
+	if err != nil || w.Lemma != "window" || added.InBank || added.Topic.Name != "Nhà cửa" {
+		t.Fatalf("new word = %+v, %+v, %v", w, added, err)
+	}
+	if lists, _ := e.topics.All(t.Context()); !slices.Contains(lists[0].Words, "window") {
+		t.Fatalf("topic words = %v", lists[0].Words)
+	}
+	// A word of the bank only goes into the topic.
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "good"}); err != nil {
+		t.Fatal(err)
+	}
+	if w, added, err = e.svc.Add(t.Context(), Input{Lemma: "GOOD", TopicID: "t2"}); err != nil || !added.InBank || w.MeaningVi != "tốt" {
+		t.Fatalf("bank word = %+v, %+v, %v", w, added, err)
+	}
+	// A word the topic holds already (ignoring case) is refused, and the bank is left alone.
+	if _, added, err = e.svc.Add(t.Context(), Input{Lemma: "house", TopicID: "t1"}); !errors.Is(err, ErrInTopic) || added.Topic.Name != "Nhà cửa" {
+		t.Fatalf("in topic: %+v, %v", added, err)
+	}
+	if _, err := e.svc.Get(t.Context(), "house"); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("bank got the refused word: %v", err)
+	}
+	var verr *ValidationError
+	if _, _, err = e.svc.Add(t.Context(), Input{Lemma: "door", TopicID: "nope"}); !errors.As(err, &verr) || verr.Fields["topicId"] == "" {
+		t.Fatalf("unknown topic: %v", err)
+	}
+}
+
+func TestListByTopic(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	for _, l := range []string{"house", "table", "good morning", "door"} {
+		if _, _, err := e.svc.Add(t.Context(), Input{Lemma: l}); err != nil {
+			t.Fatal(err)
+		}
+	}
+	p, err := e.svc.List(t.Context(), "", MissingNone, "", 1)
+	if err != nil || p.Total != 4 {
+		t.Fatalf("all = %+v, %v", p, err)
+	}
+	topics := map[string][]TopicRef{}
+	for _, w := range p.Words {
+		topics[w.Lemma] = w.Topics
+	}
+	// By name; a word in no topic has none.
+	want := []TopicRef{{ID: "t2", Name: "Chào hỏi"}, {ID: "t1", Name: "Nhà cửa"}}
+	if !slices.Equal(topics["house"], want) || len(topics["door"]) != 0 || len(topics["table"]) != 1 {
+		t.Fatalf("topics = %+v", topics)
+	}
+	if p, _ = e.svc.List(t.Context(), "", MissingNone, "t1", 1); p.Total != 2 || p.Words[0].Lemma != "house" || p.Words[1].Lemma != "table" {
+		t.Fatalf("topic t1 = %+v", p)
+	}
+	var verr *ValidationError
+	if _, err := e.svc.List(t.Context(), "", MissingNone, "nope", 1); !errors.As(err, &verr) || verr.Fields["topicId"] == "" {
+		t.Fatalf("unknown topic: %v", err)
+	}
+}
+
+func TestFillMissing(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	inputs := []Input{
+		{Lemma: "house"}, // meaning and IPA from the dictionary
+		{Lemma: "table"}, // neither
+		{Lemma: "lamp", MeaningVi: "cái đèn", TopicID: "t1"}, // IPA only
+		{Lemma: "door"}, // not in the topic
+	}
+	for _, in := range inputs {
+		if _, _, err := e.svc.Add(t.Context(), in); err != nil {
+			t.Fatal(err)
+		}
+	}
+	e.means.answers = []ai.WordMeaning{
+		{Word: "TABLE", MeaningVi: " cái bàn ", IPA: "/ˈteɪbl/"},
+		{Word: "lamp", MeaningVi: "đèn bàn", IPA: "/læmp/"}, // the meaning it has stays
+		{Word: "house", MeaningVi: "không hỏi"},             // not asked, not saved
+		{Word: "door", MeaningVi: "cửa"},                    // not in the topic
+		{Word: "table", MeaningVi: "lần thứ hai"},           // answered twice: the first answer stays
+	}
+	e.now = e.now.Add(time.Hour)
+	f, err := e.svc.FillMissing(t.Context(), "t1")
+	if err != nil || f != (Filled{Asked: 2, Meanings: 1, IPAs: 2}) {
+		t.Fatalf("filled = %+v, %v", f, err)
+	}
+	// One request with the topic's words, each marked with what it lacks.
+	want := []ai.WordNeed{{Word: "lamp", IPA: true}, {Word: "table", Meaning: true, IPA: true}}
+	if len(e.means.reqs) != 1 || e.means.reqs[0].TopicName != "Nhà cửa" || !slices.Equal(e.means.reqs[0].Words, want) {
+		t.Fatalf("requests = %+v", e.means.reqs)
+	}
+	if w, _ := e.svc.Get(t.Context(), "table"); w.MeaningVi != "cái bàn" || w.IPA != "/ˈteɪbl/" || !w.UpdatedAt.Equal(e.now) {
+		t.Fatalf("table = %+v", w)
+	}
+	if w, _ := e.svc.Get(t.Context(), "lamp"); w.MeaningVi != "cái đèn" || w.IPA != "/læmp/" {
+		t.Fatalf("lamp = %+v", w)
+	}
+	for lemma, meaning := range map[string]string{"house": "ngôi nhà; nhà ở", "door": ""} {
+		if w, _ := e.svc.Get(t.Context(), lemma); w.MeaningVi != meaning {
+			t.Fatalf("%s = %+v", lemma, w)
+		}
+	}
+	// Nothing left to fill: no request.
+	if f, err = e.svc.FillMissing(t.Context(), "t1"); err != nil || f != (Filled{}) || len(e.means.reqs) != 1 {
+		t.Fatalf("again = %+v, %v (%d requests)", f, err, len(e.means.reqs))
+	}
+}
+
+func TestFillMissingErrors(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "table"}); err != nil {
+		t.Fatal(err)
+	}
+	var verr *ValidationError
+	if _, err := e.svc.FillMissing(t.Context(), "nope"); !errors.As(err, &verr) || verr.Fields["topicId"] == "" {
+		t.Fatalf("unknown topic: %v", err)
+	}
+	e.means.err = ai.ErrQuota
+	if _, err := e.svc.FillMissing(t.Context(), "t1"); !errors.Is(err, ai.ErrQuota) {
+		t.Fatalf("quota: %v", err)
+	}
+	e.means.err = nil
+	e.means.answers = []ai.WordMeaning{{Word: "table", MeaningVi: strings.Repeat("a", MaxMeaning+1)}}
+	if _, err := e.svc.FillMissing(t.Context(), "t1"); !errors.Is(err, ErrMeaningsFailed) {
+		t.Fatalf("no usable answer: %v", err)
 	}
 }

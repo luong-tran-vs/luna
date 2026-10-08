@@ -3,6 +3,7 @@ package writing
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"time"
@@ -35,6 +36,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth, guard httpx.Middlewa
 	mux.Handle("GET /api/writings/{id}", own(h.detail))
 	mux.Handle("POST /api/writings/{id}/seen", own(h.seen))
 	mux.Handle("POST /api/writings/{id}/regrade", own(h.regrade))
+	mux.Handle("POST /api/writings/{id}/resubmit", own(h.resubmit))
 }
 
 type summaryJSON struct {
@@ -105,6 +107,23 @@ func (h *Handler) seen(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// resubmit sends the edited writing to grading again (one of its MaxGradings gradings).
+func (h *Handler) resubmit(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Text string `json:"text"`
+	}
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	p, _ := httpx.PrincipalFrom(r.Context())
+	wr, err := h.svc.Resubmit(r.Context(), p.UserID, r.PathValue("id"), body.Text)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusAccepted, map[string]writingJSON{"writing": toWritingJSON(wr)})
+}
+
 func (h *Handler) regrade(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())
 	wr, err := h.svc.Regrade(r.Context(), p.UserID, r.PathValue("id"))
@@ -142,6 +161,13 @@ type writingJSON struct {
 	Status      Status     `json:"status"`
 	SubmittedAt *time.Time `json:"submittedAt"`
 	Grade       *gradeJSON `json:"grade"`
+	// Gradings: how many of its MaxGradings gradings the writing used (submit, resubmit, regrade).
+	Gradings gradingsJSON `json:"gradings"`
+}
+
+type gradingsJSON struct {
+	Used int `json:"used"`
+	Max  int `json:"max"`
 }
 
 func timeOrNil(t time.Time) *time.Time {
@@ -155,6 +181,11 @@ func toWritingJSON(w Writing) writingJSON {
 	out := writingJSON{
 		ID: w.ID, LessonID: w.LessonID, LessonTitle: w.LessonTitle, Prompt: w.Prompt, Text: w.Text,
 		Status: w.Status, SubmittedAt: timeOrNil(w.SubmittedAt),
+	}
+	if w.Status == StatusSubmitted {
+		out.Gradings = gradingsJSON{Used: GradingsUsed(w), Max: MaxGradings}
+	} else {
+		out.Gradings = gradingsJSON{Max: MaxGradings}
 	}
 	if g := w.Grade; g != nil {
 		out.Grade = &gradeJSON{
@@ -233,6 +264,10 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 		httpx.WriteError(w, http.StatusConflict, "write_locked", "Hãy học tới bước Viết của bài đang học")
 	case errors.Is(err, ErrNotFailed):
 		httpx.WriteError(w, http.StatusConflict, "not_failed", "Chỉ chấm lại được bài chấm lỗi")
+	case errors.Is(err, ErrNoGradings):
+		httpx.WriteError(w, http.StatusConflict, "no_gradings", fmt.Sprintf("Mỗi bài viết chỉ được chấm %d lần", MaxGradings))
+	case errors.Is(err, ErrGrading):
+		httpx.WriteError(w, http.StatusConflict, "grading", "Bài đang được chấm, vui lòng chờ")
 	default:
 		h.log.ErrorContext(r.Context(), "writing request failed", slog.Any("error", err))
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")

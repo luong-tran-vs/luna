@@ -74,9 +74,25 @@
   }
 
   @if (canAsk()) {
-    <button type="button" class="btn-ask" [disabled]="asking()" (click)="ask.emit()">
+    @let left = askLeft();
+    <button
+      type="button"
+      class="btn-ask"
+      [disabled]="asking() || left === 0"
+      [attr.aria-describedby]="left !== null ? titleId + '-ask-left' : null"
+      (click)="ask.emit()"
+    >
       {{ asking() ? 'Đang hỏi AI…' : 'Hỏi AI' }}
     </button>
+    @if (left !== null) {
+      <p class="ask-left" [id]="titleId + '-ask-left'">
+        @if (left > 0) {
+          Còn {{ left }}/{{ askLimit() }} lượt hỏi AI trong bài này.
+        } @else {
+          Đã dùng hết {{ askLimit() }} lượt hỏi AI của bài này. Bạn vẫn hỏi lại được các từ đã hỏi.
+        }
+      </p>
+    }
     @if (asking()) {
       <p class="visually-hidden" role="status">Đang hỏi AI…</p>
     }

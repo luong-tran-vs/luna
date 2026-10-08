@@ -30,6 +30,9 @@ type Word struct {
 	ImageAt   time.Time
 	CreatedAt time.Time
 	UpdatedAt time.Time
+	// Topics are the topics whose word list holds the word, by name. The repository leaves it
+	// empty; Service.List fills it.
+	Topics []TopicRef
 }
 
 // HasImage says the word has a picture.
@@ -57,11 +60,27 @@ const (
 type ListQuery struct {
 	Search  string
 	Missing Missing
-	Limit   int
-	Skip    int
+	// Lemmas, when not nil, keeps only these words (the words of one topic); empty keeps none.
+	Lemmas []string
+	Limit  int
+	Skip   int
+}
+
+// TopicRef names a topic whose word list holds a word.
+type TopicRef struct {
+	ID   string
+	Name string
+}
+
+// TopicList is one topic with the words of its list (F18), as the admin typed them.
+type TopicList struct {
+	TopicRef
+	Words []string
 }
 
 var (
+	// ErrInTopic means the word is already in the chosen topic's list.
+	ErrInTopic = errors.New("wordbank: word already in topic")
 	// ErrNotFound means the bank has no such word.
 	ErrNotFound = errors.New("wordbank: word not found")
 	// ErrExists means the word is already in the bank.
@@ -72,6 +91,8 @@ var (
 	ErrImagesUnavailable = errors.New("wordbank: image generation is not available")
 	// ErrDrawFailed means the AI did not give a usable picture.
 	ErrDrawFailed = errors.New("wordbank: drawing the picture failed")
+	// ErrMeaningsFailed means the AI gave no usable meaning or IPA.
+	ErrMeaningsFailed = errors.New("wordbank: filling the meanings failed")
 )
 
 // ValidationError lists the invalid fields with a Vietnamese message each.

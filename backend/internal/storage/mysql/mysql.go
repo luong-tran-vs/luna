@@ -25,6 +25,7 @@ import (
 
 	drv "github.com/go-sql-driver/mysql"
 
+	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/export"
 	"github.com/luongtran/luna/backend/internal/grammar"
@@ -205,9 +206,11 @@ func (s *Store) Lessons() storage.LessonStore                   { return NewLess
 func (s *Store) Topics() topic.Repository                       { return NewTopics(s.db) }
 func (s *Store) ReadingAnswers() lesson.AnswerRepository        { return NewReadingAnswers(s.db) }
 func (s *Store) AILookups() lesson.AskRepository                { return NewAILookups(s.db) }
+func (s *Store) AskUsage() lesson.AskUsageRepository            { return NewAskUsage(s.db) }
 func (s *Store) Writings() writing.Repository                   { return NewWritings(s.db) }
 func (s *Store) WordImages() lesson.ImageRepository             { return NewWordImages(s.db) }
 func (s *Store) WordBank() wordbank.Repository                  { return NewWordBank(s.db) }
+func (s *Store) AIUsage() aiusage.Repository                    { return NewAIUsage(s.db) }
 func (s *Store) Cards() vocab.Repository                        { return NewCards(s.db) }
 func (s *Store) ReviewLogs() vocab.ReviewLogRepository          { return NewReviewLogs(s.db) }
 func (s *Store) DictationResults() progress.DictationRepository { return NewDictationResults(s.db) }

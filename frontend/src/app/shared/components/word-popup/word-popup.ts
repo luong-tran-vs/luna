@@ -51,6 +51,9 @@ export class WordPopup {
   readonly saved = input(false);
   readonly saving = input(false);
   readonly error = input<string | null>(null);
+  /** F9: AI asks left in the lesson for this selection; null when unlimited or already asked. */
+  readonly askLeft = input<number | null>(null);
+  readonly askLimit = input(0);
   /** An "Hỏi AI" request is running (F9). */
   readonly asking = input(false);
   readonly askError = input<string | null>(null);

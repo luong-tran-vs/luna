@@ -26,6 +26,7 @@ const TABS: readonly Tab[] = [
     matches: (p) => p.startsWith('/lessons') || p === '/goal',
   },
   { path: '/grammar', label: 'Ngữ pháp', icon: 'grammar', matches: (p) => p.startsWith('/grammar') },
+  { path: '/irregular-verbs', label: 'Động từ', icon: 'table', matches: (p) => p.startsWith('/irregular-verbs') },
   { path: '/vocabulary/review', label: 'Ôn tập', icon: 'review', matches: (p) => p.startsWith('/vocabulary') },
   {
     path: '/account',
@@ -41,9 +42,9 @@ function isFocusPage(path: string): boolean {
 }
 
 /**
- * Learning area (layout of the client sketch): four tabs, as a bar at the bottom of a phone and at
- * the top from 768px, where Tài khoản sits on the right next to a dark mode switch. Admins never
- * get here (learnerGuard).
+ * Learning area (layout of the client sketch): six tabs, as a bar at the bottom of phones and
+ * tablets and at the top from 1024px, where Tài khoản sits on the right next to a dark mode switch.
+ * Admins never get here (learnerGuard).
  */
 @Component({
   selector: 'lu-learner-layout',

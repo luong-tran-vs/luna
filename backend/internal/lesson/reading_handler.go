@@ -56,6 +56,8 @@ type readingJSON struct {
 	GrammarPointID string `json:"grammarPointId"`
 	// Turns is set for a dialogue lesson: one entry per "Name: text" line.
 	Turns []textTurnJSON `json:"turns"`
+	// AskQuota is the learner's quota of "Hỏi AI" in this lesson (F9).
+	AskQuota askQuotaJSON `json:"askQuota"`
 }
 
 type textTurnJSON struct {
@@ -99,6 +101,12 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 	for _, t := range v.Turns {
 		out.Turns = append(out.Turns, textTurnJSON(t))
 	}
+	quota, err := h.reader.AskQuota(r.Context(), p.UserID, v.ID, p.Role == httpx.RoleAdmin)
+	if err != nil {
+		h.writeError(w, r, err, "not_found")
+		return
+	}
+	out.AskQuota = toAskQuotaJSON(quota)
 	for i, s := range v.Sentences {
 		out.Sentences[i] = sentenceJSON(s)
 	}
@@ -162,6 +170,8 @@ type vocabItemJSON struct {
 	Sentence      string `json:"sentence"`
 	// ImageURL is the word's picture (F23), "" when it has none.
 	ImageURL string `json:"imageUrl"`
+	// POS is the part of speech (noun, verb, …, phrasal verb, phrase), "" when unknown.
+	POS string `json:"pos"`
 }
 
 type vocabularyJSON struct {
@@ -179,7 +189,7 @@ func (h *ReadingHandler) vocabulary(w http.ResponseWriter, r *http.Request) {
 	for i, it := range items {
 		out.Items[i] = vocabItemJSON{
 			Lemma: it.Lemma, Text: it.Text, MeaningVi: it.MeaningVi, IPA: it.IPA,
-			SentenceIndex: it.SentenceIndex, Sentence: it.Sentence,
+			SentenceIndex: it.SentenceIndex, Sentence: it.Sentence, POS: it.POS,
 		}
 		if it.HasImage {
 			out.Items[i].ImageURL = imageURL(r.PathValue("id"), it.Lemma)

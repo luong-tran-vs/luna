@@ -20,6 +20,9 @@ type VocabItem struct {
 	Sentence      string
 	// HasImage says the word has a picture (F23), its own or the word bank's (F24).
 	HasImage bool
+	// POS is the part of speech: the annotation's (as used in the lesson), else the dictionary's;
+	// "" when unknown.
+	POS string
 }
 
 // BankWord is what the shared word bank knows of a word (F24).
@@ -88,6 +91,11 @@ func (r *Reader) Vocabulary(ctx context.Context, id string) (items []VocabItem, 
 			}
 		}
 		item.HasImage = b.HasImage || slices.Contains(pictured, item.Lemma)
+		if item.POS == "" {
+			if item.POS, err = dictionaryPOS(ctx, r.dict, item.Lemma, item.Text, item.MeaningVi); err != nil {
+				return nil, false, fmt.Errorf("lesson: %w", err)
+			}
+		}
 	}
 	return items, true, nil
 }

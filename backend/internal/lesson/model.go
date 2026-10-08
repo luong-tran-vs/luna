@@ -44,6 +44,9 @@ type Annotation struct {
 	MeaningVi     string
 	SentenceIndex int
 	EditedByAdmin bool
+	// POS is the part of speech as used in the sentence (see POSValues), "" when the AI gave none
+	// (lessons annotated before it was asked for).
+	POS string
 }
 
 // Lesson is a text learners study for one day.

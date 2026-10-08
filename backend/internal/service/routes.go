@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/export"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/health"
@@ -44,6 +45,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	topic.NewHandler(c.topic, log).Register(mux, auth)
 	vocab.NewHandler(c.vocab, log).Register(mux, auth)
 	wordbank.NewHandler(c.wordBank, log).Register(mux, auth)
+	aiusage.NewHandler(c.aiUsage, log).Register(mux, auth)
 	grammar.NewHandler(c.grammar, log).Register(mux, auth)
 
 	studyHandler := progress.NewStudyHandler(c.study, log)

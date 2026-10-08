@@ -14,6 +14,8 @@ type Annotation struct {
 	Lemma         string `json:"lemma"`
 	MeaningVi     string `json:"meaningVi"`
 	SentenceIndex int    `json:"sentenceIndex"`
+	// POS is the part of speech as used in the sentence (noun, verb, …, phrasal verb, phrase).
+	POS string `json:"pos"`
 }
 
 // Question is a multiple-choice comprehension question about a lesson (F15).

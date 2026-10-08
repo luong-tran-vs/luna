@@ -11,8 +11,12 @@ import (
 	_ "modernc.org/sqlite" // pure-Go SQLite driver, registers "sqlite"
 )
 
-// maxMeanings is how many Vietnamese meanings a lookup returns.
-const maxMeanings = 3
+// maxMeanings is how many Vietnamese meanings a lookup shows; maxSenses how many it reads to tell
+// the parts of speech of a word (the senses of one part of speech often come first).
+const (
+	maxMeanings = 3
+	maxSenses   = 30
+)
 
 // Meaning is one Vietnamese definition with its part of speech code (N, V, A, …).
 type Meaning struct {
@@ -25,6 +29,8 @@ type Entry struct {
 	Word     string
 	IPA      string
 	Meanings []Meaning
+	// Senses are all the meanings read (up to maxSenses), Meanings their first maxMeanings.
+	Senses []Meaning
 }
 
 // SQLite reads the minhqnd/dictionary database (read-only).
@@ -69,7 +75,7 @@ func (d *SQLite) Lookup(ctx context.Context, word string) (Entry, bool, error) {
 		SELECT COALESCE(d.pos, ''), d.definition FROM word_definitions wd
 		JOIN definitions d ON d.id = wd.definition_id
 		WHERE wd.word_id = ? AND d.definition_lang = 'vi'
-		ORDER BY wd.id LIMIT ?`, id, maxMeanings)
+		ORDER BY wd.id LIMIT ?`, id, maxSenses)
 	if err != nil {
 		return Entry{}, false, fmt.Errorf("dictionary: meanings: %w", err)
 	}
@@ -81,7 +87,10 @@ func (d *SQLite) Lookup(ctx context.Context, word string) (Entry, bool, error) {
 		if err := rows.Scan(&m.POS, &m.Text); err != nil {
 			return Entry{}, false, fmt.Errorf("dictionary: scan meaning: %w", err)
 		}
-		e.Meanings = append(e.Meanings, m)
+		e.Senses = append(e.Senses, m)
+		if len(e.Meanings) < maxMeanings {
+			e.Meanings = append(e.Meanings, m)
+		}
 	}
 	if err := rows.Err(); err != nil {
 		return Entry{}, false, fmt.Errorf("dictionary: meanings: %w", err)

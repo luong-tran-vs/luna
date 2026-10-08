@@ -69,12 +69,14 @@ func (c *Client) GenerateImage(ctx context.Context, req ai.ImageRequest) (ai.Ima
 	resp, err := c.client.Do(httpReq)
 	if err != nil {
 		c.logRequest(ctx, "image", start, 0, attrs)
+		c.recordUsage(ctx, "image", start, 0, nil)
 		return ai.Image{}, fmt.Errorf("gemini: image request: %w", err)
 	}
 	defer resp.Body.Close() //nolint:errcheck // body fully read below
 	c.logRequest(ctx, "image", start, resp.StatusCode, attrs)
 
 	raw, err := io.ReadAll(io.LimitReader(resp.Body, maxImageResponse))
+	c.recordUsage(ctx, "image", start, resp.StatusCode, raw)
 	if err != nil {
 		return ai.Image{}, fmt.Errorf("gemini: read image response: %w", err)
 	}

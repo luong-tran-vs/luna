@@ -42,6 +42,7 @@ type writingDoc struct {
 	CreatedAt      time.Time     `bson:"createdAt"`
 	UpdatedAt      time.Time     `bson:"updatedAt"`
 	SubmittedAt    time.Time     `bson:"submittedAt,omitempty"`
+	Gradings       int           `bson:"gradings,omitempty"`
 }
 
 func fromGrade(g writing.Grade) gradeDoc {
@@ -59,7 +60,7 @@ func (d writingDoc) toWriting() writing.Writing {
 	w := writing.Writing{
 		ID: d.ID.Hex(), UserID: d.UserID.Hex(), LessonID: d.LessonID.Hex(), LessonRevision: d.LessonRevision,
 		LessonTitle: d.LessonTitle, Prompt: d.Prompt, Text: d.Text, Status: writing.Status(d.Status),
-		CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt, SubmittedAt: d.SubmittedAt,
+		CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt, SubmittedAt: d.SubmittedAt, Gradings: d.Gradings,
 	}
 	if g := d.Grade; g != nil {
 		w.Grade = &writing.Grade{
@@ -190,6 +191,7 @@ func (r *Writings) Submit(ctx context.Context, w writing.Writing) (writing.Writi
 			{Key: "submittedAt", Value: at},
 			{Key: "updatedAt", Value: at},
 			{Key: "grade", Value: fromGrade(writing.Grade{Status: writing.GradePending, Seen: true})},
+			{Key: "gradings", Value: w.Gradings},
 		}},
 		{Key: "$setOnInsert", Value: bson.D{{Key: "createdAt", Value: at}}},
 	}
@@ -328,4 +330,15 @@ func (r *Writings) Stats(ctx context.Context, userID string, since *time.Time) (
 		return rows[0].Submitted, nil, nil
 	}
 	return rows[0].Submitted, rows[0].Average, nil
+}
+
+// Regrade stores the text to grade again and resets the grade to pending.
+func (r *Writings) Regrade(ctx context.Context, id, text string, submittedAt time.Time, gradings int) error {
+	return r.updateByID(ctx, id, bson.D{
+		{Key: "text", Value: text},
+		{Key: "submittedAt", Value: submittedAt.UTC()},
+		{Key: "gradings", Value: gradings},
+		{Key: "grade", Value: fromGrade(writing.Grade{Status: writing.GradePending, Seen: true})},
+		{Key: "updatedAt", Value: time.Now().UTC()},
+	})
 }

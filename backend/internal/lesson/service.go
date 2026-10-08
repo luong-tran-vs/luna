@@ -361,6 +361,9 @@ func (s *Service) UpdateAnnotations(ctx context.Context, id string, items []Anno
 		}
 		a.SentenceIndex = idx
 		a.EditedByAdmin = !had || prev.EditedByAdmin || prev.Lemma != a.Lemma || prev.MeaningVi != a.MeaningVi
+		if had && prev.Lemma == a.Lemma {
+			a.POS = prev.POS // same word, same part of speech
+		}
 		out = append(out, a)
 	}
 	if len(fields) > 0 {

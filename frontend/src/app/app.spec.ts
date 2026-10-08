@@ -78,7 +78,7 @@ describe('App', () => {
       a.getAttribute('href'),
     );
 
-  it('shows learners only the five learning tabs, inside main with the connection footer', async () => {
+  it('shows learners only the six learning tabs, inside main with the connection footer', async () => {
     loginAs('member');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/');
@@ -87,7 +87,7 @@ describe('App', () => {
     expect(el.querySelector('lu-learner-layout footer lu-connection-status')).not.toBeNull();
     expect(el.querySelector('lu-app-header')).toBeNull();
     const tabs = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-learner-layout .tabs a'));
-    expect(tabs().map((a) => a.getAttribute('href'))).toEqual(['/', '/goal', '/grammar', '/vocabulary/review', '/account']);
+    expect(tabs().map((a) => a.getAttribute('href'))).toEqual(['/', '/goal', '/grammar', '/irregular-verbs', '/vocabulary/review', '/account']);
     const current = () => tabs().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 
@@ -126,7 +126,7 @@ describe('App', () => {
     // The admin menu is the sidebar, not the header.
     expect(navLinks(harness)).toEqual([]);
     const sidebar = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar .menu a'));
-    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/words', '/admin/grammar', '/admin/roadmap', '/admin/accounts', '/admin/appearance', '/admin/tts-lab', '/admin/stt-lab']);
+    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/words', '/admin/grammar', '/admin/roadmap', '/admin/accounts', '/admin/ai-usage', '/admin/appearance', '/admin/tts-lab', '/admin/stt-lab']);
     const current = () => sidebar().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 

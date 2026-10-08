@@ -15,6 +15,8 @@ export interface ReadingLesson {
   phrases: { text: string; lemma: string }[];
   /** Comprehension questions (F15); null when the lesson has none. */
   quiz: Quiz | null;
+  /** F9: the learner's quota of "Hỏi AI" in this lesson. */
+  askQuota?: AskQuota;
   grammarNote: GrammarNote | null;
   /** The grammar point of the lesson (F20); '' or missing when none is assigned. */
   grammarPointId?: string;
@@ -83,6 +85,15 @@ export interface AskResult {
   result: LookupResult;
   /** Served from the stored answers, without calling the AI. */
   cached: boolean;
+  /** The learner's quota of AI asks in the lesson after this one. */
+  quota?: AskQuota;
+}
+
+/** F9: how many different words a learner may ask the AI about in a lesson; limit 0 = no limit. */
+export interface AskQuota {
+  limit: number;
+  /** The (lowercase) words already asked; asking one of them again is free. */
+  asked: string[];
 }
 
 /** One piece of a sentence: a clickable word or the text between words. */

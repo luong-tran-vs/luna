@@ -1,0 +1,75 @@
+<table class="table">
+  <caption class="visually-hidden">Bảng động từ bất quy tắc: nguyên mẫu, quá khứ, quá khứ phân từ và nghĩa</caption>
+  <thead>
+    <tr>
+      <th scope="col">Nguyên mẫu <span class="tag-v">V1</span></th>
+      <th scope="col">Quá khứ <span class="tag-v">V2</span></th>
+      <th scope="col">Quá khứ phân từ <span class="tag-v">V3</span></th>
+      <th scope="col">Nghĩa</th>
+      @if (canSpeak) {
+        <th scope="col"><span class="visually-hidden">Nghe</span></th>
+      }
+    </tr>
+  </thead>
+  @for (g of groups(); track g.letter) {
+    <tbody [id]="g.letter ? 'verbs-' + g.letter : null" [attr.tabindex]="g.letter ? -1 : null">
+      @if (g.letter) {
+        <tr class="letter-row">
+          <th [attr.colspan]="canSpeak ? 5 : 4" scope="colgroup">{{ g.letter }}</th>
+        </tr>
+      }
+      @for (v of g.verbs; track v.base + v.past) {
+        <tr class="verb" [class.playing]="isPlaying(v)">
+          <th scope="row" class="v1" lang="en">
+            {{ v.base }}
+            @if (v.common) {
+              <span class="common" title="Thông dụng"><lu-icon name="flame" /><span class="visually-hidden">(thông dụng)</span></span>
+            }
+          </th>
+          @for (form of forms; track form) {
+            <td class="form" [class.v2]="form === 'past'" [class.v3]="form === 'participle'" [attr.data-label]="form === 'past' ? 'V2' : 'V3'">
+              @if (isHidden(v, form)) {
+                <button
+                  type="button"
+                  class="reveal"
+                  [attr.aria-label]="'Hiện ' + (form === 'past' ? 'quá khứ' : 'quá khứ phân từ') + ' của ' + v.base"
+                  (click)="reveal(v, form)"
+                >
+                  ? Hiện
+                </button>
+              } @else {
+                <span lang="en">
+                  @for (s of spellings(formOf(v, form)); track s; let last = $last) {
+                    <span class="spelling">{{ s }}</span>
+                    @if (!last) {
+                      <span class="or" aria-hidden="true"> / </span><span class="visually-hidden"> hoặc </span>
+                    }
+                  }
+                </span>
+              }
+            </td>
+          }
+          <td class="vi">
+            {{ v.meaningVi }}
+            @if (v.noteVi) {
+              <span class="note">{{ v.noteVi }}</span>
+            }
+          </td>
+          @if (canSpeak) {
+            <td class="listen">
+              <button
+                type="button"
+                class="listen-btn"
+                [attr.aria-label]="'Nghe ' + spoken(v)"
+                [attr.aria-pressed]="isPlaying(v)"
+                (click)="listen(v)"
+              >
+                <lu-icon [name]="isPlaying(v) ? 'pause' : 'volume'" />
+              </button>
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  }
+</table>

@@ -130,6 +130,22 @@ describe('WordPopup', () => {
     expect(button('Hỏi AI')).toBeTruthy();
   });
 
+  it('says how many AI asks are left in the lesson, and disables "Hỏi AI" at none', async () => {
+    await render({ kind: 'not-found' }, { askLeft: 1, askLimit: 2 });
+    expect(el.querySelector('.ask-left')?.textContent?.trim()).toBe('Còn 1/2 lượt hỏi AI trong bài này.');
+    expect(button('Hỏi AI')!.disabled).toBe(false);
+    expect(button('Hỏi AI')!.getAttribute('aria-describedby')).toBe(el.querySelector('.ask-left')!.id);
+
+    await render({ kind: 'not-found' }, { askLeft: 0, askLimit: 2 });
+    expect(button('Hỏi AI')!.disabled).toBe(true);
+    expect(el.querySelector('.ask-left')?.textContent).toContain('Đã dùng hết 2 lượt hỏi AI của bài này.');
+
+    // Unlimited (admins) or a word already asked: no note.
+    await render({ kind: 'not-found' }, { askLeft: null, askLimit: 2 });
+    expect(el.querySelector('.ask-left')).toBeNull();
+    expect(button('Hỏi AI')!.disabled).toBe(false);
+  });
+
   it('does not offer "Hỏi AI" for an AI meaning or while looking up', async () => {
     await render({ kind: 'result', result: aiResult });
     expect(button('Hỏi AI')).toBeUndefined();

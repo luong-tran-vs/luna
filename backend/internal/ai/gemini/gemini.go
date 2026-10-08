@@ -29,6 +29,8 @@ type Client struct {
 	model   string
 	client  *http.Client
 	log     *slog.Logger
+	// Usage, if set, keeps every request with its tokens (the admin AI usage page).
+	Usage ai.UsageRecorder
 }
 
 // New returns a Gemini provider. An empty apiKey makes every call return ai.ErrNotConfigured.
@@ -54,8 +56,12 @@ var annotateSchema = map[string]any{
 					"lemma":         map[string]any{"type": "STRING"},
 					"meaningVi":     map[string]any{"type": "STRING"},
 					"sentenceIndex": map[string]any{"type": "INTEGER"},
+					"pos": map[string]any{
+						"type": "STRING",
+						"enum": []string{"noun", "verb", "adjective", "adverb", "pronoun", "preposition", "conjunction", "determiner", "interjection", "phrasal verb", "phrase"},
+					},
 				},
-				"required": []string{"text", "lemma", "meaningVi", "sentenceIndex"},
+				"required": []string{"text", "lemma", "meaningVi", "sentenceIndex", "pos"},
 			},
 		},
 		"questions": map[string]any{
@@ -312,12 +318,14 @@ func (c *Client) generate(ctx context.Context, op, prompt string, schema map[str
 	resp, err := c.client.Do(req)
 	if err != nil {
 		c.logRequest(ctx, op, start, 0, attrs)
+		c.recordUsage(ctx, op, start, 0, nil)
 		return "", fmt.Errorf("gemini: request: %w", err)
 	}
 	defer resp.Body.Close() //nolint:errcheck // body fully read below
 	c.logRequest(ctx, op, start, resp.StatusCode, attrs)
 
 	raw, err := io.ReadAll(io.LimitReader(resp.Body, maxResponse))
+	c.recordUsage(ctx, op, start, resp.StatusCode, raw)
 	if err != nil {
 		return "", fmt.Errorf("gemini: read response: %w", err)
 	}
@@ -398,6 +406,8 @@ For each item return:
 - text: copied exactly as it appears in the sentence (same spelling and inflection),
 - lemma: the dictionary form (e.g. "went" -> "go", "gave up" -> "give up"),
 - meaningVi: a short Vietnamese meaning that fits this context,
+- pos: its part of speech as used in this sentence: noun, verb, adjective, adverb, pronoun, preposition,
+  conjunction, determiner or interjection for one word; phrasal verb (e.g. "give up") or phrase for several words,
 - sentenceIndex: the number of the sentence containing it.
 Do not invent text that is not in the sentences.
 
@@ -635,4 +645,75 @@ Rules:
 - Dictionary form, lower case except proper nouns, English letters, spaces, hyphens or apostrophes only.
 - At most 3 words per phrase; no duplicates; no translations or explanations.
 `, req.Level, req.TopicName, req.Count, existing)
+}
+
+var _ ai.MeaningProvider = (*Client)(nil)
+
+// wordMeaningsSchema is one entry per word with its meaning and IPA (F24).
+var wordMeaningsSchema = map[string]any{
+	"type": "OBJECT",
+	"properties": map[string]any{
+		"words": map[string]any{
+			"type": "ARRAY",
+			"items": map[string]any{
+				"type": "OBJECT",
+				"properties": map[string]any{
+					"word":      map[string]any{"type": "STRING"},
+					"meaningVi": map[string]any{"type": "STRING"},
+					"ipa":       map[string]any{"type": "STRING"},
+				},
+				"required": []string{"word", "meaningVi", "ipa"},
+			},
+		},
+	},
+	"required": []string{"words"},
+}
+
+// WordMeanings sends one generateContent request for what each word of req lacks, its Vietnamese
+// meaning, its IPA or both. The word bank matches the answers to its words and checks them.
+func (c *Client) WordMeanings(ctx context.Context, req ai.MeaningsRequest) ([]ai.WordMeaning, error) {
+	text, err := c.generate(ctx, "word_meanings", wordMeaningsPrompt(req), wordMeaningsSchema, 0.2,
+		slog.Int("words", len(req.Words)))
+	if err != nil {
+		return nil, err
+	}
+	var out struct {
+		Words []struct {
+			Word      string `json:"word"`
+			MeaningVi string `json:"meaningVi"`
+			IPA       string `json:"ipa"`
+		} `json:"words"`
+	}
+	if err := json.Unmarshal([]byte(text), &out); err != nil {
+		return nil, fmt.Errorf("gemini: decode meanings: %w", err)
+	}
+	meanings := make([]ai.WordMeaning, len(out.Words))
+	for i, w := range out.Words {
+		meanings[i] = ai.WordMeaning(w)
+	}
+	return meanings, nil
+}
+
+func wordMeaningsPrompt(req ai.MeaningsRequest) string {
+	var b strings.Builder
+	fmt.Fprintf(&b, `You complete a vocabulary list for Vietnamese learners of English.
+Topic: %s
+Each English word or phrase below is followed by what it lacks, in brackets. Give only that:
+- meaning: set meaningVi to its most common Vietnamese meaning in the sense that fits the topic; at most 2 short meanings separated by "; ", no explanations or examples.
+- ipa: set ipa to its British IPA between slashes, for example /ˈfæməli/; for a phrase, the IPA of the whole phrase.
+Leave meaningVi or ipa as "" when it is not asked for.
+Return every word exactly as written below, once each, in the same order.
+Words:
+`, req.TopicName)
+	for _, w := range req.Words {
+		var need []string
+		if w.Meaning {
+			need = append(need, "meaning")
+		}
+		if w.IPA {
+			need = append(need, "ipa")
+		}
+		fmt.Fprintf(&b, "- %s [%s]\n", w.Word, strings.Join(need, ", "))
+	}
+	return b.String()
 }

@@ -17,6 +17,7 @@ describe('WordBank (F24)', () => {
     ipa: '/haʊs/',
     imageUrl: '/api/admin/words/house/image?v=1',
     updatedAt: '2026-10-07T09:00:00Z',
+    topics: [{ id: 't2', name: 'Nhà cửa' }],
   };
   const table: BankWord = {
     lemma: 'table',
@@ -24,6 +25,7 @@ describe('WordBank (F24)', () => {
     ipa: '',
     imageUrl: '',
     updatedAt: '2026-10-07T09:00:00Z',
+    topics: [],
   };
 
   /** Waits ms (past the search delay when needed), then for Angular. */
@@ -59,6 +61,12 @@ describe('WordBank (F24)', () => {
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(WordBank);
     el = fixture.nativeElement as HTMLElement;
+    http.expectOne('/api/admin/topics').flush({
+      topics: [
+        { id: 't2', name: 'Nhà cửa' },
+        { id: 't1', name: 'Chào hỏi' },
+      ],
+    });
     await settle(350);
     expectList('page=1').flush({ words, total: words.length + (hasMore ? 1 : 0), hasMore });
     await settle();
@@ -116,8 +124,11 @@ describe('WordBank (F24)', () => {
     button(el, 'Thêm')!.click();
     const req = http.expectOne('/api/admin/words');
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ lemma: 'Garden', meaningVi: '', ipa: '' });
-    req.flush({ ...table, lemma: 'garden' }, { status: 201, statusText: 'Created' });
+    expect(req.request.body).toEqual({ lemma: 'Garden', meaningVi: '', ipa: '', topicId: '' });
+    req.flush(
+      { ...table, lemma: 'garden', inBank: false, topic: null },
+      { status: 201, statusText: 'Created' },
+    );
     await settle(350);
     expectList('page=1').flush({ words: [house, table], total: 2, hasMore: false });
     await settle();
@@ -133,6 +144,93 @@ describe('WordBank (F24)', () => {
       );
     await settle();
     expect(el.querySelector('#bank-add-error')!.textContent).toContain('Từ này đã có trong kho');
+  });
+
+  it('shows the topics of each word and filters by topic', async () => {
+    await open();
+    expect(rows()[0].querySelector('.topics')!.textContent).toContain('Nhà cửa');
+    expect(rows()[1].textContent).toContain('Chưa thuộc chủ đề nào');
+    const filter = el.querySelector<HTMLSelectElement>('#bank-topic-filter')!;
+    // By name.
+    expect(Array.from(filter.options).map((o) => o.textContent?.trim())).toEqual([
+      'Tất cả chủ đề',
+      'Chào hỏi',
+      'Nhà cửa',
+    ]);
+
+    filter.value = 't2';
+    filter.dispatchEvent(new Event('change'));
+    await settle(350);
+    expectList('page=1&topicId=t2').flush({ words: [], total: 0, hasMore: false });
+    await settle();
+    expect(el.textContent).toContain('Kho chưa có từ nào của chủ đề này.');
+  });
+
+  it('adds a word to a topic, or says the topic has it already', async () => {
+    await open();
+    const topic = el.querySelector<HTMLSelectElement>('#bank-topic')!;
+    topic.value = 't2';
+    topic.dispatchEvent(new Event('change'));
+    type(el, '#bank-lemma', 'table');
+    button(el, 'Thêm')!.click();
+    const req = http.expectOne('/api/admin/words');
+    expect(req.request.body).toEqual({ lemma: 'table', meaningVi: '', ipa: '', topicId: 't2' });
+    req.flush({ ...table, inBank: true, topic: { id: 't2', name: 'Nhà cửa' } });
+    await settle(350);
+    expectList('page=1').flush({ words: [house, table], total: 2, hasMore: false });
+    await settle();
+    expect(el.querySelector('.note')!.textContent).toContain(
+      '"table" đã có trong kho, đã thêm vào chủ đề "Nhà cửa".',
+    );
+    // The topic stays chosen for the next word.
+    expect(topic.value).toBe('t2');
+
+    type(el, '#bank-lemma', 'house');
+    button(el, 'Thêm')!.click();
+    http
+      .expectOne('/api/admin/words')
+      .flush(
+        { error: 'validation_failed', fields: { lemma: 'Từ này đã có trong chủ đề "Nhà cửa"' } },
+        { status: 400, statusText: 'Bad Request' },
+      );
+    await settle();
+    expect(el.querySelector('#bank-add-error')!.textContent).toContain(
+      'Từ này đã có trong chủ đề "Nhà cửa"',
+    );
+  });
+
+  it('fills the meanings and IPA of a topic with one AI request', async () => {
+    await open();
+    expect(button(el, 'Điền nghĩa và phiên âm bằng AI')).toBeUndefined();
+    const choose = (selector: string, value: string) => {
+      const s = el.querySelector<HTMLSelectElement>(selector)!;
+      s.value = value;
+      s.dispatchEvent(new Event('change'));
+    };
+    choose('#bank-topic-filter', 't2');
+    choose('#bank-missing', 'ipa');
+    await settle(350);
+    expectList('page=1&missing=ipa&topicId=t2').flush({ words: [table], total: 1, hasMore: false });
+    await settle();
+    expect(el.querySelector('.fill-bar')!.textContent).toContain('chủ đề "Nhà cửa"');
+
+    button(el, 'Điền nghĩa và phiên âm bằng AI')!.click();
+    const req = http.expectOne('/api/admin/words/fill-missing');
+    expect(req.request.body).toEqual({ topicId: 't2' });
+    req.flush({ asked: 3, meanings: 2, ipas: 1 });
+    await settle(350);
+    expectList('page=1&missing=ipa&topicId=t2').flush({ words: [table], total: 1, hasMore: false });
+    await settle();
+    expect(el.querySelector('.note')!.textContent).toContain(
+      'AI đã xử lý 3 từ còn thiếu: điền nghĩa cho 2 từ, phiên âm cho 1 từ.',
+    );
+
+    button(el, 'Điền nghĩa và phiên âm bằng AI')!.click();
+    http
+      .expectOne('/api/admin/words/fill-missing')
+      .flush({ message: 'Đã hết lượt AI, vui lòng thử lại sau.' }, { status: 429, statusText: 'Too Many Requests' });
+    await settle();
+    expect(el.querySelector('.note')!.textContent).toContain('Đã hết lượt AI');
   });
 
   it('imports the topic words', async () => {

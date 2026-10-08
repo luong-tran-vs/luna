@@ -45,8 +45,20 @@
         <label for="bank-ipa">Phiên âm (IPA)</label>
         <input id="bank-ipa" type="text" autocomplete="off" formControlName="ipa" />
       </div>
+      <div class="field">
+        <label for="bank-topic">Thêm vào chủ đề</label>
+        <select id="bank-topic" formControlName="topicId">
+          <option value="">Không chọn</option>
+          @for (t of topics(); track t.id) {
+            <option [value]="t.id">{{ t.name }}</option>
+          }
+        </select>
+      </div>
     </div>
-    <p class="field-hint" id="bank-add-hint">Để trống nghĩa hoặc phiên âm thì lấy từ từ điển (nếu có).</p>
+    <p class="field-hint" id="bank-add-hint">
+      Để trống nghĩa hoặc phiên âm thì lấy từ từ điển (nếu có). Chọn chủ đề thì từ cũng được thêm vào danh sách từ
+      của chủ đề đó (cả khi từ đã có trong kho).
+    </p>
     @if (addError(); as message) {
       <p class="field-error" id="bank-add-error" role="alert">{{ message }}</p>
     }
@@ -71,6 +83,15 @@
       />
     </div>
     <div class="field">
+      <label for="bank-topic-filter">Chủ đề</label>
+      <select id="bank-topic-filter" [value]="topicFilter()" (change)="setTopicFilter($any($event.target).value)">
+        <option value="" [selected]="topicFilter() === ''">Tất cả chủ đề</option>
+        @for (t of topics(); track t.id) {
+          <option [value]="t.id" [selected]="t.id === topicFilter()">{{ t.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="field">
       <label for="bank-missing">Lọc</label>
       <select id="bank-missing" [value]="missing()" (change)="setMissing($any($event.target).value)">
         @for (o of missingOptions; track o.value) {
@@ -79,6 +100,24 @@
       </select>
     </div>
   </div>
+
+  @if (canFill() && total() > 0) {
+    <div class="card fill-bar">
+      <p class="muted">
+        Gửi một lần cho AI mọi từ của chủ đề "{{ topicName() }}" còn thiếu nghĩa hoặc phiên âm; AI chỉ điền phần còn
+        trống, không đổi phần đã có. Có thể sửa lại từng từ sau đó.
+      </p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="filling()"
+        [attr.aria-busy]="filling()"
+        (click)="fillMissing()"
+      >
+        {{ filling() ? 'AI đang điền…' : 'Điền nghĩa và phiên âm bằng AI' }}
+      </button>
+    </div>
+  }
 
   @if (loadError(); as message) {
     <div class="form-alert" role="alert">
@@ -91,7 +130,9 @@
     <p class="summary" aria-live="polite">{{ total() }} từ</p>
     @if (ws.length === 0) {
       <p class="card muted">
-        @if (search() || missing()) {
+        @if (topicFilter() && !search() && !missing()) {
+          Kho chưa có từ nào của chủ đề này. Bấm "Nhập từ các chủ đề" để đưa các từ của chủ đề vào kho.
+        } @else if (search() || missing() || topicFilter()) {
           Không có từ nào khớp.
         } @else {
           Kho chưa có từ nào. Thêm từ ở trên hoặc bấm "Nhập từ các chủ đề".

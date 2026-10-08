@@ -11,6 +11,7 @@ import (
 	"log/slog"
 
 	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/export"
 	"github.com/luongtran/luna/backend/internal/grammar"
@@ -40,7 +41,9 @@ type Container struct {
 	ai ai.Provider
 	// imageAI draws the vocabulary pictures (F23).
 	imageAI ai.ImageProvider
-	dict    closableDictionary
+	// meaningAI fills the missing meanings of the word bank (F24).
+	meaningAI ai.MeaningProvider
+	dict      closableDictionary
 
 	auth        *auth.Service
 	authHandler *auth.Handler
@@ -58,10 +61,12 @@ type Container struct {
 	worker     *job.Worker
 	vocab      *vocab.Service
 	wordBank   *wordbank.Service
-	grammar    *grammar.Service
-	progress   *progress.Service
-	study      *progress.StudyService
-	export     *export.Service
+	// aiUsage keeps the AI requests for the admin usage page.
+	aiUsage  *aiusage.Service
+	grammar  *grammar.Service
+	progress *progress.Service
+	study    *progress.StudyService
+	export   *export.Service
 }
 
 // Init builds every service on store. The store stays open and is closed by the caller, after

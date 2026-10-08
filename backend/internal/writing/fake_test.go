@@ -75,6 +75,7 @@ func (f *fakeRepo) Submit(_ context.Context, in Writing) (Writing, error) {
 	}
 	w.LessonRevision, w.LessonTitle, w.Prompt, w.Text = in.LessonRevision, in.LessonTitle, in.Prompt, in.Text
 	w.Status, w.SubmittedAt, w.UpdatedAt = StatusSubmitted, in.SubmittedAt, in.SubmittedAt
+	w.Gradings = in.Gradings
 	w.Grade = &Grade{Status: GradePending, Seen: true}
 	f.byID[w.ID] = w
 	return w, nil
@@ -88,6 +89,19 @@ func (f *fakeRepo) SetGrade(_ context.Context, id string, g Grade) error {
 		return ErrNotFound
 	}
 	w.Grade = &g
+	f.byID[id] = w
+	return nil
+}
+
+func (f *fakeRepo) Regrade(_ context.Context, id, text string, submittedAt time.Time, gradings int) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	w, ok := f.byID[id]
+	if !ok {
+		return ErrNotFound
+	}
+	w.Text, w.SubmittedAt, w.Gradings = text, submittedAt, gradings
+	w.Grade = &Grade{Status: GradePending, Seen: true}
 	f.byID[id] = w
 	return nil
 }
@@ -299,4 +313,16 @@ func (f *fakeGrader) ReviewLesson(context.Context, ai.ReviewRequest) (ai.ReviewR
 
 func (f *fakeGrader) SuggestFix(context.Context, ai.FixRequest) (ai.FixResult, error) {
 	return ai.FixResult{}, ai.ErrNotConfigured
+}
+
+// update changes a stored writing in place (tests only).
+func (f *fakeRepo) update(id string, fn func(*Writing)) (Writing, bool) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	w, ok := f.byID[id]
+	if ok {
+		fn(&w)
+		f.byID[id] = w
+	}
+	return w, ok
 }

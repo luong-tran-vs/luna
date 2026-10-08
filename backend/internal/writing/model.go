@@ -73,10 +73,13 @@ type Writing struct {
 	LessonRevision int
 	LessonTitle    string
 	// Prompt is stored at submission time; empty for a draft.
-	Prompt      string
-	Text        string
-	Status      Status
-	Grade       *Grade
+	Prompt string
+	Text   string
+	Status Status
+	Grade  *Grade
+	// Gradings is how many times the writing was sent to grading (submit, resubmit, regrade); 0 for
+	// writings submitted before it was counted, which used one.
+	Gradings    int
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	SubmittedAt time.Time
@@ -136,6 +139,10 @@ var (
 	ErrNotFailed = errors.New("writing: grade not failed")
 	// ErrUnusableGrade means the AI answer missed scores or comments.
 	ErrUnusableGrade = errors.New("writing: AI returned an unusable grade")
+	// ErrNoGradings means the writing already used its MaxGradings gradings.
+	ErrNoGradings = errors.New("writing: no gradings left")
+	// ErrGrading means the writing is being graded, so it cannot be sent again yet.
+	ErrGrading = errors.New("writing: grading in progress")
 )
 
 // ValidationError lists invalid fields with Vietnamese messages.

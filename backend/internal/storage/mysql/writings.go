@@ -59,11 +59,11 @@ type writingsCriterion struct {
 
 const writingsColsNoText = `id, user_id, lesson_id, lesson_revision, lesson_title, prompt, '' AS text, status,
   grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen,
-  created_at, updated_at, submitted_at`
+  created_at, updated_at, submitted_at, gradings`
 
 const writingsCols = `id, user_id, lesson_id, lesson_revision, lesson_title, prompt, text, status,
   grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen,
-  created_at, updated_at, submitted_at`
+  created_at, updated_at, submitted_at, gradings`
 
 type writingsScanner interface{ Scan(dest ...any) error }
 
@@ -78,7 +78,7 @@ func writingsScan(s writingsScanner) (writing.Writing, error) {
 	)
 	if err := s.Scan(&w.ID, &w.UserID, &w.LessonID, &w.LessonRevision, &w.LessonTitle, &w.Prompt, &w.Text, &status,
 		&gStatus, &gError, &gCriteria, &gOverall, &gCorrect, &gAt, &gSeen,
-		&w.CreatedAt, &w.UpdatedAt, &submitted); err != nil {
+		&w.CreatedAt, &w.UpdatedAt, &submitted, &w.Gradings); err != nil {
 		return writing.Writing{}, err
 	}
 	w.Status = writing.Status(status)
@@ -179,11 +179,11 @@ func (r *Writings) Submit(ctx context.Context, w writing.Writing) (writing.Writi
 	}
 	// A concurrent SaveDraft may create the row between our UPDATE and INSERT; then try again.
 	for range 3 {
-		upd := append([]any{w.LessonRevision, w.LessonTitle, w.Prompt, w.Text, string(writing.StatusSubmitted), at, at}, gargs...)
+		upd := append([]any{w.LessonRevision, w.LessonTitle, w.Prompt, w.Text, string(writing.StatusSubmitted), at, at, w.Gradings}, gargs...)
 		upd = append(upd, w.UserID, w.LessonID, string(writing.StatusSubmitted))
 		res, err := r.db.ExecContext(ctx,
 			`UPDATE writings SET lesson_revision = ?, lesson_title = ?, prompt = ?, text = ?, status = ?,
-  submitted_at = ?, updated_at = ?,
+  submitted_at = ?, updated_at = ?, gradings = ?,
   grade_status = ?, grade_error = ?, grade_criteria = ?, grade_overall = ?, grade_corrected = ?, grade_graded_at = ?, grade_seen = ?
 WHERE user_id = ? AND lesson_id = ? AND status <> ?`, upd...)
 		if err != nil {
@@ -196,12 +196,12 @@ WHERE user_id = ? AND lesson_id = ? AND status <> ?`, upd...)
 		if !ok {
 			ins := append([]any{newID(), w.UserID, w.LessonID, w.LessonRevision, w.LessonTitle, w.Prompt, w.Text,
 				string(writing.StatusSubmitted)}, gargs...)
-			ins = append(ins, at, at, at)
+			ins = append(ins, at, at, at, w.Gradings)
 			_, err = r.db.ExecContext(ctx,
 				`INSERT INTO writings (id, user_id, lesson_id, lesson_revision, lesson_title, prompt, text, status,
   grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen,
-  created_at, updated_at, submitted_at)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, ins...)
+  created_at, updated_at, submitted_at, gradings)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, ins...)
 			if isDuplicate(err) {
 				cur, found, gerr := r.GetByLesson(ctx, w.UserID, w.LessonID)
 				if gerr != nil {
@@ -353,4 +353,24 @@ func (r *Writings) Stats(ctx context.Context, userID string, since *time.Time) (
 	}
 	avg := sum / float64(averaged)
 	return submitted, &avg, nil
+}
+
+// Regrade stores the text to grade again and resets the grade to pending.
+func (r *Writings) Regrade(ctx context.Context, id, text string, submittedAt time.Time, gradings int) error {
+	gargs, err := writingsGradeArgs(writing.Grade{Status: writing.GradePending, Seen: true})
+	if err != nil {
+		return err
+	}
+	a := append([]any{text, utc(submittedAt), gradings}, gargs...)
+	a = append(a, utc(time.Now()), id)
+	return r.updateByID(ctx,
+		`UPDATE writings SET text = ?, submitted_at = ?, gradings = ?, grade_status = ?, grade_error = ?,
+  grade_criteria = ?, grade_overall = ?, grade_corrected = ?, grade_graded_at = ?, grade_seen = ?, updated_at = ?
+  WHERE id = ?`, a...)
+}
+
+// writingGradingsSchema counts the gradings of each writing (submit, resubmit, regrade). It reruns
+// safely: the migration ignores "duplicate column name".
+func writingGradingsSchema() []string {
+	return []string{`ALTER TABLE writings ADD COLUMN gradings INT NOT NULL DEFAULT 0`}
 }

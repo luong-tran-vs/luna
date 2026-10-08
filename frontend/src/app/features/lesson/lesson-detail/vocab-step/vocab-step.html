@@ -60,8 +60,15 @@
               </button>
             }
           </div>
-          @if (r.word.ipa) {
-            <p class="ipa">{{ r.word.ipa }}</p>
+          @if (posLabel(r.word.pos) || r.word.ipa) {
+            <p class="word-sub">
+              @if (posLabel(r.word.pos); as pos) {
+                <span class="pos">{{ pos }}</span>
+              }
+              @if (r.word.ipa) {
+                <span class="ipa">{{ r.word.ipa }}</span>
+              }
+            </p>
           }
           <p class="meaning">{{ r.word.meaningVi }}</p>
         </div>

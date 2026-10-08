@@ -358,7 +358,7 @@ func vocabularyWords(l Lesson) []VocabItem {
 			continue
 		}
 		seen[lemma] = true
-		item := VocabItem{Lemma: lemma, Text: a.Text, MeaningVi: a.MeaningVi, SentenceIndex: a.SentenceIndex}
+		item := VocabItem{Lemma: lemma, Text: a.Text, MeaningVi: a.MeaningVi, SentenceIndex: a.SentenceIndex, POS: a.POS}
 		if a.SentenceIndex >= 0 && a.SentenceIndex < len(l.Sentences) {
 			item.Sentence = l.Sentences[a.SentenceIndex].Text
 		}

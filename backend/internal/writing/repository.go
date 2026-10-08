@@ -20,6 +20,9 @@ type Repository interface {
 	// text, lesson title and revision, submittedAt and a pending, seen grade. It creates the
 	// writing when there was no draft; ErrSubmitted when it was already submitted.
 	Submit(ctx context.Context, w Writing) (Writing, error)
+	// Regrade sends a submitted writing to grading again with text (the same or the edited one):
+	// it stores the text, submittedAt and gradings and resets the grade to pending and seen.
+	Regrade(ctx context.Context, id, text string, submittedAt time.Time, gradings int) error
 	// SetGrade replaces the grade of a submitted writing.
 	SetGrade(ctx context.Context, id string, g Grade) error
 	// MarkSeen marks the writing's result as seen.

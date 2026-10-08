@@ -9,6 +9,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
 
@@ -94,7 +95,7 @@ func TestWordsAPI(t *testing.T) {
 func TestImageAPI(t *testing.T) {
 	t.Parallel()
 	mux, e := newAPI(t)
-	if _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
 		t.Fatal(err)
 	}
 	if rec := do(mux, http.MethodGet, "/api/admin/words/house/image", ""); rec.Code != http.StatusNotFound {
@@ -128,5 +129,47 @@ func TestImageAPI(t *testing.T) {
 	if rec = do(mux, http.MethodDelete, "/api/admin/words/house/image", ""); rec.Code != http.StatusOK ||
 		!strings.Contains(rec.Body.String(), `"imageUrl":""`) {
 		t.Fatalf("delete image = %d %s", rec.Code, rec.Body)
+	}
+}
+
+func TestAddToTopicAPI(t *testing.T) {
+	t.Parallel()
+	mux, _ := newAPI(t)
+
+	rec := do(mux, http.MethodPost, "/api/admin/words", `{"lemma":"window","topicId":"t1"}`)
+	if rec.Code != http.StatusCreated || !strings.Contains(rec.Body.String(), `"inBank":false,"topic":{"id":"t1","name":"Nhà cửa"}`) {
+		t.Fatalf("add = %d %s", rec.Code, rec.Body)
+	}
+	if rec = do(mux, http.MethodPost, "/api/admin/words", `{"lemma":"window","topicId":"t2"}`); rec.Code != http.StatusOK ||
+		!strings.Contains(rec.Body.String(), `"inBank":true`) {
+		t.Fatalf("bank word = %d %s", rec.Code, rec.Body)
+	}
+	if rec = do(mux, http.MethodPost, "/api/admin/words", `{"lemma":"Window","topicId":"t1"}`); rec.Code != http.StatusBadRequest ||
+		!strings.Contains(rec.Body.String(), `đã có trong chủ đề \"Nhà cửa\"`) {
+		t.Fatalf("in topic = %d %s", rec.Code, rec.Body)
+	}
+	rec = do(mux, http.MethodGet, "/api/admin/words?topicId=t2", "")
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"topics":[{"id":"t2","name":"Chào hỏi"},{"id":"t1","name":"Nhà cửa"}]`) {
+		t.Fatalf("list = %d %s", rec.Code, rec.Body)
+	}
+}
+
+func TestFillMissingAPI(t *testing.T) {
+	t.Parallel()
+	mux, e := newAPI(t)
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "table"}); err != nil {
+		t.Fatal(err)
+	}
+	e.means.answers = []ai.WordMeaning{{Word: "table", MeaningVi: "cái bàn", IPA: "/ˈteɪbl/"}}
+	rec := do(mux, http.MethodPost, "/api/admin/words/fill-missing", `{"topicId":"t1"}`)
+	if rec.Code != http.StatusOK || rec.Body.String() != "{\"asked\":1,\"ipas\":1,\"meanings\":1}\n" {
+		t.Fatalf("fill = %d %s", rec.Code, rec.Body)
+	}
+	e.means.err = ai.ErrNotConfigured
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "chair", TopicID: "t1"}); err != nil {
+		t.Fatal(err)
+	}
+	if rec = do(mux, http.MethodPost, "/api/admin/words/fill-missing", `{"topicId":"t1"}`); rec.Code != http.StatusServiceUnavailable {
+		t.Fatalf("not configured = %d %s", rec.Code, rec.Body)
 	}
 }

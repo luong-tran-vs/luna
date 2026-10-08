@@ -27,6 +27,7 @@ type annotationDoc struct {
 	MeaningVi     string `bson:"meaningVi"`
 	SentenceIndex int    `bson:"sentenceIndex"`
 	EditedByAdmin bool   `bson:"editedByAdmin"`
+	POS           string `bson:"pos,omitempty"`
 }
 
 type questionDoc struct {

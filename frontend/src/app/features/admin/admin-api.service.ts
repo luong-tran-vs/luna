@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
+import { AiUsage } from '../../core/models/ai-usage';
 import { GrammarPoint } from '../../core/models/grammar';
 import { GrammarContent, GrammarExerciseInput, GrammarLessonAdmin, GrammarLessonSummary, GrammarReportGroup } from '../../core/models/grammar-admin';
 import { GenerateInput, GenerateResult } from '../../core/models/generate';
@@ -21,7 +22,15 @@ import {
 } from '../../core/models/lesson';
 import { Level } from '../../core/models/lesson';
 import { Topic, TopicInput, TopicRoadmap, TopicWord, TopicWordInput, WordPlan } from '../../core/models/topic';
-import { BankMissing, BankPage, BankWord, BankWordDetails, BankWordInput } from '../../core/models/word-bank';
+import {
+  BankMeaningsFilled,
+  BankMissing,
+  BankPage,
+  BankWord,
+  BankWordAdded,
+  BankWordDetails,
+  BankWordInput,
+} from '../../core/models/word-bank';
 import { Account, AccountInput } from '../../core/models/user';
 
 const BASE = '/api/admin';
@@ -297,8 +306,11 @@ export class AdminApiService {
     );
   }
 
-  /** F24: one page (from 1) of the word bank, filtered by text and by what the words lack. */
-  bankWords(q: string, missing: BankMissing, page: number): Observable<BankPage> {
+  /**
+   * F24: one page (from 1) of the word bank, filtered by text, by what the words lack and, with a
+   * topicId, to the words of that topic.
+   */
+  bankWords(q: string, missing: BankMissing, topicId: string, page: number): Observable<BankPage> {
     let params = new HttpParams().set('page', page);
     if (q) {
       params = params.set('q', q);
@@ -306,17 +318,36 @@ export class AdminApiService {
     if (missing) {
       params = params.set('missing', missing);
     }
+    if (topicId) {
+      params = params.set('topicId', topicId);
+    }
     return this.http.get<BankPage>(`${BASE}/words`, { params });
   }
 
-  /** F24: adds a word; an empty IPA or meaning is filled from the dictionary. */
-  addBankWord(input: BankWordInput): Observable<BankWord> {
-    return this.http.post<BankWord>(`${BASE}/words`, input);
+  /**
+   * F24: adds a word; an empty IPA or meaning is filled from the dictionary. With a topic the word
+   * also goes into its list (an error when the list holds it already).
+   */
+  addBankWord(input: BankWordInput): Observable<BankWordAdded> {
+    return this.http.post<BankWordAdded>(`${BASE}/words`, input);
   }
 
   /** F24: adds the topic words missing from the bank; returns how many were added. */
+  /** Requests and tokens sent to the AI: last minute, last hour by minute, today, last 7 days. */
+  aiUsage(): Observable<AiUsage> {
+    return this.http.get<AiUsage>(`${BASE}/ai-usage`);
+  }
+
   importBankWords(): Observable<number> {
     return this.http.post<{ added: number }>(`${BASE}/words/import`, null).pipe(map((r) => r.added));
+  }
+
+  /**
+   * F24: one AI request for what the topic's bank words lack (meaning, IPA); returns how many
+   * words were asked about and how many got a meaning and an IPA.
+   */
+  fillBankMissing(topicId: string): Observable<BankMeaningsFilled> {
+    return this.http.post<BankMeaningsFilled>(`${BASE}/words/fill-missing`, { topicId });
   }
 
   updateBankWord(lemma: string, details: BankWordDetails): Observable<BankWord> {

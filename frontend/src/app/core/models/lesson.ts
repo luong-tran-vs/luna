@@ -30,6 +30,8 @@ export interface Annotation {
   meaningVi: string;
   sentenceIndex: number;
   editedByAdmin: boolean;
+  /** Part of speech as used in the sentence; "" or missing for lessons annotated before it was asked. */
+  pos?: string;
 }
 
 export interface LessonSummary {

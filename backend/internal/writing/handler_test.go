@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
@@ -208,5 +209,35 @@ func TestRegradeEndpoint(t *testing.T) {
 	code, body := a.do(t, http.MethodPost, "/api/writings/"+w.ID+"/regrade", "u1", "")
 	if code != http.StatusAccepted || body["writing"].(map[string]any)["grade"].(map[string]any)["status"] != "pending" {
 		t.Fatalf("regrade: %d %v", code, body)
+	}
+}
+
+func TestResubmitEndpoint(t *testing.T) {
+	t.Parallel()
+	a := newAPI(t)
+	w, j := a.env.submitted(t)
+	gradings := func(body map[string]any) any {
+		wr, _ := body["writing"].(map[string]any)
+		return wr["gradings"]
+	}
+	code, body := a.do(t, http.MethodGet, "/api/writings/"+w.ID, "u1", "")
+	if code != http.StatusOK || fmt.Sprint(gradings(body)) != "map[max:2 used:1]" {
+		t.Fatalf("detail: %d %v", code, body)
+	}
+	if code, body := a.do(t, http.MethodPost, "/api/writings/"+w.ID+"/resubmit", "u1", textBody("My family has four people now.")); code != http.StatusConflict || body["error"] != "grading" {
+		t.Fatalf("while grading: %d %v", code, body)
+	}
+	_ = a.env.svc.ProcessGrade(t.Context(), j)
+	code, body = a.do(t, http.MethodPost, "/api/writings/"+w.ID+"/resubmit", "u1", textBody("My family has four people now."))
+	if code != http.StatusAccepted || fmt.Sprint(gradings(body)) != "map[max:2 used:2]" {
+		t.Fatalf("resubmit: %d %v", code, body)
+	}
+	_ = a.env.svc.ProcessGrade(t.Context(), a.env.lastJob())
+	code, body = a.do(t, http.MethodPost, "/api/writings/"+w.ID+"/resubmit", "u1", textBody("My family has four people again."))
+	if code != http.StatusConflict || body["error"] != "no_gradings" || body["message"] != "Mỗi bài viết chỉ được chấm 2 lần" {
+		t.Fatalf("third: %d %v", code, body)
+	}
+	if code, _ := a.do(t, http.MethodPost, "/api/writings/"+w.ID+"/resubmit", "u2", textBody("My family has four people now.")); code != http.StatusNotFound {
+		t.Fatalf("u2: %d", code)
 	}
 }

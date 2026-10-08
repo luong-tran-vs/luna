@@ -24,7 +24,7 @@ const done: Grade = {
   gradedAt: '2026-10-01T03:01:00Z',
 };
 
-const writing = (grade: Grade | null): Writing => ({
+const writing = (grade: Grade | null, used = 1): Writing => ({
   id: 'w1',
   lessonId: 'l1',
   lessonTitle: 'My family',
@@ -33,6 +33,7 @@ const writing = (grade: Grade | null): Writing => ({
   status: 'submitted',
   submittedAt: '2026-10-01T03:00:00Z',
   grade,
+  gradings: { used, max: 2 },
 });
 
 const pending: Grade = { ...done, status: 'pending', criteria: [], average: null, overallVi: '', correctedText: '' };
@@ -123,7 +124,7 @@ describe('WritingDetail', () => {
     await setup(writing({ ...pending, status: 'failed', error: 'AI hết lượt, vui lòng chấm lại sau' }));
     expect(text(el.querySelector('.failed p'))).toBe('Chấm lỗi: AI hết lượt, vui lòng chấm lại sau');
     expect(notifier.markSeen).toHaveBeenCalledWith('w1');
-    button('Chấm lại')!.click();
+    button('Chấm lại (còn 1 lượt)')!.click();
     await settle();
     const req = http.expectOne('/api/writings/w1/regrade');
     expect(req.request.method).toBe('POST');
@@ -135,13 +136,55 @@ describe('WritingDetail', () => {
 
   it('shows the message when Chấm lại is refused', async () => {
     await setup(writing({ ...pending, status: 'failed', error: 'x' }));
-    button('Chấm lại')!.click();
+    button('Chấm lại (còn 1 lượt)')!.click();
     await settle();
     http
       .expectOne('/api/writings/w1/regrade')
       .flush({ error: 'not_failed', message: 'Chỉ chấm lại được bài chấm lỗi' }, { status: 409, statusText: 'Conflict' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Chỉ chấm lại được bài chấm lỗi');
+  });
+
+  it('hides Chấm lại once both gradings are used', async () => {
+    await setup(writing({ ...pending, status: 'failed', error: 'x' }, 2));
+    expect(button('Chấm lại (còn 1 lượt)')).toBeUndefined();
+    expect(text(el.querySelector('.failed'))).toContain('Bài viết này đã dùng hết lượt chấm.');
+    expect(text(el.querySelector('.gradings'))).toBe('Lượt chấm: 2/2');
+  });
+
+  it('lets the learner edit and resubmit a graded writing once', async () => {
+    await setup(writing(done));
+    expect(text(el.querySelector('.gradings'))).toBe('Lượt chấm: 1/2');
+    button('Sửa bài')!.click();
+    await settle();
+    const area = el.querySelector<HTMLTextAreaElement>('#resubmit-text')!;
+    expect(area.value).toBe('My family have four people.');
+
+    area.value = 'Too short';
+    area.dispatchEvent(new Event('input'));
+    await settle();
+    expect(text(el.querySelector('#resubmit-count'))).toBe('2 từ (từ 5 đến 400)');
+    button('Nộp lại để chấm')!.click();
+    await settle();
+    expect(text(el.querySelector('[role="alert"]'))).toBe('Bài viết cần từ 5 đến 400 từ.');
+
+    area.value = 'My family has four people.';
+    area.dispatchEvent(new Event('input'));
+    button('Nộp lại để chấm')!.click();
+    await settle();
+    const req = http.expectOne('/api/writings/w1/resubmit');
+    expect(req.request.body).toEqual({ text: 'My family has four people.' });
+    req.flush({ writing: { ...writing(pending, 2), text: 'My family has four people.' } });
+    await settle();
+    expect(text(el.querySelector('.status'))).toContain('Đang chấm');
+    expect(el.querySelector('.resubmit')).toBeNull();
+    expect(notifier.submitted).toHaveBeenCalled();
+  });
+
+  it('offers no resubmit once both gradings are used', async () => {
+    await setup(writing(done, 2));
+    expect(button('Sửa bài')).toBeUndefined();
+    expect(text(el)).toContain('Bài viết này đã dùng hết 2 lượt chấm.');
   });
 
   it('says when the writing does not exist', async () => {

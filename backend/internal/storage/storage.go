@@ -16,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/export"
 	"github.com/luongtran/luna/backend/internal/grammar"
@@ -61,11 +62,15 @@ type Store interface {
 	Topics() topic.Repository
 	ReadingAnswers() lesson.AnswerRepository
 	AILookups() lesson.AskRepository
+	// AskUsage remembers which words each learner asked the AI about, per lesson (F9 limit).
+	AskUsage() lesson.AskUsageRepository
 	Writings() writing.Repository
 	// WordImages keeps the picture settings of lessons and their word pictures (F23).
 	WordImages() lesson.ImageRepository
 	// WordBank keeps the shared word bank and its pictures (F24).
 	WordBank() wordbank.Repository
+	// AIUsage keeps the requests sent to the AI provider (admin AI usage page).
+	AIUsage() aiusage.Repository
 
 	Cards() vocab.Repository
 	ReviewLogs() vocab.ReviewLogRepository

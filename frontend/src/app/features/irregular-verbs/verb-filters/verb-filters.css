@@ -1,0 +1,194 @@
+:host {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* --- search, filters, self-test --- */
+
+.toolbar {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.search input {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-2) 44px;
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-full);
+}
+
+.search input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* The browser's own clear button would sit next to ours. */
+.search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.clear {
+  position: absolute;
+  right: var(--space-1);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-muted);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.clear:hover {
+  color: var(--color-text);
+  background: var(--color-track);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  --icon-size: 16px;
+}
+
+.chip:hover {
+  border-color: var(--color-primary);
+}
+
+.chip:focus-visible,
+.test-toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.chip[aria-pressed='true'] {
+  font-weight: 600;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.pattern {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.count {
+  min-width: 1.6em;
+  padding: 0 6px;
+  font-size: 0.85em;
+  text-align: center;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border-radius: var(--radius-full);
+}
+
+.test-toggle {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-2) 0 0;
+  color: var(--color-text);
+  text-align: start;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  cursor: pointer;
+}
+
+.test-text {
+  display: grid;
+  gap: 2px;
+}
+
+.test-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.test-hint {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* --- the 4 patterns --- */
+
+.legend summary {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.legend ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 2px var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.legend-label {
+  grid-row: span 2;
+  align-self: center;
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+.legend-example {
+  font-weight: 600;
+}
+
+.legend-hint,
+.legend-tip {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.legend-tip {
+  margin: var(--space-3) 0 0;
+}
+

@@ -15,8 +15,9 @@ const words: VocabItem[] = [
     ipa: '/həˈləʊ/',
     sentenceIndex: 0,
     sentence: '',
+    pos: 'interjection',
   },
-  { lemma: 'name', text: 'name', meaningVi: 'tên', ipa: '', sentenceIndex: 0, sentence: '' },
+  { lemma: 'name', text: 'name', meaningVi: 'tên', ipa: '', sentenceIndex: 0, sentence: '', pos: 'noun' },
   {
     lemma: 'meet',
     text: 'meet',
@@ -121,6 +122,7 @@ describe('VocabStep', () => {
     expect(el.querySelectorAll('.word').length).toBe(1);
     expect(text(el.querySelector('.lemma'))).toBe('hello');
     expect(text(el.querySelector('.ipa'))).toBe('/həˈləʊ/');
+    expect(text(el.querySelector('.pos'))).toBe('thán từ');
     expect(text(el.querySelector('.meaning'))).toBe('xin chào');
     expect(el.querySelector('img')!.getAttribute('src')).toBe(placeholderImage('hello'));
     expect(text(el.querySelector('.example-label'))).toBe('Ví dụ:');
@@ -168,9 +170,14 @@ describe('VocabStep', () => {
     await click(nextWord());
     expect(text(el.querySelector('.lemma'))).toBe('name');
     expect(el.querySelector('.ipa')).toBeNull();
+    // The part of speech shows even without an IPA.
+    expect(text(el.querySelector('.word-sub'))).toBe('danh từ');
+    // Part of speech without IPA.
+    expect(text(el.querySelector('.word-sub'))).toBe('danh từ');
     await click(forward());
     expect(text(el.querySelector('.lemma'))).toBe('meet');
     expect(text(el.querySelector('.count'))).toBe('3/3');
+    expect(el.querySelector('.pos')).toBeNull();
     expect(forward().disabled).toBe(true);
     await click(prev());
     expect(text(el.querySelector('.lemma'))).toBe('name');

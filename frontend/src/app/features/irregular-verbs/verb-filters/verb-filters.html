@@ -1,0 +1,70 @@
+<div class="soft-card toolbar">
+  <div class="search">
+    <lu-icon name="search" class="search-icon" />
+    <label class="visually-hidden" for="verb-search">Tìm động từ</label>
+    <input
+      #search
+      id="verb-search"
+      type="search"
+      placeholder="Tìm: go, went, đi…"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      [value]="query()"
+      (input)="onSearch($event)"
+    />
+    @if (query()) {
+      <button type="button" class="clear" aria-label="Xoá ô tìm" (click)="clearSearch(search)">
+        <lu-icon name="x" />
+      </button>
+    }
+  </div>
+
+  <div class="chips" role="group" aria-label="Danh sách">
+    <button type="button" class="chip" [attr.aria-pressed]="!commonOnly()" (click)="commonOnly.set(false)">
+      Tất cả <span class="count">{{ total() }}</span>
+    </button>
+    <button type="button" class="chip" [attr.aria-pressed]="commonOnly()" (click)="commonOnly.set(true)">
+      <lu-icon name="flame" /> Thông dụng <span class="count">{{ commonTotal() }}</span>
+    </button>
+  </div>
+
+  <div class="chips" role="group" aria-label="Nhóm theo cách biến đổi">
+    <button type="button" class="chip" [attr.aria-pressed]="pattern() === null" (click)="pattern.set(null)">
+      Mọi nhóm <span class="count">{{ counts().all }}</span>
+    </button>
+    @for (p of patterns; track p.key) {
+      <button
+        type="button"
+        class="chip pattern"
+        [attr.aria-pressed]="pattern() === p.key"
+        [title]="p.hintVi + ' Ví dụ: ' + p.example"
+        (click)="pattern.set(p.key)"
+      >
+        {{ p.label }} <span class="count">{{ counts()[p.key] }}</span>
+      </button>
+    }
+  </div>
+
+  <button type="button" class="test-toggle" role="switch" [attr.aria-checked]="testing()" (click)="testing.set(!testing())">
+    <span class="test-text">
+      <span class="test-title">Tự kiểm tra</span>
+      <span class="test-hint">Ẩn V2, V3; chạm vào ô để xem đáp án.</span>
+    </span>
+    <span class="switch" aria-hidden="true"></span>
+  </button>
+</div>
+
+<details class="soft-card legend">
+  <summary>Mẹo nhớ: 4 nhóm biến đổi</summary>
+  <ul>
+    @for (p of patterns; track p.key) {
+      <li>
+        <span class="legend-label">{{ p.label }}</span>
+        <span class="legend-example" lang="en">{{ p.example }}</span>
+        <span class="legend-hint">{{ p.hintVi }}</span>
+      </li>
+    }
+  </ul>
+  <p class="legend-tip">Học theo nhóm dễ nhớ hơn học từng từ: bắt đầu với A – A – A và A – B – B.</p>
+</details>

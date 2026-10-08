@@ -5,8 +5,10 @@ import (
 	"errors"
 	"log/slog"
 	"net/http"
+	"slices"
 	"testing"
 
+	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
 
@@ -30,7 +32,7 @@ func TestVocabulary(t *testing.T) {
 		{Text: "gave up", Lemma: "Give Up", MeaningVi: "đã bỏ", SentenceIndex: 1},
 		{Text: "went", Lemma: "go", MeaningVi: "đã đi (tới công viên)", SentenceIndex: 0},
 		{Text: "studies", Lemma: "study", MeaningVi: "học", SentenceIndex: 2},
-		{Text: "smoking", Lemma: "smoke", MeaningVi: "hút thuốc", SentenceIndex: 1},
+		{Text: "smoking", Lemma: "smoke", MeaningVi: "hút thuốc", SentenceIndex: 1, POS: POSNoun},
 	})
 
 	items, available, err := r.Vocabulary(t.Context(), id)
@@ -38,10 +40,10 @@ func TestVocabulary(t *testing.T) {
 		t.Fatalf("available = %v, %v", available, err)
 	}
 	want := []VocabItem{
-		{Lemma: "go", Text: "went", MeaningVi: "đã đi (tới công viên)", IPA: "/ɡəʊ/", SentenceIndex: 0, Sentence: "We went to the park."},
-		{Lemma: "give up", Text: "gave up", MeaningVi: "đã bỏ", IPA: "", SentenceIndex: 1, Sentence: "He gave up smoking."},
-		{Lemma: "smoke", Text: "smoking", MeaningVi: "hút thuốc", IPA: "", SentenceIndex: 1, Sentence: "He gave up smoking."},
-		{Lemma: "study", Text: "studies", MeaningVi: "học", IPA: "/ˈstʌdi/", SentenceIndex: 2, Sentence: "She studies every day."},
+		{Lemma: "go", Text: "went", MeaningVi: "đã đi (tới công viên)", IPA: "/ɡəʊ/", SentenceIndex: 0, Sentence: "We went to the park.", POS: POSVerb},
+		{Lemma: "give up", Text: "gave up", MeaningVi: "đã bỏ", IPA: "", SentenceIndex: 1, Sentence: "He gave up smoking.", POS: POSPhrase},
+		{Lemma: "smoke", Text: "smoking", MeaningVi: "hút thuốc", IPA: "", SentenceIndex: 1, Sentence: "He gave up smoking.", POS: POSNoun},
+		{Lemma: "study", Text: "studies", MeaningVi: "học", IPA: "/ˈstʌdi/", SentenceIndex: 2, Sentence: "She studies every day.", POS: POSVerb},
 	}
 	if len(items) != len(want) {
 		t.Fatalf("items = %+v", items)
@@ -89,7 +91,7 @@ func TestVocabularyEndpoint(t *testing.T) {
 	mux := newReadingMux(r)
 
 	rec := get(t, mux, "/api/lessons/"+id+"/vocabulary", "learner")
-	want := `{"available":true,"items":[{"lemma":"go","text":"went","meaningVi":"đi","ipa":"/ɡəʊ/","sentenceIndex":0,"sentence":"We went to the park.","imageUrl":""}]}` + "\n"
+	want := `{"available":true,"items":[{"lemma":"go","text":"went","meaningVi":"đi","ipa":"/ɡəʊ/","sentenceIndex":0,"sentence":"We went to the park.","imageUrl":"","pos":"verb"}]}` + "\n"
 	if rec.Code != http.StatusOK || rec.Body.String() != want {
 		t.Fatalf("vocabulary: %d %s", rec.Code, rec.Body)
 	}
@@ -110,4 +112,57 @@ func newReadingMux(r *Reader) *http.ServeMux {
 	mux := http.NewServeMux()
 	NewReadingHandler(r, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver), allowAll)
 	return mux
+}
+
+func TestNormalizePOS(t *testing.T) {
+	t.Parallel()
+	for in, want := range map[string]string{
+		"N": POSNoun, " Verb ": POSVerb, "ADJ": POSAdjective, "a": POSAdjective, "R": POSAdverb, "prep": POSPreposition,
+		"Phrasal Verb": POSPhrasalVerb, "idiom": POSPhrase, "article": POSDeterminer, "": "", "gerund": "",
+	} {
+		if got := NormalizePOS(in); got != want {
+			t.Errorf("NormalizePOS(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
+
+func TestCleanAnnotationsKeepsThePartOfSpeech(t *testing.T) {
+	t.Parallel()
+	anns, err := CleanAnnotations([]ai.Annotation{
+		{Text: "went", Lemma: "go", MeaningVi: "đi", SentenceIndex: 0, POS: "Verb"},
+		{Text: "park", Lemma: "park", MeaningVi: "công viên", SentenceIndex: 0, POS: "thing"},
+	}, []string{"We went to the park."})
+	if err != nil || anns[0].POS != POSVerb || anns[1].POS != "" {
+		t.Fatalf("annotations = %+v, %v", anns, err)
+	}
+}
+
+func TestUpdateAnnotationsKeepsThePartOfSpeechOfTheSameWord(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	l := e.annotated(t)
+	if _, err := e.lessons.update(l.ID, func(l *Lesson) bool {
+		for i := range l.Annotations {
+			l.Annotations[i].POS = []string{POSVerb, POSPhrasalVerb, POSAdjective}[i]
+		}
+		return true
+	}); err != nil {
+		t.Fatal(err)
+	}
+	got, err := e.svc.UpdateAnnotations(t.Context(), l.ID, []AnnotationInput{
+		{Text: "went", Lemma: "go", MeaningVi: "đi tới"},      // meaning edited: same word
+		{Text: "gave up", Lemma: "give", MeaningVi: "từ bỏ"},  // base form changed: unknown now
+		{Text: "sunny", Lemma: "sunny", MeaningVi: "nắng"},    // untouched
+		{Text: "park", Lemma: "park", MeaningVi: "công viên"}, // new
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var pos []string
+	for _, a := range got.Annotations {
+		pos = append(pos, a.POS)
+	}
+	if want := []string{POSVerb, "", POSAdjective, ""}; !slices.Equal(pos, want) {
+		t.Fatalf("pos = %q, want %q", pos, want)
+	}
 }

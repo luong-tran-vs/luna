@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+
+/* The table needs more room than the usual 640px screen. */
+.verbs {
+  max-width: 880px;
+}
+
+.intro {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.inline-icon {
+  --icon-size: 16px;
+
+  vertical-align: -3px;
+}
+
+/* --- A–Z index --- */
+
+.letters {
+  display: flex;
+  gap: var(--space-1);
+  padding-bottom: 2px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.letter {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.letter:hover {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+
+.result {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.empty {
+  text-align: center;
+}
+
+.empty p {
+  margin: 0;
+}
+
+
+.letter:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

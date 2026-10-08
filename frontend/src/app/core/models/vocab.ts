@@ -113,6 +113,8 @@ export interface VocabItem {
   ipa: string;
   sentenceIndex: number;
   sentence: string;
+  /** Part of speech (noun, verb, …, phrasal verb, phrase); "" or missing when unknown. */
+  pos?: string;
   /** F23: the word's AI-drawn picture; '' or missing when it has none. */
   imageUrl?: string;
 }

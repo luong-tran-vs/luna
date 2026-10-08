@@ -18,6 +18,7 @@ func (c *Container) initWordBank() {
 		Dict:       c.dict,
 		Topics:     topicWords{c.topic},
 		ImageAI:    c.imageAI,
+		MeaningAI:  c.meaningAI,
 		FetchImage: lesson.NewImageFetcher(),
 		Now:        time.Now,
 		Log:        c.log,
@@ -29,18 +30,30 @@ type topicWords struct {
 	svc *topic.Service
 }
 
-func (t topicWords) All(ctx context.Context) ([]string, error) {
+func (t topicWords) All(ctx context.Context) ([]wordbank.TopicList, error) {
 	topics, err := t.svc.All(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("list topics: %w", err)
 	}
-	var out []string
-	for _, tp := range topics {
-		for _, w := range tp.Words {
-			out = append(out, w.Text)
-		}
+	out := make([]wordbank.TopicList, len(topics))
+	for i, tp := range topics {
+		out[i] = wordbank.TopicList{TopicRef: wordbank.TopicRef{ID: tp.ID, Name: tp.Name}, Words: topic.Texts(tp.Words)}
 	}
 	return out, nil
+}
+
+func (t topicWords) AddWord(ctx context.Context, topicID, text string) error {
+	err := t.svc.AddWord(ctx, topicID, text)
+	var verr *topic.ValidationError
+	switch {
+	case errors.Is(err, topic.ErrWordInList):
+		return wordbank.ErrInTopic
+	case errors.Is(err, topic.ErrNotFound):
+		return &wordbank.ValidationError{Fields: map[string]string{"topicId": "Chủ đề không tồn tại"}}
+	case errors.As(err, &verr):
+		return &wordbank.ValidationError{Fields: map[string]string{"lemma": "Chủ đề không nhận từ này: " + verr.Fields["word"]}}
+	}
+	return err
 }
 
 // lessonWordBank adapts wordbank.Service to lesson.WordBank.
