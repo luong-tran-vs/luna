@@ -13,12 +13,12 @@ export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | '
   readonly playing = signal<string | null>(null);
   /** Every prefetch() call. */
   readonly prefetched: (readonly string[])[] = [];
-  readonly spoken: { text: string; rate: number; handlers: SpeakHandlers }[] = [];
+  readonly spoken: { text: string; rate: number; handlers: SpeakHandlers; voice: number }[] = [];
   /** Number of stop() calls. */
   stops = 0;
 
-  speak(text: string, rate: number, handlers: SpeakHandlers = {}): void {
-    this.spoken.push({ text, rate, handlers });
+  speak(text: string, rate: number, handlers: SpeakHandlers = {}, voice = 0): void {
+    this.spoken.push({ text, rate, handlers, voice });
   }
 
   stop(): void {
@@ -30,7 +30,7 @@ export class FakeSpeech implements Pick<SpeechService, 'supported' | 'speak' | '
     this.prefetched.push(texts);
   }
 
-  last(): { text: string; rate: number; handlers: SpeakHandlers } {
+  last(): { text: string; rate: number; handlers: SpeakHandlers; voice: number } {
     return this.spoken[this.spoken.length - 1];
   }
 

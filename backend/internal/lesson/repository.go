@@ -57,6 +57,8 @@ type Repository interface {
 	// SaveReview stores the AI check of a lesson (F22) if it is still at revision; ok is false when the
 	// lesson was rewritten meanwhile. r is nil to clear the review. It leaves updated_at alone.
 	SaveReview(ctx context.Context, id string, revision int, r *Review) (bool, error)
+	// SetDraft hides (true) or publishes (false) a lesson; ErrNotFound when it does not exist.
+	SetDraft(ctx context.Context, id string, draft bool) error
 	Delete(ctx context.Context, id string) error
 	// CountByGrammarPoint returns how many lessons use each grammar point; topicID "" counts
 	// every topic. Lessons without a point are not counted.

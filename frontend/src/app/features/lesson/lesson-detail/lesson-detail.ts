@@ -41,6 +41,7 @@ import {
   wordsIn,
 } from './practice-logic';
 import { PracticeSummary } from './practice-summary/practice-summary';
+import { ReadingText } from './reading-text/reading-text';
 import { SpeakStep } from './speak-step/speak-step';
 import { TranslateStep } from './translate-step/translate-step';
 import { VocabStep } from './vocab-step/vocab-step';
@@ -127,6 +128,7 @@ function isStudyStep(key: StepKey | null): key is Step {
     Icon,
     Listening,
     PracticeSummary,
+    ReadingText,
     Reading,
     RouterLink,
     SpeakStep,
@@ -324,17 +326,6 @@ export class LessonDetail {
   protected readonly summary = computed(() =>
     summary(this.practice()?.fill?.blanks.length ?? 0, this.fillScore(), this.translateResults()),
   );
-
-  /** The text as paragraphs of sentences, for the Bài đọc tab. */
-  protected readonly paragraphs = computed(() => {
-    const l = this.lesson();
-    if (!l) {
-      return [];
-    }
-    const text = new Map(l.sentences.map((s) => [s.index, s.text]));
-    const groups = l.paragraphs.length ? l.paragraphs : [l.sentences.map((s) => s.index)];
-    return groups.map((p) => p.map((i) => text.get(i) ?? '').join(' '));
-  });
 
   private positionTimer?: ReturnType<typeof setTimeout>;
   private loading?: Subscription;

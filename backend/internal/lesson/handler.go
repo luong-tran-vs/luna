@@ -30,6 +30,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/lessons/{id}", admin(h.get))
 	mux.Handle("PUT /api/admin/lessons/{id}", admin(h.update))
 	mux.Handle("DELETE /api/admin/lessons/{id}", admin(h.delete))
+	mux.Handle("PUT /api/admin/lessons/{id}/published", admin(h.setPublished))
 	mux.Handle("PUT /api/admin/lessons/{id}/annotations", admin(h.updateAnnotations))
 	mux.Handle("POST /api/admin/lessons/{id}/retry", admin(h.retry))
 	mux.Handle("PUT /api/admin/lessons/{id}/extras", admin(h.updateExtras))
@@ -44,6 +45,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("POST /api/admin/lessons/{id}/check", admin(h.check))
 	mux.Handle("POST /api/admin/lessons/{id}/check/confirm", admin(h.confirmFlag))
 	mux.Handle("POST /api/admin/lessons/{id}/check/verify", admin(h.verify))
+	mux.Handle("POST /api/admin/lessons/{id}/check/suggest", admin(h.suggestFix))
+	mux.Handle("POST /api/admin/lessons/{id}/check/apply", admin(h.applyFix))
 	mux.Handle("POST /api/admin/topics/{id}/generate", admin(h.generate))
 	mux.Handle("GET /api/admin/grammar", admin(h.grammarPoints))
 }
@@ -93,6 +96,7 @@ type summaryJSON struct {
 	Flags            int       `json:"flags"`
 	Checked          bool      `json:"checked"`
 	Verified         bool      `json:"verified"`
+	Draft            bool      `json:"draft"`
 	CreatedAt        time.Time `json:"createdAt"`
 }
 
@@ -177,7 +181,7 @@ func toLessonJSON(l Lesson, topicName string, inRoadmap bool) map[string]lessonJ
 		summaryJSON: summaryJSON{
 			ID: l.ID, Title: l.Title, Level: l.Level, TopicID: l.TopicID, TopicName: topicName,
 			AnnotationStatus: l.AnnotationStatus, InRoadmap: inRoadmap, CreatedAt: l.CreatedAt,
-			Flags: flags, Checked: checked, Verified: verified,
+			Flags: flags, Checked: checked, Verified: verified, Draft: l.Draft,
 		},
 		Content: l.Content, Source: l.Source, License: l.License, Revision: l.Revision,
 		AnnotationError: l.AnnotationError,
@@ -212,6 +216,8 @@ type inputJSON struct {
 	Images *imageInputJSON `json:"images"`
 	// TargetWords are the topic words of a generated draft (F18); omitted means none.
 	TargetWords []string `json:"targetWords"`
+	// Draft saves a new lesson hidden from learners until it is published.
+	Draft bool `json:"draft"`
 }
 
 type imageInputJSON struct {
@@ -223,7 +229,7 @@ func (in inputJSON) toInput() Input {
 	out := Input{
 		Title: in.Title, Content: in.Content, TopicID: in.TopicID, Level: in.Level, Source: in.Source, License: in.License,
 		AppendToRoadmap: in.AppendToRoadmap, KeepGrammarPoint: in.GrammarPointID == nil,
-		TargetWords: in.TargetWords,
+		TargetWords: in.TargetWords, Draft: in.Draft,
 	}
 	if in.GrammarPointID != nil {
 		out.GrammarPointID = *in.GrammarPointID
@@ -290,6 +296,21 @@ func (h *Handler) delete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+func (h *Handler) setPublished(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Published bool `json:"published"`
+	}
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	l, err := h.svc.SetPublished(r.Context(), r.PathValue("id"), body.Published)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	h.writeLesson(w, r, http.StatusOK, l)
+}
+
 func (h *Handler) updateAnnotations(w http.ResponseWriter, r *http.Request) {
 	var body struct {
 		Annotations []struct {
@@ -347,6 +368,8 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 	switch {
 	case errors.As(err, &verr):
 		httpx.WriteFieldErrors(w, verr.Fields)
+	case errors.Is(err, ErrFixTarget):
+		httpx.WriteError(w, http.StatusNotFound, "not_found", "Không tìm thấy chỗ cần sửa trong bài")
 	case errors.Is(err, ErrNotFound):
 		httpx.WriteError(w, http.StatusNotFound, "not_found", "Không tìm thấy bài học")
 	case errors.Is(err, ErrInRoadmap):

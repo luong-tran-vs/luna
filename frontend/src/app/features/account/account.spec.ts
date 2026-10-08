@@ -61,7 +61,7 @@ describe('Account', () => {
     setTheme.mockClear();
     logout.mockClear();
     unseen.set(0);
-    const user: User = { id: '1', email: 'minh@example.com', role: 'learner', timezone: 'Asia/Ho_Chi_Minh' };
+    const user: User = { id: '1', email: 'minh@example.com', role: 'member', timezone: 'Asia/Ho_Chi_Minh' };
     await TestBed.configureTestingModule({
       imports: [Account],
       providers: [

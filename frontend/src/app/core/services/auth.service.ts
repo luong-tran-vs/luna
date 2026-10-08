@@ -20,6 +20,7 @@ export class AuthService {
   readonly currentUser = this.user.asReadonly();
   readonly isLoggedIn = computed(() => this.user() !== null);
   readonly isAdmin = computed(() => this.user()?.role === 'admin');
+  readonly isGuest = computed(() => this.user()?.role === 'guest');
 
   /** Restores the session on startup. Never rejects so the app always boots. */
   async load(): Promise<void> {

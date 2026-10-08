@@ -63,10 +63,10 @@ func lessonsSchema() []string {
 const lessonCols = `id, title, content, level, topic_id, source, license, grammar_point_id, revision, sentences,
 	annotation_status, annotation_error, annotations, questions, grammar_note, writing_prompt,
 	extras_edited, quiz_version, practice, practice_status, practice_error, practice_version,
-	created_at, updated_at, review, target_words`
+	created_at, updated_at, review, target_words, draft`
 
 // lessonSummaryCols lists the columns lessonScanSummary reads.
-const lessonSummaryCols = `id, title, level, topic_id, annotation_status, created_at, review`
+const lessonSummaryCols = `id, title, level, topic_id, annotation_status, created_at, review, draft`
 
 // lessonValidID reports whether id has the shape newID makes (24 lowercase hex characters).
 func lessonValidID(id string) bool {
@@ -185,11 +185,11 @@ func (r *Lessons) Create(ctx context.Context, l lesson.Lesson) (lesson.Lesson, e
 	l.ID = newID()
 	l.TopicID = lessonTopicKey(l.TopicID)
 	_, err = r.db.ExecContext(ctx, `INSERT INTO lessons (`+lessonCols+`)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		l.ID, l.Title, l.Content, string(l.Level), l.TopicID, l.Source, l.License, l.GrammarPointID, l.Revision, enc.sentences,
 		string(l.AnnotationStatus), l.AnnotationError, enc.annotations, enc.questions, enc.note, enc.prompt,
 		l.ExtrasEditedByAdmin, l.QuizVersion, enc.practice, string(l.PracticeStatus), l.PracticeError, l.PracticeVersion,
-		nullTime(l.CreatedAt), nullTime(l.UpdatedAt), enc.review, enc.targetWords)
+		nullTime(l.CreatedAt), nullTime(l.UpdatedAt), enc.review, enc.targetWords, l.Draft)
 	if err != nil {
 		return lesson.Lesson{}, fmt.Errorf("mysql insert lesson: %w", err)
 	}
@@ -211,7 +211,7 @@ func lessonScan(s lessonRowScanner) (lesson.Lesson, error) {
 	err := s.Scan(&l.ID, &l.Title, &l.Content, &level, &l.TopicID, &l.Source, &l.License, &l.GrammarPointID, &l.Revision, &sentences,
 		&annStatus, &l.AnnotationError, &anns, &questions, &note, &l.Extras.WritingPrompt,
 		&l.ExtrasEditedByAdmin, &l.QuizVersion, &pr, &pracStatus, &l.PracticeError, &l.PracticeVersion,
-		&created, &updated, &reviewRaw, &targetWords)
+		&created, &updated, &reviewRaw, &targetWords, &l.Draft)
 	if err != nil {
 		return lesson.Lesson{}, err
 	}
@@ -254,7 +254,7 @@ func lessonScanSummary(s lessonRowScanner) (lesson.Summary, error) {
 		created       sql.NullTime
 		reviewRaw     []byte
 	)
-	if err := s.Scan(&sm.ID, &sm.Title, &level, &sm.TopicID, &status, &created, &reviewRaw); err != nil {
+	if err := s.Scan(&sm.ID, &sm.Title, &level, &sm.TopicID, &status, &created, &reviewRaw, &sm.Draft); err != nil {
 		return lesson.Summary{}, err
 	}
 	sm.Level, sm.AnnotationStatus, sm.CreatedAt = lesson.Level(level), lesson.Status(status), timeOf(created)
@@ -586,4 +586,15 @@ func (r *Lessons) TopicTexts(ctx context.Context, topicIDs []string) (map[string
 // safely: the migration ignores "duplicate column name".
 func lessonTargetWordsSchema() []string {
 	return []string{`ALTER TABLE lessons ADD COLUMN target_words JSON NULL`}
+}
+
+// lessonDraftSchema adds the draft flag: AI drafts stay hidden from learners until published.
+// Existing lessons are published. It reruns safely: the migration ignores "duplicate column name".
+func lessonDraftSchema() []string {
+	return []string{`ALTER TABLE lessons ADD COLUMN draft TINYINT(1) NOT NULL DEFAULT 0`}
+}
+
+// SetDraft hides or publishes a lesson.
+func (r *Lessons) SetDraft(ctx context.Context, id string, draft bool) error {
+	return r.updateOne(ctx, id, `draft = ?, updated_at = ?`, draft, utc(time.Now()))
 }

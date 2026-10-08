@@ -23,6 +23,7 @@ const ADMIN_LINKS: readonly AdminLink[] = [
   { path: '/admin/words', label: 'Từ vựng', icon: 'notebook', matches: (p) => p.startsWith('/admin/words') },
   { path: '/admin/grammar', label: 'Ngữ pháp', icon: 'grammar', matches: (p) => p.startsWith('/admin/grammar') },
   { path: '/admin/roadmap', label: 'Lộ trình', icon: 'route', matches: (p) => p.startsWith('/admin/roadmap') },
+  { path: '/admin/accounts', label: 'Tài khoản', icon: 'user', matches: (p) => p.startsWith('/admin/accounts') },
   { path: '/admin/appearance', label: 'Giao diện', icon: 'palette', matches: (p) => p.startsWith('/admin/appearance') },
   { path: '/admin/tts-lab', label: 'Thử giọng đọc', icon: 'volume', matches: (p) => p.startsWith('/admin/tts-lab') },
   { path: '/admin/stt-lab', label: 'Thử nhận dạng giọng nói', icon: 'mic', matches: (p) => p.startsWith('/admin/stt-lab') },

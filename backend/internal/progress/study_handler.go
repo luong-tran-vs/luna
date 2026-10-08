@@ -86,6 +86,8 @@ type setGoalJSON struct {
 type lessonRefJSON struct {
 	ID    string `json:"id"`
 	Title string `json:"title"`
+	// MembersOnly marks an upcoming lesson a guest cannot study.
+	MembersOnly bool `json:"membersOnly,omitempty"`
 }
 
 type studyJSON struct {
@@ -94,6 +96,7 @@ type studyJSON struct {
 	CurrentStep   string            `json:"currentStep"`
 	SentenceIndex int               `json:"sentenceIndex"`
 	Next          *lessonRefJSON    `json:"next"`
+	MembersOnly   bool              `json:"membersOnly,omitempty"`
 	Goal          *goalJSON         `json:"goal"`
 	GoalCompleted bool              `json:"goalCompleted"`
 	Streak        int               `json:"streak"`
@@ -102,7 +105,7 @@ type studyJSON struct {
 func toStudyJSON(v LessonStudyView) studyJSON {
 	out := studyJSON{
 		Status: string(v.Status), Steps: map[string]string{}, CurrentStep: string(v.CurrentStep),
-		SentenceIndex: v.SentenceIndex, Streak: v.Streak, GoalCompleted: v.GoalCompleted,
+		SentenceIndex: v.SentenceIndex, Streak: v.Streak, GoalCompleted: v.GoalCompleted, MembersOnly: v.MembersOnly,
 	}
 	if v.Goal != nil {
 		g := toGoalJSON(*v.Goal)

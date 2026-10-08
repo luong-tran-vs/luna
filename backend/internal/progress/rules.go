@@ -119,3 +119,16 @@ func PeriodStart(p Period, now time.Time, loc *time.Location) *time.Time {
 	}
 	return &start
 }
+
+// GuestLesson is CurrentLesson for a guest, who may study only the first lesson of the roadmap:
+// once it is completed the others are for members.
+func GuestLesson(goal *Goal, roadmap []string, completed map[string]bool) StudyState {
+	if len(roadmap) <= 1 {
+		return CurrentLesson(goal, roadmap, completed)
+	}
+	st := CurrentLesson(goal, roadmap[:1], completed)
+	if st.Kind == StudyNoNewLesson {
+		st.Kind = StudyMembersOnly
+	}
+	return st
+}

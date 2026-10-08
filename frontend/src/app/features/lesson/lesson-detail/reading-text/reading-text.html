@@ -1,0 +1,58 @@
+<section class="soft-card" aria-labelledby="text-heading">
+  <h2 class="step-title" id="text-heading">{{ turns() ? 'Hội thoại' : 'Bài đọc' }}</h2>
+  @if (turns(); as ts) {
+    @if (canSpeak) {
+      <div class="talk-head">
+        <p class="step-hint reading-hint"><lu-icon name="volume" /> Chạm vào một lượt để nghe.</p>
+        <button type="button" class="btn" [attr.aria-pressed]="allPlaying()" (click)="toggleAll()">
+          <lu-icon [name]="allPlaying() ? 'pause' : 'play'" />
+          {{ allPlaying() ? 'Dừng' : 'Nghe cả đoạn' }}
+        </button>
+      </div>
+    }
+    <ol class="talk">
+      @for (t of ts; track $index) {
+        <li class="turn" [class.turn-right]="t.who % 2 === 1" [class.turn-alt]="t.who >= 2">
+          <span class="turn-name">{{ t.speaker }}</span>
+          @if (canSpeak) {
+            <button
+              type="button"
+              class="bubble"
+              lang="en"
+              [class.reading-now]="speaking() === t.text"
+              [attr.aria-pressed]="speaking() === t.text"
+              [attr.aria-label]="t.speaker + ': ' + t.text"
+              (click)="readTurn(t)"
+            >{{ t.text }}</button>
+          } @else {
+            <p class="bubble" lang="en">{{ t.text }}</p>
+          }
+        </li>
+      }
+    </ol>
+  } @else {
+    @if (canSpeak) {
+      <p class="step-hint reading-hint"><lu-icon name="volume" /> Chạm vào một câu để nghe cách đọc.</p>
+    }
+    <div class="reading" lang="en">
+      @for (p of paragraphs(); track $index) {
+        <p>
+          @for (s of p; track $index) {
+            @if (canSpeak) {
+              <button
+                type="button"
+                class="read-sentence"
+                [class.reading-now]="speaking() === s"
+                [attr.aria-pressed]="speaking() === s"
+                (click)="readSentence(s)"
+              >{{ s }}</button>
+            } @else {
+              <span>{{ s }}</span>
+            }
+            {{ ' ' }}
+          }
+        </p>
+      }
+    </div>
+  }
+</section>

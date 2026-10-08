@@ -108,6 +108,29 @@ describe('LessonDetail', () => {
       expect(el.textContent).not.toContain('Điểm ngữ pháp:');
     });
 
+    it('publishes a draft and can hide it again', async () => {
+      await load(lesson({ draft: true }));
+      expect(el.textContent).toContain('Bản nháp');
+      expect(el.textContent).toContain('người học chưa thấy bài này');
+      button('Đăng bài')!.click();
+      await settle();
+      const req = http.expectOne('/api/admin/lessons/l1/published');
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body).toEqual({ published: true });
+      req.flush({ lesson: lesson({ draft: false }) });
+      await settle();
+      expect(el.textContent).toContain('✓ Đã đăng');
+      expect(button('Đăng bài')).toBeUndefined();
+
+      button('Ẩn khỏi người học')!.click();
+      await settle();
+      const hide = http.expectOne('/api/admin/lessons/l1/published');
+      expect(hide.request.body).toEqual({ published: false });
+      hide.flush({ lesson: lesson({ draft: true }) });
+      await settle();
+      expect(button('Đăng bài')).toBeDefined();
+    });
+
     it('shows a not-found message', async () => {
       http.expectOne('/api/admin/lessons/l1').flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
       await settle();
@@ -362,6 +385,60 @@ describe('LessonDetail', () => {
       expect(el.querySelector('.annotations li')?.textContent).toContain('AI thấy có thể sai');
       expect(el.querySelector('lu-lesson-extras')?.textContent).toContain('Cần xem: AI giải ra đáp án khác');
       expect(el.querySelector('lu-practice-section')?.textContent).toContain('AI chưa kiểm tra được câu này');
+    });
+
+    it('lists the flags; each one jumps to its spot, which can be fixed with the AI', async () => {
+      await load(
+        lesson({
+          ...withContent,
+          review: review([flag('sentence', 1), flag('annotation', 1, 'wrong', true), flag('question', 0, 'mismatch'), flag('translation', 0)]),
+        }),
+      );
+      const items = Array.from(el.querySelectorAll<HTMLButtonElement>('.flag-list .flag-jump'));
+      expect(items.map((b) => b.querySelector('.flag-place')?.textContent)).toEqual([
+        'Câu 2',
+        'Chú thích "gave up"',
+        'Câu hỏi 1',
+        'Câu dịch 1',
+      ]);
+      expect(items[0].textContent).toContain('Ghi chú sentence');
+      expect(items[1].textContent).toContain('Đã xem, giữ nguyên');
+
+      const target = el.querySelector<HTMLElement>('#flag-sentence-1')!;
+      target.scrollIntoView = vi.fn();
+      items[0].click();
+      await settle();
+      expect(target.scrollIntoView).toHaveBeenCalled();
+      expect(document.activeElement).toBe(target);
+      expect(target.classList).toContain('jumped');
+      for (const id of ['flag-annotation-1', 'flag-question-0', 'flag-translation-0']) {
+        expect(el.querySelector('#' + id)).not.toBeNull();
+      }
+
+      // Every open flag offers the AI's help; a confirmed one does not.
+      expect(target.querySelector('lu-fix-helper')).not.toBeNull();
+      expect(el.querySelector('#flag-annotation-1 lu-fix-helper')).toBeNull();
+      expect(el.querySelector('#flag-question-0 lu-fix-helper')).not.toBeNull();
+      expect(el.querySelector('#flag-translation-0 lu-fix-helper')).not.toBeNull();
+    });
+
+    it('takes the lesson saved by an AI fix, and polls while it is annotated again', async () => {
+      await load(lesson({ ...withContent, review: review([flag('sentence', 1)]) }));
+      Array.from(el.querySelectorAll<HTMLButtonElement>('#flag-sentence-1 button')).find((b) => b.textContent?.includes('AI gợi ý sửa'))!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/check/suggest').flush({ suggestion: { area: 'sentence', index: 1, text: 'He quit smoking.' } });
+      await settle();
+      Array.from(el.querySelectorAll<HTMLButtonElement>('#flag-sentence-1 button')).find((b) => b.textContent?.includes('Áp dụng'))!.click();
+      await settle();
+      http.expectOne('/api/admin/lessons/l1/check/apply').flush({
+        lesson: lesson({ ...withContent, annotationStatus: 'running', review: null, sentences: [{ index: 0, text: 'We went to the park.' }, { index: 1, text: 'He quit smoking.' }] }),
+      });
+      await settle();
+      expect(el.querySelectorAll('.sentences li')[1].textContent).toContain('He quit smoking.');
+      expect(el.querySelector('.flag-list')).toBeNull();
+      // Annotating again: the page polls the lesson.
+      http.expectOne('/api/admin/lessons/l1').flush({ lesson: lesson({ ...withContent, review: null }) });
+      await settle();
     });
 
     it('disables the check until annotation is done', async () => {

@@ -103,6 +103,8 @@ type Provider interface {
 	// ReviewLesson reads over the AI-written parts of a lesson in one request and reports what looks
 	// wrong, answering the comprehension questions without seeing their keys (F22).
 	ReviewLesson(ctx context.Context, req ReviewRequest) (ReviewResult, error)
+	// SuggestFix proposes a corrected version of one item the lesson check flagged (F22).
+	SuggestFix(ctx context.Context, req FixRequest) (FixResult, error)
 }
 
 var (

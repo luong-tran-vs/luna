@@ -99,18 +99,17 @@ describe('TranslateStep', () => {
     expect(named('Kiểm tra').disabled).toBe(true);
   });
 
-  it('right order: "Chính xác!" and the answer can be heard', async () => {
+  it('right order: "Chính xác!" and only then the answer can be heard', async () => {
     await render();
-    const speaker = el.querySelector<HTMLButtonElement>(
-      'button[aria-label="Nghe câu tiếng Anh đúng"]',
-    )!;
-    expect(speaker.disabled).toBe(true);
+    const speaker = () => el.querySelector<HTMLButtonElement>('button[aria-label="Nghe câu tiếng Anh đúng"]');
+    // Hidden before checking: hearing it would give the answer away.
+    expect(speaker()).toBeNull();
     await tap('Nice', 'to', 'meet', 'you.');
+    expect(speaker()).toBeNull();
     await click(named('Kiểm tra'));
     expect(status()).toBe('Chính xác!');
     expect(results).toEqual([true]);
-    expect(speaker.disabled).toBe(false);
-    await click(speaker);
+    await click(speaker()!);
     expect(played).toEqual(['Nice to meet you.']);
     // Locked after checking; the main button now moves on.
     expect(bankButtons().every((b) => b.disabled)).toBe(true);
@@ -153,6 +152,8 @@ describe('TranslateStep', () => {
       'Câu đúng: Nice to meet you.',
     ]);
     expect(results).toEqual([false]);
+    // A wrong answer does not unlock the sound.
+    expect(el.querySelector('button[aria-label="Nghe câu tiếng Anh đúng"]')).toBeNull();
   });
 
   it('tiles with the same text replace each other', async () => {
@@ -166,7 +167,7 @@ describe('TranslateStep', () => {
     await tap('cat', 'and', 'the', 'dog');
     await click(named('Kiểm tra'));
     expect(status()).toBe('Chính xác!');
-    // Read by the browser, so every sentence has a speaker button.
+    // Read by the browser, so every sentence built correctly has a speaker button.
     expect(el.querySelector('button[aria-label="Nghe câu tiếng Anh đúng"]')).not.toBeNull();
   });
 

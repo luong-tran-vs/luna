@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/progress"
 	"github.com/luongtran/luna/backend/internal/topic"
@@ -31,6 +32,7 @@ func (c *Container) initProgress() {
 		Quiz:      readingQuiz{c.reader},
 		Writings:  c.writing,
 		Grammar:   c.grammar,
+		Members:   guestRoles{c.auth},
 		Now:       time.Now,
 	})
 	c.writeSteps.svc = c.study
@@ -65,7 +67,11 @@ func (t topicRoadmaps) Roadmap(ctx context.Context, topicID, level string) (prog
 	if err != nil {
 		return progress.TopicInfo{}, fmt.Errorf("get topic: %w", err)
 	}
-	return progress.TopicInfo{ID: tp.ID, Name: tp.Name, Level: level, LessonIDs: tp.Roadmap(level)}, nil
+	ids, err := t.svc.LearnerRoadmap(ctx, tp, level)
+	if err != nil {
+		return progress.TopicInfo{}, err
+	}
+	return progress.TopicInfo{ID: tp.ID, Name: tp.Name, Level: level, LessonIDs: ids}, nil
 }
 
 // dailyReviews adapts vocab.Service to progress.Reviews.
@@ -100,4 +106,17 @@ func (q readingQuiz) Status(ctx context.Context, userID, lessonID string) (quest
 
 func (q readingQuiz) Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error) {
 	return q.reader.Totals(ctx, userID, since)
+}
+
+// guestRoles adapts auth.Service to progress.Members.
+type guestRoles struct {
+	svc *auth.Service
+}
+
+func (g guestRoles) IsGuest(ctx context.Context, userID string) (bool, error) {
+	u, err := g.svc.UserByID(ctx, userID)
+	if err != nil {
+		return false, fmt.Errorf("get user: %w", err)
+	}
+	return u.Role == auth.RoleGuest, nil
 }

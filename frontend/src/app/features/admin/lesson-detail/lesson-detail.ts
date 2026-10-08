@@ -1,4 +1,4 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, computed, inject, Injector, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, ElementRef, inject, Injector, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -12,7 +12,7 @@ import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm
 import { pollWhile } from '../../../shared/utils/poll-while';
 import { AdminApiService } from '../admin-api.service';
 import { lessonCheckFailure } from '../lesson-check-errors';
-import { FlagNote } from '../flag-note/flag-note';
+import { FlagNote, flagNoteId } from '../flag-note/flag-note';
 import { LessonExtras } from '../lesson-extras/lesson-extras';
 import { StatusChip } from '../status-chip/status-chip';
 import { LessonImages } from './lesson-images/lesson-images';
@@ -37,6 +37,7 @@ export class LessonDetail {
   private readonly api = inject(AdminApiService);
   private readonly router = inject(Router);
   private readonly injector = inject(Injector);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly fb = inject(NonNullableFormBuilder);
   protected readonly id = inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
 
@@ -130,7 +131,35 @@ export class LessonDetail {
     this.startPolling();
   }
 
+  /** F22: an AI-suggested correction was saved; a changed sentence annotates the lesson again. */
+  protected onFixApplied(lesson: Lesson): void {
+    this.lesson.set(lesson);
+    if (isRunning(lesson)) {
+      this.startPolling();
+    }
+  }
+
   // --- F22: AI check ---
+
+  /** Every flag of the check, in page order, with a name for the summary list. */
+  protected readonly flagList = computed(() => {
+    const l = this.lesson();
+    return (l?.review?.flags ?? []).map((f) => ({ flag: f, place: flagPlace(f, l) }));
+  });
+
+  /** Scrolls to the note of a flag, opens what hides it, focuses it and marks it for a moment. */
+  protected jumpTo(flag: LessonFlag): void {
+    const el = this.host.nativeElement.querySelector<HTMLElement>(`#${flagNoteId(flag)}`);
+    if (!el) {
+      return;
+    }
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView?.({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    el.focus({ preventScroll: true });
+    el.classList.remove('jumped');
+    void el.offsetWidth; // restart the animation when jumping to the same flag again
+    el.classList.add('jumped');
+  }
 
   protected readonly checking = signal(false);
   protected readonly checkError = signal<string | null>(null);
@@ -317,6 +346,16 @@ export class LessonDetail {
     });
   }
 
+  /** Shows the lesson to learners, or hides it again as a draft. */
+  protected async setPublished(published: boolean): Promise<void> {
+    if (this.busy()) {
+      return;
+    }
+    await this.act(async () => {
+      this.lesson.set(await firstValueFrom(this.api.setPublished(this.id, published)));
+    });
+  }
+
   /** Runs an action, showing server messages and field errors. */
   private async act(action: () => Promise<void>): Promise<void> {
     this.busy.set(true);
@@ -334,5 +373,22 @@ export class LessonDetail {
     } finally {
       this.busy.set(false);
     }
+  }
+}
+
+/** Where a flag points, as the check summary names it ("Câu 3", "Chú thích \"went\"", …). */
+function flagPlace(f: LessonFlag, l: Lesson | null): string {
+  const n = f.index + 1;
+  switch (f.area) {
+    case 'sentence':
+      return `Câu ${n}`;
+    case 'annotation': {
+      const text = l?.annotations[f.index]?.text;
+      return text ? `Chú thích "${text}"` : `Chú thích ${n}`;
+    }
+    case 'question':
+      return `Câu hỏi ${n}`;
+    case 'translation':
+      return `Câu dịch ${n}`;
   }
 }

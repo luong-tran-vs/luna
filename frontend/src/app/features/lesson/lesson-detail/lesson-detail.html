@@ -144,6 +144,11 @@
                 >Sang bài tiếp theo: <span lang="en">{{ n.title }}</span>
                 <lu-icon name="arrow-right"
               /></a>
+            } @else if (study()?.membersOnly) {
+              <p class="muted" role="note">
+                <lu-icon name="lock" /> Các bài tiếp theo chỉ dành cho thành viên. Tài khoản khách chỉ học được bài
+                đầu tiên của mỗi chủ đề; liên hệ quản trị viên để được nâng quyền.
+              </p>
             } @else {
               <p class="muted">
                 Chủ đề này chưa có bài tiếp theo. Bạn vẫn ôn được từ hoặc chọn chủ đề khác.
@@ -284,14 +289,7 @@
       [attr.role]="hasSteps() ? 'tabpanel' : null"
       [hidden]="shownTab() !== 'reading'"
     >
-      <section class="soft-card" aria-labelledby="text-heading">
-        <h2 class="step-title" id="text-heading">Bài đọc</h2>
-        <div class="reading" lang="en">
-          @for (p of paragraphs(); track $index) {
-            <p>{{ p }}</p>
-          }
-        </div>
-      </section>
+      <lu-reading-text [lesson]="l" [rate]="rate()" />
       @if (l.grammarNote; as g) {
         <section class="soft-card" aria-labelledby="grammar-heading">
           <h2 class="step-title" id="grammar-heading">Ngữ pháp: {{ g.title }}</h2>

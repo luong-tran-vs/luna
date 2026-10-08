@@ -79,6 +79,7 @@ func (s *Service) Create(ctx context.Context, in Input) (Lesson, error) {
 		Revision:         1,
 		Sentences:        toSentences(sentences),
 		AnnotationStatus: StatusRunning,
+		Draft:            in.Draft,
 		CreatedAt:        now,
 		UpdatedAt:        now,
 	})
@@ -267,6 +268,17 @@ func (s *Service) Delete(ctx context.Context, id string) error {
 		}
 	}
 	return nil
+}
+
+// SetPublished shows the lesson to learners (published) or hides it again as a draft.
+func (s *Service) SetPublished(ctx context.Context, id string, published bool) (Lesson, error) {
+	if err := s.Lessons.SetDraft(ctx, id, !published); err != nil {
+		if errors.Is(err, ErrNotFound) {
+			return Lesson{}, err
+		}
+		return Lesson{}, fmt.Errorf("lesson: set draft: %w", err)
+	}
+	return s.Lessons.Get(ctx, id)
 }
 
 // Retry queues the annotation again, also when done, so lessons from before F15 get their

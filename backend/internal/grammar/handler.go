@@ -30,7 +30,8 @@ func NewHandler(svc *Service, log *slog.Logger) *Handler {
 // (behind requireAuth, any role).
 func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	admin := func(f http.HandlerFunc) http.Handler { return requireAuth(httpx.RequireAdmin(f)) }
-	learner := func(f http.HandlerFunc) http.Handler { return requireAuth(f) }
+	// Grammar is for members: guests get 403 members_only.
+	learner := func(f http.HandlerFunc) http.Handler { return requireAuth(httpx.RequireMember(f)) }
 
 	mux.Handle("GET /api/admin/grammar-lessons", admin(h.adminList))
 	mux.Handle("GET /api/admin/grammar-lessons/{pointId}", admin(h.adminGet))

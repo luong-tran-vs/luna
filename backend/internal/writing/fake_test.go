@@ -296,3 +296,7 @@ func (f *fakeGrader) SolveGrammarExercises(context.Context, ai.SolveRequest) ([]
 func (f *fakeGrader) ReviewLesson(context.Context, ai.ReviewRequest) (ai.ReviewResult, error) {
 	return ai.ReviewResult{}, ai.ErrNotConfigured
 }
+
+func (f *fakeGrader) SuggestFix(context.Context, ai.FixRequest) (ai.FixResult, error) {
+	return ai.FixResult{}, ai.ErrNotConfigured
+}

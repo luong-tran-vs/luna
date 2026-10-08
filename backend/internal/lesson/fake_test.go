@@ -107,6 +107,14 @@ func (f *fakeLessons) UpdateInfo(_ context.Context, id string, in Info) error {
 	return err
 }
 
+func (f *fakeLessons) SetDraft(_ context.Context, id string, draft bool) error {
+	_, err := f.update(id, func(l *Lesson) bool {
+		l.Draft = draft
+		return true
+	})
+	return err
+}
+
 func (f *fakeLessons) CountByGrammarPoint(_ context.Context, topicID string) (map[string]int, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
@@ -330,6 +338,9 @@ type fakeAI struct {
 	reviewErr   error
 	reviewCalls int
 	reviewReq   ai.ReviewRequest
+	fix         ai.FixResult
+	fixErr      error
+	fixReq      ai.FixRequest
 	// reviewHook runs inside ReviewLesson, to change the lesson during the call.
 	reviewHook func()
 }
@@ -590,4 +601,12 @@ func (f *fakeAnswers) Delete(_ context.Context, userID, lessonID string, version
 		return r.UserID == userID && r.LessonID == lessonID && r.QuizVersion == version
 	})
 	return nil
+}
+
+// SuggestFix returns the configured fix or error and records the request.
+func (f *fakeAI) SuggestFix(_ context.Context, req ai.FixRequest) (ai.FixResult, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.fixReq = req
+	return f.fix, f.fixErr
 }

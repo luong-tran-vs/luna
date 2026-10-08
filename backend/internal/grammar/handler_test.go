@@ -19,7 +19,9 @@ func resolver(_ context.Context, token string) (httpx.Principal, error) {
 	case "admin":
 		return httpx.Principal{UserID: "1", Role: "admin"}, nil
 	case "learner":
-		return httpx.Principal{UserID: "2", Role: "learner"}, nil
+		return httpx.Principal{UserID: "2", Role: "member"}, nil
+	case "guest":
+		return httpx.Principal{UserID: "3", Role: "guest"}, nil
 	}
 	return httpx.Principal{}, errors.New("no session")
 }
@@ -107,6 +109,9 @@ func TestEndpointsRequireTheRightRole(t *testing.T) {
 	for _, ep := range learner {
 		if rec := a.do(t, ep.method, ep.path, "", ep.body); rec.Code != http.StatusUnauthorized {
 			t.Errorf("%s %s anonymous = %d", ep.method, ep.path, rec.Code)
+		}
+		if rec := a.do(t, ep.method, ep.path, "guest", ep.body); rec.Code != http.StatusForbidden || !strings.Contains(rec.Body.String(), "members_only") {
+			t.Errorf("%s %s guest = %d %s", ep.method, ep.path, rec.Code, rec.Body)
 		}
 	}
 	if a.env.ai.calls != 0 {

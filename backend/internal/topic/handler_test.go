@@ -156,6 +156,8 @@ func TestPublicTopicsEndpoint(t *testing.T) {
 	other := a.createTopic(t, "Công việc")
 	_ = a.env.repo.SetLessons(t.Context(), id, "A1", []string{"l1"})
 	_ = a.env.repo.SetLessons(t.Context(), other, "B1", []string{"l2"})
+	a.env.lessons.add("l1", "Bài 1", id, "A1")
+	a.env.lessons.add("l2", "Bài 2", other, "B1")
 
 	rec := a.do(t, http.MethodGet, "/api/topics?level=A1", "learner", "")
 	want := `{"topics":[{"id":"` + id + `","name":"Gia đình","level":"A1","description":"","lessonCount":1}]}` + "\n"

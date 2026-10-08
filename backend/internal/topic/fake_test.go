@@ -195,6 +195,15 @@ func (f *fakeLessons) Refs(_ context.Context, ids []string) ([]LessonRef, error)
 	return out, nil
 }
 
+// setDraft hides a lesson from learners.
+func (f *fakeLessons) setDraft(id string) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	l := f.lessons[id]
+	l.Draft = true
+	f.lessons[id] = l
+}
+
 // setText gives a lesson a content for coverage.
 func (f *fakeLessons) setText(id, content string) {
 	f.mu.Lock()

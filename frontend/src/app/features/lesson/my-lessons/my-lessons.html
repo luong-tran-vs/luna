@@ -70,6 +70,11 @@
     @if (d.upcoming.length > 0) {
       <section class="upcoming" aria-labelledby="upcoming-heading">
         <h2 class="visually-hidden" id="upcoming-heading">Sắp tới</h2>
+        @if (membersOnly()) {
+          <p class="soft-card members-banner" role="note">
+            <lu-icon name="lock" /> Tài khoản khách chỉ học được bài đầu tiên của mỗi chủ đề. Các bài sau chỉ dành cho thành viên — liên hệ quản trị viên để được nâng quyền.
+          </p>
+        }
         <ul class="list">
           @for (l of d.upcoming; track l.id; let i = $index) {
             <li class="soft-card item locked">
@@ -77,10 +82,16 @@
                 <span class="num" aria-hidden="true">{{ upcomingStart() + i }}</span>
                 <span class="item-body">
                   <span class="title" lang="en">{{ l.title }}</span>
-                  <span class="muted" aria-hidden="true">Chưa mở</span>
+                  @if (l.membersOnly) {
+                    <span class="members-note">Chỉ dành cho thành viên</span>
+                  } @else {
+                    <span class="muted" aria-hidden="true">Chưa mở</span>
+                  }
                 </span>
                 <span class="state-icon" aria-hidden="true"><lu-icon name="lock" /></span>
-                <span class="visually-hidden">chưa mở</span>
+                @if (!l.membersOnly) {
+                  <span class="visually-hidden">chưa mở</span>
+                }
               </div>
             </li>
           }

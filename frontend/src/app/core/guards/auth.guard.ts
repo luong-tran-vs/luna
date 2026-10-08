@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 
@@ -21,3 +21,6 @@ export const adminGuard: CanActivateFn = () =>
 /** Learning pages; admins only manage content, so they go to the admin area. Use after authGuard. */
 export const learnerGuard: CanActivateFn = () =>
   !inject(AuthService).isAdmin() || inject(Router).createUrlTree(['/admin']);
+
+/** Matches only for guests: put it on a route that shows the members-only page in place of a section. */
+export const guestMatch: CanMatchFn = () => inject(AuthService).isGuest();

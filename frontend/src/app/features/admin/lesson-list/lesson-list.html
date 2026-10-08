@@ -63,6 +63,9 @@
               @if (lesson.inRoadmap) {
                 <span class="tag">✓ Trong lộ trình</span>
               }
+              @if (lesson.draft) {
+                <span class="tag">Bản nháp</span>
+              }
             </div>
             <div class="meta">
               <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />

@@ -275,3 +275,7 @@ func (f *fakeReports) Resolve(_ context.Context, pointID, exerciseID string, at 
 func (f *fakeAI) ReviewLesson(context.Context, ai.ReviewRequest) (ai.ReviewResult, error) {
 	return ai.ReviewResult{}, ai.ErrNotConfigured
 }
+
+func (f *fakeAI) SuggestFix(context.Context, ai.FixRequest) (ai.FixResult, error) {
+	return ai.FixResult{}, ai.ErrNotConfigured
+}

@@ -86,6 +86,7 @@ func TestAdminEndpointsRequireAdmin(t *testing.T) {
 		{http.MethodDelete, "/api/admin/lessons/x", ""},
 		{http.MethodPut, "/api/admin/lessons/x/annotations", `{"annotations":[]}`},
 		{http.MethodPost, "/api/admin/lessons/x/retry?job=annotate", ""},
+		{http.MethodPut, "/api/admin/lessons/x/published", `{"published":true}`},
 	}
 	for _, ep := range endpoints {
 		if rec := a.do(t, ep.method, ep.path, "learner", ep.body); rec.Code != http.StatusForbidden {
@@ -276,5 +277,35 @@ func TestUpdateAndDeleteEndpoints(t *testing.T) {
 	}
 	if rec := a.do(t, http.MethodDelete, path, "admin", ""); rec.Code != http.StatusNotFound {
 		t.Fatalf("delete again: %d", rec.Code)
+	}
+}
+
+func TestPublishEndpoint(t *testing.T) {
+	t.Parallel()
+	a := newAPI(t)
+	if l := a.createLesson(t); l["draft"] != false {
+		t.Fatalf("lesson added by hand is a draft: %v", l["draft"])
+	}
+	rec := a.do(t, http.MethodPost, "/api/admin/lessons", "admin", strings.Replace(validBody, `"title"`, `"draft":true,"title"`, 1))
+	l := decodeBody(t, rec)["lesson"].(map[string]any)
+	if rec.Code != http.StatusCreated || l["draft"] != true {
+		t.Fatalf("create draft: %d %s", rec.Code, rec.Body)
+	}
+	id := l["id"].(string)
+
+	rec = a.do(t, http.MethodPut, "/api/admin/lessons/"+id+"/published", "admin", `{"published":true}`)
+	if rec.Code != http.StatusOK || decodeBody(t, rec)["lesson"].(map[string]any)["draft"] != false {
+		t.Fatalf("publish: %d %s", rec.Code, rec.Body)
+	}
+	rec = a.do(t, http.MethodPut, "/api/admin/lessons/"+id+"/published", "admin", `{"published":false}`)
+	if rec.Code != http.StatusOK || decodeBody(t, rec)["lesson"].(map[string]any)["draft"] != true {
+		t.Fatalf("unpublish: %d %s", rec.Code, rec.Body)
+	}
+	rec = a.do(t, http.MethodGet, "/api/admin/lessons", "admin", "")
+	if list := decodeBody(t, rec)["lessons"].([]any); len(list) != 2 {
+		t.Fatalf("list: %s", rec.Body)
+	}
+	if rec := a.do(t, http.MethodPut, "/api/admin/lessons/missing/published", "admin", `{"published":true}`); rec.Code != http.StatusNotFound {
+		t.Fatalf("publish missing: %d", rec.Code)
 	}
 }

@@ -40,7 +40,7 @@ func (t topicLessons) Refs(ctx context.Context, ids []string) ([]topic.LessonRef
 	for i, s := range sums {
 		out[i] = topic.LessonRef{
 			ID: s.ID, Title: s.Title, Level: string(s.Level), TopicID: s.TopicID,
-			AnnotationStatus: string(s.AnnotationStatus), CreatedAt: s.CreatedAt,
+			AnnotationStatus: string(s.AnnotationStatus), Draft: s.Draft, CreatedAt: s.CreatedAt,
 		}
 	}
 	return out, nil

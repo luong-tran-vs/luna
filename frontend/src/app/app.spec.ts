@@ -32,6 +32,7 @@ describe('App', () => {
             currentUser: user,
             isLoggedIn: computed(() => user() !== null),
             isAdmin: computed(() => user()?.role === 'admin'),
+            isGuest: computed(() => user()?.role === 'guest'),
           },
         },
       ],
@@ -46,14 +47,14 @@ describe('App', () => {
   });
 
   it('shows home to a logged-in user', async () => {
-    loginAs('learner');
+    loginAs('member');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/');
     expect(page(harness, 'lu-learner-layout lu-home')).not.toBeNull();
   });
 
   it('keeps learners out of /admin and lets admins in', async () => {
-    loginAs('learner');
+    loginAs('member');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/admin');
     expect(TestBed.inject(Router).url).toBe('/forbidden');
@@ -64,7 +65,7 @@ describe('App', () => {
   });
 
   it('redirects unknown routes to the home page', async () => {
-    loginAs('learner');
+    loginAs('member');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/khong-ton-tai');
     expect(TestBed.inject(Router).url).toBe('/');
@@ -78,7 +79,7 @@ describe('App', () => {
     );
 
   it('shows learners only the five learning tabs, inside main with the connection footer', async () => {
-    loginAs('learner');
+    loginAs('member');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/');
     const el = harness.fixture.nativeElement as HTMLElement;
@@ -105,7 +106,7 @@ describe('App', () => {
   });
 
   it('hides the tab bar while studying a lesson', async () => {
-    loginAs('learner');
+    loginAs('member');
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl('/lessons/l1/listen');
     const layout = (harness.fixture.nativeElement as HTMLElement).querySelector('lu-learner-layout')!;
@@ -125,7 +126,7 @@ describe('App', () => {
     // The admin menu is the sidebar, not the header.
     expect(navLinks(harness)).toEqual([]);
     const sidebar = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-admin-layout .sidebar .menu a'));
-    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/words', '/admin/grammar', '/admin/roadmap', '/admin/appearance', '/admin/tts-lab', '/admin/stt-lab']);
+    expect(sidebar().map((a) => a.getAttribute('href'))).toEqual(['/admin', '/admin/lessons', '/admin/topics', '/admin/words', '/admin/grammar', '/admin/roadmap', '/admin/accounts', '/admin/appearance', '/admin/tts-lab', '/admin/stt-lab']);
     const current = () => sidebar().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 

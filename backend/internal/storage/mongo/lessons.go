@@ -97,6 +97,7 @@ type lessonDoc struct {
 	PracticeError    string          `bson:"practiceError"`
 	PracticeVersion  int             `bson:"practiceVersion"`
 	Review           *reviewDoc      `bson:"review,omitempty"`
+	Draft            bool            `bson:"draft,omitempty"`
 	CreatedAt        time.Time       `bson:"createdAt"`
 	UpdatedAt        time.Time       `bson:"updatedAt"`
 }
@@ -110,6 +111,7 @@ func fromLesson(l lesson.Lesson) lessonDoc {
 		AnnotationStatus: string(l.AnnotationStatus), AnnotationError: l.AnnotationError,
 		Annotations: fromAnnotations(l.Annotations),
 		Review:      fromReview(l.Review),
+		Draft:       l.Draft,
 		CreatedAt:   l.CreatedAt.UTC(), UpdatedAt: l.UpdatedAt.UTC(),
 	}
 	for i, s := range l.Sentences {
@@ -140,6 +142,7 @@ func (d lessonDoc) toLesson() lesson.Lesson {
 	l.Practice, l.PracticeStatus, l.PracticeError = d.Practice.toPractice(), lesson.Status(d.PracticeStatus), d.PracticeError
 	l.PracticeVersion = d.PracticeVersion
 	l.Review = d.Review.toReview()
+	l.Draft = d.Draft
 	for i, s := range d.Sentences {
 		l.Sentences[i] = lesson.Sentence(s)
 	}
@@ -156,6 +159,7 @@ type summaryDoc struct {
 	TopicID          bson.ObjectID `bson:"topicId"`
 	AnnotationStatus string        `bson:"annotationStatus"`
 	Review           *reviewDoc    `bson:"review,omitempty"`
+	Draft            bool          `bson:"draft,omitempty"`
 	CreatedAt        time.Time     `bson:"createdAt"`
 }
 
@@ -165,6 +169,7 @@ var summaryProjection = bson.D{
 	{Key: "topicId", Value: 1},
 	{Key: "annotationStatus", Value: 1},
 	{Key: "review", Value: 1},
+	{Key: "draft", Value: 1},
 	{Key: "createdAt", Value: 1},
 }
 
@@ -172,6 +177,7 @@ func (d summaryDoc) toSummary() lesson.Summary {
 	out := lesson.Summary{
 		ID: d.ID.Hex(), Title: d.Title, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
 		AnnotationStatus: lesson.Status(d.AnnotationStatus),
+		Draft:            d.Draft,
 		CreatedAt:        d.CreatedAt,
 	}
 	out.Flags, out.Checked, out.Verified = lesson.SummaryOf(d.Review.toReview())
@@ -271,6 +277,15 @@ func (r *Lessons) UpdateInfo(ctx context.Context, id string, in lesson.Info) err
 		{Key: "grammarPointId", Value: in.GrammarPointID},
 		{Key: "updatedAt", Value: time.Now().UTC()},
 	}}})
+}
+
+// SetDraft hides or publishes a lesson; a published lesson has no draft field.
+func (r *Lessons) SetDraft(ctx context.Context, id string, draft bool) error {
+	update := bson.D{{Key: "$unset", Value: bson.D{{Key: "draft", Value: ""}}}}
+	if draft {
+		update = bson.D{{Key: "$set", Value: bson.D{{Key: "draft", Value: true}}}}
+	}
+	return r.updateOne(ctx, id, update)
 }
 
 // ReplaceContent overwrites every field except the id and creation time.

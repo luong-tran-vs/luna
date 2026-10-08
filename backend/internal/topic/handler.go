@@ -84,6 +84,7 @@ type lessonJSON struct {
 	TopicName        string    `json:"topicName"`
 	AnnotationStatus string    `json:"annotationStatus"`
 	InRoadmap        bool      `json:"inRoadmap"`
+	Draft            bool      `json:"draft"`
 	CreatedAt        time.Time `json:"createdAt"`
 }
 
@@ -104,7 +105,7 @@ func toRoadmapJSON(r Roadmap) roadmapJSON {
 	for i, l := range r.Lessons {
 		out.Lessons[i] = lessonJSON{
 			ID: l.ID, Title: l.Title, Level: l.Level, TopicID: r.Topic.ID, TopicName: r.Topic.Name,
-			AnnotationStatus: l.AnnotationStatus, InRoadmap: true, CreatedAt: l.CreatedAt,
+			AnnotationStatus: l.AnnotationStatus, InRoadmap: true, Draft: l.Draft, CreatedAt: l.CreatedAt,
 		}
 	}
 	return out

@@ -7,6 +7,11 @@
       <div class="actions">
         <a class="btn" routerLink="/admin/lessons">Danh sách</a>
         <a class="btn" [routerLink]="['/admin/lessons', l.id, 'edit']">Sửa</a>
+        @if (l.draft) {
+          <button type="button" class="btn-primary" [disabled]="busy()" (click)="setPublished(true)">Đăng bài</button>
+        } @else {
+          <button type="button" class="btn" [disabled]="busy()" (click)="setPublished(false)">Ẩn khỏi người học</button>
+        }
         <button type="button" class="btn" [disabled]="busy()" (click)="deleteOpen.set(true)">Xoá bài</button>
       </div>
     </header>
@@ -24,7 +29,11 @@
         @if (l.inRoadmap) {
           <span class="tag">✓ Trong lộ trình</span>
         }
+        <span class="tag">{{ l.draft ? 'Bản nháp' : '✓ Đã đăng' }}</span>
       </div>
+      @if (l.draft) {
+        <p class="muted" role="status">Bài chưa đăng: người học chưa thấy bài này. Xem lại rồi bấm "Đăng bài".</p>
+      }
       <p class="muted">Nguồn: {{ l.source }} · Giấy phép: {{ l.license }}</p>
       @if (l.grammarPointTitle) {
         <p class="muted">Điểm ngữ pháp: {{ l.grammarPointTitle }}</p>
@@ -48,6 +57,24 @@
           <span class="muted"> · {{ (r.verifiedAt ?? r.checkedAt) | date: 'dd/MM/yyyy HH:mm' }}</span>
         }
       </p>
+      @if (flagList().length > 0) {
+        <ul class="flag-list" aria-label="Các chỗ AI gắn cờ, bấm để đến chỗ đó">
+          @for (item of flagList(); track item.flag.area + item.flag.index) {
+            <li>
+              <button
+                type="button"
+                class="flag-jump"
+                [class.confirmed]="item.flag.confirmed"
+                (click)="jumpTo(item.flag)"
+              >
+                <span class="flag-place">{{ item.place }}</span>
+                <span class="flag-summary">{{ item.flag.confirmed ? 'Đã xem, giữ nguyên' : item.flag.noteVi }}</span>
+                <span class="flag-go" aria-hidden="true">↓</span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
       <div class="actions">
         <button
           type="button"
@@ -90,7 +117,7 @@
           <button type="button" class="play" [attr.aria-label]="'Nghe câu ' + (s.index + 1)" [luSpeak]="s.text" (click)="play(s.text)">▶</button>
           <span class="sentence-text" lang="en">{{ s.text }}</span>
           @if (flagAt(sentenceFlags(), $index); as f) {
-            <lu-flag-note [flag]="f" [subject]="'câu ' + ($index + 1)" [disabled]="flagBusy() || checking()" (confirm)="confirmFlag($event)">
+            <lu-flag-note [flag]="f" [subject]="'câu ' + ($index + 1)" [disabled]="flagBusy() || checking()" [lessonId]="l.id" (confirm)="confirmFlag($event)" (applied)="onFixApplied($event)">
               <a class="btn" [routerLink]="['/admin/lessons', l.id, 'edit']">Sửa nội dung bài</a>
               <span class="muted">Sửa nội dung sẽ chạy lại chú thích và xoá kết quả kiểm tra.</span>
             </lu-flag-note>
@@ -164,7 +191,7 @@
               <span class="tag">Đã sửa tay</span>
             }
             @if (flagAt(annotationFlags(), $index); as f) {
-              <lu-flag-note class="ann-flag" [flag]="f" [subject]="'chú thích ' + a.text" [disabled]="flagBusy() || checking()" (confirm)="confirmFlag($event)">
+              <lu-flag-note class="ann-flag" [flag]="f" [subject]="'chú thích ' + a.text" [disabled]="flagBusy() || checking()" [lessonId]="l.id" (confirm)="confirmFlag($event)" (applied)="onFixApplied($event)">
                 <button type="button" class="btn" [disabled]="busy() || l.annotationStatus === 'running'" [attr.aria-label]="'Sửa chú thích ' + a.text" (click)="editAnnotation($index)">Sửa</button>
                 <button type="button" class="btn" [disabled]="busy() || l.annotationStatus === 'running'" [attr.aria-label]="'Xoá chú thích ' + a.text + ' khỏi bài'" (click)="askDeleteAnnotation($index)">Xoá</button>
               </lu-flag-note>

@@ -516,6 +516,27 @@ describe('LessonDetail', () => {
       expect(text(el.querySelector('#grammar-heading'))).toBe('Ngữ pháp: Giới thiệu tên');
       expect(el.querySelector('.next-bar')).toBeNull();
 
+      // Tapping a sentence reads it aloud and highlights it; tapping it again while read stops it.
+      const sentences = Array.from(el.querySelectorAll<HTMLButtonElement>('#panel-reading .read-sentence'));
+      expect(sentences.map((b) => text(b))).toEqual([
+        'Hello, my name is Minh.',
+        'Nice to meet you.',
+        'I am from Vietnam.',
+      ]);
+      sentences[1].click();
+      await fixture.whenStable();
+      expect(speech.last()).toMatchObject({ text: 'Nice to meet you.' });
+      speech.playing.set('Nice to meet you.');
+      await fixture.whenStable();
+      expect(sentences[1].classList).toContain('reading-now');
+      expect(sentences[1].getAttribute('aria-pressed')).toBe('true');
+      expect(sentences[0].classList).not.toContain('reading-now');
+      const stops = speech.stops;
+      sentences[1].click();
+      await fixture.whenStable();
+      expect(speech.stops).toBe(stops + 1);
+      expect(sentences[1].classList).not.toContain('reading-now');
+
       el.querySelector<HTMLButtonElement>('#tab-lesson')!.click();
       await fixture.whenStable();
       expect(el.querySelector<HTMLElement>('#panel-lesson')!.hidden).toBe(false);

@@ -115,3 +115,63 @@ func writeFlagError(w http.ResponseWriter, err error) bool {
 	}
 	return true
 }
+
+// --- AI help to fix a flagged item (F22) ---
+
+type fixJSON struct {
+	Area      string        `json:"area"`
+	Index     int           `json:"index"`
+	Text      string        `json:"text,omitempty"`
+	MeaningVi string        `json:"meaningVi,omitempty"`
+	Question  *questionJSON `json:"question,omitempty"`
+	Vi        string        `json:"vi,omitempty"`
+	En        string        `json:"en,omitempty"`
+	NoteVi    string        `json:"noteVi,omitempty"`
+}
+
+func (h *Handler) suggestFix(w http.ResponseWriter, r *http.Request) {
+	if err := http.NewResponseController(w).SetWriteDeadline(time.Now().Add(generateWriteTimeout)); err != nil &&
+		!errors.Is(err, http.ErrNotSupported) {
+		h.log.WarnContext(r.Context(), "lesson fix: extend write deadline", slog.Any("error", err))
+	}
+	var body struct {
+		Area  string `json:"area"`
+		Index int    `json:"index"`
+	}
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	s, err := h.svc.SuggestFix(r.Context(), r.PathValue("id"), FlagArea(body.Area), body.Index)
+	if err != nil {
+		h.writeCheckError(w, r, err)
+		return
+	}
+	out := fixJSON{
+		Area: string(s.Area), Index: s.Index, Text: s.Text, MeaningVi: s.MeaningVi, Vi: s.Vi, En: s.En, NoteVi: s.NoteVi,
+	}
+	if s.Question != nil {
+		q := questionJSON(*s.Question)
+		out.Question = &q
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]fixJSON{"suggestion": out})
+}
+
+func (h *Handler) applyFix(w http.ResponseWriter, r *http.Request) {
+	var body fixJSON
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	in := FixInput{
+		Area: FlagArea(body.Area), Index: body.Index, Text: body.Text, MeaningVi: body.MeaningVi, Vi: body.Vi, En: body.En,
+	}
+	if body.Question != nil {
+		q := Question(*body.Question)
+		in.Question = &q
+	}
+	l, err := h.svc.ApplyFix(r.Context(), r.PathValue("id"), in)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	h.writeLesson(w, r, http.StatusOK, l)
+}

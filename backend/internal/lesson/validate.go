@@ -35,6 +35,8 @@ type Input struct {
 	// TargetWords are the topic words a generated draft was asked to use (F18); at most
 	// maxTargetWords. Update ignores it.
 	TargetWords []string
+	// Draft saves a new lesson hidden from learners until it is published. Update ignores it.
+	Draft bool
 }
 
 // ValidateInput trims every field, checks limits and splits the content. It returns the
@@ -52,6 +54,7 @@ func ValidateInput(in Input) (Input, []string, error) {
 		AppendToRoadmap:  in.AppendToRoadmap,
 		Images:           in.Images,
 		TargetWords:      cleanWordList(in.TargetWords),
+		Draft:            in.Draft,
 	}
 	fields := map[string]string{}
 	if len(in.TargetWords) > maxTargetWords {

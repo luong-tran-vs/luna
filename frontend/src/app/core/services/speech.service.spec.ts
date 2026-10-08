@@ -73,6 +73,24 @@ describe('SpeechService', () => {
     expect((spoken().voice as unknown as { name: string }).name).toContain('Aria Online (Natural)');
   });
 
+  it('gives the next voices by rank to the other speakers of a dialogue, wrapping round', () => {
+    voices = [
+      { lang: 'en-US', localService: true, name: 'Microsoft David - English (United States)' },
+      { lang: 'en-US', localService: false, name: 'Microsoft Aria Online (Natural) - English (United States)' },
+      { lang: 'en-US', localService: false, name: 'Microsoft Guy Online (Natural) - English (United States)' },
+    ];
+    const speech = create();
+    const name = () => (spoken().voice as unknown as { name: string }).name;
+    speech.speak('Hi.', 1, {}, 0);
+    expect(name()).toContain('Aria');
+    speech.speak('Hello.', 1, {}, 1);
+    expect(name()).toContain('Guy');
+    speech.speak('Hey.', 1, {}, 2);
+    expect(name()).toContain('David');
+    speech.speak('Yo.', 1, {}, 3);
+    expect(name()).toContain('Aria');
+  });
+
   it('reads with a voice on the device when an online voice fails, and keeps to those', () => {
     voices = [
       { lang: 'en-US', localService: true, name: 'Microsoft David' },

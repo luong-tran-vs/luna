@@ -1,0 +1,81 @@
+<dialog #dialog class="dialog" aria-labelledby="account-title" (cancel)="onCancel($event)">
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate [attr.aria-busy]="busy()">
+    <h2 class="title" id="account-title">{{ account() ? 'Sửa tài khoản' : 'Thêm tài khoản' }}</h2>
+
+    @if (alert(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+
+    <div class="field">
+      <label for="account-email">Email</label>
+      <input
+        id="account-email"
+        type="email"
+        autocomplete="off"
+        spellcheck="false"
+        formControlName="email"
+        [attr.aria-invalid]="errors().email ? true : null"
+        [attr.aria-describedby]="describedBy('email')"
+      />
+      @if (errors().email; as message) {
+        <p class="field-error" id="account-email-error">{{ message }}</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="account-password">{{ account() ? 'Mật khẩu mới' : 'Mật khẩu' }}</label>
+      <div class="password">
+        <input
+          id="account-password"
+          [type]="showPassword() ? 'text' : 'password'"
+          autocomplete="new-password"
+          formControlName="password"
+          [attr.aria-invalid]="errors().password ? true : null"
+          [attr.aria-describedby]="describedBy('password', 'account-password-hint')"
+        />
+        <button
+          type="button"
+          class="btn reveal"
+          [attr.aria-pressed]="showPassword()"
+          aria-controls="account-password"
+          (click)="showPassword.set(!showPassword())"
+        >
+          {{ showPassword() ? 'Ẩn' : 'Hiện' }}
+        </button>
+      </div>
+      <p class="field-hint" id="account-password-hint">
+        {{ account() ? 'Để trống nếu không đổi mật khẩu.' : 'Ít nhất 8 ký tự.' }}
+      </p>
+      @if (errors().password; as message) {
+        <p class="field-error" id="account-password-error">{{ message }}</p>
+      }
+    </div>
+
+    <fieldset class="roles" [attr.aria-describedby]="self() ? 'account-role-hint' : describedBy('role')">
+      <legend>Quyền</legend>
+      @for (r of roles; track r.role) {
+        <label class="role-option" [class]="'role-' + r.role">
+          <input type="radio" formControlName="role" [value]="r.role" />
+          <span class="role-icon" aria-hidden="true"><lu-icon [name]="r.icon" /></span>
+          <span class="role-text">
+            <span class="role-name">{{ r.name }}</span>
+            <span class="role-desc">{{ r.description }}</span>
+          </span>
+        </label>
+      }
+      @if (self()) {
+        <p class="field-hint" id="account-role-hint">Bạn không thể tự đổi quyền của chính mình.</p>
+      }
+      @if (errors().role; as message) {
+        <p class="field-error" id="account-role-error">{{ message }}</p>
+      }
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn" [disabled]="busy()" (click)="close()">Huỷ</button>
+      <button type="submit" class="btn-primary" [disabled]="busy()">
+        {{ busy() ? 'Đang lưu…' : account() ? 'Lưu thay đổi' : 'Thêm tài khoản' }}
+      </button>
+    </div>
+  </form>
+</dialog>

@@ -28,12 +28,17 @@ export interface SetGoalResult {
   active: GoalView;
 }
 
-/** Where the learner stands in the goal's roadmap. */
-export type StudyKind = 'noGoal' | 'studying' | 'noNewLesson';
+/**
+ * Where the learner stands in the goal's roadmap. membersOnly: a guest finished the first lesson;
+ * the next ones are for members.
+ */
+export type StudyKind = 'noGoal' | 'studying' | 'noNewLesson' | 'membersOnly';
 
 export interface LessonRef {
   id: string;
   title: string;
+  /** An upcoming lesson a guest cannot study. */
+  membersOnly?: boolean;
 }
 
 /** A lesson for the learner: the one being studied, a completed one, or another one. */
@@ -47,6 +52,8 @@ export interface LessonStudy {
   sentenceIndex: number;
   /** The lesson to study now, once this one is completed. */
   next: LessonRef | null;
+  /** The learner is a guest who finished the first lesson: the next ones are for members. */
+  membersOnly?: boolean;
   goal: GoalView | null;
   goalCompleted: boolean;
   streak: number;

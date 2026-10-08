@@ -54,6 +54,14 @@ type readingJSON struct {
 	GrammarNote *grammarNoteJSON  `json:"grammarNote"`
 
 	GrammarPointID string `json:"grammarPointId"`
+	// Turns is set for a dialogue lesson: one entry per "Name: text" line.
+	Turns []textTurnJSON `json:"turns"`
+}
+
+type textTurnJSON struct {
+	Speaker   string `json:"speaker"`
+	Text      string `json:"text"`
+	Sentences []int  `json:"sentences"`
 }
 
 type phraseJSON struct {
@@ -87,6 +95,9 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 		Sentences:  make([]sentenceJSON, len(v.Sentences)),
 		Paragraphs: v.Paragraphs, Lemmas: v.Lemmas,
 		Phrases: make([]phraseJSON, len(v.Phrases)), GrammarPointID: v.GrammarPointID,
+	}
+	for _, t := range v.Turns {
+		out.Turns = append(out.Turns, textTurnJSON(t))
 	}
 	for i, s := range v.Sentences {
 		out.Sentences[i] = sentenceJSON(s)

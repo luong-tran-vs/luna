@@ -32,7 +32,7 @@ describe('ThemeService', () => {
   let http: HttpTestingController;
   const user = signal<User | null>(null);
   const login = () => {
-    user.set({ id: 'u1', email: 'a@example.com', role: 'learner', timezone: 'Asia/Ho_Chi_Minh' });
+    user.set({ id: 'u1', email: 'a@example.com', role: 'member', timezone: 'Asia/Ho_Chi_Minh' });
     TestBed.tick();
   };
 

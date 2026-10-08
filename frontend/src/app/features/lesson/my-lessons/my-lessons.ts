@@ -29,6 +29,8 @@ export class MyLessons {
   /** Number of the lesson being studied, right after the completed ones. */
   protected readonly currentNumber = computed(() => this.completed().length + 1);
   protected readonly upcomingStart = computed(() => this.currentNumber() + (this.data()?.current ? 1 : 0));
+  /** A guest: the upcoming lessons are for members only. */
+  protected readonly membersOnly = computed(() => this.data()?.upcoming.some((l) => l.membersOnly) ?? false);
   protected readonly title = computed(() => {
     const g = this.goal();
     return g ? `${g.level} · ${g.topicName}` : 'Bài học';

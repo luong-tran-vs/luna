@@ -1,0 +1,117 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Tài khoản</h1>
+    <div class="actions">
+      <button type="button" class="btn-primary" (click)="openAdd()"><lu-icon name="plus" /> Thêm tài khoản</button>
+    </div>
+  </header>
+
+  @if (failed()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được danh sách tài khoản.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (accounts(); as list) {
+    <ul class="summary" aria-label="Số tài khoản theo quyền">
+      @for (r of roles; track r.role) {
+        <li class="card stat" [class]="'role-' + r.role">
+          <span class="role-dot" aria-hidden="true"><lu-icon [name]="r.icon" /></span>
+          <span class="stat-text">
+            <span class="stat-value">{{ counts()[r.role] }}</span>
+            <span class="stat-label"> {{ r.name }}</span>
+          </span>
+        </li>
+      }
+    </ul>
+
+    <div class="toolbar">
+      <div class="field search">
+        <label class="visually-hidden" for="account-search">Tìm theo email</label>
+        <input
+          id="account-search"
+          type="search"
+          placeholder="Tìm theo email…"
+          autocomplete="off"
+          spellcheck="false"
+          [value]="query()"
+          (input)="onSearch($event)"
+        />
+      </div>
+      <div class="filters" role="group" aria-label="Lọc theo quyền">
+        <button type="button" class="chip" [attr.aria-pressed]="filter() === null" (click)="filter.set(null)">
+          Tất cả <span class="chip-count">{{ list.length }}</span>
+        </button>
+        @for (r of roles; track r.role) {
+          <button type="button" class="chip" [attr.aria-pressed]="filter() === r.role" (click)="filter.set(r.role)">
+            {{ r.name }} <span class="chip-count">{{ counts()[r.role] }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    @if (error(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+    <p class="notice" role="status">{{ notice() }}</p>
+
+    <ul class="accounts">
+      @for (a of shown(); track a.id) {
+        <li class="card account">
+          <span class="avatar" [class]="'role-' + a.role" aria-hidden="true">{{ initial(a) }}</span>
+          <div class="who">
+            <span class="email">
+              {{ a.email }}
+              @if (a.id === myId()) {
+                <span class="you">Bạn</span>
+              }
+            </span>
+            <span class="muted">Đăng ký {{ a.createdAt | date: 'dd/MM/yyyy' }}</span>
+          </div>
+          <span class="badge" [class]="'role-' + a.role">
+            <lu-icon [name]="roleInfo[a.role].icon" />
+            {{ roleInfo[a.role].name }}
+          </span>
+          <div class="row-actions">
+            <button type="button" class="btn icon-btn" [attr.aria-label]="'Sửa ' + a.email" (click)="openEdit(a)">
+              <lu-icon name="pencil" /><span class="btn-text">Sửa</span>
+            </button>
+            @if (a.id !== myId()) {
+              <button
+                type="button"
+                class="btn icon-btn delete"
+                [attr.aria-label]="'Xoá ' + a.email"
+                (click)="deleting.set(a)"
+              >
+                <lu-icon name="x" /><span class="btn-text">Xoá</span>
+              </button>
+            }
+          </div>
+        </li>
+      } @empty {
+        <li class="card empty muted">
+          {{ list.length === 0 ? 'Chưa có tài khoản nào.' : 'Không có tài khoản nào khớp.' }}
+        </li>
+      }
+    </ul>
+  } @else {
+    <lu-loading />
+  }
+</section>
+
+<lu-account-dialog
+  [open]="dialogOpen()"
+  [account]="editing()"
+  [self]="editing()?.id === myId()"
+  (saved)="onSaved($event)"
+  (closed)="dialogOpen.set(false)"
+/>
+
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  title="Xoá tài khoản?"
+  [message]="deleteMessage()"
+  confirmLabel="Xoá tài khoản"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleting.set(null)"
+/>

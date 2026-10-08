@@ -63,6 +63,24 @@ describe('MyLessons', () => {
     expect(upcoming[0].querySelector('a')).toBeNull();
   });
 
+  it('marks the upcoming lessons of a guest as for members only', async () => {
+    await setup({
+      current: null,
+      completed: [{ id: 'l1', title: 'My family', topicName: 'Gia đình', completedAt: '2026-09-29T10:00:00Z' }],
+      upcoming: [
+        { id: 'l2', title: 'At the bank', membersOnly: true },
+        { id: 'l3', title: 'At the café', membersOnly: true },
+      ],
+    });
+    expect(text(el.querySelector('.members-banner'))).toContain('chỉ học được bài đầu tiên');
+    const upcoming = Array.from(el.querySelectorAll('.upcoming li'));
+    expect(upcoming.map((li) => text(li.querySelector('.members-note')))).toEqual([
+      'Chỉ dành cho thành viên',
+      'Chỉ dành cho thành viên',
+    ]);
+    expect(upcoming[0].querySelector('a')).toBeNull();
+  });
+
   it('names the topic being studied with its progress', async () => {
     await setup(
       { current: null, completed: [], upcoming: [] },

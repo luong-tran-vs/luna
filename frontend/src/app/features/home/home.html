@@ -61,6 +61,16 @@
           <a class="btn-primary btn-block" routerLink="/goal">Chọn chủ đề</a>
         </div>
       }
+      @case ('membersOnly') {
+        <div class="soft-card members-only" role="status">
+          <p class="card-title"><lu-icon name="lock" /> Bài tiếp theo chỉ dành cho thành viên</p>
+          <p class="muted">Tài khoản khách chỉ học được bài đầu tiên của mỗi chủ đề. Liên hệ quản trị viên để được nâng lên thành viên và học tiếp.</p>
+          <div class="actions">
+            <a class="btn-primary" routerLink="/goal">Học thử chủ đề khác</a>
+            <a class="btn" routerLink="/vocabulary/review">Ôn tự do</a>
+          </div>
+        </div>
+      }
       @case ('noNewLesson') {
         <div class="soft-card" role="status">
           @if (d.goalCompleted) {

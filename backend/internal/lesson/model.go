@@ -78,7 +78,10 @@ type Lesson struct {
 	// PracticeVersion is bumped each time a practice is saved, so an old practice job cannot overwrite a newer one.
 	PracticeVersion int
 	// Review is the AI check of the lesson (F22), nil until an admin runs it. Writing the content drops it.
-	Review    *Review
+	Review *Review
+	// Draft hides the lesson from learners until an admin publishes it. Saved AI drafts start as
+	// drafts; lessons added by hand, and those saved before publishing existed, are published.
+	Draft     bool
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -107,6 +110,7 @@ type Summary struct {
 	Flags     int
 	Checked   bool
 	Verified  bool
+	Draft     bool
 	CreatedAt time.Time
 }
 

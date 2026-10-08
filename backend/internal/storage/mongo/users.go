@@ -8,8 +8,10 @@ import (
 
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo/options"
 
 	"github.com/luongtran/luna/backend/internal/auth"
+	"github.com/luongtran/luna/backend/internal/export"
 )
 
 type userDoc struct {
@@ -43,7 +45,7 @@ func (d userDoc) toUser() auth.User {
 		ID:           d.ID.Hex(),
 		Email:        d.Email,
 		PasswordHash: d.PasswordHash,
-		Role:         auth.Role(d.Role),
+		Role:         auth.ParseRole(d.Role),
 		Timezone:     d.timezone(),
 		CreatedAt:    d.CreatedAt,
 	}
@@ -112,4 +114,76 @@ func (r *Users) findOne(ctx context.Context, filter bson.D) (auth.User, error) {
 		return auth.User{}, fmt.Errorf("find user: %w", err)
 	}
 	return doc.toUser(), nil
+}
+
+// List returns every account, oldest first.
+func (r *Users) List(ctx context.Context) ([]auth.User, error) {
+	cur, err := r.coll.Find(ctx, bson.D{}, options.Find().SetSort(bson.D{{Key: "createdAt", Value: 1}, {Key: "_id", Value: 1}}))
+	if err != nil {
+		return nil, fmt.Errorf("find users: %w", err)
+	}
+	var docs []userDoc
+	if err := cur.All(ctx, &docs); err != nil {
+		return nil, fmt.Errorf("decode users: %w", err)
+	}
+	out := make([]auth.User, len(docs))
+	for i, d := range docs {
+		out[i] = d.toUser()
+	}
+	return out, nil
+}
+
+// Update changes the email, role and (when PasswordHash is set) password of an account.
+func (r *Users) Update(ctx context.Context, id string, c auth.AccountChange) error {
+	oid, err := bson.ObjectIDFromHex(id)
+	if err != nil {
+		return auth.ErrNotFound
+	}
+	set := bson.D{{Key: "email", Value: c.Email}, {Key: "role", Value: string(c.Role)}}
+	if c.PasswordHash != "" {
+		set = append(set, bson.E{Key: "passwordHash", Value: c.PasswordHash})
+	}
+	res, err := r.coll.UpdateOne(ctx, bson.D{{Key: "_id", Value: oid}}, bson.D{{Key: "$set", Value: set}})
+	if mongo.IsDuplicateKeyError(err) {
+		return auth.ErrEmailTaken
+	}
+	if err != nil {
+		return fmt.Errorf("update user: %w", err)
+	}
+	if res.MatchedCount == 0 {
+		return auth.ErrNotFound
+	}
+	return nil
+}
+
+// userData lists the collections holding a user's own documents (by "userId"); they go with the
+// account. Grammar reports stay for the admin.
+var userData = []string{
+	"sessions", export.CollCards, export.CollReviewLogs, export.CollGoals, export.CollLessonProgress,
+	export.CollStudyDays, export.CollDictationResults, export.CollReadingAnswers, export.CollWritings,
+	export.CollGrammarProgress,
+}
+
+// Delete removes an account and its documents. MongoDB runs without transactions: the sessions go
+// first (the user is logged out at once) and the account last, so a failure can be retried.
+func (r *Users) Delete(ctx context.Context, id string) error {
+	oid, err := bson.ObjectIDFromHex(id)
+	if err != nil {
+		return auth.ErrNotFound
+	}
+	if n, err := r.coll.CountDocuments(ctx, bson.D{{Key: "_id", Value: oid}}); err != nil {
+		return fmt.Errorf("find user: %w", err)
+	} else if n == 0 {
+		return auth.ErrNotFound
+	}
+	db := r.coll.Database()
+	for _, coll := range userData {
+		if _, err := db.Collection(coll).DeleteMany(ctx, bson.D{{Key: "userId", Value: oid}}); err != nil {
+			return fmt.Errorf("delete user %s: %w", coll, err)
+		}
+	}
+	if _, err := r.coll.DeleteOne(ctx, bson.D{{Key: "_id", Value: oid}}); err != nil {
+		return fmt.Errorf("delete user: %w", err)
+	}
+	return nil
 }

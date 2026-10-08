@@ -128,7 +128,9 @@ type LessonRef struct {
 	Level            string
 	TopicID          string
 	AnnotationStatus string
-	CreatedAt        time.Time
+	// Draft lessons are hidden from learners until published.
+	Draft     bool
+	CreatedAt time.Time
 }
 
 // Roadmap is the roadmap of one (topic, level) with its lessons (deleted lessons skipped).

@@ -136,3 +136,22 @@ func TestReadingLessonEndpointReturnsTheGrammarPoint(t *testing.T) {
 		t.Errorf("body = %s", body)
 	}
 }
+
+func TestReadingLessonEndpointReturnsDialogueTurns(t *testing.T) {
+	t.Parallel()
+	const dialogue = "Minh: Hi, Anna. How are you?\nAnna: I'm fine."
+	lessons := newFakeLessons()
+	talk, _ := lessons.Create(t.Context(), Lesson{Title: "A", Level: "A1", Content: dialogue, Sentences: toSentences(SplitSentences(dialogue))})
+	text, _ := lessons.Create(t.Context(), Lesson{Title: "B", Level: "A1", Content: readingContent, Sentences: toSentences(SplitSentences(readingContent))})
+	r := NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers(), newFakeAsks(), &fakeAI{})
+	mux := http.NewServeMux()
+	NewReadingHandler(r, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver), allowAll)
+
+	want := `"turns":[{"speaker":"Minh","text":"Hi, Anna. How are you?","sentences":[0,1]},{"speaker":"Anna","text":"I'm fine.","sentences":[2]}]`
+	if body := get(t, mux, "/api/lessons/"+talk.ID, "learner").Body.String(); !strings.Contains(body, want) {
+		t.Errorf("dialogue body = %s", body)
+	}
+	if body := get(t, mux, "/api/lessons/"+text.ID, "learner").Body.String(); !strings.Contains(body, `"turns":null`) {
+		t.Errorf("reading body = %s", body)
+	}
+}

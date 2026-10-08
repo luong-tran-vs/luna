@@ -11,7 +11,7 @@ import (
 
 func settingsUser(t *testing.T, r *Users, tz string) string {
 	t.Helper()
-	u, err := r.Create(t.Context(), auth.User{Email: "s@x.vn", Role: auth.RoleLearner, Timezone: tz, CreatedAt: time.Now()})
+	u, err := r.Create(t.Context(), auth.User{Email: "s@x.vn", Role: auth.RoleMember, Timezone: tz, CreatedAt: time.Now()})
 	if err != nil {
 		t.Fatal(err)
 	}

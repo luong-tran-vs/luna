@@ -61,7 +61,11 @@ export class SpeechService {
   /** False when the browser has no speech synthesis and the natural voice is off. */
   readonly supported = this.browserSupported || this.voice.enabled();
 
-  speak(text: string, rate: number, handlers: SpeakHandlers = {}): void {
+  /**
+   * voice picks one of the browser's English voices, best first (0 is the best), so the people of
+   * a dialogue can sound different. The natural voice has a single voice and ignores it.
+   */
+  speak(text: string, rate: number, handlers: SpeakHandlers = {}, voice = 0): void {
     const clip = this.audio && this.voice.ready() ? this.voice.cached(text) : null;
     if (clip) {
       this.stop();
@@ -87,7 +91,7 @@ export class SpeechService {
       return;
     }
     this.voice.want(text);
-    this.speakBrowser(text, rate, handlers);
+    this.speakBrowser(text, rate, handlers, this.onlineFailed, voice);
   }
 
   /** Texts likely to be heard soon: the natural voice generates them ahead (no-op when it is off). */
@@ -138,7 +142,13 @@ export class SpeechService {
   }
 
   /** localOnly: skip the online voices (one of them just failed). */
-  private speakBrowser(text: string, rate: number, handlers: SpeakHandlers, localOnly = this.onlineFailed): void {
+  private speakBrowser(
+    text: string,
+    rate: number,
+    handlers: SpeakHandlers,
+    localOnly = this.onlineFailed,
+    voiceIndex = 0,
+  ): void {
     if (!this.synth || !this.browserSupported) {
       handlers.failed?.('unsupported');
       return;
@@ -147,7 +157,7 @@ export class SpeechService {
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
     u.rate = rate;
-    const voice = this.englishVoice(localOnly);
+    const voice = this.englishVoice(localOnly, voiceIndex);
     if (voice) {
       u.voice = voice;
       u.lang = voice.lang;
@@ -188,7 +198,7 @@ export class SpeechService {
       // the device instead, and keep to those for the rest of the visit.
       if (voice && !voice.localService && e.error !== 'interrupted' && e.error !== 'canceled') {
         this.onlineFailed = true;
-        this.speakBrowser(text, rate, handlers, true);
+        this.speakBrowser(text, rate, handlers, true, voiceIndex);
         return;
       }
       handlers.failed?.(e.error);
@@ -217,21 +227,16 @@ export class SpeechService {
     }
   }
 
-  /** The best English voice of the browser (see voiceScore); null lets the browser choose. */
-  private englishVoice(localOnly: boolean): SpeechSynthesisVoice | null {
-    let best: SpeechSynthesisVoice | null = null;
-    let bestScore = -1;
-    for (const v of this.synth?.getVoices() ?? []) {
-      if (!v.lang.toLowerCase().startsWith('en') || (localOnly && !v.localService)) {
-        continue;
-      }
-      const score = voiceScore(v);
-      if (score > bestScore) {
-        best = v;
-        bestScore = score;
-      }
-    }
-    return best;
+  /**
+   * The English voice of the browser at rank index (see voiceScore; 0 is the best, equal scores keep
+   * the browser's order), wrapping round when there are fewer voices; null lets the browser choose.
+   */
+  private englishVoice(localOnly: boolean, index = 0): SpeechSynthesisVoice | null {
+    const ranked = (this.synth?.getVoices() ?? [])
+      .filter((v) => v.lang.toLowerCase().startsWith('en') && (!localOnly || v.localService))
+      .map((v, order) => ({ v, score: voiceScore(v), order }))
+      .sort((a, b) => b.score - a.score || a.order - b.order);
+    return ranked.length ? ranked[index % ranked.length].v : null;
   }
 }
 

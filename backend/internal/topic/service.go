@@ -168,10 +168,58 @@ func (s *Service) Public(ctx context.Context, level string) ([]Public, error) {
 		return nil, fmt.Errorf("topic: list: %w", err)
 	}
 	sortTopics(topics)
+	var ids []string
+	for _, t := range topics {
+		ids = append(ids, t.Roadmap(level)...)
+	}
+	published, err := s.published(ctx, ids)
+	if err != nil {
+		return nil, err
+	}
 	out := []Public{}
 	for _, t := range topics {
-		if n := len(t.Roadmap(level)); n > 0 {
+		n := 0
+		for _, lid := range t.Roadmap(level) {
+			if published[lid] {
+				n++
+			}
+		}
+		if n > 0 {
 			out = append(out, Public{ID: t.ID, Name: t.Name, Level: level, Description: t.Description, LessonCount: n})
+		}
+	}
+	return out, nil
+}
+
+// LearnerRoadmap is the roadmap of t at level as learners see it: published lessons only, in order.
+func (s *Service) LearnerRoadmap(ctx context.Context, t Topic, level string) ([]string, error) {
+	ids := t.Roadmap(level)
+	published, err := s.published(ctx, ids)
+	if err != nil {
+		return nil, err
+	}
+	out := []string{}
+	for _, lid := range ids {
+		if published[lid] {
+			out = append(out, lid)
+		}
+	}
+	return out, nil
+}
+
+// published is the set of existing, non-draft lessons among ids.
+func (s *Service) published(ctx context.Context, ids []string) (map[string]bool, error) {
+	out := map[string]bool{}
+	if len(ids) == 0 {
+		return out, nil
+	}
+	refs, err := s.lessons.Refs(ctx, ids)
+	if err != nil {
+		return nil, fmt.Errorf("topic: roadmap lessons: %w", err)
+	}
+	for _, r := range refs {
+		if !r.Draft {
+			out[r.ID] = true
 		}
 	}
 	return out, nil

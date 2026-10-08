@@ -69,6 +69,8 @@ const (
 	StudyNoGoal      StudyKind = "noGoal"
 	StudyStudying    StudyKind = "studying"
 	StudyNoNewLesson StudyKind = "noNewLesson"
+	// StudyMembersOnly: a guest finished the first lesson of the roadmap; the others are for members.
+	StudyMembersOnly StudyKind = "membersOnly"
 )
 
 // StudyState is the lesson the learner studies now: the first lesson of the roadmap not completed.

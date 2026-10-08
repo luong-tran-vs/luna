@@ -98,7 +98,7 @@ func TestRegisterRoles(t *testing.T) {
 	if first.Role != RoleAdmin {
 		t.Errorf("first role = %s, want admin", first.Role)
 	}
-	if second.Role != RoleLearner {
+	if second.Role != RoleGuest {
 		t.Errorf("second role = %s, want learner", second.Role)
 	}
 	if first.Email != "admin@example.com" {

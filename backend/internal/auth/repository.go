@@ -2,6 +2,13 @@ package auth
 
 import "context"
 
+// AccountChange is what Update writes; an empty PasswordHash keeps the password.
+type AccountChange struct {
+	Email        string
+	Role         Role
+	PasswordHash string
+}
+
 // UserRepository stores accounts. Implementations live in internal/storage.
 type UserRepository interface {
 	// Create stores u and returns it with its ID; ErrEmailTaken if the email exists.
@@ -11,6 +18,15 @@ type UserRepository interface {
 	// FindByID returns ErrNotFound when the account does not exist.
 	FindByID(ctx context.Context, id string) (User, error)
 	Count(ctx context.Context) (int64, error)
+	// List returns every account, oldest first.
+	List(ctx context.Context) ([]User, error)
+	// Update changes an account; ErrNotFound when it does not exist, ErrEmailTaken when another
+	// account has the email.
+	Update(ctx context.Context, id string, c AccountChange) error
+	// Delete removes an account with its sessions and learning data (cards, review logs, goals,
+	// lesson progress, study days, dictation, reading answers, writings, grammar progress). Grammar
+	// reports are kept for the admin. ErrNotFound when it does not exist.
+	Delete(ctx context.Context, id string) error
 }
 
 // SessionRepository stores login sessions by token hash.

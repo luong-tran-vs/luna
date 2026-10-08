@@ -239,6 +239,7 @@ type studyEnv struct {
 	quiz      *fakeQuiz
 	writings  *fakeWritings
 	grammar   *fakeGrammar
+	members   *fakeMembers
 }
 
 // newStudyEnv: topics "family" (A1, lessons f1..f3), "shopping" (A1, s1..s2), "work" (B1, w1),
@@ -255,6 +256,7 @@ func newStudyEnv() *studyEnv {
 		quiz:     &fakeQuiz{status: map[string][2]int{}},
 		writings: &fakeWritings{submitted: map[string]bool{}},
 		grammar:  &fakeGrammar{},
+		members:  &fakeMembers{guests: map[string]bool{}},
 	}
 	for _, t := range []TopicInfo{
 		{ID: "family", Name: "Gia đình", Level: "A1", LessonIDs: []string{"f1", "f2", "f3"}},
@@ -273,7 +275,7 @@ func newStudyEnv() *studyEnv {
 	e.svc = NewStudyService(StudyDeps{
 		Goals: e.goals, Progress: e.progress, Days: e.days, Dictation: e.dictation, Lessons: e.lessons,
 		Roadmaps: e.roadmaps, Titles: titles, Reviews: e.reviews, Timezones: e.zones, Now: e.clock.now,
-		Quiz: e.quiz, Writings: e.writings, Grammar: e.grammar,
+		Quiz: e.quiz, Writings: e.writings, Grammar: e.grammar, Members: e.members,
 	})
 	return e
 }
@@ -416,4 +418,22 @@ func (f *fakeGrammar) MasteredCount(_ context.Context, _ string, since *time.Tim
 	defer f.mu.Unlock()
 	f.since = since
 	return f.mastered, nil
+}
+
+// fakeMembers marks some users as guests; everyone else is a member.
+type fakeMembers struct {
+	mu     sync.Mutex
+	guests map[string]bool
+}
+
+func (f *fakeMembers) setGuest(userID string, guest bool) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	f.guests[userID] = guest
+}
+
+func (f *fakeMembers) IsGuest(_ context.Context, userID string) (bool, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.guests[userID], nil
 }

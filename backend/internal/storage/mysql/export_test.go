@@ -40,7 +40,7 @@ func TestExportAccountAndDocs(t *testing.T) {
 	r := NewExport(db)
 
 	created := time.Date(2026, 3, 4, 5, 6, 7, 0, time.UTC)
-	u, err := NewUsers(db).Create(ctx, auth.User{Email: "a@b.c", PasswordHash: "secret-hash", Role: auth.RoleLearner, CreatedAt: created})
+	u, err := NewUsers(db).Create(ctx, auth.User{Email: "a@b.c", PasswordHash: "secret-hash", Role: auth.RoleMember, CreatedAt: created})
 	if err != nil {
 		t.Fatal(err)
 	}

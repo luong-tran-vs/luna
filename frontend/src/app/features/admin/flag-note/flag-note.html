@@ -12,6 +12,9 @@
       <button type="button" class="btn" [disabled]="disabled()" [attr.aria-label]="'Giữ nguyên ' + subject()" (click)="confirm.emit(flag())">
         Giữ nguyên
       </button>
+      @if (lessonId()) {
+        <lu-fix-helper [lessonId]="lessonId()" [flag]="flag()" [subject]="subject()" [disabled]="disabled()" (applied)="applied.emit($event)" />
+      }
     }
   </div>
 </div>

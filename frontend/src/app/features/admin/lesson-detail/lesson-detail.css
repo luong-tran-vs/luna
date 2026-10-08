@@ -107,3 +107,62 @@
   display: block;
   margin-top: var(--space-1);
 }
+
+/* F22: the flags of the check, each jumping to its spot. */
+.flag-list {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-2) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flag-jump {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  align-items: baseline;
+  width: 100%;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  text-align: start;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-left: var(--space-1) solid var(--color-bad);
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+}
+
+.flag-jump.confirmed {
+  border-left-color: var(--color-ok);
+}
+
+.flag-jump:hover {
+  background: var(--color-bg);
+}
+
+.flag-jump:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.flag-place {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.flag-summary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flag-jump.confirmed .flag-summary {
+  color: var(--color-text-muted);
+}
+
+.flag-go {
+  color: var(--color-primary-ink);
+}

@@ -44,7 +44,7 @@ describe('auth guards', () => {
     });
 
     it('lets a logged-in user through', () => {
-      login('learner');
+      login('member');
       expect(run(authGuard)).toBe(true);
     });
   });
@@ -55,7 +55,7 @@ describe('auth guards', () => {
     });
 
     it('sends a logged-in user home', () => {
-      login('learner');
+      login('member');
       expect(asUrl(run(guestGuard, '/login'))).toBe('/');
     });
 
@@ -67,7 +67,7 @@ describe('auth guards', () => {
 
   describe('adminGuard', () => {
     it('sends a learner to /forbidden', () => {
-      login('learner');
+      login('member');
       expect(asUrl(run(adminGuard, '/admin'))).toBe('/forbidden');
     });
 
@@ -79,7 +79,7 @@ describe('auth guards', () => {
 
   describe('learnerGuard', () => {
     it('lets a learner through', () => {
-      login('learner');
+      login('member');
       expect(run(learnerGuard, '/today')).toBe(true);
     });
 

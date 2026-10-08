@@ -57,6 +57,48 @@ func (f *fakeUsers) Count(context.Context) (int64, error) {
 	return int64(len(f.byID)), nil
 }
 
+func (f *fakeUsers) List(context.Context) ([]User, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	out := make([]User, 0, len(f.byID))
+	for i := 1; i <= f.nextID; i++ {
+		if u, ok := f.byID["u"+strconv.Itoa(i)]; ok {
+			out = append(out, u)
+		}
+	}
+	return out, nil
+}
+
+func (f *fakeUsers) Update(_ context.Context, id string, c AccountChange) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	u, ok := f.byID[id]
+	if !ok {
+		return ErrNotFound
+	}
+	for _, other := range f.byID {
+		if other.ID != id && other.Email == c.Email {
+			return ErrEmailTaken
+		}
+	}
+	u.Email, u.Role = c.Email, c.Role
+	if c.PasswordHash != "" {
+		u.PasswordHash = c.PasswordHash
+	}
+	f.byID[id] = u
+	return nil
+}
+
+func (f *fakeUsers) Delete(_ context.Context, id string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	if _, ok := f.byID[id]; !ok {
+		return ErrNotFound
+	}
+	delete(f.byID, id)
+	return nil
+}
+
 // fakeSessions is an in-memory SessionRepository for tests.
 type fakeSessions struct {
 	mu     sync.Mutex

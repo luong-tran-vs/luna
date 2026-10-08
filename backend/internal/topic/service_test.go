@@ -149,6 +149,11 @@ func TestPublicOnlyTopicsWithARoadmapAtTheLevel(t *testing.T) {
 	_ = e.repo.SetLessons(t.Context(), family.ID, "A1", []string{"l1", "l2"})
 	_ = e.repo.SetLessons(t.Context(), family.ID, "B1", []string{"l3"})
 	_ = e.repo.SetLessons(t.Context(), work.ID, "B1", []string{"l4"})
+	for _, l := range []struct{ id, topic, level string }{
+		{"l1", family.ID, "A1"}, {"l2", family.ID, "A1"}, {"l3", family.ID, "B1"}, {"l4", work.ID, "B1"},
+	} {
+		e.lessons.add(l.id, "Bài", l.topic, l.level)
+	}
 
 	list, err := e.svc.Public(t.Context(), "A1")
 	if err != nil || len(list) != 1 || list[0] != (Public{ID: family.ID, Name: "Gia đình", Level: "A1", LessonCount: 2}) {
@@ -160,6 +165,36 @@ func TestPublicOnlyTopicsWithARoadmapAtTheLevel(t *testing.T) {
 	}
 	if _, err := e.svc.Public(t.Context(), ""); err == nil {
 		t.Fatal("missing level accepted")
+	}
+}
+
+func TestLearnersSeeOnlyPublishedLessons(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	family := e.create(t, "Gia đình")
+	draftOnly := e.create(t, "Công việc")
+	_ = e.repo.SetLessons(t.Context(), family.ID, "A1", []string{"l1", "l2", "l3", "gone"})
+	_ = e.repo.SetLessons(t.Context(), draftOnly.ID, "A1", []string{"l4"})
+	e.lessons.add("l1", "Bài 1", family.ID, "A1")
+	e.lessons.add("l2", "Bài 2", family.ID, "A1")
+	e.lessons.add("l3", "Bài 3", family.ID, "A1")
+	e.lessons.add("l4", "Bài 4", draftOnly.ID, "A1")
+	e.lessons.setDraft("l2")
+	e.lessons.setDraft("l4")
+
+	list, err := e.svc.Public(t.Context(), "A1")
+	if err != nil || len(list) != 1 || list[0].ID != family.ID || list[0].LessonCount != 2 {
+		t.Fatalf("public = %+v, %v", list, err)
+	}
+	tp, _ := e.repo.Get(t.Context(), family.ID)
+	ids, err := e.svc.LearnerRoadmap(t.Context(), tp, "A1")
+	if err != nil || !slices.Equal(ids, []string{"l1", "l3"}) {
+		t.Fatalf("learner roadmap = %v, %v", ids, err)
+	}
+	// The admin roadmap keeps the drafts.
+	r, _ := e.svc.Roadmap(t.Context(), family.ID, "A1")
+	if len(r.Lessons) != 3 || !r.Lessons[1].Draft {
+		t.Fatalf("admin roadmap = %+v", r.Lessons)
 	}
 }
 

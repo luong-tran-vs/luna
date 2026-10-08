@@ -47,6 +47,8 @@ export interface LessonSummary {
   flags?: number;
   checked?: boolean;
   verified?: boolean;
+  /** Hidden from learners until an admin publishes it (saved AI drafts start hidden). */
+  draft?: boolean;
 }
 
 export interface Lesson extends LessonSummary {
@@ -147,6 +149,8 @@ export interface LessonInput {
   images?: ImageSettingsInput;
   /** F18: the topic words a generated draft was asked to use; they become the lesson's whole vocabulary. */
   targetWords?: string[];
+  /** Save the new lesson hidden from learners until it is published. */
+  draft?: boolean;
 }
 
 /** F23: whether the vocabulary words of a lesson get an AI-drawn picture, and in which style. */
@@ -191,4 +195,23 @@ export function isRunning(
   l: Pick<LessonSummary, 'annotationStatus'> & { practiceStatus?: PracticeStatus },
 ): boolean {
   return l.annotationStatus === 'running' || l.practiceStatus === 'running';
+}
+
+/**
+ * F22: the AI's corrected version of one flagged item (POST …/check/suggest), or the admin's
+ * correction to apply (POST …/check/apply). Only the fields of its area are set.
+ */
+export interface FixSuggestion {
+  area: FlagArea;
+  index: number;
+  /** A sentence. */
+  text?: string;
+  /** An annotation's meaning. */
+  meaningVi?: string;
+  question?: Question;
+  /** A translation pair. */
+  vi?: string;
+  en?: string;
+  /** What the AI changed and why (suggestions only). */
+  noteVi?: string;
 }

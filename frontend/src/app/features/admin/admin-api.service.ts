@@ -9,6 +9,7 @@ import {
   AnnotationInput,
   ExtrasInput,
   TranslationInput,
+  FixSuggestion,
   FlagArea,
   ImageSettingsInput,
   JobKind,
@@ -21,6 +22,7 @@ import {
 import { Level } from '../../core/models/lesson';
 import { Topic, TopicInput, TopicRoadmap, TopicWord, TopicWordInput, WordPlan } from '../../core/models/topic';
 import { BankMissing, BankPage, BankWord, BankWordDetails, BankWordInput } from '../../core/models/word-bank';
+import { Account, AccountInput } from '../../core/models/user';
 
 const BASE = '/api/admin';
 
@@ -120,6 +122,23 @@ export class AdminApiService {
   /** F22: marks the check as finished; the server refuses while flags are unconfirmed. */
   verifyLesson(id: string): Observable<Lesson> {
     return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/verify`, null));
+  }
+
+  /** F22: asks the AI for a corrected version of one flagged item; nothing is saved. */
+  suggestFix(id: string, area: FlagArea, index: number): Observable<FixSuggestion> {
+    return this.http
+      .post<{ suggestion: FixSuggestion }>(`${BASE}/lessons/${id}/check/suggest`, { area, index })
+      .pipe(map((r) => r.suggestion));
+  }
+
+  /** F22: saves the admin's correction of one item; the other flags of its part are kept. */
+  applyFix(id: string, fix: FixSuggestion): Observable<Lesson> {
+    return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/apply`, fix));
+  }
+
+  /** Shows the lesson to learners (published) or hides it again as a draft. */
+  setPublished(id: string, published: boolean): Observable<Lesson> {
+    return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/published`, { published }));
   }
 
   saveAnnotations(id: string, annotations: AnnotationInput[]): Observable<Lesson> {
@@ -329,6 +348,25 @@ export class AdminApiService {
 
   private unwrapGrammar(obs: Observable<{ lesson: GrammarLessonAdmin }>): Observable<GrammarLessonAdmin> {
     return obs.pipe(map((r) => r.lesson));
+  }
+
+  /** Every account with its role (GET /api/admin/users). */
+  accounts(): Observable<Account[]> {
+    return this.http.get<{ users: Account[] }>(`${BASE}/users`).pipe(map((r) => r.users));
+  }
+
+  createAccount(input: AccountInput): Observable<Account> {
+    return this.http.post<{ user: Account }>(`${BASE}/users`, input).pipe(map((r) => r.user));
+  }
+
+  /** An empty password keeps the current one; the server refuses to change your own role. */
+  updateAccount(id: string, input: AccountInput): Observable<Account> {
+    return this.http.put<{ user: Account }>(`${BASE}/users/${id}`, input).pipe(map((r) => r.user));
+  }
+
+  /** Deletes the account with its learning data; the server refuses to delete your own. */
+  deleteAccount(id: string): Observable<void> {
+    return this.http.delete<void>(`${BASE}/users/${id}`);
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

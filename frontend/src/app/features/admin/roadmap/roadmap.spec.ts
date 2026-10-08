@@ -390,6 +390,7 @@ describe('Roadmap', () => {
         source: 'AI sinh',
         license: 'Nội dung do AI tạo',
         appendToRoadmap: true,
+        draft: true,
         grammarPointId: '',
       });
       req.flush({ lesson: { id: 'n1' } });

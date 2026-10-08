@@ -49,6 +49,8 @@ type ReadingView struct {
 	GrammarNote *GrammarNote
 	// GrammarPointID is the syllabus point the lesson teaches, "" when none is assigned (F20).
 	GrammarPointID string
+	// Turns is the lesson as a conversation when it is a dialogue ("Name: text" lines), nil otherwise.
+	Turns []TextTurn
 }
 
 // LookupMeaning is one meaning; POS is the dictionary part-of-speech code (empty for AI).
@@ -110,6 +112,7 @@ func (r *Reader) View(ctx context.Context, userID, id string) (ReadingView, erro
 		Lemmas:     map[string]string{},
 		Phrases:    []Phrase{},
 		Quiz:       quiz, GrammarNote: l.Extras.GrammarNote, GrammarPointID: l.GrammarPointID,
+		Turns:      DialogueTurns(l.Content, l.Sentences),
 	}
 	switch t, err := r.topics.Get(ctx, l.TopicID); {
 	case err == nil:

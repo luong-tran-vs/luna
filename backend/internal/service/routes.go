@@ -36,6 +36,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /api/auth/login", c.authHandler.Login)
 	mux.HandleFunc("POST /api/auth/logout", c.authHandler.Logout)
 	mux.Handle("GET /api/auth/me", auth(http.HandlerFunc(c.authHandler.Me)))
+	c.authHandler.RegisterAdmin(mux, auth)
 
 	settings.NewHandler(c.settings, log).Register(mux, auth)
 	export.NewHandler(c.export, log).Register(mux, auth)

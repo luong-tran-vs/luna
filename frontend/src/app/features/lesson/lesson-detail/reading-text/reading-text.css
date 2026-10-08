@@ -1,0 +1,132 @@
+.reading {
+  display: grid;
+  gap: var(--space-3);
+  font: var(--text-reading) var(--font-ui);
+}
+
+.reading-hint {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-bottom: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* Each sentence of Bài đọc is a button that reads it aloud, but it still reads as running text. */
+.read-sentence {
+  display: inline;
+  padding: 1px 2px;
+  margin: 0 -2px;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.read-sentence:hover {
+  background: color-mix(in srgb, var(--color-primary-soft) 70%, transparent);
+}
+
+.read-sentence:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* The sentence being read. */
+.read-sentence.reading-now {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-underline-offset: 3px;
+}
+
+/* --- a dialogue lesson in Bài đọc: one bubble per line, the second speaker on the right --- */
+
+.talk-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.talk-head .reading-hint {
+  margin: 0;
+}
+
+.talk {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.turn {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  max-width: 85%;
+}
+
+.turn-right {
+  justify-self: end;
+  justify-items: end;
+}
+
+.turn-name {
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.bubble {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-reading) var(--font-ui);
+  color: var(--color-text);
+  text-align: start;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
+}
+
+.turn-right .bubble {
+  background: var(--color-primary-soft);
+  border-color: transparent;
+  border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg);
+}
+
+/* A third or fourth speaker: same sides, another tint. */
+.turn-alt .bubble {
+  background: var(--color-accent-soft);
+  border-color: transparent;
+}
+
+button.bubble {
+  cursor: pointer;
+}
+
+button.bubble:hover {
+  border-color: var(--color-primary);
+}
+
+button.bubble:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* The line being read. */
+.bubble.reading-now {
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+}

@@ -126,7 +126,7 @@
                   }
                 }
                 @if (flagFor($index); as f) {
-                  <lu-flag-note [flag]="f" [subject]="'câu dịch ' + ($index + 1)" [disabled]="flagBusy()" (confirm)="confirm.emit($event)">
+                  <lu-flag-note [flag]="f" [subject]="'câu dịch ' + ($index + 1)" [disabled]="flagBusy()" [lessonId]="lesson().id" (confirm)="confirm.emit($event)" (applied)="updated.emit($event)">
                     <ng-container [ngTemplateOutlet]="rowActions" [ngTemplateOutletContext]="{ $implicit: $index }" />
                   </lu-flag-note>
                 } @else {

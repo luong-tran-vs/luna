@@ -54,7 +54,7 @@ describe('Login', () => {
     el.querySelector('form')!.dispatchEvent(new Event('submit'));
     await whenStable();
   };
-  const user = { id: '2', email: 'hoc@example.com', role: 'learner', timezone: 'Asia/Ho_Chi_Minh' };
+  const user = { id: '2', email: 'hoc@example.com', role: 'member', timezone: 'Asia/Ho_Chi_Minh' };
   const alertText = () => el.querySelector('[role="alert"]')?.textContent?.trim();
 
   afterEach(() => http.verify());

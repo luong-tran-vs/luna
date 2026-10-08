@@ -61,6 +61,11 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./roadmap/roadmap').then((m) => m.Roadmap),
   },
   {
+    path: 'accounts',
+    title: 'Tài khoản · Quản trị · Luna',
+    loadComponent: () => import('./accounts/accounts').then((m) => m.Accounts),
+  },
+  {
     path: 'appearance',
     title: 'Giao diện · Quản trị · Luna',
     loadComponent: () => import('./appearance/appearance').then((m) => m.Appearance),

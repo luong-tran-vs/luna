@@ -11,6 +11,9 @@ const SessionCookieName = "luna_session"
 // RoleAdmin is the role allowed through RequireAdmin.
 const RoleAdmin = "admin"
 
+// RoleGuest is the role RequireMember turns away.
+const RoleGuest = "guest"
+
 // Principal is the logged-in user attached to a request.
 type Principal struct {
 	UserID string
@@ -61,6 +64,23 @@ func RequireAdmin(next http.Handler) http.Handler {
 		}
 		if p.Role != RoleAdmin {
 			WriteError(w, http.StatusForbidden, "forbidden", "Bạn không có quyền truy cập")
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+// RequireMember rejects guests with 403 "members_only": the feature is for members (and admins).
+// It must run after RequireAuth.
+func RequireMember(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		p, ok := PrincipalFrom(r.Context())
+		if !ok {
+			writeUnauthenticated(w)
+			return
+		}
+		if p.Role == RoleGuest {
+			WriteError(w, http.StatusForbidden, "members_only", "Phần này chỉ dành cho thành viên")
 			return
 		}
 		next.ServeHTTP(w, r)

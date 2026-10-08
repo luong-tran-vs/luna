@@ -1,0 +1,93 @@
+:host {
+  display: contents;
+}
+
+.fix {
+  display: grid;
+  flex-basis: 100%;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+}
+
+.fix-title {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}
+
+.fix-note,
+.fix-warn {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.fix-warn {
+  color: var(--color-text-muted);
+}
+
+.fix textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+  resize: vertical;
+}
+
+.fix-options {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fix-options legend {
+  margin-bottom: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.fix-option {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.fix-option input[type='radio'] {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+}
+
+.fix-option input:not([type='radio']) {
+  flex: 1;
+  min-width: 0;
+  min-height: 40px;
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+}
+
+.fix-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.form-alert {
+  flex-basis: 100%;
+}

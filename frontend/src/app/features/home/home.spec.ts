@@ -81,7 +81,7 @@ describe('Home', () => {
 
   beforeEach(async () => {
     unseen.set(0);
-    const user: User = { id: '1', email: 'minh@example.com', role: 'learner', timezone: 'Asia/Ho_Chi_Minh' };
+    const user: User = { id: '1', email: 'minh@example.com', role: 'member', timezone: 'Asia/Ho_Chi_Minh' };
     await TestBed.configureTestingModule({
       imports: [Home],
       providers: [
@@ -204,6 +204,14 @@ describe('Home', () => {
     expect(text(el.querySelector('[role="status"]'))).not.toContain('Chúc mừng');
     expect(link('Ôn tự do')?.getAttribute('href')).toBe('/vocabulary/review');
     expect(link('Chọn chủ đề khác')?.getAttribute('href')).toBe('/goal');
+  });
+
+  it('tells a guest the next lessons are for members', async () => {
+    await open(studying({ kind: 'membersOnly', lesson: null, action: null, currentStep: '' }));
+    const card = el.querySelector('.members-only')!;
+    expect(text(card)).toContain('Bài tiếp theo chỉ dành cho thành viên');
+    expect(text(card)).not.toContain('Chưa có bài mới');
+    expect(link('Học thử chủ đề khác')?.getAttribute('href')).toBe('/goal');
   });
 
   it('congratulates when the roadmap is finished', async () => {

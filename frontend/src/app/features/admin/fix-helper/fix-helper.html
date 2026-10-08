@@ -1,0 +1,87 @@
+@if (suggestion(); as s) {
+  <form class="fix" [formGroup]="form" (ngSubmit)="apply()" [attr.aria-label]="'Gợi ý sửa ' + subject()" [attr.aria-busy]="applying()">
+    <p class="fix-title"><lu-icon name="sparkles" /> AI gợi ý sửa</p>
+    @if (s.noteVi) {
+      <p class="fix-note">{{ s.noteVi }}</p>
+    }
+
+    @switch (s.area) {
+      @case ('sentence') {
+        <div class="field">
+          <label [for]="id('text')">Câu sau khi sửa</label>
+          <textarea [id]="id('text')" rows="2" lang="en" formControlName="text"></textarea>
+        </div>
+        <p class="fix-warn">Áp dụng sẽ sửa nội dung bài: chú thích được tạo lại và kết quả kiểm tra bị xoá.</p>
+      }
+      @case ('annotation') {
+        <div class="field">
+          <label [for]="id('meaning')">Nghĩa sau khi sửa</label>
+          <input [id]="id('meaning')" formControlName="meaningVi" />
+        </div>
+      }
+      @case ('question') {
+        <div class="field">
+          <label [for]="id('prompt')">Câu hỏi</label>
+          <input [id]="id('prompt')" lang="en" formControlName="prompt" />
+        </div>
+        <fieldset class="fix-options">
+          <legend>Lựa chọn (chọn đáp án đúng)</legend>
+          @for (o of options.controls; track $index; let i = $index) {
+            <div class="fix-option">
+              <input
+                type="radio"
+                formControlName="answerIndex"
+                [value]="i"
+                [id]="id('answer-' + i)"
+                [attr.aria-label]="'Đáp án đúng là lựa chọn ' + (i + 1)"
+              />
+              <label class="visually-hidden" [for]="id('option-' + i)">Lựa chọn {{ i + 1 }}</label>
+              <input [id]="id('option-' + i)" lang="en" [formControl]="o" />
+            </div>
+          }
+        </fieldset>
+        <div class="field">
+          <label [for]="id('explanation')">Giải thích</label>
+          <input [id]="id('explanation')" formControlName="explanationVi" />
+        </div>
+      }
+      @case ('translation') {
+        <div class="field">
+          <label [for]="id('vi')">Tiếng Việt</label>
+          <input [id]="id('vi')" formControlName="vi" />
+        </div>
+        <div class="field">
+          <label [for]="id('en')">Tiếng Anh</label>
+          <input [id]="id('en')" lang="en" formControlName="en" />
+        </div>
+      }
+    }
+
+    @if (error(); as message) {
+      <p class="form-alert" role="alert">{{ message }}</p>
+    }
+    <div class="fix-actions">
+      <button type="submit" class="btn-primary" [disabled]="applying() || asking() || disabled()">
+        {{ applying() ? 'Đang áp dụng…' : 'Áp dụng' }}
+      </button>
+      <button type="button" class="btn" [disabled]="applying() || asking()" (click)="ask()">
+        {{ asking() ? 'Đang hỏi AI…' : 'Gợi ý khác' }}
+      </button>
+      <button type="button" class="btn" [disabled]="applying()" (click)="dismiss()">Bỏ</button>
+    </div>
+  </form>
+} @else {
+  <button
+    type="button"
+    class="btn"
+    [disabled]="asking() || disabled()"
+    [attr.aria-busy]="asking()"
+    [attr.aria-label]="'AI gợi ý sửa ' + subject()"
+    (click)="ask()"
+  >
+    <lu-icon name="sparkles" /> {{ asking() ? 'Đang hỏi AI…' : 'AI gợi ý sửa' }}
+  </button>
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+}

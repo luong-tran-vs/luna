@@ -105,7 +105,7 @@ describe('AppHeader', () => {
   });
 
   it('puts the logout button next to the theme button, outside the scrolling nav', async () => {
-    await loginAs('learner');
+    await loginAs('member');
     const logoutButton = Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.includes('Đăng xuất'));
     expect(logoutButton?.closest('.actions')).not.toBeNull();
     expect(logoutButton?.closest('nav')).toBeNull();
@@ -126,7 +126,7 @@ describe('AppHeader', () => {
 
     it('shows the links given by the layout when logged in', async () => {
       fixture.componentRef.setInput('links', learnerLinks);
-      await loginAs('learner');
+      await loginAs('member');
       const links = Array.from(el.querySelectorAll('nav a')).map((a) => [a.getAttribute('href'), a.textContent?.trim()]);
       expect(links).toEqual([
         ['/lessons', 'Bài học'],
@@ -136,7 +136,7 @@ describe('AppHeader', () => {
     });
 
     it('shows a badge with its count in the accessible name', async () => {
-      await loginAs('learner');
+      await loginAs('member');
       const link = () => el.querySelector('a[href="/writings"]')!;
       fixture.componentRef.setInput('links', learnerLinks);
       await fixture.whenStable();
@@ -162,7 +162,7 @@ describe('AppHeader', () => {
     });
 
     it('shows the email and a logout button when logged in', async () => {
-      await loginAs('learner');
+      await loginAs('member');
       const email = el.querySelector('.email');
       expect(email?.textContent?.trim()).toBe('rat-dai-ten@example.com');
       expect(email?.getAttribute('title')).toBe('rat-dai-ten@example.com');
@@ -171,7 +171,7 @@ describe('AppHeader', () => {
 
     it('logs out and goes to /login', async () => {
       const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
-      await loginAs('learner');
+      await loginAs('member');
 
       Array.from(el.querySelectorAll('button'))
         .find((b) => b.textContent?.includes('Đăng xuất'))!

@@ -89,3 +89,9 @@ type Grammar interface {
 type Timezones interface {
 	Location(ctx context.Context, userID string) (*time.Location, error)
 }
+
+// Members tells guests from members (implemented over auth in main). Guests study only the first
+// lesson of each roadmap.
+type Members interface {
+	IsGuest(ctx context.Context, userID string) (bool, error)
+}

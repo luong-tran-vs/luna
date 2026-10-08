@@ -33,6 +33,8 @@ type StudyDeps struct {
 	Writings Writings
 	// Grammar counts mastered grammar points for the stats (F20); nil counts none.
 	Grammar Grammar
+	// Members limits guests to the first lesson of each roadmap; nil treats everyone as a member.
+	Members Members
 	Now     func() time.Time
 }
 
@@ -68,6 +70,8 @@ type GoalsView struct {
 type LessonRef struct {
 	ID    string
 	Title string
+	// MembersOnly marks a lesson a guest cannot study.
+	MembersOnly bool
 }
 
 // LessonStudyView is a lesson's steps for the learner, as the lesson page shows them.
@@ -78,7 +82,9 @@ type LessonStudyView struct {
 	CurrentStep   Step
 	SentenceIndex int
 	// Next is the lesson to study now, once this one is completed.
-	Next          *LessonRef
+	Next *LessonRef
+	// MembersOnly says the next lessons are for members (the learner is a guest who finished the first).
+	MembersOnly   bool
 	Goal          *GoalView
 	GoalCompleted bool
 	Streak        int
@@ -101,6 +107,7 @@ type MyLessonsView struct {
 // day is everything the rules need about a learner right now.
 type day struct {
 	userID    string
+	guest     bool
 	now       time.Time
 	loc       *time.Location
 	today     string
@@ -118,6 +125,11 @@ func (s *StudyService) load(ctx context.Context, userID string) (*day, error) {
 		return nil, fmt.Errorf("progress: timezone: %w", err)
 	}
 	d := &day{userID: userID, now: s.d.Now(), loc: loc}
+	if s.d.Members != nil {
+		if d.guest, err = s.d.Members.IsGuest(ctx, userID); err != nil {
+			return nil, fmt.Errorf("progress: role: %w", err)
+		}
+	}
 	d.today = DayKey(d.now, loc)
 	if d.goals, err = s.d.Goals.List(ctx, userID); err != nil {
 		return nil, fmt.Errorf("progress: goals: %w", err)
@@ -142,7 +154,11 @@ func (s *StudyService) load(ctx context.Context, userID string) (*day, error) {
 	if d.topic != nil {
 		roadmap = d.topic.LessonIDs
 	}
-	d.state = CurrentLesson(d.goal, roadmap, d.done)
+	if d.guest {
+		d.state = GuestLesson(d.goal, roadmap, d.done)
+	} else {
+		d.state = CurrentLesson(d.goal, roadmap, d.done)
+	}
 	return d, nil
 }
 
@@ -242,6 +258,7 @@ func (s *StudyService) view(ctx context.Context, d *day, lessonID string) (Lesso
 		return LessonStudyView{}, fmt.Errorf("progress: study days: %w", err)
 	}
 	v.Streak = Streak(keys, d.today)
+	v.MembersOnly = d.state.Kind == StudyMembersOnly
 	if v.Status == LessonCompleted && d.state.Kind == StudyStudying {
 		titles, err := s.d.Titles.Titles(ctx, []string{d.state.LessonID})
 		if err != nil {
@@ -434,7 +451,7 @@ func (s *StudyService) SetPosition(ctx context.Context, userID, lessonID string,
 
 // MyLessons lists the lessons of the active goal's topic: the completed ones (newest first), the
 // lesson being studied and the locked upcoming ones. Lessons finished in other topics show up when
-// that topic is the goal again.
+// that topic is the goal again. For a guest every upcoming lesson is for members only.
 func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsView, error) {
 	d, err := s.load(ctx, userID)
 	if err != nil {
@@ -491,7 +508,7 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 	}
 	for _, id := range upcoming {
 		if title, ok := titles[id]; ok {
-			out.Upcoming = append(out.Upcoming, LessonRef{ID: id, Title: title})
+			out.Upcoming = append(out.Upcoming, LessonRef{ID: id, Title: title, MembersOnly: d.guest})
 		}
 	}
 	return out, nil

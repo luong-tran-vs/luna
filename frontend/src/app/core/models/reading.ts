@@ -18,6 +18,17 @@ export interface ReadingLesson {
   grammarNote: GrammarNote | null;
   /** The grammar point of the lesson (F20); '' or missing when none is assigned. */
   grammarPointId?: string;
+  /** A dialogue lesson as its "Name: text" lines; null (or missing) for a reading text. */
+  turns?: TextTurn[] | null;
+}
+
+/** One line of a dialogue lesson. */
+export interface TextTurn {
+  speaker: string;
+  /** What the speaker says, without the name. */
+  text: string;
+  /** Indexes of the lesson sentences the line is made of. */
+  sentences: number[];
 }
 
 /** A question as learners see it: no answer until they answer. */

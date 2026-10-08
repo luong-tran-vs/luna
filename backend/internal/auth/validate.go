@@ -24,14 +24,26 @@ func NormalizeEmail(email string) string {
 // ValidateCredentials checks a normalized email and a password (length counted in characters).
 func ValidateCredentials(email, password string) error {
 	fields := map[string]string{}
+	checkEmail(fields, email)
+	checkPassword(fields, password)
+	if len(fields) > 0 {
+		return &ValidationError{Fields: fields}
+	}
+	return nil
+}
 
+// checkEmail adds the error of a normalized email to fields, if any.
+func checkEmail(fields map[string]string, email string) {
 	switch {
 	case email == "":
 		fields["email"] = "Vui lòng nhập email"
 	case !validEmail(email):
 		fields["email"] = "Email không hợp lệ"
 	}
+}
 
+// checkPassword adds the error of a password (length counted in characters) to fields, if any.
+func checkPassword(fields map[string]string, password string) {
 	switch n := utf8.RuneCountInString(password); {
 	case n == 0:
 		fields["password"] = "Vui lòng nhập mật khẩu"
@@ -40,11 +52,6 @@ func ValidateCredentials(email, password string) error {
 	case n > maxPasswordLength:
 		fields["password"] = "Mật khẩu tối đa 128 ký tự"
 	}
-
-	if len(fields) > 0 {
-		return &ValidationError{Fields: fields}
-	}
-	return nil
 }
 
 func validEmail(email string) bool {

@@ -192,3 +192,58 @@ func TestSameTopicAtTwoLevelsIsTwoGoals(t *testing.T) {
 		t.Fatalf("goals = %+v", goals)
 	}
 }
+
+// --- guests study only the first lesson of each roadmap ---
+
+func TestGuestStudiesOnlyTheFirstLesson(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.members.setGuest("u1", true)
+	e.setGoal(t, "family") // f1, f2, f3
+
+	mine, err := e.svc.MyLessons(t.Context(), "u1")
+	if err != nil || mine.Current == nil || mine.Current.ID != "f1" || len(mine.Upcoming) != 2 ||
+		!mine.Upcoming[0].MembersOnly || !mine.Upcoming[1].MembersOnly {
+		t.Fatalf("guest lessons = %+v, %v", mine, err)
+	}
+	v := e.studyLesson(t)
+	if v.Status != LessonCompleted || v.Next != nil || !v.MembersOnly || v.GoalCompleted {
+		t.Fatalf("after first lesson = %+v", v)
+	}
+	d, _ := e.svc.Dashboard(t.Context(), "u1")
+	if d.Kind != StudyMembersOnly || d.Lesson != nil || d.GoalCompleted {
+		t.Fatalf("dashboard = %+v", d)
+	}
+	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f2", StepRead); !errors.Is(err, ErrNotCurrentLesson) {
+		t.Fatalf("guest studies f2: %v", err)
+	}
+	if ok, _ := e.svc.CanOpen(t.Context(), "u1", false, "f2"); ok {
+		t.Fatal("guest opens f2")
+	}
+
+	// Another topic: its first lesson is open to the guest too.
+	e.setGoal(t, "shopping")
+	if id := e.current(t); id != "s1" {
+		t.Fatalf("shopping current = %s", id)
+	}
+
+	// Made a member: the next lessons open.
+	e.members.setGuest("u1", false)
+	e.setGoal(t, "family")
+	if id := e.current(t); id != "f2" {
+		t.Fatalf("member current = %s", id)
+	}
+	if mine, _ := e.svc.MyLessons(t.Context(), "u1"); mine.Upcoming[0].MembersOnly {
+		t.Fatalf("member upcoming = %+v", mine.Upcoming)
+	}
+}
+
+func TestGuestWithOneLessonRoadmapFinishesTheGoal(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.members.setGuest("u1", true)
+	e.setGoal(t, "work") // one lesson
+	if v := e.studyLesson(t); !v.GoalCompleted || v.MembersOnly {
+		t.Fatalf("one-lesson roadmap = %+v", v)
+	}
+}

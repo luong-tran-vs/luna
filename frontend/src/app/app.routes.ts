@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { adminGuard, authGuard, guestGuard, learnerGuard } from './core/guards/auth.guard';
+import { adminGuard, authGuard, guestGuard, guestMatch, learnerGuard } from './core/guards/auth.guard';
 
 /**
  * Three areas, each with its own layout:
@@ -62,6 +62,21 @@ export const routes: Routes = [
         path: 'stats',
         title: 'Lộ trình & Tiến độ · Luna',
         loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),
+      },
+      // Grammar is for members (F20): guests see the members-only page instead.
+      {
+        path: 'grammar',
+        title: 'Ngữ pháp · Luna',
+        canMatch: [guestMatch],
+        loadComponent: () => import('./shared/components/members-only/members-only').then((m) => m.MembersOnly),
+        data: { title: 'Ngữ pháp' },
+      },
+      {
+        path: 'grammar/:pointId',
+        title: 'Ngữ pháp · Luna',
+        canMatch: [guestMatch],
+        loadComponent: () => import('./shared/components/members-only/members-only').then((m) => m.MembersOnly),
+        data: { title: 'Ngữ pháp' },
       },
       {
         path: 'grammar',

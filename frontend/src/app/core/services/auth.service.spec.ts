@@ -8,7 +8,7 @@ import { User } from '../models/user';
 import { AuthService } from './auth.service';
 
 const admin: User = { id: '1', email: 'admin@example.com', role: 'admin', timezone: 'Asia/Ho_Chi_Minh' };
-const learner: User = { ...admin, id: '2', email: 'hoc@example.com', role: 'learner' };
+const learner: User = { ...admin, id: '2', email: 'hoc@example.com', role: 'member' };
 
 describe('AuthService', () => {
   let service: AuthService;

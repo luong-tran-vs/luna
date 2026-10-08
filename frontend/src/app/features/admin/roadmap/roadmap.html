@@ -90,6 +90,9 @@
             <a class="title" [routerLink]="['/admin/lessons', lesson.id]">{{ lesson.title }}</a>
             <div class="meta">
               <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />
+              @if (lesson.draft) {
+                <span class="tag">Bản nháp</span>
+              }
             </div>
           </div>
           <div class="controls">

@@ -25,3 +25,33 @@
 .flag-actions:empty {
   display: none;
 }
+
+:host {
+  display: block;
+  border-radius: var(--radius-sm, 4px);
+  scroll-margin-block: 96px;
+}
+
+:host(:focus-visible) {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Briefly marks the flag the check summary jumped to. */
+:host(.jumped) .flag {
+  animation: lu-flag-jump 1.6s ease-out;
+}
+
+@keyframes lu-flag-jump {
+  0%,
+  40% {
+    background: var(--color-primary-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host(.jumped) .flag {
+    animation: none;
+    background: var(--color-primary-soft);
+  }
+}

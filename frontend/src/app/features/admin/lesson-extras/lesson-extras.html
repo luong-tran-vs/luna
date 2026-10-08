@@ -81,7 +81,7 @@
           }
         </div>
         @if (flagFor(i); as f) {
-          <lu-flag-note [flag]="f" [subject]="'câu hỏi ' + (i + 1)" [disabled]="flagBusy()" (confirm)="confirm.emit($event)">
+          <lu-flag-note [flag]="f" [subject]="'câu hỏi ' + (i + 1)" [disabled]="flagBusy()" [lessonId]="lesson().id" (confirm)="confirm.emit($event)" (applied)="saved.emit($event)">
             <button type="button" class="btn" [attr.aria-label]="'Sửa câu hỏi ' + (i + 1)" (click)="editQuestion(i)">Sửa câu này</button>
             <button type="button" class="btn" [disabled]="saving() || lesson().annotationStatus === 'running'" [attr.aria-label]="'Xoá câu hỏi ' + (i + 1)" (click)="deleteAt.set(i)">Xoá câu này</button>
             <span class="muted">Sửa tại chỗ rồi nhớ bấm Lưu ở cuối phần này.</span>
