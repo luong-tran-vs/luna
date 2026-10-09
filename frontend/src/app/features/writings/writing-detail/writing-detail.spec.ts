@@ -70,7 +70,7 @@ describe('WritingDetail', () => {
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(WritingDetail);
     el = fixture.nativeElement;
-    const req = http.expectOne('/api/writings/w1');
+    const req = http.expectOne('/writings/w1');
     if (response === 'missing') {
       req.flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
     } else {
@@ -115,7 +115,7 @@ describe('WritingDetail', () => {
 
     latest.set({ id: 'w1', status: 'done' });
     await settle();
-    http.expectOne('/api/writings/w1').flush({ writing: writing(done) });
+    http.expectOne('/writings/w1').flush({ writing: writing(done) });
     await settle();
     expect(el.querySelectorAll('.criterion').length).toBe(4);
   });
@@ -126,7 +126,7 @@ describe('WritingDetail', () => {
     expect(notifier.markSeen).toHaveBeenCalledWith('w1');
     button('Chấm lại (còn 1 lượt)')!.click();
     await settle();
-    const req = http.expectOne('/api/writings/w1/regrade');
+    const req = http.expectOne('/writings/w1/regrade');
     expect(req.request.method).toBe('POST');
     req.flush({ writing: writing(pending) });
     await settle();
@@ -139,7 +139,7 @@ describe('WritingDetail', () => {
     button('Chấm lại (còn 1 lượt)')!.click();
     await settle();
     http
-      .expectOne('/api/writings/w1/regrade')
+      .expectOne('/writings/w1/regrade')
       .flush({ error: 'not_failed', message: 'Chỉ chấm lại được bài chấm lỗi' }, { status: 409, statusText: 'Conflict' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Chỉ chấm lại được bài chấm lỗi');
@@ -172,7 +172,7 @@ describe('WritingDetail', () => {
     area.dispatchEvent(new Event('input'));
     button('Nộp lại để chấm')!.click();
     await settle();
-    const req = http.expectOne('/api/writings/w1/resubmit');
+    const req = http.expectOne('/writings/w1/resubmit');
     expect(req.request.body).toEqual({ text: 'My family has four people.' });
     req.flush({ writing: { ...writing(pending, 2), text: 'My family has four people.' } });
     await settle();

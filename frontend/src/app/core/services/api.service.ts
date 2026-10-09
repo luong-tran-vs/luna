@@ -12,6 +12,6 @@ export class ApiService {
   private readonly http = inject(HttpClient);
 
   getHealth(): Observable<HealthResponse> {
-    return this.http.get<HealthResponse>('/api/health').pipe(timeout(HEALTH_TIMEOUT_MS));
+    return this.http.get<HealthResponse>('/health').pipe(timeout(HEALTH_TIMEOUT_MS));
   }
 }

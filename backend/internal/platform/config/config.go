@@ -18,6 +18,9 @@ type Config struct {
 	HTTPAddr     string
 	LogLevel     string
 	CookieSecure bool
+	// CORSOrigins are the web origins (scheme://host[:port]) allowed to call the API from a
+	// browser, for a frontend served from another origin. Empty means same-origin only.
+	CORSOrigins []string
 
 	AIProvider   string
 	GeminiAPIKey string
@@ -44,6 +47,7 @@ func Load(getenv func(string) string) (Config, error) {
 		GeminiModel:      valueOr(getenv("GEMINI_MODEL"), "gemini-3.5-flash-lite"),
 		GeminiImageModel: valueOr(getenv("GEMINI_IMAGE_MODEL"), "gemini-2.5-flash-image"),
 		DictionaryPath:   valueOr(getenv("DICTIONARY_PATH"), "./data/dictionary/dictionary.db"),
+		CORSOrigins:      splitList(getenv("CORS_ORIGINS")),
 	}
 
 	var errs []error
@@ -78,6 +82,17 @@ func Load(getenv func(string) string) (Config, error) {
 	}
 
 	return cfg, nil
+}
+
+// splitList reads a comma-separated list, dropping blanks and trailing slashes; nil when empty.
+func splitList(v string) []string {
+	var out []string
+	for item := range strings.SplitSeq(v, ",") {
+		if item = strings.TrimRight(strings.TrimSpace(item), "/"); item != "" {
+			out = append(out, item)
+		}
+	}
+	return out
 }
 
 func valueOr(v, fallback string) string {

@@ -27,7 +27,7 @@ const lesson = (over: Partial<GrammarLessonAdmin> = {}): GrammarLessonAdmin => (
   pointId: 'a1-to-be', status: 'draft', edited: false, updatedAt: 't', publishedAt: null, content, checks: [], checkedAt: null, verifiedAt: null, reports: [], ...over,
 });
 
-const URL = '/api/admin/grammar-lessons/a1-to-be';
+const URL = '/admin/grammar-lessons/a1-to-be';
 
 describe('GrammarDetail', () => {
   let fixture: ComponentFixture<GrammarDetail>;
@@ -48,7 +48,7 @@ describe('GrammarDetail', () => {
     await settle();
   };
   const pointResponse = () =>
-    http.expectOne((r) => r.url === '/api/admin/grammar').flush({
+    http.expectOne((r) => r.url === '/admin/grammar').flush({
       points: [{ id: 'a1-to-be', level: 'A1', titleVi: 'Động từ to be', titleEn: 'to be', pattern: 'S + am/is/are', hintVi: 'Giới thiệu bản thân.', examples: [], lessonCount: 0 }],
     });
 
@@ -356,7 +356,7 @@ describe('GrammarDetail', () => {
       expect(box).toContain('“Phải là is”');
       el.querySelector<HTMLButtonElement>('.reports button')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/grammar-reports/resolve');
+      const req = http.expectOne('/admin/grammar-reports/resolve');
       expect(req.request.body).toEqual({ pointId: 'a1-to-be', exerciseId: 'p2' });
       req.flush({ resolved: 3 });
       await settle();
@@ -575,7 +575,7 @@ describe('GrammarDetail', () => {
       await setup({ lesson: lesson({ reports: [{ exerciseId: 'p2', count: 1, reasons: { other: 1 }, notes: [] }] }) });
       el.querySelector<HTMLButtonElement>('.reports button')!.click();
       await settle();
-      http.expectOne('/api/admin/grammar-reports/resolve').flush({}, { status: 500, statusText: 'x' });
+      http.expectOne('/admin/grammar-reports/resolve').flush({}, { status: 500, statusText: 'x' });
       await settle();
       expect(el.querySelector('.reports')).not.toBeNull();
       expect(text(el.querySelector('.form-alert'))).toContain('Không đánh dấu được');

@@ -66,15 +66,15 @@ describe('Home', () => {
   /** The cards due now (the page asks for one card and reads the total). */
   const flushDue = (total = 0) =>
     controller
-      .expectOne((r) => r.url === '/api/vocab/review/due')
+      .expectOne((r) => r.url === '/vocab/review/due')
       .flush({ cards: [], total, nextDue: null });
 
   const open = async (data: Dashboard, figures: Stats = stats(), due = 0) => {
     fixture = TestBed.createComponent(Home);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    controller.expectOne('/api/dashboard').flush(data);
-    controller.expectOne('/api/stats').flush(figures);
+    controller.expectOne('/dashboard').flush(data);
+    controller.expectOne('/stats').flush(figures);
     flushDue(due);
     await fixture.whenStable();
   };
@@ -136,8 +136,8 @@ describe('Home', () => {
     fixture = TestBed.createComponent(Home);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    controller.expectOne('/api/dashboard').flush(studying());
-    controller.expectOne('/api/stats').flush('down', { status: 500, statusText: 'Error' });
+    controller.expectOne('/dashboard').flush(studying());
+    controller.expectOne('/stats').flush('down', { status: 500, statusText: 'Error' });
     flushDue();
     await fixture.whenStable();
     expect(text(el.querySelector('.words .tile-value'))).toBe('—');
@@ -170,15 +170,15 @@ describe('Home', () => {
     await fixture.whenStable();
     expect(el.querySelector('.placeholder[aria-busy="true"]')).not.toBeNull();
 
-    controller.expectOne('/api/dashboard').flush('down', { status: 500, statusText: 'Error' });
-    controller.expectOne('/api/stats').flush(stats());
+    controller.expectOne('/dashboard').flush('down', { status: 500, statusText: 'Error' });
+    controller.expectOne('/stats').flush(stats());
     flushDue();
     await fixture.whenStable();
     expect(text(el.querySelector('[role="alert"] p'))).toBe('Không tải được màn hình chính.');
 
     (el.querySelector('[role="alert"] button') as HTMLButtonElement).click();
-    controller.expectOne('/api/dashboard').flush(studying());
-    controller.expectOne('/api/stats').flush(stats());
+    controller.expectOne('/dashboard').flush(studying());
+    controller.expectOne('/stats').flush(stats());
     flushDue();
     await fixture.whenStable();
     expect(el.querySelector('[role="alert"]')).toBeNull();

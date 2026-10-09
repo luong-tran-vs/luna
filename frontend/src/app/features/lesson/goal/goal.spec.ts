@@ -66,15 +66,15 @@ describe('Goal', () => {
     fixture = TestBed.createComponent(Goal);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/dashboard').flush(home);
-    http.expectOne('/api/lessons/mine').flush(mine);
-    http.expectOne('/api/goals').flush(goals);
+    http.expectOne('/dashboard').flush(home);
+    http.expectOne('/lessons/mine').flush(mine);
+    http.expectOne('/goals').flush(goals);
     await settle();
   };
   const chooseLevel = async (level: string) => {
     buttonStarting(level)!.click();
     await settle();
-    http.expectOne((r) => r.url === '/api/topics' && r.params.get('level') === level).flush({ topics: level === 'A1' ? a1Topics : [] });
+    http.expectOne((r) => r.url === '/topics' && r.params.get('level') === level).flush({ topics: level === 'A1' ? a1Topics : [] });
     await settle();
   };
 
@@ -82,7 +82,7 @@ describe('Goal', () => {
 
   it('shows the course being studied with a way into the lesson being studied', async () => {
     await setup({ active: goal(), others: [] });
-    http.expectOne((r) => r.url === '/api/topics' && r.params.get('level') === 'A1').flush({ topics: a1Topics });
+    http.expectOne((r) => r.url === '/topics' && r.params.get('level') === 'A1').flush({ topics: a1Topics });
     await settle();
     const current = el.querySelector('.current')!;
     expect(text(current.querySelector('.current-name'))).toBe('A1 · Gia đình');
@@ -94,7 +94,7 @@ describe('Goal', () => {
 
   const openCurrent = async (home: Dashboard, mine: MyLessons = studyingMine) => {
     await setup({ active: goal(), others: [] }, {}, home, mine);
-    http.expectOne((r) => r.url === '/api/topics').flush({ topics: a1Topics });
+    http.expectOne((r) => r.url === '/topics').flush({ topics: a1Topics });
     await settle();
     return el.querySelector('.current')!;
   };
@@ -145,7 +145,7 @@ describe('Goal', () => {
   it('lists the topics of the level with lesson counts and progress', async () => {
     await setup({ active: goal(), others: [goal({ topicId: 't2', topicName: 'Mua sắm', completedLessons: 1, totalLessons: 5, status: 'paused' })] });
     // The current level is preselected.
-    http.expectOne((r) => r.url === '/api/topics' && r.params.get('level') === 'A1').flush({ topics: a1Topics });
+    http.expectOne((r) => r.url === '/topics' && r.params.get('level') === 'A1').flush({ topics: a1Topics });
     await settle();
     expect(text(topicRow('Gia đình'))).toContain('12 bài');
     expect(text(topicRow('Gia đình'))).toContain('Đã học 2/12');
@@ -166,7 +166,7 @@ describe('Goal', () => {
     await chooseLevel('A1');
     topicRow('Mua sắm').querySelector<HTMLButtonElement>('button')!.click();
     await settle();
-    const req = http.expectOne('/api/goals');
+    const req = http.expectOne('/goals');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ topicId: 't2', level: 'A1' });
     req.flush({ active: goal({ topicId: 't2' }) });
@@ -180,7 +180,7 @@ describe('Goal', () => {
     expect(text(el.querySelector('.congrats'))).toContain('A1 · Gia đình');
     button('Lên trình độ A2')!.click();
     await settle();
-    http.expectOne((r) => r.url === '/api/topics' && r.params.get('level') === 'A2').flush({ topics: [] });
+    http.expectOne((r) => r.url === '/topics' && r.params.get('level') === 'A2').flush({ topics: [] });
     await settle();
     expect(el.querySelector('.congrats')).toBeNull();
   });
@@ -189,7 +189,7 @@ describe('Goal', () => {
     await setup({ active: goal({ completedLessons: 12 }), others: [] }, { completed: '1' });
     button('Chọn chủ đề khác cùng trình độ')!.click();
     await settle();
-    http.expectOne((r) => r.url === '/api/topics' && r.params.get('level') === 'A1').flush({ topics: a1Topics });
+    http.expectOne((r) => r.url === '/topics' && r.params.get('level') === 'A1').flush({ topics: a1Topics });
     await settle();
     expect(topicRow('Mua sắm')).toBeTruthy();
   });

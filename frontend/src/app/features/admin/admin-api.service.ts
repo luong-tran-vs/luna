@@ -33,7 +33,7 @@ import {
 } from '../../core/models/word-bank';
 import { Account, AccountInput } from '../../core/models/user';
 
-const BASE = '/api/admin';
+const BASE = '/admin';
 
 @Injectable({ providedIn: 'root' })
 export class AdminApiService {

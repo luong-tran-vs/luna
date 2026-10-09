@@ -6,13 +6,7 @@ Tài liệu sản phẩm nằm trong [`docs/`](docs/); spec từng tính năng n
 
 ## Chạy nhanh
 
-Chỉ cần cài [Docker](https://docs.docker.com/get-docker/) (kèm Docker Compose v2). Từ thư mục gốc repo:
-
-```bash
-docker compose -f deploy/docker-compose.yml up --build
-```
-
-Mở <http://localhost:8000>. Lần đầu, bấm **Đăng ký** để tạo tài khoản: **tài khoản đầu tiên là quản trị viên**,
+Chạy backend và frontend như ở mục [Phát triển](#phát-triển), rồi mở <http://localhost:4200>. Lần đầu, bấm **Đăng ký** để tạo tài khoản: **tài khoản đầu tiên là quản trị viên**,
 các tài khoản sau là người học. App chia hai khu riêng, mỗi khu một menu:
 
 - **Khu học** (`/`): 4 tab Trang chủ, Khóa học, Ôn tập, Tài khoản (ở đáy màn hình điện thoại, trên đầu trang khi màn hình
@@ -22,18 +16,11 @@ các tài khoản sau là người học. App chia hai khu riêng, mỗi khu m�
 
 Nếu máy chủ hoặc cơ sở dữ liệu không chạy, chân trang báo lỗi kết nối (bình thường không hiện gì).
 
-Dừng app: `Ctrl+C`, hoặc chạy nền bằng `up -d` rồi dừng bằng:
+Muốn tạo lại quản trị viên từ đầu: xoá database `luna` (hoặc trỏ `MONGO_DATABASE` sang database mới), tài khoản đăng ký
+đầu tiên sẽ là quản trị viên. Xem danh sách tài khoản:
 
 ```bash
-docker compose -f deploy/docker-compose.yml down        # giữ dữ liệu
-docker compose -f deploy/docker-compose.yml down -v     # xoá cả dữ liệu MongoDB (kể cả tài khoản)
-```
-
-Muốn tạo lại quản trị viên từ đầu: chạy `down -v` rồi `up`, tài khoản đăng ký đầu tiên sẽ là quản trị viên.
-Xem danh sách tài khoản:
-
-```bash
-docker compose -f deploy/docker-compose.yml exec mongo mongosh luna --quiet --eval 'db.users.find({}, {email: 1, role: 1, timezone: 1}).toArray()'
+mongosh "$MONGO_URI" --quiet --eval 'db.getSiblingDB("luna").users.find({}, {email: 1, role: 1, timezone: 1}).toArray()'
 ```
 
 ## Soạn bài học (quản trị viên)
@@ -55,13 +42,13 @@ Sau khi lưu bài, hệ thống tự làm nền **chú thích từ vựng** (ph�
 đọc của trình duyệt):
 
 - **Chú thích từ vựng** bằng Gemini (gói miễn phí). Cần khoá API: tạo tại
-  <https://aistudio.google.com/apikey>, rồi ghi vào `deploy/.env`:
+  <https://aistudio.google.com/apikey>, rồi ghi vào `backend/.env`:
 
   ```bash
   GEMINI_API_KEY=khoá-của-bạn
   ```
 
-  và chạy lại `docker compose -f deploy/docker-compose.yml up -d`. Không có khoá thì bài vẫn lưu và nghe được,
+  và khởi động lại backend. Không có khoá thì bài vẫn lưu và nghe được,
   chú thích báo "AI chưa được cấu hình"; thêm khoá xong bấm **Chạy lại chú thích**. Tắt hẳn AI: `AI_PROVIDER=none`.
 
 ### Sinh bài bằng AI
@@ -89,8 +76,8 @@ Kết quả là các **bản nháp**, chỉ có trên trang đang mở và khôn
 AI chưa cấu hình, khoá sai, hết lượt hoặc trả về nội dung không dùng được thì trang báo rõ lỗi. Bản nháp và các lựa chọn
 đã nhập vẫn giữ nguyên để thử lại.
 
-Request sinh bài dài hơn mọi request khác: nginx (`frontend/nginx.conf`) và backend chỉ cho riêng route
-`/api/admin/topics/{id}/generate` chờ tới 135 giây (AI tối đa 120 giây), các route còn lại vẫn 15 giây.
+Request sinh bài dài hơn mọi request khác: route `/api/admin/topics/{id}/generate` có thể chờ tới 120 giây (thời gian tối
+đa của AI). Nếu đặt reverse proxy trước backend, hãy cho riêng route này thời gian chờ đủ dài (ví dụ 135 giây).
 
 ### Từ vựng theo chủ đề
 
@@ -343,64 +330,50 @@ Thanh trên → **Cài đặt** (`/settings`); cài đặt lưu theo tài khoả
 Thử ôn ngay một thẻ vừa lưu (mặc định phải chờ tới hôm sau):
 
 ```bash
-docker compose -f deploy/docker-compose.yml exec mongo mongosh luna --quiet \
-  --eval 'db.cards.updateMany({}, {$set: {due: new Date(Date.now() - 60000)}})'
+mongosh "$MONGO_URI" --quiet \
+  --eval 'db.getSiblingDB("luna").cards.updateMany({}, {$set: {due: new Date(Date.now() - 60000)}})'
 ```
 
 ## Sao lưu và khôi phục
 
-Service `backup` (chạy cùng `docker compose … up`) tự sao lưu toàn bộ database mỗi ngày lúc **03:00** (giờ `BACKUP_TZ`, mặc định
-Việt Nam) vào `deploy/backups/luna-YYYYMMDD.archive.gz` và chỉ giữ **7 bản** mới nhất (bản thứ 8 làm bản cũ nhất bị xoá). Máy chủ
-tắt lúc 03:00 thì khi bật lại sẽ sao lưu bù. Sao lưu lỗi chỉ ghi log `ERROR`, không xoá bản nào, app vẫn chạy bình thường. Từ điển
-không được sao lưu: tải lại bằng `deploy/fetch-dictionary.sh`. Nên chép `deploy/backups/` sang máy/ổ
-khác định kỳ.
+App không tự sao lưu. Dùng `mongodump`/`mongorestore` ([MongoDB Database Tools](https://www.mongodb.com/try/download/database-tools)),
+hoặc tính năng backup của MongoDB Atlas. Các bản cũ nằm ở `deploy/backups/luna-YYYYMMDD.archive.gz`. Từ điển không cần sao lưu: tải lại
+bằng `deploy/fetch-dictionary.sh`.
 
 ```bash
-docker compose -f deploy/docker-compose.yml logs backup           # lần sao lưu gần nhất, lần tới, lỗi nếu có
-ls deploy/backups                                                 # danh sách bản sao lưu
-docker compose -f deploy/docker-compose.yml run --rm -e BACKUP_NOW=1 -e BACKUP_ONCE=1 backup   # sao lưu ngay một lần
+mongodump --uri "$MONGO_URI" --db luna --archive=deploy/backups/luna-$(date +%Y%m%d).archive.gz --gzip
 ```
 
 **Khôi phục** (thay toàn bộ dữ liệu hiện tại bằng dữ liệu của bản sao lưu, kể cả tài khoản và phiên đăng nhập — mọi thay đổi sau thời
-điểm sao lưu sẽ mất):
+điểm sao lưu sẽ mất). Dừng backend trước, khôi phục xong thì chạy lại:
 
 ```bash
-docker compose -f deploy/docker-compose.yml stop backend
-docker compose -f deploy/docker-compose.yml run --rm --entrypoint bash backup /backup/restore.sh luna-20260930.archive.gz
-docker compose -f deploy/docker-compose.yml start backend
+mongorestore --uri "$MONGO_URI" --nsInclude 'luna.*' --drop --gzip --archive=deploy/backups/luna-20260930.archive.gz
 ```
-
-- Không truyền tên file hoặc tên sai: lệnh in danh sách bản hiện có và dừng. File hỏng: lệnh báo lỗi và **không** đụng vào database.
-- Xong, lệnh in số document của từng collection; đăng nhập lại để kiểm tra sổ từ và tiến độ.
-- Chạy trong Git Bash trên Windows: thêm `MSYS_NO_PATHCONV=1` trước lệnh (nếu không, `/backup/restore.sh` bị đổi thành đường dẫn
-  Windows).
 
 ## Cấu hình
 
-Không cần tạo file cấu hình để chạy: mọi biến đều có giá trị mặc định trong `deploy/docker-compose.yml`.
-Muốn đổi thì chép file mẫu rồi sửa:
+Backend đọc biến môi trường. Khi chạy, nó tự đọc thêm file `.env` trong thư mục đang đứng (biến đặt thật luôn được ưu tiên).
+Chép file mẫu rồi sửa:
 
 ```bash
-cp deploy/.env.example deploy/.env
+cp backend/.env.example backend/.env
 ```
 
 | Biến | Dùng ở | Bắt buộc | Mặc định | Ý nghĩa |
 |---|---|---|---|---|
 | `DB_DRIVER` | backend | Không | `mongo` | Loại cơ sở dữ liệu: `mongo` hoặc `mysql` (không phân biệt hoa thường); xem "Chọn cơ sở dữ liệu" |
-| `MONGO_URI` | backend | Có khi `DB_DRIVER=mongo` | `mongodb://mongo:27017` (compose) | Chuỗi kết nối MongoDB |
-| `MYSQL_*` | backend (và service `mysql`) | Khi `DB_DRIVER=mysql` | xem "Chọn cơ sở dữ liệu" | Máy chủ, cổng, người dùng, mật khẩu, database, pool; hoặc cả chuỗi `MYSQL_DSN`. Mật khẩu chỉ đặt trong `.env` |
+| `MONGO_URI` | backend | Có khi `DB_DRIVER=mongo` | | Chuỗi kết nối MongoDB |
+| `MYSQL_*` | backend | Khi `DB_DRIVER=mysql` | xem "Chọn cơ sở dữ liệu" | Máy chủ, cổng, người dùng, mật khẩu, database, pool; hoặc cả chuỗi `MYSQL_DSN`. Mật khẩu chỉ đặt trong `.env` |
 | `HTTP_ADDR` | backend | Không | `:8080` | Địa chỉ backend lắng nghe |
 | `MONGO_DATABASE` | backend | Không | `luna` | Tên database |
 | `LOG_LEVEL` | backend | Không | `info` | `debug`, `info`, `warn`, `error` |
 | `COOKIE_SECURE` | backend | Không | `false` | `true` khi chạy qua HTTPS (thêm cờ `Secure` cho cookie đăng nhập) |
-| `WEB_PORT` | compose | Không | `8000` | Cổng mở app trên máy |
+| `CORS_ORIGINS` | backend | Không | trống | Origin được gọi API từ trình duyệt, cách nhau bằng dấu phẩy, hoặc `*` cho mọi origin. Cần khi frontend ở origin khác backend |
 | `AI_PROVIDER` | backend | Không | `gemini` | `gemini` hoặc `none` |
 | `GEMINI_API_KEY` | backend | Không | rỗng | Khoá Gemini (bí mật, chỉ để trong `.env`) |
 | `GEMINI_MODEL` | backend | Không | `gemini-3.5-flash-lite` | Model dùng để chú thích và sinh bài |
-| `DICTIONARY_PATH` | backend | Không | `./data/dictionary/dictionary.db` (compose: `/data/dictionary/dictionary.db`) | File từ điển SQLite |
-| `BACKUP_TZ` | backup | Không | `Asia/Ho_Chi_Minh` | Múi giờ của giờ sao lưu và ngày trong tên bản sao lưu |
-| `BACKUP_TIME` | backup | Không | `03:00` | Giờ sao lưu mỗi ngày (HH:MM) |
-| `BACKUP_KEEP` | backup | Không | `7` | Số bản sao lưu giữ lại |
+| `DICTIONARY_PATH` | backend | Không | `./data/dictionary/dictionary.db` | File từ điển SQLite |
 
 Thiếu `MONGO_URI` (khi `DB_DRIVER=mongo`) hoặc `MYSQL_USER`/`MYSQL_DSN` (khi `DB_DRIVER=mysql`), `DB_DRIVER` không phải `mongo`/`mysql`, hoặc `LOG_LEVEL` / `COOKIE_SECURE` / `AI_PROVIDER` sai thì backend in lỗi nêu tên biến và dừng với mã 1.
 Mọi file `.env` đều bị git bỏ qua; không commit bí mật vào repo.
@@ -413,11 +386,11 @@ dùng `MONGO_URI` và `MONGO_DATABASE`, `mysql` dùng các biến `MYSQL_*` ở 
 
 | Biến MySQL | Bắt buộc | Mặc định | Ý nghĩa |
 |---|---|---|---|
-| `MYSQL_HOST` | Không | `localhost` (trong compose: `mysql`) | Máy chủ MySQL |
+| `MYSQL_HOST` | Không | `localhost` | Máy chủ MySQL |
 | `MYSQL_PORT` | Không | `3306` | Cổng (1–65535) |
-| `MYSQL_USER` | Có, trừ khi dùng `MYSQL_DSN` | | Tên người dùng (trong compose không được là `root`) |
-| `MYSQL_PASSWORD` | Không | trống (compose: `luna`) | Mật khẩu; ký tự đặc biệt như `@ / : ? &` dùng được, không cần mã hoá |
-| `MYSQL_DATABASE` | Không | `luna` | Tên database; phải tạo sẵn khi chạy ngoài compose |
+| `MYSQL_USER` | Có, trừ khi dùng `MYSQL_DSN` | | Tên người dùng |
+| `MYSQL_PASSWORD` | Không | trống | Mật khẩu; ký tự đặc biệt như `@ / : ? &` dùng được, không cần mã hoá |
+| `MYSQL_DATABASE` | Không | `luna` | Tên database; phải tạo sẵn |
 | `MYSQL_DSN` | Không | trống | Chuỗi `user:password@tcp(host:3306)/database`; nếu đặt thì **thay** năm biến trên |
 | `MYSQL_MAX_OPEN_CONNS` | Không | `20` | Số kết nối tối đa của pool |
 | `MYSQL_MAX_IDLE_CONNS` | Không | `5` | Số kết nối nhàn rỗi giữ lại |
@@ -431,18 +404,7 @@ chứa giá trị, nên mật khẩu không lộ ra log. Backend luôn tự thê
 là một kho riêng, bắt đầu rỗng (tài khoản đầu tiên vẫn là quản trị viên). MySQL tự tạo bảng lúc khởi động (`schema_migrations` ghi các
 đợt đã chạy; có khoá nên hai backend khởi động cùng lúc không đạp nhau) và nạp từ vựng chủ đề như MongoDB.
 
-Chạy bằng MySQL trong Docker Compose: đặt `DB_DRIVER=mysql` trong `deploy/.env`, rồi
-
-```bash
-docker compose -f deploy/docker-compose.yml --profile mysql up --build
-```
-
-Service `mysql` chỉ chạy khi có `--profile mysql`; mật khẩu mặc định `luna` là giá trị phát triển, hãy đặt `MYSQL_PASSWORD` riêng trong
-`deploy/.env` (service `mysql` và backend cùng đọc các biến `MYSQL_*` nên luôn khớp nhau). Chạy backend ngoài Docker thì đặt
-`DB_DRIVER=mysql` và các biến `MYSQL_*` trong `backend/.env`.
-
-**Chưa có cho MySQL:** sao lưu và khôi phục (`deploy/backup` dùng `mongodump`, cần bản `mysqldump` tương ứng). Với MySQL, hãy tự sao lưu
-volume `mysql-data` hoặc dùng `mysqldump` cho đến khi có.
+Chạy bằng MySQL: đặt `DB_DRIVER=mysql` và các biến `MYSQL_*` trong `backend/.env`. Sao lưu MySQL bằng `mysqldump`.
 
 **Test MySQL:** test tích hợp ở `backend/internal/storage/mysql` cần một server MySQL và tự bỏ qua nếu thiếu biến `MYSQL_TEST_DSN`:
 
@@ -459,15 +421,9 @@ Cách thêm một loại CSDL: xem `docs/architecture.md`, mục "Lớp lưu tr�
 
 Cần thêm Go 1.25 và Node 22. Chạy từng phần riêng:
 
-**1. Cơ sở dữ liệu** (MongoDB trong Docker, chỉ mở cổng trên localhost):
-
-```bash
-docker compose -f deploy/docker-compose.yml up -d mongo
-```
-
-Dùng MongoDB Atlas (cloud) thay cho MongoDB trong Docker: đặt `MONGO_URI=mongodb+srv://...` trong `backend/.env`
-(chuỗi kết nối lấy ở Atlas → **Connect** → **Drivers**; thêm IP máy này ở **Network Access**), không cần chạy
-container nào. Backend tự tạo index trên DB mới.
+**1. Cơ sở dữ liệu**: MongoDB Atlas (cloud) hoặc MongoDB cài trên máy. Đặt `MONGO_URI` trong `backend/.env`
+(với Atlas: chuỗi kết nối lấy ở **Connect** → **Drivers**; thêm IP máy này ở **Network Access**). Backend tự tạo index trên
+DB mới. Từ điển offline cho bước Đọc: chạy `deploy/fetch-dictionary.sh` (hoặc `.ps1`) một lần.
 
 **2. Backend** (`http://localhost:8080`). Lần đầu, chép file cấu hình mẫu cho môi trường phát triển:
 
@@ -478,11 +434,13 @@ go run ./cmd/api
 ```
 
 Khi chạy local, backend tự đọc `backend/.env` trong thư mục đang đứng (nên chạy lệnh từ `backend/`).
-Biến môi trường đặt thật (terminal, Docker) luôn được ưu tiên hơn giá trị trong file.
-`backend/.env` bị git bỏ qua; Docker không dùng file này (xem `deploy/.env.example`).
+Biến môi trường đặt thật (terminal, dịch vụ hệ thống) luôn được ưu tiên hơn giá trị trong file.
+`backend/.env` bị git bỏ qua.
 
-**3. Frontend** (`http://localhost:4200`, tự tải lại khi sửa code; `/api` được chuyển tới backend qua
-`frontend/proxy.conf.json`):
+**3. Frontend** (`http://localhost:4200`, tự tải lại khi sửa code). Trình duyệt gọi thẳng backend theo
+`apiUrl` trong `frontend/src/environments/environment.development.ts` (mặc định `http://localhost:8080/api`; bản prod ở
+`environment.ts`). `apiUrl` luôn kết thúc bằng `/api`, code chỉ gọi phần sau (ví dụ `/auth/login`).
+`CORS_ORIGINS` trong `backend/.env` phải cho phép origin của frontend (mặc định `*`, mọi origin):
 
 ```bash
 cd frontend
@@ -524,7 +482,7 @@ docker run --rm -v "${PWD}:/app" -w /app -v luna-go-mod:/go/pkg/mod -v luna-gola
 ```text
 frontend/   Angular 21 (standalone, signals, zoneless): core/, shared/, features/
 backend/    Go 1.25, net/http: cmd/api, internal/{auth,lesson,topic,job,ai,dictionary,vocab,progress,health,platform,storage,wordmatch}
-deploy/     docker-compose.yml, .env.example, fetch-dictionary.sh/.ps1, data/ (dữ liệu tải về)
+deploy/     fetch-dictionary.sh/.ps1, data/ (dữ liệu tải về), backups/ (bản sao lưu cũ)
 docs/       Tài liệu sản phẩm (nguồn sự thật)
 specs/      Spec, plan, tasks của từng tính năng
 ```

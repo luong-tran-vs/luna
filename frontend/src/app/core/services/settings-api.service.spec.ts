@@ -22,7 +22,7 @@ describe('SettingsApiService', () => {
 
   it('reads the settings', async () => {
     const result = firstValueFrom(api.get());
-    const req = http.expectOne('/api/settings');
+    const req = http.expectOne('/settings');
     expect(req.request.method).toBe('GET');
     req.flush(settings);
     await expect(result).resolves.toEqual(settings);
@@ -30,7 +30,7 @@ describe('SettingsApiService', () => {
 
   it('sends only the changed fields', async () => {
     const result = firstValueFrom(api.update({ theme: 'dark' }));
-    const req = http.expectOne('/api/settings');
+    const req = http.expectOne('/settings');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual({ theme: 'dark' });
     req.flush(settings);

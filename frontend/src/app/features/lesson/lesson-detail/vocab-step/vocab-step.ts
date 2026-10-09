@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
+import { serverUrl } from '../../../../core/api-url';
 import { PracticeExample } from '../../../../core/models/practice';
 import { VocabItem } from '../../../../core/models/vocab';
 import { SpeechService } from '../../../../core/services/speech.service';
@@ -118,7 +119,9 @@ export class VocabStep {
       const sentence = example?.sentence ?? w.sentence ?? '';
       return {
         word: w,
-        image: w.imageUrl || placeholderImage(w.lemma),
+        image: w.imageUrl ? serverUrl(w.imageUrl) : placeholderImage(w.lemma),
+        // Our own pictures need the session cookie; the stand-in from loremflickr must go without.
+        crossOrigin: w.imageUrl ? 'use-credentials' : null,
         example: sentence ? highlight(sentence, [w.text, w.lemma]) : null,
         // Only the generated example has a translation; the sentence of the text has none.
         exampleVi: example?.meaningVi ?? '',
@@ -152,6 +155,7 @@ export class VocabStep {
         if (r && !this.brokenImages().has(r.word.lemma)) {
           const img = new Image();
           img.referrerPolicy = 'no-referrer';
+          img.crossOrigin = r.crossOrigin;
           img.src = r.image;
         }
       }

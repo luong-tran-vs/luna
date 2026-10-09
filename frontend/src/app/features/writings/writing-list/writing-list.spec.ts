@@ -31,7 +31,7 @@ describe('WritingList', () => {
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(WritingList);
     el = fixture.nativeElement;
-    http.expectOne('/api/writings').flush({ writings });
+    http.expectOne('/writings').flush({ writings });
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };

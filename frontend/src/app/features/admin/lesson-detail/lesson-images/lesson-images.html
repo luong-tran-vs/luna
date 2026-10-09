@@ -77,7 +77,7 @@
           <li class="word" [attr.aria-busy]="busyWord() === w.lemma">
             <div class="thumb">
               @if (w.imageUrl) {
-                <img [src]="thumb(w)" [alt]="'Ảnh của ' + w.lemma" />
+                <img [src]="thumb(w)" crossorigin="use-credentials" [alt]="'Ảnh của ' + w.lemma" />
               } @else {
                 <span class="thumb-empty">Chưa có ảnh</span>
               }

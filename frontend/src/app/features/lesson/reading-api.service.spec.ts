@@ -19,13 +19,13 @@ describe('ReadingApiService', () => {
 
   it('loads a lesson for reading', async () => {
     const result = firstValueFrom(api.getLesson('l1'));
-    http.expectOne('/api/lessons/l1').flush({ lesson: { id: 'l1' } });
+    http.expectOne('/lessons/l1').flush({ lesson: { id: 'l1' } });
     await expect(result).resolves.toEqual({ id: 'l1' });
   });
 
   it('looks up a word with its sentence', async () => {
     const result = firstValueFrom(api.lookup('l1', 'gave up', 2));
-    const req = http.expectOne((r) => r.url === '/api/lessons/l1/lookup');
+    const req = http.expectOne((r) => r.url === '/lessons/l1/lookup');
     expect(req.request.params.get('q')).toBe('gave up');
     expect(req.request.params.get('sentence')).toBe('2');
     req.flush({ source: 'ai', text: 'gave up', lemma: 'give up', ipa: '', meanings: [] });
@@ -34,7 +34,7 @@ describe('ReadingApiService', () => {
 
   it('asks the AI about a word of a sentence', async () => {
     const result = firstValueFrom(api.ask('l1', 'gave up', 1));
-    const req = http.expectOne('/api/lessons/l1/ask');
+    const req = http.expectOne('/lessons/l1/ask');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ text: 'gave up', sentenceIndex: 1 });
     req.flush({
@@ -46,7 +46,7 @@ describe('ReadingApiService', () => {
 
   it('sends a comprehension answer', async () => {
     const result = firstValueFrom(api.answer('l1', { version: 2, questionIndex: 1, choice: 3 }));
-    const req = http.expectOne('/api/lessons/l1/answers');
+    const req = http.expectOne('/lessons/l1/answers');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ version: 2, questionIndex: 1, choice: 3 });
     req.flush({ answer: { questionIndex: 1 }, answered: 1, total: 3, correct: 0 });
@@ -55,7 +55,7 @@ describe('ReadingApiService', () => {
 
   it('forgets the comprehension answers of a lesson', async () => {
     const result = firstValueFrom(api.resetAnswers('l1'), { defaultValue: undefined });
-    const req = http.expectOne('/api/lessons/l1/answers');
+    const req = http.expectOne('/lessons/l1/answers');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, { status: 204, statusText: 'No Content' });
     await expect(result).resolves.toBeNull();
@@ -63,13 +63,13 @@ describe('ReadingApiService', () => {
 
   it('loads the lesson vocabulary', async () => {
     const result = firstValueFrom(api.vocabulary('l1'));
-    http.expectOne('/api/lessons/l1/vocabulary').flush({ available: false, items: [] });
+    http.expectOne('/lessons/l1/vocabulary').flush({ available: false, items: [] });
     await expect(result).resolves.toEqual({ available: false, items: [] });
   });
 
   it('loads the lesson practice', async () => {
     const result = firstValueFrom(api.practice('l1'));
-    const req = http.expectOne('/api/lessons/l1/practice');
+    const req = http.expectOne('/lessons/l1/practice');
     expect(req.request.method).toBe('GET');
     req.flush({ status: 'none', lessonNumber: 0 });
     await expect(result).resolves.toMatchObject({ status: 'none' });

@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { serverUrl } from '../../../../core/api-url';
 import { PracticeExample } from '../../../../core/models/practice';
 import { VocabItem } from '../../../../core/models/vocab';
 import { FakeSpeech, provideFakeSpeech } from '../../../../core/services/speech.service.testing';
@@ -210,7 +211,7 @@ describe('VocabStep', () => {
 
   it('uses the word picture when there is one', async () => {
     await render([{ ...words[0], imageUrl: '/api/lessons/l1/images/hello' }], examples);
-    expect(el.querySelector('img')!.getAttribute('src')).toBe('/api/lessons/l1/images/hello');
+    expect(el.querySelector('img')!.getAttribute('src')).toBe(serverUrl('/api/lessons/l1/images/hello'));
   });
 
   it('Đã học saves the word as a review card of the lesson', async () => {
@@ -220,7 +221,7 @@ describe('VocabStep', () => {
     learn()!.click();
     await fixture.whenStable();
     expect(learn()!.disabled).toBe(true);
-    const req = http.expectOne('/api/vocab/cards/bulk');
+    const req = http.expectOne('/vocab/cards/bulk');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ lessonId: 'l1', lemmas: ['hello'] });
     req.flush({ added: 1, cards: [] });
@@ -240,7 +241,7 @@ describe('VocabStep', () => {
   it('says when the word was already in the notebook, and when saving fails', async () => {
     await render();
     el.querySelector<HTMLButtonElement>('.learn-btn')!.click();
-    http.expectOne('/api/vocab/cards/bulk').flush({ added: 0, cards: [] });
+    http.expectOne('/vocab/cards/bulk').flush({ added: 0, cards: [] });
     await settle();
     expect(text(el.querySelector('.learn [role="status"]'))).toBe(
       '"hello" đã có trong thẻ ôn tập.',
@@ -248,7 +249,7 @@ describe('VocabStep', () => {
 
     await click(forward());
     el.querySelector<HTMLButtonElement>('.learn-btn')!.click();
-    http.expectOne('/api/vocab/cards/bulk').flush('no', { status: 500, statusText: 'Error' });
+    http.expectOne('/vocab/cards/bulk').flush('no', { status: 500, statusText: 'Error' });
     await settle();
     expect(text(el.querySelector('.learn [role="alert"]'))).toBe(
       'Không lưu được, vui lòng thử lại.',

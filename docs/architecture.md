@@ -8,7 +8,7 @@
 Luna/
 ├── frontend/        ← Angular
 ├── backend/         ← Go
-├── deploy/          ← docker-compose, sao lưu (F13)
+├── deploy/          ← script tải từ điển, dữ liệu tải về, bản sao lưu cũ
 └── docs/
 ```
 

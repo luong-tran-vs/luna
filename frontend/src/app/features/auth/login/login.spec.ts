@@ -66,14 +66,14 @@ describe('Login', () => {
 
     expect(el.textContent).toContain('Vui lòng nhập email');
     expect(el.textContent).toContain('Vui lòng nhập mật khẩu');
-    http.expectNone('/api/auth/login');
+    http.expectNone('/auth/login');
   });
 
   it('shows the generic message on wrong credentials', async () => {
     await setup();
     await submitValid();
     http
-      .expectOne('/api/auth/login')
+      .expectOne('/auth/login')
       .flush(
         { error: 'invalid_credentials', message: 'Email hoặc mật khẩu không đúng' },
         { status: 401, statusText: 'Unauthorized' },
@@ -88,7 +88,7 @@ describe('Login', () => {
     await setup();
     await submitValid();
     http
-      .expectOne('/api/auth/login')
+      .expectOne('/auth/login')
       .flush(
         { error: 'account_locked', message: 'x', retryAfterSeconds: 900 },
         { status: 429, statusText: 'Too Many Requests' },
@@ -102,7 +102,7 @@ describe('Login', () => {
     await setup();
     await submitValid();
     http
-      .expectOne('/api/auth/login')
+      .expectOne('/auth/login')
       .flush(
         { error: 'account_locked', retryAfterSeconds: 61 },
         { status: 429, statusText: 'Too Many Requests' },
@@ -115,7 +115,7 @@ describe('Login', () => {
   it('returns to the requested in-app page after login', async () => {
     await setup('/admin');
     await submitValid();
-    http.expectOne('/api/auth/login').flush({ user });
+    http.expectOne('/auth/login').flush({ user });
     await whenStable();
 
     expect(router.navigateByUrl).toHaveBeenCalledWith('/admin');
@@ -124,7 +124,7 @@ describe('Login', () => {
   it('ignores an external return URL', async () => {
     await setup('https://evil.example');
     await submitValid();
-    http.expectOne('/api/auth/login').flush({ user });
+    http.expectOne('/auth/login').flush({ user });
     await whenStable();
 
     expect(router.navigateByUrl).toHaveBeenCalledWith('/');
@@ -134,7 +134,7 @@ describe('Login', () => {
     await setup();
     await submitValid();
     expect(el.querySelector<HTMLButtonElement>('button[type="submit"]')!.disabled).toBe(true);
-    http.expectOne('/api/auth/login').flush({ user });
+    http.expectOne('/auth/login').flush({ user });
     await whenStable();
   });
 

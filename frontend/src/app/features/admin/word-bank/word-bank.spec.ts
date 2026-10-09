@@ -2,6 +2,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { serverUrl } from '../../../core/api-url';
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { BankWord } from '../../../core/models/word-bank';
 import { WordBank } from './word-bank';
@@ -49,7 +50,7 @@ describe('WordBank (F24)', () => {
     input.dispatchEvent(new Event('change'));
   };
   const expectList = (query: string) =>
-    http.expectOne((r) => r.url === '/api/admin/words' && r.params.toString() === query);
+    http.expectOne((r) => r.url === '/admin/words' && r.params.toString() === query);
 
   const open = async (words: BankWord[] = [house, table], hasMore = false) => {
     TestBed.configureTestingModule({
@@ -61,7 +62,7 @@ describe('WordBank (F24)', () => {
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(WordBank);
     el = fixture.nativeElement as HTMLElement;
-    http.expectOne('/api/admin/topics').flush({
+    http.expectOne('/admin/topics').flush({
       topics: [
         { id: 't2', name: 'Nhà cửa' },
         { id: 't1', name: 'Chào hỏi' },
@@ -79,7 +80,7 @@ describe('WordBank (F24)', () => {
     expect(el.querySelector('.summary')!.textContent).toContain('2 từ');
     expect(rows().map((r) => r.querySelector('.lemma')!.textContent)).toEqual(['house', 'table']);
     expect(rows()[0].querySelector('img')!.getAttribute('src')).toBe(
-      '/api/admin/words/house/image?v=1',
+      serverUrl('/api/admin/words/house/image?v=1'),
     );
     expect(rows()[0].textContent).toContain('/haʊs/');
     expect(rows()[1].textContent).toContain('Chưa có ảnh');
@@ -122,7 +123,7 @@ describe('WordBank (F24)', () => {
 
     type(el, '#bank-lemma', ' Garden ');
     button(el, 'Thêm')!.click();
-    const req = http.expectOne('/api/admin/words');
+    const req = http.expectOne('/admin/words');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ lemma: 'Garden', meaningVi: '', ipa: '', topicId: '' });
     req.flush(
@@ -137,7 +138,7 @@ describe('WordBank (F24)', () => {
     type(el, '#bank-lemma', 'house');
     button(el, 'Thêm')!.click();
     http
-      .expectOne('/api/admin/words')
+      .expectOne('/admin/words')
       .flush(
         { error: 'validation_failed', fields: { lemma: 'Từ này đã có trong kho' } },
         { status: 400, statusText: 'Bad Request' },
@@ -173,7 +174,7 @@ describe('WordBank (F24)', () => {
     topic.dispatchEvent(new Event('change'));
     type(el, '#bank-lemma', 'table');
     button(el, 'Thêm')!.click();
-    const req = http.expectOne('/api/admin/words');
+    const req = http.expectOne('/admin/words');
     expect(req.request.body).toEqual({ lemma: 'table', meaningVi: '', ipa: '', topicId: 't2' });
     req.flush({ ...table, inBank: true, topic: { id: 't2', name: 'Nhà cửa' } });
     await settle(350);
@@ -188,7 +189,7 @@ describe('WordBank (F24)', () => {
     type(el, '#bank-lemma', 'house');
     button(el, 'Thêm')!.click();
     http
-      .expectOne('/api/admin/words')
+      .expectOne('/admin/words')
       .flush(
         { error: 'validation_failed', fields: { lemma: 'Từ này đã có trong chủ đề "Nhà cửa"' } },
         { status: 400, statusText: 'Bad Request' },
@@ -215,7 +216,7 @@ describe('WordBank (F24)', () => {
     expect(el.querySelector('.fill-bar')!.textContent).toContain('chủ đề "Nhà cửa"');
 
     button(el, 'Điền nghĩa và phiên âm bằng AI')!.click();
-    const req = http.expectOne('/api/admin/words/fill-missing');
+    const req = http.expectOne('/admin/words/fill-missing');
     expect(req.request.body).toEqual({ topicId: 't2' });
     req.flush({ asked: 3, meanings: 2, ipas: 1 });
     await settle(350);
@@ -227,7 +228,7 @@ describe('WordBank (F24)', () => {
 
     button(el, 'Điền nghĩa và phiên âm bằng AI')!.click();
     http
-      .expectOne('/api/admin/words/fill-missing')
+      .expectOne('/admin/words/fill-missing')
       .flush({ message: 'Đã hết lượt AI, vui lòng thử lại sau.' }, { status: 429, statusText: 'Too Many Requests' });
     await settle();
     expect(el.querySelector('.note')!.textContent).toContain('Đã hết lượt AI');
@@ -236,7 +237,7 @@ describe('WordBank (F24)', () => {
   it('imports the topic words', async () => {
     await open();
     button(el, 'Nhập từ các chủ đề')!.click();
-    http.expectOne('/api/admin/words/import').flush({ added: 3 });
+    http.expectOne('/admin/words/import').flush({ added: 3 });
     await settle(350);
     expectList('page=1').flush({ words: [house, table], total: 5, hasMore: false });
     await settle();
@@ -249,7 +250,7 @@ describe('WordBank (F24)', () => {
     await settle();
     type(rows()[1], '#bank-meaning-table', 'cái bàn');
     button(rows()[1], 'Lưu')!.click();
-    const req = http.expectOne('/api/admin/words/table');
+    const req = http.expectOne('/admin/words/table');
     expect(req.request.method).toBe('PATCH');
     expect(req.request.body).toEqual({ meaningVi: 'cái bàn', ipa: '' });
     req.flush({ ...table, meaningVi: 'cái bàn' });
@@ -262,7 +263,7 @@ describe('WordBank (F24)', () => {
     await open();
     const file = new File(['png'], 'table.png', { type: 'image/png' });
     chooseFile(rows()[1], file);
-    const up = http.expectOne('/api/admin/words/table/image');
+    const up = http.expectOne('/admin/words/table/image');
     expect(up.request.method).toBe('PUT');
     expect(up.request.body).toBe(file);
     await settle();
@@ -270,13 +271,13 @@ describe('WordBank (F24)', () => {
     up.flush({ ...table, imageUrl: '/api/admin/words/table/image?v=2' });
     await settle();
     expect(rows()[1].querySelector('img')!.getAttribute('src')).toBe(
-      '/api/admin/words/table/image?v=2',
+      serverUrl('/api/admin/words/table/image?v=2'),
     );
 
     button(rows()[0], 'Sinh ảnh AI')!.click();
     await settle();
     expect(button(rows()[0], 'Đang sinh ảnh…')).toBeDefined();
-    const draw = http.expectOne('/api/admin/words/house/image/generate');
+    const draw = http.expectOne('/admin/words/house/image/generate');
     expect(draw.request.method).toBe('POST');
     draw.flush(
       { error: 'ai_quota', message: 'Đã hết lượt AI, vui lòng thử lại sau.' },
@@ -286,7 +287,7 @@ describe('WordBank (F24)', () => {
     expect(rows()[0].querySelector('.row-note')!.textContent).toContain('Đã hết lượt AI');
 
     button(rows()[0], 'Xoá ảnh')!.click();
-    const del = http.expectOne('/api/admin/words/house/image');
+    const del = http.expectOne('/admin/words/house/image');
     expect(del.request.method).toBe('DELETE');
     del.flush({ ...house, imageUrl: '' });
     await settle();
@@ -309,7 +310,7 @@ describe('WordBank (F24)', () => {
     const dialog = el.querySelector('lu-confirm-dialog')!;
     expect(dialog.textContent).toContain('Từ "table" sẽ bị xoá khỏi kho');
     button(dialog, 'Xoá')!.click();
-    const req = http.expectOne('/api/admin/words/table');
+    const req = http.expectOne('/admin/words/table');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, { status: 204, statusText: 'No Content' });
     await settle();

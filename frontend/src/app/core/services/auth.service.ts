@@ -10,7 +10,7 @@ interface UserEnvelope {
 
 /**
  * Holds the logged-in user. The session itself lives in an HttpOnly cookie that the
- * browser sends automatically with same-origin /api requests.
+ * browser sends with every API request (see apiUrlInterceptor).
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -25,7 +25,7 @@ export class AuthService {
   /** Restores the session on startup. Never rejects so the app always boots. */
   async load(): Promise<void> {
     try {
-      const { user } = await firstValueFrom(this.http.get<UserEnvelope>('/api/auth/me'));
+      const { user } = await firstValueFrom(this.http.get<UserEnvelope>('/auth/me'));
       this.user.set(user);
     } catch {
       this.user.set(null);
@@ -35,14 +35,14 @@ export class AuthService {
   async register(email: string, password: string): Promise<void> {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const { user } = await firstValueFrom(
-      this.http.post<UserEnvelope>('/api/auth/register', { email, password, timezone }),
+      this.http.post<UserEnvelope>('/auth/register', { email, password, timezone }),
     );
     this.user.set(user);
   }
 
   async login(email: string, password: string): Promise<void> {
     const { user } = await firstValueFrom(
-      this.http.post<UserEnvelope>('/api/auth/login', { email, password }),
+      this.http.post<UserEnvelope>('/auth/login', { email, password }),
     );
     this.user.set(user);
   }
@@ -50,7 +50,7 @@ export class AuthService {
   /** Ends the session on the server; the local state is cleared even if that fails. */
   async logout(): Promise<void> {
     try {
-      await firstValueFrom(this.http.post<void>('/api/auth/logout', null));
+      await firstValueFrom(this.http.post<void>('/auth/logout', null));
     } catch {
       // The cookie may already be invalid; logging out locally is what matters.
     } finally {

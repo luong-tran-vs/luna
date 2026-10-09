@@ -21,8 +21,8 @@ describe('MyLessons', () => {
     fixture = TestBed.createComponent(MyLessons);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/lessons/mine').flush(data);
-    http.expectOne('/api/goals').flush(goals);
+    http.expectOne('/lessons/mine').flush(data);
+    http.expectOne('/goals').flush(goals);
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };

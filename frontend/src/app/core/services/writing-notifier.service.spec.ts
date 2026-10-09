@@ -19,7 +19,7 @@ describe('WritingNotifier', () => {
     latest,
   });
   const flushCount = async (c: UnseenCount) => {
-    http.expectOne('/api/writings/unseen-count').flush(c);
+    http.expectOne('/writings/unseen-count').flush(c);
     await vi.advanceTimersByTimeAsync(0);
   };
 
@@ -48,7 +48,7 @@ describe('WritingNotifier', () => {
   it('loads the count on login and does not poll without gradings', async () => {
     expect(notifier.unseen()).toBe(0);
     await vi.advanceTimersByTimeAsync(POLL_INTERVAL * 2);
-    http.expectNone('/api/writings/unseen-count');
+    http.expectNone('/writings/unseen-count');
   });
 
   it('polls while a writing is graded and shows a toast for the new result', async () => {
@@ -65,7 +65,7 @@ describe('WritingNotifier', () => {
 
     // Nothing pending any more: polling stops.
     await vi.advanceTimersByTimeAsync(POLL_INTERVAL * 2);
-    http.expectNone('/api/writings/unseen-count');
+    http.expectNone('/writings/unseen-count');
   });
 
   it('says when grading failed', async () => {
@@ -78,7 +78,7 @@ describe('WritingNotifier', () => {
     notifier.submitted();
     await flushCount(count(1, 0, { id: 'w1', status: 'done' }));
     const done = notifier.markSeen('w1');
-    http.expectOne('/api/writings/w1/seen').flush(null);
+    http.expectOne('/writings/w1/seen').flush(null);
     await vi.advanceTimersByTimeAsync(0);
     await flushCount(count(0, 0));
     await done;
@@ -94,7 +94,7 @@ describe('WritingNotifier', () => {
     expect(notifier.unseen()).toBe(0);
     expect(notifier.toast()).toBeNull();
     await vi.advanceTimersByTimeAsync(POLL_INTERVAL * 2);
-    http.expectNone('/api/writings/unseen-count');
+    http.expectNone('/writings/unseen-count');
   });
 
   it('does not ask for writings for an admin', async () => {
@@ -104,7 +104,7 @@ describe('WritingNotifier', () => {
     loggedIn.set(true);
     TestBed.tick();
     await vi.advanceTimersByTimeAsync(0);
-    http.expectNone('/api/writings/unseen-count');
+    http.expectNone('/writings/unseen-count');
     expect(notifier.unseen()).toBe(0);
   });
 });

@@ -66,10 +66,10 @@ describe('Stats', () => {
     fixture = TestBed.createComponent(Stats);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    controller.expectOne((r) => r.url === '/api/stats' && !r.params.has('period')).flush(allTime);
-    controller.expectOne('/api/dashboard').flush(dash);
+    controller.expectOne((r) => r.url === '/stats' && !r.params.has('period')).flush(allTime);
+    controller.expectOne('/dashboard').flush(dash);
     await fixture.whenStable();
-    controller.expectOne((r) => r.url === '/api/stats' && r.params.get('period') === 'week').flush(weekly);
+    controller.expectOne((r) => r.url === '/stats' && r.params.get('period') === 'week').flush(weekly);
     await fixture.whenStable();
   };
 
@@ -105,14 +105,14 @@ describe('Stats', () => {
     tab('Tháng').click();
     await fixture.whenStable();
     controller
-      .expectOne((r) => r.url === '/api/stats' && r.params.get('period') === 'month')
+      .expectOne((r) => r.url === '/stats' && r.params.get('period') === 'month')
       .flush({ ...week, period: 'month', cards: 50 });
     await fixture.whenStable();
     expect(counts()[0]).toBe('Từ vựng 50 từ');
 
     tab('Tổng').click();
     await fixture.whenStable();
-    controller.expectNone('/api/stats');
+    controller.expectNone('/stats');
     expect(counts()[0]).toBe('Từ vựng 120 từ');
     expect(text(el.querySelector('#skills-heading'))).toBe('Độ chính xác từ trước tới nay');
   });
@@ -147,14 +147,14 @@ describe('Stats', () => {
     fixture = TestBed.createComponent(Stats);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    controller.expectOne('/api/stats').flush('down', { status: 500, statusText: 'Error' });
-    controller.match('/api/dashboard');
+    controller.expectOne('/stats').flush('down', { status: 500, statusText: 'Error' });
+    controller.match('/dashboard');
     await fixture.whenStable();
     expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được thống kê.');
     el.querySelector<HTMLButtonElement>('[role="alert"] button')!.click();
     await fixture.whenStable();
-    controller.expectOne('/api/stats').flush(allTime);
-    controller.expectOne('/api/dashboard').flush(dashboard());
+    controller.expectOne('/stats').flush(allTime);
+    controller.expectOne('/dashboard').flush(dashboard());
     await fixture.whenStable();
     controller.expectOne((r) => r.params.get('period') === 'week').flush(week);
     await fixture.whenStable();

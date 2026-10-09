@@ -95,7 +95,7 @@ describe('LessonExtras', () => {
     button('Lưu câu hỏi, ngữ pháp, đề viết')!.click();
     await settle();
 
-    const req = http.expectOne('/api/admin/lessons/l1/extras');
+    const req = http.expectOne('/admin/lessons/l1/extras');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual({
       questions: [
@@ -132,7 +132,7 @@ describe('LessonExtras', () => {
     expect(el.querySelector('#grammar-title')).toBeNull();
     button('Lưu câu hỏi, ngữ pháp, đề viết')!.click();
     await settle();
-    const req = http.expectOne('/api/admin/lessons/l1/extras');
+    const req = http.expectOne('/admin/lessons/l1/extras');
     expect(req.request.body.grammarNote).toBeNull();
     req.flush({ lesson: lesson({ grammarNote: null }) });
     await settle();
@@ -142,7 +142,7 @@ describe('LessonExtras', () => {
     await setup(lesson());
     button('Lưu câu hỏi, ngữ pháp, đề viết')!.click();
     await settle();
-    http.expectOne('/api/admin/lessons/l1/extras').flush(
+    http.expectOne('/admin/lessons/l1/extras').flush(
       {
         error: 'validation_failed',
         message: 'Thông tin chưa hợp lệ',
@@ -203,10 +203,10 @@ describe('LessonExtras', () => {
     await type('q-0-prompt', 'Where did they go?');
     el.querySelector<HTMLButtonElement>('button[aria-label="Xoá câu hỏi 2"]')!.click();
     await fixture.whenStable();
-    expect(http.match('/api/admin/lessons/l1/extras')).toEqual([]);
+    expect(http.match('/admin/lessons/l1/extras')).toEqual([]);
     (Array.from(el.querySelectorAll('lu-confirm-dialog button')).find((b) => b.textContent?.trim() === 'Xoá') as HTMLButtonElement).click();
     await settle();
-    const r = http.expectOne('/api/admin/lessons/l1/extras');
+    const r = http.expectOne('/admin/lessons/l1/extras');
     expect(r.request.body.questions.map((q: { prompt: string }) => q.prompt)).toEqual(['Where did they go?']);
     r.flush({ lesson: lesson({ questions: [lesson().questions[0]] }) });
     await settle();

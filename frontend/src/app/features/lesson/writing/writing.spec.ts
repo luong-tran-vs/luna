@@ -73,7 +73,7 @@ describe('Writing', () => {
     fixture.componentInstance.completed.subscribe(() => completed++);
     el = fixture.nativeElement;
     fixture.detectChanges();
-    http.expectOne('/api/lessons/l1/writing').flush(v);
+    http.expectOne('/lessons/l1/writing').flush(v);
     await vi.advanceTimersByTimeAsync(0);
     await fixture.whenStable();
   };
@@ -108,9 +108,9 @@ describe('Writing', () => {
     await vi.advanceTimersByTimeAsync(500);
     await type('My family');
     await vi.advanceTimersByTimeAsync(999);
-    http.expectNone('/api/lessons/l1/writing');
+    http.expectNone('/lessons/l1/writing');
     await vi.advanceTimersByTimeAsync(1);
-    const req = http.expectOne('/api/lessons/l1/writing');
+    const req = http.expectOne('/lessons/l1/writing');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual({ text: 'My family' });
     await render();
@@ -124,7 +124,7 @@ describe('Writing', () => {
     await setup(view());
     await type('My family');
     await vi.advanceTimersByTimeAsync(1000);
-    http.expectOne('/api/lessons/l1/writing').error(new ProgressEvent('error'));
+    http.expectOne('/lessons/l1/writing').error(new ProgressEvent('error'));
     await render();
     expect(text(el.querySelector('#writing-status'))).toBe('Chưa lưu được nháp');
   });
@@ -149,7 +149,7 @@ describe('Writing', () => {
     await fixture.whenStable();
     button('Nộp')!.click();
     await vi.advanceTimersByTimeAsync(0);
-    const req = http.expectOne('/api/lessons/l1/writing/submit');
+    const req = http.expectOne('/lessons/l1/writing/submit');
     expect(req.request.body).toEqual({ text: 'My family has four people.' });
     req.flush({ writing: writing() });
     await vi.advanceTimersByTimeAsync(0);
@@ -171,7 +171,7 @@ describe('Writing', () => {
     button('Nộp')!.click();
     await vi.advanceTimersByTimeAsync(0);
     http
-      .expectOne('/api/lessons/l1/writing/submit')
+      .expectOne('/lessons/l1/writing/submit')
       .flush({ error: 'write_locked', message: 'Hãy học tới bước Viết của bài đang học' }, { status: 409, statusText: 'Conflict' });
     await vi.advanceTimersByTimeAsync(0);
     await fixture.whenStable();

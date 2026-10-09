@@ -18,7 +18,7 @@ export class ApiError extends Error {
 }
 
 /** Auth endpoints report 401 as a normal result (wrong password, not logged in yet). */
-const AUTH_ENDPOINTS = ['/api/auth/login', '/api/auth/register', '/api/auth/me'];
+const AUTH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/me'];
 
 /** A lesson not open yet (L): the lesson pages say so themselves instead of "no permission". */
 function isLessonLocked(body: unknown): boolean {

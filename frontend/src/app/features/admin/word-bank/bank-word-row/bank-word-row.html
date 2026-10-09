@@ -1,7 +1,7 @@
 @let w = word();
 <div class="thumb">
   @if (w.imageUrl) {
-    <img [src]="w.imageUrl" [alt]="'Ảnh của ' + w.lemma" />
+    <img [src]="imageSrc()" crossorigin="use-credentials" [alt]="'Ảnh của ' + w.lemma" />
   } @else {
     <span class="thumb-empty">Chưa có ảnh</span>
   }

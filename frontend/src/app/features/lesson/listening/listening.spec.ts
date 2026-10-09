@@ -78,7 +78,7 @@ describe('Listening', () => {
     await settle();
   };
   const expectPost = (): TestRequest => {
-    const req = http.expectOne((r) => r.url === '/api/lessons/l1/dictation' && r.method === 'POST');
+    const req = http.expectOne((r) => r.url === '/lessons/l1/dictation' && r.method === 'POST');
     return req;
   };
 
@@ -119,8 +119,8 @@ describe('Listening', () => {
     await fixture.whenStable();
     const id = (options.inputs?.['lessonId'] as string | undefined) ?? 'l1';
     const review = options.inputs?.['mode'] === 'review' || options.query?.['review'] === '1';
-    const lessonReq = http.expectOne(`/api/lessons/${id}`);
-    const summaryReq = review ? null : http.expectOne(`/api/lessons/${id}/dictation/summary`);
+    const lessonReq = http.expectOne(`/lessons/${id}`);
+    const summaryReq = review ? null : http.expectOne(`/lessons/${id}/dictation/summary`);
     if (options.lesson === 404 || options.lesson === 403) {
       lessonReq.flush({ error: 'x', message: 'x' }, { status: options.lesson, statusText: 'Error' });
     } else {
@@ -441,7 +441,7 @@ describe('Listening', () => {
 
   describe('doing it again', () => {
     const expectDelete = (): TestRequest =>
-      http.expectOne((r) => r.url === '/api/lessons/l1/dictation' && r.method === 'DELETE');
+      http.expectOne((r) => r.url === '/lessons/l1/dictation' && r.method === 'DELETE');
 
     it('Làm lại câu này clears the answer and reads the sentence again', async () => {
       await setup();
@@ -493,7 +493,7 @@ describe('Listening', () => {
       await check("I don't like green apples");
       button('Làm lại bước này')!.click();
       await settle();
-      http.expectNone((r) => r.url === '/api/lessons/l1/dictation');
+      http.expectNone((r) => r.url === '/lessons/l1/dictation');
       expect(text('.checked-count')).toBe('Đã kiểm tra 0/3');
     });
 
@@ -526,7 +526,7 @@ describe('Listening', () => {
       await setup({ inputs: { mode: 'review' } });
       expect(text('.checked-count')).toBe('Đã kiểm tra 0/3');
       await check("I don't like green apples");
-      http.expectNone((r) => r.url === '/api/lessons/l1/dictation');
+      http.expectNone((r) => r.url === '/lessons/l1/dictation');
       expect(text('.score')).toBe('5/5 từ đúng');
       expect(el.textContent).toContain('Xem lại');
     });
@@ -534,7 +534,7 @@ describe('Listening', () => {
     it('uses review mode from ?review=1', async () => {
       await setup({ query: { review: '1' } });
       await check('why');
-      http.expectNone((r) => r.url === '/api/lessons/l1/dictation');
+      http.expectNone((r) => r.url === '/lessons/l1/dictation');
     });
 
     it('says a locked lesson opens later', async () => {

@@ -52,7 +52,7 @@ describe('Topics', () => {
     el.querySelector('form')!.dispatchEvent(new Event('submit'));
     await settle();
   };
-  const expectList = (list: Topic[] = topics) => http.expectOne('/api/admin/topics').flush({ topics: list });
+  const expectList = (list: Topic[] = topics) => http.expectOne('/admin/topics').flush({ topics: list });
 
   const setup = async (list: Topic[] = topics) => {
     TestBed.configureTestingModule({
@@ -135,7 +135,7 @@ describe('Topics', () => {
     await type('#topic-name', ' Du lịch ');
     await type('#topic-description', 'Đi chơi xa');
     await submit();
-    const req = http.expectOne('/api/admin/topics');
+    const req = http.expectOne('/admin/topics');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ name: 'Du lịch', description: 'Đi chơi xa' });
     req.flush({ topic: topic('t9', 'Du lịch') }, { status: 201, statusText: 'Created' });
@@ -154,7 +154,7 @@ describe('Topics', () => {
     await settle();
     await type('#topic-name', 'gia đình');
     await submit();
-    http.expectOne('/api/admin/topics').flush(
+    http.expectOne('/admin/topics').flush(
       { error: 'validation_failed', message: 'x', fields: { name: 'Chủ đề này đã có' } },
       { status: 400, statusText: 'Bad Request' },
     );
@@ -169,7 +169,7 @@ describe('Topics', () => {
     expect(el.querySelector<HTMLInputElement>('#topic-name')!.value).toBe('Gia đình');
     await type('#topic-description', 'Bố mẹ, anh chị em');
     await submit();
-    const req = http.expectOne('/api/admin/topics/t1');
+    const req = http.expectOne('/admin/topics/t1');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual({ name: 'Gia đình', description: 'Bố mẹ, anh chị em' });
     req.flush({ topic: { ...topics[0], description: 'Bố mẹ, anh chị em' } });
@@ -187,7 +187,7 @@ describe('Topics', () => {
     expect(text(dialog)).toContain('“Gia đình”');
     button('Xoá', dialog)!.click();
     await settle();
-    http.expectOne('/api/admin/topics/t1').flush(
+    http.expectOne('/admin/topics/t1').flush(
       { error: 'topic_in_use', message: 'Chủ đề còn 5 bài, hãy chuyển hoặc xoá bài trước', count: 5 },
       { status: 409, statusText: 'Conflict' },
     );
@@ -200,7 +200,7 @@ describe('Topics', () => {
     await settle();
     button('Xoá', el.querySelector('[role="alertdialog"]')!)!.click();
     await settle();
-    http.expectOne('/api/admin/topics/t4').flush(null, { status: 204, statusText: 'No Content' });
+    http.expectOne('/admin/topics/t4').flush(null, { status: 204, statusText: 'No Content' });
     await settle();
     expectList(topics.slice(0, 3));
     await settle();

@@ -43,7 +43,7 @@ describe('FixHelper', () => {
   const ask = async (suggestion: object) => {
     button('AI gợi ý sửa')!.click();
     await settle();
-    const req = http.expectOne('/api/admin/lessons/l1/check/suggest');
+    const req = http.expectOne('/admin/lessons/l1/check/suggest');
     expect(req.request.method).toBe('POST');
     req.flush({ suggestion });
     await settle();
@@ -64,7 +64,7 @@ describe('FixHelper', () => {
     type('fix-sentence-1-text', 'He gave up smoking last year.');
     button('Áp dụng')!.click();
     await settle();
-    const apply = http.expectOne('/api/admin/lessons/l1/check/apply');
+    const apply = http.expectOne('/admin/lessons/l1/check/apply');
     expect(apply.request.body).toEqual({ area: 'sentence', index: 1, text: 'He gave up smoking last year.' });
     apply.flush({ lesson: { id: 'l1' } });
     await settle();
@@ -83,7 +83,7 @@ describe('FixHelper', () => {
     el.querySelector<HTMLInputElement>('#fix-question-0-answer-1')!.click();
     button('Áp dụng')!.click();
     await settle();
-    const apply = http.expectOne('/api/admin/lessons/l1/check/apply');
+    const apply = http.expectOne('/admin/lessons/l1/check/apply');
     expect(apply.request.body).toEqual({
       area: 'question',
       index: 0,
@@ -98,7 +98,7 @@ describe('FixHelper', () => {
     await ask({ area: 'translation', index: 2, vi: 'Tôi đi.', en: 'I go.' });
     button('Áp dụng')!.click();
     await settle();
-    const apply = http.expectOne('/api/admin/lessons/l1/check/apply');
+    const apply = http.expectOne('/admin/lessons/l1/check/apply');
     expect(apply.request.body).toEqual({ area: 'translation', index: 2, vi: 'Tôi đi.', en: 'I go.' });
     apply.flush({ lesson: { id: 'l1' } });
     await settle();
@@ -109,7 +109,7 @@ describe('FixHelper', () => {
     button('AI gợi ý sửa')!.click();
     await settle();
     http
-      .expectOne('/api/admin/lessons/l1/check/suggest')
+      .expectOne('/admin/lessons/l1/check/suggest')
       .flush({ error: 'ai_quota', message: 'Đã hết lượt AI, vui lòng thử lại sau.' }, { status: 429, statusText: 'Too Many' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Đã hết lượt AI, vui lòng thử lại sau.');
@@ -118,7 +118,7 @@ describe('FixHelper', () => {
     button('Áp dụng')!.click();
     await settle();
     http
-      .expectOne('/api/admin/lessons/l1/check/apply')
+      .expectOne('/admin/lessons/l1/check/apply')
       .flush({ error: 'validation', fields: { 'annotations.0.meaningVi': 'Vui lòng nhập nghĩa' } }, { status: 400, statusText: 'Bad' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Vui lòng nhập nghĩa');

@@ -75,7 +75,7 @@ describe('GrammarLesson', () => {
   describe('with a published lesson', () => {
     beforeEach(async () => {
       await setup();
-      http.expectOne('/api/grammar/a1-to-be').flush(detail);
+      http.expectOne('/grammar/a1-to-be').flush(detail);
       await settle();
     });
 
@@ -134,7 +134,7 @@ describe('GrammarLesson', () => {
       await click('Câu tiếp theo');
       await click('a');
       await click('Xem kết quả');
-      const req = http.expectOne('/api/grammar/a1-to-be/attempts');
+      const req = http.expectOne('/grammar/a1-to-be/attempts');
       expect(req.request.body).toEqual({ kind: 'mastery', correct: 2, total: 2, wrong: [] });
       req.flush({
         progress: { ...detail.progress, status: 'mastered', mastered: true, bestMastery: 100, weak: [] },
@@ -154,7 +154,7 @@ describe('GrammarLesson', () => {
 
   it('says the point is coming soon when it has no published lesson', async () => {
     await setup();
-    http.expectOne('/api/grammar/a1-to-be').flush({ error: 'not_found' }, { status: 404, statusText: 'x' });
+    http.expectOne('/grammar/a1-to-be').flush({ error: 'not_found' }, { status: 404, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('h1'))).toBe('Điểm này sắp có');
     expect(el.querySelector('.empty a')?.getAttribute('href')).toBe('/grammar');
@@ -163,18 +163,18 @@ describe('GrammarLesson', () => {
 
   it('shows an error with a retry for other failures', async () => {
     await setup();
-    http.expectOne('/api/grammar/a1-to-be').flush({}, { status: 500, statusText: 'x' });
+    http.expectOne('/grammar/a1-to-be').flush({}, { status: 500, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được bài ngữ pháp');
     Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Thử lại')!.click();
-    http.expectOne('/api/grammar/a1-to-be').flush(detail);
+    http.expectOne('/grammar/a1-to-be').flush(detail);
     await settle();
     expect(text(el.querySelector('h1'))).toBe('Động từ to be');
   });
 
   it('hides the listen buttons when the browser has no voice', async () => {
     await setup(false);
-    http.expectOne('/api/grammar/a1-to-be').flush(detail);
+    http.expectOne('/grammar/a1-to-be').flush(detail);
     await settle();
     expect(el.querySelectorAll('.icon-btn').length).toBe(0);
   });

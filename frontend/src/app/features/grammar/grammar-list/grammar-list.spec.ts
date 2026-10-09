@@ -40,7 +40,7 @@ describe('GrammarList', () => {
     el = fixture.nativeElement;
     await fixture.whenStable();
     if (goalLevel !== undefined) {
-      http.expectOne('/api/goals').flush({
+      http.expectOne('/goals').flush({
         active: goalLevel ? { level: goalLevel, topicId: 't', topicName: 'T' } : null,
         others: [],
       });
@@ -48,7 +48,7 @@ describe('GrammarList', () => {
     await settle();
   };
   const flushLevel = async (level: string, body: GrammarListData = list) => {
-    http.expectOne((r) => r.url === '/api/grammar' && r.params.get('level') === level).flush(body);
+    http.expectOne((r) => r.url === '/grammar' && r.params.get('level') === level).flush(body);
     await settle();
   };
 
@@ -82,7 +82,7 @@ describe('GrammarList', () => {
     fixture = TestBed.createComponent(GrammarList);
     el = fixture.nativeElement;
     await settle();
-    http.expectNone('/api/goals');
+    http.expectNone('/goals');
     await flushLevel('A2');
     expect(el.querySelector('[role="radio"][aria-checked="true"]')?.textContent?.trim()).toBe('A2');
   });
@@ -119,7 +119,7 @@ describe('GrammarList', () => {
 
   it('shows an error with a retry', async () => {
     await setup('A1');
-    http.expectOne((r) => r.url === '/api/grammar').flush({}, { status: 500, statusText: 'x' });
+    http.expectOne((r) => r.url === '/grammar').flush({}, { status: 500, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được danh sách ngữ pháp');
     Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Thử lại')!.click();

@@ -26,7 +26,7 @@ const (
 
 func main() {
 	// Local development: read backend/.env when run from the backend directory.
-	// Real environment variables (Docker, shell) always take precedence.
+	// Real environment variables (shell, system service) always take precedence.
 	if _, err := config.LoadDotEnv(".env"); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

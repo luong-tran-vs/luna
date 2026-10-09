@@ -47,7 +47,7 @@ describe('LessonVocabulary', () => {
     toggle.click();
     await settle();
     expect(toggle.getAttribute('aria-expanded')).toBe('true');
-    http.expectOne('/api/lessons/l1/vocabulary').flush({ available, items: available ? items : [] });
+    http.expectOne('/lessons/l1/vocabulary').flush({ available, items: available ? items : [] });
     await settle();
   };
 
@@ -97,7 +97,7 @@ describe('LessonVocabulary', () => {
     await open();
     row('park').querySelector<HTMLButtonElement>('button.save')!.click();
     await settle();
-    const req = http.expectOne('/api/vocab/cards/bulk');
+    const req = http.expectOne('/vocab/cards/bulk');
     expect(req.request.body).toEqual({ lessonId: 'l1', lemmas: ['park'] });
     req.flush({ added: 1, cards: [] });
     await settle();
@@ -109,7 +109,7 @@ describe('LessonVocabulary', () => {
     await open();
     button('Lưu tất cả')!.click();
     await settle();
-    const req = http.expectOne('/api/vocab/cards/bulk');
+    const req = http.expectOne('/vocab/cards/bulk');
     expect(req.request.body).toEqual({ lessonId: 'l1', lemmas: ['give up', 'park'] });
     req.flush({ added: 2, cards: [] });
     await settle();
@@ -122,7 +122,7 @@ describe('LessonVocabulary', () => {
     await open();
     button('Lưu tất cả')!.click();
     await settle();
-    http.expectOne('/api/vocab/cards/bulk').flush({ error: 'x', message: 'x' }, { status: 500, statusText: 'Error' });
+    http.expectOne('/vocab/cards/bulk').flush({ error: 'x', message: 'x' }, { status: 500, statusText: 'Error' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Không lưu được, vui lòng thử lại.');
     expect(button('Lưu tất cả')).toBeTruthy();

@@ -63,7 +63,7 @@ describe('ComprehensionQuiz', () => {
     await fixture.whenStable();
   };
   const respond = async (body: object, status = 200) => {
-    const req = http.expectOne('/api/lessons/l1/answers');
+    const req = http.expectOne('/lessons/l1/answers');
     if (status === 200) {
       req.flush(body);
     } else {
@@ -159,7 +159,7 @@ describe('ComprehensionQuiz', () => {
     await setup(quiz());
     await pick(0);
     await settle();
-    http.expectOne('/api/lessons/l1/answers').error(new ProgressEvent('error'));
+    http.expectOne('/lessons/l1/answers').error(new ProgressEvent('error'));
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Không gửi được câu trả lời, vui lòng thử lại.');
     expect(options().every((o) => !o.disabled)).toBe(true);
@@ -198,7 +198,7 @@ describe('ComprehensionQuiz', () => {
       Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === 'Làm lại tất cả câu hỏi');
     restart()!.click();
     await settle();
-    const req = http.expectOne('/api/lessons/l1/answers');
+    const req = http.expectOne('/lessons/l1/answers');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, { status: 204, statusText: 'No Content' });
     await settle();
@@ -213,7 +213,7 @@ describe('ComprehensionQuiz', () => {
       .find((b) => text(b) === 'Làm lại tất cả câu hỏi')!
       .click();
     await settle();
-    http.expectOne('/api/lessons/l1/answers').flush('down', { status: 500, statusText: 'Error' });
+    http.expectOne('/lessons/l1/answers').flush('down', { status: 500, statusText: 'Error' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Chưa làm lại được, vui lòng thử lại.');
     navButton('Câu trước').click();

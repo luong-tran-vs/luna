@@ -11,36 +11,36 @@ export class ReadingApiService {
   private readonly http = inject(HttpClient);
 
   getLesson(id: string): Observable<ReadingLesson> {
-    return this.http.get<{ lesson: ReadingLesson }>(`/api/lessons/${id}`).pipe(map((r) => r.lesson));
+    return this.http.get<{ lesson: ReadingLesson }>(`/lessons/${id}`).pipe(map((r) => r.lesson));
   }
 
   lookup(id: string, q: string, sentence: number): Observable<LookupResult> {
-    return this.http.get<LookupResult>(`/api/lessons/${id}/lookup`, {
+    return this.http.get<LookupResult>(`/lessons/${id}/lookup`, {
       params: { q, sentence: String(sentence) },
     });
   }
 
   /** Asks the AI what text means in that sentence (F9). */
   ask(id: string, text: string, sentenceIndex: number): Observable<AskResult> {
-    return this.http.post<AskResult>(`/api/lessons/${id}/ask`, { text, sentenceIndex });
+    return this.http.post<AskResult>(`/lessons/${id}/ask`, { text, sentenceIndex });
   }
 
   vocabulary(id: string): Observable<LessonVocabulary> {
-    return this.http.get<LessonVocabulary>(`/api/lessons/${id}/vocabulary`);
+    return this.http.get<LessonVocabulary>(`/lessons/${id}/vocabulary`);
   }
 
   /** Sends one comprehension answer (F15). */
   answer(id: string, input: AnswerInput): Observable<AnswerResult> {
-    return this.http.post<AnswerResult>(`/api/lessons/${id}/answers`, input);
+    return this.http.post<AnswerResult>(`/lessons/${id}/answers`, input);
   }
 
   /** Forgets this learner's comprehension answers, to answer the questions again. */
   resetAnswers(id: string): Observable<void> {
-    return this.http.delete<void>(`/api/lessons/${id}/answers`);
+    return this.http.delete<void>(`/lessons/${id}/answers`);
   }
 
   /** The lesson's practice steps (F17); empty when not generated yet. */
   practice(id: string): Observable<PracticeView> {
-    return this.http.get<PracticeView>(`/api/lessons/${id}/practice`);
+    return this.http.get<PracticeView>(`/lessons/${id}/practice`);
   }
 }

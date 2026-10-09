@@ -34,7 +34,7 @@ describe('Review', () => {
   const button = (label: string) =>
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.replace(/\s+/g, ' ').trim() === label);
   const flushDue = (list: DueList) => {
-    const req = http.expectOne((r) => r.url === '/api/vocab/review/due');
+    const req = http.expectOne((r) => r.url === '/vocab/review/due');
     req.flush(list);
   };
 
@@ -90,7 +90,7 @@ describe('Review', () => {
     await settle();
     button('Nhớ · 10 phút')!.click();
     await settle();
-    http.expectOne('/api/vocab/cards/c1/review').flush({ card: { ...dueCard, reps: 1 } });
+    http.expectOne('/vocab/cards/c1/review').flush({ card: { ...dueCard, reps: 1 } });
     await settle();
     expect(text('a.btn-primary')).toBe('Học bài tiếp theo');
     expect(el.querySelector('a.btn-primary')!.getAttribute('href')).toBe('/lessons/l2');
@@ -122,7 +122,7 @@ describe('Review', () => {
     await settle();
     button('Nhớ · 10 phút')!.click();
     await settle();
-    http.expectOne('/api/vocab/cards/c1/review').flush({ card: { ...dueCard, reps: 1 } });
+    http.expectOne('/vocab/cards/c1/review').flush({ card: { ...dueCard, reps: 1 } });
     await settle();
     expect(el.textContent).toContain('Đã ôn 1 thẻ');
 

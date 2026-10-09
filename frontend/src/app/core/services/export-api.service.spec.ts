@@ -19,7 +19,7 @@ describe('ExportApiService', () => {
 
   it('downloads the export with the server file name', async () => {
     const result = firstValueFrom(api.download());
-    const req = http.expectOne('/api/export');
+    const req = http.expectOne('/export');
     expect(req.request.method).toBe('GET');
     expect(req.request.responseType).toBe('blob');
     const blob = new Blob(['{}'], { type: 'application/json' });

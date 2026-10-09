@@ -199,7 +199,7 @@ describe('GenerateDialog', () => {
     const point = (id: string, lessonCount: number) => ({
       id, level: 'A1', titleVi: `Điểm ${id}`, titleEn: id, pattern: `mẫu ${id}`, hintVi: `gợi ý ${id}.`, examples: [], lessonCount,
     });
-    const grammarUrl = '/api/admin/grammar';
+    const grammarUrl = '/admin/grammar';
     const settle = async () => {
       await new Promise((resolve) => setTimeout(resolve));
       await fixture.whenStable();
@@ -272,7 +272,7 @@ describe('GenerateDialog', () => {
         const [text, level] = t.split('@');
         return { text, level: (level ?? '') as TopicWord['level'], used: false, lessonCount: 0 };
       });
-    const planUrl = '/api/admin/topics/t1/word-plan';
+    const planUrl = '/admin/topics/t1/word-plan';
     const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     const settle = async () => {
       await wait(0);
@@ -318,7 +318,7 @@ describe('GenerateDialog', () => {
       fixture.componentRef.setInput('open', true);
       await settle();
       // With a topic the grammar points of the level are offered too.
-      http.expectOne((r) => r.url === '/api/admin/grammar').flush({ points: [] });
+      http.expectOne((r) => r.url === '/admin/grammar').flush({ points: [] });
       await settle();
     });
 
@@ -432,7 +432,7 @@ describe('GenerateDialog', () => {
 
       el.querySelector<HTMLButtonElement>('.shortage button')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/topics/t1/words/suggest');
+      const req = http.expectOne('/admin/topics/t1/words/suggest');
       expect(req.request.body).toEqual({ count: 12, level: 'A1' });
       expect(text(el.querySelector('.shortage button'))).toBe('Đang bổ sung…');
       req.flush({ added: ['aunt', 'uncle'], words: words(...topicWords, 'aunt@A1', 'uncle@A1') });
@@ -450,7 +450,7 @@ describe('GenerateDialog', () => {
       el.querySelector<HTMLButtonElement>('.shortage button')!.click();
       await settle();
       http
-        .expectOne('/api/admin/topics/t1/words/suggest')
+        .expectOne('/admin/topics/t1/words/suggest')
         .flush({ error: 'ai_quota', message: 'Đã hết lượt AI, vui lòng thử lại sau.' }, { status: 429, statusText: 'Too Many' });
       await settle();
       expect(text(el.querySelector('.suggest-note.error'))).toBe('Đã hết lượt AI, vui lòng thử lại sau.');

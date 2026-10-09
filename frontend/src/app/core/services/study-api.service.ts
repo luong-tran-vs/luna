@@ -10,37 +10,37 @@ export class StudyApiService {
   private readonly http = inject(HttpClient);
 
   topics(level: string): Observable<PublicTopic[]> {
-    return this.http.get<{ topics: PublicTopic[] }>('/api/topics', { params: { level } }).pipe(map((r) => r.topics));
+    return this.http.get<{ topics: PublicTopic[] }>('/topics', { params: { level } }).pipe(map((r) => r.topics));
   }
 
   goals(): Observable<Goals> {
-    return this.http.get<Goals>('/api/goals');
+    return this.http.get<Goals>('/goals');
   }
 
   /** A goal is the roadmap of a topic at one level. */
   setGoal(topicId: string, level: string): Observable<SetGoalResult> {
-    return this.http.post<SetGoalResult>('/api/goals', { topicId, level });
+    return this.http.post<SetGoalResult>('/goals', { topicId, level });
   }
 
   /** A lesson's steps for the learner; it only reads. */
   lessonStudy(lessonId: string): Observable<LessonStudy> {
-    return this.http.get<LessonStudy>(`/api/lessons/${lessonId}/study`);
+    return this.http.get<LessonStudy>(`/lessons/${lessonId}/study`);
   }
 
   completeStep(lessonId: string, step: Step): Observable<LessonStudy> {
-    return this.http.post<LessonStudy>(`/api/lessons/${lessonId}/steps/${step}/complete`, null);
+    return this.http.post<LessonStudy>(`/lessons/${lessonId}/steps/${step}/complete`, null);
   }
 
   /** Finishes the lesson without writing: the Write step is optional. */
   skipWrite(lessonId: string): Observable<LessonStudy> {
-    return this.http.post<LessonStudy>(`/api/lessons/${lessonId}/steps/write/skip`, null);
+    return this.http.post<LessonStudy>(`/lessons/${lessonId}/steps/write/skip`, null);
   }
 
   savePosition(lessonId: string, step: Step, sentenceIndex: number): Observable<void> {
-    return this.http.put<void>(`/api/lessons/${lessonId}/position`, { step, sentenceIndex });
+    return this.http.put<void>(`/lessons/${lessonId}/position`, { step, sentenceIndex });
   }
 
   myLessons(): Observable<MyLessons> {
-    return this.http.get<MyLessons>('/api/lessons/mine');
+    return this.http.get<MyLessons>('/lessons/mine');
   }
 }

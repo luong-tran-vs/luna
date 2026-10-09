@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom, Observable } from 'rxjs';
 
+import { serverUrl } from '../../../../core/api-url';
 import { MAX_UPLOAD_BYTES, UPLOAD_TYPES } from '../../../../core/models/generate';
 import { BankWord, MAX_BANK_IPA, MAX_BANK_MEANING } from '../../../../core/models/word-bank';
 import { AdminApiService } from '../../admin-api.service';
@@ -32,6 +33,7 @@ export class BankWordRow {
   /** The admin asked to delete the word; the parent confirms. */
   readonly removeRequested = output<BankWord>();
 
+  protected readonly imageSrc = computed(() => serverUrl(this.word().imageUrl));
   protected readonly accept = UPLOAD_TYPES.join(',');
   protected readonly busy = signal<Busy>(null);
   protected readonly editing = signal(false);

@@ -10,11 +10,11 @@ export class SettingsApiService {
   private readonly http = inject(HttpClient);
 
   get(): Observable<Settings> {
-    return this.http.get<Settings>('/api/settings');
+    return this.http.get<Settings>('/settings');
   }
 
   /** Changes only the fields given; returns the full settings. */
   update(patch: SettingsPatch): Observable<Settings> {
-    return this.http.put<Settings>('/api/settings', patch);
+    return this.http.put<Settings>('/settings', patch);
   }
 }

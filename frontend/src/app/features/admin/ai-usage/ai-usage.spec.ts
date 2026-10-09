@@ -57,7 +57,7 @@ describe('AiUsage', () => {
   afterEach(() => http.verify());
 
   it('shows the last minute, today, the chart and the tables', async () => {
-    http.expectOne('/api/admin/ai-usage').flush(usage());
+    http.expectOne('/admin/ai-usage').flush(usage());
     await fixture.whenStable();
 
     const stats = Array.from(el.querySelectorAll('.stat')).map((s) => s.textContent?.replace(/\s+/g, ' ').trim());
@@ -81,14 +81,14 @@ describe('AiUsage', () => {
   });
 
   it('says when the numbers cannot be loaded and retries', async () => {
-    http.expectOne('/api/admin/ai-usage').flush(null, { status: 500, statusText: 'Server Error' });
+    http.expectOne('/admin/ai-usage').flush(null, { status: 500, statusText: 'Server Error' });
     await fixture.whenStable();
     expect(el.querySelector('[role="alert"]')!.textContent).toContain('Không tải được');
 
     Array.from(el.querySelectorAll('button'))
       .find((b) => b.textContent?.includes('Thử lại'))!
       .click();
-    http.expectOne('/api/admin/ai-usage').flush(usage());
+    http.expectOne('/admin/ai-usage').flush(usage());
     await fixture.whenStable();
     expect(el.querySelector('[role="alert"]')).toBeNull();
   });

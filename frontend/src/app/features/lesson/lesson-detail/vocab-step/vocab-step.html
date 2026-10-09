@@ -32,6 +32,7 @@
         <div class="picture">
           @if (showImage()) {
             <img
+              [attr.crossorigin]="r.crossOrigin"
               [src]="r.image"
               [class.loaded]="imageLoaded()"
               alt=""

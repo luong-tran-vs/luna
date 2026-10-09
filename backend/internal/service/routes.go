@@ -22,16 +22,25 @@ import (
 const healthPingTimeout = 2 * time.Second
 
 // Handler returns the whole HTTP API: every route of every service, behind the request-id,
-// access-log and panic-recovery middleware.
+// access-log, panic-recovery and CORS middleware.
 func (c *Container) Handler() http.Handler {
 	mux := http.NewServeMux()
 	c.registerRoutes(mux)
-	return httpx.Chain(mux, httpx.RequestID, httpx.Logger(c.log), httpx.Recover(c.log))
+	return httpx.Chain(mux, httpx.RequestID, httpx.Logger(c.log), httpx.Recover(c.log), httpx.CORS(c.cfg.CORSOrigins))
+}
+
+// liveText serves GET /api/test: a line of text that shows in a browser the API is up.
+// Unlike /api/health it does not touch the database.
+func liveText(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Cache-Control", "no-store")
+	_, _ = w.Write([]byte("Luna API đang chạy. " + time.Now().Format(time.RFC3339) + "\n"))
 }
 
 func (c *Container) registerRoutes(mux *http.ServeMux) {
 	auth, log := c.requireAuth, c.log
 
+	mux.HandleFunc("GET /api/test", liveText)
 	mux.Handle("GET /api/health", health.NewHandler(c.store, healthPingTimeout, log))
 	mux.HandleFunc("POST /api/auth/register", c.authHandler.Register)
 	mux.HandleFunc("POST /api/auth/login", c.authHandler.Login)

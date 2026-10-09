@@ -146,6 +146,15 @@ func TestProtectedRoutesNeedASession(t *testing.T) {
 	}
 }
 
+func TestLiveTextNeedsNothing(t *testing.T) {
+	t.Parallel()
+	rec := httptest.NewRecorder()
+	newContainer(t).Handler().ServeHTTP(rec, httptest.NewRequest(http.MethodGet, "/api/test", nil))
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), "Luna API đang chạy") {
+		t.Fatalf("/api/test = %d %s", rec.Code, rec.Body)
+	}
+}
+
 func TestHealthReportsTheDatabase(t *testing.T) {
 	t.Parallel()
 	rec := httptest.NewRecorder()

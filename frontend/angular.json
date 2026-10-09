@@ -54,6 +54,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -64,7 +70,6 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "proxyConfig": "proxy.conf.json",
             "headers": {
               "Cross-Origin-Opener-Policy": "same-origin",
               "Cross-Origin-Embedder-Policy": "credentialless"

@@ -11,6 +11,7 @@ import {
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
+import { serverUrl } from '../../../../core/api-url';
 import { ApiError } from '../../../../core/interceptors/error-interceptor';
 import {
   DEFAULT_IMAGE_STYLE,
@@ -90,7 +91,7 @@ export class LessonImages {
   }
 
   protected thumb(w: ImageWord): string {
-    return `${w.imageUrl}?v=${this.version()}`;
+    return `${serverUrl(w.imageUrl)}?v=${this.version()}`;
   }
 
   /** A file was chosen for a word: checked here, then scaled down and stored by the server. */

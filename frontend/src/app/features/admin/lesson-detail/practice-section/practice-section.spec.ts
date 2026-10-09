@@ -135,7 +135,7 @@ describe('PracticeSection', () => {
     await render(lesson());
     regenerate().click();
     await settle();
-    const req = http.expectOne('/api/admin/lessons/l1/practice/regenerate');
+    const req = http.expectOne('/admin/lessons/l1/practice/regenerate');
     expect(req.request.method).toBe('POST');
     req.flush(
       { lesson: lesson({ practiceStatus: 'running' }) },
@@ -150,7 +150,7 @@ describe('PracticeSection', () => {
     regenerate().click();
     await settle();
     http
-      .expectOne('/api/admin/lessons/l1/practice/regenerate')
+      .expectOne('/admin/lessons/l1/practice/regenerate')
       .flush(
         { error: 'practice_running', message: 'Đang sinh phần luyện tập.' },
         { status: 409, statusText: 'Conflict' },
@@ -199,7 +199,7 @@ describe('PracticeSection', () => {
       field(id).dispatchEvent(new Event('input'));
       await fixture.whenStable();
     };
-    const url = '/api/admin/lessons/l1/practice/translations';
+    const url = '/admin/lessons/l1/practice/translations';
 
     it('has edit and delete buttons on every translation, flagged or not', async () => {
       await render(many());

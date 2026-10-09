@@ -226,7 +226,7 @@ describe('LessonDetail', () => {
   const load = async (id: string, options: Options = {}) => {
     if (options.status) {
       http
-        .expectOne(`/api/lessons/${id}`)
+        .expectOne(`/lessons/${id}`)
         .flush(
           { error: options.errorCode ?? 'x', message: 'x' },
           { status: options.status, statusText: 'Error' },
@@ -236,20 +236,20 @@ describe('LessonDetail', () => {
       await fixture.whenStable();
       return;
     }
-    http.expectOne(`/api/lessons/${id}/vocabulary`).flush(options.vocabulary ?? vocabulary);
-    const practiceReq = http.expectOne(`/api/lessons/${id}/practice`);
+    http.expectOne(`/lessons/${id}/vocabulary`).flush(options.vocabulary ?? vocabulary);
+    const practiceReq = http.expectOne(`/lessons/${id}/practice`);
     if (options.practice === 'error') {
       practiceReq.flush({ error: 'x' }, { status: 500, statusText: 'Error' });
     } else {
       practiceReq.flush(options.practice ?? practice);
     }
-    const studyReq = http.expectOne(`/api/lessons/${id}/study`);
+    const studyReq = http.expectOne(`/lessons/${id}/study`);
     if (options.study === 'error') {
       studyReq.flush('down', { status: 500, statusText: 'Error' });
     } else {
       studyReq.flush(options.study ?? other());
     }
-    http.expectOne(`/api/lessons/${id}`).flush({ lesson: { ...lesson, id } });
+    http.expectOne(`/lessons/${id}`).flush({ lesson: { ...lesson, id } });
     await fixture.whenStable();
   };
 
@@ -343,8 +343,8 @@ describe('LessonDetail', () => {
       await open({ study: completed() });
       expect(text(el.querySelector('.progress-text'))).toBe('1/4');
       await confirm();
-      deleted('/api/lessons/l1/answers').flush(null, { status: 204, statusText: 'No Content' });
-      deleted('/api/lessons/l1/dictation').flush(null, { status: 204, statusText: 'No Content' });
+      deleted('/lessons/l1/answers').flush(null, { status: 204, statusText: 'No Content' });
+      deleted('/lessons/l1/dictation').flush(null, { status: 204, statusText: 'No Content' });
       await fixture.whenStable();
       await new Promise((r) => setTimeout(r));
       await fixture.whenStable();
@@ -367,7 +367,7 @@ describe('LessonDetail', () => {
     it('stays as it was when the results cannot be cleared', async () => {
       await open({ study: completed() });
       await confirm();
-      deleted('/api/lessons/l1/answers').flush('down', { status: 500, statusText: 'Error' });
+      deleted('/lessons/l1/answers').flush('down', { status: 500, statusText: 'Error' });
       http.match((r) => r.method === 'DELETE');
       await fixture.whenStable();
       await new Promise((r) => setTimeout(r));
@@ -712,7 +712,7 @@ describe('LessonDetail', () => {
     /** The cards due now, asked once the lesson is done. */
     const flushDue = async (total: number) => {
       http
-        .expectOne((r) => r.url === '/api/vocab/review/due')
+        .expectOne((r) => r.url === '/vocab/review/due')
         .flush({ cards: [], total, nextDue: null });
       await fixture.whenStable();
     };
@@ -722,7 +722,7 @@ describe('LessonDetail', () => {
       await next();
       child(ReadingStub)!.completed.emit();
       await reply(
-        '/api/lessons/l1/steps/read/complete',
+        '/lessons/l1/steps/read/complete',
         studying({
           steps: { read: 'done', listen: 'current', write: 'locked' },
           currentStep: 'listen',
@@ -730,7 +730,7 @@ describe('LessonDetail', () => {
       );
       child(ListeningStub)!.completed.emit();
       await reply(
-        '/api/lessons/l1/steps/listen/complete',
+        '/lessons/l1/steps/listen/complete',
         studying({
           steps: { read: 'done', listen: 'done', write: 'current' },
           currentStep: 'write',
@@ -742,7 +742,7 @@ describe('LessonDetail', () => {
       await toPractice();
       await next(); // dialogue → fill
       child(FillStep)!.missed.emit(['name']);
-      const req = http.expectOne('/api/vocab/practice-misses');
+      const req = http.expectOne('/vocab/practice-misses');
       expect(req.request.body).toEqual({ lessonId: 'l1', words: ['name'] });
       req.flush({ added: 1, rescheduled: 0 });
       await fixture.whenStable();
@@ -752,15 +752,15 @@ describe('LessonDetail', () => {
       child(FillStep)!.missed.emit(['name']);
       await next(); // translate, sentence 1 ("My name is Minh.")
       child(TranslateStep)!.checked.emit(false);
-      http.expectNone('/api/vocab/practice-misses');
+      http.expectNone('/vocab/practice-misses');
 
       // A wrong sentence sends the lesson words it contains; a right one sends nothing.
       child(TranslateStep)!.go.emit(1); // sentence 2 ("Nice to meet you.")
       await fixture.whenStable();
       child(TranslateStep)!.checked.emit(true);
-      http.expectNone('/api/vocab/practice-misses');
+      http.expectNone('/vocab/practice-misses');
       child(TranslateStep)!.checked.emit(false);
-      const second = http.expectOne('/api/vocab/practice-misses');
+      const second = http.expectOne('/vocab/practice-misses');
       expect(second.request.body).toEqual({ lessonId: 'l1', words: ['meet'] });
       second.flush({ added: 0, rescheduled: 1 });
       await fixture.whenStable();
@@ -772,7 +772,7 @@ describe('LessonDetail', () => {
       await next();
       child(FillStep)!.missed.emit(['name']);
       http
-        .expectOne('/api/vocab/practice-misses')
+        .expectOne('/vocab/practice-misses')
         .flush('down', { status: 500, statusText: 'Error' });
       await fixture.whenStable();
       expect(el.querySelector('.miss-note')).toBeNull();
@@ -784,7 +784,7 @@ describe('LessonDetail', () => {
       await next();
       await next(); // fill
       child(FillStep)!.missed.emit(['name']);
-      http.expectNone('/api/vocab/practice-misses');
+      http.expectNone('/vocab/practice-misses');
     });
 
     it('goes words, Đọc, Nghe, the practice, then Viết in the same progress bar', async () => {
@@ -802,7 +802,7 @@ describe('LessonDetail', () => {
 
       reading.completed.emit();
       await reply(
-        '/api/lessons/l1/steps/read/complete',
+        '/lessons/l1/steps/read/complete',
         studying({
           steps: { read: 'done', listen: 'current', write: 'locked' },
           currentStep: 'listen',
@@ -817,7 +817,7 @@ describe('LessonDetail', () => {
       await next();
       child(ListeningStub)!.completed.emit();
       await reply(
-        '/api/lessons/l1/steps/listen/complete',
+        '/lessons/l1/steps/listen/complete',
         studying({
           steps: { read: 'done', listen: 'done', write: 'current' },
           currentStep: 'write',
@@ -867,7 +867,7 @@ describe('LessonDetail', () => {
       expect(text(el.querySelector('.progress-text'))).toBe('7/7');
       child(WritingStub)!.skipped.emit();
       await reply(
-        '/api/lessons/l1/steps/write/skip',
+        '/lessons/l1/steps/write/skip',
         other({
           status: 'completed',
           steps: { read: 'done', listen: 'done', write: 'done' },
@@ -903,7 +903,7 @@ describe('LessonDetail', () => {
       });
       child(WritingStub)!.completed.emit();
       await reply(
-        '/api/lessons/l1/steps/write/complete',
+        '/lessons/l1/steps/write/complete',
         other({ status: 'completed', currentStep: 'done' }),
       );
       await flushDue(35);
@@ -926,7 +926,7 @@ describe('LessonDetail', () => {
       });
       child(WritingStub)!.skipped.emit();
       await reply(
-        '/api/lessons/l1/steps/write/skip',
+        '/lessons/l1/steps/write/skip',
         other({
           status: 'completed',
           currentStep: 'done',
@@ -955,11 +955,11 @@ describe('LessonDetail', () => {
       });
       child(WritingStub)!.skipped.emit();
       await reply(
-        '/api/lessons/l1/steps/write/skip',
+        '/lessons/l1/steps/write/skip',
         other({ status: 'completed', currentStep: 'done', next: { id: 'l2', title: 'Family 2' } }),
       );
       http
-        .expectOne((r) => r.url === '/api/vocab/review/due')
+        .expectOne((r) => r.url === '/vocab/review/due')
         .flush('down', { status: 500, statusText: 'Error' });
       await fixture.whenStable();
       expect(el.querySelector('.review-nudge')).toBeNull();
@@ -976,7 +976,7 @@ describe('LessonDetail', () => {
       const navigate = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
       child(WritingStub)!.skipped.emit();
       await reply(
-        '/api/lessons/l1/steps/write/skip',
+        '/lessons/l1/steps/write/skip',
         other({ status: 'completed', currentStep: 'done', goalCompleted: true }),
       );
       expect(navigate).toHaveBeenCalledWith('/goal?completed=1');
@@ -993,7 +993,7 @@ describe('LessonDetail', () => {
       expect(el.querySelector('[role="tablist"]')).not.toBeNull();
       child(ReadingStub)!.completed.emit();
       http
-        .expectOne('/api/lessons/l1/steps/read/complete')
+        .expectOne('/lessons/l1/steps/read/complete')
         .flush(
           { error: 'read_incomplete', message: 'Hãy trả lời hết câu hỏi hiểu bài' },
           { status: 409, statusText: 'Conflict' },
@@ -1015,9 +1015,9 @@ describe('LessonDetail', () => {
         reading.position.emit(2);
         reading.position.emit(3);
         vi.advanceTimersByTime(999);
-        http.expectNone('/api/lessons/l1/position');
+        http.expectNone('/lessons/l1/position');
         vi.advanceTimersByTime(1);
-        const req = http.expectOne('/api/lessons/l1/position');
+        const req = http.expectOne('/lessons/l1/position');
         expect(req.request.method).toBe('PUT');
         expect(req.request.body).toEqual({ step: 'read', sentenceIndex: 3 });
         req.flush(null, { status: 204, statusText: 'No Content' });
@@ -1075,7 +1075,7 @@ describe('LessonDetail', () => {
         await open({ study: writeCurrent() });
         child(WritingStub)!.skipped.emit();
         await reply(
-          '/api/lessons/l1/steps/write/skip',
+          '/lessons/l1/steps/write/skip',
           other({ status: 'completed', currentStep: 'done', next: { id: 'l2', title: 'Family 2' } }),
         );
         await flushDue(0);

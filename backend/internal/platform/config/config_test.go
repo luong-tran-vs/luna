@@ -1,6 +1,7 @@
 package config_test
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 	"time"
@@ -41,10 +42,12 @@ func TestLoad(t *testing.T) {
 				"LOG_LEVEL": "debug", "COOKIE_SECURE": "TRUE",
 				"AI_PROVIDER": "NONE", "GEMINI_API_KEY": "k", "GEMINI_MODEL": "gemini-x", "GEMINI_IMAGE_MODEL": "gemini-img",
 				"DICTIONARY_PATH": "/data/dictionary/dictionary.db",
+				"CORS_ORIGINS":    " http://localhost:4200/ ,, https://app.example.com",
 			},
 			want: config.Config{
 				DBDriver: "mongo", MongoURI: "mongodb://x", MongoDatabase: "luna_test",
 				HTTPAddr: ":9000", LogLevel: "debug", CookieSecure: true,
+				CORSOrigins: []string{"http://localhost:4200", "https://app.example.com"},
 				AIProvider: "none", GeminiAPIKey: "k", GeminiModel: "gemini-x", GeminiImageModel: "gemini-img",
 				DictionaryPath: "/data/dictionary/dictionary.db",
 			},
@@ -179,7 +182,7 @@ func TestLoad(t *testing.T) {
 				if err != nil {
 					t.Fatalf("Load() unexpected error: %v", err)
 				}
-				if got != tt.want {
+				if !reflect.DeepEqual(got, tt.want) {
 					t.Fatalf("Load() = %+v, want %+v", got, tt.want)
 				}
 				return

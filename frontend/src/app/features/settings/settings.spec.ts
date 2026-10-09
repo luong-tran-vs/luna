@@ -33,7 +33,7 @@ describe('Settings', () => {
     fixture = TestBed.createComponent(Settings);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    const req = controller.expectOne('/api/settings');
+    const req = controller.expectOne('/settings');
     if (settings === 'error') {
       req.flush('down', { status: 500, statusText: 'Error' });
     } else {
@@ -70,7 +70,7 @@ describe('Settings', () => {
     expect(text(el.querySelector('[role="alert"] p'))).toBe('Không tải được cài đặt.');
 
     (el.querySelector('[role="alert"] button') as HTMLButtonElement).click();
-    controller.expectOne('/api/settings').flush(stored);
+    controller.expectOne('/settings').flush(stored);
     await fixture.whenStable();
     expect(limitInput().value).toBe('30');
   });
@@ -85,7 +85,7 @@ describe('Settings', () => {
 
     await type(limitInput(), '10');
     await save();
-    const req = controller.expectOne({ method: 'PUT', url: '/api/settings' });
+    const req = controller.expectOne({ method: 'PUT', url: '/settings' });
     expect(req.request.body).toEqual({ dailyReviewLimit: 10, timezone: 'Asia/Ho_Chi_Minh' });
     req.flush({ ...stored, dailyReviewLimit: 10 });
     await fixture.whenStable();
@@ -101,13 +101,13 @@ describe('Settings', () => {
       expect(limitInput().getAttribute('aria-invalid')).toBe('true');
       expect(limitInput().getAttribute('aria-describedby')).toContain('settings-limit-error');
     }
-    controller.expectNone({ method: 'PUT', url: '/api/settings' });
+    controller.expectNone({ method: 'PUT', url: '/settings' });
   });
 
   it('shows the server field errors', async () => {
     await open();
     await save();
-    controller.expectOne({ method: 'PUT', url: '/api/settings' }).flush(
+    controller.expectOne({ method: 'PUT', url: '/settings' }).flush(
       {
         error: 'validation_failed',
         fields: { dailyReviewLimit: 'Số thẻ từ 5 đến 200', timezone: 'Múi giờ không hợp lệ' },
@@ -124,7 +124,7 @@ describe('Settings', () => {
   it('reports a failed save', async () => {
     await open();
     await save();
-    controller.expectOne({ method: 'PUT', url: '/api/settings' }).error(new ProgressEvent('error'));
+    controller.expectOne({ method: 'PUT', url: '/settings' }).error(new ProgressEvent('error'));
     await fixture.whenStable();
     expect(text(el.querySelector('.actions .save-status'))).toBe('Không lưu được, vui lòng thử lại.');
   });
@@ -156,7 +156,7 @@ describe('Settings', () => {
     zoneSelect().dispatchEvent(new Event('change'));
     await fixture.whenStable();
     await save();
-    const req = controller.expectOne({ method: 'PUT', url: '/api/settings' });
+    const req = controller.expectOne({ method: 'PUT', url: '/settings' });
     expect(req.request.body).toEqual({ dailyReviewLimit: 30, timezone: 'Europe/London' });
     req.flush({ ...stored, timezone: 'Europe/London' });
   });
@@ -210,7 +210,7 @@ describe('Settings', () => {
       expect(button().disabled).toBe(true);
       expect(button().getAttribute('aria-busy')).toBe('true');
 
-      const req = controller.expectOne('/api/export');
+      const req = controller.expectOne('/export');
       req.flush(new Blob(['{}'], { type: 'application/json' }), {
         headers: { 'Content-Disposition': 'attachment; filename="luna-export-20260930.json"' },
       });
@@ -225,7 +225,7 @@ describe('Settings', () => {
     it('shows an error and lets the learner try again', async () => {
       await open();
       button().click();
-      controller.expectOne('/api/export').error(new ProgressEvent('error'));
+      controller.expectOne('/export').error(new ProgressEvent('error'));
       await fixture.whenStable();
       expect(text(el.querySelector('.group [role="alert"]'))).toBe('Không xuất được dữ liệu, vui lòng thử lại.');
       expect(button().disabled).toBe(false);
@@ -233,7 +233,7 @@ describe('Settings', () => {
       button().click();
       await fixture.whenStable();
       expect(el.querySelector('.group [role="alert"]')).toBeNull();
-      controller.expectOne('/api/export').flush(new Blob(['{}']));
+      controller.expectOne('/export').flush(new Blob(['{}']));
       await new Promise((r) => setTimeout(r));
       await fixture.whenStable();
       expect(clicked.length).toBe(1);

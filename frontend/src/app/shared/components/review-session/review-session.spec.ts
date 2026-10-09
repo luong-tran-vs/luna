@@ -45,7 +45,7 @@ describe('ReviewSession', () => {
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.replace(/\s+/g, ' ').trim() === label);
   const buttonStarting = (label: string) =>
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label));
-  const expectReview = (id: string): TestRequest => http.expectOne(`/api/vocab/cards/${id}/review`);
+  const expectReview = (id: string): TestRequest => http.expectOne(`/vocab/cards/${id}/review`);
   const keydown = async (key: string) => {
     el.querySelector('lu-review-session')!.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
     await settle();

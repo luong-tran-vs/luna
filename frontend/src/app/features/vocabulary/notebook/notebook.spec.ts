@@ -35,7 +35,7 @@ describe('Notebook', () => {
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string, root: ParentNode = el) =>
     Array.from(root.querySelectorAll('button')).find((b) => text(b) === label);
-  const expectList = (): TestRequest => http.expectOne((r) => r.url === '/api/vocab/cards');
+  const expectList = (): TestRequest => http.expectOne((r) => r.url === '/vocab/cards');
   const headings = () => Array.from(el.querySelectorAll('.day-heading')).map((h) => text(h));
   const words = () => Array.from(el.querySelectorAll('.card-item .word')).map((w) => text(w));
 
@@ -54,8 +54,8 @@ describe('Notebook', () => {
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
     expectList().flush(page);
-    http.expectOne('/api/vocab/lessons').flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 3 }], manualCount });
-    http.expectOne((r) => r.url === '/api/vocab/review/due').flush({ cards: [], total: 4, nextDue: null });
+    http.expectOne('/vocab/lessons').flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 3 }], manualCount });
+    http.expectOne((r) => r.url === '/vocab/review/due').flush({ cards: [], total: 4, nextDue: null });
     await settle();
   };
 
@@ -151,7 +151,7 @@ describe('Notebook', () => {
     meaning.dispatchEvent(new Event('input'));
     el.querySelector('lu-card-form form')!.dispatchEvent(new Event('submit'));
     await settle();
-    http.expectOne('/api/vocab/cards/c1').flush({ card: { ...page1.cards[0], meaningVi: 'đã đi' } });
+    http.expectOne('/vocab/cards/c1').flush({ card: { ...page1.cards[0], meaningVi: 'đã đi' } });
     await settle();
     expect(el.querySelector('lu-card-form')).toBeNull();
     expect(text(el.querySelector('.card-item .meaning'))).toBe('đã đi');
@@ -169,10 +169,10 @@ describe('Notebook', () => {
     }
     form.querySelector('form')!.dispatchEvent(new Event('submit'));
     await settle();
-    http.expectOne('/api/vocab/cards').flush({ card: card('c9', 'hello', '2026-09-30', null) }, { status: 201, statusText: 'Created' });
+    http.expectOne('/vocab/cards').flush({ card: card('c9', 'hello', '2026-09-30', null) }, { status: 201, statusText: 'Created' });
     await settle();
     expectList().flush({ ...page1, cards: [card('c9', 'hello', '2026-09-30', null), ...page1.cards] });
-    http.expectOne('/api/vocab/lessons').flush({ lessons: [], manualCount: 1 });
+    http.expectOne('/vocab/lessons').flush({ lessons: [], manualCount: 1 });
     await settle();
     expect(words()[0]).toBe('hello');
     expect(el.querySelector('lu-card-form')).toBeNull();
@@ -186,12 +186,12 @@ describe('Notebook', () => {
     expect(text(dialog)).toContain('went');
     button('Xoá', dialog)!.click();
     await settle();
-    const req = http.expectOne('/api/vocab/cards/c1');
+    const req = http.expectOne('/vocab/cards/c1');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, { status: 204, statusText: 'No Content' });
     await settle();
     // Lesson counts are refreshed after a delete.
-    http.expectOne('/api/vocab/lessons').flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 2 }], manualCount: 1 });
+    http.expectOne('/vocab/lessons').flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 2 }], manualCount: 1 });
     await settle();
     expect(words()).toEqual(['gave up', 'run']);
     expect(el.querySelector('[role="alertdialog"]')).toBeNull();

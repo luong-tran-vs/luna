@@ -42,14 +42,14 @@ describe('errorInterceptor', () => {
   };
 
   it('passes successful responses through', async () => {
-    const result = firstValueFrom(http.get<{ ok: boolean }>('/api/x'));
-    controller.expectOne('/api/x').flush({ ok: true });
+    const result = firstValueFrom(http.get<{ ok: boolean }>('/x'));
+    controller.expectOne('/x').flush({ ok: true });
     await expect(result).resolves.toEqual({ ok: true });
     expect(router.navigateByUrl).not.toHaveBeenCalled();
   });
 
   it('maps a network failure to a network ApiError', async () => {
-    const err = await failWith('/api/x', 0);
+    const err = await failWith('/x', 0);
     expect(err).toBeInstanceOf(ApiError);
     expect((err as ApiError).kind).toBe('network');
     expect((err as ApiError).status).toBe(0);
@@ -57,7 +57,7 @@ describe('errorInterceptor', () => {
 
   it('maps an HTTP error to an http ApiError and keeps the body', async () => {
     const body = { status: 'degraded', database: 'down' };
-    const err = await failWith('/api/health', 503, body);
+    const err = await failWith('/health', 503, body);
     expect(err).toBeInstanceOf(ApiError);
     expect((err as ApiError).kind).toBe('http');
     expect((err as ApiError).status).toBe(503);
@@ -67,14 +67,14 @@ describe('errorInterceptor', () => {
 
   it('on 401 clears the user and redirects to /login with the current URL', async () => {
     const clear = vi.spyOn(auth, 'clear');
-    const err = await failWith('/api/admin/ping', 401);
+    const err = await failWith('/admin/ping', 401);
 
     expect(err).toBeInstanceOf(ApiError);
     expect(clear).toHaveBeenCalled();
     expect(router.navigateByUrl).toHaveBeenCalledWith('/login?returnUrl=%2Fadmin%3Ftab%3D2');
   });
 
-  it.each(['/api/auth/login', '/api/auth/register', '/api/auth/me'])(
+  it.each(['/auth/login', '/auth/register', '/auth/me'])(
     'does not redirect on 401 from %s',
     async (url) => {
       await failWith(url, 401);
@@ -84,18 +84,18 @@ describe('errorInterceptor', () => {
 
   it('does not redirect on 401 while already on the login page', async () => {
     vi.spyOn(router, 'url', 'get').mockReturnValue('/login?returnUrl=%2Fadmin');
-    await failWith('/api/admin/ping', 401);
+    await failWith('/admin/ping', 401);
     expect(router.navigateByUrl).not.toHaveBeenCalled();
   });
 
   it('on 403 goes to /forbidden', async () => {
-    const err = await failWith('/api/admin/ping', 403);
+    const err = await failWith('/admin/ping', 403);
     expect(err).toBeInstanceOf(ApiError);
     expect(router.navigateByUrl).toHaveBeenCalledWith('/forbidden');
   });
 
   it('leaves a locked lesson to the page, which explains it', async () => {
-    const err = await failWith('/api/lessons/l1', 403, { error: 'lesson_locked', message: 'x' });
+    const err = await failWith('/lessons/l1', 403, { error: 'lesson_locked', message: 'x' });
     expect((err as ApiError).status).toBe(403);
     expect(router.navigateByUrl).not.toHaveBeenCalled();
   });

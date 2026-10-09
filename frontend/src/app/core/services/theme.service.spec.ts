@@ -136,7 +136,7 @@ describe('ThemeService', () => {
     const service = create();
     service.set('dark');
     TestBed.tick();
-    http.expectNone('/api/settings');
+    http.expectNone('/settings');
     expect(service.saveState()).toBe('idle');
   });
 
@@ -144,21 +144,21 @@ describe('ThemeService', () => {
     localStorage.setItem(THEME_STORAGE_KEY, 'light');
     const service = create();
     login();
-    const req = http.expectOne('/api/settings');
+    const req = http.expectOne('/settings');
     expect(req.request.method).toBe('GET');
     req.flush({ theme: 'dark', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
     TestBed.tick();
     expect(service.preference()).toBe('dark');
     expect(html.getAttribute('data-theme')).toBe('dark');
     expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
-    http.expectNone({ method: 'PUT', url: '/api/settings' });
+    http.expectNone({ method: 'PUT', url: '/settings' });
   });
 
   it('keeps the local choice when the account cannot be read', () => {
     localStorage.setItem(THEME_STORAGE_KEY, 'light');
     const service = create();
     login();
-    http.expectOne('/api/settings').error(new ProgressEvent('error'));
+    http.expectOne('/settings').error(new ProgressEvent('error'));
     TestBed.tick();
     expect(service.preference()).toBe('light');
   });
@@ -166,14 +166,14 @@ describe('ThemeService', () => {
   it('saves a change to the account and to the browser when logged in', () => {
     const service = create();
     login();
-    http.expectOne('/api/settings').flush({ theme: 'system', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
+    http.expectOne('/settings').flush({ theme: 'system', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
 
     service.set('dark');
     TestBed.tick();
     expect(html.getAttribute('data-theme')).toBe('dark');
     expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
     expect(service.saveState()).toBe('saving');
-    const req = http.expectOne({ method: 'PUT', url: '/api/settings' });
+    const req = http.expectOne({ method: 'PUT', url: '/settings' });
     expect(req.request.body).toEqual({ theme: 'dark' });
     req.flush({ theme: 'dark', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
     expect(service.saveState()).toBe('saved');
@@ -182,9 +182,9 @@ describe('ThemeService', () => {
   it('keeps the new choice when saving fails', () => {
     const service = create();
     login();
-    http.expectOne('/api/settings').flush({ theme: 'system', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
+    http.expectOne('/settings').flush({ theme: 'system', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
     service.set('dark');
-    http.expectOne({ method: 'PUT', url: '/api/settings' }).error(new ProgressEvent('error'));
+    http.expectOne({ method: 'PUT', url: '/settings' }).error(new ProgressEvent('error'));
     TestBed.tick();
     expect(service.saveState()).toBe('error');
     expect(html.getAttribute('data-theme')).toBe('dark');
@@ -193,7 +193,7 @@ describe('ThemeService', () => {
   it('keeps the browser choice after logout', () => {
     const service = create();
     login();
-    http.expectOne('/api/settings').flush({ theme: 'dark', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
+    http.expectOne('/settings').flush({ theme: 'dark', dailyReviewLimit: 30, timezone: 'Asia/Ho_Chi_Minh' });
     TestBed.tick();
     user.set(null);
     TestBed.tick();

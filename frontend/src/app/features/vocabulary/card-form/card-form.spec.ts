@@ -71,7 +71,7 @@ describe('CardForm', () => {
       type('card-text', '  Serendipity ');
       type('card-meaning', 'sự tình cờ may mắn');
       await submit();
-      const req = http.expectOne('/api/vocab/cards');
+      const req = http.expectOne('/vocab/cards');
       expect(req.request.body).toEqual({
         text: 'Serendipity', lemma: 'serendipity', ipa: '', meaningVi: 'sự tình cờ may mắn', contextSentence: '',
         source: 'manual',
@@ -86,7 +86,7 @@ describe('CardForm', () => {
       type('card-text', 'go');
       type('card-meaning', 'đi');
       await submit();
-      http.expectOne('/api/vocab/cards').flush(
+      http.expectOne('/vocab/cards').flush(
         { error: 'card_exists', message: 'Từ này đã có trong sổ', card: went },
         { status: 409, statusText: 'Conflict' },
       );
@@ -100,7 +100,7 @@ describe('CardForm', () => {
       type('card-text', 'go');
       type('card-meaning', 'đi');
       await submit();
-      http.expectOne('/api/vocab/cards').flush(
+      http.expectOne('/vocab/cards').flush(
         { error: 'validation_failed', message: 'x', fields: { meaningVi: 'Nghĩa cần từ 1 đến 200 ký tự' } },
         { status: 400, statusText: 'Bad Request' },
       );
@@ -124,7 +124,7 @@ describe('CardForm', () => {
 
       type('card-meaning', 'đã đi (quá khứ của go)');
       await submit();
-      const req = http.expectOne('/api/vocab/cards/c1');
+      const req = http.expectOne('/vocab/cards/c1');
       expect(req.request.method).toBe('PATCH');
       expect(req.request.body).toEqual({ meaningVi: 'đã đi (quá khứ của go)' });
       req.flush({ card: { ...went, meaningVi: 'đã đi (quá khứ của go)' } });

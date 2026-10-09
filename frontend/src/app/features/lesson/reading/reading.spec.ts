@@ -46,7 +46,7 @@ describe('Reading', () => {
   const popupButton = (text: string) =>
     Array.from(popup()?.querySelectorAll('button') ?? []).find((b) => b.textContent?.trim() === text);
   const expectLookup = (q: string, sentence: number) => {
-    const req = http.expectOne((r) => r.url === '/api/lessons/l1/lookup');
+    const req = http.expectOne((r) => r.url === '/lessons/l1/lookup');
     expect(req.request.params.get('q')).toBe(q);
     expect(req.request.params.get('sentence')).toBe(String(sentence));
     return req;
@@ -101,8 +101,8 @@ describe('Reading', () => {
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
     const id = (options.inputs?.['lessonId'] as string | undefined) ?? 'l1';
-    const lessonReq = http.expectOne(`/api/lessons/${id}`);
-    const wordsReq = http.expectOne('/api/vocab/words');
+    const lessonReq = http.expectOne(`/lessons/${id}`);
+    const wordsReq = http.expectOne('/vocab/words');
     if (options.status) {
       lessonReq.flush({ error: 'lesson_locked', message: 'x' }, { status: options.status, statusText: 'Error' });
     } else {
@@ -205,7 +205,7 @@ describe('Reading', () => {
       meanings: [{ pos: '', text: 'việc hút thuốc' }], note: 'Danh động từ sau "gave up".',
     };
     const expectAsk = (text: string, sentenceIndex: number) => {
-      const req = http.expectOne('/api/lessons/l1/ask');
+      const req = http.expectOne('/lessons/l1/ask');
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({ text, sentenceIndex });
       return req;
@@ -232,7 +232,7 @@ describe('Reading', () => {
 
       popupButton('Lưu vào sổ từ')!.click();
       await settle();
-      const req = http.expectOne('/api/vocab/cards');
+      const req = http.expectOne('/vocab/cards');
       expect(req.request.body).toMatchObject({
         text: 'smoking', lemma: 'smoking', meaningVi: 'việc hút thuốc', source: 'ai',
         contextSentence: 'He gave up smoking last year in the city.',
@@ -274,7 +274,7 @@ describe('Reading', () => {
 
       popupButton('Lưu vào sổ từ')!.click();
       await settle();
-      const req = http.expectOne('/api/vocab/cards');
+      const req = http.expectOne('/vocab/cards');
       expect(req.request.body).toMatchObject({ lemma: 'park', meaningVi: 'Công viên.', source: 'dictionary' });
       req.flush({ card: { id: 'c4' } }, { status: 201, statusText: 'Created' });
       await settle();
@@ -332,8 +332,8 @@ describe('Reading', () => {
     fixture = TestBed.createComponent(Reading);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    const words = http.expectOne('/api/vocab/words');
-    http.expectOne('/api/lessons/l1').flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
+    const words = http.expectOne('/vocab/words');
+    http.expectOne('/lessons/l1').flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
     await settle();
     expect(words.cancelled).toBe(true); // no need to wait for saved words
     expect(el.textContent).toContain('Không tìm thấy bài học');
@@ -358,7 +358,7 @@ describe('Reading', () => {
       popupButton('Lưu vào sổ từ')!.click();
       await settle();
 
-      const req = http.expectOne('/api/vocab/cards');
+      const req = http.expectOne('/vocab/cards');
       expect(req.request.body).toEqual({
         text: 'went', lemma: 'go', ipa: '/ɡəʊ/', meaningVi: 'đã đi',
         contextSentence: 'We went to the park.', lessonId: 'l1', source: 'ai',
@@ -373,7 +373,7 @@ describe('Reading', () => {
       await setup();
       el.querySelector<HTMLButtonElement>('lu-lesson-vocabulary .toggle')!.click();
       await settle();
-      http.expectOne('/api/lessons/l1/vocabulary').flush({
+      http.expectOne('/lessons/l1/vocabulary').flush({
         available: true,
         items: [{ lemma: 'go', text: 'went', meaningVi: 'đi', ipa: '', sentenceIndex: 0, sentence: 'We went to the park.' }],
       });
@@ -387,7 +387,7 @@ describe('Reading', () => {
       await settle();
       popupButton('Lưu vào sổ từ')!.click();
       await settle();
-      http.expectOne('/api/vocab/cards').flush({ card: { id: 'c1' } }, { status: 201, statusText: 'Created' });
+      http.expectOne('/vocab/cards').flush({ card: { id: 'c1' } }, { status: 201, statusText: 'Created' });
       await settle();
       expect(item().textContent).toContain('✓ Đã lưu');
     });
@@ -400,7 +400,7 @@ describe('Reading', () => {
       await settle();
       popupButton('Lưu vào sổ từ')!.click();
       await settle();
-      http.expectOne('/api/vocab/cards').flush({ error: 'card_exists', card: {} }, { status: 409, statusText: 'Conflict' });
+      http.expectOne('/vocab/cards').flush({ error: 'card_exists', card: {} }, { status: 409, statusText: 'Conflict' });
       await settle();
       expect(popup()?.textContent).toContain('✓ Đã có trong sổ');
     });
@@ -416,7 +416,7 @@ describe('Reading', () => {
       input.dispatchEvent(new Event('input'));
       popupButton('Lưu')!.click();
       await settle();
-      const req = http.expectOne('/api/vocab/cards');
+      const req = http.expectOne('/vocab/cards');
       expect(req.request.body).toMatchObject({ text: 'smoking', lemma: 'smoking', meaningVi: 'hút thuốc', source: 'manual', ipa: '' });
       req.flush({ card: { id: 'c2' } }, { status: 201, statusText: 'Created' });
       await settle();
@@ -433,7 +433,7 @@ describe('Reading', () => {
       await settle();
       popupButton('Lưu vào sổ từ')!.click();
       await settle();
-      const req = http.expectOne('/api/vocab/cards');
+      const req = http.expectOne('/vocab/cards');
       expect(req.request.body.meaningVi).toBe('Công viên.; Bãi.; Đỗ.');
       req.error(new ProgressEvent('error'));
       await settle();
@@ -474,7 +474,7 @@ describe('Reading', () => {
       await setup();
       await selectRange(word(1, 'He'), word(1, 'city')); // 9 words
       expect(el.querySelector('.hint')?.textContent).toContain('Chọn tối đa 6 từ');
-      http.expectNone((r) => r.url === '/api/lessons/l1/lookup');
+      http.expectNone((r) => r.url === '/lessons/l1/lookup');
     });
 
     it('highlights a saved phrase', async () => {
@@ -620,7 +620,7 @@ describe('Reading', () => {
       await fixture.whenStable();
       el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .step-nav .check')!.click();
       await settle();
-      http.expectOne('/api/lessons/l1/answers').flush({ answer: result, answered, total: 2, correct: 0 });
+      http.expectOne('/lessons/l1/answers').flush({ answer: result, answered, total: 2, correct: 0 });
       await settle();
       // The answered question stays on screen: move to the next one.
       button('Câu tiếp theo')?.click();
@@ -676,13 +676,13 @@ describe('Reading', () => {
       el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .step-nav .check')!.click();
       await settle();
       http
-        .expectOne('/api/lessons/l1/answers')
+        .expectOne('/lessons/l1/answers')
         .flush({ error: 'quiz_changed', message: 'x' }, { status: 409, statusText: 'Conflict' });
       await settle();
       button('Tải lại')!.click();
       await settle();
-      http.expectOne('/api/lessons/l1').flush({ lesson: { ...withQuiz(), quiz: null, grammarNote: null } });
-      http.expectOne('/api/vocab/words').flush({ words: [] });
+      http.expectOne('/lessons/l1').flush({ lesson: { ...withQuiz(), quiz: null, grammarNote: null } });
+      http.expectOne('/vocab/words').flush({ words: [] });
       await settle();
       expect(el.querySelector('lu-comprehension-quiz')).toBeNull();
       expect(button('Đã đọc xong')).toBeDefined();

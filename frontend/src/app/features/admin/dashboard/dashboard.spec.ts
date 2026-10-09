@@ -85,10 +85,10 @@ describe('Dashboard', () => {
     await fixture.whenStable();
   };
   const flush = async (lessons: LessonSummary[], grammarLessons: GrammarLessonSummary[] = []) => {
-    http.expectOne('/api/admin/lessons').flush({ lessons });
-    http.expectOne('/api/admin/topics').flush({ topics: [topic('t1'), topic('t2')] });
-    http.expectOne('/api/admin/grammar-lessons').flush({ lessons: grammarLessons });
-    http.expectOne('/api/admin/grammar-reports').flush({ reports: [] });
+    http.expectOne('/admin/lessons').flush({ lessons });
+    http.expectOne('/admin/topics').flush({ topics: [topic('t1'), topic('t2')] });
+    http.expectOne('/admin/grammar-lessons').flush({ lessons: grammarLessons });
+    http.expectOne('/admin/grammar-reports').flush({ reports: [] });
     await settle();
   };
   const text = (selector: string) => Array.from(el.querySelectorAll(selector)).map((n) => n.textContent?.replace(/\s+/g, ' ').trim());
@@ -133,7 +133,7 @@ describe('Dashboard', () => {
   });
 
   it('offers to try again when loading fails', async () => {
-    http.expectOne('/api/admin/lessons').flush(null, { status: 500, statusText: 'Error' });
+    http.expectOne('/admin/lessons').flush(null, { status: 500, statusText: 'Error' });
     http.match(() => true); // the other requests were cancelled
     await settle();
     expect(el.querySelector('[role="alert"]')?.textContent).toContain('Không tải được trang tổng quan.');

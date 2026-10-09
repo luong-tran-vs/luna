@@ -36,18 +36,18 @@ describe('GrammarList', () => {
     target.click();
     await settle();
   };
-  const lessonUrl = (id: string, action: string) => `/api/admin/grammar-lessons/${id}/${action}`;
+  const lessonUrl = (id: string, action: string) => `/admin/grammar-lessons/${id}/${action}`;
   const flushLevel = (level: string, list: GrammarPoint[], existing: GrammarLessonSummary[]) => {
-    const req = http.expectOne((r) => r.url === '/api/admin/grammar');
+    const req = http.expectOne((r) => r.url === '/admin/grammar');
     expect(req.request.params.get('level')).toBe(level);
     req.flush({ points: list });
-    http.expectOne('/api/admin/grammar-lessons').flush({ lessons: existing });
+    http.expectOne('/admin/grammar-lessons').flush({ lessons: existing });
   };
   const detail = (s: GrammarLessonSummary) => ({
     lesson: { ...s, content: { objective: 'o' }, checks: [], checkedAt: s.checked ? 't' : null, verifiedAt: s.verified ? 't' : null },
   });
   const flushReports = (reports: GrammarReportGroup[] | 'error' = []) => {
-    const req = http.expectOne('/api/admin/grammar-reports');
+    const req = http.expectOne('/admin/grammar-reports');
     if (reports === 'error') {
       req.flush({}, { status: 500, statusText: 'x' });
     } else {
@@ -253,8 +253,8 @@ describe('GrammarList', () => {
     fixture = TestBed.createComponent(GrammarList);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne((r) => r.url === '/api/admin/grammar').flush({}, { status: 500, statusText: 'x' });
-    http.expectOne('/api/admin/grammar-lessons').flush({ lessons: [] });
+    http.expectOne((r) => r.url === '/admin/grammar').flush({}, { status: 500, statusText: 'x' });
+    http.expectOne('/admin/grammar-lessons').flush({ lessons: [] });
     flushReports();
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được danh sách điểm ngữ pháp.');

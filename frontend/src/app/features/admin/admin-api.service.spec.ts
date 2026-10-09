@@ -34,68 +34,68 @@ describe('AdminApiService', () => {
 
   it('lists lessons with filters, skipping empty ones', async () => {
     await expect(
-      call(api.list({ level: 'B1', topicId: 't1' }), 'GET', '/api/admin/lessons?level=B1&topicId=t1', { lessons: [lesson] }),
+      call(api.list({ level: 'B1', topicId: 't1' }), 'GET', '/admin/lessons?level=B1&topicId=t1', { lessons: [lesson] }),
     ).resolves.toEqual([lesson]);
-    await call(api.list({ level: '', topicId: '' }), 'GET', '/api/admin/lessons', { lessons: [] });
+    await call(api.list({ level: '', topicId: '' }), 'GET', '/admin/lessons', { lessons: [] });
   });
 
   it('gets, creates, updates and deletes a lesson', async () => {
-    await expect(call(api.get('l1'), 'GET', '/api/admin/lessons/l1', { lesson })).resolves.toEqual(lesson);
-    await expect(call(api.create(input), 'POST', '/api/admin/lessons', { lesson }, input)).resolves.toEqual(lesson);
-    await expect(call(api.update('l1', input), 'PUT', '/api/admin/lessons/l1', { lesson }, input)).resolves.toEqual(lesson);
-    await call(api.remove('l1'), 'DELETE', '/api/admin/lessons/l1', null);
+    await expect(call(api.get('l1'), 'GET', '/admin/lessons/l1', { lesson })).resolves.toEqual(lesson);
+    await expect(call(api.create(input), 'POST', '/admin/lessons', { lesson }, input)).resolves.toEqual(lesson);
+    await expect(call(api.update('l1', input), 'PUT', '/admin/lessons/l1', { lesson }, input)).resolves.toEqual(lesson);
+    await call(api.remove('l1'), 'DELETE', '/admin/lessons/l1', null);
   });
 
   it('retries a job and saves annotations', async () => {
-    await expect(call(api.retry('l1', 'annotate'), 'POST', '/api/admin/lessons/l1/retry?job=annotate', { lesson })).resolves.toEqual(lesson);
+    await expect(call(api.retry('l1', 'annotate'), 'POST', '/admin/lessons/l1/retry?job=annotate', { lesson })).resolves.toEqual(lesson);
     const items = [{ text: 'went', lemma: 'go', meaningVi: 'đi' }];
     await expect(
-      call(api.saveAnnotations('l1', items), 'PUT', '/api/admin/lessons/l1/annotations', { lesson }, { annotations: items }),
+      call(api.saveAnnotations('l1', items), 'PUT', '/admin/lessons/l1/annotations', { lesson }, { annotations: items }),
     ).resolves.toEqual(lesson);
   });
 
   it('checks, confirms a flag and verifies a lesson (F22)', async () => {
-    await expect(call(api.checkLesson('l1'), 'POST', '/api/admin/lessons/l1/check', { lesson })).resolves.toEqual(lesson);
+    await expect(call(api.checkLesson('l1'), 'POST', '/admin/lessons/l1/check', { lesson })).resolves.toEqual(lesson);
     await expect(
-      call(api.confirmLessonFlag('l1', 'question', 2), 'POST', '/api/admin/lessons/l1/check/confirm', { lesson }, { area: 'question', index: 2 }),
+      call(api.confirmLessonFlag('l1', 'question', 2), 'POST', '/admin/lessons/l1/check/confirm', { lesson }, { area: 'question', index: 2 }),
     ).resolves.toEqual(lesson);
-    await expect(call(api.verifyLesson('l1'), 'POST', '/api/admin/lessons/l1/check/verify', { lesson })).resolves.toEqual(lesson);
+    await expect(call(api.verifyLesson('l1'), 'POST', '/admin/lessons/l1/check/verify', { lesson })).resolves.toEqual(lesson);
   });
 
   it('regenerates the practice', async () => {
     await expect(
-      call(api.regeneratePractice('l1'), 'POST', '/api/admin/lessons/l1/practice/regenerate', { lesson }),
+      call(api.regeneratePractice('l1'), 'POST', '/admin/lessons/l1/practice/regenerate', { lesson }),
     ).resolves.toEqual(lesson);
   });
 
   it('saves the questions, grammar note and writing prompt', async () => {
     const extras = { questions: [], grammarNote: null, writingPrompt: 'Write.' };
     await expect(
-      call(api.updateExtras('l1', extras), 'PUT', '/api/admin/lessons/l1/extras', { lesson }, extras),
+      call(api.updateExtras('l1', extras), 'PUT', '/admin/lessons/l1/extras', { lesson }, extras),
     ).resolves.toEqual(lesson);
   });
 
   it('replaces the practice translations', async () => {
     const translations = [{ vi: 'Xin chào', en: 'Hello', distractors: ['hi'] }];
     await expect(
-      call(api.updateTranslations('l1', translations), 'PUT', '/api/admin/lessons/l1/practice/translations', { lesson }, { translations }),
+      call(api.updateTranslations('l1', translations), 'PUT', '/admin/lessons/l1/practice/translations', { lesson }, { translations }),
     ).resolves.toEqual(lesson);
   });
 
   it('lists, creates, updates and deletes topics', async () => {
     const topic = { id: 't1', name: 'Gia đình' };
     const topicInput = { name: 'Gia đình', description: '' };
-    await expect(call(api.topics(), 'GET', '/api/admin/topics', { topics: [topic] })).resolves.toEqual([topic]);
-    await expect(call(api.createTopic(topicInput), 'POST', '/api/admin/topics', { topic }, topicInput)).resolves.toEqual(topic);
-    await expect(call(api.updateTopic('t1', topicInput), 'PUT', '/api/admin/topics/t1', { topic }, topicInput)).resolves.toEqual(topic);
-    await call(api.deleteTopic('t1'), 'DELETE', '/api/admin/topics/t1', null);
+    await expect(call(api.topics(), 'GET', '/admin/topics', { topics: [topic] })).resolves.toEqual([topic]);
+    await expect(call(api.createTopic(topicInput), 'POST', '/admin/topics', { topic }, topicInput)).resolves.toEqual(topic);
+    await expect(call(api.updateTopic('t1', topicInput), 'PUT', '/admin/topics/t1', { topic }, topicInput)).resolves.toEqual(topic);
+    await call(api.deleteTopic('t1'), 'DELETE', '/admin/topics/t1', null);
   });
 
   it('reads and saves the roadmap of a topic at one level', async () => {
     const roadmap = { topic: {}, level: 'B1', lessons: [], remaining: 0, warning: true };
-    await expect(call(api.topicRoadmap('t1', 'B1'), 'GET', '/api/admin/topics/t1/roadmap?level=B1', roadmap)).resolves.toEqual(roadmap);
+    await expect(call(api.topicRoadmap('t1', 'B1'), 'GET', '/admin/topics/t1/roadmap?level=B1', roadmap)).resolves.toEqual(roadmap);
     await expect(
-      call(api.setTopicRoadmap('t1', 'B1', ['a', 'b']), 'PUT', '/api/admin/topics/t1/roadmap?level=B1', roadmap, { lessonIds: ['a', 'b'] }),
+      call(api.setTopicRoadmap('t1', 'B1', ['a', 'b']), 'PUT', '/admin/topics/t1/roadmap?level=B1', roadmap, { lessonIds: ['a', 'b'] }),
     ).resolves.toEqual(roadmap);
   });
 
@@ -107,43 +107,43 @@ describe('AdminApiService', () => {
     };
     const body = { level: 'A2' as const, count: 1, words: 120, kind: 'reading' as const, idea: '', targetWords: [['Family']] };
     await expect(
-      call(api.generateLessons('t1', body), 'POST', '/api/admin/topics/t1/generate', result, body),
+      call(api.generateLessons('t1', body), 'POST', '/admin/topics/t1/generate', result, body),
     ).resolves.toEqual(result);
   });
 
   it('reads and replaces the vocabulary of a topic (F18)', async () => {
     const words = [{ text: 'Family', level: '' as const, used: true, lessonCount: 2 }];
     const sent = [{ text: 'Family', level: '' as const }, { text: 'cousin', level: 'A2' as const }];
-    await expect(call(api.topicWords('t1'), 'GET', '/api/admin/topics/t1/words', { words })).resolves.toEqual(words);
+    await expect(call(api.topicWords('t1'), 'GET', '/admin/topics/t1/words', { words })).resolves.toEqual(words);
     await expect(
-      call(api.setTopicWords('t1', sent), 'PUT', '/api/admin/topics/t1/words', { words }, { words: sent }),
+      call(api.setTopicWords('t1', sent), 'PUT', '/admin/topics/t1/words', { words }, { words: sent }),
     ).resolves.toEqual(words);
   });
 
   it('asks for a split of target words (F18)', async () => {
     const plan = { groups: [['Family', 'cousin'], []], shortage: 6 };
     await expect(
-      call(api.wordPlan('t1', 'A2', 2, 8), 'GET', '/api/admin/topics/t1/word-plan?level=A2&count=2&perLesson=8', plan),
+      call(api.wordPlan('t1', 'A2', 2, 8), 'GET', '/admin/topics/t1/word-plan?level=A2&count=2&perLesson=8', plan),
     ).resolves.toEqual(plan);
   });
 
   it('lists grammar points of a level, with the topic when given', async () => {
     const points = [{ id: 'a1-to-be', level: 'A1', titleVi: 'to be', titleEn: 'to be', pattern: 'p', hintVi: 'h', examples: [], lessonCount: 2 }];
-    await expect(call(api.grammarPoints('A1'), 'GET', '/api/admin/grammar?level=A1', { points })).resolves.toEqual(points);
-    await expect(call(api.grammarPoints('A1', 't1'), 'GET', '/api/admin/grammar?level=A1&topicId=t1', { points })).resolves.toEqual(points);
+    await expect(call(api.grammarPoints('A1'), 'GET', '/admin/grammar?level=A1', { points })).resolves.toEqual(points);
+    await expect(call(api.grammarPoints('A1', 't1'), 'GET', '/admin/grammar?level=A1&topicId=t1', { points })).resolves.toEqual(points);
   });
 
   it('asks the AI for new topic words (F18)', async () => {
     const body = { added: ['aunt'], words: [{ text: 'aunt', level: 'B1', used: false, lessonCount: 0 }] };
     await expect(
-      call(api.suggestTopicWords('t1', 'B1', 6), 'POST', '/api/admin/topics/t1/words/suggest', body, { count: 6, level: 'B1' }),
+      call(api.suggestTopicWords('t1', 'B1', 6), 'POST', '/admin/topics/t1/words/suggest', body, { count: 6, level: 'B1' }),
     ).resolves.toEqual(body);
   });
 
   describe('grammar lessons (F20)', () => {
     const content = { objective: 'o' } as unknown as GrammarContent;
     const lesson = { pointId: 'a1-to-be', status: 'draft', edited: false, updatedAt: 't', publishedAt: null, content, checks: [], checkedAt: null, verifiedAt: null };
-    const base = '/api/admin/grammar-lessons';
+    const base = '/admin/grammar-lessons';
 
     it('lists the lessons that exist', async () => {
       const summary = { pointId: 'a1-to-be', status: 'draft', edited: false, updatedAt: 't', publishedAt: null, flags: 0, checked: false, verified: false };
@@ -189,9 +189,9 @@ describe('AdminApiService', () => {
 
     it('lists the open reports and resolves one exercise', async () => {
       const reports = [{ pointId: 'a1-to-be', exerciseId: 'p3', count: 2, reasons: { typo: 2 }, notes: [], latestAt: 't' }];
-      await expect(call(api.grammarReports(), 'GET', '/api/admin/grammar-reports', { reports })).resolves.toEqual(reports);
+      await expect(call(api.grammarReports(), 'GET', '/admin/grammar-reports', { reports })).resolves.toEqual(reports);
       await expect(
-        call(api.resolveGrammarReport('a1-to-be', 'p3'), 'POST', '/api/admin/grammar-reports/resolve', { resolved: 2 }, { pointId: 'a1-to-be', exerciseId: 'p3' }),
+        call(api.resolveGrammarReport('a1-to-be', 'p3'), 'POST', '/admin/grammar-reports/resolve', { resolved: 2 }, { pointId: 'a1-to-be', exerciseId: 'p3' }),
       ).resolves.toBe(2);
     });
   });

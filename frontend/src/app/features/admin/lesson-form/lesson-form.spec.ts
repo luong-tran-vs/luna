@@ -84,7 +84,7 @@ describe('LessonForm', () => {
     await settle();
   };
   const flushPoints = async (level: string, topicId: string, points = b1Points) => {
-    http.expectOne(`/api/admin/grammar?level=${level}&topicId=${topicId}`).flush({ points });
+    http.expectOne(`/admin/grammar?level=${level}&topicId=${topicId}`).flush({ points });
     await settle();
   };
   const fillValid = async () => {
@@ -113,7 +113,7 @@ describe('LessonForm', () => {
     fixture = TestBed.createComponent(LessonForm);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/admin/topics').flush({ topics: topicList });
+    http.expectOne('/admin/topics').flush({ topics: topicList });
     await fixture.whenStable();
   };
 
@@ -130,7 +130,7 @@ describe('LessonForm', () => {
       expect(errorOf('level')).toBe('Vui lòng chọn trình độ');
       expect(errorOf('source')).toBe('Vui lòng nhập nguồn');
       expect(errorOf('license')).toBe('Vui lòng nhập giấy phép');
-      http.expectNone('/api/admin/lessons');
+      http.expectNone('/admin/lessons');
     });
 
     it('limits lengths', async () => {
@@ -149,7 +149,7 @@ describe('LessonForm', () => {
       expect(chosenLevel()).toBe('');
       await type('level', 'B2');
       expect(chosenLevel()).toBe('B2');
-      http.expectOne('/api/admin/grammar?level=B2').flush({ points: [] });
+      http.expectOne('/admin/grammar?level=B2').flush({ points: [] });
       await settle();
     });
 
@@ -158,7 +158,7 @@ describe('LessonForm', () => {
       await submit();
       expect(el.querySelector<HTMLButtonElement>('button[type="submit"]')!.disabled).toBe(true);
 
-      const req = http.expectOne('/api/admin/lessons');
+      const req = http.expectOne('/admin/lessons');
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({
         title: 'Park', topicId: 't3', level: 'B1', source: 'Tự viết', license: 'CC BY', content: 'We went to the park.', grammarPointId: '',
@@ -190,7 +190,7 @@ describe('LessonForm', () => {
       await type('license', 'CC BY');
       await type('content', 'We went.');
       await submit();
-      const req = http.expectOne('/api/admin/lessons');
+      const req = http.expectOne('/admin/lessons');
       expect(req.request.body.grammarPointId).toBe('b1-b');
       req.flush({ lesson: lesson() }, { status: 201, statusText: 'Created' });
       await settle();
@@ -221,7 +221,7 @@ describe('LessonForm', () => {
       await fillValid();
       await submit();
       http
-        .expectOne('/api/admin/lessons')
+        .expectOne('/admin/lessons')
         .flush(
           { error: 'validation_failed', message: 'x', fields: { grammarPointId: 'Điểm ngữ pháp không thuộc trình độ này' } },
           { status: 400, statusText: 'Bad Request' },
@@ -234,7 +234,7 @@ describe('LessonForm', () => {
       await fillValid();
       await submit();
       http
-        .expectOne('/api/admin/lessons')
+        .expectOne('/admin/lessons')
         .flush(
           { error: 'validation_failed', message: 'Thông tin chưa hợp lệ', fields: { content: 'Bài có 250 câu, tối đa 200 câu' } },
           { status: 400, statusText: 'Bad Request' },
@@ -253,7 +253,7 @@ describe('LessonForm', () => {
   describe('edit', () => {
     const load = async (l: Lesson) => {
       await setup('l1');
-      http.expectOne('/api/admin/lessons/l1').flush({ lesson: l });
+      http.expectOne('/admin/lessons/l1').flush({ lesson: l });
       await settle();
       await flushPoints('B1', 't3');
     };
@@ -272,7 +272,7 @@ describe('LessonForm', () => {
       await load(lesson({ grammarPointId: 'b1-a', grammarPointTitle: 'Điểm b1-a' }));
       expect(field('grammarPointId').value).toBe('b1-a');
       await submit();
-      const req = http.expectOne('/api/admin/lessons/l1');
+      const req = http.expectOne('/admin/lessons/l1');
       expect(req.request.body.grammarPointId).toBe('b1-a');
       req.flush({ lesson: lesson() });
       await settle();
@@ -280,13 +280,13 @@ describe('LessonForm', () => {
 
     it('leaves the point out when the list could not be loaded', async () => {
       await setup('l1');
-      http.expectOne('/api/admin/lessons/l1').flush({ lesson: lesson({ grammarPointId: 'b1-a' }) });
+      http.expectOne('/admin/lessons/l1').flush({ lesson: lesson({ grammarPointId: 'b1-a' }) });
       await settle();
-      http.expectOne('/api/admin/grammar?level=B1&topicId=t3').flush({}, { status: 500, statusText: 'Error' });
+      http.expectOne('/admin/grammar?level=B1&topicId=t3').flush({}, { status: 500, statusText: 'Error' });
       await settle();
       expect(el.querySelector('#lesson-grammar-help')?.textContent).toContain('Không tải được');
       await submit();
-      const req = http.expectOne('/api/admin/lessons/l1');
+      const req = http.expectOne('/admin/lessons/l1');
       expect('grammarPointId' in req.request.body).toBe(false);
       req.flush({ lesson: lesson() });
       await settle();
@@ -297,7 +297,7 @@ describe('LessonForm', () => {
       await type('title', 'Park 2');
       await submit();
       expect(dialog()).toBeNull();
-      const req = http.expectOne('/api/admin/lessons/l1');
+      const req = http.expectOne('/admin/lessons/l1');
       expect(req.request.method).toBe('PUT');
       req.flush({ lesson: lesson({ title: 'Park 2' }) });
       await settle();
@@ -309,17 +309,17 @@ describe('LessonForm', () => {
       await type('content', 'They went home.');
       await submit();
       expect(dialog()?.textContent).toContain('Các chú thích đã sửa tay sẽ bị thay mới');
-      http.expectNone('/api/admin/lessons/l1');
+      http.expectNone('/admin/lessons/l1');
 
       Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === 'Huỷ')!.click();
       await settle();
       expect(dialog()).toBeNull();
-      http.expectNone('/api/admin/lessons/l1');
+      http.expectNone('/admin/lessons/l1');
 
       await submit();
       Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === 'Lưu và làm lại')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/lessons/l1');
+      const req = http.expectOne('/admin/lessons/l1');
       expect(req.request.body.content).toBe('They went home.');
       req.flush({ lesson: lesson({ revision: 2 }) });
       await settle();
@@ -330,7 +330,7 @@ describe('LessonForm', () => {
       await type('content', 'They went home.');
       await submit();
       expect(dialog()).toBeNull();
-      http.expectOne('/api/admin/lessons/l1').flush({ lesson: lesson({ revision: 2 }) });
+      http.expectOne('/admin/lessons/l1').flush({ lesson: lesson({ revision: 2 }) });
       await settle();
     });
   });

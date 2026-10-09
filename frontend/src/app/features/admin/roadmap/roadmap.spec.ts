@@ -53,17 +53,17 @@ describe('Roadmap', () => {
   const chosenLevel = () => text(el.querySelector('#roadmap-level [aria-checked="true"] .code'));
   const byLabel = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
   const flushTopic = async (id: string, roadmap: TopicRoadmap, lessons: LessonSummary[]) => {
-    const get = http.expectOne((r) => r.url === `/api/admin/topics/${id}/roadmap` && r.method === 'GET');
+    const get = http.expectOne((r) => r.url === `/admin/topics/${id}/roadmap` && r.method === 'GET');
     expect(get.request.params.get('level')).toBe(roadmap.level);
     get.flush(roadmap);
-    const list = http.expectOne((r) => r.url === '/api/admin/lessons');
+    const list = http.expectOne((r) => r.url === '/admin/lessons');
     expect(list.request.params.get('topicId')).toBe(id);
     expect(list.request.params.get('level')).toBe(roadmap.level);
     list.flush({ lessons });
     await settle();
   };
   const expectSave = async (ids: string[], respond: TopicRoadmap | 'error' = data(ids)) => {
-    const req = http.expectOne((r) => r.url === '/api/admin/topics/t1/roadmap' && r.method === 'PUT');
+    const req = http.expectOne((r) => r.url === '/admin/topics/t1/roadmap' && r.method === 'PUT');
     expect(req.request.params.get('level')).toBe('A1');
     expect(req.request.body).toEqual({ lessonIds: ids });
     if (respond === 'error') {
@@ -93,7 +93,7 @@ describe('Roadmap', () => {
     fixture = TestBed.createComponent(Roadmap);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/admin/topics').flush({ topics });
+    http.expectOne('/admin/topics').flush({ topics });
     await settle();
   };
 
@@ -245,9 +245,9 @@ describe('Roadmap', () => {
     });
     await setup('t1', { generate: '1' });
     await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
-    http.expectOne('/api/admin/topics/t1/words').flush({ words: [] });
+    http.expectOne('/admin/topics/t1/words').flush({ words: [] });
     await settle();
-    http.expectOne((r) => r.url === '/api/admin/grammar').flush({ points: [] });
+    http.expectOne((r) => r.url === '/admin/grammar').flush({ points: [] });
     await settle();
     expect(el.querySelector('lu-generate-dialog dialog')!.hasAttribute('open')).toBe(true);
   });
@@ -259,7 +259,7 @@ describe('Roadmap', () => {
   });
 
   describe('AI drafts (F7)', () => {
-    const generateUrl = '/api/admin/topics/t1/generate';
+    const generateUrl = '/admin/topics/t1/generate';
     const words = (n: number) => Array.from({ length: n }, (_, i) => `w${i}`).join(' ');
     const generated = (...titles: string[]) => ({
       drafts: titles.map((title) => ({ title, content: words(120), words: 120, targetWords: [], missingWords: [] })),
@@ -274,7 +274,7 @@ describe('Roadmap', () => {
       Array.from(el.querySelectorAll<HTMLInputElement>('lu-draft-list input[type="text"]')).map((i) => i.value);
     const roadmap = () => fixture.componentInstance as unknown as { canLeave(): boolean | Promise<boolean> };
 
-    const wordsUrl = '/api/admin/topics/t1/words';
+    const wordsUrl = '/admin/topics/t1/words';
     /** Opening loads the topic's words first (F18); by default the topic has none. */
     const gpoint = (id: string, lessonCount: number) => ({
       id, level: 'A1', titleVi: `Điểm ${id}`, titleEn: id, pattern: 'pat', hintVi: 'gợi ý', examples: [], lessonCount,
@@ -284,7 +284,7 @@ describe('Roadmap', () => {
       await settle();
       http.expectOne(wordsUrl).flush({ words: topicWords.map((text) => ({ text, used: false, lessonCount: 0 })) });
       await settle();
-      const grammar = http.expectOne((r) => r.url === '/api/admin/grammar');
+      const grammar = http.expectOne((r) => r.url === '/admin/grammar');
       expect(grammar.request.params.get('level')).toBe('A1');
       expect(grammar.request.params.get('topicId')).toBe('t1');
       grammar.flush({ points });
@@ -364,7 +364,7 @@ describe('Roadmap', () => {
 
       el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/lessons');
+      const req = http.expectOne('/admin/lessons');
       expect(req.request.body.images).toEqual({ enabled: true, style: 'watercolor' });
       req.flush({ lesson: { id: 'n1' } });
       await settle();
@@ -380,7 +380,7 @@ describe('Roadmap', () => {
 
       el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/lessons');
+      const req = http.expectOne('/admin/lessons');
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({
         title: 'Sunday Lunch at Home',
@@ -418,7 +418,7 @@ describe('Roadmap', () => {
       await settle();
       el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/lessons');
+      const req = http.expectOne('/admin/lessons');
       expect(req.request.body.grammarPointId).toBe('g2');
       req.flush({ lesson: { id: 'n1' } });
       await settle();
@@ -437,12 +437,12 @@ describe('Roadmap', () => {
       button('Lưu tất cả')!.click();
       await settle();
 
-      const first = http.expectOne('/api/admin/lessons');
+      const first = http.expectOne('/admin/lessons');
       expect(first.request.body.title).toBe('One');
       first.flush({ lesson: { id: 'n1' } });
       await settle();
 
-      const second = http.expectOne('/api/admin/lessons');
+      const second = http.expectOne('/admin/lessons');
       expect(second.request.body.title).toBe('Two');
       second.flush(
         { error: 'validation_failed', message: 'Dữ liệu không hợp lệ', fields: { title: 'Tối đa 200 ký tự' } },
@@ -450,7 +450,7 @@ describe('Roadmap', () => {
       );
       await settle();
 
-      const third = http.expectOne('/api/admin/lessons');
+      const third = http.expectOne('/admin/lessons');
       expect(third.request.body.title).toBe('Three');
       third.error(new ProgressEvent('error'));
       await settle();
@@ -467,7 +467,7 @@ describe('Roadmap', () => {
       save.click();
       save.click();
       await settle();
-      http.expectOne('/api/admin/lessons').flush({ lesson: { id: 'n1' } });
+      http.expectOne('/admin/lessons').flush({ lesson: { id: 'n1' } });
       await settle();
       await expectReload(['a', 'n1']);
     });
@@ -519,7 +519,7 @@ describe('Roadmap', () => {
     it('passes the topic words to the dialog and sends the suggested target words (F18)', async () => {
       await openDialog(['Family', 'Parents', 'cousin']);
       await settle();
-      const plan = http.expectOne((r) => r.url === '/api/admin/topics/t1/word-plan');
+      const plan = http.expectOne((r) => r.url === '/admin/topics/t1/word-plan');
       expect(plan.request.params.get('count')).toBe('3');
       expect(plan.request.params.get('perLesson')).toBe('8');
       plan.flush({ groups: [['Family'], ['Parents'], ['cousin']] });
@@ -546,7 +546,7 @@ describe('Roadmap', () => {
       // The target words go with the saved lesson: they become its whole vocabulary.
       el.querySelector<HTMLButtonElement>('button[aria-label="Lưu bản nháp 1"]')!.click();
       await settle();
-      const save = http.expectOne('/api/admin/lessons');
+      const save = http.expectOne('/admin/lessons');
       expect(save.request.body.targetWords).toEqual(['Family']);
     });
 
@@ -555,7 +555,7 @@ describe('Roadmap', () => {
       await settle();
       http.expectOne(wordsUrl).flush({ error: 'internal_error' }, { status: 500, statusText: 'Error' });
       await settle();
-      http.expectOne((r) => r.url === '/api/admin/grammar').flush({ points: [] });
+      http.expectOne((r) => r.url === '/admin/grammar').flush({ points: [] });
       await settle();
       expect(dialog().querySelector('dialog')!.hasAttribute('open')).toBe(true);
       expect(dialog().querySelector('#generate-perLesson')).toBeNull();

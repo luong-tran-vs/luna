@@ -16,7 +16,7 @@ const word = (text: string, lessonCount = 0, level: TopicWord['level'] = ''): To
 const anyLevel = (...texts: string[]) => texts.map((text) => ({ text, level: '' }));
 
 const words = [word('Family', 3), word('Parents'), word('take a shower')];
-const url = '/api/admin/topics/t1/words';
+const url = '/admin/topics/t1/words';
 
 describe('parseWords', () => {
   it('splits by lines and commas, trims and drops empty entries', () => {
@@ -62,7 +62,7 @@ describe('TopicWords', () => {
     fixture = TestBed.createComponent(TopicWords);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/admin/topics').flush({ topics: [topic('t1', 'Gia đình'), topic('t2', 'Mua sắm')] });
+    http.expectOne('/admin/topics').flush({ topics: [topic('t1', 'Gia đình'), topic('t2', 'Mua sắm')] });
     http.expectOne(url).flush({ words: list });
     await settle();
   };
@@ -98,7 +98,7 @@ describe('TopicWords', () => {
     fixture = TestBed.createComponent(TopicWords);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/admin/topics').flush({ topics: [] });
+    http.expectOne('/admin/topics').flush({ topics: [] });
     http.expectOne(url).flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
     await settle();
     expect(el.textContent).toContain('Không tìm thấy chủ đề');

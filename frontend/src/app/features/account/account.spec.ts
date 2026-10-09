@@ -44,7 +44,7 @@ describe('Account', () => {
     fixture = TestBed.createComponent(Account);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    const req = http.expectOne('/api/goals');
+    const req = http.expectOne('/goals');
     if (goals === 'error') {
       req.flush('down', { status: 500, statusText: 'Error' });
     } else {

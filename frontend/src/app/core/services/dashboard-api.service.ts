@@ -10,11 +10,11 @@ export class DashboardApiService {
   private readonly http = inject(HttpClient);
 
   dashboard(): Observable<Dashboard> {
-    return this.http.get<Dashboard>('/api/dashboard');
+    return this.http.get<Dashboard>('/dashboard');
   }
 
   /** Every-day figures by default; a period limits them to this week or this month. */
   stats(period?: StatsPeriod): Observable<Stats> {
-    return period ? this.http.get<Stats>('/api/stats', { params: { period } }) : this.http.get<Stats>('/api/stats');
+    return period ? this.http.get<Stats>('/stats', { params: { period } }) : this.http.get<Stats>('/stats');
   }
 }

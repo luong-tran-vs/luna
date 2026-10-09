@@ -23,7 +23,7 @@ export class ExportApiService {
 
   download(): Observable<ExportFile> {
     return this.http
-      .get('/api/export', { responseType: 'blob', observe: 'response' })
+      .get('/export', { responseType: 'blob', observe: 'response' })
       .pipe(
         map((res: HttpResponse<Blob>) => ({
           blob: res.body ?? new Blob([], { type: 'application/json' }),

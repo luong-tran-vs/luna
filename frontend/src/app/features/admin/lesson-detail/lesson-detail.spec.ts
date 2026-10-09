@@ -55,7 +55,7 @@ describe('LessonDetail', () => {
   const button = (text: string) =>
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === text);
   const load = async (l: Lesson) => {
-    http.expectOne('/api/admin/lessons/l1').flush({ lesson: l });
+    http.expectOne('/admin/lessons/l1').flush({ lesson: l });
     await settle();
   };
 
@@ -114,7 +114,7 @@ describe('LessonDetail', () => {
       expect(el.textContent).toContain('người học chưa thấy bài này');
       button('Đăng bài')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/lessons/l1/published');
+      const req = http.expectOne('/admin/lessons/l1/published');
       expect(req.request.method).toBe('PUT');
       expect(req.request.body).toEqual({ published: true });
       req.flush({ lesson: lesson({ draft: false }) });
@@ -124,7 +124,7 @@ describe('LessonDetail', () => {
 
       button('Ẩn khỏi người học')!.click();
       await settle();
-      const hide = http.expectOne('/api/admin/lessons/l1/published');
+      const hide = http.expectOne('/admin/lessons/l1/published');
       expect(hide.request.body).toEqual({ published: false });
       hide.flush({ lesson: lesson({ draft: true }) });
       await settle();
@@ -132,7 +132,7 @@ describe('LessonDetail', () => {
     });
 
     it('shows a not-found message', async () => {
-      http.expectOne('/api/admin/lessons/l1').flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
+      http.expectOne('/admin/lessons/l1').flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
       await settle();
       expect(el.textContent).toContain('Không tìm thấy bài học');
     });
@@ -151,7 +151,7 @@ describe('LessonDetail', () => {
 
       button('Chạy lại chú thích')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running', annotations: [] }) });
+      http.expectOne('/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running', annotations: [] }) });
       await settle();
       // Polling restarts with an immediate reload.
       await load(lesson({ annotationStatus: 'running', annotations: [] }));
@@ -163,7 +163,7 @@ describe('LessonDetail', () => {
       expect(el.textContent).toContain('Luyện tập: Chưa có');
       button('Tạo lại phần luyện tập')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/practice/regenerate').flush({ lesson: lesson({ practiceStatus: 'running' }) });
+      http.expectOne('/admin/lessons/l1/practice/regenerate').flush({ lesson: lesson({ practiceStatus: 'running' }) });
       await settle();
       // Polling restarts with an immediate reload.
       await load(lesson({ practiceStatus: 'running' }));
@@ -175,7 +175,7 @@ describe('LessonDetail', () => {
       await load(lesson({ annotations: [] }));
       button('Chạy lại chú thích')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running' }) });
+      http.expectOne('/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running' }) });
       await settle();
       await load(lesson({ annotationStatus: 'running' }));
       expect(button('Chạy lại chú thích')).toBeUndefined();
@@ -190,13 +190,13 @@ describe('LessonDetail', () => {
       expect(dialog?.textContent).toContain('câu hỏi, ngữ pháp, đề viết đã sửa tay');
       button('Huỷ')!.click();
       await settle();
-      http.expectNone('/api/admin/lessons/l1/retry?job=annotate');
+      http.expectNone('/admin/lessons/l1/retry?job=annotate');
 
       button('Chạy lại chú thích')!.click();
       await settle();
       button('Chạy lại')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running' }) });
+      http.expectOne('/admin/lessons/l1/retry?job=annotate').flush({ lesson: lesson({ annotationStatus: 'running' }) });
       await settle();
       await load(lesson({ annotationStatus: 'running' }));
     });
@@ -207,7 +207,7 @@ describe('LessonDetail', () => {
       expect(extras?.textContent).toContain('Câu hỏi, ngữ pháp, đề viết');
       button('Lưu câu hỏi, ngữ pháp, đề viết')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/extras').flush({ lesson: lesson({ extrasEditedByAdmin: true }) });
+      http.expectOne('/admin/lessons/l1/extras').flush({ lesson: lesson({ extrasEditedByAdmin: true }) });
       await settle();
       expect(extras?.textContent).toContain('Đã sửa tay');
     });
@@ -255,7 +255,7 @@ describe('LessonDetail', () => {
 
       button('Lưu chú thích')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/lessons/l1/annotations');
+      const req = http.expectOne('/admin/lessons/l1/annotations');
       expect(req.request.body).toEqual({
         annotations: [
           { text: 'went', lemma: 'go', meaningVi: 'đi' },
@@ -280,7 +280,7 @@ describe('LessonDetail', () => {
 
       button('Lưu chú thích')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/annotations').flush(
+      http.expectOne('/admin/lessons/l1/annotations').flush(
         { error: 'validation_failed', fields: { 'annotations.2.text': 'Cụm từ không có trong bài' } },
         { status: 400, statusText: 'Bad Request' },
       );
@@ -316,7 +316,7 @@ describe('LessonDetail', () => {
       expect(dialog()).not.toBeNull();
       button('Xoá')!.click();
       await settle();
-      const req = http.expectOne('/api/admin/lessons/l1');
+      const req = http.expectOne('/admin/lessons/l1');
       expect(req.request.method).toBe('DELETE');
       req.flush(null, { status: 204, statusText: 'No Content' });
       await settle();
@@ -329,7 +329,7 @@ describe('LessonDetail', () => {
       await fixture.whenStable();
       button('Xoá')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1').flush(
+      http.expectOne('/admin/lessons/l1').flush(
         { error: 'lesson_in_roadmap', message: 'Gỡ bài khỏi lộ trình trước khi xoá' },
         { status: 409, statusText: 'Conflict' },
       );
@@ -368,7 +368,7 @@ describe('LessonDetail', () => {
       button('Kiểm tra bằng AI')!.click();
       await settle();
       expect(button('Đang kiểm tra…')!.disabled).toBe(true);
-      const r = http.expectOne('/api/admin/lessons/l1/check');
+      const r = http.expectOne('/admin/lessons/l1/check');
       expect(r.request.method).toBe('POST');
       r.flush({
         lesson: lesson({
@@ -426,18 +426,18 @@ describe('LessonDetail', () => {
       await load(lesson({ ...withContent, review: review([flag('sentence', 1)]) }));
       Array.from(el.querySelectorAll<HTMLButtonElement>('#flag-sentence-1 button')).find((b) => b.textContent?.includes('AI gợi ý sửa'))!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/check/suggest').flush({ suggestion: { area: 'sentence', index: 1, text: 'He quit smoking.' } });
+      http.expectOne('/admin/lessons/l1/check/suggest').flush({ suggestion: { area: 'sentence', index: 1, text: 'He quit smoking.' } });
       await settle();
       Array.from(el.querySelectorAll<HTMLButtonElement>('#flag-sentence-1 button')).find((b) => b.textContent?.includes('Áp dụng'))!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/check/apply').flush({
+      http.expectOne('/admin/lessons/l1/check/apply').flush({
         lesson: lesson({ ...withContent, annotationStatus: 'running', review: null, sentences: [{ index: 0, text: 'We went to the park.' }, { index: 1, text: 'He quit smoking.' }] }),
       });
       await settle();
       expect(el.querySelectorAll('.sentences li')[1].textContent).toContain('He quit smoking.');
       expect(el.querySelector('.flag-list')).toBeNull();
       // Annotating again: the page polls the lesson.
-      http.expectOne('/api/admin/lessons/l1').flush({ lesson: lesson({ ...withContent, review: null }) });
+      http.expectOne('/admin/lessons/l1').flush({ lesson: lesson({ ...withContent, review: null }) });
       await settle();
     });
 
@@ -452,7 +452,7 @@ describe('LessonDetail', () => {
       expect(el.querySelector('.check-strip')?.textContent).toContain('Đã kiểm tra, không có chỗ nào bị gắn cờ');
       button('Xác nhận đã kiểm tra xong')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/check/verify').flush({ lesson: lesson({ review: review([], '2026-10-05T09:00:00Z') }) });
+      http.expectOne('/admin/lessons/l1/check/verify').flush({ lesson: lesson({ review: review([], '2026-10-05T09:00:00Z') }) });
       await settle();
       expect(el.querySelector('.check-strip')?.textContent).toContain('Đã xác nhận kiểm tra xong');
       expect(button('Xác nhận đã kiểm tra xong')).toBeUndefined();
@@ -467,7 +467,7 @@ describe('LessonDetail', () => {
         await load(lesson());
         button('Kiểm tra bằng AI')!.click();
         await settle();
-        http.expectOne('/api/admin/lessons/l1/check').flush({ error: 'x' }, { status, statusText: 'E' });
+        http.expectOne('/admin/lessons/l1/check').flush({ error: 'x' }, { status, statusText: 'E' });
         await settle();
         expect(err()).toContain(text);
         expect(button('Kiểm tra bằng AI')!.disabled).toBe(false);
@@ -478,7 +478,7 @@ describe('LessonDetail', () => {
       await load(lesson());
       button('Kiểm tra bằng AI')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/check').flush({ error: 'annotation_not_done' }, { status: 409, statusText: 'Conflict' });
+      http.expectOne('/admin/lessons/l1/check').flush({ error: 'annotation_not_done' }, { status: 409, statusText: 'Conflict' });
       await settle();
       expect(err()).toContain('Chú thích chưa chạy xong');
     });
@@ -487,7 +487,7 @@ describe('LessonDetail', () => {
       await load(lesson({ review: review([flag('sentence', 0, 'wrong'), flag('sentence', 1, 'wrong')]) }));
       el.querySelector<HTMLButtonElement>('button[aria-label="Giữ nguyên câu 1"]')!.click();
       await settle();
-      const r = http.expectOne('/api/admin/lessons/l1/check/confirm');
+      const r = http.expectOne('/admin/lessons/l1/check/confirm');
       expect(r.request.body).toEqual({ area: 'sentence', index: 0 });
       r.flush({ lesson: lesson({ review: review([flag('sentence', 0, 'wrong', true), flag('sentence', 1, 'wrong')]) }) });
       await settle();
@@ -505,7 +505,7 @@ describe('LessonDetail', () => {
       await load(lesson({ review: review([flag('sentence', 0, 'wrong', true)]) }));
       button('Xác nhận đã kiểm tra xong')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/check/verify').flush({ error: 'flags_unresolved', count: 3 }, { status: 409, statusText: 'Conflict' });
+      http.expectOne('/admin/lessons/l1/check/verify').flush({ error: 'flags_unresolved', count: 3 }, { status: 409, statusText: 'Conflict' });
       await settle();
       expect(err()).toContain('Còn 3 chỗ bị AI gắn cờ chưa xác nhận');
     });
@@ -514,7 +514,7 @@ describe('LessonDetail', () => {
       await load(lesson({ review: review([]) }));
       button('Xác nhận đã kiểm tra xong')!.click();
       await settle();
-      http.expectOne('/api/admin/lessons/l1/check/verify').flush({ error: 'not_checked' }, { status: 409, statusText: 'Conflict' });
+      http.expectOne('/admin/lessons/l1/check/verify').flush({ error: 'not_checked' }, { status: 409, statusText: 'Conflict' });
       await settle();
       expect(err()).toContain('chưa được kiểm tra bằng AI');
     });
@@ -547,10 +547,10 @@ describe('LessonDetail', () => {
         await load(flagged([flag('annotation', 0)]));
         el.querySelector<HTMLButtonElement>('lu-flag-note button[aria-label="Xoá chú thích went khỏi bài"]')!.click();
         await settle();
-        expect(http.match('/api/admin/lessons/l1/annotations')).toEqual([]);
+        expect(http.match('/admin/lessons/l1/annotations')).toEqual([]);
         dialogYes();
         await settle();
-        const r = http.expectOne('/api/admin/lessons/l1/annotations');
+        const r = http.expectOne('/admin/lessons/l1/annotations');
         expect(r.request.method).toBe('PUT');
         expect(r.request.body).toEqual({ annotations: [{ text: 'gave up', lemma: 'give up', meaningVi: 'bỏ' }] });
         r.flush({ lesson: { ...flagged([]), annotations: flagged([]).annotations.slice(1) } });
@@ -569,7 +569,7 @@ describe('LessonDetail', () => {
         await settle();
         dialogYes();
         await settle();
-        expect(http.expectOne('/api/admin/lessons/l1/annotations').request.body).toEqual({ annotations: [{ text: 'gave up', lemma: 'give up', meaningVi: 'từ bỏ' }] });
+        expect(http.expectOne('/admin/lessons/l1/annotations').request.body).toEqual({ annotations: [{ text: 'gave up', lemma: 'give up', meaningVi: 'từ bỏ' }] });
       });
 
       it('shows edit and delete on a flagged question and translation', async () => {

@@ -59,7 +59,7 @@ describe('Accounts', () => {
     fixture = TestBed.createComponent(Accounts);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
-    http.expectOne('/api/admin/users').flush({ users: [me, guest, member] });
+    http.expectOne('/admin/users').flush({ users: [me, guest, member] });
     await settle();
   });
 
@@ -113,7 +113,7 @@ describe('Accounts', () => {
     pickRole('member');
     button('Thêm tài khoản', dialog())!.click();
     await settle();
-    const req = http.expectOne('/api/admin/users');
+    const req = http.expectOne('/admin/users');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ email: 'moi@x.vn', password: 'matkhau123', role: 'member' });
     req.flush({ user: { id: 'n1', email: 'moi@x.vn', role: 'member', createdAt: '2026-10-08T08:00:00Z' } }, { status: 201, statusText: 'Created' });
@@ -131,7 +131,7 @@ describe('Accounts', () => {
     button('Thêm tài khoản', dialog())!.click();
     await settle();
     http
-      .expectOne('/api/admin/users')
+      .expectOne('/admin/users')
       .flush({ error: 'validation', fields: { password: 'Mật khẩu cần ít nhất 8 ký tự' } }, { status: 400, statusText: 'Bad' });
     await settle();
     expect(dialog().hasAttribute('open')).toBe(true);
@@ -149,7 +149,7 @@ describe('Accounts', () => {
     pickRole('member');
     button('Lưu thay đổi', dialog())!.click();
     await settle();
-    const req = http.expectOne('/api/admin/users/g1');
+    const req = http.expectOne('/admin/users/g1');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual({ email: 'khach@x.vn', password: '', role: 'member' });
     req.flush({ user: { ...guest, role: 'member' } });
@@ -174,7 +174,7 @@ describe('Accounts', () => {
     expect(text(confirm)).toContain('Không thể hoàn tác');
     button('Xoá tài khoản', confirm)!.click();
     await settle();
-    const req = http.expectOne('/api/admin/users/g1');
+    const req = http.expectOne('/admin/users/g1');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, { status: 204, statusText: 'No Content' });
     await settle();

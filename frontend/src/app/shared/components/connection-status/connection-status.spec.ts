@@ -21,7 +21,7 @@ describe('ConnectionStatusBar', () => {
   /** Navigates, which triggers a health check, and answers it. */
   const check = async (url: string, flush: (req: ReturnType<HttpTestingController['expectOne']>) => void) => {
     await router.navigateByUrl(url);
-    flush(controller.expectOne('/api/health'));
+    flush(controller.expectOne('/health'));
     await fixture.whenStable();
   };
 

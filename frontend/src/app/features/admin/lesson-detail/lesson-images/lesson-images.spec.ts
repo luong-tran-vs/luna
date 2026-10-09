@@ -2,6 +2,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { serverUrl } from '../../../../core/api-url';
 import { errorInterceptor } from '../../../../core/interceptors/error-interceptor';
 import { DEFAULT_IMAGE_STYLE } from '../../../../core/models/generate';
 import { LessonImages } from './lesson-images';
@@ -11,7 +12,7 @@ describe('LessonImages', () => {
   let el: HTMLElement;
   let http: HttpTestingController;
 
-  const url = '/api/admin/lessons/l1/images';
+  const url = '/admin/lessons/l1/images';
   const text = (selector: string) =>
     el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const settle = async () => {
@@ -61,9 +62,9 @@ describe('LessonImages', () => {
       ]);
       expect(rows()[0].querySelector('img')).toBeNull();
       expect(rows()[0].textContent).toContain('Chưa có ảnh');
-      expect(rows()[1].querySelector('img')!.getAttribute('src')).toMatch(
-        /^\/api\/admin\/lessons\/l1\/images\/give%20up\?v=\d+$/,
-      );
+      const src = rows()[1].querySelector('img')!.getAttribute('src')!;
+      expect(src.startsWith(serverUrl('/api/admin/lessons/l1/images/give%20up?v='))).toBe(true);
+      expect(src).toMatch(/\?v=\d+$/);
       expect(rows()[0].querySelector('.upload-btn')!.textContent).toContain('Tải ảnh lên');
       expect(rows()[1].querySelector('.upload-btn')!.textContent).toContain('Đổi ảnh');
       expect(rows()[0].querySelector('.remove-btn')).toBeNull();
@@ -82,7 +83,7 @@ describe('LessonImages', () => {
       await open(base);
       const file = new File(['png'], 'cup.png', { type: 'image/png' });
       await choose(rows()[0], file);
-      const req = http.expectOne('/api/admin/lessons/l1/images/coffee');
+      const req = http.expectOne('/admin/lessons/l1/images/coffee');
       expect(req.request.method).toBe('PUT');
       expect(req.request.body).toBe(file);
       expect(req.request.headers.get('Content-Type')).toBe('image/png');
@@ -112,7 +113,7 @@ describe('LessonImages', () => {
       await open(base);
       await choose(rows()[0], new File(['x'], 'a.png', { type: 'image/png' }));
       http
-        .expectOne('/api/admin/lessons/l1/images/coffee')
+        .expectOne('/admin/lessons/l1/images/coffee')
         .flush(
           { fields: { image: 'Không đọc được ảnh. Hãy dùng ảnh JPEG, PNG hoặc GIF.' } },
           { status: 400, statusText: 'Bad Request' },
@@ -150,7 +151,7 @@ describe('LessonImages', () => {
         await open(base);
         await openLink(rows()[0]);
         await submitLink(rows()[0], '  https://example.com/cup.jpg ');
-        const req = http.expectOne('/api/admin/lessons/l1/images/coffee/import');
+        const req = http.expectOne('/admin/lessons/l1/images/coffee/import');
         expect(req.request.method).toBe('POST');
         expect(req.request.body).toEqual({ url: 'https://example.com/cup.jpg' });
         req.flush({
@@ -174,7 +175,7 @@ describe('LessonImages', () => {
 
         await submitLink(rows()[0], 'https://example.com/page');
         http
-          .expectOne('/api/admin/lessons/l1/images/coffee/import')
+          .expectOne('/admin/lessons/l1/images/coffee/import')
           .flush(
             {
               fields: {
@@ -196,7 +197,7 @@ describe('LessonImages', () => {
       await open(base);
       rows()[1].querySelector<HTMLButtonElement>('.remove-btn')!.click();
       await fixture.whenStable();
-      const req = http.expectOne('/api/admin/lessons/l1/images/give%20up');
+      const req = http.expectOne('/admin/lessons/l1/images/give%20up');
       expect(req.request.method).toBe('DELETE');
       req.flush({ ...base, count: 0, words: [words[0], { ...words[1], imageUrl: '' }] });
       await settle();

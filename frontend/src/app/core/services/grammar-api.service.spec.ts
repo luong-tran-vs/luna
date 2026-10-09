@@ -19,14 +19,14 @@ describe('GrammarApiService', () => {
 
   it('lists the points of a level, or of all levels without one', async () => {
     const list = firstValueFrom(api.points('A2'));
-    const req = http.expectOne((r) => r.url === '/api/grammar');
+    const req = http.expectOne((r) => r.url === '/grammar');
     expect(req.request.method).toBe('GET');
     expect(req.request.params.get('level')).toBe('A2');
     req.flush({ points: [], next: '' });
     await expect(list).resolves.toEqual({ points: [], next: '' });
 
     const all = firstValueFrom(api.points());
-    const req2 = http.expectOne((r) => r.url === '/api/grammar');
+    const req2 = http.expectOne((r) => r.url === '/grammar');
     expect(req2.request.params.has('level')).toBe(false);
     req2.flush({ points: [], next: '' });
     await all;
@@ -34,14 +34,14 @@ describe('GrammarApiService', () => {
 
   it('loads one point', async () => {
     const detail = firstValueFrom(api.get('a1-to-be'));
-    http.expectOne('/api/grammar/a1-to-be').flush({ point: { id: 'a1-to-be' }, lessonCount: 2 });
+    http.expectOne('/grammar/a1-to-be').flush({ point: { id: 'a1-to-be' }, lessonCount: 2 });
     await expect(detail).resolves.toMatchObject({ lessonCount: 2 });
   });
 
   it('reports an exercise and remembers it for the session', async () => {
     const body = { exerciseId: 'p3', reason: 'typo' as const, note: 'sai chính tả' };
     const result = firstValueFrom(api.reportExercise('a1-to-be', body));
-    const req = http.expectOne('/api/grammar/a1-to-be/reports');
+    const req = http.expectOne('/grammar/a1-to-be/reports');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(body);
     req.flush({ ok: true });
@@ -55,7 +55,7 @@ describe('GrammarApiService', () => {
   it('posts an attempt', async () => {
     const body = { kind: 'mastery' as const, correct: 4, total: 5, wrong: ['m3'] };
     const result = firstValueFrom(api.recordAttempt('a1-to-be', body));
-    const req = http.expectOne('/api/grammar/a1-to-be/attempts');
+    const req = http.expectOne('/grammar/a1-to-be/attempts');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(body);
     req.flush({ progress: { status: 'mastered' }, passed: true });

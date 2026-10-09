@@ -60,7 +60,7 @@ describe('GrammarQuiz', () => {
     button('Xem kết quả').click();
     await settle();
 
-    const req = http.expectOne('/api/grammar/a1-to-be/attempts');
+    const req = http.expectOne('/grammar/a1-to-be/attempts');
     expect(req.request.body).toEqual({ kind: 'practice', correct: 1, total: 2, wrong: ['p2'] });
     req.flush({ progress: progress({ weak: ['p2'] }), passed: false });
     await settle();
@@ -72,7 +72,7 @@ describe('GrammarQuiz', () => {
     expect(text(el.querySelector('.count'))).toBe('Câu 1/1');
     expect(text(el)).toContain('không tính vào điểm');
     await answer('a', 'Xem kết quả');
-    http.expectNone('/api/grammar/a1-to-be/attempts');
+    http.expectNone('/grammar/a1-to-be/attempts');
     expect(text(el.querySelector('.score'))).toBe('Đúng 1/1 câu (100%)');
   });
 
@@ -92,7 +92,7 @@ describe('GrammarQuiz', () => {
     button('Câu tiếp theo').click();
     await settle();
     await answer('a', 'Xem kết quả');
-    const req = http.expectOne('/api/grammar/a1-to-be/attempts');
+    const req = http.expectOne('/grammar/a1-to-be/attempts');
     expect(req.request.body.kind).toBe('mastery');
     req.flush({ progress: progress({ status: 'mastered', mastered: true, bestMastery: 100 }), passed: true });
     await settle();
@@ -108,7 +108,7 @@ describe('GrammarQuiz', () => {
     expect(el.querySelector('lu-report-exercise')).toBeNull();
     button('Xem kết quả').click();
     await settle();
-    http.expectOne('/api/grammar/a1-to-be/attempts').flush({ progress: progress(), passed: false });
+    http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: progress(), passed: false });
     await settle();
 
     const items = Array.from(el.querySelectorAll('.review-item'));
@@ -129,7 +129,7 @@ describe('GrammarQuiz', () => {
     await answer('a', 'Câu tiếp theo');
     await answer('b', 'Câu tiếp theo');
     await answer('b', 'Xem kết quả');
-    http.expectOne('/api/grammar/a1-to-be/attempts').flush({ progress: progress(), passed: false });
+    http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: progress(), passed: false });
     await settle();
     expect(text(el.querySelector('.score'))).toBe('Đúng 3/5 câu (60%)');
     expect(text(el.querySelector('.verdict'))).toContain('còn thiếu 1 câu đúng');
@@ -141,11 +141,11 @@ describe('GrammarQuiz', () => {
   it('keeps the local score and lets the learner send it again when saving fails', async () => {
     await setup('practice', ['p1']);
     await answer('a', 'Xem kết quả');
-    http.expectOne('/api/grammar/a1-to-be/attempts').flush({ error: 'x' }, { status: 500, statusText: 'x' });
+    http.expectOne('/grammar/a1-to-be/attempts').flush({ error: 'x' }, { status: 500, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toContain('Không lưu được điểm');
     button('Gửi lại điểm').click();
-    http.expectOne('/api/grammar/a1-to-be/attempts').flush({ progress: progress(), passed: false });
+    http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: progress(), passed: false });
     await settle();
     expect(el.querySelector('[role="alert"]')).toBeNull();
     expect(recorded.length).toBe(1);

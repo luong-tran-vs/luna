@@ -39,8 +39,8 @@ describe('LessonList', () => {
     await fixture.whenStable();
   };
   const flushLoad = async (lessons: LessonSummary[], topicList: Topic[] = topics) => {
-    http.expectOne((r) => r.url === '/api/admin/lessons').flush({ lessons });
-    http.expectOne('/api/admin/topics').flush({ topics: topicList });
+    http.expectOne((r) => r.url === '/admin/lessons').flush({ lessons });
+    http.expectOne('/admin/topics').flush({ topics: topicList });
     await settle();
   };
   const button = (text: string) =>
@@ -107,13 +107,13 @@ describe('LessonList', () => {
     ]);
 
     await choose('topicId', 't3');
-    const byTopic: TestRequest = http.expectOne((r) => r.url === '/api/admin/lessons');
+    const byTopic: TestRequest = http.expectOne((r) => r.url === '/admin/lessons');
     expect(byTopic.request.params.get('topicId')).toBe('t3');
     await flushLoadRest(byTopic);
 
     // A topic is shared by every level: choosing a level keeps the topic and every topic choice.
     await choose('level', 'A1');
-    const both = http.expectOne((r) => r.url === '/api/admin/lessons');
+    const both = http.expectOne((r) => r.url === '/admin/lessons');
     expect(both.request.params.get('level')).toBe('A1');
     expect(both.request.params.get('topicId')).toBe('t3');
     await flushLoadRest(both);
@@ -122,7 +122,7 @@ describe('LessonList', () => {
 
   async function flushLoadRest(req: TestRequest): Promise<void> {
     req.flush({ lessons: [] });
-    http.expectOne('/api/admin/topics').flush({ topics });
+    http.expectOne('/admin/topics').flush({ topics });
     await settle();
   }
 
@@ -131,7 +131,7 @@ describe('LessonList', () => {
 
     button('Chạy lại chú thích')!.click();
     await settle();
-    const req = http.expectOne('/api/admin/lessons/l1/retry?job=annotate');
+    const req = http.expectOne('/admin/lessons/l1/retry?job=annotate');
     expect(req.request.method).toBe('POST');
     req.flush({ lesson: summary({ annotationStatus: 'running' }) });
     await settle();
@@ -148,9 +148,9 @@ describe('LessonList', () => {
     const roadmap: TopicRoadmap = {
       topic: topics[2], level: 'B1', lessons: [summary({ id: 'l0', inRoadmap: true })], remaining: 1, warning: true,
     };
-    http.expectOne('/api/admin/topics/t3/roadmap?level=B1').flush(roadmap);
+    http.expectOne('/admin/topics/t3/roadmap?level=B1').flush(roadmap);
     await settle();
-    const put = http.expectOne((r) => r.url === '/api/admin/topics/t3/roadmap' && r.method === 'PUT');
+    const put = http.expectOne((r) => r.url === '/admin/topics/t3/roadmap' && r.method === 'PUT');
     expect(put.request.params.get('level')).toBe('B1');
     expect(put.request.body).toEqual({ lessonIds: ['l0', 'l1'] });
     put.flush(roadmap);
@@ -177,7 +177,7 @@ describe('LessonList', () => {
       vi.advanceTimersByTime(5000);
       await flushLoad([summary({ annotationStatus: 'done' })]);
       vi.advanceTimersByTime(10000);
-      http.expectNone((r) => r.url === '/api/admin/lessons');
+      http.expectNone((r) => r.url === '/admin/lessons');
     } finally {
       vi.useRealTimers();
     }

@@ -69,7 +69,7 @@ describe('Register', () => {
     await submit();
     expect(errorOf('email')).toBe('Vui lòng nhập email');
     expect(errorOf('password')).toBe('Vui lòng nhập mật khẩu');
-    http.expectNone('/api/auth/register');
+    http.expectNone('/auth/register');
   });
 
   it('registers, disables the button while pending, and goes home', async () => {
@@ -80,7 +80,7 @@ describe('Register', () => {
     const button = el.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     expect(button.disabled).toBe(true);
 
-    const req = http.expectOne('/api/auth/register');
+    const req = http.expectOne('/auth/register');
     expect(req.request.body.timezone).toBe(Intl.DateTimeFormat().resolvedOptions().timeZone);
     req.flush(
       { user: { id: '1', email: 'an@example.com', role: 'admin', timezone: 'Asia/Ho_Chi_Minh' } },
@@ -97,7 +97,7 @@ describe('Register', () => {
     await type('password', 'matkhau123');
     await submit();
     http
-      .expectOne('/api/auth/register')
+      .expectOne('/auth/register')
       .flush(
         { error: 'email_taken', message: 'Email này đã được dùng' },
         { status: 409, statusText: 'Conflict' },
@@ -113,7 +113,7 @@ describe('Register', () => {
     await type('email', 'an@example.com');
     await type('password', 'matkhau123');
     await submit();
-    http.expectOne('/api/auth/register').error(new ProgressEvent('error'));
+    http.expectOne('/auth/register').error(new ProgressEvent('error'));
     await settle();
 
     expect(alertText()).toBe('Không kết nối được máy chủ. Vui lòng thử lại.');

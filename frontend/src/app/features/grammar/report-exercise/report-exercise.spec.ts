@@ -69,7 +69,7 @@ describe('ReportExercise', () => {
     submitBtn().click();
     await fixture.whenStable();
     expect(text(el.querySelector('.field-error'))).toBe('Hãy chọn một lý do.');
-    http.expectNone('/api/grammar/a1-to-be/reports');
+    http.expectNone('/grammar/a1-to-be/reports');
   });
 
   it('sends the report, thanks the learner and shows the button as reported', async () => {
@@ -77,7 +77,7 @@ describe('ReportExercise', () => {
     await pick('Lỗi chính tả');
     await type('  thiếu dấu  ');
     submitBtn().click();
-    const req = http.expectOne('/api/grammar/a1-to-be/reports');
+    const req = http.expectOne('/grammar/a1-to-be/reports');
     expect(req.request.body).toEqual({ exerciseId: 'p3', reason: 'typo', note: 'thiếu dấu' });
     req.flush({ ok: true });
     await fixture.whenStable();
@@ -95,7 +95,7 @@ describe('ReportExercise', () => {
     await pick('Đáp án sai');
     await type('đáp án là is');
     submitBtn().click();
-    http.expectOne('/api/grammar/a1-to-be/reports').flush({ error: 'x' }, { status: 500, statusText: 'x' });
+    http.expectOne('/grammar/a1-to-be/reports').flush({ error: 'x' }, { status: 500, statusText: 'x' });
     await fixture.whenStable();
     expect(text(el.querySelector('.form-alert'))).toContain('Không gửi được');
     expect(el.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe('đáp án là is');
@@ -103,7 +103,7 @@ describe('ReportExercise', () => {
     expect(dialog().hasAttribute('open')).toBe(true);
 
     submitBtn().click();
-    http.expectOne('/api/grammar/a1-to-be/reports').flush({ ok: true });
+    http.expectOne('/grammar/a1-to-be/reports').flush({ ok: true });
     await fixture.whenStable();
     expect(text(trigger())).toBe('Đã báo lỗi câu này');
   });
