@@ -52,6 +52,15 @@ describe('Roadmap', () => {
   const levelCards = () => Array.from(el.querySelectorAll<HTMLButtonElement>('#roadmap-level [role="radio"]'));
   const chosenLevel = () => text(el.querySelector('#roadmap-level [aria-checked="true"] .code'));
   const byLabel = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
+  /** The searchable topic box and its open list. */
+  const topicBox = () => el.querySelector<HTMLInputElement>('#roadmap-topic')!;
+  const optionTexts = () => Array.from(el.querySelectorAll('#roadmap-topic-list [role="option"]')).map((o) => text(o));
+  const chooseTopic = async (id: string) => {
+    topicBox().click();
+    await settle();
+    el.querySelector<HTMLElement>(`#roadmap-topic-list [data-value="${id}"]`)!.click();
+    await settle();
+  };
   const flushTopic = async (id: string, roadmap: TopicRoadmap, lessons: LessonSummary[]) => {
     const get = http.expectOne((r) => r.url === `/admin/topics/${id}/roadmap` && r.method === 'GET');
     expect(get.request.params.get('level')).toBe(roadmap.level);
@@ -95,6 +104,14 @@ describe('Roadmap', () => {
     await fixture.whenStable();
     http.expectOne('/admin/topics').flush({ topics });
     await settle();
+    if (!topicId) {
+      // Without a topic the page lists every roadmap that has lessons.
+      http.expectOne((r) => r.url === '/admin/topics/t3/roadmap' && r.params.get('level') === 'B1').flush({
+        ...data([]), topic: topics[2], level: 'B1', lessons: [item('w1', 'Họp'), item('w2', 'Phỏng vấn')],
+      });
+      http.expectOne((r) => r.url === '/admin/topics/t1/roadmap' && r.params.get('level') === 'A1').flush(data(['a']));
+      await settle();
+    }
   };
 
   afterEach(() => http.verify());
@@ -102,10 +119,18 @@ describe('Roadmap', () => {
   describe('choosing a topic', () => {
     beforeEach(() => setup(null));
 
-    it('offers every topic by name and lists every roadmap running low', () => {
-      expect(Array.from(el.querySelectorAll('select[name="topicId"] option')).map((o) => text(o))).toEqual([
-        'Chọn chủ đề', 'Công việc', 'Gia đình', 'Mua sắm',
+    it('offers every topic by name and lists every roadmap running low', async () => {
+      topicBox().click();
+      await settle();
+      // Each test topic has one lesson outside its roadmap.
+      expect(optionTexts()).toEqual([
+        'Tất cả lộ trình',
+        'Công việc, 1 bài chưa vào lộ trình',
+        'Gia đình, 1 bài chưa vào lộ trình',
+        'Mua sắm, 1 bài chưa vào lộ trình',
       ]);
+      topicBox().dispatchEvent(new Event('blur'));
+      await settle();
       // The level cards appear once a topic is chosen.
       expect(levelCards()).toEqual([]);
       expect(Array.from(el.querySelectorAll('.topic-warnings button')).map((b) => text(b))).toEqual([
@@ -115,11 +140,82 @@ describe('Roadmap', () => {
       expect(el.textContent).toContain('Chọn một chủ đề');
     });
 
-    it('loads the roadmap of the chosen topic and remembers it in the URL', async () => {
-      const select = el.querySelector<HTMLSelectElement>('select[name="topicId"]')!;
-      select.value = 't1';
-      select.dispatchEvent(new Event('change'));
+    it('lists every lesson of every roadmap, by topic then level', async () => {
+      expect(text(el.querySelector('#overview-heading'))).toBe('Tất cả bài của lộ trình (3)');
+      const groups = Array.from(el.querySelectorAll('.overview-group'));
+      expect(groups.map((g) => text(g.querySelector('.group-toggle')))).toEqual(['▾ B1 · Công việc 2 bài', '▾ A1 · Gia đình 1 bài']);
+      expect(Array.from(groups[0].querySelectorAll('.title')).map((t) => text(t))).toEqual(['Họp', 'Phỏng vấn']);
+
+      // Every roadmap starts folded; clicking its name opens it, clicking again folds it.
+      const toggle = groups[0].querySelector<HTMLButtonElement>('.group-toggle')!;
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+      expect(groups.map((g) => g.querySelector<HTMLElement>('.fold')!.inert)).toEqual([true, true]);
+      toggle.click();
       await settle();
+      expect(toggle.getAttribute('aria-expanded')).toBe('true');
+      expect(groups[0].querySelector<HTMLElement>('.fold')!.inert).toBe(false);
+      toggle.click();
+      await settle();
+      expect(groups[0].querySelector<HTMLElement>('.fold')!.inert).toBe(true);
+
+      groups[1].querySelector<HTMLButtonElement>('.group-edit')!.click();
+      await settle();
+      await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
+      expect(titles()).toEqual(['Bài a']);
+    });
+
+    it('takes ticked lessons out of their roadmaps at once, keeping the order of the rest', async () => {
+      el.querySelector<HTMLInputElement>('input[aria-label="Chọn bài Họp"]')!.click();
+      el.querySelector<HTMLInputElement>('input[aria-label="Chọn mọi bài của A1 · Gia đình"]')!.click();
+      await settle();
+      expect(text(el.querySelector('.bulk-bar [role="status"]'))).toBe('Đã chọn 2 bài');
+      Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Gỡ 2 bài khỏi lộ trình')!.click();
+      await settle();
+      Array.from(el.querySelectorAll<HTMLButtonElement>('lu-confirm-dialog button')).find((b) => text(b) === 'Gỡ')!.click();
+      await settle();
+
+      const first = http.expectOne((r) => r.url === '/admin/topics/t3/roadmap' && r.method === 'PUT');
+      expect(first.request.params.get('level')).toBe('B1');
+      expect(first.request.body).toEqual({ lessonIds: ['w2'] });
+      first.flush({ ...data([]), topic: topics[2], level: 'B1', lessons: [item('w2', 'Phỏng vấn')] });
+      await settle();
+      const second = http.expectOne((r) => r.url === '/admin/topics/t1/roadmap' && r.method === 'PUT');
+      expect(second.request.body).toEqual({ lessonIds: [] });
+      second.flush(data([]));
+      await settle();
+
+      expect(el.querySelectorAll('.overview-group').length).toBe(1);
+      expect(text(el.querySelector('#overview-heading'))).toBe('Tất cả bài của lộ trình (1)');
+      expect(el.textContent).toContain('Đã gỡ 2 bài khỏi lộ trình.');
+    });
+
+    it('takes one lesson out of its roadmap with its own Gỡ button, without ticking', async () => {
+      byLabel('Gỡ khỏi lộ trình: Họp').click();
+      await settle();
+      const req = http.expectOne((r) => r.url === '/admin/topics/t3/roadmap' && r.method === 'PUT');
+      expect(req.request.body).toEqual({ lessonIds: ['w2'] });
+      req.flush({ ...data([]), topic: topics[2], level: 'B1', lessons: [item('w2', 'Phỏng vấn')] });
+      await settle();
+      expect(text(el.querySelector('#overview-heading'))).toBe('Tất cả bài của lộ trình (2)');
+      expect(el.textContent).toContain('Đã gỡ 1 bài khỏi lộ trình.');
+    });
+
+    it('finds a topic by typing, without accents, and picks it with Enter', async () => {
+      topicBox().click();
+      await settle();
+      topicBox().value = 'gia dinh';
+      topicBox().dispatchEvent(new Event('input'));
+      await settle();
+      expect(optionTexts()).toEqual(['Gia đình, 1 bài chưa vào lộ trình']);
+      topicBox().dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      await settle();
+      await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
+      expect(topicBox().value).toBe('Gia đình');
+      expect(titles()).toEqual(['Bài a']);
+    });
+
+    it('loads the roadmap of the chosen topic and remembers it in the URL', async () => {
+      await chooseTopic('t1');
       // The level is the topic's first level with lessons.
       expect(router.navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: { topicId: 't1', level: 'A1' } }));
       await flushTopic('t1', data(['a']), [item('a', 'Bài a'), item('x', 'Bài x', false)]);
@@ -130,15 +226,12 @@ describe('Roadmap', () => {
       Array.from(el.querySelectorAll<HTMLButtonElement>('.topic-warnings button'))[1].click();
       await settle();
       await flushTopic('t3', { ...data([]), topic: topics[2], level: 'B1' }, []);
-      expect(el.querySelector<HTMLSelectElement>('select[name="topicId"]')!.value).toBe('t3');
+      expect(topicBox().value).toBe('Công việc');
       expect(chosenLevel()).toBe('B1');
     });
 
     it('switches to another level of the same topic', async () => {
-      const select = el.querySelector<HTMLSelectElement>('select[name="topicId"]')!;
-      select.value = 't1';
-      select.dispatchEvent(new Event('change'));
-      await settle();
+      await chooseTopic('t1');
       await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
       // Each card tells how many lessons of the topic the level has.
       expect(levelCards().map((c) => `${text(c.querySelector('.code'))} ${text(c.querySelector('.hint'))}`)).toEqual([
@@ -198,6 +291,17 @@ describe('Roadmap', () => {
     it('adds a lesson of the topic that is not in the roadmap yet', async () => {
       expect(Array.from(el.querySelectorAll('.available .title')).map((t) => text(t))).toEqual(['Bài x']);
       byLabel('Thêm vào lộ trình: Bài x').click();
+      await settle();
+      await expectSave(['a', 'b', 'c', 'x']);
+      expect(titles()).toEqual(['Bài a', 'Bài b', 'Bài c', 'Bài x']);
+      expect(el.querySelector('.available .title')).toBeNull();
+    });
+
+    it('adds the ticked lessons at once', async () => {
+      el.querySelector<HTMLInputElement>('input[name="tickAllToAdd"]')!.click();
+      await settle();
+      expect(el.querySelector<HTMLInputElement>('input[aria-label="Chọn để thêm: Bài x"]')!.checked).toBe(true);
+      Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Thêm 1 bài vào lộ trình')!.click();
       await settle();
       await expectSave(['a', 'b', 'c', 'x']);
       expect(titles()).toEqual(['Bài a', 'Bài b', 'Bài c', 'Bài x']);
@@ -269,7 +373,7 @@ describe('Roadmap', () => {
     const button = (label: string, root: ParentNode = el) =>
       Array.from(root.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === label);
     const dialog = () => el.querySelector('lu-generate-dialog')!;
-    const confirm = () => el.querySelector('lu-confirm-dialog')!;
+    const confirm = () => el.querySelector('lu-confirm-dialog:last-of-type')!;
     const draftTitles = () =>
       Array.from(el.querySelectorAll<HTMLInputElement>('lu-draft-list input[type="text"]')).map((i) => i.value);
     const roadmap = () => fixture.componentInstance as unknown as { canLeave(): boolean | Promise<boolean> };
@@ -601,18 +705,13 @@ describe('Roadmap', () => {
 
     it('asks before switching topic with drafts', async () => {
       await generate(generated('One'));
-      const select = el.querySelector<HTMLSelectElement>('select[name="topicId"]')!;
-      select.value = 't3';
-      select.dispatchEvent(new Event('change'));
-      await settle();
+      await chooseTopic('t3');
       button('Huỷ', confirm())!.click();
       await settle();
-      expect(select.value).toBe('t1');
+      expect(topicBox().value).toBe('Gia đình');
       expect(draftTitles()).toEqual(['One']);
 
-      select.value = 't3';
-      select.dispatchEvent(new Event('change'));
-      await settle();
+      await chooseTopic('t3');
       button('Rời trang', confirm())!.click();
       await settle();
       await flushTopic('t3', { ...data([]), topic: topics[2], level: 'B1' }, []);

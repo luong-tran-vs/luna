@@ -30,13 +30,8 @@
             </p>
           }
         }
-        <select id="lesson-topic" name="topicId" formControlName="topicId"
-          [attr.aria-invalid]="!!error('topicId')" [attr.aria-describedby]="describedBy('topicId', 'lesson-topic-help')">
-          <option value="">Chọn chủ đề</option>
-          @for (t of topicOptions(); track t.id) {
-            <option [value]="t.id">{{ t.name }}</option>
-          }
-        </select>
+        <lu-search-select inputId="lesson-topic" name="topicId" formControlName="topicId" placeholder="Chọn chủ đề"
+          [options]="topicOptions()" [invalid]="!!error('topicId')" [describedBy]="describedBy('topicId', 'lesson-topic-help')" />
         <p class="field-hint" id="lesson-topic-help">Chủ đề dùng chung cho mọi trình độ.</p>
         @if (error('topicId'); as message) {
           <p class="field-error" id="lesson-topicId-error">{{ message }}</p>

@@ -9,6 +9,7 @@ import { Lesson, LessonInput, Level } from '../../../core/models/lesson';
 import { sortTopics, Topic } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { LevelPicker } from '../../../shared/components/level-picker/level-picker';
+import { SearchOption, SearchSelect } from '../../../shared/components/search-select/search-select';
 import { AdminApiService } from '../admin-api.service';
 
 type FieldName = 'title' | 'topicId' | 'level' | 'source' | 'license' | 'content';
@@ -28,7 +29,7 @@ export const MAX_CONTENT = 10000;
 
 @Component({
   selector: 'lu-lesson-form',
-  imports: [ReactiveFormsModule, RouterLink, ConfirmDialog, LevelPicker],
+  imports: [ReactiveFormsModule, RouterLink, ConfirmDialog, LevelPicker, SearchSelect],
   templateUrl: './lesson-form.html',
   styleUrl: './lesson-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,7 +41,9 @@ export class LessonForm {
 
   protected readonly topics = signal<Topic[] | null>(null);
   /** Every topic by name: topics are shared by every level. */
-  protected readonly topicOptions = computed(() => sortTopics(this.topics() ?? []));
+  protected readonly topicOptions = computed<SearchOption[]>(() =>
+    sortTopics(this.topics() ?? []).map((t) => ({ value: t.id, label: t.name })),
+  );
   protected readonly maxContent = MAX_CONTENT;
   protected readonly form = inject(NonNullableFormBuilder).group({
     title: ['', [Validators.required, Validators.maxLength(200)]],

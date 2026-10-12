@@ -51,6 +51,21 @@ describe('LessonList', () => {
     select(name).dispatchEvent(new Event('change'));
     await settle();
   };
+  /** The searchable topic filter: opens it and returns its choices, or picks one. */
+  const topicChoices = async () => {
+    el.querySelector<HTMLInputElement>('#filter-topic')!.click();
+    await settle();
+    const options = Array.from(el.querySelectorAll<HTMLElement>('#filter-topic-list [role="option"]'));
+    el.querySelector<HTMLInputElement>('#filter-topic')!.dispatchEvent(new Event('blur'));
+    await settle();
+    return options.map((o) => ({ value: o.dataset['value'], label: o.textContent?.trim() }));
+  };
+  const chooseTopic = async (id: string) => {
+    el.querySelector<HTMLInputElement>('#filter-topic')!.click();
+    await settle();
+    el.querySelector<HTMLElement>(`#filter-topic-list [data-value="${id}"]`)!.click();
+    await settle();
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -99,14 +114,9 @@ describe('LessonList', () => {
 
   it('filters by level and by topic, independently', async () => {
     await flushLoad([summary({})]);
-    expect(Array.from(select('topicId').options).map((o) => o.textContent?.trim())).toEqual([
-      'Tất cả',
-      'Công việc',
-      'Gia đình',
-      'Mua sắm',
-    ]);
+    expect((await topicChoices()).map((o) => o.label)).toEqual(['Tất cả', 'Công việc', 'Gia đình', 'Mua sắm']);
 
-    await choose('topicId', 't3');
+    await chooseTopic('t3');
     const byTopic: TestRequest = http.expectOne((r) => r.url === '/admin/lessons');
     expect(byTopic.request.params.get('topicId')).toBe('t3');
     await flushLoadRest(byTopic);
@@ -117,7 +127,58 @@ describe('LessonList', () => {
     expect(both.request.params.get('level')).toBe('A1');
     expect(both.request.params.get('topicId')).toBe('t3');
     await flushLoadRest(both);
-    expect(Array.from(select('topicId').options).map((o) => o.value)).toEqual(['', 't3', 't1', 't2']);
+    expect((await topicChoices()).map((o) => o.value)).toEqual(['', 't3', 't1', 't2']);
+    expect(el.querySelector<HTMLInputElement>('#filter-topic')!.value).toBe('Công việc');
+  });
+
+  it('shows 20 lessons per page with Trước / Sau', async () => {
+    await flushLoad(Array.from({ length: 45 }, (_, i) => summary({ id: `l${i + 1}`, title: `Bài ${i + 1}` })));
+    const titles = () => Array.from(el.querySelectorAll('.item-title')).map((a) => a.textContent?.trim());
+    expect(titles().length).toBe(20);
+    expect(Array.from(el.querySelectorAll('lu-pager .num')).map((b) => b.textContent?.trim())).toEqual(['1', '2', '3']);
+    expect(el.querySelector('lu-pager .summary')?.textContent).toContain('1–20 / 45 bài');
+    expect(button('← Trước')!.disabled).toBe(true);
+
+    button('Sau →')!.click();
+    await settle();
+    expect(titles()[0]).toBe('Bài 21');
+    button('Sau →')!.click();
+    await settle();
+    expect(titles()).toEqual(['Bài 41', 'Bài 42', 'Bài 43', 'Bài 44', 'Bài 45']);
+    expect(button('Sau →')!.disabled).toBe(true);
+  });
+
+  it('deletes the ticked lessons after confirming, keeping those the server refuses', async () => {
+    await flushLoad([
+      summary({ id: 'a', title: 'A' }),
+      summary({ id: 'b', title: 'B', inRoadmap: true }),
+      summary({ id: 'c', title: 'C' }),
+    ]);
+    const tick = (label: string) => {
+      el.querySelector<HTMLInputElement>(`input[aria-label="Chọn bài ${label}"]`)!.click();
+    };
+    tick('A');
+    tick('B');
+    await settle();
+    expect(el.querySelector<HTMLInputElement>('input[name="selectPage"]')!.indeterminate).toBe(true);
+    button('Xoá 2 bài')!.click();
+    await settle();
+    expect(el.textContent).toContain('1 bài đang trong lộ trình sẽ không bị xoá');
+    Array.from(el.querySelectorAll<HTMLButtonElement>('lu-confirm-dialog button')).find((b) => b.textContent?.trim() === 'Xoá')!.click();
+    await settle();
+
+    http.expectOne((r) => r.url === '/admin/lessons/a' && r.method === 'DELETE').flush(null, { status: 204, statusText: 'No Content' });
+    await settle();
+    http
+      .expectOne((r) => r.url === '/admin/lessons/b' && r.method === 'DELETE')
+      .flush({ error: 'lesson_in_roadmap', message: 'Gỡ bài khỏi lộ trình trước khi xoá' }, { status: 409, statusText: 'Conflict' });
+    await settle();
+    await flushLoad([summary({ id: 'b', title: 'B', inRoadmap: true }), summary({ id: 'c', title: 'C' })]);
+
+    expect(el.textContent).toContain('Đã xoá 1 bài.');
+    expect(el.querySelector('[role="alert"]')?.textContent).toContain('Không xoá được 1 bài');
+    expect(el.querySelector<HTMLInputElement>('input[aria-label="Chọn bài B"]')!.checked).toBe(true);
+    expect(button('Xoá 1 bài')).toBeDefined();
   });
 
   async function flushLoadRest(req: TestRequest): Promise<void> {

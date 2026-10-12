@@ -33,17 +33,13 @@
     </div>
     <div class="field">
       <label for="filter-topic">Chủ đề</label>
-      <select
-        id="filter-topic"
+      <lu-search-select
+        inputId="filter-topic"
         name="topicId"
-        [value]="filter().topicId"
-        (change)="setTopic($any($event.target).value)"
-      >
-        <option value="">Tất cả</option>
-        @for (t of topicOptions(); track t.id) {
-          <option [value]="t.id" [selected]="t.id === filter().topicId">{{ t.name }}</option>
-        }
-      </select>
+        [options]="topicOptions()"
+        [value]="filter().topicId ?? ''"
+        (changed)="setTopic($event)"
+      />
     </div>
   </div>
 
@@ -51,10 +47,47 @@
     @if (d.lessons.length === 0) {
       <p class="card muted">Chưa có bài học nào khớp. Bấm "Thêm bài" để tạo bài đầu tiên.</p>
     } @else {
+      <div class="bulk-bar">
+        <label class="check">
+          <input
+            type="checkbox"
+            name="selectPage"
+            [checked]="allPageSelected()"
+            [indeterminate]="somePageSelected()"
+            [disabled]="busy()"
+            (change)="togglePage($any($event.target).checked)"
+          />
+          Chọn cả trang
+        </label>
+        @if (selectedCount() > 0) {
+          <span class="muted" role="status">Đã chọn {{ selectedCount() }} bài</span>
+          <button type="button" class="btn" [disabled]="busy()" (click)="clearSelection()">Bỏ chọn</button>
+          <button type="button" class="btn btn-danger" [disabled]="busy()" (click)="deleteOpen.set(true)">
+            Xoá {{ selectedCount() }} bài
+          </button>
+        }
+      </div>
+      @if (notice(); as message) {
+        <p class="muted" role="status">{{ message }}</p>
+      }
+      @if (deleteError(); as message) {
+        <p class="form-alert" role="alert">{{ message }}</p>
+      }
+
       <ul class="list">
-        @for (lesson of d.lessons; track lesson.id) {
-          <li class="card item">
-            <a class="item-title" [routerLink]="['/admin/lessons', lesson.id]">{{ lesson.title }}</a>
+        @for (lesson of pageLessons(); track lesson.id) {
+          <li class="card item" [class.selected]="selected().has(lesson.id)">
+            <div class="item-head">
+              <input
+                type="checkbox"
+                class="item-check"
+                [checked]="selected().has(lesson.id)"
+                [disabled]="busy()"
+                [attr.aria-label]="'Chọn bài ' + lesson.title"
+                (change)="toggle(lesson.id, $any($event.target).checked)"
+              />
+              <a class="item-title" [routerLink]="['/admin/lessons', lesson.id]">{{ lesson.title }}</a>
+            </div>
             <div class="meta">
               <span class="tag">{{ lesson.level }}</span>
               @if (lesson.topicName) {
@@ -92,8 +125,26 @@
           </li>
         }
       </ul>
+
+      <lu-pager
+        label="Phân trang bài học"
+        [page]="currentPage()"
+        [pageCount]="pageCount()"
+        [summary]="rangeText() + ' bài'"
+        (pageChange)="goTo($event)"
+      />
     }
   } @else if (!error()) {
     <lu-loading />
   }
+
+  <lu-confirm-dialog
+    [open]="deleteOpen()"
+    [title]="'Xoá ' + selectedCount() + ' bài học?'"
+    [message]="deleteMessage()"
+    confirmLabel="Xoá"
+    [danger]="true"
+    (confirmed)="deleteSelected()"
+    (cancelled)="deleteOpen.set(false)"
+  />
 </section>

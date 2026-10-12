@@ -133,6 +133,66 @@ func (s *Service) List(ctx context.Context, search string, missing Missing, topi
 	return Page{Words: words, Total: total, HasMore: q.Skip+len(words) < total}, nil
 }
 
+// TopicMissing counts the bank words of one topic that lack a picture, an IPA or a meaning (the
+// three filters of the list). Words of the topic not in the bank are not counted.
+type TopicMissing struct {
+	TopicID string
+	Image   int
+	IPA     int
+	Meaning int
+}
+
+// MissingByTopic returns what the bank words of each topic lack, for the topics lacking something.
+func (s *Service) MissingByTopic(ctx context.Context) ([]TopicMissing, error) {
+	topics, err := s.topics.All(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("wordbank: topic words: %w", err)
+	}
+	seen := map[string]bool{}
+	var lemmas []string
+	for _, t := range topics {
+		for _, l := range lemmasOf(t) {
+			if !seen[l] {
+				seen[l] = true
+				lemmas = append(lemmas, l)
+			}
+		}
+	}
+	words, err := s.repo.Find(ctx, lemmas)
+	if err != nil {
+		return nil, fmt.Errorf("wordbank: find topic words: %w", err)
+	}
+	byLemma := make(map[string]Word, len(words))
+	for _, w := range words {
+		byLemma[w.Lemma] = w
+	}
+	out := []TopicMissing{}
+	for _, t := range topics {
+		m := TopicMissing{TopicID: t.ID}
+		counted := map[string]bool{}
+		for _, l := range lemmasOf(t) {
+			w, ok := byLemma[l]
+			if !ok || counted[l] {
+				continue
+			}
+			counted[l] = true
+			if !w.HasImage() {
+				m.Image++
+			}
+			if w.IPA == "" {
+				m.IPA++
+			}
+			if w.MeaningVi == "" {
+				m.Meaning++
+			}
+		}
+		if m.Image+m.IPA+m.Meaning > 0 {
+			out = append(out, m)
+		}
+	}
+	return out, nil
+}
+
 const msgNoTopic = "Chủ đề không tồn tại"
 
 func findTopic(topics []TopicList, id string) (TopicList, bool) {

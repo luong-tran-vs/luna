@@ -14,6 +14,7 @@ import {
 import {
   BankMissing,
   BankTopic,
+  BankTopicMissing,
   BankWord,
   BankWordAdded,
   MAX_BANK_IPA,
@@ -21,6 +22,7 @@ import {
   MAX_BANK_MEANING,
 } from '../../../core/models/word-bank';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { SearchOption, SearchSelect } from '../../../shared/components/search-select/search-select';
 import { AdminApiService } from '../admin-api.service';
 import { bankMessage } from './bank-message';
 import { BankWordRow } from './bank-word-row/bank-word-row';
@@ -47,6 +49,13 @@ export const MISSING_OPTIONS: readonly { value: BankMissing; label: string }[] =
   { value: 'meaning', label: 'Thiếu nghĩa' },
 ];
 
+/** One color per "Thiếu …" filter: the legend chips and the counts next to each topic. */
+export const MISSING_KINDS: readonly { value: Exclude<BankMissing, ''>; label: string; color: string }[] = [
+  { value: 'image', label: 'Thiếu ảnh', color: 'var(--color-primary)' },
+  { value: 'ipa', label: 'Thiếu phiên âm', color: 'var(--color-warn)' },
+  { value: 'meaning', label: 'Thiếu nghĩa', color: 'var(--color-bad)' },
+];
+
 /**
  * F24: the shared word bank. One entry per word with its meaning, IPA and picture, used by every
  * lesson: a lesson word without a picture of its own shows the bank's, and the bank's IPA comes
@@ -55,7 +64,7 @@ export const MISSING_OPTIONS: readonly { value: BankMissing; label: string }[] =
  */
 @Component({
   selector: 'lu-word-bank',
-  imports: [ReactiveFormsModule, BankWordRow, ConfirmDialog],
+  imports: [ReactiveFormsModule, BankWordRow, ConfirmDialog, SearchSelect],
   templateUrl: './word-bank.html',
   styleUrl: './word-bank.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -70,6 +79,24 @@ export class WordBank {
   protected readonly topicFilter = signal('');
   /** Every topic, by name, for the filter and the add form; empty until loaded. */
   protected readonly topics = signal<readonly BankTopic[]>([]);
+  private readonly topicItems = computed<SearchOption[]>(() => this.topics().map((t) => ({ value: t.id, label: t.name })));
+  protected readonly missingKinds = MISSING_KINDS;
+  /** What the bank words of each topic lack, by topic id; empty until loaded or on failure. */
+  private readonly missingByTopic = signal<ReadonlyMap<string, BankTopicMissing>>(new Map());
+  /** The filter's topics, each with one colored count per thing its words lack. */
+  protected readonly filterTopicOptions = computed<SearchOption[]>(() => [
+    { value: '', label: 'Tất cả chủ đề' },
+    ...this.topicItems().map((t) => {
+      const m = this.missingByTopic().get(t.value);
+      const badges = MISSING_KINDS.filter((k) => (m?.[k.value] ?? 0) > 0).map((k) => ({
+        text: String(m![k.value]),
+        label: k.label.toLowerCase(),
+        color: k.color,
+      }));
+      return badges.length ? { ...t, badges } : t;
+    }),
+  ]);
+  protected readonly addTopicOptions = computed(() => [{ value: '', label: 'Không chọn' }, ...this.topicItems()]);
   private readonly reloads = signal(0);
 
   protected readonly words = signal<BankWord[] | null>(null);
@@ -130,6 +157,7 @@ export class WordBank {
         // Without topics the page still works: the filter and the topic choice only offer "none".
         error: () => this.topics.set([]),
       });
+    this.loadMissing();
 
     const query = computed(() => ({
       q: this.search().trim(),
@@ -168,6 +196,20 @@ export class WordBank {
 
   protected reload(): void {
     this.reloads.update((n) => n + 1);
+    this.loadMissing();
+  }
+
+  /** Counts what each topic's words lack; without them the topics simply show no counts. */
+  private loadMissing(): void {
+    this.api.bankMissingByTopic().subscribe({
+      next: (list) => this.missingByTopic.set(new Map(list.map((m) => [m.topicId, m]))),
+      error: () => this.missingByTopic.set(new Map()),
+    });
+  }
+
+  /** A legend chip filters by its kind; clicking the chosen one again shows every word. */
+  protected toggleMissing(value: BankMissing): void {
+    this.missing.set(this.missing() === value ? '' : value);
   }
 
   protected setSearch(value: string): void {
@@ -292,6 +334,7 @@ export class WordBank {
 
   protected replace(w: BankWord): void {
     this.words.update((ws) => ws?.map((x) => (x.lemma === w.lemma ? w : x)) ?? null);
+    this.loadMissing();
   }
 
   protected async confirmDelete(): Promise<void> {
@@ -304,6 +347,7 @@ export class WordBank {
       await firstValueFrom(this.api.deleteBankWord(w.lemma));
       this.words.update((ws) => ws?.filter((x) => x.lemma !== w.lemma) ?? null);
       this.total.update((n) => Math.max(0, n - 1));
+      this.loadMissing();
       this.note.set(`Đã xoá "${w.lemma}".`);
     } catch (err) {
       this.note.set(bankMessage(err) ?? 'Không xoá được, vui lòng thử lại.');

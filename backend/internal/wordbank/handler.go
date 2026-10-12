@@ -40,6 +40,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	admin := func(f http.HandlerFunc) http.Handler { return requireAuth(httpx.RequireAdmin(f)) }
 
 	mux.Handle("GET /api/admin/words", admin(h.list))
+	mux.Handle("GET /api/admin/words/missing-by-topic", admin(h.missingByTopic))
 	mux.Handle("POST /api/admin/words", admin(h.add))
 	mux.Handle("POST /api/admin/words/import", admin(h.importTopics))
 	mux.Handle("POST /api/admin/words/fill-missing", admin(h.fillMissing))
@@ -107,6 +108,28 @@ func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 		out.Words[i] = toJSON(wd)
 	}
 	httpx.WriteJSON(w, http.StatusOK, out)
+}
+
+type topicMissingJSON struct {
+	TopicID string `json:"topicId"`
+	Image   int    `json:"image"`
+	IPA     int    `json:"ipa"`
+	Meaning int    `json:"meaning"`
+}
+
+// missingByTopic serves GET /api/admin/words/missing-by-topic: per topic, how many of its bank
+// words lack a picture, an IPA and a meaning; topics lacking nothing are left out.
+func (h *Handler) missingByTopic(w http.ResponseWriter, r *http.Request) {
+	counts, err := h.svc.MissingByTopic(r.Context())
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	out := make([]topicMissingJSON, len(counts))
+	for i, c := range counts {
+		out[i] = topicMissingJSON(c)
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{"topics": out})
 }
 
 type inputJSON struct {

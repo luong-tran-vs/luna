@@ -8,7 +8,6 @@ import {
   inject,
   Injector,
   signal,
-  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -29,6 +28,8 @@ import { Level, LEVELS, LessonSummary } from '../../../core/models/lesson';
 import { lowRoadmaps, roadmapLabel, sortTopics, Topic, TopicLevel, TopicRoadmap, TopicWord } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { LevelOption, LevelPicker } from '../../../shared/components/level-picker/level-picker';
+import { clampPage, pageCountOf, Pager, pageSlice, rangeText } from '../../../shared/components/pager/pager';
+import { SearchOption, SearchSelect } from '../../../shared/components/search-select/search-select';
 import { AdminApiService } from '../admin-api.service';
 import { DraftChange, DraftList, DraftState } from '../draft-list/draft-list';
 import { GenerateDialog, GenerateOptions, GenerateRequest } from '../generate-dialog/generate-dialog';
@@ -38,6 +39,10 @@ import { Loading } from '../../../shared/components/loading/loading';
 const GENERATE_FAILED = 'Sinh bài thất bại, vui lòng thử lại.';
 const SAVE_FAILED = 'Không lưu được, vui lòng thử lại.';
 const DRAFT_FIELDS = ['title', 'content'];
+/** Roadmaps per page of "Tất cả lộ trình". */
+const OVERVIEW_PAGE_SIZE = 10;
+/** Lessons per page of "chưa có trong lộ trình". */
+const AVAILABLE_PAGE_SIZE = 20;
 
 /**
  * One roadmap per topic and level (F14): choose a topic and a level, then add, remove and reorder
@@ -47,7 +52,7 @@ const DRAFT_FIELDS = ['title', 'content'];
  */
 @Component({
   selector: 'lu-roadmap',
-  imports: [Loading, RouterLink, CdkDropList, CdkDrag, CdkDragHandle, StatusChip, GenerateDialog, DraftList, ConfirmDialog, LevelPicker],
+  imports: [Loading, RouterLink, CdkDropList, CdkDrag, CdkDragHandle, StatusChip, GenerateDialog, DraftList, ConfirmDialog, LevelPicker, SearchSelect, Pager],
   templateUrl: './roadmap.html',
   styleUrl: './roadmap.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,11 +63,20 @@ export class Roadmap implements CanLeave {
   private readonly router = inject(Router);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
-  private readonly topicSelect = viewChild<ElementRef<HTMLSelectElement>>('topicSelect');
 
   protected readonly levels = LEVELS;
   protected readonly topics = signal<Topic[] | null>(null);
-  protected readonly topicOptions = computed(() => sortTopics(this.topics() ?? []));
+  /**
+   * The topic choices, "Tất cả lộ trình" (no topic) first, then by name; a topic with lessons
+   * outside its roadmaps says how many.
+   */
+  protected readonly topicChoices = computed<SearchOption[]>(() => [
+    { value: '', label: 'Tất cả lộ trình' },
+    ...sortTopics(this.topics() ?? []).map((t) => {
+      const outside = notInRoadmap(t);
+      return { value: t.id, label: t.name, ...(outside > 0 ? { hint: `${outside} bài chưa vào lộ trình` } : {}) };
+    }),
+  ]);
   protected readonly lowTopics = computed(() => lowRoadmaps(this.topics() ?? []));
   private readonly query = inject(ActivatedRoute).snapshot.queryParamMap;
   protected readonly selectedId = signal(this.query.get('topicId') ?? '');
@@ -96,6 +110,27 @@ export class Roadmap implements CanLeave {
   });
   protected readonly error = signal<string | null>(null);
   protected readonly saving = signal(false);
+  /** Without a chosen topic: every roadmap that has lessons, by topic name then level. */
+  protected readonly overview = signal<TopicRoadmap[] | null>(null);
+  protected readonly overviewCount = computed(() => this.overview()?.reduce((n, r) => n + r.lessons.length, 0) ?? 0);
+  protected readonly overviewPage = signal(1);
+  protected readonly overviewPageCount = computed(() => pageCountOf(this.overview()?.length ?? 0, OVERVIEW_PAGE_SIZE));
+  protected readonly overviewCurrentPage = computed(() =>
+    clampPage(this.overviewPage(), this.overview()?.length ?? 0, OVERVIEW_PAGE_SIZE),
+  );
+  protected readonly overviewShown = computed(() => pageSlice(this.overview() ?? [], this.overviewPage(), OVERVIEW_PAGE_SIZE));
+  protected readonly overviewRange = computed(
+    () => `${rangeText(this.overviewPage(), this.overview()?.length ?? 0, OVERVIEW_PAGE_SIZE)} lộ trình`,
+  );
+  /** Lessons ticked in the overview, to take out of their roadmaps at once. */
+  protected readonly ticked = signal<ReadonlySet<string>>(new Set());
+  protected readonly tickedCount = computed(() => {
+    const ids = this.ticked();
+    return this.overview()?.reduce((n, r) => n + r.lessons.filter((l) => ids.has(l.id)).length, 0) ?? 0;
+  });
+  protected readonly allTicked = computed(() => this.overviewCount() > 0 && this.tickedCount() === this.overviewCount());
+  protected readonly removeOpen = signal(false);
+  protected readonly overviewNote = signal<string | null>(null);
 
   // --- F7: AI drafts ---
   protected readonly dialogOpen = signal(false);
@@ -146,6 +181,8 @@ export class Roadmap implements CanLeave {
               void this.openGenerate();
             }
           });
+        } else {
+          void this.loadOverview();
         }
       })
       .catch(() => this.error.set('Không tải được danh sách chủ đề.'));
@@ -167,6 +204,7 @@ export class Roadmap implements CanLeave {
     void this.router.navigate([], { queryParams: { topicId: this.selectedId() || null, level }, replaceUrl: true });
     this.data.set(null);
     this.topicLessons.set([]);
+    this.availablePage.set(1);
     if (this.selectedId()) {
       void this.load(this.selectedId());
     }
@@ -180,11 +218,8 @@ export class Roadmap implements CanLeave {
       }
       return;
     }
+    // Refused: the topic box keeps showing selectedId().
     if (this.drafts().length > 0 && !(await this.askLeave())) {
-      const select = this.topicSelect()?.nativeElement;
-      if (select) {
-        select.value = this.selectedId();
-      }
       return;
     }
     this.drafts.set([]);
@@ -194,8 +229,128 @@ export class Roadmap implements CanLeave {
     void this.router.navigate([], { queryParams: { topicId: id || null, level: id ? this.selectedLevel() : null }, replaceUrl: true });
     this.data.set(null);
     this.topicLessons.set([]);
+    this.availablePage.set(1);
     if (id) {
       void this.load(id);
+    } else {
+      void this.loadOverview();
+    }
+  }
+
+  /** Loads every roadmap with lessons (one request each, in parallel). */
+  private async loadOverview(): Promise<void> {
+    const wanted = sortTopics(this.topics() ?? []).flatMap((t) =>
+      t.levels.filter((l) => l.roadmapCount > 0).map((l) => ({ id: t.id, level: l.level })),
+    );
+    this.overview.set(null);
+    this.ticked.set(new Set());
+    this.overviewPage.set(1);
+    this.overviewNote.set(null);
+    this.error.set(null);
+    try {
+      const list = await Promise.all(wanted.map((w) => firstValueFrom(this.api.topicRoadmap(w.id, w.level))));
+      if (!this.selectedId()) {
+        this.overview.set(list.filter((r) => r.lessons.length > 0));
+      }
+    } catch {
+      this.error.set('Không tải được danh sách bài của lộ trình.');
+    }
+  }
+
+  protected overviewLabel(r: TopicRoadmap): string {
+    return roadmapLabel(r.level, r.topic);
+  }
+
+  protected tick(ids: string[], checked: boolean): void {
+    this.ticked.update((s) => {
+      const next = new Set(s);
+      for (const id of ids) {
+        if (checked) {
+          next.add(id);
+        } else {
+          next.delete(id);
+        }
+      }
+      return next;
+    });
+  }
+
+  /** Roadmaps opened in the overview (topic id + level); all folded at first. */
+  private readonly expanded = signal<ReadonlySet<string>>(new Set());
+
+  protected isCollapsed(r: TopicRoadmap): boolean {
+    return !this.expanded().has(r.topic.id + r.level);
+  }
+
+  /** Clicking a roadmap's name opens it; clicking again folds it. */
+  protected toggleGroup(r: TopicRoadmap): void {
+    const key = r.topic.id + r.level;
+    this.expanded.update((s) => {
+      const next = new Set(s);
+      if (!next.delete(key)) {
+        next.add(key);
+      }
+      return next;
+    });
+  }
+
+  protected tickGroup(r: TopicRoadmap, checked: boolean): void {
+    this.tick(r.lessons.map((l) => l.id), checked);
+  }
+
+  protected tickAll(checked: boolean): void {
+    this.ticked.set(checked ? new Set(this.overview()?.flatMap((r) => r.lessons.map((l) => l.id))) : new Set());
+  }
+
+  protected groupState(r: TopicRoadmap): 'all' | 'some' | 'none' {
+    const n = r.lessons.filter((l) => this.ticked().has(l.id)).length;
+    return n === 0 ? 'none' : n === r.lessons.length ? 'all' : 'some';
+  }
+
+  /**
+   * Takes the ticked lessons out of their roadmaps: one save per roadmap with the rest in the same
+   * order. The lessons are kept (still listed on the Bài học page).
+   */
+  protected removeTicked(): Promise<void> {
+    this.removeOpen.set(false);
+    return this.removeFromRoadmaps(this.ticked());
+  }
+
+  /** Gỡ next to one lesson of the overview: no tick needed. */
+  protected removeOne(id: string): Promise<void> {
+    return this.removeFromRoadmaps(new Set([id]));
+  }
+
+  private async removeFromRoadmaps(ids: ReadonlySet<string>): Promise<void> {
+    const roadmaps = this.overview();
+    if (!roadmaps || this.saving()) {
+      return;
+    }
+    const changed = roadmaps.filter((r) => r.lessons.some((l) => ids.has(l.id)));
+    this.saving.set(true);
+    this.error.set(null);
+    this.overviewNote.set(null);
+    let removed = 0;
+    let failed = 0;
+    for (const r of changed) {
+      const keep = r.lessons.filter((l) => !ids.has(l.id));
+      try {
+        const saved = await firstValueFrom(this.api.setTopicRoadmap(r.topic.id, r.level, keep.map((l) => l.id)));
+        removed += r.lessons.length - keep.length;
+        this.updateTopic(saved.topic);
+        this.overview.update((list) => list?.map((x) => (x === r ? saved : x)) ?? null);
+        this.tick(r.lessons.map((l) => l.id), false);
+      } catch {
+        failed += r.lessons.length - keep.length;
+      }
+    }
+    this.overview.update((list) => list?.filter((r) => r.lessons.length > 0) ?? null);
+    this.saving.set(false);
+    if (removed > 0) {
+      this.overviewNote.set(`Đã gỡ ${removed} bài khỏi lộ trình.`);
+    }
+    if (failed > 0) {
+      this.error.set(`Không gỡ được ${failed} bài, vui lòng thử lại.`);
     }
   }
 
@@ -243,6 +398,49 @@ export class Roadmap implements CanLeave {
 
   protected add(lesson: LessonSummary): void {
     void this.save([...this.lessons(), lesson]);
+  }
+
+  // --- quick add: lessons ticked in "chưa có trong lộ trình" ---
+  protected readonly availablePage = signal(1);
+  protected readonly availablePageCount = computed(() => pageCountOf(this.available().length, AVAILABLE_PAGE_SIZE));
+  protected readonly availableCurrentPage = computed(() =>
+    clampPage(this.availablePage(), this.available().length, AVAILABLE_PAGE_SIZE),
+  );
+  protected readonly availableShown = computed(() => pageSlice(this.available(), this.availablePage(), AVAILABLE_PAGE_SIZE));
+  protected readonly availableRange = computed(
+    () => `${rangeText(this.availablePage(), this.available().length, AVAILABLE_PAGE_SIZE)} bài`,
+  );
+  protected readonly toAdd = signal<ReadonlySet<string>>(new Set());
+  protected readonly toAddLessons = computed(() => this.available().filter((l) => this.toAdd().has(l.id)));
+  protected readonly allToAdd = computed(
+    () => this.available().length > 0 && this.toAddLessons().length === this.available().length,
+  );
+
+  protected tickToAdd(id: string, checked: boolean): void {
+    this.toAdd.update((s) => {
+      const next = new Set(s);
+      if (checked) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
+      return next;
+    });
+  }
+
+  protected tickAllToAdd(checked: boolean): void {
+    this.toAdd.set(checked ? new Set(this.available().map((l) => l.id)) : new Set());
+  }
+
+  /** Adds the ticked lessons at the end of the roadmap, in the order they are listed. */
+  protected async addTicked(): Promise<void> {
+    const picked = this.toAddLessons();
+    if (picked.length === 0 || this.saving()) {
+      return;
+    }
+    await this.save([...this.lessons(), ...picked]);
+    // Added ones left `available`; failed ones stay ticked.
+    this.toAdd.update((s) => new Set([...s].filter((id) => this.available().some((l) => l.id === id))));
   }
 
   /** Shows the new order at once, then saves it; on failure restores the previous order. */
@@ -479,6 +677,11 @@ export class Roadmap implements CanLeave {
       event.preventDefault();
     }
   }
+}
+
+/** Lessons of the topic, every level, that are in none of its roadmaps. */
+function notInRoadmap(t: Topic): number {
+  return t.levels.reduce((n, l) => n + Math.max(0, l.lessonCount - l.roadmapCount), 0);
 }
 
 /** A level from a query parameter, or null. */

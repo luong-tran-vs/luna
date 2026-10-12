@@ -320,3 +320,19 @@ func TestFillMissingErrors(t *testing.T) {
 		t.Fatalf("no usable answer: %v", err)
 	}
 }
+
+func TestMissingByTopic(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	for _, in := range []Input{{Lemma: "house"}, {Lemma: "table"}, {Lemma: "good morning", MeaningVi: "chào buổi sáng"}} {
+		if _, _, err := e.svc.Add(t.Context(), in); err != nil {
+			t.Fatal(err)
+		}
+	}
+	// A word listed twice in a topic counts once; nothing has a picture.
+	got, err := e.svc.MissingByTopic(t.Context())
+	want := []TopicMissing{{TopicID: "t1", Image: 2, IPA: 1, Meaning: 1}, {TopicID: "t2", Image: 2}}
+	if err != nil || !slices.Equal(got, want) {
+		t.Fatalf("missing = %+v, %v", got, err)
+	}
+}

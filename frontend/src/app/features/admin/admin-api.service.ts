@@ -26,6 +26,7 @@ import {
   BankMeaningsFilled,
   BankMissing,
   BankPage,
+  BankTopicMissing,
   BankWord,
   BankWordAdded,
   BankWordDetails,
@@ -322,6 +323,13 @@ export class AdminApiService {
       params = params.set('topicId', topicId);
     }
     return this.http.get<BankPage>(`${BASE}/words`, { params });
+  }
+
+  /** F24: per topic, how many of its bank words lack a picture, an IPA and a meaning. */
+  bankMissingByTopic(): Observable<BankTopicMissing[]> {
+    return this.http
+      .get<{ topics: BankTopicMissing[] }>(`${BASE}/words/missing-by-topic`)
+      .pipe(map((r) => r.topics));
   }
 
   /**

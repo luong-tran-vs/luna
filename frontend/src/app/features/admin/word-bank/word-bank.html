@@ -47,12 +47,7 @@
       </div>
       <div class="field">
         <label for="bank-topic">Thêm vào chủ đề</label>
-        <select id="bank-topic" formControlName="topicId">
-          <option value="">Không chọn</option>
-          @for (t of topics(); track t.id) {
-            <option [value]="t.id">{{ t.name }}</option>
-          }
-        </select>
+        <lu-search-select inputId="bank-topic" formControlName="topicId" [options]="addTopicOptions()" />
       </div>
     </div>
     <p class="field-hint" id="bank-add-hint">
@@ -84,12 +79,12 @@
     </div>
     <div class="field">
       <label for="bank-topic-filter">Chủ đề</label>
-      <select id="bank-topic-filter" [value]="topicFilter()" (change)="setTopicFilter($any($event.target).value)">
-        <option value="" [selected]="topicFilter() === ''">Tất cả chủ đề</option>
-        @for (t of topics(); track t.id) {
-          <option [value]="t.id" [selected]="t.id === topicFilter()">{{ t.name }}</option>
-        }
-      </select>
+      <lu-search-select
+        inputId="bank-topic-filter"
+        [options]="filterTopicOptions()"
+        [value]="topicFilter()"
+        (changed)="setTopicFilter($event)"
+      />
     </div>
     <div class="field">
       <label for="bank-missing">Lọc</label>
@@ -99,6 +94,22 @@
         }
       </select>
     </div>
+  </div>
+
+  <!-- The colors of the counts next to each topic; a chip also sets the "Lọc" filter. -->
+  <div class="missing-legend" role="group" aria-label="Chú thích màu, bấm để lọc">
+    @for (k of missingKinds; track k.value) {
+      <button
+        type="button"
+        class="legend-chip"
+        [style.--chip]="k.color"
+        [attr.aria-pressed]="missing() === k.value"
+        (click)="toggleMissing(k.value)"
+      >
+        {{ k.label }}
+      </button>
+    }
+    <span class="muted legend-note">Số bên cạnh tên chủ đề là số từ còn thiếu.</span>
   </div>
 
   @if (canFill() && total() > 0) {

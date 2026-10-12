@@ -49,6 +49,24 @@ describe('WordBank (F24)', () => {
     Object.defineProperty(input, 'files', { value: [file], configurable: true });
     input.dispatchEvent(new Event('change'));
   };
+  /** The searchable topic boxes: their choices, or pick one. */
+  const topicChoices = async (selector: string) => {
+    const box = el.querySelector<HTMLInputElement>(selector)!;
+    box.click();
+    await fixture.whenStable();
+    const labels = Array.from(el.querySelectorAll(`${selector}-list [role="option"] .label`)).map((o) => o.textContent?.trim());
+    box.dispatchEvent(new Event('blur'));
+    await fixture.whenStable();
+    return labels;
+  };
+  const pickTopic = async (selector: string, value: string) => {
+    const box = el.querySelector<HTMLInputElement>(selector)!;
+    box.click();
+    await fixture.whenStable();
+    el.querySelector<HTMLElement>(`${selector}-list [data-value="${value}"]`)!.click();
+    box.dispatchEvent(new Event('blur'));
+    await fixture.whenStable();
+  };
   const expectList = (query: string) =>
     http.expectOne((r) => r.url === '/admin/words' && r.params.toString() === query);
 
@@ -68,12 +86,42 @@ describe('WordBank (F24)', () => {
         { id: 't1', name: 'Chào hỏi' },
       ],
     });
+    // "Nhà cửa" lacks all three, "Chào hỏi" nothing.
+    http.expectOne('/admin/words/missing-by-topic').flush({ topics: [{ topicId: 't2', image: 3, ipa: 1, meaning: 2 }] });
     await settle(350);
     expectList('page=1').flush({ words, total: words.length + (hasMore ? 1 : 0), hasMore });
     await settle();
   };
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    // Every change of the bank counts again what the topics lack.
+    http.match('/admin/words/missing-by-topic').forEach((r) => r.flush({ topics: [] }));
+    http.verify();
+  });
+
+  it('shows what each topic lacks in the colors of the legend, which also filters', async () => {
+    await open();
+    const box = el.querySelector<HTMLInputElement>('#bank-topic-filter')!;
+    box.click();
+    await settle();
+    const option = (id: string) => el.querySelector(`#bank-topic-filter-list [data-value="${id}"]`)!;
+    const badges = Array.from(option('t2').querySelectorAll<HTMLElement>('.badge'));
+    expect(badges.map((b) => b.title)).toEqual(['thiếu ảnh', 'thiếu phiên âm', 'thiếu nghĩa']);
+    expect(badges.map((b) => b.textContent?.replace(/\s+/g, ' ').trim())).toEqual([
+      ', 3 thiếu ảnh', ', 1 thiếu phiên âm', ', 2 thiếu nghĩa',
+    ]);
+    expect(option('t1').querySelector('.badge')).toBeNull();
+    box.dispatchEvent(new Event('blur'));
+
+    const chips = Array.from(el.querySelectorAll<HTMLButtonElement>('.legend-chip'));
+    expect(chips.map((c) => c.textContent?.trim())).toEqual(['Thiếu ảnh', 'Thiếu phiên âm', 'Thiếu nghĩa']);
+    chips[1].click();
+    await settle(350);
+    expect(chips[1].getAttribute('aria-pressed')).toBe('true');
+    expect(el.querySelector<HTMLSelectElement>('#bank-missing')!.value).toBe('ipa');
+    expectList('page=1&missing=ipa').flush({ words: [], total: 0, hasMore: false });
+    await settle();
+  });
 
   it('lists the words with their picture, IPA and meaning', async () => {
     await open();
@@ -151,16 +199,10 @@ describe('WordBank (F24)', () => {
     await open();
     expect(rows()[0].querySelector('.topics')!.textContent).toContain('Nhà cửa');
     expect(rows()[1].textContent).toContain('Chưa thuộc chủ đề nào');
-    const filter = el.querySelector<HTMLSelectElement>('#bank-topic-filter')!;
     // By name.
-    expect(Array.from(filter.options).map((o) => o.textContent?.trim())).toEqual([
-      'Tất cả chủ đề',
-      'Chào hỏi',
-      'Nhà cửa',
-    ]);
+    expect(await topicChoices('#bank-topic-filter')).toEqual(['Tất cả chủ đề', 'Chào hỏi', 'Nhà cửa']);
 
-    filter.value = 't2';
-    filter.dispatchEvent(new Event('change'));
+    await pickTopic('#bank-topic-filter', 't2');
     await settle(350);
     expectList('page=1&topicId=t2').flush({ words: [], total: 0, hasMore: false });
     await settle();
@@ -169,9 +211,8 @@ describe('WordBank (F24)', () => {
 
   it('adds a word to a topic, or says the topic has it already', async () => {
     await open();
-    const topic = el.querySelector<HTMLSelectElement>('#bank-topic')!;
-    topic.value = 't2';
-    topic.dispatchEvent(new Event('change'));
+    const topic = el.querySelector<HTMLInputElement>('#bank-topic')!;
+    await pickTopic('#bank-topic', 't2');
     type(el, '#bank-lemma', 'table');
     button(el, 'Thêm')!.click();
     const req = http.expectOne('/admin/words');
@@ -184,7 +225,7 @@ describe('WordBank (F24)', () => {
       '"table" đã có trong kho, đã thêm vào chủ đề "Nhà cửa".',
     );
     // The topic stays chosen for the next word.
-    expect(topic.value).toBe('t2');
+    expect(topic.value).toBe('Nhà cửa');
 
     type(el, '#bank-lemma', 'house');
     button(el, 'Thêm')!.click();
@@ -208,7 +249,7 @@ describe('WordBank (F24)', () => {
       s.value = value;
       s.dispatchEvent(new Event('change'));
     };
-    choose('#bank-topic-filter', 't2');
+    await pickTopic('#bank-topic-filter', 't2');
     choose('#bank-missing', 'ipa');
     await settle(350);
     expectList('page=1&missing=ipa&topicId=t2').flush({ words: [table], total: 1, hasMore: false });

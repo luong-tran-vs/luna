@@ -63,3 +63,45 @@
 .check-label.ok {
   color: var(--color-ok);
 }
+
+.bulk-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font: var(--text-base) var(--font-ui);
+  cursor: pointer;
+}
+
+.check input,
+.item-check {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.item-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.item-head .item-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.item.selected {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}

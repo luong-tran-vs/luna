@@ -57,3 +57,11 @@ export interface BankWordDetails {
 export const MAX_BANK_LEMMA = 100;
 export const MAX_BANK_MEANING = 300;
 export const MAX_BANK_IPA = 100;
+
+/** How many bank words of one topic lack a picture, an IPA and a meaning (topics lacking nothing are absent). */
+export interface BankTopicMissing {
+  topicId: string;
+  image: number;
+  ipa: number;
+  meaning: number;
+}

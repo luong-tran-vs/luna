@@ -11,18 +11,13 @@
   <div class="pickers">
     <div class="field topic-picker">
       <label for="roadmap-topic">Chủ đề</label>
-      <select
-        #topicSelect
-        id="roadmap-topic"
+      <lu-search-select
+        inputId="roadmap-topic"
         name="topicId"
+        [options]="topicChoices()"
         [value]="selectedId()"
-        (change)="select($any($event.target).value)"
-      >
-        <option value="">Chọn chủ đề</option>
-        @for (t of topicOptions(); track t.id) {
-          <option [value]="t.id" [selected]="t.id === selectedId()">{{ t.name }}</option>
-        }
-      </select>
+        (changed)="select($event)"
+      />
     </div>
   </div>
   @if (selectedId()) {
@@ -57,6 +52,102 @@
   @if (!selectedId()) {
     @if (topics()) {
       <p class="card muted">Chọn một chủ đề để xếp lộ trình hoặc sinh bài bằng AI cho chủ đề đó.</p>
+    }
+    @if (overview(); as roadmaps) {
+      <section class="overview" aria-labelledby="overview-heading">
+        <h2 class="section-title" id="overview-heading">Tất cả bài của lộ trình ({{ overviewCount() }})</h2>
+        @if (roadmaps.length === 0) {
+          <p class="muted">Chưa lộ trình nào có bài.</p>
+        } @else {
+          <div class="bulk-bar">
+            <label class="check">
+              <input
+                type="checkbox"
+                name="tickAll"
+                [checked]="allTicked()"
+                [indeterminate]="tickedCount() > 0 && !allTicked()"
+                [disabled]="saving()"
+                (change)="tickAll($any($event.target).checked)"
+              />
+              Chọn tất cả
+            </label>
+            @if (tickedCount() > 0) {
+              <span class="muted" role="status">Đã chọn {{ tickedCount() }} bài</span>
+              <button type="button" class="btn" [disabled]="saving()" (click)="tickAll(false)">Bỏ chọn</button>
+              <button type="button" class="btn btn-danger" [disabled]="saving()" (click)="removeOpen.set(true)">
+                Gỡ {{ tickedCount() }} bài khỏi lộ trình
+              </button>
+            }
+          </div>
+        }
+        @if (overviewNote(); as note) {
+          <p class="muted" role="status">{{ note }}</p>
+        }
+        @for (r of overviewShown(); track r.topic.id + r.level) {
+          <div class="overview-group">
+            <h3 class="overview-title">
+              <input
+                type="checkbox"
+                class="check-box"
+                [checked]="groupState(r) === 'all'"
+                [indeterminate]="groupState(r) === 'some'"
+                [disabled]="saving()"
+                [attr.aria-label]="'Chọn mọi bài của ' + overviewLabel(r)"
+                (change)="tickGroup(r, $any($event.target).checked)"
+              />
+              <button
+                type="button"
+                class="group-toggle"
+                [attr.aria-expanded]="!isCollapsed(r)"
+                [attr.aria-controls]="'overview-' + r.topic.id + '-' + r.level"
+                (click)="toggleGroup(r)"
+              >
+                <span class="chevron" [class.closed]="isCollapsed(r)" aria-hidden="true">▾</span>
+                {{ overviewLabel(r) }}
+                <span class="muted">{{ r.lessons.length }} bài</span>
+              </button>
+              <button type="button" class="btn group-edit" [attr.aria-label]="'Sửa lộ trình ' + overviewLabel(r)"
+                (click)="select(r.topic.id, r.level)">Sửa thứ tự</button>
+            </h3>
+            <!-- Folds with a height transition; inert keeps the folded lessons out of Tab and screen readers. -->
+            <div class="fold" [class.closed]="isCollapsed(r)" [inert]="isCollapsed(r)">
+            <ol class="list" [id]="'overview-' + r.topic.id + '-' + r.level">
+              @for (lesson of r.lessons; track lesson.id; let i = $index) {
+                <li class="card overview-item" [class.ticked]="ticked().has(lesson.id)">
+                  <input
+                    type="checkbox"
+                    class="check-box"
+                    [checked]="ticked().has(lesson.id)"
+                    [disabled]="saving()"
+                    [attr.aria-label]="'Chọn bài ' + lesson.title"
+                    (change)="tick([lesson.id], $any($event.target).checked)"
+                  />
+                  <span class="position" aria-hidden="true">{{ i + 1 }}</span>
+                  <a class="title" [routerLink]="['/admin/lessons', lesson.id]">{{ lesson.title }}</a>
+                  <div class="meta">
+                    <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />
+                    @if (lesson.draft) {
+                      <span class="tag">Bản nháp</span>
+                    }
+                  </div>
+                  <button type="button" class="btn overview-remove" [disabled]="saving()"
+                    [attr.aria-label]="'Gỡ khỏi lộ trình: ' + lesson.title" (click)="removeOne(lesson.id)">Gỡ</button>
+                </li>
+              }
+            </ol>
+            </div>
+          </div>
+        }
+        <lu-pager
+          label="Phân trang lộ trình"
+          [page]="overviewCurrentPage()"
+          [pageCount]="overviewPageCount()"
+          [summary]="overviewRange()"
+          (pageChange)="overviewPage.set($event)"
+        />
+      </section>
+    } @else if (topics() && !error()) {
+      <lu-loading />
     }
   } @else if (data()) {
     @if (warning(); as message) {
@@ -111,15 +202,51 @@
       @if (available().length === 0) {
         <p class="muted">Mọi bài {{ selectedLevel() }} của chủ đề đã có trong lộ trình.</p>
       } @else {
+        <div class="bulk-bar">
+          <label class="check">
+            <input
+              type="checkbox"
+              name="tickAllToAdd"
+              [checked]="allToAdd()"
+              [indeterminate]="toAddLessons().length > 0 && !allToAdd()"
+              [disabled]="saving()"
+              (change)="tickAllToAdd($any($event.target).checked)"
+            />
+            Chọn tất cả
+          </label>
+          @if (toAddLessons().length > 0) {
+            <span class="muted" role="status">Đã chọn {{ toAddLessons().length }} bài</span>
+            <button type="button" class="btn" [disabled]="saving()" (click)="tickAllToAdd(false)">Bỏ chọn</button>
+            <button type="button" class="btn-primary" [disabled]="saving()" (click)="addTicked()">
+              Thêm {{ toAddLessons().length }} bài vào lộ trình
+            </button>
+          }
+        </div>
         <ul class="list">
-          @for (lesson of available(); track lesson.id) {
-            <li class="card available-item">
-              <span class="title">{{ lesson.title }}</span>
+          @for (lesson of availableShown(); track lesson.id) {
+            <li class="card available-item" [class.ticked]="toAdd().has(lesson.id)">
+              <label class="check available-pick">
+                <input
+                  type="checkbox"
+                  [checked]="toAdd().has(lesson.id)"
+                  [disabled]="saving()"
+                  [attr.aria-label]="'Chọn để thêm: ' + lesson.title"
+                  (change)="tickToAdd(lesson.id, $any($event.target).checked)"
+                />
+                <span class="title">{{ lesson.title }}</span>
+              </label>
               <button type="button" class="btn" [disabled]="saving()" [attr.aria-label]="'Thêm vào lộ trình: ' + lesson.title"
                 (click)="add(lesson)">Thêm</button>
             </li>
           }
         </ul>
+        <lu-pager
+          label="Phân trang bài chưa có trong lộ trình"
+          [page]="availableCurrentPage()"
+          [pageCount]="availablePageCount()"
+          [summary]="availableRange()"
+          (pageChange)="availablePage.set($event)"
+        />
       }
     </section>
   } @else if (!error()) {
@@ -141,6 +268,16 @@
       (closed)="closeGenerate()"
     />
   }
+
+  <lu-confirm-dialog
+    [open]="removeOpen()"
+    [title]="'Gỡ ' + tickedCount() + ' bài khỏi lộ trình?'"
+    message="Bài vẫn được giữ trong trang Bài học. Muốn đưa lại vào lộ trình thì bài sẽ được thêm vào cuối."
+    confirmLabel="Gỡ"
+    [danger]="true"
+    (confirmed)="removeTicked()"
+    (cancelled)="removeOpen.set(false)"
+  />
 
   <lu-confirm-dialog
     [open]="leaveOpen()"

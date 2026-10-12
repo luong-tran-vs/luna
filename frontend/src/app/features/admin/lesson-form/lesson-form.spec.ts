@@ -56,7 +56,7 @@ describe('LessonForm', () => {
     await fixture.whenStable();
   };
   const field = (name: string) =>
-    el.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(`[name="${name}"]`)!;
+    el.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(`:is(input, textarea, select)[name="${name}"]`)!;
   /** The level is a group of radio cards, not an input. */
   const levelGroup = () => el.querySelector<HTMLElement>('#lesson-level [role="radiogroup"]')!;
   const chosenLevel = () => levelGroup().querySelector('[aria-checked="true"] .code')?.textContent?.trim() ?? '';
@@ -65,6 +65,16 @@ describe('LessonForm', () => {
       Array.from(levelGroup().querySelectorAll<HTMLButtonElement>('[role="radio"]'))
         .find((b) => b.querySelector('.code')?.textContent?.trim() === value)!
         .click();
+      await fixture.whenStable();
+      return;
+    }
+    if (name === 'topicId') {
+      // A searchable box: open it and click the topic.
+      const box = field('topicId');
+      box.click();
+      await fixture.whenStable();
+      el.querySelector<HTMLElement>(`#lesson-topic-list [data-value="${value}"]`)!.click();
+      box.dispatchEvent(new Event('blur'));
       await fixture.whenStable();
       return;
     }
@@ -139,9 +149,13 @@ describe('LessonForm', () => {
     });
 
     it('offers every topic by name and the levels as radio cards', async () => {
-      const options = Array.from(el.querySelectorAll<HTMLOptionElement>('select[name="topicId"] option')).map((o) => o.textContent?.trim());
-      expect(el.querySelector('select[name="topicId"] optgroup')).toBeNull();
-      expect(options).toEqual(['Chọn chủ đề', 'Công việc', 'Gia đình', 'Mua sắm']);
+      expect(field('topicId').getAttribute('placeholder')).toBe('Chọn chủ đề');
+      field('topicId').click();
+      await fixture.whenStable();
+      const options = Array.from(el.querySelectorAll('#lesson-topic-list [role="option"]')).map((o) => o.textContent?.trim());
+      expect(options).toEqual(['Công việc', 'Gia đình', 'Mua sắm']);
+      field('topicId').dispatchEvent(new Event('blur'));
+      await fixture.whenStable();
       const radios = Array.from(levelGroup().querySelectorAll('[role="radio"]'));
       expect(radios.map((r) => r.querySelector('.code')?.textContent?.trim())).toEqual(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']);
       expect(radios[1].querySelector('.hint')?.textContent?.trim()).toBe('Sơ cấp');
@@ -262,7 +276,7 @@ describe('LessonForm', () => {
     it('prefills the form', async () => {
       await load(lesson());
       expect(field('title').value).toBe('Park');
-      expect(field('topicId').value).toBe('t3');
+      expect(field('topicId').value).toBe('Công việc');
       expect(chosenLevel()).toBe('B1');
       expect(field('content').value).toBe('We went to the park.');
       expect(el.querySelector('h1')?.textContent).toContain('Sửa bài');
