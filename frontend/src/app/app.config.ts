@@ -14,6 +14,7 @@ import { apiUrlInterceptor } from './core/interceptors/api-url-interceptor';
 import { errorInterceptor } from './core/interceptors/error-interceptor';
 import { AppUpdateService } from './core/services/app-update.service';
 import { AuthService } from './core/services/auth.service';
+import { InstallService } from './core/services/install.service';
 
 // Angular 21 is zoneless by default, so no change detection provider is needed.
 export const appConfig: ApplicationConfig = {
@@ -31,5 +32,7 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideAppInitializer(() => inject(AppUpdateService).start()),
+    // Catch the browser's install prompt early; the account page shows it as a button.
+    provideAppInitializer(() => inject(InstallService).start()),
   ],
 };

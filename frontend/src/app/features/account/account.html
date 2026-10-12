@@ -96,6 +96,43 @@
         <lu-icon class="chevron" name="chevron-right" />
       </a>
     </li>
+    @switch (installer.mode()) {
+      @case ('prompt') {
+        <li>
+          <button type="button" class="menu-row" (click)="install()">
+            <span class="icon-chip"><lu-icon name="download" /></span>
+            <span class="menu-label">
+              <span>Cài ứng dụng</span>
+              <span class="menu-hint">Mở Luna như một app trên máy, không cần trình duyệt</span>
+            </span>
+            <lu-icon class="chevron" name="chevron-right" />
+          </button>
+        </li>
+      }
+      @case ('ios') {
+        <li>
+          <button
+            type="button"
+            class="menu-row"
+            [attr.aria-expanded]="iosHelp()"
+            aria-controls="ios-install-help"
+            (click)="iosHelp.set(!iosHelp())"
+          >
+            <span class="icon-chip"><lu-icon name="download" /></span>
+            <span class="menu-label">
+              <span>Cài ứng dụng</span>
+              <span class="menu-hint" id="ios-install-help">
+                @if (iosHelp()) {
+                  Trong Safari, bấm nút Chia sẻ rồi chọn “Thêm vào MH chính”
+                } @else {
+                  Thêm Luna vào màn hình chính của iPhone
+                }
+              </span>
+            </span>
+          </button>
+        </li>
+      }
+    }
   </ul>
   <p class="save-status" role="status">
     @if (theme.saveState() === 'error') {

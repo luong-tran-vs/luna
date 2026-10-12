@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { GoalView } from '../../core/models/study';
 import { NaturalVoiceService } from '../../core/natural-voice/natural-voice.service';
 import { AuthService } from '../../core/services/auth.service';
+import { InstallService } from '../../core/services/install.service';
 import { PALETTES, PaletteService } from '../../core/services/palette.service';
 import { StudyApiService } from '../../core/services/study-api.service';
 import { ThemeService } from '../../core/services/theme.service';
@@ -26,7 +27,7 @@ const LINKS: readonly AccountLink[] = [
 
 /**
  * The account tab (client sketch, screen 11): who is logged in, links to the other pages, dark mode,
- * a link to the color page, logout.
+ * a link to the color page, installing the app (PWA), logout.
  */
 @Component({
   selector: 'lu-account',
@@ -41,10 +42,13 @@ export class Account {
   protected readonly notifier = inject(WritingNotifier);
   private readonly palette = inject(PaletteService);
   protected readonly voice = inject(NaturalVoiceService);
+  protected readonly installer = inject(InstallService);
   private readonly router = inject(Router);
 
   protected readonly links = LINKS;
   protected readonly goal = signal<GoalView | null>(null);
+  /** iPhone/iPad: whether the "Share → Add to Home Screen" steps are shown. */
+  protected readonly iosHelp = signal(false);
   protected readonly dark = computed(() => this.theme.resolved() === 'dark');
   protected readonly paletteName = computed(() => PALETTES.find((p) => p.id === this.palette.palette())?.name ?? '');
   protected readonly voiceHint = computed(() => {
@@ -89,6 +93,10 @@ export class Account {
     } else {
       this.voice.enable();
     }
+  }
+
+  protected async install(): Promise<void> {
+    await this.installer.install();
   }
 
   protected async logout(): Promise<void> {

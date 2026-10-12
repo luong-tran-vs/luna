@@ -8,6 +8,7 @@ import { Goals } from '../../core/models/study';
 import { User } from '../../core/models/user';
 import { NaturalVoiceService, NaturalVoiceState } from '../../core/natural-voice/natural-voice.service';
 import { AuthService } from '../../core/services/auth.service';
+import { InstallMode, InstallService } from '../../core/services/install.service';
 import { PALETTE_STORAGE_KEY } from '../../core/services/palette.service';
 import { ThemePreference, ThemeSaveState, ThemeService } from '../../core/services/theme.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
@@ -36,6 +37,8 @@ describe('Account', () => {
     disable: vi.fn(() => voiceState.set('off')),
   };
   const logout = vi.fn(async () => undefined);
+  const installMode = signal<InstallMode>('unavailable');
+  const install = vi.fn(async () => true);
 
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const darkSwitch = () => el.querySelector<HTMLButtonElement>('[role="switch"]')!;
@@ -61,6 +64,8 @@ describe('Account', () => {
     setTheme.mockClear();
     logout.mockClear();
     unseen.set(0);
+    installMode.set('unavailable');
+    install.mockClear();
     const user: User = { id: '1', email: 'minh@example.com', role: 'member', timezone: 'Asia/Ho_Chi_Minh' };
     await TestBed.configureTestingModule({
       imports: [Account],
@@ -72,6 +77,7 @@ describe('Account', () => {
         { provide: ThemeService, useValue: { preference, resolved, saveState, set: setTheme } },
         { provide: WritingNotifier, useValue: { unseen } },
         { provide: NaturalVoiceService, useValue: voice },
+        { provide: InstallService, useValue: { mode: installMode, install } },
       ],
     }).compileComponents();
     http = TestBed.inject(HttpTestingController);
@@ -183,6 +189,39 @@ describe('Account', () => {
     expect(voice.setOnly).toHaveBeenCalledWith(true);
     expect(machine()!.getAttribute('aria-checked')).toBe('false');
     expect(text(machine())).toContain('chỉ dùng giọng tự nhiên');
+  });
+
+  const installRow = () => Array.from(el.querySelectorAll('button')).find((b) => text(b).startsWith('Cài ứng dụng'));
+
+  it('offers to install the app where the browser can, and opens its install dialog', async () => {
+    installMode.set('prompt');
+    await open();
+    installRow()!.click();
+    await fixture.whenStable();
+    expect(install).toHaveBeenCalledOnce();
+  });
+
+  it('shows the Add to Home Screen steps on iPhone', async () => {
+    installMode.set('ios');
+    await open();
+    const row = installRow()!;
+    expect(row.getAttribute('aria-expanded')).toBe('false');
+
+    row.click();
+    await fixture.whenStable();
+    expect(row.getAttribute('aria-expanded')).toBe('true');
+    expect(text(row)).toContain('bấm nút Chia sẻ rồi chọn “Thêm vào MH chính”');
+    expect(install).not.toHaveBeenCalled();
+  });
+
+  it('hides the install row once installed or where installing is not possible', async () => {
+    installMode.set('installed');
+    await open();
+    expect(installRow()).toBeUndefined();
+
+    installMode.set('unavailable');
+    await fixture.whenStable();
+    expect(installRow()).toBeUndefined();
   });
 
   it('logs out and goes to the login page', async () => {
