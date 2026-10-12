@@ -123,7 +123,8 @@ Frontend là file tĩnh. Build ra `frontend/dist/luna/browser/`, rồi chép và
 sudo mkdir -p /var/www/luna
 ```
 
-Tạo script build ở `/root/luna/build.sh`:
+Tạo script build ở `/root/luna/build.sh`. Script lấy code mới nhất từ GitHub, cài dependency, build rồi chép
+sang `/var/www/luna`:
 
 ```bash
 cd /root/luna
@@ -133,7 +134,9 @@ nano build.sh
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-cd /root/luna/frontend
+cd /root/luna
+git pull
+cd frontend
 npm ci
 npm run build
 sudo cp -a /root/luna/frontend/dist/luna/browser/. /var/www/luna/
@@ -230,6 +233,8 @@ sudo systemctl restart luna-backend
 # Frontend (khi có thay đổi trong frontend/)
 /root/luna/build.sh
 ```
+
+Chỉ sửa frontend thì chạy mỗi `/root/luna/build.sh` là đủ, vì script đã tự `git pull`.
 
 Frontend không cần reload Nginx. Người đã cài app sẽ tự nhận bản mới ở lần chuyển trang kế tiếp.
 
