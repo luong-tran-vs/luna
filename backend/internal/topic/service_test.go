@@ -2,7 +2,9 @@ package topic
 
 import (
 	"errors"
+	"fmt"
 	"slices"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -167,6 +169,70 @@ func TestPublicOnlyTopicsWithARoadmapAtTheLevel(t *testing.T) {
 	}
 	if _, err := e.svc.Public(t.Context(), ""); err == nil {
 		t.Fatal("missing level accepted")
+	}
+}
+
+func TestOrderPerLevel(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	shopping := e.create(t, "Mua sắm")
+	family := e.create(t, "Gia đình")
+	daily := e.create(t, "Hoạt động hằng ngày")
+	music := e.create(t, "Âm nhạc")
+	for i, tp := range []Summary{shopping, family, daily, music} {
+		a1, b1 := "a"+strconv.Itoa(i), "b"+strconv.Itoa(i)
+		_ = e.repo.SetLessons(t.Context(), tp.ID, "A1", []string{a1})
+		_ = e.repo.SetLessons(t.Context(), tp.ID, "B1", []string{b1})
+		e.lessons.add(a1, "Bài", tp.ID, "A1")
+		e.lessons.add(b1, "Bài", tp.ID, "B1")
+	}
+	names := func(list []Public) string {
+		var out []string
+		for _, p := range list {
+			out = append(out, fmt.Sprintf("%s:%d", p.Name, p.Position))
+		}
+		return strings.Join(out, ",")
+	}
+
+	// Ordered topics first, then the others by name; another level keeps its own order.
+	summaries, err := e.svc.SetOrder(t.Context(), "A1", []string{family.ID, daily.ID})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, s := range summaries {
+		if s.ID == family.ID && s.Level("A1").Position != 1 {
+			t.Fatalf("admin list position = %+v", s.Level("A1"))
+		}
+	}
+	a1, _ := e.svc.Public(t.Context(), "A1")
+	if got := names(a1); got != "Gia đình:1,Hoạt động hằng ngày:2,Âm nhạc:0,Mua sắm:0" {
+		t.Fatalf("A1 = %s", got)
+	}
+	b1, _ := e.svc.Public(t.Context(), "B1")
+	if got := names(b1); got != "Âm nhạc:0,Gia đình:0,Hoạt động hằng ngày:0,Mua sắm:0" {
+		t.Fatalf("B1 = %s", got)
+	}
+	roadmaps, _ := e.svc.LearnerRoadmaps(t.Context())
+	if roadmaps["A1"][0].TopicName != "Gia đình" || roadmaps["B1"][0].TopicName != "Âm nhạc" {
+		t.Fatalf("learner roadmaps A1 %+v B1 %+v", roadmaps["A1"][0], roadmaps["B1"][0])
+	}
+
+	// A new order replaces the old one: a topic left out loses its place.
+	if _, err := e.svc.SetOrder(t.Context(), "A1", []string{shopping.ID}); err != nil {
+		t.Fatal(err)
+	}
+	a1, _ = e.svc.Public(t.Context(), "A1")
+	if got := names(a1); got != "Mua sắm:1,Âm nhạc:0,Gia đình:0,Hoạt động hằng ngày:0" {
+		t.Fatalf("A1 reordered = %s", got)
+	}
+
+	for _, bad := range [][]string{{"nope"}, {family.ID, family.ID}} {
+		if _, err := e.svc.SetOrder(t.Context(), "A1", bad); fieldErr(t, err, "topicIds") == "" {
+			t.Fatalf("order %v accepted", bad)
+		}
+	}
+	if _, err := e.svc.SetOrder(t.Context(), "Z9", nil); err == nil {
+		t.Fatal("unknown level accepted")
 	}
 }
 

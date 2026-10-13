@@ -169,6 +169,13 @@ export class AdminApiService {
     return this.http.put<{ topic: Topic }>(`${BASE}/topics/${id}`, input).pipe(map((r) => r.topic));
   }
 
+  /** Sets the order learners of level see the topics in; the topics left out lose their place. */
+  setTopicOrder(level: Level, topicIds: string[]): Observable<Topic[]> {
+    return this.http
+      .put<{ topics: Topic[] }>(`${BASE}/topics/order`, { topicIds }, { params: { level } })
+      .pipe(map((r) => r.topics));
+  }
+
   deleteTopic(id: string): Observable<void> {
     return this.http.delete<void>(`${BASE}/topics/${id}`);
   }

@@ -38,7 +38,23 @@ func clone(t Topic) Topic {
 		t.Roadmaps = map[string][]string{}
 	}
 	t.Words = slices.Clone(t.Words)
+	t.Positions = maps.Clone(t.Positions)
 	return t
+}
+
+func (f *fakeRepo) SetPositions(_ context.Context, level string, ids []string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for i := range f.topics {
+		if f.topics[i].Positions == nil {
+			f.topics[i].Positions = map[string]int{}
+		}
+		delete(f.topics[i].Positions, level)
+		if p := slices.Index(ids, f.topics[i].ID); p >= 0 {
+			f.topics[i].Positions[level] = p + 1
+		}
+	}
+	return nil
 }
 
 func (f *fakeRepo) Create(_ context.Context, t Topic) (Topic, error) {

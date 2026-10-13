@@ -23,9 +23,9 @@ const dashboard = (over: Partial<Dashboard> = {}): Dashboard => ({
 const studyingMine: MyLessons = { current: { id: 'l2', title: 'My family' }, completed: [], upcoming: [] };
 
 const a1Topics: PublicTopic[] = [
-  { id: 't1', name: 'Gia đình', level: 'A1', description: 'Người thân', lessonCount: 12 },
-  { id: 't2', name: 'Mua sắm', level: 'A1', description: '', lessonCount: 5 },
-  { id: 't3', name: 'Du lịch', level: 'A1', description: '', lessonCount: 0 },
+  { id: 't1', name: 'Gia đình', level: 'A1', description: 'Người thân', lessonCount: 12, position: 1 },
+  { id: 't2', name: 'Mua sắm', level: 'A1', description: '', lessonCount: 5, position: 2 },
+  { id: 't3', name: 'Du lịch', level: 'A1', description: '', lessonCount: 0, position: 0 },
 ];
 
 describe('Goal', () => {
@@ -152,6 +152,14 @@ describe('Goal', () => {
     expect(text(topicRow('Gia đình'))).toContain('Đang học');
     expect(text(topicRow('Mua sắm'))).toContain('Đã học 1/5');
     expect(text(topicRow('Du lịch'))).toContain('Chưa có bài');
+  });
+
+  it('says the topics come in the suggested order and which one to start with', async () => {
+    await setup({ active: null, others: [] });
+    await chooseLevel('A1');
+    expect(text(el.querySelector('.order-hint'))).toBe('Các chủ đề được xếp theo thứ tự nên học, từ trên xuống.');
+    expect(text(topicRow('Gia đình'))).toContain('Nên học trước');
+    expect(text(topicRow('Mua sắm'))).not.toContain('Nên học trước');
   });
 
   it('does not let the learner pick a topic that has no lesson yet', async () => {

@@ -90,6 +90,8 @@
         @if (topics(); as list) {
           @if (list.length === 0) {
             <p class="muted">Trình độ này chưa có chủ đề nào. Hãy chọn trình độ khác hoặc quay lại sau.</p>
+          } @else if (list[0].position > 0) {
+            <p class="muted order-hint">Các chủ đề được xếp theo thứ tự nên học, từ trên xuống.</p>
           }
           <ul class="topics">
             @for (t of list; track t.id; let i = $index) {
@@ -109,6 +111,8 @@
                   </p>
                   @if (progress?.status === 'active') {
                     <span class="tag">Đang học</span>
+                  } @else if (i === 0 && t.position > 0 && !progress) {
+                    <span class="tag">Nên học trước</span>
                   }
                 </div>
                 <button type="button" class="btn-primary" [disabled]="pending() || t.lessonCount === 0" (click)="choose(t)">

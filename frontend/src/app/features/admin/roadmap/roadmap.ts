@@ -132,6 +132,27 @@ export class Roadmap implements CanLeave {
   protected readonly removeOpen = signal(false);
   protected readonly overviewNote = signal<string | null>(null);
 
+  // --- quick publish: drafts ticked here go to learners without opening each lesson ---
+
+  /** Drafts of the roadmap shown. */
+  protected readonly draftLessons = computed(() => this.lessons().filter((l) => l.draft));
+  /** Drafts ticked to publish in the roadmap shown. */
+  protected readonly toPublish = signal<ReadonlySet<string>>(new Set());
+  protected readonly toPublishCount = computed(
+    () => this.draftLessons().filter((l) => this.toPublish().has(l.id)).length,
+  );
+  protected readonly readyDrafts = computed(() => this.draftLessons().filter(canPublish));
+  protected readonly allReadyPicked = computed(
+    () => this.readyDrafts().length > 0 && this.readyDrafts().every((l) => this.toPublish().has(l.id)),
+  );
+  /** Drafts ticked in the overview that can be published. */
+  protected readonly tickedDrafts = computed(() =>
+    (this.overview() ?? []).flatMap((r) => r.lessons).filter((l) => this.ticked().has(l.id) && canPublish(l)),
+  );
+  protected readonly publishing = signal(false);
+  protected readonly publishNote = signal<string | null>(null);
+  protected readonly canPublish = canPublish;
+
   // --- F7: AI drafts ---
   protected readonly dialogOpen = signal(false);
   protected readonly generating = signal(false);
@@ -357,6 +378,8 @@ export class Roadmap implements CanLeave {
   private async load(id: string): Promise<void> {
     const level = this.selectedLevel() ?? 'A1';
     this.error.set(null);
+    this.toPublish.set(new Set());
+    this.publishNote.set(null);
     try {
       const [roadmap, lessons] = await Promise.all([
         firstValueFrom(this.api.topicRoadmap(id, level)),
@@ -441,6 +464,71 @@ export class Roadmap implements CanLeave {
     await this.save([...this.lessons(), ...picked]);
     // Added ones left `available`; failed ones stay ticked.
     this.toAdd.update((s) => new Set([...s].filter((id) => this.available().some((l) => l.id === id))));
+  }
+
+  // --- quick publish ---
+
+  protected pickToPublish(id: string, checked: boolean): void {
+    this.toPublish.update((s) => {
+      const next = new Set(s);
+      if (checked) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
+      return next;
+    });
+  }
+
+  /** Chọn tất cả: every draft that is ready (annotated). */
+  protected pickAllToPublish(checked: boolean): void {
+    this.toPublish.set(checked ? new Set(this.readyDrafts().map((l) => l.id)) : new Set());
+  }
+
+  /** Đăng: the drafts ticked in the roadmap shown. */
+  protected publishPicked(): Promise<void> {
+    return this.publish(this.draftLessons().filter((l) => this.toPublish().has(l.id) && canPublish(l)));
+  }
+
+  /** Đăng in the overview: the drafts ticked there. */
+  protected publishTicked(): Promise<void> {
+    return this.publish(this.tickedDrafts());
+  }
+
+  /**
+   * Publishes lessons one after another (the same request as Đăng bài on a lesson's page) and marks
+   * each one published where it is listed; the ones that fail stay ticked to try again.
+   */
+  private async publish(lessons: LessonSummary[]): Promise<void> {
+    if (lessons.length === 0 || this.publishing()) {
+      return;
+    }
+    this.publishing.set(true);
+    this.publishNote.set(null);
+    this.error.set(null);
+    const done = new Set<string>();
+    for (const l of lessons) {
+      try {
+        await firstValueFrom(this.api.setPublished(l.id, true));
+        done.add(l.id);
+      } catch {
+        // counted below; the lesson stays a draft
+      }
+    }
+    const published = (list: LessonSummary[]) => list.map((l) => (done.has(l.id) ? { ...l, draft: false } : l));
+    this.data.update((d) => (d ? { ...d, lessons: published(d.lessons) } : d));
+    this.overview.update((list) => list?.map((r) => ({ ...r, lessons: published(r.lessons) })) ?? null);
+    const unpick = (s: ReadonlySet<string>) => new Set([...s].filter((id) => !done.has(id)));
+    this.toPublish.update(unpick);
+    this.ticked.update(unpick);
+    const failed = lessons.length - done.size;
+    if (done.size > 0) {
+      this.publishNote.set(`Đã đăng ${done.size} bài: người học thấy ngay.`);
+    }
+    if (failed > 0) {
+      this.error.set(`Không đăng được ${failed} bài, vui lòng thử lại.`);
+    }
+    this.publishing.set(false);
   }
 
   /** Shows the new order at once, then saves it; on failure restores the previous order. */
@@ -677,6 +765,14 @@ export class Roadmap implements CanLeave {
       event.preventDefault();
     }
   }
+}
+
+/**
+ * A draft can be published from a list once its annotation is done: before that learners would get
+ * a lesson without its vocabulary and questions. Its own page can still publish it.
+ */
+function canPublish(l: LessonSummary): boolean {
+  return !!l.draft && l.annotationStatus === 'done';
 }
 
 /** Lessons of the topic, every level, that are in none of its roadmaps. */

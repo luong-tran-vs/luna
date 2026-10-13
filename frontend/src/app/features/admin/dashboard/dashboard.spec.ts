@@ -24,10 +24,10 @@ const lesson = (id: string, over: Partial<LessonSummary> = {}): LessonSummary =>
 
 const topic = (id: string, over: Partial<Topic> = {}): Topic => ({
   id, name: id, description: '', lessonCount: 5, createdAt: '', wordCount: 0, usedWordCount: 0,
-  levels: [{ level: 'A1', lessonCount: 5, roadmapCount: 5, remaining: 5, warning: false }],
+  levels: [{ level: 'A1', lessonCount: 5, roadmapCount: 5, remaining: 5, warning: false, position: 0 }],
   ...over,
 });
-const lowA2 = { level: 'A2' as const, lessonCount: 2, roadmapCount: 2, remaining: 2, warning: true };
+const lowA2 = { level: 'A2' as const, lessonCount: 2, roadmapCount: 2, remaining: 2, warning: true, position: 0 };
 
 const grammar = (pointId: string, status: GrammarLessonSummary['status']): GrammarLessonSummary => ({
   pointId, status, edited: false, updatedAt: '', publishedAt: null, flags: 0, checked: true, verified: true,

@@ -7,8 +7,8 @@ import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { Topic, TopicLevel } from '../../../core/models/topic';
 import { Topics } from './topics';
 
-const lv = (level: TopicLevel['level'], lessonCount: number, roadmapCount = lessonCount): TopicLevel => ({
-  level, lessonCount, roadmapCount, remaining: roadmapCount, warning: roadmapCount < 3,
+const lv = (level: TopicLevel['level'], lessonCount: number, roadmapCount = lessonCount, position = 0): TopicLevel => ({
+  level, lessonCount, roadmapCount, remaining: roadmapCount, warning: roadmapCount < 3, position,
 });
 
 function topic(id: string, name: string, levels: TopicLevel[] = [], over: Partial<Topic> = {}): Topic {
@@ -84,6 +84,52 @@ describe('Topics', () => {
     await settle();
     expect(text(el.querySelector('.level-heading'))).toBe('Tất cả · 4 chủ đề');
     expect(names()).toEqual(['Công việc', 'Gia đình', 'Màu sắc', 'Mua sắm']);
+  });
+
+  it('lists a level in the order learners see, and moves a topic with ↑ ↓', async () => {
+    const ordered = [
+      topic('t1', 'Gia đình', [lv('A1', 4, 4, 2)]),
+      topic('t2', 'Mua sắm', [lv('A1', 2, 2, 1)]),
+      topic('t5', 'Âm nhạc', [lv('A1', 1)]),
+    ];
+    await setup(ordered);
+    // Placed topics first, by place; then the others by name.
+    expect(names()).toEqual(['Mua sắm', 'Gia đình', 'Âm nhạc']);
+    expect(Array.from(el.querySelectorAll('.order-number')).map((n) => text(n))).toEqual(['1', '2', '3']);
+    expect(el.querySelector<HTMLButtonElement>('[aria-label="Lên: Mua sắm"]')!.disabled).toBe(true);
+    expect(el.querySelector<HTMLButtonElement>('[aria-label="Xuống: Âm nhạc"]')!.disabled).toBe(true);
+
+    el.querySelector<HTMLButtonElement>('[aria-label="Lên: Âm nhạc"]')!.click();
+    await settle();
+    const req = http.expectOne((r) => r.url === '/admin/topics/order');
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.params.get('level')).toBe('A1');
+    expect(req.request.body).toEqual({ topicIds: ['t2', 't5', 't1'] });
+    req.flush({
+      topics: [
+        topic('t1', 'Gia đình', [lv('A1', 4, 4, 3)]),
+        topic('t2', 'Mua sắm', [lv('A1', 2, 2, 1)]),
+        topic('t5', 'Âm nhạc', [lv('A1', 1, 1, 2)]),
+      ],
+    });
+    await settle();
+    expect(names()).toEqual(['Mua sắm', 'Âm nhạc', 'Gia đình']);
+
+    // "Tất cả" is by name, without ordering.
+    picker()[1].click();
+    await settle();
+    expect(names()).toEqual(['Âm nhạc', 'Gia đình', 'Mua sắm']);
+    expect(el.querySelector('.order')).toBeNull();
+  });
+
+  it('says when the order cannot be saved', async () => {
+    await setup();
+    el.querySelector<HTMLButtonElement>('[aria-label="Xuống: Gia đình"]')!.click();
+    await settle();
+    http.expectOne((r) => r.url === '/admin/topics/order').flush('down', { status: 500, statusText: 'Error' });
+    await settle();
+    expect(text(el.querySelector('[role="alert"]'))).toBe('Không lưu được thứ tự chủ đề, vui lòng thử lại.');
+    expect(names()).toEqual(['Gia đình', 'Mua sắm']);
   });
 
   it('counts the lessons of each level of a topic', async () => {

@@ -1,9 +1,11 @@
 package topic
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"fmt"
+	"math"
 	"slices"
 	"strings"
 	"time"
@@ -74,6 +76,44 @@ func sortTopics(topics []Topic) {
 	slices.SortStableFunc(topics, func(a, b Topic) int {
 		return c.CompareString(NameKey(a.Name), NameKey(b.Name))
 	})
+}
+
+// sortTopicsAt orders topics as learners of level see them: the admin's order of that level
+// first, then the topics without a place, by name.
+func sortTopicsAt(topics []Topic, level string) {
+	sortTopics(topics)
+	rank := func(t Topic) int {
+		if p := t.Positions[level]; p > 0 {
+			return p
+		}
+		return math.MaxInt
+	}
+	slices.SortStableFunc(topics, func(a, b Topic) int { return cmp.Compare(rank(a), rank(b)) })
+}
+
+// SetOrder sets the order learners of level see the topics in: topicIDs first, in that order;
+// every other topic loses its place at level and comes after them, by name. It returns the
+// admin list.
+func (s *Service) SetOrder(ctx context.Context, level string, topicIDs []string) ([]Summary, error) {
+	if err := checkLevel(level, "level"); err != nil {
+		return nil, err
+	}
+	topics, err := s.repo.List(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("topic: list: %w", err)
+	}
+	seen := map[string]bool{}
+	for _, id := range topicIDs {
+		known := slices.ContainsFunc(topics, func(t Topic) bool { return t.ID == id })
+		if !known || seen[id] {
+			return nil, &ValidationError{Fields: map[string]string{"topicIds": "Danh sách chủ đề không hợp lệ"}}
+		}
+		seen[id] = true
+	}
+	if err := s.repo.SetPositions(ctx, level, topicIDs); err != nil {
+		return nil, fmt.Errorf("topic: set order: %w", err)
+	}
+	return s.List(ctx)
 }
 
 // List returns every topic by name, with lesson counts and roadmap warnings per level.
@@ -166,7 +206,8 @@ func (s *Service) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-// Public lists, for learners, the topics that have a roadmap at level, with its number of lessons.
+// Public lists, for learners, the topics that have a roadmap at level, with its number of lessons,
+// in the admin's order of the level (see sortTopicsAt).
 func (s *Service) Public(ctx context.Context, level string) ([]Public, error) {
 	if err := checkLevel(level, "level"); err != nil {
 		return nil, err
@@ -175,7 +216,7 @@ func (s *Service) Public(ctx context.Context, level string) ([]Public, error) {
 	if err != nil {
 		return nil, fmt.Errorf("topic: list: %w", err)
 	}
-	sortTopics(topics)
+	sortTopicsAt(topics, level)
 	var ids []string
 	for _, t := range topics {
 		ids = append(ids, t.Roadmap(level)...)
@@ -193,7 +234,10 @@ func (s *Service) Public(ctx context.Context, level string) ([]Public, error) {
 			}
 		}
 		if n > 0 {
-			out = append(out, Public{ID: t.ID, Name: t.Name, Level: level, Description: t.Description, LessonCount: n})
+			out = append(out, Public{
+				ID: t.ID, Name: t.Name, Level: level, Description: t.Description, LessonCount: n,
+				Position: t.Positions[level],
+			})
 		}
 	}
 	return out, nil
@@ -207,14 +251,13 @@ type LevelRoadmap struct {
 	LessonIDs        []string
 }
 
-// LearnerRoadmaps lists, for every level, the topics with published lessons there (in topic order)
-// and those lessons in roadmap order. Levels with no lesson have no entry.
+// LearnerRoadmaps lists, for every level, the topics with published lessons there (in the
+// admin's order of the level) and those lessons in roadmap order. Levels with no lesson have no entry.
 func (s *Service) LearnerRoadmaps(ctx context.Context) (map[string][]LevelRoadmap, error) {
 	topics, err := s.repo.List(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("topic: list: %w", err)
 	}
-	sortTopics(topics)
 	var ids []string
 	for _, t := range topics {
 		for _, level := range Levels {
@@ -227,6 +270,7 @@ func (s *Service) LearnerRoadmaps(ctx context.Context) (map[string][]LevelRoadma
 	}
 	out := map[string][]LevelRoadmap{}
 	for _, level := range Levels {
+		sortTopicsAt(topics, level)
 		for _, t := range topics {
 			var lessons []string
 			for _, lid := range t.Roadmap(level) {

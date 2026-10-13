@@ -50,6 +50,7 @@ func migrations() []migration {
 		{ID: "023_ai_usage", Stmts: aiUsageSchema()},
 		{ID: "024_ask_usage", Stmts: askUsageSchema()},
 		{ID: "025_writing_gradings", Stmts: writingGradingsSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "026_topic_positions", Stmts: topicPositionsSchema(), Ignore: []uint16{errDuplicateColumn}},
 	}
 }
 

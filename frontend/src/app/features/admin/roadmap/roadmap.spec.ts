@@ -23,7 +23,7 @@ const item = (id: string, title: string, inRoadmap = true): LessonSummary => ({
 /** A topic with lessons at one level only, whose roadmap holds roadmapCount of them. */
 const topic = (id: string, name: string, level: Level, roadmapCount: number): Topic => ({
   id, name, description: '', lessonCount: roadmapCount + 1, createdAt: '', wordCount: 0, usedWordCount: 0,
-  levels: [{ level, lessonCount: roadmapCount + 1, roadmapCount, remaining: roadmapCount, warning: roadmapCount < 3 }],
+  levels: [{ level, lessonCount: roadmapCount + 1, roadmapCount, remaining: roadmapCount, warning: roadmapCount < 3, position: 0 }],
 });
 
 const topics = [topic('t1', 'Gia đình', 'A1', 3), topic('t2', 'Mua sắm', 'A1', 0), topic('t3', 'Công việc', 'B1', 2)];
@@ -354,6 +354,101 @@ describe('Roadmap', () => {
     http.expectOne((r) => r.url === '/admin/grammar').flush({ points: [] });
     await settle();
     expect(el.querySelector('lu-generate-dialog dialog')!.hasAttribute('open')).toBe(true);
+  });
+
+  describe('quick publish', () => {
+    const draft = (id: string, annotationStatus: LessonSummary['annotationStatus'] = 'done'): LessonSummary => ({
+      ...item(id, `Bài ${id}`),
+      draft: true,
+      annotationStatus,
+    });
+    const button = (label: string) => Array.from(el.querySelectorAll('button')).find((b) => text(b) === label);
+    const pick = (title: string) => el.querySelector<HTMLInputElement>(`input[aria-label="Chọn để đăng: ${title}"]`)!;
+    const expectPublish = async (id: string, ok = true) => {
+      const req = http.expectOne(`/admin/lessons/${id}/published`);
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body).toEqual({ published: true });
+      if (ok) {
+        req.flush({ lesson: { ...draft(id), draft: false } });
+      } else {
+        req.flush({ error: 'internal_error', message: 'Có lỗi' }, { status: 500, statusText: 'Error' });
+      }
+      await settle();
+    };
+
+    it('publishes the ticked drafts of the roadmap at once, not those still being annotated', async () => {
+      await setup('t1');
+      const roadmap = { ...data([]), lessons: [item('a', 'Bài a'), draft('b'), draft('c'), draft('d', 'running')] };
+      await flushTopic('t1', roadmap, roadmap.lessons);
+
+      expect(text(el.querySelector('.publish-bar'))).toContain('Chọn tất cả bản nháp (2)');
+      expect(text(el.querySelector('.publish-bar'))).toContain('3 bài nháp, người học chưa thấy.');
+      expect(pick('Bài d').disabled).toBe(true);
+      expect(text(pick('Bài d').closest('label'))).toBe('Chờ chú thích xong');
+      expect(el.querySelector('input[aria-label="Chọn để đăng: Bài a"]')).toBeNull(); // published already
+      expect(button('Đăng 0 bài đã chọn')!.disabled).toBe(true);
+
+      el.querySelector<HTMLInputElement>('input[name="pickAllToPublish"]')!.click();
+      await settle();
+      expect(pick('Bài b').checked).toBe(true);
+      expect(pick('Bài c').checked).toBe(true);
+      button('Đăng 2 bài đã chọn')!.click();
+      await settle();
+      await expectPublish('b');
+      await expectPublish('c');
+
+      expect(text(el.querySelector('.publish-note'))).toBe('Đã đăng 2 bài: người học thấy ngay.');
+      expect(el.querySelector('input[aria-label="Chọn để đăng: Bài b"]')).toBeNull();
+      expect(text(el.querySelector('.publish-bar'))).toContain('1 bài nháp');
+    });
+
+    it('keeps a draft that failed to publish ticked, and says so', async () => {
+      await setup('t1');
+      const roadmap = { ...data([]), lessons: [draft('b'), draft('c')] };
+      await flushTopic('t1', roadmap, roadmap.lessons);
+      pick('Bài b').click();
+      pick('Bài c').click();
+      await settle();
+      button('Đăng 2 bài đã chọn')!.click();
+      await settle();
+      await expectPublish('b');
+      await expectPublish('c', false);
+      expect(text(el.querySelector('[role="alert"]'))).toBe('Không đăng được 1 bài, vui lòng thử lại.');
+      expect(pick('Bài c').checked).toBe(true);
+      expect(button('Đăng 1 bài đã chọn')).toBeDefined();
+    });
+
+    it('publishes the drafts ticked in the overview of every roadmap', async () => {
+      await TestBed.configureTestingModule({
+        imports: [Roadmap],
+        providers: [
+          provideRouter([]),
+          provideHttpClient(withInterceptors([errorInterceptor])),
+          provideHttpClientTesting(),
+          { provide: ActivatedRoute, useValue: { snapshot: { queryParamMap: convertToParamMap({}) } } },
+        ],
+      }).compileComponents();
+      http = TestBed.inject(HttpTestingController);
+      fixture = TestBed.createComponent(Roadmap);
+      el = fixture.nativeElement as HTMLElement;
+      await fixture.whenStable();
+      http.expectOne('/admin/topics').flush({ topics });
+      await settle();
+      http.expectOne((r) => r.url === '/admin/topics/t3/roadmap').flush({
+        ...data([]), topic: topics[2], level: 'B1', lessons: [item('w1', 'Họp'), draft('w2')],
+      });
+      http.expectOne((r) => r.url === '/admin/topics/t1/roadmap').flush(data(['a']));
+      await settle();
+
+      el.querySelector<HTMLInputElement>('input[name="tickAll"]')!.click();
+      await settle();
+      // Only the draft among the ticked lessons is published.
+      button('Đăng 1 bài nháp')!.click();
+      await settle();
+      await expectPublish('w2');
+      expect(text(el.querySelector('.publish-note'))).toBe('Đã đăng 1 bài: người học thấy ngay.');
+      expect(button('Đăng 1 bài nháp')).toBeUndefined();
+    });
   });
 
   it('warns that an empty roadmap has no lessons', async () => {

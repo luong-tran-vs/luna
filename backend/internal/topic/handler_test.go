@@ -129,7 +129,7 @@ func TestTopicCRUDEndpoints(t *testing.T) {
 	a.env.lessons.add("l0", "Lesson", id, "B1")
 	_ = a.env.repo.SetLessons(t.Context(), id, "B1", []string{"l0"})
 	rec = a.do(t, http.MethodGet, "/api/admin/topics", "admin", "")
-	want := `"levels":[{"level":"B1","lessonCount":1,"roadmapCount":1,"remaining":1,"warning":true}]`
+	want := `"levels":[{"level":"B1","lessonCount":1,"roadmapCount":1,"remaining":1,"warning":true,"position":0}]`
 	if rec.Code != http.StatusOK || len(decode(t, rec)["topics"].([]any)) != 1 || !strings.Contains(rec.Body.String(), want) {
 		t.Fatalf("list: %d %s", rec.Code, rec.Body)
 	}
@@ -160,7 +160,7 @@ func TestPublicTopicsEndpoint(t *testing.T) {
 	a.env.lessons.add("l2", "Bài 2", other, "B1")
 
 	rec := a.do(t, http.MethodGet, "/api/topics?level=A1", "learner", "")
-	want := `{"topics":[{"id":"` + id + `","name":"Gia đình","level":"A1","description":"","lessonCount":1}]}` + "\n"
+	want := `{"topics":[{"id":"` + id + `","name":"Gia đình","level":"A1","description":"","lessonCount":1,"position":0}]}` + "\n"
 	if rec.Code != http.StatusOK || rec.Body.String() != want {
 		t.Fatalf("public: %d %s", rec.Code, rec.Body)
 	}
@@ -171,6 +171,34 @@ func TestPublicTopicsEndpoint(t *testing.T) {
 	}
 	if rec := a.do(t, http.MethodGet, "/api/topics", "", ""); rec.Code != http.StatusUnauthorized {
 		t.Fatalf("anonymous: %d", rec.Code)
+	}
+}
+
+func TestOrderEndpoint(t *testing.T) {
+	t.Parallel()
+	a := newAPI(t)
+	family := a.createTopic(t, "Gia đình")
+	work := a.createTopic(t, "Công việc")
+	_ = a.env.repo.SetLessons(t.Context(), family, "A1", []string{"l1"})
+	_ = a.env.repo.SetLessons(t.Context(), work, "A1", []string{"l2"})
+	a.env.lessons.add("l1", "Bài 1", family, "A1")
+	a.env.lessons.add("l2", "Bài 2", work, "A1")
+
+	body := `{"topicIds":["` + family + `","` + work + `"]}`
+	if rec := a.do(t, http.MethodPut, "/api/admin/topics/order?level=A1", "learner", body); rec.Code != http.StatusForbidden {
+		t.Fatalf("learner: %d", rec.Code)
+	}
+	rec := a.do(t, http.MethodPut, "/api/admin/topics/order?level=A1", "admin", body)
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"level":"A1","lessonCount":1,"roadmapCount":1,"remaining":1,"warning":true,"position":1`) {
+		t.Fatalf("order: %d %s", rec.Code, rec.Body)
+	}
+	rec = a.do(t, http.MethodGet, "/api/topics?level=A1", "learner", "")
+	topics := decode(t, rec)["topics"].([]any)
+	if first := topics[0].(map[string]any); first["name"] != "Gia đình" || first["position"] != 1.0 {
+		t.Fatalf("public: %s", rec.Body)
+	}
+	if rec := a.do(t, http.MethodPut, "/api/admin/topics/order?level=A1", "admin", `{"topicIds":["nope"]}`); rec.Code != http.StatusBadRequest {
+		t.Fatalf("unknown topic: %d", rec.Code)
 	}
 }
 

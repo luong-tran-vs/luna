@@ -62,6 +62,7 @@ type topicDoc struct {
 	Roadmaps    map[string][]bson.ObjectID `bson:"roadmaps"`
 	Words       []wordDoc                  `bson:"words"`
 	WordsSeeded bool                       `bson:"wordsSeeded"`
+	Positions   map[string]int             `bson:"positions,omitempty"`
 	CreatedAt   time.Time                  `bson:"createdAt"`
 	UpdatedAt   time.Time                  `bson:"updatedAt"`
 }
@@ -70,6 +71,10 @@ func (d topicDoc) toTopic() topic.Topic {
 	t := topic.Topic{
 		ID: d.ID.Hex(), Name: d.Name, Description: d.Description, Roadmaps: hexRoadmaps(d.Roadmaps),
 		CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt, Words: fromWordDocs(d.Words), WordsSeeded: d.WordsSeeded,
+		Positions: d.Positions,
+	}
+	if t.Positions == nil {
+		t.Positions = map[string]int{}
 	}
 	return t
 }
@@ -293,6 +298,31 @@ func (r *Topics) AppendLesson(ctx context.Context, id, level, lessonID string) e
 		bson.D{{Key: "$push", Value: bson.D{{Key: field, Value: lid}}}})
 	if err != nil {
 		return fmt.Errorf("append to roadmap: %w", err)
+	}
+	return nil
+}
+
+// SetPositions places the topics of ids at level in that order (positions.<level> = 1, 2, …) and
+// unsets positions.<level> of every other topic, in one ordered bulk write.
+func (r *Topics) SetPositions(ctx context.Context, level string, ids []string) error {
+	if !topic.ValidLevel(level) {
+		return fmt.Errorf("topic order level %q", level)
+	}
+	field := "positions." + level
+	oids, err := toOIDs(ids)
+	if err != nil {
+		return err
+	}
+	writes := []mongo.WriteModel{
+		mongo.NewUpdateManyModel().SetFilter(bson.D{}).
+			SetUpdate(bson.D{{Key: "$unset", Value: bson.D{{Key: field, Value: ""}}}}),
+	}
+	for i, oid := range oids {
+		writes = append(writes, mongo.NewUpdateOneModel().SetFilter(bson.D{{Key: "_id", Value: oid}}).
+			SetUpdate(bson.D{{Key: "$set", Value: bson.D{{Key: field, Value: i + 1}}}}))
+	}
+	if _, err := r.coll.BulkWrite(ctx, writes, options.BulkWrite().SetOrdered(true)); err != nil {
+		return fmt.Errorf("set topic order: %w", err)
 	}
 	return nil
 }

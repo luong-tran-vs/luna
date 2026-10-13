@@ -13,6 +13,8 @@ export interface TopicLevel {
   /** Roadmap lessons not yet studied (until feature L: every roadmap lesson). */
   remaining: number;
   warning: boolean;
+  /** Place of the topic in the order learners of the level see (1 is first); 0 when it has none. */
+  position: number;
 }
 
 export interface Topic {
@@ -66,7 +68,16 @@ export interface TopicRoadmap {
 
 /** The summary of one level of a topic (empty counts when it has nothing there). */
 export function topicLevel(t: Pick<Topic, 'levels'>, level: Level): TopicLevel {
-  return t.levels.find((l) => l.level === level) ?? { level, lessonCount: 0, roadmapCount: 0, remaining: 0, warning: true };
+  return (
+    t.levels.find((l) => l.level === level) ?? {
+      level,
+      lessonCount: 0,
+      roadmapCount: 0,
+      remaining: 0,
+      warning: true,
+      position: 0,
+    }
+  );
 }
 
 /** Roadmaps that have lessons but run low (fewer than 3 not studied). */
@@ -84,4 +95,13 @@ export function roadmapLabel(level: Level, t: Pick<Topic, 'name'>): string {
 /** Topics sorted by name (Vietnamese order). */
 export function sortTopics<T extends Pick<Topic, 'name'>>(topics: readonly T[]): T[] {
   return [...topics].sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+}
+
+/**
+ * Topics in the order learners of level see them (as the server sorts them): the topics with a
+ * place at level first, by place, then the others by name.
+ */
+export function sortTopicsAt(topics: readonly Topic[], level: Level): Topic[] {
+  const rank = (t: Topic) => topicLevel(t, level).position || Number.MAX_SAFE_INTEGER;
+  return sortTopics(topics).sort((a, b) => rank(a) - rank(b));
 }

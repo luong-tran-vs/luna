@@ -44,6 +44,13 @@
   }
 
   @if (topics(); as list) {
+    <lu-topic-suggestions
+      [topics]="list"
+      [level]="orderLevel() ?? 'A1'"
+      [busy]="ordering()"
+      (apply)="applySuggestion($event)"
+      (create)="createSuggested($event)"
+    />
     @if (list.length === 0) {
       <p class="card muted">Chưa có chủ đề nào. Bấm "Thêm chủ đề" để tạo chủ đề đầu tiên.</p>
     } @else {
@@ -55,13 +62,28 @@
         }
       </div>
       <h2 class="level-heading">{{ heading() }}</h2>
+      @if (orderLevel(); as level) {
+        <p class="muted order-hint">
+          Người học {{ level }} thấy các chủ đề theo đúng thứ tự này: nên xếp chủ đề dễ, quen thuộc lên trước. Dùng nút
+          ↑ ↓ để đổi thứ tự.
+        </p>
+      }
       <ul class="list">
-        @for (t of shown(); track t.id) {
+        @for (t of shown(); track t.id; let i = $index, first = $first, last = $last) {
           <li class="topic">
             @if (editing() === t.id) {
               <ng-container [ngTemplateOutlet]="topicForm" />
             } @else {
-              <div class="card topic-card">
+              <div class="card topic-card" [class.has-lessons]="t.lessonCount > 0" [class.no-lessons]="t.lessonCount === 0">
+                @if (orderLevel()) {
+                  <div class="order" role="group" [attr.aria-label]="'Thứ tự của ' + t.name">
+                    <span class="order-number" aria-hidden="true">{{ i + 1 }}</span>
+                    <button type="button" class="btn order-btn" data-move="up" [disabled]="first || ordering()"
+                      [attr.aria-label]="'Lên: ' + t.name" (click)="move(i, -1)">↑</button>
+                    <button type="button" class="btn order-btn" data-move="down" [disabled]="last || ordering()"
+                      [attr.aria-label]="'Xuống: ' + t.name" (click)="move(i, 1)">↓</button>
+                  </div>
+                }
                 <div class="topic-body">
                   <p class="topic-name">{{ t.name }}</p>
                   @if (t.description) {

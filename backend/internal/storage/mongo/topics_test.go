@@ -38,8 +38,23 @@ func TestTopicDocWordsAndRoadmaps(t *testing.T) {
 	if err := bson.Unmarshal(raw, &d); err != nil {
 		t.Fatal(err)
 	}
-	if got := d.toTopic(); len(got.Words) != 0 || got.WordsSeeded || got.Roadmaps == nil {
+	if got := d.toTopic(); len(got.Words) != 0 || got.WordsSeeded || got.Roadmaps == nil || got.Positions == nil {
 		t.Fatalf("old topic = %+v", got)
+	}
+}
+
+func TestTopicDocPositions(t *testing.T) {
+	t.Parallel()
+	raw, err := bson.Marshal(topicDoc{Name: "Gia đình", Positions: map[string]int{"A1": 2}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var d topicDoc
+	if err := bson.Unmarshal(raw, &d); err != nil {
+		t.Fatal(err)
+	}
+	if got := d.toTopic().Positions; got["A1"] != 2 || len(got) != 1 {
+		t.Fatalf("positions = %v", got)
 	}
 }
 

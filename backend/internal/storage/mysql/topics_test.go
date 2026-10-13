@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
+	"maps"
 	"slices"
 	"sync"
 	"testing"
@@ -241,6 +242,36 @@ func TestTopicsSetWords(t *testing.T) {
 	}
 	if _, err := r.SetWords(ctx, "bad", nil); !errors.Is(err, topic.ErrNotFound) {
 		t.Fatalf("malformed = %v", err)
+	}
+}
+
+func TestTopicsSetPositions(t *testing.T) {
+	t.Parallel()
+	r := NewTopics(testDB(t))
+	ctx := t.Context()
+	a, b, c := topicsMake(t, r, "A"), topicsMake(t, r, "B"), topicsMake(t, r, "C")
+	if got := topicsWords(t, r.db, a.ID); len(got.Positions) != 0 {
+		t.Fatalf("new topic positions = %v", got.Positions)
+	}
+	if err := r.SetPositions(ctx, "A1", []string{b.ID, a.ID}); err != nil {
+		t.Fatal(err)
+	}
+	if err := r.SetPositions(ctx, "B1", []string{c.ID}); err != nil {
+		t.Fatal(err)
+	}
+	// A new A1 order: a is left out and loses its place; B1 is untouched.
+	if err := r.SetPositions(ctx, "A1", []string{c.ID, b.ID}); err != nil {
+		t.Fatal(err)
+	}
+	for id, want := range map[string]map[string]int{
+		a.ID: {}, b.ID: {"A1": 2}, c.ID: {"A1": 1, "B1": 1},
+	} {
+		if got := topicsWords(t, r.db, id).Positions; !maps.Equal(got, want) {
+			t.Fatalf("positions of %s = %v, want %v", id, got, want)
+		}
+	}
+	if err := r.SetPositions(ctx, "Z9", nil); err == nil {
+		t.Fatal("unknown level accepted")
 	}
 }
 

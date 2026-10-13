@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  Injector,
+  signal,
+} from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -6,7 +15,9 @@ import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { Level, LEVELS } from '../../../core/models/lesson';
-import { sortTopics, Topic } from '../../../core/models/topic';
+import { sortTopics, sortTopicsAt, Topic } from '../../../core/models/topic';
+import { SuggestedTopic } from '../../../core/models/topic-curriculum';
+import { TopicSuggestions } from './topic-suggestions/topic-suggestions';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { AdminApiService } from '../admin-api.service';
 import { Loading } from '../../../shared/components/loading/loading';
@@ -29,17 +40,20 @@ interface FilterOption {
 /**
  * Topic catalogue (F14). Topics are shared by every level; each card counts the lessons of each
  * level. The list shows the topics with lessons at one level at a time (the first such level by
- * default), or every topic; add and edit in place, delete with confirmation.
+ * default), in the order learners of that level see them, which ↑ ↓ change; or every topic, by
+ * name. Add and edit in place, delete with confirmation.
  */
 @Component({
   selector: 'lu-topics',
-  imports: [Loading, ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
+  imports: [Loading, ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink, TopicSuggestions],
   templateUrl: './topics.html',
   styleUrl: './topics.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Topics {
   private readonly api = inject(AdminApiService);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly injector = inject(Injector);
 
   protected readonly topics = signal<Topic[] | null>(null);
   /** The filter picked above the list; null (or a level left without topics) shows the first one. */
@@ -58,12 +72,23 @@ export class Topics {
     const options = this.filters();
     return options.find((f) => f.id === this.filter())?.id ?? options[0].id;
   });
-  /** The topics of the picked filter, by name; a long catalogue stays short. */
+  /**
+   * The topics of the picked filter; a long catalogue stays short. At a level they are in the order
+   * learners of the level see them, which ↑ ↓ change; "Tất cả" is by name.
+   */
   protected readonly shown = computed(() => {
-    const list = sortTopics(this.topics() ?? []);
+    const list = this.topics() ?? [];
     const f = this.shownFilter();
-    return f === 'all' ? list : list.filter((t) => t.levels.some((l) => l.level === f && l.lessonCount > 0));
+    return f === 'all'
+      ? sortTopics(list)
+      : sortTopicsAt(list, f).filter((t) => t.levels.some((l) => l.level === f && l.lessonCount > 0));
   });
+  /** The level being ordered, or null on "Tất cả". */
+  protected readonly orderLevel = computed(() => {
+    const f = this.shownFilter();
+    return f === 'all' ? null : f;
+  });
+  protected readonly ordering = signal(false);
   protected readonly heading = computed(() => {
     const f = this.shownFilter();
     const n = this.shown().length;
@@ -165,6 +190,59 @@ export class Topics {
       }
     } finally {
       this.pending.set(false);
+    }
+  }
+
+  /**
+   * ↑ / ↓: moves a topic one place in the order of the level being shown and saves the whole list
+   * as that level's order (so every topic shown gets a place).
+   */
+  protected async move(index: number, delta: -1 | 1): Promise<void> {
+    const level = this.orderLevel();
+    const ids = this.shown().map((t) => t.id);
+    const to = index + delta;
+    if (!level || to < 0 || to >= ids.length) {
+      return;
+    }
+    [ids[index], ids[to]] = [ids[to], ids[index]];
+    await this.saveOrder(level, ids);
+  }
+
+  /** Áp dụng thứ tự gợi ý: orders the level as suggested and shows it. */
+  protected async applySuggestion(order: { level: Level; topicIds: string[] }): Promise<void> {
+    if (await this.saveOrder(order.level, order.topicIds)) {
+      this.filter.set(order.level);
+    }
+  }
+
+  /** Tạo from a suggestion: the add form, filled with its name and description. */
+  protected createSuggested(s: SuggestedTopic): void {
+    this.open('new', { name: s.name, description: s.description });
+    // The form opens above the suggestions: bring it into view.
+    afterNextRender(
+      () => {
+        const name = this.host.nativeElement.querySelector<HTMLInputElement>('#topic-name');
+        name?.scrollIntoView?.({ block: 'center' });
+        name?.focus();
+      },
+      { injector: this.injector },
+    );
+  }
+
+  private async saveOrder(level: Level, ids: string[]): Promise<boolean> {
+    if (this.ordering()) {
+      return false;
+    }
+    this.ordering.set(true);
+    this.error.set(null);
+    try {
+      this.topics.set(await firstValueFrom(this.api.setTopicOrder(level, ids)));
+      return true;
+    } catch {
+      this.error.set('Không lưu được thứ tự chủ đề, vui lòng thử lại.');
+      return false;
+    } finally {
+      this.ordering.set(false);
     }
   }
 

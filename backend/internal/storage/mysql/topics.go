@@ -43,6 +43,23 @@ func topicsSchema() []string {
 	) ` + tableOptions}
 }
 
+// topicPositionsSchema adds the place of each topic in the order of every level (2026-10-13):
+// a JSON object level → position, NULL until the admin orders a level.
+func topicPositionsSchema() []string {
+	return []string{`ALTER TABLE topics ADD COLUMN positions JSON NULL`}
+}
+
+func decodePositions(raw []byte) (map[string]int, error) {
+	out := map[string]int{}
+	if err := fromJSON(raw, &out); err != nil {
+		return nil, err
+	}
+	if out == nil {
+		out = map[string]int{}
+	}
+	return out, nil
+}
+
 // sharedTopicsSchema makes topics shared by every level (2026-10-07): one roadmap per level, names
 // unique only once the data is merged (mergeSharedTopics adds that key), one goal per (topic, level).
 func sharedTopicsSchema() []string {
@@ -121,17 +138,17 @@ func encodeRoadmaps(roadmaps map[string][]string) ([]byte, error) {
 	return toJSON(roadmaps)
 }
 
-const topicCols = "id, name, description, roadmaps, words, words_seeded, created_at, updated_at"
+const topicCols = "id, name, description, roadmaps, words, words_seeded, positions, created_at, updated_at"
 
 type topicScanner interface{ Scan(dest ...any) error }
 
 func scanTopicRow(s topicScanner) (topic.Topic, error) {
 	var (
-		t               topic.Topic
-		roadmaps, words []byte
-		created, update time.Time
+		t                          topic.Topic
+		roadmaps, words, positions []byte
+		created, update            time.Time
 	)
-	if err := s.Scan(&t.ID, &t.Name, &t.Description, &roadmaps, &words, &t.WordsSeeded, &created, &update); err != nil {
+	if err := s.Scan(&t.ID, &t.Name, &t.Description, &roadmaps, &words, &t.WordsSeeded, &positions, &created, &update); err != nil {
 		return topic.Topic{}, err
 	}
 	var err error
@@ -139,6 +156,9 @@ func scanTopicRow(s topicScanner) (topic.Topic, error) {
 		return topic.Topic{}, err
 	}
 	if t.Words, err = decodeWords(words); err != nil {
+		return topic.Topic{}, err
+	}
+	if t.Positions, err = decodePositions(positions); err != nil {
 		return topic.Topic{}, err
 	}
 	t.CreatedAt, t.UpdatedAt = created.UTC(), update.UTC()
@@ -318,6 +338,57 @@ func (r *Topics) AppendLesson(ctx context.Context, id, level, lessonID string) e
 		return append(ids, lessonID), true
 	})
 	return err
+}
+
+// SetPositions places the topics of ids at level in that order (1, 2, …) and removes the place at
+// level of every other topic, in one transaction over the locked rows.
+func (r *Topics) SetPositions(ctx context.Context, level string, ids []string) error {
+	if !topic.ValidLevel(level) {
+		return fmt.Errorf("mysql topic order level %q", level)
+	}
+	return inTx(ctx, r.db, func(tx *sql.Tx) error {
+		rows, err := tx.QueryContext(ctx, "SELECT id, positions FROM topics FOR UPDATE")
+		if err != nil {
+			return fmt.Errorf("mysql read topic order: %w", err)
+		}
+		current := map[string]map[string]int{}
+		for rows.Next() {
+			var (
+				id  string
+				raw []byte
+			)
+			if err := rows.Scan(&id, &raw); err != nil {
+				_ = rows.Close()
+				return fmt.Errorf("mysql read topic order: %w", err)
+			}
+			if current[id], err = decodePositions(raw); err != nil {
+				_ = rows.Close()
+				return err
+			}
+		}
+		if err := rows.Close(); err != nil {
+			return fmt.Errorf("mysql read topic order: %w", err)
+		}
+		for id, positions := range current {
+			want := slices.Index(ids, id) + 1 // 0: no place
+			if positions[level] == want {
+				continue
+			}
+			if want == 0 {
+				delete(positions, level)
+			} else {
+				positions[level] = want
+			}
+			b, err := toJSON(positions)
+			if err != nil {
+				return err
+			}
+			if _, err := tx.ExecContext(ctx, "UPDATE topics SET positions = ? WHERE id = ?", b, id); err != nil {
+				return fmt.Errorf("mysql write topic order: %w", err)
+			}
+		}
+		return nil
+	})
 }
 
 // SetWords replaces the topic's words and marks them seeded, so the startup seed never

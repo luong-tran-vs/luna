@@ -66,8 +66,11 @@ type Topic struct {
 	// WordsSeeded is true once the startup seed considered the topic or an admin saved its words;
 	// the seed never touches it again.
 	WordsSeeded bool
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	// Positions maps a level to the topic's place in the order learners see the topics of that
+	// level (1 is first). A topic with no place at a level comes after the placed ones, by name.
+	Positions map[string]int
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 // Roadmap returns the roadmap of level (nil when there is none).
@@ -97,6 +100,8 @@ type LevelSummary struct {
 	// every roadmap lesson counts.
 	Remaining int
 	Warning   bool
+	// Position is the topic's place among the topics of the level (see Topic.Positions); 0 is none.
+	Position int
 }
 
 // Summary is a topic in the admin list.
@@ -147,6 +152,8 @@ type Public struct {
 	Level       string
 	Description string
 	LessonCount int
+	// Position is the topic's place in the suggested order of the level; 0 when it has none.
+	Position int
 }
 
 var (
@@ -185,6 +192,7 @@ func summarize(t Topic, counts map[string]int) Summary {
 		}
 		s.Levels = append(s.Levels, LevelSummary{
 			Level: level, LessonCount: n, RoadmapCount: roadmap, Remaining: roadmap, Warning: roadmap < MinRemaining,
+			Position: t.Positions[level],
 		})
 	}
 	return s

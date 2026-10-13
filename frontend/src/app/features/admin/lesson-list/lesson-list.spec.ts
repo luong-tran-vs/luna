@@ -24,7 +24,7 @@ const topic = (id: string, name: string, levels: TopicLevel[] = [], over: Partia
   id, name, description: '', lessonCount: 5, levels, createdAt: '', wordCount: 0, usedWordCount: 0, ...over,
 });
 const lv = (level: TopicLevel['level'], remaining = 5): TopicLevel => ({
-  level, lessonCount: 5, roadmapCount: remaining, remaining, warning: remaining < 3,
+  level, lessonCount: 5, roadmapCount: remaining, remaining, warning: remaining < 3, position: 0,
 });
 
 const topics = [topic('t1', 'Gia đình', [lv('A1')]), topic('t2', 'Mua sắm', [lv('A1')]), topic('t3', 'Công việc', [lv('B1')])];

@@ -74,6 +74,11 @@
             @if (tickedCount() > 0) {
               <span class="muted" role="status">Đã chọn {{ tickedCount() }} bài</span>
               <button type="button" class="btn" [disabled]="saving()" (click)="tickAll(false)">Bỏ chọn</button>
+              @if (tickedDrafts().length > 0) {
+                <button type="button" class="btn-primary" [disabled]="saving() || publishing()" (click)="publishTicked()">
+                  {{ publishing() ? 'Đang đăng…' : 'Đăng ' + tickedDrafts().length + ' bài nháp' }}
+                </button>
+              }
               <button type="button" class="btn btn-danger" [disabled]="saving()" (click)="removeOpen.set(true)">
                 Gỡ {{ tickedCount() }} bài khỏi lộ trình
               </button>
@@ -82,6 +87,9 @@
         }
         @if (overviewNote(); as note) {
           <p class="muted" role="status">{{ note }}</p>
+        }
+        @if (publishNote(); as note) {
+          <p class="publish-note" role="status">{{ note }}</p>
         }
         @for (r of overviewShown(); track r.topic.id + r.level) {
           <div class="overview-group">
@@ -172,6 +180,35 @@
       <h2 class="section-title">Lộ trình hiện tại</h2>
     }
 
+    @if (draftLessons().length > 0) {
+      <div class="publish-bar" role="group" aria-label="Đăng nhanh bài nháp">
+        <label class="check">
+          <input
+            type="checkbox"
+            name="pickAllToPublish"
+            [checked]="allReadyPicked()"
+            [indeterminate]="toPublishCount() > 0 && !allReadyPicked()"
+            [disabled]="publishing() || readyDrafts().length === 0"
+            (change)="pickAllToPublish($any($event.target).checked)"
+          />
+          Chọn tất cả bản nháp ({{ readyDrafts().length }})
+        </label>
+        <button type="button" class="btn-primary" [disabled]="toPublishCount() === 0 || publishing() || saving()"
+          (click)="publishPicked()">
+          {{ publishing() ? 'Đang đăng…' : 'Đăng ' + toPublishCount() + ' bài đã chọn' }}
+        </button>
+        <p class="muted publish-hint">
+          {{ draftLessons().length }} bài nháp, người học chưa thấy.
+          @if (readyDrafts().length < draftLessons().length) {
+            Bài đang chú thích chọn được khi chú thích xong.
+          }
+        </p>
+      </div>
+    }
+    @if (publishNote(); as note) {
+      <p class="publish-note" role="status">{{ note }}</p>
+    }
+
     <ol class="list roadmap-list" cdkDropList [cdkDropListData]="lessons()" (cdkDropListDropped)="drop($event)">
       @for (lesson of lessons(); track lesson.id; let i = $index, first = $first, last = $last) {
         <li class="card item" cdkDrag cdkDragLockAxis="y" [attr.data-id]="lesson.id">
@@ -183,6 +220,16 @@
               <lu-status-chip label="Chú thích" [status]="lesson.annotationStatus" />
               @if (lesson.draft) {
                 <span class="tag">Bản nháp</span>
+                <label class="publish-pick" [class.disabled]="!canPublish(lesson)">
+                  <input
+                    type="checkbox"
+                    [checked]="toPublish().has(lesson.id)"
+                    [disabled]="!canPublish(lesson) || publishing()"
+                    [attr.aria-label]="'Chọn để đăng: ' + lesson.title"
+                    (change)="pickToPublish(lesson.id, $any($event.target).checked)"
+                  />
+                  {{ canPublish(lesson) ? 'Chọn để đăng' : 'Chờ chú thích xong' }}
+                </label>
               }
             </div>
           </div>

@@ -28,7 +28,9 @@ mongosh "$MONGO_URI" --quiet --eval 'db.getSiblingDB("luna").users.find({}, {ema
 Đăng nhập bằng tài khoản quản trị viên (vào thẳng khu **Quản trị**, `/admin`):
 
 1. **Chủ đề** (`/admin/topics`): tạo chủ đề theo trình độ, ví dụ "A1 · Gia đình". Tên không trùng trong cùng trình độ;
-   chủ đề còn bài thì không xoá được.
+   chủ đề còn bài thì không xoá được. Khi lọc theo một trình độ, danh sách theo đúng thứ tự người học trình độ đó thấy;
+   dùng nút ↑ ↓ để xếp chủ đề dễ, quen thuộc lên trước. Chủ đề chưa được xếp đứng sau, theo bảng chữ cái. Người học
+   thấy nhãn "Nên học trước" ở chủ đề đầu tiên.
 2. **Thêm bài**: dán văn bản tiếng Anh và chọn chủ đề; trình độ của bài lấy theo chủ đề.
 3. **Lộ trình** (`/admin/roadmap`): chọn chủ đề, thêm bài của chủ đề, kéo thả hoặc nút Lên/Xuống để xếp thứ tự. Mỗi chủ đề
    một lộ trình; chủ đề còn dưới 3 bài chưa học được cảnh báo. Đổi chủ đề của một bài đang ở lộ trình thì bài chuyển sang

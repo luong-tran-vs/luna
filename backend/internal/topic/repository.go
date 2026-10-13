@@ -21,6 +21,9 @@ type Repository interface {
 	AppendLesson(ctx context.Context, id, level, lessonID string) error
 	// SetWords replaces the word list and marks it seeded (an admin edit is never overwritten).
 	SetWords(ctx context.Context, id string, words []Word) (Topic, error)
+	// SetPositions places the topics of ids at level in that order (1, 2, …) and removes the place
+	// at level of every other topic.
+	SetPositions(ctx context.Context, level string, ids []string) error
 }
 
 // Lessons is what topics need from lessons (implemented over lesson.Repository in main).

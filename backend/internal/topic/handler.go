@@ -31,6 +31,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 
 	mux.Handle("GET /api/admin/topics", admin(h.list))
 	mux.Handle("POST /api/admin/topics", admin(h.create))
+	mux.Handle("PUT /api/admin/topics/order", admin(h.setOrder))
 	mux.Handle("PUT /api/admin/topics/{id}", admin(h.update))
 	mux.Handle("DELETE /api/admin/topics/{id}", admin(h.delete))
 	mux.Handle("GET /api/admin/topics/{id}/roadmap", admin(h.getRoadmap))
@@ -50,6 +51,7 @@ type levelJSON struct {
 	RoadmapCount int    `json:"roadmapCount"`
 	Remaining    int    `json:"remaining"`
 	Warning      bool   `json:"warning"`
+	Position     int    `json:"position"`
 }
 
 type topicJSON struct {
@@ -117,6 +119,7 @@ type publicJSON struct {
 	Level       string `json:"level"`
 	Description string `json:"description"`
 	LessonCount int    `json:"lessonCount"`
+	Position    int    `json:"position"`
 }
 
 type inputJSON struct {
@@ -134,6 +137,26 @@ type inUseBody struct {
 
 func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 	items, err := h.svc.List(r.Context())
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	out := make([]topicJSON, len(items))
+	for i, s := range items {
+		out[i] = toJSON(s)
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string][]topicJSON{"topics": out})
+}
+
+// setOrder sets the order learners of ?level= see the topics in; it returns the admin list.
+func (h *Handler) setOrder(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		TopicIDs []string `json:"topicIds"`
+	}
+	if httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	items, err := h.svc.SetOrder(r.Context(), r.URL.Query().Get("level"), body.TopicIDs)
 	if err != nil {
 		h.writeError(w, r, err)
 		return

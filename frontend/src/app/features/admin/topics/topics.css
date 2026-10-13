@@ -41,10 +41,52 @@
   gap: var(--space-3);
 }
 
+/* A topic with lessons stands out; one without fades, so the usable ones are seen at a glance. */
+.topic-card.has-lessons {
+  border-left: var(--space-1) solid var(--color-ok);
+}
+
+.topic-card.no-lessons {
+  background: color-mix(in srgb, var(--color-track) 40%, var(--color-surface));
+}
+
+.topic-card.no-lessons .topic-name {
+  color: var(--color-text-muted);
+}
+
 .topic-body {
   display: grid;
+  flex: 1;
   gap: var(--space-1);
   min-width: 0;
+}
+
+/* The topic's place among the topics of the level, with ↑ ↓ to move it. */
+.order {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.order-number {
+  display: inline-grid;
+  place-items: center;
+  min-width: 32px;
+  height: 32px;
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+  font-variant-numeric: tabular-nums;
+}
+
+.order-btn {
+  min-width: 44px;
+  padding-inline: var(--space-2);
+}
+
+.order-hint {
+  margin-top: calc(-1 * var(--space-2));
 }
 
 .topic-name {

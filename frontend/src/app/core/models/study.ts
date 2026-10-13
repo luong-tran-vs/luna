@@ -78,6 +78,8 @@ export interface PublicTopic {
   level: Level;
   description: string;
   lessonCount: number;
+  /** Place in the suggested order of the level (the list comes sorted); 0 when it has none. */
+  position: number;
 }
 
 /** How a lesson shows on the learning path; membersOnly: a guest cannot study it. */
