@@ -102,15 +102,18 @@ Mỗi chủ đề có một danh sách từ vựng tiếng Anh cốt lõi, tối
 
 ## Bước Đọc và từ điển
 
-Bước Đọc tra nghĩa bằng chú thích AI của bài, rồi bằng từ điển Anh–Việt offline
-([minhqnd/dictionary](https://github.com/minhqnd/dictionary), MIT, ~180 MB). Tải từ điển một lần trước khi chạy:
+Bước Đọc tra nghĩa bằng chú thích AI của bài, rồi bằng từ điển Anh–Việt offline `english-dictionary.db`, gộp từ hai
+nguồn: [minhqnd/dictionary](https://github.com/minhqnd/dictionary) (dựng từ Wiktionary, CC BY-SA) và từ điển Anh–Việt
+của Hồ Ngọc Đức (Free Vietnamese Dictionary Project, GPL). Dựng từ điển một lần trước khi chạy (cần Go; trên Windows
+chạy bằng Git Bash):
 
 ```bash
-./deploy/fetch-dictionary.sh        # hoặc PowerShell: .\deploy\fetch-dictionary.ps1
+./backend/language-dictionary/build.sh
 ```
 
-Script lưu vào `deploy/data/dictionary/dictionary.db` (git bỏ qua) và kiểm tra SHA-256. Thiếu file thì app vẫn chạy,
-tra từ chỉ dùng chú thích của bài.
+Script tải hai nguồn, kiểm tra SHA-256 rồi gộp bằng `backend/language-dictionary/dictmerge`: chỉ giữ từ tiếng Anh có nghĩa tiếng Việt,
+nghĩa của minhqnd đứng trước, nghĩa của Hồ Ngọc Đức chỉ được thêm khi có ý chưa có. Kết quả lưu ở
+`backend/language-dictionary/data/english-dictionary.db` (git bỏ qua), backend đọc file này theo mặc định. Thiếu file thì app vẫn chạy, tra từ chỉ dùng chú thích của bài.
 
 Mở bước Đọc (tài khoản người học): trang bài đang học → bước Đọc (sau bước Từ vựng), hoặc `/lessons/<id>/read`. Chạm một từ để tra,
 bôi đen nhiều từ để tra cụm, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu.
@@ -337,18 +340,18 @@ mongosh "$MONGO_URI" --quiet \
 ## Sao lưu và khôi phục
 
 App không tự sao lưu. Dùng `mongodump`/`mongorestore` ([MongoDB Database Tools](https://www.mongodb.com/try/download/database-tools)),
-hoặc tính năng backup của MongoDB Atlas. Các bản cũ nằm ở `deploy/backups/luna-YYYYMMDD.archive.gz`. Từ điển không cần sao lưu: tải lại
-bằng `deploy/fetch-dictionary.sh`.
+hoặc tính năng backup của MongoDB Atlas. Lưu bản sao lưu ngoài thư mục dự án (ví dụ `../luna-backups/`). Từ điển không cần sao lưu: dựng lại
+bằng `backend/language-dictionary/build.sh`.
 
 ```bash
-mongodump --uri "$MONGO_URI" --db luna --archive=deploy/backups/luna-$(date +%Y%m%d).archive.gz --gzip
+mongodump --uri "$MONGO_URI" --db luna --archive=../luna-backups/luna-$(date +%Y%m%d).archive.gz --gzip
 ```
 
 **Khôi phục** (thay toàn bộ dữ liệu hiện tại bằng dữ liệu của bản sao lưu, kể cả tài khoản và phiên đăng nhập — mọi thay đổi sau thời
 điểm sao lưu sẽ mất). Dừng backend trước, khôi phục xong thì chạy lại:
 
 ```bash
-mongorestore --uri "$MONGO_URI" --nsInclude 'luna.*' --drop --gzip --archive=deploy/backups/luna-20260930.archive.gz
+mongorestore --uri "$MONGO_URI" --nsInclude 'luna.*' --drop --gzip --archive=../luna-backups/luna-YYYYMMDD.archive.gz
 ```
 
 ## Cấu hình
@@ -423,7 +426,7 @@ Cần thêm Go 1.25 và Node 22. Chạy từng phần riêng:
 
 **1. Cơ sở dữ liệu**: MongoDB Atlas (cloud) hoặc MongoDB cài trên máy. Đặt `MONGO_URI` trong `backend/.env`
 (với Atlas: chuỗi kết nối lấy ở **Connect** → **Drivers**; thêm IP máy này ở **Network Access**). Backend tự tạo index trên
-DB mới. Từ điển offline cho bước Đọc: chạy `deploy/fetch-dictionary.sh` (hoặc `.ps1`) một lần.
+DB mới. Từ điển offline cho bước Đọc: chạy `backend/language-dictionary/build.sh` một lần.
 
 **2. Backend** (`http://localhost:8080`). Lần đầu, chép file cấu hình mẫu cho môi trường phát triển:
 
@@ -482,7 +485,8 @@ docker run --rm -v "${PWD}:/app" -w /app -v luna-go-mod:/go/pkg/mod -v luna-gola
 ```text
 frontend/   Angular 21 (standalone, signals, zoneless): core/, shared/, features/
 backend/    Go 1.25, net/http: cmd/api, internal/{auth,lesson,topic,job,ai,dictionary,vocab,progress,health,platform,storage,wordmatch}
-deploy/     fetch-dictionary.sh/.ps1, data/ (dữ liệu tải về), backups/ (bản sao lưu cũ)
+            language-dictionary/ (build.sh, dictmerge/ và data/: từ điển Anh–Việt offline)
+deploy/     deploy.md (hướng dẫn đưa lên VPS)
 docs/       Tài liệu sản phẩm (nguồn sự thật)
 specs/      Spec, plan, tasks của từng tính năng
 ```

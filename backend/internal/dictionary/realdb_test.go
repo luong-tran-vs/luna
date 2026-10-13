@@ -8,7 +8,7 @@ import (
 
 // TestRealDictionary runs against the downloaded dictionary when LUNA_DICTIONARY points to it:
 //
-//	LUNA_DICTIONARY=<absolute path to dictionary.db> go test ./internal/dictionary -run Real -v
+//	LUNA_DICTIONARY=<absolute path to english-dictionary.db> go test ./internal/dictionary -run Real -v
 func TestRealDictionary(t *testing.T) {
 	path := os.Getenv("LUNA_DICTIONARY")
 	if path == "" {
@@ -23,6 +23,8 @@ func TestRealDictionary(t *testing.T) {
 	want := map[string]string{
 		"went": "go", "park": "park", "studies": "study", "stopped": "stop",
 		"children": "child", "taken": "take", "goes": "go", "running": "", "laughing": "",
+		// Missing from minhqnd/dictionary, given by Hồ Ngọc Đức's dictionary.
+		"music": "music", "family": "family", "usually": "usually",
 	}
 	for word, lemma := range want {
 		start := time.Now()

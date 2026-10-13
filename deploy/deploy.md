@@ -65,11 +65,15 @@ Các biến cần xem lại khi chạy production (danh sách đầy đủ ở m
 
 Backend đọc file `.env` trong thư mục đang chạy, nên service ở bước 3.3 đặt `WorkingDirectory` là `/root/luna/backend`.
 
-Tải từ điển offline cho bước Đọc (một lần, khoảng 180 MB, lưu vào `deploy/data/dictionary/`):
+Dựng từ điển Anh–Việt offline cho bước Đọc (một lần; script tải khoảng 195 MB dữ liệu nguồn, cần Go, tạo
+`backend/language-dictionary/data/english-dictionary.db` khoảng 38 MB):
 
 ```bash
-/root/luna/deploy/fetch-dictionary.sh
+/root/luna/backend/language-dictionary/build.sh
 ```
+
+Backend đọc file này theo mặc định (`DICTIONARY_PATH=./language-dictionary/data/english-dictionary.db`, tính từ
+`/root/luna/backend`). Nếu `backend/.env` còn dòng `DICTIONARY_PATH` cũ thì sửa thành giá trị này hoặc xoá đi.
 
 ### 3.2. Build
 

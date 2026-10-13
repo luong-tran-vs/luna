@@ -46,7 +46,7 @@ func Load(getenv func(string) string) (Config, error) {
 		GeminiAPIKey:     strings.TrimSpace(getenv("GEMINI_API_KEY")),
 		GeminiModel:      valueOr(getenv("GEMINI_MODEL"), "gemini-3.5-flash-lite"),
 		GeminiImageModel: valueOr(getenv("GEMINI_IMAGE_MODEL"), "gemini-2.5-flash-image"),
-		DictionaryPath:   valueOr(getenv("DICTIONARY_PATH"), "./data/dictionary/dictionary.db"),
+		DictionaryPath:   valueOr(getenv("DICTIONARY_PATH"), "./language-dictionary/data/english-dictionary.db"),
 		CORSOrigins:      splitList(getenv("CORS_ORIGINS")),
 	}
 

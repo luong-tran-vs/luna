@@ -23,7 +23,7 @@ func (c *Container) initDictionary(ctx context.Context) {
 	path := c.cfg.DictionaryPath
 	d, err := dictionary.Open(ctx, path)
 	if err != nil {
-		c.log.WarnContext(ctx, "dictionary unavailable: run deploy/fetch-dictionary.sh", slog.String("path", path), slog.Any("error", err))
+		c.log.WarnContext(ctx, "dictionary unavailable: run backend/language-dictionary/build.sh", slog.String("path", path), slog.Any("error", err))
 		c.dict = noDictionary{}
 		return
 	}

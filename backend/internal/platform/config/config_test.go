@@ -32,7 +32,7 @@ func TestLoad(t *testing.T) {
 				DBDriver: "mongo", MongoURI: "mongodb://localhost:27017", MongoDatabase: "luna",
 				HTTPAddr: ":8080", LogLevel: "info", CookieSecure: false,
 				AIProvider: "gemini", GeminiModel: "gemini-3.5-flash-lite", GeminiImageModel: "gemini-2.5-flash-image",
-				DictionaryPath: "./data/dictionary/dictionary.db",
+				DictionaryPath: "./language-dictionary/data/english-dictionary.db",
 			},
 		},
 		{
@@ -41,7 +41,7 @@ func TestLoad(t *testing.T) {
 				"MONGO_URI": "mongodb://x", "MONGO_DATABASE": "luna_test", "HTTP_ADDR": ":9000",
 				"LOG_LEVEL": "debug", "COOKIE_SECURE": "TRUE",
 				"AI_PROVIDER": "NONE", "GEMINI_API_KEY": "k", "GEMINI_MODEL": "gemini-x", "GEMINI_IMAGE_MODEL": "gemini-img",
-				"DICTIONARY_PATH": "/data/dictionary/dictionary.db",
+				"DICTIONARY_PATH": "/data/dictionary/english-dictionary.db",
 				"CORS_ORIGINS":    " http://localhost:4200/ ,, https://app.example.com",
 			},
 			want: config.Config{
@@ -49,7 +49,7 @@ func TestLoad(t *testing.T) {
 				HTTPAddr: ":9000", LogLevel: "debug", CookieSecure: true,
 				CORSOrigins: []string{"http://localhost:4200", "https://app.example.com"},
 				AIProvider: "none", GeminiAPIKey: "k", GeminiModel: "gemini-x", GeminiImageModel: "gemini-img",
-				DictionaryPath: "/data/dictionary/dictionary.db",
+				DictionaryPath: "/data/dictionary/english-dictionary.db",
 			},
 		},
 		{
@@ -94,7 +94,7 @@ func TestLoad(t *testing.T) {
 					MaxOpenConns: 20, MaxIdleConns: 5, ConnMaxLifetime: 5 * time.Minute, DialTimeout: 2 * time.Second,
 				},
 				HTTPAddr: ":8080", LogLevel: "info", AIProvider: "gemini", GeminiModel: "gemini-3.5-flash-lite", GeminiImageModel: "gemini-2.5-flash-image",
-				DictionaryPath: "./data/dictionary/dictionary.db",
+				DictionaryPath: "./language-dictionary/data/english-dictionary.db",
 			},
 		},
 		{
@@ -112,7 +112,7 @@ func TestLoad(t *testing.T) {
 					MaxOpenConns: 50, MaxIdleConns: 10, ConnMaxLifetime: 30 * time.Minute, DialTimeout: 500 * time.Millisecond,
 				},
 				HTTPAddr: ":8080", LogLevel: "info", AIProvider: "gemini", GeminiModel: "gemini-3.5-flash-lite", GeminiImageModel: "gemini-2.5-flash-image",
-				DictionaryPath: "./data/dictionary/dictionary.db",
+				DictionaryPath: "./language-dictionary/data/english-dictionary.db",
 			},
 		},
 		{
@@ -123,7 +123,7 @@ func TestLoad(t *testing.T) {
 			want: config.Config{
 				DBDriver: "mongo", MongoURI: "mongodb://x", MongoDatabase: "luna",
 				HTTPAddr: ":8080", LogLevel: "info", AIProvider: "gemini", GeminiModel: "gemini-3.5-flash-lite", GeminiImageModel: "gemini-2.5-flash-image",
-				DictionaryPath: "./data/dictionary/dictionary.db",
+				DictionaryPath: "./language-dictionary/data/english-dictionary.db",
 			},
 		},
 		{
