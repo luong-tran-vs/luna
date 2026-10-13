@@ -76,6 +76,16 @@ export class ComprehensionQuiz {
     return -1;
   });
   protected readonly correct = computed(() => this.answers().filter((a) => a.correct).length);
+  /** One dot per question at the top: right, wrong or not answered yet. */
+  protected readonly dots = computed(() => {
+    const answered = this.byIndex();
+    return this.quiz().questions.map((_, i) => {
+      const a = answered.get(i);
+      const state = !a ? 'open' : a.correct ? 'right' : 'wrong';
+      const label = { open: 'chưa trả lời', right: 'đúng', wrong: 'sai' }[state];
+      return { state, label: `Câu ${i + 1}: ${label}` };
+    });
+  });
 
   protected async choose(questionIndex: number, choice: number): Promise<void> {
     if (this.sending() || this.byIndex().has(questionIndex)) {

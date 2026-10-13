@@ -1,6 +1,71 @@
-
 .quiz-title {
   font: var(--text-lg) var(--font-ui);
+}
+
+/* "Câu 2/3" and one dot per question: green right, red wrong, grey not answered. */
+.quiz-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.counter {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A 12px dot in a 28px touch area. */
+.dot {
+  position: relative;
+  display: block;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot::before {
+  position: absolute;
+  inset: 8px;
+  background: var(--color-track);
+  border-radius: 50%;
+  content: '';
+  transition: transform 120ms ease;
+}
+
+.dot.is-right::before {
+  background: var(--color-ok);
+}
+
+.dot.is-wrong::before {
+  background: var(--color-bad);
+}
+
+.dot.is-shown::before {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  transform: scale(1.15);
+}
+
+.dot:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: -2px;
 }
 
 .questions {
@@ -13,17 +78,12 @@
 
 .question {
   display: grid;
-  gap: var(--space-2);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-line);
-}
-
-.counter {
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
+  gap: var(--space-3);
 }
 
 .prompt {
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
   font-weight: 600;
 }
 
@@ -69,6 +129,7 @@
 }
 
 .letter {
+  flex: none;
   font-weight: 600;
   color: var(--color-text-muted);
 }
@@ -78,23 +139,11 @@
   min-height: 44px;
 }
 
-
-/* The words carry the result; colour only adds to it. */
-.verdict {
-  font-weight: 700;
-}
-
-.verdict.right {
-  color: var(--color-ok);
-}
-
-.verdict.wrong {
-  color: var(--color-bad);
-}
+/* --- after answering: the options as before, the right one green, a wrong pick red --- */
 
 .results {
   display: grid;
-  gap: var(--space-1);
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -103,31 +152,153 @@
 .result {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-2);
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-sm);
+  min-height: 48px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+/* The text keeps a fair width; with no room left the tag goes under it. */
+.result-text {
+  flex: 1 1 10rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .result.is-answer {
+  --tone: var(--color-ok);
+}
+
+.result.is-wrong {
+  --tone: var(--color-bad);
+}
+
+.result:is(.is-answer, .is-wrong) {
   font-weight: 600;
-  border-left: var(--space-1) solid var(--color-ok);
-}
-
-.result.is-choice:not(.is-answer) {
-  border-left: var(--space-1) solid var(--color-bad);
-}
-
-.note {
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
-}
-
-.answer-note {
   color: var(--color-text);
+  background: color-mix(in srgb, var(--tone) 9%, var(--color-surface));
+  border: 2px solid var(--tone);
+}
+
+.result:is(.is-answer, .is-wrong) .letter {
+  color: var(--tone);
+}
+
+/* The words carry the result; colour only adds to it. */
+.tag {
+  --icon-size: 14px;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-surface);
+  background: var(--tone);
+  border-radius: var(--radius-full);
+  margin-left: auto;
+}
+
+/* One box with the verdict and why. */
+.feedback {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in srgb, var(--tone) 8%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
+  border-radius: var(--radius-md);
+}
+
+.feedback.right {
+  --tone: var(--color-ok);
+}
+
+.feedback.wrong {
+  --tone: var(--color-bad);
+}
+
+.feedback-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.feedback-icon {
+  --icon-size: 16px;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--color-surface);
+  background: var(--tone);
+  border-radius: 50%;
+}
+
+.verdict {
+  flex: 1;
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--tone);
 }
 
 .explanation {
+  margin: 0;
   font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+}
+
+.explanation-label {
+  font-weight: 700;
+}
+
+/* Quiet text buttons: redo one question, or all of them. */
+.redo,
+.restart {
+  --icon-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 36px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.redo:hover,
+.restart:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.redo:focus-visible,
+.restart:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* Under the explanation, at the end of the box. */
+.redo {
+  justify-self: end;
+  margin-right: calc(-1 * var(--space-2));
+}
+
+.restart:disabled {
+  opacity: 0.6;
+  cursor: progress;
 }
 
 .changed {
@@ -136,14 +307,29 @@
   justify-items: start;
 }
 
-.summary {
-  font: var(--text-lg) var(--font-ui);
-  font-weight: 600;
+/* Score and "Làm lại tất cả" under the questions. */
+.quiz-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
 }
 
-.restart,
-.redo {
-  justify-self: start;
+.restart {
+  margin-left: auto;
+}
 
-  --icon-size: 16px;
+.summary {
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::before {
+    transition: none;
+  }
 }

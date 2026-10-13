@@ -97,12 +97,13 @@ describe('ComprehensionQuiz', () => {
     expect(req.request.body).toEqual({ version: 3, questionIndex: 0, choice: 1 });
 
     const done = el.querySelector('.question.answered')!;
-    expect(text(done.querySelector('.counter'))).toBe('Câu 1/2');
-    expect(text(done.querySelector('.verdict'))).toBe('✗ Sai');
-    const results = Array.from(done.querySelectorAll('.result')).map((r) => text(r));
-    expect(results[0]).toBe('Park — Đáp án đúng');
-    expect(results[1]).toBe('Home (bạn chọn)');
-    expect(text(done.querySelector('.explanation'))).toBe('Giải thích 1');
+    expect(text(el.querySelector('.counter'))).toBe('Câu 1/2');
+    expect(Array.from(el.querySelectorAll('.dot')).map((d) => d.getAttribute('aria-label'))).toEqual(['Câu 1: sai', 'Câu 2: chưa trả lời']);
+    expect(text(done.querySelector('.verdict'))).toBe('Sai rồi');
+    const results = Array.from(done.querySelectorAll('.result')).map((r) => [text(r.querySelector('.result-text')), text(r.querySelector('.tag'))]);
+    expect(results[0]).toEqual(['Park', 'Đáp án đúng']);
+    expect(results[1]).toEqual(['Home', 'Bạn chọn']);
+    expect(text(done.querySelector('.explanation'))).toBe('Giải thích: Giải thích 1');
     expect(Array.from(done.querySelectorAll('button')).map((b) => text(b))).toEqual(['Trả lời lại câu này']);
     expect(text(el.querySelector('[aria-live="polite"]'))).toBe('Câu 1: Sai.');
 
@@ -120,7 +121,7 @@ describe('ComprehensionQuiz', () => {
     expect(navButton('Câu sau').disabled).toBe(true);
     navButton('Câu trước').click();
     await fixture.whenStable();
-    expect(text(el.querySelector('.question.answered .verdict'))).toBe('✓ Đúng');
+    expect(text(el.querySelector('.question.answered .verdict'))).toBe('Chính xác!');
     expect(navButton('Câu tiếp theo')).toBeDefined();
     navButton('Câu sau').click();
     await fixture.whenStable();
@@ -135,7 +136,7 @@ describe('ComprehensionQuiz', () => {
     await respond({ answer: answer(1, 1, 1), answered: 2, total: 2, correct: 2 });
     expect(text(el.querySelector('.summary'))).toBe('Đúng 2/2 câu');
     expect(scores).toEqual([{ correct: 2, total: 2 }]);
-    expect(text(el.querySelector('.verdict'))).toBe('✓ Đúng');
+    expect(text(el.querySelector('.verdict'))).toBe('Chính xác!');
     expect(navButton('Đã trả lời hết').disabled).toBe(true);
   });
 
@@ -170,7 +171,7 @@ describe('ComprehensionQuiz', () => {
     await pick(3);
     await settle();
     await respond({ error: 'already_answered', message: 'Câu này đã được trả lời', answer: answer(0, 0, 0) }, 409);
-    expect(text(el.querySelector('.verdict'))).toBe('✓ Đúng');
+    expect(text(el.querySelector('.verdict'))).toBe('Chính xác!');
     expect(el.querySelector('[role="alert"]')).toBeNull();
   });
 
@@ -178,7 +179,7 @@ describe('ComprehensionQuiz', () => {
     await setup(quiz([answer(0, 1, 0)]));
     navButton('Câu trước').click();
     await fixture.whenStable();
-    expect(text(el.querySelector('.question.answered .verdict'))).toBe('✗ Sai');
+    expect(text(el.querySelector('.question.answered .verdict'))).toBe('Sai rồi');
     Array.from(el.querySelectorAll<HTMLButtonElement>('.question.answered button'))
       .find((b) => text(b) === 'Trả lời lại câu này')!
       .click();
@@ -189,7 +190,7 @@ describe('ComprehensionQuiz', () => {
     await settle();
     const req = await respond({ answer: answer(0, 0, 0), answered: 1, total: 2, correct: 1 });
     expect(req.request.body).toEqual({ version: 3, questionIndex: 0, choice: 0 });
-    expect(text(el.querySelector('.question.answered .verdict'))).toBe('✓ Đúng');
+    expect(text(el.querySelector('.question.answered .verdict'))).toBe('Chính xác!');
   });
 
   it('starts every question again with Làm lại tất cả câu hỏi', async () => {
@@ -202,7 +203,7 @@ describe('ComprehensionQuiz', () => {
     expect(req.request.method).toBe('DELETE');
     req.flush(null, { status: 204, statusText: 'No Content' });
     await settle();
-    expect(text(el.querySelector('.question.active .counter'))).toBe('Câu 1/2');
+    expect(text(el.querySelector('.counter'))).toBe('Câu 1/2');
     expect(optionTexts()).toEqual(['Park', 'Home', 'School', 'Work']);
     expect(restart()).toBeUndefined();
   });
@@ -218,7 +219,7 @@ describe('ComprehensionQuiz', () => {
     expect(text(el.querySelector('[role="alert"]'))).toBe('Chưa làm lại được, vui lòng thử lại.');
     navButton('Câu trước').click();
     await fixture.whenStable();
-    expect(text(el.querySelector('.question.answered .verdict'))).toBe('✗ Sai');
+    expect(text(el.querySelector('.question.answered .verdict'))).toBe('Sai rồi');
   });
 
   it('asks to reload when the questions changed', async () => {
