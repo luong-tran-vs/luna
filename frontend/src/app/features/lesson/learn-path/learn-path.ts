@@ -17,6 +17,7 @@ import { LearningPath, Milestone, PathLesson, PathRoadmap } from '../../../core/
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
+import { PathBanner } from './path-banner/path-banner';
 
 /**
  * Width of the path's drawing, in px. The steps are placed in % of it, so the path narrows with
@@ -180,7 +181,7 @@ function toView(m: Milestone): MilestoneView {
  */
 @Component({
   selector: 'lu-learn-path',
-  imports: [Loading, Icon, RouterLink, NgOptimizedImage, NgTemplateOutlet],
+  imports: [Loading, Icon, RouterLink, NgOptimizedImage, NgTemplateOutlet, PathBanner],
   templateUrl: './learn-path.html',
   styleUrl: './learn-path.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -197,8 +198,6 @@ export class LearnPath {
   protected readonly error = signal(false);
   protected readonly pending = signal(false);
   protected readonly switchError = signal<string | null>(null);
-  /** The "Hướng dẫn" card under the banner. */
-  protected readonly guideOpen = signal(false);
 
   /** The level of the part shown (route `levels/:level`). */
   protected readonly level = inject(ActivatedRoute).snapshot.paramMap.get('level') ?? '';
