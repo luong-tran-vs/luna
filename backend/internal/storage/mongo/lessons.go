@@ -43,7 +43,8 @@ type grammarNoteDoc struct {
 	Examples []string `bson:"examples"`
 }
 
-// extrasSet is the $set of a lesson's questions, grammar note and writing prompt (F15).
+// extrasSet is the $set of a lesson's questions, grammar note and writing prompt (F15) and of
+// its sentence translations.
 func extrasSet(x lesson.Extras) bson.D {
 	qs := make([]questionDoc, len(x.Questions))
 	for i, q := range x.Questions {
@@ -58,11 +59,15 @@ func extrasSet(x lesson.Extras) bson.D {
 		{Key: "questions", Value: qs},
 		{Key: "grammarNote", Value: note},
 		{Key: "writingPrompt", Value: x.WritingPrompt},
+		{Key: "sentenceTranslations", Value: x.SentenceTranslations},
 	}
 }
 
 func (d lessonDoc) extras() lesson.Extras {
-	x := lesson.Extras{Questions: make([]lesson.Question, len(d.Questions)), WritingPrompt: d.WritingPrompt}
+	x := lesson.Extras{
+		Questions: make([]lesson.Question, len(d.Questions)), WritingPrompt: d.WritingPrompt,
+		SentenceTranslations: d.SentenceTranslations,
+	}
 	for i, q := range d.Questions {
 		x.Questions[i] = lesson.Question(q)
 	}
@@ -74,33 +79,34 @@ func (d lessonDoc) extras() lesson.Extras {
 }
 
 type lessonDoc struct {
-	ID               bson.ObjectID   `bson:"_id,omitempty"`
-	Title            string          `bson:"title"`
-	Content          string          `bson:"content"`
-	Level            string          `bson:"level"`
-	TopicID          bson.ObjectID   `bson:"topicId"`
-	Source           string          `bson:"source"`
-	License          string          `bson:"license"`
-	GrammarPointID   string          `bson:"grammarPointId,omitempty"`
-	TargetWords      []string        `bson:"targetWords,omitempty"`
-	Revision         int             `bson:"revision"`
-	Sentences        []sentenceDoc   `bson:"sentences"`
-	AnnotationStatus string          `bson:"annotationStatus"`
-	AnnotationError  string          `bson:"annotationError"`
-	Annotations      []annotationDoc `bson:"annotations"`
-	Questions        []questionDoc   `bson:"questions"`
-	GrammarNote      *grammarNoteDoc `bson:"grammarNote"`
-	WritingPrompt    string          `bson:"writingPrompt"`
-	ExtrasEdited     bool            `bson:"extrasEditedByAdmin"`
-	QuizVersion      int             `bson:"quizVersion"`
-	Practice         *practiceDoc    `bson:"practice"`
-	PracticeStatus   string          `bson:"practiceStatus"`
-	PracticeError    string          `bson:"practiceError"`
-	PracticeVersion  int             `bson:"practiceVersion"`
-	Review           *reviewDoc      `bson:"review,omitempty"`
-	Draft            bool            `bson:"draft,omitempty"`
-	CreatedAt        time.Time       `bson:"createdAt"`
-	UpdatedAt        time.Time       `bson:"updatedAt"`
+	ID                   bson.ObjectID   `bson:"_id,omitempty"`
+	Title                string          `bson:"title"`
+	Content              string          `bson:"content"`
+	Level                string          `bson:"level"`
+	TopicID              bson.ObjectID   `bson:"topicId"`
+	Source               string          `bson:"source"`
+	License              string          `bson:"license"`
+	GrammarPointID       string          `bson:"grammarPointId,omitempty"`
+	TargetWords          []string        `bson:"targetWords,omitempty"`
+	Revision             int             `bson:"revision"`
+	Sentences            []sentenceDoc   `bson:"sentences"`
+	AnnotationStatus     string          `bson:"annotationStatus"`
+	AnnotationError      string          `bson:"annotationError"`
+	Annotations          []annotationDoc `bson:"annotations"`
+	Questions            []questionDoc   `bson:"questions"`
+	GrammarNote          *grammarNoteDoc `bson:"grammarNote"`
+	WritingPrompt        string          `bson:"writingPrompt"`
+	SentenceTranslations []string        `bson:"sentenceTranslations,omitempty"`
+	ExtrasEdited         bool            `bson:"extrasEditedByAdmin"`
+	QuizVersion          int             `bson:"quizVersion"`
+	Practice             *practiceDoc    `bson:"practice"`
+	PracticeStatus       string          `bson:"practiceStatus"`
+	PracticeError        string          `bson:"practiceError"`
+	PracticeVersion      int             `bson:"practiceVersion"`
+	Review               *reviewDoc      `bson:"review,omitempty"`
+	Draft                bool            `bson:"draft,omitempty"`
+	CreatedAt            time.Time       `bson:"createdAt"`
+	UpdatedAt            time.Time       `bson:"updatedAt"`
 }
 
 func fromLesson(l lesson.Lesson) lessonDoc {

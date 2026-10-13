@@ -77,7 +77,9 @@ function askErrorMessage(err: unknown): string {
   host: {
     '(document:selectionchange)': 'onSelectionChange()',
     // Word interactions are delegated from the host; each word is a focusable role="button".
+    '(pointerdown)': 'onPointerDown($event)',
     '(pointerup)': 'onPointerUp()',
+    '(pointercancel)': 'restoreTabindex()',
     '(keydown)': 'onArticleKeydown($event)',
     '(focusin)': 'onFocusIn($event)',
   },
@@ -160,6 +162,12 @@ export class Reading implements OnInit {
   private lookupSub?: Subscription;
   private askSub?: Subscription;
   private selectionTimer?: ReturnType<typeof setTimeout>;
+  /** The word pressed, its tabindex taken off while the pointer is down (see onPointerDown). */
+  private pressed: { word: HTMLElement; tabindex: string } | null = null;
+  /** How the last press was made: "touch" selections are adjusted with handles after it. */
+  private pointerType = 'mouse';
+  /** A mouse or pen is held down: its selection is read on pointerup, not while dragging. */
+  private dragging = false;
 
   ngOnInit(): void {
     // Inputs are set by now.
@@ -333,16 +341,48 @@ export class Reading implements OnInit {
     }
   }
 
+  /**
+   * A browser does not start a text selection on a focusable element, so dragging (or long-pressing)
+   * from a word selected nothing. While the pointer is down the word is not focusable; a click still
+   * opens it, and keyboard focus works as before once the tabindex is back.
+   */
+  protected onPointerDown(event: PointerEvent): void {
+    this.restoreTabindex();
+    this.pointerType = event.pointerType;
+    this.dragging = event.pointerType !== 'touch';
+    const word = (event.target as HTMLElement).closest?.<HTMLElement>('.w');
+    const tabindex = word?.getAttribute('tabindex');
+    if (word && tabindex !== null && tabindex !== undefined && this.article()?.nativeElement.contains(word)) {
+      this.pressed = { word, tabindex };
+      word.removeAttribute('tabindex');
+    }
+  }
+
+  protected restoreTabindex(): void {
+    this.dragging = false;
+    const p = this.pressed;
+    this.pressed = null;
+    // Unless change detection has set a newer value meanwhile.
+    if (p && !p.word.hasAttribute('tabindex')) {
+      p.word.setAttribute('tabindex', p.tabindex);
+    }
+  }
+
   protected onPointerUp(): void {
+    this.restoreTabindex();
     if (this.anchor() === null || document.getSelection()?.isCollapsed === false) {
       this.handleSelection();
     }
   }
 
   protected onSelectionChange(): void {
-    // Touch selection handles do not end with pointerup on a word: wait until the learner stops.
+    // Touch selection handles do not end with pointerup on a word: wait until the learner stops
+    // moving them; long enough on touch to widen a long-pressed word to a phrase.
     clearTimeout(this.selectionTimer);
-    this.selectionTimer = setTimeout(() => this.handleSelection(), 150);
+    if (this.dragging) {
+      return; // a slow mouse drag: pointerup reads the whole selection
+    }
+    this.selectionTimer = setTimeout(() => this.handleSelection(), this.pointerType === 'touch' ? 700 : 150);
   }
 
   private handleSelection(): void {
@@ -361,13 +401,13 @@ export class Reading implements OnInit {
     if (!result) {
       return;
     }
-    if ('error' in result) {
-      this.hint.set('Chọn tối đa 6 từ để tra cụm.');
-      return;
-    }
-    this.hint.set(null);
+    // A lookup stays inside one sentence.
+    this.hint.set(result.crossed ? 'Chỉ tra được trong một câu: đã lấy phần thuộc câu đầu.' : null);
     const anchor = spans.find((w) => Number(w.dataset['s']) === result.sentence && Number(w.dataset['t']) === result.first);
-    sel.removeAllRanges(); // the system selection menu would cover the popup
+    if (this.pointerType !== 'touch') {
+      sel.removeAllRanges(); // the system selection menu would cover the popup
+    }
+    // On touch the selection stays, so its handles can still widen it: the popup then follows.
     this.open(result.sentence, result.first, result.last, anchor ?? article);
   }
 
@@ -403,6 +443,11 @@ export class Reading implements OnInit {
     this.stopAsking();
     this.anchor.set(null);
     this.selected.set(null);
+    // A touch selection left for its handles goes with the popup.
+    const sel = document.getSelection();
+    if (sel && !sel.isCollapsed && this.article()?.nativeElement.contains(sel.anchorNode)) {
+      sel.removeAllRanges();
+    }
     anchor?.focus();
   }
 
@@ -468,7 +513,8 @@ export class Reading implements OnInit {
       meaningVi: manualMeaning ?? result?.meanings.slice(0, 3).map((m) => m.text).join('; ') ?? '',
       contextSentence: lesson.sentences[sel.sentence].text,
       lessonId: lesson.id,
-      source: result ? result.source : 'manual',
+      // With only the sentence's translation shown, the meaning saved is the one the learner typed.
+      source: result && result.source !== 'sentence' ? result.source : 'manual',
     };
 
     this.saving.set(true);

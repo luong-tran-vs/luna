@@ -212,6 +212,9 @@ type Extras struct {
 	Questions     []Question
 	GrammarNote   *GrammarNote
 	WritingPrompt string
+	// SentenceTranslations is the Vietnamese translation of each sentence, by sentence index:
+	// shown when a selection has no meaning of its own. Empty, or one per sentence.
+	SentenceTranslations []string
 }
 
 // Answer is a learner's answer to one question of one question-set version.

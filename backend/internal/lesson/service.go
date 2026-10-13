@@ -418,6 +418,7 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 		return err
 	}
 	extras := CleanExtras(res, l.Content)
+	extras.SentenceTranslations = CleanTranslations(res.SentenceTranslations, len(l.Sentences))
 	// The note is about the point the lesson was given; its title is the syllabus's, whatever the AI wrote.
 	if title := GrammarTitle(l.GrammarPointID); title != "" && extras.GrammarNote != nil {
 		extras.GrammarNote.Title = title

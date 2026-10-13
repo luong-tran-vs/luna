@@ -40,6 +40,8 @@ func lessonTestExtras() lesson.Extras {
 		Questions:     []lesson.Question{{Prompt: "Who runs?", Options: []string{"I", "She"}, AnswerIndex: 1, ExplanationVi: "Cô ấy"}},
 		GrammarNote:   &lesson.GrammarNote{Title: "Present simple", BodyVi: "thì hiện tại", Examples: []string{"She runs."}},
 		WritingPrompt: "Write about food.",
+		// One per sentence of lessonTestBase.
+		SentenceTranslations: []string{"Tôi ăn một quả táo.", "Cô ấy chạy nhanh."},
 	}
 }
 
@@ -323,7 +325,8 @@ func TestLessonsSaveAnnotations(t *testing.T) {
 		t.Fatalf("empty = %v %v", ok, err)
 	}
 	got, _ = r.Get(t.Context(), c.ID)
-	if got.Extras.GrammarNote != nil || len(got.Extras.Questions) != 0 || got.Annotations == nil || got.QuizVersion != 4 {
+	if got.Extras.GrammarNote != nil || len(got.Extras.Questions) != 0 || got.Extras.SentenceTranslations != nil ||
+		got.Annotations == nil || got.QuizVersion != 4 {
 		t.Fatalf("empty save = %+v", got)
 	}
 	if ok, err := r.SaveAnnotations(t.Context(), lessonTestTopicA, 1, nil, lesson.Extras{}); ok || err != nil {

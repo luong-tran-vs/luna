@@ -85,8 +85,7 @@ func TestAskValidation(t *testing.T) {
 		field    string
 	}{
 		{"  ", 1, "text"},
-		{strings.Repeat("a", 101), 1, "text"},
-		{"one two three four five six seven", 1, "text"},
+		{strings.Repeat("a ", 96), 1, "text"}, // over 190 characters
 		{"banana", 1, "text"},
 		{"went", 1, "text"}, // in the lesson, but not in that sentence
 		{"gave up", 9, "sentenceIndex"},

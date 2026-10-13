@@ -63,7 +63,7 @@ func lessonsSchema() []string {
 const lessonCols = `id, title, content, level, topic_id, source, license, grammar_point_id, revision, sentences,
 	annotation_status, annotation_error, annotations, questions, grammar_note, writing_prompt,
 	extras_edited, quiz_version, practice, practice_status, practice_error, practice_version,
-	created_at, updated_at, review, target_words, draft`
+	created_at, updated_at, review, target_words, draft, sentence_translations`
 
 // lessonSummaryCols lists the columns lessonScanSummary reads.
 const lessonSummaryCols = `id, title, level, topic_id, annotation_status, created_at, review, draft`
@@ -122,6 +122,15 @@ func lessonExtrasValues(x lesson.Extras) (questions string, note any, prompt str
 	return questions, note, x.WritingPrompt, nil
 }
 
+// lessonTranslationsValue encodes the sentence translations for sentence_translations: NULL when
+// there are none.
+func lessonTranslationsValue(x lesson.Extras) (any, error) {
+	if len(x.SentenceTranslations) == 0 {
+		return nil, nil
+	}
+	return lessonJSON(x.SentenceTranslations)
+}
+
 func lessonAnnotationsJSON(anns []lesson.Annotation) (string, error) {
 	if anns == nil {
 		anns = []lesson.Annotation{}
@@ -133,6 +142,7 @@ func lessonAnnotationsJSON(anns []lesson.Annotation) (string, error) {
 type lessonWriteArgs struct {
 	sentences, annotations, questions, prompt string
 	note, practice, review, targetWords       any
+	translations                              any
 }
 
 func lessonEncode(l lesson.Lesson) (lessonWriteArgs, error) {
@@ -149,6 +159,9 @@ func lessonEncode(l lesson.Lesson) (lessonWriteArgs, error) {
 		return a, err
 	}
 	if a.questions, a.note, a.prompt, err = lessonExtrasValues(l.Extras); err != nil {
+		return a, err
+	}
+	if a.translations, err = lessonTranslationsValue(l.Extras); err != nil {
 		return a, err
 	}
 	if a.practice, err = lessonPracticeValue(l.Practice); err != nil {
@@ -185,11 +198,11 @@ func (r *Lessons) Create(ctx context.Context, l lesson.Lesson) (lesson.Lesson, e
 	l.ID = newID()
 	l.TopicID = lessonTopicKey(l.TopicID)
 	_, err = r.db.ExecContext(ctx, `INSERT INTO lessons (`+lessonCols+`)
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		l.ID, l.Title, l.Content, string(l.Level), l.TopicID, l.Source, l.License, l.GrammarPointID, l.Revision, enc.sentences,
 		string(l.AnnotationStatus), l.AnnotationError, enc.annotations, enc.questions, enc.note, enc.prompt,
 		l.ExtrasEditedByAdmin, l.QuizVersion, enc.practice, string(l.PracticeStatus), l.PracticeError, l.PracticeVersion,
-		nullTime(l.CreatedAt), nullTime(l.UpdatedAt), enc.review, enc.targetWords, l.Draft)
+		nullTime(l.CreatedAt), nullTime(l.UpdatedAt), enc.review, enc.targetWords, l.Draft, enc.translations)
 	if err != nil {
 		return lesson.Lesson{}, fmt.Errorf("mysql insert lesson: %w", err)
 	}
@@ -205,13 +218,13 @@ func lessonScan(s lessonRowScanner) (lesson.Lesson, error) {
 		l                                    lesson.Lesson
 		level, annStatus, pracStatus         string
 		sentences, anns, questions, note, pr []byte
-		reviewRaw, targetWords               []byte
+		reviewRaw, targetWords, translations []byte
 		created, updated                     sql.NullTime
 	)
 	err := s.Scan(&l.ID, &l.Title, &l.Content, &level, &l.TopicID, &l.Source, &l.License, &l.GrammarPointID, &l.Revision, &sentences,
 		&annStatus, &l.AnnotationError, &anns, &questions, &note, &l.Extras.WritingPrompt,
 		&l.ExtrasEditedByAdmin, &l.QuizVersion, &pr, &pracStatus, &l.PracticeError, &l.PracticeVersion,
-		&created, &updated, &reviewRaw, &targetWords, &l.Draft)
+		&created, &updated, &reviewRaw, &targetWords, &l.Draft, &translations)
 	if err != nil {
 		return lesson.Lesson{}, err
 	}
@@ -237,6 +250,11 @@ func lessonScan(s lessonRowScanner) (lesson.Lesson, error) {
 	}
 	if len(targetWords) > 0 && string(targetWords) != "null" {
 		if err := fromJSON(targetWords, &l.TargetWords); err != nil {
+			return lesson.Lesson{}, err
+		}
+	}
+	if len(translations) > 0 && string(translations) != "null" {
+		if err := fromJSON(translations, &l.Extras.SentenceTranslations); err != nil {
 			return lesson.Lesson{}, err
 		}
 	}
@@ -353,11 +371,11 @@ func (r *Lessons) ReplaceContent(ctx context.Context, l lesson.Lesson) error {
 	return r.updateOne(ctx, l.ID, `title = ?, content = ?, level = ?, topic_id = ?, source = ?, license = ?, grammar_point_id = ?,
 		revision = ?, sentences = ?, annotation_status = ?, annotation_error = ?, annotations = ?,
 		extras_edited = ?, quiz_version = ?, practice = ?, practice_status = ?, practice_error = ?,
-		updated_at = ?, questions = ?, grammar_note = ?, writing_prompt = ?, review = NULL`,
+		updated_at = ?, questions = ?, grammar_note = ?, writing_prompt = ?, sentence_translations = ?, review = NULL`,
 		l.Title, l.Content, string(l.Level), lessonTopicKey(l.TopicID), l.Source, l.License, l.GrammarPointID,
 		l.Revision, enc.sentences, string(l.AnnotationStatus), l.AnnotationError, enc.annotations,
 		l.ExtrasEditedByAdmin, l.QuizVersion, enc.practice, string(l.PracticeStatus), l.PracticeError,
-		nullTime(l.UpdatedAt), enc.questions, enc.note, enc.prompt)
+		nullTime(l.UpdatedAt), enc.questions, enc.note, enc.prompt, enc.translations)
 }
 
 // SetStatus changes one work status if the lesson is still at revision.
@@ -387,11 +405,15 @@ func (r *Lessons) SaveAnnotations(ctx context.Context, id string, revision int, 
 	if err != nil {
 		return false, err
 	}
+	translations, err := lessonTranslationsValue(x)
+	if err != nil {
+		return false, err
+	}
 	return r.updateAtRevision(ctx, id, revision, `quiz_version = quiz_version + 1`,
 		`annotations = ?, annotation_status = ?, annotation_error = '', extras_edited = 0,
 		practice = NULL, practice_status = ?, practice_error = '',
-		questions = ?, grammar_note = ?, writing_prompt = ?, review = NULL`,
-		a, string(lesson.StatusDone), string(lesson.StatusRunning), questions, note, prompt)
+		questions = ?, grammar_note = ?, writing_prompt = ?, sentence_translations = ?, review = NULL`,
+		a, string(lesson.StatusDone), string(lesson.StatusRunning), questions, note, prompt, translations)
 }
 
 // ReplaceExtras stores admin-edited extras and marks them edited; bumpQuiz bumps quiz_version.
@@ -400,11 +422,16 @@ func (r *Lessons) ReplaceExtras(ctx context.Context, id string, x lesson.Extras,
 	if err != nil {
 		return err
 	}
-	set := `questions = ?, grammar_note = ?, writing_prompt = ?, extras_edited = 1, updated_at = ?, review = NULL`
+	translations, err := lessonTranslationsValue(x)
+	if err != nil {
+		return err
+	}
+	set := `questions = ?, grammar_note = ?, writing_prompt = ?, sentence_translations = ?, extras_edited = 1,
+		updated_at = ?, review = NULL`
 	if bumpQuiz {
 		set += `, quiz_version = quiz_version + 1`
 	}
-	return r.updateOne(ctx, id, set, questions, note, prompt, utc(time.Now()))
+	return r.updateOne(ctx, id, set, questions, note, prompt, translations, utc(time.Now()))
 }
 
 // ReplaceAnnotations stores admin-edited annotations and marks them done.
@@ -592,6 +619,12 @@ func lessonTargetWordsSchema() []string {
 // Existing lessons are published. It reruns safely: the migration ignores "duplicate column name".
 func lessonDraftSchema() []string {
 	return []string{`ALTER TABLE lessons ADD COLUMN draft TINYINT(1) NOT NULL DEFAULT 0`}
+}
+
+// lessonSentenceTranslationsSchema adds the Vietnamese translation of each sentence, written with
+// the annotations. It reruns safely: the migration ignores "duplicate column name".
+func lessonSentenceTranslationsSchema() []string {
+	return []string{`ALTER TABLE lessons ADD COLUMN sentence_translations JSON NULL`}
 }
 
 // SetDraft hides or publishes a lesson.

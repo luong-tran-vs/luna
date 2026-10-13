@@ -35,12 +35,14 @@ type GrammarNote struct {
 }
 
 // LessonExtras is everything one annotation request returns: word annotations plus, since F15,
-// comprehension questions, a grammar note and a writing prompt. Any part may be missing.
+// comprehension questions, a grammar note, a writing prompt and the Vietnamese translation of each
+// sentence (in order). Any part may be missing.
 type LessonExtras struct {
-	Annotations   []Annotation `json:"annotations"`
-	Questions     []Question   `json:"questions"`
-	GrammarNote   *GrammarNote `json:"grammarNote"`
-	WritingPrompt string       `json:"writingPrompt"`
+	Annotations          []Annotation `json:"annotations"`
+	Questions            []Question   `json:"questions"`
+	GrammarNote          *GrammarNote `json:"grammarNote"`
+	WritingPrompt        string       `json:"writingPrompt"`
+	SentenceTranslations []string     `json:"sentenceTranslations"`
 }
 
 // LessonKind is the form of a generated lesson.

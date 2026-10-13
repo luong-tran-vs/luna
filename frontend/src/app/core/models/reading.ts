@@ -68,7 +68,8 @@ export interface AnswerResult {
   correct: number;
 }
 
-export type LookupSource = 'ai' | 'dictionary';
+/** sentence: no meaning of the selection itself, the Vietnamese translation of its whole sentence. */
+export type LookupSource = 'ai' | 'dictionary' | 'sentence';
 
 export interface LookupResult {
   source: LookupSource;

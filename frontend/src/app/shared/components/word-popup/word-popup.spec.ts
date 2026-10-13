@@ -78,6 +78,28 @@ describe('WordPopup', () => {
     expect(lines()).toEqual(['danh từ Sự chạy; chuyến đi; quãng đường đi; TV show', 'động từ Chạy']);
   });
 
+  it('shows the translation of the whole sentence when the selection has no meaning of its own', async () => {
+    await render({
+      kind: 'result',
+      result: {
+        source: 'sentence', text: 'like to run', lemma: 'like to run', ipa: '',
+        meanings: [{ pos: '', text: 'Tôi thích chạy bộ trong công viên.' }],
+      },
+    });
+    expect(el.querySelector('.source')?.textContent?.trim()).toBe('Bản dịch câu');
+    expect(el.textContent).toContain('Nghĩa của cả câu');
+    expect(el.querySelector('.sentence-vi')?.textContent?.trim()).toBe('Tôi thích chạy bộ trong công viên.');
+    expect(el.querySelector('.meanings')).toBeNull();
+    // The sentence is not the phrase's meaning: the learner types one to save, or asks the AI.
+    expect(button('Lưu vào sổ từ')).toBeUndefined();
+    const input = el.querySelector<HTMLInputElement>('input[name="meaning"]')!;
+    input.value = 'thích chạy bộ';
+    input.dispatchEvent(new Event('input'));
+    button('Lưu')!.click();
+    expect(events.save).toHaveBeenCalledWith('thích chạy bộ');
+    expect(button('Hỏi AI')).toBeDefined();
+  });
+
   it('shows a loading state', async () => {
     await render({ kind: 'loading' });
     expect(el.querySelector('[role="status"]')?.textContent).toContain('Đang tra');

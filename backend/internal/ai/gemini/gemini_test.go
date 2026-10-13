@@ -92,8 +92,9 @@ func TestAnnotateDecodesExtras(t *testing.T) {
 			Prompt: "Where did we go?", Options: []string{"Home", "School", "Work", "Park"}, AnswerIndex: 0,
 			ExplanationVi: "Câu 1: We went home.",
 		}},
-		GrammarNote:   &ai.GrammarNote{Title: "Quá khứ đơn", BodyVi: "Dùng cho việc đã xong.", Examples: []string{"We went home."}},
-		WritingPrompt: "Write about your evening.",
+		GrammarNote:          &ai.GrammarNote{Title: "Quá khứ đơn", BodyVi: "Dùng cho việc đã xong.", Examples: []string{"We went home."}},
+		WritingPrompt:        "Write about your evening.",
+		SentenceTranslations: []string{"Chúng tôi đã về nhà."},
 	})
 	resp, _ := json.Marshal(map[string]any{"candidates": []any{map[string]any{
 		"content": map[string]any{"parts": []any{map[string]any{"text": string(inner)}}},
@@ -108,7 +109,8 @@ func TestAnnotateDecodesExtras(t *testing.T) {
 		t.Fatalf("HTTP calls = %d, want 1", calls.Load())
 	}
 	if len(got.Questions) != 1 || got.Questions[0].Options[3] != "Park" || got.GrammarNote == nil ||
-		got.GrammarNote.Examples[0] != "We went home." || got.WritingPrompt != "Write about your evening." {
+		got.GrammarNote.Examples[0] != "We went home." || got.WritingPrompt != "Write about your evening." ||
+		len(got.SentenceTranslations) != 1 || got.SentenceTranslations[0] != "Chúng tôi đã về nhà." {
 		t.Fatalf("got %+v", got)
 	}
 }

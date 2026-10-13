@@ -22,9 +22,12 @@ type Dictionary interface {
 const (
 	SourceAI         = "ai"
 	SourceDictionary = "dictionary"
+	// SourceSentence: no meaning of the selection itself, the translation of its whole sentence.
+	SourceSentence = "sentence"
 )
 
-// ErrLookupNotFound means neither the lesson annotations nor the dictionary know the text.
+// ErrLookupNotFound means neither the lesson annotations, the dictionary nor a sentence
+// translation give a meaning.
 var ErrLookupNotFound = errors.New("lesson: no meaning found")
 
 // Phrase is a multi-word annotation, used to highlight saved phrases.
@@ -161,7 +164,8 @@ func (r *Reader) View(ctx context.Context, userID, id string) (ReadingView, erro
 
 // Lookup finds the meaning of q (a word or phrase from sentence): the lesson's annotations
 // first, preferring that sentence, then an explanation asked of the AI for that sentence (F9),
-// then the offline dictionary.
+// then the offline dictionary, and last the Vietnamese translation of the whole sentence (a phrase
+// such as "like to run" is in no dictionary).
 func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (LookupResult, error) {
 	l, err := r.lessons.Get(ctx, lessonID)
 	if err != nil {
@@ -195,6 +199,9 @@ func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (
 		return LookupResult{}, fmt.Errorf("lesson: dictionary: %w", err)
 	}
 	if !ok {
+		if tr := l.Extras.SentenceTranslations; sentence >= 0 && sentence < len(tr) {
+			return LookupResult{Source: SourceSentence, Text: text, Lemma: text, Meanings: []LookupMeaning{{Text: tr[sentence]}}}, nil
+		}
 		return LookupResult{}, ErrLookupNotFound
 	}
 	res := LookupResult{Source: SourceDictionary, Text: text, Lemma: e.Word, IPA: e.IPA}

@@ -193,3 +193,16 @@ func TestAnnotatePromptOnlyFocus(t *testing.T) {
 		t.Fatalf("only focus prompt keeps the usual count:\n%s", p)
 	}
 }
+
+func TestAnnotatePromptAsksForSentenceTranslations(t *testing.T) {
+	t.Parallel()
+	prompt := annotatePrompt(ai.AnnotateRequest{Level: "A1", Sentences: []string{"We went home.", "It was late.", "We slept."}})
+	for _, want := range []string{"sentenceTranslations", "exactly one string per numbered sentence (3 strings)"} {
+		if !strings.Contains(prompt, want) {
+			t.Errorf("prompt missing %q", want)
+		}
+	}
+	if _, ok := annotateSchema["properties"].(map[string]any)["sentenceTranslations"]; !ok {
+		t.Error("annotateSchema has no sentenceTranslations")
+	}
+}

@@ -24,7 +24,25 @@ const (
 	maxGrammarExample = 300
 	maxExamples       = 3
 	maxWritingPrompt  = 500
+	maxTranslation    = 600
 )
+
+// CleanTranslations keeps the AI's Vietnamese sentence translations only when there is exactly
+// one usable translation per sentence: a translation cannot be matched to its sentence otherwise.
+func CleanTranslations(translations []string, sentences int) []string {
+	if len(translations) != sentences || sentences == 0 {
+		return nil
+	}
+	out := make([]string, len(translations))
+	for i, t := range translations {
+		t = strings.Join(strings.Fields(t), " ")
+		if t == "" || utf8.RuneCountInString(t) > maxTranslation {
+			return nil
+		}
+		out[i] = t
+	}
+	return out
+}
 
 // CleanExtras keeps the usable parts of what the AI wrote with the annotations: valid
 // questions (at most 5), a grammar note whose examples really appear in the lesson, and the
@@ -231,6 +249,8 @@ func (s *Service) UpdateExtras(ctx context.Context, id string, in ExtrasInput) (
 	if err != nil {
 		return Lesson{}, err
 	}
+	// The admin edits the questions, note and prompt; the sentence translations stay.
+	x.SentenceTranslations = l.Extras.SentenceTranslations
 	if err := s.Lessons.ReplaceExtras(ctx, id, x, !sameQuestions(l.Extras.Questions, x.Questions)); err != nil {
 		return Lesson{}, fmt.Errorf("lesson: replace extras: %w", err)
 	}

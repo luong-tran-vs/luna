@@ -3,6 +3,7 @@ package lesson
 import (
 	"context"
 	"errors"
+	"fmt"
 	"slices"
 	"testing"
 
@@ -158,6 +159,36 @@ func TestLookupNotFound(t *testing.T) {
 	}
 	if _, err := r.Lookup(t.Context(), "missing", "went", 0); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("missing lesson: %v", err)
+	}
+}
+
+func TestLookupFallsBackToSentenceTranslation(t *testing.T) {
+	t.Parallel()
+	lessons := newFakeLessons()
+	sentences := toSentences(SplitSentences(readingContent))
+	tr := make([]string, len(sentences))
+	for i := range tr {
+		tr[i] = fmt.Sprintf("Câu %d bằng tiếng Việt.", i)
+	}
+	l, _ := lessons.Create(context.Background(), Lesson{
+		Title: "Park", Level: "A1", TopicID: "topic-a1", Content: readingContent, Revision: 3,
+		Sentences: sentences, Extras: Extras{SentenceTranslations: tr},
+	})
+	r := NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers(), newFakeAsks(), &fakeAI{})
+
+	// No annotation, no dictionary meaning: the translation of the whole sentence.
+	got, err := r.Lookup(t.Context(), l.ID, "gave up smoking", 1)
+	want := LookupResult{Source: SourceSentence, Text: "gave up smoking", Lemma: "gave up smoking", Meanings: []LookupMeaning{{Text: "Câu 1 bằng tiếng Việt."}}}
+	if err != nil || !lookupEqual(got, want) {
+		t.Fatalf("got %+v, %v; want %+v", got, err, want)
+	}
+	// A dictionary meaning still comes first.
+	if got, _ := r.Lookup(t.Context(), l.ID, "park", 0); got.Source != SourceDictionary {
+		t.Fatalf("dictionary word = %+v", got)
+	}
+	// Without a sentence there is nothing to fall back on.
+	if _, err := r.Lookup(t.Context(), l.ID, "gave up smoking", -1); !errors.Is(err, ErrLookupNotFound) {
+		t.Fatalf("no sentence: %v", err)
 	}
 }
 

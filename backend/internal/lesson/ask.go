@@ -106,16 +106,15 @@ func (r *Reader) Ask(ctx context.Context, lessonID, q string, sentence int) (Loo
 	return r.askResult(ctx, v.(AskResult)), false, nil
 }
 
-// checkAsk applies the lookup limits (F3) and requires the text to be in the sentence.
+// checkAsk requires the text to be in the sentence (any number of its words), short enough to be
+// stored with the answer.
 func checkAsk(l Lesson, text string, sentence int) error {
 	fields := map[string]string{}
 	switch {
 	case text == "":
 		fields["text"] = "Chưa chọn từ để hỏi"
-	case utf8.RuneCountInString(text) > maxLookupChars:
-		fields["text"] = "Tối đa 100 ký tự"
-	case len(strings.Fields(text)) > maxLookupWords:
-		fields["text"] = "Chọn tối đa 6 từ"
+	case utf8.RuneCountInString(text) > maxAskChars:
+		fields["text"] = "Phần chọn quá dài để hỏi AI (tối đa 190 ký tự)"
 	}
 	if sentence < 0 || sentence >= len(l.Sentences) {
 		fields["sentenceIndex"] = "Câu không hợp lệ"

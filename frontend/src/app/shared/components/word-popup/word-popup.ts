@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -36,7 +37,7 @@ const POS_NAMES: Record<string, string> = {
   M: 'số từ',
 };
 
-const SOURCE_LABELS = { ai: 'AI · theo ngữ cảnh', dictionary: 'Từ điển' } as const;
+const SOURCE_LABELS = { ai: 'AI · theo ngữ cảnh', dictionary: 'Từ điển', sentence: 'Bản dịch câu' } as const;
 
 export const MAX_MEANING = 200;
 
@@ -54,7 +55,7 @@ let nextId = 0;
 /** Popup content for a looked-up word or phrase. Positioning is done by the reading page. */
 @Component({
   selector: 'lu-word-popup',
-  imports: [SpeakButton],
+  imports: [SpeakButton, NgTemplateOutlet],
   templateUrl: './word-popup.html',
   styleUrl: './word-popup.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

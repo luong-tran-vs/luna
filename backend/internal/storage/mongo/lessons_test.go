@@ -31,3 +31,20 @@ func TestLessonDocGrammarPoint(t *testing.T) {
 		t.Fatal("empty grammarPointId should be omitted")
 	}
 }
+
+func TestLessonDocSentenceTranslations(t *testing.T) {
+	t.Parallel()
+	tr := []string{"Chúng tôi đã về nhà.", "Trời đã muộn."}
+	// What SaveAnnotations and ReplaceExtras write, read back as a lesson.
+	raw, err := bson.Marshal(extrasSet(lesson.Extras{SentenceTranslations: tr}))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var back lessonDoc
+	if err := bson.Unmarshal(raw, &back); err != nil {
+		t.Fatal(err)
+	}
+	if got := back.toLesson().Extras.SentenceTranslations; len(got) != 2 || got[1] != tr[1] {
+		t.Fatalf("SentenceTranslations = %q", got)
+	}
+}

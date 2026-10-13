@@ -280,6 +280,26 @@ describe('Reading', () => {
       await settle();
     });
 
+    it('saves a phrase shown with only its sentence translation as a typed meaning', async () => {
+      word(0, 'park').click();
+      expectLookup('park', 0).flush({
+        source: 'sentence', text: 'park', lemma: 'park', ipa: '',
+        meanings: [{ pos: '', text: 'Chúng tôi đã đến công viên.' }],
+      });
+      await settle();
+      expect(popup()?.textContent).toContain('Chúng tôi đã đến công viên.');
+
+      const input = popup()!.querySelector<HTMLInputElement>('input[name="meaning"]')!;
+      input.value = 'công viên';
+      input.dispatchEvent(new Event('input'));
+      popupButton('Lưu')!.click();
+      await settle();
+      const req = http.expectOne('/vocab/cards');
+      expect(req.request.body).toMatchObject({ lemma: 'park', meaningVi: 'công viên', source: 'manual' });
+      req.flush({ card: { id: 'c5' } }, { status: 201, statusText: 'Created' });
+      await settle();
+    });
+
     it('keeps the manual meaning field when the AI is not configured', async () => {
       await openSmoking();
       popupButton('Hỏi AI')!.click();
@@ -463,18 +483,55 @@ describe('Reading', () => {
       expect(popup()?.textContent).toContain('từ bỏ');
     });
 
-    it('keeps only the first sentence of a selection', async () => {
+    const press = (target: HTMLElement, type: string, pointerType = 'mouse') =>
+      target.dispatchEvent(Object.assign(new Event(type, { bubbles: true }), { pointerType }));
+
+    it('lets a drag start on a word: the word is not focusable while the pointer is down', async () => {
+      await setup();
+      const went = word(0, 'went');
+      const tabindex = went.getAttribute('tabindex');
+      // A browser does not start a text selection on a focusable element.
+      press(went, 'pointerdown');
+      expect(went.hasAttribute('tabindex')).toBe(false);
+      press(went, 'pointerup');
+      expect(went.getAttribute('tabindex')).toBe(tabindex);
+      await settle();
+    });
+
+    it('reads a mouse selection when the button is released, not while dragging', async () => {
+      await setup();
+      press(word(1, 'gave'), 'pointerdown');
+      const range = document.createRange();
+      range.setStart(word(1, 'gave').firstChild!, 0);
+      range.setEnd(word(1, 'up').firstChild!, 2);
+      document.getSelection()!.removeAllRanges();
+      document.getSelection()!.addRange(range);
+      document.dispatchEvent(new Event('selectionchange'));
+      // A pause in the drag: nothing is looked up yet.
+      await new Promise((resolve) => setTimeout(resolve, 250));
+      http.expectNone((r) => r.url === '/lessons/l1/lookup');
+
+      press(word(1, 'up'), 'pointerup');
+      await settle();
+      expectLookup('gave up', 1).flush({ source: 'ai', text: 'gave up', lemma: 'give up', ipa: '', meanings: [{ pos: '', text: 'từ bỏ' }] });
+      await settle();
+      expect(popup()?.textContent).toContain('từ bỏ');
+    });
+
+    it('keeps only the first sentence of a selection, and says so', async () => {
       await setup();
       await selectRange(word(0, 'the'), word(1, 'He'));
       expectLookup('the park', 0).flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
       await settle();
+      expect(el.querySelector('.hint')?.textContent).toContain('Chỉ tra được trong một câu');
     });
 
-    it('asks for at most 6 words', async () => {
+    it('looks up any number of words of one sentence', async () => {
       await setup();
       await selectRange(word(1, 'He'), word(1, 'city')); // 9 words
-      expect(el.querySelector('.hint')?.textContent).toContain('Chọn tối đa 6 từ');
-      http.expectNone((r) => r.url === '/lessons/l1/lookup');
+      expectLookup('He gave up smoking last year in the city', 1).flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
+      await settle();
+      expect(el.querySelector('.hint')).toBeNull();
     });
 
     it('highlights a saved phrase', async () => {

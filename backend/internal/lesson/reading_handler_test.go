@@ -107,13 +107,16 @@ func TestLookupEndpoint(t *testing.T) {
 
 	for name, rec := range map[string]*httptest.ResponseRecorder{
 		"empty":        lookup("  ", ""),
-		"too long":     lookup(strings.Repeat("a", 101), ""),
-		"seven words":  lookup("a b c d e f g", ""),
+		"too long":     lookup(strings.Repeat("a", 1001), ""),
 		"bad sentence": lookup("went", "x"),
 	} {
 		if rec.Code != http.StatusBadRequest {
 			t.Errorf("%s: %d, want 400", name, rec.Code)
 		}
+	}
+	// Any number of words of one sentence: no "at most 6 words" any more.
+	if rec := lookup("a b c d e f g h", "0"); rec.Code == http.StatusBadRequest {
+		t.Errorf("eight words: %d %s", rec.Code, rec.Body)
 	}
 	if rec := get(t, mux, "/api/lessons/"+id+"/lookup?q=went", ""); rec.Code != http.StatusUnauthorized {
 		t.Errorf("anonymous: %d", rec.Code)

@@ -110,3 +110,23 @@ func TestCleanExtrasWritingPrompt(t *testing.T) {
 		t.Errorf("empty input = %+v", empty)
 	}
 }
+
+func TestCleanTranslations(t *testing.T) {
+	t.Parallel()
+	if got := CleanTranslations([]string{" Tôi  chạy. ", "Cô ấy học."}, 2); len(got) != 2 || got[0] != "Tôi chạy." {
+		t.Fatalf("clean = %q", got)
+	}
+	for name, in := range map[string][]string{
+		"one missing":  {"Tôi chạy."},
+		"one too many": {"a", "b", "c"},
+		"an empty one": {"Tôi chạy.", "  "},
+		"too long":     {"Tôi chạy.", strings.Repeat("x", maxTranslation+1)},
+	} {
+		if got := CleanTranslations(in, 2); got != nil {
+			t.Errorf("%s: got %q, want none (a translation must match its sentence)", name, got)
+		}
+	}
+	if got := CleanTranslations(nil, 0); got != nil {
+		t.Errorf("no sentence: %q", got)
+	}
+}

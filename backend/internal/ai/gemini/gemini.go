@@ -86,7 +86,8 @@ var annotateSchema = map[string]any{
 			},
 			"required": []string{"title", "bodyVi", "examples"},
 		},
-		"writingPrompt": map[string]any{"type": "STRING"},
+		"writingPrompt":        map[string]any{"type": "STRING"},
+		"sentenceTranslations": stringArray,
 	},
 	"required": []string{"annotations"},
 }
@@ -425,7 +426,11 @@ by its number (the learner does not see the numbers): quote it instead.
 4. writingPrompt: one short English writing task related to the lesson, suitable for CEFR %[1]s.
 Do not say how many sentences or words to write: the app shows the length separately.
 
-`, req.Level, annotationsTask(req), grammarSection(req))
+5. sentenceTranslations: a natural Vietnamese translation of every sentence, in the same order,
+exactly one string per numbered sentence (%[4]d strings). Translate the meaning in context, not word
+for word, and do not add notes or numbers.
+
+`, req.Level, annotationsTask(req), grammarSection(req), len(req.Sentences))
 	if len(req.FocusWords) > 0 && !req.OnlyFocus {
 		_, hi := annotationRange(req.Level)
 		fmt.Fprintf(&b, "Always include each of these topic words or phrases as annotations, with text copied exactly "+

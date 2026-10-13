@@ -26,50 +26,37 @@
         }
         <span class="source">{{ sourceLabel() }}</span>
       </div>
-      <ul class="meanings">
-        @for (line of meaningLines(); track line.pos) {
-          <li>
-            @if (line.pos) {
-              <span class="pos">{{ line.pos }}</span>
-            }
-            {{ line.text }}
-          </li>
-        }
-      </ul>
-      @if (r.note) {
-        <p class="note">{{ r.note }}</p>
-      }
-      @if (saved()) {
-        <p class="saved" role="status">✓ Đã có trong sổ</p>
+      @if (r.source === 'sentence') {
+        <!-- No meaning of the selection itself: the translation of its whole sentence. -->
+        <p class="muted">Chưa có nghĩa riêng của phần đã chọn. Nghĩa của cả câu:</p>
+        <p class="sentence-vi">{{ r.meanings[0]?.text }}</p>
+        <ng-container *ngTemplateOutlet="manualSave" />
       } @else {
-        <button type="button" class="btn-primary" [disabled]="saving()" (click)="save.emit(undefined)">
-          Lưu vào sổ từ
-        </button>
+        <ul class="meanings">
+          @for (line of meaningLines(); track line.pos) {
+            <li>
+              @if (line.pos) {
+                <span class="pos">{{ line.pos }}</span>
+              }
+              {{ line.text }}
+            </li>
+          }
+        </ul>
+        @if (r.note) {
+          <p class="note">{{ r.note }}</p>
+        }
+        @if (saved()) {
+          <p class="saved" role="status">✓ Đã có trong sổ</p>
+        } @else {
+          <button type="button" class="btn-primary" [disabled]="saving()" (click)="save.emit(undefined)">
+            Lưu vào sổ từ
+          </button>
+        }
       }
     }
     @case ('not-found') {
       <p class="muted">Chưa có nghĩa. Bạn có thể tự nhập nghĩa để lưu.</p>
-      @if (saved()) {
-        <p class="saved" role="status">✓ Đã có trong sổ</p>
-      } @else {
-        <div class="field">
-          <label [for]="titleId + '-meaning'">Nghĩa tiếng Việt</label>
-          <input
-            [id]="titleId + '-meaning'"
-            name="meaning"
-            maxlength="250"
-            [value]="manualMeaning()"
-            (input)="manualMeaning.set($any($event.target).value)"
-            (keydown.enter)="saveManual()"
-            [attr.aria-invalid]="!!manualError()"
-            [attr.aria-describedby]="manualError() ? titleId + '-meaning-error' : null"
-          />
-          @if (manualError(); as message) {
-            <p class="field-error" [id]="titleId + '-meaning-error'">{{ message }}</p>
-          }
-        </div>
-        <button type="button" class="btn-primary" [disabled]="saving()" (click)="saveManual()">Lưu</button>
-      }
+      <ng-container *ngTemplateOutlet="manualSave" />
     }
   }
 
@@ -105,3 +92,28 @@
     <p class="form-alert" role="alert">{{ message }}</p>
   }
 </div>
+
+<!-- Saving with a meaning the learner types (nothing found, or only the sentence's translation). -->
+<ng-template #manualSave>
+  @if (saved()) {
+    <p class="saved" role="status">✓ Đã có trong sổ</p>
+  } @else {
+    <div class="field">
+      <label [for]="titleId + '-meaning'">Nghĩa tiếng Việt</label>
+      <input
+        [id]="titleId + '-meaning'"
+        name="meaning"
+        maxlength="250"
+        [value]="manualMeaning()"
+        (input)="manualMeaning.set($any($event.target).value)"
+        (keydown.enter)="saveManual()"
+        [attr.aria-invalid]="!!manualError()"
+        [attr.aria-describedby]="manualError() ? titleId + '-meaning-error' : null"
+      />
+      @if (manualError(); as message) {
+        <p class="field-error" [id]="titleId + '-meaning-error'">{{ message }}</p>
+      }
+    </div>
+    <button type="button" class="btn-primary" [disabled]="saving()" (click)="saveManual()">Lưu</button>
+  }
+</ng-template>

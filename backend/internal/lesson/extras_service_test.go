@@ -103,3 +103,44 @@ func TestUpdateClearsExtras(t *testing.T) {
 		t.Fatalf("after content change: questions %d, quizVersion %d (was %d)", len(next.Extras.Questions), next.QuizVersion, done.QuizVersion)
 	}
 }
+
+func TestProcessAnnotateSavesSentenceTranslations(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	l := e.create(t)
+	tr := make([]string, len(l.Sentences))
+	for i := range tr {
+		tr[i] = "Câu tiếng Việt."
+	}
+	e.ai.result = []ai.Annotation{{Text: "gave up", Lemma: "give up", MeaningVi: "bỏ", SentenceIndex: 1}}
+	e.ai.extras = ai.LessonExtras{Questions: []ai.Question{parkQuestion}, SentenceTranslations: tr}
+
+	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(l, job.TypeAnnotate)); err != nil {
+		t.Fatal(err)
+	}
+	got, _ := e.lessons.Get(t.Context(), l.ID)
+	if len(got.Extras.SentenceTranslations) != len(l.Sentences) {
+		t.Fatalf("translations = %q", got.Extras.SentenceTranslations)
+	}
+
+	// An admin editing the questions keeps the translations.
+	updated, err := e.svc.UpdateExtras(t.Context(), l.ID, validExtras())
+	if err != nil || len(updated.Extras.SentenceTranslations) != len(l.Sentences) {
+		t.Fatalf("after admin edit = %q, %v", updated.Extras.SentenceTranslations, err)
+	}
+}
+
+func TestProcessAnnotateDropsMismatchedTranslations(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	l := e.create(t)
+	e.ai.result = []ai.Annotation{{Text: "gave up", Lemma: "give up", MeaningVi: "bỏ", SentenceIndex: 1}}
+	e.ai.extras = ai.LessonExtras{SentenceTranslations: []string{"Chỉ một câu."}}
+
+	if err := e.svc.ProcessAnnotate(t.Context(), jobFor(l, job.TypeAnnotate)); err != nil {
+		t.Fatal(err)
+	}
+	if got, _ := e.lessons.Get(t.Context(), l.ID); got.Extras.SentenceTranslations != nil || len(got.Annotations) != 1 {
+		t.Fatalf("lesson = %+v", got)
+	}
+}

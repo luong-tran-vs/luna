@@ -12,8 +12,12 @@ import (
 )
 
 const (
-	maxLookupChars = 100
-	maxLookupWords = 6
+	// maxLookupChars bounds a selection, which the reading page keeps inside one sentence (any
+	// number of its words): a lesson sentence is never this long.
+	maxLookupChars = 1000
+	// maxAskChars bounds what is asked of the AI: its answer is stored by that text, and MySQL's
+	// ai_lookups.text_lower holds 191 characters.
+	maxAskChars = 190
 )
 
 // ReadingHandler serves the learner endpoints of the Reading step.
@@ -125,9 +129,7 @@ func (h *ReadingHandler) lookup(w http.ResponseWriter, r *http.Request) {
 	case q == "":
 		fields["q"] = "Chưa chọn từ để tra"
 	case utf8.RuneCountInString(q) > maxLookupChars:
-		fields["q"] = "Tối đa 100 ký tự"
-	case len(strings.Fields(q)) > maxLookupWords:
-		fields["q"] = "Chọn tối đa 6 từ"
+		fields["q"] = "Chỉ tra được trong một câu"
 	}
 	sentence := -1
 	if s := r.URL.Query().Get("sentence"); s != "" {
