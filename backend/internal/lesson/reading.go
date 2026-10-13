@@ -54,6 +54,9 @@ type ReadingView struct {
 	GrammarPointID string
 	// Turns is the lesson as a conversation when it is a dialogue ("Name: text" lines), nil otherwise.
 	Turns []TextTurn
+	// SentenceTranslations is the Vietnamese translation of each sentence, by index; empty for a
+	// lesson annotated before they were written.
+	SentenceTranslations []string
 }
 
 // LookupMeaning is one meaning; POS is the dictionary part-of-speech code (empty for AI).
@@ -117,7 +120,9 @@ func (r *Reader) View(ctx context.Context, userID, id string) (ReadingView, erro
 		Lemmas:     map[string]string{},
 		Phrases:    []Phrase{},
 		Quiz:       quiz, GrammarNote: l.Extras.GrammarNote, GrammarPointID: l.GrammarPointID,
-		Turns:      DialogueTurns(l.Content, l.Sentences),
+		Turns: DialogueTurns(l.Content, l.Sentences),
+		// One per sentence, or none (CleanTranslations).
+		SentenceTranslations: l.Extras.SentenceTranslations,
 	}
 	switch t, err := r.topics.Get(ctx, l.TopicID); {
 	case err == nil:

@@ -22,6 +22,8 @@ export interface ReadingLesson {
   grammarPointId?: string;
   /** A dialogue lesson as its "Name: text" lines; null (or missing) for a reading text. */
   turns?: TextTurn[] | null;
+  /** The Vietnamese translation of each sentence, by index; empty when the lesson has none yet. */
+  sentenceTranslations?: string[];
 }
 
 /** One line of a dialogue lesson. */

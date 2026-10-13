@@ -130,3 +130,37 @@ button.bubble:focus-visible {
   border-color: var(--color-primary);
   box-shadow: inset 0 0 0 1px var(--color-primary);
 }
+
+/* --- hold a sentence or a line for its translation; the text cannot be selected or copied --- */
+
+.text-body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.read-sentence.pressing,
+.read-sentence.translated {
+  background-color: var(--color-primary-soft);
+}
+
+/* The held sentence fills in over the 2 seconds before its translation shows. */
+.read-sentence.pressing {
+  transition: background-color 2s linear;
+}
+
+.bubble.pressing,
+.bubble.translated {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+
+.bubble.pressing {
+  transition: box-shadow 2s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .read-sentence.pressing,
+  .bubble.pressing {
+    transition: none;
+  }
+}

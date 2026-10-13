@@ -1,17 +1,25 @@
 <section class="soft-card" aria-labelledby="text-heading">
   <h2 class="step-title" id="text-heading">{{ turns() ? 'Hội thoại' : 'Bài đọc' }}</h2>
   @if (turns(); as ts) {
-    @if (canSpeak) {
-      <div class="talk-head">
-        <p class="step-hint reading-hint"><lu-icon name="volume" /> Chạm vào một lượt để nghe.</p>
+    <div class="talk-head">
+      <p class="step-hint reading-hint">
+        <lu-icon name="volume" />
+        @if (canSpeak) {
+          Chạm vào một lượt để nghe. Giữ khoảng 2 giây để xem bản dịch.
+        } @else {
+          Giữ một lượt khoảng 2 giây để xem bản dịch.
+        }
+      </p>
+      @if (canSpeak) {
         <button type="button" class="btn" [attr.aria-pressed]="allPlaying()" (click)="toggleAll()">
           <lu-icon [name]="allPlaying() ? 'pause' : 'play'" />
           {{ allPlaying() ? 'Dừng' : 'Nghe cả đoạn' }}
         </button>
-      </div>
-    }
-    <ol class="talk">
+      }
+    </div>
+    <ol class="talk text-body">
       @for (t of ts; track $index) {
+        @let key = t.sentences.join(',');
         <li class="turn" [class.turn-right]="t.who % 2 === 1" [class.turn-alt]="t.who >= 2">
           <span class="turn-name">{{ t.speaker }}</span>
           @if (canSpeak) {
@@ -19,35 +27,60 @@
               type="button"
               class="bubble"
               lang="en"
+              [attr.data-tr]="key"
+              [class.pressing]="pressing() === key"
+              [class.translated]="translated()?.key === key"
               [class.reading-now]="speaking() === t.text"
               [attr.aria-pressed]="speaking() === t.text"
               [attr.aria-label]="t.speaker + ': ' + t.text"
               (click)="readTurn(t)"
             >{{ t.text }}</button>
           } @else {
-            <p class="bubble" lang="en">{{ t.text }}</p>
+            <p
+              class="bubble"
+              lang="en"
+              tabindex="0"
+              [attr.data-tr]="key"
+              [class.pressing]="pressing() === key"
+              [class.translated]="translated()?.key === key"
+            >{{ t.text }}</p>
           }
         </li>
       }
     </ol>
   } @else {
-    @if (canSpeak) {
-      <p class="step-hint reading-hint"><lu-icon name="volume" /> Chạm vào một câu để nghe cách đọc.</p>
-    }
-    <div class="reading" lang="en">
+    <p class="step-hint reading-hint">
+      <lu-icon name="volume" />
+      @if (canSpeak) {
+        Chạm vào một câu để nghe cách đọc. Giữ khoảng 2 giây để xem bản dịch.
+      } @else {
+        Giữ một câu khoảng 2 giây để xem bản dịch.
+      }
+    </p>
+    <div class="reading text-body" lang="en">
       @for (p of paragraphs(); track $index) {
         <p>
-          @for (s of p; track $index) {
+          @for (s of p; track s.index) {
+            @let key = s.index + '';
             @if (canSpeak) {
               <button
                 type="button"
                 class="read-sentence"
-                [class.reading-now]="speaking() === s"
-                [attr.aria-pressed]="speaking() === s"
-                (click)="readSentence(s)"
-              >{{ s }}</button>
+                [attr.data-tr]="key"
+                [class.pressing]="pressing() === key"
+                [class.translated]="translated()?.key === key"
+                [class.reading-now]="speaking() === s.text"
+                [attr.aria-pressed]="speaking() === s.text"
+                (click)="readSentence(s.text)"
+              >{{ s.text }}</button>
             } @else {
-              <span>{{ s }}</span>
+              <span
+                class="read-sentence"
+                tabindex="0"
+                [attr.data-tr]="key"
+                [class.pressing]="pressing() === key"
+                [class.translated]="translated()?.key === key"
+              >{{ s.text }}</span>
             }
             {{ ' ' }}
           }
@@ -56,3 +89,20 @@
     </div>
   }
 </section>
+
+<!-- The translation of a held sentence or line (or of the focused one, key T). -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="translated()?.anchor ?? hostElement"
+  [cdkConnectedOverlayOpen]="translated() !== null"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayPush]="true"
+  [cdkConnectedOverlayViewportMargin]="8"
+  (overlayOutsideClick)="onTranslationOutsideClick()"
+  (overlayKeydown)="onTranslationKeydown($event)"
+  (detach)="translated() && closeTranslation()"
+>
+  @if (translated(); as t) {
+    <lu-sentence-translation [sentence]="t.en" [translation]="t.vi" (closed)="closeTranslation()" />
+  }
+</ng-template>

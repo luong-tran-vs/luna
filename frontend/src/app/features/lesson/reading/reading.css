@@ -28,12 +28,26 @@
   gap: var(--space-2);
 }
 
-.hint {
-  padding: var(--space-2) var(--space-3);
+/* How the reading text is used: tap a word, hold a sentence. */
+.tips {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-sm) var(--font-ui);
   color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
+  list-style: none;
+  background: var(--color-primary-soft);
   border-radius: var(--radius-md);
+}
+
+.tips b {
+  color: var(--color-primary-ink);
+}
+
+.tip-key {
+  display: inline-block;
+  width: 1.5em;
 }
 
 /* Reading text: 18/30 px, about 65 characters per line on wide screens (design-system §4.1). */
@@ -41,6 +55,32 @@
   max-width: 65ch;
   font: var(--text-reading) var(--font-ui);
   color: var(--color-text);
+  /* Words are tapped, sentences held: no text selection, no copy, no long-press menu. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* A held sentence fills in over the 2 seconds before its translation shows. */
+.sentence {
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s ease-out;
+}
+
+.sentence.pressing {
+  background-color: var(--color-primary-soft);
+  transition: background-color 2s linear;
+}
+
+.sentence.translated {
+  background-color: var(--color-primary-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sentence,
+  .sentence.pressing {
+    transition: none;
+  }
 }
 
 .para {

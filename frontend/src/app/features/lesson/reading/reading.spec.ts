@@ -134,6 +134,9 @@ describe('Reading', () => {
 
     it('renders paragraphs, sentences and clickable words', () => {
       expect(el.querySelector('h1')?.textContent).toContain('A day at the park');
+      // How to use the text: tap a word, hold a sentence.
+      expect(el.querySelector('.tips')?.textContent).toContain('Chạm một từ');
+      expect(el.querySelector('.tips')?.textContent).toContain('Giữ một câu khoảng 2 giây');
       expect(el.querySelectorAll('.para')).toHaveLength(2);
       expect(el.querySelectorAll('.para')[0].querySelectorAll('.sentence')).toHaveLength(2);
       const w = word(0, 'went');
@@ -461,77 +464,23 @@ describe('Reading', () => {
     });
   });
 
-  // --- US3: phrases ---
+  // --- US3: phrases (looked up by tapping a word only) ---
 
   describe('phrases', () => {
-    const selectRange = async (from: HTMLElement, to: HTMLElement, fromOffset = 0, toOffset?: number) => {
-      const range = document.createRange();
-      range.setStart(from.firstChild!, fromOffset);
-      range.setEnd(to.firstChild!, toOffset ?? to.textContent!.length);
-      const sel = document.getSelection()!;
-      sel.removeAllRanges();
-      sel.addRange(range);
-      el.querySelector('.article')!.dispatchEvent(new Event('pointerup', { bubbles: true }));
-      await settle();
-    };
-
-    it('looks up a selected phrase, expanding partial words', async () => {
+    it('only looks up a tapped word: a text selection opens nothing', async () => {
       await setup();
-      await selectRange(word(1, 'gave'), word(1, 'up'), 1, 1); // "ave u"
-      expectLookup('gave up', 1).flush({ source: 'ai', text: 'gave up', lemma: 'give up', ipa: '', meanings: [{ pos: '', text: 'từ bỏ' }] });
-      await settle();
-      expect(popup()?.textContent).toContain('từ bỏ');
-    });
-
-    const press = (target: HTMLElement, type: string, pointerType = 'mouse') =>
-      target.dispatchEvent(Object.assign(new Event(type, { bubbles: true }), { pointerType }));
-
-    it('lets a drag start on a word: the word is not focusable while the pointer is down', async () => {
-      await setup();
-      const went = word(0, 'went');
-      const tabindex = went.getAttribute('tabindex');
-      // A browser does not start a text selection on a focusable element.
-      press(went, 'pointerdown');
-      expect(went.hasAttribute('tabindex')).toBe(false);
-      press(went, 'pointerup');
-      expect(went.getAttribute('tabindex')).toBe(tabindex);
-      await settle();
-    });
-
-    it('reads a mouse selection when the button is released, not while dragging', async () => {
-      await setup();
-      press(word(1, 'gave'), 'pointerdown');
       const range = document.createRange();
       range.setStart(word(1, 'gave').firstChild!, 0);
       range.setEnd(word(1, 'up').firstChild!, 2);
       document.getSelection()!.removeAllRanges();
       document.getSelection()!.addRange(range);
       document.dispatchEvent(new Event('selectionchange'));
-      // A pause in the drag: nothing is looked up yet.
-      await new Promise((resolve) => setTimeout(resolve, 250));
+      el.querySelector('.article')!.dispatchEvent(new Event('pointerup', { bubbles: true }));
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      await settle();
       http.expectNone((r) => r.url === '/lessons/l1/lookup');
-
-      press(word(1, 'up'), 'pointerup');
-      await settle();
-      expectLookup('gave up', 1).flush({ source: 'ai', text: 'gave up', lemma: 'give up', ipa: '', meanings: [{ pos: '', text: 'từ bỏ' }] });
-      await settle();
-      expect(popup()?.textContent).toContain('từ bỏ');
-    });
-
-    it('keeps only the first sentence of a selection, and says so', async () => {
-      await setup();
-      await selectRange(word(0, 'the'), word(1, 'He'));
-      expectLookup('the park', 0).flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
-      await settle();
-      expect(el.querySelector('.hint')?.textContent).toContain('Chỉ tra được trong một câu');
-    });
-
-    it('looks up any number of words of one sentence', async () => {
-      await setup();
-      await selectRange(word(1, 'He'), word(1, 'city')); // 9 words
-      expectLookup('He gave up smoking last year in the city', 1).flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
-      await settle();
-      expect(el.querySelector('.hint')).toBeNull();
+      expect(popup()).toBeNull();
+      document.getSelection()!.removeAllRanges();
     });
 
     it('highlights a saved phrase', async () => {
@@ -539,6 +488,93 @@ describe('Reading', () => {
       expect(word(1, 'gave').classList).toContain('saved');
       expect(word(1, 'up').classList).toContain('saved');
       expect(word(1, 'smoking').classList).not.toContain('saved');
+    });
+  });
+
+  // --- a held sentence shows its translation; the text cannot be copied ---
+
+  describe('sentence translation', () => {
+    const translated: ReadingLesson = {
+      ...lesson,
+      sentenceTranslations: ['Chúng tôi đã đến công viên.', 'Anh ấy đã bỏ thuốc lá năm ngoái ở thành phố.', 'Cô ấy về nhà.'],
+    };
+    const sentence = (s: number) => el.querySelector<HTMLElement>(`.sentence[data-s="${s}"]`)!;
+    const card = () => document.querySelector<HTMLElement>('lu-sentence-translation');
+    const press = (target: HTMLElement, type: string, x = 10, y = 10) =>
+      target.dispatchEvent(Object.assign(new Event(type, { bubbles: true }), { button: 0, clientX: x, clientY: y, pointerType: 'touch' }));
+    const hold = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    it('shows the translation of a sentence held for 2 seconds', async () => {
+      await setup({ lesson: translated });
+      const gave = word(1, 'gave');
+      press(gave, 'pointerdown');
+      await settle();
+      expect(sentence(1).classList).toContain('pressing');
+      await hold(2100);
+      await settle();
+      expect(card()?.textContent).toContain('Anh ấy đã bỏ thuốc lá năm ngoái ở thành phố.');
+      expect(card()?.textContent).toContain('He gave up smoking last year in the city.');
+      expect(sentence(1).classList).toContain('translated');
+
+      // The release (and its click) is not a tap on the word.
+      press(gave, 'pointerup');
+      gave.click();
+      await settle();
+      http.expectNone((r) => r.url === '/lessons/l1/lookup');
+      expect(card()).not.toBeNull();
+
+      card()!.querySelector<HTMLButtonElement>('button[aria-label="Đóng"]')!.click();
+      await settle();
+      expect(card()).toBeNull();
+      // Later taps look words up again.
+      await hold(10);
+      gave.click();
+      await settle();
+      expectLookup('gave', 1).flush({ error: 'not_found' }, { status: 404, statusText: 'Not Found' });
+      await settle();
+    });
+
+    it('cancels the press when the finger moves (scrolling) or lifts early', async () => {
+      await setup({ lesson: translated });
+      press(word(0, 'park'), 'pointerdown');
+      press(word(0, 'park'), 'pointermove', 10, 40);
+      await settle();
+      expect(sentence(0).classList).not.toContain('pressing');
+      press(word(0, 'went'), 'pointerdown');
+      await hold(500);
+      press(word(0, 'went'), 'pointerup');
+      await hold(1700);
+      await settle();
+      expect(card()).toBeNull();
+    });
+
+    it('shows the translation of the focused word sentence with the T key, and closes with Escape', async () => {
+      await setup({ lesson: translated });
+      const went = word(0, 'went');
+      went.focus();
+      went.dispatchEvent(new KeyboardEvent('keydown', { key: 't', bubbles: true }));
+      await settle();
+      expect(card()?.textContent).toContain('Chúng tôi đã đến công viên.');
+      card()!.querySelector('.card')!.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      await settle();
+      expect(card()).toBeNull();
+    });
+
+    it('says when the lesson has no translation yet', async () => {
+      await setup();
+      word(2, 'She').dispatchEvent(new KeyboardEvent('keydown', { key: 'T', bubbles: true }));
+      await settle();
+      expect(card()?.textContent).toContain('Bài này chưa có bản dịch câu.');
+    });
+
+    it('blocks copying the text and the long-press menu', async () => {
+      await setup();
+      const copy = new Event('copy', { bubbles: true, cancelable: true });
+      word(0, 'park').dispatchEvent(copy);
+      expect(copy.defaultPrevented).toBe(true);
+      const menu = new Event('contextmenu', { bubbles: true, cancelable: true });
+      word(0, 'park').dispatchEvent(menu);
+      expect(menu.defaultPrevented).toBe(true);
     });
   });
 

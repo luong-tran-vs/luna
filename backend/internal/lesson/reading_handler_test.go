@@ -158,3 +158,25 @@ func TestReadingLessonEndpointReturnsDialogueTurns(t *testing.T) {
 		t.Errorf("reading body = %s", body)
 	}
 }
+
+func TestReadingLessonEndpointReturnsSentenceTranslations(t *testing.T) {
+	t.Parallel()
+	lessons := newFakeLessons()
+	sentences := toSentences(SplitSentences("We went home. It was late."))
+	with, _ := lessons.Create(t.Context(), Lesson{
+		Title: "A", Level: "A1", Content: "We went home. It was late.", Sentences: sentences,
+		Extras: Extras{SentenceTranslations: []string{"Chúng tôi đã về nhà.", "Trời đã muộn."}},
+	})
+	without, _ := lessons.Create(t.Context(), Lesson{Title: "B", Level: "A1", Content: "We went home. It was late.", Sentences: sentences})
+	r := NewReader(lessons, readingDict, newFakeTopics(), newFakeAnswers(), newFakeAsks(), &fakeAI{})
+	mux := http.NewServeMux()
+	NewReadingHandler(r, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver), allowAll)
+
+	if body := get(t, mux, "/api/lessons/"+with.ID, "learner").Body.String(); !strings.Contains(body, `"sentenceTranslations":["Chúng tôi đã về nhà.","Trời đã muộn."]`) {
+		t.Errorf("body = %s", body)
+	}
+	// A lesson annotated before translations were written: an empty list, not null.
+	if body := get(t, mux, "/api/lessons/"+without.ID, "learner").Body.String(); !strings.Contains(body, `"sentenceTranslations":[]`) {
+		t.Errorf("body = %s", body)
+	}
+}

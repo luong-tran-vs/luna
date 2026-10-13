@@ -25,13 +25,13 @@ import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { CardInput } from '../../../core/models/vocab';
 import { Icon } from '../../../shared/components/icon/icon';
 import { PopupState, WordPopup } from '../../../shared/components/word-popup/word-popup';
-import { selectWords, TouchedWord } from '../../../shared/utils/selection';
 import { tokenize } from '../../../shared/utils/tokenize';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
 import { ComprehensionQuiz } from './comprehension-quiz/comprehension-quiz';
 import { GrammarNote } from './grammar-note/grammar-note';
 import { LessonVocabulary } from './lesson-vocabulary/lesson-vocabulary';
+import { SentenceTranslation } from './sentence-translation/sentence-translation';
 import { Loading } from '../../../shared/components/loading/loading';
 
 interface Selected {
@@ -48,6 +48,10 @@ const POSITIONS: ConnectedPosition[] = [
 ];
 
 const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
+
+/** How long a sentence is held to show its translation, and how far the pointer may move meanwhile. */
+const LONG_PRESS_MS = 2000;
+const PRESS_SLOP = 10;
 
 /** Message for a failed "Hỏi AI": the server message (or the field message for a bad selection). */
 function askErrorMessage(err: unknown): string {
@@ -70,16 +74,30 @@ function askErrorMessage(err: unknown): string {
  */
 @Component({
   selector: 'lu-reading',
-  imports: [Loading, CdkConnectedOverlay, ComprehensionQuiz, GrammarNote, Icon, LessonVocabulary, RouterLink, WordPopup],
+  imports: [
+    Loading,
+    CdkConnectedOverlay,
+    ComprehensionQuiz,
+    GrammarNote,
+    Icon,
+    LessonVocabulary,
+    RouterLink,
+    SentenceTranslation,
+    WordPopup,
+  ],
   templateUrl: './reading.html',
   styleUrl: './reading.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '(document:selectionchange)': 'onSelectionChange()',
     // Word interactions are delegated from the host; each word is a focusable role="button".
-    '(pointerdown)': 'onPointerDown($event)',
-    '(pointerup)': 'onPointerUp()',
-    '(pointercancel)': 'restoreTabindex()',
+    // A long press on a sentence shows its translation.
+    '(pointerdown)': 'onPressStart($event)',
+    '(pointermove)': 'onPressMove($event)',
+    '(pointerup)': 'onPressEnd()',
+    '(pointercancel)': 'onPressEnd()',
+    '(contextmenu)': 'onContextMenu($event)',
+    // The reading text cannot be copied.
+    '(copy)': 'onCopy($event)',
     '(keydown)': 'onArticleKeydown($event)',
     '(focusin)': 'onFocusIn($event)',
   },
@@ -146,13 +164,17 @@ export class Reading implements OnInit {
   protected readonly saving = signal(false);
   protected readonly asking = signal(false);
   protected readonly askError = signal<string | null>(null);
-  protected readonly hint = signal<string | null>(null);
   protected readonly popupSaved = computed(() => {
     const state = this.popupState();
     const sel = this.selected();
     const lemma = state.kind === 'result' ? state.result.lemma : sel ? normalize(sel.text) : '';
     return !!lemma && this.saved().has(normalize(lemma));
   });
+
+  /** The sentence being pressed, highlighted while the press lasts. */
+  protected readonly pressing = signal<number | null>(null);
+  /** The sentence whose translation is shown, and the element it is shown next to. */
+  protected readonly translated = signal<{ sentence: number; anchor: HTMLElement } | null>(null);
 
   protected readonly reachedEnd = signal(false);
   protected readonly done = signal(false);
@@ -161,13 +183,10 @@ export class Reading implements OnInit {
   private readonly end = viewChild<ElementRef<HTMLElement>>('end');
   private lookupSub?: Subscription;
   private askSub?: Subscription;
-  private selectionTimer?: ReturnType<typeof setTimeout>;
-  /** The word pressed, its tabindex taken off while the pointer is down (see onPointerDown). */
-  private pressed: { word: HTMLElement; tabindex: string } | null = null;
-  /** How the last press was made: "touch" selections are adjusted with handles after it. */
-  private pointerType = 'mouse';
-  /** A mouse or pen is held down: its selection is read on pointerup, not while dragging. */
-  private dragging = false;
+  private pressTimer?: ReturnType<typeof setTimeout>;
+  private pressFrom = { x: 0, y: 0 };
+  /** A long press just ended: the click (and outside click) it may still fire is not a tap. */
+  private afterLongPress = false;
 
   ngOnInit(): void {
     // Inputs are set by now.
@@ -255,7 +274,7 @@ export class Reading implements OnInit {
     inject(DestroyRef).onDestroy(() => {
       this.lookupSub?.unsubscribe();
       this.askSub?.unsubscribe();
-      clearTimeout(this.selectionTimer);
+      clearTimeout(this.pressTimer);
     });
   }
 
@@ -306,7 +325,93 @@ export class Reading implements OnInit {
   // --- opening the popup ---
 
   protected onWordClick(event: MouseEvent, s: number, t: number): void {
+    if (this.afterLongPress) {
+      return; // the release of a long press, not a tap on the word
+    }
     this.open(s, t, t, event.currentTarget as HTMLElement);
+  }
+
+  // --- long press on a sentence: its translation ---
+
+  protected onPressStart(event: PointerEvent): void {
+    this.cancelPress();
+    if (event.button !== 0) {
+      return;
+    }
+    const sentence = (event.target as HTMLElement).closest?.<HTMLElement>('.sentence');
+    if (!sentence || !this.article()?.nativeElement.contains(sentence)) {
+      return;
+    }
+    const s = Number(sentence.dataset['s']);
+    this.pressFrom = { x: event.clientX, y: event.clientY };
+    this.pressing.set(s);
+    this.pressTimer = setTimeout(() => {
+      this.pressing.set(null);
+      this.afterLongPress = true;
+      this.showTranslation(s, sentence);
+    }, LONG_PRESS_MS);
+  }
+
+  /** Moving away (scrolling the page) is not a press. */
+  protected onPressMove(event: PointerEvent): void {
+    if (this.pressing() !== null && Math.hypot(event.clientX - this.pressFrom.x, event.clientY - this.pressFrom.y) > PRESS_SLOP) {
+      this.cancelPress();
+    }
+  }
+
+  protected onPressEnd(): void {
+    this.cancelPress();
+    if (this.afterLongPress) {
+      // The click of this release comes right after it; later clicks are taps again.
+      setTimeout(() => (this.afterLongPress = false));
+    }
+  }
+
+  protected onCopy(event: ClipboardEvent): void {
+    if (this.article()?.nativeElement.contains(event.target as Node)) {
+      event.preventDefault();
+    }
+  }
+
+  /** The browser's long-press menu (copy, share…) would cover the translation. */
+  protected onContextMenu(event: Event): void {
+    if (this.article()?.nativeElement.contains(event.target as Node)) {
+      event.preventDefault();
+    }
+  }
+
+  private cancelPress(): void {
+    clearTimeout(this.pressTimer);
+    this.pressing.set(null);
+  }
+
+  private showTranslation(sentence: number, anchor: HTMLElement): void {
+    if (this.anchor()) {
+      this.close();
+    }
+    this.translated.set({ sentence, anchor });
+  }
+
+  protected closeTranslation(): void {
+    const t = this.translated();
+    this.translated.set(null);
+    // Back to the word keyboard users were on, in that sentence when they pressed "T".
+    const word = t?.anchor.querySelector<HTMLElement>('.w[tabindex="0"]') ??
+      this.article()?.nativeElement.querySelector<HTMLElement>('.w[tabindex="0"]');
+    word?.focus();
+  }
+
+  protected onTranslationOutsideClick(): void {
+    if (!this.afterLongPress) {
+      this.closeTranslation();
+    }
+  }
+
+  protected onTranslationKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.closeTranslation();
+    }
   }
 
   protected onArticleKeydown(event: KeyboardEvent): void {
@@ -319,6 +424,15 @@ export class Reading implements OnInit {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       this.open(s, t, t, target);
+      return;
+    }
+    // The keyboard's long press: the translation of the word's sentence.
+    if (event.key === 't' || event.key === 'T') {
+      event.preventDefault();
+      const sentence = target.closest<HTMLElement>('.sentence');
+      if (sentence) {
+        this.showTranslation(s, sentence);
+      }
       return;
     }
     const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
@@ -341,81 +455,11 @@ export class Reading implements OnInit {
     }
   }
 
-  /**
-   * A browser does not start a text selection on a focusable element, so dragging (or long-pressing)
-   * from a word selected nothing. While the pointer is down the word is not focusable; a click still
-   * opens it, and keyboard focus works as before once the tabindex is back.
-   */
-  protected onPointerDown(event: PointerEvent): void {
-    this.restoreTabindex();
-    this.pointerType = event.pointerType;
-    this.dragging = event.pointerType !== 'touch';
-    const word = (event.target as HTMLElement).closest?.<HTMLElement>('.w');
-    const tabindex = word?.getAttribute('tabindex');
-    if (word && tabindex !== null && tabindex !== undefined && this.article()?.nativeElement.contains(word)) {
-      this.pressed = { word, tabindex };
-      word.removeAttribute('tabindex');
-    }
-  }
-
-  protected restoreTabindex(): void {
-    this.dragging = false;
-    const p = this.pressed;
-    this.pressed = null;
-    // Unless change detection has set a newer value meanwhile.
-    if (p && !p.word.hasAttribute('tabindex')) {
-      p.word.setAttribute('tabindex', p.tabindex);
-    }
-  }
-
-  protected onPointerUp(): void {
-    this.restoreTabindex();
-    if (this.anchor() === null || document.getSelection()?.isCollapsed === false) {
-      this.handleSelection();
-    }
-  }
-
-  protected onSelectionChange(): void {
-    // Touch selection handles do not end with pointerup on a word: wait until the learner stops
-    // moving them; long enough on touch to widen a long-pressed word to a phrase.
-    clearTimeout(this.selectionTimer);
-    if (this.dragging) {
-      return; // a slow mouse drag: pointerup reads the whole selection
-    }
-    this.selectionTimer = setTimeout(() => this.handleSelection(), this.pointerType === 'touch' ? 700 : 150);
-  }
-
-  private handleSelection(): void {
-    const sel = document.getSelection();
-    const article = this.article()?.nativeElement;
-    if (!sel || sel.isCollapsed || sel.rangeCount === 0 || !article) {
-      return;
-    }
-    const range = sel.getRangeAt(0);
-    if (!article.contains(range.commonAncestorContainer)) {
-      return;
-    }
-    const spans = Array.from(article.querySelectorAll<HTMLElement>('.w')).filter((w) => range.intersectsNode(w));
-    const touched: TouchedWord[] = spans.map((w) => ({ s: Number(w.dataset['s']), t: Number(w.dataset['t']) }));
-    const result = selectWords(touched);
-    if (!result) {
-      return;
-    }
-    // A lookup stays inside one sentence.
-    this.hint.set(result.crossed ? 'Chỉ tra được trong một câu: đã lấy phần thuộc câu đầu.' : null);
-    const anchor = spans.find((w) => Number(w.dataset['s']) === result.sentence && Number(w.dataset['t']) === result.first);
-    if (this.pointerType !== 'touch') {
-      sel.removeAllRanges(); // the system selection menu would cover the popup
-    }
-    // On touch the selection stays, so its handles can still widen it: the popup then follows.
-    this.open(result.sentence, result.first, result.last, anchor ?? article);
-  }
-
   private open(sentence: number, first: number, last: number, anchor: HTMLElement): void {
     const text = this.tokens()[sentence].slice(first, last + 1).map((t) => t.text).join('').trim().replace(/\s+/g, ' ');
     const current = this.selected();
     if (current && current.sentence === sentence && current.first === first && current.last === last && this.anchor()) {
-      return; // same selection reported twice (click + selection)
+      return; // the word already open
     }
     this.selected.set({ sentence, first, last, text });
     this.anchor.set(anchor);
@@ -443,11 +487,6 @@ export class Reading implements OnInit {
     this.stopAsking();
     this.anchor.set(null);
     this.selected.set(null);
-    // A touch selection left for its handles goes with the popup.
-    const sel = document.getSelection();
-    if (sel && !sel.isCollapsed && this.article()?.nativeElement.contains(sel.anchorNode)) {
-      sel.removeAllRanges();
-    }
     anchor?.focus();
   }
 

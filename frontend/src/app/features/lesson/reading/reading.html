@@ -18,18 +18,18 @@
           <span class="tag">{{ l.topic }}</span>
         }
       </div>
-      <p class="muted">Chạm vào một từ để tra nghĩa, hoặc bôi đen nhiều từ để tra cả cụm.</p>
+      <ul class="tips" aria-label="Cách dùng bài đọc">
+        <li><span class="tip-key" aria-hidden="true">👆</span> <b>Chạm một từ</b> để xem nghĩa và lưu vào sổ từ</li>
+        <li><span class="tip-key" aria-hidden="true">✋</span> <b>Giữ một câu khoảng 2 giây</b> để xem bản dịch cả câu</li>
+      </ul>
     </header>
 
-    @if (hint(); as message) {
-      <p class="hint" role="status">{{ message }}</p>
-    }
 
     <article #article class="article" lang="en">
       @for (paragraph of l.paragraphs; track $index) {
         <p class="para">
           @for (s of paragraph; track s) {
-            <span class="sentence" [attr.data-s]="s">
+            <span class="sentence" [attr.data-s]="s" [class.pressing]="pressing() === s" [class.translated]="translated()?.sentence === s">
               @for (tok of tokens()[s]; track tok.index) {
                 @if (tok.isWord) {
                   @let k = key(s, tok.index);
@@ -125,4 +125,25 @@
     (listen)="play()"
     (ask)="ask()"
   />
+</ng-template>
+
+<!-- The translation of a held sentence (or of the focused word's sentence, key T). -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="translated()?.anchor ?? hostElement"
+  [cdkConnectedOverlayOpen]="translated() !== null"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayPush]="true"
+  [cdkConnectedOverlayViewportMargin]="8"
+  (overlayOutsideClick)="onTranslationOutsideClick()"
+  (overlayKeydown)="onTranslationKeydown($event)"
+  (detach)="translated() && closeTranslation()"
+>
+  @if (translated(); as t) {
+    <lu-sentence-translation
+      [sentence]="lesson()?.sentences?.[t.sentence]?.text ?? ''"
+      [translation]="lesson()?.sentenceTranslations?.[t.sentence] ?? null"
+      (closed)="closeTranslation()"
+    />
+  }
 </ng-template>

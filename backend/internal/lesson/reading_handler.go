@@ -60,6 +60,8 @@ type readingJSON struct {
 	GrammarPointID string `json:"grammarPointId"`
 	// Turns is set for a dialogue lesson: one entry per "Name: text" line.
 	Turns []textTurnJSON `json:"turns"`
+	// SentenceTranslations: the Vietnamese of each sentence, shown on a long press; [] when none.
+	SentenceTranslations []string `json:"sentenceTranslations"`
 	// AskQuota is the learner's quota of "Hỏi AI" in this lesson (F9).
 	AskQuota askQuotaJSON `json:"askQuota"`
 }
@@ -101,6 +103,10 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 		Sentences:  make([]sentenceJSON, len(v.Sentences)),
 		Paragraphs: v.Paragraphs, Lemmas: v.Lemmas,
 		Phrases: make([]phraseJSON, len(v.Phrases)), GrammarPointID: v.GrammarPointID,
+		SentenceTranslations: v.SentenceTranslations,
+	}
+	if out.SentenceTranslations == nil {
+		out.SentenceTranslations = []string{}
 	}
 	for _, t := range v.Turns {
 		out.Turns = append(out.Turns, textTurnJSON(t))
