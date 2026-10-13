@@ -71,7 +71,23 @@ func (t topicRoadmaps) Roadmap(ctx context.Context, topicID, level string) (prog
 	if err != nil {
 		return progress.TopicInfo{}, err
 	}
-	return progress.TopicInfo{ID: tp.ID, Name: tp.Name, Level: level, LessonIDs: ids}, nil
+	return progress.TopicInfo{ID: tp.ID, Name: tp.Name, Description: tp.Description, Level: level, LessonIDs: ids}, nil
+}
+
+func (t topicRoadmaps) LevelRoadmaps(ctx context.Context) (map[string][]progress.TopicInfo, error) {
+	byLevel, err := t.svc.LearnerRoadmaps(ctx)
+	if err != nil {
+		return nil, err
+	}
+	out := make(map[string][]progress.TopicInfo, len(byLevel))
+	for level, list := range byLevel {
+		for _, r := range list {
+			out[level] = append(out[level], progress.TopicInfo{
+				ID: r.TopicID, Name: r.TopicName, Description: r.TopicDescription, Level: level, LessonIDs: r.LessonIDs,
+			})
+		}
+	}
+	return out, nil
 }
 
 // dailyReviews adapts vocab.Service to progress.Reviews.

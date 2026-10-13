@@ -20,8 +20,8 @@ interface Tab {
 const TABS: readonly Tab[] = [
   { path: '/', label: 'Trang chủ', icon: 'home', matches: (p) => p === '/' },
   {
-    path: '/goal',
-    label: 'Khóa học',
+    path: '/lessons',
+    label: 'Học',
     icon: 'book',
     matches: (p) => p.startsWith('/lessons') || p === '/goal',
   },
@@ -36,9 +36,12 @@ const TABS: readonly Tab[] = [
   },
 ];
 
-/** Studying a lesson takes the whole phone screen, like the sketch: no tab bar there. */
-function isFocusPage(path: string): boolean {
-  return /^\/lessons\/[^/]+\/(read|listen|write)$/.test(path);
+/**
+ * Studying a lesson takes the whole phone screen, like the sketch: no tab bar there, so the step
+ * buttons and the answer fields are not squeezed under it. The lesson page has its own close button.
+ */
+export function isFocusPage(path: string): boolean {
+  return /^\/lessons\/[^/]+(\/(read|listen|write))?$/.test(path);
 }
 
 /**

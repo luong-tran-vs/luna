@@ -39,6 +39,9 @@ type Roadmaps interface {
 	// Roadmap returns the topic with its roadmap at level ("" gives the topic with no roadmap);
 	// ErrTopicNotFound when the topic does not exist.
 	Roadmap(ctx context.Context, topicID, level string) (TopicInfo, error)
+	// LevelRoadmaps lists, per level, the topics with lessons there (in topic order) with their
+	// roadmaps; a level with no lesson has no entry.
+	LevelRoadmaps(ctx context.Context) (map[string][]TopicInfo, error)
 }
 
 // ReadingQuiz is what the Reading step needs from the comprehension questions (F15, implemented

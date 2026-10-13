@@ -1,0 +1,769 @@
+/*
+ * One part of the "Học" tab (design/lo-trinh.png): a blue banner with the part's progress, then
+ * each roadmap as round steps on a winding dashed road over a dotted background.
+ */
+
+:host {
+  /* Colors of the design, drawn from the palette so other palettes still fit. */
+  --lp-blue: color-mix(in srgb, var(--color-primary) 30%, #2f80ed);
+  --lp-green: color-mix(in srgb, var(--color-ok) 40%, #10b981);
+  --lp-gold: #f5a524;
+  display: block;
+  min-height: 100%;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-text-muted) 22%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+}
+
+.learn {
+  max-width: 720px;
+}
+
+.muted {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.members-banner {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.milestone {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* --- banner --- */
+
+.banner {
+  display: grid;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: 672px;
+  justify-self: center;
+  padding: 28px var(--space-6) var(--space-5);
+  color: #fff;
+  background:
+    radial-gradient(circle at 85% 20%, rgb(255 255 255 / 0.14), transparent 45%),
+    linear-gradient(
+      110deg,
+      color-mix(in srgb, var(--lp-blue) 70%, #4f46e5),
+      color-mix(in srgb, var(--color-primary) 45%, #4f46e5) 55%,
+      color-mix(in srgb, var(--lp-blue) 80%, #60a5fa)
+    );
+  border-radius: 24px;
+  box-shadow: 0 18px 36px -14px color-mix(in srgb, var(--lp-blue) 70%, transparent);
+}
+
+.banner-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.banner-main {
+  display: grid;
+  flex: 1;
+  gap: var(--space-2);
+  justify-items: start;
+  min-width: 0;
+}
+
+.banner-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* Back to the list of parts ("Học"), beside the part's name. */
+.back-link {
+  --icon-size: 18px;
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: inherit;
+  background: rgb(255 255 255 / 0.16);
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: 50%;
+  transition:
+    background 120ms ease,
+    transform 120ms ease;
+}
+
+/* A bigger touch area than the circle shows. */
+.back-link::after {
+  position: absolute;
+  inset: -6px;
+  content: '';
+}
+
+.back-link:hover {
+  background: rgb(255 255 255 / 0.3);
+}
+
+.back-link:active {
+  transform: scale(0.94);
+}
+
+.back-link:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+.is-empty .back-link {
+  background: var(--color-track);
+  border-color: transparent;
+}
+
+.banner-label {
+  margin: 0;
+  padding: 2px var(--space-4);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgb(255 255 255 / 0.16);
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: var(--radius-full);
+}
+
+.banner-title {
+  margin: 0;
+  font: var(--text-2xl) var(--font-ui);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.banner-text {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  opacity: 0.92;
+}
+
+.banner-side {
+  display: grid;
+  flex: none;
+  gap: var(--space-3);
+  justify-items: end;
+  padding-top: var(--space-5);
+}
+
+.banner-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 30px;
+  padding: 0 var(--space-3);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  background: rgb(255 255 255 / 0.16);
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: var(--radius-md);
+}
+
+.banner-count lu-icon {
+  --icon-size: 14px;
+  color: #fcd34d;
+}
+
+.guide-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 34px;
+  padding: 0 var(--space-3) 0 var(--space-4);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--lp-blue);
+  background: #fff;
+  border: 0;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.12);
+  cursor: pointer;
+}
+
+.guide-btn lu-icon {
+  --icon-size: 16px;
+}
+
+.guide-btn:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* A part with no lesson yet: plain and locked. */
+.is-empty .banner {
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 2px dashed var(--color-line);
+  box-shadow: none;
+}
+
+.is-empty :is(.banner-label, .banner-chip) {
+  background: var(--color-track);
+  border-color: transparent;
+}
+
+/* --- progress, at the bottom of the banner --- */
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgb(255 255 255 / 0.22);
+}
+
+.summary-line {
+  flex: none;
+  margin: 0;
+  font: var(--text-xs) var(--font-ui);
+  opacity: 0.95;
+}
+
+.count {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  background: rgb(15 23 42 / 0.28);
+  border-radius: var(--radius-full);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  min-width: 6px;
+  background: linear-gradient(90deg, #5eead4, #34d399);
+  border-radius: inherit;
+}
+
+.percent {
+  flex: none;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 800;
+  color: #a7f3d0;
+}
+
+/* --- guide --- */
+
+.guide {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.guide[hidden] {
+  display: none;
+}
+
+.guide-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.guide-list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--color-text-muted);
+}
+
+.no-lesson {
+  margin: 0;
+  padding: var(--space-5) 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* --- the road: roadmaps one after another, the next one's title on a line across --- */
+
+.journey {
+  display: grid;
+  padding-top: var(--space-6);
+}
+
+.divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: var(--space-6) 0;
+  /* The thin line across, behind the title. */
+  background: linear-gradient(var(--color-line), var(--color-line)) center / min(100%, 560px) 1px
+    no-repeat;
+}
+
+/* The road going on through the title. */
+.divider::before {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 4px;
+  background: repeating-linear-gradient(var(--lp-blue) 0 9px, transparent 9px 17px);
+  box-shadow: 0 0 0 4px var(--color-surface);
+  transform: translateX(-50%);
+  content: '';
+}
+
+.divider-text {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: min(100% - 2 * var(--space-6), 360px);
+  margin-inline: auto;
+  padding: var(--space-2) var(--space-5);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.divider-label {
+  font: var(--text-xs) var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.divider-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.roadmap {
+  scroll-margin-top: calc(var(--header-h, 0px) + 96px);
+}
+
+/* --- the winding path --- */
+
+.path {
+  position: relative;
+  margin-inline: auto;
+}
+
+.way {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+}
+
+.way path {
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* A light band under the dashes, like a road. */
+.way-road {
+  stroke: var(--color-surface);
+  stroke-width: 14;
+  filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--color-text) 14%, transparent));
+}
+
+.way-locked {
+  stroke: var(--lp-blue);
+  stroke-width: 4;
+  stroke-dasharray: 9 8;
+  stroke-linecap: butt;
+}
+
+.way-open {
+  stroke: var(--lp-green);
+  stroke-width: 6;
+}
+
+.nodes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A step: its circle centered on (left, top), its label under it. */
+.node {
+  --size: 56px;
+  --tone: radial-gradient(circle at 50% 35%, #fff, #e3e8f0 70%);
+  --edge: #b8c2d1;
+  --icon: #8794a8;
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  transform: translate(-50%, calc(var(--size) / -2));
+}
+
+.is-done {
+  --tone: var(--lp-green);
+  --edge: color-mix(in srgb, var(--lp-green) 65%, #000);
+  --icon: #fff;
+}
+
+/* The step to study now: big, green, with a play icon and Luna beside it. */
+.is-focus {
+  --size: 80px;
+  --tone: linear-gradient(160deg, color-mix(in srgb, var(--lp-green) 80%, #fff), var(--lp-green));
+  --edge: color-mix(in srgb, var(--lp-green) 60%, #000);
+  --solid: var(--lp-green);
+  --icon: #fff;
+  z-index: 2;
+}
+
+/* Start of another roadmap: a small blue star. */
+.is-jump:not(.is-focus) {
+  --size: 48px;
+  --tone: linear-gradient(160deg, color-mix(in srgb, var(--lp-blue) 70%, #fff), var(--lp-blue));
+  --edge: color-mix(in srgb, var(--lp-blue) 55%, #000);
+  --solid: var(--lp-blue);
+  --icon: #fff;
+}
+
+.finish {
+  --size: 52px;
+  --tone: linear-gradient(160deg, #fcd34d, var(--lp-gold));
+  --edge: #c2570c;
+  --icon: #fff;
+}
+
+.bubble-btn {
+  --icon-size: 28px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size);
+  height: var(--size);
+  color: var(--icon);
+  text-decoration: none;
+  background: var(--tone);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  /* A shade inside the bottom gives depth while the outline stays a true circle. */
+  box-shadow:
+    inset 0 -5px 0 color-mix(in srgb, var(--edge) 55%, transparent),
+    0 6px 14px -4px rgb(15 23 42 / 0.28);
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.is-locked .bubble-btn,
+.is-membersOnly .bubble-btn {
+  --icon-size: 20px;
+  border-color: #f1f4f8;
+  box-shadow:
+    inset 0 -4px 0 color-mix(in srgb, var(--edge) 45%, transparent),
+    0 5px 12px -4px rgb(15 23 42 / 0.22);
+}
+
+.is-done .bubble-btn {
+  --icon-size: 24px;
+}
+
+.finish .bubble-btn {
+  --icon-size: 24px;
+  border-width: 2px;
+}
+
+.is-jump:not(.is-focus) .bubble-btn {
+  --icon-size: 22px;
+}
+
+button.bubble-btn {
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+button.bubble-btn:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+:is(a, button).bubble-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+:is(a, button).bubble-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+:is(a, button).bubble-btn:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 6px;
+}
+
+.is-focus .bubble-btn {
+  --icon-size: 30px;
+  border-width: 4px;
+  box-shadow:
+    inset 0 -6px 0 color-mix(in srgb, var(--edge) 55%, transparent),
+    0 0 0 10px color-mix(in srgb, var(--solid) 18%, transparent),
+    0 10px 26px -6px color-mix(in srgb, var(--solid) 60%, transparent);
+  animation: glow 2.4s ease-in-out infinite;
+}
+
+@keyframes glow {
+  50% {
+    box-shadow:
+      inset 0 -6px 0 color-mix(in srgb, var(--edge) 55%, transparent),
+      0 0 0 16px color-mix(in srgb, var(--solid) 10%, transparent),
+      0 10px 26px -6px color-mix(in srgb, var(--solid) 60%, transparent);
+  }
+}
+
+/* Bubble over the step to study and over the start of another roadmap. */
+.cta {
+  --icon-size: 14px;
+  position: absolute;
+  bottom: calc(100% + 18px);
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #fff;
+  white-space: nowrap;
+  text-transform: uppercase;
+  background: var(--solid, var(--lp-green));
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 14px -4px color-mix(in srgb, var(--solid, var(--lp-green)) 70%, transparent);
+  transform: translateX(-50%);
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+.is-jump:not(.is-focus) .cta {
+  bottom: calc(100% + 14px);
+  border-radius: var(--radius-full);
+}
+
+.cta lu-icon {
+  color: #fde68a;
+}
+
+.cta::after {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 6px solid transparent;
+  border-top-color: var(--solid, var(--lp-green));
+  transform: translateX(-50%);
+  content: '';
+}
+
+@keyframes bob {
+  50% {
+    transform: translate(-50%, -4px);
+  }
+}
+
+.node-label {
+  padding: 2px var(--space-3);
+  font: var(--text-xs) var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+}
+
+.is-done .node-label {
+  color: var(--color-ok);
+  border-color: color-mix(in srgb, var(--color-ok) 35%, transparent);
+}
+
+.is-focus .node-label {
+  padding: var(--space-1) var(--space-3);
+  color: color-mix(in srgb, var(--lp-green) 55%, #000);
+  text-transform: uppercase;
+  box-shadow: var(--shadow-card);
+}
+
+.is-jump:not(.is-focus) .node-label {
+  max-width: min(280px, 80vw);
+  overflow: hidden;
+  color: var(--lp-blue);
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--lp-blue) 8%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--lp-blue) 30%, transparent);
+}
+
+.finish .node-label {
+  padding: var(--space-1) var(--space-4);
+  color: #92400e;
+  text-transform: uppercase;
+  background: #fef6dc;
+  border-color: #fbe3a1;
+}
+
+/* --- Luna beside the step to study --- */
+
+.luna {
+  position: absolute;
+  top: calc(var(--size) / 2);
+  left: calc(50% + var(--size) / 2 + 48px);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  transform: translateY(-50%);
+  pointer-events: none;
+  animation: float 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: translate;
+}
+
+.luna.is-left {
+  right: calc(50% + var(--size) / 2 + 48px);
+  left: auto;
+  flex-direction: row-reverse;
+}
+
+.luna-say {
+  position: relative;
+  width: 132px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.luna-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 3px solid var(--color-surface);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+/* A gentle up and down; `translate` leaves the centering transform alone. */
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* On small screens, Luna alone: no room for the words, and a smaller step to study. */
+@media (max-width: 640px) {
+  .is-focus {
+    --size: 64px;
+  }
+
+  .is-focus .bubble-btn {
+    --icon-size: 24px;
+    border-width: 3px;
+  }
+
+  .luna-say {
+    display: none;
+  }
+
+  .luna-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .banner {
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-4) var(--space-3);
+    border-radius: 20px;
+  }
+
+  .banner-main {
+    gap: 6px;
+  }
+
+  .banner-title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .banner-text {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .banner-chip,
+  .guide-btn {
+    min-height: 30px;
+  }
+
+  .summary {
+    padding-top: var(--space-3);
+  }
+
+  .banner-head {
+    flex-direction: column;
+  }
+
+  .banner-side {
+    grid-auto-flow: column;
+    align-items: center;
+    padding-top: 0;
+  }
+
+  .summary {
+    flex-wrap: wrap;
+  }
+
+  .track {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .percent {
+    margin-left: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble-btn,
+  .is-focus .bubble-btn,
+  .cta,
+  .luna {
+    transition: none;
+    animation: none;
+  }
+}

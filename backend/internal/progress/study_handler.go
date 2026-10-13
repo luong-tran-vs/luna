@@ -29,6 +29,7 @@ func (h *StudyHandler) Register(mux *http.ServeMux, requireAuth httpx.Middleware
 	mux.Handle("GET /api/goals", requireAuth(http.HandlerFunc(h.goals)))
 	mux.Handle("POST /api/goals", requireAuth(http.HandlerFunc(h.setGoal)))
 	mux.Handle("GET /api/lessons/mine", requireAuth(http.HandlerFunc(h.mine)))
+	mux.Handle("GET /api/lessons/path", requireAuth(http.HandlerFunc(h.path)))
 	mux.Handle("GET /api/lessons/{id}/study", requireAuth(h.Guard(http.HandlerFunc(h.study))))
 	mux.Handle("POST /api/lessons/{id}/steps/{step}/complete", requireAuth(http.HandlerFunc(h.complete)))
 	mux.Handle("POST /api/lessons/{id}/steps/write/skip", requireAuth(http.HandlerFunc(h.skipWrite)))
@@ -133,7 +134,67 @@ type mineJSON struct {
 	Upcoming  []lessonRefJSON `json:"upcoming"`
 }
 
+type pathLessonJSON struct {
+	ID    string `json:"id"`
+	Title string `json:"title"`
+	State string `json:"state"`
+}
+
+type pathRoadmapJSON struct {
+	TopicID          string           `json:"topicId"`
+	TopicName        string           `json:"topicName"`
+	TopicDescription string           `json:"topicDescription"`
+	Active           bool             `json:"active"`
+	Completed        int              `json:"completed"`
+	Lessons          []pathLessonJSON `json:"lessons"`
+}
+
+type milestoneJSON struct {
+	Level     string            `json:"level"`
+	Active    bool              `json:"active"`
+	Completed int               `json:"completed"`
+	Total     int               `json:"total"`
+	Roadmaps  []pathRoadmapJSON `json:"roadmaps"`
+}
+
+type pathJSON struct {
+	TopicID    string          `json:"topicId"`
+	TopicName  string          `json:"topicName"`
+	Milestones []milestoneJSON `json:"milestones"`
+	Streak     int             `json:"streak"`
+}
+
 // --- handlers ---
+
+func (h *StudyHandler) path(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	v, err := h.svc.Path(r.Context(), p.UserID)
+	if err != nil {
+		h.fail(w, r, err)
+		return
+	}
+	out := pathJSON{
+		TopicID: v.TopicID, TopicName: v.TopicName, Streak: v.Streak,
+		Milestones: make([]milestoneJSON, len(v.Milestones)),
+	}
+	for i, m := range v.Milestones {
+		roadmaps := make([]pathRoadmapJSON, len(m.Roadmaps))
+		for j, r := range m.Roadmaps {
+			lessons := make([]pathLessonJSON, len(r.Lessons))
+			for k, l := range r.Lessons {
+				lessons[k] = pathLessonJSON{ID: l.ID, Title: l.Title, State: string(l.State)}
+			}
+			roadmaps[j] = pathRoadmapJSON{
+				TopicID: r.TopicID, TopicName: r.TopicName, TopicDescription: r.TopicDescription,
+				Active: r.Active, Completed: r.Completed, Lessons: lessons,
+			}
+		}
+		out.Milestones[i] = milestoneJSON{
+			Level: m.Level, Active: m.Active, Completed: m.Completed, Total: m.Total, Roadmaps: roadmaps,
+		}
+	}
+	httpx.WriteJSON(w, http.StatusOK, out)
+}
 
 func (h *StudyHandler) goals(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())

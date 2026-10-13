@@ -291,7 +291,7 @@ describe('LessonDetail', () => {
     it('shows the close link, progress, streak, lesson number, title, objective and level', async () => {
       await open();
       expect(el.querySelector('a[aria-label="Đóng, về danh sách bài"]')?.getAttribute('href')).toBe(
-        '/lessons',
+        '/lessons/levels/A1',
       );
       expect(progress().getAttribute('aria-valuenow')).toBe('1');
       expect(text(el.querySelector('.progress-text'))).toBe('1/4');
@@ -907,8 +907,28 @@ describe('LessonDetail', () => {
         other({ status: 'completed', currentStep: 'done' }),
       );
       await flushDue(35);
+      // The submitted writing is linked with its score.
+      http.expectOne('/lessons/l1/writing').flush({
+        prompt: 'Write about your family.',
+        level: 'A1',
+        canWrite: false,
+        writing: {
+          id: 'w1',
+          lessonId: 'l1',
+          lessonTitle: 'Family',
+          prompt: 'Write about your family.',
+          text: 'My family is big.',
+          status: 'submitted',
+          submittedAt: '2026-10-12T08:00:00Z',
+          grade: { status: 'done', error: '', criteria: [], average: 3.5, overallVi: '' },
+        },
+      });
+      await fixture.whenStable();
+      const result = el.querySelector('.done-card a.writing-result')!;
+      expect(result.getAttribute('href')).toBe('/writings/w1');
+      expect(text(result)).toBe('Xem nhận xét bài viết (3,5/5)');
       expect(text(el.querySelector('.done-card'))).toContain('Chủ đề này chưa có bài tiếp theo');
-      expect(el.querySelector('.done-card a[href="/lessons"]')).not.toBeNull();
+      expect(el.querySelector('.done-card a[href="/lessons/levels/A1"]')).not.toBeNull();
       // A large backlog is said so; with no next lesson the review link carries none.
       const nudge = el.querySelector('.review-nudge')!;
       expect(text(nudge)).toContain('35 thẻ');

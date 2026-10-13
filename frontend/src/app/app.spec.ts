@@ -87,13 +87,13 @@ describe('App', () => {
     expect(el.querySelector('lu-learner-layout footer lu-connection-status')).not.toBeNull();
     expect(el.querySelector('lu-app-header')).toBeNull();
     const tabs = () => Array.from(el.querySelectorAll<HTMLAnchorElement>('lu-learner-layout .tabs a'));
-    expect(tabs().map((a) => a.getAttribute('href'))).toEqual(['/', '/goal', '/grammar', '/irregular-verbs', '/vocabulary/review', '/account']);
+    expect(tabs().map((a) => a.getAttribute('href'))).toEqual(['/', '/lessons', '/grammar', '/irregular-verbs', '/vocabulary/review', '/account']);
     const current = () => tabs().filter((a) => a.getAttribute('aria-current') === 'page').map((a) => a.textContent?.trim());
     expect(current()).toEqual(['Trang chủ']);
 
     for (const [url, tab] of [
-      ['/goal', 'Khóa học'],
-      ['/lessons', 'Khóa học'],
+      ['/goal', 'Học'],
+      ['/lessons', 'Học'],
       ['/grammar', 'Ngữ pháp'],
       ['/grammar/a1-to-be', 'Ngữ pháp'],
       ['/vocabulary', 'Ôn tập'],

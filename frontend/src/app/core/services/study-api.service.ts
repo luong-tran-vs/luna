@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { Goals, LessonStudy, MyLessons, PublicTopic, SetGoalResult, Step } from '../models/study';
+import { Goals, LearningPath, LessonStudy, MyLessons, PublicTopic, SetGoalResult, Step } from '../models/study';
 
 /** The study flow (L): goals, the learner's lessons and the steps of the lesson being studied. */
 @Injectable({ providedIn: 'root' })
@@ -42,5 +42,10 @@ export class StudyApiService {
 
   myLessons(): Observable<MyLessons> {
     return this.http.get<MyLessons>('/lessons/mine');
+  }
+
+  /** The goal's topic split into one milestone per level, each lesson a step. */
+  path(): Observable<LearningPath> {
+    return this.http.get<LearningPath>('/lessons/path');
   }
 }

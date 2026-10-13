@@ -116,36 +116,6 @@
       }
     }
 
-    @if (d.goal; as g) {
-      <section class="course" aria-labelledby="course-heading">
-        <h2 class="section-title" id="course-heading">Khóa học của tôi</h2>
-        <div class="soft-card">
-          <a class="course-link" routerLink="/lessons">
-            <span class="icon-chip tone-read"><lu-icon name="layers" /></span>
-            <span class="course-text">
-              <span class="course-name">{{ g.level }} · {{ g.topicName }}</span>
-              <span class="muted">Đã học {{ g.completedLessons }}/{{ g.totalLessons }} bài</span>
-            </span>
-            <lu-icon class="chevron" name="chevron-right" />
-          </a>
-          @if (skillAccuracy(); as skills) {
-            <div class="skills" role="group" aria-label="Độ chính xác theo kỹ năng">
-              @for (s of skills; track s.key) {
-                @if (s.percent !== null) {
-                  <lu-progress-bar [label]="s.label" [tone]="s.key" [value]="s.percent" [max]="100" [percentage]="true" />
-                } @else {
-                  <div class="skill-empty">
-                    <span>{{ s.label }}</span>
-                    <span class="muted">Chưa có</span>
-                  </div>
-                }
-              }
-            </div>
-          }
-        </div>
-      </section>
-    }
-
     <a class="soft-card tomorrow" routerLink="/vocabulary/review">
       <span class="icon-chip"><lu-icon name="calendar" /></span>
       <span class="tomorrow-text">

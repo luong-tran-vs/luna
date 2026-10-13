@@ -89,7 +89,7 @@ describe('Goal', () => {
     expect(text(current)).toContain('Đã học 2/12 bài');
     expect(current.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('2');
     expect(current.querySelector('a[href="/lessons/l2"]')?.textContent?.trim()).toBe('Tiếp tục học');
-    expect(current.querySelector('a[href="/lessons"]')?.textContent?.trim()).toBe('Danh sách bài');
+    expect(current.querySelector('a[href="/lessons"]')?.textContent?.trim()).toBe('Xem lộ trình');
   });
 
   const openCurrent = async (home: Dashboard, mine: MyLessons = studyingMine) => {
@@ -111,7 +111,7 @@ describe('Goal', () => {
       upcoming: [],
     });
     expect(current.querySelector('.btn-primary')).toBeNull();
-    expect(text(current.querySelector('[role="status"]'))).toContain('Khóa học này chưa có bài mới');
+    expect(text(current.querySelector('[role="status"]'))).toContain('Chủ đề này chưa có bài mới');
     expect(current.querySelector('a[href="/lessons"]')).not.toBeNull();
   });
 

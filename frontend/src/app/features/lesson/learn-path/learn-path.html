@@ -1,0 +1,231 @@
+<section class="screen learn">
+  <h1 class="visually-hidden">{{ title() }}</h1>
+
+  @if (error()) {
+    <p class="form-alert" role="alert">Không tải được lộ trình học.</p>
+  } @else if (data()) {
+    @if (part(); as v) {
+      @let m = v.milestone;
+      <section
+        class="milestone"
+        [class.is-active]="m.active"
+        [class.is-empty]="m.roadmaps.length === 0"
+        [attr.aria-labelledby]="'part-' + m.level"
+      >
+        <header class="banner">
+          <div class="banner-head">
+            <div class="banner-main">
+              <div class="banner-top">
+                <a class="back-link" routerLink="/lessons" aria-label="Quay lại trang Học"
+                  ><lu-icon name="arrow-left"
+                /></a>
+                <p class="banner-label">Phần {{ v.number }} • {{ m.level }} {{ v.levelName }}</p>
+              </div>
+              <h2 class="banner-title" [id]="'part-' + m.level">{{ bannerTitle() }}</h2>
+              <p class="banner-text">{{ bannerText() }}</p>
+            </div>
+            <div class="banner-side">
+              @if (m.roadmaps.length === 0) {
+                <span class="banner-chip" role="img" aria-label="Đang khoá"
+                  ><lu-icon name="lock"
+                /></span>
+              } @else {
+                <span class="banner-chip banner-count"
+                  ><lu-icon name="sparkles" />{{ m.roadmaps.length }} lộ trình</span
+                >
+              }
+              <button
+                type="button"
+                class="guide-btn"
+                aria-controls="path-guide"
+                [attr.aria-expanded]="guideOpen()"
+                (click)="guideOpen.set(!guideOpen())"
+              >
+                Hướng dẫn <lu-icon name="chevron-right" />
+              </button>
+            </div>
+          </div>
+
+          @if (progress(); as p) {
+            <div class="summary">
+              <p class="summary-line">
+                Tiến độ: <strong class="count">{{ p.done }} / {{ p.total }}</strong> bài hoàn thành
+              </p>
+              <div
+                class="track"
+                role="progressbar"
+                [attr.aria-label]="'Tiến độ ' + p.label"
+                aria-valuemin="0"
+                [attr.aria-valuemax]="p.total"
+                [attr.aria-valuenow]="p.done"
+              >
+                <span class="fill" [style.width.%]="p.percent"></span>
+              </div>
+              <span class="percent">{{ p.percent }}%</span>
+            </div>
+          }
+        </header>
+
+        <div class="soft-card guide" id="path-guide" [hidden]="!guideOpen()">
+          <p class="guide-title">Học theo lộ trình thế nào?</p>
+          <ul class="guide-list">
+            <li>Mỗi chặng là một chủ đề, gồm các bài học nối tiếp nhau.</li>
+            <li>Bấm “Học chủ đề này?” để chọn chủ đề làm mục tiêu và vào bài đầu tiên chưa học.</li>
+            <li>
+              Học xong một bài thì bài kế tiếp mở khoá; bài đã học có thể mở lại bất cứ lúc nào.
+            </li>
+            <li>Học hết các bài để nhận cúp hoàn thành chặng.</li>
+          </ul>
+        </div>
+
+        @if (membersOnly()) {
+          <p class="soft-card members-banner" role="note">
+            <lu-icon name="lock" /> Tài khoản khách chỉ học được bài đầu tiên của mỗi lộ trình. Các
+            bài sau chỉ dành cho thành viên — liên hệ quản trị viên để được nâng quyền.
+          </p>
+        }
+        @if (switchError(); as message) {
+          <p class="form-alert" role="alert">{{ message }}</p>
+        }
+
+        @if (m.roadmaps.length === 0) {
+          <p class="no-lesson">Phần này sẽ mở khi có bài mới.</p>
+        }
+
+        <div class="journey">
+          @for (rv of v.roadmaps; track rv.roadmap.topicId; let first = $first) {
+            @let r = rv.roadmap;
+            @if (!first) {
+              <h3 class="divider">
+                <span class="divider-text">
+                  <span class="divider-label"
+                    >Lộ trình tiếp theo<span class="visually-hidden">: </span></span
+                  >
+                  <span class="divider-title">Lộ trình {{ rv.number }} • {{ r.topicName }}</span>
+                </span>
+              </h3>
+            }
+            <div class="roadmap" [class.is-active]="r.active">
+              @if (r.lessons.length === 0) {
+                <p class="no-lesson">Lộ trình này chưa có bài nào. Hãy quay lại sau.</p>
+              } @else {
+                <div class="path" [style.height.px]="rv.height" [style.max-width.px]="pathWidth">
+                  <svg
+                    class="way"
+                    [attr.viewBox]="'0 0 ' + pathWidth + ' ' + rv.height"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <path class="way-road" [attr.d]="rv.road" />
+                    <path class="way-locked" [attr.d]="rv.locked" />
+                    <path class="way-open" [attr.d]="rv.open" />
+                  </svg>
+                  <ol class="nodes">
+                    @if (rv.start; as s) {
+                      <li
+                        class="node is-jump"
+                        [class.is-focus]="s.focus"
+                        [style.left.%]="(s.x / pathWidth) * 100"
+                        [style.top.px]="s.y"
+                      >
+                        <button
+                          type="button"
+                          class="bubble-btn"
+                          [disabled]="pending()"
+                          (click)="study(r, m.level)"
+                        >
+                          @if (s.focus) {
+                            <span class="cta" aria-hidden="true"
+                              ><lu-icon name="sparkles" />Học chủ đề này?</span
+                            >
+                          } @else {
+                            <span class="cta" aria-hidden="true"
+                              >Bắt đầu lộ trình {{ rv.number }}</span
+                            >
+                          }
+                          <lu-icon [name]="s.focus ? 'play' : 'star'" />
+                          <span class="visually-hidden"
+                            >Học lộ trình {{ r.topicName }} {{ m.level }}</span
+                          >
+                        </button>
+                        <span class="node-label" aria-hidden="true">{{
+                          s.focus ? 'Bắt đầu ngay' : s.next
+                        }}</span>
+                        @if (s.focus) {
+                          <ng-container *ngTemplateOutlet="luna; context: { $implicit: s.x }" />
+                        }
+                      </li>
+                    }
+                    @for (node of rv.nodes; track node.lesson.id) {
+                      <li
+                        class="node"
+                        [class]="'is-' + node.lesson.state"
+                        [class.is-focus]="node.focus"
+                        [style.left.%]="(node.x / pathWidth) * 100"
+                        [style.top.px]="node.y"
+                      >
+                        @if (node.lesson.state === 'done' || node.lesson.state === 'current') {
+                          <a
+                            class="bubble-btn"
+                            [routerLink]="['/lessons', node.lesson.id]"
+                            [attr.aria-label]="lessonLabel(node)"
+                            [title]="node.lesson.title"
+                          >
+                            @if (node.lesson.state === 'current') {
+                              <span class="cta" aria-hidden="true">{{
+                                r.completed > 0 ? 'Tiếp tục' : 'Bắt đầu'
+                              }}</span>
+                            }
+                            <lu-icon [name]="node.lesson.state === 'done' ? 'check' : 'play'" />
+                          </a>
+                        } @else {
+                          <span
+                            class="bubble-btn"
+                            role="img"
+                            [attr.aria-label]="lessonLabel(node)"
+                            [title]="node.lesson.title"
+                          >
+                            <lu-icon name="lock" />
+                          </span>
+                        }
+                        <span class="node-label" aria-hidden="true">Bài {{ node.n }}</span>
+                        @if (node.focus) {
+                          <ng-container *ngTemplateOutlet="luna; context: { $implicit: node.x }" />
+                        }
+                      </li>
+                    }
+                    <li
+                      class="node finish"
+                      [class.is-done]="rv.finish.done"
+                      [style.left.%]="(rv.finish.x / pathWidth) * 100"
+                      [style.top.px]="rv.finish.y"
+                    >
+                      <span class="bubble-btn" aria-hidden="true"><lu-icon name="trophy" /></span>
+                      <span class="node-label"
+                        ><span aria-hidden="true">👑</span>
+                        {{ rv.finish.done ? 'Đã hoàn thành' : 'Hoàn thành' }} chặng
+                        {{ rv.number }}</span
+                      >
+                    </li>
+                  </ol>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </section>
+    } @else {
+      <p class="muted" role="status">Không tìm thấy phần này.</p>
+    }
+  } @else {
+    <lu-loading />
+  }
+</section>
+
+<!-- Luna beside the step to study now, on the side with more room. -->
+<ng-template #luna let-x>
+  <span class="luna" [class.is-left]="lunaLeft(x)" aria-hidden="true">
+    <span class="luna-say">Cùng Luna chinh phục nhé! 🐾</span>
+    <img class="luna-img" ngSrc="images/mascot-cat.png" width="80" height="80" alt="" />
+  </span>
+</ng-template>

@@ -152,6 +152,25 @@ chmod +x build.sh
 
 ## 5. Cấu hình Nginx
 
+Header bảo mật để riêng một file, vì Nginx bỏ các `add_header` của khối `server` ở location nào có `add_header`
+riêng (như location không cache bên dưới): location đó phải `include` lại file này.
+
+```bash
+sudo nano /etc/nginx/snippets/luna-security.conf
+```
+
+```nginx
+# Chỉ dùng HTTPS (trình duyệt bỏ qua header này khi trang còn chạy HTTP)
+add_header Strict-Transport-Security "max-age=31536000" always;
+# Không cho trang khác nhúng app vào iframe; chặn <object> và đổi <base>
+add_header Content-Security-Policy "frame-ancestors 'none'; object-src 'none'; base-uri 'self'" always;
+add_header X-Frame-Options "DENY" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+# Micro dùng cho bước Nói; tắt camera và định vị
+add_header Permissions-Policy "camera=(), geolocation=(), microphone=(self)" always;
+```
+
 ```bash
 sudo nano /etc/nginx/sites-available/luna
 ```
@@ -165,6 +184,10 @@ server {
 
     root /var/www/luna;
     index index.html;
+
+    # Không lộ phiên bản Nginx trong header Server và trang lỗi
+    server_tokens off;
+    include snippets/luna-security.conf;
 
     # Angular SPA: đường dẫn không phải file (vd. /review) trả về index.html
     location / {
@@ -185,6 +208,7 @@ server {
     # Không cache trang chính và các file của service worker (PWA),
     # nếu không người dùng sẽ kẹt ở bản cũ sau khi deploy
     location ~ ^/(index\.html|ngsw\.json|ngsw-worker\.js|safety-worker\.js|manifest\.webmanifest)$ {
+        include snippets/luna-security.conf;
         add_header Cache-Control "no-cache";
     }
 }
@@ -217,7 +241,14 @@ sudo systemctl reload nginx
 Certbot tự thêm khối `listen 443 ssl` và chuyển hướng HTTP sang HTTPS vào file cấu hình ở bước 5, và tự gia hạn
 chứng chỉ (kiểm tra bằng `sudo certbot renew --dry-run`).
 
-Nhớ đặt `COOKIE_SECURE=true` trong `backend/.env` rồi `sudo systemctl restart luna-backend`.
+Nhớ đặt `COOKIE_SECURE=true` trong `backend/.env` rồi `sudo systemctl restart luna-backend`: không có bước này
+cookie phiên thiếu cờ `Secure`. Kiểm tra:
+
+```bash
+curl -sI https://luongtran.site/ | grep -i -E "strict-transport|x-frame|x-content-type|server:"
+curl -s -D - -o /dev/null -X POST https://luongtran.site/api/auth/login \
+  -H 'content-type: application/json' -d '{"email":"…","password":"…"}' | grep -i set-cookie   # phải có "Secure"
+```
 
 ## 7. Cập nhật bản mới
 

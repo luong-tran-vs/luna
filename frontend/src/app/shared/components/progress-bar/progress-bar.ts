@@ -75,12 +75,17 @@ export class ProgressBar {
   readonly tone = input<ProgressTone>('primary');
   /** Show "value%" instead of "value/max" (give `max` as 100). */
   readonly percentage = input(false);
+  /** Text shown instead of the count, e.g. a score "3,5/5"; empty uses the count. */
+  readonly valueText = input('');
 
-  protected readonly text = computed(() =>
-    this.percentage()
+  protected readonly text = computed(() => {
+    if (this.valueText()) {
+      return this.valueText();
+    }
+    return this.percentage()
       ? `${this.value()}%`
-      : `${this.value()}/${this.max()}${this.unit() ? ' ' + this.unit() : ''}`,
-  );
+      : `${this.value()}/${this.max()}${this.unit() ? ' ' + this.unit() : ''}`;
+  });
 
   protected readonly percent = computed(() => {
     const max = this.max();

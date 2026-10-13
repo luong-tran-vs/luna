@@ -47,11 +47,28 @@ describe('AudioBar', () => {
     fixture.componentRef.setInput('progress', 0.5);
     await fixture.whenStable();
     expect(text('.time')).toBe('Đã nghe 00:36 / 01:12');
-    expect(el.querySelector<HTMLElement>('.played')!.style.width).toBe('50%');
-    expect(el.querySelector<HTMLElement>('.knob')!.style.left).toBe('50%');
+    expect(el.querySelector<HTMLElement>('.played')!.style.transform).toBe('scaleX(0.5)');
+    expect(el.querySelector<HTMLElement>('.head')!.style.transform).toBe('translateX(50%)');
     fixture.componentRef.setInput('progress', 2);
     await fixture.whenStable();
-    expect(el.querySelector<HTMLElement>('.played')!.style.width).toBe('100%');
+    expect(el.querySelector<HTMLElement>('.played')!.style.transform).toBe('scaleX(1)');
+  });
+
+  it('follows every frame while playing, and glides only to a position set while stopped', async () => {
+    const track = () => el.querySelector('.track')!;
+    fixture.componentRef.setInput('playing', true);
+    fixture.componentRef.setInput('progress', 0.4);
+    await fixture.whenStable();
+    expect(track().classList.contains('animate')).toBe(false);
+    // The end of the reading: the bar glides to the end.
+    fixture.componentRef.setInput('playing', false);
+    fixture.componentRef.setInput('progress', 1);
+    await fixture.whenStable();
+    expect(track().classList.contains('animate')).toBe(true);
+    // Back to the start at once.
+    fixture.componentRef.setInput('progress', 0);
+    await fixture.whenStable();
+    expect(track().classList.contains('animate')).toBe(false);
   });
 
   it('names the button after what it does', async () => {

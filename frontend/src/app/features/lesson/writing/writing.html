@@ -1,7 +1,7 @@
 <section class="writing" aria-labelledby="writing-heading">
   @if (mode() === null) {
     <nav class="screen-bar back-bar" aria-label="Điều hướng">
-      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"
+      <a class="round-btn" [routerLink]="backLink()" aria-label="Quay lại danh sách bài"
         ><lu-icon name="arrow-left"
       /></a>
       <span class="back-label">Danh sách bài</span>
@@ -16,7 +16,7 @@
       <div class="step-card-head">
         <span class="prompt-label">Đề viết</span>
         @if (suggestion(); as s) {
-          <span class="muted">Viết {{ s.min }}–{{ s.max }} từ (trình độ {{ v.level }})</span>
+          <span class="muted">Nên viết {{ s.min }}–{{ s.max }} từ (trình độ {{ v.level }})</span>
         }
       </div>
       <p class="prompt-text" lang="en">{{ v.prompt }}</p>
@@ -51,6 +51,8 @@
             <p class="count field-hint" id="writing-count">
               {{ words() }}{{ suggestion() ? '/' + suggestion()!.max : '' }} từ
               @if (lengthHint(); as hint) {
+                · {{ hint }}
+              } @else if (suggestionHint(); as hint) {
                 · {{ hint }}
               }
             </p>

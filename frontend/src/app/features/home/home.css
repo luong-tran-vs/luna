@@ -62,8 +62,7 @@
   color: var(--color-text-muted);
 }
 
-.continue,
-.course {
+.continue {
   display: grid;
   gap: var(--space-2);
 }
@@ -72,8 +71,7 @@
   font-weight: 600;
 }
 
-.lesson-head,
-.course-link {
+.lesson-head {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -88,8 +86,7 @@
   --icon-size: 24px;
 }
 
-.lesson-text,
-.course-text {
+.lesson-text {
   display: grid;
   flex: 1;
   min-width: 0;
@@ -122,27 +119,8 @@
   --bar-height: 6px;
 }
 
-.course-link {
-  color: var(--color-text);
-  text-decoration: none;
-}
-
-.course-name {
-  font-weight: 600;
-}
-
 .chevron {
   color: var(--color-text-muted);
-}
-
-.skills {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-line);
-
-  --bar-height: 6px;
 }
 
 .tomorrow,
@@ -167,12 +145,6 @@
 .due-hint {
   display: block;
   font-weight: 400;
-}
-
-.skill-empty {
-  display: grid;
-  gap: var(--space-1);
-  font: var(--text-sm) var(--font-ui);
 }
 
 .actions {

@@ -100,6 +100,25 @@ describe('compareDictation', () => {
     expect(statuses(r.words)).toEqual(["!its>it's", 'a', 'well', 'known', 'place']);
   });
 
+  it('accepts a number in digits for a number in words, and the other way round', () => {
+    const r = compareDictation("At twelve o'clock, I take a break.", 'At 12 oclock I take a break');
+    expect(r).toMatchObject({ correctWords: 7, totalWords: 7 });
+    expect(r.words[1]).toEqual({ status: 'ok', word: '12', expected: 'twelve' });
+    expect(compareDictation('I have 3 cats.', 'i have three cats').correctWords).toBe(4);
+    expect(compareDictation('She is 40.', 'she is forty').correctWords).toBe(3);
+    expect(compareDictation('I have 3 cats.', 'i have four cats').correctWords).toBe(3);
+  });
+
+  it('accepts a compound written with or without its hyphen', () => {
+    expect(
+      compareDictation('I have lunch with my coworkers.', 'i have lunch with my co-workers'),
+    ).toMatchObject({ correctWords: 6, totalWords: 6 });
+    expect(compareDictation('It is a well-known place.', 'it is a wellknown place')).toMatchObject({
+      correctWords: 5,
+      totalWords: 5,
+    });
+  });
+
   it('compares a 40-word sentence quickly', () => {
     const words = Array.from({ length: 40 }, (_, i) => `word${i}`);
     const start = performance.now();

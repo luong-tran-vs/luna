@@ -120,9 +120,9 @@ describe('Reading', () => {
 
   // --- US1: render and look up ---
 
-  it('offers a way back to the lessons only when opened on its own', async () => {
+  it("offers a way back to the lesson's part only when opened on its own", async () => {
     await setup();
-    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons');
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons/levels/B1');
     fixture.destroy();
     TestBed.resetTestingModule();
     await setup({ inputs: { lessonId: 'l1', mode: 'study' } });

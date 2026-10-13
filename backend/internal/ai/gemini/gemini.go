@@ -418,7 +418,8 @@ The questions must be of different kinds. At most one may ask for a plain detail
 where). At least one must ask what a word or phrase of the lesson means as used there (for example
 'In the lesson, what does "get dressed" mean?', with options in English). At least one must need a
 simple inference or a reason (why, how, or what you can tell about a person). explanationVi must say why
-the answer is right; you may quote the sentence but you must add the reason.
+the answer is right; you may quote the sentence but you must add the reason. Never refer to a sentence
+by its number (the learner does not see the numbers): quote it instead.
 
 %[3]s
 4. writingPrompt: one short English writing task related to the lesson, suitable for CEFR %[1]s.

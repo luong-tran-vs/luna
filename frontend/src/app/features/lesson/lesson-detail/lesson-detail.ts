@@ -18,9 +18,11 @@ import { PracticeView } from '../../../core/models/practice';
 import { ReadingLesson } from '../../../core/models/reading';
 import { LessonStudy, Step, STEPS } from '../../../core/models/study';
 import { LessonVocabulary } from '../../../core/models/vocab';
+import { formatScore, Writing as SubmittedWriting } from '../../../core/models/writing';
 import { SpeechService } from '../../../core/services/speech.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
+import { WritingApiService } from '../../../core/services/writing-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Listening } from '../listening/listening';
 import { loadErrorMessage } from '../load-error';
@@ -149,9 +151,15 @@ export class LessonDetail {
   private readonly vocabApi = inject(VocabApiService);
   private readonly listeningApi = inject(ListeningApiService);
   private readonly speakingOn = inject(SPEAKING_PRACTICE);
+  private readonly writingApi = inject(WritingApiService);
 
   protected readonly id = signal('');
   protected readonly lesson = signal<ReadingLesson | null>(null);
+  /** Back to the path of the lesson's part, where the learner came from. */
+  protected readonly backLink = computed(() => {
+    const level = this.lesson()?.level;
+    return level ? ['/lessons/levels', level] : ['/lessons'];
+  });
   protected readonly vocabulary = signal<LessonVocabulary | null>(null);
   protected readonly practice = signal<PracticeView | null>(null);
   protected readonly study = signal<LessonStudy | null>(null);
@@ -171,6 +179,9 @@ export class LessonDetail {
   /** Cards due now, shown once the lesson is done so the learner can review before the next one. */
   protected readonly dueCount = signal(0);
   protected readonly backlog = BACKLOG;
+  /** The writing submitted in this lesson, linked from the done card; null when it was skipped. */
+  protected readonly doneWriting = signal<SubmittedWriting | null>(null);
+  protected readonly formatScore = formatScore;
   protected readonly dueMinutes = computed(() =>
     Math.max(1, Math.ceil((this.dueCount() * SECONDS_PER_CARD) / 60)),
   );
@@ -383,6 +394,7 @@ export class LessonDetail {
     this.relearnAsk.set(false);
     this.relearnError.set(false);
     this.dueCount.set(0);
+    this.doneWriting.set(null);
     this.missedSent.clear();
     this.missCount.set(0);
     this.stepError.set(null);
@@ -552,7 +564,16 @@ export class LessonDetail {
       }
       return Promise.resolve();
     }
-    return this.record(this.studyApi.completeStep(this.id(), step));
+    const done = this.record(this.studyApi.completeStep(this.id(), step));
+    // Viết completes once the writing is submitted: the done card links to its grading.
+    if (step !== 'write') {
+      return done;
+    }
+    return done.then(() => {
+      if (this.lessonDone()) {
+        this.loadDoneWriting();
+      }
+    });
   }
 
   /**
@@ -622,6 +643,19 @@ export class LessonDetail {
   private loadDue(): void {
     this.vocabApi.due(1).subscribe({
       next: (list) => this.dueCount.set(list.total),
+      error: () => undefined,
+    });
+  }
+
+  /** The writing submitted in this lesson: the done card links to its grading. */
+  private loadDoneWriting(): void {
+    const lessonId = this.id();
+    this.writingApi.lessonWriting(lessonId).subscribe({
+      next: (v) => {
+        if (this.id() === lessonId && v.writing?.status === 'submitted') {
+          this.doneWriting.set(v.writing);
+        }
+      },
       error: () => undefined,
     });
   }

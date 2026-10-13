@@ -15,7 +15,7 @@ const STEP_LABELS: Record<Step, string> = { read: 'Đọc', listen: 'Nghe', writ
 
 /**
  * The home page (F6, client sketch screen 2): greeting, progress of the lesson being studied, three
- * figures, the button into that lesson and the topic being studied. Numbers are loaded every time the page opens.
+ * figures and the button into that lesson. Numbers are loaded every time the page opens.
  */
 @Component({
   selector: 'lu-home',
@@ -57,8 +57,13 @@ export class Home {
       case 'noNewLesson':
         return 'Ôn lại từ đã học trong lúc chờ bài mới nhé!';
       default: {
-        const left = STEPS.length - this.doneSteps();
-        return `Bài này còn ${left} phần nữa thôi (Đọc, Nghe, Viết)!`;
+        const steps = d?.steps;
+        const left = STEPS.filter((s) => steps?.[s] !== 'done');
+        if (left.length === STEPS.length) {
+          return 'Sẵn sàng cho bài mới chưa? Bắt đầu thôi!';
+        }
+        const names = left.map((s) => STEP_LABELS[s]).join(', ');
+        return `Bài này còn ${left.length} phần nữa thôi (${names})!`;
       }
     }
   });
@@ -77,27 +82,6 @@ export class Home {
     const s = this.stats();
     const a = s ? accuracyOf(s) : null;
     return a === null ? '—' : `${Math.round(a * 100)}%`;
-  });
-
-  /**
-   * Accuracy per skill as whole percentages (null: nothing measured yet): comprehension answers,
-   * dictation, and the average writing score out of 5. Null while the figures are not loaded.
-   */
-  protected readonly skillAccuracy = computed(() => {
-    const s = this.stats();
-    if (!s) {
-      return null;
-    }
-    const pct = (v: number | null) => (v === null ? null : Math.round(v * 100));
-    return [
-      { key: 'read' as const, label: 'Đọc', percent: pct(s.reading.rate) },
-      { key: 'listen' as const, label: 'Nghe', percent: pct(s.dictation.rate) },
-      {
-        key: 'write' as const,
-        label: 'Viết',
-        percent: pct(s.writing.averageScore === null ? null : s.writing.averageScore / 5),
-      },
-    ];
   });
 
   constructor() {

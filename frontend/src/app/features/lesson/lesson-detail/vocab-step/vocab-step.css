@@ -73,16 +73,9 @@
   opacity: 1;
 }
 
-/* Drawn when the picture cannot load: the word's first letter on the brand tint. */
-.picture-fallback {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  font: var(--text-2xl) var(--font-ui);
-  font-size: 48px;
-  color: var(--color-primary-ink);
-  background: linear-gradient(135deg, var(--color-primary-soft), var(--color-accent-soft));
+/* A word without a picture of its own (or whose picture does not load): the text takes the card. */
+.word-main.no-picture {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .word-text {

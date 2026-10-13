@@ -64,9 +64,15 @@ describe('Listening', () => {
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === text) as HTMLButtonElement | undefined;
   const text = (selector: string) => el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   /** Percent of the player track shown as played. */
-  const filled = () => parseFloat(el.querySelector<HTMLElement>('lu-audio-bar .played')!.style.width || '0');
+  const filled = () =>
+    100 *
+    parseFloat(
+      /scaleX\((.*)\)/.exec(
+        el.querySelector<HTMLElement>('lu-audio-bar .played')!.style.transform,
+      )?.[1] ?? '0',
+    );
   const play = () => el.querySelector<HTMLButtonElement>('lu-audio-bar .play')!;
-  const input = () => el.querySelector<HTMLInputElement>('#answer')!;
+  const input = () => el.querySelector<HTMLTextAreaElement>('#answer')!;
   const type = async (value: string) => {
     input().value = value;
     input().dispatchEvent(new Event('input'));
@@ -140,9 +146,9 @@ describe('Listening', () => {
     vi.restoreAllMocks();
   });
 
-  it('offers a way back to the lessons only when opened on its own', async () => {
+  it("offers a way back to the lesson's part only when opened on its own", async () => {
     await setup();
-    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons');
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons/levels/A2');
     fixture.destroy();
     TestBed.resetTestingModule();
     await setup({ inputs: { lessonId: 'l1', mode: 'study' } });
@@ -303,10 +309,12 @@ describe('Listening', () => {
       expect(el.querySelector('.result')).toBeNull();
     });
 
-    it('checks on Enter (form submit) and shows each word state', async () => {
+    it('checks on Enter in the answer box, without a line break, and shows each word state', async () => {
       await setup();
       await type('so i dont like apples');
-      el.querySelector('form')!.dispatchEvent(new Event('submit'));
+      const enter = new KeyboardEvent('keydown', { key: 'Enter', cancelable: true });
+      input().dispatchEvent(enter);
+      expect(enter.defaultPrevented).toBe(true);
       await settle();
       expectPost().flush({ summary: summaryOf([result(0, 'so i dont like apples', 3, 6)]) });
       await settle();

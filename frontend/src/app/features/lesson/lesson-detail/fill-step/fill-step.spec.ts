@@ -184,7 +184,7 @@ describe('FillStep', () => {
     expect(button('Kiểm tra')).toBeUndefined();
     expect(el.querySelector('.tip')).toBeNull();
     expect(results).toEqual([]);
-    expect(text(el.querySelector('.progress-line'))).toBe('Đã kiểm tra 1/2 câu');
+    expect(text(el.querySelector('.progress-line'))).toBe('Đã kiểm tra 1/2 câu có ô trống');
 
     await click(button('Câu tiếp theo')!);
     expect(text(el.querySelector('.line'))).toBe('Nice to you!');
@@ -297,10 +297,24 @@ describe('FillStep', () => {
     expect(blank(0).value).toBe('');
     expect(blank(1).value).toBe('');
     expect(el.querySelector('.mark')).toBeNull();
-    expect(text(el.querySelector('.progress-line'))).toBe('Đã kiểm tra 0/2 câu');
+    expect(text(el.querySelector('.progress-line'))).toBe('Đã kiểm tra 0/2 câu có ô trống');
     expect(el.querySelector('.total')).toBeNull();
     expect(button('Làm lại bước này')).toBeUndefined();
     await click(el.querySelectorAll<HTMLButtonElement>('.step-nav .nav-btn')[1]);
     expect(blank(2).value).toBe('');
+  });
+
+  it('does not count a line without a blank as checked', async () => {
+    const withPlainLine: PracticeFill = {
+      ...fill,
+      turns: [
+        fill.turns[0],
+        { speaker: 1, turnIndex: 1, meaningVi: 'Chào.', parts: [{ text: 'Hi.' }] },
+        fill.turns[1],
+      ],
+    };
+    await render(undefined, withPlainLine);
+    expect(text(el.querySelector('.progress-line'))).toBe('Đã kiểm tra 0/2 câu có ô trống');
+    expect(button('Làm lại bước này')).toBeUndefined();
   });
 });

@@ -12,16 +12,46 @@ export interface SpeakHandlers {
   ended?: () => void;
   failed?: (error: string) => void;
   /**
-   * Share already read (0–1) and seconds elapsed, about every PROGRESS_MS: estimated from the text
-   * length and the rate, moved ahead by word events, capped below 1 until the end.
+   * Share already read (0–1) and seconds elapsed, on every animation frame so a progress bar moves
+   * smoothly. A generated clip reports its playback position. The browser voice reports an estimate
+   * from the text length and the rate, corrected by its word events, and never moves backwards.
+   * Progress stays below 1 until the end.
    */
   progress?: (share: number, seconds: number) => void;
 }
 
-/** How often progress is reported, in milliseconds. */
-const PROGRESS_MS = 100;
 /** Progress never reaches 1 before the browser says the reading ended. */
 const PROGRESS_CAP = 0.95;
+/**
+ * Share of the gap to the estimate closed on each frame (browser voice): a word event that moves
+ * the estimate glides the bar there in about a tenth of a second instead of making it jump.
+ */
+const PROGRESS_EASE = 0.2;
+/** Word events before this share of the text are too early to correct the estimated length. */
+const MIN_BOUNDARY_SHARE = 0.1;
+
+/** Calls `tick` on every animation frame (every 16 ms without one) until the returned stop is called. */
+function everyFrame(tick: () => void): () => void {
+  let stopped = false;
+  const raf = typeof requestAnimationFrame === 'function' ? requestAnimationFrame : null;
+  const loop = () => {
+    if (stopped) {
+      return;
+    }
+    tick();
+    if (raf) {
+      raf(loop);
+    } else {
+      setTimeout(loop, 16);
+    }
+  };
+  if (raf) {
+    raf(loop);
+  } else {
+    setTimeout(loop, 16);
+  }
+  return () => (stopped = true);
+}
 
 /**
  * Reads English text aloud, so listening needs no prepared audio files (F3, F4, F5, F17), and
@@ -37,7 +67,8 @@ export class SpeechService {
   private readonly voice = inject(NaturalVoiceService);
   private readonly audio: HTMLAudioElement | null = typeof Audio === 'undefined' ? null : new Audio();
   private current: SpeechSynthesisUtterance | null = null;
-  private timer: ReturnType<typeof setInterval> | null = null;
+  /** Stops the progress reports of the utterance or clip playing. */
+  private stopTicker: (() => void) | null = null;
   /** Bumped by every speak and stop, so events of a clip that was stopped are ignored. */
   private token = 0;
   /** An online browser voice failed (no network): use voices on the device only. */
@@ -120,13 +151,11 @@ export class SpeechService {
       }
     };
     if (handlers.progress) {
-      this.timer = setInterval(
-        () =>
-          handlers.progress?.(
-            Math.min(PROGRESS_CAP, audio.currentTime / Math.max(0.1, clip.seconds)),
-            audio.currentTime / rate,
-          ),
-        PROGRESS_MS,
+      this.stopTicker = everyFrame(() =>
+        handlers.progress?.(
+          Math.min(PROGRESS_CAP, audio.currentTime / Math.max(0.1, clip.seconds)),
+          audio.currentTime / rate,
+        ),
       );
     }
     // Loading a new source resets playbackRate to defaultPlaybackRate, so set both.
@@ -162,24 +191,40 @@ export class SpeechService {
       u.voice = voice;
       u.lang = voice.lang;
     }
-    // Progress: estimated time, moved ahead by word events.
-    const length = Math.max(0.1, estimateSeconds(text) / rate);
+    // Progress: the time elapsed over the estimated length of the reading. A word event corrects the
+    // length (the voice reads faster or slower than estimated); the bar eases towards the new
+    // estimate, never backwards, so it does not jump.
+    let length = Math.max(0.1, estimateSeconds(text) / rate);
     let start = performance.now();
+    let started = false;
     let share = 0;
-    const report = (next: number) => {
-      share = Math.max(share, Math.min(PROGRESS_CAP, next));
-      handlers.progress?.(share, (performance.now() - start) / 1000);
-    };
+    const elapsed = () => (performance.now() - start) / 1000;
     if (handlers.progress) {
-      this.timer = setInterval(() => report((performance.now() - start) / 1000 / length), PROGRESS_MS);
+      this.stopTicker = everyFrame(() => {
+        if (!started) {
+          return; // the voice has not started: the bar waits at 0
+        }
+        const target = Math.min(PROGRESS_CAP, elapsed() / length);
+        share = Math.max(share, share + (target - share) * PROGRESS_EASE);
+        handlers.progress?.(share, elapsed());
+      });
     }
 
     u.onstart = () => {
       start = performance.now();
+      started = true;
       handlers.started?.();
     };
     u.onboundary = (e) => {
-      report(e.charIndex / Math.max(1, text.length));
+      if (!started) {
+        // A browser that sent no start event: the first word is the start.
+        start = performance.now();
+        started = true;
+      }
+      const read = e.charIndex / Math.max(1, text.length);
+      if (read >= MIN_BOUNDARY_SHARE) {
+        length = Math.max(0.1, elapsed() / read);
+      }
       handlers.boundary?.(e.charIndex);
     };
     u.onend = () => {
@@ -221,10 +266,8 @@ export class SpeechService {
   private finish(): void {
     this.current = null;
     this._playing.set(null);
-    if (this.timer !== null) {
-      clearInterval(this.timer);
-      this.timer = null;
-    }
+    this.stopTicker?.();
+    this.stopTicker = null;
   }
 
   /**

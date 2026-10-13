@@ -131,7 +131,9 @@
           <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
         </button>
       </div>
-      <p class="muted progress-line">Đã kiểm tra {{ checkedCount() }}/{{ turns().length }} câu</p>
+      <p class="muted progress-line">
+        Đã kiểm tra {{ checkedCount() }}/{{ blankTurnCount() }} câu có ô trống
+      </p>
     </div>
   }
 

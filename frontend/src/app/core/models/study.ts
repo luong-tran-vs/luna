@@ -79,3 +79,40 @@ export interface PublicTopic {
   description: string;
   lessonCount: number;
 }
+
+/** How a lesson shows on the learning path; membersOnly: a guest cannot study it. */
+export type PathLessonState = 'done' | 'current' | 'locked' | 'membersOnly';
+
+export interface PathLesson {
+  id: string;
+  title: string;
+  state: PathLessonState;
+}
+
+/** One topic's roadmap within a milestone; only the goal's (active) has a lesson to study now. */
+export interface PathRoadmap {
+  topicId: string;
+  topicName: string;
+  /** The topic's description, shown under its name in the part's banner; may be empty. */
+  topicDescription?: string;
+  active: boolean;
+  completed: number;
+  lessons: PathLesson[];
+}
+
+/** One level ("Phần"): every topic with lessons at that level, one roadmap after another. */
+export interface Milestone {
+  level: Level;
+  active: boolean;
+  completed: number;
+  total: number;
+  roadmaps: PathRoadmap[];
+}
+
+/** GET /api/lessons/path: the "Học" tab. topicId is the goal's topic, '' when there is none. */
+export interface LearningPath {
+  topicId: string;
+  topicName: string;
+  milestones: Milestone[];
+  streak: number;
+}

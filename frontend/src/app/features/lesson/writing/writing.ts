@@ -56,6 +56,11 @@ export class Writing implements OnInit {
   protected readonly formatScore = formatScore;
 
   protected readonly view = signal<LessonWriting | null>(null);
+  /** Back to the path of the lesson's part, where the learner came from. */
+  protected readonly backLink = computed(() => {
+    const level = this.view()?.level;
+    return level ? ['/lessons/levels', level] : ['/lessons'];
+  });
   protected readonly loadError = signal<string | null>(null);
   protected readonly text = signal('');
   protected readonly saveState = signal<SaveState>('idle');
@@ -84,6 +89,21 @@ export class Writing implements OnInit {
     }
     if (n > MAX_WRITING_WORDS) {
       return `Bài viết tối đa ${MAX_WRITING_WORDS} từ.`;
+    }
+    return null;
+  });
+  /** Advice against the suggested length; unlike lengthHint it does not stop the submission. */
+  protected readonly suggestionHint = computed(() => {
+    const s = this.suggestion();
+    const n = this.words();
+    if (!s || this.lengthHint() || n === 0) {
+      return null;
+    }
+    if (n < s.min) {
+      return `Còn ngắn so với gợi ý ${s.min}–${s.max} từ, vẫn nộp được.`;
+    }
+    if (n > s.max) {
+      return `Dài hơn gợi ý ${s.min}–${s.max} từ, vẫn nộp được.`;
     }
     return null;
   });

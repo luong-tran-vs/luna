@@ -83,9 +83,9 @@ describe('Writing', () => {
     vi.useRealTimers();
   });
 
-  it('offers a way back to the lessons only when opened on its own', async () => {
+  it("offers a way back to the lesson's part only when opened on its own", async () => {
     await setup(view({ writing: writing({ status: 'draft', text: 'My family', submittedAt: null, grade: null }) }), null);
-    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons');
+    expect(el.querySelector('a[aria-label="Quay lại danh sách bài"]')?.getAttribute('href')).toBe('/lessons/levels/A1');
     expect(fixture.nativeElement.classList).toContain('standalone');
     fixture.destroy();
     TestBed.resetTestingModule();
@@ -96,10 +96,27 @@ describe('Writing', () => {
   it('shows the prompt, the suggested length and the word count', async () => {
     await setup(view({ writing: writing({ status: 'draft', text: 'My family', submittedAt: null, grade: null }) }));
     expect(text(el.querySelector('.prompt-text'))).toBe('Write about your family.');
-    expect(text(el.querySelector('.step-card-head'))).toContain('Viết 30–60 từ');
+    expect(text(el.querySelector('.step-card-head'))).toContain('Nên viết 30–60 từ');
     expect(textarea()!.value).toBe('My family');
     expect(text(el.querySelector('#writing-count'))).toBe('2/60 từ · Bài viết cần ít nhất 5 từ.');
     expect(button('Nộp')!.disabled).toBe(true);
+  });
+
+  it('says a text shorter than suggested can still be submitted', async () => {
+    await setup(
+      view({
+        writing: writing({
+          status: 'draft',
+          text: 'My family is big and happy.',
+          submittedAt: null,
+          grade: null,
+        }),
+      }),
+    );
+    expect(text(el.querySelector('#writing-count'))).toBe(
+      '6/60 từ · Còn ngắn so với gợi ý 30–60 từ, vẫn nộp được.',
+    );
+    expect(button('Nộp')!.disabled).toBe(false);
   });
 
   it('saves the draft one second after the last keystroke', async () => {

@@ -98,10 +98,11 @@ type StepCounts struct {
 
 // TopicInfo is a topic with its roadmap at one level (from F14); Level is "" when no level was asked.
 type TopicInfo struct {
-	ID        string
-	Name      string
-	Level     string
-	LessonIDs []string
+	ID          string
+	Name        string
+	Description string
+	Level       string
+	LessonIDs   []string
 }
 
 var (

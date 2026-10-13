@@ -22,6 +22,16 @@ var testWords = fakeResolver{
 	"in":      {Word: "in", IPA: "ˈɪn"},
 	"go":      {Word: "go", IPA: "/ɡəʊ/", Meanings: []Meaning{{Text: "đi"}}},
 	"love":    {Word: "love", IPA: "/ˈləv/"},
+	"a":       {Word: "a", IPA: "/eɪ̯/"},
+	"book":    {Word: "book", IPA: "/ˈbʊk/"},
+	"read":    {Word: "read", IPA: "ˈɹiːd"},
+	"dish":    {Word: "dish", IPA: "/ˈdɪʃ/"},
+	"dishes":  {Word: "dish", IPA: "/ˈdɪʃ/"}, // resolves to its lemma
+	"cats":    {Word: "cat", IPA: "/ˈkæt/"},
+	"dogs":    {Word: "dog", IPA: "/ˈdɒɡ/"},
+	"wash":    {Word: "wash", IPA: "/ˈwɒʃ/"},
+	"lunch":   {Word: "lunch", IPA: "/ˈlʌntʃ/"},
+	"have":    {Word: "have"}, // in the dictionary without a transcription
 }
 
 func TestIPA(t *testing.T) {
@@ -34,6 +44,15 @@ func TestIPA(t *testing.T) {
 		"went":         "",           // an inflected form is not given its lemma's IPA
 		"went in":      "",
 		"":             "",
+		// Articles take their weak form in a phrase; "ɹ" and the non-syllabic mark are cleaned up.
+		"read a book": "/ˈriːd ə ˈbʊk/",
+		"a":           "/eɪ/",
+		// A regular "-s" form gets the ending of its lemma's transcription.
+		"wash the dishes": "/ˈwɒʃ ðə ˈdɪʃɪz/",
+		"cats":            "/ˈkæts/",
+		"dogs":            "/ˈdɒɡz/",
+		// A common word the dictionary has no transcription for.
+		"have lunch": "/ˈhæv ˈlʌntʃ/",
 	} {
 		got, err := IPA(t.Context(), testWords, text)
 		if err != nil || got != want {

@@ -28,19 +28,6 @@ export interface Example {
   after: string;
 }
 
-/**
- * Stand-in picture for a word: a photo matched on the word, from a placeholder service. Words have
- * no picture of their own yet; `lock` keeps the same photo for the same word.
- */
-export function placeholderImage(lemma: string): string {
-  const tags = lemma.trim().toLowerCase().replace(/\s+/g, ',');
-  let lock = 0;
-  for (const ch of tags) {
-    lock = (lock * 31 + ch.charCodeAt(0)) % 100000;
-  }
-  return `https://loremflickr.com/480/360/${encodeURIComponent(tags)}?lock=${lock}`;
-}
-
 /** Cuts `sentence` around the first whole-word match of one of `forms` (case ignored). */
 export function highlight(sentence: string, forms: string[]): Example {
   const words = forms
@@ -104,7 +91,7 @@ export class VocabStep {
 
   /** Index of the word on the card; back to the first one when the words change. */
   protected readonly index = linkedSignal({ source: this.words, computation: () => 0 });
-  /** Words whose picture failed to load: they show the drawn placeholder instead. */
+  /** Words whose picture failed to load: their card is shown without a picture. */
   private readonly brokenImages = signal<ReadonlySet<string>>(new Set());
   /**
    * The last picture that finished loading. The <img> is reused from word to word, and a browser
@@ -119,9 +106,9 @@ export class VocabStep {
       const sentence = example?.sentence ?? w.sentence ?? '';
       return {
         word: w,
-        image: w.imageUrl ? serverUrl(w.imageUrl) : placeholderImage(w.lemma),
-        // Our own pictures need the session cookie; the stand-in from loremflickr must go without.
-        crossOrigin: w.imageUrl ? 'use-credentials' : null,
+        // Only the word's own picture (it needs the session cookie). A word without one gets no
+        // picture area, rather than a stock photo that may not match or not load at all.
+        image: w.imageUrl ? serverUrl(w.imageUrl) : null,
         example: sentence ? highlight(sentence, [w.text, w.lemma]) : null,
         // Only the generated example has a translation; the sentence of the text has none.
         exampleVi: example?.meaningVi ?? '',
@@ -138,7 +125,7 @@ export class VocabStep {
   });
   protected readonly showImage = computed(() => {
     const r = this.row();
-    return r !== null && !this.brokenImages().has(r.word.lemma);
+    return r !== null && r.image !== null && !this.brokenImages().has(r.word.lemma);
   });
 
   protected readonly imageLoaded = computed(() => this.row()?.image === this.loadedImage());
@@ -152,10 +139,10 @@ export class VocabStep {
         return;
       }
       for (const r of [rows[i + 1], rows[i - 1]]) {
-        if (r && !this.brokenImages().has(r.word.lemma)) {
+        if (r?.image && !this.brokenImages().has(r.word.lemma)) {
           const img = new Image();
           img.referrerPolicy = 'no-referrer';
-          img.crossOrigin = r.crossOrigin;
+          img.crossOrigin = 'use-credentials';
           img.src = r.image;
         }
       }

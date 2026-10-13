@@ -1,0 +1,391 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="vi" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Luna - Lộ trình học tiếng Anh thông minh</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#F0F7FF',
+              100: '#E0EFFF',
+              500: '#2563EB',
+              600: '#1D4ED8',
+              700: '#1E40AF',
+            },
+            emeraldNode: {
+              top: '#10B981',
+              bottom: '#059669',
+              rim: '#047857'
+            },
+            blueNode: {
+              top: '#38BDF8',
+              bottom: '#0284C7',
+              rim: '#0369A1'
+            }
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+              '50%': { opacity: '0.85', transform: 'scale(1.04)' }
+            },
+            twinkle: {
+              '0%, 100%': { opacity: '0.2', transform: 'scale(0.8)' },
+              '50%': { opacity: '0.9', transform: 'scale(1.2)' }
+            }
+          },
+          animation: {
+            float: 'float 3.5s ease-in-out infinite',
+            pulseSubtle: 'pulseSubtle 2.5s ease-in-out infinite',
+            twinkle: 'twinkle 3s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom CSS for 3D Game Nodes and Styling -->
+<style data-purpose="custom-game-nodes">
+    /* 3D Tactile Push-Button Stones */
+    .stone-3d {
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    
+    .stone-active-green {
+      background: linear-gradient(180deg, #34D399 0%, #10B981 60%, #059669 100%);
+      box-shadow: 0 10px 0 #047857, 0 16px 25px rgba(5, 150, 105, 0.35);
+    }
+    .stone-active-green:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 0 #047857, 0 20px 30px rgba(5, 150, 105, 0.45);
+    }
+    .stone-active-green:active {
+      transform: translateY(8px);
+      box-shadow: 0 2px 0 #047857, 0 6px 12px rgba(5, 150, 105, 0.3);
+    }
+
+    .stone-active-blue {
+      background: linear-gradient(180deg, #38BDF8 0%, #0284C7 60%, #0369A1 100%);
+      box-shadow: 0 10px 0 #075985, 0 16px 25px rgba(2, 132, 199, 0.35);
+    }
+    .stone-active-blue:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 0 #075985, 0 20px 30px rgba(2, 132, 199, 0.45);
+    }
+    .stone-active-blue:active {
+      transform: translateY(8px);
+      box-shadow: 0 2px 0 #075985, 0 6px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    .stone-locked {
+      background: linear-gradient(180deg, #F1F5F9 0%, #E2E8F0 60%, #CBD5E1 100%);
+      box-shadow: 0 8px 0 #94A3B8, 0 12px 18px rgba(148, 163, 184, 0.2);
+    }
+    .stone-locked:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 9px 0 #94A3B8, 0 14px 20px rgba(148, 163, 184, 0.25);
+    }
+
+    .stone-milestone {
+      background: linear-gradient(180deg, #FDE68A 0%, #F59E0B 60%, #D97706 100%);
+      box-shadow: 0 10px 0 #B45309, 0 16px 28px rgba(217, 119, 6, 0.35);
+    }
+    .stone-milestone:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 0 #B45309, 0 20px 32px rgba(217, 119, 6, 0.45);
+    }
+    .stone-milestone:active {
+      transform: translateY(8px);
+      box-shadow: 0 2px 0 #B45309, 0 6px 12px rgba(217, 119, 6, 0.3);
+    }
+
+    /* Subtle Celestial Dot Background */
+    .celestial-dots {
+      background-image: radial-gradient(rgba(99, 102, 241, 0.12) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAFD] celestial-dots text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/80 shadow-xs" data-purpose="desktop-nav">
+<div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+<!-- Brand & Mascot Logo -->
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-3 group" href="#" title="Luna - Khám phá tiếng Anh">
+<div class="w-12 h-12 rounded-2xl overflow-hidden shadow-md shadow-blue-500/15 ring-2 ring-blue-100 group-hover:scale-105 transition-transform duration-200">
+<img alt="Luna Mascot Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Ud5hd44VabYomq6Tv0KBFUch53tPJnASwEyFZCob4juMKRcPrh2BD0_fjx9Mab_jSrzyQ3RDFGjkYM2pfot5YXNr0zC4KkE5Or7adRuX7sqRzTNZDN8GD9VZ_mEjpkIc8MF3Cqfi50iKx9UZDGHErTx4s_RkCK-9cuG8lBBFlF9Xe-OY8xqXlSLPjyPLSGC2Pvo01qqGqpht1n2eXfOjn8k2Vnu9n0Vxngpe-cpE3Wq0KJBR9W32vxpw">
+</div>
+<span class="text-2xl font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 bg-clip-text text-transparent">Luna</span>
+</a>
+<!-- Minimal Primary Navigation -->
+<nav aria-label="Main Navigation" class="hidden md:flex items-center gap-1.5">
+<a class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 font-bold text-sm transition-all" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            Trang chủ
+          </a>
+<a aria-current="page" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 text-blue-600 font-bold text-sm shadow-xs border border-blue-100/80" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            Học tập
+          </a>
+<a class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 font-bold text-sm transition-all" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            Ôn tập
+          </a>
+</nav>
+</div>
+<!-- Gamified Status Bar (Streaks, Gems, Hearts, Profile) -->
+<div class="flex items-center gap-3">
+<!-- Streak -->
+<div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200/80 text-orange-600 font-bold text-sm shadow-xs hover:bg-orange-100/70 transition-colors cursor-pointer" title="Chuỗi ngày học liên tục">
+<span class="text-base">🔥</span>
+<span class="">7</span>
+</div>
+<!-- Gems -->
+<div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-50 border border-cyan-200/80 text-cyan-600 font-bold text-sm shadow-xs hover:bg-cyan-100/70 transition-colors cursor-pointer" title="Đá quý Luna">
+<span class="text-base">💎</span>
+<span class="">420</span>
+</div>
+<!-- Hearts -->
+<div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200/80 text-rose-500 font-bold text-sm shadow-xs hover:bg-rose-100/70 transition-colors cursor-pointer" title="Số lượt học còn lại">
+<span class="text-base">❤️</span>
+<span class="">5</span>
+</div>
+<div class="h-6 w-px bg-slate-200 mx-1"></div>
+<!-- User Profile Avatar -->
+<button aria-label="Tài khoản cá nhân" class="relative flex items-center gap-2 p-1 pl-1.5 rounded-full hover:bg-slate-100 transition-colors border border-transparent hover:border-slate-200">
+<div class="w-9 h-9 rounded-full ring-2 ring-blue-500/30 overflow-hidden bg-gradient-to-tr from-indigo-500 to-sky-400 p-[1.5px]">
+<img alt="Avatar" class="w-full h-full rounded-full object-cover bg-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHAkeTLtBUJFddxe1C1HcRe0_kbVLpOXoWdZsWY1jwEjt0z3CYUSzplcktYSMuVxYkEE--ju6KZyyXAC51AL7h-1Cngt4F5Jb4z37vL5sYUkbVWXtpVBcvJxgYFjhwBuCNdfWWwN6oVf3xf_1gPs6Eq9uvuTX8B1HRn4TMMFBrY4xB4P1gn5iiU8Y6YLBpJHMAPyGJhDf7L9oSd7QtS8RyZzPtwBM1uCqUVcgJpRrmxZ2VsaupnflH">
+</div>
+<svg class="w-4 h-4 text-slate-400 mr-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainLearningArea -->
+<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-8 relative">
+<!-- Atmospheric Floating Celestial Elements (Background decor) -->
+<div class="absolute top-12 left-6 text-indigo-300/40 select-none pointer-events-none animate-twinkle text-2xl font-black">✦</div>
+<div class="absolute top-48 right-12 text-sky-300/50 select-none pointer-events-none animate-twinkle text-xl font-black" style="animation-delay: 1.2s">★</div>
+<div class="absolute top-[480px] left-10 text-indigo-300/40 select-none pointer-events-none animate-twinkle text-3xl font-black" style="animation-delay: 0.7s">✧</div>
+<div class="absolute top-[750px] right-14 text-amber-300/50 select-none pointer-events-none animate-twinkle text-2xl font-black" style="animation-delay: 1.8s">★</div>
+<!-- BEGIN: UnitHeaderBanner -->
+<section class="w-full max-w-2xl mx-auto mb-16" data-purpose="unit-card">
+<div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 text-white p-7 shadow-xl shadow-blue-500/20 border border-blue-400/30">
+<!-- Subtle Glow Effects -->
+<div class="absolute -top-24 -right-24 w-56 h-56 bg-sky-400/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 -left-24 w-56 h-56 bg-indigo-500/40 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+<div class="space-y-2">
+<!-- Breadcrumb Badge -->
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-extrabold uppercase tracking-widest text-sky-100 border border-white/20">
+<span class="w-2 h-2 rounded-full bg-emerald-300 animate-ping"></span>
+              Phần 1 • A1 Khởi đầu
+            </div>
+<!-- Title -->
+<h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white drop-shadow-xs">
+              Hoạt động hằng ngày
+            </h1>
+<p class="text-sm text-blue-100 font-medium">Làm quen với các thói quen thường nhật và từ vựng thông dụng.</p>
+</div>
+<!-- Quick Action & Unit Counter -->
+<div class="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-3">
+<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/20 backdrop-blur-md font-bold text-xs border border-white/20 shadow-xs">
+<span class="text-amber-300">✦</span> 2 Lộ trình
+            </span>
+<button class="px-4 py-2 rounded-xl bg-white text-blue-700 font-extrabold text-xs shadow-md hover:bg-blue-50 hover:shadow-lg transition-all active:scale-95 flex items-center gap-1.5">
+<span class="">Hướng dẫn</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+</div>
+<!-- Progress Mini Bar -->
+<div class="mt-6 pt-5 border-t border-white/15 flex items-center justify-between gap-4 text-xs font-bold text-blue-100">
+<span class="">Tiến độ: <strong class="text-white">0 / 5 bài hoàn thành</strong></span>
+<div class="flex-1 max-w-xs h-2.5 bg-blue-900/40 rounded-full overflow-hidden p-0.5 border border-white/10">
+<div class="h-full bg-gradient-to-r from-emerald-400 to-teal-300 rounded-full transition-all duration-500" style="width: 15%"></div>
+</div>
+<span class="text-emerald-300">15%</span>
+</div>
+</div>
+</section>
+<!-- END: UnitHeaderBanner -->
+<!-- BEGIN: LearningPathSnakeStream -->
+<section class="relative w-full max-w-lg mx-auto flex flex-col items-center select-none pt-2 pb-12" data-purpose="snake-path-stream">
+<!-- Duolingo-style background path running right through the center of every node -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible" preserveAspectRatio="none" viewBox="0 0 512 1220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base track shadow/border -->
+  <path d="M 256,110 C 256,170 346,200 346,290 C 346,380 166,410 166,500 C 166,590 326,620 326,710 C 326,800 256,830 256,910 L 256,1040 L 256,1170" stroke="#CBD5E1" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- Stepping road inner color -->
+  <path d="M 256,110 C 256,170 346,200 346,290 C 346,380 166,410 166,500 C 166,590 326,620 326,710 C 326,800 256,830 256,910 L 256,1040 L 256,1170" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- Active dashed progress guide -->
+  <path d="M 256,110 C 256,170 346,200 346,290 C 346,380 166,410 166,500 C 166,590 326,620 326,710 C 326,800 256,830 256,910 L 256,1040 L 256,1170" stroke="#60A5FA" stroke-width="5" stroke-dasharray="8 10" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+<!-- ================= NODE 1: CURRENT ACTIVE LESSON (Center: x=256, y=110) ================= -->
+<div class="relative z-10 flex flex-col items-center mb-20">
+  <!-- Floating Interactive Tooltip -->
+  <div class="animate-bounce mb-3 flex flex-col items-center">
+    <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-black px-4 py-2 rounded-2xl shadow-lg shadow-emerald-500/30 uppercase tracking-wider flex items-center gap-1.5 border border-emerald-300/40">
+      <span class="">✨</span>
+      <span class="">Học chủ đề này?</span>
+    </div>
+    <div class="w-3 h-2 -mt-0.5 border-t-[8px] border-t-emerald-600 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent"></div>
+  </div>
+
+  <!-- Pulsing Energy Ring & 3D Node Button -->
+  <div class="relative flex items-center justify-center">
+    <div class="absolute -inset-3.5 rounded-full bg-emerald-400/30 blur-md animate-pulse"></div>
+    <div class="absolute -inset-2 rounded-full border-2 border-emerald-400/50 animate-ping"></div>
+    <button aria-label="Bắt đầu bài học hiện tại: Hoạt động hằng ngày" class="stone-3d stone-active-green w-24 h-24 rounded-full flex items-center justify-center cursor-pointer group focus:outline-none">
+      <div class="w-20 h-20 rounded-full border-2 border-white/40 flex items-center justify-center bg-gradient-to-t from-emerald-600/30 to-transparent">
+        <svg class="w-10 h-10 text-white fill-current ml-1 drop-shadow-md group-hover:scale-110 transition-transform duration-200" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+      </div>
+    </button>
+
+    <!-- MASCOT LUNA CHEERING (Sitting on right side) -->
+    <div class="absolute -right-52 top-0 flex items-center gap-3 animate-float pointer-events-none hidden sm:flex">
+      <div class="bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-2xl shadow-lg border border-indigo-100 text-xs font-extrabold text-indigo-900 w-36 relative">
+        Cùng Luna chinh phục nhé! 🐾
+        <div class="absolute top-1/2 -left-2 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-r-[8px] border-r-white"></div>
+      </div>
+      <div class="w-20 h-20 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white/90 bg-indigo-950">
+        <img alt="Mascot Luna" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Ud5hd44VabYomq6Tv0KBFUch53tPJnASwEyFZCob4juMKRcPrh2BD0_fjx9Mab_jSrzyQ3RDFGjkYM2pfot5YXNr0zC4KkE5Or7adRuX7sqRzTNZDN8GD9VZ_mEjpkIc8MF3Cqfi50iKx9UZDGHErTx4s_RkCK-9cuG8lBBFlF9Xe-OY8xqXlSLPjyPLSGC2Pvo01qqGqpht1n2eXfOjn8k2Vnu9n0Vxngpe-cpE3Wq0KJBR9W32vxpw">
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3.5 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full border border-slate-200/90 text-[11px] font-black uppercase tracking-wider text-emerald-700 shadow-xs">
+    Bắt đầu ngay
+  </div>
+</div>
+
+<!-- ================= NODE 2: LOCKED LESSON (Center: x=346 (+90px), y=290) ================= -->
+<div class="relative z-10 flex flex-col items-center mb-24" style="transform: translateX(90px);">
+  <button aria-label="Bài 1 (Đã khóa)" class="stone-3d stone-locked w-20 h-20 rounded-full flex items-center justify-center cursor-not-allowed group focus:outline-none">
+    <div class="w-16 h-16 rounded-full border-2 border-white/60 flex items-center justify-center bg-slate-200/50">
+      <svg class="w-7 h-7 text-slate-400 group-hover:text-slate-500 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+        <path clip-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3H6A2.25 2.25 0 003.75 12v7.5A2.25 2.25 0 006 21.75h12a2.25 2.25 0 002.25-2.25V12a2.25 2.25 0 00-2.25-2.25h-.75v-3A5.25 5.25 0 0012 1.5zm-3.75 5.25a3.75 3.75 0 017.5 0v3h-7.5v-3z" fill-rule="evenodd"></path>
+      </svg>
+    </div>
+  </button>
+  <div class="mt-3 px-3 py-0.5 bg-slate-100 rounded-full border border-slate-200/80 text-[11px] font-bold text-slate-500 shadow-xs">
+    Bài 1
+  </div>
+</div>
+
+<!-- ================= NODE 3: LOCKED LESSON (Center: x=166 (-90px), y=500) ================= -->
+<div class="relative z-10 flex flex-col items-center mb-24" style="transform: translateX(-90px);">
+  <button aria-label="Bài 2 (Đã khóa)" class="stone-3d stone-locked w-20 h-20 rounded-full flex items-center justify-center cursor-not-allowed group focus:outline-none">
+    <div class="w-16 h-16 rounded-full border-2 border-white/60 flex items-center justify-center bg-slate-200/50">
+      <svg class="w-7 h-7 text-slate-400 group-hover:text-slate-500 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+        <path clip-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3H6A2.25 2.25 0 003.75 12v7.5A2.25 2.25 0 006 21.75h12a2.25 2.25 0 002.25-2.25V12a2.25 2.25 0 00-2.25-2.25h-.75v-3A5.25 5.25 0 0012 1.5zm-3.75 5.25a3.75 3.75 0 017.5 0v3h-7.5v-3z" fill-rule="evenodd"></path>
+      </svg>
+    </div>
+  </button>
+  <div class="mt-3 px-3 py-0.5 bg-slate-100 rounded-full border border-slate-200/80 text-[11px] font-bold text-slate-500 shadow-xs">
+    Bài 2
+  </div>
+</div>
+
+<!-- ================= NODE 4: LOCKED LESSON (Center: x=326 (+70px), y=710) ================= -->
+<div class="relative z-10 flex flex-col items-center mb-24" style="transform: translateX(70px);">
+  <button aria-label="Bài 3 (Đã khóa)" class="stone-3d stone-locked w-20 h-20 rounded-full flex items-center justify-center cursor-not-allowed group focus:outline-none">
+    <div class="w-16 h-16 rounded-full border-2 border-white/60 flex items-center justify-center bg-slate-200/50">
+      <svg class="w-7 h-7 text-slate-400 group-hover:text-slate-500 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+        <path clip-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3H6A2.25 2.25 0 003.75 12v7.5A2.25 2.25 0 006 21.75h12a2.25 2.25 0 002.25-2.25V12a2.25 2.25 0 00-2.25-2.25h-.75v-3A5.25 5.25 0 0012 1.5zm-3.75 5.25a3.75 3.75 0 017.5 0v3h-7.5v-3z" fill-rule="evenodd"></path>
+      </svg>
+    </div>
+  </button>
+  <div class="mt-3 px-3 py-0.5 bg-slate-100 rounded-full border border-slate-200/80 text-[11px] font-bold text-slate-500 shadow-xs">
+    Bài 3
+  </div>
+</div>
+
+<!-- ================= NODE 5: MILESTONE CHEST / TROPHY (Center: x=256, y=910) ================= -->
+<div class="relative z-10 flex flex-col items-center mb-20">
+  <div class="relative flex items-center justify-center">
+    <button aria-label="Đích đến: Hoàn thành chặng 1" class="stone-3d stone-milestone w-22 h-22 rounded-full p-1 flex items-center justify-center cursor-pointer group focus:outline-none">
+      <div class="w-18 h-18 rounded-full border-2 border-amber-200/80 flex items-center justify-center bg-gradient-to-b from-amber-300 to-amber-500 shadow-inner">
+        <svg class="w-9 h-9 text-white drop-shadow-md group-hover:scale-110 transition-transform duration-200" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 5h-2V3a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v2H5c-1.103 0-2 .897-2 2v2c0 2.593 1.917 4.747 4.436 4.975C8.167 15.65 10.384 17 12 17s3.833-1.35 4.564-3.025C19.083 13.747 21 11.593 21 9V7c0-1.103-.897-2-2-2zM5 9V7h2v4.062C5.748 10.635 5 9.877 5 9zm14 0c0 .877-.748 1.635-2 2.062V7h2v2zm-7 10c-2.404 0-4.041.879-4.717 2h9.434C16.041 19.879 14.404 19 12 19z"></path>
+        </svg>
+      </div>
+    </button>
+  </div>
+  <div class="mt-3.5 px-4 py-1 bg-amber-50 border border-amber-200 rounded-full flex items-center gap-1.5 shadow-xs">
+    <span class="text-amber-500 text-xs">👑</span>
+    <span class="text-[11px] font-black uppercase tracking-wider text-amber-800">Hoàn thành Chặng 1</span>
+  </div>
+</div>
+
+<!-- ================= SECTION BREAK / UNIT 2 TRANSITION (y=1040) ================= -->
+<div class="w-full relative flex items-center justify-center my-10 z-10" data-purpose="unit-separator">
+  <div class="absolute inset-0 flex items-center">
+    <div class="w-full border-t border-slate-200"></div>
+  </div>
+  <div class="relative bg-[#F8FAFD] px-6 py-2 rounded-2xl border border-slate-200 shadow-xs flex flex-col items-center">
+    <span class="text-[11px] font-extrabold tracking-widest text-slate-400 uppercase">Lộ trình tiếp theo</span>
+    <span class="text-base font-black text-slate-700 tracking-tight">LỘ TRÌNH 2 • GIAO TIẾP TẠI NƠI LÀM VIỆC</span>
+  </div>
+</div>
+
+<!-- ================= UNIT 2: NODE 1 (Center: x=256, y=1170) ================= -->
+<div class="relative z-10 flex flex-col items-center mt-6 mb-12">
+  <div class="animate-bounce mb-3 flex flex-col items-center">
+    <div class="bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-black px-4 py-1.5 rounded-2xl shadow-md uppercase tracking-wider">
+      Bắt đầu Lộ trình 2
+    </div>
+    <div class="w-3 h-2 -mt-0.5 border-t-[8px] border-t-sky-600 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent"></div>
+  </div>
+  <button aria-label="Lộ trình 2: Bài 1" class="stone-3d stone-active-blue w-22 h-22 rounded-full flex items-center justify-center cursor-pointer group focus:outline-none">
+    <div class="w-18 h-18 rounded-full border-2 border-white/50 flex items-center justify-center bg-gradient-to-t from-sky-600/30 to-transparent">
+      <svg class="w-9 h-9 text-white fill-current drop-shadow-md group-hover:rotate-12 transition-transform duration-200" viewBox="0 0 24 24">
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+      </svg>
+    </div>
+  </button>
+  <div class="mt-3 px-3.5 py-0.5 bg-blue-50 border border-blue-200 rounded-full text-[11px] font-black text-blue-700 uppercase tracking-wide shadow-xs">
+    Bài 1: Gặp gỡ đồng nghiệp
+  </div>
+</div>
+</section>
+<!-- END: LearningPathSnakeStream -->
+</main>
+<!-- END: MainLearningArea -->
+<!-- BEGIN: MinimalFooter -->
+<footer class="w-full py-6 text-center text-xs text-slate-400 border-t border-slate-200/60 bg-white/40">
+<div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between px-6 gap-3">
+<div class="flex items-center gap-2 font-bold text-slate-500">
+<span class="">© 2025 Luna Learning</span>
+<span class="">•</span>
+<span class="text-emerald-600">Đã lưu tiến độ tự động</span>
+</div>
+<div class="flex gap-4 text-slate-400 font-semibold">
+<a class="hover:text-blue-600 transition-colors" href="#">Phím tắt học nhanh</a>
+<a class="hover:text-blue-600 transition-colors" href="#">Báo lỗi bài tập</a>
+<a class="hover:text-blue-600 transition-colors" href="#">Hỗ trợ</a>
+</div>
+</div>
+</footer>
+<!-- END: MinimalFooter -->
+
+
+</body></html>

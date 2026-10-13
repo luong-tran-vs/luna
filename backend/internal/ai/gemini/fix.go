@@ -76,7 +76,7 @@ Lesson sentences (JSON):
 		b.WriteString("Flagged item: this annotation (a word of the sentence at sentenceIndex with its Vietnamese meaning). Return meaningVi: the right short Vietnamese meaning of the word as used in that sentence.\n")
 		writeJSONLine(&b, req.Annotation)
 	case "question":
-		b.WriteString("Flagged item: this multiple-choice comprehension question about the lesson. Return question: prompt and options in English, exactly one right option, answerIndex its 0-based index, explanationVi a short Vietnamese explanation of the answer. Keep the same number of options.\n")
+		b.WriteString("Flagged item: this multiple-choice comprehension question about the lesson. Return question: prompt and options in English, exactly one right option, answerIndex its 0-based index, explanationVi a short Vietnamese explanation of the answer that quotes the sentence instead of giving its number. Keep the same number of options.\n")
 		writeJSONLine(&b, req.Question)
 	case "translation":
 		b.WriteString("Flagged item: this translation exercise (a Vietnamese sentence and its English answer, which learners build from word tiles). Return vi and en with the same meaning; en must be natural, correct English using words of the lesson where possible.\n")

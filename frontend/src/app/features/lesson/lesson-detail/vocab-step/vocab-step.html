@@ -28,24 +28,20 @@
 
   @if (row(); as r) {
     <article class="word" aria-live="polite">
-      <div class="word-main">
-        <div class="picture">
-          @if (showImage()) {
+      <div class="word-main" [class.no-picture]="!showImage()">
+        @if (showImage() && r.image; as image) {
+          <div class="picture">
             <img
-              [attr.crossorigin]="r.crossOrigin"
-              [src]="r.image"
+              crossorigin="use-credentials"
+              [src]="image"
               [class.loaded]="imageLoaded()"
               alt=""
               referrerpolicy="no-referrer"
-              (load)="onImageLoad(r.image)"
+              (load)="onImageLoad(image)"
               (error)="imageFailed(r.word.lemma)"
             />
-          } @else {
-            <span class="picture-fallback" aria-hidden="true" lang="en">{{
-              r.word.lemma.charAt(0).toUpperCase()
-            }}</span>
-          }
-        </div>
+          </div>
+        }
         <div class="word-text">
           <div class="word-line">
             <p class="lemma" lang="en">{{ r.word.lemma }}</p>

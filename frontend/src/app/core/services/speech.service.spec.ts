@@ -122,34 +122,52 @@ describe('SpeechService', () => {
     expect(events).toEqual(['start', 'word 3', 'end']);
   });
 
-  it('reports progress from word events, capped until the end, then 1', () => {
-    const shares: number[] = [];
-    create().speak('Hello there my friend.', 1, { progress: (share) => shares.push(share) });
-    const u = spoken();
-    u.onboundary!({ charIndex: 11 }); // half of the text
-    u.onboundary!({ charIndex: 3 }); // never goes back
-    u.onboundary!({ charIndex: 22 });
-    u.onend!();
-    expect(shares[0]).toBeCloseTo(0.5);
-    expect(shares[1]).toBeCloseTo(0.5);
-    expect(shares[2]).toBe(0.95);
-    expect(shares.at(-1)).toBe(1);
-  });
+  describe('progress of the browser voice', () => {
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
 
-  it('advances progress with time while reading, and stops when stopped', () => {
-    vi.useFakeTimers();
-    try {
+    it('waits for the voice to start, then moves on every frame, smoothly, and stops when stopped', () => {
       const shares: number[] = [];
       const speech = create();
-      speech.speak('Hi.', 1, { progress: (share) => shares.push(share) });
-      vi.advanceTimersByTime(300);
-      expect(shares.length).toBe(3);
+      speech.speak('Hello there my friend, how are you today?', 1, { progress: (share) => shares.push(share) });
+      vi.advanceTimersByTime(200);
+      expect(shares).toEqual([]); // not started yet
+      spoken().onstart!();
+      vi.advanceTimersByTime(500);
+      // About one report per 16 ms frame, each a little further, none jumping.
+      expect(shares.length).toBeGreaterThan(20);
+      for (let i = 1; i < shares.length; i++) {
+        expect(shares[i]).toBeGreaterThanOrEqual(shares[i - 1]);
+        expect(shares[i] - shares[i - 1]).toBeLessThan(0.05);
+      }
+      const count = shares.length;
       speech.stop();
       vi.advanceTimersByTime(300);
-      expect(shares.length).toBe(3);
-    } finally {
-      vi.useRealTimers();
-    }
+      expect(shares.length).toBe(count);
+    });
+
+    it('glides towards a word event instead of jumping, never back, capped until the end, then 1', () => {
+      const shares: number[] = [];
+      create().speak('Hello there my friend, how are you today?', 1, { progress: (share) => shares.push(share) });
+      const u = spoken();
+      u.onstart!();
+      vi.advanceTimersByTime(160);
+      const before = shares.at(-1)!;
+      // The voice is already at the middle: much faster than estimated.
+      u.onboundary!({ charIndex: 21 });
+      vi.advanceTimersByTime(16);
+      const next = shares.at(-1)!;
+      expect(next).toBeGreaterThan(before);
+      expect(next).toBeLessThan(0.5); // eased, not jumped to the middle
+      vi.advanceTimersByTime(400);
+      expect(shares.at(-1)).toBeGreaterThan(0.5); // caught up
+      u.onboundary!({ charIndex: 3 }); // an early word changes nothing and never goes back
+      vi.advanceTimersByTime(5000);
+      expect(Math.max(...shares)).toBeCloseTo(0.95);
+      expect(Math.max(...shares)).toBeLessThanOrEqual(0.95);
+      u.onend!();
+      expect(shares.at(-1)).toBe(1);
+    });
   });
 
   it('reports errors, but not those of an utterance stopped or replaced on purpose', () => {

@@ -83,6 +83,11 @@ export class Listening implements OnInit {
 
   protected readonly speeds = SPEEDS;
   protected readonly lesson = signal<ReadingLesson | null>(null);
+  /** Back to the path of the lesson's part, where the learner came from. */
+  protected readonly backLink = computed(() => {
+    const level = this.lesson()?.level;
+    return level ? ['/lessons/levels', level] : ['/lessons'];
+  });
   protected readonly loadError = signal<string | null>(null);
   protected readonly current = signal(0);
   protected readonly rate = signal(1);
@@ -208,7 +213,7 @@ export class Listening implements OnInit {
   protected redoSentence(): void {
     this.typed.set('');
     this.answerError.set(null);
-    this.host.nativeElement.querySelector<HTMLInputElement>('#answer')?.focus();
+    this.host.nativeElement.querySelector<HTMLTextAreaElement>('#answer')?.focus();
     this.listen();
   }
 
@@ -300,7 +305,8 @@ export class Listening implements OnInit {
   // --- dictation ---
 
   protected onInput(event: Event): void {
-    this.typed.set((event.target as HTMLInputElement).value);
+    // A pasted line break is a space: the answer is one sentence.
+    this.typed.set((event.target as HTMLTextAreaElement).value.replace(/\s*\n\s*/g, ' '));
     this.answerError.set(null);
   }
 

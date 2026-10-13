@@ -123,6 +123,11 @@ export class Reading implements OnInit {
   );
 
   protected readonly lesson = signal<ReadingLesson | null>(null);
+  /** Back to the path of the lesson's part, where the learner came from. */
+  protected readonly backLink = computed(() => {
+    const level = this.lesson()?.level;
+    return level ? ['/lessons/levels', level] : ['/lessons'];
+  });
   protected readonly loadError = signal<string | null>(null);
   protected readonly saved = signal<ReadonlySet<string>>(new Set());
 

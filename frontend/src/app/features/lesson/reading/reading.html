@@ -2,7 +2,7 @@
 <section class="reading">
   @if (mode() === null) {
     <nav class="screen-bar back-bar" aria-label="Điều hướng">
-      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"><lu-icon name="arrow-left" /></a>
+      <a class="round-btn" [routerLink]="backLink()" aria-label="Quay lại danh sách bài"><lu-icon name="arrow-left" /></a>
       <span class="back-label">Danh sách bài</span>
     </nav>
   }

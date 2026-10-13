@@ -5,7 +5,12 @@ export const lessonRoutes: Routes = [
   {
     path: '',
     title: 'Bài học · Luna',
-    loadComponent: () => import('./my-lessons/my-lessons').then((m) => m.MyLessons),
+    loadComponent: () => import('./learn-parts/learn-parts').then((m) => m.LearnParts),
+  },
+  {
+    path: 'levels/:level',
+    title: 'Lộ trình · Luna',
+    loadComponent: () => import('./learn-path/learn-path').then((m) => m.LearnPath),
   },
   {
     path: ':id',

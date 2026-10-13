@@ -69,6 +69,7 @@ func TestListSortedWithCountsPerLevel(t *testing.T) {
 	e.create(t, "Mua sắm")
 	family := e.create(t, "Gia đình")
 	e.create(t, "Công việc")
+	e.create(t, "Âm nhạc")
 	for _, id := range []string{"l1", "l2", "l3"} {
 		e.lessons.add(id, id, family.ID, "A1")
 	}
@@ -83,10 +84,11 @@ func TestListSortedWithCountsPerLevel(t *testing.T) {
 	for _, s := range list {
 		order = append(order, s.Name)
 	}
-	if strings.Join(order, ",") != "Công việc,Gia đình,Mua sắm" {
+	// Vietnamese order: "Â" comes right after "A", before "C".
+	if strings.Join(order, ",") != "Âm nhạc,Công việc,Gia đình,Mua sắm" {
 		t.Fatalf("order = %v", order)
 	}
-	f := list[1]
+	f := list[2]
 	want := []LevelSummary{
 		{Level: "A1", LessonCount: 3, RoadmapCount: 3, Remaining: 3},
 		{Level: "B1", LessonCount: 1, Warning: true},
@@ -165,6 +167,36 @@ func TestPublicOnlyTopicsWithARoadmapAtTheLevel(t *testing.T) {
 	}
 	if _, err := e.svc.Public(t.Context(), ""); err == nil {
 		t.Fatal("missing level accepted")
+	}
+}
+
+func TestLearnerRoadmapsByLevel(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	family := e.create(t, "Gia đình")
+	work := e.create(t, "Công việc")
+	_ = e.repo.SetLessons(t.Context(), family.ID, "A1", []string{"l1", "l2"})
+	_ = e.repo.SetLessons(t.Context(), family.ID, "B1", []string{"l3"})
+	_ = e.repo.SetLessons(t.Context(), work.ID, "B1", []string{"l4", "l5"})
+	for _, l := range []struct{ id, topic, level string }{
+		{"l1", family.ID, "A1"}, {"l2", family.ID, "A1"}, {"l3", family.ID, "B1"}, {"l4", work.ID, "B1"}, {"l5", work.ID, "B1"},
+	} {
+		e.lessons.add(l.id, "Bài", l.topic, l.level)
+	}
+	e.lessons.setDraft("l5")
+
+	got, err := e.svc.LearnerRoadmaps(t.Context())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != 2 || len(got["A1"]) != 1 || got["A1"][0].TopicName != "Gia đình" || len(got["A1"][0].LessonIDs) != 2 {
+		t.Fatalf("roadmaps = %+v", got)
+	}
+	// Topic order (as in Public), drafts left out.
+	b1 := got["B1"]
+	if len(b1) != 2 || b1[0].TopicName != "Công việc" || len(b1[0].LessonIDs) != 1 || b1[0].LessonIDs[0] != "l4" ||
+		b1[1].TopicID != family.ID {
+		t.Fatalf("B1 = %+v", b1)
 	}
 }
 

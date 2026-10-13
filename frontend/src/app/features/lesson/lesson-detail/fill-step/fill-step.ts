@@ -100,8 +100,11 @@ export class FillStep {
     correct: this.results().filter((r) => r === true).length,
     total: this.results().length,
   }));
+  /** Lines with something to fill in; a line without a blank is only there to follow the dialogue. */
+  private readonly blankTurns = computed(() => this.turns().filter((t) => t.blanks.length > 0));
+  protected readonly blankTurnCount = computed(() => this.blankTurns().length);
   protected readonly checkedCount = computed(
-    () => this.turns().filter((t) => t.blanks.every((i) => this.results()[i] !== null)).length,
+    () => this.blankTurns().filter((t) => t.blanks.every((i) => this.results()[i] !== null)).length,
   );
 
   /** Bank tiles whose word is already in a blank, one tile per blank holding it. */

@@ -29,9 +29,15 @@ export function clock(seconds: number): string {
     >
       <lu-icon [name]="playing() ? 'pause' : 'play'" />
     </button>
-    <div class="track" aria-hidden="true">
-      <div class="played" [class.restart]="share() === 0" [style.width.%]="share() * 100"></div>
-      <span class="knob" [class.restart]="share() === 0" [style.left.%]="share() * 100"></span>
+    <!--
+      Moved with transforms, updated on every frame while playing: no layout work, so the bar glides
+      even when it is long. Transitions only smooth a change while stopped (the jump to the end).
+    -->
+    <div class="track" aria-hidden="true" [class.animate]="!playing() && share() > 0">
+      <div class="played" [style.transform]="'scaleX(' + share() + ')'"></div>
+      <div class="head" [style.transform]="'translateX(' + share() * 100 + '%)'">
+        <span class="knob"></span>
+      </div>
     </div>
     <span class="time">
       @if (preparing()) {
@@ -83,21 +89,30 @@ export function clock(seconds: number): string {
       height: 100%;
       background: var(--color-primary);
       border-radius: inherit;
-      transition: width 0.2s linear;
+      transform-origin: left center;
+      will-change: transform;
+    }
+    /* As wide as the track: translateX(n%) puts its left edge, the knob's centre, at n% of the track. */
+    .head {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      will-change: transform;
     }
     .knob {
       position: absolute;
       top: 50%;
+      left: 0;
       width: 14px;
       height: 14px;
       background: var(--color-surface);
       border: 3px solid var(--color-primary);
       border-radius: var(--radius-full);
       transform: translate(-50%, -50%);
-      transition: left 0.2s linear;
     }
-    .restart {
-      transition: none;
+    .animate .played,
+    .animate .head {
+      transition: transform 0.15s ease-out;
     }
     .time {
       flex: none;
@@ -106,8 +121,8 @@ export function clock(seconds: number): string {
       font-variant-numeric: tabular-nums;
     }
     @media (prefers-reduced-motion: reduce) {
-      .played,
-      .knob {
+      .animate .played,
+      .animate .head {
         transition: none;
       }
     }

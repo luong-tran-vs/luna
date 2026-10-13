@@ -161,6 +161,20 @@ func (f *fakeRoadmaps) Roadmap(_ context.Context, topicID, level string) (TopicI
 	return t, nil
 }
 
+// LevelRoadmaps lists the topics with lessons at their own level, by topic id.
+func (f *fakeRoadmaps) LevelRoadmaps(_ context.Context) (map[string][]TopicInfo, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	out := map[string][]TopicInfo{}
+	for _, id := range slices.Sorted(maps.Keys(f.topics)) {
+		if t := f.topics[id]; len(t.LessonIDs) > 0 {
+			t.LessonIDs = slices.Clone(t.LessonIDs)
+			out[t.Level] = append(out[t.Level], t)
+		}
+	}
+	return out, nil
+}
+
 func (f *fakeRoadmaps) set(t TopicInfo) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
@@ -259,7 +273,7 @@ func newStudyEnv() *studyEnv {
 		members:  &fakeMembers{guests: map[string]bool{}},
 	}
 	for _, t := range []TopicInfo{
-		{ID: "family", Name: "Gia đình", Level: "A1", LessonIDs: []string{"f1", "f2", "f3"}},
+		{ID: "family", Name: "Gia đình", Description: "Các thành viên", Level: "A1", LessonIDs: []string{"f1", "f2", "f3"}},
 		{ID: "shopping", Name: "Mua sắm", Level: "A1", LessonIDs: []string{"s1", "s2"}},
 		{ID: "work", Name: "Công việc", Level: "B1", LessonIDs: []string{"w1"}},
 		{ID: "empty", Name: "Trống", Level: "A1"},

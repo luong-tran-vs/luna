@@ -1,16 +1,16 @@
 <section class="screen practice-page" [class.has-next]="lesson() && showBar()">
   @if (loadError(); as message) {
     <header class="screen-bar">
-      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"
+      <a class="round-btn" [routerLink]="backLink()" aria-label="Quay lại danh sách bài"
         ><lu-icon name="arrow-left"
       /></a>
       <span class="back-label">Danh sách bài</span>
     </header>
     <p class="form-alert" role="alert">{{ message }}</p>
-    <a class="btn btn-block" routerLink="/lessons">Về danh sách bài</a>
+    <a class="btn btn-block" [routerLink]="backLink()">Về danh sách bài</a>
   } @else if (lesson(); as l) {
     <header class="top-bar">
-      <a class="round-btn" routerLink="/lessons" aria-label="Đóng, về danh sách bài"
+      <a class="round-btn" [routerLink]="backLink()" aria-label="Đóng, về danh sách bài"
         ><lu-icon name="x"
       /></a>
       @if (hasSteps()) {
@@ -48,7 +48,8 @@
         <p class="objective"><span class="objective-label">Mục tiêu:</span> {{ objective }}</p>
       }
       <span class="tag level">Mức độ: {{ level() }}</span>
-      @if (canRelearn()) {
+      <!-- The done card has its own "Học lại bài này". -->
+      @if (canRelearn() && !lessonDone()) {
         <button type="button" class="btn relearn" (click)="relearnAsk.set(true)">
           <lu-icon name="review" /> Học lại bài
         </button>
@@ -117,6 +118,16 @@
                 Chuỗi ngày học: <strong>{{ s }} ngày</strong>.
               </p>
             }
+            @if (doneWriting(); as w) {
+              <a class="btn btn-block writing-result" [routerLink]="['/writings', w.id]">
+                <lu-icon name="pencil" />
+                @if (w.grade?.average; as avg) {
+                  Xem nhận xét bài viết ({{ formatScore(avg) }}/5)
+                } @else {
+                  Xem bài viết (AI đang chấm)
+                }
+              </a>
+            }
             @if (dueCount() > 0) {
               <div class="review-nudge" role="status">
                 <p>
@@ -157,7 +168,7 @@
             <button type="button" class="btn btn-block" (click)="relearnAsk.set(true)">
               <lu-icon name="review" /> Học lại bài này
             </button>
-            <a class="btn btn-block" routerLink="/lessons">Về danh sách bài</a>
+            <a class="btn btn-block" [routerLink]="backLink()">Về danh sách bài</a>
           </section>
         } @else if (finished()) {
           <lu-practice-summary

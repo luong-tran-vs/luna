@@ -6,7 +6,16 @@ import { provideRouter } from '@angular/router';
 
 import { ThemePreference, ThemeService } from '../../core/services/theme.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
-import { LearnerLayout } from './learner-layout';
+import { isFocusPage, LearnerLayout } from './learner-layout';
+
+describe('isFocusPage', () => {
+  it('is a lesson being studied, not the lesson list', () => {
+    expect(isFocusPage('/lessons/l1')).toBe(true);
+    expect(isFocusPage('/lessons/l1/listen')).toBe(true);
+    expect(isFocusPage('/lessons')).toBe(false);
+    expect(isFocusPage('/')).toBe(false);
+  });
+});
 
 describe('LearnerLayout', () => {
   let fixture: ComponentFixture<LearnerLayout>;
@@ -37,7 +46,7 @@ describe('LearnerLayout', () => {
 
   it('puts Tài khoản last, marked to sit at the end of the bar', () => {
     const tabs = Array.from(el.querySelectorAll('.tab'));
-    expect(tabs.map((t) => t.textContent?.trim())).toEqual(['Trang chủ', 'Khóa học', 'Ngữ pháp', 'Động từ', 'Ôn tập', 'Tài khoản']);
+    expect(tabs.map((t) => t.textContent?.trim())).toEqual(['Trang chủ', 'Học', 'Ngữ pháp', 'Động từ', 'Ôn tập', 'Tài khoản']);
     expect(tabs.filter((t) => t.classList.contains('tab-end')).map((t) => t.getAttribute('href'))).toEqual([
       '/account',
     ]);

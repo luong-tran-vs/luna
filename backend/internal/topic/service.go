@@ -8,6 +8,9 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"golang.org/x/text/collate"
+	"golang.org/x/text/language"
 )
 
 const (
@@ -64,8 +67,13 @@ func checkLevel(level, field string) error {
 	return nil
 }
 
+// sortTopics orders topics by name in Vietnamese alphabetical order ("Âm nhạc" before "Báo chí"),
+// which byte order gets wrong for accented letters.
 func sortTopics(topics []Topic) {
-	slices.SortFunc(topics, func(a, b Topic) int { return strings.Compare(NameKey(a.Name), NameKey(b.Name)) })
+	c := collate.New(language.Vietnamese, collate.IgnoreCase)
+	slices.SortStableFunc(topics, func(a, b Topic) int {
+		return c.CompareString(NameKey(a.Name), NameKey(b.Name))
+	})
 }
 
 // List returns every topic by name, with lesson counts and roadmap warnings per level.
@@ -186,6 +194,51 @@ func (s *Service) Public(ctx context.Context, level string) ([]Public, error) {
 		}
 		if n > 0 {
 			out = append(out, Public{ID: t.ID, Name: t.Name, Level: level, Description: t.Description, LessonCount: n})
+		}
+	}
+	return out, nil
+}
+
+// LevelRoadmap is one topic's roadmap at a level as learners see it.
+type LevelRoadmap struct {
+	TopicID          string
+	TopicName        string
+	TopicDescription string
+	LessonIDs        []string
+}
+
+// LearnerRoadmaps lists, for every level, the topics with published lessons there (in topic order)
+// and those lessons in roadmap order. Levels with no lesson have no entry.
+func (s *Service) LearnerRoadmaps(ctx context.Context) (map[string][]LevelRoadmap, error) {
+	topics, err := s.repo.List(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("topic: list: %w", err)
+	}
+	sortTopics(topics)
+	var ids []string
+	for _, t := range topics {
+		for _, level := range Levels {
+			ids = append(ids, t.Roadmap(level)...)
+		}
+	}
+	published, err := s.published(ctx, ids)
+	if err != nil {
+		return nil, err
+	}
+	out := map[string][]LevelRoadmap{}
+	for _, level := range Levels {
+		for _, t := range topics {
+			var lessons []string
+			for _, lid := range t.Roadmap(level) {
+				if published[lid] {
+					lessons = append(lessons, lid)
+				}
+			}
+			if len(lessons) > 0 {
+				out[level] = append(out[level], LevelRoadmap{
+					TopicID: t.ID, TopicName: t.Name, TopicDescription: t.Description, LessonIDs: lessons,
+				})
+			}
 		}
 	}
 	return out, nil

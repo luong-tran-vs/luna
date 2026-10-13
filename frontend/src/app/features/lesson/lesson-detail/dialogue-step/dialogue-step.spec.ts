@@ -34,7 +34,13 @@ describe('DialogueStep', () => {
   const reveal = () => turn().querySelector<HTMLButtonElement>('.reveal')!;
   const counter = () => text(turn().querySelector('.step-card-head .muted'));
   /** Percent of the shown turn's player track shown as played. */
-  const filled = () => parseFloat(turn().querySelector<HTMLElement>('lu-audio-bar .played')!.style.width || '0');
+  const filled = () =>
+    100 *
+    parseFloat(
+      /scaleX\((.*)\)/.exec(
+        turn().querySelector<HTMLElement>('lu-audio-bar .played')!.style.transform,
+      )?.[1] ?? '0',
+    );
   const isCurrent = () => turn().getAttribute('aria-current') === 'true';
   const button = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
   /** A button by its text, visually hidden text included (the ← → of the card). */

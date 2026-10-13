@@ -6,7 +6,7 @@ import { serverUrl } from '../../../../core/api-url';
 import { PracticeExample } from '../../../../core/models/practice';
 import { VocabItem } from '../../../../core/models/vocab';
 import { FakeSpeech, provideFakeSpeech } from '../../../../core/services/speech.service.testing';
-import { highlight, placeholderImage, VocabStep } from './vocab-step';
+import { highlight, VocabStep } from './vocab-step';
 
 const words: VocabItem[] = [
   {
@@ -27,6 +27,13 @@ const words: VocabItem[] = [
     sentenceIndex: 1,
     sentence: 'Nice to meet you.',
   },
+];
+
+/** The first two words with a picture of their own. */
+const pictured: VocabItem[] = [
+  { ...words[0], imageUrl: '/api/lessons/l1/images/hello' },
+  { ...words[1], imageUrl: '/api/lessons/l1/images/name' },
+  words[2],
 ];
 
 const examples: PracticeExample[] = [
@@ -56,15 +63,6 @@ describe('highlight', () => {
       hit: '',
       after: '',
     });
-  });
-});
-
-describe('placeholderImage', () => {
-  it('is the same picture for the same word', () => {
-    expect(placeholderImage('coffee')).toBe(placeholderImage('Coffee'));
-    expect(placeholderImage('get up')).toMatch(
-      /^https:\/\/loremflickr\.com\/480\/360\/get%2Cup\?lock=\d+$/,
-    );
   });
 });
 
@@ -125,7 +123,6 @@ describe('VocabStep', () => {
     expect(text(el.querySelector('.ipa'))).toBe('/həˈləʊ/');
     expect(text(el.querySelector('.pos'))).toBe('thán từ');
     expect(text(el.querySelector('.meaning'))).toBe('xin chào');
-    expect(el.querySelector('img')!.getAttribute('src')).toBe(placeholderImage('hello'));
     expect(text(el.querySelector('.example-label'))).toBe('Ví dụ:');
     expect(text(el.querySelector('.example-btn'))).toBe('Hello, how are you? (nghe câu)');
     expect(text(el.querySelector('.example strong'))).toBe('Hello');
@@ -141,7 +138,7 @@ describe('VocabStep', () => {
   });
 
   it("hides the previous word's picture until the next word's has loaded", async () => {
-    await render();
+    await render(pictured);
     const img = () => el.querySelector('img')!;
     expect(img().classList.contains('loaded')).toBe(false);
     img().dispatchEvent(new Event('load'));
@@ -150,19 +147,19 @@ describe('VocabStep', () => {
 
     el.querySelector<HTMLButtonElement>('.next-word')!.click();
     await fixture.whenStable();
-    expect(img().getAttribute('src')).toBe(placeholderImage(words[1].lemma));
+    expect(img().getAttribute('src')).toBe(serverUrl('/api/lessons/l1/images/name'));
     expect(img().classList.contains('loaded')).toBe(false);
     img().dispatchEvent(new Event('load'));
     await fixture.whenStable();
     expect(img().classList.contains('loaded')).toBe(true);
   });
 
-  it('draws the first letter when the picture does not load', async () => {
-    await render();
+  it('drops the picture area when the picture does not load', async () => {
+    await render(pictured);
     el.querySelector('img')!.dispatchEvent(new Event('error'));
     await fixture.whenStable();
     expect(el.querySelector('img')).toBeNull();
-    expect(text(el.querySelector('.picture-fallback'))).toBe('H');
+    expect(el.querySelector('.word-main')!.classList.contains('no-picture')).toBe(true);
   });
 
   it('moves between the words with the arrows and Tiếp theo', async () => {
@@ -210,8 +207,18 @@ describe('VocabStep', () => {
   });
 
   it('uses the word picture when there is one', async () => {
-    await render([{ ...words[0], imageUrl: '/api/lessons/l1/images/hello' }], examples);
-    expect(el.querySelector('img')!.getAttribute('src')).toBe(serverUrl('/api/lessons/l1/images/hello'));
+    await render(pictured, examples);
+    expect(el.querySelector('img')!.getAttribute('src')).toBe(
+      serverUrl('/api/lessons/l1/images/hello'),
+    );
+    expect(el.querySelector('.word-main')!.classList.contains('no-picture')).toBe(false);
+  });
+
+  it('has no picture area for a word without a picture', async () => {
+    await render();
+    expect(el.querySelector('img')).toBeNull();
+    expect(el.querySelector('.picture')).toBeNull();
+    expect(el.querySelector('.word-main')!.classList.contains('no-picture')).toBe(true);
   });
 
   it('Đã học saves the word as a review card of the lesson', async () => {

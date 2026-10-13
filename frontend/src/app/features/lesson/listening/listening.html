@@ -1,7 +1,7 @@
 <section class="listening">
   @if (mode() === null) {
     <nav class="screen-bar back-bar" aria-label="Điều hướng">
-      <a class="round-btn" routerLink="/lessons" aria-label="Quay lại danh sách bài"
+      <a class="round-btn" [routerLink]="backLink()" aria-label="Quay lại danh sách bài"
         ><lu-icon name="arrow-left"
       /></a>
       <span class="back-label">Danh sách bài</span>
@@ -105,9 +105,10 @@
 
         <form class="answer" (submit)="check($event)">
           <label class="answer-label" for="answer">Câu bạn nghe được</label>
-          <input
+          <!-- A textarea so a long sentence wraps instead of scrolling out of view; Enter still checks. -->
+          <textarea
             id="answer"
-            type="text"
+            rows="2"
             lang="en"
             placeholder="Gõ câu bạn nghe được"
             autocapitalize="off"
@@ -121,7 +122,8 @@
             [attr.aria-describedby]="answerError() ? 'answer-error' : null"
             (input)="onInput($event)"
             (focus)="onFocus($event)"
-          />
+            (keydown.enter)="check($event)"
+          ></textarea>
           @if (answerError(); as message) {
             <p class="answer-error field-error" id="answer-error" role="alert">{{ message }}</p>
           }
