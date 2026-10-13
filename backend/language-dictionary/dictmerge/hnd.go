@@ -20,9 +20,11 @@ type hndEntry struct {
 //	*  danh từ             a part of speech for the meanings below
 //	- nhạc, âm nhạc        a meaning
 //	=to have an ear...+ …  an example (skipped)
-//	!the Communist Party   an idiom; its meanings ("- …") are skipped until the next "*" or "@"
+//	!to give up            a phrase or idiom; the meanings ("- …") below it are its own, until the
+//	- bỏ, từ bỏ            next "*", "@" or "!" (several "!" lines in a row share the meanings)
 //
-// Entries without any meaning (e.g. "@went" with only "* xem go") are left out.
+// Phrases become entries of their own ("give up"), after the words. Entries without any meaning
+// (e.g. "@went" with only "* xem go") are left out.
 func parseHND(r io.Reader) ([]hndEntry, error) {
 	sc := bufio.NewScanner(r)
 	sc.Buffer(make([]byte, 0, 64*1024), 4*1024*1024)
@@ -36,6 +38,23 @@ func parseHND(r io.Reader) ([]hndEntry, error) {
 			out = append(out, *cur)
 		}
 		cur = nil
+	}
+
+	// Phrases by text, in the order first met; the same phrase under several words is merged.
+	phrases := map[string]*hndEntry{}
+	var phraseOrder []string
+	var group []string // the phrases of the "!" lines being read
+	groupOpen := false // more "!" lines may still join the group (no meaning read yet)
+	addPhraseMeaning := func(text string) {
+		for _, p := range group {
+			e, ok := phrases[p]
+			if !ok {
+				e = &hndEntry{Word: p}
+				phrases[p] = e
+				phraseOrder = append(phraseOrder, p)
+			}
+			e.Meanings = append(e.Meanings, meaning{Text: text, Source: sourceHND})
+		}
 	}
 	first := true
 	for sc.Scan() {
@@ -53,23 +72,64 @@ func parseHND(r io.Reader) ([]hndEntry, error) {
 				continue
 			}
 			cur = &hndEntry{Word: word, IPA: hndIPA(word, ipa)}
-			pos, inIdiom = "", false
+			pos, inIdiom, group = "", false, nil
 		case cur == nil:
 			continue
 		case strings.HasPrefix(line, "*"):
 			head, _, _ := strings.Cut(line[1:], "+")
-			pos, inIdiom = hndPOS(head), false
+			pos, inIdiom, group = hndPOS(head), false, nil
 		case strings.HasPrefix(line, "!"):
-			inIdiom = true
+			if !groupOpen {
+				group = nil
+			}
+			if p := phraseOf(line[1:]); p != "" {
+				group = append(group, p)
+			}
+			inIdiom, groupOpen = true, true
 		case strings.HasPrefix(line, "- "):
 			text := strings.TrimSpace(line[2:])
-			if !inIdiom && text != "" {
+			switch {
+			case text == "", isCrossReference(text):
+			case inIdiom:
+				groupOpen = false
+				addPhraseMeaning(text)
+			default:
 				cur.Meanings = append(cur.Meanings, meaning{POS: pos, Text: text, Source: sourceHND})
 			}
 		}
 	}
 	flush()
+	for _, p := range phraseOrder {
+		out = append(out, *phrases[p])
+	}
 	return out, sc.Err()
+}
+
+// isCrossReference tells a "meaning" that only points to another entry, "(xem) by": it says
+// nothing to a learner, who is better offered "Hỏi AI".
+func isCrossReference(text string) bool {
+	rest, ok := strings.CutPrefix(text, "(xem)")
+	return ok && len(strings.Fields(rest)) <= 1
+}
+
+// maxPhraseWords is the longest phrase kept: a learner selects at most 6 words.
+const maxPhraseWords = 6
+
+// phraseOf turns the text of a "!" line into the phrase a learner would select: "to give up" →
+// "give up", "good morning!" → "good morning", "to give up (resign) all hope" → "give up all hope".
+// Single words, phrases longer than 6 words and patterns ("to cast [in] a bone between...",
+// "and/or") give "".
+func phraseOf(s string) string {
+	s = parenthetical.ReplaceAllString(s, " ")
+	if strings.ContainsAny(s, "[]/=+…") || strings.Contains(s, "...") {
+		return ""
+	}
+	p := strings.Trim(normalizeWord(s), " !?.,;:")
+	p = strings.TrimPrefix(p, "to ")
+	if n := len(strings.Fields(p)); n < 2 || n > maxPhraseWords {
+		return ""
+	}
+	return p
 }
 
 // splitHeadword splits "music /'mju:zik/" into the word and the text between the first two "/".

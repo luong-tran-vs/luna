@@ -69,6 +69,26 @@ func TestCandidatesOrderAndUniqueness(t *testing.T) {
 	}
 }
 
+func TestCandidatesPhrase(t *testing.T) {
+	t.Parallel()
+	for _, tt := range []struct{ phrase, mustHave string }{
+		{"gave up", "give up"},
+		{"Looked  After", "look after"},
+		{"giving up", "give up"},
+		{"takes care of", "take care of"},
+		{"in front of", "in front of"},
+	} {
+		got := Candidates(tt.phrase)
+		if !slices.Contains(got, tt.mustHave) {
+			t.Errorf("Candidates(%q) = %q, missing %q", tt.phrase, got, tt.mustHave)
+		}
+	}
+	// The phrase itself first; only the first word is changed.
+	if got := Candidates("gave up"); got[0] != "gave up" || slices.Contains(got, "gave u") {
+		t.Errorf("Candidates(gave up) = %q", got)
+	}
+}
+
 func TestCandidatesEmpty(t *testing.T) {
 	t.Parallel()
 	if got := Candidates("  "); got != nil {

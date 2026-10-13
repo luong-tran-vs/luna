@@ -6,11 +6,19 @@ import "strings"
 // Candidates returns possible dictionary forms of word, most likely first: the word itself
 // (lowercased), its irregular base form, then regular-rule guesses (-s, -es, -ies, -ed, -ing,
 // doubled consonants, 's). Callers keep the first candidate the dictionary knows, so wrong
-// guesses are harmless.
+// guesses are harmless. A phrase gets the same guesses on its first word, where the verb of a
+// phrasal verb or an idiom is: "gave up" → "give up", "looked after" → "look after".
 func Candidates(word string) []string {
 	w := strings.ToLower(strings.TrimSpace(strings.ReplaceAll(word, "’", "'")))
 	if w == "" {
 		return nil
+	}
+	if first, rest, ok := strings.Cut(strings.Join(strings.Fields(w), " "), " "); ok {
+		out := []string{first + " " + rest}
+		for _, c := range Candidates(first)[1:] {
+			out = append(out, c+" "+rest)
+		}
+		return out
 	}
 
 	var out []string

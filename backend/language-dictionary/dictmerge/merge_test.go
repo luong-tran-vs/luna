@@ -29,7 +29,29 @@ const sample = "\ufeff@music /'mju:zik/\n" +
 	"\n" +
 	"@problem /problem/\n" +
 	"*  danh từ\n" +
-	"- vấn đề\n"
+	"- vấn đề\n" +
+	"\n" +
+	"@give /giv/\n" +
+	"*  ngoại động từ\n" +
+	"- cho, biếu\n" +
+	"!to give up\n" +
+	"- bỏ, từ bỏ\n" +
+	"=to give up a habit+ bỏ một thói quen\n" +
+	"!to give in\n" +
+	"!to give way\n" +
+	"- nhượng bộ\n" +
+	"!to cast [in] a bone between...\n" +
+	"- gây bất hoà\n" +
+	"!about\n" +
+	"- quanh quẩn\n" +
+	"\n" +
+	"@up /ʌp/\n" +
+	"*  phó từ\n" +
+	"- lên\n" +
+	"!to give up\n" +
+	"- thôi, đầu hàng\n" +
+	"!by the way\n" +
+	"- (xem) by\n"
 
 func TestParseHND(t *testing.T) {
 	got, err := parseHND(strings.NewReader(sample))
@@ -40,16 +62,45 @@ func TestParseHND(t *testing.T) {
 		{Word: "music", IPA: "/ˈmjuːzik/", Meanings: []meaning{{POS: "N", Text: "nhạc, âm nhạc", Source: sourceHND}}},
 		// Only the first pronunciation; "-resisting)" is not a meaning (no space after "-").
 		{Word: "acid-proof", IPA: "/ˈæsidˈpruːf/", Meanings: []meaning{{POS: "A", Text: "chịu axit", Source: sourceHND}}},
-		// "went" has no meaning ("* xem go") and is left out; idiom meanings are skipped.
+		// "went" has no meaning ("* xem go") and is left out; a phrase's meanings are not the word's.
 		{Word: "party", IPA: "/ˈpɑːti/", Meanings: []meaning{
 			{POS: "N", Text: "đảng", Source: sourceHND},
 			{POS: "V", Text: "mở tiệc", Source: sourceHND},
 		}},
 		// A "pronunciation" that is the word itself is dropped.
 		{Word: "problem", Meanings: []meaning{{POS: "N", Text: "vấn đề", Source: sourceHND}}},
+		{Word: "give", IPA: "/giv/", Meanings: []meaning{{POS: "V", Text: "cho, biếu", Source: sourceHND}}},
+		{Word: "up", IPA: "/ʌp/", Meanings: []meaning{{POS: "R", Text: "lên", Source: sourceHND}}},
+		// Then the phrases, after the words: "to " left out, the same phrase under two words merged,
+		// "!" lines in a row sharing the meaning; patterns ("[in]", "...") and single words skipped.
+		{Word: "the communist party", Meanings: []meaning{{Text: "đảng Cộng sản", Source: sourceHND}}},
+		{Word: "give up", Meanings: []meaning{
+			{Text: "bỏ, từ bỏ", Source: sourceHND},
+			{Text: "thôi, đầu hàng", Source: sourceHND},
+		}},
+		{Word: "give in", Meanings: []meaning{{Text: "nhượng bộ", Source: sourceHND}}},
+		{Word: "give way", Meanings: []meaning{{Text: "nhượng bộ", Source: sourceHND}}},
 	}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("parseHND =\n%+v\nwant\n%+v", got, want)
+	}
+}
+
+func TestPhraseOf(t *testing.T) {
+	for in, want := range map[string]string{
+		"to give up":                             "give up",
+		"good morning!":                          "good morning",
+		"what about?":                            "what about",
+		"to give up (resign) all hope":           "give up all hope",
+		"to lift up one's voice":                 "lift up one's voice",
+		"to cast [in] a bone between...":         "",
+		"and/or":                                 "",
+		"about":                                  "",
+		"to be neither here nor there right now": "", // 7 words
+	} {
+		if got := phraseOf(in); got != want {
+			t.Errorf("phraseOf(%q) = %q, want %q", in, got, want)
+		}
 	}
 }
 

@@ -19,6 +19,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -62,8 +63,14 @@ func run(ctx context.Context, minhqndPath, hndPath, outPath string) error {
 	fmt.Printf("minhqnd: %d words, %d meanings\n", s.MinhqndWords, s.MinhqndMeanings)
 	fmt.Printf("Hồ Ngọc Đức: %d entries read, %d meanings added, %d skipped as already given\n",
 		len(entries), s.HNDAdded, s.HNDSkipped)
-	fmt.Printf("  %d new words, %d words that had no meaning, %d pronunciations added\n",
-		s.HNDOnlyWords, s.HNDFilledWords, s.HNDIPAs)
+	phrases := 0
+	for _, e := range entries {
+		if strings.Contains(e.Word, " ") {
+			phrases++
+		}
+	}
+	fmt.Printf("  %d new words or phrases (%d phrases read), %d words that had no meaning, %d pronunciations added\n",
+		s.HNDOnlyWords, phrases, s.HNDFilledWords, s.HNDIPAs)
 	fmt.Printf("wrote %s\n", outPath)
 	return nil
 }
