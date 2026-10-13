@@ -74,7 +74,9 @@ lu-review-session,
 .soft-card,
 [role='alert'],
 .form-alert {
-  animation: lu-enter var(--motion-base) var(--ease-out) both;
+  /* backwards, not both: once done no transform stays, so position: fixed inside (lu-loading)
+     is placed on the screen again, not on the page host. */
+  animation: lu-enter var(--motion-base) var(--ease-out) backwards;
 }
 
 dialog[open] {
