@@ -27,12 +27,12 @@
         <span class="source">{{ sourceLabel() }}</span>
       </div>
       <ul class="meanings">
-        @for (m of r.meanings.slice(0, 3); track $index) {
+        @for (line of meaningLines(); track line.pos) {
           <li>
-            @if (m.pos) {
-              <span class="pos">{{ posName(m.pos) }}</span>
+            @if (line.pos) {
+              <span class="pos">{{ line.pos }}</span>
             }
-            {{ m.text }}
+            {{ line.text }}
           </li>
         }
       </ul>

@@ -12,11 +12,16 @@ import (
 )
 
 // maxMeanings is how many Vietnamese meanings a lookup shows; maxSenses how many it reads to tell
-// the parts of speech of a word (the senses of one part of speech often come first).
+// the parts of speech of a word (the senses of one part of speech come first: "run" has 22 noun
+// senses before its verb ones).
 const (
-	maxMeanings = 3
-	maxSenses   = 30
+	maxMeanings = 4
+	maxSenses   = 60
 )
+
+// corePOS are the parts of speech a lookup shows first, one sense each, so "like" shows the verb
+// "thích" next to its adjective senses.
+var corePOS = map[string]bool{"N": true, "V": true, "A": true}
 
 // Meaning is one Vietnamese definition with its part of speech code (N, V, A, …).
 type Meaning struct {
@@ -29,11 +34,12 @@ type Entry struct {
 	Word     string
 	IPA      string
 	Meanings []Meaning
-	// Senses are all the meanings read (up to maxSenses), Meanings their first maxMeanings.
+	// Senses are all the meanings read (up to maxSenses), Meanings the ones shown (pickMeanings).
 	Senses []Meaning
 }
 
-// SQLite reads the minhqnd/dictionary database (read-only).
+// SQLite reads english-dictionary.db (read-only), built by language-dictionary/build.sh from
+// minhqnd/dictionary and Hồ Ngọc Đức's dictionary with the minhqnd/dictionary tables.
 type SQLite struct {
 	db *sql.DB
 }
@@ -88,13 +94,11 @@ func (d *SQLite) Lookup(ctx context.Context, word string) (Entry, bool, error) {
 			return Entry{}, false, fmt.Errorf("dictionary: scan meaning: %w", err)
 		}
 		e.Senses = append(e.Senses, m)
-		if len(e.Meanings) < maxMeanings {
-			e.Meanings = append(e.Meanings, m)
-		}
 	}
 	if err := rows.Err(); err != nil {
 		return Entry{}, false, fmt.Errorf("dictionary: meanings: %w", err)
 	}
+	e.Meanings = pickMeanings(e.Senses, maxMeanings)
 	if len(e.Meanings) == 0 {
 		return Entry{}, false, nil
 	}
@@ -107,6 +111,44 @@ func (d *SQLite) Lookup(ctx context.Context, word string) (Entry, bool, error) {
 		return Entry{}, false, fmt.Errorf("dictionary: ipa: %w", err)
 	}
 	return e, true, nil
+}
+
+// pickMeanings chooses up to n senses to show, spread over the word's parts of speech: the first
+// sense (Resolve reads it for inflection notes, "went" → "go"), then the first sense of each other
+// core part of speech, then of each other part of speech, then the next senses, all in dictionary
+// order within each step.
+func pickMeanings(senses []Meaning, n int) []Meaning {
+	if len(senses) <= n {
+		return senses
+	}
+	picked := make([]bool, len(senses))
+	shown := map[string]bool{}
+	out := make([]Meaning, 0, n)
+	take := func(i int) {
+		picked[i] = true
+		shown[senses[i].POS] = true
+		out = append(out, senses[i])
+	}
+	take(0)
+	for _, core := range []bool{true, false} {
+		for i, s := range senses {
+			if len(out) == n {
+				return out
+			}
+			if !picked[i] && s.POS != "" && !shown[s.POS] && corePOS[s.POS] == core {
+				take(i)
+			}
+		}
+	}
+	for i := range senses {
+		if len(out) == n {
+			break
+		}
+		if !picked[i] {
+			take(i)
+		}
+	}
+	return out
 }
 
 // None is used when no dictionary file is installed: every lookup misses.

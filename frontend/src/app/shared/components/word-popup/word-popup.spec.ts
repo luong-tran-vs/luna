@@ -48,12 +48,34 @@ describe('WordPopup', () => {
     expect(el.textContent).toContain('đã đi');
   });
 
-  it('shows up to 3 dictionary meanings with Vietnamese parts of speech', async () => {
+  const lines = () =>
+    Array.from(el.querySelectorAll('.meanings li')).map((li) => li.textContent?.replace(/\s+/g, ' ').trim());
+
+  it('shows dictionary meanings with Vietnamese parts of speech', async () => {
     await render({ kind: 'result', result: dictResult });
     expect(el.querySelector('.lemma')).toBeNull(); // same as the word
     expect(el.querySelector('.source')?.textContent?.trim()).toBe('Từ điển');
-    const items = Array.from(el.querySelectorAll('.meanings li')).map((li) => li.textContent?.replace(/\s+/g, ' ').trim());
-    expect(items).toEqual(['danh từ Công viên.', 'động từ Đỗ xe.', 'X Khác.']);
+    // An unknown code shows no part of speech rather than the code.
+    expect(lines()).toEqual(['danh từ Công viên', 'động từ Đỗ xe', 'Khác']);
+  });
+
+  it('joins the meanings of one part of speech on one line', async () => {
+    await render({
+      kind: 'result',
+      result: {
+        ...dictResult,
+        text: 'run',
+        lemma: 'run',
+        meanings: [
+          { pos: 'N', text: 'Sự chạy.' },
+          { pos: 'V', text: 'Chạy.' },
+          { pos: 'N', text: 'Chuyến đi; quãng đường đi.' },
+          { pos: 'N', text: 'TV show.' },
+          { pos: 'N', text: 'Not shown: a fifth meaning.' },
+        ],
+      },
+    });
+    expect(lines()).toEqual(['danh từ Sự chạy; chuyến đi; quãng đường đi; TV show', 'động từ Chạy']);
   });
 
   it('shows a loading state', async () => {
@@ -162,7 +184,7 @@ describe('WordPopup', () => {
     await render({ kind: 'result', result: dictResult }, { askError: 'Đã hết lượt AI, vui lòng thử lại sau.' });
     expect(el.querySelector('[role="alert"]')?.textContent).toContain('Đã hết lượt AI');
     // The dictionary meaning stays.
-    expect(el.textContent).toContain('Công viên.');
+    expect(el.textContent).toContain('Công viên');
   });
 
   it('shows the note of an asked meaning', async () => {

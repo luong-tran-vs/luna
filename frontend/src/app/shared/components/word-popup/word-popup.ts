@@ -18,6 +18,7 @@ export type PopupState =
   | { kind: 'result'; result: LookupResult }
   | { kind: 'not-found' };
 
+/** Parts of speech of the offline dictionary (english-dictionary.db) and of AI answers. */
 const POS_NAMES: Record<string, string> = {
   N: 'danh từ',
   V: 'động từ',
@@ -25,15 +26,28 @@ const POS_NAMES: Record<string, string> = {
   ADJ: 'tính từ',
   ADV: 'trạng từ',
   R: 'trạng từ',
+  D: 'trạng từ',
   P: 'đại từ',
   PREP: 'giới từ',
+  E: 'giới từ',
   C: 'liên từ',
   I: 'thán từ',
+  O: 'thán từ',
+  M: 'số từ',
 };
 
 const SOURCE_LABELS = { ai: 'AI · theo ngữ cảnh', dictionary: 'Từ điển' } as const;
 
 export const MAX_MEANING = 200;
+
+/** How many meanings a lookup shows (the server sends them spread over the parts of speech). */
+const MAX_MEANINGS = 4;
+
+/** "Chuyến đi" → "chuyến đi" for a meaning joined after another; "TV" stays as it is. */
+function lowerFirst(s: string): string {
+  const [first, second] = s;
+  return second && second === second.toLowerCase() ? first.toLowerCase() + s.slice(1) : s;
+}
 
 let nextId = 0;
 
@@ -85,6 +99,27 @@ export class WordPopup {
     const s = this.state();
     return s.kind === 'not-found' || (s.kind === 'result' && s.result.source !== 'ai');
   });
+  /**
+   * The meanings shown, one line per part of speech in order of first appearance: "Sự chạy." and
+   * "Chuyến đi." (both nouns) give "danh từ Sự chạy; chuyến đi".
+   */
+  protected readonly meaningLines = computed(() => {
+    const lines: { pos: string; parts: string[] }[] = [];
+    for (const m of this.result()?.meanings.slice(0, MAX_MEANINGS) ?? []) {
+      const text = m.text.trim().replace(/[.;]+$/, '');
+      if (!text) {
+        continue;
+      }
+      const pos = this.posName(m.pos);
+      const line = lines.find((l) => l.pos === pos);
+      if (line) {
+        line.parts.push(lowerFirst(text));
+      } else {
+        lines.push({ pos, parts: [text] });
+      }
+    }
+    return lines.map((l) => ({ pos: l.pos, text: l.parts.join('; ') }));
+  });
   protected readonly showLemma = computed(() => {
     const r = this.result();
     return !!r && r.lemma.toLowerCase() !== this.text().trim().toLowerCase();
@@ -96,8 +131,9 @@ export class WordPopup {
     afterNextRender(() => host.nativeElement.querySelector<HTMLElement>('.popup')?.focus());
   }
 
+  /** The Vietnamese name of a part of speech; '' (nothing shown) for none or an unknown code. */
   protected posName(code: string): string {
-    return POS_NAMES[code.toUpperCase()] ?? code;
+    return POS_NAMES[code.toUpperCase()] ?? '';
   }
 
   protected saveManual(): void {

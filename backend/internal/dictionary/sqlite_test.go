@@ -3,6 +3,7 @@ package dictionary
 import (
 	"database/sql"
 	"path/filepath"
+	"reflect"
 	"testing"
 )
 
@@ -54,9 +55,12 @@ func TestSQLiteLookup(t *testing.T) {
 	if e.Word != "go" || e.IPA != "/ˈɡəʊ/" {
 		t.Errorf("entry = %+v, want word go and the /…/ IPA", e)
 	}
-	want := []Meaning{{POS: "V", Text: "Đi, đi đến."}, {POS: "V", Text: "Thành, hoá thành."}, {POS: "V", Text: "Trôi qua."}}
-	if len(e.Meanings) != 3 {
-		t.Fatalf("meanings = %+v, want 3 Vietnamese meanings", e.Meanings)
+	want := []Meaning{
+		{POS: "V", Text: "Đi, đi đến."}, {POS: "V", Text: "Thành, hoá thành."},
+		{POS: "V", Text: "Trôi qua."}, {POS: "V", Text: "Chết, tiêu tan."},
+	}
+	if len(e.Meanings) != len(want) {
+		t.Fatalf("meanings = %+v, want %d Vietnamese meanings", e.Meanings, len(want))
 	}
 	for i := range want {
 		if e.Meanings[i] != want[i] {
@@ -69,6 +73,37 @@ func TestSQLiteLookup(t *testing.T) {
 	}
 	if _, ok, err := d.Lookup(t.Context(), "banana"); ok || err != nil {
 		t.Errorf("unknown word: ok=%v err=%v", ok, err)
+	}
+}
+
+func TestPickMeanings(t *testing.T) {
+	t.Parallel()
+
+	// "like": its adjective senses come first in the dictionary, its verb ones last.
+	like := []Meaning{
+		{POS: "A", Text: "Giống, giống nhau."}, {POS: "A", Text: "Thực đúng."}, {POS: "A", Text: "Thích, sẵn lòng."},
+		{POS: "E", Text: "Như."}, {POS: "C", Text: "Thay cho as như."},
+		{POS: "N", Text: "Cái thích."}, {POS: "V", Text: "Thích ưa, chuộng, yêu."}, {POS: "V", Text: "Muốn."},
+	}
+	got := pickMeanings(like, 4)
+	want := []Meaning{like[0], like[5], like[6], like[3]}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("like = %+v, want first sense, then noun and verb, then preposition: %+v", got, want)
+	}
+
+	// One part of speech: the senses in order.
+	run := []Meaning{{POS: "N", Text: "1"}, {POS: "N", Text: "2"}, {POS: "N", Text: "3"}, {POS: "N", Text: "4"}, {POS: "N", Text: "5"}}
+	if got := pickMeanings(run, 4); !reflect.DeepEqual(got, run[:4]) {
+		t.Errorf("one part of speech = %+v", got)
+	}
+	// Two parts of speech: one sense of each, then the next senses.
+	light := []Meaning{{POS: "N", Text: "n1"}, {POS: "N", Text: "n2"}, {POS: "N", Text: "n3"}, {POS: "N", Text: "n4"}, {POS: "V", Text: "v1"}}
+	if got := pickMeanings(light, 4); !reflect.DeepEqual(got, []Meaning{light[0], light[4], light[1], light[2]}) {
+		t.Errorf("two parts of speech = %+v", got)
+	}
+	// Few senses: all of them.
+	if got := pickMeanings(like[:2], 4); len(got) != 2 {
+		t.Errorf("few senses = %+v", got)
 	}
 }
 

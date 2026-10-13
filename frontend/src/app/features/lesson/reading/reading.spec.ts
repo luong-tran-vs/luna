@@ -160,7 +160,7 @@ describe('Reading', () => {
       await settle();
       expectLookup('park', 0).flush({ source: 'dictionary', text: 'park', lemma: 'park', ipa: '', meanings: [{ pos: 'N', text: 'Công viên.' }] });
       await settle();
-      expect(popup()?.textContent).toContain('Công viên.');
+      expect(popup()?.textContent).toContain('Công viên');
     });
 
     it('closes with Escape and returns focus to the word', async () => {
@@ -269,7 +269,7 @@ describe('Reading', () => {
       );
       await settle();
       expect(popup()?.querySelector('[role="alert"]')?.textContent).toContain('Đã hết lượt AI');
-      expect(popup()?.textContent).toContain('Công viên.');
+      expect(popup()?.textContent).toContain('Công viên');
       expect(popupButton('Hỏi AI')?.disabled).toBe(false);
 
       popupButton('Lưu vào sổ từ')!.click();
@@ -509,7 +509,7 @@ describe('Reading', () => {
       speech.last().handlers.failed!('synthesis-failed');
       await settle();
       expect(popup()?.querySelector('[role="alert"]')?.textContent).toContain('Chưa đọc được từ này');
-      expect(popup()?.textContent).toContain('Công viên.');
+      expect(popup()?.textContent).toContain('Công viên');
     });
   });
 
