@@ -12,7 +12,7 @@ func TestGetDefaults(t *testing.T) {
 	svc := NewService(repo)
 
 	s, err := svc.Get(t.Context(), "u1")
-	if err != nil || s != (Settings{Theme: ThemeSystem, DailyReviewLimit: 30, Timezone: DefaultTimezone}) {
+	if err != nil || s != (Settings{Theme: ThemeLight, DailyReviewLimit: 30, Timezone: DefaultTimezone}) {
 		t.Fatalf("u1 = %+v, %v", s, err)
 	}
 	if s, _ := svc.Get(t.Context(), "u2"); s.Timezone != "Europe/London" || s.DailyReviewLimit != 30 {
@@ -51,7 +51,7 @@ func TestUpdate(t *testing.T) {
 		t.Fatalf("empty = %+v, %v", s, err)
 	}
 	// Another user is untouched.
-	if s, _ := svc.Get(t.Context(), "u2"); s.Theme != ThemeSystem || s.DailyReviewLimit != 30 {
+	if s, _ := svc.Get(t.Context(), "u2"); s.Theme != ThemeLight || s.DailyReviewLimit != 30 {
 		t.Fatalf("u2 = %+v", s)
 	}
 	if _, err := svc.Update(t.Context(), "nobody", Patch{Theme: ptr(ThemeDark)}); !errors.Is(err, ErrNotFound) {

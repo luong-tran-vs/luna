@@ -13,6 +13,8 @@ export type ThemeSaveState = 'idle' | 'saving' | 'saved' | 'error';
 export const THEME_STORAGE_KEY = 'luna.theme';
 
 const PREFERENCES: readonly ThemePreference[] = ['light', 'dark', 'system'];
+/** With no choice saved yet the app is light, whatever the device uses. */
+const DEFAULT_PREFERENCE: ThemePreference = 'light';
 
 function isPreference(value: unknown): value is ThemePreference {
   return PREFERENCES.includes(value as ThemePreference);
@@ -97,9 +99,9 @@ export class ThemeService {
   private readStored(): ThemePreference {
     try {
       const value = this.storage?.getItem(THEME_STORAGE_KEY);
-      return isPreference(value) ? value : 'system';
+      return isPreference(value) ? value : DEFAULT_PREFERENCE;
     } catch {
-      return 'system';
+      return DEFAULT_PREFERENCE;
     }
   }
 

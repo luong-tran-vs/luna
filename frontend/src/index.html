@@ -18,8 +18,9 @@
     (function () {
       try {
         var pref = localStorage.getItem('luna.theme');
+        // Light unless dark was chosen, or "system" on a dark device (default: light).
         var dark = pref === 'dark' ||
-          (pref !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
         // Color palette; key must match PALETTE_STORAGE_KEY in core/services/palette.service.ts.
         var palette = localStorage.getItem('luna.palette');
@@ -27,7 +28,8 @@
           document.documentElement.setAttribute('data-palette', palette);
         }
       } catch (e) {
-        // Storage blocked: the prefers-color-scheme rule in tokens.css still applies.
+        // Storage blocked: the default, light.
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     })();
   </script>

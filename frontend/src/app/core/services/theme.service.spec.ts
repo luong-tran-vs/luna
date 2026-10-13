@@ -65,13 +65,16 @@ describe('ThemeService', () => {
     vi.restoreAllMocks();
   });
 
-  it('defaults to system and follows a light device', () => {
+  it('defaults to light, even on a dark device', () => {
+    media = fakeMedia(true);
+    vi.stubGlobal('matchMedia', media.matchMedia);
     const service = create();
-    expect(service.preference()).toBe('system');
+    expect(service.preference()).toBe('light');
     expect(html.getAttribute('data-theme')).toBe('light');
   });
 
   it('follows a dark device when set to system', () => {
+    localStorage.setItem(THEME_STORAGE_KEY, 'system');
     media = fakeMedia(true);
     vi.stubGlobal('matchMedia', media.matchMedia);
     create();
@@ -94,9 +97,9 @@ describe('ThemeService', () => {
     expect(html.getAttribute('data-theme')).toBe('dark');
   });
 
-  it('falls back to system for an invalid stored value', () => {
+  it('falls back to light for an invalid stored value', () => {
     localStorage.setItem(THEME_STORAGE_KEY, 'purple');
-    expect(create().preference()).toBe('system');
+    expect(create().preference()).toBe('light');
   });
 
   it('keeps working when storage throws', () => {
@@ -108,7 +111,7 @@ describe('ThemeService', () => {
     });
 
     const service = create();
-    expect(service.preference()).toBe('system');
+    expect(service.preference()).toBe('light');
 
     service.set('dark');
     expect(() => TestBed.tick()).not.toThrow();
@@ -116,6 +119,7 @@ describe('ThemeService', () => {
   });
 
   it('updates when the device switches while set to system', () => {
+    localStorage.setItem(THEME_STORAGE_KEY, 'system');
     create();
     media.setDark(true);
     TestBed.tick();

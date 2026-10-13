@@ -16,7 +16,7 @@ const (
 )
 
 const (
-	DefaultTheme       = ThemeSystem
+	DefaultTheme       = ThemeLight
 	DefaultReviewLimit = 30
 	MinReviewLimit     = 5
 	MaxReviewLimit     = 200

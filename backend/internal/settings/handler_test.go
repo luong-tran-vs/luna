@@ -47,7 +47,7 @@ func TestGetSettings(t *testing.T) {
 	t.Parallel()
 	mux := newAPI()
 	rec := call(t, mux, http.MethodGet, "an", "")
-	if rec.Code != http.StatusOK || rec.Body.String() != `{"theme":"system","dailyReviewLimit":30,"timezone":"Asia/Ho_Chi_Minh"}`+"\n" {
+	if rec.Code != http.StatusOK || rec.Body.String() != `{"theme":"light","dailyReviewLimit":30,"timezone":"Asia/Ho_Chi_Minh"}`+"\n" {
 		t.Fatalf("get: %d %s", rec.Code, rec.Body)
 	}
 	if rec := call(t, mux, http.MethodGet, "", ""); rec.Code != http.StatusUnauthorized {
@@ -72,7 +72,7 @@ func TestPutSettings(t *testing.T) {
 	}
 
 	// The other user still has the defaults.
-	if rec := call(t, mux, http.MethodGet, "binh", ""); !strings.Contains(rec.Body.String(), `"theme":"system"`) {
+	if rec := call(t, mux, http.MethodGet, "binh", ""); !strings.Contains(rec.Body.String(), `"theme":"light"`) {
 		t.Fatalf("u2: %s", rec.Body)
 	}
 
