@@ -46,7 +46,7 @@ function percentText(rate: number | null | undefined): string {
 }
 
 /**
- * The stats page (F6; design/ungdunghoctienganh.png, screen 8 "Lộ trình & Tiến độ"): this week's,
+ * The stats page (F6; design/ungdunghoctienganh.png, screen 8, now "Thống kê & huy hiệu"): this week's,
  * this month's or every day's figures by skill next to the roadmap ring, the accuracy by skill,
  * and badges for milestones.
  */

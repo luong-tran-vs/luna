@@ -10,6 +10,8 @@ export interface Card {
   ipa: string;
   meaningVi: string;
   contextSentence: string;
+  /** Vietnamese of the example; empty or missing when unknown. */
+  contextSentenceVi?: string;
   lessonId: string | null;
   source: CardSource;
   createdAt: string;
@@ -25,12 +27,13 @@ export interface CardInput {
   ipa: string;
   meaningVi: string;
   contextSentence: string;
+  contextSentenceVi?: string;
   lessonId?: string;
   source: CardSource;
 }
 
 /** Fields a learner can edit (PATCH /api/vocab/cards/{id}). */
-export type CardDetails = Partial<Pick<Card, 'meaningVi' | 'ipa' | 'contextSentence'>>;
+export type CardDetails = Partial<Pick<Card, 'meaningVi' | 'ipa' | 'contextSentence' | 'contextSentenceVi'>>;
 
 export interface WordRef {
   lemma: string;

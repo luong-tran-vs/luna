@@ -76,6 +76,13 @@ describe('Notebook', () => {
     expect(text(first.querySelector('.ipa'))).toBe('/x/');
     expect(text(first.querySelector('.meaning'))).toBe('nghĩa went');
     expect(text(first.querySelector('.example'))).toBe('We went.');
+    // No translation known: nothing under the example.
+    expect(first.querySelector('.example-vi')).toBeNull();
+  });
+
+  it('shows the translation of the example under it', async () => {
+    await setup({ ...page1, cards: [{ ...card('c1', 'went', '2026-09-30'), contextSentenceVi: 'Chúng tôi đã đi.' }] });
+    expect(text(el.querySelector('.card-item .example-vi'))).toBe('Chúng tôi đã đi.');
   });
 
   it('loads more and merges a day split across pages', async () => {
@@ -129,6 +136,24 @@ describe('Notebook', () => {
     expect(Array.from(el.querySelectorAll<HTMLOptionElement>('#notebook-lesson option')).map((o) => o.value)).toEqual(['', 'l1']);
   });
 
+  it('keeps edit and delete in a menu that closes on a click elsewhere or Escape', async () => {
+    await setup();
+    expect(button('Sửa went')).toBeUndefined();
+    const toggle = button('Tuỳ chọn went')!;
+    toggle.click();
+    await settle();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(button('Xoá went')).toBeDefined();
+    document.body.click();
+    await settle();
+    expect(button('Sửa went')).toBeUndefined();
+    toggle.click();
+    await settle();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    await settle();
+    expect(button('Sửa went')).toBeUndefined();
+  });
+
   it('plays a word', async () => {
     await setup();
     button('Nghe went')!.click();
@@ -138,12 +163,14 @@ describe('Notebook', () => {
 
   it('links to review with the number of due cards', async () => {
     await setup();
-    const link = el.querySelector<HTMLAnchorElement>('.actions a[href="/vocabulary/review"]')!;
-    expect(text(link)).toBe('Ôn tập (4)');
+    const link = el.querySelector<HTMLAnchorElement>('.review-bar a[href="/vocabulary/review"]')!;
+    expect(text(link)).toBe('Ôn 4 thẻ cần ôn');
   });
 
   it('edits a card in place', async () => {
     await setup();
+    button('Tuỳ chọn went')!.click();
+    await settle();
     button('Sửa went')!.click();
     await settle();
     const meaning = el.querySelector<HTMLInputElement>('#card-meaning')!;
@@ -180,6 +207,8 @@ describe('Notebook', () => {
 
   it('deletes a card after confirmation', async () => {
     await setup();
+    button('Tuỳ chọn went')!.click();
+    await settle();
     button('Xoá went')!.click();
     await settle();
     const dialog = el.querySelector('[role="alertdialog"]')!;

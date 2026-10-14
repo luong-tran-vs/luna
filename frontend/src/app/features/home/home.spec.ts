@@ -5,10 +5,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { Dashboard, Stats } from '../../core/models/dashboard';
+import { GoalView, PublicTopic } from '../../core/models/study';
 import { User } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
-import { Home } from './home';
+import { Home, nextTopic, weekSummary } from './home';
 
 const studying = (over: Partial<Dashboard> = {}): Dashboard => ({
   kind: 'studying',
@@ -54,6 +55,13 @@ const stats = (over: Partial<Stats> = {}): Stats => ({
   ...over,
 });
 
+const weekFigures = stats({
+  period: 'week',
+  cards: 10,
+  lessons: { read: 1, listen: 1, write: 1, completed: 1 },
+  writing: { submitted: 1, averageScore: 3.5 },
+});
+
 describe('Home', () => {
   let fixture: ComponentFixture<Home>;
   let controller: HttpTestingController;
@@ -62,6 +70,16 @@ describe('Home', () => {
 
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const link = (label: string) => Array.from(el.querySelectorAll('a')).find((a) => text(a) === label) ?? null;
+
+  /** This week's figures (the "Tuần này" card); null makes the request fail. */
+  const flushWeek = (figures: Stats | null = weekFigures) => {
+    const req = controller.expectOne((r) => r.url === '/stats' && r.params.get('period') === 'week');
+    if (figures) {
+      req.flush(figures);
+    } else {
+      req.flush('down', { status: 500, statusText: 'Error' });
+    }
+  };
 
   /** The cards due now (the page asks for one card and reads the total). */
   const flushDue = (total = 0) =>
@@ -75,6 +93,7 @@ describe('Home', () => {
     await fixture.whenStable();
     controller.expectOne('/dashboard').flush(data);
     controller.expectOne('/stats').flush(figures);
+    flushWeek();
     flushDue(due);
     await fixture.whenStable();
   };
@@ -108,7 +127,7 @@ describe('Home', () => {
     expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Đọc · Nghe · Viết');
     expect(text(el.querySelector('.lesson .steps-bar .count'))).toBe('1/3 phần');
     expect(text(el.querySelector('.lesson-title'))).toBe('At the café');
-    expect(text(el.querySelector('.lesson'))).toContain('Chủ đề: A1 · Gia đình');
+    expect(text(el.querySelector('.lesson'))).toContain('Chủ đề: A1 · Gia đình · Bài 3/12');
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
     // No "today" page: the button opens the lesson itself.
     expect(link('Tiếp tục: Nghe')?.getAttribute('href')).toBe('/lessons/l1');
@@ -138,6 +157,7 @@ describe('Home', () => {
     await fixture.whenStable();
     controller.expectOne('/dashboard').flush(studying());
     controller.expectOne('/stats').flush('down', { status: 500, statusText: 'Error' });
+    flushWeek();
     flushDue();
     await fixture.whenStable();
     expect(text(el.querySelector('.words .tile-value'))).toBe('—');
@@ -172,6 +192,7 @@ describe('Home', () => {
 
     controller.expectOne('/dashboard').flush('down', { status: 500, statusText: 'Error' });
     controller.expectOne('/stats').flush(stats());
+    flushWeek();
     flushDue();
     await fixture.whenStable();
     expect(text(el.querySelector('[role="alert"] p'))).toBe('Không tải được màn hình chính.');
@@ -179,6 +200,7 @@ describe('Home', () => {
     (el.querySelector('[role="alert"] button') as HTMLButtonElement).click();
     controller.expectOne('/dashboard').flush(studying());
     controller.expectOne('/stats').flush(stats());
+    flushWeek();
     flushDue();
     await fixture.whenStable();
     expect(el.querySelector('[role="alert"]')).toBeNull();
@@ -213,9 +235,39 @@ describe('Home', () => {
     expect(link('Học thử chủ đề khác')?.getAttribute('href')).toBe('/goal');
   });
 
-  it('congratulates when the roadmap is finished', async () => {
-    await open(studying({ kind: 'noNewLesson', lesson: null, action: null, goalCompleted: true }));
-    expect(text(el.querySelector('[role="status"]'))).toContain('Chúc mừng, bạn đã học hết lộ trình!');
+  it('names the finished topic and offers the next one, which it makes the goal', async () => {
+    const done = studying({ kind: 'noNewLesson', lesson: null, action: null, goalCompleted: true });
+    await open(done);
+    controller.expectOne((r) => r.url === '/topics' && r.params.get('level') === 'A1').flush({ topics: [topic('t1'), topic('t2', 'Âm nhạc')] });
+    controller.expectOne('/goals').flush({ active: done.goal, others: [] });
+    await fixture.whenStable();
+    const card = el.querySelector('[role="status"]');
+    expect(text(card)).toContain('Bạn đã học xong chủ đề A1 · Gia đình');
+    expect(text(card)).not.toContain('lộ trình');
+    expect(text(card?.querySelector('.next-name'))).toBe('Âm nhạc');
+
+    (Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Học chủ đề này') as HTMLButtonElement).click();
+    const post = controller.expectOne('/goals');
+    expect(post.request.method).toBe('POST');
+    expect(post.request.body).toEqual({ topicId: 't2', level: 'A1' });
+    post.flush({ active: done.goal });
+    await fixture.whenStable();
+    controller.expectOne('/dashboard').flush(studying());
+    controller.expectOne('/stats').flush(stats());
+    flushWeek();
+    flushDue();
+    await fixture.whenStable();
+    expect(link('Tiếp tục: Nghe')).not.toBeNull();
+  });
+
+  it('offers the topic list once the finished topic has no next one', async () => {
+    const done = studying({ kind: 'noNewLesson', lesson: null, action: null, goalCompleted: true });
+    await open(done);
+    controller.expectOne((r) => r.url === '/topics').flush({ topics: [topic('t1')] });
+    controller.expectOne('/goals').flush({ active: done.goal, others: [] });
+    await fixture.whenStable();
+    expect(el.querySelector('.next-topic')).toBeNull();
+    expect(link('Chọn chủ đề khác')?.getAttribute('href')).toBe('/goal');
   });
 
   it('invites to start a lesson that has no part done yet', async () => {
@@ -243,6 +295,7 @@ describe('Home', () => {
     document.dispatchEvent(new Event('visibilitychange'));
     controller.expectOne('/dashboard').flush(studying({ lesson: later }));
     controller.expectOne('/stats').flush(stats());
+    flushWeek();
     flushDue();
     await fixture.whenStable();
     expect(text(el.querySelector('.lesson-title'))).toBe('At the park');
@@ -254,17 +307,83 @@ describe('Home', () => {
 
   it('puts the cards due today first, with a way to review them', async () => {
     await open(studying(), stats(), 12);
-    const card = el.querySelector('.due-today')!;
-    expect(text(card)).toContain('Hôm nay: 12 thẻ cần ôn');
-    expect(text(card)).toContain('khoảng 4 phút');
+    // One card for reviewing, with tomorrow's cards on its second line.
+    expect(el.querySelectorAll('.review')).toHaveLength(1);
+    const card = el.querySelector('.review')!;
+    expect(text(card.querySelector('.review-title'))).toBe('Ôn 12 thẻ · khoảng 4 phút');
+    expect(text(card.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
     expect(card.getAttribute('href')).toBe('/vocabulary/review');
-    // Before the lesson, and the tomorrow line stays.
-    expect(card.compareDocumentPosition(el.querySelector('.continue')!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
   });
 
-  it('shows no card for today when nothing is due', async () => {
+  it('sums up the week and links to the stats', async () => {
     await open(studying());
-    expect(el.querySelector('.due-today')).toBeNull();
+    const card = el.querySelector('.week')!;
+    expect(text(card.querySelector('.review-title'))).toBe('Tuần này');
+    expect(text(card.querySelector('.muted'))).toBe('1 bài · 10 từ · 1 bài viết (3,5/5)');
+    expect(card.getAttribute('href')).toBe('/stats');
+  });
+
+  it('hides the week card when its figures fail', async () => {
+    fixture = TestBed.createComponent(Home);
+    el = fixture.nativeElement as HTMLElement;
+    await fixture.whenStable();
+    controller.expectOne('/dashboard').flush(studying());
+    controller.expectOne('/stats').flush(stats());
+    flushWeek(null);
+    flushDue();
+    await fixture.whenStable();
+    expect(el.querySelector('.week')).toBeNull();
+    expect(link('Tiếp tục: Nghe')).not.toBeNull();
+  });
+
+  it('says nothing is left for today when nothing is due', async () => {
+    await open(studying());
+    expect(text(el.querySelector('.review .review-title'))).toBe('Hôm nay không còn thẻ cần ôn');
+  });
+});
+
+const topic = (id: string, name = 'Gia đình', lessonCount = 3): PublicTopic => ({
+  id,
+  name,
+  level: 'A1',
+  description: '',
+  lessonCount,
+  position: 0,
+});
+
+describe('weekSummary', () => {
+  const none = { read: 0, listen: 0, write: 0, completed: 0 };
+
+  it('leaves out what is zero and says when the week is empty', () => {
+    expect(weekSummary(weekFigures)).toBe('1 bài · 10 từ · 1 bài viết (3,5/5)');
+    expect(weekSummary(stats({ cards: 4, lessons: none, writing: { submitted: 0, averageScore: null } }))).toBe('4 từ');
+    expect(weekSummary(stats({ cards: 0, lessons: none, writing: { submitted: 0, averageScore: null } }))).toBe(
+      'Chưa học gì tuần này',
+    );
+  });
+});
+
+describe('nextTopic', () => {
+  const goal = (topicId: string, completedLessons = 1, totalLessons = 1): GoalView => ({
+    topicId,
+    topicName: '',
+    level: 'A1',
+    completedLessons,
+    totalLessons,
+    status: 'paused',
+    effectiveFrom: '2026-10-01',
+  });
+  const topics = [topic('a'), topic('b'), topic('c', 'C', 0), topic('d')];
+
+  it('takes the next topic in the suggested order that has lessons and is not finished', () => {
+    expect(nextTopic(goal('a'), topics, { active: goal('a'), others: [goal('b')] })?.id).toBe('d');
+  });
+
+  it('goes back to an earlier topic when none is left after the goal', () => {
+    expect(nextTopic(goal('d'), topics, { active: goal('d'), others: [goal('b', 0, 2)] })?.id).toBe('a');
+  });
+
+  it('gives null when every topic is finished', () => {
+    expect(nextTopic(goal('a'), topics, { active: goal('a'), others: [goal('b'), goal('d')] })).toBeNull();
   });
 });

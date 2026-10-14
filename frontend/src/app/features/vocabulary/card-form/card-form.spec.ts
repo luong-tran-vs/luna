@@ -70,11 +70,13 @@ describe('CardForm', () => {
       await setup();
       type('card-text', '  Serendipity ');
       type('card-meaning', 'sự tình cờ may mắn');
+      type('card-example', 'What a serendipity!');
+      type('card-example-vi', '  Thật là tình cờ may mắn! ');
       await submit();
       const req = http.expectOne('/vocab/cards');
       expect(req.request.body).toEqual({
-        text: 'Serendipity', lemma: 'serendipity', ipa: '', meaningVi: 'sự tình cờ may mắn', contextSentence: '',
-        source: 'manual',
+        text: 'Serendipity', lemma: 'serendipity', ipa: '', meaningVi: 'sự tình cờ may mắn',
+        contextSentence: 'What a serendipity!', contextSentenceVi: 'Thật là tình cờ may mắn!', source: 'manual',
       });
       req.flush({ card: { ...went, id: 'c9', text: 'Serendipity' } }, { status: 201, statusText: 'Created' });
       await settle();
@@ -130,6 +132,18 @@ describe('CardForm', () => {
       req.flush({ card: { ...went, meaningVi: 'đã đi (quá khứ của go)' } });
       await settle();
       expect(host.saved[0].meaningVi).toBe('đã đi (quá khứ của go)');
+    });
+
+    it('edits the translation of the example', async () => {
+      await setup(went);
+      expect(field('card-example-vi').value).toBe('');
+      type('card-example-vi', 'Chúng tôi đã đi công viên.');
+      await submit();
+      const req = http.expectOne('/vocab/cards/c1');
+      expect(req.request.body).toEqual({ contextSentenceVi: 'Chúng tôi đã đi công viên.' });
+      req.flush({ card: { ...went, contextSentenceVi: 'Chúng tôi đã đi công viên.' } });
+      await settle();
+      expect(host.saved[0].contextSentenceVi).toBe('Chúng tôi đã đi công viên.');
     });
 
     it('closes without a request when nothing changed', async () => {

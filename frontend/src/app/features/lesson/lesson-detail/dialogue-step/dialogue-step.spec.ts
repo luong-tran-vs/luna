@@ -16,11 +16,17 @@ const dialogue: PracticeDialogue = {
 
 @Component({
   imports: [DialogueStep],
-  template: `<lu-dialogue-step [dialogue]="dialogue" [(rate)]="rate" (finished)="finished = finished + 1" />`,
+  template: `<lu-dialogue-step
+    [dialogue]="dialogue"
+    [finishLabel]="finishLabel"
+    [(rate)]="rate"
+    (finished)="finished = finished + 1"
+  />`,
 })
 class Host {
   readonly dialogue = dialogue;
   readonly rate = signal(1);
+  finishLabel = 'Sang bước Viết';
   finished = 0;
 }
 
@@ -30,22 +36,16 @@ describe('DialogueStep', () => {
   let speech: FakeSpeech;
 
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
-  const turn = () => el.querySelector('.turn')!;
-  const reveal = () => turn().querySelector<HTMLButtonElement>('.reveal')!;
-  const counter = () => text(turn().querySelector('.step-card-head .muted'));
-  /** Percent of the shown turn's player track shown as played. */
-  const filled = () =>
-    100 *
-    parseFloat(
-      /scaleX\((.*)\)/.exec(
-        turn().querySelector<HTMLElement>('lu-audio-bar .played')!.style.transform,
-      )?.[1] ?? '0',
-    );
-  const isCurrent = () => turn().getAttribute('aria-current') === 'true';
+  const bubbles = () => Array.from(el.querySelectorAll<HTMLElement>('.bubble'));
+  const rows = () => Array.from(el.querySelectorAll<HTMLElement>('.chat-row'));
+  const current = () => bubbles().findIndex((b) => b.getAttribute('aria-current') === 'true');
+  /** Percent of the bubble being read that is filled. */
+  const filled = () => parseFloat(el.querySelector<HTMLElement>('.bubble .read')?.style.width ?? '0');
   const button = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
-  /** A button by its text, visually hidden text included (the ← → of the card). */
   const named = (label: string) =>
     Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === label)!;
+  const wordsSwitch = () => el.querySelector<HTMLButtonElement>('.words-switch')!;
+  const meaningSwitch = () => el.querySelector<HTMLButtonElement>('.meaning-switch')!;
   const stable = () => fixture.whenStable();
 
   const setup = async (supported = true) => {
@@ -57,86 +57,53 @@ describe('DialogueStep', () => {
     await stable();
   };
 
-  it('shows one turn at a time with its speaker and a player bar, words hidden until revealed', async () => {
+  it('shows every turn as a chat bubble, speakers on either side, words hidden until switched on', async () => {
     await setup();
-    expect(el.querySelectorAll('.turn').length).toBe(1);
-    expect(text(turn().querySelector('.speaker'))).toBe('Minh');
-    expect(counter()).toBe('Lượt 1/3');
-    expect(turn().querySelector('lu-audio-bar .track')!.getAttribute('aria-hidden')).toBe('true');
-    expect(el.querySelectorAll('.turn-text').length).toBe(0);
-    expect(reveal().getAttribute('aria-label')).toBe('Hiện lời lượt 1');
-    expect(reveal().getAttribute('aria-expanded')).toBe('false');
+    expect(bubbles().length).toBe(3);
+    expect(rows().map((r) => r.classList.contains('right'))).toEqual([false, true, true]);
+    expect(bubbles().map((b) => text(b))).toEqual([
+      'Minh Chạm để nghe lượt 1',
+      'Anna Chạm để nghe lượt 2',
+      'Anna Chạm để nghe lượt 3',
+    ]);
+    expect(wordsSwitch().getAttribute('role')).toBe('switch');
+    expect(wordsSwitch().getAttribute('aria-checked')).toBe('false');
 
-    reveal().click();
+    wordsSwitch().click();
     await stable();
-    expect(text(turn().querySelector('.turn-text'))).toBe('Hi, I am Minh.');
-    expect(text(turn().querySelector('.turn-meaning'))).toBe('Chào, mình là Minh.');
-    expect(reveal().getAttribute('aria-expanded')).toBe('true');
-    expect(reveal().getAttribute('aria-controls')).toBe('turn-lyrics-0');
-    expect(text(reveal())).toBe('Ẩn lời');
-
-    reveal().click();
-    await stable();
-    expect(turn().querySelector('.turn-text')).toBeNull();
+    expect(wordsSwitch().getAttribute('aria-checked')).toBe('true');
+    expect(text(bubbles()[0])).toBe('Minh Hi, I am Minh. Chào, mình là Minh.');
   });
 
-  it('moves between the turns with ← Lượt tiếp theo →, then Hoàn thành ends the step', async () => {
+  it('hides and shows the meanings', async () => {
     await setup();
-    expect(named('Lượt trước').disabled).toBe(true);
-    named('Lượt tiếp theo').click();
+    wordsSwitch().click();
     await stable();
-    expect(counter()).toBe('Lượt 2/3');
-    expect(text(turn().querySelector('.speaker'))).toBe('Anna');
-    expect(reveal().getAttribute('aria-label')).toBe('Hiện lời lượt 2');
-
-    named('Lượt sau').click();
+    expect(meaningSwitch().getAttribute('aria-checked')).toBe('true');
+    meaningSwitch().click();
     await stable();
-    expect(counter()).toBe('Lượt 3/3');
-    expect(named('Lượt sau').disabled).toBe(true);
-    expect(fixture.componentInstance.finished).toBe(0);
-    named('Hoàn thành').click();
-    expect(fixture.componentInstance.finished).toBe(1);
-
-    named('Lượt trước').click();
+    expect(el.querySelectorAll('.meaning').length).toBe(0);
+    meaningSwitch().click();
     await stable();
-    expect(counter()).toBe('Lượt 2/3');
+    expect(el.querySelectorAll('.meaning').length).toBe(3);
   });
 
-  it('reveals and hides every turn at once', async () => {
+  it('reads all turns in order with the elapsed time, the bubble read marked and filled', async () => {
     await setup();
-    const all = el.querySelector<HTMLButtonElement>('.toggles button')!;
-    expect(text(all)).toBe('Hiện lời tất cả');
-    all.click();
-    await stable();
-    expect(text(turn().querySelector('.turn-text'))).toBe('Hi, I am Minh.');
-    expect(all.getAttribute('aria-pressed')).toBe('true');
-    named('Lượt tiếp theo').click();
-    await stable();
-    expect(text(turn().querySelector('.turn-text'))).toBe('Hello, Minh.');
-    all.click();
-    await stable();
-    expect(el.querySelectorAll('.turn-text').length).toBe(0);
-  });
-
-  it('reads all turns in order with the elapsed time, the screen following the turn read', async () => {
-    await setup();
-    button('Nghe cả đoạn').click();
+    button('Nghe cả bài').click();
     await stable();
     expect(speech.last().text).toBe('Hi, I am Minh.');
-    expect(isCurrent()).toBe(true);
-    expect(counter()).toBe('Lượt 1/3');
+    expect(current()).toBe(0);
     expect(text(el.querySelector('.play-info'))).toBe('00:00 Lượt 1/3');
 
     speech.last().handlers.progress!(0.5, 1.2);
     await stable();
-    expect(filled()).toBe(50); // half read
+    expect(filled()).toBe(50);
     speech.last().handlers.progress!(1, 2.4);
     speech.last().handlers.ended!();
     await stable();
     expect(speech.last().text).toBe('Hello, Minh.');
-    expect(counter()).toBe('Lượt 2/3');
-    expect(isCurrent()).toBe(true);
-    expect(filled()).toBe(0);
+    expect(current()).toBe(1);
 
     speech.last().handlers.progress!(0.4, 1.5);
     await stable();
@@ -146,118 +113,89 @@ describe('DialogueStep', () => {
     await stable();
     speech.last().handlers.ended!();
     await stable();
-    expect(isCurrent()).toBe(false);
-    expect(counter()).toBe('Lượt 3/3');
+    expect(current()).toBe(-1);
     expect(speech.spoken.length).toBe(3);
-    expect(button('Nghe cả đoạn')).not.toBeNull();
+    expect(button('Nghe cả bài')).not.toBeNull();
   });
 
   it('skips a turn the browser fails to read', async () => {
     await setup();
-    button('Nghe cả đoạn').click();
+    button('Nghe cả bài').click();
     await stable();
     speech.last().handlers.failed!('synthesis-failed');
     await stable();
     expect(speech.last().text).toBe('Hello, Minh.');
-    expect(counter()).toBe('Lượt 2/3');
-    expect(isCurrent()).toBe(true);
+    expect(current()).toBe(1);
   });
 
   it('stops in the middle', async () => {
     await setup();
-    button('Nghe cả đoạn').click();
+    button('Nghe cả bài').click();
     await stable();
     button('Dừng').click();
     await stable();
     expect(speech.stops).toBeGreaterThan(0);
-    expect(isCurrent()).toBe(false);
-    expect(filled()).toBe(0);
+    expect(current()).toBe(-1);
   });
 
-  it('reads a single turn and stops after it', async () => {
+  it('reads a tapped turn alone, and stops it when tapped again', async () => {
     await setup();
-    named('Lượt sau').click();
-    named('Lượt sau').click();
-    await stable();
-    button('Nghe lượt 3').click();
+    bubbles()[2].click();
     await stable();
     expect(speech.last().text).toBe('Nice to meet you.');
-    expect(isCurrent()).toBe(true);
-    expect(button('Dừng lượt 3')).not.toBeNull();
+    expect(current()).toBe(2);
     speech.last().handlers.ended!();
     await stable();
-    expect(isCurrent()).toBe(false);
+    expect(current()).toBe(-1);
     expect(speech.spoken.length).toBe(1);
-  });
 
-  it('stops a single turn from its own player button', async () => {
-    await setup();
-    named('Lượt sau').click();
-    await stable();
-    button('Nghe lượt 2').click();
+    bubbles()[1].click();
     await stable();
     speech.stops = 0;
-    button('Dừng lượt 2').click();
+    bubbles()[1].click();
     await stable();
     expect(speech.stops).toBeGreaterThan(0);
-    expect(isCurrent()).toBe(false);
-    expect(button('Nghe lượt 2')).not.toBeNull();
+    expect(current()).toBe(-1);
   });
 
-  it('stops a single turn when the learner moves to another one', async () => {
+  it('cycles the speed with one button', async () => {
     await setup();
-    button('Nghe lượt 1').click();
-    await stable();
-    speech.stops = 0;
-    named('Lượt tiếp theo').click();
-    await stable();
-    expect(speech.stops).toBeGreaterThan(0);
-    expect(counter()).toBe('Lượt 2/3');
-    expect(isCurrent()).toBe(false);
-  });
-
-  it('reads at the chosen speed', async () => {
-    await setup();
-    const options = Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]'));
-    expect(options.map((o) => text(o))).toEqual(['0.75x', '1x', '1.25x']);
-    options[0].click();
-    await stable();
-    expect(fixture.componentInstance.rate()).toBe(0.75);
-    button('Nghe lượt 1').click();
-    expect(speech.last().rate).toBe(0.75);
-
-    options[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
+    const speed = () => el.querySelector<HTMLButtonElement>('.speed-btn')!;
+    expect(text(speed())).toBe('1x');
+    expect(speed().getAttribute('aria-label')).toBe('Tốc độ 1x, bấm để đổi');
+    speed().click();
     await stable();
     expect(fixture.componentInstance.rate()).toBe(1.25);
-    expect(document.activeElement).toBe(options[2]);
+    speed().click();
+    await stable();
+    expect(fixture.componentInstance.rate()).toBe(0.75);
+    bubbles()[0].click();
+    expect(speech.last().rate).toBe(0.75);
   });
 
-  it('hides and shows the meaning of the revealed turn', async () => {
+  it('ends with one button named after what comes next, stopping the reading', async () => {
     await setup();
-    el.querySelector<HTMLButtonElement>('.toggles button')!.click();
+    button('Nghe cả bài').click();
     await stable();
-    const toggle = el.querySelector<HTMLButtonElement>('.meaning-toggle')!;
-    expect(toggle.getAttribute('aria-pressed')).toBe('true');
-    toggle.click();
+    speech.stops = 0;
+    named('Sang bước Viết').click();
     await stable();
-    expect(el.querySelectorAll('.turn-meaning').length).toBe(0);
-    toggle.click();
-    await stable();
-    expect(el.querySelectorAll('.turn-meaning').length).toBe(1);
+    expect(fixture.componentInstance.finished).toBe(1);
+    expect(speech.stops).toBeGreaterThan(0);
   });
 
   it('shows the words and no player when the browser has no voice', async () => {
     await setup(false);
     expect(el.textContent).toContain('Trình duyệt này không có giọng đọc');
     expect(el.querySelector('.playbar')).toBeNull();
-    expect(el.querySelector('lu-audio-bar')).toBeNull();
-    expect(text(turn().querySelector('.turn-text'))).toBe('Hi, I am Minh.');
-    expect(el.querySelector('.reveal')).toBeNull();
+    expect(el.querySelector('.words-switch')).toBeNull();
+    expect(el.querySelector('button.bubble')).toBeNull();
+    expect(text(bubbles()[0])).toBe('Minh Hi, I am Minh. Chào, mình là Minh.');
   });
 
   it('stops reading when it goes away', async () => {
     await setup();
-    button('Nghe cả đoạn').click();
+    button('Nghe cả bài').click();
     await stable();
     speech.stops = 0;
     fixture.destroy();

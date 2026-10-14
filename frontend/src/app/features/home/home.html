@@ -42,17 +42,6 @@
       </li>
     </ul>
 
-    @if (dueToday() > 0) {
-      <a class="soft-card due-today" routerLink="/vocabulary/review">
-        <span class="icon-chip tone-accent"><lu-icon name="cards" /></span>
-        <span class="tomorrow-text">
-          Hôm nay: {{ dueToday() }} thẻ cần ôn
-          <span class="muted due-hint">Ôn trước khi học bài mới, khoảng {{ dueMinutes() }} phút</span>
-        </span>
-        <lu-icon class="chevron" name="chevron-right" />
-      </a>
-    }
-
     @switch (d.kind) {
       @case ('noGoal') {
         <div class="soft-card" role="status">
@@ -72,16 +61,41 @@
         </div>
       }
       @case ('noNewLesson') {
-        <div class="soft-card" role="status">
+        <div class="soft-card topic-done" role="status">
           @if (d.goalCompleted) {
-            <p class="card-title">Chúc mừng, bạn đã học hết lộ trình!</p>
+            <p class="card-title">
+              <lu-icon name="check" /> Bạn đã học xong chủ đề {{ d.goal?.level }} · {{ d.goal?.topicName }}
+            </p>
+            @if (next(); as t) {
+              <div class="next-topic">
+                <p class="eyebrow">Chủ đề tiếp theo</p>
+                <p class="next-name">{{ t.name }}</p>
+                <p class="muted">{{ t.description ? t.description + ' · ' : '' }}{{ t.lessonCount }} bài</p>
+              </div>
+              @if (switchError()) {
+                <p class="form-alert" role="alert">Không chuyển được chủ đề, vui lòng thử lại.</p>
+              }
+              <div class="actions">
+                <button type="button" class="btn-primary" [disabled]="switching()" (click)="studyNext()">
+                  {{ switching() ? 'Đang chuyển…' : 'Học chủ đề này' }}
+                </button>
+                <a class="btn" routerLink="/goal">Chọn chủ đề khác</a>
+              </div>
+            } @else {
+              <p class="muted">Bạn vẫn ôn được từ đã học hoặc chọn một chủ đề khác.</p>
+              <div class="actions">
+                <a class="btn-primary" routerLink="/goal">Chọn chủ đề khác</a>
+                <a class="btn" routerLink="/vocabulary/review">Ôn tự do</a>
+              </div>
+            }
+          } @else {
+            <p class="card-title">Chưa có bài mới</p>
+            <p class="muted">Chủ đề này chưa có bài tiếp theo. Bạn vẫn ôn được từ hoặc chọn chủ đề khác.</p>
+            <div class="actions">
+              <a class="btn-primary" routerLink="/vocabulary/review">Ôn tự do</a>
+              <a class="btn" routerLink="/goal">Chọn chủ đề khác</a>
+            </div>
           }
-          <p class="card-title">Chưa có bài mới</p>
-          <p class="muted">Lộ trình này chưa có bài tiếp theo. Bạn vẫn ôn được từ hoặc chọn chủ đề khác.</p>
-          <div class="actions">
-            <a class="btn-primary" routerLink="/vocabulary/review">Ôn tự do</a>
-            <a class="btn" routerLink="/goal">Chọn chủ đề khác</a>
-          </div>
         </div>
       }
       @default {
@@ -94,7 +108,9 @@
                 <div class="lesson-text">
                   <p class="lesson-title" lang="en">{{ l.title || 'Bài học' }}</p>
                   @if (l.topicName) {
-                    <p class="muted">Chủ đề: {{ l.level }} · {{ l.topicName }}</p>
+                    <p class="muted">
+                      Chủ đề: {{ l.level }} · {{ l.topicName }}{{ lessonPlace() ? ' · ' + lessonPlace() : '' }}
+                    </p>
                   }
                 </div>
               </div>
@@ -116,17 +132,40 @@
       }
     }
 
-    <a class="soft-card tomorrow" routerLink="/vocabulary/review">
-      <span class="icon-chip"><lu-icon name="calendar" /></span>
-      <span class="tomorrow-text">
-        @if (d.tomorrowCards > 0) {
-          Ngày mai: {{ d.tomorrowCards }} thẻ cần ôn
+    <!-- One card for reviewing: today's cards, with tomorrow's on a second line. -->
+    <a class="soft-card review" [class.due]="dueToday() > 0" routerLink="/vocabulary/review">
+      <span class="icon-chip" [class.tone-accent]="dueToday() > 0"><lu-icon name="cards" /></span>
+      <span class="review-text">
+        @if (dueToday() > 0) {
+          <span class="review-title">Ôn {{ dueToday() }} thẻ · khoảng {{ dueMinutes() }} phút</span>
         } @else {
-          Ngày mai: không có thẻ cần ôn
+          <span class="review-title">Hôm nay không còn thẻ cần ôn</span>
         }
+        <span class="muted tomorrow">
+          @if (d.tomorrowCards > 0) {
+            Ngày mai: {{ d.tomorrowCards }} thẻ cần ôn
+          } @else {
+            Ngày mai: không có thẻ cần ôn
+          }
+        </span>
       </span>
-      <lu-icon class="chevron" name="chevron-right" />
+      @if (dueToday() > 0) {
+        <span class="btn review-btn" aria-hidden="true">Ôn</span>
+      } @else {
+        <lu-icon class="chevron" name="chevron-right" />
+      }
     </a>
+
+    @if (week()) {
+      <a class="soft-card week" routerLink="/stats">
+        <span class="icon-chip"><lu-icon name="chart" /></span>
+        <span class="review-text">
+          <span class="review-title">Tuần này</span>
+          <span class="muted">{{ weekLine() }}</span>
+        </span>
+        <lu-icon class="chevron" name="chevron-right" />
+      </a>
+    }
   } @else {
     <div class="placeholder" aria-busy="true">
       <span class="visually-hidden" role="status">Đang tải…</span>

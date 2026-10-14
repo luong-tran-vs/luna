@@ -6,7 +6,7 @@ import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { Card, CardDetails } from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 
-type FieldName = 'text' | 'meaningVi' | 'ipa' | 'contextSentence';
+type FieldName = 'text' | 'meaningVi' | 'ipa' | 'contextSentence' | 'contextSentenceVi';
 
 const REQUIRED: Partial<Record<FieldName, string>> = { text: 'Vui lòng nhập từ', meaningVi: 'Vui lòng nhập nghĩa' };
 
@@ -16,6 +16,7 @@ const INPUT_ID: Record<FieldName, string> = {
   meaningVi: 'card-meaning',
   ipa: 'card-ipa',
   contextSentence: 'card-example',
+  contextSentenceVi: 'card-example-vi',
 };
 
 /** Server field names to form controls (the lemma is derived from the word). */
@@ -25,9 +26,10 @@ const SERVER_FIELD: Record<string, FieldName> = {
   meaningVi: 'meaningVi',
   ipa: 'ipa',
   contextSentence: 'contextSentence',
+  contextSentenceVi: 'contextSentenceVi',
 };
 
-/** Adds a card by hand, or edits the meaning, IPA and example of an existing card. */
+/** Adds a card by hand, or edits the meaning, IPA, example and its translation of an existing card. */
 @Component({
   selector: 'lu-card-form',
   imports: [ReactiveFormsModule],
@@ -48,6 +50,7 @@ export class CardForm {
     meaningVi: ['', [Validators.required, Validators.maxLength(200)]],
     ipa: ['', Validators.maxLength(100)],
     contextSentence: ['', Validators.maxLength(1000)],
+    contextSentenceVi: ['', Validators.maxLength(1000)],
   });
   protected readonly submitted = signal(false);
   protected readonly pending = signal(false);
@@ -62,6 +65,7 @@ export class CardForm {
         meaningVi: c?.meaningVi ?? '',
         ipa: c?.ipa ?? '',
         contextSentence: c?.contextSentence ?? '',
+        contextSentenceVi: c?.contextSentenceVi ?? '',
       });
       if (c) {
         this.form.controls.text.disable();
@@ -101,14 +105,15 @@ export class CardForm {
       meaningVi: v.meaningVi.trim(),
       ipa: v.ipa.trim(),
       contextSentence: v.contextSentence.trim(),
+      contextSentenceVi: v.contextSentenceVi.trim(),
     };
     const existing = this.card();
 
     let request;
     if (existing) {
       const changes: CardDetails = {};
-      for (const key of ['meaningVi', 'ipa', 'contextSentence'] as const) {
-        if (values[key] !== existing[key]) {
+      for (const key of ['meaningVi', 'ipa', 'contextSentence', 'contextSentenceVi'] as const) {
+        if (values[key] !== (existing[key] ?? '')) {
           changes[key] = values[key];
         }
       }

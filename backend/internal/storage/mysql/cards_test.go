@@ -221,6 +221,13 @@ func TestCardsUpdateDetails(t *testing.T) {
 	if got.Schedule.Reps != 2 || got.Schedule.Stability != 3 || !got.Schedule.Due.Equal(due) {
 		t.Fatalf("schedule changed: %+v", got.Schedule)
 	}
+	if c.ContextSentenceVi != "" {
+		t.Fatalf("new card translation = %q", c.ContextSentenceVi)
+	}
+	vi := "cau dich"
+	if got, err := r.UpdateDetails(ctx, user, c.ID, vocab.Details{ContextSentenceVi: &vi}); err != nil || got.ContextSentenceVi != vi {
+		t.Fatalf("translation = %+v, %v", got, err)
+	}
 	same, err := r.UpdateDetails(ctx, user, c.ID, vocab.Details{MeaningVi: &meaning}) // no actual change
 	if err != nil || same.MeaningVi != "moi" {
 		t.Fatalf("same value = %+v, %v", same, err)

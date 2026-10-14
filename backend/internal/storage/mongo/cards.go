@@ -68,6 +68,8 @@ type cardDoc struct {
 	IPA             string        `bson:"ipa"`
 	MeaningVi       string        `bson:"meaningVi"`
 	ContextSentence string        `bson:"contextSentence"`
+	// ContextSentenceVi is absent on cards saved before it existed.
+	ContextSentenceVi string `bson:"contextSentenceVi,omitempty"`
 	// LessonID is absent on cards added by hand.
 	LessonID    bson.ObjectID `bson:"lessonId,omitempty"`
 	Source      string        `bson:"source"`
@@ -78,7 +80,7 @@ type cardDoc struct {
 func (d cardDoc) toCard() vocab.Card {
 	c := vocab.Card{
 		ID: d.ID.Hex(), UserID: d.UserID.Hex(), Text: d.Text, Lemma: d.Lemma, IPA: d.IPA,
-		MeaningVi: d.MeaningVi, ContextSentence: d.ContextSentence,
+		MeaningVi: d.MeaningVi, ContextSentence: d.ContextSentence, ContextSentenceVi: d.ContextSentenceVi,
 		Source: vocab.Source(d.Source), CreatedAt: d.CreatedAt, Schedule: d.toSchedule(),
 	}
 	if !d.LessonID.IsZero() {
@@ -107,7 +109,7 @@ func (r *Cards) Create(ctx context.Context, c vocab.Card) (vocab.Card, error) {
 	}
 	d := cardDoc{
 		ID: bson.NewObjectID(), UserID: uid, Text: c.Text, Lemma: c.Lemma, IPA: c.IPA,
-		MeaningVi: c.MeaningVi, ContextSentence: c.ContextSentence,
+		MeaningVi: c.MeaningVi, ContextSentence: c.ContextSentence, ContextSentenceVi: c.ContextSentenceVi,
 		Source: string(c.Source), CreatedAt: c.CreatedAt.UTC(), ScheduleDoc: fromSchedule(c.Schedule),
 	}
 	if c.LessonID != "" {
@@ -282,6 +284,9 @@ func (r *Cards) UpdateDetails(ctx context.Context, userID, id string, d vocab.De
 	}
 	if d.ContextSentence != nil {
 		set = append(set, bson.E{Key: "contextSentence", Value: *d.ContextSentence})
+	}
+	if d.ContextSentenceVi != nil {
+		set = append(set, bson.E{Key: "contextSentenceVi", Value: *d.ContextSentenceVi})
 	}
 	filter := bson.D{{Key: "_id", Value: cid}, {Key: "userId", Value: uid}}
 	if len(set) == 0 {

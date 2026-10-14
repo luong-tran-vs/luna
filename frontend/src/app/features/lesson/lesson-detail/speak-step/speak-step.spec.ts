@@ -92,7 +92,8 @@ describe('SpeakStep', () => {
 
   it('shows the sentence to repeat, plays the sample and loads the recognizer', async () => {
     await setup();
-    expect(text('#speak-heading')).toBe('4. Luyện nói (Speaking)');
+    expect(text('#speak-heading')).toBe('4. Luyện nói');
+    expect(text('.step-card-title')).toBe('Nghe rồi đọc theo');
     expect(text('.sentence')).toBe('Nice to meet you!');
     expect(text('.status')).toBe('Bấm micro rồi đọc theo câu trên');
     expect(recognizer.load).toHaveBeenCalled();

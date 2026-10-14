@@ -39,9 +39,9 @@ import {
   newSeed,
   Score,
   shuffle,
-  summary,
   wordsIn,
 } from './practice-logic';
+import { PracticeList } from './practice-list/practice-list';
 import { PracticeSummary } from './practice-summary/practice-summary';
 import { ReadingText } from './reading-text/reading-text';
 import { SpeakStep } from './speak-step/speak-step';
@@ -56,17 +56,38 @@ type Tab = 'lesson' | 'reading';
 /** The practice steps (shown when the lesson has their content), then the lesson's own steps. */
 type PracticeKey = 'words' | 'dialogue' | 'fill' | 'translate' | 'speak';
 type StepKey = PracticeKey | Step;
+/** The practice a lesson being studied keeps for later (Luyện thêm), outside its main steps. */
+export type ExtraKey = 'dialogue' | 'fill' | 'translate';
 
 const STEP_NAMES: Record<StepKey, string> = {
-  words: 'Từ vựng quan trọng',
-  dialogue: 'Hội thoại mẫu',
-  fill: 'Điền vào ô trống',
-  translate: 'Dịch câu sang tiếng Anh',
+  words: 'Từ vựng',
+  dialogue: 'Hội thoại',
+  fill: 'Điền ô trống',
+  translate: 'Dịch câu',
   speak: 'Luyện nói',
   read: 'Đọc',
   listen: 'Nghe',
   write: 'Viết',
 };
+
+/** About how long each step takes, in minutes, for the estimate under the lesson's title. */
+const STEP_MINUTES: Record<StepKey, number> = {
+  words: 3,
+  dialogue: 2,
+  fill: 3,
+  translate: 3,
+  speak: 2,
+  read: 4,
+  listen: 4,
+  write: 4,
+};
+
+/** One practice of the lesson in a summary: what was done, or null when it was not done yet. */
+export interface PracticeItem {
+  key: StepKey;
+  name: string;
+  result: string | null;
+}
 
 /** Whether lessons have the Speaking step (Luyện nói); specs of the other steps turn it off. */
 export const SPEAKING_PRACTICE = new InjectionToken<boolean>('SPEAKING_PRACTICE', {
@@ -117,10 +138,13 @@ function isStudyStep(key: StepKey | null): key is Step {
  * A lesson's page (F17, L): header, then the Bài học tab with the practice steps that have content
  * (words, dialogue, fill-in, translation) or the Bài đọc tab with the text and grammar note.
  *
- * The lesson being studied is learnt here (updated 2026-10-02, no "today" page): words, then
- * Đọc → Nghe → Luyện nói, then the practice on the text, then Viết (optional). Đọc, Nghe and Viết are recorded
- * on the server; "← Bước trước" shows an earlier step again. Once done, "Sang bài tiếp theo" opens the next lesson at once. Other lessons
- * keep the practice only, ending on its summary. Practice results stay on this page.
+ * The lesson being studied is learnt here (updated 2026-10-14): five main steps, words → Đọc → Nghe →
+ * Luyện nói → Viết (optional). Đọc, Nghe and Viết are recorded on the server. The practice on the
+ * text (dialogue, fill-in, translation) is "Luyện thêm": optional, opened from the lesson's details
+ * or the done card, back to where the learner was once finished. Each step moves on with its own
+ * button, so there is one way forward; the details list every step to go back to one. Once done,
+ * "Sang bài tiếp theo" opens the next lesson at once. Other lessons keep the practice only, ending
+ * on its summary. Practice results stay on this page.
  */
 @Component({
   selector: 'lu-lesson-detail',
@@ -129,6 +153,7 @@ function isStudyStep(key: StepKey | null): key is Step {
     FillStep,
     Icon,
     Listening,
+    PracticeList,
     PracticeSummary,
     ReadingText,
     Reading,
@@ -195,6 +220,12 @@ export class LessonDetail {
   protected readonly stepError = signal<string | null>(null);
 
   protected readonly tab = signal<Tab>('lesson');
+  /** The lesson's details (objective, level, steps, Luyện thêm) under its one-line title. */
+  protected readonly infoOpen = signal(false);
+  /** The Luyện thêm practice on screen, over the step the learner was on. */
+  protected readonly extra = signal<ExtraKey | null>(null);
+  /** Practice gone through to its end on this page (the dialogue and speaking have no score). */
+  protected readonly practiced = signal<ReadonlySet<StepKey>>(new Set());
   /** Position (from 1) in `steps`. */
   protected readonly step = signal(1);
   protected readonly translateIndex = signal(0);
@@ -230,10 +261,12 @@ export class LessonDetail {
       .slice(0, SPEAK_COUNT);
   });
 
+  /** The lesson goes through its main steps (studied, or learnt again), the practice kept for later. */
+  protected readonly learning = computed(() => this.studyFlow() || this.relearn());
+
   /**
    * Steps with content, in order. A lesson being studied goes words → Đọc → Nghe → Luyện nói →
-   * dialogue → fill → translate → Viết (understand the text first, then produce); any other lesson
-   * has the practice only, Luyện nói last.
+   * Viết, its practice being Luyện thêm; any other lesson has the practice only, Luyện nói last.
    */
   protected readonly steps = computed<StepKey[]>(() => {
     const words: StepKey[] = this.words().length > 0 ? ['words'] : [];
@@ -248,10 +281,35 @@ export class LessonDetail {
       practice.push('translate');
     }
     const speak: StepKey[] = this.speakingOn && this.speakSentences().length > 0 ? ['speak'] : [];
-    return this.studyFlow() || this.relearn()
-      ? [...words, 'read', 'listen', ...speak, ...practice, 'write']
+    return this.learning()
+      ? [...words, 'read', 'listen', ...speak, 'write']
       : [...words, ...practice, ...speak];
   });
+  /** Luyện thêm of a lesson being learnt: its practice with content. */
+  protected readonly extras = computed<ExtraKey[]>(() => {
+    if (!this.learning()) {
+      return [];
+    }
+    const keys: ExtraKey[] = [];
+    if (this.hasDialogue()) {
+      keys.push('dialogue');
+    }
+    if (this.hasFill()) {
+      keys.push('fill');
+    }
+    if (this.hasTranslations()) {
+      keys.push('translate');
+    }
+    return keys;
+  });
+  /** "5 bước · khoảng 17 phút" in the lesson's details. */
+  protected readonly estimate = computed(() => {
+    const steps = this.steps();
+    const minutes = steps.reduce((sum, k) => sum + STEP_MINUTES[k], 0);
+    return steps.length ? `${steps.length} bước · khoảng ${minutes} phút` : '';
+  });
+  /** The step on screen: a Luyện thêm practice when one is open, else the current step. */
+  protected readonly onScreen = computed<StepKey | null>(() => this.extra() ?? this.current());
   protected readonly hasSteps = computed(() => this.steps().length > 0);
   protected readonly current = computed<StepKey | null>(
     () => this.steps()[this.step() - 1] ?? null,
@@ -299,6 +357,21 @@ export class LessonDetail {
     return key ? `Bước ${this.step()}/${this.steps().length}: ${STEP_NAMES[key]}` : '';
   });
   protected readonly nextLabel = computed(() => (this.isLast() ? 'Hoàn thành' : 'Tiếp theo'));
+  /** The name of the step after the current one, for "Sang bước Nghe". */
+  protected readonly nextName = computed(() => {
+    const key = this.steps()[this.step()];
+    return key ? STEP_NAMES[key] : '';
+  });
+  /**
+   * The finishing button of a step: back to the lesson from Luyện thêm, else on to the next step by
+   * name, or Hoàn thành on the last one.
+   */
+  protected readonly finishLabel = computed(() => {
+    if (this.extra()) {
+      return 'Xong, về bài học';
+    }
+    return this.isLast() ? 'Hoàn thành' : `Sang bước ${this.nextName()}`;
+  });
   /**
    * The bar's main button: Tiếp theo, or "Sang kỹ năng tiếp theo" on a lesson step still to do
    * (the learner may leave it for later and come back). Not on the last step still to do (Viết has
@@ -310,14 +383,22 @@ export class LessonDetail {
   /** True on a lesson step still to do: moving on leaves it for later. */
   protected readonly skipping = computed(() => !!this.studyStep() && !this.studyStepDone());
   protected readonly canGoBack = computed(() => this.step() > 1);
-  /** The bar at the bottom, with Bước trước and Tiếp theo when they apply. The words card has its own. */
+  /**
+   * The bar at the bottom: only for a lesson step already done, shown again read only (it has no
+   * button of its own). Every other step moves on with its own button: one way forward.
+   */
   protected readonly showBar = computed(
     () =>
       this.shownTab() === 'lesson' &&
-      this.current() !== 'words' &&
+      !this.extra() &&
       !this.finished() &&
       !this.lessonDone() &&
+      this.studyStepDone() &&
       (this.canGoBack() || this.canGoOn()),
+  );
+  /** "Để sau, sang bước Nghe": a lesson step still to do can be left for later (not the last one). */
+  protected readonly canLeave = computed(
+    () => this.shownTab() === 'lesson' && !this.extra() && this.skipping() && !this.isLast(),
   );
   private readonly isLast = computed(() => this.step() >= this.steps().length);
   /**
@@ -326,7 +407,7 @@ export class LessonDetail {
    */
   protected readonly leftBehind = computed<Step[]>(() => {
     const study = this.study();
-    if (!this.studyFlow() || this.lessonDone() || !study || !this.isLast()) {
+    if (!this.studyFlow() || this.lessonDone() || this.extra() || !study || !this.isLast()) {
       return [];
     }
     const current = this.studyStep();
@@ -334,9 +415,14 @@ export class LessonDetail {
   });
   protected readonly stepNames = STEP_NAMES;
 
-  protected readonly summary = computed(() =>
-    summary(this.practice()?.fill?.blanks.length ?? 0, this.fillScore(), this.translateResults()),
-  );
+  /**
+   * The practice in the summary and in Luyện thêm: a score or what was done for those gone through,
+   * null for those not done yet (never "0/5" for a step that was skipped).
+   */
+  protected readonly practiceItems = computed<PracticeItem[]>(() => {
+    const keys: StepKey[] = this.learning() ? this.extras() : this.steps().filter((k) => k !== 'words');
+    return keys.map((key) => ({ key, name: STEP_NAMES[key], result: this.practiceResult(key) }));
+  });
 
   private positionTimer?: ReturnType<typeof setTimeout>;
   private loading?: Subscription;
@@ -399,6 +485,9 @@ export class LessonDetail {
     this.missCount.set(0);
     this.stepError.set(null);
     this.tab.set('lesson');
+    this.infoOpen.set(false);
+    this.extra.set(null);
+    this.practiced.set(new Set());
     this.step.set(1);
     this.translateIndex.set(0);
     this.fillScore.set(null);
@@ -455,6 +544,32 @@ export class LessonDetail {
     }
   }
 
+  private practiceResult(key: StepKey): string | null {
+    switch (key) {
+      case 'fill': {
+        const f = this.fillScore();
+        return f ? `Đúng ${f.correct}/${f.total} ô` : null;
+      }
+      case 'translate': {
+        const results = this.translateResults();
+        const checked = results.filter((r) => r !== null).length;
+        if (checked === 0) {
+          return null;
+        }
+        const correct = results.filter((r) => r === true).length;
+        return checked === results.length
+          ? `Đúng ${correct}/${results.length} câu`
+          : `Đã làm ${checked}/${results.length} câu`;
+      }
+      case 'dialogue':
+        return this.practiced().has('dialogue') ? 'Đã nghe hết' : null;
+      case 'speak':
+        return this.practiced().has('speak') ? `Đã luyện ${this.speakSentences().length} câu` : null;
+      default:
+        return null;
+    }
+  }
+
   /** Reads a word or sentence of the practice with the browser's voice. */
   protected play(text: string): void {
     this.speech.speak(text, this.rate());
@@ -504,6 +619,44 @@ export class LessonDetail {
     });
   }
 
+  /** The end of a practice step: noted for the summary, then on, or back from Luyện thêm. */
+  protected practiceDone(key: StepKey): void {
+    this.practiced.update((set) => new Set(set).add(key));
+    if (this.extra()) {
+      this.closeExtra();
+    } else {
+      this.next();
+    }
+  }
+
+  /** Opens a Luyện thêm practice over the step the learner is on. */
+  protected openExtra(key: ExtraKey): void {
+    this.speech.stop();
+    this.infoOpen.set(false);
+    this.tab.set('lesson');
+    this.extra.set(key);
+    this.toTop();
+  }
+
+  protected closeExtra(): void {
+    this.speech.stop();
+    this.extra.set(null);
+    this.toTop();
+  }
+
+  /** A step picked in the summary or the details: Luyện thêm for the practice kept for later. */
+  protected openStep(key: StepKey): void {
+    if ((this.extras() as StepKey[]).includes(key)) {
+      this.openExtra(key as ExtraKey);
+      return;
+    }
+    this.infoOpen.set(false);
+    this.tab.set('lesson');
+    this.extra.set(null);
+    this.finished.set(false);
+    this.goToStep(key);
+  }
+
   protected next(): void {
     this.speech.stop();
     if (this.step() < this.steps().length) {
@@ -547,6 +700,8 @@ export class LessonDetail {
   protected retry(): void {
     this.speech.stop();
     this.finished.set(false);
+    this.extra.set(null);
+    this.practiced.set(new Set());
     this.step.set(1);
     this.translateIndex.set(0);
     this.fillScore.set(null);

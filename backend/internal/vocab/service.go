@@ -16,8 +16,11 @@ type Input struct {
 	IPA             string
 	MeaningVi       string
 	ContextSentence string
-	LessonID        string
-	Source          string
+	// ContextSentenceVi is the Vietnamese of the example; a lesson card without one gets the
+	// lesson's translation of that sentence.
+	ContextSentenceVi string
+	LessonID          string
+	Source            string
 }
 
 // Deps are the collaborators of Service.
@@ -31,7 +34,9 @@ type Deps struct {
 	Titles       LessonTitles
 	// Pronunciations fills the missing IPA of due cards; nil leaves them as saved.
 	Pronunciations Pronunciations
-	Now            func() time.Time
+	// Translations fills the missing translation of a lesson card's example; nil leaves it empty.
+	Translations SentenceTranslations
+	Now          func() time.Time
 }
 
 // Service manages notebook cards and their reviews. The user is always the session user.
@@ -43,6 +48,7 @@ type Service struct {
 	vocabulary     LessonVocabulary
 	titles         LessonTitles
 	pronunciations Pronunciations
+	translations   SentenceTranslations
 	now            func() time.Time
 }
 
@@ -50,7 +56,7 @@ type Service struct {
 func NewService(d Deps) *Service {
 	return &Service{
 		repo: d.Repo, logs: d.Logs, lessonExists: d.LessonExists, timezones: d.Timezones,
-		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, now: d.Now,
+		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, translations: d.Translations, now: d.Now,
 	}
 }
 
@@ -71,20 +77,22 @@ func (s *Service) Save(ctx context.Context, userID string, in Input) (Card, erro
 		return Card{}, err
 	}
 	c := Card{
-		UserID:          userID,
-		Text:            collapse(in.Text),
-		Lemma:           strings.ToLower(collapse(in.Lemma)),
-		IPA:             strings.TrimSpace(in.IPA),
-		MeaningVi:       strings.TrimSpace(in.MeaningVi),
-		ContextSentence: strings.TrimSpace(in.ContextSentence),
-		LessonID:        strings.TrimSpace(in.LessonID),
-		Source:          Source(in.Source),
-		CreatedAt:       s.now(),
+		UserID:            userID,
+		Text:              collapse(in.Text),
+		Lemma:             strings.ToLower(collapse(in.Lemma)),
+		IPA:               strings.TrimSpace(in.IPA),
+		MeaningVi:         strings.TrimSpace(in.MeaningVi),
+		ContextSentence:   strings.TrimSpace(in.ContextSentence),
+		ContextSentenceVi: strings.TrimSpace(in.ContextSentenceVi),
+		LessonID:          strings.TrimSpace(in.LessonID),
+		Source:            Source(in.Source),
+		CreatedAt:         s.now(),
 	}
 	c.Schedule = Schedule{Due: FirstDue(c.CreatedAt, loc), State: StateNew}
 	if err := s.validate(ctx, c); err != nil {
 		return Card{}, err
 	}
+	c.ContextSentenceVi = s.sentenceVi(ctx, sentenceCache{}, c)
 
 	saved, err := s.repo.Create(ctx, c)
 	if errors.Is(err, ErrExists) {
@@ -115,6 +123,7 @@ func (s *Service) validate(ctx context.Context, c Card) error {
 	lengthBetween(fields, "lemma", c.Lemma, 1, 100, "Dạng gốc không hợp lệ")
 	lengthBetween(fields, "meaningVi", c.MeaningVi, 1, 200, "Nghĩa cần từ 1 đến 200 ký tự")
 	lengthBetween(fields, "contextSentence", c.ContextSentence, 0, 1000, "Câu ngữ cảnh tối đa 1000 ký tự")
+	lengthBetween(fields, "contextSentenceVi", c.ContextSentenceVi, 0, 1000, "Nghĩa câu ví dụ tối đa 1000 ký tự")
 	if utf8.RuneCountInString(c.IPA) > 100 {
 		fields["ipa"] = "Phiên âm tối đa 100 ký tự"
 	}

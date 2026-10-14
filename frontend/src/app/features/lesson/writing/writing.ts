@@ -1,10 +1,23 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+  untracked,
+} from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { countWords } from '../../../core/models/generate';
 import {
+  CRITERIA_LABELS,
   formatScore,
   LessonWriting,
   MAX_WRITING_WORDS,
@@ -15,6 +28,7 @@ import {
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 import { Icon } from '../../../shared/components/icon/icon';
+import { DiffPart, wordDiff } from '../../../shared/utils/word-diff';
 import { loadErrorMessage } from '../load-error';
 import { Loading } from '../../../shared/components/loading/loading';
 
@@ -27,7 +41,8 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
  * The Write step (F8): the lesson's prompt, a text box that saves a draft while typing, and
  * Nộp. Submitting finishes the step at once; the AI grades in the background. Writing is
  * optional: on the lesson page, Bỏ qua finishes the lesson without a writing. In review mode
- * (or once submitted) it only shows the writing and its result.
+ * (or once submitted) it only shows the writing and its result: once graded, the scores and the
+ * corrections marked right in the text, so the learner sees them where the mistakes are.
  */
 @Component({
   selector: 'lu-writing',
@@ -54,6 +69,7 @@ export class Writing implements OnInit {
   protected readonly minWords = MIN_WRITING_WORDS;
   protected readonly maxWords = MAX_WRITING_WORDS;
   protected readonly formatScore = formatScore;
+  protected readonly labels = CRITERIA_LABELS;
 
   protected readonly view = signal<LessonWriting | null>(null);
   /** Back to the path of the lesson's part, where the learner came from. */
@@ -76,6 +92,22 @@ export class Writing implements OnInit {
   );
   protected readonly writing = computed(() => this.view()?.writing ?? null);
   protected readonly submitted = computed(() => this.writing()?.status === 'submitted');
+  /** The graded text against its corrected version, word by word; empty until graded. */
+  protected readonly diff = computed<DiffPart[]>(() => {
+    const w = this.writing();
+    return w?.grade?.status === 'done' ? wordDiff(w.text, w.grade.correctedText) : [];
+  });
+  /** The diff with each run's trailing space apart, so the marks stop at the word. */
+  protected readonly marked = computed(() =>
+    this.diff().map((p) => {
+      const word = p.text.trimEnd();
+      return { kind: p.kind, word, gap: p.text.slice(word.length) };
+    }),
+  );
+  /** Places to fix: a removal and the addition right after it count as one. */
+  protected readonly fixCount = computed(() =>
+    this.diff().filter((p, i, all) => p.kind === 'del' || (p.kind === 'add' && all[i - 1]?.kind !== 'del')).length,
+  );
   protected readonly editable = computed(() => !this.review() && !this.submitted() && !!this.view()?.canWrite);
   protected readonly words = computed(() => countWords(this.text()));
   protected readonly suggestion = computed(() => {
@@ -113,6 +145,14 @@ export class Writing implements OnInit {
 
   constructor() {
     inject(DestroyRef).onDestroy(() => clearTimeout(this.timer));
+    // While the writing is graded, reload as soon as the notifier sees its result.
+    effect(() => {
+      const latest = this.notifier.latest();
+      const w = untracked(() => this.writing());
+      if (latest && w && latest.id === w.id && latest.status !== 'pending' && w.grade?.status === 'pending') {
+        untracked(() => void this.load());
+      }
+    });
   }
 
   private get id(): string {

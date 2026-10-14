@@ -60,7 +60,7 @@ describe('LearnParts', () => {
 
   afterEach(() => http.verify());
 
-  it('lists one card per part, each opening its path', async () => {
+  it('lists one card per part with lessons, each opening its path', async () => {
     await setup(path);
 
     expect(text(el.querySelector('h1'))).toBe('Chọn chặng học');
@@ -71,7 +71,6 @@ describe('LearnParts', () => {
     expect(parts.map((p) => text(p.querySelector('h2')))).toEqual([
       'Phần 1: Khởi Động · A1 Mới bắt đầu',
       'Phần 2: Giao Tiếp · A2 Sơ cấp',
-      'Phần 3: Tự Tin Làm Chủ · B1 Trung cấp',
     ]);
 
     // The part being studied: its progress and "Tiếp tục".
@@ -101,14 +100,27 @@ describe('LearnParts', () => {
       'images/mascot-cat.png',
     );
 
-    // No lesson yet: locked, nothing to open.
-    expect(parts[2].classList).toContain('is-locked');
-    expect(text(parts[2].querySelector('.part-meta'))).toBe('i Phần này chưa có bài học');
-    expect(text(parts[2].querySelector('.badge'))).toBe('Sắp có');
-
-    // The daily streak card.
+    // No lesson yet: no card, one small row in "Sắp có" with nothing to open.
+    const soon = el.querySelector('.soon')!;
+    expect(text(soon.querySelector('h2'))).toBe('Sắp có · 1 phần');
+    const rows = Array.from(soon.querySelectorAll('li'));
+    expect(rows.map((r) => text(r))).toEqual([
+      'Phần 3 Tự Tin Làm Chủ · B1 Trung cấp Phản xạ nhanh & từ vựng nâng cao',
+    ]);
+    expect(soon.querySelector('a, img, .chip')).toBeNull();
+    // The cards come first, then "Sắp có", then the daily streak card.
+    const daily = el.querySelector('.daily')!;
+    expect(
+      el.querySelector('.list')!.compareDocumentPosition(soon) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(soon.compareDocumentPosition(daily) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(text(el.querySelector('.daily-title'))).toBe('Kiên trì mỗi ngày 3 ngày');
-    expect(parts[2].querySelector('a')).toBeNull();
+  });
+
+  it('has no "Sắp có" box when every part has lessons', async () => {
+    await setup({ ...path, milestones: path.milestones.slice(0, 2) });
+    expect(el.querySelectorAll('.part')).toHaveLength(2);
+    expect(el.querySelector('.soon')).toBeNull();
   });
 
   it('asks to pick a part when there is no goal', async () => {

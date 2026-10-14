@@ -233,20 +233,33 @@ describe('FillStep', () => {
     expect(el.querySelector('.tip')).toBeNull();
   });
 
-  it('fades one bank tile per blank holding the same word', async () => {
+  it('shows a word needed twice as one tile marked ×2, used up once both blanks hold it', async () => {
     const twice: PracticeFill = {
       turns: [fill.turns[0]],
       blanks: [{ answer: 'meet' }, { answer: 'meet' }],
       wordBank: ['meet', 'meet'],
     };
     await render(['meet', 'meet', 'name'], twice);
+    const tiles = () => Array.from(el.querySelectorAll<HTMLButtonElement>('.tiles .tile'));
+    expect(tiles().map((t) => text(t))).toEqual(['meet ×2 lần', 'name']);
     await type(0, 'meet');
-    expect(bankButton('meet', 0).disabled).toBe(true);
-    expect(bankButton('meet', 1).disabled).toBe(false);
-    await click(bankButton('meet', 1));
+    expect(text(tiles()[0])).toBe('meet');
+    expect(tiles()[0].disabled).toBe(false);
+    await click(tiles()[0]);
+    expect(tiles().length === 0 || tiles()[0].disabled).toBe(true);
     await click(checkButton());
     expect(status()).toBe('Chính xác!');
     expect(button('Hoàn thành')).toBeDefined();
+  });
+
+  it('names its last button after what comes next', async () => {
+    const one: PracticeFill = { turns: [fill.turns[0]], blanks: fill.blanks, wordBank: fill.wordBank };
+    await render(undefined, one);
+    fixture.componentRef.setInput('finishLabel', 'Sang bước Viết');
+    await type(0, 'name');
+    await type(1, 'Mai');
+    await click(checkButton());
+    expect(button('Sang bước Viết')).toBeDefined();
   });
 
   it('Làm lại câu này clears only the line on screen; the new check counts', async () => {

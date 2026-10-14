@@ -21,8 +21,10 @@ import { LessonVocabulary } from '../../../core/models/vocab';
 import { Listening } from '../listening/listening';
 import { Reading } from '../reading/reading';
 import { Writing } from '../writing/writing';
+import { DialogueStep } from './dialogue-step/dialogue-step';
 import { FillStep } from './fill-step/fill-step';
 import { LessonDetail, SPEAKING_PRACTICE } from './lesson-detail';
+import { SpeakStep } from './speak-step/speak-step';
 import { TranslateStep } from './translate-step/translate-step';
 import { VocabStep } from './vocab-step/vocab-step';
 
@@ -203,18 +205,42 @@ describe('LessonDetail', () => {
     Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === label);
   const progress = () => el.querySelector('[role="progressbar"]')!;
   const nextButton = () => el.querySelector<HTMLButtonElement>('.next-bar .next');
-  /** Tiếp theo at the bottom; on the words step, its own button from the last word. */
+  /**
+   * On to the next step the way the learner does: a practice step's own finishing button, else the
+   * bar of a step done (read only), else "Để sau" on a lesson step still to do.
+   */
   const next = async () => {
-    const words = child(VocabStep);
-    if (words) {
-      words.done.emit();
+    const finish =
+      child(VocabStep)?.done ??
+      child(DialogueStep)?.finished ??
+      child(FillStep)?.done ??
+      child(TranslateStep)?.done ??
+      child(SpeakStep)?.done;
+    if (finish) {
+      finish.emit();
     } else {
-      nextButton()!.click();
+      (nextButton() ?? el.querySelector<HTMLButtonElement>('.leave'))!.click();
     }
     await fixture.whenStable();
   };
-  const back = async () => {
-    el.querySelector<HTMLButtonElement>('.next-bar .back')!.click();
+  /** Opens the lesson's details under its title. */
+  const openInfo = async () => {
+    if (!el.querySelector('#lesson-info')) {
+      el.querySelector<HTMLButtonElement>('.info-btn')!.click();
+      await fixture.whenStable();
+    }
+  };
+  /** A step in the details, by its name. */
+  const stepButton = (name: string) =>
+    Array.from(el.querySelectorAll<HTMLButtonElement>('.info-step')).find((b) =>
+      text(b).endsWith(name),
+    )!;
+  /** Opens a Luyện thêm practice from the details. */
+  const openExtra = async (name: string) => {
+    await openInfo();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('.info-extras button'))
+      .find((b) => text(b) === name)!
+      .click();
     await fixture.whenStable();
   };
   const child = <T>(type: Type<T>) =>
@@ -297,6 +323,13 @@ describe('LessonDetail', () => {
       expect(text(el.querySelector('.progress-text'))).toBe('1/4');
       expect(text(el.querySelector('.streak'))).toBe('3 ngày');
       expect(text(el.querySelector('h1'))).toBe('Bài 3 Introductions');
+      // The details stay behind "i" so the steps get the screen.
+      expect(el.querySelector('.objective')).toBeNull();
+      const info = el.querySelector<HTMLButtonElement>('.info-btn')!;
+      expect(info.getAttribute('aria-expanded')).toBe('false');
+      await openInfo();
+      expect(info.getAttribute('aria-expanded')).toBe('true');
+      expect(text(el.querySelector('.estimate'))).toBe('4 bước · khoảng 11 phút');
       expect(text(el.querySelector('.objective'))).toBe(
         'Mục tiêu: Bạn có thể chào hỏi và giới thiệu bản thân.',
       );
@@ -331,6 +364,7 @@ describe('LessonDetail', () => {
         currentStep: 'done',
       });
     const confirm = async () => {
+      await openInfo();
       button('Học lại bài')!.click();
       await fixture.whenStable();
       expect(text(el.querySelector('lu-confirm-dialog'))).toContain('Học lại bài này?');
@@ -349,7 +383,7 @@ describe('LessonDetail', () => {
       await new Promise((r) => setTimeout(r));
       await fixture.whenStable();
 
-      expect(text(el.querySelector('.progress-text'))).toBe('1/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('1/4');
       expect(text(el.querySelector('.relearn-note'))).toContain('Đang học lại bài');
       expect(button('Học lại bài')).toBeUndefined();
       await next(); // words → Đọc, done again
@@ -361,7 +395,8 @@ describe('LessonDetail', () => {
       child(ListeningStub)!.completed.emit();
       await fixture.whenStable();
       http.expectNone((r) => r.url.includes('/steps/'));
-      expect(el.querySelector('lu-dialogue-step')).not.toBeNull();
+      // The practice is Luyện thêm: Viết comes right after, its writing only shown again.
+      expect(child(WritingStub)!.mode()).toBe('review');
     });
 
     it('stays as it was when the results cannot be cleared', async () => {
@@ -386,8 +421,8 @@ describe('LessonDetail', () => {
     it('comes right after Nghe in the lesson being studied, with the dialogue turns', async () => {
       localStorage.setItem('luna.lesson-step.l1', 'speak');
       await open({ study: studying(), speaking: true });
-      expect(text(el.querySelector('#speak-heading'))).toBe('4. Luyện nói (Speaking)');
-      expect(text(el.querySelector('.progress-text'))).toBe('4/8');
+      expect(text(el.querySelector('#speak-heading'))).toBe('4. Luyện nói');
+      expect(text(el.querySelector('.progress-text'))).toBe('4/5');
       expect(text(el.querySelector('lu-speak-step .sentence'))).toBe('Hi, my name is Minh.');
     });
 
@@ -424,7 +459,7 @@ describe('LessonDetail', () => {
       await next();
       expect(progress().getAttribute('aria-valuenow')).toBe('2');
       expect(text(el.querySelector('.progress-text'))).toBe('2/4');
-      expect(text(el.querySelector('#dialogue-heading'))).toBe('2. Hội thoại mẫu');
+      expect(text(el.querySelector('#dialogue-heading'))).toBe('2. Hội thoại');
       await next();
       expect(progress().getAttribute('aria-valuenow')).toBe('3');
       expect(el.querySelector('lu-fill-step')).not.toBeNull();
@@ -433,13 +468,34 @@ describe('LessonDetail', () => {
       expect(text(el.querySelector('lu-translate-step'))).toContain('Câu 1/2');
     });
 
-    it('Bước trước goes back a step; the translation card moves between its sentences', async () => {
+    it('has one way forward; the details list every step to go back to', async () => {
       await open();
-      expect(el.querySelector('.next-bar .back')).toBeNull();
       await next();
-      await back();
+      // The step has its own button: no second bar at the bottom.
+      expect(el.querySelector('.next-bar')).toBeNull();
+      await openInfo();
+      expect(Array.from(el.querySelectorAll('.info-step')).map((b) => text(b))).toEqual([
+        '1 Từ vựng',
+        '2 Hội thoại',
+        '3 Điền ô trống',
+        '4 Dịch câu',
+      ]);
+      expect(stepButton('Hội thoại').getAttribute('aria-current')).toBe('step');
+      stepButton('Từ vựng').click();
+      await fixture.whenStable();
+      expect(el.querySelector('#lesson-info')).toBeNull();
       expect(progress().getAttribute('aria-valuenow')).toBe('1');
       expect(el.querySelector('lu-vocab-step')).not.toBeNull();
+    });
+
+    it('names each step\'s last button after the next step', async () => {
+      await open();
+      await next();
+      expect(text(el.querySelector('lu-dialogue-step .finish'))).toBe('Sang bước Điền ô trống');
+    });
+
+    it('the translation card moves between its sentences', async () => {
+      await open();
       await next();
       await next();
       await next();
@@ -450,8 +506,6 @@ describe('LessonDetail', () => {
       button('Câu trước')!.click();
       await fixture.whenStable();
       expect(text(el.querySelector('lu-translate-step'))).toContain('Câu 1/2');
-      await back();
-      expect(el.querySelector('lu-fill-step')).not.toBeNull();
     });
 
     it('reads a word with the browser voice', async () => {
@@ -596,23 +650,32 @@ describe('LessonDetail', () => {
       await fixture.whenStable();
     };
 
-    it('Next goes through the sentences, then Hoàn thành shows the summary', async () => {
+    /** The summary's rows: name and what was done. */
+    const items = () =>
+      Array.from(el.querySelectorAll('lu-practice-summary .item')).map(
+        (li) => `${text(li.querySelector('.name'))}: ${text(li.querySelector('.result'))}`,
+      );
+
+    it('goes through the sentences, then the summary says what was done in each step', async () => {
       await open();
       await next();
       await next();
       await fillAll(['name', 'from']);
       await next();
-      expect(text(nextButton())).toBe('Hoàn thành');
       await build(['My', 'name', 'is', 'Minh.']);
       expect(text(el.querySelector('lu-translate-step [role="status"]'))).toBe('Chính xác!');
       button('Câu tiếp theo')!.click();
       await fixture.whenStable();
       expect(progress().getAttribute('aria-valuenow')).toBe('4');
       expect(text(el.querySelector('lu-translate-step'))).toContain('Câu 2/2');
-      expect(text(nextButton())).toBe('Hoàn thành');
-      await next(); // second sentence not checked: counts wrong
-      const scores = Array.from(el.querySelectorAll('.scores li')).map((li) => text(li));
-      expect(scores).toEqual(['Điền đúng 1/2 ô', 'Dịch đúng 1/2 câu']);
+      await next(); // the second sentence not checked: not counted as wrong
+      expect(text(el.querySelector('#summary-heading'))).toBe('Xong phần luyện tập');
+      expect(items()).toEqual([
+        'Hội thoại: Đã nghe hết',
+        'Điền ô trống: Đúng 1/2 ô',
+        'Dịch câu: Đã làm 1/2 câu',
+      ]);
+      expect(el.textContent).not.toContain('chỉ giữ trên trang này');
       expect(el.querySelector('.next-bar')).toBeNull();
       // Results stay on the page: nothing was sent.
       http.expectNone(() => true);
@@ -638,8 +701,25 @@ describe('LessonDetail', () => {
       await open({ practice: noPractice });
       await next(); // the words step is the only one
       await fixture.whenStable();
-      expect(el.querySelector('.scores')).toBeNull();
-      expect(text(el.querySelector('#summary-heading'))).toBe('Hoàn thành phần luyện tập');
+      expect(el.querySelector('lu-practice-list')).toBeNull();
+      expect(text(el.querySelector('#summary-heading'))).toBe('Xong phần luyện tập');
+    });
+
+    it('says "Chưa làm" for a step that was skipped, with a way into it', async () => {
+      await open();
+      await next();
+      await next();
+      await next(); // fill skipped
+      await next(); // translation skipped
+      expect(items()).toEqual([
+        'Hội thoại: Đã nghe hết',
+        'Điền ô trống: Chưa làm',
+        'Dịch câu: Chưa làm',
+      ]);
+      button('Làm Điền ô trống')!.click();
+      await fixture.whenStable();
+      expect(el.querySelector('lu-fill-step')).not.toBeNull();
+      expect(el.querySelector('lu-practice-summary')).toBeNull();
     });
 
     it('Làm lại goes back to step 1 with everything cleared and the banks shuffled again', async () => {
@@ -652,9 +732,10 @@ describe('LessonDetail', () => {
       await next();
       await build(['My', 'name', 'is', 'Minh.']);
       await next();
-      expect(Array.from(el.querySelectorAll('.scores li')).map((li) => text(li))).toEqual([
-        'Điền đúng 2/2 ô',
-        'Dịch đúng 1/2 câu',
+      expect(items()).toEqual([
+        'Hội thoại: Đã nghe hết',
+        'Điền ô trống: Đúng 2/2 ô',
+        'Dịch câu: Đã làm 1/2 câu',
       ]);
 
       random.mockReturnValue(0.9);
@@ -668,9 +749,10 @@ describe('LessonDetail', () => {
       expect(el.querySelectorAll('lu-fill-step .blank.filled').length).toBe(0);
       await next();
       await next();
-      expect(Array.from(el.querySelectorAll('.scores li')).map((li) => text(li))).toEqual([
-        'Điền đúng 0/2 ô',
-        'Dịch đúng 0/2 câu',
+      expect(items()).toEqual([
+        'Hội thoại: Đã nghe hết',
+        'Điền ô trống: Chưa làm',
+        'Dịch câu: Chưa làm',
       ]);
     });
 
@@ -740,7 +822,7 @@ describe('LessonDetail', () => {
 
     it('puts the words got wrong in the practice into the review queue, once each', async () => {
       await toPractice();
-      await next(); // dialogue → fill
+      await openExtra('Điền ô trống');
       child(FillStep)!.missed.emit(['name']);
       const req = http.expectOne('/vocab/practice-misses');
       expect(req.request.body).toEqual({ lessonId: 'l1', words: ['name'] });
@@ -750,7 +832,8 @@ describe('LessonDetail', () => {
 
       // The same word again sends nothing.
       child(FillStep)!.missed.emit(['name']);
-      await next(); // translate, sentence 1 ("My name is Minh.")
+      await next(); // back to the lesson
+      await openExtra('Dịch câu'); // sentence 1 ("My name is Minh.")
       child(TranslateStep)!.checked.emit(false);
       http.expectNone('/vocab/practice-misses');
 
@@ -769,7 +852,7 @@ describe('LessonDetail', () => {
 
     it('ignores a failure of the review queue', async () => {
       await toPractice();
-      await next();
+      await openExtra('Điền ô trống');
       child(FillStep)!.missed.emit(['name']);
       http
         .expectOne('/vocab/practice-misses')
@@ -787,18 +870,18 @@ describe('LessonDetail', () => {
       http.expectNone('/vocab/practice-misses');
     });
 
-    it('goes words, Đọc, Nghe, the practice, then Viết in the same progress bar', async () => {
+    it('goes words, Đọc, Nghe, then Viết: five main steps at most, the practice kept as Luyện thêm', async () => {
       await open({ study: studying() });
-      expect(text(el.querySelector('.progress-text'))).toBe('1/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('1/4');
       expect(el.querySelector('lu-vocab-step')).not.toBeNull();
       await next();
-      expect(text(el.querySelector('.progress-text'))).toBe('2/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('2/4');
       const reading = child(ReadingStub)!;
       expect(reading.mode()).toBe('study');
       expect(reading.lessonId()).toBe('l1');
-      // The step has its own buttons; the bar can leave it for later.
-      expect(text(nextButton())).toBe('Sang kỹ năng tiếp theo');
-      expect(el.querySelector('.next-bar .back')).not.toBeNull();
+      // The step has its own buttons; it can be left for later, with no second bar.
+      expect(nextButton()).toBeNull();
+      expect(text(el.querySelector('.leave'))).toBe('Để sau, sang bước Nghe');
 
       reading.completed.emit();
       await reply(
@@ -808,12 +891,15 @@ describe('LessonDetail', () => {
           currentStep: 'listen',
         }),
       );
-      expect(text(el.querySelector('.progress-text'))).toBe('3/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('3/4');
       expect(child(ListeningStub)!.mode()).toBe('study');
 
-      // Bước trước shows the reading again, read only; Tiếp theo comes back.
-      await back();
+      // The details go back to Đọc, shown again read only, with the bar to go on.
+      await openInfo();
+      stepButton('Đọc').click();
+      await fixture.whenStable();
       expect(child(ReadingStub)!.mode()).toBe('review');
+      expect(text(nextButton())).toBe('Tiếp theo');
       await next();
       child(ListeningStub)!.completed.emit();
       await reply(
@@ -823,31 +909,49 @@ describe('LessonDetail', () => {
           currentStep: 'write',
         }),
       );
-      // The practice on the text comes before Viết.
-      expect(el.querySelector('lu-dialogue-step')).not.toBeNull();
-      await next();
-      expect(el.querySelector('lu-fill-step')).not.toBeNull();
-      await next();
-      expect(el.querySelector('lu-translate-step')).not.toBeNull();
-      await next();
-      expect(text(el.querySelector('.progress-text'))).toBe('7/7');
+      // Viết comes right after Nghe; the practice on the text is Luyện thêm.
+      expect(text(el.querySelector('.progress-text'))).toBe('4/4');
       expect(child(WritingStub)!.mode()).toBe('study');
       expect(el.querySelector('lu-practice-summary')).toBeNull();
+      await openInfo();
+      expect(Array.from(el.querySelectorAll('.info-extras button')).map((b) => text(b))).toEqual([
+        'Hội thoại',
+        'Điền ô trống',
+        'Dịch câu',
+      ]);
+
+      // A Luyện thêm practice opens over Viết, then goes back to it.
+      await openExtra('Hội thoại');
+      expect(text(el.querySelector('#dialogue-heading'))).toBe('Hội thoại');
+      expect(text(el.querySelector('.extra-label'))).toBe('Luyện thêm · tuỳ chọn');
+      expect(text(el.querySelector('lu-dialogue-step .finish'))).toBe('Xong, về bài học');
+      expect(text(el.querySelector('.progress-text'))).toBe('4/4');
+      await next();
+      expect(child(DialogueStep)).toBeUndefined();
+      expect(child(WritingStub)!.mode()).toBe('study');
+    });
+
+    it('goes back from Luyện thêm with Về bài học', async () => {
+      await toPractice();
+      await openExtra('Dịch câu');
+      expect(child(TranslateStep)).toBeDefined();
+      button('Về bài học')!.click();
+      await fixture.whenStable();
+      expect(child(TranslateStep)).toBeUndefined();
+      expect(child(WritingStub)).toBeDefined();
     });
 
     it('leaves Đọc for later, and points back to it from Viết', async () => {
       await open({ study: studying() });
       await next(); // words → Đọc
-      await next(); // Sang kỹ năng tiếp theo: nothing is recorded
+      await next(); // Để sau: nothing is recorded
       expect(child(ListeningStub)!.mode()).toBe('study');
       http.expectNone(() => true);
-      await next(); // dialogue
-      await next();
-      await next();
       await next(); // Viết
-      expect(text(el.querySelector('.progress-text'))).toBe('7/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('4/4');
       // Viết has its own buttons: nothing to skip to.
       expect(nextButton()).toBeNull();
+      expect(el.querySelector('.leave')).toBeNull();
       expect(text(el.querySelector('.left-behind'))).toContain('Còn để lại');
       const steps = Array.from(el.querySelectorAll('.left-behind button')).map((b) => text(b));
       expect(steps).toEqual(['Làm bước Đọc', 'Làm bước Nghe']);
@@ -864,7 +968,7 @@ describe('LessonDetail', () => {
         }),
       });
       // Back where the learner left off.
-      expect(text(el.querySelector('.progress-text'))).toBe('7/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('4/4');
       child(WritingStub)!.skipped.emit();
       await reply(
         '/lessons/l1/steps/write/skip',
@@ -884,13 +988,17 @@ describe('LessonDetail', () => {
       expect(text(nextLesson)).toBe('Sang bài tiếp theo: Family 2');
       expect(el.querySelector('.review-nudge')).toBeNull();
       expect(el.querySelector('.next-bar')).toBeNull();
+      // Luyện thêm stays on offer once the lesson is done.
+      expect(
+        Array.from(el.querySelectorAll('.done-card .item .result')).map((r) => text(r)),
+      ).toEqual(['Chưa làm', 'Chưa làm', 'Chưa làm']);
 
       // Going to the next lesson loads it on the same page, from its start.
       params.next(convertToParamMap({ id: 'l2' }));
       await fixture.whenStable();
       await load('l2', { study: studying() });
       expect(el.querySelector('.done-card')).toBeNull();
-      expect(text(el.querySelector('.progress-text'))).toBe('1/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('1/4');
       expect(el.querySelector('lu-vocab-step')).not.toBeNull();
     });
 
@@ -1053,34 +1161,41 @@ describe('LessonDetail', () => {
           currentStep: 'write',
         });
 
-      it('is where the learner comes back to, not Viết, when they left in the practice', async () => {
-        localStorage.setItem('luna.lesson-step.l1', 'fill');
-        await open({ study: writeCurrent() });
-        expect(text(el.querySelector('.progress-text'))).toBe('5/7');
-        expect(el.querySelector('lu-fill-step')).not.toBeNull();
+      it('is where the learner comes back to, not Viết, when they left in Luyện nói', async () => {
+        localStorage.setItem('luna.lesson-step.l1', 'speak');
+        await open({ study: writeCurrent(), speaking: true });
+        expect(text(el.querySelector('.progress-text'))).toBe('4/5');
+        expect(el.querySelector('lu-speak-step')).not.toBeNull();
         expect(child(WritingStub)).toBeUndefined();
       });
 
       it('never puts the learner behind what the server already knows', async () => {
         localStorage.setItem('luna.lesson-step.l1', 'words');
         await open({ study: writeCurrent() });
-        expect(text(el.querySelector('.progress-text'))).toBe('7/7');
+        expect(text(el.querySelector('.progress-text'))).toBe('4/4');
       });
 
       it('ignores a saved step that does not exist any more', async () => {
         localStorage.setItem('luna.lesson-step.l1', 'speaking');
         await open({ study: writeCurrent() });
-        expect(text(el.querySelector('.progress-text'))).toBe('7/7');
+        expect(text(el.querySelector('.progress-text'))).toBe('4/4');
+      });
+
+      it('ignores a saved practice step, now Luyện thêm', async () => {
+        localStorage.setItem('luna.lesson-step.l1', 'fill');
+        await open({ study: writeCurrent() });
+        expect(text(el.querySelector('.progress-text'))).toBe('4/4');
+        expect(child(WritingStub)).toBeDefined();
       });
 
       it('is saved as the learner moves, and the opening does not overwrite it', async () => {
-        localStorage.setItem('luna.lesson-step.l1', 'translate');
-        await open({ study: writeCurrent() });
+        localStorage.setItem('luna.lesson-step.l1', 'speak');
+        await open({ study: writeCurrent(), speaking: true });
         await fixture.whenStable();
-        expect(localStorage.getItem('luna.lesson-step.l1')).toBe('translate');
-        await back();
+        expect(localStorage.getItem('luna.lesson-step.l1')).toBe('speak');
+        await next();
         await fixture.whenStable();
-        expect(localStorage.getItem('luna.lesson-step.l1')).toBe('fill');
+        expect(localStorage.getItem('luna.lesson-step.l1')).toBe('write');
       });
 
       it('is not kept for a lesson that is not being studied', async () => {
@@ -1106,7 +1221,7 @@ describe('LessonDetail', () => {
 
     it('starts again where a saved position is', async () => {
       await open({ study: studying({ sentenceIndex: 4 }) });
-      expect(text(el.querySelector('.progress-text'))).toBe('2/7');
+      expect(text(el.querySelector('.progress-text'))).toBe('2/4');
       expect(child(ReadingStub)!.startSentence()).toBe(4);
     });
   });

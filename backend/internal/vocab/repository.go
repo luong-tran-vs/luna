@@ -66,6 +66,12 @@ type Pronunciations interface {
 	IPA(ctx context.Context, lemma string) (string, error)
 }
 
+// SentenceTranslations gives the Vietnamese of each sentence of a lesson, keyed by SentenceKey of
+// the sentence; empty when the lesson has none or is gone.
+type SentenceTranslations interface {
+	Translations(ctx context.Context, lessonID string) (map[string]string, error)
+}
+
 // LessonTitles gives the titles of the lessons that still exist among ids.
 type LessonTitles interface {
 	Titles(ctx context.Context, ids []string) (map[string]string, error)

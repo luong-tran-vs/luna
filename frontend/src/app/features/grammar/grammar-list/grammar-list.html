@@ -36,10 +36,11 @@
     @if (points().length === 0) {
       <p class="soft-card empty">Trình độ này chưa có điểm ngữ pháp nào.</p>
     } @else {
-      <ol class="points">
-        @for (p of points(); track p.id) {
-          <li>
-            @if (p.available) {
+      @if (openPoints().length) {
+        <h2 class="group-title" id="grammar-open">Đã mở</h2>
+        <ol class="points" aria-labelledby="grammar-open">
+          @for (p of openPoints(); track p.id) {
+            <li>
               <a class="point" [routerLink]="['/grammar', p.id]">
                 <span class="point-text">
                   <span class="point-title">{{ p.titleVi }}</span>
@@ -53,19 +54,42 @@
                   {{ statusText(p) }}
                 </span>
               </a>
-            } @else {
-              <div class="point is-soon">
-                <span class="point-text">
-                  <span class="point-title">{{ p.titleVi }}</span>
-                  <span class="point-en" lang="en">{{ p.titleEn }}</span>
-                  <span class="point-hint">{{ p.hintVi }}</span>
-                </span>
-                <span class="state">Sắp có</span>
-              </div>
+            </li>
+          }
+        </ol>
+      }
+      <!-- Every point without content yet behind one row, so the open ones stay on the first screen. -->
+      @if (soonPoints().length) {
+        <button
+          type="button"
+          class="soon-toggle"
+          aria-controls="grammar-soon"
+          [attr.aria-expanded]="showSoon()"
+          (click)="showSoon.set(!showSoon())"
+        >
+          <span class="soon-text">
+            <span class="soon-title">Sắp có · {{ soonPoints().length }} bài</span>
+            <span class="point-hint">{{ showSoon() ? 'Bấm để thu gọn' : 'Bấm để xem các bài sắp có' }}</span>
+          </span>
+          <lu-icon class="soon-chevron" name="chevron-right" />
+        </button>
+        @if (showSoon()) {
+          <ol class="points" id="grammar-soon" aria-label="Sắp có">
+            @for (p of soonPoints(); track p.id) {
+              <li>
+                <div class="point is-soon">
+                  <span class="point-text">
+                    <span class="point-title">{{ p.titleVi }}</span>
+                    <span class="point-en" lang="en">{{ p.titleEn }}</span>
+                    <span class="point-hint">{{ p.hintVi }}</span>
+                  </span>
+                  <span class="state">Sắp có</span>
+                </div>
+              </li>
             }
-          </li>
+          </ol>
         }
-      </ol>
+      }
     }
   } @else {
     <lu-loading label="Đang tải ngữ pháp…" />

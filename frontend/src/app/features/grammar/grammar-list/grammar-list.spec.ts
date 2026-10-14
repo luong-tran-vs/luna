@@ -93,21 +93,47 @@ describe('GrammarList', () => {
     expect(text(el.querySelector('.next'))).toContain('Học tiếp');
     expect(text(el.querySelector('.next'))).toContain('Mạo từ');
     expect(el.querySelector('.next')?.getAttribute('href')).toBe('/grammar/a1-articles');
+    // The open points only; the one without content is behind the collapsed "Sắp có" row.
     const rows = Array.from(el.querySelectorAll('.point'));
-    expect(rows.length).toBe(3);
+    expect(rows.length).toBe(2);
     expect(text(rows[0].querySelector('.state'))).toBe('Đã nắm vững · 90%');
     expect(text(rows[1].querySelector('.state'))).toBe('Đang học');
     expect(text(rows[0].querySelector('.point-en'))).toBe('The verb to be');
     expect(text(rows[0].querySelector('.point-hint'))).toBe('am, is, are');
   });
 
-  it('shows a point that is not published as faded "Sắp có" and not clickable', async () => {
+  it('gathers the points that are not published in one collapsed "Sắp có" row, after the open ones', async () => {
     await setup('A1');
-    await flushLevel('A1');
-    const soon = el.querySelector('.point.is-soon')!;
+    // In curriculum order the unpublished point comes first; it still goes after the open ones.
+    await flushLevel('A1', { next: 'a1-articles', points: [list.points[2], list.points[0], list.points[1]] });
+    expect(text(el.querySelector('.group-title'))).toBe('Đã mở');
+    expect(Array.from(el.querySelectorAll('a.point .point-title')).map((t) => text(t))).toEqual(['Động từ to be', 'Mạo từ']);
+    expect(el.querySelector('.point.is-soon')).toBeNull();
+
+    const toggle = el.querySelector<HTMLButtonElement>('.soon-toggle')!;
+    expect(text(toggle.querySelector('.soon-title'))).toBe('Sắp có · 1 bài');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(toggle.compareDocumentPosition(el.querySelector('a.point')!) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
+    toggle.click();
+    await settle();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    const soon = el.querySelector('#grammar-soon .point.is-soon')!;
     expect(soon.tagName).toBe('DIV');
+    expect(text(soon.querySelector('.point-title'))).toBe('Danh từ số nhiều');
     expect(text(soon.querySelector('.state'))).toBe('Sắp có');
     expect(el.querySelectorAll('a.point').length).toBe(2);
+
+    // Another level starts collapsed again.
+    (Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]')).find((b) => text(b) === 'A2')!).click();
+    await settle();
+    await flushLevel('A2');
+    expect(el.querySelector('.soon-toggle')?.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('shows no "Sắp có" row when every point is open', async () => {
+    await setup('A1');
+    await flushLevel('A1', { next: 'a1-articles', points: [list.points[0], list.points[1]] });
+    expect(el.querySelector('.soon-toggle')).toBeNull();
   });
 
   it('shows an empty state', async () => {
@@ -126,7 +152,7 @@ describe('GrammarList', () => {
     await settle();
     await flushLevel('A1');
     expect(el.querySelector('[role="alert"]')).toBeNull();
-    expect(el.querySelectorAll('.point').length).toBe(3);
+    expect(el.querySelectorAll('.point').length).toBe(2);
   });
 
   it('moves between levels with the arrow keys', async () => {

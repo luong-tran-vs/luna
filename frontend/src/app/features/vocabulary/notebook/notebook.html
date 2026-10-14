@@ -1,14 +1,11 @@
 
 <section class="notebook">
   <header class="notebook-header">
-    <div class="screen-bar">
-      <a class="round-btn" routerLink="/vocabulary/review" aria-label="Quay lại Ôn tập"><lu-icon name="arrow-left" /></a>
-      <h1 class="title screen-title">Sổ từ</h1>
-    </div>
-    <div class="actions">
-      <a class="btn-primary" routerLink="/vocabulary/review">Ôn tập{{ dueCount() !== null ? ' (' + dueCount() + ')' : '' }}</a>
-      <button type="button" class="btn" [disabled]="adding()" (click)="adding.set(true)">Thêm thẻ</button>
-    </div>
+    <a class="round-btn" routerLink="/vocabulary/review" aria-label="Quay lại Ôn tập"><lu-icon name="arrow-left" /></a>
+    <h1 class="title screen-title">Sổ từ</h1>
+    <button type="button" class="btn add" [disabled]="adding()" (click)="adding.set(true)">
+      <lu-icon name="plus" /> Thêm thẻ
+    </button>
   </header>
 
   @if (adding()) {
@@ -16,13 +13,14 @@
   }
 
   <div class="filters">
-    <div class="field">
-      <label for="notebook-search">Tìm từ</label>
-      <input id="notebook-search" type="search" lang="en" autocomplete="off" spellcheck="false" [value]="q()"
-        (input)="onSearch($event)" />
+    <div class="search">
+      <label class="visually-hidden" for="notebook-search">Tìm từ</label>
+      <lu-icon name="search" />
+      <input id="notebook-search" type="search" lang="en" autocomplete="off" spellcheck="false" placeholder="Tìm từ…"
+        [value]="q()" (input)="onSearch($event)" />
     </div>
-    <div class="field">
-      <label for="notebook-lesson">Bài học</label>
+    <div>
+      <label class="visually-hidden" for="notebook-lesson">Bài học</label>
       <select id="notebook-lesson" [value]="lessonId()" (change)="onLessonChange($event)">
         <option value="">Tất cả bài</option>
         @for (l of lessons().lessons; track l.id) {
@@ -61,19 +59,36 @@
               <lu-card-form [card]="c" (saved)="onEdited($event)" (cancelled)="editingId.set(null)" />
             } @else {
               <div class="card-main">
-                <p class="word" lang="en">{{ c.text }}</p>
-                @if (c.ipa) {
-                  <p class="ipa">{{ c.ipa }}</p>
-                }
+                <p class="word-line">
+                  <span class="word" lang="en">{{ c.text }}</span>
+                  @if (c.ipa) {
+                    <span class="ipa">{{ c.ipa }}</span>
+                  }
+                </p>
                 <p class="meaning">{{ c.meaningVi }}</p>
                 @if (c.contextSentence) {
                   <p class="example" lang="en">{{ c.contextSentence }}</p>
+                  @if (c.contextSentenceVi) {
+                    <p class="example-vi">{{ c.contextSentenceVi }}</p>
+                  }
                 }
               </div>
-              <div class="card-actions">
-                <button type="button" class="btn" [luSpeak]="c.text" (click)="play(c)">Nghe<span class="visually-hidden"> {{ c.text }}</span></button>
-                <button type="button" class="btn" (click)="editingId.set(c.id)">Sửa<span class="visually-hidden"> {{ c.text }}</span></button>
-                <button type="button" class="btn" (click)="deleting.set(c)">Xoá<span class="visually-hidden"> {{ c.text }}</span></button>
+              <div class="card-tools">
+                <button type="button" class="icon-btn speak" [luSpeak]="c.text" (click)="play(c)">
+                  <lu-icon name="volume" /><span class="visually-hidden">Nghe {{ c.text }}</span>
+                </button>
+                <div class="menu-wrap">
+                  <button type="button" class="icon-btn" [attr.aria-expanded]="menuId() === c.id"
+                    [attr.aria-controls]="'menu-' + c.id" (click)="toggleMenu(c.id)">
+                    <lu-icon name="more" /><span class="visually-hidden">Tuỳ chọn {{ c.text }}</span>
+                  </button>
+                  @if (menuId() === c.id) {
+                    <div class="menu" [id]="'menu-' + c.id">
+                      <button type="button" (click)="edit(c)"><lu-icon name="pencil" /> Sửa<span class="visually-hidden"> {{ c.text }}</span></button>
+                      <button type="button" class="danger" (click)="askDelete(c)"><lu-icon name="x" /> Xoá<span class="visually-hidden"> {{ c.text }}</span></button>
+                    </div>
+                  }
+                </div>
               </div>
             }
           </li>
@@ -87,6 +102,12 @@
   }
   @if (loading()) {
     <lu-loading />
+  }
+
+  @if (dueCount(); as due) {
+    <div class="review-bar">
+      <a class="btn-primary btn-block" routerLink="/vocabulary/review">Ôn {{ due }} thẻ cần ôn</a>
+    </div>
   }
 </section>
 

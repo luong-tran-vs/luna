@@ -57,7 +57,9 @@ func TestSaveCardEndpoint(t *testing.T) {
 	}
 	var created struct{ Card map[string]any }
 	_ = json.Unmarshal(rec.Body.Bytes(), &created)
-	if created.Card["lemma"] != "go" || created.Card["contextSentence"] != "We went to the park." {
+	// The example gets the lesson's translation of that sentence.
+	if created.Card["lemma"] != "go" || created.Card["contextSentence"] != "We went to the park." ||
+		created.Card["contextSentenceVi"] != "Chúng tôi đã đi công viên." {
 		t.Fatalf("card = %v", created.Card)
 	}
 	if _, leaked := created.Card["userId"]; leaked {

@@ -43,6 +43,8 @@ export class FillStep {
   /** Full text of each dialogue turn, to read aloud. */
   readonly turnTexts = input<string[]>([]);
   readonly grammarTip = input('');
+  /** The button after the last line, e.g. "Sang bước Nghe" or "Xong, về bài học". */
+  readonly finishLabel = input('Hoàn thành');
 
   /** Text to read aloud with the browser's voice. */
   readonly readAloud = output<string>();
@@ -124,6 +126,27 @@ export class FillStep {
       }
     });
     return out;
+  });
+  /**
+   * The bank shown once per word: a word needed in two blanks is one tile marked ×2, used up when
+   * it is in both. Each tile picks the first of its copies still free.
+   */
+  protected readonly tiles = computed(() => {
+    const byWord = new Map<string, { word: string; copies: number[] }>();
+    this.bank().forEach((w, i) => {
+      const k = key(w);
+      const tile = byWord.get(k);
+      if (tile) {
+        tile.copies.push(i);
+      } else {
+        byWord.set(k, { word: w, copies: [i] });
+      }
+    });
+    const used = this.used();
+    return [...byWord.values()].map((tile) => {
+      const free = tile.copies.filter((i) => !used.has(i));
+      return { word: tile.word, free: free[0] ?? -1, left: free.length };
+    });
   });
   /** Every input as wide as the longest answer, so the width does not give one away. */
   protected readonly inputSize = computed(() =>

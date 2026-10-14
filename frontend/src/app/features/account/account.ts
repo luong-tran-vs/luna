@@ -19,9 +19,8 @@ interface AccountLink {
 }
 
 const LINKS: readonly AccountLink[] = [
-  { path: '/stats', label: 'Lộ trình & Tiến độ', hint: 'Thống kê theo tuần, tháng và huy hiệu', icon: 'chart' },
+  { path: '/stats', label: 'Thống kê & huy hiệu', hint: 'Theo tuần, tháng và huy hiệu', icon: 'chart' },
   { path: '/writings', label: 'Bài viết', hint: 'Kết quả chấm bài viết', icon: 'pencil' },
-  { path: '/vocabulary', label: 'Sổ từ', hint: 'Các từ đã lưu', icon: 'notebook' },
   { path: '/settings', label: 'Cài đặt học tập', hint: 'Số thẻ ôn, múi giờ, xuất dữ liệu', icon: 'sliders' },
 ];
 

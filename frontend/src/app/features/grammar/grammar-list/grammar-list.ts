@@ -28,7 +28,10 @@ function saveLevel(level: Level): void {
   }
 }
 
-/** Grammar points of one level in curriculum order, with the learner's status on each (F20). */
+/**
+ * Grammar points of one level with the learner's status on each (F20): the open ones first, then the
+ * ones without content yet gathered in one collapsed "Sắp có" row; curriculum order within each.
+ */
 @Component({
   selector: 'lu-grammar-list',
   imports: [RouterLink, Icon, Loading],
@@ -46,6 +49,10 @@ export class GrammarList {
   protected readonly failed = signal(false);
 
   protected readonly points = computed(() => this.data()?.points ?? []);
+  protected readonly openPoints = computed(() => this.points().filter((p) => p.available));
+  protected readonly soonPoints = computed(() => this.points().filter((p) => !p.available));
+  /** Whether the "Sắp có" row is expanded; closed again for every level. */
+  protected readonly showSoon = signal(false);
   protected readonly nextPoint = computed(() => {
     const id = this.data()?.next;
     return id ? (this.points().find((p) => p.id === id) ?? null) : null;
@@ -81,6 +88,7 @@ export class GrammarList {
     }
     this.data.set(null);
     this.failed.set(false);
+    this.showSoon.set(false);
     this.api.points(level).subscribe({
       // Ignore an answer for a level that is no longer the chosen one.
       next: (d) => this.level() === level && this.data.set(d),

@@ -31,9 +31,10 @@ type lessonsJSON struct {
 }
 
 type updateRequest struct {
-	MeaningVi       *string `json:"meaningVi"`
-	IPA             *string `json:"ipa"`
-	ContextSentence *string `json:"contextSentence"`
+	MeaningVi         *string `json:"meaningVi"`
+	IPA               *string `json:"ipa"`
+	ContextSentence   *string `json:"contextSentence"`
+	ContextSentenceVi *string `json:"contextSentenceVi"`
 }
 
 func (h *Handler) list(w http.ResponseWriter, r *http.Request) {

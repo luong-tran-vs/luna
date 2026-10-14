@@ -129,6 +129,9 @@ func (f *fakeRepo) UpdateDetails(_ context.Context, userID, id string, d Details
 	if d.ContextSentence != nil {
 		f.cards[i].ContextSentence = *d.ContextSentence
 	}
+	if d.ContextSentenceVi != nil {
+		f.cards[i].ContextSentenceVi = *d.ContextSentenceVi
+	}
 	return f.cards[i], nil
 }
 
@@ -334,6 +337,7 @@ func newEnv() *testEnv {
 		},
 		Titles:         fakeTitles{"lesson1": "A day at the park"},
 		Pronunciations: fakePronunciations{"house": "/haʊs/", "home": "/həʊm/"},
+		Translations: fakeTranslations{"lesson1": {SentenceKey("We went to the park."): "Chúng tôi đã đi công viên."}},
 		Now:            e.clock.Now,
 	})
 	return e

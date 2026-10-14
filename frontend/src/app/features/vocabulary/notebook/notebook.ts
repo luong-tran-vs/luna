@@ -19,12 +19,17 @@ interface DayGroup {
 
 const SEARCH_DELAY = 300;
 
-/** The notebook (F5): cards grouped by the day they were saved, search, lesson filter, edit. */
+/**
+ * The notebook (F5): cards grouped by the day they were saved, search, lesson filter, edit. Each
+ * card is one compact row (word, meaning, example sentence) with a play button; edit and delete
+ * sit in its "⋯" menu, which closes on Escape or a click elsewhere.
+ */
 @Component({
   selector: 'lu-notebook',
   imports: [Loading, CardForm, ConfirmDialog, Icon, RouterLink, SpeakButton],
   templateUrl: './notebook.html',
   styleUrl: './notebook.css',
+  host: { '(document:click)': 'onDocumentClick($event)', '(document:keydown.escape)': 'menuId.set(null)' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Notebook {
@@ -45,6 +50,8 @@ export class Notebook {
   protected readonly editingId = signal<string | null>(null);
   protected readonly deleting = signal<Card | null>(null);
   protected readonly actionError = signal<string | null>(null);
+  /** The card whose "⋯" menu is open. */
+  protected readonly menuId = signal<string | null>(null);
 
   protected readonly filtered = computed(() => this.q().trim() !== '' || this.lessonId() !== '');
   protected readonly groups = computed<DayGroup[]>(() => {
@@ -122,6 +129,26 @@ export class Notebook {
   protected onLessonChange(event: Event): void {
     this.lessonId.set((event.target as HTMLSelectElement).value);
     this.loadPage(1);
+  }
+
+  protected toggleMenu(id: string): void {
+    this.menuId.update((open) => (open === id ? null : id));
+  }
+
+  protected onDocumentClick(event: Event): void {
+    if (this.menuId() && !(event.target as Element | null)?.closest?.('.menu-wrap')) {
+      this.menuId.set(null);
+    }
+  }
+
+  protected edit(card: Card): void {
+    this.menuId.set(null);
+    this.editingId.set(card.id);
+  }
+
+  protected askDelete(card: Card): void {
+    this.menuId.set(null);
+    this.deleting.set(card);
   }
 
   protected play(card: Card): void {

@@ -51,10 +51,12 @@ type Card struct {
 	IPA             string
 	MeaningVi       string
 	ContextSentence string
-	LessonID        string
-	Source          Source
-	CreatedAt       time.Time
-	Schedule        Schedule
+	// ContextSentenceVi is the Vietnamese of ContextSentence; empty when unknown.
+	ContextSentenceVi string
+	LessonID          string
+	Source            Source
+	CreatedAt         time.Time
+	Schedule          Schedule
 }
 
 // WordRef identifies a saved word for highlighting.
@@ -146,9 +148,10 @@ type Page struct {
 
 // Details are the fields of a card a learner can edit; nil fields are unchanged.
 type Details struct {
-	MeaningVi       *string
-	IPA             *string
-	ContextSentence *string
+	MeaningVi         *string
+	IPA               *string
+	ContextSentence   *string
+	ContextSentenceVi *string
 }
 
 // LessonCount is a lesson that has cards in the notebook.

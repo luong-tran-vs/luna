@@ -19,9 +19,9 @@
       <p class="muted" role="status">Bạn chưa chọn lộ trình nào. Chọn một phần để bắt đầu.</p>
     }
     <ul class="list">
-      @for (p of parts(); track p.milestone.level; let first = $first) {
+      @for (p of open(); track p.milestone.level; let first = $first) {
         @let m = p.milestone;
-        <li class="part" [class.is-active]="m.active" [class.is-locked]="m.total === 0">
+        <li class="part" [class.is-active]="m.active">
           <div class="part-head">
             @if (m.active) {
               <span class="chip is-active">
@@ -34,9 +34,7 @@
               <span class="stage">Chặng {{ p.number }} / {{ parts().length }}</span>
             }
             <span class="badge" [class.is-active]="m.active">
-              @if (m.total === 0) {
-                Sắp có
-              } @else if (m.active || p.left === 0) {
+              @if (m.active || p.left === 0) {
                 {{ m.completed }}/{{ m.total }} bài <lu-icon name="trophy" />
               } @else {
                 <lu-icon name="lock" /> {{ p.left }} bài cần mở
@@ -51,7 +49,7 @@
             </h2>
             <p class="summary">{{ p.summary }}</p>
 
-            @if (m.total > 0 && (m.active || m.completed > 0)) {
+            @if (m.active || m.completed > 0) {
               <div class="box progress">
                 <p class="progress-label">
                   <lu-icon name="chart" /> Tiến độ bài học
@@ -71,9 +69,7 @@
             } @else {
               <p class="box part-meta">
                 <span class="info" aria-hidden="true">i</span>
-                @if (m.total === 0) {
-                  Phần này chưa có bài học
-                } @else if (p.number > 1) {
+                @if (p.number > 1) {
                   Hoàn thành Phần {{ p.number - 1 }} hoặc nhảy thẳng tới đây
                 } @else {
                   {{ m.roadmaps.length }} lộ trình · {{ m.total }} bài đang chờ bạn
@@ -81,18 +77,16 @@
               </p>
             }
 
-            @if (m.total > 0) {
-              @if (m.active) {
-                <a class="part-btn is-primary" [routerLink]="['/lessons/levels', m.level]">
-                  <lu-icon name="play" /> Tiếp tục học<span class="visually-hidden">
-                    phần {{ p.number }}</span
-                  >
-                </a>
-              } @else {
-                <a class="part-btn" [routerLink]="['/lessons/levels', m.level]">
-                  <lu-icon name="chevron-right" /> Nhảy tới phần {{ p.number }}
-                </a>
-              }
+            @if (m.active) {
+              <a class="part-btn is-primary" [routerLink]="['/lessons/levels', m.level]">
+                <lu-icon name="play" /> Tiếp tục học<span class="visually-hidden">
+                  phần {{ p.number }}</span
+                >
+              </a>
+            } @else {
+              <a class="part-btn" [routerLink]="['/lessons/levels', m.level]">
+                <lu-icon name="chevron-right" /> Nhảy tới phần {{ p.number }}
+              </a>
             }
           </div>
 
@@ -112,6 +106,10 @@
         </li>
       }
     </ul>
+
+    @if (soon().length > 0) {
+      <lu-soon-parts [parts]="soon()" />
+    }
 
     <aside class="daily">
       <span class="daily-icon" aria-hidden="true"><lu-icon name="star" /></span>

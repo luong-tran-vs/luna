@@ -1,7 +1,7 @@
 <section class="soft-card" aria-labelledby="speak-heading">
   <div class="title-row">
     <h2 class="step-title" id="speak-heading">
-      {{ number() }}. Luyện nói <span lang="en">(Speaking)</span>
+      {{ number() ? number() + '. ' : '' }}Luyện nói
     </h2>
     @if (triedCount() > 0) {
       <button type="button" class="btn restart" [disabled]="phase() !== 'idle'" (click)="restart()">
@@ -13,13 +13,13 @@
 
   @if (!micAllowed) {
     <p class="banner-warning" role="status">
-      Trình duyệt chỉ cho dùng micro khi app mở qua HTTPS. Bạn vẫn nghe được câu mẫu, hoặc bỏ qua
-      bước này bằng nút Tiếp theo.
+      Trình duyệt chỉ cho dùng micro khi app mở qua HTTPS. Bạn vẫn nghe được câu mẫu và bấm
+      “Câu tiếp theo” để đi tiếp.
     </p>
   }
   <div class="practice-card step-card">
     <div class="step-card-head">
-      <span class="step-card-title" lang="en">Listen and repeat</span>
+      <span class="step-card-title">Nghe rồi đọc theo</span>
       <span class="muted" aria-live="polite">Câu {{ index() + 1 }}/{{ sentences().length }}</span>
     </div>
 
@@ -149,7 +149,7 @@
         [disabled]="phase() !== 'idle'"
         (click)="isLast() ? done.emit() : go(index() + 1)"
       >
-        {{ isLast() ? 'Hoàn thành' : 'Câu tiếp theo' }}
+        {{ isLast() ? finishLabel() : 'Câu tiếp theo' }}
       </button>
       <button
         type="button"

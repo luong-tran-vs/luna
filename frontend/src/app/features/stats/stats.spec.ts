@@ -85,7 +85,7 @@ describe('Stats', () => {
 
   it("opens on this week's figures by skill, next to the roadmap ring", async () => {
     await open();
-    expect(text(el.querySelector('h1'))).toBe('Lộ trình & Tiến độ');
+    expect(text(el.querySelector('h1'))).toBe('Thống kê & huy hiệu');
     expect(tab('Tuần').getAttribute('aria-selected')).toBe('true');
     expect(counts()).toEqual([
       'Từ vựng 14 từ',

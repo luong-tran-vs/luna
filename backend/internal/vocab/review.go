@@ -34,8 +34,10 @@ func (s *Service) Due(ctx context.Context, userID string, limit int) (DueList, e
 		return DueList{}, fmt.Errorf("vocab: due: %w", err)
 	}
 	list := DueList{Cards: make([]DueCard, len(cards)), Total: total}
+	cache := sentenceCache{}
 	for i, c := range cards {
 		c.IPA = s.fillIPA(ctx, userID, c)
+		c.ContextSentenceVi = s.fillSentenceVi(ctx, userID, cache, c)
 		c.Schedule = effective(c, loc)
 		list.Cards[i] = DueCard{Card: c, Intervals: intervalsFor(c.Schedule, now)}
 	}

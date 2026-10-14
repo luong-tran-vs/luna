@@ -23,6 +23,7 @@ import { isCorrectAnswer } from '../../utils/answer-match';
 import { intervalLabel } from '../../utils/interval-label';
 import { SpeechService } from '../../../core/services/speech.service';
 import { SpeakButton } from '../../directives/speak-button';
+import { Icon } from '../icon/icon';
 
 interface RatingButton {
   rating: Rating;
@@ -46,7 +47,7 @@ const RATINGS: RatingButton[] = [
  */
 @Component({
   selector: 'lu-review-session',
-  imports: [SpeakButton],
+  imports: [Icon, SpeakButton],
   templateUrl: './review-session.html',
   styleUrl: './review-session.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -73,6 +74,11 @@ export class ReviewSession {
   protected readonly current = computed<DueCard | null>(() => this.queue()[this.index()] ?? null);
   protected readonly reviewing = computed(() => this.index() < this.frontier());
   protected readonly shown = computed(() => this.reviewing() || this.revealed());
+  /**
+   * The card's example sentence cut around the word (case ignored, else its lemma) so the word can be
+   * marked; flip mode shows it on the front to guess the meaning from context. Empty without one.
+   */
+  protected readonly example = computed(() => exampleParts(this.current()));
   /** The rating given to each card before the frontier, by position. */
   protected readonly given = signal<Rating[]>([]);
   protected readonly revealed = signal(false);
@@ -149,6 +155,14 @@ export class ReviewSession {
     if (card) {
       this.playError.set(false);
       this.speech.speak(card.text, 1, { failed: () => this.playError.set(true) });
+    }
+  }
+
+  protected playExample(): void {
+    const sentence = this.current()?.contextSentence;
+    if (sentence) {
+      this.playError.set(false);
+      this.speech.speak(sentence, 1, { failed: () => this.playError.set(true) });
     }
   }
 
@@ -276,4 +290,21 @@ export class ReviewSession {
     afterNextRender(() => (this.answer() ?? this.face())?.nativeElement.focus(), { injector: this.injector });
   }
 
+}
+
+/** The example sentence of a card as [before, word, after]; null without a sentence. */
+export function exampleParts(card: Pick<DueCard, 'text' | 'lemma' | 'contextSentence'> | null): [string, string, string] | null {
+  const sentence = card?.contextSentence?.trim();
+  if (!card || !sentence) {
+    return null;
+  }
+  const lower = sentence.toLowerCase();
+  for (const w of [card.text, card.lemma]) {
+    const at = w ? lower.indexOf(w.trim().toLowerCase()) : -1;
+    if (at >= 0) {
+      const end = at + w.trim().length;
+      return [sentence.slice(0, at), sentence.slice(at, end), sentence.slice(end)];
+    }
+  }
+  return [sentence, '', ''];
 }

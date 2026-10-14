@@ -1,17 +1,9 @@
 <section class="soft-card summary" aria-labelledby="summary-heading">
-  <h2 class="step-title" id="summary-heading" tabindex="-1">Hoàn thành phần luyện tập</h2>
+  <h2 class="step-title" id="summary-heading" tabindex="-1">Xong phần luyện tập</h2>
 
-  @if (summary().fill || summary().translate) {
-    <ul class="scores">
-      @if (summary().fill; as f) {
-        <li><lu-icon name="pencil" /> Điền đúng {{ f.correct }}/{{ f.total }} ô</li>
-      }
-      @if (summary().translate; as t) {
-        <li><lu-icon name="layers" /> Dịch đúng {{ t.correct }}/{{ t.total }} câu</li>
-      }
-    </ul>
+  @if (items().length) {
+    <lu-practice-list [items]="items()" (go)="go.emit($event)" />
   }
-  <p class="muted">Kết quả luyện tập chỉ giữ trên trang này, không tính vào tiến độ.</p>
 
   <button type="button" class="btn btn-block" (click)="retry.emit()">
     <lu-icon name="review" /> Làm lại

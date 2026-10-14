@@ -100,3 +100,82 @@
 .submit {
   min-height: 44px;
 }
+
+/* The graded result: the average big, each criterion on a line, low scores marked. */
+.scores {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.average {
+  font: var(--text-2xl) var(--font-ui);
+  color: var(--color-primary-ink);
+}
+
+.out-of {
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.criteria {
+  display: grid;
+  flex: 1 1 180px;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  list-style: none;
+}
+
+.criteria li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.criteria .score {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.criteria .low .score {
+  color: var(--color-bad);
+}
+
+/* Corrections right in the text: what was wrong struck in red, the right words in green. */
+.diff del {
+  color: var(--color-bad);
+  text-decoration: line-through 2px;
+}
+
+.diff ins,
+.legend ins {
+  font-weight: 600;
+  color: var(--color-ok);
+  text-decoration: underline 2px;
+  text-underline-offset: 3px;
+}
+
+.legend {
+  margin-top: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.legend del {
+  color: var(--color-bad);
+}
+
+.tip {
+  font: var(--text-sm) var(--font-ui);
+  line-height: 1.5;
+  background: var(--color-primary-soft);
+  border-color: transparent;
+}
+
+.detail-link {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}

@@ -49,6 +49,8 @@ const BARS = [30, 55, 80, 45, 65];
 export class SpeakStep {
   /** Position of this step on the page, shown in its title. */
   readonly number = input(1);
+  /** The button after the last sentence, e.g. "Sang bước Viết". */
+  readonly finishLabel = input('Hoàn thành');
   /** Short sentences to repeat. */
   readonly sentences = input.required<string[]>();
   /** Hoàn thành on the last sentence: go to the next step. */

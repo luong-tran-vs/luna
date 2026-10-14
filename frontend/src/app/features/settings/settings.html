@@ -10,22 +10,46 @@
       <button type="button" class="btn" (click)="load()">Thử lại</button>
     </div>
   } @else if (loaded()) {
-    <form class="study" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- No Lưu button: every change saves itself, the status line below says how it went. -->
+    <form class="study" [formGroup]="form" (ngSubmit)="save()" novalidate>
       <section class="soft-card group" aria-labelledby="study-heading">
         <h2 class="group-title" id="study-heading">Học tập</h2>
         <div class="field">
           <label for="settings-limit">Số thẻ ôn mỗi ngày</label>
-          <input
-            id="settings-limit"
-            type="number"
-            inputmode="numeric"
-            [min]="minLimit"
-            [max]="maxLimit"
-            step="1"
-            formControlName="dailyReviewLimit"
-            [attr.aria-invalid]="!!limitError()"
-            [attr.aria-describedby]="limitError() ? 'settings-limit-hint settings-limit-error' : 'settings-limit-hint'"
-          />
+          <div class="stepper">
+            <button
+              type="button"
+              class="step-btn"
+              aria-label="Bớt 5 thẻ"
+              aria-controls="settings-limit"
+              [disabled]="!canLower()"
+              (click)="stepLimit(-1)"
+            >
+              −
+            </button>
+            <input
+              id="settings-limit"
+              type="number"
+              inputmode="numeric"
+              [min]="minLimit"
+              [max]="maxLimit"
+              step="1"
+              formControlName="dailyReviewLimit"
+              [attr.aria-invalid]="!!limitError()"
+              [attr.aria-describedby]="limitError() ? 'settings-limit-hint settings-limit-error' : 'settings-limit-hint'"
+              (input)="saveSoon()"
+            />
+            <button
+              type="button"
+              class="step-btn"
+              aria-label="Thêm 5 thẻ"
+              aria-controls="settings-limit"
+              [disabled]="!canRaise()"
+              (click)="stepLimit(1)"
+            >
+              +
+            </button>
+          </div>
           <p class="field-hint" id="settings-limit-hint">Từ 5 đến 200 thẻ, dùng cho mỗi phiên ôn tập.</p>
           @if (limitError(); as message) {
             <p class="field-error" id="settings-limit-error">{{ message }}</p>
@@ -35,44 +59,77 @@
 
       <section class="soft-card group" aria-labelledby="zone-heading">
         <h2 class="group-title" id="zone-heading">Múi giờ</h2>
-        <p class="field-hint">Dùng để tính lúc sang ngày học mới.</p>
-        <div class="field">
-          <label for="settings-zone-search">Tìm múi giờ</label>
-          <input
-            id="settings-zone-search"
-            type="search"
-            autocomplete="off"
-            placeholder="Ví dụ: London"
-            [value]="zoneQuery()"
-            (input)="onZoneQuery($event)"
-          />
-        </div>
-        <div class="field">
-          <label for="settings-zone">Múi giờ</label>
-          <select
-            id="settings-zone"
-            size="6"
-            formControlName="timezone"
-            [attr.aria-invalid]="!!timezoneError()"
-            [attr.aria-describedby]="timezoneError() ? 'settings-zone-error' : null"
+        <div class="zone-now">
+          <div class="zone-text">
+            <p class="zone-name" id="settings-zone-current">{{ currentLabel() }}</p>
+            <p class="field-hint">
+              @if (onDeviceZone()) {
+                Khớp với giờ của máy này ·
+              }
+              Dùng để tính lúc sang ngày học mới.
+            </p>
+          </div>
+          <button
+            type="button"
+            class="btn"
+            aria-controls="settings-zone-picker"
+            aria-describedby="settings-zone-current"
+            [attr.aria-expanded]="picking()"
+            (click)="picking.set(!picking())"
           >
-            @for (zone of zoneOptions(); track zone.name) {
-              <option [value]="zone.name">{{ zone.label }}</option>
-            }
-          </select>
-          @if (timezoneError(); as message) {
-            <p class="field-error" id="settings-zone-error">{{ message }}</p>
-          }
+            {{ picking() ? 'Đóng' : 'Đổi' }}
+          </button>
         </div>
+        @if (!onDeviceZone()) {
+          <button type="button" class="btn device-zone" (click)="useDeviceZone()">Dùng giờ của máy ({{ deviceLabel }})</button>
+        }
+        @if (timezoneError(); as message) {
+          <p class="field-error" id="settings-zone-error">{{ message }}</p>
+        }
+        @if (picking()) {
+          <div class="zone-picker" id="settings-zone-picker">
+            <div class="field">
+              <label for="settings-zone-search">Tìm múi giờ</label>
+              <input
+                id="settings-zone-search"
+                type="search"
+                autocomplete="off"
+                placeholder="Ví dụ: London"
+                [value]="zoneQuery()"
+                (input)="onZoneQuery($event)"
+              />
+            </div>
+            <div class="field">
+              <label for="settings-zone">Múi giờ</label>
+              <select
+                id="settings-zone"
+                size="6"
+                formControlName="timezone"
+                [attr.aria-invalid]="!!timezoneError()"
+                [attr.aria-describedby]="timezoneError() ? 'settings-zone-error' : null"
+                (change)="save()"
+              >
+                @for (zone of zoneOptions(); track zone.name) {
+                  <option [value]="zone.name">{{ zone.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
+        }
       </section>
 
       <div class="actions">
-        <button type="submit" class="btn-primary" [disabled]="saveState() === 'saving'">Lưu</button>
         <p class="save-status" role="status">
-          @if (saveState() === 'saved') {
-            Đã lưu
-          } @else if (saveState() === 'error') {
-            <span class="save-error">Không lưu được, vui lòng thử lại.</span>
+          @switch (saveState()) {
+            @case ('saving') {
+              Đang lưu…
+            }
+            @case ('saved') {
+              Đã lưu
+            }
+            @case ('error') {
+              <span class="save-error">Chưa lưu được, vui lòng thử lại.</span>
+            }
           }
         </p>
       </div>
@@ -95,7 +152,7 @@
       [attr.aria-busy]="exporting()"
       (click)="exportData()"
     >
-      {{ exporting() ? 'Đang xuất…' : 'Xuất dữ liệu' }}
+      <lu-icon name="download" /> {{ exporting() ? 'Đang xuất…' : 'Tải dữ liệu của tôi' }}
     </button>
     @if (exportError()) {
       <p class="form-alert" role="alert">Không xuất được dữ liệu, vui lòng thử lại.</p>

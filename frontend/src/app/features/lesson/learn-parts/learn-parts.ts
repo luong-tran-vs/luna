@@ -7,6 +7,7 @@ import { LearningPath, Milestone } from '../../../core/models/study';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
+import { SoonParts } from './soon-parts/soon-parts';
 
 /** The name and one-line summary of each part, shown on its card. */
 const PART_INFO: Record<Level, { name: string; summary: string }> = {
@@ -43,12 +44,13 @@ interface PartView {
 
 /**
  * The "Học" tab (design/danh-sach-cac-phan.png): one card per part (level), with its progress.
- * The part being studied says "Tiếp tục học", the others "Nhảy tới phần N"; a part with no lesson
- * yet has nothing to open. A card opens the part's path (LearnPath).
+ * The part being studied says "Tiếp tục học", the others "Nhảy tới phần N". A card opens the part's
+ * path (LearnPath). Parts with no lesson yet have nothing to open: they are not cards but one row
+ * each in a small "Sắp có" box after the cards.
  */
 @Component({
   selector: 'lu-learn-parts',
-  imports: [Loading, Icon, RouterLink, NgOptimizedImage],
+  imports: [Loading, Icon, RouterLink, NgOptimizedImage, SoonParts],
   templateUrl: './learn-parts.html',
   styleUrl: './learn-parts.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,6 +70,10 @@ export class LearnParts {
       left: m.total - m.completed,
     })),
   );
+  /** Parts with lessons, shown as cards. */
+  protected readonly open = computed(() => this.parts().filter((p) => p.milestone.total > 0));
+  /** Parts with no lesson yet, listed small in "Sắp có". */
+  protected readonly soon = computed(() => this.parts().filter((p) => p.milestone.total === 0));
 
   constructor() {
     inject(StudyApiService)

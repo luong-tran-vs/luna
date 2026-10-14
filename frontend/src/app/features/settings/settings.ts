@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -12,6 +13,10 @@ import { Icon } from '../../shared/components/icon/icon';
 import { Loading } from '../../shared/components/loading/loading';
 
 const LIMIT_ERROR = 'Số thẻ từ 5 đến 200';
+/** How much the − / + buttons change the daily limit. */
+const LIMIT_STEP = 5;
+/** Delay after the last change of the limit before it is saved. */
+const SAVE_DELAY = 600;
 
 interface ZoneOption {
   name: string;
@@ -48,7 +53,26 @@ function searchKey(text: string): string {
   return text.toLowerCase().replace(/[/_]/g, ' ').trim();
 }
 
-/** Settings page (F12): daily card limit, timezone, data export. Light/dark lives on the account page. */
+/** "Asia/Ho_Chi_Minh (GMT+7)". */
+function zoneLabel(zone: string): string {
+  const offset = offsetOf(zone, new Date());
+  return offset ? `${zone} (${offset})` : zone;
+}
+
+/** The browser's name for a zone, so aliases compare equal (Asia/Saigon = Asia/Ho_Chi_Minh). */
+function canonical(zone: string): string {
+  try {
+    return new Intl.DateTimeFormat('en-US', { timeZone: zone }).resolvedOptions().timeZone;
+  } catch {
+    return zone;
+  }
+}
+
+/**
+ * Settings page (F12): daily card limit, timezone, data export. Light/dark lives on the account page.
+ * Every change saves itself (the limit after a short pause while it is being changed) and the
+ * status line says so; the timezone shows as one line, with its list behind "Đổi".
+ */
 @Component({
   selector: 'lu-settings',
   imports: [Loading, Icon, ReactiveFormsModule, RouterLink],
@@ -95,6 +119,21 @@ export class Settings {
   })();
   private readonly selectedZone = toSignal(this.form.controls.timezone.valueChanges, { initialValue: '' });
 
+  /** The timezone list (search + select) is open. */
+  protected readonly picking = signal(false);
+  /** This device's timezone, offered when the saved one differs. */
+  protected readonly deviceZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  protected readonly deviceLabel = zoneLabel(this.deviceZone);
+  protected readonly currentLabel = computed(() => zoneLabel(this.selectedZone()));
+  protected readonly onDeviceZone = computed(() => canonical(this.selectedZone()) === canonical(this.deviceZone));
+
+  private readonly limitValue = toSignal(this.form.controls.dailyReviewLimit.valueChanges, { initialValue: null });
+  protected readonly canLower = computed(() => Number(this.limitValue()) > MIN_REVIEW_LIMIT);
+  protected readonly canRaise = computed(() => Number(this.limitValue()) < MAX_REVIEW_LIMIT);
+
+  private saveTimer?: ReturnType<typeof setTimeout>;
+  private saveSub?: Subscription;
+
   /** Zones matching the search, always including the selected one (so the select keeps its value). */
   protected readonly zoneOptions = computed(() => {
     const query = searchKey(this.zoneQuery());
@@ -120,6 +159,10 @@ export class Settings {
 
   constructor() {
     this.load();
+    this.destroyRef.onDestroy(() => {
+      clearTimeout(this.saveTimer);
+      this.saveSub?.unsubscribe();
+    });
   }
 
   protected load(): void {
@@ -141,17 +184,45 @@ export class Settings {
     this.zoneQuery.set((event.target as HTMLInputElement).value);
   }
 
-  protected submit(): void {
+  /** − / +: moves the limit to the next multiple of the step, within the bounds. */
+  protected stepLimit(direction: 1 | -1): void {
+    const current = Number(this.form.controls.dailyReviewLimit.value) || this.loaded()?.dailyReviewLimit || MIN_REVIEW_LIMIT;
+    const next = direction > 0 ? Math.floor(current / LIMIT_STEP + 1) * LIMIT_STEP : Math.ceil(current / LIMIT_STEP - 1) * LIMIT_STEP;
+    this.form.controls.dailyReviewLimit.setValue(Math.min(MAX_REVIEW_LIMIT, Math.max(MIN_REVIEW_LIMIT, next)));
+    this.saveSoon();
+  }
+
+  /** Typing in the limit: saved once the learner pauses. */
+  protected saveSoon(): void {
+    clearTimeout(this.saveTimer);
     this.submitted.set(true);
     this.serverFields.set({});
-    this.saveState.set('idle');
     this.form.controls.dailyReviewLimit.updateValueAndValidity();
     if (this.form.invalid) {
+      this.saveState.set('idle');
+      return;
+    }
+    this.saveTimer = setTimeout(() => this.save(), SAVE_DELAY);
+  }
+
+  protected useDeviceZone(): void {
+    this.form.controls.timezone.setValue(this.deviceZone);
+    this.save();
+  }
+
+  protected save(): void {
+    clearTimeout(this.saveTimer);
+    this.submitted.set(true);
+    this.serverFields.set({});
+    this.form.controls.dailyReviewLimit.updateValueAndValidity();
+    if (this.form.invalid) {
+      this.saveState.set('idle');
       return;
     }
     const { dailyReviewLimit, timezone } = this.form.getRawValue();
     this.saveState.set('saving');
-    this.api
+    this.saveSub?.unsubscribe();
+    this.saveSub = this.api
       .update({ dailyReviewLimit: Number(dailyReviewLimit), timezone })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({

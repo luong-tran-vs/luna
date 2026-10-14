@@ -29,6 +29,8 @@ import { SpeakButton } from '../../../../shared/directives/speak-button';
 export class TranslateStep {
   /** Position of this step on the page, shown in its title (steps without content are left out). */
   readonly number = input(1);
+  /** The button after the last sentence, e.g. "Sang bước Viết" or "Xong, về bài học". */
+  readonly finishLabel = input('Hoàn thành');
   /** False when the browser has no voice: the listen buttons are hidden. */
   protected readonly canSpeak = inject(SpeechService).supported;
   readonly translation = input.required<PracticeTranslation>();

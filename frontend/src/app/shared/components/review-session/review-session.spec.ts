@@ -6,7 +6,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { DueCard, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
-import { ReviewSession } from './review-session';
+import { exampleParts, ReviewSession } from './review-session';
 
 const intervals = { again: 60, hard: 300, good: 600, easy: 8 * 86400 };
 
@@ -95,6 +95,11 @@ describe('ReviewSession', () => {
       expect(button('Nghe')).toBeTruthy();
       expect(el.querySelector('.meaning')).toBeNull();
       expect(buttonStarting('Nhớ')).toBeUndefined();
+      // The example sentence is on the front, the word marked, to guess the meaning from context.
+      expect(text('.example')).toBe('We went home.');
+      expect(text('.example mark')).toBe('went');
+      // The translation waits for the flip.
+      expect(el.querySelector('.example-vi')).toBeNull();
 
       button('Lật thẻ')!.click();
       await settle();
@@ -141,6 +146,21 @@ describe('ReviewSession', () => {
       button('Nghe')!.click();
       await settle();
       expect(speech.texts()).toContain('went');
+    });
+
+    it('shows the translation of the example once the card is flipped', async () => {
+      await setup('flip', [{ ...card('c1', 'went'), contextSentenceVi: 'Chúng tôi về nhà.' }]);
+      expect(el.querySelector('.example-vi')).toBeNull();
+      button('Lật thẻ')!.click();
+      await settle();
+      expect(text('.example-vi')).toBe('Chúng tôi về nhà.');
+    });
+
+    it('plays the example sentence', async () => {
+      await setup();
+      button('Nghe câu ví dụ')!.click();
+      await settle();
+      expect(speech.texts()).toContain('We went home.');
     });
 
     it('shows a card rated Again once more at the end and reports the summary', async () => {
@@ -268,6 +288,8 @@ describe('ReviewSession', () => {
       await setup('listen');
       expect(speech.texts()).toContain('went');
       expect(el.querySelector('.word')).toBeNull();
+      // The example would give the answer away.
+      expect(el.querySelector('.example')).toBeNull();
       expect(button('Nghe lại')).toBeTruthy();
       expect(input().getAttribute('autocapitalize')).toBe('off');
       expect(input().getAttribute('spellcheck')).toBe('false');
@@ -286,6 +308,7 @@ describe('ReviewSession', () => {
       expect(text('.verdict')).toBe('✓ Đúng');
       expect(text('.word')).toBe('went');
       expect(text('.meaning')).toBe('nghĩa của went');
+      expect(text('.example')).toBe('We went home.');
       expect(buttonStarting('Nhớ')).toBeTruthy();
       button('Dễ · 8 ngày')!.click();
       await settle();
@@ -309,5 +332,23 @@ describe('ReviewSession', () => {
       expect(text('.word')).toBe('went');
       expect(buttonStarting('Nhớ')).toBeTruthy();
     });
+  });
+});
+
+describe('exampleParts', () => {
+  const card = (text: string, lemma: string, contextSentence: string) => ({ text, lemma, contextSentence });
+
+  it('cuts the sentence around the word, ignoring case', () => {
+    expect(exampleParts(card('go home', 'go home', 'Then I Go Home by bus.'))).toEqual(['Then I ', 'Go Home', ' by bus.']);
+  });
+
+  it('falls back to the lemma, then to the whole sentence', () => {
+    expect(exampleParts(card('went', 'go', 'We go there.'))).toEqual(['We ', 'go', ' there.']);
+    expect(exampleParts(card('went', 'go', 'Nothing here.'))).toEqual(['Nothing here.', '', '']);
+  });
+
+  it('gives null without a sentence', () => {
+    expect(exampleParts(card('went', 'go', '  '))).toBeNull();
+    expect(exampleParts(null)).toBeNull();
   });
 });

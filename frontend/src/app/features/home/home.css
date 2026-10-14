@@ -123,8 +123,8 @@
   color: var(--color-text-muted);
 }
 
-.tomorrow,
-.due-today {
+.review,
+.week {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -132,19 +132,50 @@
   text-decoration: none;
 }
 
-.due-today {
-  background: var(--color-primary-soft);
+.review-text {
+  display: grid;
+  flex: 1;
+  min-width: 0;
 }
 
-.tomorrow-text {
-  flex: 1;
+.review-title {
   font: var(--text-sm) var(--font-ui);
   font-weight: 600;
 }
 
-.due-hint {
-  display: block;
-  font-weight: 400;
+.review-btn {
+  flex: none;
+  min-height: 40px;
+}
+
+/* Once the topic is finished: the next one, then the button into it. */
+.topic-done .card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-ok);
+
+  --icon-size: 20px;
+}
+
+.next-topic {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-3);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
+.eyebrow {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.next-name {
+  font: var(--text-lg) var(--font-ui);
 }
 
 .actions {

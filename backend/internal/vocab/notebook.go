@@ -43,7 +43,9 @@ func (s *Service) List(ctx context.Context, userID string, q ListQuery) (Page, e
 		Today:     dayOf(today, loc),
 		Yesterday: dayOf(today.AddDate(0, 0, -1), loc),
 	}
+	cache := sentenceCache{}
 	for i, c := range cards {
+		c.ContextSentenceVi = s.fillSentenceVi(ctx, userID, cache, c)
 		c.Schedule = effective(c, loc)
 		page.Cards[i] = DayCard{Card: c, Day: dayOf(c.CreatedAt, loc)}
 	}
@@ -86,6 +88,7 @@ func (s *Service) Update(ctx context.Context, userID, cardID string, d Details) 
 	trim(d.MeaningVi)
 	trim(d.IPA)
 	trim(d.ContextSentence)
+	trim(d.ContextSentenceVi)
 	if d.MeaningVi != nil {
 		lengthBetween(fields, "meaningVi", *d.MeaningVi, 1, 200, "Nghĩa cần từ 1 đến 200 ký tự")
 	}
@@ -94,6 +97,9 @@ func (s *Service) Update(ctx context.Context, userID, cardID string, d Details) 
 	}
 	if d.ContextSentence != nil {
 		lengthBetween(fields, "contextSentence", *d.ContextSentence, 0, 1000, "Câu ví dụ tối đa 1000 ký tự")
+	}
+	if d.ContextSentenceVi != nil {
+		lengthBetween(fields, "contextSentenceVi", *d.ContextSentenceVi, 0, 1000, "Nghĩa câu ví dụ tối đa 1000 ký tự")
 	}
 	if len(fields) > 0 {
 		return Card{}, &ValidationError{Fields: fields}

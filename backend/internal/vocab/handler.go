@@ -35,18 +35,20 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 }
 
 type cardJSON struct {
-	ID              string    `json:"id"`
-	Text            string    `json:"text"`
-	Lemma           string    `json:"lemma"`
-	IPA             string    `json:"ipa"`
-	MeaningVi       string    `json:"meaningVi"`
-	ContextSentence string    `json:"contextSentence"`
-	LessonID        *string   `json:"lessonId"`
-	Source          Source    `json:"source"`
-	CreatedAt       time.Time `json:"createdAt"`
-	Due             time.Time `json:"due"`
-	Reps            uint64    `json:"reps"`
-	State           string    `json:"state"`
+	ID              string `json:"id"`
+	Text            string `json:"text"`
+	Lemma           string `json:"lemma"`
+	IPA             string `json:"ipa"`
+	MeaningVi       string `json:"meaningVi"`
+	ContextSentence string `json:"contextSentence"`
+	// ContextSentenceVi is the Vietnamese of the example, "" when unknown.
+	ContextSentenceVi string    `json:"contextSentenceVi"`
+	LessonID          *string   `json:"lessonId"`
+	Source            Source    `json:"source"`
+	CreatedAt         time.Time `json:"createdAt"`
+	Due               time.Time `json:"due"`
+	Reps              uint64    `json:"reps"`
+	State             string    `json:"state"`
 }
 
 var stateNames = map[State]string{StateNew: "new", StateLearning: "learning", StateReview: "review", StateRelearning: "relearning"}
@@ -55,7 +57,7 @@ var stateNames = map[State]string{StateNew: "new", StateLearning: "learning", St
 func toJSON(c Card) cardJSON {
 	out := cardJSON{
 		ID: c.ID, Text: c.Text, Lemma: c.Lemma, IPA: c.IPA, MeaningVi: c.MeaningVi,
-		ContextSentence: c.ContextSentence, Source: c.Source, CreatedAt: c.CreatedAt,
+		ContextSentence: c.ContextSentence, ContextSentenceVi: c.ContextSentenceVi, Source: c.Source, CreatedAt: c.CreatedAt,
 		Due: c.Schedule.Due.UTC(), Reps: c.Schedule.Reps, State: stateNames[c.Schedule.State],
 	}
 	if c.LessonID != "" {
@@ -65,13 +67,14 @@ func toJSON(c Card) cardJSON {
 }
 
 type saveRequest struct {
-	Text            string `json:"text"`
-	Lemma           string `json:"lemma"`
-	IPA             string `json:"ipa"`
-	MeaningVi       string `json:"meaningVi"`
-	ContextSentence string `json:"contextSentence"`
-	LessonID        string `json:"lessonId"`
-	Source          string `json:"source"`
+	Text              string `json:"text"`
+	Lemma             string `json:"lemma"`
+	IPA               string `json:"ipa"`
+	MeaningVi         string `json:"meaningVi"`
+	ContextSentence   string `json:"contextSentence"`
+	ContextSentenceVi string `json:"contextSentenceVi"`
+	LessonID          string `json:"lessonId"`
+	Source            string `json:"source"`
 }
 
 type existsBody struct {

@@ -1,16 +1,14 @@
 <section class="fill" aria-labelledby="fill-heading">
   <div>
     <div class="title-row">
-      <h2 class="step-title" id="fill-heading">{{ number() }}. Điền vào ô trống</h2>
+      <h2 class="step-title" id="fill-heading">{{ number() ? number() + '. ' : '' }}Điền ô trống</h2>
       @if (checkedCount() > 0) {
         <button type="button" class="btn restart" (click)="restart()">
           <lu-icon name="review" /> Làm lại bước này
         </button>
       }
     </div>
-    <p class="step-hint">
-      Gõ từ vào từng ô (Enter để sang ô kế tiếp), hoặc bấm một từ gợi ý bên dưới.
-    </p>
+    <p class="step-hint">Chọn hoặc gõ từ còn thiếu.</p>
   </div>
 
   @if (turn(); as t) {
@@ -75,13 +73,16 @@
       @if (!lineChecked()) {
         <div class="bank-head">
           <h3 class="bank-title" id="fill-bank-heading">Ngân hàng từ</h3>
-          <span class="muted">Bấm từ để điền vào ô đang chọn</span>
+          <span class="muted">Bấm từ để điền vào ô</span>
         </div>
         <ul class="tiles" aria-labelledby="fill-bank-heading">
-          @for (w of bank(); track $index; let i = $index) {
+          @for (t of tiles(); track t.word) {
             <li>
-              <button type="button" class="tile" lang="en" [disabled]="used().has(i)" (click)="pick(i)">
-                {{ w }}
+              <button type="button" class="tile" lang="en" [disabled]="t.left === 0" (click)="pick(t.free)">
+                {{ t.word }}
+                @if (t.left > 1) {
+                  <span class="copies" lang="vi"><span aria-hidden="true">×</span>{{ t.left }}<span class="visually-hidden"> lần</span></span>
+                }
               </button>
             </li>
           }
@@ -124,7 +125,7 @@
           </button>
         } @else {
           <button type="button" class="btn-primary" (click)="forward()">
-            {{ isLast() ? 'Hoàn thành' : 'Câu tiếp theo' }}
+            {{ isLast() ? finishLabel() : 'Câu tiếp theo' }}
           </button>
         }
         <button type="button" class="nav-btn" [disabled]="isLast()" (click)="show(shown() + 1)">

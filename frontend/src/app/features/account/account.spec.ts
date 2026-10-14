@@ -106,14 +106,14 @@ describe('Account', () => {
   it('still works when the goal cannot be loaded', async () => {
     await open('error');
     expect(text(el.querySelector('.level'))).toBe('Chưa chọn mục tiêu');
-    expect(el.querySelectorAll('nav a').length).toBe(4);
+    expect(el.querySelectorAll('nav a').length).toBe(3);
   });
 
-  it('links to the stats, writings, notebook and settings, with new writing results', async () => {
+  it('links to the stats, writings and settings (the notebook is in the Ôn tập tab), with new writing results', async () => {
     unseen.set(3);
     await open();
     const links = Array.from(el.querySelectorAll('nav a'));
-    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/stats', '/writings', '/vocabulary', '/settings']);
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/stats', '/writings', '/settings']);
     expect(text(links[1])).toContain('3 mới');
   });
 

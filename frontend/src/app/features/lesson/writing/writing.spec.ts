@@ -1,5 +1,6 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 
@@ -35,7 +36,7 @@ describe('Writing', () => {
   let el: HTMLElement;
   let http: HttpTestingController;
   let completed: number;
-  const notifier = { submitted: vi.fn() };
+  const notifier = { submitted: vi.fn(), latest: signal<{ id: string; status: 'pending' | 'done' | 'failed' } | null>(null) };
 
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const textarea = () => el.querySelector<HTMLTextAreaElement>('#writing-text');
@@ -55,6 +56,7 @@ describe('Writing', () => {
   const setup = async (v: LessonWriting, mode: 'study' | 'review' | null = 'study') => {
     vi.useFakeTimers();
     notifier.submitted.mockClear();
+    notifier.latest.set(null);
     await TestBed.configureTestingModule({
       imports: [Writing],
       providers: [
@@ -225,9 +227,45 @@ describe('Writing', () => {
       grade: { status: 'done', error: '', criteria: [], average: 3.75, overallVi: 'Tốt', correctedText: 'x', gradedAt: '' },
     });
     await setup(view({ canWrite: false, writing: graded }), 'review');
-    expect(text(el.querySelector('.result'))).toContain('Điểm trung bình 3,8/5.');
+    expect(text(el.querySelector('.result'))).toBe('Điểm trung bình 3,8/5');
     expect(button('Tiếp tục')).toBeUndefined();
     expect(textarea()).toBeNull();
+  });
+
+  it('marks the corrections in the text and shows each criterion', async () => {
+    const graded = writing({
+      text: 'I eats rice at six oclock.',
+      grade: {
+        status: 'done',
+        error: '',
+        criteria: [
+          { name: 'task', score: 5, commentVi: '' },
+          { name: 'grammar', score: 2, commentVi: '' },
+        ],
+        average: 3.5,
+        overallVi: 'Với chủ ngữ I, động từ giữ nguyên.',
+        correctedText: "I eat rice at six o'clock.",
+        gradedAt: '',
+      },
+    });
+    await setup(view({ canWrite: false, writing: graded }), 'review');
+    expect(text(el.querySelector('.submitted .prompt-label'))).toBe('Bài viết của bạn · 2 chỗ cần sửa');
+    expect(Array.from(el.querySelectorAll('.diff del')).map((d) => text(d))).toEqual(['bỏ: eats', 'bỏ: oclock.']);
+    expect(Array.from(el.querySelectorAll('.diff ins')).map((d) => text(d))).toEqual(['sửa thành: eat', "sửa thành: o'clock."]);
+    expect(text(el.querySelector('.criteria .low'))).toBe('Ngữ pháp2/5');
+    expect(text(el.querySelector('.tip'))).toBe('Với chủ ngữ I, động từ giữ nguyên.');
+    expect(el.querySelector('.detail-link')?.getAttribute('href')).toBe('/writings/w1');
+  });
+
+  it('shows the result once the grading finishes', async () => {
+    await setup(view({ canWrite: false, writing: writing() }), 'review');
+    expect(text(el.querySelector('.result'))).toContain('AI đang chấm');
+    notifier.latest.set({ id: 'w1', status: 'done' });
+    await render();
+    const done = { status: 'done' as const, error: '', criteria: [], average: 4, overallVi: '', correctedText: 'My family has four people.', gradedAt: '' };
+    http.expectOne('/lessons/l1/writing').flush(view({ canWrite: false, writing: writing({ grade: done }) }));
+    await render();
+    expect(text(el.querySelector('.submitted .prompt-label'))).toBe('Bài viết của bạn · không có lỗi cần sửa');
   });
 
   it('says when a past lesson has no writing', async () => {

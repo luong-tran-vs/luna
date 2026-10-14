@@ -36,32 +36,26 @@
       }
     </header>
 
-    <div class="soft-card intro">
-      <h1 class="title">
-        @if (practice()?.lessonNumber; as n) {
-          <span class="unit">Bài {{ n }}</span
-          >&ngsp;
-        }
-        <span lang="en">{{ l.title }}</span>
-      </h1>
-      @if (practice()?.objectiveVi; as objective) {
-        <p class="objective"><span class="objective-label">Mục tiêu:</span> {{ objective }}</p>
-      }
-      <span class="tag level">Mức độ: {{ level() }}</span>
-      <!-- The done card has its own "Học lại bài này". -->
-      @if (canRelearn() && !lessonDone()) {
-        <button type="button" class="btn relearn" (click)="relearnAsk.set(true)">
-          <lu-icon name="review" /> Học lại bài
+    <!-- One line for the lesson, its details behind "i": the steps get the screen. -->
+    <div class="intro">
+      <div class="intro-line">
+        <h1 class="title">
+          @if (practice()?.lessonNumber; as n) {
+            <span class="unit">Bài {{ n }}</span
+            >&ngsp;
+          }
+          <span lang="en">{{ l.title }}</span>
+        </h1>
+        <button
+          type="button"
+          class="info-btn"
+          aria-controls="lesson-info"
+          [attr.aria-expanded]="infoOpen()"
+          (click)="infoOpen.set(!infoOpen())"
+        >
+          <span aria-hidden="true">i</span><span class="visually-hidden">Thông tin bài học</span>
         </button>
-      }
-      @if (relearn()) {
-        <p class="muted relearn-note" role="status">
-          Đang học lại bài: làm lại mọi bước, kết quả mới thay kết quả cũ, tiến độ không đổi.
-        </p>
-      }
-      @if (relearnError()) {
-        <p class="field-error" role="alert">Chưa học lại được, vui lòng thử lại.</p>
-      }
+      </div>
 
       @if (hasSteps()) {
         <div class="tabs" role="tablist" aria-label="Nội dung bài">
@@ -76,7 +70,7 @@
             (click)="selectTab('lesson')"
             (keydown)="onTabKeydown($event)"
           >
-            <lu-icon name="book" /> Bài học
+            Bài học
           </button>
           <button
             type="button"
@@ -89,9 +83,64 @@
             (click)="selectTab('reading')"
             (keydown)="onTabKeydown($event)"
           >
-            <lu-icon name="notebook" /> Bài đọc
+            Bài đọc
           </button>
         </div>
+      }
+
+      @if (infoOpen()) {
+        <div class="soft-card info" id="lesson-info">
+          @if (practice()?.objectiveVi; as objective) {
+            <p class="objective"><span class="objective-label">Mục tiêu:</span> {{ objective }}</p>
+          }
+          <p class="info-meta">
+            <span class="tag level">Mức độ: {{ level() }}</span>
+            @if (estimate(); as e) {
+              <span class="muted estimate">{{ e }}</span>
+            }
+          </p>
+          @if (hasSteps()) {
+            <ol class="info-steps" aria-label="Các bước">
+              @for (key of steps(); track key; let n = $index) {
+                <li>
+                  <button
+                    type="button"
+                    class="info-step"
+                    [class.is-current]="!extra() && n + 1 === step()"
+                    [attr.aria-current]="!extra() && n + 1 === step() ? 'step' : null"
+                    (click)="openStep(key)"
+                  >
+                    <span class="info-num" aria-hidden="true">{{ n + 1 }}</span> {{ stepNames[key] }}
+                  </button>
+                </li>
+              }
+            </ol>
+          }
+          @if (extras().length) {
+            <div class="info-extras">
+              <p class="info-label">Luyện thêm (tuỳ chọn)</p>
+              <div class="chips">
+                @for (key of extras(); track key) {
+                  <button type="button" class="btn chip-btn" (click)="openExtra(key)">{{ stepNames[key] }}</button>
+                }
+              </div>
+            </div>
+          }
+          <!-- The done card has its own "Học lại bài này". -->
+          @if (canRelearn() && !lessonDone()) {
+            <button type="button" class="btn relearn" (click)="relearnAsk.set(true)">
+              <lu-icon name="review" /> Học lại bài
+            </button>
+          }
+        </div>
+      }
+      @if (relearn()) {
+        <p class="muted relearn-note" role="status">
+          Đang học lại bài: làm lại mọi bước, kết quả mới thay kết quả cũ, tiến độ không đổi.
+        </p>
+      }
+      @if (relearnError()) {
+        <p class="field-error" role="alert">Chưa học lại được, vui lòng thử lại.</p>
       }
     </div>
 
@@ -108,7 +157,15 @@
         aria-labelledby="tab-lesson"
         [hidden]="shownTab() !== 'lesson'"
       >
-        @if (lessonDone()) {
+        @if (extra()) {
+          <div class="extra-bar">
+            <span class="extra-label">Luyện thêm · tuỳ chọn</span>
+            <button type="button" class="btn" (click)="closeExtra()">
+              <lu-icon name="arrow-left" /> Về bài học
+            </button>
+          </div>
+        }
+        @if (lessonDone() && !extra()) {
           <section class="soft-card done-card" aria-labelledby="done-heading">
             <h2 class="step-title" id="done-heading">
               <lu-icon name="trophy" /> Hoàn thành bài học
@@ -165,27 +222,31 @@
                 Chủ đề này chưa có bài tiếp theo. Bạn vẫn ôn được từ hoặc chọn chủ đề khác.
               </p>
             }
+            @if (practiceItems().length) {
+              <lu-practice-list heading="Luyện thêm (tuỳ chọn)" [items]="practiceItems()" (go)="openStep($event)" />
+            }
             <button type="button" class="btn btn-block" (click)="relearnAsk.set(true)">
               <lu-icon name="review" /> Học lại bài này
             </button>
             <a class="btn btn-block" [routerLink]="backLink()">Về danh sách bài</a>
           </section>
-        } @else if (finished()) {
+        } @else if (finished() && !extra()) {
           <lu-practice-summary
-            [summary]="summary()"
+            [items]="practiceItems()"
             [status]="status()"
             [lessonId]="id()"
+            (go)="openStep($event)"
             (retry)="retry()"
           />
         } @else {
-          @switch (current()) {
+          @switch (onScreen()) {
             @case ('words') {
               <lu-vocab-step
                 [number]="step()"
                 [topic]="l.topic"
                 [words]="words()"
                 [examples]="practice()?.examples ?? []"
-                [finishLabel]="nextLabel()"
+                [finishLabel]="finishLabel()"
                 [lessonId]="id()"
                 (readAloud)="play($event)"
                 (done)="next()"
@@ -193,15 +254,18 @@
             }
             @case ('dialogue') {
               <lu-dialogue-step
-                [number]="step()"
+                [number]="extra() ? 0 : step()"
                 [dialogue]="practice()!.dialogue!"
+                [finishLabel]="finishLabel()"
                 [(rate)]="rate"
-                (finished)="next()"
+                (finished)="practiceDone('dialogue')"
               />
             }
             @case ('fill') {
               <lu-fill-step
-                [number]="step()"
+                [number]="extra() ? 0 : step()"
+                [finishLabel]="finishLabel()"
+                (done)="practiceDone('fill')"
                 [fill]="practice()!.fill!"
                 [bank]="fillBank()"
                 [speakers]="practice()?.dialogue?.speakers ?? []"
@@ -215,7 +279,8 @@
             }
             @case ('translate') {
               <lu-translate-step
-                [number]="step()"
+                [number]="extra() ? 0 : step()"
+                [finishLabel]="finishLabel()"
                 [translation]="practice()!.translations[translateIndex()]"
                 [tiles]="translationTiles()[translateIndex()]"
                 [index]="translateIndex()"
@@ -225,11 +290,16 @@
                 (redone)="onTranslationRedone(translateIndex())"
                 (restart)="restartTranslations()"
                 (go)="goTranslation($event)"
-                (done)="next()"
+                (done)="practiceDone('translate')"
               />
             }
             @case ('speak') {
-              <lu-speak-step [number]="step()" [sentences]="speakSentences()" (done)="next()" />
+              <lu-speak-step
+                [number]="step()"
+                [sentences]="speakSentences()"
+                [finishLabel]="finishLabel()"
+                (done)="practiceDone('speak')"
+              />
             }
             @case ('read') {
               @if (studyStepDone()) {
@@ -269,6 +339,11 @@
                 />
               }
             }
+          }
+          @if (canLeave()) {
+            <button type="button" class="btn leave" (click)="next()">
+              Để sau, sang bước {{ nextName() }} <lu-icon name="arrow-right" />
+            </button>
           }
           @if (leftBehind().length > 0) {
             <div class="left-behind banner-warning" role="status">

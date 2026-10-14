@@ -8,35 +8,44 @@
 
 .notebook-header {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.title {
-  font: var(--text-lg) var(--font-ui);
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
   gap: var(--space-2);
 }
 
+.title {
+  flex: 1;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.add {
+  --icon-size: 18px;
+}
+
+/* Search and lesson filter on one row: the search takes the room left. */
 .filters {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 40%);
+  gap: var(--space-2);
 }
 
-@media (min-width: 600px) {
-  .filters {
-    grid-template-columns: 2fr 1fr;
-  }
+.search {
+  position: relative;
+
+  --icon-size: 18px;
 }
 
+.search lu-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--space-3);
+  color: var(--color-text-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search input,
 .filters select {
+  width: 100%;
   min-height: 44px;
   padding: var(--space-2) var(--space-3);
   font: var(--text-base) var(--font-ui);
@@ -44,6 +53,10 @@
   background: var(--color-surface);
   border: 1px solid var(--color-text-muted);
   border-radius: var(--radius-md);
+}
+
+.search input {
+  padding-left: calc(var(--space-3) + 26px);
 }
 
 .day {
@@ -59,30 +72,49 @@
   letter-spacing: 0.04em;
 }
 
+/* The cards of a day in one surface, one row each. */
 .cards {
-  display: grid;
-  gap: var(--space-2);
   margin: 0;
-  padding: 0;
+  padding: 0 var(--space-4);
   list-style: none;
-}
-
-.card-item {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
 }
 
+.card-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+}
+
+.card-item + .card-item {
+  border-top: 1px solid var(--color-line);
+}
+
+.card-item lu-card-form {
+  flex: 1;
+}
+
 .card-main {
   display: grid;
-  gap: var(--space-1);
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+}
+
+.word-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-2);
 }
 
 .word {
-  font: var(--text-lg) var(--font-ui);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .ipa {
@@ -90,18 +122,104 @@
   color: var(--color-text-muted);
 }
 
+.meaning {
+  font: var(--text-sm) var(--font-ui);
+}
+
 .example {
+  margin-top: 2px;
   font: var(--text-sm) var(--font-ui);
   font-style: italic;
   color: var(--color-text-muted);
 }
 
-.card-actions {
+/* The example's Vietnamese: upright, so it reads apart from the English above it. */
+.example-vi {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.card-tools {
   display: flex;
-  flex-wrap: wrap;
+  flex: none;
+  align-items: center;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--color-text-muted);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+  --icon-size: 20px;
+}
+
+.icon-btn:hover {
+  background: var(--color-primary-soft);
+}
+
+.icon-btn.speak {
+  color: var(--color-primary-ink);
+}
+
+.menu-wrap {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  min-width: 140px;
+  padding: var(--space-1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.menu button {
+  display: flex;
+  align-items: center;
   gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+
+  --icon-size: 18px;
+}
+
+.menu button:hover {
+  background: var(--color-primary-soft);
+}
+
+.menu .danger {
+  color: var(--color-bad);
 }
 
 .more {
   justify-self: center;
+}
+
+/* Review stays at hand above the tab bar while the list scrolls. */
+.review-bar {
+  position: sticky;
+  bottom: calc(var(--tabbar-h, 0px) + var(--space-3));
+  z-index: 4;
 }

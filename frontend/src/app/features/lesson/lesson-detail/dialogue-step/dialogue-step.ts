@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,59 +14,54 @@ import {
 import { PracticeDialogue } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
-import { AudioBar } from '../../../../shared/components/audio-bar/audio-bar';
-import { estimateSeconds } from '../../../../shared/utils/fake-waveform';
-import { clock } from '../practice-logic';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
+import { clock } from '../practice-logic';
 
 const SPEEDS = [0.75, 1, 1.25];
 
 type Mode = 'idle' | 'all' | 'one';
 
 /**
- * Step 2: the sample dialogue, read by the browser's voice, one turn on screen at a time with
- * ← Lượt tiếp theo →. "Play all" reads the turns one after another, the screen following along
- * (a turn the browser fails to read is skipped); each turn can also be heard alone. The
- * words start hidden so the learner listens first; each turn has a player bar filled as it is read.
+ * The sample dialogue as a chat (updated 2026-10-14): every turn on screen, one bubble each, the two
+ * speakers on either side. Tapping a bubble reads that turn; one button reads them all one after
+ * another (a turn the browser fails to read is skipped), the bubble being read marked and filled as
+ * it goes. The words start hidden so the learner listens first; two switches show the words and
+ * the meanings. One speed button cycles 0.75x → 1x → 1.25x.
  */
 @Component({
   selector: 'lu-dialogue-step',
-  imports: [Icon, AudioBar, SpeakButton],
+  imports: [Icon, NgTemplateOutlet, SpeakButton],
   templateUrl: './dialogue-step.html',
   styleUrls: ['../practice.css', './dialogue-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogueStep {
-  /** Position of this step on the page, shown in its title (steps without content are left out). */
+  /** Position of this step on the page, shown in its title; 0 for none (Luyện thêm). */
   readonly number = input(1);
   private readonly speech = inject(SpeechService);
 
   readonly dialogue = input.required<PracticeDialogue>();
   /** Reading speed, shared with the page. */
   readonly rate = model(1);
-  /** Hoàn thành on the last turn: go to the next step. */
+  /** The button under the dialogue, e.g. "Sang bước Viết" or "Xong, về bài học". */
+  readonly finishLabel = input('Hoàn thành');
+  /** The finishing button: the page moves on. */
   readonly finished = output<void>();
 
   protected readonly canSpeak = this.speech.supported;
-  protected readonly speeds = SPEEDS;
   protected readonly mode = signal<Mode>('idle');
-  /** Turn on screen: one at a time, as in the Listening step. */
-  protected readonly shown = signal(0);
-  protected readonly turn = computed(() => this.dialogue().turns[this.shown()] ?? null);
-  protected readonly isLast = computed(() => this.shown() >= this.dialogue().turns.length - 1);
   /** Turn being read, or null. */
   protected readonly current = signal<number | null>(null);
   protected readonly showMeaning = signal(true);
-  /** Turns whose words are shown; the words start hidden so the learner listens first. */
-  protected readonly revealed = signal<ReadonlySet<number>>(new Set());
-  protected readonly allRevealed = computed(() =>
-    this.dialogue().turns.every((_, i) => this.isRevealed(i)),
-  );
+  /** Whether the words are shown; hidden at first so the learner listens first. */
+  protected readonly showWords = signal(false);
+  /** Without a voice nothing can be heard, so the words are always shown. */
+  protected readonly wordsShown = computed(() => !this.canSpeak || this.showWords());
   /** Seconds of the turns already read in "play all", and of the current one. */
   private readonly done = signal(0);
   private readonly now = signal(0);
-  /** Share of the current turn already read. */
-  private readonly share = signal(0);
+  /** Share of the current turn already read (0–1), filling its bubble. */
+  protected readonly share = signal(0);
 
   protected readonly elapsed = computed(() =>
     clock(this.mode() === 'all' ? this.done() + this.now() : 0),
@@ -79,61 +75,14 @@ export class DialogueStep {
     });
   }
 
-  /** Shows the turn at index; a turn read alone stops when the learner moves on. */
-  protected show(index: number): void {
-    if (index < 0 || index >= this.dialogue().turns.length) {
-      return;
-    }
-    if (this.mode() === 'one') {
-      this.stop();
-    }
-    this.shown.set(index);
-  }
-
   protected speaker(index: number): string {
     return this.dialogue().speakers[index] ?? '';
   }
 
-  /** Without a voice nothing can be heard, so every turn shows its words. */
-  protected isRevealed(index: number): boolean {
-    return !this.canSpeak || this.revealed().has(index);
-  }
-
-  protected toggleTurn(index: number): void {
-    this.revealed.update((set) => {
-      const next = new Set(set);
-      if (!next.delete(index)) {
-        next.add(index);
-      }
-      return next;
-    });
-  }
-
-  protected toggleAll(): void {
-    this.revealed.set(
-      this.allRevealed() ? new Set() : new Set(this.dialogue().turns.map((_, i) => i)),
-    );
-  }
-
-  /** Estimated reading time of turn `index` at the chosen speed, in seconds. */
-  protected duration(index: number): number {
-    const turn = this.dialogue().turns[index];
-    return turn ? estimateSeconds(turn.text) / this.rate() : 0;
-  }
-
-  /**
-   * Part of a turn's player bar to fill: the read share of the current turn, and full for turns
-   * already read in "play all".
-   */
-  protected progress(index: number): number {
-    const current = this.current();
-    if (current === null) {
-      return 0;
-    }
-    if (index < current && this.mode() === 'all') {
-      return 1;
-    }
-    return index === current ? this.share() : 0;
+  /** The speed button: 0.75x → 1x → 1.25x → 0.75x. */
+  protected cycleRate(): void {
+    const i = SPEEDS.indexOf(this.rate());
+    this.rate.set(SPEEDS[(i + 1) % SPEEDS.length]);
   }
 
   protected playAll(): void {
@@ -142,17 +91,13 @@ export class DialogueStep {
     this.readFrom(0);
   }
 
-  protected playOne(index: number): void {
-    this.mode.set('one');
-    this.read(index);
-  }
-
-  /** A turn's player button: stops that turn when it is being read, else reads it alone. */
+  /** A bubble: stops that turn when it is being read, else reads it alone. */
   protected toggleOne(index: number): void {
     if (this.current() === index) {
       this.stop();
     } else {
-      this.playOne(index);
+      this.mode.set('one');
+      this.read(index);
     }
   }
 
@@ -161,20 +106,11 @@ export class DialogueStep {
     this.reset();
   }
 
-  protected setRate(rate: number): void {
-    this.rate.set(rate);
-  }
-
-  protected onSpeedKeydown(event: KeyboardEvent): void {
-    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
-    if (step === undefined) {
-      return;
+  protected finish(): void {
+    if (this.mode() !== 'idle') {
+      this.stop();
     }
-    event.preventDefault();
-    const i = (SPEEDS.indexOf(this.rate()) + step + SPEEDS.length) % SPEEDS.length;
-    this.rate.set(SPEEDS[i]);
-    const group = (event.currentTarget as HTMLElement).closest('[role="radiogroup"]');
-    group?.querySelectorAll<HTMLElement>('[role="radio"]')[i]?.focus();
+    this.finished.emit();
   }
 
   /** Reads turn `index` on; stops after the last one. */
@@ -192,7 +128,6 @@ export class DialogueStep {
       return;
     }
     this.current.set(index);
-    this.shown.set(index);
     this.now.set(0);
     this.share.set(0);
     this.speech.speak(turn.text, this.rate(), {

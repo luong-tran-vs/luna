@@ -43,6 +43,15 @@
     }
   </div>
 
+  <div class="field">
+    <label for="card-example-vi">Nghĩa câu ví dụ (không bắt buộc)</label>
+    <textarea id="card-example-vi" formControlName="contextSentenceVi" rows="2"
+      [attr.aria-invalid]="!!error('contextSentenceVi')" [attr.aria-describedby]="describedBy('contextSentenceVi')"></textarea>
+    @if (error('contextSentenceVi'); as message) {
+      <p class="field-error" id="card-example-vi-error">{{ message }}</p>
+    }
+  </div>
+
   <div class="actions">
     <button type="submit" class="btn-primary" [disabled]="pending()">{{ card() ? 'Lưu thay đổi' : 'Thêm thẻ' }}</button>
     <button type="button" class="btn" (click)="cancelled.emit()">Huỷ</button>

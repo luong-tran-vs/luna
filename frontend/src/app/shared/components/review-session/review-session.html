@@ -30,6 +30,18 @@
       <p class="listen-hint">Nghe và gõ lại từ</p>
     }
 
+    <!-- The example sentence: on the front in flip mode, only once shown in listen mode (it holds the answer). -->
+    @if (example(); as ex) {
+      @if (mode() === 'flip' || shown()) {
+        <div class="example-row">
+          <p class="example" lang="en">{{ ex[0] }}@if (ex[1]) {<mark>{{ ex[1] }}</mark>}{{ ex[2] }}</p>
+          <button type="button" class="example-play" [luSpeak]="card.contextSentence" (click)="playExample()">
+            <lu-icon name="volume" /><span class="visually-hidden">Nghe câu ví dụ</span>
+          </button>
+        </div>
+      }
+    }
+
     <div class="tools">
       @if (mode() === 'flip' && !shown()) {
         <button #face type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>
@@ -55,8 +67,9 @@
           <p class="ipa">{{ card.ipa }}</p>
         }
         <p class="meaning">{{ card.meaningVi }}</p>
-        @if (card.contextSentence) {
-          <p class="example" lang="en">{{ card.contextSentence }}</p>
+        <!-- The example's translation only once the card is shown: the front keeps the English. -->
+        @if (card.contextSentence && card.contextSentenceVi) {
+          <p class="example-vi">{{ card.contextSentenceVi }}</p>
         }
       </div>
     }

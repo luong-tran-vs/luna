@@ -53,21 +53,35 @@
   --icon-size: 16px;
 }
 
+/* The lesson on one line (title, Bài học/Bài đọc, "i"), its details below when opened. */
 .intro {
+  display: grid;
   gap: var(--space-2);
 }
 
-.title {
+.intro-line {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-1) var(--space-2);
-  font: var(--text-xl) var(--font-ui);
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* Two lines at most, so the steps keep the screen. */
+.title {
+  display: -webkit-box;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .unit {
   padding: 2px var(--space-2);
-  font: var(--text-sm) var(--font-ui);
+  font: var(--text-xs) var(--font-ui);
   font-weight: 700;
   color: var(--color-primary-ink);
   background: var(--color-primary-soft);
@@ -83,26 +97,30 @@
   color: var(--color-text-muted);
 }
 
-.level {
-  justify-self: start;
+.info-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.estimate {
+  font: var(--text-sm) var(--font-ui);
 }
 
 .tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-1);
-  margin-top: var(--space-2);
-  padding: var(--space-1);
+  display: flex;
+  justify-self: start;
+  gap: 2px;
+  padding: 2px;
   background: var(--color-bg);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
 }
 
 .tab {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  min-height: 44px;
+  min-height: 40px;
+  padding: 0 var(--space-3);
   font: var(--text-sm) var(--font-ui);
   font-weight: 600;
   color: var(--color-text-muted);
@@ -110,13 +128,115 @@
   border: 0;
   border-radius: var(--radius-sm);
   cursor: pointer;
-
-  --icon-size: 18px;
 }
 
 .tab[aria-selected='true'] {
   color: var(--color-on-primary);
   background: var(--color-primary);
+}
+
+.info-btn {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.info-btn[aria-expanded='true'] {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.info {
+  gap: var(--space-3);
+}
+
+.info-steps {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.info-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.info-step:hover,
+.info-step.is-current {
+  background: var(--color-primary-soft);
+}
+
+.info-step.is-current {
+  font-weight: 600;
+}
+
+.info-num {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-bg);
+  border-radius: 50%;
+}
+
+.info-label {
+  margin-bottom: var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Over a Luyện thêm practice: what it is and the way back. */
+.extra-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.extra-label {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* "Để sau, sang bước Nghe": leaving a lesson step for later, below it. */
+.leave {
+  justify-self: center;
 }
 
 .panel {

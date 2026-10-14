@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/dictionary"
@@ -28,6 +29,7 @@ func (c *Container) initVocab() {
 		Vocabulary:     lessonVocabulary{c.reader},
 		Titles:         lessonTitles{c.lessons},
 		Pronunciations: pronunciations{c.wordBank, c.dict},
+		Translations:   sentenceTranslations{c.lessons},
 		Now:            time.Now,
 	})
 }
@@ -45,6 +47,32 @@ func (l lessonTitles) Titles(ctx context.Context, ids []string) (map[string]stri
 	out := make(map[string]string, len(summaries))
 	for _, s := range summaries {
 		out[s.ID] = s.Title
+	}
+	return out, nil
+}
+
+// sentenceTranslations adapts the lesson repository to vocab.SentenceTranslations: the translation
+// of each sentence written with the lesson's annotations (no AI request here).
+type sentenceTranslations struct {
+	repo lesson.Repository
+}
+
+func (t sentenceTranslations) Translations(ctx context.Context, id string) (map[string]string, error) {
+	l, err := t.repo.Get(ctx, id)
+	if errors.Is(err, lesson.ErrNotFound) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, fmt.Errorf("lesson for translations: %w", err)
+	}
+	tr := l.Extras.SentenceTranslations
+	out := make(map[string]string, len(tr))
+	for _, sn := range l.Sentences {
+		if sn.Index >= 0 && sn.Index < len(tr) {
+			if vi := strings.TrimSpace(tr[sn.Index]); vi != "" {
+				out[vocab.SentenceKey(sn.Text)] = vi
+			}
+		}
 	}
 	return out, nil
 }

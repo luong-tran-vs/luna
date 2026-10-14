@@ -44,6 +44,11 @@ func cardsSchema() []string {
 ) ` + tableOptions}
 }
 
+// cardSentenceViSchema adds the Vietnamese of a card's example; NULL on cards saved before it.
+func cardSentenceViSchema() []string {
+	return []string{`ALTER TABLE cards ADD COLUMN context_sentence_vi TEXT NULL`}
+}
+
 // Cards implements vocab.Repository on the "cards" table.
 type Cards struct {
 	db *sql.DB
@@ -55,7 +60,7 @@ func NewCards(db *sql.DB) *Cards { return &Cards{db: db} }
 var _ vocab.Repository = (*Cards)(nil)
 
 const cardsCols = `id, user_id, text, lemma, ipa, meaning_vi, context_sentence, lesson_id, source, created_at,
- due, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, state, last_review`
+ due, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, state, last_review, context_sentence_vi`
 
 type cardsScanner interface{ Scan(dest ...any) error }
 
@@ -66,14 +71,16 @@ func cardsScan(r cardsScanner) (vocab.Card, error) {
 		source   string
 		due, rev sql.NullTime
 		state    int
+		vi       sql.NullString
 	)
 	err := r.Scan(&c.ID, &c.UserID, &c.Text, &c.Lemma, &c.IPA, &c.MeaningVi, &c.ContextSentence, &lesson, &source,
 		&c.CreatedAt, &due, &c.Schedule.Stability, &c.Schedule.Difficulty, &c.Schedule.ElapsedDays,
-		&c.Schedule.ScheduledDays, &c.Schedule.Reps, &c.Schedule.Lapses, &state, &rev)
+		&c.Schedule.ScheduledDays, &c.Schedule.Reps, &c.Schedule.Lapses, &state, &rev, &vi)
 	if err != nil {
 		return vocab.Card{}, err
 	}
 	c.LessonID = lesson.String
+	c.ContextSentenceVi = vi.String
 	c.Source = vocab.Source(source)
 	c.CreatedAt = c.CreatedAt.UTC()
 	c.Schedule.Due = timeOf(due)
@@ -121,11 +128,11 @@ func (r *Cards) Create(ctx context.Context, c vocab.Card) (vocab.Card, error) {
 	c.CreatedAt = c.CreatedAt.UTC()
 	s := c.Schedule
 	_, err := r.db.ExecContext(ctx, `INSERT INTO cards (id, user_id, text, lemma, ipa, meaning_vi, context_sentence,
- lesson_id, source, created_at, due, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, state, last_review)
- VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+ lesson_id, source, created_at, due, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, state, last_review, context_sentence_vi)
+ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 		c.ID, c.UserID, c.Text, c.Lemma, c.IPA, c.MeaningVi, c.ContextSentence, cardsNullable(c.LessonID), string(c.Source),
 		c.CreatedAt, nullTime(s.Due), s.Stability, s.Difficulty, s.ElapsedDays, s.ScheduledDays, s.Reps, s.Lapses,
-		int(s.State), nullTime(s.LastReview))
+		int(s.State), nullTime(s.LastReview), c.ContextSentenceVi)
 	if err != nil {
 		if isDuplicate(err) {
 			return vocab.Card{}, vocab.ErrExists
@@ -234,6 +241,9 @@ func (r *Cards) UpdateDetails(ctx context.Context, userID, id string, d vocab.De
 	}
 	if d.ContextSentence != nil {
 		sets, a = append(sets, "context_sentence = ?"), append(a, *d.ContextSentence)
+	}
+	if d.ContextSentenceVi != nil {
+		sets, a = append(sets, "context_sentence_vi = ?"), append(a, *d.ContextSentenceVi)
 	}
 	if len(sets) > 0 {
 		res, err := r.db.ExecContext(ctx, "UPDATE cards SET "+strings.Join(sets, ", ")+" WHERE id = ? AND user_id = ?",
