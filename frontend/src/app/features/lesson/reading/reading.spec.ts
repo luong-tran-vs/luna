@@ -136,7 +136,7 @@ describe('Reading', () => {
       expect(el.querySelector('h1')?.textContent).toContain('A day at the park');
       // How to use the text: tap a word, hold a sentence.
       expect(el.querySelector('.tips')?.textContent).toContain('Chạm một từ');
-      expect(el.querySelector('.tips')?.textContent).toContain('Giữ một câu khoảng 2 giây');
+      expect(el.querySelector('.tips')?.textContent).toContain('Giữ một câu khoảng nửa giây');
       expect(el.querySelectorAll('.para')).toHaveLength(2);
       expect(el.querySelectorAll('.para')[0].querySelectorAll('.sentence')).toHaveLength(2);
       const w = word(0, 'went');
@@ -504,13 +504,13 @@ describe('Reading', () => {
       target.dispatchEvent(Object.assign(new Event(type, { bubbles: true }), { button: 0, clientX: x, clientY: y, pointerType: 'touch' }));
     const hold = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    it('shows the translation of a sentence held for 2 seconds', async () => {
+    it('shows the translation of a sentence held for half a second', async () => {
       await setup({ lesson: translated });
       const gave = word(1, 'gave');
       press(gave, 'pointerdown');
       await settle();
       expect(sentence(1).classList).toContain('pressing');
-      await hold(2100);
+      await hold(600);
       await settle();
       expect(card()?.textContent).toContain('Anh ấy đã bỏ thuốc lá năm ngoái ở thành phố.');
       expect(card()?.textContent).toContain('He gave up smoking last year in the city.');
@@ -541,9 +541,9 @@ describe('Reading', () => {
       await settle();
       expect(sentence(0).classList).not.toContain('pressing');
       press(word(0, 'went'), 'pointerdown');
-      await hold(500);
+      await hold(200);
       press(word(0, 'went'), 'pointerup');
-      await hold(1700);
+      await hold(400);
       await settle();
       expect(card()).toBeNull();
     });

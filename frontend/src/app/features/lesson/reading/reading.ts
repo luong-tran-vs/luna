@@ -50,7 +50,7 @@ const POSITIONS: ConnectedPosition[] = [
 const normalize = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
 
 /** How long a sentence is held to show its translation, and how far the pointer may move meanwhile. */
-const LONG_PRESS_MS = 2000;
+const LONG_PRESS_MS = 500;
 const PRESS_SLOP = 10;
 
 /** Message for a failed "Hỏi AI": the server message (or the field message for a bad selection). */

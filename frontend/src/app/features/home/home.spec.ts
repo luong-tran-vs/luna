@@ -237,6 +237,21 @@ describe('Home', () => {
     expect(link('Tiếp tục: Nghe')).not.toBeNull();
   });
 
+  it('loads again when the app comes back to the screen, dropping a lesson deleted meanwhile', async () => {
+    await open(studying());
+    const later = { id: 'l2', title: 'At the park', topicName: 'Gia đình', level: 'A1' as const };
+    document.dispatchEvent(new Event('visibilitychange'));
+    controller.expectOne('/dashboard').flush(studying({ lesson: later }));
+    controller.expectOne('/stats').flush(stats());
+    flushDue();
+    await fixture.whenStable();
+    expect(text(el.querySelector('.lesson-title'))).toBe('At the park');
+    expect(link('Tiếp tục: Nghe')?.getAttribute('href')).toBe('/lessons/l2');
+    fixture.destroy();
+    // A page that is gone asks for nothing.
+    document.dispatchEvent(new Event('visibilitychange'));
+  });
+
   it('puts the cards due today first, with a way to review them', async () => {
     await open(studying(), stats(), 12);
     const card = el.querySelector('.due-today')!;

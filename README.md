@@ -118,7 +118,7 @@ nghĩa của minhqnd đứng trước, nghĩa của Hồ Ngọc Đức chỉ đ�
 `backend/language-dictionary/data/english-dictionary.db` (git bỏ qua), backend đọc file này theo mặc định. Thiếu file thì app vẫn chạy, tra từ chỉ dùng chú thích của bài.
 
 Mở bước Đọc (tài khoản người học): trang bài đang học → bước Đọc (sau bước Từ vựng), hoặc `/lessons/<id>/read`. Chạm một từ để tra,
-giữ một câu khoảng 2 giây để xem bản dịch của câu, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu. Bài đọc không bôi đen
+giữ một câu khoảng nửa giây để xem bản dịch của câu, bấm ▶ để nghe, **Lưu vào sổ từ** để lưu kèm câu. Bài đọc không bôi đen
 hay sao chép được.
 
 ### Hỏi AI

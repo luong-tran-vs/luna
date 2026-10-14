@@ -10,10 +10,13 @@ describe('UpdateBanner', () => {
   const ready = signal(false);
   const update = vi.fn();
 
-  const button = (label: string) =>
-    Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === label);
+  const dialog = () => el.querySelector('dialog') as HTMLDialogElement;
 
   beforeEach(async () => {
+    // jsdom has no <dialog> methods.
+    HTMLDialogElement.prototype.showModal ??= function (this: HTMLDialogElement) {
+      this.setAttribute('open', '');
+    };
     ready.set(false);
     update.mockClear();
     TestBed.configureTestingModule({
@@ -24,22 +27,25 @@ describe('UpdateBanner', () => {
     await fixture.whenStable();
   });
 
-  it('shows nothing until a new version is ready', async () => {
-    expect(el.querySelector('.bar')).toBeNull();
+  it('opens the dialog only once a new version is ready', async () => {
+    expect(dialog().open).toBe(false);
     ready.set(true);
     await fixture.whenStable();
-    expect(el.querySelector('[role="status"]')?.textContent).toContain(
-      'Đã có phiên bản mới của Luna.',
-    );
+    expect(dialog().open).toBe(true);
+    expect(dialog().textContent).toContain('Đã có phiên bản mới');
   });
 
-  it('updates on Cập nhật, and hides on Để sau', async () => {
+  it('offers only Cập nhật, and Escape does not close it', async () => {
     ready.set(true);
     await fixture.whenStable();
-    button('Cập nhật')!.click();
+    const buttons = Array.from(dialog().querySelectorAll('button'));
+    expect(buttons.map((b) => b.textContent?.trim())).toEqual(['Cập nhật']);
+    buttons[0].click();
     expect(update).toHaveBeenCalledOnce();
-    button('Để sau')!.click();
-    await fixture.whenStable();
-    expect(el.querySelector('.bar')).toBeNull();
+
+    const cancel = new Event('cancel', { cancelable: true });
+    dialog().dispatchEvent(cancel);
+    expect(cancel.defaultPrevented).toBe(true);
+    expect(dialog().open).toBe(true);
   });
 });

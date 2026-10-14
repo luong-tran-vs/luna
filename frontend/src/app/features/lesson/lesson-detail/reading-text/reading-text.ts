@@ -25,7 +25,7 @@ interface ShownSentence {
 }
 
 /** How long a sentence or line is held to show its translation, and how far the pointer may move meanwhile. */
-const LONG_PRESS_MS = 2000;
+const LONG_PRESS_MS = 500;
 const PRESS_SLOP = 10;
 
 /** The translation below the sentence, or above it when there is no room. */
@@ -38,7 +38,7 @@ const POSITIONS: ConnectedPosition[] = [
  * The text of the Bài đọc tab. A reading text shows its paragraphs, each sentence read aloud when
  * tapped; a dialogue lesson shows one bubble per line (the second speaker on the right), each
  * speaker in their own browser voice, with Nghe cả đoạn to hear the whole conversation. Holding a
- * sentence or a line for 2 seconds (or "T" on it) shows its Vietnamese translation. The text
+ * sentence or a line for half a second (or "T" on it) shows its Vietnamese translation. The text
  * cannot be copied.
  */
 @Component({

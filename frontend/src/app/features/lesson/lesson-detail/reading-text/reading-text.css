@@ -144,9 +144,9 @@ button.bubble:focus-visible {
   background-color: var(--color-primary-soft);
 }
 
-/* The held sentence fills in over the 2 seconds before its translation shows. */
+/* The held sentence fills in over the half second before its translation shows. */
 .read-sentence.pressing {
-  transition: background-color 2s linear;
+  transition: background-color 0.5s linear;
 }
 
 .bubble.pressing,
@@ -155,7 +155,7 @@ button.bubble:focus-visible {
 }
 
 .bubble.pressing {
-  transition: box-shadow 2s linear;
+  transition: box-shadow 0.5s linear;
 }
 
 @media (prefers-reduced-motion: reduce) {

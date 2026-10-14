@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
@@ -15,7 +16,9 @@ const STEP_LABELS: Record<Step, string> = { read: 'Đọc', listen: 'Nghe', writ
 
 /**
  * The home page (F6, client sketch screen 2): greeting, progress of the lesson being studied, three
- * figures and the button into that lesson. Numbers are loaded every time the page opens.
+ * figures and the button into that lesson. Numbers are loaded every time the page opens, and again
+ * when the app comes back to the screen: an installed app is mostly resumed on this page, and the
+ * lesson shown may have been completed elsewhere or deleted in the meantime.
  */
 @Component({
   selector: 'lu-home',
@@ -27,6 +30,7 @@ const STEP_LABELS: Record<Step, string> = { read: 'Đọc', listen: 'Nghe', writ
 export class Home {
   private readonly api = inject(DashboardApiService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
   private readonly auth = inject(AuthService);
   private readonly vocab = inject(VocabApiService);
   protected readonly notifier = inject(WritingNotifier);
@@ -86,6 +90,13 @@ export class Home {
 
   constructor() {
     this.load();
+    const reload = () => {
+      if (this.document.visibilityState === 'visible') {
+        this.load();
+      }
+    };
+    this.document.addEventListener('visibilitychange', reload);
+    this.destroyRef.onDestroy(() => this.document.removeEventListener('visibilitychange', reload));
   }
 
   protected load(): void {

@@ -119,13 +119,13 @@ describe('ReadingText', () => {
     target.dispatchEvent(Object.assign(new Event(type, { bubbles: true }), { button: 0, clientX: x, clientY: y }));
   const hold = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  it('shows the translation of a line held for 2 seconds, not reading it aloud', async () => {
+  it('shows the translation of a line held for half a second, not reading it aloud', async () => {
     await render({ ...dialogue, sentenceTranslations: translations });
     const line = bubbles()[0];
     press(line, 'pointerdown');
     await fixture.whenStable();
     expect(line.classList).toContain('pressing');
-    await hold(2100);
+    await hold(600);
     await fixture.whenStable();
     // A line made of two sentences: both translations.
     expect(card()?.textContent).toContain('Chào Anna. Cà phê nhé?');
@@ -151,9 +151,9 @@ describe('ReadingText', () => {
     await fixture.whenStable();
     expect(bubbles()[1].classList).not.toContain('pressing');
     press(bubbles()[2], 'pointerdown');
-    await hold(400);
+    await hold(200);
     press(bubbles()[2], 'pointerup');
-    await hold(1800);
+    await hold(400);
     await fixture.whenStable();
     expect(card()).toBeNull();
   });
