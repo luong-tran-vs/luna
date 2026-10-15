@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'lu-listening-hero',
   imports: [NgOptimizedImage],
   template: `
-    <img class="hero-img" ngSrc="images/cau-be-music.png" alt="" width="96" height="96" />
+    <img class="hero-img" ngSrc="images/cau-be-music.webp" alt="" width="96" height="96" />
     <div class="hero-text">
       <span class="native"><span class="dot" aria-hidden="true"></span> Giọng chuẩn bản xứ</span>
       <p class="hero-title">Lắng nghe thật kỹ nhé!</p>
