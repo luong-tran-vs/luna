@@ -693,11 +693,12 @@ describe('Reading', () => {
     });
     const button = (label: string) =>
       Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => b.textContent?.trim() === label);
-    const text = (node: Element | null | undefined) => node?.textContent?.replace(/s+/g, ' ').trim() ?? '';
+    const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+    const quizMain = () => el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .bottom-bar .btn-primary')!;
     const choose = async (option: number, result: ReturnType<typeof solved>, answered: number) => {
-      el.querySelectorAll<HTMLInputElement>('.question.active .option input')[option].click();
+      el.querySelectorAll<HTMLInputElement>('lu-comprehension-quiz .option input')[option].click();
       await fixture.whenStable();
-      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .bottom-bar .check')!.click();
+      quizMain().click();
       await settle();
       http.expectOne('/lessons/l1/answers').flush({ answer: result, answered, total: 2, correct: 0 });
       await settle();
@@ -723,12 +724,12 @@ describe('Reading', () => {
 
       await toQuiz();
       expect(text(el.querySelector('.step-title'))).toBe('2. Đọc · Câu hỏi');
-      // Room at the right of the title for the two dots, so they never cover it.
-      expect(el.querySelector<HTMLElement>('.step-title')!.style.paddingRight).toBe('68px');
       expect(el.querySelector('lu-comprehension-quiz')).not.toBeNull();
       expect(el.querySelector<HTMLElement>('#reading-text')!.hidden).toBe(true);
       expect(el.querySelector('.tips')).toBeNull();
-      const peek = el.querySelector<HTMLButtonElement>('.peek')!;
+      // "Xem bài đọc" sits on the title's line; no row of buttons under it.
+      const peek = el.querySelector<HTMLButtonElement>('.step-line .peek')!;
+      expect(text(peek)).toBe('Xem bài đọc');
       expect(peek.getAttribute('aria-expanded')).toBe('false');
       peek.click();
       await settle();
@@ -742,44 +743,38 @@ describe('Reading', () => {
       expect(el.querySelector<HTMLElement>('#reading-text')!.hidden).toBe(false);
     });
 
-    it('completes the step when the last question is answered, even wrongly', async () => {
-      await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
+    it('completes the step from the result, not on the last answer, even with wrong answers', async () => {
+      await setup({ lesson: withQuiz(), inputs: { mode: 'study', number: 2 } });
+      fixture.componentRef.setInput('doneLabel', 'Sang bước Nghe');
       const completed = vi.fn();
       fixture.componentInstance.completed.subscribe(completed);
       await toQuiz();
       await choose(1, solved(0, 1, 0), 1);
-      expect(completed).not.toHaveBeenCalled();
       await choose(0, solved(1, 0, 2), 2);
+      expect(completed).not.toHaveBeenCalled();
+      expect(text(quizMain())).toBe('Xem kết quả');
+
+      quizMain().click();
+      await settle();
+      expect(text(el.querySelector('.step-title'))).toBe('2. Đọc · Kết quả');
+      expect(el.querySelector('.step-line .peek')).toBeNull();
+      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('Đúng 0/2 câu');
+      button('Sang bước Nghe')!.click();
+      await settle();
       expect(completed).toHaveBeenCalledTimes(1);
       expect(el.textContent).toContain('✓ Đã hoàn thành bước Đọc');
     });
 
-    it('offers Tiếp tục when every question was already answered', async () => {
+    it('opens on the result when every question was already answered', async () => {
       await setup({ lesson: withQuiz([solved(0, 0, 0), solved(1, 2, 2)]), inputs: { mode: 'study' } });
       const completed = vi.fn();
       fixture.componentInstance.completed.subscribe(completed);
       await toQuiz();
-      button('Tiếp tục')!.click();
+      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('🎉 Đúng 2/2 câu');
+      // Without a label from the lesson the button says what it does.
+      button('Hoàn thành bước Đọc')!.click();
       await settle();
       expect(completed).toHaveBeenCalledTimes(1);
-    });
-
-    it('puts Làm lại tất cả in one row with Xem lại bài đọc', async () => {
-      await setup({ lesson: withQuiz([solved(0, 0, 0)]), inputs: { mode: 'study' } });
-      await toQuiz();
-      const row = el.querySelector('.quiz-row')!;
-      expect(row.querySelector('.peek')).not.toBeNull();
-      const restart = row.querySelector<HTMLButtonElement>('.restart-all')!;
-      expect(text(restart)).toBe('Làm lại tất cả câu hỏi');
-      // The questions do not show a second one.
-      expect(el.querySelector('lu-comprehension-quiz .restart')).toBeNull();
-      restart.click();
-      await settle();
-      const req = http.expectOne('/lessons/l1/answers');
-      expect(req.request.method).toBe('DELETE');
-      req.flush(null, { status: 204, statusText: 'No Content' });
-      await settle();
-      expect(el.querySelector('.restart-all')).toBeNull();
     });
 
     it('shows past answers in review mode without completing', async () => {
@@ -788,22 +783,19 @@ describe('Reading', () => {
       fixture.componentInstance.completed.subscribe(completed);
       expect(text(el.querySelector('.bottom-bar .to-quiz'))).toBe('Xem câu hỏi');
       await toQuiz();
-      // One question at a time: the first one with its result, the second one behind its dot.
-      expect(el.querySelectorAll('.verdict').length).toBe(1);
-      expect(el.querySelectorAll('.question.active .option').length).toBe(0);
-      el.querySelectorAll<HTMLButtonElement>('lu-comprehension-quiz .dots .dot')[1].click();
+      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('Đúng 1/2 câu');
+      el.querySelectorAll<HTMLButtonElement>('lu-comprehension-quiz .score-row')[1].click();
       await settle();
-      expect(el.querySelector('.verdict')?.textContent).toContain('Sai');
-      expect(button('Tiếp tục')).toBeUndefined();
+      expect(text(el.querySelector('lu-asker .counter'))).toBe('Câu 2/2 · ✗ Sai rồi');
       expect(completed).not.toHaveBeenCalled();
     });
 
     it('reloads the lesson when the questions changed', async () => {
       await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
       await toQuiz();
-      el.querySelectorAll<HTMLInputElement>('.question.active .option input')[0].click();
+      el.querySelectorAll<HTMLInputElement>('lu-comprehension-quiz .option input')[0].click();
       await fixture.whenStable();
-      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .bottom-bar .check')!.click();
+      quizMain().click();
       await settle();
       http
         .expectOne('/lessons/l1/answers')

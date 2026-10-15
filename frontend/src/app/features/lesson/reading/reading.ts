@@ -156,6 +156,8 @@ export class Reading implements OnInit {
   readonly laterLabel = input('');
   /** The last button when reading again, e.g. "Sang bước Nghe"; empty for none. */
   readonly nextLabel = input('');
+  /** The result's button while the step is to do, e.g. "Sang bước Nghe"; empty: "Hoàn thành bước Đọc". */
+  readonly doneLabel = input('');
   /** ← in the bar on the text. */
   readonly back = output<void>();
   /** The lesson goes on without this step (laterLabel) or after reading it again (nextLabel). */
@@ -221,15 +223,8 @@ export class Reading implements OnInit {
   protected readonly done = signal(false);
 
   private readonly article = viewChild<ElementRef<HTMLElement>>('article');
-  /** The questions, for "Làm lại tất cả" in the row with "Xem lại bài đọc". */
-  protected readonly quizRef = viewChild(ComprehensionQuiz);
-  /** Room at the right of the step's title for the questions' dots (28px each, 2px apart). */
-  protected readonly dotsRoom = computed(() => {
-    const count = this.phase() === 'quiz' ? (this.lesson()?.quiz?.questions.length ?? 0) : 0;
-    return count ? count * 30 + 8 : null;
-  });
-  /** Questions answered, as the questions report it: "Làm lại tất cả" shows once there is one. */
-  protected readonly answered = signal(0);
+  /** The questions show their result: the title says "Kết quả". */
+  protected readonly quizResult = signal(false);
   private readonly end = viewChild<ElementRef<HTMLElement>>('end');
   private lookupSub?: Subscription;
   private askSub?: Subscription;
@@ -651,11 +646,12 @@ export class Reading implements OnInit {
 
   /** ← on the questions: back to the text. */
   protected toText(): void {
+    this.quizResult.set(false);
     this.phase.set('read');
     this.toTop();
   }
 
-  /** The questions' last button: Tiếp tục (answered before) or on to the next step when reading again. */
+  /** The result's button: on to the next step (the step is done), or on when reading again. */
   protected onQuizFinished(): void {
     if (this.review()) {
       this.leave.emit();
@@ -689,13 +685,7 @@ export class Reading implements OnInit {
     this.completed.emit();
   }
 
-  /** Every comprehension question answered before this visit (e.g. completing failed offline). */
-  protected readonly quizAnsweredOnLoad = computed(() => {
-    const quiz = this.lesson()?.quiz;
-    return !!quiz && quiz.answers.length >= quiz.questions.length;
-  });
-
-  /** F15: with questions, answering the last one finishes the step (the server checks it). */
+  /** F15: with questions, the result's button finishes the step (the server checks every one is answered). */
   protected finishQuiz(): void {
     if (this.done() || this.review()) {
       return;

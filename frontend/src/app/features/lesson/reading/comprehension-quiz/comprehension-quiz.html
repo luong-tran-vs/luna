@@ -1,133 +1,138 @@
 <section class="quiz" aria-labelledby="quiz-heading">
   <h2 class="visually-hidden" id="quiz-heading">Câu hỏi hiểu bài</h2>
 
-  <!--
-    One row at the top: the score once every question is answered, the dots (in a lesson they sit
-    on the step's title line instead), and starting them all again.
-  -->
-  <div class="quiz-tools" [class.dots-only]="dotsInHeading() && (current() !== -1 || answers().length === 0)">
-    @if (current() === -1 && answers().length > 0) {
-      <p class="summary">Đúng {{ correct() }}/{{ total() }} câu</p>
-    }
-    <ol class="dots" [class.in-heading]="dotsInHeading()" aria-label="Các câu hỏi">
-      @for (d of dots(); track $index; let k = $index) {
+  @if (resultShown()) {
+    <!-- The result (design, 2026-10-15): the score from the boy, each question, doing them again. -->
+    <div class="result-view">
+      <lu-asker label="Bạn đã trả lời hết" tone="right">
+        <p class="score" id="quiz-result" tabindex="-1">
+          {{ correct() === total() ? '🎉 ' : '' }}Đúng {{ correct() }}/{{ total() }} câu
+        </p>
+        <p class="score-note">
+          {{
+            correct() === total()
+              ? 'Xuất sắc! Bạn hiểu bài đọc rất tốt.'
+              : 'Tốt lắm! Xem lại câu sai' + (finishLabel() ? ' rồi đi tiếp nhé.' : ' nhé.')
+          }}
+        </p>
+      </lu-asker>
+      <ol class="score-list" aria-label="Các câu hỏi">
+        @for (t of tabs(); track $index; let i = $index) {
+          <li>
+            <button type="button" class="score-row" [class.is-wrong]="t.state === 'wrong'" (click)="show(i)">
+              <span class="mark" aria-hidden="true"><lu-icon [name]="t.state === 'right' ? 'check' : 'x'" /></span>
+              <span class="visually-hidden">{{ t.state === 'right' ? 'Đúng' : 'Sai' }}:&ngsp;</span>
+              <span class="row-text" lang="en">{{ i + 1 }}. {{ t.prompt }}</span
+              >
+              @if (t.state === 'wrong') {
+                &ngsp;<span class="row-go" aria-hidden="true">Xem lại ›</span>
+              }
+            </button>
+          </li>
+        }
+      </ol>
+      <div class="again">
+        @if (wrong().length > 0) {
+          <button type="button" class="redo" [disabled]="sending()" (click)="redoWrong()">
+            <lu-icon name="review" /> Làm lại các câu sai
+          </button>
+        }
+        <button type="button" class="redo" [disabled]="sending()" (click)="restart()">
+          <lu-icon name="review" /> Làm lại tất cả<span class="visually-hidden"> câu hỏi</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <button type="button" class="nav-btn" aria-label="Về câu cuối" (click)="goBack()">
+        <lu-icon name="arrow-left" />
+      </button>
+      @if (finishLabel()) {
+        <button type="button" class="btn-primary" (click)="finished.emit()">{{ finishLabel() }}</button>
+      }
+    </div>
+  } @else if (quiz().questions[shown()]; as q) {
+    @let i = shown();
+    <!-- One tab per question (design, 2026-10-15): its number, ✓ or ✗ once answered. -->
+    <ol class="tabs" aria-label="Các câu hỏi">
+      @for (t of tabs(); track $index; let k = $index) {
         <li>
           <button
             type="button"
-            class="dot"
-            [class]="'is-' + d.state"
-            [class.is-shown]="k === shown()"
-            [attr.aria-label]="d.label"
-            [attr.aria-current]="k === shown() ? 'step' : null"
+            class="tab"
+            [class]="'is-' + t.state"
+            [class.is-shown]="k === i"
+            [attr.aria-label]="t.label"
+            [attr.aria-current]="k === i ? 'step' : null"
             (click)="show(k)"
-          ></button>
+          >
+            {{ k + 1 }}
+            @if (t.state !== 'open') {
+              <span class="tab-mark"><lu-icon [name]="t.state === 'right' ? 'check' : 'x'" /></span>
+            }
+          </button>
         </li>
       }
     </ol>
-    @if (showRestart() && answers().length > 0) {
-      <button type="button" class="restart" [disabled]="sending()" (click)="restart()">
-        <lu-icon name="review" /> Làm lại tất cả<span class="visually-hidden"> câu hỏi</span>
-      </button>
-    }
-  </div>
 
-  @if (quiz().questions[shown()]; as q) {
-    @let i = shown();
-    <div class="questions">
-      @if (byIndex().get(i); as a) {
-        <div class="question answered">
-          <!-- The question asked by the boy, in a message bubble (design, 2026-10-15). -->
-          <lu-asker [label]="'Câu ' + (i + 1) + '/' + total()" [tone]="a.correct ? 'right' : 'wrong'">
-              <p class="prompt" lang="en">{{ q.prompt }}</p>
-              <p class="verdict">
-                <span class="verdict-icon" aria-hidden="true"><lu-icon [name]="a.correct ? 'check' : 'x'" /></span
-                >{{ a.correct ? 'Chính xác!' : 'Sai rồi' }}
-              </p>
-              @if (a.explanationVi) {
-                <p class="explanation">
-                  <span class="explanation-label">Giải thích:</span> {{ a.explanationVi }}
-                </p>
-              }
-              <button type="button" class="redo" (click)="redo(i)">
-                <lu-icon name="review" /> Trả lời lại câu này
-              </button>
-          </lu-asker>
-          <ul class="results">
-            @for (o of q.options; track $index; let j = $index) {
-              <li
-                class="result"
-                [class.is-answer]="j === a.answerIndex"
-                [class.is-wrong]="j === a.choice && !a.correct"
-              >
-                <span class="letter" aria-hidden="true">{{ letters[j] }}.</span>
-                <span class="result-text" lang="en">{{ o }}</span>
-                @if (j === a.answerIndex) {
-                  <span class="tag"
-                    ><lu-icon name="check" />{{
-                      j === a.choice ? 'Bạn chọn đúng' : 'Đáp án đúng'
-                    }}</span
-                  >
-                } @else if (j === a.choice) {
-                  <span class="tag"><lu-icon name="x" />Bạn chọn</span>
-                }
-              </li>
+    @let a = byIndex().get(i);
+    <!-- The bubble holds the question only: once checked its colour and label change, nothing moves. -->
+    <lu-asker
+      [label]="'Câu ' + (i + 1) + '/' + total() + (a ? (a.correct ? ' · ✓ Chính xác' : ' · ✗ Sai rồi') : '')"
+      [tone]="a ? (a.correct ? 'right' : 'wrong') : null"
+    >
+      <p class="prompt" lang="en" tabindex="-1" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
+    </lu-asker>
+
+    @if (a) {
+      <ul class="results" [attr.aria-labelledby]="'quiz-q-' + i">
+        @for (o of q.options; track $index; let j = $index) {
+          <li class="result" [class.is-answer]="j === a.answerIndex" [class.is-wrong]="j === a.choice && !a.correct">
+            <span class="letter" aria-hidden="true">{{ letters[j] }}.</span>
+            <span class="result-text" lang="en">{{ o }}</span>
+            @if (j === a.answerIndex) {
+              <span class="tag"><lu-icon name="check" />{{ j === a.choice ? 'Bạn chọn đúng' : 'Đáp án đúng' }}</span>
+            } @else if (j === a.choice) {
+              <span class="tag"><lu-icon name="x" />Bạn chọn</span>
             }
-          </ul>
-        </div>
-      } @else {
-        <div class="question active" [attr.aria-busy]="sending()">
-          <!-- The question asked by the boy, in a message bubble (design, 2026-10-15). -->
-          <lu-asker [label]="'Câu ' + (i + 1) + '/' + total()">
-              <p class="prompt" lang="en" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
-          </lu-asker>
-          <div class="options" role="radiogroup" [attr.aria-labelledby]="'quiz-q-' + i">
-            @for (o of q.options; track $index; let j = $index) {
-              <label class="option" [class.picked]="picked() === j">
-                <input
-                  type="radio"
-                  [name]="'quiz-' + i"
-                  [checked]="picked() === j"
-                  [disabled]="sending() || changed()"
-                  (change)="picked.set(j)"
-                />
-                <span class="letter" aria-hidden="true">{{ letters[j] }}.</span>
-                <span lang="en">{{ o }}</span>
-              </label>
-            }
-          </div>
-        </div>
+          </li>
+        }
+      </ul>
+      @if (a.explanationVi) {
+        <p class="explanation"><span class="explanation-label">Giải thích:</span> {{ a.explanationVi }}</p>
       }
-    </div>
+      <button type="button" class="redo" (click)="redo(i)"><lu-icon name="review" /> Trả lời lại câu này</button>
+    } @else {
+      <div class="options" role="radiogroup" [attr.aria-labelledby]="'quiz-q-' + i" [attr.aria-busy]="sending()">
+        @for (o of q.options; track $index; let j = $index) {
+          <label class="option" [class.picked]="picked() === j">
+            <input
+              type="radio"
+              [name]="'quiz-' + i"
+              [checked]="picked() === j"
+              [disabled]="sending() || changed()"
+              (change)="pick(j)"
+            />
+            <span class="letter" aria-hidden="true">{{ letters[j] }}.</span>
+            <span lang="en">{{ o }}</span>
+          </label>
+        }
+      </div>
+      @if (skipTo() !== -1) {
+        <button type="button" class="link-btn skip" (click)="show(skipTo())">Bỏ qua, làm sau →</button>
+      }
+    }
 
-    <!-- The bar at the bottom of the screen: ← back to the text, then the main button. -->
+    <!-- The bar at the bottom of the screen: ← the question before (from the first, the text), then one main button. -->
     <div class="bottom-bar">
-      <!-- ← the question before; from the first one, back to the text. -->
-      @if (shown() > 0 || canBack()) {
-        <button
-          type="button"
-          class="nav-btn"
-          [attr.aria-label]="shown() > 0 ? 'Câu trước' : 'Về bài đọc'"
-          (click)="shown() > 0 ? show(shown() - 1) : back.emit()"
-        >
+      @if (i > 0 || canBack()) {
+        <button type="button" class="nav-btn" [attr.aria-label]="i > 0 ? 'Câu trước' : 'Về bài đọc'" (click)="goBack()">
           <lu-icon name="arrow-left" />
         </button>
       }
-      @if (!byIndex().has(i)) {
-        <button
-          type="button"
-          class="btn-primary check"
-          [disabled]="picked() === null || sending() || changed()"
-          (click)="choose(i, picked()!)"
-        >
-          {{ sending() ? 'Đang kiểm tra…' : 'Kiểm tra' }}
-        </button>
-      } @else if (nextOpen() !== -1) {
-        <button type="button" class="btn-primary" (click)="show(nextOpen())">Câu tiếp theo</button>
-      } @else if (finishLabel()) {
-        <button type="button" class="btn-primary" (click)="finished.emit()">{{ finishLabel() }}</button>
-      } @else {
-        <button type="button" class="btn-primary" disabled>Đã trả lời hết</button>
-      }
+      <button type="button" class="btn-primary main" [disabled]="main().disabled" (click)="onMain()">
+        {{ main().label }}
+      </button>
     </div>
   }
 

@@ -56,7 +56,7 @@
               [attr.aria-pressed]="tab() === 'reading'"
               (click)="toggleReading()"
             >
-              {{ tab() === 'reading' ? 'Bài học' : 'Bài đọc' }}
+              <lu-icon name="book" /> {{ tab() === 'reading' ? 'Bài học' : 'Bài đọc' }}
             </button>
             <button
               type="button"
@@ -340,6 +340,7 @@
                   [number]="step()"
                   [canBack]="canBack()"
                   [laterLabel]="barMain()?.leave ? barMain()!.label : ''"
+                  [doneLabel]="isLast() ? 'Hoàn thành' : 'Sang bước ' + nextName()"
                   (back)="goBack()"
                   (leave)="next()"
                   (completed)="complete('read')"
@@ -349,12 +350,15 @@
             }
             @case ('listen') {
               @if (studyStepDone()) {
-                <lu-listening [lessonId]="id()" mode="review" />
+                <lu-listening [lessonId]="id()" mode="review" [nextLabel]="barMain()?.label ?? ''" (leave)="next()" />
               } @else {
                 <lu-listening
                   [lessonId]="id()"
                   [startSentence]="study()?.sentenceIndex ?? null"
                   mode="study"
+                  [laterLabel]="barMain()?.leave ? barMain()!.label : ''"
+                  [nextLabel]="isLast() ? 'Hoàn thành' : 'Sang bước ' + nextName()"
+                  (leave)="next()"
                   (completed)="complete('listen')"
                   (position)="savePosition('listen', $event)"
                 />

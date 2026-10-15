@@ -411,12 +411,12 @@ export class LessonDetail {
   protected readonly canBack = computed(
     () => !this.overview() && (!!this.extra() || this.step() > 1 || this.learning()),
   );
-  /** Đọc and the practice steps put their own buttons in the bar (← and Kiểm tra, Câu tiếp, …). */
+  /** Đọc, Nghe and the practice steps put their own buttons in the bar (← and Kiểm tra, Câu tiếp, …). */
   protected readonly ownBar = computed(() => {
     const key = this.onScreen();
     return (
       !this.overview() &&
-      (key === 'read' || key === 'dialogue' || key === 'fill' || key === 'translate' || key === 'speak')
+      (key === 'read' || key === 'listen' || key === 'dialogue' || key === 'fill' || key === 'translate' || key === 'speak')
     );
   });
   /**
@@ -449,7 +449,7 @@ export class LessonDetail {
       (!!this.extra() || (!this.finished() && !this.lessonDone())) &&
       (this.canBack() || this.barMain() !== null),
   );
-  private readonly isLast = computed(() => this.step() >= this.steps().length);
+  protected readonly isLast = computed(() => this.step() >= this.steps().length);
   /**
    * Lesson steps left for later, once the learner is on the last step: the lesson completes only
    * when every one is done, in any order.

@@ -12,9 +12,12 @@
   } @else if (lesson(); as l) {
     <header class="listening-header">
       <p class="step">Bước Nghe{{ review() ? ' · Xem lại' : '' }}</p>
-      <h1 class="title" lang="en">{{ l.title }}</h1>
+      <!-- In a lesson the title is already in the lesson's line at the top. -->
+      @if (mode() === null) {
+        <h1 class="title" lang="en">{{ l.title }}</h1>
+      }
       @if (checkedCount() > 0) {
-        <button type="button" class="btn restart" (click)="restart()">
+        <button type="button" class="restart" (click)="restart()">
           <lu-icon name="review" /> Làm lại bước này
         </button>
       }
@@ -29,10 +32,17 @@
       </p>
     } @else {
       <nav class="progress" aria-label="Các câu">
-        <p class="checked-count">Đã kiểm tra {{ checkedCount() }}/{{ sentences().length }}</p>
-        <ol class="chips">
+        <div class="progress-head">
+          <p class="checked-count">
+            Tiến độ câu:
+            <span class="pill">{{ checkedCount() }} / {{ sentences().length }} câu</span>
+          </p>
+          <span class="progress-hint" aria-hidden="true">Chạm số để chuyển câu</span>
+        </div>
+        <ol class="chips" #chipRow>
           @for (s of sentences(); track s.index) {
             @let isChecked = checked().has(s.index);
+            @let isRight = rightOnes().has(s.index);
             <li>
               <button
                 type="button"
@@ -40,12 +50,12 @@
                 [class.checked]="isChecked"
                 [class.current]="s.index === current()"
                 [attr.aria-current]="s.index === current() ? 'step' : null"
-                [attr.aria-label]="'Câu ' + (s.index + 1) + (isChecked ? ', đã kiểm tra' : '')"
+                [attr.aria-label]="'Câu ' + (s.index + 1) + (isChecked ? (isRight ? ', đúng' : ', chưa đúng') : '')"
                 (click)="go(s.index)"
               >
                 {{ s.index + 1 }}
                 @if (isChecked) {
-                  <span aria-hidden="true">✓</span>
+                  <span class="chip-check" [class.wrong]="!isRight" aria-hidden="true">{{ isRight ? '✓' : '✗' }}</span>
                 }
               </button>
             </li>
@@ -56,10 +66,14 @@
       <div class="player step-card">
         <div class="step-card-head">
           <span class="step-card-title">Nghe và gõ lại câu</span>
-          <span class="counter" aria-live="polite">Câu {{ current() + 1 }}/{{ sentences().length }}</span>
+          <span class="counter pill" aria-live="polite">Câu {{ current() + 1 }} / {{ sentences().length }}</span>
         </div>
+
+        <lu-listening-hero />
+
         <lu-audio-bar
           class="audio"
+          size="large"
           [progress]="progress()"
           [duration]="duration()"
           [playing]="speaking()"
@@ -75,7 +89,6 @@
 
         <div class="tools">
           <div class="speed" role="radiogroup" aria-label="Tốc độ">
-            <span class="speed-label" aria-hidden="true">Tốc độ</span>
             @for (s of speeds; track s) {
               <button
                 type="button"
@@ -86,16 +99,17 @@
                 (click)="setRate(s)"
                 (keydown)="onSpeedKeydown($event)"
               >
-                {{ s }}x
+                {{ s }}×
               </button>
             }
           </div>
           <button
             type="button"
-            class="btn toggle"
+            class="toggle"
             [attr.aria-expanded]="showText()"
             (click)="showText.set(!showText())"
           >
+            <lu-icon [name]="showText() ? 'eye-off' : 'eye'" />
             {{ showText() ? 'Ẩn chữ' : 'Hiện chữ' }}
           </button>
         </div>
@@ -103,50 +117,80 @@
           <p class="transcript" lang="en">{{ sentence()!.text }}</p>
         }
 
-        <form class="answer" (submit)="check($event)">
-          <label class="answer-label" for="answer">Câu bạn nghe được</label>
-          <!-- A textarea so a long sentence wraps instead of scrolling out of view; Enter still checks. -->
-          <textarea
-            id="answer"
-            rows="2"
-            lang="en"
-            placeholder="Gõ câu bạn nghe được"
-            autocapitalize="off"
-            autocorrect="off"
-            autocomplete="off"
-            spellcheck="false"
-            enterkeyhint="done"
-            maxlength="1000"
-            [value]="typed()"
-            [attr.aria-invalid]="answerError() ? true : null"
-            [attr.aria-describedby]="answerError() ? 'answer-error' : null"
-            (input)="onInput($event)"
-            (focus)="onFocus($event)"
-            (keydown.enter)="check($event)"
-          ></textarea>
+        <form class="answer" id="answer-form" (submit)="mainAction($event)">
+          <div class="answer-head">
+            <label class="answer-label" for="answer"><lu-icon name="volume" /> Câu bạn nghe được</label>
+            <span class="answer-hint">Nhập bằng tiếng Anh</span>
+          </div>
+          <div class="answer-box">
+            <!-- A textarea so a long sentence wraps instead of scrolling out of view; Enter still checks. -->
+            <textarea
+              id="answer"
+              rows="4"
+              lang="en"
+              placeholder="Nghe và gõ lại câu ở đây…"
+              autocapitalize="off"
+              autocorrect="off"
+              autocomplete="off"
+              spellcheck="false"
+              enterkeyhint="done"
+              maxlength="1000"
+              [value]="typed()"
+              [attr.aria-invalid]="answerError() ? true : null"
+              [attr.aria-describedby]="answerError() ? 'answer-error' : null"
+              (input)="onInput($event)"
+              (focus)="onFocus($event)"
+              (keydown.enter)="check($event)"
+            ></textarea>
+            @if (typed()) {
+              <button type="button" class="clear" aria-label="Xoá câu đã gõ" (click)="clearAnswer()">
+                <lu-icon name="backspace" />
+              </button>
+            }
+          </div>
           @if (answerError(); as message) {
             <p class="answer-error field-error" id="answer-error" role="alert">{{ message }}</p>
           }
-          <div class="step-nav">
-            <button
-              type="button"
-              class="nav-btn"
-              [disabled]="current() === 0"
-              (click)="go(current() - 1)"
-            >
-              <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
-            </button>
-            <button type="submit" class="btn-primary">Kiểm tra</button>
-            <button
-              type="button"
-              class="nav-btn"
-              [disabled]="current() === sentences().length - 1"
-              (click)="go(current() + 1)"
-            >
-              <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
-            </button>
-          </div>
+          @if (hints().length) {
+            <div class="hints">
+              <span class="hints-label" aria-hidden="true">Gợi ý:</span>
+              @for (h of hints(); track $index) {
+                <button
+                  type="button"
+                  class="hint"
+                  lang="en"
+                  [attr.aria-label]="'Thêm từ gợi ý ' + h"
+                  (click)="addHint(h)"
+                >
+                  {{ h }}
+                </button>
+              }
+            </div>
+          }
         </form>
+      </div>
+
+      @if (!review() && !done() && laterLabel()) {
+        <button type="button" class="link-btn" (click)="leave.emit()">{{ laterLabel() }}</button>
+      }
+
+      <!-- The bar at the bottom of the screen (design): ← sentence, the main button, sentence →. -->
+      <div class="bottom-bar">
+        <button type="button" class="nav-btn" [disabled]="current() === 0" (click)="go(current() - 1)">
+          <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
+        </button>
+        <button type="submit" form="answer-form" class="btn-primary main">
+          {{ mainLabel() }}
+          <lu-icon [name]="mainIsCheck() ? 'check-circle' : 'arrow-right'" />
+        </button>
+        <button
+          type="button"
+          class="nav-btn"
+          [disabled]="current() === sentences().length - 1"
+          (click)="go(current() + 1)"
+        >
+          <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
+        </button>
       </div>
 
       <p class="announcement visually-hidden" role="status">{{ announcement() }}</p>
@@ -224,11 +268,6 @@
               <button type="button" class="btn redo" (click)="redoSentence()">
                 <lu-icon name="review" /> Làm lại câu này
               </button>
-              @if (!isLastSentence()) {
-                <button type="button" class="btn-primary next" (click)="go(current() + 1)">
-                  Câu tiếp theo
-                </button>
-              }
             </div>
           </div>
         }

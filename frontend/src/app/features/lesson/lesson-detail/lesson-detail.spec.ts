@@ -36,6 +36,7 @@ class ReadingStub {
   readonly number = input(0);
   readonly canBack = input(false);
   readonly laterLabel = input('');
+  readonly doneLabel = input('');
   readonly nextLabel = input('');
   readonly completed = output<void>();
   readonly position = output<number>();
@@ -48,8 +49,11 @@ class ListeningStub {
   readonly lessonId = input('');
   readonly startSentence = input<number | null>(null);
   readonly mode = input<string | null>(null);
+  readonly laterLabel = input('');
+  readonly nextLabel = input('');
   readonly completed = output<void>();
   readonly position = output<number>();
+  readonly leave = output<void>();
 }
 
 @Component({ selector: 'lu-writing', template: '' })
@@ -224,7 +228,8 @@ describe('LessonDetail', () => {
       child(FillStep)?.done ??
       child(TranslateStep)?.done ??
       child(SpeakStep)?.done ??
-      child(ReadingStub)?.leave;
+      child(ReadingStub)?.leave ??
+      child(ListeningStub)?.leave;
     if (finish) {
       finish.emit();
     } else {
@@ -948,6 +953,8 @@ describe('LessonDetail', () => {
       expect(reading.number()).toBe(2);
       expect(reading.canBack()).toBe(true);
       expect(reading.laterLabel()).toBe('Để sau, sang bước Nghe');
+      // The questions' result goes on with the same step's name.
+      expect(reading.doneLabel()).toBe('Sang bước Nghe');
 
       reading.completed.emit();
       await reply(

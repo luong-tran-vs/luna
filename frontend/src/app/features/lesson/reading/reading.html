@@ -15,13 +15,29 @@
         <p class="step">Bước Đọc{{ review() ? ' · Xem lại' : '' }}</p>
         <h1 class="title" lang="en">{{ l.title }}</h1>
       </header>
-    } @else {
-      <!-- On the questions the dots sit at the right of this line: it keeps room for them. -->
-      <h2 class="step-title" [style.padding-right.px]="dotsRoom()">
-        {{ number() ? number() + '. ' : '' }}Đọc{{
-          phase() === 'quiz' ? ' · Câu hỏi' : review() ? ' · Xem lại' : ''
-        }}
-      </h2>
+    }
+    <!-- The step's line: in a lesson its title; on the questions "Xem lại bài đọc" at its right. -->
+    @if (mode() !== null || (phase() === 'quiz' && !quizResult())) {
+      <div class="step-line">
+        @if (mode() !== null) {
+          <h2 class="step-title">
+            {{ number() ? number() + '. ' : '' }}Đọc{{
+              phase() === 'quiz' ? (quizResult() ? ' · Kết quả' : ' · Câu hỏi') : review() ? ' · Xem lại' : ''
+            }}
+          </h2>
+        }
+        @if (phase() === 'quiz' && !quizResult()) {
+          <button
+            type="button"
+            class="peek"
+            aria-controls="reading-text"
+            [attr.aria-expanded]="peek()"
+            (click)="peek.set(!peek())"
+          >
+            <lu-icon name="book" /> {{ peek() ? 'Ẩn bài đọc' : 'Xem bài đọc' }}
+          </button>
+        }
+      </div>
     }
 
     @if (phase() === 'read' && !tipsHidden()) {
@@ -31,31 +47,6 @@
           <lu-icon name="x" />
         </button>
       </p>
-    }
-
-    @if (phase() === 'quiz') {
-      <!-- One row over the questions: the text again, and starting every question again. -->
-      <div class="quiz-row">
-        <button
-          type="button"
-          class="peek"
-          aria-controls="reading-text"
-          [attr.aria-expanded]="peek()"
-          (click)="peek.set(!peek())"
-        >
-          <lu-icon name="book" /> {{ peek() ? 'Ẩn bài đọc' : 'Xem lại bài đọc' }}
-        </button>
-        @if (answered() > 0 && quizRef(); as quiz) {
-          <button
-            type="button"
-            class="restart-all"
-            [disabled]="quiz.busy()"
-            (click)="quiz.restartAll()"
-          >
-            <lu-icon name="review" /> Làm lại tất cả<span class="visually-hidden"> câu hỏi</span>
-          </button>
-        }
-      </div>
     }
 
     <!-- Hidden rather than removed on the questions, so "Xem lại bài đọc" shows it at once. -->
@@ -131,13 +122,10 @@
         [quiz]="quiz"
         [review]="review()"
         [canBack]="true"
-        [dotsInHeading]="mode() !== null"
-        [showRestart]="false"
-        (answeredCount)="answered.set($event)"
-        [finishLabel]="review() ? nextLabel() : quizAnsweredOnLoad() && !done() ? 'Tiếp tục' : ''"
+        [finishLabel]="review() ? nextLabel() : done() ? '' : doneLabel() || 'Hoàn thành bước Đọc'"
         (back)="toText()"
         (finished)="onQuizFinished()"
-        (allAnswered)="finishQuiz()"
+        (resultChange)="quizResult.set($event)"
         (reload)="load()"
       />
       @if (done()) {

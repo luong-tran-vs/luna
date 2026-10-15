@@ -29,6 +29,7 @@ import { Comparison, compareDictation } from '../../../shared/utils/dictation-co
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
 import { ListeningApiService } from '../listening-api.service';
+import { ListeningHero } from './listening-hero/listening-hero';
 import { Loading } from '../../../shared/components/loading/loading';
 
 interface Checked {
@@ -41,6 +42,25 @@ const SPEEDS = [0.5, 0.75, 1, 1.25];
 /** How a check went: every word right, at least half of them, or fewer. */
 type Verdict = 'ok' | 'close' | 'bad';
 
+const CHECK_LABEL = 'Kiểm tra câu trả lời';
+
+/** How many of the first words of a sentence are offered as hints. */
+const HINT_WORDS = 3;
+
+/**
+ * Hints for a sentence: its first words (never all of them, without punctuation) and the mark it
+ * ends with, as in "He · usually · starts · .".
+ */
+export function sentenceHints(text: string): string[] {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const first = words
+    .slice(0, Math.min(HINT_WORDS, words.length - 1))
+    .map((w) => w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}']+$/gu, ''))
+    .filter(Boolean);
+  const end = /[.?!]$/.exec(text.trim())?.[0];
+  return end ? [...first, end] : first;
+}
+
 const VERDICT_LABELS: Record<Verdict, string> = { ok: 'Chính xác!', close: 'Gần đúng', bad: 'Chưa đúng' };
 
 /**
@@ -50,7 +70,7 @@ const VERDICT_LABELS: Record<Verdict, string> = { ok: 'Chính xác!', close: 'G�
  */
 @Component({
   selector: 'lu-listening',
-  imports: [Loading, Icon, RouterLink, AudioBar],
+  imports: [Loading, Icon, RouterLink, AudioBar, ListeningHero],
   templateUrl: './listening.html',
   styleUrl: './listening.css',
   host: { '[class.standalone]': 'mode() === null' },
@@ -69,6 +89,13 @@ export class Listening implements OnInit {
   /** "review" replays a finished lesson without saving; defaults to ?review=1. */
   readonly mode = input<'study' | 'review' | null>(null);
 
+  /** On the lesson page: leave the step still to do for later ("Để sau, sang bước …"). */
+  readonly laterLabel = input('');
+  /** On the lesson page: the main button once every sentence is checked ("Sang bước …"). */
+  readonly nextLabel = input('');
+
+  /** The lesson goes on: for later (laterLabel) or with the step done (nextLabel). */
+  readonly leave = output<void>();
   /** Emitted once when every sentence has been checked (feature L records progress). */
   readonly completed = output<void>();
   /** The sentence the learner moved to (feature L saves it). */
@@ -109,6 +136,7 @@ export class Listening implements OnInit {
   /** Read out after a check (the result card is drawn anew, so it cannot be the live region). */
   protected readonly announcement = signal('');
   private readonly resultCard = viewChild<ElementRef<HTMLElement>>('resultCard');
+  private readonly chipRow = viewChild<ElementRef<HTMLElement>>('chipRow');
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
 
@@ -145,7 +173,48 @@ export class Listening implements OnInit {
     return 'saved';
   });
   protected readonly isLastSentence = computed(() => this.current() >= this.sentences().length - 1);
+  protected readonly hints = computed(() => {
+    const s = this.sentence();
+    return s ? sentenceHints(s.text) : [];
+  });
+  /**
+   * What the main button at the bottom does: check the answer, or, once the shown answer is
+   * checked (and not changed since), go on to the next sentence, the first one left, or the lesson.
+   */
+  private readonly mainStep = computed<'check' | 'next' | 'left' | 'leave'>(() => {
+    const r = this.result();
+    if (!r || this.typed().trim() !== r.typed) {
+      return 'check';
+    }
+    if (this.done()) {
+      return this.nextLabel() ? 'leave' : this.isLastSentence() ? 'check' : 'next';
+    }
+    return this.isLastSentence() ? 'left' : 'next';
+  });
+  protected readonly mainIsCheck = computed(() => this.mainStep() === 'check');
+  protected readonly mainLabel = computed(() => {
+    switch (this.mainStep()) {
+      case 'next':
+        return 'Câu tiếp theo';
+      case 'left':
+        return 'Câu chưa làm';
+      case 'leave':
+        return this.nextLabel();
+      default:
+        return CHECK_LABEL;
+    }
+  });
   protected readonly checkedCount = computed(() => this.checked().size);
+  /** Checked sentences typed with every word right (✓ on their number; the others get ✗). */
+  protected readonly rightOnes = computed(() => {
+    const right = new Set<number>();
+    for (const [index, c] of this.checked()) {
+      if (c.comparison.totalWords > 0 && c.comparison.correctWords === c.comparison.totalWords) {
+        right.add(index);
+      }
+    }
+    return right;
+  });
   protected readonly done = computed(() => this.sentences().length > 0 && this.checkedCount() === this.sentences().length);
   protected readonly ratePercent = computed(() => {
     let correct = 0;
@@ -164,6 +233,13 @@ export class Listening implements OnInit {
 
   constructor() {
     inject(DestroyRef).onDestroy(() => this.silence());
+    // Keep the current sentence number (and the ones after it) in view.
+    effect(() => {
+      this.current();
+      if (this.chipRow()) {
+        afterNextRender(() => this.centerChip(), { injector: this.injector });
+      }
+    });
     // With the natural voice, generate the sentences ahead, from the current one.
     effect(() => {
       const texts = this.sentences().map((s) => s.text);
@@ -173,6 +249,21 @@ export class Listening implements OnInit {
       const from = untracked(() => this.current());
       this.speech.prefetch([...texts.slice(from), ...texts.slice(0, from)]);
     });
+  }
+
+  /**
+   * Slides the row of sentence numbers sideways so the current one is in the middle, with the
+   * next ones in view (only the row moves, not the page).
+   */
+  private centerChip(): void {
+    const row = this.chipRow()?.nativeElement;
+    const chip = row?.querySelector<HTMLElement>('.chip.current')?.parentElement;
+    if (!row || !chip || row.scrollWidth <= row.clientWidth) {
+      return;
+    }
+    const left = chip.offsetLeft - (row.clientWidth - chip.offsetWidth) / 2;
+    const smooth = !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    row.scrollTo?.({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'auto' });
   }
 
   ngOnInit(): void {
@@ -309,6 +400,38 @@ export class Listening implements OnInit {
     // A pasted line break is a space: the answer is one sentence.
     this.typed.set((event.target as HTMLTextAreaElement).value.replace(/\s*\n\s*/g, ' '));
     this.answerError.set(null);
+  }
+
+  protected clearAnswer(): void {
+    this.typed.set('');
+    this.answerError.set(null);
+    this.host.nativeElement.querySelector<HTMLTextAreaElement>('#answer')?.focus();
+  }
+
+  /** A hint goes at the end of the answer: a word after a space, the end mark right after it. */
+  protected addHint(hint: string): void {
+    const typed = this.typed().trimEnd();
+    const glue = !typed || /^[.?!]$/.test(hint) ? '' : ' ';
+    this.typed.set(typed + glue + hint);
+    this.answerError.set(null);
+  }
+
+  /** The main button at the bottom (see mainStep). */
+  protected mainAction(event?: Event): void {
+    event?.preventDefault();
+    switch (this.mainStep()) {
+      case 'next':
+        this.go(this.current() + 1);
+        return;
+      case 'left':
+        this.go(this.sentences().findIndex((s) => !this.checked().has(s.index)));
+        return;
+      case 'leave':
+        this.leave.emit();
+        return;
+      default:
+        this.check();
+    }
   }
 
   protected onFocus(event: FocusEvent): void {

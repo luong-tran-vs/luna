@@ -80,7 +80,7 @@ describe('Listening', () => {
   };
   const check = async (value: string) => {
     await type(value);
-    button('Kiểm tra')!.click();
+    button('Kiểm tra câu trả lời')!.click();
     await settle();
   };
   const expectPost = (): TestRequest => {
@@ -166,7 +166,7 @@ describe('Listening', () => {
   describe('listening sentence by sentence', () => {
     it('shows the first sentence with previous disabled', async () => {
       await setup();
-      expect(text('.counter')).toBe('Câu 1/3');
+      expect(text('.counter')).toBe('Câu 1 / 3');
       expect(button('Câu trước')!.disabled).toBe(true);
       expect(button('Câu sau')!.disabled).toBe(false);
     });
@@ -221,18 +221,18 @@ describe('Listening', () => {
       button('Câu sau')!.click();
       button('Câu sau')!.click();
       await settle();
-      expect(text('.counter')).toBe('Câu 3/3');
+      expect(text('.counter')).toBe('Câu 3 / 3');
       expect(button('Câu sau')!.disabled).toBe(true);
       expect(speech.last().text).toBe('Why?');
       button('Câu trước')!.click();
       await settle();
-      expect(text('.counter')).toBe('Câu 2/3');
+      expect(text('.counter')).toBe('Câu 2 / 3');
     });
 
     it('keeps the chosen speed across sentences', async () => {
       await setup();
       const radios = Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]'));
-      expect(radios.map((r) => r.textContent?.trim())).toEqual(['0.5x', '0.75x', '1x', '1.25x']);
+      expect(radios.map((r) => r.textContent?.trim())).toEqual(['0.5×', '0.75×', '1×', '1.25×']);
       expect(radios[2].getAttribute('aria-checked')).toBe('true');
       radios[1].click();
       await settle();
@@ -349,7 +349,7 @@ describe('Listening', () => {
 
       button('Câu tiếp theo')!.click();
       await settle();
-      expect(text('.counter')).toBe('Câu 2/3');
+      expect(text('.counter')).toBe('Câu 2 / 3');
     });
 
     it('marks a check with fewer than half the words right as wrong, and says review mode does not save', async () => {
@@ -379,12 +379,14 @@ describe('Listening', () => {
   describe('saving progress', () => {
     it('restores saved results and starts at the first unchecked sentence', async () => {
       await setup({ summary: summaryOf([result(0, 'i dont like green apples', 4, 5)]) });
-      expect(text('.counter')).toBe('Câu 2/3');
-      expect(text('.checked-count')).toBe('Đã kiểm tra 1/3');
+      expect(text('.counter')).toBe('Câu 2 / 3');
+      expect(text('.checked-count')).toBe('Tiến độ câu: 1 / 3 câu');
       const chips = Array.from(el.querySelectorAll<HTMLElement>('.chip'));
       expect(chips[0].classList.contains('checked')).toBe(true);
-      expect(chips[0].textContent).toContain('✓');
-      expect(chips[0].getAttribute('aria-label')).toBe('Câu 1, đã kiểm tra');
+      // 4/5 words right: a red ✗, not a ✓.
+      expect(chips[0].textContent).toContain('✗');
+      expect(chips[0].querySelector('.chip-check')!.classList.contains('wrong')).toBe(true);
+      expect(chips[0].getAttribute('aria-label')).toBe('Câu 1, chưa đúng');
       expect(chips[1].classList.contains('checked')).toBe(false);
 
       chips[0].click();
@@ -395,7 +397,7 @@ describe('Listening', () => {
 
     it('posts each check and completes after the last sentence', async () => {
       await setup({ summary: summaryOf([result(0, 'i dont like green apples', 4, 5), result(1, 'we went to the park at 9.30', 7, 7)]) });
-      expect(text('.counter')).toBe('Câu 3/3');
+      expect(text('.counter')).toBe('Câu 3 / 3');
       await check('what');
       const req = expectPost();
       expect(req.request.body).toEqual({ sentenceIndex: 2, typed: 'what', correctWords: 0, totalWords: 1 });
@@ -466,7 +468,7 @@ describe('Listening', () => {
 
     it('Làm lại bước này forgets every result and starts again from sentence 1', async () => {
       await setup({ summary: summaryOf([result(0, 'i dont like green apples', 4, 5), result(1, 'we went to the park at 9.30', 7, 7)]) });
-      expect(text('.counter')).toBe('Câu 3/3');
+      expect(text('.counter')).toBe('Câu 3 / 3');
       await check('why');
       expectPost().flush({
         summary: summaryOf([result(0, 'a', 4, 5), result(1, 'b', 7, 7), result(2, 'why', 1, 1)]),
@@ -478,8 +480,8 @@ describe('Listening', () => {
       await settle();
       expectDelete().flush(null, { status: 204, statusText: 'No Content' });
       await settle();
-      expect(text('.counter')).toBe('Câu 1/3');
-      expect(text('.checked-count')).toBe('Đã kiểm tra 0/3');
+      expect(text('.counter')).toBe('Câu 1 / 3');
+      expect(text('.checked-count')).toBe('Tiến độ câu: 0 / 3 câu');
       expect(el.querySelector('.result')).toBeNull();
       expect(button('Làm lại bước này')).toBeUndefined();
 
@@ -502,7 +504,7 @@ describe('Listening', () => {
       button('Làm lại bước này')!.click();
       await settle();
       http.expectNone((r) => r.url === '/lessons/l1/dictation');
-      expect(text('.checked-count')).toBe('Đã kiểm tra 0/3');
+      expect(text('.checked-count')).toBe('Tiến độ câu: 0 / 3 câu');
     });
 
     it('keeps the results when they cannot be forgotten', async () => {
@@ -515,14 +517,14 @@ describe('Listening', () => {
       expectDelete().flush('down', { status: 500, statusText: 'Error' });
       await settle();
       expect(text('.listening-header [role="alert"]')).toBe('Chưa làm lại được, vui lòng thử lại.');
-      expect(text('.checked-count')).toBe('Đã kiểm tra 1/3');
+      expect(text('.checked-count')).toBe('Tiến độ câu: 1 / 3 câu');
     });
   });
 
   describe('daily flow', () => {
     it('opens the lesson given as input at the saved sentence and reports moves', async () => {
       await setup({ inputs: { lessonId: 'l9', startSentence: 1 } });
-      expect(text('.counter')).toBe('Câu 2/3');
+      expect(text('.counter')).toBe('Câu 2 / 3');
       const positions: number[] = [];
       fixture.componentInstance.position.subscribe((p) => positions.push(p));
       button('Câu sau')!.click();
@@ -532,7 +534,7 @@ describe('Listening', () => {
 
     it('neither restores nor saves results in review mode', async () => {
       await setup({ inputs: { mode: 'review' } });
-      expect(text('.checked-count')).toBe('Đã kiểm tra 0/3');
+      expect(text('.checked-count')).toBe('Tiến độ câu: 0 / 3 câu');
       await check("I don't like green apples");
       http.expectNone((r) => r.url === '/lessons/l1/dictation');
       expect(text('.score')).toBe('5/5 từ đúng');

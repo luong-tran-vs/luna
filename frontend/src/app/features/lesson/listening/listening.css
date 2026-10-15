@@ -1,5 +1,7 @@
+/* One column no wider than the screen: the row of sentence numbers scrolls inside it. */
 .listening {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
 }
 
@@ -7,7 +9,7 @@
 :host(.standalone) .listening {
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-5) var(--page-x) 0;
+  padding: var(--space-5) var(--page-x) calc(48px + 2 * var(--space-3) + var(--space-6));
 }
 
 .listening-header {
@@ -17,13 +19,33 @@
 
 .step {
   font: var(--text-xs) var(--font-ui);
-  color: var(--color-text-muted);
+  font-weight: 700;
+  color: var(--color-primary-ink);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .title {
   font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+}
+
+.restart {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  --icon-size: 16px;
 }
 
 .card {
@@ -35,35 +57,78 @@
   border-radius: var(--radius-lg);
 }
 
+/* A small rounded label: Tiến độ câu, Câu 1 / 10. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Sentence progress: number plus a check mark, so the state is not shown by color alone. */
 .progress {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+.progress-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-2);
 }
 
 .checked-count {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.checked-count::before {
+  width: 8px;
+  height: 8px;
+  content: '';
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.progress-hint {
+  font: var(--text-xs) var(--font-ui);
   color: var(--color-text-muted);
 }
 
+/* One row of round numbers, scrolled sideways when there are many. */
 .chips {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
   gap: var(--space-2);
   margin: 0;
-  padding: 0;
+  /* Room for the ring of the current number. */
+  padding: 6px;
+  overflow-x: auto;
   list-style: none;
+  scrollbar-width: none;
 }
 
 .chip {
+  position: relative;
   display: inline-flex;
+  flex: none;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  min-width: 44px;
-  min-height: 44px;
-  padding: 0 var(--space-2);
+  width: 44px;
+  height: 44px;
   font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
   color: var(--color-text);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
@@ -76,14 +141,54 @@
   background: var(--color-primary-soft);
 }
 
+.chip-check {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  color: var(--color-on-primary);
+  background: var(--color-ok);
+  border-radius: var(--radius-full);
+}
+
+.chip-check.wrong {
+  background: var(--color-bad);
+}
+
 .chip.current {
-  border: 2px solid var(--color-primary);
-  font-weight: 600;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow:
+    0 0 0 3px var(--color-surface),
+    0 0 0 5px color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+.player {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.step-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.step-card-title::before {
+  width: 8px;
+  height: 8px;
+  content: '';
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
 }
 
 .counter {
-  color: var(--color-text-muted);
-  font-variant-numeric: tabular-nums;
+  font-size: var(--text-xs);
 }
 
 /* Speed and Hiện chữ on one row, under the player. */
@@ -95,47 +200,180 @@
   gap: var(--space-2);
 }
 
-.audio {
-  min-height: 44px;
+/* The speeds as one segmented control. */
+.speed {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
 }
 
-.speed {
+.speed-option {
+  min-width: 40px;
+  min-height: 36px;
+  padding: 0 6px;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.speed-option[aria-checked='true'] {
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border-color: var(--color-line);
+  box-shadow: 0 1px 2px rgb(34 27 56 / 0.08);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  --icon-size: 16px;
+}
+
+.transcript {
+  font: var(--text-reading) var(--font-ui);
+}
+
+/* The answer, inside the card, under the tools. */
+.answer {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.answer-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.answer-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+
+  --icon-size: 16px;
+}
+
+.answer-label lu-icon {
+  color: var(--color-primary);
+}
+
+.answer-hint {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.answer-box {
+  position: relative;
+}
+
+.answer textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 120px;
+  /* Grows with the sentence where supported; four rows otherwise. */
+  field-sizing: content;
+  max-height: 8lh;
+  resize: none;
+  padding: var(--space-3) var(--space-3) var(--space-6);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.answer textarea:focus-visible {
+  border-color: var(--color-primary);
+  outline: 2px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+.answer textarea[aria-invalid='true'] {
+  border-color: var(--color-bad);
+}
+
+.clear {
+  position: absolute;
+  right: var(--space-1);
+  bottom: var(--space-1);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--color-text-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  --icon-size: 18px;
+}
+
+.hints {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
 }
 
-.speed-label {
-  font: var(--text-sm) var(--font-ui);
+.hints-label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
   color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.speed-option {
-  min-width: 52px;
-  min-height: 44px;
-  padding: 0 var(--space-2);
+.hint {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0 var(--space-3);
   font: var(--text-sm) var(--font-ui);
   color: var(--color-text);
-  background: var(--color-surface);
+  background: var(--color-bg);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
   cursor: pointer;
 }
 
-.speed-option[aria-checked='true'] {
-  font-weight: 600;
-  color: var(--color-on-primary);
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+/* The main button of the bottom bar: Kiểm tra câu trả lời ✓ (or Câu tiếp theo →). */
+.bottom-bar > .main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-ink));
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--color-primary) 30%, transparent);
+
+  --icon-size: 18px;
 }
 
-.toggle {
-  justify-self: start;
-}
-
-.transcript {
-  font: var(--text-reading) var(--font-ui);
+.bottom-bar > .nav-btn {
+  border-radius: var(--radius-lg);
 }
 
 /* Result: text stays --color-text; only the decoration carries the state color. */
@@ -205,9 +443,6 @@
   color: var(--color-bad);
 }
 
-.next {
-  justify-self: start;
-}
 
 .score {
   font-weight: 600;
@@ -222,44 +457,6 @@
 
 .done {
   font-weight: 600;
-}
-
-/* The answer, inside the card, above ← Kiểm tra →. */
-.answer {
-  display: grid;
-  gap: var(--space-2);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-line);
-}
-
-.answer-label {
-  font: var(--text-sm) var(--font-ui);
-  font-weight: 600;
-}
-
-.answer textarea {
-  min-width: 0;
-  min-height: 44px;
-  /* Grows with the sentence where supported; two rows otherwise. */
-  field-sizing: content;
-  max-height: 8lh;
-  resize: none;
-  padding: var(--space-2) var(--space-3);
-  font: var(--text-base) var(--font-ui);
-  color: var(--color-text);
-  background: var(--color-bg);
-  border: 1px solid var(--color-text-muted);
-  border-radius: var(--radius-md);
-}
-
-.answer textarea[aria-invalid='true'] {
-  border-color: var(--color-bad);
-}
-
-.restart {
-  justify-self: start;
-
-  --icon-size: 16px;
 }
 
 .result-actions {

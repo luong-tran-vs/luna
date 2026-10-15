@@ -1,5 +1,10 @@
 /* F17 lesson detail page (design/screen1–3). Tokens only (docs/design-system.md). */
 
+/* One column no wider than the screen, whatever a step holds (a long row, a moving knob). */
+.practice-page {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* Room for the fixed Next button, so it never hides the end of the page. */
 .practice-page.has-next {
   padding-bottom: calc(48px + 2 * var(--space-3) + var(--space-6));
@@ -92,7 +97,10 @@
 }
 
 .reading-toggle {
+  display: inline-flex;
   flex: none;
+  align-items: center;
+  gap: var(--space-1);
   min-height: 40px;
   padding: 0 var(--space-3);
   font: var(--text-sm) var(--font-ui);
@@ -102,6 +110,8 @@
   border: 1px solid var(--color-line);
   border-radius: var(--radius-full);
   cursor: pointer;
+
+  --icon-size: 16px;
 }
 
 .reading-toggle[aria-pressed='true'],
