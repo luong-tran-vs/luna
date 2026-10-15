@@ -94,7 +94,13 @@
     }
   </ng-template>
 
-  <div class="step-nav single">
+  <!-- The bar at the bottom of the screen (design): ← to the step before, then the main button. -->
+  <div class="step-nav">
+    @if (canBack()) {
+      <button type="button" class="nav-btn back-step" aria-label="Bước trước" (click)="back.emit()">
+        <lu-icon name="arrow-left" />
+      </button>
+    }
     <button type="button" class="btn-primary finish" (click)="finish()">{{ finishLabel() }}</button>
   </div>
 </section>

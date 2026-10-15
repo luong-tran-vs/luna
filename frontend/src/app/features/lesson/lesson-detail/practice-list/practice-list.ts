@@ -17,24 +17,29 @@ import type { PracticeItem } from '../lesson-detail';
     }
     <ul class="items">
       @for (item of items(); track item.key) {
-        <li class="item" [class.done]="item.result !== null">
-          <span class="mark" aria-hidden="true">
-            @if (item.result !== null) {
-              <lu-icon name="check" />
-            } @else {
-              –
-            }
-          </span>
-          <span class="text">
-            <span class="name">{{ item.name }}</span>
-            <span class="result">{{ item.result ?? 'Chưa làm' }}</span>
-          </span>
+        <!-- The whole row opens the step (not only its "Làm" at the end). -->
+        <li>
           <button
             type="button"
-            [class]="item.result === null ? 'btn-primary go' : 'btn go'"
+            class="item"
+            [class.done]="item.result !== null"
+            [attr.aria-label]="(item.result === null ? 'Làm ' : 'Làm lại ') + item.name + ': ' + (item.result ?? 'chưa làm')"
             (click)="go.emit(item.key)"
           >
-            {{ item.result === null ? 'Làm' : 'Làm lại' }}<span class="visually-hidden"> {{ item.name }}</span>
+            <span class="mark" aria-hidden="true">
+              @if (item.result !== null) {
+                <lu-icon name="check" />
+              } @else {
+                –
+              }
+            </span>
+            <span class="text">
+              <span class="name">{{ item.name }}</span>
+              <span class="result">{{ item.result ?? 'Chưa làm' }}</span>
+            </span>
+            <span class="go" [class.todo]="item.result === null" aria-hidden="true">
+              {{ item.result === null ? 'Làm' : 'Làm lại' }} <lu-icon name="chevron-right" />
+            </span>
           </button>
         </li>
       }
@@ -66,11 +71,29 @@ import type { PracticeItem } from '../lesson-detail';
       display: flex;
       align-items: center;
       gap: var(--space-3);
+      width: 100%;
+      min-height: 56px;
       padding: var(--space-2) 0;
+      font: inherit;
+      color: var(--color-text);
+      text-align: left;
+      background: none;
+      border: 0;
+      cursor: pointer;
     }
 
-    .item + .item {
+    li + li .item {
       border-top: 1px solid var(--color-line);
+    }
+
+    .item:hover .name {
+      color: var(--color-primary-ink);
+    }
+
+    .item:focus-visible {
+      outline: 3px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
     }
 
     .mark {
@@ -105,9 +128,25 @@ import type { PracticeItem } from '../lesson-detail';
       color: var(--color-text-muted);
     }
 
+    /* "Làm" (to do, filled) or "Làm lại" (done, quiet) with an arrow: the row is the button. */
     .go {
+      --icon-size: 16px;
+
+      display: inline-flex;
       flex: none;
-      min-height: 40px;
+      align-items: center;
+      gap: 2px;
+      padding: 6px var(--space-2) 6px var(--space-3);
+      font: var(--text-sm) var(--font-ui);
+      font-weight: 600;
+      color: var(--color-primary-ink);
+      background: var(--color-primary-soft);
+      border-radius: var(--radius-full);
+    }
+
+    .go.todo {
+      color: var(--color-on-primary);
+      background: var(--color-primary);
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

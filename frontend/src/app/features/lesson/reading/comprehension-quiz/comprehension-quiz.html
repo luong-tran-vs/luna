@@ -1,34 +1,57 @@
-<section class="quiz step-card" aria-labelledby="quiz-heading">
-  <div class="step-card-head">
-    <h2 class="quiz-title" id="quiz-heading">Câu hỏi hiểu bài</h2>
-    <span class="muted">Đọc bài rồi trả lời câu hỏi</span>
+<section class="quiz" aria-labelledby="quiz-heading">
+  <h2 class="visually-hidden" id="quiz-heading">Câu hỏi hiểu bài</h2>
+
+  <!--
+    One row at the top: the score once every question is answered, the dots (in a lesson they sit
+    on the step's title line instead), and starting them all again.
+  -->
+  <div class="quiz-tools" [class.dots-only]="dotsInHeading() && (current() !== -1 || answers().length === 0)">
+    @if (current() === -1 && answers().length > 0) {
+      <p class="summary">Đúng {{ correct() }}/{{ total() }} câu</p>
+    }
+    <ol class="dots" [class.in-heading]="dotsInHeading()" aria-label="Các câu hỏi">
+      @for (d of dots(); track $index; let k = $index) {
+        <li>
+          <button
+            type="button"
+            class="dot"
+            [class]="'is-' + d.state"
+            [class.is-shown]="k === shown()"
+            [attr.aria-label]="d.label"
+            [attr.aria-current]="k === shown() ? 'step' : null"
+            (click)="show(k)"
+          ></button>
+        </li>
+      }
+    </ol>
+    @if (showRestart() && answers().length > 0) {
+      <button type="button" class="restart" [disabled]="sending()" (click)="restart()">
+        <lu-icon name="review" /> Làm lại tất cả<span class="visually-hidden"> câu hỏi</span>
+      </button>
+    }
   </div>
 
   @if (quiz().questions[shown()]; as q) {
     @let i = shown();
-    <div class="quiz-top">
-      <p class="counter">Câu {{ i + 1 }}/{{ total() }}</p>
-      <ol class="dots" aria-label="Các câu hỏi">
-        @for (d of dots(); track $index; let k = $index) {
-          <li>
-            <button
-              type="button"
-              class="dot"
-              [class]="'is-' + d.state"
-              [class.is-shown]="k === i"
-              [attr.aria-label]="d.label"
-              [attr.aria-current]="k === i ? 'step' : null"
-              (click)="show(k)"
-            ></button>
-          </li>
-        }
-      </ol>
-    </div>
-
     <div class="questions">
       @if (byIndex().get(i); as a) {
         <div class="question answered">
-          <p class="prompt" lang="en">{{ q.prompt }}</p>
+          <!-- The question asked by the boy, in a message bubble (design, 2026-10-15). -->
+          <lu-asker [label]="'Câu ' + (i + 1) + '/' + total()" [tone]="a.correct ? 'right' : 'wrong'">
+              <p class="prompt" lang="en">{{ q.prompt }}</p>
+              <p class="verdict">
+                <span class="verdict-icon" aria-hidden="true"><lu-icon [name]="a.correct ? 'check' : 'x'" /></span
+                >{{ a.correct ? 'Chính xác!' : 'Sai rồi' }}
+              </p>
+              @if (a.explanationVi) {
+                <p class="explanation">
+                  <span class="explanation-label">Giải thích:</span> {{ a.explanationVi }}
+                </p>
+              }
+              <button type="button" class="redo" (click)="redo(i)">
+                <lu-icon name="review" /> Trả lời lại câu này
+              </button>
+          </lu-asker>
           <ul class="results">
             @for (o of q.options; track $index; let j = $index) {
               <li
@@ -50,27 +73,13 @@
               </li>
             }
           </ul>
-
-          <div class="feedback" [class.right]="a.correct" [class.wrong]="!a.correct">
-            <div class="feedback-head">
-              <span class="feedback-icon" aria-hidden="true"
-                ><lu-icon [name]="a.correct ? 'check' : 'x'"
-              /></span>
-              <p class="verdict">{{ a.correct ? 'Chính xác!' : 'Sai rồi' }}</p>
-            </div>
-            @if (a.explanationVi) {
-              <p class="explanation">
-                <span class="explanation-label">Giải thích:</span> {{ a.explanationVi }}
-              </p>
-            }
-            <button type="button" class="redo" (click)="redo(i)">
-              <lu-icon name="review" /> Trả lời lại câu này
-            </button>
-          </div>
         </div>
       } @else {
         <div class="question active" [attr.aria-busy]="sending()">
-          <p class="prompt" lang="en" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
+          <!-- The question asked by the boy, in a message bubble (design, 2026-10-15). -->
+          <lu-asker [label]="'Câu ' + (i + 1) + '/' + total()">
+              <p class="prompt" lang="en" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
+          </lu-asker>
           <div class="options" role="radiogroup" [attr.aria-labelledby]="'quiz-q-' + i">
             @for (o of q.options; track $index; let j = $index) {
               <label class="option" [class.picked]="picked() === j">
@@ -90,10 +99,19 @@
       }
     </div>
 
-    <div class="step-nav">
-      <button type="button" class="nav-btn" [disabled]="i === 0" (click)="show(i - 1)">
-        <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
-      </button>
+    <!-- The bar at the bottom of the screen: ← back to the text, then the main button. -->
+    <div class="bottom-bar">
+      <!-- ← the question before; from the first one, back to the text. -->
+      @if (shown() > 0 || canBack()) {
+        <button
+          type="button"
+          class="nav-btn"
+          [attr.aria-label]="shown() > 0 ? 'Câu trước' : 'Về bài đọc'"
+          (click)="shown() > 0 ? show(shown() - 1) : back.emit()"
+        >
+          <lu-icon name="arrow-left" />
+        </button>
+      }
       @if (!byIndex().has(i)) {
         <button
           type="button"
@@ -105,12 +123,11 @@
         </button>
       } @else if (nextOpen() !== -1) {
         <button type="button" class="btn-primary" (click)="show(nextOpen())">Câu tiếp theo</button>
+      } @else if (finishLabel()) {
+        <button type="button" class="btn-primary" (click)="finished.emit()">{{ finishLabel() }}</button>
       } @else {
         <button type="button" class="btn-primary" disabled>Đã trả lời hết</button>
       }
-      <button type="button" class="nav-btn" [disabled]="i >= total() - 1" (click)="show(i + 1)">
-        <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
-      </button>
     </div>
   }
 
@@ -121,16 +138,6 @@
     <div class="form-alert changed" role="alert">
       <p>Câu hỏi vừa được cập nhật.</p>
       <button type="button" class="btn" (click)="reload.emit()">Tải lại</button>
-    </div>
-  }
-  @if (answers().length > 0) {
-    <div class="quiz-foot">
-      @if (current() === -1) {
-        <p class="summary">Đúng {{ correct() }}/{{ total() }} câu</p>
-      }
-      <button type="button" class="restart" [disabled]="sending()" (click)="restart()">
-        <lu-icon name="review" /> Làm lại tất cả câu hỏi
-      </button>
     </div>
   }
   <p class="visually-hidden" aria-live="polite">{{ announcement() }}</p>

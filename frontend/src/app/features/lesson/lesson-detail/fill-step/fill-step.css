@@ -5,14 +5,7 @@
 
 /* One line at a time, in a practice card (design screens 4–5). */
 .turn {
-  gap: var(--space-3);
-}
-
-.line-tools {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
   gap: var(--space-2);
 }
 
@@ -21,17 +14,74 @@
 }
 
 
-.speaker {
-  font-weight: 700;
-}
-
+/* "Nghe câu" in the bubble: a quiet text button. */
 .listen {
   --icon-size: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  gap: var(--space-1);
+  min-height: 32px;
+  margin-top: 2px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
 }
 
 .line {
+  margin: 0;
   font: var(--text-reading) var(--font-ui);
-  line-height: 48px;
+  font-weight: 600;
+  line-height: 34px;
+}
+
+/* A blank with a word bank: a line, the chosen word on it. */
+.line-blank {
+  display: inline-block;
+  /* Every empty line as long, a short one; a chosen word makes it as long as itself. */
+  min-width: 3.5em;
+  min-height: 28px;
+  padding: 0 var(--space-1);
+  font: inherit;
+  line-height: 26px;
+  color: var(--color-primary-ink);
+  vertical-align: bottom;
+  background: none;
+  border: 0;
+  border-bottom: 2.5px solid var(--color-text-muted);
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+}
+
+.line-blank.selected {
+  background: var(--color-primary-soft);
+  border-bottom-color: var(--color-primary);
+}
+
+.line-blank:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.line-blank:disabled {
+  cursor: default;
+}
+
+.slot-ok .line-blank {
+  color: var(--color-ok);
+  border-bottom-color: var(--color-ok);
+}
+
+.slot-bad .line-blank {
+  color: var(--color-bad);
+  text-decoration: line-through;
+  border-bottom-color: var(--color-bad);
 }
 
 .slot {

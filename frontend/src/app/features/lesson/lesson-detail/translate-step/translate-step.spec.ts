@@ -64,7 +64,7 @@ describe('TranslateStep', () => {
 
   it('shows the sentence, its position, an empty answer and the bank', async () => {
     await render();
-    expect(text(el.querySelector('.source-head'))).toBe('Câu 1/4 · Tiếng Việt');
+    expect(text(el.querySelector('lu-asker .counter'))).toBe('Câu 1/4 · Tiếng Việt');
     expect(text(el.querySelector('.vi'))).toBe('"Rất vui được gặp bạn."');
     expect(chosen()).toEqual([]);
     expect(bankButtons().map((b) => text(b))).toEqual([
@@ -117,10 +117,9 @@ describe('TranslateStep', () => {
     expect(named('Câu tiếp theo')).toBeDefined();
   });
 
-  it('moves between the sentences with ← Câu tiếp theo →, and Hoàn thành after the last one', async () => {
+  it('moves on with Câu tiếp theo or Bỏ qua câu này, and Hoàn thành after the last one', async () => {
     await render();
-    expect(named('Câu trước').disabled).toBe(true);
-    await click(named('Câu sau'));
+    await click(named('Bỏ qua câu này'));
     expect(moves).toEqual([1]);
 
     await tap('Nice');
@@ -130,9 +129,6 @@ describe('TranslateStep', () => {
 
     fixture.componentRef.setInput('index', 3);
     await fixture.whenStable();
-    expect(named('Câu sau').disabled).toBe(true);
-    await click(named('Câu trước'));
-    expect(moves).toEqual([1, 1, 2]);
     expect(done).toBe(0);
     fixture.componentRef.setInput('translation', { ...translation, vi: 'Câu cuối.' });
     await fixture.whenStable();
@@ -180,7 +176,7 @@ describe('TranslateStep', () => {
     await fixture.whenStable();
     expect(chosen()).toEqual([]);
     expect(status()).toBe('');
-    expect(text(el.querySelector('.source-head'))).toBe('Câu 2/4 · Tiếng Việt');
+    expect(text(el.querySelector('lu-asker .counter'))).toBe('Câu 2/4 · Tiếng Việt');
   });
 
   it('works with the keyboard: every control is a button', async () => {

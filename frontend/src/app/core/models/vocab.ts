@@ -93,6 +93,21 @@ export interface DueList {
   nextDue: string | null;
 }
 
+/** The cards due on one day (YYYY-MM-DD in the learner's timezone). */
+export interface DayCount {
+  day: string;
+  count: number;
+}
+
+/** The overview of the review tab: cards by stage and the cards due on each of the next 7 days. */
+export interface ReviewForecast {
+  new: number;
+  learning: number;
+  known: number;
+  /** From today; today counts the overdue cards too. */
+  days: DayCount[];
+}
+
 /** Where a review happens: the review step of today's lesson (daily limit) or free review. */
 export type ReviewContext = 'daily' | 'free';
 

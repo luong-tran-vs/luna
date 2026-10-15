@@ -1,9 +1,15 @@
 .reading {
+  position: relative;
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
+}
+
+/* Opened on its own (/lessons/:id/read): page width and padding; in a lesson the page has them. */
+:host(.standalone) .reading {
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-4) var(--space-6);
+  /* Room for the bar at the bottom. */
+  padding: var(--space-3) var(--page-x) calc(48px + 2 * var(--space-3) + var(--space-3));
 }
 
 .reading-header {
@@ -18,25 +24,27 @@
   letter-spacing: 0.05em;
 }
 
+/* Opened on its own: the lesson's title on one line, so the questions fit the screen. */
 .title {
-  font: var(--text-xl) var(--font-ui);
+  overflow: hidden;
+  font: var(--text-lg) var(--font-ui);
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-/* How the reading text is used: tap a word, hold a sentence. */
-.tips {
-  display: grid;
+.reading-header {
   gap: var(--space-1);
+}
+
+/* How the text is used, on one line the learner can close for good. */
+.tips {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   margin: 0;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3);
   font: var(--text-sm) var(--font-ui);
-  color: var(--color-text);
-  list-style: none;
+  color: var(--color-text-muted);
   background: var(--color-primary-soft);
   border-radius: var(--radius-md);
 }
@@ -45,9 +53,79 @@
   color: var(--color-primary-ink);
 }
 
-.tip-key {
-  display: inline-block;
-  width: 1.5em;
+.tips > span:nth-child(2) {
+  flex: 1;
+}
+
+.tips-close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-muted);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+  --icon-size: 16px;
+}
+
+/* Over the questions: "Xem lại bài đọc" taking the room, "Làm lại tất cả" at its right. */
+.quiz-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.restart-all {
+  --icon-size: 16px;
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.restart-all:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* "Xem lại bài đọc" over the questions. */
+.peek {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  --icon-size: 18px;
+}
+
+.text[hidden] {
+  display: none;
 }
 
 /* Reading text: 18/30 px, about 65 characters per line on wide screens (design-system §4.1). */
@@ -83,8 +161,9 @@
   }
 }
 
+/* Short paragraphs of two or three sentences, a little space between them. */
 .para {
-  margin: 0 0 var(--space-4);
+  margin: 0 0 var(--space-3);
 }
 
 .w {
@@ -116,14 +195,11 @@
   height: 1px;
 }
 
-.finish {
-  display: grid;
-  justify-items: start;
-  gap: var(--space-2);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-line);
-}
-
 .done {
   font-weight: 600;
+}
+
+.finish-hint {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
 }

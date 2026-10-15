@@ -10,6 +10,7 @@ import {
 
 import { PracticeTranslation } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
+import { Asker } from '../../../../shared/components/asker/asker';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { checkTranslation } from '../practice-logic';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
@@ -21,7 +22,7 @@ import { SpeakButton } from '../../../../shared/directives/speak-button';
  */
 @Component({
   selector: 'lu-translate-step',
-  imports: [Icon, SpeakButton],
+  imports: [Asker, Icon, SpeakButton],
   templateUrl: './translate-step.html',
   styleUrls: ['../practice.css', './translate-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +32,10 @@ export class TranslateStep {
   readonly number = input(1);
   /** The button after the last sentence, e.g. "Sang bước Viết" or "Xong, về bài học". */
   readonly finishLabel = input('Hoàn thành');
+  /** Whether the bar shows ← to the step before. */
+  readonly canBack = input(false);
+  /** ← in the bar: the page goes to the step before. */
+  readonly back = output<void>();
   /** False when the browser has no voice: the listen buttons are hidden. */
   protected readonly canSpeak = inject(SpeechService).supported;
   readonly translation = input.required<PracticeTranslation>();
@@ -108,5 +113,14 @@ export class TranslateStep {
     );
     this.result.set(ok);
     this.checked.emit(ok);
+  }
+
+  /** Bỏ qua câu này: the next sentence unchecked, or out of the step after the last one. */
+  protected skip(): void {
+    if (this.index() < this.count() - 1) {
+      this.go.emit(this.index() + 1);
+    } else {
+      this.done.emit();
+    }
   }
 }

@@ -1,4 +1,8 @@
-/* Client sketch, screen 9: today's review card, then the schedule. */
+/* Design, 2026-10-15: today's cards and the mode, the cards by stage, the next 7 days, Sổ từ. */
+
+.screen.in-session {
+  padding-top: var(--space-2);
+}
 
 .muted {
   font: var(--text-sm) var(--font-ui);
@@ -8,11 +12,6 @@
 .hub {
   justify-items: center;
   text-align: center;
-}
-
-.hub-label {
-  justify-self: start;
-  font-weight: 600;
 }
 
 .hub-icon {
@@ -25,44 +24,164 @@
   --icon-size: 36px;
 }
 
-.due-count,
 .empty-title {
   font: var(--text-lg) var(--font-ui);
 }
 
-.modes {
+.start-head {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.hub-label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.due-count {
+  font: var(--text-xl) var(--font-ui);
+}
+
+.reload {
+  margin: 0 calc(-1 * var(--space-2)) 0 0;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+}
+
+/* The two modes as tiles with what each one does. */
+.modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-2);
 }
 
 .mode {
-  min-height: 44px;
-  padding: var(--space-2) var(--space-3);
-  font: var(--text-sm) var(--font-ui);
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  min-height: 56px;
+  padding: var(--space-2);
   color: var(--color-text);
   background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-full);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-md);
   cursor: pointer;
 }
 
+.mode-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+
+  --icon-size: 18px;
+}
+
+.mode-hint {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
 .mode[aria-checked='true'] {
-  font-weight: 600;
-  color: var(--color-on-primary);
-  background: var(--color-primary);
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
   border-color: var(--color-primary);
 }
 
-.schedule {
+/* Mới · Đang học · Đã thuộc. */
+.stages {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.when {
-  flex: none;
+.stages li {
+  display: grid;
+  justify-items: center;
+  padding: var(--space-3) var(--space-1);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.stage-n {
+  font: var(--text-lg) var(--font-ui);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.stages .learning .stage-n {
+  color: var(--color-primary-ink);
+}
+
+.stages .known .stage-n {
+  color: var(--color-ok);
+}
+
+/* The next 7 days as bars, today first. */
+.week-title {
   font: var(--text-sm) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-accent-ink);
+  font-weight: 700;
+}
+
+.bars {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-2);
+  height: 104px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bars li {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: stretch;
+  min-width: 0;
+  text-align: center;
+}
+
+.bar-count {
+  min-height: 16px;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.bar {
+  align-self: end;
+  min-height: 4px;
+  background: color-mix(in srgb, var(--color-primary) 22%, var(--color-surface));
+  border-radius: 6px 6px 2px 2px;
+}
+
+.today .bar {
+  background: var(--color-primary);
+}
+
+.bar-label {
+  margin-top: var(--space-1);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.today .bar-label,
+.today .bar-count {
+  font-weight: 700;
+  color: var(--color-primary-ink);
 }

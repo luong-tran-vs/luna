@@ -51,6 +51,10 @@ export class SpeakStep {
   readonly number = input(1);
   /** The button after the last sentence, e.g. "Sang bước Viết". */
   readonly finishLabel = input('Hoàn thành');
+  /** Whether the bar shows ← to the step before. */
+  readonly canBack = input(false);
+  /** ← in the bar: the page goes to the step before. */
+  readonly back = output<void>();
   /** Short sentences to repeat. */
   readonly sentences = input.required<string[]>();
   /** Hoàn thành on the last sentence: go to the next step. */
@@ -75,7 +79,6 @@ export class SpeakStep {
 
   protected readonly sentence = computed(() => this.sentences()[this.index()] ?? '');
   protected readonly attempt = computed(() => this.attempts().get(this.index()) ?? null);
-  protected readonly isFirst = computed(() => this.index() === 0);
   protected readonly isLast = computed(() => this.index() >= this.sentences().length - 1);
   protected readonly triedCount = computed(() => this.attempts().size);
   protected readonly verdict = computed<Verdict | null>(() => {

@@ -53,6 +53,7 @@ const VERDICT_LABELS: Record<Verdict, string> = { ok: 'Chính xác!', close: 'G�
   imports: [Loading, Icon, RouterLink, AudioBar],
   templateUrl: './listening.html',
   styleUrl: './listening.css',
+  host: { '[class.standalone]': 'mode() === null' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Listening implements OnInit {

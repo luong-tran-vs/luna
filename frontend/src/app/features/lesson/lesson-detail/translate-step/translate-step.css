@@ -1,23 +1,36 @@
 .translate {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
-.source,
 .built {
   gap: var(--space-2);
 }
 
-.source-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  min-height: 44px;
+/* The Vietnamese sentence in the boy's bubble. */
+.vi {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 600;
 }
 
-.vi {
-  font: var(--text-lg) var(--font-ui);
+/* "Nghe câu đúng" in the bubble once the sentence is right: a quiet text button. */
+.listen {
+  --icon-size: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  gap: var(--space-1);
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
 }
 
 .answer-area {

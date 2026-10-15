@@ -134,15 +134,13 @@
     }
 
     <p class="tried muted">Đã đọc {{ triedCount() }}/{{ sentences().length }} câu</p>
+    <!-- The bar at the bottom of the screen (design): ← to the step before, then the main button. -->
     <div class="step-nav">
-      <button
-        type="button"
-        class="nav-btn"
-        [disabled]="isFirst() || phase() !== 'idle'"
-        (click)="go(index() - 1)"
-      >
-        <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
-      </button>
+      @if (canBack()) {
+        <button type="button" class="nav-btn back-step" aria-label="Bước trước" [disabled]="phase() !== 'idle'" (click)="back.emit()">
+          <lu-icon name="arrow-left" />
+        </button>
+      }
       <button
         type="button"
         class="btn-primary"
@@ -150,14 +148,6 @@
         (click)="isLast() ? done.emit() : go(index() + 1)"
       >
         {{ isLast() ? finishLabel() : 'Câu tiếp theo' }}
-      </button>
-      <button
-        type="button"
-        class="nav-btn"
-        [disabled]="isLast() || phase() !== 'idle'"
-        (click)="go(index() + 1)"
-      >
-        <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
       </button>
     </div>
   </div>

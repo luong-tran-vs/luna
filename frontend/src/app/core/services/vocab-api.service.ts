@@ -13,6 +13,7 @@ import {
   DueList,
   LessonCounts,
   PracticeMisses,
+  ReviewForecast,
   ReviewInput,
   WordRef,
 } from '../models/vocab';
@@ -32,6 +33,10 @@ export class VocabApiService {
 
   due(limit = 50): Observable<DueList> {
     return this.http.get<DueList>('/vocab/review/due', { params: { limit: String(limit) } });
+  }
+
+  forecast(): Observable<ReviewForecast> {
+    return this.http.get<ReviewForecast>('/vocab/review/forecast');
   }
 
   review(cardId: string, input: ReviewInput): Observable<DueCard> {

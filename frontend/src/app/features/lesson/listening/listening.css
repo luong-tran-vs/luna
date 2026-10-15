@@ -1,9 +1,13 @@
 .listening {
   display: grid;
   gap: var(--space-4);
+}
+
+/* Opened on its own (/lessons/:id/listen): page width and padding; in a lesson the page has them. */
+:host(.standalone) .listening {
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-4) 0;
+  padding: var(--space-5) var(--page-x) 0;
 }
 
 .listening-header {

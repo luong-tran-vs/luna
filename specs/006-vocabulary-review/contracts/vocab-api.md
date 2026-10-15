@@ -61,6 +61,18 @@ và không có log.
 `cards` sắp `due` tăng dần; `total` = tổng số thẻ đến hạn; `nextDue` = thời điểm sớm nhất của thẻ chưa đến hạn (`null` khi
 không có).
 
+## GET /api/vocab/review/forecast
+
+Tổng quan cho tab Ôn tập. 200:
+
+```json
+{ "new": 3, "learning": 10, "known": 2,
+  "days": [{ "day": "2026-10-15", "count": 10 }, { "day": "2026-10-16", "count": 4 }, …] }
+```
+
+`new` = thẻ chưa ôn lần nào; `known` = thẻ ở trạng thái ôn với khoảng cách ≥ 21 ngày; `learning` = các thẻ còn lại.
+`days` có đúng 7 ngày, tính từ hôm nay theo múi giờ của người học. Hôm nay tính cả các thẻ đã quá hạn.
+
 ## POST /api/vocab/cards/{id}/review
 
 ```json

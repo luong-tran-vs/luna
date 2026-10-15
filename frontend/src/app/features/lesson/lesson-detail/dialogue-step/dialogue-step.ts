@@ -45,6 +45,10 @@ export class DialogueStep {
   readonly rate = model(1);
   /** The button under the dialogue, e.g. "Sang bước Viết" or "Xong, về bài học". */
   readonly finishLabel = input('Hoàn thành');
+  /** Whether the bar shows ← to the step before. */
+  readonly canBack = input(false);
+  /** ← in the bar: the page goes to the step before. */
+  readonly back = output<void>();
   /** The finishing button: the page moves on. */
   readonly finished = output<void>();
 

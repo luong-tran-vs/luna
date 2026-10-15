@@ -20,13 +20,14 @@ function card(id: string, text: string, reps = 0): DueCard {
 
 @Component({
   imports: [ReviewSession],
-  template: `<lu-review-session [cards]="cards()" [mode]="mode()" [context]="context()" (finished)="summaries.push($event)" />`,
+  template: `<lu-review-session [cards]="cards()" [mode]="mode()" [context]="context()" (finished)="summaries.push($event)" (closed)="closed = closed + 1" />`,
 })
 class Host {
   readonly cards = signal<DueCard[]>([card('c1', 'went'), card('c2', 'gave up')]);
   readonly mode = signal<ReviewMode>('flip');
   readonly context = signal<ReviewContext>('free');
   readonly summaries: ReviewSummary[] = [];
+  closed = 0;
 }
 
 describe('ReviewSession', () => {
@@ -41,8 +42,11 @@ describe('ReviewSession', () => {
     await fixture.whenStable();
   };
   const text = (selector: string) => el.querySelector(selector)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  // By its text or, for an icon or a rating button, its aria-label.
   const button = (label: string) =>
-    Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.replace(/\s+/g, ' ').trim() === label);
+    Array.from(el.querySelectorAll('button')).find(
+      (b) => b.textContent?.replace(/\s+/g, ' ').trim() === label || b.getAttribute('aria-label') === label,
+    );
   const buttonStarting = (label: string) =>
     Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label));
   const expectReview = (id: string): TestRequest => http.expectOne(`/vocab/cards/${id}/review`);
@@ -90,9 +94,10 @@ describe('ReviewSession', () => {
   describe('flip mode', () => {
     it('shows only the word until the card is flipped', async () => {
       await setup();
-      expect(text('.progress')).toBe('Thẻ 1/2');
+      expect(text('.progress-text')).toBe('1/2');
       expect(text('.word')).toBe('went');
-      expect(button('Nghe')).toBeTruthy();
+      expect(button('Nghe từ')).toBeTruthy();
+      expect(text('.counter')).toBe('Từ này nghĩa là gì?');
       expect(el.querySelector('.meaning')).toBeNull();
       expect(buttonStarting('Nhớ')).toBeUndefined();
       // The example sentence is on the front, the word marked, to guess the meaning from context.
@@ -127,6 +132,30 @@ describe('ReviewSession', () => {
       expect(el.querySelector('.meaning')).toBeNull();
     });
 
+    it('flips back to the front before rating, with the button or Space', async () => {
+      await setup();
+      button('Lật thẻ')!.click();
+      await settle();
+      expect(el.querySelector('.meaning')).toBeTruthy();
+
+      button('↺ Lật lại mặt trước')!.click();
+      await settle();
+      expect(el.querySelector('.meaning')).toBeNull();
+      expect(buttonStarting('Nhớ')).toBeUndefined();
+      expect(button('Lật thẻ')).toBeTruthy();
+
+      await keydown(' ');
+      expect(el.querySelector('.meaning')).toBeTruthy();
+      await keydown(' ');
+      expect(el.querySelector('.meaning')).toBeNull();
+    });
+
+    it('cannot flip back a typed answer in listen mode', async () => {
+      await setup('listen');
+      await typeAndCheck('went');
+      expect(button('↺ Lật lại mặt trước')).toBeUndefined();
+    });
+
     it('sends the review context', async () => {
       await setup();
       host.context.set('daily');
@@ -143,7 +172,7 @@ describe('ReviewSession', () => {
 
     it('plays the word', async () => {
       await setup();
-      button('Nghe')!.click();
+      button('Nghe từ')!.click();
       await settle();
       expect(speech.texts()).toContain('went');
     });
@@ -181,7 +210,7 @@ describe('ReviewSession', () => {
 
       // c1 again, with the intervals of its new schedule.
       expect(text('.word')).toBe('went');
-      expect(text('.progress')).toBe('Thẻ 3/3');
+      expect(text('.progress-text')).toBe('3/3');
       button('Lật thẻ')!.click();
       await settle();
       expect(button('Nhớ · 1 giờ')).toBeTruthy();
@@ -235,10 +264,17 @@ describe('ReviewSession', () => {
     });
   });
 
+  it('stops the session with ✕', async () => {
+    await setup();
+    button('Dừng ôn')!.click();
+    await settle();
+    expect(host.closed).toBe(1);
+  });
+
   describe('back and forward', () => {
     it('views a rated card again without rating it', async () => {
       await setup();
-      expect(button('Lui')!.disabled).toBe(true);
+      expect(button('Thẻ trước')!.disabled).toBe(true);
       button('Lật thẻ')!.click();
       await settle();
       button('Khó · 5 phút')!.click();
@@ -246,27 +282,27 @@ describe('ReviewSession', () => {
       expectReview('c1').flush({ card: { ...card('c1', 'went', 1), intervals } });
       await settle();
 
-      button('Lui')!.click();
+      button('Thẻ trước')!.click();
       await settle();
-      expect(text('.progress')).toBe('Thẻ 1/2');
+      expect(text('.progress-text')).toBe('1/2');
       expect(text('.word')).toBe('went');
       expect(text('.meaning')).toBe('nghĩa của went');
-      expect(text('.given')).toBe('Bạn đã chấm: Khó');
+      expect(text('.hint')).toBe('Bạn đã chấm: Khó');
       expect(buttonStarting('Nhớ')).toBeUndefined();
       await keydown('3'); // no rating while viewing
 
       await keydown('ArrowRight');
       expect(text('.word')).toBe('gave up');
-      expect(el.querySelector('.given')).toBeNull();
+      expect(text('.hint')).not.toContain('Bạn đã chấm');
       expect(button('Lật thẻ')).toBeTruthy();
     });
 
     it('skips the current card to the end', async () => {
       await setup('flip', [card('c1', 'went'), card('c2', 'gave up'), card('c3', 'ran')]);
-      button('Tới')!.click();
+      button('Để sau, ôn lại ở cuối')!.click();
       await settle();
       expect(text('.word')).toBe('gave up');
-      expect(text('.progress')).toBe('Thẻ 1/3');
+      expect(text('.progress-text')).toBe('1/3');
 
       for (const id of ['c2', 'c3']) {
         button('Lật thẻ')!.click();
@@ -277,9 +313,9 @@ describe('ReviewSession', () => {
         await settle();
       }
       expect(text('.word')).toBe('went');
-      expect(text('.progress')).toBe('Thẻ 3/3');
+      expect(text('.progress-text')).toBe('3/3');
       // The last card left cannot be skipped.
-      expect(button('Tới')!.disabled).toBe(true);
+      expect(button('Để sau, ôn lại ở cuối')).toBeUndefined();
     });
   });
 
@@ -290,7 +326,8 @@ describe('ReviewSession', () => {
       expect(el.querySelector('.word')).toBeNull();
       // The example would give the answer away.
       expect(el.querySelector('.example')).toBeNull();
-      expect(button('Nghe lại')).toBeTruthy();
+      expect(button('Nghe lại từ')).toBeTruthy();
+      expect(button('🐢 Nghe chậm')).toBeTruthy();
       expect(input().getAttribute('autocapitalize')).toBe('off');
       expect(input().getAttribute('spellcheck')).toBe('false');
     });
@@ -305,7 +342,8 @@ describe('ReviewSession', () => {
     it('accepts any case and shows the card', async () => {
       await setup('listen');
       await typeAndCheck('WENT');
-      expect(text('.verdict')).toBe('✓ Đúng');
+      expect(text('.counter')).toBe('✓ Đúng rồi');
+      expect(el.querySelector('.bubble.right')).toBeTruthy();
       expect(text('.word')).toBe('went');
       expect(text('.meaning')).toBe('nghĩa của went');
       expect(text('.example')).toBe('We went home.');
@@ -318,8 +356,17 @@ describe('ReviewSession', () => {
     it('says wrong and shows the right word', async () => {
       await setup('listen');
       await typeAndCheck('want');
-      expect(text('.verdict')).toBe('✗ Sai');
+      expect(text('.counter')).toBe('✗ Chưa đúng');
+      expect(el.querySelector('.bubble.wrong')).toBeTruthy();
+      expect(text('.typed')).toBe('Bạn gõ: want');
       expect(text('.word')).toBe('went');
+    });
+
+    it('plays the word slower', async () => {
+      await setup('listen');
+      button('🐢 Nghe chậm')!.click();
+      await settle();
+      expect(speech.last().rate).toBeLessThan(1);
     });
 
     it('lets the learner see the word when the browser cannot read it', async () => {

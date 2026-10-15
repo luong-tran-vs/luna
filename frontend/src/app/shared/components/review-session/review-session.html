@@ -8,89 +8,85 @@
     </ul>
   </div>
 } @else if (current(); as card) {
-  <div class="nav">
-    <button type="button" class="btn" aria-keyshortcuts="ArrowLeft" [disabled]="!canBack()" (click)="back()">Lui</button>
-    <p class="progress" aria-live="polite">Thẻ {{ index() + 1 }}/{{ queue().length }}</p>
-    <button
-      type="button"
-      class="btn"
-      aria-keyshortcuts="ArrowRight"
-      [attr.title]="reviewing() ? null : 'Bỏ qua thẻ này, ôn lại ở cuối'"
-      [disabled]="!canForward()"
-      (click)="forward()"
+  <!-- Like a lesson (design, 2026-10-15): ✕ and the progress at the top, the buttons at the bottom. -->
+  <header class="top-bar">
+    <button type="button" class="round-btn" aria-label="Dừng ôn" (click)="closed.emit()"><lu-icon name="x" /></button>
+    <div
+      class="progress"
+      role="progressbar"
+      aria-label="Tiến độ ôn tập"
+      aria-valuemin="1"
+      [attr.aria-valuemax]="queue().length"
+      [attr.aria-valuenow]="index() + 1"
+      [attr.aria-valuetext]="'Thẻ ' + (index() + 1) + '/' + queue().length"
     >
-      Tới
-    </button>
-  </div>
+      <span class="fill" [style.width.%]="((index() + 1) / queue().length) * 100"></span>
+    </div>
+    <span class="progress-text" aria-hidden="true">{{ index() + 1 }}/{{ queue().length }}</span>
+  </header>
 
-  <div class="card review-card">
+  <lu-asker [label]="askLabel()" [tone]="tone()">
     @if (mode() === 'flip' || shown()) {
-      <p class="word" lang="en">{{ card.text }}</p>
+      <p class="word-line">
+        <span class="word" lang="en">{{ card.text }}</span>
+        <button type="button" class="sound" [luSpeak]="card.text" (click)="play()">
+          <lu-icon name="volume" /><span class="visually-hidden">Nghe từ</span>
+        </button>
+      </p>
     } @else {
-      <p class="listen-hint">Nghe và gõ lại từ</p>
+      <!-- A solid triangle drawn in CSS (no lu-icon): while the word plays, SpeakButton shows its stop square. -->
+      <button type="button" class="play-big" [luSpeak]="card.text" (click)="play()">
+        <span class="triangle"></span><span class="visually-hidden">Nghe lại từ</span>
+      </button>
+      <p class="play-hint">Chạm để nghe lại</p>
+      <button type="button" class="slow" (click)="play(slowRate)">🐢 Nghe chậm</button>
+    }
+
+    @if (shown()) {
+      @if (tone() === 'wrong') {
+        <p class="typed">Bạn gõ: <s lang="en">{{ typed() }}</s></p>
+      }
+      @if (card.ipa) {
+        <p class="ipa">{{ card.ipa }}</p>
+      }
+      <p class="meaning">{{ card.meaningVi }}</p>
     }
 
     <!-- The example sentence: on the front in flip mode, only once shown in listen mode (it holds the answer). -->
     @if (example(); as ex) {
       @if (mode() === 'flip' || shown()) {
-        <div class="example-row">
-          <p class="example" lang="en">{{ ex[0] }}@if (ex[1]) {<mark>{{ ex[1] }}</mark>}{{ ex[2] }}</p>
-          <button type="button" class="example-play" [luSpeak]="card.contextSentence" (click)="playExample()">
+        <p class="example-row">
+          <span class="example" lang="en">{{ ex[0] }}@if (ex[1]) {<mark>{{ ex[1] }}</mark>}{{ ex[2] }}</span>
+          <button type="button" class="sound" [luSpeak]="card.contextSentence" (click)="playExample()">
             <lu-icon name="volume" /><span class="visually-hidden">Nghe câu ví dụ</span>
           </button>
-        </div>
-      }
-    }
-
-    <div class="tools">
-      @if (mode() === 'flip' && !shown()) {
-        <button #face type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>
-      }
-      <button type="button" class="btn" [luSpeak]="current()?.text" (click)="play()">{{ mode() === 'listen' ? 'Nghe lại' : 'Nghe' }}</button>
-      @if (playError()) {
-        <p class="play-error field-error" role="alert">Chưa đọc được từ này.</p>
-        @if (mode() === 'listen' && !shown()) {
-          <button type="button" class="btn" (click)="flip()">Hiện từ</button>
-        }
-      }
-    </div>
-
-    @if (!reviewing() && verdict(); as v) {
-      <p class="verdict" [class.correct]="v === 'correct'" [class.wrong]="v === 'wrong'" role="status">
-        {{ v === 'correct' ? '✓ Đúng' : '✗ Sai' }}
-      </p>
-    }
-
-    @if (shown()) {
-      <div class="back">
-        @if (card.ipa) {
-          <p class="ipa">{{ card.ipa }}</p>
-        }
-        <p class="meaning">{{ card.meaningVi }}</p>
+        </p>
         <!-- The example's translation only once the card is shown: the front keeps the English. -->
-        @if (card.contextSentence && card.contextSentenceVi) {
+        @if (shown() && card.contextSentenceVi) {
           <p class="example-vi">{{ card.contextSentenceVi }}</p>
         }
-      </div>
+      }
     }
-  </div>
+  </lu-asker>
+
+  @if (playError()) {
+    <p class="play-error field-error" role="alert">
+      Chưa đọc được từ này.
+      @if (mode() === 'listen' && !shown()) {
+        <button type="button" class="link-btn" (click)="flip()">Hiện từ</button>
+      }
+    </p>
+  }
 
   @if (reviewing()) {
-    <p class="given" role="status">Bạn đã chấm: {{ ratingName(given()[index()]) }}</p>
+    <p class="hint" role="status">Bạn đã chấm: {{ ratingName(given()[index()]) }}</p>
   } @else if (revealed()) {
-    <div class="ratings" role="group" aria-label="Bạn nhớ từ này thế nào?">
-      @for (r of ratings; track r.rating) {
-        <button
-          type="button"
-          [class]="'rating rating-' + r.key"
-          [disabled]="saving()"
-          [attr.aria-keyshortcuts]="r.rating"
-          (click)="rate(r.rating)"
-        >
-          {{ label(card, r) }}
-        </button>
-      }
-    </div>
+    <p class="hint">Bạn nhớ từ này thế nào?</p>
+    @if (mode() === 'flip') {
+      <button type="button" class="link-btn" aria-keyshortcuts="Space" [disabled]="saving()" (click)="unflip()">
+        ↺ Lật lại mặt trước
+      </button>
+    }
     @if (saveError()) {
       <div class="save-error banner-warning" role="alert">
         Chưa lưu được đánh giá.
@@ -98,14 +94,14 @@
       </div>
     }
   } @else if (mode() === 'listen') {
-    <form class="answer-bar" (submit)="check($event)">
+    <form id="review-answer-form" class="answer" (submit)="check($event)">
       <label class="visually-hidden" for="review-answer">Từ bạn nghe được</label>
       <input
         #answer
         id="review-answer"
         type="text"
         lang="en"
-        placeholder="Gõ từ bạn nghe được"
+        placeholder="Gõ từ bạn nghe được…"
         autocapitalize="off"
         autocorrect="off"
         autocomplete="off"
@@ -118,10 +114,54 @@
         (input)="onInput($event)"
         (focus)="onFocus($event)"
       />
-      <button type="submit" class="btn-primary">Kiểm tra</button>
       @if (answerError(); as message) {
         <p class="answer-error field-error" id="review-answer-error" role="alert">{{ message }}</p>
       }
     </form>
+  } @else {
+    <p class="hint">Nghĩ nghĩa của từ rồi lật thẻ để xem</p>
   }
+
+  @if (!reviewing() && !revealed() && canForward()) {
+    <button type="button" class="link-btn skip" aria-keyshortcuts="ArrowRight" (click)="forward()">
+      Để sau, ôn lại ở cuối
+    </button>
+  }
+
+  <!-- The bar at the bottom of the screen: ← the card before, then the main button or the ratings. -->
+  <div class="bottom-bar">
+    <button
+      type="button"
+      class="nav-btn"
+      aria-label="Thẻ trước"
+      aria-keyshortcuts="ArrowLeft"
+      [disabled]="!canBack()"
+      (click)="back()"
+    >
+      <lu-icon name="arrow-left" />
+    </button>
+    @if (reviewing()) {
+      <button type="button" class="btn-primary" aria-keyshortcuts="ArrowRight" (click)="forward()">Thẻ tiếp</button>
+    } @else if (revealed()) {
+      <div class="ratings" role="group" aria-label="Bạn nhớ từ này thế nào?">
+        @for (r of ratings; track r.rating) {
+          <button
+            type="button"
+            [class]="'rating rating-' + r.key"
+            [disabled]="saving()"
+            [attr.aria-label]="label(card, r)"
+            [attr.aria-keyshortcuts]="r.rating"
+            (click)="rate(r.rating)"
+          >
+            <span class="rating-name">{{ r.name }}</span>
+            <span class="rating-when">{{ interval(card, r) }}</span>
+          </button>
+        }
+      </div>
+    } @else if (mode() === 'listen') {
+      <button type="submit" form="review-answer-form" class="btn-primary">Kiểm tra</button>
+    } @else {
+      <button #face type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>
+    }
+  </div>
 }

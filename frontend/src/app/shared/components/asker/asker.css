@@ -1,0 +1,89 @@
+/*
+ * A message bubble, the boy asking it under its tail. The tail points at his raised hand: the
+ * hand is at 86% of the picture's width, the picture --boy-x from the left.
+ */
+:host {
+  --boy-x: var(--space-5);
+  --boy-h: 112px;
+  --boy-w: calc(var(--boy-h) * 0.637);
+  /* Room between the bubble and the boy's head; the tail is as long, down to his hand. */
+  --boy-gap: 6px;
+  --tail-h: 28px;
+
+  display: grid;
+  justify-items: start;
+}
+
+.bubble {
+  --tone: var(--color-primary);
+  --bubble-bg: var(--color-surface);
+  --bubble-line: color-mix(in srgb, var(--tone) 30%, var(--color-line));
+
+  position: relative;
+  display: grid;
+  gap: var(--space-1);
+  justify-self: stretch;
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  background: var(--bubble-bg);
+  border: 2px solid var(--bubble-line);
+  border-radius: 20px;
+  /* A drop shadow, not a box shadow, so the tail has it too. */
+  filter: drop-shadow(0 6px 12px color-mix(in srgb, var(--tone) 16%, transparent));
+}
+
+/*
+ * The tail: curved, flaring smoothly out of the bubble and leaning back to a round tip over the
+ * boy's raised hand (the tip at 9/36 of the box). Drawn as a mask so it takes the bubble's
+ * colours: the outline (the shape with a 4px stroke, half of it showing), then the fill over it,
+ * which covers the bubble's border where they meet.
+ */
+.bubble::before,
+.bubble::after {
+  position: absolute;
+  bottom: calc(-1 * var(--tail-h));
+  left: calc(var(--boy-x) + var(--boy-w) * 0.86 - var(--tail-h) * 9 / 42);
+  width: calc(var(--tail-h) * 36 / 42);
+  height: var(--tail-h);
+  content: '';
+  -webkit-mask: var(--tail) no-repeat 0 0 / 100% 100%;
+  mask: var(--tail) no-repeat 0 0 / 100% 100%;
+}
+
+.bubble::before {
+  --tail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 42'%3E%3Cpath d='M0 -4H36V0C30 0 27 2.8 25 8.4C22 18.2 17 28 11 35Q8 38.6 8.6 33.6C10 23.8 10 12.6 8.5 4.9C7.8 1.7 5.5 0 0 0Z' stroke='black' stroke-width='6' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+  background: var(--bubble-line);
+}
+
+.bubble::after {
+  --tail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 42'%3E%3Cpath d='M0 -4H36V0C30 0 27 2.8 25 8.4C22 18.2 17 28 11 35Q8 38.6 8.6 33.6C10 23.8 10 12.6 8.5 4.9C7.8 1.7 5.5 0 0 0Z'/%3E%3C/svg%3E");
+
+  background: var(--bubble-bg);
+}
+
+.bubble.right {
+  --tone: var(--color-ok);
+  --bubble-bg: color-mix(in srgb, var(--color-ok) 10%, var(--color-surface));
+}
+
+.bubble.wrong {
+  --tone: var(--color-bad);
+  --bubble-bg: color-mix(in srgb, var(--color-bad) 8%, var(--color-surface));
+}
+
+.counter {
+  margin: 0;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--tone);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.boy {
+  width: var(--boy-w);
+  height: var(--boy-h);
+  margin: var(--boy-gap) 0 0 var(--boy-x);
+}
+

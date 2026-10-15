@@ -76,6 +76,32 @@ func (h *Handler) due(w http.ResponseWriter, r *http.Request) {
 	httpx.WriteJSON(w, http.StatusOK, out)
 }
 
+type dayCountJSON struct {
+	Day   string `json:"day"`
+	Count int    `json:"count"`
+}
+
+type forecastJSON struct {
+	New      int            `json:"new"`
+	Learning int            `json:"learning"`
+	Known    int            `json:"known"`
+	Days     []dayCountJSON `json:"days"`
+}
+
+func (h *Handler) forecast(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	f, err := h.svc.Forecast(r.Context(), p.UserID)
+	if err != nil {
+		h.fail(w, r, "review forecast failed", err)
+		return
+	}
+	out := forecastJSON{New: f.New, Learning: f.Learning, Known: f.Known, Days: make([]dayCountJSON, len(f.Days))}
+	for i, d := range f.Days {
+		out.Days[i] = dayCountJSON(d)
+	}
+	httpx.WriteJSON(w, http.StatusOK, out)
+}
+
 func (h *Handler) review(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())
 	var req reviewRequest

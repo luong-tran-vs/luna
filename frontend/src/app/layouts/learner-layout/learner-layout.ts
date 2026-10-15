@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
 
+import { FocusMode } from '../../core/services/focus-mode.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
 import { ConnectionStatusBar } from '../../shared/components/connection-status/connection-status';
@@ -60,6 +61,7 @@ export function isFocusPage(path: string): boolean {
 export class LearnerLayout {
   private readonly router = inject(Router);
   private readonly theme = inject(ThemeService);
+  private readonly focusMode = inject(FocusMode);
   protected readonly notifier = inject(WritingNotifier);
 
   protected readonly tabs = TABS;
@@ -70,7 +72,7 @@ export class LearnerLayout {
     ),
     { initialValue: this.currentPath() },
   );
-  protected readonly focus = computed(() => isFocusPage(this.path()));
+  protected readonly focus = computed(() => isFocusPage(this.path()) || this.focusMode.on());
   protected readonly dark = computed(() => this.theme.resolved() === 'dark');
 
   /** Same switch as "Chế độ tối" in Tài khoản: saved to the account when logged in. */

@@ -1,71 +1,153 @@
+/* Laid out like a lesson step: room at the bottom for the fixed bar. */
 :host {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
+}
+
+:host(.has-bar) {
+  padding-bottom: 88px;
 }
 
 .card {
   display: grid;
   gap: var(--space-3);
-  padding: var(--space-5) var(--space-4);
+  padding: var(--space-5) var(--page-x);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
 }
 
-.nav {
+/* ✕, the progress and n/total, as at the top of a lesson. */
+.top-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: var(--space-2);
-}
-
-.given {
-  text-align: center;
-  color: var(--color-text-muted);
+  gap: var(--space-3);
+  min-height: 44px;
 }
 
 .progress {
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+
+.progress-text {
   font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
   color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.review-card {
-  justify-items: center;
-  text-align: center;
-}
-
-.word {
-  font: var(--text-2xl) var(--font-ui);
-  color: var(--color-text);
-}
-
-.listen-hint {
-  color: var(--color-text-muted);
-}
-
-.tools {
+/* In the bubble: the word with its sound button. */
+.word-line {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: var(--space-2);
 }
 
-.verdict {
+.word {
+  font: var(--text-2xl) var(--font-ui);
   font-weight: 700;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
 }
 
-.verdict.correct {
-  color: var(--color-ok);
+.sound {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+  --icon-size: 20px;
 }
 
-.verdict.wrong {
-  color: var(--color-bad);
+.sound:hover {
+  background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
 }
 
-.back {
-  display: grid;
-  gap: var(--space-2);
+/* Listen mode: one big round button to hear the word again, a slower one under it. */
+.play-big {
+  display: inline-flex;
+  justify-self: center;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  margin-top: var(--space-1);
+  padding: 0;
+  /* The size of SpeakButton's stop square while the word plays. */
+  font-size: 28px;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  cursor: pointer;
+}
+
+/* Solid, its centre of mass (a third of its width) on the button's centre. */
+.triangle {
+  width: 26px;
+  height: 30px;
+  margin-left: 9px;
+  background: currentColor;
+  border-radius: 3px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.play-hint {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.slow {
+  display: inline-flex;
+  justify-self: center;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.slow:hover {
+  background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+}
+
+/* Room to spare on these screens: a bigger boy, nearer the middle; the tail follows his hand. */
+lu-asker {
+  --boy-h: 176px;
+  --boy-x: calc(50% - var(--boy-w) * 0.6);
+}
+
+.typed {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
 }
 
 .ipa {
@@ -74,30 +156,24 @@
 }
 
 .meaning {
-  font: var(--text-lg) var(--font-ui);
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
 }
 
-.example-vi {
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
-}
-
-/* The example sentence under the word, with the word marked and a button to hear it. */
+/* The example sentence, the word marked, with a button to hear it. */
 .example-row {
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3);
-  text-align: left;
-  background: var(--color-primary-soft);
-  border-radius: var(--radius-md);
+  margin-top: var(--space-1);
 }
 
 .example {
-  flex: 1;
-  font: var(--text-reading) var(--font-ui);
-  color: var(--color-text);
+  font: var(--text-base) var(--font-ui);
   font-style: italic;
+  color: var(--color-text);
 }
 
 .example mark {
@@ -107,76 +183,119 @@
   background: none;
 }
 
-.example-play {
-  display: inline-flex;
-  flex: none;
-  align-items: center;
+.example-row .sound {
+  width: 36px;
+  height: 36px;
+
+  --icon-size: 18px;
+}
+
+.example-vi {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.hint {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.play-error {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  margin: calc(-1 * var(--space-2));
-  padding: 0;
-  color: var(--color-primary-ink);
-  background: none;
-  border: 0;
-  border-radius: 50%;
-  cursor: pointer;
-
-  --icon-size: 20px;
-}
-
-.example-play:hover {
-  background: var(--color-surface);
-}
-
-/* Four rating buttons: two per row on phones, one row when there is room. */
-.ratings {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
   gap: var(--space-2);
 }
 
-@media (min-width: 600px) {
-  .ratings {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.skip {
+  justify-self: center;
+}
+
+/* The typed answer, the full width under the boy. */
+.answer {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.answer input {
+  min-width: 0;
+  min-height: 48px;
+  padding: var(--space-2) var(--space-4);
+  font: var(--text-lg) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid color-mix(in srgb, var(--color-primary) 40%, var(--color-line));
+  border-radius: var(--radius-md);
+}
+
+.answer input:focus-visible {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.answer input[aria-invalid='true'] {
+  border-color: var(--color-bad);
+}
+
+/* Four solid rating buttons in the bottom bar, each with when the card comes back. */
+.ratings {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
 }
 
 .rating {
-  min-height: 52px;
-  padding: var(--space-2);
+  display: grid;
+  place-content: center;
+  min-width: 0;
+  min-height: 48px;
+  padding: var(--space-1);
   font: var(--text-sm) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-top: var(--space-1) solid var(--color-line);
+  color: var(--color-on-primary);
+  background: var(--rating);
+  border: 0;
   border-radius: var(--radius-md);
   cursor: pointer;
 }
 
+.rating-name {
+  font-weight: 700;
+}
+
+.rating-when {
+  font: var(--text-xs) var(--font-ui);
+}
+
+/*
+ * The tones mixed toward the text colour: darker under white text in the light theme, lighter
+ * under dark text in the dark one, so the label keeps a 4.5:1 contrast either way.
+ */
 .rating-again {
-  border-top-color: var(--color-bad);
+  --rating: color-mix(in srgb, var(--color-bad) 85%, var(--color-text));
 }
 
 .rating-hard {
-  border-top-color: var(--color-warn);
+  --rating: color-mix(in srgb, var(--color-warn) 70%, var(--color-text));
 }
 
 .rating-good {
-  border-top-color: var(--color-ok);
+  --rating: color-mix(in srgb, var(--color-ok) 85%, var(--color-text));
 }
 
 .rating-easy {
-  border-top-color: var(--color-primary);
+  --rating: var(--color-primary);
 }
 
 .rating:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+  filter: brightness(1.08);
 }
 
 .rating:disabled {
   cursor: progress;
+  opacity: 0.7;
 }
 
 .save-error {
@@ -198,34 +317,4 @@
   padding: 0;
   list-style: none;
   color: var(--color-text-muted);
-}
-
-/* Same answer bar as the Listening step: stays above the on-screen keyboard. */
-.answer-bar {
-  position: sticky;
-  bottom: var(--tabbar-h, 0px);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-2);
-  padding: var(--space-3) 0;
-  background: var(--color-bg);
-}
-
-.answer-bar input {
-  min-width: 0;
-  min-height: 44px;
-  padding: var(--space-2) var(--space-3);
-  font: var(--text-base) var(--font-ui);
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-text-muted);
-  border-radius: var(--radius-md);
-}
-
-.answer-bar input[aria-invalid='true'] {
-  border-color: var(--color-bad);
-}
-
-.answer-error {
-  grid-column: 1 / -1;
 }

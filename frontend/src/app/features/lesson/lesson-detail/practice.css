@@ -154,16 +154,34 @@
 }
 
 /*
- * The step's own way forward stays at hand at the bottom of the screen while its card is on it:
- * the lesson page has no second bar for these steps (one way forward).
+ * The step's buttons are the lesson's bar at the bottom of the screen (design, 2026-10-14): ← to
+ * the step before, then the main button (Kiểm tra, Câu tiếp theo, Sang bước …). The page leaves
+ * room for it (.practice-page.has-next).
  */
 .step-nav {
-  position: sticky;
-  bottom: calc(var(--tabbar-h, 0px) + var(--space-2));
-  z-index: 2;
-  padding: var(--space-2);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  position: fixed;
+  right: 0;
+  bottom: var(--tabbar-h, 0px);
+  left: 0;
+  z-index: 5;
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  padding: var(--space-3) max(var(--space-4), calc((100% - 608px) / 2));
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-line);
 }
+
+.step-nav > .btn-primary,
+.step-nav > .btn {
+  flex: 1;
+  width: auto;
+  min-height: 48px;
+}
+
+.step-nav > .nav-btn {
+  flex: none;
+  width: 48px;
+  height: 48px;
+}
+

@@ -8,15 +8,17 @@
         </button>
       }
     </div>
-    <p class="step-hint">Chọn hoặc gõ từ còn thiếu.</p>
+    <p class="step-hint">{{ picking() ? 'Chạm ô trống rồi chọn từ bên dưới.' : 'Gõ từ còn thiếu.' }}</p>
   </div>
 
   @if (turn(); as t) {
-    <div class="turn step-card">
-      <div class="step-card-head">
-        <span class="speaker">{{ speaker(t.speaker) }}</span>
-        <span class="muted" aria-live="polite">Câu {{ shown() + 1 }}/{{ turns().length }}</span>
-      </div>
+    <div class="turn">
+      <p class="visually-hidden" aria-live="polite">Câu {{ shown() + 1 }}/{{ turns().length }}</p>
+      <!-- The line asked by the boy, in a message bubble, like the reading questions. -->
+      <lu-asker
+        [label]="'Câu ' + (shown() + 1) + '/' + turns().length + (speaker(t.speaker) ? ' · ' + speaker(t.speaker) : '')"
+        [tone]="lineChecked() ? (lineScore().correct === lineScore().total ? 'right' : 'wrong') : null"
+      >
       <p class="line" lang="en">
         @for (p of t.parts; track $index) {
           @if (p.kind === 'text') {
@@ -24,6 +26,22 @@
           } @else {
             @let r = results()[p.index];
             <span class="slot" [class.slot-ok]="r === true" [class.slot-bad]="r === false">
+              @if (picking()) {
+                <!-- With a word bank the blank is a line: tap it to choose it (or to take its word out). -->
+                <button
+                  type="button"
+                  class="line-blank"
+                  lang="en"
+                  [id]="'fill-blank-' + p.index"
+                  [class.filled]="answers()[p.index] !== ''"
+                  [class.selected]="selected() === p.index && r === null"
+                  [attr.aria-label]="'Ô trống ' + (p.index + 1) + (answers()[p.index] ? ': ' + answers()[p.index] : ', chưa điền')"
+                  [disabled]="r !== null"
+                  (click)="tapBlank(p.index)"
+                >
+                  {{ answers()[p.index] }}
+                </button>
+              } @else {
               <input
                 type="text"
                 class="blank"
@@ -43,6 +61,7 @@
                 (focus)="select(p.index)"
                 (keydown.enter)="enter(p.index, $event)"
               />
+              }
               @if (r === true) {
                 <span class="mark mark-ok" lang="vi"><lu-icon name="check" /> Đúng</span>
               } @else if (r === false) {
@@ -55,26 +74,22 @@
           }
         }
       </p>
-      <div class="line-tools">
-        <p class="meaning">{{ t.meaningVi }}</p>
-        @if (turnText(t.turnIndex); as sentence) {
-          <button
-            type="button"
-            class="btn listen"
-            [attr.aria-label]="'Nghe câu ' + (shown() + 1)"
-            [luSpeak]="sentence"
-            (click)="readAloud.emit(sentence)"
-          >
-            <lu-icon name="volume" /> Nghe câu
-          </button>
-        }
-      </div>
+      <p class="meaning">{{ t.meaningVi }}</p>
+      @if (turnText(t.turnIndex); as sentence) {
+        <button
+          type="button"
+          class="listen"
+          [attr.aria-label]="'Nghe câu ' + (shown() + 1)"
+          [luSpeak]="sentence"
+          (click)="readAloud.emit(sentence)"
+        >
+          <lu-icon name="volume" /> Nghe câu
+        </button>
+      }
+      </lu-asker>
 
       @if (!lineChecked()) {
-        <div class="bank-head">
-          <h3 class="bank-title" id="fill-bank-heading">Ngân hàng từ</h3>
-          <span class="muted">Bấm từ để điền vào ô</span>
-        </div>
+        <h3 class="visually-hidden" id="fill-bank-heading">Ngân hàng từ</h3>
         <ul class="tiles" aria-labelledby="fill-bank-heading">
           @for (t of tiles(); track t.word) {
             <li>
@@ -110,10 +125,16 @@
         </button>
       }
 
+      @if (!lineChecked()) {
+        <button type="button" class="link-btn skip-line" (click)="skipLine()">Bỏ qua câu này</button>
+      }
+      <!-- The bar at the bottom of the screen (design): ← to the step before, then the main button. -->
       <div class="step-nav">
-        <button type="button" class="nav-btn" [disabled]="shown() === 0" (click)="show(shown() - 1)">
-          <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
-        </button>
+        @if (canBack()) {
+          <button type="button" class="nav-btn back-step" aria-label="Bước trước" (click)="back.emit()">
+            <lu-icon name="arrow-left" />
+          </button>
+        }
         @if (!lineChecked()) {
           <button
             type="button"
@@ -128,9 +149,6 @@
             {{ isLast() ? finishLabel() : 'Câu tiếp theo' }}
           </button>
         }
-        <button type="button" class="nav-btn" [disabled]="isLast()" (click)="show(shown() + 1)">
-          <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
-        </button>
       </div>
       <p class="muted progress-line">
         Đã kiểm tra {{ checkedCount() }}/{{ blankTurnCount() }} câu có ô trống

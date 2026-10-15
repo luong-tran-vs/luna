@@ -220,8 +220,11 @@ export class LessonDetail {
   protected readonly stepError = signal<string | null>(null);
 
   protected readonly tab = signal<Tab>('lesson');
-  /** The lesson's details (objective, level, steps, Luyện thêm) under its one-line title. */
-  protected readonly infoOpen = signal(false);
+  /**
+   * The lesson's overview (steps and their state, time, objective, Luyện thêm) instead of the
+   * step: shown when a lesson being learnt opens, and from "i".
+   */
+  protected readonly overview = signal(false);
   /** The Luyện thêm practice on screen, over the step the learner was on. */
   protected readonly extra = signal<ExtraKey | null>(null);
   /** Practice gone through to its end on this page (the dialogue and speaking have no score). */
@@ -302,6 +305,29 @@ export class LessonDetail {
     }
     return keys;
   });
+  /**
+   * Luyện thêm opens once Nghe is done: the practice is made of the lesson's text and dialogue, so
+   * before Đọc and Nghe it is guesswork and gives their answers away. A lesson learnt again, or
+   * finished, has it open at once, and so has the summary at the end of the steps.
+   */
+  protected readonly extrasOpen = computed(
+    () =>
+      !this.studyFlow() ||
+      this.relearn() ||
+      this.lessonDone() ||
+      this.finished() ||
+      this.study()?.steps.listen === 'done',
+  );
+  /** On Viết still to do, once Luyện thêm is open: a quiet offer to practise before writing. */
+  protected readonly offerExtras = computed(
+    () =>
+      this.extras().length > 0 &&
+      this.extrasOpen() &&
+      !this.extra() &&
+      !this.overview() &&
+      this.current() === 'write' &&
+      !this.studyStepDone(),
+  );
   /** "5 bước · khoảng 17 phút" in the lesson's details. */
   protected readonly estimate = computed(() => {
     const steps = this.steps();
@@ -372,33 +398,56 @@ export class LessonDetail {
     }
     return this.isLast() ? 'Hoàn thành' : `Sang bước ${this.nextName()}`;
   });
-  /**
-   * The bar's main button: Tiếp theo, or "Sang kỹ năng tiếp theo" on a lesson step still to do
-   * (the learner may leave it for later and come back). Not on the last step still to do (Viết has
-   * its own Nộp and Bỏ qua), nor on the words, which must be gone through first.
-   */
-  protected readonly canGoOn = computed(
-    () => !this.studyStep() || this.studyStepDone() || !this.isLast(),
-  );
   /** True on a lesson step still to do: moving on leaves it for later. */
   protected readonly skipping = computed(() => !!this.studyStep() && !this.studyStepDone());
-  protected readonly canGoBack = computed(() => this.step() > 1);
+  /** Some of the lesson is done (learning it again starts over): "Tiếp tục", else "Bắt đầu". */
+  private readonly started = computed(
+    () => this.step() > 1 || (this.studyFlow() && !this.relearn() && STEPS.some((s) => this.study()?.steps[s] === 'done')),
+  );
   /**
-   * The bar at the bottom: only for a lesson step already done, shown again read only (it has no
-   * button of its own). Every other step moves on with its own button: one way forward.
+   * ← in the bar: back from Luyện thêm, to the step before, or from the first step to the
+   * overview of a lesson being learnt.
+   */
+  protected readonly canBack = computed(
+    () => !this.overview() && (!!this.extra() || this.step() > 1 || this.learning()),
+  );
+  /** Đọc and the practice steps put their own buttons in the bar (← and Kiểm tra, Câu tiếp, …). */
+  protected readonly ownBar = computed(() => {
+    const key = this.onScreen();
+    return (
+      !this.overview() &&
+      (key === 'read' || key === 'dialogue' || key === 'fill' || key === 'translate' || key === 'speak')
+    );
+  });
+  /**
+   * The bar's main button where the step has none of its own: start or go on from the overview,
+   * leave a lesson step still to do for later (not the last one), or go on from a step done.
+   * Null on the words (their card has its own) and on Viết still to do (Nộp, Bỏ qua).
+   */
+  protected readonly barMain = computed<{ label: string; leave: boolean } | null>(() => {
+    if (this.overview()) {
+      const key = this.current();
+      return key ? { label: `${this.started() ? 'Tiếp tục' : 'Bắt đầu'}: ${STEP_NAMES[key]}`, leave: false } : null;
+    }
+    if (this.extra() || !this.studyStep()) {
+      return null;
+    }
+    if (this.studyStepDone()) {
+      return { label: this.isLast() ? 'Hoàn thành' : `Sang bước ${this.nextName()}`, leave: false };
+    }
+    return this.isLast() ? null : { label: `Để sau, sang bước ${this.nextName()}`, leave: true };
+  });
+  /**
+   * The bar at the bottom of the lesson: ← and the main button (design, 2026-10-14). The practice
+   * steps render theirs with their own buttons; the done card and the summary have their own.
    */
   protected readonly showBar = computed(
     () =>
       this.shownTab() === 'lesson' &&
-      !this.extra() &&
-      !this.finished() &&
-      !this.lessonDone() &&
-      this.studyStepDone() &&
-      (this.canGoBack() || this.canGoOn()),
-  );
-  /** "Để sau, sang bước Nghe": a lesson step still to do can be left for later (not the last one). */
-  protected readonly canLeave = computed(
-    () => this.shownTab() === 'lesson' && !this.extra() && this.skipping() && !this.isLast(),
+      this.hasSteps() &&
+      !this.ownBar() &&
+      (!!this.extra() || (!this.finished() && !this.lessonDone())) &&
+      (this.canBack() || this.barMain() !== null),
   );
   private readonly isLast = computed(() => this.step() >= this.steps().length);
   /**
@@ -485,7 +534,7 @@ export class LessonDetail {
     this.missCount.set(0);
     this.stepError.set(null);
     this.tab.set('lesson');
-    this.infoOpen.set(false);
+    this.overview.set(false);
     this.extra.set(null);
     this.practiced.set(new Set());
     this.step.set(1);
@@ -509,6 +558,8 @@ export class LessonDetail {
         this.resumeStep(r.study);
         this.restoreSavedStep();
         this.restored.set(true);
+        // A lesson being learnt opens on its overview, the bar going on from where the learner is.
+        this.overview.set(this.learning() && this.hasSteps());
         this.lesson.set(r.lesson);
       },
       error: (err: unknown) => this.loadError.set(loadErrorMessage(err)),
@@ -576,19 +627,40 @@ export class LessonDetail {
   }
 
   /** Reading goes on across tabs; the Bài học tab stays as it was. */
-  protected selectTab(tab: Tab): void {
-    this.tab.set(tab);
+  /** "Bài đọc" in the title line: the text and its grammar note, then back to the lesson. */
+  protected toggleReading(): void {
+    this.tab.set(this.tab() === 'lesson' ? 'reading' : 'lesson');
   }
 
-  protected onTabKeydown(event: KeyboardEvent): void {
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
-      return;
+  /** "i": the overview of the lesson, or back to the step from it. */
+  protected toggleOverview(): void {
+    this.speech.stop();
+    this.tab.set('lesson');
+    this.overview.set(!this.overview());
+    this.toTop();
+  }
+
+  /** ← in the bar: back from Luyện thêm, else to the step before, from the first to the overview. */
+  protected goBack(): void {
+    if (this.extra()) {
+      this.closeExtra();
+    } else if (this.step() > 1) {
+      this.back();
+    } else if (this.learning()) {
+      this.speech.stop();
+      this.overview.set(true);
+      this.toTop();
     }
-    event.preventDefault();
-    const tab: Tab = this.tab() === 'lesson' ? 'reading' : 'lesson';
-    this.selectTab(tab);
-    const list = (event.currentTarget as HTMLElement).closest('[role="tablist"]');
-    list?.querySelector<HTMLElement>(`#tab-${tab}`)?.focus();
+  }
+
+  /** The bar's main button: start from the overview, else on to the next step. */
+  protected barAction(): void {
+    if (this.overview()) {
+      this.overview.set(false);
+      this.toTop();
+    } else {
+      this.next();
+    }
   }
 
   protected onFillChecked(score: Score): void {
@@ -631,8 +703,11 @@ export class LessonDetail {
 
   /** Opens a Luyện thêm practice over the step the learner is on. */
   protected openExtra(key: ExtraKey): void {
+    if (!this.extrasOpen()) {
+      return;
+    }
     this.speech.stop();
-    this.infoOpen.set(false);
+    this.overview.set(false);
     this.tab.set('lesson');
     this.extra.set(key);
     this.toTop();
@@ -650,7 +725,7 @@ export class LessonDetail {
       this.openExtra(key as ExtraKey);
       return;
     }
-    this.infoOpen.set(false);
+    this.overview.set(false);
     this.tab.set('lesson');
     this.extra.set(null);
     this.finished.set(false);
@@ -750,6 +825,7 @@ export class LessonDetail {
     this.relearn.set(true);
     this.tab.set('lesson');
     this.retry();
+    this.overview.set(true);
   }
 
   /** Làm lại câu này in the translation: its result is forgotten until it is checked again. */

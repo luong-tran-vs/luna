@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, linkedSignal, output, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../../core/interceptors/error-interceptor';
 import { Quiz, QuizAnswer } from '../../../../core/models/reading';
+import { Asker } from '../../../../shared/components/asker/asker';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { ReadingApiService } from '../../reading-api.service';
 
@@ -14,14 +15,15 @@ export interface QuizScore {
 const SEND_FAILED = 'Không gửi được câu trả lời, vui lòng thử lại.';
 
 /**
- * Comprehension questions of the Reading step (F15): one question on screen at a time, with ← →
- * to move between them; pick an option then Kiểm tra; the result (text and symbol, not only
- * colour) shows at once, no second answer. Answers come from the server, so reloading resumes at
- * the first unanswered question.
+ * Comprehension questions of the Reading step (F15): one question on screen at a time, asked by a
+ * boy in a message bubble (design, 2026-10-15), its dots to move between them; pick an option
+ * then Kiểm tra in the bar; the result (text and symbol, not only colour) shows at once in the
+ * bubble, the right and wrong options marked. Answers come from the server, so reloading resumes
+ * at the first unanswered question.
  */
 @Component({
   selector: 'lu-comprehension-quiz',
-  imports: [Icon],
+  imports: [Asker, Icon],
   templateUrl: './comprehension-quiz.html',
   styleUrl: './comprehension-quiz.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,9 +40,23 @@ export class ComprehensionQuiz {
   readonly allAnswered = output<QuizScore>();
   /** The questions changed on the server; the page should load them again. */
   readonly reload = output<void>();
+  /** Whether the bar shows ← (back to the text). */
+  readonly canBack = input(false);
+  /** In a lesson the dots sit on the line of the step's title (the reading page places them). */
+  readonly dotsInHeading = input(false);
+  /** The button once every question is answered, e.g. "Tiếp tục" or "Sang bước Nghe"; empty for none. */
+  readonly finishLabel = input('');
+  /** Its own "Làm lại tất cả" in the top row; the reading page puts it next to "Xem lại bài đọc". */
+  readonly showRestart = input(true);
+  readonly back = output<void>();
+  readonly finished = output<void>();
 
   protected readonly answers = linkedSignal(() => [...this.quiz().answers]);
   protected readonly sending = signal(false);
+  /** For a "Làm lại tất cả" outside: whether it is busy. */
+  readonly busy = computed(() => this.sending());
+  /** How many questions are answered, each time it changes (for a "Làm lại tất cả" outside). */
+  readonly answeredCount = output<number>();
   protected readonly error = signal<string | null>(null);
   protected readonly changed = signal(false);
   protected readonly announcement = signal('');
@@ -119,6 +135,15 @@ export class ComprehensionQuiz {
   }
 
   /** Làm lại tất cả: every answer is forgotten on the server too, back to the first question. */
+  constructor() {
+    effect(() => this.answeredCount.emit(this.answers().length));
+  }
+
+  /** "Làm lại tất cả" from outside (the reading page's row). */
+  restartAll(): Promise<void> {
+    return this.restart();
+  }
+
   protected async restart(): Promise<void> {
     if (this.sending()) {
       return;

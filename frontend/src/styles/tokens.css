@@ -61,6 +61,17 @@
   --space-4: 16px;
   --space-5: 24px;
   --space-6: 32px;
+
+  /* Room on the sides of a page and inside a card: less on small phones, so content gets the width. */
+  --page-x: var(--space-4);
+  --card-pad: var(--space-4);
+}
+
+@media (max-width: 480px) {
+  :root {
+    --page-x: var(--space-3);
+    --card-pad: var(--space-3);
+  }
 }
 
 :root[data-theme='dark'],

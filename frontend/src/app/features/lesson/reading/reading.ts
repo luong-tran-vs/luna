@@ -29,8 +29,6 @@ import { tokenize } from '../../../shared/utils/tokenize';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
 import { ComprehensionQuiz } from './comprehension-quiz/comprehension-quiz';
-import { GrammarNote } from './grammar-note/grammar-note';
-import { LessonVocabulary } from './lesson-vocabulary/lesson-vocabulary';
 import { SentenceTranslation } from './sentence-translation/sentence-translation';
 import { Loading } from '../../../shared/components/loading/loading';
 
@@ -68,9 +66,32 @@ function askErrorMessage(err: unknown): string {
   return 'Không hỏi được AI, vui lòng thử lại.';
 }
 
+/** The tips line ("Chạm từ … giữ câu …") stays hidden once the learner closes it. */
+const TIPS_KEY = 'luna.reading-tips-hidden';
+
+/** Sentences per paragraph on screen: a long paragraph is cut in pieces of two or three. */
+const CHUNK = 3;
+
+/** A paragraph's sentences in balanced pieces of at most CHUNK (5 → 3 + 2, 8 → 3 + 3 + 2). */
+export function chunkParagraph(sentences: readonly number[]): number[][] {
+  if (sentences.length <= CHUNK) {
+    return [[...sentences]];
+  }
+  const pieces = Math.ceil(sentences.length / CHUNK);
+  const size = Math.ceil(sentences.length / pieces);
+  const out: number[][] = [];
+  for (let i = 0; i < sentences.length; i += size) {
+    out.push(sentences.slice(i, i + size));
+  }
+  return out;
+}
+
 /**
- * The Reading step (F3): read the lesson, tap a word or select a phrase to look it up, hear
- * it, save it to the notebook, and finish when the end of the lesson has been seen.
+ * The Reading step (F3), in two screens (design, 2026-10-15): first the text alone, cut in short
+ * paragraphs (tap a word to look it up and save it, hold a sentence for its translation); then
+ * the comprehension questions one at a time, the text one tap away ("Xem lại bài đọc"). Each
+ * screen has its bar at the bottom: ← and "Đọc xong, trả lời N câu hỏi", then Kiểm tra. Without
+ * questions, the step finishes when the end of the text has been seen.
  */
 @Component({
   selector: 'lu-reading',
@@ -78,9 +99,7 @@ function askErrorMessage(err: unknown): string {
     Loading,
     CdkConnectedOverlay,
     ComprehensionQuiz,
-    GrammarNote,
     Icon,
-    LessonVocabulary,
     RouterLink,
     SentenceTranslation,
     WordPopup,
@@ -89,6 +108,7 @@ function askErrorMessage(err: unknown): string {
   styleUrl: './reading.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    '[class.standalone]': 'mode() === null',
     // Word interactions are delegated from the host; each word is a focusable role="button".
     // A long press on a sentence shows its translation.
     '(pointerdown)': 'onPressStart($event)',
@@ -128,6 +148,18 @@ export class Reading implements OnInit {
   protected readonly askLimit = computed(() => this.askQuota()?.limit ?? 0);
   /** "review" rereads a finished lesson (no "Đã đọc xong"); defaults to ?review=1. */
   readonly mode = input<'study' | 'review' | null>(null);
+  /** Position of the step in the lesson, for "2. Đọc"; 0 for none. */
+  readonly number = input(0);
+  /** Whether the bar shows ← (the lesson goes to the step before). */
+  readonly canBack = input(false);
+  /** A quiet "Để sau, sang bước Nghe" under the text while the step is to do; empty for none. */
+  readonly laterLabel = input('');
+  /** The last button when reading again, e.g. "Sang bước Nghe"; empty for none. */
+  readonly nextLabel = input('');
+  /** ← in the bar on the text. */
+  readonly back = output<void>();
+  /** The lesson goes on without this step (laterLabel) or after reading it again (nextLabel). */
+  readonly leave = output<void>();
 
   /** Emitted once when the learner finishes the step (feature L records progress). */
   readonly completed = output<void>();
@@ -177,9 +209,27 @@ export class Reading implements OnInit {
   protected readonly translated = signal<{ sentence: number; anchor: HTMLElement } | null>(null);
 
   protected readonly reachedEnd = signal(false);
+  /** The text first, then the questions. */
+  protected readonly phase = signal<'read' | 'quiz'>('read');
+  /** "Xem lại bài đọc": the text shown again over the questions. */
+  protected readonly peek = signal(false);
+  protected readonly tipsHidden = signal(readTipsHidden());
+  /** The lesson's paragraphs on screen, long ones cut in pieces of two or three sentences. */
+  protected readonly chunks = computed(() =>
+    (this.lesson()?.paragraphs ?? []).flatMap((p) => chunkParagraph(p)),
+  );
   protected readonly done = signal(false);
 
   private readonly article = viewChild<ElementRef<HTMLElement>>('article');
+  /** The questions, for "Làm lại tất cả" in the row with "Xem lại bài đọc". */
+  protected readonly quizRef = viewChild(ComprehensionQuiz);
+  /** Room at the right of the step's title for the questions' dots (28px each, 2px apart). */
+  protected readonly dotsRoom = computed(() => {
+    const count = this.phase() === 'quiz' ? (this.lesson()?.quiz?.questions.length ?? 0) : 0;
+    return count ? count * 30 + 8 : null;
+  });
+  /** Questions answered, as the questions report it: "Làm lại tất cả" shows once there is one. */
+  protected readonly answered = signal(0);
   private readonly end = viewChild<ElementRef<HTMLElement>>('end');
   private lookupSub?: Subscription;
   private askSub?: Subscription;
@@ -202,6 +252,10 @@ export class Reading implements OnInit {
       next: ({ lesson, words }) => {
         this.saved.set(new Set(words.map((w) => normalize(w.lemma))));
         this.lesson.set(lesson);
+        // Questions taken away meanwhile (reloaded after they changed): back to the text.
+        if (!lesson.quiz) {
+          this.phase.set('read');
+        }
         this.askQuota.set(lesson.askQuota ?? null);
         const firstWord = this.tokens()[0]?.find((t) => t.isWord);
         this.focusKey.set(`0:${firstWord?.index ?? 0}`);
@@ -576,8 +630,42 @@ export class Reading implements OnInit {
     this.saved.update((s) => new Set([...s, normalize(lemma)]));
   }
 
-  protected onVocabularyAdded(lemmas: string[]): void {
-    this.saved.update((s) => new Set([...s, ...lemmas.map(normalize)]));
+  /** ✕ on the tips line: hidden from now on, on this device. */
+  protected hideTips(): void {
+    this.tipsHidden.set(true);
+    try {
+      localStorage.setItem(TIPS_KEY, '1');
+    } catch {
+      // Storage can be blocked: the tips just come back next time.
+    }
+  }
+
+  /** "Đọc xong, trả lời N câu hỏi": on to the questions. */
+  protected toQuiz(): void {
+    this.close();
+    this.closeTranslation();
+    this.peek.set(false);
+    this.phase.set('quiz');
+    this.toTop();
+  }
+
+  /** ← on the questions: back to the text. */
+  protected toText(): void {
+    this.phase.set('read');
+    this.toTop();
+  }
+
+  /** The questions' last button: Tiếp tục (answered before) or on to the next step when reading again. */
+  protected onQuizFinished(): void {
+    if (this.review()) {
+      this.leave.emit();
+    } else {
+      this.finishQuiz();
+    }
+  }
+
+  private toTop(): void {
+    this.host.nativeElement.scrollIntoView?.({ block: 'start' });
   }
 
   /** Reads the looked-up word with the browser's voice. */
@@ -617,4 +705,12 @@ export class Reading implements OnInit {
   }
 
   protected readonly hostElement = this.host.nativeElement;
+}
+
+function readTipsHidden(): boolean {
+  try {
+    return localStorage.getItem(TIPS_KEY) === '1';
+  } catch {
+    return false;
+  }
 }

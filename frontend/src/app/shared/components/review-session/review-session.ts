@@ -23,6 +23,7 @@ import { isCorrectAnswer } from '../../utils/answer-match';
 import { intervalLabel } from '../../utils/interval-label';
 import { SpeechService } from '../../../core/services/speech.service';
 import { SpeakButton } from '../../directives/speak-button';
+import { Asker } from '../asker/asker';
 import { Icon } from '../icon/icon';
 
 interface RatingButton {
@@ -38,20 +39,24 @@ const RATINGS: RatingButton[] = [
   { rating: 4, name: 'Dễ', key: 'easy' },
 ];
 
+/** The speed of "Nghe chậm" in listen mode. */
+const SLOW_RATE = 0.6;
+
 /**
  * One review session over the given cards (F5, reused by the daily flow L). Flip mode shows the
  * word and flips to the meaning; listen mode plays the word and checks what the learner types.
  * Each rating is saved right away; a card rated Again comes back once at the end. Back and
  * forward move through the cards already rated (view only); forward on the current card skips
- * it to the end of the session.
+ * it to the end of the session. Laid out like a lesson step (design, 2026-10-15): ✕ and the
+ * progress at the top, the boy asking in a bubble, the buttons in a bar at the bottom.
  */
 @Component({
   selector: 'lu-review-session',
-  imports: [Icon, SpeakButton],
+  imports: [Asker, Icon, SpeakButton],
   templateUrl: './review-session.html',
   styleUrl: './review-session.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(keydown)': 'onKeydown($event)' },
+  host: { '(keydown)': 'onKeydown($event)', '[class.has-bar]': '!summary()' },
 })
 export class ReviewSession {
   private readonly api = inject(VocabApiService);
@@ -64,8 +69,11 @@ export class ReviewSession {
   readonly context = input<ReviewContext>('free');
   /** Emitted once when every card has been rated. */
   readonly finished = output<ReviewSummary>();
+  /** ✕: the learner stops the session (the ratings given so far are saved). */
+  readonly closed = output();
 
   protected readonly ratings = RATINGS;
+  protected readonly slowRate = SLOW_RATE;
   protected readonly queue = linkedSignal(() => [...this.cards()]);
   /** The card on screen. */
   protected readonly index = signal(0);
@@ -89,6 +97,18 @@ export class ReviewSession {
   protected readonly saving = signal(false);
   protected readonly saveError = signal(false);
   protected readonly summary = signal<ReviewSummary | null>(null);
+  /** The small line over the bubble: the question, then how the typed word went. */
+  protected readonly askLabel = computed(() => {
+    const v = this.reviewing() ? null : this.verdict();
+    if (v) {
+      return v === 'correct' ? '✓ Đúng rồi' : '✗ Chưa đúng';
+    }
+    return this.mode() === 'listen' ? 'Nghe và gõ lại từ' : 'Từ này nghĩa là gì?';
+  });
+  protected readonly tone = computed(() => {
+    const v = this.reviewing() ? null : this.verdict();
+    return v === 'correct' ? 'right' : v === 'wrong' ? 'wrong' : null;
+  });
   protected readonly canBack = computed(() => this.index() > 0 && !this.saving());
   protected readonly canForward = computed(
     () => !this.saving() && (this.reviewing() || this.frontier() + 1 < this.queue().length),
@@ -122,6 +142,10 @@ export class ReviewSession {
     return `${r.name} · ${intervalLabel(card.intervals[r.key])}`;
   }
 
+  protected interval(card: DueCard, r: RatingButton): string {
+    return intervalLabel(card.intervals[r.key]);
+  }
+
   protected ratingName(rating: Rating): string {
     return RATINGS[rating - 1].name;
   }
@@ -150,11 +174,11 @@ export class ReviewSession {
     this.focusAnswer();
   }
 
-  protected play(): void {
+  protected play(rate = 1): void {
     const card = this.current();
     if (card) {
       this.playError.set(false);
-      this.speech.speak(card.text, 1, { failed: () => this.playError.set(true) });
+      this.speech.speak(card.text, rate, { failed: () => this.playError.set(true) });
     }
   }
 
@@ -169,6 +193,14 @@ export class ReviewSession {
   protected flip(): void {
     if (!this.revealed()) {
       this.revealed.set(true);
+    }
+  }
+
+  /** Flip mode, not rated yet: back to the front, to think again before rating. */
+  protected unflip(): void {
+    if (this.mode() === 'flip' && this.revealed() && !this.reviewing() && !this.saving()) {
+      this.revealed.set(false);
+      this.focusAnswer();
     }
   }
 
@@ -217,6 +249,11 @@ export class ReviewSession {
         event.preventDefault();
         this.flip();
       }
+      return;
+    }
+    if (this.mode() === 'flip' && event.key === ' ' && target.tagName !== 'BUTTON') {
+      event.preventDefault();
+      this.unflip();
       return;
     }
     const rating = Number(event.key);

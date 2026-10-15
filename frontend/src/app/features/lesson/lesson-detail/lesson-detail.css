@@ -53,7 +53,20 @@
   --icon-size: 16px;
 }
 
-/* The lesson on one line (title, Bài học/Bài đọc, "i"), its details below when opened. */
+/* The progress bar and the lesson's line, kept at the top of the screen while the step scrolls. */
+.lesson-head {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: grid;
+  gap: var(--space-2);
+  margin: calc(-1 * var(--space-4)) calc(-1 * var(--page-x)) 0;
+  padding: var(--space-3) var(--page-x) var(--space-2);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* The lesson on one line: its title, Bài đọc and "i" for the overview. */
 .intro {
   display: grid;
   gap: var(--space-2);
@@ -66,17 +79,67 @@
   min-width: 0;
 }
 
-/* Two lines at most, so the steps keep the screen. */
+/* One line, cut with "…": the full title is on the overview. */
 .title {
-  display: -webkit-box;
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  font: var(--text-base) var(--font-ui);
+  font: var(--text-sm) var(--font-ui);
   font-weight: 600;
-  overflow-wrap: anywhere;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.reading-toggle {
+  flex: none;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.reading-toggle[aria-pressed='true'],
+.info-btn[aria-pressed='true'] {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+/* The overview: what the lesson is, its steps (done, current, to come) and Luyện thêm. */
+.overview {
+  gap: var(--space-3);
+}
+
+.overview .level {
+  justify-self: start;
+}
+
+.eyebrow {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.overview-title {
+  font: var(--text-xl) var(--font-ui);
+}
+
+.info-step.is-done .info-num {
+  color: var(--color-ok);
+
+  --icon-size: 16px;
+}
+
+.info-step.is-current .info-num {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
 }
 
 .unit {
@@ -97,42 +160,8 @@
   color: var(--color-text-muted);
 }
 
-.info-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-3);
-}
-
 .estimate {
   font: var(--text-sm) var(--font-ui);
-}
-
-.tabs {
-  display: flex;
-  justify-self: start;
-  gap: 2px;
-  padding: 2px;
-  background: var(--color-bg);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
-}
-
-.tab {
-  min-height: 40px;
-  padding: 0 var(--space-3);
-  font: var(--text-sm) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  background: transparent;
-  border: 0;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-}
-
-.tab[aria-selected='true'] {
-  color: var(--color-on-primary);
-  background: var(--color-primary);
 }
 
 .info-btn {
@@ -148,15 +177,6 @@
   border: 1px solid var(--color-line);
   border-radius: 50%;
   cursor: pointer;
-}
-
-.info-btn[aria-expanded='true'] {
-  background: var(--color-primary-soft);
-  border-color: var(--color-primary);
-}
-
-.info {
-  gap: var(--space-3);
 }
 
 .info-steps {
@@ -220,6 +240,27 @@
   gap: var(--space-2);
 }
 
+/* Luyện thêm before Nghe is done: shown, but locked with why. */
+.extras-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+
+  --icon-size: 16px;
+}
+
+/* On Viết: a quiet offer to practise first. */
+.extras-offer {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
 /* Over a Luyện thêm practice: what it is and the way back. */
 .extra-bar {
   display: flex;
@@ -232,11 +273,6 @@
   font: var(--text-sm) var(--font-ui);
   font-weight: 600;
   color: var(--color-text-muted);
-}
-
-/* "Để sau, sang bước Nghe": leaving a lesson step for later, below it. */
-.leave {
-  justify-self: center;
 }
 
 .panel {
@@ -290,6 +326,13 @@
 
 .nav .next {
   flex: 1;
+  min-height: 48px;
+}
+
+.nav .back {
+  flex: none;
+  width: 48px;
+  height: 48px;
 }
 
 .done-card {

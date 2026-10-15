@@ -9,7 +9,7 @@
   gap: var(--space-4);
   max-width: 640px;
   margin: 0 auto;
-  padding: var(--space-4) var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--page-x) var(--space-6);
 }
 
 /* "← Title" bar at the top of a screen. */
@@ -76,7 +76,7 @@
 .soft-card {
   display: grid;
   gap: var(--space-3);
-  padding: var(--space-4);
+  padding: var(--card-pad);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
@@ -258,7 +258,7 @@ button.menu-row:hover:not(:disabled) {
 .step-card {
   display: grid;
   gap: var(--space-3);
-  padding: var(--space-4);
+  padding: var(--card-pad);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
@@ -315,4 +315,60 @@ button.menu-row:hover:not(:disabled) {
   color: var(--color-text-muted);
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* On small phones a card inside a card draws no second frame: the content keeps the width. */
+@media (max-width: 480px) {
+  .soft-card .step-card,
+  .soft-card .soft-card,
+  .step-card .step-card {
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+/*
+ * The bar fixed at the bottom of a lesson step (design, 2026-10-14): ← then the main button. The
+ * page leaves room for it below its content.
+ */
+.bottom-bar {
+  position: fixed;
+  right: 0;
+  bottom: var(--tabbar-h, 0px);
+  left: 0;
+  z-index: 5;
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) max(var(--page-x), calc((100% - 608px) / 2));
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-line);
+}
+
+.bottom-bar > .btn-primary,
+.bottom-bar > .btn {
+  flex: 1;
+  min-height: 48px;
+}
+
+.bottom-bar > .nav-btn {
+  flex: none;
+  width: 48px;
+  height: 48px;
+}
+
+/* A quiet text button (e.g. "Để sau, sang bước Nghe"). */
+.link-btn {
+  justify-self: center;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: 0;
+  cursor: pointer;
 }

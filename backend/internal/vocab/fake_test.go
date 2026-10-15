@@ -363,6 +363,18 @@ func (f *fakeRepo) CountDue(_ context.Context, userID string, before, createdBef
 	return n, nil
 }
 
+func (f *fakeRepo) Schedules(_ context.Context, userID string) ([]Card, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []Card
+	for _, c := range f.cards {
+		if c.UserID == userID {
+			out = append(out, Card{CreatedAt: c.CreatedAt, Schedule: c.Schedule})
+		}
+	}
+	return out, nil
+}
+
 func (f *fakeRepo) Count(_ context.Context, userID string, since *time.Time) (int, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()

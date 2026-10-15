@@ -11,6 +11,7 @@ import {
 
 import { PracticeFill } from '../../../../core/models/practice';
 import { SpeechService } from '../../../../core/services/speech.service';
+import { Asker } from '../../../../shared/components/asker/asker';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { checkFill, missedBlanks, Score } from '../practice-logic';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
@@ -26,7 +27,7 @@ const key = (word: string) => word.trim().toLowerCase();
  */
 @Component({
   selector: 'lu-fill-step',
-  imports: [Icon, SpeakButton],
+  imports: [Asker, Icon, SpeakButton],
   templateUrl: './fill-step.html',
   styleUrls: ['../practice.css', './fill-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +46,10 @@ export class FillStep {
   readonly grammarTip = input('');
   /** The button after the last line, e.g. "Sang bước Nghe" or "Xong, về bài học". */
   readonly finishLabel = input('Hoàn thành');
+  /** Whether the bar shows ← to the step before. */
+  readonly canBack = input(false);
+  /** ← in the bar: the page goes to the step before. */
+  readonly back = output<void>();
 
   /** Text to read aloud with the browser's voice. */
   readonly readAloud = output<string>();
@@ -148,7 +153,9 @@ export class FillStep {
       return { word: tile.word, free: free[0] ?? -1, left: free.length };
     });
   });
-  /** Every input as wide as the longest answer, so the width does not give one away. */
+  /** With a word bank the blanks are lines to fill from it; without one, inputs to type in. */
+  protected readonly picking = computed(() => this.bank().length > 0);
+  /** Every blank as wide as the longest answer, so the width does not give one away. */
   protected readonly inputSize = computed(() =>
     Math.max(8, ...this.fill().blanks.map((b) => b.answer.length + 2)),
   );
@@ -170,6 +177,20 @@ export class FillStep {
     this.shown.set(index);
     const open = turn.blanks.find((i) => this.results()[i] === null);
     this.selected.set(open ?? -1);
+  }
+
+  /**
+   * A blank line: tapping an empty one chooses it for the next word of the bank; tapping a filled
+   * one takes its word out (back to the bank) and chooses it.
+   */
+  protected tapBlank(index: number): void {
+    if (this.results()[index] !== null) {
+      return;
+    }
+    if (this.answers()[index] !== '') {
+      this.answers.update((a) => a.map((v, i) => (i === index ? '' : v)));
+    }
+    this.selected.set(index);
   }
 
   protected select(index: number): void {
@@ -248,6 +269,11 @@ export class FillStep {
     this.results.set(this.fill().blanks.map(() => null));
     this.show(0);
     this.restarted.emit();
+  }
+
+  /** Bỏ qua câu này: on to the next line unchecked, or out of the step after the last one. */
+  protected skipLine(): void {
+    this.forward();
   }
 
   /** Câu tiếp theo, or Hoàn thành after the last line. */

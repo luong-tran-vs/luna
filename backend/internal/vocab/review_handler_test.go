@@ -98,3 +98,17 @@ func TestReviewEndpoint(t *testing.T) {
 		t.Fatalf("anonymous: %d", rec.Code)
 	}
 }
+
+func TestForecastEndpoint(t *testing.T) {
+	t.Parallel()
+	mux, e := newEnvAPI(t)
+	e.dueCard("go", Schedule{State: StateNew})
+
+	rec := call(t, mux, http.MethodGet, "/api/vocab/review/forecast", "an", "")
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"new":1,"learning":0,"known":0,"days":[{"day":"2026-09-29","count":1}`) {
+		t.Fatalf("forecast: %d %s", rec.Code, rec.Body)
+	}
+	if rec := call(t, mux, http.MethodGet, "/api/vocab/review/forecast", "", ""); rec.Code != http.StatusUnauthorized {
+		t.Fatalf("anonymous: %d", rec.Code)
+	}
+}

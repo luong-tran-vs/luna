@@ -1,13 +1,17 @@
-<section class="screen review">
-  <header class="screen-bar">
-    <h1 class="screen-title">Ôn tập</h1>
-  </header>
+<section class="screen review" [class.in-session]="started() && !done()">
+  @if (!started() || done()) {
+    <header class="screen-bar">
+      <h1 class="screen-title">Ôn tập</h1>
+    </header>
+  } @else {
+    <h1 class="visually-hidden">Ôn tập</h1>
+  }
 
   @if (loadError()) {
     <p class="form-alert" role="alert">Không tải được thẻ cần ôn. <button type="button" class="btn" (click)="load()">Thử lại</button></p>
   } @else if (due(); as list) {
     @if (started()) {
-      <lu-review-session [cards]="list.cards" [mode]="mode()" (finished)="done.set(true)" />
+      <lu-review-session [cards]="list.cards" [mode]="mode()" (finished)="done.set(true)" (closed)="load()" />
       @if (done()) {
         @if (nextLesson) {
           <a class="btn-primary btn-block" [routerLink]="['/lessons', nextLesson]">Học bài tiếp theo</a>
@@ -16,72 +20,95 @@
           <button type="button" class="btn-primary btn-block" (click)="load()">Ôn tiếp</button>
         }
       }
-    } @else if (list.total === 0) {
-      <div class="soft-card hub empty" role="status">
-        <span class="hub-icon"><lu-icon name="calendar" /></span>
-        <p class="empty-title">Không có thẻ nào đến hạn</p>
-        @if (nextDue(); as next) {
-          <p class="next-due muted">Thẻ tiếp theo đến hạn lúc {{ next }}.</p>
-        } @else {
-          <p class="muted">Lưu từ ở bước Đọc hoặc thêm thẻ trong Sổ từ để bắt đầu ôn.</p>
-        }
-        @if (nextLesson) {
-          <a class="btn-primary btn-block" [routerLink]="['/lessons', nextLesson]">Học bài tiếp theo</a>
-        }
-      </div>
     } @else {
-      <div class="soft-card hub start">
-        <p class="hub-label">Ôn tập hôm nay</p>
-        <span class="hub-icon"><lu-icon name="calendar" /></span>
-        <p class="due-count">{{ list.total }} thẻ đến hạn</p>
-        @if (list.total > list.cards.length) {
-          <p class="muted">Phiên này ôn {{ list.cards.length }} thẻ quá hạn lâu nhất.</p>
-        }
-        <div class="modes" role="radiogroup" aria-label="Kiểu ôn">
-          @for (m of modes; track m.value) {
-            <button
-              type="button"
-              role="radio"
-              class="mode"
-              [attr.aria-checked]="mode() === m.value"
-              [tabIndex]="mode() === m.value ? 0 : -1"
-              (click)="mode.set(m.value)"
-              (keydown)="onModeKeydown($event)"
-            >
-              {{ m.label }}
-            </button>
+      @if (list.total === 0) {
+        <div class="soft-card hub empty" role="status">
+          <span class="hub-icon"><lu-icon name="calendar" /></span>
+          <p class="empty-title">Không có thẻ nào đến hạn</p>
+          @if (nextDue(); as next) {
+            <p class="next-due muted">Thẻ tiếp theo đến hạn lúc {{ next }}.</p>
+          } @else {
+            <p class="muted">Lưu từ ở bước Đọc hoặc thêm thẻ trong Sổ từ để bắt đầu ôn.</p>
+          }
+          @if (nextLesson) {
+            <a class="btn-primary btn-block" [routerLink]="['/lessons', nextLesson]">Học bài tiếp theo</a>
           }
         </div>
-        <button type="button" class="btn-primary btn-block" (click)="started.set(true)">Bắt đầu</button>
-      </div>
-    }
-
-    @if (!started()) {
-      <section class="schedule" aria-labelledby="schedule-heading">
-        <h2 class="section-title" id="schedule-heading">Lịch ôn tập</h2>
-        <ul class="menu-list">
-          <li>
-            <div class="menu-row">
-              <span class="icon-chip tone-accent"><lu-icon name="clock" /></span>
-              <span class="menu-label">
-                <span>Thẻ đến hạn</span>
-                <span class="menu-hint">{{ list.total }} thẻ</span>
-              </span>
-              <span class="when">{{ list.total > 0 ? 'Hôm nay' : (nextDue() ?? 'Chưa có') }}</span>
+      } @else {
+        <div class="soft-card start">
+          <div class="start-head">
+            <div class="grow">
+              <p class="hub-label">Hôm nay</p>
+              <p class="due-count">{{ list.total }} thẻ cần ôn</p>
+              <p class="muted">
+                Khoảng {{ minutes() }} phút
+                @if (list.total > list.cards.length) {
+                  · phiên này ôn {{ list.cards.length }} thẻ quá hạn lâu nhất
+                }
+              </p>
             </div>
-          </li>
-          <li>
-            <a class="menu-row" routerLink="/vocabulary">
-              <span class="icon-chip"><lu-icon name="notebook" /></span>
-              <span class="menu-label">
-                <span>Sổ từ</span>
-                <span class="menu-hint">Xem, tìm và thêm thẻ</span>
-              </span>
-              <lu-icon class="chevron" name="chevron-right" />
-            </a>
-          </li>
+            <button type="button" class="round-btn reload" aria-label="Tải lại" (click)="load()"><lu-icon name="review" /></button>
+          </div>
+          <div class="modes" role="radiogroup" aria-label="Kiểu ôn">
+            @for (m of modes; track m.value) {
+              <button
+                type="button"
+                role="radio"
+                class="mode"
+                [attr.aria-checked]="mode() === m.value"
+                [tabIndex]="mode() === m.value ? 0 : -1"
+                (click)="mode.set(m.value)"
+                (keydown)="onModeKeydown($event)"
+              >
+                <span class="mode-title"><lu-icon [name]="m.icon" /> {{ m.title }}</span
+                >&ngsp;
+                <span class="mode-hint">{{ m.hint }}</span>
+              </button>
+            }
+          </div>
+          <button type="button" class="btn-primary btn-block" (click)="started.set(true)">Bắt đầu ôn</button>
+        </div>
+      }
+
+      @if (forecast(); as f) {
+        <ul class="stages" aria-label="Thẻ của bạn">
+          <li><span class="stage-n">{{ f.new }}</span> Mới</li>
+          <li class="learning"><span class="stage-n">{{ f.learning }}</span> Đang học</li>
+          <li class="known"><span class="stage-n">{{ f.known }}</span> Đã thuộc</li>
         </ul>
-      </section>
+
+        <section class="soft-card week" aria-labelledby="week-heading">
+          <h2 class="week-title" id="week-heading">7 ngày tới</h2>
+          <ol class="bars">
+            @for (d of week(); track d.label) {
+              <li [class.today]="d.today">
+                <span class="visually-hidden">{{ d.name }}</span>
+                <span class="bar-count" aria-hidden="true">{{ d.count || '' }}</span>
+                <span class="bar" aria-hidden="true" [style.height.%]="d.height"></span>
+                <span class="bar-label" aria-hidden="true">{{ d.label }}</span>
+              </li>
+            }
+          </ol>
+        </section>
+      }
+
+      <ul class="menu-list">
+        <li>
+          <a class="menu-row" routerLink="/vocabulary">
+            <span class="icon-chip"><lu-icon name="notebook" /></span>
+            <span class="menu-label">
+              <span>Sổ từ</span>
+              <span class="menu-hint">
+                @if (cardCount() !== null) {
+                  {{ cardCount() }} từ ·
+                }
+                Xem, tìm và thêm thẻ
+              </span>
+            </span>
+            <lu-icon class="chevron" name="chevron-right" />
+          </a>
+        </li>
+      </ul>
     }
   } @else {
     <lu-loading />

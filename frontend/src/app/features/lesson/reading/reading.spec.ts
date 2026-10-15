@@ -6,7 +6,7 @@ import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/route
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
 import { LookupResult, QuizAnswer, ReadingLesson } from '../../../core/models/reading';
-import { Reading } from './reading';
+import { chunkParagraph, Reading } from './reading';
 
 const lesson: ReadingLesson = {
   id: 'l1',
@@ -134,15 +134,23 @@ describe('Reading', () => {
 
     it('renders paragraphs, sentences and clickable words', () => {
       expect(el.querySelector('h1')?.textContent).toContain('A day at the park');
-      // How to use the text: tap a word, hold a sentence.
-      expect(el.querySelector('.tips')?.textContent).toContain('Chạm một từ');
-      expect(el.querySelector('.tips')?.textContent).toContain('Giữ một câu khoảng nửa giây');
+      // How to use the text, on one line: tap a word, hold a sentence.
+      expect(el.querySelector('.tips')?.textContent).toContain('Chạm từ để tra');
+      expect(el.querySelector('.tips')?.textContent).toContain('giữ câu để dịch');
       expect(el.querySelectorAll('.para')).toHaveLength(2);
       expect(el.querySelectorAll('.para')[0].querySelectorAll('.sentence')).toHaveLength(2);
       const w = word(0, 'went');
       expect(w.dataset['t']).toBeDefined();
       expect(el.querySelector('.para')?.textContent).toContain('We went to the park.');
       expect(Array.from(el.querySelectorAll('.w')).some((x) => x.textContent === '.')).toBe(false);
+    });
+
+    it('hides the tips line for good with its ✕', async () => {
+      el.querySelector<HTMLButtonElement>('.tips-close')!.click();
+      await settle();
+      expect(el.querySelector('.tips')).toBeNull();
+      expect(localStorage.getItem('luna.reading-tips-hidden')).toBe('1');
+      localStorage.removeItem('luna.reading-tips-hidden');
     });
 
     it('looks up a tapped word with its sentence and shows the popup', async () => {
@@ -390,29 +398,6 @@ describe('Reading', () => {
       await settle();
       expect(popup()?.textContent).toContain('✓ Đã có trong sổ');
       expect(word(2, 'goes').classList).toContain('saved');
-    });
-
-    it('marks a word saved from the popup in the vocabulary section', async () => {
-      await setup();
-      el.querySelector<HTMLButtonElement>('lu-lesson-vocabulary .toggle')!.click();
-      await settle();
-      http.expectOne('/lessons/l1/vocabulary').flush({
-        available: true,
-        items: [{ lemma: 'go', text: 'went', meaningVi: 'đi', ipa: '', sentenceIndex: 0, sentence: 'We went to the park.' }],
-      });
-      await settle();
-      const item = () => el.querySelector('lu-lesson-vocabulary .vocab-item')!;
-      expect(item().textContent).not.toContain('✓ Đã lưu');
-
-      word(0, 'went').click();
-      await settle();
-      expectLookup('went', 0).flush(wentResult);
-      await settle();
-      popupButton('Lưu vào sổ từ')!.click();
-      await settle();
-      http.expectOne('/vocab/cards').flush({ card: { id: 'c1' } }, { status: 201, statusText: 'Created' });
-      await settle();
-      expect(item().textContent).toContain('✓ Đã lưu');
     });
 
     it('treats a duplicate as already saved', async () => {
@@ -708,10 +693,11 @@ describe('Reading', () => {
     });
     const button = (label: string) =>
       Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => b.textContent?.trim() === label);
+    const text = (node: Element | null | undefined) => node?.textContent?.replace(/s+/g, ' ').trim() ?? '';
     const choose = async (option: number, result: ReturnType<typeof solved>, answered: number) => {
       el.querySelectorAll<HTMLInputElement>('.question.active .option input')[option].click();
       await fixture.whenStable();
-      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .step-nav .check')!.click();
+      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .bottom-bar .check')!.click();
       await settle();
       http.expectOne('/lessons/l1/answers').flush({ answer: result, answered, total: 2, correct: 0 });
       await settle();
@@ -720,18 +706,47 @@ describe('Reading', () => {
       await settle();
     };
 
-    it('replaces Đã đọc xong with the questions and shows the grammar note', async () => {
-      await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
+    /** "Đọc xong, trả lời N câu hỏi" (or "Xem câu hỏi" when reading again): on to the questions. */
+    const toQuiz = async () => {
+      el.querySelector<HTMLButtonElement>('.bottom-bar .to-quiz')!.click();
+      await settle();
+    };
+
+    it('shows the text alone first, then the questions one at a time, the text one tap away', async () => {
+      await setup({ lesson: withQuiz(), inputs: { mode: 'study', number: 2 } });
+      expect(text(el.querySelector('.step-title'))).toBe('2. Đọc');
       expect(button('Đã đọc xong')).toBeUndefined();
+      expect(el.querySelector('lu-comprehension-quiz')).toBeNull();
+      // The grammar note is not part of the Đọc step: it stays in the lesson's Bài đọc tab.
+      expect(el.querySelector('lu-grammar-note')).toBeNull();
+      expect(text(el.querySelector('.bottom-bar .to-quiz'))).toBe('Đọc xong, trả lời 2 câu hỏi');
+
+      await toQuiz();
+      expect(text(el.querySelector('.step-title'))).toBe('2. Đọc · Câu hỏi');
+      // Room at the right of the title for the two dots, so they never cover it.
+      expect(el.querySelector<HTMLElement>('.step-title')!.style.paddingRight).toBe('68px');
       expect(el.querySelector('lu-comprehension-quiz')).not.toBeNull();
-      expect(el.querySelector('lu-grammar-note summary')?.textContent?.trim()).toBe('Ngữ pháp: Quá khứ đơn');
-      expect(el.textContent).toContain('Trả lời hết câu hỏi để hoàn thành bước Đọc.');
+      expect(el.querySelector<HTMLElement>('#reading-text')!.hidden).toBe(true);
+      expect(el.querySelector('.tips')).toBeNull();
+      const peek = el.querySelector<HTMLButtonElement>('.peek')!;
+      expect(peek.getAttribute('aria-expanded')).toBe('false');
+      peek.click();
+      await settle();
+      expect(el.querySelector<HTMLElement>('#reading-text')!.hidden).toBe(false);
+      expect(text(peek)).toBe('Ẩn bài đọc');
+
+      // ← in the questions' bar goes back to the text.
+      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz [aria-label="Về bài đọc"]')!.click();
+      await settle();
+      expect(el.querySelector('lu-comprehension-quiz')).toBeNull();
+      expect(el.querySelector<HTMLElement>('#reading-text')!.hidden).toBe(false);
     });
 
     it('completes the step when the last question is answered, even wrongly', async () => {
       await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
       const completed = vi.fn();
       fixture.componentInstance.completed.subscribe(completed);
+      await toQuiz();
       await choose(1, solved(0, 1, 0), 1);
       expect(completed).not.toHaveBeenCalled();
       await choose(0, solved(1, 0, 2), 2);
@@ -743,19 +758,40 @@ describe('Reading', () => {
       await setup({ lesson: withQuiz([solved(0, 0, 0), solved(1, 2, 2)]), inputs: { mode: 'study' } });
       const completed = vi.fn();
       fixture.componentInstance.completed.subscribe(completed);
+      await toQuiz();
       button('Tiếp tục')!.click();
       await settle();
       expect(completed).toHaveBeenCalledTimes(1);
+    });
+
+    it('puts Làm lại tất cả in one row with Xem lại bài đọc', async () => {
+      await setup({ lesson: withQuiz([solved(0, 0, 0)]), inputs: { mode: 'study' } });
+      await toQuiz();
+      const row = el.querySelector('.quiz-row')!;
+      expect(row.querySelector('.peek')).not.toBeNull();
+      const restart = row.querySelector<HTMLButtonElement>('.restart-all')!;
+      expect(text(restart)).toBe('Làm lại tất cả câu hỏi');
+      // The questions do not show a second one.
+      expect(el.querySelector('lu-comprehension-quiz .restart')).toBeNull();
+      restart.click();
+      await settle();
+      const req = http.expectOne('/lessons/l1/answers');
+      expect(req.request.method).toBe('DELETE');
+      req.flush(null, { status: 204, statusText: 'No Content' });
+      await settle();
+      expect(el.querySelector('.restart-all')).toBeNull();
     });
 
     it('shows past answers in review mode without completing', async () => {
       await setup({ lesson: withQuiz([solved(0, 0, 0), solved(1, 1, 2)]), query: { review: '1' } });
       const completed = vi.fn();
       fixture.componentInstance.completed.subscribe(completed);
-      // One question at a time: the first one with its result, the second one behind →.
+      expect(text(el.querySelector('.bottom-bar .to-quiz'))).toBe('Xem câu hỏi');
+      await toQuiz();
+      // One question at a time: the first one with its result, the second one behind its dot.
       expect(el.querySelectorAll('.verdict').length).toBe(1);
       expect(el.querySelectorAll('.question.active .option').length).toBe(0);
-      el.querySelectorAll<HTMLButtonElement>('lu-comprehension-quiz .step-nav .nav-btn')[1].click();
+      el.querySelectorAll<HTMLButtonElement>('lu-comprehension-quiz .dots .dot')[1].click();
       await settle();
       expect(el.querySelector('.verdict')?.textContent).toContain('Sai');
       expect(button('Tiếp tục')).toBeUndefined();
@@ -764,9 +800,10 @@ describe('Reading', () => {
 
     it('reloads the lesson when the questions changed', async () => {
       await setup({ lesson: withQuiz(), inputs: { mode: 'study' } });
+      await toQuiz();
       el.querySelectorAll<HTMLInputElement>('.question.active .option input')[0].click();
       await fixture.whenStable();
-      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .step-nav .check')!.click();
+      el.querySelector<HTMLButtonElement>('lu-comprehension-quiz .bottom-bar .check')!.click();
       await settle();
       http
         .expectOne('/lessons/l1/answers')
@@ -787,5 +824,17 @@ describe('Reading', () => {
       expect(el.querySelector('lu-comprehension-quiz')).toBeNull();
       expect(el.querySelector('lu-grammar-note')).toBeNull();
     });
+  });
+});
+
+describe('chunkParagraph', () => {
+  it('keeps a short paragraph whole', () => {
+    expect(chunkParagraph([0, 1, 2])).toEqual([[0, 1, 2]]);
+  });
+
+  it('cuts a long one in balanced pieces of two or three sentences', () => {
+    expect(chunkParagraph([0, 1, 2, 3, 4])).toEqual([[0, 1, 2], [3, 4]]);
+    expect(chunkParagraph([0, 1, 2, 3, 4, 5, 6, 7])).toEqual([[0, 1, 2], [3, 4, 5], [6, 7]]);
+    expect(chunkParagraph([0, 1, 2, 3])).toEqual([[0, 1], [2, 3]]);
   });
 });

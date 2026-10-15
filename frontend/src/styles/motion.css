@@ -79,6 +79,13 @@ lu-review-session,
   animation: lu-enter var(--motion-base) var(--ease-out) backwards;
 }
 
+/* A bar fixed to the bottom of the screen (.bottom-bar) is placed on a transformed ancestor
+   instead: it would show in the middle of the page and drop to the bottom once the slide ends.
+   What holds one only fades in. */
+:is(main > *, [role='tabpanel'], lu-review-session, .soft-card):has(.bottom-bar) {
+  animation-name: lu-fade;
+}
+
 dialog[open] {
   animation: lu-enter var(--motion-base) var(--ease-out) both;
 }

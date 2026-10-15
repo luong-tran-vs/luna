@@ -43,7 +43,7 @@ describe('ComprehensionQuiz', () => {
   const pick = async (j: number) => {
     options()[j].click();
     await fixture.whenStable();
-    el.querySelector<HTMLButtonElement>('.step-nav .check')!.click();
+    el.querySelector<HTMLButtonElement>('.bottom-bar .check')!.click();
   };
   const setup = async (q: Quiz, review = false) => {
     await TestBed.configureTestingModule({
@@ -75,8 +75,10 @@ describe('ComprehensionQuiz', () => {
 
   afterEach(() => http.verify());
 
+  /** The dot of question k: the way to move between the questions. */
+  const dot = (k: number) => el.querySelectorAll<HTMLButtonElement>('.dots .dot')[k];
   const navButton = (label: string) =>
-    Array.from(el.querySelectorAll<HTMLButtonElement>('.step-nav button')).find((b) => text(b) === label)!;
+    Array.from(el.querySelectorAll<HTMLButtonElement>('.bottom-bar button')).find((b) => text(b) === label)!;
 
   it('shows only the first question with four options', async () => {
     await setup(quiz());
@@ -85,7 +87,34 @@ describe('ComprehensionQuiz', () => {
     expect(optionTexts()).toEqual(['Park', 'Home', 'School', 'Work']);
     expect(el.textContent).not.toContain('What did he give up?');
     expect(navButton('Kiểm tra').disabled).toBe(true);
-    expect(navButton('Câu trước').disabled).toBe(true);
+    // ← back to the text only when the page asks for it.
+    expect(el.querySelector('.bottom-bar [aria-label="Về bài đọc"]')).toBeNull();
+  });
+
+  it('goes back to the question before with ← in the bar', async () => {
+    await setup(quiz([answer(0, 0, 0)]));
+    // Opens on question 2: ← goes to question 1, where it is "Về bài đọc" (only when allowed).
+    expect(text(el.querySelector('.counter'))).toBe('Câu 2/2');
+    const back = () => el.querySelector<HTMLButtonElement>('.bottom-bar .nav-btn');
+    expect(back()!.getAttribute('aria-label')).toBe('Câu trước');
+    back()!.click();
+    await fixture.whenStable();
+    expect(text(el.querySelector('.counter'))).toBe('Câu 1/2');
+    expect(back()).toBeNull();
+  });
+
+  it('has ← back to the text in the bar, and a last button once every question is answered', async () => {
+    await setup(quiz([answer(0, 0, 0), answer(1, 1, 1)]));
+    fixture.componentRef.setInput('canBack', true);
+    fixture.componentRef.setInput('finishLabel', 'Sang bước Nghe');
+    await fixture.whenStable();
+    let backs = 0;
+    let finishes = 0;
+    fixture.componentInstance.back.subscribe(() => backs++);
+    fixture.componentInstance.finished.subscribe(() => finishes++);
+    el.querySelector<HTMLButtonElement>('.bottom-bar [aria-label="Về bài đọc"]')!.click();
+    navButton('Sang bước Nghe').click();
+    expect([backs, finishes]).toEqual([1, 1]);
   });
 
   it('locks the question while sending, then keeps it on screen with the result in words', async () => {
@@ -114,16 +143,15 @@ describe('ComprehensionQuiz', () => {
     expect(text(el.querySelector('.question.active .prompt'))).toBe('What did he give up?');
   });
 
-  it('moves between the questions with ← and →, answered ones showing their result', async () => {
+  it('moves between the questions with their dots, answered ones showing their result', async () => {
     await setup(quiz([answer(0, 0, 0)]));
     // Opens on the first question not answered.
     expect(text(el.querySelector('.counter'))).toBe('Câu 2/2');
-    expect(navButton('Câu sau').disabled).toBe(true);
-    navButton('Câu trước').click();
+    dot(0).click();
     await fixture.whenStable();
     expect(text(el.querySelector('.question.answered .verdict'))).toBe('Chính xác!');
     expect(navButton('Câu tiếp theo')).toBeDefined();
-    navButton('Câu sau').click();
+    dot(1).click();
     await fixture.whenStable();
     expect(el.querySelector('.question.active')).not.toBeNull();
   });
@@ -177,7 +205,7 @@ describe('ComprehensionQuiz', () => {
 
   it('answers a question again: the new answer replaces the result', async () => {
     await setup(quiz([answer(0, 1, 0)]));
-    navButton('Câu trước').click();
+    dot(0).click();
     await fixture.whenStable();
     expect(text(el.querySelector('.question.answered .verdict'))).toBe('Sai rồi');
     Array.from(el.querySelectorAll<HTMLButtonElement>('.question.answered button'))
@@ -195,6 +223,11 @@ describe('ComprehensionQuiz', () => {
 
   it('starts every question again with Làm lại tất cả câu hỏi', async () => {
     await setup(quiz([answer(0, 1, 0), answer(1, 1, 1)]));
+    // At the top, with the score, above the question.
+    const tools = el.querySelector('.quiz-tools')!;
+    expect(text(tools.querySelector('.summary'))).toBe('Đúng 1/2 câu');
+    expect(tools.compareDocumentPosition(el.querySelector('lu-asker')!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(el.querySelector('.quiz-foot')).toBeNull();
     const restart = () =>
       Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === 'Làm lại tất cả câu hỏi');
     restart()!.click();
@@ -217,7 +250,7 @@ describe('ComprehensionQuiz', () => {
     http.expectOne('/lessons/l1/answers').flush('down', { status: 500, statusText: 'Error' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toBe('Chưa làm lại được, vui lòng thử lại.');
-    navButton('Câu trước').click();
+    dot(0).click();
     await fixture.whenStable();
     expect(text(el.querySelector('.question.answered .verdict'))).toBe('Sai rồi');
   });

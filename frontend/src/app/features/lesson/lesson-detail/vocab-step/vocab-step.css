@@ -221,3 +221,21 @@
     transition: none;
   }
 }
+
+/*
+ * The words keep their own buttons in the card (one word per screen, room for a picture later):
+ * not the bar at the bottom the other practice steps use.
+ */
+.step-nav {
+  position: static;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.step-nav > .nav-btn {
+  width: 44px;
+  height: 44px;
+}

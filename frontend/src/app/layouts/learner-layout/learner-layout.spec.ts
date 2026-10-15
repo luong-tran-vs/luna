@@ -4,6 +4,7 @@ import { computed, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
+import { FocusMode } from '../../core/services/focus-mode.service';
 import { ThemePreference, ThemeService } from '../../core/services/theme.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
 import { isFocusPage, LearnerLayout } from './learner-layout';
@@ -50,6 +51,13 @@ describe('LearnerLayout', () => {
     expect(tabs.filter((t) => t.classList.contains('tab-end')).map((t) => t.getAttribute('href'))).toEqual([
       '/account',
     ]);
+  });
+
+  it('hides the tab bar while a page asks for the whole screen (a review session)', async () => {
+    expect(el.classList).not.toContain('focus');
+    TestBed.inject(FocusMode).on.set(true);
+    await fixture.whenStable();
+    expect(el.classList).toContain('focus');
   });
 
   it('switches dark mode from the header and shows the state without color', async () => {

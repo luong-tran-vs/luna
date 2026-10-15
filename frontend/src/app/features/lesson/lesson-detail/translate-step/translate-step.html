@@ -11,24 +11,25 @@
     <p class="step-hint">Chạm từ theo đúng thứ tự để ghép câu.</p>
   </div>
 
-  <div class="soft-card source">
-    <div class="source-head">
-      <span class="muted">Câu {{ index() + 1 }}/{{ count() }} · Tiếng Việt</span>
-      <!-- Hidden until the sentence is built correctly: hearing it first would give the answer away. -->
-      @if (canSpeak && result() === true) {
-        <button
-          type="button"
-          class="icon-btn"
-          aria-label="Nghe câu tiếng Anh đúng"
-          [luSpeak]="translation().answer.join(' ')"
-          (click)="readAloud.emit(translation().answer.join(' '))"
-        >
-          <lu-icon name="volume" />
-        </button>
-      }
-    </div>
+  <!-- The sentence to translate, asked by the boy in a message bubble, like the reading questions. -->
+  <lu-asker
+    [label]="'Câu ' + (index() + 1) + '/' + count() + ' · Tiếng Việt'"
+    [tone]="result() === null ? null : result() ? 'right' : 'wrong'"
+  >
     <p class="vi">"{{ translation().vi }}"</p>
-  </div>
+    <!-- Hidden until the sentence is built correctly: hearing it first would give the answer away. -->
+    @if (canSpeak && result() === true) {
+      <button
+        type="button"
+        class="listen"
+        aria-label="Nghe câu tiếng Anh đúng"
+        [luSpeak]="translation().answer.join(' ')"
+        (click)="readAloud.emit(translation().answer.join(' '))"
+      >
+        <lu-icon name="volume" /> Nghe câu đúng
+      </button>
+    }
+  </lu-asker>
 
   <div class="soft-card built">
     <div class="bank-head">
@@ -85,10 +86,16 @@
     }
   </ul>
 
+  @if (result() === null) {
+    <button type="button" class="link-btn skip-line" (click)="skip()">Bỏ qua câu này</button>
+  }
+  <!-- The bar at the bottom of the screen (design): ← to the step before, then the main button. -->
   <div class="step-nav">
-    <button type="button" class="nav-btn" [disabled]="index() === 0" (click)="go.emit(index() - 1)">
-      <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
-    </button>
+    @if (canBack()) {
+      <button type="button" class="nav-btn back-step" aria-label="Bước trước" (click)="back.emit()">
+        <lu-icon name="arrow-left" />
+      </button>
+    }
     @if (result() === null) {
       <button
         type="button"
@@ -103,14 +110,6 @@
     } @else {
       <button type="button" class="btn-primary" (click)="done.emit()">{{ finishLabel() }}</button>
     }
-    <button
-      type="button"
-      class="nav-btn"
-      [disabled]="index() >= count() - 1"
-      (click)="go.emit(index() + 1)"
-    >
-      <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
-    </button>
   </div>
 
 

@@ -1,31 +1,24 @@
-.quiz-title {
-  font: var(--text-lg) var(--font-ui);
+.quiz {
+  display: grid;
+  gap: var(--space-2);
 }
 
-/* "Câu 2/3" and one dot per question: green right, red wrong, grey not answered. */
-.quiz-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-line);
-}
-
-.counter {
-  margin: 0;
-  font: var(--text-sm) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
+/* One dot per question: green right, red wrong, grey not answered. */
 .dots {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* In a lesson, on the line of the step's title ("2. Đọc · Câu hỏi"), at its right. */
+.dots.in-heading {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /* A 12px dot in a 28px touch area. */
@@ -78,27 +71,28 @@
 
 .question {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .prompt {
   margin: 0;
   font: var(--text-base) var(--font-ui);
   font-weight: 600;
+  color: var(--color-text);
 }
 
 /* Design screen 6: radio options "○ A. ...", then Kiểm tra. */
 .options {
   display: grid;
-  gap: var(--space-2);
+  gap: 6px;
 }
 
 .option {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 48px;
-  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
+  padding: 6px var(--space-3);
   font: var(--text-base) var(--font-ui);
   color: var(--color-text);
   background: var(--color-surface);
@@ -143,7 +137,7 @@
 
 .results {
   display: grid;
-  gap: var(--space-2);
+  gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -154,8 +148,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
-  min-height: 48px;
-  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
+  padding: 6px var(--space-3);
   font: var(--text-base) var(--font-ui);
   color: var(--color-text-muted);
   background: var(--color-surface);
@@ -205,50 +199,29 @@
   margin-left: auto;
 }
 
-/* One box with the verdict and why. */
-.feedback {
-  display: grid;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  background: color-mix(in srgb, var(--tone) 8%, var(--color-surface));
-  border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
-  border-radius: var(--radius-md);
-}
-
-.feedback.right {
-  --tone: var(--color-ok);
-}
-
-.feedback.wrong {
-  --tone: var(--color-bad);
-}
-
-.feedback-head {
-  display: flex;
-  flex-wrap: wrap;
+/* The verdict and why, in the bubble once answered. */
+.verdict {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
+  margin: var(--space-1) 0 0;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--tone);
 }
 
-.feedback-icon {
-  --icon-size: 16px;
+.verdict-icon {
+  --icon-size: 14px;
   display: inline-flex;
   flex: none;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   color: var(--color-surface);
   background: var(--tone);
   border-radius: 50%;
-}
-
-.verdict {
-  flex: 1;
-  margin: 0;
-  font: var(--text-base) var(--font-ui);
-  font-weight: 700;
-  color: var(--tone);
 }
 
 .explanation {
@@ -290,10 +263,10 @@
   outline-offset: 1px;
 }
 
-/* Under the explanation, at the end of the box. */
+/* In the bubble, under the explanation. */
 .redo {
-  justify-self: end;
-  margin-right: calc(-1 * var(--space-2));
+  justify-self: center;
+  min-height: 32px;
 }
 
 .restart:disabled {
@@ -307,24 +280,49 @@
   justify-items: start;
 }
 
-/* Score and "Làm lại tất cả" under the questions. */
-.quiz-foot {
+/* At the top: the score on the left, a small "Làm lại tất cả" pill on the right. */
+.quiz-tools {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-line);
+  gap: var(--space-1);
+  min-height: 36px;
+  white-space: nowrap;
+}
+
+.quiz-tools > * {
+  flex: none;
+}
+
+/* Nothing in the row but the dots, which sit on the title line: no empty row. */
+.quiz-tools.dots-only {
+  display: contents;
+}
+
+.quiz-tools .dots {
+  flex-wrap: nowrap;
+  margin-left: auto;
+}
+
+/* In the row the dots take 24px each (still a fair touch target), so it fits a small phone. */
+.quiz-tools .dot {
+  width: 24px;
+  height: 24px;
+}
+
+.quiz-tools .dot::before {
+  inset: 6px;
 }
 
 .restart {
-  margin-left: auto;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
 }
 
 .summary {
   margin: 0;
-  font: var(--text-base) var(--font-ui);
+  font: var(--text-sm) var(--font-ui);
   font-weight: 700;
 }
 
