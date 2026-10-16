@@ -1,0 +1,47 @@
+<section class="screen all-lessons">
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/vocabulary/review" aria-label="Quay lại Ôn tập"
+      ><lu-icon name="arrow-left"
+    /></a>
+    <h1 class="screen-title">
+      Bài đã học
+      @if (lessons(); as rows) {
+        · {{ rows.length }}
+      }
+    </h1>
+  </header>
+
+  @if (loadError()) {
+    <p class="form-alert" role="alert">
+      Không tải được danh sách bài.
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </p>
+  } @else if (lessons(); as rows) {
+    @if (rows.length === 0) {
+      <p class="soft-card muted" role="status">Học xong một bài là bài đó hiện ở đây để ôn lại.</p>
+    } @else {
+      <div class="filters" role="group" aria-label="Lọc bài">
+        @for (f of filters(); track f.value) {
+          <button
+            type="button"
+            class="chip"
+            [attr.aria-pressed]="filter() === f.value"
+            (click)="filter.set(f.value)"
+          >
+            {{ f.label }}
+            @if (f.value !== 'all') {
+              · {{ f.count }}
+            }
+          </button>
+        }
+      </div>
+      @if (shown().length > 0) {
+        <lu-lesson-list [items]="shown()" />
+      } @else {
+        <p class="muted empty" role="status">Không có bài nào ở mục này.</p>
+      }
+    }
+  } @else {
+    <lu-loading />
+  }
+</section>

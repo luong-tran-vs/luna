@@ -213,6 +213,7 @@ func (s *Store) WordBank() wordbank.Repository                  { return NewWord
 func (s *Store) AIUsage() aiusage.Repository                    { return NewAIUsage(s.db) }
 func (s *Store) Cards() vocab.Repository                        { return NewCards(s.db) }
 func (s *Store) ReviewLogs() vocab.ReviewLogRepository          { return NewReviewLogs(s.db) }
+func (s *Store) LessonResults() vocab.LessonResultRepository    { return NewLessonResults(s.db) }
 func (s *Store) DictationResults() progress.DictationRepository { return NewDictationResults(s.db) }
 func (s *Store) Goals() progress.GoalRepository                 { return NewGoals(s.db) }
 func (s *Store) LessonProgress() progress.ProgressRepository    { return NewLessonProgress(s.db) }

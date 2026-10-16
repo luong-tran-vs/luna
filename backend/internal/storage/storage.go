@@ -74,6 +74,8 @@ type Store interface {
 
 	Cards() vocab.Repository
 	ReviewLogs() vocab.ReviewLogRepository
+	// LessonResults keeps the score of the latest lesson review round of each lesson.
+	LessonResults() vocab.LessonResultRepository
 
 	DictationResults() progress.DictationRepository
 	Goals() progress.GoalRepository

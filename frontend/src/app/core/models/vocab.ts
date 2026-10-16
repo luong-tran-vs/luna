@@ -108,6 +108,33 @@ export interface ReviewForecast {
   days: DayCount[];
 }
 
+/** The latest lesson review round of a lesson: the score and the ids of the questions got wrong. */
+export interface LessonResult {
+  correct: number;
+  total: number;
+  wrong: string[];
+  reviewedAt: string;
+}
+
+/** Body of PUT /api/vocab/review/lessons/{id}. */
+export type LessonResultInput = Pick<LessonResult, 'correct' | 'total' | 'wrong'>;
+
+/** GET /api/vocab/review/lessons: the review state of one lesson, its saved cards and last round. */
+export interface LessonStats {
+  lessonId: string;
+  cards: number;
+  /** Cards due now. */
+  due: number;
+  /** Cards past their learning steps. */
+  remembered: number;
+  /** The latest review of any of the cards; null when none was reviewed. */
+  lastReview: string | null;
+  /** The earliest due time after now; null when every card is due. */
+  nextDue: string | null;
+  /** The latest lesson review round; null when never reviewed so. */
+  result: LessonResult | null;
+}
+
 /** Where a review happens: the review step of today's lesson (daily limit) or free review. */
 export type ReviewContext = 'daily' | 'free';
 

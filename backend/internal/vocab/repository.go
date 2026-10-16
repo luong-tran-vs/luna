@@ -35,7 +35,7 @@ type Repository interface {
 	// CountDue counts cards due before `before`; cards without a schedule count when saved
 	// before createdBefore.
 	CountDue(ctx context.Context, userID string, before, createdBefore time.Time) (int, error)
-	// Schedules returns every card of the user with only CreatedAt and Schedule filled.
+	// Schedules returns every card of the user with only CreatedAt, LessonID and Schedule filled.
 	Schedules(ctx context.Context, userID string) ([]Card, error)
 	// Count is the number of the user's cards created at or after since (nil = every card).
 	Count(ctx context.Context, userID string, since *time.Time) (int, error)
@@ -77,4 +77,13 @@ type SentenceTranslations interface {
 // LessonTitles gives the titles of the lessons that still exist among ids.
 type LessonTitles interface {
 	Titles(ctx context.Context, ids []string) (map[string]string, error)
+}
+
+// LessonResultRepository keeps the result of the latest lesson review round of each lesson, per
+// user (design/on-tap-theo-bai.png).
+type LessonResultRepository interface {
+	// Save replaces the user's result for r.LessonID.
+	Save(ctx context.Context, r LessonResult) error
+	// List returns every result of the user.
+	List(ctx context.Context, userID string) ([]LessonResult, error)
 }

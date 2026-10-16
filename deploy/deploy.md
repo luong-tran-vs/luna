@@ -57,6 +57,7 @@ Các biến cần xem lại khi chạy production (danh sách đầy đủ ở m
 | Biến | Giá trị production |
 |---|---|
 | `MONGO_URI` (hoặc `MYSQL_*`) | Chuỗi kết nối cơ sở dữ liệu thật |
+| `MONGO_IMAGES_URI`, `MONGO_IMAGES_DATABASE` | Cluster và database riêng cho ảnh từ vựng (để trống thì dùng chung DB chính). Lần khởi động đầu sau khi đặt, ảnh được chuyển sang và xoá khỏi DB chính |
 | `HTTP_ADDR` | `127.0.0.1:8080`: chỉ nghe nội bộ, Nginx chuyển request vào |
 | `COOKIE_SECURE` | `true`: site chạy HTTPS (bước 5) |
 | `CORS_ORIGINS` | Để trống: frontend và API cùng một tên miền |

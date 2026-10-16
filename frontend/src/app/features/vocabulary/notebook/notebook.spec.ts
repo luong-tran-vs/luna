@@ -1,5 +1,9 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting, TestRequest } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+  TestRequest,
+} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
@@ -10,13 +14,28 @@ import { Notebook } from './notebook';
 
 function card(id: string, text: string, day: string, lessonId: string | null = 'l1'): DayCard {
   return {
-    id, text, lemma: text, ipa: '/x/', meaningVi: `nghĩa ${text}`, contextSentence: `We ${text}.`, lessonId,
-    source: lessonId ? 'ai' : 'manual', createdAt: `${day}T01:00:00Z`, due: `${day}T17:00:00Z`, reps: 0, state: 'new', day,
+    id,
+    text,
+    lemma: text,
+    ipa: '/x/',
+    meaningVi: `nghĩa ${text}`,
+    contextSentence: `We ${text}.`,
+    lessonId,
+    source: lessonId ? 'ai' : 'manual',
+    createdAt: `${day}T01:00:00Z`,
+    due: `${day}T17:00:00Z`,
+    reps: 0,
+    state: 'new',
+    day,
   };
 }
 
 const page1: CardPage = {
-  cards: [card('c1', 'went', '2026-09-30'), card('c2', 'gave up', '2026-09-29'), card('c3', 'run', '2026-09-20')],
+  cards: [
+    card('c1', 'went', '2026-09-30'),
+    card('c2', 'gave up', '2026-09-29'),
+    card('c3', 'run', '2026-09-20'),
+  ],
   hasMore: true,
   today: '2026-09-30',
   yesterday: '2026-09-29',
@@ -32,7 +51,8 @@ describe('Notebook', () => {
     await new Promise((resolve) => setTimeout(resolve, ms));
     await fixture.whenStable();
   };
-  const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (node: Element | null | undefined) =>
+    node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string, root: ParentNode = el) =>
     Array.from(root.querySelectorAll('button')).find((b) => text(b) === label);
   const expectList = (): TestRequest => http.expectOne((r) => r.url === '/vocab/cards');
@@ -54,8 +74,12 @@ describe('Notebook', () => {
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
     expectList().flush(page);
-    http.expectOne('/vocab/lessons').flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 3 }], manualCount });
-    http.expectOne((r) => r.url === '/vocab/review/due').flush({ cards: [], total: 4, nextDue: null });
+    http
+      .expectOne('/vocab/lessons')
+      .flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 3 }], manualCount });
+    http
+      .expectOne((r) => r.url === '/vocab/review/due')
+      .flush({ cards: [], total: 4, nextDue: null });
     await settle();
   };
 
@@ -81,7 +105,10 @@ describe('Notebook', () => {
   });
 
   it('shows the translation of the example under it', async () => {
-    await setup({ ...page1, cards: [{ ...card('c1', 'went', '2026-09-30'), contextSentenceVi: 'Chúng tôi đã đi.' }] });
+    await setup({
+      ...page1,
+      cards: [{ ...card('c1', 'went', '2026-09-30'), contextSentenceVi: 'Chúng tôi đã đi.' }],
+    });
     expect(text(el.querySelector('.card-item .example-vi'))).toBe('Chúng tôi đã đi.');
   });
 
@@ -91,7 +118,11 @@ describe('Notebook', () => {
     await settle();
     const req = expectList();
     expect(req.request.params.get('page')).toBe('2');
-    req.flush({ ...page1, cards: [card('c4', 'ran', '2026-09-20'), card('c5', 'saw', '2026-09-01')], hasMore: false });
+    req.flush({
+      ...page1,
+      cards: [card('c4', 'ran', '2026-09-20'), card('c5', 'saw', '2026-09-01')],
+      hasMore: false,
+    });
     await settle();
     expect(headings()).toEqual(['Hôm nay', 'Hôm qua', '20/09/2026', '01/09/2026']);
     expect(words()).toEqual(['went', 'gave up', 'run', 'ran', 'saw']);
@@ -133,7 +164,11 @@ describe('Notebook', () => {
   it('guides the learner when the notebook is empty', async () => {
     await setup({ ...page1, cards: [], hasMore: false }, 0);
     expect(el.textContent).toContain('Sổ từ còn trống');
-    expect(Array.from(el.querySelectorAll<HTMLOptionElement>('#notebook-lesson option')).map((o) => o.value)).toEqual(['', 'l1']);
+    expect(
+      Array.from(el.querySelectorAll<HTMLOptionElement>('#notebook-lesson option')).map(
+        (o) => o.value,
+      ),
+    ).toEqual(['', 'l1']);
   });
 
   it('keeps edit and delete in a menu that closes on a click elsewhere or Escape', async () => {
@@ -189,16 +224,27 @@ describe('Notebook', () => {
     button('Thêm thẻ')!.click();
     await settle();
     const form = el.querySelector('lu-card-form')!;
-    for (const [id, value] of [['card-text', 'hello'], ['card-meaning', 'xin chào']]) {
+    for (const [id, value] of [
+      ['card-text', 'hello'],
+      ['card-meaning', 'xin chào'],
+    ]) {
       const input = form.querySelector<HTMLInputElement>(`#${id}`)!;
       input.value = value;
       input.dispatchEvent(new Event('input'));
     }
     form.querySelector('form')!.dispatchEvent(new Event('submit'));
     await settle();
-    http.expectOne('/vocab/cards').flush({ card: card('c9', 'hello', '2026-09-30', null) }, { status: 201, statusText: 'Created' });
+    http
+      .expectOne('/vocab/cards')
+      .flush(
+        { card: card('c9', 'hello', '2026-09-30', null) },
+        { status: 201, statusText: 'Created' },
+      );
     await settle();
-    expectList().flush({ ...page1, cards: [card('c9', 'hello', '2026-09-30', null), ...page1.cards] });
+    expectList().flush({
+      ...page1,
+      cards: [card('c9', 'hello', '2026-09-30', null), ...page1.cards],
+    });
     http.expectOne('/vocab/lessons').flush({ lessons: [], manualCount: 1 });
     await settle();
     expect(words()[0]).toBe('hello');
@@ -220,7 +266,9 @@ describe('Notebook', () => {
     req.flush(null, { status: 204, statusText: 'No Content' });
     await settle();
     // Lesson counts are refreshed after a delete.
-    http.expectOne('/vocab/lessons').flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 2 }], manualCount: 1 });
+    http
+      .expectOne('/vocab/lessons')
+      .flush({ lessons: [{ id: 'l1', title: 'A day at the park', count: 2 }], manualCount: 1 });
     await settle();
     expect(words()).toEqual(['gave up', 'run']);
     expect(el.querySelector('[role="alertdialog"]')).toBeNull();

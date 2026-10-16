@@ -12,6 +12,9 @@ import {
   DueCard,
   DueList,
   LessonCounts,
+  LessonResult,
+  LessonResultInput,
+  LessonStats,
   PracticeMisses,
   ReviewForecast,
   ReviewInput,
@@ -37,6 +40,18 @@ export class VocabApiService {
 
   forecast(): Observable<ReviewForecast> {
     return this.http.get<ReviewForecast>('/vocab/review/forecast');
+  }
+
+  /** The review state of the cards of each lesson the learner saved words from. */
+  lessonStats(): Observable<LessonStats[]> {
+    return this.http.get<{ lessons: LessonStats[] }>('/vocab/review/lessons').pipe(map((r) => r.lessons));
+  }
+
+  /** Keeps the score of a lesson review round, replacing the previous one. */
+  saveLessonResult(lessonId: string, input: LessonResultInput): Observable<LessonResult> {
+    return this.http
+      .put<{ result: LessonResult }>(`/vocab/review/lessons/${lessonId}`, input)
+      .pipe(map((r) => r.result));
   }
 
   review(cardId: string, input: ReviewInput): Observable<DueCard> {

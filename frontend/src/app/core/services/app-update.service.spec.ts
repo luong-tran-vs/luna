@@ -62,6 +62,23 @@ describe('AppUpdateService', () => {
     expect(location.assign).toHaveBeenCalledExactlyOnceWith('/review');
   });
 
+  it('says a new version is downloading until it is ready or the download fails', () => {
+    const service = setup(true);
+    service.start();
+    expect(service.downloading()).toBe(false);
+
+    versionUpdates.next({ type: 'VERSION_DETECTED' } as VersionEvent);
+    expect(service.downloading()).toBe(true);
+    versionUpdates.next({ type: 'VERSION_INSTALLATION_FAILED' } as VersionEvent);
+    expect(service.downloading()).toBe(false);
+    expect(service.ready()).toBe(false);
+
+    versionUpdates.next({ type: 'VERSION_DETECTED' } as VersionEvent);
+    versionUpdates.next(versionReady);
+    expect(service.downloading()).toBe(false);
+    expect(service.ready()).toBe(true);
+  });
+
   it('reloads into the new version on Cập nhật', () => {
     const service = setup(true);
     service.start();
@@ -70,34 +87,35 @@ describe('AppUpdateService', () => {
     expect(location.reload).toHaveBeenCalledOnce();
   });
 
-  it('looks for a new version when the app comes back to the screen or online', () => {
+  it('looks for a new version at start, when the app comes back to the screen or online', () => {
     setup(true).start();
-    expect(checkForUpdate).not.toHaveBeenCalled();
+    expect(checkForUpdate).toHaveBeenCalledTimes(1);
 
     doc.visibilityState = 'hidden';
     doc.dispatchEvent(new Event('visibilitychange'));
-    expect(checkForUpdate).not.toHaveBeenCalled(); // going to the background
+    expect(checkForUpdate).toHaveBeenCalledTimes(1); // going to the background
 
     doc.visibilityState = 'visible';
     doc.dispatchEvent(new Event('visibilitychange'));
-    expect(checkForUpdate).toHaveBeenCalledTimes(1);
+    expect(checkForUpdate).toHaveBeenCalledTimes(2);
 
     doc.defaultView.dispatchEvent(new Event('online'));
-    expect(checkForUpdate).toHaveBeenCalledTimes(2);
+    expect(checkForUpdate).toHaveBeenCalledTimes(3);
 
     // Not again once a version is waiting.
     versionUpdates.next(versionReady);
     doc.dispatchEvent(new Event('visibilitychange'));
-    expect(checkForUpdate).toHaveBeenCalledTimes(2);
+    expect(checkForUpdate).toHaveBeenCalledTimes(3);
   });
 
   it('looks for a new version now and then while the app stays open', () => {
     vi.useFakeTimers();
     setup(true).start();
-    vi.advanceTimersByTime(UPDATE_CHECK_MS - 1);
-    expect(checkForUpdate).not.toHaveBeenCalled();
-    vi.advanceTimersByTime(1);
     expect(checkForUpdate).toHaveBeenCalledOnce();
+    vi.advanceTimersByTime(UPDATE_CHECK_MS - 1);
+    expect(checkForUpdate).toHaveBeenCalledOnce();
+    vi.advanceTimersByTime(1);
+    expect(checkForUpdate).toHaveBeenCalledTimes(2);
   });
 
   it('keeps going when a check fails (offline)', async () => {

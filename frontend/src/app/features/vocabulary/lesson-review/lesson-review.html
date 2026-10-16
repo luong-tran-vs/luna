@@ -1,0 +1,358 @@
+<section class="screen lesson-review" [class.in-quiz]="stage() === 'quiz'">
+  @if (loadError()) {
+    <header class="screen-bar">
+      <a class="round-btn" routerLink="/vocabulary/review" aria-label="Về Ôn tập"
+        ><lu-icon name="arrow-left"
+      /></a>
+      <h1 class="screen-title">Ôn bài</h1>
+    </header>
+    <p class="form-alert" role="alert">
+      Không tải được bài này. <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </p>
+  } @else if (data(); as d) {
+    @switch (stage()) {
+      @case ('intro') {
+        <header class="top-bar">
+          <a class="round-btn" routerLink="/vocabulary/review" aria-label="Về Ôn tập"
+            ><lu-icon name="x"
+          /></a>
+        </header>
+        <div class="intro-head">
+          <p class="eyebrow">Ôn bài</p>
+          <h1 class="intro-title">{{ d.title }}</h1>
+          @if (roundSize() > 0) {
+            <p class="muted">{{ roundSize() }} câu · khoảng {{ minutes() }} phút</p>
+          }
+          @if (lastResult(); as r) {
+            <p class="last-result">
+              Lần trước: <strong>{{ r.correct }}/{{ r.total }} câu đúng</strong> ·
+              {{ ago(r.reviewedAt) }}
+            </p>
+          }
+        </div>
+
+        @if (available().length === 0) {
+          <p class="soft-card empty" role="status">Bài này chưa có từ vựng hay bài luyện để ôn.</p>
+        } @else {
+          <ul class="soft-card parts" aria-label="Các phần của lượt ôn">
+            @for (p of available(); track p; let i = $index) {
+              <li>
+                <button
+                  type="button"
+                  class="part-row"
+                  [attr.aria-pressed]="parts().includes(p)"
+                  (click)="togglePart(p)"
+                >
+                  <span class="part-text">
+                    <span class="part-name">{{ i + 1 }}. {{ partNames[p] }}</span>
+                    <span class="part-hint">
+                      @switch (p) {
+                        @case ('vocab') {
+                          Chọn nghĩa đúng của từ
+                          @if (dueCount() > 0) {
+                            · {{ dueCount() }} từ đến hạn luôn được hỏi
+                          }
+                        }
+                        @case ('fill') {
+                          Câu trong bài, chọn từ còn thiếu
+                        }
+                        @case ('translate') {
+                          Ghép từ thành câu tiếng Anh
+                        }
+                      }
+                    </span>
+                  </span>
+                  <span class="part-count">
+                    {{ count(p) }} câu
+                    <span class="tick" aria-hidden="true">
+                      @if (parts().includes(p)) {
+                        <lu-icon name="check" />
+                      }
+                    </span>
+                  </span>
+                </button>
+              </li>
+            }
+          </ul>
+          <p class="muted center">Chạm một phần để bỏ hoặc giữ lại.</p>
+          <div class="bottom-bar">
+            @if (lastWrong().length > 0) {
+              <button type="button" class="btn" (click)="startWrong()">
+                Ôn lại câu sai ({{ lastWrong().length }})
+              </button>
+            }
+            <button
+              type="button"
+              class="btn-primary"
+              [disabled]="roundSize() === 0"
+              (click)="start()"
+            >
+              {{ lastResult() ? 'Ôn cả bài' : 'Bắt đầu ôn' }}
+            </button>
+          </div>
+        }
+      }
+
+      @case ('quiz') {
+        @if (question(); as q) {
+          <h1 class="visually-hidden">Ôn bài {{ d.title }}</h1>
+          <header class="top-bar">
+            <a class="round-btn" routerLink="/vocabulary/review" aria-label="Dừng ôn"
+              ><lu-icon name="x"
+            /></a>
+            <div
+              class="segments"
+              role="progressbar"
+              aria-label="Tiến độ ôn bài"
+              aria-valuemin="1"
+              [attr.aria-valuemax]="questions().length"
+              [attr.aria-valuenow]="index() + 1"
+              [attr.aria-valuetext]="'Câu ' + (index() + 1) + '/' + questions().length"
+            >
+              @for (s of segments(); track s.part) {
+                <span class="segment" [style.flex-grow]="s.size">
+                  <span class="segment-fill" [style.width.%]="(s.done / s.size) * 100"></span>
+                </span>
+              }
+            </div>
+            <span class="progress-text" aria-hidden="true"
+              >{{ index() + 1 }}/{{ questions().length }}</span
+            >
+          </header>
+          @if (part(); as p) {
+            <p class="part-label">{{ partNames[p] }} · {{ partPosition() }}</p>
+          }
+
+          @switch (q.kind) {
+            @case ('vocab') {
+              <lu-asker
+                [label]="
+                  verdict() === 'correct'
+                    ? '✓ Đúng rồi'
+                    : verdict() === 'wrong'
+                      ? '✗ Chưa đúng'
+                      : verdict()
+                        ? 'Nghĩa của từ'
+                        : 'Từ này nghĩa là gì?'
+                "
+                [tone]="verdict() === 'correct' ? 'right' : verdict() ? 'wrong' : null"
+              >
+                <p class="word-line">
+                  <span class="word" lang="en">{{ q.word }}</span>
+                  <button type="button" class="sound" [luSpeak]="q.word" (click)="say(q.word)">
+                    <lu-icon name="volume" /><span class="visually-hidden">Nghe từ</span>
+                  </button>
+                </p>
+                @if (verdict()) {
+                  @if (q.ipa) {
+                    <p class="ipa">{{ q.ipa }}</p>
+                  }
+                  <p class="meaning">{{ q.meaningVi }}</p>
+                }
+                @if (q.sentence) {
+                  <p class="example" lang="en">{{ q.sentence }}</p>
+                  @if (verdict() && q.sentenceVi) {
+                    <p class="example-vi">{{ q.sentenceVi }}</p>
+                  }
+                }
+              </lu-asker>
+              <lu-choice-list
+                label="Chọn nghĩa đúng"
+                [options]="q.choices.options"
+                [picked]="picked()"
+                [answer]="verdict() ? q.choices.answer : null"
+                (pickedChange)="pick($event)"
+              />
+            }
+            @case ('fill') {
+              <lu-asker
+                [label]="
+                  verdict() === 'correct'
+                    ? '✓ Đúng rồi'
+                    : verdict() === 'wrong'
+                      ? '✗ Chưa đúng'
+                      : verdict()
+                        ? 'Từ còn thiếu'
+                        : 'Chọn từ còn thiếu'
+                "
+                [tone]="verdict() === 'correct' ? 'right' : verdict() ? 'wrong' : null"
+              >
+                <p class="line" lang="en">
+                  {{ q.before
+                  }}<span class="gap" [class.filled]="gapText() !== ''">{{ gapText() }}</span
+                  >{{ q.after }}
+                </p>
+                @if (q.vi) {
+                  <p class="example-vi">{{ q.vi }}</p>
+                }
+              </lu-asker>
+              <lu-choice-list
+                label="Chọn từ còn thiếu"
+                lang="en"
+                [options]="q.choices.options"
+                [picked]="picked()"
+                [answer]="verdict() ? q.choices.answer : null"
+                (pickedChange)="pick($event)"
+              />
+            }
+            @case ('translate') {
+              <lu-asker
+                [label]="
+                  verdict() === 'correct'
+                    ? '✓ Đúng rồi'
+                    : verdict() === 'wrong'
+                      ? '✗ Chưa đúng'
+                      : verdict()
+                        ? 'Câu đúng'
+                        : 'Dịch sang tiếng Anh'
+                "
+                [tone]="verdict() === 'correct' ? 'right' : verdict() ? 'wrong' : null"
+              >
+                <p class="vi">"{{ q.vi }}"</p>
+                @if (verdict() && verdict() !== 'correct') {
+                  <p class="solution" lang="en">{{ q.answer.join(' ') }}</p>
+                }
+              </lu-asker>
+              <ul class="tiles built" aria-label="Câu dịch của bạn">
+                @for (t of built(); track $index; let pos = $index) {
+                  <li>
+                    <button
+                      type="button"
+                      class="tile chosen"
+                      lang="en"
+                      [attr.aria-label]="'Gỡ từ ' + t"
+                      [disabled]="!!verdict()"
+                      (click)="removeTile(pos)"
+                    >
+                      {{ t }}
+                    </button>
+                  </li>
+                } @empty {
+                  <li class="built-hint">Chạm các từ bên dưới theo đúng thứ tự</li>
+                }
+              </ul>
+              <ul class="tiles bank" aria-label="Các từ">
+                @for (t of q.tiles; track $index; let i = $index) {
+                  <li>
+                    <button
+                      type="button"
+                      class="tile"
+                      lang="en"
+                      [class.used]="tileUsed(i)"
+                      [disabled]="tileUsed(i) || !!verdict()"
+                      (click)="addTile(i)"
+                    >
+                      {{ t }}
+                    </button>
+                  </li>
+                }
+              </ul>
+            }
+          }
+
+          <div class="bottom-bar">
+            @if (verdict(); as v) {
+              <button
+                #nextButton
+                type="button"
+                class="btn-next"
+                [class.again]="v !== 'correct'"
+                (click)="next()"
+              >
+                {{ index() + 1 < questions().length ? 'Tiếp' : 'Xem kết quả' }}
+                @if (comesBack(); as when) {
+                  <span class="next-when">ôn lại sau {{ when }}</span>
+                }
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn-skip"
+                [class.forget]="q.kind === 'vocab'"
+                (click)="skip()"
+              >
+                {{ q.kind === 'vocab' ? 'Quên' : 'Bỏ qua' }}
+              </button>
+              <button
+                #submitButton
+                type="button"
+                class="btn-primary"
+                aria-keyshortcuts="Enter"
+                [attr.aria-disabled]="canSubmit() ? null : true"
+                (click)="submit()"
+              >
+                Nộp
+              </button>
+            }
+          </div>
+        }
+      }
+
+      @case ('result') {
+        <header class="screen-bar">
+          <h1 class="screen-title">Đã ôn xong</h1>
+        </header>
+        <div class="soft-card result" role="status">
+          <p class="eyebrow">{{ d.title }}</p>
+          <p class="score" [class.low]="correct() * 2 < answers().length">
+            {{ correct() }}/{{ answers().length }}
+          </p>
+          <p class="muted">câu đúng</p>
+          @if (roundKind() === 'wrong' && lastResult(); as r) {
+            <p class="lesson-score">Điểm cả bài: {{ r.correct }}/{{ r.total }}</p>
+          }
+          @if (saveError()) {
+            <p class="field-error" role="alert">Chưa lưu được điểm lần này.</p>
+          }
+        </div>
+
+        <ul class="soft-card part-scores" aria-label="Điểm từng phần">
+          @for (s of scores(); track s.part) {
+            <li>
+              <span>{{ partNames[s.part] }}</span
+              >&ngsp;
+              <span class="part-score">
+                <strong>{{ s.correct }}/{{ s.total }}</strong>
+                <span class="bar" aria-hidden="true"
+                  ><span [style.width.%]="(s.correct / s.total) * 100"></span
+                ></span>
+              </span>
+            </li>
+          }
+        </ul>
+
+        @if (wrong().length > 0) {
+          <section class="soft-card wrongs" aria-labelledby="wrongs-heading">
+            <h2 class="wrongs-title" id="wrongs-heading">Câu chưa đúng ({{ wrong().length }})</h2>
+            <ul>
+              @for (a of wrong(); track $index) {
+                <li>
+                  <span class="prompt">{{ promptText(a) }}</span
+                  >&ngsp;
+                  @if (a.given) {
+                    <s class="given">{{ a.given }}</s
+                    >&ngsp;
+                  }
+                  <span class="right">→ {{ answerText(a) }}</span>
+                </li>
+              }
+            </ul>
+            <p class="muted">Các từ sai đã được đưa vào lượt ôn sắp tới.</p>
+          </section>
+        }
+
+        <div class="actions">
+          @if (wrong().length > 0) {
+            <button type="button" class="btn btn-block" (click)="retryWrong()">
+              Ôn lại câu sai
+            </button>
+          }
+          <button type="button" class="btn btn-block" (click)="restartAll()">Ôn lại cả bài</button>
+          <a class="btn-primary btn-block" routerLink="/vocabulary/review">Xong</a>
+        </div>
+      }
+    }
+  } @else {
+    <lu-loading />
+  }
+</section>

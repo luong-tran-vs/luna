@@ -1,0 +1,467 @@
+.lesson-review {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* Room at the bottom for the fixed bar. */
+.lesson-review:has(.bottom-bar) {
+  padding-bottom: 88px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+}
+
+.eyebrow {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-primary-ink);
+}
+
+.center {
+  text-align: center;
+}
+
+/* Intro: the lesson, its parts (each can be left out) and the start button. */
+.intro-head {
+  display: grid;
+  gap: var(--space-1);
+  text-align: center;
+}
+
+.intro-title {
+  font: var(--text-xl) var(--font-ui);
+  color: var(--color-text);
+}
+
+.parts {
+  display: grid;
+  margin: 0;
+  padding: 0 var(--space-4);
+  list-style: none;
+}
+
+.parts li + li {
+  border-top: 1px solid var(--color-line);
+}
+
+.part-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--space-3) 0;
+  font: inherit;
+  color: var(--color-text);
+  text-align: start;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.part-row[aria-pressed='false'] .part-text {
+  opacity: 0.5;
+}
+
+.part-text {
+  display: grid;
+}
+
+.part-name {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.part-hint {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.part-count {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.tick {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  color: var(--color-on-primary);
+  border: 2px solid var(--color-line);
+  border-radius: 6px;
+
+  --icon-size: 16px;
+}
+
+[aria-pressed='true'] .tick {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* The progress: one segment per part, as long as its share of the round. */
+.segments {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+}
+
+.segment {
+  flex: 1 1 0;
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.segment-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.part-label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-primary-ink);
+}
+
+/* In the bubble. */
+.word-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.word {
+  font: var(--text-2xl) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.sound {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+  --icon-size: 20px;
+}
+
+.ipa {
+  font: var(--text-base) var(--font-ipa);
+  color: var(--color-text-muted);
+}
+
+.meaning {
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+.example {
+  font: var(--text-base) var(--font-ui);
+  font-style: italic;
+  color: var(--color-text);
+}
+
+.example-vi {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.line {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--color-text);
+  text-align: start;
+}
+
+/* The missing word: a line to fill, the word on it once picked. */
+.gap {
+  display: inline-block;
+  min-width: 72px;
+  min-height: 1.4em;
+  margin: 0 2px;
+  padding: 0 var(--space-1);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  text-align: center;
+  vertical-align: bottom;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.vi {
+  font: var(--text-lg) var(--font-ui);
+  color: var(--color-text);
+}
+
+.solution {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-ok);
+}
+
+/* Translation: the sentence built so far, then the tiles left. */
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.built {
+  align-content: flex-start;
+  min-height: 76px;
+  padding: var(--space-2);
+  background: var(--color-surface);
+  border: 2px dashed var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.built-hint {
+  align-self: center;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.bank {
+  justify-content: center;
+}
+
+.tile {
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-bottom-width: 4px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.tile:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.tile.chosen {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.tile.used {
+  color: transparent;
+  background: var(--color-track);
+  border-color: var(--color-track);
+}
+
+.tile:disabled {
+  cursor: default;
+}
+
+/* The bottom bar: "Quên"/"Bỏ qua" and "Nộp", then one "Tiếp". */
+.btn-skip {
+  flex: 1;
+  min-height: 48px;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.btn-skip.forget {
+  color: var(--color-bad);
+  border-color: var(--color-bad);
+}
+
+.bottom-bar .btn-primary[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-next {
+  display: grid;
+  flex: 1;
+  place-content: center;
+  min-height: 48px;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-on-primary);
+  background: color-mix(in srgb, var(--color-ok) 85%, var(--color-text));
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.btn-next.again {
+  background: color-mix(in srgb, var(--color-bad) 85%, var(--color-text));
+}
+
+.next-when {
+  font: var(--text-xs) var(--font-ui);
+}
+
+/* Result. */
+.result {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+}
+
+.score {
+  font: 800 44px / 1 var(--font-ui);
+  color: var(--color-ok);
+  font-variant-numeric: tabular-nums;
+}
+
+.score.low {
+  color: var(--color-warn);
+}
+
+.part-scores {
+  display: grid;
+  margin: 0;
+  padding: 0 var(--space-4);
+  list-style: none;
+}
+
+.part-scores li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 52px;
+  font: var(--text-base) var(--font-ui);
+}
+
+.part-scores li + li {
+  border-top: 1px solid var(--color-line);
+}
+
+.part-score {
+  display: grid;
+  justify-items: end;
+  gap: var(--space-1);
+}
+
+.bar {
+  display: block;
+  width: 120px;
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--color-ok);
+}
+
+.wrongs {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.wrongs-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.wrongs ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wrongs li {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.prompt {
+  font-weight: 700;
+  margin-right: var(--space-1);
+}
+
+.given {
+  margin-right: var(--space-1);
+  color: var(--color-bad);
+}
+
+.right {
+  font-weight: 700;
+  color: var(--color-ok);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.empty {
+  text-align: center;
+}
+
+/* The score of the latest round, on the intro and, after a round of the wrong ones, the result. */
+.last-result {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.last-result strong {
+  color: var(--color-text);
+}
+
+.lesson-score {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+}

@@ -20,12 +20,13 @@ function card(id: string, text: string, reps = 0): DueCard {
 
 @Component({
   imports: [ReviewSession],
-  template: `<lu-review-session [cards]="cards()" [mode]="mode()" [context]="context()" (finished)="summaries.push($event)" (closed)="closed = closed + 1" />`,
+  template: `<lu-review-session [cards]="cards()" [mode]="mode()" [context]="context()" [pool]="pool()" (finished)="summaries.push($event)" (closed)="closed = closed + 1" />`,
 })
 class Host {
   readonly cards = signal<DueCard[]>([card('c1', 'went'), card('c2', 'gave up')]);
   readonly mode = signal<ReviewMode>('flip');
   readonly context = signal<ReviewContext>('free');
+  readonly pool = signal<string[]>([]);
   readonly summaries: ReviewSummary[] = [];
   closed = 0;
 }
@@ -92,82 +93,122 @@ describe('ReviewSession', () => {
   });
 
   describe('flip mode', () => {
-    it('shows only the word until the card is flipped', async () => {
+    // Pick a meaning, "Nộp", then "Tiếp" (design/on-tap-theo-bai.png).
+    const choose = async (meaning: string) => {
+      Array.from(el.querySelectorAll<HTMLButtonElement>('.choice'))
+        .find((c) => c.querySelector('.text')?.textContent?.trim() === meaning)!
+        .click();
+      await settle();
+    };
+    const submit = async (meaning: string) => {
+      await choose(meaning);
+      button('Nộp')!.click();
+      await settle();
+    };
+    const goOn = async () => {
+      el.querySelector<HTMLButtonElement>('.btn-next')!.click();
+      await settle();
+    };
+    const options = () => Array.from(el.querySelectorAll('.choice .text')).map((t) => t.textContent?.trim());
+
+    it('asks for the meaning among the others', async () => {
       await setup();
       expect(text('.progress-text')).toBe('1/2');
       expect(text('.word')).toBe('went');
       expect(button('Nghe từ')).toBeTruthy();
       expect(text('.counter')).toBe('Từ này nghĩa là gì?');
+      expect([...options()].sort()).toEqual(['nghĩa của gave up', 'nghĩa của went']);
       expect(el.querySelector('.meaning')).toBeNull();
-      expect(buttonStarting('Nhớ')).toBeUndefined();
       // The example sentence is on the front, the word marked, to guess the meaning from context.
       expect(text('.example')).toBe('We went home.');
       expect(text('.example mark')).toBe('went');
-      // The translation waits for the flip.
       expect(el.querySelector('.example-vi')).toBeNull();
+      expect(button('Quên')).toBeTruthy();
+      expect(buttonStarting('Nhớ')).toBeUndefined();
 
-      button('Lật thẻ')!.click();
+      // Nothing picked: "Nộp" does nothing.
+      expect(button('Nộp')!.getAttribute('aria-disabled')).toBe('true');
+      button('Nộp')!.click();
       await settle();
-      expect(text('.ipa')).toBe('/ɡəʊ/');
-      expect(text('.meaning')).toBe('nghĩa của went');
-      expect(text('.example')).toBe('We went home.');
-      expect(['Quên · 1 phút', 'Khó · 5 phút', 'Nhớ · 10 phút', 'Dễ · 8 ngày'].map((l) => !!button(l))).toEqual([
-        true,
-        true,
-        true,
-        true,
-      ]);
+      expect(el.querySelector('.meaning')).toBeNull();
     });
 
-    it('flips with Space and rates with number keys', async () => {
+    it('rates a right answer Good on "Tiếp"', async () => {
       await setup();
-      await keydown(' ');
-      expect(el.querySelector('.meaning')).toBeTruthy();
-      await keydown('3');
+      await choose('nghĩa của went');
+      expect(text('.choice.picked .text')).toBe('nghĩa của went');
+      button('Nộp')!.click();
+      await settle();
+      expect(text('.counter')).toBe('✓ Đúng rồi');
+      expect(text('.choice.right .text')).toBe('nghĩa của went');
+      expect(el.querySelector('.choice.wrong')).toBeNull();
+      expect(text('.ipa')).toBe('/ɡəʊ/');
+      expect(text('.meaning')).toBe('nghĩa của went');
+      expect(text('.btn-next')).toBe('Tiếp ôn lại sau 10 phút');
+
+      await goOn();
       const req = expectReview('c1');
       expect(req.request.body).toEqual({ rating: 3, mode: 'flip', reps: 0, context: 'free' });
       req.flush({ card: { ...card('c1', 'went', 1), intervals } });
       await settle();
       expect(text('.word')).toBe('gave up');
       expect(el.querySelector('.meaning')).toBeNull();
+      expect(el.querySelector('.choice.picked')).toBeNull();
     });
 
-    it('flips back to the front before rating, with the button or Space', async () => {
+    it('marks a wrong pick and the right one, and rates it Again', async () => {
       await setup();
-      button('Lật thẻ')!.click();
-      await settle();
-      expect(el.querySelector('.meaning')).toBeTruthy();
+      await submit('nghĩa của gave up');
+      expect(text('.counter')).toBe('✗ Chưa đúng');
+      expect(el.querySelector('.bubble.wrong')).toBeTruthy();
+      expect(text('.choice.wrong .text')).toBe('nghĩa của gave up');
+      expect(text('.choice.right .text')).toBe('nghĩa của went');
+      expect(text('.btn-next')).toBe('Tiếp ôn lại sau 1 phút');
+      expect(el.querySelector('.btn-next.again')).toBeTruthy();
 
-      button('↺ Lật lại mặt trước')!.click();
-      await settle();
-      expect(el.querySelector('.meaning')).toBeNull();
-      expect(buttonStarting('Nhớ')).toBeUndefined();
-      expect(button('Lật thẻ')).toBeTruthy();
-
-      await keydown(' ');
-      expect(el.querySelector('.meaning')).toBeTruthy();
-      await keydown(' ');
-      expect(el.querySelector('.meaning')).toBeNull();
+      await goOn();
+      expect(expectReview('c1').request.body.rating).toBe(1);
     });
 
-    it('cannot flip back a typed answer in listen mode', async () => {
-      await setup('listen');
-      await typeAndCheck('went');
-      expect(button('↺ Lật lại mặt trước')).toBeUndefined();
+    it('shows the answer on "Quên" and rates it Again', async () => {
+      await setup();
+      button('Quên')!.click();
+      await settle();
+      expect(text('.counter')).toBe('Nghĩa của từ');
+      expect(text('.choice.right .text')).toBe('nghĩa của went');
+      expect(el.querySelector('.choice.wrong')).toBeNull();
+      await goOn();
+      expect(expectReview('c1').request.body.rating).toBe(1);
+    });
+
+    it('picks with number keys and goes on with Enter', async () => {
+      await setup();
+      const right = options().indexOf('nghĩa của went');
+      await keydown(String(right + 1));
+      await keydown('Enter');
+      expect(text('.counter')).toBe('✓ Đúng rồi');
+      await keydown('Enter');
+      expect(expectReview('c1').request.body.rating).toBe(3);
     });
 
     it('sends the review context', async () => {
       await setup();
       host.context.set('daily');
       await settle();
-      button('Lật thẻ')!.click();
-      await settle();
-      button('Nhớ · 10 phút')!.click();
-      await settle();
+      await submit('nghĩa của went');
+      await goOn();
       const req = expectReview('c1');
       expect(req.request.body).toEqual({ rating: 3, mode: 'flip', reps: 0, context: 'daily' });
       req.flush({ card: { ...card('c1', 'went', 1), intervals } });
       await settle();
+    });
+
+    it('takes the wrong meanings from the pool too', async () => {
+      await setup('flip', [card('c1', 'went')]);
+      host.pool.set(['ăn', 'ngủ', 'chạy', 'đọc']);
+      await settle();
+      expect(options()).toHaveLength(4);
+      expect(options()).toContain('nghĩa của went');
     });
 
     it('plays the word', async () => {
@@ -177,11 +218,10 @@ describe('ReviewSession', () => {
       expect(speech.texts()).toContain('went');
     });
 
-    it('shows the translation of the example once the card is flipped', async () => {
-      await setup('flip', [{ ...card('c1', 'went'), contextSentenceVi: 'Chúng tôi về nhà.' }]);
+    it('shows the translation of the example once answered', async () => {
+      await setup('flip', [{ ...card('c1', 'went'), contextSentenceVi: 'Chúng tôi về nhà.' }, card('c2', 'gave up')]);
       expect(el.querySelector('.example-vi')).toBeNull();
-      button('Lật thẻ')!.click();
-      await settle();
+      await submit('nghĩa của went');
       expect(text('.example-vi')).toBe('Chúng tôi về nhà.');
     });
 
@@ -194,28 +234,23 @@ describe('ReviewSession', () => {
 
     it('shows a card rated Again once more at the end and reports the summary', async () => {
       await setup();
-      button('Lật thẻ')!.click();
-      await settle();
-      button('Quên · 1 phút')!.click();
-      await settle();
-      expectReview('c1').flush({ card: { ...card('c1', 'went', 1), intervals: { ...intervals, good: 3600 } } });
+      await submit('nghĩa của gave up');
+      await goOn();
+      expectReview('c1').flush({ card: { ...card('c1', 'went', 1), intervals: { ...intervals, again: 120 } } });
       await settle();
 
-      button('Lật thẻ')!.click();
-      await settle();
-      button('Nhớ · 10 phút')!.click();
-      await settle();
+      await submit('nghĩa của gave up');
+      await goOn();
       expectReview('c2').flush({ card: { ...card('c2', 'gave up', 1), intervals } });
       await settle();
 
       // c1 again, with the intervals of its new schedule.
       expect(text('.word')).toBe('went');
       expect(text('.progress-text')).toBe('3/3');
-      button('Lật thẻ')!.click();
+      button('Quên')!.click();
       await settle();
-      expect(button('Nhớ · 1 giờ')).toBeTruthy();
-      button('Quên · 1 phút')!.click();
-      await settle();
+      expect(text('.btn-next')).toBe('Tiếp ôn lại sau 2 phút');
+      await goOn();
       const again = expectReview('c1');
       expect(again.request.body.reps).toBe(1);
       again.flush({ card: { ...card('c1', 'went', 2), intervals } });
@@ -230,10 +265,8 @@ describe('ReviewSession', () => {
 
     it('moves on when the card was already reviewed (409)', async () => {
       await setup();
-      button('Lật thẻ')!.click();
-      await settle();
-      button('Nhớ · 10 phút')!.click();
-      await settle();
+      await submit('nghĩa của went');
+      await goOn();
       expectReview('c1').flush(
         { error: 'review_conflict', message: 'x', card: card('c1', 'went', 1) },
         { status: 409, statusText: 'Conflict' },
@@ -244,41 +277,77 @@ describe('ReviewSession', () => {
 
     it('keeps the card and offers a retry when saving fails', async () => {
       await setup();
-      button('Lật thẻ')!.click();
-      await settle();
-      button('Khó · 5 phút')!.click();
-      await settle();
+      await submit('nghĩa của gave up');
+      await goOn();
       expectReview('c1').flush({ error: 'internal_error', message: 'x' }, { status: 500, statusText: 'Error' });
       await settle();
-      expect(text('.save-error')).toContain('Chưa lưu được đánh giá');
+      expect(text('.save-error')).toContain('Chưa lưu được kết quả');
       expect(text('.word')).toBe('went');
 
       button('Thử lại')!.click();
       await settle();
       const retry = expectReview('c1');
-      expect(retry.request.body).toEqual({ rating: 2, mode: 'flip', reps: 0, context: 'free' });
+      expect(retry.request.body).toEqual({ rating: 1, mode: 'flip', reps: 0, context: 'free' });
       retry.flush({ card: { ...card('c1', 'went', 1), intervals } });
       await settle();
       expect(text('.word')).toBe('gave up');
       expect(el.querySelector('.save-error')).toBeNull();
     });
-  });
 
-  it('stops the session with ✕', async () => {
-    await setup();
-    button('Dừng ôn')!.click();
-    await settle();
-    expect(host.closed).toBe(1);
-  });
+    describe('with nothing to choose between', () => {
+      it('flips the card and rates it by hand', async () => {
+        await setup('flip', [card('c1', 'went')]);
+        expect(el.querySelector('.choice')).toBeNull();
+        expect(el.querySelector('.meaning')).toBeNull();
+        button('Lật thẻ')!.click();
+        await settle();
+        expect(text('.meaning')).toBe('nghĩa của went');
+        expect(['Quên · 1 phút', 'Khó · 5 phút', 'Nhớ · 10 phút', 'Dễ · 8 ngày'].map((l) => !!button(l))).toEqual([
+          true,
+          true,
+          true,
+          true,
+        ]);
+      });
 
-  describe('back and forward', () => {
+      it('flips with Space and rates with number keys', async () => {
+        await setup('flip', [card('c1', 'went')]);
+        await keydown(' ');
+        expect(el.querySelector('.meaning')).toBeTruthy();
+        await keydown('3');
+        const req = expectReview('c1');
+        expect(req.request.body).toEqual({ rating: 3, mode: 'flip', reps: 0, context: 'free' });
+        req.flush({ card: { ...card('c1', 'went', 1), intervals } });
+        await settle();
+        expect(text('.summary')).toContain('Đã ôn 1 thẻ');
+      });
+
+      it('flips back to the front before rating, with the button or Space', async () => {
+        await setup('flip', [card('c1', 'went')]);
+        button('Lật thẻ')!.click();
+        await settle();
+        button('↺ Lật lại mặt trước')!.click();
+        await settle();
+        expect(el.querySelector('.meaning')).toBeNull();
+        expect(button('Lật thẻ')).toBeTruthy();
+        await keydown(' ');
+        expect(el.querySelector('.meaning')).toBeTruthy();
+        await keydown(' ');
+        expect(el.querySelector('.meaning')).toBeNull();
+      });
+    });
+
+    it('cannot flip back a typed answer in listen mode', async () => {
+      await setup('listen');
+      await typeAndCheck('went');
+      expect(button('↺ Lật lại mặt trước')).toBeUndefined();
+    });
+
     it('views a rated card again without rating it', async () => {
       await setup();
       expect(button('Thẻ trước')!.disabled).toBe(true);
-      button('Lật thẻ')!.click();
-      await settle();
-      button('Khó · 5 phút')!.click();
-      await settle();
+      await submit('nghĩa của went');
+      await goOn();
       expectReview('c1').flush({ card: { ...card('c1', 'went', 1), intervals } });
       await settle();
 
@@ -287,14 +356,15 @@ describe('ReviewSession', () => {
       expect(text('.progress-text')).toBe('1/2');
       expect(text('.word')).toBe('went');
       expect(text('.meaning')).toBe('nghĩa của went');
-      expect(text('.hint')).toBe('Bạn đã chấm: Khó');
-      expect(buttonStarting('Nhớ')).toBeUndefined();
-      await keydown('3'); // no rating while viewing
+      expect(text('.choice.right .text')).toBe('nghĩa của went');
+      expect(text('.hint')).toBe('Bạn đã chấm: Nhớ');
+      expect(button('Nộp')).toBeUndefined();
+      await keydown('Enter'); // no rating while viewing
 
       await keydown('ArrowRight');
       expect(text('.word')).toBe('gave up');
-      expect(text('.hint')).not.toContain('Bạn đã chấm');
-      expect(button('Lật thẻ')).toBeTruthy();
+      expect(el.querySelector('.hint')).toBeNull();
+      expect(button('Nộp')).toBeTruthy();
     });
 
     it('skips the current card to the end', async () => {
@@ -304,12 +374,13 @@ describe('ReviewSession', () => {
       expect(text('.word')).toBe('gave up');
       expect(text('.progress-text')).toBe('1/3');
 
-      for (const id of ['c2', 'c3']) {
-        button('Lật thẻ')!.click();
-        await settle();
-        button('Nhớ · 10 phút')!.click();
-        await settle();
-        expectReview(id).flush({ card: { ...card(id, id, 1), intervals } });
+      for (const [id, word] of [
+        ['c2', 'gave up'],
+        ['c3', 'ran'],
+      ]) {
+        await submit(`nghĩa của ${word}`);
+        await goOn();
+        expectReview(id).flush({ card: { ...card(id, word, 1), intervals } });
         await settle();
       }
       expect(text('.word')).toBe('went');
@@ -317,6 +388,13 @@ describe('ReviewSession', () => {
       // The last card left cannot be skipped.
       expect(button('Để sau, ôn lại ở cuối')).toBeUndefined();
     });
+  });
+
+  it('stops the session with ✕', async () => {
+    await setup();
+    button('Dừng ôn')!.click();
+    await settle();
+    expect(host.closed).toBe(1);
   });
 
   describe('listen mode', () => {

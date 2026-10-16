@@ -1,7 +1,8 @@
-
 <section class="notebook">
   <header class="notebook-header">
-    <a class="round-btn" routerLink="/vocabulary/review" aria-label="Quay lại Ôn tập"><lu-icon name="arrow-left" /></a>
+    <a class="round-btn" routerLink="/vocabulary/review" aria-label="Quay lại Ôn tập"
+      ><lu-icon name="arrow-left"
+    /></a>
     <h1 class="title screen-title">Sổ từ</h1>
     <button type="button" class="btn add" [disabled]="adding()" (click)="adding.set(true)">
       <lu-icon name="plus" /> Thêm thẻ
@@ -16,8 +17,16 @@
     <div class="search">
       <label class="visually-hidden" for="notebook-search">Tìm từ</label>
       <lu-icon name="search" />
-      <input id="notebook-search" type="search" lang="en" autocomplete="off" spellcheck="false" placeholder="Tìm từ…"
-        [value]="q()" (input)="onSearch($event)" />
+      <input
+        id="notebook-search"
+        type="search"
+        lang="en"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="Tìm từ…"
+        [value]="q()"
+        (input)="onSearch($event)"
+      />
     </div>
     <div>
       <label class="visually-hidden" for="notebook-lesson">Bài học</label>
@@ -56,7 +65,11 @@
         @for (c of g.cards; track c.id) {
           <li class="card-item">
             @if (editingId() === c.id) {
-              <lu-card-form [card]="c" (saved)="onEdited($event)" (cancelled)="editingId.set(null)" />
+              <lu-card-form
+                [card]="c"
+                (saved)="onEdited($event)"
+                (cancelled)="editingId.set(null)"
+              />
             } @else {
               <div class="card-main">
                 <p class="word-line">
@@ -78,14 +91,27 @@
                   <lu-icon name="volume" /><span class="visually-hidden">Nghe {{ c.text }}</span>
                 </button>
                 <div class="menu-wrap">
-                  <button type="button" class="icon-btn" [attr.aria-expanded]="menuId() === c.id"
-                    [attr.aria-controls]="'menu-' + c.id" (click)="toggleMenu(c.id)">
-                    <lu-icon name="more" /><span class="visually-hidden">Tuỳ chọn {{ c.text }}</span>
+                  <button
+                    type="button"
+                    class="icon-btn"
+                    [attr.aria-expanded]="menuId() === c.id"
+                    [attr.aria-controls]="'menu-' + c.id"
+                    (click)="toggleMenu(c.id)"
+                  >
+                    <lu-icon name="more" /><span class="visually-hidden"
+                      >Tuỳ chọn {{ c.text }}</span
+                    >
                   </button>
                   @if (menuId() === c.id) {
                     <div class="menu" [id]="'menu-' + c.id">
-                      <button type="button" (click)="edit(c)"><lu-icon name="pencil" /> Sửa<span class="visually-hidden"> {{ c.text }}</span></button>
-                      <button type="button" class="danger" (click)="askDelete(c)"><lu-icon name="x" /> Xoá<span class="visually-hidden"> {{ c.text }}</span></button>
+                      <button type="button" (click)="edit(c)">
+                        <lu-icon name="pencil" /> Sửa<span class="visually-hidden">
+                          {{ c.text }}</span
+                        >
+                      </button>
+                      <button type="button" class="danger" (click)="askDelete(c)">
+                        <lu-icon name="x" /> Xoá<span class="visually-hidden"> {{ c.text }}</span>
+                      </button>
                     </div>
                   }
                 </div>

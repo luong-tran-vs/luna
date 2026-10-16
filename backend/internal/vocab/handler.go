@@ -32,6 +32,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("DELETE /api/vocab/cards/{id}", requireAuth(http.HandlerFunc(h.remove)))
 	mux.Handle("GET /api/vocab/review/due", requireAuth(http.HandlerFunc(h.due)))
 	mux.Handle("GET /api/vocab/review/forecast", requireAuth(http.HandlerFunc(h.forecast)))
+	mux.Handle("GET /api/vocab/review/lessons", requireAuth(http.HandlerFunc(h.lessonStats)))
+	mux.Handle("PUT /api/vocab/review/lessons/{id}", requireAuth(http.HandlerFunc(h.saveLessonResult)))
 	mux.Handle("POST /api/vocab/cards/{id}/review", requireAuth(http.HandlerFunc(h.review)))
 }
 

@@ -8,8 +8,16 @@
   } @else {
     <div class="field">
       <label for="card-text">Từ hoặc cụm từ</label>
-      <input id="card-text" formControlName="text" lang="en" autocapitalize="off" autocomplete="off" spellcheck="false"
-        [attr.aria-invalid]="!!error('text')" [attr.aria-describedby]="describedBy('text')" />
+      <input
+        id="card-text"
+        formControlName="text"
+        lang="en"
+        autocapitalize="off"
+        autocomplete="off"
+        spellcheck="false"
+        [attr.aria-invalid]="!!error('text')"
+        [attr.aria-describedby]="describedBy('text')"
+      />
       @if (error('text'); as message) {
         <p class="field-error" id="card-text-error">{{ message }}</p>
       }
@@ -18,8 +26,12 @@
 
   <div class="field">
     <label for="card-meaning">Nghĩa tiếng Việt</label>
-    <input id="card-meaning" formControlName="meaningVi"
-      [attr.aria-invalid]="!!error('meaningVi')" [attr.aria-describedby]="describedBy('meaningVi')" />
+    <input
+      id="card-meaning"
+      formControlName="meaningVi"
+      [attr.aria-invalid]="!!error('meaningVi')"
+      [attr.aria-describedby]="describedBy('meaningVi')"
+    />
     @if (error('meaningVi'); as message) {
       <p class="field-error" id="card-meaning-error">{{ message }}</p>
     }
@@ -27,8 +39,15 @@
 
   <div class="field">
     <label for="card-ipa">Phiên âm IPA (không bắt buộc)</label>
-    <input id="card-ipa" class="ipa" formControlName="ipa" autocomplete="off" spellcheck="false"
-      [attr.aria-invalid]="!!error('ipa')" [attr.aria-describedby]="describedBy('ipa')" />
+    <input
+      id="card-ipa"
+      class="ipa"
+      formControlName="ipa"
+      autocomplete="off"
+      spellcheck="false"
+      [attr.aria-invalid]="!!error('ipa')"
+      [attr.aria-describedby]="describedBy('ipa')"
+    />
     @if (error('ipa'); as message) {
       <p class="field-error" id="card-ipa-error">{{ message }}</p>
     }
@@ -36,8 +55,14 @@
 
   <div class="field">
     <label for="card-example">Câu ví dụ (không bắt buộc)</label>
-    <textarea id="card-example" formControlName="contextSentence" rows="2" lang="en"
-      [attr.aria-invalid]="!!error('contextSentence')" [attr.aria-describedby]="describedBy('contextSentence')"></textarea>
+    <textarea
+      id="card-example"
+      formControlName="contextSentence"
+      rows="2"
+      lang="en"
+      [attr.aria-invalid]="!!error('contextSentence')"
+      [attr.aria-describedby]="describedBy('contextSentence')"
+    ></textarea>
     @if (error('contextSentence'); as message) {
       <p class="field-error" id="card-example-error">{{ message }}</p>
     }
@@ -45,15 +70,22 @@
 
   <div class="field">
     <label for="card-example-vi">Nghĩa câu ví dụ (không bắt buộc)</label>
-    <textarea id="card-example-vi" formControlName="contextSentenceVi" rows="2"
-      [attr.aria-invalid]="!!error('contextSentenceVi')" [attr.aria-describedby]="describedBy('contextSentenceVi')"></textarea>
+    <textarea
+      id="card-example-vi"
+      formControlName="contextSentenceVi"
+      rows="2"
+      [attr.aria-invalid]="!!error('contextSentenceVi')"
+      [attr.aria-describedby]="describedBy('contextSentenceVi')"
+    ></textarea>
     @if (error('contextSentenceVi'); as message) {
       <p class="field-error" id="card-example-vi-error">{{ message }}</p>
     }
   </div>
 
   <div class="actions">
-    <button type="submit" class="btn-primary" [disabled]="pending()">{{ card() ? 'Lưu thay đổi' : 'Thêm thẻ' }}</button>
+    <button type="submit" class="btn-primary" [disabled]="pending()">
+      {{ card() ? 'Lưu thay đổi' : 'Thêm thẻ' }}
+    </button>
     <button type="button" class="btn" (click)="cancelled.emit()">Huỷ</button>
   </div>
 </form>

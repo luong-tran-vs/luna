@@ -112,3 +112,42 @@ func TestForecastEndpoint(t *testing.T) {
 		t.Fatalf("anonymous: %d", rec.Code)
 	}
 }
+
+func TestLessonStatsEndpoint(t *testing.T) {
+	t.Parallel()
+	mux, e := newEnvAPI(t)
+	e.dueCard("go", Schedule{State: StateLearning, Reps: 1})
+
+	rec := call(t, mux, http.MethodGet, "/api/vocab/review/lessons", "an", "")
+	want := `{"lessons":[{"lessonId":"lesson1","cards":1,"due":1,"remembered":0,"lastReview":null,"nextDue":null,"result":null}]}`
+	if rec.Code != http.StatusOK || strings.TrimSpace(rec.Body.String()) != want {
+		t.Fatalf("lesson stats: %d %s", rec.Code, rec.Body)
+	}
+	if rec := call(t, mux, http.MethodGet, "/api/vocab/review/lessons", "", ""); rec.Code != http.StatusUnauthorized {
+		t.Fatalf("anonymous: %d", rec.Code)
+	}
+}
+
+func TestSaveLessonResultEndpoint(t *testing.T) {
+	t.Parallel()
+	mux, _ := newEnvAPI(t)
+	path := "/api/vocab/review/lessons/lesson1"
+
+	rec := call(t, mux, http.MethodPut, path, "an", `{"correct":3,"total":5,"wrong":["v:go","t:0"]}`)
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"correct":3,"total":5,"wrong":["v:go","t:0"]`) {
+		t.Fatalf("save: %d %s", rec.Code, rec.Body)
+	}
+	rec = call(t, mux, http.MethodGet, "/api/vocab/review/lessons", "an", "")
+	if !strings.Contains(rec.Body.String(), `"lessonId":"lesson1","cards":0`) || !strings.Contains(rec.Body.String(), `"result":{"correct":3,"total":5`) {
+		t.Fatalf("stats: %s", rec.Body)
+	}
+	if rec := call(t, mux, http.MethodPut, path, "an", `{"correct":6,"total":5}`); rec.Code != http.StatusBadRequest {
+		t.Fatalf("too many right: %d %s", rec.Code, rec.Body)
+	}
+	if rec := call(t, mux, http.MethodPut, "/api/vocab/review/lessons/nope", "an", `{"correct":1,"total":1}`); rec.Code != http.StatusNotFound {
+		t.Fatalf("unknown lesson: %d", rec.Code)
+	}
+	if rec := call(t, mux, http.MethodPut, path, "", `{"correct":1,"total":1}`); rec.Code != http.StatusUnauthorized {
+		t.Fatalf("anonymous: %d", rec.Code)
+	}
+}

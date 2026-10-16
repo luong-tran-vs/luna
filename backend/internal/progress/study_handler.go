@@ -291,7 +291,8 @@ func (h *StudyHandler) position(w http.ResponseWriter, r *http.Request) {
 
 func (h *StudyHandler) mine(w http.ResponseWriter, r *http.Request) {
 	p, _ := httpx.PrincipalFrom(r.Context())
-	v, err := h.svc.MyLessons(r.Context(), p.UserID)
+	// ?all=1: the lessons completed in every topic, not only the goal's.
+	v, err := h.svc.MyLessonsIn(r.Context(), p.UserID, r.URL.Query().Get("all") == "1")
 	if err != nil {
 		h.fail(w, r, err)
 		return

@@ -22,7 +22,7 @@ func Open(cfg config.Config) (storage.Store, error) {
 func Registry(cfg config.Config) *storage.Registry {
 	reg := storage.NewRegistry()
 	reg.Register("mongo", func() (storage.Store, error) {
-		return mongo.Open(cfg.MongoURI, cfg.MongoDatabase)
+		return mongo.Open(cfg.MongoURI, cfg.MongoDatabase, cfg.MongoImagesURI, cfg.MongoImagesDatabase)
 	})
 	reg.Register("mysql", func() (storage.Store, error) {
 		m := cfg.MySQL

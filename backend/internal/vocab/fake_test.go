@@ -311,16 +311,48 @@ func (c *fakeClock) set(t time.Time) {
 }
 
 type testEnv struct {
-	svc   *Service
-	repo  *fakeRepo
-	logs  *fakeLogs
-	clock *fakeClock
+	svc     *Service
+	repo    *fakeRepo
+	logs    *fakeLogs
+	results *fakeResults
+	clock   *fakeClock
+}
+
+// fakeResults keeps lesson review results in memory, one per (user, lesson).
+type fakeResults struct {
+	mu   sync.Mutex
+	list []LessonResult
+}
+
+func (f *fakeResults) Save(_ context.Context, r LessonResult) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for i, x := range f.list {
+		if x.UserID == r.UserID && x.LessonID == r.LessonID {
+			f.list[i] = r
+			return nil
+		}
+	}
+	f.list = append(f.list, r)
+	return nil
+}
+
+func (f *fakeResults) List(_ context.Context, userID string) ([]LessonResult, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	var out []LessonResult
+	for _, r := range f.list {
+		if r.UserID == userID {
+			out = append(out, r)
+		}
+	}
+	return out, nil
 }
 
 // newEnv starts at 2026-09-29 08:00 UTC (15:00 in Viet Nam). Lessons: lesson1 (annotated),
 // lesson2 (no annotations yet).
 func newEnv() *testEnv {
-	e := &testEnv{repo: &fakeRepo{}, logs: &fakeLogs{}, clock: &fakeClock{t: time.Date(2026, 9, 29, 8, 0, 0, 0, time.UTC)}}
+	e := &testEnv{repo: &fakeRepo{}, logs: &fakeLogs{}, results: &fakeResults{}, clock: &fakeClock{t: time.Date(2026, 9, 29, 8, 0, 0, 0, time.UTC)}}
 	e.svc = NewService(Deps{
 		Repo: e.repo,
 		Logs: e.logs,
@@ -338,6 +370,7 @@ func newEnv() *testEnv {
 		Titles:         fakeTitles{"lesson1": "A day at the park"},
 		Pronunciations: fakePronunciations{"house": "/haʊs/", "home": "/həʊm/"},
 		Translations: fakeTranslations{"lesson1": {SentenceKey("We went to the park."): "Chúng tôi đã đi công viên."}},
+		Results:        e.results,
 		Now:            e.clock.Now,
 	})
 	return e
@@ -369,7 +402,7 @@ func (f *fakeRepo) Schedules(_ context.Context, userID string) ([]Card, error) {
 	var out []Card
 	for _, c := range f.cards {
 		if c.UserID == userID {
-			out = append(out, Card{CreatedAt: c.CreatedAt, Schedule: c.Schedule})
+			out = append(out, Card{CreatedAt: c.CreatedAt, LessonID: c.LessonID, Schedule: c.Schedule})
 		}
 	}
 	return out, nil

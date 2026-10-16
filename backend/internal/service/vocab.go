@@ -30,6 +30,7 @@ func (c *Container) initVocab() {
 		Titles:         lessonTitles{c.lessons},
 		Pronunciations: pronunciations{c.wordBank, c.dict},
 		Translations:   sentenceTranslations{c.lessons},
+		Results:        c.store.LessonResults(),
 		Now:            time.Now,
 	})
 }

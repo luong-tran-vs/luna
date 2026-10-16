@@ -36,7 +36,9 @@ type Deps struct {
 	Pronunciations Pronunciations
 	// Translations fills the missing translation of a lesson card's example; nil leaves it empty.
 	Translations SentenceTranslations
-	Now          func() time.Time
+	// Results keeps the score of the latest lesson review of each lesson.
+	Results LessonResultRepository
+	Now     func() time.Time
 }
 
 // Service manages notebook cards and their reviews. The user is always the session user.
@@ -49,6 +51,7 @@ type Service struct {
 	titles         LessonTitles
 	pronunciations Pronunciations
 	translations   SentenceTranslations
+	results        LessonResultRepository
 	now            func() time.Time
 }
 
@@ -56,7 +59,7 @@ type Service struct {
 func NewService(d Deps) *Service {
 	return &Service{
 		repo: d.Repo, logs: d.Logs, lessonExists: d.LessonExists, timezones: d.Timezones,
-		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, translations: d.Translations, now: d.Now,
+		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, translations: d.Translations, results: d.Results, now: d.Now,
 	}
 }
 

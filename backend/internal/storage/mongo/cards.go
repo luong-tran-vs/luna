@@ -421,7 +421,7 @@ func (r *Cards) CountDue(ctx context.Context, userID string, before, createdBefo
 	return int(n), nil
 }
 
-// Schedules returns every card of the user with only its creation time and schedule.
+// Schedules returns every card of the user with only its creation time, lesson and schedule.
 func (r *Cards) Schedules(ctx context.Context, userID string) ([]vocab.Card, error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {
@@ -429,6 +429,7 @@ func (r *Cards) Schedules(ctx context.Context, userID string) ([]vocab.Card, err
 	}
 	return r.findMany(ctx, bson.D{{Key: "userId", Value: uid}}, options.Find().SetProjection(bson.D{
 		{Key: "createdAt", Value: 1}, {Key: "due", Value: 1}, {Key: "scheduledDays", Value: 1}, {Key: "state", Value: 1},
+		{Key: "lessonId", Value: 1}, {Key: "lastReview", Value: 1},
 	}))
 }
 

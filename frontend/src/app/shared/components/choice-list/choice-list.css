@@ -1,0 +1,87 @@
+.choices {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* A raised row: a thicker line at the bottom, as the tiles of the practice. */
+.choice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 52px;
+  padding: var(--space-2) var(--space-4);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: start;
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-bottom-width: 4px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.choice:hover:not([aria-disabled='true']) {
+  background: var(--color-primary-soft);
+}
+
+.choice[aria-disabled='true'] {
+  cursor: default;
+}
+
+.key {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  border: 2px solid var(--color-line);
+  border-radius: 8px;
+
+  --icon-size: 16px;
+}
+
+.text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.picked {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.picked .key {
+  color: var(--color-primary-ink);
+  border-color: var(--color-primary);
+}
+
+.right {
+  background: color-mix(in srgb, var(--color-ok) 14%, var(--color-surface));
+  border-color: var(--color-ok);
+}
+
+.right .key {
+  color: var(--color-on-primary);
+  background: color-mix(in srgb, var(--color-ok) 85%, var(--color-text));
+  border-color: transparent;
+}
+
+.wrong {
+  background: color-mix(in srgb, var(--color-bad) 12%, var(--color-surface));
+  border-color: var(--color-bad);
+}
+
+.wrong .key {
+  color: var(--color-on-primary);
+  background: color-mix(in srgb, var(--color-bad) 85%, var(--color-text));
+  border-color: transparent;
+}
+
+.faded {
+  opacity: 0.55;
+}

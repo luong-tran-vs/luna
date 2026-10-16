@@ -453,6 +453,12 @@ func (s *StudyService) SetPosition(ctx context.Context, userID, lessonID string,
 // lesson being studied and the locked upcoming ones. Lessons finished in other topics show up when
 // that topic is the goal again. For a guest every upcoming lesson is for members only.
 func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsView, error) {
+	return s.MyLessonsIn(ctx, userID, false)
+}
+
+// MyLessonsIn is MyLessons; with allTopics the completed lessons of every topic are listed, for
+// the review tab (design/on-tap-theo-bai.png), not only those of the goal's topic.
+func (s *StudyService) MyLessonsIn(ctx context.Context, userID string, allTopics bool) (MyLessonsView, error) {
 	d, err := s.load(ctx, userID)
 	if err != nil {
 		return MyLessonsView{}, err
@@ -470,7 +476,7 @@ func (s *StudyService) MyLessons(ctx context.Context, userID string) (MyLessonsV
 	var completed []LessonProgress
 	ids := []string{}
 	for _, p := range d.completed {
-		if inTopic[p.LessonID] {
+		if allTopics || inTopic[p.LessonID] {
 			completed = append(completed, p)
 			ids = append(ids, p.LessonID)
 		}

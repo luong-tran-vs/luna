@@ -320,9 +320,9 @@ func (r *Cards) CountDue(ctx context.Context, userID string, before, createdBefo
 	return n, nil
 }
 
-// Schedules returns every card of the user with only its creation time and schedule.
+// Schedules returns every card of the user with only its creation time, lesson and schedule.
 func (r *Cards) Schedules(ctx context.Context, userID string) ([]vocab.Card, error) {
-	rows, err := r.db.QueryContext(ctx, "SELECT created_at, due, scheduled_days, state FROM cards WHERE user_id = ?", userID)
+	rows, err := r.db.QueryContext(ctx, "SELECT created_at, due, scheduled_days, state, lesson_id, last_review FROM cards WHERE user_id = ?", userID)
 	if err != nil {
 		return nil, fmt.Errorf("mysql query schedules: %w", err)
 	}
@@ -330,16 +330,20 @@ func (r *Cards) Schedules(ctx context.Context, userID string) ([]vocab.Card, err
 	var out []vocab.Card
 	for rows.Next() {
 		var (
-			c     vocab.Card
-			due   sql.NullTime
-			state int
+			c      vocab.Card
+			due    sql.NullTime
+			state  int
+			lesson sql.NullString
+			last   sql.NullTime
 		)
-		if err := rows.Scan(&c.CreatedAt, &due, &c.Schedule.ScheduledDays, &state); err != nil {
+		if err := rows.Scan(&c.CreatedAt, &due, &c.Schedule.ScheduledDays, &state, &lesson, &last); err != nil {
 			return nil, fmt.Errorf("mysql scan schedule: %w", err)
 		}
 		c.CreatedAt = c.CreatedAt.UTC()
 		c.Schedule.Due = timeOf(due)
 		c.Schedule.State = vocab.State(state)
+		c.LessonID = lesson.String
+		c.Schedule.LastReview = timeOf(last)
 		out = append(out, c)
 	}
 	if err := rows.Err(); err != nil {

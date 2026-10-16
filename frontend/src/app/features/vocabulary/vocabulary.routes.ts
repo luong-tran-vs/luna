@@ -11,4 +11,14 @@ export const vocabularyRoutes: Routes = [
     title: 'Ôn tập · Luna',
     loadComponent: () => import('./review/review').then((m) => m.Review),
   },
+  {
+    path: 'review/lessons',
+    title: 'Bài đã học · Luna',
+    loadComponent: () => import('./all-lessons/all-lessons').then((m) => m.AllLessons),
+  },
+  {
+    path: 'review/lessons/:id',
+    title: 'Ôn bài · Luna',
+    loadComponent: () => import('./lesson-review/lesson-review').then((m) => m.LessonReview),
+  },
 ];

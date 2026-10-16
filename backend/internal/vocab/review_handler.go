@@ -138,3 +138,76 @@ func (h *Handler) fail(w http.ResponseWriter, r *http.Request, msg string, err e
 		httpx.WriteError(w, http.StatusInternalServerError, "internal_error", "Có lỗi xảy ra, vui lòng thử lại")
 	}
 }
+
+type lessonResultJSON struct {
+	Correct    int       `json:"correct"`
+	Total      int       `json:"total"`
+	Wrong      []string  `json:"wrong"`
+	ReviewedAt time.Time `json:"reviewedAt"`
+}
+
+func toResultJSON(r LessonResult) lessonResultJSON {
+	wrong := r.Wrong
+	if wrong == nil {
+		wrong = []string{}
+	}
+	return lessonResultJSON{Correct: r.Correct, Total: r.Total, Wrong: wrong, ReviewedAt: r.ReviewedAt}
+}
+
+type lessonStatsJSON struct {
+	LessonID   string            `json:"lessonId"`
+	Cards      int               `json:"cards"`
+	Due        int               `json:"due"`
+	Remembered int               `json:"remembered"`
+	LastReview *time.Time        `json:"lastReview"`
+	NextDue    *time.Time        `json:"nextDue"`
+	Result     *lessonResultJSON `json:"result"`
+}
+
+func (h *Handler) lessonStats(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	stats, err := h.svc.LessonStats(r.Context(), p.UserID)
+	if err != nil {
+		h.fail(w, r, "review lesson stats failed", err)
+		return
+	}
+	timeOrNil := func(t time.Time) *time.Time {
+		if t.IsZero() {
+			return nil
+		}
+		return &t
+	}
+	out := make([]lessonStatsJSON, len(stats))
+	for i, s := range stats {
+		out[i] = lessonStatsJSON{
+			LessonID: s.LessonID, Cards: s.Cards, Due: s.Due, Remembered: s.Remembered,
+			LastReview: timeOrNil(s.LastReview), NextDue: timeOrNil(s.NextDue),
+		}
+		if s.Result != nil {
+			r := toResultJSON(*s.Result)
+			out[i].Result = &r
+		}
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string][]lessonStatsJSON{"lessons": out})
+}
+
+type lessonResultRequest struct {
+	Correct int      `json:"correct"`
+	Total   int      `json:"total"`
+	Wrong   []string `json:"wrong"`
+}
+
+// saveLessonResult keeps the score of a lesson review round (PUT: it replaces the previous one).
+func (h *Handler) saveLessonResult(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	var req lessonResultRequest
+	if httpx.DecodeJSON(w, r, &req) != nil {
+		return
+	}
+	res, err := h.svc.SaveLessonResult(r.Context(), p.UserID, r.PathValue("id"), req.Correct, req.Total, req.Wrong)
+	if err != nil {
+		h.fail(w, r, "save lesson result failed", err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]lessonResultJSON{"result": toResultJSON(res)})
+}

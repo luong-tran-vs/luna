@@ -318,3 +318,56 @@ lu-asker {
   list-style: none;
   color: var(--color-text-muted);
 }
+
+/* Multiple choice: "Quên" (outlined) beside "Nộp", then one "Tiếp" saying when the card comes back. */
+.btn-forget {
+  flex: 1;
+  min-height: 48px;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-bad);
+  background: var(--color-surface);
+  border: 2px solid var(--color-bad);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.btn-forget:hover {
+  background: color-mix(in srgb, var(--color-bad) 8%, var(--color-surface));
+}
+
+.bottom-bar .btn-primary[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-next {
+  display: grid;
+  flex: 1;
+  place-content: center;
+  min-height: 48px;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-on-primary);
+  background: color-mix(in srgb, var(--color-ok) 85%, var(--color-text));
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.btn-next.again {
+  background: color-mix(in srgb, var(--color-bad) 85%, var(--color-text));
+}
+
+.btn-next:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn-next:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.next-when {
+  font: var(--text-xs) var(--font-ui);
+}

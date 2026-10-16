@@ -9,23 +9,31 @@
   color: var(--color-text-muted);
 }
 
-.hub {
-  justify-items: center;
-  text-align: center;
+/* Nothing due: one line, so the stages and the chart stay on the first screen. */
+.empty-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
-.hub-icon {
-  display: inline-flex;
-  padding: var(--space-3);
-  color: var(--color-primary-ink);
-  background: var(--color-primary-soft);
-  border-radius: var(--radius-lg);
+.empty-line .grow {
+  display: grid;
+}
 
-  --icon-size: 36px;
+.empty-icon {
+  display: inline-flex;
+  flex: none;
+  padding: var(--space-2);
+  color: color-mix(in srgb, var(--color-ok) 80%, var(--color-text));
+  background: color-mix(in srgb, var(--color-ok) 14%, var(--color-surface));
+  border-radius: var(--radius-md);
+
+  --icon-size: 18px;
 }
 
 .empty-title {
-  font: var(--text-lg) var(--font-ui);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
 }
 
 .start-head {
@@ -182,6 +190,45 @@
 
 .today .bar-label,
 .today .bar-count {
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+/* The lesson to review today, then every lesson learned (design/on-tap-theo-bai.png). */
+.suggest {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.suggest-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.suggest .btn-block {
+  margin-top: var(--space-2);
+}
+
+.section-title {
+  margin-top: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.lessons {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.see-all {
+  font: var(--text-sm) var(--font-ui);
   font-weight: 700;
   color: var(--color-primary-ink);
 }

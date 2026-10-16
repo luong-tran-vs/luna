@@ -53,6 +53,7 @@ func migrations() []migration {
 		{ID: "026_topic_positions", Stmts: topicPositionsSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "027_lesson_sentence_translations", Stmts: lessonSentenceTranslationsSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "028_card_sentence_vi", Stmts: cardSentenceViSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "029_lesson_results", Stmts: lessonResultsSchema()},
 	}
 }
 

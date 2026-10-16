@@ -73,6 +73,33 @@ Tổng quan cho tab Ôn tập. 200:
 `new` = thẻ chưa ôn lần nào; `known` = thẻ ở trạng thái ôn với khoảng cách ≥ 21 ngày; `learning` = các thẻ còn lại.
 `days` có đúng 7 ngày, tính từ hôm nay theo múi giờ của người học. Hôm nay tính cả các thẻ đã quá hạn.
 
+## GET /api/vocab/review/lessons
+
+Tình trạng ôn của thẻ theo từng bài, dùng cho danh sách "Bài đã học" của tab Ôn tập (design/on-tap-theo-bai.png). 200:
+
+```json
+{ "lessons": [{ "lessonId": "…", "cards": 10, "due": 3, "remembered": 4,
+  "lastReview": "2026-10-08T01:00:00Z", "nextDue": null,
+  "result": { "correct": 3, "total": 5, "wrong": ["v:desk", "f:0"], "reviewedAt": "2026-10-16T02:00:00Z" } }] }
+```
+
+Gồm các bài người học có thẻ (thẻ tự thêm bị bỏ qua) hoặc đã ôn theo bài. `result` = lượt ôn bài gần nhất (`null` khi chưa ôn);
+`wrong` là mã các câu sai do trang tự đặt (`v:<lemma>`, `f:<ô trống>`, `t:<câu dịch>`). `due` = số thẻ đến hạn lúc này; `remembered` = số thẻ ở trạng thái ôn
+(đã qua bước học); `lastReview` = lần ôn gần nhất của bất kỳ thẻ nào (`null` khi chưa ôn); `nextDue` = hạn sớm nhất còn ở tương lai
+(`null` khi mọi thẻ đều đến hạn). 401 khi chưa đăng nhập.
+
+## PUT /api/vocab/review/lessons/{id}
+
+Lưu điểm một lượt ôn bài, thay lượt trước (collection/bảng `lesson_results`, một dòng mỗi người học mỗi bài).
+
+```json
+{ "correct": 3, "total": 5, "wrong": ["v:desk", "f:0"] }
+```
+
+200 `{ "result": { …, "reviewedAt": "…" } }`. 400 khi `total` ngoài 1–100, `correct` ngoài 0–`total`, mã câu rỗng hoặc dài quá
+100 ký tự, hay số câu sai nhiều hơn `total − correct`; 404 khi bài không tồn tại; 401 khi chưa đăng nhập. Lượt "ôn lại câu sai"
+gửi điểm cả bài đã sửa (bỏ khỏi `wrong` các câu nay làm đúng).
+
 ## POST /api/vocab/cards/{id}/review
 
 ```json

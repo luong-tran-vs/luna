@@ -8,6 +8,7 @@ describe('UpdateBanner', () => {
   let fixture: ComponentFixture<UpdateBanner>;
   let el: HTMLElement;
   const ready = signal(false);
+  const downloading = signal(false);
   const update = vi.fn();
 
   const dialog = () => el.querySelector('dialog') as HTMLDialogElement;
@@ -18,13 +19,26 @@ describe('UpdateBanner', () => {
       this.setAttribute('open', '');
     };
     ready.set(false);
+    downloading.set(false);
     update.mockClear();
     TestBed.configureTestingModule({
-      providers: [{ provide: AppUpdateService, useValue: { ready, update } }],
+      providers: [{ provide: AppUpdateService, useValue: { ready, downloading, update } }],
     });
     fixture = TestBed.createComponent(UpdateBanner);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
+  });
+
+  it('says a new version is downloading, without blocking the page', async () => {
+    const status = el.querySelector('[role="status"]') as HTMLElement;
+    expect(status.textContent?.trim()).toBe('');
+    downloading.set(true);
+    await fixture.whenStable();
+    expect(status.textContent).toContain('Đang tải bản mới…');
+    expect(dialog().open).toBe(false);
+    downloading.set(false);
+    await fixture.whenStable();
+    expect(status.textContent?.trim()).toBe('');
   });
 
   it('opens the dialog only once a new version is ready', async () => {

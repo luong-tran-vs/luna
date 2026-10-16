@@ -8,13 +8,27 @@ import { Card } from '../../../core/models/vocab';
 import { CardForm } from './card-form';
 
 const went: Card = {
-  id: 'c1', text: 'went', lemma: 'go', ipa: '/went/', meaningVi: 'đã đi', contextSentence: 'We went home.',
-  lessonId: 'l1', source: 'ai', createdAt: '2026-09-29T01:00:00Z', due: '2026-09-30T17:00:00Z', reps: 2, state: 'review',
+  id: 'c1',
+  text: 'went',
+  lemma: 'go',
+  ipa: '/went/',
+  meaningVi: 'đã đi',
+  contextSentence: 'We went home.',
+  lessonId: 'l1',
+  source: 'ai',
+  createdAt: '2026-09-29T01:00:00Z',
+  due: '2026-09-30T17:00:00Z',
+  reps: 2,
+  state: 'review',
 };
 
 @Component({
   imports: [CardForm],
-  template: `<lu-card-form [card]="card()" (saved)="saved.push($event)" (cancelled)="cancelled = cancelled + 1" />`,
+  template: `<lu-card-form
+    [card]="card()"
+    (saved)="saved.push($event)"
+    (cancelled)="cancelled = cancelled + 1"
+  />`,
 })
 class Host {
   readonly card = signal<Card | null>(null);
@@ -45,7 +59,10 @@ describe('CardForm', () => {
 
   const setup = async (card: Card | null = null) => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(Host);
@@ -75,10 +92,18 @@ describe('CardForm', () => {
       await submit();
       const req = http.expectOne('/vocab/cards');
       expect(req.request.body).toEqual({
-        text: 'Serendipity', lemma: 'serendipity', ipa: '', meaningVi: 'sự tình cờ may mắn',
-        contextSentence: 'What a serendipity!', contextSentenceVi: 'Thật là tình cờ may mắn!', source: 'manual',
+        text: 'Serendipity',
+        lemma: 'serendipity',
+        ipa: '',
+        meaningVi: 'sự tình cờ may mắn',
+        contextSentence: 'What a serendipity!',
+        contextSentenceVi: 'Thật là tình cờ may mắn!',
+        source: 'manual',
       });
-      req.flush({ card: { ...went, id: 'c9', text: 'Serendipity' } }, { status: 201, statusText: 'Created' });
+      req.flush(
+        { card: { ...went, id: 'c9', text: 'Serendipity' } },
+        { status: 201, statusText: 'Created' },
+      );
       await settle();
       expect(host.saved.map((c) => c.id)).toEqual(['c9']);
     });
@@ -88,10 +113,12 @@ describe('CardForm', () => {
       type('card-text', 'go');
       type('card-meaning', 'đi');
       await submit();
-      http.expectOne('/vocab/cards').flush(
-        { error: 'card_exists', message: 'Từ này đã có trong sổ', card: went },
-        { status: 409, statusText: 'Conflict' },
-      );
+      http
+        .expectOne('/vocab/cards')
+        .flush(
+          { error: 'card_exists', message: 'Từ này đã có trong sổ', card: went },
+          { status: 409, statusText: 'Conflict' },
+        );
       await settle();
       expect(errorOf('card-text')).toBe('Từ này đã có trong sổ');
       expect(host.saved).toEqual([]);
@@ -103,7 +130,11 @@ describe('CardForm', () => {
       type('card-meaning', 'đi');
       await submit();
       http.expectOne('/vocab/cards').flush(
-        { error: 'validation_failed', message: 'x', fields: { meaningVi: 'Nghĩa cần từ 1 đến 200 ký tự' } },
+        {
+          error: 'validation_failed',
+          message: 'x',
+          fields: { meaningVi: 'Nghĩa cần từ 1 đến 200 ký tự' },
+        },
         { status: 400, statusText: 'Bad Request' },
       );
       await settle();
@@ -112,7 +143,9 @@ describe('CardForm', () => {
 
     it('cancels', async () => {
       await setup();
-      Array.from(el.querySelectorAll('button')).find((b) => b.textContent?.trim() === 'Huỷ')!.click();
+      Array.from(el.querySelectorAll('button'))
+        .find((b) => b.textContent?.trim() === 'Huỷ')!
+        .click();
       expect(host.cancelled).toBe(1);
     });
   });

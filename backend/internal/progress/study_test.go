@@ -193,6 +193,23 @@ func TestSameTopicAtTwoLevelsIsTwoGoals(t *testing.T) {
 	}
 }
 
+func TestMyLessonsInEveryTopic(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.setGoal(t, "family")
+	e.studyLesson(t) // f1
+	e.setGoal(t, "shopping")
+
+	mine, err := e.svc.MyLessons(t.Context(), "u1")
+	if err != nil || len(mine.Completed) != 0 {
+		t.Fatalf("goal's topic only = %+v, %v", mine.Completed, err)
+	}
+	all, err := e.svc.MyLessonsIn(t.Context(), "u1", true)
+	if err != nil || len(all.Completed) != 1 || all.Completed[0].ID != "f1" {
+		t.Fatalf("every topic = %+v, %v", all.Completed, err)
+	}
+}
+
 // --- guests study only the first lesson of each roadmap ---
 
 func TestGuestStudiesOnlyTheFirstLesson(t *testing.T) {

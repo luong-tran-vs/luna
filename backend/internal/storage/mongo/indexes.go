@@ -80,6 +80,15 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 		return fmt.Errorf("review_logs indexes: %w", err)
 	}
 
+	// One result per lesson: the latest lesson review round replaces the previous one.
+	_, err = db.Collection(collLessonResults).Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "userId", Value: 1}, {Key: "lessonId", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("lesson_results index: %w", err)
+	}
+
 	// Daily flow (L).
 	_, err = db.Collection("goals").Indexes().CreateMany(ctx, []mongo.IndexModel{
 		// One goal per roadmap: a topic at one level.
@@ -180,14 +189,6 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	if err != nil {
 		return fmt.Errorf("grammar_reports index: %w", err)
 	}
-	// F23: one picture per word of a lesson.
-	_, err = db.Collection("word_images").Indexes().CreateOne(ctx, mongo.IndexModel{
-		Keys:    bson.D{{Key: "lessonId", Value: 1}, {Key: "lemma", Value: 1}},
-		Options: options.Index().SetUnique(true),
-	})
-	if err != nil {
-		return fmt.Errorf("word_images index: %w", err)
-	}
 	// AI usage page: requests by time, dropped after aiusage.Keep.
 	_, err = db.Collection("ai_usage").Indexes().CreateOne(ctx, mongo.IndexModel{
 		Keys:    bson.D{{Key: "at", Value: 1}},
@@ -199,11 +200,24 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	return nil
 }
 
+// EnsureImageIndexes creates the indexes of the word pictures' database. It is idempotent.
+func EnsureImageIndexes(ctx context.Context, db *mongo.Database) error {
+	// F23: one picture per word of a lesson.
+	_, err := db.Collection("word_images").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "lessonId", Value: 1}, {Key: "lemma", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("word_images index: %w", err)
+	}
+	return nil
+}
+
 // PrepareInBackground runs the data migrations (MigrateTopics, SeedTopicWords, MigrateSharedTopics,
-// AddExtraTopics, MigrateUserSettings)
-// and then EnsureIndexes, retrying every interval until all succeed or ctx ends, so the backend can
-// start while the database is still down. With the database up, this finishes within moments of starting.
-func PrepareInBackground(ctx context.Context, db *mongo.Database, interval time.Duration, log *slog.Logger) {
+// AddExtraTopics, MigrateUserSettings), then EnsureIndexes, EnsureImageIndexes and MoveImages,
+// retrying every interval until all succeed or ctx ends, so the backend can start while the
+// database is still down. With the database up, this finishes within moments of starting.
+func PrepareInBackground(ctx context.Context, db, imagesDB *mongo.Database, interval time.Duration, log *slog.Logger) {
 	go func() {
 		for {
 			err := MigrateTopics(ctx, db, log)
@@ -221,6 +235,12 @@ func PrepareInBackground(ctx context.Context, db *mongo.Database, interval time.
 			}
 			if err == nil {
 				err = EnsureIndexes(ctx, db)
+			}
+			if err == nil {
+				err = EnsureImageIndexes(ctx, imagesDB)
+			}
+			if err == nil {
+				err = MoveImages(ctx, db, imagesDB, log)
 			}
 			if err == nil {
 				log.InfoContext(ctx, "mongo ready: migrations and indexes")

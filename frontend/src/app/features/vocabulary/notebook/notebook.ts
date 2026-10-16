@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -29,7 +36,10 @@ const SEARCH_DELAY = 300;
   imports: [Loading, CardForm, ConfirmDialog, Icon, RouterLink, SpeakButton],
   templateUrl: './notebook.html',
   styleUrl: './notebook.css',
-  host: { '(document:click)': 'onDocumentClick($event)', '(document:keydown.escape)': 'menuId.set(null)' },
+  host: {
+    '(document:click)': 'onDocumentClick($event)',
+    '(document:keydown.escape)': 'menuId.set(null)',
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Notebook {
@@ -74,7 +84,9 @@ export class Notebook {
   constructor() {
     this.loadPage(1);
     this.loadLessons();
-    this.api.due(1).subscribe({ next: (d) => this.dueCount.set(d.total), error: () => this.dueCount.set(null) });
+    this.api
+      .due(1)
+      .subscribe({ next: (d) => this.dueCount.set(d.total), error: () => this.dueCount.set(null) });
     inject(DestroyRef).onDestroy(() => {
       this.listSub?.unsubscribe();
       clearTimeout(this.searchTimer);
@@ -96,20 +108,22 @@ export class Notebook {
     this.listSub?.unsubscribe();
     this.loading.set(true);
     this.loadError.set(null);
-    this.listSub = this.api.list({ q: this.q().trim(), lessonId: this.lessonId(), page }).subscribe({
-      next: (res) => {
-        this.page = page;
-        this.today.set(res.today);
-        this.yesterday.set(res.yesterday);
-        this.cards.update((cards) => (page === 1 ? res.cards : [...cards, ...res.cards]));
-        this.hasMore.set(res.hasMore);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.loading.set(false);
-        this.loadError.set('Không tải được sổ từ.');
-      },
-    });
+    this.listSub = this.api
+      .list({ q: this.q().trim(), lessonId: this.lessonId(), page })
+      .subscribe({
+        next: (res) => {
+          this.page = page;
+          this.today.set(res.today);
+          this.yesterday.set(res.yesterday);
+          this.cards.update((cards) => (page === 1 ? res.cards : [...cards, ...res.cards]));
+          this.hasMore.set(res.hasMore);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.loading.set(false);
+          this.loadError.set('Không tải được sổ từ.');
+        },
+      });
   }
 
   private loadLessons(): void {
@@ -163,7 +177,9 @@ export class Notebook {
 
   protected onEdited(updated: Card): void {
     this.editingId.set(null);
-    this.cards.update((cards) => cards.map((c) => (c.id === updated.id ? { ...c, ...updated } : c)));
+    this.cards.update((cards) =>
+      cards.map((c) => (c.id === updated.id ? { ...c, ...updated } : c)),
+    );
   }
 
   protected confirmDelete(): void {

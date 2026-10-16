@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
@@ -8,7 +16,10 @@ import { VocabApiService } from '../../../core/services/vocab-api.service';
 
 type FieldName = 'text' | 'meaningVi' | 'ipa' | 'contextSentence' | 'contextSentenceVi';
 
-const REQUIRED: Partial<Record<FieldName, string>> = { text: 'Vui lòng nhập từ', meaningVi: 'Vui lòng nhập nghĩa' };
+const REQUIRED: Partial<Record<FieldName, string>> = {
+  text: 'Vui lòng nhập từ',
+  meaningVi: 'Vui lòng nhập nghĩa',
+};
 
 /** Element ids of the inputs; error messages use "<id>-error". */
 const INPUT_ID: Record<FieldName, string> = {
@@ -138,7 +149,10 @@ export class CardForm {
   }
 
   private showError(err: unknown): void {
-    const body = err instanceof ApiError ? (err.body as { message?: string; fields?: Record<string, string> } | null) : null;
+    const body =
+      err instanceof ApiError
+        ? (err.body as { message?: string; fields?: Record<string, string> } | null)
+        : null;
     if (err instanceof ApiError && err.status === 409) {
       this.serverFields.set({ text: 'Từ này đã có trong sổ' });
     } else if (body?.fields) {

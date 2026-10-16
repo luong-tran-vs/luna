@@ -20,10 +20,12 @@ import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { DueCard, Intervals, Rating, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { isCorrectAnswer } from '../../utils/answer-match';
+import { makeChoices, seedOf } from '../../utils/choices';
 import { intervalLabel } from '../../utils/interval-label';
 import { SpeechService } from '../../../core/services/speech.service';
 import { SpeakButton } from '../../directives/speak-button';
 import { Asker } from '../asker/asker';
+import { ChoiceList } from '../choice-list/choice-list';
 import { Icon } from '../icon/icon';
 
 interface RatingButton {
@@ -44,15 +46,17 @@ const SLOW_RATE = 0.6;
 
 /**
  * One review session over the given cards (F5, reused by the daily flow L). Flip mode shows the
- * word and flips to the meaning; listen mode plays the word and checks what the learner types.
- * Each rating is saved right away; a card rated Again comes back once at the end. Back and
+ * word and four meanings to pick from (design/on-tap-theo-bai.png): "Nộp" checks the pick, "Quên"
+ * shows the answer, and the card is rated for the learner (right: Good, else Again) on "Tiếp". With
+ * fewer than two meanings to choose from it falls back to flipping the card and rating it by hand.
+ * Listen mode plays the word and checks what the learner types. Each rating is saved right away; a card rated Again comes back once at the end. Back and
  * forward move through the cards already rated (view only); forward on the current card skips
  * it to the end of the session. Laid out like a lesson step (design, 2026-10-15): ✕ and the
  * progress at the top, the boy asking in a bubble, the buttons in a bar at the bottom.
  */
 @Component({
   selector: 'lu-review-session',
-  imports: [Asker, Icon, SpeakButton],
+  imports: [Asker, ChoiceList, Icon, SpeakButton],
   templateUrl: './review-session.html',
   styleUrl: './review-session.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,6 +71,8 @@ export class ReviewSession {
   readonly mode = input.required<ReviewMode>();
   /** 'daily' in the review step of today's lesson (counted against the daily limit). */
   readonly context = input<ReviewContext>('free');
+  /** More meanings to pick the wrong options from, besides the other cards of the session. */
+  readonly pool = input<readonly string[]>([]);
   /** Emitted once when every card has been rated. */
   readonly finished = output<ReviewSummary>();
   /** ✕: the learner stops the session (the ratings given so far are saved). */
@@ -87,11 +93,27 @@ export class ReviewSession {
    * marked; flip mode shows it on the front to guess the meaning from context. Empty without one.
    */
   protected readonly example = computed(() => exampleParts(this.current()));
+  /** Flip mode: the card's meaning among others, the same order while the card is on screen. */
+  protected readonly choices = computed(() => {
+    const card = this.current();
+    if (!card || this.mode() !== 'flip') {
+      return null;
+    }
+    const pool = [...this.cards().map((c) => c.meaningVi), ...this.pool()];
+    return makeChoices(card.meaningVi, pool, seedOf(card.id));
+  });
+  /** Flip mode as a multiple choice question; false when there is nothing to choose between. */
+  protected readonly quiz = computed(() => (this.choices()?.options.length ?? 0) >= 2);
+  /** The meaning picked, null for none. */
+  protected readonly picked = signal<number | null>(null);
   /** The rating given to each card before the frontier, by position. */
   protected readonly given = signal<Rating[]>([]);
   protected readonly revealed = signal(false);
   protected readonly typed = signal('');
-  protected readonly verdict = signal<'correct' | 'wrong' | null>(null);
+  /** How the answer went; 'forgot' when the learner pressed "Quên" instead. */
+  protected readonly verdict = signal<'correct' | 'wrong' | 'forgot' | null>(null);
+  /** The rating "Tiếp" saves for a multiple choice answer. */
+  protected readonly autoRating = computed<Rating>(() => (this.verdict() === 'correct' ? 3 : 1));
   protected readonly answerError = signal<string | null>(null);
   protected readonly playError = signal(false);
   protected readonly saving = signal(false);
@@ -101,13 +123,13 @@ export class ReviewSession {
   protected readonly askLabel = computed(() => {
     const v = this.reviewing() ? null : this.verdict();
     if (v) {
-      return v === 'correct' ? '✓ Đúng rồi' : '✗ Chưa đúng';
+      return v === 'correct' ? '✓ Đúng rồi' : v === 'wrong' ? '✗ Chưa đúng' : 'Nghĩa của từ';
     }
     return this.mode() === 'listen' ? 'Nghe và gõ lại từ' : 'Từ này nghĩa là gì?';
   });
   protected readonly tone = computed(() => {
     const v = this.reviewing() ? null : this.verdict();
-    return v === 'correct' ? 'right' : v === 'wrong' ? 'wrong' : null;
+    return v === 'correct' ? 'right' : v ? 'wrong' : null;
   });
   protected readonly canBack = computed(() => this.index() > 0 && !this.saving());
   protected readonly canForward = computed(
@@ -144,6 +166,45 @@ export class ReviewSession {
 
   protected interval(card: DueCard, r: RatingButton): string {
     return intervalLabel(card.intervals[r.key]);
+  }
+
+  /** When the card comes back with the rating "Tiếp" saves, e.g. "10 phút". */
+  protected autoInterval(card: DueCard): string {
+    return intervalLabel(card.intervals[this.autoRating() === 3 ? 'good' : 'again']);
+  }
+
+  protected pick(i: number): void {
+    if (!this.revealed() && !this.reviewing()) {
+      this.picked.set(i);
+    }
+  }
+
+  /** "Nộp": checks the meaning picked. */
+  protected submit(): void {
+    const choices = this.choices();
+    const picked = this.picked();
+    if (!choices || picked === null || this.revealed() || this.reviewing()) {
+      return;
+    }
+    this.verdict.set(picked === choices.answer ? 'correct' : 'wrong');
+    this.revealed.set(true);
+    this.focusNext();
+  }
+
+  /** "Quên": shows the answer without a guess. */
+  protected forget(): void {
+    if (this.revealed() || this.reviewing()) {
+      return;
+    }
+    this.picked.set(null);
+    this.verdict.set('forgot');
+    this.revealed.set(true);
+    this.focusNext();
+  }
+
+  /** "Tiếp": saves the rating the answer earned and moves on. */
+  protected next(): void {
+    void this.rate(this.autoRating());
   }
 
   protected ratingName(rating: Rating): string {
@@ -244,6 +305,10 @@ export class ReviewSession {
     if (this.reviewing()) {
       return;
     }
+    if (this.quiz()) {
+      this.onQuizKeydown(event, target);
+      return;
+    }
     if (!this.revealed()) {
       if (this.mode() === 'flip' && (event.key === ' ' || event.key === 'Enter') && target.tagName !== 'BUTTON') {
         event.preventDefault();
@@ -260,6 +325,24 @@ export class ReviewSession {
     if (rating >= 1 && rating <= 4) {
       event.preventDefault();
       void this.rate(rating as Rating);
+    }
+  }
+
+  /** Multiple choice: 1–4 pick a meaning, Enter checks it, then Enter goes on. */
+  private onQuizKeydown(event: KeyboardEvent, target: HTMLElement): void {
+    if (event.key === 'Enter' && target.tagName !== 'BUTTON') {
+      event.preventDefault();
+      if (this.revealed()) {
+        this.next();
+      } else {
+        this.submit();
+      }
+      return;
+    }
+    const n = Number(event.key);
+    if (!this.revealed() && n >= 1 && n <= (this.choices()?.options.length ?? 0)) {
+      event.preventDefault();
+      this.picked.set(n - 1);
     }
   }
 
@@ -315,12 +398,19 @@ export class ReviewSession {
   /** Clears what the learner did on the current card. */
   private resetCard(): void {
     this.revealed.set(false);
+    this.picked.set(null);
     this.typed.set('');
     this.verdict.set(null);
     this.answerError.set(null);
     this.playError.set(false);
     this.saveError.set(false);
     this.lastRating = null;
+  }
+
+  private readonly nextButton = viewChild<ElementRef<HTMLButtonElement>>('nextButton');
+
+  private focusNext(): void {
+    afterNextRender(() => this.nextButton()?.nativeElement.focus(), { injector: this.injector });
   }
 
   private focusAnswer(): void {

@@ -29,7 +29,8 @@ export const appConfig: ApplicationConfig = {
     // go to the network. Off in `ng serve` so a stale cache never hides code changes.
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000',
+      // Right away: waiting for the app to settle held back the first update check by up to 30 s.
+      registrationStrategy: 'registerImmediately',
     }),
     provideAppInitializer(() => inject(AppUpdateService).start()),
     // Catch the browser's install prompt early; the account page shows it as a button.

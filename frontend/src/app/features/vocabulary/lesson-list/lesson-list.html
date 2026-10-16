@@ -1,0 +1,35 @@
+<ul class="lesson-list">
+  @for (l of items(); track l.id) {
+    <li>
+      <div class="lesson-row">
+        <span class="icon-chip"><lu-icon name="book" /></span>
+        <span class="lesson-text">
+          <span class="lesson-title">{{ l.title }}</span>
+          @if (l.seen) {
+            <span class="lesson-seen">{{ l.seen }}</span>
+          }
+          @if (l.mastery !== null) {
+            <span class="score-line">
+              <span class="marks" aria-hidden="true">
+                @for (m of marks; track m) {
+                  <span class="mark" [class.on]="m <= l.mastery"></span>
+                }
+              </span>
+              <span class="score">Lần trước: {{ l.score }}</span>
+            </span>
+          }
+        </span>
+        <span class="lesson-side">
+          <span [class]="'badge badge-' + l.badge.tone">{{ l.badge.text }}</span>
+          <a
+            class="review-btn"
+            [routerLink]="['/vocabulary/review/lessons', l.id]"
+            [attr.aria-label]="'Ôn lại bài ' + l.title"
+          >
+            <lu-icon name="review" /> Ôn lại
+          </a>
+        </span>
+      </div>
+    </li>
+  }
+</ul>

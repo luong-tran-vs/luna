@@ -78,8 +78,26 @@
     </p>
   }
 
+  @if (quiz() && choices(); as c) {
+    <!-- Flip mode as a multiple choice: the meanings under the boy (design/on-tap-theo-bai.png). -->
+    <lu-choice-list
+      label="Chọn nghĩa đúng"
+      [options]="c.options"
+      [picked]="picked()"
+      [answer]="shown() ? c.answer : null"
+      (pickedChange)="pick($event)"
+    />
+  }
+
   @if (reviewing()) {
     <p class="hint" role="status">Bạn đã chấm: {{ ratingName(given()[index()]) }}</p>
+  } @else if (quiz()) {
+    @if (saveError()) {
+      <div class="save-error banner-warning" role="alert">
+        Chưa lưu được kết quả.
+        <button type="button" class="btn" (click)="retry()">Thử lại</button>
+      </div>
+    }
   } @else if (revealed()) {
     <p class="hint">Bạn nhớ từ này thế nào?</p>
     @if (mode() === 'flip') {
@@ -142,6 +160,32 @@
     </button>
     @if (reviewing()) {
       <button type="button" class="btn-primary" aria-keyshortcuts="ArrowRight" (click)="forward()">Thẻ tiếp</button>
+    } @else if (quiz()) {
+      @if (revealed()) {
+        <button
+          #nextButton
+          type="button"
+          class="btn-next"
+          [class.again]="autoRating() === 1"
+          [disabled]="saving()"
+          (click)="next()"
+        >
+          Tiếp
+          <span class="next-when">ôn lại sau {{ autoInterval(card) }}</span>
+        </button>
+      } @else {
+        <button type="button" class="btn-forget" (click)="forget()">Quên</button>
+        <button
+          #face
+          type="button"
+          class="btn-primary"
+          aria-keyshortcuts="Enter"
+          [attr.aria-disabled]="picked() === null ? true : null"
+          (click)="submit()"
+        >
+          Nộp
+        </button>
+      }
     } @else if (revealed()) {
       <div class="ratings" role="group" aria-label="Bạn nhớ từ này thế nào?">
         @for (r of ratings; track r.rating) {

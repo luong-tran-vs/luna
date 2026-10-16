@@ -1,0 +1,123 @@
+/* Rows of lessons learned (design/on-tap-bo-cuc.png). */
+.lesson-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lesson-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 64px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text);
+  text-decoration: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+/* Each lesson: its state on the right, over a button to review it again. */
+.lesson-side {
+  display: grid;
+  flex: none;
+  justify-items: end;
+  gap: var(--space-2);
+}
+
+.review-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  text-decoration: none;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+
+  --icon-size: 16px;
+}
+
+.review-btn:hover {
+  background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+}
+
+.lesson-text {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lesson-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.lesson-seen {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* The score of the latest round: five marks and "Lần trước: 3/5 câu đúng". */
+.score-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 2px;
+}
+
+.score {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.marks {
+  display: flex;
+  gap: 3px;
+}
+
+.mark {
+  width: 16px;
+  height: 4px;
+  background: var(--color-track);
+  border-radius: 2px;
+}
+
+.mark.on {
+  background: var(--color-ok);
+}
+
+.badge {
+  flex: none;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: var(--radius-full);
+}
+
+.badge-due {
+  color: color-mix(in srgb, var(--color-warn) 70%, var(--color-text));
+  background: color-mix(in srgb, var(--color-warn) 14%, var(--color-surface));
+}
+
+.badge-done {
+  color: color-mix(in srgb, var(--color-ok) 80%, var(--color-text));
+  background: color-mix(in srgb, var(--color-ok) 14%, var(--color-surface));
+}
+
+.badge-later,
+.badge-new {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+}

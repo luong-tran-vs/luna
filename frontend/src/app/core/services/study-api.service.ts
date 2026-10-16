@@ -40,8 +40,9 @@ export class StudyApiService {
     return this.http.put<void>(`/lessons/${lessonId}/position`, { step, sentenceIndex });
   }
 
-  myLessons(): Observable<MyLessons> {
-    return this.http.get<MyLessons>('/lessons/mine');
+  /** The goal's lessons; with allTopics the lessons completed in every topic (the review tab). */
+  myLessons(allTopics = false): Observable<MyLessons> {
+    return this.http.get<MyLessons>('/lessons/mine', allTopics ? { params: { all: '1' } } : {});
   }
 
   /** The goal's topic split into one milestone per level, each lesson a step. */
