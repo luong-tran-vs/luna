@@ -65,7 +65,7 @@ describe('GrammarQuiz', () => {
     req.flush({ progress: progress({ weak: ['p2'] }), passed: false });
     await settle();
     expect(recorded.length).toBe(1);
-    expect(text(el.querySelector('.score'))).toBe('Đúng 1/2 câu (50%)');
+    expect(text(el.querySelector('.score'))).toBe('Đúng 1/2 câu');
 
     button('Luyện lại các câu sai (1)').click();
     await settle();
@@ -73,7 +73,7 @@ describe('GrammarQuiz', () => {
     expect(text(el)).toContain('không tính vào điểm');
     await answer('a', 'Xem kết quả');
     http.expectNone('/grammar/a1-to-be/attempts');
-    expect(text(el.querySelector('.score'))).toBe('Đúng 1/1 câu (100%)');
+    expect(text(el.querySelector('.score'))).toBe('Đúng 1/1 câu');
   });
 
   it('offers to redo the weak exercises before a round starts', async () => {
@@ -96,7 +96,7 @@ describe('GrammarQuiz', () => {
     expect(req.request.body.kind).toBe('mastery');
     req.flush({ progress: progress({ status: 'mastered', mastered: true, bestMastery: 100 }), passed: true });
     await settle();
-    expect(text(el.querySelector('.verdict'))).toContain('Đã nắm vững ✓');
+    expect(text(el.querySelector('.verdict'))).toContain('Đã nắm vững');
   });
 
   it('reviews every question after a test, wrong ones first, with a report button each', async () => {
@@ -131,11 +131,45 @@ describe('GrammarQuiz', () => {
     await answer('b', 'Xem kết quả');
     http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: progress(), passed: false });
     await settle();
-    expect(text(el.querySelector('.score'))).toBe('Đúng 3/5 câu (60%)');
+    expect(text(el.querySelector('.score'))).toBe('Đúng 3/5 câu');
     expect(text(el.querySelector('.verdict'))).toContain('còn thiếu 1 câu đúng');
     button('Làm bài kiểm tra lại').click();
     await settle();
     expect(text(el.querySelector('.count'))).toBe('Câu 1/5');
+  });
+
+  it('checks a typed answer from the bar at the bottom, then offers the next question there', async () => {
+    TestBed.configureTestingModule({ imports: [GrammarQuiz], providers: [provideHttpClient(), provideHttpClientTesting()] });
+    http = TestBed.inject(HttpTestingController);
+    fixture = TestBed.createComponent(GrammarQuiz);
+    fixture.componentRef.setInput('pointId', 'a1-to-be');
+    fixture.componentRef.setInput('kind', 'practice');
+    fixture.componentRef.setInput('exercises', [
+      { id: 'f1', kind: 'fill', text: 'She ___ a nurse.', answers: ['is'], explanationVi: 'vì she' },
+      choice('p2'),
+    ]);
+    el = fixture.nativeElement;
+    await settle();
+
+    // One Kiểm tra only, in the bar, and only once something is typed.
+    const check = () => el.querySelector<HTMLButtonElement>('.bottom-bar .btn-primary')!;
+    expect(el.querySelectorAll('button').length).toBe(1);
+    expect(text(check())).toBe('Kiểm tra');
+    expect(check().disabled).toBe(true);
+    const input = el.querySelector<HTMLInputElement>('input.blank')!;
+    input.value = 'is';
+    input.dispatchEvent(new Event('input'));
+    await settle();
+    expect(check().disabled).toBe(false);
+    check().click();
+    await settle();
+    expect(text(el.querySelector('.feedback'))).toContain('Đúng');
+    expect(text(check())).toBe('Câu tiếp theo');
+
+    // A choice is checked when tapped: no Kiểm tra in the bar.
+    check().click();
+    await settle();
+    expect(el.querySelector('.bottom-bar')).toBeNull();
   });
 
   it('keeps the local score and lets the learner send it again when saving fails', async () => {

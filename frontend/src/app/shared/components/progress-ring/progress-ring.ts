@@ -70,7 +70,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
       }
     }
     .value {
-      font: var(--text-sm) var(--font-ui);
+      font: var(--ring-font, var(--text-sm)) var(--font-ui);
       font-weight: 700;
       font-variant-numeric: tabular-nums;
     }

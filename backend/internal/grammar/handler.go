@@ -404,6 +404,7 @@ type pointJSON struct {
 	Available   bool   `json:"available"`
 	Status      string `json:"status"`
 	BestMastery int    `json:"bestMastery"`
+	WeakCount   int    `json:"weakCount"`
 }
 
 func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
@@ -418,6 +419,7 @@ func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 		points[i] = pointJSON{
 			ID: ps.ID, Level: ps.Level, TitleVi: ps.TitleVi, TitleEn: ps.TitleEn, HintVi: ps.HintVi,
 			Available: ps.Available, Status: string(ps.Status), BestMastery: ps.BestMastery,
+			WeakCount: ps.WeakCount,
 		}
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string]any{"points": points, "next": ov.Next})

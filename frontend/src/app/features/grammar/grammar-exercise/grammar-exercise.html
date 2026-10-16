@@ -47,11 +47,11 @@
           (keydown.enter)="checkFill()"
         />{{ blank()[1] }}
       </p>
-      <div class="actions">
-        <button type="button" class="btn-primary" [disabled]="isDone() || typed.value.trim() === ''" (click)="checkFill()">
-          Kiểm tra
-        </button>
-      </div>
+      @if (inlineCheck()) {
+        <div class="actions">
+          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+        </div>
+      }
     }
     @case ('reorder') {
       <p class="stem">{{ e.text }}</p>
@@ -96,11 +96,11 @@
           </li>
         }
       </ul>
-      <div class="actions">
-        <button type="button" class="btn-primary" [disabled]="isDone() || picked().length === 0" (click)="checkReorder()">
-          Kiểm tra
-        </button>
-      </div>
+      @if (inlineCheck()) {
+        <div class="actions">
+          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+        </div>
+      }
     }
   }
 

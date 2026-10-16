@@ -38,11 +38,12 @@ const TABS: readonly Tab[] = [
 ];
 
 /**
- * Studying a lesson takes the whole phone screen, like the sketch: no tab bar there, so the step
- * buttons and the answer fields are not squeezed under it. The lesson page has its own close button.
+ * Studying a lesson or a grammar point takes the whole phone screen, like the sketch: no tab bar
+ * there, so the step buttons and the answer fields are not squeezed under it. Both pages have their
+ * own close button.
  */
 export function isFocusPage(path: string): boolean {
-  return /^\/lessons\/[^/]+(\/(read|listen|write))?$/.test(path);
+  return /^\/lessons\/[^/]+(\/(read|listen|write))?$/.test(path) || /^\/grammar\/[^/]+$/.test(path);
 }
 
 /**

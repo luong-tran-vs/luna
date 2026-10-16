@@ -241,6 +241,8 @@ type PointStatus struct {
 	Available   bool
 	Status      ProgressStatus
 	BestMastery int
+	// WeakCount is how many practice exercises the latest practice round got wrong, to redo.
+	WeakCount int
 }
 
 // Overview is the learner's list of points and the suggested next one.
@@ -283,7 +285,7 @@ func (s *Service) List(ctx context.Context, userID, level string) (Overview, err
 	for _, p := range points {
 		ps := PointStatus{Point: p, Available: published[p.ID], Status: ProgressNew}
 		if rec, ok := byPoint[p.ID]; ok {
-			ps.Status, ps.BestMastery = rec.Status, rec.BestMastery
+			ps.Status, ps.BestMastery, ps.WeakCount = rec.Status, rec.BestMastery, len(rec.Weak)
 		}
 		if ps.Available && ps.Status != ProgressMastered && out.Next == "" {
 			out.Next = p.ID
@@ -399,7 +401,11 @@ func (s *Service) RecordAttempt(ctx context.Context, userID, pointID string, a A
 	now := s.now()
 	percent := (a.Correct*100 + a.Total/2) / a.Total
 	rec.UserID, rec.PointID, rec.UpdatedAt = userID, pointID, now
-	rec.Weak = slices.Clone(a.Wrong)
+	// Only a practice round decides what to redo: the wrong answers of a test are reviewed on its
+	// result screen and cannot be redone as practice, so a test leaves the list as it was.
+	if a.Kind == AttemptPractice {
+		rec.Weak = slices.Clone(a.Wrong)
+	}
 	if rec.Weak == nil {
 		rec.Weak = []string{}
 	}

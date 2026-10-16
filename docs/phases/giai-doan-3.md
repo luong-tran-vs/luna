@@ -181,6 +181,16 @@
 - **Người học:** tab Ngữ pháp (`/grammar`): chọn trình độ, gợi ý "Học tiếp", trạng thái Mới / Đang học / Đã nắm vững kèm điểm tốt nhất, điểm chưa đăng ghi
   "Sắp có". Trang học có ba tab: **Học**, **Luyện tập** (phản hồi ngay từng câu, "Luyện lại các câu sai"), **Kiểm tra** (không báo đúng sai từng câu, chấm cuối,
   đạt từ 80% là đã nắm vững và giữ mãi, làm lại được).
+- *(sửa 2026-10-16, theo `design/ngu-phap-de-xuat.png`)* Trang học theo khung bài học: toàn màn hình (không thanh tab), nút X, thanh 4 đoạn và nút "i" mở tổng quan
+  (trạng thái, các bước để nhảy tới, số bài học dùng điểm này). Ba tab thay bằng **4 bước** không khoá: **Lý thuyết** (mục tiêu là lời mèo nói, giải thích, khi nào dùng),
+  **Cấu trúc & ví dụ** (mỗi dạng một thẻ có nhãn màu, mẫu câu cắt ở "+" và tô màu, cùng mảnh thì cùng màu ở mọi dạng; ví dụ; lỗi thường gặp Sai/Đúng), **Luyện tập**, **Kiểm tra**.
+  Nút chính dính đáy ghi tên bước sau (trong Luyện tập/Kiểm tra là "Kiểm tra" rồi "Câu tiếp theo"); kết quả kiểm tra có mèo, vòng điểm, "Xem lại từng câu" gập lại, nút "Học tiếp: <điểm kế>" khi đạt (không thì về danh sách).
+  Danh sách: thẻ Học tiếp có thứ tự điểm, mèo và thanh "Đã nắm vững trình độ X m/N"; mỗi dòng còn tên Việt + Anh, trạng thái thành nhãn, điểm đang học còn câu sai
+  hiện "N câu sai cần luyện" (`weakCount` trong `GET /api/grammar`).
+- *(sửa 2026-10-16)* Quay lại một điểm đã học: đầu Bước 1 có thẻ "Học tiếp từ chỗ dở" (điểm luyện tập lần trước, số câu sai, điểm kiểm tra) với nút đi thẳng
+  "Luyện lại N câu sai" / "Làm kiểm tra"; điểm đã nắm vững thì gợi ý ôn nhanh; người chưa luyện thì dựa vào bước dừng lần trước (lưu trên trình duyệt).
+  Nút trên thẻ Học tiếp ở danh sách cũng đổi theo trạng thái và mở thẳng bước đó (`/grammar/{id}?step=practice&redo=weak`, `?step=test`...).
+  Danh sách câu sai (`weak`) chỉ do lần luyện tập gần nhất quyết định; làm bài kiểm tra không còn ghi đè nó.
 - Bài tập chấm trên trình duyệt; máy chủ nhận điểm (`POST /api/grammar/{id}/attempts`), kiểm tra số câu và id câu sai rồi cập nhật tiến độ. Không gọi AI khi làm bài.
 - Liên kết hai chiều với bài học theo chủ đề: ghi chú ngữ pháp trong bài có "Học kỹ điểm này →"; trang ngữ pháp cho biết có bao nhiêu bài học dùng điểm đó.
 - Dữ liệu: `grammar_lessons` (một bài mỗi điểm) và `grammar_progress` (mỗi người học và điểm) ở cả Mongo và MySQL; `grammar_progress` nằm trong file xuất dữ liệu.

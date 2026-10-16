@@ -168,7 +168,8 @@ type Progress struct {
 	MasteryAttempts int
 	BestMastery     int
 	MasteredAt      time.Time
-	// Weak lists the ids of the exercises answered wrongly in the latest attempt of any kind.
+	// Weak lists the ids of the practice exercises answered wrongly in the latest practice round
+	// (a mastery check leaves it as it was).
 	Weak      []string
 	UpdatedAt time.Time
 }

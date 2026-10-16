@@ -5,9 +5,11 @@ import {
   gradeFill,
   gradeReorder,
   missingToPass,
+  patternParts,
   percent,
   shuffleWords,
   splitBlank,
+  structureTone,
   toAttempt,
 } from './grammar-logic';
 
@@ -88,5 +90,33 @@ describe('grammar logic', () => {
     expect(missingToPass(4, 5)).toBe(0);
     expect(missingToPass(5, 10)).toBe(3);
     expect(missingToPass(9, 10)).toBe(0);
+  });
+
+  it('cuts patterns at "+" and colours the same piece alike in every structure', () => {
+    const [pos, neg, question] = patternParts([
+      'S + am/is/are + V-ing',
+      'S + am/is/are + not + V-ing',
+      'Am/Is/Are + S + V-ing?',
+    ]);
+    expect(pos).toEqual([
+      { text: 'S', tone: 0 },
+      { text: 'am/is/are', tone: 1 },
+      { text: 'V-ing', tone: 2 },
+    ]);
+    expect(neg.map((p) => p.tone)).toEqual([0, 1, 3, 2]);
+    expect(question).toEqual([
+      { text: 'Am/Is/Are', tone: 1 },
+      { text: 'S', tone: 0 },
+      { text: 'V-ing?', tone: 2 },
+    ]);
+    expect(patternParts(['There is a book'])).toEqual([[{ text: 'There is a book', tone: 0 }]]);
+  });
+
+  it('tells an affirmative, negative or question structure from its label', () => {
+    expect(structureTone('Khẳng định')).toBe('positive');
+    expect(structureTone('Phủ định')).toBe('negative');
+    expect(structureTone('Nghi vấn (Yes/No)')).toBe('question');
+    expect(structureTone('Câu hỏi Wh-')).toBe('question');
+    expect(structureTone('Rút gọn')).toBe('other');
   });
 });

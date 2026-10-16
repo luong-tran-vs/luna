@@ -8,6 +8,7 @@ import {
   output,
   untracked,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { GrammarExercise } from '../../../core/models/grammar-study';
@@ -34,6 +35,8 @@ export class GrammarExerciseView {
   readonly reveal = input(true);
   /** F21: the point the exercise belongs to; with it, "Báo lỗi câu này" shows after the answer. */
   readonly pointId = input('');
+  /** Whether a fill or reorder has its own Kiểm tra button; off when the page's bar calls check(). */
+  readonly inlineCheck = input(true);
   readonly answered = output<boolean>();
   /** What the learner answered, as text; emitted just before `answered`. */
   readonly given = output<string>();
@@ -58,6 +61,7 @@ export class GrammarExerciseView {
   });
 
   protected readonly typed = new FormControl('', { nonNullable: true });
+  private readonly typedValue = toSignal(this.typed.valueChanges, { initialValue: '' });
 
   protected readonly options = computed(() => this.exercise().options ?? []);
   protected readonly blank = computed(() => splitBlank(this.exercise().text ?? ''));
@@ -66,6 +70,14 @@ export class GrammarExerciseView {
   protected readonly isDone = computed(() => this.result() !== null);
   /** The right answer as text, shown after a wrong one. */
   protected readonly correctText = computed(() => correctAnswerText(this.exercise()));
+  /** A fill or reorder has an answer to check (a choice is checked when tapped). */
+  readonly canCheck = computed(() => {
+    if (this.isDone()) {
+      return false;
+    }
+    const kind = this.exercise().kind;
+    return kind === 'fill' ? this.typedValue().trim() !== '' : kind === 'reorder' && this.picked().length > 0;
+  });
 
   constructor() {
     effect(() => {
@@ -119,6 +131,15 @@ export class GrammarExerciseView {
     }
     this.given.emit(this.built().join(' '));
     this.finish(gradeReorder(this.exercise(), this.built()));
+  }
+
+  /** Checks a fill or reorder answer: the Kiểm tra button, here or in the page's bar. */
+  check(): void {
+    if (this.exercise().kind === 'fill') {
+      this.checkFill();
+    } else if (this.exercise().kind === 'reorder') {
+      this.checkReorder();
+    }
   }
 
   private finish(correct: boolean): void {

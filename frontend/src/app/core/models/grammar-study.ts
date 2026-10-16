@@ -20,6 +20,8 @@ export interface GrammarListItem {
   available: boolean;
   status: GrammarStatus;
   bestMastery: number;
+  /** Exercises the latest attempt got wrong, to redo. */
+  weakCount?: number;
 }
 
 export interface GrammarList {

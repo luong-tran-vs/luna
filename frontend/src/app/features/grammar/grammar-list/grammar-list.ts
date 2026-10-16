@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -7,6 +8,7 @@ import { GrammarApiService } from '../../../core/services/grammar-api.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
+import { savedStep, STEPS } from '../grammar-steps';
 
 const STORAGE_KEY = 'luna.grammar.level';
 
@@ -29,12 +31,13 @@ function saveLevel(level: Level): void {
 }
 
 /**
- * Grammar points of one level with the learner's status on each (F20): the open ones first, then the
+ * Grammar points of one level with the learner's status on each (F20): a card with the point to
+ * study next and how much of the level is mastered, the open points, then the
  * ones without content yet gathered in one collapsed "Sắp có" row; curriculum order within each.
  */
 @Component({
   selector: 'lu-grammar-list',
-  imports: [RouterLink, Icon, Loading],
+  imports: [NgOptimizedImage, RouterLink, Icon, Loading],
   templateUrl: './grammar-list.html',
   styleUrl: './grammar-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,6 +60,26 @@ export class GrammarList {
     const id = this.data()?.next;
     return id ? (this.points().find((p) => p.id === id) ?? null) : null;
   });
+  /** Place of the next point in the level's curriculum, from 1. */
+  protected readonly nextNumber = computed(() => this.points().findIndex((p) => p.id === this.data()?.next) + 1);
+  /**
+   * The card's button goes straight to what is left on the next point: redo the wrong answers,
+   * take the test, or the step where the learner stopped in this browser; else the point's start.
+   */
+  protected readonly nextAction = computed((): { label: string; query: Record<string, string> | null } => {
+    const n = this.nextPoint();
+    if (n && (n.weakCount ?? 0) > 0) {
+      return { label: `Luyện lại ${n.weakCount} câu sai`, query: { step: 'practice', redo: 'weak' } };
+    }
+    if (n?.status === 'learning') {
+      return { label: 'Làm bài kiểm tra', query: { step: 'test' } };
+    }
+    const at = n ? savedStep(n.id) : 0;
+    return at > 0
+      ? { label: `Tiếp tục: Bước ${at + 1}`, query: { step: STEPS[at].key } }
+      : { label: 'Bắt đầu học', query: null };
+  });
+  protected readonly masteredCount = computed(() => this.points().filter((p) => p.status === 'mastered').length);
 
   constructor() {
     const saved = savedLevel();
@@ -110,6 +133,17 @@ export class GrammarList {
 
   protected statusText(p: GrammarListItem): string {
     const label = STATUS_LABELS[p.status];
+    if (this.stateTone(p) === 'weak') {
+      return `${p.weakCount} câu sai cần luyện`;
+    }
     return p.status === 'mastered' && p.bestMastery > 0 ? `${label} · ${p.bestMastery}%` : label;
+  }
+
+  /** Colour of the status: a point still being learnt with wrong answers to redo stands out. */
+  protected stateTone(p: GrammarListItem): 'mastered' | 'weak' | 'learning' | 'new' {
+    if (p.status === 'learning' && (p.weakCount ?? 0) > 0) {
+      return 'weak';
+    }
+    return p.status;
   }
 }

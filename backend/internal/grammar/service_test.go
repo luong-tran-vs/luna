@@ -2,6 +2,7 @@ package grammar
 
 import (
 	"errors"
+	"slices"
 	"testing"
 	"time"
 
@@ -242,11 +243,14 @@ func TestLearnerListAndNext(t *testing.T) {
 	}
 
 	// Mastering the 1st moves next to the 3rd.
-	e.progress.recs[[2]string{"u1", a1[0].ID}] = Progress{UserID: "u1", PointID: a1[0].ID, Status: ProgressMastered, BestMastery: 90}
+	e.progress.recs[[2]string{"u1", a1[0].ID}] = Progress{UserID: "u1", PointID: a1[0].ID, Status: ProgressMastered, BestMastery: 90, Weak: []string{"p1", "p2"}}
 	e.progress.recs[[2]string{"u2", a1[2].ID}] = Progress{UserID: "u2", PointID: a1[2].ID, Status: ProgressMastered}
 	ov, _ = e.svc.List(t.Context(), "u1", "A1")
 	if ov.Next != a1[2].ID || ov.Points[0].Status != ProgressMastered || ov.Points[0].BestMastery != 90 || ov.Points[2].Status != ProgressNew {
 		t.Errorf("after mastering: next %q, points %+v", ov.Next, ov.Points[:3])
+	}
+	if ov.Points[0].WeakCount != 2 || ov.Points[2].WeakCount != 0 {
+		t.Errorf("weak counts = %d, %d", ov.Points[0].WeakCount, ov.Points[2].WeakCount)
 	}
 
 	all, _ := e.svc.List(t.Context(), "u1", "")
@@ -302,6 +306,11 @@ func TestRecordPracticeAttempt(t *testing.T) {
 	if p.Status != ProgressLearning || p.PracticeAttempts != 1 || p.LastPractice != 63 || p.MasteryAttempts != 0 ||
 		len(p.Weak) != 3 || !p.UpdatedAt.Equal(e.now) || p.UserID != "u1" || p.PointID != point {
 		t.Errorf("progress = %+v", p)
+	}
+	// A mastery check does not replace the practice exercises to redo.
+	p, _ = e.attempt(t, "mastery", 4, 6, "m1", "m2")
+	if !slices.Equal(p.Weak, []string{"p1", "p2", "p7"}) {
+		t.Errorf("weak after a mastery check = %v", p.Weak)
 	}
 	p, _ = e.attempt(t, "practice", 8, 8)
 	if p.PracticeAttempts != 2 || p.LastPractice != 100 || p.Weak == nil || len(p.Weak) != 0 {

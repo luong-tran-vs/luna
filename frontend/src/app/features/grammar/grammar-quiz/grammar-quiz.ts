@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -15,6 +16,7 @@ import {
 import { AttemptKind, AttemptResult, GrammarExercise } from '../../../core/models/grammar-study';
 import { GrammarApiService } from '../../../core/services/grammar-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
+import { ProgressRing } from '../../../shared/components/progress-ring/progress-ring';
 import { GrammarExerciseView } from '../grammar-exercise/grammar-exercise';
 import { correctAnswerText, missingToPass, Outcome, percent, toAttempt } from '../grammar-logic';
 import { ReportExercise } from '../report-exercise/report-exercise';
@@ -36,7 +38,7 @@ export interface ReviewItem {
  */
 @Component({
   selector: 'lu-grammar-quiz',
-  imports: [GrammarExerciseView, Icon, ReportExercise],
+  imports: [NgOptimizedImage, GrammarExerciseView, Icon, ProgressRing, ReportExercise],
   templateUrl: './grammar-quiz.html',
   styleUrl: './grammar-quiz.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,9 +52,18 @@ export class GrammarQuiz {
   readonly exercises = input.required<GrammarExercise[]>();
   /** Ids of the practice exercises answered wrong last time (offered as a quick redo). */
   readonly weak = input<string[]>([]);
+  /** The step's name shown before "Câu x/y", e.g. "Bước 3 · Luyện tập". */
+  readonly label = input('');
+  /** A line about the round, shown before the first answer (e.g. how a test is scored). */
+  readonly hint = input('');
+  /** The main button of the bar once the round is over (the page's next move); none when ''. */
+  readonly continueLabel = input('');
   readonly recorded = output<AttemptResult>();
+  readonly continued = output<void>();
 
   private readonly heading = viewChild<ElementRef<HTMLElement>>('heading');
+  /** The exercise on screen, checked from the bar's Kiểm tra button. */
+  protected readonly exerciseView = viewChild(GrammarExerciseView);
 
   /** Ids of a partial round (not recorded); null for the whole set. */
   protected readonly subset = signal<string[] | null>(null);
@@ -149,6 +160,13 @@ export class GrammarQuiz {
   protected restart(): void {
     this.subset.set(null);
     this.reset();
+  }
+
+  /** Starts a round over the exercises answered wrong last time, when there are any (from the page). */
+  startWeak(): void {
+    if (this.weakIds().length > 0) {
+      this.retryWrong(this.weakIds());
+    }
   }
 
   /** A round over only the exercises answered wrong (this round, or the last recorded one). */

@@ -1,7 +1,7 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, provideRouter, Router } from '@angular/router';
 import { of } from 'rxjs';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
@@ -47,11 +47,26 @@ describe('GrammarLesson', () => {
     await new Promise((r) => setTimeout(r));
     await fixture.whenStable();
   };
-  const tab = (label: string) =>
-    Array.from(el.querySelectorAll<HTMLButtonElement>('[role="tab"]')).find((t) => text(t) === label)!;
-  const panel = (id: string) => el.querySelector<HTMLElement>(`#gpanel-${id}`)!;
+  const button = (label: string) =>
+    Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label))!;
+  const shown = () => Array.from(el.querySelectorAll<HTMLElement>('.panel')).filter((p) => !p.hidden).map((p) => p.id);
+  const progress = () => el.querySelector('[role="progressbar"]')!.getAttribute('aria-valuenow');
+  /** Opens a step from the "i" overview. */
+  const openStep = async (label: string) => {
+    el.querySelector<HTMLButtonElement>('.info-btn')!.click();
+    await settle();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('.info-step')).find((b) => text(b).includes(label))!.click();
+    await settle();
+  };
+  /** Clicks a button of one step, found by the start of its text. */
+  const clickIn = async (step: string, label: string) => {
+    const panel = el.querySelector<HTMLElement>(`#gstep-${step}`)!;
+    Array.from(panel.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label))!.click();
+    await settle();
+  };
 
-  const setup = async (supported = true) => {
+  /** Opens the point, with the query of the link that led there (?step=…). */
+  const setup = async (supported = true, query: Record<string, string> = {}) => {
     speech = new FakeSpeech();
     speech.supported = supported;
     TestBed.configureTestingModule({
@@ -61,7 +76,13 @@ describe('GrammarLesson', () => {
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
         provideFakeSpeech(speech),
-        { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ pointId: 'a1-to-be' })) } },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: of(convertToParamMap({ pointId: 'a1-to-be' })),
+            snapshot: { queryParamMap: convertToParamMap(query) },
+          },
+        },
       ],
     });
     http = TestBed.inject(HttpTestingController);
@@ -69,8 +90,71 @@ describe('GrammarLesson', () => {
     el = fixture.nativeElement;
     await fixture.whenStable();
   };
+  /** Opens the point with other progress than the default one. */
+  const openWith = async (progress: Partial<GrammarDetail['progress']>, query: Record<string, string> = {}) => {
+    await setup(true, query);
+    http.expectOne('/grammar/a1-to-be').flush({ ...detail, progress: { ...detail.progress, ...progress } });
+    await settle();
+  };
+  const resume = () => el.querySelector<HTMLElement>('.resume');
 
-  afterEach(() => http.verify());
+  beforeEach(() => localStorage.clear());
+  afterEach(() => {
+    http.verify();
+    localStorage.clear();
+  });
+
+  describe('when coming back to a point', () => {
+    it('offers to redo the wrong answers or take the test, and starts the redo at once', async () => {
+      await openWith({});
+      expect(text(resume()?.querySelector('.resume-title'))).toBe('Học tiếp từ chỗ dở');
+      expect(text(resume())).toContain('Lần trước luyện tập: 50% · còn 1 câu sai. Chưa làm bài kiểm tra.');
+      const buttons = Array.from(resume()!.querySelectorAll('button')).map((b) => text(b));
+      expect(buttons).toEqual(['Luyện lại 1 câu sai', 'Làm kiểm tra']);
+
+      await clickIn('theory', 'Luyện lại 1 câu sai');
+      expect(shown()).toEqual(['gstep-practice']);
+      expect(text(el.querySelector('#gstep-practice .count'))).toBe('Câu 1/1');
+      expect(text(el.querySelector('#gstep-practice'))).toContain('không tính vào điểm');
+    });
+
+    it('offers a quick review on a mastered point', async () => {
+      await openWith({ status: 'mastered', mastered: true, bestMastery: 90, weak: [] });
+      expect(resume()?.classList).toContain('is-mastered');
+      expect(text(resume()?.querySelector('.resume-title'))).toBe('Đã nắm vững · 90%');
+      await clickIn('theory', 'Làm lại kiểm tra');
+      expect(shown()).toEqual(['gstep-test']);
+    });
+
+    it('remembers the step a new learner stopped at in this browser', async () => {
+      const fresh = { status: 'new' as const, practiceAttempts: 0, lastPractice: 0, weak: [] };
+      await openWith(fresh);
+      expect(resume()).toBeNull();
+      button('Sang Cấu trúc & ví dụ').click();
+      await settle();
+      expect(localStorage.getItem('luna.grammar.step.a1-to-be')).toBe('1');
+
+      fixture.destroy();
+      TestBed.resetTestingModule();
+      await openWith(fresh);
+      expect(shown()).toEqual(['gstep-theory']);
+      expect(text(resume())).toContain('Lần trước bạn dừng ở Bước 2 · Cấu trúc & ví dụ.');
+      await clickIn('theory', 'Tiếp tục Bước 2');
+      expect(shown()).toEqual(['gstep-structure']);
+    });
+
+    it('opens the step a link names, and redoes the wrong answers when asked', async () => {
+      await openWith({}, { step: 'practice', redo: 'weak' });
+      expect(shown()).toEqual(['gstep-practice']);
+      expect(progress()).toBe('3');
+      expect(text(el.querySelector('#gstep-practice .count'))).toBe('Câu 1/1');
+    });
+
+    it('ignores a step it does not know', async () => {
+      await openWith({}, { step: 'nope' });
+      expect(shown()).toEqual(['gstep-theory']);
+    });
+  });
 
   describe('with a published lesson', () => {
     beforeEach(async () => {
@@ -79,61 +163,80 @@ describe('GrammarLesson', () => {
       await settle();
     });
 
-    it('shows the title, the status in words and every part of the Học tab', () => {
+    it('opens on Lý thuyết with the objective said by the cat, the explanation and the uses', () => {
       expect(text(el.querySelector('h1'))).toBe('Động từ to be');
-      expect(text(el.querySelector('.status'))).toBe('Đang học');
-      const learn = text(panel('learn'));
-      expect(learn).toContain('Bạn có thể giới thiệu bản thân.');
-      expect(learn).toContain('Đoạn hai.');
-      expect(learn).toContain('Nói về nghề nghiệp');
-      expect(learn).toContain('S + am/is/are');
-      expect(learn).toContain('Tôi là học sinh.');
-      expect(learn).toContain('Sai She are a teacher.');
-      expect(learn).toContain('Đúng She is a teacher.');
-      expect(learn).toContain('Có 3 bài học theo chủ đề');
+      expect(text(el.querySelector('.unit'))).toBe('A1');
+      expect(shown()).toEqual(['gstep-theory']);
+      expect(progress()).toBe('1');
+      const theory = text(el.querySelector('#gstep-theory'));
+      expect(theory).toContain('Bạn có thể giới thiệu bản thân.');
+      expect(theory).toContain('Đoạn hai.');
+      expect(theory).toContain('Nói về nghề nghiệp');
+    });
+
+    it('shows each structure as a card with its pattern in pieces, then the examples and the mistakes', () => {
+      const structure = el.querySelector('#gstep-structure')!;
+      expect(text(structure.querySelector('.kind'))).toBe('Khẳng định');
+      expect(structure.querySelector('.kind')?.classList).toContain('is-positive');
+      expect(Array.from(structure.querySelectorAll('.piece')).map((p) => text(p))).toEqual(['S', 'am/is/are']);
+      expect(text(structure)).toContain('Tôi là học sinh.');
+      expect(text(structure)).toContain('Sai She are a teacher.');
+      expect(text(structure)).toContain('Đúng She is a teacher.');
     });
 
     it('reads an example aloud with the browser voice', () => {
-      el.querySelectorAll<HTMLButtonElement>('.icon-btn')[1].click();
+      // The structure's example comes first, then the examples.
+      el.querySelectorAll<HTMLButtonElement>('.icon-btn')[2].click();
       expect(speech.texts()).toEqual(['She is a teacher.']);
     });
 
-    it('is a set of tabs with one selected panel, moved by the arrow keys', async () => {
-      const tabs = Array.from(el.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
-      expect(tabs.map((t) => text(t))).toEqual(['Học', 'Luyện tập', 'Kiểm tra']);
-      expect(tabs.map((t) => t.getAttribute('aria-selected'))).toEqual(['true', 'false', 'false']);
-      expect(tabs.map((t) => t.tabIndex)).toEqual([0, -1, -1]);
-      expect(tabs[0].getAttribute('aria-controls')).toBe('gpanel-learn');
-      expect(panel('learn').getAttribute('aria-labelledby')).toBe('gtab-learn');
-      expect(panel('practice').hidden).toBe(true);
+    it('moves through the steps with the bottom bar and back', async () => {
+      button('Sang Cấu trúc & ví dụ').click();
+      await settle();
+      expect(shown()).toEqual(['gstep-structure']);
+      expect(progress()).toBe('2');
+      expect(document.activeElement?.textContent).toContain('Bước 2');
 
-      tabs[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+      el.querySelector<HTMLButtonElement>('.bottom-bar [aria-label="Bước trước"]')!.click();
       await settle();
-      expect(tab('Luyện tập').getAttribute('aria-selected')).toBe('true');
-      expect(document.activeElement).toBe(tab('Luyện tập'));
-      expect(panel('practice').hidden).toBe(false);
-      expect(panel('learn').hidden).toBe(true);
+      expect(shown()).toEqual(['gstep-theory']);
 
-      tab('Luyện tập').dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
+      button('Sang Cấu trúc & ví dụ').click();
       await settle();
-      expect(tab('Kiểm tra').getAttribute('aria-selected')).toBe('true');
-      tab('Kiểm tra').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+      button('Sang Luyện tập').click();
       await settle();
-      expect(tab('Học').getAttribute('aria-selected')).toBe('true');
+      expect(shown()).toEqual(['gstep-practice']);
+      expect(el.querySelector('.grammar > .bottom-bar')).toBeNull();
+      expect(text(el.querySelector('#gstep-practice .eyebrow'))).toBe('Bước 3 · Luyện tập');
+      expect(text(el.querySelector('#gstep-practice'))).toContain('Luyện lại các câu sai (1)');
     });
 
-    it('records a practice round and updates the status when the mastery test is passed', async () => {
-      tab('Kiểm tra').click();
+    it('opens any step from the overview, which shows the status and the topic lessons', async () => {
+      const info = el.querySelector<HTMLButtonElement>('.info-btn')!;
+      const overview = el.querySelector<HTMLElement>('#grammar-overview')!;
+      expect(overview.hidden).toBe(true);
+      info.click();
       await settle();
-      const test = panel('test');
-      const click = async (label: string) => {
-        Array.from(test.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label))!.click();
-        await settle();
-      };
-      await click('a');
-      await click('Câu tiếp theo');
-      await click('a');
-      await click('Xem kết quả');
+      expect(info.getAttribute('aria-expanded')).toBe('true');
+      expect(overview.hidden).toBe(false);
+      expect(text(overview.querySelector('.status'))).toBe('Đang học');
+      expect(text(overview)).toContain('Có 3 bài học theo chủ đề');
+      expect(overview.querySelector('[aria-current="step"]')?.textContent).toContain('Lý thuyết');
+
+      Array.from(overview.querySelectorAll<HTMLButtonElement>('.info-step')).find((b) => text(b).includes('Kiểm tra'))!.click();
+      await settle();
+      expect(shown()).toEqual(['gstep-test']);
+      expect(progress()).toBe('4');
+      expect(overview.hidden).toBe(true);
+    });
+
+    it('records the mastery test, updates the status and leads to the next point when passed', async () => {
+      const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+      await openStep('Kiểm tra');
+      await clickIn('test', 'a');
+      await clickIn('test', 'Câu tiếp theo');
+      await clickIn('test', 'a');
+      await clickIn('test', 'Xem kết quả');
       const req = http.expectOne('/grammar/a1-to-be/attempts');
       expect(req.request.body).toEqual({ kind: 'mastery', correct: 2, total: 2, wrong: [] });
       req.flush({
@@ -141,14 +244,45 @@ describe('GrammarLesson', () => {
         passed: true,
       });
       await settle();
-      expect(text(test.querySelector('.verdict'))).toContain('Đã nắm vững ✓');
+      http.expectOne((r) => r.url === '/grammar' && r.params.get('level') === 'A1').flush({
+        next: 'a1-articles',
+        points: [
+          { id: 'a1-to-be', level: 'A1', titleVi: 'Động từ to be', titleEn: '', hintVi: '', available: true, status: 'mastered', bestMastery: 100 },
+          { id: 'a1-articles', level: 'A1', titleVi: 'Mạo từ', titleEn: '', hintVi: '', available: true, status: 'new', bestMastery: 0 },
+        ],
+      });
+      await settle();
+      expect(text(el.querySelector('#gstep-test .verdict'))).toContain('Đã nắm vững');
       expect(text(el.querySelector('.status'))).toBe('Đã nắm vững · Điểm kiểm tra tốt nhất: 100%');
+
+      await clickIn('test', 'Học tiếp: Mạo từ');
+      expect(navigate).toHaveBeenCalledWith(['/grammar', 'a1-articles']);
     });
 
-    it('offers to redo the exercises answered wrong last time', async () => {
-      tab('Luyện tập').click();
+    it('goes back to the list after a test that is not passed', async () => {
+      const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+      await openStep('Kiểm tra');
+      await clickIn('test', 'b');
+      await clickIn('test', 'Câu tiếp theo');
+      await clickIn('test', 'b');
+      await clickIn('test', 'Xem kết quả');
+      http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: detail.progress, passed: false });
       await settle();
-      expect(text(panel('practice'))).toContain('Luyện lại các câu sai (1)');
+      http.expectNone('/grammar');
+      await clickIn('test', 'Về danh sách ngữ pháp');
+      expect(navigate).toHaveBeenCalledWith(['/grammar']);
+    });
+
+    it('goes from the practice result to the test', async () => {
+      await openStep('Luyện tập');
+      await clickIn('practice', 'a');
+      await clickIn('practice', 'Câu tiếp theo');
+      await clickIn('practice', 'a');
+      await clickIn('practice', 'Xem kết quả');
+      http.expectOne('/grammar/a1-to-be/attempts').flush({ progress: detail.progress, passed: false });
+      await settle();
+      await clickIn('practice', 'Sang Kiểm tra');
+      expect(shown()).toEqual(['gstep-test']);
     });
   });
 
@@ -158,7 +292,7 @@ describe('GrammarLesson', () => {
     await settle();
     expect(text(el.querySelector('h1'))).toBe('Điểm này sắp có');
     expect(el.querySelector('.empty a')?.getAttribute('href')).toBe('/grammar');
-    expect(el.querySelector('[role="tab"]')).toBeNull();
+    expect(el.querySelector('.lesson-head')).toBeNull();
   });
 
   it('shows an error with a retry for other failures', async () => {

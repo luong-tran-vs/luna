@@ -2,13 +2,129 @@
   display: block;
 }
 
-.head {
+/* Room for the fixed bottom bar, so it never hides the end of a step. */
+.grammar.has-bar {
+  padding-bottom: calc(48px + 2 * var(--space-3) + var(--space-6));
+}
+
+.empty {
+  justify-items: start;
+}
+
+/* The steps and the point's line, kept at the top while a step scrolls (as in a lesson). */
+.lesson-head {
+  position: sticky;
+  top: 0;
+  z-index: 6;
   display: grid;
+  gap: var(--space-2);
+  margin: calc(-1 * var(--space-4)) calc(-1 * var(--page-x)) 0;
+  padding: var(--space-3) var(--page-x) var(--space-2);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.top-bar,
+.intro-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.top-bar {
+  gap: var(--space-3);
+  min-height: 44px;
+}
+
+.progress {
+  display: grid;
+  flex: 1;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: var(--space-1);
 }
 
+.segment {
+  height: 6px;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.segment.on {
+  background: var(--color-primary);
+}
+
+.progress-text {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.unit {
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-sm);
+}
+
 .title {
-  font: var(--text-2xl) var(--font-ui);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font: var(--text-lg) var(--font-ui);
+  font-size: 18px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.info-btn {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.info-btn[aria-expanded='true'] {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.overview[hidden],
+.panel[hidden] {
+  display: none;
+}
+
+.eyebrow,
+.step-label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.eyebrow {
+  color: var(--color-primary-ink);
+}
+
+.step-label:focus {
+  outline: none;
+}
+
+.overview-title {
+  font: var(--text-lg) var(--font-ui);
 }
 
 .status {
@@ -27,84 +143,9 @@
   color: var(--color-ok);
 }
 
-.empty {
-  justify-items: start;
-}
-
-.tablist {
-  display: flex;
-  gap: var(--space-1);
-  padding: var(--space-1);
-  background: var(--color-track);
-  border-radius: var(--radius-md);
-}
-
-.tab {
-  flex: 1;
-  min-height: 44px;
-  padding: var(--space-2) var(--space-3);
-  font: var(--text-base) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  background: none;
-  border: 0;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-}
-
-.tab[aria-selected='true'] {
-  color: var(--color-primary-ink);
-  background: var(--color-surface);
-  box-shadow: inset 0 -3px 0 var(--color-primary);
-}
-
-.tab:focus-visible,
-.panel:focus-visible,
-.table-wrap:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-.panel {
-  display: grid;
-  gap: var(--space-4);
-}
-
-.panel[hidden] {
-  display: none;
-}
-
-.bullets {
-  display: grid;
-  gap: var(--space-2);
-  margin: 0;
-  padding-left: var(--space-5);
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-.structures {
-  width: 100%;
-  border-collapse: collapse;
-  font: var(--text-sm) var(--font-ui);
-}
-
-.structures th,
-.structures td {
-  padding: var(--space-2);
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--color-line);
-}
-
-.structures code {
-  font-family: var(--font-ui);
-  font-weight: 600;
-  color: var(--color-primary-ink);
-}
-
+.info-steps,
+.usage,
+.structures,
 .examples,
 .mistakes {
   display: grid;
@@ -112,6 +153,149 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.info-steps {
+  gap: var(--space-1);
+}
+
+.info-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.info-step:hover,
+.info-step.is-current {
+  font-weight: 600;
+  background: var(--color-primary-soft);
+}
+
+.info-num,
+.usage-num {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-bg);
+  border-radius: 50%;
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* The objective said by the cat. */
+.cat-says {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.cat {
+  flex: none;
+  width: 64px;
+  height: auto;
+}
+
+.bubble {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--space-1);
+}
+
+.usage li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.usage-num {
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-sm);
+}
+
+.structure {
+  gap: var(--space-2);
+}
+
+.kind {
+  justify-self: start;
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  border-radius: var(--radius-full);
+
+  --tone: var(--color-text-muted);
+
+  color: color-mix(in srgb, var(--tone) 80%, var(--color-text));
+  background: color-mix(in srgb, var(--tone) 14%, var(--color-surface));
+}
+
+.kind.is-positive {
+  --tone: var(--color-ok);
+}
+
+.kind.is-negative {
+  --tone: var(--color-bad);
+}
+
+.kind.is-question {
+  --tone: var(--color-primary);
+}
+
+/* The pattern in pieces, the same piece in the same colour across the structures. */
+.pattern {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.piece {
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-sm);
+
+  --tone: var(--color-skill-write);
+
+  color: color-mix(in srgb, var(--tone) 70%, var(--color-text));
+  background: color-mix(in srgb, var(--tone) 16%, var(--color-surface));
+}
+
+.piece.tone-1 {
+  --tone: var(--color-skill-listen);
+}
+
+.piece.tone-2 {
+  --tone: var(--color-accent);
+}
+
+.piece.tone-3 {
+  --tone: var(--color-skill-speak);
+}
+
+.plus {
+  color: var(--color-text-muted);
 }
 
 .example {
@@ -134,36 +318,36 @@
 .mistake {
   display: grid;
   gap: var(--space-1);
-  padding-left: var(--space-3);
-  border-left: var(--space-1) solid var(--color-line);
 }
 
+/* Sai / Đúng as small labels before the sentence. */
 .mark {
   display: inline-block;
-  min-width: 3em;
+  min-width: 3.4em;
+  margin-right: var(--space-1);
+  padding: 1px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
   font-weight: 700;
+  text-align: center;
+  border-radius: var(--radius-full);
 }
 
 .wrong .mark {
-  color: var(--color-bad);
+  color: color-mix(in srgb, var(--color-bad) 80%, var(--color-text));
+  background: color-mix(in srgb, var(--color-bad) 12%, var(--color-surface));
 }
 
 .right .mark {
-  color: var(--color-ok);
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
+  background: color-mix(in srgb, var(--color-ok) 14%, var(--color-surface));
 }
 
 .wrong [lang='en'] {
   text-decoration: line-through;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.lesson-count {
-  text-align: center;
+.note {
+  font: var(--text-sm) var(--font-ui);
 }
 
 .icon-btn {
@@ -179,4 +363,52 @@
   border: 0;
   border-radius: var(--radius-full);
   cursor: pointer;
+}
+
+.info-btn:focus-visible,
+.info-step:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* "Học tiếp từ chỗ dở": a point already studied leads straight to what is left. */
+.resume {
+  border: 2px solid var(--color-primary);
+}
+
+.resume.is-mastered {
+  border-color: color-mix(in srgb, var(--color-ok) 55%, var(--color-surface));
+}
+
+.resume-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+
+  --icon-size: 18px;
+}
+
+.is-mastered .resume-title {
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
+}
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.resume-actions > * {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.step-hint {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
 }

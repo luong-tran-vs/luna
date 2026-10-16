@@ -10,10 +10,12 @@ import { WritingNotifier } from '../../core/services/writing-notifier.service';
 import { isFocusPage, LearnerLayout } from './learner-layout';
 
 describe('isFocusPage', () => {
-  it('is a lesson being studied, not the lesson list', () => {
+  it('is a lesson or a grammar point being studied, not their lists', () => {
     expect(isFocusPage('/lessons/l1')).toBe(true);
     expect(isFocusPage('/lessons/l1/listen')).toBe(true);
     expect(isFocusPage('/lessons')).toBe(false);
+    expect(isFocusPage('/grammar/a1-to-be')).toBe(true);
+    expect(isFocusPage('/grammar')).toBe(false);
     expect(isFocusPage('/')).toBe(false);
   });
 });

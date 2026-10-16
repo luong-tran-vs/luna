@@ -12,7 +12,30 @@
   gap: var(--space-2);
 }
 
-.count,
+/* "Bước 3 · Luyện tập" on the left, "Câu 3/8" on the right. */
+.head-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.count {
+  margin-left: auto;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  font-variant-numeric: tabular-nums;
+}
+
 .summary-title {
   font: var(--text-lg) var(--font-ui);
 }
@@ -29,7 +52,7 @@
 }
 
 .bar {
-  height: 8px;
+  height: 4px;
   overflow: hidden;
   background: var(--color-track);
   border-radius: var(--radius-full);
@@ -43,18 +66,47 @@
 }
 
 .weak {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-2);
-  justify-items: start;
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2);
 }
 
+/* The result like the end of a lesson: the cat, the verdict, the score in a ring. */
+.summary {
+  justify-items: center;
+  text-align: center;
+}
+
+.mascot {
+  width: 104px;
+  height: auto;
+}
+
+.ring {
+  --ring-size: 112px;
+  --ring-font: 700 26px / 32px;
+}
+
+.ring.is-passed {
+  --ring-color: var(--color-ok);
+}
+
 .score {
-  font: var(--text-xl) var(--font-ui);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
 }
 
 .review {
@@ -63,7 +115,41 @@
 }
 
 .review-title {
-  font: var(--text-lg) var(--font-ui);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 44px;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+.review-title::-webkit-details-marker {
+  display: none;
+}
+
+.review-title:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.review-text {
+  display: grid;
+}
+
+.review-hint {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.chevron {
+  color: var(--color-text-muted);
+  transition: transform var(--motion-fast, 150ms);
+}
+
+.review[open] .chevron {
+  transform: rotate(90deg);
 }
 
 .review-list {
@@ -100,24 +186,31 @@
 }
 
 .is-right .review-head lu-icon {
-  color: var(--color-ok);
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
 }
 
 .is-wrong .review-head lu-icon {
-  color: var(--color-bad);
+  color: color-mix(in srgb, var(--color-bad) 80%, var(--color-text));
 }
 
 .verdict {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
   font-weight: 700;
+  border-radius: var(--radius-full);
+
+  --icon-size: 16px;
 }
 
-.verdict.ok lu-icon {
-  color: var(--color-ok);
+.verdict.ok {
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
+  background: color-mix(in srgb, var(--color-ok) 14%, var(--color-surface));
 }
 
-.verdict.bad lu-icon {
-  color: var(--color-bad);
+.verdict.bad {
+  color: color-mix(in srgb, var(--color-bad) 80%, var(--color-text));
+  background: color-mix(in srgb, var(--color-bad) 10%, var(--color-surface));
 }

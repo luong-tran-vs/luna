@@ -30,29 +30,85 @@
   border: 2px solid var(--color-primary);
 }
 
-.next {
-  gap: var(--space-1);
-  color: var(--color-text);
-  text-decoration: none;
-  border: 2px solid var(--color-primary);
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.hero-text {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
 }
 
 .next-label {
-  font: var(--text-sm) var(--font-ui);
+  justify-self: start;
+  margin-bottom: var(--space-1);
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
   font-weight: 600;
   color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
 }
 
 .next-title {
   font: var(--text-lg) var(--font-ui);
 }
 
-.next-go {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
+.mascot {
+  flex: none;
+  width: 76px;
+  height: auto;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-lg);
+}
+
+.hero-done {
   font-weight: 600;
+}
+
+.mastery {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.mastery-label {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.mastery-count {
   color: var(--color-primary-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  height: 8px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.track-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.next {
+  gap: var(--space-2);
+  justify-content: center;
 }
 
 .empty {
@@ -121,18 +177,28 @@ a.point:focus-visible {
   flex: none;
   align-items: center;
   gap: var(--space-1);
-  padding: 2px var(--space-2);
+  padding: var(--space-1) var(--space-2);
   font: var(--text-xs) var(--font-ui);
   font-weight: 600;
-  color: var(--color-primary-ink);
-  background: var(--color-primary-soft);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
 
   --icon-size: 14px;
+  --tone: var(--color-text-muted);
+
+  color: color-mix(in srgb, var(--tone) 80%, var(--color-text));
+  background: color-mix(in srgb, var(--tone) 12%, var(--color-surface));
 }
 
 .state.is-mastered {
-  color: var(--color-ok);
+  --tone: var(--color-ok);
+}
+
+.state.is-weak {
+  --tone: var(--color-warn);
+}
+
+.state.is-learning {
+  --tone: var(--color-primary);
 }
 
 .is-soon .state {

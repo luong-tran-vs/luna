@@ -69,3 +69,48 @@ export function missingToPass(correct: number, total: number): number {
   const needed = Math.ceil((total * MASTERY_PERCENT) / 100);
   return Math.max(0, needed - correct);
 }
+
+/** One piece of a structure's pattern; `tone` (0–3) is the same for the same piece in every structure. */
+export interface PatternPart {
+  text: string;
+  tone: number;
+}
+
+/** How many colours the pieces of the patterns cycle through. */
+const PATTERN_TONES = 4;
+
+/**
+ * The patterns of a point's structures cut at "+": "S + am/is/are + V-ing" gives three pieces. The
+ * same piece (case and a closing "?" or "." ignored) gets the same tone in every structure, so
+ * "am/is/are" and "Am/Is/Are?" are coloured alike in the affirmative and the question.
+ */
+export function patternParts(patterns: readonly string[]): PatternPart[][] {
+  const tones = new Map<string, number>();
+  return patterns.map((pattern) =>
+    pattern
+      .split('+')
+      .map((s) => s.trim())
+      .filter((s) => s !== '')
+      .map((text) => {
+        const key = text.toLowerCase().replace(/[?.!]+$/, '');
+        if (!tones.has(key)) {
+          tones.set(key, tones.size % PATTERN_TONES);
+        }
+        return { text, tone: tones.get(key)! };
+      }),
+  );
+}
+
+export type StructureTone = 'positive' | 'negative' | 'question' | 'other';
+
+/** The colour of a structure's label: affirmative, negative, question, or anything else. */
+export function structureTone(label: string): StructureTone {
+  const l = label.toLowerCase();
+  if (l.includes('phủ định')) {
+    return 'negative';
+  }
+  if (l.includes('nghi vấn') || l.includes('câu hỏi')) {
+    return 'question';
+  }
+  return l.includes('khẳng định') ? 'positive' : 'other';
+}
