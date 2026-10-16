@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 
 	"github.com/luongtran/luna/backend/internal/aiusage"
+	"github.com/luongtran/luna/backend/internal/export"
 )
 
 // EnsureIndexes creates the indexes the repositories rely on. It is idempotent.
@@ -87,6 +88,15 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 	})
 	if err != nil {
 		return fmt.Errorf("lesson_results index: %w", err)
+	}
+
+	// One record per irregular verb of each learner.
+	_, err = db.Collection(export.CollVerbProgress).Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "userId", Value: 1}, {Key: "base", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return fmt.Errorf("verb_progress index: %w", err)
 	}
 
 	// Daily flow (L).

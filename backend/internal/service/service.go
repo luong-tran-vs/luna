@@ -23,6 +23,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/storage"
 	"github.com/luongtran/luna/backend/internal/topic"
+	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/wordbank"
 	"github.com/luongtran/luna/backend/internal/writing"
@@ -64,6 +65,7 @@ type Container struct {
 	// aiUsage keeps the AI requests for the admin usage page.
 	aiUsage  *aiusage.Service
 	grammar  *grammar.Service
+	verbs    *verbs.Service
 	progress *progress.Service
 	study    *progress.StudyService
 	export   *export.Service
@@ -88,6 +90,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initReader()
 	c.initVocab()
 	c.initGrammar()
+	c.initVerbs()
 	c.initProgress()
 	c.initExport()
 

@@ -64,6 +64,12 @@ export const routes: Routes = [
         loadComponent: () => import('./features/irregular-verbs/irregular-verbs').then((m) => m.IrregularVerbs),
       },
       {
+        path: 'irregular-verbs/practice',
+        title: 'Luyện động từ · Luna',
+        loadComponent: () =>
+          import('./features/irregular-verbs/verb-practice/verb-practice').then((m) => m.VerbPractice),
+      },
+      {
         path: 'stats',
         title: 'Lộ trình & Tiến độ · Luna',
         loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),

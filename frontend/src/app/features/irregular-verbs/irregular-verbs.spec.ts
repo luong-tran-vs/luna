@@ -1,5 +1,9 @@
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
+import { VerbProgress } from '../../core/models/verbs';
 import { FakeSpeech, provideFakeSpeech } from '../../core/services/speech.service.testing';
 import { IRREGULAR_VERBS } from './irregular-verbs.data';
 import { IrregularVerbs } from './irregular-verbs';
@@ -8,13 +12,16 @@ describe('IrregularVerbs', () => {
   let fixture: ComponentFixture<IrregularVerbs>;
   let el: HTMLElement;
   let speech: FakeSpeech;
+  let http: HttpTestingController;
 
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const button = (label: string) =>
     Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b).startsWith(label));
   const rows = () => Array.from(el.querySelectorAll('tr.verb'));
-  const bases = () => rows().map((r) => text(r.querySelector('.v1')).replace(' (thông dụng)', ''));
-  const row = (base: string) => rows().find((r) => text(r.querySelector('.v1')).startsWith(base + ' ') || text(r.querySelector('.v1')) === base)!;
+  const bases = () =>
+    rows().map((r) => text(r.querySelector('.v1')).replace(' (thông dụng)', '').replace(' (đã thuộc)', ''));
+  const row = (base: string) =>
+    rows().find((r) => text(r.querySelector('.v1')).startsWith(base + ' ') || text(r.querySelector('.v1')) === base)!;
   const search = async (q: string) => {
     const input = el.querySelector<HTMLInputElement>('#verb-search')!;
     input.value = q;
@@ -22,15 +29,50 @@ describe('IrregularVerbs', () => {
     await fixture.whenStable();
   };
 
-  const render = async (supported = true) => {
+  /** Renders the tab; the learner's progress answers with `verbs` (or fails with null). */
+  const render = async (supported = true, verbs: VerbProgress[] | null = []) => {
     speech = new FakeSpeech();
     speech.supported = supported;
-    await TestBed.configureTestingModule({ imports: [IrregularVerbs], providers: [provideFakeSpeech(speech)] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [IrregularVerbs],
+      providers: [provideFakeSpeech(speech), provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
+    http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(IrregularVerbs);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
+    const req = http.expectOne('/verbs/progress');
+    if (verbs) {
+      req.flush({ verbs });
+    } else {
+      req.flush({}, { status: 500, statusText: 'x' });
+    }
+    await fixture.whenStable();
   };
 
+  afterEach(() => http.verify());
+
+  it('leads to the practice with how many common verbs are known, and ticks the known ones', async () => {
+    const commonTotal = IRREGULAR_VERBS.filter((v) => v.common).length;
+    await render(true, [
+      { base: 'go', level: 2, dueAt: '2000-01-01T00:00:00Z', right: 2, wrong: 0 },
+      { base: 'see', level: 1, dueAt: '2999-01-01T00:00:00Z', right: 1, wrong: 0 },
+      { base: 'cut', level: 0, dueAt: null, right: 0, wrong: 1 },
+    ]);
+    const card = el.querySelector('.practice-card')!;
+    expect(text(card.querySelector('.known-pill'))).toBe(`Đã thuộc 2/${commonTotal} thông dụng`);
+    expect(text(card.querySelector('.due'))).toBe('1 động từ đến hạn ôn hôm nay');
+    expect(card.querySelector('a.start')?.getAttribute('href')).toBe('/irregular-verbs/practice');
+    expect(row('go').querySelector('.known')).not.toBeNull();
+    expect(row('cut').querySelector('.known')).toBeNull();
+  });
+
+  it('still lists the verbs when the progress cannot be loaded', async () => {
+    await render(true, null);
+    expect(rows().length).toBe(IRREGULAR_VERBS.length);
+    expect(el.querySelector('.known-pill')).toBeNull();
+    expect(el.querySelector('.practice-card a.start')).not.toBeNull();
+  });
   it('lists every verb by letter with its three forms and meaning', async () => {
     await render();
     expect(rows().length).toBe(IRREGULAR_VERBS.length);
@@ -78,10 +120,13 @@ describe('IrregularVerbs', () => {
     for (const r of rows()) {
       expect(text(r.querySelector('.v2'))).toBe(text(r.querySelector('.v1')).replace(' (thông dụng)', ''));
     }
-    button('Mọi nhóm')!.click();
+    // Tapping the chosen pattern again shows every pattern.
+    expect(button('A – A – A')!.getAttribute('aria-pressed')).toBe('true');
+    button('A – A – A')!.click();
     button('Tất cả')!.click();
     await fixture.whenStable();
     expect(rows().length).toBe(IRREGULAR_VERBS.length);
+    expect(button('A – A – A')!.getAttribute('aria-pressed')).toBe('false');
   });
 
   it('reads a verb aloud and stops when pressed again', async () => {
@@ -95,29 +140,6 @@ describe('IrregularVerbs', () => {
     expect(row('go').classList).toContain('playing');
     listen.click();
     expect(speech.stops).toBe(1);
-  });
-
-  it('hides V2 and V3 in self-test mode until tapped', async () => {
-    await render();
-    const toggle = el.querySelector<HTMLButtonElement>('[role="switch"]')!;
-    toggle.click();
-    await fixture.whenStable();
-    expect(toggle.getAttribute('aria-checked')).toBe('true');
-    const go = row('go');
-    expect(go.querySelector('.v2 .reveal')!.getAttribute('aria-label')).toBe('Hiện quá khứ của go');
-    expect(text(go.querySelector('.v2'))).not.toContain('went');
-
-    go.querySelector<HTMLButtonElement>('.v2 .reveal')!.click();
-    await fixture.whenStable();
-    expect(text(row('go').querySelector('.v2'))).toBe('went');
-    expect(row('go').querySelector('.v3 .reveal')).not.toBeNull();
-
-    // Turned off and on again: everything is hidden again.
-    toggle.click();
-    await fixture.whenStable();
-    toggle.click();
-    await fixture.whenStable();
-    expect(row('go').querySelector('.v2 .reveal')).not.toBeNull();
   });
 
   it('has no listen buttons without a voice', async () => {

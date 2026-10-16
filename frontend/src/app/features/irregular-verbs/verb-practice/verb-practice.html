@@ -1,0 +1,239 @@
+<section class="screen practice" [class.has-bar]="stage() !== 'setup' || progress()">
+  @switch (stage()) {
+    @case ('setup') {
+      <header class="top-bar">
+        <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về danh sách động từ"><lu-icon name="x" /></a>
+        <h1 class="bar-title">Luyện động từ</h1>
+      </header>
+
+      @if (loadError()) {
+        <div class="form-alert" role="alert">
+          <p>Không tải được tiến độ luyện động từ.</p>
+          <button type="button" class="btn" (click)="load()">Thử lại</button>
+        </div>
+      } @else if (progress()) {
+        <div class="cat-says">
+          <img class="cat" ngSrc="images/mascot-cat.png" width="64" height="64" alt="" />
+          <p class="bubble">Mỗi lượt {{ startSize() }} động từ. Bạn gõ V2 và V3; câu sai được hỏi lại cuối lượt.</p>
+        </div>
+
+        <fieldset class="soft-card sets">
+          <legend class="sets-title">Học từ đâu?</legend>
+          @for (o of options(); track o.key) {
+            <label class="set" [class.is-chosen]="set() === o.key">
+              <input
+                type="radio"
+                name="verb-set"
+                [value]="o.key"
+                [checked]="set() === o.key"
+                (change)="set.set(o.key)"
+              />
+              <span class="set-text">
+                <span class="set-title" [attr.lang]="o.key === 'common' || o.key === 'all' ? null : 'en'">{{
+                  o.title
+                }}</span>
+                <span class="set-hint">{{ o.hint }}</span>
+              </span>
+              <span class="set-count">
+                {{ o.known }}/{{ o.total }} đã thuộc
+                @if (o.due > 0) {
+                  <span class="due">{{ o.due }} đến hạn</span>
+                }
+              </span>
+            </label>
+          }
+        </fieldset>
+
+        <details class="soft-card legend">
+          <summary>Mẹo nhớ: 4 nhóm biến đổi</summary>
+          <ul>
+            @for (p of patterns; track p.key) {
+              <li>
+                <span class="legend-label">{{ p.label }}</span>
+                <span class="legend-example" lang="en">{{ p.example }}</span>
+                <span class="legend-hint">{{ p.hintVi }}</span>
+              </li>
+            }
+          </ul>
+          <p class="legend-tip">Học theo nhóm dễ nhớ hơn học từng từ: bắt đầu với A – A – A và A – B – B.</p>
+        </details>
+
+        <div class="bottom-bar">
+          <button type="button" class="btn-primary" (click)="start()">
+            Bắt đầu {{ startSize() }} động từ <lu-icon name="arrow-right" />
+          </button>
+        </div>
+      } @else {
+        <lu-loading label="Đang tải tiến độ…" />
+      }
+    }
+
+    @case ('quiz') {
+      @if (current(); as v) {
+        <header class="top-bar">
+          <button type="button" class="round-btn" aria-label="Dừng lượt luyện" (click)="backToSetup()">
+            <lu-icon name="x" />
+          </button>
+          <div
+            class="bar"
+            role="progressbar"
+            aria-label="Tiến độ lượt luyện"
+            aria-valuemin="0"
+            [attr.aria-valuemax]="queue().length"
+            [attr.aria-valuenow]="index() + (checked() ? 1 : 0)"
+          >
+            <span class="fill" [style.width.%]="((index() + (checked() ? 1 : 0)) / queue().length) * 100"></span>
+          </div>
+          <span class="count" aria-hidden="true">{{ index() + 1 }}/{{ queue().length }}</span>
+        </header>
+
+        <section class="soft-card verb-card" aria-labelledby="verb-base">
+          <span class="tag">{{ patternLabel(v) }}</span>
+          @if (isRetry()) {
+            <span class="retry">Hỏi lại</span>
+          }
+          <h1 class="base" id="verb-base" lang="en">{{ v.base }}</h1>
+          <p class="meaning">{{ v.meaningVi }}</p>
+          @if (canSpeak) {
+            <button type="button" class="icon-btn" [attr.aria-label]="'Nghe ' + v.base" (click)="listen(v.base)">
+              <lu-icon name="volume" />
+            </button>
+          }
+        </section>
+
+        <div class="answers">
+          <label class="field" [class.ok]="checked()?.past === true" [class.bad]="checked()?.past === false">
+            <span class="field-label">Quá khứ · V2</span>
+            <input
+              #pastInput
+              type="text"
+              lang="en"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              [value]="past()"
+              [disabled]="!!checked()"
+              (input)="onPast($event)"
+              (keydown.enter)="onPastEnter(participleInput)"
+            />
+            @if (checked(); as c) {
+              <span class="mark">{{ c.past ? '✓ Đúng' : '✗ Sai' }}</span>
+            }
+          </label>
+          <label
+            class="field"
+            [class.ok]="checked()?.participle === true"
+            [class.bad]="checked()?.participle === false"
+          >
+            <span class="field-label">Quá khứ phân từ · V3</span>
+            <input
+              #participleInput
+              type="text"
+              lang="en"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              [value]="participle()"
+              [disabled]="!!checked()"
+              (input)="onParticiple($event)"
+              (keydown.enter)="check()"
+            />
+            @if (checked(); as c) {
+              <span class="mark">{{ c.participle ? '✓ Đúng' : '✗ Sai' }}</span>
+            }
+          </label>
+        </div>
+
+        <div class="feedback" role="status" [class.ok]="right()" [class.bad]="checked() && !right()">
+          @if (checked()) {
+            <p class="verdict">
+              {{ right() ? 'Đúng rồi!' : 'Chưa đúng.' }} <span lang="en">{{ forms(v) }}</span>
+            </p>
+            @if (!right()) {
+              <p>{{ patternLabel(v) }}: {{ patternHint(v) }}</p>
+              @if (!isRetry()) {
+                <p>Từ này sẽ được hỏi lại cuối lượt.</p>
+              }
+            }
+            @if (v.noteVi) {
+              <p>{{ v.noteVi }}</p>
+            }
+            @if (canSpeak) {
+              <button type="button" class="btn listen" (click)="listenForms(v)">
+                <lu-icon name="volume" /> Nghe 3 dạng
+              </button>
+            }
+          }
+        </div>
+
+        <div class="bottom-bar">
+          @if (checked()) {
+            <button #nextButton type="button" class="btn-primary" (click)="next()">
+              {{ isLast() ? 'Xem kết quả' : 'Câu tiếp theo' }} <lu-icon name="arrow-right" />
+            </button>
+          } @else {
+            <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+          }
+        </div>
+      }
+    }
+
+    @case ('done') {
+      <section class="soft-card summary" aria-labelledby="done-title">
+        <img class="mascot" ngSrc="images/mascot-cat.png" width="96" height="96" alt="" />
+        <h1 #heading tabindex="-1" class="summary-title" id="done-title">Xong {{ total() }} động từ</h1>
+        <p class="muted">Đúng ngay lần đầu {{ firstRight() }}/{{ total() }}</p>
+        @if (saving()) {
+          <p class="muted" role="status">Đang lưu kết quả…</p>
+        } @else if (saveError()) {
+          <p class="form-alert" role="alert">Không lưu được kết quả.</p>
+          <button type="button" class="btn" (click)="send()">Gửi lại</button>
+        } @else if (saved()) {
+          <p class="gain" role="status">
+            @if (gained() > 0) {
+              +{{ gained() }} từ thuộc ·
+            }
+            Đã thuộc {{ knownNow() }}/{{ chosen().total }}
+          </p>
+        }
+      </section>
+
+      @if (misses().length > 0) {
+        <section class="soft-card misses" aria-labelledby="misses-title">
+          <h2 class="section-title" id="misses-title">Cần ôn thêm</h2>
+          <ul class="miss-list">
+            @for (m of misses(); track m.verb.base) {
+              <li class="miss">
+                <span class="miss-text">
+                  <span class="miss-forms" lang="en">{{ forms(m.verb) }}</span>
+                  <span class="miss-typed">
+                    Bạn gõ:
+                    <span lang="en">{{ m.past || '(trống)' }} · {{ m.participle || '(trống)' }}</span>
+                  </span>
+                </span>
+                @if (canSpeak) {
+                  <button
+                    type="button"
+                    class="icon-btn"
+                    [attr.aria-label]="'Nghe ' + forms(m.verb)"
+                    (click)="listenForms(m.verb)"
+                  >
+                    <lu-icon name="volume" />
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+      }
+      <p class="muted center">Từ đúng sẽ được hỏi lại sau vài ngày, rồi thưa dần để không quên.</p>
+
+      <div class="bottom-bar">
+        <a class="btn" routerLink="/irregular-verbs">Về danh sách</a>
+        <button type="button" class="btn-primary" [disabled]="saving()" (click)="start()">
+          Luyện tiếp <lu-icon name="arrow-right" />
+        </button>
+      </div>
+    }
+  }
+</section>

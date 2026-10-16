@@ -19,6 +19,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/storage"
 	"github.com/luongtran/luna/backend/internal/topic"
+	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/wordbank"
 	"github.com/luongtran/luna/backend/internal/writing"
@@ -109,6 +110,7 @@ func (s *Store) AIUsage() aiusage.Repository                    { return NewAIUs
 func (s *Store) Cards() vocab.Repository                        { return NewCards(s.db) }
 func (s *Store) ReviewLogs() vocab.ReviewLogRepository          { return NewReviewLogs(s.db) }
 func (s *Store) LessonResults() vocab.LessonResultRepository    { return NewLessonResults(s.db) }
+func (s *Store) VerbProgress() verbs.Repository                  { return NewVerbProgress(s.db) }
 func (s *Store) DictationResults() progress.DictationRepository { return NewDictationResults(s.db) }
 func (s *Store) Goals() progress.GoalRepository                 { return NewGoals(s.db) }
 func (s *Store) LessonProgress() progress.ProgressRepository    { return NewLessonProgress(s.db) }

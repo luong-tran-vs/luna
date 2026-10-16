@@ -1,0 +1,87 @@
+package mysql
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+	"strings"
+
+	"github.com/luongtran/luna/backend/internal/verbs"
+)
+
+// VerbProgress implements verbs.Repository on "verb_progress": one row per (user, verb).
+type VerbProgress struct {
+	db *sql.DB
+}
+
+var _ verbs.Repository = (*VerbProgress)(nil)
+
+// NewVerbProgress returns the VerbProgress repository.
+func NewVerbProgress(db *sql.DB) *VerbProgress { return &VerbProgress{db: db} }
+
+// verbProgressSchema is the DDL of this domain (see migrate.go). due_at is NULL for a verb never
+// answered right.
+func verbProgressSchema() []string {
+	return []string{`CREATE TABLE IF NOT EXISTS verb_progress (
+  user_id     CHAR(24)    NOT NULL,
+  base        VARCHAR(40) NOT NULL,
+  level       INT         NOT NULL,
+  due_at      DATETIME(6) NULL,
+  right_count INT         NOT NULL,
+  wrong_count INT         NOT NULL,
+  updated_at  DATETIME(6) NOT NULL,
+  PRIMARY KEY (user_id, base)
+) ` + tableOptions}
+}
+
+// List returns every record of the user, by verb.
+func (r *VerbProgress) List(ctx context.Context, userID string) ([]verbs.Progress, error) {
+	rows, err := r.db.QueryContext(ctx, `SELECT base, level, due_at, right_count, wrong_count, updated_at
+FROM verb_progress WHERE user_id = ? ORDER BY base`, userID)
+	if err != nil {
+		return nil, fmt.Errorf("mysql list verb progress: %w", err)
+	}
+	defer func() { _ = rows.Close() }()
+	var out []verbs.Progress
+	for rows.Next() {
+		p := verbs.Progress{UserID: userID}
+		var due sql.NullTime
+		if err := rows.Scan(&p.Base, &p.Level, &due, &p.Right, &p.Wrong, &p.UpdatedAt); err != nil {
+			return nil, fmt.Errorf("mysql scan verb progress: %w", err)
+		}
+		if due.Valid {
+			p.DueAt = utc(due.Time)
+		}
+		p.UpdatedAt = utc(p.UpdatedAt)
+		out = append(out, p)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("mysql list verb progress: %w", err)
+	}
+	return out, nil
+}
+
+// Save writes the records in one statement, each replacing the user's row of its verb.
+func (r *VerbProgress) Save(ctx context.Context, records []verbs.Progress) error {
+	if len(records) == 0 {
+		return nil
+	}
+	values := make([]string, len(records))
+	args := make([]any, 0, len(records)*7)
+	for i, p := range records {
+		values[i] = "(?, ?, ?, ?, ?, ?, ?)"
+		var due any
+		if !p.DueAt.IsZero() {
+			due = utc(p.DueAt)
+		}
+		args = append(args, p.UserID, p.Base, p.Level, due, p.Right, p.Wrong, utc(p.UpdatedAt))
+	}
+	_, err := r.db.ExecContext(ctx, `INSERT INTO verb_progress (user_id, base, level, due_at, right_count, wrong_count, updated_at)
+VALUES `+strings.Join(values, ", ")+` AS new
+ON DUPLICATE KEY UPDATE level = new.level, due_at = new.due_at, right_count = new.right_count,
+  wrong_count = new.wrong_count, updated_at = new.updated_at`, args...)
+	if err != nil {
+		return fmt.Errorf("mysql save verb progress: %w", err)
+	}
+	return nil
+}

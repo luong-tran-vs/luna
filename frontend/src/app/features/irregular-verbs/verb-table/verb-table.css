@@ -97,11 +97,6 @@ tbody {
   width: 1%;
 }
 
-.listen-btn,
-.reveal {
-  cursor: pointer;
-}
-
 .listen-btn {
   display: grid;
   place-items: center;
@@ -111,6 +106,7 @@ tbody {
   background: var(--color-primary-soft);
   border: 0;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .listen-btn:hover,
@@ -119,30 +115,21 @@ tbody {
   background: var(--color-primary);
 }
 
-/* Self-test: a hatched box hides the form until tapped. */
-.reveal {
-  min-width: 72px;
-  min-height: 32px;
-  font: var(--text-sm) var(--font-ui);
-  font-weight: 700;
-  color: var(--color-text-muted);
-  background: repeating-linear-gradient(-45deg, var(--color-track) 0 6px, var(--color-bg) 6px 12px);
-  border: 1px dashed var(--color-line);
-  border-radius: var(--radius-md);
-}
-
-.reveal:hover {
-  color: var(--color-primary-ink);
-  border-color: var(--color-primary);
-}
-
-.listen-btn:focus-visible,
-.reveal:focus-visible {
+.listen-btn:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-/* --- phones: one card per verb, V2 and V3 side by side --- */
+/* A verb the learner knows (the practice): a tick after it. */
+.known {
+  margin-left: 4px;
+  color: var(--color-ok);
+  vertical-align: -2px;
+
+  --icon-size: 14px;
+}
+
+/* --- phones: one line per verb, "begin · began · begun", the meaning under it --- */
 
 @media (max-width: 639px) {
   .table,
@@ -173,13 +160,30 @@ tbody {
   }
 
   .verb {
-    display: grid;
-    grid-template: 'v1 v1 listen' 'v2 v3 listen' 'vi vi vi' / 1fr 1fr auto;
-    gap: var(--space-2) var(--space-3);
-    margin-bottom: var(--space-2);
-    padding: var(--space-3);
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 6px;
+    min-height: 56px;
+    padding: var(--space-2) 56px var(--space-2) var(--space-3);
     background: var(--color-surface);
     border: 1px solid var(--color-line);
+    border-top: 0;
+  }
+
+  .letter-row + .verb,
+  tbody:not([id]) > .verb:first-child {
+    border-top: 1px solid var(--color-line);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .verb:last-child {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+
+  .letter-row + .verb:last-child,
+  tbody:not([id]) > .verb:only-child {
     border-radius: var(--radius-lg);
   }
 
@@ -196,43 +200,37 @@ tbody {
 
   .verb.playing {
     background: var(--color-primary-soft);
-    border-color: var(--color-primary);
+    box-shadow: inset 4px 0 0 var(--color-primary);
   }
 
-  .v1 {
-    grid-area: v1;
-    font-size: 1.125rem;
-  }
-
-  .v2 {
-    grid-area: v2;
-  }
-
-  .v3 {
-    grid-area: v3;
-  }
-
-  .vi {
-    grid-area: vi;
-    padding-top: var(--space-2);
-    font: var(--text-sm) var(--font-ui);
-    border-top: 1px dashed var(--color-line);
-  }
-
-  .listen {
-    grid-area: listen;
-    align-self: center;
+  .v1,
+  .form {
+    font: var(--text-base) var(--font-ui);
+    font-weight: 600;
   }
 
   .form::before {
-    content: attr(data-label);
-    display: block;
-    font: var(--text-xs) var(--font-ui);
-    font-weight: 600;
+    content: '·';
+    margin-right: 6px;
+    font-weight: 400;
     color: var(--color-text-muted);
   }
 
-  .reveal {
-    width: 100%;
+  .v3 .spelling {
+    color: var(--color-accent-ink);
+  }
+
+  .vi {
+    flex-basis: 100%;
+    font: var(--text-sm) var(--font-ui);
+    color: var(--color-text-muted);
+  }
+
+  .listen {
+    position: absolute;
+    top: 50%;
+    right: var(--space-2);
+    width: auto;
+    transform: translateY(-50%);
   }
 }

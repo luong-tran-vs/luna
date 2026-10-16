@@ -66,6 +66,7 @@ var apiRoutes = strings.Fields(`
 	GET_/api/settings
 	GET_/api/stats
 	GET_/api/topics
+	GET_/api/verbs/progress
 	GET_/api/vocab/cards
 	GET_/api/vocab/lessons
 	GET_/api/vocab/review/due
@@ -90,6 +91,7 @@ var apiRoutes = strings.Fields(`
 	POST_/api/lessons/{id}/steps/write/skip
 	POST_/api/lessons/{id}/steps/{step}/complete
 	POST_/api/lessons/{id}/writing/submit
+	POST_/api/verbs/results
 	POST_/api/vocab/cards
 	POST_/api/vocab/cards/bulk
 	POST_/api/vocab/cards/{id}/review

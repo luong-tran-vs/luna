@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 
 import { SpeechService } from '../../../core/services/speech.service';
 import { Icon } from '../../../shared/components/icon/icon';
@@ -11,8 +11,8 @@ const RATE = 0.85;
 type Form = 'past' | 'participle';
 
 /**
- * The verbs as a table on wide screens and as cards on phones. Each verb is read aloud; in
- * self-test mode V2 and V3 are hidden until tapped.
+ * The verbs as a table on wide screens and as one line each on phones ("begin · began · begun",
+ * the meaning under it). Each verb is read aloud; a verb the learner knows has a tick.
  */
 @Component({
   selector: 'lu-verb-table',
@@ -26,32 +26,19 @@ export class VerbTable {
 
   /** Verbs by letter; a group without a letter has no letter row (search results). */
   readonly groups = input.required<{ letter: string; verbs: IrregularVerb[] }[]>();
-  readonly testing = input(false);
+  /** Base forms of the verbs the learner knows. */
+  readonly known = input<ReadonlySet<string>>(new Set());
 
   protected readonly canSpeak = this.speech.supported;
   protected readonly forms: readonly Form[] = ['past', 'participle'];
   protected readonly spellings = spellings;
   protected readonly spoken = spokenForms;
 
-  /** Cells shown in self-test mode, as "base:past"; turning the mode on or off hides them again. */
-  protected readonly revealed = linkedSignal<boolean, ReadonlySet<string>>({
-    source: this.testing,
-    computation: () => new Set(),
-  });
-
   /** The text being read aloud, to mark its row. */
   private readonly playing = computed(() => this.speech.playing() ?? this.speech.preparing());
 
   protected formOf(v: IrregularVerb, form: Form): string {
     return form === 'past' ? v.past : v.participle;
-  }
-
-  protected isHidden(v: IrregularVerb, form: Form): boolean {
-    return this.testing() && !this.revealed().has(`${v.base}:${form}`);
-  }
-
-  protected reveal(v: IrregularVerb, form: Form): void {
-    this.revealed.update((s) => new Set(s).add(`${v.base}:${form}`));
   }
 
   protected isPlaying(v: IrregularVerb): boolean {

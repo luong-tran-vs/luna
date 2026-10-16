@@ -28,8 +28,8 @@ func TestExportOrderCoversEveryAllowedTable(t *testing.T) {
 			t.Errorf("%s is ordered but not allowed", c)
 		}
 	}
-	if len(exportOrder) != 9 {
-		t.Errorf("exportOrder has %d tables, export.Allowed has 9", len(exportOrder))
+	if len(exportOrder) != 10 {
+		t.Errorf("exportOrder has %d tables, export.Allowed has 10", len(exportOrder))
 	}
 }
 

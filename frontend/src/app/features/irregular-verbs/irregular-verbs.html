@@ -2,18 +2,39 @@
   <header class="screen-bar">
     <h1 class="screen-title">Động từ bất quy tắc</h1>
   </header>
-  <p class="intro">
-    {{ total }} động từ, trong đó {{ commonTotal }} động từ thông dụng.
-    @if (canSpeak) {
-      Bấm <lu-icon name="volume" class="inline-icon" /> để nghe cả ba dạng.
+
+  <!-- Learning is the practice page now; the list is for looking a verb up (design/dong-tu-de-xuat.png). -->
+  <section class="soft-card practice-card" aria-labelledby="practice-title">
+    <div class="practice-head">
+      <h2 class="practice-title" id="practice-title">Luyện {{ roundSize }} động từ</h2>
+      @if (summary(); as s) {
+        <span class="known-pill">Đã thuộc {{ s.known }}/{{ s.total }} thông dụng</span>
+      }
+    </div>
+    @if (summary(); as s) {
+      <div
+        class="track"
+        role="progressbar"
+        aria-label="Động từ thông dụng đã thuộc"
+        aria-valuemin="0"
+        [attr.aria-valuemax]="s.total"
+        [attr.aria-valuenow]="s.known"
+      >
+        <span class="track-fill" [style.width.%]="(s.known / s.total) * 100"></span>
+      </div>
+      @if (s.due > 0) {
+        <p class="due">{{ s.due }} động từ đến hạn ôn hôm nay</p>
+      }
+    } @else {
+      <p class="muted">Gõ V2 và V3 của từng động từ, có chấm điểm và nhớ những từ bạn đã thuộc.</p>
     }
-  </p>
+    <a class="btn-primary start" routerLink="/irregular-verbs/practice"><lu-icon name="play" /> Bắt đầu luyện</a>
+  </section>
 
   <lu-verb-filters
     [(query)]="query"
     [(commonOnly)]="commonOnly"
     [(pattern)]="pattern"
-    [(testing)]="testing"
     [total]="total"
     [commonTotal]="commonTotal"
     [counts]="counts()"
@@ -22,7 +43,9 @@
   @if (letters().length > 1) {
     <nav class="letters" aria-label="Đến chữ cái">
       @for (l of letters(); track l) {
-        <button type="button" class="letter" [attr.aria-label]="'Đến chữ ' + l" (click)="jump(l)">{{ l }}</button>
+        <button type="button" class="letter" [attr.aria-label]="'Đến chữ ' + l" (click)="jump(l)">
+          {{ l }}
+        </button>
       }
     </nav>
   }
@@ -41,6 +64,6 @@
       <p class="muted">Thử gõ dạng khác (ví dụ "went" hoặc "gone"), hoặc bỏ bớt bộ lọc.</p>
     </div>
   } @else {
-    <lu-verb-table [groups]="groups()" [testing]="testing()" />
+    <lu-verb-table [groups]="groups()" [known]="known()" />
   }
 </section>

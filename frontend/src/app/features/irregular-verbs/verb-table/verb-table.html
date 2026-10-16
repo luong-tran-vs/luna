@@ -1,5 +1,7 @@
 <table class="table">
-  <caption class="visually-hidden">Bảng động từ bất quy tắc: nguyên mẫu, quá khứ, quá khứ phân từ và nghĩa</caption>
+  <caption class="visually-hidden">
+    Bảng động từ bất quy tắc: nguyên mẫu, quá khứ, quá khứ phân từ và nghĩa
+  </caption>
   <thead>
     <tr>
       <th scope="col">Nguyên mẫu <span class="tag-v">V1</span></th>
@@ -23,30 +25,26 @@
           <th scope="row" class="v1" lang="en">
             {{ v.base }}
             @if (v.common) {
-              <span class="common" title="Thông dụng"><lu-icon name="flame" /><span class="visually-hidden">(thông dụng)</span></span>
+              <span class="common" title="Thông dụng"
+                ><lu-icon name="flame" /><span class="visually-hidden">(thông dụng)</span></span
+              >
+            }
+            @if (known().has(v.base)) {
+              <span class="known" title="Đã thuộc"
+                ><lu-icon name="check" /><span class="visually-hidden">(đã thuộc)</span></span
+              >
             }
           </th>
           @for (form of forms; track form) {
-            <td class="form" [class.v2]="form === 'past'" [class.v3]="form === 'participle'" [attr.data-label]="form === 'past' ? 'V2' : 'V3'">
-              @if (isHidden(v, form)) {
-                <button
-                  type="button"
-                  class="reveal"
-                  [attr.aria-label]="'Hiện ' + (form === 'past' ? 'quá khứ' : 'quá khứ phân từ') + ' của ' + v.base"
-                  (click)="reveal(v, form)"
-                >
-                  ? Hiện
-                </button>
-              } @else {
-                <span lang="en">
-                  @for (s of spellings(formOf(v, form)); track s; let last = $last) {
-                    <span class="spelling">{{ s }}</span>
-                    @if (!last) {
-                      <span class="or" aria-hidden="true"> / </span><span class="visually-hidden"> hoặc </span>
-                    }
+            <td class="form" [class.v2]="form === 'past'" [class.v3]="form === 'participle'">
+              <span lang="en">
+                @for (s of spellings(formOf(v, form)); track s; let last = $last) {
+                  <span class="spelling">{{ s }}</span>
+                  @if (!last) {
+                    <span class="or" aria-hidden="true"> / </span><span class="visually-hidden"> hoặc </span>
                   }
-                </span>
-              }
+                }
+              </span>
             </td>
           }
           <td class="vi">

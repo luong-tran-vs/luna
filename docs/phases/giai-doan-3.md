@@ -265,3 +265,27 @@
 - **Xoá một chú thích hoặc câu hỏi** dùng chính PUT annotations/extras với danh sách không còn mục đó.
 - **Sửa câu dịch:** `PUT /api/admin/lessons/{id}/practice/translations`, body `{"translations":[{"vi","en","distractors"}]}`, trả `{"lesson":…}`. Cùng luật với khi AI sinh (2–15 ô chữ, tối đa 5 câu và 4 từ gây nhiễu; admin tự sửa nên không bắt `en` chứa từ của bài)
   nhưng báo lỗi 400 theo trường (`translations.N.vi|en|distractors`) thay vì bỏ lặng lẽ. Danh sách rỗng là xoá hết câu dịch. 409 `no_practice` (chưa có phần luyện tập), `practice_running`, `practice_changed`.
+
+---
+
+## F25. Luyện động từ bất quy tắc
+
+> Thêm 2026-10-16, theo `design/dong-tu-de-xuat.png`. Tab Động từ trước đây chỉ để tra; "Tự kiểm tra" (chạm từng ô để hiện V2, V3) không chấm và không nhớ gì.
+
+**Chức năng**
+- **Danh sách để tra nhanh:** thẻ "Luyện 10 động từ" ở đầu (đã thuộc x/104 thông dụng, số từ đến hạn ôn); ô tìm; một hàng chip cuộn ngang (Tất cả / Thông dụng,
+  4 nhóm biến đổi kèm ví dụ, chạm lại nhóm đang chọn để bỏ lọc); mỗi động từ một dòng "begin · began · begun" + nghĩa, dấu ✓ cho từ đã thuộc; thanh chữ cái dọc ở mép phải
+  điện thoại. Bỏ "Tự kiểm tra" và "Mẹo nhớ" khỏi danh sách.
+- **Trang Luyện** (`/irregular-verbs/practice`, toàn màn hình): chọn nhóm (Thông dụng, 4 nhóm, Tất cả; mỗi nhóm ghi số đã thuộc và đến hạn), "Mẹo nhớ" ở đây.
+  Mỗi lượt 10 động từ: từ đến hạn trước, rồi từ đã sai, rồi từ mới; người học gõ V2 và V3, chấm từng ô, chấp nhận mọi cách viết (burnt/burned), nghe 3 dạng; câu sai hỏi lại
+  một lần cuối lượt. Kết quả: đúng ngay lần đầu, "+N từ thuộc · Đã thuộc x/y", danh sách "Cần ôn thêm" kèm chữ đã gõ.
+- **Lịch hỏi lại (hộp nhớ):** đúng lần đầu khi từ mới hoặc đến hạn thì lên một hộp (đợi 1, 3, 7, 14, 30, 60 ngày); đúng khi chưa đến hạn thì giữ nguyên; sai thì về hộp 0
+  (không còn "đã thuộc"). Riêng cho động từ, không trộn vào tab Ôn tập.
+- API: `GET /api/verbs/progress`, `POST /api/verbs/results` (`{"results":[{"base","right"}]}`, tối đa 50); mở cho mọi tài khoản kể cả khách.
+  Dữ liệu `verb_progress` (Mongo, MySQL migration 030), có trong file xuất dữ liệu, xoá theo tài khoản.
+
+**Tiêu chí nghiệm thu**
+- [ ] Màn đầu tab Động từ thấy được thẻ Luyện, ô tìm, bộ lọc và vài động từ; thanh chữ cái không che nút nghe.
+- [ ] Một lượt: sai một từ thì từ đó được hỏi lại cuối lượt; kết quả gửi lần trả lời đầu của mỗi từ; số "Đã thuộc" đổi đúng.
+- [ ] Làm lại ngay trong ngày không đẩy từ lên hộp cao hơn; sai thì từ mất dấu ✓.
+- [ ] Dùng được ở 360px, sáng và tối, bằng bàn phím (Enter sang ô V3, Enter để kiểm tra).

@@ -7,19 +7,62 @@
   max-width: 880px;
 }
 
-.intro {
-  margin: 0;
+/* --- the way into the practice --- */
+
+.practice-card {
+  gap: var(--space-2);
+  border: 2px solid var(--color-primary);
+}
+
+.practice-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.practice-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.known-pill {
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.track {
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.track-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.due {
   font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
+  font-weight: 600;
+  color: var(--color-primary-ink);
 }
 
-.inline-icon {
-  --icon-size: 16px;
-
-  vertical-align: -3px;
+.start {
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
 }
 
-/* --- A–Z index --- */
+/* --- A–Z index: a row on wide screens, a rail on the right edge of phones --- */
 
 .letters {
   display: flex;
@@ -47,6 +90,36 @@
   background: var(--color-primary);
 }
 
+@media (max-width: 639px) {
+  .letters {
+    position: fixed;
+    top: 50%;
+    right: 2px;
+    z-index: 4;
+    flex-direction: column;
+    gap: 0;
+    padding: var(--space-1) 0;
+    overflow: visible;
+    background: color-mix(in srgb, var(--color-primary-soft) 85%, transparent);
+    border-radius: var(--radius-full);
+    transform: translateY(-50%);
+  }
+
+  .letter {
+    width: 24px;
+    height: 24px;
+    font: var(--text-xs) var(--font-ui);
+    font-weight: 700;
+    background: none;
+    border-radius: 50%;
+  }
+
+  /* Room for the rail, so it never covers a listen button. */
+  .verbs {
+    padding-right: calc(var(--page-x) + 22px);
+  }
+}
+
 .result {
   margin: 0;
   font: var(--text-sm) var(--font-ui);
@@ -60,7 +133,6 @@
 .empty p {
   margin: 0;
 }
-
 
 .letter:focus-visible {
   outline: 2px solid var(--color-primary);

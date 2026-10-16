@@ -36,6 +36,7 @@ var exportOrder = map[string]string{
 	export.CollReadingAnswers:   "id",
 	export.CollWritings:         "id",
 	export.CollGrammarProgress:  "point_id",
+	export.CollVerbProgress:     "base",
 }
 
 // exportBools are the TINYINT(1) columns that are flags; they are exported as true/false.

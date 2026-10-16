@@ -1,14 +1,10 @@
 :host {
   display: grid;
-  gap: var(--space-4);
-}
-
-/* --- search, filters, self-test --- */
-
-.toolbar {
-  display: grid;
   gap: var(--space-3);
+  min-width: 0;
 }
+
+/* --- search --- */
 
 .search {
   position: relative;
@@ -29,7 +25,7 @@
   padding: var(--space-2) 44px;
   font: var(--text-base) var(--font-ui);
   color: var(--color-text);
-  background: var(--color-bg);
+  background: var(--color-surface);
   border: 1px solid var(--color-text-muted);
   border-radius: var(--radius-full);
 }
@@ -63,20 +59,37 @@
   background: var(--color-track);
 }
 
+/* --- the filters: one row that scrolls sideways --- */
+
 .chips {
   display: flex;
-  flex-wrap: wrap;
   gap: var(--space-2);
+  padding: 2px 2px var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chip-group {
+  display: flex;
+  flex: none;
+  gap: var(--space-2);
+}
+
+.chip-group + .chip-group {
+  padding-left: var(--space-2);
+  border-left: 1px solid var(--color-line);
 }
 
 .chip {
   display: inline-flex;
+  flex: none;
   gap: 6px;
   align-items: center;
   min-height: 40px;
   padding: 0 var(--space-3);
   font: var(--text-sm) var(--font-ui);
   color: var(--color-text);
+  white-space: nowrap;
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-full);
@@ -89,8 +102,7 @@
   border-color: var(--color-primary);
 }
 
-.chip:focus-visible,
-.test-toggle:focus-visible {
+.chip:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
@@ -107,6 +119,11 @@
   letter-spacing: 0.02em;
 }
 
+.example {
+  font-weight: 500;
+  opacity: 0.8;
+}
+
 .count {
   min-width: 1.6em;
   padding: 0 6px;
@@ -115,80 +132,3 @@
   background: color-mix(in srgb, currentColor 14%, transparent);
   border-radius: var(--radius-full);
 }
-
-.test-toggle {
-  display: flex;
-  gap: var(--space-3);
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: var(--space-2) 0 0;
-  color: var(--color-text);
-  text-align: start;
-  background: none;
-  border: 0;
-  border-top: 1px solid var(--color-line);
-  cursor: pointer;
-}
-
-.test-text {
-  display: grid;
-  gap: 2px;
-}
-
-.test-title {
-  font: var(--text-base) var(--font-ui);
-  font-weight: 600;
-}
-
-.test-hint {
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
-}
-
-/* --- the 4 patterns --- */
-
-.legend summary {
-  font: var(--text-base) var(--font-ui);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.legend ul {
-  display: grid;
-  gap: var(--space-2);
-  margin: var(--space-3) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.legend li {
-  display: grid;
-  grid-template-columns: 7.5rem 1fr;
-  gap: 2px var(--space-3);
-  padding: var(--space-2) var(--space-3);
-  background: var(--color-bg);
-  border-radius: var(--radius-md);
-}
-
-.legend-label {
-  grid-row: span 2;
-  align-self: center;
-  font-weight: 700;
-  color: var(--color-primary-ink);
-}
-
-.legend-example {
-  font-weight: 600;
-}
-
-.legend-hint,
-.legend-tip {
-  font: var(--text-sm) var(--font-ui);
-  color: var(--color-text-muted);
-}
-
-.legend-tip {
-  margin: var(--space-3) 0 0;
-}
-

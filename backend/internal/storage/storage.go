@@ -25,6 +25,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/progress"
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/topic"
+	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
 	"github.com/luongtran/luna/backend/internal/wordbank"
 	"github.com/luongtran/luna/backend/internal/writing"
@@ -76,6 +77,9 @@ type Store interface {
 	ReviewLogs() vocab.ReviewLogRepository
 	// LessonResults keeps the score of the latest lesson review round of each lesson.
 	LessonResults() vocab.LessonResultRepository
+
+	// VerbProgress keeps which irregular verbs each learner knows and when each is asked again.
+	VerbProgress() verbs.Repository
 
 	DictationResults() progress.DictationRepository
 	Goals() progress.GoalRepository
