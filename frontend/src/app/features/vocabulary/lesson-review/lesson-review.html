@@ -1,7 +1,10 @@
 <section class="screen lesson-review" [class.in-quiz]="stage() === 'quiz'">
   @if (loadError()) {
     <header class="screen-bar">
-      <a class="round-btn" routerLink="/vocabulary/review" aria-label="Về Ôn tập"
+      <a
+        class="round-btn"
+        [routerLink]="exitLink"
+        [attr.aria-label]="nextLesson ? 'Sang bài mới' : 'Về Ôn tập'"
         ><lu-icon name="arrow-left"
       /></a>
       <h1 class="screen-title">Ôn bài</h1>
@@ -13,7 +16,10 @@
     @switch (stage()) {
       @case ('intro') {
         <header class="top-bar">
-          <a class="round-btn" routerLink="/vocabulary/review" aria-label="Về Ôn tập"
+          <a
+            class="round-btn"
+            [routerLink]="exitLink"
+            [attr.aria-label]="nextLesson ? 'Đóng, về bài mới' : 'Về Ôn tập'"
             ><lu-icon name="x"
           /></a>
         </header>
@@ -33,6 +39,9 @@
 
         @if (available().length === 0) {
           <p class="soft-card empty" role="status">Bài này chưa có từ vựng hay bài luyện để ôn.</p>
+          @if (nextLesson) {
+            <a class="btn-primary btn-block" [routerLink]="exitLink">Sang bài mới</a>
+          }
         } @else {
           <ul class="soft-card parts" aria-label="Các phần của lượt ôn">
             @for (p of available(); track p; let i = $index) {
@@ -97,7 +106,7 @@
         @if (question(); as q) {
           <h1 class="visually-hidden">Ôn bài {{ d.title }}</h1>
           <header class="top-bar">
-            <a class="round-btn" routerLink="/vocabulary/review" aria-label="Dừng ôn"
+            <a class="round-btn" [routerLink]="exitLink" aria-label="Dừng ôn"
               ><lu-icon name="x"
             /></a>
             <div
@@ -348,7 +357,9 @@
             </button>
           }
           <button type="button" class="btn btn-block" (click)="restartAll()">Ôn lại cả bài</button>
-          <a class="btn-primary btn-block" routerLink="/vocabulary/review">Xong</a>
+          <a class="btn-primary btn-block" [routerLink]="exitLink">{{
+            nextLesson ? 'Sang bài mới' : 'Xong'
+          }}</a>
         </div>
       }
     }

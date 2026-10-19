@@ -87,7 +87,11 @@ describe('LessonReview', () => {
       (t) => t.textContent?.trim() === label,
     );
 
-  const setup = async (withPractice = true, result: LessonResult | null = null) => {
+  const setup = async (
+    withPractice = true,
+    result: LessonResult | null = null,
+    next: string | null = null,
+  ) => {
     TestBed.configureTestingModule({
       imports: [LessonReview],
       providers: [
@@ -97,7 +101,12 @@ describe('LessonReview', () => {
         provideFakeSpeech(new FakeSpeech()),
         {
           provide: ActivatedRoute,
-          useValue: { snapshot: { paramMap: convertToParamMap({ id: 'l1' }) } },
+          useValue: {
+            snapshot: {
+              paramMap: convertToParamMap({ id: 'l1' }),
+              queryParamMap: convertToParamMap(next ? { next } : {}),
+            },
+          },
         },
       ],
     });
@@ -275,6 +284,36 @@ describe('LessonReview', () => {
       .expectOne('/vocab/review/lessons/l1')
       .flush({ result: { correct: 0, total: 3, wrong: [], reviewedAt: '' } });
     expect(text('.score')).toBe('0/3');
+  });
+
+  it('goes on to the new lesson that offered the review', async () => {
+    localStorage.clear();
+    await setup(false, null, 'l2');
+    expect(el.querySelector('a[aria-label="Đóng, về bài mới"]')?.getAttribute('href')).toBe(
+      '/lessons/l2',
+    );
+    await click(button('Bắt đầu ôn'));
+    expect(localStorage.getItem('luna.review-settled.l2')).toBeNull();
+    for (let i = 0; i < 3; i++) {
+      await click(button('Quên'));
+      if (text('.word') === 'meeting') {
+        http.expectOne('/vocab/cards/c1/review').flush({ card: due });
+      }
+      await click(el.querySelector('.btn-next') as HTMLElement);
+    }
+    http.expectOne('/vocab/practice-misses').flush({ added: 2, rescheduled: 0 });
+    // The score is kept as for any review, so the Ôn tập tab shows it.
+    http
+      .expectOne('/vocab/review/lessons/l1')
+      .flush({ result: { correct: 0, total: 3, wrong: [], reviewedAt: '' } });
+    await settle();
+    const done = Array.from(el.querySelectorAll('a.btn-primary')).find(
+      (a) => a.textContent?.trim() === 'Sang bài mới',
+    );
+    expect(done?.getAttribute('href')).toBe('/lessons/l2');
+    // The round done, the new lesson no longer offers it.
+    expect(localStorage.getItem('luna.review-settled.l2')).toBe('1');
+    localStorage.clear();
   });
 
   it('offers the questions got wrong last time, and mends the score', async () => {

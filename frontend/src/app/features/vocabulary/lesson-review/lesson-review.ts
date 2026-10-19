@@ -26,6 +26,7 @@ import { Loading } from '../../../shared/components/loading/loading';
 import { SpeakButton } from '../../../shared/directives/speak-button';
 import { intervalLabel } from '../../../shared/utils/interval-label';
 import { ReadingApiService } from '../../lesson/reading-api.service';
+import { settleReviewOffer } from '../../lesson/review-offer';
 import {
   Answer,
   Bank,
@@ -88,7 +89,16 @@ export class LessonReview {
   private readonly speech = inject(SpeechService);
   private readonly focusMode = inject(FocusMode);
   private readonly injector = inject(Injector);
-  protected readonly lessonId = inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
+  private readonly route = inject(ActivatedRoute);
+  protected readonly lessonId = this.route.snapshot.paramMap.get('id') ?? '';
+  /**
+   * The new lesson that offered this review (?next=): leaving or finishing the review goes on to
+   * it instead of back to Ôn tập.
+   */
+  protected readonly nextLesson = this.route.snapshot.queryParamMap.get('next');
+  protected readonly exitLink = this.nextLesson
+    ? ['/lessons', this.nextLesson]
+    : ['/vocabulary/review'];
 
   protected readonly partNames = PART_NAMES;
   protected readonly data = signal<LessonData | null>(null);
@@ -373,6 +383,10 @@ export class LessonReview {
 
   private finish(): void {
     this.stage.set('result');
+    if (this.nextLesson) {
+      // The review the new lesson offered is done: it is not offered again.
+      settleReviewOffer(this.nextLesson);
+    }
     // The lesson's score: shown at once, then kept on the server.
     // Ids the lesson no longer has (its content changed) are not held against it.
     const last = this.lastResult();

@@ -12,7 +12,9 @@
       <h2 class="title" id="confirm-title">{{ title() }}</h2>
       <p class="message" id="confirm-message">{{ message() }}</p>
       <div class="actions">
-        <button #cancel type="button" class="btn" (click)="cancelled.emit()">Huỷ</button>
+        <button #cancel type="button" class="btn" (click)="cancelled.emit()">
+          {{ cancelLabel() }}
+        </button>
         <button
           #confirm
           type="button"

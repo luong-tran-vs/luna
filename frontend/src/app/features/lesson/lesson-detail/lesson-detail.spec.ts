@@ -23,7 +23,7 @@ import { Reading } from '../reading/reading';
 import { Writing } from '../writing/writing';
 import { DialogueStep } from './dialogue-step/dialogue-step';
 import { FillStep } from './fill-step/fill-step';
-import { LessonDetail, SPEAKING_PRACTICE } from './lesson-detail';
+import { LessonDetail, REVIEW_OFFER, SPEAKING_PRACTICE } from './lesson-detail';
 import { SpeakStep } from './speak-step/speak-step';
 import { TranslateStep } from './translate-step/translate-step';
 import { VocabStep } from './vocab-step/vocab-step';
@@ -203,6 +203,8 @@ interface Options {
   speaking?: boolean;
   /** Stay on the overview a lesson being learnt opens on (by default the tests start the lesson). */
   overview?: boolean;
+  /** Offer to review the lesson before (off by default: it adds a request to the others). */
+  reviewOffer?: boolean;
 }
 
 describe('LessonDetail', () => {
@@ -313,6 +315,7 @@ describe('LessonDetail', () => {
         provideFakeSpeech(speech),
         { provide: ActivatedRoute, useValue: { paramMap: params } },
         { provide: SPEAKING_PRACTICE, useValue: options.speaking ?? false },
+        { provide: REVIEW_OFFER, useValue: options.reviewOffer ?? false },
       ],
     });
     http = TestBed.inject(HttpTestingController);
@@ -371,6 +374,99 @@ describe('LessonDetail', () => {
     it('says when the lesson does not exist', async () => {
       await open({ status: 404 });
       expect(text(el.querySelector('[role="alert"]'))).toBe('Không tìm thấy bài học.');
+    });
+  });
+
+  describe('offering to review the lesson before', () => {
+    const mine = {
+      current: { id: 'l1', title: 'Introductions' },
+      completed: [
+        {
+          id: 'l0',
+          title: 'Greetings',
+          topicName: 'Làm quen',
+          completedAt: '2026-10-17T08:00:00Z',
+        },
+        { id: 'lb', title: 'Family', topicName: 'Làm quen', completedAt: '2026-10-18T08:00:00Z' },
+      ],
+      upcoming: [],
+    };
+    const dialog = () => el.querySelectorAll('lu-confirm-dialog')[1];
+    const offered = async () => {
+      await open({ study: studying(), overview: true, reviewOffer: true });
+      http.expectOne((r) => r.url === '/lessons/mine' && r.params.get('all') === '1').flush(mine);
+      await fixture.whenStable();
+    };
+
+    it('asks to review the lesson completed last when a new lesson starts', async () => {
+      await offered();
+      expect(text(dialog())).toContain('Ôn lại bài vừa học?');
+      expect(text(dialog())).toContain('"Family"');
+    });
+
+    it('"Ôn tập" opens that lesson\'s review, which leads on to the new lesson', async () => {
+      await offered();
+      const navigate = vi.spyOn(router, 'navigate').mockResolvedValue(true);
+      dialog().querySelector<HTMLButtonElement>('.btn-primary')!.click();
+      await fixture.whenStable();
+      expect(navigate).toHaveBeenCalledWith(['/vocabulary/review/lessons', 'lb'], {
+        queryParams: { next: 'l1' },
+      });
+      // Settled only once the review is done: left unfinished, the offer comes back.
+      expect(localStorage.getItem('luna.review-settled.l1')).toBeNull();
+    });
+
+    it('"Bỏ qua" closes it, and it comes back while no step of the lesson is done', async () => {
+      await offered();
+      dialog().querySelector<HTMLButtonElement>('.btn:not(.btn-primary)')!.click();
+      await fixture.whenStable();
+      expect(dialog().querySelector('[role="alertdialog"]')).toBeNull();
+      expect(el.querySelector('#lesson-overview')).not.toBeNull();
+
+      // A skip may be a slip: the lesson not begun yet, it asks again.
+      TestBed.resetTestingModule();
+      await offered();
+      expect(text(dialog())).toContain('Ôn lại bài vừa học?');
+    });
+
+    it('does not ask again once the review was done', async () => {
+      localStorage.setItem('luna.review-settled.l1', '1');
+      await open({ study: studying(), overview: true, reviewOffer: true });
+      http.expectNone((r) => r.url === '/lessons/mine');
+    });
+
+    it('still asks when the lesson was opened before but no step of it is done', async () => {
+      localStorage.setItem('luna.lesson-step.l1', 'read');
+      await offered();
+      expect(text(dialog())).toContain('Ôn lại bài vừa học?');
+    });
+
+    it('asks again when the review was left unfinished', async () => {
+      await offered();
+      vi.spyOn(router, 'navigate').mockResolvedValue(true);
+      dialog().querySelector<HTMLButtonElement>('.btn-primary')!.click();
+      await fixture.whenStable();
+
+      TestBed.resetTestingModule();
+      await offered();
+      expect(text(dialog())).toContain('Ôn lại bài vừa học?');
+    });
+
+    it('does not ask once the lesson has begun', async () => {
+      await open({
+        study: studying({ steps: { read: 'done', listen: 'current', write: 'locked' } }),
+        reviewOffer: true,
+      });
+      http.expectNone((r) => r.url === '/lessons/mine');
+    });
+
+    it('does not ask with no lesson completed yet', async () => {
+      await open({ study: studying(), overview: true, reviewOffer: true });
+      http
+        .expectOne((r) => r.url === '/lessons/mine' && r.params.get('all') === '1')
+        .flush({ ...mine, completed: [] });
+      await fixture.whenStable();
+      expect(dialog().querySelector('[role="alertdialog"]')).toBeNull();
     });
   });
 
@@ -490,7 +586,7 @@ describe('LessonDetail', () => {
       expect(text(el.querySelector('lu-translate-step'))).toContain('Câu 1/2');
     });
 
-    it('puts ← and the step\'s main button in one bar; the overview lists every step', async () => {
+    it("puts ← and the step's main button in one bar; the overview lists every step", async () => {
       await open();
       await next();
       // The practice step's own buttons are the bar: no second one.
@@ -518,7 +614,7 @@ describe('LessonDetail', () => {
       expect(el.querySelector('lu-vocab-step')).not.toBeNull();
     });
 
-    it('names each step\'s last button after the next step', async () => {
+    it("names each step's last button after the next step", async () => {
       await open();
       await next();
       expect(text(el.querySelector('lu-dialogue-step .finish'))).toBe('Sang bước Điền ô trống');
@@ -600,7 +696,9 @@ describe('LessonDetail', () => {
       expect(el.querySelector('.next-bar')).toBeNull();
 
       // Tapping a sentence reads it aloud and highlights it; tapping it again while read stops it.
-      const sentences = Array.from(el.querySelectorAll<HTMLButtonElement>('#panel-reading .read-sentence'));
+      const sentences = Array.from(
+        el.querySelectorAll<HTMLButtonElement>('#panel-reading .read-sentence'),
+      );
       expect(sentences.map((b) => text(b))).toEqual([
         'Hello, my name is Minh.',
         'Nice to meet you.',
@@ -734,7 +832,9 @@ describe('LessonDetail', () => {
         'Dịch câu: Chưa làm',
       ]);
       // The whole row is the button.
-      el.querySelector<HTMLButtonElement>('lu-practice-summary button[aria-label="Làm Điền ô trống: chưa làm"]')!.click();
+      el.querySelector<HTMLButtonElement>(
+        'lu-practice-summary button[aria-label="Làm Điền ô trống: chưa làm"]',
+      )!.click();
       await fixture.whenStable();
       expect(el.querySelector('lu-fill-step')).not.toBeNull();
       expect(el.querySelector('lu-practice-summary')).toBeNull();
@@ -886,9 +986,7 @@ describe('LessonDetail', () => {
       await toPractice();
       await openExtra('Điền ô trống');
       child(FillStep)!.missed.emit(['name']);
-      http
-        .expectOne('/vocab/practice-misses')
-        .flush('down', { status: 500, statusText: 'Error' });
+      http.expectOne('/vocab/practice-misses').flush('down', { status: 500, statusText: 'Error' });
       await fixture.whenStable();
       expect(el.querySelector('.miss-note')).toBeNull();
       expect(el.querySelector('[role="alert"]')).toBeNull();
@@ -915,7 +1013,9 @@ describe('LessonDetail', () => {
       // Luyện thêm is shown but locked until Nghe is done: before that it gives the answers away.
       expect(text(overview.querySelector('.info-extras'))).toContain('Luyện thêm (tuỳ chọn)');
       expect(text(overview.querySelector('.extras-note'))).toBe('Mở sau khi xong bước Nghe');
-      const chips = Array.from(overview.querySelectorAll<HTMLButtonElement>('.info-extras .chip-btn'));
+      const chips = Array.from(
+        overview.querySelectorAll<HTMLButtonElement>('.info-extras .chip-btn'),
+      );
       expect(chips.map((b) => b.disabled)).toEqual([true, true, true]);
       expect(chips[0].getAttribute('aria-describedby')).toBe('extras-note');
       expect(el.querySelector('lu-vocab-step')).toBeNull();
@@ -932,7 +1032,10 @@ describe('LessonDetail', () => {
 
     it('says Tiếp tục on the overview of a lesson already started', async () => {
       await open({
-        study: studying({ steps: { read: 'done', listen: 'current', write: 'locked' }, currentStep: 'listen' }),
+        study: studying({
+          steps: { read: 'done', listen: 'current', write: 'locked' },
+          currentStep: 'listen',
+        }),
         overview: true,
       });
       expect(text(nextButton())).toBe('Tiếp tục: Nghe');
@@ -1018,16 +1121,25 @@ describe('LessonDetail', () => {
       await openInfo();
       expect(el.querySelector('.extras-note')).toBeNull();
       expect(
-        Array.from(el.querySelectorAll<HTMLButtonElement>('.info-extras .chip-btn')).every((b) => !b.disabled),
+        Array.from(el.querySelectorAll<HTMLButtonElement>('.info-extras .chip-btn')).every(
+          (b) => !b.disabled,
+        ),
       ).toBe(true);
     });
 
     it('opens Luyện thêm from the summary reached with Nghe left for later', async () => {
       // Viết done, Đọc and Nghe left for later: the last step's Hoàn thành shows the summary.
-      await open({ study: studying({ steps: { read: 'current', listen: 'locked', write: 'done' }, currentStep: 'read' }) });
+      await open({
+        study: studying({
+          steps: { read: 'current', listen: 'locked', write: 'done' },
+          currentStep: 'read',
+        }),
+      });
       el.querySelector<HTMLButtonElement>('.info-btn')!.click();
       await fixture.whenStable();
-      Array.from(el.querySelectorAll<HTMLButtonElement>('.info-step')).find((b) => text(b).includes('Viết'))!.click();
+      Array.from(el.querySelectorAll<HTMLButtonElement>('.info-step'))
+        .find((b) => text(b).includes('Viết'))!
+        .click();
       await fixture.whenStable();
       nextButton()!.click();
       await fixture.whenStable();
@@ -1036,7 +1148,9 @@ describe('LessonDetail', () => {
         'Làm bước Đọc',
         'Làm bước Nghe',
       ]);
-      const row = el.querySelector<HTMLButtonElement>('lu-practice-summary button[aria-label="Làm Hội thoại: chưa làm"]')!;
+      const row = el.querySelector<HTMLButtonElement>(
+        'lu-practice-summary button[aria-label="Làm Hội thoại: chưa làm"]',
+      )!;
       row.click();
       await fixture.whenStable();
       expect(el.querySelector('lu-dialogue-step')).not.toBeNull();
@@ -1202,7 +1316,9 @@ describe('LessonDetail', () => {
         .flush('down', { status: 500, statusText: 'Error' });
       await fixture.whenStable();
       expect(el.querySelector('.review-nudge')).toBeNull();
-      expect(el.querySelector('.done-card a.btn-primary')!.getAttribute('href')).toBe('/lessons/l2');
+      expect(el.querySelector('.done-card a.btn-primary')!.getAttribute('href')).toBe(
+        '/lessons/l2',
+      );
     });
 
     it('goes to the congratulations at the end of the roadmap', async () => {
@@ -1322,7 +1438,11 @@ describe('LessonDetail', () => {
         child(WritingStub)!.skipped.emit();
         await reply(
           '/lessons/l1/steps/write/skip',
-          other({ status: 'completed', currentStep: 'done', next: { id: 'l2', title: 'Family 2' } }),
+          other({
+            status: 'completed',
+            currentStep: 'done',
+            next: { id: 'l2', title: 'Family 2' },
+          }),
         );
         await flushDue(0);
         await fixture.whenStable();

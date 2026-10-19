@@ -463,3 +463,12 @@
   (confirmed)="relearnLesson()"
   (cancelled)="relearnAsk.set(false)"
 />
+<lu-confirm-dialog
+  [open]="reviewOffer() !== null"
+  title="Ôn lại bài vừa học?"
+  [message]="reviewOfferMessage()"
+  confirmLabel="Ôn tập"
+  cancelLabel="Bỏ qua"
+  (confirmed)="acceptReview()"
+  (cancelled)="skipReview()"
+/>

@@ -24,6 +24,7 @@ export class ConfirmDialog {
   readonly title = input.required<string>();
   readonly message = input('');
   readonly confirmLabel = input('Xác nhận');
+  readonly cancelLabel = input('Huỷ');
   readonly danger = input(false);
 
   readonly confirmed = output<void>();

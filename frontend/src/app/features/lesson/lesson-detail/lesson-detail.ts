@@ -16,7 +16,7 @@ import { catchError, firstValueFrom, forkJoin, Observable, of, Subscription } fr
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { PracticeView } from '../../../core/models/practice';
 import { ReadingLesson } from '../../../core/models/reading';
-import { LessonStudy, Step, STEPS } from '../../../core/models/study';
+import { CompletedLesson, LessonRef, LessonStudy, Step, STEPS } from '../../../core/models/study';
 import { LessonVocabulary } from '../../../core/models/vocab';
 import { formatScore, Writing as SubmittedWriting } from '../../../core/models/writing';
 import { SpeechService } from '../../../core/services/speech.service';
@@ -26,6 +26,7 @@ import { WritingApiService } from '../../../core/services/writing-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Listening } from '../listening/listening';
 import { loadErrorMessage } from '../load-error';
+import { reviewOfferSettled } from '../review-offer';
 import { ReadingApiService } from '../reading-api.service';
 import { Reading } from '../reading/reading';
 import { Writing } from '../writing/writing';
@@ -91,6 +92,15 @@ export interface PracticeItem {
 
 /** Whether lessons have the Speaking step (Luyện nói); specs of the other steps turn it off. */
 export const SPEAKING_PRACTICE = new InjectionToken<boolean>('SPEAKING_PRACTICE', {
+  providedIn: 'root',
+  factory: () => true,
+});
+
+/**
+ * Whether a new lesson offers to review the lesson learnt just before it; specs of the other steps
+ * turn it off.
+ */
+export const REVIEW_OFFER = new InjectionToken<boolean>('REVIEW_OFFER', {
   providedIn: 'root',
   factory: () => true,
 });
@@ -176,6 +186,7 @@ export class LessonDetail {
   private readonly vocabApi = inject(VocabApiService);
   private readonly listeningApi = inject(ListeningApiService);
   private readonly speakingOn = inject(SPEAKING_PRACTICE);
+  private readonly reviewOfferOn = inject(REVIEW_OFFER);
   private readonly writingApi = inject(WritingApiService);
 
   protected readonly id = signal('');
@@ -218,6 +229,18 @@ export class LessonDetail {
     return n > 0 ? `Đã đưa ${n} từ làm sai vào lịch ôn.` : null;
   });
   protected readonly stepError = signal<string | null>(null);
+  /**
+   * The lesson learnt just before, offered for review when a new lesson starts ("Ôn tập" / "Bỏ
+   * qua"); null when there is nothing to offer.
+   */
+  protected readonly reviewOffer = signal<LessonRef | null>(null);
+  protected readonly reviewOfferMessage = computed(() => {
+    const prev = this.reviewOffer();
+    return prev
+      ? `Ôn nhanh bài "${prev.title}" vừa học trước khi bắt đầu bài mới giúp bạn nhớ lâu hơn.`
+      : '';
+  });
+  private offerLoading?: Subscription;
 
   protected readonly tab = signal<Tab>('lesson');
   /**
@@ -507,6 +530,7 @@ export class LessonDetail {
     inject(DestroyRef).onDestroy(() => {
       this.speech.stop();
       clearTimeout(this.positionTimer);
+      this.offerLoading?.unsubscribe();
     });
     // "Sang bài tiếp theo" stays on this page: the lesson changes with the route.
     inject(ActivatedRoute)
@@ -518,6 +542,8 @@ export class LessonDetail {
     this.speech.stop();
     clearTimeout(this.positionTimer);
     this.loading?.unsubscribe();
+    this.offerLoading?.unsubscribe();
+    this.reviewOffer.set(null);
     this.id.set(id);
     this.lesson.set(null);
     this.loadError.set(null);
@@ -561,9 +587,62 @@ export class LessonDetail {
         // A lesson being learnt opens on its overview, the bar going on from where the learner is.
         this.overview.set(this.learning() && this.hasSteps());
         this.lesson.set(r.lesson);
+        this.offerReview(r.study);
       },
       error: (err: unknown) => this.loadError.set(loadErrorMessage(err)),
     });
+  }
+
+  /**
+   * A new lesson being studied, no step of it done yet: offers to review the lesson completed last
+   * first, until reviewed or skipped. A failure only leaves the offer out.
+   */
+  private offerReview(study: LessonStudy | null): void {
+    const id = this.id();
+    // Until a step of it is done, the lesson is new: the offer stays until reviewed or skipped.
+    const fresh = study?.status === 'studying' && !STEPS.some((s) => study.steps[s] === 'done');
+    if (!this.reviewOfferOn || !fresh || reviewOfferSettled(id)) {
+      return;
+    }
+    // Every topic: the lesson before may be the last one of the topic studied before this one.
+    this.offerLoading = this.studyApi.myLessons(true).subscribe({
+      next: (mine) => {
+        const last = mine.completed
+          .filter((l) => l.id !== id)
+          .reduce<CompletedLesson | null>(
+            (latest, l) =>
+              !latest || Date.parse(l.completedAt) > Date.parse(latest.completedAt) ? l : latest,
+            null,
+          );
+        if (last) {
+          this.reviewOffer.set({ id: last.id, title: last.title });
+        }
+      },
+      error: () => undefined,
+    });
+  }
+
+  /**
+   * "Ôn tập": the review of the lesson before, which leads back to this one. The offer is settled
+   * there once the round is done: left unfinished, it comes back.
+   */
+  protected acceptReview(): void {
+    const prev = this.reviewOffer();
+    if (!prev) {
+      return;
+    }
+    this.reviewOffer.set(null);
+    void this.router.navigate(['/vocabulary/review/lessons', prev.id], {
+      queryParams: { next: this.id() },
+    });
+  }
+
+  /**
+   * "Bỏ qua": on with the new lesson, for this visit only. A skip may be a slip, so the offer comes
+   * back next time until a step of the lesson is done.
+   */
+  protected skipReview(): void {
+    this.reviewOffer.set(null);
   }
 
   /** The furthest of the server state and the step saved on this device (the practice is only known here). */
