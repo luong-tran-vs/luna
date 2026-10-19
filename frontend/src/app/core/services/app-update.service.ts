@@ -18,7 +18,7 @@ export const UPDATE_CHECK_MS = 15 * 60 * 1000;
  * UPDATE_CHECK_MS while it is open.
  *
  * While a new version is being downloaded `downloading` is on (the root shows "Đang tải bản mới…",
- * design/thong-bao-cap-nhat.png); a failed download turns it off again, the next check retries.
+ * design/tat-ca-de-xuat.png (mục thong-bao-cap-nhat)); a failed download turns it off again, the next check retries.
  * Once a new version is downloaded, `ready` turns on (the root shows "Cập nhật"), and the page also
  * reloads by itself on the next route change, so a lesson in progress is never cut off. A broken
  * cache (unrecoverable state) reloads straight away. Does nothing in `ng serve`.

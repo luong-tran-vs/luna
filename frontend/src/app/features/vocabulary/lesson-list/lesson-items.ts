@@ -39,7 +39,7 @@ export function matches(item: LessonItem, filter: LessonFilter): boolean {
 
 /**
  * Every lesson learned, and the one being studied once words were saved from it, by how much it
- * needs a review (design/on-tap-bo-cuc.png).
+ * needs a review (design/tat-ca-de-xuat.png (mục on-tap-bo-cuc)).
  */
 export function loadLessonItems(
   study: StudyApiService,

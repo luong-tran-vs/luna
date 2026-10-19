@@ -11,7 +11,7 @@ import { AppUpdateService } from '../../../core/services/app-update.service';
 
 /**
  * "Đang tải bản mới…": a small pill at the top while a new version downloads, which leaves the page
- * usable (design/thong-bao-cap-nhat.png).
+ * usable (design/tat-ca-de-xuat.png (mục thong-bao-cap-nhat)).
  *
  * "Đã có phiên bản mới": a dialog in the middle of the screen once the service worker has
  * downloaded a new build (AppUpdateService). A native <dialog> opened with showModal(), so the page

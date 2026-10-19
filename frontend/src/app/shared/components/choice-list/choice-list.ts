@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import { Icon } from '../icon/icon';
 
 /**
- * Up to four answers to pick one from (design/on-tap-theo-bai.png): a numbered row each, the picked
+ * Up to four answers to pick one from (design/tat-ca-de-xuat.png (mục on-tap-theo-bai)): a numbered row each, the picked
  * one outlined. Once `answer` is given the question is over: the right row turns green, a wrong pick
  * red, the others fade, and nothing can be picked any more. Keys 1–4 are the parent's job.
  */

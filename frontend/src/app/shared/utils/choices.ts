@@ -1,4 +1,4 @@
-/** Multiple choice (design/on-tap-theo-bai.png): the right answer among a few others, shuffled. */
+/** Multiple choice (design/tat-ca-de-xuat.png (mục on-tap-theo-bai)): the right answer among a few others, shuffled. */
 
 /** How many options a question shows, the right one included. */
 export const CHOICE_COUNT = 4;

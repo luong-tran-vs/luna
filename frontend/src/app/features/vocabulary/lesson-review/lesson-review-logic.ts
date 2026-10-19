@@ -4,7 +4,7 @@ import { DueCard, LessonResultInput, LessonStats, VocabItem } from '../../../cor
 import { Choices, makeChoices, seedOf, shuffled } from '../../../shared/utils/choices';
 
 /**
- * Pure helpers of the lesson review (design/on-tap-theo-bai.png): the questions of one round
+ * Pure helpers of the lesson review (design/tat-ca-de-xuat.png (mục on-tap-theo-bai)): the questions of one round
  * (words, fill-in, translation) built from the lesson, and the list of lessons of the review tab.
  */
 

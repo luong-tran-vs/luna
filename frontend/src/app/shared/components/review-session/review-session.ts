@@ -46,7 +46,7 @@ const SLOW_RATE = 0.6;
 
 /**
  * One review session over the given cards (F5, reused by the daily flow L). Flip mode shows the
- * word and four meanings to pick from (design/on-tap-theo-bai.png): "Nộp" checks the pick, "Quên"
+ * word and four meanings to pick from (design/tat-ca-de-xuat.png (mục on-tap-theo-bai)): "Nộp" checks the pick, "Quên"
  * shows the answer, and the card is rated for the learner (right: Good, else Again) on "Tiếp". With
  * fewer than two meanings to choose from it falls back to flipping the card and rating it by hand.
  * Listen mode plays the word and checks what the learner types. Each rating is saved right away; a card rated Again comes back once at the end. Back and

@@ -69,7 +69,7 @@ interface Segment {
 }
 
 /**
- * Reviewing one learned lesson (design/on-tap-theo-bai.png): what the round holds, then its words
+ * Reviewing one learned lesson (design/tat-ca-de-xuat.png (mục on-tap-theo-bai)): what the round holds, then its words
  * (pick the meaning), lines of its dialogue (pick the missing word) and sentences to translate
  * (build them from tiles), then the score of each part and the questions got wrong. A due card of
  * the lesson is rated by the answer (right: Good, else Again); other words got wrong come back for

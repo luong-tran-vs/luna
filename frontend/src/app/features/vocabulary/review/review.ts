@@ -64,7 +64,7 @@ interface DayBar {
 }
 
 /**
- * The review tab (design/on-tap-theo-bai.png, design/on-tap-bo-cuc.png): the lesson to review
+ * The review tab (design/tat-ca-de-xuat.png (mục on-tap-theo-bai), design/tat-ca-de-xuat.png (mục on-tap-bo-cuc)): the lesson to review
  * today and the LESSONS_SHOWN lessons needing it most (all of them behind "Xem tất cả"), each
  * opening a lesson review; then the free review of every card due now (F5) in the mode the
  * learner picks, the cards by stage and the next 7 days. A session takes the whole screen.

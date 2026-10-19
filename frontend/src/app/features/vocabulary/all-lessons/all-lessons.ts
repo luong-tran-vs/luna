@@ -16,7 +16,7 @@ const FILTERS: { value: LessonFilter; label: string }[] = [
 
 /**
  * "Bài đã học": every lesson learned, by how much it needs a review, with a quick filter
- * (design/on-tap-bo-cuc.png). The review tab lists only the first few.
+ * (design/tat-ca-de-xuat.png (mục on-tap-bo-cuc)). The review tab lists only the first few.
  */
 @Component({
   selector: 'lu-all-lessons',

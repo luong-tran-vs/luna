@@ -93,7 +93,7 @@ describe('ReviewSession', () => {
   });
 
   describe('flip mode', () => {
-    // Pick a meaning, "Nộp", then "Tiếp" (design/on-tap-theo-bai.png).
+    // Pick a meaning, "Nộp", then "Tiếp" (design/tat-ca-de-xuat.png (mục on-tap-theo-bai)).
     const choose = async (meaning: string) => {
       Array.from(el.querySelectorAll<HTMLButtonElement>('.choice'))
         .find((c) => c.querySelector('.text')?.textContent?.trim() === meaning)!

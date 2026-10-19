@@ -75,7 +75,7 @@ Tổng quan cho tab Ôn tập. 200:
 
 ## GET /api/vocab/review/lessons
 
-Tình trạng ôn của thẻ theo từng bài, dùng cho danh sách "Bài đã học" của tab Ôn tập (design/on-tap-theo-bai.png). 200:
+Tình trạng ôn của thẻ theo từng bài, dùng cho danh sách "Bài đã học" của tab Ôn tập (design/tat-ca-de-xuat.png (mục on-tap-theo-bai)). 200:
 
 ```json
 { "lessons": [{ "lessonId": "…", "cards": 10, "due": 3, "remembered": 4,
