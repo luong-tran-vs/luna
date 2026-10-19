@@ -28,6 +28,11 @@
     <button type="button" class="chip" [attr.aria-pressed]="commonOnly()" (click)="commonOnly.set(true)">
       <lu-icon name="flame" /> Thông dụng <span class="count">{{ commonTotal() }}</span>
     </button>
+    @if (learnedTotal() !== null) {
+      <button type="button" class="chip" [attr.aria-pressed]="learnedOnly()" (click)="learnedOnly.set(!learnedOnly())">
+        <lu-icon name="check" /> Đã học <span class="count">{{ learnedTotal() }}</span>
+      </button>
+    }
   </div>
   <div class="chip-group" role="group" aria-label="Nhóm theo cách biến đổi">
     @for (p of patterns; track p.key) {
@@ -38,7 +43,7 @@
         [title]="p.hintVi + ' Ví dụ: ' + p.example"
         (click)="togglePattern(p.key)"
       >
-        {{ p.label }} <span class="example" lang="en">{{ p.example.split(' ')[0] }}</span>
+        {{ p.label }} <span class="example" lang="en">{{ p.word }}</span>
         <span class="count">{{ counts()[p.key] }}</span>
       </button>
     }

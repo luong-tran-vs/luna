@@ -63,11 +63,20 @@ export const routes: Routes = [
         title: 'Động từ bất quy tắc · Luna',
         loadComponent: () => import('./features/irregular-verbs/irregular-verbs').then((m) => m.IrregularVerbs),
       },
+      { path: 'irregular-verbs/practice', redirectTo: 'irregular-verbs/review' },
+      // The path of lessons is in the tab's "Học" part now.
+      { path: 'irregular-verbs/lessons', redirectTo: 'irregular-verbs' },
       {
-        path: 'irregular-verbs/practice',
-        title: 'Luyện động từ · Luna',
+        path: 'irregular-verbs/lessons/:number',
+        title: 'Học động từ · Luna',
         loadComponent: () =>
-          import('./features/irregular-verbs/verb-practice/verb-practice').then((m) => m.VerbPractice),
+          import('./features/irregular-verbs/verb-lesson/verb-lesson').then((m) => m.VerbLessonPage),
+      },
+      {
+        path: 'irregular-verbs/review',
+        title: 'Ôn động từ · Luna',
+        loadComponent: () =>
+          import('./features/irregular-verbs/verb-review/verb-review').then((m) => m.VerbReview),
       },
       {
         path: 'stats',

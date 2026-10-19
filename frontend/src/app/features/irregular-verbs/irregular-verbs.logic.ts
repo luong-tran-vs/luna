@@ -7,11 +7,12 @@ import { IrregularVerb } from './irregular-verbs.data';
  */
 export type VerbPattern = 'AAA' | 'ABB' | 'ABA' | 'ABC';
 
-export const PATTERNS: readonly { key: VerbPattern; label: string; example: string; hintVi: string }[] = [
-  { key: 'AAA', label: 'A – A – A', example: 'cut – cut – cut', hintVi: 'Ba dạng giống hệt nhau.' },
-  { key: 'ABB', label: 'A – B – B', example: 'buy – bought – bought', hintVi: 'V2 và V3 giống nhau.' },
-  { key: 'ABA', label: 'A – B – A', example: 'come – came – come', hintVi: 'V3 giống nguyên mẫu.' },
-  { key: 'ABC', label: 'A – B – C', example: 'go – went – gone', hintVi: 'Ba dạng khác nhau, cần học thuộc.' },
+/** Each pattern in plain words for learners ("Không đổi"), with one verb that shows it. */
+export const PATTERNS: readonly { key: VerbPattern; label: string; word: string; example: string; hintVi: string }[] = [
+  { key: 'AAA', label: 'Không đổi', word: 'cut', example: 'cut – cut – cut', hintVi: 'Ba dạng giống hệt nhau.' },
+  { key: 'ABB', label: 'V2 = V3', word: 'buy', example: 'buy – bought – bought', hintVi: 'V2 và V3 giống nhau.' },
+  { key: 'ABA', label: 'V3 như V1', word: 'come', example: 'come – came – come', hintVi: 'V3 giống nguyên mẫu.' },
+  { key: 'ABC', label: 'Đổi cả ba', word: 'go', example: 'go – went – gone', hintVi: 'Ba dạng khác nhau, cần học thuộc.' },
 ];
 
 /** The spellings of a form: "burnt/burned" gives ["burnt", "burned"]. */

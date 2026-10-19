@@ -13,11 +13,12 @@ import (
 	"github.com/luongtran/luna/backend/internal/verbs"
 )
 
-// verbProgressDoc is one learner's record of one irregular verb; dueAt is absent for a verb never
-// answered right.
+// verbProgressDoc is one learner's record of one irregular verb; learnedAt and dueAt are absent for
+// a verb not learned.
 type verbProgressDoc struct {
 	UserID     bson.ObjectID `bson:"userId"`
 	Base       string        `bson:"base"`
+	LearnedAt  *time.Time    `bson:"learnedAt,omitempty"`
 	Level      int           `bson:"level"`
 	DueAt      *time.Time    `bson:"dueAt,omitempty"`
 	RightCount int           `bson:"rightCount"`

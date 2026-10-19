@@ -1,0 +1,250 @@
+<section class="screen verb-lesson">
+  @if (lesson(); as l) {
+    <div class="lesson-head">
+      <header class="top-bar">
+        <a class="round-btn" routerLink="/irregular-verbs" aria-label="Đóng, về Động từ"><lu-icon name="x" /></a>
+        <ol class="steps" aria-label="Các bước của bài">
+          @for (s of steps; track s.key; let i = $index) {
+            <li
+              class="step"
+              [class.is-done]="stage() === 'confirm' || stage() === 'done' || i < stepIndex()"
+              [class.is-current]="i === stepIndex()"
+              [attr.aria-current]="i === stepIndex() ? 'step' : null"
+            >
+              {{ s.label }}
+              @if (stage() === 'confirm' || stage() === 'done' || i < stepIndex()) {
+                <span aria-hidden="true">✓</span><span class="visually-hidden">(xong)</span>
+              }
+            </li>
+          }
+        </ol>
+      </header>
+      <h1 class="title">Bài {{ l.number }} · {{ l.title }}</h1>
+    </div>
+
+    @switch (stage()) {
+      @case ('learn') {
+        @let v = verbs()[card()];
+        @if (card() === 0) {
+          <div class="cat-says">
+            <img class="cat" ngSrc="images/mascot-cat.png" width="56" height="56" alt="" />
+            <p class="bubble">{{ l.tipVi }}</p>
+          </div>
+        }
+        <section class="soft-card flashcard" aria-labelledby="card-title">
+          <span class="tag">{{ l.tag }}</span>
+          <h2 #heading tabindex="-1" class="visually-hidden" id="card-title">
+            Từ {{ card() + 1 }}/{{ verbs().length }}: {{ v.base }}
+          </h2>
+          <p class="meaning">{{ v.meaningVi }}</p>
+          <div class="forms" lang="en">
+            <div class="form">
+              <span class="form-label">V1</span>
+              <span class="form-word">{{ v.base }}</span>
+              @if (ipa(v, 0); as s) {
+                <span class="ipa">{{ s }}</span>
+              }
+            </div>
+            @for (f of [v.past, v.participle]; track $index; let i = $index) {
+              @let p = parts(v, f);
+              <div class="form">
+                <span class="form-label">{{ i === 0 ? 'V2' : 'V3' }}</span>
+                <span class="form-word"
+                  ><span>{{ p[0] }}</span>
+                  @if (p[1]) {
+                    <mark class="changed">{{ p[1] }}</mark>
+                  }
+                  @if (f.includes('/')) {
+                    <span class="alt">{{ f }}</span>
+                  }
+                </span>
+                @if (ipa(v, i + 1); as s) {
+                  <span class="ipa">{{ s }}</span>
+                }
+              </div>
+            }
+          </div>
+          @if (tip(v); as t) {
+            <p class="tip">{{ t }}</p>
+          }
+          @if (canSpeak) {
+            <button
+              type="button"
+              class="icon-btn"
+              [attr.aria-label]="'Nghe ' + v.base + ', ' + v.past + ', ' + v.participle"
+              (click)="listenForms(v)"
+            >
+              <lu-icon name="volume" />
+            </button>
+          }
+          @if (example(v); as ex) {
+            <div class="example">
+              <p lang="en" class="example-en">
+                @for (part of exampleParts(ex.en, v); track $index) {
+                  @if (part.verb) {
+                    <mark class="changed">{{ part.text }}</mark>
+                  } @else {
+                    {{ part.text }}
+                  }
+                }
+              </p>
+              <p class="example-vi">{{ ex.vi }}</p>
+              @if (canSpeak) {
+                <button type="button" class="btn small" (click)="listen(ex.en)">
+                  <lu-icon name="volume" /> Nghe câu
+                </button>
+              }
+            </div>
+          }
+          <div class="dots" aria-hidden="true">
+            @for (x of verbs(); track x.base; let i = $index) {
+              <span class="dot" [class.on]="i === card()"></span>
+            }
+          </div>
+        </section>
+        <div class="bottom-bar">
+          @if (card() > 0) {
+            <button type="button" class="nav-btn" aria-label="Từ trước" (click)="prevCard()">
+              <lu-icon name="arrow-left" />
+            </button>
+          }
+          <button type="button" class="btn-primary" (click)="nextCard()">
+            @if (card() + 1 < verbs().length) {
+              Từ tiếp theo · {{ card() + 2 }}/{{ verbs().length }}
+            } @else {
+              Sang bước Chọn
+            }
+            <lu-icon name="arrow-right" />
+          </button>
+        </div>
+      }
+
+      @case ('choose') {
+        @let q = questions()[question()];
+        <p class="eyebrow">
+          Bước 2 · Chọn <span class="count">{{ question() + 1 }}/{{ questions().length }}</span>
+        </p>
+        <section class="soft-card ask" aria-labelledby="ask-title">
+          <p class="muted">{{ q.form === 'past' ? 'Quá khứ (V2) của' : 'Quá khứ phân từ (V3) của' }}</p>
+          <h2 #heading tabindex="-1" class="ask-base" id="ask-title" lang="en">{{ q.verb.base }}</h2>
+          <p class="muted">{{ q.verb.meaningVi }}</p>
+        </section>
+        <ul class="options" aria-label="Các lựa chọn">
+          @for (o of q.options; track o) {
+            <li>
+              <button
+                type="button"
+                class="option"
+                lang="en"
+                [class.is-right]="chosen() !== null && o === q.answer"
+                [class.is-wrong]="chosen() === o && o !== q.answer"
+                [disabled]="chosen() !== null"
+                (click)="choose(o)"
+              >
+                {{ o }}
+                @if (chosen() !== null && o === q.answer) {
+                  <span class="option-mark" lang="vi">✓ Đúng</span>
+                } @else if (chosen() === o) {
+                  <span class="option-mark" lang="vi">✗ Bạn chọn</span>
+                }
+              </button>
+            </li>
+          }
+        </ul>
+        <div
+          class="feedback"
+          role="status"
+          [class.ok]="chosen() === q.answer"
+          [class.bad]="chosen() !== null && chosen() !== q.answer"
+        >
+          @if (chosen() !== null) {
+            <p>
+              <strong>{{ chosen() === q.answer ? 'Đúng.' : 'Chưa đúng.' }}</strong
+              >{{ ' ' }}
+              <span lang="en">{{ q.verb.base }} – {{ q.verb.past }} – {{ q.verb.participle }}</span>
+            </p>
+          }
+        </div>
+        @if (chosen() !== null) {
+          <div class="bottom-bar">
+            <button type="button" class="btn-primary" (click)="nextQuestion()">
+              {{ question() + 1 < questions().length ? 'Câu tiếp theo' : 'Sang bước Gõ' }}
+              <lu-icon name="arrow-right" />
+            </button>
+          </div>
+        }
+      }
+
+      @case ('type') {
+        <h2 #heading tabindex="-1" class="visually-hidden">Bước 3 · Gõ</h2>
+        <lu-verb-type-round [verbs]="verbs()" label="Bước 3 · Gõ" (finished)="onTyped($event)" />
+      }
+
+      @case ('confirm') {
+        <div class="cat-says">
+          <img class="cat" ngSrc="images/mascot-cat.png" width="56" height="56" alt="" />
+          <p class="bubble">Xong bài {{ l.number }}! Đánh dấu những từ bạn đã nhớ để đưa vào mục ôn lại.</p>
+        </div>
+        <fieldset class="soft-card confirm">
+          <legend>
+            <h2 #heading tabindex="-1" class="confirm-title">
+              Xác nhận đã học ({{ ticked().size }}/{{ verbs().length }})
+            </h2>
+          </legend>
+          @for (v of verbs(); track v.base) {
+            <label class="check" [class.is-off]="!ticked().has(v.base)">
+              <input type="checkbox" [checked]="ticked().has(v.base)" (change)="toggle(v.base)" />
+              <span class="check-text">
+                <span class="check-forms" lang="en">{{ v.base }} · {{ v.past }} · {{ v.participle }}</span>
+                <span class="check-hint">
+                  @if (typedRight(v.base)) {
+                    Gõ đúng
+                  } @else {
+                    Gõ sai: <span lang="en">{{ typedText(v.base) }}</span>
+                  }
+                  @if (isLearned(v.base)) {
+                    · đã học từ trước
+                  }
+                </span>
+              </span>
+            </label>
+          }
+        </fieldset>
+        @if (saveError()) {
+          <p class="form-alert" role="alert">Không lưu được. Bạn thử lại nhé.</p>
+        }
+        <div class="bottom-bar">
+          <button type="button" class="btn-primary" [disabled]="saving()" (click)="confirm()">
+            @if (ticked().size > 0) {
+              Xác nhận đã học {{ ticked().size }} từ
+            } @else {
+              Để sau, chưa đánh dấu từ nào
+            }
+          </button>
+        </div>
+      }
+
+      @case ('done') {
+        <section class="soft-card done" aria-labelledby="done-title">
+          <img class="mascot" ngSrc="images/mascot-cat.png" width="96" height="96" alt="" />
+          <h2 #heading tabindex="-1" class="done-title" id="done-title">Xong bài {{ l.number }}</h2>
+          <p class="gain">Đã học {{ learnedTotal() }} động từ</p>
+          <p class="muted">Những từ đã đánh dấu sẽ được hỏi lại từ ngày mai, ở mục "Ôn lại động từ đã học".</p>
+        </section>
+        <div class="bottom-bar">
+          <a class="btn" routerLink="/irregular-verbs">Về Động từ</a>
+          @if (nextNumber(); as n) {
+            <a class="btn-primary" [routerLink]="['/irregular-verbs/lessons', n]"
+              >Bài {{ n }} <lu-icon name="arrow-right"
+            /></a>
+          }
+        </div>
+      }
+    }
+  } @else {
+    <header class="screen-bar">
+      <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về Động từ"><lu-icon name="arrow-left" /></a>
+    </header>
+    <p class="soft-card">Không có bài này. <a routerLink="/irregular-verbs">Xem lộ trình</a></p>
+  }
+</section>

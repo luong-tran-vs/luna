@@ -55,6 +55,7 @@ func migrations() []migration {
 		{ID: "028_card_sentence_vi", Stmts: cardSentenceViSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "029_lesson_results", Stmts: lessonResultsSchema()},
 		{ID: "030_verb_progress", Stmts: verbProgressSchema()},
+		{ID: "031_verb_learned", Stmts: verbLearnedSchema(), Ignore: []uint16{errDuplicateColumn}},
 	}
 }
 

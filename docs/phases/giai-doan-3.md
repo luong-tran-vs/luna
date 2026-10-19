@@ -181,7 +181,7 @@
 - **Người học:** tab Ngữ pháp (`/grammar`): chọn trình độ, gợi ý "Học tiếp", trạng thái Mới / Đang học / Đã nắm vững kèm điểm tốt nhất, điểm chưa đăng ghi
   "Sắp có". Trang học có ba tab: **Học**, **Luyện tập** (phản hồi ngay từng câu, "Luyện lại các câu sai"), **Kiểm tra** (không báo đúng sai từng câu, chấm cuối,
   đạt từ 80% là đã nắm vững và giữ mãi, làm lại được).
-- *(sửa 2026-10-16, theo `design/ngu-phap-de-xuat.png`)* Trang học theo khung bài học: toàn màn hình (không thanh tab), nút X, thanh 4 đoạn và nút "i" mở tổng quan
+- *(sửa 2026-10-16, theo `design/tat-ca-de-xuat.png (mục ngu-phap-de-xuat)`)* Trang học theo khung bài học: toàn màn hình (không thanh tab), nút X, thanh 4 đoạn và nút "i" mở tổng quan
   (trạng thái, các bước để nhảy tới, số bài học dùng điểm này). Ba tab thay bằng **4 bước** không khoá: **Lý thuyết** (mục tiêu là lời mèo nói, giải thích, khi nào dùng),
   **Cấu trúc & ví dụ** (mỗi dạng một thẻ có nhãn màu, mẫu câu cắt ở "+" và tô màu, cùng mảnh thì cùng màu ở mọi dạng; ví dụ; lỗi thường gặp Sai/Đúng), **Luyện tập**, **Kiểm tra**.
   Nút chính dính đáy ghi tên bước sau (trong Luyện tập/Kiểm tra là "Kiểm tra" rồi "Câu tiếp theo"); kết quả kiểm tra có mèo, vòng điểm, "Xem lại từng câu" gập lại, nút "Học tiếp: <điểm kế>" khi đạt (không thì về danh sách).
@@ -268,24 +268,40 @@
 
 ---
 
-## F25. Luyện động từ bất quy tắc
+## F25. Học và ôn động từ bất quy tắc
 
-> Thêm 2026-10-16, theo `design/dong-tu-de-xuat.png`. Tab Động từ trước đây chỉ để tra; "Tự kiểm tra" (chạm từng ô để hiện V2, V3) không chấm và không nhớ gì.
+> Thêm 2026-10-16, *(sửa 2026-10-19)* theo `design/tat-ca-de-xuat.png (mục dong-tu-hoc-theo-bai)` và `design/tat-ca-de-xuat.png (mục dong-tu-da-hoc-on-lai)`. Bản đầu (trang Luyện gõ ngay V2, V3) bị bỏ:
+> người học bị hỏi từ chưa học, phải thuộc bảng trước mới luyện được. Nay học trước, kiểm tra sau, và chỉ ôn những từ đã xác nhận "Đã học".
 
 **Chức năng**
-- **Danh sách để tra nhanh:** thẻ "Luyện 10 động từ" ở đầu (đã thuộc x/104 thông dụng, số từ đến hạn ôn); ô tìm; một hàng chip cuộn ngang (Tất cả / Thông dụng,
-  4 nhóm biến đổi kèm ví dụ, chạm lại nhóm đang chọn để bỏ lọc); mỗi động từ một dòng "begin · began · begun" + nghĩa, dấu ✓ cho từ đã thuộc; thanh chữ cái dọc ở mép phải
-  điện thoại. Bỏ "Tự kiểm tra" và "Mẹo nhớ" khỏi danh sách.
-- **Trang Luyện** (`/irregular-verbs/practice`, toàn màn hình): chọn nhóm (Thông dụng, 4 nhóm, Tất cả; mỗi nhóm ghi số đã thuộc và đến hạn), "Mẹo nhớ" ở đây.
-  Mỗi lượt 10 động từ: từ đến hạn trước, rồi từ đã sai, rồi từ mới; người học gõ V2 và V3, chấm từng ô, chấp nhận mọi cách viết (burnt/burned), nghe 3 dạng; câu sai hỏi lại
-  một lần cuối lượt. Kết quả: đúng ngay lần đầu, "+N từ thuộc · Đã thuộc x/y", danh sách "Cần ôn thêm" kèm chữ đã gõ.
-- **Lịch hỏi lại (hộp nhớ):** đúng lần đầu khi từ mới hoặc đến hạn thì lên một hộp (đợi 1, 3, 7, 14, 30, 60 ngày); đúng khi chưa đến hạn thì giữ nguyên; sai thì về hộp 0
-  (không còn "đã thuộc"). Riêng cho động từ, không trộn vào tab Ôn tập.
-- API: `GET /api/verbs/progress`, `POST /api/verbs/results` (`{"results":[{"base","right"}]}`, tối đa 50); mở cho mọi tài khoản kể cả khách.
-  Dữ liệu `verb_progress` (Mongo, MySQL migration 030), có trong file xuất dữ liệu, xoá theo tài khoản.
+- **Tab Động từ** *(sửa 2026-10-19, theo `design/tat-ca-de-xuat.png (mục dong-tu-gon-lai-v2)`)* chia hai phần **Học** / **Tra cứu** (nhớ trong phiên).
+  - **Học:** một thẻ chính (vòng "đã học x/104 thông dụng", bài kế với ví dụ mẫu đủ 3 dạng, nút "Học bài n" và "Ôn lại" có huy hiệu số từ đến hạn), rồi
+    **lộ trình** 18 bài ngay bên dưới: mỗi bài một dòng (vòng số, ✓ khi xong), tên bằng lời thường ("Không đổi", "Đuôi -d thành -t") và một ví dụ mẫu
+    "send → sent → sent". `/irregular-verbs/lessons` chuyển về tab.
+  - **Tra cứu:** 237 từ trong **3 cột thẳng hàng V1 | V2 | V3** (tiêu đề cột dính khi cuộn, nghĩa dưới các dạng trên điện thoại), dấu ✓ chỉ cho từ đã học;
+    tìm theo mọi dạng hoặc nghĩa; chip Tất cả / Thông dụng / ✓ Đã học / 4 nhóm bằng lời thường kèm ví dụ ("Không đổi · cut"). Chạm một dòng mở **bảng trượt**:
+    3 dạng (phần đổi tô màu) kèm phiên âm, ô mẹo phát âm (read /red/, said /sed/…), câu ví dụ tô đúng động từ, nghe, "Đánh dấu đã học" (thông báo kèm "Hoàn tác")
+    và "Học bài n". Phiên âm 3 dạng của 104 từ thông dụng viết tay (Anh – Anh) trong `verb-lessons.data.ts`, vì từ điển trong app phiên âm sai nhiều dạng biến đổi.
+- **Lộ trình:** đủ 237 động từ trong 42 bài, mỗi bài 3–7 từ cùng một kiểu biến đổi, dễ trước khó sau; không khoá bài.
+  - **Thông dụng (bài 1–18):** 104 từ thông dụng.
+  - **Nâng cao (bài 19–42)** *(thêm 2026-10-19)*: 133 từ còn lại, theo kiểu biến đổi (bài 19–31), theo tiền tố over-, out-, under-, re-, mis-, with-/up-/un-, fore-/in-/way-
+    (bài 32–39: tên kèm nghĩa của tiền tố, chia như từ gốc, overtake như take) và từ cổ, hiếm (bài 40–42).
+  - Vòng tiến độ trên thẻ chính đếm trên 104 từ thông dụng, sang Nâng cao thì đếm trên cả 237.
+  - Bài, câu ví dụ có dịch, phiên âm 3 dạng (Anh – Anh) và mẹo phát âm của cả 237 từ đều viết tay, không gọi AI.
+- **Một bài** (`/irregular-verbs/lessons/:n`, toàn màn hình): **Làm quen** (mỗi từ một thẻ: nghĩa, 3 dạng, phần đổi tô màu, nghe, câu ví dụ) → **Chọn**
+  (trắc nghiệm V2 hoặc V3, 4 lựa chọn: đáp án, dạng "thêm -ed", dạng còn lại, từ cùng bài) → **Gõ** (V2 và V3, câu sai hỏi lại cuối lượt) →
+  **Xác nhận đã học**: từ gõ đúng được tick sẵn; từ đã tick thành "đã học", từ đã học trước mà bỏ tick thì bỏ đánh dấu.
+- **Ôn lại** (`/irregular-verbs/review`, toàn màn hình): mọi từ đã học, chia Đến hạn / Sắp tới (khi nào hỏi lại), bỏ đánh dấu từng từ; lượt ôn gõ V2, V3 của
+  các từ đến hạn (không có thì ôn sớm các từ sắp tới hạn); kết quả ghi khi nào mỗi từ quay lại. `?start=1` vào thẳng lượt ôn.
+- **Lịch ôn:** xác nhận đã học → hộp 1, hỏi lại sau 1 ngày; ôn đúng khi đến hạn → lên hộp (1, 3, 7, 14, 30, 60 ngày); đúng khi chưa đến hạn → giữ nguyên;
+  ôn sai → **vẫn là đã học**, về hộp 1 (hỏi lại ngày mai). Chỉ từ đã học mới được ôn.
+- API: `GET /api/verbs/progress`, `POST /api/verbs/learned` (`{"bases":[…],"learned":true|false}`), `POST /api/verbs/results` (`{"results":[{"base","right"}]}`), tối đa
+  50 từ mỗi lần, mở cho mọi tài khoản. Dữ liệu `verb_progress` (Mongo; MySQL migration 030 và 031 thêm `learned_at`; từ đã ở hộp ≥ 1 trước đó được coi là đã học),
+  có trong file xuất dữ liệu, xoá theo tài khoản. `/irregular-verbs/practice` chuyển sang `/irregular-verbs/review`.
 
 **Tiêu chí nghiệm thu**
-- [ ] Màn đầu tab Động từ thấy được thẻ Luyện, ô tìm, bộ lọc và vài động từ; thanh chữ cái không che nút nghe.
-- [ ] Một lượt: sai một từ thì từ đó được hỏi lại cuối lượt; kết quả gửi lần trả lời đầu của mỗi từ; số "Đã thuộc" đổi đúng.
-- [ ] Làm lại ngay trong ngày không đẩy từ lên hộp cao hơn; sai thì từ mất dấu ✓.
-- [ ] Dùng được ở 360px, sáng và tối, bằng bàn phím (Enter sang ô V3, Enter để kiểm tra).
+- [ ] Người mới vào tab thấy "Học tiếp · Bài 1" và không bị hỏi từ chưa học ở đâu cả.
+- [ ] Học xong một bài và xác nhận: các từ đã tick xuất hiện ở "Ôn lại", hỏi lại từ ngày mai; từ bỏ tick thì không.
+- [ ] Bấm ✓ ở bảng tra đưa từ vào "Ôn lại"; "Hoàn tác" hoặc bỏ đánh dấu thì từ rời khỏi danh sách ôn.
+- [ ] Ôn sai một từ: từ vẫn là đã học và đến hạn ngày mai; ôn đúng nhiều lần trong ngày không đẩy từ lên hộp cao hơn.
+- [ ] Dùng được ở 360px, sáng và tối, bằng bàn phím (Enter sang ô V3, Enter để kiểm tra; ô đánh dấu là checkbox thật).

@@ -1,0 +1,91 @@
+@if (current(); as v) {
+  <div class="head">
+    @if (label()) {
+      <p class="eyebrow">{{ label() }}</p>
+    }
+    <p class="count">{{ index() + 1 }}/{{ queue().length }}</p>
+  </div>
+
+  <section class="soft-card verb-card" aria-labelledby="verb-base">
+    <span class="tag">{{ patternLabel(v) }}</span>
+    @if (isRetry()) {
+      <span class="retry">Hỏi lại</span>
+    }
+    <h2 class="base" id="verb-base" lang="en">{{ v.base }}</h2>
+    <p class="meaning">{{ v.meaningVi }}</p>
+    @if (canSpeak) {
+      <button type="button" class="icon-btn" [attr.aria-label]="'Nghe ' + v.base" (click)="listen(v.base)">
+        <lu-icon name="volume" />
+      </button>
+    }
+  </section>
+
+  <div class="answers">
+    <label class="field" [class.ok]="checked()?.past === true" [class.bad]="checked()?.past === false">
+      <span class="field-label">Quá khứ · V2</span>
+      <input
+        #pastInput
+        type="text"
+        lang="en"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        [value]="past()"
+        [disabled]="!!checked()"
+        (input)="onPast($event)"
+        (keydown.enter)="participleInput.focus()"
+      />
+      @if (checked(); as c) {
+        <span class="mark">{{ c.past ? '✓ Đúng' : '✗ Sai' }}</span>
+      }
+    </label>
+    <label class="field" [class.ok]="checked()?.participle === true" [class.bad]="checked()?.participle === false">
+      <span class="field-label">Quá khứ phân từ · V3</span>
+      <input
+        #participleInput
+        type="text"
+        lang="en"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        [value]="participle()"
+        [disabled]="!!checked()"
+        (input)="onParticiple($event)"
+        (keydown.enter)="check()"
+      />
+      @if (checked(); as c) {
+        <span class="mark">{{ c.participle ? '✓ Đúng' : '✗ Sai' }}</span>
+      }
+    </label>
+  </div>
+
+  <div class="feedback" role="status" [class.ok]="right()" [class.bad]="checked() && !right()">
+    @if (checked()) {
+      <p class="verdict">
+        {{ right() ? 'Đúng rồi!' : 'Chưa đúng.' }} <span lang="en">{{ forms(v) }}</span>
+      </p>
+      @if (!right()) {
+        <p>{{ patternLabel(v) }}: {{ patternHint(v) }}</p>
+        @if (!isRetry()) {
+          <p>Từ này sẽ được hỏi lại cuối lượt.</p>
+        }
+      }
+      @if (v.noteVi) {
+        <p>{{ v.noteVi }}</p>
+      }
+      @if (canSpeak) {
+        <button type="button" class="btn listen" (click)="listenForms(v)"><lu-icon name="volume" /> Nghe 3 dạng</button>
+      }
+    }
+  </div>
+
+  <div class="bottom-bar">
+    @if (checked()) {
+      <button #nextButton type="button" class="btn-primary" (click)="next()">
+        {{ isLast() ? 'Xong' : 'Câu tiếp theo' }} <lu-icon name="arrow-right" />
+      </button>
+    } @else {
+      <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+    }
+  </div>
+}

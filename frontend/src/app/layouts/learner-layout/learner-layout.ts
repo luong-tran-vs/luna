@@ -38,15 +38,15 @@ const TABS: readonly Tab[] = [
 ];
 
 /**
- * Studying a lesson, a grammar point or a round of verbs takes the whole phone screen, like the
- * sketch: no tab bar there, so the step buttons and the answer fields are not squeezed under it.
- * Each of these pages has its own close button.
+ * Studying a lesson, a grammar point, a verb lesson or a verb review takes the whole phone screen,
+ * like the sketch: no tab bar there, so the step buttons and the answer fields are not squeezed
+ * under it. Each of these pages has its own close button.
  */
 export function isFocusPage(path: string): boolean {
   return (
     /^\/lessons\/[^/]+(\/(read|listen|write))?$/.test(path) ||
     /^\/grammar\/[^/]+$/.test(path) ||
-    path === '/irregular-verbs/practice'
+    /^\/irregular-verbs\/(lessons\/[^/]+|review)$/.test(path)
   );
 }
 

@@ -91,6 +91,7 @@ var apiRoutes = strings.Fields(`
 	POST_/api/lessons/{id}/steps/write/skip
 	POST_/api/lessons/{id}/steps/{step}/complete
 	POST_/api/lessons/{id}/writing/submit
+	POST_/api/verbs/learned
 	POST_/api/verbs/results
 	POST_/api/vocab/cards
 	POST_/api/vocab/cards/bulk

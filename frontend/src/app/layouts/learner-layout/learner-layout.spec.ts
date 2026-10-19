@@ -16,7 +16,9 @@ describe('isFocusPage', () => {
     expect(isFocusPage('/lessons')).toBe(false);
     expect(isFocusPage('/grammar/a1-to-be')).toBe(true);
     expect(isFocusPage('/grammar')).toBe(false);
-    expect(isFocusPage('/irregular-verbs/practice')).toBe(true);
+    expect(isFocusPage('/irregular-verbs/lessons/3')).toBe(true);
+    expect(isFocusPage('/irregular-verbs/review')).toBe(true);
+    expect(isFocusPage('/irregular-verbs/lessons')).toBe(false);
     expect(isFocusPage('/irregular-verbs')).toBe(false);
     expect(isFocusPage('/')).toBe(false);
   });

@@ -1,0 +1,217 @@
+:host {
+  display: contents;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--color-text) 40%, transparent);
+}
+
+/* Slides up from the bottom on phones; a centred card on wide screens. */
+.sheet {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 21;
+  display: grid;
+  gap: var(--space-3);
+  max-width: 560px;
+  max-height: 90dvh;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-radius: 22px 22px 0 0;
+  box-shadow: 0 -8px 30px rgb(0 0 0 / 0.18);
+  animation: rise var(--motion-slow, 300ms) var(--ease-out, ease-out);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(40%);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  .sheet {
+    bottom: 50%;
+    border-radius: var(--radius-lg);
+    transform: translateY(50%);
+    animation: none;
+  }
+}
+
+.grab {
+  justify-self: center;
+  width: 40px;
+  height: 5px;
+  background: var(--color-line);
+  border-radius: var(--radius-full);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.head-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font: var(--text-xl) var(--font-ui);
+}
+
+.sub {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.round {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.round.plain {
+  color: var(--color-text-muted);
+  background: none;
+}
+
+.forms {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.form {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  padding: var(--space-2) var(--space-1);
+  text-align: center;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.form-label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.form-word {
+  font: var(--text-lg) var(--font-ui);
+  overflow-wrap: anywhere;
+}
+
+/* The part that changes from the base, with a background (not colour alone). */
+.changed,
+.verb-mark {
+  padding: 0 2px;
+  color: color-mix(in srgb, var(--color-skill-write) 70%, var(--color-text));
+  background: color-mix(in srgb, var(--color-skill-write) 18%, var(--color-surface));
+  border-radius: 4px;
+}
+
+.verb-mark {
+  font-weight: 700;
+}
+
+.alt,
+.ipa {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.ipa {
+  font-family: var(--font-ipa);
+}
+
+.tip {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: color-mix(in srgb, var(--color-warn) 60%, var(--color-text));
+  background: color-mix(in srgb, var(--color-warn) 10%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-warn) 30%, var(--color-surface));
+  border-radius: var(--radius-md);
+
+  --icon-size: 16px;
+}
+
+.example {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.example-vi {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.small {
+  min-height: 36px;
+  margin-top: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+
+  --icon-size: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.actions > * {
+  flex: 1;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+}
+
+.mark {
+  --icon-size: 18px;
+}
+
+.mark.is-learned {
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
+  background: color-mix(in srgb, var(--color-ok) 14%, var(--color-surface));
+  border-color: var(--color-ok);
+}
+
+.mark:not(.is-learned) {
+  color: var(--color-on-primary);
+  background: var(--color-ok);
+  border-color: var(--color-ok);
+}
+
+.round:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.actions > .mark {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  white-space: nowrap;
+}

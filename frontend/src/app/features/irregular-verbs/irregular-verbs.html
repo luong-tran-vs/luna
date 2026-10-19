@@ -3,67 +3,156 @@
     <h1 class="screen-title">Động từ bất quy tắc</h1>
   </header>
 
-  <!-- Learning is the practice page now; the list is for looking a verb up (design/dong-tu-de-xuat.png). -->
-  <section class="soft-card practice-card" aria-labelledby="practice-title">
-    <div class="practice-head">
-      <h2 class="practice-title" id="practice-title">Luyện {{ roundSize }} động từ</h2>
-      @if (summary(); as s) {
-        <span class="known-pill">Đã thuộc {{ s.known }}/{{ s.total }} thông dụng</span>
-      }
-    </div>
-    @if (summary(); as s) {
-      <div
-        class="track"
-        role="progressbar"
-        aria-label="Động từ thông dụng đã thuộc"
-        aria-valuemin="0"
-        [attr.aria-valuemax]="s.total"
-        [attr.aria-valuenow]="s.known"
-      >
-        <span class="track-fill" [style.width.%]="(s.known / s.total) * 100"></span>
-      </div>
-      @if (s.due > 0) {
-        <p class="due">{{ s.due }} động từ đến hạn ôn hôm nay</p>
-      }
-    } @else {
-      <p class="muted">Gõ V2 và V3 của từng động từ, có chấm điểm và nhớ những từ bạn đã thuộc.</p>
-    }
-    <a class="btn-primary start" routerLink="/irregular-verbs/practice"><lu-icon name="play" /> Bắt đầu luyện</a>
-  </section>
+  <!-- Learning and looking up are two parts (design/tat-ca-de-xuat.png (mục dong-tu-gon-lai-v2)). -->
+  <div class="views" role="group" aria-label="Phần">
+    <button type="button" class="view" [attr.aria-pressed]="view() === 'learn'" (click)="setView('learn')">Học</button>
+    <button type="button" class="view" [attr.aria-pressed]="view() === 'lookup'" (click)="setView('lookup')">
+      Tra cứu
+    </button>
+  </div>
 
-  <lu-verb-filters
-    [(query)]="query"
-    [(commonOnly)]="commonOnly"
-    [(pattern)]="pattern"
-    [total]="total"
-    [commonTotal]="commonTotal"
-    [counts]="counts()"
+  @if (view() === 'learn') {
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-top">
+        @let r = ring();
+        <div
+          class="ring"
+          role="progressbar"
+          [attr.aria-label]="r.label"
+          aria-valuemin="0"
+          [attr.aria-valuemax]="r.total"
+          [attr.aria-valuenow]="r.learned"
+          [style.--done]="(r.learned / r.total) * 100 + '%'"
+        >
+          <span class="ring-inner">
+            <strong>{{ r.learned }}</strong>
+            <small>/{{ r.total }}</small>
+          </span>
+        </div>
+        <div class="hero-text">
+          @if (next(); as l) {
+            <p class="hero-eyebrow">Học tiếp · Bài {{ l.number }}/{{ lessonCount }}</p>
+            <h2 class="hero-title" id="hero-title">{{ l.title }}</h2>
+            <span class="hero-model" lang="en">{{ lessons()[l.number - 1].model }}</span>
+          } @else {
+            <p class="hero-eyebrow">Đã học hết {{ lessonCount }} bài</p>
+            <h2 class="hero-title" id="hero-title">Giờ chỉ cần ôn đều mỗi ngày</h2>
+          }
+        </div>
+      </div>
+      <div class="hero-actions">
+        @if (next(); as l) {
+          <a class="hero-btn" [routerLink]="['/irregular-verbs/lessons', l.number]">
+            <lu-icon name="play" /> Học bài {{ l.number }}
+          </a>
+        }
+        <a
+          class="hero-btn review"
+          routerLink="/irregular-verbs/review"
+          [queryParams]="review().dueToday > 0 ? { start: 1 } : null"
+        >
+          Ôn lại
+          @if (review().dueToday > 0) {
+            <span class="badge">{{ review().dueToday }}<span class="visually-hidden"> từ đến hạn</span></span>
+          }
+        </a>
+      </div>
+    </section>
+
+    @for (part of parts(); track part.title) {
+      <h2 class="group-title">{{ part.title }} · {{ part.lessons.length }} bài</h2>
+      <ol class="path">
+        @for (l of part.lessons; track l.number) {
+          <li>
+            <a
+              class="lesson"
+              [class.is-done]="l.done"
+              [class.is-current]="l.current"
+              [routerLink]="['/irregular-verbs/lessons', l.number]"
+            >
+              <span class="no" aria-hidden="true">
+                @if (l.done) {
+                  <lu-icon name="check" />
+                } @else {
+                  {{ l.number }}
+                }
+              </span>
+              <span class="lesson-text">
+                <span class="lesson-title"
+                  ><span class="visually-hidden">Bài {{ l.number }}: </span>{{ l.title }}</span
+                >
+                <span class="model" lang="en">{{ l.model }}</span>
+                @if (l.others) {
+                  <span class="others" lang="en">{{ l.others }}</span>
+                }
+              </span>
+              <span class="state">
+                @if (l.done) {
+                  Đã học
+                } @else if (l.current) {
+                  Học ›
+                } @else if (l.learned > 0) {
+                  {{ l.learned }}/{{ l.bases.length }}
+                }
+              </span>
+            </a>
+          </li>
+        }
+      </ol>
+    }
+  } @else {
+    <lu-verb-filters
+      [(query)]="query"
+      [(commonOnly)]="commonOnly"
+      [(pattern)]="pattern"
+      [(learnedOnly)]="learnedOnly"
+      [total]="total"
+      [commonTotal]="commonTotal"
+      [learnedTotal]="progress() ? learned().size : null"
+      [counts]="counts()"
+    />
+
+    <p class="result" role="status">
+      @if (shown().length === total) {
+        Hiện tất cả {{ total }} động từ · chạm một dòng để xem chi tiết
+      } @else {
+        Hiện {{ shown().length }} / {{ total }} động từ
+      }
+    </p>
+
+    @if (shown().length === 0) {
+      <div class="soft-card empty">
+        <p>Không tìm thấy động từ nào.</p>
+        <p class="muted">Thử gõ dạng khác (ví dụ "went" hoặc "gone"), hoặc bỏ bớt bộ lọc.</p>
+      </div>
+    } @else {
+      <lu-verb-table [groups]="groups()" [learned]="learned()" (opened)="open($event)" />
+    }
+  }
+
+  <lu-verb-sheet
+    [verb]="selected()"
+    [learned]="!!selected() && learned().has(selected()!.base)"
+    [canMark]="progress() !== null"
+    (closed)="closeSheet()"
+    (toggleLearned)="toggleLearned($event)"
   />
 
-  @if (letters().length > 1) {
-    <nav class="letters" aria-label="Đến chữ cái">
-      @for (l of letters(); track l) {
-        <button type="button" class="letter" [attr.aria-label]="'Đến chữ ' + l" (click)="jump(l)">
-          {{ l }}
-        </button>
-      }
-    </nav>
-  }
-
-  <p class="result" role="status">
-    @if (shown().length === total) {
-      Hiện tất cả {{ total }} động từ
-    } @else {
-      Hiện {{ shown().length }} / {{ total }} động từ
+  <div class="mark-status" role="status">
+    @if (markError()) {
+      <p class="form-alert">Chưa lưu được, bạn thử lại nhé.</p>
+    } @else if (lastMark(); as m) {
+      <p class="soft-card mark-note">
+        <span>
+          @if (m.learned) {
+            Đã đánh dấu <strong lang="en">{{ m.base }}</strong> là đã học · sẽ hỏi lại từ ngày mai.
+          } @else {
+            Đã bỏ đánh dấu <strong lang="en">{{ m.base }}</strong
+            >.
+          }
+        </span>
+        <button type="button" class="btn" (click)="undo()">Hoàn tác</button>
+      </p>
     }
-  </p>
-
-  @if (shown().length === 0) {
-    <div class="soft-card empty">
-      <p>Không tìm thấy động từ nào.</p>
-      <p class="muted">Thử gõ dạng khác (ví dụ "went" hoặc "gone"), hoặc bỏ bớt bộ lọc.</p>
-    </div>
-  } @else {
-    <lu-verb-table [groups]="groups()" [known]="known()" />
-  }
+  </div>
 </section>

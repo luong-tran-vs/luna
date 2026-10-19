@@ -1,0 +1,97 @@
+@if (verb(); as v) {
+  <div class="backdrop" (click)="close()" aria-hidden="true"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" (keydown)="trapTab($event)">
+    <span class="grab" aria-hidden="true"></span>
+    <div class="head">
+      <div class="head-text">
+        <h2 class="title" id="sheet-title" lang="en">{{ v.base }}</h2>
+        <p class="sub">
+          {{ v.meaningVi }}
+          @if (lesson(); as l) {
+            · bài {{ l.number }} "{{ l.title }}"
+          }
+        </p>
+      </div>
+      @if (canSpeak) {
+        <button
+          type="button"
+          class="round"
+          [attr.aria-label]="'Nghe ' + v.base + ', ' + v.past + ', ' + v.participle"
+          (click)="listenForms(v)"
+        >
+          <lu-icon name="volume" />
+        </button>
+      }
+      <button #closeButton type="button" class="round plain" aria-label="Đóng" (click)="close()">
+        <lu-icon name="x" />
+      </button>
+    </div>
+
+    <div class="forms" lang="en">
+      @for (f of forms(); track f.label) {
+        <div class="form">
+          <span class="form-label">{{ f.label }}</span>
+          <span class="form-word"
+            ><span>{{ f.parts[0] }}</span>
+            @if (f.parts[1]) {
+              <mark class="changed">{{ f.parts[1] }}</mark>
+            }
+          </span>
+          @if (f.alt) {
+            <span class="alt">{{ f.alt }}</span>
+          }
+          @if (f.ipa) {
+            <span class="ipa">{{ f.ipa }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    @if (tip()) {
+      <p class="tip">
+        <lu-icon name="sparkles" /> <span>{{ tip() }}</span>
+      </p>
+    }
+
+    @if (example(); as ex) {
+      <div class="example">
+        <p lang="en" class="example-en">
+          @for (p of ex.parts; track $index) {
+            @if (p.verb) {
+              <mark class="verb-mark">{{ p.text }}</mark>
+            } @else {
+              {{ p.text }}
+            }
+          }
+        </p>
+        <p class="example-vi">{{ ex.vi }}</p>
+        @if (canSpeak) {
+          <button type="button" class="btn small" (click)="listen(ex.en)"><lu-icon name="volume" /> Nghe câu</button>
+        }
+      </div>
+    }
+
+    <div class="actions">
+      @if (lesson(); as l) {
+        <a class="btn" [routerLink]="['/irregular-verbs/lessons', l.number]">Học bài {{ l.number }}</a>
+      }
+      @if (canMark()) {
+        <button
+          type="button"
+          class="btn-primary mark"
+          aria-label="Đã học"
+          [class.is-learned]="learned()"
+          [attr.aria-pressed]="learned()"
+          [title]="learned() ? 'Bấm để bỏ đánh dấu' : 'Đưa vào mục ôn lại'"
+          (click)="toggleLearned.emit(v.base)"
+        >
+          @if (learned()) {
+            <lu-icon name="check" /> Đã học
+          } @else {
+            <lu-icon name="check" /> Đánh dấu đã học
+          }
+        </button>
+      }
+    </div>
+  </div>
+}

@@ -7,118 +7,260 @@
   max-width: 880px;
 }
 
-/* --- the way into the practice --- */
+/* --- Học / Tra cứu --- */
 
-.practice-card {
-  gap: var(--space-2);
-  border: 2px solid var(--color-primary);
-}
-
-.practice-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.practice-title {
-  font: var(--text-base) var(--font-ui);
-  font-weight: 700;
-}
-
-.known-pill {
-  padding: 2px var(--space-2);
-  font: var(--text-xs) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-primary-ink);
-  background: var(--color-primary-soft);
-  border-radius: var(--radius-full);
-}
-
-.track {
-  height: 6px;
-  overflow: hidden;
-  background: var(--color-track);
-  border-radius: var(--radius-full);
-}
-
-.track-fill {
-  display: block;
-  height: 100%;
-  background: var(--color-primary);
-  border-radius: var(--radius-full);
-}
-
-.due {
-  font: var(--text-sm) var(--font-ui);
-  font-weight: 600;
-  color: var(--color-primary-ink);
-}
-
-.start {
-  justify-content: center;
-  gap: var(--space-2);
-  min-height: 44px;
-}
-
-/* --- A–Z index: a row on wide screens, a rail on the right edge of phones --- */
-
-.letters {
-  display: flex;
+.views {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-1);
-  padding-bottom: 2px;
-  overflow-x: auto;
-  scrollbar-width: thin;
+  padding: var(--space-1);
+  background: var(--color-track);
+  border-radius: var(--radius-md);
 }
 
-.letter {
-  flex: none;
-  width: 36px;
-  height: 36px;
-  font: var(--text-sm) var(--font-ui);
-  font-weight: 700;
-  color: var(--color-primary-ink);
-  background: var(--color-primary-soft);
+.view {
+  min-height: 40px;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: none;
   border: 0;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   cursor: pointer;
 }
 
-.letter:hover {
+.view[aria-pressed='true'] {
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+/* --- the main card --- */
+
+.hero {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  color: var(--color-on-primary);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 85%, white), var(--color-primary));
+  border-radius: 20px;
+}
+
+.hero-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ring {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  background: conic-gradient(
+    var(--color-on-primary) var(--done, 0%),
+    color-mix(in srgb, var(--color-on-primary) 25%, transparent) 0
+  );
+  border-radius: 50%;
+}
+
+.ring-inner {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  line-height: 1.1;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.ring-inner strong {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 800;
+}
+
+.ring-inner small {
+  font: var(--text-xs) var(--font-ui);
+  opacity: 0.85;
+}
+
+.hero-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.hero-eyebrow {
+  font: var(--text-sm) var(--font-ui);
+  opacity: 0.85;
+}
+
+.hero-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.hero-model {
+  justify-self: start;
+  margin-top: var(--space-1);
+  padding: 2px var(--space-2);
+  font-weight: 700;
+  background: color-mix(in srgb, var(--color-on-primary) 16%, transparent);
+  border-radius: var(--radius-sm);
+}
+
+.hero-actions {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  gap: var(--space-2);
+}
+
+.hero-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  text-decoration: none;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+
+  --icon-size: 18px;
+}
+
+.hero-btn.review {
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 800;
+  color: #3a2400;
+  background: #f2a93b;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.hero-btn:focus-visible,
+.view:focus-visible,
+.lesson:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* --- the path of lessons --- */
+
+.group-title {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.path {
+  margin: 0;
+  padding: 0 var(--space-3);
+  list-style: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.path li + li {
+  border-top: 1px solid var(--color-line);
+}
+
+.lesson {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.no {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 2px solid var(--color-line);
+  border-radius: 50%;
+
+  --icon-size: 18px;
+}
+
+.is-done .no {
+  color: var(--color-on-primary);
+  background: var(--color-ok);
+  border-color: var(--color-ok);
+}
+
+.is-current .no {
   color: var(--color-on-primary);
   background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-soft);
 }
 
-@media (max-width: 639px) {
-  .letters {
-    position: fixed;
-    top: 50%;
-    right: 2px;
-    z-index: 4;
-    flex-direction: column;
-    gap: 0;
-    padding: var(--space-1) 0;
-    overflow: visible;
-    background: color-mix(in srgb, var(--color-primary-soft) 85%, transparent);
-    border-radius: var(--radius-full);
-    transform: translateY(-50%);
-  }
-
-  .letter {
-    width: 24px;
-    height: 24px;
-    font: var(--text-xs) var(--font-ui);
-    font-weight: 700;
-    background: none;
-    border-radius: 50%;
-  }
-
-  /* Room for the rail, so it never covers a listen button. */
-  .verbs {
-    padding-right: calc(var(--page-x) + 22px);
-  }
+.lesson-text {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+  justify-items: start;
+  min-width: 0;
 }
+
+.lesson-title {
+  font-weight: 600;
+}
+
+/* The lesson's pattern on its first verb: what to remember. */
+.model {
+  padding: 1px var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-sm);
+}
+
+.others {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.state {
+  flex: none;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+.is-done .state {
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
+}
+
+/* --- Tra cứu --- */
 
 .result {
   margin: 0;
@@ -134,7 +276,24 @@
   margin: 0;
 }
 
-.letter:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+/* "Đã đánh dấu go…" with Hoàn tác, floating above the tab bar. */
+.mark-status {
+  position: fixed;
+  right: var(--page-x);
+  bottom: calc(var(--tabbar-h, 0px) + var(--space-3));
+  left: var(--page-x);
+  z-index: 25;
+  max-width: 608px;
+  margin: 0 auto;
+}
+
+.mark-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.mark-note span {
+  flex: 1;
 }

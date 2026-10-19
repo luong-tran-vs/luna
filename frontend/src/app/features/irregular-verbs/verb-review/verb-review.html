@@ -1,0 +1,144 @@
+<section class="screen verb-review">
+  @switch (stage()) {
+    @case ('list') {
+      <header class="top-bar">
+        <a class="round-btn" routerLink="/irregular-verbs" aria-label="Về Động từ"><lu-icon name="x" /></a>
+        <h1 class="bar-title">Động từ đã học · {{ learned().length }}</h1>
+      </header>
+
+      @if (loadError()) {
+        <div class="form-alert" role="alert">
+          <p>Không tải được các động từ đã học.</p>
+          <button type="button" class="btn" (click)="load()">Thử lại</button>
+        </div>
+      } @else if (progress()) {
+        @if (learned().length === 0) {
+          <div class="soft-card empty">
+            <p>Chưa có động từ nào đã học.</p>
+            <p class="muted">
+              Học một bài rồi xác nhận "Đã học", hoặc bấm nút ✓ ở bảng động từ để đánh dấu từ bạn đã biết.
+            </p>
+            <a class="btn-primary" routerLink="/irregular-verbs">Xem lộ trình</a>
+          </div>
+        } @else {
+          <section class="soft-card start" aria-labelledby="start-title">
+            <span class="start-text">
+              <h2 class="start-title" id="start-title">
+                @if (due().length > 0) {
+                  {{ due().length }} từ đến hạn hôm nay
+                } @else {
+                  Chưa có từ nào đến hạn
+                }
+              </h2>
+              <span class="muted">
+                @if (due().length > 0) {
+                  Gõ V2, V3 của từng từ
+                } @else {
+                  Có thể ôn sớm những từ sắp tới hạn
+                }
+              </span>
+            </span>
+            <button type="button" class="btn-primary" (click)="start()">
+              {{ due().length > 0 ? 'Ôn ngay' : 'Ôn sớm' }}
+            </button>
+          </section>
+
+          @if (due().length > 0) {
+            <h2 class="group">Đến hạn · {{ due().length }}</h2>
+            <ul class="verbs">
+              @for (l of due(); track l.verb.base) {
+                <ng-container *ngTemplateOutlet="row; context: { $implicit: l }" />
+              }
+            </ul>
+          }
+          @if (upcoming().length > 0) {
+            <h2 class="group">Sắp tới · {{ upcoming().length }}</h2>
+            <ul class="verbs">
+              @for (l of upcoming(); track l.verb.base) {
+                <ng-container *ngTemplateOutlet="row; context: { $implicit: l }" />
+              }
+            </ul>
+          }
+        }
+      } @else {
+        <lu-loading label="Đang tải…" />
+      }
+    }
+
+    @case ('quiz') {
+      <header class="top-bar">
+        <button type="button" class="round-btn" aria-label="Dừng lượt ôn" (click)="backToList()">
+          <lu-icon name="x" />
+        </button>
+        <h1 class="bar-title">Ôn động từ đã học</h1>
+      </header>
+      <lu-verb-type-round [verbs]="round()" label="Ôn lại" (finished)="onFinished($event)" />
+    }
+
+    @case ('done') {
+      <section class="soft-card summary" aria-labelledby="done-title">
+        <img class="mascot" ngSrc="images/mascot-cat.png" width="90" height="90" alt="" />
+        <h1 #heading tabindex="-1" class="summary-title" id="done-title">Ôn xong {{ results().length }} từ</h1>
+        <p class="muted">Nhớ {{ rightCount() }}/{{ results().length }}</p>
+        @if (saving()) {
+          <p class="muted" role="status">Đang lưu kết quả…</p>
+        } @else if (saveError()) {
+          <p class="form-alert" role="alert">Không lưu được kết quả.</p>
+          <button type="button" class="btn" (click)="send()">Gửi lại</button>
+        }
+      </section>
+
+      <ul class="verbs results">
+        @for (r of results(); track r.verb.base) {
+          <li class="row" [class.is-wrong]="!r.right">
+            <span class="row-text">
+              <span class="row-forms" lang="en">{{ forms(r.verb) }}</span>
+              @if (!r.right) {
+                <span class="row-vi">
+                  Bạn gõ: <span lang="en">{{ r.past || '(trống)' }} · {{ r.participle || '(trống)' }}</span> · vẫn là đã
+                  học
+                </span>
+              }
+            </span>
+            <span class="when">{{ nextLabel(r.verb.base) }}</span>
+            @if (canSpeak) {
+              <button
+                type="button"
+                class="remove"
+                [attr.aria-label]="'Nghe ' + forms(r.verb)"
+                (click)="listenForms(r.verb)"
+              >
+                <lu-icon name="volume" />
+              </button>
+            }
+          </li>
+        }
+      </ul>
+
+      <div class="bottom-bar">
+        <button type="button" class="btn" (click)="backToList()">Danh sách đã học</button>
+        <a class="btn-primary" routerLink="/irregular-verbs">Về Động từ</a>
+      </div>
+    }
+  }
+</section>
+
+<ng-template #row let-l>
+  <li class="row">
+    <span class="row-text">
+      <span class="row-forms" lang="en">{{ forms(l.verb) }}</span>
+      <span class="row-vi">{{ l.verb.meaningVi }}</span>
+    </span>
+    <span class="when" [class.is-due]="l.due">{{ label(l.progress) }}</span>
+    <button
+      type="button"
+      class="remove"
+      [attr.aria-label]="'Bỏ đánh dấu đã học: ' + l.verb.base"
+      title="Bỏ đánh dấu đã học"
+      [disabled]="removing() === l.verb.base"
+      (click)="unlearn(l.verb.base)"
+    >
+      <lu-icon name="x" />
+    </button>
+  </li>
+</ng-template>
