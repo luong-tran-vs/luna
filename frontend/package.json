@@ -9,7 +9,8 @@
     "build:dev": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "postinstall": "patch-package"
   },
   "prettier": {
     "printWidth": 100,
@@ -49,6 +50,7 @@
     "angular-eslint": "21.4.0",
     "eslint": "^10.3.0",
     "jsdom": "^27.1.0",
+    "patch-package": "8.0.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.59.2",
     "vitest": "^4.0.8"

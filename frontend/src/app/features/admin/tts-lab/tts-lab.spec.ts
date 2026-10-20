@@ -32,7 +32,7 @@ describe('TtsLab', () => {
     expect(button('Tải giọng').disabled).toBe(false);
     expect(button('Đọc bằng Piper').disabled).toBe(true);
     expect(el.textContent).toContain('Tải giọng ở bước 1');
-    expect(el.querySelector<HTMLSelectElement>('#lab-voice')!.value).toBe('en_US-hfc_female-medium');
+    expect(el.querySelector<HTMLSelectElement>('#lab-voice')!.value).toBe('en_US-ljspeech-medium');
   });
 
   it('reads the text with the browser voice for comparison', () => {

@@ -1,0 +1,39 @@
+diff --git a/node_modules/@mintplex-labs/piper-tts-web/dist/piper-tts-web.js b/node_modules/@mintplex-labs/piper-tts-web/dist/piper-tts-web.js
+index 250fa01..99fb23b 100644
+--- a/node_modules/@mintplex-labs/piper-tts-web/dist/piper-tts-web.js
++++ b/node_modules/@mintplex-labs/piper-tts-web/dist/piper-tts-web.js
+@@ -362,13 +362,18 @@ _logger = new WeakMap();
+ _TtsSession_instances = new WeakSet();
+ predictChunk_fn = async function(text) {
+   const input = JSON.stringify([{ text: text.trim() }]);
+-  const phonemeIds = await new Promise(async (resolve) => {
+-    const module = await __privateGet(this, _createPiperPhonemize).call(this, {
++  // Patched for Luna (patches/): one phonemizer per session instead of one per chunk. Building it
++  // loads the espeak data (~18MB) again each time; its runtime stays alive (noExitRuntime), so
++  // callMain can run again with a new input.
++  if (!this.__lunaPhonemizer) {
++    this.__lunaPhonemizer = __privateGet(this, _createPiperPhonemize).call(this, {
+       print: (data) => {
+-        resolve(JSON.parse(data).phoneme_ids);
++        var _a2;
++        (_a2 = this.__lunaPrint) == null ? void 0 : _a2.call(this, data);
+       },
+       printErr: (message) => {
+-        throw new Error(message);
++        var _a2;
++        (_a2 = this.__lunaFail) == null ? void 0 : _a2.call(this, new Error(message));
+       },
+       locateFile: (url) => {
+         if (url.endsWith(".wasm")) return __privateGet(this, _wasmPaths).piperWasm;
+@@ -376,6 +381,11 @@ predictChunk_fn = async function(text) {
+         return url;
+       }
+     });
++  }
++  const module = await this.__lunaPhonemizer;
++  const phonemeIds = await new Promise((resolve, reject) => {
++    this.__lunaPrint = (data) => resolve(JSON.parse(data).phoneme_ids);
++    this.__lunaFail = reject;
+     module.callMain([
+       "-l",
+       __privateGet(this, _modelConfig).espeak.voice,

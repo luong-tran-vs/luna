@@ -9,6 +9,8 @@
 export interface FileStore {
   read(url: string): Promise<Blob | undefined>;
   write(url: string, blob: Blob): Promise<void>;
+  /** Deletes a kept file; nothing happens when there is none. */
+  remove?(url: string): Promise<void>;
 }
 
 /** The voice files: the model (.onnx) and its config (.onnx.json). */
@@ -86,5 +88,33 @@ export function indexedDbStore(): FileStore {
   return {
     read: (url) => run<Blob | undefined>('readonly', (s) => s.get(url)),
     write: (url, blob) => run('readwrite', (s) => s.put(blob, url)).then(() => undefined),
+    remove: (url) => run('readwrite', (s) => s.delete(url)).then(() => undefined),
   };
+}
+
+/** The phonemizer's files: its WebAssembly and its espeak data. */
+export function isPhonemizerFile(url: string): boolean {
+  return /piper_phonemize\.(wasm|data)$/.test(url);
+}
+
+/**
+ * Downloads a file once and gives a blob: URL to it (added 2026-10-20). The library builds a new
+ * phonemizer for every sentence it reads, and each one fetches the phonemizer's files: from a blob:
+ * URL they come from memory instead of the network. On any failure the original URL is kept.
+ */
+export async function inMemoryUrl(
+  get: typeof fetch,
+  url: string,
+  type: string,
+  makeUrl: (blob: Blob) => string = (blob) => URL.createObjectURL(blob),
+): Promise<string> {
+  try {
+    const res = await get(url);
+    if (!res.ok) {
+      return url;
+    }
+    return makeUrl(new Blob([await res.arrayBuffer()], { type }));
+  } catch {
+    return url;
+  }
 }

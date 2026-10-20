@@ -78,7 +78,7 @@ describe('NaturalVoiceService', () => {
     const service = create();
     service.enable();
     expect(localStorage.getItem(NATURAL_VOICE_STORAGE_KEY)).toBe('on');
-    expect(worker().posted[0]).toEqual({ type: 'load', voice: 'en_US-hfc_female-medium' });
+    expect(worker().posted[0]).toEqual({ type: 'load', voice: 'en_US-ljspeech-medium' });
     expect(service.state()).toBe('loading');
     expect(service.starting()).toBe(true);
 

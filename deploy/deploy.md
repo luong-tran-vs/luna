@@ -272,6 +272,9 @@ sudo systemctl restart luna-backend
 
 Chỉ sửa frontend thì chạy mỗi `/root/luna/build.sh` là đủ, vì script đã tự `git pull`.
 
+`npm ci` tự chạy `postinstall` (`patch-package`) để áp các bản vá trong `frontend/patches/` (hiện có bản vá thư viện giọng đọc
+`@mintplex-labs/piper-tts-web`, dùng một bộ phân tích phát âm cho cả phiên). Nâng phiên bản thư viện đó thì phải làm lại bản vá.
+
 Frontend không cần reload Nginx. Người đã cài app sẽ tự nhận bản mới ở lần chuyển trang kế tiếp.
 
 ## Xử lý sự cố

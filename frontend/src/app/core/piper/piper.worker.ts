@@ -9,24 +9,78 @@
  * there, model-cache.ts keeps it in IndexedDB instead.
  */
 
-import { TtsSession } from '@mintplex-labs/piper-tts-web';
+import { HF_BASE, PATH_MAP, remove, stored, TtsSession, VoiceId } from '@mintplex-labs/piper-tts-web';
 
-import { cachingFetch, indexedDbStore, isVoiceFile, libraryCanStore } from './model-cache';
+import {
+  cachingFetch,
+  indexedDbStore,
+  inMemoryUrl,
+  isPhonemizerFile,
+  isVoiceFile,
+  libraryCanStore,
+} from './model-cache';
 import { PiperRequest, PiperResponse } from './piper.messages';
 
-if (!libraryCanStore() && typeof indexedDB !== 'undefined') {
+const canKeep = typeof indexedDB !== 'undefined';
+if (!libraryCanStore() && canKeep) {
   self.fetch = cachingFetch(self.fetch.bind(self), indexedDbStore(), isVoiceFile);
+}
+
+/** The phonemizer's files are kept in IndexedDB too: the library itself never stores them. */
+const phonemizerFetch = canKeep ? cachingFetch(self.fetch.bind(self), indexedDbStore(), isPhonemizerFile) : self.fetch.bind(self);
+
+/**
+ * The phonemizer's files, downloaded once per worker and then read from memory (added 2026-10-20):
+ * the library built a new phonemizer for every sentence, and each fetched piper_phonemize.data and
+ * .wasm again, so a lesson read aloud downloaded them over and over. The library is also patched
+ * (frontend/patches/, applied by patch-package on npm install) to keep one phonemizer per session.
+ */
+let phonemizer: Promise<{ piperData: string; piperWasm: string }> | null = null;
+function phonemizerPaths(): Promise<{ piperData: string; piperWasm: string }> {
+  return (phonemizer ??= Promise.all([
+    inMemoryUrl(phonemizerFetch, TtsSession.WASM_LOCATIONS.piperData, 'application/octet-stream'),
+    inMemoryUrl(phonemizerFetch, TtsSession.WASM_LOCATIONS.piperWasm, 'application/wasm'),
+  ]).then(([piperData, piperWasm]) => ({ piperData, piperWasm })));
 }
 
 /**
  * The ONNX runtime files must match the onnxruntime-web the library imports (1.30.0, pinned in
  * package.json: change both together); the library's default points at an older version. The
- * phonemizer keeps the library's default.
+ * phonemizer's files are the library's default, read from memory (phonemizerPaths).
  */
 const WASM_PATHS = {
   ...TtsSession.WASM_LOCATIONS,
   onnxWasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/',
 };
+
+/**
+ * Voices no longer used (2026-10-20): their licences allow non-commercial or research use only
+ * (hfc_female, ryan, lessac) or are unknown (amy). Their files are deleted from the browser so no
+ * copy stays on the learner's device.
+ */
+const RETIRED_VOICES: readonly VoiceId[] = [
+  'en_US-hfc_female-medium',
+  'en_US-ryan-medium',
+  'en_US-lessac-medium',
+  'en_US-amy-medium',
+];
+
+/** Deletes the files of RETIRED_VOICES from the library's store and from IndexedDB. Best effort. */
+async function forgetRetiredVoices(): Promise<void> {
+  try {
+    if (libraryCanStore()) {
+      const kept = await stored();
+      await Promise.all(RETIRED_VOICES.filter((id) => kept.includes(id)).map((id) => remove(id)));
+    }
+    if (canKeep) {
+      const store = indexedDbStore();
+      const urls = RETIRED_VOICES.flatMap((id) => [`${HF_BASE}/${PATH_MAP[id]}`, `${HF_BASE}/${PATH_MAP[id]}.json`]);
+      await Promise.all(urls.map((url) => store.remove?.(url)));
+    }
+  } catch {
+    // Left for the next start: the files only take space.
+  }
+}
 
 let session: TtsSession | null = null;
 let chain: Promise<void> = Promise.resolve();
@@ -52,7 +106,7 @@ async function load(voice: string): Promise<void> {
   const started = performance.now();
   const created = await TtsSession.create({
     voiceId: voice,
-    wasmPaths: WASM_PATHS,
+    wasmPaths: { ...WASM_PATHS, ...(await phonemizerPaths()) },
     progress: (p) => {
       if (p.url.startsWith('tts://')) {
         return; // progress of a long text being generated, not of a download
@@ -70,6 +124,7 @@ async function load(voice: string): Promise<void> {
   const loadedAt = performance.now();
   await created.predict('Hello.');
   session = created;
+  void forgetRetiredVoices();
   post({ type: 'loaded', ms: loadedAt - started, warmupMs: performance.now() - loadedAt, isolated: self.crossOriginIsolated });
 }
 

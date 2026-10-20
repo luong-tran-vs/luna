@@ -1,6 +1,6 @@
-import { cachingFetch, FileStore, isVoiceFile } from './model-cache';
+import { cachingFetch, FileStore, inMemoryUrl, isPhonemizerFile, isVoiceFile } from './model-cache';
 
-const MODEL = 'https://huggingface.co/diffusionstudio/piper-voices/resolve/main/en/en_US/hfc_female/medium/en_US-hfc_female-medium.onnx';
+const MODEL = 'https://huggingface.co/diffusionstudio/piper-voices/resolve/main/en/en_US/ljspeech/medium/en_US-ljspeech-medium.onnx';
 
 /** A FileStore in memory. */
 function memoryStore(): FileStore & { files: Map<string, Blob> } {
@@ -44,5 +44,37 @@ describe('model cache', () => {
     await fetcher('https://example.com/a.wasm');
     expect(base).toHaveBeenCalledTimes(2);
     expect(store.files.size).toBe(0);
+  });
+});
+
+// Added 2026-10-20: the phonemizer's files are downloaded once and read from memory.
+describe('phonemizer files', () => {
+  const DATA = 'https://cdn.jsdelivr.net/npm/@diffusionstudio/piper-wasm@1.0.0/build/piper_phonemize.data';
+
+  it('tells the phonemizer files apart', () => {
+    expect(isPhonemizerFile(DATA)).toBe(true);
+    expect(isPhonemizerFile(DATA.replace('.data', '.wasm'))).toBe(true);
+    expect(isPhonemizerFile(MODEL)).toBe(false);
+  });
+
+  it('gives a blob: URL of the file, downloaded once', async () => {
+    const get = vi.fn(async () => new Response(new Uint8Array([1, 2, 3])));
+    const made: Blob[] = [];
+    const makeUrl = (blob: Blob) => {
+      made.push(blob);
+      return 'blob:luna/1';
+    };
+    expect(await inMemoryUrl(get as unknown as typeof fetch, DATA, 'application/octet-stream', makeUrl)).toBe('blob:luna/1');
+    expect(get).toHaveBeenCalledTimes(1);
+    expect(made.map((b) => [b.size, b.type])).toEqual([[3, 'application/octet-stream']]);
+  });
+
+  it('keeps the original URL when the download fails', async () => {
+    const failing = vi.fn(async () => new Response('x', { status: 404 }));
+    expect(await inMemoryUrl(failing as unknown as typeof fetch, DATA, 'x')).toBe(DATA);
+    const offline = vi.fn(async () => {
+      throw new TypeError('offline');
+    });
+    expect(await inMemoryUrl(offline as unknown as typeof fetch, DATA, 'x')).toBe(DATA);
   });
 });

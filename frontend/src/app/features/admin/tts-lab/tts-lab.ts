@@ -5,16 +5,17 @@ import { createPiperWorker } from '../../../core/piper/create-piper-worker';
 import { PiperRequest, PiperResponse } from '../../../core/piper/piper.messages';
 import { SpeechService } from '../../../core/services/speech.service';
 
-/** Piper voices to try (VITS, about 60MB each). The natural voice of the app uses the first. */
+/**
+ * Piper voices to try (VITS, about 60MB each). The natural voice of the app uses the first. Only
+ * voices whose licence allows commercial use (updated 2026-10-20: hfc_female, ryan and lessac are
+ * non-commercial or research only, amy's licence is unknown).
+ */
 const VOICES: readonly { id: string; label: string }[] = [
-  { id: 'en_US-hfc_female-medium', label: 'en_US hfc_female (nữ, Mỹ — giọng app đang dùng)' },
-  { id: 'en_US-lessac-medium', label: 'en_US lessac (nữ, Mỹ)' },
-  { id: 'en_US-amy-medium', label: 'en_US amy (nữ, Mỹ)' },
-  { id: 'en_US-kristin-medium', label: 'en_US kristin (nữ, Mỹ)' },
-  { id: 'en_US-ryan-medium', label: 'en_US ryan (nam, Mỹ)' },
-  { id: 'en_US-joe-medium', label: 'en_US joe (nam, Mỹ)' },
-  { id: 'en_GB-alba-medium', label: 'en_GB alba (nữ, Anh)' },
-  { id: 'en_GB-cori-medium', label: 'en_GB cori (nữ, Anh)' },
+  { id: 'en_US-ljspeech-medium', label: 'en_US ljspeech (nữ, Mỹ, công cộng — giọng app đang dùng)' },
+  { id: 'en_US-kristin-medium', label: 'en_US kristin (nữ, Mỹ, công cộng)' },
+  { id: 'en_US-joe-medium', label: 'en_US joe (nam, Mỹ, CC0)' },
+  { id: 'en_GB-cori-medium', label: 'en_GB cori (nữ, Anh, công cộng)' },
+  { id: 'en_GB-alba-medium', label: 'en_GB alba (nữ, Anh, CC BY 4.0 — cần ghi nguồn)' },
 ];
 
 const SAMPLE = `On Sunday, my family has lunch at my grandmother's house. My father cooks fish and rice. ` +

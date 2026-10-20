@@ -9,8 +9,11 @@ export const NATURAL_VOICE_STORAGE_KEY = 'luna.naturalVoice';
 /** "on" when the learner turned the browser voice off: only the natural voice reads. */
 export const NATURAL_VOICE_ONLY_STORAGE_KEY = 'luna.naturalVoiceOnly';
 
-/** The Piper voice (about 60MB, US English, female). */
-const VOICE = 'en_US-hfc_female-medium';
+/**
+ * The Piper voice (about 60MB, US English, female), trained on LJ Speech, which is in the public
+ * domain (updated 2026-10-20: hfc_female, licensed for non-commercial use only, was dropped).
+ */
+const VOICE = 'en_US-ljspeech-medium';
 /** Generated texts kept in memory (least recently used dropped first). */
 const MAX_CACHED = 300;
 /** Texts waiting to be generated; the oldest prefetches are dropped beyond this. */
