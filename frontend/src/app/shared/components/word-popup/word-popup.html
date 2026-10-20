@@ -32,16 +32,40 @@
         <p class="sentence-vi">{{ r.meanings[0]?.text }}</p>
         <ng-container *ngTemplateOutlet="manualSave" />
       } @else {
-        <ul class="meanings">
-          @for (line of meaningLines(); track line.pos) {
-            <li>
-              @if (line.pos) {
-                <span class="pos">{{ line.pos }}</span>
+        @if (r.context; as c) {
+          <!-- The meaning in this lesson first (added 2026-10-20), then a few others from the dictionary. -->
+          <div class="in-lesson">
+            <p class="in-lesson-label">Trong bài này</p>
+            <p class="in-lesson-meaning">{{ c.meaningVi }}</p>
+            @if (c.phrase) {
+              <p class="in-lesson-phrase"><span lang="en">“{{ c.phrase }}”</span> = {{ c.phraseVi }}</p>
+            }
+          </div>
+          @if (otherLines().length) {
+            <p class="others-label">Nghĩa khác</p>
+            <ul class="meanings others">
+              @for (line of otherLines(); track line.pos) {
+                <li>
+                  @if (line.pos) {
+                    <span class="pos">{{ line.pos }}</span>
+                  }
+                  {{ line.text }}
+                </li>
               }
-              {{ line.text }}
-            </li>
+            </ul>
           }
-        </ul>
+        } @else {
+          <ul class="meanings">
+            @for (line of meaningLines(); track line.pos) {
+              <li>
+                @if (line.pos) {
+                  <span class="pos">{{ line.pos }}</span>
+                }
+                {{ line.text }}
+              </li>
+            }
+          </ul>
+        }
         @if (r.note) {
           <p class="note">{{ r.note }}</p>
         }

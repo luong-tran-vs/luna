@@ -81,6 +81,13 @@ export interface LookupResult {
   meanings: { pos: string; text: string }[];
   /** Short Vietnamese explanation of an AI answer in context (F9); empty otherwise. */
   note?: string;
+  /**
+   * The meaning in this lesson, shown first (added 2026-10-20), with the few words around it and
+   * their Vietnamese when known; absent when the lesson has none for the word.
+   */
+  context?: { meaningVi: string; phrase?: string; phraseVi?: string };
+  /** A few dictionary meanings shown after the meaning in context, "Nghĩa khác". */
+  others?: { pos: string; text: string }[];
 }
 
 /** POST /api/lessons/{id}/ask (F9). */

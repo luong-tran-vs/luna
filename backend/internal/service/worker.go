@@ -14,6 +14,7 @@ func (c *Container) initWorker() {
 		job.TypeAnnotate: c.lesson.ProcessAnnotate,
 		job.TypePractice: c.lesson.ProcessPractice,
 		job.TypeImages:   c.lesson.ProcessImages,
+		job.TypeGlosses:  c.lesson.ProcessGlosses,
 		job.TypeGrade:    c.writing.ProcessGrade,
 	}, func(ctx context.Context, j job.Job, err error) {
 		// Grade jobs belong to a writing, the others to a lesson revision.

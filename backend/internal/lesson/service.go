@@ -35,6 +35,10 @@ type Deps struct {
 	ImageAI ai.ImageProvider
 	// FetchImage downloads a picture from a link an admin pasted (NewImageFetcher); nil turns links off.
 	FetchImage ImageFetcher
+	// Glosses keeps the meaning in context of every word of each lesson, GlossAI writes it; either
+	// nil turns glosses off (added 2026-10-20).
+	Glosses GlossRepository
+	GlossAI ai.GlossProvider
 }
 
 // Service implements lesson management and the background work on lessons.
@@ -434,6 +438,9 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 	if err := s.enqueue(ctx, l.ID, l.Revision, job.TypePractice); err != nil {
 		return err
 	}
+	if err := s.queueGlosses(ctx, l.ID, l.Revision); err != nil {
+		return err
+	}
 	return s.queueImages(ctx, l.ID, l.Revision)
 }
 
@@ -441,6 +448,10 @@ func (s *Service) ProcessAnnotate(ctx context.Context, j job.Job) error {
 func (s *Service) JobFailed(ctx context.Context, j job.Job, err error) {
 	if j.Type == job.TypeImages {
 		s.imagesFailed(ctx, j, err)
+		return
+	}
+	if j.Type == job.TypeGlosses {
+		s.glossesFailed(ctx, j, err)
 		return
 	}
 	if j.Type != job.TypeAnnotate && j.Type != job.TypePractice {

@@ -22,15 +22,32 @@ func (c *Container) initAI() {
 		c.ai = ai.Disabled{}
 		c.imageAI = ai.DisabledImages{}
 		c.meaningAI = ai.DisabledMeanings{}
+		c.glossAI = ai.DisabledGlosses{}
 		return
 	}
 	text := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
 	text.Usage = c.aiUsage
 	c.ai = text
 	c.meaningAI = text
+	c.glossAI = text
 	images := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
 	images.Usage = c.aiUsage
 	c.imageAI = images
+}
+
+// queueMissingGlosses queues the glosses of lessons annotated before they existed or rewritten
+// since. Without an AI provider it waits, like queueMissingPractice.
+func (c *Container) queueMissingGlosses(ctx context.Context) {
+	if _, off := c.ai.(ai.Disabled); off {
+		return
+	}
+	n, err := c.lesson.QueueMissingGlosses(ctx)
+	if err != nil {
+		c.log.ErrorContext(ctx, "queue missing glosses failed", slog.Any("error", err))
+	}
+	if n > 0 {
+		c.log.InfoContext(ctx, "queued glosses for older lessons", slog.Int("count", n))
+	}
 }
 
 // queueMissingPractice queues the practice of lessons annotated before F17. Without an AI

@@ -80,6 +80,8 @@ type Store interface {
 
 	// VerbProgress keeps which irregular verbs each learner knows and when each is asked again.
 	VerbProgress() verbs.Repository
+	// LessonGlosses keeps the meaning in context of every word of each lesson (added 2026-10-20).
+	LessonGlosses() lesson.GlossRepository
 
 	DictationResults() progress.DictationRepository
 	Goals() progress.GoalRepository

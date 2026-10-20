@@ -206,3 +206,17 @@ func TestAnnotatePromptAsksForSentenceTranslations(t *testing.T) {
 		t.Error("annotateSchema has no sentenceTranslations")
 	}
 }
+
+// Added 2026-10-20: the meaning in context of every content word, for the reading popup.
+func TestGlossesPromptAsksForEveryContentWordInContext(t *testing.T) {
+	t.Parallel()
+	p := glossesPrompt(ai.GlossRequest{Level: "A1", Sentences: []string{"I like music a lot.", "It helps me relax."}})
+	for _, want := range []string{
+		"CEFR level A1", "every content word", "one entry\n  for the whole phrase", "in this sentence only",
+		"\"thư giãn\"", "phraseVi", "0: I like music a lot.\n1: It helps me relax.\n",
+	} {
+		if !strings.Contains(p, want) {
+			t.Errorf("prompt lacks %q:\n%s", want, p)
+		}
+	}
+}

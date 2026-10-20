@@ -28,6 +28,9 @@ func (c *Container) initLesson() {
 		ImageStore: c.store.WordImages(),
 		ImageAI:    c.imageAI,
 		FetchImage: lesson.NewImageFetcher(),
+		// Meaning in context of every word, for the reading popup (added 2026-10-20).
+		Glosses: c.store.LessonGlosses(),
+		GlossAI: c.glossAI,
 	})
 }
 
@@ -37,6 +40,7 @@ func (c *Container) initReader() {
 	c.reader = lesson.NewReader(c.lessons, c.dict, c.lessonTopics, c.store.ReadingAnswers(), c.store.AILookups(), c.ai).
 		WithImages(c.store.WordImages()).
 		WithWordBank(lessonWordBank{c.wordBank}).
+		WithGlosses(c.store.LessonGlosses()).
 		WithAskLimit(c.store.AskUsage())
 }
 

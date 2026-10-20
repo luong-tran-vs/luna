@@ -186,6 +186,12 @@ thành.
 
 - **FR-021**: Cho tới khi có luồng một ngày học (L), bước Đọc PHẢI mở được từ trang chi tiết bài của quản trị viên và bằng
   đường dẫn trực tiếp.
+- **FR-022** *(thêm 2026-10-20)*: Popup tra từ PHẢI hiện trước "Trong bài này: <nghĩa>" kèm cụm quanh từ và nghĩa của cụm (vd. "a great
+  way to relax" = "một cách tuyệt vời để thư giãn"), rồi tối đa 3 "Nghĩa khác" từ từ điển. Nghĩa trong bài lấy theo thứ tự: chú thích
+  của bài (admin sửa được), danh sách "nghĩa trong bài" của mọi từ, câu trả lời "Hỏi AI" đã lưu, rồi mới tới từ điển. Danh sách này do
+  một job nền `glosses` sinh (1 request AI mỗi bài, sau chú thích; bài cũ được bổ sung khi khởi động server), lưu riêng theo
+  revision (Mongo `lesson_glosses`, MySQL migration 032); job lỗi thì ghi danh sách rỗng và popup dùng từ điển như cũ. Khi có nghĩa
+  trong bài thì không hiện nút "Hỏi AI". Tra từ vẫn không gọi AI.
 
 ### Key Entities
 

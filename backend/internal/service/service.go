@@ -44,7 +44,9 @@ type Container struct {
 	imageAI ai.ImageProvider
 	// meaningAI fills the missing meanings of the word bank (F24).
 	meaningAI ai.MeaningProvider
-	dict      closableDictionary
+	// glossAI writes the meaning in context of every word of a lesson (added 2026-10-20).
+	glossAI ai.GlossProvider
+	dict    closableDictionary
 
 	auth        *auth.Service
 	authHandler *auth.Handler
@@ -61,9 +63,9 @@ type Container struct {
 	writeSteps *writingSteps
 	// studyDays counts study days for the streak in vocab, grammar and verbs; set by initProgress.
 	studyDays *studyDays
-	worker     *job.Worker
-	vocab      *vocab.Service
-	wordBank   *wordbank.Service
+	worker    *job.Worker
+	vocab     *vocab.Service
+	wordBank  *wordbank.Service
 	// aiUsage keeps the AI requests for the admin usage page.
 	aiUsage  *aiusage.Service
 	grammar  *grammar.Service
@@ -97,6 +99,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initExport()
 
 	c.queueMissingPractice(ctx)
+	c.queueMissingGlosses(ctx)
 	return c, nil
 }
 

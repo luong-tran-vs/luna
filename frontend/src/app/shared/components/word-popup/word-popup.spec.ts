@@ -51,6 +51,33 @@ describe('WordPopup', () => {
   const lines = () =>
     Array.from(el.querySelectorAll('.meanings li')).map((li) => li.textContent?.replace(/\s+/g, ' ').trim());
 
+  // Added 2026-10-20: the meaning in this lesson first, then a few others from the dictionary.
+  it('shows the meaning in the lesson first, with its phrase, then other meanings', async () => {
+    await render({
+      kind: 'result',
+      result: {
+        source: 'ai', text: 'relax', lemma: 'relax', ipa: '/rɪˈlæks/', meanings: [{ pos: '', text: 'thư giãn' }],
+        context: { meaningVi: 'thư giãn', phrase: 'a great way to relax', phraseVi: 'một cách tuyệt vời để thư giãn' },
+        others: [{ pos: 'V', text: 'Làm dịu đi.' }, { pos: 'V', text: 'Nới lỏng.' }],
+      },
+    });
+    expect(el.querySelector('.in-lesson-label')?.textContent?.trim()).toBe('Trong bài này');
+    expect(el.querySelector('.in-lesson-meaning')?.textContent?.trim()).toBe('thư giãn');
+    expect(el.querySelector('.in-lesson-phrase')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+      '“a great way to relax” = một cách tuyệt vời để thư giãn',
+    );
+    expect(el.querySelector('.others-label')?.textContent?.trim()).toBe('Nghĩa khác');
+    expect(lines()).toEqual(['động từ Làm dịu đi; nới lỏng']);
+    // The meaning is known: nothing to ask the AI.
+    expect(button('Hỏi AI')).toBeUndefined();
+  });
+
+  it('shows no phrase or other meanings when there are none', async () => {
+    await render({ kind: 'result', result: { ...aiResult, context: { meaningVi: 'đã đi' } } });
+    expect(el.querySelector('.in-lesson-phrase')).toBeNull();
+    expect(el.querySelector('.others-label')).toBeNull();
+  });
+
   it('shows dictionary meanings with Vietnamese parts of speech', async () => {
     await render({ kind: 'result', result: dictResult });
     expect(el.querySelector('.lemma')).toBeNull(); // same as the word

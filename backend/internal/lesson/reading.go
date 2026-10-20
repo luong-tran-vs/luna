@@ -74,7 +74,22 @@ type LookupResult struct {
 	Meanings []LookupMeaning
 	// Note explains an asked AI meaning in context (F9); empty otherwise.
 	Note string
+	// Context is the meaning in this lesson, shown first (added 2026-10-20); nil when unknown.
+	Context *LookupContext
+	// Others are a few dictionary meanings shown after Context, "Nghĩa khác".
+	Others []LookupMeaning
 }
+
+// LookupContext is a word's meaning in the lesson, with the few words around it and their
+// Vietnamese when known ("a great way to relax" = "một cách tuyệt vời để thư giãn").
+type LookupContext struct {
+	MeaningVi string
+	Phrase    string
+	PhraseVi  string
+}
+
+// maxOthers is how many dictionary meanings follow the meaning in context.
+const maxOthers = 3
 
 // Reader serves the Reading step. Lookups never call the AI provider: meanings come from stored
 // annotations, stored AI explanations or the offline dictionary. Only Ask calls the AI (F9).
@@ -93,6 +108,14 @@ type Reader struct {
 	bank WordBank
 	// usage limits the AI asks of each learner per lesson (AskLimit); nil means no limit.
 	usage AskUsageRepository
+	// glosses give the meaning in context of every word of a lesson; nil when there are none.
+	glosses GlossRepository
+}
+
+// WithGlosses lets lookups give the meaning in context of words the annotations do not cover.
+func (r *Reader) WithGlosses(g GlossRepository) *Reader {
+	r.glosses = g
+	return r
 }
 
 // NewReader returns a Reader.
@@ -178,12 +201,28 @@ func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (
 	}
 	text := normalize(q)
 
+	glosses := r.lessonGlosses(ctx, l)
 	if a, ok := matchAnnotation(l.Annotations, text, sentence); ok {
 		res := LookupResult{
 			Source: SourceAI, Text: text, Lemma: normalize(a.Lemma),
 			Meanings: []LookupMeaning{{Text: a.MeaningVi}},
 		}
 		res.IPA = r.ipaOf(ctx, res.Lemma)
+		res.Context = &LookupContext{MeaningVi: a.MeaningVi}
+		if g, ok := matchGloss(glosses, text, sentence); ok {
+			res.Context.Phrase, res.Context.PhraseVi = g.Phrase, g.PhraseVi
+		}
+		res.Others = r.others(ctx, res.Lemma, a.MeaningVi)
+		return res, nil
+	}
+	// The meaning in context written for every word of the lesson (added 2026-10-20).
+	if g, ok := matchGloss(glosses, text, sentence); ok {
+		res := LookupResult{
+			Source: SourceAI, Text: text, Lemma: g.Lemma, Meanings: []LookupMeaning{{Text: g.MeaningVi}},
+			Context: &LookupContext{MeaningVi: g.MeaningVi, Phrase: g.Phrase, PhraseVi: g.PhraseVi},
+		}
+		res.IPA = r.ipaOf(ctx, res.Lemma)
+		res.Others = r.others(ctx, res.Lemma, g.MeaningVi)
 		return res, nil
 	}
 
@@ -212,6 +251,62 @@ func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (
 		res.Meanings = append(res.Meanings, LookupMeaning(m))
 	}
 	return res, nil
+}
+
+// lessonGlosses returns the lesson's glosses when they were written for its current revision.
+// Best effort: a failed read gives none.
+func (r *Reader) lessonGlosses(ctx context.Context, l Lesson) []Gloss {
+	if r.glosses == nil {
+		return nil
+	}
+	rev, gs, ok, err := r.glosses.Get(ctx, l.ID)
+	if err != nil || !ok || rev != l.Revision {
+		return nil
+	}
+	return gs
+}
+
+// matchGloss finds the gloss of text the way matchAnnotation finds an annotation.
+func matchGloss(gs []Gloss, text string, sentence int) (Gloss, bool) {
+	if len(gs) == 0 {
+		return Gloss{}, false
+	}
+	anns := make([]Annotation, len(gs))
+	for i, g := range gs {
+		anns[i] = Annotation{Text: g.Text, Lemma: g.Lemma, MeaningVi: g.MeaningVi, SentenceIndex: g.SentenceIndex}
+	}
+	a, ok := matchAnnotation(anns, text, sentence)
+	if !ok {
+		return Gloss{}, false
+	}
+	for _, g := range gs {
+		if g.Text == a.Text && g.Lemma == a.Lemma && g.SentenceIndex == a.SentenceIndex {
+			return g, true
+		}
+	}
+	return Gloss{}, false
+}
+
+// others are up to maxOthers dictionary meanings of lemma besides the one in context. Best
+// effort: a failed lookup gives none.
+func (r *Reader) others(ctx context.Context, lemma, inContext string) []LookupMeaning {
+	e, ok, err := r.dict.Resolve(ctx, lemma)
+	if err != nil || !ok {
+		return nil
+	}
+	same := strings.ToLower(strings.TrimSpace(inContext))
+	var out []LookupMeaning
+	for _, m := range e.Meanings {
+		text := strings.TrimSpace(m.Text)
+		if text == "" || strings.ToLower(strings.TrimRight(text, ".")) == same {
+			continue
+		}
+		out = append(out, LookupMeaning(m))
+		if len(out) == maxOthers {
+			break
+		}
+	}
+	return out
 }
 
 // ipaOf is the transcription shown for lemma: the word bank's, else the standard one

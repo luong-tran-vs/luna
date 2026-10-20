@@ -3,6 +3,7 @@ export const OP_LABELS: Readonly<Record<string, string>> = {
   generate: 'Sinh bài học',
   annotate: 'Chú thích bài',
   practice: 'Luyện tập từ vựng',
+  glosses: 'Nghĩa trong bài (tra từ)',
   image: 'Sinh ảnh từ vựng',
   lesson_review: 'Kiểm tra bài',
   lesson_fix: 'Đề xuất sửa lỗi bài',
@@ -42,7 +43,7 @@ export const FEATURE_COSTS: readonly FeatureGroup[] = [
       { feature: 'Kiểm tra bài', where: 'Chi tiết bài → Kiểm tra', requests: '1' },
       { feature: 'Đề xuất sửa lỗi bài', where: 'Từng mục bị đánh dấu', requests: '1 mỗi mục' },
       { feature: 'Sinh lại luyện tập', where: 'Chi tiết bài', requests: '1' },
-      { feature: 'Chú thích lại / sửa nội dung bài', where: 'Chi tiết bài', requests: '1 (rồi tự chạy luyện tập, ảnh)' },
+      { feature: 'Chú thích lại / sửa nội dung bài', where: 'Chi tiết bài', requests: '1 (rồi tự chạy luyện tập, nghĩa trong bài, ảnh)' },
       { feature: 'Bật ảnh từ vựng cho bài', where: 'Chi tiết bài', requests: '1 mỗi từ chưa có ảnh (≤ 30)', paid: true },
       { feature: 'Sinh ảnh 1 từ', where: 'Kho từ → Sinh ảnh AI', requests: '1', paid: true },
       {
@@ -60,6 +61,11 @@ export const FEATURE_COSTS: readonly FeatureGroup[] = [
     rows: [
       { feature: 'Chú thích bài (nghĩa, câu hỏi, ngữ pháp, đề viết)', where: 'Job nền', requests: '1' },
       { feature: 'Luyện tập từ vựng', where: 'Job nền', requests: '1' },
+      {
+        feature: 'Nghĩa trong bài của mọi từ (popup tra từ)',
+        where: 'Job nền; bài cũ được bổ sung khi khởi động server',
+        requests: '1',
+      },
       { feature: 'Ảnh từ vựng (nếu bài bật ảnh)', where: 'Job nền', requests: '1 mỗi từ chưa có ảnh (≤ 30)', paid: true },
     ],
   },

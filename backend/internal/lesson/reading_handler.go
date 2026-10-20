@@ -89,6 +89,15 @@ type lookupJSON struct {
 	IPA      string        `json:"ipa"`
 	Meanings []meaningJSON `json:"meanings"`
 	Note     string        `json:"note"`
+	// Context is the meaning in this lesson, shown first; Others a few dictionary meanings after it.
+	Context *contextJSON  `json:"context,omitempty"`
+	Others  []meaningJSON `json:"others,omitempty"`
+}
+
+type contextJSON struct {
+	MeaningVi string `json:"meaningVi"`
+	Phrase    string `json:"phrase,omitempty"`
+	PhraseVi  string `json:"phraseVi,omitempty"`
 }
 
 func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
@@ -165,6 +174,12 @@ func toLookupJSON(res LookupResult) lookupJSON {
 	}
 	for i, m := range res.Meanings {
 		out.Meanings[i] = meaningJSON(m)
+	}
+	if c := res.Context; c != nil {
+		out.Context = &contextJSON{MeaningVi: c.MeaningVi, Phrase: c.Phrase, PhraseVi: c.PhraseVi}
+	}
+	for _, m := range res.Others {
+		out.Others = append(out.Others, meaningJSON(m))
 	}
 	return out
 }

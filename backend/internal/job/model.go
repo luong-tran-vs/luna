@@ -18,6 +18,8 @@ const (
 	TypePractice Type = "practice"
 	// TypeImages draws a picture for each vocabulary word of a lesson that has none (F23).
 	TypeImages Type = "images"
+	// TypeGlosses writes the meaning in context of every content word of a lesson (added 2026-10-20).
+	TypeGlosses Type = "glosses"
 )
 
 // Status is the lifecycle state of a job.

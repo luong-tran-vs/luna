@@ -104,9 +104,13 @@ export class WordPopup {
    * The meanings shown, one line per part of speech in order of first appearance: "Sự chạy." and
    * "Chuyến đi." (both nouns) give "danh từ Sự chạy; chuyến đi".
    */
-  protected readonly meaningLines = computed(() => {
+  protected readonly meaningLines = computed(() => this.linesOf(this.result()?.meanings ?? []));
+  /** The dictionary meanings after the meaning in the lesson, one line per part of speech. */
+  protected readonly otherLines = computed(() => this.linesOf(this.result()?.others ?? []));
+
+  private linesOf(meanings: readonly { pos: string; text: string }[]): { pos: string; text: string }[] {
     const lines: { pos: string; parts: string[] }[] = [];
-    for (const m of this.result()?.meanings.slice(0, MAX_MEANINGS) ?? []) {
+    for (const m of meanings.slice(0, MAX_MEANINGS)) {
       const text = m.text.trim().replace(/[.;]+$/, '');
       if (!text) {
         continue;
@@ -120,7 +124,7 @@ export class WordPopup {
       }
     }
     return lines.map((l) => ({ pos: l.pos, text: l.parts.join('; ') }));
-  });
+  }
   protected readonly showLemma = computed(() => {
     const r = this.result();
     return !!r && r.lemma.toLowerCase() !== this.text().trim().toLowerCase();
