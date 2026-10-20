@@ -115,7 +115,7 @@ func TestBuildNewLearner(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "readingAnswers", "writings", "grammarProgress", "lessons"} {
+	for _, key := range []string{"cards", "reviewLogs", "goals", "lessonProgress", "studyDays", "dictationResults", "readingAnswers", "writings", "grammarProgress", "talkSessions", "lessons"} {
 		if !strings.Contains(string(out), `"`+key+`":[]`) {
 			t.Errorf("%s is not an empty list in %s", key, out)
 		}

@@ -37,6 +37,8 @@ type Export struct {
 	Lessons          []Doc          `json:"lessons"`
 	GrammarProgress  []Doc          `json:"grammarProgress"`
 	VerbProgress     []Doc          `json:"verbProgress"`
+	// TalkSessions are the conversations with the AI (added 2026-10-20).
+	TalkSessions []Doc `json:"talkSessions"`
 }
 
 // Collections a learner's documents are exported from. Nothing else (sessions, users) is ever
@@ -52,13 +54,14 @@ const (
 	CollWritings         = "writings"
 	CollGrammarProgress  = "grammar_progress"
 	CollVerbProgress     = "verb_progress"
+	CollTalkSessions     = "talk_sessions"
 )
 
 // Allowed reports whether collection may be read by UserDocs.
 func Allowed(collection string) bool {
 	switch collection {
 	case CollCards, CollReviewLogs, CollGoals, CollLessonProgress, CollStudyDays, CollDictationResults,
-		CollReadingAnswers, CollWritings, CollGrammarProgress, CollVerbProgress:
+		CollReadingAnswers, CollWritings, CollGrammarProgress, CollVerbProgress, CollTalkSessions:
 		return true
 	}
 	return false

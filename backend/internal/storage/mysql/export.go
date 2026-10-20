@@ -37,6 +37,7 @@ var exportOrder = map[string]string{
 	export.CollWritings:         "id",
 	export.CollGrammarProgress:  "point_id",
 	export.CollVerbProgress:     "base",
+	export.CollTalkSessions:     "created_at, id",
 }
 
 // exportBools are the TINYINT(1) columns that are flags; they are exported as true/false.
@@ -66,7 +67,24 @@ func (r *Export) UserDocs(ctx context.Context, collection, userID string) ([]exp
 	if !ok || !export.Allowed(collection) {
 		return nil, export.ErrCollection
 	}
-	return r.docs(ctx, "SELECT * FROM "+collection+" WHERE user_id = ? ORDER BY "+order, userID)
+	docs, err := r.docs(ctx, "SELECT * FROM "+collection+" WHERE user_id = ? ORDER BY "+order, userID)
+	if err == nil && collection == export.CollTalkSessions {
+		flattenBody(docs)
+	}
+	return docs, err
+}
+
+// flattenBody lifts the fields of a talk session's JSON body to the top of the document, the shape
+// the MongoDB export has.
+func flattenBody(docs []export.Doc) {
+	for _, d := range docs {
+		if body, ok := d["body"].(map[string]any); ok {
+			delete(d, "body")
+			for k, v := range body {
+				d[k] = v
+			}
+		}
+	}
 }
 
 // Lessons returns the lessons among ids that still exist.

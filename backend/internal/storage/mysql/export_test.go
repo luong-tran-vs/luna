@@ -28,8 +28,8 @@ func TestExportOrderCoversEveryAllowedTable(t *testing.T) {
 			t.Errorf("%s is ordered but not allowed", c)
 		}
 	}
-	if len(exportOrder) != 10 {
-		t.Errorf("exportOrder has %d tables, export.Allowed has 10", len(exportOrder))
+	if len(exportOrder) != 11 {
+		t.Errorf("exportOrder has %d tables, export.Allowed has 11", len(exportOrder))
 	}
 }
 
@@ -94,6 +94,7 @@ func TestExportAccountAndDocs(t *testing.T) {
 	for _, c := range []string{
 		export.CollReviewLogs, export.CollGoals, export.CollLessonProgress, export.CollStudyDays,
 		export.CollDictationResults, export.CollReadingAnswers, export.CollWritings, export.CollGrammarProgress,
+		export.CollVerbProgress, export.CollTalkSessions,
 	} {
 		got, err := r.UserDocs(ctx, c, u.ID)
 		if err != nil || got == nil || len(got) != 0 {
@@ -133,5 +134,15 @@ func TestExportLessonsAndFlags(t *testing.T) {
 	}
 	if none, err := r.Lessons(ctx, nil); err != nil || none == nil || len(none) != 0 {
 		t.Fatalf("Lessons(nil) = %v, %v", none, err)
+	}
+}
+
+func TestFlattenBody(t *testing.T) {
+	t.Parallel()
+	docs := []export.Doc{{"_id": "t1", "status": "ended", "body": map[string]any{"topicName": "Music", "turns": []any{}}}}
+	flattenBody(docs)
+	d := docs[0]
+	if _, has := d["body"]; has || d["topicName"] != "Music" || d["turns"] == nil || d["status"] != "ended" {
+		t.Fatalf("doc = %v", d)
 	}
 }

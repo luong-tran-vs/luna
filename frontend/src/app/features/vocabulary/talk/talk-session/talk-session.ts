@@ -127,6 +127,7 @@ export class TalkSessionPage {
         this.session.set(s);
         if (s.status === 'open') {
           this.readLast(s);
+          this.scrollDown();
         }
       },
       error: () => this.loadError.set(true),

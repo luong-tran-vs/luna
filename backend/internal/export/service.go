@@ -50,6 +50,7 @@ func (s *Service) Build(ctx context.Context, userID string) (Export, string, err
 		{CollWritings, &e.Writings},
 		{CollGrammarProgress, &e.GrammarProgress},
 		{CollVerbProgress, &e.VerbProgress},
+		{CollTalkSessions, &e.TalkSessions},
 	} {
 		docs, err := s.repo.UserDocs(ctx, part.collection, userID)
 		if err != nil {

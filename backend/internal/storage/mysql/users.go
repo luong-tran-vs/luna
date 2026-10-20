@@ -147,6 +147,7 @@ var userData = []string{
 	"sessions", export.CollCards, export.CollReviewLogs, export.CollGoals, export.CollLessonProgress,
 	export.CollStudyDays, export.CollDictationResults, export.CollReadingAnswers, export.CollWritings,
 	export.CollGrammarProgress, "ask_usage", "lesson_results", export.CollVerbProgress,
+	export.CollTalkSessions,
 }
 
 // Delete removes an account and its rows in one transaction.
