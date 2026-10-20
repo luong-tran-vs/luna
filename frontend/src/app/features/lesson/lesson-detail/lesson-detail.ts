@@ -420,6 +420,14 @@ export class LessonDetail {
       (key === 'read' || key === 'listen' || key === 'dialogue' || key === 'fill' || key === 'translate' || key === 'speak')
     );
   });
+  /** The words card fills the screen down to the bar, its picture taking the room left: no scroll, no gap. */
+  protected readonly fillScreen = computed(
+    () =>
+      this.shownTab() === 'lesson' &&
+      !this.overview() &&
+      this.onScreen() === 'words' &&
+      (!!this.extra() || (!this.lessonDone() && !this.finished())),
+  );
   /**
    * The bar's main button where the step has none of its own: start or go on from the overview,
    * leave a lesson step still to do for later (not the last one), or go on from a step done.

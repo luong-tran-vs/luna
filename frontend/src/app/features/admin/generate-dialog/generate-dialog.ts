@@ -29,7 +29,7 @@ import {
   MIN_WORDS,
   wordRange,
 } from '../../../core/models/generate';
-import { GrammarPoint, grammarOptionLabel } from '../../../core/models/grammar';
+import { GRAMMAR_AUTO, GrammarPoint, grammarOptionLabel } from '../../../core/models/grammar';
 import { Level, LEVELS } from '../../../core/models/lesson';
 import { TopicWord } from '../../../core/models/topic';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
@@ -143,7 +143,8 @@ export class GenerateDialog {
     ]),
     kind: new FormControl<LessonKind>('reading', { nonNullable: true }),
     idea: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(MAX_IDEA)] }),
-    grammarPointId: new FormControl('', { nonNullable: true }),
+    // 'auto' (added 2026-10-20): the AI builds each lesson around the course point that fits it.
+    grammarPointId: new FormControl(GRAMMAR_AUTO, { nonNullable: true }),
     images: new FormControl(false, { nonNullable: true }),
     imageStyle: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(MAX_IMAGE_STYLE)] }),
   });
@@ -166,6 +167,7 @@ export class GenerateDialog {
   protected readonly selectedGrammar = computed(
     () => this.grammarPoints().find((p) => p.id === this.value().grammarPointId) ?? null,
   );
+  protected readonly grammarAuto = computed(() => this.value().grammarPointId === GRAMMAR_AUTO);
   private grammarSub: Subscription | null = null;
 
   // --- F18: target words ---
@@ -266,7 +268,7 @@ export class GenerateDialog {
         return;
       }
       this.shownLevel = level;
-      this.form.patchValue({ words: DEFAULT_WORDS[level], perLesson: DEFAULT_TARGET_WORDS[level], grammarPointId: '' });
+      this.form.patchValue({ words: DEFAULT_WORDS[level], perLesson: DEFAULT_TARGET_WORDS[level], grammarPointId: GRAMMAR_AUTO });
       this.loadGrammar();
     });
     // switchMap drops a pending or running request when a newer one comes.
@@ -447,7 +449,7 @@ export class GenerateDialog {
       kind: v.kind,
       idea: v.idea.trim(),
       targetWords,
-      grammarPointId: this.grammarState() === 'idle' ? v.grammarPointId : '',
+      grammarPointId: this.grammarState() === 'idle' ? v.grammarPointId : GRAMMAR_AUTO,
       perLesson,
       images: v.images,
       imageStyle: v.imageStyle.trim(),

@@ -205,6 +205,8 @@ interface Options {
   overview?: boolean;
   /** Offer to review the lesson before (off by default: it adds a request to the others). */
   reviewOffer?: boolean;
+  /** Fields replacing those of the lesson. */
+  lesson?: Partial<ReadingLesson>;
 }
 
 describe('LessonDetail', () => {
@@ -291,7 +293,7 @@ describe('LessonDetail', () => {
     } else {
       studyReq.flush(options.study ?? other());
     }
-    http.expectOne(`/lessons/${id}`).flush({ lesson: { ...lesson, id } });
+    http.expectOne(`/lessons/${id}`).flush({ lesson: { ...lesson, ...options.lesson, id } });
     await fixture.whenStable();
     if (!options.overview && el.querySelector('#lesson-overview')) {
       nextButton()!.click();
@@ -355,6 +357,20 @@ describe('LessonDetail', () => {
         'Mục tiêu: Bạn có thể chào hỏi và giới thiệu bản thân.',
       );
       expect(text(el.querySelector('.level'))).toBe('Mức độ: Cơ bản');
+    });
+
+    // Added 2026-10-20.
+    it('shows the grammar point of the lesson with a link to study it', async () => {
+      await open({ lesson: { grammarPointId: 'a1-to-be', grammarPointTitle: 'Động từ to be' } });
+      await openInfo();
+      expect(text(el.querySelector('.lesson-grammar'))).toContain('Ngữ pháp của bài: Động từ to be');
+      expect(el.querySelector('.lesson-grammar a')?.getAttribute('href')).toBe('/grammar/a1-to-be');
+    });
+
+    it('hides the grammar point when the lesson has none', async () => {
+      await open();
+      await openInfo();
+      expect(el.querySelector('.lesson-grammar')).toBeNull();
     });
 
     it('hides the lesson number, objective and streak when they are missing', async () => {

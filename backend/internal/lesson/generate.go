@@ -37,9 +37,14 @@ type GenerateInput struct {
 	Idea  string
 	// TargetWords lists the topic words each lesson must use (F18): empty, or one group per lesson.
 	TargetWords [][]string
-	// GrammarPointID is an optional syllabus point of the topic's level that every draft must use.
+	// GrammarPointID is an optional syllabus point of the topic's level that every draft must use,
+	// or GrammarAuto to let the AI pick one point of the level for each draft.
 	GrammarPointID string
 }
+
+// GrammarAuto asks the AI to build each draft around the syllabus point of the level that fits it
+// best (added 2026-10-20).
+const GrammarAuto = "auto"
 
 // Draft is a generated lesson that passed the checks; it is never stored.
 type Draft struct {
@@ -49,7 +54,7 @@ type Draft struct {
 	// TargetWords are the words asked for this draft; MissingWords those its content lacks (F18).
 	TargetWords  []string
 	MissingWords []string
-	// GrammarPointID repeats the point asked for, "" when none.
+	// GrammarPointID is the point asked for, or the one the AI picked with GrammarAuto; "" when none.
 	GrammarPointID string
 	// index is the position of the draft in the AI answer, which matches its target group.
 	index int
@@ -115,8 +120,11 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	if err != nil {
 		return GenerateResult{}, err
 	}
-	if err := checkGrammarPoint(in.GrammarPointID, in.Level); err != nil {
-		return GenerateResult{}, err
+	auto := in.GrammarPointID == GrammarAuto
+	if !auto {
+		if err := checkGrammarPoint(in.GrammarPointID, in.Level); err != nil {
+			return GenerateResult{}, err
+		}
 	}
 	targets, err := cleanTargets(in.TargetWords, in.Count, topic.Words, in.Level)
 	if err != nil {
@@ -131,6 +139,13 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 		titles[i] = l.Title
 	}
 
+	var choices []ai.GrammarChoice
+	if auto {
+		if choices, err = s.grammarChoices(ctx, in.Level, topic.ID); err != nil {
+			return GenerateResult{}, err
+		}
+	}
+
 	timeout := s.GenerateTimeout
 	if timeout == 0 {
 		timeout = generateTimeout
@@ -140,12 +155,17 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	drafts, err := s.AI.GenerateLessons(actx, ai.GenerateRequest{
 		Level: string(in.Level), TopicName: topic.Name, Count: in.Count, Words: in.Words,
 		Kind: ai.LessonKind(in.Kind), Idea: in.Idea, ExistingTitles: titles, TargetWords: targets,
-		GrammarFocus: grammarFocus(in.GrammarPointID),
+		GrammarFocus: grammarFocus(in.GrammarPointID), GrammarChoices: choices,
 	})
 	if err != nil {
 		return GenerateResult{}, fmt.Errorf("%w: %w", errGenerateAI, err)
 	}
 
+	if ai.LessonKind(in.Kind) == ai.KindDialogue {
+		for i := range drafts {
+			drafts[i].Content = SplitDialogueLines(drafts[i].Content)
+		}
+	}
 	out := filterDrafts(drafts, titles, in.Count)
 	if len(out.Drafts) == 0 {
 		return GenerateResult{}, ErrUnusableDraft
@@ -153,6 +173,14 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	markTargets(out.Drafts, targets)
 	for i := range out.Drafts {
 		out.Drafts[i].GrammarPointID = in.GrammarPointID
+		if auto {
+			// A point the AI made up, or of another level, is dropped: the admin can pick one later.
+			id := strings.TrimSpace(drafts[out.Drafts[i].index].GrammarPointID)
+			if id == "" || checkGrammarPoint(id, in.Level) != nil {
+				id = ""
+			}
+			out.Drafts[i].GrammarPointID = id
+		}
 	}
 	return out, nil
 }

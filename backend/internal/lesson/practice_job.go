@@ -23,6 +23,7 @@ func (s *Service) ProcessPractice(ctx context.Context, j job.Job) error {
 	words := practiceWords(l)
 	res, err := s.AI.Practice(ctx, ai.PracticeRequest{
 		Level: string(l.Level), Title: l.Title, Sentences: sentenceTexts(l.Sentences), Words: words,
+		GrammarFocus: grammarFocus(l.GrammarPointID),
 	})
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) {

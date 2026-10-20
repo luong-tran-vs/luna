@@ -58,6 +58,8 @@ type readingJSON struct {
 	GrammarNote *grammarNoteJSON  `json:"grammarNote"`
 
 	GrammarPointID string `json:"grammarPointId"`
+	// GrammarPointTitle is the Vietnamese title of the point, shown at the top of the lesson (added 2026-10-20).
+	GrammarPointTitle string `json:"grammarPointTitle,omitempty"`
 	// Turns is set for a dialogue lesson: one entry per "Name: text" line.
 	Turns []textTurnJSON `json:"turns"`
 	// SentenceTranslations: the Vietnamese of each sentence, shown on a long press; [] when none.
@@ -112,6 +114,7 @@ func (h *ReadingHandler) view(w http.ResponseWriter, r *http.Request) {
 		Sentences:  make([]sentenceJSON, len(v.Sentences)),
 		Paragraphs: v.Paragraphs, Lemmas: v.Lemmas,
 		Phrases: make([]phraseJSON, len(v.Phrases)), GrammarPointID: v.GrammarPointID,
+		GrammarPointTitle:    GrammarTitle(v.GrammarPointID),
 		SentenceTranslations: v.SentenceTranslations,
 	}
 	if out.SentenceTranslations == nil {

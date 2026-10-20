@@ -528,7 +528,7 @@ describe('Roadmap', () => {
       await submitDialog();
       const req = http.expectOne(generateUrl);
       expect(req.request.method).toBe('POST');
-      expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '', level: 'A1', targetWords: [], grammarPointId: '' });
+      expect(req.request.body).toEqual({ count: 3, words: 120, kind: 'reading', idea: '', level: 'A1', targetWords: [], grammarPointId: 'auto' });
       expect(text(button('Đang sinh…', dialog()))).toBe('Đang sinh…');
 
       req.flush({
@@ -602,7 +602,7 @@ describe('Roadmap', () => {
     it('generates with the chosen grammar point and saves drafts with it', async () => {
       await openDialog([], [gpoint('g1', 2), gpoint('g2', 0), gpoint('g3', 0)]);
       const select = dialog().querySelector<HTMLSelectElement>('#generate-grammar')!;
-      expect(select.value).toBe('');
+      expect(select.value).toBe('auto');
       select.value = 'g2';
       select.dispatchEvent(new Event('change'));
       await settle();

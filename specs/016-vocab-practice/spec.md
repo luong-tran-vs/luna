@@ -231,6 +231,11 @@ sinh", sau ít phút "Xong" và xem được nội dung.
 
 - **FR-023**: Trang chi tiết bài quản trị MUST hiện trạng thái và nội dung phần luyện tập, và nút Tạo lại phần luyện tập (khoá khi bài
   chưa chú thích xong hoặc đang sinh). Tạo lại MUST tốn đúng 1 yêu cầu AI.
+- **FR-024** *(thêm 2026-10-20, đợt 4 đánh giá chuyên gia ngôn ngữ)*: Hội thoại mẫu MUST là cuộc trò chuyện hỏi – đáp thật về chủ đề của bài, như người học sẽ nói ngoài đời. Ví dụ bài về bài hát yêu thích: "What is your favorite song?" / "My favorite song is…".
+  - Hai người đều đặt câu hỏi (Yes/No và câu hỏi có từ để hỏi), ít nhất 3 lượt là câu hỏi.
+  - Hội thoại dùng cụm từ và mẫu câu của bài nhưng không chép lần lượt các câu của bài.
+  - Bài có điểm ngữ pháp thì hội thoại dùng điểm đó trong nhiều câu hỏi và câu trả lời.
+  - Chỉ đổi prompt, vẫn một yêu cầu AI. Bài cũ giữ hội thoại cũ cho tới khi quản trị viên bấm Tạo lại phần luyện tập.
 
 ### Key Entities
 

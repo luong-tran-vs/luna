@@ -98,8 +98,9 @@ var generateSchema = map[string]any{
 	"items": map[string]any{
 		"type": "OBJECT",
 		"properties": map[string]any{
-			"title":   map[string]any{"type": "STRING"},
-			"content": map[string]any{"type": "STRING"},
+			"title":          map[string]any{"type": "STRING"},
+			"content":        map[string]any{"type": "STRING"},
+			"grammarPointId": map[string]any{"type": "STRING"},
 		},
 		"required": []string{"title", "content"},
 	},
@@ -502,6 +503,10 @@ and each lesson must tell a different story or situation.
 		b.WriteString(`Form: a dialogue between two or three people with first names.
 Write one turn per line in the form "Name: what they say". No empty lines, no narration,
 no stage directions.
+Make it a real exchange: the speakers ask each other questions (Yes/No questions and questions with
+what, where, when, who, how...) and answer them, react ("Really?", "Me too!", "That sounds fun.") and
+ask follow-up questions; at least a third of the turns are questions. Do not let one speaker tell a
+story line after line.
 `)
 	} else {
 		b.WriteString("Form: a reading text in plain paragraphs (no dialogue lines).\n")
@@ -514,6 +519,16 @@ no stage directions.
 			"sentences: %s (%s). Pattern: %s.\n", g.TitleEn, g.TitleVi, g.Pattern)
 		if g.Example != "" {
 			fmt.Fprintf(&b, "Example: %s\n", g.Example)
+		}
+		fmt.Fprintf(&b, "The rest of the grammar stays at CEFR %s.\n", req.Level)
+	} else if len(req.GrammarChoices) > 0 {
+		// Added 2026-10-20: every lesson is built around one point of the course.
+		b.WriteString("Grammar focus: build each lesson around one grammar point from the list below, the one that fits its story best, " +
+			"and use that point clearly, at least 3 times, in natural sentences. Prefer points near the top of the list " +
+			"(fewer lessons use them), and give different lessons different points when they fit. " +
+			"Return the id of the chosen point in grammarPointId, copied exactly.\n")
+		for _, g := range req.GrammarChoices {
+			fmt.Fprintf(&b, "- %s: %s (%s)\n", g.ID, g.TitleEn, g.Pattern)
 		}
 		fmt.Fprintf(&b, "The rest of the grammar stays at CEFR %s.\n", req.Level)
 	}
@@ -574,6 +589,15 @@ Sentence: %s
 `, req.Level, req.Text, req.Sentence)
 }
 
+// practiceGrammar asks the dialogue to use the lesson's grammar point; empty without one.
+func practiceGrammar(req ai.PracticeRequest) string {
+	g := req.GrammarFocus
+	if g == nil {
+		return ""
+	}
+	return fmt.Sprintf("- The lesson teaches %s (%s): use it in several questions and answers of the dialogue.\n", g.TitleEn, g.Pattern)
+}
+
 func practicePrompt(req ai.PracticeRequest) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, `You write vocabulary practice for Vietnamese learners of English at CEFR level %[1]s.
@@ -586,13 +610,17 @@ Return a JSON object with:
 exactly as written in its "text" or "lemma" column. Return the item's lemma with each sentence, and
 meaningVi: a natural Vietnamese translation of the sentence.
 
-3. dialogue: a natural conversation between two people. It must stay on the lesson text: the same
-situation, the same kind of people, and the lesson's own phrases and sentence patterns (reuse or lightly
-rewrite lesson sentences), not a new unrelated scene.
+3. dialogue: a natural conversation in which two people talk about the lesson's subject, the way the
+learner could talk about it in real life (for example, a lesson about a favourite song gives
+"What kind of music do you like?" / "I like pop. I listen to it every day."). Stay on the lesson's
+situation and use its phrases and sentence patterns, but do not copy the lesson sentences one after
+another: turn them into questions and answers.
 - speakers: exactly two first names, one Vietnamese and one English (e.g. "Minh", "Anna"),
 - turns: 6 to 10 turns that alternate between the speakers; speaker is 0 or 1 (index in speakers),
   text is the English line, meaningVi its Vietnamese translation.
-Use as many vocabulary items as possible, each written exactly as in the list.
+- Both speakers ask questions (Yes/No questions and questions with what, where, when, who, how...) and
+  the other answers them; at least 3 turns are questions. Short reactions ("Really?", "Me too!") are welcome.
+%[3]sUse as many vocabulary items as possible, each written exactly as in the list.
 
 4. grammarTipVi: one or two Vietnamese sentences about one useful way of saying something in the dialogue.
 
@@ -603,7 +631,7 @@ but could tempt the learner.
 Plain text only, no markdown.
 
 Lesson sentences:
-`, req.Level, req.Title)
+`, req.Level, req.Title, practiceGrammar(req))
 	for i, s := range req.Sentences {
 		fmt.Fprintf(&b, "%d: %s\n", i, s)
 	}

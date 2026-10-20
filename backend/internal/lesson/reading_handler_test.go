@@ -132,10 +132,12 @@ func TestReadingLessonEndpointReturnsTheGrammarPoint(t *testing.T) {
 	mux := http.NewServeMux()
 	NewReadingHandler(r, slog.New(slog.DiscardHandler)).Register(mux, httpx.RequireAuth(resolver), allowAll)
 
-	if body := get(t, mux, "/api/lessons/"+with.ID, "learner").Body.String(); !strings.Contains(body, `"grammarPointId":"a1-to-be"`) {
+	if body := get(t, mux, "/api/lessons/"+with.ID, "learner").Body.String(); !strings.Contains(body, `"grammarPointId":"a1-to-be"`) ||
+		!strings.Contains(body, `"grammarPointTitle":"Động từ to be (am / is / are)"`) {
 		t.Errorf("body = %s", body)
 	}
-	if body := get(t, mux, "/api/lessons/"+without.ID, "learner").Body.String(); !strings.Contains(body, `"grammarPointId":""`) {
+	if body := get(t, mux, "/api/lessons/"+without.ID, "learner").Body.String(); !strings.Contains(body, `"grammarPointId":""`) ||
+		strings.Contains(body, "grammarPointTitle") {
 		t.Errorf("body = %s", body)
 	}
 }

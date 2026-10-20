@@ -158,6 +158,12 @@ các lựa chọn vẫn còn. Bấm sang trang khác: được hỏi xác nhận
 - **FR-019**: Hộp sinh bài và danh sách bản nháp MUST dùng được ở chiều rộng 360px không cuộn ngang, thao tác được chỉ bằng bàn phím,
   và các trạng thái (đang sinh, lỗi, đã lưu) được thông báo cho trình đọc màn hình.
 - **FR-020**: Mỗi lượt sinh MUST tốn một yêu cầu AI cho cả lượt, không phải một yêu cầu cho mỗi bài.
+- **FR-021** *(thêm 2026-10-20, đợt 4 đánh giá chuyên gia ngôn ngữ)*: Ô Điểm ngữ pháp trong hộp sinh bài MUST mặc định là "AI chọn điểm hợp với từng bài (khuyên dùng)" (`grammarPointId: "auto"`).
+  - Prompt nhận danh sách điểm của trình độ, xếp trước những điểm ít bài trong chủ đề dùng nhất, sau đó tới những điểm ít bài dùng nhất trên toàn app.
+  - AI xây mỗi bài quanh một điểm, dùng điểm đó ít nhất 3 lần, và trả mã điểm cho từng bài. Mã không có trong giáo trình hoặc khác trình độ thì bỏ (bài không gắn điểm).
+  - Hai lựa chọn khác vẫn giữ: chọn hẳn một điểm cho cả lượt, hoặc "Không gắn điểm ngữ pháp".
+  - Người học thấy dòng "Ngữ pháp của bài: <tên điểm>" kèm link "Học kỹ điểm này" (`/grammar/{id}`) ở phần tổng quan bài (nút "i"); thẻ ghi chú ngữ pháp ở tab Bài đọc cũng có link này. `GET /api/lessons/{id}` trả thêm `grammarPointTitle`.
+- **FR-022** *(thêm 2026-10-20)*: Bài dạng hội thoại MUST có lượt hỏi – đáp thật: hai người hỏi nhau (Yes/No và câu hỏi có từ để hỏi), trả lời, phản ứng và hỏi tiếp; ít nhất một phần ba số lượt là câu hỏi. AI đôi khi trả cả hội thoại trên một dòng; khi đó backend tự tách mỗi "Tên:" đứng sau dấu kết câu sang dòng mới, để bài vẫn được nhận là hội thoại.
 
 ### Key Entities
 

@@ -55,6 +55,7 @@ export function highlight(sentence: string, forms: string[]): Example {
   imports: [Icon, SpeakButton],
   templateUrl: './vocab-step.html',
   styleUrls: ['../practice.css', './vocab-step.css'],
+  host: { '[class.has-picture]': 'showImage()' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VocabStep {

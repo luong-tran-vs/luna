@@ -24,6 +24,7 @@ import {
   GenerateInput,
   GenerateResult,
 } from '../../../core/models/generate';
+import { GRAMMAR_AUTO } from '../../../core/models/grammar';
 import { Level, LEVELS, LessonSummary } from '../../../core/models/lesson';
 import { lowRoadmaps, roadmapLabel, sortTopics, Topic, TopicLevel, TopicRoadmap, TopicWord } from '../../../core/models/topic';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
@@ -637,7 +638,8 @@ export class Roadmap implements CanLeave {
           content: d.content,
           targetWords: d.targetWords ?? [],
           missingWords: d.missingWords ?? [],
-          grammarPointId: d.grammarPointId ?? input.grammarPointId ?? '',
+          // With 'auto' the server tells the point it picked; never save 'auto' itself.
+          grammarPointId: d.grammarPointId ?? (input.grammarPointId === GRAMMAR_AUTO ? '' : (input.grammarPointId ?? '')),
           targetLength: input.words,
           images: images ? { enabled: true, style: imageStyle } : null,
           saving: false,

@@ -76,12 +76,24 @@ type GenerateRequest struct {
 	TargetWords [][]string
 	// GrammarFocus is the grammar point every lesson must use clearly; nil means no requirement.
 	GrammarFocus *GrammarFocus
+	// GrammarChoices are the syllabus points the AI picks one from for each lesson (added
+	// 2026-10-20), the least used first; ignored with GrammarFocus.
+	GrammarChoices []GrammarChoice
+}
+
+// GrammarChoice is a syllabus point a generated lesson may be built around.
+type GrammarChoice struct {
+	ID      string
+	TitleEn string
+	Pattern string
 }
 
 // LessonDraft is a generated lesson as returned by a provider, before any checks.
 type LessonDraft struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
+	// GrammarPointID is the point picked from GrammarChoices; empty otherwise.
+	GrammarPointID string `json:"grammarPointId,omitempty"`
 }
 
 // Provider is the AI used by lessons.
@@ -199,6 +211,9 @@ type PracticeRequest struct {
 	Title     string
 	Sentences []string
 	Words     []PracticeWord
+	// GrammarFocus is the lesson's grammar point, used in the dialogue's questions and answers
+	// (added 2026-10-20); nil when the lesson has none.
+	GrammarFocus *GrammarFocus
 }
 
 // Example is an English example sentence for one vocabulary word.

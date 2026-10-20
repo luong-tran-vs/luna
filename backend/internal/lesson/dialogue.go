@@ -56,3 +56,13 @@ func DialogueTurns(content string, sentences []Sentence) []TextTurn {
 	}
 	return turns
 }
+
+// inlineSpeaker is a "Name:" that starts a new turn on the same line as the previous one, after
+// the end of a sentence.
+var inlineSpeaker = regexp.MustCompile(`([.!?]["”']?)[ \t]+(\p{Lu}[\p{L}'.-]*(?: \p{Lu}[\p{L}'.-]*){0,2}):[ \t]+`)
+
+// SplitDialogueLines puts every turn of a generated dialogue on its own line (fixed 2026-10-20: the
+// AI sometimes returns the whole dialogue on one line, which then reads as plain text).
+func SplitDialogueLines(content string) string {
+	return inlineSpeaker.ReplaceAllString(content, "$1\n$2: ")
+}

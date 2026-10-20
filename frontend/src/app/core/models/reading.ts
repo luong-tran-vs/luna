@@ -20,6 +20,8 @@ export interface ReadingLesson {
   grammarNote: GrammarNote | null;
   /** The grammar point of the lesson (F20); '' or missing when none is assigned. */
   grammarPointId?: string;
+  /** Its Vietnamese title, shown at the top of the lesson (added 2026-10-20). */
+  grammarPointTitle?: string;
   /** A dialogue lesson as its "Name: text" lines; null (or missing) for a reading text. */
   turns?: TextTurn[] | null;
   /** The Vietnamese translation of each sentence, by index; empty when the lesson has none yet. */

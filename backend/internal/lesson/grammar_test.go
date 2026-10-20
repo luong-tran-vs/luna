@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/job"
 )
 
@@ -243,5 +244,44 @@ func TestUpdateEndpointGrammarPointAbsentEmptyOrSet(t *testing.T) {
 	}
 	if got := point(withPoint(`""`)); got != "" {
 		t.Fatalf("empty string should clear it, got %v", got)
+	}
+}
+
+// Added 2026-10-20: "auto" lets the AI build each draft around a point of the level.
+func TestGenerateAutoPicksAPointPerDraft(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	e.create(t, func(in *Input) { in.TopicID, in.Level = "topic-a1", "A1"; in.GrammarPointID = "a1-to-be" })
+	e.ai.drafts = []ai.LessonDraft{
+		{Title: "Sunday Lunch", Content: text(100), GrammarPointID: " a1-like-love-ing "},
+		{Title: "My Room", Content: text(100), GrammarPointID: "a1-made-up"}, // not in the syllabus
+		{Title: "At Work", Content: text(100), GrammarPointID: "b1-passive"}, // another level
+	}
+	in := validGenerate()
+	in.GrammarPointID = GrammarAuto
+	res, err := e.svc.Generate(t.Context(), "topic-a1", in)
+	if err != nil {
+		t.Fatal(err)
+	}
+	req, _ := e.ai.lastRequest()
+	if req.GrammarFocus != nil || len(req.GrammarChoices) != len(grammar.Default().ByLevel("A1")) {
+		t.Fatalf("request focus %+v, %d choices", req.GrammarFocus, len(req.GrammarChoices))
+	}
+	// The point the topic already uses comes last.
+	if last := req.GrammarChoices[len(req.GrammarChoices)-1]; last.ID != "a1-to-be" || req.GrammarChoices[0].ID != "a1-pronouns" {
+		t.Errorf("choices order: first %s, last %s", req.GrammarChoices[0].ID, last.ID)
+	}
+	got := []string{res.Drafts[0].GrammarPointID, res.Drafts[1].GrammarPointID, res.Drafts[2].GrammarPointID}
+	if got[0] != "a1-like-love-ing" || got[1] != "" || got[2] != "" {
+		t.Errorf("draft points = %q", got)
+	}
+
+	// A chosen point sends no choices.
+	in.GrammarPointID = "a1-can"
+	if _, err := e.svc.Generate(t.Context(), "topic-a1", in); err != nil {
+		t.Fatal(err)
+	}
+	if req, _ = e.ai.lastRequest(); req.GrammarChoices != nil || req.GrammarFocus == nil {
+		t.Errorf("chosen point request = %+v", req)
 	}
 }

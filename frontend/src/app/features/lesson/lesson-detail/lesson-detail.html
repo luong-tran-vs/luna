@@ -1,4 +1,8 @@
-<section class="screen practice-page" [class.has-next]="lesson() && (showBar() || ownBar())">
+<section
+  class="screen practice-page"
+  [class.has-next]="lesson() && (showBar() || ownBar())"
+  [class.fill-screen]="fillScreen()"
+>
   @if (loadError(); as message) {
     <header class="screen-bar">
       <a class="round-btn" [routerLink]="backLink()" aria-label="Quay lại danh sách bài"
@@ -99,6 +103,13 @@
             <p class="muted estimate">{{ estimate() }}</p>
             @if (practice()?.objectiveVi; as objective) {
               <p class="objective"><span class="objective-label">Mục tiêu:</span> {{ objective }}</p>
+            }
+            <!-- Added 2026-10-20: the grammar point the lesson is built around, studied on the Ngữ pháp page. -->
+            @if (l.grammarPointId && l.grammarPointTitle) {
+              <p class="lesson-grammar">
+                <span class="objective-label">Ngữ pháp của bài:</span> {{ l.grammarPointTitle }}
+                <a class="grammar-link" [routerLink]="['/grammar', l.grammarPointId]">Học kỹ điểm này <lu-icon name="arrow-right" /></a>
+              </p>
             }
             <span class="tag level">Mức độ: {{ level() }}</span>
             <ol class="info-steps" aria-label="Các bước">
@@ -423,6 +434,9 @@
                 <li>{{ e }}</li>
               }
             </ul>
+          }
+          @if (l.grammarPointId) {
+            <a class="grammar-link" [routerLink]="['/grammar', l.grammarPointId]">Học kỹ điểm này <lu-icon name="arrow-right" /></a>
           }
         </section>
       }

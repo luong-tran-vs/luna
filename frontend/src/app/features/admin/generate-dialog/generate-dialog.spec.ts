@@ -116,7 +116,7 @@ describe('GenerateDialog', () => {
         kind: 'dialogue',
         idea: 'một bữa tiệc',
         targetWords: [],
-        grammarPointId: '',
+        grammarPointId: 'auto',
         perLesson: 8,
         images: false,
         imageStyle: 'flat illustration',
@@ -221,17 +221,18 @@ describe('GenerateDialog', () => {
       await settle();
     };
 
-    it('defaults to AI tự chọn, and shows the hint of a point once chosen', async () => {
+    // Changed 2026-10-20: the default lets the AI pick a course point for each lesson.
+    it('defaults to a point picked by the AI, and shows the hint of a point once chosen', async () => {
       await reopen();
       await respond([point('g1', 2), point('g2', 1), point('g3', 1)]);
-      expect(select()!.value).toBe('');
-      expect(el.querySelector('#generate-grammar-hint')!.textContent).toContain('AI tự chọn');
+      expect(select()!.value).toBe('auto');
+      expect(el.querySelector('#generate-grammar-hint')!.textContent).toContain('ưu tiên điểm chưa có bài');
       select()!.value = 'g2';
       select()!.dispatchEvent(new Event('change'));
       await settle();
       expect(el.querySelector('label[for="generate-grammar"]')?.textContent).toContain('Điểm ngữ pháp');
       expect(Array.from(select()!.options).map((o) => o.textContent?.trim())).toEqual([
-        'AI tự chọn', 'Điểm g1 (2 bài)', 'Điểm g2 (1 bài)', 'Điểm g3 (1 bài)',
+        'AI chọn điểm hợp với từng bài (khuyên dùng)', 'Không gắn điểm ngữ pháp', 'Điểm g1 (2 bài)', 'Điểm g2 (1 bài)', 'Điểm g3 (1 bài)',
       ]);
       const hint = el.querySelector('#generate-grammar-hint')!.textContent!;
       expect(hint).toContain('mẫu g2');
@@ -240,16 +241,21 @@ describe('GenerateDialog', () => {
       expect(select()!.getAttribute('aria-describedby')).toBe('generate-grammar-hint');
     });
 
-    it('emits the chosen point, or an empty one for AI tự chọn', async () => {
+    it('emits auto, the chosen point, or none', async () => {
       await reopen();
       await respond([point('g1', 0), point('g2', 1)]);
       await submit();
-      expect(emitted[0].grammarPointId).toBe('');
+      expect(emitted[0].grammarPointId).toBe('auto');
       select()!.value = 'g1';
       select()!.dispatchEvent(new Event('change'));
       await settle();
       await submit();
       expect(emitted[1].grammarPointId).toBe('g1');
+      select()!.value = '';
+      select()!.dispatchEvent(new Event('change'));
+      await settle();
+      await submit();
+      expect(emitted[2].grammarPointId).toBe('');
     });
 
     it('still generates when the list cannot be loaded', async () => {
@@ -257,10 +263,10 @@ describe('GenerateDialog', () => {
       http.expectOne((r) => r.url === grammarUrl).flush({}, { status: 500, statusText: 'Error' });
       await settle();
       expect(select()).toBeNull();
-      expect(el.textContent).toContain('Không tải được điểm ngữ pháp');
+      expect(el.textContent).toContain('Không tải được danh sách điểm ngữ pháp');
       await submit();
       expect(emitted.length).toBe(1);
-      expect(emitted[0].grammarPointId).toBe('');
+      expect(emitted[0].grammarPointId).toBe('auto');
     });
   });
 

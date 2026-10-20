@@ -2,6 +2,7 @@ package lesson
 
 import (
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -51,5 +52,18 @@ func TestDialogueTurnsNeedTheSavedSentences(t *testing.T) {
 	// Sentences that no longer match the content (edited elsewhere) give no turns.
 	if got := DialogueTurns(content, toSentences([]string{"Minh: Hello.", "Anna: Hey."})); got != nil {
 		t.Fatalf("turns = %+v", got)
+	}
+}
+
+func TestSplitDialogueLines(t *testing.T) {
+	t.Parallel()
+	got := SplitDialogueLines("Anna: Hi Tom. What are you doing? Tom: I am listening to music. Mary Jane: Me too!\nTom: Great.")
+	want := "Anna: Hi Tom. What are you doing?\nTom: I am listening to music.\nMary Jane: Me too!\nTom: Great."
+	if got != want {
+		t.Fatalf("got %q", got)
+	}
+	// A colon inside a sentence is not a new turn.
+	if got := SplitDialogueLines("Anna: We need three things: milk, eggs and bread."); strings.Contains(got, "\n") {
+		t.Fatalf("got %q", got)
 	}
 }

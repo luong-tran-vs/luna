@@ -224,3 +224,29 @@ func TestGlossesPromptAsksForEveryContentWordInContext(t *testing.T) {
 		}
 	}
 }
+
+// Added 2026-10-20: the AI picks a point of the course for each lesson; dialogues ask and answer.
+func TestGeneratePromptLetsTheAIPickAPointAndDialoguesAskQuestions(t *testing.T) {
+	t.Parallel()
+	prompt := generatePrompt(ai.GenerateRequest{
+		Level: "A1", TopicName: "Music", Count: 2, Words: 100, Kind: ai.KindDialogue,
+		GrammarChoices: []ai.GrammarChoice{{ID: "a1-like-love-ing", TitleEn: "like + -ing", Pattern: "I like dancing"}},
+	})
+	for _, want := range []string{"- a1-like-love-ing: like + -ing (I like dancing)", "grammarPointId", "Prefer points near the top",
+		"at least a third of the turns are questions"} {
+		if !strings.Contains(prompt, want) {
+			t.Errorf("prompt missing %q", want)
+		}
+	}
+	practice := practicePrompt(ai.PracticeRequest{Level: "A1", Title: "My Favorite Song",
+		GrammarFocus: &ai.GrammarFocus{TitleEn: "like + -ing", Pattern: "I like dancing"}})
+	for _, want := range []string{"do not copy the lesson sentences", "at least 3 turns are questions",
+		"The lesson teaches like + -ing (I like dancing)"} {
+		if !strings.Contains(practice, want) {
+			t.Errorf("practice prompt missing %q", want)
+		}
+	}
+	if strings.Contains(practicePrompt(ai.PracticeRequest{Level: "A1"}), "The lesson teaches") {
+		t.Error("no point, no grammar line")
+	}
+}

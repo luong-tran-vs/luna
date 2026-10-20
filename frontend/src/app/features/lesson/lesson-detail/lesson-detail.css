@@ -10,6 +10,30 @@
   padding-bottom: calc(48px + 2 * var(--space-3) + var(--space-6));
 }
 
+/*
+ * The words step, on a word with a picture: the page is as tall as the screen and the step
+ * stretches down to the bar, so the card can give its picture whatever room is left
+ * (vocab-step.css). A word without one keeps the page as it is.
+ */
+.practice-page.fill-screen:has(lu-vocab-step.has-picture) {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - var(--tabbar-h, 0px));
+}
+
+.practice-page.fill-screen:has(lu-vocab-step.has-picture) > #panel-lesson {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* From 1024px the app's top bar (60px) sits above the page. */
+@media (min-width: 1024px) {
+  .practice-page.fill-screen:has(lu-vocab-step.has-picture) {
+    min-height: calc(100dvh - 60px);
+  }
+}
+
 .top-bar {
   display: flex;
   align-items: center;
@@ -163,6 +187,23 @@
 
 .objective {
   font: var(--text-sm) var(--font-ui);
+}
+
+.lesson-grammar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.grammar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--color-primary-ink);
 }
 
 .objective-label {

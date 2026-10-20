@@ -3,6 +3,7 @@ package lesson
 import (
 	"context"
 	"fmt"
+	"slices"
 
 	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/grammar"
@@ -40,6 +41,31 @@ func grammarFocus(id string) *ai.GrammarFocus {
 		f.Example = p.Examples[0]
 	}
 	return f
+}
+
+// grammarChoices lists the points of level for the AI to pick from: first those fewest lessons of
+// the topic use, then those fewest lessons overall use, in teaching order otherwise.
+func (s *Service) grammarChoices(ctx context.Context, level Level, topicID string) ([]ai.GrammarChoice, error) {
+	inTopic, err := s.Lessons.CountByGrammarPoint(ctx, topicID)
+	if err != nil {
+		return nil, fmt.Errorf("lesson: count grammar points: %w", err)
+	}
+	overall, err := s.Lessons.CountByGrammarPoint(ctx, "")
+	if err != nil {
+		return nil, fmt.Errorf("lesson: count grammar points: %w", err)
+	}
+	points := grammar.Default().ByLevel(string(level))
+	slices.SortStableFunc(points, func(a, b grammar.Point) int {
+		if d := inTopic[a.ID] - inTopic[b.ID]; d != 0 {
+			return d
+		}
+		return overall[a.ID] - overall[b.ID]
+	})
+	out := make([]ai.GrammarChoice, len(points))
+	for i, p := range points {
+		out[i] = ai.GrammarChoice{ID: p.ID, TitleEn: p.TitleEn, Pattern: p.Pattern}
+	}
+	return out, nil
 }
 
 // GrammarPoint is a syllabus point with the number of lessons that use it.
