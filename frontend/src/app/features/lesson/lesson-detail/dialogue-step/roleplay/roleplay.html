@@ -1,0 +1,229 @@
+@if (role() === null) {
+  <div class="pick">
+    <p class="pick-title">Bạn muốn đóng vai ai?</p>
+    <p class="muted">
+      App đọc lời người kia. Tới lượt bạn, app hiện nghĩa tiếng Việt, bạn nói (hoặc gõ) câu đó bằng
+      tiếng Anh.
+    </p>
+    <div class="pick-buttons">
+      @for (name of dialogue().speakers; track $index; let s = $index) {
+        <button type="button" class="btn pick-role" (click)="start(s)">Vai {{ name }}</button>
+      }
+    </div>
+    <button type="button" class="btn-link" (click)="close()">Quay lại nghe hội thoại</button>
+  </div>
+} @else {
+  <div class="role-bar">
+    <span class="muted">
+      Bạn là <b>{{ speaker(role()!) }}</b>
+      @if (!over() && myTurn()) {
+        · Lượt {{ lineNumber() }}/{{ myLines().length }}
+      }
+    </span>
+    <button type="button" class="btn-link" (click)="changeRole()">Đổi vai</button>
+    <button type="button" class="btn-link" (click)="close()">Thoát</button>
+  </div>
+
+  <ol class="chat" aria-label="Đóng vai">
+    @for (s of shown(); track s.index) {
+      @let mine = s.turn.speaker === role();
+      @let a = answerOf(s.index);
+      <li class="chat-row" [class.right]="mine">
+        @if (!mine) {
+          <button
+            type="button"
+            class="bubble"
+            [class.playing]="reading() === s.index"
+            [attr.aria-label]="'Nghe lại: ' + s.turn.text"
+            [disabled]="!canSpeak"
+            (click)="listen(s.index)"
+          >
+            <span class="who">{{ speaker(s.turn.speaker) }}</span
+            >&ngsp; <span class="text" lang="en">{{ s.turn.text }}</span
+            >&ngsp;
+            <span class="meaning">{{ s.turn.meaningVi }}</span>
+          </button>
+        } @else {
+          <div
+            class="bubble mine"
+            [class.current]="s.index === step()"
+            [class.result-ok]="a && verdict(a) === 'ok'"
+            [class.result-close]="a && verdict(a) === 'close'"
+            [class.result-bad]="a && verdict(a) === 'bad'"
+          >
+            <span class="who">Bạn ({{ speaker(s.turn.speaker) }})</span>&ngsp;
+            <span class="say-this">Nói: “{{ s.turn.meaningVi }}”</span>&ngsp;
+            @if (a) {
+              <span class="verdict">
+                <lu-icon [name]="verdict(a) === 'ok' ? 'check' : 'x'" />
+                {{ verdictLabel(a) }}
+                <span class="score muted"
+                  >{{ a.comparison.correctWords }}/{{ a.comparison.totalWords }} từ đúng</span
+                >
+              </span>
+              <span class="result-words" lang="en">
+                @for (w of a.comparison.words; track $index) {
+                  @switch (w.status) {
+                    @case ('ok') {
+                      <span class="word ok">{{ w.word }}</span>
+                    }
+                    @case ('close') {
+                      <span class="word ok">{{ w.expected ?? w.word }}</span>
+                    }
+                    @case ('missing') {
+                      <span class="word missing"
+                        >{{ w.expected }}<span class="visually-hidden" lang="vi">bỏ sót</span></span
+                      >
+                    }
+                    @default {
+                      @if (w.expected) {
+                        <span class="word wrong"
+                          ><span class="said">{{ w.word }}</span
+                          ><span aria-hidden="true">
+                            → <b>{{ w.expected }}</b></span
+                          ><span class="visually-hidden" lang="vi"
+                            >{{ a.typed ? 'gõ' : 'nghe' }} thành {{ w.word }}, đúng là
+                            {{ w.expected }}</span
+                          ></span
+                        >
+                      } @else {
+                        <span class="word extra"
+                          ><span class="said">{{ w.word }}</span
+                          ><span class="visually-hidden" lang="vi">thừa</span></span
+                        >
+                      }
+                    }
+                  }
+                  {{ ' ' }}
+                }
+              </span>
+              <span class="answer-line">
+                Câu mẫu: <span lang="en">{{ s.turn.text }}</span>
+                @if (canSpeak) {
+                  <button
+                    type="button"
+                    class="icon-btn small"
+                    aria-label="Nghe câu mẫu"
+                    [disabled]="phase() !== 'idle'"
+                    (click)="listen(s.index)"
+                  >
+                    <lu-icon name="volume" />
+                  </button>
+                }
+              </span>
+            } @else if (s.index === step() && hints() > 0) {
+              <span class="hint" lang="en">{{ hint() }}</span>
+            } @else if (s.index !== step()) {
+              <span class="muted">(bỏ qua)</span>
+            }
+          </div>
+        }
+      </li>
+    }
+  </ol>
+
+  @if (over()) {
+    @let sum = summary();
+    <div class="summary" role="status">
+      <p class="summary-title">
+        <lu-icon name="trophy" /> Bạn nói đúng {{ sum.right }}/{{ sum.lines }} lượt
+      </p>
+      @if (sum.answered < sum.lines) {
+        <p class="muted">Bỏ qua {{ sum.lines - sum.answered }} lượt.</p>
+      }
+      @if (sum.missedWords.length > 0) {
+        <p>
+          Từ cần luyện thêm:
+          <span lang="en">{{ sum.missedWords.join(', ') }}</span>
+        </p>
+      }
+      <div class="actions">
+        <button type="button" class="btn" (click)="start(role()!)">Đóng vai lại</button>
+        <button type="button" class="btn" (click)="changeRole()">Đổi vai</button>
+      </div>
+    </div>
+  } @else if (myTurn()) {
+    <div class="controls">
+      @if (micAllowed) {
+        @switch (recognizer.state()) {
+          @case ('off') {
+            <button type="button" class="btn use-mic" (click)="loadRecognizer()">
+              <lu-icon name="mic" /> Dùng micro
+            </button>
+            <p class="muted small-note">
+              Lần đầu cần tải bộ nhận giọng nói (khoảng 60MB, chỉ tải một lần). Không muốn tải thì
+              gõ câu trả lời bên dưới.
+            </p>
+          }
+          @case ('ready') {
+            <button
+              type="button"
+              class="mic"
+              [class.recording]="phase() === 'recording'"
+              [attr.aria-label]="phase() === 'recording' ? 'Dừng ghi âm' : 'Ghi âm câu của bạn'"
+              [attr.aria-pressed]="phase() === 'recording'"
+              [disabled]="phase() !== 'recording' && !canRecordNow()"
+              (click)="toggleRecord()"
+            >
+              <lu-icon name="mic" />
+            </button>
+          }
+          @case ('error') {
+            <button type="button" class="btn" (click)="loadRecognizer()">
+              Tải lại bộ nhận giọng nói
+            </button>
+          }
+        }
+        @if (recognizer.state() !== 'off') {
+          <p class="status" role="status">
+            {{ micStatus() }}
+            @if (phase() === 'recording') {
+              <span class="muted">{{ elapsed().toFixed(0) }}/{{ maxSeconds }} giây</span>
+            }
+          </p>
+        }
+      }
+      @if (error(); as e) {
+        <p class="field-error" role="alert">{{ e }}</p>
+      }
+
+      <form class="type-row" (submit)="$event.preventDefault(); check()">
+        <label class="visually-hidden" for="roleplay-typed">Gõ câu của bạn bằng tiếng Anh</label>
+        <input
+          id="roleplay-typed"
+          class="input"
+          type="text"
+          lang="en"
+          autocomplete="off"
+          placeholder="Hoặc gõ câu của bạn..."
+          [value]="typed()"
+          [disabled]="phase() !== 'idle'"
+          (input)="onTyped($event)"
+        />
+        <button type="submit" class="btn" [disabled]="typed().trim() === '' || phase() !== 'idle'">
+          Kiểm tra
+        </button>
+      </form>
+
+      <div class="actions">
+        @if (!answer()) {
+          <button type="button" class="btn" [disabled]="!canHint()" (click)="showHint()">
+            <lu-icon name="sparkles" /> Gợi ý
+          </button>
+        }
+        <button
+          type="button"
+          [class]="answer() ? 'btn-primary' : 'btn'"
+          [disabled]="phase() !== 'idle'"
+          (click)="next()"
+        >
+          {{ answer() ? 'Lượt tiếp' : 'Bỏ qua' }}
+        </button>
+      </div>
+    </div>
+  } @else if (reading() === step()) {
+    <p class="status muted" role="status">
+      {{ speaker(dialogue().turns[step()].speaker) }} đang nói...
+    </p>
+  }
+}

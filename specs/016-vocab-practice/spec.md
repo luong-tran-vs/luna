@@ -236,6 +236,14 @@ sinh", sau ít phút "Xong" và xem được nội dung.
   - Hội thoại dùng cụm từ và mẫu câu của bài nhưng không chép lần lượt các câu của bài.
   - Bài có điểm ngữ pháp thì hội thoại dùng điểm đó trong nhiều câu hỏi và câu trả lời.
   - Chỉ đổi prompt, vẫn một yêu cầu AI. Bài cũ giữ hội thoại cũ cho tới khi quản trị viên bấm Tạo lại phần luyện tập.
+- **FR-025** *(thêm 2026-10-20, đợt 5 đánh giá chuyên gia ngôn ngữ, bước 1 của nhập vai)*: Màn Hội thoại MUST có nút **Đóng vai** để người học nói lời của một người trong hội thoại mẫu. Không dùng AI.
+  - Người học chọn vai (một trong hai tên người nói). App đọc lần lượt lời người kia, đọc xong thì tự sang lượt tiếp. Trình duyệt không có giọng đọc thì lời người kia hiện ngay.
+  - Tới lượt người học: hiện nghĩa tiếng Việt của câu, không hiện câu tiếng Anh và không đọc câu đó. Người học nói (ghi âm, nhận giọng nói ngay trên máy như bước Luyện nói) hoặc gõ câu trả lời.
+  - Câu trả lời được so với câu gốc theo từng từ như bước Luyện nói: Chính xác (đủ mọi từ), Gần đúng (từ một nửa số từ), Chưa đúng. Câu gõ được bỏ qua lỗi chính tả nhỏ, câu nói thì không. Sau khi chấm hiện câu mẫu và nút nghe câu mẫu.
+  - Nút **Gợi ý** hiện dần từng từ của câu (các từ chưa hiện là "___"). Người học có thể nói lại, hoặc bấm Bỏ qua để sang lượt tiếp.
+  - Bộ nhận giọng nói (khoảng 60MB) chỉ tải khi người học bấm **Dùng micro**, có ghi rõ dung lượng. Không có micro, trang không phải HTTPS hoặc không tải được bộ nhận giọng nói thì vẫn gõ được.
+  - Hết hội thoại: tổng kết số lượt nói đúng trên số lượt của vai, số lượt bỏ qua, các từ nói sai hoặc bỏ sót; có nút Đóng vai lại và Đổi vai. Nút Thoát quay về màn nghe hội thoại.
+  - Kết quả đóng vai chỉ nằm trên trang, không lưu, không ảnh hưởng tiến độ bài hay streak.
 
 ### Key Entities
 

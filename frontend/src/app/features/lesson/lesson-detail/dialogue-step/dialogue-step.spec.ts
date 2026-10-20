@@ -35,13 +35,16 @@ describe('DialogueStep', () => {
   let el: HTMLElement;
   let speech: FakeSpeech;
 
-  const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (node: Element | null | undefined) =>
+    node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const bubbles = () => Array.from(el.querySelectorAll<HTMLElement>('.bubble'));
   const rows = () => Array.from(el.querySelectorAll<HTMLElement>('.chat-row'));
   const current = () => bubbles().findIndex((b) => b.getAttribute('aria-current') === 'true');
   /** Percent of the bubble being read that is filled. */
-  const filled = () => parseFloat(el.querySelector<HTMLElement>('.bubble .read')?.style.width ?? '0');
-  const button = (label: string) => el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
+  const filled = () =>
+    parseFloat(el.querySelector<HTMLElement>('.bubble .read')?.style.width ?? '0');
+  const button = (label: string) =>
+    el.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
   const named = (label: string) =>
     Array.from(el.querySelectorAll<HTMLButtonElement>('button')).find((b) => text(b) === label)!;
   const wordsSwitch = () => el.querySelector<HTMLButtonElement>('.words-switch')!;
@@ -191,6 +194,23 @@ describe('DialogueStep', () => {
     expect(el.querySelector('.words-switch')).toBeNull();
     expect(el.querySelector('button.bubble')).toBeNull();
     expect(text(bubbles()[0])).toBe('Minh Hi, I am Minh. Chào, mình là Minh.');
+  });
+
+  it('swaps the chat for the role play and back (added 2026-10-20)', async () => {
+    await setup();
+    button('Nghe cả bài').click();
+    await stable();
+    speech.stops = 0;
+    named('Đóng vai').click();
+    await stable();
+    expect(speech.stops).toBe(1);
+    expect(el.querySelector('lu-roleplay')).not.toBeNull();
+    expect(el.querySelector('.playbar')).toBeNull();
+
+    named('Quay lại nghe hội thoại').click();
+    await stable();
+    expect(el.querySelector('lu-roleplay')).toBeNull();
+    expect(bubbles().length).toBe(3);
   });
 
   it('stops reading when it goes away', async () => {

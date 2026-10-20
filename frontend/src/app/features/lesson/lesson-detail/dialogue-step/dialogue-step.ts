@@ -16,6 +16,7 @@ import { SpeechService } from '../../../../core/services/speech.service';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { SpeakButton } from '../../../../shared/directives/speak-button';
 import { clock } from '../practice-logic';
+import { Roleplay } from './roleplay/roleplay';
 
 const SPEEDS = [0.75, 1, 1.25];
 
@@ -26,11 +27,12 @@ type Mode = 'idle' | 'all' | 'one';
  * speakers on either side. Tapping a bubble reads that turn; one button reads them all one after
  * another (a turn the browser fails to read is skipped), the bubble being read marked and filled as
  * it goes. The words start hidden so the learner listens first; two switches show the words and
- * the meanings. One speed button cycles 0.75x → 1x → 1.25x.
+ * the meanings. One speed button cycles 0.75x → 1x → 1.25x. Đóng vai (added 2026-10-20) swaps the
+ * chat for the role play, where the learner says one speaker's lines.
  */
 @Component({
   selector: 'lu-dialogue-step',
-  imports: [Icon, NgTemplateOutlet, SpeakButton],
+  imports: [Icon, NgTemplateOutlet, Roleplay, SpeakButton],
   templateUrl: './dialogue-step.html',
   styleUrls: ['../practice.css', './dialogue-step.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,6 +55,8 @@ export class DialogueStep {
   readonly finished = output<void>();
 
   protected readonly canSpeak = this.speech.supported;
+  /** Whether the role play is on screen instead of the chat. */
+  protected readonly playingRole = signal(false);
   protected readonly mode = signal<Mode>('idle');
   /** Turn being read, or null. */
   protected readonly current = signal<number | null>(null);
@@ -108,6 +112,13 @@ export class DialogueStep {
   protected stop(): void {
     this.speech.stop();
     this.reset();
+  }
+
+  protected startRole(): void {
+    if (this.mode() !== 'idle') {
+      this.stop();
+    }
+    this.playingRole.set(true);
   }
 
   protected finish(): void {

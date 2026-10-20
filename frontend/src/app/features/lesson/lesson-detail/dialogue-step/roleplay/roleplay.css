@@ -1,0 +1,231 @@
+/* Role play (added 2026-10-20). The chat bubbles come from dialogue-step.css. */
+
+:host {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.pick {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.pick-title {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.pick-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pick-role {
+  min-width: 120px;
+}
+
+/* A button that reads as a link: Đổi vai, Thoát. */
+.btn-link {
+  min-height: 44px;
+  padding: 0 var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.role-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-2);
+}
+
+.role-bar > .muted {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The learner's line: the edge carries the verdict once answered. */
+.bubble.mine {
+  border-right: var(--space-1) solid var(--verdict-color, transparent);
+}
+
+.bubble.mine.current {
+  border-color: var(--color-primary);
+  border-right-color: var(--verdict-color, var(--color-primary));
+}
+
+.bubble.result-ok {
+  --verdict-color: var(--color-ok);
+}
+
+.bubble.result-close {
+  --verdict-color: var(--color-warn);
+}
+
+.bubble.result-bad {
+  --verdict-color: var(--color-bad);
+}
+
+.say-this {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.hint {
+  font: var(--text-reading) var(--font-ui);
+  letter-spacing: 0.02em;
+  color: var(--color-primary-ink);
+}
+
+.verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+
+  --icon-size: 16px;
+}
+
+.verdict lu-icon {
+  color: var(--verdict-color);
+}
+
+.result-words {
+  font: var(--text-reading) var(--font-ui);
+}
+
+.word.wrong .said,
+.word.extra .said {
+  text-decoration: line-through 2px var(--color-bad);
+}
+
+.word.wrong b {
+  font-weight: 700;
+}
+
+.word.missing {
+  text-decoration: underline dotted 2px var(--color-warn);
+  text-underline-offset: 4px;
+}
+
+.answer-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.icon-btn.small {
+  width: 36px;
+  height: 36px;
+
+  --icon-size: 18px;
+}
+
+/* Microphone, typing and the buttons under the chat. */
+.controls {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.controls > .type-row,
+.controls > .actions {
+  justify-self: stretch;
+}
+
+.controls > .actions {
+  justify-content: flex-end;
+}
+
+.small-note {
+  text-align: center;
+}
+
+.mic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 6px var(--color-primary-soft);
+  cursor: pointer;
+
+  --icon-size: 28px;
+}
+
+.mic.recording {
+  background: var(--color-bad);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-bad) 20%, transparent);
+}
+
+.mic:disabled {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  text-align: center;
+}
+
+.type-row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.summary {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.summary-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+
+  --icon-size: 22px;
+}

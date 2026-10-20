@@ -1,98 +1,110 @@
 <section class="soft-card" aria-labelledby="dialogue-heading">
   <h2 class="step-title" id="dialogue-heading">{{ number() ? number() + '. ' : '' }}Hội thoại</h2>
 
-  @if (canSpeak) {
-    <div class="playbar">
-      <!-- One button, so focus stays on it when it turns into "Dừng". -->
-      <button
-        type="button"
-        class="icon-btn play-btn"
-        luSpeak
-        [attr.aria-label]="mode() === 'all' ? 'Dừng' : 'Nghe cả bài'"
-        (click)="mode() === 'all' ? stop() : playAll()"
-      >
-        <lu-icon [name]="mode() === 'all' ? 'pause' : 'play'" />
-      </button>
-      <div class="play-info">
-        @if (mode() === 'all' && current() !== null) {
-          <span class="time">{{ elapsed() }}</span>&ngsp;
-          <span class="muted">Lượt {{ current()! + 1 }}/{{ dialogue().turns.length }}</span>
-        } @else {
-          <span class="muted">Nghe cả bài, hoặc chạm một câu</span>
-        }
-      </div>
-      <button
-        type="button"
-        class="btn speed-btn"
-        [attr.aria-label]="'Tốc độ ' + rate() + 'x, bấm để đổi'"
-        (click)="cycleRate()"
-      >
-        {{ rate() }}x
-      </button>
-    </div>
+  @if (playingRole()) {
+    <lu-roleplay [dialogue]="dialogue()" [rate]="rate()" (closed)="playingRole.set(false)" />
   } @else {
-    <p class="banner-warning" role="status">Trình duyệt này không có giọng đọc, nên lời được hiện sẵn.</p>
-  }
-
-  <div class="toggles">
     @if (canSpeak) {
+      <div class="playbar">
+        <!-- One button, so focus stays on it when it turns into "Dừng". -->
+        <button
+          type="button"
+          class="icon-btn play-btn"
+          luSpeak
+          [attr.aria-label]="mode() === 'all' ? 'Dừng' : 'Nghe cả bài'"
+          (click)="mode() === 'all' ? stop() : playAll()"
+        >
+          <lu-icon [name]="mode() === 'all' ? 'pause' : 'play'" />
+        </button>
+        <div class="play-info">
+          @if (mode() === 'all' && current() !== null) {
+            <span class="time">{{ elapsed() }}</span
+            >&ngsp;
+            <span class="muted">Lượt {{ current()! + 1 }}/{{ dialogue().turns.length }}</span>
+          } @else {
+            <span class="muted">Nghe cả bài, hoặc chạm một câu</span>
+          }
+        </div>
+        <button
+          type="button"
+          class="btn speed-btn"
+          [attr.aria-label]="'Tốc độ ' + rate() + 'x, bấm để đổi'"
+          (click)="cycleRate()"
+        >
+          {{ rate() }}x
+        </button>
+      </div>
+    } @else {
+      <p class="banner-warning" role="status">
+        Trình duyệt này không có giọng đọc, nên lời được hiện sẵn.
+      </p>
+    }
+
+    <div class="toggles">
+      @if (canSpeak) {
+        <button
+          type="button"
+          role="switch"
+          class="toggle words-switch"
+          [attr.aria-checked]="showWords()"
+          (click)="showWords.set(!showWords())"
+        >
+          <span class="switch" aria-hidden="true"></span> Hiện lời
+        </button>
+      }
       <button
         type="button"
         role="switch"
-        class="toggle words-switch"
-        [attr.aria-checked]="showWords()"
-        (click)="showWords.set(!showWords())"
+        class="toggle meaning-switch"
+        [attr.aria-checked]="showMeaning()"
+        (click)="showMeaning.set(!showMeaning())"
       >
-        <span class="switch" aria-hidden="true"></span> Hiện lời
+        <span class="switch" aria-hidden="true"></span> Nghĩa
       </button>
-    }
-    <button
-      type="button"
-      role="switch"
-      class="toggle meaning-switch"
-      [attr.aria-checked]="showMeaning()"
-      (click)="showMeaning.set(!showMeaning())"
-    >
-      <span class="switch" aria-hidden="true"></span> Nghĩa
-    </button>
-  </div>
+      <button type="button" class="btn role-btn" (click)="startRole()">
+        <lu-icon name="mic" /> Đóng vai
+      </button>
+    </div>
 
-  <ol class="chat" aria-label="Các lượt hội thoại">
-    @for (t of dialogue().turns; track $index; let i = $index) {
-      <li class="chat-row" [class.right]="t.speaker % 2 === 1">
-        @if (canSpeak) {
-          <button
-            type="button"
-            class="bubble"
-            [class.playing]="current() === i"
-            [attr.aria-current]="current() === i ? 'true' : null"
-            (click)="toggleOne(i)"
-          >
-            <ng-container *ngTemplateOutlet="body; context: { $implicit: t, i: i }" />
-          </button>
-        } @else {
-          <div class="bubble">
-            <ng-container *ngTemplateOutlet="body; context: { $implicit: t, i: i }" />
-          </div>
-        }
-      </li>
-    }
-  </ol>
-
-  <ng-template #body let-t let-i="i">
-    <span class="who">{{ speaker(t.speaker) }}</span>&ngsp;
-    @if (wordsShown()) {
-      <span class="text" lang="en">{{ t.text }}</span>&ngsp;
-      @if (showMeaning()) {
-        <span class="meaning">{{ t.meaningVi }}</span>
+    <ol class="chat" aria-label="Các lượt hội thoại">
+      @for (t of dialogue().turns; track $index; let i = $index) {
+        <li class="chat-row" [class.right]="t.speaker % 2 === 1">
+          @if (canSpeak) {
+            <button
+              type="button"
+              class="bubble"
+              [class.playing]="current() === i"
+              [attr.aria-current]="current() === i ? 'true' : null"
+              (click)="toggleOne(i)"
+            >
+              <ng-container *ngTemplateOutlet="body; context: { $implicit: t, i: i }" />
+            </button>
+          } @else {
+            <div class="bubble">
+              <ng-container *ngTemplateOutlet="body; context: { $implicit: t, i: i }" />
+            </div>
+          }
+        </li>
       }
-    } @else {
-      <span class="hidden-text"><lu-icon name="volume" /> Chạm để nghe lượt {{ i + 1 }}</span>
-    }
-    @if (current() === i) {
-      <span class="read" aria-hidden="true" [style.width.%]="share() * 100"></span>
-    }
-  </ng-template>
+    </ol>
+
+    <ng-template #body let-t let-i="i">
+      <span class="who">{{ speaker(t.speaker) }}</span
+      >&ngsp;
+      @if (wordsShown()) {
+        <span class="text" lang="en">{{ t.text }}</span
+        >&ngsp;
+        @if (showMeaning()) {
+          <span class="meaning">{{ t.meaningVi }}</span>
+        }
+      } @else {
+        <span class="hidden-text"><lu-icon name="volume" /> Chạm để nghe lượt {{ i + 1 }}</span>
+      }
+      @if (current() === i) {
+        <span class="read" aria-hidden="true" [style.width.%]="share() * 100"></span>
+      }
+    </ng-template>
+  }
 
   <!-- The bar at the bottom of the screen (design): ← to the step before, then the main button. -->
   <div class="step-nav">
