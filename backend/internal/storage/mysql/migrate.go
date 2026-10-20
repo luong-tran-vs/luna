@@ -57,6 +57,7 @@ func migrations() []migration {
 		{ID: "030_verb_progress", Stmts: verbProgressSchema()},
 		{ID: "031_verb_learned", Stmts: verbLearnedSchema(), Ignore: []uint16{errDuplicateColumn}},
 		{ID: "032_lesson_glosses", Stmts: lessonGlossesSchema()},
+		{ID: "033_talk_sessions", Stmts: talkSessionsSchema()},
 	}
 }
 

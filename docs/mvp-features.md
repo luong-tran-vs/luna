@@ -207,6 +207,7 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 
 **F11. Hội thoại nhập vai** *(không bắt buộc)*
 - Trò chuyện với AI theo tình huống của bài (tối đa 10 lượt), trả lời bằng giọng nói hoặc gõ chữ; câu của AI được đọc bằng giọng đọc của trình duyệt; cuối phiên tóm tắt lỗi.
+- *(sửa 2026-10-20)* Làm thành hai phần: **Đóng vai** trong màn Hội thoại của bài (người học nói lời một người trong hội thoại mẫu, chấm trên máy, không dùng AI) và **Luyện nói với AI** ở tab Ôn tập (chọn chủ đề đã học, AI tự nghĩ tình huống và trò chuyện thật, tối đa 20 lượt, nhận xét cuối buổi). Chi tiết ở [giai-doan-3.md › F11](phases/giai-doan-3.md).
 
 ## 6. Ngoài phạm vi MVP
 

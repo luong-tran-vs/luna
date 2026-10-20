@@ -160,14 +160,15 @@ describe('Review', () => {
     expect(days[1].querySelector('.visually-hidden')?.textContent).toBe('Thứ Sáu 16/10: 4 thẻ');
     expect(days[0].classList).toContain('today');
     expect(days[1].querySelector<HTMLElement>('.bar')!.style.height).toBe('40%');
-    expect(text('.menu-hint')).toBe('15 từ · Xem, tìm và thêm thẻ');
+    expect(text('a[href="/vocabulary"] .menu-hint')).toBe('15 từ · Xem, tìm và thêm thẻ');
+    expect(text('a[href="/vocabulary/talk"]')).toContain('Luyện nói với AI');
   });
 
   it('leaves the stages and the days out when they cannot be loaded', async () => {
     await setup({ cards: [dueCard], total: 1, nextDue: null }, [], null);
     expect(el.querySelector('.stages')).toBeNull();
     expect(el.querySelector('.week')).toBeNull();
-    expect(text('.menu-hint')).toBe('Xem, tìm và thêm thẻ');
+    expect(text('a[href="/vocabulary"] .menu-hint')).toBe('Xem, tìm và thêm thẻ');
     expect(button('Bắt đầu ôn')).toBeTruthy();
   });
 

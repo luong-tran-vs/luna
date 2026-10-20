@@ -1,0 +1,275 @@
+<section class="screen talk">
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/vocabulary/talk" aria-label="Quay lại danh sách chủ đề"
+      ><lu-icon name="arrow-left"
+    /></a>
+    <h1 class="screen-title">{{ session()?.topicName ?? 'Luyện nói với AI' }}</h1>
+  </header>
+
+  @if (loadError()) {
+    <p class="form-alert" role="alert">
+      Không tải được buổi trò chuyện.
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </p>
+  } @else if (session(); as s) {
+    <div class="soft-card scenario">
+      <span class="level">{{ s.level }}</span>
+      <p><b>Tình huống:</b> {{ s.scenarioVi }}</p>
+    </div>
+
+    <button
+      type="button"
+      role="switch"
+      class="toggle meaning-switch"
+      [attr.aria-checked]="showMeaning()"
+      (click)="showMeaning.set(!showMeaning())"
+    >
+      <span class="switch" aria-hidden="true"></span> Hiện nghĩa câu của AI
+    </button>
+
+    <ol class="chat" aria-label="Cuộc trò chuyện" aria-live="polite">
+      @for (t of s.turns; track $index; let i = $index) {
+        <li class="chat-row" [class.right]="!isAI(t)">
+          <div class="bubble" [class.mine]="!isAI(t)" [class.playing]="reading() === i">
+            <span class="who">{{ isAI(t) ? 'AI' : 'Bạn' }}</span
+            >&ngsp; <span class="text" lang="en">{{ t.text }}</span
+            >&ngsp;
+            @if (isAI(t)) {
+              @if (showMeaning() && t.textVi) {
+                <span class="meaning">{{ t.textVi }}</span>
+              }
+              @if (canSpeak) {
+                <button
+                  type="button"
+                  class="icon-btn small"
+                  [attr.aria-label]="'Nghe lại câu ' + (i + 1)"
+                  (click)="listen(t.text, i)"
+                >
+                  <lu-icon name="volume" />
+                </button>
+              }
+            } @else if (t.spoken) {
+              <span class="spoken muted"><lu-icon name="mic" /> nói</span>
+            }
+          </div>
+        </li>
+      }
+      @if (pending(); as p) {
+        <li class="chat-row right">
+          <div class="bubble mine">
+            <span class="who">Bạn</span>&ngsp;
+            <span class="text" lang="en">{{ p }}</span>
+          </div>
+        </li>
+        <li class="chat-row">
+          <div class="bubble typing" role="status">AI đang trả lời...</div>
+        </li>
+      }
+    </ol>
+    <div #chatEnd></div>
+
+    @if (error(); as e) {
+      <p class="field-error" role="alert">{{ e }}</p>
+    }
+
+    @if (open()) {
+      @if (canSay()) {
+        <div class="soft-card composer">
+          <div class="composer-head">
+            <span class="muted">Lượt {{ learnerTurns() + 1 }}/{{ s.maxTurns }}</span>
+            @if (s.hint) {
+              <button
+                type="button"
+                class="btn hint-btn"
+                [attr.aria-expanded]="showHint()"
+                (click)="toggleHint()"
+              >
+                <lu-icon name="sparkles" /> Gợi ý
+              </button>
+            }
+          </div>
+          @if (showHint() && s.hint) {
+            <div class="hint">
+              <p lang="en">
+                {{ s.hint }}
+                @if (canSpeak) {
+                  <button
+                    type="button"
+                    class="icon-btn small"
+                    aria-label="Nghe câu gợi ý"
+                    (click)="listen(s.hint)"
+                  >
+                    <lu-icon name="volume" />
+                  </button>
+                }
+              </p>
+              @if (s.hintVi) {
+                <p class="muted">{{ s.hintVi }}</p>
+              }
+            </div>
+          }
+
+          @if (micAllowed) {
+            <div class="mic-area">
+              @switch (recognizer.state()) {
+                @case ('off') {
+                  <button type="button" class="btn" (click)="loadRecognizer()">
+                    <lu-icon name="mic" /> Dùng micro
+                  </button>
+                  <p class="muted note">
+                    Lần đầu cần tải bộ nhận giọng nói (khoảng 60MB, chỉ tải một lần). Không muốn tải
+                    thì gõ câu trả lời bên dưới.
+                  </p>
+                }
+                @case ('ready') {
+                  <button
+                    type="button"
+                    class="mic"
+                    [class.recording]="mic() === 'recording'"
+                    [attr.aria-label]="mic() === 'recording' ? 'Dừng ghi âm' : 'Ghi âm câu của bạn'"
+                    [attr.aria-pressed]="mic() === 'recording'"
+                    [disabled]="mic() === 'scoring' || busy() !== 'none'"
+                    (click)="toggleRecord()"
+                  >
+                    <lu-icon name="mic" />
+                  </button>
+                }
+                @case ('error') {
+                  <button type="button" class="btn" (click)="loadRecognizer()">
+                    Tải lại bộ nhận giọng nói
+                  </button>
+                }
+              }
+              @if (recognizer.state() !== 'off') {
+                <p class="status" role="status">
+                  {{ micStatus() }}
+                  @if (mic() === 'recording') {
+                    <span class="muted">{{ elapsed().toFixed(0) }}/{{ maxSeconds }} giây</span>
+                  }
+                </p>
+              }
+            </div>
+          }
+
+          <form class="type-row" (submit)="$event.preventDefault(); send()">
+            <label class="visually-hidden" for="talk-text">Câu của bạn bằng tiếng Anh</label>
+            <textarea
+              id="talk-text"
+              class="input"
+              rows="2"
+              lang="en"
+              maxlength="300"
+              placeholder="Nói vào micro hoặc gõ câu của bạn..."
+              [value]="text()"
+              [disabled]="busy() !== 'none'"
+              (input)="onInput($event)"
+              (keydown.enter)="$event.preventDefault(); send()"
+            ></textarea>
+            <button type="submit" class="btn-primary" [disabled]="!canSend()">Gửi</button>
+          </form>
+        </div>
+      } @else {
+        <p class="soft-card muted" role="status">
+          Bạn đã nói đủ {{ s.maxTurns }} lượt. Bấm Kết thúc để xem nhận xét.
+        </p>
+      }
+      <button
+        type="button"
+        class="btn end-btn"
+        [class.btn-primary]="!canSay()"
+        [disabled]="busy() !== 'none' || mic() !== 'idle'"
+        (click)="end()"
+      >
+        @if (busy() === 'ending') {
+          AI đang nhận xét...
+        } @else {
+          Kết thúc và xem nhận xét
+        }
+      </button>
+    } @else {
+      <section class="review" aria-labelledby="review-title">
+        <h2 class="section-title" id="review-title">Nhận xét</h2>
+        @if (s.review; as r) {
+          @if (r.overallVi) {
+            <p class="soft-card overall">{{ r.overallVi }}</p>
+          }
+          @if (r.fixes.length > 0) {
+            <h3 class="sub-title">Nên nói lại · {{ r.fixes.length }}</h3>
+            <ul class="fixes">
+              @for (f of r.fixes; track $index) {
+                <li class="soft-card fix">
+                  <p class="said" lang="en">
+                    <lu-icon name="x" /> <s>{{ f.said }}</s>
+                  </p>
+                  <p class="better" lang="en">
+                    <lu-icon name="check" /> {{ f.better }}
+                    @if (canSpeak) {
+                      <button
+                        type="button"
+                        class="icon-btn small"
+                        aria-label="Nghe câu đúng"
+                        (click)="listen(f.better)"
+                      >
+                        <lu-icon name="volume" />
+                      </button>
+                    }
+                  </p>
+                  @if (f.noteVi) {
+                    <p class="muted">{{ f.noteVi }}</p>
+                  }
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="muted">Không có lỗi nào cần sửa. Tuyệt vời!</p>
+          }
+          @if (r.good.length > 0) {
+            <h3 class="sub-title">Câu nói tốt</h3>
+            <ul class="goods">
+              @for (g of r.good; track $index) {
+                <li class="soft-card good">
+                  <p lang="en"><lu-icon name="star" /> {{ g.said }}</p>
+                  @if (g.noteVi) {
+                    <p class="muted">{{ g.noteVi }}</p>
+                  }
+                </li>
+              }
+            </ul>
+          }
+          @if (r.wordsUsed.length > 0 || r.wordsUnused.length > 0) {
+            <h3 class="sub-title">Từ của chủ đề</h3>
+            @if (r.wordsUsed.length > 0) {
+              <p>
+                Đã dùng: <span lang="en">{{ r.wordsUsed.join(', ') }}</span>
+              </p>
+            }
+            @if (r.wordsUnused.length > 0) {
+              <p class="muted">
+                Lần sau thử dùng: <span lang="en">{{ r.wordsUnused.slice(0, 10).join(', ') }}</span>
+              </p>
+            }
+          }
+        } @else {
+          <p class="muted">Buổi này bạn chưa nói câu nào nên không có nhận xét.</p>
+        }
+        <div class="actions">
+          <button
+            type="button"
+            class="btn-primary"
+            [disabled]="busy() !== 'none'"
+            (click)="again()"
+          >
+            @if (busy() === 'restarting') {
+              Đang chuẩn bị tình huống...
+            } @else {
+              Luyện lại chủ đề này
+            }
+          </button>
+          <a class="btn" routerLink="/vocabulary/talk">Chọn chủ đề khác</a>
+        </div>
+      </section>
+    }
+  } @else {
+    <lu-loading />
+  }
+</section>

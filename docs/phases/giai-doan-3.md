@@ -55,6 +55,24 @@
 - [ ] Mỗi lượt trò chuyện tốn tối đa 1 request AI.
 - [ ] AI lỗi hoặc hết lượt giữa phiên: báo rõ, giữ nội dung đã trò chuyện.
 
+**Thiết kế lại** *(sửa 2026-10-20, theo đánh giá chuyên gia ngôn ngữ; thay cho phần trên)*
+
+*Bước 1: Đóng vai* (trong màn Hội thoại của bài, không dùng AI; chi tiết ở specs/016-vocab-practice FR-025)
+- Người học chọn vai trong hội thoại mẫu. App đọc lời người kia; tới lượt người học thì chỉ hiện nghĩa tiếng Việt, người học nói hoặc gõ câu tiếng Anh, máy so từng từ với câu gốc. Gợi ý hiện dần từng từ. Tổng kết cuối buổi; không lưu.
+
+*Bước 2: Luyện nói với AI* (tab Ôn tập)
+- Tab Ôn tập có mục **Luyện nói với AI**. Bấm vào thì thấy các chủ đề đã học (có ít nhất một bài đã học xong hoặc đang học), mỗi chủ đề ghi trình độ, số bài đã học, số lần đã luyện; bên dưới là các buổi trước để xem lại.
+- Chọn chủ đề: AI tự nghĩ một tình huống hằng ngày gắn với chủ đề (mỗi buổi một tình huống) và nói câu mở đầu, kèm một câu hỏi.
+- **Trò chuyện thật:** người học nói (ghi âm, nhận giọng nói ngay trên máy; câu nghe được hiện vào ô để sửa trước khi gửi) hoặc gõ. AI đáp lại câu vừa nói rồi hỏi tiếp. Câu của AI được đọc to, có công tắc hiện nghĩa tiếng Việt. Nút **Gợi ý** hiện câu trả lời mẫu mà AI gửi kèm, không tốn thêm lượt.
+- AI nói đúng trình độ của bài cao nhất người học đã học trong chủ đề, 1–2 câu ngắn, dùng từ và điểm ngữ pháp của các bài đã học. **Trong lúc trò chuyện không sửa lỗi**; người học nói tiếng Việt, lạc đề hoặc khó hiểu thì AI hỏi lại bằng tiếng Anh đơn giản.
+- **AI chỉ nhớ buổi đang nói:** mỗi lượt gửi lại cả đoạn đã nói của buổi; các buổi tách riêng nhau và tách khỏi các chức năng AI khác. AI nhận kèm "đề bài": tên chủ đề, trình độ, tối đa 60 từ và các điểm ngữ pháp của những bài đã học.
+- Tối đa **20 lượt** người học mỗi buổi; lượt thứ 20 thì AI chào tạm biệt, không hỏi tiếp.
+- Bấm **Kết thúc và xem nhận xét**: AI nhận xét các câu của người học: lời nhận xét chung, các câu nên nói lại (câu gốc, câu đúng và tự nhiên, lý do bằng tiếng Việt; có nút nghe câu đúng), tối đa 3 câu nói tốt, các từ của chủ đề đã dùng và chưa dùng. Chưa nói câu nào thì kết thúc không cần nhận xét.
+- Buổi được lưu (cả đoạn trò chuyện và nhận xét). Buổi đã kết thúc chỉ xem lại được; có nút **Luyện lại chủ đề này**.
+- Chi phí: mỗi lượt đáp (kể cả câu mở đầu) 1 request AI (op `talk`), nhận xét 1 request (op `talk_review`). **Chưa giới hạn số buổi** mỗi ngày. Không tính streak hay mục tiêu ngày.
+- AI lỗi hoặc hết lượt: báo rõ. Lượt đáp lỗi thì không lưu gì, câu của người học quay lại ô để gửi lại. Nhận xét lỗi thì buổi vẫn mở, bấm Kết thúc lần nữa.
+- API: `GET /api/talk/topics`, `GET|POST /api/talk/sessions`, `GET /api/talk/sessions/{id}`, `POST /api/talk/sessions/{id}/turns` {text, spoken}, `POST /api/talk/sessions/{id}/end`. Lưu ở `talk_sessions` (MongoDB và MySQL).
+
 ---
 
 ## F17. Trang chi tiết bài và luyện tập từ vựng *(không bắt buộc)*

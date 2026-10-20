@@ -1,0 +1,274 @@
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.scenario {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.level {
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* The conversation as a chat: the AI on the left, the learner on the right. */
+.chat {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chat-row {
+  display: flex;
+}
+
+.chat-row.right {
+  justify-content: flex-end;
+}
+
+.bubble {
+  display: grid;
+  gap: 2px;
+  max-width: 85%;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+.bubble.mine {
+  background: var(--color-primary-soft);
+  border-color: transparent;
+}
+
+.bubble.playing {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.bubble .icon-btn {
+  justify-self: start;
+}
+
+.who {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.text {
+  font: var(--text-reading) var(--font-ui);
+}
+
+.meaning {
+  font: var(--text-sm) var(--font-ui);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.spoken {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+
+  --icon-size: 14px;
+}
+
+.typing {
+  font: var(--text-sm) var(--font-ui);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+/* Round button holding a speaker icon; its name comes from aria-label. */
+.icon-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.icon-btn.small {
+  width: 36px;
+  height: 36px;
+
+  --icon-size: 18px;
+}
+
+.composer {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.composer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.hint-btn {
+  --icon-size: 16px;
+}
+
+.hint {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-reading) var(--font-ui);
+  background: var(--color-bg);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.mic-area {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+  text-align: center;
+}
+
+.mic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 6px var(--color-primary-soft);
+  cursor: pointer;
+
+  --icon-size: 28px;
+}
+
+.mic.recording {
+  background: var(--color-bad);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-bad) 20%, transparent);
+}
+
+.mic:disabled {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.status {
+  font: var(--text-sm) var(--font-ui);
+}
+
+.type-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  resize: vertical;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.end-btn {
+  justify-self: stretch;
+}
+
+.review {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.sub-title {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.fixes,
+.goods {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fix,
+.good {
+  display: grid;
+  gap: var(--space-1);
+
+  --icon-size: 16px;
+}
+
+.said,
+.better {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-reading) var(--font-ui);
+}
+
+.said lu-icon {
+  color: var(--color-bad);
+}
+
+.better {
+  font-weight: 600;
+}
+
+.better lu-icon {
+  color: var(--color-ok);
+}
+
+.good lu-icon {
+  color: var(--color-warn);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

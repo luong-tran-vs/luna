@@ -22,6 +22,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/progress"
 	"github.com/luongtran/luna/backend/internal/settings"
 	"github.com/luongtran/luna/backend/internal/storage"
+	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
@@ -46,6 +47,8 @@ type Container struct {
 	meaningAI ai.MeaningProvider
 	// glossAI writes the meaning in context of every word of a lesson (added 2026-10-20).
 	glossAI ai.GlossProvider
+	// talkAI has the conversations of the talk practice (added 2026-10-20).
+	talkAI ai.TalkProvider
 	dict    closableDictionary
 
 	auth        *auth.Service
@@ -73,6 +76,7 @@ type Container struct {
 	progress *progress.Service
 	study    *progress.StudyService
 	export   *export.Service
+	talk     *talk.Service
 }
 
 // Init builds every service on store. The store stays open and is closed by the caller, after
@@ -96,6 +100,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initGrammar()
 	c.initVerbs()
 	c.initProgress()
+	c.initTalk()
 	c.initExport()
 
 	c.queueMissingPractice(ctx)

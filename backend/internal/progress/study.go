@@ -555,6 +555,29 @@ func (s *StudyService) CanWrite(ctx context.Context, userID, lessonID string) (b
 	return !p.Done[StepWrite], nil
 }
 
+// StudiedLessons lists the lessons the learner studied (added 2026-10-20, for talking with the
+// AI): the lesson being studied when they started it, then the completed ones, newest first.
+func (s *StudyService) StudiedLessons(ctx context.Context, userID string) ([]string, error) {
+	d, err := s.load(ctx, userID)
+	if err != nil {
+		return nil, err
+	}
+	ids := make([]string, 0, len(d.completed)+1)
+	if cur := d.state.LessonID; cur != "" && !d.done[cur] {
+		_, started, err := s.d.Progress.Get(ctx, userID, cur)
+		if err != nil {
+			return nil, fmt.Errorf("progress: lesson progress: %w", err)
+		}
+		if started {
+			ids = append(ids, cur)
+		}
+	}
+	for _, p := range d.completed {
+		ids = append(ids, p.LessonID)
+	}
+	return ids, nil
+}
+
 // CanOpen reports whether a user may open a lesson's content: admins always; learners the lesson
 // being studied and lessons they started before.
 func (s *StudyService) CanOpen(ctx context.Context, userID string, isAdmin bool, lessonID string) (bool, error) {

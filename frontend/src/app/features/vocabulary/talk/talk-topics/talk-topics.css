@@ -1,0 +1,43 @@
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.topics {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.topic-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.topic-name {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.level {
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.start {
+  justify-self: start;
+
+  --icon-size: 18px;
+}

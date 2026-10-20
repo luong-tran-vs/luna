@@ -13,6 +13,8 @@ export const OP_LABELS: Readonly<Record<string, string>> = {
   grammar_solve: 'Kiểm tra bài tập ngữ pháp',
   explain: 'Người học hỏi nghĩa',
   grade: 'Chấm bài viết',
+  talk: 'Luyện nói với AI (lượt đáp)',
+  talk_review: 'Luyện nói với AI (nhận xét)',
 };
 
 export function opLabel(op: string): string {
@@ -74,6 +76,8 @@ export const FEATURE_COSTS: readonly FeatureGroup[] = [
     rows: [
       { feature: 'Hỏi nghĩa từ trong bài', where: 'Bài đọc', requests: '1 lần đầu; 0 khi đã có người hỏi' },
       { feature: 'Nộp bài viết / Chấm lại', where: 'Bước Viết', requests: '1' },
+      { feature: 'Luyện nói với AI: mở buổi, mỗi lượt đáp', where: 'Ôn tập', requests: '1 mỗi lượt (tối đa 21 mỗi buổi)' },
+      { feature: 'Luyện nói với AI: nhận xét cuối buổi', where: 'Ôn tập', requests: '1' },
       { feature: 'Đọc, nghe, ôn thẻ, bài tập, điền từ, dịch câu', where: '', requests: '0' },
     ],
   },

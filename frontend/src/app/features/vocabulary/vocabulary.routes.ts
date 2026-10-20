@@ -21,4 +21,15 @@ export const vocabularyRoutes: Routes = [
     title: 'Ôn bài · Luna',
     loadComponent: () => import('./lesson-review/lesson-review').then((m) => m.LessonReview),
   },
+  // Talk with the AI (added 2026-10-20).
+  {
+    path: 'talk',
+    title: 'Luyện nói với AI · Luna',
+    loadComponent: () => import('./talk/talk-topics/talk-topics').then((m) => m.TalkTopics),
+  },
+  {
+    path: 'talk/:id',
+    title: 'Luyện nói với AI · Luna',
+    loadComponent: () => import('./talk/talk-session/talk-session').then((m) => m.TalkSessionPage),
+  },
 ];

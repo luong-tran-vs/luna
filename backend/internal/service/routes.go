@@ -12,6 +12,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 	"github.com/luongtran/luna/backend/internal/progress"
 	"github.com/luongtran/luna/backend/internal/settings"
+	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
@@ -65,4 +66,5 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	lesson.NewReadingHandler(c.reader, log).Register(mux, auth, studyHandler.Guard)
 	progress.NewHandler(c.progress, log).Register(mux, auth, studyHandler.Guard)
 	writing.NewHandler(c.writing, log).Register(mux, auth, studyHandler.Guard)
+	talk.NewHandler(c.talk, log).Register(mux, auth)
 }

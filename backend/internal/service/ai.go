@@ -23,6 +23,7 @@ func (c *Container) initAI() {
 		c.imageAI = ai.DisabledImages{}
 		c.meaningAI = ai.DisabledMeanings{}
 		c.glossAI = ai.DisabledGlosses{}
+		c.talkAI = ai.DisabledTalk{}
 		return
 	}
 	text := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
@@ -30,6 +31,7 @@ func (c *Container) initAI() {
 	c.ai = text
 	c.meaningAI = text
 	c.glossAI = text
+	c.talkAI = text
 	images := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
 	images.Usage = c.aiUsage
 	c.imageAI = images

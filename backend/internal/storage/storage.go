@@ -24,6 +24,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/progress"
 	"github.com/luongtran/luna/backend/internal/settings"
+	"github.com/luongtran/luna/backend/internal/talk"
 	"github.com/luongtran/luna/backend/internal/topic"
 	"github.com/luongtran/luna/backend/internal/verbs"
 	"github.com/luongtran/luna/backend/internal/vocab"
@@ -72,6 +73,8 @@ type Store interface {
 	WordBank() wordbank.Repository
 	// AIUsage keeps the requests sent to the AI provider (admin AI usage page).
 	AIUsage() aiusage.Repository
+	// TalkSessions keeps the conversations with the AI (added 2026-10-20).
+	TalkSessions() talk.Repository
 
 	Cards() vocab.Repository
 	ReviewLogs() vocab.ReviewLogRepository

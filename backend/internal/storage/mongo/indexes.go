@@ -178,6 +178,14 @@ func EnsureIndexes(ctx context.Context, db *mongo.Database) error {
 		return fmt.Errorf("ask_usage index: %w", err)
 	}
 
+	// Talk with the AI (added 2026-10-20): a learner's sessions, newest first.
+	_, err = db.Collection("talk_sessions").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys: bson.D{{Key: "userId", Value: 1}, {Key: "createdAt", Value: -1}},
+	})
+	if err != nil {
+		return fmt.Errorf("talk_sessions index: %w", err)
+	}
+
 	// F20: one grammar lesson per syllabus point; one progress record per learner and point.
 	_, err = db.Collection("grammar_lessons").Indexes().CreateOne(ctx, mongo.IndexModel{
 		Keys: bson.D{{Key: "pointId", Value: 1}}, Options: options.Index().SetUnique(true),

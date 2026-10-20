@@ -1,0 +1,86 @@
+<section class="screen talk-topics">
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/vocabulary/review" aria-label="Quay lại Ôn tập"
+      ><lu-icon name="arrow-left"
+    /></a>
+    <h1 class="screen-title">Luyện nói với AI</h1>
+  </header>
+  <p class="muted intro">
+    Chọn một chủ đề đã học. AI đóng một vai trong tình huống hằng ngày và trò chuyện với bạn bằng
+    những từ bạn đã học. Bạn nói hoặc gõ câu trả lời; kết thúc buổi thì AI nhận xét các câu của bạn.
+  </p>
+
+  @if (loadError()) {
+    <p class="form-alert" role="alert">
+      Không tải được danh sách chủ đề.
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </p>
+  } @else if (topics(); as list) {
+    @if (list.length === 0) {
+      <p class="soft-card muted" role="status">
+        Học xong một bài là chủ đề của bài đó hiện ở đây để luyện nói.
+      </p>
+    } @else {
+      <ul class="topics" aria-label="Chủ đề đã học">
+        @for (t of list; track t.id) {
+          <li class="soft-card topic">
+            <div class="topic-head">
+              <span class="level">{{ t.level }}</span>&ngsp;
+              <h2 class="topic-name">{{ t.name }}</h2>
+            </div>
+            <p class="muted">
+              Đã học {{ t.lessons }} bài
+              @if (t.sessions > 0) {
+                · Đã luyện {{ t.sessions }} lần, gần nhất {{ t.lastAt | date: 'dd/MM' }}
+              }
+            </p>
+            @if (startError()?.topicId === t.id) {
+              <p class="field-error" role="alert">{{ startError()!.message }}</p>
+            }
+            <button
+              type="button"
+              class="btn-primary start"
+              [disabled]="starting() !== null"
+              (click)="start(t)"
+            >
+              @if (starting() === t.id) {
+                Đang chuẩn bị tình huống...
+              } @else {
+                <lu-icon name="mic" /> Bắt đầu trò chuyện
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    }
+
+    @if (history().length > 0) {
+      <h2 class="section-title">Các buổi trước</h2>
+      <ul class="menu-list">
+        @for (s of history(); track s.id) {
+          <li>
+            <a class="menu-row" [routerLink]="['/vocabulary/talk', s.id]">
+              <span class="menu-label">
+                <span>{{ s.topicName }} · {{ s.createdAt | date: 'dd/MM HH:mm' }}</span>
+                <span class="menu-hint">
+                  {{ s.scenarioVi }}
+                </span>
+                <span class="menu-hint">
+                  {{ s.learnerTurns }} lượt
+                  @if (s.status === 'ended') {
+                    · {{ s.fixes }} lỗi cần sửa
+                  } @else {
+                    · Chưa kết thúc
+                  }
+                </span>
+              </span>
+              <lu-icon class="chevron" name="chevron-right" />
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  } @else {
+    <lu-loading />
+  }
+</section>

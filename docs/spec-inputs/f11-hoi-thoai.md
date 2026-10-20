@@ -1,5 +1,7 @@
 # Đầu vào cho F11: Hội thoại nhập vai
 
+> *(2026-10-20)* Bản này đã cũ. F11 được làm thẳng code theo thiết kế mới (Đóng vai trong bài và Luyện nói với AI ở tab Ôn tập); xem [giai-doan-3.md › F11](../phases/giai-doan-3.md).
+
 Nguồn: [giai-doan-3.md › F11](../phases/giai-doan-3.md). Cần F10 (nhận dạng giọng nói). Không bắt buộc trong luồng học.
 
 ## Khối 1: `/speckit-specify`
