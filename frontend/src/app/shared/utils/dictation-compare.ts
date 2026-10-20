@@ -2,22 +2,30 @@
  * Dictation comparison (F4, research R1): word-level edit distance between the sentence and what was
  * typed. Numbers in digits or words and hyphenated or closed compounds count as the same word.
  */
+import { differsByEnding, isSpellingSlip, sameSkeleton } from './answer-match';
 
-export type WordStatus = 'ok' | 'wrong' | 'missing';
+/** `close`: heard right but spelt a little wrong ("musik"), or two words typed as one ("alot"). */
+export type WordStatus = 'ok' | 'close' | 'wrong' | 'missing';
 
 /**
  * One word of the result, in sentence order. `wrong` without `expected` is an extra typed word;
- * `missing` has only `expected`.
+ * `missing` has only `expected`. A `close` word typed as one for two words of the sentence has
+ * both in `expected` ("a lot") and `count` 2.
  */
 export interface ComparedWord {
   status: WordStatus;
   word?: string;
   expected?: string;
+  /** How many words of the sentence it stands for; 1 when absent. */
+  count?: number;
 }
 
 export interface Comparison {
   words: ComparedWord[];
+  /** Words heard right, the close ones included. */
   correctWords: number;
+  /** Of correctWords, those spelt a little wrong or joined (updated 2026-10-20). */
+  closeWords: number;
   /** Words of the sentence plus extra typed words. */
   totalWords: number;
 }
@@ -81,23 +89,55 @@ function joinCompounds(text: string, other: string): string {
   );
 }
 
-/** Aligns the typed words to the sentence; ties prefer match, then wrong, then missing, then extra. */
-export function compareDictation(expected: string, typed: string): Comparison {
+/**
+ * Splits a typed word that is two words of the sentence run together ("alot" for "a lot"): the
+ * typed words, and for each whether it is the first or second half of such a word.
+ */
+function splitJoined(typed: string[], expected: string[]): { words: string[]; joined: ('first' | 'second' | null)[] } {
+  const pairs = new Map<string, [string, string]>();
+  for (let i = 0; i + 1 < expected.length; i++) {
+    pairs.set(expected[i] + expected[i + 1], [expected[i], expected[i + 1]]);
+  }
+  const words: string[] = [];
+  const joined: ('first' | 'second' | null)[] = [];
+  for (const w of typed) {
+    const pair = expected.includes(w) ? undefined : pairs.get(w);
+    if (pair) {
+      words.push(pair[0], pair[1]);
+      joined.push('first', 'second');
+    } else {
+      words.push(w);
+      joined.push(null);
+    }
+  }
+  return { words, joined };
+}
+
+/**
+ * Aligns the typed words to the sentence; ties prefer match, then a spelling slip, then wrong, then
+ * missing, then extra. A slip costs 2, a wrong word close to the right one (an
+ * ending, a vowel) 3 so the alignment pairs them, any other edit 4. With slips false
+ * (speech recognition, which only writes real words) nothing is close: a near word was said wrong.
+ */
+export function compareDictation(expected: string, typed: string, { slips = true } = {}): Comparison {
   const e = normalizeWords(joinCompounds(expected, typed));
-  const t = normalizeWords(joinCompounds(typed, expected));
   const ec = e.map(sameAs);
+  const typedWords = normalizeWords(joinCompounds(typed, expected));
+  const split = slips ? splitJoined(typedWords, e) : { words: typedWords, joined: typedWords.map(() => null) };
+  const t = split.words;
   const tc = t.map(sameAs);
   const n = e.length;
   const m = t.length;
+  const sub = (a: string, b: string) =>
+    a === b ? 0 : slips && isSpellingSlip(b, a) ? 2 : differsByEnding(a, b) || sameSkeleton(a, b) ? 3 : 4;
 
-  // d[i][j]: edits to turn t[0..j) into e[0..i).
+  // d[i][j]: cost to turn t[0..j) into e[0..i).
   const d: number[][] = Array.from({ length: n + 1 }, (_, i) =>
-    Array.from({ length: m + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0)),
+    Array.from({ length: m + 1 }, (_, j) => (i === 0 ? 4 * j : j === 0 ? 4 * i : 0)),
   );
   for (let i = 1; i <= n; i++) {
     for (let j = 1; j <= m; j++) {
-      const diag = d[i - 1][j - 1] + (ec[i - 1] === tc[j - 1] ? 0 : 1);
-      d[i][j] = Math.min(diag, d[i - 1][j] + 1, d[i][j - 1] + 1);
+      d[i][j] = Math.min(d[i - 1][j - 1] + sub(ec[i - 1], tc[j - 1]), d[i - 1][j] + 4, d[i][j - 1] + 4);
     }
   }
 
@@ -105,15 +145,23 @@ export function compareDictation(expected: string, typed: string): Comparison {
   let i = n;
   let j = m;
   while (i > 0 || j > 0) {
-    if (i > 0 && j > 0 && ec[i - 1] === tc[j - 1] && d[i][j] === d[i - 1][j - 1]) {
-      words.push({ status: 'ok', word: t[j - 1], expected: e[i - 1] });
+    const cost = i > 0 && j > 0 ? sub(ec[i - 1], tc[j - 1]) : -1;
+    if (cost === 0 && d[i][j] === d[i - 1][j - 1]) {
+      const half = split.joined[j - 1];
+      if (half === 'second' && i > 1 && split.joined[j - 2] === 'first' && ec[i - 2] === tc[j - 2] && d[i - 1][j - 1] === d[i - 2][j - 2]) {
+        words.push({ status: 'close', word: t[j - 2] + t[j - 1], expected: `${e[i - 2]} ${e[i - 1]}`, count: 2 });
+        i -= 2;
+        j -= 2;
+        continue;
+      }
+      words.push({ status: half ? 'close' : 'ok', word: t[j - 1], expected: e[i - 1] });
       i--;
       j--;
-    } else if (i > 0 && j > 0 && d[i][j] === d[i - 1][j - 1] + 1) {
-      words.push({ status: 'wrong', word: t[j - 1], expected: e[i - 1] });
+    } else if (cost >= 1 && d[i][j] === d[i - 1][j - 1] + cost) {
+      words.push({ status: cost === 2 ? 'close' : 'wrong', word: t[j - 1], expected: e[i - 1] });
       i--;
       j--;
-    } else if (i > 0 && d[i][j] === d[i - 1][j] + 1) {
+    } else if (i > 0 && d[i][j] === d[i - 1][j] + 4) {
       words.push({ status: 'missing', expected: e[i - 1] });
       i--;
     } else {
@@ -124,5 +172,8 @@ export function compareDictation(expected: string, typed: string): Comparison {
   words.reverse();
 
   const extras = words.filter((w) => w.status === 'wrong' && w.expected === undefined).length;
-  return { words, correctWords: words.filter((w) => w.status === 'ok').length, totalWords: n + extras };
+  const counted = (status: WordStatus) =>
+    words.filter((w) => w.status === status).reduce((sum, w) => sum + (w.count ?? 1), 0);
+  const closeWords = counted('close');
+  return { words, correctWords: counted('ok') + closeWords, closeWords, totalWords: n + extras };
 }

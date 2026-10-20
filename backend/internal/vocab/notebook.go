@@ -43,9 +43,10 @@ func (s *Service) List(ctx context.Context, userID string, q ListQuery) (Page, e
 		Today:     dayOf(today, loc),
 		Yesterday: dayOf(today.AddDate(0, 0, -1), loc),
 	}
-	cache := sentenceCache{}
+	cache, kinds := sentenceCache{}, posCache{}
 	for i, c := range cards {
 		c.IPA = s.fillIPA(ctx, userID, c)
+		c.POS = s.posOf(ctx, kinds, c)
 		c.ContextSentenceVi = s.fillSentenceVi(ctx, userID, cache, c)
 		c.Schedule = effective(c, loc)
 		page.Cards[i] = DayCard{Card: c, Day: dayOf(c.CreatedAt, loc)}

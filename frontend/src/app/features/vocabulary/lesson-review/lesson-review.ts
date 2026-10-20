@@ -24,6 +24,7 @@ import { ChoiceList } from '../../../shared/components/choice-list/choice-list';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
 import { SpeakButton } from '../../../shared/directives/speak-button';
+import { letterHint, matchAnswer } from '../../../shared/utils/answer-match';
 import { intervalLabel } from '../../../shared/utils/interval-label';
 import { ReadingApiService } from '../../lesson/reading-api.service';
 import { settleReviewOffer } from '../../lesson/review-offer';
@@ -59,7 +60,8 @@ interface LessonData {
 }
 
 /** How the question on screen went: right, wrong, or skipped ("Quên" / "Bỏ qua"). */
-type Verdict = 'correct' | 'wrong' | 'skipped';
+/** close: a typed word a little off (recall), counted right. */
+type Verdict = 'correct' | 'close' | 'wrong' | 'skipped';
 
 /** One part of the progress bar: its share of the round and how much of it is done. */
 interface Segment {
@@ -114,6 +116,8 @@ export class LessonReview {
   /** Translation: the tiles chosen, by index into the question's tiles. */
   protected readonly chosen = signal<number[]>([]);
   protected readonly verdict = signal<Verdict | null>(null);
+  /** Recall: the word typed. */
+  protected readonly typed = signal('');
   /** The latest round's score, kept on the server; null before the first round. */
   protected readonly lastResult = signal<LessonResult | null>(null);
   protected readonly roundKind = signal<RoundKind>('full');
@@ -166,7 +170,15 @@ export class LessonReview {
   });
   protected readonly canSubmit = computed(() => {
     const q = this.question();
+    if (q?.kind === 'recall') {
+      return this.typed().trim() !== '';
+    }
     return q?.kind === 'translate' ? this.chosen().length > 0 : this.picked() !== null;
+  });
+  /** Recall: "l _ _ _" for the word asked. */
+  protected readonly letters = computed(() => {
+    const q = this.question();
+    return q?.kind === 'recall' ? letterHint(q.word) : '';
   });
   /** Translation: the tiles in the answer area. */
   protected readonly built = computed(() => {
@@ -328,6 +340,11 @@ export class LessonReview {
     if (!q || this.verdict() || !this.canSubmit()) {
       return;
     }
+    if (q.kind === 'recall') {
+      const match = matchAnswer(this.typed(), q.word);
+      this.reveal(match === 'exact' ? 'correct' : match);
+      return;
+    }
     const right =
       q.kind === 'translate'
         ? checkTiles(this.built(), q.answer)
@@ -370,7 +387,7 @@ export class LessonReview {
     }
     this.answers.update((a) => [
       ...a,
-      { question: q, correct: v === 'correct', given: this.givenText(q) },
+      { question: q, correct: v === 'correct' || v === 'close', given: this.givenText(q) },
     ]);
     if (this.index() + 1 < this.questions().length) {
       this.index.update((i) => i + 1);
@@ -410,6 +427,9 @@ export class LessonReview {
     if (q.kind === 'translate') {
       return this.built().join(' ');
     }
+    if (q.kind === 'recall') {
+      return this.typed().trim();
+    }
     const p = this.picked();
     return p === null ? null : q.choices.options[p];
   }
@@ -433,16 +453,30 @@ export class LessonReview {
 
   protected answerText(a: Answer): string {
     const q = a.question;
-    return q.kind === 'vocab' ? q.meaningVi : q.kind === 'fill' ? q.answer : q.answer.join(' ');
+    switch (q.kind) {
+      case 'vocab':
+        return q.meaningVi;
+      case 'recall':
+        return q.word;
+      case 'fill':
+        return q.answer;
+      default:
+        return q.answer.join(' ');
+    }
   }
 
   protected promptText(a: Answer): string {
     const q = a.question;
-    return q.kind === 'vocab'
-      ? q.word
-      : q.kind === 'fill'
-        ? `${q.before}___${q.after}`
-        : `"${q.vi}"`;
+    switch (q.kind) {
+      case 'vocab':
+        return q.word;
+      case 'recall':
+        return q.meaningVi;
+      case 'fill':
+        return `${q.before}___${q.after}`;
+      default:
+        return `"${q.vi}"`;
+    }
   }
 
   protected onKeydown(event: KeyboardEvent): void {
@@ -463,7 +497,8 @@ export class LessonReview {
       return;
     }
     const n = Number(event.key);
-    if (q && q.kind !== 'translate' && !this.verdict() && n >= 1 && n <= q.choices.options.length) {
+    const choosing = q && (q.kind === 'vocab' || q.kind === 'fill');
+    if (choosing && !this.verdict() && n >= 1 && n <= q.choices.options.length) {
       event.preventDefault();
       this.picked.set(n - 1);
     }
@@ -472,7 +507,12 @@ export class LessonReview {
   private resetQuestion(): void {
     this.picked.set(null);
     this.chosen.set([]);
+    this.typed.set('');
     this.verdict.set(null);
+  }
+
+  protected onTyped(event: Event): void {
+    this.typed.set((event.target as HTMLInputElement).value);
   }
 
   private focusNext(): void {

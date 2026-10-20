@@ -311,17 +311,17 @@ describe('Listening', () => {
 
     it('checks on Enter in the answer box, without a line break, and shows each word state', async () => {
       await setup();
-      await type('so i dont like apples');
+      await type('so i do like apples');
       const enter = new KeyboardEvent('keydown', { key: 'Enter', cancelable: true });
       input().dispatchEvent(enter);
       expect(enter.defaultPrevented).toBe(true);
       await settle();
-      expectPost().flush({ summary: summaryOf([result(0, 'so i dont like apples', 3, 6)]) });
+      expectPost().flush({ summary: summaryOf([result(0, 'so i do like apples', 3, 6)]) });
       await settle();
 
       const words = Array.from(el.querySelectorAll<HTMLElement>('.result .word'));
       expect(words.map((w) => w.className.replace('word', '').trim())).toEqual(['extra', 'ok', 'wrong', 'ok', 'missing', 'ok']);
-      expect(words[2].textContent?.replace(/\s+/g, ' ')).toContain("dont → don't");
+      expect(words[2].textContent?.replace(/\s+/g, ' ')).toContain("do → don't");
       expect(words[2].querySelector('.visually-hidden')?.textContent).toBe("sai, đúng là don't");
       expect(words[0].querySelector('.visually-hidden')?.textContent).toBe('thừa');
       expect(words[4].querySelector('.visually-hidden')?.textContent).toBe('thiếu');
@@ -329,9 +329,36 @@ describe('Listening', () => {
       expect(text('.correct-sentence')).toContain("I don't like green apples.");
     });
 
+    // Updated 2026-10-20: a slot per word instead of the first words, and spelling slips as close.
+    it('hints how long each word is and shows the first letters on demand', async () => {
+      await setup();
+      expect(text('.hints-label')).toBe('Gợi ý · 5 từ:');
+      const slots = () => Array.from(el.querySelectorAll('.slot')).map((s) => s.textContent?.trim());
+      expect(slots()).toEqual(['', '', '', '', '']);
+      expect(text('.slot-end')).toBe('.');
+      button('Hé lộ chữ cái đầu')!.click();
+      await settle();
+      expect(slots()).toEqual(['I', 'd', 'l', 'g', 'a']);
+      expect(button('Hé lộ chữ cái đầu')).toBeUndefined();
+    });
+
+    it('shows a spelling slip as close and counts it heard right', async () => {
+      await setup();
+      await check('i dont like green aples');
+      const close = Array.from(el.querySelectorAll<HTMLElement>('.result .word.close'));
+      expect(close.map((w) => w.textContent?.replace(/\s+/g, ' ').trim())).toEqual([
+        "dont → don'tgần đúng, viết đúng là don't",
+        'aples → applesgần đúng, viết đúng là apples',
+      ]);
+      expect(text('.verdict-label')).toBe('Gần đúng');
+      expect(text('.score')).toBe('5/5 từ đúng · 2 từ sai chính tả hoặc viết dính');
+      expectPost().flush({ summary: summaryOf([result(0, 'x', 5, 5)]) });
+      await settle();
+    });
+
     it('says how the check went, whether it is saved, and offers the next sentence', async () => {
       await setup();
-      await check('i dont like green apples');
+      await check('i do like green apples');
       expect(text('.verdict-label')).toBe('Gần đúng');
       expect(el.querySelector('.result')!.classList.contains('result-close')).toBe(true);
       expect(text('.save-status')).toBe('Đang lưu…');
@@ -362,7 +389,7 @@ describe('Listening', () => {
 
     it('replaces the result when checking again and keeps audio available', async () => {
       await setup();
-      await check('i dont like green apples');
+      await check('i do like green apples');
       expectPost().flush({ summary: summaryOf([result(0, 'x', 4, 5)]) });
       await settle();
       expect(text('.score')).toBe('4/5 từ đúng');
@@ -378,7 +405,7 @@ describe('Listening', () => {
 
   describe('saving progress', () => {
     it('restores saved results and starts at the first unchecked sentence', async () => {
-      await setup({ summary: summaryOf([result(0, 'i dont like green apples', 4, 5)]) });
+      await setup({ summary: summaryOf([result(0, 'i do like green apples', 4, 5)]) });
       expect(text('.counter')).toBe('Câu 2 / 3');
       expect(text('.checked-count')).toBe('Tiến độ câu: 1 / 3 câu');
       const chips = Array.from(el.querySelectorAll<HTMLElement>('.chip'));
@@ -391,12 +418,12 @@ describe('Listening', () => {
 
       chips[0].click();
       await settle();
-      expect(input().value).toBe('i dont like green apples');
+      expect(input().value).toBe('i do like green apples');
       expect(text('.score')).toBe('4/5 từ đúng');
     });
 
     it('posts each check and completes after the last sentence', async () => {
-      await setup({ summary: summaryOf([result(0, 'i dont like green apples', 4, 5), result(1, 'we went to the park at 9.30', 7, 7)]) });
+      await setup({ summary: summaryOf([result(0, 'i do like green apples', 4, 5), result(1, 'we went to the park at 9.30', 7, 7)]) });
       expect(text('.counter')).toBe('Câu 3 / 3');
       await check('what');
       const req = expectPost();
@@ -455,8 +482,8 @@ describe('Listening', () => {
 
     it('Làm lại câu này clears the answer and reads the sentence again', async () => {
       await setup();
-      await check('i dont like apples');
-      expectPost().flush({ summary: summaryOf([result(0, 'i dont like apples', 4, 5)]) });
+      await check('i do like apples');
+      expectPost().flush({ summary: summaryOf([result(0, 'i do like apples', 4, 5)]) });
       await settle();
       const spoken = speech.spoken.length;
       button('Làm lại câu này')!.click();
@@ -467,7 +494,7 @@ describe('Listening', () => {
     });
 
     it('Làm lại bước này forgets every result and starts again from sentence 1', async () => {
-      await setup({ summary: summaryOf([result(0, 'i dont like green apples', 4, 5), result(1, 'we went to the park at 9.30', 7, 7)]) });
+      await setup({ summary: summaryOf([result(0, 'i do like green apples', 4, 5), result(1, 'we went to the park at 9.30', 7, 7)]) });
       expect(text('.counter')).toBe('Câu 3 / 3');
       await check('why');
       expectPost().flush({

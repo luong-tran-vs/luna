@@ -366,3 +366,39 @@ func TestDueFixesOddLessonIPA(t *testing.T) {
 		}
 	}
 }
+
+// "recall": the learner sees the meaning and types the word (added 2026-10-20).
+func TestReviewRecallMode(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	c := e.dueCard("go", Schedule{State: StateNew})
+	if _, err := e.svc.Review(t.Context(), "u1", c.ID, ReviewInput{Rating: int(Good), Mode: "recall"}); err != nil {
+		t.Fatal(err)
+	}
+	if logs := e.logs.forCard(c.ID); len(logs) != 1 || logs[0].Mode != ModeRecall {
+		t.Fatalf("logs = %+v", logs)
+	}
+}
+
+// A lesson card comes with the part of speech its lesson uses the word in, for the wrong meanings
+// of the review (added 2026-10-20); a card typed by hand has none.
+func TestDueGivesThePartOfSpeech(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	lesson := e.dueCard("go", Schedule{Reps: 1})
+	manual := e.repo.put(Card{
+		UserID: "u1", Text: "home", Lemma: "home", MeaningVi: "nhà", Source: SourceManual,
+		CreatedAt: e.clock.Now().AddDate(0, 0, -3), Schedule: Schedule{Due: e.clock.Now().Add(-time.Hour), Reps: 1},
+	})
+	list, err := e.svc.Due(t.Context(), "u1", 50)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]string{}
+	for _, c := range list.Cards {
+		got[c.ID] = c.POS
+	}
+	if got[lesson.ID] != "verb" || got[manual.ID] != "" {
+		t.Fatalf("pos = %v", got)
+	}
+}

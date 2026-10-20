@@ -5,7 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
-import { DueCard, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
+import { DueCard, PoolMeaning, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
 import { exampleParts, ReviewSession } from './review-session';
 
 const intervals = { again: 60, hard: 300, good: 600, easy: 8 * 86400 };
@@ -26,7 +26,7 @@ class Host {
   readonly cards = signal<DueCard[]>([card('c1', 'went'), card('c2', 'gave up')]);
   readonly mode = signal<ReviewMode>('flip');
   readonly context = signal<ReviewContext>('free');
-  readonly pool = signal<string[]>([]);
+  readonly pool = signal<PoolMeaning[]>([]);
   readonly summaries: ReviewSummary[] = [];
   closed = 0;
 }
@@ -119,10 +119,8 @@ describe('ReviewSession', () => {
       expect(text('.counter')).toBe('Từ này nghĩa là gì?');
       expect([...options()].sort()).toEqual(['nghĩa của gave up', 'nghĩa của went']);
       expect(el.querySelector('.meaning')).toBeNull();
-      // The example sentence is on the front, the word marked, to guess the meaning from context.
-      expect(text('.example')).toBe('We went home.');
-      expect(text('.example mark')).toBe('went');
-      expect(el.querySelector('.example-vi')).toBeNull();
+      // Updated 2026-10-20: the example comes with the answer, so the meaning is recalled from the word alone.
+      expect(el.querySelector('.example')).toBeNull();
       expect(button('Quên')).toBeTruthy();
       expect(buttonStarting('Nhớ')).toBeUndefined();
 
@@ -205,10 +203,25 @@ describe('ReviewSession', () => {
 
     it('takes the wrong meanings from the pool too', async () => {
       await setup('flip', [card('c1', 'went')]);
-      host.pool.set(['ăn', 'ngủ', 'chạy', 'đọc']);
+      host.pool.set(['ăn', 'ngủ', 'chạy', 'đọc'].map((meaningVi) => ({ meaningVi })));
       await settle();
       expect(options()).toHaveLength(4);
       expect(options()).toContain('nghĩa của went');
+    });
+
+    // Added 2026-10-20: wrong meanings of the same part of speech are harder to rule out.
+    it('picks the wrong meanings of the same part of speech first', async () => {
+      await setup('flip', [{ ...card('c1', 'went'), pos: 'verb' }]);
+      host.pool.set([
+        { meaningVi: 'ngôi nhà', pos: 'noun' },
+        { meaningVi: 'cái bàn', pos: 'noun' },
+        { meaningVi: 'to lớn', pos: 'adjective' },
+        { meaningVi: 'chạy', pos: 'verb' },
+        { meaningVi: 'ăn', pos: 'verb' },
+        { meaningVi: 'ngủ', pos: 'verb' },
+      ]);
+      await settle();
+      expect([...options()].sort()).toEqual(['chạy', 'nghĩa của went', 'ngủ', 'ăn'].sort());
     });
 
     it('plays the word', async () => {
@@ -225,8 +238,11 @@ describe('ReviewSession', () => {
       expect(text('.example-vi')).toBe('Chúng tôi về nhà.');
     });
 
-    it('plays the example sentence', async () => {
+    it('shows the example with the answer and plays it', async () => {
       await setup();
+      await submit('nghĩa của went');
+      expect(text('.example')).toBe('We went home.');
+      expect(text('.example mark')).toBe('went');
       button('Nghe câu ví dụ')!.click();
       await settle();
       expect(speech.texts()).toContain('We went home.');
@@ -456,6 +472,45 @@ describe('ReviewSession', () => {
       await settle();
       expect(text('.word')).toBe('went');
       expect(buttonStarting('Nhớ')).toBeTruthy();
+    });
+  });
+
+  // Added 2026-10-20: the meaning asks for the word.
+  describe('recall mode', () => {
+    it('shows the meaning, the first letter and the example with a blank', async () => {
+      await setup('recall');
+      expect(text('.counter')).toBe('Gõ từ tiếng Anh');
+      expect(el.querySelector('.word')).toBeNull();
+      expect(text('.recall-meaning')).toBe('nghĩa của went');
+      expect(text('.letters')).toBe('w _ _ _');
+      expect(text('.example')).toBe('We _____ home.');
+      expect(speech.texts()).not.toContain('went'); // nothing plays on its own
+      expect(input().getAttribute('placeholder')).toBe('Gõ từ tiếng Anh…');
+    });
+
+    it('asks for an answer when empty', async () => {
+      await setup('recall');
+      await typeAndCheck(' ');
+      expect(text('.answer-error')).toBe('Hãy gõ từ tiếng Anh');
+    });
+
+    it('takes a word a little off as close and lets the learner rate it', async () => {
+      await setup('recall', [card('c1', 'beautiful', 0)]);
+      await typeAndCheck('beautifull');
+      expect(text('.counter')).toBe('≈ Gần đúng');
+      expect(text('.typed')).toBe('Bạn gõ: beautifull · sai một chút chính tả');
+      expect(text('.word')).toBe('beautiful');
+      buttonStarting('Khó')!.click();
+      await settle();
+      expect(expectReview('c1').request.body).toEqual({ rating: 2, mode: 'recall', reps: 0, context: 'free' });
+    });
+
+    it('says wrong for another word', async () => {
+      await setup('recall');
+      await typeAndCheck('want');
+      expect(text('.counter')).toBe('✗ Chưa đúng');
+      expect(text('.typed')).toBe('Bạn gõ: want');
+      expect(text('.example')).toBe('We went home.');
     });
   });
 });

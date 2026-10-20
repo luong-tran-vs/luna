@@ -18,6 +18,14 @@ export interface Card {
   due: string;
   reps: number;
   state: CardState;
+  /** The part of speech of the word in its lesson; absent when unknown (a card typed by hand). */
+  pos?: string;
+}
+
+/** A meaning the review may offer as a wrong option, with the part of speech when known. */
+export interface PoolMeaning {
+  meaningVi: string;
+  pos?: string;
 }
 
 /** Body of POST /api/vocab/cards; `lessonId` is omitted for manual cards. */
@@ -70,7 +78,8 @@ export interface LessonCounts {
   manualCount: number;
 }
 
-export type ReviewMode = 'flip' | 'listen';
+/** flip: see the word, pick the meaning; listen: hear it, type it; recall: see the meaning, type it. */
+export type ReviewMode = 'flip' | 'listen' | 'recall';
 
 /** 1 Again, 2 Hard, 3 Good, 4 Easy. */
 export type Rating = 1 | 2 | 3 | 4;

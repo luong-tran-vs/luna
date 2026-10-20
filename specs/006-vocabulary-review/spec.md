@@ -183,6 +183,14 @@ thẻ trùng. Mở bài chưa có chú thích thấy "Chưa có danh sách từ 
 - **FR-026**: Thẻ, lịch ôn và lịch sử ôn PHẢI tách riêng theo người học: không ai đọc, sửa, xoá hay ôn thẻ của người khác
   (nguyên tắc V).
 - **FR-027**: Sổ từ và ôn tự do PHẢI mở được từ thanh điều hướng của ứng dụng và bằng đường dẫn trực tiếp.
+- **FR-028** *(thêm 2026-10-20)*: Thêm kiểu ôn thứ ba "Xem nghĩa rồi gõ từ" (mode `recall`): hiện nghĩa, chữ cái đầu và số chữ, câu ví
+  dụ có chỗ trống; gõ đúng là "Đúng rồi", sai chính tả nhẹ là "Gần đúng" (như FR-020 của F4), rồi người học tự chấm Quên/Khó/Nhớ/Dễ.
+  Ở kiểu "Xem từ chọn nghĩa", câu ví dụ chỉ hiện sau khi trả lời để người học nhớ nghĩa từ chính từ đó.
+- **FR-029** *(thêm 2026-10-20)*: Thẻ lưu từ bài được trả kèm loại từ (`pos`, lấy lúc đọc từ từ vựng của bài, không lưu riêng; thẻ
+  tự thêm không có). Kiểu "Xem từ chọn nghĩa" ưu tiên đáp án nhiễu cùng loại từ, thiếu thì lấy nghĩa bất kỳ như trước.
+- **FR-030** *(thêm 2026-10-20)*: Ôn theo bài ("Ôn bài này" / "Ôn lại") có thêm phần "Gõ từ" (tối đa 4 câu) giữa Từ vựng và Điền từ,
+  cách hỏi như FR-028; từ gõ sai được đưa lại vào ôn tập như các phần khác, không chấm thẻ đến hạn. Phần Từ vựng ở đây cũng chỉ hiện câu
+  ví dụ sau khi trả lời (đáp án nhiễu cùng loại từ ở phần này đã có từ trước). Gợi ý chữ cái hiện chữ đầu của từng từ, cách nhau "/".
 
 ### Key Entities
 

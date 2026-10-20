@@ -17,9 +17,9 @@ import {
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
-import { DueCard, Intervals, Rating, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
+import { DueCard, Intervals, PoolMeaning, Rating, ReviewContext, ReviewMode, ReviewSummary } from '../../../core/models/vocab';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
-import { isCorrectAnswer } from '../../utils/answer-match';
+import { letterHint, matchAnswer } from '../../utils/answer-match';
 import { makeChoices, seedOf } from '../../utils/choices';
 import { intervalLabel } from '../../utils/interval-label';
 import { SpeechService } from '../../../core/services/speech.service';
@@ -72,7 +72,7 @@ export class ReviewSession {
   /** 'daily' in the review step of today's lesson (counted against the daily limit). */
   readonly context = input<ReviewContext>('free');
   /** More meanings to pick the wrong options from, besides the other cards of the session. */
-  readonly pool = input<readonly string[]>([]);
+  readonly pool = input<readonly PoolMeaning[]>([]);
   /** Emitted once when every card has been rated. */
   readonly finished = output<ReviewSummary>();
   /** ✕: the learner stops the session (the ratings given so far are saved). */
@@ -93,14 +93,19 @@ export class ReviewSession {
    * marked; flip mode shows it on the front to guess the meaning from context. Empty without one.
    */
   protected readonly example = computed(() => exampleParts(this.current()));
-  /** Flip mode: the card's meaning among others, the same order while the card is on screen. */
+  /**
+   * Flip mode: the card's meaning among others, the same order while the card is on screen. Wrong
+   * meanings of the same part of speech come first (updated 2026-10-20): "chạy" next to "đi" is
+   * harder to rule out than "ngôi nhà".
+   */
   protected readonly choices = computed(() => {
     const card = this.current();
     if (!card || this.mode() !== 'flip') {
       return null;
     }
-    const pool = [...this.cards().map((c) => c.meaningVi), ...this.pool()];
-    return makeChoices(card.meaningVi, pool, seedOf(card.id));
+    const pool: PoolMeaning[] = [...this.cards(), ...this.pool()];
+    const same = card.pos ? pool.filter((p) => p.pos === card.pos).map((p) => p.meaningVi) : [];
+    return makeChoices(card.meaningVi, pool.map((p) => p.meaningVi), seedOf(card.id), same);
   });
   /** Flip mode as a multiple choice question; false when there is nothing to choose between. */
   protected readonly quiz = computed(() => (this.choices()?.options.length ?? 0) >= 2);
@@ -110,8 +115,11 @@ export class ReviewSession {
   protected readonly given = signal<Rating[]>([]);
   protected readonly revealed = signal(false);
   protected readonly typed = signal('');
-  /** How the answer went; 'forgot' when the learner pressed "Quên" instead. */
-  protected readonly verdict = signal<'correct' | 'wrong' | 'forgot' | null>(null);
+  /** How the answer went ('close': a typed word a little off); 'forgot' when the learner pressed "Quên". */
+  protected readonly verdict = signal<'correct' | 'close' | 'wrong' | 'forgot' | null>(null);
+  /** Recall mode: the first letter of each word and a blank for each other letter, "l _ _ _". */
+  protected readonly letters = computed(() => letterHint(this.current()?.text ?? ''));
+  protected readonly letterCount = computed(() => (this.current()?.text ?? '').replace(/\s/g, '').length);
   /** The rating "Tiếp" saves for a multiple choice answer. */
   protected readonly autoRating = computed<Rating>(() => (this.verdict() === 'correct' ? 3 : 1));
   protected readonly answerError = signal<string | null>(null);
@@ -123,13 +131,13 @@ export class ReviewSession {
   protected readonly askLabel = computed(() => {
     const v = this.reviewing() ? null : this.verdict();
     if (v) {
-      return v === 'correct' ? '✓ Đúng rồi' : v === 'wrong' ? '✗ Chưa đúng' : 'Nghĩa của từ';
+      return { correct: '✓ Đúng rồi', close: '≈ Gần đúng', wrong: '✗ Chưa đúng', forgot: 'Nghĩa của từ' }[v];
     }
-    return this.mode() === 'listen' ? 'Nghe và gõ lại từ' : 'Từ này nghĩa là gì?';
+    return { listen: 'Nghe và gõ lại từ', recall: 'Gõ từ tiếng Anh', flip: 'Từ này nghĩa là gì?' }[this.mode()];
   });
   protected readonly tone = computed(() => {
     const v = this.reviewing() ? null : this.verdict();
-    return v === 'correct' ? 'right' : v ? 'wrong' : null;
+    return v === 'correct' ? 'right' : v === 'wrong' || v === 'forgot' ? 'wrong' : null;
   });
   protected readonly canBack = computed(() => this.index() > 0 && !this.saving());
   protected readonly canForward = computed(
@@ -281,10 +289,11 @@ export class ReviewSession {
       return;
     }
     if (!this.typed().trim()) {
-      this.answerError.set('Hãy gõ từ bạn nghe được');
+      this.answerError.set(this.mode() === 'recall' ? 'Hãy gõ từ tiếng Anh' : 'Hãy gõ từ bạn nghe được');
       return;
     }
-    this.verdict.set(isCorrectAnswer(this.typed(), card.text) ? 'correct' : 'wrong');
+    const match = matchAnswer(this.typed(), card.text);
+    this.verdict.set(match === 'exact' ? 'correct' : match);
     this.revealed.set(true);
   }
 

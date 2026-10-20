@@ -165,31 +165,35 @@ describe('LessonReview', () => {
       ),
     ).toEqual([
       '1. Từ vựng Chọn nghĩa đúng của từ · 1 từ đến hạn luôn được hỏi 3 câu',
-      '2. Điền từ Câu trong bài, chọn từ còn thiếu 1 câu',
-      '3. Dịch câu Ghép từ thành câu tiếng Anh 1 câu',
+      '2. Gõ từ Xem nghĩa, gõ lại từ tiếng Anh 2 câu',
+      '3. Điền từ Câu trong bài, chọn từ còn thiếu 1 câu',
+      '4. Dịch câu Ghép từ thành câu tiếng Anh 1 câu',
     ]);
-    expect(text('.intro-head .muted')).toBe('5 câu · khoảng 2 phút');
+    expect(text('.intro-head .muted')).toBe('7 câu · khoảng 3 phút');
 
-    await click(el.querySelectorAll<HTMLButtonElement>('.part-row')[2]);
-    expect(el.querySelectorAll('.part-row')[2].getAttribute('aria-pressed')).toBe('false');
-    expect(text('.intro-head .muted')).toBe('4 câu · khoảng 2 phút');
+    await click(el.querySelectorAll<HTMLButtonElement>('.part-row')[3]);
+    expect(el.querySelectorAll('.part-row')[3].getAttribute('aria-pressed')).toBe('false');
+    expect(text('.intro-head .muted')).toBe('6 câu · khoảng 3 phút');
   });
 
   it('leaves out the parts the lesson has no practice for', async () => {
     await setup(false);
-    expect(el.querySelectorAll('.part-row')).toHaveLength(1);
+    // Từ vựng and Gõ từ are made from the lesson's words, which need no practice.
+    expect(el.querySelectorAll('.part-row')).toHaveLength(2);
   });
 
-  it('goes through the three parts and shows the score', async () => {
+  it('goes through the four parts and shows the score', async () => {
     await setup();
     const focus = TestBed.inject(FocusMode);
     await click(button('Bắt đầu ôn'));
     expect(focus.on()).toBe(true);
-    expect(el.querySelectorAll('.segment')).toHaveLength(3);
+    expect(el.querySelectorAll('.segment')).toHaveLength(4);
 
     // Words: the due card first, rated as soon as it is answered.
     expect(text('.part-label')).toBe('Từ vựng · 1/3');
     expect(text('.word')).toBe('meeting');
+    // The example comes with the answer, not before it (updated 2026-10-20).
+    expect(el.querySelector('.example')).toBeNull();
     await click(choice('cuộc họp'));
     await click(button('Nộp'));
     expect(text('.counter')).toBe('✓ Đúng rồi');
@@ -207,6 +211,31 @@ describe('LessonReview', () => {
     const meaning = forgotten === 'desk' ? 'sếp' : 'bàn làm việc';
     await click(choice(meaning));
     await click(button('Nộp'));
+    await click(el.querySelector('.btn-next') as HTMLElement);
+
+    // Gõ từ: the meaning, the first letter and the example with a blank; one right, one wrong.
+    expect(text('.part-label')).toBe('Gõ từ · 1/2');
+    const wordOf = (m: string) => (m === 'sếp' ? 'boss' : 'desk');
+    const first = wordOf(text('.meaning'));
+    expect(text('.letters')).toBe(`${first[0]} _ _ _`);
+    expect(text('.example')).toBe('The _____ is here.');
+    expect(button('Nộp')!.getAttribute('aria-disabled')).toBe('true');
+    const answer = el.querySelector<HTMLInputElement>('#recall-answer')!;
+    answer.value = first.toUpperCase();
+    answer.dispatchEvent(new Event('input'));
+    await settle();
+    await click(button('Nộp'));
+    expect(text('.counter')).toBe('✓ Đúng rồi');
+    expect(text('.example')).toBe(`The ${first} is here.`);
+    await click(el.querySelector('.btn-next') as HTMLElement);
+    const second = wordOf(text('.meaning'));
+    const answer2 = el.querySelector<HTMLInputElement>('#recall-answer')!;
+    answer2.value = 'table';
+    answer2.dispatchEvent(new Event('input'));
+    await settle();
+    await click(button('Nộp'));
+    expect(text('.counter')).toBe('✗ Chưa đúng');
+    expect(text('.typed')).toBe('Bạn gõ: table');
     await click(el.querySelector('.btn-next') as HTMLElement);
 
     // Fill-in: the word in the gap.
@@ -233,30 +262,32 @@ describe('LessonReview', () => {
     // Each word once ("boss" may be both the word forgotten and the blank got wrong).
     expect(misses.request.body).toEqual({
       lessonId: 'l1',
-      words: [...new Set([forgotten, 'boss'])],
+      words: [...new Set([forgotten, second, 'boss'])],
     });
     misses.flush({ added: 1, rescheduled: 0 });
-    expectSaved({ total: 5, correct: 3, wrong: [`v:${forgotten}`, 'f:0'] });
+    expectSaved({ total: 7, correct: 4, wrong: [`v:${forgotten}`, `r:${second}`, 'f:0'] });
     await settle();
 
     expect(focus.on()).toBe(false);
-    expect(text('.score')).toBe('3/5');
+    expect(text('.score')).toBe('4/7');
     expect(
       Array.from(el.querySelectorAll('.part-scores li')).map((li) =>
         li.textContent?.replace(/\s+/g, ' ').trim(),
       ),
-    ).toEqual(['Từ vựng 2/3', 'Điền từ 0/1', 'Dịch câu 1/1']);
-    expect(text('.wrongs-title')).toBe('Câu chưa đúng (2)');
+    ).toEqual(['Từ vựng 2/3', 'Gõ từ 1/2', 'Điền từ 0/1', 'Dịch câu 1/1']);
+    expect(text('.wrongs-title')).toBe('Câu chưa đúng (3)');
     expect(text('.wrongs')).toContain('My ___ is here. desk → boss');
 
     // Again, only the questions got wrong; the due card is not rated twice.
     await click(button('Ôn lại câu sai'));
-    expect(text('.progress-text')).toBe('1/2');
+    expect(text('.progress-text')).toBe('1/3');
     expect(text('.word')).toBe(forgotten);
   });
 
   it('starts the whole lesson again from the result', async () => {
     await setup(false);
+    // Gõ từ needs no practice: left out here to keep the round to the words.
+    await click(el.querySelectorAll<HTMLButtonElement>('.part-row')[1]);
     await click(button('Bắt đầu ôn'));
     for (let i = 0; i < 3; i++) {
       await click(button('Quên'));
@@ -292,6 +323,8 @@ describe('LessonReview', () => {
     expect(el.querySelector('a[aria-label="Đóng, về bài mới"]')?.getAttribute('href')).toBe(
       '/lessons/l2',
     );
+    // Gõ từ needs no practice: left out here to keep the round to the words.
+    await click(el.querySelectorAll<HTMLButtonElement>('.part-row')[1]);
     await click(button('Bắt đầu ôn'));
     expect(localStorage.getItem('luna.review-settled.l2')).toBeNull();
     for (let i = 0; i < 3; i++) {
@@ -343,6 +376,8 @@ describe('LessonReview', () => {
   it('still asks the word due with every part left out', async () => {
     await setup(false);
     await click(el.querySelectorAll<HTMLButtonElement>('.part-row')[0]);
+    // Gõ từ needs no practice: left out here to keep the round to the words.
+    await click(el.querySelectorAll<HTMLButtonElement>('.part-row')[1]);
     expect(text('.intro-head .muted')).toBe('1 câu · khoảng 1 phút');
     await click(button('Bắt đầu ôn'));
     expect(text('.word')).toBe('meeting');

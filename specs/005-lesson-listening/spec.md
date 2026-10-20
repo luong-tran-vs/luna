@@ -133,6 +133,16 @@ các câu vẫn hiện đã kiểm tra, tỷ lệ không đổi.
 - **FR-017**: Mở lại bài PHẢI thấy các câu đã kiểm tra, kết quả gần nhất, tiến độ "X/N" và bắt đầu ở câu đầu tiên chưa kiểm tra.
 - **FR-018**: Kết quả chép chính tả PHẢI tách riêng theo người học: không ai đọc hay ghi kết quả của người khác (nguyên tắc V).
 - **FR-019**: Cho tới khi có L, bước Nghe PHẢI mở được từ trang chi tiết bài của quản trị viên và bằng đường dẫn trực tiếp.
+- **FR-020** *(thêm 2026-10-20)*: Từ nghe đúng nhưng viết hơi sai được chấm "gần đúng" và tính là nghe đúng: sai 1 chữ ở từ từ 5
+  chữ, sai 2 chữ ở từ từ 8 chữ, hoặc hai từ viết dính ("alot" cho "a lot"). Từ ngắn hơn sai 1 chữ vẫn là sai ("want"/"went" là
+  từ khác). Câu chỉ "Chính xác!" khi không có từ gần đúng; kết quả ghi thêm "N từ sai chính tả hoặc viết dính". Bước Luyện nói
+  không chấm gần đúng (máy nhận giọng nói chỉ ra từ thật, từ gần giống là phát âm sai).
+- **FR-021** *(thêm 2026-10-20)*: Gợi ý của câu là một ô cho mỗi từ, dài theo số chữ, kèm dấu cuối câu (thay cho mấy từ đầu, vốn
+  làm người học tưởng câu dừng ở đó); nút "Hé lộ chữ cái đầu" hiện chữ đầu mỗi ô.
+- **FR-022** *(thêm 2026-10-20)*: Xong bước Nghe, mục "Bạn hay nghe nhầm" nêu tối đa 3 hiện tượng thường gặp nhất trong bài, mỗi
+  hiện tượng có số lần, ví dụ lấy từ lỗi của chính người học và một mẹo: từ nhỏ đọc lướt (bỏ sót a, the, to…), âm cuối bị nuốt
+  (thiếu/thừa -s, -ed), nối âm (hai từ viết dính), nguyên âm gần giống (went/want), nghe đúng nhưng viết sai. Lỗi không khớp rõ
+  hiện tượng nào thì không nói gì. Thiếu/thừa -s, -ed không bao giờ tính là "gần đúng" (đó là nghe sót, không phải chính tả).
 
 ### Key Entities
 

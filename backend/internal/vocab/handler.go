@@ -52,6 +52,8 @@ type cardJSON struct {
 	Due               time.Time `json:"due"`
 	Reps              uint64    `json:"reps"`
 	State             string    `json:"state"`
+	// POS is the part of speech of the word in its lesson, absent when unknown.
+	POS string `json:"pos,omitempty"`
 }
 
 var stateNames = map[State]string{StateNew: "new", StateLearning: "learning", StateReview: "review", StateRelearning: "relearning"}
@@ -61,7 +63,7 @@ func toJSON(c Card) cardJSON {
 	out := cardJSON{
 		ID: c.ID, Text: c.Text, Lemma: c.Lemma, IPA: c.IPA, MeaningVi: c.MeaningVi,
 		ContextSentence: c.ContextSentence, ContextSentenceVi: c.ContextSentenceVi, Source: c.Source, CreatedAt: c.CreatedAt,
-		Due: c.Schedule.Due.UTC(), Reps: c.Schedule.Reps, State: stateNames[c.Schedule.State],
+		Due: c.Schedule.Due.UTC(), Reps: c.Schedule.Reps, State: stateNames[c.Schedule.State], POS: c.POS,
 	}
 	if c.LessonID != "" {
 		out.LessonID = &c.LessonID

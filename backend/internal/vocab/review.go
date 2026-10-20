@@ -39,9 +39,10 @@ func (s *Service) Due(ctx context.Context, userID string, limit int) (DueList, e
 		return DueList{}, fmt.Errorf("vocab: due: %w", err)
 	}
 	list := DueList{Cards: make([]DueCard, len(cards)), Total: total}
-	cache := sentenceCache{}
+	cache, kinds := sentenceCache{}, posCache{}
 	for i, c := range cards {
 		c.IPA = s.fillIPA(ctx, userID, c)
+		c.POS = s.posOf(ctx, kinds, c)
 		c.ContextSentenceVi = s.fillSentenceVi(ctx, userID, cache, c)
 		c.Schedule = effective(c, loc)
 		list.Cards[i] = DueCard{Card: c, Intervals: intervalsFor(c.Schedule, now)}
@@ -82,7 +83,7 @@ func (s *Service) Review(ctx context.Context, userID, cardID string, in ReviewIn
 		fields["rating"] = "Đánh giá không hợp lệ"
 	}
 	mode := Mode(in.Mode)
-	if mode != ModeFlip && mode != ModeListen {
+	if mode != ModeFlip && mode != ModeListen && mode != ModeRecall {
 		fields["mode"] = "Kiểu ôn không hợp lệ"
 	}
 	context := Context(in.Context)

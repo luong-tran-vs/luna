@@ -57,6 +57,8 @@ type Card struct {
 	Source            Source
 	CreatedAt         time.Time
 	Schedule          Schedule
+	// POS is the part of speech of the word in its lesson; not stored, filled when cards are read.
+	POS string
 }
 
 // WordRef identifies a saved word for highlighting.
@@ -81,6 +83,7 @@ type Mode string
 const (
 	ModeFlip   Mode = "flip"   // see the word, guess the meaning
 	ModeListen Mode = "listen" // hear the word, type it
+	ModeRecall Mode = "recall" // see the meaning, type the word (added 2026-10-20)
 )
 
 // Context is where a review happened: the daily lesson's review step (counted against the
@@ -169,6 +172,8 @@ type VocabItem struct {
 	IPA           string
 	SentenceIndex int
 	Sentence      string
+	// POS is the part of speech the lesson uses the word in, "" when unknown.
+	POS string
 }
 
 var (

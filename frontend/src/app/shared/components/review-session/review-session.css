@@ -161,6 +161,27 @@ lu-asker {
   color: var(--color-primary-ink);
 }
 
+/* Recall mode: the first letter and a blank for each other letter of the word to type. */
+.letters {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  white-space: pre-wrap;
+}
+
+.blank {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+/* A typed word a little off: underlined, not struck. */
+.close-typed {
+  text-decoration: underline wavy 2px var(--color-warn);
+  text-underline-offset: 3px;
+}
+
 /* The example sentence, the word marked, with a button to hear it. */
 .example-row {
   display: flex;

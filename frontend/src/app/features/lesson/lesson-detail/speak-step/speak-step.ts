@@ -170,7 +170,7 @@ export class SpeakStep {
         if (old) {
           URL.revokeObjectURL(old.url);
         }
-        return next.set(index, { heard, comparison: compareDictation(sentence, heard), url });
+        return next.set(index, { heard, comparison: compareDictation(sentence, heard, { slips: false }), url });
       });
     } catch (err) {
       this.error.set(recordError(err));

@@ -1,6 +1,7 @@
 import { PracticeFill, PracticeTranslation } from '../../../core/models/practice';
 import { CompletedLesson } from '../../../core/models/study';
 import { DueCard, LessonResultInput, LessonStats, VocabItem } from '../../../core/models/vocab';
+import { exampleParts } from '../../../shared/components/review-session/review-session';
 import { Choices, makeChoices, seedOf, shuffled } from '../../../shared/utils/choices';
 
 /**
@@ -8,15 +9,17 @@ import { Choices, makeChoices, seedOf, shuffled } from '../../../shared/utils/ch
  * (words, fill-in, translation) built from the lesson, and the list of lessons of the review tab.
  */
 
-export type Part = 'vocab' | 'fill' | 'translate';
+/** recall (added 2026-10-20): the meaning asks for the word, typed. */
+export type Part = 'vocab' | 'recall' | 'fill' | 'translate';
 
-export const PARTS: readonly Part[] = ['vocab', 'fill', 'translate'];
+export const PARTS: readonly Part[] = ['vocab', 'recall', 'fill', 'translate'];
 
 /** At most this many questions of each part in one round. */
-export const PART_MAX: Record<Part, number> = { vocab: 8, fill: 4, translate: 3 };
+export const PART_MAX: Record<Part, number> = { vocab: 8, recall: 4, fill: 4, translate: 3 };
 
 export const PART_NAMES: Record<Part, string> = {
   vocab: 'Từ vựng',
+  recall: 'Gõ từ',
   fill: 'Điền từ',
   translate: 'Dịch câu',
 };
@@ -37,6 +40,23 @@ export interface VocabQuestion {
   choices: Choices;
   /** The saved card when it is due: the answer rates it. Null for other words. */
   card: DueCard | null;
+}
+
+/**
+ * "Gõ từ tiếng Anh": the meaning, the first letter and the example with a blank ask for the word,
+ * typed (added 2026-10-20). Remembering the word is harder, and stays longer, than recognising it.
+ */
+export interface RecallQuestion {
+  kind: 'recall';
+  id: string;
+  word: string;
+  lemma: string;
+  ipa: string;
+  meaningVi: string;
+  /** The example around the word: before the blank, the word as it is written there, after it. */
+  before: string;
+  inSentence: string;
+  after: string;
 }
 
 /** A line of the lesson's dialogue with one word missing, the word among others. */
@@ -60,7 +80,7 @@ export interface TranslateQuestion {
   tiles: string[];
 }
 
-export type Question = VocabQuestion | FillQuestion | TranslateQuestion;
+export type Question = VocabQuestion | RecallQuestion | FillQuestion | TranslateQuestion;
 
 /** What the learner did with a question: right or not, and what they gave (null: skipped/forgot). */
 export interface Answer {
@@ -87,6 +107,7 @@ export function buildBank(
 ): Bank {
   return {
     vocab: vocabQuestions(items, due, seed),
+    recall: recallQuestions(items, seed),
     fill: fillQuestions(fill, items, seed),
     translate: translateQuestions(translations, seed),
   };
@@ -147,6 +168,36 @@ function vocabQuestions(
   }
   return out;
 }
+
+/**
+ * The lesson's words to type from their meaning, in another order than Từ vựng so a round does not
+ * ask the same words both ways first. Only words its example sentence holds, for the blank.
+ */
+function recallQuestions(items: readonly VocabItem[], seed: number): RecallQuestion[] {
+  const seen = new Set<string>();
+  const out: RecallQuestion[] = [];
+  for (const i of shuffled(items, seed ^ 0x5bd1e995)) {
+    const lemma = i.lemma.toLowerCase();
+    const parts = exampleParts({ text: i.text, lemma: i.lemma, contextSentence: i.sentence });
+    if (seen.has(lemma) || !i.meaningVi.trim() || !parts || !parts[1]) {
+      continue;
+    }
+    seen.add(lemma);
+    out.push({
+      kind: 'recall',
+      id: `r:${lemma}`,
+      word: i.text,
+      lemma,
+      ipa: i.ipa,
+      meaningVi: i.meaningVi,
+      before: parts[0],
+      inSentence: parts[1],
+      after: parts[2],
+    });
+  }
+  return out;
+}
+
 
 function fillQuestions(
   fill: PracticeFill | null,
@@ -270,7 +321,7 @@ export function missedWords(answers: readonly Answer[]): string[] {
     if (a.correct) {
       continue;
     }
-    if (a.question.kind === 'vocab' && !a.question.card) {
+    if ((a.question.kind === 'vocab' && !a.question.card) || a.question.kind === 'recall') {
       words.add(a.question.lemma);
     } else if (a.question.kind === 'fill') {
       words.add(a.question.answer);

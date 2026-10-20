@@ -1,7 +1,13 @@
 import { compareDictation, ComparedWord, normalizeWords } from './dictation-compare';
 
 const statuses = (words: ComparedWord[]) =>
-  words.map((w) => (w.status === 'ok' ? w.word : w.status === 'missing' ? `-${w.expected}` : `!${w.word}>${w.expected ?? ''}`));
+  words.map((w) =>
+    w.status === 'ok'
+      ? w.word
+      : w.status === 'missing'
+        ? `-${w.expected}`
+        : `${w.status === 'close' ? '~' : '!'}${w.word}>${w.expected ?? ''}`,
+  );
 
 describe('normalizeWords', () => {
   it('lowercases and splits on any whitespace', () => {
@@ -48,10 +54,30 @@ describe('compareDictation', () => {
     expect(r).toMatchObject({ correctWords: 5, totalWords: 5 });
   });
 
-  it('marks one misspelled word as wrong with the expected word', () => {
-    const r = compareDictation(sentence, 'i dont like green apples');
-    expect(statuses(r.words)).toEqual(['i', "!dont>don't", 'like', 'green', 'apples']);
-    expect(r).toMatchObject({ correctWords: 4, totalWords: 5 });
+  it('marks a wrong word as wrong with the expected word', () => {
+    const r = compareDictation(sentence, 'i dont like grey apples');
+    expect(statuses(r.words)).toEqual(['i', "~dont>don't", 'like', '!grey>green', 'apples']);
+    expect(r).toMatchObject({ correctWords: 4, closeWords: 1, totalWords: 5 });
+  });
+
+  // Updated 2026-10-20: heard right but spelt a little wrong, or two words run together.
+  it('marks a spelling slip and joined words as close, and counts them heard right', () => {
+    const r = compareDictation('I like music a lot.', 'i like musik alot');
+    expect(statuses(r.words)).toEqual(['i', 'like', '~musik>music', '~alot>a lot']);
+    expect(r.words.at(-1)?.count).toBe(2);
+    expect(r).toMatchObject({ correctWords: 5, closeWords: 3, totalWords: 5 });
+  });
+
+  it('takes no word for close when slips are off (speech recognition)', () => {
+    const r = compareDictation('I like music a lot.', 'I like musics a lot', { slips: false });
+    expect(statuses(r.words)).toEqual(['i', 'like', '!musics>music', 'a', 'lot']);
+    expect(r).toMatchObject({ correctWords: 4, closeWords: 0 });
+  });
+
+  it('does not take a short word one letter off for a slip', () => {
+    const r = compareDictation('We went home.', 'we want home');
+    expect(statuses(r.words)).toEqual(['we', '!want>went', 'home']);
+    expect(r).toMatchObject({ correctWords: 2, closeWords: 0 });
   });
 
   it('marks missing words at the start, middle and end', () => {

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { DueList, ReviewForecast, ReviewMode } from '../../../core/models/vocab';
+import { DueList, PoolMeaning, ReviewForecast, ReviewMode } from '../../../core/models/vocab';
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { FocusMode } from '../../../core/services/focus-mode.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
@@ -31,6 +31,7 @@ const SECONDS_PER_CARD = 25;
 const MODES: { value: ReviewMode; icon: IconName; title: string; hint: string }[] = [
   { value: 'flip', icon: 'cards', title: 'Xem từ', hint: 'chọn nghĩa' },
   { value: 'listen', icon: 'headphones', title: 'Nghe', hint: 'rồi gõ từ' },
+  { value: 'recall', icon: 'pencil', title: 'Nghĩa', hint: 'rồi gõ từ' },
 ];
 
 const WEEKDAYS = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
@@ -92,7 +93,7 @@ export class Review {
     return rows ? suggested(rows, Date.now()) : null;
   });
   /** Meanings of the latest saved words: the wrong options of the multiple choice. */
-  protected readonly pool = signal<string[]>([]);
+  protected readonly pool = signal<PoolMeaning[]>([]);
   protected readonly due = signal<DueList | null>(null);
   /** Null while loading or when it failed: the stage counts and the chart are left out. */
   protected readonly forecast = signal<ReviewForecast | null>(null);
@@ -149,7 +150,7 @@ export class Review {
       error: () => this.forecast.set(null),
     });
     this.api.list({}).subscribe({
-      next: (page) => this.pool.set(page.cards.map((c) => c.meaningVi)),
+      next: (page) => this.pool.set(page.cards.map((c) => ({ meaningVi: c.meaningVi, pos: c.pos }))),
       error: () => this.pool.set([]),
     });
     loadLessonItems(this.study, this.api).subscribe({
@@ -161,10 +162,11 @@ export class Review {
   protected onModeKeydown(event: KeyboardEvent): void {
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
-      const next = this.mode() === 'flip' ? 'listen' : 'flip';
-      this.mode.set(next);
+      const step = event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1;
+      const at = (MODES.findIndex((m) => m.value === this.mode()) + step + MODES.length) % MODES.length;
+      this.mode.set(MODES[at].value);
       const group = (event.currentTarget as HTMLElement).closest('[role="radiogroup"]');
-      group?.querySelectorAll<HTMLElement>('[role="radio"]')[next === 'flip' ? 0 : 1]?.focus();
+      group?.querySelectorAll<HTMLElement>('[role="radio"]')[at]?.focus();
     }
   }
 }

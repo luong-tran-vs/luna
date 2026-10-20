@@ -9,6 +9,7 @@ import {
   inject,
   Injector,
   input,
+  linkedSignal,
   OnInit,
   output,
   signal,
@@ -26,6 +27,7 @@ import { Icon } from '../../../shared/components/icon/icon';
 import { AudioBar } from '../../../shared/components/audio-bar/audio-bar';
 import { estimateSeconds } from '../../../shared/utils/fake-waveform';
 import { Comparison, compareDictation } from '../../../shared/utils/dictation-compare';
+import { mishearings } from '../../../shared/utils/mishearings';
 import { loadErrorMessage } from '../load-error';
 import { ReadingApiService } from '../reading-api.service';
 import { ListeningApiService } from '../listening-api.service';
@@ -44,21 +46,24 @@ type Verdict = 'ok' | 'close' | 'bad';
 
 const CHECK_LABEL = 'Kiểm tra câu trả lời';
 
-/** How many of the first words of a sentence are offered as hints. */
-const HINT_WORDS = 3;
+/** One word of a sentence as a hint: how long it is and its first letter. */
+export interface Slot {
+  length: number;
+  first: string;
+}
 
 /**
- * Hints for a sentence: its first words (never all of them, without punctuation) and the mark it
- * ends with, as in "He · usually · starts · .".
+ * The hint of a sentence (updated 2026-10-20): one slot per word, as long as the word, and the mark
+ * it ends with. Unlike its first words given in order, it never suggests where the sentence stops.
  */
-export function sentenceHints(text: string): string[] {
-  const words = text.trim().split(/\s+/).filter(Boolean);
-  const first = words
-    .slice(0, Math.min(HINT_WORDS, words.length - 1))
+export function sentenceSlots(text: string): { slots: Slot[]; end: string } {
+  const slots = text
+    .trim()
+    .split(/\s+/)
     .map((w) => w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}']+$/gu, ''))
-    .filter(Boolean);
-  const end = /[.?!]$/.exec(text.trim())?.[0];
-  return end ? [...first, end] : first;
+    .filter(Boolean)
+    .map((w) => ({ length: w.length, first: w[0] }));
+  return { slots, end: /[.?!]$/.exec(text.trim())?.[0] ?? '' };
 }
 
 const VERDICT_LABELS: Record<Verdict, string> = { ok: 'Chính xác!', close: 'Gần đúng', bad: 'Chưa đúng' };
@@ -153,7 +158,7 @@ export class Listening implements OnInit {
     if (!c) {
       return null;
     }
-    if (c.totalWords > 0 && c.correctWords === c.totalWords) {
+    if (c.totalWords > 0 && c.correctWords === c.totalWords && c.closeWords === 0) {
       return 'ok';
     }
     return c.correctWords * 2 >= c.totalWords ? 'close' : 'bad';
@@ -173,9 +178,19 @@ export class Listening implements OnInit {
     return 'saved';
   });
   protected readonly isLastSentence = computed(() => this.current() >= this.sentences().length - 1);
-  protected readonly hints = computed(() => {
+  protected readonly hint = computed(() => {
     const s = this.sentence();
-    return s ? sentenceHints(s.text) : [];
+    return s ? sentenceSlots(s.text) : { slots: [], end: '' };
+  });
+  /** "Hé lộ chữ cái đầu": shows the first letter of each slot, until the sentence changes. */
+  protected readonly firstLetters = linkedSignal(() => {
+    this.current();
+    return false;
+  });
+  protected readonly hintText = computed(() => {
+    const { slots } = this.hint();
+    const letters = this.firstLetters() ? `, chữ cái đầu: ${slots.map((s) => s.first).join(', ')}` : '';
+    return `Câu có ${slots.length} từ${letters}`;
   });
   /**
    * What the main button at the bottom does: check the answer, or, once the shown answer is
@@ -205,6 +220,8 @@ export class Listening implements OnInit {
     }
   });
   protected readonly checkedCount = computed(() => this.checked().size);
+  /** Once every sentence is checked: what the learner most often heard wrong (added 2026-10-20). */
+  protected readonly slips = computed(() => mishearings([...this.checked().values()].map((c) => c.comparison)));
   /** Checked sentences typed with every word right (✓ on their number; the others get ✗). */
   protected readonly rightOnes = computed(() => {
     const right = new Set<number>();
@@ -406,14 +423,6 @@ export class Listening implements OnInit {
     this.typed.set('');
     this.answerError.set(null);
     this.host.nativeElement.querySelector<HTMLTextAreaElement>('#answer')?.focus();
-  }
-
-  /** A hint goes at the end of the answer: a word after a space, the end mark right after it. */
-  protected addHint(hint: string): void {
-    const typed = this.typed().trimEnd();
-    const glue = !typed || /^[.?!]$/.test(hint) ? '' : ' ';
-    this.typed.set(typed + glue + hint);
-    this.answerError.set(null);
   }
 
   /** The main button at the bottom (see mainStep). */

@@ -96,7 +96,7 @@ func (l lessonVocabulary) Vocabulary(ctx context.Context, id string) ([]vocab.Vo
 	for i, it := range items {
 		out[i] = vocab.VocabItem{
 			Lemma: it.Lemma, Text: it.Text, MeaningVi: it.MeaningVi, IPA: it.IPA,
-			SentenceIndex: it.SentenceIndex, Sentence: it.Sentence,
+			SentenceIndex: it.SentenceIndex, Sentence: it.Sentence, POS: it.POS,
 		}
 	}
 	return out, nil

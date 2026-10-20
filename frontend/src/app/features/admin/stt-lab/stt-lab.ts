@@ -216,7 +216,7 @@ export class SttLab {
         this.rows.update((rows) =>
           rows.map((r) =>
             r.id === data.id
-              ? { ...r, heard: data.text, took: data.ms / 1000, comparison: compareDictation(r.sentence, data.text) }
+              ? { ...r, heard: data.text, took: data.ms / 1000, comparison: compareDictation(r.sentence, data.text, { slips: false }) }
               : r,
           ),
         );

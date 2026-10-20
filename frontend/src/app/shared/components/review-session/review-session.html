@@ -33,6 +33,11 @@
           <lu-icon name="volume" /><span class="visually-hidden">Nghe từ</span>
         </button>
       </p>
+    } @else if (mode() === 'recall') {
+      <!-- Recall: the meaning asks for the word (added 2026-10-20). -->
+      <p class="meaning recall-meaning">{{ card.meaningVi }}</p>
+      <p class="letters" lang="en" aria-hidden="true">{{ letters() }}</p>
+      <p class="visually-hidden">Từ có {{ letterCount() }} chữ cái, bắt đầu bằng {{ card.text[0] }}</p>
     } @else {
       <!-- A solid triangle drawn in CSS (no lu-icon): while the word plays, SpeakButton shows its stop square. -->
       <button type="button" class="play-big" [luSpeak]="card.text" (click)="play()">
@@ -43,8 +48,10 @@
     }
 
     @if (shown()) {
-      @if (tone() === 'wrong') {
+      @if (tone() === 'wrong' && typed()) {
         <p class="typed">Bạn gõ: <s lang="en">{{ typed() }}</s></p>
+      } @else if (verdict() === 'close') {
+        <p class="typed">Bạn gõ: <span class="close-typed" lang="en">{{ typed() }}</span> · sai một chút chính tả</p>
       }
       @if (card.ipa) {
         <p class="ipa">{{ card.ipa }}</p>
@@ -52,9 +59,17 @@
       <p class="meaning">{{ card.meaningVi }}</p>
     }
 
-    <!-- The example sentence: on the front in flip mode, only once shown in listen mode (it holds the answer). -->
+    <!--
+      The example sentence once the card is shown (updated 2026-10-20: not on the front in flip mode,
+      so the meaning is recalled from the word alone); in recall mode the front has it with a blank.
+    -->
     @if (example(); as ex) {
-      @if (mode() === 'flip' || shown()) {
+      @if (!shown() && mode() === 'recall' && ex[1]) {
+        <p class="example-row">
+          <span class="example" lang="en">{{ ex[0] }}<span class="blank" aria-label="chỗ trống">_____</span>{{ ex[2] }}</span>
+        </p>
+      }
+      @if (shown()) {
         <p class="example-row">
           <span class="example" lang="en">{{ ex[0] }}@if (ex[1]) {<mark>{{ ex[1] }}</mark>}{{ ex[2] }}</span>
           <button type="button" class="sound" [luSpeak]="card.contextSentence" (click)="playExample()">
@@ -72,7 +87,7 @@
   @if (playError()) {
     <p class="play-error field-error" role="alert">
       Chưa đọc được từ này.
-      @if (mode() === 'listen' && !shown()) {
+      @if (mode() !== 'flip' && !shown()) {
         <button type="button" class="link-btn" (click)="flip()">Hiện từ</button>
       }
     </p>
@@ -111,15 +126,17 @@
         <button type="button" class="btn" (click)="retry()">Thử lại</button>
       </div>
     }
-  } @else if (mode() === 'listen') {
+  } @else if (mode() !== 'flip') {
     <form id="review-answer-form" class="answer" (submit)="check($event)">
-      <label class="visually-hidden" for="review-answer">Từ bạn nghe được</label>
+      <label class="visually-hidden" for="review-answer">{{
+        mode() === 'recall' ? 'Từ tiếng Anh' : 'Từ bạn nghe được'
+      }}</label>
       <input
         #answer
         id="review-answer"
         type="text"
         lang="en"
-        placeholder="Gõ từ bạn nghe được…"
+        [placeholder]="mode() === 'recall' ? 'Gõ từ tiếng Anh…' : 'Gõ từ bạn nghe được…'"
         autocapitalize="off"
         autocorrect="off"
         autocomplete="off"
@@ -202,7 +219,7 @@
           </button>
         }
       </div>
-    } @else if (mode() === 'listen') {
+    } @else if (mode() !== 'flip') {
       <button type="submit" form="review-answer-form" class="btn-primary">Kiểm tra</button>
     } @else {
       <button #face type="button" class="btn-primary" (click)="flip()">Lật thẻ</button>

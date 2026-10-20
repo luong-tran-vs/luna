@@ -1,5 +1,6 @@
 import { PracticeFill } from '../../../core/models/practice';
 import { DueCard, VocabItem } from '../../../core/models/vocab';
+import { letterHint } from '../../../shared/utils/answer-match';
 import {
   Answer,
   badgeOf,
@@ -280,5 +281,36 @@ describe('resultAfter', () => {
       correct: 4,
       wrong: ['f:0'],
     });
+  });
+});
+
+// Added 2026-10-20: Gõ từ, the meaning asks for the word.
+describe('recall questions', () => {
+  it('asks the lesson words whose example holds them, with the example cut around the word', () => {
+    const items = [item('desk', 'bàn làm việc'), { ...item('boss', 'sếp'), sentence: 'No word here.' }, item('lamp', '')];
+    const bank = buildBank(items, [], null, [], 7);
+    expect(bank.recall).toEqual([
+      {
+        kind: 'recall',
+        id: 'r:desk',
+        word: 'desk',
+        lemma: 'desk',
+        ipa: '',
+        meaningVi: 'bàn làm việc',
+        before: 'The ',
+        inSentence: 'desk',
+        after: ' is here.',
+      },
+    ]);
+  });
+
+  it('hints the first letter and the length of each word', () => {
+    expect(letterHint('loud')).toBe('l _ _ _');
+    expect(letterHint('turn on')).toBe('t _ _ _ / o _');
+  });
+
+  it('brings a word typed wrong back for review', () => {
+    const bank = buildBank([item('desk', 'bàn làm việc')], [], null, [], 7);
+    expect(missedWords([{ question: bank.recall[0], correct: false, given: 'table' }])).toEqual(['desk']);
   });
 });

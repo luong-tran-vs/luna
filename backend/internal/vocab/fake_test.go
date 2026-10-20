@@ -362,7 +362,7 @@ func newEnv() *testEnv {
 		Timezones: fakeTimezones{},
 		Vocabulary: fakeVocabulary{
 			"lesson1": {
-				{Lemma: "go", Text: "went", MeaningVi: "đi", IPA: "/ɡəʊ/", SentenceIndex: 0, Sentence: "We went to the park."},
+				{Lemma: "go", Text: "went", MeaningVi: "đi", IPA: "/ɡəʊ/", SentenceIndex: 0, Sentence: "We went to the park.", POS: "verb"},
 				{Lemma: "give up", Text: "gave up", MeaningVi: "từ bỏ", SentenceIndex: 1, Sentence: "He gave up smoking."},
 			},
 			"lesson2": {},

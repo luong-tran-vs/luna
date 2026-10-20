@@ -151,19 +151,20 @@
           @if (answerError(); as message) {
             <p class="answer-error field-error" id="answer-error" role="alert">{{ message }}</p>
           }
-          @if (hints().length) {
+          @if (hint().slots.length) {
             <div class="hints">
-              <span class="hints-label" aria-hidden="true">Gợi ý:</span>
-              @for (h of hints(); track $index) {
-                <button
-                  type="button"
-                  class="hint"
-                  lang="en"
-                  [attr.aria-label]="'Thêm từ gợi ý ' + h"
-                  (click)="addHint(h)"
-                >
-                  {{ h }}
-                </button>
+              <span class="hints-label" aria-hidden="true">Gợi ý · {{ hint().slots.length }} từ:</span>
+              <span class="slots" lang="en" aria-hidden="true">
+                @for (s of hint().slots; track $index) {
+                  <span class="slot" [style.min-width.ch]="s.length + 1">{{ firstLetters() ? s.first : '' }}</span>
+                }
+                @if (hint().end) {
+                  <span class="slot-end">{{ hint().end }}</span>
+                }
+              </span>
+              <span class="visually-hidden">{{ hintText() }}</span>
+              @if (!firstLetters()) {
+                <button type="button" class="hint" (click)="firstLetters.set(true)">Hé lộ chữ cái đầu</button>
               }
             </div>
           }
@@ -231,6 +232,16 @@
                   @case ('ok') {
                     <span class="word ok">{{ w.word }}</span>
                   }
+                  @case ('close') {
+                    <span class="word close"
+                      ><span class="typed">{{ w.word }}</span
+                      ><span aria-hidden="true">
+                        → <b>{{ w.expected }}</b></span
+                      ><span class="visually-hidden" lang="vi"
+                        >gần đúng, viết đúng là {{ w.expected }}</span
+                      ></span
+                    >
+                  }
                   @case ('missing') {
                     <span class="word missing"
                       >{{ w.expected }}<span class="visually-hidden" lang="vi">thiếu</span></span
@@ -259,11 +270,14 @@
             </p>
             <p class="score">
               {{ r.comparison.correctWords }}/{{ r.comparison.totalWords }} từ đúng
+              @if (r.comparison.closeWords) {
+                · {{ r.comparison.closeWords }} từ sai chính tả hoặc viết dính
+              }
             </p>
             <p class="correct-sentence">
               Câu đúng: <span lang="en">{{ sentence()!.text }}</span>
             </p>
-            <p class="legend muted">Gạch ngang: sai hoặc thừa · Gạch chân chấm: thiếu</p>
+            <p class="legend muted">Gạch ngang: sai hoặc thừa · Gạch chân chấm: thiếu · Gạch lượn sóng: gần đúng</p>
             <div class="result-actions">
               <button type="button" class="btn redo" (click)="redoSentence()">
                 <lu-icon name="review" /> Làm lại câu này
@@ -284,6 +298,22 @@
         <p class="done" role="status">
           ✓ Đã hoàn thành bước Nghe · Tỷ lệ đúng {{ ratePercent() }}%
         </p>
+        @if (slips().length) {
+          <section class="slips card" aria-labelledby="slips-heading">
+            <h3 class="slips-title" id="slips-heading">Bạn hay nghe nhầm</h3>
+            <ul class="slips-list">
+              @for (s of slips(); track s.kind) {
+                <li class="slip">
+                  <p class="slip-head">
+                    <b>{{ s.title }}</b> <span class="muted">· {{ s.count }} lần</span>
+                  </p>
+                  <p class="slip-examples" lang="en">{{ s.examples.join(', ') }}</p>
+                  <p class="slip-tip muted">{{ s.tip }}</p>
+                </li>
+              }
+            </ul>
+          </section>
+        }
       }
     }
   } @else {

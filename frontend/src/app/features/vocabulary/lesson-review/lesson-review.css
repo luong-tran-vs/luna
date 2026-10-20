@@ -204,6 +204,55 @@
   color: var(--color-text-muted);
 }
 
+.example mark {
+  font-weight: 700;
+  font-style: normal;
+  color: var(--color-primary-ink);
+  background: none;
+}
+
+/* Gõ từ: the first letter and a blank for each other letter, the gap in the example, the answer box. */
+.letters {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  white-space: pre-wrap;
+}
+
+.blank {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-primary-ink);
+}
+
+.typed {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.close-typed {
+  text-decoration: underline wavy 2px var(--color-warn);
+  text-underline-offset: 3px;
+}
+
+.recall-input {
+  width: 100%;
+  min-height: 48px;
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-lg) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.recall-input:focus-visible {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
 .line {
   font: var(--text-lg) var(--font-ui);
   font-weight: 500;

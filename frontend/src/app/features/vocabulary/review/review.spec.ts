@@ -127,6 +127,7 @@ describe('Review', () => {
     expect(radios.map((r) => r.textContent?.replace(/\s+/g, ' ').trim())).toEqual([
       'Xem từ chọn nghĩa',
       'Nghe rồi gõ từ',
+      'Nghĩa rồi gõ từ',
     ]);
     expect(radios[0].getAttribute('aria-checked')).toBe('true');
 
