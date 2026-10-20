@@ -51,7 +51,7 @@ func CurrentLesson(goal *Goal, roadmap []string, completed map[string]bool) Stud
 // FreezeEvery is how many study days must pass before another missed day is forgiven.
 const FreezeEvery = 7
 
-// Streak counts consecutive days with a completed lesson, ending today when today is done and
+// Streak counts consecutive study days (see StudyService.MarkStudied), ending today when today is done and
 // yesterday otherwise. One missed day between two study days is forgiven (it is not counted), and
 // again only after FreezeEvery study days since the last one forgiven; two missed days in a row
 // reset it to 0. Nothing is stored: the rule reads the days alone.

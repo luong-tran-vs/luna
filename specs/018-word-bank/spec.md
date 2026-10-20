@@ -98,6 +98,11 @@ Mỗi từ có tối đa một ảnh: tải lên, lấy từ link, sinh bằng A
 - **FR-007** *(sửa 2026-10-08)*: Chủ đề của một từ suy ra từ danh sách từ của các chủ đề (F18, so theo dạng chuẩn hoá), không
   lưu riêng. `GET /api/admin/words` nhận `topicId` để lọc và trả `topics` cho mỗi từ; `POST /api/admin/words` nhận `topicId`
   tuỳ chọn, trả thêm `inBank` và `topic` (200 khi từ đã có trong kho, 201 khi tạo mới).
+- **FR-008** *(thêm 2026-10-19)*: Phiên âm chuẩn của app là giọng Mỹ: từ điển CMU (nhúng trong backend) trước, rồi từ điển offline
+  đã làm sạch; cụm từ ghép từng từ, từ nhỏ (a, the, to, of…) đọc yếu. Danh sách từ trả `ipaSuggestion` cho từ có phiên âm ghi
+  kiểu khác (nhiều biến thể, ɹ, ɑʊ…) hoặc đọc khác bản chuẩn; bộ lọc "Phiên âm cần xem" (`missing=ipaCheck`) chỉ hiện các từ
+  đó; mỗi từ có nút "Nhận", và `POST /api/admin/words/ipa-suggestions/accept` nhận mọi gợi ý một lần (`{"updated": n}`).
+  Thẻ ôn lưu từ bài mà phiên âm ghi kiểu khác được thay bằng bản chuẩn khi lấy ra; thẻ người học tự gõ giữ nguyên.
 
 ### Key Entities
 

@@ -6,15 +6,23 @@ import (
 	"time"
 )
 
-// Service keeps the learned verbs and records their review rounds.
-type Service struct {
-	repo Repository
-	now  func() time.Time
+// StudyDays counts today as a study day for the streak (implemented over progress in
+// internal/service).
+type StudyDays interface {
+	MarkStudied(ctx context.Context, userID string) error
 }
 
-// NewService returns a Service on repo; now is the clock (time.Now outside tests).
-func NewService(repo Repository, now func() time.Time) *Service {
-	return &Service{repo: repo, now: now}
+// Service keeps the learned verbs and records their review rounds.
+type Service struct {
+	repo      Repository
+	studyDays StudyDays
+	now       func() time.Time
+}
+
+// NewService returns a Service on repo; studyDays counts a lesson or review round for the streak
+// (nil counts none); now is the clock (time.Now outside tests).
+func NewService(repo Repository, studyDays StudyDays, now func() time.Time) *Service {
+	return &Service{repo: repo, studyDays: studyDays, now: now}
 }
 
 // List returns the user's records.
@@ -38,9 +46,16 @@ func (s *Service) Record(ctx context.Context, userID string, results []Result) (
 		bases = append(bases, r.Base)
 		last[r.Base] = r.Right
 	}
-	return s.update(ctx, userID, "results", bases, func(p Progress, now time.Time) Progress {
+	out, err := s.update(ctx, userID, "results", bases, func(p Progress, now time.Time) Progress {
 		return Apply(p, last[p.Base], now)
 	})
+	if err != nil {
+		return nil, err
+	}
+	if err := s.markStudied(ctx, userID); err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 // SetLearned marks the verbs as learned (the learner's "Đã học"), or no longer learned, and
@@ -53,7 +68,25 @@ func (s *Service) SetLearned(ctx context.Context, userID string, bases []string,
 	if learned {
 		change = Learn
 	}
-	return s.update(ctx, userID, "bases", bases, change)
+	out, err := s.update(ctx, userID, "bases", bases, change)
+	if err != nil || !learned {
+		return out, err
+	}
+	if err := s.markStudied(ctx, userID); err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// markStudied counts today for the streak: a finished lesson or review round is a study day.
+func (s *Service) markStudied(ctx context.Context, userID string) error {
+	if s.studyDays == nil {
+		return nil
+	}
+	if err := s.studyDays.MarkStudied(ctx, userID); err != nil {
+		return fmt.Errorf("verbs: study day: %w", err)
+	}
+	return nil
 }
 
 func checkCount(field string, n int) error {

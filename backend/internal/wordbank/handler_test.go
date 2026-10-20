@@ -64,7 +64,7 @@ func TestWordsAPI(t *testing.T) {
 		Total   int  `json:"total"`
 		HasMore bool `json:"hasMore"`
 	}
-	if err := json.Unmarshal(rec.Body.Bytes(), &page); err != nil || page.Total != 1 || page.Words[0].Lemma != "table" {
+	if err := json.Unmarshal(rec.Body.Bytes(), &page); err != nil || page.Total != 1 || page.Words[0].Lemma != "tablix" {
 		t.Fatalf("list = %d %s", rec.Code, rec.Body)
 	}
 	if rec = do(mux, http.MethodGet, "/api/admin/words?page=x", ""); rec.Code != http.StatusBadRequest {
@@ -78,7 +78,7 @@ func TestWordsAPI(t *testing.T) {
 	if rec = do(mux, http.MethodPatch, "/api/admin/words/nope", `{}`); rec.Code != http.StatusNotFound {
 		t.Fatalf("update missing = %d", rec.Code)
 	}
-	if rec = do(mux, http.MethodDelete, "/api/admin/words/table", ""); rec.Code != http.StatusNoContent {
+	if rec = do(mux, http.MethodDelete, "/api/admin/words/tablix", ""); rec.Code != http.StatusNoContent {
 		t.Fatalf("delete = %d", rec.Code)
 	}
 
@@ -157,10 +157,10 @@ func TestAddToTopicAPI(t *testing.T) {
 func TestFillMissingAPI(t *testing.T) {
 	t.Parallel()
 	mux, e := newAPI(t)
-	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "table"}); err != nil {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "tablix"}); err != nil {
 		t.Fatal(err)
 	}
-	e.means.answers = []ai.WordMeaning{{Word: "table", MeaningVi: "cái bàn", IPA: "/ˈteɪbl/"}}
+	e.means.answers = []ai.WordMeaning{{Word: "tablix", MeaningVi: "cái bàn", IPA: "/ˈteɪbl/"}}
 	rec := do(mux, http.MethodPost, "/api/admin/words/fill-missing", `{"topicId":"t1"}`)
 	if rec.Code != http.StatusOK || rec.Body.String() != "{\"asked\":1,\"ipas\":1,\"meanings\":1}\n" {
 		t.Fatalf("fill = %d %s", rec.Code, rec.Body)
@@ -171,5 +171,21 @@ func TestFillMissingAPI(t *testing.T) {
 	}
 	if rec = do(mux, http.MethodPost, "/api/admin/words/fill-missing", `{"topicId":"t1"}`); rec.Code != http.StatusServiceUnavailable {
 		t.Fatalf("not configured = %d %s", rec.Code, rec.Body)
+	}
+}
+
+func TestIPASuggestionsAPI(t *testing.T) {
+	t.Parallel()
+	mux, e := newAPI(t)
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house", IPA: "/ˈhɑʊs/"}); err != nil {
+		t.Fatal(err)
+	}
+	rec := do(mux, http.MethodGet, "/api/admin/words?missing=ipaCheck", "")
+	if rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), `"ipaSuggestion":"/haʊs/"`) {
+		t.Fatalf("list = %d %s", rec.Code, rec.Body)
+	}
+	rec = do(mux, http.MethodPost, "/api/admin/words/ipa-suggestions/accept", "")
+	if rec.Code != http.StatusOK || rec.Body.String() != "{\"updated\":1}\n" {
+		t.Fatalf("accept = %d %s", rec.Code, rec.Body)
 	}
 }

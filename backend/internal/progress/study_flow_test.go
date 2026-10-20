@@ -149,10 +149,11 @@ func TestStepsInAnyOrder(t *testing.T) {
 	// Write before Read too.
 	e.submitWriting(t)
 	if v, err = e.svc.CompleteStep(t.Context(), "u1", "f1", StepWrite); err != nil || v.Status != LessonStudying ||
-		v.Goal.CompletedLessons != 0 || v.Streak != 0 {
+		v.Goal.CompletedLessons != 0 || v.Streak != 1 {
 		t.Fatalf("write = %+v, %v", v, err)
 	}
-	if keys, _ := e.days.CompletedKeys(t.Context(), "u1"); len(keys) != 0 {
+	// Each step done counts the day, not only the last one (updated 2026-10-19).
+	if keys, _ := e.days.CompletedKeys(t.Context(), "u1"); len(keys) != 1 {
 		t.Fatalf("days before the last step = %v", keys)
 	}
 	// Read, the last step left, completes the lesson.
@@ -317,5 +318,26 @@ func TestMyLessonsAndAccess(t *testing.T) {
 	}
 	if ok, _ := e.svc.CanOpen(t.Context(), "u2", false, "f1"); ok {
 		t.Error("another learner opens f1 without a goal")
+	}
+}
+
+// A study day is any day with something learnt (updated 2026-10-19): MarkStudied, called by the
+// review, verbs and grammar, counts it like a lesson step, once, in the learner's timezone.
+func TestMarkStudiedCountsTheDay(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.setGoal(t, "family")
+	for range 2 {
+		if err := e.svc.MarkStudied(t.Context(), "u1"); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if keys, _ := e.days.CompletedKeys(t.Context(), "u1"); len(keys) != 1 || keys[0] != "2026-09-30" {
+		t.Fatalf("days = %v", keys)
+	}
+	e.nextDay(1)
+	e.complete(t, StepRead)
+	if v := e.dashboard(t, "u1"); v.Streak != 2 {
+		t.Fatalf("streak = %d, want 2", v.Streak)
 	}
 }

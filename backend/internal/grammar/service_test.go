@@ -1,6 +1,7 @@
 package grammar
 
 import (
+	"context"
 	"errors"
 	"slices"
 	"testing"
@@ -441,5 +442,25 @@ func TestMasteredCount(t *testing.T) {
 	}
 	if n, _ := e.svc.MasteredCount(t.Context(), "u1", &testNow); n != 1 {
 		t.Fatalf("since exactly then = %d; want 1", n)
+	}
+}
+
+type fakeStudyDays struct{ marked int }
+
+func (f *fakeStudyDays) MarkStudied(_ context.Context, _ string) error {
+	f.marked++
+	return nil
+}
+
+func TestRecordAttemptCountsTheStudyDay(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	days := &fakeStudyDays{}
+	e.svc.studyDays = days
+	e.published(t)
+	e.attempt(t, "practice", 8, 8)
+	e.attempt(t, "mastery", 4, 6, "m1", "m2")
+	if days.marked != 2 {
+		t.Fatalf("marked %d times, want 2", days.marked)
 	}
 }

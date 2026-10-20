@@ -28,8 +28,9 @@ func TestWriteStepAfterListen(t *testing.T) {
 	if v.Status != LessonStudying || v.CurrentStep != StepWrite || v.Steps[StepWrite] != StateCurrent || v.Goal.CompletedLessons != 0 {
 		t.Fatalf("after listen = %+v", v)
 	}
-	if keys, _ := e.days.CompletedKeys(t.Context(), "u1"); len(keys) != 0 {
-		t.Fatal("day completed before writing")
+	// A step done counts the day for the streak, before the lesson completes (updated 2026-10-19).
+	if keys, _ := e.days.CompletedKeys(t.Context(), "u1"); len(keys) != 1 {
+		t.Fatalf("study days after listen = %v", keys)
 	}
 
 	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepWrite); !errors.Is(err, ErrWriteIncomplete) {

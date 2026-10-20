@@ -121,11 +121,12 @@ describe('Home', () => {
   it('greets the learner and shows the progress of the lesson being studied and the button into it', async () => {
     await open(studying());
     expect(text(el.querySelector('h1'))).toBe('Xin chào, minh 👋');
-    expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 2 phần nữa thôi (Nghe, Viết)!');
+    expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 3 bước nữa thôi (Nghe, Luyện nói, Viết)!');
     // One card for the lesson being studied, with its progress (no second card repeating it).
     expect(el.querySelector('.today-goal')).toBeNull();
-    expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Đọc · Nghe · Viết');
-    expect(text(el.querySelector('.lesson .steps-bar .count'))).toBe('1/3 phần');
+    // The five steps of the lesson's page (Từ vựng, Đọc, Nghe, Luyện nói, Viết).
+    expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Bước 3/5: Nghe');
+    expect(text(el.querySelector('.lesson .steps-bar .count'))).toBe('2/5 bước');
     expect(text(el.querySelector('.lesson-title'))).toBe('At the café');
     expect(text(el.querySelector('.lesson'))).toContain('Chủ đề: A1 · Gia đình · Bài 3/12');
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
@@ -174,9 +175,36 @@ describe('Home', () => {
   });
 
   it('says "Bắt đầu học" before any step is done', async () => {
-    await open(studying({ action: { kind: 'start', step: 'read' }, tomorrowCards: 0 }));
+    await open(studying({
+        action: { kind: 'start', step: 'read' },
+        steps: { read: 'current', listen: 'locked', write: 'locked' },
+        tomorrowCards: 0,
+      }));
     expect(link('Bắt đầu học')?.getAttribute('href')).toBe('/lessons/l1');
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: không có thẻ cần ôn');
+  });
+
+  it('goes on from the step saved on this device, as the lesson page does', async () => {
+    // Từ vựng done on this device: the server knows no step yet.
+    localStorage.setItem('luna.lesson-step.l1', 'read');
+    try {
+      await open(studying({ action: { kind: 'start', step: 'read' }, steps: { read: 'current', listen: 'locked', write: 'locked' } }));
+      expect(link('Tiếp tục: Đọc')?.getAttribute('href')).toBe('/lessons/l1');
+      expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Bước 2/5: Đọc');
+      expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 4 bước nữa thôi (Đọc, Nghe, Luyện nói, Viết)!');
+    } finally {
+      localStorage.removeItem('luna.lesson-step.l1');
+    }
+  });
+
+  it('never goes back behind a step the server knows is done', async () => {
+    localStorage.setItem('luna.lesson-step.l1', 'words');
+    try {
+      await open(studying());
+      expect(link('Tiếp tục: Nghe')).not.toBeNull();
+    } finally {
+      localStorage.removeItem('luna.lesson-step.l1');
+    }
   });
 
   it('names a deleted lesson "Bài học"', async () => {

@@ -133,9 +133,7 @@ func (r *Reader) askResult(ctx context.Context, a AskResult) LookupResult {
 		Source: SourceAI, Text: a.Text, Lemma: a.Lemma,
 		Meanings: []LookupMeaning{{Text: a.MeaningVi}}, Note: a.NoteVi,
 	}
-	if e, ok, err := r.dict.Resolve(ctx, a.Lemma); err == nil && ok {
-		res.IPA = e.IPA
-	}
+	res.IPA = r.ipaOf(ctx, a.Lemma)
 	return res
 }
 

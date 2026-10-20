@@ -24,6 +24,7 @@ import { StudyApiService } from '../../../core/services/study-api.service';
 import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
+import { readSavedStep, writeSavedStep } from '../../../shared/utils/lesson-flow';
 import { Listening } from '../listening/listening';
 import { loadErrorMessage } from '../load-error';
 import { reviewOfferSettled } from '../review-offer';
@@ -113,29 +114,6 @@ const SPEAK_COUNT = 6;
 const BACKLOG = 30;
 /** About how long one card takes to review, in seconds. */
 const SECONDS_PER_CARD = 20;
-
-/** Where the learner stopped is kept on this device, since the server does not track the practice steps. */
-const STEP_KEY = (lessonId: string) => `luna.lesson-step.${lessonId}`;
-
-function readSavedStep(lessonId: string): string | null {
-  try {
-    return localStorage.getItem(STEP_KEY(lessonId));
-  } catch {
-    return null;
-  }
-}
-
-function writeSavedStep(lessonId: string, step: string | null): void {
-  try {
-    if (step === null) {
-      localStorage.removeItem(STEP_KEY(lessonId));
-    } else {
-      localStorage.setItem(STEP_KEY(lessonId), step);
-    }
-  } catch {
-    // Storage can be blocked (private window): the lesson then resumes from the server state alone.
-  }
-}
 
 /** Delay before saving the reading or listening position (debounce 1 s). */
 const POSITION_DELAY = 1000;

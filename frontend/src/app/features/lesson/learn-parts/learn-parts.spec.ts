@@ -63,36 +63,35 @@ describe('LearnParts', () => {
   it('lists one card per part with lessons, each opening its path', async () => {
     await setup(path);
 
-    expect(text(el.querySelector('h1'))).toBe('Chọn chặng học');
+    expect(text(el.querySelector('h1'))).toBe('Chọn trình độ');
     expect(text(el.querySelector('.streak-chip'))).toBe('3 ngày liên tiếp');
     // "Trở về" leads home.
     expect(el.querySelector('a.back')?.getAttribute('href')).toBe('/');
     const parts = Array.from(el.querySelectorAll('.part'));
     expect(parts.map((p) => text(p.querySelector('h2')))).toEqual([
-      'Phần 1: Khởi Động · A1 Mới bắt đầu',
-      'Phần 2: Giao Tiếp · A2 Sơ cấp',
+      'Trình độ A1 · Mới bắt đầu',
+      'Trình độ A2 · Sơ cấp',
     ]);
 
     // The part being studied: its progress and "Tiếp tục".
     expect(parts[0].classList).toContain('is-active');
-    expect(text(parts[0].querySelector('.chip'))).toBe('Đang học · Chặng 1/3');
+    expect(text(parts[0].querySelector('.chip'))).toBe('Đang học');
     expect(text(parts[0].querySelector('.badge'))).toBe('1/4 bài');
     expect(parts[0].querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe(
       '25',
     );
     expect(text(parts[0].querySelector('.percent'))).toBe('25%');
     const resume = parts[0].querySelector('a')!;
-    expect(text(resume)).toBe('Tiếp tục học phần 1');
+    expect(text(resume)).toBe('Tiếp tục học A1');
     expect(resume.getAttribute('href')).toBe('/lessons/levels/A1');
 
     // Another part: locked chip, lessons left, and a jump to it.
-    expect(text(parts[1].querySelector('.chip'))).toBe('Khóa');
-    expect(text(parts[1].querySelector('.stage'))).toBe('Chặng 2 / 3');
+    expect(text(parts[1].querySelector('.chip'))).toBe('Chưa mở');
     expect(text(parts[1].querySelector('.badge'))).toBe('5 bài cần mở');
     expect(text(parts[1].querySelector('.part-meta'))).toBe(
-      'i Hoàn thành Phần 1 hoặc nhảy thẳng tới đây',
+      'i Học xong trình độ trước hoặc chuyển thẳng sang đây',
     );
-    expect(text(parts[1].querySelector('a'))).toBe('Nhảy tới phần 2');
+    expect(text(parts[1].querySelector('a'))).toBe('Chuyển sang A2');
     expect(parts[1].querySelector('a')?.getAttribute('href')).toBe('/lessons/levels/A2');
 
     // The mascot, served from public/images.
@@ -102,10 +101,10 @@ describe('LearnParts', () => {
 
     // No lesson yet: no card, one small row in "Sắp có" with nothing to open.
     const soon = el.querySelector('.soon')!;
-    expect(text(soon.querySelector('h2'))).toBe('Sắp có · 1 phần');
+    expect(text(soon.querySelector('h2'))).toBe('Sắp có · 1 trình độ');
     const rows = Array.from(soon.querySelectorAll('li'));
     expect(rows.map((r) => text(r))).toEqual([
-      'Phần 3 Tự Tin Làm Chủ · B1 Trung cấp Phản xạ nhanh & từ vựng nâng cao',
+      'B1 Trung cấp Tự Tin Làm Chủ: Phản xạ nhanh & từ vựng nâng cao',
     ]);
     expect(soon.querySelector('a, img, .chip')).toBeNull();
     // The cards come first, then "Sắp có", then the daily streak card.
@@ -131,8 +130,8 @@ describe('LearnParts', () => {
       milestones: [part('A1', [roadmap('family', 0, 4)])],
     });
 
-    expect(text(el.querySelector('[role="status"]'))).toContain('Bạn chưa chọn lộ trình nào');
-    expect(text(el.querySelector('.part a'))).toBe('Nhảy tới phần 1');
+    expect(text(el.querySelector('[role="status"]'))).toContain('Bạn chưa chọn chủ đề nào');
+    expect(text(el.querySelector('.part a'))).toBe('Chuyển sang A1');
     expect(el.querySelector('a.back')?.getAttribute('href')).toBe('/');
   });
 });

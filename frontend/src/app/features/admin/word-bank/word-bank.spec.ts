@@ -275,6 +275,36 @@ describe('WordBank (F24)', () => {
     expect(el.querySelector('.note')!.textContent).toContain('Đã hết lượt AI');
   });
 
+  it('offers the standard IPA for a stored one that needs a look, one by one or all at once', async () => {
+    const odd: BankWord = { ...house, ipa: '/ˈhɑʊs/', ipaSuggestion: '/haʊs/' };
+    await open([odd, table]);
+    expect(rows()[0].textContent?.replace(/\s+/g, ' ')).toContain('Gợi ý chuẩn: /haʊs/');
+    expect(rows()[1].querySelector('.ipa-suggestion')).toBeNull();
+    button(rows()[0], 'Nhận')!.click();
+    const req = http.expectOne('/admin/words/house');
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body).toEqual({ ipa: '/haʊs/' });
+    req.flush(house);
+    await settle();
+    expect(rows()[0].querySelector('.ipa-suggestion')).toBeNull();
+
+    // The filter lists only those, with a button for all of them.
+    const select = el.querySelector<HTMLSelectElement>('#bank-missing')!;
+    select.value = 'ipaCheck';
+    select.dispatchEvent(new Event('change'));
+    await settle(350);
+    expectList('page=1&missing=ipaCheck').flush({ words: [odd], total: 1, hasMore: false });
+    await settle();
+    button(el, 'Nhận tất cả gợi ý')!.click();
+    http.expectOne((r) => r.url === '/admin/words/ipa-suggestions/accept' && r.method === 'POST').flush({ updated: 1 });
+    await settle();
+    expect(el.querySelector('.note')?.textContent).toContain('Đã thay phiên âm chuẩn cho 1 từ.');
+    await settle(350);
+    expectList('page=1&missing=ipaCheck').flush({ words: [], total: 0, hasMore: false });
+    await settle();
+    expect(button(el, 'Nhận tất cả gợi ý')).toBeUndefined();
+  });
+
   it('imports the topic words', async () => {
     await open();
     button(el, 'Nhập từ các chủ đề')!.click();

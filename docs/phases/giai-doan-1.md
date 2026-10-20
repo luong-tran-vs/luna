@@ -160,7 +160,7 @@
 - **Học lần lượt** (cập nhật 2026-10-02, thay cho "mỗi ngày một bài"): bài đang học là bài tiếp theo chưa hoàn thành trong lộ trình; học xong thì bài kế tiếp mở ngay, không giới hạn số bài mỗi ngày. Không có trang "Hôm nay": học ngay trong trang của bài.
 - **Các bước của bài:** Đọc → Nghe (bước Ôn bỏ từ 2026-10-02). Bước sau chỉ mở khi xong bước trước.
 - **Ôn thẻ:** ~~bước Ôn đầu bài~~ bỏ từ 2026-10-02; ôn thẻ đến hạn ở Từ vựng › Ôn tập.
-- **Hoàn thành bài:** thanh mục tiêu +1 bài, ngày đó tính vào streak, bài kế tiếp mở ngay.
+- **Hoàn thành bài:** thanh mục tiêu +1 bài, bài kế tiếp mở ngay. *(sửa 2026-10-19)* Streak tính mọi ngày học: xong một bước của bài, ôn từ 5 thẻ, học động từ bất quy tắc hoặc luyện ngữ pháp (chi tiết ở `docs/mvp-features.md` mục 4).
 - **Danh sách bài học:** trang "Bài học" gồm bài đang học, các bài đã học (mở lại để đọc, nghe bất cứ lúc nào) và các bài sắp tới ở trạng thái khoá (chỉ hiện tên).
 
 **Tiêu chí nghiệm thu**

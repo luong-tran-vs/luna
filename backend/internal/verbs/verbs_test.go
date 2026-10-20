@@ -102,7 +102,7 @@ func TestApplyReviewsOnlyLearnedVerbs(t *testing.T) {
 func TestServiceLearnsAndRecords(t *testing.T) {
 	t.Parallel()
 	repo := newFakeRepo()
-	svc := NewService(repo, func() time.Time { return testNow })
+	svc := NewService(repo, nil, func() time.Time { return testNow })
 	got, err := svc.SetLearned(t.Context(), "u1", []string{"go", "see", "go"}, true)
 	if err != nil || len(got) != 2 || !got[0].Learned() || got[0].Base != "go" || got[1].Base != "see" {
 		t.Fatalf("learned = %+v, %v", got, err)
@@ -126,7 +126,7 @@ func TestServiceLearnsAndRecords(t *testing.T) {
 
 func TestServiceRejectsBadInput(t *testing.T) {
 	t.Parallel()
-	svc := NewService(newFakeRepo(), func() time.Time { return testNow })
+	svc := NewService(newFakeRepo(), nil, func() time.Time { return testNow })
 	many := make([]Result, MaxResults+1)
 	for i := range many {
 		many[i] = Result{Base: "go"}
@@ -160,7 +160,7 @@ func TestHandler(t *testing.T) {
 			next.ServeHTTP(w, r.WithContext(httpx.WithPrincipal(r.Context(), httpx.Principal{UserID: "u1"})))
 		})
 	}
-	NewHandler(NewService(repo, func() time.Time { return testNow }), slog.New(slog.NewTextHandler(io.Discard, nil))).Register(mux, auth)
+	NewHandler(NewService(repo, nil, func() time.Time { return testNow }), slog.New(slog.NewTextHandler(io.Discard, nil))).Register(mux, auth)
 	call := func(method, path, body string) (int, map[string]any) {
 		rec := httptest.NewRecorder()
 		req := httptest.NewRequest(method, path, strings.NewReader(body))
@@ -197,5 +197,28 @@ func TestHandler(t *testing.T) {
 	repo.fail = errors.New("db down")
 	if code, _ := call("GET", "/api/verbs/progress", ""); code != http.StatusInternalServerError {
 		t.Fatalf("db down = %d", code)
+	}
+}
+
+type fakeStudyDays struct{ marked int }
+
+func (f *fakeStudyDays) MarkStudied(_ context.Context, _ string) error {
+	f.marked++
+	return nil
+}
+
+func TestServiceCountsTheStudyDay(t *testing.T) {
+	t.Parallel()
+	days := &fakeStudyDays{}
+	svc := NewService(newFakeRepo(), days, func() time.Time { return testNow })
+	if _, err := svc.SetLearned(t.Context(), "u1", []string{"go"}, true); err != nil || days.marked != 1 {
+		t.Fatalf("learned: marked %d, %v", days.marked, err)
+	}
+	if _, err := svc.Record(t.Context(), "u1", []Result{{"go", true}}); err != nil || days.marked != 2 {
+		t.Fatalf("review round: marked %d, %v", days.marked, err)
+	}
+	// Taking a verb back out of the learned list is not studying.
+	if _, err := svc.SetLearned(t.Context(), "u1", []string{"go"}, false); err != nil || days.marked != 2 {
+		t.Fatalf("unlearned: marked %d, %v", days.marked, err)
 	}
 }

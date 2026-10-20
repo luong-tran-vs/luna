@@ -8,6 +8,11 @@ export interface BankWord {
   updatedAt: string;
   /** The topics whose word list holds the word, by name. */
   topics: BankTopic[];
+  /**
+   * The standard IPA (General American) offered when the stored one looks wrong or writes other
+   * sounds; absent otherwise.
+   */
+  ipaSuggestion?: string;
 }
 
 /** A topic named on a word of the bank. */
@@ -23,8 +28,8 @@ export interface BankPage {
   hasMore: boolean;
 }
 
-/** Filter of the list: every word, or the words lacking one thing. */
-export type BankMissing = '' | 'image' | 'ipa' | 'meaning';
+/** Filter of the list: every word, the words lacking one thing, or those whose IPA has a suggestion. */
+export type BankMissing = '' | 'image' | 'ipa' | 'meaning' | 'ipaCheck';
 
 export interface BankWordInput {
   lemma: string;

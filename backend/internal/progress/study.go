@@ -299,10 +299,25 @@ func (s *StudyService) view(ctx context.Context, d *day, lessonID string) (Lesso
 	return v, nil
 }
 
+// MarkStudied counts today, in the learner's timezone, as a study day for the streak (updated
+// 2026-10-19). A day counts when the learner does a step of a lesson, reviews at least
+// vocab.StudyDayReviews cards, finishes an irregular verbs lesson or review round, or finishes a
+// grammar practice or test; those domains call this.
+func (s *StudyService) MarkStudied(ctx context.Context, userID string) error {
+	loc, err := s.d.Timezones.Location(ctx, userID)
+	if err != nil {
+		return fmt.Errorf("progress: timezone: %w", err)
+	}
+	if err := s.d.Days.MarkCompleted(ctx, userID, DayKey(s.d.Now(), loc)); err != nil {
+		return fmt.Errorf("progress: study day: %w", err)
+	}
+	return nil
+}
+
 // CompleteStep records a step of the lesson being studied. Steps complete in any order: the learner
 // may move on to another skill and come back later. Completing a done step again changes nothing.
-// Once every step is done the lesson completes (goal +1, the day counts for the streak) and the
-// next lesson opens at once.
+// Each step done counts the day for the streak. Once every step is done the lesson completes
+// (goal +1) and the next lesson opens at once.
 func (s *StudyService) CompleteStep(ctx context.Context, userID, lessonID string, step Step) (LessonStudyView, error) {
 	return s.finishStep(ctx, userID, lessonID, step, false)
 }
@@ -397,7 +412,9 @@ func (s *StudyService) completeStep(ctx context.Context, d *day, step Step, skip
 	if err := s.d.Progress.Upsert(ctx, p); err != nil {
 		return LessonStudyView{}, fmt.Errorf("progress: save progress: %w", err)
 	}
-	if completed {
+	// Any step done counts the day for the streak; skipping the writing does not, unless it
+	// completes the lesson.
+	if completed || !skipWriting {
 		if err := s.d.Days.MarkCompleted(ctx, d.userID, d.today); err != nil {
 			return LessonStudyView{}, fmt.Errorf("progress: study day: %w", err)
 		}

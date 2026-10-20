@@ -38,7 +38,9 @@ type Deps struct {
 	Translations SentenceTranslations
 	// Results keeps the score of the latest lesson review of each lesson.
 	Results LessonResultRepository
-	Now     func() time.Time
+	// StudyDays counts a day with StudyDayReviews reviews for the streak; nil counts none.
+	StudyDays StudyDays
+	Now       func() time.Time
 }
 
 // Service manages notebook cards and their reviews. The user is always the session user.
@@ -52,6 +54,7 @@ type Service struct {
 	pronunciations Pronunciations
 	translations   SentenceTranslations
 	results        LessonResultRepository
+	studyDays      StudyDays
 	now            func() time.Time
 }
 
@@ -59,7 +62,8 @@ type Service struct {
 func NewService(d Deps) *Service {
 	return &Service{
 		repo: d.Repo, logs: d.Logs, lessonExists: d.LessonExists, timezones: d.Timezones,
-		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, translations: d.Translations, results: d.Results, now: d.Now,
+		vocabulary: d.Vocabulary, titles: d.Titles, pronunciations: d.Pronunciations, translations: d.Translations, results: d.Results,
+		studyDays: d.StudyDays, now: d.Now,
 	}
 }
 

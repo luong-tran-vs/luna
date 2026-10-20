@@ -119,10 +119,10 @@
                   <a class="btn-primary next" [routerLink]="['/lessons', l.id]">{{ actionLabel() }}</a>
                   <lu-progress-bar
                     class="steps-bar"
-                    label="Đọc · Nghe · Viết"
+                    [label]="stepLabel()"
                     [value]="doneSteps()"
                     [max]="stepCount"
-                    unit="phần"
+                    unit="bước"
                   />
                 </div>
               }

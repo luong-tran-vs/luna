@@ -40,9 +40,9 @@ func TestVocabulary(t *testing.T) {
 		t.Fatalf("available = %v, %v", available, err)
 	}
 	want := []VocabItem{
-		{Lemma: "go", Text: "went", MeaningVi: "đã đi (tới công viên)", IPA: "/ɡəʊ/", SentenceIndex: 0, Sentence: "We went to the park.", POS: POSVerb},
-		{Lemma: "give up", Text: "gave up", MeaningVi: "đã bỏ", IPA: "", SentenceIndex: 1, Sentence: "He gave up smoking.", POS: POSPhrase},
-		{Lemma: "smoke", Text: "smoking", MeaningVi: "hút thuốc", IPA: "", SentenceIndex: 1, Sentence: "He gave up smoking.", POS: POSNoun},
+		{Lemma: "go", Text: "went", MeaningVi: "đã đi (tới công viên)", IPA: "/ɡoʊ/", SentenceIndex: 0, Sentence: "We went to the park.", POS: POSVerb},
+		{Lemma: "give up", Text: "gave up", MeaningVi: "đã bỏ", IPA: "/ˈɡɪv ˈʌp/", SentenceIndex: 1, Sentence: "He gave up smoking.", POS: POSPhrase},
+		{Lemma: "smoke", Text: "smoking", MeaningVi: "hút thuốc", IPA: "/smoʊk/", SentenceIndex: 1, Sentence: "He gave up smoking.", POS: POSNoun},
 		{Lemma: "study", Text: "studies", MeaningVi: "học", IPA: "/ˈstʌdi/", SentenceIndex: 2, Sentence: "She studies every day.", POS: POSVerb},
 	}
 	if len(items) != len(want) {
@@ -91,7 +91,7 @@ func TestVocabularyEndpoint(t *testing.T) {
 	mux := newReadingMux(r)
 
 	rec := get(t, mux, "/api/lessons/"+id+"/vocabulary", "learner")
-	want := `{"available":true,"items":[{"lemma":"go","text":"went","meaningVi":"đi","ipa":"/ɡəʊ/","sentenceIndex":0,"sentence":"We went to the park.","imageUrl":"","pos":"verb"}]}` + "\n"
+	want := `{"available":true,"items":[{"lemma":"go","text":"went","meaningVi":"đi","ipa":"/ɡoʊ/","sentenceIndex":0,"sentence":"We went to the park.","imageUrl":"","pos":"verb"}]}` + "\n"
 	if rec.Code != http.StatusOK || rec.Body.String() != want {
 		t.Fatalf("vocabulary: %d %s", rec.Code, rec.Body)
 	}

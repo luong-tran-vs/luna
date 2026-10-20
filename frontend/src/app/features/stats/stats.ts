@@ -82,7 +82,7 @@ export class Stats {
   });
   protected readonly goalLine = computed(() => {
     const g = this.dashboard()?.goal;
-    return g ? `${g.completedLessons}/${g.totalLessons} bài · ${g.level} ${g.topicName}` : 'Chưa chọn lộ trình';
+    return g ? `${g.completedLessons}/${g.totalLessons} bài · ${g.level} ${g.topicName}` : 'Chưa chọn chủ đề';
   });
 
   protected readonly counts = computed<CountRow[]>(() => {

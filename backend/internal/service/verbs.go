@@ -8,5 +8,5 @@ import (
 
 // initVerbs builds the irregular verbs practice (the "Động từ" tab).
 func (c *Container) initVerbs() {
-	c.verbs = verbs.NewService(c.store.VerbProgress(), time.Now)
+	c.verbs = verbs.NewService(c.store.VerbProgress(), c.studyDays, time.Now)
 }

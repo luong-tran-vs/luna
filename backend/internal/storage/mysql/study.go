@@ -305,7 +305,7 @@ FROM lesson_progress WHERE user_id = ?`
 
 // --- study_days ---
 
-// MarkCompleted records a completed lesson on dayKey (the streak counts such days).
+// MarkCompleted records that the learner studied on dayKey (the streak counts such days).
 func (r *StudyDays) MarkCompleted(ctx context.Context, userID, dayKey string) error {
 	_, err := r.db.ExecContext(ctx, "INSERT INTO study_days (user_id, day_key, completed) VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE completed = 1",
 		userID, dayKey)
@@ -315,7 +315,7 @@ func (r *StudyDays) MarkCompleted(ctx context.Context, userID, dayKey string) er
 	return nil
 }
 
-// CompletedKeys lists the user's days with a completed lesson, oldest first.
+// CompletedKeys lists the days the user studied, oldest first.
 func (r *StudyDays) CompletedKeys(ctx context.Context, userID string) ([]string, error) {
 	rows, err := r.db.QueryContext(ctx, "SELECT day_key FROM study_days WHERE user_id = ? AND completed = 1 ORDER BY day_key", userID)
 	if err != nil {

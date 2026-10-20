@@ -183,9 +183,7 @@ func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (
 			Source: SourceAI, Text: text, Lemma: normalize(a.Lemma),
 			Meanings: []LookupMeaning{{Text: a.MeaningVi}},
 		}
-		if e, ok, err := r.dict.Resolve(ctx, res.Lemma); err == nil && ok {
-			res.IPA = e.IPA
-		}
+		res.IPA = r.ipaOf(ctx, res.Lemma)
 		return res, nil
 	}
 
@@ -209,11 +207,26 @@ func (r *Reader) Lookup(ctx context.Context, lessonID, q string, sentence int) (
 		}
 		return LookupResult{}, ErrLookupNotFound
 	}
-	res := LookupResult{Source: SourceDictionary, Text: text, Lemma: e.Word, IPA: e.IPA}
+	res := LookupResult{Source: SourceDictionary, Text: text, Lemma: e.Word, IPA: r.ipaOf(ctx, e.Word)}
 	for _, m := range e.Meanings {
 		res.Meanings = append(res.Meanings, LookupMeaning(m))
 	}
 	return res, nil
+}
+
+// ipaOf is the transcription shown for lemma: the word bank's, else the standard one
+// (dictionary.IPA). Best effort: a failed lookup shows none.
+func (r *Reader) ipaOf(ctx context.Context, lemma string) string {
+	if r.bank != nil {
+		if words, err := r.bank.Words(ctx, []string{lemma}); err == nil && words[lemma].IPA != "" {
+			return words[lemma].IPA
+		}
+	}
+	ipa, err := dictionary.IPA(ctx, r.dict, lemma)
+	if err != nil {
+		return ""
+	}
+	return ipa
 }
 
 // matchAnnotation finds an annotation for text by its text, its lemma, or (for single words)

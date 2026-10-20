@@ -53,7 +53,7 @@ func TestVocabularyUsesWordBank(t *testing.T) {
 	for _, it := range items {
 		got[it.Lemma] = it
 	}
-	if g := got["go"]; g.IPA != "/ɡəʊ/" || !g.HasImage {
+	if g := got["go"]; g.IPA != "/ɡoʊ/" || !g.HasImage {
 		t.Fatalf("go = %+v", g)
 	}
 	if g := got["give up"]; g.IPA != "/ɡɪv ʌp/" || !g.HasImage {

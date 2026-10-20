@@ -5,7 +5,7 @@
         <a class="back-link" routerLink="/lessons" aria-label="Quay lại trang Học"
           ><lu-icon name="arrow-left"
         /></a>
-        <p class="banner-label">Phần {{ number() }} • {{ level() }} {{ levelName() }}</p>
+        <p class="banner-label">Trình độ {{ level() }} • {{ levelName() }}</p>
       </div>
       <h2 class="banner-title" [id]="titleId()">{{ title() }}</h2>
       <p class="banner-text">{{ text() }}</p>
@@ -15,7 +15,7 @@
         <span class="banner-chip" role="img" aria-label="Đang khoá"><lu-icon name="lock" /></span>
       } @else {
         <span class="banner-chip banner-count"
-          ><lu-icon name="sparkles" />{{ roadmaps() }} lộ trình</span
+          ><lu-icon name="sparkles" />{{ roadmaps() }} chủ đề</span
         >
       }
       <button
@@ -33,7 +33,7 @@
   @if (progress(); as p) {
     <div class="summary">
       <p class="summary-line">
-        Tiến độ: <strong class="count">{{ p.done }} / {{ p.total }}</strong> bài hoàn thành
+        Tiến độ {{ p.label }}: <strong class="count">{{ p.done }} / {{ p.total }}</strong> bài
       </p>
       <div
         class="track"
@@ -51,11 +51,12 @@
 </header>
 
 <div class="soft-card guide" id="path-guide" [hidden]="!guideOpen()">
-  <p class="guide-title">Học theo lộ trình thế nào?</p>
+  <p class="guide-title">Học theo trình độ thế nào?</p>
   <ul class="guide-list">
-    <li>Mỗi chặng là một chủ đề, gồm các bài học nối tiếp nhau.</li>
+    <li>Mỗi trình độ có nhiều chủ đề; mỗi chủ đề gồm các bài học nối tiếp nhau.</li>
+    <li>Mỗi bài có 5 bước: Từ vựng → Đọc → Nghe → Luyện nói → Viết.</li>
     <li>Bấm “Học chủ đề này?” để chọn chủ đề làm mục tiêu và vào bài đầu tiên chưa học.</li>
     <li>Học xong một bài thì bài kế tiếp mở khoá; bài đã học có thể mở lại bất cứ lúc nào.</li>
-    <li>Học hết các bài để nhận cúp hoàn thành chặng.</li>
+    <li>Học hết các bài của chủ đề để nhận cúp hoàn thành chủ đề.</li>
   </ul>
 </div>

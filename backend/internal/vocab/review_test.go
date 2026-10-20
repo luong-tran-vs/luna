@@ -1,6 +1,7 @@
 package vocab
 
 import (
+	"context"
 	"errors"
 	"testing"
 	"time"
@@ -305,5 +306,63 @@ func TestDueFillsMissingIPA(t *testing.T) {
 	stored, _ := e.repo.Get(t.Context(), "u1", house.ID)
 	if stored.IPA != "/haʊs/" || stored.Schedule.Reps != 1 {
 		t.Fatalf("stored = %+v", stored)
+	}
+}
+
+type fakeStudyDays struct{ marked int }
+
+func (f *fakeStudyDays) MarkStudied(_ context.Context, _ string) error {
+	f.marked++
+	return nil
+}
+
+func TestReviewCountsTheStudyDayFromTheFifth(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	days := &fakeStudyDays{}
+	e.svc.studyDays = days
+	for i, lemma := range []string{"a", "b", "c", "d", "e"} {
+		c := e.dueCard(lemma, Schedule{State: StateNew})
+		if _, err := e.svc.Review(t.Context(), "u1", c.ID, ReviewInput{Rating: int(Good), Mode: "flip"}); err != nil {
+			t.Fatal(err)
+		}
+		if want := max(0, i+2-StudyDayReviews); days.marked != want {
+			t.Fatalf("after review %d: marked %d times, want %d", i+1, days.marked, want)
+		}
+	}
+}
+
+// A lesson card saved with an IPA of another convention shows the standard one (updated
+// 2026-10-19); the learner's own card keeps what they typed, odd or not.
+func TestDueFixesOddLessonIPA(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	lesson := e.repo.put(Card{
+		UserID: "u1", Text: "house", Lemma: "house", IPA: "/ˈhɑʊs, haʊs/", MeaningVi: "nhà", LessonID: "lesson1", Source: SourceAI,
+		CreatedAt: e.clock.Now().AddDate(0, 0, -3), Schedule: Schedule{Due: e.clock.Now().Add(-time.Hour), Reps: 1},
+	})
+	manual := e.repo.put(Card{
+		UserID: "u1", Text: "home", Lemma: "home", IPA: "/ˈhɑʊm/", MeaningVi: "nhà", Source: SourceManual,
+		CreatedAt: e.clock.Now().AddDate(0, 0, -3), Schedule: Schedule{Due: e.clock.Now().Add(-time.Hour), Reps: 1},
+	})
+	list, err := e.svc.Due(t.Context(), "u1", 50)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]string{}
+	for _, c := range list.Cards {
+		got[c.ID] = c.IPA
+	}
+	if got[lesson.ID] != "/haʊs/" || got[manual.ID] != "/ˈhɑʊm/" {
+		t.Fatalf("ipa = %v", got)
+	}
+	if page, _ := e.svc.List(t.Context(), "u1", ListQuery{Page: 1}); len(page.Cards) != 2 {
+		t.Fatalf("notebook = %+v", page)
+	} else {
+		for _, c := range page.Cards {
+			if c.ID == lesson.ID && c.IPA != "/haʊs/" {
+				t.Fatalf("notebook card = %+v", c.Card)
+			}
+		}
 	}
 }

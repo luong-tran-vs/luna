@@ -125,7 +125,7 @@ func newEnv(t *testing.T) *env {
 		ai:       &fakeAI{content: aiContent()},
 		now:      testNow,
 	}
-	e.svc = NewService(e.lessons, e.progress, e.reports, e.ai, fakeCounter{counts: map[string]int{"a1-to-be": 3}}, func() time.Time { return e.now })
+	e.svc = NewService(e.lessons, e.progress, e.reports, e.ai, fakeCounter{counts: map[string]int{"a1-to-be": 3}}, nil, func() time.Time { return e.now })
 	return e
 }
 

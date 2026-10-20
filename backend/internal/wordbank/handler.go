@@ -44,6 +44,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("POST /api/admin/words", admin(h.add))
 	mux.Handle("POST /api/admin/words/import", admin(h.importTopics))
 	mux.Handle("POST /api/admin/words/fill-missing", admin(h.fillMissing))
+	mux.Handle("POST /api/admin/words/ipa-suggestions/accept", admin(h.acceptIPASuggestions))
 	mux.Handle("PATCH /api/admin/words/{lemma}", admin(h.update))
 	mux.Handle("DELETE /api/admin/words/{lemma}", admin(h.delete))
 	mux.Handle("GET /api/admin/words/{lemma}/image", admin(h.image))
@@ -62,6 +63,8 @@ type wordJSON struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 	// Topics are the topics whose word list holds the word, by name.
 	Topics []topicJSON `json:"topics"`
+	// IPASuggestion is the standard IPA offered for a stored one that needs a look.
+	IPASuggestion string `json:"ipaSuggestion,omitempty"`
 }
 
 type topicJSON struct {
@@ -70,7 +73,10 @@ type topicJSON struct {
 }
 
 func toJSON(w Word) wordJSON {
-	out := wordJSON{Lemma: w.Lemma, MeaningVi: w.MeaningVi, IPA: w.IPA, UpdatedAt: w.UpdatedAt, Topics: make([]topicJSON, len(w.Topics))}
+	out := wordJSON{
+		Lemma: w.Lemma, MeaningVi: w.MeaningVi, IPA: w.IPA, UpdatedAt: w.UpdatedAt, Topics: make([]topicJSON, len(w.Topics)),
+		IPASuggestion: w.IPASuggestion,
+	}
 	for i, t := range w.Topics {
 		out.Topics[i] = topicJSON(t)
 	}
@@ -86,7 +92,7 @@ type pageJSON struct {
 	HasMore bool       `json:"hasMore"`
 }
 
-// list serves GET /api/admin/words?q=&missing=image|ipa|meaning&topicId=&page=1.
+// list serves GET /api/admin/words?q=&missing=image|ipa|meaning|ipaCheck&topicId=&page=1.
 func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	page := 1
@@ -108,6 +114,17 @@ func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 		out.Words[i] = toJSON(wd)
 	}
 	httpx.WriteJSON(w, http.StatusOK, out)
+}
+
+// acceptIPASuggestions serves POST /api/admin/words/ipa-suggestions/accept: every IPA that has a
+// suggestion takes it, answered with {"updated": n}.
+func (h *Handler) acceptIPASuggestions(w http.ResponseWriter, r *http.Request) {
+	n, err := h.svc.AcceptIPASuggestions(r.Context())
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]int{"updated": n})
 }
 
 type topicMissingJSON struct {

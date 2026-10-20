@@ -4,9 +4,14 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"github.com/luongtran/luna/backend/internal/dictionary"
 )
 
 const maxDueLimit = 200
+
+// StudyDayReviews is how many reviews in a day count the day for the streak.
+const StudyDayReviews = 5
 
 // ReviewInput is one answer of the review session. Reps is the number of reviews the client
 // saw on the card; a different stored count means the answer was already recorded.
@@ -50,17 +55,20 @@ func (s *Service) Due(ctx context.Context, userID string, limit int) (DueList, e
 }
 
 // fillIPA returns the card's IPA; a card saved without one gets it from the dictionary, stored
-// so the next review has it too. Best effort: a failed lookup or save leaves the card as it is.
+// so the next review has it too. So does a card from a lesson saved with an IPA of another
+// convention ("/hæv, həv, v/", updated 2026-10-19); a card typed by the learner keeps theirs. Best
+// effort: a failed lookup or save leaves the card as it is.
 func (s *Service) fillIPA(ctx context.Context, userID string, c Card) string {
-	if c.IPA != "" || s.pronunciations == nil {
+	keep := c.IPA != "" && (c.Source == SourceManual || !dictionary.OddIPA(c.IPA))
+	if keep || s.pronunciations == nil {
 		return c.IPA
 	}
 	ipa, err := s.pronunciations.IPA(ctx, c.Lemma)
 	if err != nil || ipa == "" {
-		return ""
+		return c.IPA
 	}
 	if _, err := s.repo.UpdateDetails(ctx, userID, c.ID, Details{IPA: &ipa}); err != nil {
-		return ""
+		return c.IPA
 	}
 	return ipa
 }
@@ -119,8 +127,34 @@ func (s *Service) Review(ctx context.Context, userID, cardID string, in ReviewIn
 	if err := s.logs.Add(ctx, log); err != nil {
 		return DueCard{}, fmt.Errorf("vocab: add review log: %w", err)
 	}
+	if err := s.markStudyDay(ctx, userID, startOfDay(now, loc)); err != nil {
+		return DueCard{}, err
+	}
 	c.Schedule = after
 	return DueCard{Card: c, Intervals: intervalsFor(after, now)}, nil
+}
+
+// markStudyDay counts today for the streak once the learner has made StudyDayReviews reviews
+// since today (any context).
+func (s *Service) markStudyDay(ctx context.Context, userID string, today time.Time) error {
+	if s.studyDays == nil {
+		return nil
+	}
+	n := 0
+	for _, c := range []Context{ContextDaily, ContextFree} {
+		count, err := s.logs.CountSince(ctx, userID, c, today)
+		if err != nil {
+			return fmt.Errorf("vocab: count reviews: %w", err)
+		}
+		n += count
+	}
+	if n < StudyDayReviews {
+		return nil
+	}
+	if err := s.studyDays.MarkStudied(ctx, userID); err != nil {
+		return fmt.Errorf("vocab: study day: %w", err)
+	}
+	return nil
 }
 
 func (s *Service) conflict(c Card, sched Schedule, now time.Time) error {

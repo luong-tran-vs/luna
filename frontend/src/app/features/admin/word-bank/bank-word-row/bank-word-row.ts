@@ -80,6 +80,14 @@ export class BankWordRow {
     }
   }
 
+  /** Nhận: the stored IPA takes the suggested standard one. */
+  protected async acceptSuggestion(): Promise<void> {
+    const ipa = this.word().ipaSuggestion;
+    if (ipa && this.busy() === null) {
+      await this.run('save', 'Đã thay phiên âm chuẩn.', () => this.api.updateBankWord(this.word().lemma, { ipa }));
+    }
+  }
+
   /** A file was chosen: checked here, then scaled down and stored by the server. */
   protected async upload(event: Event): Promise<void> {
     const el = event.target as HTMLInputElement;

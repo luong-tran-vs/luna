@@ -270,7 +270,7 @@ func userDay(userID, dayKey string) (bson.D, error) {
 	return bson.D{{Key: "userId", Value: uid}, {Key: "dayKey", Value: dayKey}}, nil
 }
 
-// MarkCompleted records a completed lesson on dayKey (the streak counts such days).
+// MarkCompleted records that the learner studied on dayKey (the streak counts such days).
 func (r *StudyDays) MarkCompleted(ctx context.Context, userID, dayKey string) error {
 	f, err := userDay(userID, dayKey)
 	if err != nil {
@@ -284,7 +284,7 @@ func (r *StudyDays) MarkCompleted(ctx context.Context, userID, dayKey string) er
 	return nil
 }
 
-// CompletedKeys lists the user's days with a completed lesson.
+// CompletedKeys lists the days the user studied.
 func (r *StudyDays) CompletedKeys(ctx context.Context, userID string) ([]string, error) {
 	uid, err := bson.ObjectIDFromHex(userID)
 	if err != nil {

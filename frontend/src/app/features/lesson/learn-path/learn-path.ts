@@ -207,7 +207,7 @@ export class LearnPath {
   });
   protected readonly title = computed(() => {
     const p = this.part();
-    return p ? `Phần ${p.number}` : 'Học';
+    return p ? `Trình độ ${p.milestone.level}` : 'Học';
   });
   /** The goal's roadmap when it belongs to this part, for the progress at the top. */
   protected readonly active = computed(
@@ -223,7 +223,7 @@ export class LearnPath {
   protected readonly bannerText = computed(() => {
     const f = this.featured();
     if (!f) {
-      return 'Phần này sẽ mở khi có bài mới.';
+      return 'Trình độ này sẽ mở khi có bài mới.';
     }
     return f.topicDescription?.trim() || `Học các bài của chủ đề ${f.topicName} từng bước một.`;
   });
@@ -232,9 +232,9 @@ export class LearnPath {
     const a = this.active();
     const m = this.part()?.milestone;
     const p = a
-      ? { label: a.topicName, done: a.completed, total: a.lessons.length }
+      ? { label: `chủ đề ${a.topicName}`, done: a.completed, total: a.lessons.length }
       : m?.total
-        ? { label: 'Cả phần', done: m.completed, total: m.total }
+        ? { label: `cả trình độ ${m.level}`, done: m.completed, total: m.total }
         : null;
     return p ? { ...p, percent: p.total ? Math.round((p.done / p.total) * 100) : 0 } : null;
   });
@@ -280,7 +280,7 @@ export class LearnPath {
         this.load();
       }
     } catch {
-      this.switchError.set('Không chuyển được lộ trình, vui lòng thử lại.');
+      this.switchError.set('Không chuyển được chủ đề, vui lòng thử lại.');
     } finally {
       this.pending.set(false);
     }

@@ -26,11 +26,11 @@ type ProgressRepository interface {
 	StepCounts(ctx context.Context, userID string, lessonIDs []string, since *time.Time) (StepCounts, error)
 }
 
-// DayRepository stores the days with a completed lesson, for the streak.
+// DayRepository stores the days the learner studied, for the streak (see MarkStudied).
 type DayRepository interface {
-	// MarkCompleted records that the learner completed a lesson on dayKey.
+	// MarkCompleted records that the learner studied on dayKey; marking a day twice changes nothing.
 	MarkCompleted(ctx context.Context, userID, dayKey string) error
-	// CompletedKeys lists the days with a completed lesson.
+	// CompletedKeys lists the days the learner studied.
 	CompletedKeys(ctx context.Context, userID string) ([]string, error)
 }
 

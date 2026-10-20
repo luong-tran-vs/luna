@@ -47,10 +47,11 @@ export const MISSING_OPTIONS: readonly { value: BankMissing; label: string }[] =
   { value: 'image', label: 'Thiếu ảnh' },
   { value: 'ipa', label: 'Thiếu phiên âm' },
   { value: 'meaning', label: 'Thiếu nghĩa' },
+  { value: 'ipaCheck', label: 'Phiên âm cần xem' },
 ];
 
 /** One color per "Thiếu …" filter: the legend chips and the counts next to each topic. */
-export const MISSING_KINDS: readonly { value: Exclude<BankMissing, ''>; label: string; color: string }[] = [
+export const MISSING_KINDS: readonly { value: Exclude<BankMissing, '' | 'ipaCheck'>; label: string; color: string }[] = [
   { value: 'image', label: 'Thiếu ảnh', color: 'var(--color-primary)' },
   { value: 'ipa', label: 'Thiếu phiên âm', color: 'var(--color-warn)' },
   { value: 'meaning', label: 'Thiếu nghĩa', color: 'var(--color-bad)' },
@@ -110,6 +111,7 @@ export class WordBank {
   protected readonly addError = signal<string | null>(null);
   protected readonly importing = signal(false);
   protected readonly filling = signal(false);
+  protected readonly accepting = signal(false);
   /** The topic's words lacking a meaning or an IPA are listed: the AI can fill them in one request. */
   protected readonly canFill = computed(
     () => (this.missing() === 'meaning' || this.missing() === 'ipa') && this.topicFilter() !== '',
@@ -329,6 +331,24 @@ export class WordBank {
       this.note.set(bankMessage(err) ?? 'AI chưa điền được nghĩa và phiên âm, vui lòng thử lại.');
     } finally {
       this.filling.set(false);
+    }
+  }
+
+  /** Nhận tất cả gợi ý: every IPA that needs a look takes the standard one. */
+  protected async acceptSuggestions(): Promise<void> {
+    if (this.accepting()) {
+      return;
+    }
+    this.accepting.set(true);
+    this.note.set(null);
+    try {
+      const n = await firstValueFrom(this.api.acceptBankIPASuggestions());
+      this.note.set(n ? `Đã thay phiên âm chuẩn cho ${n} từ.` : 'Không còn phiên âm nào cần xem.');
+      this.reload();
+    } catch (err) {
+      this.note.set(bankMessage(err) ?? 'Không nhận được gợi ý, vui lòng thử lại.');
+    } finally {
+      this.accepting.set(false);
     }
   }
 

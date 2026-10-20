@@ -11,26 +11,23 @@ export interface SoonPart {
 
 /**
  * The parts with no lesson yet, together in one small box after the parts' cards: one line each
- * (Phần N, its name and what it is about), no card, picture or lock.
+ * (its level, name and what it is about), no card, picture or lock.
  */
 @Component({
   selector: 'lu-soon-parts',
   template: `
     <section class="soon" aria-labelledby="soon-heading">
-      <h2 class="soon-title" id="soon-heading">Sắp có · {{ parts().length }} phần</h2>
+      <h2 class="soon-title" id="soon-heading">Sắp có · {{ parts().length }} trình độ</h2>
       <ul class="soon-list">
         @for (p of parts(); track p.milestone.level) {
           <li class="soon-item">
-            <span class="soon-pill">Phần {{ p.number }}</span
+            <span class="soon-pill">{{ p.milestone.level }}</span
             >&ngsp;
             <span class="soon-text">
               <span class="soon-name"
-                >{{ p.name
-                }}<span class="visually-hidden">
-                  · {{ p.milestone.level }} {{ p.levelName }}</span
-                ></span
+                >{{ p.levelName }}</span
               >&ngsp;
-              <span class="soon-summary">{{ p.summary }}</span>
+              <span class="soon-summary">{{ p.name }}: {{ p.summary }}</span>
             </span>
           </li>
         }

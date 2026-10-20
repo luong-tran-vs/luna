@@ -11,7 +11,7 @@ import (
 // initGrammar builds the grammar lessons service (F20).
 func (c *Container) initGrammar() {
 	c.grammar = grammar.NewService(c.store.GrammarLessons(), c.store.GrammarProgress(), c.store.GrammarReports(), c.ai,
-		grammarLessonCounter{c.lessons}, time.Now)
+		grammarLessonCounter{c.lessons}, c.studyDays, time.Now)
 }
 
 // grammarLessonCounter adapts the lesson repository to grammar.LessonCounter, so the grammar

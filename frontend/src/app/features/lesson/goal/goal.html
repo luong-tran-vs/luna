@@ -31,7 +31,7 @@
         @if (resume(); as r) {
           <a class="btn-primary" [routerLink]="['/lessons', r.id]">{{ r.label }}</a>
         }
-        <a class="btn" routerLink="/lessons">Xem lộ trình</a>
+        <a class="btn" routerLink="/lessons">Về trang Học</a>
       </div>
     </section>
   }
@@ -51,7 +51,7 @@
   @if (congrats() && active(); as g) {
     <div class="soft-card congrats" role="status">
       <span class="icon-chip tone-accent"><lu-icon name="trophy" /></span>
-      <p class="congrats-title">Chúc mừng! Bạn đã học hết lộ trình {{ g.level }} · {{ g.topicName }}.</p>
+      <p class="congrats-title">Chúc mừng! Bạn đã học hết chủ đề {{ g.level }} · {{ g.topicName }}.</p>
       <p class="muted">Chọn một chủ đề khác cùng trình độ, hoặc lên trình độ tiếp theo.</p>
       <div class="actions">
         <button type="button" class="btn-primary" (click)="selectLevel(g.level)">Chọn chủ đề khác cùng trình độ</button>

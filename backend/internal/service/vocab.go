@@ -31,6 +31,7 @@ func (c *Container) initVocab() {
 		Pronunciations: pronunciations{c.wordBank, c.dict},
 		Translations:   sentenceTranslations{c.lessons},
 		Results:        c.store.LessonResults(),
+		StudyDays:      c.studyDays,
 		Now:            time.Now,
 	})
 }

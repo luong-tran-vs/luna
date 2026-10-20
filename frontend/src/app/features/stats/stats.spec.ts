@@ -138,7 +138,7 @@ describe('Stats', () => {
     const noGrammar: StatsData = { ...week };
     delete noGrammar.grammar;
     await open({ ...noGrammar, dictation: { ...week.dictation, lessons: undefined } }, dashboard({ goal: null }));
-    expect(text(el.querySelector('.goal'))).toContain('Chưa chọn lộ trình');
+    expect(text(el.querySelector('.goal'))).toContain('Chưa chọn chủ đề');
     expect(counts()[1]).toBe('Ngữ pháp —');
     expect(counts()[2]).toBe('Luyện nghe 2 bài');
   });

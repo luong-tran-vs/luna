@@ -44,7 +44,8 @@ interface PartView {
 
 /**
  * The "Học" tab (design/danh-sach-cac-phan.png): one card per part (level), with its progress.
- * The part being studied says "Tiếp tục học", the others "Nhảy tới phần N". A card opens the part's
+ * The level being studied says "Tiếp tục học A1", the others "Chuyển sang A2" (one name per idea,
+ * 2026-10-19: Trình độ › Chủ đề › Bài › Bước). A card opens the part's
  * path (LearnPath). Parts with no lesson yet have nothing to open: they are not cards but one row
  * each in a small "Sắp có" box after the cards.
  */

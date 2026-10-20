@@ -365,6 +365,13 @@ export class AdminApiService {
     return this.http.post<BankMeaningsFilled>(`${BASE}/words/fill-missing`, { topicId });
   }
 
+  /** F24: every stored IPA that has a suggestion takes it; returns how many words changed. */
+  acceptBankIPASuggestions(): Observable<number> {
+    return this.http
+      .post<{ updated: number }>(`${BASE}/words/ipa-suggestions/accept`, null)
+      .pipe(map((r) => r.updated));
+  }
+
   updateBankWord(lemma: string, details: BankWordDetails): Observable<BankWord> {
     return this.http.patch<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}`, details);
   }

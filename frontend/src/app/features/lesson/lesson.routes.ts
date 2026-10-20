@@ -9,7 +9,7 @@ export const lessonRoutes: Routes = [
   },
   {
     path: 'levels/:level',
-    title: 'Lộ trình · Luna',
+    title: 'Trình độ · Luna',
     loadComponent: () => import('./learn-path/learn-path').then((m) => m.LearnPath),
   },
   {

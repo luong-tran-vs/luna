@@ -96,27 +96,27 @@ describe('LearnPath', () => {
   it('shows the roadmaps of one part one after another, their lessons as steps', async () => {
     await setup(path);
 
-    expect(text(el.querySelector('h1'))).toBe('Phần 1');
+    expect(text(el.querySelector('h1'))).toBe('Trình độ A1');
     expect(el.querySelector('a[aria-label="Quay lại trang Học"]')?.getAttribute('href')).toBe(
       '/lessons',
     );
-    expect(text(el.querySelector('.summary-line'))).toBe('Tiến độ: 2 / 4 bài hoàn thành');
+    expect(text(el.querySelector('.summary-line'))).toBe('Tiến độ chủ đề Gia đình: 2 / 4 bài');
     expect(text(el.querySelector('.percent'))).toBe('50%');
     const bar = el.querySelector('[role="progressbar"]');
-    expect(bar?.getAttribute('aria-label')).toBe('Tiến độ Gia đình');
+    expect(bar?.getAttribute('aria-label')).toBe('Tiến độ chủ đề Gia đình');
     expect(bar?.getAttribute('aria-valuenow')).toBe('2');
 
     const parts = Array.from(el.querySelectorAll('.milestone'));
     expect(parts).toHaveLength(1);
     // The part's card names its first roadmap; the next roadmap gets a title line.
-    expect(text(parts[0].querySelector('.banner-label'))).toBe('Phần 1 • A1 Mới bắt đầu');
+    expect(text(parts[0].querySelector('.banner-label'))).toBe('Trình độ A1 • Mới bắt đầu');
     expect(text(parts[0].querySelector('.banner-title'))).toBe('Gia đình');
     expect(text(parts[0].querySelector('.banner-text'))).toBe(
       'Nói về các thành viên trong gia đình.',
     );
-    expect(text(parts[0].querySelector('.banner-count'))).toBe('2 lộ trình');
+    expect(text(parts[0].querySelector('.banner-count'))).toBe('2 chủ đề');
     expect(Array.from(parts[0].querySelectorAll('.divider')).map((d) => text(d))).toEqual([
-      'Lộ trình tiếp theo: Lộ trình 2 • Mua sắm',
+      'Chủ đề tiếp theo: Chủ đề 2 • Mua sắm',
     ]);
 
     const [family, shopping] = Array.from(parts[0].querySelectorAll('.roadmap'));
@@ -148,27 +148,27 @@ describe('LearnPath', () => {
     );
     expect(family.querySelector('.is-jump')).toBeNull();
 
-    expect(text(family.querySelector('.finish .node-label'))).toBe('👑 Hoàn thành chặng 1');
+    expect(text(family.querySelector('.finish .node-label'))).toBe('👑 Hoàn thành chủ đề 1');
 
     // Another roadmap: every lesson locked, a step to study it first, naming its first lesson.
     expect(shopping.querySelectorAll('.node.is-locked')).toHaveLength(2);
     const jump = shopping.querySelector('.is-jump')!;
     expect(jump.classList).not.toContain('is-focus');
-    expect(text(jump.querySelector('.cta'))).toBe('Bắt đầu lộ trình 2');
+    expect(text(jump.querySelector('.cta'))).toBe('Bắt đầu chủ đề 2');
     expect(text(jump.querySelector('.node-label'))).toBe('Bài 1: At the market');
   });
 
   it('shows a part with no lesson yet as locked', async () => {
     await setup(path, 'A2');
 
-    expect(text(el.querySelector('h1'))).toBe('Phần 2');
+    expect(text(el.querySelector('h1'))).toBe('Trình độ A2');
     // The goal's roadmap is in another part: no progress here.
     expect(el.querySelector('.summary')).toBeNull();
     const part = el.querySelector('.milestone')!;
     expect(part.classList).toContain('is-empty');
     expect(text(part.querySelector('.banner-title'))).toBe('Trình độ A2');
     expect(part.querySelector('.banner-chip')?.getAttribute('aria-label')).toBe('Đang khoá');
-    expect(text(part.querySelector('.no-lesson'))).toBe('Phần này sẽ mở khi có bài mới.');
+    expect(text(part.querySelector('.no-lesson'))).toBe('Trình độ này sẽ mở khi có bài mới.');
   });
 
   it('makes another roadmap the goal and opens its next lesson', async () => {
@@ -223,7 +223,7 @@ describe('LearnPath', () => {
     expect(TestBed.inject(Router).url).toBe('/lessons/levels/A1');
     expect(el.querySelectorAll('.roadmap')[1].classList).toContain('is-active');
     expect(el.querySelector('[role="progressbar"]')?.getAttribute('aria-label')).toBe(
-      'Tiến độ Mua sắm',
+      'Tiến độ chủ đề Mua sắm',
     );
   });
 
@@ -257,7 +257,7 @@ describe('LearnPath', () => {
     expect(text(jumps[0].querySelector('.node-label'))).toBe('Bắt đầu ngay');
     expect(jumps[0].querySelector('.luna')).not.toBeNull();
     expect(jumps[1].classList).not.toContain('is-focus');
-    expect(text(el.querySelector('.summary-line'))).toBe('Tiến độ: 2 / 6 bài hoàn thành');
+    expect(text(el.querySelector('.summary-line'))).toBe('Tiến độ cả trình độ A1: 2 / 6 bài');
   });
 
   it('opens the guide under the banner', async () => {

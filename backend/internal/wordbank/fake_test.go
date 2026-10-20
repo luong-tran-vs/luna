@@ -233,7 +233,7 @@ type testEnv struct {
 
 func newEnv() *testEnv {
 	e := &testEnv{repo: newFakeRepo(), topics: &fakeTopics{lists: []TopicList{
-		{TopicRef: TopicRef{ID: "t1", Name: "Nhà cửa"}, Words: []string{"House", "table", "house", ""}},
+		{TopicRef: TopicRef{ID: "t1", Name: "Nhà cửa"}, Words: []string{"House", "tablix", "house", ""}},
 		{TopicRef: TopicRef{ID: "t2", Name: "Chào hỏi"}, Words: []string{"good  morning", "House"}},
 	}}, draw: &fakeImageAI{}, means: &fakeMeaningAI{}, fetch: map[string][]byte{}, now: time.Date(2026, 10, 7, 9, 0, 0, 0, time.UTC)}
 	e.svc = NewService(Deps{

@@ -179,7 +179,7 @@ func TestDashboardSkills(t *testing.T) {
 
 	e.complete(t, StepRead) // f2
 	v := e.dashboard(t, "u1")
-	if *v.Skills != (SkillCounts{Read: 2, Listen: 1, Write: 1, Total: 3}) || v.Goal.CompletedLessons != 1 || v.Streak != 1 {
+	if *v.Skills != (SkillCounts{Read: 2, Listen: 1, Write: 1, Total: 3}) || v.Goal.CompletedLessons != 1 || v.Streak != 2 {
 		t.Fatalf("after read = %+v %+v", v.Skills, v.Goal)
 	}
 	wantAction(t, v.Action, ActionContinue, StepListen)

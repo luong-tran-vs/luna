@@ -89,7 +89,7 @@ describe('Goal', () => {
     expect(text(current)).toContain('Đã học 2/12 bài');
     expect(current.querySelector('[role="progressbar"]')?.getAttribute('aria-valuenow')).toBe('2');
     expect(current.querySelector('a[href="/lessons/l2"]')?.textContent?.trim()).toBe('Tiếp tục học');
-    expect(current.querySelector('a[href="/lessons"]')?.textContent?.trim()).toBe('Xem lộ trình');
+    expect(current.querySelector('a[href="/lessons"]')?.textContent?.trim()).toBe('Về trang Học');
   });
 
   const openCurrent = async (home: Dashboard, mine: MyLessons = studyingMine) => {

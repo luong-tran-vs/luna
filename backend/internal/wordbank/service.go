@@ -100,7 +100,7 @@ func (s *Service) List(ctx context.Context, search string, missing Missing, topi
 		fields["q"] = fmt.Sprintf("Từ khoá tối đa %d ký tự", MaxSearch)
 	}
 	switch missing {
-	case MissingNone, MissingImage, MissingIPA, MissingMeaning:
+	case MissingNone, MissingImage, MissingIPA, MissingMeaning, IPACheck:
 	default:
 		fields["missing"] = "Bộ lọc không hợp lệ"
 	}
@@ -122,15 +122,72 @@ func (s *Service) List(ctx context.Context, search string, missing Missing, topi
 		}
 		q.Lemmas = lemmasOf(t)
 	}
+	if missing == IPACheck {
+		// Which IPA needs a look is worked out here, not by the repository: the whole selection is
+		// read (the bank holds a few thousand words) and then paged.
+		q.Missing, q.Limit, q.Skip = MissingNone, allWords, 0
+	}
 	words, total, err := s.repo.List(ctx, q)
 	if err != nil {
 		return Page{}, fmt.Errorf("wordbank: list: %w", err)
 	}
 	holders := topicsByLemma(topics)
-	for i := range words {
-		words[i].Topics = holders[words[i].Lemma]
+	kept := words[:0]
+	for _, w := range words {
+		w.Topics = holders[w.Lemma]
+		if w.IPASuggestion, err = s.ipaSuggestion(ctx, w); err != nil {
+			return Page{}, err
+		}
+		if missing != IPACheck || w.IPASuggestion != "" {
+			kept = append(kept, w)
+		}
 	}
-	return Page{Words: words, Total: total, HasMore: q.Skip+len(words) < total}, nil
+	if missing == IPACheck {
+		skip := (page - 1) * PageSize
+		total = len(kept)
+		kept = kept[min(skip, total):min(skip+PageSize, total)]
+		return Page{Words: kept, Total: total, HasMore: skip+len(kept) < total}, nil
+	}
+	return Page{Words: kept, Total: total, HasMore: q.Skip+len(kept) < total}, nil
+}
+
+// allWords bounds the words read at once to work out which IPA needs a look.
+const allWords = 100000
+
+// ipaSuggestion is the standard IPA to offer for the word's stored one, "" when it is fine.
+func (s *Service) ipaSuggestion(ctx context.Context, w Word) (string, error) {
+	if s.dict == nil {
+		return "", nil
+	}
+	sug, err := dictionary.IPASuggestion(ctx, s.dict, w.Lemma, w.IPA)
+	if err != nil {
+		return "", fmt.Errorf("wordbank: ipa suggestion: %w", err)
+	}
+	return sug, nil
+}
+
+// AcceptIPASuggestions replaces every stored IPA that has a suggestion with it and returns how
+// many words changed.
+func (s *Service) AcceptIPASuggestions(ctx context.Context) (int, error) {
+	words, _, err := s.repo.List(ctx, ListQuery{Limit: allWords})
+	if err != nil {
+		return 0, fmt.Errorf("wordbank: list: %w", err)
+	}
+	n := 0
+	for _, w := range words {
+		sug, err := s.ipaSuggestion(ctx, w)
+		if err != nil {
+			return n, err
+		}
+		if sug == "" {
+			continue
+		}
+		if _, err := s.Update(ctx, w.Lemma, Details{IPA: &sug}); err != nil {
+			return n, err
+		}
+		n++
+	}
+	return n, nil
 }
 
 // TopicMissing counts the bank words of one topic that lack a picture, an IPA or a meaning (the

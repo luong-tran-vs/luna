@@ -2,7 +2,7 @@
   <h1 class="visually-hidden">{{ title() }}</h1>
 
   @if (error()) {
-    <p class="form-alert" role="alert">Không tải được lộ trình học.</p>
+    <p class="form-alert" role="alert">Không tải được trang trình độ.</p>
   } @else if (data()) {
     @if (part(); as v) {
       @let m = v.milestone;
@@ -13,7 +13,6 @@
         [attr.aria-labelledby]="'part-' + m.level"
       >
         <lu-path-banner
-          [number]="v.number"
           [level]="m.level"
           [levelName]="v.levelName"
           [title]="bannerTitle()"
@@ -24,7 +23,7 @@
 
         @if (membersOnly()) {
           <p class="soft-card members-banner" role="note">
-            <lu-icon name="lock" /> Tài khoản khách chỉ học được bài đầu tiên của mỗi lộ trình. Các
+            <lu-icon name="lock" /> Tài khoản khách chỉ học được bài đầu tiên của mỗi chủ đề. Các
             bài sau chỉ dành cho thành viên — liên hệ quản trị viên để được nâng quyền.
           </p>
         }
@@ -33,7 +32,7 @@
         }
 
         @if (m.roadmaps.length === 0) {
-          <p class="no-lesson">Phần này sẽ mở khi có bài mới.</p>
+          <p class="no-lesson">Trình độ này sẽ mở khi có bài mới.</p>
         }
 
         <div class="journey">
@@ -43,15 +42,15 @@
               <h3 class="divider">
                 <span class="divider-text">
                   <span class="divider-label"
-                    >Lộ trình tiếp theo<span class="visually-hidden">: </span></span
+                    >Chủ đề tiếp theo<span class="visually-hidden">: </span></span
                   >
-                  <span class="divider-title">Lộ trình {{ rv.number }} • {{ r.topicName }}</span>
+                  <span class="divider-title">Chủ đề {{ rv.number }} • {{ r.topicName }}</span>
                 </span>
               </h3>
             }
             <div class="roadmap" [class.is-active]="r.active">
               @if (r.lessons.length === 0) {
-                <p class="no-lesson">Lộ trình này chưa có bài nào. Hãy quay lại sau.</p>
+                <p class="no-lesson">Chủ đề này chưa có bài nào. Hãy quay lại sau.</p>
               } @else {
                 <div class="path" [style.height.px]="rv.height" [style.max-width.px]="pathWidth">
                   <svg
@@ -84,12 +83,12 @@
                             >
                           } @else {
                             <span class="cta" aria-hidden="true"
-                              >Bắt đầu lộ trình {{ rv.number }}</span
+                              >Bắt đầu chủ đề {{ rv.number }}</span
                             >
                           }
                           <lu-icon [name]="s.focus ? 'play' : 'star'" />
                           <span class="visually-hidden"
-                            >Học lộ trình {{ r.topicName }} {{ m.level }}</span
+                            >Học chủ đề {{ r.topicName }} {{ m.level }}</span
                           >
                         </button>
                         <span class="node-label" aria-hidden="true">{{
@@ -147,7 +146,7 @@
                       <span class="bubble-btn" aria-hidden="true"><lu-icon name="trophy" /></span>
                       <span class="node-label"
                         ><span aria-hidden="true">👑</span>
-                        {{ rv.finish.done ? 'Đã hoàn thành' : 'Hoàn thành' }} chặng
+                        {{ rv.finish.done ? 'Đã hoàn thành' : 'Hoàn thành' }} chủ đề
                         {{ rv.number }}</span
                       >
                     </li>
@@ -159,7 +158,7 @@
         </div>
       </section>
     } @else {
-      <p class="muted" role="status">Không tìm thấy phần này.</p>
+      <p class="muted" role="status">Không tìm thấy trình độ này.</p>
     }
   } @else {
     <lu-loading />

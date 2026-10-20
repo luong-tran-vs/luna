@@ -2,7 +2,7 @@
   <header class="top-bar">
     <a class="back" routerLink="/"><lu-icon name="arrow-left" /> Trở về</a>
     <div class="heading">
-      <h1>Chọn chặng học</h1>
+      <h1>Chọn trình độ</h1>
       <p class="brand"><span class="dot" aria-hidden="true"></span> Luna English</p>
     </div>
     @if (data(); as d) {
@@ -13,10 +13,10 @@
   </header>
 
   @if (error()) {
-    <p class="form-alert" role="alert">Không tải được lộ trình học.</p>
+    <p class="form-alert" role="alert">Không tải được trang Học.</p>
   } @else if (data(); as d) {
     @if (!d.topicId) {
-      <p class="muted" role="status">Bạn chưa chọn lộ trình nào. Chọn một phần để bắt đầu.</p>
+      <p class="muted" role="status">Bạn chưa chọn chủ đề nào. Chọn một trình độ để bắt đầu.</p>
     }
     <ul class="list">
       @for (p of open(); track p.milestone.level; let first = $first) {
@@ -25,13 +25,10 @@
           <div class="part-head">
             @if (m.active) {
               <span class="chip is-active">
-                <span class="dot" aria-hidden="true"></span> Đang học · Chặng {{ p.number }}/{{
-                  parts().length
-                }}
+                <span class="dot" aria-hidden="true"></span> Đang học
               </span>
             } @else {
-              <span class="chip"><lu-icon name="lock" /> Khóa</span>
-              <span class="stage">Chặng {{ p.number }} / {{ parts().length }}</span>
+              <span class="chip"><lu-icon name="lock" /> Chưa mở</span>
             }
             <span class="badge" [class.is-active]="m.active">
               @if (m.active || p.left === 0) {
@@ -44,10 +41,9 @@
 
           <div class="part-body">
             <h2 class="part-title">
-              Phần {{ p.number }}: {{ p.name
-              }}<span class="visually-hidden"> · {{ m.level }} {{ p.levelName }}</span>
+              Trình độ {{ m.level }} · {{ p.levelName }}
             </h2>
-            <p class="summary">{{ p.summary }}</p>
+            <p class="summary">{{ p.name }}: {{ p.summary }}</p>
 
             @if (m.active || m.completed > 0) {
               <div class="box progress">
@@ -58,7 +54,7 @@
                 <div
                   class="track"
                   role="progressbar"
-                  [attr.aria-label]="'Tiến độ phần ' + p.number"
+                  [attr.aria-label]="'Tiến độ trình độ ' + m.level"
                   aria-valuemin="0"
                   aria-valuemax="100"
                   [attr.aria-valuenow]="p.percent"
@@ -70,22 +66,20 @@
               <p class="box part-meta">
                 <span class="info" aria-hidden="true">i</span>
                 @if (p.number > 1) {
-                  Hoàn thành Phần {{ p.number - 1 }} hoặc nhảy thẳng tới đây
+                  Học xong trình độ trước hoặc chuyển thẳng sang đây
                 } @else {
-                  {{ m.roadmaps.length }} lộ trình · {{ m.total }} bài đang chờ bạn
+                  {{ m.roadmaps.length }} chủ đề · {{ m.total }} bài đang chờ bạn
                 }
               </p>
             }
 
             @if (m.active) {
               <a class="part-btn is-primary" [routerLink]="['/lessons/levels', m.level]">
-                <lu-icon name="play" /> Tiếp tục học<span class="visually-hidden">
-                  phần {{ p.number }}</span
-                >
+                <lu-icon name="play" /> Tiếp tục học {{ m.level }}
               </a>
             } @else {
               <a class="part-btn" [routerLink]="['/lessons/levels', m.level]">
-                <lu-icon name="chevron-right" /> Nhảy tới phần {{ p.number }}
+                <lu-icon name="chevron-right" /> Chuyển sang {{ m.level }}
               </a>
             }
           </div>
@@ -118,7 +112,7 @@
           Kiên trì mỗi ngày
           <span class="daily-streak"><lu-icon name="flame" /> {{ d.streak }} ngày</span>
         </p>
-        <p class="daily-sub">Học 5 phút để duy trì chuỗi học tập!</p>
+        <p class="daily-sub">Học một bước bài, ôn 5 thẻ hoặc học động từ, ngữ pháp để giữ chuỗi!</p>
       </div>
     </aside>
   } @else {

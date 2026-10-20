@@ -33,6 +33,12 @@ type LessonCounter interface {
 	CountByGrammarPoint(ctx context.Context, topicID string) (map[string]int, error)
 }
 
+// StudyDays counts today as a study day for the streak (implemented over progress in
+// internal/service).
+type StudyDays interface {
+	MarkStudied(ctx context.Context, userID string) error
+}
+
 // Service serves the grammar lessons: the admin side (generate, edit, publish) and the learner
 // side (list, study, record attempts).
 type Service struct {
@@ -41,15 +47,19 @@ type Service struct {
 	reports  ReportRepository
 	ai       ai.Provider
 	counter  LessonCounter
-	syllabus *Syllabus
-	now      func() time.Time
+	// studyDays counts a practice or test for the streak; nil counts none.
+	studyDays StudyDays
+	syllabus  *Syllabus
+	now       func() time.Time
 }
 
 // NewService returns a Service over the embedded syllabus.
 func NewService(lessons LessonRepository, progress ProgressRepository, reports ReportRepository, provider ai.Provider, counter LessonCounter,
-	now func() time.Time,
+	studyDays StudyDays, now func() time.Time,
 ) *Service {
-	return &Service{lessons: lessons, progress: progress, reports: reports, ai: provider, counter: counter, syllabus: Default(), now: now}
+	return &Service{
+		lessons: lessons, progress: progress, reports: reports, ai: provider, counter: counter, studyDays: studyDays, syllabus: Default(), now: now,
+	}
 }
 
 // point returns the syllabus point or ErrNotFound.
@@ -426,6 +436,12 @@ func (s *Service) RecordAttempt(ctx context.Context, userID, pointID string, a A
 	}
 	if err := s.progress.Save(ctx, rec); err != nil {
 		return Progress{}, false, fmt.Errorf("grammar: save progress: %w", err)
+	}
+	// A practice or test done counts the day for the streak.
+	if s.studyDays != nil {
+		if err := s.studyDays.MarkStudied(ctx, userID); err != nil {
+			return Progress{}, false, fmt.Errorf("grammar: study day: %w", err)
+		}
 	}
 	return rec, passed, nil
 }

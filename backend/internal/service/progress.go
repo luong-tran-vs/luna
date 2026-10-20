@@ -36,6 +36,17 @@ func (c *Container) initProgress() {
 		Now:       time.Now,
 	})
 	c.writeSteps.svc = c.study
+	c.studyDays.svc = c.study
+}
+
+// studyDays adapts progress.StudyService to the StudyDays of vocab, grammar and verbs, which are
+// built before it; svc is set once it exists.
+type studyDays struct {
+	svc *progress.StudyService
+}
+
+func (s *studyDays) MarkStudied(ctx context.Context, userID string) error {
+	return s.svc.MarkStudied(ctx, userID)
 }
 
 // progressLessons adapts the lesson repository to progress.Lessons.

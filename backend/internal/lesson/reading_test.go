@@ -110,7 +110,7 @@ func TestLookupPrefersAnnotationOfSameSentence(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := LookupResult{Source: SourceAI, Text: "went", Lemma: "go", IPA: "/ɡəʊ/", Meanings: []LookupMeaning{{Text: "đã về"}}}
+	want := LookupResult{Source: SourceAI, Text: "went", Lemma: "go", IPA: "/ɡoʊ/", Meanings: []LookupMeaning{{Text: "đã về"}}}
 	if !lookupEqual(got, want) {
 		t.Fatalf("got %+v, want %+v", got, want)
 	}

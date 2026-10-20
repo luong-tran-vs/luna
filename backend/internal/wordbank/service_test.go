@@ -22,10 +22,10 @@ func TestAddFillsFromDictionary(t *testing.T) {
 	}
 	// A phrase gets the joined IPA; a typed meaning or IPA is kept.
 	w, _, err = e.svc.Add(t.Context(), Input{Lemma: "Good morning", MeaningVi: "chào buổi sáng"})
-	if err != nil || w.IPA != "/ɡʊd ˈmɔːnɪŋ/" || w.MeaningVi != "chào buổi sáng" {
+	if err != nil || w.IPA != "/ˈɡʊd ˈmɔːrnɪŋ/" || w.MeaningVi != "chào buổi sáng" {
 		t.Fatalf("phrase = %+v, %v", w, err)
 	}
-	w, _, err = e.svc.Add(t.Context(), Input{Lemma: "table", IPA: "/ˈteɪbl/"})
+	w, _, err = e.svc.Add(t.Context(), Input{Lemma: "tablix", IPA: "/ˈteɪbl/"})
 	if err != nil || w.IPA != "/ˈteɪbl/" || w.MeaningVi != "" {
 		t.Fatalf("unknown word = %+v, %v", w, err)
 	}
@@ -83,9 +83,9 @@ func TestImport(t *testing.T) {
 	}
 	n, err := e.svc.Import(t.Context())
 	if err != nil || n != 2 {
-		t.Fatalf("import = %d, %v; want 2 (good morning, table)", n, err)
+		t.Fatalf("import = %d, %v; want 2 (good morning, tablix)", n, err)
 	}
-	if w, _ := e.svc.Get(t.Context(), "good morning"); w.IPA != "/ɡʊd ˈmɔːnɪŋ/" {
+	if w, _ := e.svc.Get(t.Context(), "good morning"); w.IPA != "/ˈɡʊd ˈmɔːrnɪŋ/" {
 		t.Fatalf("imported = %+v", w)
 	}
 	// An existing word is not touched; a second import adds nothing.
@@ -100,7 +100,7 @@ func TestImport(t *testing.T) {
 func TestList(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	for _, l := range []string{"house", "good", "table"} {
+	for _, l := range []string{"house", "good", "tablix"} {
 		if _, _, err := e.svc.Add(t.Context(), Input{Lemma: l}); err != nil {
 			t.Fatal(err)
 		}
@@ -112,7 +112,7 @@ func TestList(t *testing.T) {
 	if p, _ = e.svc.List(t.Context(), " NHÀ ", MissingNone, "", 1); p.Total != 1 || p.Words[0].Lemma != "house" {
 		t.Fatalf("search meaning = %+v", p)
 	}
-	if p, _ = e.svc.List(t.Context(), "", MissingIPA, "", 1); p.Total != 1 || p.Words[0].Lemma != "table" {
+	if p, _ = e.svc.List(t.Context(), "", MissingIPA, "", 1); p.Total != 1 || p.Words[0].Lemma != "tablix" {
 		t.Fatalf("missing ipa = %+v", p)
 	}
 	var verr *ValidationError
@@ -140,7 +140,7 @@ func TestImages(t *testing.T) {
 	if _, err := e.svc.UploadImage(t.Context(), "house", []byte("not an image")); !errors.As(err, &verr) || verr.Fields["image"] == "" {
 		t.Fatalf("bad image: %v", err)
 	}
-	if _, err := e.svc.UploadImage(t.Context(), "table", testPNG(10, 10)); !errors.Is(err, ErrNotFound) {
+	if _, err := e.svc.UploadImage(t.Context(), "tablix", testPNG(10, 10)); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("unknown word: %v", err)
 	}
 
@@ -185,7 +185,7 @@ func TestWords(t *testing.T) {
 	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "house"}); err != nil {
 		t.Fatal(err)
 	}
-	got, err := e.svc.Words(t.Context(), []string{"House", "table", ""})
+	got, err := e.svc.Words(t.Context(), []string{"House", "tablix", ""})
 	if err != nil || len(got) != 1 || got["house"].IPA != "/haʊs/" {
 		t.Fatalf("words = %+v, %v", got, err)
 	}
@@ -225,7 +225,7 @@ func TestAddToTopic(t *testing.T) {
 func TestListByTopic(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	for _, l := range []string{"house", "table", "good morning", "door"} {
+	for _, l := range []string{"house", "tablix", "good morning", "door"} {
 		if _, _, err := e.svc.Add(t.Context(), Input{Lemma: l}); err != nil {
 			t.Fatal(err)
 		}
@@ -240,10 +240,10 @@ func TestListByTopic(t *testing.T) {
 	}
 	// By name; a word in no topic has none.
 	want := []TopicRef{{ID: "t2", Name: "Chào hỏi"}, {ID: "t1", Name: "Nhà cửa"}}
-	if !slices.Equal(topics["house"], want) || len(topics["door"]) != 0 || len(topics["table"]) != 1 {
+	if !slices.Equal(topics["house"], want) || len(topics["door"]) != 0 || len(topics["tablix"]) != 1 {
 		t.Fatalf("topics = %+v", topics)
 	}
-	if p, _ = e.svc.List(t.Context(), "", MissingNone, "t1", 1); p.Total != 2 || p.Words[0].Lemma != "house" || p.Words[1].Lemma != "table" {
+	if p, _ = e.svc.List(t.Context(), "", MissingNone, "t1", 1); p.Total != 2 || p.Words[0].Lemma != "house" || p.Words[1].Lemma != "tablix" {
 		t.Fatalf("topic t1 = %+v", p)
 	}
 	var verr *ValidationError
@@ -256,9 +256,9 @@ func TestFillMissing(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
 	inputs := []Input{
-		{Lemma: "house"}, // meaning and IPA from the dictionary
-		{Lemma: "table"}, // neither
-		{Lemma: "lamp", MeaningVi: "cái đèn", TopicID: "t1"}, // IPA only
+		{Lemma: "house"},  // meaning and IPA from the dictionary
+		{Lemma: "tablix"}, // neither
+		{Lemma: "lampix", MeaningVi: "cái đèn", TopicID: "t1"}, // IPA only
 		{Lemma: "door"}, // not in the topic
 	}
 	for _, in := range inputs {
@@ -267,11 +267,11 @@ func TestFillMissing(t *testing.T) {
 		}
 	}
 	e.means.answers = []ai.WordMeaning{
-		{Word: "TABLE", MeaningVi: " cái bàn ", IPA: "/ˈteɪbl/"},
-		{Word: "lamp", MeaningVi: "đèn bàn", IPA: "/læmp/"}, // the meaning it has stays
-		{Word: "house", MeaningVi: "không hỏi"},             // not asked, not saved
-		{Word: "door", MeaningVi: "cửa"},                    // not in the topic
-		{Word: "table", MeaningVi: "lần thứ hai"},           // answered twice: the first answer stays
+		{Word: "TABLIX", MeaningVi: " cái bàn ", IPA: "/ˈteɪbl/"},
+		{Word: "lampix", MeaningVi: "đèn bàn", IPA: "/læmp/"}, // the meaning it has stays
+		{Word: "house", MeaningVi: "không hỏi"},               // not asked, not saved
+		{Word: "door", MeaningVi: "cửa"},                      // not in the topic
+		{Word: "tablix", MeaningVi: "lần thứ hai"},            // answered twice: the first answer stays
 	}
 	e.now = e.now.Add(time.Hour)
 	f, err := e.svc.FillMissing(t.Context(), "t1")
@@ -279,15 +279,15 @@ func TestFillMissing(t *testing.T) {
 		t.Fatalf("filled = %+v, %v", f, err)
 	}
 	// One request with the topic's words, each marked with what it lacks.
-	want := []ai.WordNeed{{Word: "lamp", IPA: true}, {Word: "table", Meaning: true, IPA: true}}
+	want := []ai.WordNeed{{Word: "lampix", IPA: true}, {Word: "tablix", Meaning: true, IPA: true}}
 	if len(e.means.reqs) != 1 || e.means.reqs[0].TopicName != "Nhà cửa" || !slices.Equal(e.means.reqs[0].Words, want) {
 		t.Fatalf("requests = %+v", e.means.reqs)
 	}
-	if w, _ := e.svc.Get(t.Context(), "table"); w.MeaningVi != "cái bàn" || w.IPA != "/ˈteɪbl/" || !w.UpdatedAt.Equal(e.now) {
-		t.Fatalf("table = %+v", w)
+	if w, _ := e.svc.Get(t.Context(), "tablix"); w.MeaningVi != "cái bàn" || w.IPA != "/ˈteɪbl/" || !w.UpdatedAt.Equal(e.now) {
+		t.Fatalf("tablix = %+v", w)
 	}
-	if w, _ := e.svc.Get(t.Context(), "lamp"); w.MeaningVi != "cái đèn" || w.IPA != "/læmp/" {
-		t.Fatalf("lamp = %+v", w)
+	if w, _ := e.svc.Get(t.Context(), "lampix"); w.MeaningVi != "cái đèn" || w.IPA != "/læmp/" {
+		t.Fatalf("lampix = %+v", w)
 	}
 	for lemma, meaning := range map[string]string{"house": "ngôi nhà; nhà ở", "door": ""} {
 		if w, _ := e.svc.Get(t.Context(), lemma); w.MeaningVi != meaning {
@@ -303,7 +303,7 @@ func TestFillMissing(t *testing.T) {
 func TestFillMissingErrors(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "table"}); err != nil {
+	if _, _, err := e.svc.Add(t.Context(), Input{Lemma: "tablix"}); err != nil {
 		t.Fatal(err)
 	}
 	var verr *ValidationError
@@ -315,7 +315,7 @@ func TestFillMissingErrors(t *testing.T) {
 		t.Fatalf("quota: %v", err)
 	}
 	e.means.err = nil
-	e.means.answers = []ai.WordMeaning{{Word: "table", MeaningVi: strings.Repeat("a", MaxMeaning+1)}}
+	e.means.answers = []ai.WordMeaning{{Word: "tablix", MeaningVi: strings.Repeat("a", MaxMeaning+1)}}
 	if _, err := e.svc.FillMissing(t.Context(), "t1"); !errors.Is(err, ErrMeaningsFailed) {
 		t.Fatalf("no usable answer: %v", err)
 	}
@@ -324,7 +324,7 @@ func TestFillMissingErrors(t *testing.T) {
 func TestMissingByTopic(t *testing.T) {
 	t.Parallel()
 	e := newEnv()
-	for _, in := range []Input{{Lemma: "house"}, {Lemma: "table"}, {Lemma: "good morning", MeaningVi: "chào buổi sáng"}} {
+	for _, in := range []Input{{Lemma: "house"}, {Lemma: "tablix"}, {Lemma: "good morning", MeaningVi: "chào buổi sáng"}} {
 		if _, _, err := e.svc.Add(t.Context(), in); err != nil {
 			t.Fatal(err)
 		}
@@ -334,5 +334,41 @@ func TestMissingByTopic(t *testing.T) {
 	want := []TopicMissing{{TopicID: "t1", Image: 2, IPA: 1, Meaning: 1}, {TopicID: "t2", Image: 2}}
 	if err != nil || !slices.Equal(got, want) {
 		t.Fatalf("missing = %+v, %v", got, err)
+	}
+}
+
+func TestIPACheck(t *testing.T) {
+	t.Parallel()
+	e := newEnv()
+	for _, in := range []Input{
+		{Lemma: "house", IPA: "/ˈhɑʊs/"},     // another convention: offered /haʊs/
+		{Lemma: "good", IPA: "/ˈɡʊd/"},       // the same sounds as the standard: fine
+		{Lemma: "tablix", IPA: "/ˈtæblɪks/"}, // no standard known: nothing to offer
+	} {
+		if _, _, err := e.svc.Add(t.Context(), in); err != nil {
+			t.Fatal(err)
+		}
+	}
+	p, err := e.svc.List(t.Context(), "", IPACheck, "", 1)
+	if err != nil || p.Total != 1 || p.HasMore || p.Words[0].Lemma != "house" || p.Words[0].IPASuggestion != "/haʊs/" {
+		t.Fatalf("ipa check = %+v, %v", p, err)
+	}
+	// Every list shows the suggestion of the words that have one.
+	if p, _ = e.svc.List(t.Context(), "", MissingNone, "", 1); p.Total != 3 || p.Words[1].IPASuggestion != "/haʊs/" || p.Words[0].IPASuggestion != "" {
+		t.Fatalf("all = %+v", p)
+	}
+
+	e.now = e.now.Add(time.Hour)
+	if n, err := e.svc.AcceptIPASuggestions(t.Context()); err != nil || n != 1 {
+		t.Fatalf("accepted = %d, %v", n, err)
+	}
+	if w, _ := e.svc.Get(t.Context(), "house"); w.IPA != "/haʊs/" || !w.UpdatedAt.Equal(e.now) {
+		t.Fatalf("house = %+v", w)
+	}
+	if w, _ := e.svc.Get(t.Context(), "tablix"); w.IPA != "/ˈtæblɪks/" {
+		t.Fatalf("tablix = %+v", w)
+	}
+	if p, _ = e.svc.List(t.Context(), "", IPACheck, "", 1); p.Total != 0 {
+		t.Fatalf("after accepting = %+v", p)
 	}
 }

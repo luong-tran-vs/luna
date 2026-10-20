@@ -33,6 +33,9 @@ type Word struct {
 	// Topics are the topics whose word list holds the word, by name. The repository leaves it
 	// empty; Service.List fills it.
 	Topics []TopicRef
+	// IPASuggestion is the standard IPA offered when the stored one looks wrong or writes other
+	// sounds (dictionary.IPASuggestion), "" otherwise. Not stored; Service.List fills it.
+	IPASuggestion string
 }
 
 // HasImage says the word has a picture.
@@ -54,6 +57,8 @@ const (
 	MissingImage   Missing = "image"
 	MissingIPA     Missing = "ipa"
 	MissingMeaning Missing = "meaning"
+	// IPACheck lists the words whose IPA has a suggestion (updated 2026-10-19).
+	IPACheck Missing = "ipaCheck"
 )
 
 // ListQuery selects a page of words, by lemma order. Search matches part of the lemma or meaning.

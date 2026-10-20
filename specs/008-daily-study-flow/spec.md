@@ -198,9 +198,12 @@ bài đã học để nghe hết mà tiến độ và streak không đổi; mở
 
 **Chuỗi ngày học**
 
-- **FR-015**: Streak là số ngày liên tiếp có hoàn thành bài, tính tới hôm nay nếu hôm nay đã xong, hoặc tới hôm qua nếu hôm nay
-  chưa xong; bỏ lỡ một ngày trọn vẹn thì streak về 0.
-- **FR-016**: Đổi chủ đề, đổi trình độ, mở lại bài cũ hay ôn tự do KHÔNG được làm thay đổi streak.
+- **FR-015** *(sửa 2026-10-19)*: Streak là số ngày học liên tiếp, tính tới hôm nay nếu hôm nay đã học, hoặc tới hôm qua nếu hôm nay
+  chưa học; bỏ lỡ một ngày trọn vẹn thì streak về 0 (trừ ngày nghỉ được tha, xem `docs/mvp-features.md`). Ngày học là ngày làm
+  xong ít nhất một bước của bài (bỏ qua Viết không tính), ôn từ 5 thẻ, xong một bài/lượt ôn động từ bất quy tắc, hoặc xong một
+  lượt luyện tập/kiểm tra ngữ pháp. Trước đây chỉ tính ngày hoàn thành trọn một bài.
+- **FR-016**: Đổi chủ đề, đổi trình độ hay mở lại bài cũ KHÔNG được làm thay đổi streak. *(sửa 2026-10-19)* Ôn tự do từ 5 thẻ
+  trong ngày thì được tính là ngày học (FR-015).
 
 **Trang Bài học**
 

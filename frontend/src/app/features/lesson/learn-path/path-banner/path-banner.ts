@@ -26,8 +26,6 @@ export interface BannerProgress {
   host: { '[class.is-empty]': 'roadmaps() === 0' },
 })
 export class PathBanner {
-  /** 1-based number of the part. */
-  readonly number = input.required<number>();
   readonly level = input.required<string>();
   readonly levelName = input.required<string>();
   readonly title = input.required<string>();

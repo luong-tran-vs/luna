@@ -59,6 +59,8 @@ type Container struct {
 	writing      *writing.Service
 	// writeSteps is the study service as the writing domain sees it; it is set by initProgress.
 	writeSteps *writingSteps
+	// studyDays counts study days for the streak in vocab, grammar and verbs; set by initProgress.
+	studyDays *studyDays
 	worker     *job.Worker
 	vocab      *vocab.Service
 	wordBank   *wordbank.Service
@@ -74,7 +76,7 @@ type Container struct {
 // Init builds every service on store. The store stays open and is closed by the caller, after
 // Close and after the worker has stopped. Cancelling ctx stops anything Init started.
 func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storage.Store) (*Container, error) {
-	c := &Container{cfg: cfg, log: log, store: store, lessons: store.Lessons(), jobs: store.Jobs()}
+	c := &Container{cfg: cfg, log: log, store: store, lessons: store.Lessons(), jobs: store.Jobs(), studyDays: &studyDays{}}
 
 	if err := c.initAuth(); err != nil {
 		return nil, err

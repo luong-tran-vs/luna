@@ -52,6 +52,12 @@ type ReviewLogRepository interface {
 	CountSince(ctx context.Context, userID string, c Context, since time.Time) (int, error)
 }
 
+// StudyDays counts today as a study day for the streak (implemented over progress in
+// internal/service).
+type StudyDays interface {
+	MarkStudied(ctx context.Context, userID string) error
+}
+
 // Timezones gives a learner's timezone (implemented over auth in main).
 type Timezones interface {
 	Location(ctx context.Context, userID string) (*time.Location, error)

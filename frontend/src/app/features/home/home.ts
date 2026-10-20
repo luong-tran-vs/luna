@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
 import { accuracyOf, Dashboard, Stats } from '../../core/models/dashboard';
-import { GoalView, Goals, PublicTopic, Step, STEPS } from '../../core/models/study';
+import { GoalView, Goals, PublicTopic } from '../../core/models/study';
 import { formatScore } from '../../core/models/writing';
 import { AuthService } from '../../core/services/auth.service';
 import { DashboardApiService } from '../../core/services/dashboard-api.service';
@@ -14,8 +14,7 @@ import { VocabApiService } from '../../core/services/vocab-api.service';
 import { WritingNotifier } from '../../core/services/writing-notifier.service';
 import { Icon } from '../../shared/components/icon/icon';
 import { ProgressBar } from '../../shared/components/progress-bar/progress-bar';
-
-const STEP_LABELS: Record<Step, string> = { read: 'Đọc', listen: 'Nghe', write: 'Viết' };
+import { FLOW_STEP_NAMES, LESSON_FLOW, readSavedStep, resumeIndex } from '../../shared/utils/lesson-flow';
 
 /** The week in one line: lessons, words, writings (with their average); zero parts are left out. */
 export function weekSummary(w: Stats): string {
@@ -95,13 +94,25 @@ export class Home {
   });
 
   /** The part of the email before "@", as there is no display name. */
-  protected readonly stepCount = STEPS.length;
+  protected readonly stepCount = LESSON_FLOW.length;
 
   protected readonly name = computed(() => this.auth.currentUser()?.email.split('@')[0] ?? '');
 
-  protected readonly doneSteps = computed(() => {
-    const steps = this.data()?.steps;
-    return steps ? STEPS.filter((s) => steps[s] === 'done').length : 0;
+  /**
+   * Where the learner is in the lesson's five steps, as its page shows it: the step saved on this
+   * device or the one after the last the server knows is done; -1 before anything is done.
+   */
+  private readonly flowIndex = computed(() => {
+    const d = this.data();
+    return d?.lesson ? resumeIndex(LESSON_FLOW, readSavedStep(d.lesson.id), d.steps) : -1;
+  });
+
+  protected readonly doneSteps = computed(() => Math.max(this.flowIndex(), 0));
+
+  /** "Bước 3/5: Nghe", as on the lesson's page. */
+  protected readonly stepLabel = computed(() => {
+    const i = Math.max(this.flowIndex(), 0);
+    return `Bước ${i + 1}/${LESSON_FLOW.length}: ${FLOW_STEP_NAMES[LESSON_FLOW[i]]}`;
   });
 
   protected readonly subtitle = computed(() => {
@@ -112,13 +123,17 @@ export class Home {
       case 'noNewLesson':
         return d.goalCompleted ? 'Học tiếp chủ đề mới hoặc ôn lại từ đã học nhé!' : 'Ôn lại từ đã học trong lúc chờ bài mới nhé!';
       default: {
-        const steps = d?.steps;
-        const left = STEPS.filter((s) => steps?.[s] !== 'done');
-        if (left.length === STEPS.length) {
+        const i = this.flowIndex();
+        if (i < 0) {
           return 'Sẵn sàng cho bài mới chưa? Bắt đầu thôi!';
         }
-        const names = left.map((s) => STEP_LABELS[s]).join(', ');
-        return `Bài này còn ${left.length} phần nữa thôi (${names})!`;
+        // The steps from here on, and those left behind for later (the server has them not done).
+        const steps = d?.steps;
+        const left = LESSON_FLOW.filter(
+          (s, at) => at >= i || (s === 'read' || s === 'listen' || s === 'write' ? steps?.[s] !== 'done' : false),
+        );
+        const names = left.map((s) => FLOW_STEP_NAMES[s]).join(', ');
+        return `Bài này còn ${left.length} bước nữa thôi (${names})!`;
       }
     }
   });
@@ -128,8 +143,8 @@ export class Home {
     if (!a) {
       return '';
     }
-    // The lesson opens on its practice first, so a new lesson just starts.
-    return a.kind === 'start' ? 'Bắt đầu học' : `Tiếp tục: ${STEP_LABELS[a.step]}`;
+    const i = this.flowIndex();
+    return i < 0 ? 'Bắt đầu học' : `Tiếp tục: ${FLOW_STEP_NAMES[LESSON_FLOW[i]]}`;
   });
 
   /** Comprehension and dictation together, as a whole percentage. */

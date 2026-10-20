@@ -79,8 +79,8 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 - Bài đang học là bài **tiếp theo chưa hoàn thành** trong lộ trình. Không giới hạn số bài mỗi ngày: học xong bài 1 thì bài 2 mở ngay.
 - Không có trang "Hôm nay" riêng: người học học ngay trong trang chi tiết của bài (F17).
 - Trang **Bài học** liệt kê các bài đã học (mở lại tự do), bài đang học và các bài sắp tới (khoá, chỉ hiện tên). Bài nào có trong lộ trình thì hiện bài đó, không có ô "bài hôm nay" trống.
-- Streak đếm số ngày liên tiếp có hoàn thành ít nhất một bài. Một ngày được tính theo múi giờ của người học, sang ngày mới lúc 0h.
-- **Một ngày nghỉ được tha** (cập nhật 2026-10-05): bỏ lỡ đúng một ngày giữa hai ngày học thì chuỗi không đứt (ngày nghỉ không được tính vào số ngày). Lần tha tiếp theo cần ít nhất 7 ngày học kể từ lần tha trước. Bỏ lỡ hai ngày liền thì chuỗi về 0. Không lưu trạng thái, quy tắc chỉ đọc các ngày đã xong bài.
+- Streak đếm số ngày học liên tiếp *(sửa 2026-10-19, trước đây chỉ tính ngày hoàn thành trọn một bài)*: một ngày học là ngày người học làm xong ít nhất một bước của bài (Đọc, Nghe, Viết có nộp bài; bỏ qua Viết không tính), hoặc ôn từ 5 thẻ trở lên, hoặc xong một bài/lượt ôn động từ bất quy tắc, hoặc xong một lượt luyện tập/kiểm tra ngữ pháp. Một ngày được tính theo múi giờ của người học, sang ngày mới lúc 0h.
+- **Một ngày nghỉ được tha** (cập nhật 2026-10-05): bỏ lỡ đúng một ngày giữa hai ngày học thì chuỗi không đứt (ngày nghỉ không được tính vào số ngày). Lần tha tiếp theo cần ít nhất 7 ngày học kể từ lần tha trước. Bỏ lỡ hai ngày liền thì chuỗi về 0. Không lưu trạng thái, quy tắc chỉ đọc các ngày học.
 
 **R3. Ôn flashcard** (cập nhật 2026-10-02)
 - Ôn thẻ đến hạn theo lịch FSRS (xem F5) không còn là bước của bài. Người học ôn ở mục **Từ vựng › Ôn tập** bất cứ lúc nào; trang chủ nhắc số thẻ đến hạn hôm nay (thẻ nổi bật trên bài đang học) và ngày mai.
@@ -102,7 +102,7 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 - Tiến độ được lưu liên tục. Thoát giữa chừng rồi quay lại thì tiếp tục đúng bước và đúng câu đang làm.
 
 **R5. Hoàn thành bài**
-- Xong bước cuối thì thanh mục tiêu tăng thêm 1 bài, ngày hôm đó được tính vào chuỗi ngày học (streak) và bài kế tiếp mở ngay; trang bài có nút **Sang bài tiếp theo**.
+- Xong bước cuối thì thanh mục tiêu tăng thêm 1 bài và bài kế tiếp mở ngay (ngày học đã được tính từ bước đầu tiên làm xong, xem streak ở trên); trang bài có nút **Sang bài tiếp theo**.
 
 **R6. Hết bài trong lộ trình**
 - Nếu lộ trình đang học chưa có bài tiếp theo: app báo cho quản trị viên để thêm bài (F2, F14). Trong lúc chờ, người học vẫn ôn được hoặc chọn chủ đề khác.
@@ -228,6 +228,7 @@ Giai đoạn này chỉ dùng AI ở một chỗ: chú thích nghĩa khi tạo b
 | Giọng nói thành chữ (STT) | whisper.cpp ở chế độ server trên CPU, model **`small.en`** (khoảng 1GB RAM; máy có 16GB). Dự phòng `base.en` nếu chậm |
 | Mô hình ngôn ngữ (LLM) | Chính: gói miễn phí của Gemini (ưu tiên model Flash-Lite vì hạn mức cao hơn). Dự phòng: Groq, OpenRouter hoặc Ollama chạy trên máy |
 | Từ điển Anh–Việt | [minhqnd/dictionary](https://github.com/minhqnd/dictionary): file SQLite chạy offline, khoảng 357 nghìn mục từ, có IPA và ví dụ. Giấy phép dữ liệu CC BY-SA 4.0, phải ghi nguồn khi mở cho người khác |
+| Phiên âm chuẩn *(thêm 2026-10-19)* | Chỉ giọng Mỹ: [CMU Pronouncing Dictionary](https://github.com/cmusphinx/cmudict) (BSD, ~135 nghìn từ) nhúng trong backend, đổi sang IPA kiểu từ điển cho người học; từ điển offline chỉ dùng khi CMU không có. Bảng động từ bất quy tắc cũng theo giọng Mỹ |
 | Triển khai | Docker Compose |
 
 ## 8. Câu hỏi còn mở
