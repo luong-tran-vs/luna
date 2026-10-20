@@ -99,6 +99,15 @@ func (s *Service) runCheck(ctx context.Context, p Point, l Lesson) (Lesson, erro
 
 // compareSolution reports whether the AI's answer to e disagrees with the stored key.
 func compareSolution(e Exercise, sol ai.Solution) (Check, bool) {
+	// The Vietnamese not matching the answer is checked first: the AI usually still finds the stored
+	// answer then (the tiles lead to it), so nothing else would flag it.
+	if sol.MeaningOff {
+		note := strings.TrimSpace(sol.NoteVi)
+		if note == "" {
+			note = "AI thấy phần tiếng Việt không cùng nghĩa với đáp án tiếng Anh."
+		}
+		return Check{ExerciseID: e.ID, Kind: CheckMeaning, NoteVi: note}, true
+	}
 	if sol.Ambiguous {
 		note := strings.TrimSpace(sol.NoteVi)
 		if note == "" {
@@ -130,6 +139,14 @@ func compareSolution(e Exercise, sol ai.Solution) (Check, bool) {
 		if foldSentence(sol.Sentence) != foldSentence(e.Sentence) {
 			return mismatch(fmt.Sprintf("AI ghép thành \"%s\", khác câu đã lưu.", strings.TrimSpace(sol.Sentence)))
 		}
+	case KindFix:
+		got := foldSentence(sol.Sentence)
+		for _, a := range append([]string{e.Sentence}, e.Answers...) {
+			if got != "" && got == foldSentence(a) {
+				return Check{}, false
+			}
+		}
+		return mismatch(fmt.Sprintf("AI sửa thành \"%s\", khác các câu đã lưu.", strings.TrimSpace(sol.Sentence)))
 	}
 	return Check{}, false
 }

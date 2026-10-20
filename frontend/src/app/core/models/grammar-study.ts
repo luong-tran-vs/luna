@@ -3,7 +3,8 @@ import { Level } from './lesson';
 /** Types of the learner's grammar section (F20): GET /api/grammar, /api/grammar/{id}, POST …/attempts. */
 
 export type GrammarStatus = 'new' | 'learning' | 'mastered';
-export type ExerciseKind = 'choice' | 'fill' | 'reorder';
+/** "fix" (added 2026-10-20): `text` has one mistake, `sentence` is the correction, `answers` other accepted ones. */
+export type ExerciseKind = 'choice' | 'fill' | 'reorder' | 'fix';
 export type AttemptKind = 'practice' | 'mastery';
 
 /** Score (in percent) a mastery test needs for a point to count as mastered. */

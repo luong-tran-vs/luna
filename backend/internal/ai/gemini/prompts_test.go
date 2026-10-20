@@ -110,12 +110,16 @@ func TestGrammarLessonPromptTeachesOnlyThePoint(t *testing.T) {
 	prompt := grammarLessonPrompt(ai.GrammarLessonRequest{
 		Level: "A1", TitleVi: "Động từ to be", TitleEn: "Verb to be", Pattern: "S + am/is/are",
 		HintVi: "Nói về danh tính", Examples: []string{"I am a student."},
+		CommonMistakes: []ai.GrammarMistake{{Wrong: "I happy.", Right: "I am happy.", NoteVi: "Cần be."}},
 	})
 	for _, want := range []string{
 		"CEFR level A1", "Verb to be (Động từ to be)", "S + am/is/are", "Nói về danh tính", "- I am a student.",
 		"simple, short Vietnamese", "only vocabulary and grammar suitable for CEFR A1",
-		"mix the three kinds", "explanationVi", "different sentences from the practice", "exactly 8 exercises", "exactly 6 exercises",
-		"choice:", "fill:", "reorder:", `"___"`,
+		"mix the four kinds", "explanationVi", "different sentences from the practice", "exactly 8 exercises", "exactly 6 exercises",
+		"choice:", "fill:", "reorder:", "fix:", `"___"`,
+		// Added 2026-10-20: every form and subject, the hand-written mistakes, Vietnamese that matches.
+		"Yes/No question with its short answers", "contracted forms", "name every subject",
+		"- I happy. → I am happy.: Cần be.", "exact Vietnamese translation of sentence", "must say exactly what the right English answer says",
 	} {
 		if !strings.Contains(prompt, want) {
 			t.Errorf("prompt missing %q", want)
@@ -131,7 +135,7 @@ func TestGrammarSolvePromptHidesTheKeyAndAsksForHonestAmbiguity(t *testing.T) {
 	})
 	for _, want := range []string{
 		"careful English teacher", "you have no answer key", "do not pick the most likely-looking option",
-		"choiceIndex", "answer", "sentence", "ambiguous", "noteVi", "Do not mark an exercise ambiguous just to be safe",
+		"choiceIndex", "answer", "sentence", "ambiguous", "meaningOff", "fix:", "noteVi", "Do not mark an exercise ambiguous just to be safe",
 		`"id":"p1"`, "She ___ a nurse.",
 	} {
 		if !strings.Contains(prompt, want) {

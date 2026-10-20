@@ -191,6 +191,16 @@
   "Luyện lại N câu sai" / "Làm kiểm tra"; điểm đã nắm vững thì gợi ý ôn nhanh; người chưa luyện thì dựa vào bước dừng lần trước (lưu trên trình duyệt).
   Nút trên thẻ Học tiếp ở danh sách cũng đổi theo trạng thái và mở thẳng bước đó (`/grammar/{id}?step=practice&redo=weak`, `?step=test`...).
   Danh sách câu sai (`weak`) chỉ do lần luyện tập gần nhất quyết định; làm bài kiểm tra không còn ghi đè nó.
+- *(thêm 2026-10-20, đợt 4 của đánh giá chuyên gia ngôn ngữ)* **Nội dung bài sinh ra đầy đủ hơn:**
+  - Kho **lỗi người Việt hay mắc** soạn tay, không do AI (`backend/internal/grammar/l1_mistakes.json`, nhúng). Mỗi lỗi gắn với các mã điểm, ví dụ "I happy." → "I am happy.", "I very like…", "Although…, but…". Mọi điểm A1 đều có lỗi; A2 và B1 có một phần. Lỗi gắn mã điểm không tồn tại làm test hỏng.
+  - Prompt sinh bài nhận các lỗi của điểm và lấy chúng làm gốc cho phần lỗi thường gặp (3–5 lỗi).
+  - Cấu trúc phải bao đủ các dạng: khẳng định, phủ định, câu hỏi Yes/No kèm trả lời ngắn, câu hỏi có từ để hỏi (nếu có) và dạng rút gọn. Dạng đổi theo chủ ngữ thì nêu đủ mọi chủ ngữ (không còn "dùng are với you" mà thiếu we/they). Ví dụ và bài tập cũng trộn các dạng và chủ ngữ.
+  - Câu tiếng Việt của bài sắp xếp câu phải là bản dịch đúng câu tiếng Anh: cùng nghĩa, ngôi, thì và kiểu câu.
+- *(thêm 2026-10-20)* **Dạng bài tập thứ tư: Tìm và sửa lỗi** (`fix`):
+  - Nội dung: `text` là câu có đúng một lỗi của điểm, `sentence` là câu đã sửa (3–14 từ, khác câu có lỗi), `answers` là các cách sửa khác cũng đúng.
+  - Người học: ô nhập điền sẵn câu có lỗi để sửa tại chỗ, phải sửa rồi mới bấm Kiểm tra được. Khi chấm bỏ qua hoa/thường, khoảng trắng, dấu nháy cong và dấu câu cuối.
+  - Phần luyện tập có ít nhất 2 câu mỗi dạng, phần kiểm tra ít nhất 1 câu mỗi dạng.
+  - Quản trị sửa được câu đã sửa và các cách sửa khác. Không cần đổi cấu trúc lưu trữ, vì dạng này dùng lại các trường sẵn có.
 - Bài tập chấm trên trình duyệt; máy chủ nhận điểm (`POST /api/grammar/{id}/attempts`), kiểm tra số câu và id câu sai rồi cập nhật tiến độ. Không gọi AI khi làm bài.
 - Liên kết hai chiều với bài học theo chủ đề: ghi chú ngữ pháp trong bài có "Học kỹ điểm này →"; trang ngữ pháp cho biết có bao nhiêu bài học dùng điểm đó.
 - Dữ liệu: `grammar_lessons` (một bài mỗi điểm) và `grammar_progress` (mỗi người học và điểm) ở cả Mongo và MySQL; `grammar_progress` nằm trong file xuất dữ liệu.
@@ -228,6 +238,7 @@
 
 **F21b. Xử lý kết quả kiểm tra (bổ sung cùng ngày)**
 - Câu AI không trả lời bị gắn cờ `unchecked` ("Chưa kiểm tra được"), không còn im lặng.
+- *(thêm 2026-10-20)* **Cờ `meaning` ("Tiếng Việt lệch nghĩa đáp án"):** AI giải lại báo `meaningOff` khi phần tiếng Việt của câu không nói đúng điều đáp án tiếng Anh nói. Ví dụ đã gặp ở bài a1-to-be: "Bạn bao nhiêu tuổi?" mà đáp án là "I am ten.". Trước đây lỗi này lọt qua, vì các ô từ vẫn dẫn AI ghép ra đúng câu đã lưu. Cờ này được xét trước cờ mơ hồ và cờ lệch đáp án. AI giải lại cũng giải được câu Tìm và sửa lỗi; đáp án của AI được so với câu đã sửa và các cách sửa khác.
 - Mỗi câu có cờ có **Xác nhận đúng** (`POST …/checks/{exerciseId}/confirm`), **Sửa câu này** (`PUT …/exercises/{exerciseId}`, không đổi dạng bài) và **Xoá câu này**
   (`DELETE …/exercises/{exerciseId}`, không xuống dưới 6 bài luyện tập / 5 bài kiểm tra). Sửa hoặc xoá chỉ gỡ cờ của câu đó; id các câu khác giữ nguyên.
 - Nút **Xác nhận đã kiểm tra xong** (`POST …/verify`, cần đã kiểm tra bằng AI) đặt `verifiedAt` và xác nhận mọi cờ còn lại; danh sách hiện nhãn "Đã xác nhận".

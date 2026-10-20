@@ -155,6 +155,8 @@ func normalizeExercises(in []Exercise, idPrefix string) []Exercise {
 			e.Options, e.AnswerIndex, e.Words, e.Sentence = nil, 0, nil, ""
 		case KindReorder:
 			e.Options, e.AnswerIndex, e.Answers = nil, 0, nil
+		case KindFix:
+			e.Options, e.AnswerIndex, e.Words = nil, 0, nil
 		}
 		out[i] = e
 	}
@@ -251,6 +253,8 @@ func exerciseProblems(e Exercise) map[string]string {
 		}
 	case KindReorder:
 		checkReorder(f, e)
+	case KindFix:
+		checkFix(f, e)
 	default:
 		f.add("kind", "Loại bài tập không hợp lệ")
 	}
@@ -258,6 +262,35 @@ func exerciseProblems(e Exercise) map[string]string {
 		return nil
 	}
 	return f
+}
+
+// checkFix checks a correction exercise: a corrected sentence of 3 to 14 words that differs from
+// the sentence to correct, and other accepted corrections that differ from it too.
+func checkFix(f fieldErrors, e Exercise) {
+	words := len(strings.Fields(e.Sentence))
+	switch {
+	case e.Sentence == "":
+		f.add("sentence", "Không được để trống")
+	case utf8.RuneCountInString(e.Sentence) > maxText:
+		f.add("sentence", fmt.Sprintf("Tối đa %d ký tự", maxText))
+	case words < minSentenceWords || words > maxSentenceWords:
+		f.add("sentence", fmt.Sprintf("Câu cần từ %d đến %d từ", minSentenceWords, maxSentenceWords))
+	case foldSentence(e.Sentence) == foldSentence(e.Text):
+		f.add("sentence", "Câu đã sửa phải khác câu có lỗi")
+	}
+	for _, a := range e.Answers {
+		f.text("answers", a, maxText, true)
+		if foldSentence(a) == foldSentence(e.Text) {
+			f.add("answers", "Cách sửa khác không được trùng câu có lỗi")
+		}
+	}
+}
+
+// tileKey is how a tile is matched with a word of the sentence: case and the punctuation around it
+// are ignored, so the tile "brothers" covers "brothers." (fixed 2026-10-20: the AI often leaves the
+// full stop off the last tile).
+func tileKey(w string) string {
+	return strings.ToLower(strings.Trim(w, `.,!?;:"“”`))
 }
 
 func checkReorder(f fieldErrors, e Exercise) {
@@ -275,7 +308,7 @@ func checkReorder(f fieldErrors, e Exercise) {
 	}
 	left := map[string]int{}
 	for _, w := range sentence {
-		left[w]++
+		left[tileKey(w)]++
 	}
 	extra := 0
 	for _, w := range e.Words {
@@ -283,8 +316,8 @@ func checkReorder(f fieldErrors, e Exercise) {
 		case w == "" || strings.ContainsAny(w, " \t\n"):
 			f.add("words", "Mỗi ô phải là một từ")
 			return
-		case left[w] > 0:
-			left[w]--
+		case left[tileKey(w)] > 0:
+			left[tileKey(w)]--
 		default:
 			extra++
 		}

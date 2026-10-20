@@ -1,6 +1,6 @@
 .soft-card {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .card-head {
@@ -42,17 +42,23 @@
 
 .word {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
+/*
+ * The picture stays beside the word at every width (design/tuvung.png), in a narrower column
+ * than the text: stacked, or half the card, it pushed the example and the buttons below the fold.
+ */
 .word-main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .picture {
+  width: 100%;
+  max-width: 240px;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--color-primary-soft);
@@ -125,8 +131,8 @@
 
 .example {
   display: grid;
-  gap: var(--space-1);
-  padding-top: var(--space-3);
+  gap: 2px;
+  padding-top: var(--space-2);
   border-top: 1px solid var(--color-line);
 }
 
@@ -210,9 +216,19 @@
   color: var(--color-ok);
 }
 
+/* A phone: the same row, with a smaller word so it fits beside the picture. */
 @media (max-width: 420px) {
   .word-main {
-    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  .lemma {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .ipa {
+    font-size: 14px;
   }
 }
 

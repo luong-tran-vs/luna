@@ -18,6 +18,20 @@ export function gradeFill(ex: GrammarExercise, typed: string): boolean {
   return t !== '' && (ex.answers ?? []).some((a) => normalizeAnswer(a) === t);
 }
 
+/** A sentence for comparing: normalised like a typed answer, without the closing full stop, "?" or "!". */
+function foldSentence(text: string): string {
+  return normalizeAnswer(text).replace(/\s*[.?!]+$/, '');
+}
+
+/**
+ * A corrected sentence (added 2026-10-20) is right when it is the stored correction or another
+ * accepted one; case, spacing, curly apostrophes and the closing punctuation are ignored.
+ */
+export function gradeFix(ex: GrammarExercise, typed: string): boolean {
+  const t = foldSentence(typed);
+  return t !== '' && [ex.sentence ?? '', ...(ex.answers ?? [])].some((s) => s !== '' && foldSentence(s) === t);
+}
+
 /** The right answer of an exercise as text (the first accepted answer of a fill). */
 export function correctAnswerText(ex: GrammarExercise): string {
   switch (ex.kind) {
@@ -30,10 +44,18 @@ export function correctAnswerText(ex: GrammarExercise): string {
   }
 }
 
-/** A built sentence is right when its words, in order, are the words of the sentence. */
+/** A word compared without case and the punctuation around it ("brothers." is the tile "brothers"). */
+function wordKey(word: string): string {
+  return normalizeAnswer(word).replace(/^[.,!?;:"“”]+|[.,!?;:"“”]+$/g, '');
+}
+
+/**
+ * A built sentence is right when its words, in order, are the words of the sentence; punctuation
+ * around a word is ignored (fixed 2026-10-20: the last tile often has no full stop).
+ */
 export function gradeReorder(ex: GrammarExercise, built: readonly string[]): boolean {
-  const target = normalizeAnswer(ex.sentence ?? '').split(' ');
-  return built.length === target.length && built.every((w, i) => normalizeAnswer(w) === target[i]);
+  const target = normalizeAnswer(ex.sentence ?? '').split(' ').map(wordKey);
+  return built.length === target.length && built.every((w, i) => wordKey(w) === target[i]);
 }
 
 /** The word tiles of a reorder exercise in a random order; the same seed gives the same order. */

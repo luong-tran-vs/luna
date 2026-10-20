@@ -3,6 +3,7 @@ import {
   correctAnswerText,
   gradeChoice,
   gradeFill,
+  gradeFix,
   gradeReorder,
   missingToPass,
   patternParts,
@@ -53,12 +54,25 @@ describe('grammar logic', () => {
     expect(correctAnswerText(ex({ kind: 'reorder', sentence: 'She is' }))).toBe('She is');
   });
 
+  // Added 2026-10-20.
+  it('grades a fix against the correction and the other accepted ones', () => {
+    const e = ex({ kind: 'fix', text: 'She are a teacher.', sentence: 'She is a teacher.', answers: ["She's a teacher."] });
+    expect(gradeFix(e, '  she is a  TEACHER ')).toBe(true);
+    expect(gradeFix(e, 'She’s a teacher!')).toBe(true);
+    expect(gradeFix(e, 'She are a teacher.')).toBe(false);
+    expect(gradeFix(e, '')).toBe(false);
+    expect(correctAnswerText(e)).toBe('She is a teacher.');
+  });
+
   it('grades a reorder by the words in order', () => {
     const e = ex({ kind: 'reorder', sentence: 'She is a teacher.' });
     expect(gradeReorder(e, ['She', 'is', 'a', 'teacher.'])).toBe(true);
     expect(gradeReorder(e, ['she', 'is', 'a', 'Teacher.'])).toBe(true);
     expect(gradeReorder(e, ['is', 'She', 'a', 'teacher.'])).toBe(false);
     expect(gradeReorder(e, ['She', 'is', 'a'])).toBe(false);
+    // Fixed 2026-10-20: the tiles often have no full stop.
+    expect(gradeReorder(e, ['She', 'is', 'a', 'teacher'])).toBe(true);
+    expect(gradeReorder(ex({ kind: 'reorder', sentence: 'Is she a teacher?' }), ['is', 'she', 'a', 'teacher'])).toBe(true);
   });
 
   it('shuffles words without losing any, the same way for the same seed', () => {

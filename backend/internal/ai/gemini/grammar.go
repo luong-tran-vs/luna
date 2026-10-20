@@ -13,7 +13,7 @@ import (
 var grammarExerciseSchema = map[string]any{
 	"type": "OBJECT",
 	"properties": map[string]any{
-		"kind":          map[string]any{"type": "STRING", "enum": []string{"choice", "fill", "reorder"}},
+		"kind":          map[string]any{"type": "STRING", "enum": []string{"choice", "fill", "reorder", "fix"}},
 		"promptVi":      map[string]any{"type": "STRING"},
 		"text":          map[string]any{"type": "STRING"},
 		"options":       stringArray,
@@ -102,22 +102,42 @@ Return a JSON object with:
 1. objective: one Vietnamese sentence starting with "Bạn có thể".
 2. explanation: 2 to 4 short Vietnamese paragraphs that explain the point step by step.
 3. usage: 2 to 5 short Vietnamese sentences saying when to use it.
-4. structures: 1 to 4 patterns of the point (for example affirmative, negative, question), each with a Vietnamese label, the pattern and one English example.
-5. examples: 4 to 8 English sentences that show the point, each with its Vietnamese meaning. Take inspiration from the course examples below, but do not only copy them.
-6. mistakes: 2 to 4 mistakes Vietnamese learners often make: the wrong English sentence, the right one, and noteVi, a short Vietnamese note on why.
+4. structures: 1 to 6 patterns that together cover every form of the point a learner at this level needs: affirmative, negative,
+   Yes/No question with its short answers, a question with a question word when the point has one, and the contracted forms.
+   Each has a Vietnamese label, the pattern and one English example.
+   When the form changes with the subject, name every subject in each pattern (for example "I am", "he / she / it is", "you / we / they are"),
+   in the explanation too: never say a form goes with only one subject when it goes with several.
+5. examples: 4 to 8 English sentences that show the point, each with its Vietnamese meaning. Cover the different forms (not only affirmative)
+   and subjects. Take inspiration from the course examples below, but do not only copy them.
+6. mistakes: 3 to 5 mistakes Vietnamese learners often make: the wrong English sentence, the right one, and noteVi, a short Vietnamese note on why.
+   Start from the common mistakes listed below when there are any (you may reword the note), then add others.
 7. practice: exactly 8 exercises for practice.
 8. mastery: exactly 6 exercises for the mastery check. They must be different sentences from the practice exercises.
 
-Exercises, in both practice and mastery, mix the three kinds (at least 2 of each kind in each list). Every exercise has kind, promptVi (a short Vietnamese instruction), text, and explanationVi, a Vietnamese explanation of why the answer is right.
+Exercises, in both practice and mastery, mix the four kinds (in practice at least 2 of each kind; in mastery at least 1 of each kind)
+and the forms of the point (affirmative, negative, questions, short answers) with different subjects.
+Every exercise has kind, promptVi (a short Vietnamese instruction), text, and explanationVi, a Vietnamese explanation of why the answer is right.
 - choice: text is the English question or a sentence with one blank written "___"; options has exactly 4 different English options; answerIndex (0 to 3) is the only correct one.
 - fill: text is an English sentence with exactly one blank written "___"; answers lists the accepted words for the blank (at least 1, lower case).
-- reorder: text is the Vietnamese meaning of the sentence; sentence is the correct English sentence (3 to 14 words); words are all the words of sentence, plus at most 2 extra wrong words.
+- reorder: text is the exact Vietnamese translation of sentence: the same meaning, person, tense and sentence type
+  (a question in Vietnamese only for an English question, an answer only for an answer); sentence is the correct English sentence (3 to 14 words);
+  words are all the words of sentence, plus at most 2 extra wrong words.
+- fix: text is an English sentence (3 to 14 words) with exactly one mistake on this point, preferably one Vietnamese learners make;
+  sentence is the corrected sentence, changing as few words as possible; answers lists other full corrected sentences that are also right (may be empty).
+  promptVi asks the learner to find and correct the mistake.
+Whenever an exercise has Vietnamese, it must say exactly what the right English answer says.
 Plain text only, no markdown.
 
 Course examples:
 `, req.Level, req.TitleEn, req.TitleVi, req.Pattern, req.HintVi)
 	for _, e := range req.Examples {
 		fmt.Fprintf(&b, "- %s\n", e)
+	}
+	if len(req.CommonMistakes) > 0 {
+		b.WriteString("\nCommon mistakes of Vietnamese learners with this point (wrong → right: why, in Vietnamese):\n")
+		for _, m := range req.CommonMistakes {
+			fmt.Fprintf(&b, "- %s → %s: %s\n", m.Wrong, m.Right, m.NoteVi)
+		}
 	}
 	return b.String()
 }
@@ -132,6 +152,7 @@ var grammarSolveSchema = map[string]any{
 			"answer":      map[string]any{"type": "STRING"},
 			"sentence":    map[string]any{"type": "STRING"},
 			"ambiguous":   map[string]any{"type": "BOOLEAN"},
+			"meaningOff":  map[string]any{"type": "BOOLEAN"},
 			"noteVi":      map[string]any{"type": "STRING"},
 		},
 		"required": []string{"exerciseId", "ambiguous"},
@@ -162,7 +183,11 @@ Return a JSON array with exactly one object per exercise, in the same order, eac
 - choice: choiceIndex, the 0-based index of the one right option.
 - fill: answer, the single word or phrase that fills the blank "___".
 - reorder: sentence, the English sentence you build by arranging the words (use only the given words; some may be extra and unused).
+- fix: sentence, the text with its mistake corrected, changing as few words as possible.
 - ambiguous: true when, in your honest opinion, more than one option or answer is correct, or none is, or the exercise is unclear or has an error; otherwise false. When ambiguous is true, noteVi is one short Vietnamese sentence that says why. Do not mark an exercise ambiguous just to be safe.
+- meaningOff: true when the Vietnamese of the exercise (the text of a reorder, or Vietnamese in promptVi or text) does not say exactly what your answer says:
+  a different meaning, person or tense, or a question for a statement or the other way round (for example "Bạn bao nhiêu tuổi?" for "I am ten."); otherwise false.
+  When meaningOff is true, noteVi is one short Vietnamese sentence that says what differs.
 Plain text only, no markdown.
 
 Exercises (JSON):

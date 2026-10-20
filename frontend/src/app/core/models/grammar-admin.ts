@@ -1,6 +1,6 @@
 /** Admin side of the grammar lessons (F20): one lesson per point of the curriculum. */
 
-export type GrammarExerciseKind = 'choice' | 'fill' | 'reorder';
+export type GrammarExerciseKind = 'choice' | 'fill' | 'reorder' | 'fix';
 export type GrammarLessonStatus = 'draft' | 'published';
 
 export interface GrammarExercise {
@@ -59,7 +59,8 @@ export interface GrammarLessonSummary {
   verified: boolean;
 }
 
-export type GrammarCheckKind = 'mismatch' | 'ambiguous' | 'unchecked';
+/** "meaning" (added 2026-10-20): the Vietnamese does not say what the English answer says. */
+export type GrammarCheckKind = 'mismatch' | 'ambiguous' | 'unchecked' | 'meaning';
 
 /** F21: an exercise the independent AI solver flagged. */
 export interface GrammarCheck {
@@ -99,6 +100,7 @@ export const CHECK_LABELS: Record<GrammarCheckKind, string> = {
   mismatch: 'Cần xem: AI giải ra đáp án khác',
   ambiguous: 'Cần xem: AI thấy câu mơ hồ',
   unchecked: 'Chưa kiểm tra được: AI không trả lời câu này',
+  meaning: 'Cần xem: tiếng Việt không khớp nghĩa đáp án',
 };
 
 /** Short reason used in the list of exercises that still need a look. */
@@ -106,6 +108,7 @@ export const CHECK_SHORT: Record<GrammarCheckKind, string> = {
   mismatch: 'AI giải ra đáp án khác',
   ambiguous: 'AI thấy câu mơ hồ',
   unchecked: 'AI không trả lời câu này',
+  meaning: 'Tiếng Việt lệch nghĩa đáp án',
 };
 
 /** The flags nobody confirmed yet. */
@@ -158,4 +161,5 @@ export const EXERCISE_KIND_LABELS: Record<GrammarExerciseKind, string> = {
   choice: 'Trắc nghiệm',
   fill: 'Điền từ',
   reorder: 'Sắp xếp câu',
+  fix: 'Tìm và sửa lỗi',
 };

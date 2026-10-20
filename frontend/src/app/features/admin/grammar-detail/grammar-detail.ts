@@ -328,7 +328,16 @@ export class GrammarDetail {
 
   protected textLabel(): string {
     const kind = this.editKind();
-    return kind === 'fill' ? 'Câu có chỗ trống (dùng ___)' : kind === 'reorder' ? 'Nghĩa tiếng Việt của câu' : 'Câu hỏi';
+    switch (kind) {
+      case 'fill':
+        return 'Câu có chỗ trống (dùng ___)';
+      case 'reorder':
+        return 'Nghĩa tiếng Việt của câu';
+      case 'fix':
+        return 'Câu có một lỗi';
+      default:
+        return 'Câu hỏi';
+    }
   }
 
   protected fieldErrors(name: string): string[] {
@@ -345,6 +354,9 @@ export class GrammarDetail {
     }
     if (kind === 'fill') {
       return { ...base, answers: lines(v.answersText) };
+    }
+    if (kind === 'fix') {
+      return { ...base, sentence: v.sentence.trim(), answers: lines(v.answersText) };
     }
     return { ...base, sentence: v.sentence.trim(), words: v.wordsText.split(/\s+/).filter(Boolean) };
   }

@@ -122,9 +122,13 @@ func (s *Service) Generate(ctx context.Context, pointID string, force bool) (l L
 
 	aiCtx, cancel := context.WithTimeout(ctx, generateTimeout)
 	defer cancel()
-	raw, err := s.ai.GrammarLesson(aiCtx, ai.GrammarLessonRequest{
+	req := ai.GrammarLessonRequest{
 		Level: p.Level, TitleVi: p.TitleVi, TitleEn: p.TitleEn, Pattern: p.Pattern, HintVi: p.HintVi, Examples: p.Examples,
-	})
+	}
+	for _, m := range MistakesOf(pointID) {
+		req.CommonMistakes = append(req.CommonMistakes, ai.GrammarMistake{Wrong: m.Wrong, Right: m.Right, NoteVi: m.NoteVi})
+	}
+	raw, err := s.ai.GrammarLesson(aiCtx, req)
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) || errors.Is(err, ai.ErrQuota) {
 			return Lesson{}, false, err
@@ -132,7 +136,8 @@ func (s *Service) Generate(ctx context.Context, pointID string, force bool) (l L
 		return Lesson{}, false, fmt.Errorf("%w: %w", errAI, err)
 	}
 	content := FilterGenerated(fromAI(raw))
-	if Validate(content) != nil {
+	if problems := Validate(content); problems != nil {
+		slog.WarnContext(ctx, "grammar lesson from the AI is unusable", slog.String("point", pointID), slog.Any("problems", problems))
 		return Lesson{}, false, ErrUnusable
 	}
 

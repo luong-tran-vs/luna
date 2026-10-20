@@ -33,6 +33,9 @@ const (
 	// KindReorder asks for an English sentence: Text is its Vietnamese meaning, Sentence is the right
 	// answer and Words are the tiles to arrange (the words of Sentence, plus optional distractors).
 	KindReorder Kind = "reorder"
+	// KindFix asks the learner to correct a sentence (added 2026-10-20): Text has exactly one mistake of
+	// the point, Sentence is the corrected sentence and Answers lists other accepted corrections.
+	KindFix Kind = "fix"
 )
 
 // Exercise is one question. Only the fields of its Kind are used.
@@ -46,9 +49,9 @@ type Exercise struct {
 	// Options and AnswerIndex are for KindChoice.
 	Options     []string
 	AnswerIndex int
-	// Answers is for KindFill.
+	// Answers is for KindFill, and the other accepted corrections of KindFix.
 	Answers []string
-	// Words and Sentence are for KindReorder.
+	// Words and Sentence are for KindReorder; Sentence is also the correction of KindFix.
 	Words         []string
 	Sentence      string
 	ExplanationVi string
@@ -101,6 +104,9 @@ const (
 	CheckAmbiguous CheckKind = "ambiguous"
 	// CheckUnchecked means the second AI gave no answer for the exercise, so nobody has checked it.
 	CheckUnchecked CheckKind = "unchecked"
+	// CheckMeaning means the Vietnamese of the exercise does not say the same thing as its English
+	// answer, e.g. a question in Vietnamese for an English statement (added 2026-10-20).
+	CheckMeaning CheckKind = "meaning"
 )
 
 // Check is one exercise flagged by the AI check for the admin to look at before publishing.

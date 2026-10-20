@@ -14,6 +14,10 @@ const reorder: GrammarExercise = {
   id: 'p3', kind: 'reorder', text: 'Cô ấy là giáo viên.', sentence: 'She is a teacher',
   words: ['She', 'is', 'a', 'teacher', 'are'], explanationVi: 'Chủ ngữ rồi động từ.',
 };
+const fix: GrammarExercise = {
+  id: 'p4', kind: 'fix', promptVi: 'Tìm và sửa lỗi', text: 'He like music.', sentence: 'He likes music.',
+  explanationVi: 'He đi với likes.',
+};
 
 describe('GrammarExerciseView', () => {
   let fixture: ComponentFixture<GrammarExerciseView>;
@@ -173,5 +177,34 @@ describe('GrammarExerciseView', () => {
     await fixture.whenStable();
     expect(feedback()).toBe('');
     expect(buttons().some((b) => b.disabled)).toBe(false);
+  });
+
+  // Added 2026-10-20: the learner corrects the sentence in place.
+  it('starts a fix from the wrong sentence and checks it once changed', async () => {
+    await setup(fix);
+    const box = el.querySelector<HTMLTextAreaElement>('textarea')!;
+    expect(text(el.querySelector('.fix-wrong'))).toContain('He like music.');
+    expect(box.value).toBe('He like music.');
+    expect(byText('Kiểm tra').disabled).toBe(true); // unchanged
+    box.value = 'he likes music';
+    box.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    byText('Kiểm tra').click();
+    await fixture.whenStable();
+    expect(answers).toEqual([true]);
+    expect(feedback()).toContain('He đi với likes.');
+    expect(box.disabled).toBe(true);
+  });
+
+  it('shows the correction after a wrong fix', async () => {
+    await setup(fix);
+    const box = el.querySelector<HTMLTextAreaElement>('textarea')!;
+    box.value = 'He liked music.';
+    box.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    byText('Kiểm tra').click();
+    await fixture.whenStable();
+    expect(answers).toEqual([false]);
+    expect(feedback()).toContain('Đáp án đúng: He likes music.');
   });
 });

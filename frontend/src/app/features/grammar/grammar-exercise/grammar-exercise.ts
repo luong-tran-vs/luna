@@ -14,11 +14,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GrammarExercise } from '../../../core/models/grammar-study';
 import { Icon } from '../../../shared/components/icon/icon';
 import { newSeed } from '../../lesson/lesson-detail/practice-logic';
-import { correctAnswerText, gradeChoice, gradeFill, gradeReorder, shuffleWords, splitBlank } from '../grammar-logic';
+import { correctAnswerText, gradeChoice, gradeFill, gradeFix, gradeReorder, shuffleWords, splitBlank } from '../grammar-logic';
 import { ReportExercise } from '../report-exercise/report-exercise';
 
 /**
- * One grammar exercise (choice, fill or reorder), graded in the browser. With `reveal` the result
+ * One grammar exercise (choice, fill, reorder or fix), graded in the browser. With `reveal` the result
  * ("Đúng"/"Sai", the right answer and the explanation) shows at once; without it (a mastery test)
  * only "Đã ghi nhận" shows. Emits `answered` once, when the learner checks the answer. A new
  * `exercise` input starts it afresh.
@@ -70,20 +70,30 @@ export class GrammarExerciseView {
   protected readonly isDone = computed(() => this.result() !== null);
   /** The right answer as text, shown after a wrong one. */
   protected readonly correctText = computed(() => correctAnswerText(this.exercise()));
-  /** A fill or reorder has an answer to check (a choice is checked when tapped). */
+  /** A fill, reorder or fix has an answer to check (a choice is checked when tapped); a fix must be changed. */
   readonly canCheck = computed(() => {
     if (this.isDone()) {
       return false;
     }
     const kind = this.exercise().kind;
-    return kind === 'fill' ? this.typedValue().trim() !== '' : kind === 'reorder' && this.picked().length > 0;
+    switch (kind) {
+      case 'fill':
+        return this.typedValue().trim() !== '';
+      case 'fix':
+        return this.typedValue().trim() !== '' && this.typedValue().trim() !== (this.exercise().text ?? '').trim();
+      case 'reorder':
+        return this.picked().length > 0;
+      default:
+        return false;
+    }
   });
 
   constructor() {
     effect(() => {
-      this.exercise();
+      const e = this.exercise();
       untracked(() => {
-        this.typed.reset('');
+        // A fix starts from the sentence with the mistake, which the learner corrects in place.
+        this.typed.reset(e.kind === 'fix' ? (e.text ?? '') : '');
         this.typed.enable();
       });
     });
@@ -105,6 +115,15 @@ export class GrammarExerciseView {
     this.typed.disable();
     this.given.emit(this.typed.value.trim());
     this.finish(gradeFill(this.exercise(), this.typed.value));
+  }
+
+  protected checkFix(): void {
+    if (!this.canCheck()) {
+      return;
+    }
+    this.typed.disable();
+    this.given.emit(this.typed.value.trim());
+    this.finish(gradeFix(this.exercise(), this.typed.value));
   }
 
   protected pick(tile: number): void {
@@ -133,12 +152,18 @@ export class GrammarExerciseView {
     this.finish(gradeReorder(this.exercise(), this.built()));
   }
 
-  /** Checks a fill or reorder answer: the Kiểm tra button, here or in the page's bar. */
+  /** Checks a fill, reorder or fix answer: the Kiểm tra button, here or in the page's bar. */
   check(): void {
-    if (this.exercise().kind === 'fill') {
-      this.checkFill();
-    } else if (this.exercise().kind === 'reorder') {
-      this.checkReorder();
+    switch (this.exercise().kind) {
+      case 'fill':
+        this.checkFill();
+        break;
+      case 'reorder':
+        this.checkReorder();
+        break;
+      case 'fix':
+        this.checkFix();
+        break;
     }
   }
 

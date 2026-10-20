@@ -238,6 +238,22 @@
                             }
                           </div>
                         }
+                        @case ('fix') {
+                          <div class="field">
+                            <label for="edit-fixed">Câu đã sửa</label>
+                            <input id="edit-fixed" type="text" autocomplete="off" formControlName="sentence" />
+                            @for (e of fieldErrors('sentence'); track $index) {
+                              <p class="field-error">{{ e }}</p>
+                            }
+                          </div>
+                          <div class="field">
+                            <label for="edit-fix-answers">Cách sửa khác cũng đúng (mỗi dòng một câu, có thể để trống)</label>
+                            <textarea id="edit-fix-answers" rows="2" formControlName="answersText"></textarea>
+                            @for (e of fieldErrors('answers'); track $index) {
+                              <p class="field-error">{{ e }}</p>
+                            }
+                          </div>
+                        }
                         @case ('reorder') {
                           <div class="field">
                             <label for="edit-sentence">Câu đúng</label>
@@ -283,6 +299,11 @@
                     </ul>
                   } @else if (ex.kind === 'fill') {
                     <p><strong>Đáp án đúng:</strong> {{ (ex.answers ?? []).join(' / ') }}</p>
+                  } @else if (ex.kind === 'fix') {
+                    <p><strong>Câu đã sửa:</strong> {{ ex.sentence }}</p>
+                    @if (ex.answers?.length) {
+                      <p class="muted">Cách sửa khác: {{ ex.answers!.join(' / ') }}</p>
+                    }
                   } @else {
                     <p><strong>Câu đúng:</strong> {{ ex.sentence }}</p>
                     <p class="muted">Các ô: {{ (ex.words ?? []).join(' · ') }}</p>

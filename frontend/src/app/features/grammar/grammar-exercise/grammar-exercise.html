@@ -102,6 +102,29 @@
         </div>
       }
     }
+    @case ('fix') {
+      <p class="stem fix-wrong" lang="en">
+        <span class="fix-tag" lang="vi">Câu có lỗi</span>
+        {{ e.text }}
+      </p>
+      <label class="fix-label" [for]="'fix-' + e.id">Câu đã sửa</label>
+      <textarea
+        class="fix-input"
+        rows="2"
+        lang="en"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        [id]="'fix-' + e.id"
+        [formControl]="typed"
+        (keydown.enter)="$event.preventDefault(); checkFix()"
+      ></textarea>
+      @if (inlineCheck()) {
+        <div class="actions">
+          <button type="button" class="btn-primary" [disabled]="!canCheck()" (click)="check()">Kiểm tra</button>
+        </div>
+      }
+    }
   }
 
   <div class="feedback" role="status" [class.ok]="result() === true && reveal()" [class.bad]="result() === false && reveal()">
