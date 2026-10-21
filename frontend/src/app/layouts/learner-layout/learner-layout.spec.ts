@@ -20,6 +20,8 @@ describe('isFocusPage', () => {
     expect(isFocusPage('/irregular-verbs/review')).toBe(true);
     expect(isFocusPage('/irregular-verbs/lessons')).toBe(false);
     expect(isFocusPage('/irregular-verbs')).toBe(false);
+    expect(isFocusPage('/vocabulary/talk/s1')).toBe(true);
+    expect(isFocusPage('/vocabulary/talk')).toBe(false);
     expect(isFocusPage('/')).toBe(false);
   });
 });

@@ -33,13 +33,27 @@ const (
 )
 
 // Turn is one line of the conversation. TextVi is the Vietnamese of the AI's lines; Spoken tells
-// a learner's line said into the microphone from a typed one.
+// a learner's line said into the microphone from a typed one. Reaction is how the AI felt about
+// the learner's line before answering (one of Reactions), shown next to Leo.
 type Turn struct {
-	Role   Role
-	Text   string
-	TextVi string
-	Spoken bool
-	At     time.Time
+	Role     Role
+	Text     string
+	TextVi   string
+	Spoken   bool
+	Reaction string
+	At       time.Time
+}
+
+// Reactions are how the AI may feel about the learner's line; anything else is dropped.
+var Reactions = []string{"happy", "laugh", "surprised", "love", "curious", "thumbs"}
+
+// MaxHints bounds the answers kept from one AI reply.
+const MaxHints = 3
+
+// Hint is an answer the learner could give to the AI's last line, with its Vietnamese.
+type Hint struct {
+	Text string
+	Vi   string
 }
 
 // Good is a learner's line that was well said.
@@ -77,9 +91,8 @@ type Session struct {
 	Grammar    []string
 	ScenarioVi string
 	Turns      []Turn
-	// Hint and HintVi are an answer to the AI's last line, for the Gợi ý button.
-	Hint      string
-	HintVi    string
+	// Hints are answers to the AI's last line, shown under it.
+	Hints     []Hint
 	Status    Status
 	Review    *Review
 	CreatedAt time.Time

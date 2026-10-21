@@ -37,16 +37,22 @@ func talkSessionsSchema() []string {
 }
 
 type talkTurnJSON struct {
-	Role   string    `json:"role"`
-	Text   string    `json:"text"`
-	TextVi string    `json:"textVi,omitempty"`
-	Spoken bool      `json:"spoken,omitempty"`
-	At     time.Time `json:"at"`
+	Role     string    `json:"role"`
+	Text     string    `json:"text"`
+	TextVi   string    `json:"textVi,omitempty"`
+	Spoken   bool      `json:"spoken,omitempty"`
+	Reaction string    `json:"reaction,omitempty"`
+	At       time.Time `json:"at"`
 }
 
 type talkGoodJSON struct {
 	Said   string `json:"said"`
 	NoteVi string `json:"noteVi"`
+}
+
+type talkHintJSON struct {
+	Text string `json:"text"`
+	Vi   string `json:"vi"`
 }
 
 type talkFixJSON struct {
@@ -71,18 +77,22 @@ type talkBodyJSON struct {
 	Grammar    []string        `json:"grammar"`
 	ScenarioVi string          `json:"scenarioVi"`
 	Turns      []talkTurnJSON  `json:"turns"`
-	Hint       string          `json:"hint,omitempty"`
-	HintVi     string          `json:"hintVi,omitempty"`
+	Hints      []talkHintJSON  `json:"hints,omitempty"`
 	Review     *talkReviewJSON `json:"review,omitempty"`
 }
 
 func talkBody(s talk.Session) ([]byte, error) {
 	b := talkBodyJSON{
 		TopicName: s.TopicName, Level: s.Level, Words: s.Words, Grammar: s.Grammar, ScenarioVi: s.ScenarioVi,
-		Turns: make([]talkTurnJSON, len(s.Turns)), Hint: s.Hint, HintVi: s.HintVi,
+		Turns: make([]talkTurnJSON, len(s.Turns)), Hints: make([]talkHintJSON, len(s.Hints)),
 	}
 	for i, t := range s.Turns {
-		b.Turns[i] = talkTurnJSON{Role: string(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, At: utc(t.At)}
+		b.Turns[i] = talkTurnJSON{
+			Role: string(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, Reaction: t.Reaction, At: utc(t.At),
+		}
+	}
+	for i, h := range s.Hints {
+		b.Hints[i] = talkHintJSON(h)
 	}
 	if r := s.Review; r != nil {
 		rj := &talkReviewJSON{
@@ -117,10 +127,15 @@ func scanTalkSession(row interface{ Scan(...any) error }) (talk.Session, error) 
 	s.Status, s.EndedAt = talk.Status(status), timeOf(ended)
 	s.CreatedAt, s.UpdatedAt = utc(s.CreatedAt), utc(s.UpdatedAt)
 	s.TopicName, s.Level, s.Words, s.Grammar, s.ScenarioVi = b.TopicName, b.Level, b.Words, b.Grammar, b.ScenarioVi
-	s.Hint, s.HintVi = b.Hint, b.HintVi
+	s.Hints = make([]talk.Hint, len(b.Hints))
+	for i, h := range b.Hints {
+		s.Hints[i] = talk.Hint(h)
+	}
 	s.Turns = make([]talk.Turn, len(b.Turns))
 	for i, t := range b.Turns {
-		s.Turns[i] = talk.Turn{Role: talk.Role(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, At: t.At}
+		s.Turns[i] = talk.Turn{
+			Role: talk.Role(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, Reaction: t.Reaction, At: t.At,
+		}
 	}
 	if r := b.Review; r != nil {
 		rv := &talk.Review{

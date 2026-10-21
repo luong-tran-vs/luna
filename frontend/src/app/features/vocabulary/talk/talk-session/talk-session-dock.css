@@ -1,0 +1,431 @@
+/*
+ * The bottom dock of the talk screen (split from talk-session.css): the answers Leo suggests
+ * behind a pill, the keyboard, the long talk button with its live wave and Tự đọc, the floating
+ * box for typing and the closing card once every turn is said. It fades into the scene above it.
+ */
+.dock {
+  position: relative;
+  z-index: 3;
+  flex: none;
+  padding: var(--space-6) 0 calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(
+    transparent,
+    color-mix(in srgb, var(--color-surface) 92%, transparent) 30%,
+    var(--color-surface)
+  );
+}
+
+.talk-error {
+  position: relative;
+  z-index: 3;
+  flex: none;
+  margin: var(--space-2) var(--page-x) 0;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  border-radius: var(--radius-md);
+}
+
+.note {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Asked once: should the answers show by themselves each turn? */
+.hints-ask {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 var(--page-x) var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 18px rgb(30 20 60 / 0.12);
+  animation: rise 0.3s ease-out;
+}
+
+.hints-ask p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+
+  --icon-size: 18px;
+}
+
+.hints-ask lu-icon {
+  color: var(--color-warn);
+}
+
+.hints-ask div {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.hints-ask button {
+  flex: 1;
+  min-height: 40px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.hints-ask .yes {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+
+/* Under the answers: change the choice made once. */
+.hints-switch {
+  display: block;
+  min-height: 28px;
+  margin: calc(-1 * var(--space-2)) auto var(--space-2);
+  padding: 0 var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.hint-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  margin: 0 auto var(--space-3);
+  padding: 0 var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 500;
+  color: #7a4f00;
+  background: #fff4d6;
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  --icon-size: 16px;
+}
+
+/* The answers scroll sideways; the next one peeks out at the edge. */
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+  padding: 2px var(--page-x);
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 var(--page-x);
+  scrollbar-width: none;
+}
+
+.chips li {
+  flex: none;
+  max-width: 78%;
+  scroll-snap-align: start;
+}
+
+.chip {
+  display: grid;
+  gap: 1px;
+  max-width: 100%;
+  padding: 7px 14px;
+  text-align: left;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 18px;
+  box-shadow: 0 2px 6px rgb(30 20 60 / 0.06);
+  cursor: pointer;
+}
+
+.chip.picked {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.chip-text {
+  display: -webkit-box;
+  overflow: hidden;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 500;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.talk.typing .chip-text {
+  -webkit-line-clamp: 1;
+}
+
+.chip small {
+  overflow: hidden;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.say-this {
+  margin: 0 var(--page-x) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-align: center;
+}
+
+/* One row, as in the voice messages of chat apps: keyboard, a long talk button, Tự đọc. */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--page-x);
+}
+
+.side-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgb(30 20 60 / 0.08);
+  cursor: pointer;
+}
+
+.side-btn.on {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+}
+
+.side-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* The talk button: purple at rest; red while recording, with the voice as a moving wave. */
+.talk-btn {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 0;
+  height: 56px;
+  padding: 0 var(--space-4);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-on-primary);
+  white-space: nowrap;
+  background: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
+
+  --icon-size: 22px;
+}
+
+.talk-btn.recording {
+  background: var(--color-bad);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-bad) 22%, transparent);
+}
+
+.talk-btn.pulse {
+  animation: talk-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes talk-pulse {
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-primary) 22%, transparent);
+  }
+}
+
+.talk-btn.loading {
+  cursor: progress;
+  opacity: 0.75;
+}
+
+.talk-btn:disabled:not(.recording) {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.bars {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 26px;
+}
+
+.bars i {
+  width: 3px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: height 0.1s ease-out;
+}
+
+.talk-btn b {
+  font-variant-numeric: tabular-nums;
+}
+
+.talk-btn .dots i {
+  background: currentColor;
+}
+
+.mic-label {
+  margin: var(--space-2) var(--page-x) 0;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Typing: a floating rounded box in place of the talk row, like a chat app during a call. */
+.type-row {
+  display: flex;
+  margin: 0 var(--page-x);
+}
+
+.type-pill {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: 6px;
+  background: var(--color-surface);
+  border-radius: 26px;
+  box-shadow: 0 6px 18px rgb(30 20 60 / 0.15);
+}
+
+.type-pill textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 40px;
+  max-height: 120px;
+  padding: 9px 4px 9px var(--space-2);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  resize: none;
+  background: none;
+  border: 0;
+  outline: none;
+  field-sizing: content;
+}
+
+.type-pill:focus-within {
+  box-shadow:
+    0 0 0 2px var(--color-primary),
+    0 6px 18px rgb(30 20 60 / 0.15);
+}
+
+.pill-mic,
+.send {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pill-mic {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+}
+
+.send {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+
+.send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.type-count {
+  padding: var(--space-1) calc(var(--page-x) + var(--space-3)) 0 0;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: right;
+}
+
+/* All turns said: a closing card slides up. */
+.finish {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 var(--page-x);
+  padding: var(--space-4);
+  text-align: center;
+  background: var(--color-surface);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgb(30 20 60 / 0.18);
+  animation: rise 0.35s ease-out;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+.finish h2 {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+  margin: var(--space-1) 0 var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.stats li {
+  display: grid;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.stats b {
+  font: var(--text-xl) var(--font-ui);
+  color: var(--color-text);
+}
+
+.wide {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 50px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .talk-btn.pulse,
+  .hints-ask,
+  .finish {
+    animation: none;
+  }
+}

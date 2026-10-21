@@ -14,13 +14,23 @@ export interface TalkTopic {
   lastAt?: string;
 }
 
+/** How Leo felt about the learner's line before answering, shown as a small face next to him. */
+export type TalkReaction = 'happy' | 'laugh' | 'surprised' | 'love' | 'curious' | 'thumbs';
+
 export interface TalkTurn {
   role: TalkRole;
   text: string;
   /** Vietnamese of the AI's lines. */
   textVi?: string;
   spoken?: boolean;
+  reaction?: TalkReaction;
   at: string;
+}
+
+/** An answer the learner could give, with its Vietnamese. */
+export interface TalkHint {
+  text: string;
+  vi: string;
 }
 
 export interface TalkGood {
@@ -49,9 +59,8 @@ export interface TalkSession {
   level: string;
   scenarioVi: string;
   turns: TalkTurn[];
-  /** An answer to the AI's last line, for Gợi ý. */
-  hint?: string;
-  hintVi?: string;
+  /** Answers to the AI's last line, shown under it; empty once the learner said their last line. */
+  hints: TalkHint[];
   status: TalkStatus;
   review?: TalkReview;
   /** How many lines the learner may say. */

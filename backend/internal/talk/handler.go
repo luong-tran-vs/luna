@@ -47,16 +47,22 @@ type topicJSON struct {
 }
 
 type turnJSON struct {
-	Role   Role      `json:"role"`
-	Text   string    `json:"text"`
-	TextVi string    `json:"textVi,omitempty"`
-	Spoken bool      `json:"spoken,omitempty"`
-	At     time.Time `json:"at"`
+	Role     Role      `json:"role"`
+	Text     string    `json:"text"`
+	TextVi   string    `json:"textVi,omitempty"`
+	Spoken   bool      `json:"spoken,omitempty"`
+	Reaction string    `json:"reaction,omitempty"`
+	At       time.Time `json:"at"`
 }
 
 type goodJSON struct {
 	Said   string `json:"said"`
 	NoteVi string `json:"noteVi"`
+}
+
+type hintJSON struct {
+	Text string `json:"text"`
+	Vi   string `json:"vi"`
 }
 
 type fixJSON struct {
@@ -80,8 +86,7 @@ type sessionJSON struct {
 	Level      string      `json:"level"`
 	ScenarioVi string      `json:"scenarioVi"`
 	Turns      []turnJSON  `json:"turns"`
-	Hint       string      `json:"hint,omitempty"`
-	HintVi     string      `json:"hintVi,omitempty"`
+	Hints      []hintJSON  `json:"hints"`
 	Status     Status      `json:"status"`
 	Review     *reviewJSON `json:"review,omitempty"`
 	MaxTurns   int         `json:"maxTurns"`
@@ -111,11 +116,14 @@ func timePtr(t time.Time) *time.Time {
 func toSessionJSON(s Session) sessionJSON {
 	out := sessionJSON{
 		ID: s.ID, TopicID: s.TopicID, TopicName: s.TopicName, Level: s.Level, ScenarioVi: s.ScenarioVi,
-		Turns: make([]turnJSON, len(s.Turns)), Hint: s.Hint, HintVi: s.HintVi, Status: s.Status,
+		Turns: make([]turnJSON, len(s.Turns)), Hints: make([]hintJSON, len(s.Hints)), Status: s.Status,
 		MaxTurns: MaxTurns, CreatedAt: s.CreatedAt, EndedAt: timePtr(s.EndedAt),
 	}
 	for i, t := range s.Turns {
 		out.Turns[i] = turnJSON(t)
+	}
+	for i, h := range s.Hints {
+		out.Hints[i] = hintJSON(h)
 	}
 	if r := s.Review; r != nil {
 		rj := reviewJSON{

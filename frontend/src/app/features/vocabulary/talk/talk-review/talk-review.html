@@ -1,0 +1,102 @@
+<section class="review" aria-labelledby="review-title">
+  <h2 class="visually-hidden" id="review-title">Nhận xét</h2>
+  @if (session().review; as r) {
+    <div class="soft-card overall">
+      <img class="avatar" ngSrc="images/talk-boy.webp" width="304" height="720" alt="" />
+      <p>{{ r.overallVi || 'Leo đã xem lại các câu bạn nói.' }}</p>
+    </div>
+
+    <ul class="counts" aria-label="Tóm tắt">
+      <li class="soft-card">
+        <b>{{ said() }}</b> câu đã nói
+      </li>
+      <li class="soft-card">
+        <b>{{ r.fixes.length }}</b> câu nên sửa
+      </li>
+      <li class="soft-card">
+        <b>{{ r.wordsUsed.length }}</b> từ chủ đề
+      </li>
+    </ul>
+
+    <h3 class="sub-title">
+      Nên nói lại <span class="muted">{{ r.fixes.length }} câu</span>
+    </h3>
+    @if (r.fixes.length > 0) {
+      <ul class="fixes">
+        @for (f of r.fixes; track $index) {
+          <li class="soft-card fix">
+            <p class="said" lang="en">
+              <lu-icon name="x" /> <s>{{ f.said }}</s>
+            </p>
+            <p class="better" lang="en">
+              <lu-icon name="check" /> <span>{{ f.better }}</span>
+              @if (canSpeak) {
+                <button
+                  type="button"
+                  class="icon-btn"
+                  aria-label="Nghe câu đúng"
+                  (click)="listen(f.better)"
+                >
+                  <lu-icon name="volume" />
+                </button>
+              }
+            </p>
+            @if (f.noteVi) {
+              <p class="muted">{{ f.noteVi }}</p>
+            }
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="muted">Không có lỗi nào cần sửa. Tuyệt vời!</p>
+    }
+
+    @if (r.good.length > 0) {
+      <h3 class="sub-title">Câu nói tốt</h3>
+      <ul class="goods">
+        @for (g of r.good; track $index) {
+          <li class="soft-card good">
+            <p lang="en"><lu-icon name="star" /> {{ g.said }}</p>
+            @if (g.noteVi) {
+              <p class="muted">{{ g.noteVi }}</p>
+            }
+          </li>
+        }
+      </ul>
+    }
+
+    @if (r.wordsUsed.length > 0 || r.wordsUnused.length > 0) {
+      <h3 class="sub-title">Từ của chủ đề</h3>
+      @if (r.wordsUsed.length > 0) {
+        <p class="muted">Đã dùng</p>
+        <ul class="words used" lang="en">
+          @for (w of r.wordsUsed; track w) {
+            <li><lu-icon name="check" /> {{ w }}</li>
+          }
+        </ul>
+      }
+      @if (r.wordsUnused.length > 0) {
+        <p class="muted">Lần sau thử dùng</p>
+        <ul class="words" lang="en">
+          @for (w of r.wordsUnused.slice(0, 10); track w) {
+            <li>{{ w }}</li>
+          }
+        </ul>
+      }
+    }
+  } @else {
+    <p class="soft-card muted">Buổi này bạn chưa nói câu nào nên không có nhận xét.</p>
+  }
+
+  <div class="actions">
+    <button type="button" class="btn-primary" [disabled]="restarting()" (click)="again.emit()">
+      <lu-icon name="review" />
+      @if (restarting()) {
+        Đang chuẩn bị tình huống...
+      } @else {
+        Luyện lại chủ đề này
+      }
+    </button>
+    <a class="btn" routerLink="/vocabulary/talk">Chọn chủ đề khác</a>
+  </div>
+</section>

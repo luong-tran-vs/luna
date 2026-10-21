@@ -1,0 +1,179 @@
+.review {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.overall {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font: var(--text-base) var(--font-ui);
+}
+
+/* Leo's face: the top of the full figure, in a round frame. */
+.avatar {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  object-position: 50% 0;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.counts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.counts li {
+  display: grid;
+  justify-items: center;
+  padding: var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.counts b {
+  font: var(--text-xl) var(--font-ui);
+  color: var(--color-text);
+}
+
+.sub-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.fixes,
+.goods {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fix,
+.good {
+  display: grid;
+  gap: var(--space-1);
+
+  --icon-size: 16px;
+}
+
+.said,
+.better,
+.good p:first-child {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font: var(--text-base) var(--font-ui);
+}
+
+.said lu-icon,
+.better lu-icon,
+.good lu-icon {
+  margin-top: 4px;
+}
+
+.said s {
+  color: var(--color-text-muted);
+}
+
+.said lu-icon {
+  color: var(--color-bad);
+}
+
+.better {
+  font-weight: 600;
+}
+
+.better span {
+  flex: 1;
+}
+
+.better lu-icon {
+  color: var(--color-ok);
+}
+
+.good lu-icon {
+  color: var(--color-warn);
+}
+
+/* Round button holding a speaker icon; its name comes from aria-label. */
+.icon-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  --icon-size: 18px;
+}
+
+.icon-btn lu-icon {
+  margin: 0;
+  color: inherit;
+}
+
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.words li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-full);
+
+  --icon-size: 14px;
+}
+
+.words.used li {
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+  border: 1px solid transparent;
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.actions .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}

@@ -6,13 +6,15 @@ export const SAMPLE_RATE = 16000;
 export const MAX_SECONDS = 15;
 
 /** Louder than this (RMS of the samples, 0–1) counts as speech. */
-const SPEECH_LEVEL = 0.02;
+export const SPEECH_LEVEL = 0.02;
 /** Quiet this long after speaking ends the recording. */
 const PAUSE_SECONDS = 1;
 /** Nothing said this long: give up. */
 const NO_SPEECH_SECONDS = 6;
 /** How often the level is measured, in milliseconds. */
 const TICK_MS = 50;
+/** How often what was recorded so far is handed over, for the live text, in milliseconds. */
+const PARTIAL_MS = 1000;
 
 export interface Recording {
   /** What the browser recorded (webm or mp4), to listen to again. */
@@ -59,9 +61,16 @@ export function canRecord(): boolean {
   );
 }
 
-/** Records one utterance; VoiceRecorder in the browser, a fake in specs. */
+/**
+ * Records one utterance; VoiceRecorder in the browser, a fake in specs. onPartial, when given,
+ * gets what was recorded so far (mono, SAMPLE_RATE) about every second, to show the words as they
+ * are said; a browser that cannot decode a recording in progress never calls it.
+ */
 export interface Recorder {
-  record(onTick: (level: number, seconds: number) => void): Promise<Recording>;
+  record(
+    onTick: (level: number, seconds: number) => void,
+    onPartial?: (audio: Float32Array) => void,
+  ): Promise<Recording>;
   stop(): void;
 }
 
@@ -79,7 +88,10 @@ export const RECORDING = new InjectionToken<{ available: () => boolean; create: 
 export class VoiceRecorder implements Recorder {
   private stopNow: (() => void) | null = null;
 
-  async record(onTick: (level: number, seconds: number) => void): Promise<Recording> {
+  async record(
+    onTick: (level: number, seconds: number) => void,
+    onPartial?: (audio: Float32Array) => void,
+  ): Promise<Recording> {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
     });
@@ -89,11 +101,27 @@ export class VoiceRecorder implements Recorder {
     context.createMediaStreamSource(stream).connect(analyser);
     const recorder = new MediaRecorder(stream);
     const chunks: Blob[] = [];
-    recorder.ondataavailable = (e) => chunks.push(e.data);
+    // One decode at a time: a slow device skips a second rather than piling them up.
+    let decoding = false;
+    recorder.ondataavailable = (e) => {
+      chunks.push(e.data);
+      if (!onPartial || decoding || recorder.state !== 'recording') {
+        return;
+      }
+      decoding = true;
+      toMono16k(new Blob(chunks, { type: recorder.mimeType }))
+        .then((audio) => {
+          if (recorder.state === 'recording') {
+            onPartial(audio);
+          }
+        })
+        .catch(() => undefined) // a recording in progress this browser cannot decode: no live text
+        .finally(() => (decoding = false));
+    };
     const stopped = new Promise<void>((resolve) => (recorder.onstop = () => resolve()));
     this.stopNow = () => recorder.state !== 'inactive' && recorder.stop();
 
-    recorder.start();
+    recorder.start(onPartial ? PARTIAL_MS : undefined);
     const started = performance.now();
     const samples = new Float32Array(analyser.fftSize);
     const end = new EndOfSpeech();

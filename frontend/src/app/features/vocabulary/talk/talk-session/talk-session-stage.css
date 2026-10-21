@@ -1,0 +1,448 @@
+/*
+ * The middle of the talk screen (split from talk-session.css): Leo's speech bubble with the
+ * karaoke, Leo himself with his poses, his thinking bubble and face, and the learner's bubble
+ * (listening, what was heard, sent).
+ */
+.talk-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: var(--space-2) var(--page-x) 0;
+}
+
+.scenario {
+  position: relative;
+  flex: none;
+  margin-bottom: var(--space-2);
+  padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  border-radius: var(--radius-lg);
+}
+
+.scenario b {
+  display: block;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-accent-ink);
+  text-transform: uppercase;
+}
+
+.close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--color-text-muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+
+  --icon-size: 16px;
+}
+
+/* Leo's bubble: its tail points down at him. */
+.bubble {
+  position: relative;
+  flex: none;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border-radius: 22px;
+  box-shadow: 0 6px 18px rgb(30 20 60 / 0.12);
+  animation: pop var(--motion-base, 0.2s) ease-out;
+}
+
+.bubble::after {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  content: '';
+  background: inherit;
+  border-radius: 4px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+}
+
+.line-text {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 500;
+}
+
+/* Karaoke: words already read in the primary color, the rest faded until read. */
+.said {
+  color: var(--color-primary-ink);
+}
+
+.ahead {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.meaning {
+  margin-top: var(--space-1);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-2);
+}
+
+.tool {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+  background: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  --icon-size: 14px;
+}
+
+.tool.on {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-color: transparent;
+}
+
+/* ---------- Leo ---------- */
+.stage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 0;
+  margin-top: var(--space-3);
+}
+
+.shadow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 150px;
+  height: 18px;
+  background: rgb(30 40 20 / 0.2);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.leo {
+  position: relative;
+  width: auto;
+  height: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  object-position: 50% 100%;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 8px 8px rgb(30 40 20 / 0.15));
+  transition: transform 0.4s ease-out;
+  animation: breathe 3.2s ease-in-out infinite;
+}
+
+/* Standing, Leo breathes; talking, he bobs; listening, he leans in; thinking, he tilts. */
+@keyframes breathe {
+  50% {
+    transform: scale(1.012);
+  }
+}
+
+.leo[data-pose='talking'] {
+  animation: bob 0.9s ease-in-out infinite;
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(-3px) scale(1.01);
+  }
+}
+
+.leo[data-pose='listening'] {
+  animation: none;
+  transform: rotate(-3deg) translateX(-6px);
+}
+
+.leo[data-pose='thinking'] {
+  animation: none;
+  transform: rotate(2deg);
+}
+
+.think {
+  position: absolute;
+  top: 2%;
+  left: 58%;
+  display: flex;
+  gap: 5px;
+  padding: 10px 16px;
+  background: var(--color-surface);
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 18px rgb(30 20 60 / 0.12);
+}
+
+.think::before,
+.think::after {
+  position: absolute;
+  content: '';
+  background: var(--color-surface);
+  border-radius: 50%;
+}
+
+.think::before {
+  bottom: -12px;
+  left: 6px;
+  width: 14px;
+  height: 14px;
+}
+
+.think::after {
+  bottom: -22px;
+  left: -2px;
+  width: 8px;
+  height: 8px;
+}
+
+.think i,
+.dots i {
+  width: 8px;
+  height: 8px;
+  background: var(--color-text-muted);
+  border-radius: 50%;
+  animation: blink 1s ease-in-out infinite;
+}
+
+.think i:nth-child(2),
+.dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.think i:nth-child(3),
+.dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.listening {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+}
+
+.wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+
+.wave i {
+  width: 3px;
+  height: 100%;
+  background: var(--color-bad);
+  border-radius: 2px;
+  animation: wave 0.8s ease-in-out infinite;
+}
+
+.wave i:nth-child(2) {
+  animation-delay: -0.25s;
+}
+
+.wave i:nth-child(3) {
+  animation-delay: -0.5s;
+}
+
+@keyframes wave {
+  50% {
+    transform: scaleY(0.35);
+  }
+}
+
+.face {
+  position: absolute;
+  top: 36%;
+  left: 62%;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  font-size: 26px;
+  background: var(--color-surface);
+  border-radius: 50%;
+  box-shadow: 0 6px 16px rgb(30 20 60 / 0.15);
+  animation: face 2.6s ease-out forwards;
+}
+
+@keyframes face {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  12% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  20%,
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* ---------- The learner's bubble ---------- */
+.me {
+  max-width: 82%;
+  padding: 10px 14px;
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-radius: 22px 22px 6px 22px;
+  box-shadow: 0 6px 18px rgb(91 63 184 / 0.3);
+  animation: pop var(--motion-base, 0.2s) ease-out;
+}
+
+.me small {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  font: var(--text-xs) var(--font-ui);
+  opacity: 0.85;
+
+  --icon-size: 12px;
+}
+
+/* Sent: up top in Leo's place while he thinks, faded. */
+.me.sent {
+  flex: none;
+  align-self: flex-end;
+  opacity: 0.7;
+}
+
+/* Listening and heard: over Leo's legs, at the bottom right. */
+.me.waiting,
+.me.heard {
+  position: absolute;
+  right: var(--page-x);
+  bottom: var(--space-3);
+  z-index: 1;
+}
+
+.me.waiting {
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  box-shadow: 0 6px 18px rgb(30 20 60 / 0.12);
+}
+
+/* The words heard so far, with a blinking caret: more are coming. */
+.live-text {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.live-text::after {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  content: '';
+  background: var(--color-primary);
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.heard-text {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 500;
+}
+
+.heard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-2);
+}
+
+.heard-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 34px;
+  padding: 0 var(--space-3);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-on-primary);
+  background: rgb(255 255 255 / 0.18);
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  --icon-size: 14px;
+}
+
+.heard-actions .go {
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leo,
+  .think i,
+  .dots i,
+  .wave i,
+  .face,
+  .bubble,
+  .me,
+  .live-text::after {
+    animation: none;
+  }
+}

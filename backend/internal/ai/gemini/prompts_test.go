@@ -256,7 +256,10 @@ func TestTalkPromptsCarryTheConversation(t *testing.T) {
 	t.Parallel()
 	topic := ai.TalkTopic{Name: "Music", Level: "A1", Words: []string{"song", "guitar"}, Grammar: []string{"can (S + can + V)"}}
 	start := talkPrompt(ai.TalkRequest{Topic: topic})
-	for _, want := range []string{"CEFR level A1", "song, guitar", "can (S + can + V)", "Start a new conversation", "scenarioVi"} {
+	for _, want := range []string{
+		"CEFR level A1", "song, guitar", "can (S + can + V)", "Start a new conversation", "scenarioVi",
+		"You are Leo", "never like a teacher or an interviewer", "share a little about yourself",
+	} {
 		if !strings.Contains(start, want) {
 			t.Errorf("start prompt lacks %q", want)
 		}

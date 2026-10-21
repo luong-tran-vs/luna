@@ -46,9 +46,17 @@ type TalkReply struct {
 	ScenarioVi string `json:"scenarioVi"`
 	Reply      string `json:"reply"`
 	ReplyVi    string `json:"replyVi"`
-	// Hint is an answer the learner could give, shown by Gợi ý; empty on the last line.
-	Hint   string `json:"hint"`
-	HintVi string `json:"hintVi"`
+	// Reaction is how the AI feels about the learner's last line (talk.Reactions); "happy" when
+	// starting.
+	Reaction string `json:"reaction"`
+	// Hints are answers the learner could give, shown under the AI's line; none on the last line.
+	Hints []TalkHint `json:"hints"`
+}
+
+// TalkHint is one answer the learner could give, with its Vietnamese.
+type TalkHint struct {
+	Text string `json:"text"`
+	Vi   string `json:"vi"`
 }
 
 // TalkReviewRequest asks for the review of a finished conversation.

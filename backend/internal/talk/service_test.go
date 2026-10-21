@@ -99,8 +99,10 @@ func newEnv(t *testing.T) *env {
 			material: Material{Words: []string{"song", "Song", " guitar ", "listen to"}, Grammar: []string{"can (S + can + V)"}},
 		},
 		ai: &fakeAI{reply: ai.TalkReply{
-			ScenarioVi: "Bạn gặp Sam ở buổi hoà nhạc.", Reply: "Hi! Do you  like\nthis band?", ReplyVi: "Chào!",
-			Hint: "Yes, I love them.", HintVi: "Có.",
+			ScenarioVi: "Bạn gặp Sam ở buổi hoà nhạc.", Reply: "Hi! Do you  like\nthis band?", ReplyVi: "Chào!", Reaction: "happy",
+			Hints: []ai.TalkHint{
+				{Text: "Yes, I love them.", Vi: "Có."}, {Text: " yes, i love them "}, {Text: ""}, {Text: "No, not really."},
+			},
 		}},
 	}
 	e.svc = NewService(Deps{Repo: e.repo, Studies: e.studies, AI: e.ai, Now: func() time.Time {
@@ -137,7 +139,8 @@ func TestStartAsksTheAIForASituationAboutWhatWasStudied(t *testing.T) {
 		t.Fatalf("request = %+v", req)
 	}
 	if s.ID == "" || s.Status != StatusOpen || s.ScenarioVi != "Bạn gặp Sam ở buổi hoà nhạc." ||
-		len(s.Turns) != 1 || s.Turns[0].Text != "Hi! Do you like this band?" || s.Hint != "Yes, I love them." {
+		len(s.Turns) != 1 || s.Turns[0].Text != "Hi! Do you like this band?" || s.Turns[0].Reaction != "happy" ||
+		len(s.Hints) != 2 || s.Hints[0] != (Hint{Text: "Yes, I love them.", Vi: "Có."}) || s.Hints[1].Text != "No, not really." {
 		t.Fatalf("session = %+v", s)
 	}
 	if _, err := e.svc.Start(t.Context(), "u1", "sport"); !errors.Is(err, ErrTopicNotStudied) {
@@ -149,7 +152,10 @@ func TestSaySendsTheWholeConversation(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	s, _ := e.svc.Start(t.Context(), "u1", "music")
-	e.ai.reply = ai.TalkReply{Reply: "Cool! Who is your favourite singer?", ReplyVi: "Hay!", Hint: "I like Adele."}
+	e.ai.reply = ai.TalkReply{
+		Reply: "Cool! Who is your favourite singer?", ReplyVi: "Hay!", Reaction: "angry",
+		Hints: []ai.TalkHint{{Text: "I like Adele."}},
+	}
 	s, err := e.svc.Say(t.Context(), "u1", s.ID, " Yes I like  them ", true)
 	if err != nil {
 		t.Fatal(err)
@@ -158,7 +164,8 @@ func TestSaySendsTheWholeConversation(t *testing.T) {
 	if req.ScenarioVi == "" || len(req.Turns) != 2 || req.Turns[1] != (ai.TalkTurn{Role: "learner", Text: "Yes I like them"}) || req.Last {
 		t.Fatalf("request = %+v", req)
 	}
-	if len(s.Turns) != 3 || !s.Turns[1].Spoken || s.Turns[2].Text != "Cool! Who is your favourite singer?" || s.Hint != "I like Adele." {
+	if len(s.Turns) != 3 || !s.Turns[1].Spoken || s.Turns[2].Text != "Cool! Who is your favourite singer?" ||
+		s.Turns[2].Reaction != "" || len(s.Hints) != 1 || s.Hints[0].Text != "I like Adele." {
 		t.Fatalf("session = %+v", s)
 	}
 	if _, err := e.svc.Say(t.Context(), "u2", s.ID, "hi", false); !errors.Is(err, ErrNotFound) {
@@ -197,8 +204,8 @@ func TestTheLastTurnSaysGoodbye(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	if last := e.ai.talks[len(e.ai.talks)-1]; !last.Last || s.Hint != "" {
-		t.Fatalf("last request = %+v, hint %q", last.Last, s.Hint)
+	if last := e.ai.talks[len(e.ai.talks)-1]; !last.Last || len(s.Hints) != 0 {
+		t.Fatalf("last request = %+v, hints %v", last.Last, s.Hints)
 	}
 	if _, err := e.svc.Say(t.Context(), "u1", s.ID, "more", false); !errors.Is(err, ErrTurnLimit) {
 		t.Fatalf("over the limit: %v", err)

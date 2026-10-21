@@ -152,8 +152,8 @@ func (s *Service) Start(ctx context.Context, userID, topicID string) (Session, e
 	}
 	now := s.d.Now().UTC()
 	ss.ScenarioVi = cmp.Or(clean(reply.ScenarioVi), "Trò chuyện về chủ đề "+ss.TopicName)
-	ss.Turns = []Turn{{Role: RoleAI, Text: clean(reply.Reply), TextVi: clean(reply.ReplyVi), At: now}}
-	ss.Hint, ss.HintVi = clean(reply.Hint), clean(reply.HintVi)
+	ss.Turns = []Turn{aiTurn(reply, now)}
+	ss.Hints = hintsOf(reply)
 	ss.CreatedAt, ss.UpdatedAt = now, now
 	return s.d.Repo.Create(ctx, ss)
 }
@@ -193,10 +193,10 @@ func (s *Service) Say(ctx context.Context, userID, id, text string, spoken bool)
 	if !usable(reply) {
 		return Session{}, ErrUnusableReply
 	}
-	ss.Turns = append(turns, Turn{Role: RoleAI, Text: clean(reply.Reply), TextVi: clean(reply.ReplyVi), At: now})
-	ss.Hint, ss.HintVi = clean(reply.Hint), clean(reply.HintVi)
+	ss.Turns = append(turns, aiTurn(reply, now))
+	ss.Hints = hintsOf(reply)
 	if last {
-		ss.Hint, ss.HintVi = "", ""
+		ss.Hints = nil
 	}
 	ss.UpdatedAt = now
 	if err := s.d.Repo.Save(ctx, ss); err != nil {
@@ -224,7 +224,7 @@ func (s *Service) End(ctx context.Context, userID, id string) (Session, error) {
 		ss.Review = &review
 	}
 	now := s.d.Now().UTC()
-	ss.Status, ss.Hint, ss.HintVi = StatusEnded, "", ""
+	ss.Status, ss.Hints = StatusEnded, nil
 	ss.UpdatedAt, ss.EndedAt = now, now
 	if err := s.d.Repo.Save(ctx, ss); err != nil {
 		return Session{}, fmt.Errorf("talk: save session: %w", err)
@@ -245,6 +245,33 @@ func aiTurns(turns []Turn) []ai.TalkTurn {
 	out := make([]ai.TalkTurn, len(turns))
 	for i, t := range turns {
 		out[i] = ai.TalkTurn{Role: string(t.Role), Text: t.Text}
+	}
+	return out
+}
+
+// aiTurn is the AI's reply as a turn, its reaction kept only when it is one of Reactions.
+func aiTurn(r ai.TalkReply, at time.Time) Turn {
+	t := Turn{Role: RoleAI, Text: clean(r.Reply), TextVi: clean(r.ReplyVi), At: at}
+	if slices.Contains(Reactions, r.Reaction) {
+		t.Reaction = r.Reaction
+	}
+	return t
+}
+
+// hintsOf keeps the AI's answers that have a text, each once, at most MaxHints.
+func hintsOf(r ai.TalkReply) []Hint {
+	out := []Hint{}
+	seen := map[string]bool{}
+	for _, h := range r.Hints {
+		text := clean(h.Text)
+		if text == "" || seen[fold(text)] {
+			continue
+		}
+		seen[fold(text)] = true
+		out = append(out, Hint{Text: text, Vi: clean(h.Vi)})
+		if len(out) == MaxHints {
+			break
+		}
 	}
 	return out
 }

@@ -27,16 +27,30 @@ func NewTalkSessions(db *mongo.Database) *TalkSessions {
 var _ talk.Repository = (*TalkSessions)(nil)
 
 type talkTurnDoc struct {
-	Role   string    `bson:"role"`
-	Text   string    `bson:"text"`
-	TextVi string    `bson:"textVi,omitempty"`
-	Spoken bool      `bson:"spoken,omitempty"`
-	At     time.Time `bson:"at"`
+	Role     string    `bson:"role"`
+	Text     string    `bson:"text"`
+	TextVi   string    `bson:"textVi,omitempty"`
+	Spoken   bool      `bson:"spoken,omitempty"`
+	Reaction string    `bson:"reaction,omitempty"`
+	At       time.Time `bson:"at"`
 }
 
 type talkGoodDoc struct {
 	Said   string `bson:"said"`
 	NoteVi string `bson:"noteVi"`
+}
+
+type talkHintDoc struct {
+	Text string `bson:"text"`
+	Vi   string `bson:"vi"`
+}
+
+func toTalkHintDocs(hints []talk.Hint) []talkHintDoc {
+	out := make([]talkHintDoc, len(hints))
+	for i, h := range hints {
+		out[i] = talkHintDoc(h)
+	}
+	return out
 }
 
 type talkFixDoc struct {
@@ -63,8 +77,7 @@ type talkSessionDoc struct {
 	Grammar    []string       `bson:"grammar"`
 	ScenarioVi string         `bson:"scenarioVi"`
 	Turns      []talkTurnDoc  `bson:"turns"`
-	Hint       string         `bson:"hint,omitempty"`
-	HintVi     string         `bson:"hintVi,omitempty"`
+	Hints      []talkHintDoc  `bson:"hints,omitempty"`
 	Status     string         `bson:"status"`
 	Review     *talkReviewDoc `bson:"review,omitempty"`
 	CreatedAt  time.Time      `bson:"createdAt"`
@@ -75,7 +88,9 @@ type talkSessionDoc struct {
 func toTalkTurnDocs(turns []talk.Turn) []talkTurnDoc {
 	out := make([]talkTurnDoc, len(turns))
 	for i, t := range turns {
-		out[i] = talkTurnDoc{Role: string(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, At: t.At.UTC()}
+		out[i] = talkTurnDoc{
+			Role: string(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, Reaction: t.Reaction, At: t.At.UTC(),
+		}
 	}
 	return out
 }
@@ -109,10 +124,15 @@ func (d talkSessionDoc) toSession() talk.Session {
 	s := talk.Session{
 		ID: d.ID.Hex(), UserID: d.UserID.Hex(), TopicID: d.TopicID, TopicName: d.TopicName, Level: d.Level,
 		Words: d.Words, Grammar: d.Grammar, ScenarioVi: d.ScenarioVi, Turns: make([]talk.Turn, len(d.Turns)),
-		Hint: d.Hint, HintVi: d.HintVi, Status: talk.Status(d.Status), CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt,
+		Hints: make([]talk.Hint, len(d.Hints)), Status: talk.Status(d.Status), CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt,
 	}
 	for i, t := range d.Turns {
-		s.Turns[i] = talk.Turn{Role: talk.Role(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, At: t.At}
+		s.Turns[i] = talk.Turn{
+			Role: talk.Role(t.Role), Text: t.Text, TextVi: t.TextVi, Spoken: t.Spoken, Reaction: t.Reaction, At: t.At,
+		}
+	}
+	for i, h := range d.Hints {
+		s.Hints[i] = talk.Hint(h)
 	}
 	if d.EndedAt != nil {
 		s.EndedAt = *d.EndedAt
@@ -142,7 +162,7 @@ func (r *TalkSessions) Create(ctx context.Context, s talk.Session) (talk.Session
 	d := talkSessionDoc{
 		ID: bson.NewObjectID(), UserID: uid, TopicID: s.TopicID, TopicName: s.TopicName, Level: s.Level,
 		Words: s.Words, Grammar: s.Grammar, ScenarioVi: s.ScenarioVi, Turns: toTalkTurnDocs(s.Turns),
-		Hint: s.Hint, HintVi: s.HintVi, Status: string(s.Status), Review: toTalkReviewDoc(s.Review),
+		Hints: toTalkHintDocs(s.Hints), Status: string(s.Status), Review: toTalkReviewDoc(s.Review),
 		CreatedAt: s.CreatedAt.UTC(), UpdatedAt: s.UpdatedAt.UTC(), EndedAt: endedAtDoc(s.EndedAt),
 	}
 	if _, err := r.coll.InsertOne(ctx, d); err != nil {
@@ -177,8 +197,7 @@ func (r *TalkSessions) Save(ctx context.Context, s talk.Session) error {
 	}
 	set := bson.D{
 		{Key: "turns", Value: toTalkTurnDocs(s.Turns)},
-		{Key: "hint", Value: s.Hint},
-		{Key: "hintVi", Value: s.HintVi},
+		{Key: "hints", Value: toTalkHintDocs(s.Hints)},
 		{Key: "status", Value: string(s.Status)},
 		{Key: "review", Value: toTalkReviewDoc(s.Review)},
 		{Key: "updatedAt", Value: s.UpdatedAt.UTC()},
