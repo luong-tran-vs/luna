@@ -2,9 +2,22 @@ import { Level } from './lesson';
 
 /** Types for the study API (specs/008-daily-study-flow/contracts/study-api.md). */
 
-/** The steps of a lesson that count toward progress (L); the review step was dropped on 2026-10-02. */
-export type Step = 'read' | 'listen' | 'write';
-export const STEPS: readonly Step[] = ['read', 'listen', 'write'];
+/**
+ * The steps of a lesson, all recorded on the server since the six-step lesson (2026-10-22):
+ * Từ vựng → Nghe → Đọc → Ngữ pháp → Nói → Viết. A lesson completes when every one is done.
+ */
+export type Step = 'vocab' | 'listen' | 'read' | 'grammar' | 'speak' | 'write';
+export const STEPS: readonly Step[] = ['vocab', 'listen', 'read', 'grammar', 'speak', 'write'];
+
+/** The name of each step, as the lesson page and the home page show it. */
+export const STEP_LABELS: Record<Step, string> = {
+  vocab: 'Từ vựng',
+  listen: 'Nghe',
+  read: 'Đọc',
+  grammar: 'Ngữ pháp',
+  speak: 'Nói',
+  write: 'Viết',
+};
 
 export type StepState = 'done' | 'current' | 'locked';
 

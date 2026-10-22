@@ -11,7 +11,7 @@ func TestTimezoneChangeKeepsProgress(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv() // 2026-09-30 10:00 in Viet Nam = 04:00 in London
 	e.setGoal(t, "family")
-	if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepRead, 2); err != nil {
+	if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepVocab, 2); err != nil {
 		t.Fatal(err)
 	}
 
@@ -21,7 +21,7 @@ func TestTimezoneChangeKeepsProgress(t *testing.T) {
 	}
 	e.zones["u1"] = london
 	v, err := e.svc.LessonStudy(t.Context(), "u1", "f1")
-	if err != nil || v.Status != LessonStudying || v.CurrentStep != StepRead || v.SentenceIndex != 2 {
+	if err != nil || v.Status != LessonStudying || v.CurrentStep != StepVocab || v.SentenceIndex != 2 {
 		t.Fatalf("london = %+v, %v", v, err)
 	}
 }

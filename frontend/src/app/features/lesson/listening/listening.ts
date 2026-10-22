@@ -21,6 +21,7 @@ import { catchError, firstValueFrom, forkJoin, of } from 'rxjs';
 
 import { DictationInput, DictationSummary } from '../../../core/models/dictation';
 import { Sentence } from '../../../core/models/lesson';
+import { DictationItem } from '../../../core/models/practice';
 import { ReadingLesson } from '../../../core/models/reading';
 import { SpeechService } from '../../../core/services/speech.service';
 import { Icon } from '../../../shared/components/icon/icon';
@@ -57,14 +58,70 @@ export interface Slot {
  * it ends with. Unlike its first words given in order, it never suggests where the sentence stops.
  */
 export function sentenceSlots(text: string): { slots: Slot[]; end: string } {
-  const slots = text
+  const slots = slotWords(text).map((w) => ({ length: w.length, first: w[0] }));
+  return { slots, end: /[.?!]$/.exec(text.trim())?.[0] ?? '' };
+}
+
+/** The words of a sentence as the slots count them (punctuation around them dropped). */
+function slotWords(text: string): string[] {
+  return text
     .trim()
     .split(/\s+/)
     .map((w) => w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}']+$/gu, ''))
-    .filter(Boolean)
-    .map((w) => ({ length: w.length, first: w[0] }));
-  return { slots, end: /[.?!]$/.exec(text.trim())?.[0] ?? '' };
+    .filter(Boolean);
 }
+
+/** Whether a word of the sentence is a form of a word of the lemma ("sings" of "sing", "studied" of "study"). */
+function formOf(word: string, lemmaWord: string): boolean {
+  const w = word.toLowerCase();
+  const l = lemmaWord.toLowerCase();
+  if (w === l) {
+    return true;
+  }
+  if (l.length < 3) {
+    return false;
+  }
+  const stem = /[ey]$/.test(l) && l.length > 3 ? l.slice(0, -1) : l;
+  return w.startsWith(stem) && w.length - stem.length <= 4;
+}
+
+/**
+ * Which slots of a dictation sentence hold the lesson word it was written for (added 2026-10-22):
+ * the first run of words matching every word of the lemma ("look after" in "She looks after …").
+ */
+export function lemmaSlots(text: string, lemma: string): boolean[] {
+  const words = slotWords(text);
+  const marks = words.map(() => false);
+  const parts = lemma.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) {
+    return marks;
+  }
+  for (let i = 0; i + parts.length <= words.length; i++) {
+    if (parts.every((p, k) => formOf(words[i + k], p))) {
+      parts.forEach((_, k) => (marks[i + k] = true));
+      break;
+    }
+  }
+  return marks;
+}
+
+/** A sentence split into chunks of about `size` words, for "Từng cụm" (the last chunk takes a lone word). */
+export function chunks(text: string, size = 3): string[] {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const out: string[] = [];
+  for (let i = 0; i < words.length; i += size) {
+    out.push(words.slice(i, i + size).join(' '));
+  }
+  if (out.length > 1 && words.length % size === 1) {
+    out[out.length - 2] += ' ' + out.pop();
+  }
+  return out;
+}
+
+/** Pause between chunks in "Từng cụm", in milliseconds. */
+const CHUNK_PAUSE = 500;
+/** "Chậm" in the dictation of given sentences. */
+const SLOW_RATE = 0.7;
 
 const VERDICT_LABELS: Record<Verdict, string> = { ok: 'Chính xác!', close: 'Gần đúng', bad: 'Chưa đúng' };
 
@@ -98,6 +155,17 @@ export class Listening implements OnInit {
   readonly laterLabel = input('');
   /** On the lesson page: the main button once every sentence is checked ("Sang bước …"). */
   readonly nextLabel = input('');
+
+  /**
+   * The sentences to write down instead of the lesson's (six-step lesson, 2026-10-22): a few short
+   * ones with a lesson word each; their indexes are 0..n-1, as the server records them. No "Hiện
+   * chữ"; "Chậm" and "Từng cụm" instead of the speeds, and the slot of the lesson word marked.
+   */
+  readonly items = input<readonly DictationItem[] | null>(null);
+  /** Whether ← on the first sentence goes back to the part before (emits back); on the lesson page. */
+  readonly canBack = input(false);
+  /** ← on the first sentence, with canBack. */
+  readonly back = output<void>();
 
   /** The lesson goes on: for later (laterLabel) or with the step done (nextLabel). */
   readonly leave = output<void>();
@@ -145,7 +213,25 @@ export class Listening implements OnInit {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly injector = inject(Injector);
 
-  protected readonly sentences = computed(() => this.lesson()?.sentences ?? []);
+  /** Whether it dictates the given items rather than the lesson's sentences. */
+  protected readonly given = computed(() => this.items() !== null);
+  /** The sentences to write down are known (the lesson, or its summary with items, has loaded). */
+  protected readonly ready = signal(false);
+  /** "Chậm" (with items): reads at SLOW_RATE instead of 1×. */
+  protected readonly slow = computed(() => this.rate() < 1);
+  /** "Từng cụm" (with items): the chunk being read, or null. */
+  protected readonly chunk = signal<number | null>(null);
+  private chunkTimer: ReturnType<typeof setTimeout> | null = null;
+
+  protected readonly sentences = computed<Sentence[]>(() => {
+    const items = this.items();
+    return items ? items.map((it, index) => ({ index, text: it.text })) : (this.lesson()?.sentences ?? []);
+  });
+  /** With items: which slots of the current sentence hold its lesson word (accent color). */
+  protected readonly marked = computed(() => {
+    const item = this.items()?.[this.current()];
+    return item ? lemmaSlots(item.text, item.lemma) : [];
+  });
   protected readonly sentence = computed<Sentence | null>(() => this.sentences()[this.current()] ?? null);
   /** Estimated reading time of the current sentence at the chosen speed, in seconds. */
   protected readonly duration = computed(() => {
@@ -190,7 +276,9 @@ export class Listening implements OnInit {
   protected readonly hintText = computed(() => {
     const { slots } = this.hint();
     const letters = this.firstLetters() ? `, chữ cái đầu: ${slots.map((s) => s.first).join(', ')}` : '';
-    return `Câu có ${slots.length} từ${letters}`;
+    const marked = this.marked().indexOf(true);
+    const word = marked >= 0 ? `, từ thứ ${marked + 1} là từ của bài` : '';
+    return `Câu có ${slots.length} từ${letters}${word}`;
   });
   /**
    * What the main button at the bottom does: check the answer, or, once the shown answer is
@@ -286,26 +374,30 @@ export class Listening implements OnInit {
   ngOnInit(): void {
     // Inputs are set by now; review mode neither restores nor saves results.
     const summary = this.review() ? of(null) : this.api.summary(this.id).pipe(catchError(() => of(null)));
-    forkJoin({ lesson: this.readingApi.getLesson(this.id), summary }).subscribe({
+    // With items the sentences are given: only the lesson's saved results are needed.
+    const lesson = this.given() ? of(null) : this.readingApi.getLesson(this.id);
+    forkJoin({ lesson, summary }).subscribe({
       next: ({ lesson, summary }) => this.start(lesson, summary),
       error: (err: unknown) => this.loadError.set(loadErrorMessage(err)),
     });
   }
 
-  private start(lesson: ReadingLesson, summary: DictationSummary | null): void {
+  private start(lesson: ReadingLesson | null, summary: DictationSummary | null): void {
+    this.lesson.set(lesson);
+    const sentences = this.sentences();
     const checked = new Map<number, Checked>();
     for (const r of summary?.results ?? []) {
-      const s = lesson.sentences[r.sentenceIndex];
+      const s = sentences[r.sentenceIndex];
       if (s) {
         checked.set(r.sentenceIndex, { typed: r.typed, comparison: compareDictation(s.text, r.typed) });
       }
     }
-    this.emitted = checked.size === lesson.sentences.length;
+    this.emitted = checked.size === sentences.length;
     this.checked.set(checked);
-    this.lesson.set(lesson);
-    const firstUnchecked = lesson.sentences.findIndex((s) => !checked.has(s.index));
+    this.ready.set(true);
+    const firstUnchecked = sentences.findIndex((s) => !checked.has(s.index));
     const start = this.startSentence();
-    this.show(start !== null && start >= 0 && start < lesson.sentences.length ? start : Math.max(firstUnchecked, 0));
+    this.show(start !== null && start >= 0 && start < sentences.length ? start : Math.max(firstUnchecked, 0));
   }
 
   // --- listening ---
@@ -390,9 +482,70 @@ export class Listening implements OnInit {
 
   /** Stops reading and empties the player bar. */
   private silence(): void {
+    if (this.chunkTimer !== null) {
+      clearTimeout(this.chunkTimer);
+      this.chunkTimer = null;
+    }
+    this.chunk.set(null);
     this.speech.stop();
     this.speaking.set(false);
     this.progress.set(0);
+  }
+
+  /**
+   * "Từng cụm": reads the sentence a few words at a time with a short pause between, so a long
+   * sentence can be written down piece by piece; pressing it again stops.
+   */
+  protected listenChunks(): void {
+    const sentence = this.sentence();
+    if (!sentence || !this.speech.supported) {
+      return;
+    }
+    if (this.chunk() !== null) {
+      this.silence();
+      return;
+    }
+    this.silence();
+    this.playError.set(null);
+    const parts = chunks(sentence.text);
+    const read = (i: number) => {
+      this.chunkTimer = null;
+      this.chunk.set(i);
+      this.speaking.set(true);
+      this.speech.speak(parts[i], this.rate(), {
+        progress: (share) => this.progress.set((i + share) / parts.length),
+        ended: () => {
+          if (i + 1 < parts.length) {
+            this.chunkTimer = setTimeout(() => read(i + 1), CHUNK_PAUSE);
+          } else {
+            this.chunk.set(null);
+            this.speaking.set(false);
+          }
+        },
+        failed: () => {
+          this.silence();
+          this.playError.set('Chưa đọc được câu. Hãy thử lại.');
+        },
+      });
+    };
+    read(0);
+  }
+
+  /** "Chậm" (with items): slow speed on or off. */
+  protected toggleSlow(): void {
+    this.rate.set(this.slow() ? 1 : SLOW_RATE);
+  }
+
+  /** ← in the bar: the sentence before, or (canBack, on the first one) the part before. */
+  protected prev(): void {
+    if (this.current() === 0) {
+      if (this.canBack()) {
+        this.silence();
+        this.back.emit();
+      }
+      return;
+    }
+    this.go(this.current() - 1);
   }
 
   protected setRate(rate: number): void {

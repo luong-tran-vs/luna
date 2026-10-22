@@ -15,7 +15,7 @@ import {
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../../core/interceptors/error-interceptor';
-import { Quiz, QuizAnswer } from '../../../../core/models/reading';
+import { Quiz, QuizAnswer, QuizKind, QuizQuestion } from '../../../../core/models/reading';
 import { Asker } from '../../../../shared/components/asker/asker';
 import { Icon } from '../../../../shared/components/icon/icon';
 import { ReadingApiService } from '../../reading-api.service';
@@ -27,12 +27,51 @@ export interface QuizScore {
 
 const SEND_FAILED = 'Không gửi được câu trả lời, vui lòng thử lại.';
 
+/** The kind's short name on the tabs and in the result; '' (older questions): just "Câu". */
+const KIND_SHORT: Record<QuizKind, string> = {
+  gist: 'Ý chính',
+  detail: 'Chi tiết',
+  tfn: 'Đ/S/K',
+  vocab: 'Nghĩa từ',
+  '': 'Câu',
+};
+
+/** What the kind asks, over the question; '' for none. */
+const KIND_TITLE: Record<QuizKind, string> = {
+  gist: 'Ý chính của bài',
+  detail: 'Chi tiết trong bài',
+  tfn: 'Đúng, sai hay không có trong bài?',
+  vocab: 'Nghĩa từ trong bài',
+  '': '',
+};
+
+const kindOf = (q: QuizQuestion): QuizKind => q.kind ?? '';
+
+/**
+ * The order the options are shown in, as indexes into q.options. True / false / not given keeps
+ * its fixed order, and so do questions written before kinds existed (their options may refer to
+ * each other); the others are shuffled so the right answer is not always at the same place.
+ */
+export function optionOrder(q: QuizQuestion, random: () => number = Math.random): number[] {
+  const order = q.options.map((_, i) => i);
+  const kind = kindOf(q);
+  if (kind === 'tfn' || kind === '') {
+    return order;
+  }
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  return order;
+}
+
 /** What the main button of the bar does. */
 type MainAction = 'check' | 'next' | 'missing' | 'result' | 'finish';
 
 /**
  * Comprehension questions of the Reading step (F15; design, 2026-10-15): one question at a time,
- * asked by a boy in a message bubble, a row of numbered tabs to jump to any of them. Pick an
+ * asked by a boy in a message bubble, a row of tabs (number and kind, 2026-10-22) to jump to any
+ * of them. The options are shuffled (see optionOrder) but answers use their server index. Pick an
  * option then Kiểm tra: the bubble's colour and label say right or wrong, the options are marked
  * where they are and the explanation shows under them, so nothing on screen moves. ← and "Câu tiếp
  * theo" go through the questions in order; after the last one comes the result (the score, each
@@ -103,16 +142,56 @@ export class ComprehensionQuiz {
   /** The result is on screen. */
   readonly resultShown = computed(() => this.onResult() && this.open().length === 0);
 
+  /** The option picked on the question on screen, as an index into its options (not its place). */
   protected readonly picked = computed(() => this.picks().get(this.shown()) ?? null);
 
-  /** One tab per question: its number, and right or wrong once answered. */
+  /**
+   * Each question's options in the order shown, made again each time the questions are opened;
+   * index is the option's place on the server, which is what an answer sends and gets back.
+   */
+  protected readonly shownOptions = computed(() =>
+    this.quiz().questions.map((q) => optionOrder(q).map((index) => ({ index, text: q.options[index] }))),
+  );
+
+  /** The kind of the question on screen: what it asks, and the language of its texts. */
+  protected readonly kind = computed(() => {
+    const q = this.quiz().questions[this.shown()];
+    const kind = q ? kindOf(q) : '';
+    return {
+      title: KIND_TITLE[kind],
+      // A vocab question is asked in Vietnamese; tfn and vocab options are Vietnamese.
+      promptLang: kind === 'vocab' ? 'vi' : 'en',
+      optionLang: kind === 'tfn' || kind === 'vocab' ? 'vi' : 'en',
+    };
+  });
+
+  /** The result by kind, in the order the kinds come: "Ý chính ✓ · Chi tiết ✓✓ …"; empty for older questions. */
+  protected readonly byKind = computed(() => {
+    const answered = this.byIndex();
+    const groups = new Map<QuizKind, boolean[]>();
+    this.quiz().questions.forEach((q, i) => {
+      const kind = kindOf(q);
+      const a = answered.get(i);
+      if (kind && a) {
+        groups.set(kind, [...(groups.get(kind) ?? []), a.correct]);
+      }
+    });
+    return [...groups].map(([kind, marks]) => ({
+      name: KIND_SHORT[kind],
+      marks: marks.map((ok) => (ok ? '✓' : '✗')).join(''),
+      label: `${KIND_SHORT[kind]}: ${marks.filter(Boolean).length}/${marks.length} đúng`,
+    }));
+  });
+
+  /** One tab per question: its number and kind, and right or wrong once answered. */
   protected readonly tabs = computed(() => {
     const answered = this.byIndex();
     return this.quiz().questions.map((q, i) => {
       const a = answered.get(i);
       const state: 'open' | 'right' | 'wrong' = !a ? 'open' : a.correct ? 'right' : 'wrong';
-      const label = `Câu ${i + 1}: ${{ open: 'chưa trả lời', right: 'đúng', wrong: 'sai' }[state]}`;
-      return { state, label, prompt: q.prompt };
+      const kind = kindOf(q) ? ` · ${KIND_SHORT[kindOf(q)]}` : '';
+      const label = `Câu ${i + 1}${kind}: ${{ open: 'chưa trả lời', right: 'đúng', wrong: 'sai' }[state]}`;
+      return { state, label, prompt: q.prompt, kind: KIND_SHORT[kindOf(q)], vi: kindOf(q) === 'vocab' };
     });
   });
 

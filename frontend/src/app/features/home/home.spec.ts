@@ -25,7 +25,7 @@ const studying = (over: Partial<Dashboard> = {}): Dashboard => ({
   goalCompleted: false,
   skills: { read: 3, listen: 2, write: 1, total: 12 },
   lesson: { id: 'l1', title: 'At the café', topicName: 'Gia đình', level: 'A1' },
-  steps: { read: 'done', listen: 'current', write: 'locked' },
+  steps: { vocab: 'done', listen: 'current', read: 'locked', grammar: 'locked', speak: 'locked', write: 'locked' },
   currentStep: 'listen',
   action: { kind: 'continue', step: 'listen' },
   streak: 4,
@@ -39,7 +39,7 @@ const noGoal: Dashboard = {
   goal: null,
   skills: null,
   lesson: null,
-  steps: { read: 'locked', listen: 'locked', write: 'locked' },
+  steps: { vocab: 'locked', listen: 'locked', read: 'locked', grammar: 'locked', speak: 'locked', write: 'locked' },
   currentStep: '',
   action: null,
   streak: 1,
@@ -121,12 +121,14 @@ describe('Home', () => {
   it('greets the learner and shows the progress of the lesson being studied and the button into it', async () => {
     await open(studying());
     expect(text(el.querySelector('h1'))).toBe('Xin chào, minh 👋');
-    expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 3 bước nữa thôi (Nghe, Luyện nói, Viết)!');
+    expect(text(el.querySelector('.subtitle'))).toBe(
+      'Bài này còn 5 bước nữa thôi (Nghe, Đọc, Ngữ pháp, Nói, Viết)!',
+    );
     // One card for the lesson being studied, with its progress (no second card repeating it).
     expect(el.querySelector('.today-goal')).toBeNull();
-    // The five steps of the lesson's page (Từ vựng, Đọc, Nghe, Luyện nói, Viết).
-    expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Bước 3/5: Nghe');
-    expect(text(el.querySelector('.lesson .steps-bar .count'))).toBe('2/5 bước');
+    // The six steps of the lesson's page (Từ vựng, Nghe, Đọc, Ngữ pháp, Nói, Viết).
+    expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Bước 2/6: Nghe');
+    expect(text(el.querySelector('.lesson .steps-bar .count'))).toBe('1/6 bước');
     expect(text(el.querySelector('.lesson-title'))).toBe('At the café');
     expect(text(el.querySelector('.lesson'))).toContain('Chủ đề: A1 · Gia đình · Bài 3/12');
     expect(text(el.querySelector('.tomorrow'))).toBe('Ngày mai: 17 thẻ cần ôn');
@@ -177,7 +179,7 @@ describe('Home', () => {
   it('says "Bắt đầu học" before any step is done', async () => {
     await open(studying({
         action: { kind: 'start', step: 'read' },
-        steps: { read: 'current', listen: 'locked', write: 'locked' },
+        steps: { vocab: 'current', listen: 'locked', read: 'locked', grammar: 'locked', speak: 'locked', write: 'locked' },
         tomorrowCards: 0,
       }));
     expect(link('Bắt đầu học')?.getAttribute('href')).toBe('/lessons/l1');
@@ -185,20 +187,22 @@ describe('Home', () => {
   });
 
   it('goes on from the step saved on this device, as the lesson page does', async () => {
-    // Từ vựng done on this device: the server knows no step yet.
+    // Đọc on screen on this device: the server knows no step done yet (Từ vựng, Nghe left for later).
     localStorage.setItem('luna.lesson-step.l1', 'read');
     try {
-      await open(studying({ action: { kind: 'start', step: 'read' }, steps: { read: 'current', listen: 'locked', write: 'locked' } }));
+      await open(studying({ action: { kind: 'start', step: 'vocab' }, steps: { vocab: 'current', listen: 'locked', read: 'locked', grammar: 'locked', speak: 'locked', write: 'locked' } }));
       expect(link('Tiếp tục: Đọc')?.getAttribute('href')).toBe('/lessons/l1');
-      expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Bước 2/5: Đọc');
-      expect(text(el.querySelector('.subtitle'))).toBe('Bài này còn 4 bước nữa thôi (Đọc, Nghe, Luyện nói, Viết)!');
+      expect(text(el.querySelector('.lesson .steps-bar .label'))).toBe('Bước 3/6: Đọc');
+      expect(text(el.querySelector('.subtitle'))).toBe(
+        'Bài này còn 6 bước nữa thôi (Từ vựng, Nghe, Đọc, Ngữ pháp, Nói, Viết)!',
+      );
     } finally {
       localStorage.removeItem('luna.lesson-step.l1');
     }
   });
 
   it('never goes back behind a step the server knows is done', async () => {
-    localStorage.setItem('luna.lesson-step.l1', 'words');
+    localStorage.setItem('luna.lesson-step.l1', 'vocab');
     try {
       await open(studying());
       expect(link('Tiếp tục: Nghe')).not.toBeNull();
@@ -301,7 +305,7 @@ describe('Home', () => {
   it('invites to start a lesson that has no part done yet', async () => {
     await open(
       studying({
-        steps: { read: 'current', listen: 'locked', write: 'locked' },
+        steps: { vocab: 'current', listen: 'locked', read: 'locked', grammar: 'locked', speak: 'locked', write: 'locked' },
         currentStep: 'read',
         action: { kind: 'start', step: 'read' },
       }),

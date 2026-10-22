@@ -1,0 +1,228 @@
+<section class="grammar" aria-labelledby="grammar-heading">
+  @if (content(); as c) {
+    @switch (phase()) {
+      @case ('notice') {
+        <div class="soft-card">
+          <div class="head">
+            <h2 class="step-title" id="grammar-heading">{{ title() }}</h2>
+            <span class="tag">Nhận ra</span>
+          </div>
+          <p class="step-hint">Đây là các câu trong bài vừa đọc. Nhìn những động từ được tô vàng.</p>
+          <ul class="sentences">
+            @for (n of noticing(); track $index) {
+              <li class="sentence">
+                @if (canSpeak) {
+                  <button
+                    type="button"
+                    class="say"
+                    aria-label="Nghe câu"
+                    [luSpeak]="n.sentence"
+                    (click)="listen(n.sentence)"
+                  >
+                    <lu-icon name="volume" />
+                  </button>
+                }
+                <p lang="en">
+                  @for (p of n.parts; track $index) {
+                    @if (p.mark) {
+                      <mark class="hl">{{ p.text }}</mark>
+                    } @else {
+                      <!-- A span, so no space is added around the text next to a mark. -->
+                      <span>{{ p.text }}</span>
+                    }
+                  }
+                </p>
+              </li>
+            }
+          </ul>
+        </div>
+
+        @if (hasQuestion()) {
+          <div class="soft-card">
+            <h3 class="question" id="why-heading">{{ c.questionVi }}</h3>
+            <ul class="options" aria-labelledby="why-heading">
+              @for (o of c.options; track $index; let i = $index) {
+                <li>
+                  <button
+                    type="button"
+                    class="option"
+                    [class.is-right]="chosen() !== null && i === c.answerIndex"
+                    [class.is-wrong]="chosen() === i && i !== c.answerIndex"
+                    [disabled]="chosen() !== null"
+                    (click)="choose(i)"
+                  >
+                    <span class="letter" aria-hidden="true">{{ i + 1 }}</span>
+                    <span>{{ o }}</span>
+                    @if (chosen() !== null && i === c.answerIndex) {
+                      <lu-icon name="check" />
+                    } @else if (chosen() === i) {
+                      <lu-icon name="x" />
+                    }
+                  </button>
+                </li>
+              }
+            </ul>
+            <div
+              class="result"
+              role="status"
+              [class.result-card]="chosen() !== null"
+              [class.result-ok]="chosen() === c.answerIndex"
+              [class.result-bad]="chosen() !== null && chosen() !== c.answerIndex"
+            >
+              @if (chosen() !== null) {
+                <p class="verdict">
+                  @if (chosen() === c.answerIndex) {
+                    <lu-icon name="check" /> Đúng rồi!
+                  } @else {
+                    <lu-icon name="x" /> Chưa đúng
+                  }
+                </p>
+                @if (c.explanationVi) {
+                  <p class="why">{{ c.explanationVi }}</p>
+                }
+              }
+            </div>
+          </div>
+        }
+      }
+
+      @case ('rule') {
+        <div class="soft-card">
+          <div class="head">
+            <h2 class="step-title" id="grammar-heading">{{ c.titleVi || title() }}</h2>
+            <span class="tag">Quy tắc</span>
+          </div>
+          @if (c.whenVi) {
+            <p>{{ c.whenVi }}</p>
+          }
+          @if (c.table.length) {
+            <table class="rule-table">
+              <thead>
+                <tr>
+                  <th scope="col">Chủ ngữ</th>
+                  <th scope="col">Khẳng định</th>
+                  <th scope="col">Phủ định</th>
+                </tr>
+              </thead>
+              <tbody lang="en">
+                @for (r of c.table; track $index) {
+                  <tr>
+                    <td>{{ r.subject }}</td>
+                    <td class="form">{{ r.form }}</td>
+                    <td>{{ r.negative }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
+          @if (c.mistakes.length) {
+            <h3 class="sub">Người Việt hay sai</h3>
+            <ul class="mistakes">
+              @for (m of c.mistakes; track $index) {
+                <li lang="en">
+                  <s class="wrong"><span class="visually-hidden" lang="vi">Sai: </span>{{ m.wrong }}</s>
+                  <span aria-hidden="true">→</span>
+                  <span class="right"><span class="visually-hidden" lang="vi">Đúng: </span>{{ m.right }}</span>
+                </li>
+              }
+            </ul>
+          }
+          @if (c.noteVi) {
+            <p class="muted">{{ c.noteVi }}</p>
+          }
+        </div>
+      }
+
+      @case ('practice') {
+        @if (exercise(); as e) {
+          <div class="soft-card">
+            <div class="head">
+              <h2 class="step-title" id="grammar-heading">Luyện tập</h2>
+              <span class="count">{{ index() + 1 }}/{{ exercises().length }}</span>
+            </div>
+            <div
+              class="bar"
+              role="progressbar"
+              aria-label="Tiến độ luyện tập"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [attr.aria-valuenow]="progress()"
+            >
+              <span [style.width.%]="progress()"></span>
+            </div>
+            <lu-grammar-exercise [exercise]="e" [inlineCheck]="false" (answered)="onAnswered($event)" />
+          </div>
+        }
+      }
+    }
+  } @else if (note(); as n) {
+    <div class="soft-card">
+      <h2 class="step-title" id="grammar-heading">{{ title() }}</h2>
+      <h3 class="sub">{{ n.title }}</h3>
+      @if (n.bodyVi) {
+        <p class="body">{{ n.bodyVi }}</p>
+      }
+      @if (n.examples.length) {
+        <ul class="examples" lang="en">
+          @for (x of n.examples; track $index) {
+            <li>{{ x }}</li>
+          }
+        </ul>
+      }
+    </div>
+  } @else {
+    <div class="soft-card">
+      <h2 class="step-title" id="grammar-heading">{{ title() }}</h2>
+      <p class="muted none">Bài này chưa có phần ngữ pháp.</p>
+    </div>
+  }
+
+  @if (grammarPointId() && (!content() || showLink())) {
+    <a class="soft-card full-link" [routerLink]="['/grammar', grammarPointId()]">
+      <span class="icon-chip tone-accent"><lu-icon name="book" /></span>
+      <span class="link-text">
+        <strong>Học đầy đủ: {{ grammarTitleVi() || 'điểm ngữ pháp này' }}</strong>
+        <span class="muted">Thêm ví dụ và bài tập trong phần Ngữ pháp</span>
+      </span>
+      <lu-icon name="chevron-right" />
+    </a>
+  }
+
+  <div class="step-nav">
+    @if (showBack()) {
+      <button type="button" class="nav-btn back-step" aria-label="Bước trước" (click)="goBack()">
+        <lu-icon name="arrow-left" />
+      </button>
+    }
+    @if (!content()) {
+      <button type="button" class="btn-primary" (click)="done.emit()">{{ finishLabel() }}</button>
+    } @else {
+      @switch (phase()) {
+        @case ('notice') {
+          <button type="button" class="btn-primary" (click)="toRule()">Xem quy tắc</button>
+        }
+        @case ('rule') {
+          <button type="button" class="btn-primary" (click)="startPractice()">
+            {{ exercises().length ? 'Luyện ' + exercises().length + ' câu' : finishLabel() }}
+          </button>
+        }
+        @case ('practice') {
+          @if (!answered()) {
+            <button
+              type="button"
+              class="btn-primary check-btn"
+              [disabled]="!canCheck()"
+              (click)="check()"
+            >
+              {{ exercise()?.kind === 'choice' ? 'Chọn một đáp án' : 'Kiểm tra' }}
+            </button>
+          } @else if (!isLast()) {
+            <button type="button" class="btn-primary" (click)="next()">Câu tiếp</button>
+          } @else {
+            <button type="button" class="btn-primary" (click)="next()">{{ finishLabel() }}</button>
+          }
+        }
+      }
+    }
+  </div>
+</section>

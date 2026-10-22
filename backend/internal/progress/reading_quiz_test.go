@@ -14,6 +14,12 @@ func TestReadStepWaitsForQuestions(t *testing.T) {
 	e := newStudyEnv()
 	e.setGoal(t, "family")
 	e.quiz.set("u1", "f1", 4, 3)
+	// Words and listening come before reading (2026-10-22).
+	e.complete(t, StepVocab)
+	e.finishDictation(t)
+	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepListen); err != nil {
+		t.Fatalf("listen: %v", err)
+	}
 
 	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepRead); !errors.Is(err, ErrReadIncomplete) {
 		t.Fatalf("3/4 answered: %v", err)
@@ -24,7 +30,7 @@ func TestReadStepWaitsForQuestions(t *testing.T) {
 
 	// Answering the last one (right or wrong) is enough.
 	e.quiz.set("u1", "f1", 4, 4)
-	if v, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepRead); err != nil || v.CurrentStep != StepListen {
+	if v, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepRead); err != nil || v.CurrentStep != StepGrammar {
 		t.Fatalf("all answered: %+v, %v", v, err)
 	}
 }
@@ -33,7 +39,7 @@ func TestReadStepWithoutQuestions(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 	e.setGoal(t, "family")
-	if v, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepRead); err != nil || v.CurrentStep != StepListen {
+	if v, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepRead); err != nil || v.Steps[StepRead] != StateDone {
 		t.Fatalf("no questions: %+v, %v", v, err)
 	}
 }

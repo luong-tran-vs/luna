@@ -18,7 +18,7 @@ import (
 // the stats), and it hands the study service back to the writing domain, which needs it for the
 // Write step.
 func (c *Container) initProgress() {
-	c.progress = progress.NewService(c.store.DictationResults(), progressLessons{c.lessons}, time.Now)
+	c.progress = progress.NewService(c.store.DictationResults(), dictationLessons{c.lessons}, time.Now)
 	c.study = progress.NewStudyService(progress.StudyDeps{
 		Goals:     c.store.Goals(),
 		Progress:  c.store.LessonProgress(),
@@ -63,6 +63,24 @@ func (p progressLessons) Info(ctx context.Context, id string) (revision, sentenc
 		return 0, 0, fmt.Errorf("get lesson: %w", err)
 	}
 	return l.Revision, len(l.Sentences), nil
+}
+
+// dictationLessons adapts the lesson repository to the dictation of progress.Service: the
+// sentences to write down are those of lesson.Dictation (three short ones since the six-step
+// lesson, 2026-10-22), not every sentence of the text.
+type dictationLessons struct {
+	repo lesson.Repository
+}
+
+func (d dictationLessons) Info(ctx context.Context, id string) (revision, sentenceCount int, err error) {
+	l, err := d.repo.Get(ctx, id)
+	if errors.Is(err, lesson.ErrNotFound) {
+		return 0, 0, progress.ErrLessonNotFound
+	}
+	if err != nil {
+		return 0, 0, fmt.Errorf("get lesson: %w", err)
+	}
+	return l.Revision, len(lesson.Dictation(l)), nil
 }
 
 // topicRoadmaps adapts topic.Service to progress.Roadmaps.

@@ -189,3 +189,38 @@
   margin: 0;
   font: var(--text-sm) var(--font-ui);
 }
+
+/* The question to read for, over the text. */
+.guide {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
+.guide b {
+  color: var(--color-primary-ink);
+}
+
+/* The lesson's words: a dotted underline in the primary colour (saved words add their background). */
+.w.target {
+  color: var(--color-primary-ink);
+  font-weight: 600;
+  text-decoration: underline dotted var(--color-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.legend {
+  margin: 0;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.legend-mark {
+  text-decoration: underline dotted var(--color-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}

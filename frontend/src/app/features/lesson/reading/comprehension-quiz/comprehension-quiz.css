@@ -10,7 +10,7 @@
   min-width: 0;
 }
 
-/* One tab per question (design, 2026-10-15): a segmented row, the one on screen raised. */
+/* One tab per question (design, 2026-10-22): number and kind; done right / wrong, current, to do. */
 .tabs {
   display: grid;
   grid-auto-columns: 1fr;
@@ -25,12 +25,13 @@
 
 .tab {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 1px;
   width: 100%;
   min-height: 44px;
-  padding: 0;
+  padding: 3px 2px;
   font: var(--text-sm) var(--font-ui);
   font-weight: 700;
   color: var(--color-text-muted);
@@ -44,10 +45,34 @@
   background: color-mix(in srgb, var(--color-surface) 55%, transparent);
 }
 
-.tab.is-shown {
-  color: var(--color-primary-ink);
-  background: var(--color-surface);
+.tab.is-right {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-ok) 16%, var(--color-surface));
+}
+
+.tab.is-wrong {
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-bad) 14%, var(--color-surface));
+}
+
+.tab.is-shown,
+.tab.is-shown:hover {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
   box-shadow: 0 1px 4px rgb(0 0 0 / 0.14);
+}
+
+.tab-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tab-kind {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
 }
 
 .tab:focus-visible {
@@ -73,6 +98,22 @@
 
 .is-wrong .tab-mark {
   background: var(--color-bad);
+}
+
+/* A vocab question: the part of the text, then the question in Vietnamese. */
+.quote {
+  margin: 0 0 var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.prompt-vi {
+  margin: 2px 0 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
 }
 
 .prompt {
@@ -269,6 +310,13 @@
 
 .score:focus {
   outline: none;
+}
+
+/* "Ý chính ✓ · Chi tiết ✓✗": the result by kind. */
+.kinds {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
 }
 
 .score-note {

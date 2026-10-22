@@ -9,12 +9,14 @@
   }
   @if (loadError(); as message) {
     <p class="form-alert" role="alert">{{ message }} <a routerLink="/">Về trang chủ</a></p>
-  } @else if (lesson(); as l) {
+  } @else if (ready()) {
     <header class="listening-header">
-      <p class="step">Bước Nghe{{ review() ? ' · Xem lại' : '' }}</p>
+      @if (!given()) {
+        <p class="step">Bước Nghe{{ review() ? ' · Xem lại' : '' }}</p>
+      }
       <!-- In a lesson the title is already in the lesson's line at the top. -->
       @if (mode() === null) {
-        <h1 class="title" lang="en">{{ l.title }}</h1>
+        <h1 class="title" lang="en">{{ lesson()?.title }}</h1>
       }
       @if (checkedCount() > 0) {
         <button type="button" class="restart" (click)="restart()">
@@ -69,7 +71,9 @@
           <span class="counter pill" aria-live="polite">Câu {{ current() + 1 }} / {{ sentences().length }}</span>
         </div>
 
-        <lu-listening-hero />
+        @if (!given()) {
+          <lu-listening-hero />
+        }
 
         <lu-audio-bar
           class="audio"
@@ -87,34 +91,45 @@
           <p class="field-error" role="alert">{{ message }}</p>
         }
 
-        <div class="tools">
-          <div class="speed" role="radiogroup" aria-label="Tốc độ">
-            @for (s of speeds; track s) {
-              <button
-                type="button"
-                role="radio"
-                class="speed-option"
-                [attr.aria-checked]="rate() === s"
-                [tabIndex]="rate() === s ? 0 : -1"
-                (click)="setRate(s)"
-                (keydown)="onSpeedKeydown($event)"
-              >
-                {{ s }}×
-              </button>
-            }
+        @if (given()) {
+          <div class="tools">
+            <button type="button" class="toggle" [attr.aria-pressed]="slow()" (click)="toggleSlow()">
+              <lu-icon name="clock" /> Chậm
+            </button>
+            <button type="button" class="toggle" [attr.aria-pressed]="chunk() !== null" (click)="listenChunks()">
+              <lu-icon name="review" /> Từng cụm
+            </button>
           </div>
-          <button
-            type="button"
-            class="toggle"
-            [attr.aria-expanded]="showText()"
-            (click)="showText.set(!showText())"
-          >
-            <lu-icon [name]="showText() ? 'eye-off' : 'eye'" />
-            {{ showText() ? 'Ẩn chữ' : 'Hiện chữ' }}
-          </button>
-        </div>
-        @if (showText()) {
-          <p class="transcript" lang="en">{{ sentence()!.text }}</p>
+        } @else {
+          <div class="tools">
+            <div class="speed" role="radiogroup" aria-label="Tốc độ">
+              @for (s of speeds; track s) {
+                <button
+                  type="button"
+                  role="radio"
+                  class="speed-option"
+                  [attr.aria-checked]="rate() === s"
+                  [tabIndex]="rate() === s ? 0 : -1"
+                  (click)="setRate(s)"
+                  (keydown)="onSpeedKeydown($event)"
+                >
+                  {{ s }}×
+                </button>
+              }
+            </div>
+            <button
+              type="button"
+              class="toggle"
+              [attr.aria-expanded]="showText()"
+              (click)="showText.set(!showText())"
+            >
+              <lu-icon [name]="showText() ? 'eye-off' : 'eye'" />
+              {{ showText() ? 'Ẩn chữ' : 'Hiện chữ' }}
+            </button>
+          </div>
+          @if (showText()) {
+            <p class="transcript" lang="en">{{ sentence()!.text }}</p>
+          }
         }
 
         <form class="answer" id="answer-form" (submit)="mainAction($event)">
@@ -156,13 +171,16 @@
               <span class="hints-label" aria-hidden="true">Gợi ý · {{ hint().slots.length }} từ:</span>
               <span class="slots" lang="en" aria-hidden="true">
                 @for (s of hint().slots; track $index) {
-                  <span class="slot" [style.min-width.ch]="s.length + 1">{{ firstLetters() ? s.first : '' }}</span>
+                  <span class="slot" [class.lesson-word]="marked()[$index]" [style.min-width.ch]="s.length + 1">{{ firstLetters() ? s.first : '' }}</span>
                 }
                 @if (hint().end) {
                   <span class="slot-end">{{ hint().end }}</span>
                 }
               </span>
               <span class="visually-hidden">{{ hintText() }}</span>
+              @if (given() && marked().includes(true)) {
+                <span class="hints-note" aria-hidden="true">Ô khác màu là từ của bài</span>
+              }
               @if (!firstLetters()) {
                 <button type="button" class="hint" (click)="firstLetters.set(true)">Hé lộ chữ cái đầu</button>
               }
@@ -177,21 +195,28 @@
 
       <!-- The bar at the bottom of the screen (design): ← sentence, the main button, sentence →. -->
       <div class="bottom-bar">
-        <button type="button" class="nav-btn" [disabled]="current() === 0" (click)="go(current() - 1)">
-          <lu-icon name="arrow-left" /><span class="visually-hidden">Câu trước</span>
+        <button
+          type="button"
+          class="nav-btn"
+          [disabled]="current() === 0 && !canBack()"
+          (click)="prev()"
+        >
+          <lu-icon name="arrow-left" /><span class="visually-hidden">{{ current() === 0 && canBack() ? 'Phần trước' : 'Câu trước' }}</span>
         </button>
         <button type="submit" form="answer-form" class="btn-primary main">
           {{ mainLabel() }}
           <lu-icon [name]="mainIsCheck() ? 'check-circle' : 'arrow-right'" />
         </button>
-        <button
-          type="button"
-          class="nav-btn"
-          [disabled]="current() === sentences().length - 1"
-          (click)="go(current() + 1)"
-        >
-          <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
-        </button>
+        @if (!given()) {
+          <button
+            type="button"
+            class="nav-btn"
+            [disabled]="current() === sentences().length - 1"
+            (click)="go(current() + 1)"
+          >
+            <lu-icon name="arrow-right" /><span class="visually-hidden">Câu sau</span>
+          </button>
+        }
       </div>
 
       <p class="announcement visually-hidden" role="status">{{ announcement() }}</p>
@@ -274,6 +299,9 @@
                 · {{ r.comparison.closeWords }} từ sai chính tả hoặc viết dính
               }
             </p>
+            @if (given() && r.comparison.closeWords) {
+              <p class="slip-note">Sai một chữ cái vẫn tính là nghe đúng, chỉ cần nhớ lại cách viết.</p>
+            }
             <p class="correct-sentence">
               Câu đúng: <span lang="en">{{ sentence()!.text }}</span>
             </p>

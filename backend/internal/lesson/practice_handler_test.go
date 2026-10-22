@@ -135,7 +135,7 @@ func TestPracticeEndpointWithoutPractice(t *testing.T) {
 	t.Parallel()
 	mux, id := newPracticeAPI(t, false, allowAll)
 	rec := get(t, mux, "/api/lessons/"+id+"/practice", "learner")
-	want := `{"status":"running","lessonNumber":2,"objectiveVi":"","examples":[],"dialogue":null,"fill":null,"grammarTipVi":"","translations":[]}`
+	want := `{"status":"running","lessonNumber":2,"objectiveVi":"","examples":[],"dialogue":null,"fill":null,"grammarTipVi":"","translations":[],"steps":null,"dictation":[{"text":"We went to the park.","lemma":""},{"text":"He gave up smoking.","lemma":""},{"text":"It was a sunny day.","lemma":""}],"grammarPointId":"","grammarTitleVi":""}`
 	if rec.Code != http.StatusOK || strings.TrimSpace(rec.Body.String()) != want {
 		t.Fatalf("status %d body %s", rec.Code, rec.Body)
 	}

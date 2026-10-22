@@ -18,21 +18,27 @@ func TestCompleteStepOrderAndIdempotence(t *testing.T) {
 		t.Fatalf("listen first: %v", err)
 	}
 	var verr *ValidationError
-	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f1", "speak"); !errors.As(err, &verr) {
+	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f1", "dance"); !errors.As(err, &verr) {
 		t.Fatalf("unknown step: %v", err)
 	}
 	// The review step was dropped (2026-10-02).
 	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f1", "review"); !errors.As(err, &verr) {
 		t.Fatalf("review step: %v", err)
 	}
-	v := e.complete(t, StepRead)
-	if v.CurrentStep != StepListen || v.Steps[StepRead] != StateDone || v.Steps[StepListen] != StateCurrent {
-		t.Fatalf("after read = %+v", v)
+	// The words come first (2026-10-22), then listening.
+	v := e.complete(t, StepVocab)
+	if v.CurrentStep != StepListen || v.Steps[StepVocab] != StateDone || v.Steps[StepListen] != StateCurrent {
+		t.Fatalf("after vocab = %+v", v)
 	}
 
 	// Listening cannot complete before every sentence is checked.
 	if _, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepListen); !errors.Is(err, ErrListenIncomplete) {
 		t.Fatalf("listen early: %v", err)
+	}
+	// Reading before listening: Listen stays the current step.
+	v = e.complete(t, StepRead)
+	if v.CurrentStep != StepListen || v.Steps[StepRead] != StateDone || v.Status != LessonStudying {
+		t.Fatalf("after read = %+v", v)
 	}
 	v = e.complete(t, StepListen)
 	if v.Status != LessonCompleted || v.CurrentStep != StepDone || v.Streak != 1 || v.Goal.CompletedLessons != 1 ||
@@ -56,10 +62,10 @@ func TestOldProgressWithReviewStep(t *testing.T) {
 	e.setGoal(t, "family")
 	// Saved before 2026-10-02, when a lesson began with the review step.
 	_ = e.progress.Upsert(t.Context(), LessonProgress{
-		UserID: "u1", LessonID: "f1", Done: map[Step]bool{"review": true}, CurrentStep: StepRead, SentenceIndex: 1,
+		UserID: "u1", LessonID: "f1", Done: map[Step]bool{"review": true}, CurrentStep: StepVocab, SentenceIndex: 1,
 	})
 	v, _ := e.svc.LessonStudy(t.Context(), "u1", "f1")
-	if v.CurrentStep != StepRead || v.SentenceIndex != 1 || len(v.Steps) != 3 {
+	if v.CurrentStep != StepVocab || v.SentenceIndex != 1 || len(v.Steps) != 6 {
 		t.Fatalf("old progress = %+v", v)
 	}
 }
@@ -85,10 +91,10 @@ func TestPosition(t *testing.T) {
 	e.setGoal(t, "family")
 
 	// The first position starts the lesson.
-	if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepRead, 2); err != nil {
+	if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepVocab, 2); err != nil {
 		t.Fatal(err)
 	}
-	if v, _ := e.svc.LessonStudy(t.Context(), "u1", "f1"); v.CurrentStep != StepRead || v.SentenceIndex != 2 {
+	if v, _ := e.svc.LessonStudy(t.Context(), "u1", "f1"); v.CurrentStep != StepVocab || v.SentenceIndex != 2 {
 		t.Fatalf("position = %+v", v)
 	}
 	if p, ok, _ := e.progress.Get(t.Context(), "u1", "f1"); !ok || p.TopicID != "family" || p.DayKey != "2026-09-30" {
@@ -96,16 +102,16 @@ func TestPosition(t *testing.T) {
 	}
 	var verr *ValidationError
 	for _, bad := range []int{-1, 3} {
-		if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepRead, bad); !errors.As(err, &verr) {
+		if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepVocab, bad); !errors.As(err, &verr) {
 			t.Fatalf("sentence %d: %v", bad, err)
 		}
 	}
 	// Moving to the next step starts at its first sentence.
-	if v := e.complete(t, StepRead); v.SentenceIndex != 0 || v.CurrentStep != StepListen {
-		t.Fatalf("after read = %+v", v)
+	if v := e.complete(t, StepVocab); v.SentenceIndex != 0 || v.CurrentStep != StepListen {
+		t.Fatalf("after vocab = %+v", v)
 	}
 	// A done step takes no position.
-	if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepRead, 1); !errors.Is(err, ErrNotCurrentStep) {
+	if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepVocab, 1); !errors.Is(err, ErrNotCurrentStep) {
 		t.Fatalf("done step: %v", err)
 	}
 }
@@ -115,7 +121,7 @@ func TestPositionOfALaterStep(t *testing.T) {
 	e := newStudyEnv()
 	e.setGoal(t, "family")
 
-	// The learner may work on Listen while Read is not done.
+	// The learner may work on Listen while Vocab is not done.
 	if err := e.svc.SetPosition(t.Context(), "u1", "f1", StepListen, 1); err != nil {
 		t.Fatalf("later step: %v", err)
 	}
@@ -124,13 +130,13 @@ func TestPositionOfALaterStep(t *testing.T) {
 	}
 	// The view's current step stays the first step not done; the sentence belongs to Listen.
 	v, _ := e.svc.LessonStudy(t.Context(), "u1", "f1")
-	if v.CurrentStep != StepRead || v.SentenceIndex != 0 || v.Steps[StepRead] != StateCurrent {
+	if v.CurrentStep != StepVocab || v.SentenceIndex != 0 || v.Steps[StepVocab] != StateCurrent {
 		t.Fatalf("view = %+v", v)
 	}
-	// Once Read is done, Listen is current and resumes at its saved sentence.
-	v = e.complete(t, StepRead)
+	// Once Vocab is done, Listen is current and resumes at its saved sentence.
+	v = e.complete(t, StepVocab)
 	if v.CurrentStep != StepListen || v.SentenceIndex != 1 {
-		t.Fatalf("after read = %+v", v)
+		t.Fatalf("after vocab = %+v", v)
 	}
 }
 
@@ -139,14 +145,14 @@ func TestStepsInAnyOrder(t *testing.T) {
 	e := newStudyEnv()
 	e.setGoal(t, "family")
 
-	// Listen before Read: allowed, the lesson is not completed.
+	// Listen before Vocab: allowed, the lesson is not completed.
 	e.finishDictation(t)
 	v, err := e.svc.CompleteStep(t.Context(), "u1", "f1", StepListen)
-	if err != nil || v.Status != LessonStudying || v.CurrentStep != StepRead ||
-		v.Steps[StepRead] != StateCurrent || v.Steps[StepListen] != StateDone || v.Steps[StepWrite] != StateLocked {
+	if err != nil || v.Status != LessonStudying || v.CurrentStep != StepVocab ||
+		v.Steps[StepVocab] != StateCurrent || v.Steps[StepListen] != StateDone || v.Steps[StepWrite] != StateLocked {
 		t.Fatalf("listen first = %+v, %v", v, err)
 	}
-	// Write before Read too.
+	// Write before the others too.
 	e.submitWriting(t)
 	if v, err = e.svc.CompleteStep(t.Context(), "u1", "f1", StepWrite); err != nil || v.Status != LessonStudying ||
 		v.Goal.CompletedLessons != 0 || v.Streak != 1 {
@@ -155,6 +161,16 @@ func TestStepsInAnyOrder(t *testing.T) {
 	// Each step done counts the day, not only the last one (updated 2026-10-19).
 	if keys, _ := e.days.CompletedKeys(t.Context(), "u1"); len(keys) != 1 {
 		t.Fatalf("days before the last step = %v", keys)
+	}
+	// Speak, Grammar, Vocab: the lesson is still not completed.
+	for _, s := range []Step{StepSpeak, StepGrammar, StepVocab} {
+		if v, err = e.svc.CompleteStep(t.Context(), "u1", "f1", s); err != nil || v.Status != LessonStudying ||
+			v.Goal.CompletedLessons != 0 {
+			t.Fatalf("%s = %+v, %v", s, v, err)
+		}
+	}
+	if v.CurrentStep != StepRead || v.Steps[StepRead] != StateCurrent {
+		t.Fatalf("before read = %+v", v)
 	}
 	// Read, the last step left, completes the lesson.
 	v, err = e.svc.CompleteStep(t.Context(), "u1", "f1", StepRead)
@@ -232,8 +248,8 @@ func TestSwitchTakesEffectAtOnce(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 	e.setGoal(t, "family")
-	e.studyLesson(t)        // f1
-	e.complete(t, StepRead) // f2 started
+	e.studyLesson(t)         // f1
+	e.complete(t, StepVocab) // f2 started
 	e.setGoal(t, "shopping")
 	if id := e.current(t); id != "s1" {
 		t.Fatalf("after switch = %s", id)
@@ -266,8 +282,8 @@ func TestReturnToOldTopicResumes(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 	e.setGoal(t, "family")
-	e.studyLesson(t)        // f1
-	e.complete(t, StepRead) // f2 started
+	e.studyLesson(t)         // f1
+	e.complete(t, StepVocab) // f2 started
 	e.setGoal(t, "shopping")
 	e.studyLesson(t) // s1
 	e.setGoal(t, "family")

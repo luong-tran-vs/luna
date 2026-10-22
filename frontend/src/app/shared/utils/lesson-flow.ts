@@ -1,22 +1,18 @@
-import { Step, StepState, STEPS } from '../../core/models/study';
+import { Step, STEP_LABELS, StepState, STEPS } from '../../core/models/study';
 
 /**
- * The main steps of a lesson being studied, in order (updated 2026-10-14). The server tracks Đọc,
- * Nghe and Viết; Từ vựng and Luyện nói are only known on this device. A lesson without words or
- * speaking sentences leaves those out on its page; the home page counts all five.
+ * The steps of a lesson being studied, in order (updated 2026-10-22): Từ vựng → Nghe → Đọc → Ngữ
+ * pháp → Nói → Viết, all recorded on the server.
  */
-export type FlowStep = 'words' | Step | 'speak';
-export const LESSON_FLOW: readonly FlowStep[] = ['words', 'read', 'listen', 'speak', 'write'];
+export type FlowStep = Step;
+export const LESSON_FLOW: readonly FlowStep[] = STEPS;
 
-export const FLOW_STEP_NAMES: Record<FlowStep, string> = {
-  words: 'Từ vựng',
-  read: 'Đọc',
-  listen: 'Nghe',
-  speak: 'Luyện nói',
-  write: 'Viết',
-};
+export const FLOW_STEP_NAMES: Record<FlowStep, string> = STEP_LABELS;
 
-/** Where the learner stopped is kept on this device, since the server does not track every step. */
+/**
+ * The step on screen is also kept on this device, so coming back lands on the step left (it may be
+ * one the server has not seen done, e.g. a step skipped with "Để sau").
+ */
 const STEP_KEY = (lessonId: string) => `luna.lesson-step.${lessonId}`;
 
 export function readSavedStep(lessonId: string): string | null {

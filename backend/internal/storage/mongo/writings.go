@@ -27,6 +27,14 @@ type gradeDoc struct {
 	CorrectedText string         `bson:"correctedText"`
 	GradedAt      time.Time      `bson:"gradedAt,omitempty"`
 	Seen          bool           `bson:"seen"`
+	Mistakes      []mistakeDoc   `bson:"mistakes,omitempty"`
+}
+
+type mistakeDoc struct {
+	Original  string `bson:"original"`
+	Corrected string `bson:"corrected"`
+	Type      string `bson:"type"`
+	NoteVi    string `bson:"noteVi"`
 }
 
 type writingDoc struct {
@@ -53,6 +61,9 @@ func fromGrade(g writing.Grade) gradeDoc {
 	for i, c := range g.Criteria {
 		d.Criteria[i] = criterionDoc(c)
 	}
+	for _, m := range g.Mistakes {
+		d.Mistakes = append(d.Mistakes, mistakeDoc(m))
+	}
 	return d
 }
 
@@ -69,6 +80,9 @@ func (d writingDoc) toWriting() writing.Writing {
 		}
 		for i, c := range g.Criteria {
 			w.Grade.Criteria[i] = writing.Criterion(c)
+		}
+		for _, m := range g.Mistakes {
+			w.Grade.Mistakes = append(w.Grade.Mistakes, writing.Mistake(m))
 		}
 	}
 	return w

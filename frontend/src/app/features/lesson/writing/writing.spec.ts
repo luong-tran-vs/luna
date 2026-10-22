@@ -5,6 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
+import { WritingHelp } from '../../../core/models/practice';
 import { LessonWriting, Writing as WritingData } from '../../../core/models/writing';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 import { Writing } from './writing';
@@ -53,7 +54,11 @@ describe('Writing', () => {
     await vi.advanceTimersByTimeAsync(0);
   };
 
-  const setup = async (v: LessonWriting, mode: 'study' | 'review' | null = 'study') => {
+  const setup = async (
+    v: LessonWriting,
+    mode: 'study' | 'review' | null = 'study',
+    extra: { help?: WritingHelp | null; targetWords?: string[] } = {},
+  ) => {
     vi.useFakeTimers();
     notifier.submitted.mockClear();
     notifier.latest.set(null);
@@ -71,6 +76,8 @@ describe('Writing', () => {
     fixture = TestBed.createComponent(Writing);
     fixture.componentRef.setInput('lessonId', 'l1');
     fixture.componentRef.setInput('mode', mode);
+    fixture.componentRef.setInput('help', extra.help ?? null);
+    fixture.componentRef.setInput('targetWords', extra.targetWords ?? []);
     completed = 0;
     fixture.componentInstance.completed.subscribe(() => completed++);
     el = fixture.nativeElement;
@@ -266,6 +273,129 @@ describe('Writing', () => {
     http.expectOne('/lessons/l1/writing').flush(view({ canWrite: false, writing: writing({ grade: done }) }));
     await render();
     expect(text(el.querySelector('.submitted .prompt-label'))).toBe('Bài viết của bạn · không có lỗi cần sửa');
+  });
+
+  describe('with the lesson words and the writing help', () => {
+    const help: WritingHelp = {
+      grammarLabelVi: '1 câu nói về người khác (he / she …)',
+      anyOf: ['he', 'she'],
+      outlineVi: ['Câu 1: nhạc bạn thích.', 'Câu 2: một người thích nhạc.', 'Câu 3: cảm nhận.'],
+      modelAnswer: 'I like pop music. My sister plays loud songs and she sings.',
+    };
+    const targetWords = ['sounds', 'sound', 'loud', 'dance', 'turn on'];
+    const item = (cls: string) => el.querySelector(`.needs-list .${cls}`);
+
+    it('ticks what the text has while typing, without blocking Nộp', async () => {
+      await setup(view(), 'study', { help, targetWords });
+      expect(text(el.querySelector('.needs'))).toContain('Cần có');
+      expect(text(item('need-words'))).toBe('☐Chưa đạt: 3 từ của bài: sound · loud · dance');
+      expect(text(item('need-grammar'))).toBe('☐Chưa đạt: 1 câu nói về người khác (he / she …)');
+      expect(text(item('need-range'))).toBe('☐Chưa đạt: 30–60 từ (đang có 0)');
+
+      await type('The sounds are LOUD and my mother likes them.');
+      fixture.detectChanges();
+      const used = Array.from(el.querySelectorAll('.need-word.used')).map((w) => text(w));
+      expect(used).toEqual(['sound (đã dùng)', 'loud (đã dùng)']);
+      expect(item('need-words')!.classList).not.toContain('done');
+      expect(item('need-grammar')!.classList).not.toContain('done');
+      expect(button('Nộp')!.disabled).toBe(false);
+
+      await type('She dances to the loud sound. ' + words(25));
+      fixture.detectChanges();
+      expect(item('need-words')!.classList).toContain('done');
+      expect(item('need-grammar')!.classList).toContain('done');
+      expect(item('need-range')!.classList).toContain('done');
+      expect(text(item('need-range'))).toBe('☑Đã đạt: 30–60 từ (đang có 31)');
+      await vi.advanceTimersByTimeAsync(1000);
+      http.expectOne('/lessons/l1/writing').flush({ writing: writing({ status: 'draft', grade: null, submittedAt: null }) });
+    });
+
+    it('underlines the lesson words behind the text box', async () => {
+      await setup(view(), 'study', { help, targetWords });
+      await type('Turn on the loud music');
+      fixture.detectChanges();
+      const backdrop = el.querySelector('.backdrop')!;
+      expect(backdrop.getAttribute('aria-hidden')).toBe('true');
+      expect(Array.from(backdrop.querySelectorAll('mark')).map((m) => text(m))).toEqual(['Turn on', 'loud']);
+      expect(textarea()!.classList).toContain('over-backdrop');
+      await vi.advanceTimersByTimeAsync(1000);
+      http.expectOne('/lessons/l1/writing').flush({ writing: writing({ status: 'draft', grade: null, submittedAt: null }) });
+    });
+
+    it('shows the 3-sentence outline on demand', async () => {
+      await setup(view(), 'study', { help, targetWords });
+      expect(el.querySelector('#writing-outline')).toBeNull();
+      const show = button('Xem dàn ý 3 câu')!;
+      expect(show.getAttribute('aria-expanded')).toBe('false');
+      show.click();
+      fixture.detectChanges();
+      expect(Array.from(el.querySelectorAll('#writing-outline li')).map((li) => text(li))).toEqual(help.outlineVi);
+      expect(button('Ẩn dàn ý')!.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('keeps the word range only, without help or lesson words', async () => {
+      await setup(view());
+      expect(item('need-words')).toBeNull();
+      expect(item('need-grammar')).toBeNull();
+      expect(item('need-range')).not.toBeNull();
+      expect(el.querySelector('.backdrop')).toBeNull();
+      expect(el.querySelector('.outline')).toBeNull();
+    });
+
+    it('numbers the tagged mistakes, then shows the model answer and the frequent mistakes', async () => {
+      const graded = writing({
+        text: 'My mother like old songs.',
+        grade: {
+          status: 'done',
+          error: '',
+          criteria: [],
+          average: 3.5,
+          overallVi: 'Bạn dùng được loud.',
+          correctedText: 'My mother likes old songs.',
+          gradedAt: '',
+          mistakes: [{ original: 'like', corrected: 'likes', type: 'verb-s', noteVi: 'my mother = she → likes' }],
+        },
+      });
+      await setup(view({ canWrite: false, writing: graded }), 'review', { help, targetWords });
+      expect(text(el.querySelector('.diff sup'))).toBe('(lỗi 1)');
+      expect(text(el.querySelector('.mistakes li'))).toBe('Động từ thêm -s, lỗi 1 my mother = she → likes');
+      expect(text(el.querySelector('.tip'))).toBe('Bạn dùng được loud.');
+      expect(el.querySelector('.model')).toBeNull();
+
+      button('Xem bài mẫu')!.click();
+      fixture.detectChanges();
+      http.expectOne('/writings/mistakes').flush({
+        mistakes: [
+          { type: 'verb-s', count: 4, examples: [{ original: 'she like', corrected: 'she likes', type: 'verb-s', noteVi: '' }] },
+          {
+            type: 'preposition',
+            count: 2,
+            examples: [{ original: 'listen music', corrected: 'listen to', type: 'preposition', noteVi: '' }],
+          },
+        ],
+      });
+      await render();
+      expect(text(el.querySelector('#model-heading'))).toBe('Bài mẫu A1');
+      expect(Array.from(el.querySelectorAll('.model-text .lesson-word')).map((w) => text(w))).toEqual(['loud']);
+      expect(Array.from(el.querySelectorAll('.model-text .grammar-word')).map((w) => text(w))).toEqual(['she']);
+      expect(text(el.querySelector('.model .legend'))).toBe('Gạch chấm: từ của bài · Tô vàng: ngữ pháp của bài');
+      const rows = Array.from(el.querySelectorAll('.frequent li')).map((li) => text(li));
+      expect(rows).toEqual(['Động từ thêm -s: she like → she likes, 4 lần', 'Giới từ: listen music → listen to, 2 lần']);
+    });
+
+    it('hides the frequent mistakes when they fail to load, and keeps older grades unnumbered', async () => {
+      const graded = writing({
+        grade: { status: 'done', error: '', criteria: [], average: 4, overallVi: '', correctedText: 'My family has four people.', gradedAt: '' },
+      });
+      await setup(view({ canWrite: false, writing: graded }), 'review', { help, targetWords });
+      expect(el.querySelector('.mistakes')).toBeNull();
+      button('Xem bài mẫu')!.click();
+      fixture.detectChanges();
+      http.expectOne('/writings/mistakes').error(new ProgressEvent('error'));
+      await render();
+      expect(el.querySelector('.model')).not.toBeNull();
+      expect(el.querySelector('.frequent')).toBeNull();
+    });
   });
 
   it('says when a past lesson has no writing', async () => {

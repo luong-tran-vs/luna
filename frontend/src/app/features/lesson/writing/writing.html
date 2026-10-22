@@ -22,18 +22,74 @@
       <p class="prompt-text" lang="en">{{ v.prompt }}</p>
 
       @if (editable()) {
+        @if (wordChecks().length || grammarLabel() || suggestion()) {
+          <!-- What the text should have, ticked while typing; only a guide, it does not block Nộp. -->
+          <div class="needs">
+            <p class="needs-title">Cần có</p>
+            <ul class="needs-list">
+              @if (wordChecks().length) {
+                <li class="need-words" [class.done]="wordsDone()">
+                  <span class="box" aria-hidden="true">{{ wordsDone() ? '☑' : '☐' }}</span>
+                  <span
+                    ><span class="visually-hidden">{{ wordsDone() ? 'Đã đạt: ' : 'Chưa đạt: ' }}</span
+                    >{{ wordChecks().length }} từ của bài:
+                    @for (c of wordChecks(); track c.word) {
+                      <span class="need-word" lang="en" [class.used]="c.used"
+                        >{{ c.word }}<span class="visually-hidden">{{ c.used ? ' (đã dùng)' : '' }}</span></span
+                      >@if (!$last) {<span aria-hidden="true"> · </span>}
+                    }
+                  </span>
+                </li>
+              }
+              @if (grammarLabel()) {
+                <li class="need-grammar" [class.done]="grammarDone()">
+                  <span class="box" aria-hidden="true">{{ grammarDone() ? '☑' : '☐' }}</span>
+                  <span
+                    ><span class="visually-hidden">{{ grammarDone() ? 'Đã đạt: ' : 'Chưa đạt: ' }}</span
+                    >{{ grammarLabel() }}</span
+                  >
+                </li>
+              }
+              @if (suggestion(); as s) {
+                <li class="need-range" [class.done]="rangeDone()">
+                  <span class="box" aria-hidden="true">{{ rangeDone() ? '☑' : '☐' }}</span>
+                  <span
+                    ><span class="visually-hidden">{{ rangeDone() ? 'Đã đạt: ' : 'Chưa đạt: ' }}</span
+                    >{{ s.min }}–{{ s.max }} từ (đang có {{ words() }})</span
+                  >
+                </li>
+              }
+            </ul>
+          </div>
+        }
         <div class="field">
           <label class="visually-hidden" for="writing-text">Bài viết của bạn</label>
-          <textarea
-            id="writing-text"
-            rows="8"
-            lang="en"
-            placeholder="Bài viết của bạn…"
-            [value]="text()"
-            [attr.aria-invalid]="!!submitError()"
-            aria-describedby="writing-count writing-status"
-            (input)="onInput($event)"
-          ></textarea>
+          <div class="write-box">
+            @if (targetWords().length) {
+              <!-- The same text, invisible, behind the transparent text box: only its underlines show. -->
+              <div class="backdrop" aria-hidden="true" #backdrop>
+                @for (seg of underlined(); track $index) {
+                  @if (seg.kind === 'plain') {
+                    <span>{{ seg.text }}</span>
+                  } @else {
+                    <mark>{{ seg.text }}</mark>
+                  }
+                }<span>&nbsp;</span>
+              </div>
+            }
+            <textarea
+              id="writing-text"
+              rows="8"
+              lang="en"
+              placeholder="Bài viết của bạn…"
+              [class.over-backdrop]="targetWords().length > 0"
+              [value]="text()"
+              [attr.aria-invalid]="!!submitError()"
+              aria-describedby="writing-count writing-status"
+              (input)="onInput($event)"
+              (scroll)="syncScroll($event)"
+            ></textarea>
+          </div>
           <div class="meta-row">
             <p class="save-status" id="writing-status" aria-live="polite">
               @switch (saveState()) {
@@ -58,6 +114,29 @@
             </p>
           </div>
         </div>
+        @if (outline().length) {
+          <div class="outline">
+            <p class="outline-ask">
+              <span aria-hidden="true">💡</span> Chưa biết viết gì?
+              <button
+                type="button"
+                class="link-btn"
+                aria-controls="writing-outline"
+                [attr.aria-expanded]="outlineOpen()"
+                (click)="outlineOpen.set(!outlineOpen())"
+              >
+                {{ outlineOpen() ? 'Ẩn dàn ý' : 'Xem dàn ý ' + outline().length + ' câu' }}
+              </button>
+            </p>
+            @if (outlineOpen()) {
+              <ol class="outline-list" id="writing-outline">
+                @for (line of outline(); track $index) {
+                  <li>{{ line }}</li>
+                }
+              </ol>
+            }
+          </div>
+        }
         @if (submitError(); as message) {
           <p class="form-alert" role="alert">{{ message }}</p>
         }
@@ -108,21 +187,7 @@
               <p class="prompt-label">
                 Bài viết của bạn{{ fixCount() ? ' · ' + fixCount() + ' chỗ cần sửa' : ' · không có lỗi cần sửa' }}
               </p>
-              <p class="text diff" lang="en">
-                @for (part of marked(); track $index) {
-                  @switch (part.kind) {
-                    @case ('add') {
-                      <ins><span class="visually-hidden">sửa thành: </span>{{ part.word }}</ins>{{ part.gap }}
-                    }
-                    @case ('del') {
-                      <del><span class="visually-hidden">bỏ: </span>{{ part.word }}</del>{{ part.gap }}
-                    }
-                    @default {
-                      <span>{{ part.word }}{{ part.gap }}</span>
-                    }
-                  }
-                }
-              </p>
+              <lu-corrections [text]="w.text" [corrected]="w.grade!.correctedText" [mistakes]="w.grade!.mistakes ?? []" />
               @if (fixCount()) {
                 <p class="legend muted"><del>Gạch đỏ</del>: chỗ sai · <ins>Chữ xanh</ins>: cách viết đúng</p>
               }
@@ -144,6 +209,42 @@
               }
               <a [routerLink]="['/writings', w.id]">Xem bài viết</a>
             </p>
+          }
+          @if (modelOpen()) {
+            @if (modelAnswer()) {
+              <section class="card model" aria-labelledby="model-heading">
+                <div class="step-card-head">
+                  <h3 class="model-title" id="model-heading">Bài mẫu {{ v.level }}</h3>
+                  <span class="muted">{{ modelWords() }} từ</span>
+                </div>
+                <p class="text model-text" lang="en">
+                  @for (seg of modelParts(); track $index) {
+                    @switch (seg.kind) {
+                      @case ('word') {
+                        <span class="lesson-word">{{ seg.text }}</span>
+                      }
+                      @case ('grammar') {
+                        <mark class="grammar-word">{{ seg.text }}</mark>
+                      }
+                      @default {
+                        <span>{{ seg.text }}</span>
+                      }
+                    }
+                  }
+                </p>
+                <p class="legend muted">
+                  <span class="lesson-word">Gạch chấm</span>: từ của bài
+                  @if (grammarLabel()) {
+                    <span>· <mark class="grammar-word">Tô vàng</mark>: ngữ pháp của bài</span>
+                  }
+                </p>
+              </section>
+            }
+            <lu-frequent-mistakes />
+          } @else if (w.grade?.status === 'done' || modelAnswer()) {
+            <button type="button" class="btn see-model" (click)="modelOpen.set(true)">
+              {{ modelAnswer() ? 'Xem bài mẫu' : 'Xem lỗi hay gặp của bạn' }}
+            </button>
           }
           @if (showContinue()) {
             <button type="button" class="btn-primary" (click)="continue()">Tiếp tục</button>

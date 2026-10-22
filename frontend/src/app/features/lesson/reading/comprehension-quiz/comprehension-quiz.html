@@ -6,8 +6,17 @@
     <div class="result-view">
       <lu-asker label="Bạn đã trả lời hết" tone="right">
         <p class="score" id="quiz-result" tabindex="-1">
-          {{ correct() === total() ? '🎉 ' : '' }}Đúng {{ correct() }}/{{ total() }} câu
+          {{ correct() === total() ? '🎉 ' : '' }}Kết quả {{ correct() }}/{{ total() }} đúng
         </p>
+        <!-- The result by kind (2026-10-22): "Ý chính ✓ · Chi tiết ✓✗ …"; none for older questions. -->
+        @if (byKind().length) {
+          <p class="kinds">
+            @for (k of byKind(); track k.name; let last = $last) {
+              <span aria-hidden="true">{{ k.name }} {{ k.marks }}{{ last ? '' : ' · ' }}</span
+              ><span class="visually-hidden">{{ k.label }}{{ last ? '.' : ', ' }}</span>
+            }
+          </p>
+        }
         <p class="score-note">
           {{
             correct() === total()
@@ -22,7 +31,7 @@
             <button type="button" class="score-row" [class.is-wrong]="t.state === 'wrong'" (click)="show(i)">
               <span class="mark" aria-hidden="true"><lu-icon [name]="t.state === 'right' ? 'check' : 'x'" /></span>
               <span class="visually-hidden">{{ t.state === 'right' ? 'Đúng' : 'Sai' }}:&ngsp;</span>
-              <span class="row-text" lang="en">{{ i + 1 }}. {{ t.prompt }}</span
+              <span class="row-text" [attr.lang]="t.vi ? 'vi' : 'en'">{{ i + 1 }}. {{ t.prompt }}</span
               >
               @if (t.state === 'wrong') {
                 &ngsp;<span class="row-go" aria-hidden="true">Xem lại ›</span>
@@ -53,7 +62,7 @@
     </div>
   } @else if (quiz().questions[shown()]; as q) {
     @let i = shown();
-    <!-- One tab per question (design, 2026-10-15): its number, ✓ or ✗ once answered. -->
+    <!-- One tab per question (design, 2026-10-22): its number and kind, ✓ or ✗ once answered. -->
     <ol class="tabs" aria-label="Các câu hỏi">
       @for (t of tabs(); track $index; let k = $index) {
         <li>
@@ -66,10 +75,13 @@
             [attr.aria-current]="k === i ? 'step' : null"
             (click)="show(k)"
           >
-            {{ k + 1 }}
-            @if (t.state !== 'open') {
-              <span class="tab-mark"><lu-icon [name]="t.state === 'right' ? 'check' : 'x'" /></span>
-            }
+            <span class="tab-num">
+              {{ k + 1 }}
+              @if (t.state !== 'open') {
+                <span class="tab-mark"><lu-icon [name]="t.state === 'right' ? 'check' : 'x'" /></span>
+              }
+            </span>
+            <span class="tab-kind">{{ t.kind }}</span>
           </button>
         </li>
       }
@@ -78,21 +90,29 @@
     @let a = byIndex().get(i);
     <!-- The bubble holds the question only: once checked its colour and label change, nothing moves. -->
     <lu-asker
-      [label]="'Câu ' + (i + 1) + '/' + total() + (a ? (a.correct ? ' · ✓ Chính xác' : ' · ✗ Sai rồi') : '')"
+      [label]="'Câu ' + (i + 1) + '/' + total() + (kind().title ? ' · ' + kind().title : '') + (a ? (a.correct ? ' · ✓ Chính xác' : ' · ✗ Sai rồi') : '')"
       [tone]="a ? (a.correct ? 'right' : 'wrong') : null"
     >
-      <p class="prompt" lang="en" tabindex="-1" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
+      <!-- A vocab question quotes the part of the text it is about, then asks in Vietnamese. -->
+      @if (q.quote) {
+        <blockquote class="quote" lang="en">“{{ q.quote }}”</blockquote>
+      }
+      <p class="prompt" [attr.lang]="kind().promptLang" tabindex="-1" [id]="'quiz-q-' + i">{{ q.prompt }}</p>
+      @if (q.promptVi) {
+        <p class="prompt-vi">{{ q.promptVi }}</p>
+      }
     </lu-asker>
 
     @if (a) {
       <ul class="results" [attr.aria-labelledby]="'quiz-q-' + i">
-        @for (o of q.options; track $index; let j = $index) {
-          <li class="result" [class.is-answer]="j === a.answerIndex" [class.is-wrong]="j === a.choice && !a.correct">
+        <!-- In the order shown; o.index is the option's place on the server, as in the answer. -->
+        @for (o of shownOptions()[i]; track o.index; let j = $index) {
+          <li class="result" [class.is-answer]="o.index === a.answerIndex" [class.is-wrong]="o.index === a.choice && !a.correct">
             <span class="letter" aria-hidden="true">{{ letters[j] }}.</span>
-            <span class="result-text" lang="en">{{ o }}</span>
-            @if (j === a.answerIndex) {
-              <span class="tag"><lu-icon name="check" />{{ j === a.choice ? 'Bạn chọn đúng' : 'Đáp án đúng' }}</span>
-            } @else if (j === a.choice) {
+            <span class="result-text" [attr.lang]="kind().optionLang">{{ o.text }}</span>
+            @if (o.index === a.answerIndex) {
+              <span class="tag"><lu-icon name="check" />{{ o.index === a.choice ? 'Bạn chọn đúng' : 'Đáp án đúng' }}</span>
+            } @else if (o.index === a.choice) {
               <span class="tag"><lu-icon name="x" />Bạn chọn</span>
             }
           </li>
@@ -104,17 +124,17 @@
       <button type="button" class="redo" (click)="redo(i)"><lu-icon name="review" /> Trả lời lại câu này</button>
     } @else {
       <div class="options" role="radiogroup" [attr.aria-labelledby]="'quiz-q-' + i" [attr.aria-busy]="sending()">
-        @for (o of q.options; track $index; let j = $index) {
-          <label class="option" [class.picked]="picked() === j">
+        @for (o of shownOptions()[i]; track o.index; let j = $index) {
+          <label class="option" [class.picked]="picked() === o.index">
             <input
               type="radio"
               [name]="'quiz-' + i"
-              [checked]="picked() === j"
+              [checked]="picked() === o.index"
               [disabled]="sending() || changed()"
-              (change)="pick(j)"
+              (change)="pick(o.index)"
             />
             <span class="letter" aria-hidden="true">{{ letters[j] }}.</span>
-            <span lang="en">{{ o }}</span>
+            <span class="option-text" [attr.lang]="kind().optionLang">{{ o.text }}</span>
           </label>
         }
       </div>

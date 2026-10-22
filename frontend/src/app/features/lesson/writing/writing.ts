@@ -4,18 +4,21 @@ import {
   computed,
   DestroyRef,
   effect,
+  ElementRef,
   inject,
   input,
   OnInit,
   output,
   signal,
   untracked,
+  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { countWords } from '../../../core/models/generate';
+import { WritingHelp } from '../../../core/models/practice';
 import {
   CRITERIA_LABELS,
   formatScore,
@@ -28,7 +31,10 @@ import {
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
 import { Icon } from '../../../shared/components/icon/icon';
-import { DiffPart, wordDiff } from '../../../shared/utils/word-diff';
+import { wordDiff } from '../../../shared/utils/word-diff';
+import { Corrections } from '../../writings/corrections/corrections';
+import { FrequentMistakes } from '../../writings/frequent-mistakes/frequent-mistakes';
+import { containsAny, containsWord, pickWords, segments } from './checklist';
 import { loadErrorMessage } from '../load-error';
 import { Loading } from '../../../shared/components/loading/loading';
 
@@ -46,7 +52,7 @@ type SaveState = 'idle' | 'saving' | 'saved' | 'error';
  */
 @Component({
   selector: 'lu-writing',
-  imports: [Loading, Icon, RouterLink],
+  imports: [Loading, Icon, RouterLink, Corrections, FrequentMistakes],
   templateUrl: './writing.html',
   styleUrl: './writing.css',
   host: { '[class.standalone]': 'mode() === null' },
@@ -61,6 +67,10 @@ export class Writing implements OnInit {
   readonly lessonId = input('');
   /** "review" only shows the writing; defaults to ?review=1. */
   readonly mode = input<'study' | 'review' | null>(null);
+  /** The grammar requirement, outline and model answer (six-step lesson, 2026-10-22); null for none. */
+  readonly help = input<WritingHelp | null>(null);
+  /** The lesson's words (texts and lemmas), checked off and underlined as they are used. */
+  readonly targetWords = input<string[]>([]);
   /** Emitted once the writing is submitted (the page then completes the step). */
   readonly completed = output<void>();
   /** Emitted when the learner skips writing (lesson page only; it then finishes the lesson). */
@@ -93,21 +103,44 @@ export class Writing implements OnInit {
   protected readonly writing = computed(() => this.view()?.writing ?? null);
   protected readonly submitted = computed(() => this.writing()?.status === 'submitted');
   /** The graded text against its corrected version, word by word; empty until graded. */
-  protected readonly diff = computed<DiffPart[]>(() => {
+  protected readonly diff = computed(() => {
     const w = this.writing();
     return w?.grade?.status === 'done' ? wordDiff(w.text, w.grade.correctedText) : [];
   });
-  /** The diff with each run's trailing space apart, so the marks stop at the word. */
-  protected readonly marked = computed(() =>
-    this.diff().map((p) => {
-      const word = p.text.trimEnd();
-      return { kind: p.kind, word, gap: p.text.slice(word.length) };
-    }),
-  );
   /** Places to fix: a removal and the addition right after it count as one. */
   protected readonly fixCount = computed(() =>
     this.diff().filter((p, i, all) => p.kind === 'del' || (p.kind === 'add' && all[i - 1]?.kind !== 'del')).length,
   );
+
+  // The "Cần có" checklist while writing (design 6a). It only guides: submitting needs just the word minimum.
+  /** Up to 3 lesson words to use, each ticked once the text has it (or an inflection of it). */
+  protected readonly wordChecks = computed(() => {
+    const text = this.text();
+    return pickWords(this.targetWords()).map((word) => ({ word, used: containsWord(text, word) }));
+  });
+  protected readonly wordsDone = computed(() => this.wordChecks().every((c) => c.used));
+  /** The grammar words; Go may send null for an empty list. */
+  private readonly anyOf = computed(() => this.help()?.anyOf ?? []);
+  protected readonly grammarLabel = computed(() => (this.anyOf().length ? (this.help()?.grammarLabelVi ?? '') : ''));
+  protected readonly grammarDone = computed(() => containsAny(this.text(), this.anyOf()));
+  protected readonly rangeDone = computed(() => {
+    const s = this.suggestion();
+    const n = this.words();
+    return !!s && n >= s.min && n <= s.max;
+  });
+  /** The text behind the (transparent) text box, with the lesson words underlined. */
+  protected readonly underlined = computed(() => segments(this.text(), this.targetWords()));
+  protected readonly outline = computed(() => (this.help()?.outlineVi ?? []).filter((s) => s.trim()));
+  protected readonly outlineOpen = signal(false);
+
+  // After submitting (design 6c): the model answer and the learner's frequent mistakes.
+  protected readonly modelAnswer = computed(() => (this.help()?.modelAnswer ?? '').trim());
+  protected readonly modelParts = computed(() =>
+    segments(this.modelAnswer(), this.targetWords(), this.anyOf()),
+  );
+  protected readonly modelWords = computed(() => countWords(this.modelAnswer()));
+  protected readonly modelOpen = signal(false);
+  private readonly backdrop = viewChild<ElementRef<HTMLElement>>('backdrop');
   protected readonly editable = computed(() => !this.review() && !this.submitted() && !!this.view()?.canWrite);
   protected readonly words = computed(() => countWords(this.text()));
   protected readonly suggestion = computed(() => {
@@ -215,6 +248,14 @@ export class Writing implements OnInit {
       this.submitError.set(body?.fields?.['text'] ?? body?.message ?? 'Chưa nộp được, vui lòng thử lại.');
     } finally {
       this.submitting.set(false);
+    }
+  }
+
+  /** Keeps the underlines behind the text box in line with its scrolled text. */
+  protected syncScroll(event: Event): void {
+    const backdrop = this.backdrop()?.nativeElement;
+    if (backdrop) {
+      backdrop.scrollTop = (event.target as HTMLTextAreaElement).scrollTop;
     }
   }
 

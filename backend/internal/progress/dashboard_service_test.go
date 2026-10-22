@@ -37,15 +37,15 @@ func TestDashboardStudying(t *testing.T) {
 	if v.Lesson == nil || *v.Lesson != (DashboardLesson{ID: "f1", Title: "Family 1", TopicName: "Gia đình", Level: "A1"}) {
 		t.Fatalf("lesson = %+v", v.Lesson)
 	}
-	if v.Steps[StepRead] != StateCurrent || v.Steps[StepListen] != StateLocked || v.CurrentStep != StepRead {
+	if v.Steps[StepVocab] != StateCurrent || v.Steps[StepListen] != StateLocked || v.CurrentStep != StepVocab {
 		t.Fatalf("steps = %v %s", v.Steps, v.CurrentStep)
 	}
-	wantAction(t, v.Action, ActionStart, StepRead)
+	wantAction(t, v.Action, ActionStart, StepVocab)
 
-	e.complete(t, StepRead)
+	e.complete(t, StepVocab)
 	v = e.dashboard(t, "u1")
-	if v.Steps[StepRead] != StateDone || v.Steps[StepListen] != StateCurrent {
-		t.Fatalf("after read steps = %v", v.Steps)
+	if v.Steps[StepVocab] != StateDone || v.Steps[StepListen] != StateCurrent {
+		t.Fatalf("after vocab steps = %v", v.Steps)
 	}
 	wantAction(t, v.Action, ActionContinue, StepListen)
 
@@ -61,7 +61,7 @@ func TestDashboardIsReadOnly(t *testing.T) {
 	e.setGoal(t, "family")
 
 	for range 2 {
-		wantAction(t, e.dashboard(t, "u1").Action, ActionStart, StepRead)
+		wantAction(t, e.dashboard(t, "u1").Action, ActionStart, StepVocab)
 	}
 	if len(e.days.days) != 0 || len(e.progress.rows) != 0 {
 		t.Fatalf("dashboard wrote days %v, progress %v", e.days.days, e.progress.rows)
@@ -129,7 +129,7 @@ func TestDashboardNoGoal(t *testing.T) {
 	if v.Kind != StudyNoGoal || v.Goal != nil || v.Skills != nil || v.Lesson != nil || v.Action != nil {
 		t.Fatalf("no goal = %+v", v)
 	}
-	if v.Streak != 1 || v.TomorrowCards != 1 || len(v.Steps) != 3 || v.Steps[StepRead] != StateLocked {
+	if v.Streak != 1 || v.TomorrowCards != 1 || len(v.Steps) != 6 || v.Steps[StepVocab] != StateLocked {
 		t.Fatalf("no goal numbers = %+v", v)
 	}
 }
@@ -141,10 +141,10 @@ func TestDashboardAfterALesson(t *testing.T) {
 	e.studyLesson(t)
 	// The next lesson is there at once, not tomorrow.
 	v := e.dashboard(t, "u1")
-	if v.Kind != StudyStudying || v.Lesson == nil || v.Lesson.ID != "f2" || v.Streak != 1 || v.CurrentStep != StepRead {
+	if v.Kind != StudyStudying || v.Lesson == nil || v.Lesson.ID != "f2" || v.Streak != 1 || v.CurrentStep != StepVocab {
 		t.Fatalf("after f1 = %+v", v)
 	}
-	wantAction(t, v.Action, ActionStart, StepRead)
+	wantAction(t, v.Action, ActionStart, StepVocab)
 }
 
 func TestDashboardNoNewLesson(t *testing.T) {
@@ -177,7 +177,7 @@ func TestDashboardSkills(t *testing.T) {
 	e.studyLesson(t) // f1
 	e.nextDay(1)
 
-	e.complete(t, StepRead) // f2
+	e.complete(t, StepVocab, StepRead) // f2
 	v := e.dashboard(t, "u1")
 	if *v.Skills != (SkillCounts{Read: 2, Listen: 1, Write: 1, Total: 3}) || v.Goal.CompletedLessons != 1 || v.Streak != 2 {
 		t.Fatalf("after read = %+v %+v", v.Skills, v.Goal)

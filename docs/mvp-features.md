@@ -88,17 +88,20 @@ Vừa mở app, người học thấy ngay 3 thứ: đã đi được bao xa so 
 - **Lỗi sai vào lịch ôn** (cập nhật 2026-10-05): từ làm sai ở phần luyện tập của bài đang học (điền ô trống, câu dịch) thành thẻ đến hạn ngay, hoặc thẻ đã có được kéo về bây giờ (giữ trạng thái FSRS).
 - Vòng lặp vẫn nối các bài học với nhau: từ lưu trong bài sẽ đến hạn ôn ở những ngày sau.
 
-**R4. Thanh tiến trình bài học**
-- Bài học gồm các bước làm theo thứ tự; bước sau chỉ mở khi bước trước xong.
+**R4. Thanh tiến trình bài học** *(sửa 2026-10-22: bài 6 bước, spec 019, design/de-xuat-quy-trinh-bai-hoc.png)*
+- Bài học gồm 6 bước theo thứ tự gợi ý; học bước nào trước cũng được (khoá bước theo thứ tự không áp dụng), bài hoàn thành khi xong cả 6 bước. Cả 6 bước đều lưu trên server.
 
-| Bước | Hoàn thành khi | Có từ |
+| Bước | Nội dung | Hoàn thành khi |
 |---|---|---|
-| Đọc | Đọc hết bài và bấm "Đã đọc xong" | Giai đoạn 1 |
-| Nghe | Chép chính tả hết các câu. Câu sai vẫn tính là xong; tỷ lệ đúng được ghi vào thống kê | Giai đoạn 1 |
-| Viết | Nộp bài viết, không cần chờ AI chấm xong | Giai đoạn 2 |
-| Nói | Shadowing hết các câu | Giai đoạn 3 |
+| Từ vựng | Mỗi màn một từ (ảnh, phiên âm, nghĩa, câu ví dụ), nút "Đã biết"; cuối bước "Nhớ lại nhanh" (nghe → chọn từ, nghĩa → chọn từ). Mọi từ trừ từ "Đã biết" tự vào ôn tập, từ nhớ sai đến hạn ngay | Làm xong lượt nhớ lại |
+| Nghe | Hội thoại riêng của bài (không trùng bài đọc), chưa hiện chữ: lượt 1 câu hỏi ý chính, lượt 2 câu hỏi chi tiết và Đúng/Sai/Không nói đến (A1–A2 hỏi bằng tiếng Việt); rồi chép lại 3 câu ngắn có từ của bài | Chép xong các câu (sai vẫn tính là xong) |
+| Đọc | Câu hỏi dẫn trước khi đọc, từ của bài gạch chấm; 5 câu hỏi 4 dạng (ý chính, chi tiết, Đúng/Sai/Không có, nghĩa từ theo ngữ cảnh bằng tiếng Việt), đáp án đảo chỗ mỗi lần làm | Trả lời hết câu hỏi |
+| Ngữ pháp | Nhận ra cấu trúc trong câu của bài → quy tắc trong một thẻ (bảng chia, lỗi người Việt hay mắc) → 4 bài tập → liên kết sang điểm ngữ pháp đầy đủ | Làm xong bài tập |
+| Nói | Đọc theo 2 câu có âm khó (kèm mẹo phát âm) → trả lời 3 câu hỏi về bản thân có khung gợi ý → AI nhận xét 3 câu (1 request) → mời nói chuyện với Leo | Xong phần trả lời |
+| Viết | Đề viết + danh sách "Cần có" tự đánh dấu (3 từ của bài, yêu cầu ngữ pháp, số từ), dàn ý; sau khi chấm: lỗi gắn nhãn loại, bài mẫu, "Lỗi hay gặp" cộng dồn | Nộp bài (hoặc Bỏ qua, tuỳ chọn) |
 
-- Ở giai đoạn 1, thanh tiến trình chỉ có **Đọc → Nghe** (bước Ôn bỏ từ 2026-10-02). Bước Viết và Nói được thêm vào khi làm xong giai đoạn tương ứng.
+- Luyện thêm (Hội thoại, Điền ô trống, Dịch câu) mở sau bước Đọc.
+- Nội dung các bước mới sinh trong **cùng request luyện tập** sẵn có (không thêm request khi tạo bài); bài cũ được sinh lại phần luyện tập khi khởi động server. Khi bài chưa có nội dung mới, mỗi bước vẫn chạy với phần đang có (chép chính tả cả bài, ghi chú ngữ pháp cũ…).
 - Tiến độ được lưu liên tục. Thoát giữa chừng rồi quay lại thì tiếp tục đúng bước và đúng câu đang làm.
 
 **R5. Hoàn thành bài**

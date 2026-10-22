@@ -37,9 +37,21 @@ export interface TextTurn {
   sentences: number[];
 }
 
+/**
+ * The kind of a comprehension question (added 2026-10-22): the main idea, a detail, true / false /
+ * not in the text (three fixed options), or the meaning of a word in context. '' for questions
+ * written before kinds existed.
+ */
+export type QuizKind = 'gist' | 'detail' | 'tfn' | 'vocab' | '';
+
 /** A question as learners see it: no answer until they answer. */
 export interface QuizQuestion {
+  kind?: QuizKind;
   prompt: string;
+  /** The Vietnamese of an English prompt; empty when there is none. */
+  promptVi?: string;
+  /** For a vocab question: the part of the text it is about. */
+  quote?: string;
   options: string[];
 }
 

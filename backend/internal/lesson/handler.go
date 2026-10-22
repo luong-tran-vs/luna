@@ -140,7 +140,10 @@ type lessonJSON struct {
 }
 
 type questionJSON struct {
+	Kind          string   `json:"kind"`
 	Prompt        string   `json:"prompt"`
+	PromptVi      string   `json:"promptVi"`
+	Quote         string   `json:"quote"`
 	Options       []string `json:"options"`
 	AnswerIndex   int      `json:"answerIndex"`
 	ExplanationVi string   `json:"explanationVi"`

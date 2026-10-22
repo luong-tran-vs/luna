@@ -40,7 +40,13 @@
       </div>
     }
 
-    @if (phase() === 'read' && !tipsHidden()) {
+    <!-- A question to keep in mind while reading (six-step lesson, 2026-10-22). -->
+    @if (phase() === 'read' && guideVi()) {
+      <p class="guide">Đọc để trả lời: <b>{{ guideVi() }}</b></p>
+    }
+
+    <!-- With the lesson's words marked, the legend under the text says how to use it instead. -->
+    @if (phase() === 'read' && !tipsHidden() && marked().size === 0) {
       <p class="tips">
         <span aria-hidden="true">👆</span>&ngsp;<span><b>Chạm từ</b> để tra · <b>giữ câu</b> để dịch</span>
         <button type="button" class="tips-close" aria-label="Ẩn mẹo" (click)="hideTips()">
@@ -65,6 +71,7 @@
                       [attr.data-s]="s"
                       [attr.data-t]="tok.index"
                       [class.saved]="highlighted().has(k)"
+                      [class.target]="marked().has(k)"
                       [class.active]="anchor() !== null && selected()?.sentence === s && tok.index >= selected()!.first && tok.index <= selected()!.last"
                       [attr.tabindex]="focusKey() === k ? 0 : -1"
                       (click)="onWordClick($event, s, tok.index)"
@@ -77,6 +84,9 @@
           </p>
         }
       </article>
+      @if (marked().size > 0) {
+        <p class="legend"><span class="legend-mark">Gạch chấm</span>: từ vừa học · chạm từ để tra · giữ câu để dịch</p>
+      }
       <div #end class="end" aria-hidden="true"></div>
     </div>
 
@@ -99,7 +109,7 @@
           }
           @if (l.quiz; as quiz) {
             <button type="button" class="btn-primary to-quiz" (click)="toQuiz()">
-              {{ review() ? 'Xem câu hỏi' : 'Đọc xong, trả lời ' + quiz.questions.length + ' câu hỏi' }}
+              {{ review() ? 'Xem câu hỏi' : 'Trả lời ' + quiz.questions.length + ' câu hỏi' }}
             </button>
           } @else if (!review()) {
             <button

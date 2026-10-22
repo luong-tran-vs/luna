@@ -1,3 +1,5 @@
+import { GrammarExercise } from './grammar-study';
+
 /** Types for the lesson practice (F17, specs/016-vocab-practice/contracts/practice-api.md). */
 
 /** `none` when the lesson has no practice yet. */
@@ -66,6 +68,97 @@ export interface PracticeView {
   fill: PracticeFill | null;
   grammarTipVi: string;
   translations: PracticeTranslation[];
+  /** The content of the six-step lesson (added 2026-10-22); null for a practice made before it. */
+  steps?: LessonSteps | null;
+  /** The sentences of the Listening step to write down (every sentence for older lessons). */
+  dictation?: DictationItem[];
+  /** The lesson's grammar point (or the one picked for it); '' when none. */
+  grammarPointId?: string;
+  grammarTitleVi?: string;
+}
+
+/** A question on the dialogue of the Listening step; a tfn question has three fixed options. */
+export interface ListenQuestion {
+  kind: 'gist' | 'detail' | 'tfn';
+  prompt: string;
+  /** The Vietnamese of an English prompt, '' when the prompt is Vietnamese already. */
+  promptVi: string;
+  options: string[];
+  answerIndex: number;
+  explanationVi: string;
+  /** The dialogue turn that holds the answer, -1 for the whole dialogue. */
+  turnIndex: number;
+}
+
+/** A sentence of the lesson with the words that show its grammar point. */
+export interface Noticing {
+  sentence: string;
+  highlights: string[];
+}
+
+/** The grammar step: notice, ask why, the rule in one card, a few exercises. */
+export interface GrammarStepContent {
+  titleVi: string;
+  noticing: Noticing[];
+  /** '' when there is no question. */
+  questionVi: string;
+  options: string[];
+  answerIndex: number;
+  explanationVi: string;
+  whenVi: string;
+  table: { subject: string; form: string; negative: string }[];
+  mistakes: { wrong: string; right: string }[];
+  noteVi: string;
+  exercises: GrammarExercise[];
+}
+
+export interface ReadAloud {
+  text: string;
+  tipVi: string;
+}
+
+export interface SpeakQuestion {
+  question: string;
+  questionVi: string;
+  /** An answer frame with "___" for the learner's own words; may be ''. */
+  frame: string;
+}
+
+/** What the Writing step shows next to its prompt. */
+export interface WritingHelp {
+  /** The requirement on the lesson's grammar, '' when none; met when the text has one of anyOf. */
+  grammarLabelVi: string;
+  anyOf: string[];
+  outlineVi: string[];
+  modelAnswer: string;
+}
+
+export interface LessonSteps {
+  listeningQuestions: ListenQuestion[];
+  readingGuideVi: string;
+  grammar: GrammarStepContent | null;
+  readAloud: ReadAloud[];
+  speakQuestions: SpeakQuestion[];
+  writing: WritingHelp | null;
+}
+
+export interface DictationItem {
+  text: string;
+  /** The lesson word the sentence was written for; '' for a sentence of the text. */
+  lemma: string;
+}
+
+/** POST /api/lessons/{id}/speak/check: one answer said aloud, and its check. */
+export interface SpeakAnswer {
+  question: string;
+  said: string;
+}
+
+export interface SpeakResult {
+  said: string;
+  /** Equals said when the answer is fine. */
+  corrected: string;
+  noteVi: string;
 }
 
 /** Practice content as admins see it (GET /api/admin/lessons/{id}). */

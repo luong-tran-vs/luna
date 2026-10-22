@@ -21,10 +21,16 @@ func (s *Service) ProcessPractice(ctx context.Context, j job.Job) error {
 		return job.Permanent(ErrAnnotationNotDone)
 	}
 	words := practiceWords(l)
-	res, err := s.AI.Practice(ctx, ai.PracticeRequest{
+	req := ai.PracticeRequest{
 		Level: string(l.Level), Title: l.Title, Sentences: sentenceTexts(l.Sentences), Words: words,
-		GrammarFocus: grammarFocus(l.GrammarPointID),
-	})
+		GrammarFocus: grammarFocus(l.GrammarPointID), TargetWords: l.TargetWords,
+	}
+	if req.GrammarFocus == nil {
+		if req.GrammarChoices, err = s.grammarChoices(ctx, l.Level, l.TopicID); err != nil {
+			return err
+		}
+	}
+	res, err := s.AI.Practice(ctx, req)
 	if err != nil {
 		if errors.Is(err, ai.ErrNotConfigured) || errors.Is(err, ai.ErrInvalidKey) {
 			return job.Permanent(err)
@@ -35,6 +41,7 @@ func (s *Service) ProcessPractice(ctx context.Context, j job.Job) error {
 	if err != nil {
 		return job.Permanent(err)
 	}
+	p.Steps = CleanSteps(res, l, p.Dialogue)
 	// Not saved when the content or practice changed meanwhile: then there is nothing to do.
 	if _, err := s.Lessons.SavePractice(ctx, l.ID, l.Revision, l.PracticeVersion, p); err != nil {
 		return fmt.Errorf("lesson: save practice: %w", err)
@@ -82,6 +89,41 @@ func (s *Service) QueueMissingPractice(ctx context.Context) (int, error) {
 			continue
 		}
 		if err := s.enqueue(ctx, r.ID, r.Revision, job.TypePractice); err != nil {
+			return queued, err
+		}
+		queued++
+	}
+	return queued, nil
+}
+
+// QueueMissingSteps queues a new practice for every lesson whose practice was made before the
+// six-step lesson (added 2026-10-22) and returns how many were queued. A lesson whose new practice
+// fails is not queued again here: its status is no longer done (the admin can regenerate it).
+func (s *Service) QueueMissingSteps(ctx context.Context) (int, error) {
+	list, err := s.Lessons.List(ctx, Filter{})
+	if err != nil {
+		return 0, fmt.Errorf("lesson: list lessons: %w", err)
+	}
+	queued := 0
+	for _, sum := range list {
+		l, err := s.Lessons.Get(ctx, sum.ID)
+		if errors.Is(err, ErrNotFound) {
+			continue
+		}
+		if err != nil {
+			return queued, fmt.Errorf("lesson: get lesson: %w", err)
+		}
+		if l.PracticeStatus != StatusDone || l.Practice == nil || l.Practice.Steps != nil || len(l.Annotations) == 0 {
+			continue
+		}
+		ok, err := s.Lessons.SetStatus(ctx, l.ID, l.Revision, job.TypePractice, StatusRunning, "")
+		if err != nil {
+			return queued, fmt.Errorf("lesson: set practice status: %w", err)
+		}
+		if !ok {
+			continue
+		}
+		if err := s.enqueue(ctx, l.ID, l.Revision, job.TypePractice); err != nil {
 			return queued, err
 		}
 		queued++

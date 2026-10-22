@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { PracticeView } from '../../core/models/practice';
+import { PracticeView, SpeakAnswer, SpeakResult } from '../../core/models/practice';
 import { AnswerInput, AnswerResult, AskResult, LookupResult, ReadingLesson } from '../../core/models/reading';
 import { LessonVocabulary } from '../../core/models/vocab';
 
@@ -42,5 +42,12 @@ export class ReadingApiService {
   /** The lesson's practice steps (F17); empty when not generated yet. */
   practice(id: string): Observable<PracticeView> {
     return this.http.get<PracticeView>(`/lessons/${id}/practice`);
+  }
+
+  /** Checks the answers said aloud in the Speaking step, in one AI request (added 2026-10-22). */
+  checkSpeaking(id: string, answers: SpeakAnswer[]): Observable<SpeakResult[]> {
+    return this.http
+      .post<{ results: SpeakResult[] }>(`/lessons/${id}/speak/check`, { answers })
+      .pipe(map((r) => r.results));
   }
 }

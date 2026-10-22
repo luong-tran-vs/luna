@@ -5,13 +5,13 @@ import (
 	"testing"
 )
 
-// --- F8: the Write step after Listen ---
+// --- F8: the Write step, the last of the lesson ---
 
-// toWriteStep studies u1's current lesson up to the Write step.
+// toWriteStep studies u1's current lesson up to the Write step, the last one: every other step is done.
 func (e *studyEnv) toWriteStep(t *testing.T) LessonStudyView {
 	t.Helper()
 	id := e.current(t)
-	e.complete(t, StepRead)
+	e.complete(t, StepVocab, StepRead, StepGrammar, StepSpeak)
 	e.finishDictation(t)
 	v, err := e.svc.CompleteStep(t.Context(), "u1", id, StepListen)
 	if err != nil {
@@ -69,7 +69,7 @@ func TestCanWrite(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
 	e.setGoal(t, "family")
-	// Steps complete in any order, so the writing may come before Read and Listen.
+	// Steps complete in any order, so the writing may come before the others.
 	if ok, err := e.svc.CanWrite(t.Context(), "u1", "f1"); err != nil || !ok {
 		t.Fatalf("before the other steps: %v %v", ok, err)
 	}
@@ -128,17 +128,17 @@ func TestSkipWriteBeforeTheOtherSteps(t *testing.T) {
 	e := newStudyEnv()
 	e.setGoal(t, "family")
 
-	// Write may be skipped first; the lesson waits for Read and Listen.
+	// Write may be skipped first; the lesson waits for the other steps.
 	v, err := e.svc.SkipWrite(t.Context(), "u1", "f1")
-	if err != nil || v.Status != LessonStudying || v.CurrentStep != StepRead || v.Steps[StepWrite] != StateDone ||
+	if err != nil || v.Status != LessonStudying || v.CurrentStep != StepVocab || v.Steps[StepWrite] != StateDone ||
 		v.Streak != 0 || v.Goal.CompletedLessons != 0 {
 		t.Fatalf("skip first = %+v, %v", v, err)
 	}
 	if ok, _ := e.svc.CanWrite(t.Context(), "u1", "f1"); ok {
 		t.Fatal("can write after skipping")
 	}
-	if v = e.complete(t, StepRead); v.Status != LessonStudying || v.CurrentStep != StepListen {
-		t.Fatalf("after read = %+v", v)
+	if v = e.complete(t, StepVocab, StepRead, StepGrammar, StepSpeak); v.Status != LessonStudying || v.CurrentStep != StepListen {
+		t.Fatalf("before listen = %+v", v)
 	}
 	e.finishDictation(t)
 	v, err = e.svc.CompleteStep(t.Context(), "u1", "f1", StepListen)

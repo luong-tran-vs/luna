@@ -188,7 +188,7 @@
 }
 
 .counter {
-  font-size: var(--text-xs);
+  font: var(--text-xs) var(--font-ui);
 }
 
 /* Speed and Hiện chữ on one row, under the player. */
@@ -279,7 +279,9 @@
   color: var(--color-primary);
 }
 
-.answer-hint {
+.answer-hint,
+.hints-note,
+.slip-note {
   font: var(--text-xs) var(--font-ui);
   color: var(--color-text-muted);
 }
@@ -532,4 +534,14 @@
 
 .slip-tip {
   font: var(--text-sm) var(--font-ui);
+}
+
+/* Given sentences: Chậm / Từng cụm on, the lesson word slot. */
+.toggle[aria-pressed='true'] {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+
+.slot.lesson-word {
+  border-bottom-color: var(--color-accent);
 }

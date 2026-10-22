@@ -27,20 +27,153 @@
   overflow-wrap: anywhere;
 }
 
-.field textarea {
+/* The text box over a copy of its text that shows only the lesson words' underlines: both must
+   lay the text out the same (font, padding, border width, wrapping, scrollbar gutter). */
+.write-box {
+  position: relative;
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+
+.field textarea,
+.backdrop {
   width: 100%;
-  min-height: 12rem;
   padding: var(--space-2) var(--space-3);
   font: var(--text-reading) var(--font-ui);
-  color: var(--color-text);
-  background: var(--color-bg);
+  letter-spacing: normal;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
   border: 1px solid var(--color-text-muted);
   border-radius: var(--radius-md);
+  scrollbar-gutter: stable;
+}
+
+.field textarea {
+  position: relative;
+  display: block;
+  min-height: 12rem;
+  color: var(--color-text);
+  background: var(--color-bg);
   resize: vertical;
 }
 
+.field textarea.over-backdrop {
+  background: transparent;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: transparent;
+  border-color: transparent;
+  pointer-events: none;
+}
+
+.backdrop mark {
+  color: transparent;
+  background: none;
+  text-decoration: underline 2px var(--color-accent);
+  text-underline-offset: 4px;
+}
+
+/* A red ring instead of a thicker border, which would shift the text off its underlines. */
 .field textarea[aria-invalid='true'] {
-  border: 2px solid var(--color-bad);
+  border-color: var(--color-bad);
+  box-shadow: 0 0 0 1px var(--color-bad);
+}
+
+/* "Cần có": what the text should have, ticked while typing. */
+.needs {
+  padding: var(--space-3);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.needs-title {
+  margin-bottom: var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.needs-list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.needs-list li {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.needs-list .box {
+  color: var(--color-text-muted);
+}
+
+.needs-list .done .box {
+  color: var(--color-ok);
+}
+
+.need-word.used {
+  font-weight: 700;
+  color: var(--color-ok);
+}
+
+.outline-ask {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.link-btn {
+  min-height: 44px;
+  padding: 0 var(--space-1);
+  font: inherit;
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.outline-list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding-left: var(--space-5);
+  font: var(--text-sm) var(--font-ui);
+}
+
+/* The model answer: lesson words dotted, the grammar words in yellow. */
+.model {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.model-title {
+  font: var(--text-lg) var(--font-ui);
+}
+
+.lesson-word {
+  text-decoration: underline dotted 2px var(--color-primary);
+  text-underline-offset: 4px;
+}
+
+.grammar-word {
+  color: inherit;
+  background: color-mix(in srgb, var(--color-warn) 30%, transparent);
+  border-radius: var(--radius-sm);
+}
+
+.see-model {
+  min-height: 44px;
 }
 
 .save-status {
@@ -144,13 +277,7 @@
   color: var(--color-bad);
 }
 
-/* Corrections right in the text: what was wrong struck in red, the right words in green. */
-.diff del {
-  color: var(--color-bad);
-  text-decoration: line-through 2px;
-}
-
-.diff ins,
+/* The legend of the corrections marked in the text (lu-corrections). */
 .legend ins {
   font-weight: 600;
   color: var(--color-ok);

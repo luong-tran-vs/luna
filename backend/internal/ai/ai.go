@@ -20,7 +20,10 @@ type Annotation struct {
 
 // Question is a multiple-choice comprehension question about a lesson (F15).
 type Question struct {
+	Kind          string   `json:"kind"`
 	Prompt        string   `json:"prompt"`
+	PromptVi      string   `json:"promptVi"`
+	Quote         string   `json:"quote"`
 	Options       []string `json:"options"`
 	AnswerIndex   int      `json:"answerIndex"`
 	ExplanationVi string   `json:"explanationVi"`
@@ -172,6 +175,16 @@ type Grade struct {
 	Coherence     Criterion `json:"coherence"`
 	OverallVi     string    `json:"overallVi"`
 	CorrectedText string    `json:"correctedText"`
+	// Mistakes are the corrections, each tagged with a type (added 2026-10-22).
+	Mistakes []GradeMistake `json:"mistakes"`
+}
+
+// GradeMistake is one correction of a graded writing.
+type GradeMistake struct {
+	Original  string `json:"original"`
+	Corrected string `json:"corrected"`
+	Type      string `json:"type"`
+	NoteVi    string `json:"noteVi"`
 }
 
 // Explain always returns ErrNotConfigured.
@@ -214,6 +227,11 @@ type PracticeRequest struct {
 	// GrammarFocus is the lesson's grammar point, used in the dialogue's questions and answers
 	// (added 2026-10-20); nil when the lesson has none.
 	GrammarFocus *GrammarFocus
+	// GrammarChoices are the syllabus points to pick one from when the lesson has none yet (added
+	// 2026-10-22); nil with GrammarFocus.
+	GrammarChoices []GrammarChoice
+	// TargetWords are the lesson's words (lemmas) the steps should use; a subset of Words.
+	TargetWords []string
 }
 
 // Example is an English example sentence for one vocabulary word.
@@ -251,6 +269,15 @@ type Practice struct {
 	Dialogue     Dialogue      `json:"dialogue"`
 	GrammarTipVi string        `json:"grammarTipVi"`
 	Translations []Translation `json:"translations"`
+	// The six-step lesson (added 2026-10-22).
+	ListeningQuestions []ListenQuestion `json:"listeningQuestions"`
+	ReadingGuideVi     string           `json:"readingGuideVi"`
+	GrammarStep        *GrammarStep     `json:"grammarStep"`
+	ReadAloud          []ReadAloud      `json:"readAloud"`
+	SpeakQuestions     []SpeakQuestion  `json:"speakQuestions"`
+	WritingHelp        *WritingHelp     `json:"writingHelp"`
+	// GrammarPointID is the point picked from GrammarChoices; empty otherwise.
+	GrammarPointID string `json:"grammarPointId"`
 }
 
 // AnnotateRequest is a lesson to annotate.

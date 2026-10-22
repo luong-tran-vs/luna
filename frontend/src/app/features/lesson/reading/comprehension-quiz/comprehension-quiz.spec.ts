@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router';
 
 import { errorInterceptor } from '../../../../core/interceptors/error-interceptor';
 import { Quiz, QuizAnswer } from '../../../../core/models/reading';
-import { ComprehensionQuiz, QuizScore } from './comprehension-quiz';
+import { ComprehensionQuiz, optionOrder, QuizScore } from './comprehension-quiz';
 
 const quiz = (answers: QuizAnswer[] = []): Quiz => ({
   version: 3,
@@ -23,6 +23,22 @@ const answer = (questionIndex: number, choice: number, answerIndex: number): Qui
   correct: choice === answerIndex,
   answerIndex,
   explanationVi: `Giải thích ${questionIndex + 1}`,
+});
+
+/** The six-step lesson's questions (2026-10-22): one of each kind but detail. */
+const kinded = (answers: QuizAnswer[] = []): Quiz => ({
+  version: 4,
+  questions: [
+    { kind: 'gist', prompt: 'What is the text about?', promptVi: 'Bài nói về điều gì?', options: ['Music', 'Sport', 'Food', 'Work'] },
+    { kind: 'tfn', prompt: 'The sister plays the guitar.', promptVi: 'Em gái chơi đàn guitar.', options: ['Đúng', 'Sai', 'Không có trong bài'] },
+    {
+      kind: 'vocab',
+      prompt: 'Trong câu này, quiet nghĩa là gì?',
+      quote: '…but sometimes it is quiet.',
+      options: ['chậm', 'nhỏ, khẽ', 'vắng vẻ', 'ít nói'],
+    },
+  ],
+  answers,
 });
 
 /** Every question answered: the first one wrong. */
@@ -43,7 +59,7 @@ describe('ComprehensionQuiz', () => {
   };
   const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const options = () => Array.from(el.querySelectorAll<HTMLInputElement>('.option input'));
-  const optionTexts = () => Array.from(el.querySelectorAll('.option [lang="en"]')).map((o) => text(o));
+  const optionTexts = () => Array.from(el.querySelectorAll('.option .option-text')).map((o) => text(o));
   const prompt = () => text(el.querySelector('.prompt'));
   const label = () => text(el.querySelector('lu-asker .counter'));
   const main = () => el.querySelector<HTMLButtonElement>('.bottom-bar .btn-primary')!;
@@ -101,14 +117,17 @@ describe('ComprehensionQuiz', () => {
     await respond({ answer: answer(i, j, answerIndex), answered: 1, total: 3, correct: 0 });
   };
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    http.verify();
+    vi.restoreAllMocks();
+  });
 
   it('shows the first question with its four options and a tab per question', async () => {
     await setup(quiz());
     expect(prompt()).toBe('Where did we go?');
     expect(label()).toBe('Câu 1/3');
     expect(optionTexts()).toEqual(['Park', 'Home', 'School', 'Work']);
-    expect(tabs().map((t) => text(t))).toEqual(['1', '2', '3']);
+    expect(tabs().map((t) => text(t))).toEqual(['1 Câu', '2 Câu', '3 Câu']);
     expect(tabs().map((t) => t.getAttribute('aria-label'))).toEqual([
       'Câu 1: chưa trả lời',
       'Câu 2: chưa trả lời',
@@ -143,7 +162,7 @@ describe('ComprehensionQuiz', () => {
     expect(results[1].classList).toContain('is-wrong');
     expect(text(el.querySelector('.explanation'))).toBe('Giải thích: Giải thích 1');
     expect(tabs()[0].getAttribute('aria-label')).toBe('Câu 1: sai');
-    expect(text(tabs()[0])).toBe('1');
+    expect(text(tabs()[0])).toBe('1 Câu');
     expect(tabs()[0].querySelector('.tab-mark')).not.toBeNull();
     expect(main().textContent?.trim()).toBe('Câu tiếp theo');
     expect(text(el.querySelector('[aria-live]'))).toBe('Câu 1: Sai.');
@@ -222,7 +241,7 @@ describe('ComprehensionQuiz', () => {
     await click(main());
     expect(fixture.componentInstance.resultShown()).toBe(true);
     expect(el.querySelector('.tabs')).toBeNull();
-    expect(text(el.querySelector('.score'))).toBe('Đúng 2/3 câu');
+    expect(text(el.querySelector('.score'))).toBe('Kết quả 2/3 đúng');
     const rows = Array.from(el.querySelectorAll('.score-row'));
     expect(rows.map((r) => text(r))).toEqual([
       'Sai: 1. Where did we go? Xem lại ›',
@@ -250,7 +269,7 @@ describe('ComprehensionQuiz', () => {
 
   it('says so when every answer is right, with no Làm lại các câu sai', async () => {
     await setup(quiz([answer(0, 0, 0), answer(1, 1, 1), answer(2, 2, 2)]));
-    expect(text(el.querySelector('.score'))).toBe('🎉 Đúng 3/3 câu');
+    expect(text(el.querySelector('.score'))).toBe('🎉 Kết quả 3/3 đúng');
     expect(button('Làm lại các câu sai')).toBeUndefined();
     expect(button('Làm lại tất cả')).toBeDefined();
   });
@@ -295,7 +314,7 @@ describe('ComprehensionQuiz', () => {
     http.expectOne('/lessons/l1/answers').flush({ error: 'internal_error', message: 'x' }, { status: 500, statusText: 'Error' });
     await settle();
     expect(text(el.querySelector('.form-alert'))).toBe('Chưa làm lại được, vui lòng thử lại.');
-    expect(text(el.querySelector('.score'))).toBe('Đúng 2/3 câu');
+    expect(text(el.querySelector('.score'))).toBe('Kết quả 2/3 đúng');
   });
 
   it('does not report completion in review mode, and has no button on the result without a label', async () => {
@@ -331,5 +350,96 @@ describe('ComprehensionQuiz', () => {
     expect(text(el.querySelector('.form-alert'))).toBe('Không gửi được câu trả lời, vui lòng thử lại.');
     expect(options().some((o) => o.disabled)).toBe(false);
     expect(main().textContent?.trim()).toBe('Kiểm tra');
+  });
+
+  describe('kinds and shuffled options', () => {
+    // With Math.random() at 0 the shuffle turns [0, 1, 2, 3] into [1, 2, 3, 0].
+    const setupKinded = async (answers: QuizAnswer[] = []) => {
+      vi.spyOn(Math, 'random').mockReturnValue(0);
+      await setup(kinded(answers));
+    };
+
+    it('labels each tab with its number and kind, and shows the Vietnamese under the prompt', async () => {
+      await setupKinded();
+      expect(tabs().map((t) => text(t))).toEqual(['1 Ý chính', '2 Đ/S/K', '3 Nghĩa từ']);
+      expect(tabs()[0].getAttribute('aria-label')).toBe('Câu 1 · Ý chính: chưa trả lời');
+      expect(label()).toBe('Câu 1/3 · Ý chính của bài');
+      expect(prompt()).toBe('What is the text about?');
+      expect(el.querySelector('.prompt')!.getAttribute('lang')).toBe('en');
+      expect(text(el.querySelector('.prompt-vi'))).toBe('Bài nói về điều gì?');
+    });
+
+    it('shuffles the options but sends the original index, and marks the answer where it is shown', async () => {
+      await setupKinded();
+      expect(optionTexts()).toEqual(['Sport', 'Food', 'Work', 'Music']);
+      await pick(0); // Sport, the second option on the server
+      const req = await respond({ answer: answer(0, 1, 0), answered: 1, total: 3, correct: 0 });
+      expect(req.request.body).toEqual({ version: 4, questionIndex: 0, choice: 1 });
+      const results = Array.from(el.querySelectorAll('.results .result'));
+      expect(results.map((r) => text(r.querySelector('.result-text')))).toEqual(['Sport', 'Food', 'Work', 'Music']);
+      expect(results[0].classList).toContain('is-wrong');
+      expect(results[3].classList).toContain('is-answer');
+      expect(text(results[3])).toContain('Đáp án đúng');
+    });
+
+    it('sends the original index of a right answer picked at a shuffled place', async () => {
+      await setupKinded();
+      await pick(3); // Music
+      const req = await respond({ answer: answer(0, 0, 0), answered: 1, total: 3, correct: 1 });
+      expect(req.request.body.choice).toBe(0);
+      expect(text(el.querySelector('.results .is-answer'))).toContain('Music');
+      expect(text(el.querySelector('.results .is-answer'))).toContain('Bạn chọn đúng');
+    });
+
+    it('keeps the true / false / not given options in their fixed order', async () => {
+      await setupKinded();
+      await click(tabs()[1]);
+      expect(label()).toBe('Câu 2/3 · Đúng, sai hay không có trong bài?');
+      expect(optionTexts()).toEqual(['Đúng', 'Sai', 'Không có trong bài']);
+      await pick(2);
+      const req = await respond({ answer: answer(1, 2, 1), answered: 1, total: 3, correct: 0 });
+      expect(req.request.body.choice).toBe(2);
+      expect(text(el.querySelectorAll('.results .result')[1])).toContain('Đáp án đúng');
+    });
+
+    it('quotes the text over a vocab question asked in Vietnamese', async () => {
+      await setupKinded();
+      await click(tabs()[2]);
+      expect(text(el.querySelector('lu-asker .quote'))).toBe('“…but sometimes it is quiet.”');
+      expect(el.querySelector('.prompt')!.getAttribute('lang')).toBe('vi');
+      expect(el.querySelector('.prompt-vi')).toBeNull();
+      expect(optionTexts()).toEqual(['nhỏ, khẽ', 'vắng vẻ', 'ít nói', 'chậm']);
+    });
+
+    it('gives the result by kind', async () => {
+      await setupKinded([answer(0, 0, 0), answer(1, 2, 1), answer(2, 1, 1)]);
+      expect(text(el.querySelector('.score'))).toBe('Kết quả 2/3 đúng');
+      const marks = Array.from(el.querySelectorAll('.kinds [aria-hidden="true"]')).map((m) => text(m));
+      expect(marks.join(' ')).toBe('Ý chính ✓ · Đ/S/K ✗ · Nghĩa từ ✓');
+      expect(text(el.querySelector('.kinds .visually-hidden'))).toBe('Ý chính: 1/1 đúng,');
+    });
+
+    it('keeps the order of questions without a kind, with no result by kind', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0);
+      await setup(quiz(allAnswered()));
+      expect(el.querySelector('.kinds')).toBeNull();
+      await click(el.querySelector<HTMLButtonElement>('.score-row'));
+      expect(text(el.querySelector('.results .result-text'))).toBe('Park');
+    });
+  });
+});
+
+describe('optionOrder', () => {
+  const q = (kind?: '' | 'gist' | 'tfn') => ({ kind, prompt: 'p', options: ['a', 'b', 'c', 'd'] });
+
+  it('shuffles gist, detail and vocab options', () => {
+    expect(optionOrder(q('gist'), () => 0)).toEqual([1, 2, 3, 0]);
+    expect(optionOrder(q('gist'), () => 0.999).sort()).toEqual([0, 1, 2, 3]);
+  });
+
+  it('keeps true / false / not given and older questions in order', () => {
+    expect(optionOrder(q('tfn'), () => 0)).toEqual([0, 1, 2, 3]);
+    expect(optionOrder(q(''), () => 0)).toEqual([0, 1, 2, 3]);
+    expect(optionOrder(q(), () => 0)).toEqual([0, 1, 2, 3]);
   });
 });

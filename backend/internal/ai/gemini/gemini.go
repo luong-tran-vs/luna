@@ -69,12 +69,15 @@ var annotateSchema = map[string]any{
 			"items": map[string]any{
 				"type": "OBJECT",
 				"properties": map[string]any{
+					"kind":          map[string]any{"type": "STRING", "enum": []string{"gist", "detail", "tfn", "vocab"}},
 					"prompt":        map[string]any{"type": "STRING"},
+					"promptVi":      map[string]any{"type": "STRING"},
+					"quote":         map[string]any{"type": "STRING"},
 					"options":       stringArray,
 					"answerIndex":   map[string]any{"type": "INTEGER"},
 					"explanationVi": map[string]any{"type": "STRING"},
 				},
-				"required": []string{"prompt", "options", "answerIndex", "explanationVi"},
+				"required": []string{"kind", "prompt", "options", "answerIndex", "explanationVi"},
 			},
 		},
 		"grammarNote": map[string]any{
@@ -125,8 +128,24 @@ var gradeSchema = map[string]any{
 		"coherence":     criterionSchema,
 		"overallVi":     map[string]any{"type": "STRING"},
 		"correctedText": map[string]any{"type": "STRING"},
+		"mistakes": map[string]any{
+			"type": "ARRAY",
+			"items": map[string]any{
+				"type": "OBJECT",
+				"properties": map[string]any{
+					"original":  map[string]any{"type": "STRING"},
+					"corrected": map[string]any{"type": "STRING"},
+					"type": map[string]any{"type": "STRING", "enum": []string{
+						"word-order", "plural", "to-be", "verb-s", "tense", "verb-form", "article", "preposition",
+						"word-choice", "spelling", "other",
+					}},
+					"noteVi": map[string]any{"type": "STRING"},
+				},
+				"required": []string{"original", "corrected", "type", "noteVi"},
+			},
+		},
 	},
-	"required": []string{"task", "grammar", "vocabulary", "coherence", "overallVi", "correctedText"},
+	"required": []string{"task", "grammar", "vocabulary", "coherence", "overallVi", "correctedText", "mistakes"},
 }
 
 // explainSchema forces the base form, the meaning in context and a short note (F9).
@@ -413,15 +432,21 @@ For each item return:
 - sentenceIndex: the number of the sentence containing it.
 Do not invent text that is not in the sentences.
 
-2. questions: 3 to 5 multiple-choice questions in English that check understanding of the lesson,
-at CEFR %[1]s. Each has a prompt, exactly 4 different options, answerIndex (0 to 3) of the only
-correct option, and explanationVi: a short Vietnamese explanation of why that option is right.
-The questions must be of different kinds. At most one may ask for a plain detail (who, what, when,
-where). At least one must ask what a word or phrase of the lesson means as used there (for example
-'In the lesson, what does "get dressed" mean?', with options in English). At least one must need a
-simple inference or a reason (why, how, or what you can tell about a person). explanationVi must say why
-the answer is right; you may quote the sentence but you must add the reason. Never refer to a sentence
-by its number (the learner does not see the numbers): quote it instead.
+2. questions: exactly 5 questions that check understanding of the lesson at CEFR %[1]s, of these
+kinds, in this order (kind is the name in brackets):
+- 1 [gist]: what the text is mainly about or what you can tell about the person; 4 options.
+- 2 [detail]: one fact of the text, one of them needing a simple reason or inference (why, how); 4 options.
+- 1 [tfn]: prompt is one English statement about the text; options empty; answerIndex 0 when the text
+  says it, 1 when the text says the opposite or something else, 2 when the text does not talk about it.
+- 1 [vocab]: what a word or phrase of the lesson means as used there; quote is the part of the
+  sentence that holds it, copied exactly; prompt is in Vietnamese ('Trong câu này, "quiet" nghĩa là gì?')
+  and the 4 options are Vietnamese meanings, the wrong ones being other meanings of the same word or
+  meanings that fit the sentence badly.
+Gist, detail and tfn prompts and options are in English; promptVi is the Vietnamese translation of
+an English prompt (empty for vocab). Wrong options are plausible, never silly, and the right answer
+is at different positions across the questions. explanationVi must say why the answer is right and,
+for tfn, why it is not one of the two others; you may quote the sentence but you must add the
+reason. Never refer to a sentence by its number (the learner does not see the numbers): quote it instead.
 
 %[3]s
 4. writingPrompt: one short English writing task related to the lesson, suitable for CEFR %[1]s.
@@ -510,6 +535,11 @@ story line after line.
 `)
 	} else {
 		b.WriteString("Form: a reading text in plain paragraphs (no dialogue lines).\n")
+		// Added 2026-10-22: the grammar step works on the lesson's own sentences, so a text told only
+		// with "I" never shows the third person, negatives or questions.
+		b.WriteString("Do not tell the whole text with \"I\": give at least one short paragraph about another person " +
+			"(a friend or a family member, with he or she), and use at least one negative sentence and, where it fits, " +
+			"one question.\n")
 	}
 	if req.Idea != "" {
 		fmt.Fprintf(&b, "Use this idea as inspiration: %s\n", req.Idea)
@@ -556,13 +586,23 @@ func gradePrompt(req ai.GradeRequest) string {
 	fmt.Fprintf(&b, `You are an English teacher grading a short writing by a Vietnamese learner at CEFR level %s.
 The learner read the lesson below, then wrote about the writing task.
 Grade each criterion with an integer score from 1 to 5 (1 = very weak, 5 = excellent for this level):
-- task: does the writing answer the task and use the lesson?
-- grammar: accuracy of grammar,
-- vocabulary: range and correct use of words,
+- task: does the writing answer the task and use the lesson? Only the content counts here, never grammar.
+- grammar: accuracy of grammar: word order, verb forms and endings (-s, -ed, -ing), tenses, the verb
+  "to be", singular and plural, articles, prepositions after verbs.
+- vocabulary: range and correct choice of words (a wrong word, a word that does not fit); not grammar.
 - coherence: organisation and linking of ideas.
+Put each mistake under the one criterion it belongs to (for example "I very like" is word order, so
+grammar; "songs" for "song" is plural, so grammar) and never quote it under another criterion.
 For each criterion write commentVi: a short, specific comment in Vietnamese with one or two examples
-quoted from the learner's writing. Also write overallVi: two or three sentences of advice in Vietnamese.
+quoted from the learner's writing. Also write overallVi: two or three sentences in Vietnamese that
+first name one concrete thing the learner did well (quote it), then give the most useful advice. Do
+not call the writing very good when it has many mistakes for the level.
 correctedText: the learner's writing with minimal corrections, keeping their ideas and structure.
+mistakes: every correction made in correctedText, in text order: original is the learner's words that
+changed (empty when words were only added), corrected is the new words, type is one of word-order,
+plural, to-be (missing or wrong am/is/are/was/were), verb-s (missing or extra -s/-es of the present simple),
+tense, verb-form (other wrong verb forms, e.g. "before go"), article, preposition, word-choice,
+spelling, other; noteVi is one short Vietnamese sentence giving the rule.
 Plain text only, no markdown.
 
 Writing task: %s
@@ -627,11 +667,11 @@ another: turn them into questions and answers.
 5. translations: 3 to 5 short, simple Vietnamese sentences (vi), each with one correct English translation (en)
 that uses at least one vocabulary item and, where possible, follows the wording of a lesson sentence, and 3 or 4 distractors: single English words that are not in en
 but could tempt the learner.
-
+%[4]s
 Plain text only, no markdown.
 
 Lesson sentences:
-`, req.Level, req.Title, practiceGrammar(req))
+`, req.Level, req.Title, practiceGrammar(req), stepsPrompt(req))
 	for i, s := range req.Sentences {
 		fmt.Fprintf(&b, "%d: %s\n", i, s)
 	}

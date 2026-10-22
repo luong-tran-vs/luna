@@ -105,6 +105,24 @@ describe('WritingDetail', () => {
     expect(el.querySelector('.diff ins .visually-hidden')).not.toBeNull();
     expect(text(el.querySelector('.legend'))).toBe('Gạch chân: thêm · Gạch ngang: bớt');
     expect(notifier.markSeen).toHaveBeenCalledWith('w1');
+    // An older grade has no tagged mistakes: no numbers, no list.
+    expect(el.querySelector('.diff sup')).toBeNull();
+    expect(el.querySelector('.mistakes')).toBeNull();
+  });
+
+  it('numbers the tagged mistakes in the diff and lists them with their tags', async () => {
+    await setup(
+      writing({
+        ...done,
+        mistakes: [
+          { original: 'have', corrected: 'has', type: 'verb-s', noteVi: 'my family = it → has' },
+          { original: 'people', corrected: 'members', type: 'word-choice', noteVi: 'members hợp hơn' },
+        ],
+      }),
+    );
+    expect(Array.from(el.querySelectorAll('.diff sup')).map((s) => text(s))).toEqual(['(lỗi 1)', '(lỗi 2)']);
+    const items = Array.from(el.querySelectorAll('.mistakes li')).map((li) => text(li));
+    expect(items).toEqual(['Động từ thêm -s, lỗi 1 my family = it → has', 'Dùng từ, lỗi 2 members hợp hơn']);
   });
 
   it('shows the grading in progress and reloads when the result arrives', async () => {

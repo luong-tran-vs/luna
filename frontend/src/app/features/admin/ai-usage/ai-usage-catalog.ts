@@ -2,7 +2,7 @@
 export const OP_LABELS: Readonly<Record<string, string>> = {
   generate: 'Sinh bài học',
   annotate: 'Chú thích bài',
-  practice: 'Luyện tập từ vựng',
+  practice: 'Luyện tập và 6 bước của bài',
   glosses: 'Nghĩa trong bài (tra từ)',
   image: 'Sinh ảnh từ vựng',
   lesson_review: 'Kiểm tra bài',
@@ -15,6 +15,7 @@ export const OP_LABELS: Readonly<Record<string, string>> = {
   grade: 'Chấm bài viết',
   talk: 'Luyện nói với AI (lượt đáp)',
   talk_review: 'Luyện nói với AI (nhận xét)',
+  speak_check: 'Nhận xét bước Nói',
 };
 
 export function opLabel(op: string): string {
@@ -62,7 +63,11 @@ export const FEATURE_COSTS: readonly FeatureGroup[] = [
     title: 'Tự chạy sau khi lưu bài',
     rows: [
       { feature: 'Chú thích bài (nghĩa, câu hỏi, ngữ pháp, đề viết)', where: 'Job nền', requests: '1' },
-      { feature: 'Luyện tập từ vựng', where: 'Job nền', requests: '1' },
+      {
+        feature: 'Luyện tập và nội dung 6 bước (câu hỏi nghe, ngữ pháp, nói, gợi ý viết)',
+        where: 'Job nền; bài cũ được sinh lại khi khởi động server',
+        requests: '1',
+      },
       {
         feature: 'Nghĩa trong bài của mọi từ (popup tra từ)',
         where: 'Job nền; bài cũ được bổ sung khi khởi động server',
@@ -76,6 +81,7 @@ export const FEATURE_COSTS: readonly FeatureGroup[] = [
     rows: [
       { feature: 'Hỏi nghĩa từ trong bài', where: 'Bài đọc', requests: '1 lần đầu; 0 khi đã có người hỏi' },
       { feature: 'Nộp bài viết / Chấm lại', where: 'Bước Viết', requests: '1' },
+      { feature: 'Nhận xét các câu trả lời nói', where: 'Bước Nói', requests: '1 (tối đa 5 lần mỗi bài mỗi ngày)' },
       { feature: 'Luyện nói với AI: mở buổi, mỗi lượt đáp', where: 'Ôn tập', requests: '1 mỗi lượt (tối đa 21 mỗi buổi)' },
       { feature: 'Luyện nói với AI: nhận xét cuối buổi', where: 'Ôn tập', requests: '1' },
       { feature: 'Đọc, nghe, ôn thẻ, bài tập, điền từ, dịch câu', where: '', requests: '0' },

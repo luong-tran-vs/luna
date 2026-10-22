@@ -1,0 +1,264 @@
+.soft-card {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.sub {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.step-hint {
+  margin-top: calc(-1 * var(--space-2));
+}
+
+/* "Đọc theo": the sentence, coloured by how each word was heard once read. */
+.sentence {
+  font: var(--text-lg) var(--font-ui);
+  line-height: 34px;
+}
+
+.w.ok {
+  color: var(--color-ok);
+}
+
+.w.close {
+  color: var(--color-warn);
+  text-decoration: underline dotted 2px var(--color-warn);
+  text-underline-offset: 5px;
+}
+
+.w.miss {
+  color: var(--color-bad);
+  text-decoration: underline 2px var(--color-bad);
+  text-underline-offset: 5px;
+}
+
+.tip {
+  padding: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  background: color-mix(in srgb, var(--color-bad) 8%, var(--color-surface));
+  border-radius: var(--radius-md);
+}
+
+/* Side buttons around the microphone (Mẫu · mic · Giọng tôi, Gõ · mic · Nói lại). */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.side {
+  min-height: 44px;
+  gap: var(--space-1);
+
+  --icon-size: 18px;
+}
+
+.mic {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 6px var(--color-primary-soft);
+  cursor: pointer;
+
+  --icon-size: 28px;
+}
+
+.mic.recording {
+  background: var(--color-bad);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-bad) 20%, transparent);
+}
+
+.mic:disabled {
+  color: var(--color-text-muted);
+  background: var(--color-track);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  text-align: center;
+}
+
+.status:empty {
+  display: none;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-bad);
+  border-radius: var(--radius-full);
+}
+
+/* "Trả lời": Leo asks in a bubble. */
+.ask {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.avatar {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  object-position: 50% 0;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.bubble {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-lg);
+}
+
+.q {
+  font: var(--text-lg) var(--font-ui);
+  font-weight: 700;
+}
+
+.icon-btn.small {
+  background: var(--color-surface);
+}
+
+.q-vi {
+  margin-top: calc(-1 * var(--space-2));
+  padding-left: calc(56px + var(--space-3));
+}
+
+.frame {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.frame-title {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.blank {
+  display: inline-block;
+  width: 3em;
+  margin: 0 var(--space-1);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.said,
+.type-box {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.said {
+  padding: var(--space-3);
+  background: var(--color-track);
+  border-radius: var(--radius-md);
+}
+
+.type-box textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  resize: vertical;
+}
+
+/* Summary: each answer, the correction with what to add highlighted. */
+.answers {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.answers li {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.was s {
+  text-decoration: line-through 2px var(--color-bad);
+}
+
+.add {
+  font-weight: 700;
+  color: inherit;
+  background: none;
+  text-decoration: underline 2px var(--color-ok);
+  text-underline-offset: 4px;
+}
+
+.tick {
+  color: var(--color-ok);
+
+  --icon-size: 16px;
+}
+
+.talk {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-3);
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+.talk .avatar {
+  width: 48px;
+  height: 48px;
+}
+
+.talk-text {
+  display: grid;
+  flex: 1;
+  gap: var(--space-1);
+}

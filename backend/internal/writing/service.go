@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"slices"
 	"strings"
 	"time"
 	"unicode/utf8"
@@ -203,6 +204,55 @@ func (s *Service) List(ctx context.Context, userID string) ([]Summary, error) {
 			out[i].GradeStatus, out[i].Average, out[i].Seen = w.Grade.Status, Average(w.Grade), w.Grade.Seen
 		}
 	}
+	return out, nil
+}
+
+// MistakeStat is how often the learner made one type of mistake in their graded writings, with
+// the latest examples.
+type MistakeStat struct {
+	Type     string
+	Count    int
+	Examples []Mistake
+}
+
+// maxMistakeExamples is how many examples of a mistake type are kept.
+const maxMistakeExamples = 3
+
+// Mistakes adds up the tagged corrections of the learner's graded writings by type (added
+// 2026-10-22), the most frequent first; "other" and spelling are left out, they do not teach a rule.
+func (s *Service) Mistakes(ctx context.Context, userID string) ([]MistakeStat, error) {
+	list, err := s.d.Repo.List(ctx, userID)
+	if err != nil {
+		return nil, fmt.Errorf("writing: list: %w", err)
+	}
+	byType := map[string]*MistakeStat{}
+	var order []string
+	// List is newest first, so the examples kept are the latest.
+	for _, w := range list {
+		if w.Grade == nil || w.Grade.Status != GradeDone {
+			continue
+		}
+		for _, m := range w.Grade.Mistakes {
+			if m.Type == MistakeOther || m.Type == MistakeSpelling {
+				continue
+			}
+			st, ok := byType[m.Type]
+			if !ok {
+				st = &MistakeStat{Type: m.Type}
+				byType[m.Type] = st
+				order = append(order, m.Type)
+			}
+			st.Count++
+			if len(st.Examples) < maxMistakeExamples {
+				st.Examples = append(st.Examples, m)
+			}
+		}
+	}
+	out := make([]MistakeStat, 0, len(order))
+	for _, t := range order {
+		out = append(out, *byType[t])
+	}
+	slices.SortStableFunc(out, func(a, b MistakeStat) int { return b.Count - a.Count })
 	return out, nil
 }
 

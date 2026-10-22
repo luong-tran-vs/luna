@@ -59,6 +59,8 @@ type Practice struct {
 	Dialogue     *Dialogue
 	GrammarTipVi string
 	Translations []Translation
+	// Steps is the content of the six-step lesson (added 2026-10-22); nil for a practice made before.
+	Steps *Steps
 }
 
 // practiceWords lists the lesson's annotated words for the AI, one per normalized lemma in the

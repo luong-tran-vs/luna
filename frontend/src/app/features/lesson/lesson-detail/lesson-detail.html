@@ -143,7 +143,7 @@
                 <p class="info-label">Luyện thêm (tuỳ chọn)</p>
                 @if (!extrasOpen()) {
                   <p class="muted extras-note" id="extras-note">
-                    <lu-icon name="lock" /> Mở sau khi xong bước Nghe
+                    <lu-icon name="lock" /> Mở sau khi xong bước Đọc
                   </p>
                 }
                 <div class="chips">
@@ -263,7 +263,7 @@
           />
         } @else {
           @switch (onScreen()) {
-            @case ('words') {
+            @case ('vocab') {
               <lu-vocab-step
                 [number]="step()"
                 [topic]="l.topic"
@@ -271,8 +271,10 @@
                 [examples]="practice()?.examples ?? []"
                 [finishLabel]="finishLabel()"
                 [lessonId]="id()"
+                [canBack]="canBack()"
+                (back)="goBack()"
                 (readAloud)="play($event)"
-                (done)="next()"
+                (done)="onVocabDone($event)"
               />
             }
             @case ('dialogue') {
@@ -323,13 +325,42 @@
               />
             }
             @case ('speak') {
-              <lu-speak-step
+              @if (learning()) {
+                <lu-speak-lesson
+                  [lessonId]="id()"
+                  [topicId]="study()?.goal?.topicId ?? ''"
+                  [topicName]="l.topic"
+                  [readAloud]="speakReadAloud()"
+                  [fallbackSentences]="speakSentences()"
+                  [questions]="speakQuestions()"
+                  [number]="step()"
+                  [finishLabel]="finishLabel()"
+                  [canBack]="canBack()"
+                  (back)="goBack()"
+                  (done)="finishStep('speak')"
+                />
+              } @else {
+                <lu-speak-step
+                  [number]="step()"
+                  [sentences]="speakSentences()"
+                  [finishLabel]="finishLabel()"
+                  [canBack]="canBack()"
+                  (back)="goBack()"
+                  (done)="practiceDone('speak')"
+                />
+              }
+            }
+            @case ('grammar') {
+              <lu-grammar-step
+                [content]="practice()?.steps?.grammar ?? null"
+                [note]="l.grammarNote"
+                [grammarPointId]="practice()?.grammarPointId || l.grammarPointId || ''"
+                [grammarTitleVi]="practice()?.grammarTitleVi || l.grammarPointTitle || ''"
                 [number]="step()"
-                [sentences]="speakSentences()"
                 [finishLabel]="finishLabel()"
                 [canBack]="canBack()"
                 (back)="goBack()"
-                (done)="practiceDone('speak')"
+                (done)="finishStep('grammar')"
               />
             }
             @case ('read') {
@@ -337,6 +368,7 @@
                 <lu-reading
                   [lessonId]="id()"
                   mode="review"
+                  [targetWords]="targetWords()"
                   [number]="step()"
                   [canBack]="canBack()"
                   [nextLabel]="barMain()?.label ?? ''"
@@ -348,6 +380,8 @@
                   [lessonId]="id()"
                   [startSentence]="study()?.sentenceIndex ?? null"
                   mode="study"
+                  [guideVi]="practice()?.steps?.readingGuideVi ?? ''"
+                  [targetWords]="targetWords()"
                   [number]="step()"
                   [canBack]="canBack()"
                   [laterLabel]="barMain()?.leave ? barMain()!.label : ''"
@@ -361,14 +395,27 @@
             }
             @case ('listen') {
               @if (studyStepDone()) {
-                <lu-listening [lessonId]="id()" mode="review" [nextLabel]="barMain()?.label ?? ''" (leave)="next()" />
-              } @else {
-                <lu-listening
+                <lu-listen-step
                   [lessonId]="id()"
+                  [practice]="practice()"
+                  mode="review"
+                  [number]="step()"
+                  [canBack]="canBack()"
+                  [nextLabel]="barMain()?.label ?? ''"
+                  (back)="goBack()"
+                  (leave)="next()"
+                />
+              } @else {
+                <lu-listen-step
+                  [lessonId]="id()"
+                  [practice]="practice()"
                   [startSentence]="study()?.sentenceIndex ?? null"
                   mode="study"
+                  [number]="step()"
+                  [canBack]="canBack()"
                   [laterLabel]="barMain()?.leave ? barMain()!.label : ''"
                   [nextLabel]="isLast() ? 'Hoàn thành' : 'Sang bước ' + nextName()"
+                  (back)="goBack()"
                   (leave)="next()"
                   (completed)="complete('listen')"
                   (position)="savePosition('listen', $event)"
@@ -387,11 +434,13 @@
                 </aside>
               }
               @if (studyStepDone()) {
-                <lu-writing [lessonId]="id()" mode="review" />
+                <lu-writing [lessonId]="id()" mode="review" [help]="practice()?.steps?.writing ?? null" [targetWords]="targetWords()" />
               } @else {
                 <lu-writing
                   [lessonId]="id()"
                   mode="study"
+                  [help]="practice()?.steps?.writing ?? null"
+                  [targetWords]="targetWords()"
                   (completed)="complete('write')"
                   (skipped)="skipWrite()"
                 />

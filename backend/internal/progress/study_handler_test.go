@@ -91,8 +91,8 @@ func TestStudyEndpoints(t *testing.T) {
 	r := do(t, mux, http.MethodGet, "/api/lessons/f1/study", "an", "")
 	b := body(t, r)
 	steps := b["steps"].(map[string]any)
-	if r.code != http.StatusOK || b["status"] != "studying" || b["currentStep"] != "read" || steps["read"] != "current" ||
-		steps["listen"] != "locked" || len(steps) != 3 || b["next"] != nil || b["goal"].(map[string]any)["topicId"] != "family" ||
+	if r.code != http.StatusOK || b["status"] != "studying" || b["currentStep"] != "vocab" || steps["vocab"] != "current" ||
+		steps["listen"] != "locked" || steps["read"] != "locked" || len(steps) != 6 || b["next"] != nil || b["goal"].(map[string]any)["topicId"] != "family" ||
 		b["streak"] != 0.0 {
 		t.Fatalf("study: %d %s", r.code, r.text)
 	}
@@ -107,7 +107,7 @@ func TestStudyEndpoints(t *testing.T) {
 		want        string
 	}{
 		{"/api/lessons/f1/steps/listen/complete", "an", http.StatusConflict, `"listen_incomplete"`},
-		{"/api/lessons/f1/steps/speak/complete", "an", http.StatusBadRequest, `"step"`},
+		{"/api/lessons/f1/steps/dance/complete", "an", http.StatusBadRequest, `"step"`},
 		{"/api/lessons/f2/steps/read/complete", "an", http.StatusConflict, `"not_current_lesson"`},
 		{"/api/lessons/f1/steps/read/complete", "binh", http.StatusConflict, `"not_current_lesson"`},
 		{"/api/lessons/f1/steps/read/complete", "", http.StatusUnauthorized, ""},
@@ -118,12 +118,12 @@ func TestStudyEndpoints(t *testing.T) {
 		}
 	}
 
-	if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", `{"step":"read","sentenceIndex":2}`); r.code != http.StatusNoContent {
+	if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", `{"step":"vocab","sentenceIndex":2}`); r.code != http.StatusNoContent {
 		t.Fatalf("position: %d %s", r.code, r.text)
 	}
 	for payload, code := range map[string]int{
-		`{"step":"read","sentenceIndex":-1}`:      http.StatusBadRequest,
-		`{"step":"read","sentenceIndex":1,"x":1}`: http.StatusBadRequest,
+		`{"step":"vocab","sentenceIndex":-1}`:      http.StatusBadRequest,
+		`{"step":"vocab","sentenceIndex":1,"x":1}`: http.StatusBadRequest,
 	} {
 		if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", payload); r.code != code {
 			t.Fatalf("%s: %d %s", payload, r.code, r.text)
@@ -133,9 +133,9 @@ func TestStudyEndpoints(t *testing.T) {
 		t.Fatalf("saved position: %s", r.text)
 	}
 
-	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/read/complete", "an", "")
+	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/vocab/complete", "an", "")
 	// A done step takes no position.
-	if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", `{"step":"read","sentenceIndex":1}`); r.code != http.StatusConflict ||
+	if r := do(t, mux, http.MethodPut, "/api/lessons/f1/position", "an", `{"step":"vocab","sentenceIndex":1}`); r.code != http.StatusConflict ||
 		!strings.Contains(r.text, `"not_current_step"`) {
 		t.Fatalf("position of a done step: %d %s", r.code, r.text)
 	}
@@ -144,8 +144,17 @@ func TestStudyEndpoints(t *testing.T) {
 	}
 	e.finishDictation(t)
 	r = do(t, mux, http.MethodPost, "/api/lessons/f1/steps/listen/complete", "an", "")
-	if !strings.Contains(r.text, `"currentStep":"write"`) || !strings.Contains(r.text, `"status":"studying"`) {
+	if !strings.Contains(r.text, `"currentStep":"read"`) || !strings.Contains(r.text, `"status":"studying"`) {
 		t.Fatalf("listen: %s", r.text)
+	}
+	// Read, grammar and speaking (no requirement for the last two) lead to the writing.
+	for _, s := range []string{"read", "grammar", "speak"} {
+		if r = do(t, mux, http.MethodPost, "/api/lessons/f1/steps/"+s+"/complete", "an", ""); r.code != http.StatusOK {
+			t.Fatalf("%s: %d %s", s, r.code, r.text)
+		}
+	}
+	if !strings.Contains(r.text, `"currentStep":"write"`) || !strings.Contains(r.text, `"status":"studying"`) {
+		t.Fatalf("speak: %s", r.text)
 	}
 
 	// F8: the lesson is done once the writing is submitted, and the next one opens at once.
@@ -204,7 +213,9 @@ func TestSkipWriteEndpoint(t *testing.T) {
 	if r := do(t, mux, http.MethodPost, "/api/lessons/f1/steps/write/skip", "", ""); r.code != http.StatusUnauthorized {
 		t.Fatalf("anonymous: %d", r.code)
 	}
-	do(t, mux, http.MethodPost, "/api/lessons/f1/steps/read/complete", "an", "")
+	for _, s := range []string{"vocab", "read", "grammar", "speak"} {
+		do(t, mux, http.MethodPost, "/api/lessons/f1/steps/"+s+"/complete", "an", "")
+	}
 	e.finishDictation(t)
 
 	// Write may be skipped before Listen; the lesson completes with Listen.

@@ -148,6 +148,10 @@ export class Reading implements OnInit {
   protected readonly askLimit = computed(() => this.askQuota()?.limit ?? 0);
   /** "review" rereads a finished lesson (no "Đã đọc xong"); defaults to ?review=1. */
   readonly mode = input<'study' | 'review' | null>(null);
+  /** A question to keep in mind while reading (six-step lesson, 2026-10-22); '' for none. */
+  readonly guideVi = input('');
+  /** The lesson's words (texts and lemmas), marked in the text; empty marks none. */
+  readonly targetWords = input<string[]>([]);
   /** Position of the step in the lesson, for "2. Đọc"; 0 for none. */
   readonly number = input(0);
   /** Whether the bar shows ← (the lesson goes to the step before). */
@@ -188,6 +192,8 @@ export class Reading implements OnInit {
   protected readonly tokens = computed<Token[][]>(() => this.lesson()?.sentences.map((s) => tokenize(s.text)) ?? []);
   /** Keys "sentence:token" of words to highlight as saved. */
   protected readonly highlighted = computed(() => this.computeHighlights());
+  /** Keys "sentence:token" of the lesson's words (targetWords), underlined with dots. */
+  protected readonly marked = computed(() => this.computeTargets());
   protected readonly focusKey = signal('0:0');
 
   protected readonly positions = POSITIONS;
@@ -362,6 +368,35 @@ export class Reading implements OnInit {
         for (let i = 0; i + phrase.length <= words.length; i++) {
           if (phrase.every((p, j) => words[i + j].text.toLowerCase() === p)) {
             for (let j = 0; j < phrase.length; j++) {
+              out.add(this.key(s, words[i + j].index));
+            }
+          }
+        }
+      }
+    });
+    return out;
+  }
+
+  /**
+   * The lesson's words in the text, whole words, case-insensitive: a word matches by its text or by
+   * its base form (lemmas), so inflected forms count; a phrase matches word by word the same way.
+   */
+  private computeTargets(): ReadonlySet<string> {
+    const out = new Set<string>();
+    const targets = [...new Set(this.targetWords().map(normalize).filter(Boolean))].map((t) => t.split(' '));
+    if (!this.lesson() || targets.length === 0) {
+      return out;
+    }
+    const matches = (word: string, target: string) => {
+      const w = word.toLowerCase();
+      return w === target || this.lemmaOf(w) === target;
+    };
+    this.tokens().forEach((tokens, s) => {
+      const words = tokens.filter((t) => t.isWord);
+      for (const target of targets) {
+        for (let i = 0; i + target.length <= words.length; i++) {
+          if (target.every((p, j) => matches(words[i + j].text, p))) {
+            for (let j = 0; j < target.length; j++) {
               out.add(this.key(s, words[i + j].index));
             }
           }
@@ -635,7 +670,7 @@ export class Reading implements OnInit {
     }
   }
 
-  /** "Đọc xong, trả lời N câu hỏi": on to the questions. */
+  /** "Trả lời N câu hỏi": on to the questions. */
   protected toQuiz(): void {
     this.close();
     this.closeTranslation();

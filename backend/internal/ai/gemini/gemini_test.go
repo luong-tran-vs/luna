@@ -74,7 +74,7 @@ func TestAnnotate(t *testing.T) {
 	}
 	prompt, _ := json.Marshal(body["contents"])
 	for _, s := range []string{
-		"B1", "0: We went home.", "1: It was late.", "3 to 5 multiple-choice", "exactly 4",
+		"B1", "0: We went home.", "1: It was late.", "exactly 5 questions", "[tfn]",
 		"grammarNote", "copied exactly from the lesson", "writingPrompt",
 	} {
 		if !strings.Contains(string(prompt), s) {
@@ -337,7 +337,7 @@ func TestGradeWriting(t *testing.T) {
 			t.Errorf("criterion %s = %v", k, props[k])
 		}
 	}
-	if req, _ := json.Marshal(schema["required"]); string(req) != `["task","grammar","vocabulary","coherence","overallVi","correctedText"]` {
+	if req, _ := json.Marshal(schema["required"]); string(req) != `["task","grammar","vocabulary","coherence","overallVi","correctedText","mistakes"]` {
 		t.Errorf("required = %s", req)
 	}
 	prompt, _ := json.Marshal(body["contents"])

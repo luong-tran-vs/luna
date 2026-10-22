@@ -53,6 +53,37 @@ type Criterion struct {
 	CommentVi string
 }
 
+// Mistake types (added 2026-10-22): each correction of a graded writing is tagged with one, so the
+// learner sees what kind of mistake it was and the mistakes they make most add up across writings.
+const (
+	MistakeWordOrder   = "word-order"
+	MistakePlural      = "plural"
+	MistakeToBe        = "to-be"
+	MistakeVerbS       = "verb-s"
+	MistakeTense       = "tense"
+	MistakeVerbForm    = "verb-form"
+	MistakeArticle     = "article"
+	MistakePreposition = "preposition"
+	MistakeWordChoice  = "word-choice"
+	MistakeSpelling    = "spelling"
+	MistakeOther       = "other"
+)
+
+// MistakeTypes lists the mistake types.
+var MistakeTypes = []string{
+	MistakeWordOrder, MistakePlural, MistakeToBe, MistakeVerbS, MistakeTense, MistakeVerbForm, MistakeArticle,
+	MistakePreposition, MistakeWordChoice, MistakeSpelling, MistakeOther,
+}
+
+// Mistake is one correction of a graded writing: the learner's words, the corrected words, the
+// type and a short Vietnamese note.
+type Mistake struct {
+	Original  string
+	Corrected string
+	Type      string
+	NoteVi    string
+}
+
 // Grade is the result of grading a submitted writing.
 type Grade struct {
 	Status        GradeStatus
@@ -60,7 +91,9 @@ type Grade struct {
 	Criteria      []Criterion
 	OverallVi     string
 	CorrectedText string
-	GradedAt      time.Time
+	// Mistakes are the tagged corrections, in text order; empty for grades made before 2026-10-22.
+	Mistakes []Mistake
+	GradedAt time.Time
 	// Seen is false while a new result (done or failed) has not been opened.
 	Seen bool
 }

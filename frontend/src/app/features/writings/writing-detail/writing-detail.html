@@ -77,21 +77,13 @@
       <section class="card" aria-labelledby="diff-heading">
         <h2 class="section-title" id="diff-heading">So sánh</h2>
         <p class="legend muted"><ins>Gạch chân</ins>: thêm · <del>Gạch ngang</del>: bớt</p>
-        <p class="text diff" lang="en">
-          @for (part of diff(); track $index) {
-            @switch (part.kind) {
-              @case ('add') {
-                <ins><span class="visually-hidden">thêm: </span>{{ part.text }}</ins>
-              }
-              @case ('del') {
-                <del><span class="visually-hidden">bớt: </span>{{ part.text }}</del>
-              }
-              @default {
-                <span>{{ part.text }}</span>
-              }
-            }
-          }
-        </p>
+        <lu-corrections
+          [text]="w.text"
+          [corrected]="w.grade!.correctedText"
+          [mistakes]="w.grade!.mistakes ?? []"
+          addLabel="thêm:"
+          delLabel="bớt:"
+        />
       </section>
     }
 

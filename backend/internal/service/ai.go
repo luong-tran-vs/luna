@@ -65,4 +65,12 @@ func (c *Container) queueMissingPractice(ctx context.Context) {
 	if n > 0 {
 		c.log.InfoContext(ctx, "queued practice for older lessons", slog.Int("count", n))
 	}
+	// Added 2026-10-22: lessons whose practice was made before the six steps get a new one.
+	n, err = c.lesson.QueueMissingSteps(ctx)
+	if err != nil {
+		c.log.ErrorContext(ctx, "queue missing steps failed", slog.Any("error", err))
+	}
+	if n > 0 {
+		c.log.InfoContext(ctx, "queued six-step practice for older lessons", slog.Int("count", n))
+	}
 }

@@ -7,7 +7,7 @@ import { errorInterceptor } from '../../../core/interceptors/error-interceptor';
 import { DictationResult, DictationSummary } from '../../../core/models/dictation';
 import { ReadingLesson } from '../../../core/models/reading';
 import { FakeSpeech, provideFakeSpeech } from '../../../core/services/speech.service.testing';
-import { Listening } from './listening';
+import { chunks, lemmaSlots, Listening } from './listening';
 
 const lesson: ReadingLesson = {
   id: 'l1',
@@ -125,12 +125,13 @@ describe('Listening', () => {
     await fixture.whenStable();
     const id = (options.inputs?.['lessonId'] as string | undefined) ?? 'l1';
     const review = options.inputs?.['mode'] === 'review' || options.query?.['review'] === '1';
-    const lessonReq = http.expectOne(`/lessons/${id}`);
+    // Given sentences need no lesson.
+    const lessonReq = options.inputs?.['items'] ? null : http.expectOne(`/lessons/${id}`);
     const summaryReq = review ? null : http.expectOne(`/lessons/${id}/dictation/summary`);
     if (options.lesson === 404 || options.lesson === 403) {
-      lessonReq.flush({ error: 'x', message: 'x' }, { status: options.lesson, statusText: 'Error' });
+      lessonReq!.flush({ error: 'x', message: 'x' }, { status: options.lesson, statusText: 'Error' });
     } else {
-      lessonReq.flush({ lesson: options.lesson ?? lesson });
+      lessonReq?.flush({ lesson: options.lesson ?? lesson });
       summaryReq?.flush({ summary: options.summary ?? summaryOf([]) });
     }
     await settle();
@@ -578,5 +579,80 @@ describe('Listening', () => {
       await setup({ lesson: 403 });
       expect(el.textContent).toContain('Bài này sẽ mở khi tới lượt');
     });
+  });
+
+  describe('given sentences (six-step lesson)', () => {
+    const items = [
+      { text: 'She has a sweet voice.', lemma: 'voice' },
+      { text: 'He looks after his sister every day.', lemma: 'look after' },
+    ];
+
+    it('dictates the given sentences without the lesson, from index 0', async () => {
+      await setup({ inputs: { items } });
+      expect(text('.counter')).toBe('Câu 1 / 2');
+      await check('She has a sweet voice');
+      const post = expectPost();
+      expect(post.request.body).toMatchObject({ sentenceIndex: 0, correctWords: 5, totalWords: 5 });
+      post.flush({ summary: summaryOf([result(0, 'x', 5, 5)], 2) });
+    });
+
+    it('restores the saved results of the given sentences', async () => {
+      await setup({ inputs: { items }, summary: summaryOf([result(1, 'He looks after his sister every day', 7, 7)], 2) });
+      expect(text('.checked-count')).toBe('Tiến độ câu: 1 / 2 câu');
+      expect(text('.counter')).toBe('Câu 1 / 2');
+    });
+
+    it('has no Hiện chữ, but Chậm and Từng cụm', async () => {
+      await setup({ inputs: { items } });
+      expect(button('Hiện chữ')).toBeUndefined();
+      button('Chậm')!.click();
+      await settle();
+      play().click();
+      expect(speech.last()).toMatchObject({ text: 'She has a sweet voice.', rate: 0.7 });
+
+      button('Từng cụm')!.click();
+      expect(speech.last().text).toBe('She has a');
+      vi.useFakeTimers();
+      speech.last().handlers.ended!();
+      vi.advanceTimersByTime(600);
+      vi.useRealTimers();
+      expect(speech.last().text).toBe('sweet voice.');
+    });
+
+    it('marks the slot of the lesson word', async () => {
+      await setup({ inputs: { items } });
+      const slots = Array.from(el.querySelectorAll('.slot'));
+      expect(slots.length).toBe(5);
+      expect(slots.map((s) => s.classList.contains('lesson-word'))).toEqual([false, false, false, false, true]);
+      expect(text('.hints .visually-hidden')).toContain('từ thứ 5 là từ của bài');
+    });
+
+    it('goes back to the part before from the first sentence with canBack', async () => {
+      await setup({ inputs: { items, canBack: true } });
+      let backs = 0;
+      fixture.componentInstance.back.subscribe(() => backs++);
+      const prev = el.querySelector<HTMLButtonElement>('.bottom-bar .nav-btn')!;
+      expect(prev.disabled).toBe(false);
+      prev.click();
+      expect(backs).toBe(1);
+      expect(button('Câu sau')).toBeUndefined();
+    });
+  });
+});
+
+describe('lemmaSlots', () => {
+  it('finds a form of the word or every word of a phrase', () => {
+    expect(lemmaSlots('She sings every day.', 'sing')).toEqual([false, true, false, false]);
+    expect(lemmaSlots('He studied hard.', 'study')).toEqual([false, true, false]);
+    expect(lemmaSlots('He looks after her.', 'look after')).toEqual([false, true, true, false]);
+    expect(lemmaSlots('A cat.', '')).toEqual([false, false]);
+  });
+});
+
+describe('chunks', () => {
+  it('splits a sentence in about three words, without a lone word at the end', () => {
+    expect(chunks('She has a sweet voice.')).toEqual(['She has a', 'sweet voice.']);
+    expect(chunks('I like pop music.')).toEqual(['I like pop music.']);
+    expect(chunks('Hi.')).toEqual(['Hi.']);
   });
 });

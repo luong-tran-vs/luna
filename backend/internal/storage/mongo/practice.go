@@ -42,6 +42,9 @@ type practiceDoc struct {
 	Dialogue     *dialogueDoc     `bson:"dialogue"`
 	GrammarTipVi string           `bson:"grammarTipVi"`
 	Translations []translationDoc `bson:"translations"`
+	// Steps (added 2026-10-22) is stored with the default field names of its Go types: it is only
+	// ever read and written whole, with the practice.
+	Steps *lesson.Steps `bson:"steps,omitempty"`
 }
 
 func fromPractice(p *lesson.Practice) *practiceDoc {
@@ -53,6 +56,7 @@ func fromPractice(p *lesson.Practice) *practiceDoc {
 		GrammarTipVi: p.GrammarTipVi,
 		Examples:     make([]exampleDoc, len(p.Examples)),
 		Translations: make([]translationDoc, len(p.Translations)),
+		Steps:        p.Steps,
 	}
 	for i, e := range p.Examples {
 		d.Examples[i] = exampleDoc(e)
@@ -78,6 +82,7 @@ func (d *practiceDoc) toPractice() *lesson.Practice {
 		GrammarTipVi: d.GrammarTipVi,
 		Examples:     make([]lesson.Example, len(d.Examples)),
 		Translations: make([]lesson.Translation, len(d.Translations)),
+		Steps:        d.Steps,
 	}
 	for i, e := range d.Examples {
 		p.Examples[i] = lesson.Example(e)

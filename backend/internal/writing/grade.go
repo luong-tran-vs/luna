@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"slices"
 	"strings"
 	"time"
 	"unicode/utf8"
@@ -44,7 +45,36 @@ func CheckGrade(g ai.Grade) (Grade, error) {
 	if out.OverallVi == "" || out.CorrectedText == "" {
 		return Grade{}, ErrUnusableGrade
 	}
+	out.Mistakes = checkMistakes(g.Mistakes)
 	return out, nil
+}
+
+// Caps on the tagged corrections of a grade.
+const (
+	maxMistakes    = 20
+	maxMistakeText = 200
+)
+
+// checkMistakes keeps the corrections that name what changed; an unknown type becomes "other".
+func checkMistakes(in []ai.GradeMistake) []Mistake {
+	var out []Mistake
+	for _, m := range in {
+		c := Mistake{
+			Original: cut(m.Original, maxMistakeText), Corrected: cut(m.Corrected, maxMistakeText),
+			Type: strings.TrimSpace(m.Type), NoteVi: cut(m.NoteVi, maxComment),
+		}
+		if c.Original == c.Corrected || (c.Original == "" && c.Corrected == "") {
+			continue
+		}
+		if !slices.Contains(MistakeTypes, c.Type) {
+			c.Type = MistakeOther
+		}
+		out = append(out, c)
+		if len(out) == maxMistakes {
+			break
+		}
+	}
+	return out
 }
 
 func cut(s string, limit int) string {

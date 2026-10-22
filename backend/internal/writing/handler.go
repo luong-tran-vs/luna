@@ -33,6 +33,7 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth, guard httpx.Middlewa
 	own := func(f http.HandlerFunc) http.Handler { return requireAuth(f) }
 	mux.Handle("GET /api/writings", own(h.list))
 	mux.Handle("GET /api/writings/unseen-count", own(h.unseen))
+	mux.Handle("GET /api/writings/mistakes", own(h.mistakes))
 	mux.Handle("GET /api/writings/{id}", own(h.detail))
 	mux.Handle("POST /api/writings/{id}/seen", own(h.seen))
 	mux.Handle("POST /api/writings/{id}/regrade", own(h.regrade))
@@ -150,6 +151,20 @@ type gradeJSON struct {
 	OverallVi     string          `json:"overallVi"`
 	CorrectedText string          `json:"correctedText"`
 	GradedAt      *time.Time      `json:"gradedAt"`
+	Mistakes      []mistakeJSON   `json:"mistakes"`
+}
+
+type mistakeJSON struct {
+	Original  string `json:"original"`
+	Corrected string `json:"corrected"`
+	Type      string `json:"type"`
+	NoteVi    string `json:"noteVi"`
+}
+
+type mistakeStatJSON struct {
+	Type     string        `json:"type"`
+	Count    int           `json:"count"`
+	Examples []mistakeJSON `json:"examples"`
 }
 
 type writingJSON struct {
@@ -195,8 +210,31 @@ func toWritingJSON(w Writing) writingJSON {
 		for i, c := range g.Criteria {
 			out.Grade.Criteria[i] = criterionJSON(c)
 		}
+		out.Grade.Mistakes = toMistakesJSON(g.Mistakes)
 	}
 	return out
+}
+
+func toMistakesJSON(in []Mistake) []mistakeJSON {
+	out := make([]mistakeJSON, len(in))
+	for i, m := range in {
+		out[i] = mistakeJSON(m)
+	}
+	return out
+}
+
+func (h *Handler) mistakes(w http.ResponseWriter, r *http.Request) {
+	p, _ := httpx.PrincipalFrom(r.Context())
+	stats, err := h.svc.Mistakes(r.Context(), p.UserID)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	out := make([]mistakeStatJSON, len(stats))
+	for i, s := range stats {
+		out[i] = mistakeStatJSON{Type: s.Type, Count: s.Count, Examples: toMistakesJSON(s.Examples)}
+	}
+	httpx.WriteJSON(w, http.StatusOK, map[string]any{"mistakes": out})
 }
 
 type lessonWritingJSON struct {

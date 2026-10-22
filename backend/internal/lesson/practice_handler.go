@@ -15,6 +15,11 @@ type practiceJSON struct {
 	Fill         *fillJSON         `json:"fill"`
 	GrammarTipVi string            `json:"grammarTipVi"`
 	Translations []translationJSON `json:"translations"`
+	// The six-step lesson (added 2026-10-22).
+	Steps          *stepsJSON      `json:"steps"`
+	Dictation      []dictationJSON `json:"dictation"`
+	GrammarPointID string          `json:"grammarPointId"`
+	GrammarTitleVi string          `json:"grammarTitleVi"`
 }
 
 type exampleJSON struct {
@@ -107,6 +112,8 @@ func toPracticeJSON(v PracticeView) practiceJSON {
 	for i, t := range v.Translations {
 		out.Translations[i] = translationJSON(t)
 	}
+	out.Steps, out.Dictation = toStepsJSON(v.Steps), toDictationJSON(v.Dictation)
+	out.GrammarPointID, out.GrammarTitleVi = v.GrammarPointID, v.GrammarTitleVi
 	return out
 }
 

@@ -194,7 +194,14 @@ func (e *ValidationError) Unwrap() error { return e.cause }
 
 // Question is a multiple-choice comprehension question about a lesson (F15).
 type Question struct {
-	Prompt        string
+	// Kind is gist, detail, tfn (true, false or not given) or vocab (added 2026-10-22); "" for
+	// questions written before kinds existed.
+	Kind   string
+	Prompt string
+	// PromptVi is the Vietnamese of an English prompt; Quote is the part of the text a vocab question
+	// is about. Both may be empty.
+	PromptVi      string
+	Quote         string
 	Options       []string
 	AnswerIndex   int
 	ExplanationVi string

@@ -1,0 +1,219 @@
+/* The Listening step (design 2026-10-22, section 2). Tokens only; shared parts in practice.css. */
+
+:host {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.soft-card {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.part {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.badge {
+  padding: 2px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.people {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.people-text {
+  flex: 1;
+}
+
+.avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-weight: 700;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.avatar.other {
+  background: var(--color-accent-ink);
+}
+
+.status,
+.speed-label,
+.prompt-vi,
+.kicker {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.kicker {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.speed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.speed-option,
+.turn-chip {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+}
+
+.speed-option[aria-pressed='true'],
+.turn-chip.current {
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.turn-chips,
+.options,
+.transcript {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prompt {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 700;
+}
+
+.options {
+  flex-direction: column;
+}
+
+.options.row {
+  flex-direction: row;
+}
+
+.options.row > li {
+  flex: 1;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  color: var(--color-text);
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.options.row .option {
+  justify-content: center;
+  text-align: center;
+}
+
+.option[aria-disabled='true'] {
+  cursor: default;
+}
+
+.option.chosen {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.option.ok {
+  border: 2px solid var(--color-ok);
+
+  --icon-color: var(--color-ok);
+}
+
+.option.bad {
+  border: 2px solid var(--color-bad);
+
+  --icon-color: var(--color-bad);
+}
+
+.option lu-icon {
+  color: var(--icon-color);
+}
+
+.option-text {
+  flex: 1;
+}
+
+.letter {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 700;
+  background: var(--color-track);
+  border-radius: var(--radius-sm);
+}
+
+.feedback {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.evidence {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-style: italic;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.evidence p {
+  flex: 1;
+}
+
+.transcript {
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.meaning {
+  display: block;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.link-btn {
+  justify-self: center;
+}

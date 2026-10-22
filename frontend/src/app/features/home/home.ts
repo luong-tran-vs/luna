@@ -99,7 +99,7 @@ export class Home {
   protected readonly name = computed(() => this.auth.currentUser()?.email.split('@')[0] ?? '');
 
   /**
-   * Where the learner is in the lesson's five steps, as its page shows it: the step saved on this
+   * Where the learner is in the lesson's six steps, as its page shows it: the step saved on this
    * device or the one after the last the server knows is done; -1 before anything is done.
    */
   private readonly flowIndex = computed(() => {
@@ -109,7 +109,7 @@ export class Home {
 
   protected readonly doneSteps = computed(() => Math.max(this.flowIndex(), 0));
 
-  /** "Bước 3/5: Nghe", as on the lesson's page. */
+  /** "Bước 2/6: Nghe", as on the lesson's page. */
   protected readonly stepLabel = computed(() => {
     const i = Math.max(this.flowIndex(), 0);
     return `Bước ${i + 1}/${LESSON_FLOW.length}: ${FLOW_STEP_NAMES[LESSON_FLOW[i]]}`;
@@ -127,11 +127,8 @@ export class Home {
         if (i < 0) {
           return 'Sẵn sàng cho bài mới chưa? Bắt đầu thôi!';
         }
-        // The steps from here on, and those left behind for later (the server has them not done).
-        const steps = d?.steps;
-        const left = LESSON_FLOW.filter(
-          (s, at) => at >= i || (s === 'read' || s === 'listen' || s === 'write' ? steps?.[s] !== 'done' : false),
-        );
+        // Every step the server has not seen done, those left behind for later included.
+        const left = LESSON_FLOW.filter((s) => d?.steps?.[s] !== 'done');
         const names = left.map((s) => FLOW_STEP_NAMES[s]).join(', ');
         return `Bài này còn ${left.length} bước nữa thôi (${names})!`;
       }

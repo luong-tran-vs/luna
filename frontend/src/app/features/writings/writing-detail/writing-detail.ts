@@ -7,7 +7,7 @@ import { countWords } from '../../../core/models/generate';
 import { CRITERIA_LABELS, formatScore, MAX_WRITING_WORDS, MIN_WRITING_WORDS, Writing } from '../../../core/models/writing';
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { WritingNotifier } from '../../../core/services/writing-notifier.service';
-import { wordDiff } from '../../../shared/utils/word-diff';
+import { Corrections } from '../corrections/corrections';
 import { Loading } from '../../../shared/components/loading/loading';
 
 /**
@@ -17,7 +17,7 @@ import { Loading } from '../../../shared/components/loading/loading';
  */
 @Component({
   selector: 'lu-writing-detail',
-  imports: [Loading, RouterLink],
+  imports: [Loading, RouterLink, Corrections],
   templateUrl: './writing-detail.html',
   styleUrl: './writing-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,11 +35,6 @@ export class WritingDetail {
   protected readonly loadError = signal(false);
   protected readonly regrading = signal(false);
   protected readonly actionError = signal<string | null>(null);
-
-  protected readonly diff = computed(() => {
-    const w = this.writing();
-    return w?.grade?.status === 'done' ? wordDiff(w.text, w.grade.correctedText) : [];
-  });
 
   constructor() {
     void this.load();

@@ -31,7 +31,10 @@ type annotationDoc struct {
 }
 
 type questionDoc struct {
+	Kind          string   `bson:"kind,omitempty"`
 	Prompt        string   `bson:"prompt"`
+	PromptVi      string   `bson:"promptVi,omitempty"`
+	Quote         string   `bson:"quote,omitempty"`
 	Options       []string `bson:"options"`
 	AnswerIndex   int      `bson:"answerIndex"`
 	ExplanationVi string   `bson:"explanationVi"`

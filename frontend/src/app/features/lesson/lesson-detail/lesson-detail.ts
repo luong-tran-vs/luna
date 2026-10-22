@@ -16,7 +16,7 @@ import { catchError, firstValueFrom, forkJoin, Observable, of, Subscription } fr
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { PracticeView } from '../../../core/models/practice';
 import { ReadingLesson } from '../../../core/models/reading';
-import { CompletedLesson, LessonRef, LessonStudy, Step, STEPS } from '../../../core/models/study';
+import { CompletedLesson, LessonRef, LessonStudy, Step, STEP_LABELS, STEPS } from '../../../core/models/study';
 import { LessonVocabulary } from '../../../core/models/vocab';
 import { formatScore, Writing as SubmittedWriting } from '../../../core/models/writing';
 import { SpeechService } from '../../../core/services/speech.service';
@@ -25,14 +25,16 @@ import { VocabApiService } from '../../../core/services/vocab-api.service';
 import { WritingApiService } from '../../../core/services/writing-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { readSavedStep, writeSavedStep } from '../../../shared/utils/lesson-flow';
-import { Listening } from '../listening/listening';
+import { DialogueStep } from './dialogue-step/dialogue-step';
+import { FillStep } from './fill-step/fill-step';
+import { GrammarStep } from './grammar-step/grammar-step';
+import { ListenStep } from './listen-step/listen-step';
+import { SpeakLesson } from './speak-lesson/speak-lesson';
 import { loadErrorMessage } from '../load-error';
 import { reviewOfferSettled } from '../review-offer';
 import { ReadingApiService } from '../reading-api.service';
 import { Reading } from '../reading/reading';
 import { Writing } from '../writing/writing';
-import { DialogueStep } from './dialogue-step/dialogue-step';
-import { FillStep } from './fill-step/fill-step';
 import {
   hasDialogue,
   hasFill,
@@ -47,41 +49,42 @@ import { PracticeList } from './practice-list/practice-list';
 import { PracticeSummary } from './practice-summary/practice-summary';
 import { ReadingText } from './reading-text/reading-text';
 import { SpeakStep } from './speak-step/speak-step';
+import { fallbackQuestions, fallbackReadAloud } from './speak-lesson/speak-fallback';
 import { TranslateStep } from './translate-step/translate-step';
-import { VocabStep } from './vocab-step/vocab-step';
+import { VocabResult, VocabStep } from './vocab-step/vocab-step';
 import { Loading } from '../../../shared/components/loading/loading';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { ListeningApiService } from '../listening-api.service';
 
 type Tab = 'lesson' | 'reading';
 
-/** The practice steps (shown when the lesson has their content), then the lesson's own steps. */
-type PracticeKey = 'words' | 'dialogue' | 'fill' | 'translate' | 'speak';
+/**
+ * The practice on the dialogue (shown when the lesson has its content), besides the lesson's own
+ * steps; a lesson that is not being learnt is practised with the words, these and the speaking.
+ */
+type PracticeKey = 'dialogue' | 'fill' | 'translate';
 type StepKey = PracticeKey | Step;
 /** The practice a lesson being studied keeps for later (Luyện thêm), outside its main steps. */
-export type ExtraKey = 'dialogue' | 'fill' | 'translate';
+export type ExtraKey = PracticeKey;
 
 const STEP_NAMES: Record<StepKey, string> = {
-  words: 'Từ vựng',
+  ...STEP_LABELS,
   dialogue: 'Hội thoại',
   fill: 'Điền ô trống',
   translate: 'Dịch câu',
-  speak: 'Luyện nói',
-  read: 'Đọc',
-  listen: 'Nghe',
-  write: 'Viết',
 };
 
 /** About how long each step takes, in minutes, for the estimate under the lesson's title. */
 const STEP_MINUTES: Record<StepKey, number> = {
-  words: 3,
+  vocab: 3,
+  listen: 4,
+  read: 4,
+  grammar: 3,
+  speak: 3,
+  write: 4,
   dialogue: 2,
   fill: 3,
   translate: 3,
-  speak: 2,
-  read: 4,
-  listen: 4,
-  write: 4,
 };
 
 /** One practice of the lesson in a summary: what was done, or null when it was not done yet. */
@@ -126,26 +129,30 @@ function isStudyStep(key: StepKey | null): key is Step {
  * A lesson's page (F17, L): header, then the Bài học tab with the practice steps that have content
  * (words, dialogue, fill-in, translation) or the Bài đọc tab with the text and grammar note.
  *
- * The lesson being studied is learnt here (updated 2026-10-14): five main steps, words → Đọc → Nghe →
- * Luyện nói → Viết (optional). Đọc, Nghe and Viết are recorded on the server. The practice on the
- * text (dialogue, fill-in, translation) is "Luyện thêm": optional, opened from the lesson's details
- * or the done card, back to where the learner was once finished. Each step moves on with its own
- * button, so there is one way forward; the details list every step to go back to one. Once done,
- * "Sang bài tiếp theo" opens the next lesson at once. Other lessons keep the practice only, ending
- * on its summary. Practice results stay on this page.
+ * The lesson being studied is learnt here in six steps (updated 2026-10-22,
+ * design/de-xuat-quy-trinh-bai-hoc.png): Từ vựng (with a quick recall) → Nghe (the dialogue first,
+ * then a short dictation) → Đọc → Ngữ pháp → Nói (repeat, then answer questions) → Viết (optional),
+ * every one recorded on the server. The practice on the dialogue (dialogue, fill-in, translation) is
+ * "Luyện thêm": optional, opened once Đọc is done from the lesson's details or the done card, back to
+ * where the learner was once finished. Each step moves on with its own button, so there is one way
+ * forward; the details list every step to go back to one. Once done, "Sang bài tiếp theo" opens the
+ * next lesson at once. Other lessons keep the practice only (words, dialogue, fill-in, translation,
+ * speaking), ending on its summary. Practice results stay on this page.
  */
 @Component({
   selector: 'lu-lesson-detail',
   imports: [Loading, ConfirmDialog, 
     DialogueStep,
     FillStep,
+    GrammarStep,
     Icon,
-    Listening,
+    ListenStep,
     PracticeList,
     PracticeSummary,
     ReadingText,
     Reading,
     RouterLink,
+    SpeakLesson,
     SpeakStep,
     TranslateStep,
     VocabStep,
@@ -249,14 +256,37 @@ export class LessonDetail {
     const v = this.vocabulary();
     return v?.available ? v.items : [];
   });
+  /** The lesson's words as written and as lemmas, for the steps that mark or check them. */
+  protected readonly targetWords = computed(() => [
+    ...new Set(this.words().flatMap((w) => [w.text, w.lemma]).filter(Boolean)),
+  ]);
   protected readonly hasDialogue = computed(() => hasDialogue(this.practice()));
   protected readonly hasFill = computed(() => hasFill(this.practice()));
   protected readonly hasTranslations = computed(() => hasTranslations(this.practice()));
+  /** The Speaking step's sentences to repeat: the AI's, else built from the lesson (older lessons). */
+  protected readonly speakReadAloud = computed(() => {
+    const given = this.practice()?.steps?.readAloud ?? [];
+    if (given.length > 0) {
+      return given;
+    }
+    const turns = this.practice()?.dialogue?.turns.map((t) => t.text) ?? [];
+    const sentences = (this.lesson()?.sentences ?? []).map((s) => s.text);
+    return fallbackReadAloud([...turns, ...sentences], this.words());
+  });
+  /** The Speaking step's questions: the AI's, else the dialogue's questions to "you" (older lessons). */
+  protected readonly speakQuestions = computed(() => {
+    const given = this.practice()?.steps?.speakQuestions ?? [];
+    return given.length > 0 ? given : fallbackQuestions(this.practice()?.dialogue?.turns ?? [], this.words());
+  });
   /**
-   * Sentences to repeat in the Speaking step: the dialogue's turns (short, spoken English), else the
-   * short sentences of the text.
+   * Sentences to repeat in the Speaking practice: those chosen for the lesson's Speaking step, else the
+   * dialogue's turns (short, spoken English), else the short sentences of the text.
    */
   protected readonly speakSentences = computed(() => {
+    const chosen = this.practice()?.steps?.readAloud.map((r) => r.text) ?? [];
+    if (chosen.length > 0) {
+      return chosen;
+    }
     const turns = this.practice()?.dialogue?.turns.map((t) => t.text) ?? [];
     const source = turns.length > 0 ? turns : (this.lesson()?.sentences ?? []).map((s) => s.text);
     return source
@@ -269,25 +299,28 @@ export class LessonDetail {
   protected readonly learning = computed(() => this.studyFlow() || this.relearn());
 
   /**
-   * Steps with content, in order. A lesson being studied goes words → Đọc → Nghe → Luyện nói →
-   * Viết, its practice being Luyện thêm; any other lesson has the practice only, Luyện nói last.
+   * The steps, in order. A lesson being studied has its six steps (a step without content shows
+   * what it can and moves on), its practice being Luyện thêm; any other lesson has the practice with
+   * content only: words, dialogue, fill-in, translation, speaking.
    */
   protected readonly steps = computed<StepKey[]>(() => {
-    const words: StepKey[] = this.words().length > 0 ? ['words'] : [];
-    const practice: StepKey[] = [];
+    if (this.learning()) {
+      return STEPS.filter((s) => s !== 'speak' || this.speakingOn);
+    }
+    const keys: StepKey[] = this.words().length > 0 ? ['vocab'] : [];
     if (this.hasDialogue()) {
-      practice.push('dialogue');
+      keys.push('dialogue');
     }
     if (this.hasFill()) {
-      practice.push('fill');
+      keys.push('fill');
     }
     if (this.hasTranslations()) {
-      practice.push('translate');
+      keys.push('translate');
     }
-    const speak: StepKey[] = this.speakingOn && this.speakSentences().length > 0 ? ['speak'] : [];
-    return this.learning()
-      ? [...words, 'read', 'listen', ...speak, 'write']
-      : [...words, ...practice, ...speak];
+    if (this.speakingOn && this.speakSentences().length > 0) {
+      keys.push('speak');
+    }
+    return keys;
   });
   /** Luyện thêm of a lesson being learnt: its practice with content. */
   protected readonly extras = computed<ExtraKey[]>(() => {
@@ -307,9 +340,9 @@ export class LessonDetail {
     return keys;
   });
   /**
-   * Luyện thêm opens once Nghe is done: the practice is made of the lesson's text and dialogue, so
-   * before Đọc and Nghe it is guesswork and gives their answers away. A lesson learnt again, or
-   * finished, has it open at once, and so has the summary at the end of the steps.
+   * Luyện thêm opens once Đọc is done: the practice is made of the lesson's dialogue and text, so
+   * before Nghe and Đọc it gives their answers away. A lesson learnt again, or finished, has it open
+   * at once, and so has the summary at the end of the steps.
    */
   protected readonly extrasOpen = computed(
     () =>
@@ -317,7 +350,7 @@ export class LessonDetail {
       this.relearn() ||
       this.lessonDone() ||
       this.finished() ||
-      this.study()?.steps.listen === 'done',
+      this.study()?.steps.read === 'done',
   );
   /** On Viết still to do, once Luyện thêm is open: a quiet offer to practise before writing. */
   protected readonly offerExtras = computed(
@@ -329,7 +362,7 @@ export class LessonDetail {
       this.current() === 'write' &&
       !this.studyStepDone(),
   );
-  /** "5 bước · khoảng 17 phút" in the lesson's details. */
+  /** "6 bước · khoảng 21 phút" in the lesson's details. */
   protected readonly estimate = computed(() => {
     const steps = this.steps();
     const minutes = steps.reduce((sum, k) => sum + STEP_MINUTES[k], 0);
@@ -412,20 +445,20 @@ export class LessonDetail {
   protected readonly canBack = computed(
     () => !this.overview() && (!!this.extra() || this.step() > 1 || this.learning()),
   );
-  /** Đọc, Nghe and the practice steps put their own buttons in the bar (← and Kiểm tra, Câu tiếp, …). */
+  /**
+   * Every step but Viết puts its own buttons in the bar (← and Kiểm tra, Câu tiếp, …); the words
+   * card has them on the card.
+   */
   protected readonly ownBar = computed(() => {
     const key = this.onScreen();
-    return (
-      !this.overview() &&
-      (key === 'read' || key === 'listen' || key === 'dialogue' || key === 'fill' || key === 'translate' || key === 'speak')
-    );
+    return !this.overview() && key !== null && key !== 'write';
   });
   /** The words card fills the screen down to the bar, its picture taking the room left: no scroll, no gap. */
   protected readonly fillScreen = computed(
     () =>
       this.shownTab() === 'lesson' &&
       !this.overview() &&
-      this.onScreen() === 'words' &&
+      this.onScreen() === 'vocab' &&
       (!!this.extra() || (!this.lessonDone() && !this.finished())),
   );
   /**
@@ -469,7 +502,7 @@ export class LessonDetail {
       return [];
     }
     const current = this.studyStep();
-    return STEPS.filter((s) => s !== current && study.steps[s] !== 'done');
+    return STEPS.filter((s) => s !== current && study.steps[s] !== 'done' && this.steps().includes(s));
   });
   protected readonly stepNames = STEP_NAMES;
 
@@ -478,7 +511,7 @@ export class LessonDetail {
    * null for those not done yet (never "0/5" for a step that was skipped).
    */
   protected readonly practiceItems = computed<PracticeItem[]>(() => {
-    const keys: StepKey[] = this.learning() ? this.extras() : this.steps().filter((k) => k !== 'words');
+    const keys: StepKey[] = this.learning() ? this.extras() : this.steps().filter((k) => k !== 'vocab');
     return keys.map((key) => ({ key, name: STEP_NAMES[key], result: this.practiceResult(key) }));
   });
 
@@ -500,8 +533,11 @@ export class LessonDetail {
       this.speech.prefetch([
         ...words.map((w) => w.lemma),
         ...(practice?.examples ?? []).map((e) => e.sentence),
-        ...(lesson?.sentences ?? []).map((s) => s.text),
         ...(practice?.dialogue?.turns ?? []).map((t) => t.text),
+        ...(practice?.dictation ?? []).map((d) => d.text),
+        ...(lesson?.sentences ?? []).map((s) => s.text),
+        ...(practice?.steps?.readAloud ?? []).map((r) => r.text),
+        ...(practice?.steps?.speakQuestions ?? []).map((q) => q.question),
         ...(practice?.translations ?? []).map((t) => t.answer.join(' ')),
       ]);
     });
@@ -754,6 +790,40 @@ export class LessonDetail {
       next: (r) => this.missCount.update((n) => n + r.added + r.rescheduled),
       error: () => undefined,
     });
+  }
+
+  /**
+   * The end of the words, with the quick recall: a lesson being studied puts every word but those
+   * marked as known in the review queue, the ones got wrong due now, then records the step.
+   */
+  protected async onVocabDone(result: VocabResult): Promise<void> {
+    if (this.studyFlow() && !this.relearn() && !this.lessonDone() && this.study()?.steps.vocab !== 'done') {
+      const known = new Set(result.known.map((w) => w.toLowerCase()));
+      const lemmas = this.words()
+        .map((w) => w.lemma)
+        .filter((l) => !known.has(l.toLowerCase()));
+      if (lemmas.length > 0) {
+        // A failure only leaves the cards out: the step goes on without them.
+        await firstValueFrom(this.vocabApi.bulk(this.id(), lemmas)).catch(() => undefined);
+      }
+      this.sendMisses(result.missed.filter((w) => !known.has(w.toLowerCase())));
+    }
+    this.finishStep('vocab');
+  }
+
+  /**
+   * The end of a step of the lesson's own that has no requirement (words, grammar, speaking): recorded
+   * when the lesson is being studied and the step is not done yet, then on. Any other lesson only
+   * practises it.
+   */
+  protected finishStep(step: Step): void {
+    if (!this.learning()) {
+      this.practiceDone(step);
+    } else if (this.studyFlow() && !this.relearn() && !this.lessonDone() && this.study()?.steps[step] !== 'done') {
+      void this.complete(step);
+    } else {
+      this.next();
+    }
   }
 
   /** The end of a practice step: noted for the summary, then on, or back from Luyện thêm. */

@@ -40,7 +40,7 @@ const dashboard = (over: Partial<Dashboard> = {}): Dashboard => ({
   goalCompleted: false,
   skills: null,
   lesson: null,
-  steps: { read: 'done', listen: 'current', write: 'locked' },
+  steps: { vocab: 'done', listen: 'current', read: 'done', grammar: 'locked', speak: 'locked', write: 'locked' },
   currentStep: 'listen',
   action: null,
   streak: 9,

@@ -23,8 +23,11 @@ type AnswerRepository interface {
 
 // QuizQuestion is a question as learners see it before answering: no answer, no explanation.
 type QuizQuestion struct {
-	Prompt  string
-	Options []string
+	Kind     string
+	Prompt   string
+	PromptVi string
+	Quote    string
+	Options  []string
 }
 
 // AnswerView is an answered question with its solution.
@@ -67,7 +70,7 @@ func (r *Reader) quiz(ctx context.Context, userID string, l Lesson) (*QuizView, 
 	}
 	v := &QuizView{Version: l.QuizVersion, Questions: make([]QuizQuestion, len(qs)), Answers: []AnswerView{}}
 	for i, q := range qs {
-		v.Questions[i] = QuizQuestion{Prompt: q.Prompt, Options: q.Options}
+		v.Questions[i] = QuizQuestion{Kind: q.Kind, Prompt: q.Prompt, PromptVi: q.PromptVi, Quote: q.Quote, Options: q.Options}
 	}
 	answers, err := r.answers.List(ctx, userID, l.ID, l.QuizVersion)
 	if err != nil {
@@ -99,7 +102,7 @@ func (r *Reader) Answer(ctx context.Context, userID, lessonID string, in AnswerI
 	if in.QuestionIndex < 0 || in.QuestionIndex >= len(qs) {
 		fields["questionIndex"] = "Câu hỏi không tồn tại"
 	}
-	if in.Choice < 0 || in.Choice >= questionOptions {
+	if in.QuestionIndex >= 0 && in.QuestionIndex < len(qs) && (in.Choice < 0 || in.Choice >= len(qs[in.QuestionIndex].Options)) {
 		fields["choice"] = "Lựa chọn không hợp lệ"
 	}
 	if len(fields) > 0 {

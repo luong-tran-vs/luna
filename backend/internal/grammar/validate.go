@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"unicode/utf8"
+
+	"github.com/luongtran/luna/backend/internal/ai"
 )
 
 // Limits of a grammar lesson (F20).
@@ -405,4 +407,15 @@ func keepFirst[T any](in []T, n int) []T {
 		return in[:n]
 	}
 	return in
+}
+
+// CleanAIExercises keeps the valid exercises of an AI answer, at most n, with ids prefix1,
+// prefix2… (added 2026-10-22 for the grammar step of a lesson).
+func CleanAIExercises(in []ai.GrammarExercise, prefix string, n int) []Exercise {
+	out := keepFirst(validExercises(normalizeExercises(exercisesFromAI(in), prefix), map[string]bool{}, false), n)
+	// Numbered again once the broken ones are gone, so the ids have no gaps.
+	for i := range out {
+		out[i].ID = fmt.Sprintf("%s%d", prefix, i+1)
+	}
+	return out
 }

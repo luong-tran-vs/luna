@@ -135,13 +135,19 @@ func TestNextStep(t *testing.T) {
 		done map[Step]bool
 		want Step
 	}{
-		{nil, StepRead},
-		{map[Step]bool{StepRead: true}, StepListen},
-		{map[Step]bool{StepRead: true, StepListen: true}, StepWrite},
-		{map[Step]bool{StepRead: true, StepListen: true, StepWrite: true}, StepDone},
-		{map[Step]bool{StepListen: true}, StepRead},
+		// Từ vựng → Nghe → Đọc → Ngữ pháp → Nói → Viết (2026-10-22).
+		{nil, StepVocab},
+		{map[Step]bool{StepVocab: true}, StepListen},
+		{map[Step]bool{StepVocab: true, StepListen: true}, StepRead},
+		{map[Step]bool{StepVocab: true, StepListen: true, StepRead: true}, StepGrammar},
+		{map[Step]bool{StepVocab: true, StepListen: true, StepRead: true, StepGrammar: true}, StepSpeak},
+		{map[Step]bool{StepVocab: true, StepListen: true, StepRead: true, StepGrammar: true, StepSpeak: true}, StepWrite},
+		{map[Step]bool{StepVocab: true, StepListen: true, StepRead: true, StepGrammar: true, StepSpeak: true, StepWrite: true}, StepDone},
+		// The three steps of before 2026-10-22 no longer finish a lesson.
+		{map[Step]bool{StepRead: true, StepListen: true, StepWrite: true}, StepVocab},
+		{map[Step]bool{StepVocab: true, StepRead: true}, StepListen},
 		// The review step of progress saved before 2026-10-02 is ignored.
-		{map[Step]bool{"review": true}, StepRead},
+		{map[Step]bool{"review": true}, StepVocab},
 	}
 	for _, tc := range cases {
 		if got := NextStep(tc.done); got != tc.want {

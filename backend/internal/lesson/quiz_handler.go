@@ -9,8 +9,11 @@ import (
 // --- JSON shapes (contracts/reading-quiz-api.md) ---
 
 type quizQuestionJSON struct {
-	Prompt  string   `json:"prompt"`
-	Options []string `json:"options"`
+	Kind     string   `json:"kind"`
+	Prompt   string   `json:"prompt"`
+	PromptVi string   `json:"promptVi"`
+	Quote    string   `json:"quote"`
+	Options  []string `json:"options"`
 }
 
 type answerJSON struct {

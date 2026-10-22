@@ -16,12 +16,12 @@ func (e *studyEnv) current(t *testing.T) string {
 }
 
 // complete finishes the given steps of u1's current lesson, failing the test on error. Ending
-// with listen also submits and completes the writing (F8), so tests written for two steps still
-// finish the lesson.
+// with listen also does the steps without a requirement (words, grammar, speaking; 2026-10-22)
+// and submits and completes the writing (F8), so tests written for two steps still finish the lesson.
 func (e *studyEnv) complete(t *testing.T, steps ...Step) LessonStudyView {
 	t.Helper()
 	if len(steps) > 0 && steps[len(steps)-1] == StepListen {
-		steps = append(steps, StepWrite)
+		steps = append(steps, StepVocab, StepGrammar, StepSpeak, StepWrite)
 	}
 	id := e.current(t)
 	var v LessonStudyView
@@ -145,8 +145,9 @@ func TestCurrentLessonWithoutAndWithGoal(t *testing.T) {
 
 	e.setGoal(t, "family")
 	v, _ := e.svc.LessonStudy(t.Context(), "u1", "f1")
-	if v.Status != LessonStudying || v.CurrentStep != StepRead || v.Steps[StepRead] != StateCurrent ||
-		v.Steps[StepListen] != StateLocked || v.Steps[StepWrite] != StateLocked || v.Goal.TopicID != "family" || v.Next != nil {
+	if v.Status != LessonStudying || v.CurrentStep != StepVocab || v.Steps[StepVocab] != StateCurrent || len(v.Steps) != 6 ||
+		v.Steps[StepListen] != StateLocked || v.Steps[StepRead] != StateLocked || v.Steps[StepWrite] != StateLocked ||
+		v.Goal.TopicID != "family" || v.Next != nil {
 		t.Fatalf("with goal = %+v", v)
 	}
 	if v, _ := e.svc.LessonStudy(t.Context(), "u1", "f2"); v.Status != LessonOther || len(v.Steps) != 0 {

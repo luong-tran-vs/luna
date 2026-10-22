@@ -110,6 +110,8 @@ type Reader struct {
 	usage AskUsageRepository
 	// glosses give the meaning in context of every word of a lesson; nil when there are none.
 	glosses GlossRepository
+	// speakLimit limits the speaking checks of each learner per lesson and day.
+	speakLimit speakLimiter
 }
 
 // WithGlosses lets lookups give the meaning in context of words the annotations do not cover.

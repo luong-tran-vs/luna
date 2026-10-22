@@ -6,7 +6,7 @@ import { serverUrl } from '../../../../core/api-url';
 import { PracticeExample } from '../../../../core/models/practice';
 import { VocabItem } from '../../../../core/models/vocab';
 import { FakeSpeech, provideFakeSpeech } from '../../../../core/services/speech.service.testing';
-import { highlight, VocabStep } from './vocab-step';
+import { highlight, VocabResult, VocabStep } from './vocab-step';
 
 const words: VocabItem[] = [
   {
@@ -71,17 +71,14 @@ describe('VocabStep', () => {
   let el: HTMLElement;
   let played: string[];
   let done: number;
+  let result: VocabResult | null;
   let http: HttpTestingController;
 
   const text = (node: Element | null | undefined) =>
     node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const nextWord = () => el.querySelector<HTMLButtonElement>('.next-word')!;
   const prev = () => el.querySelector<HTMLButtonElement>('.nav-btn.prev')!;
-  const forward = () => el.querySelector<HTMLButtonElement>('.nav-btn.forward')!;
-  const settle = async () => {
-    await new Promise((resolve) => setTimeout(resolve));
-    await fixture.whenStable();
-  };
+  const forward = () => nextWord();
   const click = async (b: HTMLButtonElement) => {
     b.click();
     await fixture.whenStable();
@@ -103,8 +100,12 @@ describe('VocabStep', () => {
     http = TestBed.inject(HttpTestingController);
     played = [];
     done = 0;
+    result = null;
     fixture.componentInstance.readAloud.subscribe((t) => played.push(t));
-    fixture.componentInstance.done.subscribe(() => done++);
+    fixture.componentInstance.done.subscribe((r) => {
+      done++;
+      result = r;
+    });
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
   };
@@ -162,24 +163,33 @@ describe('VocabStep', () => {
     expect(el.querySelector('.word-main')!.classList.contains('no-picture')).toBe(true);
   });
 
-  it('moves between the words with the arrows and Tiếp theo', async () => {
+  it('moves between the words with ← and Tiếp theo, one button each way', async () => {
     await render();
     expect(prev().disabled).toBe(true);
+    expect(el.querySelector('.nav-btn.forward')).toBeNull();
     await click(nextWord());
     expect(text(el.querySelector('.lemma'))).toBe('name');
     expect(el.querySelector('.ipa')).toBeNull();
     // The part of speech shows even without an IPA.
     expect(text(el.querySelector('.word-sub'))).toBe('danh từ');
-    // Part of speech without IPA.
-    expect(text(el.querySelector('.word-sub'))).toBe('danh từ');
-    await click(forward());
+    await click(nextWord());
     expect(text(el.querySelector('.lemma'))).toBe('meet');
     expect(text(el.querySelector('.count'))).toBe('3/3');
     expect(el.querySelector('.pos')).toBeNull();
-    expect(forward().disabled).toBe(true);
     await click(prev());
     expect(text(el.querySelector('.lemma'))).toBe('name');
     expect(done).toBe(0);
+  });
+
+  it('← on the first word goes to the step before when there is one', async () => {
+    await render();
+    fixture.componentRef.setInput('canBack', true);
+    let back = 0;
+    fixture.componentInstance.back.subscribe(() => back++);
+    await fixture.whenStable();
+    expect(prev().disabled).toBe(false);
+    await click(prev());
+    expect(back).toBe(1);
   });
 
   it('falls back to the sentence from the text when there is no example', async () => {
@@ -189,14 +199,74 @@ describe('VocabStep', () => {
     expect(text(el.querySelector('.example .sentence'))).toBe('Nice to meet you.');
   });
 
-  it('Tiếp theo on the last word leaves the step, with the given label', async () => {
+  it('the last word leads to the quick recall, which ends the step', async () => {
     await render();
-    fixture.componentRef.setInput('finishLabel', 'Hoàn thành');
+    fixture.componentRef.setInput('finishLabel', 'Sang bước Nghe');
     await click(forward());
     await click(forward());
-    expect(text(nextWord())).toBe('Hoàn thành');
+    expect(text(nextWord())).toBe('Nhớ lại nhanh');
+    await click(nextWord());
+    expect(text(el.querySelector('#recall-heading'))).toBe('Nhớ lại nhanh');
+    expect(done).toBe(0);
+
+    // Answer every question right: the step ends with nothing missed.
+    for (let i = 0; i < 3; i++) {
+      const lemma = recallAnswer();
+      await click(option(lemma));
+      expect(text(el.querySelector('.recall-result'))).toContain('Đúng rồi!');
+      if (i === 2) {
+        expect(text(nextWord())).toBe('Sang bước Nghe');
+      }
+      await click(nextWord());
+    }
+    expect(done).toBe(1);
+    expect(result).toEqual({ known: [], missed: [] });
+  });
+
+  it('asks a word got wrong again at the end and reports it as missed', async () => {
+    await render();
+    await click(forward());
+    await click(forward());
+    await click(nextWord());
+    const lemma = recallAnswer();
+    const wrong = words.map((w) => w.lemma).find((l) => l !== lemma)!;
+    await click(option(wrong));
+    expect(text(el.querySelector('.recall-result'))).toContain('Chưa đúng.');
+    expect(text(el.querySelector('.count'))).toBe('1/4');
+    await click(nextWord());
+    for (let i = 0; i < 3; i++) {
+      await click(option(recallAnswer()));
+      await click(nextWord());
+    }
+    expect(result).toEqual({ known: [], missed: [lemma] });
+  });
+
+  it('Đã biết keeps a word out of the recall and reports it', async () => {
+    await render();
+    const known = () => el.querySelector<HTMLButtonElement>('.known-btn')!;
+    expect(known().getAttribute('aria-pressed')).toBe('false');
+    await click(known());
+    expect(known().getAttribute('aria-pressed')).toBe('true');
+    expect(text(el.querySelector('.known-note'))).toContain('không đưa vào ôn tập');
+    await click(forward());
+    await click(forward());
+    await click(nextWord());
+    expect(text(el.querySelector('.count'))).toBe('1/2');
+    for (let i = 0; i < 2; i++) {
+      await click(option(recallAnswer()));
+      await click(nextWord());
+    }
+    expect(result).toEqual({ known: ['hello'], missed: [] });
+  });
+
+  it('ends at once when fewer than two words are left to recall', async () => {
+    await render(words.slice(0, 1), examples);
+    fixture.componentRef.setInput('finishLabel', 'Sang bước Nghe');
+    await fixture.whenStable();
+    expect(text(nextWord())).toBe('Sang bước Nghe');
     await click(nextWord());
     expect(done).toBe(1);
+    expect(el.querySelector('#recall-heading')).toBeNull();
   });
 
   it('reads the word and the example aloud', async () => {
@@ -221,52 +291,29 @@ describe('VocabStep', () => {
     expect(el.querySelector('.word-main')!.classList.contains('no-picture')).toBe(true);
   });
 
-  it('Đã học saves the word as a review card of the lesson', async () => {
+  it('saves nothing itself: the page puts the words in the review queue', async () => {
     await render();
-    const learn = () => el.querySelector<HTMLButtonElement>('.learn-btn');
-    expect(text(learn())).toBe('Đã học – lưu vào ôn tập');
-    learn()!.click();
-    await fixture.whenStable();
-    expect(learn()!.disabled).toBe(true);
-    const req = http.expectOne('/vocab/cards/bulk');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ lessonId: 'l1', lemmas: ['hello'] });
-    req.flush({ added: 1, cards: [] });
-    await settle();
-    expect(learn()).toBeNull();
-    expect(text(el.querySelector('.learned'))).toBe('Đã lưu vào thẻ ôn tập');
-    expect(text(el.querySelector('.learn [role="status"]'))).toBe('Đã lưu "hello" vào thẻ ôn tập.');
-
-    // The next word is not saved yet; coming back keeps the first one saved.
-    await click(forward());
-    expect(text(learn())).toBe('Đã học – lưu vào ôn tập');
-    await click(prev());
-    expect(el.querySelector('.learned')).not.toBeNull();
+    expect(el.querySelector('.learn-btn')).toBeNull();
     http.verify();
   });
 
-  it('says when the word was already in the notebook, and when saving fails', async () => {
-    await render();
-    el.querySelector<HTMLButtonElement>('.learn-btn')!.click();
-    http.expectOne('/vocab/cards/bulk').flush({ added: 0, cards: [] });
-    await settle();
-    expect(text(el.querySelector('.learn [role="status"]'))).toBe(
-      '"hello" đã có trong thẻ ôn tập.',
-    );
-
-    await click(forward());
-    el.querySelector<HTMLButtonElement>('.learn-btn')!.click();
-    http.expectOne('/vocab/cards/bulk').flush('no', { status: 500, statusText: 'Error' });
-    await settle();
-    expect(text(el.querySelector('.learn [role="alert"]'))).toBe(
-      'Không lưu được, vui lòng thử lại.',
-    );
-    expect(el.querySelector<HTMLButtonElement>('.learn-btn')!.disabled).toBe(false);
-  });
-
-  it('says when the lesson has no words', async () => {
+  it('says when the lesson has no words and still goes on', async () => {
     await render([], []);
     expect(text(el.querySelector('.empty'))).toBe('Bài này chưa có từ vựng.');
-    expect(el.querySelector('.word-nav')).toBeNull();
+    await click(nextWord());
+    expect(result).toEqual({ known: [], missed: [] });
   });
+
+  /** The lemma the question on screen asks for: by its meaning, or (listening) the word read aloud last. */
+  function recallAnswer(): string {
+    const meaning = text(el.querySelector('.recall-meaning'));
+    if (meaning) {
+      return words.find((w) => w.meaningVi === meaning)!.lemma;
+    }
+    return played[played.length - 1];
+  }
+
+  function option(lemma: string): HTMLButtonElement {
+    return [...el.querySelectorAll<HTMLButtonElement>('.recall-option')].find((b) => text(b) === lemma)!;
+  }
 });

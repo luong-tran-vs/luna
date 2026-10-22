@@ -30,9 +30,9 @@ func TestAnnotatePromptAsksForBetterContent(t *testing.T) {
 	for _, want := range []string{
 		"Skip very basic words",                                           // no "family" for an A1 learner
 		"what a word or phrase of the lesson means as used there",         // a vocabulary-in-context question
-		"At most one may ask for a plain detail",                          // not only lookups
-		"simple inference or a reason",                                    // an inference question
-		"you must add the reason",                                         // explanations give the reason
+		"exactly 5 questions",                                             // five questions of four kinds (2026-10-22)
+		"needing a simple reason or inference",                            // an inference question
+		"you must add the",                                                // explanations give the reason
 		"at most 60 words",                                                // short grammar note for beginners
 		"Choose the simple present tense only if nothing else stands out", // not the same note every time
 		"Do not say how many sentences or words",                          // no clash with the length hint

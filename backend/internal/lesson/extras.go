@@ -52,12 +52,10 @@ func CleanExtras(x ai.LessonExtras, content string) Extras {
 
 	seen := map[string]bool{}
 	for _, aq := range x.Questions {
-		q := Question{
-			Prompt:        strings.TrimSpace(aq.Prompt),
-			Options:       trimAll(aq.Options),
-			AnswerIndex:   aq.AnswerIndex,
-			ExplanationVi: strings.TrimSpace(aq.ExplanationVi),
-		}
+		q := cleanQuestion(Question{
+			Kind: aq.Kind, Prompt: aq.Prompt, PromptVi: aq.PromptVi, Quote: aq.Quote, Options: aq.Options,
+			AnswerIndex: aq.AnswerIndex, ExplanationVi: aq.ExplanationVi,
+		}, content)
 		if len(questionErrors(q)) > 0 || seen[textKey(q.Prompt)] {
 			continue
 		}
@@ -96,8 +94,12 @@ func questionErrors(q Question) map[string]string {
 	case n > maxPrompt:
 		fields["prompt"] = "Tối đa 300 ký tự"
 	}
-	if len(q.Options) != questionOptions {
-		fields["options"] = "Cần đúng 4 lựa chọn"
+	want := questionOptions
+	if q.Kind == KindTFN {
+		want = len(TFNOptions)
+	}
+	if len(q.Options) != want {
+		fields["options"] = fmt.Sprintf("Cần đúng %d lựa chọn", want)
 	}
 	seen := map[string]bool{}
 	for j, o := range q.Options {
@@ -112,7 +114,7 @@ func questionErrors(q Question) map[string]string {
 		}
 		seen[textKey(o)] = true
 	}
-	if q.AnswerIndex < 0 || q.AnswerIndex >= questionOptions {
+	if q.AnswerIndex < 0 || q.AnswerIndex >= want {
 		fields["answerIndex"] = "Chọn đáp án đúng"
 	}
 	switch n := utf8.RuneCountInString(q.ExplanationVi); {
@@ -122,6 +124,36 @@ func questionErrors(q Question) map[string]string {
 		fields["explanationVi"] = "Tối đa 500 ký tự"
 	}
 	return fields
+}
+
+// Kinds of comprehension questions (added 2026-10-22).
+const (
+	KindGist   = "gist"
+	KindDetail = "detail"
+	KindTFN    = "tfn"
+	KindVocab  = "vocab"
+)
+
+// TFNOptions are the options of a true / false / not given question, in answer order.
+var TFNOptions = []string{"Đúng", "Sai", "Không có trong bài"}
+
+// cleanQuestion trims a question; an unknown kind becomes "", a tfn question gets TFNOptions and a
+// quote not found in content is dropped.
+func cleanQuestion(q Question, content string) Question {
+	q.Kind = strings.TrimSpace(q.Kind)
+	if !slices.Contains([]string{KindGist, KindDetail, KindTFN, KindVocab}, q.Kind) {
+		q.Kind = ""
+	}
+	q.Prompt, q.PromptVi = strings.TrimSpace(q.Prompt), truncate(strings.TrimSpace(q.PromptVi), maxPrompt)
+	q.Quote = strings.TrimSpace(q.Quote)
+	if q.Quote != "" && (q.Kind != KindVocab || utf8.RuneCountInString(q.Quote) > maxPrompt || !inContent(q.Quote, content)) {
+		q.Quote = ""
+	}
+	q.Options, q.ExplanationVi = trimAll(q.Options), strings.TrimSpace(q.ExplanationVi)
+	if q.Kind == KindTFN {
+		q.Options = slices.Clone(TFNOptions)
+	}
+	return q
 }
 
 // inContent reports whether example appears in content, ignoring case, extra spaces and the
@@ -170,10 +202,7 @@ func ValidateExtras(in ExtrasInput, content string) (Extras, error) {
 	}
 	seen := map[string]bool{}
 	for i, q := range in.Questions {
-		q = Question{
-			Prompt: strings.TrimSpace(q.Prompt), Options: trimAll(q.Options),
-			AnswerIndex: q.AnswerIndex, ExplanationVi: strings.TrimSpace(q.ExplanationVi),
-		}
+		q = cleanQuestion(q, content)
 		prefix := "questions." + strconv.Itoa(i) + "."
 		for k, msg := range questionErrors(q) {
 			fields[prefix+k] = msg

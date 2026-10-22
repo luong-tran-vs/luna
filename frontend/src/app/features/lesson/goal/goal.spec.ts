@@ -16,7 +16,7 @@ const goal = (over: Partial<GoalView> = {}): GoalView => ({
 const dashboard = (over: Partial<Dashboard> = {}): Dashboard => ({
   kind: 'studying', goal: goal(), goalCompleted: false, skills: null,
   lesson: { id: 'l2', title: 'My family', topicName: 'Gia đình', level: 'A1' },
-  steps: { read: 'done', listen: 'current', write: 'locked' }, currentStep: 'listen',
+  steps: { vocab: 'done', listen: 'current', read: 'done', grammar: 'locked', speak: 'locked', write: 'locked' }, currentStep: 'listen',
   action: { kind: 'continue', step: 'listen' }, streak: 1, tomorrowCards: 0, ...over,
 });
 

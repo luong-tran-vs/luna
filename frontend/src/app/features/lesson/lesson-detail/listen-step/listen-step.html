@@ -1,0 +1,213 @@
+@if (phase() === 'dictation') {
+  @if (shortDictation()) {
+    <section class="soft-card head-card" aria-labelledby="listen-heading">
+      <h2 class="step-title" id="listen-heading">
+        {{ number() ? number() + '. ' : '' }}Nghe <span class="part">· chép lại</span>
+      </h2>
+      <p class="step-hint">
+        Chỉ {{ items()!.length }} câu ngắn có từ của bài. Nghe bao nhiêu lần cũng được.
+      </p>
+    </section>
+  }
+  <lu-listening
+    [lessonId]="lessonId()"
+    [items]="items()"
+    [mode]="mode()"
+    [startSentence]="mode() === 'study' ? startSentence() : null"
+    [laterLabel]="laterLabel()"
+    [nextLabel]="nextLabel()"
+    [canBack]="questions().length > 0 || canBack()"
+    (back)="backFromDictation()"
+    (leave)="leave.emit()"
+    (completed)="completed.emit()"
+    (position)="position.emit($event)"
+  />
+  @if (mode() === 'review' && nextLabel()) {
+    <button type="button" class="link-btn" (click)="leave.emit()">{{ nextLabel() }}</button>
+  }
+} @else if (dialogue(); as d) {
+  <section class="soft-card" aria-labelledby="listen-heading">
+    <div class="title-row">
+      <h2 class="step-title" id="listen-heading">
+        {{ number() ? number() + '. ' : '' }}Nghe
+        <span class="part">· lượt {{ phase() === 'gist' ? 1 : 2 }}</span>
+      </h2>
+      <span class="badge">
+        {{ phase() === 'gist' ? 'Ý chính' : 'Chi tiết' }}{{ list().length > 1 ? ' · ' + (qIndex() + 1) + '/' + list().length : '' }}
+      </span>
+    </div>
+    <p class="step-hint">
+      @if (phase() === 'gist') {
+        Nghe cả đoạn một lần, chưa có chữ. Chỉ cần hiểu ý chính.
+      } @else {
+        Nghe lại, có thể nghe riêng từng lượt nói.
+      }
+    </p>
+
+    @if (phase() === 'gist') {
+      <p class="people">
+        <span class="avatar" aria-hidden="true">{{ initial(0) }}</span>
+        <span class="people-text"
+          ><b>{{ speaker(0) }}</b> và <b>{{ speaker(1) }}</b> nói chuyện với nhau</span
+        >
+        <span class="avatar other" aria-hidden="true">{{ initial(1) }}</span>
+      </p>
+    }
+
+    @if (speech.supported) {
+      <lu-audio-bar
+        size="large"
+        [progress]="progress()"
+        [duration]="duration()"
+        [playing]="playing() === 'all'"
+        [preparing]="speech.preparing() !== null"
+        playLabel="Nghe cả đoạn"
+        stopLabel="Dừng nghe"
+        (playPressed)="togglePlayAll()"
+      />
+      <p class="status" aria-live="polite">{{ status() }}</p>
+      <div class="speed" role="group" aria-label="Tốc độ">
+        <span class="speed-label">Tốc độ:</span>
+        @for (s of speeds; track s) {
+          <button type="button" class="speed-option" [attr.aria-pressed]="rate() === s" (click)="rate.set(s)">
+            {{ s }}×
+          </button>
+        }
+      </div>
+    } @else {
+      <p class="banner-warning" role="status">
+        Trình duyệt này không có giọng đọc. Hãy bấm "Hiện lời" để đọc đoạn hội thoại.
+      </p>
+    }
+
+    @if (phase() === 'detail' && speech.supported) {
+      <ol class="turn-chips" aria-label="Nghe riêng từng lượt">
+        @for (t of d.turns; track $index; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="turn-chip"
+              [class.current]="turn() === i"
+              [attr.aria-label]="'Nghe lượt ' + (i + 1) + ', ' + speaker(t.speaker)"
+              [attr.aria-pressed]="playing() === 'one' && turn() === i"
+              (click)="toggleTurn(i)"
+            >
+              {{ chipLabel(i) }}
+            </button>
+          </li>
+        }
+      </ol>
+    }
+  </section>
+
+  @if (question(); as q) {
+    <section class="soft-card question" aria-labelledby="question-prompt">
+      @if (q.kind === 'tfn') {
+        <p class="kicker">Đúng · Sai · Không nói đến</p>
+      }
+      <h3 class="prompt" id="question-prompt" [attr.lang]="q.promptVi ? 'en' : null">{{ q.prompt }}</h3>
+      @if (q.promptVi) {
+        <p class="prompt-vi">{{ q.promptVi }}</p>
+      }
+      <ul class="options" [class.row]="q.kind === 'tfn'">
+        @for (o of options(); track o.index; let i = $index) {
+          @let chosen = checked() ? answer() === o.index : picked() === o.index;
+          @let isRight = checked() && o.index === q.answerIndex;
+          @let isWrong = checked() && chosen && o.index !== q.answerIndex;
+          <li>
+            <button
+              type="button"
+              class="option"
+              [class.chosen]="chosen"
+              [class.ok]="isRight"
+              [class.bad]="isWrong"
+              [attr.aria-pressed]="chosen"
+              [attr.aria-disabled]="checked() || null"
+              (click)="pick(o.index)"
+            >
+              @if (q.kind !== 'tfn') {
+                <span class="letter" aria-hidden="true">{{ letters[i] }}</span>
+              }
+              <span class="option-text">{{ o.text }}</span>
+              @if (isRight) {
+                <lu-icon name="check" /><span class="visually-hidden">, đáp án đúng</span>
+              } @else if (isWrong) {
+                <lu-icon name="x" /><span class="visually-hidden">, chưa đúng</span>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+
+      <div role="status">
+        @if (checked()) {
+          <div class="result-card feedback" [class.result-ok]="right()" [class.result-bad]="!right()">
+            <p class="result">
+              <lu-icon [name]="right() ? 'check' : 'x'" />
+              {{ right() ? 'Đúng rồi!' : 'Chưa đúng. Đáp án: ' + q.options[q.answerIndex] }}
+            </p>
+            @if (q.explanationVi) {
+              <p class="explain">{{ q.explanationVi }}</p>
+            }
+            @if (evidence(); as e) {
+              <div class="evidence">
+                <p>
+                  {{ speaker(e.turn.speaker) }} nói: <q lang="en">{{ e.turn.text }}</q>
+                </p>
+                @if (speech.supported) {
+                  <button
+                    type="button"
+                    class="icon-btn"
+                    [attr.aria-label]="'Nghe lại lượt ' + (e.index + 1)"
+                    (click)="toggleTurn(e.index)"
+                  >
+                    <lu-icon name="volume" />
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  @if ((allAnswered() && phase() === 'detail') || !speech.supported) {
+    <section class="soft-card" aria-labelledby="transcript-heading">
+      <div class="title-row">
+        <h3 class="step-title" id="transcript-heading">Lời hội thoại</h3>
+        <button type="button" class="btn" [attr.aria-expanded]="showText()" (click)="showText.set(!showText())">
+          <lu-icon [name]="showText() ? 'eye-off' : 'eye'" /> {{ showText() ? 'Ẩn lời' : 'Hiện lời' }}
+        </button>
+      </div>
+      @if (showText()) {
+        <ol class="transcript">
+          @for (t of d.turns; track $index) {
+            <li>
+              <b>{{ speaker(t.speaker) }}:</b> <span lang="en">{{ t.text }}</span>
+              <span class="meaning">{{ t.meaningVi }}</span>
+            </li>
+          }
+        </ol>
+      }
+    </section>
+  }
+
+  @if (mode() === 'study' && laterLabel()) {
+    <button type="button" class="link-btn" (click)="leave.emit()">{{ laterLabel() }}</button>
+  } @else if (mode() === 'review' && nextLabel()) {
+    <button type="button" class="link-btn" (click)="leave.emit()">{{ nextLabel() }}</button>
+  }
+
+  <!-- The bar at the bottom of the screen (design): ← then the main button. -->
+  <div class="step-nav">
+    @if (canGoBack()) {
+      <button type="button" class="nav-btn" aria-label="Quay lại" (click)="goBack()">
+        <lu-icon name="arrow-left" />
+      </button>
+    }
+    <button type="button" class="btn-primary" [disabled]="!checked() && picked() === null" (click)="main()">
+      {{ mainLabel() }}
+    </button>
+  </div>
+}

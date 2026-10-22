@@ -51,6 +51,19 @@ func writingsSchema() []string {
 	}
 }
 
+// writingMistakesSchema adds the tagged corrections of a grade (2026-10-22), one JSON array. It
+// reruns safely: the migration ignores "duplicate column name".
+func writingMistakesSchema() []string {
+	return []string{`ALTER TABLE writings ADD COLUMN grade_mistakes JSON NULL`}
+}
+
+type writingsMistake struct {
+	Original  string `json:"original"`
+	Corrected string `json:"corrected"`
+	Type      string `json:"type"`
+	NoteVi    string `json:"noteVi"`
+}
+
 type writingsCriterion struct {
 	Name      string `json:"name"`
 	Score     int    `json:"score"`
@@ -58,11 +71,11 @@ type writingsCriterion struct {
 }
 
 const writingsColsNoText = `id, user_id, lesson_id, lesson_revision, lesson_title, prompt, '' AS text, status,
-  grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen,
+  grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen, grade_mistakes,
   created_at, updated_at, submitted_at, gradings`
 
 const writingsCols = `id, user_id, lesson_id, lesson_revision, lesson_title, prompt, text, status,
-  grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen,
+  grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen, grade_mistakes,
   created_at, updated_at, submitted_at, gradings`
 
 type writingsScanner interface{ Scan(dest ...any) error }
@@ -72,12 +85,12 @@ func writingsScan(s writingsScanner) (writing.Writing, error) {
 		w                                   writing.Writing
 		status                              string
 		gStatus, gError, gOverall, gCorrect sql.NullString
-		gCriteria                           []byte
+		gCriteria, gMistakes                []byte
 		gAt, submitted                      sql.NullTime
 		gSeen                               bool
 	)
 	if err := s.Scan(&w.ID, &w.UserID, &w.LessonID, &w.LessonRevision, &w.LessonTitle, &w.Prompt, &w.Text, &status,
-		&gStatus, &gError, &gCriteria, &gOverall, &gCorrect, &gAt, &gSeen,
+		&gStatus, &gError, &gCriteria, &gOverall, &gCorrect, &gAt, &gSeen, &gMistakes,
 		&w.CreatedAt, &w.UpdatedAt, &submitted, &w.Gradings); err != nil {
 		return writing.Writing{}, err
 	}
@@ -95,13 +108,22 @@ func writingsScan(s writingsScanner) (writing.Writing, error) {
 		for i, c := range cs {
 			g.Criteria[i] = writing.Criterion(c)
 		}
+		if len(gMistakes) > 0 {
+			var ms []writingsMistake
+			if err := fromJSON(gMistakes, &ms); err != nil {
+				return writing.Writing{}, err
+			}
+			for _, m := range ms {
+				g.Mistakes = append(g.Mistakes, writing.Mistake(m))
+			}
+		}
 		w.Grade = g
 	}
 	return w, nil
 }
 
 // writingsGradeArgs flattens a grade into the values of the grade_* columns, in column order
-// (status, error, criteria, overall, corrected, graded_at, seen).
+// (status, error, criteria, overall, corrected, graded_at, seen, mistakes).
 func writingsGradeArgs(g writing.Grade) ([]any, error) {
 	cs := make([]writingsCriterion, len(g.Criteria))
 	for i, c := range g.Criteria {
@@ -111,7 +133,16 @@ func writingsGradeArgs(g writing.Grade) ([]any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return []any{string(g.Status), g.Error, string(raw), g.OverallVi, g.CorrectedText, nullTime(g.GradedAt), g.Seen}, nil
+	ms := make([]writingsMistake, len(g.Mistakes))
+	for i, m := range g.Mistakes {
+		ms[i] = writingsMistake(m)
+	}
+	rawMistakes, err := toJSON(ms)
+	if err != nil {
+		return nil, err
+	}
+	return []any{string(g.Status), g.Error, string(raw), g.OverallVi, g.CorrectedText, nullTime(g.GradedAt), g.Seen,
+		string(rawMistakes)}, nil
 }
 
 func (r *Writings) one(ctx context.Context, q string, a ...any) (writing.Writing, bool, error) {
@@ -184,7 +215,8 @@ func (r *Writings) Submit(ctx context.Context, w writing.Writing) (writing.Writi
 		res, err := r.db.ExecContext(ctx,
 			`UPDATE writings SET lesson_revision = ?, lesson_title = ?, prompt = ?, text = ?, status = ?,
   submitted_at = ?, updated_at = ?, gradings = ?,
-  grade_status = ?, grade_error = ?, grade_criteria = ?, grade_overall = ?, grade_corrected = ?, grade_graded_at = ?, grade_seen = ?
+  grade_status = ?, grade_error = ?, grade_criteria = ?, grade_overall = ?, grade_corrected = ?, grade_graded_at = ?, grade_seen = ?,
+  grade_mistakes = ?
 WHERE user_id = ? AND lesson_id = ? AND status <> ?`, upd...)
 		if err != nil {
 			return writing.Writing{}, fmt.Errorf("mysql submit writing: %w", err)
@@ -199,9 +231,9 @@ WHERE user_id = ? AND lesson_id = ? AND status <> ?`, upd...)
 			ins = append(ins, at, at, at, w.Gradings)
 			_, err = r.db.ExecContext(ctx,
 				`INSERT INTO writings (id, user_id, lesson_id, lesson_revision, lesson_title, prompt, text, status,
-  grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen,
+  grade_status, grade_error, grade_criteria, grade_overall, grade_corrected, grade_graded_at, grade_seen, grade_mistakes,
   created_at, updated_at, submitted_at, gradings)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, ins...)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, ins...)
 			if isDuplicate(err) {
 				cur, found, gerr := r.GetByLesson(ctx, w.UserID, w.LessonID)
 				if gerr != nil {
@@ -252,7 +284,7 @@ func (r *Writings) SetGrade(ctx context.Context, id string, g writing.Grade) err
 	a := append(gargs, utc(time.Now()), id)
 	return r.updateByID(ctx,
 		`UPDATE writings SET grade_status = ?, grade_error = ?, grade_criteria = ?, grade_overall = ?,
-  grade_corrected = ?, grade_graded_at = ?, grade_seen = ?, updated_at = ? WHERE id = ?`, a...)
+  grade_corrected = ?, grade_graded_at = ?, grade_seen = ?, grade_mistakes = ?, updated_at = ? WHERE id = ?`, a...)
 }
 
 // MarkSeen marks the result as seen.
@@ -365,8 +397,8 @@ func (r *Writings) Regrade(ctx context.Context, id, text string, submittedAt tim
 	a = append(a, utc(time.Now()), id)
 	return r.updateByID(ctx,
 		`UPDATE writings SET text = ?, submitted_at = ?, gradings = ?, grade_status = ?, grade_error = ?,
-  grade_criteria = ?, grade_overall = ?, grade_corrected = ?, grade_graded_at = ?, grade_seen = ?, updated_at = ?
-  WHERE id = ?`, a...)
+  grade_criteria = ?, grade_overall = ?, grade_corrected = ?, grade_graded_at = ?, grade_seen = ?, grade_mistakes = ?,
+  updated_at = ? WHERE id = ?`, a...)
 }
 
 // writingGradingsSchema counts the gradings of each writing (submit, resubmit, regrade). It reruns

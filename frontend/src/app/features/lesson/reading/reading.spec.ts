@@ -449,6 +449,55 @@ describe('Reading', () => {
     });
   });
 
+  // --- six-step lesson (2026-10-22): a question to read for, the lesson's words marked ---
+
+  describe("guide and the lesson's words", () => {
+    it('shows the guide question over the text only when there is one', async () => {
+      await setup({ inputs: { mode: 'study', guideVi: 'Ai đi công viên?' } });
+      expect(el.querySelector('.guide')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Đọc để trả lời: Ai đi công viên?');
+      expect(el.querySelector('.guide b')?.textContent).toBe('Ai đi công viên?');
+      fixture.destroy();
+      TestBed.resetTestingModule();
+      await setup({ inputs: { mode: 'study' } });
+      expect(el.querySelector('.guide')).toBeNull();
+    });
+
+    it('marks the lesson words, whole words, by text or base form, phrases too, with one legend', async () => {
+      await setup({ inputs: { mode: 'study', targetWords: ['Park', 'go', 'give up', 'the', ''] } });
+      expect(word(0, 'park').classList).toContain('target');
+      // "went" and "goes" have the base form "go".
+      expect(word(0, 'went').classList).toContain('target');
+      expect(word(2, 'goes').classList).toContain('target');
+      expect(word(1, 'gave').classList).toContain('target');
+      expect(word(1, 'up').classList).toContain('target');
+      expect(word(0, 'the').classList).toContain('target');
+      // Only the given words.
+      expect(word(1, 'smoking').classList).not.toContain('target');
+      expect(word(0, 'We').classList).not.toContain('target');
+      // One line says how to use the text: the legend under it, not the tips over it.
+      expect(el.querySelector('.tips')).toBeNull();
+      expect(el.querySelector('.legend')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+        'Gạch chấm: từ vừa học · chạm từ để tra · giữ câu để dịch',
+      );
+    });
+
+    it('keeps tapping a marked word to look it up', async () => {
+      await setup({ inputs: { mode: 'study', targetWords: ['go'] } });
+      word(0, 'went').click();
+      await settle();
+      expectLookup('went', 0).flush(wentResult);
+      await settle();
+      expect(popup()?.textContent).toContain('đã đi');
+    });
+
+    it('marks nothing and keeps the tips without lesson words', async () => {
+      await setup({ inputs: { mode: 'study' } });
+      expect(el.querySelector('.w.target')).toBeNull();
+      expect(el.querySelector('.legend')).toBeNull();
+      expect(el.querySelector('.tips')).not.toBeNull();
+    });
+  });
+
   // --- US3: phrases (looked up by tapping a word only) ---
 
   describe('phrases', () => {
@@ -707,7 +756,7 @@ describe('Reading', () => {
       await settle();
     };
 
-    /** "Đọc xong, trả lời N câu hỏi" (or "Xem câu hỏi" when reading again): on to the questions. */
+    /** "Trả lời N câu hỏi" (or "Xem câu hỏi" when reading again): on to the questions. */
     const toQuiz = async () => {
       el.querySelector<HTMLButtonElement>('.bottom-bar .to-quiz')!.click();
       await settle();
@@ -720,7 +769,7 @@ describe('Reading', () => {
       expect(el.querySelector('lu-comprehension-quiz')).toBeNull();
       // The grammar note is not part of the Đọc step: it stays in the lesson's Bài đọc tab.
       expect(el.querySelector('lu-grammar-note')).toBeNull();
-      expect(text(el.querySelector('.bottom-bar .to-quiz'))).toBe('Đọc xong, trả lời 2 câu hỏi');
+      expect(text(el.querySelector('.bottom-bar .to-quiz'))).toBe('Trả lời 2 câu hỏi');
 
       await toQuiz();
       expect(text(el.querySelector('.step-title'))).toBe('2. Đọc · Câu hỏi');
@@ -758,7 +807,7 @@ describe('Reading', () => {
       await settle();
       expect(text(el.querySelector('.step-title'))).toBe('2. Đọc · Kết quả');
       expect(el.querySelector('.step-line .peek')).toBeNull();
-      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('Đúng 0/2 câu');
+      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('Kết quả 0/2 đúng');
       button('Sang bước Nghe')!.click();
       await settle();
       expect(completed).toHaveBeenCalledTimes(1);
@@ -770,7 +819,7 @@ describe('Reading', () => {
       const completed = vi.fn();
       fixture.componentInstance.completed.subscribe(completed);
       await toQuiz();
-      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('🎉 Đúng 2/2 câu');
+      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('🎉 Kết quả 2/2 đúng');
       // Without a label from the lesson the button says what it does.
       button('Hoàn thành bước Đọc')!.click();
       await settle();
@@ -783,7 +832,7 @@ describe('Reading', () => {
       fixture.componentInstance.completed.subscribe(completed);
       expect(text(el.querySelector('.bottom-bar .to-quiz'))).toBe('Xem câu hỏi');
       await toQuiz();
-      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('Đúng 1/2 câu');
+      expect(text(el.querySelector('lu-comprehension-quiz .score'))).toBe('Kết quả 1/2 đúng');
       el.querySelectorAll<HTMLButtonElement>('lu-comprehension-quiz .score-row')[1].click();
       await settle();
       expect(text(el.querySelector('lu-asker .counter'))).toBe('Câu 2/2 · ✗ Sai rồi');

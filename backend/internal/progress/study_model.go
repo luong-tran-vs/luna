@@ -10,17 +10,21 @@ import (
 type Step string
 
 const (
-	StepRead   Step = "read"
-	StepListen Step = "listen"
-	StepWrite  Step = "write"
+	StepVocab   Step = "vocab"
+	StepListen  Step = "listen"
+	StepRead    Step = "read"
+	StepGrammar Step = "grammar"
+	StepSpeak   Step = "speak"
+	StepWrite   Step = "write"
 	// StepDone is the current step once every step is done.
 	StepDone Step = "done"
 )
 
-// Steps lists the steps in study order (F8 adds write after listen). The review step was dropped
-// on 2026-10-02: due cards are reviewed in the notebook, not in a lesson; progress saved before
-// may still hold it and it is ignored.
-var Steps = []Step{StepRead, StepListen, StepWrite}
+// Steps lists the steps in study order. Since 2026-10-22 a lesson has six steps, all recorded here:
+// Từ vựng → Nghe → Đọc → Ngữ pháp → Nói → Viết (before, only Đọc, Nghe and Viết were; the words and
+// speaking were kept in the browser). The review step was dropped on 2026-10-02; progress saved
+// before may still hold it and it is ignored.
+var Steps = []Step{StepVocab, StepListen, StepRead, StepGrammar, StepSpeak, StepWrite}
 
 // ValidStep reports whether s is one of Steps.
 func ValidStep(s Step) bool { return slices.Contains(Steps, s) }

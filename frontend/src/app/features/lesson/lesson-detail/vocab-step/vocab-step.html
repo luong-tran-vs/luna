@@ -1,3 +1,78 @@
+@if (phase() === 'recall' && question(); as q) {
+  <section class="soft-card recall" aria-labelledby="recall-heading">
+    <div class="card-head">
+      <h2 class="step-title" id="recall-heading">Nhớ lại nhanh</h2>
+      <div class="count-row">
+        <div
+          class="track"
+          role="progressbar"
+          aria-label="Câu đang làm"
+          aria-valuemin="1"
+          [attr.aria-valuemax]="recall().length"
+          [attr.aria-valuenow]="recallIndex() + 1"
+          [attr.aria-valuetext]="recallIndex() + 1 + '/' + recall().length"
+        >
+          <div class="fill" [style.width.%]="recallPercent()"></div>
+        </div>
+        <span class="count" aria-hidden="true">{{ recallIndex() + 1 }}/{{ recall().length }}</span>
+      </div>
+    </div>
+
+    @if (q.kind === 'listen') {
+      <p class="recall-label">Nghe rồi chọn từ</p>
+      <button type="button" class="recall-play" aria-label="Nghe lại từ" (click)="playQuestion()">
+        <lu-icon name="volume" />
+      </button>
+    } @else {
+      <p class="recall-label">Từ nào có nghĩa là</p>
+      <p class="recall-meaning">{{ q.word.meaningVi }}</p>
+    }
+
+    <div class="recall-options" role="group" aria-label="Chọn từ">
+      @for (o of q.options; track o) {
+        <button
+          type="button"
+          class="recall-option"
+          lang="en"
+          [class.is-right]="picked() !== null && o === q.word.lemma"
+          [class.is-wrong]="picked() === o && o !== q.word.lemma"
+          [disabled]="picked() !== null"
+          (click)="pick(o)"
+        >
+          {{ o }}
+          @if (picked() !== null && o === q.word.lemma) {
+            <lu-icon name="check" />
+          }
+        </button>
+      }
+    </div>
+
+    <p class="recall-result" role="status">
+      @if (picked() !== null) {
+        @if (pickedRight()) {
+          <span class="ok">Đúng rồi!</span>
+        } @else {
+          <span class="bad">Chưa đúng.</span> Từ cần tìm:
+        }
+        <strong lang="en">{{ q.word.lemma }}</strong>
+        @if (q.word.ipa) {
+          <span class="ipa">{{ q.word.ipa }}</span>
+        }
+        – {{ q.word.meaningVi }}
+      }
+    </p>
+    <p class="muted recall-note">Câu sai được hỏi lại ở cuối lượt.</p>
+
+    <div class="word-nav step-nav">
+      <button type="button" class="nav-btn prev" aria-label="Về các từ" (click)="backToCards()">
+        <lu-icon name="arrow-left" />
+      </button>
+      <button type="button" class="btn-primary next-word" [disabled]="picked() === null" (click)="nextQuestion()">
+        {{ recallIndex() + 1 >= recall().length && picked() !== null ? finishLabel() : 'Câu tiếp' }}
+      </button>
+    </div>
+  </section>
+} @else {
 <section class="soft-card" aria-labelledby="vocab-heading">
   <div class="card-head">
     <h2 class="step-title" id="vocab-heading">
@@ -45,6 +120,17 @@
         <div class="word-text">
           <div class="word-line">
             <p class="lemma" lang="en">{{ r.word.lemma }}</p>
+            <button
+              type="button"
+              class="known-btn"
+              [attr.aria-pressed]="known().has(r.word.lemma)"
+              (click)="toggleKnown(r.word.lemma)"
+            >
+              @if (known().has(r.word.lemma)) {
+                <lu-icon name="check" />
+              }
+              Đã biết
+            </button>
             @if (canSpeak) {
               <button
                 type="button"
@@ -96,51 +182,36 @@
       }
     </article>
 
-    <div class="learn">
-      @if (learned().has(r.word.lemma)) {
-        <p class="learned"><lu-icon name="check" /> Đã lưu vào thẻ ôn tập</p>
+    <p class="known-note" role="status">
+      @if (known().has(r.word.lemma)) {
+        Từ này bạn đã biết: không đưa vào ôn tập.
       } @else {
-        <button
-          type="button"
-          class="learn-btn"
-          [disabled]="saving() !== null"
-          [attr.aria-busy]="saving() === r.word.lemma"
-          (click)="learn(r.word.lemma)"
-        >
-          <lu-icon name="check" />
-          {{ saving() === r.word.lemma ? 'Đang lưu…' : 'Đã học – lưu vào ôn tập' }}
-        </button>
+        <lu-icon name="check" /> Từ mới tự vào ôn tập. Bấm "Đã biết" nếu bạn biết từ này rồi.
       }
-      <p class="visually-hidden" role="status">{{ learnStatus() }}</p>
-      @if (learnError(); as message) {
-        <p class="field-error" role="alert">{{ message }}</p>
-      }
-    </div>
+    </p>
 
     <div class="word-nav step-nav">
       <button
         type="button"
         class="nav-btn prev"
-        aria-label="Từ trước"
-        [disabled]="isFirst()"
+        [attr.aria-label]="isFirst() ? 'Bước trước' : 'Từ trước'"
+        [disabled]="isFirst() && !canBack()"
         (click)="previous()"
       >
         <lu-icon name="arrow-left" />
       </button>
       <button type="button" class="btn-primary next-word" (click)="nextOrDone()">
-        {{ isLast() ? finishLabel() : 'Tiếp theo' }}
-      </button>
-      <button
-        type="button"
-        class="nav-btn forward"
-        aria-label="Từ sau"
-        [disabled]="isLast()"
-        (click)="forward()"
-      >
-        <lu-icon name="arrow-right" />
+        {{ isLast() ? (canRecall() ? 'Nhớ lại nhanh' : finishLabel()) : 'Tiếp theo' }}
       </button>
     </div>
   } @else {
     <p class="empty">Bài này chưa có từ vựng.</p>
+    <div class="word-nav step-nav">
+      <button type="button" class="nav-btn prev" aria-label="Bước trước" [disabled]="!canBack()" (click)="back.emit()">
+        <lu-icon name="arrow-left" />
+      </button>
+      <button type="button" class="btn-primary next-word" (click)="nextOrDone()">{{ finishLabel() }}</button>
+    </div>
   }
 </section>
+}

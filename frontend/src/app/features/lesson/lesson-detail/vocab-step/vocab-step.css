@@ -170,44 +170,122 @@
   color: var(--color-text-muted);
 }
 
-.learn {
-  display: grid;
-  gap: var(--space-2);
+/* "Đã biết" sits by the word; pressed, it keeps the word out of the review queue. */
+.known-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1, 4px);
+  min-height: 36px;
+  margin-left: auto;
+  padding: 0 var(--space-3);
+  font: 600 var(--text-xs) var(--font-ui);
+  color: var(--color-primary-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  cursor: pointer;
 }
 
-.learn-btn {
+.known-btn[aria-pressed='true'] {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.known-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-md);
+}
+
+.recall-label {
+  font: 700 var(--text-xs) var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.recall-meaning {
+  font: 600 var(--text-lg) var(--font-ui);
+}
+
+.recall-play {
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  font-size: 28px;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.recall-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.recall-option {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  width: 100%;
-  min-height: 44px;
-  font-weight: 600;
-  color: var(--color-ok);
+  min-height: 48px;
+  padding: var(--space-2);
+  font: 600 var(--text-base) var(--font-ui);
+  color: var(--color-text);
   background: var(--color-surface);
-  border: 1px solid var(--color-ok);
+  border: 1.5px solid var(--color-line);
   border-radius: var(--radius-md);
   cursor: pointer;
 }
 
-.learn-btn:hover:not(:disabled) {
-  background: var(--color-primary-soft);
+.recall-option.is-right {
+  color: var(--color-ok);
+  border-color: var(--color-ok);
 }
 
-.learn-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.recall-option.is-wrong {
+  color: var(--color-bad);
+  border-color: var(--color-bad);
+  text-decoration: line-through;
 }
 
-/* Saved: the check and the words say it, the color only adds to them. */
-.learned {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  min-height: 44px;
+.recall-option:disabled {
+  cursor: default;
+}
+
+.recall-result {
+  min-height: 24px;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.recall-result .ok {
   font-weight: 600;
   color: var(--color-ok);
+}
+
+.recall-result .bad {
+  font-weight: 600;
+  color: var(--color-bad);
+}
+
+.recall-result .ipa {
+  font-family: var(--font-ipa);
+  color: var(--color-text-muted);
+}
+
+.recall-note {
+  font: var(--text-xs) var(--font-ui);
 }
 
 @media (max-width: 420px) {
@@ -229,7 +307,7 @@
 .step-nav {
   position: static;
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  grid-template-columns: 44px minmax(0, 1fr);
   padding: 0;
   background: none;
   border: 0;

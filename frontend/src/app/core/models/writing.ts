@@ -21,6 +21,53 @@ export interface Grade {
   overallVi: string;
   correctedText: string;
   gradedAt: string | null;
+  /** The corrections tagged with their type (added 2026-10-22); missing or [] for older grades. */
+  mistakes?: Mistake[];
+}
+
+/** The type of a correction of a graded writing. */
+export type MistakeType =
+  | 'word-order'
+  | 'plural'
+  | 'to-be'
+  | 'verb-s'
+  | 'tense'
+  | 'verb-form'
+  | 'article'
+  | 'preposition'
+  | 'word-choice'
+  | 'spelling'
+  | 'other';
+
+/** Vietnamese label of each mistake type, for the tags. */
+export const MISTAKE_LABELS: Record<MistakeType, string> = {
+  'word-order': 'Trật tự từ',
+  plural: 'Số nhiều',
+  'to-be': 'Động từ to be',
+  'verb-s': 'Động từ thêm -s',
+  tense: 'Thì',
+  'verb-form': 'Dạng động từ',
+  article: 'Mạo từ',
+  preposition: 'Giới từ',
+  'word-choice': 'Dùng từ',
+  spelling: 'Chính tả',
+  other: 'Khác',
+};
+
+/** One correction: the learner's words (empty when words were only added) and the new ones. */
+export interface Mistake {
+  original: string;
+  corrected: string;
+  type: MistakeType;
+  noteVi: string;
+}
+
+/** GET /api/writings/mistakes: the learner's mistakes by type, the most frequent first. */
+export interface MistakeStat {
+  type: MistakeType;
+  count: number;
+  /** The latest ones, at most 3. */
+  examples: Mistake[];
 }
 
 export interface Writing {

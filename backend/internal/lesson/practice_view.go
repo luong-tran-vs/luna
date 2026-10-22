@@ -18,6 +18,13 @@ type PracticeView struct {
 	Fill         *Fill
 	GrammarTipVi string
 	Translations []TranslationView
+	// Steps is the content of the six-step lesson, nil for a practice made before it (added
+	// 2026-10-22); Dictation is the sentences of the Listening step.
+	Steps     *Steps
+	Dictation []DictationItem
+	// GrammarPointID is the lesson's syllabus point (or the one the AI picked for it), "" when none.
+	GrammarPointID string
+	GrammarTitleVi string
 }
 
 // TranslationView is one sentence to translate: the answer tiles in order, and every tile
@@ -38,11 +45,20 @@ func (r *Reader) Practice(ctx context.Context, id string) (PracticeView, error) 
 	if err != nil {
 		return PracticeView{}, fmt.Errorf("lesson: roadmap position: %w", err)
 	}
-	v := PracticeView{Status: l.PracticeStatus, LessonNumber: n, Examples: []Example{}, Translations: []TranslationView{}}
+	v := PracticeView{
+		Status: l.PracticeStatus, LessonNumber: n, Examples: []Example{}, Translations: []TranslationView{},
+		Dictation: Dictation(l), GrammarPointID: l.GrammarPointID,
+	}
 	p := l.Practice
 	if p == nil {
+		v.GrammarTitleVi = GrammarTitle(v.GrammarPointID)
 		return v, nil
 	}
+	v.Steps = p.Steps
+	if v.GrammarPointID == "" && p.Steps != nil {
+		v.GrammarPointID = p.Steps.GrammarPointID
+	}
+	v.GrammarTitleVi = GrammarTitle(v.GrammarPointID)
 
 	v.ObjectiveVi, v.GrammarTipVi = p.ObjectiveVi, p.GrammarTipVi
 	v.Examples = append(v.Examples, p.Examples...)
