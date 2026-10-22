@@ -112,6 +112,13 @@
   scroll-margin-top: calc(var(--header-h, 0px) + 96px);
 }
 
+/* Before the first extra lesson: they are lighter steps, to see words and grammar again. */
+.extra-label {
+  position: absolute;
+  border-style: dashed;
+  transform: translate(-50%, -50%);
+}
+
 /* --- the winding path --- */
 
 .path {
@@ -178,6 +185,11 @@
   --icon: #fff;
 }
 
+/* An extra lesson: a smaller, lighter step with a dashed edge (bigger again when studied). */
+.is-extra {
+  --size: 46px;
+}
+
 /* The step to study now: big, green, with a play icon and Luna beside it. */
 .is-focus {
   --size: 80px;
@@ -195,6 +207,19 @@
   --edge: color-mix(in srgb, var(--lp-blue) 55%, #000);
   --solid: var(--lp-blue);
   --icon: #fff;
+}
+
+.is-extra.is-done {
+  --tone: color-mix(in srgb, var(--lp-green) 75%, #fff);
+}
+
+.is-extra .bubble-btn {
+  border-style: dashed;
+}
+
+.extra-tag {
+  font-weight: 500;
+  text-transform: none;
 }
 
 .finish {

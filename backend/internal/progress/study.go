@@ -35,7 +35,10 @@ type StudyDeps struct {
 	Grammar Grammar
 	// Members limits guests to the first lesson of each roadmap; nil treats everyone as a member.
 	Members Members
-	Now     func() time.Time
+	// Course gives a topic's place in a level's fixed course (A1 since 2026-10-22); nil means no
+	// course.
+	Course func(level, topicName string) (CourseTopic, bool)
+	Now    func() time.Time
 }
 
 // StudyService runs the study flow (L): goals, the lesson being studied and its steps, streak.

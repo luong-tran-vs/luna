@@ -27,6 +27,10 @@ const (
 // errGenerateAI wraps every error of the AI call so handlers can tell it from storage errors.
 var errGenerateAI = errors.New("lesson: generate")
 
+// IsGenerateAIError reports whether err came from the AI call of Generate (another package's
+// handler then answers like the generate route).
+func IsGenerateAIError(err error) bool { return errors.Is(err, errGenerateAI) }
+
 // GenerateInput is what an admin asks for when generating lessons for a topic.
 type GenerateInput struct {
 	// Level is the level of the lessons to write; topics are shared by every level.
@@ -56,6 +60,9 @@ type Draft struct {
 	MissingWords []string
 	// GrammarPointID is the point asked for, or the one the AI picked with GrammarAuto; "" when none.
 	GrammarPointID string
+	// HardWords are the words above the level (CEFR-J) left after the AI was asked to replace them;
+	// the target words are not counted (added 2026-10-22).
+	HardWords []string
 	// index is the position of the draft in the AI answer, which matches its target group.
 	index int
 }
@@ -170,6 +177,7 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	if len(out.Drafts) == 0 {
 		return GenerateResult{}, ErrUnusableDraft
 	}
+	s.simplifyDrafts(actx, in.Level, out.Drafts, targets)
 	markTargets(out.Drafts, targets)
 	for i := range out.Drafts {
 		out.Drafts[i].GrammarPointID = in.GrammarPointID

@@ -51,6 +51,8 @@ type Service struct {
 	studyDays StudyDays
 	syllabus  *Syllabus
 	now       func() time.Time
+	// course orders a level's points as its fixed course teaches them; nil keeps the syllabus order.
+	course CourseOrder
 }
 
 // NewService returns a Service over the embedded syllabus.
@@ -258,6 +260,8 @@ type PointStatus struct {
 	BestMastery int
 	// WeakCount is how many practice exercises the latest practice round got wrong, to redo.
 	WeakCount int
+	// Course is the first topic of the level's course that teaches the point; nil when none.
+	Course *CourseTopic
 }
 
 // Overview is the learner's list of points and the suggested next one.
@@ -302,10 +306,18 @@ func (s *Service) List(ctx context.Context, userID, level string) (Overview, err
 		if rec, ok := byPoint[p.ID]; ok {
 			ps.Status, ps.BestMastery, ps.WeakCount = rec.Status, rec.BestMastery, len(rec.Weak)
 		}
-		if ps.Available && ps.Status != ProgressMastered && out.Next == "" {
-			out.Next = p.ID
-		}
 		out.Points = append(out.Points, ps)
+	}
+	if level != "" && s.course != nil {
+		if topics, order, ok := s.course(level); ok {
+			out.Points = inCourseOrder(out.Points, topics, order)
+		}
+	}
+	for _, ps := range out.Points {
+		if ps.Available && ps.Status != ProgressMastered {
+			out.Next = ps.ID
+			break
+		}
 	}
 	return out, nil
 }

@@ -17,7 +17,9 @@ import { LearningPath, Milestone, PathLesson, PathRoadmap } from '../../../core/
 import { StudyApiService } from '../../../core/services/study-api.service';
 import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
+import { MoveOn, MoveOnCard } from './move-on/move-on';
 import { PathBanner } from './path-banner/path-banner';
+import { TopicInfo } from './topic-info/topic-info';
 
 /**
  * Width of the path's drawing, in px. The steps are placed in % of it, so the path narrows with
@@ -28,6 +30,10 @@ const PATH_WIDTH = 480;
 const ROW = 150;
 /** Extra room before the step with Luna and the bubble over it. */
 const FOCUS_ROOM = 40;
+/** Extra room before the first extra lesson, for the "Bài thêm" label above it. */
+const EXTRA_ROOM = 40;
+/** Distance from the last main lesson down to the "Bài thêm" label. */
+const EXTRA_LABEL = 72;
 /** Room above the first step: more when a bubble sits over it. */
 const TOP = 64;
 const TOP_BUBBLE = 104;
@@ -48,6 +54,8 @@ interface PathNode extends Point {
   n: number;
   /** The lesson being studied: the big green step with Luna beside it. */
   focus: boolean;
+  /** An extra lesson of a course topic: a lighter step tagged "Bài thêm". */
+  extra: boolean;
 }
 
 interface StartStep extends Point {
@@ -59,8 +67,11 @@ interface StartStep extends Point {
 
 interface RoadmapView {
   roadmap: PathRoadmap;
-  /** 1-based number of the roadmap in the part. */
+  /** Number of the topic: its place in the level's course, else in the part (1-based). */
   number: number;
+  /** Where the "Bài thêm" label sits, before the first extra lesson; null without extras. */
+  extraLabel: Point | null;
+  moveOn: MoveOn | null;
   /** The "Học chủ đề này?" step before the lessons of a roadmap that is not the goal. */
   start: StartStep | null;
   nodes: PathNode[];
@@ -100,8 +111,8 @@ function toRoadmapView(
   let y = top - ROW;
   // The first step and the finish stay in the middle, where the way from the previous roadmap
   // comes in and the way to the next one goes on.
-  const at = (i: number, room = false) => {
-    y += i === 0 ? ROW : ROW + (room ? FOCUS_ROOM : 0);
+  const at = (i: number, room = 0) => {
+    y += i === 0 ? ROW : ROW + room;
     return { x: MIDDLE + OFFSETS[i % OFFSETS.length], y };
   };
   // The lesson a start opens: the first not done.
@@ -112,9 +123,17 @@ function toRoadmapView(
   const start = jump
     ? { ...at(0), focus: focusStart, next: `Bài ${k + 1}: ${r.lessons[k].title}` }
     : null;
+  let extraLabel: Point | null = null;
   const nodes = r.lessons.map((lesson, i) => {
     const focus = lesson.state === 'current';
-    return { lesson, n: i + 1, focus, ...at(i + first, focus) };
+    const extra = !!lesson.extra;
+    // The first extra lesson after the main ones comes a little lower, under its label.
+    const firstExtra = extra && i > 0 && !r.lessons[i - 1].extra;
+    if (firstExtra) {
+      extraLabel = { x: MIDDLE, y: y + EXTRA_LABEL };
+    }
+    const room = (focus ? FOCUS_ROOM : 0) + (firstExtra ? EXTRA_ROOM : 0);
+    return { lesson, n: i + 1, focus, extra, ...at(i + first, room) };
   });
   y += ROW;
   const finish = { x: MIDDLE, y, done };
@@ -142,7 +161,9 @@ function toRoadmapView(
   }
   return {
     roadmap: r,
-    number: index + 1,
+    number: r.course?.number || index + 1,
+    extraLabel,
+    moveOn: null,
     start,
     nodes,
     finish,
@@ -164,6 +185,22 @@ function toView(m: Milestone): MilestoneView {
     }
     return v;
   });
+  // Main lessons done and an extra one being studied: the next topic may start now.
+  roadmaps.forEach((v, i) => {
+    const next = roadmaps[i + 1];
+    const lessons = v.roadmap.lessons;
+    const current = lessons.find((l) => l.state === 'current');
+    const mains = lessons.filter((l) => !l.extra);
+    if (
+      next &&
+      v.roadmap.active &&
+      current?.extra &&
+      mains.length > 0 &&
+      mains.every((l) => l.state === 'done')
+    ) {
+      v.moveOn = { roadmap: next.roadmap, number: next.number, mains: mains.length, current };
+    }
+  });
   return {
     milestone: m,
     number: LEVELS.indexOf(m.level) + 1,
@@ -181,7 +218,16 @@ function toView(m: Milestone): MilestoneView {
  */
 @Component({
   selector: 'lu-learn-path',
-  imports: [Loading, Icon, RouterLink, NgOptimizedImage, NgTemplateOutlet, PathBanner],
+  imports: [
+    Loading,
+    Icon,
+    RouterLink,
+    NgOptimizedImage,
+    NgTemplateOutlet,
+    PathBanner,
+    TopicInfo,
+    MoveOnCard,
+  ],
   templateUrl: './learn-path.html',
   styleUrl: './learn-path.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -214,16 +260,24 @@ export class LearnPath {
     () => this.part()?.milestone.roadmaps.find((r) => r.active) ?? null,
   );
   /** The roadmap named in the banner: the one being studied, else the part's first. */
-  private readonly featured = computed(
+  protected readonly featured = computed(
     () => this.active() ?? this.part()?.milestone.roadmaps[0] ?? null,
   );
-  protected readonly bannerTitle = computed(
-    () => this.featured()?.topicName ?? `Trình độ ${this.part()?.milestone.level ?? ''}`,
-  );
+  protected readonly bannerTitle = computed(() => {
+    const f = this.featured();
+    if (!f) {
+      return `Trình độ ${this.part()?.milestone.level ?? ''}`;
+    }
+    return f.course ? `Chủ đề ${f.course.number} · ${f.topicName}` : f.topicName;
+  });
   protected readonly bannerText = computed(() => {
     const f = this.featured();
     if (!f) {
       return 'Trình độ này sẽ mở khi có bài mới.';
+    }
+    const canDo = f.course?.canDoVi.trim();
+    if (canDo) {
+      return `Sau chủ đề này bạn có thể ${canDo}`;
     }
     return f.topicDescription?.trim() || `Học các bài của chủ đề ${f.topicName} từng bước một.`;
   });
@@ -256,7 +310,8 @@ export class LearnPath {
       locked: 'chưa mở',
       membersOnly: 'chỉ dành cho thành viên',
     };
-    return `Bài ${node.n}: ${node.lesson.title}, ${state[node.lesson.state]}`;
+    const extra = node.extra ? ' (bài thêm)' : '';
+    return `Bài ${node.n}${extra}: ${node.lesson.title}, ${state[node.lesson.state]}`;
   }
 
   /** Luna stands on the side of the step with more room. */

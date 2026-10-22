@@ -13,7 +13,8 @@ export interface SuggestedTopic {
 }
 
 /**
- * Suggested order of the topics per level, from the CEFR descriptors: A1–A2 move from the learner
+ * Suggested order of the topics per level, from the CEFR descriptors (A1 is the fixed course of the
+ * backend, backend/internal/curriculum/a1.json, since 2026-10-22): A1–A2 move from the learner
  * outwards (self, family, home, day, food, town), each topic reusing the words and grammar of the
  * ones before; B1 turns to experiences and opinions; B2 and above to abstract and public topics.
  * Grammar in "why" follows the order of the app's grammar syllabus.
@@ -26,11 +27,6 @@ export const TOPIC_CURRICULUM: Record<Level, SuggestedTopic[]> = {
       description: 'Chào hỏi, tên, tuổi, quê quán',
     },
     {
-      name: 'Số đếm',
-      why: 'Nền cho tuổi, giờ, giá tiền, số điện thoại ở các chủ đề sau.',
-      description: 'Số đếm, tuổi, số điện thoại',
-    },
-    {
       name: 'Gia đình',
       aliases: ['Người thân'],
       why: 'Từ vựng gần gũi nhất; luyện have/has và tính từ sở hữu.',
@@ -38,14 +34,8 @@ export const TOPIC_CURRICULUM: Record<Level, SuggestedTopic[]> = {
     },
     {
       name: 'Thời gian và ngày tháng',
-      why: 'Giờ, thứ, tháng: cần trước khi kể thói quen hằng ngày.',
+      why: 'Giờ, thứ, tháng với at / on / in và từ để hỏi: cần trước khi kể thói quen.',
       description: 'Giờ giấc, thứ, ngày, tháng',
-    },
-    {
-      name: 'Hoạt động hằng ngày',
-      aliases: ['Thói quen hằng ngày'],
-      why: 'Hiện tại đơn và trạng từ tần suất, dùng lại giờ giấc vừa học.',
-      description: 'Thói quen từ sáng đến tối',
     },
     {
       name: 'Nhà cửa và đồ đạc',
@@ -54,26 +44,37 @@ export const TOPIC_CURRICULUM: Record<Level, SuggestedTopic[]> = {
       description: 'Các phòng và đồ đạc trong nhà',
     },
     {
-      name: 'Đồ ăn',
-      aliases: ['Đồ ăn và đồ uống', 'Ăn uống'],
-      why: 'Danh từ đếm được / không đếm được; nói thích, không thích.',
-      description: 'Các món ăn quen thuộc',
+      name: 'Hoạt động hằng ngày',
+      aliases: ['Thói quen hằng ngày'],
+      why: 'Hiện tại đơn và trạng từ tần suất, dùng lại giờ giấc vừa học.',
+      description: 'Thói quen từ sáng đến tối',
     },
     {
-      name: 'Quần áo',
-      why: 'This / these, màu sắc, kích cỡ: chuẩn bị cho Mua sắm.',
-      description: 'Quần áo, màu sắc, kích cỡ',
+      name: 'Đồ ăn',
+      aliases: ['Đồ ăn và đồ uống', 'Ăn uống'],
+      why: 'A / an / the và danh từ số nhiều; nói ăn gì, gọi món.',
+      description: 'Các món ăn quen thuộc',
     },
     {
       name: 'Mua sắm',
       aliases: ['Cửa hàng'],
-      why: 'How much, giá tiền: dùng lại số đếm, đồ ăn, quần áo.',
+      why: 'This / that / these / those, hỏi giá: dùng lại đồ ăn và số đếm.',
       description: 'Đi chợ, siêu thị, hỏi giá',
     },
     {
       name: 'Trường học',
-      why: 'Môn học, đồ dùng, thời khoá biểu: hiện tại đơn trong ngữ cảnh mới.',
+      why: 'Hiện tại đơn: phủ định và câu hỏi (I don’t…, Do you…?).',
       description: 'Lớp học, môn học, thời khoá biểu',
+    },
+    {
+      name: 'Âm nhạc',
+      why: 'Like / love + V-ing và and / but / because; dễ gắn với bài hát.',
+      description: 'Nhạc cụ, thể loại nhạc, buổi hoà nhạc',
+    },
+    {
+      name: 'Thời tiết',
+      why: 'Ôn hiện tại đơn và trạng từ tần suất; mở đầu cho chuyện mùa, du lịch ở A2.',
+      description: 'Thời tiết và các mùa',
     },
     {
       name: 'Con vật',
@@ -81,12 +82,22 @@ export const TOPIC_CURRICULUM: Record<Level, SuggestedTopic[]> = {
       description: 'Con vật nuôi và hoang dã',
     },
     {
-      name: 'Thời tiết',
-      why: 'It is + tính từ; mở đầu cho chuyện mùa, du lịch ở A2.',
-      description: 'Thời tiết và các mùa',
+      name: 'Thành phố và chỉ đường',
+      why: 'Câu mệnh lệnh và giới từ nơi chốn: hỏi và chỉ đường.',
+      description: 'Địa điểm trong thành phố, hỏi đường',
     },
   ],
   A2: [
+    {
+      name: 'Số đếm',
+      why: 'Nền cho tuổi, giờ, giá tiền, số điện thoại ở các chủ đề sau.',
+      description: 'Số đếm, tuổi, số điện thoại',
+    },
+    {
+      name: 'Quần áo',
+      why: 'This / these, màu sắc, kích cỡ: chuẩn bị cho Mua sắm.',
+      description: 'Quần áo, màu sắc, kích cỡ',
+    },
     {
       name: 'Sở thích và thời gian rảnh',
       aliases: ['Sở thích'],
@@ -102,11 +113,6 @@ export const TOPIC_CURRICULUM: Record<Level, SuggestedTopic[]> = {
       name: 'Miêu tả người',
       why: 'Tính từ và so sánh hơn, so sánh nhất.',
       description: 'Ngoại hình và tính cách',
-    },
-    {
-      name: 'Thành phố và chỉ đường',
-      why: 'Câu mệnh lệnh, giới từ: hỏi và chỉ đường.',
-      description: 'Địa điểm trong thành phố, hỏi đường',
     },
     {
       name: 'Giao thông',
@@ -143,11 +149,6 @@ export const TOPIC_CURRICULUM: Record<Level, SuggestedTopic[]> = {
       aliases: ['Lễ hội', 'Lễ kỷ niệm'],
       why: 'Văn hoá quen thuộc nên dễ diễn đạt; mô tả phong tục.',
       description: 'Phong tục ngày Tết',
-    },
-    {
-      name: 'Âm nhạc',
-      why: 'Nêu sở thích và ý kiến đơn giản; dễ gắn với bài hát.',
-      description: 'Nhạc cụ, thể loại nhạc, buổi hoà nhạc',
     },
     {
       name: 'Cảm xúc',

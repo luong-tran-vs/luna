@@ -49,6 +49,14 @@
               </h3>
             }
             <div class="roadmap" [class.is-active]="r.active">
+              @if (r.course; as c) {
+                <lu-topic-info
+                  [course]="c"
+                  [topicName]="r.topicName"
+                  [showTitle]="first"
+                  [showCanDo]="r !== featured()"
+                />
+              }
               @if (r.lessons.length === 0) {
                 <p class="no-lesson">Chủ đề này chưa có bài nào. Hãy quay lại sau.</p>
               } @else {
@@ -63,6 +71,15 @@
                     <path class="way-locked" [attr.d]="rv.locked" />
                     <path class="way-open" [attr.d]="rv.open" />
                   </svg>
+                  @if (rv.extraLabel; as x) {
+                    <span
+                      class="node-label extra-label"
+                      [style.left.%]="(x.x / pathWidth) * 100"
+                      [style.top.px]="x.y"
+                    >
+                      Bài thêm · gặp lại từ và ngữ pháp
+                    </span>
+                  }
                   <ol class="nodes">
                     @if (rv.start; as s) {
                       <li
@@ -104,6 +121,7 @@
                         class="node"
                         [class]="'is-' + node.lesson.state"
                         [class.is-focus]="node.focus"
+                        [class.is-extra]="node.extra"
                         [style.left.%]="(node.x / pathWidth) * 100"
                         [style.top.px]="node.y"
                       >
@@ -112,7 +130,7 @@
                             class="bubble-btn"
                             [routerLink]="['/lessons', node.lesson.id]"
                             [attr.aria-label]="lessonLabel(node)"
-                            [title]="node.lesson.title"
+                            [title]="(node.extra ? 'Bài thêm: ' : '') + node.lesson.title"
                           >
                             @if (node.lesson.state === 'current') {
                               <span class="cta" aria-hidden="true">{{
@@ -126,12 +144,17 @@
                             class="bubble-btn"
                             role="img"
                             [attr.aria-label]="lessonLabel(node)"
-                            [title]="node.lesson.title"
+                            [title]="(node.extra ? 'Bài thêm: ' : '') + node.lesson.title"
                           >
                             <lu-icon name="lock" />
                           </span>
                         }
-                        <span class="node-label" aria-hidden="true">Bài {{ node.n }}</span>
+                        <span class="node-label" aria-hidden="true"
+                          >Bài {{ node.n }}
+                          @if (node.extra) {
+                            <span class="extra-tag">· Bài thêm</span>
+                          }
+                        </span>
                         @if (node.focus) {
                           <ng-container *ngTemplateOutlet="luna; context: { $implicit: node.x }" />
                         }
@@ -152,6 +175,13 @@
                     </li>
                   </ol>
                 </div>
+              }
+              @if (rv.moveOn; as mo) {
+                <lu-move-on
+                  [moveOn]="mo"
+                  [pending]="pending()"
+                  (moveOnStart)="study(mo.roadmap, m.level)"
+                />
               }
             </div>
           }

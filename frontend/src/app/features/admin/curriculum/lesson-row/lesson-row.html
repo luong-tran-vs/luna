@@ -1,0 +1,150 @@
+<div class="line">
+  <span class="pill" [attr.data-state]="state()">{{ stateText() }}</span>
+
+  <div class="main">
+    @if (state() === 'empty' && idea()) {
+      <details class="idea">
+        <summary>
+          <span class="title" [id]="id()">{{ title() }}</span>
+          @if (grammarText()) {
+            <span class="grammar"
+              ><span class="visually-hidden">Ngữ pháp: </span>{{ grammarText() }}</span
+            >
+          }
+          <span class="visually-hidden"> (bấm để xem ý tưởng)</span>
+        </summary>
+        <p class="idea-text">Ý tưởng: {{ idea() }}</p>
+      </details>
+    } @else {
+      <span class="title" [id]="id()">{{ title() }}</span>
+      @if (grammarText()) {
+        <span class="grammar"
+          ><span class="visually-hidden">Ngữ pháp: </span>{{ grammarText() }}</span
+        >
+      }
+    }
+    @if (state() === 'draft' && slot() && !canPublish()) {
+      <span class="hint" [id]="id() + '-hint'">{{ publishHint() }}</span>
+    }
+  </div>
+
+  <div class="actions">
+    @switch (state()) {
+      @case ('empty') {
+        <button
+          type="button"
+          class="act act-generate"
+          [disabled]="!applied() || busy()"
+          [attr.title]="generateHint()"
+          [attr.aria-describedby]="applied() ? null : 'apply-help'"
+          (click)="generate.emit()"
+        >
+          @if (generating()) {
+            Đang sinh…
+          } @else {
+            Sinh bài
+          }
+          <span class="visually-hidden">: {{ title() }}</span>
+        </button>
+      }
+      @case ('draft') {
+        @if (slot()) {
+          <button
+            type="button"
+            class="act checks-toggle"
+            [attr.aria-expanded]="checksOpen()"
+            [attr.aria-controls]="id() + '-checks'"
+            (click)="toggleChecks()"
+          >
+            @if (checks()) {
+              <span aria-hidden="true">
+                <span class="m-ok">✓{{ counts().ok }}</span>
+                @if (counts().warn > 0) {
+                  <span class="m-warn">!{{ counts().warn }}</span>
+                }
+                @if (counts().bad > 0) {
+                  <span class="m-bad">✕{{ counts().bad }}</span>
+                }
+              </span>
+              <span class="visually-hidden"
+                >Kết quả kiểm tra bài {{ title() }}: {{ countsText() }}</span
+              >
+            } @else {
+              Kiểm tra<span class="visually-hidden"> bài {{ title() }}</span>
+            }
+          </button>
+        }
+        <a class="act" [routerLink]="['/admin/lessons', lesson()!.id]"
+          >Xem<span class="visually-hidden"> bài {{ title() }}</span></a
+        >
+        @if (slot()) {
+          <button
+            type="button"
+            class="act act-strong"
+            [disabled]="!canPublish() || publishing()"
+            [attr.aria-describedby]="canPublish() ? null : id() + '-hint'"
+            (click)="publish.emit(lesson()!.id)"
+          >
+            @if (publishing()) {
+              Đang đăng…
+            } @else {
+              Đăng
+            }
+            <span class="visually-hidden"> bài {{ title() }}</span>
+          </button>
+        }
+        <button type="button" class="act act-danger" [disabled]="busy()" (click)="remove.emit()">
+          Gỡ<span class="visually-hidden"> bài {{ title() }}</span>
+        </button>
+      }
+      @case ('published') {
+        <a class="act" [routerLink]="['/admin/lessons', lesson()!.id]"
+          >Xem<span class="visually-hidden"> bài {{ title() }}</span></a
+        >
+        <button type="button" class="act act-danger" [disabled]="busy()" (click)="remove.emit()">
+          Gỡ<span class="visually-hidden"> bài {{ title() }}</span>
+        </button>
+      }
+    }
+  </div>
+</div>
+
+@if (state() === 'draft' && slot()) {
+  <div class="checks-panel" [id]="id() + '-checks'" [hidden]="!checksOpen()">
+    @if (checks(); as c) {
+      <ul class="checks" [attr.aria-label]="'Kiểm tra bài ' + title()">
+        @for (item of c.items; track item.key) {
+          <li [attr.data-result]="result(item)">
+            <span class="mark" aria-hidden="true">{{ mark(item) }}</span>
+            <span
+              ><span class="visually-hidden">{{ resultText(item) }}: </span>{{ item.textVi }}</span
+            >
+          </li>
+        }
+      </ul>
+      @if (c.above.length > 0) {
+        <div class="above">
+          <span>Từ trên trình độ:</span>
+          @for (w of c.above; track w.text) {
+            <span class="above-word">{{ w.text }} · {{ w.level }}</span>
+          }
+        </div>
+      }
+    } @else {
+      <p class="hint">Chưa có kết quả kiểm tra.</p>
+    }
+    <button
+      type="button"
+      class="act recheck"
+      [disabled]="rechecking()"
+      (click)="recheck.emit(lesson()!.id)"
+    >
+      @if (rechecking()) {
+        Đang kiểm tra…
+      } @else {
+        Kiểm tra lại
+      }
+      <span class="visually-hidden"> bài {{ title() }}</span>
+    </button>
+  </div>
+}

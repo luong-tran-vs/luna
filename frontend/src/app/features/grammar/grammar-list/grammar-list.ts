@@ -2,7 +2,11 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { GrammarList as GrammarListData, GrammarListItem, STATUS_LABELS } from '../../../core/models/grammar-study';
+import {
+  GrammarList as GrammarListData,
+  GrammarListItem,
+  STATUS_LABELS,
+} from '../../../core/models/grammar-study';
 import { Level, LEVELS } from '../../../core/models/lesson';
 import { GrammarApiService } from '../../../core/services/grammar-api.service';
 import { StudyApiService } from '../../../core/services/study-api.service';
@@ -50,50 +54,89 @@ export class GrammarList {
   protected readonly level = signal<Level | null>(null);
   protected readonly data = signal<GrammarListData | null>(null);
   protected readonly failed = signal(false);
+  /** Name of the topic the learner studies now (the active goal's), '' when none or not known yet. */
+  private readonly goalTopic = signal('');
 
   protected readonly points = computed(() => this.data()?.points ?? []);
   protected readonly openPoints = computed(() => this.points().filter((p) => p.available));
   protected readonly soonPoints = computed(() => this.points().filter((p) => !p.available));
   /** Whether the "Sắp có" row is expanded; closed again for every level. */
   protected readonly showSoon = signal(false);
+  /**
+   * The point to study next: the first open, not mastered one of the course topic being studied;
+   * else the server's (the first open, not mastered one in course order).
+   */
   protected readonly nextPoint = computed(() => {
+    const topic = this.goalTopic();
+    const ofTopic = topic
+      ? this.points().find((p) => p.available && p.status !== 'mastered' && p.courseTopic === topic)
+      : undefined;
+    if (ofTopic) {
+      return ofTopic;
+    }
     const id = this.data()?.next;
     return id ? (this.points().find((p) => p.id === id) ?? null) : null;
   });
-  /** Place of the next point in the level's curriculum, from 1. */
-  protected readonly nextNumber = computed(() => this.points().findIndex((p) => p.id === this.data()?.next) + 1);
+  /** Place of the next point in the level's list (course order), from 1. */
+  protected readonly nextNumber = computed(() => {
+    const n = this.nextPoint();
+    return n ? this.points().indexOf(n) + 1 : 0;
+  });
+  /**
+   * Number of the course topic the learner is at: the goal's topic when the course teaches a point
+   * in it, else the next point's; 0 when not known. Points of later topics are "Học trước".
+   */
+  protected readonly currentCourseNumber = computed(() => {
+    const topic = this.goalTopic();
+    const ofGoal = topic
+      ? this.points().find((p) => p.courseTopic === topic && (p.courseNumber ?? 0) > 0)
+      : undefined;
+    return ofGoal?.courseNumber ?? this.nextPoint()?.courseNumber ?? 0;
+  });
   /**
    * The card's button goes straight to what is left on the next point: redo the wrong answers,
    * take the test, or the step where the learner stopped in this browser; else the point's start.
    */
-  protected readonly nextAction = computed((): { label: string; query: Record<string, string> | null } => {
-    const n = this.nextPoint();
-    if (n && (n.weakCount ?? 0) > 0) {
-      return { label: `Luyện lại ${n.weakCount} câu sai`, query: { step: 'practice', redo: 'weak' } };
-    }
-    if (n?.status === 'learning') {
-      return { label: 'Làm bài kiểm tra', query: { step: 'test' } };
-    }
-    const at = n ? savedStep(n.id) : 0;
-    return at > 0
-      ? { label: `Tiếp tục: Bước ${at + 1}`, query: { step: STEPS[at].key } }
-      : { label: 'Bắt đầu học', query: null };
-  });
-  protected readonly masteredCount = computed(() => this.points().filter((p) => p.status === 'mastered').length);
+  protected readonly nextAction = computed(
+    (): { label: string; query: Record<string, string> | null } => {
+      const n = this.nextPoint();
+      if (n && (n.weakCount ?? 0) > 0) {
+        return {
+          label: `Luyện lại ${n.weakCount} câu sai`,
+          query: { step: 'practice', redo: 'weak' },
+        };
+      }
+      if (n?.status === 'learning') {
+        return { label: 'Làm bài kiểm tra', query: { step: 'test' } };
+      }
+      const at = n ? savedStep(n.id) : 0;
+      return at > 0
+        ? { label: `Tiếp tục: Bước ${at + 1}`, query: { step: STEPS[at].key } }
+        : { label: 'Bắt đầu học', query: null };
+    },
+  );
+  protected readonly masteredCount = computed(
+    () => this.points().filter((p) => p.status === 'mastered').length,
+  );
 
   constructor() {
     const saved = savedLevel();
     if (saved) {
       this.select(saved, false);
-    } else {
-      // Start at the level of the goal being studied; A1 when there is none.
-      inject(StudyApiService)
-        .goals()
-        .subscribe({
-          next: (g) => this.select(g.active?.level ?? 'A1', false),
-          error: () => this.select('A1', false),
-        });
     }
+    // The goal being studied gives the course topic to continue, and the level to start at (A1
+    // without a goal) unless one was chosen earlier in this session.
+    inject(StudyApiService)
+      .goals()
+      .subscribe({
+        next: (g) => {
+          this.goalTopic.set(g.active?.topicName ?? '');
+          if (!saved) {
+            this.select(g.active?.level ?? 'A1', false);
+          }
+        },
+        error: () => !saved && this.select('A1', false),
+      });
   }
 
   protected select(level: Level, remember = true): void {
@@ -129,6 +172,12 @@ export class GrammarList {
     this.select(LEVELS[next]);
     const group = (event.currentTarget as HTMLElement).closest('[role="radiogroup"]');
     group?.querySelectorAll<HTMLElement>('[role="radio"]')[next]?.focus();
+  }
+
+  /** A point of a later course topic than the learner's: open to study ahead. */
+  protected ahead(p: GrammarListItem): boolean {
+    const current = this.currentCourseNumber();
+    return current > 0 && (p.courseNumber ?? 0) > current;
   }
 
   protected statusText(p: GrammarListItem): string {

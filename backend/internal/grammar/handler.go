@@ -405,6 +405,9 @@ type pointJSON struct {
 	Status      string `json:"status"`
 	BestMastery int    `json:"bestMastery"`
 	WeakCount   int    `json:"weakCount"`
+	// CourseNumber and CourseTopic name the first course topic teaching the point; 0 and "" when none.
+	CourseNumber int    `json:"courseNumber"`
+	CourseTopic  string `json:"courseTopic"`
 }
 
 func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
@@ -420,6 +423,9 @@ func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 			ID: ps.ID, Level: ps.Level, TitleVi: ps.TitleVi, TitleEn: ps.TitleEn, HintVi: ps.HintVi,
 			Available: ps.Available, Status: string(ps.Status), BestMastery: ps.BestMastery,
 			WeakCount: ps.WeakCount,
+		}
+		if c := ps.Course; c != nil {
+			points[i].CourseNumber, points[i].CourseTopic = c.Number, c.Name
 		}
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string]any{"points": points, "next": ov.Next})

@@ -138,6 +138,13 @@ type pathLessonJSON struct {
 	ID    string `json:"id"`
 	Title string `json:"title"`
 	State string `json:"state"`
+	Extra bool   `json:"extra"`
+}
+
+type courseJSON struct {
+	Number    int      `json:"number"`
+	CanDoVi   string   `json:"canDoVi"`
+	GrammarVi []string `json:"grammarVi"`
 }
 
 type pathRoadmapJSON struct {
@@ -147,6 +154,8 @@ type pathRoadmapJSON struct {
 	Active           bool             `json:"active"`
 	Completed        int              `json:"completed"`
 	Lessons          []pathLessonJSON `json:"lessons"`
+	// Course is null when the topic is not in a fixed course.
+	Course *courseJSON `json:"course"`
 }
 
 type milestoneJSON struct {
@@ -182,11 +191,14 @@ func (h *StudyHandler) path(w http.ResponseWriter, r *http.Request) {
 		for j, r := range m.Roadmaps {
 			lessons := make([]pathLessonJSON, len(r.Lessons))
 			for k, l := range r.Lessons {
-				lessons[k] = pathLessonJSON{ID: l.ID, Title: l.Title, State: string(l.State)}
+				lessons[k] = pathLessonJSON{ID: l.ID, Title: l.Title, State: string(l.State), Extra: l.Extra}
 			}
 			roadmaps[j] = pathRoadmapJSON{
 				TopicID: r.TopicID, TopicName: r.TopicName, TopicDescription: r.TopicDescription,
 				Active: r.Active, Completed: r.Completed, Lessons: lessons,
+			}
+			if c := r.Course; c != nil {
+				roadmaps[j].Course = &courseJSON{Number: c.Number, CanDoVi: c.CanDoVi, GrammarVi: c.GrammarVi}
 			}
 		}
 		out.Milestones[i] = milestoneJSON{

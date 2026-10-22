@@ -16,11 +16,22 @@ const (
 	PathMembersOnly PathLessonState = "membersOnly"
 )
 
-// PathLesson is one step of a roadmap.
+// PathLesson is one step of a roadmap. Extra lessons of a course topic may be skipped: the next
+// topic can be started once the main ones are done.
 type PathLesson struct {
 	ID    string
 	Title string
 	State PathLessonState
+	Extra bool
+}
+
+// CourseTopic is a topic's place in its level's course: its number, what the learner can do after
+// it, its grammar, and which of its lessons are extra (by title).
+type CourseTopic struct {
+	Number    int
+	CanDoVi   string
+	GrammarVi []string
+	IsExtra   func(title string) bool
 }
 
 // PathRoadmap is one topic's roadmap within a milestone; Active when it is the learner's goal.
@@ -31,6 +42,9 @@ type PathRoadmap struct {
 	Active           bool
 	Completed        int
 	Lessons          []PathLesson
+	// Course is the topic's place in the level's course; nil when the level has none or the topic
+	// is not in it.
+	Course *CourseTopic
 }
 
 // Milestone is one level ("Phần"): every topic with lessons at that level, one roadmap after another.
@@ -88,6 +102,11 @@ func (s *StudyService) Path(ctx context.Context, userID string) (PathView, error
 				Active:  m.Active && t.ID == d.goal.TopicID,
 				Lessons: make([]PathLesson, 0, len(t.LessonIDs)),
 			}
+			if s.d.Course != nil {
+				if c, ok := s.d.Course(level, t.Name); ok {
+					r.Course = &c
+				}
+			}
 			for i, id := range t.LessonIDs {
 				r.Lessons = append(r.Lessons, PathLesson{ID: id, State: pathState(d, r.Active, i, id)})
 				if d.done[id] {
@@ -111,6 +130,9 @@ func (s *StudyService) Path(ctx context.Context, userID string) (PathView, error
 			r := &out.Milestones[i].Roadmaps[j]
 			for k := range r.Lessons {
 				r.Lessons[k].Title = titles[r.Lessons[k].ID]
+				if r.Course != nil && r.Course.IsExtra != nil {
+					r.Lessons[k].Extra = r.Course.IsExtra(r.Lessons[k].Title)
+				}
 			}
 		}
 	}

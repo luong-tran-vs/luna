@@ -102,3 +102,26 @@ func TestPathGuest(t *testing.T) {
 		t.Fatalf("guest states = %v", got)
 	}
 }
+
+func TestPathCourse(t *testing.T) {
+	t.Parallel()
+	e := newStudyEnv()
+	e.svc.d.Course = func(level, name string) (CourseTopic, bool) {
+		if level != "A1" || name != "Gia đình" {
+			return CourseTopic{}, false
+		}
+		return CourseTopic{Number: 2, CanDoVi: "giới thiệu gia đình", GrammarVi: []string{"Have / has"},
+			IsExtra: func(title string) bool { return title == "Family 3" }}, true
+	}
+	v, err := e.svc.Path(t.Context(), "u1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	family, shopping := v.Milestones[0].Roadmaps[0], v.Milestones[0].Roadmaps[1]
+	if c := family.Course; c == nil || c.Number != 2 || c.GrammarVi[0] != "Have / has" || shopping.Course != nil {
+		t.Fatalf("courses = %+v, %+v", family.Course, shopping.Course)
+	}
+	if family.Lessons[0].Extra || !family.Lessons[2].Extra {
+		t.Errorf("extra lessons = %+v", family.Lessons)
+	}
+}

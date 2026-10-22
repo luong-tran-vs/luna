@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { AiUsage } from '../../core/models/ai-usage';
+import { CurriculumBoard, CurriculumSlot, LessonChecks } from '../../core/models/curriculum';
 import { GrammarPoint } from '../../core/models/grammar';
 import { GrammarContent, GrammarExerciseInput, GrammarLessonAdmin, GrammarLessonSummary, GrammarReportGroup } from '../../core/models/grammar-admin';
 import { GenerateInput, GenerateResult } from '../../core/models/generate';
@@ -420,6 +421,40 @@ export class AdminApiService {
   /** Deletes the account with its learning data; the server refuses to delete your own. */
   deleteAccount(id: string): Observable<void> {
     return this.http.delete<void>(`${BASE}/users/${id}`);
+  }
+
+  /** The fixed course of a level with what fills each slot (GET /api/admin/curriculum). */
+  curriculum(level = 'A1'): Observable<CurriculumBoard> {
+    return this.http.get<CurriculumBoard>(`${BASE}/curriculum`, { params: { level } });
+  }
+
+  /** Creates the missing topics and orders topics and roadmaps as the course says. */
+  applyCurriculum(level = 'A1'): Observable<CurriculumBoard> {
+    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/apply`, null, { params: { level } });
+  }
+
+  /** Generates the draft of one empty slot (one AI request, up to about 2 minutes). */
+  generateSlot(key: string): Observable<CurriculumSlot> {
+    return this.http.post<CurriculumSlot>(
+      `${BASE}/curriculum/slots/${encodeURIComponent(key)}/generate`,
+      null,
+    );
+  }
+
+  /** The rules checked again on a draft, e.g. once its practice is generated. */
+  curriculumChecks(lessonId: string): Observable<LessonChecks> {
+    return this.http.get<LessonChecks>(`${BASE}/curriculum/checks/${lessonId}`);
+  }
+
+  /**
+   * Takes a lesson out of its topic roadmap so its slot is empty again. A draft is also deleted
+   * (deleted true); a published lesson stays in the lesson list.
+   */
+  removeCurriculumLesson(lessonId: string): Observable<{ deleted: boolean }> {
+    return this.http.post<{ deleted: boolean }>(
+      `${BASE}/curriculum/lessons/${encodeURIComponent(lessonId)}/remove`,
+      null,
+    );
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

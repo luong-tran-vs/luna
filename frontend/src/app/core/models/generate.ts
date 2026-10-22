@@ -27,6 +27,8 @@ export interface GeneratedDraft {
   missingWords: string[];
   /** Grammar point the draft was written for ('' when none). */
   grammarPointId?: string;
+  /** Words above the level (CEFR-J) the AI could not replace with simpler ones (2026-10-22). */
+  hardWords?: string[];
 }
 
 export interface GenerateResult {

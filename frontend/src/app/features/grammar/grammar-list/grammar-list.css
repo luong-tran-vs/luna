@@ -253,3 +253,20 @@ a.point:focus-visible {
 .soon-toggle[aria-expanded='true'] .soon-chevron {
   transform: rotate(-90deg);
 }
+
+/* The course topic that teaches a point. */
+.point-course {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+/* A point of a later course topic, open to study ahead. */
+.ahead-tag {
+  justify-self: start;
+  padding: 0 var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}

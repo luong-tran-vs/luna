@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/luongtran/luna/backend/internal/curriculum"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/auth"
@@ -33,6 +34,7 @@ func (c *Container) initProgress() {
 		Writings:  c.writing,
 		Grammar:   c.grammar,
 		Members:   guestRoles{c.auth},
+		Course:    courseTopic,
 		Now:       time.Now,
 	})
 	c.writeSteps.svc = c.study
@@ -164,4 +166,16 @@ func (g guestRoles) IsGuest(ctx context.Context, userID string) (bool, error) {
 		return false, fmt.Errorf("get user: %w", err)
 	}
 	return u.Role == auth.RoleGuest, nil
+}
+
+// courseTopic adapts the fixed course of a level to the learning path (A1 since 2026-10-22).
+func courseTopic(level, topicName string) (progress.CourseTopic, bool) {
+	info, ok := curriculum.LearnerTopic(level, topicName)
+	if !ok {
+		return progress.CourseTopic{}, false
+	}
+	return progress.CourseTopic{
+		Number: info.Number, CanDoVi: info.CanDoVi, GrammarVi: info.GrammarVi,
+		IsExtra: func(title string) bool { return info.Extra[curriculum.TitleKey(title)] },
+	}, true
 }

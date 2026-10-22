@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/luongtran/luna/backend/internal/curriculum"
 	"net/http"
 	"time"
 
@@ -58,6 +59,7 @@ func (c *Container) registerRoutes(mux *http.ServeMux) {
 	wordbank.NewHandler(c.wordBank, log).Register(mux, auth)
 	aiusage.NewHandler(c.aiUsage, log).Register(mux, auth)
 	grammar.NewHandler(c.grammar, log).Register(mux, auth)
+	curriculum.NewHandler(c.curriculum, log).Register(mux, auth)
 	verbs.NewHandler(c.verbs, log).Register(mux, auth)
 
 	studyHandler := progress.NewStudyHandler(c.study, log)

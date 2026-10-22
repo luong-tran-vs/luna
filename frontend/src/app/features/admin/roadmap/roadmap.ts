@@ -638,6 +638,7 @@ export class Roadmap implements CanLeave {
           content: d.content,
           targetWords: d.targetWords ?? [],
           missingWords: d.missingWords ?? [],
+          hardWords: d.hardWords ?? [],
           // With 'auto' the server tells the point it picked; never save 'auto' itself.
           grammarPointId: d.grammarPointId ?? (input.grammarPointId === GRAMMAR_AUTO ? '' : (input.grammarPointId ?? '')),
           targetLength: input.words,

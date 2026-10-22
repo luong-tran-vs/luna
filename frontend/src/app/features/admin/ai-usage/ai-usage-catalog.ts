@@ -7,6 +7,7 @@ export const OP_LABELS: Readonly<Record<string, string>> = {
   image: 'Sinh ảnh từ vựng',
   lesson_review: 'Kiểm tra bài',
   lesson_fix: 'Đề xuất sửa lỗi bài',
+  lesson_simplify: 'Thay từ khó trong bài mới sinh',
   suggest_words: 'Gợi ý từ cho chủ đề',
   word_meanings: 'Điền nghĩa, phiên âm (kho từ)',
   grammar_lesson: 'Sinh bài ngữ pháp',
@@ -41,7 +42,16 @@ export const FEATURE_COSTS: readonly FeatureGroup[] = [
   {
     title: 'Quản trị viên bấm',
     rows: [
-      { feature: 'Sinh bài học', where: 'Chủ đề → Sinh bài (1–5 bài)', requests: '1 cho cả lô' },
+      {
+        feature: 'Sinh bài học',
+        where: 'Chủ đề → Sinh bài (1–5 bài)',
+        requests: '1 cho cả lô, +1 nếu có bài dùng từ khó hơn trình độ',
+      },
+      {
+        feature: 'Sinh bài theo giáo trình',
+        where: 'Giáo trình → Sinh bài này / Sinh các ô trống',
+        requests: '1 mỗi bài, +1 nếu bài dùng từ khó hơn trình độ',
+      },
       { feature: 'Gợi ý từ cho chủ đề', where: 'Từ vựng chủ đề → Gợi ý bằng AI', requests: '1' },
       { feature: 'Kiểm tra bài', where: 'Chi tiết bài → Kiểm tra', requests: '1' },
       { feature: 'Đề xuất sửa lỗi bài', where: 'Từng mục bị đánh dấu', requests: '1 mỗi mục' },

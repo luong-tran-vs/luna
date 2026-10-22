@@ -102,6 +102,21 @@ export interface PathLesson {
   id: string;
   title: string;
   state: PathLessonState;
+  /**
+   * An extra lesson of a course topic, after its main lessons: studied by default, but the next
+   * topic may start once the main ones are done. Missing means false.
+   */
+  extra?: boolean;
+}
+
+/** A topic's place in the level's fixed course (giáo trình). */
+export interface PathCourse {
+  /** 1-based number of the topic in the course. */
+  number: number;
+  /** What the learner can do after the topic ("Sau chủ đề này bạn có thể …"). */
+  canDoVi: string;
+  /** The grammar points the topic teaches, in Vietnamese. */
+  grammarVi: string[];
 }
 
 /** One topic's roadmap within a milestone; only the goal's (active) has a lesson to study now. */
@@ -110,6 +125,8 @@ export interface PathRoadmap {
   topicName: string;
   /** The topic's description, shown under its name in the part's banner; may be empty. */
   topicDescription?: string;
+  /** The topic's place in the level's course; null (or missing) when it is not in one. */
+  course?: PathCourse | null;
   active: boolean;
   completed: number;
   lessons: PathLesson[];

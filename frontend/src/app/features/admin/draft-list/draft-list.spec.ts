@@ -68,6 +68,16 @@ describe('DraftList', () => {
     expect(items[2].querySelector('.targets')).toBeNull();
   });
 
+  it('warns about the words above the level the AI could not replace', async () => {
+    await render([draft(1, { hardWords: ['anxious', 'abandon'] }), draft(2, { hardWords: [] }), draft(3)]);
+    const items = Array.from(el.querySelectorAll('li.draft'));
+    expect(items[0].querySelector('.hard-words')?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+      'Từ khó hơn A1 (AI chưa thay được): anxious, abandon',
+    );
+    expect(items[1].querySelector('.hard-words')).toBeNull();
+    expect(items[2].querySelector('.hard-words')).toBeNull();
+  });
+
   it('shows editable title and content with labels and word count', async () => {
     await render([draft(1), draft(2, { content: 'Anna: Hi!\nBen: Hello there.' })]);
     const title = el.querySelector<HTMLInputElement>('#draft-1-title')!;

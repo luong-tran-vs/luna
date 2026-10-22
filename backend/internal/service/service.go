@@ -8,6 +8,7 @@ package service
 
 import (
 	"context"
+	"github.com/luongtran/luna/backend/internal/curriculum"
 	"log/slog"
 
 	"github.com/luongtran/luna/backend/internal/ai"
@@ -49,7 +50,7 @@ type Container struct {
 	glossAI ai.GlossProvider
 	// talkAI has the conversations of the talk practice (added 2026-10-20).
 	talkAI ai.TalkProvider
-	dict    closableDictionary
+	dict   closableDictionary
 
 	auth        *auth.Service
 	authHandler *auth.Handler
@@ -77,6 +78,8 @@ type Container struct {
 	study    *progress.StudyService
 	export   *export.Service
 	talk     *talk.Service
+	// curriculum is the fixed course of a level (A1 since 2026-10-22).
+	curriculum *curriculum.Service
 }
 
 // Init builds every service on store. The store stays open and is closed by the caller, after
@@ -98,6 +101,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initReader()
 	c.initVocab()
 	c.initGrammar()
+	c.curriculum = &curriculum.Service{Topics: c.topic, Lessons: c.lesson, Grammar: c.grammar}
 	c.initVerbs()
 	c.initProgress()
 	c.initTalk()

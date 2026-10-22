@@ -302,4 +302,163 @@ describe('LearnPath', () => {
         ?.getAttribute('aria-label'),
     ).toBe('Bài 2: My home, chỉ dành cho thành viên');
   });
+  describe('with a course', () => {
+    const coursePath = (
+      familyLessons: LearningPath['milestones'][0]['roadmaps'][0]['lessons'],
+      withNext = true,
+    ): LearningPath => ({
+      ...path,
+      milestones: [
+        {
+          ...path.milestones[0],
+          roadmaps: [
+            {
+              topicId: 't1',
+              topicName: 'Gia đình',
+              topicDescription: 'Nói về các thành viên trong gia đình.',
+              course: {
+                number: 2,
+                canDoVi: 'giới thiệu gia đình.',
+                grammarVi: ['have / has', "sở hữu 's"],
+              },
+              active: true,
+              completed: familyLessons.filter((l) => l.state === 'done').length,
+              lessons: familyLessons,
+            },
+            ...(withNext
+              ? [
+                  {
+                    topicId: 't3',
+                    topicName: 'Thời gian và ngày tháng',
+                    course: { number: 3, canDoVi: 'nói giờ và ngày.', grammarVi: ['at / on / in'] },
+                    active: false,
+                    completed: 0,
+                    lessons: [
+                      { id: 'd1', title: 'What Time Is It?', state: 'locked' as const },
+                      { id: 'd2', title: 'My Birthday', state: 'locked' as const },
+                    ],
+                  },
+                ]
+              : []),
+          ],
+        },
+        ...path.milestones.slice(1),
+      ],
+    });
+    const mainsDone = [
+      { id: 'l1', title: 'My Family', state: 'done' as const },
+      { id: 'l2', title: "My Brother's Room", state: 'done' as const },
+      { id: 'l3', title: 'A Family Photo', state: 'done' as const },
+      { id: 'x1', title: "Grandma's Birthday", state: 'current' as const, extra: true },
+      { id: 'x2', title: 'A Day at My Uncle’s Farm', state: 'locked' as const, extra: true },
+    ];
+
+    it('names the topic by its course number, with its grammar and what it leads to', async () => {
+      await setup(coursePath(mainsDone));
+
+      expect(text(el.querySelector('.banner-title'))).toBe('Chủ đề 2 · Gia đình');
+      expect(text(el.querySelector('.banner-text'))).toBe(
+        'Sau chủ đề này bạn có thể giới thiệu gia đình.',
+      );
+      const [family, time] = Array.from(el.querySelectorAll('.roadmap'));
+      expect(text(family.querySelector('.topic-title'))).toBe('Chủ đề 2 • Gia đình');
+      expect(Array.from(family.querySelectorAll('.grammar-chip')).map((c) => text(c))).toEqual([
+        'have / has',
+        "sở hữu 's",
+      ]);
+      expect(text(family.querySelector('.grammar-label'))).toBe('Ngữ pháp:');
+      // The banner already says what the featured topic leads to.
+      expect(family.querySelector('.can-do')).toBeNull();
+      expect(text(family.querySelector('.finish .node-label'))).toBe('👑 Hoàn thành chủ đề 2');
+
+      expect(Array.from(el.querySelectorAll('.divider')).map((d) => text(d))).toEqual([
+        'Chủ đề tiếp theo: Chủ đề 3 • Thời gian và ngày tháng',
+      ]);
+      expect(time.querySelector('.topic-title')).toBeNull();
+      expect(text(time.querySelector('.can-do'))).toBe(
+        'Sau chủ đề này bạn có thể nói giờ và ngày.',
+      );
+      expect(text(time.querySelector('.is-jump .cta'))).toBe('Bắt đầu chủ đề 3');
+      // Progress counts the extra lessons too.
+      expect(text(el.querySelector('.summary-line'))).toBe('Tiến độ chủ đề Gia đình: 3 / 5 bài');
+    });
+
+    it('tags the extra lessons, after a label', async () => {
+      await setup(coursePath(mainsDone));
+
+      const family = el.querySelector('.roadmap')!;
+      const steps = Array.from(family.querySelectorAll('.node:not(.finish)'));
+      expect(steps.map((s) => s.classList.contains('is-extra'))).toEqual([
+        false,
+        false,
+        false,
+        true,
+        true,
+      ]);
+      expect(steps.map((s) => text(s.querySelector('.extra-tag')))).toEqual([
+        '',
+        '',
+        '',
+        '· Bài thêm',
+        '· Bài thêm',
+      ]);
+      expect(text(steps[3].querySelector('.node-label'))).toBe('Bài 4 · Bài thêm');
+      expect(steps[3].querySelector('a')?.getAttribute('aria-label')).toBe(
+        "Bài 4 (bài thêm): Grandma's Birthday, đang học",
+      );
+      expect(steps[4].querySelector('[role="img"]')?.getAttribute('title')).toBe(
+        'Bài thêm: A Day at My Uncle’s Farm',
+      );
+      const labels = family.querySelectorAll('.extra-label');
+      expect(labels).toHaveLength(1);
+      expect(text(labels[0])).toBe('Bài thêm · gặp lại từ và ngữ pháp');
+      // The label sits between the last main lesson and the first extra one.
+      const top = (n: Element) => parseFloat((n as HTMLElement).style.top);
+      expect(top(labels[0])).toBeGreaterThan(top(steps[2]));
+      expect(top(labels[0])).toBeLessThan(top(steps[3]));
+    });
+
+    it('offers the next topic once the main lessons are done, and starts it', async () => {
+      await setup(coursePath(mainsDone));
+
+      const card = el.querySelector('lu-move-on')!;
+      expect(card.closest('.roadmap')?.classList).toContain('is-active');
+      expect(card.querySelector('a')?.getAttribute('href')).toBe('/lessons/x1');
+      const button = card.querySelector('button')!;
+      expect(text(button)).toBe('Học xong 3 bài chính — sang Chủ đề 3: Thời gian và ngày tháng');
+
+      button.click();
+      const req = http.expectOne('/goals');
+      expect(req.request.body).toEqual({ topicId: 't3', level: 'A1' });
+      req.flush({ active: {} });
+      await settle();
+      expect(TestBed.inject(Router).url).toBe('/lessons/d1');
+    });
+
+    it('does not offer the next topic while a main lesson is left', async () => {
+      await setup(
+        coursePath([
+          { id: 'l1', title: 'My Family', state: 'done' },
+          { id: 'l2', title: "My Brother's Room", state: 'current' },
+          { id: 'l3', title: 'A Family Photo', state: 'locked' },
+          { id: 'x1', title: "Grandma's Birthday", state: 'locked', extra: true },
+        ]),
+      );
+      expect(el.querySelector('lu-move-on')).toBeNull();
+      expect(el.querySelectorAll('.extra-label')).toHaveLength(1);
+    });
+
+    it('does not offer a next topic when there is none', async () => {
+      await setup(coursePath(mainsDone, false));
+      expect(el.querySelector('lu-move-on')).toBeNull();
+    });
+  });
+
+  it('keeps the description and plain lessons without a course', async () => {
+    await setup(path);
+    expect(el.querySelector('lu-topic-info')).toBeNull();
+    expect(el.querySelector('.extra-label')).toBeNull();
+    expect(el.querySelector('.is-extra')).toBeNull();
+    expect(el.querySelector('lu-move-on')).toBeNull();
+  });
 });

@@ -464,3 +464,33 @@ func TestRecordAttemptCountsTheStudyDay(t *testing.T) {
 		t.Fatalf("marked %d times, want 2", days.marked)
 	}
 }
+
+func TestLearnerListInCourseOrder(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	a1 := Default().ByLevel("A1")
+	// A course teaching the 3rd point in topic 1 and the 1st in topic 2; the others follow.
+	e.svc.SetCourse(func(level string) (map[string]CourseTopic, []string, bool) {
+		if level != "A1" {
+			return nil, nil, false
+		}
+		return map[string]CourseTopic{a1[2].ID: {Number: 1, Name: "Một"}, a1[0].ID: {Number: 2, Name: "Hai"}},
+			[]string{a1[2].ID, a1[0].ID}, true
+	})
+	for _, i := range []int{0, 2} {
+		e.lessons.lessons[a1[i].ID] = Lesson{PointID: a1[i].ID, Status: StatusPublished}
+	}
+	ov, _ := e.svc.List(t.Context(), "u1", "A1")
+	if len(ov.Points) != len(a1) || ov.Points[0].ID != a1[2].ID || ov.Points[1].ID != a1[0].ID || ov.Points[2].ID != a1[1].ID {
+		t.Fatalf("order = %s, %s, %s", ov.Points[0].ID, ov.Points[1].ID, ov.Points[2].ID)
+	}
+	if c := ov.Points[0].Course; c == nil || c.Number != 1 || c.Name != "Một" || ov.Points[2].Course != nil {
+		t.Errorf("course topics = %+v, %+v", ov.Points[0].Course, ov.Points[2].Course)
+	}
+	if ov.Next != a1[2].ID {
+		t.Errorf("next follows the course: %q", ov.Next)
+	}
+	if all, _ := e.svc.List(t.Context(), "u1", ""); all.Points[0].ID != Default().All()[0].ID {
+		t.Error("every level keeps the syllabus order")
+	}
+}

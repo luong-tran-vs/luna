@@ -23,11 +23,16 @@ export interface GrammarListItem {
   bestMastery: number;
   /** Exercises the latest attempt got wrong, to redo. */
   weakCount?: number;
+  /** Number of the course topic that teaches the point; 0 (or missing) when none. */
+  courseNumber?: number;
+  /** Name of that course topic; '' (or missing) when none. */
+  courseTopic?: string;
 }
 
 export interface GrammarList {
+  /** For a level with a course, in course order: the points the course teaches first. */
   points: GrammarListItem[];
-  /** The first available point not yet mastered; '' when none. */
+  /** The first available point not yet mastered, in list order; '' when none. */
   next: string;
 }
 

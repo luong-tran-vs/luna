@@ -40,6 +40,11 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./topic-words/topic-words').then((m) => m.TopicWords),
   },
   {
+    path: 'curriculum',
+    title: 'Giáo trình · Quản trị · Luna',
+    loadComponent: () => import('./curriculum/curriculum').then((m) => m.Curriculum),
+  },
+  {
     path: 'words',
     title: 'Kho từ vựng · Quản trị · Luna',
     loadComponent: () => import('./word-bank/word-bank').then((m) => m.WordBank),

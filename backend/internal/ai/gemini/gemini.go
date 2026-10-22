@@ -517,7 +517,9 @@ Topic: %s.
 Write exactly %d different lessons about this topic. Each lesson must have about %d words
 (between %d and %d words; count every word of the content). Write at the long end of that range:
 a lesson shorter than %d words is too short.
-Use only vocabulary and grammar suitable for CEFR %s.
+Use only vocabulary and grammar suitable for CEFR %s: common, everyday words a learner at this level
+knows; when a simpler word says the same thing, use it. Names and the vocabulary items listed below
+may be used.
 Write natural, connected text, as a real person would say or write it. Do not write a list of
 unrelated sentences that each introduce one word. Use idiomatic structures (for example "There are
 four people in my family", not "We are four people in my house").

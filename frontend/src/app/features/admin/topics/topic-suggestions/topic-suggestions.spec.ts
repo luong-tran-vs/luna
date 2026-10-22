@@ -94,7 +94,7 @@ describe('TopicSuggestions', () => {
       'Chào hỏi và giới thiệu bản thân Bắt đầu từ đây',
     );
     expect(text(el.querySelector('.progress'))).toBe(
-      `2/${TOPIC_CURRICULUM.A1.length} chủ đề gợi ý của A1 đã có bài.`,
+      `3/${TOPIC_CURRICULUM.A1.length} chủ đề gợi ý của A1 đã có bài.`,
     );
 
     expect(row('Hoạt động hằng ngày').dataset['status']).toBe('ready');
@@ -107,16 +107,15 @@ describe('TopicSuggestions', () => {
       '/admin/roadmap?topicId=family&level=A1&generate=1',
     );
     // A topic the catalogue does not have offers to create it.
-    expect(row('Số đếm').dataset['status']).toBe('missing');
-    button('Tạo chủ đề Số đếm', row('Số đếm'))!.click();
-    expect(created.map((s) => s.name)).toEqual(['Số đếm']);
+    expect(row('Nhà cửa và đồ đạc').dataset['status']).toBe('missing');
+    button('Tạo chủ đề Nhà cửa và đồ đạc', row('Nhà cửa và đồ đạc'))!.click();
+    expect(created.map((s) => s.name)).toEqual(['Nhà cửa và đồ đạc']);
   });
 
   it('names the topics with lessons that suit another level', async () => {
     await setup();
     const note = el.querySelector('.misplaced')!;
     expect(Array.from(note.querySelectorAll('li')).map((li) => text(li))).toEqual([
-      'Âm nhạc: gợi ý cho A2',
       'Báo chí và truyền thông: gợi ý cho B2',
     ]);
   });

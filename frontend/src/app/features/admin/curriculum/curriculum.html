@@ -1,0 +1,263 @@
+<section class="page wide">
+  <header class="head">
+    <div class="heading">
+      <h1 class="page-title">Giáo trình {{ level }}</h1>
+      @if (board()) {
+        <p class="muted summary">{{ summary() }}</p>
+      }
+    </div>
+    @if (board(); as b) {
+      <button
+        type="button"
+        [class]="b.applied ? 'btn btn-sm' : 'btn-primary'"
+        [disabled]="busy()"
+        [attr.title]="
+          b.applied
+            ? 'Thứ tự chủ đề và lộ trình đang theo giáo trình. Bấm lại nếu đã đổi thứ tự ở trang Chủ đề hay Lộ trình.'
+            : null
+        "
+        aria-describedby="apply-help"
+        (click)="applyOpen.set(true)"
+      >
+        @if (applying()) {
+          Đang áp dụng…
+        } @else {
+          Áp dụng thứ tự
+        }
+      </button>
+    }
+  </header>
+
+  @if (board(); as b) {
+    <lu-progress-bar
+      class="progress"
+      label="Bài đã đăng"
+      [value]="b.published"
+      [max]="total()"
+      unit="bài"
+    />
+    @if (b.applied) {
+      <p class="visually-hidden" id="apply-help">
+        Thứ tự chủ đề và lộ trình đang theo giáo trình. Bấm lại nếu đã đổi thứ tự ở trang Chủ đề hay
+        Lộ trình.
+      </p>
+    } @else {
+      <p class="banner-warning" id="apply-help">
+        Chưa áp dụng giáo trình: bấm “Áp dụng thứ tự” để tạo chủ đề còn thiếu và xếp lộ trình theo
+        các ô, cần làm trước khi sinh bài.
+      </p>
+    }
+  }
+
+  <p class="visually-hidden" role="status">
+    @if (applying()) {
+      Đang áp dụng giáo trình…
+    }
+  </p>
+  @if (pageError(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  @if (loadError(); as message) {
+    <div class="card">
+      <p class="form-alert" role="alert">{{ message }}</p>
+      <button type="button" class="btn retry" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (board()) {
+    <div class="filters" role="radiogroup" aria-label="Lọc bài">
+      @for (f of filters; track f; let i = $index) {
+        <button
+          type="button"
+          role="radio"
+          class="chip"
+          [attr.aria-checked]="filter() === f"
+          [tabIndex]="filter() === f ? 0 : -1"
+          (click)="selectFilter(f)"
+          (keydown)="onFilterKeydown($event, i)"
+        >
+          {{ filterLabel(f) }}
+        </button>
+      }
+    </div>
+
+    <ol class="topics">
+      @for (v of views(); track v.topic.number) {
+        @let t = v.topic;
+        <li
+          class="topic"
+          [hidden]="!v.visible"
+          [attr.aria-busy]="generatingTopic(t)"
+          [attr.aria-labelledby]="'topic-' + t.number"
+        >
+          <div class="topic-head">
+            <h2 class="topic-name">
+              <button
+                type="button"
+                class="toggle"
+                [id]="'topic-toggle-' + t.number"
+                [attr.aria-expanded]="isOpen(t)"
+                [attr.aria-controls]="'topic-body-' + t.number"
+                (click)="toggle(t)"
+              >
+                <span class="chevron" aria-hidden="true"></span>
+                <span class="number" aria-hidden="true">{{ t.number }}</span>
+                <span class="name" [id]="'topic-' + t.number"
+                  ><span class="visually-hidden">Chủ đề {{ t.number }}: </span>{{ t.name }}</span
+                >
+                <span class="count"
+                  >{{ v.filled }}/{{ t.slots.length
+                  }}<span class="visually-hidden"> ô có bài</span></span
+                >
+                @if (v.missingGrammar.length > 0) {
+                  <span class="warn"
+                    ><span aria-hidden="true">⚠ </span>{{ v.missingGrammar.length }} bài ngữ pháp
+                    chưa đăng</span
+                  >
+                }
+              </button>
+            </h2>
+            @if (v.empty > 0) {
+              <button
+                type="button"
+                class="btn btn-sm"
+                [disabled]="busy() || !t.topicId"
+                [attr.aria-describedby]="t.topicId ? null : 'apply-help'"
+                (click)="generateEmpty(t)"
+              >
+                Sinh ô trống ({{ v.empty }})<span class="visually-hidden">
+                  của chủ đề {{ t.name }}</span
+                >
+              </button>
+            }
+          </div>
+
+          <p class="topic-status" role="status">
+            @if (generatingTopic(t)) {
+              @if (generation(); as g) {
+                {{ progressText(g) }} Mỗi bài mất tới khoảng 2 phút.
+              }
+            } @else if (noticeFor(t); as n) {
+              @if (n.kind === 'ok') {
+                {{ n.text }}
+              }
+            }
+          </p>
+          @if (noticeFor(t); as n) {
+            @if (n.kind === 'error') {
+              <p class="form-alert" role="alert">{{ n.text }}</p>
+            }
+          }
+
+          <div
+            class="topic-body"
+            role="region"
+            [id]="'topic-body-' + t.number"
+            [attr.aria-labelledby]="'topic-' + t.number"
+            [hidden]="!isOpen(t)"
+          >
+            @if (t.canDoVi) {
+              <p class="meta can-do">Học xong: {{ t.canDoVi }}</p>
+            }
+            @if (t.grammar.length > 0) {
+              <div class="meta grammar">
+                <span>Ngữ pháp:</span>
+                <ul>
+                  @for (g of t.grammar; track g.id) {
+                    <li>
+                      @if (g.published) {
+                        {{ g.titleVi }}
+                      } @else {
+                        <a class="missing-grammar" [routerLink]="['/admin/grammar', g.id]"
+                          >{{ g.titleVi }} (chưa đăng)</a
+                        >
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
+
+            @if (v.main.length > 0) {
+              <ul class="rows main-rows" [attr.aria-label]="'Bài chính của chủ đề ' + t.name">
+                @for (s of v.main; track s.key) {
+                  <li>
+                    <lu-lesson-row
+                      [slot]="s"
+                      [applied]="!!t.topicId"
+                      [busy]="busy()"
+                      [generating]="generatingSlot(s)"
+                      [publishing]="publishing() === s.lesson?.id"
+                      [rechecking]="rechecking() === s.lesson?.id"
+                      (generate)="generateOne(t, s)"
+                      (publish)="publish(t, $event)"
+                      (recheck)="recheck(t, s, $event)"
+                      (remove)="askRemove(t, s.lesson!, s.lesson!.title || s.title)"
+                    />
+                  </li>
+                }
+              </ul>
+            }
+
+            @if (v.extra.length > 0) {
+              <h3 class="sub" [id]="'extra-' + t.number">Bài thêm</h3>
+              <ul class="rows extra-rows" [attr.aria-labelledby]="'extra-' + t.number">
+                @for (s of v.extra; track s.key) {
+                  <li>
+                    <lu-lesson-row
+                      [slot]="s"
+                      [applied]="!!t.topicId"
+                      [busy]="busy()"
+                      [generating]="generatingSlot(s)"
+                      [publishing]="publishing() === s.lesson?.id"
+                      [rechecking]="rechecking() === s.lesson?.id"
+                      (generate)="generateOne(t, s)"
+                      (publish)="publish(t, $event)"
+                      (recheck)="recheck(t, s, $event)"
+                      (remove)="askRemove(t, s.lesson!, s.lesson!.title || s.title)"
+                    />
+                  </li>
+                }
+              </ul>
+            }
+
+            @if (v.others.length > 0) {
+              <h3 class="sub" [id]="'others-' + t.number">Bài khác trong chủ đề</h3>
+              <ul class="rows other-rows" [attr.aria-labelledby]="'others-' + t.number">
+                @for (l of v.others; track l.id) {
+                  <li>
+                    <lu-lesson-row
+                      [other]="l"
+                      [busy]="busy()"
+                      (remove)="askRemove(t, l, l.title)"
+                    />
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        </li>
+      }
+    </ol>
+  } @else {
+    <lu-loading label="Đang tải giáo trình…" />
+  }
+</section>
+
+<lu-confirm-dialog
+  [open]="applyOpen()"
+  title="Áp dụng thứ tự giáo trình?"
+  message="Tạo các chủ đề còn thiếu, đặt thứ tự các chủ đề A1 theo giáo trình (chủ đề khác mất vị trí A1 và xếp sau) và xếp bài trong mỗi lộ trình theo các ô. Bài đã có không bị xoá."
+  confirmLabel="Áp dụng"
+  (confirmed)="apply()"
+  (cancelled)="applyOpen.set(false)"
+/>
+
+<lu-confirm-dialog
+  [open]="removal() !== null"
+  title="Gỡ bài khỏi giáo trình?"
+  [message]="removeMessage()"
+  confirmLabel="Gỡ"
+  [danger]="true"
+  (confirmed)="remove()"
+  (cancelled)="cancelRemove()"
+/>

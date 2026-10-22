@@ -1,0 +1,44 @@
+:host {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  width: min(100%, 420px);
+  margin: 0 auto var(--space-2);
+  text-align: center;
+}
+
+.topic-title {
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.grammar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1) var(--space-2);
+  margin: 0;
+  font: var(--text-xs) var(--font-ui);
+}
+
+.grammar-label {
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.grammar-chip {
+  padding: 2px var(--space-2);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+}
+
+.can-do {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}

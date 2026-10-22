@@ -3,12 +3,22 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { GrammarList as GrammarListData, GrammarListItem } from '../../../core/models/grammar-study';
+import {
+  GrammarList as GrammarListData,
+  GrammarListItem,
+} from '../../../core/models/grammar-study';
 import { GrammarList } from './grammar-list';
 
 const item = (over: Partial<GrammarListItem>): GrammarListItem => ({
-  id: 'a1-to-be', level: 'A1', titleVi: 'Động từ to be', titleEn: 'The verb to be', hintVi: 'am, is, are',
-  available: true, status: 'new', bestMastery: 0, ...over,
+  id: 'a1-to-be',
+  level: 'A1',
+  titleVi: 'Động từ to be',
+  titleEn: 'The verb to be',
+  hintVi: 'am, is, are',
+  available: true,
+  status: 'new',
+  bestMastery: 0,
+  ...over,
 });
 
 const list: GrammarListData = {
@@ -30,7 +40,7 @@ describe('GrammarList', () => {
     await new Promise((r) => setTimeout(r));
     await fixture.whenStable();
   };
-  const setup = async (goalLevel: string | null = 'B1') => {
+  const setup = async (goalLevel: string | null = 'B1', topicName = 'T') => {
     TestBed.configureTestingModule({
       imports: [GrammarList],
       providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
@@ -41,7 +51,7 @@ describe('GrammarList', () => {
     await fixture.whenStable();
     if (goalLevel !== undefined) {
       http.expectOne('/goals').flush({
-        active: goalLevel ? { level: goalLevel, topicId: 't', topicName: 'T' } : null,
+        active: goalLevel ? { level: goalLevel, topicId: 't', topicName } : null,
         others: [],
       });
     }
@@ -70,7 +80,9 @@ describe('GrammarList', () => {
   it('starts at A1 without a goal, and remembers the chosen level in the session', async () => {
     await setup(null);
     await flushLevel('A1');
-    (Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]')).find((b) => text(b) === 'A2')!).click();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]'))
+      .find((b) => text(b) === 'A2')!
+      .click();
     await settle();
     await flushLevel('A2');
     expect(sessionStorage.getItem('luna.grammar.level')).toBe('A2');
@@ -85,7 +97,11 @@ describe('GrammarList', () => {
     fixture = TestBed.createComponent(GrammarList);
     el = fixture.nativeElement;
     await settle();
-    http.expectNone('/goals');
+    // The goal is still read, for its topic, but the level stays the one chosen.
+    http
+      .expectOne('/goals')
+      .flush({ active: { level: 'B1', topicId: 't', topicName: 'T' }, others: [] });
+    await settle();
     await flushLevel('A2');
     expect(el.querySelector('[role="radio"][aria-checked="true"]')?.textContent?.trim()).toBe('A2');
   });
@@ -111,15 +127,24 @@ describe('GrammarList', () => {
   it('gathers the points that are not published in one collapsed "Sắp có" row, after the open ones', async () => {
     await setup('A1');
     // In curriculum order the unpublished point comes first; it still goes after the open ones.
-    await flushLevel('A1', { next: 'a1-articles', points: [list.points[2], list.points[0], list.points[1]] });
+    await flushLevel('A1', {
+      next: 'a1-articles',
+      points: [list.points[2], list.points[0], list.points[1]],
+    });
     expect(text(el.querySelector('.group-title'))).toBe('Đã mở · 2 điểm');
-    expect(Array.from(el.querySelectorAll('a.point .point-title')).map((t) => text(t))).toEqual(['Động từ to be', 'Mạo từ']);
+    expect(Array.from(el.querySelectorAll('a.point .point-title')).map((t) => text(t))).toEqual([
+      'Động từ to be',
+      'Mạo từ',
+    ]);
     expect(el.querySelector('.point.is-soon')).toBeNull();
 
     const toggle = el.querySelector<HTMLButtonElement>('.soon-toggle')!;
     expect(text(toggle.querySelector('.soon-title'))).toBe('Sắp có · 1 điểm');
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
-    expect(toggle.compareDocumentPosition(el.querySelector('a.point')!) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
+    expect(
+      toggle.compareDocumentPosition(el.querySelector('a.point')!) &
+        Node.DOCUMENT_POSITION_PRECEDING,
+    ).toBeTruthy();
     toggle.click();
     await settle();
     expect(toggle.getAttribute('aria-expanded')).toBe('true');
@@ -130,7 +155,9 @@ describe('GrammarList', () => {
     expect(el.querySelectorAll('a.point').length).toBe(2);
 
     // Another level starts collapsed again.
-    (Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]')).find((b) => text(b) === 'A2')!).click();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]'))
+      .find((b) => text(b) === 'A2')!
+      .click();
     await settle();
     await flushLevel('A2');
     expect(el.querySelector('.soon-toggle')?.getAttribute('aria-expanded')).toBe('false');
@@ -164,14 +191,18 @@ describe('GrammarList', () => {
     expect(link().getAttribute('href')).toBe('/grammar/a1-articles?step=practice&redo=weak');
 
     // A point never practised: its start, or the step where it was left in this browser.
-    (Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]')).find((b) => text(b) === 'A2')!).click();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]'))
+      .find((b) => text(b) === 'A2')!
+      .click();
     await settle();
     await flushLevel('A2', next({ status: 'new' }));
     expect(text(link())).toContain('Bắt đầu học');
     expect(link().getAttribute('href')).toBe('/grammar/a1-articles');
 
     localStorage.setItem('luna.grammar.step.a1-articles', '1');
-    (Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]')).find((b) => text(b) === 'A1')!).click();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]'))
+      .find((b) => text(b) === 'A1')!
+      .click();
     await settle();
     await flushLevel('A1', next({ status: 'new' }));
     expect(text(link())).toContain('Tiếp tục: Bước 2');
@@ -204,7 +235,9 @@ describe('GrammarList', () => {
     http.expectOne((r) => r.url === '/grammar').flush({}, { status: 500, statusText: 'x' });
     await settle();
     expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được danh sách ngữ pháp');
-    Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Thử lại')!.click();
+    Array.from(el.querySelectorAll('button'))
+      .find((b) => text(b) === 'Thử lại')!
+      .click();
     await settle();
     await flushLevel('A1');
     expect(el.querySelector('[role="alert"]')).toBeNull();
@@ -219,5 +252,89 @@ describe('GrammarList', () => {
     await settle();
     await flushLevel('A2');
     expect(el.querySelector('[role="radio"][aria-checked="true"]')?.textContent?.trim()).toBe('A2');
+  });
+  describe('with a course', () => {
+    const course: GrammarListData = {
+      next: 'a1-to-be',
+      points: [
+        item({ id: 'a1-to-be', courseNumber: 1, courseTopic: 'Chào hỏi', status: 'learning' }),
+        item({ id: 'a1-have', titleVi: 'Have / has', courseNumber: 2, courseTopic: 'Gia đình' }),
+        item({
+          id: 'a1-there',
+          titleVi: 'There is / are',
+          courseNumber: 4,
+          courseTopic: 'Nhà cửa',
+        }),
+        item({
+          id: 'a1-time',
+          titleVi: 'Giới từ thời gian',
+          courseNumber: 3,
+          courseTopic: 'Thời gian',
+          available: false,
+        }),
+        item({ id: 'a1-extra', titleVi: 'Ngoài giáo trình' }),
+      ],
+    };
+
+    it('names the course topic of each point', async () => {
+      await setup('A1', 'Chào hỏi');
+      await flushLevel('A1', course);
+      const rows = Array.from(el.querySelectorAll('a.point'));
+      expect(rows.map((r) => text(r.querySelector('.point-course')))).toEqual([
+        'Chủ đề 1 · Chào hỏi',
+        'Chủ đề 2 · Gia đình',
+        'Chủ đề 4 · Nhà cửa',
+        '',
+      ]);
+      expect(text(el.querySelector('.hero .point-course'))).toBe('Chủ đề 1 · Chào hỏi');
+      el.querySelector<HTMLButtonElement>('.soon-toggle')!.click();
+      await settle();
+      expect(text(el.querySelector('.is-soon .point-course'))).toBe('Chủ đề 3 · Thời gian');
+    });
+
+    it('continues with the point of the topic being studied, and tags later ones "Học trước"', async () => {
+      await setup('A1', 'Gia đình');
+      await flushLevel('A1', course);
+      expect(text(el.querySelector('.next-title'))).toBe('Have / has');
+      expect(text(el.querySelector('.next-label'))).toBe('Học tiếp · Điểm 2/5');
+      expect(el.querySelector('.next')?.getAttribute('href')).toBe('/grammar/a1-have');
+      const rows = Array.from(el.querySelectorAll('a.point'));
+      expect(rows.map((r) => text(r.querySelector('.ahead-tag')))).toEqual([
+        '',
+        '',
+        'Học trước',
+        '',
+      ]);
+      // Still open to study ahead.
+      expect(rows[2].getAttribute('href')).toBe('/grammar/a1-there');
+    });
+
+    it("keeps the server's next point when the goal's topic has none left", async () => {
+      await setup('A1', 'Mua sắm');
+      await flushLevel('A1', course);
+      expect(text(el.querySelector('.next-title'))).toBe('Động từ to be');
+      expect(text(el.querySelector('.next-label'))).toBe('Học tiếp · Điểm 1/5');
+      // At topic 1: the points of topics 2 and 4 are ahead.
+      const tags = Array.from(el.querySelectorAll('a.point')).map((r) =>
+        text(r.querySelector('.ahead-tag')),
+      );
+      expect(tags).toEqual(['', 'Học trước', 'Học trước', '']);
+    });
+
+    it('skips a mastered point of the topic being studied', async () => {
+      await setup('A1', 'Gia đình');
+      await flushLevel('A1', {
+        ...course,
+        points: course.points.map((p) =>
+          p.id === 'a1-have' ? { ...p, status: 'mastered' as const } : p,
+        ),
+      });
+      expect(text(el.querySelector('.next-title'))).toBe('Động từ to be');
+      // Still at topic 2 for the tags.
+      const tags = Array.from(el.querySelectorAll('a.point')).map((r) =>
+        text(r.querySelector('.ahead-tag')),
+      );
+      expect(tags).toEqual(['', '', 'Học trước', '']);
+    });
   });
 });

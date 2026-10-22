@@ -20,6 +20,7 @@ const ADMIN_LINKS: readonly AdminLink[] = [
   { path: '/admin', label: 'Trang chủ', icon: 'home', matches: (p) => p === '/admin' },
   { path: '/admin/lessons', label: 'Bài học', icon: 'book', matches: (p) => p.startsWith('/admin/lessons') },
   { path: '/admin/topics', label: 'Chủ đề', icon: 'layers', matches: (p) => p.startsWith('/admin/topics') },
+  { path: '/admin/curriculum', label: 'Giáo trình', icon: 'table', matches: (p) => p.startsWith('/admin/curriculum') },
   { path: '/admin/words', label: 'Từ vựng', icon: 'notebook', matches: (p) => p.startsWith('/admin/words') },
   { path: '/admin/grammar', label: 'Ngữ pháp', icon: 'grammar', matches: (p) => p.startsWith('/admin/grammar') },
   { path: '/admin/roadmap', label: 'Lộ trình', icon: 'route', matches: (p) => p.startsWith('/admin/roadmap') },

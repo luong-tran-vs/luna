@@ -57,6 +57,11 @@
               }
             </div>
           }
+          @if (d.hardWords?.length) {
+            <p class="targets-missing hard-words">
+              Từ khó hơn {{ d.level }} (AI chưa thay được): {{ d.hardWords!.join(', ') }}
+            </p>
+          }
 
           @if (d.images?.enabled) {
             <p class="field-hint images-note">Sẽ sinh ảnh cho từ vựng sau khi lưu.</p>

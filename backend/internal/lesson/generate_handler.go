@@ -33,6 +33,8 @@ type draftJSON struct {
 	TargetWords    []string `json:"targetWords"`
 	MissingWords   []string `json:"missingWords"`
 	GrammarPointID string   `json:"grammarPointId"`
+	// HardWords are the words above the level the AI could not replace (added 2026-10-22).
+	HardWords []string `json:"hardWords"`
 }
 
 type generateResultJSON struct {
@@ -69,7 +71,7 @@ func (h *Handler) generate(w http.ResponseWriter, r *http.Request) {
 	for i, d := range res.Drafts {
 		out.Drafts[i] = draftJSON{
 			Title: d.Title, Content: d.Content, Words: d.Words, TargetWords: d.TargetWords, MissingWords: d.MissingWords,
-			GrammarPointID: d.GrammarPointID,
+			GrammarPointID: d.GrammarPointID, HardWords: nonNil(d.HardWords),
 		}
 	}
 	httpx.WriteJSON(w, http.StatusOK, out)
@@ -97,3 +99,4 @@ func (h *Handler) writeGenerateError(w http.ResponseWriter, r *http.Request, err
 		h.writeError(w, r, err)
 	}
 }
+
