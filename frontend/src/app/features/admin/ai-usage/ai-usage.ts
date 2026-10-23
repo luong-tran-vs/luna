@@ -55,6 +55,8 @@ export class AiUsage {
   protected readonly loadError = signal(false);
   protected readonly loading = signal(false);
   protected readonly featureCosts = FEATURE_COSTS;
+  /** How many requests the server keeps (aiusage.MaxKept). */
+  protected readonly maxKept = 200;
   protected readonly opLabel = opLabel;
   /** The bar under the pointer or keyboard focus, for the tooltip. */
   protected readonly active = signal<number | null>(null);

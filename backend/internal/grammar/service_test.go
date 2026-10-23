@@ -470,7 +470,7 @@ func TestLearnerListInCourseOrder(t *testing.T) {
 	e := newEnv(t)
 	a1 := Default().ByLevel("A1")
 	// A course teaching the 3rd point in topic 1 and the 1st in topic 2; the others follow.
-	e.svc.SetCourse(func(level string) (map[string]CourseTopic, []string, bool) {
+	e.svc.SetCourse(func(_ context.Context, level string) (map[string]CourseTopic, []string, bool) {
 		if level != "A1" {
 			return nil, nil, false
 		}

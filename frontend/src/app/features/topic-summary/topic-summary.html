@@ -1,0 +1,156 @@
+<section class="screen topic-summary">
+  <header class="screen-bar">
+    <a class="round-btn" routerLink="/lessons" aria-label="Quay lại Bài học"><lu-icon name="arrow-left" /></a>
+    <h1 class="screen-title">Tổng kết chủ đề</h1>
+  </header>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      <p>Không tải được tổng kết chủ đề.</p>
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  } @else if (summary(); as s) {
+    <section class="soft-card hero" aria-labelledby="topic-heading">
+      <p class="eyebrow">{{ s.level }} · Đã học {{ s.completed }}/{{ s.lessons.length }} bài</p>
+      <h2 class="topic-name" id="topic-heading">{{ s.topicName }}</h2>
+      @if (finished()) {
+        <p class="done-line"><lu-icon name="trophy" /> Chúc mừng, bạn đã hoàn thành chủ đề!</p>
+      }
+      <div class="rating">
+        <lu-progress-ring class="ring" [value]="s.rating === 'none' ? null : s.overall" label="Điểm tổng kết" />
+        <div class="rating-text">
+          <p class="rating-title" [attr.data-rating]="s.rating">{{ rating().title }}</p>
+          <p class="muted">{{ rating().line }}</p>
+        </div>
+      </div>
+      @if (s.canDoVi) {
+        <p class="can-do">Sau chủ đề này bạn có thể {{ s.canDoVi }}</p>
+      }
+    </section>
+
+    <ul class="facts" aria-label="Số liệu của chủ đề">
+      <li class="soft-card fact">
+        <span class="icon-chip"><lu-icon name="book" /></span>
+        <span class="fact-value">{{ s.completed }}/{{ s.lessons.length }}</span>
+        <span class="fact-label">bài đã học</span>
+      </li>
+      <li class="soft-card fact">
+        <span class="icon-chip"><lu-icon name="calendar" /></span>
+        <span class="fact-value">{{ s.days }}</span>
+        <span class="fact-label">ngày học</span>
+      </li>
+      <li class="soft-card fact">
+        <span class="icon-chip"><lu-icon name="notebook" /></span>
+        <span class="fact-value">{{ s.words }}</span>
+        <span class="fact-label">từ đã lưu, nhớ chắc {{ s.remembered }}</span>
+      </li>
+    </ul>
+    @if (span()) {
+      <p class="muted span">Học từ {{ span() }}</p>
+    }
+
+    @if (skills().length) {
+      <section class="soft-card" aria-labelledby="skills-heading">
+        <h2 class="section-title" id="skills-heading">Kết quả từng kỹ năng</h2>
+        <ul class="skill-list">
+          @for (k of skills(); track k.skill) {
+            <li class="skill" [attr.data-skill]="k.skill">
+              <span class="skill-head">
+                <span class="skill-label">{{ k.label }}</span>
+                @if (k.mark === 'strong') {
+                  <span class="mark mark-strong">Điểm mạnh</span>
+                } @else if (k.mark === 'weak') {
+                  <span class="mark mark-weak">Cần ôn</span>
+                }
+                <span class="skill-value">{{ k.percent }}%</span>
+              </span>
+              <span
+                class="skill-track"
+                role="progressbar"
+                [attr.aria-label]="k.label"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [attr.aria-valuenow]="k.percent"
+                [attr.aria-valuetext]="k.percent + '%, ' + k.detail"
+              >
+                <span class="skill-fill" [style.width.%]="k.percent"></span>
+              </span>
+              <span class="muted skill-detail">{{ k.detail }}</span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    <section class="soft-card" aria-labelledby="advice-heading">
+      <h2 class="section-title" id="advice-heading">Nên ôn gì tiếp</h2>
+      @if (advice().length) {
+        <ul class="advice">
+          @for (a of advice(); track a.text) {
+            <li>
+              @if (a.link) {
+                <a [routerLink]="a.link">{{ a.text }}</a>
+              } @else {
+                {{ a.text }}
+              }
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="muted">Bạn đã làm tốt mọi phần. Có thể sang chủ đề tiếp theo!</p>
+      }
+    </section>
+
+    @if (s.grammarVi.length) {
+      <section class="soft-card" aria-labelledby="grammar-heading">
+        <h2 class="section-title" id="grammar-heading">Ngữ pháp của chủ đề</h2>
+        <ul class="plain-list">
+          @for (g of s.grammarVi; track g) {
+            <li>{{ g }}</li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (s.mistakes.length) {
+      <section class="soft-card" aria-labelledby="mistakes-heading">
+        <h2 class="section-title" id="mistakes-heading">Lỗi viết hay gặp</h2>
+        <ul class="plain-list mistakes">
+          @for (m of s.mistakes; track m.type) {
+            <li>
+              <span>{{ mistakeLabel(m.type) }}</span><span class="muted">{{ m.count }} lần</span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    <section class="soft-card" aria-labelledby="lessons-heading">
+      <h2 class="section-title" id="lessons-heading">Các bài của chủ đề</h2>
+      <ol class="lessons">
+        @for (l of s.lessons; track l.id) {
+          <li [class.is-done]="l.done">
+            <lu-icon [name]="l.done ? 'check-circle' : 'clock'" />
+            <span class="visually-hidden">{{ l.done ? 'Đã học:' : 'Chưa học:' }}</span>
+            @if (l.done) {
+              <a [routerLink]="['/lessons', l.id]">{{ l.title }}</a>
+            } @else {
+              <span>{{ l.title }}</span>
+            }
+          </li>
+        }
+      </ol>
+    </section>
+
+    <div class="actions">
+      @if (finished()) {
+        <a class="btn-primary" routerLink="/goal" [queryParams]="{ completed: 1 }">Chọn chủ đề tiếp theo</a>
+      } @else {
+        <a class="btn-primary" routerLink="/lessons">Học tiếp</a>
+      }
+      <a class="btn" routerLink="/vocabulary/review">Ôn từ vựng</a>
+    </div>
+  } @else {
+    <lu-loading />
+  }
+</section>

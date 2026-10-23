@@ -44,13 +44,10 @@
   }
 
   @if (topics(); as list) {
-    <lu-topic-suggestions
-      [topics]="list"
-      [level]="orderLevel() ?? 'A1'"
-      [busy]="ordering()"
-      (apply)="applySuggestion($event)"
-      (create)="createSuggested($event)"
-    />
+    <p class="muted course-link">
+      Thứ tự chủ đề theo trình độ: xem trang
+      <a routerLink="/admin/curriculum">Giáo trình</a>.
+    </p>
     @if (list.length === 0) {
       <p class="card muted">Chưa có chủ đề nào. Bấm "Thêm chủ đề" để tạo chủ đề đầu tiên.</p>
     } @else {

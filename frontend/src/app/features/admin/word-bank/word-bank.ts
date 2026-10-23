@@ -112,6 +112,14 @@ export class WordBank {
   protected readonly importing = signal(false);
   protected readonly filling = signal(false);
   protected readonly accepting = signal(false);
+  /**
+   * The bar that takes every suggested IPA at once shows whenever a listed word has a suggestion,
+   * not only under the "Phiên âm cần xem" filter: taking them one by one was slow.
+   */
+  protected readonly hasSuggestions = computed(
+    () =>
+      (this.missing() === 'ipaCheck' && this.total() > 0) || (this.words() ?? []).some((w) => !!w.ipaSuggestion),
+  );
   /** The topic's words lacking a meaning or an IPA are listed: the AI can fill them in one request. */
   protected readonly canFill = computed(
     () => (this.missing() === 'meaning' || this.missing() === 'ipa') && this.topicFilter() !== '',

@@ -102,7 +102,7 @@ type FlagsError struct{ Count int }
 func (e *FlagsError) Error() string { return fmt.Sprintf("lesson: %d unconfirmed flags", e.Count) }
 
 // reviewTimeout bounds the AI call that reads over one lesson.
-const reviewTimeout = 120 * time.Second
+const reviewTimeout = 5 * time.Minute
 
 // Check has a second AI read over the AI-written parts of a lesson: its sentences, annotations,
 // comprehension questions (answered without their keys) and the translations of the practice. It

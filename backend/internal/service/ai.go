@@ -7,12 +7,14 @@ import (
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/ai"
-	"github.com/luongtran/luna/backend/internal/ai/gemini"
+	"github.com/luongtran/luna/backend/internal/ai/llm"
+	"github.com/luongtran/luna/backend/internal/aimodel"
 	"github.com/luongtran/luna/backend/internal/aiusage"
 )
 
-// aiTimeout bounds one request to the AI provider (a generation batch can take two minutes).
-const aiTimeout = 130 * time.Second
+// aiTimeout bounds one request to the AI provider: five minutes since 2026-10-23, as the slower
+// models the admin can choose take minutes to write a lesson or a course.
+const aiTimeout = 5 * time.Minute
 
 // initAI picks the annotation provider from configuration (constitution III).
 func (c *Container) initAI() {
@@ -24,16 +26,24 @@ func (c *Container) initAI() {
 		c.meaningAI = ai.DisabledMeanings{}
 		c.glossAI = ai.DisabledGlosses{}
 		c.talkAI = ai.DisabledTalk{}
+		c.aiModel = aimodel.NewService(c.store.AIModel(), c.cfg.GeminiModel, false, nil, time.Now, c.log)
 		return
 	}
-	text := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
+	text := llm.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
 	text.Usage = c.aiUsage
+	text.AddBackupKey(c.cfg.GeminiBackupKey)
+	// The admin picks the text model; GEMINI_MODEL is the default (added 2026-10-23).
+	// Groq models are offered once GROQ_API_KEY is set (added 2026-10-23).
+	text.SetGroq(c.cfg.GroqAPIKey)
+	c.aiModel = aimodel.NewService(c.store.AIModel(), c.cfg.GeminiModel, c.cfg.GroqAPIKey != "", text, time.Now, c.log)
+	text.ModelOf = c.aiModel.ModelFor
 	c.ai = text
 	c.meaningAI = text
 	c.glossAI = text
 	c.talkAI = text
-	images := gemini.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
+	images := llm.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
 	images.Usage = c.aiUsage
+	images.AddBackupKey(c.cfg.GeminiBackupKey)
 	c.imageAI = images
 }
 

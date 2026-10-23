@@ -28,9 +28,15 @@ type Config struct {
 
 	AIProvider   string
 	GeminiAPIKey string
-	GeminiModel  string
+	// GeminiBackupKey, of another Google project, is used when GeminiAPIKey gets a 429 (added
+	// 2026-10-23); empty for none.
+	GeminiBackupKey string
+	GeminiModel     string
 	// GeminiImageModel draws the vocabulary pictures (F23).
 	GeminiImageModel string
+	// GroqAPIKey lets the admin choose Groq models for the text requests (added 2026-10-23); empty
+	// for none.
+	GroqAPIKey string
 
 	DictionaryPath string
 }
@@ -50,6 +56,8 @@ func Load(getenv func(string) string) (Config, error) {
 		LogLevel:            strings.ToLower(valueOr(getenv("LOG_LEVEL"), "info")),
 		AIProvider:          strings.ToLower(valueOr(getenv("AI_PROVIDER"), "gemini")),
 		GeminiAPIKey:        strings.TrimSpace(getenv("GEMINI_API_KEY")),
+		GeminiBackupKey:     strings.TrimSpace(getenv("GEMINI_API_KEY1")),
+		GroqAPIKey:          strings.TrimSpace(getenv("GROQ_API_KEY")),
 		GeminiModel:         valueOr(getenv("GEMINI_MODEL"), "gemini-3.5-flash-lite"),
 		GeminiImageModel:    valueOr(getenv("GEMINI_IMAGE_MODEL"), "gemini-2.5-flash-image"),
 		DictionaryPath:      valueOr(getenv("DICTIONARY_PATH"), "./language-dictionary/data/english-dictionary.db"),

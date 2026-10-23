@@ -133,6 +133,8 @@ var (
 	ErrInvalidKey = errors.New("ai: invalid API key")
 	// ErrQuota means the free-tier quota is exhausted for now.
 	ErrQuota = errors.New("ai: quota exceeded")
+	// ErrBusy means the model is overloaded for now (503); another model may answer.
+	ErrBusy = errors.New("ai: model busy")
 )
 
 // Disabled is the provider used when AI_PROVIDER=none or no key is set.

@@ -59,6 +59,10 @@ func migrations() []migration {
 		{ID: "032_lesson_glosses", Stmts: lessonGlossesSchema()},
 		{ID: "033_talk_sessions", Stmts: talkSessionsSchema()},
 		{ID: "034_writing_mistakes", Stmts: writingMistakesSchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "035_curricula", Stmts: curriculaSchema()},
+		{ID: "036_ai_usage_key", Stmts: aiUsageKeySchema(), Ignore: []uint16{errDuplicateColumn}},
+		{ID: "037_ai_settings", Stmts: aiSettingsSchema()},
+		{ID: "038_ai_settings_by_op", Stmts: aiSettingsByOpSchema(), Ignore: []uint16{errDuplicateColumn}},
 	}
 }
 

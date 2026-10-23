@@ -280,6 +280,8 @@ describe('WordBank (F24)', () => {
     await open([odd, table]);
     expect(rows()[0].textContent?.replace(/\s+/g, ' ')).toContain('Gợi ý chuẩn: /haʊs/');
     expect(rows()[1].querySelector('.ipa-suggestion')).toBeNull();
+    // A listed word has a suggestion: the button for all of them shows without the filter.
+    expect(button(el, 'Nhận tất cả gợi ý')).toBeDefined();
     button(rows()[0], 'Nhận')!.click();
     const req = http.expectOne('/admin/words/house');
     expect(req.request.method).toBe('PATCH');
@@ -287,6 +289,7 @@ describe('WordBank (F24)', () => {
     req.flush(house);
     await settle();
     expect(rows()[0].querySelector('.ipa-suggestion')).toBeNull();
+    expect(button(el, 'Nhận tất cả gợi ý')).toBeUndefined();
 
     // The filter lists only those, with a button for all of them.
     const select = el.querySelector<HTMLSelectElement>('#bank-missing')!;
@@ -301,6 +304,31 @@ describe('WordBank (F24)', () => {
     expect(el.querySelector('.note')?.textContent).toContain('Đã thay phiên âm chuẩn cho 1 từ.');
     await settle(350);
     expectList('page=1&missing=ipaCheck').flush({ words: [], total: 0, hasMore: false });
+    await settle();
+    expect(button(el, 'Nhận tất cả gợi ý')).toBeUndefined();
+  });
+
+  it('takes every suggested IPA at once from the full list', async () => {
+    const odd: BankWord = { ...house, ipa: '/ˈhɑʊs/', ipaSuggestion: '/haʊs/' };
+    await open([odd, table]);
+    button(el, 'Xem các từ cần xem')!.click();
+    await settle(350);
+    expectList('page=1&missing=ipaCheck').flush({ words: [odd], total: 1, hasMore: false });
+    await settle();
+    expect(button(el, 'Xem các từ cần xem')).toBeUndefined();
+    const select = el.querySelector<HTMLSelectElement>('#bank-missing')!;
+    select.value = '';
+    select.dispatchEvent(new Event('change'));
+    await settle(350);
+    expectList('page=1').flush({ words: [odd, table], total: 2, hasMore: false });
+    await settle();
+
+    button(el, 'Nhận tất cả gợi ý')!.click();
+    http.expectOne((r) => r.url === '/admin/words/ipa-suggestions/accept' && r.method === 'POST').flush({ updated: 1 });
+    await settle();
+    expect(el.querySelector('.note')?.textContent).toContain('Đã thay phiên âm chuẩn cho 1 từ.');
+    await settle(350);
+    expectList('page=1').flush({ words: [house, table], total: 2, hasMore: false });
     await settle();
     expect(button(el, 'Nhận tất cả gợi ý')).toBeUndefined();
   });

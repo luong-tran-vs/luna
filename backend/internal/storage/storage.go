@@ -16,8 +16,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/luongtran/luna/backend/internal/aimodel"
 	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/auth"
+	"github.com/luongtran/luna/backend/internal/curriculum"
 	"github.com/luongtran/luna/backend/internal/export"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/job"
@@ -94,6 +96,12 @@ type Store interface {
 	GrammarLessons() grammar.LessonRepository
 	GrammarProgress() grammar.ProgressRepository
 	GrammarReports() grammar.ReportRepository
+
+	// Curricula keeps the course of each level, approved and draft (added 2026-10-23).
+	Curricula() curriculum.Repository
+
+	// AIModel keeps the text model the admin chose (added 2026-10-23).
+	AIModel() aimodel.Repository
 }
 
 // Opener opens a Store. It captures its own settings (a URI, a DSN) when it is registered, so the

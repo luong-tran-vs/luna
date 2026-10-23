@@ -188,3 +188,18 @@ func TestAnswerErrors(t *testing.T) {
 		t.Errorf("status of a deleted lesson = %d, %v", q, err)
 	}
 }
+
+func TestQuizScore(t *testing.T) {
+	t.Parallel()
+	r, _, answers, l := newQuizEnv(t)
+	_ = answers.Upsert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 2, QuestionIndex: 0, Correct: true})
+	_ = answers.Upsert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 2, QuestionIndex: 1})
+	// Answers to an older question set do not count.
+	_ = answers.Upsert(t.Context(), Answer{UserID: "u1", LessonID: l.ID, QuizVersion: 1, QuestionIndex: 2, Correct: true})
+	if answered, correct, err := r.QuizScore(t.Context(), "u1", l.ID); err != nil || answered != 2 || correct != 1 {
+		t.Errorf("score = %d/%d, %v", correct, answered, err)
+	}
+	if answered, correct, err := r.QuizScore(t.Context(), "u1", "missing"); err != nil || answered != 0 || correct != 0 {
+		t.Errorf("missing lesson = %d/%d, %v", correct, answered, err)
+	}
+}

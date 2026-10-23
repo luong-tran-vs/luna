@@ -166,6 +166,28 @@ func (r *Reader) QuizStatus(ctx context.Context, userID, lessonID string) (quest
 	return len(l.Extras.Questions), len(answers), nil
 }
 
+// QuizScore counts the learner's answers to the lesson's current questions and the correct ones
+// (the topic summary, added 2026-10-23). A missing lesson has none.
+func (r *Reader) QuizScore(ctx context.Context, userID, lessonID string) (answered, correct int, err error) {
+	l, err := r.lessons.Get(ctx, lessonID)
+	if errors.Is(err, ErrNotFound) {
+		return 0, 0, nil
+	}
+	if err != nil {
+		return 0, 0, err
+	}
+	answers, err := r.answers.List(ctx, userID, l.ID, l.QuizVersion)
+	if err != nil {
+		return 0, 0, fmt.Errorf("lesson: list answers: %w", err)
+	}
+	for _, a := range answers {
+		if a.Correct {
+			correct++
+		}
+	}
+	return len(answers), correct, nil
+}
+
 // Totals counts a learner's answers since `since` (nil = all) and the correct ones, for statistics.
 func (r *Reader) Totals(ctx context.Context, userID string, since *time.Time) (answered, correct int, err error) {
 	return r.answers.Totals(ctx, userID, since)

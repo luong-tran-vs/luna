@@ -18,6 +18,7 @@ type aiUsageDoc struct {
 	At            time.Time `bson:"at"`
 	Model         string    `bson:"model"`
 	Op            string    `bson:"op"`
+	Key           int       `bson:"key,omitempty"`
 	Status        int       `bson:"status"`
 	PromptTokens  int       `bson:"promptTokens"`
 	OutputTokens  int       `bson:"outputTokens"`
@@ -39,7 +40,7 @@ var _ aiusage.Repository = (*AIUsage)(nil)
 // Add stores one request.
 func (r *AIUsage) Add(ctx context.Context, u ai.Usage) error {
 	_, err := r.coll.InsertOne(ctx, aiUsageDoc{
-		At: u.At.UTC(), Model: u.Model, Op: u.Op, Status: u.Status, PromptTokens: u.PromptTokens,
+		At: u.At.UTC(), Model: u.Model, Op: u.Op, Key: u.Key, Status: u.Status, PromptTokens: u.PromptTokens,
 		OutputTokens: u.OutputTokens, ThoughtTokens: u.ThoughtTokens, TotalTokens: u.TotalTokens,
 		DurationMs: u.Duration.Milliseconds(),
 	})
@@ -63,7 +64,7 @@ func (r *AIUsage) Since(ctx context.Context, from time.Time) ([]ai.Usage, error)
 	out := make([]ai.Usage, len(docs))
 	for i, d := range docs {
 		out[i] = ai.Usage{
-			At: d.At, Model: d.Model, Op: d.Op, Status: d.Status, PromptTokens: d.PromptTokens,
+			At: d.At, Model: d.Model, Op: d.Op, Key: d.Key, Status: d.Status, PromptTokens: d.PromptTokens,
 			OutputTokens: d.OutputTokens, ThoughtTokens: d.ThoughtTokens, TotalTokens: d.TotalTokens,
 			Duration: time.Duration(d.DurationMs) * time.Millisecond,
 		}
@@ -71,9 +72,29 @@ func (r *AIUsage) Since(ctx context.Context, from time.Time) ([]ai.Usage, error)
 	return out, nil
 }
 
-// DeleteBefore removes the requests made before t (the TTL index does it too, in its own time).
-func (r *AIUsage) DeleteBefore(ctx context.Context, t time.Time) error {
-	if _, err := r.coll.DeleteMany(ctx, bson.D{{Key: "at", Value: bson.D{{Key: "$lt", Value: t.UTC()}}}}); err != nil {
+// KeepLatest removes every request but the n most recent ones.
+func (r *AIUsage) KeepLatest(ctx context.Context, n int) error {
+	cur, err := r.coll.Find(ctx, bson.D{}, options.Find().
+		SetSort(bson.D{{Key: "at", Value: -1}, {Key: "_id", Value: -1}}).
+		SetLimit(int64(n)).
+		SetProjection(bson.D{{Key: "_id", Value: 1}}))
+	if err != nil {
+		return fmt.Errorf("find latest ai usage: %w", err)
+	}
+	var keep []struct {
+		ID bson.ObjectID `bson:"_id"`
+	}
+	if err := cur.All(ctx, &keep); err != nil {
+		return fmt.Errorf("read latest ai usage: %w", err)
+	}
+	if len(keep) < n {
+		return nil
+	}
+	ids := make(bson.A, len(keep))
+	for i, k := range keep {
+		ids[i] = k.ID
+	}
+	if _, err := r.coll.DeleteMany(ctx, bson.D{{Key: "_id", Value: bson.D{{Key: "$nin", Value: ids}}}}); err != nil {
 		return fmt.Errorf("delete ai usage: %w", err)
 	}
 	return nil

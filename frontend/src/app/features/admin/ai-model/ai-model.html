@@ -1,0 +1,199 @@
+<section class="page">
+  <header class="page-header">
+    <div class="title-block">
+      <h1 class="page-title">Model AI</h1>
+      <p class="muted lead">
+        Chọn model viết nội dung, chung cho mọi việc hoặc riêng từng việc. Mặc định mọi việc dùng
+        Gemini.
+      </p>
+    </div>
+  </header>
+
+  <details class="help">
+    <summary>Cách hoạt động</summary>
+    <ul>
+      <li>
+        Việc để "Theo model chung" dùng model chung; chỉ chọn riêng cho việc cần model khác (ví dụ
+        model nhanh cho việc người học đang chờ).
+      </li>
+      <li>
+        "Về mặc định" đưa mọi việc về Gemini theo GEMINI_MODEL. Model sinh ảnh luôn là Gemini và
+        không đổi ở đây.
+      </li>
+      <li>Model Groq chỉ có khi đã đặt GROQ_API_KEY.</li>
+      <li>
+        Máy local và luongtran.site dùng chung cơ sở dữ liệu nên lựa chọn áp dụng cho cả hai; server
+        còn lại nhận thay đổi trong vòng 30 giây.
+      </li>
+      <li>
+        Nút <strong>Thử</strong> gửi 1 request ngắn để xem model có trả lời không và nhanh cỡ nào.
+      </li>
+    </ul>
+  </details>
+
+  @if (loadError()) {
+    <div class="form-alert" role="alert">
+      Không tải được model đang dùng.
+      <button type="button" class="btn" (click)="load()">Thử lại</button>
+    </div>
+  }
+
+  @if (state(); as s) {
+    <div class="summary card">
+      <dl class="summary-figures">
+        <div>
+          <dt>Model chung</dt>
+          <dd>{{ modelName(s.model) }}</dd>
+        </div>
+        <div>
+          <dt>Việc dùng model riêng</dt>
+          <dd>{{ savedOwn(s) }}/{{ s.ops.length }}</dd>
+        </div>
+        <div>
+          <dt>Cập nhật</dt>
+          <dd class="current">
+            {{ s.saved || savedOwn(s) ? updatedAt(s) : 'Mặc định theo GEMINI_MODEL' }}
+          </dd>
+        </div>
+      </dl>
+      @if (s.saved || hasOwn(s)) {
+        <button
+          type="button"
+          class="link-btn summary-reset"
+          [disabled]="saving()"
+          (click)="reset()"
+        >
+          Về mặc định ({{ modelName(s.default) }})
+        </button>
+      }
+    </div>
+
+    <section class="card" aria-labelledby="model-heading">
+      <div class="section-head">
+        <h2 class="section-heading" id="model-heading">Model chung</h2>
+        <p class="muted small">Dùng cho mọi việc không chọn model riêng.</p>
+      </div>
+
+      @for (g of providerGroups(s); track g.title) {
+        <h3 class="group-heading">{{ g.title }}</h3>
+        <ul class="options">
+          @for (m of g.models; track m) {
+            <li class="option" [class.option-selected]="selected() === m">
+              <label class="option-label">
+                <input
+                  type="radio"
+                  name="ai-model"
+                  [value]="m"
+                  [checked]="selected() === m"
+                  (change)="selected.set(m)"
+                />
+                <span class="option-text">
+                  <span class="option-name">
+                    {{ modelName(m) }}
+                    @if (m === s.model) {
+                      <span class="tag">Đang dùng</span>
+                    }
+                    @if (m === s.default) {
+                      <span class="tag tag-muted">Mặc định</span>
+                    }
+                  </span>
+                  @if (modelNote(m)) {
+                    <span class="option-note">{{ modelNote(m) }}</span>
+                  }
+                </span>
+              </label>
+              <button
+                type="button"
+                class="btn btn-small test-btn"
+                [disabled]="testing().has(m)"
+                [attr.aria-busy]="testing().has(m)"
+                [attr.aria-label]="'Thử ' + modelName(m)"
+                (click)="test(m)"
+              >
+                {{ testing().has(m) ? 'Đang thử…' : 'Thử' }}
+              </button>
+              <span class="test-result" aria-live="polite" [attr.data-ok]="tests()[m]?.ok">{{
+                tests()[m]?.text
+              }}</span>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+
+    <section class="card" aria-labelledby="ops-heading">
+      <div class="section-head">
+        <h2 class="section-heading" id="ops-heading">Model theo từng việc</h2>
+        <div class="head-actions">
+          @if (canAdvise(s)) {
+            <button type="button" class="link-btn" (click)="applyAdvice(s)">Áp dụng gợi ý</button>
+          }
+          @if (ownCount() > 0) {
+            <button type="button" class="link-btn" (click)="clearOps()">
+              Bỏ hết lựa chọn riêng
+            </button>
+          }
+        </div>
+      </div>
+      <p class="muted small">
+        Gợi ý chung: <strong>Groq</strong> cho việc người học đang chờ vì trả lời trong vài giây;
+        <strong>Gemini</strong> cho việc soạn nội dung vì bám trình độ CEFR tốt hơn và không cần
+        nhanh.
+      </p>
+      @for (g of opGroups(s); track g.title) {
+        <h3 class="group-heading">{{ g.title }}</h3>
+        <ul class="ops">
+          @for (op of g.ops; track op) {
+            <li class="op" [class.op-own]="!!byOp()[op]">
+              <span class="op-text">
+                <span class="op-name">
+                  <label [for]="'op-' + op">{{ opLabel(op) }}</label>
+                  @if (byOp()[op]) {
+                    <span class="tag">Riêng</span>
+                  }
+                </span>
+                @if (opAdvice(op)) {
+                  <span class="op-hint" [id]="'hint-' + op">{{ opAdvice(op) }}</span>
+                }
+              </span>
+              <select
+                [id]="'op-' + op"
+                [attr.aria-describedby]="opAdvice(op) ? 'hint-' + op : null"
+                (change)="setOp(op, $any($event.target).value)"
+              >
+                <option value="" [selected]="!byOp()[op]">
+                  Theo model chung ({{ modelName(selected()) }})
+                </option>
+                @for (m of s.options; track m) {
+                  <option [value]="m" [selected]="byOp()[op] === m">{{ modelName(m) }}</option>
+                }
+              </select>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+
+    <div class="save-bar" [class.save-bar-dirty]="dirty()">
+      <div class="save-text">
+        @if (saveError()) {
+          <p class="save-error" role="alert">Chưa lưu được model, vui lòng thử lại.</p>
+        } @else if (dirty()) {
+          <p class="dirty-note">Có thay đổi chưa lưu</p>
+        }
+        <p class="status" aria-live="polite">{{ message() }}</p>
+      </div>
+      <div class="actions">
+        <button
+          type="button"
+          class="btn-primary"
+          [disabled]="saving() || !dirty()"
+          [attr.aria-busy]="saving()"
+          (click)="save(selected())"
+        >
+          {{ saving() ? 'Đang lưu…' : 'Lưu' }}
+        </button>
+      </div>
+    </div>
+  }
+</section>

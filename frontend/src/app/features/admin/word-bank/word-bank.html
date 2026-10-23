@@ -130,12 +130,16 @@
     </div>
   }
 
-  @if (missing() === 'ipaCheck' && total() > 0) {
+  @if (hasSuggestions()) {
     <div class="card fill-bar">
       <p class="muted">
-        Phiên âm chuẩn là giọng Mỹ (từ điển CMU). Các từ dưới đây có phiên âm ghi kiểu khác hoặc đọc khác bản chuẩn; mỗi
-        từ có gợi ý để nhận riêng, hoặc nhận cả loạt. Từ nào bạn muốn giữ thì cứ để nguyên.
+        Phiên âm chuẩn là giọng Mỹ (từ điển CMU). Một số từ có phiên âm ghi kiểu khác hoặc đọc khác bản chuẩn; mỗi từ có
+        gợi ý để nhận riêng, hoặc bấm nút để nhận một lần cho mọi từ như vậy trong kho. Từ nào bạn muốn giữ thì nhận
+        riêng từng từ thay vì nhận cả loạt.
       </p>
+      @if (missing() !== 'ipaCheck') {
+        <button type="button" class="btn" (click)="setMissing('ipaCheck')">Xem các từ cần xem</button>
+      }
       <button
         type="button"
         class="btn btn-primary"

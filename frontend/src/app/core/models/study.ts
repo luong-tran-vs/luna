@@ -148,3 +148,44 @@ export interface LearningPath {
   milestones: Milestone[];
   streak: number;
 }
+
+/** Overall assessment of a topic, from the average of its scores; "none" when nothing was scored. */
+export type TopicRating = 'excellent' | 'good' | 'fair' | 'practice' | 'none';
+
+export type SummarySkill = 'listening' | 'reading' | 'writing' | 'review';
+
+/**
+ * One score of a topic summary: words written down right (listening), answers right (reading,
+ * review); for writing, correct is the number of graded writings, total is 0 and percent the
+ * average score out of 5.
+ */
+export interface SummarySkillScore {
+  skill: SummarySkill;
+  percent: number;
+  correct: number;
+  total: number;
+}
+
+/** GET /api/topics/{id}/summary?level=: the learner's summary of a topic (added 2026-10-23). */
+export interface TopicSummary {
+  topicId: string;
+  topicName: string;
+  level: Level;
+  /** From the level's course; empty when the topic is not in it. */
+  canDoVi: string;
+  grammarVi: string[];
+  lessons: { id: string; title: string; done: boolean }[];
+  completed: number;
+  startedAt: string | null;
+  finishedAt: string | null;
+  days: number;
+  /** Words saved to the notebook from the topic's lessons, and those remembered. */
+  words: number;
+  remembered: number;
+  skills: SummarySkillScore[];
+  /** Average score of the graded writings, out of 5 (0 when none). */
+  writingAverage: number;
+  mistakes: { type: string; count: number }[];
+  overall: number;
+  rating: TopicRating;
+}

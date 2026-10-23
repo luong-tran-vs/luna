@@ -1,6 +1,7 @@
 package curriculum
 
 import (
+	"context"
 	"encoding/json"
 	"os"
 	"strings"
@@ -10,7 +11,7 @@ import (
 )
 
 func TestA1Plan(t *testing.T) {
-	p, ok := ByLevel("A1")
+	p, ok := seed("A1")
 	if !ok {
 		t.Fatal("no A1 course")
 	}
@@ -47,8 +48,8 @@ func TestA1Plan(t *testing.T) {
 			t.Errorf("no A1 lesson uses %s", pt.ID)
 		}
 	}
-	if _, ok := ByLevel("B2"); ok {
-		t.Error("B2 has no course yet")
+	if _, ok := seed("B2"); ok {
+		t.Error("B2 has no seed")
 	}
 }
 
@@ -72,7 +73,7 @@ func TestA1TopicsAreInTheSeeds(t *testing.T) {
 			names[NameKey(s.Name)] = true
 		}
 	}
-	p, _ := ByLevel("A1")
+	p, _ := seed("A1")
 	for _, top := range p.Topics {
 		if !names[NameKey(top.Name)] {
 			t.Errorf("topic %q is not in the seeds", top.Name)
@@ -110,21 +111,23 @@ func TestValidateRejects(t *testing.T) {
 }
 
 func TestPointTopicsAndLearnerTopic(t *testing.T) {
-	topics, order, ok := PointTopics("A1")
+	s, _, _ := newService()
+	ctx := context.Background()
+	topics, order, ok := s.PointTopics(ctx, "A1")
 	if !ok || len(order) != 18 {
 		t.Fatalf("PointTopics = %d points, %v", len(order), ok)
 	}
 	if order[0] != "a1-to-be" || topics["a1-have-has"].Number != 2 || topics["a1-can"].Name != "Con vật" {
 		t.Errorf("order %v, have-has %v, can %v", order[:3], topics["a1-have-has"], topics["a1-can"])
 	}
-	info, ok := LearnerTopic("A1", "  âm NHẠC ")
+	info, ok := s.LearnerTopic(ctx, "A1", "other-id", "  âm NHẠC ")
 	if !ok || info.Number != 9 || len(info.GrammarVi) != 2 || !strings.HasPrefix(info.CanDoVi, "nói") {
 		t.Fatalf("LearnerTopic = %+v, %v", info, ok)
 	}
 	if !info.Extra[TitleKey("A Concert in the Park")] || info.Extra[TitleKey("My Favorite Song")] {
 		t.Errorf("extra lessons %v", info.Extra)
 	}
-	if _, ok := LearnerTopic("A1", "Công việc"); ok {
+	if _, ok := s.LearnerTopic(ctx, "A1", "job", "Công việc"); ok {
 		t.Error("Công việc is not in the A1 course")
 	}
 }

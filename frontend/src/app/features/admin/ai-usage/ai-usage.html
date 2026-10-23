@@ -9,7 +9,8 @@
   </header>
 
   <p class="muted">
-    Mọi request gửi tới Gemini đều được ghi lại kèm số token Google trả về, lưu 30 ngày. Gói miễn phí giới hạn
+    Mọi request gửi tới Gemini đều được ghi lại kèm số token Google trả về; chỉ giữ {{ maxKept }} request gần nhất, nên các số
+    “hôm nay” và “7 ngày” chỉ tính trên chúng. Gói miễn phí giới hạn
     <strong>request/phút</strong>, <strong>token/phút</strong> và <strong>request/ngày</strong> theo từng model; mức
     giới hạn cụ thể xem ở
     <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank" rel="noopener">trang giới hạn của Google</a>.
@@ -123,6 +124,7 @@
       @if (u.week.length === 0) {
         <p class="muted">Chưa có request nào trong 7 ngày qua.</p>
       } @else {
+        <p class="muted small scroll-hint">Vuốt ngang bảng để xem thêm cột.</p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -160,6 +162,7 @@
       @if (u.recent.length === 0) {
         <p class="muted">Chưa có request nào.</p>
       } @else {
+        <p class="muted small scroll-hint">Vuốt ngang bảng để xem thêm cột.</p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -178,7 +181,12 @@
                 <tr>
                   <td class="num">{{ time(c.at) }}</td>
                   <td>{{ opLabel(c.op) }}</td>
-                  <td>{{ c.model }}</td>
+                  <td>
+                    {{ c.model }}
+                    @if (c.key > 0) {
+                      <span class="tag">key phụ</span>
+                    }
+                  </td>
                   <td>
                     <span class="outcome" [class.outcome-bad]="c.outcome !== 'ok'">
                       <span class="outcome-mark" aria-hidden="true">{{ c.outcome === 'ok' ? '✓' : '!' }}</span>

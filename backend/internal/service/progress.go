@@ -34,7 +34,8 @@ func (c *Container) initProgress() {
 		Writings:  c.writing,
 		Grammar:   c.grammar,
 		Members:   guestRoles{c.auth},
-		Course:    courseTopic,
+		Course:    c.courseTopic,
+		Records:   topicRecords{vocab: c.vocab, reader: c.reader, writing: c.writing},
 		Now:       time.Now,
 	})
 	c.writeSteps.svc = c.study
@@ -168,9 +169,10 @@ func (g guestRoles) IsGuest(ctx context.Context, userID string) (bool, error) {
 	return u.Role == auth.RoleGuest, nil
 }
 
-// courseTopic adapts the fixed course of a level to the learning path (A1 since 2026-10-22).
-func courseTopic(level, topicName string) (progress.CourseTopic, bool) {
-	info, ok := curriculum.LearnerTopic(level, topicName)
+// courseTopic adapts the approved course of a level to the learning path (A1 since 2026-10-22,
+// every level from the database since 2026-10-23).
+func (c *Container) courseTopic(ctx context.Context, level, topicID, topicName string) (progress.CourseTopic, bool) {
+	info, ok := c.curriculum.LearnerTopic(ctx, level, topicID, topicName)
 	if !ok {
 		return progress.CourseTopic{}, false
 	}

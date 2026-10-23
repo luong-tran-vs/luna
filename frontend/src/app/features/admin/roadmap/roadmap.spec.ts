@@ -36,6 +36,9 @@ const data = (ids: string[]): TopicRoadmap => ({
   warning: ids.length < 3,
 });
 
+/** The approved courses the page is told about (GET /admin/curriculum/topics). */
+let course: Record<string, { topicId: string; name: string; number: number }[]> = {};
+
 describe('Roadmap', () => {
   let fixture: ComponentFixture<Roadmap>;
   let el: HTMLElement;
@@ -102,6 +105,7 @@ describe('Roadmap', () => {
     fixture = TestBed.createComponent(Roadmap);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
+    http.expectOne('/admin/curriculum/topics').flush({ levels: course });
     http.expectOne('/admin/topics').flush({ topics });
     await settle();
     if (!topicId) {
@@ -114,7 +118,10 @@ describe('Roadmap', () => {
     }
   };
 
-  afterEach(() => http.verify());
+  afterEach(() => {
+    http.verify();
+    course = {};
+  });
 
   describe('choosing a topic', () => {
     beforeEach(() => setup(null));
@@ -244,6 +251,26 @@ describe('Roadmap', () => {
       await flushTopic('t1', { ...data([]), level: 'B2' }, []);
       expect(titles()).toEqual([]);
       expect(text(el.querySelector('#available-heading'))).toBe('Bài B2 của chủ đề chưa có trong lộ trình');
+    });
+  });
+
+  describe('a topic of a course', () => {
+    it('says the topic follows the course of its level, with a link to it', async () => {
+      course = { A1: [{ topicId: 't1', name: 'Gia đình', number: 2 }] };
+      await setup('t1');
+      await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
+      const note = el.querySelector('.course-note');
+      expect(text(note)).toBe(
+        'Chủ đề này thuộc giáo trình A1 (chủ đề 2). Thứ tự bài theo giáo trình, sinh bài theo ô ở trang Giáo trình. Đổi thứ tự ở đây sẽ bị xếp lại khi bấm “Áp dụng thứ tự”.',
+      );
+      expect(note?.querySelector('a')?.getAttribute('href')).toBe('/admin/curriculum?level=A1');
+    });
+
+    it('says nothing for a topic outside the courses', async () => {
+      course = { A1: [{ topicId: 't2', name: 'Mua sắm', number: 7 }] };
+      await setup('t1');
+      await flushTopic('t1', data(['a']), [item('a', 'Bài a')]);
+      expect(el.querySelector('.course-note')).toBeNull();
     });
   });
 
@@ -432,7 +459,8 @@ describe('Roadmap', () => {
       fixture = TestBed.createComponent(Roadmap);
       el = fixture.nativeElement as HTMLElement;
       await fixture.whenStable();
-      http.expectOne('/admin/topics').flush({ topics });
+      http.expectOne('/admin/curriculum/topics').flush({ levels: course });
+    http.expectOne('/admin/topics').flush({ topics });
       await settle();
       http.expectOne((r) => r.url === '/admin/topics/t3/roadmap').flush({
         ...data([]), topic: topics[2], level: 'B1', lessons: [item('w1', 'Họp'), draft('w2')],

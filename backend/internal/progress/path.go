@@ -103,7 +103,7 @@ func (s *StudyService) Path(ctx context.Context, userID string) (PathView, error
 				Lessons: make([]PathLesson, 0, len(t.LessonIDs)),
 			}
 			if s.d.Course != nil {
-				if c, ok := s.d.Course(level, t.Name); ok {
+				if c, ok := s.d.Course(ctx, level, t.ID, t.Name); ok {
 					r.Course = &c
 				}
 			}

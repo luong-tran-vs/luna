@@ -37,8 +37,10 @@ type StudyDeps struct {
 	Members Members
 	// Course gives a topic's place in a level's fixed course (A1 since 2026-10-22); nil means no
 	// course.
-	Course func(level, topicName string) (CourseTopic, bool)
-	Now    func() time.Time
+	Course func(ctx context.Context, level, topicID, topicName string) (CourseTopic, bool)
+	// Records gives the results the topic summary needs beyond the study flow; nil gives none.
+	Records TopicRecords
+	Now     func() time.Time
 }
 
 // StudyService runs the study flow (L): goals, the lesson being studied and its steps, streak.

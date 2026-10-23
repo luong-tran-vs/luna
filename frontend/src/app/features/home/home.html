@@ -66,6 +66,11 @@
             <p class="card-title">
               <lu-icon name="check" /> Bạn đã học xong chủ đề {{ d.goal?.level }} · {{ d.goal?.topicName }}
             </p>
+            @if (d.goal; as g) {
+              <a class="summary-link" [routerLink]="['/topics', g.topicId, 'summary']" [queryParams]="{ level: g.level }"
+                ><lu-icon name="trophy" /> Xem tổng kết chủ đề</a
+              >
+            }
             @if (next(); as t) {
               <div class="next-topic">
                 <p class="eyebrow">Chủ đề tiếp theo</p>

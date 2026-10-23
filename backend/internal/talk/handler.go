@@ -13,7 +13,7 @@ import (
 
 // aiWriteTimeout replaces the server's write timeout for the routes that wait for the AI (a slow
 // Gemini answer takes longer than the usual 15 seconds).
-const aiWriteTimeout = 135 * time.Second
+const aiWriteTimeout = 5*time.Minute + 10*time.Second
 
 // Handler serves the talk API under /api/talk.
 type Handler struct {

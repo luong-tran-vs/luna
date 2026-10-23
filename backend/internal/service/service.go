@@ -12,6 +12,7 @@ import (
 	"log/slog"
 
 	"github.com/luongtran/luna/backend/internal/ai"
+	"github.com/luongtran/luna/backend/internal/aimodel"
 	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/auth"
 	"github.com/luongtran/luna/backend/internal/export"
@@ -71,14 +72,16 @@ type Container struct {
 	vocab     *vocab.Service
 	wordBank  *wordbank.Service
 	// aiUsage keeps the AI requests for the admin usage page.
-	aiUsage  *aiusage.Service
+	aiUsage *aiusage.Service
+	// aiModel is the text model the admin chose.
+	aiModel  *aimodel.Service
 	grammar  *grammar.Service
 	verbs    *verbs.Service
 	progress *progress.Service
 	study    *progress.StudyService
 	export   *export.Service
 	talk     *talk.Service
-	// curriculum is the fixed course of a level (A1 since 2026-10-22).
+	// curriculum is the course of each level (A1 since 2026-10-22, in the database since 2026-10-23).
 	curriculum *curriculum.Service
 }
 
@@ -101,7 +104,7 @@ func Init(ctx context.Context, cfg config.Config, log *slog.Logger, store storag
 	c.initReader()
 	c.initVocab()
 	c.initGrammar()
-	c.curriculum = &curriculum.Service{Topics: c.topic, Lessons: c.lesson, Grammar: c.grammar}
+	c.initCurriculum()
 	c.initVerbs()
 	c.initProgress()
 	c.initTalk()

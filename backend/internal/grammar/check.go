@@ -11,7 +11,7 @@ import (
 )
 
 // checkTimeout bounds the AI call that solves the exercises of one lesson.
-const checkTimeout = 120 * time.Second
+const checkTimeout = 5 * time.Minute
 
 // FlagsError means the lesson still has exercises flagged by the AI check and the admin did not
 // acknowledge them when publishing.

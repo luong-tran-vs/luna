@@ -6,8 +6,10 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
+	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/platform/httpx"
 )
@@ -34,7 +36,7 @@ func TestHandler(t *testing.T) {
 		t.Errorf("learner: %d", code)
 	}
 	code, body := serve(t, s, "admin", "GET", "/api/admin/curriculum?level=A1")
-	if code != http.StatusOK || body["main"] != 36.0 || body["applied"] != false {
+	if code != http.StatusOK || body["main"] != 36.0 || body["applied"] != false || body["status"] != "approved" {
 		t.Fatalf("board: %d %v", code, body["main"])
 	}
 	music := body["topics"].([]any)[8].(map[string]any)
@@ -45,8 +47,11 @@ func TestHandler(t *testing.T) {
 	if code, body := serve(t, s, "admin", "POST", "/api/admin/curriculum/slots/a1-01-1/generate"); code != http.StatusConflict || body["error"] != "not_applied" {
 		t.Errorf("not applied: %d %v", code, body)
 	}
-	if code, _ := serve(t, s, "admin", "GET", "/api/admin/curriculum?level=C2"); code != http.StatusNotFound {
-		t.Errorf("C2: %d", code)
+	if code, body := serve(t, s, "admin", "GET", "/api/admin/curriculum?level=C2"); code != http.StatusOK || body["status"] != "none" {
+		t.Errorf("C2: %d %v", code, body["status"])
+	}
+	if code, _ := serve(t, s, "admin", "GET", "/api/admin/curriculum?level=Z9"); code != http.StatusBadRequest {
+		t.Errorf("unknown level: %d", code)
 	}
 	if code, body := serve(t, s, "admin", "POST", "/api/admin/curriculum/apply?level=A1"); code != http.StatusOK || body["applied"] != true {
 		t.Errorf("apply: %d %v", code, body["applied"])
@@ -65,5 +70,92 @@ func TestHandler(t *testing.T) {
 	}
 	if code, _ := serve(t, s, "admin", "GET", "/api/admin/curriculum/checks/nope"); code != http.StatusNotFound {
 		t.Errorf("checks of no lesson: %d", code)
+	}
+}
+
+func TestHandlerCourseTopics(t *testing.T) {
+	s, _, _ := newService()
+	code, body := serve(t, s, "admin", "GET", "/api/admin/curriculum/topics")
+	if code != http.StatusOK {
+		t.Fatalf("topics: %d %v", code, body)
+	}
+	levels := body["levels"].(map[string]any)
+	// A1 (from its seed) has Âm nhạc in the catalogue, at place 9; no other level has a course.
+	a1 := levels["A1"].([]any)
+	if len(levels) != 1 || len(a1) != 1 {
+		t.Fatalf("levels %v", levels)
+	}
+	if m := a1[0].(map[string]any); m["topicId"] != "music" || m["number"] != 9.0 || m["name"] != "Âm nhạc" {
+		t.Errorf("A1 topic %v", m)
+	}
+	if code, _ := serve(t, s, "learner", "GET", "/api/admin/curriculum/topics"); code != http.StatusForbidden {
+		t.Errorf("learner: %d", code)
+	}
+}
+
+func TestHandlerDraft(t *testing.T) {
+	s, _, _ := newService()
+	s.Writer = &fakeWriter{outlines: [][]ai.OutlineTopic{a2Outline(7)}, slots: eightSlots()}
+	code, body := serve(t, s, "admin", "POST", "/api/admin/curriculum/draft?level=A2")
+	if code != http.StatusOK || body["status"] != "draft" || len(body["topics"].([]any)) != 7 {
+		t.Fatalf("draft: %d %v", code, body["status"])
+	}
+	code, body = serve(t, s, "admin", "POST", "/api/admin/curriculum/draft/topics/1/write?level=A2")
+	topic := body["topics"].([]any)[0].(map[string]any)
+	if code != http.StatusOK || len(topic["slots"].([]any)) != 8 {
+		t.Fatalf("write topic: %d %v", code, body)
+	}
+	if code, body := serve(t, s, "admin", "POST", "/api/admin/curriculum/approve?level=A2"); code != http.StatusUnprocessableEntity || body["error"] != "invalid_curriculum" {
+		t.Errorf("approve with empty topics: %d %v", code, body)
+	}
+	if code, body := serve(t, s, "admin", "POST", "/api/admin/curriculum/draft/topics/x/write?level=A2"); code != http.StatusNotFound {
+		t.Errorf("topic x: %d %v", code, body)
+	}
+	if code, body := serve(t, s, "admin", "DELETE", "/api/admin/curriculum/draft?level=A2"); code != http.StatusOK || body["status"] != "none" {
+		t.Errorf("discard: %d %v", code, body["status"])
+	}
+	if code, body := serve(t, s, "admin", "DELETE", "/api/admin/curriculum/draft?level=A2"); code != http.StatusConflict || body["error"] != "no_draft" {
+		t.Errorf("discard twice: %d %v", code, body)
+	}
+	if code, body := serve(t, s, "admin", "POST", "/api/admin/curriculum/edit?level=A1"); code != http.StatusOK || body["status"] != "draft" || body["hasApproved"] != true {
+		t.Errorf("edit A1: %d %v", code, body["status"])
+	}
+	s.Writer = nil
+	if code, body := serve(t, s, "admin", "POST", "/api/admin/curriculum/draft?level=B1"); code != http.StatusServiceUnavailable {
+		t.Errorf("no AI: %d %v", code, body)
+	}
+}
+
+func TestHandlerSaveDraft(t *testing.T) {
+	s, _, _ := newService()
+	if _, err := s.EditApproved(t.Context(), "A1"); err != nil {
+		t.Fatal(err)
+	}
+	put := func(body string) (int, map[string]any) {
+		mux := http.NewServeMux()
+		auth := func(next http.Handler) http.Handler {
+			return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				next.ServeHTTP(w, r.WithContext(httpx.WithPrincipal(r.Context(), httpx.Principal{UserID: "u1", Role: "admin"})))
+			})
+		}
+		NewHandler(s, slog.New(slog.NewTextHandler(io.Discard, nil))).Register(mux, auth)
+		req := httptest.NewRequest("PUT", "/api/admin/curriculum/draft?level=A1", strings.NewReader(body))
+		req.Header.Set("Content-Type", "application/json")
+		rec := httptest.NewRecorder()
+		mux.ServeHTTP(rec, req)
+		var out map[string]any
+		_ = json.Unmarshal(rec.Body.Bytes(), &out)
+		return rec.Code, out
+	}
+	ok := `{"topics":[{"topicId":"","name":"Âm nhạc","canDoVi":"hát.","grammar":["a1-like-love-ing"],"slots":[` +
+		`{"title":"One","idea":"i","grammar":["a1-like-love-ing"]}]}]}`
+	if code, body := put(ok); code != http.StatusOK || len(body["topics"].([]any)) != 1 || body["warnings"] == nil {
+		t.Errorf("save: %d %v", code, body)
+	}
+	if code, body := put(strings.Replace(ok, `"One"`, `""`, 1)); code != http.StatusUnprocessableEntity {
+		t.Errorf("empty title: %d %v", code, body)
+	}
+	if code, _ := put(`{"topics":[],"extra":1}`); code != http.StatusBadRequest {
+		t.Errorf("unknown field: %d", code)
 	}
 }

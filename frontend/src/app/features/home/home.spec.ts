@@ -277,6 +277,7 @@ describe('Home', () => {
     expect(text(card)).toContain('Bạn đã học xong chủ đề A1 · Gia đình');
     expect(text(card)).not.toContain('lộ trình');
     expect(text(card?.querySelector('.next-name'))).toBe('Âm nhạc');
+    expect(card?.querySelector('a.summary-link')?.getAttribute('href')).toBe('/topics/t1/summary?level=A1');
 
     (Array.from(el.querySelectorAll('button')).find((b) => text(b) === 'Học chủ đề này') as HTMLButtonElement).click();
     const post = controller.expectOne('/goals');

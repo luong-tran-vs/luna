@@ -14,7 +14,8 @@
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  /* Two columns on a phone. */
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   gap: var(--space-3);
   margin: 0;
   padding: 0;
@@ -112,7 +113,14 @@
 }
 
 .table-wrap {
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Said only where tables are wider than the screen. */
+.scroll-hint {
+  display: none;
 }
 
 table {
@@ -136,6 +144,14 @@ thead th {
 
 tbody th {
   font-weight: 600;
+}
+
+/* A table fits the card by squeezing its text columns, since numbers do not wrap: on a phone the
+   names broke one letter per line. Text columns keep a readable width and the table scrolls
+   sideways in .table-wrap instead. */
+th:not(.num),
+td:not(.num) {
+  min-width: 8rem;
 }
 
 .num {
@@ -163,4 +179,28 @@ tbody th {
 
 .tag {
   margin-left: var(--space-1);
+}
+
+/* Phones: tighter padding; the wide tables scroll sideways inside their card. */
+@media (max-width: 600px) {
+  .page {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .card {
+    padding: var(--space-3);
+  }
+
+  .stat-value {
+    font-size: var(--text-xl);
+  }
+
+  th,
+  td {
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .scroll-hint {
+    display: block;
+  }
 }

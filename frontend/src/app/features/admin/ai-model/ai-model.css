@@ -1,0 +1,341 @@
+/* The AI model page: a summary, the model of every op as a settings list, each op's own model,
+   and a save bar kept in sight while there is something to save. */
+
+.title-block {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.lead {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.small {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.help {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.help summary {
+  width: fit-content;
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  cursor: pointer;
+}
+
+.help ul {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-5);
+}
+
+/* Model chung · Việc dùng model riêng · Cập nhật on the left, the way back to the default on the
+   right (below on a narrow screen). */
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+}
+
+.summary-figures {
+  display: grid;
+  flex: 1 1 28rem;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.summary-figures div {
+  display: grid;
+  gap: 2px;
+}
+
+.summary dt {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.summary dd {
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.summary-reset {
+  flex: none;
+  text-align: left;
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+}
+
+.section-heading {
+  margin: 0;
+  font: var(--text-lg) var(--font-ui);
+}
+
+.head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.link-btn {
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.link-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.link-btn:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.group-heading {
+  margin: var(--space-2) 0 0;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* One bordered list, a line between rows, like a settings list. */
+.options,
+.ops {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.option,
+.op {
+  border-top: 1px solid var(--color-line);
+  box-shadow: inset 3px 0 0 transparent;
+}
+
+.option:first-child,
+.op:first-child {
+  border-top: 0;
+}
+
+/* The name and note on the left, Thử on the right, the result of a test below. */
+.option {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-3);
+}
+
+.option-selected,
+.op-own {
+  background: var(--color-primary-soft);
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.option-label {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.option-label input {
+  flex: none;
+  margin-top: 0.25em;
+}
+
+.option-text {
+  display: grid;
+  gap: 2px;
+}
+
+.option-name,
+.op-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+}
+
+.option-note,
+.op-hint {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.tag-muted {
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid var(--color-line);
+}
+
+.btn-small {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.test-result {
+  grid-column: 1 / -1;
+  padding-left: calc(var(--space-3) + 16px);
+  font: var(--text-xs) var(--font-ui);
+}
+
+.test-result:empty {
+  display: none;
+}
+
+.test-result:not(:empty)::before {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: var(--space-1);
+  content: '';
+  background: var(--color-bad);
+  border-radius: 50%;
+}
+
+.test-result[data-ok='true']::before {
+  background: var(--color-ok);
+}
+
+/* Label and hint on the left, the choice on the right; stacked on a phone. */
+.op {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 21rem);
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-3);
+}
+
+.op-text {
+  display: grid;
+  gap: 2px;
+}
+
+/* The choice of an op: the page's look instead of the browser's, the arrow drawn with two
+   gradients so it takes the theme's colour. Following the model of every op reads muted; an op's
+   own model stands out. */
+.op select {
+  width: 100%;
+  min-height: 38px;
+  padding: var(--space-2) calc(var(--space-3) + 18px) var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  text-overflow: ellipsis;
+  cursor: pointer;
+  background-color: var(--color-surface);
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentcolor 50%),
+    linear-gradient(135deg, currentcolor 50%, transparent 50%);
+  background-repeat: no-repeat;
+  background-position:
+    calc(100% - 17px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 5px 5px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  appearance: none;
+  transition: border-color var(--motion-fast, 120ms) ease;
+}
+
+.op select:hover {
+  border-color: var(--color-text-muted);
+}
+
+.op select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.op select option {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.op-own select {
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  border-color: var(--color-primary);
+}
+
+.save-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+
+/* Kept in sight only while there is something to save. */
+.save-bar-dirty {
+  position: sticky;
+  bottom: var(--space-3);
+  z-index: 1;
+  border-color: var(--color-primary);
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 0.08);
+}
+
+.save-text p {
+  margin: 0;
+  font: var(--text-sm) var(--font-ui);
+}
+
+.dirty-note {
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}
+
+.save-error {
+  color: var(--color-bad);
+}
+
+.status:empty {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .op {
+    grid-template-columns: 1fr;
+  }
+
+  .save-bar {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .save-bar .actions {
+    margin-left: auto;
+  }
+}

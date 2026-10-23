@@ -70,15 +70,33 @@ export interface CurriculumTopic {
   /** '' when the topic is not in the catalogue yet (the course is not applied). */
   topicId: string;
   position: number;
+  /** Words of the catalogue topic a lesson of the level may be given (target words come from them). */
+  words: number;
   grammar: CurriculumGrammar[];
   slots: CurriculumSlot[];
   /** Lessons of the topic at this level that fill no slot. */
   others: CurriculumLesson[];
 }
 
-/** The admin's view of the fixed course of a level (GET /api/admin/curriculum). */
+/**
+ * Where a level's course is: none yet, a draft the admin edits (written by the AI), or approved
+ * (learners and lesson generation use it).
+ */
+export type CurriculumStatus = 'none' | 'draft' | 'approved';
+
+/**
+ * The admin's view of the course of a level (GET /api/admin/curriculum): its draft while there is
+ * one, otherwise the approved course.
+ */
 export interface CurriculumBoard {
   level: string;
+  status: CurriculumStatus;
+  /** The level has an approved course (also while a draft edits it). */
+  hasApproved: boolean;
+  /** What the course lacks: too few topics or extra lessons, grammar points no topic teaches. */
+  warnings: string[];
+  /** Grammar points of the level, for editing a draft. */
+  points: CurriculumGrammar[];
   /** Topics exist and are ordered as the course says. */
   applied: boolean;
   /** Number of main and extra slots. */
@@ -88,4 +106,70 @@ export interface CurriculumBoard {
   published: number;
   drafts: number;
   topics: CurriculumTopic[];
+}
+
+/** A lesson of a draft as the admin saves it; its key and kind follow from its place. */
+export interface CurriculumPlanSlot {
+  title: string;
+  idea: string;
+  /** Grammar point ids, the first being the one the lesson is built on. */
+  grammar: string[];
+}
+
+/** A topic of a draft as the admin saves it: its first 3 lessons are the main ones. */
+export interface CurriculumPlanTopic {
+  /** The catalogue's topic, '' for a new name (created on approval). */
+  topicId: string;
+  name: string;
+  canDoVi: string;
+  grammar: string[];
+  slots: CurriculumPlanSlot[];
+}
+
+/** The draft of a level's course as the admin saves it (PUT /api/admin/curriculum/draft). */
+export interface CurriculumPlan {
+  topics: CurriculumPlanTopic[];
+}
+
+/** Main lessons of every topic; what a course should hold besides. */
+export const MAIN_PER_TOPIC = 3;
+/** Extra lessons a topic should have at most (4–5). */
+export const MAX_EXTRA = 5;
+export const MIN_TOPICS = 7;
+
+/** The draft of a board, as the admin edits it. */
+export function planOf(b: CurriculumBoard): CurriculumPlan {
+  return {
+    topics: b.topics.map((t) => ({
+      topicId: t.topicId,
+      name: t.name,
+      canDoVi: t.canDoVi,
+      grammar: t.grammar.map((g) => g.id),
+      slots: t.slots.map((s) => ({
+        title: s.title,
+        idea: s.idea,
+        grammar: s.grammar.map((g) => g.id),
+      })),
+    })),
+  };
+}
+
+/** A catalogue topic in the approved course of a level (GET /api/admin/curriculum/topics). */
+export interface CourseTopicRef {
+  topicId: string;
+  name: string;
+  /** Its place in the course, from 1. */
+  number: number;
+}
+
+/** Where the course of a level is, for the admin home (GET /api/admin/curriculum/summary). */
+export interface CurriculumLevelSummary {
+  level: string;
+  status: CurriculumStatus;
+  /** A draft edits or writes the course. */
+  hasDraft: boolean;
+  /** Of the approved course: the order is applied, slots without a lesson, slots with a draft. */
+  applied: boolean;
+  empty: number;
+  drafts: number;
 }

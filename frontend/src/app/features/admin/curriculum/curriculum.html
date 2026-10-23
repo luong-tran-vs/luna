@@ -1,57 +1,92 @@
 <section class="page wide">
   <header class="head">
     <div class="heading">
-      <h1 class="page-title">Giáo trình {{ level }}</h1>
-      @if (board()) {
+      <h1 class="page-title">Giáo trình {{ level() }}</h1>
+      @if (summary()) {
         <p class="muted summary">{{ summary() }}</p>
       }
     </div>
-    @if (board(); as b) {
-      <button
-        type="button"
-        [class]="b.applied ? 'btn btn-sm' : 'btn-primary'"
-        [disabled]="busy()"
-        [attr.title]="
-          b.applied
-            ? 'Thứ tự chủ đề và lộ trình đang theo giáo trình. Bấm lại nếu đã đổi thứ tự ở trang Chủ đề hay Lộ trình.'
-            : null
-        "
-        aria-describedby="apply-help"
-        (click)="applyOpen.set(true)"
-      >
-        @if (applying()) {
-          Đang áp dụng…
-        } @else {
-          Áp dụng thứ tự
+    @if (board()?.status === 'approved') {
+      <div class="head-actions">
+        <button type="button" class="btn btn-sm" [disabled]="busy()" (click)="edit()">
+          @if (editing()) {
+            Đang mở…
+          } @else {
+            Sửa giáo trình
+          }
+        </button>
+        @if (board(); as b) {
+          <button
+            type="button"
+            [class]="b.applied ? 'btn btn-sm' : 'btn-primary'"
+            [disabled]="busy()"
+            [attr.title]="
+              b.applied
+                ? 'Thứ tự chủ đề và lộ trình đang theo giáo trình. Bấm lại nếu đã đổi thứ tự ở trang Chủ đề hay Lộ trình.'
+                : null
+            "
+            aria-describedby="apply-help"
+            (click)="applyOpen.set(true)"
+          >
+            @if (applying()) {
+              Đang áp dụng…
+            } @else {
+              Áp dụng thứ tự
+            }
+          </button>
         }
-      </button>
+      </div>
     }
   </header>
 
-  @if (board(); as b) {
-    <lu-progress-bar
-      class="progress"
-      label="Bài đã đăng"
-      [value]="b.published"
-      [max]="total()"
-      unit="bài"
+  <div class="field level-field">
+    <span class="label" id="curriculum-level-label">Trình độ</span>
+    <lu-level-picker
+      labelledBy="curriculum-level-label"
+      [compact]="true"
+      [value]="level()"
+      (changed)="selectLevel($event)"
     />
-    @if (b.applied) {
-      <p class="visually-hidden" id="apply-help">
-        Thứ tự chủ đề và lộ trình đang theo giáo trình. Bấm lại nếu đã đổi thứ tự ở trang Chủ đề hay
-        Lộ trình.
-      </p>
-    } @else {
-      <p class="banner-warning" id="apply-help">
-        Chưa áp dụng giáo trình: bấm “Áp dụng thứ tự” để tạo chủ đề còn thiếu và xếp lộ trình theo
-        các ô, cần làm trước khi sinh bài.
-      </p>
+  </div>
+
+  @if (board(); as b) {
+    @if (b.status === 'approved') {
+      <lu-progress-bar
+        class="progress"
+        label="Bài đã đăng"
+        [value]="b.published"
+        [max]="total()"
+        unit="bài"
+      />
+      @if (b.applied) {
+        <p class="visually-hidden" id="apply-help">
+          Thứ tự chủ đề và lộ trình đang theo giáo trình. Bấm lại nếu đã đổi thứ tự ở trang Chủ đề
+          hay Lộ trình.
+        </p>
+      } @else {
+        <p class="banner-warning" id="apply-help">
+          Chưa áp dụng giáo trình: bấm “Áp dụng thứ tự” để tạo chủ đề còn thiếu và xếp lộ trình theo
+          các ô, cần làm trước khi sinh bài.
+        </p>
+      }
+      @if (b.warnings.length > 0) {
+        <details class="banner-warning course-warnings">
+          <summary>Giáo trình cần xem lại ({{ b.warnings.length }})</summary>
+          <ul>
+            @for (w of b.warnings; track $index) {
+              <li>{{ w }}</li>
+            }
+          </ul>
+        </details>
+      }
     }
   }
 
   <p class="visually-hidden" role="status">
     @if (applying()) {
       Đang áp dụng giáo trình…
+    } @else if (drafting()) {
+      AI đang soạn giáo trình {{ level() }}…
     }
   </p>
   @if (pageError(); as message) {
@@ -63,6 +98,23 @@
       <p class="form-alert" role="alert">{{ message }}</p>
       <button type="button" class="btn retry" (click)="load()">Thử lại</button>
     </div>
+  } @else if (board()?.status === 'none') {
+    <div class="card empty-course">
+      <h2 class="empty-title">Chưa có giáo trình {{ level() }}</h2>
+      <p class="muted">
+        AI soạn danh sách chủ đề theo ngữ pháp {{ level() }} (7–12 chủ đề), rồi soạn bài cho từng
+        chủ đề: 3 bài chính và 4–5 bài thêm. Bạn xem, sửa và duyệt trước khi người học thấy.
+      </p>
+      <button type="button" class="btn-primary" [disabled]="busy()" (click)="draftWithAI()">
+        @if (drafting()) {
+          AI đang soạn… (có thể mất tới 2 phút)
+        } @else {
+          Soạn giáo trình bằng AI
+        }
+      </button>
+    </div>
+  } @else if (board()?.status === 'draft') {
+    <lu-curriculum-draft [board]="board()!" [topicNames]="topicNames()" (changed)="show($event)" />
   } @else if (board()) {
     <div class="filters" role="radiogroup" aria-label="Lọc bài">
       @for (f of filters; track f; let i = $index) {
@@ -158,6 +210,18 @@
             @if (t.canDoVi) {
               <p class="meta can-do">Học xong: {{ t.canDoVi }}</p>
             }
+            @if (t.topicId) {
+              <p class="meta words" [class.short]="t.words < minWords()">
+                Từ vựng: {{ t.words }} từ dùng được ở {{ level() }}
+                @if (t.words < minWords()) {
+                  (nên ít nhất {{ minWords() }} để bài có từ mục tiêu)
+                }
+                ·
+                <a [routerLink]="['/admin/topics', t.topicId, 'words']"
+                  >Sửa từ vựng<span class="visually-hidden"> chủ đề {{ t.name }}</span></a
+                >
+              </p>
+            }
             @if (t.grammar.length > 0) {
               <div class="meta grammar">
                 <span>Ngữ pháp:</span>
@@ -246,7 +310,7 @@
 <lu-confirm-dialog
   [open]="applyOpen()"
   title="Áp dụng thứ tự giáo trình?"
-  message="Tạo các chủ đề còn thiếu, đặt thứ tự các chủ đề A1 theo giáo trình (chủ đề khác mất vị trí A1 và xếp sau) và xếp bài trong mỗi lộ trình theo các ô. Bài đã có không bị xoá."
+  [message]="applyMessage()"
   confirmLabel="Áp dụng"
   (confirmed)="apply()"
   (cancelled)="applyOpen.set(false)"
@@ -254,7 +318,7 @@
 
 <lu-confirm-dialog
   [open]="removal() !== null"
-  title="Gỡ bài khỏi giáo trình?"
+  title="Gỡ và xoá bài?"
   [message]="removeMessage()"
   confirmLabel="Gỡ"
   [danger]="true"

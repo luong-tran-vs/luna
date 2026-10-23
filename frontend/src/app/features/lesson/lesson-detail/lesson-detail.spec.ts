@@ -1510,6 +1510,21 @@ describe('LessonDetail', () => {
       expect(navigate).toHaveBeenCalledWith('/goal?completed=1');
     });
 
+    it('goes to the topic summary at the end of the goal roadmap', async () => {
+      await open({ study: writeNext() });
+      const navigate = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
+      child(WritingStub)!.skipped.emit();
+      const goal = {
+        topicId: 't1', topicName: 'Gia đình', level: 'A1' as const, completedLessons: 3, totalLessons: 3,
+        status: 'active' as const, effectiveFrom: '2026-10-01',
+      };
+      await reply(
+        '/lessons/l1/steps/write/skip',
+        other({ status: 'completed', currentStep: 'done', goalCompleted: true, goal }),
+      );
+      expect(navigate).toHaveBeenCalledWith('/topics/t1/summary?level=A1');
+    });
+
     it('shows why a step cannot be completed', async () => {
       await open({
         practice: noPractice,

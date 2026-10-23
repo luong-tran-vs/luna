@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"github.com/luongtran/luna/backend/internal/curriculum"
 	"time"
 
 	"github.com/luongtran/luna/backend/internal/grammar"
@@ -13,12 +12,13 @@ import (
 func (c *Container) initGrammar() {
 	c.grammar = grammar.NewService(c.store.GrammarLessons(), c.store.GrammarProgress(), c.store.GrammarReports(), c.ai,
 		grammarLessonCounter{c.lessons}, c.studyDays, time.Now)
-	c.grammar.SetCourse(grammarCourse)
+	c.grammar.SetCourse(c.grammarCourse)
 }
 
-// grammarCourse adapts the fixed course of a level to the grammar list (A1 since 2026-10-22).
-func grammarCourse(level string) (map[string]grammar.CourseTopic, []string, bool) {
-	topics, order, ok := curriculum.PointTopics(level)
+// grammarCourse adapts the approved course of a level to the grammar list (A1 since 2026-10-22,
+// every level from the database since 2026-10-23).
+func (c *Container) grammarCourse(ctx context.Context, level string) (map[string]grammar.CourseTopic, []string, bool) {
+	topics, order, ok := c.curriculum.PointTopics(ctx, level)
 	if !ok {
 		return nil, nil, false
 	}

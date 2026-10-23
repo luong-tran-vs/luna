@@ -1,4 +1,4 @@
-/** Vietnamese names of the operations the server records (internal/ai/gemini). */
+/** Vietnamese names of the operations the server records (internal/ai/llm). */
 export const OP_LABELS: Readonly<Record<string, string>> = {
   generate: 'Sinh bài học',
   annotate: 'Chú thích bài',
@@ -8,6 +8,8 @@ export const OP_LABELS: Readonly<Record<string, string>> = {
   lesson_review: 'Kiểm tra bài',
   lesson_fix: 'Đề xuất sửa lỗi bài',
   lesson_simplify: 'Thay từ khó trong bài mới sinh',
+  curriculum_draft: 'Soạn danh sách chủ đề giáo trình',
+  curriculum_draft_topic: 'Soạn bài cho chủ đề giáo trình',
   suggest_words: 'Gợi ý từ cho chủ đề',
   word_meanings: 'Điền nghĩa, phiên âm (kho từ)',
   grammar_lesson: 'Sinh bài ngữ pháp',
@@ -17,6 +19,7 @@ export const OP_LABELS: Readonly<Record<string, string>> = {
   talk: 'Luyện nói với AI (lượt đáp)',
   talk_review: 'Luyện nói với AI (nhận xét)',
   speak_check: 'Nhận xét bước Nói',
+  model_test: 'Thử model (trang Model AI)',
 };
 
 export function opLabel(op: string): string {

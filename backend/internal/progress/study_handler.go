@@ -36,6 +36,7 @@ func (h *StudyHandler) Register(mux *http.ServeMux, requireAuth httpx.Middleware
 	mux.Handle("PUT /api/lessons/{id}/position", requireAuth(http.HandlerFunc(h.position)))
 	mux.Handle("GET /api/dashboard", requireAuth(http.HandlerFunc(h.dashboard)))
 	mux.Handle("GET /api/stats", requireAuth(http.HandlerFunc(h.stats)))
+	mux.Handle("GET /api/topics/{id}/summary", requireAuth(http.HandlerFunc(h.topicSummary)))
 }
 
 // Guard lets a learner open only the lesson being studied and lessons already started; admins pass.

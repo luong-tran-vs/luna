@@ -1,8 +1,10 @@
-// Package curriculum holds the fixed course of a level (added 2026-10-22, A1 first,
-// design/de-xuat-giao-trinh-a1.png): its topics in order, each with its grammar points and lesson
-// slots, 3 main lessons then 2–3 extra ones. A slot is filled by the lesson of the topic's roadmap
-// with the slot's title. The admin applies the order to the topics, generates the empty slots and
-// sees checks on drafts; learners see the topic's number, grammar and which lessons are extra.
+// Package curriculum holds the course of each level (added 2026-10-22, A1 first,
+// design/de-xuat-giao-trinh-a1.png; in the database for every level since 2026-10-23): its topics
+// in order, each with its grammar points and lesson slots, 3 main lessons then the extra ones. A
+// slot is filled by the lesson of the topic's roadmap with the slot's title. The AI drafts the
+// course of a level, the admin edits and approves it, applies the order to the topics, generates
+// the empty slots and sees checks on drafts; learners see the topic's number, grammar and which
+// lessons are extra.
 package curriculum
 
 import (
@@ -22,8 +24,18 @@ const (
 	KindExtra Kind = "extra"
 )
 
-// MainPerTopic is how many main lessons every topic has.
-const MainPerTopic = 3
+// What a course should hold (2026-10-23): at least MinTopics topics, each with MainPerTopic main
+// lessons and MinExtra–MaxExtra extra ones to practise. A1 was approved with 2–3 extra lessons, so
+// these are warnings; MinExtraHard is what approving needs. MaxTopics is 12 since A1 was approved
+// with 12 topics.
+const (
+	MainPerTopic = 3
+	MinTopics    = 7
+	MaxTopics    = 12
+	MinExtra     = 4
+	MaxExtra     = 5
+	MinExtraHard = 2
+)
 
 // Slot is one lesson of the course.
 type Slot struct {
@@ -39,8 +51,10 @@ type Slot struct {
 // Topic is one topic of the course, named as in the topic catalogue.
 type Topic struct {
 	// Number is the topic's place in the course, from 1.
-	Number int    `json:"-"`
-	Name   string `json:"name"`
+	Number int `json:"-"`
+	// TopicID is the catalogue's topic; "" until the topic is created (it is then found by name).
+	TopicID string `json:"topicId,omitempty"`
+	Name    string `json:"name"`
 	// CanDoVi ends "Sau chủ đề này bạn có thể …".
 	CanDoVi string   `json:"canDoVi"`
 	Grammar []string `json:"grammar"`
@@ -56,99 +70,178 @@ type Plan struct {
 //go:embed a1.json
 var a1JSON []byte
 
-var plans = mustLoad(a1JSON)
+// seeds are the courses written before they were kept in the database: the first read of a level
+// without a course saves its seed as approved.
+var seeds = map[string][]byte{"A1": a1JSON}
 
-func mustLoad(data ...[]byte) []Plan {
-	out := make([]Plan, 0, len(data))
-	for _, d := range data {
-		var p Plan
-		if err := json.Unmarshal(d, &p); err != nil {
-			panic(fmt.Sprintf("curriculum: %v", err))
-		}
-		for i := range p.Topics {
-			p.Topics[i].Number = i + 1
-		}
-		if err := p.Validate(grammar.Default()); err != nil {
-			panic(err)
-		}
-		out = append(out, p)
+// seed returns the seed of level.
+func seed(level string) (Plan, bool) {
+	data, ok := seeds[level]
+	if !ok {
+		return Plan{}, false
 	}
-	return out
+	var p Plan
+	if err := json.Unmarshal(data, &p); err != nil {
+		panic(fmt.Sprintf("curriculum: seed %s: %v", level, err))
+	}
+	p.Normalize()
+	if err := p.Validate(grammar.Default()); err != nil {
+		panic(err)
+	}
+	return p, true
 }
 
-// ByLevel returns the course of level; ok is false when the level has none.
-func ByLevel(level string) (Plan, bool) {
-	for _, p := range plans {
-		if p.Level == level {
-			return p, true
-		}
-	}
-	return Plan{}, false
-}
-
-// FindSlot returns the slot of key with its plan and topic.
-func FindSlot(key string) (Plan, Topic, Slot, bool) {
-	for _, p := range plans {
-		for _, t := range p.Topics {
-			for _, s := range t.Slots {
-				if s.Key == key {
-					return p, t, s, true
-				}
+// Normalize numbers the topics, makes the first MainPerTopic slots of each topic main and the
+// others extra, and gives every slot the key "<level>-<topic>-<slot>" (a1-03-2). Lessons fill
+// slots by title, so keys may change when the admin moves slots.
+func (p *Plan) Normalize() {
+	for i := range p.Topics {
+		t := &p.Topics[i]
+		t.Number = i + 1
+		t.Name = strings.TrimSpace(t.Name)
+		t.CanDoVi = strings.TrimSpace(t.CanDoVi)
+		for j := range t.Slots {
+			s := &t.Slots[j]
+			s.Kind = KindMain
+			if j >= MainPerTopic {
+				s.Kind = KindExtra
 			}
+			s.Key = fmt.Sprintf("%s-%02d-%d", strings.ToLower(p.Level), i+1, j+1)
+			s.Title = strings.TrimSpace(s.Title)
+			s.Idea = strings.TrimSpace(s.Idea)
 		}
 	}
-	return Plan{}, Topic{}, Slot{}, false
 }
 
-// Validate checks that every topic has its main lessons first, unique keys and titles, and points
-// of the plan's level.
+// Validate checks what a saved course must hold: named topics, each once, with points of the
+// plan's level, and slots with a title (once per topic), an idea and points. A topic may have no
+// slot yet while the AI has not written them.
 func (p Plan) Validate(syl *grammar.Syllabus) error {
 	keys := map[string]bool{}
 	names := map[string]bool{}
 	checkPoints := func(where string, ids []string) error {
 		if len(ids) == 0 {
-			return fmt.Errorf("curriculum %s: %s has no grammar point", p.Level, where)
+			return fmt.Errorf("%s: chưa có điểm ngữ pháp", where)
 		}
 		for _, id := range ids {
 			pt, ok := syl.Get(id)
 			if !ok || pt.Level != p.Level {
-				return fmt.Errorf("curriculum %s: %s: %q is not a %s point", p.Level, where, id, p.Level)
+				return fmt.Errorf("%s: %q không phải điểm ngữ pháp %s", where, id, p.Level)
 			}
 		}
 		return nil
 	}
 	for _, t := range p.Topics {
+		if strings.TrimSpace(t.Name) == "" {
+			return fmt.Errorf("chủ đề %d chưa có tên", t.Number)
+		}
 		if names[NameKey(t.Name)] {
-			return fmt.Errorf("curriculum %s: topic %q twice", p.Level, t.Name)
+			return fmt.Errorf("chủ đề “%s” có hai lần", t.Name)
 		}
 		names[NameKey(t.Name)] = true
-		if err := checkPoints(t.Name, t.Grammar); err != nil {
+		if err := checkPoints("Chủ đề “"+t.Name+"”", t.Grammar); err != nil {
 			return err
 		}
 		titles := map[string]bool{}
 		for i, s := range t.Slots {
 			if keys[s.Key] || s.Key == "" {
-				return fmt.Errorf("curriculum %s: slot key %q empty or twice", p.Level, s.Key)
+				return fmt.Errorf("chủ đề “%s”: khoá bài %q trống hoặc trùng", t.Name, s.Key)
 			}
 			keys[s.Key] = true
-			if titles[TitleKey(s.Title)] || strings.TrimSpace(s.Title) == "" || strings.TrimSpace(s.Idea) == "" {
-				return fmt.Errorf("curriculum %s: slot %s: empty or repeated title, or no idea", p.Level, s.Key)
+			if strings.TrimSpace(s.Title) == "" || strings.TrimSpace(s.Idea) == "" {
+				return fmt.Errorf("chủ đề “%s”, bài %d: chưa có tên hoặc ý tưởng", t.Name, i+1)
+			}
+			if titles[TitleKey(s.Title)] {
+				return fmt.Errorf("chủ đề “%s”: bài “%s” có hai lần", t.Name, s.Title)
 			}
 			titles[TitleKey(s.Title)] = true
-			if want := KindMain; i >= MainPerTopic {
+			want := KindMain
+			if i >= MainPerTopic {
 				want = KindExtra
-				if s.Kind != want {
-					return fmt.Errorf("curriculum %s: slot %s should be %s", p.Level, s.Key, want)
-				}
-			} else if s.Kind != want {
-				return fmt.Errorf("curriculum %s: slot %s should be %s", p.Level, s.Key, want)
 			}
-			if err := checkPoints(s.Key, s.Grammar); err != nil {
+			if s.Kind != want {
+				return fmt.Errorf("chủ đề “%s”: bài %s phải là bài %s", t.Name, s.Key, want)
+			}
+			if err := checkPoints(fmt.Sprintf("Chủ đề “%s”, bài “%s”", t.Name, s.Title), s.Grammar); err != nil {
 				return err
 			}
 		}
 	}
 	return nil
+}
+
+// Ready checks what approving needs besides Validate: some topics, each with its main lessons and
+// MinExtraHard extra ones.
+func (p Plan) Ready() error {
+	if len(p.Topics) == 0 {
+		return fmt.Errorf("giáo trình %s chưa có chủ đề", p.Level)
+	}
+	for _, t := range p.Topics {
+		if len(t.Slots) < MainPerTopic+MinExtraHard {
+			return fmt.Errorf("chủ đề “%s” cần ít nhất %d bài chính và %d bài thêm", t.Name, MainPerTopic, MinExtraHard)
+		}
+	}
+	return nil
+}
+
+// Warnings lists what the course lacks without blocking it: too few topics, extra lessons outside
+// MinExtra–MaxExtra, and grammar points of the level no topic teaches.
+func (p Plan) Warnings(syl *grammar.Syllabus) []string {
+	var out []string
+	if len(p.Topics) < MinTopics {
+		out = append(out, fmt.Sprintf("Mới có %d chủ đề, nên có ít nhất %d.", len(p.Topics), MinTopics))
+	}
+	taught := map[string]bool{}
+	for _, t := range p.Topics {
+		for _, id := range t.Grammar {
+			taught[id] = true
+		}
+		extra := 0
+		for _, s := range t.Slots {
+			for _, id := range s.Grammar {
+				taught[id] = true
+			}
+			if s.Kind == KindExtra {
+				extra++
+			}
+		}
+		switch {
+		case len(t.Slots) == 0:
+			out = append(out, fmt.Sprintf("Chủ đề “%s” chưa có bài.", t.Name))
+		case len(t.Slots) < MainPerTopic:
+			out = append(out, fmt.Sprintf("Chủ đề “%s” mới có %d bài chính, cần %d.", t.Name, len(t.Slots), MainPerTopic))
+		case extra < MinExtra || extra > MaxExtra:
+			out = append(out, fmt.Sprintf("Chủ đề “%s” có %d bài thêm, nên %d–%d.", t.Name, extra, MinExtra, MaxExtra))
+		}
+	}
+	var missing []string
+	for _, pt := range syl.ByLevel(p.Level) {
+		if !taught[pt.ID] {
+			missing = append(missing, pt.TitleVi)
+		}
+	}
+	if len(missing) > 0 {
+		out = append(out, fmt.Sprintf("Chưa chủ đề nào dạy %d điểm ngữ pháp: %s.", len(missing), strings.Join(missing, ", ")))
+	}
+	return out
+}
+
+// FindSlot returns the topic and slot of key.
+func (p Plan) FindSlot(key string) (Topic, Slot, bool) {
+	for _, t := range p.Topics {
+		for _, s := range t.Slots {
+			if s.Key == key {
+				return t, s, true
+			}
+		}
+	}
+	return Topic{}, Slot{}, false
+}
+
+// LevelOfKey reads the level from a slot key ("a2-03-1" → "A2").
+func LevelOfKey(key string) string {
+	level, _, _ := strings.Cut(key, "-")
+	return strings.ToUpper(level)
 }
 
 // NameKey compares topic names ignoring case and spaces.
@@ -167,13 +260,9 @@ type PointTopic struct {
 	Name   string
 }
 
-// PointTopics maps each grammar point a level's course teaches to its first topic, and lists the
-// points in course order; ok is false when the level has no course.
-func PointTopics(level string) (map[string]PointTopic, []string, bool) {
-	p, ok := ByLevel(level)
-	if !ok {
-		return nil, nil, false
-	}
+// PointTopics maps each grammar point the course teaches to its first topic, and lists the points
+// in course order.
+func (p Plan) PointTopics() (map[string]PointTopic, []string) {
 	byPoint := map[string]PointTopic{}
 	var order []string
 	for _, t := range p.Topics {
@@ -184,5 +273,5 @@ func PointTopics(level string) (map[string]PointTopic, []string, bool) {
 			}
 		}
 	}
-	return byPoint, order, true
+	return byPoint, order
 }

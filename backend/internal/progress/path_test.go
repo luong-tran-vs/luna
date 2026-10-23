@@ -1,6 +1,7 @@
 package progress
 
 import (
+	"context"
 	"maps"
 	"testing"
 )
@@ -106,7 +107,7 @@ func TestPathGuest(t *testing.T) {
 func TestPathCourse(t *testing.T) {
 	t.Parallel()
 	e := newStudyEnv()
-	e.svc.d.Course = func(level, name string) (CourseTopic, bool) {
+	e.svc.d.Course = func(_ context.Context, level, _, name string) (CourseTopic, bool) {
 		if level != "A1" || name != "Gia đình" {
 			return CourseTopic{}, false
 		}

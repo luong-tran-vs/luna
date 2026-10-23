@@ -87,7 +87,7 @@
             <ul class="todos">
               @for (t of todos(); track t.label) {
                 <li>
-                  <a class="todo" [routerLink]="t.link">
+                  <a class="todo" [routerLink]="t.link" [queryParams]="t.query">
                     <span class="todo-count">{{ t.count }}</span>
                     <span class="todo-label">{{ t.label }}</span>
                   </a>
@@ -107,6 +107,14 @@
                 <span class="stat-label">{{ s.label }}</span>
               </li>
             }
+          </ul>
+        </section>
+
+        <section class="soft-card" aria-labelledby="tools-heading">
+          <h2 class="section-title" id="tools-heading">Công cụ thử nghiệm</h2>
+          <ul class="tools">
+            <li><a routerLink="/admin/tts-lab">Thử giọng đọc</a></li>
+            <li><a routerLink="/admin/stt-lab">Thử nhận dạng giọng nói</a></li>
           </ul>
         </section>
       </div>

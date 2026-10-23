@@ -3,9 +3,9 @@ package aiusage
 import (
 	"cmp"
 	"context"
+	"fmt"
 	"log/slog"
 	"slices"
-	"sync"
 	"time"
 	_ "time/tzdata" // Pacific time on servers without a zone database
 
@@ -15,8 +15,6 @@ import (
 const (
 	// recordTimeout bounds saving one request, so a slow database never holds up the AI call.
 	recordTimeout = 3 * time.Second
-	// pruneEvery is how often recording also deletes the requests older than Keep.
-	pruneEvery = time.Hour
 	// recentCount is how many of the last requests the summary lists.
 	recentCount = 30
 )
@@ -37,9 +35,6 @@ type Service struct {
 	repo Repository
 	now  func() time.Time
 	log  *slog.Logger
-
-	mu       sync.Mutex
-	prunedAt time.Time
 }
 
 // NewService returns a Service.
@@ -60,16 +55,8 @@ func (s *Service) RecordUsage(ctx context.Context, u ai.Usage) {
 	if err := s.repo.Add(rctx, u); err != nil {
 		s.log.WarnContext(ctx, "ai usage: record request", slog.Any("error", err))
 	}
-	s.mu.Lock()
-	prune := u.At.Sub(s.prunedAt) >= pruneEvery
-	if prune {
-		s.prunedAt = u.At
-	}
-	s.mu.Unlock()
-	if prune {
-		if err := s.repo.DeleteBefore(rctx, u.At.Add(-Keep)); err != nil {
-			s.log.WarnContext(ctx, "ai usage: delete old requests", slog.Any("error", err))
-		}
+	if err := s.repo.KeepLatest(rctx, MaxKept); err != nil {
+		s.log.WarnContext(ctx, "ai usage: delete old requests", slog.Any("error", err))
 	}
 }
 
@@ -101,10 +88,10 @@ func summarize(calls []ai.Usage, now time.Time) Summary {
 		}
 		bucket(week, u.Op).add(u)
 		if !u.At.Before(out.DayStart) {
-			bucket(today, u.Model).add(u)
+			bucket(today, modelKey(u)).add(u)
 		}
 		if u.At.After(now.Add(-time.Minute)) {
-			bucket(lastMinute, u.Model).add(u)
+			bucket(lastMinute, modelKey(u)).add(u)
 		}
 		if i := int(u.At.Sub(hourStart) / time.Minute); !u.At.Before(hourStart) && i < len(out.Minutes) {
 			out.Minutes[i].add(u)
@@ -130,6 +117,19 @@ func summarize(calls []ai.Usage, now time.Time) Summary {
 		}
 	}
 	return out
+}
+
+// modelKey groups the requests per model and per API key: the free tier limits each key's project
+// apart, so a backup key shows as "model · key phụ" ("key phụ 2" for a second backup).
+func modelKey(u ai.Usage) string {
+	switch u.Key {
+	case 0:
+		return u.Model
+	case 1:
+		return u.Model + " · key phụ"
+	default:
+		return fmt.Sprintf("%s · key phụ %d", u.Model, u.Key)
+	}
 }
 
 func bucket(m map[string]*Totals, key string) *Totals {

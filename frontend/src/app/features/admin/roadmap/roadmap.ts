@@ -24,6 +24,7 @@ import {
   GenerateInput,
   GenerateResult,
 } from '../../../core/models/generate';
+import { CourseTopicRef } from '../../../core/models/curriculum';
 import { GRAMMAR_AUTO } from '../../../core/models/grammar';
 import { Level, LEVELS, LessonSummary } from '../../../core/models/lesson';
 import { lowRoadmaps, roadmapLabel, sortTopics, Topic, TopicLevel, TopicRoadmap, TopicWord } from '../../../core/models/topic';
@@ -191,7 +192,21 @@ export class Roadmap implements CanLeave {
       : `Lộ trình chỉ còn ${d.remaining} bài chưa học. Hãy thêm bài mới.`;
   });
 
+  /** Per level, the topics of its approved course (added 2026-10-23). */
+  private readonly courseTopics = signal<Record<string, CourseTopicRef[]>>({});
+  /** The selected topic's place in the approved course of the selected level, if it has one. */
+  protected readonly inCourse = computed(() => {
+    const level = this.selectedLevel();
+    const id = this.selectedId();
+    return (level && this.courseTopics()[level]?.find((t) => t.topicId === id)) || null;
+  });
+
   constructor() {
+    this.api.curriculumTopics().subscribe({
+      next: (byLevel) => this.courseTopics.set(byLevel),
+      // Only a hint above the roadmap: the page works without it.
+      error: () => undefined,
+    });
     firstValueFrom(this.api.topics())
       .then((list) => {
         this.topics.set(list);

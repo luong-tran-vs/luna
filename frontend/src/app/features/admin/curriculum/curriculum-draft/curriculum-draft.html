@@ -1,0 +1,300 @@
+<div class="draft" [attr.aria-busy]="busy()">
+  <div class="card intro">
+    <p class="badge-draft">Bản nháp, chưa duyệt</p>
+    <p class="muted">
+      {{ plan().topics.length }} chủ đề · {{ lessonCount() }} bài. Người học chưa thấy bản nháp. Sửa
+      tên, ý tưởng và ngữ pháp rồi bấm “Lưu bản nháp”; khi đã ổn, bấm “Duyệt giáo trình”.
+      @if (board().hasApproved) {
+        Giáo trình đã duyệt vẫn dùng cho tới khi bạn duyệt bản này.
+      }
+    </p>
+    <div class="actions">
+      <button type="button" class="btn-primary" [disabled]="busy()" (click)="ask('approve')">
+        Duyệt giáo trình
+      </button>
+      <button type="button" class="btn" [disabled]="busy() || !dirty()" (click)="save()">
+        Lưu bản nháp
+      </button>
+      @if (unwrittenNumbers().length > 0) {
+        <button type="button" class="btn" [disabled]="busy()" (click)="write(unwrittenNumbers())">
+          Soạn bài cho các chủ đề chưa có bài ({{ unwrittenNumbers().length }})
+        </button>
+      }
+      <button type="button" class="btn" [disabled]="busy()" (click)="ask('redraft')">
+        Soạn lại toàn bộ bằng AI
+      </button>
+      <button type="button" class="btn danger-text" [disabled]="busy()" (click)="ask('discard')">
+        Bỏ bản nháp
+      </button>
+    </div>
+    @if (dirty()) {
+      <p class="unsaved">Có thay đổi chưa lưu.</p>
+    }
+  </div>
+
+  <p class="visually-hidden" role="status">{{ workText() || note() }}</p>
+  @if (workText(); as text) {
+    <p class="note" aria-hidden="true">{{ text }}</p>
+  } @else if (note(); as text) {
+    <p class="note" aria-hidden="true">{{ text }}</p>
+  }
+  @if (error(); as message) {
+    <p class="form-alert" role="alert">{{ message }}</p>
+  }
+
+  @if (board().warnings.length > 0) {
+    <div class="banner-warning" role="note">
+      <p>Cần xem lại (theo bản đã lưu):</p>
+      <ul>
+        @for (w of board().warnings; track $index) {
+          <li>{{ w }}</li>
+        }
+      </ul>
+    </div>
+  }
+
+  <datalist id="draft-topic-names">
+    @for (n of topicNames(); track n) {
+      <option [value]="n"></option>
+    }
+  </datalist>
+
+  <ol class="topics">
+    @for (t of plan().topics; track $index; let i = $index, first = $first, last = $last) {
+      <li class="card topic" [attr.aria-labelledby]="'draft-topic-' + i">
+        <div class="topic-head">
+          <h2 class="topic-title" [id]="'draft-topic-' + i" tabindex="-1">
+            <span class="number" aria-hidden="true">{{ i + 1 }}</span>
+            <span class="visually-hidden">Chủ đề {{ i + 1 }}: </span
+            >{{ t.name || 'Chủ đề chưa có tên' }}
+          </h2>
+          <div class="topic-actions">
+            <button
+              type="button"
+              class="btn btn-sm"
+              [disabled]="busy() || first"
+              (click)="moveTopic(i, -1)"
+            >
+              <span aria-hidden="true">↑</span
+              ><span class="visually-hidden">Đưa chủ đề {{ i + 1 }} lên</span>
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm"
+              [disabled]="busy() || last"
+              (click)="moveTopic(i, 1)"
+            >
+              <span aria-hidden="true">↓</span
+              ><span class="visually-hidden">Đưa chủ đề {{ i + 1 }} xuống</span>
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm"
+              [disabled]="busy() || t.grammar.length === 0 || !t.name.trim()"
+              (click)="write([i + 1])"
+            >
+              {{ t.slots.length > 0 ? 'Soạn lại bài' : 'Soạn bài bằng AI'
+              }}<span class="visually-hidden"> cho chủ đề {{ i + 1 }}</span>
+            </button>
+            @if (t.slots.length >= mainPerTopic && extraCount(t) < maxExtra) {
+              <button
+                type="button"
+                class="btn btn-sm"
+                [disabled]="busy() || t.grammar.length === 0 || !t.name.trim()"
+                (click)="write([i + 1], true)"
+              >
+                Soạn thêm bài thêm ({{ maxExtra - extraCount(t) }})<span class="visually-hidden">
+                  cho chủ đề {{ i + 1 }}, giữ các bài đang có</span
+                >
+              </button>
+            }
+            <button
+              type="button"
+              class="btn btn-sm danger-text"
+              [disabled]="busy()"
+              (click)="removeTopic(i)"
+            >
+              Bỏ<span class="visually-hidden"> chủ đề {{ i + 1 }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="fields">
+          <label class="field">
+            <span class="label">Tên chủ đề</span>
+            <input
+              class="input"
+              [id]="'draft-topic-name-' + i"
+              list="draft-topic-names"
+              [value]="t.name"
+              [disabled]="busy()"
+              (change)="rename(i, $any($event.target).value)"
+            />
+            @if (t.topicId) {
+              <span class="field-hint">Đã có trong danh mục chủ đề.</span>
+            } @else if (t.name.trim()) {
+              <span class="field-hint">Chủ đề mới: được tạo khi duyệt.</span>
+            }
+          </label>
+          <label class="field">
+            <span class="label">Sau chủ đề này bạn có thể…</span>
+            <textarea
+              class="input"
+              rows="2"
+              [value]="t.canDoVi"
+              [disabled]="busy()"
+              (change)="setTopic(i, { canDoVi: $any($event.target).value })"
+            ></textarea>
+          </label>
+        </div>
+
+        @if (unmatched()[i]?.length) {
+          <p class="banner-warning unmatched">
+            Bài đã có sẽ không khớp ô nào nữa (thành “bài khác” của chủ đề):
+            {{ unmatched()[i].join(', ') }}.
+          </p>
+        }
+
+        <details class="grammar-pick">
+          <summary>
+            Ngữ pháp ({{ t.grammar.length }}):
+            @for (g of t.grammar; track g; let gl = $last) {
+              {{ pointTitle(g) }}{{ gl ? '' : ', ' }}
+            } @empty {
+              chưa chọn
+            }
+          </summary>
+          <fieldset class="points">
+            <legend class="visually-hidden">Ngữ pháp của chủ đề {{ i + 1 }}</legend>
+            @for (p of points(); track p.id) {
+              <label class="point">
+                <input
+                  type="checkbox"
+                  [checked]="t.grammar.includes(p.id)"
+                  [disabled]="busy()"
+                  (change)="toggleGrammar(i, p.id, $any($event.target).checked)"
+                />
+                {{ p.titleVi }}
+              </label>
+            }
+          </fieldset>
+        </details>
+
+        @if (t.slots.length === 0) {
+          <p class="muted empty">Chưa có bài: bấm “Soạn bài bằng AI” hoặc thêm bài.</p>
+        } @else {
+          <p class="muted counts">
+            {{ t.slots.length < mainPerTopic ? t.slots.length : mainPerTopic }} bài chính ·
+            {{ extraCount(t) }} bài thêm (nên 4–5)
+          </p>
+        }
+        <ol class="slots">
+          @for (s of t.slots; track $index; let j = $index, sf = $first, sl = $last) {
+            <li class="slot" [class.extra]="j >= mainPerTopic">
+              <div class="slot-head">
+                <h3 class="slot-kind" [id]="'draft-slot-' + i + '-' + j" tabindex="-1">
+                  {{ kindLabel(j) }}
+                </h3>
+                <div class="slot-actions">
+                  <button
+                    type="button"
+                    class="btn btn-sm"
+                    [disabled]="busy() || sf"
+                    (click)="moveSlot(i, j, -1)"
+                  >
+                    <span aria-hidden="true">↑</span
+                    ><span class="visually-hidden"
+                      >Đưa {{ kindLabel(j) }} của chủ đề {{ i + 1 }} lên</span
+                    >
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm"
+                    [disabled]="busy() || sl"
+                    (click)="moveSlot(i, j, 1)"
+                  >
+                    <span aria-hidden="true">↓</span
+                    ><span class="visually-hidden"
+                      >Đưa {{ kindLabel(j) }} của chủ đề {{ i + 1 }} xuống</span
+                    >
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm danger-text"
+                    [disabled]="busy()"
+                    (click)="removeSlot(i, j)"
+                  >
+                    Bỏ<span class="visually-hidden">
+                      {{ kindLabel(j) }} của chủ đề {{ i + 1 }}</span
+                    >
+                  </button>
+                </div>
+              </div>
+              <label class="field">
+                <span class="label">Tên bài</span>
+                <input
+                  class="input"
+                  [id]="'draft-slot-title-' + i + '-' + j"
+                  [value]="s.title"
+                  [disabled]="busy()"
+                  (change)="setSlot(i, j, { title: $any($event.target).value })"
+                />
+              </label>
+              <label class="field">
+                <span class="label">Ý tưởng cho AI (tiếng Anh)</span>
+                <textarea
+                  class="input"
+                  rows="2"
+                  [value]="s.idea"
+                  [disabled]="busy()"
+                  (change)="setSlot(i, j, { idea: $any($event.target).value })"
+                ></textarea>
+              </label>
+              <label class="field">
+                <span class="label">Ngữ pháp chính</span>
+                <select
+                  class="input"
+                  [disabled]="busy()"
+                  (change)="setSlotPoint(i, j, $any($event.target).value)"
+                >
+                  @for (p of points(); track p.id) {
+                    <option [value]="p.id" [selected]="s.grammar[0] === p.id">
+                      {{ p.titleVi }}
+                    </option>
+                  }
+                </select>
+              </label>
+              @if (s.grammar.length > 1) {
+                <p class="field-hint">
+                  Dùng thêm:
+                  @for (g of s.grammar.slice(1); track g; let gl = $last) {
+                    {{ pointTitle(g) }}{{ gl ? '' : ', ' }}
+                  }
+                </p>
+              }
+            </li>
+          }
+        </ol>
+        <button type="button" class="btn btn-sm add" [disabled]="busy()" (click)="addSlot(i)">
+          Thêm bài<span class="visually-hidden"> vào chủ đề {{ i + 1 }}</span>
+        </button>
+      </li>
+    }
+  </ol>
+
+  <button type="button" class="btn add-topic" [disabled]="busy()" (click)="addTopic()">
+    Thêm chủ đề
+  </button>
+</div>
+
+<lu-confirm-dialog
+  [open]="pending() !== null"
+  [title]="confirmTitle()"
+  [message]="confirmMessage()"
+  [confirmLabel]="
+    pending() === 'approve' ? 'Duyệt' : pending() === 'discard' ? 'Bỏ bản nháp' : 'Soạn lại'
+  "
+  [danger]="pending() !== 'approve'"
+  (confirmed)="confirm()"
+  (cancelled)="pending.set(null)"
+/>

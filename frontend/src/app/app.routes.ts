@@ -79,6 +79,11 @@ export const routes: Routes = [
           import('./features/irregular-verbs/verb-review/verb-review').then((m) => m.VerbReview),
       },
       {
+        path: 'topics/:id/summary',
+        title: 'Tổng kết chủ đề · Luna',
+        loadComponent: () => import('./features/topic-summary/topic-summary').then((m) => m.TopicSummaryPage),
+      },
+      {
         path: 'stats',
         title: 'Lộ trình & Tiến độ · Luna',
         loadComponent: () => import('./features/stats/stats').then((m) => m.Stats),

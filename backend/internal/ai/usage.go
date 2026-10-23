@@ -12,6 +12,8 @@ type Usage struct {
 	Model string
 	// Op names the operation ("annotate", "practice", "image"...).
 	Op string
+	// Key is the number of the API key used: 0 the main one, 1 the first backup (added 2026-10-23).
+	Key int
 	// Status is the HTTP status, 0 when the request did not get an answer.
 	Status        int
 	PromptTokens  int

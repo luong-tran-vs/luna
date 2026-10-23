@@ -5,7 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"slices"
+	"time"
 
+	"github.com/luongtran/luna/backend/internal/ai"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/lesson"
 	"github.com/luongtran/luna/backend/internal/topic"
@@ -20,7 +22,21 @@ var (
 	ErrSlotFilled = errors.New("curriculum: slot already has a lesson")
 	// ErrNoDraft: the AI returned no usable lesson.
 	ErrNoDraft = errors.New("curriculum: no lesson generated")
+	// ErrNoDraftPlan: the level has no draft course to edit or approve.
+	ErrNoDraftPlan = errors.New("curriculum: no draft course")
+	// ErrNoAI: no AI provider can draft courses.
+	ErrNoAI = errors.New("curriculum: AI not configured")
+	// ErrAIFailed wraps an error of the AI while drafting a course.
+	ErrAIFailed = errors.New("curriculum: AI request failed")
 )
+
+// PlanError is a course the admin or the AI wrote that cannot be saved or approved; Message is in
+// Vietnamese, for the admin.
+type PlanError struct {
+	Message string
+}
+
+func (e *PlanError) Error() string { return e.Message }
 
 // Source and licence of generated lessons, as the admin's generate screen saves them.
 const (
@@ -28,11 +44,15 @@ const (
 	aiLicense = "Nội dung do AI tạo"
 )
 
-// Words of a generated lesson and target words per lesson, by level (as the admin's defaults).
+// Words of a generated lesson and target words per lesson, by level (as the admin's defaults,
+// frontend core/models/generate.ts).
 var (
-	lessonWords = map[string]int{"A1": 120, "A2": 160}
-	targetWords = map[string]int{"A1": 8, "A2": 8}
+	lessonWords = map[string]int{"A1": 120, "A2": 160, "B1": 220, "B2": 300, "C1": 400, "C2": 400}
+	targetWords = map[string]int{"A1": 8, "A2": 8, "B1": 10, "B2": 10, "C1": 12, "C2": 12}
 )
+
+// Levels are the levels a course can be written for, lowest first.
+var Levels = []string{"A1", "A2", "B1", "B2", "C1", "C2"}
 
 // Topics is what the course needs of the topic catalogue.
 type Topics interface {
@@ -57,11 +77,74 @@ type GrammarLessons interface {
 	AdminList(ctx context.Context) ([]grammar.LessonSummary, error)
 }
 
-// Service runs the admin side of the course.
+// Service runs the course: the admin's page and what learners see of it.
 type Service struct {
 	Topics  Topics
 	Lessons Lessons
 	Grammar GrammarLessons
+	Repo    Repository
+	// Writer drafts courses; nil when the AI cannot.
+	Writer ai.CurriculumWriter
+	Now    func() time.Time
+
+	cache planCache
+}
+
+func (s *Service) now() time.Time {
+	if s.Now == nil {
+		return time.Now()
+	}
+	return s.Now()
+}
+
+// course reads the course of level. A level without one that has a seed (A1) gets it, approved.
+func (s *Service) course(ctx context.Context, level string) (Course, error) {
+	c, err := s.Repo.Get(ctx, level)
+	if errors.Is(err, ErrNoPlan) {
+		p, ok := seed(level)
+		if !ok {
+			return Course{}, ErrNoPlan
+		}
+		now := s.now()
+		c = Course{Level: level, Approved: &p, ApprovedAt: now, UpdatedAt: now}
+		if err := s.Repo.Save(ctx, c); err != nil {
+			return Course{}, fmt.Errorf("curriculum: save seed %s: %w", level, err)
+		}
+		return c, nil
+	}
+	if err != nil {
+		return Course{}, fmt.Errorf("curriculum: read %s: %w", level, err)
+	}
+	for _, p := range []*Plan{c.Approved, c.Draft} {
+		if p != nil {
+			p.Level = level
+			p.Normalize()
+		}
+	}
+	return c, nil
+}
+
+func (s *Service) save(ctx context.Context, c Course) error {
+	c.UpdatedAt = s.now()
+	if err := s.Repo.Save(ctx, c); err != nil {
+		return fmt.Errorf("curriculum: save %s: %w", c.Level, err)
+	}
+	s.cache.drop(c.Level)
+	return nil
+}
+
+// approved returns the approved course of level, kept for cacheTTL; nil when there is none.
+func (s *Service) approved(ctx context.Context, level string) (*Plan, error) {
+	now := s.now()
+	if p, ok := s.cache.get(level, now); ok {
+		return p, nil
+	}
+	c, err := s.course(ctx, level)
+	if err != nil && !errors.Is(err, ErrNoPlan) {
+		return nil, err
+	}
+	s.cache.put(level, c.Approved, now)
+	return c.Approved, nil
 }
 
 // GrammarView is a grammar point of a topic, with whether its grammar lesson is published.
@@ -86,16 +169,36 @@ type TopicView struct {
 	// TopicID is "" when the catalogue has no topic of this name.
 	TopicID  string
 	Position int
-	Grammar  []GrammarView
-	Slots    []SlotView
+	// Words counts the catalogue topic's words that a lesson of the level may be given (added
+	// 2026-10-23): generated lessons take their target words from them.
+	Words   int
+	Grammar []GrammarView
+	Slots   []SlotView
 	// Others are roadmap lessons of the topic and level that fill no slot.
 	Others []topic.LessonRef
 }
 
-// Board is the course of a level with its progress.
+// Status tells where a level's course is.
+type Status string
+
+const (
+	StatusNone     Status = "none"
+	StatusDraft    Status = "draft"
+	StatusApproved Status = "approved"
+)
+
+// Board is the course of a level with its progress: the draft while there is one, otherwise the
+// approved course.
 type Board struct {
 	Level  string
-	Topics []TopicView
+	Status Status
+	// HasApproved is true when the level has an approved course (also while a draft edits it).
+	HasApproved bool
+	Topics      []TopicView
+	// Warnings are what the shown course lacks (Plan.Warnings).
+	Warnings []string
+	// Points are the grammar points of the level, for editing a draft.
+	Points []GrammarView
 	// Applied is true when every topic exists and has its place in the order.
 	Applied bool
 	// Main and Extra count the slots, Published and Drafts the slots filled.
@@ -125,17 +228,32 @@ func grammarViews(ids []string, published map[string]bool) []GrammarView {
 	return out
 }
 
-// topicsByName finds the catalogue's topics by name.
-func (s *Service) topicsByName(ctx context.Context) (map[string]topic.Topic, error) {
+// catalogue finds the catalogue's topics by id and by name.
+type catalogue struct {
+	byID   map[string]topic.Topic
+	byName map[string]topic.Topic
+}
+
+func (s *Service) catalogue(ctx context.Context) (catalogue, error) {
 	all, err := s.Topics.All(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("curriculum: list topics: %w", err)
+		return catalogue{}, fmt.Errorf("curriculum: list topics: %w", err)
 	}
-	out := make(map[string]topic.Topic, len(all))
+	c := catalogue{byID: make(map[string]topic.Topic, len(all)), byName: make(map[string]topic.Topic, len(all))}
 	for _, t := range all {
-		out[NameKey(t.Name)] = t
+		c.byID[t.ID] = t
+		c.byName[NameKey(t.Name)] = t
 	}
-	return out, nil
+	return c, nil
+}
+
+// find returns the catalogue's topic of a course topic: by id, else by name.
+func (c catalogue) find(t Topic) (topic.Topic, bool) {
+	if cat, ok := c.byID[t.TopicID]; ok && t.TopicID != "" {
+		return cat, true
+	}
+	cat, ok := c.byName[NameKey(t.Name)]
+	return cat, ok
 }
 
 // fill matches the roadmap's lessons with the slots by title.
@@ -156,34 +274,66 @@ func fill(t Topic, lessons []topic.LessonRef) (bySlot map[string]topic.LessonRef
 	return bySlot, others
 }
 
-// Board returns the course of level with each slot's lesson.
+// Board returns the course of level with each slot's lesson; a level without a course has an
+// empty board with StatusNone.
 func (s *Service) Board(ctx context.Context, level string) (Board, error) {
-	p, ok := ByLevel(level)
-	if !ok {
-		return Board{}, ErrNoPlan
+	c, err := s.course(ctx, level)
+	if errors.Is(err, ErrNoPlan) {
+		c, err = Course{Level: level}, nil
 	}
+	if err != nil {
+		return Board{}, err
+	}
+	return s.board(ctx, level, c, true)
+}
+
+// board is the board of course c of level; withChecks runs the checks of every draft lesson (one
+// read each), which the summary does without.
+func (s *Service) board(ctx context.Context, level string, c Course, withChecks bool) (Board, error) {
 	published, err := s.published(ctx)
 	if err != nil {
 		return Board{}, err
 	}
-	topics, err := s.topicsByName(ctx)
+	b := Board{Level: level, Status: StatusNone}
+	for _, pt := range grammar.Default().ByLevel(level) {
+		b.Points = append(b.Points, GrammarView{ID: pt.ID, TitleVi: pt.TitleVi, Published: published[pt.ID]})
+	}
+	p := c.Approved
+	b.Status, b.HasApproved = StatusApproved, c.Approved != nil
+	if c.Draft != nil {
+		p, b.Status = c.Draft, StatusDraft
+	}
+	if p == nil {
+		b.Status = StatusNone
+		return b, nil
+	}
+	b.Warnings = p.Warnings(grammar.Default())
+	cat, err := s.catalogue(ctx)
 	if err != nil {
 		return Board{}, err
 	}
-	b := Board{Level: level, Applied: true}
+	b.Applied = b.Status == StatusApproved
 	for _, t := range p.Topics {
 		tv := TopicView{Topic: t, Grammar: grammarViews(t.Grammar, published)}
-		cat, found := topics[NameKey(t.Name)]
+		found, ok := cat.find(t)
 		var bySlot map[string]topic.LessonRef
-		if found {
-			tv.TopicID, tv.Position = cat.ID, cat.Positions[level]
-			rm, err := s.Topics.Roadmap(ctx, cat.ID, level)
+		if ok {
+			tv.TopicID, tv.Position = found.ID, found.Positions[level]
+			for _, w := range found.Words {
+				if w.FitsLevel(level) {
+					tv.Words++
+				}
+			}
+			if min := targetWords[level]; tv.Words < min {
+				b.Warnings = append(b.Warnings, fmt.Sprintf("Chủ đề “%s” mới có %d từ vựng dùng được ở %s, nên có ít nhất %d để bài sinh ra có từ mục tiêu.", found.Name, tv.Words, level, min))
+			}
+			rm, err := s.Topics.Roadmap(ctx, found.ID, level)
 			if err != nil {
 				return Board{}, fmt.Errorf("curriculum: roadmap: %w", err)
 			}
 			bySlot, tv.Others = fill(t, rm.Lessons)
 		}
-		if !found || tv.Position != t.Number {
+		if !ok || tv.Position != t.Number {
 			b.Applied = false
 		}
 		for _, sl := range t.Slots {
@@ -192,9 +342,11 @@ func (s *Service) Board(ctx context.Context, level string) (Board, error) {
 				sv.Lesson = &l
 				if l.Draft {
 					b.Drafts++
-					if full, err := s.Lessons.Get(ctx, l.ID); err == nil {
-						c := Inspect(full)
-						sv.Checks = &c
+					if withChecks {
+						if full, err := s.Lessons.Get(ctx, l.ID); err == nil {
+							c := Inspect(full)
+							sv.Checks = &c
+						}
 					}
 				} else {
 					b.Published++
@@ -212,37 +364,61 @@ func (s *Service) Board(ctx context.Context, level string) (Board, error) {
 	return b, nil
 }
 
-// Apply creates the course's missing topics, gives the topics their place in the level's order
-// (other topics come after them) and orders each roadmap as the slots: main lessons, extra ones,
-// then the lessons that fill no slot.
+// Apply creates the approved course's missing topics, gives the topics their place in the level's
+// order (other topics come after them) and orders each roadmap as the slots: main lessons, extra
+// ones, then the lessons that fill no slot.
 func (s *Service) Apply(ctx context.Context, level string) (Board, error) {
-	p, ok := ByLevel(level)
-	if !ok {
-		return Board{}, ErrNoPlan
-	}
-	topics, err := s.topicsByName(ctx)
+	c, err := s.course(ctx, level)
 	if err != nil {
 		return Board{}, err
 	}
-	ids := make([]string, 0, len(p.Topics))
-	for _, t := range p.Topics {
-		cat, found := topics[NameKey(t.Name)]
-		if !found {
-			sum, err := s.Topics.Create(ctx, topic.Input{Name: t.Name, Description: "Sau chủ đề này bạn có thể " + t.CanDoVi})
-			if err != nil {
-				return Board{}, fmt.Errorf("curriculum: create topic %q: %w", t.Name, err)
-			}
-			cat = sum.Topic
-		}
-		ids = append(ids, cat.ID)
-		if err := s.arrange(ctx, t, cat.ID, level); err != nil {
+	if c.Approved == nil {
+		return Board{}, ErrNoPlan
+	}
+	changed, err := s.createTopics(ctx, c.Approved)
+	if err != nil {
+		return Board{}, err
+	}
+	ids := make([]string, 0, len(c.Approved.Topics))
+	for _, t := range c.Approved.Topics {
+		ids = append(ids, t.TopicID)
+		if err := s.arrange(ctx, t, t.TopicID, level); err != nil {
 			return Board{}, err
 		}
 	}
 	if _, err := s.Topics.SetOrder(ctx, level, ids); err != nil {
 		return Board{}, fmt.Errorf("curriculum: set order: %w", err)
 	}
+	if changed {
+		if err := s.save(ctx, c); err != nil {
+			return Board{}, err
+		}
+	}
 	return s.Board(ctx, level)
+}
+
+// createTopics creates the plan's topics the catalogue lacks and sets every topic's TopicID;
+// changed tells whether an id was set.
+func (s *Service) createTopics(ctx context.Context, p *Plan) (changed bool, err error) {
+	cat, err := s.catalogue(ctx)
+	if err != nil {
+		return false, err
+	}
+	for i := range p.Topics {
+		t := &p.Topics[i]
+		found, ok := cat.find(*t)
+		if !ok {
+			sum, err := s.Topics.Create(ctx, topic.Input{Name: t.Name, Description: "Sau chủ đề này bạn có thể " + t.CanDoVi})
+			if err != nil {
+				return changed, fmt.Errorf("curriculum: create topic %q: %w", t.Name, err)
+			}
+			found = sum.Topic
+		}
+		if t.TopicID != found.ID {
+			t.TopicID, changed = found.ID, true
+		}
+	}
+	return changed, nil
 }
 
 // arrange orders a topic's roadmap as its slots.
@@ -274,23 +450,31 @@ func (s *Service) arrange(ctx context.Context, t Topic, topicID, level string) e
 	return nil
 }
 
-// GenerateSlot writes the lesson of an empty slot with one AI request and saves it as a draft
-// at its place in the roadmap: the slot's title, its first grammar point, its idea (and its other
-// points), and target words planned from the topic's words.
+// GenerateSlot writes the lesson of an empty slot of an approved course with one AI request and
+// saves it as a draft at its place in the roadmap: the slot's title, its first grammar point, its
+// idea (and its other points), and target words planned from the topic's words.
 func (s *Service) GenerateSlot(ctx context.Context, key string) (SlotView, error) {
-	p, t, sl, ok := FindSlot(key)
-	if !ok {
-		return SlotView{}, ErrSlotNotFound
-	}
-	topics, err := s.topicsByName(ctx)
+	level := LevelOfKey(key)
+	p, err := s.approved(ctx, level)
 	if err != nil {
 		return SlotView{}, err
 	}
-	cat, found := topics[NameKey(t.Name)]
-	if !found {
+	if p == nil {
+		return SlotView{}, ErrSlotNotFound
+	}
+	t, sl, ok := p.FindSlot(key)
+	if !ok {
+		return SlotView{}, ErrSlotNotFound
+	}
+	cat, err := s.catalogue(ctx)
+	if err != nil {
+		return SlotView{}, err
+	}
+	found, ok := cat.find(t)
+	if !ok {
 		return SlotView{}, ErrNotApplied
 	}
-	rm, err := s.Topics.Roadmap(ctx, cat.ID, p.Level)
+	rm, err := s.Topics.Roadmap(ctx, found.ID, level)
 	if err != nil {
 		return SlotView{}, fmt.Errorf("curriculum: roadmap: %w", err)
 	}
@@ -298,16 +482,16 @@ func (s *Service) GenerateSlot(ctx context.Context, key string) (SlotView, error
 		return SlotView{}, ErrSlotFilled
 	}
 	in := lesson.GenerateInput{
-		Level: lesson.Level(p.Level), Count: 1, Words: lessonWords[p.Level], Kind: "reading",
+		Level: lesson.Level(level), Count: 1, Words: lessonWords[level], Kind: "reading",
 		Idea: slotIdea(sl), GrammarPointID: sl.Grammar[0],
 	}
-	if per := targetWords[p.Level]; per > 0 {
-		plan, err := s.Topics.WordPlan(ctx, cat.ID, p.Level, 1, per)
+	if per := targetWords[level]; per > 0 {
+		plan, err := s.Topics.WordPlan(ctx, found.ID, level, 1, per)
 		if err == nil && len(plan.Groups) == 1 && len(plan.Groups[0]) > 0 {
 			in.TargetWords = plan.Groups
 		}
 	}
-	res, err := s.Lessons.Generate(ctx, cat.ID, in)
+	res, err := s.Lessons.Generate(ctx, found.ID, in)
 	if err != nil {
 		return SlotView{}, err
 	}
@@ -316,14 +500,14 @@ func (s *Service) GenerateSlot(ctx context.Context, key string) (SlotView, error
 	}
 	d := res.Drafts[0]
 	l, err := s.Lessons.Create(ctx, lesson.Input{
-		Title: sl.Title, Content: d.Content, TopicID: cat.ID, Level: lesson.Level(p.Level),
+		Title: sl.Title, Content: d.Content, TopicID: found.ID, Level: lesson.Level(level),
 		Source: aiSource, License: aiLicense, GrammarPointID: sl.Grammar[0], TargetWords: d.TargetWords,
 		AppendToRoadmap: true, Draft: true,
 	})
 	if err != nil {
 		return SlotView{}, err
 	}
-	if err := s.arrange(ctx, t, cat.ID, p.Level); err != nil {
+	if err := s.arrange(ctx, t, found.ID, level); err != nil {
 		return SlotView{}, err
 	}
 	published, err := s.published(ctx)
@@ -366,14 +550,17 @@ type TopicInfo struct {
 	Extra map[string]bool
 }
 
-// LearnerTopic returns the course information of a topic of level, by its catalogue name.
-func LearnerTopic(level, topicName string) (TopicInfo, bool) {
-	p, ok := ByLevel(level)
-	if !ok {
+// LearnerTopic returns the approved course information of a catalogue topic at level, found by
+// id, else by name.
+func (s *Service) LearnerTopic(ctx context.Context, level, topicID, topicName string) (TopicInfo, bool) {
+	p, err := s.approved(ctx, level)
+	if err != nil || p == nil {
 		return TopicInfo{}, false
 	}
 	for _, t := range p.Topics {
-		if NameKey(t.Name) != NameKey(topicName) {
+		byID := t.TopicID != "" && t.TopicID == topicID
+		byName := t.TopicID == "" && NameKey(t.Name) == NameKey(topicName)
+		if !byID && !byName {
 			continue
 		}
 		info := TopicInfo{Number: t.Number, CanDoVi: t.CanDoVi, Extra: map[string]bool{}}
@@ -392,14 +579,25 @@ func LearnerTopic(level, topicName string) (TopicInfo, bool) {
 	return TopicInfo{}, false
 }
 
-// Removed tells what Remove did: the lesson left its roadmap, and a draft was deleted too.
+// PointTopics maps each grammar point the approved course of level teaches to its first topic,
+// and lists the points in course order; ok is false when the level has no approved course.
+func (s *Service) PointTopics(ctx context.Context, level string) (map[string]PointTopic, []string, bool) {
+	p, err := s.approved(ctx, level)
+	if err != nil || p == nil {
+		return nil, nil, false
+	}
+	topics, order := p.PointTopics()
+	return topics, order, true
+}
+
+// Removed tells what Remove did: the lesson left its roadmap and was deleted.
 type Removed struct {
 	Deleted bool
 }
 
-// Remove takes a lesson out of its topic's roadmap so that its slot is empty again (added
-// 2026-10-22, "Gỡ" on the course page). A draft, never seen by learners, is deleted as well; a
-// published lesson stays in the lesson list, as "Gỡ" on the roadmap page leaves it.
+// Remove takes a lesson out of its topic's roadmap and deletes it, as the lesson list does, so
+// that its slot is empty again (added 2026-10-22, "Gỡ" on the course page; published lessons are
+// deleted too since 2026-10-23, at the admin's request).
 func (s *Service) Remove(ctx context.Context, lessonID string) (Removed, error) {
 	l, err := s.Lessons.Get(ctx, lessonID)
 	if err != nil {
@@ -420,11 +618,81 @@ func (s *Service) Remove(ctx context.Context, lessonID string) (Removed, error) 
 			return Removed{}, fmt.Errorf("curriculum: remove from roadmap: %w", err)
 		}
 	}
-	if !l.Draft {
-		return Removed{}, nil
-	}
 	if err := s.Lessons.Delete(ctx, lessonID); err != nil {
-		return Removed{}, fmt.Errorf("curriculum: delete draft: %w", err)
+		return Removed{}, fmt.Errorf("curriculum: delete lesson: %w", err)
 	}
 	return Removed{Deleted: true}, nil
+}
+
+// CourseTopic is a catalogue topic in the approved course of a level, with its place.
+type CourseTopic struct {
+	TopicID string
+	Name    string
+	Number  int
+}
+
+// CourseTopics lists, per level with an approved course, its topics that the catalogue has (added
+// 2026-10-23: the roadmap page says which topics follow a course).
+func (s *Service) CourseTopics(ctx context.Context) (map[string][]CourseTopic, error) {
+	cat, err := s.catalogue(ctx)
+	if err != nil {
+		return nil, err
+	}
+	out := map[string][]CourseTopic{}
+	for _, level := range Levels {
+		p, err := s.approved(ctx, level)
+		if err != nil {
+			return nil, err
+		}
+		if p == nil {
+			continue
+		}
+		list := []CourseTopic{}
+		for _, t := range p.Topics {
+			if found, ok := cat.find(t); ok {
+				list = append(list, CourseTopic{TopicID: found.ID, Name: found.Name, Number: t.Number})
+			}
+		}
+		out[level] = list
+	}
+	return out, nil
+}
+
+// LevelSummary is where the course of a level is, for the admin home (added 2026-10-23).
+type LevelSummary struct {
+	Level  string
+	Status Status
+	// HasDraft is true while a draft edits or writes the course.
+	HasDraft bool
+	// Applied, Empty and Drafts describe the approved course: the order is applied, slots
+	// without a lesson, slots holding a draft lesson.
+	Applied       bool
+	Empty, Drafts int
+}
+
+// Summary lists the levels that have a course or a draft.
+func (s *Service) Summary(ctx context.Context) ([]LevelSummary, error) {
+	var out []LevelSummary
+	for _, level := range Levels {
+		c, err := s.course(ctx, level)
+		if errors.Is(err, ErrNoPlan) {
+			continue
+		}
+		if err != nil {
+			return nil, err
+		}
+		sum := LevelSummary{Level: level, Status: StatusDraft, HasDraft: c.Draft != nil}
+		if c.Approved != nil {
+			// The board of the approved course, even while a draft is open.
+			c.Draft = nil
+			b, err := s.board(ctx, level, c, false)
+			if err != nil {
+				return nil, err
+			}
+			sum.Status, sum.Applied, sum.Drafts = StatusApproved, b.Applied, b.Drafts
+			sum.Empty = b.Main + b.Extra - b.Published - b.Drafts
+		}
+		out = append(out, sum)
+	}
+	return out, nil
 }

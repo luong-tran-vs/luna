@@ -18,7 +18,10 @@ import (
 const MinGrammarUses = 3
 
 // lengthRange is the word count expected of a lesson of a level: the admin's default ±25 %.
-var lengthRange = map[string][2]int{"A1": {90, 150}, "A2": {120, 200}}
+func lengthRange(level string) ([2]int, bool) {
+	n, ok := lessonWords[level]
+	return [2]int{n * 3 / 4, n * 5 / 4}, ok
+}
 
 // usage finds the uses of an A1 grammar point; a point without one is not counted.
 var usage = map[string]*regexp.Regexp{
@@ -107,7 +110,7 @@ func Inspect(l lesson.Lesson) Checks {
 		}
 		add("targetWords", len(missing) == 0, true, msg)
 	}
-	if r, ok := lengthRange[string(l.Level)]; ok {
+	if r, ok := lengthRange(string(l.Level)); ok {
 		n := len(strings.Fields(text))
 		add("length", n >= r[0] && n <= r[1], true, fmt.Sprintf("%d từ (nên %d–%d)", n, r[0], r[1]))
 	}
@@ -132,7 +135,10 @@ func Inspect(l lesson.Lesson) Checks {
 		add("dialogue", questions >= 3 && copied == 0, true, msg)
 	}
 	out.Above = cefr.Above(text, string(l.Level))
-	if len(out.Above) > 0 {
+	if cefr.Rank(string(l.Level)) >= cefr.Rank("B2") {
+		// The CEFR-J list stops at B2: no word is above these levels.
+		add("level", true, false, fmt.Sprintf("Không kiểm tra từ vượt trình độ %s", l.Level))
+	} else if len(out.Above) > 0 {
 		words := make([]string, len(out.Above))
 		for i, w := range out.Above {
 			words[i] = fmt.Sprintf("%s (%s)", w.Text, w.Level)

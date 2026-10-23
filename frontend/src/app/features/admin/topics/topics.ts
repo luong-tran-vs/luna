@@ -1,13 +1,4 @@
-import {
-  afterNextRender,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  ElementRef,
-  inject,
-  Injector,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -16,8 +7,6 @@ import { firstValueFrom } from 'rxjs';
 import { ApiError } from '../../../core/interceptors/error-interceptor';
 import { Level, LEVELS } from '../../../core/models/lesson';
 import { sortTopics, sortTopicsAt, Topic } from '../../../core/models/topic';
-import { SuggestedTopic } from '../../../core/models/topic-curriculum';
-import { TopicSuggestions } from './topic-suggestions/topic-suggestions';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { AdminApiService } from '../admin-api.service';
 import { Loading } from '../../../shared/components/loading/loading';
@@ -45,15 +34,13 @@ interface FilterOption {
  */
 @Component({
   selector: 'lu-topics',
-  imports: [Loading, ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink, TopicSuggestions],
+  imports: [Loading, ConfirmDialog, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
   templateUrl: './topics.html',
   styleUrl: './topics.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Topics {
   private readonly api = inject(AdminApiService);
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly injector = inject(Injector);
 
   protected readonly topics = signal<Topic[] | null>(null);
   /** The filter picked above the list; null (or a level left without topics) shows the first one. */
@@ -206,27 +193,6 @@ export class Topics {
     }
     [ids[index], ids[to]] = [ids[to], ids[index]];
     await this.saveOrder(level, ids);
-  }
-
-  /** Áp dụng thứ tự gợi ý: orders the level as suggested and shows it. */
-  protected async applySuggestion(order: { level: Level; topicIds: string[] }): Promise<void> {
-    if (await this.saveOrder(order.level, order.topicIds)) {
-      this.filter.set(order.level);
-    }
-  }
-
-  /** Tạo from a suggestion: the add form, filled with its name and description. */
-  protected createSuggested(s: SuggestedTopic): void {
-    this.open('new', { name: s.name, description: s.description });
-    // The form opens above the suggestions: bring it into view.
-    afterNextRender(
-      () => {
-        const name = this.host.nativeElement.querySelector<HTMLInputElement>('#topic-name');
-        name?.scrollIntoView?.({ block: 'center' });
-        name?.focus();
-      },
-      { injector: this.injector },
-    );
   }
 
   private async saveOrder(level: Level, ids: string[]): Promise<boolean> {

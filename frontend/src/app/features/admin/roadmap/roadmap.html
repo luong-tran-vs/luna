@@ -31,6 +31,14 @@
         (changed)="selectLevel($event)"
       />
     </div>
+    @if (inCourse(); as c) {
+      <p class="course-note" role="note">
+        Chủ đề này thuộc giáo trình {{ selectedLevel() }} (chủ đề {{ c.number }}). Thứ tự bài theo
+        giáo trình, sinh bài theo ô ở trang
+        <a routerLink="/admin/curriculum" [queryParams]="{ level: selectedLevel() }">Giáo trình</a>.
+        Đổi thứ tự ở đây sẽ bị xếp lại khi bấm “Áp dụng thứ tự”.
+      </p>
+    }
   }
 
   @if (lowTopics().length > 0) {

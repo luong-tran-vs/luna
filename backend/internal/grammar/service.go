@@ -12,7 +12,7 @@ import (
 )
 
 // generateTimeout bounds the AI call that writes one grammar lesson.
-const generateTimeout = 120 * time.Second
+const generateTimeout = 5 * time.Minute
 
 // ProgressNew is the status of a point the learner has not started; it is never stored.
 const ProgressNew ProgressStatus = "new"
@@ -309,7 +309,7 @@ func (s *Service) List(ctx context.Context, userID, level string) (Overview, err
 		out.Points = append(out.Points, ps)
 	}
 	if level != "" && s.course != nil {
-		if topics, order, ok := s.course(level); ok {
+		if topics, order, ok := s.course(ctx, level); ok {
 			out.Points = inCourseOrder(out.Points, topics, order)
 		}
 	}

@@ -53,6 +53,7 @@ type callJSON struct {
 	At            time.Time `json:"at"`
 	Model         string    `json:"model"`
 	Op            string    `json:"op"`
+	Key           int       `json:"key"`
 	Outcome       Outcome   `json:"outcome"`
 	Status        int       `json:"status"`
 	PromptTokens  int       `json:"promptTokens"`
@@ -110,7 +111,7 @@ func (h *Handler) summary(w http.ResponseWriter, r *http.Request) {
 
 func toCall(u ai.Usage) callJSON {
 	return callJSON{
-		At: u.At, Model: u.Model, Op: u.Op, Outcome: OutcomeOf(u.Status), Status: u.Status,
+		At: u.At, Model: u.Model, Op: u.Op, Key: u.Key, Outcome: OutcomeOf(u.Status), Status: u.Status,
 		PromptTokens: u.PromptTokens, OutputTokens: u.OutputTokens, ThoughtTokens: u.ThoughtTokens,
 		TotalTokens: u.TotalTokens, DurationMs: u.Duration.Milliseconds(),
 	}

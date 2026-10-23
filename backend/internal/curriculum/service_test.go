@@ -2,11 +2,13 @@ package curriculum
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"slices"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/lesson"
@@ -135,7 +137,44 @@ func newService() (*Service, *fakeTopics, *fakeLessons) {
 	ft.add("music", "Old Lesson", false)
 	ft.add("music", "listening to music at home", true)
 	fl := &fakeLessons{topics: ft}
-	return &Service{Topics: ft, Lessons: fl, Grammar: fakeGrammar{}}, ft, fl
+	return &Service{Topics: ft, Lessons: fl, Grammar: fakeGrammar{}, Repo: &fakeRepo{}, Now: fixedNow}, ft, fl
+}
+
+func fixedNow() time.Time { return time.Date(2026, 10, 23, 9, 0, 0, 0, time.UTC) }
+
+// fakeRepo keeps the courses in memory, as the database would: a copy in and out.
+type fakeRepo struct {
+	courses map[string]Course
+	saves   int
+}
+
+func clonePlan(p *Plan) *Plan {
+	if p == nil {
+		return nil
+	}
+	data, _ := json.Marshal(p)
+	var out Plan
+	_ = json.Unmarshal(data, &out)
+	return &out
+}
+
+func (f *fakeRepo) Get(_ context.Context, level string) (Course, error) {
+	c, ok := f.courses[level]
+	if !ok {
+		return Course{}, ErrNoPlan
+	}
+	c.Approved, c.Draft = clonePlan(c.Approved), clonePlan(c.Draft)
+	return c, nil
+}
+
+func (f *fakeRepo) Save(_ context.Context, c Course) error {
+	if f.courses == nil {
+		f.courses = map[string]Course{}
+	}
+	c.Approved, c.Draft = clonePlan(c.Approved), clonePlan(c.Draft)
+	f.courses[c.Level] = c
+	f.saves++
+	return nil
 }
 
 func TestBoard(t *testing.T) {
@@ -163,8 +202,12 @@ func TestBoard(t *testing.T) {
 	if b.Topics[0].TopicID != "" || b.Topics[0].Grammar[0].Published {
 		t.Errorf("topic 1 is not in the catalogue and to be is not published: %+v", b.Topics[0])
 	}
-	if _, err := s.Board(context.Background(), "C2"); !errors.Is(err, ErrNoPlan) {
-		t.Errorf("C2: %v", err)
+	if b.Status != StatusApproved || !b.HasApproved || len(b.Points) != 18 {
+		t.Errorf("status %s, approved %v, %d points", b.Status, b.HasApproved, len(b.Points))
+	}
+	c2, err := s.Board(context.Background(), "C2")
+	if err != nil || c2.Status != StatusNone || len(c2.Topics) != 0 || len(c2.Points) == 0 {
+		t.Errorf("C2: %+v, %v", c2, err)
 	}
 }
 
@@ -238,14 +281,14 @@ func TestGenerateSlot(t *testing.T) {
 func TestRemove(t *testing.T) {
 	s, ft, fl := newService()
 	ctx := context.Background()
-	// A published lesson leaves the roadmap and stays.
+	// A published lesson leaves the roadmap and is deleted (before the roadmap change, delete refuses).
 	res, err := s.Remove(ctx, "l2")
-	if err != nil || res.Deleted || !slices.Equal(ft.find("music").Roadmaps["A1"], []string{"l1", "l3", "l4"}) || len(fl.deleted) != 0 {
-		t.Fatalf("published: %+v, %v, roadmap %v", res, err, ft.find("music").Roadmaps["A1"])
+	if err != nil || !res.Deleted || !slices.Equal(ft.find("music").Roadmaps["A1"], []string{"l1", "l3", "l4"}) || !slices.Equal(fl.deleted, []string{"l2"}) {
+		t.Fatalf("published: %+v, %v, roadmap %v, deleted %v", res, err, ft.find("music").Roadmaps["A1"], fl.deleted)
 	}
-	// A draft is deleted too.
+	// So is a draft.
 	res, err = s.Remove(ctx, "l4")
-	if err != nil || !res.Deleted || !slices.Equal(fl.deleted, []string{"l4"}) || slices.Contains(ft.find("music").Roadmaps["A1"], "l4") {
+	if err != nil || !res.Deleted || !slices.Equal(fl.deleted, []string{"l2", "l4"}) || slices.Contains(ft.find("music").Roadmaps["A1"], "l4") {
 		t.Fatalf("draft: %+v, %v", res, err)
 	}
 	if _, err := s.Remove(ctx, "nope"); !errors.Is(err, lesson.ErrNotFound) {

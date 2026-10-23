@@ -13,7 +13,7 @@ import (
 
 // generateWriteTimeout replaces the server's write timeout for the generate route, which waits up
 // to generateTimeout for the AI.
-const generateWriteTimeout = 135 * time.Second
+const generateWriteTimeout = 5*time.Minute + 10*time.Second
 
 // Handler serves the admin grammar lesson API and the learner grammar API.
 type Handler struct {

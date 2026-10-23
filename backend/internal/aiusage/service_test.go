@@ -3,6 +3,7 @@ package aiusage
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log/slog"
 	"slices"
 	"sync"
@@ -13,10 +14,10 @@ import (
 )
 
 type fakeRepo struct {
-	mu      sync.Mutex
-	calls   []ai.Usage
-	deleted []time.Time
-	err     error
+	mu    sync.Mutex
+	calls []ai.Usage
+	kept  []int
+	err   error
 }
 
 func (f *fakeRepo) Add(_ context.Context, u ai.Usage) error {
@@ -42,10 +43,14 @@ func (f *fakeRepo) Since(_ context.Context, from time.Time) ([]ai.Usage, error) 
 	return out, nil
 }
 
-func (f *fakeRepo) DeleteBefore(_ context.Context, t time.Time) error {
+func (f *fakeRepo) KeepLatest(_ context.Context, n int) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	f.deleted = append(f.deleted, t)
+	f.kept = append(f.kept, n)
+	if len(f.calls) > n {
+		slices.SortFunc(f.calls, func(a, b ai.Usage) int { return a.At.Compare(b.At) })
+		f.calls = slices.Clone(f.calls[len(f.calls)-n:])
+	}
 	return nil
 }
 
@@ -99,20 +104,36 @@ func TestSummary(t *testing.T) {
 	}
 }
 
-func TestRecordUsagePrunesHourly(t *testing.T) {
+func TestRecordUsageKeepsTheLatest(t *testing.T) {
 	t.Parallel()
 	now := time.Date(2026, 10, 8, 9, 0, 0, 0, time.UTC)
 	repo := &fakeRepo{}
 	svc := NewService(repo, func() time.Time { return now }, slog.New(slog.DiscardHandler))
-	svc.RecordUsage(t.Context(), ai.Usage{Op: "a"})
-	now = now.Add(time.Minute)
-	svc.RecordUsage(t.Context(), ai.Usage{Op: "b"})
-	now = now.Add(time.Hour)
-	svc.RecordUsage(t.Context(), ai.Usage{Op: "c"})
-	if len(repo.calls) != 3 || len(repo.deleted) != 2 || !repo.deleted[1].Equal(now.Add(-Keep)) {
-		t.Fatalf("calls %d, deleted %v", len(repo.calls), repo.deleted)
+	for i := range MaxKept + 5 {
+		svc.RecordUsage(t.Context(), ai.Usage{Op: fmt.Sprint(i)})
+		now = now.Add(time.Second)
+	}
+	if len(repo.calls) != MaxKept || repo.calls[0].Op != "5" || len(repo.kept) != MaxKept+5 || repo.kept[0] != MaxKept {
+		t.Fatalf("%d calls, first %q, kept %v…", len(repo.calls), repo.calls[0].Op, repo.kept[:1])
 	}
 	// A failing database is only logged.
 	repo.err = errors.New("down")
 	svc.RecordUsage(t.Context(), ai.Usage{Op: "d"})
+}
+
+func TestSummaryPerKey(t *testing.T) {
+	t.Parallel()
+	now := time.Date(2026, 10, 23, 9, 0, 0, 0, time.UTC)
+	calls := []ai.Usage{
+		{At: now.Add(-2 * time.Minute), Model: "m", Status: 429},
+		{At: now.Add(-2 * time.Minute), Model: "m", Key: 1, Status: 200},
+		{At: now.Add(-time.Minute / 2), Model: "m", Key: 1, Status: 200},
+	}
+	s := summarize(calls, now)
+	if len(s.Today) != 2 || s.Today[0].Model != "m" || s.Today[1].Model != "m · key phụ" || s.Today[1].Requests != 2 {
+		t.Fatalf("today %+v", s.Today)
+	}
+	if len(s.LastMinute) != 1 || s.LastMinute[0].Model != "m · key phụ" {
+		t.Errorf("last minute %+v", s.LastMinute)
+	}
 }

@@ -21,7 +21,7 @@ const (
 	maxGenerateWords = 800
 	maxGenerateIdea  = 500
 	// generateTimeout bounds the AI call of one batch.
-	generateTimeout = 120 * time.Second
+	generateTimeout = 5 * time.Minute
 )
 
 // errGenerateAI wraps every error of the AI call so handlers can tell it from storage errors.

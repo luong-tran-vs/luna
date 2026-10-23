@@ -988,7 +988,11 @@ export class LessonDetail {
       this.study.set(study);
       if (study.status === 'completed') {
         if (study.goalCompleted) {
-          await this.router.navigateByUrl('/goal?completed=1');
+          // The last lesson of the topic: its summary, which leads on to the next topic.
+          const g = study.goal;
+          await this.router.navigateByUrl(
+            g ? `/topics/${g.topicId}/summary?level=${g.level}` : '/goal?completed=1',
+          );
           return;
         }
         this.lessonDone.set(true);

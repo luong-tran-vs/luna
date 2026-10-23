@@ -1,0 +1,250 @@
+/* The topic summary: the rating first, then the figures, the skills, what to study next. */
+
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.form-alert {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.hero {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.eyebrow {
+  margin: 0;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.topic-name {
+  margin: 0;
+  font: var(--text-2xl) var(--font-ui);
+  font-weight: 700;
+}
+
+.done-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ring {
+  --ring-size: 88px;
+  --ring-font: var(--text-lg);
+}
+
+.rating-text {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.rating-text p {
+  margin: 0;
+}
+
+.rating-title {
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+}
+
+.can-do {
+  margin: 0;
+  padding: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fact {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-1);
+  padding: var(--space-3);
+}
+
+.fact-value {
+  font: var(--text-xl) var(--font-ui);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.fact-label {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.span {
+  margin: 0;
+}
+
+.skill-list,
+.advice,
+.plain-list,
+.lessons {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill {
+  display: grid;
+  gap: var(--space-1);
+
+  --fill: var(--color-primary);
+}
+
+.skill[data-skill='reading'] {
+  --fill: var(--color-skill-read);
+}
+
+.skill[data-skill='listening'] {
+  --fill: var(--color-skill-listen);
+}
+
+.skill[data-skill='writing'] {
+  --fill: var(--color-skill-write);
+}
+
+.skill-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.skill-label {
+  font-weight: 600;
+}
+
+.skill-value {
+  margin-left: auto;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mark {
+  padding: 1px var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+.mark-strong {
+  color: var(--color-ok);
+  border: 1px solid currentcolor;
+}
+
+.mark-weak {
+  color: var(--color-bad);
+  border: 1px solid currentcolor;
+}
+
+.skill-track {
+  height: 8px;
+  overflow: hidden;
+  background: var(--color-track);
+  border-radius: var(--radius-full);
+}
+
+.skill-fill {
+  display: block;
+  height: 100%;
+  background: var(--fill);
+  border-radius: inherit;
+}
+
+.skill-detail {
+  font-size: var(--text-xs);
+}
+
+.advice li {
+  position: relative;
+  padding-left: var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.advice li::before {
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  content: '';
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.advice a {
+  color: var(--color-primary-ink);
+}
+
+.plain-list {
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.mistakes li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.lessons {
+  gap: var(--space-2);
+  font: var(--text-sm) var(--font-ui);
+}
+
+.lessons li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.lessons li.is-done {
+  color: var(--color-text);
+}
+
+.lessons li.is-done lu-icon {
+  color: var(--color-ok);
+}
+
+.lessons a {
+  color: inherit;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

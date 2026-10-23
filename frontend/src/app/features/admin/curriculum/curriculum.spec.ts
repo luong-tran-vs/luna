@@ -58,6 +58,7 @@ const topic = (
   canDoVi: 'chào hỏi',
   topicId,
   position: number,
+  words: 12,
   grammar: [toBe, pronouns],
   slots,
   others: [],
@@ -70,6 +71,10 @@ const topic = (
  */
 const board = (applied = true): CurriculumBoard => ({
   level: 'A1',
+  status: 'approved',
+  hasApproved: true,
+  warnings: [],
+  points: [toBe, pronouns],
   applied,
   main: 4,
   extra: 3,
@@ -128,7 +133,7 @@ describe('Curriculum', () => {
     });
   const statusOf = (n: number) => text(topicCard(n).querySelector('.topic-status'));
   const alertOf = (n: number) => text(topicCard(n).querySelector('[role="alert"]'));
-  const chips = () => Array.from(el.querySelectorAll<HTMLButtonElement>('[role="radio"]'));
+  const chips = () => Array.from(el.querySelectorAll<HTMLButtonElement>('.filters [role="radio"]'));
   const dialog = () => el.querySelector('[role="alertdialog"]');
 
   const configure = async () => {
@@ -144,6 +149,8 @@ describe('Curriculum', () => {
     fixture = TestBed.createComponent(Curriculum);
     el = fixture.nativeElement as HTMLElement;
     await fixture.whenStable();
+    // The catalogue's names, suggested in a draft.
+    http.expectOne('/admin/topics').flush({ topics: [{ id: 't1', name: 'Gia đình' }] });
   };
   const expectBoard = () =>
     http.expectOne((r) => r.url === '/admin/curriculum' && r.method === 'GET');
@@ -180,6 +187,13 @@ describe('Curriculum', () => {
       expect(el.querySelectorAll('.topic').length).toBe(2);
     });
 
+    it('shows the words of each topic with a link to edit them', async () => {
+      const words = el.querySelector('#topic-body-1 .words');
+      expect(text(words)).toBe('Từ vựng: 12 từ dùng được ở A1 · Sửa từ vựng chủ đề Chủ đề 1');
+      expect(words?.classList.contains('short')).toBe(false);
+      expect(words?.querySelector('a')?.getAttribute('href')).toBe('/admin/topics/t1/words');
+    });
+
     it('offers the apply button as a small secondary action once applied', () => {
       const apply = button(el, 'Áp dụng thứ tự');
       expect(apply.className).toBe('btn btn-sm');
@@ -188,7 +202,7 @@ describe('Curriculum', () => {
     });
 
     it('shows the filters with the number of lines of each state', () => {
-      expect(el.querySelector('[role="radiogroup"]')?.getAttribute('aria-label')).toBe('Lọc bài');
+      expect(el.querySelector('.filters')?.getAttribute('aria-label')).toBe('Lọc bài');
       expect(chips().map(text)).toEqual(['Tất cả', 'Còn trống (5)', 'Nháp (2)', 'Đã đăng (1)']);
       expect(chips().map((c) => c.getAttribute('aria-checked'))).toEqual([
         'true',
@@ -570,7 +584,7 @@ describe('Curriculum', () => {
 
     it('removes and deletes a draft after confirming, the slot is empty again', async () => {
       await removeFrom(slotRow('a1-01-2'));
-      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ bài khỏi giáo trình?');
+      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ và xoá bài?');
       expect(text(dialog()!.querySelector('.message'))).toBe(
         'Gỡ và xoá bài nháp “Bài d1”? Ô sẽ trống để sinh lại.',
       );
@@ -584,25 +598,24 @@ describe('Curriculum', () => {
       expectBoard().flush({ ...after, drafts: 0 });
       await settle();
       expect(slotRow('a1-01-2').dataset['state']).toBe('empty');
-      expect(statusOf(1)).toBe('Đã gỡ và xoá bài nháp “Bài d1”.');
+      expect(statusOf(1)).toBe('Đã gỡ và xoá bài “Bài d1”.');
       expect(text(el.querySelector('.summary'))).toBe('1/7 bài đã đăng · 0 nháp · 6 ô trống');
       expect(document.activeElement).toBe(toggleOf(1));
     });
 
-    it('takes a published lesson out of the course and keeps it', async () => {
+    it('removes and deletes a published lesson too', async () => {
       await removeFrom(slotRow('a1-01-3'));
       expect(text(dialog()!.querySelector('.message'))).toBe(
-        'Gỡ “Bài p1” khỏi giáo trình? Bài vẫn còn trong danh sách Bài học, người học đã học vẫn giữ tiến độ.',
+        'Gỡ và xoá bài đã đăng “Bài p1”? Bài bị xoá khỏi lộ trình và danh sách Bài học, người học không còn thấy bài này. Ô sẽ trống để sinh lại.',
       );
       await confirm();
-      expectRemove('p1').flush({ deleted: false });
+      expectRemove('p1').flush({ deleted: true });
       await settle();
       const after = board();
       after.topics[0].slots[2] = { ...after.topics[0].slots[2], lesson: null };
-      after.topics[0].others = [...after.topics[0].others, lesson('p1', false)];
       expectBoard().flush({ ...after, published: 0 });
       await settle();
-      expect(statusOf(1)).toBe('Đã gỡ “Bài p1” khỏi giáo trình.');
+      expect(statusOf(1)).toBe('Đã gỡ và xoá bài “Bài p1”.');
       expect(slotRow('a1-01-3').dataset['state']).toBe('empty');
     });
 
@@ -616,7 +629,7 @@ describe('Curriculum', () => {
       expectBoard().flush(after);
       await settle();
       expect(row('other-o1')).toBeNull();
-      expect(statusOf(1)).toBe('Đã gỡ và xoá bài nháp “Bài o1”.');
+      expect(statusOf(1)).toBe('Đã gỡ và xoá bài “Bài o1”.');
     });
 
     it('does nothing when cancelled and gives the focus back', async () => {
@@ -643,6 +656,87 @@ describe('Curriculum', () => {
       expect(alertOf(1)).toBe('Không tìm thấy bài.');
       expect(slotRow('a1-01-3').dataset['state']).toBe('published');
       http.expectNone((r) => r.url === '/admin/curriculum' && r.method === 'GET');
+    });
+  });
+
+  describe('levels', () => {
+    const levelRadio = (l: string) =>
+      Array.from(el.querySelectorAll<HTMLButtonElement>('lu-level-picker [role="radio"]')).find(
+        (b) => text(b).startsWith(l),
+      )!;
+    const none = (level: string): CurriculumBoard => ({
+      ...board(),
+      level,
+      status: 'none',
+      hasApproved: false,
+      topics: [],
+      main: 0,
+      extra: 0,
+      published: 0,
+      drafts: 0,
+    });
+
+    it('reads another level when picked, and offers the AI for a level without a course', async () => {
+      await setup();
+      expect(levelRadio('A1').getAttribute('aria-checked')).toBe('true');
+      levelRadio('A2').click();
+      await settle();
+      const req = expectBoard();
+      expect(req.request.params.get('level')).toBe('A2');
+      req.flush(none('A2'));
+      await settle();
+      expect(text(el.querySelector('h1'))).toBe('Giáo trình A2');
+      expect(text(el.querySelector('.empty-title'))).toBe('Chưa có giáo trình A2');
+      expect(el.querySelector('.filters')).toBeNull();
+      expect(el.querySelector('[role="progressbar"]')).toBeNull();
+
+      button(el, 'Soạn giáo trình bằng AI').click();
+      await settle();
+      expect(text(el.querySelector('[role="status"]'))).toBe('AI đang soạn giáo trình A2…');
+      const draft = http.expectOne(
+        (r) => r.url === '/admin/curriculum/draft' && r.method === 'POST',
+      );
+      expect(draft.request.params.get('level')).toBe('A2');
+      draft.flush({ ...board(), level: 'A2', status: 'draft', hasApproved: false });
+      await settle();
+      expect(el.querySelector('lu-curriculum-draft')).not.toBeNull();
+      expect(text(el.querySelector('.badge-draft'))).toBe('Bản nháp, chưa duyệt');
+    });
+
+    it('shows the server message when the AI fails', async () => {
+      await setup(none('A1'));
+      button(el, 'Soạn giáo trình bằng AI').click();
+      await settle();
+      http
+        .expectOne((r) => r.url === '/admin/curriculum/draft')
+        .flush(
+          { error: 'ai_failed', message: 'AI soạn giáo trình thất bại, vui lòng thử lại.' },
+          { status: 502, statusText: 'Bad Gateway' },
+        );
+      await settle();
+      expect(text(el.querySelector('.form-alert'))).toBe(
+        'AI soạn giáo trình thất bại, vui lòng thử lại.',
+      );
+    });
+
+    it('opens a draft of the approved course with Sửa giáo trình', async () => {
+      await setup();
+      button(el, 'Sửa giáo trình').click();
+      await settle();
+      http
+        .expectOne((r) => r.url === '/admin/curriculum/edit' && r.method === 'POST')
+        .flush({ ...board(), status: 'draft' });
+      await settle();
+      expect(el.querySelector('lu-curriculum-draft')).not.toBeNull();
+      expect(el.querySelector('.filters')).toBeNull();
+      expect(text(el.querySelector('.intro'))).toContain('Giáo trình đã duyệt vẫn dùng');
+    });
+
+    it('lists what the approved course lacks', async () => {
+      await setup({ ...board(), warnings: ['Mới có 2 chủ đề, nên có ít nhất 7.'] });
+      const w = el.querySelector('.course-warnings');
+      expect(text(w?.querySelector('summary'))).toBe('Giáo trình cần xem lại (1)');
+      expect(text(w?.querySelector('li'))).toBe('Mới có 2 chủ đề, nên có ít nhất 7.');
     });
   });
 

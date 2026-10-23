@@ -33,6 +33,7 @@ describe('AiUsage', () => {
         at: '2026-10-08T04:59:50Z',
         model: 'flash',
         op: 'word_meanings',
+        key: 1,
         outcome: 'quota',
         status: 429,
         promptTokens: 0,
@@ -76,6 +77,7 @@ describe('AiUsage', () => {
 
     expect(el.textContent).toContain('Chú thích bài');
     expect(el.textContent).toContain('Điền nghĩa, phiên âm (kho từ)');
+    expect(el.textContent).toContain('key phụ');
     expect(el.textContent).toContain('Hết lượt');
     expect(el.textContent).toContain('Mỗi chức năng tốn bao nhiêu request');
   });

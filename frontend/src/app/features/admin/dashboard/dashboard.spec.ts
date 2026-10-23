@@ -62,6 +62,10 @@ describe('dashboard helpers', () => {
       topics: [topic('t1', { levels: [topic('x').levels[0], lowA2] }), topic('t2')],
       grammar: [grammar('p1', 'draft'), grammar('p2', 'published')],
       reports: [report(2), report(1)],
+      curricula: [
+        { level: 'A1', status: 'approved', hasDraft: false, applied: true, empty: 4, drafts: 2 },
+        { level: 'A2', status: 'draft', hasDraft: true, applied: false, empty: 0, drafts: 0 },
+      ],
     });
     expect(items.map((i) => [i.count, i.label])).toEqual([
       [1, 'bài có chỗ AI đánh dấu cần xem'],
@@ -71,7 +75,12 @@ describe('dashboard helpers', () => {
       [1, 'lộ trình sắp hết bài chưa học'],
       [3, 'báo lỗi bài tập ngữ pháp từ người học'],
       [1, 'bài ngữ pháp còn là bản nháp'],
+      [2, 'bài nháp trong giáo trình A1 chờ đăng'],
+      [4, 'ô trống trong giáo trình A1'],
+      [1, 'bản nháp giáo trình A2 chờ duyệt'],
     ]);
+    expect(items.at(-1)?.link).toBe('/admin/curriculum');
+    expect(items.at(-1)?.query).toEqual({ level: 'A2' });
   });
 });
 
@@ -89,6 +98,7 @@ describe('Dashboard', () => {
     http.expectOne('/admin/topics').flush({ topics: [topic('t1'), topic('t2')] });
     http.expectOne('/admin/grammar-lessons').flush({ lessons: grammarLessons });
     http.expectOne('/admin/grammar-reports').flush({ reports: [] });
+    http.expectOne('/admin/curriculum/summary').flush({ levels: [] });
     await settle();
   };
   const text = (selector: string) => Array.from(el.querySelectorAll(selector)).map((n) => n.textContent?.replace(/\s+/g, ' ').trim());
@@ -124,6 +134,32 @@ describe('Dashboard', () => {
     expect(text('.todo-count')).toEqual(['1', '1']);
     expect(text('.todo-label')).toEqual(['bài chưa vào lộ trình', 'bài ngữ pháp còn là bản nháp']);
     expect(el.querySelector('a.recent-item')?.getAttribute('href')).toBe('/admin/lessons/b');
+  });
+
+  it('sends AI generation to the course page and keeps the speech tools out of the menu', async () => {
+    await flush([]);
+    const ai = Array.from(el.querySelectorAll<HTMLAnchorElement>('.action')).find((a) =>
+      a.textContent?.includes('Sinh bài bằng AI'),
+    );
+    expect(ai?.getAttribute('href')).toBe('/admin/curriculum');
+    expect(Array.from(el.querySelectorAll('.tools a')).map((a) => a.getAttribute('href'))).toEqual([
+      '/admin/tts-lab',
+      '/admin/stt-lab',
+    ]);
+  });
+
+  it('links a pending course job to its level', async () => {
+    http.expectOne('/admin/lessons').flush({ lessons: [] });
+    http.expectOne('/admin/topics').flush({ topics: [] });
+    http.expectOne('/admin/grammar-lessons').flush({ lessons: [] });
+    http.expectOne('/admin/grammar-reports').flush({ reports: [] });
+    http.expectOne('/admin/curriculum/summary').flush({
+      levels: [{ level: 'A2', status: 'draft', hasDraft: true, applied: false, empty: 0, drafts: 0 }],
+    });
+    await settle();
+    const todo = el.querySelector<HTMLAnchorElement>('.todo');
+    expect(todo?.getAttribute('href')).toBe('/admin/curriculum?level=A2');
+    expect(text('.todo-label')).toEqual(['bản nháp giáo trình A2 chờ duyệt']);
   });
 
   it('says when nothing is pending', async () => {

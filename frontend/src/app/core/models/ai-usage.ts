@@ -25,6 +25,8 @@ export interface AiCall {
   at: string;
   model: string;
   op: string;
+  /** API key used: 0 the main one, 1 the backup (GEMINI_API_KEY1). */
+  key: number;
   outcome: 'ok' | 'quota' | 'error';
   status: number;
   promptTokens: number;

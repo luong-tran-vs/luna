@@ -9,16 +9,20 @@ import (
 	"github.com/luongtran/luna/backend/internal/ai"
 )
 
-// Keep is how long requests are kept.
+// Keep is how long requests are kept at most (the MongoDB TTL index).
 const Keep = 30 * 24 * time.Hour
+
+// MaxKept is how many requests are kept (2026-10-23, at the admin's request): recording one drops
+// the older ones beyond it, so the page sums up at most the last MaxKept requests.
+const MaxKept = 200
 
 // Repository stores the requests. Implementations live in internal/storage.
 type Repository interface {
 	Add(ctx context.Context, u ai.Usage) error
 	// Since returns the requests made at or after from, oldest first.
 	Since(ctx context.Context, from time.Time) ([]ai.Usage, error)
-	// DeleteBefore removes the requests made before t.
-	DeleteBefore(ctx context.Context, t time.Time) error
+	// KeepLatest removes every request but the n most recent ones.
+	KeepLatest(ctx context.Context, n int) error
 }
 
 // Outcome sorts a request by its HTTP status.

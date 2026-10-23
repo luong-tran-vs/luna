@@ -166,7 +166,18 @@
                       [style.left.%]="(rv.finish.x / pathWidth) * 100"
                       [style.top.px]="rv.finish.y"
                     >
-                      <span class="bubble-btn" aria-hidden="true"><lu-icon name="trophy" /></span>
+                      @if (rv.finish.done) {
+                        <a
+                          class="bubble-btn"
+                          [routerLink]="['/topics', r.topicId, 'summary']"
+                          [queryParams]="{ level: m.level }"
+                          [attr.aria-label]="'Xem tổng kết chủ đề ' + rv.number"
+                          title="Xem tổng kết"
+                          ><lu-icon name="trophy"
+                        /></a>
+                      } @else {
+                        <span class="bubble-btn" aria-hidden="true"><lu-icon name="trophy" /></span>
+                      }
                       <span class="node-label"
                         ><span aria-hidden="true">👑</span>
                         {{ rv.finish.done ? 'Đã hoàn thành' : 'Hoàn thành' }} chủ đề

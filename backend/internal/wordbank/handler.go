@@ -18,11 +18,11 @@ import (
 
 // drawTimeout is how long drawing one picture may keep the request open: longer than the server's
 // write timeout, which suits ordinary requests.
-const drawTimeout = 90 * time.Second
+const drawTimeout = 5*time.Minute + 10*time.Second
 
 // meaningsTimeout is how long filling the meanings and IPA of a topic (up to 300 words in one AI
 // request) may keep the request open.
-const meaningsTimeout = 150 * time.Second
+const meaningsTimeout = 5*time.Minute + 10*time.Second
 
 // Handler serves the admin word bank API (F24).
 type Handler struct {

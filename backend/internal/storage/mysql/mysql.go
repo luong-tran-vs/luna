@@ -25,8 +25,10 @@ import (
 
 	drv "github.com/go-sql-driver/mysql"
 
+	"github.com/luongtran/luna/backend/internal/aimodel"
 	"github.com/luongtran/luna/backend/internal/aiusage"
 	"github.com/luongtran/luna/backend/internal/auth"
+	"github.com/luongtran/luna/backend/internal/curriculum"
 	"github.com/luongtran/luna/backend/internal/export"
 	"github.com/luongtran/luna/backend/internal/grammar"
 	"github.com/luongtran/luna/backend/internal/job"
@@ -228,3 +230,9 @@ func (s *Store) GrammarLessons() grammar.LessonRepository    { return NewGrammar
 func (s *Store) GrammarProgress() grammar.ProgressRepository { return NewGrammarProgress(s.db) }
 
 func (s *Store) GrammarReports() grammar.ReportRepository { return NewGrammarReports(s.db) }
+
+// Curricula keeps the course of each level (added 2026-10-23).
+func (s *Store) Curricula() curriculum.Repository { return NewCurricula(s.db) }
+
+// AIModel keeps the text model the admin chose (added 2026-10-23).
+func (s *Store) AIModel() aimodel.Repository { return NewAIModel(s.db) }

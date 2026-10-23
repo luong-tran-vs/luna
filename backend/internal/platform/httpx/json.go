@@ -27,13 +27,18 @@ func WriteJSON(w http.ResponseWriter, status int, v any) {
 // (415 otherwise), limits the body to 16 KiB and rejects unknown fields (400 invalid_body).
 // On failure it writes the response and returns ErrBadRequest.
 func DecodeJSON(w http.ResponseWriter, r *http.Request, dst any) error {
+	return DecodeJSONLimit(w, r, dst, maxBodyBytes)
+}
+
+// DecodeJSONLimit is DecodeJSON with a body of at most limit bytes, for the few larger bodies.
+func DecodeJSONLimit(w http.ResponseWriter, r *http.Request, dst any, limit int64) error {
 	mediaType, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
 	if err != nil || mediaType != "application/json" {
 		WriteError(w, http.StatusUnsupportedMediaType, "unsupported_media_type", "Yêu cầu phải là JSON")
 		return ErrBadRequest
 	}
 
-	dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, maxBodyBytes))
+	dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, limit))
 	dec.DisallowUnknownFields()
 	if err := dec.Decode(dst); err != nil {
 		WriteError(w, http.StatusBadRequest, "invalid_body", "Dữ liệu gửi lên không hợp lệ")

@@ -78,7 +78,7 @@ func TestProcessAnnotatePassesGrammarFocus(t *testing.T) {
 	}
 	g := e.ai.annotateReq.GrammarFocus
 	if g == nil || g.TitleVi != "Động từ to be (am / is / are)" || g.TitleEn != "The verb to be" ||
-		g.Pattern != "I am / you are / he, she, it is" || g.HintVi == "" {
+		g.Pattern != "I am / you are / he, she, it is; I'm not / isn't / aren't; Am I / Are you / Is he ...?" || g.HintVi == "" {
 		t.Fatalf("GrammarFocus = %+v", g)
 	}
 

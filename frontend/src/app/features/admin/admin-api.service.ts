@@ -2,8 +2,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
+import { AiModelState, AiModelTest } from '../../core/models/ai-model';
 import { AiUsage } from '../../core/models/ai-usage';
-import { CurriculumBoard, CurriculumSlot, LessonChecks } from '../../core/models/curriculum';
+import {
+  CourseTopicRef,
+  CurriculumBoard,
+  CurriculumLevelSummary,
+  CurriculumPlan,
+  CurriculumSlot,
+  LessonChecks,
+} from '../../core/models/curriculum';
 import { GrammarPoint } from '../../core/models/grammar';
 import { GrammarContent, GrammarExerciseInput, GrammarLessonAdmin, GrammarLessonSummary, GrammarReportGroup } from '../../core/models/grammar-admin';
 import { GenerateInput, GenerateResult } from '../../core/models/generate';
@@ -354,6 +362,23 @@ export class AdminApiService {
     return this.http.get<AiUsage>(`${BASE}/ai-usage`);
   }
 
+  aiModel(): Observable<AiModelState> {
+    return this.http.get<AiModelState>(`${BASE}/ai-model`);
+  }
+
+  /**
+   * Chooses the model of every op (empty for GEMINI_MODEL) and the ops' own models, replacing the
+   * earlier choice.
+   */
+  setAiModel(model: string, byOp: Record<string, string>): Observable<AiModelState> {
+    return this.http.put<AiModelState>(`${BASE}/ai-model`, { model, byOp });
+  }
+
+  /** Sends one short request with the model, to see whether it answers and how fast. */
+  testAiModel(model: string): Observable<AiModelTest> {
+    return this.http.post<AiModelTest>(`${BASE}/ai-model/test`, { model });
+  }
+
   importBankWords(): Observable<number> {
     return this.http.post<{ added: number }>(`${BASE}/words/import`, null).pipe(map((r) => r.added));
   }
@@ -423,7 +448,7 @@ export class AdminApiService {
     return this.http.delete<void>(`${BASE}/users/${id}`);
   }
 
-  /** The fixed course of a level with what fills each slot (GET /api/admin/curriculum). */
+  /** The course of a level (its draft while there is one) with what fills each slot (GET /api/admin/curriculum). */
   curriculum(level = 'A1'): Observable<CurriculumBoard> {
     return this.http.get<CurriculumBoard>(`${BASE}/curriculum`, { params: { level } });
   }
@@ -447,14 +472,60 @@ export class AdminApiService {
   }
 
   /**
-   * Takes a lesson out of its topic roadmap so its slot is empty again. A draft is also deleted
-   * (deleted true); a published lesson stays in the lesson list.
+   * Takes a lesson out of its topic roadmap and deletes it, draft or published, so its slot is
+   * empty again.
    */
   removeCurriculumLesson(lessonId: string): Observable<{ deleted: boolean }> {
     return this.http.post<{ deleted: boolean }>(
       `${BASE}/curriculum/lessons/${encodeURIComponent(lessonId)}/remove`,
       null,
     );
+  }
+
+  /** Per level with an approved course, its topics in the catalogue with their place. */
+  curriculumTopics(): Observable<Record<string, CourseTopicRef[]>> {
+    return this.http
+      .get<{ levels: Record<string, CourseTopicRef[]> }>(`${BASE}/curriculum/topics`)
+      .pipe(map((r) => r.levels));
+  }
+
+  /** Asks the AI for the topics of the level's course, kept as its draft (one request). */
+  draftCurriculum(level: string): Observable<CurriculumBoard> {
+    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/draft`, null, { params: { level } });
+  }
+
+  /** Asks the AI for the lessons of topic number of the draft (one request). */
+  writeCurriculumTopic(level: string, number: number, extraOnly = false): Observable<CurriculumBoard> {
+    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/draft/topics/${number}/write`, null, {
+      params: extraOnly ? { level, mode: 'extra' } : { level },
+    });
+  }
+
+  /** Where the course of each level is (levels with a course or a draft), for the admin home. */
+  curriculumSummary(): Observable<CurriculumLevelSummary[]> {
+    return this.http
+      .get<{ levels: CurriculumLevelSummary[] }>(`${BASE}/curriculum/summary`)
+      .pipe(map((r) => r.levels));
+  }
+
+  /** Saves the admin's edit of the draft. */
+  saveCurriculumDraft(level: string, plan: CurriculumPlan): Observable<CurriculumBoard> {
+    return this.http.put<CurriculumBoard>(`${BASE}/curriculum/draft`, plan, { params: { level } });
+  }
+
+  /** Drops the draft; the approved course, if any, stays. */
+  discardCurriculumDraft(level: string): Observable<CurriculumBoard> {
+    return this.http.delete<CurriculumBoard>(`${BASE}/curriculum/draft`, { params: { level } });
+  }
+
+  /** Starts a draft from the approved course. */
+  editCurriculum(level: string): Observable<CurriculumBoard> {
+    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/edit`, null, { params: { level } });
+  }
+
+  /** Makes the draft the level's course and creates the topics the catalogue lacks. */
+  approveCurriculum(level: string): Observable<CurriculumBoard> {
+    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/approve`, null, { params: { level } });
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

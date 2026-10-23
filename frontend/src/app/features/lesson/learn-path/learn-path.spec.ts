@@ -93,6 +93,22 @@ describe('LearnPath', () => {
 
   afterEach(() => http.verify());
 
+  it('links a finished topic to its summary', async () => {
+    const done = structuredClone(path);
+    done.milestones[0].roadmaps[1] = {
+      ...done.milestones[0].roadmaps[1],
+      completed: 2,
+      lessons: [
+        { id: 's1', title: 'At the market', state: 'done' },
+        { id: 's2', title: 'Prices', state: 'done' },
+      ],
+    };
+    await setup(done);
+    const links = Array.from(el.querySelectorAll<HTMLAnchorElement>('.finish a'));
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/topics/t2/summary?level=A1']);
+    expect(links[0].getAttribute('aria-label')).toBe('Xem tổng kết chủ đề 2');
+  });
+
   it('shows the roadmaps of one part one after another, their lessons as steps', async () => {
     await setup(path);
 

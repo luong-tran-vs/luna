@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { RouterLink } from '@angular/router';
 import { firstValueFrom, forkJoin } from 'rxjs';
 
+import { CurriculumLevelSummary } from '../../../core/models/curriculum';
 import { GrammarLessonSummary, GrammarReportGroup } from '../../../core/models/grammar-admin';
 import { LessonSummary } from '../../../core/models/lesson';
 import { lowRoadmaps, Topic } from '../../../core/models/topic';
@@ -15,6 +16,8 @@ interface DashboardData {
   topics: Topic[];
   grammar: GrammarLessonSummary[];
   reports: GrammarReportGroup[];
+  /** Where the course of each level is (levels with a course or a draft). */
+  curricula: CurriculumLevelSummary[];
 }
 
 /** A pending job on the dashboard: "{count} {label}", linking to the page where it is done. */
@@ -22,6 +25,8 @@ export interface TodoItem {
   count: number;
   label: string;
   link: string;
+  /** Query of the link, e.g. the level of the Giáo trình page. */
+  query?: Record<string, string>;
 }
 
 interface QuickAction {
@@ -34,7 +39,7 @@ interface QuickAction {
 
 const QUICK_ACTIONS: readonly QuickAction[] = [
   { label: 'Thêm bài', hint: 'Dán bài đọc có sẵn', link: '/admin/lessons/new', icon: 'plus', tone: 'listen' },
-  { label: 'Sinh bài bằng AI', hint: 'Sinh bài vào lộ trình chủ đề', link: '/admin/roadmap', icon: 'sparkles', tone: 'accent' },
+  { label: 'Sinh bài bằng AI', hint: 'Sinh bài theo giáo trình', link: '/admin/curriculum', icon: 'sparkles', tone: 'accent' },
   { label: 'Ngữ pháp', hint: 'Soạn và duyệt bài ngữ pháp', link: '/admin/grammar', icon: 'grammar', tone: 'primary' },
 ];
 
@@ -52,6 +57,21 @@ export function todoItems(d: DashboardData): TodoItem[] {
     { count: d.reports.reduce((n, r) => n + r.count, 0), label: 'báo lỗi bài tập ngữ pháp từ người học', link: '/admin/grammar' },
     { count: count(d.grammar, (g) => g.status === 'draft'), label: 'bài ngữ pháp còn là bản nháp', link: '/admin/grammar' },
   ];
+  for (const c of d.curricula) {
+    const query = { level: c.level };
+    const course = `giáo trình ${c.level}`;
+    items.push(
+      { count: c.hasDraft ? 1 : 0, label: `bản nháp ${course} chờ duyệt`, link: '/admin/curriculum', query },
+      {
+        count: c.status === 'approved' && !c.applied ? 1 : 0,
+        label: `${course} chưa áp dụng thứ tự`,
+        link: '/admin/curriculum',
+        query,
+      },
+      { count: c.drafts, label: `bài nháp trong ${course} chờ đăng`, link: '/admin/curriculum', query },
+      { count: c.empty, label: `ô trống trong ${course}`, link: '/admin/curriculum', query },
+    );
+  }
   return items.filter((i) => i.count > 0);
 }
 
@@ -139,6 +159,7 @@ export class Dashboard {
             topics: this.api.topics(),
             grammar: this.api.grammarLessons(),
             reports: this.api.grammarReports(),
+            curricula: this.api.curriculumSummary(),
           }),
         ),
       );

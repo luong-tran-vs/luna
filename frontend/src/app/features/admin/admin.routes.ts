@@ -76,6 +76,11 @@ export const adminRoutes: Routes = [
     loadComponent: () => import('./ai-usage/ai-usage').then((m) => m.AiUsage),
   },
   {
+    path: 'ai-model',
+    title: 'Model AI · Quản trị · Luna',
+    loadComponent: () => import('./ai-model/ai-model').then((m) => m.AiModel),
+  },
+  {
     path: 'appearance',
     title: 'Giao diện · Quản trị · Luna',
     loadComponent: () => import('./appearance/appearance').then((m) => m.Appearance),

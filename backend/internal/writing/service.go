@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"math"
 	"slices"
 	"strings"
 	"time"
@@ -225,6 +226,12 @@ func (s *Service) Mistakes(ctx context.Context, userID string) ([]MistakeStat, e
 	if err != nil {
 		return nil, fmt.Errorf("writing: list: %w", err)
 	}
+	return countMistakes(list), nil
+}
+
+// countMistakes adds up the tagged corrections of the graded writings of list (newest first) by
+// type, the most frequent first, leaving out "other" and spelling.
+func countMistakes(list []Writing) []MistakeStat {
 	byType := map[string]*MistakeStat{}
 	var order []string
 	// List is newest first, so the examples kept are the latest.
@@ -253,7 +260,32 @@ func (s *Service) Mistakes(ctx context.Context, userID string) ([]MistakeStat, e
 		out = append(out, *byType[t])
 	}
 	slices.SortStableFunc(out, func(a, b MistakeStat) int { return b.Count - a.Count })
-	return out, nil
+	return out
+}
+
+// LessonResults averages the learner's graded writings of lessonIDs and adds up their mistakes
+// as Mistakes does (the topic summary, added 2026-10-23); average is 0 when none is graded.
+func (s *Service) LessonResults(ctx context.Context, userID string, lessonIDs []string) (graded int, average float64, mistakes []MistakeStat, err error) {
+	list, err := s.d.Repo.List(ctx, userID)
+	if err != nil {
+		return 0, 0, nil, fmt.Errorf("writing: list: %w", err)
+	}
+	kept := list[:0:0]
+	sum := 0.0
+	for _, w := range list {
+		if !slices.Contains(lessonIDs, w.LessonID) {
+			continue
+		}
+		kept = append(kept, w)
+		if avg := Average(w.Grade); avg != nil {
+			graded++
+			sum += *avg
+		}
+	}
+	if graded > 0 {
+		average = math.Round(sum/float64(graded)*10) / 10
+	}
+	return graded, average, countMistakes(kept), nil
 }
 
 // Detail returns one of the learner's writings.

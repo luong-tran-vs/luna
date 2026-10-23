@@ -174,7 +174,7 @@ bài đã học để nghe hết mà tiến độ và streak không đổi; mở
 - **FR-004**: Đổi chủ đề hoặc trình độ PHẢI có hiệu lực ngay nếu bài hôm nay chưa có bước nào hoàn thành; ngược lại có hiệu lực
   từ ngày hôm sau, kèm thông báo.
 - **FR-005**: Hoàn thành bài cuối của lộ trình PHẢI hiện lời chúc mừng và mời chọn chủ đề khác cùng trình độ hoặc trình độ kế
-  tiếp.
+  tiếp. *(sửa 2026-10-23)* Lời chúc mừng nằm ở trang tổng kết chủ đề (FR-023), trang này dẫn sang chọn chủ đề tiếp theo.
 
 **Bài hôm nay**
 
@@ -219,6 +219,32 @@ bài đã học để nghe hết mà tiến độ và streak không đổi; mở
 - **FR-020**: Mục tiêu, tiến độ, vị trí và streak PHẢI tách riêng theo người học (nguyên tắc V).
 - **FR-021**: Trang chủ tạm thời có nút "Học hôm nay"; header có liên kết "Bài học" và "Sổ từ" (thay đầy đủ ở F6).
 - **FR-022**: Mọi trang của L PHẢI dùng được ở 360px, bằng bàn phím, sáng và tối (nguyên tắc IV).
+
+**Tổng kết chủ đề** *(thêm 2026-10-23)*
+
+- **FR-023**: Học xong bài cuối của lộ trình thì người học PHẢI được đưa tới trang tổng kết của chủ đề đó
+  (`/topics/{id}/summary?level=`). Trang cũng mở được từ mốc 👑 "Đã hoàn thành chủ đề" trên lộ trình và từ thẻ "Bạn đã học xong
+  chủ đề" ở trang chủ.
+- **FR-024**: Trang tổng kết PHẢI có:
+  - số bài đã học trên tổng số bài, số ngày học, khoảng ngày học;
+  - số từ đã lưu vào sổ từ từ các bài của chủ đề và số từ đã nhớ chắc;
+  - câu "Sau chủ đề này bạn có thể …" và các điểm ngữ pháp, nếu chủ đề nằm trong giáo trình của trình độ;
+  - danh sách bài, bài đã học mở lại được.
+- **FR-025**: Điểm từng kỹ năng chỉ tính trên các bài đã học, và chỉ hiện kỹ năng đã có điểm:
+  - Nghe: số từ chép đúng trên tổng số từ của bước Nghe;
+  - Đọc hiểu: số câu trả lời đúng của bộ câu hỏi hiện tại;
+  - Viết: điểm trung bình các bài viết đã chấm, trên thang 5, đổi ra phần trăm bằng điểm × 20;
+  - Ôn từ: lượt ôn theo bài gần nhất của mỗi bài.
+  Kỹ năng từ 80 % là "Điểm mạnh", dưới 60 % là "Cần ôn".
+- **FR-026**: Đánh giá chung là trung bình phần trăm các kỹ năng có điểm: từ 90 % là Xuất sắc, từ 75 % là Tốt, từ 60 % là Khá,
+  dưới 60 % là Cần ôn thêm. Chưa có kỹ năng nào có điểm thì hiện "Chưa có điểm".
+- **FR-027**: Mục "Nên ôn gì tiếp" PHẢI liệt kê, kèm lối vào khi có:
+  - số bài chưa học;
+  - lời khuyên cho từng kỹ năng dưới 60 %;
+  - số từ chưa nhớ chắc (dẫn tới ôn từ);
+  - loại lỗi viết hay gặp nhất (dẫn tới trang bài viết).
+  Trang cũng PHẢI liệt kê các loại lỗi viết của chủ đề, nhiều nhất trước, bỏ "khác" và chính tả như trang lỗi hay gặp.
+- **FR-028**: Tổng kết KHÔNG gọi AI: mọi số liệu lấy từ kết quả đã lưu theo bài, nên trang mở ngay và không tốn lượt Gemini.
 
 ### Key Entities
 
