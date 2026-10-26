@@ -31,6 +31,18 @@ var GroqOptions = []string{
 	"qwen/qwen3.8-27b",
 }
 
+// OpenAIOptions are the ChatGPT models offered when OPENAI_API_KEY is set (added 2026-10-26), the
+// best first.
+var OpenAIOptions = []string{
+	"gpt-6-sol",
+	"gpt-6-luna",
+	// Added 2026-10-26 at the admin's request.
+	"gpt-6-astra",
+	"gpt-5.5-pro",
+	"gpt-5.5",
+	"gpt-5.4-mini",
+}
+
 // Ops are the text requests a model can be chosen for: the op names the AI client records
 // (internal/ai/llm). Pictures ("image") always use GEMINI_IMAGE_MODEL.
 var Ops = []string{
@@ -89,12 +101,17 @@ type Service struct {
 	at     time.Time
 }
 
-// NewService returns a Service; fallback is the model of GEMINI_MODEL, groq offers the Groq models
-// too, and tester may be nil when no AI provider is set.
-func NewService(repo Repository, fallback string, groq bool, tester Tester, now func() time.Time, log *slog.Logger) *Service {
-	options := GeminiOptions
+// NewService returns a Service; fallback is the model of GEMINI_MODEL, groq and openai offer the
+// models of Groq and OpenAI too, and tester may be nil when no AI provider is set.
+func NewService(repo Repository, fallback string, groq, openai bool, tester Tester, now func() time.Time,
+	log *slog.Logger,
+) *Service {
+	options := slices.Clone(GeminiOptions)
 	if groq {
-		options = append(slices.Clone(GeminiOptions), GroqOptions...)
+		options = append(options, GroqOptions...)
+	}
+	if openai {
+		options = append(options, OpenAIOptions...)
 	}
 	return &Service{repo: repo, fallback: fallback, options: options, tester: tester, now: now, log: log}
 }
@@ -103,7 +120,7 @@ func NewService(repo Repository, fallback string, groq bool, tester Tester, now 
 func (s *Service) Options() []string { return s.options }
 
 // ModelFor returns the model to send a text request of op to: the op's own model, else the model
-// of every op, else GEMINI_MODEL. A model no longer offered (Groq without its key) is skipped. When
+// of every op, else GEMINI_MODEL. A model no longer offered (Groq or OpenAI without its key) is skipped. When
 // the database cannot be read it keeps the last choice it knew.
 func (s *Service) ModelFor(ctx context.Context, op string) string {
 	c := s.choice(ctx)

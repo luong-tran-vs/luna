@@ -22,6 +22,11 @@
           ><span class="visually-hidden">Ngữ pháp: </span>{{ grammarText() }}</span
         >
       }
+      @if (sourceText()) {
+        <span class="source" [attr.data-source]="sourceText()"
+          ><span class="visually-hidden">Nguồn: </span>{{ sourceText() }}</span
+        >
+      }
     }
     @if (state() === 'draft' && slot() && !canPublish()) {
       <span class="hint" [id]="id() + '-hint'">{{ publishHint() }}</span>
@@ -31,6 +36,17 @@
   <div class="actions">
     @switch (state()) {
       @case ('empty') {
+        @if (slot()) {
+          <button
+            type="button"
+            class="act act-import"
+            [disabled]="!applied() || busy()"
+            [attr.aria-describedby]="applied() ? null : 'apply-help'"
+            (click)="importLesson.emit()"
+          >
+            Nhập bài<span class="visually-hidden">: {{ title() }}</span>
+          </button>
+        }
         <button
           type="button"
           class="act act-generate"

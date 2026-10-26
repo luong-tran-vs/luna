@@ -67,6 +67,7 @@ type grammarLessonDoc struct {
 	PointID     string            `bson:"pointId"`
 	Status      string            `bson:"status"`
 	Edited      bool              `bson:"edited"`
+	Imported    bool              `bson:"imported,omitempty"`
 	Content     grammarContentDoc `bson:"content"`
 	Checks      []grammarCheckDoc `bson:"checks"`
 	CheckedAt   time.Time         `bson:"checkedAt,omitempty"`
@@ -97,6 +98,7 @@ type grammarSummaryDoc struct {
 	PointID     string                `bson:"pointId"`
 	Status      string                `bson:"status"`
 	Edited      bool                  `bson:"edited"`
+	Imported    bool                  `bson:"imported,omitempty"`
 	Checks      []grammarCheckFlagDoc `bson:"checks"`
 	CheckedAt   time.Time             `bson:"checkedAt,omitempty"`
 	VerifiedAt  time.Time             `bson:"verifiedAt,omitempty"`
@@ -152,7 +154,7 @@ func fromGrammarLesson(l grammar.Lesson) grammarLessonDoc {
 		cd.Mistakes[i] = grammarMistakeDoc(m)
 	}
 	d := grammarLessonDoc{
-		PointID: l.PointID, Status: string(l.Status), Edited: l.Edited, Content: cd,
+		PointID: l.PointID, Status: string(l.Status), Edited: l.Edited, Imported: l.Imported, Content: cd,
 		Checks:    make([]grammarCheckDoc, len(l.Checks)),
 		CreatedAt: l.CreatedAt.UTC(), UpdatedAt: l.UpdatedAt.UTC(),
 	}
@@ -201,7 +203,7 @@ func (d grammarLessonDoc) toLesson() grammar.Lesson {
 		checks[i] = grammar.Check{ExerciseID: c.ExerciseID, Kind: grammar.CheckKind(c.Kind), NoteVi: c.NoteVi, Confirmed: c.Confirmed}
 	}
 	return grammar.Lesson{
-		PointID: d.PointID, Status: grammar.Status(d.Status), Content: content, Edited: d.Edited,
+		PointID: d.PointID, Status: grammar.Status(d.Status), Content: content, Edited: d.Edited, Imported: d.Imported,
 		Checks: checks, CheckedAt: zeroOrUTC(d.CheckedAt), VerifiedAt: zeroOrUTC(d.VerifiedAt),
 		CreatedAt: d.CreatedAt.UTC(), UpdatedAt: d.UpdatedAt.UTC(), PublishedAt: zeroOrUTC(d.PublishedAt),
 	}
@@ -262,7 +264,7 @@ func (r *GrammarLessons) List(ctx context.Context) ([]grammar.LessonSummary, err
 	out := make([]grammar.LessonSummary, len(docs))
 	for i, d := range docs {
 		out[i] = grammar.LessonSummary{
-			PointID: d.PointID, Status: grammar.Status(d.Status), Edited: d.Edited,
+			PointID: d.PointID, Status: grammar.Status(d.Status), Edited: d.Edited, Imported: d.Imported,
 			Flags: unconfirmed(d.Checks), Checked: !d.CheckedAt.IsZero(), Verified: !d.VerifiedAt.IsZero(),
 			UpdatedAt: d.UpdatedAt.UTC(), PublishedAt: zeroOrUTC(d.PublishedAt),
 		}

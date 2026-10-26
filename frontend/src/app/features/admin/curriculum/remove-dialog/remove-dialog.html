@@ -1,0 +1,58 @@
+@if (open()) {
+  <div class="backdrop">
+    <div
+      #dialog
+      class="dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="remove-title"
+      aria-describedby="remove-state"
+      tabindex="-1"
+      (keydown)="trapTab($event)"
+    >
+      <h2 class="title" id="remove-title">Gỡ bài “{{ lessonTitle() }}”?</h2>
+      <p class="message state" id="remove-state">
+        {{
+          published()
+            ? 'Bài đã đăng, người học đang thấy bài này.'
+            : 'Bài nháp, người học chưa thấy.'
+        }}
+      </p>
+      <fieldset class="choices">
+        <legend class="visually-hidden">Cách gỡ</legend>
+        <label class="choice" [class.chosen]="!del()">
+          <input type="radio" name="remove-kind" [checked]="!del()" (change)="del.set(false)" />
+          <span>
+            <strong>Chỉ gỡ khỏi giáo trình</strong>
+            <span class="hint">
+              Bài rời ô và lộ trình{{
+                published() ? ', chuyển về nháp nên người học không thấy nữa' : ''
+              }}. Bài vẫn còn ở trang Bài học để sửa hoặc dùng lại.
+            </span>
+          </span>
+        </label>
+        <label class="choice danger" [class.chosen]="del()">
+          <input type="radio" name="remove-kind" [checked]="del()" (change)="del.set(true)" />
+          <span>
+            <strong>Gỡ và xoá hẳn</strong>
+            <span class="hint"
+              >Xoá bài khỏi lộ trình và danh sách Bài học. Không lấy lại được.</span
+            >
+          </span>
+        </label>
+      </fieldset>
+      <p class="hint">Cả hai cách đều làm ô trống để sinh hoặc nhập bài khác.</p>
+      <div class="actions">
+        <button type="button" class="btn" (click)="cancelled.emit()">Huỷ</button>
+        <button
+          type="button"
+          class="btn-primary"
+          [class.btn-danger]="del()"
+          (click)="confirmed.emit(del())"
+        >
+          {{ del() ? 'Gỡ và xoá' : 'Chỉ gỡ' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -134,7 +134,9 @@ type LessonRef struct {
 	TopicID          string
 	AnnotationStatus string
 	// Draft lessons are hidden from learners until published.
-	Draft     bool
+	Draft bool
+	// Source is where the lesson comes from ("AI sinh", "Nhập"…), added 2026-10-26.
+	Source    string
 	CreatedAt time.Time
 }
 

@@ -1,0 +1,59 @@
+.dialog {
+  width: min(100%, 480px);
+}
+
+.choices {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choice {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.choice.chosen {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.choice.danger.chosen {
+  border-color: var(--color-bad);
+  background: color-mix(in srgb, var(--color-bad) 8%, var(--color-surface));
+}
+
+.choice input {
+  margin-top: 3px;
+  accent-color: var(--color-primary);
+}
+
+.choice.danger input {
+  accent-color: var(--color-bad);
+}
+
+.choice.danger strong {
+  color: var(--color-bad);
+}
+
+.choice span {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.hint {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.state {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}

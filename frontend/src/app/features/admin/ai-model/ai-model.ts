@@ -39,6 +39,32 @@ const MODEL_INFO: Readonly<Record<string, { name: string; note: string }>> = {
     name: 'Qwen 3.8 27B · Groq',
     note: 'Nhanh nhất (khoảng 1 giây) nhưng nghĩa tiếng Việt kém khi thử.',
   },
+  // OpenAI (added 2026-10-26): offered when OPENAI_API_KEY is set; not tested yet.
+  'gpt-6-sol': {
+    name: 'GPT-6 Sol · ChatGPT',
+    note: 'Model mạnh nhất của OpenAI, tính phí theo token; chưa thử trong Luna.',
+  },
+  'gpt-6-luna': {
+    name: 'GPT-6 Luna · ChatGPT',
+    note: 'Bản nhẹ và rẻ của GPT-6; chưa thử trong Luna.',
+  },
+  // Added 2026-10-26 at the admin's request; not tested yet.
+  'gpt-6-astra': {
+    name: 'GPT-6 Astra · ChatGPT',
+    note: 'Thuộc dòng GPT-6, tính phí theo token; chưa thử trong Luna.',
+  },
+  'gpt-5.5-pro': {
+    name: 'GPT-5.5 Pro · ChatGPT',
+    note: 'Bản Pro: rất chậm và đắt, có thể không gọi được qua Chat API; chưa thử trong Luna.',
+  },
+  'gpt-5.5': {
+    name: 'GPT-5.5 · ChatGPT',
+    note: 'Thế hệ trước GPT-6, tính phí theo token; chưa thử trong Luna.',
+  },
+  'gpt-5.4-mini': {
+    name: 'GPT-5.4 mini · ChatGPT',
+    note: 'Bản nhỏ, nhanh và rẻ; chưa thử trong Luna.',
+  },
 };
 
 const OUTCOME_TEXT: Record<Exclude<AiModelOutcome, 'ok'>, string> = {
@@ -141,6 +167,11 @@ function isGroq(model: string): boolean {
   return model.includes('/');
 }
 
+/** OpenAI model ids start with "gpt-" ("gpt-6-sol"). */
+function isOpenAI(model: string): boolean {
+  return model.startsWith('gpt-');
+}
+
 export function modelName(model: string): string {
   return MODEL_INFO[model]?.name ?? model;
 }
@@ -215,8 +246,9 @@ export class AiModel {
   protected providerGroups(s: AiModelState): { title: string; models: string[] }[] {
     const all = s.options.includes(s.model) ? s.options : [s.model, ...s.options];
     return [
-      { title: 'Gemini', models: all.filter((m) => !isGroq(m)) },
+      { title: 'Gemini', models: all.filter((m) => !isGroq(m) && !isOpenAI(m)) },
       { title: 'Groq', models: all.filter(isGroq) },
+      { title: 'ChatGPT', models: all.filter(isOpenAI) },
     ].filter((g) => g.models.length > 0);
   }
 

@@ -50,3 +50,29 @@ func DecodeJSONLimit(w http.ResponseWriter, r *http.Request, dst any, limit int6
 	}
 	return nil
 }
+
+// DecodeJSONDetailed is DecodeJSONLimit for the bodies written by hand or by an agent (the lesson
+// imports, added 2026-10-26): a body that cannot be read gets 400 invalid_body with the reason
+// (`json: unknown field "x"`) in fields["body"], so the writer can fix it.
+func DecodeJSONDetailed(w http.ResponseWriter, r *http.Request, dst any, limit int64) error {
+	mediaType, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if err != nil || mediaType != "application/json" {
+		WriteError(w, http.StatusUnsupportedMediaType, "unsupported_media_type", "Yêu cầu phải là JSON")
+		return ErrBadRequest
+	}
+	dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, limit))
+	dec.DisallowUnknownFields()
+	if err := dec.Decode(dst); err != nil {
+		WriteJSON(w, http.StatusBadRequest, ErrorBody{
+			Error: "invalid_body", Message: "Dữ liệu gửi lên không hợp lệ", Fields: map[string]string{"body": err.Error()},
+		})
+		return ErrBadRequest
+	}
+	if err := dec.Decode(&struct{}{}); !errors.Is(err, io.EOF) {
+		WriteJSON(w, http.StatusBadRequest, ErrorBody{
+			Error: "invalid_body", Message: "Dữ liệu gửi lên không hợp lệ", Fields: map[string]string{"body": "chỉ được gửi một đối tượng JSON"},
+		})
+		return ErrBadRequest
+	}
+	return nil
+}

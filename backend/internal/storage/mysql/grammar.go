@@ -211,8 +211,8 @@ func (r *GrammarLessons) Get(ctx context.Context, pointID string) (grammar.Lesso
 		published  sql.NullTime
 	)
 	err := r.db.QueryRowContext(ctx,
-		"SELECT point_id, status, edited, content, checks, checked_at, verified_at, created_at, updated_at, published_at FROM grammar_lessons WHERE point_id = ?",
-		pointID).Scan(&l.PointID, &status, &l.Edited, &raw, &checksRaw, &checkedAt, &verifiedAt, &l.CreatedAt, &l.UpdatedAt, &published)
+		"SELECT point_id, status, edited, imported, content, checks, checked_at, verified_at, created_at, updated_at, published_at FROM grammar_lessons WHERE point_id = ?",
+		pointID).Scan(&l.PointID, &status, &l.Edited, &l.Imported, &raw, &checksRaw, &checkedAt, &verifiedAt, &l.CreatedAt, &l.UpdatedAt, &published)
 	if errors.Is(err, sql.ErrNoRows) {
 		return grammar.Lesson{}, grammar.ErrNotFound
 	}
@@ -242,12 +242,12 @@ func (r *GrammarLessons) Save(ctx context.Context, l grammar.Lesson) error {
 		return err
 	}
 	_, err = r.db.ExecContext(ctx,
-		`INSERT INTO grammar_lessons (point_id, status, edited, content, checks, checked_at, verified_at, created_at, updated_at, published_at)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-ON DUPLICATE KEY UPDATE status = VALUES(status), edited = VALUES(edited), content = VALUES(content),
+		`INSERT INTO grammar_lessons (point_id, status, edited, imported, content, checks, checked_at, verified_at, created_at, updated_at, published_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON DUPLICATE KEY UPDATE status = VALUES(status), edited = VALUES(edited), imported = VALUES(imported), content = VALUES(content),
   checks = VALUES(checks), checked_at = VALUES(checked_at), verified_at = VALUES(verified_at),
   created_at = VALUES(created_at), updated_at = VALUES(updated_at), published_at = VALUES(published_at)`,
-		l.PointID, string(l.Status), l.Edited, string(raw), string(checks), nullTime(l.CheckedAt), nullTime(l.VerifiedAt), utc(l.CreatedAt), utc(l.UpdatedAt), nullTime(l.PublishedAt))
+		l.PointID, string(l.Status), l.Edited, l.Imported, string(raw), string(checks), nullTime(l.CheckedAt), nullTime(l.VerifiedAt), utc(l.CreatedAt), utc(l.UpdatedAt), nullTime(l.PublishedAt))
 	if err != nil {
 		return fmt.Errorf("mysql save grammar lesson: %w", err)
 	}
@@ -257,7 +257,7 @@ ON DUPLICATE KEY UPDATE status = VALUES(status), edited = VALUES(edited), conten
 // List returns a summary of every lesson, without content.
 func (r *GrammarLessons) List(ctx context.Context) ([]grammar.LessonSummary, error) {
 	rows, err := r.db.QueryContext(ctx,
-		"SELECT point_id, status, edited, checks, checked_at, verified_at, updated_at, published_at FROM grammar_lessons ORDER BY point_id")
+		"SELECT point_id, status, edited, imported, checks, checked_at, verified_at, updated_at, published_at FROM grammar_lessons ORDER BY point_id")
 	if err != nil {
 		return nil, fmt.Errorf("mysql find grammar lessons: %w", err)
 	}
@@ -272,7 +272,7 @@ func (r *GrammarLessons) List(ctx context.Context) ([]grammar.LessonSummary, err
 			checkedAt  sql.NullTime
 			verifiedAt sql.NullTime
 		)
-		if err := rows.Scan(&s.PointID, &status, &s.Edited, &checksRaw, &checkedAt, &verifiedAt, &s.UpdatedAt, &published); err != nil {
+		if err := rows.Scan(&s.PointID, &status, &s.Edited, &s.Imported, &checksRaw, &checkedAt, &verifiedAt, &s.UpdatedAt, &published); err != nil {
 			return nil, fmt.Errorf("mysql read grammar lessons: %w", err)
 		}
 		s.Status, s.UpdatedAt, s.PublishedAt = grammar.Status(status), s.UpdatedAt.UTC(), timeOf(published)
@@ -384,4 +384,9 @@ ON DUPLICATE KEY UPDATE status = VALUES(status), practice_attempts = VALUES(prac
 		return fmt.Errorf("mysql save grammar progress: %w", err)
 	}
 	return nil
+}
+
+// grammarImportedSchema marks the grammar lessons imported instead of generated (added 2026-10-26).
+func grammarImportedSchema() []string {
+	return []string{`ALTER TABLE grammar_lessons ADD COLUMN imported TINYINT(1) NOT NULL DEFAULT 0`}
 }

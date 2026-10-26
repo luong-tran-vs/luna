@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { CheckItem, CurriculumLesson, CurriculumSlot } from '../../../../core/models/curriculum';
+import {
+  CheckItem,
+  CurriculumLesson,
+  CurriculumSlot,
+  IMPORT_SOURCE,
+} from '../../../../core/models/curriculum';
 
 export type RowState = 'empty' | 'draft' | 'published';
 type CheckResult = 'ok' | 'warn' | 'bad';
@@ -58,6 +63,8 @@ export class LessonRow {
   readonly rechecking = input(false);
 
   readonly generate = output<void>();
+  /** Opens the import of a lesson written outside the app into the empty slot (FR-030). */
+  readonly importLesson = output<void>();
   readonly publish = output<string>();
   readonly recheck = output<string>();
   readonly remove = output<void>();
@@ -79,6 +86,11 @@ export class LessonRow {
         ?.grammar.map((g) => g.titleVi)
         .join(' + ') ?? '',
   );
+  /** "Nhập" for an imported lesson, "AI sinh" for a generated one (FR-030); other sources show nothing. */
+  protected readonly sourceText = computed(() => {
+    const source = this.lesson()?.source;
+    return source === IMPORT_SOURCE || source === 'AI sinh' ? source : '';
+  });
   protected readonly idea = computed(() => this.slot()?.idea ?? '');
   protected readonly checks = computed(() => this.slot()?.checks ?? null);
   protected readonly counts = computed(() => {

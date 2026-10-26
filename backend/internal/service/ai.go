@@ -26,16 +26,20 @@ func (c *Container) initAI() {
 		c.meaningAI = ai.DisabledMeanings{}
 		c.glossAI = ai.DisabledGlosses{}
 		c.talkAI = ai.DisabledTalk{}
-		c.aiModel = aimodel.NewService(c.store.AIModel(), c.cfg.GeminiModel, false, nil, time.Now, c.log)
+		c.aiModel = aimodel.NewService(c.store.AIModel(), c.cfg.GeminiModel, false, false, nil, time.Now, c.log)
 		return
 	}
 	text := llm.New(c.cfg.GeminiAPIKey, c.cfg.GeminiModel, &http.Client{Timeout: aiTimeout}, c.log)
 	text.Usage = c.aiUsage
-	text.AddBackupKey(c.cfg.GeminiBackupKey)
+	for _, key := range c.cfg.GeminiBackupKeys {
+		text.AddBackupKey(key)
+	}
 	// The admin picks the text model; GEMINI_MODEL is the default (added 2026-10-23).
 	// Groq models are offered once GROQ_API_KEY is set (added 2026-10-23).
 	text.SetGroq(c.cfg.GroqAPIKey)
-	c.aiModel = aimodel.NewService(c.store.AIModel(), c.cfg.GeminiModel, c.cfg.GroqAPIKey != "", text, time.Now, c.log)
+	// ChatGPT models are offered once OPENAI_API_KEY is set (added 2026-10-26).
+	text.SetOpenAI(c.cfg.OpenAIAPIKey)
+	c.aiModel = aimodel.NewService(c.store.AIModel(), c.cfg.GeminiModel, c.cfg.GroqAPIKey != "", c.cfg.OpenAIAPIKey != "", text, time.Now, c.log)
 	text.ModelOf = c.aiModel.ModelFor
 	c.ai = text
 	c.meaningAI = text
@@ -43,7 +47,9 @@ func (c *Container) initAI() {
 	c.talkAI = text
 	images := llm.New(c.cfg.GeminiAPIKey, c.cfg.GeminiImageModel, &http.Client{Timeout: aiTimeout}, c.log)
 	images.Usage = c.aiUsage
-	images.AddBackupKey(c.cfg.GeminiBackupKey)
+	for _, key := range c.cfg.GeminiBackupKeys {
+		images.AddBackupKey(key)
+	}
 	c.imageAI = images
 }
 

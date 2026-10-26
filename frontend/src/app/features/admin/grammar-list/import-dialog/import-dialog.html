@@ -1,0 +1,85 @@
+@if (open()) {
+  <div class="backdrop">
+    <div
+      #dialog
+      class="dialog wide"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="grammar-import-title"
+      (keydown)="onKeydown($event)"
+    >
+      <header class="head">
+        <div>
+          <h2 class="title" id="grammar-import-title" tabindex="-1">
+            Nhập bài ngữ pháp: {{ pointTitle() }}
+          </h2>
+          <p class="sub">
+            JSON là nội dung bài, cùng khuôn với khi lưu ở trang sửa bài ngữ pháp. Bài nhập vào
+            thành nháp.
+          </p>
+        </div>
+        <button type="button" class="close" aria-label="Đóng" (click)="closed.emit()">×</button>
+      </header>
+
+      <lu-json-source
+        idPrefix="grammar-import"
+        [(text)]="text"
+        [invalid]="!!parseError() || !!fields()"
+        [describedBy]="parseError() ? 'grammar-import-parse' : null"
+      />
+
+      @if (parseError()) {
+        <p class="form-alert" id="grammar-import-parse" role="alert">{{ parseError() }}</p>
+      }
+      @if (failure()) {
+        <p class="form-alert" role="alert">{{ failure() }}</p>
+      }
+      @if (fieldList().length > 0) {
+        <div class="form-alert errors" role="alert">
+          <strong>Chưa lưu được: {{ fieldList().length }} lỗi</strong>
+          <ul>
+            @for (f of fieldList(); track f.key) {
+              <li>
+                <code>{{ f.key }}</code
+                >: {{ f.text }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <p class="status" role="status">{{ status() }}</p>
+
+      @if (sections().length > 0) {
+        <ul class="sections" aria-label="Xem trước">
+          @for (s of sections(); track s.name) {
+            <li [attr.data-result]="s.count > 0 ? 'ok' : 'bad'">
+              <span class="mk" aria-hidden="true">{{ s.count > 0 ? '✓' : '✕' }}</span>
+              <span><b>{{ s.name }}</b>: {{ s.count }}</span>
+            </li>
+          }
+        </ul>
+      }
+
+      <div class="actions">
+        <button type="button" class="btn" (click)="closed.emit()">Huỷ</button>
+        <button type="button" class="btn" [disabled]="checking() || saving()" (click)="check()">
+          {{ sections().length > 0 ? 'Kiểm tra lại' : 'Kiểm tra' }}
+        </button>
+        <button type="button" class="btn-primary" [disabled]="!canSave()" (click)="askSave()">
+          Lưu thành nháp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <lu-confirm-dialog
+    [open]="confirming()"
+    title="Thay bài ngữ pháp đã có?"
+    [message]="confirmMessage()"
+    confirmLabel="Thay bài"
+    [danger]="true"
+    (confirmed)="confirmReplace()"
+    (cancelled)="confirming.set(false)"
+  />
+}

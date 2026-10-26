@@ -126,6 +126,8 @@ type Lesson struct {
 	Content Content
 	// Edited is true once an admin changed what the AI wrote, so a new generation asks first.
 	Edited bool
+	// Imported is true for a lesson written outside the app and imported (Import, added 2026-10-26).
+	Imported bool
 	// Checks are the exercises the AI check flagged; CheckedAt is when the check last ran (zero = never ran or
 	// failed). Editing the content clears both, since the flags no longer describe it.
 	Checks    []Check
@@ -142,6 +144,8 @@ type LessonSummary struct {
 	PointID string
 	Status  Status
 	Edited  bool
+	// Imported is true for an imported lesson (added 2026-10-26).
+	Imported bool
 	// Flags is the number of exercises flagged by the AI check; Checked is whether the check has run.
 	Flags   int
 	Checked bool
@@ -189,6 +193,8 @@ type LessonRepository interface {
 	Save(ctx context.Context, l Lesson) error
 	// List returns a summary of every lesson that exists, in no particular order.
 	List(ctx context.Context) ([]LessonSummary, error)
+	// Delete removes the lesson of a point; ErrNotFound when it has none (added 2026-10-26).
+	Delete(ctx context.Context, pointID string) error
 }
 
 // ProgressRepository stores learner progress, one record per learner and point.

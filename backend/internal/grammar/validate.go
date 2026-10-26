@@ -2,6 +2,7 @@ package grammar
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 	"unicode/utf8"
 
@@ -416,6 +417,25 @@ func CleanAIExercises(in []ai.GrammarExercise, prefix string, n int) []Exercise 
 	// Numbered again once the broken ones are gone, so the ids have no gaps.
 	for i := range out {
 		out[i].ID = fmt.Sprintf("%s%d", prefix, i+1)
+	}
+	return out
+}
+
+// ExplainAIExercises says why each exercise CleanAIExercises would drop is dropped, one line per
+// exercise ("bài 2 (choice): options: Cần đúng 4 đáp án"), for the report of a lesson import
+// (added 2026-10-26).
+func ExplainAIExercises(in []ai.GrammarExercise) []string {
+	var out []string
+	for i, e := range normalizeExercises(exercisesFromAI(in), "g") {
+		problems := exerciseProblems(e)
+		keys := make([]string, 0, len(problems))
+		for k := range problems {
+			keys = append(keys, k)
+		}
+		slices.Sort(keys)
+		for _, k := range keys {
+			out = append(out, fmt.Sprintf("bài %d (%s): %s: %s", i+1, e.Kind, k, problems[k]))
+		}
 	}
 	return out
 }

@@ -2,9 +2,9 @@
 
 **Feature Branch**: `020-a1-curriculum`
 
-**Created**: 2026-10-22 · **Updated**: 2026-10-23
+**Created**: 2026-10-22 · **Updated**: 2026-10-26
 
-**Status**: Implemented (A1: FR-001 … FR-009; mở rộng 2026-10-23: FR-010 … FR-025).
+**Status**: Implemented (A1: FR-001 … FR-009; mở rộng 2026-10-23: FR-010 … FR-025; mở rộng 2026-10-26: FR-026 … FR-031).
 
 **Input**: mục 3.2 của bản đánh giá hệ thống, bản phác thảo `design/de-xuat-giao-trinh-a1.png` đã được duyệt
 ("chọn phương án 2": mỗi chủ đề 3 bài chính + 2–3 bài thêm). Đã chốt: có danh sách từ theo cấp CEFR để cảnh báo từ vượt
@@ -42,9 +42,9 @@ nữa (xem FR-017).
 - **FR-005** "Sinh bài này" (`POST /api/admin/curriculum/slots/{key}/generate`): 1 request AI; tên bài = tên ô, điểm
   ngữ pháp = điểm đầu của ô (các điểm sau đưa vào ý tưởng), 8 từ mục tiêu theo kế hoạch từ của chủ đề, 120 từ; lưu thành
   bài nháp ở đúng chỗ trong lộ trình. "Sinh các ô trống" của một chủ đề gọi lần lượt từng ô.
-- **FR-005b** "Gỡ" bên mỗi bài (`POST /api/admin/curriculum/lessons/{id}/remove`): gỡ bài khỏi lộ trình và **xoá hẳn**
-  bài (cả bài đã đăng, từ 2026-10-23 theo yêu cầu của người dùng), như xoá ở trang Bài học, để ô trống lại. Hộp xác nhận nói rõ
-  bài đã đăng sẽ mất khỏi danh sách Bài học và người học không còn thấy.
+- **FR-005b** "Gỡ" bên mỗi bài (`POST /api/admin/curriculum/lessons/{id}/remove`): gỡ bài khỏi lộ trình để ô trống lại.
+  Từ 2026-10-26 hộp thoại hỏi cách gỡ (FR-029): **chỉ gỡ** (mặc định, bài về nháp, còn ở trang Bài học) hoặc **gỡ và xoá
+  hẳn** (như trước, cả bài đã đăng, từ 2026-10-23 theo yêu cầu của người dùng).
 - **FR-006** Kiểm tra bài nháp (`GET /api/admin/curriculum/checks/{lessonId}`, cũng có sẵn trong bảng cho bài nháp): số
   lần dùng điểm ngữ pháp (≥ 3, đếm bằng mẫu cho 18 điểm A1), có đoạn he/she, câu phủ định, câu hỏi, đủ từ mục tiêu, độ dài
   (A1 90–150 từ), hội thoại (≥ 3 lượt hỏi, không chép nguyên câu bài đọc; khi đã có luyện tập), từ vượt trình độ.
@@ -152,6 +152,43 @@ nữa (xem FR-017).
   nghiệm" cuối trang chủ admin; đường dẫn giữ nguyên.
 - Để sau: lọc nháp/đã đăng và đăng hàng loạt ở trang Bài học; trang xem tiến độ người học; gộp "Giao diện" với cài đặt tài
   khoản.
+
+## Yêu cầu: nhập bài soạn sẵn, không qua AI (mở rộng 2026-10-26)
+
+Người dùng hỏi có thể thêm bài bằng tay để agent (Claude) soạn và đưa vào thay vì AI sinh không. Đã chốt (bản phác thảo
+`design/de-xuat-nhap-bai-soan-san.png`): thêm API nhập bài cho ô giáo trình và bài ngữ pháp, agent đăng nhập tài khoản admin
+riêng để gọi; làm API trước, giao diện nhập bài sau (cùng ngày). Nhãn nguồn của bài nhập là "Nhập".
+
+- **FR-026** `GET /api/admin/curriculum/slots/{key}/brief`: mọi thứ AI nhận khi sinh bài của ô, để người soạn bám theo: tên
+  bài (ô khớp với bài theo tên), ý tưởng, chủ đề và "học xong", các điểm ngữ pháp (tên, mẫu, gợi ý, ví dụ), từ mục tiêu
+  dự kiến (như "Sinh bài này"), từ vựng của chủ đề ở trình độ, độ dài nên có, số lần tối thiểu dùng điểm ngữ pháp, ô đã
+  có bài chưa.
+- **FR-027** `POST /api/admin/curriculum/slots/{key}/import` (`?dryRun=true` chỉ kiểm tra, không lưu): nhận `content`,
+  `targetWords` (bỏ trống thì lấy từ dự kiến của FR-026) và nội dung AI lẽ ra viết, **đúng khuôn AI trả về**: `annotate`
+  (chú thích từ, câu hỏi đọc hiểu, ghi chú ngữ pháp, đề viết, bản dịch từng câu), `practice` (ví dụ, hội thoại, câu dịch
+  và 6 bước) và `glosses` (nghĩa trong bài, có thể bỏ trống). Mọi phần qua đúng các hàm kiểm tra của job AI
+  (`CleanAnnotations`, `CleanExtras`, `CleanPractice`, `CleanSteps`, `CleanGlosses`), nên bài nhập giống bài AI sinh.
+  Trả về kiểm tra theo quy tắc (FR-006) và báo cáo từng phần "đưa n, giữ k"; phần bị bỏ kèm quy tắc (`ruleVi`) và, với
+  chú thích, câu hỏi đọc hiểu, bài tập ngữ pháp, lý do từng mục (`reasons`), để người soạn sửa. Thiếu chú
+  thích hợp lệ hoặc phần luyện tập không dùng được thì 400 kèm `fields` và báo cáo; JSON có trường lạ thì 400 nêu tên
+  trường. Lưu thì bài thành **nháp** của ô, đúng chỗ trong lộ trình, chú thích và luyện tập đã xong, **không xếp job AI**
+  nào (nghĩa trong bài để trống thì lưu danh sách rỗng, popup dùng từ điển).
+- **FR-028** `POST /api/admin/grammar-lessons/{pointId}/import` (`?dryRun=true` chỉ kiểm tra): nhận `content` cùng khuôn
+  với "Lưu" bài ngữ pháp, qua `Normalize` và `Validate`, lưu thành nháp, đánh dấu đã sửa (sinh lại bằng AI sẽ hỏi trước).
+  Điểm đã có bài thì 409 `grammar_lesson_exists`, trừ khi gửi `replace: true` (giao diện sẽ hỏi xác nhận); bài bị thay
+  về nháp.
+- **FR-029** Hộp thoại "Gỡ" (FR-005b) có hai lựa chọn: **Chỉ gỡ khỏi giáo trình** (mặc định; bài rời ô và lộ trình, bài
+  đã đăng chuyển về nháp, còn ở trang Bài học) và **Gỡ và xoá hẳn** (nút đỏ "Gỡ và xoá"). API nhận `{"delete": false}`;
+  không gửi thì xoá như trước.
+- **FR-030** Giao diện nhập bài: nút "Nhập bài" ở ô trống (trang Giáo trình) và ở mỗi điểm ngữ pháp; hộp thoại hiện thông
+  tin của ô (FR-026), dán JSON hoặc chọn file `.json` (đọc vào ô dán để sửa được), "Kiểm tra" chạy `dryRun` và xem trước 6
+  bước, kiểm tra theo quy tắc, phần bị bỏ kèm lý do, lỗi theo trường; "Lưu thành nháp" chỉ bật khi nội dung đã kiểm tra
+  và không đổi sau đó; "Tải file mẫu" tạo khung JSON của ô. Nhãn nguồn "AI sinh" / "Nhập" bên mỗi bài (bài có trường
+  `source` trong danh sách); bài ngữ pháp nhập có trường `imported` (MySQL: cột `imported`, migration 039), trạng thái
+  "… · nhập". Nhập vào điểm ngữ pháp đã có bài hỏi xác nhận "Thay bài ngữ pháp đã có?" rồi gửi `replace: true`.
+- **FR-031** Xoá bài ngữ pháp (`DELETE /api/admin/grammar-lessons/{pointId}`, 204): **chỉ bài nháp** (người dùng chốt
+  2026-10-26); bài đã đăng trả 409 `grammar_lesson_published`, phải "Gỡ" (gỡ đăng) trước. Trang Ngữ pháp có nút "Xoá" ở
+  bài nháp, hỏi "Xoá bài nháp?" rồi điểm về "Chưa có bài". Tiến độ và báo lỗi của người học ở điểm đó được giữ.
 
 ## Ngoài phạm vi
 

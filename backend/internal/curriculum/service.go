@@ -68,6 +68,9 @@ type Topics interface {
 type Lessons interface {
 	Generate(ctx context.Context, topicID string, in lesson.GenerateInput) (lesson.GenerateResult, error)
 	Create(ctx context.Context, in lesson.Input) (lesson.Lesson, error)
+	// Import saves a lesson written outside the app (ImportSlot).
+	Import(ctx context.Context, in lesson.Input, c lesson.ImportContent, dryRun bool) (lesson.Lesson, lesson.ImportReport, error)
+	SetPublished(ctx context.Context, id string, published bool) (lesson.Lesson, error)
 	Get(ctx context.Context, id string) (lesson.Lesson, error)
 	Delete(ctx context.Context, id string) error
 }
@@ -454,33 +457,14 @@ func (s *Service) arrange(ctx context.Context, t Topic, topicID, level string) e
 // saves it as a draft at its place in the roadmap: the slot's title, its first grammar point, its
 // idea (and its other points), and target words planned from the topic's words.
 func (s *Service) GenerateSlot(ctx context.Context, key string) (SlotView, error) {
-	level := LevelOfKey(key)
-	p, err := s.approved(ctx, level)
+	o, err := s.openSlot(ctx, key)
 	if err != nil {
 		return SlotView{}, err
 	}
-	if p == nil {
-		return SlotView{}, ErrSlotNotFound
-	}
-	t, sl, ok := p.FindSlot(key)
-	if !ok {
-		return SlotView{}, ErrSlotNotFound
-	}
-	cat, err := s.catalogue(ctx)
-	if err != nil {
-		return SlotView{}, err
-	}
-	found, ok := cat.find(t)
-	if !ok {
-		return SlotView{}, ErrNotApplied
-	}
-	rm, err := s.Topics.Roadmap(ctx, found.ID, level)
-	if err != nil {
-		return SlotView{}, fmt.Errorf("curriculum: roadmap: %w", err)
-	}
-	if bySlot, _ := fill(t, rm.Lessons); bySlot[sl.Key].ID != "" {
+	if o.filled {
 		return SlotView{}, ErrSlotFilled
 	}
+	level, sl, found := o.level, o.slot, o.found
 	in := lesson.GenerateInput{
 		Level: lesson.Level(level), Count: 1, Words: lessonWords[level], Kind: "reading",
 		Idea: slotIdea(sl), GrammarPointID: sl.Grammar[0],
@@ -507,7 +491,52 @@ func (s *Service) GenerateSlot(ctx context.Context, key string) (SlotView, error
 	if err != nil {
 		return SlotView{}, err
 	}
-	if err := s.arrange(ctx, t, found.ID, level); err != nil {
+	return s.placed(ctx, o, l)
+}
+
+// openedSlot is an approved course's slot with its catalogue topic; filled tells whether the
+// topic's roadmap already has the slot's lesson.
+type openedSlot struct {
+	level  string
+	topic  Topic
+	slot   Slot
+	found  topic.Topic
+	filled bool
+}
+
+// openSlot finds the slot of key in the approved course of its level.
+func (s *Service) openSlot(ctx context.Context, key string) (openedSlot, error) {
+	level := LevelOfKey(key)
+	p, err := s.approved(ctx, level)
+	if err != nil {
+		return openedSlot{}, err
+	}
+	if p == nil {
+		return openedSlot{}, ErrSlotNotFound
+	}
+	t, sl, ok := p.FindSlot(key)
+	if !ok {
+		return openedSlot{}, ErrSlotNotFound
+	}
+	cat, err := s.catalogue(ctx)
+	if err != nil {
+		return openedSlot{}, err
+	}
+	found, ok := cat.find(t)
+	if !ok {
+		return openedSlot{}, ErrNotApplied
+	}
+	rm, err := s.Topics.Roadmap(ctx, found.ID, level)
+	if err != nil {
+		return openedSlot{}, fmt.Errorf("curriculum: roadmap: %w", err)
+	}
+	bySlot, _ := fill(t, rm.Lessons)
+	return openedSlot{level: level, topic: t, slot: sl, found: found, filled: bySlot[sl.Key].ID != ""}, nil
+}
+
+// placed puts a lesson just saved for the slot o at its place in the roadmap and returns the slot.
+func (s *Service) placed(ctx context.Context, o openedSlot, l lesson.Lesson) (SlotView, error) {
+	if err := s.arrange(ctx, o.topic, o.found.ID, o.level); err != nil {
 		return SlotView{}, err
 	}
 	published, err := s.published(ctx)
@@ -516,8 +545,8 @@ func (s *Service) GenerateSlot(ctx context.Context, key string) (SlotView, error
 	}
 	c := Inspect(l)
 	return SlotView{
-		Slot: sl, Grammar: grammarViews(sl.Grammar, published), Checks: &c,
-		Lesson: &topic.LessonRef{ID: l.ID, Title: l.Title, Level: string(l.Level), TopicID: l.TopicID, AnnotationStatus: string(l.AnnotationStatus), Draft: l.Draft, CreatedAt: l.CreatedAt},
+		Slot: o.slot, Grammar: grammarViews(o.slot.Grammar, published), Checks: &c,
+		Lesson: &topic.LessonRef{ID: l.ID, Title: l.Title, Level: string(l.Level), TopicID: l.TopicID, AnnotationStatus: string(l.AnnotationStatus), Draft: l.Draft, Source: l.Source, CreatedAt: l.CreatedAt},
 	}, nil
 }
 
@@ -590,15 +619,16 @@ func (s *Service) PointTopics(ctx context.Context, level string) (map[string]Poi
 	return topics, order, true
 }
 
-// Removed tells what Remove did: the lesson left its roadmap and was deleted.
+// Removed tells what Remove did: the lesson left its roadmap, and was deleted or kept as a draft.
 type Removed struct {
 	Deleted bool
 }
 
-// Remove takes a lesson out of its topic's roadmap and deletes it, as the lesson list does, so
-// that its slot is empty again (added 2026-10-22, "Gỡ" on the course page; published lessons are
-// deleted too since 2026-10-23, at the admin's request).
-func (s *Service) Remove(ctx context.Context, lessonID string) (Removed, error) {
+// Remove takes a lesson out of its topic's roadmap so that its slot is empty again (added
+// 2026-10-22, "Gỡ" on the course page), and deletes it as the lesson list does (published lessons
+// too since 2026-10-23, at the admin's request) or, without del (added 2026-10-26), keeps it as a
+// draft learners no longer see, in the lesson list.
+func (s *Service) Remove(ctx context.Context, lessonID string, del bool) (Removed, error) {
 	l, err := s.Lessons.Get(ctx, lessonID)
 	if err != nil {
 		return Removed{}, err
@@ -617,6 +647,14 @@ func (s *Service) Remove(ctx context.Context, lessonID string) (Removed, error) 
 		if _, err := s.Topics.SetRoadmap(ctx, l.TopicID, string(l.Level), ids); err != nil {
 			return Removed{}, fmt.Errorf("curriculum: remove from roadmap: %w", err)
 		}
+	}
+	if !del {
+		if !l.Draft {
+			if _, err := s.Lessons.SetPublished(ctx, lessonID, false); err != nil {
+				return Removed{}, fmt.Errorf("curriculum: unpublish lesson: %w", err)
+			}
+		}
+		return Removed{}, nil
 	}
 	if err := s.Lessons.Delete(ctx, lessonID); err != nil {
 		return Removed{}, fmt.Errorf("curriculum: delete lesson: %w", err)

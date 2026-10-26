@@ -23,6 +23,8 @@ import {
 import { DEFAULT_TARGET_WORDS } from '../../../core/models/generate';
 import { Level, LEVELS } from '../../../core/models/lesson';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { SlotImportDialog } from './import-dialog/import-dialog';
+import { RemoveDialog } from './remove-dialog/remove-dialog';
 import { LevelPicker } from '../../../shared/components/level-picker/level-picker';
 import { Loading } from '../../../shared/components/loading/loading';
 import { ProgressBar } from '../../../shared/components/progress-bar/progress-bar';
@@ -91,6 +93,8 @@ interface TopicView {
   imports: [
     RouterLink,
     ConfirmDialog,
+    RemoveDialog,
+    SlotImportDialog,
     CurriculumDraft,
     LevelPicker,
     Loading,
@@ -122,6 +126,8 @@ export class Curriculum {
   protected readonly rechecking = signal<string | null>(null);
   protected readonly removing = signal<string | null>(null);
   protected readonly removal = signal<Removal | null>(null);
+  /** The empty slot a lesson is being imported into (FR-030). */
+  protected readonly importing = signal<{ topic: number; slot: CurriculumSlot } | null>(null);
   protected readonly notice = signal<Notice | null>(null);
   protected readonly filter = signal<Filter>('all');
   /** Numbers of the open topics; null until the board is first read. */
@@ -188,15 +194,6 @@ export class Curriculum {
       this.drafting() ||
       this.editing(),
   );
-  protected readonly removeMessage = computed(() => {
-    const r = this.removal();
-    if (!r) {
-      return '';
-    }
-    return r.lesson.draft
-      ? `Gỡ và xoá bài nháp “${r.title}”? Ô sẽ trống để sinh lại.`
-      : `Gỡ và xoá bài đã đăng “${r.title}”? Bài bị xoá khỏi lộ trình và danh sách Bài học, người học không còn thấy bài này. Ô sẽ trống để sinh lại.`;
-  });
   protected readonly applyMessage = computed(
     () =>
       `Tạo các chủ đề còn thiếu, đặt thứ tự các chủ đề ${this.level()} theo giáo trình (chủ đề khác mất vị trí ${this.level()} và xếp sau) và xếp bài trong mỗi lộ trình theo các ô. Bài đã có không bị xoá.`,
@@ -402,14 +399,51 @@ export class Curriculum {
     this.removal.set({ topic: t.number, lesson, title });
   }
 
+  protected askImport(t: CurriculumTopic, slot: CurriculumSlot): void {
+    this.opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    this.importing.set({ topic: t.number, slot });
+  }
+
+  protected cancelImport(): void {
+    this.importing.set(null);
+    this.opener?.focus();
+    this.opener = null;
+  }
+
+  /** The imported draft is in its slot: reads the board again and says so. */
+  protected async imported(slot: CurriculumSlot): Promise<void> {
+    const i = this.importing();
+    this.importing.set(null);
+    this.opener = null;
+    if (!i) {
+      return;
+    }
+    this.notice.set({
+      topic: i.topic,
+      kind: 'ok',
+      text: `Đã nhập bài “${slot.lesson?.title ?? slot.title}” thành nháp.`,
+    });
+    try {
+      this.show(await firstValueFrom(this.api.curriculum(this.level())));
+    } catch (err) {
+      this.notice.set({ topic: i.topic, kind: 'error', text: messageOf(err) ?? LOAD_FAILED });
+    }
+    afterNextRender(() => document.getElementById(`topic-toggle-${i.topic}`)?.focus(), {
+      injector: this.injector,
+    });
+  }
+
   protected cancelRemove(): void {
     this.removal.set(null);
     this.opener?.focus();
     this.opener = null;
   }
 
-  /** Takes the lesson out of the course, reads the board again and says what happened. */
-  protected async remove(): Promise<void> {
+  /**
+   * Takes the lesson out of the course, deleting it when del (else it stays a draft in the lesson
+   * list), reads the board again and says what happened.
+   */
+  protected async remove(del: boolean): Promise<void> {
     const r = this.removal();
     if (!r) {
       return;
@@ -419,9 +453,12 @@ export class Curriculum {
     this.removing.set(r.lesson.id);
     this.notice.set(null);
     try {
-      await firstValueFrom(this.api.removeCurriculumLesson(r.lesson.id));
+      await firstValueFrom(this.api.removeCurriculumLesson(r.lesson.id, del));
       this.show(await firstValueFrom(this.api.curriculum(this.level())));
-      this.notice.set({ topic: r.topic, kind: 'ok', text: `Đã gỡ và xoá bài “${r.title}”.` });
+      const text = del
+        ? `Đã gỡ và xoá bài “${r.title}”.`
+        : `Đã gỡ bài “${r.title}” khỏi giáo trình. Bài vẫn còn ở trang Bài học, dạng nháp.`;
+      this.notice.set({ topic: r.topic, kind: 'ok', text });
     } catch (err) {
       this.notice.set({ topic: r.topic, kind: 'error', text: messageOf(err) ?? REMOVE_FAILED });
     } finally {

@@ -8,7 +8,7 @@ import (
 	"github.com/luongtran/luna/backend/internal/ai"
 )
 
-// usageResponse is the token count Gemini (usageMetadata) or Groq (usage) gives with every answer.
+// usageResponse is the token count Gemini (usageMetadata) or Groq and OpenAI (usage) give with every answer.
 type usageResponse struct {
 	UsageMetadata struct {
 		PromptTokenCount     int `json:"promptTokenCount"`
@@ -16,7 +16,7 @@ type usageResponse struct {
 		ThoughtsTokenCount   int `json:"thoughtsTokenCount"`
 		TotalTokenCount      int `json:"totalTokenCount"`
 	} `json:"usageMetadata"`
-	// Usage is Groq's count (groq.go); its completion tokens include the reasoning ones.
+	// Usage is the count of Groq and OpenAI (groq.go); its completion tokens include the reasoning ones.
 	Usage struct {
 		PromptTokens            int `json:"prompt_tokens"`
 		CompletionTokens        int `json:"completion_tokens"`

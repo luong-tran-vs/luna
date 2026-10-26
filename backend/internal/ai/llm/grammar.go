@@ -179,19 +179,24 @@ func (c *Client) SolveGrammarExercises(ctx context.Context, req ai.SolveRequest)
 
 func grammarSolvePrompt(req ai.SolveRequest) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, `You are a careful English teacher. Solve every exercise below on your own; you have no answer key.
-The exercises belong to a grammar lesson for Vietnamese learners at CEFR level %s on the point: %s (%s).
-Do not guess what the author intended and do not pick the most likely-looking option: decide what is really correct English.
-Return a JSON array with exactly one object per exercise, in the same order, each with exerciseId (copy the id) and:
+	fmt.Fprintf(&b, `You are a careful English teacher checking a grammar lesson for Vietnamese learners at CEFR level %s on the point: %s (%s).
+Solve every exercise below on your own; you have no answer key.
+Decide what is really correct English: do not guess what the author intended and do not pick the most likely-looking option.
+
+The answer, by kind of exercise (leave the other answer fields out):
 - choice: choiceIndex, the 0-based index of the one right option.
-- fill: answer, the single word or phrase that fills the blank "___".
-- reorder: sentence, the English sentence you build by arranging the words (use only the given words; some may be extra and unused).
+- fill: answer, the word or phrase that fills the blank "___".
+- reorder: sentence, the sentence built from the given words (some words may be extra and unused; punctuation stuck to a word does not matter).
 - fix: sentence, the text with its mistake corrected, changing as few words as possible.
-- ambiguous: true when, in your honest opinion, more than one option or answer is correct, or none is, or the exercise is unclear or has an error; otherwise false. When ambiguous is true, noteVi is one short Vietnamese sentence that says why. Do not mark an exercise ambiguous just to be safe.
-- meaningOff: true when the Vietnamese of the exercise (the text of a reorder, or Vietnamese in promptVi or text) does not say exactly what your answer says:
-  a different meaning, person or tense, or a question for a statement or the other way round (for example "Bạn bao nhiêu tuổi?" for "I am ten."); otherwise false.
-  When meaningOff is true, noteVi is one short Vietnamese sentence that says what differs.
-Plain text only, no markdown.
+
+For every exercise also:
+- ambiguous: true when more than one answer is correct, or none is, or the exercise is unclear or broken; otherwise false. A contraction and its full form (I'm, I am) are the same answer. Do not mark an exercise ambiguous just to be safe.
+- meaningOff: true when a Vietnamese translation of the sentence (the text of a reorder, or one in promptVi or text; instructions such as "Chọn từ đúng" are not one) does not say exactly what your answer says: a different meaning, person or tense, or a question for a statement or the other way round (for example "Bạn bao nhiêu tuổi?" for "I am ten."); otherwise false.
+- noteVi: when ambiguous or meaningOff is true, one short Vietnamese sentence that says why; otherwise "".
+
+Output: a JSON array with one object per exercise, in the same order, with exerciseId copied from id.
+Each field holds only its value, with no reasoning or comments: end every string right after the answer. An example object, for a fix of "We was at the beach last summer." (not one of the exercises below):
+{"exerciseId":"example","sentence":"We were at the beach last summer.","ambiguous":false,"meaningOff":false,"noteVi":""}
 
 Exercises (JSON):
 `, req.Level, req.TitleEn, req.Pattern)

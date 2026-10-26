@@ -41,7 +41,7 @@ func TestHandler(t *testing.T) {
 	}
 	code, body := serve(t, svc, "admin", "GET", "/api/admin/ai-model", "")
 	if code != http.StatusOK || body["model"] != "gemini-3.5-flash-lite" || body["saved"] != "" ||
-		body["updatedAt"] != nil || len(body["byOp"].(map[string]any)) != 0 || len(body["options"].([]any)) != len(aimodel.GeminiOptions)+len(aimodel.GroqOptions) {
+		body["updatedAt"] != nil || len(body["byOp"].(map[string]any)) != 0 || len(body["options"].([]any)) != len(aimodel.GeminiOptions)+len(aimodel.GroqOptions)+len(aimodel.OpenAIOptions) {
 		t.Fatalf("get: %d %v", code, body)
 	}
 	if code, body := serve(t, svc, "admin", "PUT", "/api/admin/ai-model", `{"model":"gpt-5"}`); code != http.StatusBadRequest || body["fields"] == nil {

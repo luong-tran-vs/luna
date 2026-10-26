@@ -1,6 +1,6 @@
 // Package llm writes the app's texts with a language model: one prompt and one JSON schema per
-// feature (lessons.go, curriculum.go, talk.go…), sent to Gemini (gemini.go) or Groq (groq.go) by
-// the model the admin chose for that feature (package aimodel). Pictures are drawn by Gemini only
+// feature (lessons.go, curriculum.go, talk.go…), sent to Gemini (gemini.go), Groq (groq.go) or
+// OpenAI (openai.go, added 2026-10-26) by the model the admin chose for that feature (package aimodel). Pictures are drawn by Gemini only
 // (image.go). The package was named gemini until Groq was added (2026-10-23).
 package llm
 
@@ -19,8 +19,8 @@ import (
 // maxResponse bounds the response body; an annotation with questions stays far below it.
 const maxResponse = 2 << 20
 
-// Client writes text with Gemini or Groq, by the model of each request, and draws pictures with
-// Gemini. BaseURL (Gemini) and GroqURL can be replaced in tests.
+// Client writes text with Gemini, Groq or OpenAI, by the model of each request, and draws pictures
+// with Gemini. BaseURL (Gemini), GroqURL and OpenAIURL can be replaced in tests.
 type Client struct {
 	BaseURL string
 	apiKey  string
@@ -39,18 +39,21 @@ type Client struct {
 	// GroqURL and groqKey send the requests of a Groq model (groq.go); no key leaves Groq off.
 	GroqURL string
 	groqKey string
+	// OpenAIURL and openaiKey send the requests of an OpenAI model (openai.go); no key leaves it off.
+	OpenAIURL string
+	openaiKey string
 }
 
 // New returns a client for the Gemini key apiKey and model, the default model of every request
-// (SetGroq adds Groq). An empty apiKey makes every call return ai.ErrNotConfigured.
+// (SetGroq adds Groq, SetOpenAI OpenAI). An empty apiKey makes every call return ai.ErrNotConfigured.
 func New(apiKey, model string, client *http.Client, log *slog.Logger) *Client {
 	return &Client{BaseURL: defaultBaseURL, apiKey: apiKey, model: model, client: client, log: log}
 }
 
 var _ ai.Provider = (*Client)(nil)
 
-// generate sends a JSON-mode request to the model of op, Gemini's or Groq's, and returns the
-// text of the answer.
+// generate sends a JSON-mode request to the model of op, Gemini's, Groq's or OpenAI's, and
+// returns the text of the answer.
 func (c *Client) generate(ctx context.Context, op, prompt string, schema map[string]any, temperature float64,
 	attrs ...slog.Attr,
 ) (string, error) {
@@ -58,6 +61,9 @@ func (c *Client) generate(ctx context.Context, op, prompt string, schema map[str
 		return "", ai.ErrNotConfigured
 	}
 	model := c.modelFor(ctx, op)
+	if IsOpenAIModel(model) {
+		return c.openaiGenerate(ctx, model, op, prompt, schema, attrs)
+	}
 	if IsGroqModel(model) {
 		return c.groqGenerate(ctx, model, op, prompt, schema, temperature, attrs)
 	}
@@ -97,6 +103,9 @@ func (c *Client) logRequest(ctx context.Context, model, op string, start time.Ti
 
 // provider names the provider of model, for the logs.
 func provider(model string) string {
+	if IsOpenAIModel(model) {
+		return "openai"
+	}
 	if IsGroqModel(model) {
 		return "groq"
 	}

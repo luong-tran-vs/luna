@@ -101,8 +101,10 @@ func (l Lesson) StatusOf(t job.Type) Status {
 
 // Summary is the list view of a lesson.
 type Summary struct {
-	ID               string
-	Title            string
+	ID    string
+	Title string
+	// Source is where the lesson comes from ("AI sinh", ImportSource…), as typed when it was saved.
+	Source           string
 	Level            Level
 	TopicID          string
 	TopicName        string

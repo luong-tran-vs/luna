@@ -11,9 +11,18 @@ import {
   CurriculumPlan,
   CurriculumSlot,
   LessonChecks,
+  SlotBrief,
+  SlotImportResult,
 } from '../../core/models/curriculum';
 import { GrammarPoint } from '../../core/models/grammar';
-import { GrammarContent, GrammarExerciseInput, GrammarLessonAdmin, GrammarLessonSummary, GrammarReportGroup } from '../../core/models/grammar-admin';
+import {
+  GrammarContent,
+  GrammarExerciseInput,
+  GrammarImportResult,
+  GrammarLessonAdmin,
+  GrammarLessonSummary,
+  GrammarReportGroup,
+} from '../../core/models/grammar-admin';
 import { GenerateInput, GenerateResult } from '../../core/models/generate';
 import {
   AnnotationInput,
@@ -30,7 +39,14 @@ import {
   LessonSummary,
 } from '../../core/models/lesson';
 import { Level } from '../../core/models/lesson';
-import { Topic, TopicInput, TopicRoadmap, TopicWord, TopicWordInput, WordPlan } from '../../core/models/topic';
+import {
+  Topic,
+  TopicInput,
+  TopicRoadmap,
+  TopicWord,
+  TopicWordInput,
+  WordPlan,
+} from '../../core/models/topic';
 import {
   BankMeaningsFilled,
   BankMissing,
@@ -91,7 +107,11 @@ export class AdminApiService {
 
   /** Replaces the practice's translation sentences (the full list); 409 no_practice / practice_running / practice_changed. */
   updateTranslations(id: string, translations: TranslationInput[]): Observable<Lesson> {
-    return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/practice/translations`, { translations }));
+    return this.unwrap(
+      this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/practice/translations`, {
+        translations,
+      }),
+    );
   }
 
   /** F23: the picture settings of a lesson and how many of its words have a picture. */
@@ -106,19 +126,28 @@ export class AdminApiService {
 
   /** F23: uploads the picture of one word (the file is the body); the server scales it down. */
   uploadWordImage(id: string, lemma: string, file: Blob): Observable<LessonImages> {
-    return this.http.put<LessonImages>(`${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`, file, {
-      headers: { 'Content-Type': file.type || 'application/octet-stream' },
-    });
+    return this.http.put<LessonImages>(
+      `${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`,
+      file,
+      {
+        headers: { 'Content-Type': file.type || 'application/octet-stream' },
+      },
+    );
   }
 
   /** F23: the server downloads the picture behind a link and stores it for one word. */
   importWordImage(id: string, lemma: string, url: string): Observable<LessonImages> {
-    return this.http.post<LessonImages>(`${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}/import`, { url });
+    return this.http.post<LessonImages>(
+      `${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}/import`,
+      { url },
+    );
   }
 
   /** F23: removes the picture of one word. */
   deleteWordImage(id: string, lemma: string): Observable<LessonImages> {
-    return this.http.delete<LessonImages>(`${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`);
+    return this.http.delete<LessonImages>(
+      `${BASE}/lessons/${id}/images/${encodeURIComponent(lemma)}`,
+    );
   }
 
   /** Generates the practice again with one AI request (F17); 202 with the lesson. */
@@ -135,12 +164,16 @@ export class AdminApiService {
 
   /** F22: keeps a flagged spot as it is, after the admin looked at it. */
   confirmLessonFlag(id: string, area: FlagArea, index: number): Observable<Lesson> {
-    return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/confirm`, { area, index }));
+    return this.unwrap(
+      this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/confirm`, { area, index }),
+    );
   }
 
   /** F22: marks the check as finished; the server refuses while flags are unconfirmed. */
   verifyLesson(id: string): Observable<Lesson> {
-    return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/verify`, null));
+    return this.unwrap(
+      this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/verify`, null),
+    );
   }
 
   /** F22: asks the AI for a corrected version of one flagged item; nothing is saved. */
@@ -152,12 +185,16 @@ export class AdminApiService {
 
   /** F22: saves the admin's correction of one item; the other flags of its part are kept. */
   applyFix(id: string, fix: FixSuggestion): Observable<Lesson> {
-    return this.unwrap(this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/apply`, fix));
+    return this.unwrap(
+      this.http.post<{ lesson: Lesson }>(`${BASE}/lessons/${id}/check/apply`, fix),
+    );
   }
 
   /** Shows the lesson to learners (published) or hides it again as a draft. */
   setPublished(id: string, published: boolean): Observable<Lesson> {
-    return this.unwrap(this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/published`, { published }));
+    return this.unwrap(
+      this.http.put<{ lesson: Lesson }>(`${BASE}/lessons/${id}/published`, { published }),
+    );
   }
 
   saveAnnotations(id: string, annotations: AnnotationInput[]): Observable<Lesson> {
@@ -195,7 +232,11 @@ export class AdminApiService {
   }
 
   setTopicRoadmap(topicId: string, level: Level, lessonIds: string[]): Observable<TopicRoadmap> {
-    return this.http.put<TopicRoadmap>(`${BASE}/topics/${topicId}/roadmap`, { lessonIds }, { params: { level } });
+    return this.http.put<TopicRoadmap>(
+      `${BASE}/topics/${topicId}/roadmap`,
+      { lessonIds },
+      { params: { level } },
+    );
   }
 
   generateLessons(topicId: string, input: GenerateInput): Observable<GenerateResult> {
@@ -204,7 +245,9 @@ export class AdminApiService {
 
   /** F18: the topic's vocabulary list with coverage, in list order. */
   topicWords(topicId: string): Observable<TopicWord[]> {
-    return this.http.get<{ words: TopicWord[] }>(`${BASE}/topics/${topicId}/words`).pipe(map((r) => r.words));
+    return this.http
+      .get<{ words: TopicWord[] }>(`${BASE}/topics/${topicId}/words`)
+      .pipe(map((r) => r.words));
   }
 
   /** F18: replaces the whole vocabulary list; returns it normalized with coverage. */
@@ -224,8 +267,15 @@ export class AdminApiService {
   }
 
   /** F18: asks the AI for `count` new words of `level` and adds them to the topic; returns the added words and the list. */
-  suggestTopicWords(topicId: string, level: Level, count: number): Observable<{ added: string[]; words: TopicWord[] }> {
-    return this.http.post<{ added: string[]; words: TopicWord[] }>(`${BASE}/topics/${topicId}/words/suggest`, { count, level });
+  suggestTopicWords(
+    topicId: string,
+    level: Level,
+    count: number,
+  ): Observable<{ added: string[]; words: TopicWord[] }> {
+    return this.http.post<{ added: string[]; words: TopicWord[] }>(
+      `${BASE}/topics/${topicId}/words/suggest`,
+      { count, level },
+    );
   }
 
   /** Grammar points of the curriculum for a level, in curriculum order, with how many lessons use each. */
@@ -234,29 +284,57 @@ export class AdminApiService {
     if (topicId) {
       params = params.set('topicId', topicId);
     }
-    return this.http.get<{ points: GrammarPoint[] }>(`${BASE}/grammar`, { params }).pipe(map((r) => r.points));
+    return this.http
+      .get<{ points: GrammarPoint[] }>(`${BASE}/grammar`, { params })
+      .pipe(map((r) => r.points));
   }
 
   /** F20: the grammar lessons that exist (points without a lesson are absent). */
   grammarLessons(): Observable<GrammarLessonSummary[]> {
-    return this.http.get<{ lessons: GrammarLessonSummary[] }>(`${BASE}/grammar-lessons`).pipe(map((r) => r.lessons));
+    return this.http
+      .get<{ lessons: GrammarLessonSummary[] }>(`${BASE}/grammar-lessons`)
+      .pipe(map((r) => r.lessons));
   }
 
   /** F20: one grammar lesson with its content; 404 when the point has none. */
   grammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
-    return this.unwrapGrammar(this.http.get<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}`));
+    return this.unwrapGrammar(
+      this.http.get<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}`),
+    );
   }
 
   /** F20: one AI request; saves a draft. `force` replaces an edited or published lesson. */
   generateGrammarLesson(pointId: string, force: boolean): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/generate`, { force }),
+      this.http.post<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/generate`,
+        { force },
+      ),
+    );
+  }
+
+  /**
+   * FR-028: saves a lesson written outside the app as the point's draft; `replace` replaces the
+   * point's lesson (409 grammar_lesson_exists otherwise), `dryRun` only checks it.
+   */
+  importGrammarLesson(
+    pointId: string,
+    content: unknown,
+    replace: boolean,
+    dryRun: boolean,
+  ): Observable<GrammarImportResult> {
+    return this.http.post<GrammarImportResult>(
+      `${BASE}/grammar-lessons/${pointId}/import`,
+      { content, replace },
+      { params: dryRun ? { dryRun: 'true' } : {} },
     );
   }
 
   saveGrammarLesson(pointId: string, content: GrammarContent): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.put<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}`, { content }),
+      this.http.put<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}`, {
+        content,
+      }),
     );
   }
 
@@ -273,41 +351,61 @@ export class AdminApiService {
   /** F21: one AI request that solves the exercises on its own and flags the ones that disagree. */
   checkGrammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/check`, null),
+      this.http.post<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/check`,
+        null,
+      ),
     );
   }
 
   /** F21b: the admin says a flagged exercise is right as it is. */
   confirmGrammarCheck(pointId: string, exerciseId: string): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/checks/${exerciseId}/confirm`, null),
+      this.http.post<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/checks/${exerciseId}/confirm`,
+        null,
+      ),
     );
   }
 
   /** F21b: marks the lesson as checked by the admin; 409 grammar_not_checked before any AI check. */
   verifyGrammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/verify`, null),
+      this.http.post<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/verify`,
+        null,
+      ),
     );
   }
 
   /** F21b: replaces one exercise (same kind). */
-  saveGrammarExercise(pointId: string, exerciseId: string, exercise: GrammarExerciseInput): Observable<GrammarLessonAdmin> {
+  saveGrammarExercise(
+    pointId: string,
+    exerciseId: string,
+    exercise: GrammarExerciseInput,
+  ): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.put<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/exercises/${exerciseId}`, exercise),
+      this.http.put<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/exercises/${exerciseId}`,
+        exercise,
+      ),
     );
   }
 
   /** F21b: removes one exercise; 400 when the section would fall under its minimum. */
   deleteGrammarExercise(pointId: string, exerciseId: string): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.delete<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/exercises/${exerciseId}`),
+      this.http.delete<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/exercises/${exerciseId}`,
+      ),
     );
   }
 
   /** F21: open learner reports, grouped by (point, exercise), newest first. */
   grammarReports(): Observable<GrammarReportGroup[]> {
-    return this.http.get<{ reports: GrammarReportGroup[] }>(`${BASE}/grammar-reports`).pipe(map((r) => r.reports));
+    return this.http
+      .get<{ reports: GrammarReportGroup[] }>(`${BASE}/grammar-reports`)
+      .pipe(map((r) => r.reports));
   }
 
   /** F21: closes the open reports of one exercise; returns how many were closed. */
@@ -317,9 +415,17 @@ export class AdminApiService {
       .pipe(map((r) => r.resolved));
   }
 
+  /** Deletes the draft lesson of a point; 409 grammar_lesson_published when it is published. */
+  deleteGrammarLesson(pointId: string): Observable<void> {
+    return this.http.delete<void>(`${BASE}/grammar-lessons/${pointId}`);
+  }
+
   unpublishGrammarLesson(pointId: string): Observable<GrammarLessonAdmin> {
     return this.unwrapGrammar(
-      this.http.post<{ lesson: GrammarLessonAdmin }>(`${BASE}/grammar-lessons/${pointId}/unpublish`, null),
+      this.http.post<{ lesson: GrammarLessonAdmin }>(
+        `${BASE}/grammar-lessons/${pointId}/unpublish`,
+        null,
+      ),
     );
   }
 
@@ -380,7 +486,9 @@ export class AdminApiService {
   }
 
   importBankWords(): Observable<number> {
-    return this.http.post<{ added: number }>(`${BASE}/words/import`, null).pipe(map((r) => r.added));
+    return this.http
+      .post<{ added: number }>(`${BASE}/words/import`, null)
+      .pipe(map((r) => r.added));
   }
 
   /**
@@ -413,19 +521,25 @@ export class AdminApiService {
   }
 
   importBankImage(lemma: string, url: string): Observable<BankWord> {
-    return this.http.post<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image/import`, { url });
+    return this.http.post<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image/import`, {
+      url,
+    });
   }
 
   /** F24: one AI request that draws the word's picture (paid). */
   generateBankImage(lemma: string, style = ''): Observable<BankWord> {
-    return this.http.post<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image/generate`, { style });
+    return this.http.post<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image/generate`, {
+      style,
+    });
   }
 
   deleteBankImage(lemma: string): Observable<BankWord> {
     return this.http.delete<BankWord>(`${BASE}/words/${encodeURIComponent(lemma)}/image`);
   }
 
-  private unwrapGrammar(obs: Observable<{ lesson: GrammarLessonAdmin }>): Observable<GrammarLessonAdmin> {
+  private unwrapGrammar(
+    obs: Observable<{ lesson: GrammarLessonAdmin }>,
+  ): Observable<GrammarLessonAdmin> {
     return obs.pipe(map((r) => r.lesson));
   }
 
@@ -472,13 +586,35 @@ export class AdminApiService {
   }
 
   /**
-   * Takes a lesson out of its topic roadmap and deletes it, draft or published, so its slot is
-   * empty again.
+   * Takes a lesson out of its topic roadmap so its slot is empty again, and deletes it (del) or keeps
+   * it as a draft in the lesson list.
    */
-  removeCurriculumLesson(lessonId: string): Observable<{ deleted: boolean }> {
+  removeCurriculumLesson(lessonId: string, del: boolean): Observable<{ deleted: boolean }> {
     return this.http.post<{ deleted: boolean }>(
       `${BASE}/curriculum/lessons/${encodeURIComponent(lessonId)}/remove`,
-      null,
+      { delete: del },
+    );
+  }
+
+  /** FR-026: what the lesson of a slot is written from. */
+  curriculumBrief(key: string): Observable<SlotBrief> {
+    return this.http.get<SlotBrief>(`${BASE}/curriculum/slots/${encodeURIComponent(key)}/brief`);
+  }
+
+  /**
+   * FR-027: saves a lesson written outside the app as the draft of an empty slot; `dryRun` only
+   * checks it. `lesson` is the import JSON as written (content, annotate, practice, glosses). An
+   * invalid lesson fails with 400 `{fields, report}`.
+   */
+  importCurriculumSlot(
+    key: string,
+    lesson: unknown,
+    dryRun: boolean,
+  ): Observable<SlotImportResult> {
+    return this.http.post<SlotImportResult>(
+      `${BASE}/curriculum/slots/${encodeURIComponent(key)}/import`,
+      lesson,
+      { params: dryRun ? { dryRun: 'true' } : {} },
     );
   }
 
@@ -495,10 +631,18 @@ export class AdminApiService {
   }
 
   /** Asks the AI for the lessons of topic number of the draft (one request). */
-  writeCurriculumTopic(level: string, number: number, extraOnly = false): Observable<CurriculumBoard> {
-    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/draft/topics/${number}/write`, null, {
-      params: extraOnly ? { level, mode: 'extra' } : { level },
-    });
+  writeCurriculumTopic(
+    level: string,
+    number: number,
+    extraOnly = false,
+  ): Observable<CurriculumBoard> {
+    return this.http.post<CurriculumBoard>(
+      `${BASE}/curriculum/draft/topics/${number}/write`,
+      null,
+      {
+        params: extraOnly ? { level, mode: 'extra' } : { level },
+      },
+    );
   }
 
   /** Where the course of each level is (levels with a course or a draft), for the admin home. */
@@ -525,7 +669,9 @@ export class AdminApiService {
 
   /** Makes the draft the level's course and creates the topics the catalogue lacks. */
   approveCurriculum(level: string): Observable<CurriculumBoard> {
-    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/approve`, null, { params: { level } });
+    return this.http.post<CurriculumBoard>(`${BASE}/curriculum/approve`, null, {
+      params: { level },
+    });
   }
 
   private unwrap(obs: Observable<{ lesson: Lesson }>): Observable<Lesson> {

@@ -364,3 +364,119 @@ func TestReportsGroupResolveAndReopen(t *testing.T) {
 		t.Errorf("nothing to resolve = %d, %v", n, err)
 	}
 }
+
+// Fixed 2026-10-26: a model wrote its notes into the sentence of a reorder, and the flag quoted them.
+func TestCheckDoesNotQuoteAGarbledAnswer(t *testing.T) {
+	t.Parallel()
+	e := Exercise{ID: "p3", Kind: KindReorder, Sentence: "Where do you live?", Words: []string{"Where", "do", "you", "live?", "are"}}
+	c, flagged := compareSolution(e, ai.Solution{ExerciseID: "p3", Sentence: "Where do you live? wait words: ['Where','do']"})
+	if !flagged || c.Kind != CheckUnchecked || c.NoteVi != garbledNote {
+		t.Fatalf("check = %+v", c)
+	}
+	if _, flagged := compareSolution(e, ai.Solution{ExerciseID: "p3", Sentence: "where do you live"}); flagged {
+		t.Fatal("the stored sentence without its question mark was flagged")
+	}
+	if c, _ := compareSolution(e, ai.Solution{ExerciseID: "p3", Sentence: "Where are you live?"}); c.Kind != CheckMismatch {
+		t.Fatalf("a real other answer = %+v", c)
+	}
+}
+
+func TestCheckAsksAgainForUnusableAnswers(t *testing.T) {
+	t.Parallel()
+	for _, tc := range []struct {
+		name      string
+		secondBad bool
+	}{{"second answer fine", false}, {"second answer bad too", true}} {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			e := newEnv(t)
+			calls := 0
+			e.ai.solve = func(req ai.SolveRequest) ([]ai.Solution, error) {
+				calls++
+				out := solveLikeFixtures(req)
+				if calls == 2 && len(req.Exercises) != 1 {
+					t.Errorf("retry asked %d exercises, want only p3", len(req.Exercises))
+				}
+				for i := range out {
+					if out[i].ExerciseID == "p3" && (calls == 1 || tc.secondBad) {
+						out[i].Sentence = "wait words are ['She','is'] so She is a teacher"
+					}
+				}
+				return out, nil
+			}
+			l, _, err := e.svc.Generate(t.Context(), point, false)
+			if err != nil {
+				t.Fatal(err)
+			}
+			got := flagByID(l)
+			if calls != 2 {
+				t.Errorf("solve calls = %d, want 2", calls)
+			}
+			if tc.secondBad {
+				if len(got) != 1 || got["p3"].Kind != CheckUnchecked || got["p3"].NoteVi != garbledNote {
+					t.Errorf("checks = %+v", l.Checks)
+				}
+			} else if len(got) != 0 {
+				t.Errorf("checks = %+v", l.Checks)
+			}
+		})
+	}
+}
+
+func TestCheckReadsASentenceWrittenAsTheAnswer(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	e.ai.solve = func(req ai.SolveRequest) ([]ai.Solution, error) {
+		out := solveLikeFixtures(req)
+		for i := range out {
+			if out[i].Sentence != "" {
+				out[i].Answer, out[i].Sentence = out[i].Sentence, ""
+			}
+		}
+		return out, nil
+	}
+	l, _, err := e.svc.Generate(t.Context(), point, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(l.Checks) != 0 || e.ai.solveCalls != 1 {
+		t.Errorf("checks = %+v, solve calls = %d", l.Checks, e.ai.solveCalls)
+	}
+}
+
+// Fixed 2026-10-26: a model wrote "We were ... summer. Correct error was -> were. Perfect." as a fix.
+func TestCheckKeepsAStoredAnswerFollowedByNotes(t *testing.T) {
+	t.Parallel()
+	fix := Exercise{ID: "f1", Kind: KindFix, Text: "We was at the beach last summer.", Sentence: "We were at the beach last summer."}
+	notes := ai.Solution{ExerciseID: "f1", Sentence: "We were at the beach last summer. Correct error was -> were. Perfect. No meaningOff."}
+	if c, flagged := compareSolution(fix, keepLeadingAnswer(fix, notes)); flagged {
+		t.Fatalf("check = %+v", c)
+	}
+	other := ai.Solution{ExerciseID: "f1", Sentence: "We are at the beach this summer. Wait, the error was was, so it is were."}
+	if c, _ := compareSolution(fix, keepLeadingAnswer(fix, other)); c.Kind != CheckUnchecked {
+		t.Fatalf("notes after another answer = %+v", c)
+	}
+	reorder := Exercise{ID: "r1", Kind: KindReorder, Sentence: "I am happy", Words: []string{"I", "am", "happy", "now"}}
+	longer := ai.Solution{ExerciseID: "r1", Sentence: "I am happy now"}
+	if c, _ := compareSolution(reorder, keepLeadingAnswer(reorder, longer)); c.Kind != CheckMismatch {
+		t.Fatalf("a real longer answer = %+v", c)
+	}
+}
+
+// Seen 2026-10-26 with gemini-3.6-flash: short notes after a right correction.
+func TestCheckCutsShortNotesAfterAFinishedSentence(t *testing.T) {
+	t.Parallel()
+	for _, tc := range []struct{ key, got string }{
+		{"Does he like reading books?", `Does he like reading books? caps:false, meaningOff:false, noteVi:""`},
+		{"See you on Monday.", "See you on Monday. assassination attempt? No."},
+	} {
+		fix := Exercise{ID: "f1", Kind: KindFix, Sentence: tc.key}
+		if c, flagged := compareSolution(fix, keepLeadingAnswer(fix, ai.Solution{ExerciseID: "f1", Sentence: tc.got})); flagged {
+			t.Errorf("%q: check = %+v", tc.got, c)
+		}
+	}
+	fix := Exercise{ID: "f1", Kind: KindFix, Sentence: "See you on Monday."}
+	if c, _ := compareSolution(fix, keepLeadingAnswer(fix, ai.Solution{ExerciseID: "f1", Sentence: "See you on Monday morning."})); c.Kind != CheckMismatch {
+		t.Errorf("a real longer answer = %+v", c)
+	}
+}

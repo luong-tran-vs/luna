@@ -88,6 +88,7 @@ func (h *Handler) grammarPoints(w http.ResponseWriter, r *http.Request) {
 type summaryJSON struct {
 	ID               string    `json:"id"`
 	Title            string    `json:"title"`
+	Source           string    `json:"source"`
 	Level            Level     `json:"level"`
 	TopicID          string    `json:"topicId"`
 	TopicName        string    `json:"topicName"`

@@ -253,6 +253,7 @@
                       [publishing]="publishing() === s.lesson?.id"
                       [rechecking]="rechecking() === s.lesson?.id"
                       (generate)="generateOne(t, s)"
+                      (importLesson)="askImport(t, s)"
                       (publish)="publish(t, $event)"
                       (recheck)="recheck(t, s, $event)"
                       (remove)="askRemove(t, s.lesson!, s.lesson!.title || s.title)"
@@ -275,6 +276,7 @@
                       [publishing]="publishing() === s.lesson?.id"
                       [rechecking]="rechecking() === s.lesson?.id"
                       (generate)="generateOne(t, s)"
+                      (importLesson)="askImport(t, s)"
                       (publish)="publish(t, $event)"
                       (recheck)="recheck(t, s, $event)"
                       (remove)="askRemove(t, s.lesson!, s.lesson!.title || s.title)"
@@ -316,12 +318,18 @@
   (cancelled)="applyOpen.set(false)"
 />
 
-<lu-confirm-dialog
+<lu-slot-import-dialog
+  [open]="importing() !== null"
+  [slotKey]="importing()?.slot?.key ?? ''"
+  [slotTitle]="importing()?.slot?.title ?? ''"
+  (saved)="imported($event)"
+  (closed)="cancelImport()"
+/>
+
+<lu-remove-dialog
   [open]="removal() !== null"
-  title="Gỡ và xoá bài?"
-  [message]="removeMessage()"
-  confirmLabel="Gỡ"
-  [danger]="true"
-  (confirmed)="remove()"
+  [lessonTitle]="removal()?.title ?? ''"
+  [published]="removal()?.lesson?.draft === false"
+  (confirmed)="remove($event)"
   (cancelled)="cancelRemove()"
 />

@@ -372,7 +372,7 @@ describe('GrammarDetail', () => {
 
     it('labels an exercise the AI did not answer', async () => {
       await setup({ lesson: lesson({ checkedAt: '2026-10-05T08:30:00Z', checks: [{ exerciseId: 'p2', kind: 'unchecked', noteVi: 'AI không trả lời câu này, hãy tự kiểm tra.', confirmed: false }] }) });
-      expect(text(exercise('p2').querySelector('.flag'))).toBe('Chưa kiểm tra được: AI không trả lời câu này. AI không trả lời câu này, hãy tự kiểm tra.');
+      expect(text(exercise('p2').querySelector('.flag'))).toBe('Chưa kiểm tra được. AI không trả lời câu này, hãy tự kiểm tra.');
     });
 
     it('confirms a flag: the line turns into "Đã xác nhận" and keeps the note', async () => {

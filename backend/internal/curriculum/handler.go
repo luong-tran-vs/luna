@@ -43,6 +43,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("POST /api/admin/curriculum/draft/topics/{number}/write", admin(h.writeTopic))
 	mux.Handle("POST /api/admin/curriculum/edit", admin(h.editApproved))
 	mux.Handle("POST /api/admin/curriculum/approve", admin(h.approve))
+	mux.Handle("GET /api/admin/curriculum/slots/{key}/brief", admin(h.brief))
+	mux.Handle("POST /api/admin/curriculum/slots/{key}/import", admin(h.importSlot))
 	mux.Handle("POST /api/admin/curriculum/lessons/{lessonId}/remove", admin(h.remove))
 }
 
@@ -59,6 +61,7 @@ type lessonJSON struct {
 	Title            string `json:"title"`
 	Draft            bool   `json:"draft"`
 	AnnotationStatus string `json:"annotationStatus"`
+	Source           string `json:"source"`
 }
 
 type checkJSON struct {
@@ -123,7 +126,7 @@ func grammarsJSON(gs []GrammarView) []grammarJSON {
 }
 
 func refJSON(l topic.LessonRef) lessonJSON {
-	return lessonJSON{ID: l.ID, Title: l.Title, Draft: l.Draft, AnnotationStatus: l.AnnotationStatus}
+	return lessonJSON{ID: l.ID, Title: l.Title, Draft: l.Draft, AnnotationStatus: l.AnnotationStatus, Source: l.Source}
 }
 
 func toChecksJSON(c Checks) checksJSON {
@@ -208,8 +211,16 @@ func (h *Handler) checks(w http.ResponseWriter, r *http.Request) {
 	httpx.WriteJSON(w, http.StatusOK, toChecksJSON(c))
 }
 
+// remove takes an optional body {"delete": false} that keeps the lesson as a draft (added
+// 2026-10-26); without it the lesson is deleted, as before.
 func (h *Handler) remove(w http.ResponseWriter, r *http.Request) {
-	res, err := h.svc.Remove(r.Context(), r.PathValue("lessonId"))
+	body := struct {
+		Delete *bool `json:"delete"`
+	}{}
+	if r.ContentLength != 0 && httpx.DecodeJSON(w, r, &body) != nil {
+		return
+	}
+	res, err := h.svc.Remove(r.Context(), r.PathValue("lessonId"), body.Delete == nil || *body.Delete)
 	if err != nil {
 		h.writeError(w, r, err)
 		return

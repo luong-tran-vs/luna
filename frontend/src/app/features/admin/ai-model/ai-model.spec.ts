@@ -30,6 +30,7 @@ describe('ai model helpers', () => {
     expect(modelName('gemini-3.6-flash')).toBe('Gemini 3.6 Flash');
     expect(modelName('gemini-9')).toBe('gemini-9');
     expect(modelName('openai/gpt-oss-120b')).toBe('GPT-OSS 120B · Groq');
+    expect(modelName('gpt-6-sol')).toBe('GPT-6 Sol · ChatGPT');
     expect(testText({ outcome: 'ok', durationMs: 4800 })).toBe('Trả lời sau 4,8 giây');
     expect(testText({ outcome: 'busy', durationMs: 3000 })).toBe('Đang quá tải (503) sau 3 giây');
     expect(testText({ outcome: 'timeout', durationMs: 60000 })).toBe('Không trả lời trong 60 giây');

@@ -31,7 +31,7 @@ func (c *clock) now() time.Time { return c.t }
 
 func newService(repo *memRepo, tester aimodel.Tester) (*aimodel.Service, *clock) {
 	clk := &clock{t: time.Date(2026, 10, 23, 9, 0, 0, 0, time.UTC)}
-	return aimodel.NewService(repo, "gemini-3.5-flash-lite", true, tester, clk.now, slog.New(slog.DiscardHandler)), clk
+	return aimodel.NewService(repo, "gemini-3.5-flash-lite", true, true, tester, clk.now, slog.New(slog.DiscardHandler)), clk
 }
 
 func TestModelDefaultsAndCaches(t *testing.T) {
@@ -142,7 +142,7 @@ func TestModelByOp(t *testing.T) {
 	}
 
 	// Without the Groq key its models are not offered: the ops fall back to the model of every op.
-	noGroq := aimodel.NewService(repo, "gemini-3.5-flash-lite", false, nil, time.Now, slog.New(slog.DiscardHandler))
+	noGroq := aimodel.NewService(repo, "gemini-3.5-flash-lite", false, false, nil, time.Now, slog.New(slog.DiscardHandler))
 	if got := noGroq.ModelFor(t.Context(), "explain"); got != "gemini-3.6-flash" {
 		t.Errorf("without groq: %q", got)
 	}

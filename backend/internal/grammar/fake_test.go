@@ -33,6 +33,16 @@ func (f *fakeLessons) Save(_ context.Context, l Lesson) error {
 	return nil
 }
 
+func (f *fakeLessons) Delete(_ context.Context, id string) error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	if _, ok := f.lessons[id]; !ok {
+		return ErrNotFound
+	}
+	delete(f.lessons, id)
+	return nil
+}
+
 func (f *fakeLessons) List(context.Context) ([]LessonSummary, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()

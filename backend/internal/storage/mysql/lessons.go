@@ -66,7 +66,7 @@ const lessonCols = `id, title, content, level, topic_id, source, license, gramma
 	created_at, updated_at, review, target_words, draft, sentence_translations`
 
 // lessonSummaryCols lists the columns lessonScanSummary reads.
-const lessonSummaryCols = `id, title, level, topic_id, annotation_status, created_at, review, draft`
+const lessonSummaryCols = `id, title, level, topic_id, annotation_status, created_at, review, draft, source`
 
 // lessonValidID reports whether id has the shape newID makes (24 lowercase hex characters).
 func lessonValidID(id string) bool {
@@ -272,7 +272,7 @@ func lessonScanSummary(s lessonRowScanner) (lesson.Summary, error) {
 		created       sql.NullTime
 		reviewRaw     []byte
 	)
-	if err := s.Scan(&sm.ID, &sm.Title, &level, &sm.TopicID, &status, &created, &reviewRaw, &sm.Draft); err != nil {
+	if err := s.Scan(&sm.ID, &sm.Title, &level, &sm.TopicID, &status, &created, &reviewRaw, &sm.Draft, &sm.Source); err != nil {
 		return lesson.Summary{}, err
 	}
 	sm.Level, sm.AnnotationStatus, sm.CreatedAt = lesson.Level(level), lesson.Status(status), timeOf(created)

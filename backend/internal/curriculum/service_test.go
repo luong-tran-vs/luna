@@ -91,6 +91,10 @@ type fakeLessons struct {
 	created   []lesson.Input
 	drafts    []lesson.Draft
 	deleted   []string
+	imported  []lesson.Input
+	dryRuns   int
+	// importErr, if set, is what Import returns.
+	importErr error
 }
 
 func (f *fakeLessons) Generate(_ context.Context, _ string, in lesson.GenerateInput) (lesson.GenerateResult, error) {
@@ -103,6 +107,29 @@ func (f *fakeLessons) Create(_ context.Context, in lesson.Input) (lesson.Lesson,
 	id := f.topics.add(in.TopicID, in.Title, in.Draft)
 	return lesson.Lesson{ID: id, Title: in.Title, Content: in.Content, Level: in.Level, TopicID: in.TopicID, Draft: in.Draft,
 		GrammarPointID: in.GrammarPointID, TargetWords: in.TargetWords}, nil
+}
+
+func (f *fakeLessons) Import(_ context.Context, in lesson.Input, _ lesson.ImportContent, dryRun bool) (lesson.Lesson, lesson.ImportReport, error) {
+	rep := lesson.ImportReport{Sentences: 1, Parts: []lesson.ImportPart{{Key: "annotate.annotations", Given: 2, Kept: 2}}}
+	if f.importErr != nil {
+		return lesson.Lesson{}, rep, f.importErr
+	}
+	f.imported = append(f.imported, in)
+	l := lesson.Lesson{Title: in.Title, Content: in.Content, Level: in.Level, TopicID: in.TopicID, Draft: in.Draft,
+		GrammarPointID: in.GrammarPointID, TargetWords: in.TargetWords, Source: in.Source}
+	if dryRun {
+		f.dryRuns++
+		return l, rep, nil
+	}
+	l.ID = f.topics.add(in.TopicID, in.Title, in.Draft)
+	return l, rep, nil
+}
+
+func (f *fakeLessons) SetPublished(_ context.Context, id string, published bool) (lesson.Lesson, error) {
+	r := f.topics.lessons[id]
+	r.Draft = !published
+	f.topics.lessons[id] = r
+	return f.Get(context.Background(), id)
 }
 
 func (f *fakeLessons) Get(_ context.Context, id string) (lesson.Lesson, error) {
@@ -282,16 +309,21 @@ func TestRemove(t *testing.T) {
 	s, ft, fl := newService()
 	ctx := context.Background()
 	// A published lesson leaves the roadmap and is deleted (before the roadmap change, delete refuses).
-	res, err := s.Remove(ctx, "l2")
+	res, err := s.Remove(ctx, "l2", true)
 	if err != nil || !res.Deleted || !slices.Equal(ft.find("music").Roadmaps["A1"], []string{"l1", "l3", "l4"}) || !slices.Equal(fl.deleted, []string{"l2"}) {
 		t.Fatalf("published: %+v, %v, roadmap %v, deleted %v", res, err, ft.find("music").Roadmaps["A1"], fl.deleted)
 	}
 	// So is a draft.
-	res, err = s.Remove(ctx, "l4")
+	res, err = s.Remove(ctx, "l4", true)
 	if err != nil || !res.Deleted || !slices.Equal(fl.deleted, []string{"l2", "l4"}) || slices.Contains(ft.find("music").Roadmaps["A1"], "l4") {
 		t.Fatalf("draft: %+v, %v", res, err)
 	}
-	if _, err := s.Remove(ctx, "nope"); !errors.Is(err, lesson.ErrNotFound) {
+	if _, err := s.Remove(ctx, "nope", true); !errors.Is(err, lesson.ErrNotFound) {
 		t.Errorf("unknown lesson: %v", err)
+	}
+	// Without delete a published lesson leaves the roadmap and stays as a draft (added 2026-10-26).
+	res, err = s.Remove(ctx, "l1", false)
+	if err != nil || res.Deleted || slices.Contains(fl.deleted, "l1") || slices.Contains(ft.find("music").Roadmaps["A1"], "l1") || !ft.lessons["l1"].Draft {
+		t.Fatalf("keep: %+v, %v, roadmap %v, lesson %+v", res, err, ft.find("music").Roadmaps["A1"], ft.lessons["l1"])
 	}
 }

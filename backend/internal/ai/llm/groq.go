@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -81,18 +80,38 @@ func groqSchema(s map[string]any) map[string]any {
 	return out
 }
 
-// groqGenerate sends one chat request to Groq and returns the text of the answer; schema, if
-// set, makes the answer a JSON object of that shape.
+// chatAPI is a provider with an OpenAI-style chat API: Groq, or OpenAI itself (openai.go, added
+// 2026-10-26).
+type chatAPI struct {
+	name string
+	url  string
+	key  string
+	// noTemperature leaves the temperature out: OpenAI's reasoning models take only their own.
+	noTemperature bool
+}
+
+// groqGenerate sends one chat request to Groq and returns the text of the answer.
 func (c *Client) groqGenerate(ctx context.Context, model, op, prompt string, schema map[string]any,
 	temperature float64, attrs []slog.Attr,
 ) (string, error) {
-	if c.groqKey == "" {
+	api := chatAPI{name: "groq", url: c.GroqURL, key: c.groqKey}
+	return c.chatGenerate(ctx, api, model, op, prompt, schema, temperature, attrs)
+}
+
+// chatGenerate sends one chat request to api and returns the text of the answer; schema, if set,
+// makes the answer a JSON object of that shape.
+func (c *Client) chatGenerate(ctx context.Context, api chatAPI, model, op, prompt string, schema map[string]any,
+	temperature float64, attrs []slog.Attr,
+) (string, error) {
+	if api.key == "" {
 		return "", ai.ErrNotConfigured
 	}
 	body := map[string]any{
-		"model":       model,
-		"messages":    []groqMessage{{Role: "user", Content: prompt}},
-		"temperature": temperature,
+		"model":    model,
+		"messages": []groqMessage{{Role: "user", Content: prompt}},
+	}
+	if !api.noTemperature {
+		body["temperature"] = temperature
 	}
 	if schema != nil {
 		// Not strict: the schemas leave some properties optional, which strict mode forbids.
@@ -103,28 +122,28 @@ func (c *Client) groqGenerate(ctx context.Context, model, op, prompt string, sch
 	}
 	data, err := json.Marshal(body)
 	if err != nil {
-		return "", fmt.Errorf("groq: encode request: %w", err)
+		return "", fmt.Errorf("%s: encode request: %w", api.name, err)
 	}
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.GroqURL+"/chat/completions", bytes.NewReader(data))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, api.url+"/chat/completions", bytes.NewReader(data))
 	if err != nil {
-		return "", fmt.Errorf("groq: build request: %w", err)
+		return "", fmt.Errorf("%s: build request: %w", api.name, err)
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+c.groqKey)
+	req.Header.Set("Authorization", "Bearer "+api.key)
 
 	start := time.Now()
 	resp, err := c.client.Do(req)
 	if err != nil {
 		c.logRequest(ctx, model, op, start, 0, attrs)
 		c.recordUsage(ctx, model, op, 0, start, 0, nil)
-		return "", fmt.Errorf("groq: request: %w", err)
+		return "", fmt.Errorf("%s: request: %w", api.name, err)
 	}
 	defer resp.Body.Close() //nolint:errcheck // body fully read below
 	c.logRequest(ctx, model, op, start, resp.StatusCode, attrs)
 	raw, err := io.ReadAll(io.LimitReader(resp.Body, maxResponse))
 	c.recordUsage(ctx, model, op, 0, start, resp.StatusCode, raw)
 	if err != nil {
-		return "", fmt.Errorf("groq: read response: %w", err)
+		return "", fmt.Errorf("%s: read response: %w", api.name, err)
 	}
 	if resp.StatusCode == statusGroqCapacity {
 		return "", ai.ErrBusy
@@ -134,10 +153,10 @@ func (c *Client) groqGenerate(ctx context.Context, model, op, prompt string, sch
 	}
 	var r groqResponse
 	if err := json.Unmarshal(raw, &r); err != nil {
-		return "", fmt.Errorf("groq: decode response: %w", err)
+		return "", fmt.Errorf("%s: decode response: %w", api.name, err)
 	}
 	if len(r.Choices) == 0 || r.Choices[0].Message.Content == "" {
-		return "", errors.New("groq: empty response")
+		return "", fmt.Errorf("%s: empty response", api.name)
 	}
 	return r.Choices[0].Message.Content, nil
 }

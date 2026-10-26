@@ -4,6 +4,7 @@ package config
 import (
 	"errors"
 	"slices"
+	"strconv"
 	"strings"
 )
 
@@ -28,20 +29,26 @@ type Config struct {
 
 	AIProvider   string
 	GeminiAPIKey string
-	// GeminiBackupKey, of another Google project, is used when GeminiAPIKey gets a 429 (added
-	// 2026-10-23); empty for none.
-	GeminiBackupKey string
-	GeminiModel     string
+	// GeminiBackupKeys (GEMINI_API_KEY1, GEMINI_API_KEY2, ...), each of another Google project, are
+	// tried in order when the keys before them get a 429 (added 2026-10-23, several since 2026-10-26).
+	GeminiBackupKeys []string
+	GeminiModel      string
 	// GeminiImageModel draws the vocabulary pictures (F23).
 	GeminiImageModel string
 	// GroqAPIKey lets the admin choose Groq models for the text requests (added 2026-10-23); empty
 	// for none.
 	GroqAPIKey string
+	// OpenAIAPIKey lets the admin choose ChatGPT models (GPT-6 Sol, Luna) for the text requests
+	// (added 2026-10-26); empty for none.
+	OpenAIAPIKey string
 
 	DictionaryPath string
 }
 
 var logLevels = []string{"debug", "info", "warn", "error"}
+
+// maxGeminiBackupKeys is the highest n read as GEMINI_API_KEYn.
+const maxGeminiBackupKeys = 9
 
 // Load reads the configuration through getenv (usually os.Getenv).
 // It reports every problem at once and never includes variable values in errors.
@@ -56,12 +63,18 @@ func Load(getenv func(string) string) (Config, error) {
 		LogLevel:            strings.ToLower(valueOr(getenv("LOG_LEVEL"), "info")),
 		AIProvider:          strings.ToLower(valueOr(getenv("AI_PROVIDER"), "gemini")),
 		GeminiAPIKey:        strings.TrimSpace(getenv("GEMINI_API_KEY")),
-		GeminiBackupKey:     strings.TrimSpace(getenv("GEMINI_API_KEY1")),
 		GroqAPIKey:          strings.TrimSpace(getenv("GROQ_API_KEY")),
+		OpenAIAPIKey:        strings.TrimSpace(getenv("OPENAI_API_KEY")),
 		GeminiModel:         valueOr(getenv("GEMINI_MODEL"), "gemini-3.5-flash-lite"),
 		GeminiImageModel:    valueOr(getenv("GEMINI_IMAGE_MODEL"), "gemini-2.5-flash-image"),
 		DictionaryPath:      valueOr(getenv("DICTIONARY_PATH"), "./language-dictionary/data/english-dictionary.db"),
 		CORSOrigins:         splitList(getenv("CORS_ORIGINS")),
+	}
+	// An empty number is skipped, so removing a key does not hide the ones after it.
+	for i := 1; i <= maxGeminiBackupKeys; i++ {
+		if key := strings.TrimSpace(getenv("GEMINI_API_KEY"+strconv.Itoa(i))); key != "" {
+			cfg.GeminiBackupKeys = append(cfg.GeminiBackupKeys, key)
+		}
 	}
 
 	var errs []error

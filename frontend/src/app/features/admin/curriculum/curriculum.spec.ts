@@ -267,8 +267,9 @@ describe('Curriculum', () => {
       expect(text(r.querySelector('.title'))).toBe('Hello! I am Minh');
       expect(text(r.querySelector('.grammar'))).toBe('Ngữ pháp: to be');
       expect(text(r.querySelector('.idea-text'))).toBe('Ý tưởng: Ý tưởng Hello! I am Minh');
-      expect(actions(r)).toEqual(['Sinh bài']);
+      expect(actions(r)).toEqual(['Nhập bài', 'Sinh bài']);
       expect(button(r, 'Sinh bài').disabled).toBe(false);
+      expect(button(r, 'Nhập bài').disabled).toBe(false);
     });
 
     it('shows a draft with a checks summary, publish disabled until annotated and remove', () => {
@@ -570,6 +571,172 @@ describe('Curriculum', () => {
     });
   });
 
+  describe('importing a lesson (FR-030)', () => {
+    beforeEach(() => setup());
+
+    const importDialog = () =>
+      el.querySelector<HTMLElement>('lu-slot-import-dialog [role="dialog"]');
+    const brief = {
+      key: 'a1-01-1',
+      level: 'A1',
+      topicId: 't1',
+      topicName: 'Chủ đề 1',
+      topicNumber: 1,
+      canDoVi: 'chào hỏi',
+      kind: 'main',
+      title: 'Hello! I am Minh',
+      idea: 'Minh says hello.',
+      grammar: [
+        {
+          id: 'a1-to-be',
+          titleVi: 'to be',
+          titleEn: 'be',
+          pattern: 'I am',
+          hintVi: '',
+          examples: [],
+        },
+      ],
+      targetWords: ['hello', 'name'],
+      topicWords: ['hello', 'name', 'age'],
+      words: 120,
+      minGrammarUses: 3,
+      filled: false,
+    };
+    const report = (kept = 4) => ({
+      sentences: 9,
+      fromDictionary: 0,
+      parts: [
+        { key: 'annotate.annotations', labelVi: 'Chú thích từ', given: 4, kept: 4 },
+        {
+          key: 'practice.grammarStep.exercises',
+          labelVi: 'Bài tập ngữ pháp',
+          given: 4,
+          kept,
+          ...(kept < 4
+            ? { ruleVi: 'Tối đa 4 bài', reasons: ['bài 2 (choice): options: Cần đúng 4 đáp án'] }
+            : {}),
+        },
+      ],
+    });
+    const open = async () => {
+      button(slotRow('a1-01-1'), 'Nhập bài').click();
+      await settle();
+      http.expectOne('/admin/curriculum/slots/a1-01-1/brief').flush(brief);
+      await settle();
+    };
+    const paste = async (value: string) => {
+      const area = importDialog()!.querySelector<HTMLTextAreaElement>('textarea')!;
+      area.value = value;
+      area.dispatchEvent(new Event('input'));
+      await settle();
+    };
+    const importReq = (dryRun: boolean) =>
+      http.expectOne(
+        (r) =>
+          r.url === '/admin/curriculum/slots/a1-01-1/import' && r.params.has('dryRun') === dryRun,
+      );
+
+    it('shows the brief, checks without saving, then saves the draft', async () => {
+      await open();
+      expect(text(importDialog()!.querySelector('h2'))).toBe('Nhập bài: Hello! I am Minh');
+      expect(Array.from(importDialog()!.querySelectorAll('.chip')).map((c) => text(c))).toEqual([
+        'hello',
+        'name',
+      ]);
+      const save = button(importDialog()!, 'Lưu thành nháp');
+      expect(save.disabled).toBe(true);
+
+      await paste('{"content":"Hello!"}');
+      button(importDialog()!, 'Kiểm tra').click();
+      await settle();
+      const dry = importReq(true);
+      expect(dry.request.body).toEqual({ content: 'Hello!' });
+      dry.flush({
+        dryRun: true,
+        slot: slot('a1-01-1', 'Hello! I am Minh'),
+        checks,
+        report: report(2),
+      });
+      await settle();
+      expect(text(importDialog()!.querySelector('[role="status"].status'))).toBe(
+        'Đúng định dạng. Đã kiểm tra, chưa lưu.',
+      );
+      const steps = Array.from(importDialog()!.querySelectorAll<HTMLElement>('.step'));
+      expect(steps.map((s) => s.dataset['result'])).toEqual(['ok', 'ok', 'ok', 'warn', 'ok', 'ok']);
+      expect(text(importDialog()!.querySelector('.lost'))).toContain(
+        'bài 2 (choice): options: Cần đúng 4 đáp án',
+      );
+      expect(save.disabled).toBe(false);
+
+      // A change after the check needs another check.
+      await paste('{"content":"Hello again!"}');
+      expect(save.disabled).toBe(true);
+      button(importDialog()!, 'Kiểm tra lại').click();
+      await settle();
+      importReq(true).flush({
+        dryRun: true,
+        slot: slot('a1-01-1', 'Hello! I am Minh'),
+        checks,
+        report: report(),
+      });
+      await settle();
+
+      save.click();
+      await settle();
+      importReq(false).flush({
+        dryRun: false,
+        slot: slot('a1-01-1', 'Hello! I am Minh', {
+          lesson: { ...lesson('n1', true), source: 'Nhập' },
+        }),
+        checks,
+        report: report(),
+      });
+      await settle();
+      expect(importDialog()).toBeNull();
+      const after = board();
+      after.topics[0].slots[0] = slot('a1-01-1', 'Hello! I am Minh', {
+        lesson: { ...lesson('n1', true), source: 'Nhập' },
+        checks,
+      });
+      expectBoard().flush(after);
+      await settle();
+      expect(statusOf(1)).toBe('Đã nhập bài “Bài n1” thành nháp.');
+      expect(text(slotRow('a1-01-1').querySelector('.source'))).toBe('Nguồn: Nhập');
+    });
+
+    it('lists the field errors of an invalid lesson and does not save', async () => {
+      await open();
+      await paste('{"content":""}');
+      button(importDialog()!, 'Kiểm tra').click();
+      await settle();
+      importReq(true).flush(
+        {
+          error: 'validation_failed',
+          message: 'Bài nhập chưa hợp lệ',
+          fields: { content: 'Vui lòng dán nội dung bài' },
+          report: report(),
+        },
+        { status: 400, statusText: 'Bad Request' },
+      );
+      await settle();
+      expect(text(importDialog()!.querySelector('.errors'))).toContain(
+        'content: Vui lòng dán nội dung bài',
+      );
+      expect(button(importDialog()!, 'Lưu thành nháp').disabled).toBe(true);
+    });
+
+    it('says when the text is not JSON, without calling the server', async () => {
+      await open();
+      await paste('{not json');
+      button(importDialog()!, 'Kiểm tra').click();
+      await settle();
+      expect(text(importDialog()!.querySelector('#slot-import-parse'))).toContain(
+        'Không đọc được JSON',
+      );
+      http.expectNone((r) => r.url.includes('/import'));
+    });
+  });
+
   describe('removing a lesson', () => {
     beforeEach(() => setup());
 
@@ -582,34 +749,48 @@ describe('Curriculum', () => {
       await settle();
     };
 
-    it('removes and deletes a draft after confirming, the slot is empty again', async () => {
+    const radios = () =>
+      Array.from(dialog()!.querySelectorAll<HTMLInputElement>('input[type="radio"]'));
+
+    it('only takes a draft out of the course by default, the slot is empty again', async () => {
       await removeFrom(slotRow('a1-01-2'));
-      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ và xoá bài?');
-      expect(text(dialog()!.querySelector('.message'))).toBe(
-        'Gỡ và xoá bài nháp “Bài d1”? Ô sẽ trống để sinh lại.',
-      );
-      expect(text(dialog()!.querySelector('.btn-primary'))).toBe('Gỡ');
+      expect(text(dialog()!.querySelector('h2'))).toBe('Gỡ bài “Bài d1”?');
+      expect(text(dialog()!.querySelector('.state'))).toBe('Bài nháp, người học chưa thấy.');
+      expect(radios().map((r) => r.checked)).toEqual([true, false]);
+      expect(document.activeElement).toBe(radios()[0]);
+      expect(text(dialog()!.querySelector('.btn-primary'))).toBe('Chỉ gỡ');
       await confirm();
       expect(dialog()).toBeNull();
-      expectRemove('d1').flush({ deleted: true });
+      const req = expectRemove('d1');
+      expect(req.request.body).toEqual({ delete: false });
+      req.flush({ deleted: false });
       await settle();
       const after = board();
       after.topics[0].slots[1] = { ...after.topics[0].slots[1], lesson: null, checks: null };
       expectBoard().flush({ ...after, drafts: 0 });
       await settle();
       expect(slotRow('a1-01-2').dataset['state']).toBe('empty');
-      expect(statusOf(1)).toBe('Đã gỡ và xoá bài “Bài d1”.');
+      expect(statusOf(1)).toBe(
+        'Đã gỡ bài “Bài d1” khỏi giáo trình. Bài vẫn còn ở trang Bài học, dạng nháp.',
+      );
       expect(text(el.querySelector('.summary'))).toBe('1/7 bài đã đăng · 0 nháp · 6 ô trống');
       expect(document.activeElement).toBe(toggleOf(1));
     });
 
-    it('removes and deletes a published lesson too', async () => {
+    it('deletes a published lesson when asked', async () => {
       await removeFrom(slotRow('a1-01-3'));
-      expect(text(dialog()!.querySelector('.message'))).toBe(
-        'Gỡ và xoá bài đã đăng “Bài p1”? Bài bị xoá khỏi lộ trình và danh sách Bài học, người học không còn thấy bài này. Ô sẽ trống để sinh lại.',
+      expect(text(dialog()!.querySelector('.state'))).toBe(
+        'Bài đã đăng, người học đang thấy bài này.',
       );
+      radios()[1].click();
+      await settle();
+      const confirmButton = dialog()!.querySelector('.btn-primary')!;
+      expect(text(confirmButton)).toBe('Gỡ và xoá');
+      expect(confirmButton.classList).toContain('btn-danger');
       await confirm();
-      expectRemove('p1').flush({ deleted: true });
+      const req = expectRemove('p1');
+      expect(req.request.body).toEqual({ delete: true });
+      req.flush({ deleted: true });
       await settle();
       const after = board();
       after.topics[0].slots[2] = { ...after.topics[0].slots[2], lesson: null };
@@ -622,14 +803,16 @@ describe('Curriculum', () => {
     it('removes another lesson of the topic', async () => {
       await removeFrom(row('other-o1')!);
       await confirm();
-      expectRemove('o1').flush({ deleted: true });
+      expectRemove('o1').flush({ deleted: false });
       await settle();
       const after = board();
       after.topics[0].others = [];
       expectBoard().flush(after);
       await settle();
       expect(row('other-o1')).toBeNull();
-      expect(statusOf(1)).toBe('Đã gỡ và xoá bài “Bài o1”.');
+      expect(statusOf(1)).toBe(
+        'Đã gỡ bài “Bài o1” khỏi giáo trình. Bài vẫn còn ở trang Bài học, dạng nháp.',
+      );
     });
 
     it('does nothing when cancelled and gives the focus back', async () => {

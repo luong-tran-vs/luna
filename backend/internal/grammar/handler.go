@@ -37,6 +37,8 @@ func (h *Handler) Register(mux *http.ServeMux, requireAuth httpx.Middleware) {
 	mux.Handle("GET /api/admin/grammar-lessons/{pointId}", admin(h.adminGet))
 	mux.Handle("POST /api/admin/grammar-lessons/{pointId}/generate", admin(h.generate))
 	mux.Handle("PUT /api/admin/grammar-lessons/{pointId}", admin(h.save))
+	mux.Handle("POST /api/admin/grammar-lessons/{pointId}/import", admin(h.importLesson))
+	mux.Handle("DELETE /api/admin/grammar-lessons/{pointId}", admin(h.deleteLesson))
 	mux.Handle("POST /api/admin/grammar-lessons/{pointId}/check", admin(h.check))
 	mux.Handle("POST /api/admin/grammar-lessons/{pointId}/checks/{exerciseId}/confirm", admin(h.confirmCheck))
 	mux.Handle("POST /api/admin/grammar-lessons/{pointId}/verify", admin(h.verify))
@@ -173,6 +175,7 @@ type summaryJSON struct {
 	PointID     string     `json:"pointId"`
 	Status      Status     `json:"status"`
 	Edited      bool       `json:"edited"`
+	Imported    bool       `json:"imported"`
 	Flags       int        `json:"flags"`
 	Checked     bool       `json:"checked"`
 	Verified    bool       `json:"verified"`
@@ -198,6 +201,7 @@ type lessonJSON struct {
 	PointID     string            `json:"pointId"`
 	Status      Status            `json:"status"`
 	Edited      bool              `json:"edited"`
+	Imported    bool              `json:"imported"`
 	UpdatedAt   time.Time         `json:"updatedAt"`
 	PublishedAt *time.Time        `json:"publishedAt"`
 	Checks      []checkJSON       `json:"checks"`
@@ -216,7 +220,7 @@ func timePtr(t time.Time) *time.Time {
 
 func toLessonJSON(l Lesson, reports []ReportGroup) lessonJSON {
 	out := lessonJSON{
-		PointID: l.PointID, Status: l.Status, Edited: l.Edited, UpdatedAt: l.UpdatedAt,
+		PointID: l.PointID, Status: l.Status, Edited: l.Edited, Imported: l.Imported, UpdatedAt: l.UpdatedAt,
 		PublishedAt: timePtr(l.PublishedAt), CheckedAt: timePtr(l.CheckedAt), VerifiedAt: timePtr(l.VerifiedAt), Content: toContentJSON(l.Content),
 		Checks:  make([]checkJSON, len(l.Checks)),
 		Reports: make([]reportGroupJSON, len(reports)),
@@ -259,7 +263,7 @@ func (h *Handler) adminList(w http.ResponseWriter, r *http.Request) {
 	out := make([]summaryJSON, len(items))
 	for i, s := range items {
 		out[i] = summaryJSON{
-			PointID: s.PointID, Status: s.Status, Edited: s.Edited, Flags: s.Flags, Checked: s.Checked, Verified: s.Verified,
+			PointID: s.PointID, Status: s.Status, Edited: s.Edited, Imported: s.Imported, Flags: s.Flags, Checked: s.Checked, Verified: s.Verified,
 			UpdatedAt: s.UpdatedAt, PublishedAt: timePtr(s.PublishedAt),
 		}
 	}
@@ -515,6 +519,11 @@ func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, err error) 
 		httpx.WriteError(w, http.StatusConflict, "grammar_not_checked", "Hãy kiểm tra bằng AI trước khi xác nhận.")
 	case errors.Is(err, ErrNotFound):
 		httpx.WriteError(w, http.StatusNotFound, "not_found", "Không tìm thấy bài ngữ pháp")
+	case errors.Is(err, ErrPublished):
+		httpx.WriteError(w, http.StatusConflict, "grammar_lesson_published", "Bài đang được đăng. Hãy gỡ đăng trước khi xoá.")
+	case errors.Is(err, ErrHasLesson):
+		httpx.WriteError(w, http.StatusConflict, "grammar_lesson_exists",
+			"Điểm này đã có bài. Nhập sẽ thay toàn bộ nội dung và đưa bài về nháp.")
 	case errors.Is(err, ErrExists):
 		httpx.WriteError(w, http.StatusConflict, "grammar_lesson_exists",
 			"Điểm này đã có bài đã sửa hoặc đã đăng. Sinh lại sẽ thay toàn bộ nội dung.")
@@ -606,4 +615,40 @@ func (h *Handler) deleteExercise(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	h.writeLesson(w, r, http.StatusOK, l)
+}
+
+// maxImportBytes bounds an imported grammar lesson.
+const maxImportBytes = 256 << 10
+
+// importLesson saves a lesson written outside the app as a draft of the point (added 2026-10-26):
+// {"content": …, "replace": true} replaces the point's lesson; ?dryRun=true only checks it. The
+// answer says whether a lesson was replaced, or would be.
+func (h *Handler) importLesson(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Content contentJSON `json:"content"`
+		Replace bool        `json:"replace"`
+	}
+	if httpx.DecodeJSONDetailed(w, r, &body, maxImportBytes) != nil {
+		return
+	}
+	dryRun := r.URL.Query().Get("dryRun") == "true"
+	l, replaced, err := h.svc.Import(r.Context(), r.PathValue("pointId"), body.Content.toContent(), body.Replace, dryRun)
+	if err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	status := http.StatusCreated
+	if dryRun {
+		status = http.StatusOK
+	}
+	httpx.WriteJSON(w, status, map[string]any{"lesson": toLessonJSON(l, nil), "replaced": replaced, "dryRun": dryRun})
+}
+
+// deleteLesson removes the draft lesson of a point (added 2026-10-26); a published one gets 409.
+func (h *Handler) deleteLesson(w http.ResponseWriter, r *http.Request) {
+	if err := h.svc.Delete(r.Context(), r.PathValue("pointId")); err != nil {
+		h.writeError(w, r, err)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

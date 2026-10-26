@@ -9,14 +9,39 @@ import { GrammarLessonSummary, GrammarReportGroup } from '../../../core/models/g
 import { GrammarList } from './grammar-list';
 
 const point = (id: string, titleVi: string, level = 'A1'): GrammarPoint => ({
-  id, level, titleVi, titleEn: id, pattern: `mẫu ${id}`, hintVi: 'gợi ý', examples: [], lessonCount: 0,
+  id,
+  level,
+  titleVi,
+  titleEn: id,
+  pattern: `mẫu ${id}`,
+  hintVi: 'gợi ý',
+  examples: [],
+  lessonCount: 0,
 });
-const summary = (pointId: string, over: Partial<GrammarLessonSummary> = {}): GrammarLessonSummary => ({
-  pointId, status: 'draft', edited: false, updatedAt: '2026-10-01T00:00:00Z', publishedAt: null, flags: 0, checked: true, verified: false, ...over,
+const summary = (
+  pointId: string,
+  over: Partial<GrammarLessonSummary> = {},
+): GrammarLessonSummary => ({
+  pointId,
+  status: 'draft',
+  edited: false,
+  updatedAt: '2026-10-01T00:00:00Z',
+  publishedAt: null,
+  flags: 0,
+  checked: true,
+  verified: false,
+  ...over,
 });
 
-const points = [point('a1-to-be', 'Động từ to be'), point('a1-articles', 'Mạo từ'), point('a1-this-that', 'This / that')];
-const lessons = [summary('a1-to-be', { status: 'published', publishedAt: 't' }), summary('a1-articles', { edited: true })];
+const points = [
+  point('a1-to-be', 'Động từ to be'),
+  point('a1-articles', 'Mạo từ'),
+  point('a1-this-that', 'This / that'),
+];
+const lessons = [
+  summary('a1-to-be', { status: 'published', publishedAt: 't' }),
+  summary('a1-articles', { edited: true }),
+];
 
 describe('GrammarList', () => {
   let fixture: ComponentFixture<GrammarList>;
@@ -27,12 +52,16 @@ describe('GrammarList', () => {
     await new Promise((resolve) => setTimeout(resolve));
     await fixture.whenStable();
   };
-  const text = (node: Element | null | undefined) => node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+  const text = (node: Element | null | undefined) =>
+    node?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
   const row = (id: string) => el.querySelector(`[data-point="${id}"]`)!;
   const status = (id: string) => text(row(id).querySelector('.status'));
-  const labels = (id: string) => Array.from(row(id).querySelectorAll('.actions > *')).map((n) => text(n));
+  const labels = (id: string) =>
+    Array.from(row(id).querySelectorAll('.actions > *')).map((n) => text(n));
   const click = async (id: string, label: string) => {
-    const target = Array.from(row(id).querySelectorAll<HTMLElement>('.actions > *')).find((n) => text(n).startsWith(label))!;
+    const target = Array.from(row(id).querySelectorAll<HTMLElement>('.actions > *')).find((n) =>
+      text(n).startsWith(label),
+    )!;
     target.click();
     await settle();
   };
@@ -44,7 +73,13 @@ describe('GrammarList', () => {
     http.expectOne('/admin/grammar-lessons').flush({ lessons: existing });
   };
   const detail = (s: GrammarLessonSummary) => ({
-    lesson: { ...s, content: { objective: 'o' }, checks: [], checkedAt: s.checked ? 't' : null, verifiedAt: s.verified ? 't' : null },
+    lesson: {
+      ...s,
+      content: { objective: 'o' },
+      checks: [],
+      checkedAt: s.checked ? 't' : null,
+      verifiedAt: s.verified ? 't' : null,
+    },
   });
   const flushReports = (reports: GrammarReportGroup[] | 'error' = []) => {
     const req = http.expectOne('/admin/grammar-reports');
@@ -55,13 +90,23 @@ describe('GrammarList', () => {
     }
   };
   const group = (over: Partial<GrammarReportGroup> = {}): GrammarReportGroup => ({
-    pointId: 'a1-to-be', exerciseId: 'p3', count: 2, reasons: { wrong_answer: 1, typo: 1 }, notes: ['Phải là is'], latestAt: 't', ...over,
+    pointId: 'a1-to-be',
+    exerciseId: 'p3',
+    count: 2,
+    reasons: { wrong_answer: 1, typo: 1 },
+    notes: ['Phải là is'],
+    latestAt: 't',
+    ...over,
   });
 
   const setup = async (reports: GrammarReportGroup[] | 'error' = [], existing = lessons) => {
     TestBed.configureTestingModule({
       imports: [GrammarList],
-      providers: [provideRouter([]), provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(GrammarList);
@@ -86,20 +131,26 @@ describe('GrammarList', () => {
     const badges = (id: string) => text(row(id).querySelector('.badges'));
 
     it('labels flagged rows in words, and unchecked ones lightly', async () => {
-      await setup([], [
-        summary('a1-to-be', { status: 'published', flags: 2 }),
-        summary('a1-articles', { checked: false }),
-      ]);
+      await setup(
+        [],
+        [
+          summary('a1-to-be', { status: 'published', flags: 2 }),
+          summary('a1-articles', { checked: false }),
+        ],
+      );
       expect(badges('a1-to-be')).toBe('2 câu cần xem');
       expect(badges('a1-articles')).toBe('Chưa kiểm tra');
       expect(row('a1-this-that').querySelector('.badges')).toBeNull();
     });
 
     it('labels a verified lesson in words, and "Chưa kiểm tra" only when never checked', async () => {
-      await setup([], [
-        summary('a1-to-be', { status: 'published', verified: true }),
-        summary('a1-articles', { checked: false }),
-      ]);
+      await setup(
+        [],
+        [
+          summary('a1-to-be', { status: 'published', verified: true }),
+          summary('a1-articles', { checked: false }),
+        ],
+      );
       expect(badges('a1-to-be')).toBe('Đã xác nhận');
       expect(badges('a1-articles')).toBe('Chưa kiểm tra');
     });
@@ -138,15 +189,30 @@ describe('GrammarList', () => {
 
   it('offers the actions that fit each state', async () => {
     await setup();
-    expect(labels('a1-to-be')).toEqual(['Sinh bằng AI Động từ to be', 'Xem / sửa Động từ to be', 'Gỡ Động từ to be']);
-    expect(labels('a1-articles')).toEqual(['Sinh bằng AI Mạo từ', 'Xem / sửa Mạo từ', 'Đăng Mạo từ']);
-    expect(labels('a1-this-that')).toEqual(['Sinh bằng AI This / that']);
-    expect(row('a1-to-be').querySelector('a')!.getAttribute('href')).toBe('/admin/grammar/a1-to-be');
+    expect(labels('a1-to-be')).toEqual([
+      'Sinh bằng AI Động từ to be',
+      'Nhập bài Động từ to be',
+      'Xem / sửa Động từ to be',
+      'Gỡ Động từ to be',
+    ]);
+    expect(labels('a1-articles')).toEqual([
+      'Sinh bằng AI Mạo từ',
+      'Nhập bài Mạo từ',
+      'Xem / sửa Mạo từ',
+      'Đăng Mạo từ',
+      'Xoá Mạo từ',
+    ]);
+    expect(labels('a1-this-that')).toEqual(['Sinh bằng AI This / that', 'Nhập bài This / that']);
+    expect(row('a1-to-be').querySelector('a')!.getAttribute('href')).toBe(
+      '/admin/grammar/a1-to-be',
+    );
   });
 
   it('loads another level from its tab', async () => {
     await setup();
-    Array.from(el.querySelectorAll<HTMLButtonElement>('.levels button')).find((b) => text(b) === 'B1')!.click();
+    Array.from(el.querySelectorAll<HTMLButtonElement>('.levels button'))
+      .find((b) => text(b) === 'B1')!
+      .click();
     await settle();
     flushLevel('B1', [point('b1-passive', 'Bị động', 'B1')], []);
     await settle();
@@ -197,7 +263,9 @@ describe('GrammarList', () => {
     it(`explains a ${code} from the AI`, async () => {
       await setup();
       await click('a1-this-that', 'Sinh bằng AI');
-      http.expectOne(lessonUrl('a1-this-that', 'generate')).flush({ error }, { status: code, statusText: 'x' });
+      http
+        .expectOne(lessonUrl('a1-this-that', 'generate'))
+        .flush({ error }, { status: code, statusText: 'x' });
       await settle();
       expect(text(row('a1-this-that').querySelector('.row-error'))).toBe(message);
       expect(status('a1-this-that')).toBe('Chưa có bài');
@@ -219,7 +287,9 @@ describe('GrammarList', () => {
     await click('a1-articles', 'Đăng');
     http
       .expectOne(lessonUrl('a1-articles', 'publish'))
-      .flush(detail(summary('a1-articles', { status: 'published', edited: true, publishedAt: 't' })));
+      .flush(
+        detail(summary('a1-articles', { status: 'published', edited: true, publishedAt: 't' })),
+      );
     await settle();
     expect(status('a1-articles')).toBe('Đã đăng · đã sửa tay');
     expect(text(el.querySelector('.summary'))).toBe('2/3 điểm đã đăng ở trình độ A1');
@@ -234,20 +304,28 @@ describe('GrammarList', () => {
   it('shows why a lesson cannot be published', async () => {
     await setup();
     await click('a1-articles', 'Đăng');
-    http
-      .expectOne(lessonUrl('a1-articles', 'publish'))
-      .flush(
-        { error: 'validation_failed', message: 'Nội dung chưa hợp lệ.', fields: { 'content.practice': 'cần 6–12 bài' } },
-        { status: 400, statusText: 'x' },
-      );
+    http.expectOne(lessonUrl('a1-articles', 'publish')).flush(
+      {
+        error: 'validation_failed',
+        message: 'Nội dung chưa hợp lệ.',
+        fields: { 'content.practice': 'cần 6–12 bài' },
+      },
+      { status: 400, statusText: 'x' },
+    );
     await settle();
-    expect(text(row('a1-articles').querySelector('.row-error'))).toContain('content.practice: cần 6–12 bài');
+    expect(text(row('a1-articles').querySelector('.row-error'))).toContain(
+      'content.practice: cần 6–12 bài',
+    );
   });
 
   it('offers a retry when the list cannot be loaded', async () => {
     TestBed.configureTestingModule({
       imports: [GrammarList],
-      providers: [provideRouter([]), provideHttpClient(withInterceptors([errorInterceptor])), provideHttpClientTesting()],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+      ],
     });
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(GrammarList);
@@ -257,11 +335,134 @@ describe('GrammarList', () => {
     http.expectOne('/admin/grammar-lessons').flush({ lessons: [] });
     flushReports();
     await settle();
-    expect(text(el.querySelector('[role="alert"]'))).toContain('Không tải được danh sách điểm ngữ pháp.');
+    expect(text(el.querySelector('[role="alert"]'))).toContain(
+      'Không tải được danh sách điểm ngữ pháp.',
+    );
     el.querySelector<HTMLButtonElement>('[role="alert"] button')!.click();
     await settle();
     flushLevel('A1', points, lessons);
     await settle();
     expect(el.querySelectorAll('[data-point]').length).toBe(3);
+  });
+  describe('deleting a draft', () => {
+    const confirm = () => el.querySelector<HTMLElement>('[role="alertdialog"]');
+
+    it('deletes a draft after confirming; the point has no lesson again', async () => {
+      await setup();
+      await click('a1-articles', 'Xoá');
+      expect(text(confirm()!.querySelector('h2'))).toBe('Xoá bài nháp?');
+      confirm()!.querySelector<HTMLButtonElement>('.btn-primary')!.click();
+      await settle();
+      const req = http.expectOne('/admin/grammar-lessons/a1-articles');
+      expect(req.request.method).toBe('DELETE');
+      req.flush(null, { status: 204, statusText: 'No Content' });
+      await settle();
+      expect(status('a1-articles')).toBe('Chưa có bài');
+      expect(labels('a1-articles')).toEqual(['Sinh bằng AI Mạo từ', 'Nhập bài Mạo từ']);
+    });
+
+    it('does nothing when cancelled', async () => {
+      await setup();
+      await click('a1-articles', 'Xoá');
+      confirm()!.querySelector<HTMLButtonElement>('.btn')!.click();
+      await settle();
+      http.expectNone('/admin/grammar-lessons/a1-articles');
+      expect(status('a1-articles')).toContain('Bản nháp');
+    });
+
+    it('offers no delete for a published lesson', async () => {
+      await setup();
+      expect(labels('a1-to-be').some((l) => l.startsWith('Xoá'))).toBe(false);
+    });
+  });
+
+  describe('importing a lesson (FR-030)', () => {
+    const dialog = () => el.querySelector<HTMLElement>('lu-grammar-import-dialog [role="dialog"]');
+    const content = {
+      objective: 'o',
+      explanation: ['a', 'b'],
+      usage: ['u'],
+      structures: [],
+      examples: [],
+      mistakes: [],
+      practice: [],
+      mastery: [],
+    };
+    const paste = async (value: string) => {
+      const area = dialog()!.querySelector<HTMLTextAreaElement>('textarea')!;
+      area.value = value;
+      area.dispatchEvent(new Event('input'));
+      await settle();
+    };
+    const dialogButton = (label: string) =>
+      Array.from(dialog()!.querySelectorAll<HTMLButtonElement>('button')).find((b) =>
+        text(b).startsWith(label),
+      )!;
+    const importReq = (id: string, dryRun: boolean) =>
+      http.expectOne((r) => r.url === lessonUrl(id, 'import') && r.params.has('dryRun') === dryRun);
+
+    it('checks then saves a lesson into a point without one', async () => {
+      await setup();
+      await click('a1-this-that', 'Nhập bài');
+      expect(text(dialog()!.querySelector('h2'))).toBe('Nhập bài ngữ pháp: This / that');
+      await paste(JSON.stringify(content));
+      dialogButton('Kiểm tra').click();
+      await settle();
+      const dry = importReq('a1-this-that', true);
+      // The check asks to replace, so a point with a lesson answers "replaced" instead of 409.
+      expect(dry.request.body).toEqual({ content, replace: true });
+      dry.flush({
+        dryRun: true,
+        replaced: false,
+        lesson: { ...detail(summary('a1-this-that')).lesson, content },
+      });
+      await settle();
+      const sections = Array.from(dialog()!.querySelectorAll<HTMLElement>('.sections li'));
+      expect(text(sections[1])).toBe('✓Giải thích: 2');
+      expect(sections[3].dataset['result']).toBe('bad');
+      dialogButton('Lưu thành nháp').click();
+      await settle();
+      importReq('a1-this-that', false).flush(
+        {
+          dryRun: false,
+          replaced: false,
+          lesson: detail(summary('a1-this-that', { edited: true, imported: true })).lesson,
+        },
+        { status: 201, statusText: 'Created' },
+      );
+      await settle();
+      expect(dialog()).toBeNull();
+      expect(status('a1-this-that')).toBe('Bản nháp · nhập');
+    });
+
+    it('asks before replacing the lesson of a point', async () => {
+      await setup();
+      await click('a1-to-be', 'Nhập bài');
+      await paste(JSON.stringify({ content }));
+      dialogButton('Kiểm tra').click();
+      await settle();
+      importReq('a1-to-be', true).flush({
+        dryRun: true,
+        replaced: true,
+        lesson: { ...detail(summary('a1-to-be')).lesson, content },
+      });
+      await settle();
+      dialogButton('Lưu thành nháp').click();
+      await settle();
+      http.expectNone((r) => r.url === lessonUrl('a1-to-be', 'import'));
+      const confirm = el.querySelector<HTMLElement>('[role="alertdialog"]')!;
+      expect(text(confirm.querySelector('h2'))).toBe('Thay bài ngữ pháp đã có?');
+      confirm.querySelector<HTMLButtonElement>('.btn-primary')!.click();
+      await settle();
+      const save = importReq('a1-to-be', false);
+      expect(save.request.body).toEqual({ content, replace: true });
+      save.flush({
+        dryRun: false,
+        replaced: true,
+        lesson: detail(summary('a1-to-be', { imported: true })).lesson,
+      });
+      await settle();
+      expect(status('a1-to-be')).toBe('Bản nháp · nhập');
+    });
   });
 });

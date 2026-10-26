@@ -1,0 +1,53 @@
+{
+  "content": {
+    "objective": "Chọn cấu trúc câu hợp văn phong: trang trọng (giới từ + whom / which, chủ ngữ giả it, bị động, không viết tắt) hay thân mật (who, giới từ cuối câu, viết tắt, lược bớt từ).",
+    "explanation": [
+      "Văn phong trang trọng đặt giới từ trước whom / which: The person to whom I spoke was very helpful. The house in which she was born… Sau giới từ không dùng who hay that.",
+      "Văn phong thân mật đưa giới từ xuống cuối câu và thường bỏ đại từ quan hệ: The guy I talked to was really helpful. Who did you go with?",
+      "Văn bản trang trọng hay dùng chủ ngữ giả it, bị động và cụm cố định lịch sự: It has been decided that…; I regret to inform you that…; We regret any inconvenience caused. Không viết tắt (I am, do not).",
+      "Văn nói thân mật dùng viết tắt, câu ngắn và có thể lược chủ ngữ hoặc trợ động từ: Got any plans? (= Have you got any plans?) Sorry, but you didn't get the job."
+    ],
+    "usage": [
+      "Thư xin việc, thư từ công việc: I am writing to apply for the position.",
+      "Thông báo chính thức: It has been decided that the meeting will be postponed.",
+      "Trò chuyện với bạn bè: Got any plans for the weekend?"
+    ],
+    "structures": [
+      { "label": "Trang trọng", "pattern": "giới từ + whom / which + mệnh đề", "example": "The person to whom I spoke was very helpful." },
+      { "label": "Thân mật", "pattern": "danh từ + (who / that) + mệnh đề + giới từ", "example": "The guy I talked to was really helpful." },
+      { "label": "Chủ ngữ giả, bị động", "pattern": "It has been decided / agreed that …", "example": "It has been decided that the meeting will be postponed." },
+      { "label": "Câu lịch sự cố định", "pattern": "I regret to inform you that …; We regret any inconvenience.", "example": "I regret to inform you that your application was unsuccessful." }
+    ],
+    "examples": [
+      { "en": "The person to whom I spoke was very helpful.", "vi": "Người mà tôi đã trao đổi rất nhiệt tình (trang trọng)." },
+      { "en": "The guy I talked to was really helpful.", "vi": "Anh chàng tôi nói chuyện cùng nhiệt tình lắm (thân mật)." },
+      { "en": "I regret to inform you that your application was unsuccessful.", "vi": "Chúng tôi rất tiếc phải báo rằng hồ sơ của bạn không được chọn." },
+      { "en": "Sorry, but you didn't get the job.", "vi": "Tiếc quá, bạn không được nhận việc rồi." },
+      { "en": "The house in which she was born is now a museum.", "vi": "Ngôi nhà nơi bà ấy sinh ra nay là bảo tàng." },
+      { "en": "With whom did you discuss the matter?", "vi": "Ông đã bàn vấn đề này với ai? (trang trọng)" }
+    ],
+    "mistakes": [
+      { "wrong": "The manager, to who I wrote, never replied.", "right": "The manager, to whom I wrote, never replied.", "noteVi": "Sau giới từ dùng whom, không dùng who." },
+      { "wrong": "The house in that she was born is now a museum.", "right": "The house in which she was born is now a museum.", "noteVi": "Sau giới từ dùng which, không dùng that." },
+      { "wrong": "Applicants who's forms are incomplete will be rejected.", "right": "Applicants whose forms are incomplete will be rejected.", "noteVi": "Sở hữu là whose; who's là who is." }
+    ],
+    "practice": [
+      { "id": "p1", "kind": "choice", "promptVi": "Chọn từ đúng (văn phong trang trọng).", "text": "The person to ___ I spoke was very helpful.", "options": ["whom", "who", "which", "that"], "answerIndex": 0, "explanationVi": "Sau giới từ, chỉ người: whom." },
+      { "id": "p2", "kind": "choice", "promptVi": "Chọn câu thân mật đúng ngữ pháp, cùng nghĩa với: The person to whom I spoke was very helpful.", "text": "Cách nói thân mật là:", "options": ["The guy I talked to was really helpful.", "The guy to who I talked was really helpful.", "The guy whom I talked was helpful.", "The guy I talked was really helpful."], "answerIndex": 0, "explanationVi": "Thân mật: bỏ đại từ quan hệ, giới từ to ở cuối." },
+      { "id": "p3", "kind": "fill", "promptVi": "Điền một từ vào chỗ trống.", "text": "I regret ___ inform you that your application was unsuccessful.", "answers": ["to"], "explanationVi": "Cụm trang trọng: I regret to inform you." },
+      { "id": "p4", "kind": "fill", "promptVi": "Điền which hoặc who.", "text": "The house in ___ she was born is now a museum.", "answers": ["which"], "explanationVi": "Sau giới từ, chỉ vật: which." },
+      { "id": "p5", "kind": "fill", "promptVi": "Điền giới từ (văn nói, giới từ ở cuối câu).", "text": "Who did you go ___?", "answers": ["with"], "explanationVi": "Thân mật: Who did you go with?" },
+      { "id": "p6", "kind": "choice", "promptVi": "Câu nào trang trọng nhất?", "text": "Chọn lời xin lỗi trang trọng nhất.", "options": ["We regret any inconvenience caused.", "Sorry for the trouble!", "Sorry about that, guys.", "Oops, my bad."], "answerIndex": 0, "explanationVi": "Trang trọng: We regret any inconvenience caused." },
+      { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "The manager, to who I wrote, never replied.", "sentence": "The manager, to whom I wrote, never replied.", "explanationVi": "Sau giới từ dùng whom." },
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn câu mở đầu phù hợp cho thư xin việc.", "text": "In a formal letter, you should write:", "options": ["I am writing to apply for the position.", "I'm writing 'cause I want the job.", "Hi! I want your job.", "Just wanted to apply."], "answerIndex": 0, "explanationVi": "Trang trọng, không viết tắt: I am writing to apply…" }
+    ],
+    "mastery": [
+      { "id": "m1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "The committee, ___ members were all present, voted unanimously.", "options": ["whose", "who's", "which", "whom"], "answerIndex": 0, "explanationVi": "Các thành viên của hội đồng: whose." },
+      { "id": "m2", "kind": "fill", "promptVi": "Điền whom hoặc who (văn phong trang trọng).", "text": "With ___ did you discuss the matter?", "answers": ["whom"], "explanationVi": "Sau giới từ with: whom." },
+      { "id": "m3", "kind": "fill", "promptVi": "Điền has hoặc have.", "text": "It ___ been decided that the meeting will be postponed.", "answers": ["has"], "explanationVi": "Chủ ngữ giả it: has been decided." },
+      { "id": "m4", "kind": "fill", "promptVi": "Điền giới từ.", "text": "The topic ___ which we talked was interesting.", "answers": ["about"], "explanationVi": "Talk about → about which." },
+      { "id": "m5", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Applicants who's forms are incomplete will be rejected.", "sentence": "Applicants whose forms are incomplete will be rejected.", "explanationVi": "Sở hữu: whose." },
+      { "id": "m6", "kind": "choice", "promptVi": "Câu nào thân mật nhất?", "text": "Chọn câu hỏi thân mật nhất.", "options": ["Got any plans for the weekend?", "Do you have any plans for the weekend?", "May I ask about your plans?", "Could you inform me of your plans?"], "answerIndex": 0, "explanationVi": "Lược Have you: Got any plans…? là văn nói thân mật." }
+    ]
+  }
+}

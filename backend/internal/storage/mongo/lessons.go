@@ -165,6 +165,7 @@ func (d lessonDoc) toLesson() lesson.Lesson {
 type summaryDoc struct {
 	ID               bson.ObjectID `bson:"_id"`
 	Title            string        `bson:"title"`
+	Source           string        `bson:"source"`
 	Level            string        `bson:"level"`
 	TopicID          bson.ObjectID `bson:"topicId"`
 	AnnotationStatus string        `bson:"annotationStatus"`
@@ -175,6 +176,7 @@ type summaryDoc struct {
 
 var summaryProjection = bson.D{
 	{Key: "title", Value: 1},
+	{Key: "source", Value: 1},
 	{Key: "level", Value: 1},
 	{Key: "topicId", Value: 1},
 	{Key: "annotationStatus", Value: 1},
@@ -185,7 +187,7 @@ var summaryProjection = bson.D{
 
 func (d summaryDoc) toSummary() lesson.Summary {
 	out := lesson.Summary{
-		ID: d.ID.Hex(), Title: d.Title, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
+		ID: d.ID.Hex(), Title: d.Title, Source: d.Source, Level: lesson.Level(d.Level), TopicID: hexOrEmpty(d.TopicID),
 		AnnotationStatus: lesson.Status(d.AnnotationStatus),
 		Draft:            d.Draft,
 		CreatedAt:        d.CreatedAt,

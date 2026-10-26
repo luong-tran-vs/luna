@@ -1,0 +1,156 @@
+@if (open()) {
+  <div class="backdrop">
+    <div
+      #dialog
+      class="dialog wide"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="import-title"
+      (keydown)="onKeydown($event)"
+    >
+      <header class="head">
+        <div>
+          <h2 class="title" id="import-title" tabindex="-1">Nhập bài: {{ slotTitle() }}</h2>
+          @if (brief(); as b) {
+            <p class="sub">
+              Chủ đề {{ b.topicNumber }} · {{ b.kind === 'main' ? 'bài chính' : 'bài thêm' }} ·
+              {{ b.level }} · bài nhập vào thành nháp, người học chưa thấy
+            </p>
+          }
+        </div>
+        <button type="button" class="close" aria-label="Đóng" (click)="closed.emit()">×</button>
+      </header>
+
+      @if (brief(); as b) {
+        <dl class="brief">
+          <dt>Ngữ pháp</dt>
+          <dd>
+            @for (g of b.grammar; track g.id; let first = $first) {
+              <span [class.extra]="!first">{{ g.titleVi }}</span>
+              <span class="pattern">{{ g.pattern }}</span>
+            }
+          </dd>
+          <dt>Từ mục tiêu</dt>
+          <dd class="chips">
+            @for (w of b.targetWords; track w) {
+              <span class="chip">{{ w }}</span>
+            } @empty {
+              <span class="muted">Chưa có (chủ đề thiếu từ)</span>
+            }
+          </dd>
+          <dt>Ý tưởng</dt>
+          <dd>{{ b.idea }}</dd>
+          <dt>Yêu cầu</dt>
+          <dd>
+            Khoảng {{ b.words }} từ, dùng điểm ngữ pháp ít nhất {{ b.minGrammarUses }} lần, có đoạn
+            về người khác, câu phủ định và câu hỏi.
+          </dd>
+        </dl>
+      } @else if (briefError()) {
+        <p class="form-alert" role="alert">Không tải được thông tin của ô.</p>
+      } @else {
+        <p class="muted">Đang tải thông tin của ô…</p>
+      }
+
+      <div class="source">
+        <lu-json-source
+          idPrefix="slot-import"
+          [(text)]="text"
+          [invalid]="!!parseError() || !!fields()"
+          [describedBy]="parseError() ? 'slot-import-parse' : null"
+        />
+        <button type="button" class="link" [disabled]="!brief()" (click)="downloadTemplate()">
+          Tải file mẫu
+        </button>
+      </div>
+
+      @if (parseError()) {
+        <p class="form-alert" id="slot-import-parse" role="alert">{{ parseError() }}</p>
+      }
+      @if (failure()) {
+        <p class="form-alert" role="alert">{{ failure() }}</p>
+      }
+      @if (fieldList().length > 0) {
+        <div class="form-alert errors" role="alert">
+          <strong>Chưa lưu được: {{ fieldList().length }} lỗi</strong>
+          <ul>
+            @for (f of fieldList(); track f.key) {
+              <li>
+                <code>{{ f.key }}</code
+                >: {{ f.text }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <p class="status" role="status">{{ status() }}</p>
+
+      @if (report(); as r) {
+        <section class="preview" aria-label="Xem trước">
+          <p class="sum">
+            <span
+              ><b>{{ r.sentences }}</b> câu</span
+            >
+            @if (r.fromDictionary > 0) {
+              <span>{{ r.fromDictionary }} từ mục tiêu lấy nghĩa từ từ điển</span>
+            }
+          </p>
+          <ul class="steps">
+            @for (s of steps(); track s.name; let i = $index) {
+              <li class="step" [attr.data-result]="s.result">
+                <span class="mk" aria-hidden="true">{{ mark[s.result] }}</span>
+                <span>
+                  <b>{{ i + 1 }}. {{ s.name }}<span class="visually-hidden">:</span></b>
+                  <span class="detail">{{ s.detail }}</span>
+                </span>
+              </li>
+            }
+          </ul>
+
+          @if (checks(); as c) {
+            <ul class="checks" aria-label="Kiểm tra theo quy tắc">
+              @for (item of c.items; track item.key) {
+                <li [attr.data-result]="result(item)">
+                  <span aria-hidden="true">{{ mark[result(item)] }}</span> {{ item.textVi }}
+                </li>
+              }
+            </ul>
+          }
+
+          @if (lost().length > 0) {
+            <details class="lost" open>
+              <summary>Phần bị bỏ khi kiểm tra ({{ lost().length }})</summary>
+              <ul>
+                @for (p of lost(); track p.key) {
+                  <li>
+                    <span
+                      ><b>{{ p.labelVi }}</b
+                      >: giữ {{ p.kept }}/{{ p.given }}</span
+                    >
+                    @if (p.ruleVi) {
+                      <span class="rule">{{ p.ruleVi }}</span>
+                    }
+                    @for (reason of p.reasons ?? []; track $index) {
+                      <code class="reason">{{ reason }}</code>
+                    }
+                  </li>
+                }
+              </ul>
+            </details>
+          }
+        </section>
+      }
+
+      <div class="actions">
+        <button type="button" class="btn" (click)="closed.emit()">Huỷ</button>
+        <button type="button" class="btn" [disabled]="checking() || saving()" (click)="check()">
+          {{ report() ? 'Kiểm tra lại' : 'Kiểm tra' }}
+        </button>
+        <button type="button" class="btn-primary" [disabled]="!canSave()" (click)="save()">
+          Lưu thành nháp
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,235 @@
+.backdrop {
+  overflow-y: auto;
+}
+
+.dialog.wide {
+  width: min(100%, 760px);
+  max-height: calc(100dvh - 2 * var(--space-4));
+  overflow-y: auto;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.title:focus {
+  outline: none;
+}
+
+.sub,
+.status,
+.muted {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.status:empty {
+  display: none;
+}
+
+.close {
+  min-width: 36px;
+  min-height: 36px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.close:hover {
+  background: var(--color-primary-soft);
+}
+
+.brief {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.brief dt {
+  color: var(--color-text-muted);
+}
+
+.brief dd {
+  margin: 0;
+}
+
+.pattern {
+  display: block;
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.extra {
+  display: block;
+  margin-top: var(--space-1);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.chip {
+  padding: 0 var(--space-2);
+  font: var(--text-xs) var(--font-ui);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+}
+
+.source {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.link {
+  justify-self: end;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-primary-ink);
+  text-decoration: underline;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.link:disabled {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.errors ul {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-4);
+}
+
+code {
+  font:
+    12px / 18px ui-monospace,
+    'Cascadia Mono',
+    Consolas,
+    monospace;
+  overflow-wrap: anywhere;
+}
+
+.preview {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.sum {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.sum b {
+  color: var(--color-text);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.step[data-result='bad'] {
+  border-color: var(--color-bad);
+  background: color-mix(in srgb, var(--color-bad) 6%, var(--color-surface));
+}
+
+.step > span:last-child {
+  display: grid;
+}
+
+.mk {
+  flex: none;
+  width: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+[data-result='ok'] > .mk,
+.checks [data-result='ok'] > span {
+  color: var(--color-ok);
+}
+
+[data-result='warn'] > .mk,
+.checks [data-result='warn'] > span {
+  color: var(--color-warn);
+}
+
+[data-result='bad'] > .mk,
+.checks [data-result='bad'] > span {
+  color: var(--color-bad);
+}
+
+.detail,
+.rule {
+  font: var(--text-xs) var(--font-ui);
+  color: var(--color-text-muted);
+}
+
+.checks,
+.lost ul {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  list-style: none;
+}
+
+.lost summary {
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lost ul {
+  margin-top: var(--space-2);
+}
+
+.lost li {
+  display: grid;
+  gap: 2px;
+}
+
+.reason {
+  color: var(--color-bad);
+}
+
+.actions {
+  position: sticky;
+  bottom: calc(-1 * var(--space-5));
+  padding: var(--space-3) 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+}

@@ -49,6 +49,8 @@ export interface GrammarLessonSummary {
   pointId: string;
   status: GrammarLessonStatus;
   edited: boolean;
+  /** Imported instead of generated (FR-028); absent from older responses. */
+  imported?: boolean;
   updatedAt: string;
   publishedAt: string | null;
   /** F21: how many exercises the AI check flagged. */
@@ -99,7 +101,7 @@ export interface GrammarLessonAdmin extends Omit<GrammarLessonSummary, 'flags' |
 export const CHECK_LABELS: Record<GrammarCheckKind, string> = {
   mismatch: 'Cần xem: AI giải ra đáp án khác',
   ambiguous: 'Cần xem: AI thấy câu mơ hồ',
-  unchecked: 'Chưa kiểm tra được: AI không trả lời câu này',
+  unchecked: 'Chưa kiểm tra được',
   meaning: 'Cần xem: tiếng Việt không khớp nghĩa đáp án',
 };
 
@@ -107,7 +109,7 @@ export const CHECK_LABELS: Record<GrammarCheckKind, string> = {
 export const CHECK_SHORT: Record<GrammarCheckKind, string> = {
   mismatch: 'AI giải ra đáp án khác',
   ambiguous: 'AI thấy câu mơ hồ',
-  unchecked: 'AI không trả lời câu này',
+  unchecked: 'AI chưa kiểm tra được câu này',
   meaning: 'Tiếng Việt lệch nghĩa đáp án',
 };
 
@@ -148,13 +150,28 @@ export function checkStatusText(lesson: Pick<GrammarLessonAdmin, 'checks' | 'che
     : 'Đã kiểm tra, không có câu nào bị gắn cờ';
 }
 
-/** What the admin sees for a point: "Chưa có bài", "Bản nháp", "Đã đăng", plus "đã sửa tay". */
-export function grammarStatusText(lesson: Pick<GrammarLessonSummary, 'status' | 'edited'> | null | undefined): string {
+/**
+ * What the admin sees for a point: "Chưa có bài", "Bản nháp", "Đã đăng", plus "nhập" for an imported
+ * lesson or "đã sửa tay".
+ */
+export function grammarStatusText(
+  lesson: Pick<GrammarLessonSummary, 'status' | 'edited' | 'imported'> | null | undefined,
+): string {
   if (!lesson) {
     return 'Chưa có bài';
   }
   const base = lesson.status === 'published' ? 'Đã đăng' : 'Bản nháp';
+  if (lesson.imported) {
+    return `${base} · nhập`;
+  }
   return lesson.edited ? `${base} · đã sửa tay` : base;
+}
+
+/** POST …/grammar-lessons/{pointId}/import (FR-028); replaced tells whether a lesson was there. */
+export interface GrammarImportResult {
+  dryRun: boolean;
+  replaced: boolean;
+  lesson: GrammarLessonAdmin;
 }
 
 export const EXERCISE_KIND_LABELS: Record<GrammarExerciseKind, string> = {

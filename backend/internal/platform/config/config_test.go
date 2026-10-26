@@ -2,6 +2,7 @@ package config_test
 
 import (
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -48,7 +49,7 @@ func TestLoad(t *testing.T) {
 				DBDriver: "mongo", MongoURI: "mongodb://x", MongoDatabase: "luna_test",
 				HTTPAddr: ":9000", LogLevel: "debug", CookieSecure: true,
 				CORSOrigins: []string{"http://localhost:4200", "https://app.example.com"},
-				AIProvider: "none", GeminiAPIKey: "k", GeminiModel: "gemini-x", GeminiImageModel: "gemini-img",
+				AIProvider:  "none", GeminiAPIKey: "k", GeminiModel: "gemini-x", GeminiImageModel: "gemini-img",
 				DictionaryPath: "/data/dictionary/english-dictionary.db",
 			},
 		},
@@ -200,5 +201,19 @@ func TestLoad(t *testing.T) {
 				t.Errorf("Load() error leaks value %q", tt.forbidden)
 			}
 		})
+	}
+}
+
+func TestLoadReadsGeminiBackupKeysInOrder(t *testing.T) {
+	t.Parallel()
+	cfg, err := config.Load(envFrom(map[string]string{
+		"MONGO_URI": "mongodb://localhost", "GEMINI_API_KEY": "main",
+		"GEMINI_API_KEY1": "one", "GEMINI_API_KEY2": " two ", "GEMINI_API_KEY4": "four",
+	}))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := []string{"one", "two", "four"}; !slices.Equal(cfg.GeminiBackupKeys, want) {
+		t.Errorf("backup keys = %v, want %v", cfg.GeminiBackupKeys, want)
 	}
 }

@@ -74,6 +74,9 @@
             <button type="button" class="btn" [disabled]="busy() !== null" (click)="askGenerate(p)">
               {{ busy() === p.id && busyAction() === 'generate' ? 'Đang sinh…' : 'Sinh bằng AI' }}<span class="visually-hidden"> {{ p.titleVi }}</span>
             </button>
+            <button type="button" class="btn" [disabled]="busy() !== null" (click)="askImport(p)">
+              Nhập bài<span class="visually-hidden"> {{ p.titleVi }}</span>
+            </button>
             @if (lessonOf(p); as lesson) {
               <a class="btn" [routerLink]="['/admin/grammar', p.id]">Xem / sửa<span class="visually-hidden"> {{ p.titleVi }}</span></a>
               @if (lesson.status === 'published') {
@@ -83,6 +86,9 @@
               } @else {
                 <button type="button" class="btn" [disabled]="busy() !== null" (click)="publish(p)">
                   {{ busy() === p.id && busyAction() === 'publish' ? 'Đang đăng…' : 'Đăng' }}<span class="visually-hidden"> {{ p.titleVi }}</span>
+                </button>
+                <button type="button" class="btn btn-delete" [disabled]="busy() !== null" (click)="askDelete(p)">
+                  {{ busy() === p.id && busyAction() === 'delete' ? 'Đang xoá…' : 'Xoá' }}<span class="visually-hidden"> {{ p.titleVi }}</span>
                 </button>
               }
             }
@@ -103,4 +109,22 @@
   [danger]="true"
   (confirmed)="confirmGenerate()"
   (cancelled)="confirming.set(null)"
+/>
+
+<lu-grammar-import-dialog
+  [open]="importing() !== null"
+  [pointId]="importing()?.id ?? ''"
+  [pointTitle]="importing()?.titleVi ?? ''"
+  (saved)="imported($event)"
+  (closed)="cancelImport()"
+/>
+
+<lu-confirm-dialog
+  [open]="deleting() !== null"
+  title="Xoá bài nháp?"
+  [message]="deleteMessage()"
+  confirmLabel="Xoá"
+  [danger]="true"
+  (confirmed)="confirmDelete()"
+  (cancelled)="cancelDelete()"
 />

@@ -14,6 +14,8 @@ export interface CurriculumLesson {
   title: string;
   draft: boolean;
   annotationStatus: JobStatus;
+  /** Where the lesson comes from, as saved ("AI sinh", "Nhập"…); added 2026-10-26. */
+  source?: string;
 }
 
 /**
@@ -172,4 +174,61 @@ export interface CurriculumLevelSummary {
   applied: boolean;
   empty: number;
   drafts: number;
+}
+
+/** The source of a lesson imported instead of generated (FR-027). */
+export const IMPORT_SOURCE = 'Nhập';
+
+/** A grammar point of a slot as the writer of its lesson needs it. */
+export interface SlotBriefGrammar {
+  id: string;
+  titleVi: string;
+  titleEn: string;
+  pattern: string;
+  hintVi: string;
+  examples: string[];
+}
+
+/** GET …/slots/{key}/brief (FR-026): what the lesson of a slot is written from. */
+export interface SlotBrief {
+  key: string;
+  level: string;
+  topicId: string;
+  topicName: string;
+  topicNumber: number;
+  canDoVi: string;
+  kind: SlotKind;
+  title: string;
+  idea: string;
+  grammar: SlotBriefGrammar[];
+  targetWords: string[];
+  topicWords: string[];
+  /** About how many words the lesson should have. */
+  words: number;
+  minGrammarUses: number;
+  filled: boolean;
+}
+
+/** What the checks kept of one part of an imported lesson, and why some was dropped. */
+export interface ImportPart {
+  key: string;
+  labelVi: string;
+  given: number;
+  kept: number;
+  ruleVi?: string;
+  reasons?: string[];
+}
+
+export interface ImportReport {
+  sentences: number;
+  fromDictionary: number;
+  parts: ImportPart[];
+}
+
+/** POST …/slots/{key}/import (FR-027); the lesson of the slot is null on a dry run. */
+export interface SlotImportResult {
+  dryRun: boolean;
+  slot: CurriculumSlot;
+  checks: LessonChecks;
+  report: ImportReport;
 }

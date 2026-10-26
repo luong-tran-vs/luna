@@ -1,0 +1,52 @@
+{
+  "content": {
+    "objective": "Chọn đúng giữa hiện tại hoàn thành (không nêu thời điểm, còn liên quan tới hiện tại) và quá khứ đơn (thời điểm đã kết thúc).",
+    "explanation": [
+      "Quá khứ đơn dùng khi nói rõ hoặc hiểu rõ thời điểm đã kết thúc: yesterday, last week, in 2019, two days ago, when I was a child. I saw that film last week.",
+      "Hiện tại hoàn thành dùng khi không nêu thời điểm, chỉ quan tâm đã xảy ra hay chưa, hoặc khoảng thời gian còn kéo dài tới bây giờ: I have seen that film. I have known Nam since we were at school.",
+      "Không dùng hiện tại hoàn thành với mốc thời gian đã kết thúc: không nói I have bought this bag yesterday. Câu hỏi When…? và What time…? về quá khứ luôn dùng quá khứ đơn.",
+      "Một cuộc nói chuyện thường mở đầu bằng hiện tại hoàn thành, rồi chuyển sang quá khứ đơn khi kể chi tiết: Have you been to Hoi An? – Yes, I went there last summer."
+    ],
+    "usage": [
+      "Có mốc thời gian đã qua → quá khứ đơn: We went to Phu Quoc in 2019.",
+      "Trải nghiệm, không nêu lúc nào → hiện tại hoàn thành: She has been to Singapore three times.",
+      "Người đã mất, sự việc đã khép lại → quá khứ đơn: Shakespeare wrote many famous plays."
+    ],
+    "structures": [
+      { "label": "Hiện tại hoàn thành", "pattern": "have / has + V3 (không có mốc thời gian đã qua)", "example": "I have seen that film." },
+      { "label": "Quá khứ đơn", "pattern": "V2 / did + mốc thời gian đã qua", "example": "I saw that film last week." },
+      { "label": "Hỏi thời điểm", "pattern": "When / What time + did + chủ ngữ + động từ?", "example": "When did you start this job?" }
+    ],
+    "examples": [
+      { "en": "I have seen that film.", "vi": "Tôi xem phim đó rồi." },
+      { "en": "I saw that film last week.", "vi": "Tuần trước tôi xem phim đó." },
+      { "en": "She has been to Singapore three times.", "vi": "Cô ấy đã đến Singapore ba lần." },
+      { "en": "We went to Phu Quoc in 2019.", "vi": "Năm 2019 chúng tôi đi Phú Quốc." },
+      { "en": "Have you been to Hoi An? – Yes, I went there last summer.", "vi": "Bạn đến Hội An chưa? – Rồi, hè năm ngoái tôi có đi." },
+      { "en": "My father has worked in this factory since 2015.", "vi": "Bố tôi làm ở nhà máy này từ năm 2015." }
+    ],
+    "mistakes": [
+      { "wrong": "I have bought this bag yesterday.", "right": "I bought this bag yesterday.", "noteVi": "Có yesterday (đã qua) nên dùng quá khứ đơn." },
+      { "wrong": "When have you started this job?", "right": "When did you start this job?", "noteVi": "Câu hỏi When về quá khứ dùng quá khứ đơn." },
+      { "wrong": "She has left the party an hour ago.", "right": "She left the party an hour ago.", "noteVi": "Ago là mốc đã qua nên dùng quá khứ đơn." }
+    ],
+    "practice": [
+      { "id": "p1", "kind": "choice", "promptVi": "Chọn thì đúng.", "text": "I ___ that film last week.", "options": ["saw", "have seen", "has seen", "see"], "answerIndex": 0, "explanationVi": "Last week là mốc đã qua nên dùng quá khứ đơn saw." },
+      { "id": "p2", "kind": "choice", "promptVi": "Chọn thì đúng.", "text": "I ___ that film before. I don't want to see it again.", "options": ["have seen", "am seeing", "see", "has seen"], "answerIndex": 0, "explanationVi": "Trải nghiệm không nêu thời điểm: have seen." },
+      { "id": "p3", "kind": "fill", "promptVi": "Viết thì hiện tại hoàn thành hoặc quá khứ đơn của động từ trong ngoặc.", "text": "We ___ (go) to Phu Quoc in 2019.", "answers": ["went"], "explanationVi": "In 2019 là mốc đã qua nên dùng went." },
+      { "id": "p4", "kind": "fill", "promptVi": "Viết thì hiện tại hoàn thành hoặc quá khứ đơn của động từ trong ngoặc.", "text": "She ___ (be) to Singapore three times.", "answers": ["has been"], "explanationVi": "Trải nghiệm, không nêu lúc nào: has been." },
+      { "id": "p5", "kind": "fill", "promptVi": "Điền did hoặc have.", "text": "When ___ you start this job?", "answers": ["did"], "explanationVi": "Câu hỏi When về quá khứ dùng did." },
+      { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Tôi gặp anh ấy hai ngày trước.", "words": ["I", "met", "him", "two", "days", "ago.", "have", "meet"], "sentence": "I met him two days ago.", "explanationVi": "Ago là mốc đã qua nên dùng quá khứ đơn met." },
+      { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "I have bought this bag yesterday.", "sentence": "I bought this bag yesterday.", "explanationVi": "Có yesterday nên dùng quá khứ đơn bought." },
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn thì đúng.", "text": "Have you ever been to Hoi An? – Yes, I ___ there last summer.", "options": ["went", "have gone", "have been", "go"], "answerIndex": 0, "explanationVi": "Kể chi tiết có last summer nên dùng quá khứ đơn went." }
+    ],
+    "mastery": [
+      { "id": "m1", "kind": "choice", "promptVi": "Chọn thì đúng.", "text": "My father ___ in this factory since 2015.", "options": ["has worked", "worked", "works", "is working"], "answerIndex": 0, "explanationVi": "Since 2015 tới giờ vẫn làm: has worked." },
+      { "id": "m2", "kind": "fill", "promptVi": "Viết thì hiện tại hoàn thành hoặc quá khứ đơn của động từ trong ngoặc.", "text": "I ___ (know) Nam since we were at school.", "answers": ["have known"], "explanationVi": "Quen từ hồi đi học tới giờ: have known." },
+      { "id": "m3", "kind": "fill", "promptVi": "Viết thì hiện tại hoàn thành hoặc quá khứ đơn của động từ trong ngoặc.", "text": "Shakespeare ___ (write) many famous plays.", "answers": ["wrote"], "explanationVi": "Shakespeare đã mất, sự việc đã khép lại: wrote." },
+      { "id": "m4", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Tôi sống ở đây được năm năm rồi.", "words": ["I", "have", "lived", "here", "for", "five", "years.", "since", "live"], "sentence": "I have lived here for five years.", "explanationVi": "Kéo dài tới giờ: have lived … for." },
+      { "id": "m5", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "She has left the party an hour ago.", "sentence": "She left the party an hour ago.", "explanationVi": "An hour ago là mốc đã qua nên dùng left." },
+      { "id": "m6", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu hỏi.", "text": "What time ___ you get home last night?", "options": ["did", "have", "has", "do"], "answerIndex": 0, "explanationVi": "Last night là quá khứ đã qua: did." }
+    ]
+  }
+}

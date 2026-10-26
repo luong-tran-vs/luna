@@ -1,0 +1,39 @@
+<div class="modes" role="group" aria-label="Cách nhập">
+  <button
+    type="button"
+    class="mode"
+    [attr.aria-pressed]="mode() === 'paste'"
+    (click)="mode.set('paste')"
+  >
+    Dán JSON
+  </button>
+  <button
+    type="button"
+    class="mode"
+    [attr.aria-pressed]="mode() === 'file'"
+    (click)="mode.set('file')"
+  >
+    Chọn file .json
+  </button>
+</div>
+
+@if (mode() === 'file') {
+  <label class="file">
+    <span class="label">File bài (.json)</span>
+    <input type="file" accept=".json,application/json" (change)="pick($event)" />
+  </label>
+} @else {
+  <label class="label" [for]="idPrefix() + '-json'">Nội dung bài (JSON)</label>
+  <textarea
+    class="json"
+    rows="12"
+    spellcheck="false"
+    autocomplete="off"
+    [id]="idPrefix() + '-json'"
+    [value]="text()"
+    [attr.aria-invalid]="invalid() || null"
+    [attr.aria-describedby]="describedBy()"
+    (input)="onInput($event)"
+  ></textarea>
+}
+<p class="note" role="status">{{ fileNote() }}</p>
