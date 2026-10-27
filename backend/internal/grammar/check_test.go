@@ -463,6 +463,24 @@ func TestCheckKeepsAStoredAnswerFollowedByNotes(t *testing.T) {
 	}
 }
 
+// Added 2026-10-27: a fix with two right corrections, both stored, was flagged as ambiguous.
+func TestCheckWantsEveryCorrectionOfAFixStored(t *testing.T) {
+	t.Parallel()
+	fix := Exercise{ID: "m6", Kind: KindFix, Text: "He doesn't never eat meat.", Sentence: "He never eats meat.",
+		Answers: []string{"He doesn't ever eat meat."}}
+	both := ai.Solution{ExerciseID: "m6", Sentence: "He doesn't ever eat meat.", Alternatives: []string{"he never eats meat", " "}}
+	if c, flagged := compareSolution(fix, both); flagged {
+		t.Fatalf("both stored: check = %+v", c)
+	}
+	missing := ai.Solution{ExerciseID: "m6", Sentence: "He never eats meat.",
+		Alternatives: []string{"He doesn't ever eat meat.", "He does not eat meat.", "He does not eat meat.",
+			"He never eats meat, because he says it is bad for him and he does not like it."}}
+	c, _ := compareSolution(fix, missing)
+	if c.Kind != CheckMismatch || c.NoteVi != "AI thấy câu này còn sửa được thành \"He does not eat meat.\", chưa có trong các câu đã lưu." {
+		t.Fatalf("missing alternative: check = %+v", c)
+	}
+}
+
 // Seen 2026-10-26 with gemini-3.6-flash: short notes after a right correction.
 func TestCheckCutsShortNotesAfterAFinishedSentence(t *testing.T) {
 	t.Parallel()

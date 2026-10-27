@@ -1,0 +1,595 @@
+{
+  "content": "My name is Linh, and this is my school. It is a big school near a park. There are thirty classrooms, a library and a big field for sport.\n\nWe start at seven o'clock, and we finish at half past four. My best friend, Lan, is in my class, and she sits with me.\n\nAt my school, there are some rules. Students don't use their phones in class. We don't eat in the classroom, and we don't talk in the library.\n\nMy cousin from Hue often asks me, \"Do you have a lot of homework?\"\n\"Yes, we do, and we have homework every day,\" I answer.\n\nOur school has a lot of clubs, and Lan and I go to the music club on Friday. I like my school, but I don't like Monday morning, because we have a maths test every Monday!",
+  "targetWords": [
+    "school",
+    "classroom",
+    "library",
+    "rule",
+    "student",
+    "phone",
+    "homework",
+    "club"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "school",
+        "lemma": "school",
+        "meaningVi": "trường học",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "classrooms",
+        "lemma": "classroom",
+        "meaningVi": "phòng học",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "library",
+        "lemma": "library",
+        "meaningVi": "thư viện",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "rules",
+        "lemma": "rule",
+        "meaningVi": "nội quy, quy định",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "Students",
+        "lemma": "student",
+        "meaningVi": "học sinh",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "phones",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "homework",
+        "lemma": "homework",
+        "meaningVi": "bài tập về nhà",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "clubs",
+        "lemma": "club",
+        "meaningVi": "câu lạc bộ",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh's music club",
+          "Linh describes her school and its rules.",
+          "Lan's new phone",
+          "A maths test"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh tả trường mình: phòng học, thư viện, giờ học, các nội quy và câu lạc bộ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time does Linh's school start?",
+        "promptVi": "Trường của Linh vào học lúc mấy giờ?",
+        "options": [
+          "At half past six",
+          "At seven o'clock",
+          "At half past four",
+          "At eight o'clock"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh viết \"We start at seven o'clock, and we finish at half past four\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When do Lan and Linh go to the music club?",
+        "promptVi": "Lan và Linh đi câu lạc bộ âm nhạc vào ngày nào?",
+        "options": [
+          "On Monday",
+          "On Wednesday",
+          "On Friday",
+          "On Sunday"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh viết \"Lan and I go to the music club on Friday\". Thứ Hai là ngày kiểm tra toán."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Students use their phones in class.",
+        "promptVi": "Học sinh dùng điện thoại trong giờ học.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì đó là nội quy: \"Students don't use their phones in class\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"rules\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "At my school, there are some rules.",
+        "options": [
+          "bài học",
+          "câu lạc bộ",
+          "môn học",
+          "nội quy, quy định"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Rules là nội quy: những điều học sinh không được làm, như dùng điện thoại trong giờ học."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Muốn nói \"không làm gì\", thêm don't (I, you, we, they) hoặc doesn't (he, she, it) trước động từ: We don't eat in the classroom. Muốn hỏi, đưa Do / Does lên đầu câu: Do you have a lot of homework? Trả lời ngắn: Yes, we do. / No, we don't. Sau don't, doesn't, do, does, động từ luôn giữ nguyên.",
+      "examples": [
+        "Students don't use their phones in class.",
+        "We don't eat in the classroom, and we don't talk in the library.",
+        "Do you have a lot of homework?"
+      ]
+    },
+    "writingPrompt": "Write about your school: what there is, what students do and what they don't do.",
+    "sentenceTranslations": [
+      "Mình tên là Linh, và đây là trường của mình.",
+      "Trường rộng, ở gần một công viên.",
+      "Trường có ba mươi phòng học, một thư viện và một sân lớn để chơi thể thao.",
+      "Bọn mình vào học lúc bảy giờ và tan học lúc bốn giờ rưỡi.",
+      "Bạn thân nhất của mình, Lan, học cùng lớp, và bạn ấy ngồi cùng bàn với mình.",
+      "Trường mình có một số nội quy.",
+      "Học sinh không dùng điện thoại trong giờ học.",
+      "Bọn mình không ăn trong lớp, và không nói chuyện trong thư viện.",
+      "Em họ mình ở Huế hay hỏi mình: \"Chị có nhiều bài tập về nhà không?\"",
+      "\"Có chứ, ngày nào cũng có bài tập,\" mình trả lời.",
+      "Trường mình có nhiều câu lạc bộ, và Lan với mình đi câu lạc bộ âm nhạc vào thứ Sáu.",
+      "Mình thích trường mình, nhưng không thích sáng thứ Hai, vì sáng thứ Hai nào cũng có bài kiểm tra toán!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả trường mình, nói điều học sinh không làm (don't / doesn't) và hỏi bằng Do / Does …?",
+    "examples": [
+      {
+        "lemma": "school",
+        "sentence": "My school doesn't start at eight.",
+        "meaningVi": "Trường mình không vào học lúc tám giờ."
+      },
+      {
+        "lemma": "classroom",
+        "sentence": "Our classroom is on the second floor.",
+        "meaningVi": "Lớp mình ở tầng hai."
+      },
+      {
+        "lemma": "library",
+        "sentence": "Do you go to the library after school?",
+        "meaningVi": "Tan học bạn có lên thư viện không?"
+      },
+      {
+        "lemma": "rule",
+        "sentence": "This is a school rule.",
+        "meaningVi": "Đây là một nội quy của trường."
+      },
+      {
+        "lemma": "student",
+        "sentence": "Every student has a desk.",
+        "meaningVi": "Học sinh nào cũng có một bàn học."
+      },
+      {
+        "lemma": "phone",
+        "sentence": "I don't use my phone at night.",
+        "meaningVi": "Mình không dùng điện thoại vào ban đêm."
+      },
+      {
+        "lemma": "homework",
+        "sentence": "Does your brother have homework today?",
+        "meaningVi": "Hôm nay anh trai bạn có bài tập về nhà không?"
+      },
+      {
+        "lemma": "club",
+        "sentence": "The music club is on Friday.",
+        "meaningVi": "Câu lạc bộ âm nhạc họp vào thứ Sáu."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Sophie",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Anna, do you like your school in Hanoi?",
+          "meaningVi": "Chị Anna ơi, chị có thích trường của chị ở Hà Nội không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I do. It's big, and the teachers are kind.",
+          "meaningVi": "Có chứ. Trường rộng, và thầy cô rất tốt bụng."
+        },
+        {
+          "speaker": 0,
+          "text": "Do students have lunch at school?",
+          "meaningVi": "Học sinh có ăn trưa ở trường không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they do. We have lunch in the dining room.",
+          "meaningVi": "Có. Bọn chị ăn trưa ở phòng ăn."
+        },
+        {
+          "speaker": 0,
+          "text": "Does your school start early?",
+          "meaningVi": "Trường chị có vào học sớm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it does. It starts at seven o'clock!",
+          "meaningVi": "Có. Bảy giờ là vào học rồi!"
+        },
+        {
+          "speaker": 0,
+          "text": "Seven? My school doesn't start at seven. It starts at nine.",
+          "meaningVi": "Bảy giờ ạ? Trường em không vào học lúc bảy giờ. Chín giờ mới vào."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow! Do you have a lot of homework in London?",
+          "meaningVi": "Ồ! Ở London em có nhiều bài tập về nhà không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I don't. Only a little.",
+          "meaningVi": "Không ạ. Chỉ một ít thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice!",
+          "meaningVi": "Sướng thế!"
+        }
+      ]
+    },
+    "grammarTipVi": "I / you / we / they + don't; he / she / it + doesn't. Sau don't, doesn't động từ giữ nguyên: She doesn't use her phone (không nói \"doesn't uses\").",
+    "translations": [
+      {
+        "vi": "Học sinh không dùng điện thoại trong lớp.",
+        "en": "Students don't use phones in class.",
+        "distractors": [
+          "doesn't",
+          "uses",
+          "not"
+        ]
+      },
+      {
+        "vi": "Bạn có nhiều bài tập về nhà không?",
+        "en": "Do you have a lot of homework?",
+        "distractors": [
+          "Does",
+          "has",
+          "are"
+        ]
+      },
+      {
+        "vi": "Chúng tôi không nói chuyện trong thư viện.",
+        "en": "We don't talk in the library.",
+        "distractors": [
+          "doesn't",
+          "talks",
+          "not"
+        ]
+      },
+      {
+        "vi": "Trường tôi có nhiều câu lạc bộ.",
+        "en": "My school has a lot of clubs.",
+        "distractors": [
+          "have",
+          "club",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Sophie và Anna nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trường học ở Hà Nội và ở London",
+          "Bữa trưa ở nhà hàng",
+          "Bài kiểm tra tiếng Anh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sophie hỏi về trường của Anna ở Hà Nội, rồi kể trường mình ở London khác thế nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trường của Anna vào học lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Chín giờ",
+          "Bảy giờ",
+          "Tám giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"It starts at seven o'clock!\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trường của Sophie vào học lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Bảy giờ",
+          "Tám giờ",
+          "Chín giờ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Sophie nói \"My school doesn't start at seven. It starts at nine\".",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Sophie has a lot of homework.",
+        "promptVi": "Sophie có nhiều bài tập về nhà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Sophie nói \"No, I don't. Only a little\".",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Ở trường Linh, học sinh làm gì và không được làm gì?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "Students don't use their phones in class.",
+          "highlights": [
+            "don't use"
+          ]
+        },
+        {
+          "sentence": "We don't eat in the classroom, and we don't talk in the library.",
+          "highlights": [
+            "don't eat",
+            "don't talk"
+          ]
+        },
+        {
+          "sentence": "My cousin from Hue often asks me, \"Do you have a lot of homework?\"",
+          "highlights": [
+            "Do you have"
+          ]
+        },
+        {
+          "sentence": "I like my school, but I don't like Monday morning, because we have a maths test every Monday!",
+          "highlights": [
+            "don't like"
+          ]
+        }
+      ],
+      "questionVi": "Muốn nói \"không làm gì\" ở thì hiện tại đơn, ta thêm từ nào trước động từ?",
+      "options": [
+        "not",
+        "don't (hoặc doesn't)",
+        "no"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Thì hiện tại đơn dùng don't / doesn't trước động từ để phủ định: don't use, don't eat, don't like. Không nói \"not use\" hay \"no eat\".",
+      "whenVi": "Dùng don't / doesn't để nói việc không làm, và Do / Does …? để hỏi về thói quen, nội quy.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "Do you have homework? – Yes, I do.",
+          "negative": "We don't eat in class."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Does she like school? – Yes, she does.",
+          "negative": "She doesn't use her phone."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We not eat in the classroom.",
+          "right": "We don't eat in the classroom."
+        },
+        {
+          "wrong": "You have homework?",
+          "right": "Do you have homework?"
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ thêm \"không\" trước động từ (\"không ăn\") và hỏi bằng \"có … không\", nên người Việt hay viết \"We not eat\" và quên do khi hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền don't hoặc doesn't vào chỗ trống.",
+          "text": "We ___ talk in the library.",
+          "answers": [
+            "don't"
+          ],
+          "explanationVi": "Chủ ngữ we đi với don't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ you have a lot of homework?",
+          "options": [
+            "Does",
+            "Do",
+            "Are",
+            "Is"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu hỏi với you và động từ thường (have) bắt đầu bằng Do."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Students not use their phones in class.",
+          "sentence": "Students don't use their phones in class.",
+          "explanationVi": "Phủ định của động từ thường cần don't: don't use."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi không thích sáng thứ Hai.",
+          "sentence": "I don't like Monday morning.",
+          "words": [
+            "like",
+            "don't",
+            "I",
+            "Monday",
+            "morning",
+            "doesn't"
+          ],
+          "explanationVi": "Chủ ngữ I đi với don't; từ \"doesn't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Students don't use their phones in class.",
+        "tipVi": "Students /ˈstuːdənts/ có cụm âm cuối /nts/; phones /foʊnz/ có âm /z/ ở cuối."
+      },
+      {
+        "text": "We start at seven o'clock, and we finish at half past four.",
+        "tipVi": "Start /stɑːrt/ có cụm /st/ ở đầu và /t/ ở cuối; finish /ˈfɪnɪʃ/ kết thúc bằng /ʃ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like your school?",
+        "questionVi": "Bạn có thích trường của mình không?",
+        "frame": "Yes, I do. / No, I don't. My school is ___."
+      },
+      {
+        "question": "Do you have a lot of homework?",
+        "questionVi": "Bạn có nhiều bài tập về nhà không?",
+        "frame": "Yes, I do. / No, I don't. I have homework ___."
+      },
+      {
+        "question": "Does your best friend go to your school?",
+        "questionVi": "Bạn thân của bạn có học cùng trường với bạn không?",
+        "frame": "Yes, he / she does. / No, he / she doesn't. He / She goes to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng don't / doesn't hoặc câu hỏi Do / Does …?",
+      "anyOf": [
+        "don't",
+        "doesn't",
+        "do you",
+        "does"
+      ],
+      "outlineVi": [
+        "Nói trường bạn ở đâu và có những gì.",
+        "Kể học sinh không được làm gì (don't …).",
+        "Hỏi và trả lời một câu về trường (Do you …?)."
+      ],
+      "modelAnswer": "My school is near my home. There are twenty classrooms and a big library. At my school, students don't use their phones in class, and we don't eat in the classroom. Do we have a lot of homework? Yes, we do! Our school has a music club and a football club."
+    }
+  },
+  "glosses": [
+    {
+      "text": "park",
+      "lemma": "park",
+      "meaningVi": "công viên",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "near a park",
+      "phraseVi": "gần một công viên"
+    },
+    {
+      "text": "field",
+      "lemma": "field",
+      "meaningVi": "sân, bãi cỏ",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a big field for sport",
+      "phraseVi": "một sân lớn để chơi thể thao"
+    },
+    {
+      "text": "sport",
+      "lemma": "sport",
+      "meaningVi": "thể thao",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a field for sport",
+      "phraseVi": "sân để chơi thể thao"
+    },
+    {
+      "text": "finish",
+      "lemma": "finish",
+      "meaningVi": "kết thúc, tan (học)",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "we finish at half past four",
+      "phraseVi": "bọn mình tan học lúc bốn giờ rưỡi"
+    },
+    {
+      "text": "sits with",
+      "lemma": "sit with",
+      "meaningVi": "ngồi cùng",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "she sits with me",
+      "phraseVi": "bạn ấy ngồi cùng bàn với mình"
+    },
+    {
+      "text": "don't use",
+      "lemma": "use",
+      "meaningVi": "không dùng",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "Students don't use their phones",
+      "phraseVi": "Học sinh không dùng điện thoại"
+    },
+    {
+      "text": "cousin",
+      "lemma": "cousin",
+      "meaningVi": "em họ",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "My cousin from Hue",
+      "phraseVi": "Em họ mình ở Huế"
+    },
+    {
+      "text": "answer",
+      "lemma": "answer",
+      "meaningVi": "trả lời",
+      "sentenceIndex": 9,
+      "pos": "verb",
+      "phrase": "I answer",
+      "phraseVi": "mình trả lời"
+    },
+    {
+      "text": "maths test",
+      "lemma": "maths test",
+      "meaningVi": "bài kiểm tra toán",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "a maths test every Monday",
+      "phraseVi": "thứ Hai nào cũng có bài kiểm tra toán"
+    },
+    {
+      "text": "because",
+      "lemma": "because",
+      "meaningVi": "vì",
+      "sentenceIndex": 11,
+      "pos": "conjunction",
+      "phrase": "because we have a maths test",
+      "phraseVi": "vì có bài kiểm tra toán"
+    }
+  ]
+}

@@ -1,0 +1,609 @@
+{
+  "content": "Vy is ten, and she loves books. On Sunday afternoon, she goes to the book shop near her home with her brother, Huy.\n\nThere are a lot of books in the shop. \"These books are for children,\" says Huy. \"And those books on the big shelf are for students like me.\"\n\nVy looks at a book about animals. \"I want this one, because it has a lot of pictures!\" she says.\nThen she sees some pens near the door. \"Are these pens for school?\" she asks.\n\"Yes, they are,\" says Huy. \"These are blue, and those are black.\"\n\nVy takes three blue pens and a notebook with a cat on it. Huy takes an English dictionary. It isn't small. It is very big!\n\"Is that dictionary for you?\" asks Vy.\n\"Yes, English is my favourite lesson,\" says Huy.",
+  "targetWords": [
+    "book",
+    "shop",
+    "children",
+    "shelf",
+    "picture",
+    "pen",
+    "notebook",
+    "dictionary"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "books",
+        "lemma": "book",
+        "meaningVi": "quyển sách",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "children",
+        "lemma": "children",
+        "meaningVi": "trẻ em",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "shelf",
+        "lemma": "shelf",
+        "meaningVi": "cái giá, kệ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "pictures",
+        "lemma": "picture",
+        "meaningVi": "bức tranh, hình ảnh",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "pens",
+        "lemma": "pen",
+        "meaningVi": "cây bút",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "notebook",
+        "lemma": "notebook",
+        "meaningVi": "quyển vở",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "dictionary",
+        "lemma": "dictionary",
+        "meaningVi": "từ điển",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Vy's favourite animal",
+          "Huy's English class",
+          "Vy and Huy buy books and pens at a book shop.",
+          "A school library"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vy và anh Huy đến hiệu sách: Vy mua sách về động vật, bút và vở; Huy mua từ điển tiếng Anh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Vy's book about?",
+        "promptVi": "Quyển sách của Vy viết về gì?",
+        "options": [
+          "Animals",
+          "Music",
+          "English",
+          "Cats"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Vy looks at a book about animals\", và Vy muốn quyển đó vì có nhiều tranh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Huy's book?",
+        "promptVi": "Huy mua quyển sách gì?",
+        "options": [
+          "A book about animals",
+          "An English dictionary",
+          "A notebook with a cat",
+          "A book for children"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Huy takes an English dictionary\". Quyển vở có hình con mèo là của Vy."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The dictionary is small.",
+        "promptVi": "Quyển từ điển nhỏ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"It isn't small. It is very big!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"children\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"These books are for children,\" says Huy.",
+        "options": [
+          "học sinh lớn",
+          "trẻ em",
+          "người lớn",
+          "giáo viên"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Children là trẻ em (số nhiều của child): sách này dành cho các bạn nhỏ như Vy."
+      }
+    ],
+    "grammarNote": {
+      "title": "This / that / these / those",
+      "bodyVi": "These (những … này) chỉ nhiều vật ở gần, those (những … kia) chỉ nhiều vật ở xa: these books, those books on the big shelf. These, those cũng đứng một mình thay cho danh từ: These are blue, and those are black (= these pens, those pens). This one thay cho một vật: I want this one (= this book).",
+      "examples": [
+        "These books are for children",
+        "I want this one, because it has a lot of pictures!",
+        "These are blue, and those are black."
+      ]
+    },
+    "writingPrompt": "Write about a visit to a book shop: what you look at and what you take.",
+    "sentenceTranslations": [
+      "Vy mười tuổi, và em rất thích sách.",
+      "Chiều Chủ nhật, Vy đến hiệu sách gần nhà cùng anh trai là Huy.",
+      "Trong hiệu sách có rất nhiều sách.",
+      "\"Mấy quyển sách này dành cho trẻ em,\" Huy nói.",
+      "\"Còn mấy quyển trên cái giá to kia là cho học sinh lớn như anh.\"",
+      "Vy xem một quyển sách về động vật.",
+      "\"Em muốn quyển này, vì nó có nhiều tranh!\" Vy nói.",
+      "Rồi Vy nhìn thấy mấy cây bút gần cửa.",
+      "\"Mấy cây bút này để đi học ạ?\" Vy hỏi.",
+      "\"Ừ,\" Huy nói.",
+      "\"Mấy cây này màu xanh, còn mấy cây kia màu đen.\"",
+      "Vy lấy ba cây bút xanh và một quyển vở có hình con mèo.",
+      "Huy lấy một quyển từ điển tiếng Anh.",
+      "Quyển từ điển không nhỏ.",
+      "Nó rất to!",
+      "\"Quyển từ điển kia là của anh à?\" Vy hỏi.",
+      "\"Ừ, tiếng Anh là môn anh thích nhất,\" Huy nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chọn sách và đồ dùng ở hiệu sách bằng this / that / these / those, kể cả khi chúng đứng một mình (These are blue).",
+    "examples": [
+      {
+        "lemma": "book",
+        "sentence": "This book is about animals.",
+        "meaningVi": "Quyển sách này viết về động vật."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "The shop is open on Sunday.",
+        "meaningVi": "Cửa hàng mở cửa vào Chủ nhật."
+      },
+      {
+        "lemma": "children",
+        "sentence": "These books are for children.",
+        "meaningVi": "Mấy quyển sách này dành cho trẻ em."
+      },
+      {
+        "lemma": "shelf",
+        "sentence": "My English books are on that shelf.",
+        "meaningVi": "Sách tiếng Anh của mình ở trên cái giá kia."
+      },
+      {
+        "lemma": "picture",
+        "sentence": "There is a picture of a dog in this book.",
+        "meaningVi": "Trong quyển sách này có hình một con chó."
+      },
+      {
+        "lemma": "pen",
+        "sentence": "Is this pen yours?",
+        "meaningVi": "Cây bút này của bạn à?"
+      },
+      {
+        "lemma": "notebook",
+        "sentence": "I need a new notebook for school.",
+        "meaningVi": "Mình cần một quyển vở mới để đi học."
+      },
+      {
+        "lemma": "dictionary",
+        "sentence": "That dictionary is very big.",
+        "meaningVi": "Quyển từ điển kia rất to."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Anna",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, are these books in English?",
+          "meaningVi": "Minh ơi, mấy quyển sách này bằng tiếng Anh à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they are. And those books are in Vietnamese.",
+          "meaningVi": "Đúng rồi. Còn mấy quyển kia bằng tiếng Việt."
+        },
+        {
+          "speaker": 0,
+          "text": "Is this a good book?",
+          "meaningVi": "Quyển này có hay không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's a story about a girl and her dog.",
+          "meaningVi": "Hay đấy, đó là câu chuyện về một cô bé và con chó của cô ấy."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. And is that pen nice?",
+          "meaningVi": "Tuyệt. Còn cây bút kia có đẹp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "That one is OK, but these pens are nice too, and they're blue.",
+          "meaningVi": "Cây đó cũng được, nhưng mấy cây này cũng đẹp, mà lại màu xanh."
+        },
+        {
+          "speaker": 0,
+          "text": "I need a notebook too.",
+          "meaningVi": "Mình cũng cần một quyển vở."
+        },
+        {
+          "speaker": 1,
+          "text": "What about this one? It has a cat on it.",
+          "meaningVi": "Quyển này thì sao? Có hình con mèo đấy."
+        },
+        {
+          "speaker": 0,
+          "text": "A cat? I love cats! This one, please.",
+          "meaningVi": "Con mèo à? Mình mê mèo lắm! Lấy quyển này nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "It's like your cat, Snow!",
+          "meaningVi": "Giống con mèo Snow của bạn đấy!"
+        }
+      ]
+    },
+    "grammarTipVi": "These, those có thể đứng một mình thay cho danh từ đã nói: These are blue, and those are black (= these pens, those pens). Với một vật thì dùng this one, that one.",
+    "translations": [
+      {
+        "vi": "Mấy quyển sách này dành cho trẻ em.",
+        "en": "These books are for children.",
+        "distractors": [
+          "This",
+          "is",
+          "child"
+        ]
+      },
+      {
+        "vi": "Tôi muốn quyển vở này.",
+        "en": "I want this notebook.",
+        "distractors": [
+          "these",
+          "notebooks",
+          "wants"
+        ]
+      },
+      {
+        "vi": "Mấy cây bút kia màu đen.",
+        "en": "Those pens are black.",
+        "distractors": [
+          "That",
+          "is",
+          "pen"
+        ]
+      },
+      {
+        "vi": "Quyển từ điển kia rất to.",
+        "en": "That dictionary is very big.",
+        "distractors": [
+          "Those",
+          "are",
+          "dictionaries"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna và Minh đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Chọn sách, bút và vở ở hiệu sách",
+          "Học tiếng Anh ở lớp",
+          "Chơi với con mèo Snow"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi về sách, bút rồi chọn một quyển vở có hình con mèo.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quyển sách Minh giới thiệu kể về gì?",
+        "promptVi": "",
+        "options": [
+          "Một con mèo trắng",
+          "Một cô bé và con chó",
+          "Một trường học"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"it's a story about a girl and her dog\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quyển vở Anna chọn có hình gì?",
+        "promptVi": "",
+        "options": [
+          "Con chó",
+          "Con mèo",
+          "Bông hoa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"It has a cat on it\", và Anna lấy quyển đó.",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "All the books are in English.",
+        "promptVi": "Tất cả sách đều bằng tiếng Anh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"those books are in Vietnamese\".",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Vy và Huy mỗi người mua những gì?",
+    "grammarStep": {
+      "titleVi": "This / that / these / those",
+      "noticing": [
+        {
+          "sentence": "\"These books are for children,\" says Huy.",
+          "highlights": [
+            "These"
+          ]
+        },
+        {
+          "sentence": "\"And those books on the big shelf are for students like me.\"",
+          "highlights": [
+            "those"
+          ]
+        },
+        {
+          "sentence": "\"These are blue, and those are black.\"",
+          "highlights": [
+            "These",
+            "those"
+          ]
+        },
+        {
+          "sentence": "\"Is that dictionary for you?\" asks Vy.",
+          "highlights": [
+            "that"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"These are blue, and those are black\", these và those thay cho từ nào?",
+      "options": [
+        "books (sách)",
+        "pens (bút)",
+        "pictures (tranh)"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu trước Vy hỏi \"Are these pens for school?\", nên these và those ở đây là these pens, those pens.",
+      "whenVi": "Dùng this / that / these / those khi chọn đồ; chúng có thể đứng trước danh từ hoặc đứng một mình thay cho danh từ.",
+      "table": [
+        {
+          "subject": "this / that + một vật",
+          "form": "this book, that dictionary",
+          "negative": "—"
+        },
+        {
+          "subject": "these / those + nhiều vật",
+          "form": "these books, those books",
+          "negative": "—"
+        },
+        {
+          "subject": "đứng một mình",
+          "form": "These are blue, and those are black.",
+          "negative": "—"
+        },
+        {
+          "subject": "this one / that one",
+          "form": "I want this one.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "These pen are blue.",
+          "right": "These pens are blue."
+        },
+        {
+          "wrong": "I want this ones.",
+          "right": "I want this one."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"mấy cây bút này\" mà danh từ không đổi, nên người Việt hay quên thêm -s sau these, those.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền this hoặc that (quyển từ điển ở xa).",
+          "text": "Is ___ dictionary over there for you?",
+          "answers": [
+            "that"
+          ],
+          "explanationVi": "Dictionary là một quyển và ở xa (over there), nên dùng that."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ pens here are blue, and those are black.",
+          "options": [
+            "This",
+            "That",
+            "These",
+            "Those"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Pens là số nhiều và ở gần (here), nên dùng These."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Those book on the big shelf are for students.",
+          "sentence": "Those books on the big shelf are for students.",
+          "explanationVi": "Sau those là danh từ số nhiều: books."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi muốn quyển này.",
+          "sentence": "I want this one.",
+          "words": [
+            "want",
+            "this",
+            "I",
+            "one",
+            "these"
+          ],
+          "explanationVi": "One là một quyển, nên dùng this; từ \"these\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Vy looks at a book about animals.",
+        "tipVi": "Animals /ˈænɪmlz/ nhấn âm đầu, có âm /z/ ở cuối."
+      },
+      {
+        "text": "Huy takes an English dictionary.",
+        "tipVi": "Dictionary /ˈdɪkʃəneri/ nhấn âm đầu DIK; takes /teɪks/ có /ks/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your favourite book?",
+        "questionVi": "Quyển sách bạn thích nhất là gì?",
+        "frame": "My favourite book is ___. It's about ___."
+      },
+      {
+        "question": "Is there a book shop near your school?",
+        "questionVi": "Gần trường bạn có hiệu sách không?",
+        "frame": "Yes, there is. / No, there isn't."
+      },
+      {
+        "question": "What is your brother's or sister's favourite book?",
+        "questionVi": "Anh chị em của bạn thích quyển sách nào nhất?",
+        "frame": "His / Her favourite book is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
+      "anyOf": [
+        "this",
+        "that",
+        "these",
+        "those"
+      ],
+      "outlineVi": [
+        "Nói bạn đến hiệu sách với ai, khi nào.",
+        "Kể các quyển sách bạn xem (these …, those …).",
+        "Nói bạn chọn mua những gì."
+      ],
+      "modelAnswer": "On Saturday, I go to a book shop with my mum. There are a lot of books there. These books are for children, and those books are for students. I want this book about animals, because it has a lot of pictures. I also take two pens and a notebook."
+    }
+  },
+  "glosses": [
+    {
+      "text": "loves",
+      "lemma": "love",
+      "meaningVi": "rất thích",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "she loves books",
+      "phraseVi": "em rất thích sách"
+    },
+    {
+      "text": "book shop",
+      "lemma": "book shop",
+      "meaningVi": "hiệu sách",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "the book shop near her home",
+      "phraseVi": "hiệu sách gần nhà"
+    },
+    {
+      "text": "These",
+      "lemma": "these",
+      "meaningVi": "những … này",
+      "sentenceIndex": 3,
+      "pos": "determiner",
+      "phrase": "These books are for children",
+      "phraseVi": "Mấy quyển sách này dành cho trẻ em"
+    },
+    {
+      "text": "students",
+      "lemma": "student",
+      "meaningVi": "học sinh",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "for students like me",
+      "phraseVi": "cho học sinh lớn như anh"
+    },
+    {
+      "text": "animals",
+      "lemma": "animal",
+      "meaningVi": "động vật",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "a book about animals",
+      "phraseVi": "một quyển sách về động vật"
+    },
+    {
+      "text": "this one",
+      "lemma": "this one",
+      "meaningVi": "cái này, quyển này",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "I want this one",
+      "phraseVi": "Em muốn quyển này"
+    },
+    {
+      "text": "because",
+      "lemma": "because",
+      "meaningVi": "vì",
+      "sentenceIndex": 6,
+      "pos": "conjunction",
+      "phrase": "because it has a lot of pictures",
+      "phraseVi": "vì nó có nhiều tranh"
+    },
+    {
+      "text": "takes",
+      "lemma": "take",
+      "meaningVi": "lấy, chọn",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "Vy takes three blue pens",
+      "phraseVi": "Vy lấy ba cây bút xanh"
+    },
+    {
+      "text": "small",
+      "lemma": "small",
+      "meaningVi": "nhỏ",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "It isn't small",
+      "phraseVi": "Quyển từ điển không nhỏ"
+    },
+    {
+      "text": "lesson",
+      "lemma": "lesson",
+      "meaningVi": "môn học, bài học",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "my favourite lesson",
+      "phraseVi": "môn anh thích nhất"
+    }
+  ]
+}

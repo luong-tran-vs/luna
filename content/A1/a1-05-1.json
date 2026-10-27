@@ -1,0 +1,615 @@
+{
+  "content": "Mr Nam is our English teacher. His afternoon is always busy, but he is never late for class.\n\nAt one o'clock, he teaches our class. After that, he has two more lessons with other classes. At four o'clock, he checks our homework in the teachers' room. He drinks a cup of green tea and talks with the other teachers.\n\nAt half past five, Mr Nam goes home on his bike. His wife, Mrs Lien, is a cook in a small restaurant, so she works in the evening. At home, Mr Nam cooks dinner for his son, Khoa. Khoa is eight. After dinner, they wash the dishes together, and Khoa reads a book to his dad.\n\nAt nine o'clock, Khoa goes to bed. \"Are you tired, Dad?\" he asks.\n\"A little, but I love my work,\" says Mr Nam.",
+  "targetWords": [
+    "homework",
+    "go home",
+    "work",
+    "cook",
+    "dinner",
+    "wash the dishes",
+    "read a book",
+    "go to bed"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "homework",
+        "lemma": "homework",
+        "meaningVi": "bài tập về nhà",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "goes home",
+        "lemma": "go home",
+        "meaningVi": "về nhà",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "works",
+        "lemma": "work",
+        "meaningVi": "làm việc",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "cooks",
+        "lemma": "cook",
+        "meaningVi": "nấu ăn",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "dinner",
+        "lemma": "dinner",
+        "meaningVi": "bữa tối",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "wash the dishes",
+        "lemma": "wash the dishes",
+        "meaningVi": "rửa bát",
+        "pos": "phrase",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "reads a book",
+        "lemma": "read a book",
+        "meaningVi": "đọc sách",
+        "pos": "phrase",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "goes to bed",
+        "lemma": "go to bed",
+        "meaningVi": "đi ngủ",
+        "pos": "verb",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mr Nam's wife's restaurant",
+          "Mr Nam's afternoon at school and at home",
+          "A lesson at the English club",
+          "Khoa's school day"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài kể buổi chiều của thầy Nam: dạy học, chấm bài ở trường, rồi về nhà nấu ăn, rửa bát với con."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Mr Nam at four o'clock?",
+        "promptVi": "Lúc bốn giờ thầy Nam ở đâu?",
+        "options": [
+          "In the teachers' room",
+          "In his classroom",
+          "At home",
+          "In a restaurant"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"At four o'clock, he checks our homework in the teachers' room\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who cooks dinner at Mr Nam's home?",
+        "promptVi": "Ai nấu bữa tối ở nhà thầy Nam?",
+        "options": [
+          "Mrs Lien",
+          "Mr Nam",
+          "Khoa",
+          "Mr Nam's mother"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"At home, Mr Nam cooks dinner for his son\". Cô Liên làm ở nhà hàng vào buổi tối."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Nam is often late for class.",
+        "promptVi": "Thầy Nam hay đến lớp muộn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"he is never late for class\": thầy không bao giờ đến lớp muộn."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"dishes\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "After dinner, they wash the dishes together, and Khoa reads a book to his dad.",
+        "options": [
+          "món ăn",
+          "bài tập",
+          "bát đĩa",
+          "quần áo"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Wash the dishes là rửa bát đĩa sau bữa ăn. Dish cũng có nghĩa là món ăn, nhưng đi với wash thì là bát đĩa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thì hiện tại đơn (khẳng định)",
+      "bodyVi": "Thì hiện tại đơn dùng để nói việc làm hằng ngày. Với he, she, it hoặc một người (Mr Nam, Khoa), động từ thêm -s: cooks, reads; động từ tận cùng -ch, -sh, -o thêm -es: teaches, goes. Với I, you, we, they thì giữ nguyên động từ: they wash.",
+      "examples": [
+        "At one o'clock, he teaches our class.",
+        "At home, Mr Nam cooks dinner for his son, Khoa.",
+        "After dinner, they wash the dishes together, and Khoa reads a book to his dad."
+      ]
+    },
+    "writingPrompt": "Write about the afternoon and evening of one person in your family.",
+    "sentenceTranslations": [
+      "Thầy Nam là giáo viên tiếng Anh của bọn mình.",
+      "Buổi chiều của thầy lúc nào cũng bận, nhưng thầy không bao giờ đến lớp muộn.",
+      "Lúc một giờ, thầy dạy lớp mình.",
+      "Sau đó, thầy còn hai tiết với các lớp khác.",
+      "Lúc bốn giờ, thầy chấm bài tập về nhà của bọn mình trong phòng giáo viên.",
+      "Thầy uống một tách trà xanh và nói chuyện với các thầy cô khác.",
+      "Lúc năm giờ rưỡi, thầy đạp xe về nhà.",
+      "Vợ thầy, cô Liên, là đầu bếp ở một nhà hàng nhỏ, nên cô làm việc vào buổi tối.",
+      "Ở nhà, thầy Nam nấu bữa tối cho con trai là bé Khoa.",
+      "Khoa tám tuổi.",
+      "Sau bữa tối, hai bố con cùng rửa bát, rồi Khoa đọc sách cho bố nghe.",
+      "Lúc chín giờ, Khoa đi ngủ.",
+      "\"Bố có mệt không ạ?\" Khoa hỏi.",
+      "\"Hơi mệt, nhưng bố rất yêu công việc của mình,\" thầy Nam nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể buổi chiều và buổi tối của một người khác bằng thì hiện tại đơn (he teaches, she cooks, he goes home).",
+    "examples": [
+      {
+        "lemma": "homework",
+        "sentence": "Lan checks her homework after dinner.",
+        "meaningVi": "Lan kiểm tra bài tập về nhà sau bữa tối."
+      },
+      {
+        "lemma": "go home",
+        "sentence": "I go home at five o'clock.",
+        "meaningVi": "Mình về nhà lúc năm giờ."
+      },
+      {
+        "lemma": "work",
+        "sentence": "My mum works in a bank.",
+        "meaningVi": "Mẹ mình làm việc ở một ngân hàng."
+      },
+      {
+        "lemma": "cook",
+        "sentence": "My grandma cooks very well.",
+        "meaningVi": "Bà mình nấu ăn rất ngon."
+      },
+      {
+        "lemma": "dinner",
+        "sentence": "We have dinner at seven.",
+        "meaningVi": "Nhà mình ăn tối lúc bảy giờ."
+      },
+      {
+        "lemma": "wash the dishes",
+        "sentence": "My brother and I wash the dishes every evening.",
+        "meaningVi": "Tối nào mình và anh trai cũng rửa bát."
+      },
+      {
+        "lemma": "read a book",
+        "sentence": "I read a book in bed.",
+        "meaningVi": "Mình đọc sách trên giường."
+      },
+      {
+        "lemma": "go to bed",
+        "sentence": "Children go to bed early.",
+        "meaningVi": "Trẻ con đi ngủ sớm."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Anna",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, what time is your dad home?",
+          "meaningVi": "Minh ơi, bố bạn về nhà lúc mấy giờ?"
+        },
+        {
+          "speaker": 1,
+          "text": "He usually comes home at six. He works in an office.",
+          "meaningVi": "Bố mình thường về lúc sáu giờ. Bố làm ở văn phòng."
+        },
+        {
+          "speaker": 0,
+          "text": "Is he tired in the evening?",
+          "meaningVi": "Buổi tối bố bạn có mệt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he is. He reads the news and drinks tea.",
+          "meaningVi": "Có. Bố đọc tin tức và uống trà."
+        },
+        {
+          "speaker": 0,
+          "text": "My dad works at home. He writes books!",
+          "meaningVi": "Bố mình làm việc ở nhà. Bố viết sách đấy!"
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Where is his desk?",
+          "meaningVi": "Thật à? Bàn làm việc của bố bạn ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's in the living room, near the window.",
+          "meaningVi": "Ở phòng khách, gần cửa sổ."
+        },
+        {
+          "speaker": 1,
+          "text": "Is he busy in the afternoon?",
+          "meaningVi": "Buổi chiều bố bạn có bận không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. He writes from one o'clock to five o'clock. Then he cooks dinner.",
+          "meaningVi": "Có. Bố viết từ một giờ đến năm giờ. Rồi bố nấu bữa tối."
+        },
+        {
+          "speaker": 1,
+          "text": "Cool! My mum cooks dinner at our home.",
+          "meaningVi": "Hay quá! Ở nhà mình thì mẹ nấu bữa tối."
+        }
+      ]
+    },
+    "grammarTipVi": "Động từ tận cùng -ch, -sh, -s, -x, -o thêm -es: teaches, washes, goes. Have đổi thành has: he has two lessons.",
+    "translations": [
+      {
+        "vi": "Thầy ấy về nhà lúc năm giờ rưỡi.",
+        "en": "He goes home at half past five.",
+        "distractors": [
+          "go",
+          "on",
+          "in"
+        ]
+      },
+      {
+        "vi": "Cô ấy làm việc vào buổi tối.",
+        "en": "She works in the evening.",
+        "distractors": [
+          "work",
+          "at",
+          "on"
+        ]
+      },
+      {
+        "vi": "Bố tôi nấu bữa tối.",
+        "en": "My dad cooks dinner.",
+        "distractors": [
+          "cook",
+          "is",
+          "has"
+        ]
+      },
+      {
+        "vi": "Con trai thầy ấy đi ngủ lúc chín giờ.",
+        "en": "His son goes to bed at nine.",
+        "distractors": [
+          "go",
+          "in",
+          "on"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc hằng ngày của bố mỗi bạn",
+          "Bữa tối ở nhà hàng",
+          "Một quyển sách mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai bạn kể bố mình làm việc ở đâu, về nhà lúc mấy giờ, buổi tối làm gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bố Minh thường về nhà lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm giờ",
+          "Sáu giờ",
+          "Bảy giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"He usually comes home at six\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bố Anna làm công việc gì?",
+        "promptVi": "",
+        "options": [
+          "Làm ở văn phòng",
+          "Nấu ăn ở nhà hàng",
+          "Viết sách ở nhà"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna nói \"My dad works at home. He writes books!\". Làm ở văn phòng là bố Minh.",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna's dad cooks dinner.",
+        "promptVi": "Bố Anna nấu bữa tối.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Anna nói \"Then he cooks dinner\".",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Buổi chiều thầy Nam làm gì ở trường, và buổi tối làm gì ở nhà?",
+    "grammarStep": {
+      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "noticing": [
+        {
+          "sentence": "At one o'clock, he teaches our class.",
+          "highlights": [
+            "teaches"
+          ]
+        },
+        {
+          "sentence": "He drinks a cup of green tea and talks with the other teachers.",
+          "highlights": [
+            "drinks",
+            "talks"
+          ]
+        },
+        {
+          "sentence": "At home, Mr Nam cooks dinner for his son, Khoa.",
+          "highlights": [
+            "cooks"
+          ]
+        },
+        {
+          "sentence": "After dinner, they wash the dishes together, and Khoa reads a book to his dad.",
+          "highlights": [
+            "wash",
+            "reads"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao có câu là \"they wash\", có câu là \"Khoa reads\"?",
+      "options": [
+        "Vì reads là thì quá khứ",
+        "Vì he, she hay một người (Khoa) đi với động từ thêm -s; they đi với động từ giữ nguyên",
+        "Vì wash là động từ dài"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Ở thì hiện tại đơn, động từ thêm -s / -es khi chủ ngữ là he, she, it hoặc một người: he teaches, Khoa reads. Với they thì giữ nguyên: they wash.",
+      "whenVi": "Dùng thì hiện tại đơn để kể những việc một người làm hằng ngày.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "wash, cook, read",
+          "negative": "—"
+        },
+        {
+          "subject": "he / she / it",
+          "form": "cooks, reads, drinks",
+          "negative": "—"
+        },
+        {
+          "subject": "đuôi -ch, -sh, -o + es",
+          "form": "teaches, washes, goes",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He teach our class.",
+          "right": "He teaches our class."
+        },
+        {
+          "wrong": "Khoa go to bed at nine.",
+          "right": "Khoa goes to bed at nine."
+        }
+      ],
+      "noteVi": "Động từ tiếng Việt không đổi theo người (\"thầy dạy\", \"tôi dạy\"), nên người Việt hay quên thêm -s khi chủ ngữ là he, she.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ teach.",
+          "text": "Mr Nam ___ our class at one o'clock.",
+          "answers": [
+            "teaches"
+          ],
+          "explanationVi": "Mr Nam là một người (he), teach tận cùng -ch nên thêm -es: teaches."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "After dinner, they ___ the dishes together.",
+          "options": [
+            "washes",
+            "wash",
+            "washing",
+            "is wash"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chủ ngữ they đi với động từ giữ nguyên: wash."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Mr Nam cook dinner for his son.",
+          "sentence": "Mr Nam cooks dinner for his son.",
+          "explanationVi": "Mr Nam là một người (he), nên động từ thêm -s: cooks."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thầy ấy uống trà xanh.",
+          "sentence": "He drinks green tea.",
+          "words": [
+            "tea",
+            "drinks",
+            "He",
+            "green",
+            "drink"
+          ],
+          "explanationVi": "Chủ ngữ he đi với drinks; từ \"drink\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He drinks a cup of green tea and talks with the other teachers.",
+        "tipVi": "Drinks /drɪŋks/ có cụm âm cuối /ŋks/, talks /tɔːks/ có âm /ks/: đừng bỏ âm /s/ ở cuối."
+      },
+      {
+        "text": "At home, Mr Nam cooks dinner for his son, Khoa.",
+        "tipVi": "Cooks /kʊks/ có âm /s/ ở cuối, cho biết chủ ngữ là một người."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time are you home in the afternoon?",
+        "questionVi": "Buổi chiều bạn về đến nhà lúc mấy giờ?",
+        "frame": "I am home at ___."
+      },
+      {
+        "question": "Who cooks dinner at your home?",
+        "questionVi": "Ở nhà bạn ai nấu bữa tối?",
+        "frame": "My ___ cooks dinner."
+      },
+      {
+        "question": "What is your mum's or dad's job?",
+        "questionVi": "Bố hoặc mẹ bạn làm nghề gì?",
+        "frame": "My ___ is a ___. He / She works in ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng he / she + động từ thêm -s (he works, she cooks)",
+      "anyOf": [
+        "works",
+        "cooks",
+        "goes",
+        "teaches",
+        "reads",
+        "washes",
+        "watches",
+        "gets"
+      ],
+      "outlineVi": [
+        "Nói người đó là ai và làm nghề gì.",
+        "Kể buổi chiều người đó làm gì, về nhà lúc mấy giờ.",
+        "Kể buổi tối người đó làm gì."
+      ],
+      "modelAnswer": "My dad is a driver. He works in the afternoon. At six o'clock, he goes home. He cooks dinner for my mum and me. After dinner, we wash the dishes together. Then my dad reads a book, and at ten, he goes to bed."
+    }
+  },
+  "glosses": [
+    {
+      "text": "teaches",
+      "lemma": "teach",
+      "meaningVi": "dạy",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "he teaches our class",
+      "phraseVi": "thầy dạy lớp mình"
+    },
+    {
+      "text": "lessons",
+      "lemma": "lesson",
+      "meaningVi": "tiết học",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "two more lessons",
+      "phraseVi": "hai tiết nữa"
+    },
+    {
+      "text": "checks",
+      "lemma": "check",
+      "meaningVi": "kiểm tra, chấm",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "he checks our homework",
+      "phraseVi": "thầy chấm bài tập của bọn mình"
+    },
+    {
+      "text": "teachers' room",
+      "lemma": "teachers' room",
+      "meaningVi": "phòng giáo viên",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "in the teachers' room",
+      "phraseVi": "trong phòng giáo viên"
+    },
+    {
+      "text": "green tea",
+      "lemma": "green tea",
+      "meaningVi": "trà xanh",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "a cup of green tea",
+      "phraseVi": "một tách trà xanh"
+    },
+    {
+      "text": "talks",
+      "lemma": "talk",
+      "meaningVi": "nói chuyện",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "talks with the other teachers",
+      "phraseVi": "nói chuyện với các thầy cô khác"
+    },
+    {
+      "text": "wife",
+      "lemma": "wife",
+      "meaningVi": "vợ",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "His wife, Mrs Lien",
+      "phraseVi": "Vợ thầy, cô Liên"
+    },
+    {
+      "text": "cook",
+      "lemma": "cook",
+      "meaningVi": "đầu bếp",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "a cook in a small restaurant",
+      "phraseVi": "đầu bếp ở một nhà hàng nhỏ"
+    },
+    {
+      "text": "son",
+      "lemma": "son",
+      "meaningVi": "con trai",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "his son, Khoa",
+      "phraseVi": "con trai của thầy, bé Khoa"
+    },
+    {
+      "text": "tired",
+      "lemma": "tired",
+      "meaningVi": "mệt",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "Are you tired, Dad?",
+      "phraseVi": "Bố có mệt không ạ?"
+    },
+    {
+      "text": "A little",
+      "lemma": "a little",
+      "meaningVi": "một chút",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "A little, but I love my work",
+      "phraseVi": "Hơi mệt, nhưng bố rất yêu công việc của mình"
+    }
+  ]
+}

@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"slices"
-	"strings"
 	"testing"
 	"time"
 
@@ -265,6 +264,19 @@ func TestApply(t *testing.T) {
 	}
 }
 
+// Added 2026-10-27: the everyday points (articles, prepositions, and / but) are never listed.
+func TestLaterGrammarLeavesOutEverydayPoints(t *testing.T) {
+	p, _ := seed("A1")
+	want := []string{"a1-question-words", "a1-there-is-are", "a1-adverbs-frequency",
+		"a1-present-simple-neg-q", "a1-like-love-ing", "a1-can", "a1-imperatives"}
+	if got := laterGrammar(p, p.Topics[1]); !slices.Equal(got, want) {
+		t.Errorf("after topic 2: %v, want %v", got, want)
+	}
+	if got := laterGrammar(p, p.Topics[len(p.Topics)-1]); len(got) != 0 {
+		t.Errorf("after the last topic: %v", got)
+	}
+}
+
 func TestGenerateSlot(t *testing.T) {
 	s, ft, fl := newService()
 	ctx := context.Background()
@@ -289,8 +301,13 @@ func TestGenerateSlot(t *testing.T) {
 	if in.Count != 1 || in.Words != 120 || in.GrammarPointID != "a1-like-love-ing" || len(in.TargetWords) != 1 {
 		t.Errorf("generate input %+v", in)
 	}
-	if !strings.Contains(in.Idea, "Also use Conjunctions and, but, or, because") {
-		t.Errorf("idea %q should name the other point", in.Idea)
+	if in.Idea != "Friends go to a free concert in the park." || in.Course == nil || in.Course.Title != "A Concert in the Park" ||
+		!slices.Equal(in.Course.MoreGrammarIDs, []string{"a1-conjunctions"}) {
+		t.Errorf("idea %q, course %+v", in.Idea, in.Course)
+	}
+	// Topic 9 of 12: present simple and prepositions of place come back later but were met already.
+	if !slices.Equal(in.Course.LaterGrammarIDs, []string{"a1-can", "a1-imperatives"}) {
+		t.Errorf("later grammar %v", in.Course.LaterGrammarIDs)
 	}
 	c := fl.created[len(fl.created)-1]
 	if c.Title != "A Concert in the Park" || !c.Draft || !c.AppendToRoadmap || c.Source != aiSource || c.GrammarPointID != "a1-like-love-ing" {

@@ -90,15 +90,17 @@ type SolveExercise struct {
 // Solution is the AI's own answer to one exercise: ChoiceIndex for a choice, Answer for a fill,
 // Sentence for a reorder or a fix. Ambiguous is true when, to the AI, more than one answer is right
 // or none is. MeaningOff is true when the Vietnamese of the exercise does not say the same thing as
-// the right English answer (added 2026-10-20).
+// the right English answer (added 2026-10-20). Alternatives are the other right corrections of a fix,
+// which a fix may have without being ambiguous (added 2026-10-27).
 type Solution struct {
-	ExerciseID  string `json:"exerciseId"`
-	ChoiceIndex *int   `json:"choiceIndex,omitempty"`
-	Answer      string `json:"answer"`
-	Sentence    string `json:"sentence"`
-	Ambiguous   bool   `json:"ambiguous"`
-	MeaningOff  bool   `json:"meaningOff"`
-	NoteVi      string `json:"noteVi"`
+	ExerciseID   string   `json:"exerciseId"`
+	ChoiceIndex  *int     `json:"choiceIndex,omitempty"`
+	Answer       string   `json:"answer"`
+	Sentence     string   `json:"sentence"`
+	Alternatives []string `json:"alternatives,omitempty"`
+	Ambiguous    bool     `json:"ambiguous"`
+	MeaningOff   bool     `json:"meaningOff"`
+	NoteVi       string   `json:"noteVi"`
 }
 
 // SolveGrammarExercises always returns ErrNotConfigured.

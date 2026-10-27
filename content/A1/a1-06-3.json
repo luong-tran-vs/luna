@@ -1,0 +1,605 @@
+{
+  "content": "It is Friday evening. Tomorrow, Minh's grandparents from Hue are at his home for dinner. Minh and his mum write a shopping list.\n\n\"We need some rice and a big fish,\" says Mum. \"And six eggs, four tomatoes and two potatoes.\"\n\"Is beef on the list?\" asks Minh. \"Grandpa loves beef.\"\n\"Yes, it is,\" says Mum.\n\n\"What fruit is on the list?\" asks Minh.\n\"Grandma loves bananas and oranges, so we need some bananas and three oranges,\" says Mum.\n\"And a cake?\" asks Minh.\n\"Yes, a chocolate cake for Grandpa, because he loves chocolate!\"\n\nThe list is long. \"The bags are very heavy on Saturday,\" says Mum with a smile. But Minh isn't sad. He loves dinner with his grandparents.",
+  "targetWords": [
+    "dinner",
+    "shopping list",
+    "rice",
+    "fish",
+    "egg",
+    "beef",
+    "fruit",
+    "cake"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "dinner",
+        "lemma": "dinner",
+        "meaningVi": "bữa tối",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "shopping list",
+        "lemma": "shopping list",
+        "meaningVi": "danh sách đi chợ, danh sách mua sắm",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "rice",
+        "lemma": "rice",
+        "meaningVi": "gạo, cơm",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "fish",
+        "lemma": "fish",
+        "meaningVi": "con cá",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "eggs",
+        "lemma": "egg",
+        "meaningVi": "quả trứng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "beef",
+        "lemma": "beef",
+        "meaningVi": "thịt bò",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "fruit",
+        "lemma": "fruit",
+        "meaningVi": "hoa quả",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "cake",
+        "lemma": "cake",
+        "meaningVi": "bánh ngọt",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Minh's grandparents' house in Hue",
+          "A chocolate cake shop",
+          "Minh's favourite fruit",
+          "Minh and his mum write a shopping list for a family dinner."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ông bà Minh sắp đến ăn tối, nên Minh và mẹ viết danh sách những thứ cần mua: gạo, cá, trứng, thịt bò, hoa quả, bánh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who loves beef?",
+        "promptVi": "Ai thích thịt bò?",
+        "options": [
+          "Grandma",
+          "Grandpa",
+          "Mum",
+          "Minh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"Grandpa loves beef\". Bà thì thích chuối và cam."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many eggs are on the list?",
+        "promptVi": "Danh sách có mấy quả trứng?",
+        "options": [
+          "Four",
+          "Two",
+          "Six",
+          "Three"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mẹ nói \"And six eggs, four tomatoes and two potatoes\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The chocolate cake is for Grandma.",
+        "promptVi": "Bánh sô-cô-la là để cho bà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì mẹ nói \"a chocolate cake for Grandpa, because he loves chocolate!\": bánh dành cho ông."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"heavy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The bags are very heavy on Saturday,\" says Mum with a smile.",
+        "options": [
+          "nhẹ",
+          "to",
+          "nặng",
+          "rẻ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Heavy là nặng: danh sách dài nên túi đồ mua về sẽ rất nặng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mạo từ a / an / the",
+      "bodyVi": "A / an đi với một vật đếm được: a big fish, a chocolate cake. Với danh từ không đếm được (rice, beef) hoặc nhiều vật (bananas), dùng some: some rice, some bananas. The dùng cho vật cả hai người đã biết: the list (danh sách hai mẹ con đang viết).",
+      "examples": [
+        "We need some rice and a big fish",
+        "Yes, a chocolate cake for Grandpa, because he loves chocolate!",
+        "The list is long."
+      ]
+    },
+    "writingPrompt": "Write a shopping list for a family dinner and say what each thing is for.",
+    "sentenceTranslations": [
+      "Hôm nay là tối thứ Sáu.",
+      "Ngày mai, ông bà của Minh từ Huế đến nhà Minh ăn tối.",
+      "Minh và mẹ viết danh sách đi chợ.",
+      "\"Nhà mình cần ít gạo và một con cá to,\" mẹ nói.",
+      "\"Và sáu quả trứng, bốn quả cà chua và hai củ khoai tây.\"",
+      "\"Có thịt bò trong danh sách không mẹ?\" Minh hỏi.",
+      "\"Ông rất thích thịt bò.\"",
+      "\"Có rồi con,\" mẹ nói.",
+      "\"Trong danh sách có hoa quả gì ạ?\" Minh hỏi.",
+      "\"Bà thích chuối và cam, nên mình cần ít chuối và ba quả cam,\" mẹ nói.",
+      "\"Còn bánh thì sao ạ?\" Minh hỏi.",
+      "\"Có, một chiếc bánh sô-cô-la cho ông, vì ông rất thích sô-cô-la!\"",
+      "Danh sách dài quá.",
+      "\"Thứ Bảy mấy cái túi sẽ nặng lắm đây,\" mẹ mỉm cười nói.",
+      "Nhưng Minh không buồn.",
+      "Minh rất thích ăn tối với ông bà."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể viết danh sách đi chợ và dùng đúng a / an, some và danh từ số nhiều (a big fish, some rice, six eggs).",
+    "examples": [
+      {
+        "lemma": "dinner",
+        "sentence": "We have fish for dinner today.",
+        "meaningVi": "Hôm nay nhà mình ăn cá vào bữa tối."
+      },
+      {
+        "lemma": "shopping list",
+        "sentence": "The shopping list is on the table.",
+        "meaningVi": "Danh sách đi chợ ở trên bàn."
+      },
+      {
+        "lemma": "rice",
+        "sentence": "We need some rice.",
+        "meaningVi": "Nhà mình cần ít gạo."
+      },
+      {
+        "lemma": "fish",
+        "sentence": "My mum cooks a big fish on Sunday.",
+        "meaningVi": "Chủ nhật mẹ mình nấu một con cá to."
+      },
+      {
+        "lemma": "egg",
+        "sentence": "There is an egg in the bag.",
+        "meaningVi": "Trong túi có một quả trứng."
+      },
+      {
+        "lemma": "beef",
+        "sentence": "My dad loves beef soup.",
+        "meaningVi": "Bố mình rất thích canh thịt bò."
+      },
+      {
+        "lemma": "fruit",
+        "sentence": "What fruit is on the list?",
+        "meaningVi": "Trong danh sách có hoa quả gì?"
+      },
+      {
+        "lemma": "cake",
+        "sentence": "The cake is for Grandma's birthday.",
+        "meaningVi": "Chiếc bánh là để mừng sinh nhật bà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mum",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, is the rice in the bag?",
+          "meaningVi": "Minh ơi, gạo cho vào túi chưa con?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. And the fish is in the bag too.",
+          "meaningVi": "Rồi ạ. Cá cũng ở trong túi rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. Are there six eggs?",
+          "meaningVi": "Tốt. Có đủ sáu quả trứng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, there are only five eggs here.",
+          "meaningVi": "Không ạ, ở đây chỉ có năm quả thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "OK, five eggs are fine. Where are the tomatoes?",
+          "meaningVi": "Được, năm quả cũng được. Cà chua đâu con?"
+        },
+        {
+          "speaker": 1,
+          "text": "They're near the potatoes.",
+          "meaningVi": "Ở gần chỗ khoai tây ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. Is the cake on the list?",
+          "meaningVi": "Tốt. Bánh có trong danh sách không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. A chocolate cake for Grandpa!",
+          "meaningVi": "Có ạ. Một chiếc bánh sô-cô-la cho ông!"
+        },
+        {
+          "speaker": 0,
+          "text": "Here it is. It's a big cake.",
+          "meaningVi": "Đây rồi. Bánh to lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Grandpa loves big cakes!",
+          "meaningVi": "Ông thích bánh to lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Some đi với danh từ số nhiều (some bananas) và danh từ không đếm được (some rice, some beef). A / an chỉ đi với một vật đếm được: a fish, an orange.",
+    "translations": [
+      {
+        "vi": "Chúng tôi cần ít gạo.",
+        "en": "We need some rice.",
+        "distractors": [
+          "a",
+          "an",
+          "rices"
+        ]
+      },
+      {
+        "vi": "Mẹ mua một con cá to.",
+        "en": "Mum buys a big fish.",
+        "distractors": [
+          "an",
+          "fishes",
+          "buy"
+        ]
+      },
+      {
+        "vi": "Ông tôi rất thích thịt bò.",
+        "en": "My grandpa loves beef.",
+        "distractors": [
+          "a",
+          "love",
+          "the"
+        ]
+      },
+      {
+        "vi": "Danh sách đi chợ dài lắm.",
+        "en": "The shopping list is very long.",
+        "distractors": [
+          "A",
+          "are",
+          "lists"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và mẹ đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Mua đồ ở cửa hàng theo danh sách",
+          "Nấu bữa tối cho ông bà",
+          "Viết thiệp cho ông"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai mẹ con kiểm tra gạo, cá, trứng, cà chua và bánh có trong túi chưa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở cửa hàng có mấy quả trứng?",
+        "promptVi": "",
+        "options": [
+          "Bốn",
+          "Năm",
+          "Sáu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"there are only five eggs here\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cà chua ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trong túi",
+          "Gần chỗ bánh",
+          "Gần chỗ khoai tây"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"They're near the potatoes\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The chocolate cake is small.",
+        "promptVi": "Chiếc bánh sô-cô-la nhỏ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì mẹ nói \"It's a big cake\".",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Trong danh sách đi chợ có những gì, và mỗi thứ dành cho ai?",
+    "grammarStep": {
+      "titleVi": "Mạo từ a / an / the",
+      "noticing": [
+        {
+          "sentence": "\"We need some rice and a big fish,\" says Mum.",
+          "highlights": [
+            "some",
+            "a"
+          ]
+        },
+        {
+          "sentence": "\"Yes, a chocolate cake for Grandpa, because he loves chocolate!\"",
+          "highlights": [
+            "a"
+          ]
+        },
+        {
+          "sentence": "\"Grandma loves bananas and oranges, so we need some bananas and three oranges,\" says Mum.",
+          "highlights": [
+            "some"
+          ]
+        },
+        {
+          "sentence": "The list is long.",
+          "highlights": [
+            "The"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói some rice nhưng lại nói a big fish?",
+      "options": [
+        "Vì cá đắt hơn gạo",
+        "Vì rice (gạo) không đếm từng hạt được, còn fish đếm được (một con)",
+        "Vì rice đứng trước trong câu"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "A / an chỉ đi với một vật đếm được (a big fish, a chocolate cake). Gạo không đếm được, nhiều quả chuối là số nhiều, nên dùng some.",
+      "whenVi": "Dùng a / an cho một vật đếm được, some cho nhiều vật hoặc thứ không đếm được, và the cho vật người nghe đã biết.",
+      "table": [
+        {
+          "subject": "a / an + một vật đếm được",
+          "form": "a big fish, an orange",
+          "negative": "—"
+        },
+        {
+          "subject": "some + nhiều vật / không đếm được",
+          "form": "some bananas, some rice",
+          "negative": "—"
+        },
+        {
+          "subject": "the + vật đã biết",
+          "form": "the list, the bags",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We need a rice.",
+          "right": "We need some rice."
+        },
+        {
+          "wrong": "We need six egg.",
+          "right": "We need six eggs."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"một ít gạo\", \"một con cá\" và không có mạo từ, nên người Việt hay dùng a cho cả thứ không đếm được như rice.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền a hoặc an vào chỗ trống.",
+          "text": "We need ___ big fish.",
+          "answers": [
+            "a"
+          ],
+          "explanationVi": "Big bắt đầu bằng âm phụ âm /b/, nên dùng a."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Grandma loves bananas, so we need ___ bananas.",
+          "options": [
+            "a",
+            "an",
+            "some",
+            "one"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Bananas là số nhiều, nên dùng some, không dùng a, an hay one."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We need a rice and a big fish.",
+          "sentence": "We need some rice and a big fish.",
+          "explanationVi": "Rice không đếm được, nên dùng some rice, không dùng a rice."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi cần ba quả cam.",
+          "sentence": "We need three oranges.",
+          "words": [
+            "need",
+            "three",
+            "We",
+            "oranges",
+            "orange"
+          ],
+          "explanationVi": "Có three nên dùng oranges (số nhiều); từ \"orange\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "And six eggs, four tomatoes and two potatoes.",
+        "tipVi": "Potatoes /pəˈteɪtoʊz/ và tomatoes /təˈmeɪtoʊz/ đều nhấn âm giữa và có /z/ ở cuối."
+      },
+      {
+        "text": "He loves dinner with his grandparents.",
+        "tipVi": "Loves /lʌvz/ có âm /vz/ ở cuối; grandparents /ˈɡrænperənts/ có cụm âm cuối /nts/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is on your family's shopping list this week?",
+        "questionVi": "Tuần này danh sách đi chợ của nhà bạn có gì?",
+        "frame": "We need some ___ and a / an ___."
+      },
+      {
+        "question": "What is your favourite fruit?",
+        "questionVi": "Bạn thích loại quả nào nhất?",
+        "frame": "My favourite fruit is ___."
+      },
+      {
+        "question": "What is your grandma's or grandpa's favourite food?",
+        "questionVi": "Ông hoặc bà bạn thích món gì nhất?",
+        "frame": "He / She loves ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm dùng some hoặc a / an (some rice, a fish, an egg)",
+      "anyOf": [
+        "some",
+        "an egg",
+        "an orange",
+        "an apple",
+        "a fish",
+        "a cake"
+      ],
+      "outlineVi": [
+        "Nói vì sao bạn viết danh sách đi chợ.",
+        "Kể những thứ cần mua (some …, a / an …, số nhiều).",
+        "Nói một món dành cho ai."
+      ],
+      "modelAnswer": "Today, my mum and I write a shopping list for dinner. We need some rice, a big fish and four eggs. We also need some beef for my dad. For fruit, we need some bananas and an orange. And a cake? Yes, a small cake for my sister!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "Tomorrow",
+      "lemma": "tomorrow",
+      "meaningVi": "ngày mai",
+      "sentenceIndex": 1,
+      "pos": "adverb",
+      "phrase": "Tomorrow, Minh's grandparents",
+      "phraseVi": "Ngày mai, ông bà của Minh"
+    },
+    {
+      "text": "need",
+      "lemma": "need",
+      "meaningVi": "cần",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "We need some rice",
+      "phraseVi": "Nhà mình cần ít gạo"
+    },
+    {
+      "text": "tomatoes",
+      "lemma": "tomato",
+      "meaningVi": "cà chua",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "four tomatoes",
+      "phraseVi": "bốn quả cà chua"
+    },
+    {
+      "text": "potatoes",
+      "lemma": "potato",
+      "meaningVi": "khoai tây",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "two potatoes",
+      "phraseVi": "hai củ khoai tây"
+    },
+    {
+      "text": "list",
+      "lemma": "list",
+      "meaningVi": "danh sách",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "on the list",
+      "phraseVi": "trong danh sách"
+    },
+    {
+      "text": "bananas",
+      "lemma": "banana",
+      "meaningVi": "quả chuối",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "some bananas",
+      "phraseVi": "ít chuối"
+    },
+    {
+      "text": "oranges",
+      "lemma": "orange",
+      "meaningVi": "quả cam",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "three oranges",
+      "phraseVi": "ba quả cam"
+    },
+    {
+      "text": "long",
+      "lemma": "long",
+      "meaningVi": "dài",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "The list is long",
+      "phraseVi": "Danh sách dài quá"
+    },
+    {
+      "text": "heavy",
+      "lemma": "heavy",
+      "meaningVi": "nặng",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "The bags are very heavy",
+      "phraseVi": "Mấy cái túi nặng lắm"
+    },
+    {
+      "text": "grandparents",
+      "lemma": "grandparents",
+      "meaningVi": "ông bà",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "dinner with his grandparents",
+      "phraseVi": "ăn tối với ông bà"
+    }
+  ]
+}

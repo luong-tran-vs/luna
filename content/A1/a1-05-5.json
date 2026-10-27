@@ -1,0 +1,609 @@
+{
+  "content": "It is Sunday morning, and Huy's family is at home.\n\nHuy's grandpa always gets up first. He waters the flowers in front of the house. Then he walks in the park for an hour. Huy's dad usually cleans the car, and his mum often goes shopping for food.\n\nHuy's little sister, Vy, is ten. She always watches cartoons on TV on Sunday morning. And Huy? He usually sleeps late. He never gets up before nine on Sunday!\n\n\"Are you up, Huy?\" asks Mum at nine o'clock.\n\"Yes, I'm up!\" says Huy.\n\nAt ten o'clock, everyone is in the kitchen. Mum cooks noodle soup, and they always have it together on Sunday morning. It is Huy's favourite time of the week.",
+  "targetWords": [
+    "get up",
+    "water",
+    "walk",
+    "clean",
+    "go shopping",
+    "cartoon",
+    "sleep",
+    "cook"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "gets up",
+        "lemma": "get up",
+        "meaningVi": "thức dậy",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "waters",
+        "lemma": "water",
+        "meaningVi": "tưới (cây, hoa)",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "walks",
+        "lemma": "walk",
+        "meaningVi": "đi bộ",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "cleans",
+        "lemma": "clean",
+        "meaningVi": "lau chùi, rửa",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "goes shopping",
+        "lemma": "go shopping",
+        "meaningVi": "đi mua sắm",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "cartoons",
+        "lemma": "cartoon",
+        "meaningVi": "phim hoạt hình",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "sleeps",
+        "lemma": "sleep",
+        "meaningVi": "ngủ",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "cooks",
+        "lemma": "cook",
+        "meaningVi": "nấu",
+        "pos": "verb",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Huy's grandpa's garden",
+          "A shopping trip",
+          "What Huy's family usually does on Sunday morning",
+          "Vy's favourite cartoons"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài kể sáng Chủ nhật mỗi người trong nhà Huy thường làm gì, rồi cả nhà cùng ăn mì nước."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who gets up first?",
+        "promptVi": "Ai dậy sớm nhất?",
+        "options": [
+          "Huy",
+          "Huy's dad",
+          "Huy's grandpa",
+          "Vy"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Huy's grandpa always gets up first\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the family's Sunday food?",
+        "promptVi": "Sáng Chủ nhật cả nhà ăn gì?",
+        "options": [
+          "Noodle soup",
+          "Rice and fish",
+          "Bread",
+          "Cake"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Mum cooks noodle soup, and they always have it together on Sunday morning\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Huy often gets up before nine on Sunday.",
+        "promptVi": "Chủ nhật Huy hay dậy trước chín giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"He never gets up before nine on Sunday!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cartoons\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She always watches cartoons on TV on Sunday morning.",
+        "options": [
+          "tin tức",
+          "phim hoạt hình",
+          "ca nhạc",
+          "thể thao"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cartoons là phim hoạt hình, chương trình trẻ em như Vy (mười tuổi) hay xem."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thì hiện tại đơn (khẳng định)",
+      "bodyVi": "Khi kể thói quen của từng người, động từ thêm -s với he, she hoặc một người: grandpa gets up, he waters, Mum cooks. Trạng từ tần suất (always, usually, often, never) đứng trước động từ. Never đã có nghĩa phủ định, nên không cần not.",
+      "examples": [
+        "Huy's grandpa always gets up first.",
+        "He waters the flowers in front of the house.",
+        "Huy's dad usually cleans the car, and his mum often goes shopping for food."
+      ]
+    },
+    "writingPrompt": "Write about Sunday morning in your family: what each person usually does.",
+    "sentenceTranslations": [
+      "Hôm nay là sáng Chủ nhật, và cả nhà Huy đều ở nhà.",
+      "Ông của Huy luôn dậy sớm nhất.",
+      "Ông tưới hoa trước nhà.",
+      "Sau đó ông đi bộ trong công viên một tiếng.",
+      "Bố Huy thường rửa ô tô, còn mẹ Huy hay đi mua đồ ăn.",
+      "Em gái Huy, bé Vy, mười tuổi.",
+      "Sáng Chủ nhật nào Vy cũng xem phim hoạt hình trên ti vi.",
+      "Còn Huy?",
+      "Huy thường ngủ muộn.",
+      "Chủ nhật Huy không bao giờ dậy trước chín giờ!",
+      "\"Con dậy chưa, Huy?\" mẹ hỏi lúc chín giờ.",
+      "\"Con dậy rồi ạ!\" Huy nói.",
+      "Lúc mười giờ, cả nhà có mặt trong bếp.",
+      "Mẹ nấu mì nước, và sáng Chủ nhật nào cả nhà cũng ăn cùng nhau.",
+      "Đó là khoảng thời gian Huy thích nhất trong tuần."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể mỗi người trong gia đình thường làm gì vào sáng Chủ nhật, dùng thì hiện tại đơn và always, usually, often, never.",
+    "examples": [
+      {
+        "lemma": "get up",
+        "sentence": "My sister always gets up at seven.",
+        "meaningVi": "Em gái mình luôn dậy lúc bảy giờ."
+      },
+      {
+        "lemma": "water",
+        "sentence": "Grandma waters the flowers every morning.",
+        "meaningVi": "Sáng nào bà cũng tưới hoa."
+      },
+      {
+        "lemma": "walk",
+        "sentence": "We often walk to school.",
+        "meaningVi": "Bọn mình hay đi bộ đến trường."
+      },
+      {
+        "lemma": "clean",
+        "sentence": "I clean my room on Saturday.",
+        "meaningVi": "Mình dọn phòng vào thứ Bảy."
+      },
+      {
+        "lemma": "go shopping",
+        "sentence": "My parents go shopping on Sunday.",
+        "meaningVi": "Bố mẹ mình đi mua sắm vào Chủ nhật."
+      },
+      {
+        "lemma": "cartoon",
+        "sentence": "This cartoon is very funny.",
+        "meaningVi": "Bộ phim hoạt hình này rất vui."
+      },
+      {
+        "lemma": "sleep",
+        "sentence": "Our cat sleeps all day.",
+        "meaningVi": "Con mèo nhà mình ngủ cả ngày."
+      },
+      {
+        "lemma": "cook",
+        "sentence": "Dad never cooks in the morning.",
+        "meaningVi": "Bố không bao giờ nấu ăn vào buổi sáng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Huy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Huy, what time are you up on Sunday?",
+          "meaningVi": "Huy ơi, Chủ nhật bạn dậy lúc mấy giờ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Never before nine! And you?",
+          "meaningVi": "Không bao giờ trước chín giờ! Còn bạn?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm always up at eight. I go to my cousin Lan's home.",
+          "meaningVi": "Mình luôn dậy lúc tám giờ. Mình sang nhà em họ là Lan."
+        },
+        {
+          "speaker": 1,
+          "text": "What is your Sunday breakfast?",
+          "meaningVi": "Bữa sáng Chủ nhật của bạn là gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "My aunt usually cooks noodle soup.",
+          "meaningVi": "Bác gái mình thường nấu mì nước."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? My mum often cooks noodle soup on Sunday too!",
+          "meaningVi": "Thật à? Mẹ mình cũng hay nấu mì nước vào Chủ nhật!"
+        },
+        {
+          "speaker": 0,
+          "text": "Is your grandpa always up early?",
+          "meaningVi": "Ông bạn có luôn dậy sớm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he is. He waters the flowers at six.",
+          "meaningVi": "Có. Ông tưới hoa lúc sáu giờ."
+        },
+        {
+          "speaker": 0,
+          "text": "Is your sister up early too?",
+          "meaningVi": "Em gái bạn có dậy sớm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. She always watches cartoons in the morning.",
+          "meaningVi": "Có. Buổi sáng em ấy luôn xem phim hoạt hình."
+        }
+      ]
+    },
+    "grammarTipVi": "Never đã mang nghĩa \"không bao giờ\", nên động từ vẫn ở dạng khẳng định: He never gets up before nine. Không nói \"never not\".",
+    "translations": [
+      {
+        "vi": "Ông tôi luôn dậy sớm nhất.",
+        "en": "My grandpa always gets up first.",
+        "distractors": [
+          "get",
+          "never",
+          "is"
+        ]
+      },
+      {
+        "vi": "Ông ấy đi bộ trong công viên.",
+        "en": "He walks in the park.",
+        "distractors": [
+          "walk",
+          "on",
+          "at"
+        ]
+      },
+      {
+        "vi": "Mẹ tôi hay đi mua đồ ăn.",
+        "en": "My mum often goes shopping for food.",
+        "distractors": [
+          "go",
+          "never",
+          "is"
+        ]
+      },
+      {
+        "vi": "Bố tôi nấu bữa sáng.",
+        "en": "My dad cooks breakfast.",
+        "distractors": [
+          "cook",
+          "is",
+          "has"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và Huy nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Sáng Chủ nhật của mỗi bạn",
+          "Một bộ phim hoạt hình",
+          "Khu vườn của ông Huy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai bạn kể Chủ nhật mình dậy lúc mấy giờ, ăn sáng gì và mọi người trong nhà làm gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chủ nhật Minh dậy lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Sáu giờ",
+          "Tám giờ",
+          "Chín giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"I'm always up at eight\". Chín giờ là của Huy.",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông của Huy tưới hoa lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm giờ",
+          "Bảy giờ",
+          "Sáu giờ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Huy nói \"He waters the flowers at six\".",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh's aunt usually cooks noodle soup on Sunday.",
+        "promptVi": "Chủ nhật bác gái của Minh thường nấu mì nước.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Minh nói \"My aunt usually cooks noodle soup\".",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Sáng Chủ nhật mỗi người trong nhà Huy thường làm gì?",
+    "grammarStep": {
+      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "noticing": [
+        {
+          "sentence": "Huy's grandpa always gets up first.",
+          "highlights": [
+            "always",
+            "gets up"
+          ]
+        },
+        {
+          "sentence": "Huy's dad usually cleans the car, and his mum often goes shopping for food.",
+          "highlights": [
+            "usually",
+            "cleans",
+            "often",
+            "goes"
+          ]
+        },
+        {
+          "sentence": "He never gets up before nine on Sunday!",
+          "highlights": [
+            "never",
+            "gets up"
+          ]
+        },
+        {
+          "sentence": "Mum cooks noodle soup, and they always have it together on Sunday morning.",
+          "highlights": [
+            "cooks",
+            "always"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"He never gets up before nine\", vì sao không có not?",
+      "options": [
+        "Vì câu ở thì quá khứ",
+        "Vì never đã có nghĩa là \"không bao giờ\"",
+        "Vì gets up là động từ đặc biệt"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Never đã là phủ định, nên động từ giữ dạng khẳng định có -s: he never gets up.",
+      "whenVi": "Dùng thì hiện tại đơn với always, usually, often, never để kể thói quen của mỗi người.",
+      "table": [
+        {
+          "subject": "always / usually / often",
+          "form": "He always gets up first. She often goes shopping.",
+          "negative": "—"
+        },
+        {
+          "subject": "never (đã là phủ định)",
+          "form": "He never gets up before nine.",
+          "negative": "—"
+        },
+        {
+          "subject": "he / she + động từ -s",
+          "form": "waters, walks, cleans, cooks",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He never not gets up before nine.",
+          "right": "He never gets up before nine."
+        },
+        {
+          "wrong": "Grandpa always get up first.",
+          "right": "Grandpa always gets up first."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"không bao giờ dậy\" có chữ \"không\", nên người Việt hay thêm not sau never, và hay quên -s khi có always đứng trước.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ sleep.",
+          "text": "Huy usually ___ late on Sunday.",
+          "answers": [
+            "sleeps"
+          ],
+          "explanationVi": "Huy là một người (he), nên sleep thêm -s: sleeps."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Every Sunday, Vy ___ watches cartoons on TV.",
+          "options": [
+            "never",
+            "always",
+            "no",
+            "not"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Every Sunday là Chủ nhật nào cũng vậy, nên dùng always (luôn luôn)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Grandpa walks always in the park.",
+          "sentence": "Grandpa always walks in the park.",
+          "explanationVi": "Always đứng trước động từ thường (walks)."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mẹ tôi thường nấu ăn vào Chủ nhật.",
+          "sentence": "My mum usually cooks on Sunday.",
+          "words": [
+            "mum",
+            "cooks",
+            "My",
+            "usually",
+            "on",
+            "Sunday",
+            "cook"
+          ],
+          "explanationVi": "My mum là một người nên dùng cooks, usually đứng trước động từ; từ \"cook\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He waters the flowers in front of the house.",
+        "tipVi": "Waters /ˈwɔːtɚz/ và flowers /ˈflaʊɚz/ đều có âm /z/ ở cuối."
+      },
+      {
+        "text": "Huy's grandpa always gets up first.",
+        "tipVi": "First /fɝːst/ có cụm âm cuối /st/; grandpa /ˈɡrænpɑː/ đọc gọn, không đọc chữ d."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Are you up early on Sunday?",
+        "questionVi": "Chủ nhật bạn có dậy sớm không?",
+        "frame": "Yes, I am. / No, I'm not. I usually get up at ___."
+      },
+      {
+        "question": "What is your favourite time of the week?",
+        "questionVi": "Khoảng thời gian bạn thích nhất trong tuần là khi nào?",
+        "frame": "My favourite time is ___."
+      },
+      {
+        "question": "What is your grandpa's or grandma's Sunday morning like?",
+        "questionVi": "Sáng Chủ nhật của ông hoặc bà bạn thế nào?",
+        "frame": "On Sunday morning, he / she usually ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng always, usually, often hoặc never",
+      "anyOf": [
+        "always",
+        "usually",
+        "often",
+        "never"
+      ],
+      "outlineVi": [
+        "Nói sáng Chủ nhật cả nhà bạn ở đâu.",
+        "Kể mỗi người thường làm gì (bố, mẹ, anh chị em, ông bà).",
+        "Kể bạn làm gì và cả nhà làm gì cùng nhau."
+      ],
+      "modelAnswer": "On Sunday morning, my family is at home. My dad always gets up first, and he walks in the park. My mum usually goes shopping for food. My brother often cleans his room. I never get up early on Sunday! At ten, my mum cooks, and we have lunch together."
+    }
+  },
+  "glosses": [
+    {
+      "text": "grandpa",
+      "lemma": "grandpa",
+      "meaningVi": "ông",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "Huy's grandpa",
+      "phraseVi": "Ông của Huy"
+    },
+    {
+      "text": "first",
+      "lemma": "first",
+      "meaningVi": "đầu tiên, sớm nhất",
+      "sentenceIndex": 1,
+      "pos": "adverb",
+      "phrase": "always gets up first",
+      "phraseVi": "luôn dậy sớm nhất"
+    },
+    {
+      "text": "flowers",
+      "lemma": "flower",
+      "meaningVi": "hoa",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "He waters the flowers",
+      "phraseVi": "Ông tưới hoa"
+    },
+    {
+      "text": "an hour",
+      "lemma": "hour",
+      "meaningVi": "một tiếng",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "for an hour",
+      "phraseVi": "trong một tiếng"
+    },
+    {
+      "text": "car",
+      "lemma": "car",
+      "meaningVi": "ô tô",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "cleans the car",
+      "phraseVi": "rửa ô tô"
+    },
+    {
+      "text": "food",
+      "lemma": "food",
+      "meaningVi": "đồ ăn",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "goes shopping for food",
+      "phraseVi": "đi mua đồ ăn"
+    },
+    {
+      "text": "sleeps late",
+      "lemma": "sleep late",
+      "meaningVi": "ngủ dậy muộn",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "He usually sleeps late",
+      "phraseVi": "Huy thường ngủ muộn"
+    },
+    {
+      "text": "before",
+      "lemma": "before",
+      "meaningVi": "trước",
+      "sentenceIndex": 9,
+      "pos": "preposition",
+      "phrase": "before nine",
+      "phraseVi": "trước chín giờ"
+    },
+    {
+      "text": "noodle soup",
+      "lemma": "noodle soup",
+      "meaningVi": "mì nước, phở",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "Mum cooks noodle soup",
+      "phraseVi": "Mẹ nấu mì nước"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "yêu thích nhất",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "Huy's favourite time of the week",
+      "phraseVi": "khoảng thời gian Huy thích nhất trong tuần"
+    }
+  ]
+}

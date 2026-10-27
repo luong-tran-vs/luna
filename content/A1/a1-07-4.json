@@ -1,0 +1,607 @@
+{
+  "content": "Hoa's birthday is on Saturday, and Lan and Linh want a present for her. After school, they go to a small shop with toys, books and cards.\n\n\"What about this teddy bear?\" asks Linh.\n\"It's nice, but Hoa isn't a little girl,\" says Lan.\nThen Lan sees some books on a shelf. \"Those books are about music, and Hoa loves music!\"\n\"Is this book in English?\" asks Linh.\n\"Yes, and Hoa is good at English too,\" says Lan.\n\nThey also want a card. \"This card is pink, and that card is blue,\" says Linh. \"Hoa's favourite colour is blue, so that one is good.\"\n\nThe woman in the shop puts the book and the card in a nice bag. Lan and Linh are very happy. It is a great present for Hoa!",
+  "targetWords": [
+    "birthday",
+    "present",
+    "toy",
+    "shop",
+    "teddy bear",
+    "book",
+    "card",
+    "bag"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "birthday",
+        "lemma": "birthday",
+        "meaningVi": "sinh nhật",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "present",
+        "lemma": "present",
+        "meaningVi": "món quà",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "toys",
+        "lemma": "toy",
+        "meaningVi": "đồ chơi",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "teddy bear",
+        "lemma": "teddy bear",
+        "meaningVi": "gấu bông",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "books",
+        "lemma": "book",
+        "meaningVi": "quyển sách",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "card",
+        "lemma": "card",
+        "meaningVi": "tấm thiệp",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "bag",
+        "lemma": "bag",
+        "meaningVi": "cái túi",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa's birthday party",
+          "A music class",
+          "Linh's new teddy bear",
+          "Lan and Linh choose a present for Hoa."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Sắp đến sinh nhật Hoa, Lan và Linh vào cửa hàng chọn quà: gấu bông, sách, thiệp."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the present for Hoa?",
+        "promptVi": "Món quà tặng Hoa là gì?",
+        "options": [
+          "A teddy bear",
+          "A book about music and a card",
+          "A pink card",
+          "Some toys"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cô bán hàng \"puts the book and the card in a nice bag\": quyển sách về âm nhạc và tấm thiệp."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What colour is the card?",
+        "promptVi": "Tấm thiệp màu gì?",
+        "options": [
+          "Pink",
+          "Blue",
+          "Red",
+          "Green"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa thích màu xanh nhất, nên Linh chọn \"that one\", tấm thiệp màu xanh."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa loves music.",
+        "promptVi": "Hoa rất thích âm nhạc.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Lan nói \"Hoa loves music!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"shelf\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then Lan sees some books on a shelf.",
+        "options": [
+          "cái bàn",
+          "cái hộp",
+          "cái giá, kệ",
+          "cái túi"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Shelf là cái giá, cái kệ để sách: sách được xếp trên giá."
+      }
+    ],
+    "grammarNote": {
+      "title": "This / that / these / those",
+      "bodyVi": "Khi chọn quà, dùng this / these cho đồ ở gần, that / those cho đồ ở xa: this teddy bear, those books. What about this …? dùng để gợi ý (cái này thì sao?). That one thay cho danh từ vừa nói: that one = tấm thiệp màu xanh kia.",
+      "examples": [
+        "What about this teddy bear?",
+        "Those books are about music, and Hoa loves music!",
+        "This card is pink, and that card is blue"
+      ]
+    },
+    "writingPrompt": "Write about choosing a birthday present for a friend: what you look at and what you take.",
+    "sentenceTranslations": [
+      "Thứ Bảy là sinh nhật của Hoa, và Lan với Linh muốn mua một món quà cho bạn ấy.",
+      "Sau giờ học, hai bạn đến một cửa hàng nhỏ bán đồ chơi, sách và thiệp.",
+      "\"Con gấu bông này thì sao?\" Linh hỏi.",
+      "\"Đẹp đấy, nhưng Hoa đâu còn là cô bé nữa,\" Lan nói.",
+      "Rồi Lan nhìn thấy mấy quyển sách trên giá.",
+      "\"Mấy quyển sách kia viết về âm nhạc, mà Hoa rất thích âm nhạc!\"",
+      "\"Quyển sách này bằng tiếng Anh à?\" Linh hỏi.",
+      "\"Ừ, mà Hoa cũng giỏi tiếng Anh nữa,\" Lan nói.",
+      "Hai bạn cũng muốn mua một tấm thiệp.",
+      "\"Tấm thiệp này màu hồng, còn tấm kia màu xanh,\" Linh nói.",
+      "\"Hoa thích màu xanh nhất, nên tấm kia hợp đấy.\"",
+      "Cô bán hàng cho quyển sách và tấm thiệp vào một chiếc túi xinh xắn.",
+      "Lan và Linh rất vui.",
+      "Đây là một món quà tuyệt vời cho Hoa!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể cùng bạn bè chọn quà, gợi ý bằng What about this …? và chỉ đồ vật bằng this, that, these, those.",
+    "examples": [
+      {
+        "lemma": "birthday",
+        "sentence": "My birthday is in June.",
+        "meaningVi": "Sinh nhật mình vào tháng Sáu."
+      },
+      {
+        "lemma": "present",
+        "sentence": "This present is for you.",
+        "meaningVi": "Món quà này là dành cho bạn."
+      },
+      {
+        "lemma": "toy",
+        "sentence": "That toy car is red.",
+        "meaningVi": "Chiếc ô tô đồ chơi kia màu đỏ."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "Is that shop open on Sunday?",
+        "meaningVi": "Cửa hàng kia Chủ nhật có mở cửa không?"
+      },
+      {
+        "lemma": "teddy bear",
+        "sentence": "My little sister has a big teddy bear.",
+        "meaningVi": "Em gái mình có một con gấu bông to."
+      },
+      {
+        "lemma": "book",
+        "sentence": "This book is about animals.",
+        "meaningVi": "Quyển sách này viết về động vật."
+      },
+      {
+        "lemma": "card",
+        "sentence": "This card is for my mum.",
+        "meaningVi": "Tấm thiệp này là để tặng mẹ mình."
+      },
+      {
+        "lemma": "bag",
+        "sentence": "The present is in a blue bag.",
+        "meaningVi": "Món quà ở trong một chiếc túi xanh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tom, Anna's birthday is on the tenth of May. What about a present?",
+          "meaningVi": "Tom ơi, sinh nhật Anna là ngày mùng mười tháng Năm. Mình mua quà nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea! Is this watch OK?",
+          "meaningVi": "Ý hay! Chiếc đồng hồ này được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's very expensive. What about those books?",
+          "meaningVi": "Đắt lắm. Thế mấy quyển sách kia thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "Hmm, Anna has a lot of books. Her dad writes books!",
+          "meaningVi": "Ừm, Anna có nhiều sách lắm rồi. Bố bạn ấy viết sách mà!"
+        },
+        {
+          "speaker": 0,
+          "text": "That's true! What about that toy cat on the shelf?",
+          "meaningVi": "Đúng thật! Thế con mèo đồ chơi trên giá kia thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "A toy cat? Anna has a white cat, Snow!",
+          "meaningVi": "Mèo đồ chơi à? Anna có một con mèo trắng tên Snow đấy!"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! So this small white cat is a good present.",
+          "meaningVi": "Đúng vậy! Nên con mèo trắng nhỏ này là món quà hợp đấy."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. And these cards?",
+          "meaningVi": "Tuyệt. Còn mấy tấm thiệp này?"
+        },
+        {
+          "speaker": 0,
+          "text": "That blue one is nice.",
+          "meaningVi": "Tấm màu xanh kia đẹp."
+        },
+        {
+          "speaker": 1,
+          "text": "OK, the toy cat and that blue card!",
+          "meaningVi": "Được, lấy con mèo đồ chơi và tấm thiệp xanh kia nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "What about this …? dùng để gợi ý: What about this teddy bear? (Con gấu bông này thì sao?) Trả lời: It's nice, but … hoặc Good idea!",
+    "translations": [
+      {
+        "vi": "Con gấu bông này thì sao?",
+        "en": "What about this teddy bear?",
+        "distractors": [
+          "these",
+          "those",
+          "is"
+        ]
+      },
+      {
+        "vi": "Mấy quyển sách kia viết về âm nhạc.",
+        "en": "Those books are about music.",
+        "distractors": [
+          "That",
+          "is",
+          "book"
+        ]
+      },
+      {
+        "vi": "Tấm thiệp này màu hồng.",
+        "en": "This card is pink.",
+        "distractors": [
+          "These",
+          "are",
+          "cards"
+        ]
+      },
+      {
+        "vi": "Đây là một món quà sinh nhật.",
+        "en": "This is a birthday present.",
+        "distractors": [
+          "These",
+          "are",
+          "an"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và Tom đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Chọn quà sinh nhật cho Anna",
+          "Mua sách cho bố Anna",
+          "Chơi với con mèo của Anna"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"Anna's birthday is on the tenth of May. What about a present?\", rồi hai bạn chọn quà.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao hai bạn không mua sách?",
+        "promptVi": "",
+        "options": [
+          "Vì sách rất đắt",
+          "Vì Anna đã có rất nhiều sách",
+          "Vì Anna không thích đọc"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"Anna has a lot of books. Her dad writes books!\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hai bạn chọn món quà gì?",
+        "promptVi": "",
+        "options": [
+          "Một chiếc đồng hồ",
+          "Một quyển sách",
+          "Một con mèo đồ chơi và một tấm thiệp xanh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tom nói \"the toy cat and that blue card!\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna's birthday is on the tenth of May.",
+        "promptVi": "Sinh nhật Anna là ngày mùng mười tháng Năm.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Minh nói \"Anna's birthday is on the tenth of May\".",
+        "turnIndex": 0
+      }
+    ],
+    "readingGuideVi": "Lan và Linh xem những món quà nào, và cuối cùng chọn gì?",
+    "grammarStep": {
+      "titleVi": "This / that / these / those",
+      "noticing": [
+        {
+          "sentence": "\"What about this teddy bear?\" asks Linh.",
+          "highlights": [
+            "this"
+          ]
+        },
+        {
+          "sentence": "\"Those books are about music, and Hoa loves music!\"",
+          "highlights": [
+            "Those"
+          ]
+        },
+        {
+          "sentence": "\"This card is pink, and that card is blue,\" says Linh.",
+          "highlights": [
+            "This",
+            "that"
+          ]
+        },
+        {
+          "sentence": "\"Hoa's favourite colour is blue, so that one is good.\"",
+          "highlights": [
+            "that one"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"so that one is good\", that one thay cho từ nào?",
+      "options": [
+        "that book (quyển sách kia)",
+        "that card (tấm thiệp màu xanh kia)",
+        "that shop (cửa hàng kia)"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu trước nói về hai tấm thiệp (this card, that card), nên that one là that card, tấm thiệp màu xanh.",
+      "whenVi": "Dùng this / that / these / those và this one / that one khi chỉ và chọn đồ vật.",
+      "table": [
+        {
+          "subject": "this (gần, số ít)",
+          "form": "this teddy bear, this card",
+          "negative": "—"
+        },
+        {
+          "subject": "that (xa, số ít)",
+          "form": "that card, that one",
+          "negative": "—"
+        },
+        {
+          "subject": "these (gần, số nhiều)",
+          "form": "these cards",
+          "negative": "—"
+        },
+        {
+          "subject": "those (xa, số nhiều)",
+          "form": "those books",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "That books are about music.",
+          "right": "Those books are about music."
+        },
+        {
+          "wrong": "This cards are nice.",
+          "right": "These cards are nice."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"mấy quyển sách kia\" với chữ \"kia\" không đổi, nên người Việt hay dùng that cho cả nhiều vật.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền This hoặc That (tấm thiệp ở ngay đây).",
+          "text": "___ card here is pink.",
+          "answers": [
+            "This"
+          ],
+          "explanationVi": "Card là một tấm và ở gần (here), nên dùng This."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ books on the shelf over there are about music.",
+          "options": [
+            "This",
+            "That",
+            "These",
+            "Those"
+          ],
+          "answerIndex": 3,
+          "explanationVi": "Books là số nhiều và ở xa (over there), nên dùng Those."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "That books are about music.",
+          "sentence": "Those books are about music.",
+          "explanationVi": "Books là số nhiều, nên dùng those, không dùng that."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tấm thiệp màu xanh kia đẹp.",
+          "sentence": "That blue card is nice.",
+          "words": [
+            "blue",
+            "card",
+            "That",
+            "is",
+            "nice",
+            "Those"
+          ],
+          "explanationVi": "Card là một tấm, nên dùng That; từ \"Those\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Then Lan sees some books on a shelf.",
+        "tipVi": "Books /bʊks/ có âm /ks/ ở cuối; shelf /ʃelf/ có cụm âm cuối /lf/."
+      },
+      {
+        "text": "This card is pink, and that card is blue.",
+        "tipVi": "This /ðɪs/ và that /ðæt/ đều bắt đầu bằng /ð/ (lưỡi giữa răng); card /kɑːrd/ có /d/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your favourite birthday present?",
+        "questionVi": "Món quà sinh nhật bạn thích nhất là gì?",
+        "frame": "My favourite present is ___."
+      },
+      {
+        "question": "Is there a toy shop near your home?",
+        "questionVi": "Gần nhà bạn có cửa hàng đồ chơi không?",
+        "frame": "Yes, there is. / No, there isn't."
+      },
+      {
+        "question": "What is a good present for your best friend?",
+        "questionVi": "Món quà nào hợp với bạn thân của bạn?",
+        "frame": "A good present for him / her is ___, because he / she loves ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
+      "anyOf": [
+        "this",
+        "that",
+        "these",
+        "those"
+      ],
+      "outlineVi": [
+        "Nói sinh nhật của ai, và bạn đi mua quà với ai.",
+        "Kể các món bạn xem (this …, those …).",
+        "Nói bạn chọn món nào và vì sao."
+      ],
+      "modelAnswer": "My friend Nam's birthday is on Sunday. My sister and I go to a small shop. This teddy bear is nice, but Nam isn't a little boy. Those books are about football, and Nam loves football! We take a book and that green card. It is a great present."
+    }
+  },
+  "glosses": [
+    {
+      "text": "present",
+      "lemma": "present",
+      "meaningVi": "món quà",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a present for her",
+      "phraseVi": "một món quà cho bạn ấy"
+    },
+    {
+      "text": "cards",
+      "lemma": "card",
+      "meaningVi": "tấm thiệp",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "toys, books and cards",
+      "phraseVi": "đồ chơi, sách và thiệp"
+    },
+    {
+      "text": "What about",
+      "lemma": "what about",
+      "meaningVi": "… thì sao?",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "What about this teddy bear?",
+      "phraseVi": "Con gấu bông này thì sao?"
+    },
+    {
+      "text": "little",
+      "lemma": "little",
+      "meaningVi": "nhỏ",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "a little girl",
+      "phraseVi": "một cô bé"
+    },
+    {
+      "text": "shelf",
+      "lemma": "shelf",
+      "meaningVi": "cái giá, kệ",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "on a shelf",
+      "phraseVi": "trên giá"
+    },
+    {
+      "text": "music",
+      "lemma": "music",
+      "meaningVi": "âm nhạc",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "books are about music",
+      "phraseVi": "sách viết về âm nhạc"
+    },
+    {
+      "text": "good at",
+      "lemma": "good at",
+      "meaningVi": "giỏi (về)",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "good at English",
+      "phraseVi": "giỏi tiếng Anh"
+    },
+    {
+      "text": "pink",
+      "lemma": "pink",
+      "meaningVi": "màu hồng",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "This card is pink",
+      "phraseVi": "Tấm thiệp này màu hồng"
+    },
+    {
+      "text": "puts",
+      "lemma": "put",
+      "meaningVi": "đặt, cho vào",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "puts the book and the card in a nice bag",
+      "phraseVi": "cho quyển sách và tấm thiệp vào một chiếc túi xinh"
+    },
+    {
+      "text": "great",
+      "lemma": "great",
+      "meaningVi": "tuyệt vời",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "a great present",
+      "phraseVi": "một món quà tuyệt vời"
+    }
+  ]
+}

@@ -1,0 +1,603 @@
+{
+  "content": "It is Saturday morning, and Anna's family is in the kitchen. Breakfast is Anna's favourite meal of the day.\n\nAnna's dad usually has an egg and some bread. The bread is from a small shop near their flat, and he says it is delicious. Anna's mum has a cup of coffee and an apple. The apple is green and very sweet.\n\nAnna has a banana and a glass of milk. Snow, the white cat, has a small fish under the table.\n\n\"Where is the milk?\" asks Dad.\n\"It's in front of you!\" says Mum, and everyone laughs.\n\"Is there an orange for me?\" asks Anna.\n\"No, there isn't, but there is some fruit in the big bowl,\" says Mum.\n\nThe breakfast isn't big, but the family is together, and they are happy.",
+  "targetWords": [
+    "breakfast",
+    "meal",
+    "egg",
+    "bread",
+    "delicious",
+    "sweet",
+    "fish",
+    "fruit"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Breakfast",
+        "lemma": "breakfast",
+        "meaningVi": "bữa sáng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "meal",
+        "lemma": "meal",
+        "meaningVi": "bữa ăn",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "egg",
+        "lemma": "egg",
+        "meaningVi": "quả trứng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "bread",
+        "lemma": "bread",
+        "meaningVi": "bánh mì",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "delicious",
+        "lemma": "delicious",
+        "meaningVi": "ngon",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "sweet",
+        "lemma": "sweet",
+        "meaningVi": "ngọt",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "fish",
+        "lemma": "fish",
+        "meaningVi": "con cá",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "fruit",
+        "lemma": "fruit",
+        "meaningVi": "hoa quả",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Anna's favourite shop",
+          "Anna's family has breakfast together.",
+          "Snow the cat",
+          "Anna's lunch at school"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Sáng thứ Bảy cả nhà Anna ăn sáng cùng nhau, mỗi người ăn một món: trứng, táo, chuối, sữa."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Anna's breakfast?",
+        "promptVi": "Bữa sáng của Anna là gì?",
+        "options": [
+          "An egg and some bread",
+          "A cup of coffee and an apple",
+          "A banana and a glass of milk",
+          "A small fish"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Anna has a banana and a glass of milk\". Trứng là của bố, táo là của mẹ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the milk?",
+        "promptVi": "Sữa ở đâu?",
+        "options": [
+          "In the big bowl",
+          "In front of Dad",
+          "Under the table",
+          "In the shop"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bố hỏi sữa đâu, mẹ trả lời \"It's in front of you!\": sữa ở ngay trước mặt bố."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There is an orange for Anna.",
+        "promptVi": "Có một quả cam cho Anna.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì mẹ nói \"No, there isn't, but there is some fruit in the big bowl\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"bowl\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"No, there isn't, but there is some fruit in the big bowl,\" says Mum.",
+        "options": [
+          "cái cốc",
+          "cái túi",
+          "cái bát to",
+          "cái bàn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bowl là cái bát, cái tô: hoa quả được để trong một cái bát to."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mạo từ a / an / the",
+      "bodyVi": "A và an nghĩa là \"một\", dùng khi nhắc đến một vật lần đầu: a dùng trước âm phụ âm (a banana, a cup), an dùng trước âm nguyên âm (an egg, an apple). The dùng khi người nghe đã biết vật đó: the apple (quả táo vừa nói), the table (cái bàn trong bếp).",
+      "examples": [
+        "Anna's dad usually has an egg and some bread.",
+        "Anna's mum has a cup of coffee and an apple.",
+        "The apple is green and very sweet."
+      ]
+    },
+    "writingPrompt": "Write about breakfast in your family: what each person has.",
+    "sentenceTranslations": [
+      "Hôm nay là sáng thứ Bảy, và cả nhà Anna đang ở trong bếp.",
+      "Bữa sáng là bữa ăn Anna thích nhất trong ngày.",
+      "Bố Anna thường ăn một quả trứng và ít bánh mì.",
+      "Bánh mì mua ở một tiệm nhỏ gần căn hộ, và bố nói là bánh rất ngon.",
+      "Mẹ Anna uống một tách cà phê và ăn một quả táo.",
+      "Quả táo màu xanh và rất ngọt.",
+      "Anna ăn một quả chuối và uống một cốc sữa.",
+      "Snow, con mèo trắng, có một con cá nhỏ dưới gầm bàn.",
+      "\"Sữa đâu nhỉ?\" bố hỏi.",
+      "\"Ngay trước mặt anh đấy!\" mẹ nói, và cả nhà cùng cười.",
+      "\"Có quả cam nào cho con không ạ?\" Anna hỏi.",
+      "\"Không có, nhưng trong cái bát to có hoa quả đấy,\" mẹ nói.",
+      "Bữa sáng không nhiều món, nhưng cả nhà ở bên nhau và rất vui."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể bữa sáng của gia đình và dùng đúng a, an, the (an egg, a banana, the bread).",
+    "examples": [
+      {
+        "lemma": "breakfast",
+        "sentence": "I have breakfast at seven.",
+        "meaningVi": "Mình ăn sáng lúc bảy giờ."
+      },
+      {
+        "lemma": "meal",
+        "sentence": "Dinner is a big meal in my family.",
+        "meaningVi": "Bữa tối là bữa ăn lớn trong gia đình mình."
+      },
+      {
+        "lemma": "egg",
+        "sentence": "There is an egg on the table.",
+        "meaningVi": "Có một quả trứng trên bàn."
+      },
+      {
+        "lemma": "bread",
+        "sentence": "The bread is in the kitchen.",
+        "meaningVi": "Bánh mì ở trong bếp."
+      },
+      {
+        "lemma": "delicious",
+        "sentence": "Grandma's soup is delicious.",
+        "meaningVi": "Món canh của bà rất ngon."
+      },
+      {
+        "lemma": "sweet",
+        "sentence": "This banana is very sweet.",
+        "meaningVi": "Quả chuối này rất ngọt."
+      },
+      {
+        "lemma": "fish",
+        "sentence": "My cat loves fish.",
+        "meaningVi": "Con mèo của mình rất thích cá."
+      },
+      {
+        "lemma": "fruit",
+        "sentence": "There is some fruit in the bowl.",
+        "meaningVi": "Trong bát có ít hoa quả."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mum",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Anna, is there an egg in the kitchen?",
+          "meaningVi": "Anna ơi, trong bếp có quả trứng nào không con?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there are two eggs. They're near the bread.",
+          "meaningVi": "Có hai quả ạ. Ở gần bánh mì."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. Is the bread from today?",
+          "meaningVi": "Tốt. Bánh mì mua hôm nay à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. It's from the shop near our flat.",
+          "meaningVi": "Vâng ạ. Mua ở tiệm gần nhà mình."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. And is there an apple for Dad?",
+          "meaningVi": "Tuyệt. Thế có quả táo nào cho bố không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, but there's an orange.",
+          "meaningVi": "Không có, nhưng có một quả cam ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "OK, an orange is good too. Where is the coffee?",
+          "meaningVi": "Được, một quả cam cũng tốt. Cà phê đâu con?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's on the table, near the milk.",
+          "meaningVi": "Ở trên bàn, gần chỗ sữa ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you. Breakfast is ready!",
+          "meaningVi": "Cảm ơn con. Bữa sáng xong rồi!"
+        },
+        {
+          "speaker": 1,
+          "text": "Great! I'm very hungry.",
+          "meaningVi": "Tuyệt! Con đói lắm rồi."
+        }
+      ]
+    },
+    "grammarTipVi": "Chọn a hay an theo âm đầu khi đọc, không theo chữ cái: an egg, an apple, an orange, nhưng a banana, a cup.",
+    "translations": [
+      {
+        "vi": "Tôi ăn một quả trứng.",
+        "en": "I have an egg.",
+        "distractors": [
+          "a",
+          "the",
+          "eggs"
+        ]
+      },
+      {
+        "vi": "Bánh mì rất ngon.",
+        "en": "The bread is delicious.",
+        "distractors": [
+          "A",
+          "An",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bữa sáng là bữa ăn tôi thích nhất.",
+        "en": "Breakfast is my favourite meal.",
+        "distractors": [
+          "a",
+          "an",
+          "are"
+        ]
+      },
+      {
+        "vi": "Có một con cá nhỏ dưới gầm bàn.",
+        "en": "There is a small fish under the table.",
+        "distractors": [
+          "an",
+          "are",
+          "on"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna và mẹ đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Chuẩn bị bữa sáng",
+          "Đi mua bánh mì",
+          "Rửa bát"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ hỏi trong bếp có trứng, bánh mì, táo, cà phê không, rồi nói \"Breakfast is ready!\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trong bếp có mấy quả trứng?",
+        "promptVi": "",
+        "options": [
+          "Một",
+          "Hai",
+          "Ba"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"there are two eggs\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Có loại quả nào cho bố?",
+        "promptVi": "",
+        "options": [
+          "Một quả táo",
+          "Một quả cam",
+          "Một quả chuối"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"No, but there's an orange\": không có táo, chỉ có cam.",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The coffee is near the milk.",
+        "promptVi": "Cà phê ở gần chỗ sữa.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Anna nói \"It's on the table, near the milk\".",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong nhà Anna ăn gì vào bữa sáng?",
+    "grammarStep": {
+      "titleVi": "Mạo từ a / an / the",
+      "noticing": [
+        {
+          "sentence": "Anna's dad usually has an egg and some bread.",
+          "highlights": [
+            "an"
+          ]
+        },
+        {
+          "sentence": "Anna's mum has a cup of coffee and an apple.",
+          "highlights": [
+            "a",
+            "an"
+          ]
+        },
+        {
+          "sentence": "The apple is green and very sweet.",
+          "highlights": [
+            "The"
+          ]
+        },
+        {
+          "sentence": "Anna has a banana and a glass of milk.",
+          "highlights": [
+            "a"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói an egg, an apple nhưng lại nói a banana?",
+      "options": [
+        "Vì quả trứng, quả táo nhỏ hơn quả chuối",
+        "Vì egg, apple bắt đầu bằng âm nguyên âm, còn banana bắt đầu bằng âm phụ âm",
+        "Vì banana là số nhiều"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "An đứng trước âm nguyên âm (egg, apple, orange), a đứng trước âm phụ âm (banana, cup, glass). Khi quả táo đã được nhắc, câu sau dùng the: The apple is green.",
+      "whenVi": "Dùng a / an khi nói đến một vật lần đầu, và the khi người nghe đã biết vật đó.",
+      "table": [
+        {
+          "subject": "a + âm phụ âm",
+          "form": "a banana, a cup, a glass",
+          "negative": "—"
+        },
+        {
+          "subject": "an + âm nguyên âm",
+          "form": "an egg, an apple, an orange",
+          "negative": "—"
+        },
+        {
+          "subject": "the + vật đã biết",
+          "form": "the bread, the milk, the table",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I have a egg.",
+          "right": "I have an egg."
+        },
+        {
+          "wrong": "Anna has banana.",
+          "right": "Anna has a banana."
+        }
+      ],
+      "noteVi": "Tiếng Việt không có mạo từ (nói \"ăn trứng\", \"uống sữa\"), nên người Việt hay quên a / an / the, hoặc dùng a trước nguyên âm.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền a hoặc an vào chỗ trống.",
+          "text": "I have an egg and ___ banana.",
+          "answers": [
+            "a"
+          ],
+          "explanationVi": "Banana bắt đầu bằng âm phụ âm /b/, nên dùng a."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "There is ___ orange on the table.",
+          "options": [
+            "a",
+            "an",
+            "many",
+            "two"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Orange bắt đầu bằng âm nguyên âm /ɔ/, nên dùng an."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Mum has a apple.",
+          "sentence": "Mum has an apple.",
+          "explanationVi": "Apple bắt đầu bằng âm nguyên âm, nên dùng an, không dùng a."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Quả táo rất ngọt.",
+          "sentence": "The apple is very sweet.",
+          "words": [
+            "apple",
+            "is",
+            "The",
+            "very",
+            "sweet",
+            "An"
+          ],
+          "explanationVi": "Quả táo đã được nhắc đến nên dùng The; từ \"An\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Anna's mum has a cup of coffee and an apple.",
+        "tipVi": "Đọc nối an apple thành /ənˈæpl/; coffee /ˈkɔːfi/ nhấn âm đầu."
+      },
+      {
+        "text": "Snow, the white cat, has a small fish under the table.",
+        "tipVi": "Fish /fɪʃ/ kết thúc bằng âm /ʃ/ (như \"s\" uốn lưỡi), đừng bỏ âm này."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your breakfast today?",
+        "questionVi": "Hôm nay bạn ăn sáng món gì?",
+        "frame": "I have a / an ___ and some ___."
+      },
+      {
+        "question": "What is your favourite meal of the day?",
+        "questionVi": "Bữa ăn bạn thích nhất trong ngày là bữa nào?",
+        "frame": "My favourite meal is ___."
+      },
+      {
+        "question": "What is your mum's or dad's breakfast?",
+        "questionVi": "Bữa sáng của bố hoặc mẹ bạn là gì?",
+        "frame": "My ___ has a / an ___. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm dùng a hoặc an (a banana, an egg)",
+      "anyOf": [
+        "an egg",
+        "an apple",
+        "an orange",
+        "a banana",
+        "a cup",
+        "a glass"
+      ],
+      "outlineVi": [
+        "Nói bữa sáng nhà bạn vào lúc nào.",
+        "Kể mỗi người ăn, uống gì (a / an …).",
+        "Nói món nào ngon hoặc ngọt."
+      ],
+      "modelAnswer": "Breakfast is my favourite meal. I usually have an egg and some bread. The bread is delicious. My dad has a cup of coffee and an orange. My little sister has a glass of milk and some fruit. The fruit is very sweet."
+    }
+  },
+  "glosses": [
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "yêu thích nhất",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "Anna's favourite meal",
+      "phraseVi": "bữa ăn Anna thích nhất"
+    },
+    {
+      "text": "shop",
+      "lemma": "shop",
+      "meaningVi": "cửa hàng, tiệm",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "a small shop near their flat",
+      "phraseVi": "một tiệm nhỏ gần căn hộ"
+    },
+    {
+      "text": "cup of coffee",
+      "lemma": "cup of coffee",
+      "meaningVi": "tách cà phê",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a cup of coffee",
+      "phraseVi": "một tách cà phê"
+    },
+    {
+      "text": "apple",
+      "lemma": "apple",
+      "meaningVi": "quả táo",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "an apple",
+      "phraseVi": "một quả táo"
+    },
+    {
+      "text": "green",
+      "lemma": "green",
+      "meaningVi": "màu xanh lá",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "The apple is green",
+      "phraseVi": "Quả táo màu xanh"
+    },
+    {
+      "text": "glass of milk",
+      "lemma": "glass of milk",
+      "meaningVi": "cốc sữa",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a glass of milk",
+      "phraseVi": "một cốc sữa"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ngay trước",
+      "sentenceIndex": 9,
+      "pos": "preposition",
+      "phrase": "It's in front of you!",
+      "phraseVi": "Ngay trước mặt anh đấy!"
+    },
+    {
+      "text": "orange",
+      "lemma": "orange",
+      "meaningVi": "quả cam",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "an orange for me",
+      "phraseVi": "quả cam cho con"
+    },
+    {
+      "text": "bowl",
+      "lemma": "bowl",
+      "meaningVi": "cái bát, cái tô",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "in the big bowl",
+      "phraseVi": "trong cái bát to"
+    },
+    {
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "the family is together",
+      "phraseVi": "cả nhà ở bên nhau"
+    }
+  ]
+}

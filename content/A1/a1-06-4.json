@@ -1,0 +1,606 @@
+{
+  "content": "At twelve o'clock, Lan and Linh go to the school dining room. There are a lot of students and teachers there. The lunch is different every day.\n\nToday there is rice, chicken, vegetables and soup. Lan takes a bowl of rice, a piece of chicken and some vegetables. Linh never eats meat, so she takes rice, an egg and some beans.\n\nThe girls sit at a table near the window. The soup is hot, and the chicken is delicious. \"Is there any fruit?\" asks Linh.\n\"Yes, there are some bananas on the big table,\" says Lan.\n\nAfter lunch, the children put their bowls in a big box near the door. Then they go back to their classroom. School lunch is the girls' favourite time of the day!",
+  "targetWords": [
+    "lunch",
+    "rice",
+    "chicken",
+    "vegetable",
+    "soup",
+    "meat",
+    "delicious",
+    "fruit"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "lunch",
+        "lemma": "lunch",
+        "meaningVi": "bữa trưa",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "rice",
+        "lemma": "rice",
+        "meaningVi": "cơm, gạo",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "chicken",
+        "lemma": "chicken",
+        "meaningVi": "thịt gà",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "vegetables",
+        "lemma": "vegetable",
+        "meaningVi": "rau",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "soup",
+        "lemma": "soup",
+        "meaningVi": "canh, súp",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "meat",
+        "lemma": "meat",
+        "meaningVi": "thịt",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "delicious",
+        "lemma": "delicious",
+        "meaningVi": "ngon",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "fruit",
+        "lemma": "fruit",
+        "meaningVi": "hoa quả",
+        "pos": "noun",
+        "sentenceIndex": 8
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A cooking class at school",
+          "Lan and Linh have lunch at school.",
+          "Linh's favourite vegetables",
+          "A big school party"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan và Linh ăn trưa ở phòng ăn của trường: mỗi bạn lấy món gì, ngồi ở đâu, ăn xong làm gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Linh's lunch?",
+        "promptVi": "Bữa trưa của Linh gồm những gì?",
+        "options": [
+          "Rice, chicken and vegetables",
+          "Rice, an egg and some beans",
+          "Soup and bread",
+          "Some bananas"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh không ăn thịt, nên \"she takes rice, an egg and some beans\". Thịt gà là món của Lan."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are the bananas?",
+        "promptVi": "Chuối ở đâu?",
+        "options": [
+          "Near the window",
+          "In a box near the door",
+          "On the big table",
+          "In the classroom"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"there are some bananas on the big table\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh often eats chicken.",
+        "promptVi": "Linh hay ăn thịt gà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Linh never eats meat\": Linh không bao giờ ăn thịt."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"piece\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Lan takes a bowl of rice, a piece of chicken and some vegetables.",
+        "options": [
+          "bát",
+          "cốc",
+          "con",
+          "miếng"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "A piece of chicken là một miếng thịt gà. A bowl of rice là một bát cơm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mạo từ a / an / the",
+      "bodyVi": "A / an đi với một vật đếm được: an egg, a table. Với thứ không đếm được như rice, chicken, ta đếm bằng a bowl of, a piece of: a bowl of rice, a piece of chicken. The dùng cho món người nghe đã biết: the soup, the chicken (món vừa kể ở trên).",
+      "examples": [
+        "Lan takes a bowl of rice, a piece of chicken and some vegetables.",
+        "Linh never eats meat, so she takes rice, an egg and some beans.",
+        "The soup is hot, and the chicken is delicious."
+      ]
+    },
+    "writingPrompt": "Write about lunch at your school or at home: what there is and what you take.",
+    "sentenceTranslations": [
+      "Lúc mười hai giờ, Lan và Linh đến phòng ăn của trường.",
+      "Ở đó có rất nhiều học sinh và thầy cô.",
+      "Bữa trưa mỗi ngày một khác.",
+      "Hôm nay có cơm, thịt gà, rau và canh.",
+      "Lan lấy một bát cơm, một miếng thịt gà và ít rau.",
+      "Linh không bao giờ ăn thịt, nên Linh lấy cơm, một quả trứng và ít đậu.",
+      "Hai bạn ngồi ở một cái bàn gần cửa sổ.",
+      "Canh thì nóng, còn thịt gà rất ngon.",
+      "\"Có hoa quả không?\" Linh hỏi.",
+      "\"Có, trên cái bàn to có mấy quả chuối,\" Lan nói.",
+      "Ăn xong, các bạn học sinh để bát vào một cái thùng to gần cửa.",
+      "Rồi các bạn quay về lớp.",
+      "Bữa trưa ở trường là lúc hai bạn thích nhất trong ngày!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể bữa trưa ở trường và dùng đúng a / an, the, a bowl of, a piece of.",
+    "examples": [
+      {
+        "lemma": "lunch",
+        "sentence": "Lunch is at twelve o'clock.",
+        "meaningVi": "Bữa trưa lúc mười hai giờ."
+      },
+      {
+        "lemma": "rice",
+        "sentence": "I have a bowl of rice.",
+        "meaningVi": "Mình ăn một bát cơm."
+      },
+      {
+        "lemma": "chicken",
+        "sentence": "The chicken is very good.",
+        "meaningVi": "Thịt gà rất ngon."
+      },
+      {
+        "lemma": "vegetable",
+        "sentence": "My little sister never eats vegetables.",
+        "meaningVi": "Em gái mình không bao giờ ăn rau."
+      },
+      {
+        "lemma": "soup",
+        "sentence": "There is a bowl of soup on the table.",
+        "meaningVi": "Trên bàn có một bát canh."
+      },
+      {
+        "lemma": "meat",
+        "sentence": "My dad loves meat.",
+        "meaningVi": "Bố mình rất thích ăn thịt."
+      },
+      {
+        "lemma": "delicious",
+        "sentence": "School lunch is delicious today.",
+        "meaningVi": "Bữa trưa ở trường hôm nay rất ngon."
+      },
+      {
+        "lemma": "fruit",
+        "sentence": "We often have fruit after lunch.",
+        "meaningVi": "Bọn mình hay ăn hoa quả sau bữa trưa."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tom",
+        "Huy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Huy, what is for lunch today?",
+          "meaningVi": "Huy ơi, hôm nay trưa ăn gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "There is rice, fish and vegetables.",
+          "meaningVi": "Có cơm, cá và rau."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there any soup?",
+          "meaningVi": "Có canh không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there is. It's tomato soup.",
+          "meaningVi": "Có. Canh cà chua."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! A bowl of soup, please.",
+          "meaningVi": "Tuyệt! Cho cháu một bát canh ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "And a piece of fish for me, please.",
+          "meaningVi": "Còn cháu một miếng cá ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Are there any bananas?",
+          "meaningVi": "Có chuối không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, there aren't, but there are some apples.",
+          "meaningVi": "Không có, nhưng có táo."
+        },
+        {
+          "speaker": 0,
+          "text": "OK, an apple for me.",
+          "meaningVi": "Được, mình lấy một quả táo."
+        },
+        {
+          "speaker": 1,
+          "text": "Two apples for me. I'm very hungry!",
+          "meaningVi": "Mình lấy hai quả. Mình đói lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Với thứ không đếm được, dùng a bowl of, a piece of, a glass of để đếm: a bowl of rice, a piece of chicken, a glass of milk. Không nói \"a rice\".",
+    "translations": [
+      {
+        "vi": "Tôi lấy một bát cơm.",
+        "en": "I take a bowl of rice.",
+        "distractors": [
+          "an",
+          "rices",
+          "the"
+        ]
+      },
+      {
+        "vi": "Canh rất nóng.",
+        "en": "The soup is very hot.",
+        "distractors": [
+          "A",
+          "are",
+          "soups"
+        ]
+      },
+      {
+        "vi": "Cô ấy không bao giờ ăn thịt.",
+        "en": "She never eats meat.",
+        "distractors": [
+          "eat",
+          "a",
+          "meats"
+        ]
+      },
+      {
+        "vi": "Thịt gà rất ngon.",
+        "en": "The chicken is delicious.",
+        "distractors": [
+          "An",
+          "are",
+          "chickens"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Huy đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Chọn món cho bữa trưa ở trường",
+          "Nấu canh cà chua",
+          "Đi mua hoa quả"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai bạn hỏi hôm nay có món gì rồi lấy canh, cá và táo.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hôm nay có canh gì?",
+        "promptVi": "",
+        "options": [
+          "Canh rau",
+          "Canh cà chua",
+          "Canh cá"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy nói \"It's tomato soup\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hôm nay có chuối không?",
+        "promptVi": "",
+        "options": [
+          "Có",
+          "Không, nhưng có táo",
+          "Không, nhưng có cam"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy nói \"No, there aren't, but there are some apples\".",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Huy takes two apples.",
+        "promptVi": "Huy lấy hai quả táo.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Huy nói \"Two apples for me. I'm very hungry!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Lan và Linh mỗi bạn lấy những món gì?",
+    "grammarStep": {
+      "titleVi": "Mạo từ a / an / the",
+      "noticing": [
+        {
+          "sentence": "Lan takes a bowl of rice, a piece of chicken and some vegetables.",
+          "highlights": [
+            "a bowl of",
+            "a piece of"
+          ]
+        },
+        {
+          "sentence": "Linh never eats meat, so she takes rice, an egg and some beans.",
+          "highlights": [
+            "an"
+          ]
+        },
+        {
+          "sentence": "The soup is hot, and the chicken is delicious.",
+          "highlights": [
+            "The",
+            "the"
+          ]
+        },
+        {
+          "sentence": "\"Yes, there are some bananas on the big table,\" says Lan.",
+          "highlights": [
+            "some",
+            "the"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói a bowl of rice mà không nói a rice?",
+      "options": [
+        "Vì rice là số nhiều",
+        "Vì rice không đếm được, nên phải đếm bằng a bowl of",
+        "Vì bowl đứng trước rice"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Cơm, thịt gà không đếm được từng cái, nên không dùng a trực tiếp mà dùng a bowl of (một bát), a piece of (một miếng).",
+      "whenVi": "Dùng a / an cho một vật đếm được, a bowl of / a piece of cho thứ không đếm được, và the cho món người nghe đã biết.",
+      "table": [
+        {
+          "subject": "a / an + một vật",
+          "form": "an egg, a table",
+          "negative": "—"
+        },
+        {
+          "subject": "a bowl of / a piece of + không đếm được",
+          "form": "a bowl of rice, a piece of chicken",
+          "negative": "—"
+        },
+        {
+          "subject": "the + vật đã biết",
+          "form": "the soup, the chicken, the big table",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Lan takes a rice.",
+          "right": "Lan takes a bowl of rice."
+        },
+        {
+          "wrong": "The girls sit at an table.",
+          "right": "The girls sit at a table."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"một cơm\" là sai nhưng \"một bát cơm\" thì đúng, giống tiếng Anh; người Việt chỉ cần nhớ dùng a bowl of, a piece of với rice, chicken.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa là \"miếng\".",
+          "text": "Lan takes a ___ of chicken.",
+          "answers": [
+            "piece"
+          ],
+          "explanationVi": "A piece of chicken là một miếng thịt gà."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Linh takes rice, ___ egg and some beans.",
+          "options": [
+            "a",
+            "an",
+            "many",
+            "two"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Egg bắt đầu bằng âm nguyên âm, nên dùng an."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The girls sit at an table near the window.",
+          "sentence": "The girls sit at a table near the window.",
+          "explanationVi": "Table bắt đầu bằng âm phụ âm /t/, nên dùng a."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi lấy một miếng thịt gà.",
+          "sentence": "I take a piece of chicken.",
+          "words": [
+            "piece",
+            "of",
+            "I",
+            "take",
+            "a",
+            "chicken",
+            "an"
+          ],
+          "explanationVi": "Piece bắt đầu bằng âm phụ âm nên dùng a; từ \"an\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The soup is hot, and the chicken is delicious.",
+        "tipVi": "Delicious /dɪˈlɪʃəs/ nhấn âm giữa LI, giữa từ là âm /ʃ/."
+      },
+      {
+        "text": "There are a lot of students and teachers there.",
+        "tipVi": "Students /ˈstuːdənts/ có cụm âm cuối /nts/; teachers /ˈtiːtʃɚz/ có /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where is your lunch on school days?",
+        "questionVi": "Những ngày đi học bạn ăn trưa ở đâu?",
+        "frame": "My lunch is at ___."
+      },
+      {
+        "question": "What is your favourite lunch?",
+        "questionVi": "Bữa trưa bạn thích nhất là gì?",
+        "frame": "My favourite lunch is a bowl of ___."
+      },
+      {
+        "question": "What is your best friend's favourite food?",
+        "questionVi": "Bạn thân của bạn thích món gì nhất?",
+        "frame": "He / She loves ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm dùng a / an hoặc a bowl of / a piece of",
+      "anyOf": [
+        "a bowl of",
+        "a piece of",
+        "a glass of",
+        "an egg",
+        "an apple",
+        "some"
+      ],
+      "outlineVi": [
+        "Nói bạn ăn trưa ở đâu, lúc mấy giờ.",
+        "Kể hôm nay có những món gì.",
+        "Kể bạn và một người bạn lấy món gì."
+      ],
+      "modelAnswer": "At twelve o'clock, I have lunch at school. Today there is rice, fish, vegetables and soup. I take a bowl of rice and a piece of fish. My friend never eats meat, so she has an egg and some vegetables. The soup is delicious. After lunch, we have some fruit."
+    }
+  },
+  "glosses": [
+    {
+      "text": "dining room",
+      "lemma": "dining room",
+      "meaningVi": "phòng ăn",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the school dining room",
+      "phraseVi": "phòng ăn của trường"
+    },
+    {
+      "text": "students",
+      "lemma": "student",
+      "meaningVi": "học sinh",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a lot of students and teachers",
+      "phraseVi": "rất nhiều học sinh và thầy cô"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác nhau",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "different every day",
+      "phraseVi": "mỗi ngày một khác"
+    },
+    {
+      "text": "bowl",
+      "lemma": "bowl",
+      "meaningVi": "cái bát",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a bowl of rice",
+      "phraseVi": "một bát cơm"
+    },
+    {
+      "text": "piece",
+      "lemma": "piece",
+      "meaningVi": "miếng",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a piece of chicken",
+      "phraseVi": "một miếng thịt gà"
+    },
+    {
+      "text": "beans",
+      "lemma": "bean",
+      "meaningVi": "đậu",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "some beans",
+      "phraseVi": "ít đậu"
+    },
+    {
+      "text": "hot",
+      "lemma": "hot",
+      "meaningVi": "nóng",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "The soup is hot",
+      "phraseVi": "Canh thì nóng"
+    },
+    {
+      "text": "bananas",
+      "lemma": "banana",
+      "meaningVi": "quả chuối",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "some bananas",
+      "phraseVi": "mấy quả chuối"
+    },
+    {
+      "text": "children",
+      "lemma": "child",
+      "meaningVi": "trẻ em, các bạn nhỏ",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "the children put their bowls",
+      "phraseVi": "các bạn học sinh để bát"
+    },
+    {
+      "text": "classroom",
+      "lemma": "classroom",
+      "meaningVi": "lớp học",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "back to their classroom",
+      "phraseVi": "quay về lớp"
+    }
+  ]
+}

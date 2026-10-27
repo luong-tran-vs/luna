@@ -1,0 +1,645 @@
+{
+  "content": "Today we are at Uncle Hai's farm. It is near Hue, and it is very green. The farm isn't big, but it is beautiful.\n\nUncle Hai has a lot of animals. He has three cows, ten chickens and two dogs. The dogs' names are Vang and Den. They are very nice, and they play with us all morning.\n\nAunt Hoa has a big garden. She has tomatoes, beans and beautiful flowers in her garden. My cousin Bo is two. He has a red toy car, and he is in the garden with his mum all day.\n\nMy sister Mai likes the chickens. The cows are too big for her!\n\nAt lunch, we have rice, fish and vegetables from Aunt Hoa's garden. \"Is the food good?\" asks Uncle Hai.\n\"Yes, it's great!\" we say.",
+  "targetWords": [
+    "uncle",
+    "farm",
+    "animals",
+    "cows",
+    "chickens",
+    "aunt",
+    "garden",
+    "cousin"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Uncle",
+        "lemma": "uncle",
+        "meaningVi": "chú, bác, cậu",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "farm",
+        "lemma": "farm",
+        "meaningVi": "trang trại",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "con vật",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "cows",
+        "lemma": "cow",
+        "meaningVi": "con bò",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "chickens",
+        "lemma": "chicken",
+        "meaningVi": "con gà",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "Aunt",
+        "lemma": "aunt",
+        "meaningVi": "cô, dì, thím, mợ",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "garden",
+        "lemma": "garden",
+        "meaningVi": "khu vườn",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "cousin",
+        "lemma": "cousin",
+        "meaningVi": "anh chị em họ",
+        "pos": "noun",
+        "sentenceIndex": 9
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Uncle Hai's new house in Hanoi",
+          "Aunt Hoa's cooking class",
+          "A day at Uncle Hai's farm with its animals and garden",
+          "Mai's first day at school"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Cả nhà đến trang trại của chú Hai: chú có bò, gà, chó, thím có vườn rau và hoa, rồi cả nhà ăn trưa ở đó."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What animals are on the farm?",
+        "promptVi": "Trang trại có những con vật nào?",
+        "options": [
+          "Cows, chickens and dogs",
+          "Cats and dogs",
+          "Ducks and pigs",
+          "Horses and cows"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"He has three cows, ten chickens and two dogs\": trang trại có bò, gà và chó."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is Bo?",
+        "promptVi": "Bo là ai?",
+        "options": [
+          "Uncle Hai's dog",
+          "Lan's cousin",
+          "Lan's brother",
+          "Aunt Hoa's father"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"My cousin Bo is two\": Bo là em họ của Lan, con của chú Hai và thím Hoa. Hai con chó tên là Vàng và Đen."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The farm is very big.",
+        "promptVi": "Trang trại rất lớn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"The farm isn't big, but it is beautiful\": trang trại không lớn nhưng đẹp."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"vegetables\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "At lunch, we have rice, fish and vegetables from Aunt Hoa's garden.",
+        "options": [
+          "trái cây",
+          "rau củ",
+          "thịt",
+          "bánh mì"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vegetables là rau củ, như cà chua và đậu trong vườn của thím Hoa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Have / has (có)",
+      "bodyVi": "He, she và một người (Uncle Hai, Aunt Hoa) đi với has; we, they đi với have. Sau has và một số từ hai trở lên, danh từ thêm -s: three cows, ten chickens. Have còn có nghĩa là \"ăn\" khi đi với bữa ăn hay món ăn: we have rice, fish and vegetables.",
+      "examples": [
+        "Uncle Hai has a lot of animals.",
+        "He has three cows, ten chickens and two dogs.",
+        "She has tomatoes, beans and beautiful flowers in her garden."
+      ]
+    },
+    "writingPrompt": "Write about a relative with a farm or a garden: what he or she has there.",
+    "sentenceTranslations": [
+      "Hôm nay cả nhà mình ở trang trại của chú Hai.",
+      "Trang trại ở gần Huế, và rất xanh.",
+      "Trang trại không lớn, nhưng rất đẹp.",
+      "Chú Hai có rất nhiều con vật.",
+      "Chú có ba con bò, mười con gà và hai con chó.",
+      "Hai con chó tên là Vàng và Đen.",
+      "Chúng rất hiền, và chơi với bọn mình cả buổi sáng.",
+      "Thím Hoa có một khu vườn lớn.",
+      "Thím có cà chua, đậu và những bông hoa thật đẹp trong vườn.",
+      "Em họ mình, bé Bo, hai tuổi.",
+      "Bé có một chiếc ô tô đồ chơi màu đỏ, và bé ở trong vườn với mẹ cả ngày.",
+      "Em gái mình, bé Mai, thích mấy con gà.",
+      "Còn mấy con bò thì quá to với em ấy!",
+      "Bữa trưa, cả nhà ăn cơm, cá và rau từ vườn của thím Hoa.",
+      "\"Đồ ăn có ngon không?\" chú Hai hỏi.",
+      "\"Ngon lắm ạ!\" bọn mình trả lời."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về trang trại hay khu vườn của người thân: họ có những con vật và cây gì, dùng has + số lượng + danh từ số nhiều.",
+    "examples": [
+      {
+        "lemma": "uncle",
+        "sentence": "My uncle is a farmer.",
+        "meaningVi": "Chú mình là nông dân."
+      },
+      {
+        "lemma": "farm",
+        "sentence": "The farm is near a small river.",
+        "meaningVi": "Trang trại ở gần một con sông nhỏ."
+      },
+      {
+        "lemma": "animal",
+        "sentence": "A cow is a big animal.",
+        "meaningVi": "Bò là một con vật to."
+      },
+      {
+        "lemma": "cow",
+        "sentence": "The black cow is very old.",
+        "meaningVi": "Con bò đen đã rất già."
+      },
+      {
+        "lemma": "chicken",
+        "sentence": "My grandmother has a lot of chickens.",
+        "meaningVi": "Bà mình có rất nhiều gà."
+      },
+      {
+        "lemma": "aunt",
+        "sentence": "My aunt has a small flower shop.",
+        "meaningVi": "Cô mình có một cửa hàng hoa nhỏ."
+      },
+      {
+        "lemma": "garden",
+        "sentence": "Our garden has a lot of flowers.",
+        "meaningVi": "Vườn nhà mình có rất nhiều hoa."
+      },
+      {
+        "lemma": "cousin",
+        "sentence": "My cousin has a white dog.",
+        "meaningVi": "Em họ mình có một con chó trắng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Lan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi, Lan! Are you at home today?",
+          "meaningVi": "Chào Lan! Hôm nay bạn có ở nhà không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I'm not. I'm at my uncle's farm near Hue.",
+          "meaningVi": "Không, mình đang ở trang trại của chú mình gần Huế."
+        },
+        {
+          "speaker": 0,
+          "text": "A farm? Is it big?",
+          "meaningVi": "Trang trại à? Có lớn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it's small, but it's very green.",
+          "meaningVi": "Không, nhỏ thôi, nhưng rất xanh."
+        },
+        {
+          "speaker": 0,
+          "text": "Is your uncle a farmer?",
+          "meaningVi": "Chú bạn là nông dân à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he is. He has cows, chickens and two dogs.",
+          "meaningVi": "Đúng vậy. Chú có bò, gà và hai con chó."
+        },
+        {
+          "speaker": 0,
+          "text": "Wow! And your aunt?",
+          "meaningVi": "Ồ! Còn thím bạn thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "She has a big garden with a lot of vegetables.",
+          "meaningVi": "Thím có một khu vườn lớn trồng rất nhiều rau."
+        },
+        {
+          "speaker": 0,
+          "text": "Is your little cousin there too?",
+          "meaningVi": "Em họ nhỏ của bạn cũng ở đó à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, Bo is here. He's two, and he's very funny.",
+          "meaningVi": "Ừ, bé Bo ở đây. Bé hai tuổi, và vui tính lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Sau số từ hai trở lên, danh từ thêm -s: three cows, ten chickens. Với danh từ số nhiều đã có -s, muốn nói \"của\" chỉ thêm dấu ': the dogs' names (tên của hai con chó).",
+    "translations": [
+      {
+        "vi": "Chú tôi có rất nhiều con vật.",
+        "en": "My uncle has a lot of animals.",
+        "distractors": [
+          "have",
+          "is",
+          "animal"
+        ]
+      },
+      {
+        "vi": "Cô tôi có một khu vườn lớn.",
+        "en": "My aunt has a big garden.",
+        "distractors": [
+          "have",
+          "small",
+          "is"
+        ]
+      },
+      {
+        "vi": "Em họ tôi hai tuổi.",
+        "en": "My cousin is two.",
+        "distractors": [
+          "has",
+          "are",
+          "he"
+        ]
+      },
+      {
+        "vi": "Họ có ba con bò và mười con gà.",
+        "en": "They have three cows and ten chickens.",
+        "distractors": [
+          "has",
+          "cow",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan kể với Linh về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trang trại của chú Lan",
+          "Ngôi nhà mới của Linh",
+          "Một bữa tiệc sinh nhật"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"I'm at my uncle's farm near Hue\" rồi kể về trang trại, chú, thím và em họ.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trang trại của chú Lan thế nào?",
+        "promptVi": "",
+        "options": [
+          "Lớn và có nhiều cây",
+          "Nhỏ nhưng rất xanh",
+          "Ở gần Hà Nội"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"No, it's small, but it's very green\": trang trại nhỏ nhưng rất xanh, và ở gần Huế.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thím của Lan có gì?",
+        "promptVi": "",
+        "options": [
+          "Ba con bò",
+          "Một cửa hàng nhỏ",
+          "Một khu vườn lớn có nhiều rau"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"She has a big garden with a lot of vegetables\". Bò là của chú.",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bo is four.",
+        "promptVi": "Bo bốn tuổi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"He's two\": bé Bo hai tuổi.",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Chú Hai và thím Hoa có những gì ở trang trại?",
+    "grammarStep": {
+      "titleVi": "Have / has (có)",
+      "noticing": [
+        {
+          "sentence": "Uncle Hai has a lot of animals.",
+          "highlights": [
+            "has"
+          ]
+        },
+        {
+          "sentence": "He has three cows, ten chickens and two dogs.",
+          "highlights": [
+            "has"
+          ]
+        },
+        {
+          "sentence": "Aunt Hoa has a big garden.",
+          "highlights": [
+            "has"
+          ]
+        },
+        {
+          "sentence": "At lunch, we have rice, fish and vegetables from Aunt Hoa's garden.",
+          "highlights": [
+            "have"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"At lunch, we have rice, fish and vegetables\", have có nghĩa là gì?",
+      "options": [
+        "Có (sở hữu)",
+        "Ăn",
+        "Mua"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Khi đi với bữa ăn hay món ăn, have nghĩa là \"ăn\": we have rice là cả nhà ăn cơm. Ở các câu còn lại, has nghĩa là \"có\".",
+      "whenVi": "Dùng have / has để nói ai có con vật, cây cối, đồ vật gì; dùng have + món ăn hay bữa ăn để nói ăn gì.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "have: We have rice for lunch.",
+          "negative": "—"
+        },
+        {
+          "subject": "he / she / it",
+          "form": "has: He has three cows.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He has three cow.",
+          "right": "He has three cows."
+        },
+        {
+          "wrong": "My uncle have a farm.",
+          "right": "My uncle has a farm."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"ba con bò\" mà danh từ không đổi, và dùng \"có\" cho mọi người, nên người Việt hay quên -s và dùng have cho he, she.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền have hoặc has vào chỗ trống.",
+          "text": "Aunt Hoa ___ a big garden.",
+          "answers": [
+            "has"
+          ],
+          "explanationVi": "Aunt Hoa là một người (she), nên dùng has."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "My cousins ___ a red toy car.",
+          "options": [
+            "has",
+            "have",
+            "is",
+            "are"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "\"My cousins\" có -s nên là nhiều người (they), và đi với have."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We has lunch in the garden.",
+          "sentence": "We have lunch in the garden.",
+          "explanationVi": "Chủ ngữ we đi với have, không đi với has."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chú tôi có hai con chó.",
+          "sentence": "My uncle has two dogs.",
+          "words": [
+            "dogs",
+            "has",
+            "My",
+            "two",
+            "uncle",
+            "have"
+          ],
+          "explanationVi": "My uncle là một người nên đi với has; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He has three cows, ten chickens and two dogs.",
+        "tipVi": "Đọc rõ âm /z/ ở cuối cows /kaʊz/, chickens /ˈtʃɪkɪnz/ và dogs /dɑːɡz/."
+      },
+      {
+        "text": "Aunt Hoa has a big garden.",
+        "tipVi": "Garden /ˈɡɑːrdn/ nhấn âm đầu GAR, âm sau rất nhẹ."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is your home in a big city or a small town?",
+        "questionVi": "Nhà bạn ở thành phố lớn hay thị trấn nhỏ?",
+        "frame": "My home is in ___."
+      },
+      {
+        "question": "What animals are on a farm?",
+        "questionVi": "Ở trang trại có những con vật nào?",
+        "frame": "A farm has ___, ___ and ___."
+      },
+      {
+        "question": "Who in your family has a garden? What is in his or her garden?",
+        "questionVi": "Ai trong nhà bạn có vườn? Trong vườn của người đó có gì?",
+        "frame": "My ___ has a garden. He / She has ___ in it."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng has để nói một người khác có gì (he / she has …)",
+      "anyOf": [
+        "has",
+        "he has",
+        "she has",
+        "my uncle has",
+        "my aunt has",
+        "my grandfather has"
+      ],
+      "outlineVi": [
+        "Nói trang trại hay khu vườn đó là của ai và ở đâu.",
+        "Nói người đó có những con vật hay cây gì.",
+        "Nói về một người khác ở đó (em họ, cô, chú)."
+      ],
+      "modelAnswer": "My aunt and uncle have a small farm near Da Lat. My uncle has two cows and a lot of chickens. My aunt has a big garden with flowers and vegetables. My cousin is five, and she has a white dog. The farm is beautiful, and I am happy there."
+    }
+  },
+  "glosses": [
+    {
+      "text": "farm",
+      "lemma": "farm",
+      "meaningVi": "trang trại",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Uncle Hai's farm",
+      "phraseVi": "trang trại của chú Hai"
+    },
+    {
+      "text": "green",
+      "lemma": "green",
+      "meaningVi": "xanh (cây cối)",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "it is very green",
+      "phraseVi": "rất xanh"
+    },
+    {
+      "text": "beautiful",
+      "lemma": "beautiful",
+      "meaningVi": "đẹp",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "it is beautiful",
+      "phraseVi": "rất đẹp"
+    },
+    {
+      "text": "animals",
+      "lemma": "animal",
+      "meaningVi": "con vật",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "a lot of animals",
+      "phraseVi": "rất nhiều con vật"
+    },
+    {
+      "text": "cows",
+      "lemma": "cow",
+      "meaningVi": "con bò",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "three cows",
+      "phraseVi": "ba con bò"
+    },
+    {
+      "text": "chickens",
+      "lemma": "chicken",
+      "meaningVi": "con gà",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "ten chickens",
+      "phraseVi": "mười con gà"
+    },
+    {
+      "text": "dogs'",
+      "lemma": "dog",
+      "meaningVi": "của những con chó",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "The dogs' names",
+      "phraseVi": "Tên của hai con chó"
+    },
+    {
+      "text": "garden",
+      "lemma": "garden",
+      "meaningVi": "khu vườn",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "a big garden",
+      "phraseVi": "một khu vườn lớn"
+    },
+    {
+      "text": "tomatoes",
+      "lemma": "tomato",
+      "meaningVi": "cà chua",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "tomatoes, beans and beautiful flowers",
+      "phraseVi": "cà chua, đậu và những bông hoa đẹp"
+    },
+    {
+      "text": "beans",
+      "lemma": "bean",
+      "meaningVi": "đậu",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "tomatoes, beans and beautiful flowers",
+      "phraseVi": "cà chua, đậu và những bông hoa đẹp"
+    },
+    {
+      "text": "toy",
+      "lemma": "toy",
+      "meaningVi": "đồ chơi",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "a red toy car",
+      "phraseVi": "một chiếc ô tô đồ chơi màu đỏ"
+    },
+    {
+      "text": "all day",
+      "lemma": "all day",
+      "meaningVi": "cả ngày",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "with his mum all day",
+      "phraseVi": "với mẹ cả ngày"
+    },
+    {
+      "text": "too big",
+      "lemma": "too",
+      "meaningVi": "quá (to)",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "too big for her",
+      "phraseVi": "quá to với em ấy"
+    },
+    {
+      "text": "lunch",
+      "lemma": "lunch",
+      "meaningVi": "bữa trưa",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "At lunch",
+      "phraseVi": "Bữa trưa"
+    },
+    {
+      "text": "vegetables",
+      "lemma": "vegetable",
+      "meaningVi": "rau củ",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "rice, fish and vegetables",
+      "phraseVi": "cơm, cá và rau"
+    }
+  ]
+}

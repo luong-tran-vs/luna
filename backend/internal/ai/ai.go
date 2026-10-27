@@ -82,6 +82,19 @@ type GenerateRequest struct {
 	// GrammarChoices are the syllabus points the AI picks one from for each lesson (added
 	// 2026-10-20), the least used first; ignored with GrammarFocus.
 	GrammarChoices []GrammarChoice
+	// Course is set when the lesson fills a slot of a course (added 2026-10-27): Idea is then the
+	// slot's plan, not a hint.
+	Course *CourseSlot
+}
+
+// CourseSlot is what a course says of the one lesson of a slot.
+type CourseSlot struct {
+	// Title is the lesson's title in the course.
+	Title string
+	// MoreGrammar are the slot's points after GrammarFocus, used a few times each.
+	MoreGrammar []GrammarFocus
+	// LaterGrammar are the points the course teaches only in later topics.
+	LaterGrammar []GrammarChoice
 }
 
 // GrammarChoice is a syllabus point a generated lesson may be built around.

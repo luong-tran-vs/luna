@@ -1,0 +1,589 @@
+{
+  "content": "It is twelve o'clock, and Tom, Huy and Anna are in the school dining room. They talk about their school subjects.\n\n\"Do you like maths, Huy?\" asks Anna.\n\"No, I don't, because it's very difficult for me,\" says Huy. \"I like English and history.\"\n\"Does Minh like maths?\" asks Tom.\n\"Yes, he does, and he loves numbers,\" says Huy.\n\n\"Do you like science, Tom?\" asks Anna.\n\"Yes, I do, but I don't like music,\" says Tom. \"Science is very interesting.\"\n\"I love music!\" says Anna. \"Do you play the guitar?\"\n\"No, I don't,\" says Tom. \"And Huy doesn't sing!\"\nEveryone laughs.\n\n\"So we all like different subjects,\" says Anna.\n\"Yes, but we all like lunch!\" says Huy.",
+  "targetWords": [
+    "subject",
+    "maths",
+    "difficult",
+    "English",
+    "history",
+    "science",
+    "music",
+    "interesting"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "subjects",
+        "lemma": "subject",
+        "meaningVi": "môn học",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "maths",
+        "lemma": "maths",
+        "meaningVi": "môn toán",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "difficult",
+        "lemma": "difficult",
+        "meaningVi": "khó",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "English",
+        "lemma": "English",
+        "meaningVi": "tiếng Anh",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "history",
+        "lemma": "history",
+        "meaningVi": "môn lịch sử",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "science",
+        "lemma": "science",
+        "meaningVi": "môn khoa học",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "music",
+        "lemma": "music",
+        "meaningVi": "âm nhạc",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "interesting",
+        "lemma": "interesting",
+        "meaningVi": "thú vị",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A maths test",
+          "Anna's guitar lesson",
+          "Three friends talk about the subjects they like and don't like.",
+          "Lunch at school"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Trong giờ ăn trưa, Tom, Huy và Anna hỏi nhau có thích toán, khoa học, âm nhạc không."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Huy like maths?",
+        "promptVi": "Vì sao Huy không thích môn toán?",
+        "options": [
+          "Because it's very difficult for him",
+          "Because the teacher isn't kind",
+          "Because he likes music",
+          "Because it's at seven o'clock"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy nói \"No, I don't, because it's very difficult for me\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who loves numbers?",
+        "promptVi": "Ai mê các con số?",
+        "options": [
+          "Huy",
+          "Tom",
+          "Anna",
+          "Minh"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Khi Tom hỏi \"Does Minh like maths?\", Huy trả lời \"Yes, he does, and he loves numbers\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom likes music.",
+        "promptVi": "Tom thích âm nhạc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom nói \"I don't like music\". Người mê âm nhạc là Anna."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"numbers\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Yes, he does, and he loves numbers,\" says Huy.",
+        "options": [
+          "bài hát",
+          "con số",
+          "câu chuyện",
+          "bức tranh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Numbers là các con số: Minh thích toán vì mê làm việc với các con số."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Hỏi người khác thích gì: Do you like …? (với I, you, we, they) và Does he / she / Minh like …? (với một người). Trả lời ngắn: Yes, I do. / No, I don't. / Yes, he does. / No, he doesn't. Phủ định với he, she: Huy doesn't sing. Sau does, doesn't, động từ giữ nguyên (like, sing).",
+      "examples": [
+        "Do you like maths, Huy?",
+        "Does Minh like maths?",
+        "And Huy doesn't sing!"
+      ]
+    },
+    "writingPrompt": "Write about the subjects you like and don't like, and about a friend's subjects.",
+    "sentenceTranslations": [
+      "Bây giờ là mười hai giờ, và Tom, Huy, Anna đang ở phòng ăn của trường.",
+      "Các bạn nói chuyện về các môn học.",
+      "\"Huy có thích môn toán không?\" Anna hỏi.",
+      "\"Không, vì môn đó khó với mình lắm,\" Huy nói.",
+      "\"Mình thích tiếng Anh và lịch sử.\"",
+      "\"Minh có thích toán không?\" Tom hỏi.",
+      "\"Có, và bạn ấy mê các con số,\" Huy nói.",
+      "\"Tom có thích môn khoa học không?\" Anna hỏi.",
+      "\"Có, nhưng mình không thích âm nhạc,\" Tom nói.",
+      "\"Môn khoa học rất thú vị.\"",
+      "\"Mình mê âm nhạc!\" Anna nói.",
+      "\"Bạn có chơi đàn ghi-ta không?\"",
+      "\"Không,\" Tom nói.",
+      "\"Mà Huy cũng không hát đâu!\"",
+      "Cả nhóm cùng cười.",
+      "\"Vậy là mỗi người thích một môn khác nhau,\" Anna nói.",
+      "\"Ừ, nhưng ai cũng thích bữa trưa!\" Huy nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi bạn bè thích môn gì (Do you like …? Does he like …?) và trả lời ngắn Yes, I do / No, he doesn't.",
+    "examples": [
+      {
+        "lemma": "subject",
+        "sentence": "Art is my favourite subject.",
+        "meaningVi": "Mỹ thuật là môn học mình thích nhất."
+      },
+      {
+        "lemma": "maths",
+        "sentence": "Does your sister like maths?",
+        "meaningVi": "Em gái bạn có thích môn toán không?"
+      },
+      {
+        "lemma": "difficult",
+        "sentence": "This test is very difficult.",
+        "meaningVi": "Bài kiểm tra này rất khó."
+      },
+      {
+        "lemma": "English",
+        "sentence": "We have English on Monday and Friday.",
+        "meaningVi": "Bọn mình học tiếng Anh vào thứ Hai và thứ Sáu."
+      },
+      {
+        "lemma": "history",
+        "sentence": "I don't like history very much.",
+        "meaningVi": "Mình không thích môn lịch sử lắm."
+      },
+      {
+        "lemma": "science",
+        "sentence": "Our science teacher is very funny.",
+        "meaningVi": "Thầy dạy khoa học của bọn mình rất vui tính."
+      },
+      {
+        "lemma": "music",
+        "sentence": "Do you like music?",
+        "meaningVi": "Bạn có thích âm nhạc không?"
+      },
+      {
+        "lemma": "interesting",
+        "sentence": "This book is very interesting.",
+        "meaningVi": "Quyển sách này rất thú vị."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Mai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mai, do you like your new school?",
+          "meaningVi": "Mai ơi, em có thích trường mới không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I do! I love my teacher.",
+          "meaningVi": "Có ạ! Em rất quý cô giáo."
+        },
+        {
+          "speaker": 0,
+          "text": "Does she teach English?",
+          "meaningVi": "Cô dạy tiếng Anh à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, she doesn't. She teaches maths and Vietnamese.",
+          "meaningVi": "Không ạ. Cô dạy toán và tiếng Việt."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you like maths?",
+          "meaningVi": "Em có thích toán không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I do. It's easy!",
+          "meaningVi": "Có ạ. Dễ lắm!"
+        },
+        {
+          "speaker": 0,
+          "text": "Does your class have music lessons?",
+          "meaningVi": "Lớp em có học âm nhạc không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it does. We sing on Tuesday.",
+          "meaningVi": "Có ạ. Thứ Ba bọn em hát."
+        },
+        {
+          "speaker": 0,
+          "text": "And do you like art?",
+          "meaningVi": "Thế em có thích mỹ thuật không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I don't. My pictures aren't very good!",
+          "meaningVi": "Không ạ. Tranh của em không đẹp lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Trả lời ngắn câu hỏi Do / Does bằng chính do / does: Yes, I do. / No, I don't. / Yes, he does. / No, she doesn't. Không nói \"Yes, I like.\"",
+    "translations": [
+      {
+        "vi": "Bạn có thích môn toán không?",
+        "en": "Do you like maths?",
+        "distractors": [
+          "Does",
+          "likes",
+          "are"
+        ]
+      },
+      {
+        "vi": "Môn toán rất khó.",
+        "en": "Maths is very difficult.",
+        "distractors": [
+          "are",
+          "do",
+          "does"
+        ]
+      },
+      {
+        "vi": "Tôi không thích âm nhạc.",
+        "en": "I don't like music.",
+        "distractors": [
+          "doesn't",
+          "likes",
+          "not"
+        ]
+      },
+      {
+        "vi": "Môn khoa học rất thú vị.",
+        "en": "Science is very interesting.",
+        "distractors": [
+          "are",
+          "do",
+          "does"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan hỏi Mai về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trường mới và các môn học của Mai",
+          "Bạn thân của Mai",
+          "Bữa trưa ở trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan hỏi Mai có thích trường mới không, cô giáo dạy gì, Mai thích môn nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cô giáo của Mai dạy môn gì?",
+        "promptVi": "",
+        "options": [
+          "Tiếng Anh",
+          "Toán và tiếng Việt",
+          "Mỹ thuật"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"She teaches maths and Vietnamese\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lớp Mai hát vào thứ mấy?",
+        "promptVi": "",
+        "options": [
+          "Thứ Hai",
+          "Thứ Ba",
+          "Thứ Sáu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"We sing on Tuesday\".",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai likes art.",
+        "promptVi": "Mai thích môn mỹ thuật.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"No, I don't. My pictures aren't very good!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Mỗi bạn thích và không thích môn nào?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "\"Do you like maths, Huy?\" asks Anna.",
+          "highlights": [
+            "Do you like"
+          ]
+        },
+        {
+          "sentence": "\"No, I don't, because it's very difficult for me,\" says Huy.",
+          "highlights": [
+            "don't"
+          ]
+        },
+        {
+          "sentence": "\"Does Minh like maths?\" asks Tom.",
+          "highlights": [
+            "Does Minh like"
+          ]
+        },
+        {
+          "sentence": "\"Yes, he does, and he loves numbers,\" says Huy.",
+          "highlights": [
+            "does"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao hỏi \"Do you like maths?\" nhưng lại hỏi \"Does Minh like maths?\"",
+      "options": [
+        "Vì Minh giỏi toán hơn",
+        "Vì Minh là một người (he), nên dùng Does; you thì dùng Do",
+        "Vì câu hỏi về Minh dài hơn"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Do đi với I, you, we, they; Does đi với he, she, it hoặc một người (Minh). Sau Does, động từ giữ nguyên: Does Minh like (không phải likes).",
+      "whenVi": "Dùng Do / Does …? để hỏi ai đó có thích, có làm việc gì không, và trả lời ngắn bằng do / does.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "Do you like maths? – Yes, I do.",
+          "negative": "No, I don't."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Does Minh like maths? – Yes, he does.",
+          "negative": "No, he doesn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Does Minh likes maths?",
+          "right": "Does Minh like maths?"
+        },
+        {
+          "wrong": "Do you like maths? – Yes, I like.",
+          "right": "Do you like maths? – Yes, I do."
+        }
+      ],
+      "noteVi": "Tiếng Việt trả lời \"Có, mình thích\", nên người Việt hay nói \"Yes, I like\" thay vì trả lời ngắn \"Yes, I do\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền Do hoặc Does vào chỗ trống.",
+          "text": "___ Tom like science? – Yes, he does.",
+          "answers": [
+            "Does"
+          ],
+          "explanationVi": "Tom là một người (he), nên hỏi bằng Does."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Do you like music? – No, I ___.",
+          "options": [
+            "doesn't",
+            "don't",
+            "not",
+            "isn't"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Hỏi bằng Do you thì trả lời ngắn No, I don't."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Huy don't sing.",
+          "sentence": "Huy doesn't sing.",
+          "explanationVi": "Huy là một người (he), nên dùng doesn't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Bạn có thích môn lịch sử không?",
+          "sentence": "Do you like history?",
+          "words": [
+            "like",
+            "you",
+            "Do",
+            "history",
+            "Does"
+          ],
+          "explanationVi": "Chủ ngữ you đi với Do; từ \"Does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Science is very interesting.",
+        "tipVi": "Science /ˈsaɪəns/ đọc như \"sai-ần-s\"; interesting /ˈɪntrəstɪŋ/ thường chỉ đọc ba âm tiết."
+      },
+      {
+        "text": "They talk about their school subjects.",
+        "tipVi": "Subjects /ˈsʌbdʒɪkts/ có cụm âm cuối /kts/ khó, đọc rõ từng âm."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like maths?",
+        "questionVi": "Bạn có thích môn toán không?",
+        "frame": "Yes, I do. / No, I don't. It's ___."
+      },
+      {
+        "question": "What is your favourite subject?",
+        "questionVi": "Môn học bạn thích nhất là gì?",
+        "frame": "My favourite subject is ___, because it's ___."
+      },
+      {
+        "question": "Does your best friend like English?",
+        "questionVi": "Bạn thân của bạn có thích tiếng Anh không?",
+        "frame": "Yes, he / she does. / No, he / she doesn't. He / She likes ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng don't / doesn't hoặc câu hỏi Do / Does …?",
+      "anyOf": [
+        "don't",
+        "doesn't",
+        "do you",
+        "does"
+      ],
+      "outlineVi": [
+        "Kể những môn bạn thích và vì sao.",
+        "Kể những môn bạn không thích (I don't like …).",
+        "Kể một người bạn thích và không thích môn gì."
+      ],
+      "modelAnswer": "I have a lot of subjects at school. I like English and science, because they are interesting. I don't like maths, because it's difficult for me. My friend Nam loves maths, but he doesn't like history. Do you like music? I love music!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "dining room",
+      "lemma": "dining room",
+      "meaningVi": "phòng ăn",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the school dining room",
+      "phraseVi": "phòng ăn của trường"
+    },
+    {
+      "text": "talk about",
+      "lemma": "talk about",
+      "meaningVi": "nói về",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "They talk about their school subjects",
+      "phraseVi": "Các bạn nói chuyện về các môn học"
+    },
+    {
+      "text": "because",
+      "lemma": "because",
+      "meaningVi": "vì",
+      "sentenceIndex": 3,
+      "pos": "conjunction",
+      "phrase": "because it's very difficult for me",
+      "phraseVi": "vì môn đó khó với mình lắm"
+    },
+    {
+      "text": "numbers",
+      "lemma": "number",
+      "meaningVi": "con số",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "he loves numbers",
+      "phraseVi": "bạn ấy mê các con số"
+    },
+    {
+      "text": "guitar",
+      "lemma": "guitar",
+      "meaningVi": "đàn ghi-ta",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "play the guitar",
+      "phraseVi": "chơi đàn ghi-ta"
+    },
+    {
+      "text": "sing",
+      "lemma": "sing",
+      "meaningVi": "hát",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "Huy doesn't sing",
+      "phraseVi": "Huy không hát"
+    },
+    {
+      "text": "laughs",
+      "lemma": "laugh",
+      "meaningVi": "cười",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "Everyone laughs",
+      "phraseVi": "Cả nhóm cùng cười"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác nhau",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "different subjects",
+      "phraseVi": "các môn khác nhau"
+    },
+    {
+      "text": "lunch",
+      "lemma": "lunch",
+      "meaningVi": "bữa trưa",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "we all like lunch",
+      "phraseVi": "ai cũng thích bữa trưa"
+    }
+  ]
+}

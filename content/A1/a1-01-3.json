@@ -1,0 +1,791 @@
+{
+  "content": "It is Friday evening. My friend Anna is at my home for dinner. My mum and my grandma are in the kitchen.\n\"Mum, Grandma, this is my friend Anna,\" I say.\n\"Good evening, Mrs Tran,\" Anna says. \"Nice to meet you.\"\n\"Welcome, Anna!\" says Mum.\n\"Hello, Anna,\" says Grandma.\n\nAnna is from London. She is seventeen, and she is in my English class. She is tall, and her eyes are blue. She is funny and very kind. She isn't good at Vietnamese yet, but she is good at maths.\n\nAt dinner, Grandma looks at Anna. \"Are you from America?\" she asks.\n\"No, I'm from England,\" Anna answers.\n\"Tea, Anna?\" asks Mum.\n\"Yes, please,\" she says.\n\nAt nine o'clock, Anna says, \"Good night, and thank you!\"\n\"Good night, Anna,\" we say. Mum and Grandma like her. \"She is a very nice girl,\" Grandma says.",
+  "targetWords": [
+    "good evening",
+    "Mrs",
+    "nice to meet you",
+    "welcome",
+    "hello",
+    "please",
+    "good night",
+    "thank you"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Good evening",
+        "lemma": "good evening",
+        "meaningVi": "chào buổi tối",
+        "pos": "phrase",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "Mrs",
+        "lemma": "Mrs",
+        "meaningVi": "bà, cô (trước họ của phụ nữ đã có chồng)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "Nice to meet you",
+        "lemma": "nice to meet you",
+        "meaningVi": "rất vui được gặp bạn",
+        "pos": "phrase",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "Welcome",
+        "lemma": "welcome",
+        "meaningVi": "chào mừng",
+        "pos": "interjection",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "Hello",
+        "lemma": "hello",
+        "meaningVi": "xin chào",
+        "pos": "interjection",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "please",
+        "lemma": "please",
+        "meaningVi": "vâng, làm ơn (lịch sự khi nhận lời mời)",
+        "pos": "adverb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "Good night",
+        "lemma": "good night",
+        "meaningVi": "chúc ngủ ngon, chào buổi tối (khi ra về)",
+        "pos": "phrase",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "thank you",
+        "lemma": "thank you",
+        "meaningVi": "cảm ơn",
+        "pos": "phrase",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Anna talks about her family in London.",
+          "Minh's grandma cooks a big dinner.",
+          "Minh introduces his friend Anna to his family.",
+          "Anna's first day at a new school."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"Mum, Grandma, this is my friend Anna\" rồi kể Anna đến từ đâu, bao nhiêu tuổi, là người thế nào. Bài không kể về gia đình Anna hay ngày đầu đi học."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old is Anna?",
+        "promptVi": "Anna bao nhiêu tuổi?",
+        "options": [
+          "Sixteen",
+          "Seventeen",
+          "Eighteen",
+          "Seven"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She is seventeen\": Anna mười bảy tuổi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Anna good at?",
+        "promptVi": "Anna giỏi môn gì?",
+        "options": [
+          "Maths",
+          "Vietnamese",
+          "Cooking",
+          "Music"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"She isn't good at Vietnamese yet, but she is good at maths\": Anna chưa giỏi tiếng Việt nhưng giỏi toán."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna is a good cook.",
+        "promptVi": "Anna nấu ăn giỏi.",
+        "options": [],
+        "answerIndex": 2,
+        "explanationVi": "Không có trong bài: bài chỉ nói Anna đến ăn tối, không nói Anna có biết nấu ăn hay không."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"yet\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She isn't good at Vietnamese yet, but she is good at maths.",
+        "options": [
+          "đã",
+          "không bao giờ",
+          "rất",
+          "vẫn chưa (nhưng sau này có thể)"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "\"Not ... yet\" nghĩa là chưa, tức là bây giờ Anna chưa giỏi tiếng Việt nhưng sau này có thể giỏi. Nếu là \"không bao giờ\" thì câu sẽ dùng never."
+      }
+    ],
+    "grammarNote": {
+      "title": "Động từ to be (am / is / are)",
+      "bodyVi": "Muốn nói \"không phải, không\" thì thêm not sau am, is, are: she is not, viết tắt là she isn't. Muốn hỏi thì đưa am, is, are lên trước chủ ngữ: You are from America → Are you from America? Trả lời ngắn: Yes, I am. / No, I'm not.",
+      "examples": [
+        "She isn't good at Vietnamese yet, but she is good at maths.",
+        "She is tall, and her eyes are blue.",
+        "Are you from America?"
+      ]
+    },
+    "writingPrompt": "Write about one friend: his or her name, age, where he or she is from and what he or she is like.",
+    "sentenceTranslations": [
+      "Hôm nay là tối thứ Sáu.",
+      "Bạn mình là Anna đến nhà mình ăn tối.",
+      "Mẹ mình và bà mình đang ở trong bếp.",
+      "\"Mẹ ơi, bà ơi, đây là bạn con, Anna,\" mình nói.",
+      "\"Cháu chào cô Trần ạ,\" Anna nói.",
+      "\"Cháu rất vui được gặp cô.\"",
+      "\"Chào mừng cháu, Anna!\" mẹ nói.",
+      "\"Chào cháu, Anna,\" bà nói.",
+      "Anna đến từ London.",
+      "Bạn ấy mười bảy tuổi, và học cùng lớp tiếng Anh với mình.",
+      "Bạn ấy cao, và mắt bạn ấy màu xanh.",
+      "Bạn ấy vui tính và rất tốt bụng.",
+      "Bạn ấy chưa giỏi tiếng Việt, nhưng bạn ấy giỏi toán.",
+      "Trong bữa tối, bà nhìn Anna.",
+      "\"Cháu là người Mỹ à?\" bà hỏi.",
+      "\"Không ạ, cháu là người Anh,\" Anna trả lời.",
+      "\"Uống trà nhé, Anna?\" mẹ hỏi.",
+      "\"Vâng, cháu cảm ơn ạ,\" bạn ấy nói.",
+      "Lúc chín giờ, Anna nói: \"Cháu chào cả nhà, và cảm ơn ạ!\"",
+      "\"Chào cháu, Anna,\" cả nhà nói.",
+      "Mẹ và bà quý bạn ấy.",
+      "\"Con bé thật dễ thương,\" bà nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một người bạn (This is my friend…), nói bạn ấy đến từ đâu, bao nhiêu tuổi, là người thế nào, và dùng isn't, Are you …? đúng cách.",
+    "examples": [
+      {
+        "lemma": "good evening",
+        "sentence": "Good evening, Mr Nam. How are you?",
+        "meaningVi": "Chào thầy Nam (buổi tối). Thầy khỏe không ạ?"
+      },
+      {
+        "lemma": "Mrs",
+        "sentence": "Mrs Hoa is our English teacher.",
+        "meaningVi": "Cô Hoa là giáo viên tiếng Anh của bọn mình."
+      },
+      {
+        "lemma": "nice to meet you",
+        "sentence": "Hi, I'm Lan. Nice to meet you.",
+        "meaningVi": "Chào bạn, mình là Lan. Rất vui được gặp bạn."
+      },
+      {
+        "lemma": "welcome",
+        "sentence": "Welcome to our class, Tom!",
+        "meaningVi": "Chào mừng Tom đến với lớp của bọn mình!"
+      },
+      {
+        "lemma": "hello",
+        "sentence": "Hello, Grandma! I'm home.",
+        "meaningVi": "Cháu chào bà! Cháu về rồi ạ."
+      },
+      {
+        "lemma": "please",
+        "sentence": "Water, please.",
+        "meaningVi": "Cho mình nước lọc nhé."
+      },
+      {
+        "lemma": "good night",
+        "sentence": "Good night, Mum. See you in the morning.",
+        "meaningVi": "Con chúc mẹ ngủ ngon. Sáng mai gặp mẹ."
+      },
+      {
+        "lemma": "thank you",
+        "sentence": "Thank you for the tea, Mrs Tran.",
+        "meaningVi": "Cháu cảm ơn cô Trần vì tách trà ạ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ben",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hello! Are you Minh's friend?",
+          "meaningVi": "Xin chào! Bạn là bạn của Minh à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am. I'm Anna. Nice to meet you.",
+          "meaningVi": "Đúng rồi. Mình là Anna. Rất vui được gặp bạn."
+        },
+        {
+          "speaker": 0,
+          "text": "Nice to meet you too. I'm Ben, Minh's cousin. Are you from America?",
+          "meaningVi": "Mình cũng rất vui được gặp bạn. Mình là Ben, anh họ của Minh. Bạn là người Mỹ à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I'm not. I'm from London. And you?",
+          "meaningVi": "Không phải. Mình đến từ London. Còn bạn?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm from Da Nang, but I'm in Hanoi this week. Are you a student?",
+          "meaningVi": "Mình đến từ Đà Nẵng, nhưng tuần này mình ở Hà Nội. Bạn là học sinh à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I'm in Minh's English class. Are you a student too?",
+          "meaningVi": "Đúng vậy, mình học lớp tiếng Anh cùng Minh. Bạn cũng là học sinh à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I'm a cook. My restaurant is in Da Nang.",
+          "meaningVi": "Không, mình là đầu bếp. Nhà hàng của mình ở Đà Nẵng."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Is it a big restaurant?",
+          "meaningVi": "Thật à? Nhà hàng có lớn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it isn't. It's small, but it's very nice. Good night, Anna!",
+          "meaningVi": "Không, nó không lớn. Nhà hàng nhỏ thôi, nhưng rất đẹp. Chào Anna nhé!"
+        },
+        {
+          "speaker": 1,
+          "text": "Good night, Ben. See you!",
+          "meaningVi": "Chào Ben. Hẹn gặp lại!"
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi với to be trả lời ngắn bằng chính am, is, are: \"Are you a student?\" – \"Yes, I am.\" / \"No, I'm not.\"; \"Is it big?\" – \"No, it isn't.\" Không trả lời \"Yes, I'm.\"",
+    "translations": [
+      {
+        "vi": "Chào buổi tối, cô Trần.",
+        "en": "Good evening, Mrs Tran.",
+        "distractors": [
+          "morning",
+          "Mr",
+          "is"
+        ]
+      },
+      {
+        "vi": "Chào mừng bạn đến nhà mình!",
+        "en": "Welcome to my home!",
+        "distractors": [
+          "at",
+          "your",
+          "is"
+        ]
+      },
+      {
+        "vi": "Vâng, cho mình trà nhé.",
+        "en": "Tea, please.",
+        "distractors": [
+          "thank",
+          "is"
+        ]
+      },
+      {
+        "vi": "Chúc ngủ ngon, và cảm ơn bạn!",
+        "en": "Good night, and thank you!",
+        "distractors": [
+          "evening",
+          "morning",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ben và Anna đang nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Làm quen: hai người đến từ đâu và làm gì",
+          "Món ăn ở nhà hàng của Ben",
+          "Bài tập ở lớp tiếng Anh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người tự giới thiệu (\"I'm Anna\", \"I'm Ben, Minh's cousin\"), hỏi nhau đến từ đâu và làm gì, tức là đang làm quen.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ben làm nghề gì?",
+        "promptVi": "",
+        "options": [
+          "Học sinh",
+          "Đầu bếp",
+          "Giáo viên"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ben nói \"No, I'm a cook\": Ben là đầu bếp, không phải học sinh.",
+        "turnIndex": 6
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nhà hàng của Ben thế nào?",
+        "promptVi": "",
+        "options": [
+          "Lớn và rất đẹp",
+          "Nhỏ và không đẹp",
+          "Nhỏ nhưng rất đẹp"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ben nói \"It's small, but it's very nice\": nhà hàng nhỏ nhưng rất đẹp.",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ben is from London.",
+        "promptVi": "Ben đến từ London.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ben nói \"I'm from Da Nang\": Ben đến từ Đà Nẵng. London là quê của Anna.",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Anna là người thế nào, và bạn ấy giỏi môn gì?",
+    "grammarStep": {
+      "titleVi": "Động từ to be (am / is / are)",
+      "noticing": [
+        {
+          "sentence": "She isn't good at Vietnamese yet, but she is good at maths.",
+          "highlights": [
+            "isn't",
+            "is"
+          ]
+        },
+        {
+          "sentence": "\"Are you from America?\" she asks.",
+          "highlights": [
+            "Are"
+          ]
+        },
+        {
+          "sentence": "She is tall, and her eyes are blue.",
+          "highlights": [
+            "is",
+            "are"
+          ]
+        },
+        {
+          "sentence": "\"No, I'm from England,\" Anna answers.",
+          "highlights": [
+            "I'm"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Are you from America?\", vì sao Are đứng đầu câu?",
+      "options": [
+        "Vì câu có tên một nước (America)",
+        "Vì câu hỏi Yes / No với to be đưa am, is, are lên trước chủ ngữ",
+        "Vì you luôn đi sau động từ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu kể là \"You are from America.\"; muốn hỏi thì đổi chỗ are lên trước you: \"Are you from America?\"",
+      "whenVi": "Dùng isn't, aren't, I'm not để nói điều không đúng, và Am I / Is she / Are you ...? để hỏi về tên, tuổi, quê, tính cách của ai đó.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "Am I ...?",
+          "negative": "I'm not"
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Is she ...?",
+          "negative": "isn't"
+        },
+        {
+          "subject": "we / you / they",
+          "form": "Are you ...?",
+          "negative": "aren't"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She not good at maths.",
+          "right": "She isn't good at maths."
+        },
+        {
+          "wrong": "You are from America?",
+          "right": "Are you from America?"
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Cô ấy không giỏi toán\", \"Bạn là người Mỹ à?\" mà không đổi chỗ từ nào, nên người Việt hay quên to be trong câu phủ định và quên đảo am, is, are lên đầu câu hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng phủ định viết tắt của to be.",
+          "text": "Anna ___ good at Vietnamese yet.",
+          "answers": [
+            "isn't"
+          ],
+          "explanationVi": "Chủ ngữ Anna là một người nên dùng is; phủ định viết tắt là isn't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ you from America?",
+          "options": [
+            "Is",
+            "Are",
+            "Am",
+            "Do"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chủ ngữ you đi với are, và câu hỏi với to be đưa are lên đầu câu."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Her eyes is blue.",
+          "sentence": "Her eyes are blue.",
+          "explanationVi": "Chủ ngữ \"her eyes\" là số nhiều nên đi với are, không đi với is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy không phải người Mỹ.",
+          "sentence": "She isn't from America.",
+          "words": [
+            "from",
+            "isn't",
+            "America",
+            "She",
+            "aren't"
+          ],
+          "explanationVi": "Chủ ngữ she đi với isn't; aren't dùng cho we, you, they nên bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She is tall, and her eyes are blue.",
+        "tipVi": "Đọc rõ âm /z/ ở cuối eyes /aɪz/, đừng đọc thành \"ai\"."
+      },
+      {
+        "text": "My mum and my grandma are in the kitchen.",
+        "tipVi": "Kitchen /ˈkɪtʃən/ có âm /tʃ/ ở giữa, giống \"ch\" nhưng bật hơi mạnh hơn."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you good at?",
+        "questionVi": "Bạn giỏi môn gì?",
+        "frame": "I am good at ___, but I am not good at ___."
+      },
+      {
+        "question": "Are you funny or quiet?",
+        "questionVi": "Bạn vui tính hay ít nói?",
+        "frame": "I am ___. I am not ___."
+      },
+      {
+        "question": "Who is your best friend? Where is he or she from, and what is he or she like?",
+        "questionVi": "Bạn thân nhất của bạn là ai? Bạn ấy đến từ đâu, và là người thế nào?",
+        "frame": "This is my friend ___. He / She is from ___. He / She is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu nói về người khác (he / she …)",
+      "anyOf": [
+        "he",
+        "she",
+        "my friend",
+        "my best friend",
+        "his",
+        "her"
+      ],
+      "outlineVi": [
+        "Giới thiệu bạn của bạn: This is my friend ...",
+        "Nói bạn ấy đến từ đâu, bao nhiêu tuổi, là người thế nào.",
+        "Nói một điều bạn ấy giỏi và một điều bạn ấy chưa giỏi."
+      ],
+      "modelAnswer": "This is my friend Hoa. She is from Hai Phong, and she is sixteen. She is short and very kind. She isn't good at English yet, but she is good at music. Today Hoa is at my home. \"Good evening, Mrs Lan,\" she says to my mum. My mum says, \"Welcome, Hoa!\" Hoa says, \"Thank you!\""
+    }
+  },
+  "glosses": [
+    {
+      "text": "Friday",
+      "lemma": "Friday",
+      "meaningVi": "thứ Sáu",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Friday evening",
+      "phraseVi": "tối thứ Sáu"
+    },
+    {
+      "text": "evening",
+      "lemma": "evening",
+      "meaningVi": "buổi tối",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Friday evening",
+      "phraseVi": "tối thứ Sáu"
+    },
+    {
+      "text": "home",
+      "lemma": "home",
+      "meaningVi": "nhà",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "at my home",
+      "phraseVi": "ở nhà mình"
+    },
+    {
+      "text": "dinner",
+      "lemma": "dinner",
+      "meaningVi": "bữa tối",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "for dinner",
+      "phraseVi": "để ăn tối"
+    },
+    {
+      "text": "grandma",
+      "lemma": "grandma",
+      "meaningVi": "bà",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "my mum and my grandma",
+      "phraseVi": "mẹ mình và bà mình"
+    },
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "meaningVi": "nhà bếp",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "in the kitchen",
+      "phraseVi": "trong bếp"
+    },
+    {
+      "text": "Good evening",
+      "lemma": "good evening",
+      "meaningVi": "chào buổi tối",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "Good evening, Mrs Tran",
+      "phraseVi": "Cháu chào cô Trần"
+    },
+    {
+      "text": "Mrs",
+      "lemma": "Mrs",
+      "meaningVi": "bà, cô (phụ nữ đã có chồng)",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "Mrs Tran",
+      "phraseVi": "cô Trần"
+    },
+    {
+      "text": "Nice to meet you",
+      "lemma": "nice to meet you",
+      "meaningVi": "rất vui được gặp bạn",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "Nice to meet you.",
+      "phraseVi": "Rất vui được gặp cô."
+    },
+    {
+      "text": "Welcome",
+      "lemma": "welcome",
+      "meaningVi": "chào mừng",
+      "sentenceIndex": 6,
+      "pos": "interjection",
+      "phrase": "Welcome, Anna!",
+      "phraseVi": "Chào mừng cháu, Anna!"
+    },
+    {
+      "text": "Hello",
+      "lemma": "hello",
+      "meaningVi": "xin chào",
+      "sentenceIndex": 7,
+      "pos": "interjection",
+      "phrase": "Hello, Anna",
+      "phraseVi": "Chào cháu, Anna"
+    },
+    {
+      "text": "seventeen",
+      "lemma": "seventeen",
+      "meaningVi": "mười bảy",
+      "sentenceIndex": 9,
+      "pos": "number",
+      "phrase": "She is seventeen",
+      "phraseVi": "Bạn ấy mười bảy tuổi"
+    },
+    {
+      "text": "tall",
+      "lemma": "tall",
+      "meaningVi": "cao",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "She is tall",
+      "phraseVi": "Bạn ấy cao"
+    },
+    {
+      "text": "eyes",
+      "lemma": "eye",
+      "meaningVi": "mắt",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "her eyes are blue",
+      "phraseVi": "mắt bạn ấy màu xanh"
+    },
+    {
+      "text": "blue",
+      "lemma": "blue",
+      "meaningVi": "màu xanh dương",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "her eyes are blue",
+      "phraseVi": "mắt bạn ấy màu xanh"
+    },
+    {
+      "text": "funny",
+      "lemma": "funny",
+      "meaningVi": "vui tính",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "She is funny",
+      "phraseVi": "Bạn ấy vui tính"
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "meaningVi": "tốt bụng",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "very kind",
+      "phraseVi": "rất tốt bụng"
+    },
+    {
+      "text": "good at",
+      "lemma": "good at",
+      "meaningVi": "giỏi (về)",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "good at maths",
+      "phraseVi": "giỏi toán"
+    },
+    {
+      "text": "yet",
+      "lemma": "yet",
+      "meaningVi": "vẫn chưa",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "isn't good at Vietnamese yet",
+      "phraseVi": "chưa giỏi tiếng Việt"
+    },
+    {
+      "text": "maths",
+      "lemma": "maths",
+      "meaningVi": "môn toán",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "good at maths",
+      "phraseVi": "giỏi toán"
+    },
+    {
+      "text": "looks at",
+      "lemma": "look at",
+      "meaningVi": "nhìn",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "Grandma looks at Anna",
+      "phraseVi": "bà nhìn Anna"
+    },
+    {
+      "text": "America",
+      "lemma": "America",
+      "meaningVi": "nước Mỹ",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "Are you from America?",
+      "phraseVi": "Cháu là người Mỹ à?"
+    },
+    {
+      "text": "England",
+      "lemma": "England",
+      "meaningVi": "nước Anh",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "I'm from England",
+      "phraseVi": "cháu là người Anh"
+    },
+    {
+      "text": "Tea",
+      "lemma": "tea",
+      "meaningVi": "trà",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "Tea, Anna?",
+      "phraseVi": "Uống trà nhé, Anna?"
+    },
+    {
+      "text": "please",
+      "lemma": "please",
+      "meaningVi": "vâng, làm ơn",
+      "sentenceIndex": 17,
+      "pos": "adverb",
+      "phrase": "Yes, please",
+      "phraseVi": "Vâng, cháu cảm ơn"
+    },
+    {
+      "text": "o'clock",
+      "lemma": "o'clock",
+      "meaningVi": "giờ (đúng)",
+      "sentenceIndex": 18,
+      "pos": "adverb",
+      "phrase": "At nine o'clock",
+      "phraseVi": "Lúc chín giờ"
+    },
+    {
+      "text": "Good night",
+      "lemma": "good night",
+      "meaningVi": "chào (khi ra về buổi tối), chúc ngủ ngon",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "Good night, and thank you!",
+      "phraseVi": "Cháu chào cả nhà, và cảm ơn ạ!"
+    },
+    {
+      "text": "thank you",
+      "lemma": "thank you",
+      "meaningVi": "cảm ơn",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "and thank you",
+      "phraseVi": "và cảm ơn ạ"
+    },
+    {
+      "text": "like",
+      "lemma": "like",
+      "meaningVi": "quý, thích",
+      "sentenceIndex": 20,
+      "pos": "verb",
+      "phrase": "Mum and Grandma like her",
+      "phraseVi": "Mẹ và bà quý bạn ấy"
+    },
+    {
+      "text": "nice",
+      "lemma": "nice",
+      "meaningVi": "dễ thương, dễ mến",
+      "sentenceIndex": 21,
+      "pos": "adjective",
+      "phrase": "a very nice girl",
+      "phraseVi": "một cô bé rất dễ thương"
+    }
+  ]
+}

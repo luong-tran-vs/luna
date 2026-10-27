@@ -54,7 +54,8 @@ func TestGeneratePromptAsksForFullLengthNaturalText(t *testing.T) {
 	})
 	for _, want := range []string{
 		"between 108 and 132 words", "long end of that range", "shorter than 108 words is too short",
-		"natural, connected text", "There are\nfour people in my family",
+		"natural, connected text", `"I am ten
+years old", not "I have ten years old"`,
 		"Leave a word out only if it cannot be used naturally at CEFR A1",
 	} {
 		if !strings.Contains(prompt, want) {
@@ -167,6 +168,53 @@ func TestGeneratePromptUsesTheGrammarFocus(t *testing.T) {
 	}
 }
 
+// Added 2026-10-27: a course slot gives the title, a plan, its other points and the points taught later.
+func TestGeneratePromptFollowsTheCourseSlot(t *testing.T) {
+	t.Parallel()
+	g := &ai.GrammarFocus{TitleVi: "Have / has", TitleEn: "Have and has", Pattern: "I have; she has"}
+	prompt := generatePrompt(ai.GenerateRequest{
+		Level: "A1", TopicName: "Gia đình", Count: 1, Words: 120, Idea: "Looking at a family photo.", GrammarFocus: g,
+		TargetWords: [][]string{{"photo", "uncle"}},
+		Course: &ai.CourseSlot{
+			Title:        "A Family Photo",
+			MoreGrammar:  []ai.GrammarFocus{{TitleEn: "Possessive adjectives and 's", Pattern: "my, your, his"}},
+			LaterGrammar: []ai.GrammarChoice{{ID: "a1-can", TitleEn: "Can for ability", Pattern: "subject + can / can't + verb"}},
+		},
+	})
+	for _, want := range []string{
+		"Write one lesson about this topic. It must have about 120 words", `Title: exactly "A Family Photo"`,
+		"must follow this plan: Looking at a family photo.", "Also use this grammar point a few times, in natural sentences: Possessive adjectives and 's",
+		"have not met them yet", "- Can for ability (subject + can / can't + verb)", "everyday words and phrases",
+		"most of them under 10 words", "British English", "an email, a message or a note", `"She isn't tall."`,
+		"in natural sentences: Have and has. Pattern:",
+		"The lesson must use every one of these words or phrases (any natural form, e.g. plural): photo, uncle",
+		"someone in the text says it", `Anna asks, "Where are you from?"`, "A question is asked by someone", "The plan comes first",
+	} {
+		if !strings.Contains(prompt, want) {
+			t.Errorf("prompt missing %q", want)
+		}
+	}
+	for _, unwanted := range []string{"1 different lessons", "as inspiration", "past tense)", "Titles must be different", "There are\nfour people"} {
+		if strings.Contains(prompt, unwanted) {
+			t.Errorf("prompt has %q", unwanted)
+		}
+	}
+	// Without a course, the idea stays a hint and A2 keeps the past tense example.
+	free := generatePrompt(ai.GenerateRequest{Level: "A2", TopicName: "Food", Count: 2, Words: 100, Idea: "a picnic",
+		TargetWords: [][]string{{"bread"}, {"apple"}}})
+	for _, want := range []string{"as inspiration: a picnic", "Write exactly 2 different lessons", "Lesson 2 must use", "plural or past tense",
+		"Titles must be different", "under 14 words"} {
+		if !strings.Contains(free, want) {
+			t.Errorf("free prompt missing %q", want)
+		}
+	}
+	for _, unwanted := range []string{"an email, a message", "isn't tall", "have not met them yet", "The plan comes first", "quotation marks"} {
+		if strings.Contains(free, unwanted) {
+			t.Errorf("free prompt has %q", unwanted)
+		}
+	}
+}
+
 func TestGrammarLessonPromptTeachesOnlyThePoint(t *testing.T) {
 	t.Parallel()
 	prompt := grammarLessonPrompt(ai.GrammarLessonRequest{
@@ -197,7 +245,7 @@ func TestGrammarSolvePromptHidesTheKeyAndAsksForHonestAmbiguity(t *testing.T) {
 	})
 	for _, want := range []string{
 		"careful English teacher", "you have no answer key", "do not pick the most likely-looking option",
-		"choiceIndex", "answer", "sentence", "ambiguous", "meaningOff", "fix:", "noteVi", "Do not mark an exercise ambiguous just to be safe",
+		"choiceIndex", "answer", "sentence", "ambiguous", "meaningOff", "fix:", "alternatives", "Several corrections of a fix are not ambiguous", "noteVi", "Do not mark an exercise ambiguous just to be safe",
 		`"id":"p1"`, "She ___ a nurse.",
 	} {
 		if !strings.Contains(prompt, want) {

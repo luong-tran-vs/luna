@@ -1,0 +1,599 @@
+{
+  "content": "It is the fifteenth of October, and Minh's class has an English test today.\n\nMinh gets up early. He doesn't watch TV, and he doesn't play games on his phone. He has a big breakfast, and he goes to school at half past six.\n\nAt school, the students are very quiet. They don't talk, and they don't use their phones. Mr Nam puts the test papers on the desks.\n\"Do we have one hour?\" asks Tom.\n\"Yes, you do,\" says Mr Nam.\n\nThe test isn't easy. Minh reads every question, then he reads it again, and he writes his answers in blue pen. Anna finishes early, but she checks her answers again.\n\nAfter the test, everyone is happy. Minh asks Anna, \"Does Huy look OK?\"\n\"Yes, he does, and he has a big smile,\" says Anna.",
+  "targetWords": [
+    "test",
+    "quiet",
+    "paper",
+    "desk",
+    "easy",
+    "question",
+    "answer",
+    "check"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "test",
+        "lemma": "test",
+        "meaningVi": "bài kiểm tra",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "quiet",
+        "lemma": "quiet",
+        "meaningVi": "im lặng, yên tĩnh",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "papers",
+        "lemma": "paper",
+        "meaningVi": "tờ giấy, tờ đề",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "desks",
+        "lemma": "desk",
+        "meaningVi": "bàn học",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "easy",
+        "lemma": "easy",
+        "meaningVi": "dễ",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "question",
+        "lemma": "question",
+        "meaningVi": "câu hỏi",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "answers",
+        "lemma": "answer",
+        "meaningVi": "câu trả lời",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "checks",
+        "lemma": "check",
+        "meaningVi": "kiểm tra lại",
+        "pos": "verb",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Minh's birthday",
+          "A football match",
+          "Minh's class has an English test.",
+          "Mr Nam's family"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài kể ngày lớp Minh làm bài kiểm tra tiếng Anh: trước giờ kiểm tra Minh làm gì, trong giờ kiểm tra học sinh làm gì và không làm gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long is the test?",
+        "promptVi": "Bài kiểm tra dài bao lâu?",
+        "options": [
+          "Thirty minutes",
+          "One hour",
+          "Two hours",
+          "Half an hour"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom hỏi \"Do we have one hour?\" và thầy Nam trả lời \"Yes, you do\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Anna do after she finishes?",
+        "promptVi": "Anna làm gì sau khi làm xong bài?",
+        "options": [
+          "She talks to Tom.",
+          "She checks her answers again.",
+          "She uses her phone.",
+          "She goes home."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Anna finishes early, but she checks her answers again\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The students talk in the test.",
+        "promptVi": "Học sinh nói chuyện trong giờ kiểm tra.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"They don't talk, and they don't use their phones\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"early\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Anna finishes early, but she checks her answers again.",
+        "options": [
+          "muộn",
+          "chăm chỉ",
+          "chậm",
+          "sớm"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Early là sớm: Anna làm xong trước giờ, nên còn thời gian kiểm tra lại câu trả lời."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Nói điều không làm trong ngày kiểm tra: he doesn't + động từ (Minh), they don't + động từ (the students). Hỏi: Do we have one hour? – Yes, you do. / Does Huy look OK? – Yes, he does. Sau don't, doesn't, do, does, động từ luôn giữ nguyên.",
+      "examples": [
+        "He doesn't watch TV, and he doesn't play games on his phone.",
+        "They don't talk, and they don't use their phones.",
+        "Does Huy look OK?"
+      ]
+    },
+    "writingPrompt": "Write about a test day: what you do and what you don't do before and in the test.",
+    "sentenceTranslations": [
+      "Hôm nay là ngày mười lăm tháng Mười, và lớp của Minh có bài kiểm tra tiếng Anh.",
+      "Minh dậy sớm.",
+      "Minh không xem ti vi, và không chơi điện tử trên điện thoại.",
+      "Minh ăn một bữa sáng thật no, và đến trường lúc sáu giờ rưỡi.",
+      "Ở trường, học sinh rất im lặng.",
+      "Các bạn không nói chuyện, và không dùng điện thoại.",
+      "Thầy Nam đặt đề kiểm tra lên các bàn.",
+      "\"Bọn em có một tiếng ạ?\" Tom hỏi.",
+      "\"Đúng vậy,\" thầy Nam nói.",
+      "Bài kiểm tra không dễ.",
+      "Minh đọc từng câu hỏi, rồi đọc lại lần nữa, và viết câu trả lời bằng bút xanh.",
+      "Anna làm xong sớm, nhưng bạn ấy kiểm tra lại các câu trả lời.",
+      "Làm bài xong, ai cũng vui.",
+      "Minh hỏi Anna: \"Huy trông có ổn không?\"",
+      "\"Ổn, mà bạn ấy còn cười rất tươi,\" Anna nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một ngày kiểm tra: mình làm gì, không làm gì (don't / doesn't) và hỏi Do / Does …?",
+    "examples": [
+      {
+        "lemma": "test",
+        "sentence": "Do you have a test tomorrow?",
+        "meaningVi": "Ngày mai bạn có bài kiểm tra không?"
+      },
+      {
+        "lemma": "quiet",
+        "sentence": "The library is very quiet.",
+        "meaningVi": "Thư viện rất yên tĩnh."
+      },
+      {
+        "lemma": "paper",
+        "sentence": "Write your name on the paper.",
+        "meaningVi": "Hãy viết tên lên tờ giấy."
+      },
+      {
+        "lemma": "desk",
+        "sentence": "My bag is under my desk.",
+        "meaningVi": "Cặp của mình ở dưới gầm bàn."
+      },
+      {
+        "lemma": "easy",
+        "sentence": "This question isn't easy.",
+        "meaningVi": "Câu hỏi này không dễ."
+      },
+      {
+        "lemma": "question",
+        "sentence": "Does the teacher answer every question?",
+        "meaningVi": "Thầy giáo có trả lời mọi câu hỏi không?"
+      },
+      {
+        "lemma": "answer",
+        "sentence": "I don't know the answer.",
+        "meaningVi": "Mình không biết câu trả lời."
+      },
+      {
+        "lemma": "check",
+        "sentence": "I always check my homework.",
+        "meaningVi": "Mình luôn kiểm tra lại bài tập về nhà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mum",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, do you have a test tomorrow?",
+          "meaningVi": "Minh ơi, mai con có bài kiểm tra à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I do. It's an English test.",
+          "meaningVi": "Vâng ạ. Kiểm tra tiếng Anh."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you need help?",
+          "meaningVi": "Con có cần mẹ giúp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I don't. I know the words.",
+          "meaningVi": "Không ạ. Con thuộc từ rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Does Mr Nam give difficult tests?",
+          "meaningVi": "Thầy Nam có cho bài kiểm tra khó không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not very difficult, but they aren't easy.",
+          "meaningVi": "Không khó lắm, nhưng cũng không dễ."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Then no TV tonight!",
+          "meaningVi": "Được. Vậy tối nay không xem ti vi nhé!"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, Mum. And I don't play games on my phone.",
+          "meaningVi": "Vâng ạ. Con cũng không chơi điện tử trên điện thoại."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. What time do you go to bed?",
+          "meaningVi": "Tốt. Mấy giờ con đi ngủ?"
+        },
+        {
+          "speaker": 1,
+          "text": "At ten o'clock.",
+          "meaningVi": "Lúc mười giờ ạ."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi Do / Does không có từ để hỏi thì trả lời Yes / No: Do you have a test? – Yes, I do. Câu hỏi có từ để hỏi thì trả lời bằng thông tin: What time do you go to bed? – At ten.",
+    "translations": [
+      {
+        "vi": "Bài kiểm tra không dễ.",
+        "en": "The test isn't easy.",
+        "distractors": [
+          "doesn't",
+          "are",
+          "hard"
+        ]
+      },
+      {
+        "vi": "Họ không nói chuyện trong giờ kiểm tra.",
+        "en": "They don't talk in the test.",
+        "distractors": [
+          "doesn't",
+          "talks",
+          "not"
+        ]
+      },
+      {
+        "vi": "Cô ấy kiểm tra lại các câu trả lời.",
+        "en": "She checks her answers again.",
+        "distractors": [
+          "check",
+          "his",
+          "answer"
+        ]
+      },
+      {
+        "vi": "Thầy đặt đề kiểm tra lên các bàn.",
+        "en": "He puts the papers on the desks.",
+        "distractors": [
+          "put",
+          "paper",
+          "in"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mẹ và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bài kiểm tra tiếng Anh ngày mai",
+          "Một chương trình ti vi",
+          "Bữa tối nay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ hỏi \"do you have a test tomorrow?\" rồi hỏi Minh có cần giúp không, mấy giờ đi ngủ.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Minh có cần mẹ giúp không?",
+        "promptVi": "",
+        "options": [
+          "Có, giúp môn tiếng Anh",
+          "Không, vì Minh thuộc từ rồi",
+          "Có, giúp môn toán"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"No, I don't. I know the words\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Minh đi ngủ lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Chín giờ",
+          "Mười giờ",
+          "Mười một giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"At ten o'clock\".",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh has a maths test tomorrow.",
+        "promptVi": "Ngày mai Minh có bài kiểm tra toán.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"It's an English test\".",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Trong ngày kiểm tra, Minh và các bạn làm gì và không làm gì?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "He doesn't watch TV, and he doesn't play games on his phone.",
+          "highlights": [
+            "doesn't watch",
+            "doesn't play"
+          ]
+        },
+        {
+          "sentence": "They don't talk, and they don't use their phones.",
+          "highlights": [
+            "don't talk",
+            "don't use"
+          ]
+        },
+        {
+          "sentence": "\"Do we have one hour?\" asks Tom.",
+          "highlights": [
+            "Do we have"
+          ]
+        },
+        {
+          "sentence": "Minh asks Anna, \"Does Huy look OK?\"",
+          "highlights": [
+            "Does Huy look"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao câu về Minh dùng doesn't, còn câu về các học sinh dùng don't?",
+      "options": [
+        "Vì Minh học giỏi hơn",
+        "Vì Minh là một người (he), còn the students là nhiều người (they)",
+        "Vì câu về Minh ngắn hơn"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "He, she, it và một người đi với doesn't / does; I, you, we, they và nhiều người đi với don't / do.",
+      "whenVi": "Dùng don't / doesn't để kể việc không làm, và Do / Does …? để hỏi, ví dụ trong ngày kiểm tra.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "Do we have one hour? – Yes, you do.",
+          "negative": "They don't talk."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Does Huy look OK? – Yes, he does.",
+          "negative": "He doesn't watch TV."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "They doesn't talk.",
+          "right": "They don't talk."
+        },
+        {
+          "wrong": "Do Huy look OK?",
+          "right": "Does Huy look OK?"
+        }
+      ],
+      "noteVi": "Tiếng Việt dùng \"không\" cho mọi chủ ngữ, nên người Việt hay nhầm don't với doesn't và do với does.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền don't hoặc doesn't vào chỗ trống.",
+          "text": "The students ___ use their phones in the test.",
+          "answers": [
+            "don't"
+          ],
+          "explanationVi": "The students là nhiều người (they), nên dùng don't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ Anna check her answers? – Yes, she does.",
+          "options": [
+            "Do",
+            "Does",
+            "Is",
+            "Are"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Anna là một người (she), và câu trả lời là she does, nên hỏi bằng Does."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Minh don't watch TV before the test.",
+          "sentence": "Minh doesn't watch TV before the test.",
+          "explanationVi": "Minh là một người (he), nên dùng doesn't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ không dùng điện thoại.",
+          "sentence": "They don't use their phones.",
+          "words": [
+            "use",
+            "don't",
+            "They",
+            "their",
+            "phones",
+            "doesn't"
+          ],
+          "explanationVi": "Chủ ngữ they đi với don't; từ \"doesn't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Mr Nam puts the test papers on the desks.",
+        "tipVi": "Desks /desks/ có cụm âm cuối /sks/ rất khó: đọc chậm d-e-s-k-s."
+      },
+      {
+        "text": "Anna finishes early, but she checks her answers again.",
+        "tipVi": "Checks /tʃeks/ có âm /ks/ ở cuối; answers /ˈænsɚz/ có /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you get up early on test days?",
+        "questionVi": "Những ngày kiểm tra bạn có dậy sớm không?",
+        "frame": "Yes, I do. / No, I don't. I get up at ___."
+      },
+      {
+        "question": "What do you do before a test?",
+        "questionVi": "Trước bài kiểm tra bạn thường làm gì?",
+        "frame": "Before a test, I ___. I don't ___."
+      },
+      {
+        "question": "Does your best friend like tests?",
+        "questionVi": "Bạn thân của bạn có thích kiểm tra không?",
+        "frame": "Yes, he / she does. / No, he / she doesn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng don't / doesn't hoặc câu hỏi Do / Does …?",
+      "anyOf": [
+        "don't",
+        "doesn't",
+        "do you",
+        "does"
+      ],
+      "outlineVi": [
+        "Nói bạn có bài kiểm tra môn gì, khi nào.",
+        "Kể trước giờ kiểm tra bạn làm gì và không làm gì.",
+        "Kể trong giờ kiểm tra bạn làm gì."
+      ],
+      "modelAnswer": "Tomorrow, I have a maths test. Tonight, I don't watch TV, and I don't play games on my phone. I read my notes, and I go to bed early. In the test, I read every question and check my answers. Does my mum help me? Yes, she does! The test isn't easy, but I'm ready."
+    }
+  },
+  "glosses": [
+    {
+      "text": "fifteenth",
+      "lemma": "fifteenth",
+      "meaningVi": "ngày mười lăm",
+      "sentenceIndex": 0,
+      "pos": "number",
+      "phrase": "the fifteenth of October",
+      "phraseVi": "ngày mười lăm tháng Mười"
+    },
+    {
+      "text": "early",
+      "lemma": "early",
+      "meaningVi": "sớm",
+      "sentenceIndex": 1,
+      "pos": "adverb",
+      "phrase": "Minh gets up early",
+      "phraseVi": "Minh dậy sớm"
+    },
+    {
+      "text": "games",
+      "lemma": "game",
+      "meaningVi": "trò chơi điện tử",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "play games on his phone",
+      "phraseVi": "chơi điện tử trên điện thoại"
+    },
+    {
+      "text": "breakfast",
+      "lemma": "breakfast",
+      "meaningVi": "bữa sáng",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "a big breakfast",
+      "phraseVi": "một bữa sáng thật no"
+    },
+    {
+      "text": "puts",
+      "lemma": "put",
+      "meaningVi": "đặt",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "Mr Nam puts the test papers on the desks",
+      "phraseVi": "Thầy Nam đặt đề kiểm tra lên các bàn"
+    },
+    {
+      "text": "hour",
+      "lemma": "hour",
+      "meaningVi": "tiếng, giờ",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "one hour",
+      "phraseVi": "một tiếng"
+    },
+    {
+      "text": "again",
+      "lemma": "again",
+      "meaningVi": "lại, lần nữa",
+      "sentenceIndex": 10,
+      "pos": "adverb",
+      "phrase": "he reads it again",
+      "phraseVi": "đọc lại lần nữa"
+    },
+    {
+      "text": "finishes",
+      "lemma": "finish",
+      "meaningVi": "làm xong",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "Anna finishes early",
+      "phraseVi": "Anna làm xong sớm"
+    },
+    {
+      "text": "look",
+      "lemma": "look",
+      "meaningVi": "trông có vẻ",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "Does Huy look OK?",
+      "phraseVi": "Huy trông có ổn không?"
+    },
+    {
+      "text": "smile",
+      "lemma": "smile",
+      "meaningVi": "nụ cười",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "a big smile",
+      "phraseVi": "nụ cười rất tươi"
+    }
+  ]
+}

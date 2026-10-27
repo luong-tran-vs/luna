@@ -1,0 +1,602 @@
+{
+  "content": "My name is Mai, and I am six. This is a picture of my dream bedroom.\n\nIn my dream bedroom, there is a big pink bed. There are ten toys on the bed. There is a television on the wall, and there is a small table in front of it. There are a lot of stars on the wall too.\n\nThere is a big window, and behind the window, there is a garden with flowers and a small pool. There is a door to the garden, so I am in the garden every morning.\n\nIs there a bed for Milo? Yes, there is! His bed is under my bed, and it is pink too.\n\nMy real bedroom isn't big, and it isn't pink. But I love my picture!",
+  "targetWords": [
+    "picture",
+    "bedroom",
+    "bed",
+    "television",
+    "wall",
+    "window",
+    "garden",
+    "door"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "picture",
+        "lemma": "picture",
+        "meaningVi": "bức tranh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "bedroom",
+        "lemma": "bedroom",
+        "meaningVi": "phòng ngủ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "bed",
+        "lemma": "bed",
+        "meaningVi": "cái giường",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "television",
+        "lemma": "television",
+        "meaningVi": "ti vi",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "wall",
+        "lemma": "wall",
+        "meaningVi": "bức tường",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "window",
+        "lemma": "window",
+        "meaningVi": "cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "garden",
+        "lemma": "garden",
+        "meaningVi": "khu vườn",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "door",
+        "lemma": "door",
+        "meaningVi": "cánh cửa",
+        "pos": "noun",
+        "sentenceIndex": 7
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mai's real bedroom",
+          "Mai's picture of her dream bedroom",
+          "Milo's new bed",
+          "A garden with a pool"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai tả bức tranh căn phòng ngủ mơ ước: giường hồng, đồ chơi, ti vi, khu vườn. Phòng thật của Mai chỉ được nhắc ở cuối."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What colour is the bed in the picture?",
+        "promptVi": "Chiếc giường trong tranh màu gì?",
+        "options": [
+          "Blue",
+          "White",
+          "Pink",
+          "Yellow"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"there is a big pink bed\": chiếc giường lớn màu hồng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Milo's bed in the picture?",
+        "promptVi": "Trong tranh, giường của Milo ở đâu?",
+        "options": [
+          "Under Mai's bed",
+          "On the wall",
+          "In the garden",
+          "In front of the television"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"His bed is under my bed, and it is pink too\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai's real bedroom is big and pink.",
+        "promptVi": "Phòng ngủ thật của Mai rộng và màu hồng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai viết \"My real bedroom isn't big, and it isn't pink\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"real\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "My real bedroom isn't big, and it isn't pink.",
+        "options": [
+          "mơ ước",
+          "mới",
+          "cũ",
+          "thật, ngoài đời"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Real là thật: phòng ngủ thật của Mai, khác với căn phòng mơ ước trong tranh."
+      }
+    ],
+    "grammarNote": {
+      "title": "There is / there are",
+      "bodyVi": "There is + một vật, there are + nhiều vật. Muốn hỏi \"có … không?\", đưa is / are lên trước there: Is there a bed for Milo? Are there any books? Trả lời ngắn: Yes, there is. / No, there isn't. / Yes, there are. / No, there aren't.",
+      "examples": [
+        "In my dream bedroom, there is a big pink bed.",
+        "There are ten toys on the bed.",
+        "Is there a bed for Milo?"
+      ]
+    },
+    "writingPrompt": "Write about your dream bedroom: what there is in it and where each thing is.",
+    "sentenceTranslations": [
+      "Em tên là Mai, và em sáu tuổi.",
+      "Đây là bức tranh căn phòng ngủ mơ ước của em.",
+      "Trong phòng ngủ mơ ước của em có một chiếc giường lớn màu hồng.",
+      "Trên giường có mười món đồ chơi.",
+      "Trên tường có một cái ti vi, và trước ti vi có một cái bàn nhỏ.",
+      "Trên tường còn có rất nhiều ngôi sao nữa.",
+      "Có một cửa sổ lớn, và sau cửa sổ là một khu vườn có hoa và một bể bơi nhỏ.",
+      "Có một cánh cửa dẫn ra vườn, nên sáng nào em cũng ra vườn.",
+      "Có giường cho Milo không?",
+      "Có chứ!",
+      "Giường của nó ở dưới giường em, và cũng màu hồng.",
+      "Phòng ngủ thật của em không rộng, và cũng không có màu hồng.",
+      "Nhưng em rất thích bức tranh của mình!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả căn phòng mơ ước bằng there is / there are và hỏi \"có … không?\" bằng Is there …? / Are there …?",
+    "examples": [
+      {
+        "lemma": "picture",
+        "sentence": "This picture is very beautiful.",
+        "meaningVi": "Bức tranh này rất đẹp."
+      },
+      {
+        "lemma": "bedroom",
+        "sentence": "Is there a television in your bedroom?",
+        "meaningVi": "Phòng ngủ của bạn có ti vi không?"
+      },
+      {
+        "lemma": "bed",
+        "sentence": "There is a teddy bear on my bed.",
+        "meaningVi": "Trên giường mình có một con gấu bông."
+      },
+      {
+        "lemma": "television",
+        "sentence": "The television is on the wall.",
+        "meaningVi": "Cái ti vi được treo trên tường."
+      },
+      {
+        "lemma": "wall",
+        "sentence": "My bedroom wall is blue.",
+        "meaningVi": "Tường phòng ngủ của mình màu xanh."
+      },
+      {
+        "lemma": "window",
+        "sentence": "Are there flowers near the window?",
+        "meaningVi": "Gần cửa sổ có hoa không?"
+      },
+      {
+        "lemma": "garden",
+        "sentence": "There is a small pool in the garden.",
+        "meaningVi": "Trong vườn có một bể bơi nhỏ."
+      },
+      {
+        "lemma": "door",
+        "sentence": "There is a picture on the door.",
+        "meaningVi": "Trên cánh cửa có một bức tranh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Mai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mai, is this your picture?",
+          "meaningVi": "Mai ơi, đây là tranh của em à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes! It's my dream bedroom.",
+          "meaningVi": "Vâng! Đó là phòng ngủ mơ ước của em."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there a computer in it?",
+          "meaningVi": "Trong đó có máy tính không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, there isn't. But there's a big television.",
+          "meaningVi": "Không có ạ. Nhưng có một cái ti vi to."
+        },
+        {
+          "speaker": 0,
+          "text": "Are there any books?",
+          "meaningVi": "Có quyển sách nào không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there are. They're on a pink shelf.",
+          "meaningVi": "Có ạ. Sách ở trên một cái giá màu hồng."
+        },
+        {
+          "speaker": 0,
+          "text": "And who is this girl in the garden?",
+          "meaningVi": "Còn bạn gái trong vườn này là ai?"
+        },
+        {
+          "speaker": 1,
+          "text": "That's me! And the cat is Milo.",
+          "meaningVi": "Là em đấy! Còn con mèo là Milo."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there a room for me?",
+          "meaningVi": "Có phòng cho chị không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there is. Your room is near my room!",
+          "meaningVi": "Có chứ. Phòng của chị ở gần phòng em!"
+        }
+      ]
+    },
+    "grammarTipVi": "Trả lời ngắn không viết gọn khi có Yes: nói \"Yes, there is.\", không nói \"Yes, there's.\". Khi có No thì viết gọn được: \"No, there isn't.\"",
+    "translations": [
+      {
+        "vi": "Trong phòng tôi có một chiếc giường màu hồng.",
+        "en": "There is a pink bed in my room.",
+        "distractors": [
+          "are",
+          "has",
+          "on"
+        ]
+      },
+      {
+        "vi": "Trên tường có rất nhiều ngôi sao.",
+        "en": "There are a lot of stars on the wall.",
+        "distractors": [
+          "is",
+          "in",
+          "star"
+        ]
+      },
+      {
+        "vi": "Có cửa sổ không?",
+        "en": "Is there a window?",
+        "distractors": [
+          "Are",
+          "Has",
+          "it"
+        ]
+      },
+      {
+        "vi": "Sau cửa sổ có một khu vườn.",
+        "en": "There is a garden behind the window.",
+        "distractors": [
+          "are",
+          "in",
+          "front"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Mai nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bức tranh phòng ngủ mơ ước của Mai",
+          "Phòng của Lan",
+          "Một bài học vẽ ở trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan hỏi về bức tranh (\"is this your picture?\") và Mai kể trong phòng mơ ước có gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trong phòng mơ ước có máy tính không?",
+        "promptVi": "",
+        "options": [
+          "Có, ở trên bàn",
+          "Không có",
+          "Có hai cái"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"No, there isn't. But there's a big television\": không có máy tính, chỉ có ti vi.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sách ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Dưới gầm giường",
+          "Trong vườn",
+          "Trên giá màu hồng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"They're on a pink shelf\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There is a room for Lan in the picture.",
+        "promptVi": "Trong tranh có một phòng cho Lan.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Mai nói \"Yes, there is. Your room is near my room!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Trong căn phòng mơ ước của Mai có những gì?",
+    "grammarStep": {
+      "titleVi": "There is / there are",
+      "noticing": [
+        {
+          "sentence": "In my dream bedroom, there is a big pink bed.",
+          "highlights": [
+            "there is"
+          ]
+        },
+        {
+          "sentence": "There are ten toys on the bed.",
+          "highlights": [
+            "There are"
+          ]
+        },
+        {
+          "sentence": "Is there a bed for Milo?",
+          "highlights": [
+            "Is there"
+          ]
+        },
+        {
+          "sentence": "Yes, there is!",
+          "highlights": [
+            "there is"
+          ]
+        }
+      ],
+      "questionVi": "Muốn hỏi \"có … không?\", ta đặt từ nào lên đầu câu?",
+      "options": [
+        "There",
+        "Is (hoặc Are)",
+        "Yes"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu kể là There is a bed; câu hỏi đổi chỗ thành Is there a bed …? Với số nhiều: Are there any toys?",
+      "whenVi": "Dùng Is there …? / Are there …? để hỏi một nơi có cái gì không, và trả lời ngắn bằng Yes, there is / No, there isn't.",
+      "table": [
+        {
+          "subject": "câu hỏi số ít",
+          "form": "Is there a bed for Milo? – Yes, there is.",
+          "negative": "No, there isn't."
+        },
+        {
+          "subject": "câu hỏi số nhiều",
+          "form": "Are there any books? – Yes, there are.",
+          "negative": "No, there aren't."
+        },
+        {
+          "subject": "câu kể",
+          "form": "There is a pink bed. There are ten toys.",
+          "negative": "There isn't a computer."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There is a bed for Milo?",
+          "right": "Is there a bed for Milo?"
+        },
+        {
+          "wrong": "Yes, there's.",
+          "right": "Yes, there is."
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi bằng cách thêm \"không\" ở cuối câu (\"Có giường cho Milo không?\"), nên người Việt hay giữ nguyên thứ tự câu kể khi hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền Is hoặc Are vào chỗ trống.",
+          "text": "___ there any toys on the bed? – Yes, there are.",
+          "answers": [
+            "Are"
+          ],
+          "explanationVi": "Any toys là số nhiều, nên hỏi bằng Are there …?"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Is there a garden behind the window? – Yes, there ___.",
+          "options": [
+            "are",
+            "is",
+            "has",
+            "be"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Hỏi bằng Is there thì trả lời ngắn Yes, there is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu hỏi sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There is a television in your room?",
+          "sentence": "Is there a television in your room?",
+          "explanationVi": "Câu hỏi đưa is lên trước there: Is there …?"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Có giường cho Milo không?",
+          "sentence": "Is there a bed for Milo?",
+          "words": [
+            "bed",
+            "there",
+            "Is",
+            "a",
+            "for",
+            "Milo",
+            "Are"
+          ],
+          "explanationVi": "A bed là số ít nên hỏi bằng Is there; từ \"Are\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There are a lot of stars on the wall too.",
+        "tipVi": "Stars /stɑːrz/ có cụm /st/ ở đầu và /z/ ở cuối, đừng đọc thành \"sờ-ta\"."
+      },
+      {
+        "text": "In my dream bedroom, there is a big pink bed.",
+        "tipVi": "Dream /driːm/ có cụm /dr/ đọc liền; pink /pɪŋk/ kết thúc bằng /ŋk/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What colour is your bedroom?",
+        "questionVi": "Phòng ngủ của bạn màu gì?",
+        "frame": "My bedroom is ___."
+      },
+      {
+        "question": "Is there a television in your bedroom?",
+        "questionVi": "Phòng ngủ của bạn có ti vi không?",
+        "frame": "Yes, there is. / No, there isn't. There is ___ in my bedroom."
+      },
+      {
+        "question": "What is in your brother's or sister's bedroom?",
+        "questionVi": "Trong phòng ngủ của anh chị em bạn có gì?",
+        "frame": "In his / her bedroom, there is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng there is hoặc there are",
+      "anyOf": [
+        "there is",
+        "there are",
+        "is there",
+        "are there",
+        "there's"
+      ],
+      "outlineVi": [
+        "Giới thiệu bức tranh căn phòng mơ ước của bạn.",
+        "Kể trong phòng có gì và ở đâu (giường, ti vi, sách).",
+        "Nói ngoài cửa sổ có gì."
+      ],
+      "modelAnswer": "This is a picture of my dream bedroom. There is a big blue bed near the window. There are a lot of books on the wall. There is a television in front of my bed. Behind the window, there is a garden with a small pool. Is there a desk? Yes, there is!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "dream",
+      "lemma": "dream",
+      "meaningVi": "mơ ước",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "my dream bedroom",
+      "phraseVi": "căn phòng ngủ mơ ước của em"
+    },
+    {
+      "text": "pink",
+      "lemma": "pink",
+      "meaningVi": "màu hồng",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "a big pink bed",
+      "phraseVi": "một chiếc giường lớn màu hồng"
+    },
+    {
+      "text": "toys",
+      "lemma": "toy",
+      "meaningVi": "đồ chơi",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "ten toys on the bed",
+      "phraseVi": "mười món đồ chơi trên giường"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "phía trước",
+      "sentenceIndex": 4,
+      "pos": "preposition",
+      "phrase": "in front of it",
+      "phraseVi": "trước ti vi"
+    },
+    {
+      "text": "stars",
+      "lemma": "star",
+      "meaningVi": "ngôi sao",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "a lot of stars",
+      "phraseVi": "rất nhiều ngôi sao"
+    },
+    {
+      "text": "behind",
+      "lemma": "behind",
+      "meaningVi": "phía sau",
+      "sentenceIndex": 6,
+      "pos": "preposition",
+      "phrase": "behind the window",
+      "phraseVi": "sau cửa sổ"
+    },
+    {
+      "text": "pool",
+      "lemma": "pool",
+      "meaningVi": "bể bơi",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a small pool",
+      "phraseVi": "một bể bơi nhỏ"
+    },
+    {
+      "text": "every morning",
+      "lemma": "every morning",
+      "meaningVi": "mỗi sáng",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "in the garden every morning",
+      "phraseVi": "sáng nào cũng ra vườn"
+    },
+    {
+      "text": "real",
+      "lemma": "real",
+      "meaningVi": "thật",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "My real bedroom",
+      "phraseVi": "Phòng ngủ thật của em"
+    },
+    {
+      "text": "love",
+      "lemma": "love",
+      "meaningVi": "rất thích",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "I love my picture",
+      "phraseVi": "em rất thích bức tranh của mình"
+    }
+  ]
+}

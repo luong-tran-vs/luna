@@ -1,0 +1,632 @@
+{
+  "content": "Today is the tenth of October. My birthday is on the twelfth, and I am fifteen this year. At school, my friends have a lot of questions about my party.\n\n\"When is the party?\" asks Lan.\n\"It's on Saturday, at five o'clock,\" I say.\n\"Where is it?\" asks Hoa.\n\"At my house, near the park,\" I answer.\n\"Who is at the party?\" asks Bao.\n\"My family and my friends from class,\" I say.\n\"And what is your favourite cake?\" asks Lan.\n\"I love chocolate,\" I say, and everyone laughs.\n\nLan is my best friend, and she is very happy for me. My party isn't big, but it is my favourite day of the month. October is a great month for me!",
+  "targetWords": [
+    "today",
+    "birthday",
+    "party",
+    "Saturday",
+    "o'clock",
+    "cake",
+    "day",
+    "month"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Today",
+        "lemma": "today",
+        "meaningVi": "hôm nay",
+        "pos": "adverb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "birthday",
+        "lemma": "birthday",
+        "meaningVi": "sinh nhật",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "party",
+        "lemma": "party",
+        "meaningVi": "bữa tiệc",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "Saturday",
+        "lemma": "Saturday",
+        "meaningVi": "thứ Bảy",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "o'clock",
+        "lemma": "o'clock",
+        "meaningVi": "giờ (đúng)",
+        "pos": "adverb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "cake",
+        "lemma": "cake",
+        "meaningVi": "bánh ngọt, bánh kem",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "day",
+        "lemma": "day",
+        "meaningVi": "ngày",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "month",
+        "lemma": "month",
+        "meaningVi": "tháng",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan's birthday party",
+          "A chocolate cake shop",
+          "The writer's friends ask about her birthday party.",
+          "A day at school with Bao"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Người viết sắp sinh nhật, và các bạn hỏi tiệc khi nào, ở đâu, có ai, bánh gì. Lan chỉ là một người bạn hỏi, không phải người có sinh nhật."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When is the party?",
+        "promptVi": "Bữa tiệc vào lúc nào?",
+        "options": [
+          "On Friday, at five o'clock",
+          "On Saturday, at five o'clock",
+          "On Saturday, at seven o'clock",
+          "On Sunday morning"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Người viết trả lời \"It's on Saturday, at five o'clock\": tiệc vào thứ Bảy, lúc năm giờ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the party?",
+        "promptVi": "Bữa tiệc ở đâu?",
+        "options": [
+          "At school",
+          "At a restaurant",
+          "At the writer's house",
+          "At Lan's house"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Người viết trả lời \"At my house, near the park\": tiệc ở nhà người viết, gần công viên."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The party is very big.",
+        "promptVi": "Bữa tiệc rất lớn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"My party isn't big\": bữa tiệc không lớn."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"favourite\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"And what is your favourite cake?\" asks Lan.",
+        "options": [
+          "to nhất",
+          "đắt nhất",
+          "mới nhất",
+          "yêu thích nhất"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Favourite là yêu thích nhất: Lan hỏi bạn thích loại bánh nào nhất, và câu trả lời là sô-cô-la."
+      }
+    ],
+    "grammarNote": {
+      "title": "Từ để hỏi (what, where, who, when, how)",
+      "bodyVi": "When hỏi thời gian (khi nào), where hỏi nơi chốn (ở đâu), who hỏi người (ai), what hỏi sự vật (cái gì). Từ để hỏi đứng đầu câu, rồi đến is / are, rồi chủ ngữ: When is the party? Tiếng Việt để từ hỏi ở cuối (\"Bữa tiệc ở đâu?\"), tiếng Anh thì không.",
+      "examples": [
+        "When is the party?",
+        "Where is it?",
+        "Who is at the party?"
+      ]
+    },
+    "writingPrompt": "Write about your birthday: when it is, where your party is and who is there.",
+    "sentenceTranslations": [
+      "Hôm nay là ngày mười tháng Mười.",
+      "Sinh nhật mình vào ngày mười hai, và năm nay mình mười lăm tuổi.",
+      "Ở trường, các bạn hỏi mình rất nhiều về bữa tiệc.",
+      "\"Khi nào tổ chức tiệc?\" Lan hỏi.",
+      "\"Vào thứ Bảy, lúc năm giờ,\" mình nói.",
+      "\"Ở đâu vậy?\" Hoa hỏi.",
+      "\"Ở nhà mình, gần công viên,\" mình trả lời.",
+      "\"Những ai đến dự tiệc?\" Bao hỏi.",
+      "\"Gia đình mình và các bạn cùng lớp,\" mình nói.",
+      "\"Thế bạn thích bánh gì nhất?\" Lan hỏi.",
+      "\"Mình mê sô-cô-la,\" mình nói, và cả nhóm cùng cười.",
+      "Lan là bạn thân nhất của mình, và bạn ấy rất vui cho mình.",
+      "Bữa tiệc của mình không lớn, nhưng đó là ngày mình thích nhất trong tháng.",
+      "Tháng Mười là một tháng tuyệt vời với mình!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và trả lời về sinh nhật, bữa tiệc bằng when, where, who, what và nói ngày tháng (on the twelfth of October).",
+    "examples": [
+      {
+        "lemma": "today",
+        "sentence": "Today is Monday.",
+        "meaningVi": "Hôm nay là thứ Hai."
+      },
+      {
+        "lemma": "birthday",
+        "sentence": "When is your birthday?",
+        "meaningVi": "Sinh nhật bạn vào khi nào?"
+      },
+      {
+        "lemma": "party",
+        "sentence": "The party is at my house.",
+        "meaningVi": "Bữa tiệc ở nhà mình."
+      },
+      {
+        "lemma": "Saturday",
+        "sentence": "My English club is on Saturday.",
+        "meaningVi": "Câu lạc bộ tiếng Anh của mình vào thứ Bảy."
+      },
+      {
+        "lemma": "o'clock",
+        "sentence": "Dinner is at eight o'clock.",
+        "meaningVi": "Bữa tối lúc tám giờ."
+      },
+      {
+        "lemma": "cake",
+        "sentence": "Who has the birthday cake?",
+        "meaningVi": "Ai cầm bánh sinh nhật?"
+      },
+      {
+        "lemma": "day",
+        "sentence": "Sunday is my favourite day.",
+        "meaningVi": "Chủ nhật là ngày mình thích nhất."
+      },
+      {
+        "lemma": "month",
+        "sentence": "May is a hot month in Hanoi.",
+        "meaningVi": "Tháng Năm là một tháng nóng ở Hà Nội."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Anna, when is your birthday?",
+          "meaningVi": "Anna ơi, sinh nhật bạn vào khi nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's on the tenth of May.",
+          "meaningVi": "Vào ngày mùng mười tháng Năm."
+        },
+        {
+          "speaker": 0,
+          "text": "And where is your party this year?",
+          "meaningVi": "Thế năm nay tiệc của bạn ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's at a pizza restaurant near school.",
+          "meaningVi": "Ở một nhà hàng pizza gần trường."
+        },
+        {
+          "speaker": 0,
+          "text": "Cool! What time is it?",
+          "meaningVi": "Hay quá! Lúc mấy giờ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's at six o'clock in the evening.",
+          "meaningVi": "Lúc sáu giờ tối."
+        },
+        {
+          "speaker": 0,
+          "text": "Who is at the party?",
+          "meaningVi": "Những ai đến dự tiệc?"
+        },
+        {
+          "speaker": 1,
+          "text": "My friends from class, and my cousin from London.",
+          "meaningVi": "Các bạn cùng lớp, và em họ của mình từ London."
+        },
+        {
+          "speaker": 0,
+          "text": "How old are you this year?",
+          "meaningVi": "Năm nay bạn bao nhiêu tuổi?"
+        },
+        {
+          "speaker": 1,
+          "text": "I'm eighteen!",
+          "meaningVi": "Mình mười tám tuổi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Nói ngày tháng dùng số thứ tự: on the tenth of May (ngày 10 tháng 5), on the twelfth of October (ngày 12 tháng 10). Các số thứ tự đầu tiên: first, second, tenth, twelfth, twentieth.",
+    "translations": [
+      {
+        "vi": "Khi nào là sinh nhật của bạn?",
+        "en": "When is your birthday?",
+        "distractors": [
+          "Where",
+          "Who",
+          "are"
+        ]
+      },
+      {
+        "vi": "Hôm nay là thứ Bảy.",
+        "en": "Today is Saturday.",
+        "distractors": [
+          "on",
+          "at",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bữa tiệc ở đâu?",
+        "en": "Where is the party?",
+        "distractors": [
+          "When",
+          "Who",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bữa tiệc lúc năm giờ.",
+        "en": "The party is at five o'clock.",
+        "distractors": [
+          "on",
+          "in",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh hỏi Anna về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Sinh nhật và bữa tiệc của Anna",
+          "Bài kiểm tra tiếng Anh",
+          "Gia đình của Anna ở London"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh hỏi sinh nhật Anna khi nào, tiệc ở đâu, lúc mấy giờ, có ai và Anna bao nhiêu tuổi.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sinh nhật Anna vào ngày nào?",
+        "promptVi": "",
+        "options": [
+          "Ngày 20 tháng 5",
+          "Ngày 10 tháng 3",
+          "Ngày 10 tháng 5"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna nói \"It's on the tenth of May\": ngày mùng 10 tháng 5.",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bữa tiệc của Anna ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở nhà Anna",
+          "Ở một nhà hàng pizza gần trường",
+          "Ở London"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"It's at a pizza restaurant near school\". London là nơi em họ của Anna ở.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna is sixteen this year.",
+        "promptVi": "Năm nay Anna mười sáu tuổi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna nói \"I'm eighteen!\": năm nay Anna mười tám tuổi.",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Các bạn hỏi những gì về bữa tiệc sinh nhật?",
+    "grammarStep": {
+      "titleVi": "Từ để hỏi (what, where, who, when, how)",
+      "noticing": [
+        {
+          "sentence": "\"When is the party?\" asks Lan.",
+          "highlights": [
+            "When"
+          ]
+        },
+        {
+          "sentence": "\"Where is it?\" asks Hoa.",
+          "highlights": [
+            "Where"
+          ]
+        },
+        {
+          "sentence": "\"Who is at the party?\" asks Bao.",
+          "highlights": [
+            "Who"
+          ]
+        },
+        {
+          "sentence": "\"And what is your favourite cake?\" asks Lan.",
+          "highlights": [
+            "what"
+          ]
+        }
+      ],
+      "questionVi": "Mỗi từ để hỏi when, where, who hỏi về điều gì?",
+      "options": [
+        "When hỏi nơi chốn, where hỏi thời gian",
+        "When hỏi thời gian, where hỏi nơi chốn, who hỏi người",
+        "Cả ba đều hỏi về người"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu trả lời cho thấy điều đó: When → on Saturday (thời gian), Where → at my house (nơi chốn), Who → my family (người), What → chocolate (sự vật).",
+      "whenVi": "Dùng từ để hỏi ở đầu câu, rồi is / are, để hỏi thông tin: khi nào, ở đâu, ai, cái gì.",
+      "table": [
+        {
+          "subject": "When (khi nào)",
+          "form": "When is the party? – On Saturday.",
+          "negative": "—"
+        },
+        {
+          "subject": "Where (ở đâu)",
+          "form": "Where is it? – At my house.",
+          "negative": "—"
+        },
+        {
+          "subject": "Who (ai)",
+          "form": "Who is at the party? – My friends.",
+          "negative": "—"
+        },
+        {
+          "subject": "What (cái gì)",
+          "form": "What is your favourite cake? – Chocolate.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "When the party is?",
+          "right": "When is the party?"
+        },
+        {
+          "wrong": "Your house is where?",
+          "right": "Where is your house?"
+        }
+      ],
+      "noteVi": "Tiếng Việt để từ hỏi ở cuối câu (\"Nhà bạn ở đâu?\") và không đổi chỗ động từ, nên người Việt hay viết \"Your house is where?\" hoặc \"Where your house is?\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ để hỏi phù hợp vào chỗ trống.",
+          "text": "___ is your birthday? – It's on the twelfth of October.",
+          "answers": [
+            "When"
+          ],
+          "explanationVi": "Câu trả lời là một ngày (on the twelfth of October), nên hỏi bằng When."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ is at the party? – My family and my friends.",
+          "options": [
+            "What",
+            "Where",
+            "Who",
+            "When"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Câu trả lời là người (my family and my friends), nên hỏi bằng Who."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Where your house is?",
+          "sentence": "Where is your house?",
+          "explanationVi": "Trong câu hỏi, is đứng ngay sau từ để hỏi và trước chủ ngữ: Where is your house?"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Cô giáo của bạn là ai?",
+          "sentence": "Who is your teacher?",
+          "words": [
+            "is",
+            "teacher",
+            "Who",
+            "your",
+            "Where"
+          ],
+          "explanationVi": "Hỏi người dùng Who; từ \"Where\" (ở đâu) bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "My birthday is on the twelfth, and I am fifteen this year.",
+        "tipVi": "Twelfth /twelfθ/ có cụm âm cuối khó /lfθ/: đọc l, f rồi đặt lưỡi giữa răng cho âm /θ/."
+      },
+      {
+        "text": "October is a great month for me!",
+        "tipVi": "Month /mʌnθ/ kết thúc bằng âm /θ/: đặt đầu lưỡi giữa hai hàm răng, đừng đọc thành \"mân\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "When is your birthday?",
+        "questionVi": "Sinh nhật bạn vào khi nào?",
+        "frame": "My birthday is on the ___ of ___."
+      },
+      {
+        "question": "Where is your birthday party this year?",
+        "questionVi": "Năm nay tiệc sinh nhật của bạn ở đâu?",
+        "frame": "It's at ___."
+      },
+      {
+        "question": "When is your best friend's birthday?",
+        "questionVi": "Sinh nhật bạn thân của bạn vào khi nào?",
+        "frame": "His / Her birthday is on the ___ of ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi với when, where, who hoặc what",
+      "anyOf": [
+        "when",
+        "where",
+        "who",
+        "what"
+      ],
+      "outlineVi": [
+        "Nói sinh nhật bạn vào ngày nào.",
+        "Hỏi và trả lời: tiệc khi nào, ở đâu?",
+        "Hỏi và trả lời: những ai đến dự?"
+      ],
+      "modelAnswer": "My birthday is on the twentieth of June. My friends have a lot of questions. When is the party? It's on Sunday, at four o'clock. Where is it? It's at my house. Who is at the party? My family and my best friends. It is my favourite day of the month!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "tenth",
+      "lemma": "tenth",
+      "meaningVi": "thứ mười (ngày mười)",
+      "sentenceIndex": 0,
+      "pos": "number",
+      "phrase": "the tenth of October",
+      "phraseVi": "ngày mười tháng Mười"
+    },
+    {
+      "text": "October",
+      "lemma": "October",
+      "meaningVi": "tháng Mười",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the tenth of October",
+      "phraseVi": "ngày mười tháng Mười"
+    },
+    {
+      "text": "twelfth",
+      "lemma": "twelfth",
+      "meaningVi": "thứ mười hai (ngày mười hai)",
+      "sentenceIndex": 1,
+      "pos": "number",
+      "phrase": "on the twelfth",
+      "phraseVi": "vào ngày mười hai"
+    },
+    {
+      "text": "fifteen",
+      "lemma": "fifteen",
+      "meaningVi": "mười lăm",
+      "sentenceIndex": 1,
+      "pos": "number",
+      "phrase": "I am fifteen this year",
+      "phraseVi": "năm nay mình mười lăm tuổi"
+    },
+    {
+      "text": "questions",
+      "lemma": "question",
+      "meaningVi": "câu hỏi",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a lot of questions",
+      "phraseVi": "rất nhiều câu hỏi"
+    },
+    {
+      "text": "When",
+      "lemma": "when",
+      "meaningVi": "khi nào",
+      "sentenceIndex": 3,
+      "pos": "adverb",
+      "phrase": "When is the party?",
+      "phraseVi": "Khi nào tổ chức tiệc?"
+    },
+    {
+      "text": "Where",
+      "lemma": "where",
+      "meaningVi": "ở đâu",
+      "sentenceIndex": 5,
+      "pos": "adverb",
+      "phrase": "Where is it?",
+      "phraseVi": "Ở đâu vậy?"
+    },
+    {
+      "text": "park",
+      "lemma": "park",
+      "meaningVi": "công viên",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "near the park",
+      "phraseVi": "gần công viên"
+    },
+    {
+      "text": "Who",
+      "lemma": "who",
+      "meaningVi": "ai",
+      "sentenceIndex": 7,
+      "pos": "pronoun",
+      "phrase": "Who is at the party?",
+      "phraseVi": "Những ai đến dự tiệc?"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "yêu thích nhất",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "your favourite cake",
+      "phraseVi": "bánh bạn thích nhất"
+    },
+    {
+      "text": "chocolate",
+      "lemma": "chocolate",
+      "meaningVi": "sô-cô-la",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "I love chocolate",
+      "phraseVi": "Mình mê sô-cô-la"
+    },
+    {
+      "text": "best friend",
+      "lemma": "best friend",
+      "meaningVi": "bạn thân nhất",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "Lan is my best friend",
+      "phraseVi": "Lan là bạn thân nhất của mình"
+    },
+    {
+      "text": "great",
+      "lemma": "great",
+      "meaningVi": "tuyệt vời",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "a great month",
+      "phraseVi": "một tháng tuyệt vời"
+    }
+  ]
+}

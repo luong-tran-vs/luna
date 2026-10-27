@@ -1,0 +1,613 @@
+{
+  "content": "Maria is a nurse at a small hospital in Hanoi. She is from Spain.\n\nShe always gets up at five o'clock. She has a shower and eats bread for breakfast. At six o'clock, she goes to work by bus. Her work starts at seven.\n\nAt the hospital, Maria helps sick people. She gives them medicine and talks to them. Some people are old, and they are often sad. Maria is always kind to them. At twelve o'clock, she usually has lunch with the other nurses. In the afternoon, she writes notes about the sick people.\n\nHer work finishes at four. On Tuesday and Thursday, she goes to the English club. In the evening, she is tired, so she never goes out. She reads a book and goes to bed at ten.\n\n\"Is your job hard?\" asks Kenji at the club.\n\"Yes, but I love it,\" says Maria.",
+  "targetWords": [
+    "get up",
+    "breakfast",
+    "go to work",
+    "help",
+    "have lunch",
+    "write notes",
+    "read a book",
+    "go to bed"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "gets up",
+        "lemma": "get up",
+        "meaningVi": "thức dậy",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "breakfast",
+        "lemma": "breakfast",
+        "meaningVi": "bữa sáng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "goes to work",
+        "lemma": "go to work",
+        "meaningVi": "đi làm",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "helps",
+        "lemma": "help",
+        "meaningVi": "giúp đỡ, chăm sóc",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "has lunch",
+        "lemma": "have lunch",
+        "meaningVi": "ăn trưa",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "writes notes",
+        "lemma": "write notes",
+        "meaningVi": "ghi chép",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "reads a book",
+        "lemma": "read a book",
+        "meaningVi": "đọc sách",
+        "pos": "phrase",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "goes to bed",
+        "lemma": "go to bed",
+        "meaningVi": "đi ngủ",
+        "pos": "verb",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A trip to Spain",
+          "A day of Maria, a nurse",
+          "Kenji's English club",
+          "A big hospital in Hanoi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài kể một ngày của y tá Maria: dậy lúc năm giờ, chăm sóc người bệnh ở bệnh viện, tối đọc sách và đi ngủ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Maria's breakfast?",
+        "promptVi": "Bữa sáng của Maria là gì?",
+        "options": [
+          "Rice",
+          "Bread",
+          "Noodle soup",
+          "Bananas"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She has a shower and eats bread for breakfast\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Maria on Tuesday and Thursday after work?",
+        "promptVi": "Thứ Ba và thứ Năm, sau giờ làm Maria ở đâu?",
+        "options": [
+          "At home",
+          "At the park",
+          "At the English club",
+          "At the hospital"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"On Tuesday and Thursday, she goes to the English club\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Maria often goes out in the evening.",
+        "promptVi": "Buổi tối Maria hay ra ngoài.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"In the evening, she is tired, so she never goes out\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"medicine\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She gives them medicine and talks to them.",
+        "options": [
+          "bánh mì",
+          "thuốc",
+          "sách",
+          "nước"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Medicine là thuốc: y tá đưa thuốc cho người bệnh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thì hiện tại đơn (khẳng định)",
+      "bodyVi": "Khi kể một ngày của she (Maria), động từ thêm -s: eats, gives, talks, writes. Một số động từ thay đổi riêng: have → has, go → goes. Trạng từ tần suất đứng trước động từ: she always gets up, she usually has lunch.",
+      "examples": [
+        "She has a shower and eats bread for breakfast.",
+        "She gives them medicine and talks to them.",
+        "In the afternoon, she writes notes about the sick people."
+      ]
+    },
+    "writingPrompt": "Write about a day of a person with a job: a doctor, a nurse, a teacher or a driver.",
+    "sentenceTranslations": [
+      "Maria là y tá ở một bệnh viện nhỏ ở Hà Nội.",
+      "Chị đến từ Tây Ban Nha.",
+      "Chị luôn dậy lúc năm giờ.",
+      "Chị tắm vòi sen và ăn bánh mì cho bữa sáng.",
+      "Lúc sáu giờ, chị đi làm bằng xe buýt.",
+      "Giờ làm của chị bắt đầu lúc bảy giờ.",
+      "Ở bệnh viện, Maria chăm sóc người bệnh.",
+      "Chị đưa thuốc cho họ và trò chuyện với họ.",
+      "Có những người đã già, và họ hay buồn.",
+      "Maria luôn tử tế với họ.",
+      "Lúc mười hai giờ, chị thường ăn trưa với các y tá khác.",
+      "Buổi chiều, chị ghi chép về những người bệnh.",
+      "Chị tan làm lúc bốn giờ.",
+      "Thứ Ba và thứ Năm, chị đến câu lạc bộ tiếng Anh.",
+      "Buổi tối chị mệt, nên chị không bao giờ ra ngoài.",
+      "Chị đọc sách và đi ngủ lúc mười giờ.",
+      "\"Công việc của chị có vất vả không?\" Kenji hỏi ở câu lạc bộ.",
+      "\"Có, nhưng chị rất yêu công việc này,\" Maria nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một ngày làm việc của một người bằng thì hiện tại đơn (she gets up, she has, she goes) và trạng từ tần suất.",
+    "examples": [
+      {
+        "lemma": "get up",
+        "sentence": "Nurses often get up very early.",
+        "meaningVi": "Y tá hay dậy rất sớm."
+      },
+      {
+        "lemma": "breakfast",
+        "sentence": "I usually have bread for breakfast.",
+        "meaningVi": "Mình thường ăn bánh mì vào bữa sáng."
+      },
+      {
+        "lemma": "go to work",
+        "sentence": "My parents go to work by car.",
+        "meaningVi": "Bố mẹ mình đi làm bằng ô tô."
+      },
+      {
+        "lemma": "help",
+        "sentence": "Doctors help sick people.",
+        "meaningVi": "Bác sĩ giúp đỡ người bệnh."
+      },
+      {
+        "lemma": "have lunch",
+        "sentence": "We have lunch at twelve o'clock.",
+        "meaningVi": "Bọn mình ăn trưa lúc mười hai giờ."
+      },
+      {
+        "lemma": "write notes",
+        "sentence": "I write notes in my English book.",
+        "meaningVi": "Mình ghi chép vào vở tiếng Anh."
+      },
+      {
+        "lemma": "read a book",
+        "sentence": "Grandpa likes to read a book in the garden.",
+        "meaningVi": "Ông thích đọc sách trong vườn."
+      },
+      {
+        "lemma": "go to bed",
+        "sentence": "We always go to bed at ten.",
+        "meaningVi": "Nhà mình luôn đi ngủ lúc mười giờ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Kenji",
+        "Maria"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Maria, is your work in the morning?",
+          "meaningVi": "Chị Maria ơi, chị làm việc buổi sáng ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. I always start at seven.",
+          "meaningVi": "Đúng vậy. Chị luôn bắt đầu lúc bảy giờ."
+        },
+        {
+          "speaker": 0,
+          "text": "Are you busy all day?",
+          "meaningVi": "Chị có bận cả ngày không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. I help sick people, and I often talk to old people.",
+          "meaningVi": "Có. Chị chăm sóc người bệnh, và hay trò chuyện với người già."
+        },
+        {
+          "speaker": 0,
+          "text": "Is the food at the hospital good?",
+          "meaningVi": "Đồ ăn ở bệnh viện có ngon không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it isn't! I usually eat bread and fruit.",
+          "meaningVi": "Không ngon đâu! Chị thường ăn bánh mì và hoa quả."
+        },
+        {
+          "speaker": 0,
+          "text": "And when is your free time?",
+          "meaningVi": "Thế chị rảnh vào lúc nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "After four o'clock. I often walk in the park.",
+          "meaningVi": "Sau bốn giờ. Chị hay đi dạo trong công viên."
+        },
+        {
+          "speaker": 0,
+          "text": "Is your flat near the park?",
+          "meaningVi": "Căn hộ của chị có gần công viên không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's very near. I love it.",
+          "meaningVi": "Có, rất gần. Chị thích lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Với he, she, have đổi thành has và go đổi thành goes: she has a shower, she goes to work. Không nói \"she haves\", \"she gos\".",
+    "translations": [
+      {
+        "vi": "Cô ấy luôn dậy lúc năm giờ.",
+        "en": "She always gets up at five.",
+        "distractors": [
+          "get",
+          "never",
+          "on"
+        ]
+      },
+      {
+        "vi": "Cô ấy đi làm bằng xe buýt.",
+        "en": "She goes to work by bus.",
+        "distractors": [
+          "go",
+          "on",
+          "in"
+        ]
+      },
+      {
+        "vi": "Cô ấy chăm sóc người bệnh.",
+        "en": "She helps sick people.",
+        "distractors": [
+          "help",
+          "is",
+          "old"
+        ]
+      },
+      {
+        "vi": "Cô ấy đọc sách trước khi ngủ.",
+        "en": "She reads a book before bed.",
+        "distractors": [
+          "read",
+          "after",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Kenji hỏi Maria về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc hằng ngày của Maria",
+          "Gia đình của Maria ở Tây Ban Nha",
+          "Câu lạc bộ tiếng Anh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kenji hỏi Maria làm việc lúc nào, có bận không, ăn gì và rảnh lúc nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Maria bắt đầu làm việc lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Sáu giờ",
+          "Bảy giờ",
+          "Tám giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Maria nói \"I always start at seven\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở bệnh viện, Maria thường ăn gì?",
+        "promptVi": "",
+        "options": [
+          "Cơm và cá",
+          "Mì nước",
+          "Bánh mì và hoa quả"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Maria nói \"I usually eat bread and fruit\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Maria's flat is near the park.",
+        "promptVi": "Căn hộ của Maria ở gần công viên.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Maria nói \"Yes, it's very near\".",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Maria làm gì vào buổi sáng, buổi chiều và buổi tối?",
+    "grammarStep": {
+      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "noticing": [
+        {
+          "sentence": "She has a shower and eats bread for breakfast.",
+          "highlights": [
+            "has",
+            "eats"
+          ]
+        },
+        {
+          "sentence": "At six o'clock, she goes to work by bus.",
+          "highlights": [
+            "goes"
+          ]
+        },
+        {
+          "sentence": "She gives them medicine and talks to them.",
+          "highlights": [
+            "gives",
+            "talks"
+          ]
+        },
+        {
+          "sentence": "She reads a book and goes to bed at ten.",
+          "highlights": [
+            "reads",
+            "goes"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao là \"she has\", \"she goes\" mà không phải \"she haves\", \"she gos\"?",
+      "options": [
+        "Vì đó là thì quá khứ",
+        "Vì have và go có cách đổi riêng: have → has, go → goes",
+        "Vì she đi với động từ nguyên mẫu"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Phần lớn động từ chỉ thêm -s (eats, gives, talks), nhưng have đổi thành has và go thêm -es thành goes.",
+      "whenVi": "Dùng thì hiện tại đơn để kể công việc hằng ngày của một người.",
+      "table": [
+        {
+          "subject": "he / she + -s",
+          "form": "eats, gives, talks, reads",
+          "negative": "—"
+        },
+        {
+          "subject": "go, watch, wash + -es",
+          "form": "goes, watches, washes",
+          "negative": "—"
+        },
+        {
+          "subject": "have → has",
+          "form": "She has a shower. She has lunch.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She have lunch with the other nurses.",
+          "right": "She has lunch with the other nurses."
+        },
+        {
+          "wrong": "She go to work by bus.",
+          "right": "She goes to work by bus."
+        }
+      ],
+      "noteVi": "Động từ tiếng Việt không đổi theo người, nên người Việt hay quên đổi have thành has, go thành goes khi nói về she, he.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ go.",
+          "text": "Maria ___ to work by bus at six o'clock.",
+          "answers": [
+            "goes"
+          ],
+          "explanationVi": "Maria là một người (she), go thêm -es thành goes."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "She ___ a shower at five o'clock.",
+          "options": [
+            "have",
+            "has",
+            "haves",
+            "having"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Với she, have đổi thành has."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Maria give them medicine.",
+          "sentence": "Maria gives them medicine.",
+          "explanationVi": "Maria là một người (she), nên give thêm -s: gives."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chị ấy ăn trưa với các y tá.",
+          "sentence": "She has lunch with the nurses.",
+          "words": [
+            "lunch",
+            "has",
+            "She",
+            "with",
+            "the",
+            "nurses",
+            "have"
+          ],
+          "explanationVi": "Chủ ngữ she đi với has; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She gives them medicine and talks to them.",
+        "tipVi": "Gives /ɡɪvz/ có âm /vz/ ở cuối; medicine /ˈmedɪsn/ nhấn âm đầu MED."
+      },
+      {
+        "text": "Her work finishes at four.",
+        "tipVi": "Finishes /ˈfɪnɪʃɪz/ có ba âm tiết, âm cuối /ɪz/ nghe rõ."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time are you at school in the morning?",
+        "questionVi": "Buổi sáng bạn có mặt ở trường lúc mấy giờ?",
+        "frame": "I am at school at ___."
+      },
+      {
+        "question": "What is your breakfast on school days?",
+        "questionVi": "Những ngày đi học, bạn ăn sáng món gì?",
+        "frame": "I usually eat ___ for breakfast."
+      },
+      {
+        "question": "Who in your family has a job? What is his or her day like?",
+        "questionVi": "Ai trong nhà bạn đi làm? Một ngày của người đó thế nào?",
+        "frame": "My ___ works in ___. He / She always ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng he / she + động từ thêm -s (she gets up, he goes)",
+      "anyOf": [
+        "gets up",
+        "goes",
+        "has",
+        "works",
+        "helps",
+        "reads",
+        "eats",
+        "starts"
+      ],
+      "outlineVi": [
+        "Nói người đó là ai, làm nghề gì, ở đâu.",
+        "Kể buổi sáng và giờ làm việc của người đó.",
+        "Kể buổi tối người đó làm gì."
+      ],
+      "modelAnswer": "My aunt is a doctor. She always gets up at six. She has breakfast and goes to work by car. At the hospital, she helps sick people. She usually has lunch at one. In the evening, she reads a book and goes to bed at eleven."
+    }
+  },
+  "glosses": [
+    {
+      "text": "nurse",
+      "lemma": "nurse",
+      "meaningVi": "y tá",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a nurse at a small hospital",
+      "phraseVi": "y tá ở một bệnh viện nhỏ"
+    },
+    {
+      "text": "hospital",
+      "lemma": "hospital",
+      "meaningVi": "bệnh viện",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a small hospital in Hanoi",
+      "phraseVi": "một bệnh viện nhỏ ở Hà Nội"
+    },
+    {
+      "text": "has a shower",
+      "lemma": "have a shower",
+      "meaningVi": "tắm vòi sen",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "She has a shower",
+      "phraseVi": "Chị tắm vòi sen"
+    },
+    {
+      "text": "starts",
+      "lemma": "start",
+      "meaningVi": "bắt đầu",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "Her work starts at seven",
+      "phraseVi": "Giờ làm của chị bắt đầu lúc bảy giờ"
+    },
+    {
+      "text": "sick",
+      "lemma": "sick",
+      "meaningVi": "ốm, bệnh",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "sick people",
+      "phraseVi": "người bệnh"
+    },
+    {
+      "text": "medicine",
+      "lemma": "medicine",
+      "meaningVi": "thuốc",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "She gives them medicine",
+      "phraseVi": "Chị đưa thuốc cho họ"
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "meaningVi": "tử tế, tốt bụng",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "always kind to them",
+      "phraseVi": "luôn tử tế với họ"
+    },
+    {
+      "text": "finishes",
+      "lemma": "finish",
+      "meaningVi": "kết thúc",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "Her work finishes at four",
+      "phraseVi": "Chị tan làm lúc bốn giờ"
+    },
+    {
+      "text": "goes out",
+      "lemma": "go out",
+      "meaningVi": "ra ngoài, đi chơi",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "she never goes out",
+      "phraseVi": "chị không bao giờ ra ngoài"
+    },
+    {
+      "text": "job",
+      "lemma": "job",
+      "meaningVi": "công việc",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "Is your job hard?",
+      "phraseVi": "Công việc của chị có vất vả không?"
+    }
+  ]
+}

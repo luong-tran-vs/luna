@@ -1,0 +1,641 @@
+{
+  "content": "Lan has a family photo on her desk. Her friend Linh looks at it. \"Is this your family?\" she asks. \"Yes, it's my dad's family,\" says Lan.\n\nIn the photo, Lan's grandparents are in the middle. Her grandfather has white hair and glasses. Her grandmother has a kind face. They have a big house in Hue.\n\nThe tall man with a hat is Uncle Hai. He is Dad's brother, and he has a farm near Hue. The woman with the baby is his wife, Aunt Hoa. The baby is their son, Bo. He has big brown eyes.\n\n\"Is this boy your brother?\" asks Linh.\n\"No, he's my cousin Minh,\" says Lan. \"He's sixteen, and he has a lot of friends.\"\n\nLan's parents aren't in the photo, because her dad has the camera!",
+  "targetWords": [
+    "family photo",
+    "grandparents",
+    "grandfather",
+    "grandmother",
+    "uncle",
+    "aunt",
+    "baby",
+    "cousin"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "family photo",
+        "lemma": "family photo",
+        "meaningVi": "ảnh gia đình",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "grandparents",
+        "lemma": "grandparents",
+        "meaningVi": "ông bà",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "grandfather",
+        "lemma": "grandfather",
+        "meaningVi": "ông",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "grandmother",
+        "lemma": "grandmother",
+        "meaningVi": "bà",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "Uncle",
+        "lemma": "uncle",
+        "meaningVi": "chú, bác, cậu",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "baby",
+        "lemma": "baby",
+        "meaningVi": "em bé",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "Aunt",
+        "lemma": "aunt",
+        "meaningVi": "cô, dì, thím, mợ",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "cousin",
+        "lemma": "cousin",
+        "meaningVi": "anh chị em họ",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan's parents take a photo in Hanoi.",
+          "Linh shows her family photo to Lan.",
+          "Lan tells Linh about the people in a family photo.",
+          "Uncle Hai talks about his farm."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh xem tấm ảnh trên bàn của Lan, và Lan kể từng người trong ảnh: ông bà, chú Hai, thím Hoa, bé Bo, anh họ Minh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who has a farm near Hue?",
+        "promptVi": "Ai có trang trại gần Huế?",
+        "options": [
+          "Lan's grandfather",
+          "Uncle Hai",
+          "Aunt Hoa",
+          "Minh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"He is Dad's brother, and he has a farm near Hue\": chú Hai có trang trại. Ông bà có một ngôi nhà lớn ở Huế."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is the baby?",
+        "promptVi": "Em bé trong ảnh là ai?",
+        "options": [
+          "Lan",
+          "Minh",
+          "Bo, Uncle Hai's son",
+          "Linh's brother"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"The baby is their son, Bo\": em bé là bé Bo, con trai của chú Hai và thím Hoa."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan's parents are in the photo.",
+        "promptVi": "Bố mẹ của Lan có trong ảnh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Lan's parents aren't in the photo, because her dad has the camera!\": bố Lan cầm máy ảnh nên bố mẹ không có trong ảnh."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"glasses\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Her grandfather has white hair and glasses.",
+        "options": [
+          "cái cốc",
+          "kính đeo mắt",
+          "cái mũ",
+          "đồng hồ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khi tả người, \"has glasses\" là có đeo kính. Glass (số ít) mới là cái cốc thủy tinh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Have / has (có)",
+      "bodyVi": "Để tả người có gì (tóc, mắt, kính, khuôn mặt), dùng have / has + danh từ: He has big brown eyes. Một người đi với has, nhiều người đi với have: They have a big house. Còn để nói người đó thế nào thì dùng be + tính từ: The man is tall.",
+      "examples": [
+        "Her grandfather has white hair and glasses.",
+        "They have a big house in Hue.",
+        "He has big brown eyes."
+      ]
+    },
+    "writingPrompt": "Write about a family photo: who is in it and what each person has.",
+    "sentenceTranslations": [
+      "Lan có một tấm ảnh gia đình trên bàn học.",
+      "Bạn của Lan là Linh nhìn tấm ảnh.",
+      "\"Đây là gia đình bạn à?\" Linh hỏi.",
+      "\"Ừ, đây là gia đình bên nội mình,\" Lan nói.",
+      "Trong ảnh, ông bà của Lan ở chính giữa.",
+      "Ông của Lan có tóc bạc và đeo kính.",
+      "Bà của Lan có khuôn mặt hiền hậu.",
+      "Ông bà có một ngôi nhà lớn ở Huế.",
+      "Người đàn ông cao đội mũ là chú Hai.",
+      "Chú là em trai của bố, và chú có một trang trại gần Huế.",
+      "Người phụ nữ bế em bé là vợ chú, thím Hoa.",
+      "Em bé là con trai của chú thím, bé Bo.",
+      "Bé có đôi mắt to màu nâu.",
+      "\"Bạn trai này là anh trai bạn à?\" Linh hỏi.",
+      "\"Không, đó là anh họ mình, anh Minh,\" Lan nói.",
+      "\"Anh ấy mười sáu tuổi, và anh ấy có rất nhiều bạn.\"",
+      "Bố mẹ Lan không có trong ảnh, vì bố cầm máy ảnh!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu người thân trong ảnh gia đình và tả họ bằng have / has (has white hair, has big eyes).",
+    "examples": [
+      {
+        "lemma": "family photo",
+        "sentence": "This family photo is from Hue.",
+        "meaningVi": "Tấm ảnh gia đình này chụp ở Huế."
+      },
+      {
+        "lemma": "grandparents",
+        "sentence": "My grandparents have a small garden.",
+        "meaningVi": "Ông bà mình có một khu vườn nhỏ."
+      },
+      {
+        "lemma": "grandfather",
+        "sentence": "My grandfather has short white hair.",
+        "meaningVi": "Ông mình có mái tóc bạc ngắn."
+      },
+      {
+        "lemma": "grandmother",
+        "sentence": "Her grandmother is eighty.",
+        "meaningVi": "Bà của cô ấy tám mươi tuổi."
+      },
+      {
+        "lemma": "uncle",
+        "sentence": "My uncle has two dogs.",
+        "meaningVi": "Chú mình có hai con chó."
+      },
+      {
+        "lemma": "aunt",
+        "sentence": "My aunt is a nurse in Da Nang.",
+        "meaningVi": "Cô mình là y tá ở Đà Nẵng."
+      },
+      {
+        "lemma": "baby",
+        "sentence": "The baby has a red hat.",
+        "meaningVi": "Em bé đội một chiếc mũ đỏ."
+      },
+      {
+        "lemma": "cousin",
+        "sentence": "My cousin is ten, and she has a cat.",
+        "meaningVi": "Em họ mình mười tuổi, và em ấy có một con mèo."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Lan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Lan, is this your new photo?",
+          "meaningVi": "Lan ơi, đây là ảnh mới của em à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's my friend Linh's family.",
+          "meaningVi": "Vâng, đây là gia đình của bạn em, Linh."
+        },
+        {
+          "speaker": 0,
+          "text": "Is this woman her mum?",
+          "meaningVi": "Người phụ nữ này là mẹ của bạn ấy à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, she is. Her mum has a small cake shop.",
+          "meaningVi": "Đúng rồi. Mẹ bạn ấy có một tiệm bánh nhỏ."
+        },
+        {
+          "speaker": 0,
+          "text": "And who is the old man?",
+          "meaningVi": "Còn ông cụ là ai?"
+        },
+        {
+          "speaker": 1,
+          "text": "He's Linh's grandfather. He has a big garden.",
+          "meaningVi": "Đó là ông của Linh. Ông có một khu vườn lớn."
+        },
+        {
+          "speaker": 0,
+          "text": "Is the baby her brother?",
+          "meaningVi": "Em bé là em trai của bạn ấy à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he's her cousin. His name is Tin.",
+          "meaningVi": "Không, đó là em họ của bạn ấy. Bé tên là Tín."
+        },
+        {
+          "speaker": 0,
+          "text": "He has a lot of hair!",
+          "meaningVi": "Bé nhiều tóc ghê!"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, and he has a very big smile too.",
+          "meaningVi": "Đúng vậy, mà bé còn cười rất tươi nữa."
+        }
+      ]
+    },
+    "grammarTipVi": "Tả tóc, mắt, kính thì dùng has: \"She has long hair.\", không nói \"She is long hair.\". Tả cao, thấp, tốt bụng thì dùng is: \"She is tall.\"",
+    "translations": [
+      {
+        "vi": "Ông tôi có tóc bạc.",
+        "en": "My grandfather has white hair.",
+        "distractors": [
+          "have",
+          "is",
+          "grandmother"
+        ]
+      },
+      {
+        "vi": "Ông bà tôi có một ngôi nhà lớn.",
+        "en": "My grandparents have a big house.",
+        "distractors": [
+          "has",
+          "are",
+          "small"
+        ]
+      },
+      {
+        "vi": "Chú tôi có một trang trại.",
+        "en": "My uncle has a farm.",
+        "distractors": [
+          "have",
+          "aunt",
+          "is"
+        ]
+      },
+      {
+        "vi": "Em bé có đôi mắt to.",
+        "en": "The baby has big eyes.",
+        "distractors": [
+          "have",
+          "is",
+          "small"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và Lan đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Xem ảnh gia đình của bạn Linh",
+          "Chụp ảnh ở trường",
+          "Mua bánh ở tiệm của mẹ Linh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"it's my friend Linh's family\", rồi hai anh em hỏi nhau về từng người trong ảnh.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mẹ của Linh có gì?",
+        "promptVi": "",
+        "options": [
+          "Một khu vườn lớn",
+          "Một tiệm bánh nhỏ",
+          "Một trang trại"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"Her mum has a small cake shop\": mẹ Linh có một tiệm bánh nhỏ. Khu vườn lớn là của ông Linh.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Em bé trong ảnh là ai?",
+        "promptVi": "",
+        "options": [
+          "Em trai của Linh",
+          "Em họ của Linh",
+          "Con của Lan"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"No, he's her cousin\": em bé là em họ của Linh, không phải em trai.",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh's grandfather has a big garden.",
+        "promptVi": "Ông của Linh có một khu vườn lớn.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Lan nói \"He's Linh's grandfather. He has a big garden.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Trong ảnh có những ai, và mỗi người có gì?",
+    "grammarStep": {
+      "titleVi": "Have / has (có)",
+      "noticing": [
+        {
+          "sentence": "Her grandfather has white hair and glasses.",
+          "highlights": [
+            "has"
+          ]
+        },
+        {
+          "sentence": "He has big brown eyes.",
+          "highlights": [
+            "has"
+          ]
+        },
+        {
+          "sentence": "The tall man with a hat is Uncle Hai.",
+          "highlights": [
+            "is"
+          ]
+        },
+        {
+          "sentence": "They have a big house in Hue.",
+          "highlights": [
+            "have"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"has white hair\" nhưng lại nói \"is tall\" (The man is tall)?",
+      "options": [
+        "Vì has chỉ dùng cho người già",
+        "Vì hair là danh từ (thứ người đó có), còn tall là tính từ (người đó thế nào)",
+        "Vì tall đứng trước man"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Trước danh từ chỉ thứ người đó có (hair, eyes, glasses, a house) dùng have / has; trước tính từ (tall, kind, old) dùng am / is / are.",
+      "whenVi": "Dùng have / has + danh từ để tả người có gì (tóc, mắt, kính); dùng be + tính từ để nói người đó thế nào (cao, tốt bụng).",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "have + danh từ: They have a big house.",
+          "negative": "—"
+        },
+        {
+          "subject": "he / she / it",
+          "form": "has + danh từ: He has brown eyes.",
+          "negative": "—"
+        },
+        {
+          "subject": "so sánh: be + tính từ",
+          "form": "He is tall. She is kind.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She is long hair.",
+          "right": "She has long hair."
+        },
+        {
+          "wrong": "My grandparents has a big house.",
+          "right": "My grandparents have a big house."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Bà ấy tóc dài\" mà không cần động từ, nên người Việt hay viết \"She is long hair\" hoặc \"She long hair\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền have hoặc has vào chỗ trống.",
+          "text": "The baby ___ big brown eyes.",
+          "answers": [
+            "has"
+          ],
+          "explanationVi": "\"The baby\" là một người (he), và eyes là danh từ, nên dùng has."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "My grandparents ___ a big house in Hue.",
+          "options": [
+            "has",
+            "is",
+            "have",
+            "are"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "\"My grandparents\" là hai người (they), và a big house là thứ họ có, nên dùng have."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Her grandfather is white hair.",
+          "sentence": "Her grandfather has white hair.",
+          "explanationVi": "White hair là danh từ (thứ ông có), nên dùng has, không dùng is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy có mái tóc dài.",
+          "sentence": "She has long hair.",
+          "words": [
+            "hair",
+            "has",
+            "She",
+            "long",
+            "is"
+          ],
+          "explanationVi": "Tả tóc dùng has + tính từ + hair; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Her grandfather has white hair and glasses.",
+        "tipVi": "Glasses /ˈɡlæsɪz/ có âm cuối /ɪz/ như một âm tiết riêng: GLAS-iz."
+      },
+      {
+        "text": "He has big brown eyes.",
+        "tipVi": "Brown /braʊn/ có âm /aʊ/ như \"ao\"; eyes /aɪz/ có âm /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is in your favourite family photo?",
+        "questionVi": "Ai có trong tấm ảnh gia đình mà bạn thích nhất?",
+        "frame": "My ___ and my ___ are in it."
+      },
+      {
+        "question": "Is your grandfather tall or short?",
+        "questionVi": "Ông của bạn cao hay thấp?",
+        "frame": "My grandfather is ___. He has ___ hair."
+      },
+      {
+        "question": "Who is one person in your family photo? What is he or she like?",
+        "questionVi": "Hãy kể về một người trong ảnh gia đình của bạn. Người đó thế nào?",
+        "frame": "This is my ___. He / She has ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng has để tả một người (he / she has …)",
+      "anyOf": [
+        "has",
+        "he has",
+        "she has",
+        "my grandfather has",
+        "my grandmother has",
+        "my uncle has"
+      ],
+      "outlineVi": [
+        "Nói trong ảnh có những ai.",
+        "Tả ông bà: tóc, mắt, khuôn mặt.",
+        "Tả một người khác (chú, cô, em họ) và người đó có gì."
+      ],
+      "modelAnswer": "This is my family photo. My grandparents are in the middle. My grandfather has short white hair, and my grandmother has a kind face. My uncle is tall, and he has a big hat. My aunt has a baby. The baby is my cousin, and he has a big smile."
+    }
+  },
+  "glosses": [
+    {
+      "text": "family photo",
+      "lemma": "family photo",
+      "meaningVi": "ảnh gia đình",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a family photo on her desk",
+      "phraseVi": "một tấm ảnh gia đình trên bàn học"
+    },
+    {
+      "text": "looks at",
+      "lemma": "look at",
+      "meaningVi": "nhìn",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "Linh looks at it",
+      "phraseVi": "Linh nhìn tấm ảnh"
+    },
+    {
+      "text": "grandparents",
+      "lemma": "grandparents",
+      "meaningVi": "ông bà",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "Lan's grandparents",
+      "phraseVi": "ông bà của Lan"
+    },
+    {
+      "text": "middle",
+      "lemma": "middle",
+      "meaningVi": "chính giữa",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "in the middle",
+      "phraseVi": "ở chính giữa"
+    },
+    {
+      "text": "glasses",
+      "lemma": "glasses",
+      "meaningVi": "kính đeo mắt",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "white hair and glasses",
+      "phraseVi": "tóc bạc và đeo kính"
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "meaningVi": "hiền hậu, tốt bụng",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "a kind face",
+      "phraseVi": "khuôn mặt hiền hậu"
+    },
+    {
+      "text": "face",
+      "lemma": "face",
+      "meaningVi": "khuôn mặt",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a kind face",
+      "phraseVi": "khuôn mặt hiền hậu"
+    },
+    {
+      "text": "hat",
+      "lemma": "hat",
+      "meaningVi": "cái mũ",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "with a hat",
+      "phraseVi": "đội mũ"
+    },
+    {
+      "text": "farm",
+      "lemma": "farm",
+      "meaningVi": "trang trại",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "a farm near Hue",
+      "phraseVi": "một trang trại gần Huế"
+    },
+    {
+      "text": "wife",
+      "lemma": "wife",
+      "meaningVi": "vợ",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "his wife, Aunt Hoa",
+      "phraseVi": "vợ chú, thím Hoa"
+    },
+    {
+      "text": "son",
+      "lemma": "son",
+      "meaningVi": "con trai",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "their son, Bo",
+      "phraseVi": "con trai của chú thím, bé Bo"
+    },
+    {
+      "text": "brown",
+      "lemma": "brown",
+      "meaningVi": "màu nâu",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "big brown eyes",
+      "phraseVi": "đôi mắt to màu nâu"
+    },
+    {
+      "text": "cousin",
+      "lemma": "cousin",
+      "meaningVi": "anh họ",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "my cousin Minh",
+      "phraseVi": "anh họ mình, anh Minh"
+    },
+    {
+      "text": "camera",
+      "lemma": "camera",
+      "meaningVi": "máy ảnh",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "her dad has the camera",
+      "phraseVi": "bố cầm máy ảnh"
+    }
+  ]
+}

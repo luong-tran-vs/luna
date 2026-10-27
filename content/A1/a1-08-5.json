@@ -1,0 +1,606 @@
+{
+  "content": "Huy is a new student at Minh's school, and he wants a club after school.\n\n\"What clubs does our school have?\" asks Huy.\n\"There's a football club, a music club and an English club,\" says Minh.\n\"Does the English club meet every day?\"\n\"No, it doesn't,\" says Minh. \"It meets on Tuesday and Thursday.\"\n\n\"Do you play football?\" asks Huy.\n\"Yes, I do,\" says Minh. \"Our team plays on Wednesday afternoon.\"\n\"I don't like football,\" says Anna. \"I go to the music club too, and we sing and play the guitar there.\"\n\nHuy thinks about it. He doesn't play football, and he doesn't sing very well. But he loves English.\n\"Are there a lot of students in the English club?\" he asks.\n\"Yes, there are, and Miss Lee is very nice,\" says Minh. So Huy joins the English club.",
+  "targetWords": [
+    "student",
+    "club",
+    "football",
+    "meet",
+    "team",
+    "music",
+    "sing",
+    "join"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "student",
+        "lemma": "student",
+        "meaningVi": "học sinh",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "club",
+        "lemma": "club",
+        "meaningVi": "câu lạc bộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "football",
+        "lemma": "football",
+        "meaningVi": "bóng đá",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "meet",
+        "lemma": "meet",
+        "meaningVi": "họp, gặp nhau",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "đội",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "music",
+        "lemma": "music",
+        "meaningVi": "âm nhạc",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "sing",
+        "lemma": "sing",
+        "meaningVi": "hát",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "joins",
+        "lemma": "join",
+        "meaningVi": "tham gia",
+        "pos": "verb",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Minh's football match",
+          "Anna's music lesson",
+          "Miss Lee's English class",
+          "Huy asks about the clubs at school and chooses one."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Huy là học sinh mới, hỏi trường có những câu lạc bộ nào, rồi chọn câu lạc bộ tiếng Anh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When does the English club meet?",
+        "promptVi": "Câu lạc bộ tiếng Anh họp vào khi nào?",
+        "options": [
+          "Every day",
+          "On Tuesday and Thursday",
+          "On Wednesday",
+          "On Friday"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"It meets on Tuesday and Thursday\". Thứ Tư là ngày đội bóng thi đấu."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which club does Huy join?",
+        "promptVi": "Huy tham gia câu lạc bộ nào?",
+        "options": [
+          "The football club",
+          "The music club",
+          "The English club",
+          "No club"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Huy không chơi bóng đá, hát không hay, nhưng rất thích tiếng Anh: \"So Huy joins the English club\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Huy sings very well.",
+        "promptVi": "Huy hát rất hay.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"he doesn't sing very well\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"joins\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "So Huy joins the English club.",
+        "options": [
+          "rời khỏi",
+          "tham gia",
+          "đến thăm",
+          "mở ra"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Join là tham gia, trở thành thành viên: Huy tham gia câu lạc bộ tiếng Anh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Hỏi về một nơi hay một nhóm (our school, the English club) thì dùng does, vì chúng được coi là it: What clubs does our school have? Does the English club meet every day? – No, it doesn't. Nói điều một người không làm: He doesn't play football.",
+      "examples": [
+        "What clubs does our school have?",
+        "Does the English club meet every day?",
+        "He doesn't play football, and he doesn't sing very well."
+      ]
+    },
+    "writingPrompt": "Write about the clubs at your school: which clubs there are, when they meet and which one you like.",
+    "sentenceTranslations": [
+      "Huy là học sinh mới ở trường của Minh, và bạn ấy muốn tham gia một câu lạc bộ sau giờ học.",
+      "\"Trường mình có những câu lạc bộ nào?\" Huy hỏi.",
+      "\"Có câu lạc bộ bóng đá, câu lạc bộ âm nhạc và câu lạc bộ tiếng Anh,\" Minh nói.",
+      "\"Câu lạc bộ tiếng Anh có họp hằng ngày không?\"",
+      "\"Không,\" Minh nói.",
+      "\"Câu lạc bộ họp vào thứ Ba và thứ Năm.\"",
+      "\"Bạn có chơi bóng đá không?\" Huy hỏi.",
+      "\"Có,\" Minh nói.",
+      "\"Đội mình thi đấu vào chiều thứ Tư.\"",
+      "\"Mình không thích bóng đá,\" Anna nói.",
+      "\"Mình cũng đi câu lạc bộ âm nhạc nữa, ở đó bọn mình hát và chơi đàn ghi-ta.\"",
+      "Huy suy nghĩ.",
+      "Bạn ấy không chơi bóng đá, và hát cũng không hay lắm.",
+      "Nhưng bạn ấy rất thích tiếng Anh.",
+      "\"Câu lạc bộ tiếng Anh có đông học sinh không?\" Huy hỏi.",
+      "\"Đông lắm, mà cô Lee rất dễ mến,\" Minh nói.",
+      "Thế là Huy tham gia câu lạc bộ tiếng Anh."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi về các câu lạc bộ ở trường (What clubs does …? Does the club meet …?) và trả lời Yes, it does / No, it doesn't.",
+    "examples": [
+      {
+        "lemma": "student",
+        "sentence": "Every student has a club after school.",
+        "meaningVi": "Học sinh nào cũng có một câu lạc bộ sau giờ học."
+      },
+      {
+        "lemma": "club",
+        "sentence": "Does your school have an art club?",
+        "meaningVi": "Trường bạn có câu lạc bộ mỹ thuật không?"
+      },
+      {
+        "lemma": "football",
+        "sentence": "My brother plays football on Sunday.",
+        "meaningVi": "Anh mình đá bóng vào Chủ nhật."
+      },
+      {
+        "lemma": "meet",
+        "sentence": "We meet in Room 12.",
+        "meaningVi": "Bọn mình họp ở phòng 12."
+      },
+      {
+        "lemma": "team",
+        "sentence": "Our team doesn't play on Monday.",
+        "meaningVi": "Đội của bọn mình không thi đấu vào thứ Hai."
+      },
+      {
+        "lemma": "music",
+        "sentence": "Do you like music?",
+        "meaningVi": "Bạn có thích âm nhạc không?"
+      },
+      {
+        "lemma": "sing",
+        "sentence": "My sister doesn't sing in the morning.",
+        "meaningVi": "Em gái mình không hát vào buổi sáng."
+      },
+      {
+        "lemma": "join",
+        "sentence": "I want to join the music club.",
+        "meaningVi": "Mình muốn tham gia câu lạc bộ âm nhạc."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Kenji",
+        "Huy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi! Are you new here?",
+          "meaningVi": "Chào bạn! Bạn mới đến à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am. I'm Huy. Do you come every week?",
+          "meaningVi": "Đúng rồi. Mình là Huy. Tuần nào bạn cũng đến à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do. I come on Tuesday and Thursday.",
+          "meaningVi": "Ừ. Mình đến vào thứ Ba và thứ Năm."
+        },
+        {
+          "speaker": 1,
+          "text": "What do you do here?",
+          "meaningVi": "Ở đây các bạn làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "We talk in English, and we play games.",
+          "meaningVi": "Bọn mình nói chuyện bằng tiếng Anh và chơi trò chơi."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you sing songs too?",
+          "meaningVi": "Các bạn có hát không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, we don't. The music club sings songs.",
+          "meaningVi": "Không. Câu lạc bộ âm nhạc mới hát."
+        },
+        {
+          "speaker": 1,
+          "text": "Does Miss Lee give homework?",
+          "meaningVi": "Cô Lee có giao bài tập về nhà không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, she doesn't. That's great!",
+          "meaningVi": "Không. Tuyệt chưa!"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes! I like this club.",
+          "meaningVi": "Đúng thế! Mình thích câu lạc bộ này."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi có từ để hỏi: What / When / Why + do / does + chủ ngữ + động từ giữ nguyên. What clubs does our school have? What do you do here?",
+    "translations": [
+      {
+        "vi": "Câu lạc bộ có họp hằng ngày không?",
+        "en": "Does the club meet every day?",
+        "distractors": [
+          "Do",
+          "meets",
+          "is"
+        ]
+      },
+      {
+        "vi": "Tôi không thích bóng đá.",
+        "en": "I don't like football.",
+        "distractors": [
+          "doesn't",
+          "likes",
+          "not"
+        ]
+      },
+      {
+        "vi": "Đội của chúng tôi thi đấu vào thứ Tư.",
+        "en": "Our team plays on Wednesday.",
+        "distractors": [
+          "play",
+          "in",
+          "at"
+        ]
+      },
+      {
+        "vi": "Huy tham gia câu lạc bộ tiếng Anh.",
+        "en": "Huy joins the English club.",
+        "distractors": [
+          "join",
+          "does",
+          "clubs"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Kenji và Huy nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Câu lạc bộ tiếng Anh",
+          "Đội bóng của trường",
+          "Bài tập về nhà môn toán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy mới đến câu lạc bộ, và Kenji kể ở đây các bạn làm gì, họp khi nào, cô Lee có giao bài tập không.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở câu lạc bộ các bạn làm gì?",
+        "promptVi": "",
+        "options": [
+          "Hát và chơi đàn",
+          "Nói tiếng Anh và chơi trò chơi",
+          "Đá bóng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Kenji nói \"We talk in English, and we play games\".",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cô Lee có giao bài tập về nhà không?",
+        "promptVi": "",
+        "options": [
+          "Có, mỗi tuần",
+          "Có, mỗi ngày",
+          "Không"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Kenji nói \"No, she doesn't. That's great!\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The English club sings songs.",
+        "promptVi": "Câu lạc bộ tiếng Anh hát.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Kenji nói \"No, we don't. The music club sings songs\".",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Trường có những câu lạc bộ nào, và vì sao Huy chọn câu lạc bộ tiếng Anh?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "\"What clubs does our school have?\" asks Huy.",
+          "highlights": [
+            "does",
+            "have"
+          ]
+        },
+        {
+          "sentence": "\"Does the English club meet every day?\"",
+          "highlights": [
+            "Does",
+            "meet"
+          ]
+        },
+        {
+          "sentence": "\"No, it doesn't,\" says Minh.",
+          "highlights": [
+            "doesn't"
+          ]
+        },
+        {
+          "sentence": "He doesn't play football, and he doesn't sing very well.",
+          "highlights": [
+            "doesn't play",
+            "doesn't sing"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"What clubs does our school have?\", vì sao dùng does?",
+      "options": [
+        "Vì clubs là số nhiều",
+        "Vì our school là một (it), nên dùng does",
+        "Vì câu bắt đầu bằng What"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Chủ ngữ của câu hỏi là our school (it), không phải clubs. It đi với does, và sau does động từ giữ nguyên: have.",
+      "whenVi": "Dùng What / When … + do / does và Does …? để hỏi về câu lạc bộ, đội nhóm, trường học.",
+      "table": [
+        {
+          "subject": "What + does + it …?",
+          "form": "What clubs does our school have?",
+          "negative": "—"
+        },
+        {
+          "subject": "Does + it …?",
+          "form": "Does the English club meet every day?",
+          "negative": "No, it doesn't."
+        },
+        {
+          "subject": "he + doesn't",
+          "form": "He doesn't play football.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "What clubs our school has?",
+          "right": "What clubs does our school have?"
+        },
+        {
+          "wrong": "Does the club meets on Tuesday?",
+          "right": "Does the club meet on Tuesday?"
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi \"Trường mình có câu lạc bộ nào?\" mà không đảo từ, nên người Việt hay quên does và giữ has trong câu hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền Do hoặc Does vào chỗ trống.",
+          "text": "___ the English club meet on Tuesday? – Yes, it does.",
+          "answers": [
+            "Does"
+          ],
+          "explanationVi": "The English club là một (it), nên hỏi bằng Does."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Huy ___ play football.",
+          "options": [
+            "don't",
+            "doesn't",
+            "isn't",
+            "not"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Huy là một người (he), nên phủ định là doesn't play."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu hỏi sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Does the club meets every day?",
+          "sentence": "Does the club meet every day?",
+          "explanationVi": "Sau Does, động từ giữ nguyên: meet."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Bạn có chơi bóng đá không?",
+          "sentence": "Do you play football?",
+          "words": [
+            "play",
+            "you",
+            "Do",
+            "football",
+            "Does"
+          ],
+          "explanationVi": "Chủ ngữ you đi với Do; từ \"Does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "So Huy joins the English club.",
+        "tipVi": "Joins /dʒɔɪnz/ bắt đầu bằng /dʒ/, có âm /z/ ở cuối; club /klʌb/ kết thúc bằng /b/."
+      },
+      {
+        "text": "He doesn't play football, and he doesn't sing very well.",
+        "tipVi": "Doesn't /ˈdʌznt/ đọc gọn hai âm tiết; football /ˈfʊtbɔːl/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you go to a club after school?",
+        "questionVi": "Sau giờ học bạn có đi câu lạc bộ nào không?",
+        "frame": "Yes, I do. I go to the ___ club. / No, I don't."
+      },
+      {
+        "question": "What clubs does your school have?",
+        "questionVi": "Trường bạn có những câu lạc bộ nào?",
+        "frame": "My school has ___."
+      },
+      {
+        "question": "Does your best friend play a sport?",
+        "questionVi": "Bạn thân của bạn có chơi môn thể thao nào không?",
+        "frame": "Yes, he / she does. He / She plays ___. / No, he / she doesn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng don't / doesn't hoặc câu hỏi Do / Does …?",
+      "anyOf": [
+        "don't",
+        "doesn't",
+        "do you",
+        "does"
+      ],
+      "outlineVi": [
+        "Kể trường bạn có những câu lạc bộ nào.",
+        "Hỏi và trả lời: câu lạc bộ họp khi nào (Does … meet …?).",
+        "Nói bạn chọn câu lạc bộ nào và vì sao."
+      ],
+      "modelAnswer": "My school has a football club, an art club and an English club. I don't play football, but I love English. Does the English club meet every day? No, it doesn't. It meets on Monday and Wednesday. There are a lot of students in the club, and we sing English songs. I join the English club this year."
+    }
+  },
+  "glosses": [
+    {
+      "text": "new",
+      "lemma": "new",
+      "meaningVi": "mới",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "a new student",
+      "phraseVi": "học sinh mới"
+    },
+    {
+      "text": "after school",
+      "lemma": "after school",
+      "meaningVi": "sau giờ học",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "a club after school",
+      "phraseVi": "một câu lạc bộ sau giờ học"
+    },
+    {
+      "text": "every day",
+      "lemma": "every day",
+      "meaningVi": "hằng ngày",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "meet every day",
+      "phraseVi": "họp hằng ngày"
+    },
+    {
+      "text": "meets",
+      "lemma": "meet",
+      "meaningVi": "họp",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "It meets on Tuesday and Thursday",
+      "phraseVi": "Câu lạc bộ họp vào thứ Ba và thứ Năm"
+    },
+    {
+      "text": "plays",
+      "lemma": "play",
+      "meaningVi": "chơi, thi đấu",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "Our team plays on Wednesday afternoon",
+      "phraseVi": "Đội mình thi đấu vào chiều thứ Tư"
+    },
+    {
+      "text": "guitar",
+      "lemma": "guitar",
+      "meaningVi": "đàn ghi-ta",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "play the guitar",
+      "phraseVi": "chơi đàn ghi-ta"
+    },
+    {
+      "text": "thinks about",
+      "lemma": "think about",
+      "meaningVi": "suy nghĩ về",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "Huy thinks about it",
+      "phraseVi": "Huy suy nghĩ"
+    },
+    {
+      "text": "well",
+      "lemma": "well",
+      "meaningVi": "hay, giỏi",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "he doesn't sing very well",
+      "phraseVi": "bạn ấy hát không hay lắm"
+    },
+    {
+      "text": "a lot of",
+      "lemma": "a lot of",
+      "meaningVi": "nhiều",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "a lot of students",
+      "phraseVi": "nhiều học sinh"
+    },
+    {
+      "text": "nice",
+      "lemma": "nice",
+      "meaningVi": "dễ mến",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "Miss Lee is very nice",
+      "phraseVi": "cô Lee rất dễ mến"
+    }
+  ]
+}

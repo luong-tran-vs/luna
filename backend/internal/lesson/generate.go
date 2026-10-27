@@ -44,6 +44,18 @@ type GenerateInput struct {
 	// GrammarPointID is an optional syllabus point of the topic's level that every draft must use,
 	// or GrammarAuto to let the AI pick one point of the level for each draft.
 	GrammarPointID string
+	// Course is set when the lesson fills a slot of a course; nil for the admin's own generations.
+	Course *CoursePlan
+}
+
+// CoursePlan is what a course slot adds to a generation of one lesson (added 2026-10-27).
+type CoursePlan struct {
+	// Title is the slot's title; Idea is then the slot's plan.
+	Title string
+	// MoreGrammarIDs are the slot's points after GrammarPointID.
+	MoreGrammarIDs []string
+	// LaterGrammarIDs are the points the course teaches only in later topics.
+	LaterGrammarIDs []string
 }
 
 // GrammarAuto asks the AI to build each draft around the syllabus point of the level that fits it
@@ -93,6 +105,11 @@ func ValidateGenerate(in GenerateInput) (GenerateInput, error) {
 	in.Kind = strings.TrimSpace(in.Kind)
 	in.Idea = strings.TrimSpace(in.Idea)
 	in.GrammarPointID = strings.TrimSpace(in.GrammarPointID)
+	if in.Course != nil {
+		c := *in.Course
+		c.Title = strings.TrimSpace(c.Title)
+		in.Course = &c
+	}
 	in.Level = Level(strings.ToUpper(strings.TrimSpace(string(in.Level))))
 	fields := map[string]string{}
 	if !ValidLevel(string(in.Level)) {
@@ -162,7 +179,7 @@ func (s *Service) Generate(ctx context.Context, topicID string, in GenerateInput
 	drafts, err := s.AI.GenerateLessons(actx, ai.GenerateRequest{
 		Level: string(in.Level), TopicName: topic.Name, Count: in.Count, Words: in.Words,
 		Kind: ai.LessonKind(in.Kind), Idea: in.Idea, ExistingTitles: titles, TargetWords: targets,
-		GrammarFocus: grammarFocus(in.GrammarPointID), GrammarChoices: choices,
+		GrammarFocus: grammarFocus(in.GrammarPointID), GrammarChoices: choices, Course: courseSlot(in.Course),
 	})
 	if err != nil {
 		return GenerateResult{}, fmt.Errorf("%w: %w", errGenerateAI, err)

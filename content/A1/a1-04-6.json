@@ -1,0 +1,613 @@
+{
+  "content": "It is Sunday, and it is cleaning day at Lan's home. Everyone has a job.\n\nDad cleans the kitchen. Under the table, there is a small ball. It is Milo's toy! Duc cleans the living room. Behind the sofa, there are three pens and an old sandwich.\n\nMum cleans the bathroom. In the shower, there is a yellow toy fish. \"Is this your fish, Mai?\" asks Mum.\n\"Yes, it is,\" says Mai. \"His name is Bubbles!\"\n\nLan cleans her room. Between her books, there is an old photo of Grandma. But where are Dad's glasses? They aren't on his desk, and they aren't in his bag. Mum finds them in a strange place: on the bathroom floor!\n\n\"Is there any cake for us now?\" asks Mai.\n\"Yes, there is,\" says Mum, and everyone is happy.",
+  "targetWords": [
+    "home",
+    "kitchen",
+    "table",
+    "living room",
+    "sofa",
+    "bathroom",
+    "shower",
+    "floor"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "home",
+        "lemma": "home",
+        "meaningVi": "nhà",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "table",
+        "lemma": "table",
+        "meaningVi": "cái bàn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "bathroom",
+        "lemma": "bathroom",
+        "meaningVi": "phòng tắm",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "shower",
+        "lemma": "shower",
+        "meaningVi": "vòi sen, chỗ tắm vòi sen",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "sàn nhà",
+        "pos": "noun",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mai's new toy fish",
+          "Dad's new glasses",
+          "Lan's family cleans the house and finds things in strange places.",
+          "A party with cake"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chủ nhật cả nhà Lan dọn dẹp, mỗi người một phòng, và tìm thấy đồ ở những chỗ lạ: bóng dưới gầm bàn, cá đồ chơi trong chỗ tắm, kính trên sàn phòng tắm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is behind the sofa?",
+        "promptVi": "Sau ghế sofa có gì?",
+        "options": [
+          "A small ball",
+          "Three pens and an old sandwich",
+          "A toy fish",
+          "Dad's glasses"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Behind the sofa, there are three pens and an old sandwich\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are Dad's glasses?",
+        "promptVi": "Kính của bố ở đâu?",
+        "options": [
+          "On the bathroom floor",
+          "On his desk",
+          "In his bag",
+          "Under the table"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Mum finds them in a strange place: on the bathroom floor!\". Kính không có trên bàn hay trong cặp."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Milo's toy is under the table.",
+        "promptVi": "Đồ chơi của Milo ở dưới gầm bàn.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"Under the table, there is a small ball. It is Milo's toy!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"strange\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mum finds them in a strange place: on the bathroom floor!",
+        "options": [
+          "sạch",
+          "lạ, kỳ quặc",
+          "quen thuộc",
+          "nhỏ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Strange là lạ: kính thường để trên bàn hay trong cặp, nằm trên sàn phòng tắm là một chỗ rất lạ."
+      }
+    ],
+    "grammarNote": {
+      "title": "There is / there are",
+      "bodyVi": "Có thể đưa nơi chốn lên đầu câu rồi mới nói there is / there are: Under the table, there is a small ball. (= There is a small ball under the table.) Vẫn chọn is hay are theo danh từ đi sau: there is a ball, there are three pens.",
+      "examples": [
+        "Under the table, there is a small ball.",
+        "Behind the sofa, there are three pens and an old sandwich.",
+        "In the shower, there is a yellow toy fish."
+      ]
+    },
+    "writingPrompt": "Write about cleaning day at your home: who cleans which room and what there is in strange places.",
+    "sentenceTranslations": [
+      "Hôm nay là Chủ nhật, và là ngày tổng vệ sinh ở nhà Lan.",
+      "Ai cũng có một việc.",
+      "Bố dọn nhà bếp.",
+      "Dưới gầm bàn có một quả bóng nhỏ.",
+      "Đó là đồ chơi của Milo!",
+      "Anh Đức dọn phòng khách.",
+      "Sau ghế sofa có ba cây bút và một chiếc bánh mì kẹp cũ.",
+      "Mẹ dọn phòng tắm.",
+      "Trong chỗ tắm vòi sen có một con cá đồ chơi màu vàng.",
+      "\"Đây là con cá của con à, Mai?\" mẹ hỏi.",
+      "\"Vâng ạ,\" Mai nói.",
+      "\"Nó tên là Bubbles!\"",
+      "Lan dọn phòng mình.",
+      "Giữa những quyển sách có một tấm ảnh cũ của bà.",
+      "Nhưng kính của bố đâu rồi?",
+      "Kính không có trên bàn của bố, cũng không có trong cặp.",
+      "Mẹ tìm thấy kính ở một chỗ rất lạ: trên sàn phòng tắm!",
+      "\"Bây giờ có bánh cho bọn con không ạ?\" Mai hỏi.",
+      "\"Có chứ,\" mẹ nói, và ai cũng vui."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể ở đâu có gì bằng nơi chốn + there is / there are (Under the table, there is a ball).",
+    "examples": [
+      {
+        "lemma": "home",
+        "sentence": "My home is near a big park.",
+        "meaningVi": "Nhà mình ở gần một công viên lớn."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "In the kitchen, there is a big table.",
+        "meaningVi": "Trong bếp có một cái bàn lớn."
+      },
+      {
+        "lemma": "table",
+        "sentence": "There are two cups on the table.",
+        "meaningVi": "Trên bàn có hai cái cốc."
+      },
+      {
+        "lemma": "living room",
+        "sentence": "Dad cleans the living room on Sunday.",
+        "meaningVi": "Bố dọn phòng khách vào Chủ nhật."
+      },
+      {
+        "lemma": "sofa",
+        "sentence": "Behind the sofa, there is a small box.",
+        "meaningVi": "Sau ghế sofa có một cái hộp nhỏ."
+      },
+      {
+        "lemma": "bathroom",
+        "sentence": "Our bathroom is small but clean.",
+        "meaningVi": "Phòng tắm nhà mình nhỏ nhưng sạch."
+      },
+      {
+        "lemma": "shower",
+        "sentence": "There is a towel near the shower.",
+        "meaningVi": "Gần vòi sen có một chiếc khăn tắm."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "There are some toys on the floor.",
+        "meaningVi": "Trên sàn có vài món đồ chơi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duc",
+        "Lan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Lan, is there a bag for old things?",
+          "meaningVi": "Lan ơi, có túi để đựng đồ cũ không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there is. It's in the kitchen, near the door.",
+          "meaningVi": "Có anh ạ. Ở trong bếp, gần cửa."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. There are a lot of old papers behind the television.",
+          "meaningVi": "Tốt. Sau ti vi có rất nhiều giấy cũ."
+        },
+        {
+          "speaker": 1,
+          "text": "Are there any books?",
+          "meaningVi": "Có quyển sách nào không anh?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, there aren't. But there's a photo of you and Mai!",
+          "meaningVi": "Không có. Nhưng có một tấm ảnh của em và Mai!"
+        },
+        {
+          "speaker": 1,
+          "text": "Where is it?",
+          "meaningVi": "Ảnh đâu anh?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's on the sofa now.",
+          "meaningVi": "Bây giờ ở trên ghế sofa."
+        },
+        {
+          "speaker": 1,
+          "text": "Is the living room clean?",
+          "meaningVi": "Phòng khách sạch chưa anh?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. There are a lot of Milo's toys under the sofa.",
+          "meaningVi": "Chưa. Dưới gầm sofa còn rất nhiều đồ chơi của Milo."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh, Milo!",
+          "meaningVi": "Ôi, Milo!"
+        }
+      ]
+    },
+    "grammarTipVi": "Có thể đưa nơi chốn lên đầu câu: Under the table, there is a ball. Câu này cùng nghĩa với There is a ball under the table.",
+    "translations": [
+      {
+        "vi": "Dưới gầm bàn có một quả bóng.",
+        "en": "There is a ball under the table.",
+        "distractors": [
+          "are",
+          "on",
+          "has"
+        ]
+      },
+      {
+        "vi": "Bố dọn nhà bếp.",
+        "en": "Dad cleans the kitchen.",
+        "distractors": [
+          "clean",
+          "is",
+          "on"
+        ]
+      },
+      {
+        "vi": "Sau ghế sofa có ba cây bút.",
+        "en": "There are three pens behind the sofa.",
+        "distractors": [
+          "is",
+          "in",
+          "pen"
+        ]
+      },
+      {
+        "vi": "Kính của bố ở trên sàn.",
+        "en": "Dad's glasses are on the floor.",
+        "distractors": [
+          "is",
+          "in",
+          "Dad"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Đức và Lan đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Dọn dẹp nhà cửa",
+          "Chụp ảnh",
+          "Chơi với Milo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức tìm túi đựng đồ cũ, dọn giấy sau ti vi, và hai anh em nói phòng khách đã sạch chưa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Túi đựng đồ cũ ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Dưới ghế sofa",
+          "Trong bếp, gần cửa",
+          "Sau ti vi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"It's in the kitchen, near the door\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sau ti vi có gì?",
+        "promptVi": "",
+        "options": [
+          "Sách",
+          "Rất nhiều giấy cũ",
+          "Đồ chơi của Milo"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"There are a lot of old papers behind the television\". Đồ chơi của Milo ở dưới ghế sofa.",
+        "turnIndex": 2
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The living room is clean now.",
+        "promptVi": "Bây giờ phòng khách đã sạch.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"Not yet. There are a lot of Milo's toys under the sofa\".",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Mỗi người dọn phòng nào, và tìm thấy gì ở đó?",
+    "grammarStep": {
+      "titleVi": "There is / there are",
+      "noticing": [
+        {
+          "sentence": "Under the table, there is a small ball.",
+          "highlights": [
+            "Under the table",
+            "there is"
+          ]
+        },
+        {
+          "sentence": "Behind the sofa, there are three pens and an old sandwich.",
+          "highlights": [
+            "Behind the sofa",
+            "there are"
+          ]
+        },
+        {
+          "sentence": "In the shower, there is a yellow toy fish.",
+          "highlights": [
+            "In the shower",
+            "there is"
+          ]
+        },
+        {
+          "sentence": "Between her books, there is an old photo of Grandma.",
+          "highlights": [
+            "Between her books",
+            "there is"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"Under the table, there is a small ball\", phần đứng đầu câu cho biết điều gì?",
+      "options": [
+        "Thời gian",
+        "Vị trí (ở đâu)",
+        "Người làm việc đó"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Under the table, Behind the sofa là nơi chốn, đặt lên đầu câu để nói \"ở đó có gì\". Sau dấu phẩy vẫn là there is / there are như bình thường.",
+      "whenVi": "Dùng nơi chốn + there is / there are để kể ở chỗ nào đó có những gì.",
+      "table": [
+        {
+          "subject": "nơi chốn + there is",
+          "form": "Under the table, there is a ball.",
+          "negative": "Under the bed, there isn't a ball."
+        },
+        {
+          "subject": "nơi chốn + there are",
+          "form": "Behind the sofa, there are three pens.",
+          "negative": "On the desk, there aren't any books."
+        },
+        {
+          "subject": "câu hỏi",
+          "form": "Is there any cake? – Yes, there is.",
+          "negative": "No, there isn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Under the table have a small ball.",
+          "right": "Under the table, there is a small ball."
+        },
+        {
+          "wrong": "Behind the sofa, there is three pens.",
+          "right": "Behind the sofa, there are three pens."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Dưới gầm bàn có một quả bóng\", nên người Việt hay dịch \"có\" thành have thay vì there is.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền is hoặc are vào chỗ trống.",
+          "text": "Behind the sofa, there ___ three pens.",
+          "answers": [
+            "are"
+          ],
+          "explanationVi": "Three pens là số nhiều, nên dùng there are."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "In the shower, there ___ a toy fish.",
+          "options": [
+            "are",
+            "is",
+            "has",
+            "have"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "A toy fish là một vật, nên dùng there is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Under the bed, there are a small ball.",
+          "sentence": "Under the bed, there is a small ball.",
+          "explanationVi": "A small ball là số ít, nên dùng there is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Trong phòng tắm có một chiếc khăn tắm.",
+          "sentence": "There is a towel in the bathroom.",
+          "words": [
+            "towel",
+            "is",
+            "There",
+            "a",
+            "in",
+            "the",
+            "bathroom",
+            "are"
+          ],
+          "explanationVi": "A towel là số ít nên dùng there is; từ \"are\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Behind the sofa, there are three pens and an old sandwich.",
+        "tipVi": "Sandwich /ˈsænwɪtʃ/ kết thúc bằng /tʃ/; pens /penz/ có âm /z/ ở cuối."
+      },
+      {
+        "text": "Everyone has a job.",
+        "tipVi": "Job /dʒɑːb/ bắt đầu bằng /dʒ/ (như \"gi\" bật mạnh) và kết thúc bằng /b/, khép môi ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a cleaning day at your home?",
+        "questionVi": "Nhà bạn có ngày tổng vệ sinh không?",
+        "frame": "Yes, there is. It's on ___. / No, there isn't."
+      },
+      {
+        "question": "What is under your bed now?",
+        "questionVi": "Bây giờ dưới gầm giường của bạn có gì?",
+        "frame": "Under my bed, there is ___."
+      },
+      {
+        "question": "Which room is your mum's or dad's job on cleaning day?",
+        "questionVi": "Vào ngày dọn dẹp, bố hoặc mẹ bạn dọn phòng nào?",
+        "frame": "My ___ cleans the ___. He / She is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng there is hoặc there are",
+      "anyOf": [
+        "there is",
+        "there are",
+        "there isn't",
+        "there aren't",
+        "there's"
+      ],
+      "outlineVi": [
+        "Nói hôm nay là ngày dọn dẹp ở nhà bạn.",
+        "Kể mỗi người dọn phòng nào.",
+        "Kể ở mỗi chỗ có đồ vật gì lạ."
+      ],
+      "modelAnswer": "Today is cleaning day at my home. My dad cleans the kitchen. Under the table, there is an old pen. My mum cleans the bathroom. In the shower, there are two toy cars! I clean the living room. Behind the sofa, there is my old book. It is a strange day, but it is fun."
+    }
+  },
+  "glosses": [
+    {
+      "text": "cleaning day",
+      "lemma": "cleaning day",
+      "meaningVi": "ngày tổng vệ sinh",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "it is cleaning day",
+      "phraseVi": "là ngày tổng vệ sinh"
+    },
+    {
+      "text": "job",
+      "lemma": "job",
+      "meaningVi": "việc, công việc",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "Everyone has a job",
+      "phraseVi": "Ai cũng có một việc"
+    },
+    {
+      "text": "cleans",
+      "lemma": "clean",
+      "meaningVi": "dọn dẹp, lau chùi",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "Dad cleans the kitchen",
+      "phraseVi": "Bố dọn nhà bếp"
+    },
+    {
+      "text": "toy",
+      "lemma": "toy",
+      "meaningVi": "đồ chơi",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "Milo's toy",
+      "phraseVi": "đồ chơi của Milo"
+    },
+    {
+      "text": "sandwich",
+      "lemma": "sandwich",
+      "meaningVi": "bánh mì kẹp",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "an old sandwich",
+      "phraseVi": "một chiếc bánh mì kẹp cũ"
+    },
+    {
+      "text": "fish",
+      "lemma": "fish",
+      "meaningVi": "con cá",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "a yellow toy fish",
+      "phraseVi": "một con cá đồ chơi màu vàng"
+    },
+    {
+      "text": "photo",
+      "lemma": "photo",
+      "meaningVi": "tấm ảnh",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "an old photo of Grandma",
+      "phraseVi": "một tấm ảnh cũ của bà"
+    },
+    {
+      "text": "glasses",
+      "lemma": "glasses",
+      "meaningVi": "kính đeo mắt",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "Dad's glasses",
+      "phraseVi": "kính của bố"
+    },
+    {
+      "text": "finds",
+      "lemma": "find",
+      "meaningVi": "tìm thấy",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "Mum finds them",
+      "phraseVi": "Mẹ tìm thấy kính"
+    },
+    {
+      "text": "strange",
+      "lemma": "strange",
+      "meaningVi": "lạ",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "a strange place",
+      "phraseVi": "một chỗ rất lạ"
+    }
+  ]
+}

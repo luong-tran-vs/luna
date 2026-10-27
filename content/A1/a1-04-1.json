@@ -1,0 +1,614 @@
+{
+  "content": "My name is Huy, and this is my house. It is on Le Loi Street, near my school. It isn't very big, but it is nice.\n\nThere are five rooms in my house. There is a living room, a kitchen, a bathroom and two bedrooms. In the living room, there is a big sofa and a television. There are a lot of family photos on the wall.\n\nThe kitchen is small. There is a table with four chairs, and we have dinner there every evening. My bedroom is my favourite room. There is a bed, a desk and a big window.\n\nThere isn't a garden, but there are some flowers in front of the house. \"Is there a garden at your house?\" asks my friend Minh.\n\"No, there isn't,\" I answer. \"But my house has a lot of flowers!\" Minh laughs, and he says, \"Your house is great!\"",
+  "targetWords": [
+    "house",
+    "living room",
+    "kitchen",
+    "bathroom",
+    "bedroom",
+    "sofa",
+    "television",
+    "wall"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "house",
+        "lemma": "house",
+        "meaningVi": "ngôi nhà",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "bathroom",
+        "lemma": "bathroom",
+        "meaningVi": "phòng tắm",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "bedrooms",
+        "lemma": "bedroom",
+        "meaningVi": "phòng ngủ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "television",
+        "lemma": "television",
+        "meaningVi": "ti vi",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "wall",
+        "lemma": "wall",
+        "meaningVi": "bức tường",
+        "pos": "noun",
+        "sentenceIndex": 6
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Huy's school",
+          "Huy's house and its rooms",
+          "Minh's garden",
+          "A family dinner"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy tả ngôi nhà của mình: có mấy phòng và mỗi phòng có gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many rooms are there in Huy's house?",
+        "promptVi": "Nhà Huy có mấy phòng?",
+        "options": [
+          "Three",
+          "Four",
+          "Five",
+          "Six"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"There are five rooms in my house\": phòng khách, bếp, phòng tắm và hai phòng ngủ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is in the living room?",
+        "promptVi": "Trong phòng khách có gì?",
+        "options": [
+          "A big sofa and a television",
+          "A bed and a desk",
+          "A table with four chairs",
+          "A lot of flowers"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"In the living room, there is a big sofa and a television\". Bàn và bốn ghế ở trong bếp."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There is a garden at Huy's house.",
+        "promptVi": "Nhà Huy có vườn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Huy nói \"There isn't a garden\" và trả lời Minh \"No, there isn't\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"flowers\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "There isn't a garden, but there are some flowers in front of the house.",
+        "options": [
+          "cây to",
+          "hoa",
+          "cỏ",
+          "quả"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Flowers là hoa: nhà Huy không có vườn nhưng có vài chậu hoa trước nhà."
+      }
+    ],
+    "grammarNote": {
+      "title": "There is / there are",
+      "bodyVi": "Muốn nói \"ở đâu đó có cái gì\", dùng there is + một vật (số ít) và there are + nhiều vật (số nhiều): There is a sofa. There are five rooms. Phủ định: there isn't, there aren't. Câu hỏi: Is there a garden? – Yes, there is. / No, there isn't. Không dùng have cho nghĩa này.",
+      "examples": [
+        "There are five rooms in my house.",
+        "In the living room, there is a big sofa and a television.",
+        "There isn't a garden, but there are some flowers in front of the house."
+      ]
+    },
+    "writingPrompt": "Write about your home: how many rooms there are and what there is in each room.",
+    "sentenceTranslations": [
+      "Mình tên là Huy, và đây là nhà mình.",
+      "Nhà mình ở phố Lê Lợi, gần trường mình.",
+      "Nhà không lớn lắm, nhưng rất đẹp.",
+      "Nhà mình có năm phòng.",
+      "Có một phòng khách, một nhà bếp, một phòng tắm và hai phòng ngủ.",
+      "Trong phòng khách có một chiếc ghế sofa lớn và một cái ti vi.",
+      "Trên tường có rất nhiều ảnh gia đình.",
+      "Nhà bếp thì nhỏ.",
+      "Trong bếp có một cái bàn với bốn cái ghế, và tối nào cả nhà cũng ăn tối ở đó.",
+      "Phòng ngủ là căn phòng mình thích nhất.",
+      "Trong đó có một cái giường, một cái bàn học và một cửa sổ lớn.",
+      "Nhà không có vườn, nhưng có vài chậu hoa trước nhà.",
+      "\"Nhà bạn có vườn không?\" bạn mình là Minh hỏi.",
+      "\"Không có,\" mình trả lời.",
+      "\"Nhưng nhà mình có rất nhiều hoa!\"",
+      "Minh cười và nói: \"Nhà bạn tuyệt thật!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả nhà mình: có mấy phòng, mỗi phòng có gì, dùng there is / there are (không dùng have).",
+    "examples": [
+      {
+        "lemma": "house",
+        "sentence": "Our house is near a big park.",
+        "meaningVi": "Nhà mình ở gần một công viên lớn."
+      },
+      {
+        "lemma": "living room",
+        "sentence": "There is a big clock in the living room.",
+        "meaningVi": "Trong phòng khách có một chiếc đồng hồ lớn."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "Mum is in the kitchen.",
+        "meaningVi": "Mẹ đang ở trong bếp."
+      },
+      {
+        "lemma": "bathroom",
+        "sentence": "Is there a bathroom near your bedroom?",
+        "meaningVi": "Gần phòng ngủ của bạn có phòng tắm không?"
+      },
+      {
+        "lemma": "bedroom",
+        "sentence": "My bedroom is small and blue.",
+        "meaningVi": "Phòng ngủ của mình nhỏ và màu xanh."
+      },
+      {
+        "lemma": "sofa",
+        "sentence": "The cat is on the sofa.",
+        "meaningVi": "Con mèo đang nằm trên ghế sofa."
+      },
+      {
+        "lemma": "television",
+        "sentence": "There isn't a television in my room.",
+        "meaningVi": "Phòng mình không có ti vi."
+      },
+      {
+        "lemma": "wall",
+        "sentence": "There are two pictures on the wall.",
+        "meaningVi": "Trên tường có hai bức tranh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huy",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Anna, is your home a house or a flat?",
+          "meaningVi": "Anna ơi, nhà bạn là nhà riêng hay căn hộ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's a flat. It's near our school.",
+          "meaningVi": "Là căn hộ. Ở gần trường mình."
+        },
+        {
+          "speaker": 0,
+          "text": "Is it big?",
+          "meaningVi": "Có rộng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it isn't. There are two bedrooms and a small kitchen.",
+          "meaningVi": "Không rộng lắm. Có hai phòng ngủ và một nhà bếp nhỏ."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there a garden?",
+          "meaningVi": "Có vườn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, there isn't, but there's a big window in the living room.",
+          "meaningVi": "Không có, nhưng phòng khách có một cửa sổ lớn."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there a cat or a dog in your flat?",
+          "meaningVi": "Nhà bạn có nuôi mèo hay chó không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there's a white cat. Her name is Snow.",
+          "meaningVi": "Có, có một con mèo trắng. Nó tên là Snow."
+        },
+        {
+          "speaker": 0,
+          "text": "Where is her bed?",
+          "meaningVi": "Giường của nó ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's under the sofa!",
+          "meaningVi": "Ở dưới ghế sofa!"
+        }
+      ]
+    },
+    "grammarTipVi": "Nói \"trong phòng có…\" thì dùng there is / there are, không dùng have: \"In my room, there is a bed.\", không nói \"In my room have a bed.\"",
+    "translations": [
+      {
+        "vi": "Nhà tôi có năm phòng.",
+        "en": "There are five rooms in my house.",
+        "distractors": [
+          "is",
+          "have",
+          "on"
+        ]
+      },
+      {
+        "vi": "Trong phòng khách có một chiếc ghế sofa.",
+        "en": "There is a sofa in the living room.",
+        "distractors": [
+          "are",
+          "has",
+          "on"
+        ]
+      },
+      {
+        "vi": "Trong bếp không có ti vi.",
+        "en": "There isn't a television in the kitchen.",
+        "distractors": [
+          "aren't",
+          "on",
+          "has"
+        ]
+      },
+      {
+        "vi": "Có phòng tắm không?",
+        "en": "Is there a bathroom?",
+        "distractors": [
+          "Are",
+          "Has",
+          "it"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Huy hỏi Anna về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Căn hộ của Anna",
+          "Trường học của Anna",
+          "Gia đình của Anna ở London"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy hỏi nhà Anna là nhà riêng hay căn hộ, có rộng không, có vườn không, có nuôi mèo không.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Căn hộ của Anna có mấy phòng ngủ?",
+        "promptVi": "",
+        "options": [
+          "Một",
+          "Hai",
+          "Ba"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"There are two bedrooms and a small kitchen\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Giường của con mèo ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trong bếp",
+          "Gần cửa sổ",
+          "Dưới ghế sofa"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna nói \"It's under the sofa!\": giường của mèo ở dưới ghế sofa.",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There is a garden at Anna's flat.",
+        "promptVi": "Căn hộ của Anna có vườn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna nói \"No, there isn't, but there's a big window in the living room\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Nhà Huy có những phòng nào, và trong mỗi phòng có gì?",
+    "grammarStep": {
+      "titleVi": "There is / there are",
+      "noticing": [
+        {
+          "sentence": "There are five rooms in my house.",
+          "highlights": [
+            "There are"
+          ]
+        },
+        {
+          "sentence": "In the living room, there is a big sofa and a television.",
+          "highlights": [
+            "there is"
+          ]
+        },
+        {
+          "sentence": "There isn't a garden, but there are some flowers in front of the house.",
+          "highlights": [
+            "There isn't",
+            "there are"
+          ]
+        },
+        {
+          "sentence": "\"Is there a garden at your house?\" asks my friend Minh.",
+          "highlights": [
+            "Is there"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao có câu dùng there is, có câu dùng there are?",
+      "options": [
+        "Vì there are luôn đứng ở đầu câu",
+        "Vì there is đi với một vật (số ít), there are đi với nhiều vật (số nhiều)",
+        "Vì there is dùng cho phòng nhỏ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Nhìn danh từ đi sau: a garden, a big sofa (một) → there is; five rooms, some flowers (nhiều) → there are.",
+      "whenVi": "Dùng there is / there are để nói ở một nơi nào đó có cái gì (trong nhà, trong phòng, trước nhà).",
+      "table": [
+        {
+          "subject": "there is + số ít",
+          "form": "There is a sofa.",
+          "negative": "There isn't a garden."
+        },
+        {
+          "subject": "there are + số nhiều",
+          "form": "There are five rooms.",
+          "negative": "There aren't any chairs."
+        },
+        {
+          "subject": "câu hỏi",
+          "form": "Is there a garden? – Yes, there is.",
+          "negative": "No, there isn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "In my house have five rooms.",
+          "right": "There are five rooms in my house."
+        },
+        {
+          "wrong": "There is two bedrooms.",
+          "right": "There are two bedrooms."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Nhà tôi có năm phòng\" với chữ \"có\", nên người Việt hay dùng have thay cho there is / there are.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền There is hoặc There are vào chỗ trống.",
+          "text": "___ a big window in my bedroom.",
+          "answers": [
+            "There is",
+            "There's"
+          ],
+          "explanationVi": "A big window là một vật (số ít), nên dùng There is."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "There ___ four chairs in the kitchen.",
+          "options": [
+            "is",
+            "are",
+            "has",
+            "have"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Four chairs là số nhiều, nên dùng there are."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There is two bedrooms in my house.",
+          "sentence": "There are two bedrooms in my house.",
+          "explanationVi": "Two bedrooms là số nhiều, nên phải dùng there are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Không có vườn.",
+          "sentence": "There isn't a garden.",
+          "words": [
+            "a",
+            "isn't",
+            "There",
+            "garden",
+            "aren't"
+          ],
+          "explanationVi": "A garden là số ít nên dùng there isn't; từ \"aren't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There are a lot of family photos on the wall.",
+        "tipVi": "Photos /ˈfoʊtoʊz/ có âm /z/ ở cuối; there /ðer/ bắt đầu bằng /ð/ (lưỡi giữa răng)."
+      },
+      {
+        "text": "There is a bed, a desk and a big window.",
+        "tipVi": "Desk /desk/ có cụm âm cuối /sk/, đừng bỏ âm /k/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is your home a house or a flat?",
+        "questionVi": "Nhà bạn là nhà riêng hay căn hộ?",
+        "frame": "My home is a ___."
+      },
+      {
+        "question": "How many rooms are there in your home?",
+        "questionVi": "Nhà bạn có mấy phòng?",
+        "frame": "There are ___ rooms in my home."
+      },
+      {
+        "question": "What is in your brother's or sister's room?",
+        "questionVi": "Trong phòng của anh chị em bạn có gì?",
+        "frame": "In his / her room, there is ___ and there are ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng there is hoặc there are",
+      "anyOf": [
+        "there is",
+        "there are",
+        "there isn't",
+        "there aren't",
+        "there's"
+      ],
+      "outlineVi": [
+        "Nói nhà bạn là nhà riêng hay căn hộ, và có mấy phòng.",
+        "Kể trong phòng khách và nhà bếp có gì.",
+        "Kể phòng ngủ của bạn có gì, và nhà có vườn không."
+      ],
+      "modelAnswer": "I live in a flat with my family. There are four rooms: a living room, a kitchen, a bathroom and one big bedroom. In the living room, there is a sofa and a television. There are a lot of pictures on the wall. There isn't a garden, but there are some flowers near the window."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Street",
+      "lemma": "street",
+      "meaningVi": "phố, đường",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "on Le Loi Street",
+      "phraseVi": "ở phố Lê Lợi"
+    },
+    {
+      "text": "rooms",
+      "lemma": "room",
+      "meaningVi": "căn phòng",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "five rooms",
+      "phraseVi": "năm phòng"
+    },
+    {
+      "text": "living room",
+      "lemma": "living room",
+      "meaningVi": "phòng khách",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "In the living room",
+      "phraseVi": "Trong phòng khách"
+    },
+    {
+      "text": "photos",
+      "lemma": "photo",
+      "meaningVi": "bức ảnh",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "family photos",
+      "phraseVi": "ảnh gia đình"
+    },
+    {
+      "text": "chairs",
+      "lemma": "chair",
+      "meaningVi": "cái ghế",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "a table with four chairs",
+      "phraseVi": "một cái bàn với bốn cái ghế"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "yêu thích nhất",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "my favourite room",
+      "phraseVi": "căn phòng mình thích nhất"
+    },
+    {
+      "text": "window",
+      "lemma": "window",
+      "meaningVi": "cửa sổ",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "a big window",
+      "phraseVi": "một cửa sổ lớn"
+    },
+    {
+      "text": "garden",
+      "lemma": "garden",
+      "meaningVi": "khu vườn",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "There isn't a garden",
+      "phraseVi": "Nhà không có vườn"
+    },
+    {
+      "text": "flowers",
+      "lemma": "flower",
+      "meaningVi": "hoa",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "some flowers",
+      "phraseVi": "vài chậu hoa"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "phía trước",
+      "sentenceIndex": 11,
+      "pos": "preposition",
+      "phrase": "in front of the house",
+      "phraseVi": "trước nhà"
+    },
+    {
+      "text": "great",
+      "lemma": "great",
+      "meaningVi": "tuyệt vời",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "Your house is great!",
+      "phraseVi": "Nhà bạn tuyệt thật!"
+    }
+  ]
+}

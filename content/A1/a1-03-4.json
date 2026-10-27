@@ -1,0 +1,626 @@
+{
+  "content": "Lan's mum, Thu, is a teacher. Monday is her busy day.\n\nAt half past five in the morning, she gets up. At six o'clock, she makes breakfast for the family. At quarter to seven, she takes Mai to school. At seven o'clock, she is at her own school. She has five lessons on Monday. At twelve o'clock, she has one hour for lunch with the other teachers.\n\nIn the afternoon, she has two more lessons. At four o'clock, she is at the shops, and at five o'clock, she is at Mai's school again. In the evening, she cooks dinner, and the family eats together at seven.\n\n\"What time is it, Mum?\" asks Mai.\n\"It's nine o'clock, so it's time for bed,\" says Mum.\nAt ten o'clock, Thu is in bed too. \"Monday isn't my favourite day,\" she says.",
+  "targetWords": [
+    "Monday",
+    "day",
+    "half past",
+    "morning",
+    "quarter",
+    "hour",
+    "afternoon",
+    "evening"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Monday",
+        "lemma": "Monday",
+        "meaningVi": "thứ Hai",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "day",
+        "lemma": "day",
+        "meaningVi": "ngày",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "half past",
+        "lemma": "half past",
+        "meaningVi": "rưỡi (… giờ ba mươi)",
+        "pos": "phrase",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "morning",
+        "lemma": "morning",
+        "meaningVi": "buổi sáng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "quarter",
+        "lemma": "quarter",
+        "meaningVi": "mười lăm phút (một phần tư giờ)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "hour",
+        "lemma": "hour",
+        "meaningVi": "giờ, tiếng (60 phút)",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "afternoon",
+        "lemma": "afternoon",
+        "meaningVi": "buổi chiều",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "evening",
+        "lemma": "evening",
+        "meaningVi": "buổi tối",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mai's first day at school",
+          "A meeting of teachers",
+          "Lan's favourite day of the week",
+          "Lan's mum's busy Monday, hour by hour"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài kể ngày thứ Hai của mẹ Lan (cô Thu) theo từng giờ, từ năm giờ rưỡi sáng đến mười giờ tối."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When is Thu at the shops?",
+        "promptVi": "Cô Thu đi mua sắm lúc mấy giờ?",
+        "options": [
+          "At twelve o'clock",
+          "At four o'clock",
+          "At five o'clock",
+          "At seven o'clock"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"At four o'clock, she is at the shops\". Năm giờ cô ở trường của Mai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is with Thu at lunch?",
+        "promptVi": "Cô Thu ăn trưa với ai?",
+        "options": [
+          "Mai",
+          "Lan",
+          "The other teachers",
+          "Her husband"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"she has one hour for lunch with the other teachers\": cô ăn trưa với các thầy cô khác."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Monday is Thu's favourite day.",
+        "promptVi": "Thứ Hai là ngày cô Thu thích nhất.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô Thu nói \"Monday isn't my favourite day\": thứ Hai không phải ngày cô thích nhất."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"own\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "At seven o'clock, she is at her own school.",
+        "options": [
+          "mới",
+          "của chính mình",
+          "lớn",
+          "gần nhà"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"Her own school\" là trường của chính cô, nơi cô dạy, khác với trường của Mai mà cô vừa đưa Mai đến."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ thời gian (at, on, in)",
+      "bodyVi": "At đi với giờ, in đi với buổi, on đi với thứ. Có thể nói cả giờ và buổi trong một câu: at half past five in the morning (lúc năm giờ rưỡi sáng). Cách nói giờ: quarter to seven là 6:45, quarter past seven là 7:15, half past five là 5:30.",
+      "examples": [
+        "At half past five in the morning, she gets up.",
+        "She has five lessons on Monday.",
+        "In the afternoon, she has two more lessons."
+      ]
+    },
+    "writingPrompt": "Write about a busy day of someone in your family, hour by hour.",
+    "sentenceTranslations": [
+      "Mẹ của Lan, cô Thu, là giáo viên.",
+      "Thứ Hai là ngày bận rộn của cô.",
+      "Lúc năm giờ rưỡi sáng, cô thức dậy.",
+      "Lúc sáu giờ, cô làm bữa sáng cho cả nhà.",
+      "Lúc bảy giờ kém mười lăm, cô đưa bé Mai đi học.",
+      "Lúc bảy giờ, cô có mặt ở trường của mình.",
+      "Thứ Hai cô có năm tiết dạy.",
+      "Lúc mười hai giờ, cô có một tiếng để ăn trưa với các thầy cô khác.",
+      "Buổi chiều, cô còn hai tiết nữa.",
+      "Lúc bốn giờ, cô đi mua sắm, và lúc năm giờ, cô lại có mặt ở trường của Mai.",
+      "Buổi tối, cô nấu bữa tối, và cả nhà ăn cùng nhau lúc bảy giờ.",
+      "\"Mấy giờ rồi mẹ?\" Mai hỏi.",
+      "\"Chín giờ rồi, đến giờ đi ngủ thôi con,\" mẹ nói.",
+      "Lúc mười giờ, cô Thu cũng đi ngủ.",
+      "\"Thứ Hai không phải là ngày mẹ thích nhất,\" cô nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một ngày bận rộn theo từng giờ (at quarter to seven, at half past five in the morning).",
+    "examples": [
+      {
+        "lemma": "Monday",
+        "sentence": "Monday is a long day for me.",
+        "meaningVi": "Thứ Hai là một ngày dài với mình."
+      },
+      {
+        "lemma": "day",
+        "sentence": "Sunday is my favourite day.",
+        "meaningVi": "Chủ nhật là ngày mình thích nhất."
+      },
+      {
+        "lemma": "half past",
+        "sentence": "My bus is at half past six.",
+        "meaningVi": "Xe buýt của mình lúc sáu giờ rưỡi."
+      },
+      {
+        "lemma": "morning",
+        "sentence": "My dad gets up at five in the morning.",
+        "meaningVi": "Bố mình dậy lúc năm giờ sáng."
+      },
+      {
+        "lemma": "quarter",
+        "sentence": "The lesson starts at quarter past eight.",
+        "meaningVi": "Tiết học bắt đầu lúc tám giờ mười lăm."
+      },
+      {
+        "lemma": "hour",
+        "sentence": "The English lesson is one hour long.",
+        "meaningVi": "Tiết tiếng Anh dài một tiếng."
+      },
+      {
+        "lemma": "afternoon",
+        "sentence": "In the afternoon, we are at the park.",
+        "meaningVi": "Buổi chiều, bọn mình ở công viên."
+      },
+      {
+        "lemma": "evening",
+        "sentence": "My mum cooks dinner in the evening.",
+        "meaningVi": "Buổi tối mẹ mình nấu bữa tối."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Mum"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mum, what time is it?",
+          "meaningVi": "Mẹ ơi, mấy giờ rồi ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's quarter past six. Why?",
+          "meaningVi": "Sáu giờ mười lăm. Sao thế con?"
+        },
+        {
+          "speaker": 0,
+          "text": "My swimming lesson is at seven o'clock.",
+          "meaningVi": "Giờ học bơi của con lúc bảy giờ ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh yes, it's Tuesday today!",
+          "meaningVi": "À đúng rồi, hôm nay là thứ Ba!"
+        },
+        {
+          "speaker": 0,
+          "text": "Where is my bag?",
+          "meaningVi": "Cặp của con đâu rồi mẹ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's on your bed, and your swimming hat is in the bathroom.",
+          "meaningVi": "Ở trên giường con, còn mũ bơi ở trong phòng tắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks, Mum. Is Dad home at seven?",
+          "meaningVi": "Con cảm ơn mẹ. Bảy giờ bố có ở nhà không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he isn't. He's at the hospital in the evening.",
+          "meaningVi": "Không con. Buổi tối bố ở bệnh viện."
+        },
+        {
+          "speaker": 0,
+          "text": "Is the pool near here?",
+          "meaningVi": "Bể bơi có gần đây không mẹ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's only ten minutes on your bike.",
+          "meaningVi": "Gần thôi, đi xe đạp chỉ mười phút."
+        }
+      ]
+    },
+    "grammarTipVi": "Quarter past six = 6:15 (sáu giờ mười lăm), half past six = 6:30 (sáu giờ rưỡi), quarter to seven = 6:45 (bảy giờ kém mười lăm).",
+    "translations": [
+      {
+        "vi": "Thứ Hai là ngày bận rộn của tôi.",
+        "en": "Monday is my busy day.",
+        "distractors": [
+          "On",
+          "are",
+          "her"
+        ]
+      },
+      {
+        "vi": "Tôi dậy lúc năm giờ rưỡi.",
+        "en": "I get up at half past five.",
+        "distractors": [
+          "in",
+          "on",
+          "gets"
+        ]
+      },
+      {
+        "vi": "Cô ấy có một tiếng để ăn trưa.",
+        "en": "She has one hour for lunch.",
+        "distractors": [
+          "have",
+          "at",
+          "in"
+        ]
+      },
+      {
+        "vi": "Buổi chiều, cô ấy có hai tiết học.",
+        "en": "In the afternoon, she has two lessons.",
+        "distractors": [
+          "At",
+          "On",
+          "have"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và mẹ nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Lan chuẩn bị đi học bơi",
+          "Bữa tối ở nhà hàng",
+          "Công việc của bố ở bệnh viện"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan hỏi giờ vì \"My swimming lesson is at seven o'clock\", rồi tìm cặp và hỏi đường đến bể bơi.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lúc đó là mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Sáu giờ bốn mươi lăm",
+          "Sáu giờ mười lăm",
+          "Bảy giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mẹ nói \"It's quarter past six\": sáu giờ mười lăm.",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cặp của Lan ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở trường",
+          "Trong phòng tắm",
+          "Trên giường"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mẹ nói \"It's on your bed\". Trong phòng tắm là mũ bơi.",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dad is at home in the evening.",
+        "promptVi": "Buổi tối bố ở nhà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì mẹ nói \"He's at the hospital in the evening\": buổi tối bố ở bệnh viện.",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Cô Thu làm gì lúc mấy giờ trong ngày thứ Hai?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ thời gian (at, on, in)",
+      "noticing": [
+        {
+          "sentence": "At half past five in the morning, she gets up.",
+          "highlights": [
+            "At",
+            "in"
+          ]
+        },
+        {
+          "sentence": "She has five lessons on Monday.",
+          "highlights": [
+            "on"
+          ]
+        },
+        {
+          "sentence": "In the afternoon, she has two more lessons.",
+          "highlights": [
+            "In"
+          ]
+        },
+        {
+          "sentence": "At ten o'clock, Thu is in bed too.",
+          "highlights": [
+            "At"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"At half past five in the morning\", vì sao có cả at và in?",
+      "options": [
+        "Vì câu dài nên cần hai giới từ",
+        "Vì at đi với giờ (half past five), còn in đi với buổi (the morning)",
+        "Vì in luôn đi với giờ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Mỗi phần thời gian có giới từ của nó: at + giờ, in + buổi. Ghép lại thành at half past five in the morning.",
+      "whenVi": "Dùng at + giờ và in + buổi (có thể ghép cả hai), on + thứ, để kể việc gì xảy ra lúc nào.",
+      "table": [
+        {
+          "subject": "at + giờ + in + buổi",
+          "form": "at half past five in the morning",
+          "negative": "—"
+        },
+        {
+          "subject": "on + thứ",
+          "form": "on Monday",
+          "negative": "—"
+        },
+        {
+          "subject": "quarter to / quarter past",
+          "form": "at quarter to seven (6:45), at quarter past seven (7:15)",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She gets up at half past five at the morning.",
+          "right": "She gets up at half past five in the morning."
+        },
+        {
+          "wrong": "She has five lessons in Monday.",
+          "right": "She has five lessons on Monday."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói gộp \"năm giờ rưỡi sáng\", nên người Việt hay dùng một giới từ cho cả giờ và buổi, như \"at the morning\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền at, on hoặc in vào chỗ trống.",
+          "text": "She takes Mai to school ___ quarter to seven.",
+          "answers": [
+            "at"
+          ],
+          "explanationVi": "Quarter to seven là một giờ cụ thể, nên dùng at."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "The family eats together ___ the evening.",
+          "options": [
+            "at",
+            "on",
+            "in",
+            "to"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Buổi trong ngày (the evening) đi với in."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Thu is at the shops in four o'clock.",
+          "sentence": "Thu is at the shops at four o'clock.",
+          "explanationVi": "Trước giờ (four o'clock) dùng at, không dùng in."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy thức dậy lúc năm giờ sáng.",
+          "sentence": "She gets up at five in the morning.",
+          "words": [
+            "up",
+            "She",
+            "at",
+            "five",
+            "in",
+            "the",
+            "morning",
+            "gets",
+            "on"
+          ],
+          "explanationVi": "At đi với giờ (five), in đi với buổi (the morning); từ \"on\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "At quarter to seven, she takes Mai to school.",
+        "tipVi": "Quarter /ˈkwɔːrtər/ bắt đầu bằng /kw/; takes /teɪks/ có cụm âm cuối /ks/."
+      },
+      {
+        "text": "At six o'clock, she makes breakfast for the family.",
+        "tipVi": "Makes /meɪks/ có âm /s/ ở cuối; breakfast /ˈbrekfəst/ đọc hai âm tiết BREK-fəst."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time is your breakfast?",
+        "questionVi": "Bạn ăn sáng lúc mấy giờ?",
+        "frame": "My breakfast is at ___."
+      },
+      {
+        "question": "Which day is your busy day?",
+        "questionVi": "Ngày nào là ngày bận rộn của bạn?",
+        "frame": "___ is my busy day."
+      },
+      {
+        "question": "What time is your mum or dad at home on Monday?",
+        "questionVi": "Thứ Hai bố hoặc mẹ bạn về nhà lúc mấy giờ?",
+        "frame": "On Monday, my ___ is at home at ___. He / She is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng at + giờ (at six o'clock, at half past five)",
+      "anyOf": [
+        "at",
+        "o'clock",
+        "half past",
+        "quarter",
+        "in the morning",
+        "in the evening"
+      ],
+      "outlineVi": [
+        "Nói người đó là ai và ngày nào là ngày bận của họ.",
+        "Kể buổi sáng người đó làm gì, lúc mấy giờ.",
+        "Kể buổi chiều và buổi tối người đó làm gì."
+      ],
+      "modelAnswer": "My dad is a driver. Monday is his busy day. At half past five in the morning, he gets up. At six o'clock, he is in his car. At twelve o'clock, he has one hour for lunch. In the afternoon, he is in his car again. In the evening, he is at home with us."
+    }
+  },
+  "glosses": [
+    {
+      "text": "busy",
+      "lemma": "busy",
+      "meaningVi": "bận rộn",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "her busy day",
+      "phraseVi": "ngày bận rộn của cô"
+    },
+    {
+      "text": "gets up",
+      "lemma": "get up",
+      "meaningVi": "thức dậy",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "she gets up",
+      "phraseVi": "cô thức dậy"
+    },
+    {
+      "text": "makes breakfast",
+      "lemma": "make breakfast",
+      "meaningVi": "làm bữa sáng",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "she makes breakfast for the family",
+      "phraseVi": "cô làm bữa sáng cho cả nhà"
+    },
+    {
+      "text": "quarter to",
+      "lemma": "quarter to",
+      "meaningVi": "kém mười lăm",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "At quarter to seven",
+      "phraseVi": "Lúc bảy giờ kém mười lăm"
+    },
+    {
+      "text": "takes",
+      "lemma": "take",
+      "meaningVi": "đưa (ai đi đâu)",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "she takes Mai to school",
+      "phraseVi": "cô đưa bé Mai đi học"
+    },
+    {
+      "text": "own",
+      "lemma": "own",
+      "meaningVi": "của chính mình",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "her own school",
+      "phraseVi": "trường của chính cô"
+    },
+    {
+      "text": "lessons",
+      "lemma": "lesson",
+      "meaningVi": "tiết học",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "five lessons",
+      "phraseVi": "năm tiết dạy"
+    },
+    {
+      "text": "hour",
+      "lemma": "hour",
+      "meaningVi": "tiếng (60 phút)",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "one hour for lunch",
+      "phraseVi": "một tiếng để ăn trưa"
+    },
+    {
+      "text": "shops",
+      "lemma": "shop",
+      "meaningVi": "cửa hàng",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "she is at the shops",
+      "phraseVi": "cô đi mua sắm"
+    },
+    {
+      "text": "cooks",
+      "lemma": "cook",
+      "meaningVi": "nấu",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "she cooks dinner",
+      "phraseVi": "cô nấu bữa tối"
+    },
+    {
+      "text": "time for bed",
+      "lemma": "time for bed",
+      "meaningVi": "đến giờ đi ngủ",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "it's time for bed",
+      "phraseVi": "đến giờ đi ngủ rồi"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "yêu thích nhất",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "my favourite day",
+      "phraseVi": "ngày mẹ thích nhất"
+    }
+  ]
+}

@@ -1,0 +1,611 @@
+{
+  "content": "It is Saturday morning. Mrs Lien and her son, Khoa, are at a big fruit shop near their home. Mrs Lien is a cook, and she needs a lot of fruit for her restaurant.\n\n\"Are these oranges sweet?\" she asks the woman in the shop.\n\"Yes, and those green grapes are very sweet too,\" says the woman.\n\"Then these oranges and those grapes, please,\" says Mrs Lien.\n\nKhoa looks at a big watermelon near the door. \"Mum, what is that?\" he asks.\n\"That is a watermelon,\" says Mrs Lien. \"It's red inside.\"\n\"Is that watermelon for us?\"\n\"No, it isn't,\" says Mrs Lien. \"That one is too big, but this small one is good for us.\"\n\nThen Khoa sees a box of lychees. \"Are those lychees?\" he asks.\n\"Yes, they are, and that box is for us too,\" says Mrs Lien with a smile.",
+  "targetWords": [
+    "shop",
+    "need",
+    "fruit",
+    "orange",
+    "sweet",
+    "grape",
+    "watermelon",
+    "box"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "needs",
+        "lemma": "need",
+        "meaningVi": "cần",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "fruit",
+        "lemma": "fruit",
+        "meaningVi": "hoa quả",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "oranges",
+        "lemma": "orange",
+        "meaningVi": "quả cam",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "sweet",
+        "lemma": "sweet",
+        "meaningVi": "ngọt",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "grapes",
+        "lemma": "grape",
+        "meaningVi": "quả nho",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "watermelon",
+        "lemma": "watermelon",
+        "meaningVi": "quả dưa hấu",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "box",
+        "lemma": "box",
+        "meaningVi": "cái hộp",
+        "pos": "noun",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Khoa's favourite fruit",
+          "A new restaurant",
+          "Mrs Lien buys fruit with her son.",
+          "A day at school"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Cô Liên và bé Khoa đi mua hoa quả: cam, nho, dưa hấu và vải, rồi chọn quả này quả kia."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Mrs Lien's job?",
+        "promptVi": "Cô Liên làm nghề gì?",
+        "options": [
+          "A teacher",
+          "A cook",
+          "A doctor",
+          "A shop woman"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Mrs Lien is a cook, and she needs a lot of fruit for her restaurant\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which watermelon is for them?",
+        "promptVi": "Quả dưa hấu nào là của nhà cô Liên?",
+        "options": [
+          "The big one",
+          "The small one",
+          "The red one",
+          "No watermelon"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cô Liên nói \"That one is too big, but this small one is good for us\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The green grapes are sweet.",
+        "promptVi": "Nho xanh ngọt.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì người bán hàng nói \"those green grapes are very sweet too\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"inside\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"It's red inside.\"",
+        "options": [
+          "bên ngoài",
+          "ở trên",
+          "phía sau",
+          "bên trong"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Inside là bên trong: vỏ dưa hấu màu xanh, còn bên trong màu đỏ."
+      }
+    ],
+    "grammarNote": {
+      "title": "This / that / these / those",
+      "bodyVi": "This (này) và these (những … này) chỉ vật ở gần; that (kia) và those (những … kia) chỉ vật ở xa. This, that đi với một vật; these, those đi với nhiều vật. This one, that one dùng thay cho danh từ vừa nói để không lặp lại: this small one (= quả dưa hấu nhỏ này).",
+      "examples": [
+        "Are these oranges sweet?",
+        "Then these oranges and those grapes, please",
+        "That one is too big, but this small one is good for us."
+      ]
+    },
+    "writingPrompt": "Write about buying fruit with someone in your family: what you choose and why.",
+    "sentenceTranslations": [
+      "Hôm nay là sáng thứ Bảy.",
+      "Cô Liên và con trai, bé Khoa, đang ở một cửa hàng hoa quả lớn gần nhà.",
+      "Cô Liên là đầu bếp, và cô cần nhiều hoa quả cho nhà hàng.",
+      "\"Những quả cam này có ngọt không?\" cô hỏi người bán hàng.",
+      "\"Có, và mấy chùm nho xanh kia cũng rất ngọt,\" người bán hàng nói.",
+      "\"Vậy cho tôi mấy quả cam này và mấy chùm nho kia nhé,\" cô Liên nói.",
+      "Khoa nhìn một quả dưa hấu to gần cửa.",
+      "\"Mẹ ơi, cái kia là gì ạ?\" Khoa hỏi.",
+      "\"Đó là quả dưa hấu,\" cô Liên nói.",
+      "\"Bên trong nó màu đỏ.\"",
+      "\"Quả dưa hấu kia là của nhà mình ạ?\"",
+      "\"Không phải con,\" cô Liên nói.",
+      "\"Quả kia to quá, nhưng quả nhỏ này thì vừa cho nhà mình.\"",
+      "Rồi Khoa nhìn thấy một hộp vải.",
+      "\"Kia có phải là vải không mẹ?\" Khoa hỏi.",
+      "\"Đúng rồi, và hộp vải kia cũng là của nhà mình,\" cô Liên mỉm cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chọn hoa quả ở cửa hàng và chỉ vật ở gần, ở xa bằng this, that, these, those, this one, that one.",
+    "examples": [
+      {
+        "lemma": "shop",
+        "sentence": "This shop is near my school.",
+        "meaningVi": "Cửa hàng này ở gần trường mình."
+      },
+      {
+        "lemma": "need",
+        "sentence": "We need some apples.",
+        "meaningVi": "Nhà mình cần ít táo."
+      },
+      {
+        "lemma": "fruit",
+        "sentence": "This fruit is very good.",
+        "meaningVi": "Loại quả này rất ngon."
+      },
+      {
+        "lemma": "orange",
+        "sentence": "These oranges are big.",
+        "meaningVi": "Những quả cam này to."
+      },
+      {
+        "lemma": "sweet",
+        "sentence": "Are those apples sweet?",
+        "meaningVi": "Mấy quả táo kia có ngọt không?"
+      },
+      {
+        "lemma": "grape",
+        "sentence": "My little sister loves green grapes.",
+        "meaningVi": "Em gái mình rất thích nho xanh."
+      },
+      {
+        "lemma": "watermelon",
+        "sentence": "That watermelon is very heavy.",
+        "meaningVi": "Quả dưa hấu kia rất nặng."
+      },
+      {
+        "lemma": "box",
+        "sentence": "This box of apples is for Grandma.",
+        "meaningVi": "Hộp táo này là để biếu bà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Mai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mai, is this apple OK?",
+          "meaningVi": "Mai ơi, quả táo này được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, that apple is small. This big one is good.",
+          "meaningVi": "Không, quả đó nhỏ. Quả to này ngon hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. And are these grapes sweet?",
+          "meaningVi": "Được. Thế mấy chùm nho này có ngọt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes! These grapes are very sweet.",
+          "meaningVi": "Có! Nho này ngọt lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Are those watermelons expensive?",
+          "meaningVi": "Mấy quả dưa hấu kia có đắt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they aren't. That one is good for Grandma.",
+          "meaningVi": "Không đắt. Quả kia hợp để biếu bà."
+        },
+        {
+          "speaker": 0,
+          "text": "It's very big! Is it too heavy for us?",
+          "meaningVi": "To quá! Có nặng quá với hai chị em không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it isn't. Duc is here!",
+          "meaningVi": "Không đâu. Có anh Đức ở đây mà!"
+        },
+        {
+          "speaker": 0,
+          "text": "Oh, yes! Is Duc with the bags?",
+          "meaningVi": "À đúng rồi! Anh Đức đang cầm túi à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he is. So that watermelon, please!",
+          "meaningVi": "Vâng. Vậy lấy quả dưa hấu kia đi chị!"
+        }
+      ]
+    },
+    "grammarTipVi": "This one / that one dùng thay cho danh từ vừa nói để không lặp lại: That one is too big, but this small one is good (one = watermelon).",
+    "translations": [
+      {
+        "vi": "Những quả cam này rất ngọt.",
+        "en": "These oranges are very sweet.",
+        "distractors": [
+          "This",
+          "Those",
+          "is"
+        ]
+      },
+      {
+        "vi": "Quả dưa hấu kia to quá.",
+        "en": "That watermelon is too big.",
+        "distractors": [
+          "This",
+          "Those",
+          "are"
+        ]
+      },
+      {
+        "vi": "Cô ấy cần nhiều hoa quả.",
+        "en": "She needs a lot of fruit.",
+        "distractors": [
+          "need",
+          "these",
+          "is"
+        ]
+      },
+      {
+        "vi": "Cho tôi mấy chùm nho kia.",
+        "en": "Those grapes, please.",
+        "distractors": [
+          "That",
+          "These",
+          "grape"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Mai đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Chọn hoa quả ở cửa hàng",
+          "Nấu ăn ở nhà",
+          "Đi thăm bà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai chị em chọn táo, nho và dưa hấu: \"is this apple OK?\", \"are these grapes sweet?\".",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mai chọn quả táo nào?",
+        "promptVi": "",
+        "options": [
+          "Quả nhỏ",
+          "Quả to",
+          "Quả màu xanh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"that apple is small. This big one is good\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quả dưa hấu dành cho ai?",
+        "promptVi": "",
+        "options": [
+          "Cho bà",
+          "Cho bố",
+          "Cho anh Đức"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"That one is good for Grandma\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The watermelons are expensive.",
+        "promptVi": "Dưa hấu đắt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Lan hỏi có đắt không, Mai trả lời \"No, they aren't\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Cô Liên chọn những loại quả nào, và vì sao lại chọn quả dưa hấu nhỏ?",
+    "grammarStep": {
+      "titleVi": "This / that / these / those",
+      "noticing": [
+        {
+          "sentence": "\"Are these oranges sweet?\" she asks the woman in the shop.",
+          "highlights": [
+            "these"
+          ]
+        },
+        {
+          "sentence": "\"Yes, and those green grapes are very sweet too,\" says the woman.",
+          "highlights": [
+            "those"
+          ]
+        },
+        {
+          "sentence": "\"That is a watermelon,\" says Mrs Lien.",
+          "highlights": [
+            "That"
+          ]
+        },
+        {
+          "sentence": "\"That one is too big, but this small one is good for us.\"",
+          "highlights": [
+            "That one",
+            "this small one"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao có lúc dùng these, có lúc dùng those?",
+      "options": [
+        "Vì these chỉ quả ngọt hơn",
+        "Vì these chỉ những vật ở gần, those chỉ những vật ở xa",
+        "Vì those dùng cho một vật"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Cam ở ngay trước cô Liên nên là these oranges; nho ở xa hơn nên là those grapes. Cả hai đều là số nhiều.",
+      "whenVi": "Dùng this / these cho vật ở gần, that / those cho vật ở xa, khi chọn mua đồ.",
+      "table": [
+        {
+          "subject": "this + số ít, ở gần",
+          "form": "this watermelon, this one",
+          "negative": "—"
+        },
+        {
+          "subject": "that + số ít, ở xa",
+          "form": "that watermelon, that one",
+          "negative": "—"
+        },
+        {
+          "subject": "these + số nhiều, ở gần",
+          "form": "these oranges",
+          "negative": "—"
+        },
+        {
+          "subject": "those + số nhiều, ở xa",
+          "form": "those grapes, those lychees",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "This oranges are sweet.",
+          "right": "These oranges are sweet."
+        },
+        {
+          "wrong": "Those grape are green.",
+          "right": "Those grapes are green."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"những quả cam này\", chữ \"này\" không đổi theo số lượng, nên người Việt hay dùng this cho cả nhiều vật.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền These hoặc Those (những quả cam ở ngay đây).",
+          "text": "___ oranges here are very sweet.",
+          "answers": [
+            "These"
+          ],
+          "explanationVi": "Oranges là số nhiều và ở gần (here), nên dùng These."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ watermelon over there is very big.",
+          "options": [
+            "This",
+            "That",
+            "These",
+            "Those"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Watermelon là số ít và ở xa (over there), nên dùng That."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "This grapes are very sweet.",
+          "sentence": "These grapes are very sweet.",
+          "explanationVi": "Grapes là số nhiều, nên dùng these, không dùng this."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Quả nhỏ này hợp với chúng ta.",
+          "sentence": "This small one is good for us.",
+          "words": [
+            "small",
+            "one",
+            "This",
+            "is",
+            "good",
+            "for",
+            "us",
+            "These"
+          ],
+          "explanationVi": "One là một quả (số ít), nên dùng This; từ \"These\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Khoa looks at a big watermelon near the door.",
+        "tipVi": "Watermelon /ˈwɔːtɚmelən/ nhấn âm đầu WA; looks /lʊks/ có âm /ks/ ở cuối."
+      },
+      {
+        "text": "Then Khoa sees a box of lychees.",
+        "tipVi": "Then /ðen/ bắt đầu bằng âm /ð/; lychees /ˈlaɪtʃiːz/ có âm /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What fruit is in your kitchen now?",
+        "questionVi": "Bây giờ trong bếp nhà bạn có loại quả nào?",
+        "frame": "There are some ___ in my kitchen."
+      },
+      {
+        "question": "Is there a fruit shop near your home?",
+        "questionVi": "Gần nhà bạn có cửa hàng hoa quả không?",
+        "frame": "Yes, there is. / No, there isn't."
+      },
+      {
+        "question": "What fruit is your mum's or dad's favourite?",
+        "questionVi": "Bố hoặc mẹ bạn thích loại quả nào nhất?",
+        "frame": "His / Her favourite fruit is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
+      "anyOf": [
+        "this",
+        "that",
+        "these",
+        "those"
+      ],
+      "outlineVi": [
+        "Nói bạn đi mua hoa quả với ai, ở đâu.",
+        "Kể các loại quả ở gần, ở xa (these …, those …).",
+        "Nói bạn chọn quả nào và vì sao."
+      ],
+      "modelAnswer": "On Sunday, my mum and I go to a fruit shop. We need some fruit for my grandma. These oranges are big and sweet. Those grapes are green, and they are sweet too. That watermelon is too big, but this small one is good. We also take a box of apples."
+    }
+  },
+  "glosses": [
+    {
+      "text": "cook",
+      "lemma": "cook",
+      "meaningVi": "đầu bếp",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "Mrs Lien is a cook",
+      "phraseVi": "Cô Liên là đầu bếp"
+    },
+    {
+      "text": "restaurant",
+      "lemma": "restaurant",
+      "meaningVi": "nhà hàng",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "for her restaurant",
+      "phraseVi": "cho nhà hàng của cô"
+    },
+    {
+      "text": "these",
+      "lemma": "these",
+      "meaningVi": "những … này",
+      "sentenceIndex": 3,
+      "pos": "determiner",
+      "phrase": "these oranges",
+      "phraseVi": "những quả cam này"
+    },
+    {
+      "text": "those",
+      "lemma": "those",
+      "meaningVi": "những … kia",
+      "sentenceIndex": 4,
+      "pos": "determiner",
+      "phrase": "those green grapes",
+      "phraseVi": "mấy chùm nho xanh kia"
+    },
+    {
+      "text": "That",
+      "lemma": "that",
+      "meaningVi": "cái kia, đó",
+      "sentenceIndex": 8,
+      "pos": "pronoun",
+      "phrase": "That is a watermelon",
+      "phraseVi": "Đó là quả dưa hấu"
+    },
+    {
+      "text": "inside",
+      "lemma": "inside",
+      "meaningVi": "bên trong",
+      "sentenceIndex": 9,
+      "pos": "adverb",
+      "phrase": "It's red inside",
+      "phraseVi": "Bên trong nó màu đỏ"
+    },
+    {
+      "text": "too big",
+      "lemma": "too",
+      "meaningVi": "quá (to)",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "That one is too big",
+      "phraseVi": "Quả kia to quá"
+    },
+    {
+      "text": "this small one",
+      "lemma": "this one",
+      "meaningVi": "quả nhỏ này",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "this small one is good for us",
+      "phraseVi": "quả nhỏ này thì vừa cho nhà mình"
+    },
+    {
+      "text": "lychees",
+      "lemma": "lychee",
+      "meaningVi": "quả vải",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "a box of lychees",
+      "phraseVi": "một hộp vải"
+    },
+    {
+      "text": "smile",
+      "lemma": "smile",
+      "meaningVi": "nụ cười",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "with a smile",
+      "phraseVi": "mỉm cười"
+    }
+  ]
+}

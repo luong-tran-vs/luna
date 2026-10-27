@@ -1,0 +1,613 @@
+{
+  "content": "Today Tom's family moves to a new flat. It is on the tenth floor of a tall building near the river. There are three bedrooms, a big living room and a small kitchen. There isn't a garden, but there is a big window in the living room.\n\nTwo men bring in the big sofa. \"Is the sofa in front of the window?\" asks Dad.\n\"No, it's in front of the television,\" says Mum. \"And the table is between the sofa and the window.\"\n\nTom has a box of books. \"Where is my room?\" he asks.\n\"It's near the bathroom,\" says Mum.\nIn Tom's room, there is a bed and a desk, but there aren't any chairs yet.\n\nIn the evening, the flat isn't ready, but the family is happy. They have pizza on the floor!",
+  "targetWords": [
+    "flat",
+    "floor",
+    "bedroom",
+    "living room",
+    "kitchen",
+    "window",
+    "sofa",
+    "table"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "flat",
+        "lemma": "flat",
+        "meaningVi": "căn hộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "tầng (nhà); sàn nhà",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "bedrooms",
+        "lemma": "bedroom",
+        "meaningVi": "phòng ngủ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "window",
+        "lemma": "window",
+        "meaningVi": "cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "table",
+        "lemma": "table",
+        "meaningVi": "cái bàn",
+        "pos": "noun",
+        "sentenceIndex": 7
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Tom's new school",
+          "A pizza restaurant",
+          "Tom's grandparents' house",
+          "Tom's family moves to a new flat."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Gia đình Tom chuyển đến căn hộ mới và xếp đồ đạc vào từng chỗ: ghế sofa, bàn, giường, bàn học."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the new flat?",
+        "promptVi": "Căn hộ mới ở đâu?",
+        "options": [
+          "On the tenth floor of a tall building",
+          "In a small house with a garden",
+          "Near Tom's school",
+          "On the first floor"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"It is on the tenth floor of a tall building near the river\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the sofa?",
+        "promptVi": "Ghế sofa đặt ở đâu?",
+        "options": [
+          "In front of the window",
+          "In front of the television",
+          "In Tom's room",
+          "Near the bathroom"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bố hỏi có đặt trước cửa sổ không, mẹ trả lời \"No, it's in front of the television\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There are some chairs in Tom's room.",
+        "promptVi": "Trong phòng Tom có vài cái ghế.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"there is a bed and a desk, but there aren't any chairs yet\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"ready\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In the evening, the flat isn't ready, but the family is happy.",
+        "options": [
+          "sạch sẽ",
+          "sẵn sàng, xong xuôi",
+          "rộng",
+          "yên tĩnh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ready là sẵn sàng: đến tối căn hộ vẫn chưa xếp xong (chưa có ghế), nên cả nhà ăn pizza trên sàn."
+      }
+    ],
+    "grammarNote": {
+      "title": "There is / there are",
+      "bodyVi": "There is + một vật, there are + nhiều vật. Khi liệt kê nhiều thứ, chọn there is hay there are theo danh từ đầu tiên: there is a bed and a desk (a bed là số ít), there are three bedrooms, a big living room… Phủ định số nhiều dùng there aren't any: there aren't any chairs.",
+      "examples": [
+        "There are three bedrooms, a big living room and a small kitchen.",
+        "There isn't a garden, but there is a big window in the living room.",
+        "In Tom's room, there is a bed and a desk, but there aren't any chairs yet."
+      ]
+    },
+    "writingPrompt": "Write about a new home: what rooms there are and where the furniture is.",
+    "sentenceTranslations": [
+      "Hôm nay gia đình Tom chuyển đến một căn hộ mới.",
+      "Căn hộ ở tầng mười của một tòa nhà cao gần sông.",
+      "Có ba phòng ngủ, một phòng khách rộng và một nhà bếp nhỏ.",
+      "Không có vườn, nhưng phòng khách có một cửa sổ lớn.",
+      "Hai người đàn ông khiêng chiếc ghế sofa lớn vào.",
+      "\"Ghế sofa đặt trước cửa sổ à?\" bố hỏi.",
+      "\"Không, đặt trước ti vi,\" mẹ nói.",
+      "\"Còn cái bàn thì ở giữa ghế sofa và cửa sổ.\"",
+      "Tom ôm một thùng sách.",
+      "\"Phòng của con ở đâu ạ?\" Tom hỏi.",
+      "\"Ở gần phòng tắm,\" mẹ nói.",
+      "Trong phòng Tom có một cái giường và một cái bàn học, nhưng chưa có cái ghế nào.",
+      "Đến tối, căn hộ vẫn chưa xong xuôi, nhưng cả nhà rất vui.",
+      "Cả nhà ăn pizza ngay trên sàn!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả một căn hộ mới (có mấy phòng, không có gì) và nói đồ đạc đặt ở đâu.",
+    "examples": [
+      {
+        "lemma": "flat",
+        "sentence": "Our flat is small but nice.",
+        "meaningVi": "Căn hộ của nhà mình nhỏ nhưng đẹp."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "My grandparents live on the second floor.",
+        "meaningVi": "Ông bà mình sống ở tầng hai."
+      },
+      {
+        "lemma": "bedroom",
+        "sentence": "There is a big bed in my parents' bedroom.",
+        "meaningVi": "Trong phòng ngủ của bố mẹ mình có một chiếc giường lớn."
+      },
+      {
+        "lemma": "living room",
+        "sentence": "The living room is between the kitchen and my room.",
+        "meaningVi": "Phòng khách ở giữa nhà bếp và phòng mình."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "There isn't a window in the kitchen.",
+        "meaningVi": "Nhà bếp không có cửa sổ."
+      },
+      {
+        "lemma": "window",
+        "sentence": "My desk is in front of the window.",
+        "meaningVi": "Bàn học của mình ở trước cửa sổ."
+      },
+      {
+        "lemma": "sofa",
+        "sentence": "The new sofa is blue.",
+        "meaningVi": "Chiếc ghế sofa mới màu xanh."
+      },
+      {
+        "lemma": "table",
+        "sentence": "There are four chairs near the table.",
+        "meaningVi": "Có bốn cái ghế gần cái bàn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tom, is your new flat nice?",
+          "meaningVi": "Tom ơi, căn hộ mới của bạn có đẹp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is! It's on the tenth floor.",
+          "meaningVi": "Đẹp lắm! Ở tầng mười."
+        },
+        {
+          "speaker": 0,
+          "text": "Wow! Is there a big window?",
+          "meaningVi": "Ồ! Có cửa sổ to không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there is. There's a big window in the living room.",
+          "meaningVi": "Có. Phòng khách có một cửa sổ lớn."
+        },
+        {
+          "speaker": 0,
+          "text": "And is your room big?",
+          "meaningVi": "Thế phòng của bạn có rộng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it isn't, but it's near the bathroom.",
+          "meaningVi": "Không rộng, nhưng ở gần phòng tắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Are there any chairs in your room?",
+          "meaningVi": "Phòng bạn có ghế không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not yet. There's only a bed and a desk.",
+          "meaningVi": "Chưa có. Chỉ có một cái giường và một cái bàn học."
+        },
+        {
+          "speaker": 0,
+          "text": "Where are your books?",
+          "meaningVi": "Thế sách của bạn ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "They're in a box under my bed!",
+          "meaningVi": "Ở trong một cái thùng dưới gầm giường!"
+        }
+      ]
+    },
+    "grammarTipVi": "Khi liệt kê nhiều đồ vật, chọn there is hay there are theo danh từ đứng đầu: There is a bed and a desk. There are three bedrooms and a kitchen.",
+    "translations": [
+      {
+        "vi": "Căn hộ của tôi ở tầng mười.",
+        "en": "My flat is on the tenth floor.",
+        "distractors": [
+          "in",
+          "at",
+          "are"
+        ]
+      },
+      {
+        "vi": "Có ba phòng ngủ.",
+        "en": "There are three bedrooms.",
+        "distractors": [
+          "is",
+          "bedroom",
+          "have"
+        ]
+      },
+      {
+        "vi": "Ghế sofa ở trước cửa sổ.",
+        "en": "The sofa is in front of the window.",
+        "distractors": [
+          "behind",
+          "on",
+          "are"
+        ]
+      },
+      {
+        "vi": "Cái bàn ở giữa ghế sofa và ti vi.",
+        "en": "The table is between the sofa and the television.",
+        "distractors": [
+          "with",
+          "on",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom kể với Minh về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Căn hộ mới của Tom",
+          "Thùng sách của Minh",
+          "Phòng tắm ở trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh hỏi \"is your new flat nice?\" và Tom kể về tầng, cửa sổ, phòng của mình.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Căn hộ của Tom ở tầng mấy?",
+        "promptVi": "",
+        "options": [
+          "Tầng một",
+          "Tầng mười",
+          "Tầng hai mươi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"It's on the tenth floor\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sách của Tom ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên giá",
+          "Trên bàn học",
+          "Trong thùng dưới gầm giường"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tom nói \"They're in a box under my bed!\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom's room is very big.",
+        "promptVi": "Phòng của Tom rất rộng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom nói \"No, it isn't, but it's near the bathroom\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Căn hộ mới có những phòng nào, và đồ đạc được đặt ở đâu?",
+    "grammarStep": {
+      "titleVi": "There is / there are",
+      "noticing": [
+        {
+          "sentence": "There are three bedrooms, a big living room and a small kitchen.",
+          "highlights": [
+            "There are"
+          ]
+        },
+        {
+          "sentence": "There isn't a garden, but there is a big window in the living room.",
+          "highlights": [
+            "There isn't",
+            "there is"
+          ]
+        },
+        {
+          "sentence": "In Tom's room, there is a bed and a desk, but there aren't any chairs yet.",
+          "highlights": [
+            "there is",
+            "there aren't"
+          ]
+        },
+        {
+          "sentence": "Wow! Is there a big window?",
+          "highlights": [
+            "Is there"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"there is a bed and a desk\", vì sao dùng there is dù có hai vật?",
+      "options": [
+        "Vì giường và bàn học là đồ nhỏ",
+        "Vì danh từ đứng đầu (a bed) là số ít",
+        "Vì câu có từ but"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Khi liệt kê, there is / there are đi theo danh từ ngay sau nó: a bed (số ít) → there is; three bedrooms (số nhiều) → there are.",
+      "whenVi": "Dùng there is / there are để tả một căn nhà có những phòng và đồ đạc gì.",
+      "table": [
+        {
+          "subject": "there is + số ít",
+          "form": "There is a big window.",
+          "negative": "There isn't a garden."
+        },
+        {
+          "subject": "there are + số nhiều",
+          "form": "There are three bedrooms.",
+          "negative": "There aren't any chairs."
+        },
+        {
+          "subject": "liệt kê: theo danh từ đầu tiên",
+          "form": "There is a bed and a desk.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "In the flat have three bedrooms.",
+          "right": "There are three bedrooms in the flat."
+        },
+        {
+          "wrong": "There is three bedrooms.",
+          "right": "There are three bedrooms."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Căn hộ có ba phòng ngủ\" với chữ \"có\", nên người Việt hay dùng have, hoặc quên đổi is thành are khi có nhiều vật.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng phủ định viết gọn phù hợp (isn't hoặc aren't).",
+          "text": "There ___ any chairs in Tom's room.",
+          "answers": [
+            "aren't"
+          ],
+          "explanationVi": "Any chairs là số nhiều, nên phủ định là there aren't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ there a big window in the living room?",
+          "options": [
+            "Are",
+            "Is",
+            "Has",
+            "Do"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "A big window là số ít, nên hỏi bằng Is there …?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There is three bedrooms in the new flat.",
+          "sentence": "There are three bedrooms in the new flat.",
+          "explanationVi": "Three bedrooms là số nhiều, nên dùng there are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Có một cửa sổ lớn.",
+          "sentence": "There is a big window.",
+          "words": [
+            "big",
+            "is",
+            "There",
+            "a",
+            "window",
+            "are"
+          ],
+          "explanationVi": "A big window là số ít nên dùng there is; từ \"are\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There are three bedrooms, a big living room and a small kitchen.",
+        "tipVi": "Three /θriː/ bắt đầu bằng /θ/; bedrooms /ˈbedruːmz/ có âm /z/ ở cuối."
+      },
+      {
+        "text": "They have pizza on the floor!",
+        "tipVi": "They /ðeɪ/ bắt đầu bằng /ð/ (lưỡi giữa răng, có rung); floor /flɔːr/ có cụm /fl/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is your home in a tall building?",
+        "questionVi": "Nhà bạn có ở trong một tòa nhà cao không?",
+        "frame": "Yes, it is. / No, it isn't. My home is ___."
+      },
+      {
+        "question": "What is in your living room?",
+        "questionVi": "Phòng khách nhà bạn có gì?",
+        "frame": "In our living room, there is ___ and there are ___."
+      },
+      {
+        "question": "Where is your best friend's home?",
+        "questionVi": "Nhà bạn thân của bạn ở đâu?",
+        "frame": "His / Her home is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng there is hoặc there are",
+      "anyOf": [
+        "there is",
+        "there are",
+        "there isn't",
+        "there aren't",
+        "there's"
+      ],
+      "outlineVi": [
+        "Nói căn nhà mới ở đâu, tầng mấy.",
+        "Kể có những phòng nào, không có gì.",
+        "Nói đồ đạc (ghế sofa, bàn, giường) đặt ở đâu."
+      ],
+      "modelAnswer": "Our new flat is on the second floor. There are two bedrooms, a living room and a kitchen. In the living room, there is a sofa in front of the television. The table is between the sofa and the window. There aren't any pictures on the wall yet, but we are happy."
+    }
+  },
+  "glosses": [
+    {
+      "text": "moves",
+      "lemma": "move",
+      "meaningVi": "chuyển nhà",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "moves to a new flat",
+      "phraseVi": "chuyển đến một căn hộ mới"
+    },
+    {
+      "text": "tenth",
+      "lemma": "tenth",
+      "meaningVi": "thứ mười",
+      "sentenceIndex": 1,
+      "pos": "number",
+      "phrase": "on the tenth floor",
+      "phraseVi": "ở tầng mười"
+    },
+    {
+      "text": "building",
+      "lemma": "building",
+      "meaningVi": "tòa nhà",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a tall building",
+      "phraseVi": "một tòa nhà cao"
+    },
+    {
+      "text": "river",
+      "lemma": "river",
+      "meaningVi": "con sông",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "near the river",
+      "phraseVi": "gần sông"
+    },
+    {
+      "text": "bring in",
+      "lemma": "bring in",
+      "meaningVi": "mang vào, khiêng vào",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "Two men bring in the big sofa",
+      "phraseVi": "Hai người đàn ông khiêng chiếc ghế sofa lớn vào"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "phía trước",
+      "sentenceIndex": 6,
+      "pos": "preposition",
+      "phrase": "in front of the television",
+      "phraseVi": "trước ti vi"
+    },
+    {
+      "text": "between",
+      "lemma": "between",
+      "meaningVi": "ở giữa",
+      "sentenceIndex": 7,
+      "pos": "preposition",
+      "phrase": "between the sofa and the window",
+      "phraseVi": "ở giữa ghế sofa và cửa sổ"
+    },
+    {
+      "text": "box",
+      "lemma": "box",
+      "meaningVi": "cái hộp, cái thùng",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "a box of books",
+      "phraseVi": "một thùng sách"
+    },
+    {
+      "text": "yet",
+      "lemma": "yet",
+      "meaningVi": "vẫn chưa",
+      "sentenceIndex": 11,
+      "pos": "adverb",
+      "phrase": "there aren't any chairs yet",
+      "phraseVi": "chưa có cái ghế nào"
+    },
+    {
+      "text": "ready",
+      "lemma": "ready",
+      "meaningVi": "sẵn sàng, xong xuôi",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "the flat isn't ready",
+      "phraseVi": "căn hộ vẫn chưa xong xuôi"
+    },
+    {
+      "text": "floor",
+      "lemma": "floor",
+      "meaningVi": "sàn nhà",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "pizza on the floor",
+      "phraseVi": "ăn pizza trên sàn"
+    }
+  ]
+}

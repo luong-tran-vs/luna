@@ -1,0 +1,606 @@
+{
+  "content": "It is Friday evening, and Linh helps her mum in the kitchen. They make an easy dinner: egg and tomato sandwiches.\n\nFirst, Mum cooks four eggs. Then Linh cuts the bread and the tomatoes. The tomatoes aren't small, and they are very red. Mum cuts the eggs, and Linh puts the eggs and the tomatoes on the bread.\n\n\"Is there any cheese?\" asks Linh.\n\"Yes, there is a little cheese in the kitchen,\" says Mum. \"It's near the milk.\"\n\nLinh puts some cheese on the sandwiches too. Now there are eight sandwiches on the table. Linh's little brother, Khang, is hungry, and he looks at the sandwiches. \"Are they for me?\" he asks.\n\"One sandwich is for you,\" says Linh. \"The other sandwiches are for the family!\"",
+  "targetWords": [
+    "dinner",
+    "cook",
+    "egg",
+    "bread",
+    "tomato",
+    "cheese",
+    "sandwich",
+    "hungry"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "dinner",
+        "lemma": "dinner",
+        "meaningVi": "bữa tối",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cooks",
+        "lemma": "cook",
+        "meaningVi": "nấu, luộc",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "eggs",
+        "lemma": "egg",
+        "meaningVi": "quả trứng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "bread",
+        "lemma": "bread",
+        "meaningVi": "bánh mì",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "tomatoes",
+        "lemma": "tomato",
+        "meaningVi": "quả cà chua",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "cheese",
+        "lemma": "cheese",
+        "meaningVi": "phô mai",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "sandwiches",
+        "lemma": "sandwich",
+        "meaningVi": "bánh mì kẹp",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "hungry",
+        "lemma": "hungry",
+        "meaningVi": "đói",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh's favourite cheese",
+          "A shop with cakes",
+          "Linh helps her mum make sandwiches.",
+          "Khang's birthday"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh giúp mẹ làm bánh mì kẹp trứng và cà chua cho bữa tối: luộc trứng, cắt bánh mì, cho phô mai vào."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many eggs are in the sandwiches?",
+        "promptVi": "Trong bánh mì kẹp có mấy quả trứng?",
+        "options": [
+          "Two",
+          "Four",
+          "Six",
+          "Eight"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"First, Mum cooks four eggs\". Tám là số chiếc bánh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the cheese?",
+        "promptVi": "Phô mai ở đâu?",
+        "options": [
+          "On the table",
+          "Near the milk",
+          "In the bread",
+          "Near the eggs"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mẹ nói \"It's near the milk\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "All the sandwiches are for Khang.",
+        "promptVi": "Tất cả bánh mì kẹp là của Khang.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"One sandwich is for you. The other sandwiches are for the family!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cuts\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then Linh cuts the bread and the tomatoes.",
+        "options": [
+          "nấu",
+          "rửa",
+          "cắt",
+          "ăn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Cuts là cắt (từ cut): Linh cắt bánh mì và cà chua để làm bánh kẹp."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mạo từ a / an / the",
+      "bodyVi": "A / an dùng khi nói đến một thứ lần đầu: an easy dinner (an vì easy bắt đầu bằng âm nguyên âm). The dùng khi hai người đều biết đó là thứ nào: the bread, the tomatoes (bánh mì và cà chua có sẵn trong bếp). Khi nói chung chung thì không dùng mạo từ: egg and tomato sandwiches.",
+      "examples": [
+        "They make an easy dinner: egg and tomato sandwiches.",
+        "Then Linh cuts the bread and the tomatoes.",
+        "Mum cuts the eggs, and Linh puts the eggs and the tomatoes on the bread."
+      ]
+    },
+    "writingPrompt": "Write about a meal you make with someone in your family: what you need and what each person does.",
+    "sentenceTranslations": [
+      "Hôm nay là tối thứ Sáu, và Linh giúp mẹ trong bếp.",
+      "Hai mẹ con làm một bữa tối đơn giản: bánh mì kẹp trứng và cà chua.",
+      "Đầu tiên, mẹ luộc bốn quả trứng.",
+      "Rồi Linh cắt bánh mì và cà chua.",
+      "Cà chua không nhỏ, và rất đỏ.",
+      "Mẹ cắt trứng, còn Linh đặt trứng và cà chua lên bánh mì.",
+      "\"Có phô mai không mẹ?\" Linh hỏi.",
+      "\"Có, trong bếp có một ít phô mai,\" mẹ nói.",
+      "\"Ở gần chỗ sữa ấy.\"",
+      "Linh cho thêm ít phô mai vào bánh.",
+      "Giờ trên bàn có tám cái bánh mì kẹp.",
+      "Em trai Linh, bé Khang, đói bụng và nhìn mấy cái bánh.",
+      "\"Bánh này cho em à?\" Khang hỏi.",
+      "\"Một cái là của em,\" Linh nói.",
+      "\"Mấy cái kia là của cả nhà!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể cách làm một món ăn đơn giản và dùng đúng a / an, the khi nói về đồ ăn.",
+    "examples": [
+      {
+        "lemma": "dinner",
+        "sentence": "We have an easy dinner on Friday.",
+        "meaningVi": "Tối thứ Sáu nhà mình ăn bữa tối đơn giản."
+      },
+      {
+        "lemma": "cook",
+        "sentence": "My grandma cooks fish soup.",
+        "meaningVi": "Bà mình nấu canh cá."
+      },
+      {
+        "lemma": "egg",
+        "sentence": "There are six eggs in the box.",
+        "meaningVi": "Trong hộp có sáu quả trứng."
+      },
+      {
+        "lemma": "bread",
+        "sentence": "The bread is on the table.",
+        "meaningVi": "Bánh mì ở trên bàn."
+      },
+      {
+        "lemma": "tomato",
+        "sentence": "This tomato is very red.",
+        "meaningVi": "Quả cà chua này rất đỏ."
+      },
+      {
+        "lemma": "cheese",
+        "sentence": "I love cheese on my bread.",
+        "meaningVi": "Mình rất thích phô mai trên bánh mì."
+      },
+      {
+        "lemma": "sandwich",
+        "sentence": "Dad has a sandwich for lunch.",
+        "meaningVi": "Bố ăn một cái bánh mì kẹp vào bữa trưa."
+      },
+      {
+        "lemma": "hungry",
+        "sentence": "I am always hungry after school.",
+        "meaningVi": "Tan học là mình lúc nào cũng đói."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Linh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Linh, what is your dinner tonight?",
+          "meaningVi": "Linh ơi, tối nay nhà bạn ăn gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "Egg and tomato sandwiches. Mum and I make them.",
+          "meaningVi": "Bánh mì kẹp trứng và cà chua. Mình với mẹ tự làm."
+        },
+        {
+          "speaker": 0,
+          "text": "Wow! Are they easy?",
+          "meaningVi": "Ồ! Có dễ làm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, very easy. There are only four things: bread, eggs, tomatoes and cheese.",
+          "meaningVi": "Dễ lắm. Chỉ có bốn thứ: bánh mì, trứng, cà chua và phô mai."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there any meat?",
+          "meaningVi": "Có thịt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, there isn't. I never eat meat.",
+          "meaningVi": "Không có. Mình không bao giờ ăn thịt mà."
+        },
+        {
+          "speaker": 0,
+          "text": "How many sandwiches are there?",
+          "meaningVi": "Có bao nhiêu cái bánh?"
+        },
+        {
+          "speaker": 1,
+          "text": "Eight. One is for Khang, and the other sandwiches are for us.",
+          "meaningVi": "Tám cái. Một cái cho Khang, mấy cái còn lại cho cả nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "Is Khang happy?",
+          "meaningVi": "Khang có vui không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he is. He wants two sandwiches!",
+          "meaningVi": "Vui chứ. Em ấy muốn hai cái cơ!"
+        }
+      ]
+    },
+    "grammarTipVi": "The dùng khi người nghe biết bạn nói đến thứ nào: Linh cuts the bread (bánh mì có sẵn trong bếp nhà Linh). Bread, cheese không đếm được nên không dùng a: không nói \"a bread\".",
+    "translations": [
+      {
+        "vi": "Mẹ tôi luộc bốn quả trứng.",
+        "en": "My mum cooks four eggs.",
+        "distractors": [
+          "egg",
+          "cook",
+          "an"
+        ]
+      },
+      {
+        "vi": "Linh cắt bánh mì.",
+        "en": "Linh cuts the bread.",
+        "distractors": [
+          "a",
+          "cut",
+          "breads"
+        ]
+      },
+      {
+        "vi": "Có một ít phô mai.",
+        "en": "There is a little cheese.",
+        "distractors": [
+          "are",
+          "an",
+          "cheeses"
+        ]
+      },
+      {
+        "vi": "Em trai tôi đói.",
+        "en": "My little brother is hungry.",
+        "distractors": [
+          "are",
+          "an",
+          "has"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh kể với Lan về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Món bánh mì kẹp cho bữa tối",
+          "Tiệm bánh của mẹ",
+          "Một bữa tiệc sinh nhật"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh kể tối nay mình và mẹ làm bánh mì kẹp trứng và cà chua.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Món bánh có mấy thứ?",
+        "promptVi": "",
+        "options": [
+          "Ba",
+          "Bốn",
+          "Năm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"There are only four things: bread, eggs, tomatoes and cheese\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Có bao nhiêu cái bánh?",
+        "promptVi": "",
+        "options": [
+          "Bốn",
+          "Sáu",
+          "Tám"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"Eight. One is for Khang\".",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There is meat in the sandwiches.",
+        "promptVi": "Trong bánh có thịt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"No, there isn't. I never eat meat\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Linh và mẹ làm món gì, và mỗi người làm việc gì?",
+    "grammarStep": {
+      "titleVi": "Mạo từ a / an / the",
+      "noticing": [
+        {
+          "sentence": "They make an easy dinner: egg and tomato sandwiches.",
+          "highlights": [
+            "an"
+          ]
+        },
+        {
+          "sentence": "Then Linh cuts the bread and the tomatoes.",
+          "highlights": [
+            "the"
+          ]
+        },
+        {
+          "sentence": "\"Yes, there is a little cheese in the kitchen,\" says Mum.",
+          "highlights": [
+            "a little",
+            "the"
+          ]
+        },
+        {
+          "sentence": "\"The other sandwiches are for the family!\"",
+          "highlights": [
+            "The",
+            "the"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Linh cuts the bread\", vì sao dùng the mà không dùng a?",
+      "options": [
+        "Vì bread là số nhiều",
+        "Vì đó là bánh mì có sẵn trong bếp, cả hai mẹ con đều biết là cái nào",
+        "Vì bánh mì rất to"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "The dùng cho thứ người nghe đã biết: the bread, the tomatoes là bánh mì và cà chua trong bếp. Bread lại không đếm được nên không dùng a.",
+      "whenVi": "Dùng a / an khi nhắc một thứ lần đầu, the khi cả hai người đều biết đó là thứ nào.",
+      "table": [
+        {
+          "subject": "a / an + một thứ (lần đầu)",
+          "form": "an easy dinner, a little cheese",
+          "negative": "—"
+        },
+        {
+          "subject": "the + thứ đã biết",
+          "form": "the bread, the tomatoes, the table",
+          "negative": "—"
+        },
+        {
+          "subject": "không mạo từ (nói chung)",
+          "form": "Linh never eats meat.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "They make a easy dinner.",
+          "right": "They make an easy dinner."
+        },
+        {
+          "wrong": "Linh cuts a bread.",
+          "right": "Linh cuts the bread."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"cắt bánh mì\" không có mạo từ, nên người Việt hay bỏ the hoặc dùng a với bread, cheese.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền a hoặc an vào chỗ trống.",
+          "text": "They make ___ easy dinner.",
+          "answers": [
+            "an"
+          ],
+          "explanationVi": "Easy bắt đầu bằng âm nguyên âm /iː/, nên dùng an."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Linh puts the eggs on ___ bread.",
+          "options": [
+            "a",
+            "an",
+            "the",
+            "two"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Đó là bánh mì Linh vừa cắt (đã biết), và bread không đếm được, nên dùng the."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Then Linh cuts a bread and the tomatoes.",
+          "sentence": "Then Linh cuts the bread and the tomatoes.",
+          "explanationVi": "Bread không đếm được nên không dùng a; đây là bánh mì có sẵn nên dùng the."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Những quả cà chua rất to.",
+          "sentence": "The tomatoes are very big.",
+          "words": [
+            "tomatoes",
+            "are",
+            "The",
+            "very",
+            "big",
+            "is"
+          ],
+          "explanationVi": "Tomatoes là số nhiều nên dùng are; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Then Linh cuts the bread and the tomatoes.",
+        "tipVi": "Cuts /kʌts/ có cụm âm cuối /ts/; bread /bred/ có cụm /br/ ở đầu."
+      },
+      {
+        "text": "Now there are eight sandwiches on the table.",
+        "tipVi": "Eight /eɪt/ kết thúc bằng /t/; sandwiches /ˈsænwɪtʃɪz/ có âm tiết /ɪz/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there any cheese in your kitchen?",
+        "questionVi": "Bếp nhà bạn có phô mai không?",
+        "frame": "Yes, there is. / No, there isn't."
+      },
+      {
+        "question": "What is an easy dinner for your family?",
+        "questionVi": "Bữa tối đơn giản của nhà bạn thường là món gì?",
+        "frame": "An easy dinner for us is ___."
+      },
+      {
+        "question": "Who helps your mum or dad in the kitchen?",
+        "questionVi": "Ai hay giúp bố hoặc mẹ bạn trong bếp?",
+        "frame": "My ___ helps. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm dùng a / an hoặc the (an egg, the bread)",
+      "anyOf": [
+        "the bread",
+        "the eggs",
+        "the table",
+        "an egg",
+        "an easy",
+        "a little"
+      ],
+      "outlineVi": [
+        "Nói bạn nấu món gì, với ai.",
+        "Kể cần những thứ gì.",
+        "Kể từng bước: ai làm việc gì."
+      ],
+      "modelAnswer": "On Saturday, I help my dad in the kitchen. We make an easy dinner: chicken sandwiches. First, Dad cooks the chicken. Then I cut the bread and two tomatoes. We put some cheese on the bread too. My sister is hungry, and she eats three sandwiches!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "easy",
+      "lemma": "easy",
+      "meaningVi": "dễ, đơn giản",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "an easy dinner",
+      "phraseVi": "một bữa tối đơn giản"
+    },
+    {
+      "text": "First",
+      "lemma": "first",
+      "meaningVi": "đầu tiên",
+      "sentenceIndex": 2,
+      "pos": "adverb",
+      "phrase": "First, Mum cooks four eggs",
+      "phraseVi": "Đầu tiên, mẹ luộc bốn quả trứng"
+    },
+    {
+      "text": "cuts",
+      "lemma": "cut",
+      "meaningVi": "cắt",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "Linh cuts the bread",
+      "phraseVi": "Linh cắt bánh mì"
+    },
+    {
+      "text": "red",
+      "lemma": "red",
+      "meaningVi": "màu đỏ",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "they are very red",
+      "phraseVi": "rất đỏ"
+    },
+    {
+      "text": "puts",
+      "lemma": "put",
+      "meaningVi": "đặt, cho vào",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "Linh puts the eggs and the tomatoes on the bread",
+      "phraseVi": "Linh đặt trứng và cà chua lên bánh mì"
+    },
+    {
+      "text": "a little",
+      "lemma": "a little",
+      "meaningVi": "một ít",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "a little cheese",
+      "phraseVi": "một ít phô mai"
+    },
+    {
+      "text": "milk",
+      "lemma": "milk",
+      "meaningVi": "sữa",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "near the milk",
+      "phraseVi": "gần chỗ sữa"
+    },
+    {
+      "text": "looks at",
+      "lemma": "look at",
+      "meaningVi": "nhìn",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "he looks at the sandwiches",
+      "phraseVi": "em nhìn mấy cái bánh"
+    },
+    {
+      "text": "other",
+      "lemma": "other",
+      "meaningVi": "khác, còn lại",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "The other sandwiches",
+      "phraseVi": "Mấy cái bánh còn lại"
+    },
+    {
+      "text": "family",
+      "lemma": "family",
+      "meaningVi": "gia đình",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "for the family",
+      "phraseVi": "của cả nhà"
+    }
+  ]
+}

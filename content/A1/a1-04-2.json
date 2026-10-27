@@ -1,0 +1,613 @@
+{
+  "content": "My name is Lan, and this is my room. It isn't big, but I love it.\n\nMy bed is near the door. My desk is in front of the window, and my computer is on the desk. There are a lot of books on my shelf. The shelf is on the wall, behind my desk.\n\nThere is a picture of my family on the wall, between the window and the door. My school bag is under the desk, and my blue shoes are behind the door.\n\n\"Where is Milo?\" asks my sister Mai.\nI ask, \"Is he in the kitchen?\"\n\"No, he isn't,\" she says.\nWe look under my bed, and there he is! Milo is under the bed, on my old school jacket.",
+  "targetWords": [
+    "room",
+    "bed",
+    "door",
+    "desk",
+    "window",
+    "shelf",
+    "wall",
+    "picture"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "room",
+        "lemma": "room",
+        "meaningVi": "căn phòng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "bed",
+        "lemma": "bed",
+        "meaningVi": "cái giường",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "door",
+        "lemma": "door",
+        "meaningVi": "cửa ra vào",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "desk",
+        "lemma": "desk",
+        "meaningVi": "bàn học",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "window",
+        "lemma": "window",
+        "meaningVi": "cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "shelf",
+        "lemma": "shelf",
+        "meaningVi": "cái giá, kệ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "wall",
+        "lemma": "wall",
+        "meaningVi": "bức tường",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "picture",
+        "lemma": "picture",
+        "meaningVi": "bức tranh, bức ảnh",
+        "pos": "noun",
+        "sentenceIndex": 6
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan's new computer",
+          "Mai's room",
+          "Where things are in Lan's room",
+          "A family picture"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói từng đồ vật trong phòng ở đâu: giường gần cửa, bàn trước cửa sổ, cặp dưới gầm bàn, và cuối cùng tìm thấy Milo dưới gầm giường."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Lan's desk?",
+        "promptVi": "Bàn học của Lan ở đâu?",
+        "options": [
+          "Near the door",
+          "In front of the window",
+          "Under the bed",
+          "Behind the door"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"My desk is in front of the window\". Gần cửa ra vào là giường."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Milo?",
+        "promptVi": "Milo ở đâu?",
+        "options": [
+          "In the kitchen",
+          "On the desk",
+          "Under the bed",
+          "Behind the door"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Milo is under the bed, on my old school jacket\". Mai nói Milo không ở trong bếp."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan's room is very big.",
+        "promptVi": "Phòng của Lan rất rộng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan viết \"It isn't big, but I love it\": phòng không rộng."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"jacket\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Milo is under the bed, on my old school jacket.",
+        "options": [
+          "cái cặp",
+          "đôi giày",
+          "cái chăn",
+          "áo khoác"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Jacket là áo khoác: Milo nằm trên chiếc áo khoác đồng phục cũ của Lan."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ nơi chốn (in, on, under, next to)",
+      "bodyVi": "Giới từ chỉ nơi chốn cho biết đồ vật ở đâu: on (trên bề mặt), in (trong), under (dưới), behind (phía sau), in front of (phía trước), near (gần), between … and … (ở giữa hai vật). Giới từ đứng trước danh từ: on the desk, behind the door.",
+      "examples": [
+        "My desk is in front of the window, and my computer is on the desk.",
+        "There is a picture of my family on the wall, between the window and the door.",
+        "My school bag is under the desk, and my blue shoes are behind the door."
+      ]
+    },
+    "writingPrompt": "Write about your room: what is in it and where each thing is.",
+    "sentenceTranslations": [
+      "Mình tên là Lan, và đây là phòng của mình.",
+      "Phòng không rộng, nhưng mình rất thích nó.",
+      "Giường của mình ở gần cửa ra vào.",
+      "Bàn học ở trước cửa sổ, và máy tính của mình ở trên bàn.",
+      "Trên giá có rất nhiều sách.",
+      "Cái giá gắn trên tường, phía sau bàn học.",
+      "Trên tường có một bức ảnh gia đình mình, ở giữa cửa sổ và cửa ra vào.",
+      "Cặp sách của mình ở dưới gầm bàn, còn đôi giày xanh thì ở sau cánh cửa.",
+      "\"Milo đâu rồi?\" em gái mình là Mai hỏi.",
+      "Mình hỏi: \"Nó ở trong bếp à?\"",
+      "\"Không có,\" em ấy nói.",
+      "Hai chị em nhìn xuống gầm giường, và nó ở đó!",
+      "Milo nằm dưới gầm giường, trên chiếc áo khoác đồng phục cũ của mình."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói đồ vật trong phòng ở đâu bằng on, in, under, behind, in front of, near, between.",
+    "examples": [
+      {
+        "lemma": "room",
+        "sentence": "My room is small and quiet.",
+        "meaningVi": "Phòng mình nhỏ và yên tĩnh."
+      },
+      {
+        "lemma": "bed",
+        "sentence": "My phone is on my bed.",
+        "meaningVi": "Điện thoại của mình ở trên giường."
+      },
+      {
+        "lemma": "door",
+        "sentence": "The bag is behind the door.",
+        "meaningVi": "Cái cặp ở sau cánh cửa."
+      },
+      {
+        "lemma": "desk",
+        "sentence": "There is a clock on my desk.",
+        "meaningVi": "Trên bàn học của mình có một chiếc đồng hồ."
+      },
+      {
+        "lemma": "window",
+        "sentence": "The table is in front of the window.",
+        "meaningVi": "Cái bàn ở trước cửa sổ."
+      },
+      {
+        "lemma": "shelf",
+        "sentence": "My English books are on the shelf.",
+        "meaningVi": "Sách tiếng Anh của mình ở trên giá."
+      },
+      {
+        "lemma": "wall",
+        "sentence": "There is a big map on the wall.",
+        "meaningVi": "Trên tường có một tấm bản đồ lớn."
+      },
+      {
+        "lemma": "picture",
+        "sentence": "The picture is between the two windows.",
+        "meaningVi": "Bức tranh ở giữa hai cửa sổ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Lan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Lan, where is my pink bag?",
+          "meaningVi": "Chị Lan ơi, cặp hồng của em đâu rồi?"
+        },
+        {
+          "speaker": 1,
+          "text": "Is it on your bed?",
+          "meaningVi": "Có ở trên giường em không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it isn't.",
+          "meaningVi": "Không có ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it under the table in the living room?",
+          "meaningVi": "Có ở dưới gầm bàn phòng khách không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No. There are only Milo's toys under the table.",
+          "meaningVi": "Không. Dưới gầm bàn chỉ có đồ chơi của Milo thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "What about behind the door?",
+          "meaningVi": "Thế sau cánh cửa thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! It's here, behind the door!",
+          "meaningVi": "Có rồi! Nó ở đây, sau cánh cửa!"
+        },
+        {
+          "speaker": 1,
+          "text": "Good. And where are your shoes?",
+          "meaningVi": "Tốt. Thế giày của em đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "They're in front of the television.",
+          "meaningVi": "Ở trước ti vi ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "Shoes in the living room? Oh, Mai!",
+          "meaningVi": "Giày ở phòng khách à? Ôi, Mai ơi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Between … and … là ở giữa hai vật: between the window and the door. In front of là ở phía trước, behind là ở phía sau. Không nói \"behind of\".",
+    "translations": [
+      {
+        "vi": "Máy tính ở trên bàn học.",
+        "en": "The computer is on the desk.",
+        "distractors": [
+          "in",
+          "under",
+          "are"
+        ]
+      },
+      {
+        "vi": "Giường của tôi ở gần cửa.",
+        "en": "My bed is near the door.",
+        "distractors": [
+          "on",
+          "in",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bức tranh ở trên tường.",
+        "en": "The picture is on the wall.",
+        "distractors": [
+          "in",
+          "under",
+          "are"
+        ]
+      },
+      {
+        "vi": "Cái cặp ở dưới gầm bàn học.",
+        "en": "The bag is under the desk.",
+        "distractors": [
+          "on",
+          "in",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai và Lan đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Tìm đồ của Mai trong nhà",
+          "Dọn phòng của Lan",
+          "Xem ti vi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai hỏi \"where is my pink bag?\" và hai chị em tìm cặp, rồi tìm giày của Mai.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Dưới gầm bàn phòng khách có gì?",
+        "promptVi": "",
+        "options": [
+          "Cặp của Mai",
+          "Đồ chơi của Milo",
+          "Giày của Mai"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"There are only Milo's toys under the table\".",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cặp hồng của Mai ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên giường",
+          "Dưới gầm bàn",
+          "Sau cánh cửa"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"It's here, behind the door!\": cặp ở sau cánh cửa.",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai's shoes are in front of the television.",
+        "promptVi": "Giày của Mai ở trước ti vi.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Mai nói \"They're in front of the television\".",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Mỗi đồ vật trong phòng Lan ở đâu?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ nơi chốn (in, on, under, next to)",
+      "noticing": [
+        {
+          "sentence": "My desk is in front of the window, and my computer is on the desk.",
+          "highlights": [
+            "in front of",
+            "on"
+          ]
+        },
+        {
+          "sentence": "There is a picture of my family on the wall, between the window and the door.",
+          "highlights": [
+            "on",
+            "between"
+          ]
+        },
+        {
+          "sentence": "My school bag is under the desk, and my blue shoes are behind the door.",
+          "highlights": [
+            "under",
+            "behind"
+          ]
+        },
+        {
+          "sentence": "Milo is under the bed, on my old school jacket.",
+          "highlights": [
+            "under",
+            "on"
+          ]
+        }
+      ],
+      "questionVi": "Các từ under, behind, in front of, between cho biết điều gì?",
+      "options": [
+        "Thời gian của sự việc",
+        "Vị trí của đồ vật",
+        "Số lượng đồ vật"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Đó là giới từ chỉ nơi chốn: chúng đứng trước danh từ (the desk, the door) và cho biết đồ vật ở đâu so với vật đó.",
+      "whenVi": "Dùng giới từ chỉ nơi chốn để nói người hay đồ vật ở đâu.",
+      "table": [
+        {
+          "subject": "on / in",
+          "form": "on the desk (trên), in the kitchen (trong)",
+          "negative": "—"
+        },
+        {
+          "subject": "under / behind",
+          "form": "under the bed (dưới), behind the door (sau)",
+          "negative": "—"
+        },
+        {
+          "subject": "in front of / near",
+          "form": "in front of the window (trước), near the door (gần)",
+          "negative": "—"
+        },
+        {
+          "subject": "between … and …",
+          "form": "between the window and the door (ở giữa)",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The shoes are behind of the door.",
+          "right": "The shoes are behind the door."
+        },
+        {
+          "wrong": "The picture is between the window with the door.",
+          "right": "The picture is between the window and the door."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"phía sau cái cửa\", \"ở giữa cửa sổ với cửa ra vào\", nên người Việt hay thêm of sau behind và dùng with thay cho and sau between.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền giới từ có nghĩa là \"trên (bề mặt)\".",
+          "text": "My computer is ___ the desk.",
+          "answers": [
+            "on"
+          ],
+          "explanationVi": "Máy tính nằm trên mặt bàn, nên dùng on."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "The picture is between the window ___ the door.",
+          "options": [
+            "or",
+            "and",
+            "with",
+            "to"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Cấu trúc là between … and …: ở giữa vật này và vật kia."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My blue shoes are behind of the door.",
+          "sentence": "My blue shoes are behind the door.",
+          "explanationVi": "Behind đứng ngay trước danh từ, không có of."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Con mèo ở dưới gầm giường.",
+          "sentence": "The cat is under the bed.",
+          "words": [
+            "cat",
+            "under",
+            "The",
+            "is",
+            "bed",
+            "the",
+            "on"
+          ],
+          "explanationVi": "\"Dưới gầm\" là under; từ \"on\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "My school bag is under the desk.",
+        "tipVi": "Under /ˈʌndɚ/ nhấn âm đầu UN; desk /desk/ có cụm âm cuối /sk/."
+      },
+      {
+        "text": "There is a picture of my family on the wall.",
+        "tipVi": "Picture /ˈpɪktʃɚ/ có âm /tʃ/ ở giữa: PIK-chər; wall /wɑːl/ có âm /l/ cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where is your bed in your room?",
+        "questionVi": "Giường trong phòng bạn ở đâu?",
+        "frame": "My bed is ___ the ___."
+      },
+      {
+        "question": "What is on your desk?",
+        "questionVi": "Trên bàn học của bạn có gì?",
+        "frame": "There is ___ on my desk."
+      },
+      {
+        "question": "Where is your mum's or dad's phone now?",
+        "questionVi": "Điện thoại của bố hoặc mẹ bạn bây giờ ở đâu?",
+        "frame": "His / Her phone is ___ the ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu nói đồ vật ở đâu (on, in, under, behind …)",
+      "anyOf": [
+        "on the",
+        "in the",
+        "under the",
+        "behind the",
+        "in front of",
+        "between",
+        "near the"
+      ],
+      "outlineVi": [
+        "Nói phòng của bạn to hay nhỏ.",
+        "Nói giường, bàn học, giá sách ở đâu.",
+        "Nói những đồ vật khác (cặp, tranh, giày) ở đâu."
+      ],
+      "modelAnswer": "This is my room. My bed is near the window, and my desk is behind the door. My books are on a shelf on the wall. There is a picture of my cat between the window and the shelf. My bag is under my desk."
+    }
+  },
+  "glosses": [
+    {
+      "text": "love",
+      "lemma": "love",
+      "meaningVi": "rất thích, yêu",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "I love it",
+      "phraseVi": "mình rất thích nó"
+    },
+    {
+      "text": "near",
+      "lemma": "near",
+      "meaningVi": "gần",
+      "sentenceIndex": 2,
+      "pos": "preposition",
+      "phrase": "near the door",
+      "phraseVi": "gần cửa ra vào"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "phía trước",
+      "sentenceIndex": 3,
+      "pos": "preposition",
+      "phrase": "in front of the window",
+      "phraseVi": "trước cửa sổ"
+    },
+    {
+      "text": "computer",
+      "lemma": "computer",
+      "meaningVi": "máy tính",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "my computer is on the desk",
+      "phraseVi": "máy tính của mình ở trên bàn"
+    },
+    {
+      "text": "behind",
+      "lemma": "behind",
+      "meaningVi": "phía sau",
+      "sentenceIndex": 5,
+      "pos": "preposition",
+      "phrase": "behind my desk",
+      "phraseVi": "phía sau bàn học"
+    },
+    {
+      "text": "between",
+      "lemma": "between",
+      "meaningVi": "ở giữa",
+      "sentenceIndex": 6,
+      "pos": "preposition",
+      "phrase": "between the window and the door",
+      "phraseVi": "ở giữa cửa sổ và cửa ra vào"
+    },
+    {
+      "text": "under",
+      "lemma": "under",
+      "meaningVi": "ở dưới",
+      "sentenceIndex": 7,
+      "pos": "preposition",
+      "phrase": "under the desk",
+      "phraseVi": "dưới gầm bàn"
+    },
+    {
+      "text": "school bag",
+      "lemma": "school bag",
+      "meaningVi": "cặp sách",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "My school bag",
+      "phraseVi": "Cặp sách của mình"
+    },
+    {
+      "text": "look",
+      "lemma": "look",
+      "meaningVi": "nhìn",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "We look under my bed",
+      "phraseVi": "Hai chị em nhìn xuống gầm giường"
+    },
+    {
+      "text": "jacket",
+      "lemma": "jacket",
+      "meaningVi": "áo khoác",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "my old school jacket",
+      "phraseVi": "chiếc áo khoác đồng phục cũ của mình"
+    }
+  ]
+}

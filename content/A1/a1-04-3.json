@@ -1,0 +1,619 @@
+{
+  "content": "It is Saturday morning. Dad is in the living room. \"Where is my phone?\" he asks.\n\"Is it on the table?\" asks Mum.\n\"No, it isn't,\" says Dad.\n\nMinh looks in the kitchen. There is a cup on the table, and there are two bananas, but there isn't a phone. \"Is it in your bag?\" asks Minh. Dad looks in his bag. There are some keys and a book in it, but there isn't a phone.\n\nMum looks under the sofa. There is a pen and a small ball under it, but there isn't a phone. Then Mum calls Dad's phone. There is music in the bathroom!\n\nThe phone is on the bathroom floor, behind a towel. Dad laughs. \"Thank you, my phone is here!\"",
+  "targetWords": [
+    "living room",
+    "phone",
+    "table",
+    "kitchen",
+    "key",
+    "sofa",
+    "bathroom",
+    "floor"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "phone",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "table",
+        "lemma": "table",
+        "meaningVi": "cái bàn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "keys",
+        "lemma": "key",
+        "meaningVi": "chìa khóa",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "bathroom",
+        "lemma": "bathroom",
+        "meaningVi": "phòng tắm",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "sàn nhà",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Dad's new phone",
+          "The family looks for Dad's phone.",
+          "Minh's favourite room",
+          "A Saturday party"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bố hỏi \"Where is my phone?\", rồi cả nhà tìm ở bàn, trong bếp, trong cặp, dưới ghế sofa, và cuối cùng thấy trong phòng tắm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is in Dad's bag?",
+        "promptVi": "Trong cặp của bố có gì?",
+        "options": [
+          "Some keys and a book",
+          "A pen and a ball",
+          "A cup and two bananas",
+          "His phone"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"There are some keys and a book in it, but there isn't a phone\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the phone?",
+        "promptVi": "Điện thoại ở đâu?",
+        "options": [
+          "On the table",
+          "In Dad's bag",
+          "Under the sofa",
+          "On the bathroom floor"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết \"The phone is on the bathroom floor, behind a towel\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The phone is under the sofa.",
+        "promptVi": "Điện thoại ở dưới gầm ghế sofa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì dưới ghế sofa chỉ có \"a pen and a small ball\", \"but there isn't a phone\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"towel\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The phone is on the bathroom floor, behind a towel.",
+        "options": [
+          "cái cặp",
+          "cái hộp",
+          "khăn tắm",
+          "cái chăn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Towel là khăn tắm, thứ hay có trong phòng tắm: điện thoại bị che sau một chiếc khăn."
+      }
+    ],
+    "grammarNote": {
+      "title": "There is / there are",
+      "bodyVi": "There is + một vật, there are + nhiều vật. Khi tìm mà không thấy, dùng phủ định: there isn't a phone (không có điện thoại), there aren't any keys. There is cũng đi với danh từ không đếm được như music: There is music in the bathroom.",
+      "examples": [
+        "There is a cup on the table, and there are two bananas, but there isn't a phone.",
+        "There are some keys and a book in it, but there isn't a phone.",
+        "There is music in the bathroom!"
+      ]
+    },
+    "writingPrompt": "Write about a lost thing in your home: where your family looks and what there is in each place.",
+    "sentenceTranslations": [
+      "Hôm nay là sáng thứ Bảy.",
+      "Bố đang ở phòng khách.",
+      "\"Điện thoại của bố đâu rồi?\" bố hỏi.",
+      "\"Có ở trên bàn không anh?\" mẹ hỏi.",
+      "\"Không có,\" bố nói.",
+      "Minh tìm trong bếp.",
+      "Trên bàn có một cái cốc và hai quả chuối, nhưng không có điện thoại.",
+      "\"Có trong cặp của bố không ạ?\" Minh hỏi.",
+      "Bố tìm trong cặp.",
+      "Trong cặp có mấy chiếc chìa khóa và một quyển sách, nhưng không có điện thoại.",
+      "Mẹ tìm dưới gầm ghế sofa.",
+      "Dưới đó có một cây bút và một quả bóng nhỏ, nhưng không có điện thoại.",
+      "Rồi mẹ gọi vào số điện thoại của bố.",
+      "Có tiếng nhạc trong phòng tắm!",
+      "Điện thoại nằm trên sàn phòng tắm, sau một chiếc khăn tắm.",
+      "Bố bật cười.",
+      "\"Cảm ơn nhé, điện thoại của anh đây rồi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói một nơi có gì và không có gì (there is, there are, there isn't) khi tìm đồ trong nhà.",
+    "examples": [
+      {
+        "lemma": "living room",
+        "sentence": "There is a big clock in our living room.",
+        "meaningVi": "Phòng khách nhà mình có một chiếc đồng hồ lớn."
+      },
+      {
+        "lemma": "phone",
+        "sentence": "My phone is in my bag.",
+        "meaningVi": "Điện thoại của mình ở trong cặp."
+      },
+      {
+        "lemma": "table",
+        "sentence": "There are three cups on the table.",
+        "meaningVi": "Trên bàn có ba cái cốc."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "There isn't a television in the kitchen.",
+        "meaningVi": "Trong bếp không có ti vi."
+      },
+      {
+        "lemma": "key",
+        "sentence": "Is this your key?",
+        "meaningVi": "Đây là chìa khóa của bạn à?"
+      },
+      {
+        "lemma": "sofa",
+        "sentence": "The cat is under the sofa again.",
+        "meaningVi": "Con mèo lại chui xuống gầm ghế sofa rồi."
+      },
+      {
+        "lemma": "bathroom",
+        "sentence": "There is a small window in the bathroom.",
+        "meaningVi": "Phòng tắm có một cửa sổ nhỏ."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "There are toys on the floor.",
+        "meaningVi": "Trên sàn nhà có đồ chơi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Anna",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, are my keys in your bag?",
+          "meaningVi": "Minh ơi, chìa khóa của mình có trong cặp bạn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they aren't. Are they on your desk?",
+          "meaningVi": "Không có. Có ở trên bàn bạn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No. There are only books on my desk.",
+          "meaningVi": "Không. Trên bàn mình chỉ có sách thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "Are they in your jacket?",
+          "meaningVi": "Có ở trong áo khoác không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, there's only a pen in it.",
+          "meaningVi": "Không, trong đó chỉ có một cây bút."
+        },
+        {
+          "speaker": 1,
+          "text": "Is there a box for keys in our classroom?",
+          "meaningVi": "Lớp mình có hộp để chìa khóa không nhỉ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there is. It's near Mr Nam's desk.",
+          "meaningVi": "Có đấy. Ở gần bàn thầy Nam."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh! There are some keys in the box.",
+          "meaningVi": "Ồ! Trong hộp có mấy chiếc chìa khóa."
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! They're my keys!",
+          "meaningVi": "Đúng rồi! Đó là chìa khóa của mình!"
+        },
+        {
+          "speaker": 1,
+          "text": "Great! It's a happy day.",
+          "meaningVi": "Tuyệt! Hôm nay đúng là một ngày vui."
+        }
+      ]
+    },
+    "grammarTipVi": "There is đi với một vật đếm được (a cup) và với danh từ không đếm được (music, water). There are some + nhiều vật: there are some keys. Phủ định số nhiều thường dùng any: there aren't any keys.",
+    "translations": [
+      {
+        "vi": "Điện thoại ở trên bàn.",
+        "en": "The phone is on the table.",
+        "distractors": [
+          "in",
+          "are",
+          "under"
+        ]
+      },
+      {
+        "vi": "Trong bếp không có điện thoại.",
+        "en": "There isn't a phone in the kitchen.",
+        "distractors": [
+          "aren't",
+          "on",
+          "has"
+        ]
+      },
+      {
+        "vi": "Dưới ghế sofa có một quả bóng.",
+        "en": "There is a ball under the sofa.",
+        "distractors": [
+          "are",
+          "on",
+          "has"
+        ]
+      },
+      {
+        "vi": "Trong cặp có vài chiếc chìa khóa.",
+        "en": "There are some keys in the bag.",
+        "distractors": [
+          "is",
+          "on",
+          "key"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna và Minh đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Tìm chìa khóa của Anna",
+          "Dọn lớp học",
+          "Mua một chiếc hộp mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi \"are my keys in your bag?\", rồi hai bạn tìm ở bàn, áo khoác và cuối cùng thấy trong hộp.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trên bàn của Anna có gì?",
+        "promptVi": "",
+        "options": [
+          "Chìa khóa",
+          "Chỉ có sách",
+          "Một cây bút"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"There are only books on my desk\". Cây bút ở trong áo khoác.",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cái hộp để chìa khóa ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trong cặp Minh",
+          "Trên bàn Anna",
+          "Gần bàn thầy Nam"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna nói \"It's near Mr Nam's desk\".",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna's keys are in her jacket.",
+        "promptVi": "Chìa khóa của Anna ở trong áo khoác.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna nói \"No, there's only a pen in it\": trong áo khoác chỉ có cây bút.",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Mỗi chỗ cả nhà tìm có những gì?",
+    "grammarStep": {
+      "titleVi": "There is / there are",
+      "noticing": [
+        {
+          "sentence": "There is a cup on the table, and there are two bananas, but there isn't a phone.",
+          "highlights": [
+            "There is",
+            "there are",
+            "there isn't"
+          ]
+        },
+        {
+          "sentence": "There are some keys and a book in it, but there isn't a phone.",
+          "highlights": [
+            "There are",
+            "there isn't"
+          ]
+        },
+        {
+          "sentence": "There is music in the bathroom!",
+          "highlights": [
+            "There is"
+          ]
+        },
+        {
+          "sentence": "Is there a box for keys in our classroom?",
+          "highlights": [
+            "Is there"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"but there isn't a phone\", there isn't có nghĩa là gì?",
+      "options": [
+        "Có",
+        "Không có",
+        "Ở đâu"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "There isn't là phủ định của there is: ở đó không có điện thoại. Với nhiều vật thì dùng there aren't.",
+      "whenVi": "Dùng there is / there are để nói một nơi có gì, there isn't / there aren't để nói một nơi không có gì.",
+      "table": [
+        {
+          "subject": "there is + một vật",
+          "form": "There is a cup on the table.",
+          "negative": "There isn't a phone."
+        },
+        {
+          "subject": "there are + nhiều vật",
+          "form": "There are some keys in the bag.",
+          "negative": "There aren't any chairs."
+        },
+        {
+          "subject": "câu hỏi",
+          "form": "Is there a box? – Yes, there is.",
+          "negative": "No, there isn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There have some keys in the bag.",
+          "right": "There are some keys in the bag."
+        },
+        {
+          "wrong": "There isn't phone.",
+          "right": "There isn't a phone."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"không có điện thoại\" mà không cần \"một\", nên người Việt hay quên a sau there isn't.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng phủ định viết gọn của is.",
+          "text": "There ___ a phone in the kitchen.",
+          "answers": [
+            "isn't"
+          ],
+          "explanationVi": "A phone là một vật, nên phủ định là there isn't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ there a box for keys?",
+          "options": [
+            "Are",
+            "Is",
+            "Has",
+            "Have"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "A box là một vật, nên câu hỏi là Is there …?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There are a cup on the table.",
+          "sentence": "There is a cup on the table.",
+          "explanationVi": "A cup là một vật (số ít), nên dùng there is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Trong phòng không có ghế.",
+          "sentence": "There aren't any chairs in the room.",
+          "words": [
+            "any",
+            "chairs",
+            "There",
+            "aren't",
+            "in",
+            "the",
+            "room",
+            "isn't"
+          ],
+          "explanationVi": "Chairs là số nhiều nên dùng there aren't any; từ \"isn't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There are some keys and a book in it.",
+        "tipVi": "Keys /kiːz/ có âm /z/ ở cuối, đừng đọc thành \"ki\"."
+      },
+      {
+        "text": "The phone is on the bathroom floor, behind a towel.",
+        "tipVi": "Bathroom /ˈbæθruːm/ có âm /θ/ (lưỡi giữa răng); towel /ˈtaʊəl/ có âm /aʊ/ như \"ao\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where is your phone now?",
+        "questionVi": "Bây giờ điện thoại của bạn ở đâu?",
+        "frame": "My phone is ___."
+      },
+      {
+        "question": "What is in your school bag?",
+        "questionVi": "Trong cặp của bạn có gì?",
+        "frame": "There are ___ and there is ___ in my bag."
+      },
+      {
+        "question": "Where are your mum's or dad's keys?",
+        "questionVi": "Chìa khóa của bố hoặc mẹ bạn ở đâu?",
+        "frame": "His / Her keys are ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng there is / there are hoặc there isn't",
+      "anyOf": [
+        "there is",
+        "there are",
+        "there isn't",
+        "there aren't",
+        "there's"
+      ],
+      "outlineVi": [
+        "Nói ai không tìm thấy đồ gì.",
+        "Kể cả nhà tìm ở đâu, và ở đó có gì, không có gì.",
+        "Nói cuối cùng đồ vật ở đâu."
+      ],
+      "modelAnswer": "My mum's keys aren't in her bag. We look in the kitchen. There is a cup on the table, but there aren't any keys. We look under the sofa. There is a ball, but there isn't a key. The keys are on the bathroom floor, behind the door!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "Where",
+      "lemma": "where",
+      "meaningVi": "ở đâu",
+      "sentenceIndex": 2,
+      "pos": "adverb",
+      "phrase": "Where is my phone?",
+      "phraseVi": "Điện thoại của bố đâu rồi?"
+    },
+    {
+      "text": "looks in",
+      "lemma": "look in",
+      "meaningVi": "tìm trong, nhìn vào",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "Minh looks in the kitchen",
+      "phraseVi": "Minh tìm trong bếp"
+    },
+    {
+      "text": "cup",
+      "lemma": "cup",
+      "meaningVi": "cái cốc",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a cup on the table",
+      "phraseVi": "một cái cốc trên bàn"
+    },
+    {
+      "text": "bananas",
+      "lemma": "banana",
+      "meaningVi": "quả chuối",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "two bananas",
+      "phraseVi": "hai quả chuối"
+    },
+    {
+      "text": "bag",
+      "lemma": "bag",
+      "meaningVi": "cái cặp, cái túi",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "Dad looks in his bag",
+      "phraseVi": "Bố tìm trong cặp"
+    },
+    {
+      "text": "under",
+      "lemma": "under",
+      "meaningVi": "ở dưới",
+      "sentenceIndex": 10,
+      "pos": "preposition",
+      "phrase": "under the sofa",
+      "phraseVi": "dưới gầm ghế sofa"
+    },
+    {
+      "text": "ball",
+      "lemma": "ball",
+      "meaningVi": "quả bóng",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "a small ball",
+      "phraseVi": "một quả bóng nhỏ"
+    },
+    {
+      "text": "calls",
+      "lemma": "call",
+      "meaningVi": "gọi điện",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "Mum calls Dad's phone",
+      "phraseVi": "mẹ gọi vào điện thoại của bố"
+    },
+    {
+      "text": "music",
+      "lemma": "music",
+      "meaningVi": "tiếng nhạc",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "There is music in the bathroom",
+      "phraseVi": "Có tiếng nhạc trong phòng tắm"
+    },
+    {
+      "text": "towel",
+      "lemma": "towel",
+      "meaningVi": "khăn tắm",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "behind a towel",
+      "phraseVi": "sau một chiếc khăn tắm"
+    },
+    {
+      "text": "laughs",
+      "lemma": "laugh",
+      "meaningVi": "cười",
+      "sentenceIndex": 15,
+      "pos": "verb",
+      "phrase": "Dad laughs",
+      "phraseVi": "Bố bật cười"
+    }
+  ]
+}

@@ -403,17 +403,44 @@ func generatePrompt(req ai.GenerateRequest) string {
 	fmt.Fprintf(&b, `You are an experienced English teacher.
 You write English lessons for Vietnamese learners at CEFR level %s.
 Topic: %s.
-Write exactly %d different lessons about this topic. Each lesson must have about %d words
+`, req.Level, req.TopicName)
+	// Fixed 2026-10-27: a single lesson was asked as "exactly 1 different lessons".
+	if req.Count == 1 {
+		fmt.Fprintf(&b, "Write one lesson about this topic. It must have about %d words", req.Words)
+	} else {
+		fmt.Fprintf(&b, "Write exactly %d different lessons about this topic. Each lesson must have about %d words", req.Count, req.Words)
+	}
+	fmt.Fprintf(&b, `
 (between %d and %d words; count every word of the content). Write at the long end of that range:
 a lesson shorter than %d words is too short.
-`, req.Level, req.TopicName, req.Count, req.Words, low, high, low)
+`, low, high, low)
 	writeLevelRules(&b, req.Level)
+	// Changed 2026-10-27: the example used "there are", which the A1 course teaches only in topic 4.
+	// British English, as in the lessons already written.
 	b.WriteString(`Write natural, connected text, as a real person would say or write it. Do not write a list of
-unrelated sentences that each introduce one word. Use idiomatic structures (for example "There are
-four people in my family", not "We are four people in my house").
-Each lesson needs a short title (at most 8 words). Titles must be different from each other,
+unrelated sentences that each introduce one word. Use idiomatic structures (for example "I am ten
+years old", not "I have ten years old"). Use British English spelling and words (colour, mum).
+`)
+	// Added 2026-10-27: beginner texts read best in short sentences.
+	switch req.Level {
+	case "A1":
+		b.WriteString("Keep the sentences short and simple: most of them under 10 words, joined with and or but.\n")
+	case "A2":
+		b.WriteString("Keep the sentences fairly short: most of them under 14 words.\n")
+	}
+	switch {
+	case req.Course != nil && req.Course.Title != "":
+		// Added 2026-10-27: the course names the lesson, so the text must fit that title.
+		// A title people say ("Where Are You From?") must be said in the text too (2026-10-27).
+		fmt.Fprintf(&b, "Title: exactly %q (copy it unchanged). The text must be about what this title says; "+
+			"if the title is something people say or ask, someone in the text says it.\n", req.Course.Title)
+	case req.Count == 1:
+		b.WriteString("The lesson needs a short title (at most 8 words).\n")
+	default:
+		b.WriteString(`Each lesson needs a short title (at most 8 words). Titles must be different from each other,
 and each lesson must tell a different story or situation.
 `)
+	}
 	if req.Kind == ai.KindDialogue {
 		b.WriteString(`Form: a dialogue between two or three people with first names.
 Write one turn per line in the form "Name: what they say". No empty lines, no narration,
@@ -424,26 +451,64 @@ ask follow-up questions; at least a third of the turns are questions. Do not let
 story line after line.
 `)
 	} else {
-		b.WriteString("Form: a reading text in plain paragraphs (no dialogue lines).\n")
+		b.WriteString("Form: a reading text in plain paragraphs (no dialogue lines).")
+		if req.Course != nil {
+			// Added 2026-10-27: some points (imperatives, questions) only sound natural in a note or an email.
+			b.WriteString(" It may be a story, a description, an email, a message or a note: whichever suits the plan and the grammar focus best.")
+			// Added 2026-10-27: a plan where people ask each other something needs their words.
+			b.WriteString(" A story may quote what people say in quotation marks inside its paragraphs " +
+				"(Anna asks, \"Where are you from?\"), but it stays a story, not a dialogue.")
+		}
+		b.WriteString("\n")
 		// Added 2026-10-22: the grammar step works on the lesson's own sentences, so a text told only
 		// with "I" never shows the third person, negatives or questions. Beginners only (2026-10-23):
 		// higher levels write articles and essays where that paragraph would be forced.
 		if beginner(req.Level) {
 			b.WriteString("Do not tell the whole text with \"I\": give at least one short paragraph about another person " +
 				"(a friend or a family member, with he or she), and use at least one negative sentence and, where it fits, " +
-				"one question.\n")
+				"one question.")
+			if req.Course != nil && len(req.Course.LaterGrammar) > 0 {
+				// Added 2026-10-27: before do / does is taught, "He doesn't…" would be a later point.
+				b.WriteString(" Make them only with forms the learners have met, not with the later points listed below " +
+					"(for example with be: \"She isn't tall.\", \"Is this your brother?\").")
+			}
+			if req.Course != nil {
+				// Added 2026-10-27: "Is she your friend?" dropped into a story, asked by no one.
+				b.WriteString(" A question is asked by someone: a person in the story, in quotation marks, " +
+					"or the writer of an email or a message.")
+			}
+			b.WriteString("\n")
 		}
 	}
 	if req.Idea != "" {
-		fmt.Fprintf(&b, "Use this idea as inspiration: %s\n", req.Idea)
+		if req.Course != nil {
+			// The slot's idea is the course's plan for the lesson, not a hint (2026-10-27).
+			fmt.Fprintf(&b, "The lesson must follow this plan: %s\n", req.Idea)
+		} else {
+			fmt.Fprintf(&b, "Use this idea as inspiration: %s\n", req.Idea)
+		}
 	}
 	if g := req.GrammarFocus; g != nil {
 		fmt.Fprintf(&b, "Grammar focus: every lesson must use this grammar point clearly, at least 3 times, in natural "+
-			"sentences: %s (%s). Pattern: %s.\n", g.TitleEn, g.TitleVi, g.Pattern)
+			"sentences: %s. Pattern: %s.\n", g.TitleEn, g.Pattern)
 		if g.Example != "" {
 			fmt.Fprintf(&b, "Example: %s\n", g.Example)
 		}
+		if req.Course != nil {
+			for _, m := range req.Course.MoreGrammar {
+				fmt.Fprintf(&b, "Also use this grammar point a few times, in natural sentences: %s. Pattern: %s.\n", m.TitleEn, m.Pattern)
+			}
+		}
 		fmt.Fprintf(&b, "The rest of the grammar stays at CEFR %s or below.\n", req.Level)
+		if req.Course != nil && len(req.Course.LaterGrammar) > 0 {
+			b.WriteString("The course teaches these grammar points only later, so the learners have not met them yet. " +
+				"Avoid them where you can; if the text would sound unnatural without one, use it rarely and in its simplest form. " +
+				"Forms of the points they have met (such as \"she has\") and everyday words and phrases (a, the, and, in the photo, " +
+				"at home) are always fine:\n")
+			for _, g := range req.Course.LaterGrammar {
+				fmt.Fprintf(&b, "- %s (%s)\n", g.TitleEn, g.Pattern)
+			}
+		}
 	} else if len(req.GrammarChoices) > 0 {
 		// Added 2026-10-20: every lesson is built around one point of the course.
 		b.WriteString("Grammar focus: build each lesson around one grammar point from the list below, the one that fits its story best, " +
@@ -455,13 +520,27 @@ story line after line.
 		}
 		fmt.Fprintf(&b, "The rest of the grammar stays at CEFR %s or below.\n", req.Level)
 	}
+	// Fixed 2026-10-27: A1 has no past tense, so its example form is the plural only.
+	forms := "plural or past tense"
+	if req.Level == "A1" {
+		forms = "plural"
+	}
 	for i, words := range req.TargetWords {
 		if len(words) > 0 {
-			fmt.Fprintf(&b, "Lesson %d must use every one of these words or phrases "+
-				"(any natural form, e.g. plural or past tense): %s\n"+
+			which := fmt.Sprintf("Lesson %d", i+1)
+			if req.Count == 1 {
+				which = "The lesson"
+			}
+			fmt.Fprintf(&b, "%s must use every one of these words or phrases "+
+				"(any natural form, e.g. %s): %s\n"+
 				"Use each one in a natural sentence at this level. Leave a word out only if it cannot be used "+
 				"naturally at CEFR %s; never make the text harder or odder to fit it in.\n",
-				i+1, strings.Join(words, ", "), req.Level)
+				which, forms, strings.Join(words, ", "), req.Level)
+			if req.Course != nil {
+				// Added 2026-10-27: "we send a good evening text", "we say bye and goodbye" to fit every word.
+				b.WriteString("The plan comes first: leave out one or two words that do not fit it rather than writing a " +
+					"sentence only to fit a word in, and do not put two words with the same meaning side by side.\n")
+			}
 		}
 	}
 	if len(req.ExistingTitles) > 0 {

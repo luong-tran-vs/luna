@@ -24,6 +24,8 @@ type generateJSON struct {
 	Idea           string     `json:"idea"`
 	TargetWords    [][]string `json:"targetWords"`
 	GrammarPointID string     `json:"grammarPointId"`
+	// Course is set only by the course page (GenerateSlot), never from a request.
+	Course *CoursePlan `json:"-"`
 }
 
 type draftJSON struct {
@@ -99,4 +101,3 @@ func (h *Handler) writeGenerateError(w http.ResponseWriter, r *http.Request, err
 		h.writeError(w, r, err)
 	}
 }
-

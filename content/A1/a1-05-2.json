@@ -1,0 +1,607 @@
+{
+  "content": "My mum's name is Ha, and she works in a bank. Her day is long, but she is always happy.\n\nShe always gets up at half past five. She usually drinks a cup of coffee and reads the news on her phone. Then she makes breakfast for Dad and me. She often eats a banana on the bus.\n\nShe usually goes to work by bus, but on rainy days, Dad drives her. At work, she is very busy. She often has lunch at her desk.\n\nMum usually comes home at six. She cooks dinner, and we often eat together at seven. In the evening, she listens to music or watches TV. She is never in bed before eleven.\n\nI often ask her, \"Mum, are you tired?\"\n\"No, I'm fine,\" she says with a smile.",
+  "targetWords": [
+    "get up",
+    "breakfast",
+    "go to work",
+    "have lunch",
+    "cook",
+    "dinner",
+    "listen to music",
+    "watch TV"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "gets up",
+        "lemma": "get up",
+        "meaningVi": "thức dậy",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "breakfast",
+        "lemma": "breakfast",
+        "meaningVi": "bữa sáng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "goes to work",
+        "lemma": "go to work",
+        "meaningVi": "đi làm",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "has lunch",
+        "lemma": "have lunch",
+        "meaningVi": "ăn trưa",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "cooks",
+        "lemma": "cook",
+        "meaningVi": "nấu ăn",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "dinner",
+        "lemma": "dinner",
+        "meaningVi": "bữa tối",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "listens to music",
+        "lemma": "listen to music",
+        "meaningVi": "nghe nhạc",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "watches TV",
+        "lemma": "watch TV",
+        "meaningVi": "xem ti vi",
+        "pos": "verb",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "The writer's school day",
+          "A bank in Hanoi",
+          "A day of the writer's mum",
+          "Dad's new car"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Người viết kể một ngày của mẹ: mẹ luôn, thường, hay làm gì từ sáng đến tối."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time is Mum up in the morning?",
+        "promptVi": "Buổi sáng mẹ dậy lúc mấy giờ?",
+        "options": [
+          "At five o'clock",
+          "At half past five",
+          "At six o'clock",
+          "At seven o'clock"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"She always gets up at half past five\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who drives Mum to work on rainy days?",
+        "promptVi": "Những hôm trời mưa ai chở mẹ đi làm?",
+        "options": [
+          "Her friend",
+          "The writer",
+          "Dad",
+          "A taxi driver"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"on rainy days, Dad drives her\": bố chở mẹ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mum is often in bed at ten o'clock.",
+        "promptVi": "Mẹ hay đi ngủ lúc mười giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"She is never in bed before eleven\": mẹ không bao giờ đi ngủ trước mười một giờ."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"rainy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She usually goes to work by bus, but on rainy days, Dad drives her.",
+        "options": [
+          "có nắng",
+          "lạnh",
+          "bận rộn",
+          "có mưa"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Rainy là có mưa (từ rain): những hôm trời mưa, bố chở mẹ đi làm thay vì mẹ đi xe buýt."
+      }
+    ],
+    "grammarNote": {
+      "title": "Trạng từ tần suất",
+      "bodyVi": "Trạng từ tần suất cho biết việc gì xảy ra thường xuyên đến đâu: always (luôn luôn), usually (thường thường), often (hay), never (không bao giờ). Chúng đứng trước động từ thường: she always gets up, nhưng đứng sau am / is / are: she is always happy.",
+      "examples": [
+        "She always gets up at half past five.",
+        "Her day is long, but she is always happy.",
+        "She is never in bed before eleven."
+      ]
+    },
+    "writingPrompt": "Write about a day of your mum or dad: what he or she always, usually and often does.",
+    "sentenceTranslations": [
+      "Mẹ mình tên là Hà, và mẹ làm việc ở một ngân hàng.",
+      "Một ngày của mẹ rất dài, nhưng mẹ lúc nào cũng vui vẻ.",
+      "Mẹ luôn dậy lúc năm giờ rưỡi.",
+      "Mẹ thường uống một tách cà phê và đọc tin tức trên điện thoại.",
+      "Rồi mẹ làm bữa sáng cho bố và mình.",
+      "Mẹ hay ăn một quả chuối trên xe buýt.",
+      "Mẹ thường đi làm bằng xe buýt, nhưng những hôm trời mưa thì bố chở mẹ.",
+      "Ở chỗ làm, mẹ rất bận.",
+      "Mẹ hay ăn trưa ngay tại bàn làm việc.",
+      "Mẹ thường về nhà lúc sáu giờ.",
+      "Mẹ nấu bữa tối, và cả nhà hay ăn cùng nhau lúc bảy giờ.",
+      "Buổi tối, mẹ nghe nhạc hoặc xem ti vi.",
+      "Mẹ không bao giờ đi ngủ trước mười một giờ.",
+      "Mình hay hỏi mẹ: \"Mẹ ơi, mẹ có mệt không?\"",
+      "\"Không, mẹ ổn mà,\" mẹ mỉm cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một người thường làm gì trong ngày bằng always, usually, often, never và đặt chúng đúng chỗ.",
+    "examples": [
+      {
+        "lemma": "get up",
+        "sentence": "I always get up at six.",
+        "meaningVi": "Mình luôn dậy lúc sáu giờ."
+      },
+      {
+        "lemma": "breakfast",
+        "sentence": "We usually have rice for breakfast.",
+        "meaningVi": "Nhà mình thường ăn cơm vào bữa sáng."
+      },
+      {
+        "lemma": "go to work",
+        "sentence": "My parents go to work at seven.",
+        "meaningVi": "Bố mẹ mình đi làm lúc bảy giờ."
+      },
+      {
+        "lemma": "have lunch",
+        "sentence": "We often have lunch at school.",
+        "meaningVi": "Bọn mình hay ăn trưa ở trường."
+      },
+      {
+        "lemma": "cook",
+        "sentence": "My grandma never cooks fish.",
+        "meaningVi": "Bà mình không bao giờ nấu cá."
+      },
+      {
+        "lemma": "dinner",
+        "sentence": "Dinner is always at seven.",
+        "meaningVi": "Bữa tối lúc nào cũng vào bảy giờ."
+      },
+      {
+        "lemma": "listen to music",
+        "sentence": "I often listen to music on the bus.",
+        "meaningVi": "Mình hay nghe nhạc trên xe buýt."
+      },
+      {
+        "lemma": "watch TV",
+        "sentence": "My brother never watches TV in the morning.",
+        "meaningVi": "Anh mình không bao giờ xem ti vi vào buổi sáng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, is your mum always busy?",
+          "meaningVi": "Anh Minh ơi, mẹ anh có lúc nào cũng bận không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, she is. She usually has lunch at her desk.",
+          "meaningVi": "Có. Mẹ anh thường ăn trưa ngay tại bàn làm việc."
+        },
+        {
+          "speaker": 0,
+          "text": "My mum is often busy too. She teaches five lessons on Monday.",
+          "meaningVi": "Mẹ em cũng hay bận. Thứ Hai mẹ dạy năm tiết."
+        },
+        {
+          "speaker": 1,
+          "text": "Is she tired in the evening?",
+          "meaningVi": "Buổi tối bác có mệt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but she always reads a book before bed.",
+          "meaningVi": "Có, nhưng mẹ luôn đọc sách trước khi ngủ."
+        },
+        {
+          "speaker": 1,
+          "text": "My mum never reads books. She usually listens to music.",
+          "meaningVi": "Mẹ anh không bao giờ đọc sách. Mẹ thường nghe nhạc."
+        },
+        {
+          "speaker": 0,
+          "text": "What music?",
+          "meaningVi": "Nhạc gì ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Old Vietnamese songs. She often sings in the kitchen!",
+          "meaningVi": "Những bài hát Việt Nam xưa. Mẹ hay hát trong bếp lắm!"
+        },
+        {
+          "speaker": 0,
+          "text": "Is she a good singer?",
+          "meaningVi": "Bác hát có hay không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, she isn't, but she is always happy!",
+          "meaningVi": "Không hay lắm, nhưng mẹ lúc nào cũng vui!"
+        }
+      ]
+    },
+    "grammarTipVi": "Trạng từ tần suất đứng trước động từ thường (she usually drinks), nhưng đứng sau am / is / are (she is always happy). Never đã có nghĩa phủ định, không cần thêm not.",
+    "translations": [
+      {
+        "vi": "Mẹ tôi luôn dậy sớm.",
+        "en": "My mum always gets up early.",
+        "distractors": [
+          "get",
+          "never",
+          "is"
+        ]
+      },
+      {
+        "vi": "Cô ấy hay ăn trưa ở bàn làm việc.",
+        "en": "She often has lunch at her desk.",
+        "distractors": [
+          "have",
+          "never",
+          "in"
+        ]
+      },
+      {
+        "vi": "Buổi tối, mẹ nghe nhạc.",
+        "en": "In the evening, Mum listens to music.",
+        "distractors": [
+          "listen",
+          "At",
+          "On"
+        ]
+      },
+      {
+        "vi": "Bố tôi thường nấu bữa tối.",
+        "en": "My dad usually cooks dinner.",
+        "distractors": [
+          "cook",
+          "never",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thói quen hằng ngày của mẹ mỗi người",
+          "Một buổi hòa nhạc",
+          "Bữa trưa ở trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai anh em kể mẹ mình thường bận thế nào, buổi tối làm gì, nghe nhạc hay đọc sách.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mẹ Lan làm gì trước khi đi ngủ?",
+        "promptVi": "",
+        "options": [
+          "Nghe nhạc",
+          "Đọc sách",
+          "Xem ti vi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"she always reads a book before bed\".",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mẹ Minh hay hát bài gì?",
+        "promptVi": "",
+        "options": [
+          "Bài hát Việt Nam xưa",
+          "Bài hát tiếng Anh",
+          "Bài hát thiếu nhi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"Old Vietnamese songs. She often sings in the kitchen!\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh's mum often reads books.",
+        "promptVi": "Mẹ Minh hay đọc sách.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"My mum never reads books\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mẹ luôn làm gì, thường làm gì và không bao giờ làm gì?",
+    "grammarStep": {
+      "titleVi": "Trạng từ tần suất",
+      "noticing": [
+        {
+          "sentence": "She always gets up at half past five.",
+          "highlights": [
+            "always"
+          ]
+        },
+        {
+          "sentence": "Her day is long, but she is always happy.",
+          "highlights": [
+            "always"
+          ]
+        },
+        {
+          "sentence": "She often has lunch at her desk.",
+          "highlights": [
+            "often"
+          ]
+        },
+        {
+          "sentence": "She is never in bed before eleven.",
+          "highlights": [
+            "never"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"she always gets up\" nhưng lại nói \"she is always happy\"?",
+      "options": [
+        "Vì happy là một từ ngắn",
+        "Vì trạng từ tần suất đứng trước động từ thường, nhưng đứng sau be (is)",
+        "Vì always đứng ở đâu cũng được"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Với động từ thường (gets up, has), always / often đứng trước: she always gets up. Với be (is, are), chúng đứng sau: she is always happy, she is never in bed.",
+      "whenVi": "Dùng always, usually, often, never để nói một việc xảy ra thường xuyên đến mức nào.",
+      "table": [
+        {
+          "subject": "always (luôn luôn)",
+          "form": "She always gets up at half past five.",
+          "negative": "—"
+        },
+        {
+          "subject": "usually / often (thường / hay)",
+          "form": "She usually drinks coffee. She often eats a banana.",
+          "negative": "—"
+        },
+        {
+          "subject": "never (không bao giờ)",
+          "form": "She never watches TV in the morning.",
+          "negative": "—"
+        },
+        {
+          "subject": "sau am / is / are",
+          "form": "She is always happy. She is never in bed before eleven.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She gets up always at half past five.",
+          "right": "She always gets up at half past five."
+        },
+        {
+          "wrong": "She always is happy.",
+          "right": "She is always happy."
+        }
+      ],
+      "noteVi": "Tiếng Việt đặt \"luôn, thường\" trước động từ, nên với be người Việt hay viết \"always is\", trong khi tiếng Anh nói \"is always\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền trạng từ có nghĩa là \"luôn luôn\".",
+          "text": "Mum ___ gets up at half past five, every day.",
+          "answers": [
+            "always"
+          ],
+          "explanationVi": "Every day, ngày nào cũng vậy, nên dùng always (luôn luôn)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Mum goes to bed at twelve every night. She is ___ in bed before eleven.",
+          "options": [
+            "always",
+            "usually",
+            "never",
+            "often"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Đêm nào mẹ cũng ngủ lúc mười hai giờ, nên mẹ không bao giờ (never) đi ngủ trước mười một giờ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She drinks usually a cup of coffee.",
+          "sentence": "She usually drinks a cup of coffee.",
+          "explanationVi": "Usually đứng trước động từ thường (drinks)."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bố tôi không bao giờ uống cà phê.",
+          "sentence": "My dad never drinks coffee.",
+          "words": [
+            "dad",
+            "never",
+            "My",
+            "drinks",
+            "coffee",
+            "always"
+          ],
+          "explanationVi": "\"Không bao giờ\" là never, đứng trước drinks; từ \"always\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She always gets up at half past five.",
+        "tipVi": "Always /ˈɔːlweɪz/ nhấn âm đầu AWL; gets /ɡets/ có cụm âm cuối /ts/."
+      },
+      {
+        "text": "She often has lunch at her desk.",
+        "tipVi": "Often /ˈɑːfən/ thường không đọc chữ t; lunch /lʌntʃ/ kết thúc bằng /ntʃ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time are you up in the morning?",
+        "questionVi": "Buổi sáng bạn dậy lúc mấy giờ?",
+        "frame": "I am always up at ___."
+      },
+      {
+        "question": "Are you often late for school?",
+        "questionVi": "Bạn có hay đi học muộn không?",
+        "frame": "No, I'm never late. / Yes, I'm often late."
+      },
+      {
+        "question": "What is your mum's or dad's evening like?",
+        "questionVi": "Buổi tối của bố hoặc mẹ bạn thế nào?",
+        "frame": "In the evening, my ___ usually ___. He / She never ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng always, usually, often hoặc never",
+      "anyOf": [
+        "always",
+        "usually",
+        "often",
+        "never"
+      ],
+      "outlineVi": [
+        "Nói người đó là ai, làm nghề gì.",
+        "Kể buổi sáng và buổi trưa người đó thường làm gì.",
+        "Kể buổi tối người đó hay làm gì và không bao giờ làm gì."
+      ],
+      "modelAnswer": "My dad's name is Long. He always gets up at six. He usually has breakfast with us and goes to work by car. He often has lunch with his friends. In the evening, he cooks dinner and listens to music. He never watches TV!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "bank",
+      "lemma": "bank",
+      "meaningVi": "ngân hàng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "she works in a bank",
+      "phraseVi": "mẹ làm việc ở một ngân hàng"
+    },
+    {
+      "text": "always",
+      "lemma": "always",
+      "meaningVi": "luôn luôn",
+      "sentenceIndex": 1,
+      "pos": "adverb",
+      "phrase": "she is always happy",
+      "phraseVi": "mẹ lúc nào cũng vui vẻ"
+    },
+    {
+      "text": "usually",
+      "lemma": "usually",
+      "meaningVi": "thường thường",
+      "sentenceIndex": 3,
+      "pos": "adverb",
+      "phrase": "She usually drinks a cup of coffee",
+      "phraseVi": "Mẹ thường uống một tách cà phê"
+    },
+    {
+      "text": "news",
+      "lemma": "news",
+      "meaningVi": "tin tức",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "reads the news on her phone",
+      "phraseVi": "đọc tin tức trên điện thoại"
+    },
+    {
+      "text": "often",
+      "lemma": "often",
+      "meaningVi": "hay, thường",
+      "sentenceIndex": 5,
+      "pos": "adverb",
+      "phrase": "She often eats a banana",
+      "phraseVi": "Mẹ hay ăn một quả chuối"
+    },
+    {
+      "text": "rainy",
+      "lemma": "rainy",
+      "meaningVi": "có mưa",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "on rainy days",
+      "phraseVi": "những hôm trời mưa"
+    },
+    {
+      "text": "drives",
+      "lemma": "drive",
+      "meaningVi": "lái xe, chở",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "Dad drives her",
+      "phraseVi": "bố chở mẹ"
+    },
+    {
+      "text": "comes home",
+      "lemma": "come home",
+      "meaningVi": "về nhà",
+      "sentenceIndex": 9,
+      "pos": "verb",
+      "phrase": "Mum usually comes home at six",
+      "phraseVi": "Mẹ thường về nhà lúc sáu giờ"
+    },
+    {
+      "text": "never",
+      "lemma": "never",
+      "meaningVi": "không bao giờ",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "She is never in bed before eleven",
+      "phraseVi": "Mẹ không bao giờ đi ngủ trước mười một giờ"
+    },
+    {
+      "text": "smile",
+      "lemma": "smile",
+      "meaningVi": "nụ cười",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "she says with a smile",
+      "phraseVi": "mẹ mỉm cười nói"
+    }
+  ]
+}

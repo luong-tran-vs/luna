@@ -1,0 +1,602 @@
+{
+  "content": "Kenji is fifteen, and he is from Japan. His favourite subject is art.\n\n\"Why do you like art?\" his friend Minh asks him at the English club.\n\"Because I love colours,\" says Kenji.\n\nIn art lessons, Kenji paints pictures of the city. He draws trees, people and bikes. His art teacher, Mr Long, says that his pictures are beautiful.\n\nKenji doesn't like maths very much, and he doesn't talk a lot in class. But in art lessons, he is very happy.\n\nAt home, Kenji draws every evening. He doesn't watch TV, and he doesn't play games on his phone.\n\"Does your mum like your pictures?\" asks Minh.\n\"Yes, she does, and there are a lot of my pictures on our wall,\" says Kenji.",
+  "targetWords": [
+    "subject",
+    "art",
+    "colour",
+    "paint",
+    "picture",
+    "draw",
+    "teacher",
+    "beautiful"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "subject",
+        "lemma": "subject",
+        "meaningVi": "môn học",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "art",
+        "lemma": "art",
+        "meaningVi": "môn mỹ thuật",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "colours",
+        "lemma": "colour",
+        "meaningVi": "màu sắc",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "paints",
+        "lemma": "paint",
+        "meaningVi": "vẽ (bằng màu)",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "pictures",
+        "lemma": "picture",
+        "meaningVi": "bức tranh",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "draws",
+        "lemma": "draw",
+        "meaningVi": "vẽ",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "teacher",
+        "lemma": "teacher",
+        "meaningVi": "giáo viên",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "beautiful",
+        "lemma": "beautiful",
+        "meaningVi": "đẹp",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Kenji's maths test",
+          "A trip to Japan",
+          "Kenji and his favourite subject, art",
+          "Minh's art lesson"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài kể vì sao Kenji thích mỹ thuật, Kenji vẽ gì ở trường và ở nhà."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Kenji like art?",
+        "promptVi": "Vì sao Kenji thích mỹ thuật?",
+        "options": [
+          "Because he loves colours",
+          "Because art is easy",
+          "Because his mum is a teacher",
+          "Because he doesn't like maths"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kenji trả lời \"Because I love colours\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Kenji do at home in the evening?",
+        "promptVi": "Buổi tối ở nhà Kenji làm gì?",
+        "options": [
+          "He watches TV.",
+          "He draws.",
+          "He plays games on his phone.",
+          "He studies maths."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"At home, Kenji draws every evening. He doesn't watch TV, and he doesn't play games on his phone\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Kenji talks a lot in class.",
+        "promptVi": "Kenji nói nhiều trong lớp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"he doesn't talk a lot in class\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"paints\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In art lessons, Kenji paints pictures of the city.",
+        "options": [
+          "viết",
+          "chụp ảnh",
+          "đọc",
+          "vẽ (bằng màu)"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Paint là vẽ bằng màu: Kenji vẽ tranh màu về thành phố."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Hỏi lý do bằng Why + do / does: Why do you like art? Trả lời bắt đầu bằng Because …. Nói điều một người không làm: he doesn't + động từ giữ nguyên (he doesn't talk, he doesn't watch). Hỏi về một người: Does your mum like …? – Yes, she does.",
+      "examples": [
+        "Why do you like art?",
+        "Kenji doesn't like maths very much, and he doesn't talk a lot in class.",
+        "Does your mum like your pictures?"
+      ]
+    },
+    "writingPrompt": "Write about your favourite subject: why you like it and what you do in the lessons.",
+    "sentenceTranslations": [
+      "Kenji mười lăm tuổi, và bạn ấy đến từ Nhật Bản.",
+      "Môn học Kenji thích nhất là mỹ thuật.",
+      "\"Sao bạn thích mỹ thuật?\" Minh, bạn của Kenji, hỏi ở câu lạc bộ tiếng Anh.",
+      "\"Vì mình mê màu sắc,\" Kenji nói.",
+      "Trong giờ mỹ thuật, Kenji vẽ tranh về thành phố.",
+      "Bạn ấy vẽ cây, người và xe đạp.",
+      "Thầy dạy mỹ thuật của Kenji, thầy Long, nói rằng tranh của bạn ấy rất đẹp.",
+      "Kenji không thích toán lắm, và bạn ấy không nói nhiều trong lớp.",
+      "Nhưng trong giờ mỹ thuật, bạn ấy rất vui.",
+      "Ở nhà, tối nào Kenji cũng vẽ.",
+      "Bạn ấy không xem ti vi, và không chơi điện tử trên điện thoại.",
+      "\"Mẹ bạn có thích tranh của bạn không?\" Minh hỏi.",
+      "\"Có, và nhà mình có rất nhiều tranh của mình treo trên tường,\" Kenji nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói môn học yêu thích, hỏi và trả lời lý do (Why do you like …? Because …) và nói điều một người không làm (he doesn't …).",
+    "examples": [
+      {
+        "lemma": "subject",
+        "sentence": "Music is my favourite subject.",
+        "meaningVi": "Âm nhạc là môn học mình thích nhất."
+      },
+      {
+        "lemma": "art",
+        "sentence": "We have art on Thursday.",
+        "meaningVi": "Bọn mình học mỹ thuật vào thứ Năm."
+      },
+      {
+        "lemma": "colour",
+        "sentence": "Green is a beautiful colour.",
+        "meaningVi": "Xanh lá là một màu đẹp."
+      },
+      {
+        "lemma": "paint",
+        "sentence": "I paint flowers in my art lessons.",
+        "meaningVi": "Mình vẽ hoa trong giờ mỹ thuật."
+      },
+      {
+        "lemma": "picture",
+        "sentence": "This picture is very beautiful.",
+        "meaningVi": "Bức tranh này rất đẹp."
+      },
+      {
+        "lemma": "draw",
+        "sentence": "My little brother doesn't draw very well.",
+        "meaningVi": "Em trai mình vẽ không đẹp lắm."
+      },
+      {
+        "lemma": "teacher",
+        "sentence": "Does your art teacher help you?",
+        "meaningVi": "Thầy cô dạy mỹ thuật có giúp bạn không?"
+      },
+      {
+        "lemma": "beautiful",
+        "sentence": "Your pictures are beautiful.",
+        "meaningVi": "Tranh của bạn đẹp quá."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Duc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Duc, what is your favourite subject?",
+          "meaningVi": "Anh Đức ơi, môn anh thích nhất là gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "Music!",
+          "meaningVi": "Âm nhạc!"
+        },
+        {
+          "speaker": 0,
+          "text": "Why do you like music?",
+          "meaningVi": "Sao anh thích âm nhạc?"
+        },
+        {
+          "speaker": 1,
+          "text": "Because I love the guitar. Dad's old guitar is in my room.",
+          "meaningVi": "Vì anh mê đàn ghi-ta. Cây đàn cũ của bố ở trong phòng anh mà."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you have music lessons every day?",
+          "meaningVi": "Ngày nào anh cũng có giờ âm nhạc à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I don't. Only on Wednesday.",
+          "meaningVi": "Không. Chỉ có thứ Tư thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Does your music teacher play the guitar?",
+          "meaningVi": "Cô dạy âm nhạc của anh có chơi đàn ghi-ta không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, she does, and she sings very well.",
+          "meaningVi": "Có, mà cô còn hát rất hay nữa."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you like maths too?",
+          "meaningVi": "Anh có thích toán không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I don't! Maths is very difficult for me.",
+          "meaningVi": "Không! Toán khó với anh lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi lý do: Why do you like …? / Why does he like …? Trả lời bắt đầu bằng Because …: Because I love colours.",
+    "translations": [
+      {
+        "vi": "Môn học tôi thích nhất là mỹ thuật.",
+        "en": "My favourite subject is art.",
+        "distractors": [
+          "are",
+          "does",
+          "subjects"
+        ]
+      },
+      {
+        "vi": "Tại sao bạn thích mỹ thuật?",
+        "en": "Why do you like art?",
+        "distractors": [
+          "does",
+          "likes",
+          "are"
+        ]
+      },
+      {
+        "vi": "Anh ấy vẽ tranh về thành phố.",
+        "en": "He paints pictures of the city.",
+        "distractors": [
+          "paint",
+          "doesn't",
+          "picture"
+        ]
+      },
+      {
+        "vi": "Anh ấy vẽ cây và xe đạp.",
+        "en": "He draws trees and bikes.",
+        "distractors": [
+          "draw",
+          "doesn't",
+          "tree"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan hỏi anh Đức về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Môn học anh Đức thích và không thích",
+          "Cây đàn mới của bố",
+          "Bài kiểm tra toán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan hỏi Đức thích môn gì nhất, vì sao, và có thích toán không.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Đức thích âm nhạc?",
+        "promptVi": "",
+        "options": [
+          "Vì môn đó dễ",
+          "Vì Đức mê đàn ghi-ta",
+          "Vì thầy giáo vui tính"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"Because I love the guitar\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đức học âm nhạc vào thứ mấy?",
+        "promptVi": "",
+        "options": [
+          "Mỗi ngày",
+          "Thứ Tư",
+          "Thứ Sáu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"No, I don't. Only on Wednesday\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duc likes maths.",
+        "promptVi": "Đức thích môn toán.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"No, I don't! Maths is very difficult for me\".",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Vì sao Kenji thích mỹ thuật, và Kenji không làm những gì?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "\"Why do you like art?\" his friend Minh asks him at the English club.",
+          "highlights": [
+            "Why do you like"
+          ]
+        },
+        {
+          "sentence": "Kenji doesn't like maths very much, and he doesn't talk a lot in class.",
+          "highlights": [
+            "doesn't like",
+            "doesn't talk"
+          ]
+        },
+        {
+          "sentence": "He doesn't watch TV, and he doesn't play games on his phone.",
+          "highlights": [
+            "doesn't watch",
+            "doesn't play"
+          ]
+        },
+        {
+          "sentence": "\"Does your mum like your pictures?\" asks Minh.",
+          "highlights": [
+            "Does",
+            "like"
+          ]
+        }
+      ],
+      "questionVi": "Câu hỏi \"Why do you like art?\" được ghép từ những phần nào?",
+      "options": [
+        "Why + you + like + art?",
+        "Why + do + you + like + art?",
+        "Why + does + you + likes + art?"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu hỏi với từ để hỏi: Why + do / does + chủ ngữ + động từ giữ nguyên. Với you dùng do, với he, she dùng does.",
+      "whenVi": "Dùng Why do / does …? để hỏi lý do, và doesn't để nói một người không làm gì.",
+      "table": [
+        {
+          "subject": "Why + do / does …?",
+          "form": "Why do you like art? – Because I love colours.",
+          "negative": "—"
+        },
+        {
+          "subject": "he / she + doesn't",
+          "form": "He doesn't watch TV.",
+          "negative": "—"
+        },
+        {
+          "subject": "Does + he / she …?",
+          "form": "Does your mum like your pictures? – Yes, she does.",
+          "negative": "No, she doesn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Why you like art?",
+          "right": "Why do you like art?"
+        },
+        {
+          "wrong": "He doesn't watches TV.",
+          "right": "He doesn't watch TV."
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi \"Sao bạn thích mỹ thuật?\" không cần trợ động từ, nên người Việt hay quên do trong câu hỏi Why.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền do hoặc does vào chỗ trống.",
+          "text": "Why ___ you like art?",
+          "answers": [
+            "do"
+          ],
+          "explanationVi": "Chủ ngữ you đi với do."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Kenji ___ talk a lot in class.",
+          "options": [
+            "don't",
+            "doesn't",
+            "isn't",
+            "not"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Kenji là một người (he), nên phủ định là doesn't talk."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu hỏi sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Why you like art?",
+          "sentence": "Why do you like art?",
+          "explanationVi": "Câu hỏi với động từ thường cần do: Why do you like …?"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy không xem ti vi.",
+          "sentence": "He doesn't watch TV.",
+          "words": [
+            "watch",
+            "doesn't",
+            "He",
+            "TV",
+            "watches"
+          ],
+          "explanationVi": "Sau doesn't, động từ giữ nguyên: watch; từ \"watches\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He draws trees, people and bikes.",
+        "tipVi": "Draws /drɔːz/ có cụm /dr/ ở đầu; trees /triːz/ có cụm /tr/ và /z/ ở cuối."
+      },
+      {
+        "text": "In art lessons, Kenji paints pictures of the city.",
+        "tipVi": "Paints /peɪnts/ có cụm âm cuối /nts/; pictures /ˈpɪktʃɚz/ có âm /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your favourite subject?",
+        "questionVi": "Môn học bạn thích nhất là gì?",
+        "frame": "My favourite subject is ___."
+      },
+      {
+        "question": "Why do you like it?",
+        "questionVi": "Vì sao bạn thích môn đó?",
+        "frame": "Because ___."
+      },
+      {
+        "question": "What subject does your best friend like?",
+        "questionVi": "Bạn thân của bạn thích môn gì?",
+        "frame": "He / She likes ___. He / She doesn't like ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng doesn't / don't hoặc câu hỏi Why do / Does …?",
+      "anyOf": [
+        "doesn't",
+        "don't",
+        "why do",
+        "does"
+      ],
+      "outlineVi": [
+        "Nói môn học bạn thích nhất.",
+        "Giải thích vì sao (Because …) và bạn làm gì trong giờ học đó.",
+        "Kể một người không thích môn đó (He / She doesn't …)."
+      ],
+      "modelAnswer": "My favourite subject is art. Why do I like art? Because I love colours! In art lessons, I paint pictures of my family, and I draw animals. My art teacher, Mrs Lan, says my pictures are beautiful. My brother doesn't like art. He loves sport."
+    }
+  },
+  "glosses": [
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "yêu thích nhất",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "His favourite subject",
+      "phraseVi": "Môn học Kenji thích nhất"
+    },
+    {
+      "text": "Why",
+      "lemma": "why",
+      "meaningVi": "tại sao",
+      "sentenceIndex": 2,
+      "pos": "adverb",
+      "phrase": "Why do you like art?",
+      "phraseVi": "Sao bạn thích mỹ thuật?"
+    },
+    {
+      "text": "Because",
+      "lemma": "because",
+      "meaningVi": "vì",
+      "sentenceIndex": 3,
+      "pos": "conjunction",
+      "phrase": "Because I love colours",
+      "phraseVi": "Vì mình mê màu sắc"
+    },
+    {
+      "text": "city",
+      "lemma": "city",
+      "meaningVi": "thành phố",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "pictures of the city",
+      "phraseVi": "tranh về thành phố"
+    },
+    {
+      "text": "trees",
+      "lemma": "tree",
+      "meaningVi": "cái cây",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "He draws trees",
+      "phraseVi": "Bạn ấy vẽ cây"
+    },
+    {
+      "text": "people",
+      "lemma": "people",
+      "meaningVi": "người, mọi người",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "trees, people and bikes",
+      "phraseVi": "cây, người và xe đạp"
+    },
+    {
+      "text": "maths",
+      "lemma": "maths",
+      "meaningVi": "môn toán",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "doesn't like maths very much",
+      "phraseVi": "không thích toán lắm"
+    },
+    {
+      "text": "happy",
+      "lemma": "happy",
+      "meaningVi": "vui",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "he is very happy",
+      "phraseVi": "bạn ấy rất vui"
+    },
+    {
+      "text": "every evening",
+      "lemma": "every evening",
+      "meaningVi": "mỗi tối",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "Kenji draws every evening",
+      "phraseVi": "tối nào Kenji cũng vẽ"
+    },
+    {
+      "text": "wall",
+      "lemma": "wall",
+      "meaningVi": "bức tường",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "on our wall",
+      "phraseVi": "trên tường nhà mình"
+    }
+  ]
+}

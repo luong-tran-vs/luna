@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"slices"
 	"strings"
 	"time"
 	"unicode/utf8"
@@ -187,15 +188,35 @@ func compareSolution(e Exercise, sol ai.Solution) (Check, bool) {
 			return mismatch(fmt.Sprintf("AI ghép thành \"%s\", khác câu đã lưu.", strings.TrimSpace(sol.Sentence)))
 		}
 	case KindFix:
-		got := foldSentence(sol.Sentence)
-		for _, a := range append([]string{e.Sentence}, e.Answers...) {
-			if got != "" && got == foldSentence(a) {
-				return Check{}, false
-			}
+		if !storedFix(e, sol.Sentence) {
+			return mismatch(fmt.Sprintf("AI sửa thành \"%s\", khác các câu đã lưu.", strings.TrimSpace(sol.Sentence)))
 		}
-		return mismatch(fmt.Sprintf("AI sửa thành \"%s\", khác các câu đã lưu.", strings.TrimSpace(sol.Sentence)))
+		// Added 2026-10-27: another right correction the learner may write must be stored too.
+		var missing []string
+		for _, alt := range sol.Alternatives {
+			alt = strings.TrimSpace(alt)
+			if alt == "" || unusable(e, ai.Solution{Sentence: alt}) || storedFix(e, alt) || slices.Contains(missing, alt) {
+				continue
+			}
+			missing = append(missing, alt)
+		}
+		if len(missing) > 0 {
+			return mismatch(fmt.Sprintf("AI thấy câu này còn sửa được thành \"%s\", chưa có trong các câu đã lưu.",
+				strings.Join(missing, "\" hoặc \"")))
+		}
 	}
 	return Check{}, false
+}
+
+// storedFix reports whether sentence is the stored correction of e or one of its other answers.
+func storedFix(e Exercise, sentence string) bool {
+	got := foldSentence(sentence)
+	for _, a := range append([]string{e.Sentence}, e.Answers...) {
+		if got != "" && got == foldSentence(a) {
+			return true
+		}
+	}
+	return false
 }
 
 // maxFixExtraWords is how many words an AI correction may have beyond the longest stored one.

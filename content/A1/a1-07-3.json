@@ -1,0 +1,606 @@
+{
+  "content": "It is January, and Tom is in Sydney for the summer holiday. The new school year in Australia starts in February, so Tom and his dad are at a big shop for school things.\n\n\"How much is this school bag?\" asks Tom.\n\"It's thirty dollars,\" says the woman in the shop.\n\"And how much are those pencils?\"\n\"They're five dollars for ten pencils.\"\n\nTom looks at two pencil cases. \"How much is that blue pencil case?\" he asks.\n\"It's eight dollars, but this red one is six dollars,\" says the woman.\nThe red one isn't expensive, but red isn't Tom's favourite colour. \"The blue one, please,\" he says.\n\nDad looks at the notebooks. \"These notebooks are two dollars,\" he says. \"Four notebooks, please.\"\nAt the end, Dad pays fifty-one dollars. \"School things are expensive!\" he says, and Tom laughs.",
+  "targetWords": [
+    "school bag",
+    "dollar",
+    "pencil",
+    "pencil case",
+    "colour",
+    "notebook",
+    "pay",
+    "expensive"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "school bag",
+        "lemma": "school bag",
+        "meaningVi": "cặp sách",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "dollars",
+        "lemma": "dollar",
+        "meaningVi": "đô la",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "pencils",
+        "lemma": "pencil",
+        "meaningVi": "bút chì",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "pencil cases",
+        "lemma": "pencil case",
+        "meaningVi": "hộp bút",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "colour",
+        "lemma": "colour",
+        "meaningVi": "màu sắc",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "notebooks",
+        "lemma": "notebook",
+        "meaningVi": "quyển vở",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "pays",
+        "lemma": "pay",
+        "meaningVi": "trả tiền",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "expensive",
+        "lemma": "expensive",
+        "meaningVi": "đắt",
+        "pos": "adjective",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Tom's new school in Hanoi",
+          "Tom and his dad buy school things in Sydney.",
+          "A summer party",
+          "Tom's favourite colour"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom và bố mua đồ dùng học tập ở Sydney cho năm học mới, và Tom hỏi giá từng món."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is the school bag?",
+        "promptVi": "Cái cặp giá bao nhiêu?",
+        "options": [
+          "Eight dollars",
+          "Thirty dollars",
+          "Five dollars",
+          "Fifty dollars"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Người bán hàng nói \"It's thirty dollars\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What colour is Tom's new pencil case?",
+        "promptVi": "Hộp bút mới của Tom màu gì?",
+        "options": [
+          "Red",
+          "Black",
+          "Blue",
+          "Green"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Màu đỏ rẻ hơn nhưng không phải màu Tom thích, nên Tom nói \"The blue one, please\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dad pays fifty-one dollars.",
+        "promptVi": "Bố trả năm mươi mốt đô la.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"At the end, Dad pays fifty-one dollars\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"things\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The new school year in Australia starts in February, so Tom and his dad are at a big shop for school things.",
+        "options": [
+          "bài học",
+          "bạn bè",
+          "tiền",
+          "đồ dùng, đồ vật"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "School things là đồ dùng học tập: cặp, bút chì, hộp bút, vở."
+      }
+    ],
+    "grammarNote": {
+      "title": "This / that / these / those",
+      "bodyVi": "Hỏi giá một món: How much is this / that …? Trả lời: It's thirty dollars. Hỏi giá nhiều món: How much are these / those …? Trả lời: They're five dollars. This one, that one dùng thay cho món vừa nói: this red one (= cái hộp bút đỏ này).",
+      "examples": [
+        "How much is this school bag?",
+        "And how much are those pencils?",
+        "It's eight dollars, but this red one is six dollars"
+      ]
+    },
+    "writingPrompt": "Write about buying school things: what you buy and how much each thing is.",
+    "sentenceTranslations": [
+      "Bây giờ là tháng Một, và Tom đang ở Sydney nghỉ hè.",
+      "Năm học mới ở Úc bắt đầu vào tháng Hai, nên Tom và bố đang ở một cửa hàng lớn bán đồ dùng học tập.",
+      "\"Cái cặp này bao nhiêu tiền ạ?\" Tom hỏi.",
+      "\"Ba mươi đô la,\" người bán hàng nói.",
+      "\"Còn mấy cây bút chì kia bao nhiêu ạ?\"",
+      "\"Năm đô la mười cây.\"",
+      "Tom nhìn hai cái hộp bút.",
+      "\"Cái hộp bút màu xanh kia bao nhiêu tiền ạ?\" Tom hỏi.",
+      "\"Tám đô la, còn cái màu đỏ này thì sáu đô la,\" người bán hàng nói.",
+      "Cái màu đỏ không đắt, nhưng đỏ không phải màu Tom thích nhất.",
+      "\"Cho cháu cái màu xanh ạ,\" Tom nói.",
+      "Bố nhìn mấy quyển vở.",
+      "\"Mấy quyển vở này giá hai đô la,\" bố nói.",
+      "\"Cho tôi bốn quyển.\"",
+      "Cuối cùng, bố trả năm mươi mốt đô la.",
+      "\"Đồ dùng học tập đắt thật!\" bố nói, và Tom bật cười."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi giá bằng How much is this / that …? và How much are these / those …? và trả lời It's … / They're ….",
+    "examples": [
+      {
+        "lemma": "school bag",
+        "sentence": "My school bag is very heavy.",
+        "meaningVi": "Cặp sách của mình rất nặng."
+      },
+      {
+        "lemma": "dollar",
+        "sentence": "This pen is one dollar.",
+        "meaningVi": "Cây bút này giá một đô la."
+      },
+      {
+        "lemma": "pencil",
+        "sentence": "How much is that pencil?",
+        "meaningVi": "Cây bút chì kia bao nhiêu tiền?"
+      },
+      {
+        "lemma": "pencil case",
+        "sentence": "There are five pens in my pencil case.",
+        "meaningVi": "Trong hộp bút của mình có năm cây bút."
+      },
+      {
+        "lemma": "colour",
+        "sentence": "Blue is my favourite colour.",
+        "meaningVi": "Màu xanh dương là màu mình thích nhất."
+      },
+      {
+        "lemma": "notebook",
+        "sentence": "These notebooks are for my English class.",
+        "meaningVi": "Mấy quyển vở này là cho lớp tiếng Anh của mình."
+      },
+      {
+        "lemma": "pay",
+        "sentence": "My mum and dad pay for my books.",
+        "meaningVi": "Bố mẹ mình trả tiền sách cho mình."
+      },
+      {
+        "lemma": "expensive",
+        "sentence": "Those shoes are very expensive.",
+        "meaningVi": "Đôi giày kia rất đắt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tom",
+        "Dad"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Dad, how much is that ice cream?",
+          "meaningVi": "Bố ơi, cây kem kia bao nhiêu tiền ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's four dollars.",
+          "meaningVi": "Bốn đô la."
+        },
+        {
+          "speaker": 0,
+          "text": "And how much are these cakes?",
+          "meaningVi": "Còn mấy cái bánh này bao nhiêu ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "They're three dollars.",
+          "meaningVi": "Ba đô la."
+        },
+        {
+          "speaker": 0,
+          "text": "Is that ice cream chocolate?",
+          "meaningVi": "Cây kem kia là vị sô-cô-la ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it isn't. That one is banana, and this one is chocolate.",
+          "meaningVi": "Không phải. Cây kia vị chuối, còn cây này vị sô-cô-la."
+        },
+        {
+          "speaker": 0,
+          "text": "This one, please!",
+          "meaningVi": "Con lấy cây này ạ!"
+        },
+        {
+          "speaker": 1,
+          "text": "OK. One chocolate ice cream and one cake for me.",
+          "meaningVi": "Được. Một cây kem sô-cô-la, và một cái bánh cho bố."
+        },
+        {
+          "speaker": 0,
+          "text": "How much is it, Dad?",
+          "meaningVi": "Hết bao nhiêu tiền hả bố?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's seven dollars. Not bad!",
+          "meaningVi": "Bảy đô la. Cũng được đấy!"
+        }
+      ]
+    },
+    "grammarTipVi": "How much is + một vật (How much is this bag?), How much are + nhiều vật (How much are those pencils?). Trả lời: It's … dollars. / They're … dollars.",
+    "translations": [
+      {
+        "vi": "Cái cặp này bao nhiêu tiền?",
+        "en": "How much is this school bag?",
+        "distractors": [
+          "are",
+          "these",
+          "many"
+        ]
+      },
+      {
+        "vi": "Mấy cây bút chì kia bao nhiêu tiền?",
+        "en": "How much are those pencils?",
+        "distractors": [
+          "is",
+          "that",
+          "many"
+        ]
+      },
+      {
+        "vi": "Nó giá tám đô la.",
+        "en": "It's eight dollars.",
+        "distractors": [
+          "They're",
+          "dollar",
+          "is"
+        ]
+      },
+      {
+        "vi": "Bố tôi trả tiền.",
+        "en": "My dad pays.",
+        "distractors": [
+          "pay",
+          "is",
+          "these"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và bố đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Mua kem và bánh",
+          "Mua cặp sách",
+          "Nấu ăn ở nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi giá cây kem và mấy cái bánh, rồi chọn một cây kem sô-cô-la.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cây kem giá bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Ba đô la",
+          "Bốn đô la",
+          "Bảy đô la"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bố nói \"It's four dollars\". Ba đô la là giá bánh.",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cây kem nào là vị sô-cô-la?",
+        "promptVi": "",
+        "options": [
+          "Cây kia",
+          "Cây này",
+          "Không có cây nào"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bố nói \"That one is banana, and this one is chocolate\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Everything is seven dollars.",
+        "promptVi": "Tất cả hết bảy đô la.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bố nói \"It's seven dollars. Not bad!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Tom hỏi giá những món gì, và mỗi món bao nhiêu tiền?",
+    "grammarStep": {
+      "titleVi": "This / that / these / those",
+      "noticing": [
+        {
+          "sentence": "\"How much is this school bag?\" asks Tom.",
+          "highlights": [
+            "How much is this"
+          ]
+        },
+        {
+          "sentence": "\"And how much are those pencils?\"",
+          "highlights": [
+            "how much are those"
+          ]
+        },
+        {
+          "sentence": "\"It's eight dollars, but this red one is six dollars,\" says the woman.",
+          "highlights": [
+            "this red one"
+          ]
+        },
+        {
+          "sentence": "\"These notebooks are two dollars,\" he says.",
+          "highlights": [
+            "These"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao hỏi \"How much is this school bag?\" nhưng lại hỏi \"How much are those pencils?\"",
+      "options": [
+        "Vì bút chì rẻ hơn",
+        "Vì school bag là một vật (is, this), còn pencils là nhiều vật (are, those)",
+        "Vì bút chì ở trong hộp"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Một vật đi với is và this / that; nhiều vật đi với are và these / those. Câu trả lời cũng đổi theo: It's … / They're ….",
+      "whenVi": "Dùng How much is / are + this, that, these, those để hỏi giá đồ vật khi đi mua sắm.",
+      "table": [
+        {
+          "subject": "How much is this / that …?",
+          "form": "How much is this school bag? – It's thirty dollars.",
+          "negative": "—"
+        },
+        {
+          "subject": "How much are these / those …?",
+          "form": "How much are those pencils? – They're five dollars.",
+          "negative": "—"
+        },
+        {
+          "subject": "this one / that one",
+          "form": "This red one is six dollars.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "How much is those pencils?",
+          "right": "How much are those pencils?"
+        },
+        {
+          "wrong": "How many is this bag?",
+          "right": "How much is this bag?"
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi \"bao nhiêu tiền\" cho cả một và nhiều món, nên người Việt hay dùng is cho cả hai, hoặc nhầm How many với How much.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền is hoặc are vào chỗ trống.",
+          "text": "How much ___ those notebooks?",
+          "answers": [
+            "are"
+          ],
+          "explanationVi": "Those notebooks là nhiều vật, nên dùng are."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "How much is ___ pencil case?",
+          "options": [
+            "these",
+            "those",
+            "that",
+            "they"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Pencil case là một vật và câu dùng is, nên chọn that."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu hỏi sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "How much is these pencils?",
+          "sentence": "How much are these pencils?",
+          "explanationVi": "These pencils là nhiều vật, nên dùng are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cái màu đỏ này giá sáu đô la.",
+          "sentence": "This red one is six dollars.",
+          "words": [
+            "red",
+            "one",
+            "This",
+            "is",
+            "six",
+            "dollars",
+            "These"
+          ],
+          "explanationVi": "One là một cái (số ít), nên dùng This; từ \"These\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "How much is that blue pencil case?",
+        "tipVi": "Pencil /ˈpensl/ đọc hai âm tiết PEN-sl; case /keɪs/ có âm /s/ ở cuối."
+      },
+      {
+        "text": "At the end, Dad pays fifty-one dollars.",
+        "tipVi": "Dollars /ˈdɑːlɚz/ có âm /z/ ở cuối; fifty /ˈfɪfti/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is in your pencil case?",
+        "questionVi": "Trong hộp bút của bạn có gì?",
+        "frame": "There are ___ in my pencil case."
+      },
+      {
+        "question": "What is your favourite colour for school things?",
+        "questionVi": "Bạn thích đồ dùng học tập màu gì nhất?",
+        "frame": "My favourite colour is ___."
+      },
+      {
+        "question": "Who buys your school things?",
+        "questionVi": "Ai mua đồ dùng học tập cho bạn?",
+        "frame": "My ___ buys them. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi How much is … hoặc How much are …",
+      "anyOf": [
+        "how much is",
+        "how much are",
+        "this",
+        "that",
+        "these",
+        "those"
+      ],
+      "outlineVi": [
+        "Nói bạn đi mua đồ dùng học tập với ai.",
+        "Hỏi và trả lời giá từng món (How much is …? It's …).",
+        "Nói tổng cộng hết bao nhiêu tiền."
+      ],
+      "modelAnswer": "Today, my mum and I buy school things. How much is this school bag? It's twenty dollars. How much are those pencils? They're three dollars. This blue pencil case is five dollars, and these notebooks are two dollars. My mum pays thirty dollars. School things are expensive!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "January",
+      "lemma": "January",
+      "meaningVi": "tháng Một",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "It is January",
+      "phraseVi": "Bây giờ là tháng Một"
+    },
+    {
+      "text": "Australia",
+      "lemma": "Australia",
+      "meaningVi": "nước Úc",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "in Australia",
+      "phraseVi": "ở Úc"
+    },
+    {
+      "text": "things",
+      "lemma": "thing",
+      "meaningVi": "đồ dùng, đồ vật",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "school things",
+      "phraseVi": "đồ dùng học tập"
+    },
+    {
+      "text": "How much",
+      "lemma": "how much",
+      "meaningVi": "bao nhiêu (tiền)",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "How much is this school bag?",
+      "phraseVi": "Cái cặp này bao nhiêu tiền?"
+    },
+    {
+      "text": "thirty",
+      "lemma": "thirty",
+      "meaningVi": "ba mươi",
+      "sentenceIndex": 3,
+      "pos": "number",
+      "phrase": "thirty dollars",
+      "phraseVi": "ba mươi đô la"
+    },
+    {
+      "text": "this red one",
+      "lemma": "this one",
+      "meaningVi": "cái màu đỏ này",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "this red one is six dollars",
+      "phraseVi": "cái màu đỏ này giá sáu đô la"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "yêu thích nhất",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "Tom's favourite colour",
+      "phraseVi": "màu Tom thích nhất"
+    },
+    {
+      "text": "notebooks",
+      "lemma": "notebook",
+      "meaningVi": "quyển vở",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "These notebooks are two dollars",
+      "phraseVi": "Mấy quyển vở này giá hai đô la"
+    },
+    {
+      "text": "fifty-one",
+      "lemma": "fifty-one",
+      "meaningVi": "năm mươi mốt",
+      "sentenceIndex": 14,
+      "pos": "number",
+      "phrase": "fifty-one dollars",
+      "phraseVi": "năm mươi mốt đô la"
+    },
+    {
+      "text": "laughs",
+      "lemma": "laugh",
+      "meaningVi": "cười",
+      "sentenceIndex": 15,
+      "pos": "verb",
+      "phrase": "Tom laughs",
+      "phraseVi": "Tom bật cười"
+    }
+  ]
+}

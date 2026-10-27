@@ -1,0 +1,604 @@
+{
+  "content": "Lan and Linh's English teacher is Mrs Thanh. She is young, and she is very kind. On Sunday, Lan's cousin Minh asks about her.\n\n\"Does your teacher speak Vietnamese in class?\" asks Minh.\n\"No, she doesn't, and she only speaks English,\" says Lan.\n\"Does she give a lot of homework?\"\n\"Not a lot, only on Monday and Thursday,\" says Linh.\n\nMrs Thanh doesn't get angry, and she doesn't give a test every week. She plays games with the class, and she tells funny stories. On Friday, the students sing English songs with her.\n\n\"Do you like her lessons?\" asks Minh.\n\"Yes, we do,\" says Lan. \"Everyone loves her lessons!\"\n\"My teacher, Mr Nam, is great too,\" says Minh.",
+  "targetWords": [
+    "teacher",
+    "kind",
+    "speak",
+    "homework",
+    "test",
+    "game",
+    "story",
+    "lesson"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "teacher",
+        "lemma": "teacher",
+        "meaningVi": "giáo viên",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "kind",
+        "lemma": "kind",
+        "meaningVi": "tốt bụng",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "speak",
+        "lemma": "speak",
+        "meaningVi": "nói (một ngôn ngữ)",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "homework",
+        "lemma": "homework",
+        "meaningVi": "bài tập về nhà",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "test",
+        "lemma": "test",
+        "meaningVi": "bài kiểm tra",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "games",
+        "lemma": "game",
+        "meaningVi": "trò chơi",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "stories",
+        "lemma": "story",
+        "meaningVi": "câu chuyện",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "lessons",
+        "lemma": "lesson",
+        "meaningVi": "giờ học, bài học",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mr Nam's English class",
+          "Lan and Linh tell Minh about their English teacher.",
+          "A music lesson",
+          "Mrs Thanh's family"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh hỏi, và Lan với Linh kể cô Thanh làm gì và không làm gì trong giờ tiếng Anh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When does Mrs Thanh give homework?",
+        "promptVi": "Cô Thanh giao bài tập về nhà vào những ngày nào?",
+        "options": [
+          "Every day",
+          "On Monday and Thursday",
+          "On Friday",
+          "On Sunday"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"Not a lot, only on Monday and Thursday\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What do the students do on Friday?",
+        "promptVi": "Thứ Sáu học sinh làm gì?",
+        "options": [
+          "They have a test.",
+          "They sing English songs.",
+          "They play football.",
+          "They read stories."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"On Friday, the students sing English songs with her\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mrs Thanh speaks Vietnamese in class.",
+        "promptVi": "Cô Thanh nói tiếng Việt trong lớp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"No, she doesn't, and she only speaks English\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"angry\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mrs Thanh doesn't get angry, and she doesn't give a test every week.",
+        "options": [
+          "vui vẻ",
+          "mệt mỏi",
+          "tức giận",
+          "buồn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Angry là tức giận: cô Thanh không nổi giận với học sinh, cô rất tốt bụng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn: phủ định và câu hỏi",
+      "bodyVi": "Với she (cô Thanh), câu khẳng định thêm -s: she speaks, she gives, she tells. Câu phủ định dùng doesn't + động từ giữ nguyên: she doesn't get angry. Câu hỏi dùng Does + chủ ngữ + động từ giữ nguyên: Does she give …? Trả lời: Yes, she does. / No, she doesn't.",
+      "examples": [
+        "Does your teacher speak Vietnamese in class?",
+        "Mrs Thanh doesn't get angry, and she doesn't give a test every week.",
+        "She plays games with the class, and she tells funny stories."
+      ]
+    },
+    "writingPrompt": "Write about one of your teachers: what he or she does and doesn't do in class.",
+    "sentenceTranslations": [
+      "Giáo viên tiếng Anh của Lan và Linh là cô Thanh.",
+      "Cô còn trẻ, và rất tốt bụng.",
+      "Chủ nhật, anh họ của Lan là Minh hỏi về cô.",
+      "\"Cô giáo của các em có nói tiếng Việt trong lớp không?\" Minh hỏi.",
+      "\"Không ạ, cô chỉ nói tiếng Anh thôi,\" Lan nói.",
+      "\"Cô có giao nhiều bài tập về nhà không?\"",
+      "\"Không nhiều, chỉ vào thứ Hai và thứ Năm thôi ạ,\" Linh nói.",
+      "Cô Thanh không nổi giận, và cô không cho kiểm tra mỗi tuần.",
+      "Cô chơi trò chơi với cả lớp, và kể những câu chuyện vui.",
+      "Thứ Sáu, học sinh hát các bài hát tiếng Anh cùng cô.",
+      "\"Các em có thích giờ học của cô không?\" Minh hỏi.",
+      "\"Có ạ,\" Lan nói.",
+      "\"Ai cũng mê giờ học của cô!\"",
+      "\"Thầy Nam của anh cũng tuyệt lắm,\" Minh nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một thầy cô: thầy cô làm gì (she gives), không làm gì (she doesn't give) và hỏi Does she …?",
+    "examples": [
+      {
+        "lemma": "teacher",
+        "sentence": "Our teacher doesn't come late.",
+        "meaningVi": "Cô giáo của bọn mình không bao giờ đến muộn."
+      },
+      {
+        "lemma": "kind",
+        "sentence": "My English teacher is very kind.",
+        "meaningVi": "Cô giáo tiếng Anh của mình rất tốt bụng."
+      },
+      {
+        "lemma": "speak",
+        "sentence": "Does your friend speak English?",
+        "meaningVi": "Bạn của bạn có nói tiếng Anh không?"
+      },
+      {
+        "lemma": "homework",
+        "sentence": "He doesn't give homework on Friday.",
+        "meaningVi": "Thầy không giao bài tập vào thứ Sáu."
+      },
+      {
+        "lemma": "test",
+        "sentence": "We have a test on Monday.",
+        "meaningVi": "Thứ Hai bọn mình có bài kiểm tra."
+      },
+      {
+        "lemma": "game",
+        "sentence": "This game is very funny.",
+        "meaningVi": "Trò chơi này rất vui."
+      },
+      {
+        "lemma": "story",
+        "sentence": "My grandma tells a story every night.",
+        "meaningVi": "Tối nào bà mình cũng kể một câu chuyện."
+      },
+      {
+        "lemma": "lesson",
+        "sentence": "The English lesson starts at eight.",
+        "meaningVi": "Tiết tiếng Anh bắt đầu lúc tám giờ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huy",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tom, does Mr Nam give a lot of homework?",
+          "meaningVi": "Tom ơi, thầy Nam có giao nhiều bài tập không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he does. He gives homework every day!",
+          "meaningVi": "Có. Ngày nào thầy cũng giao bài tập!"
+        },
+        {
+          "speaker": 0,
+          "text": "Does he get angry?",
+          "meaningVi": "Thầy có hay nổi giận không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he doesn't. He's very kind.",
+          "meaningVi": "Không. Thầy rất tốt bụng."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you like his lessons?",
+          "meaningVi": "Bạn có thích giờ học của thầy không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I do. He tells us about London and Sydney.",
+          "meaningVi": "Có. Thầy kể cho bọn mình về London và Sydney."
+        },
+        {
+          "speaker": 0,
+          "text": "Does he speak Vietnamese in class?",
+          "meaningVi": "Thầy có nói tiếng Việt trong lớp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he doesn't. Only English!",
+          "meaningVi": "Không. Chỉ tiếng Anh thôi!"
+        },
+        {
+          "speaker": 0,
+          "text": "Do we have a test this week?",
+          "meaningVi": "Tuần này bọn mình có bài kiểm tra không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, we do. It's on Wednesday.",
+          "meaningVi": "Có. Vào thứ Tư."
+        }
+      ]
+    },
+    "grammarTipVi": "Với he, she: câu khẳng định thêm -s (she gives), nhưng câu phủ định và câu hỏi thì không, vì -s đã chuyển sang does (she doesn't give, does she give?).",
+    "translations": [
+      {
+        "vi": "Cô ấy không nói tiếng Việt.",
+        "en": "She doesn't speak Vietnamese.",
+        "distractors": [
+          "don't",
+          "speaks",
+          "not"
+        ]
+      },
+      {
+        "vi": "Cô ấy có giao nhiều bài tập về nhà không?",
+        "en": "Does she give a lot of homework?",
+        "distractors": [
+          "Do",
+          "gives",
+          "is"
+        ]
+      },
+      {
+        "vi": "Cô ấy kể những câu chuyện vui.",
+        "en": "She tells funny stories.",
+        "distractors": [
+          "tell",
+          "doesn't",
+          "story"
+        ]
+      },
+      {
+        "vi": "Chúng tôi rất thích giờ học của cô ấy.",
+        "en": "We love her lessons.",
+        "distractors": [
+          "loves",
+          "she",
+          "lesson"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Huy và Tom nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thầy Nam và giờ học tiếng Anh",
+          "Một chuyến đi London",
+          "Bữa trưa ở trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy hỏi Tom thầy Nam có giao nhiều bài tập không, có nổi giận không, có nói tiếng Việt không.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thầy Nam giao bài tập khi nào?",
+        "promptVi": "",
+        "options": [
+          "Thứ Hai và thứ Năm",
+          "Mỗi ngày",
+          "Không bao giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"He gives homework every day!\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bài kiểm tra vào thứ mấy?",
+        "promptVi": "",
+        "options": [
+          "Thứ Hai",
+          "Thứ Tư",
+          "Thứ Sáu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"It's on Wednesday\".",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Nam often gets angry.",
+        "promptVi": "Thầy Nam hay nổi giận.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom nói \"No, he doesn't. He's very kind\".",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Cô Thanh làm gì và không làm gì trong giờ học?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "\"Does your teacher speak Vietnamese in class?\" asks Minh.",
+          "highlights": [
+            "Does",
+            "speak"
+          ]
+        },
+        {
+          "sentence": "\"No, she doesn't, and she only speaks English,\" says Lan.",
+          "highlights": [
+            "doesn't",
+            "speaks"
+          ]
+        },
+        {
+          "sentence": "Mrs Thanh doesn't get angry, and she doesn't give a test every week.",
+          "highlights": [
+            "doesn't get",
+            "doesn't give"
+          ]
+        },
+        {
+          "sentence": "She plays games with the class, and she tells funny stories.",
+          "highlights": [
+            "plays",
+            "tells"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao câu \"she only speaks English\" có -s, nhưng câu \"Does your teacher speak …?\" thì không?",
+      "options": [
+        "Vì speak đứng sau English",
+        "Vì trong câu hỏi đã có does, nên động từ giữ nguyên",
+        "Vì câu hỏi ở thì quá khứ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Với he, she, -s đi theo động từ trong câu khẳng định (speaks, plays). Trong câu hỏi và câu phủ định, -s chuyển sang does, doesn't, nên động từ giữ nguyên (speak, get, give).",
+      "whenVi": "Dùng thì hiện tại đơn để nói thầy cô thường làm gì; dùng doesn't và Does …? để nói thầy cô không làm gì và hỏi về thầy cô.",
+      "table": [
+        {
+          "subject": "she (khẳng định)",
+          "form": "She speaks English. She gives homework.",
+          "negative": "—"
+        },
+        {
+          "subject": "she (phủ định)",
+          "form": "She doesn't speak Vietnamese.",
+          "negative": "—"
+        },
+        {
+          "subject": "she (câu hỏi)",
+          "form": "Does she give a lot of homework?",
+          "negative": "No, she doesn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She doesn't speaks Vietnamese.",
+          "right": "She doesn't speak Vietnamese."
+        },
+        {
+          "wrong": "Does she gives homework?",
+          "right": "Does she give homework?"
+        }
+      ],
+      "noteVi": "Khi đã nhớ thêm -s cho she, người Việt hay giữ luôn -s sau doesn't và does, viết thành \"doesn't speaks\", \"does she gives\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền don't hoặc doesn't vào chỗ trống.",
+          "text": "Mrs Thanh ___ get angry.",
+          "answers": [
+            "doesn't"
+          ],
+          "explanationVi": "Mrs Thanh là một người (she), nên dùng doesn't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Does she ___ a lot of homework?",
+          "options": [
+            "gives",
+            "give",
+            "giving",
+            "gave"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sau Does, động từ giữ nguyên: give."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She doesn't speaks Vietnamese in class.",
+          "sentence": "She doesn't speak Vietnamese in class.",
+          "explanationVi": "Sau doesn't, động từ giữ nguyên: speak."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Cô ấy có nói tiếng Việt không?",
+          "sentence": "Does she speak Vietnamese?",
+          "words": [
+            "speak",
+            "she",
+            "Does",
+            "Vietnamese",
+            "speaks"
+          ],
+          "explanationVi": "Sau Does, động từ giữ nguyên: speak; từ \"speaks\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She plays games with the class, and she tells funny stories.",
+        "tipVi": "Plays /pleɪz/ và games /ɡeɪmz/ có âm /z/ ở cuối; stories /ˈstɔːriz/ cũng vậy."
+      },
+      {
+        "text": "On Friday, the students sing English songs with her.",
+        "tipVi": "Songs /sɔːŋz/ kết thúc bằng /ŋz/; students /ˈstuːdənts/ có cụm /nts/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Does your English teacher speak Vietnamese in class?",
+        "questionVi": "Giáo viên tiếng Anh của bạn có nói tiếng Việt trong lớp không?",
+        "frame": "Yes, he / she does. / No, he / she doesn't."
+      },
+      {
+        "question": "Do you like your English lessons?",
+        "questionVi": "Bạn có thích giờ học tiếng Anh không?",
+        "frame": "Yes, I do. / No, I don't. They are ___."
+      },
+      {
+        "question": "What does your favourite teacher do in class?",
+        "questionVi": "Thầy cô bạn thích nhất thường làm gì trong lớp?",
+        "frame": "He / She ___. He / She doesn't ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng doesn't hoặc câu hỏi Does …?",
+      "anyOf": [
+        "doesn't",
+        "does",
+        "don't",
+        "do you"
+      ],
+      "outlineVi": [
+        "Giới thiệu thầy cô của bạn: tên, dạy môn gì.",
+        "Kể thầy cô làm gì trong lớp.",
+        "Kể thầy cô không làm gì (doesn't …)."
+      ],
+      "modelAnswer": "My English teacher is Mr Hai. He is kind and funny. He doesn't get angry, and he doesn't give a lot of homework. In his lessons, we play games and sing songs. He tells interesting stories about England. Do we like his lessons? Yes, we do!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "young",
+      "lemma": "young",
+      "meaningVi": "trẻ",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "She is young",
+      "phraseVi": "Cô còn trẻ"
+    },
+    {
+      "text": "cousin",
+      "lemma": "cousin",
+      "meaningVi": "anh họ",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "Lan's cousin Minh",
+      "phraseVi": "anh họ của Lan là Minh"
+    },
+    {
+      "text": "Vietnamese",
+      "lemma": "Vietnamese",
+      "meaningVi": "tiếng Việt",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "speak Vietnamese in class",
+      "phraseVi": "nói tiếng Việt trong lớp"
+    },
+    {
+      "text": "only",
+      "lemma": "only",
+      "meaningVi": "chỉ",
+      "sentenceIndex": 4,
+      "pos": "adverb",
+      "phrase": "she only speaks English",
+      "phraseVi": "cô chỉ nói tiếng Anh"
+    },
+    {
+      "text": "give",
+      "lemma": "give",
+      "meaningVi": "giao, cho",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "give a lot of homework",
+      "phraseVi": "giao nhiều bài tập"
+    },
+    {
+      "text": "angry",
+      "lemma": "angry",
+      "meaningVi": "tức giận",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "doesn't get angry",
+      "phraseVi": "không nổi giận"
+    },
+    {
+      "text": "funny",
+      "lemma": "funny",
+      "meaningVi": "vui, buồn cười",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "funny stories",
+      "phraseVi": "những câu chuyện vui"
+    },
+    {
+      "text": "songs",
+      "lemma": "song",
+      "meaningVi": "bài hát",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "sing English songs",
+      "phraseVi": "hát các bài hát tiếng Anh"
+    },
+    {
+      "text": "Everyone",
+      "lemma": "everyone",
+      "meaningVi": "mọi người, ai cũng",
+      "sentenceIndex": 12,
+      "pos": "pronoun",
+      "phrase": "Everyone loves her lessons",
+      "phraseVi": "Ai cũng mê giờ học của cô"
+    },
+    {
+      "text": "great",
+      "lemma": "great",
+      "meaningVi": "tuyệt vời",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "Mr Nam, is great too",
+      "phraseVi": "thầy Nam cũng tuyệt lắm"
+    }
+  ]
+}

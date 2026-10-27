@@ -1,0 +1,610 @@
+{
+  "content": "It is the end of the summer holiday, and Huy needs new clothes for school. He and his mum are at a big clothes shop.\n\n\"This shirt is nice,\" says Mum. \"It's white, and it's your size.\"\n\"Hmm, I like that blue shirt,\" says Huy. \"Is that one my size?\"\n\"Yes, it is,\" says Mum. So Huy takes the blue shirt.\n\nThen they look at shoes. \"These black shoes are good for school,\" says Mum.\n\"They're OK, but those white shoes are great!\" says Huy.\n\"Those white shoes are very expensive,\" says Mum. \"These black shoes aren't expensive.\"\n\nHuy tries on the black shoes. They are a little big, so he tries on a small pair. They are good. Now Huy has a blue shirt and black shoes for school. \"Thank you, Mum!\" he says.",
+  "targetWords": [
+    "clothes",
+    "shop",
+    "shirt",
+    "size",
+    "shoes",
+    "expensive",
+    "try on",
+    "pair"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "clothes",
+        "lemma": "clothes",
+        "meaningVi": "quần áo",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "shirt",
+        "lemma": "shirt",
+        "meaningVi": "áo sơ mi",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "size",
+        "lemma": "size",
+        "meaningVi": "cỡ, kích cỡ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "shoes",
+        "lemma": "shoes",
+        "meaningVi": "giày",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "expensive",
+        "lemma": "expensive",
+        "meaningVi": "đắt",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "tries on",
+        "lemma": "try on",
+        "meaningVi": "mặc thử, đi thử",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "pair",
+        "lemma": "pair",
+        "meaningVi": "đôi",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Huy's summer holiday",
+          "Huy's new school",
+          "Huy and his mum buy new clothes for school.",
+          "A shoe shop in London"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hè sắp hết, Huy và mẹ đi mua áo và giày mới để đi học."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What colour is Huy's new shirt?",
+        "promptVi": "Áo mới của Huy màu gì?",
+        "options": [
+          "White",
+          "Blue",
+          "Black",
+          "Red"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy thích \"that blue shirt\", và \"Huy takes the blue shirt\". Áo trắng là áo mẹ chọn trước."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What are the white shoes like?",
+        "promptVi": "Đôi giày trắng thế nào?",
+        "options": [
+          "Very expensive",
+          "Too small",
+          "Black",
+          "Old"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ nói \"Those white shoes are very expensive\", nên Huy lấy đôi giày đen."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The first black shoes are a little big.",
+        "promptVi": "Đôi giày đen đầu tiên hơi rộng.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"They are a little big, so he tries on a small pair\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"pair\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "They are a little big, so he tries on a small pair.",
+        "options": [
+          "chiếc",
+          "đôi",
+          "cái hộp",
+          "cửa hàng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "A pair of shoes là một đôi giày: Huy đi thử một đôi giày cỡ nhỏ hơn."
+      }
+    ],
+    "grammarNote": {
+      "title": "This / that / these / those",
+      "bodyVi": "Khi chọn quần áo, dùng this (cái này) và that (cái kia) cho một món: this shirt, that blue shirt, that one. Shoes luôn là số nhiều (một đôi gồm hai chiếc), nên dùng these (những … này) và those (những … kia): these black shoes, those white shoes.",
+      "examples": [
+        "This shirt is nice",
+        "Hmm, I like that blue shirt",
+        "These black shoes are good for school"
+      ]
+    },
+    "writingPrompt": "Write about buying new clothes: what you look at, what you try on and what you take.",
+    "sentenceTranslations": [
+      "Kỳ nghỉ hè sắp hết, và Huy cần quần áo mới để đi học.",
+      "Huy và mẹ đang ở một cửa hàng quần áo lớn.",
+      "\"Cái áo sơ mi này đẹp đấy,\" mẹ nói.",
+      "\"Nó màu trắng, và vừa cỡ của con.\"",
+      "\"Ừm, con thích cái áo xanh kia,\" Huy nói.",
+      "\"Cái đó có vừa cỡ của con không ạ?\"",
+      "\"Vừa đấy,\" mẹ nói.",
+      "Thế là Huy lấy cái áo màu xanh.",
+      "Sau đó hai mẹ con xem giày.",
+      "\"Đôi giày đen này hợp để đi học,\" mẹ nói.",
+      "\"Cũng được ạ, nhưng đôi giày trắng kia đẹp quá!\" Huy nói.",
+      "\"Đôi giày trắng kia đắt lắm,\" mẹ nói.",
+      "\"Đôi giày đen này không đắt.\"",
+      "Huy đi thử đôi giày đen.",
+      "Giày hơi rộng, nên Huy thử một đôi cỡ nhỏ hơn.",
+      "Đôi này vừa.",
+      "Giờ Huy đã có áo xanh và giày đen để đi học.",
+      "\"Con cảm ơn mẹ!\" Huy nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chọn quần áo, giày dép ở cửa hàng bằng this / that (shirt) và these / those (shoes).",
+    "examples": [
+      {
+        "lemma": "clothes",
+        "sentence": "My sister loves new clothes.",
+        "meaningVi": "Em gái mình rất thích quần áo mới."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "That shop has nice shoes.",
+        "meaningVi": "Cửa hàng kia có giày đẹp."
+      },
+      {
+        "lemma": "shirt",
+        "sentence": "This shirt is too small for me.",
+        "meaningVi": "Cái áo này quá chật với mình."
+      },
+      {
+        "lemma": "size",
+        "sentence": "Is this jacket my size?",
+        "meaningVi": "Cái áo khoác này có vừa cỡ của mình không?"
+      },
+      {
+        "lemma": "shoes",
+        "sentence": "These shoes are new.",
+        "meaningVi": "Đôi giày này mới."
+      },
+      {
+        "lemma": "expensive",
+        "sentence": "That hat is very expensive.",
+        "meaningVi": "Cái mũ kia rất đắt."
+      },
+      {
+        "lemma": "try on",
+        "sentence": "I try on three T-shirts.",
+        "meaningVi": "Mình mặc thử ba cái áo phông."
+      },
+      {
+        "lemma": "pair",
+        "sentence": "I need a new pair of shoes.",
+        "meaningVi": "Mình cần một đôi giày mới."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Mum"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mum, is this dress nice?",
+          "meaningVi": "Mẹ ơi, chiếc váy này có đẹp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. But that red dress is nice too.",
+          "meaningVi": "Đẹp. Nhưng chiếc váy đỏ kia cũng đẹp."
+        },
+        {
+          "speaker": 0,
+          "text": "Hmm. Is that one my size?",
+          "meaningVi": "Ừm. Chiếc đó có vừa cỡ của con không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it's too big for you.",
+          "meaningVi": "Không, nó rộng quá với con."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. And these jeans? Are they expensive?",
+          "meaningVi": "Vâng. Còn chiếc quần bò này? Có đắt không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they aren't. They're nice for school.",
+          "meaningVi": "Không đắt. Mặc đi học được đấy."
+        },
+        {
+          "speaker": 0,
+          "text": "And those hats?",
+          "meaningVi": "Còn mấy cái mũ kia?"
+        },
+        {
+          "speaker": 1,
+          "text": "That yellow hat is good for the summer.",
+          "meaningVi": "Cái mũ vàng kia hợp với mùa hè."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! This dress, these jeans and that yellow hat, please!",
+          "meaningVi": "Tuyệt! Con lấy chiếc váy này, chiếc quần bò này và cái mũ vàng kia ạ!"
+        },
+        {
+          "speaker": 1,
+          "text": "That's a lot of clothes, Lan!",
+          "meaningVi": "Nhiều quần áo quá đấy, Lan!"
+        }
+      ]
+    },
+    "grammarTipVi": "Shoes, jeans, trousers luôn ở số nhiều, nên đi với these / those: these shoes, those jeans. Nói một đôi thì dùng a pair of: a pair of shoes.",
+    "translations": [
+      {
+        "vi": "Cái áo sơ mi này vừa cỡ của tôi.",
+        "en": "This shirt is my size.",
+        "distractors": [
+          "These",
+          "That",
+          "are"
+        ]
+      },
+      {
+        "vi": "Đôi giày kia đắt lắm.",
+        "en": "Those shoes are very expensive.",
+        "distractors": [
+          "That",
+          "This",
+          "is"
+        ]
+      },
+      {
+        "vi": "Tôi cần quần áo mới.",
+        "en": "I need new clothes.",
+        "distractors": [
+          "needs",
+          "cloth",
+          "a"
+        ]
+      },
+      {
+        "vi": "Anh ấy đi thử đôi giày đen.",
+        "en": "He tries on the black shoes.",
+        "distractors": [
+          "try",
+          "these",
+          "shoe"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và mẹ đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Chọn quần áo ở cửa hàng",
+          "Giặt quần áo ở nhà",
+          "Đi dự tiệc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan hỏi mẹ chiếc váy, quần bò, mũ có đẹp, có vừa, có đắt không, rồi chọn mua.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chiếc váy đỏ thế nào?",
+        "promptVi": "",
+        "options": [
+          "Quá đắt",
+          "Quá rộng với Lan",
+          "Quá nhỏ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mẹ nói \"No, it's too big for you\".",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan chọn cái mũ màu gì?",
+        "promptVi": "",
+        "options": [
+          "Màu đỏ",
+          "Màu xanh",
+          "Màu vàng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"that yellow hat, please!\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The jeans are expensive.",
+        "promptVi": "Chiếc quần bò đắt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì mẹ nói \"No, they aren't. They're nice for school\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Huy chọn áo nào và giày nào, vì sao?",
+    "grammarStep": {
+      "titleVi": "This / that / these / those",
+      "noticing": [
+        {
+          "sentence": "\"This shirt is nice,\" says Mum.",
+          "highlights": [
+            "This"
+          ]
+        },
+        {
+          "sentence": "\"Hmm, I like that blue shirt,\" says Huy.",
+          "highlights": [
+            "that"
+          ]
+        },
+        {
+          "sentence": "\"These black shoes are good for school,\" says Mum.",
+          "highlights": [
+            "These"
+          ]
+        },
+        {
+          "sentence": "\"Those white shoes are very expensive,\" says Mum.",
+          "highlights": [
+            "Those"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói this shirt nhưng lại nói these shoes?",
+      "options": [
+        "Vì giày đắt hơn áo",
+        "Vì shirt là một chiếc, còn shoes là số nhiều (một đôi gồm hai chiếc)",
+        "Vì giày ở xa hơn"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "This / that đi với một vật (shirt); these / those đi với nhiều vật (shoes). Gần thì dùng this / these, xa thì dùng that / those.",
+      "whenVi": "Dùng this / that cho một món đồ và these / those cho nhiều món (hoặc đồ đi theo đôi như shoes) khi chọn mua.",
+      "table": [
+        {
+          "subject": "this (gần, số ít)",
+          "form": "this shirt, this one",
+          "negative": "—"
+        },
+        {
+          "subject": "that (xa, số ít)",
+          "form": "that blue shirt, that one",
+          "negative": "—"
+        },
+        {
+          "subject": "these (gần, số nhiều)",
+          "form": "these black shoes",
+          "negative": "—"
+        },
+        {
+          "subject": "those (xa, số nhiều)",
+          "form": "those white shoes",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "This shoes are expensive.",
+          "right": "These shoes are expensive."
+        },
+        {
+          "wrong": "I like those blue shirt.",
+          "right": "I like that blue shirt."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"đôi giày này\" như một vật, nên người Việt hay dùng this shoes thay vì these shoes.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền These hoặc Those (đôi giày ở ngay đây).",
+          "text": "___ black shoes here are good for school.",
+          "answers": [
+            "These"
+          ],
+          "explanationVi": "Shoes là số nhiều và ở gần (here), nên dùng These."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "I like ___ blue shirt over there.",
+          "options": [
+            "this",
+            "that",
+            "these",
+            "those"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Shirt là một chiếc và ở xa (over there), nên dùng that."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "This shoes are very expensive.",
+          "sentence": "These shoes are very expensive.",
+          "explanationVi": "Shoes là số nhiều, nên dùng these."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Cái áo kia có vừa cỡ của tôi không?",
+          "sentence": "Is that shirt my size?",
+          "words": [
+            "shirt",
+            "my",
+            "Is",
+            "that",
+            "size",
+            "those"
+          ],
+          "explanationVi": "Shirt là một chiếc nên dùng that; từ \"those\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Huy tries on the black shoes.",
+        "tipVi": "Tries /traɪz/ có cụm /tr/ đọc liền; shoes /ʃuːz/ có âm /z/ ở cuối."
+      },
+      {
+        "text": "These black shoes aren't expensive.",
+        "tipVi": "These /ðiːz/ có âm /iː/ dài, khác this /ðɪs/ ngắn; expensive /ɪkˈspensɪv/ nhấn SPEN."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What colour is your favourite shirt?",
+        "questionVi": "Chiếc áo bạn thích nhất màu gì?",
+        "frame": "My favourite shirt is ___."
+      },
+      {
+        "question": "Are your shoes new or old?",
+        "questionVi": "Giày của bạn mới hay cũ?",
+        "frame": "My shoes are ___. They are ___."
+      },
+      {
+        "question": "What is your mum's or dad's favourite colour for clothes?",
+        "questionVi": "Bố hoặc mẹ bạn thích mặc quần áo màu gì nhất?",
+        "frame": "His / Her favourite colour is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng this, that, these hoặc those",
+      "anyOf": [
+        "this",
+        "that",
+        "these",
+        "those"
+      ],
+      "outlineVi": [
+        "Nói bạn đi mua quần áo với ai, cần mua gì.",
+        "Kể các món bạn xem (this shirt, those shoes …).",
+        "Kể bạn thử gì và cuối cùng chọn gì."
+      ],
+      "modelAnswer": "Today, I am at a clothes shop with my dad. I need a new shirt and new shoes. This white shirt is nice, and it is my size. Those red shoes are very expensive, so I try on these black shoes. They are a good pair for school."
+    }
+  },
+  "glosses": [
+    {
+      "text": "end",
+      "lemma": "end",
+      "meaningVi": "cuối, kết thúc",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the end of the summer holiday",
+      "phraseVi": "cuối kỳ nghỉ hè"
+    },
+    {
+      "text": "needs",
+      "lemma": "need",
+      "meaningVi": "cần",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Huy needs new clothes",
+      "phraseVi": "Huy cần quần áo mới"
+    },
+    {
+      "text": "This",
+      "lemma": "this",
+      "meaningVi": "này",
+      "sentenceIndex": 2,
+      "pos": "determiner",
+      "phrase": "This shirt is nice",
+      "phraseVi": "Cái áo này đẹp"
+    },
+    {
+      "text": "white",
+      "lemma": "white",
+      "meaningVi": "màu trắng",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "It's white",
+      "phraseVi": "Nó màu trắng"
+    },
+    {
+      "text": "that",
+      "lemma": "that",
+      "meaningVi": "kia",
+      "sentenceIndex": 4,
+      "pos": "determiner",
+      "phrase": "that blue shirt",
+      "phraseVi": "cái áo xanh kia"
+    },
+    {
+      "text": "takes",
+      "lemma": "take",
+      "meaningVi": "lấy, chọn",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "Huy takes the blue shirt",
+      "phraseVi": "Huy lấy cái áo màu xanh"
+    },
+    {
+      "text": "These",
+      "lemma": "these",
+      "meaningVi": "những … này",
+      "sentenceIndex": 9,
+      "pos": "determiner",
+      "phrase": "These black shoes",
+      "phraseVi": "Đôi giày đen này"
+    },
+    {
+      "text": "Those",
+      "lemma": "those",
+      "meaningVi": "những … kia",
+      "sentenceIndex": 11,
+      "pos": "determiner",
+      "phrase": "Those white shoes",
+      "phraseVi": "Đôi giày trắng kia"
+    },
+    {
+      "text": "a little",
+      "lemma": "a little",
+      "meaningVi": "hơi, một chút",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "They are a little big",
+      "phraseVi": "Giày hơi rộng"
+    },
+    {
+      "text": "Thank you",
+      "lemma": "thank you",
+      "meaningVi": "cảm ơn",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "Thank you, Mum!",
+      "phraseVi": "Con cảm ơn mẹ!"
+    }
+  ]
+}

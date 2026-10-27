@@ -122,6 +122,8 @@ and the forms of the point given in structures (for a verb form: affirmative, ne
 Every exercise has kind, promptVi (a short Vietnamese instruction), text, and explanationVi, a Vietnamese explanation of why the answer is right.
 - choice: text is the English question or a sentence with one blank written "___"; options has exactly 4 different English options; answerIndex (0 to 3) is the only correct one.
 - fill: text is an English sentence with exactly one blank written "___"; answers lists the accepted words for the blank (at least 1, lower case).
+  Only the listed answers may make a correct sentence: when another form of the point would also fit the blank (for example Don't and Let's),
+  promptVi must say which one is wanted, for example with the Vietnamese meaning of the sentence.
 - reorder: text is the exact Vietnamese translation of sentence: the same meaning, person, tense and sentence type
   (a question in Vietnamese only for an English question, an answer only for an answer); sentence is the correct English sentence (3 to 14 words);
   words are all the words of sentence, plus at most 2 extra wrong words.
@@ -150,13 +152,14 @@ var grammarSolveSchema = map[string]any{
 	"items": map[string]any{
 		"type": "OBJECT",
 		"properties": map[string]any{
-			"exerciseId":  map[string]any{"type": "STRING"},
-			"choiceIndex": map[string]any{"type": "INTEGER"},
-			"answer":      map[string]any{"type": "STRING"},
-			"sentence":    map[string]any{"type": "STRING"},
-			"ambiguous":   map[string]any{"type": "BOOLEAN"},
-			"meaningOff":  map[string]any{"type": "BOOLEAN"},
-			"noteVi":      map[string]any{"type": "STRING"},
+			"exerciseId":   map[string]any{"type": "STRING"},
+			"choiceIndex":  map[string]any{"type": "INTEGER"},
+			"answer":       map[string]any{"type": "STRING"},
+			"sentence":     map[string]any{"type": "STRING"},
+			"alternatives": map[string]any{"type": "ARRAY", "items": map[string]any{"type": "STRING"}},
+			"ambiguous":    map[string]any{"type": "BOOLEAN"},
+			"meaningOff":   map[string]any{"type": "BOOLEAN"},
+			"noteVi":       map[string]any{"type": "STRING"},
 		},
 		"required": []string{"exerciseId", "ambiguous"},
 	},
@@ -187,10 +190,12 @@ The answer, by kind of exercise (leave the other answer fields out):
 - choice: choiceIndex, the 0-based index of the one right option.
 - fill: answer, the word or phrase that fills the blank "___".
 - reorder: sentence, the sentence built from the given words (some words may be extra and unused; punctuation stuck to a word does not matter).
-- fix: sentence, the text with its mistake corrected, changing as few words as possible.
+- fix: sentence, the text with its mistake corrected, changing as few words as possible; alternatives, every other correction
+  that is just as natural at this level and changes as few words (for example "She goes to school." and "She is going to school."
+  for "She is go to school."), or an empty list. Never more than one sentence in an item.
 
 For every exercise also:
-- ambiguous: true when more than one answer is correct, or none is, or the exercise is unclear or broken; otherwise false. A contraction and its full form (I'm, I am) are the same answer. Do not mark an exercise ambiguous just to be safe.
+- ambiguous: true when more than one answer is correct, or none is, or the exercise is unclear or broken; otherwise false. A contraction and its full form (I'm, I am) are the same answer. Several corrections of a fix are not ambiguous: list them in alternatives, and mark a fix ambiguous only when the text has no mistake, more than one, or cannot be corrected. Do not mark an exercise ambiguous just to be safe.
 - meaningOff: true when a Vietnamese translation of the sentence (the text of a reorder, or one in promptVi or text; instructions such as "Chọn từ đúng" are not one) does not say exactly what your answer says: a different meaning, person or tense, or a question for a statement or the other way round (for example "Bạn bao nhiêu tuổi?" for "I am ten."); otherwise false.
 - noteVi: when ambiguous or meaningOff is true, one short Vietnamese sentence that says why; otherwise "".
 

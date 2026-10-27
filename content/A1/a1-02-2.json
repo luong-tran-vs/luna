@@ -1,0 +1,676 @@
+{
+  "content": "This is my brother's room. His name is Duc, and he is seventeen. His room is small, but it is nice.\n\nHis bed is under the window, and his desk is near the door. His books and his computer are on the desk. The guitar on his bed isn't his. It is Dad's old guitar, but Duc plays it every day.\n\nThe black bag on the floor is Duc's school bag. And the blue shoes under the desk? They are my shoes!\n\nMilo is on Duc's bed too. Milo is our cat. Its bed is in the kitchen, but Milo likes Duc's bed.\n\nMy little sister Mai comes in. \"Is this Duc's room or Milo's room?\" she asks. We all laugh.",
+  "targetWords": [
+    "brother",
+    "room",
+    "bed",
+    "window",
+    "desk",
+    "guitar",
+    "shoes",
+    "little sister"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "brother",
+        "lemma": "brother",
+        "meaningVi": "anh trai, em trai",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "room",
+        "lemma": "room",
+        "meaningVi": "căn phòng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "bed",
+        "lemma": "bed",
+        "meaningVi": "cái giường",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "window",
+        "lemma": "window",
+        "meaningVi": "cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "desk",
+        "lemma": "desk",
+        "meaningVi": "bàn học, bàn làm việc",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "guitar",
+        "lemma": "guitar",
+        "meaningVi": "đàn ghi-ta",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "shoes",
+        "lemma": "shoes",
+        "meaningVi": "giày",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "little sister",
+        "lemma": "little sister",
+        "meaningVi": "em gái",
+        "pos": "noun",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan shows her brother's room and says whose things are there.",
+          "Duc talks about his new school.",
+          "Lan shows her own room to a friend.",
+          "Milo the cat finds a new bed in the kitchen."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan giới thiệu phòng của anh Đức (\"This is my brother's room\") và nói từng đồ vật là của ai: đàn của bố, cặp của anh Đức, giày của Lan."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Duc's bed?",
+        "promptVi": "Giường của Đức ở đâu?",
+        "options": [
+          "Near the door",
+          "Under the window",
+          "In the kitchen",
+          "On the floor"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"His bed is under the window\": giường ở dưới cửa sổ. Gần cửa ra vào là bàn học."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Whose guitar is on the bed?",
+        "promptVi": "Cây đàn ghi-ta trên giường là của ai?",
+        "options": [
+          "Duc's",
+          "Lan's",
+          "Mai's",
+          "Dad's"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết \"The guitar on his bed isn't his. It is Dad's old guitar\": đàn là của bố, anh Đức chỉ chơi đàn đó."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The blue shoes are Duc's shoes.",
+        "promptVi": "Đôi giày xanh là giày của Đức.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"They are my shoes!\": đôi giày xanh là của Lan."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"floor\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The black bag on the floor is Duc's school bag.",
+        "options": [
+          "cửa sổ",
+          "bức tường",
+          "sàn nhà",
+          "bàn học"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "\"On the floor\" là ở trên sàn nhà: cái cặp đen nằm dưới sàn, không phải trên bàn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tính từ sở hữu và 's",
+      "bodyVi": "Muốn nói đồ vật là của ai, đặt my, your, his, her, its, our, their trước danh từ: his bed (giường của anh ấy), our cat (con mèo của nhà mình). Với tên người, thêm 's: Duc's room (phòng của Đức), Dad's guitar (đàn của bố). Its (của nó) không có dấu ', khác với it's (it is).",
+      "examples": [
+        "This is my brother's room.",
+        "It is Dad's old guitar, but Duc plays it every day.",
+        "Its bed is in the kitchen, but Milo likes Duc's bed."
+      ]
+    },
+    "writingPrompt": "Write about a room in your home: whose room it is and whose things are in it.",
+    "sentenceTranslations": [
+      "Đây là phòng của anh trai mình.",
+      "Anh ấy tên là Đức, và anh ấy mười bảy tuổi.",
+      "Phòng của anh ấy nhỏ, nhưng đẹp.",
+      "Giường của anh ấy ở dưới cửa sổ, còn bàn học thì ở gần cửa ra vào.",
+      "Sách và máy tính của anh ấy ở trên bàn.",
+      "Cây đàn ghi-ta trên giường không phải của anh ấy.",
+      "Đó là cây đàn cũ của bố, nhưng ngày nào anh Đức cũng chơi.",
+      "Cái cặp đen trên sàn là cặp đi học của anh Đức.",
+      "Còn đôi giày xanh dưới gầm bàn thì sao?",
+      "Đó là giày của mình!",
+      "Milo cũng đang nằm trên giường của anh Đức.",
+      "Milo là con mèo của nhà mình.",
+      "Giường của nó ở trong bếp, nhưng Milo thích giường của anh Đức.",
+      "Em gái mình, bé Mai, đi vào.",
+      "\"Đây là phòng của anh Đức hay phòng của Milo vậy?\" em ấy hỏi.",
+      "Cả nhà cùng cười."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói đồ vật là của ai bằng my, his, her, its, our và tên người + 's (Duc's room, Dad's guitar).",
+    "examples": [
+      {
+        "lemma": "brother",
+        "sentence": "My brother is seventeen, and he is tall.",
+        "meaningVi": "Anh trai mình mười bảy tuổi, và anh ấy cao."
+      },
+      {
+        "lemma": "room",
+        "sentence": "Our room is small, but it is nice.",
+        "meaningVi": "Phòng của bọn mình nhỏ, nhưng đẹp."
+      },
+      {
+        "lemma": "bed",
+        "sentence": "The cat is on my bed again.",
+        "meaningVi": "Con mèo lại nằm trên giường của mình rồi."
+      },
+      {
+        "lemma": "window",
+        "sentence": "Her desk is under the window.",
+        "meaningVi": "Bàn học của cô ấy ở dưới cửa sổ."
+      },
+      {
+        "lemma": "desk",
+        "sentence": "His books are on his desk.",
+        "meaningVi": "Sách của anh ấy ở trên bàn học của anh ấy."
+      },
+      {
+        "lemma": "guitar",
+        "sentence": "This is my dad's guitar.",
+        "meaningVi": "Đây là cây đàn ghi-ta của bố mình."
+      },
+      {
+        "lemma": "shoes",
+        "sentence": "Mai's shoes are pink.",
+        "meaningVi": "Giày của bé Mai màu hồng."
+      },
+      {
+        "lemma": "little sister",
+        "sentence": "My little sister is six.",
+        "meaningVi": "Em gái mình sáu tuổi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mum",
+        "Duc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Duc, is this your bag?",
+          "meaningVi": "Đức ơi, đây là cặp của con à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it isn't. It's Lan's bag. My bag is black.",
+          "meaningVi": "Không phải ạ. Đó là cặp của Lan. Cặp của con màu đen."
+        },
+        {
+          "speaker": 0,
+          "text": "And these shoes? Are they your shoes?",
+          "meaningVi": "Còn đôi giày này? Giày của con à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they're Mai's shoes. Her shoes are pink.",
+          "meaningVi": "Không ạ, đó là giày của bé Mai. Giày của em ấy màu hồng."
+        },
+        {
+          "speaker": 0,
+          "text": "Is this Dad's book?",
+          "meaningVi": "Đây là sách của bố à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's his English book.",
+          "meaningVi": "Vâng, đó là sách tiếng Anh của bố."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. And where is Milo?",
+          "meaningVi": "Được rồi. Thế Milo đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "He's on my bed again!",
+          "meaningVi": "Nó lại nằm trên giường của con rồi!"
+        },
+        {
+          "speaker": 0,
+          "text": "Is his bed in the kitchen?",
+          "meaningVi": "Giường của nó ở trong bếp mà?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, but my bed is his favourite place.",
+          "meaningVi": "Vâng, nhưng giường của con là chỗ nó thích nhất."
+        }
+      ]
+    },
+    "grammarTipVi": "Its (của nó) không có dấu ': its bed. Còn it's là viết gọn của it is: It's Dad's guitar. Nếu thay được bằng \"it is\" thì mới viết it's.",
+    "translations": [
+      {
+        "vi": "Đây là phòng của anh trai tôi.",
+        "en": "This is my brother's room.",
+        "distractors": [
+          "brother",
+          "his",
+          "are"
+        ]
+      },
+      {
+        "vi": "Giường của nó ở trong bếp.",
+        "en": "Its bed is in the kitchen.",
+        "distractors": [
+          "It's",
+          "his",
+          "are"
+        ]
+      },
+      {
+        "vi": "Đó là cây đàn ghi-ta của bố.",
+        "en": "It is Dad's guitar.",
+        "distractors": [
+          "Dad",
+          "his",
+          "are"
+        ]
+      },
+      {
+        "vi": "Giày của tôi ở dưới bàn học.",
+        "en": "My shoes are under the desk.",
+        "distractors": [
+          "is",
+          "I",
+          "on"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mẹ và Đức đang nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đồ đạc trong nhà là của ai",
+          "Bữa tối hôm nay",
+          "Bài tập tiếng Anh của Đức"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ hỏi từng đồ vật (\"Is this your bag?\", \"Are they your shoes?\", \"Is this Dad's book?\") để biết là của ai.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cái cặp mẹ cầm là của ai?",
+        "promptVi": "",
+        "options": [
+          "Của Đức",
+          "Của Lan",
+          "Của Mai"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"It's Lan's bag. My bag is black\": đó là cặp của Lan, cặp của Đức màu đen.",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đôi giày màu hồng là của ai?",
+        "promptVi": "",
+        "options": [
+          "Của Lan",
+          "Của mẹ",
+          "Của Mai"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Đức nói \"they're Mai's shoes. Her shoes are pink\": giày hồng là của bé Mai.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Milo is in the kitchen.",
+        "promptVi": "Milo đang ở trong bếp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"He's on my bed again!\": Milo đang nằm trên giường của Đức, dù giường của nó ở trong bếp.",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Những đồ vật nào trong phòng không phải của anh Đức?",
+    "grammarStep": {
+      "titleVi": "Tính từ sở hữu và 's",
+      "noticing": [
+        {
+          "sentence": "This is my brother's room.",
+          "highlights": [
+            "my",
+            "brother's"
+          ]
+        },
+        {
+          "sentence": "His bed is under the window, and his desk is near the door.",
+          "highlights": [
+            "His",
+            "his"
+          ]
+        },
+        {
+          "sentence": "It is Dad's old guitar, but Duc plays it every day.",
+          "highlights": [
+            "Dad's"
+          ]
+        },
+        {
+          "sentence": "Its bed is in the kitchen, but Milo likes Duc's bed.",
+          "highlights": [
+            "Its",
+            "Duc's"
+          ]
+        }
+      ],
+      "questionVi": "Trong brother's, Dad's, Duc's, phần 's ở cuối dùng để làm gì?",
+      "options": [
+        "Để chỉ số nhiều (nhiều anh trai)",
+        "Để nói đồ vật là của người đó",
+        "Là viết gọn của is"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Tên người hoặc danh từ chỉ người + 's nghĩa là \"của người đó\": Dad's guitar là đàn của bố, Duc's bed là giường của Đức.",
+      "whenVi": "Dùng my, your, his, her, its, our, their hoặc tên + 's để nói một đồ vật, con vật hay người thân là của ai.",
+      "table": [
+        {
+          "subject": "I / you",
+          "form": "my / your: my room",
+          "negative": "—"
+        },
+        {
+          "subject": "he / she / it",
+          "form": "his / her / its: his bed, its bed",
+          "negative": "—"
+        },
+        {
+          "subject": "we / they",
+          "form": "our / their: our cat",
+          "negative": "—"
+        },
+        {
+          "subject": "tên người + 's",
+          "form": "Duc's room, Dad's guitar",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "This is the room of my brother.",
+          "right": "This is my brother's room."
+        },
+        {
+          "wrong": "The cat is in it's bed.",
+          "right": "The cat is in its bed."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"phòng của anh trai tôi\" (đồ vật trước, người sau), nên người Việt hay viết \"the room of my brother\" thay vì \"my brother's room\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền tính từ sở hữu thay cho Duc.",
+          "text": "Duc is my brother. This is ___ bed.",
+          "answers": [
+            "his"
+          ],
+          "explanationVi": "Đức là con trai (he), nên \"của anh ấy\" là his."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Milo is our cat. ___ bed is in the kitchen.",
+          "options": [
+            "It's",
+            "Its",
+            "Is",
+            "It"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "\"Của nó\" là its, không có dấu '. It's là viết gọn của it is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "This is the bag of Duc.",
+          "sentence": "This is Duc's bag.",
+          "explanationVi": "Với người, tiếng Anh dùng tên + 's đặt trước đồ vật: Duc's bag, không nói \"the bag of Duc\"."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đây là đôi giày của mẹ tôi.",
+          "sentence": "These are my mum's shoes.",
+          "words": [
+            "shoes",
+            "my",
+            "These",
+            "mum's",
+            "are",
+            "mum"
+          ],
+          "explanationVi": "\"Của mẹ tôi\" là my mum's, đặt trước shoes; từ \"mum\" không có 's bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "His books and his computer are on the desk.",
+        "tipVi": "Đọc rõ cụm âm cuối /ks/ trong books /bʊks/ và /sk/ trong desk /desk/."
+      },
+      {
+        "text": "The guitar on his bed isn't his.",
+        "tipVi": "Guitar /ɡɪˈtɑːr/ nhấn ở âm thứ hai: gi-TAR, đừng nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is your room big or small?",
+        "questionVi": "Phòng của bạn lớn hay nhỏ?",
+        "frame": "My room is ___."
+      },
+      {
+        "question": "What is on your desk?",
+        "questionVi": "Trên bàn học của bạn có gì?",
+        "frame": "My ___ and my ___ are on my desk."
+      },
+      {
+        "question": "Who has a room in your home? What is in his or her room?",
+        "questionVi": "Ai trong nhà bạn có phòng riêng? Trong phòng người đó có gì?",
+        "frame": "My ___ has a room. His / Her ___ is in it."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng his / her hoặc tên + 's để nói đồ vật của người khác",
+      "anyOf": [
+        "his",
+        "her",
+        "their",
+        "our",
+        "brother's",
+        "sister's"
+      ],
+      "outlineVi": [
+        "Nói đây là phòng của ai.",
+        "Nói giường, bàn học, cửa sổ ở đâu.",
+        "Nói những đồ vật trong phòng là của ai."
+      ],
+      "modelAnswer": "This is my sister's room. Her name is Hoa. Her room is big, and it has a big window. Her bed is under the window, and her desk is near the door. Her books are on the desk. The red guitar is my guitar, but it is in her room!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "room",
+      "lemma": "room",
+      "meaningVi": "căn phòng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "my brother's room",
+      "phraseVi": "phòng của anh trai mình"
+    },
+    {
+      "text": "bed",
+      "lemma": "bed",
+      "meaningVi": "cái giường",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "His bed",
+      "phraseVi": "Giường của anh ấy"
+    },
+    {
+      "text": "under",
+      "lemma": "under",
+      "meaningVi": "ở dưới",
+      "sentenceIndex": 3,
+      "pos": "preposition",
+      "phrase": "under the window",
+      "phraseVi": "ở dưới cửa sổ"
+    },
+    {
+      "text": "window",
+      "lemma": "window",
+      "meaningVi": "cửa sổ",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "under the window",
+      "phraseVi": "ở dưới cửa sổ"
+    },
+    {
+      "text": "desk",
+      "lemma": "desk",
+      "meaningVi": "bàn học",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "his desk",
+      "phraseVi": "bàn học của anh ấy"
+    },
+    {
+      "text": "door",
+      "lemma": "door",
+      "meaningVi": "cửa ra vào",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "near the door",
+      "phraseVi": "gần cửa ra vào"
+    },
+    {
+      "text": "computer",
+      "lemma": "computer",
+      "meaningVi": "máy tính",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "his computer",
+      "phraseVi": "máy tính của anh ấy"
+    },
+    {
+      "text": "guitar",
+      "lemma": "guitar",
+      "meaningVi": "đàn ghi-ta",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "The guitar on his bed",
+      "phraseVi": "Cây đàn ghi-ta trên giường"
+    },
+    {
+      "text": "old",
+      "lemma": "old",
+      "meaningVi": "cũ",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "Dad's old guitar",
+      "phraseVi": "cây đàn cũ của bố"
+    },
+    {
+      "text": "plays",
+      "lemma": "play",
+      "meaningVi": "chơi (đàn)",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "Duc plays it every day",
+      "phraseVi": "ngày nào anh Đức cũng chơi"
+    },
+    {
+      "text": "floor",
+      "lemma": "floor",
+      "meaningVi": "sàn nhà",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "on the floor",
+      "phraseVi": "trên sàn"
+    },
+    {
+      "text": "school bag",
+      "lemma": "school bag",
+      "meaningVi": "cặp đi học",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "Duc's school bag",
+      "phraseVi": "cặp đi học của anh Đức"
+    },
+    {
+      "text": "shoes",
+      "lemma": "shoes",
+      "meaningVi": "giày",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "the blue shoes",
+      "phraseVi": "đôi giày xanh"
+    },
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "meaningVi": "nhà bếp",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "in the kitchen",
+      "phraseVi": "trong bếp"
+    },
+    {
+      "text": "little sister",
+      "lemma": "little sister",
+      "meaningVi": "em gái",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "My little sister Mai",
+      "phraseVi": "Em gái mình, bé Mai"
+    },
+    {
+      "text": "comes in",
+      "lemma": "come in",
+      "meaningVi": "đi vào",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "Mai comes in",
+      "phraseVi": "bé Mai đi vào"
+    },
+    {
+      "text": "laugh",
+      "lemma": "laugh",
+      "meaningVi": "cười (thành tiếng)",
+      "sentenceIndex": 15,
+      "pos": "verb",
+      "phrase": "We all laugh",
+      "phraseVi": "Cả nhà cùng cười"
+    }
+  ]
+}

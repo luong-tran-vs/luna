@@ -467,7 +467,8 @@ func (s *Service) GenerateSlot(ctx context.Context, key string) (SlotView, error
 	level, sl, found := o.level, o.slot, o.found
 	in := lesson.GenerateInput{
 		Level: lesson.Level(level), Count: 1, Words: lessonWords[level], Kind: "reading",
-		Idea: slotIdea(sl), GrammarPointID: sl.Grammar[0],
+		Idea: sl.Idea, GrammarPointID: sl.Grammar[0],
+		Course: &lesson.CoursePlan{Title: sl.Title, MoreGrammarIDs: sl.Grammar[1:], LaterGrammarIDs: o.later},
 	}
 	if per := targetWords[level]; per > 0 {
 		plan, err := s.Topics.WordPlan(ctx, found.ID, level, 1, per)
@@ -502,6 +503,8 @@ type openedSlot struct {
 	slot   Slot
 	found  topic.Topic
 	filled bool
+	// later are the points the course teaches only after this topic.
+	later []string
 }
 
 // openSlot finds the slot of key in the approved course of its level.
@@ -531,7 +534,7 @@ func (s *Service) openSlot(ctx context.Context, key string) (openedSlot, error) 
 		return openedSlot{}, fmt.Errorf("curriculum: roadmap: %w", err)
 	}
 	bySlot, _ := fill(t, rm.Lessons)
-	return openedSlot{level: level, topic: t, slot: sl, found: found, filled: bySlot[sl.Key].ID != ""}, nil
+	return openedSlot{level: level, topic: t, slot: sl, found: found, filled: bySlot[sl.Key].ID != "", later: laterGrammar(*p, t)}, nil
 }
 
 // placed puts a lesson just saved for the slot o at its place in the roadmap and returns the slot.
@@ -550,15 +553,48 @@ func (s *Service) placed(ctx context.Context, o openedSlot, l lesson.Lesson) (Sl
 	}, nil
 }
 
-// slotIdea is the idea given to the AI: the slot's story, and its other grammar points.
-func slotIdea(sl Slot) string {
-	idea := sl.Idea
-	for _, id := range sl.Grammar[1:] {
-		if p, ok := grammar.Default().Get(id); ok {
-			idea += fmt.Sprintf(" Also use %s (%s) a few times.", p.TitleEn, p.Pattern)
+// everydayGrammar are points about words almost every text needs (articles, plurals, prepositions,
+// linking words): a course teaches them in a later topic, but a lesson cannot avoid them before.
+// Present simple statements joined them 2026-10-27: a text told with be alone sounds forced, and a
+// learner reads "she lives in London" well before topic 5; its negatives and questions stay later.
+var everydayGrammar = map[string]bool{
+	"a1-present-simple": true, "a1-pronouns": true, "a1-articles": true, "a1-this-that": true, "a1-plural-nouns": true, "a1-possessives": true,
+	"a1-prepositions-place": true, "a1-prepositions-time": true, "a1-conjunctions": true,
+	"a2-countable-uncountable": true, "a2-quantifiers": true, "a2-indefinite-pronouns": true, "a2-prepositions-movement": true,
+	"b2-linking-words": true, "c1-discourse-markers": true,
+}
+
+// laterGrammar lists the points the course teaches only in the topics after t, in course order, but
+// the everyday ones (added 2026-10-27): a lesson keeps to the verb forms and patterns its learners
+// have met so far.
+func laterGrammar(p Plan, t Topic) []string {
+	met := map[string]bool{}
+	for _, pt := range p.Topics {
+		if pt.Number > t.Number {
+			continue
+		}
+		for _, id := range pt.Grammar {
+			met[id] = true
+		}
+		for _, sl := range pt.Slots {
+			for _, id := range sl.Grammar {
+				met[id] = true
+			}
 		}
 	}
-	return idea
+	var later []string
+	for _, pt := range p.Topics {
+		if pt.Number <= t.Number {
+			continue
+		}
+		for _, id := range pt.Grammar {
+			if !met[id] && !everydayGrammar[id] {
+				met[id] = true
+				later = append(later, id)
+			}
+		}
+	}
+	return later
 }
 
 // Checks runs the checks on one lesson.

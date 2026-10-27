@@ -43,6 +43,25 @@ func grammarFocus(id string) *ai.GrammarFocus {
 	return f
 }
 
+// courseSlot turns a course plan into what the AI is told of it; unknown point ids are left out.
+func courseSlot(c *CoursePlan) *ai.CourseSlot {
+	if c == nil {
+		return nil
+	}
+	out := &ai.CourseSlot{Title: c.Title}
+	for _, id := range c.MoreGrammarIDs {
+		if f := grammarFocus(id); f != nil {
+			out.MoreGrammar = append(out.MoreGrammar, *f)
+		}
+	}
+	for _, id := range c.LaterGrammarIDs {
+		if p, ok := grammar.Default().Get(id); ok {
+			out.LaterGrammar = append(out.LaterGrammar, ai.GrammarChoice{ID: p.ID, TitleEn: p.TitleEn, Pattern: p.Pattern})
+		}
+	}
+	return out
+}
+
 // grammarChoices lists the points of level for the AI to pick from: first those fewest lessons of
 // the topic use, then those fewest lessons overall use, in teaching order otherwise.
 func (s *Service) grammarChoices(ctx context.Context, level Level, topicID string) ([]ai.GrammarChoice, error) {

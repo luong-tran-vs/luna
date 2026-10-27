@@ -1,0 +1,605 @@
+{
+  "content": "Sophie is Anna's cousin from London. She is in Hanoi for a week, and it is her first time in Vietnam. Today, Anna and Minh take her to an old street with a lot of food.\n\nFirst, they have pho. It is a noodle soup with beef, and it is very hot. Sophie isn't good with chopsticks, so everyone laughs. Then they have bánh mì. It is a sandwich with meat, eggs and vegetables.\n\nThey sit on small chairs in the street, near a lot of people. The food isn't expensive, and it is delicious.\n\nAt the end, Minh orders three egg coffees. \"An egg in a coffee?\" asks Sophie.\n\"Yes, it's sweet, like a cake,\" says Minh.\nSophie drinks it, and she smiles. \"I love Hanoi food!\" she says.",
+  "targetWords": [
+    "food",
+    "soup",
+    "beef",
+    "sandwich",
+    "meat",
+    "vegetable",
+    "delicious",
+    "sweet"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "food",
+        "lemma": "food",
+        "meaningVi": "đồ ăn",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "soup",
+        "lemma": "soup",
+        "meaningVi": "món nước, canh, súp",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "beef",
+        "lemma": "beef",
+        "meaningVi": "thịt bò",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "sandwich",
+        "lemma": "sandwich",
+        "meaningVi": "bánh mì kẹp",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "meat",
+        "lemma": "meat",
+        "meaningVi": "thịt",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "vegetables",
+        "lemma": "vegetable",
+        "meaningVi": "rau",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "delicious",
+        "lemma": "delicious",
+        "meaningVi": "ngon",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "sweet",
+        "lemma": "sweet",
+        "meaningVi": "ngọt",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Sophie's life in London",
+          "A cooking class",
+          "A café near Anna's school",
+          "Anna and Minh show Sophie street food in Hanoi."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Anna và Minh đưa Sophie đến một con phố cổ để ăn phở, bánh mì và uống cà phê trứng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is pho?",
+        "promptVi": "Phở là món gì?",
+        "options": [
+          "A sandwich with meat",
+          "A noodle soup with beef",
+          "A coffee with an egg",
+          "A sweet cake"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"It is a noodle soup with beef, and it is very hot\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are their chairs?",
+        "promptVi": "Các bạn ngồi ở đâu?",
+        "options": [
+          "In the street",
+          "In a restaurant",
+          "In Anna's flat",
+          "In a park"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"They sit on small chairs in the street, near a lot of people\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The food is very expensive.",
+        "promptVi": "Đồ ăn rất đắt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"The food isn't expensive, and it is delicious\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"orders\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "At the end, Minh orders three egg coffees.",
+        "options": [
+          "nấu",
+          "mua về nhà",
+          "gọi (món)",
+          "bán"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Orders là gọi món (từ order): Minh gọi ba cốc cà phê trứng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mạo từ a / an / the",
+      "bodyVi": "A đứng trước âm phụ âm: a noodle soup, a sandwich. An đứng trước âm nguyên âm: an old street, an egg. The dùng cho thứ đã biết, đã nhắc: the food (đồ ăn ở con phố đó), the street. Món ăn mang tên riêng như pho, bánh mì thì không cần mạo từ.",
+      "examples": [
+        "Today, Anna and Minh take her to an old street with a lot of food.",
+        "It is a noodle soup with beef, and it is very hot.",
+        "The food isn't expensive, and it is delicious."
+      ]
+    },
+    "writingPrompt": "Write about some street food in your town: what it is and why you like it.",
+    "sentenceTranslations": [
+      "Sophie là em họ của Anna, đến từ London.",
+      "Sophie ở Hà Nội một tuần, và đây là lần đầu tiên bạn ấy đến Việt Nam.",
+      "Hôm nay, Anna và Minh đưa Sophie đến một con phố cổ có rất nhiều đồ ăn.",
+      "Đầu tiên, các bạn ăn phở.",
+      "Đó là một món mì nước với thịt bò, và rất nóng.",
+      "Sophie chưa quen dùng đũa, nên mọi người bật cười.",
+      "Sau đó các bạn ăn bánh mì.",
+      "Đó là một chiếc bánh mì kẹp thịt, trứng và rau.",
+      "Các bạn ngồi trên những chiếc ghế nhỏ ngay trên phố, gần rất nhiều người.",
+      "Đồ ăn không đắt, và rất ngon.",
+      "Cuối cùng, Minh gọi ba cốc cà phê trứng.",
+      "\"Trứng trong cà phê à?\" Sophie hỏi.",
+      "\"Ừ, nó ngọt, giống như bánh ngọt vậy,\" Minh nói.",
+      "Sophie uống thử, và bạn ấy mỉm cười.",
+      "\"Mình mê đồ ăn Hà Nội quá!\" Sophie nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một vài món ăn đường phố (It is a noodle soup with beef) và dùng đúng a / an / the.",
+    "examples": [
+      {
+        "lemma": "food",
+        "sentence": "Vietnamese food is delicious.",
+        "meaningVi": "Đồ ăn Việt Nam rất ngon."
+      },
+      {
+        "lemma": "soup",
+        "sentence": "This soup is very hot.",
+        "meaningVi": "Bát canh này rất nóng."
+      },
+      {
+        "lemma": "beef",
+        "sentence": "There is beef in my noodle soup.",
+        "meaningVi": "Trong bát mì của mình có thịt bò."
+      },
+      {
+        "lemma": "sandwich",
+        "sentence": "A sandwich is a good lunch.",
+        "meaningVi": "Bánh mì kẹp là một bữa trưa tốt."
+      },
+      {
+        "lemma": "meat",
+        "sentence": "There isn't any meat in this soup.",
+        "meaningVi": "Bát canh này không có thịt."
+      },
+      {
+        "lemma": "vegetable",
+        "sentence": "My grandma has a lot of vegetables in her garden.",
+        "meaningVi": "Bà mình trồng rất nhiều rau trong vườn."
+      },
+      {
+        "lemma": "delicious",
+        "sentence": "The cake is delicious.",
+        "meaningVi": "Chiếc bánh rất ngon."
+      },
+      {
+        "lemma": "sweet",
+        "sentence": "Egg coffee is very sweet.",
+        "meaningVi": "Cà phê trứng rất ngọt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Anna",
+        "Sophie"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Sophie, what is your favourite food in Hanoi?",
+          "meaningVi": "Sophie ơi, ở Hà Nội em thích món gì nhất?"
+        },
+        {
+          "speaker": 1,
+          "text": "The pho! It's a big bowl of soup, and it's delicious.",
+          "meaningVi": "Phở ạ! Một bát to, và ngon lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "And the bánh mì?",
+          "meaningVi": "Thế còn bánh mì?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's good too. There are a lot of vegetables in it.",
+          "meaningVi": "Cũng ngon ạ. Trong đó có rất nhiều rau."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there a pho restaurant in London?",
+          "meaningVi": "Ở London có nhà hàng phở không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, there are some, but they are expensive.",
+          "meaningVi": "Có vài nhà hàng, nhưng đắt lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Are they good?",
+          "meaningVi": "Phở ở đó có ngon không?"
+        },
+        {
+          "speaker": 1,
+          "text": "They're OK, but they aren't like Hanoi pho.",
+          "meaningVi": "Cũng được, nhưng không giống phở Hà Nội."
+        },
+        {
+          "speaker": 0,
+          "text": "What about the egg coffee?",
+          "meaningVi": "Còn cà phê trứng thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "I love it! It's sweet, like a cake.",
+          "meaningVi": "Em mê lắm! Nó ngọt, giống như bánh ngọt."
+        }
+      ]
+    },
+    "grammarTipVi": "Chọn a hay an theo âm đầu của từ ngay sau: an old street (old bắt đầu bằng nguyên âm), nhưng a big street. Tên món ăn riêng như pho, bánh mì thường không cần a.",
+    "translations": [
+      {
+        "vi": "Phở là một món mì nước.",
+        "en": "Pho is a noodle soup.",
+        "distractors": [
+          "an",
+          "the",
+          "are"
+        ]
+      },
+      {
+        "vi": "Đồ ăn rất ngon.",
+        "en": "The food is delicious.",
+        "distractors": [
+          "A",
+          "are",
+          "foods"
+        ]
+      },
+      {
+        "vi": "Bánh mì kẹp có thịt và rau.",
+        "en": "The sandwich has meat and vegetables.",
+        "distractors": [
+          "have",
+          "a",
+          "vegetable"
+        ]
+      },
+      {
+        "vi": "Cà phê trứng rất ngọt.",
+        "en": "Egg coffee is very sweet.",
+        "distractors": [
+          "An",
+          "are",
+          "sweets"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna và Sophie nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đồ ăn ở Hà Nội và ở London",
+          "Trường học của Sophie",
+          "Một chuyến đi Hạ Long"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi Sophie thích món gì ở Hà Nội, rồi hai chị em nói về phở ở London.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở Hà Nội Sophie thích món gì nhất?",
+        "promptVi": "",
+        "options": [
+          "Bánh mì",
+          "Phở",
+          "Cà phê trứng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Sophie nói \"The pho! It's a big bowl of soup, and it's delicious\".",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở London có nhà hàng phở không?",
+        "promptVi": "",
+        "options": [
+          "Không có",
+          "Có vài nhà hàng, nhưng đắt",
+          "Có rất nhiều và rẻ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Sophie nói \"Yes, there are some, but they are expensive\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Sophie loves egg coffee.",
+        "promptVi": "Sophie rất thích cà phê trứng.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Sophie nói \"I love it! It's sweet, like a cake\".",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Sophie ăn và uống những món gì ở Hà Nội?",
+    "grammarStep": {
+      "titleVi": "Mạo từ a / an / the",
+      "noticing": [
+        {
+          "sentence": "Today, Anna and Minh take her to an old street with a lot of food.",
+          "highlights": [
+            "an"
+          ]
+        },
+        {
+          "sentence": "It is a noodle soup with beef, and it is very hot.",
+          "highlights": [
+            "a"
+          ]
+        },
+        {
+          "sentence": "The food isn't expensive, and it is delicious.",
+          "highlights": [
+            "The"
+          ]
+        },
+        {
+          "sentence": "\"An egg in a coffee?\" asks Sophie.",
+          "highlights": [
+            "An",
+            "a"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói an old street nhưng lại nói a noodle soup?",
+      "options": [
+        "Vì con phố cũ hơn món phở",
+        "Vì old bắt đầu bằng âm nguyên âm, còn noodle bắt đầu bằng âm phụ âm",
+        "Vì soup là đồ ăn"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "A hay an phụ thuộc vào âm đầu của từ ngay sau nó: an old, an egg (nguyên âm); a noodle, a coffee (phụ âm).",
+      "whenVi": "Dùng a / an khi giới thiệu một món hay một nơi lần đầu, và the khi nói tiếp về thứ đã biết.",
+      "table": [
+        {
+          "subject": "a + âm phụ âm",
+          "form": "a noodle soup, a sandwich, a cake",
+          "negative": "—"
+        },
+        {
+          "subject": "an + âm nguyên âm",
+          "form": "an old street, an egg",
+          "negative": "—"
+        },
+        {
+          "subject": "the + thứ đã biết",
+          "form": "the food, the street",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It is a old street.",
+          "right": "It is an old street."
+        },
+        {
+          "wrong": "Bánh mì is sandwich with meat.",
+          "right": "Bánh mì is a sandwich with meat."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"phở là món mì nước\" không có từ \"một\", nên người Việt hay quên a khi giới thiệu một món: Pho is a noodle soup.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền a hoặc an vào chỗ trống.",
+          "text": "They go to ___ old street with a lot of food.",
+          "answers": [
+            "an"
+          ],
+          "explanationVi": "Old bắt đầu bằng âm nguyên âm, nên dùng an."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Bánh mì is ___ sandwich with meat and vegetables.",
+          "options": [
+            "an",
+            "a",
+            "two",
+            "many"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sandwich bắt đầu bằng âm phụ âm /s/ và là số ít, nên dùng a."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It is a old street with a lot of food.",
+          "sentence": "It is an old street with a lot of food.",
+          "explanationVi": "Old bắt đầu bằng âm nguyên âm, nên dùng an, không dùng a."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đó là một món mì nước.",
+          "sentence": "It is a noodle soup.",
+          "words": [
+            "noodle",
+            "is",
+            "It",
+            "a",
+            "soup",
+            "an"
+          ],
+          "explanationVi": "Noodle bắt đầu bằng âm phụ âm nên dùng a; từ \"an\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It is a noodle soup with beef, and it is very hot.",
+        "tipVi": "Noodle /ˈnuːdl/ có âm /uː/ dài; beef /biːf/ kết thúc bằng âm /f/."
+      },
+      {
+        "text": "The food isn't expensive, and it is delicious.",
+        "tipVi": "Expensive /ɪkˈspensɪv/ nhấn âm giữa SPEN, kết thúc bằng /v/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your favourite street food?",
+        "questionVi": "Món ăn đường phố bạn thích nhất là gì?",
+        "frame": "My favourite street food is ___."
+      },
+      {
+        "question": "Is there an old street with a lot of food in your town?",
+        "questionVi": "Thành phố của bạn có con phố cổ nào nhiều đồ ăn không?",
+        "frame": "Yes, there is. It's ___. / No, there isn't."
+      },
+      {
+        "question": "What is your best friend's favourite Vietnamese food?",
+        "questionVi": "Bạn thân của bạn thích món ăn Việt Nam nào nhất?",
+        "frame": "His / Her favourite food is ___. It is a ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm dùng a / an hoặc the (a sandwich, an egg, the food)",
+      "anyOf": [
+        "a sandwich",
+        "a bowl",
+        "an egg",
+        "an old",
+        "the food",
+        "the street"
+      ],
+      "outlineVi": [
+        "Nói bạn đưa ai đi ăn, ở đâu.",
+        "Giới thiệu các món ăn (It is a …).",
+        "Nói đồ ăn thế nào và người đó có thích không."
+      ],
+      "modelAnswer": "My cousin from Da Nang is in Hanoi this week. Today, we go to an old street with a lot of food. First, we have a bowl of soup with beef. Then we have a sandwich with meat and vegetables. The food is delicious, and it isn't expensive. My cousin loves the sweet egg coffee!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "cousin",
+      "lemma": "cousin",
+      "meaningVi": "em họ",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Anna's cousin from London",
+      "phraseVi": "em họ của Anna, đến từ London"
+    },
+    {
+      "text": "first time",
+      "lemma": "first time",
+      "meaningVi": "lần đầu tiên",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "her first time in Vietnam",
+      "phraseVi": "lần đầu tiên bạn ấy đến Việt Nam"
+    },
+    {
+      "text": "old",
+      "lemma": "old",
+      "meaningVi": "cũ, cổ",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "an old street",
+      "phraseVi": "một con phố cổ"
+    },
+    {
+      "text": "noodle soup",
+      "lemma": "noodle soup",
+      "meaningVi": "mì nước, phở",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a noodle soup with beef",
+      "phraseVi": "một món mì nước với thịt bò"
+    },
+    {
+      "text": "chopsticks",
+      "lemma": "chopsticks",
+      "meaningVi": "đũa",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "good with chopsticks",
+      "phraseVi": "quen dùng đũa"
+    },
+    {
+      "text": "chairs",
+      "lemma": "chair",
+      "meaningVi": "cái ghế",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "small chairs in the street",
+      "phraseVi": "những chiếc ghế nhỏ trên phố"
+    },
+    {
+      "text": "expensive",
+      "lemma": "expensive",
+      "meaningVi": "đắt",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "The food isn't expensive",
+      "phraseVi": "Đồ ăn không đắt"
+    },
+    {
+      "text": "orders",
+      "lemma": "order",
+      "meaningVi": "gọi món",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "Minh orders three egg coffees",
+      "phraseVi": "Minh gọi ba cốc cà phê trứng"
+    },
+    {
+      "text": "like",
+      "lemma": "like",
+      "meaningVi": "giống như",
+      "sentenceIndex": 12,
+      "pos": "preposition",
+      "phrase": "like a cake",
+      "phraseVi": "giống như bánh ngọt"
+    },
+    {
+      "text": "smiles",
+      "lemma": "smile",
+      "meaningVi": "mỉm cười",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "she smiles",
+      "phraseVi": "bạn ấy mỉm cười"
+    }
+  ]
+}

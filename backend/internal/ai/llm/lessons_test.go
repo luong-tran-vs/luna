@@ -668,7 +668,7 @@ func TestSolveGrammarExercises(t *testing.T) {
 
 	solutions := `[{"exerciseId":"p1","choiceIndex":1,"ambiguous":false},` +
 		`{"exerciseId":"p2","answer":"am","ambiguous":false},` +
-		`{"exerciseId":"m1","sentence":"I am a student","ambiguous":false},` +
+		`{"exerciseId":"m1","sentence":"I am a student","alternatives":["I'm a student"],"ambiguous":false},` +
 		`{"exerciseId":"m2","ambiguous":true,"noteVi":"Hai đáp án đúng."}]`
 	wrapped, err := json.Marshal(map[string]any{"candidates": []any{map[string]any{"content": map[string]any{
 		"parts": []any{map[string]any{"text": solutions}},
@@ -694,7 +694,7 @@ func TestSolveGrammarExercises(t *testing.T) {
 	if calls.Load() != 1 || len(got) != 4 {
 		t.Fatalf("requests = %d, solutions = %v", calls.Load(), got)
 	}
-	if got[0].ChoiceIndex == nil || *got[0].ChoiceIndex != 1 || got[1].Answer != "am" || got[2].Sentence != "I am a student" ||
+	if got[0].ChoiceIndex == nil || *got[0].ChoiceIndex != 1 || got[1].Answer != "am" || got[2].Sentence != "I am a student" || len(got[2].Alternatives) != 1 ||
 		!got[3].Ambiguous || got[3].NoteVi == "" || got[1].ChoiceIndex != nil {
 		t.Errorf("decoded %+v", got)
 	}

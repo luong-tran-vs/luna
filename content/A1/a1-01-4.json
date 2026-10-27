@@ -1,0 +1,764 @@
+{
+  "content": "It is Thursday afternoon. Anna and I are at the English club after school. Miss Lee is the club leader. \"How are you today, everyone?\" she asks. \"Fine, thanks!\" we say.\n\nA boy sits with me. \"Hello, I'm Kenji,\" he says. \"I'm from Japan.\"\n\"Nice to meet you, Kenji,\" I say. \"My name is Minh, and this is my friend Anna.\"\nKenji is fifteen. He is quiet, but he is very nice.\n\nThen we talk about our new friends. Kenji stands up. \"This is Minh,\" he says. \"He's sixteen, and he's from Hue.\"\nAnna is with a woman from Spain. \"This is Maria,\" Anna says. \"She's a nurse, and she's very funny.\"\n\n\"Excuse me, is the club on Mondays too?\" asks Maria.\n\"No, it isn't, but it's on Tuesdays,\" says Miss Lee.\n\nAt six o'clock, we say goodbye. Kenji and Maria are our new friends now.",
+  "targetWords": [
+    "Miss",
+    "how are you",
+    "fine",
+    "hello",
+    "from",
+    "nice to meet you",
+    "name",
+    "excuse me"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "Miss",
+        "lemma": "Miss",
+        "meaningVi": "cô (trước tên của phụ nữ chưa chồng, hay dùng gọi cô giáo)",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "How are you",
+        "lemma": "how are you",
+        "meaningVi": "bạn khỏe không",
+        "pos": "phrase",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "Fine",
+        "lemma": "fine",
+        "meaningVi": "khỏe, ổn",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "Hello",
+        "lemma": "hello",
+        "meaningVi": "xin chào",
+        "pos": "interjection",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "from",
+        "lemma": "from",
+        "meaningVi": "đến từ",
+        "pos": "preposition",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "Nice to meet you",
+        "lemma": "nice to meet you",
+        "meaningVi": "rất vui được gặp bạn",
+        "pos": "phrase",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "name",
+        "lemma": "name",
+        "meaningVi": "tên",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "Excuse me",
+        "lemma": "excuse me",
+        "meaningVi": "xin lỗi (khi muốn hỏi)",
+        "pos": "phrase",
+        "sentenceIndex": 19
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Miss Lee teaches an English lesson at school.",
+          "Kenji talks about his life in Japan.",
+          "Maria tells the club about her work as a nurse.",
+          "People at an English club meet and introduce each other."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ở câu lạc bộ, Minh làm quen với Kenji, rồi mọi người giới thiệu bạn mới của mình (\"This is Minh\", \"This is Maria\"). Bài không kể về cuộc sống ở Nhật hay công việc y tá."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Kenji from?",
+        "promptVi": "Kenji đến từ đâu?",
+        "options": [
+          "Spain",
+          "Japan",
+          "Hue",
+          "London"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Kenji nói \"I'm from Japan.\" Tây Ban Nha là quê của Maria, còn Huế là quê của Minh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Maria's job?",
+        "promptVi": "Maria làm nghề gì?",
+        "options": [
+          "She is a teacher.",
+          "She is a student.",
+          "She is a nurse.",
+          "She is a club leader."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna giới thiệu \"She's a nurse\": Maria là y tá. Người phụ trách câu lạc bộ là cô Lee."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The club is on Mondays.",
+        "promptVi": "Câu lạc bộ có buổi sinh hoạt vào thứ Hai.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô Lee trả lời \"No, it isn't, but it's on Tuesdays\": câu lạc bộ không họp thứ Hai mà họp thứ Ba."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"leader\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Miss Lee is the club leader.",
+        "options": [
+          "thành viên mới",
+          "người phụ trách",
+          "học sinh giỏi",
+          "phòng sinh hoạt"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "\"Club leader\" là người phụ trách câu lạc bộ: cô Lee hỏi thăm và điều khiển buổi sinh hoạt."
+      }
+    ],
+    "grammarNote": {
+      "title": "Động từ to be (am / is / are)",
+      "bodyVi": "Khi nói, am, is, are thường được viết gọn: I am → I'm, he is → he's, she is → she's, it is → it's, we are → we're. Phủ định viết gọn: is not → isn't, are not → aren't. He's, she's vẫn có nghĩa là \"he is, she is\", nên không thêm is nữa.",
+      "examples": [
+        "He's sixteen, and he's from Hue.",
+        "She's a nurse, and she's very funny.",
+        "No, it isn't, but it's on Tuesdays"
+      ]
+    },
+    "writingPrompt": "Write about a club or a class: introduce yourself and one new friend.",
+    "sentenceTranslations": [
+      "Hôm nay là chiều thứ Năm.",
+      "Anna và mình đang ở câu lạc bộ tiếng Anh sau giờ học.",
+      "Cô Lee là người phụ trách câu lạc bộ.",
+      "\"Hôm nay mọi người khỏe không?\" cô hỏi.",
+      "\"Khỏe ạ, cảm ơn cô!\" bọn mình nói.",
+      "Một bạn trai ngồi cùng mình.",
+      "\"Xin chào, mình là Kenji,\" bạn ấy nói.",
+      "\"Mình đến từ Nhật Bản.\"",
+      "\"Rất vui được gặp bạn, Kenji,\" mình nói.",
+      "\"Mình tên là Minh, và đây là bạn mình, Anna.\"",
+      "Kenji mười lăm tuổi.",
+      "Bạn ấy ít nói, nhưng rất dễ mến.",
+      "Sau đó bọn mình giới thiệu về những người bạn mới.",
+      "Kenji đứng dậy.",
+      "\"Đây là Minh,\" bạn ấy nói.",
+      "\"Bạn ấy mười sáu tuổi, và bạn ấy đến từ Huế.\"",
+      "Anna ngồi cùng một chị đến từ Tây Ban Nha.",
+      "\"Đây là chị Maria,\" Anna nói.",
+      "\"Chị ấy là y tá, và chị ấy rất vui tính.\"",
+      "\"Xin lỗi, câu lạc bộ có họp vào thứ Hai không ạ?\" Maria hỏi.",
+      "\"Không, nhưng có họp vào thứ Ba,\" cô Lee trả lời.",
+      "Lúc sáu giờ, mọi người chào tạm biệt nhau.",
+      "Giờ Kenji và Maria đã là bạn mới của bọn mình."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi thăm, tự giới thiệu và giới thiệu người khác (This is …, He's / She's …) bằng các dạng viết gọn của to be.",
+    "examples": [
+      {
+        "lemma": "Miss",
+        "sentence": "Miss Lee is our English teacher.",
+        "meaningVi": "Cô Lee là giáo viên tiếng Anh của bọn mình."
+      },
+      {
+        "lemma": "how are you",
+        "sentence": "Hi, Anna! How are you?",
+        "meaningVi": "Chào Anna! Bạn khỏe không?"
+      },
+      {
+        "lemma": "fine",
+        "sentence": "I'm fine, thanks. And you?",
+        "meaningVi": "Mình khỏe, cảm ơn. Còn bạn?"
+      },
+      {
+        "lemma": "hello",
+        "sentence": "Hello, everyone! I'm the new student.",
+        "meaningVi": "Chào mọi người! Mình là học sinh mới."
+      },
+      {
+        "lemma": "from",
+        "sentence": "Kenji is from Japan.",
+        "meaningVi": "Kenji đến từ Nhật Bản."
+      },
+      {
+        "lemma": "nice to meet you",
+        "sentence": "Nice to meet you, Maria.",
+        "meaningVi": "Rất vui được gặp chị, Maria."
+      },
+      {
+        "lemma": "name",
+        "sentence": "Her name is Maria, and she's a nurse.",
+        "meaningVi": "Chị ấy tên là Maria, và chị ấy là y tá."
+      },
+      {
+        "lemma": "excuse me",
+        "sentence": "Excuse me, is this the English club?",
+        "meaningVi": "Xin lỗi, đây có phải câu lạc bộ tiếng Anh không ạ?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Maria",
+        "Kenji"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi, Kenji! Are you a student?",
+          "meaningVi": "Chào Kenji! Em là học sinh à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am. My school is near here. Are you a teacher?",
+          "meaningVi": "Vâng ạ. Trường em ở gần đây. Chị là giáo viên ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I'm not. I'm a nurse. Is your family in Hanoi?",
+          "meaningVi": "Không, chị là y tá. Gia đình em ở Hà Nội à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they are. My mum and dad are doctors at a big hospital.",
+          "meaningVi": "Vâng ạ. Bố mẹ em là bác sĩ ở một bệnh viện lớn."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? Is it Bach Mai Hospital?",
+          "meaningVi": "Thật à? Có phải bệnh viện Bạch Mai không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is! Are you a nurse there too?",
+          "meaningVi": "Đúng rồi ạ! Chị cũng là y tá ở đó ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, my hospital is small. How is your English class?",
+          "meaningVi": "Không, bệnh viện của chị nhỏ thôi. Lớp tiếng Anh của em thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's fine. Miss Lee is a very good teacher.",
+          "meaningVi": "Ổn ạ. Cô Lee dạy rất hay."
+        },
+        {
+          "speaker": 0,
+          "text": "She's great. Oh, it's six o'clock. Goodbye, Kenji!",
+          "meaningVi": "Cô ấy tuyệt lắm. Ôi, sáu giờ rồi. Tạm biệt Kenji!"
+        },
+        {
+          "speaker": 1,
+          "text": "Bye, Maria. See you on Tuesday!",
+          "meaningVi": "Chào chị Maria. Hẹn gặp chị thứ Ba nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Câu trả lời ngắn có Yes không viết gọn: nói \"Yes, it is.\", \"Yes, they are.\", không nói \"Yes, it's.\". Câu trả lời có No thì viết gọn được: \"No, it isn't.\", \"No, I'm not.\"",
+    "translations": [
+      {
+        "vi": "Bạn khỏe không?",
+        "en": "How are you?",
+        "distractors": [
+          "is",
+          "what"
+        ]
+      },
+      {
+        "vi": "Mình khỏe, cảm ơn!",
+        "en": "Fine, thanks!",
+        "distractors": [
+          "good",
+          "thank"
+        ]
+      },
+      {
+        "vi": "Tên chị ấy là Maria.",
+        "en": "Her name is Maria.",
+        "distractors": [
+          "she",
+          "are",
+          "his"
+        ]
+      },
+      {
+        "vi": "Xin lỗi, chị có phải là cô Lee không ạ?",
+        "en": "Excuse me, are you Miss Lee?",
+        "distractors": [
+          "is",
+          "Mrs",
+          "you're"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Maria và Kenji nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Món ăn Nhật Bản",
+          "Công việc, gia đình và lớp tiếng Anh",
+          "Kỳ nghỉ ở Tây Ban Nha"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hai người hỏi nhau làm nghề gì (\"Are you a teacher?\"), gia đình ở đâu (\"Is your family in Hanoi?\") và lớp tiếng Anh thế nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bố mẹ của Kenji làm nghề gì?",
+        "promptVi": "",
+        "options": [
+          "Giáo viên",
+          "Bác sĩ",
+          "Y tá"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Kenji nói \"My mum and dad are doctors at a big hospital\": bố mẹ Kenji là bác sĩ.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bệnh viện nơi Maria làm việc thế nào?",
+        "promptVi": "",
+        "options": [
+          "Rất lớn",
+          "Là bệnh viện Bạch Mai",
+          "Nhỏ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Maria nói \"No, my hospital is small\": bệnh viện của Maria nhỏ, không phải bệnh viện Bạch Mai.",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Kenji's family is in Japan.",
+        "promptVi": "Gia đình Kenji ở Nhật Bản.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Maria hỏi \"Is your family in Hanoi?\", Kenji trả lời \"Yes, they are\": gia đình Kenji ở Hà Nội.",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Kenji và Maria đến từ đâu, và họ là người thế nào?",
+    "grammarStep": {
+      "titleVi": "Động từ to be (am / is / are)",
+      "noticing": [
+        {
+          "sentence": "\"Hello, I'm Kenji,\" he says.",
+          "highlights": [
+            "I'm"
+          ]
+        },
+        {
+          "sentence": "\"He's sixteen, and he's from Hue.\"",
+          "highlights": [
+            "He's",
+            "he's"
+          ]
+        },
+        {
+          "sentence": "\"She's a nurse, and she's very funny.\"",
+          "highlights": [
+            "She's",
+            "she's"
+          ]
+        },
+        {
+          "sentence": "\"No, it isn't, but it's on Tuesdays,\" says Miss Lee.",
+          "highlights": [
+            "isn't",
+            "it's"
+          ]
+        }
+      ],
+      "questionVi": "I'm, he's, she's, it's là cách viết gọn của những từ nào?",
+      "options": [
+        "Của I my, he his, she her",
+        "Của I have, he has, she has",
+        "Của I am, he is, she is, it is"
+      ],
+      "answerIndex": 2,
+      "explanationVi": "Dấu ' thay cho chữ cái bị bỏ: I am → I'm (bỏ a), he is → he's (bỏ i), is not → isn't (bỏ o).",
+      "whenVi": "Dùng dạng viết gọn I'm, he's, she's, it's, we're khi nói chuyện và viết tin nhắn, thư thân mật.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I am → I'm",
+          "negative": "I'm not"
+        },
+        {
+          "subject": "he / she / it",
+          "form": "he is → he's",
+          "negative": "isn't"
+        },
+        {
+          "subject": "we / you / they",
+          "form": "we are → we're",
+          "negative": "aren't"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He's is from Hue.",
+          "right": "He's from Hue."
+        },
+        {
+          "wrong": "She a nurse.",
+          "right": "She's a nurse."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"Chị ấy y tá\" không cần \"là\", nên người Việt hay bỏ quên 's; khi đã nhớ thì lại hay thêm is thừa sau he's, she's.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng viết gọn của he is.",
+          "text": "Kenji is fifteen. ___ from Japan.",
+          "answers": [
+            "He's"
+          ],
+          "explanationVi": "He is viết gọn là He's; đứng đầu câu nên viết hoa."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Maria ___ a nurse.",
+          "options": [
+            "am",
+            "are",
+            "is",
+            "be"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Maria là một người (she), nên đi với is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Kenji and Maria is our new friends.",
+          "sentence": "Kenji and Maria are our new friends.",
+          "explanationVi": "Kenji and Maria là hai người (they), nên đi với are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi không mệt.",
+          "sentence": "We aren't tired.",
+          "words": [
+            "tired",
+            "We",
+            "aren't",
+            "isn't"
+          ],
+          "explanationVi": "Chủ ngữ we đi với aren't; isn't dùng cho he, she, it nên bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Kenji and Maria are our new friends now.",
+        "tipVi": "Đọc rõ cụm âm cuối /ndz/ trong friends /frendz/, đừng đọc thành \"fren\"."
+      },
+      {
+        "text": "Miss Lee is the club leader.",
+        "tipVi": "Club /klʌb/ kết thúc bằng âm /b/, khép môi lại ở cuối từ, đừng bỏ âm này."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How are you today?",
+        "questionVi": "Hôm nay bạn khỏe không?",
+        "frame": "I'm ___, thanks."
+      },
+      {
+        "question": "Are you in a club after school?",
+        "questionVi": "Sau giờ học bạn có tham gia câu lạc bộ nào không?",
+        "frame": "Yes, I'm in the ___ club. / No, I'm not."
+      },
+      {
+        "question": "Who is your new friend? Where is he or she from?",
+        "questionVi": "Bạn mới của bạn là ai? Bạn ấy đến từ đâu?",
+        "frame": "This is ___. He's / She's from ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu nói về người khác (he / she …)",
+      "anyOf": [
+        "he",
+        "she",
+        "he's",
+        "she's",
+        "my friend",
+        "my new friend"
+      ],
+      "outlineVi": [
+        "Chào và nói tên, tuổi, quê của bạn.",
+        "Nói bạn đang ở câu lạc bộ hay lớp học nào.",
+        "Giới thiệu một người bạn mới: This is ..., he's / she's ..."
+      ],
+      "modelAnswer": "Hello! My name is Lan, and I'm fourteen. I'm from Hanoi. Today I'm at the English club. This is my new friend Emma. She's from Canada, and she's a teacher. She isn't quiet. She's very funny. Nice to meet you, Emma!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "Thursday",
+      "lemma": "Thursday",
+      "meaningVi": "thứ Năm",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Thursday afternoon",
+      "phraseVi": "chiều thứ Năm"
+    },
+    {
+      "text": "club",
+      "lemma": "club",
+      "meaningVi": "câu lạc bộ",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "the English club",
+      "phraseVi": "câu lạc bộ tiếng Anh"
+    },
+    {
+      "text": "after school",
+      "lemma": "after school",
+      "meaningVi": "sau giờ học",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "at the English club after school",
+      "phraseVi": "ở câu lạc bộ tiếng Anh sau giờ học"
+    },
+    {
+      "text": "Miss",
+      "lemma": "Miss",
+      "meaningVi": "cô",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "Miss Lee",
+      "phraseVi": "cô Lee"
+    },
+    {
+      "text": "leader",
+      "lemma": "leader",
+      "meaningVi": "người phụ trách",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "the club leader",
+      "phraseVi": "người phụ trách câu lạc bộ"
+    },
+    {
+      "text": "How are you",
+      "lemma": "how are you",
+      "meaningVi": "bạn khỏe không",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "How are you today, everyone?",
+      "phraseVi": "Hôm nay mọi người khỏe không?"
+    },
+    {
+      "text": "everyone",
+      "lemma": "everyone",
+      "meaningVi": "mọi người",
+      "sentenceIndex": 3,
+      "pos": "pronoun",
+      "phrase": "today, everyone",
+      "phraseVi": "hôm nay, mọi người"
+    },
+    {
+      "text": "Fine",
+      "lemma": "fine",
+      "meaningVi": "khỏe, ổn",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "Fine, thanks!",
+      "phraseVi": "Khỏe, cảm ơn!"
+    },
+    {
+      "text": "thanks",
+      "lemma": "thanks",
+      "meaningVi": "cảm ơn",
+      "sentenceIndex": 4,
+      "pos": "interjection",
+      "phrase": "Fine, thanks!",
+      "phraseVi": "Khỏe, cảm ơn!"
+    },
+    {
+      "text": "sits with",
+      "lemma": "sit with",
+      "meaningVi": "ngồi cùng",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "A boy sits with me",
+      "phraseVi": "Một bạn trai ngồi cùng mình"
+    },
+    {
+      "text": "Hello",
+      "lemma": "hello",
+      "meaningVi": "xin chào",
+      "sentenceIndex": 6,
+      "pos": "interjection",
+      "phrase": "Hello, I'm Kenji",
+      "phraseVi": "Xin chào, mình là Kenji"
+    },
+    {
+      "text": "Japan",
+      "lemma": "Japan",
+      "meaningVi": "Nhật Bản",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "I'm from Japan",
+      "phraseVi": "Mình đến từ Nhật Bản"
+    },
+    {
+      "text": "Nice to meet you",
+      "lemma": "nice to meet you",
+      "meaningVi": "rất vui được gặp bạn",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "Nice to meet you, Kenji",
+      "phraseVi": "Rất vui được gặp bạn, Kenji"
+    },
+    {
+      "text": "name",
+      "lemma": "name",
+      "meaningVi": "tên",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "My name is Minh",
+      "phraseVi": "Mình tên là Minh"
+    },
+    {
+      "text": "fifteen",
+      "lemma": "fifteen",
+      "meaningVi": "mười lăm",
+      "sentenceIndex": 10,
+      "pos": "number",
+      "phrase": "Kenji is fifteen",
+      "phraseVi": "Kenji mười lăm tuổi"
+    },
+    {
+      "text": "quiet",
+      "lemma": "quiet",
+      "meaningVi": "ít nói",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "He is quiet",
+      "phraseVi": "Bạn ấy ít nói"
+    },
+    {
+      "text": "talk about",
+      "lemma": "talk about",
+      "meaningVi": "nói về",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "we talk about our new friends",
+      "phraseVi": "bọn mình nói về những người bạn mới"
+    },
+    {
+      "text": "stands up",
+      "lemma": "stand up",
+      "meaningVi": "đứng dậy",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "Kenji stands up",
+      "phraseVi": "Kenji đứng dậy"
+    },
+    {
+      "text": "woman",
+      "lemma": "woman",
+      "meaningVi": "người phụ nữ",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "a woman from Spain",
+      "phraseVi": "một chị đến từ Tây Ban Nha"
+    },
+    {
+      "text": "Spain",
+      "lemma": "Spain",
+      "meaningVi": "Tây Ban Nha",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "a woman from Spain",
+      "phraseVi": "một chị đến từ Tây Ban Nha"
+    },
+    {
+      "text": "nurse",
+      "lemma": "nurse",
+      "meaningVi": "y tá",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "She's a nurse",
+      "phraseVi": "Chị ấy là y tá"
+    },
+    {
+      "text": "funny",
+      "lemma": "funny",
+      "meaningVi": "vui tính",
+      "sentenceIndex": 18,
+      "pos": "adjective",
+      "phrase": "she's very funny",
+      "phraseVi": "chị ấy rất vui tính"
+    },
+    {
+      "text": "Excuse me",
+      "lemma": "excuse me",
+      "meaningVi": "xin lỗi (khi muốn hỏi)",
+      "sentenceIndex": 19,
+      "pos": "phrase",
+      "phrase": "Excuse me, is the club on Mondays too?",
+      "phraseVi": "Xin lỗi, câu lạc bộ có họp vào thứ Hai không ạ?"
+    },
+    {
+      "text": "Mondays",
+      "lemma": "Monday",
+      "meaningVi": "thứ Hai",
+      "sentenceIndex": 19,
+      "pos": "noun",
+      "phrase": "on Mondays",
+      "phraseVi": "vào các ngày thứ Hai"
+    },
+    {
+      "text": "Tuesdays",
+      "lemma": "Tuesday",
+      "meaningVi": "thứ Ba",
+      "sentenceIndex": 20,
+      "pos": "noun",
+      "phrase": "on Tuesdays",
+      "phraseVi": "vào các ngày thứ Ba"
+    },
+    {
+      "text": "goodbye",
+      "lemma": "goodbye",
+      "meaningVi": "lời tạm biệt",
+      "sentenceIndex": 21,
+      "pos": "noun",
+      "phrase": "we say goodbye",
+      "phraseVi": "mọi người chào tạm biệt"
+    },
+    {
+      "text": "friends",
+      "lemma": "friend",
+      "meaningVi": "bạn",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "our new friends now",
+      "phraseVi": "giờ là bạn mới của bọn mình"
+    }
+  ]
+}

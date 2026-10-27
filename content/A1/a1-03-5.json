@@ -1,0 +1,642 @@
+{
+  "content": "It is the first week of September. Mr Nam has a big page with all the dates of our school year.\n\n\"When is our first test?\" asks Tom.\n\"It's on the fifteenth of October,\" says Mr Nam.\n\nIn November, we have a party for Teachers' Day. It is on the twentieth of November. Tet is our big holiday, and this year it is in February.\n\n\"Where is our class trip to?\" asks Anna.\n\"It's to Ha Long Bay, in March,\" says Mr Nam. Everyone is very happy, and Anna has a big smile on her face.\n\nOur big tests are in May, and they aren't easy. School finishes in June, and then the summer holiday starts.\n\n\"What is your favourite month, Minh?\" asks Anna.\n\"March, because of the trip,\" I say.",
+  "targetWords": [
+    "week",
+    "September",
+    "date",
+    "November",
+    "February",
+    "March",
+    "summer",
+    "month"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "week",
+        "lemma": "week",
+        "meaningVi": "tuần",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "September",
+        "lemma": "September",
+        "meaningVi": "tháng Chín",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "dates",
+        "lemma": "date",
+        "meaningVi": "ngày (trong tháng)",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "November",
+        "lemma": "November",
+        "meaningVi": "tháng Mười Một",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "February",
+        "lemma": "February",
+        "meaningVi": "tháng Hai",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "March",
+        "lemma": "March",
+        "meaningVi": "tháng Ba",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "summer",
+        "lemma": "summer",
+        "meaningVi": "mùa hè",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "month",
+        "lemma": "month",
+        "meaningVi": "tháng",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A trip to Ha Long Bay",
+          "Teachers' Day at Minh's school",
+          "Minh's class looks at the dates of the school year.",
+          "Tet with Minh's family"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thầy Nam cho lớp xem các ngày quan trọng của năm học: bài kiểm tra, Ngày Nhà giáo, Tết, chuyến đi, nghỉ hè. Chuyến đi Hạ Long chỉ là một phần."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When is the first test?",
+        "promptVi": "Bài kiểm tra đầu tiên vào khi nào?",
+        "options": [
+          "On the fifth of October",
+          "On the fifteenth of October",
+          "On the twentieth of November",
+          "In May"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thầy Nam nói \"It's on the fifteenth of October\": ngày mười lăm tháng Mười."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the class trip to?",
+        "promptVi": "Chuyến đi của lớp đến đâu?",
+        "options": [
+          "Hue",
+          "Da Nang",
+          "Hanoi",
+          "Ha Long Bay"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Thầy Nam nói \"It's to Ha Long Bay, in March\": cả lớp đi vịnh Hạ Long vào tháng Ba."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The big tests in May are easy.",
+        "promptVi": "Các bài kiểm tra lớn vào tháng Năm rất dễ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Our big tests are in May, and they aren't easy\": các bài kiểm tra không dễ."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"holiday\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Tet is our big holiday, and this year it is in February.",
+        "options": [
+          "bài kiểm tra",
+          "kỳ nghỉ, ngày lễ",
+          "bữa tiệc",
+          "chuyến đi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tết là kỳ nghỉ lễ lớn nhất của học sinh Việt Nam, nên \"our big holiday\" là kỳ nghỉ lớn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ thời gian (at, on, in)",
+      "bodyVi": "Tháng và mùa đứng một mình dùng in: in November, in summer. Khi nói một ngày cụ thể thì dùng on: on the twentieth of November. Ngày đọc bằng số thứ tự: the fifteenth of October là ngày 15 tháng 10. Muốn hỏi thời gian, dùng When: When is our first test?",
+      "examples": [
+        "It's on the fifteenth of October",
+        "In November, we have a party for Teachers' Day.",
+        "Tet is our big holiday, and this year it is in February."
+      ]
+    },
+    "writingPrompt": "Write about your school year: the important dates and holidays in each month.",
+    "sentenceTranslations": [
+      "Bây giờ là tuần đầu tiên của tháng Chín.",
+      "Thầy Nam có một trang giấy lớn ghi tất cả các ngày quan trọng của năm học.",
+      "\"Khi nào có bài kiểm tra đầu tiên ạ?\" Tom hỏi.",
+      "\"Vào ngày mười lăm tháng Mười,\" thầy Nam nói.",
+      "Tháng Mười Một, lớp mình có tiệc mừng Ngày Nhà giáo.",
+      "Đó là ngày hai mươi tháng Mười Một.",
+      "Tết là kỳ nghỉ lớn của bọn mình, và năm nay Tết vào tháng Hai.",
+      "\"Chuyến đi của lớp mình đi đâu ạ?\" Anna hỏi.",
+      "\"Đi vịnh Hạ Long, vào tháng Ba,\" thầy Nam nói.",
+      "Ai cũng rất vui, và Anna cười thật tươi.",
+      "Các bài kiểm tra lớn vào tháng Năm, và chúng không dễ chút nào.",
+      "Năm học kết thúc vào tháng Sáu, và sau đó là kỳ nghỉ hè.",
+      "\"Minh thích tháng nào nhất?\" Anna hỏi.",
+      "\"Tháng Ba, vì có chuyến đi,\" mình trả lời."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói các ngày quan trọng trong năm bằng in + tháng (in March) và on + ngày (on the twentieth of November), và hỏi bằng When.",
+    "examples": [
+      {
+        "lemma": "week",
+        "sentence": "The trip is one week long.",
+        "meaningVi": "Chuyến đi dài một tuần."
+      },
+      {
+        "lemma": "September",
+        "sentence": "School starts in September.",
+        "meaningVi": "Năm học bắt đầu vào tháng Chín."
+      },
+      {
+        "lemma": "date",
+        "sentence": "What is the date today?",
+        "meaningVi": "Hôm nay là ngày bao nhiêu?"
+      },
+      {
+        "lemma": "November",
+        "sentence": "Teachers' Day is in November.",
+        "meaningVi": "Ngày Nhà giáo vào tháng Mười Một."
+      },
+      {
+        "lemma": "February",
+        "sentence": "February is a short month.",
+        "meaningVi": "Tháng Hai là một tháng ngắn."
+      },
+      {
+        "lemma": "March",
+        "sentence": "My birthday is in March.",
+        "meaningVi": "Sinh nhật mình vào tháng Ba."
+      },
+      {
+        "lemma": "summer",
+        "sentence": "It is very hot in summer.",
+        "meaningVi": "Mùa hè trời rất nóng."
+      },
+      {
+        "lemma": "month",
+        "sentence": "June is my favourite month.",
+        "meaningVi": "Tháng Sáu là tháng mình thích nhất."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tom",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, when is Tet this year?",
+          "meaningVi": "Minh ơi, Tết năm nay vào khi nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's in February, on the tenth.",
+          "meaningVi": "Vào tháng Hai, ngày mùng mười."
+        },
+        {
+          "speaker": 0,
+          "text": "Is it a long holiday?",
+          "meaningVi": "Kỳ nghỉ có dài không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. It's about one week.",
+          "meaningVi": "Có. Khoảng một tuần."
+        },
+        {
+          "speaker": 0,
+          "text": "Where are you at Tet?",
+          "meaningVi": "Tết bạn ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "I'm in Hue, at my grandparents' house.",
+          "meaningVi": "Mình ở Huế, ở nhà ông bà."
+        },
+        {
+          "speaker": 0,
+          "text": "Nice! What is your favourite holiday?",
+          "meaningVi": "Hay quá! Bạn thích kỳ nghỉ nào nhất?"
+        },
+        {
+          "speaker": 1,
+          "text": "The summer holiday. It's in June, July and August.",
+          "meaningVi": "Kỳ nghỉ hè. Vào tháng Sáu, tháng Bảy và tháng Tám."
+        },
+        {
+          "speaker": 0,
+          "text": "In Sydney, our summer holiday is in December and January!",
+          "meaningVi": "Ở Sydney, kỳ nghỉ hè của bọn mình vào tháng Mười Hai và tháng Một đấy!"
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Summer in December? That's funny!",
+          "meaningVi": "Thật à? Mùa hè vào tháng Mười Hai? Buồn cười thật!"
+        }
+      ]
+    },
+    "grammarTipVi": "Tháng đứng một mình dùng in (in March); có ngày cụ thể thì dùng on (on the tenth of February). Ngày đọc bằng số thứ tự: first, second, third, tenth, fifteenth, twentieth.",
+    "translations": [
+      {
+        "vi": "Sinh nhật tôi vào tháng Ba.",
+        "en": "My birthday is in March.",
+        "distractors": [
+          "on",
+          "at",
+          "are"
+        ]
+      },
+      {
+        "vi": "Kỳ nghỉ hè bắt đầu vào tháng Sáu.",
+        "en": "The summer holiday starts in June.",
+        "distractors": [
+          "on",
+          "at",
+          "start"
+        ]
+      },
+      {
+        "vi": "Tết vào tháng Hai.",
+        "en": "Tet is in February.",
+        "distractors": [
+          "on",
+          "at",
+          "are"
+        ]
+      },
+      {
+        "vi": "Tháng Chín là tháng đầu tiên của năm học.",
+        "en": "September is the first month of the school year.",
+        "distractors": [
+          "in",
+          "on",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tết và các kỳ nghỉ trong năm",
+          "Bài kiểm tra tháng Năm",
+          "Chuyến đi Hạ Long"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi Tết năm nay khi nào, Minh ở đâu dịp Tết, rồi hai bạn nói về kỳ nghỉ hè ở Việt Nam và ở Sydney.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tết năm nay vào ngày nào?",
+        "promptVi": "",
+        "options": [
+          "Ngày 2 tháng 10",
+          "Ngày 10 tháng 2",
+          "Ngày 20 tháng 2"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"It's in February, on the tenth\": ngày mùng 10 tháng 2.",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Dịp Tết Minh ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở Hà Nội",
+          "Ở Sydney",
+          "Ở Huế, nhà ông bà"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"I'm in Hue, at my grandparents' house\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom's summer holiday is in December and January.",
+        "promptVi": "Kỳ nghỉ hè của Tom vào tháng Mười Hai và tháng Một.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Tom nói \"In Sydney, our summer holiday is in December and January!\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Mỗi tháng trong năm học có sự kiện gì?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ thời gian (at, on, in)",
+      "noticing": [
+        {
+          "sentence": "\"It's on the fifteenth of October,\" says Mr Nam.",
+          "highlights": [
+            "on"
+          ]
+        },
+        {
+          "sentence": "In November, we have a party for Teachers' Day.",
+          "highlights": [
+            "In"
+          ]
+        },
+        {
+          "sentence": "It is on the twentieth of November.",
+          "highlights": [
+            "on"
+          ]
+        },
+        {
+          "sentence": "School finishes in June, and then the summer holiday starts.",
+          "highlights": [
+            "in"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"In November\" nhưng lại nói \"on the twentieth of November\"?",
+      "options": [
+        "Vì twentieth là số lớn",
+        "Vì tháng đứng một mình dùng in, còn một ngày cụ thể dùng on",
+        "Vì November đứng ở đầu câu"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "In đi với tháng (in November, in June), on đi với ngày (on the twentieth of November), giống như on đi với thứ (on Monday).",
+      "whenVi": "Dùng in + tháng, mùa và on + ngày cụ thể để nói các sự kiện trong năm; hỏi bằng When is …?",
+      "table": [
+        {
+          "subject": "in + tháng, mùa",
+          "form": "in November, in summer",
+          "negative": "—"
+        },
+        {
+          "subject": "on + ngày",
+          "form": "on the twentieth of November",
+          "negative": "—"
+        },
+        {
+          "subject": "hỏi: When is …?",
+          "form": "When is our first test? – On the fifteenth of October.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "My birthday is on March.",
+          "right": "My birthday is in March."
+        },
+        {
+          "wrong": "The party is in the twentieth of November.",
+          "right": "The party is on the twentieth of November."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"vào tháng Ba\" và \"vào ngày hai mươi\" với cùng chữ \"vào\", nên người Việt hay nhầm in với on khi nói tháng và ngày.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền at, on hoặc in vào chỗ trống.",
+          "text": "School finishes ___ June.",
+          "answers": [
+            "in"
+          ],
+          "explanationVi": "Tháng đứng một mình (June) dùng in."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Teachers' Day is ___ the twentieth of November.",
+          "options": [
+            "in",
+            "at",
+            "on",
+            "to"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Một ngày cụ thể (the twentieth of November) dùng on."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Our trip is on March.",
+          "sentence": "Our trip is in March.",
+          "explanationVi": "Tháng đứng một mình dùng in, không dùng on."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Kỳ nghỉ hè vào tháng Sáu.",
+          "sentence": "The summer holiday is in June.",
+          "words": [
+            "summer",
+            "is",
+            "The",
+            "in",
+            "holiday",
+            "June",
+            "on"
+          ],
+          "explanationVi": "Tháng dùng in; từ \"on\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It is the first week of September.",
+        "tipVi": "First /fɝːst/ có cụm âm cuối /st/; September /sepˈtembɚ/ nhấn âm thứ hai: sep-TEM-ber."
+      },
+      {
+        "text": "Our big tests are in May, and they aren't easy.",
+        "tipVi": "Tests /tests/ có cụm âm cuối /sts/ khó: đọc chậm t-e-s-t-s, đừng bỏ âm /t/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is your favourite month?",
+        "questionVi": "Bạn thích tháng nào nhất?",
+        "frame": "My favourite month is ___."
+      },
+      {
+        "question": "When is your summer holiday?",
+        "questionVi": "Kỳ nghỉ hè của bạn vào khi nào?",
+        "frame": "My summer holiday is in ___ and ___."
+      },
+      {
+        "question": "Who is with you at Tet? What is he or she like?",
+        "questionVi": "Tết bạn ở cùng ai? Người đó thế nào?",
+        "frame": "My ___ is with me at Tet. He / She is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng in + tháng hoặc on + ngày",
+      "anyOf": [
+        "in january",
+        "in february",
+        "in march",
+        "in may",
+        "in june",
+        "in september",
+        "in november",
+        "on the"
+      ],
+      "outlineVi": [
+        "Nói năm học của bạn bắt đầu vào tháng nào.",
+        "Kể các ngày lễ, kỳ nghỉ, chuyến đi trong năm và tháng của chúng.",
+        "Nói tháng bạn thích nhất."
+      ],
+      "modelAnswer": "My school year starts in September. In November, we have a party for Teachers' Day. Tet is in January or February, and it is my favourite holiday. Our class trip is in March. The summer holiday starts in June, and it is three months long. Every month is busy!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "first",
+      "lemma": "first",
+      "meaningVi": "đầu tiên",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "the first week",
+      "phraseVi": "tuần đầu tiên"
+    },
+    {
+      "text": "page",
+      "lemma": "page",
+      "meaningVi": "trang giấy",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a big page",
+      "phraseVi": "một trang giấy lớn"
+    },
+    {
+      "text": "school year",
+      "lemma": "school year",
+      "meaningVi": "năm học",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "our school year",
+      "phraseVi": "năm học của bọn mình"
+    },
+    {
+      "text": "test",
+      "lemma": "test",
+      "meaningVi": "bài kiểm tra",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "our first test",
+      "phraseVi": "bài kiểm tra đầu tiên"
+    },
+    {
+      "text": "fifteenth",
+      "lemma": "fifteenth",
+      "meaningVi": "thứ mười lăm (ngày 15)",
+      "sentenceIndex": 3,
+      "pos": "number",
+      "phrase": "the fifteenth of October",
+      "phraseVi": "ngày mười lăm tháng Mười"
+    },
+    {
+      "text": "Teachers' Day",
+      "lemma": "Teachers' Day",
+      "meaningVi": "Ngày Nhà giáo",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a party for Teachers' Day",
+      "phraseVi": "tiệc mừng Ngày Nhà giáo"
+    },
+    {
+      "text": "twentieth",
+      "lemma": "twentieth",
+      "meaningVi": "thứ hai mươi (ngày 20)",
+      "sentenceIndex": 5,
+      "pos": "number",
+      "phrase": "the twentieth of November",
+      "phraseVi": "ngày hai mươi tháng Mười Một"
+    },
+    {
+      "text": "holiday",
+      "lemma": "holiday",
+      "meaningVi": "kỳ nghỉ, ngày lễ",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "our big holiday",
+      "phraseVi": "kỳ nghỉ lớn của bọn mình"
+    },
+    {
+      "text": "trip",
+      "lemma": "trip",
+      "meaningVi": "chuyến đi",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "our class trip",
+      "phraseVi": "chuyến đi của lớp mình"
+    },
+    {
+      "text": "smile",
+      "lemma": "smile",
+      "meaningVi": "nụ cười",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "a big smile on her face",
+      "phraseVi": "cười thật tươi"
+    },
+    {
+      "text": "easy",
+      "lemma": "easy",
+      "meaningVi": "dễ",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "they aren't easy",
+      "phraseVi": "chúng không dễ"
+    },
+    {
+      "text": "finishes",
+      "lemma": "finish",
+      "meaningVi": "kết thúc",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "School finishes in June",
+      "phraseVi": "Năm học kết thúc vào tháng Sáu"
+    },
+    {
+      "text": "starts",
+      "lemma": "start",
+      "meaningVi": "bắt đầu",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "the summer holiday starts",
+      "phraseVi": "kỳ nghỉ hè bắt đầu"
+    },
+    {
+      "text": "because of",
+      "lemma": "because of",
+      "meaningVi": "vì, bởi",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "because of the trip",
+      "phraseVi": "vì có chuyến đi"
+    }
+  ]
+}

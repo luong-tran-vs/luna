@@ -1,0 +1,603 @@
+{
+  "content": "Lan and Linh are best friends, but their weekends are very different.\n\nOn Saturday morning, Lan usually sleeps late. Then she cleans her room and helps her mum in the kitchen. In the afternoon, she often goes to the park on her bike with Duc. On Sunday, her cousin Minh always comes to her home, and they have lunch together.\n\nLinh's weekend is different. She always gets up early, at six o'clock, because her family has a small cake shop. On Saturday and Sunday, Linh helps her mum in the shop. She sells cakes and talks to people. Linh never sleeps late at the weekend! In the evening, her family usually watches TV together.\n\n\"Is your weekend busy?\" asks Lan.\n\"Yes, but I often eat cake!\" says Linh.",
+  "targetWords": [
+    "weekend",
+    "sleep",
+    "clean",
+    "help",
+    "have lunch",
+    "get up",
+    "shop",
+    "watch TV"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "weekends",
+        "lemma": "weekend",
+        "meaningVi": "cuối tuần",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "sleeps",
+        "lemma": "sleep",
+        "meaningVi": "ngủ",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cleans",
+        "lemma": "clean",
+        "meaningVi": "dọn dẹp",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "helps",
+        "lemma": "help",
+        "meaningVi": "giúp đỡ",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "have lunch",
+        "lemma": "have lunch",
+        "meaningVi": "ăn trưa",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "gets up",
+        "lemma": "get up",
+        "meaningVi": "thức dậy",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "shop",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng, tiệm",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "watches TV",
+        "lemma": "watch TV",
+        "meaningVi": "xem ti vi",
+        "pos": "verb",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh's family cake shop",
+          "A day in the park",
+          "Minh's Sunday lunch",
+          "Lan's and Linh's different weekends"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài so sánh cuối tuần của hai bạn: Lan ngủ muộn, dọn phòng, đi công viên; Linh dậy sớm giúp mẹ ở tiệm bánh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is with Lan in the park?",
+        "promptVi": "Ai đi công viên cùng Lan?",
+        "options": [
+          "Linh",
+          "Duc",
+          "Minh",
+          "Mai"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"she often goes to the park on her bike with Duc\". Minh đến nhà Lan vào Chủ nhật."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Linh up early at the weekend?",
+        "promptVi": "Vì sao cuối tuần Linh dậy sớm?",
+        "options": [
+          "She has a test.",
+          "She goes swimming.",
+          "Her family has a cake shop.",
+          "Her cousin comes to her home."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"She always gets up early … because her family has a small cake shop\", và Linh giúp mẹ ở tiệm."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh often sleeps late at the weekend.",
+        "promptVi": "Cuối tuần Linh hay ngủ muộn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Linh never sleeps late at the weekend!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"sells\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She sells cakes and talks to people.",
+        "options": [
+          "mua",
+          "làm",
+          "ăn",
+          "bán"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Sells là bán (từ sell): Linh giúp mẹ bán bánh ở tiệm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thì hiện tại đơn (khẳng định)",
+      "bodyVi": "Với he, she hoặc một người (Lan, Linh), động từ thêm -s: cleans, helps, sells. Một nhóm như her family được coi là một (it), nên động từ cũng thêm -s / -es: her family watches TV. Trạng từ tần suất đứng trước động từ: Lan usually sleeps late.",
+      "examples": [
+        "Then she cleans her room and helps her mum in the kitchen.",
+        "She sells cakes and talks to people.",
+        "In the evening, her family usually watches TV together."
+      ]
+    },
+    "writingPrompt": "Write about your weekend and the weekend of a friend or a family member.",
+    "sentenceTranslations": [
+      "Lan và Linh là bạn thân, nhưng cuối tuần của hai bạn rất khác nhau.",
+      "Sáng thứ Bảy, Lan thường ngủ dậy muộn.",
+      "Sau đó Lan dọn phòng và giúp mẹ trong bếp.",
+      "Buổi chiều, Lan hay đạp xe ra công viên với anh Đức.",
+      "Chủ nhật, anh họ Minh luôn đến nhà Lan, và mọi người ăn trưa cùng nhau.",
+      "Cuối tuần của Linh thì khác.",
+      "Linh luôn dậy sớm, lúc sáu giờ, vì gia đình Linh có một tiệm bánh nhỏ.",
+      "Thứ Bảy và Chủ nhật, Linh giúp mẹ ở tiệm.",
+      "Linh bán bánh và nói chuyện với khách.",
+      "Cuối tuần Linh không bao giờ ngủ muộn!",
+      "Buổi tối, cả nhà Linh thường xem ti vi cùng nhau.",
+      "\"Cuối tuần của bạn có bận không?\" Lan hỏi.",
+      "\"Có, nhưng mình hay được ăn bánh!\" Linh nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh cuối tuần của mình và của bạn bè bằng thì hiện tại đơn và always, usually, often, never.",
+    "examples": [
+      {
+        "lemma": "weekend",
+        "sentence": "My weekend is always quiet.",
+        "meaningVi": "Cuối tuần của mình lúc nào cũng yên tĩnh."
+      },
+      {
+        "lemma": "sleep",
+        "sentence": "Babies sleep a lot.",
+        "meaningVi": "Em bé ngủ rất nhiều."
+      },
+      {
+        "lemma": "clean",
+        "sentence": "We clean the house on Sunday.",
+        "meaningVi": "Nhà mình dọn dẹp vào Chủ nhật."
+      },
+      {
+        "lemma": "help",
+        "sentence": "I often help my dad in the garden.",
+        "meaningVi": "Mình hay giúp bố làm vườn."
+      },
+      {
+        "lemma": "have lunch",
+        "sentence": "We have lunch with Grandma on Sunday.",
+        "meaningVi": "Chủ nhật nhà mình ăn trưa với bà."
+      },
+      {
+        "lemma": "get up",
+        "sentence": "My brother never gets up early.",
+        "meaningVi": "Anh trai mình không bao giờ dậy sớm."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "The shop is near my school.",
+        "meaningVi": "Cửa hàng ở gần trường mình."
+      },
+      {
+        "lemma": "watch TV",
+        "sentence": "My grandpa watches TV in the evening.",
+        "meaningVi": "Buổi tối ông mình xem ti vi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tom",
+        "Huy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Huy, what is your weekend like?",
+          "meaningVi": "Huy ơi, cuối tuần của bạn thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's quiet. I usually sleep late on Sunday.",
+          "meaningVi": "Yên tĩnh lắm. Chủ nhật mình thường ngủ muộn."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? I always get up early. I play football with my dad.",
+          "meaningVi": "Thật à? Mình luôn dậy sớm. Mình đá bóng với bố."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it at the park near the river?",
+          "meaningVi": "Ở công viên gần sông à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. Then we often have lunch at a small restaurant.",
+          "meaningVi": "Đúng rồi. Sau đó hai bố con hay ăn trưa ở một nhà hàng nhỏ."
+        },
+        {
+          "speaker": 1,
+          "text": "Nice! My family always has noodle soup at home on Sunday.",
+          "meaningVi": "Hay quá! Chủ nhật nhà mình luôn ăn mì nước ở nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "Who cooks it?",
+          "meaningVi": "Ai nấu vậy?"
+        },
+        {
+          "speaker": 1,
+          "text": "My mum. She cooks it every Sunday.",
+          "meaningVi": "Mẹ mình. Chủ nhật nào mẹ cũng nấu."
+        },
+        {
+          "speaker": 0,
+          "text": "Is your weekend fun?",
+          "meaningVi": "Cuối tuần của bạn có vui không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. I watch cartoons with my sister.",
+          "meaningVi": "Vui chứ. Mình xem phim hoạt hình với em gái."
+        }
+      ]
+    },
+    "grammarTipVi": "Một nhóm người như her family, my class được coi như số ít: her family watches TV, my class has a trip.",
+    "translations": [
+      {
+        "vi": "Cuối tuần, tôi thường ngủ muộn.",
+        "en": "At the weekend, I usually sleep late.",
+        "distractors": [
+          "sleeps",
+          "On",
+          "never"
+        ]
+      },
+      {
+        "vi": "Cô ấy dọn phòng vào sáng thứ Bảy.",
+        "en": "She cleans her room on Saturday morning.",
+        "distractors": [
+          "clean",
+          "in",
+          "at"
+        ]
+      },
+      {
+        "vi": "Linh giúp mẹ ở tiệm.",
+        "en": "Linh helps her mum in the shop.",
+        "distractors": [
+          "help",
+          "his",
+          "on"
+        ]
+      },
+      {
+        "vi": "Gia đình cô ấy xem ti vi cùng nhau.",
+        "en": "Her family watches TV together.",
+        "distractors": [
+          "watch",
+          "His",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Huy nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuối tuần của mỗi bạn",
+          "Một trận bóng ở trường",
+          "Món ăn ở nhà hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi \"what is your weekend like?\" và hai bạn kể cuối tuần mình thường làm gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tom đá bóng với ai?",
+        "promptVi": "",
+        "options": [
+          "Với Huy",
+          "Với bố",
+          "Với em gái"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"I play football with my dad\".",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chủ nhật nhà Huy ăn gì?",
+        "promptVi": "",
+        "options": [
+          "Pizza",
+          "Bánh ngọt",
+          "Mì nước"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Huy nói \"My family always has noodle soup at home on Sunday\".",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Huy always gets up early at the weekend.",
+        "promptVi": "Cuối tuần Huy luôn dậy sớm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Huy nói \"I usually sleep late on Sunday\". Người luôn dậy sớm là Tom.",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Cuối tuần của Lan và của Linh khác nhau thế nào?",
+    "grammarStep": {
+      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "noticing": [
+        {
+          "sentence": "On Saturday morning, Lan usually sleeps late.",
+          "highlights": [
+            "usually",
+            "sleeps"
+          ]
+        },
+        {
+          "sentence": "Then she cleans her room and helps her mum in the kitchen.",
+          "highlights": [
+            "cleans",
+            "helps"
+          ]
+        },
+        {
+          "sentence": "Linh never sleeps late at the weekend!",
+          "highlights": [
+            "never",
+            "sleeps"
+          ]
+        },
+        {
+          "sentence": "In the evening, her family usually watches TV together.",
+          "highlights": [
+            "usually",
+            "watches"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"her family usually watches TV\", vì sao là watches (có -es)?",
+      "options": [
+        "Vì watch là động từ ngắn",
+        "Vì her family được coi là một (it), nên động từ thêm -es",
+        "Vì câu có từ usually"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Her family là một nhóm nhưng được coi như số ít (it), giống he, she: Lan sleeps, she helps, her family watches.",
+      "whenVi": "Dùng thì hiện tại đơn với always, usually, often, never để kể ai đó thường làm gì vào cuối tuần.",
+      "table": [
+        {
+          "subject": "he / she / it, her family",
+          "form": "sleeps, cleans, watches",
+          "negative": "—"
+        },
+        {
+          "subject": "I / you / we / they",
+          "form": "sleep, clean, watch",
+          "negative": "—"
+        },
+        {
+          "subject": "+ trạng từ tần suất",
+          "form": "Lan usually sleeps late. Linh never sleeps late.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Linh help her mum in the shop.",
+          "right": "Linh helps her mum in the shop."
+        },
+        {
+          "wrong": "Her family usually watch TV.",
+          "right": "Her family usually watches TV."
+        }
+      ],
+      "noteVi": "Tiếng Việt không đổi động từ theo người, và \"gia đình\" nghe như nhiều người, nên người Việt hay viết \"her family watch\" thay vì \"her family watches\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ clean.",
+          "text": "On Saturday, Lan ___ her room.",
+          "answers": [
+            "cleans"
+          ],
+          "explanationVi": "Lan là một người (she), nên clean thêm -s: cleans."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Linh ___ cakes in her mum's shop.",
+          "options": [
+            "sell",
+            "sells",
+            "selling",
+            "is sell"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Linh là một người (she), nên dùng sells."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Linh sleeps never late at the weekend.",
+          "sentence": "Linh never sleeps late at the weekend.",
+          "explanationVi": "Never đứng trước động từ thường (sleeps)."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Lan thường ngủ muộn.",
+          "sentence": "Lan usually sleeps late.",
+          "words": [
+            "sleeps",
+            "late",
+            "Lan",
+            "usually",
+            "sleep"
+          ],
+          "explanationVi": "Lan là một người nên dùng sleeps, usually đứng trước động từ; từ \"sleep\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She sells cakes and talks to people.",
+        "tipVi": "Sells /selz/ có âm /z/ ở cuối, cakes /keɪks/ và talks /tɔːks/ có âm /s/ ở cuối."
+      },
+      {
+        "text": "Linh never sleeps late at the weekend!",
+        "tipVi": "Sleeps /sliːps/ có cụm âm cuối /ps/; weekend /ˈwiːkend/ nhấn âm đầu WEEK."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Are you usually busy at the weekend?",
+        "questionVi": "Cuối tuần bạn có thường bận không?",
+        "frame": "Yes, I am. / No, I'm not. I usually ___."
+      },
+      {
+        "question": "What time are you up on Sunday?",
+        "questionVi": "Chủ nhật bạn dậy lúc mấy giờ?",
+        "frame": "On Sunday, I am up at ___."
+      },
+      {
+        "question": "What is your best friend's weekend like?",
+        "questionVi": "Cuối tuần của bạn thân bạn thế nào?",
+        "frame": "At the weekend, he / she usually ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng always, usually, often hoặc never",
+      "anyOf": [
+        "always",
+        "usually",
+        "often",
+        "never"
+      ],
+      "outlineVi": [
+        "Kể sáng thứ Bảy bạn thường làm gì.",
+        "Kể Chủ nhật bạn làm gì.",
+        "Kể cuối tuần của một người khác (anh chị em, bạn) khác bạn thế nào."
+      ],
+      "modelAnswer": "My weekend is quiet. On Saturday, I usually sleep late. Then I clean my room and help my mum. My brother always gets up early, and he plays football. On Sunday, we have lunch with my grandparents, and in the evening, we watch TV together."
+    }
+  },
+  "glosses": [
+    {
+      "text": "best friends",
+      "lemma": "best friend",
+      "meaningVi": "bạn thân",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Lan and Linh are best friends",
+      "phraseVi": "Lan và Linh là bạn thân"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác nhau",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "very different",
+      "phraseVi": "rất khác nhau"
+    },
+    {
+      "text": "sleeps late",
+      "lemma": "sleep late",
+      "meaningVi": "ngủ dậy muộn",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "Lan usually sleeps late",
+      "phraseVi": "Lan thường ngủ dậy muộn"
+    },
+    {
+      "text": "park",
+      "lemma": "park",
+      "meaningVi": "công viên",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "goes to the park on her bike",
+      "phraseVi": "đạp xe ra công viên"
+    },
+    {
+      "text": "comes",
+      "lemma": "come",
+      "meaningVi": "đến",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "Minh always comes to her home",
+      "phraseVi": "Minh luôn đến nhà Lan"
+    },
+    {
+      "text": "early",
+      "lemma": "early",
+      "meaningVi": "sớm",
+      "sentenceIndex": 6,
+      "pos": "adverb",
+      "phrase": "She always gets up early",
+      "phraseVi": "Linh luôn dậy sớm"
+    },
+    {
+      "text": "because",
+      "lemma": "because",
+      "meaningVi": "vì",
+      "sentenceIndex": 6,
+      "pos": "conjunction",
+      "phrase": "because her family has a small cake shop",
+      "phraseVi": "vì gia đình Linh có một tiệm bánh nhỏ"
+    },
+    {
+      "text": "sells",
+      "lemma": "sell",
+      "meaningVi": "bán",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "She sells cakes",
+      "phraseVi": "Linh bán bánh"
+    },
+    {
+      "text": "people",
+      "lemma": "people",
+      "meaningVi": "mọi người, khách",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "talks to people",
+      "phraseVi": "nói chuyện với khách"
+    },
+    {
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
+      "sentenceIndex": 10,
+      "pos": "adverb",
+      "phrase": "watches TV together",
+      "phraseVi": "xem ti vi cùng nhau"
+    }
+  ]
+}
