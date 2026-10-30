@@ -1,0 +1,609 @@
+{
+  "content": "On Monday morning, two colleagues at a marketing company in Hanoi, Hoang and Quyen, are talking in the office kitchen. On Friday, they will present a big project to an important client from Japan.\n\nQuyen asks, \"Have you decided what to wear on Friday?\"\n\"My grey suit, I think. But the trousers are too long. I need to have them shortened.\"\n\"Do you know a good tailor?\"\n\"Not really. My mum always used to get my clothes changed at the market.\"\n\"There's a great tailor on Hang Bong Street. I had my blazer fitted there last month. Look.\" She stands up and turns around.\n\"It looks perfect! It fits you really well.\"\n\"Thanks. The jacket was too big in the shoulders, so I had it taken in. It only cost two hundred thousand dong.\"\n\"That's cheap. How long did it take?\"\n\"Two days. But it's a busy week, so you should go today.\"\n\"Good idea. I'll get the trousers shortened and have the jacket cleaned at the same time.\"\n\"Is the jacket dirty?\"\n\"There's a coffee mark on the sleeve. I dropped my drink at a meeting last month.\"\nQuyen laughs. \"Then definitely get it dry-cleaned. You can't meet the client with coffee on your arm!\"\n\"What about you? Are you wearing your new blazer?\"\n\"Yes, with a white shirt. I'm also going to have my hair cut on Thursday evening.\"\n\"You're very organised.\"\n\"First impressions matter. The client has worked with us for ten years, and we want to keep it that way.\"\n\"You're right. I'll go to the tailor at lunchtime. Can you send me the address?\"\n\"Sure. Tell him Quyen sent you. He might give you a discount.\"",
+  "targetWords": [
+    "colleague",
+    "client",
+    "suit",
+    "trousers",
+    "fit",
+    "shoulder",
+    "sleeve",
+    "organised",
+    "impression",
+    "discount"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "colleagues",
+        "lemma": "colleague",
+        "meaningVi": "đồng nghiệp",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "client",
+        "lemma": "client",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "suit",
+        "lemma": "suit",
+        "meaningVi": "bộ com-lê",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "trousers",
+        "lemma": "trousers",
+        "meaningVi": "quần dài",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "fits",
+        "lemma": "fit",
+        "meaningVi": "vừa vặn",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "shoulders",
+        "lemma": "shoulder",
+        "meaningVi": "vai",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "sleeve",
+        "lemma": "sleeve",
+        "meaningVi": "tay áo",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "organised",
+        "lemma": "organised",
+        "meaningVi": "ngăn nắp, chu đáo",
+        "pos": "adjective",
+        "sentenceIndex": 34
+      },
+      {
+        "text": "impressions",
+        "lemma": "impression",
+        "meaningVi": "ấn tượng",
+        "pos": "noun",
+        "sentenceIndex": 35
+      },
+      {
+        "text": "discount",
+        "lemma": "discount",
+        "meaningVi": "giảm giá",
+        "pos": "noun",
+        "sentenceIndex": 42
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hoang and Quyen talking about?",
+        "promptVi": "Hoàng và Quyên đang nói về chuyện gì?",
+        "options": [
+          "Getting their clothes ready for a meeting with a client",
+          "Buying a new suit online",
+          "Planning a trip to Japan",
+          "Choosing a restaurant for lunch"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người chuẩn bị quần áo cho buổi thuyết trình với khách hàng Nhật vào thứ Sáu."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the problem with Hoang's trousers?",
+        "promptVi": "Quần của Hoàng có vấn đề gì?",
+        "options": [
+          "They are too long.",
+          "They are too small.",
+          "They have a coffee mark.",
+          "They are the wrong colour."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoàng nói \"But the trousers are too long.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much did Quyen pay to have her jacket taken in?",
+        "promptVi": "Quyên trả bao nhiêu tiền để bóp lại áo khoác?",
+        "options": [
+          "200,000 dong",
+          "100,000 dong",
+          "500,000 dong",
+          "Nothing"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quyên nói \"It only cost two hundred thousand dong.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quyen is going to cut her own hair.",
+        "promptVi": "Quyên sẽ tự cắt tóc cho mình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quyên nói \"I'm also going to have my hair cut\", tức là nhờ thợ cắt."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"discount\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"He might give you a discount.\"",
+        "options": [
+          "giảm giá",
+          "hoá đơn",
+          "lời khuyên",
+          "món quà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Discount = khoản giảm giá."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thể nhờ làm (have / get something done)",
+      "bodyVi": "Khi ta không tự làm mà nhờ hoặc thuê người khác làm, ta dùng thể nhờ làm: have / get + tân ngữ + quá khứ phân từ (V3). I need to have them shortened (nhờ thợ lên gấu quần). I had my blazer fitted there (thợ may chỉnh áo cho tôi). get mang nghĩa giống have nhưng thân mật hơn: I'll get the trousers shortened. have có thể chia ở mọi thì: had (quá khứ), am going to have (tương lai).",
+      "examples": [
+        "I need to have them shortened.\"",
+        "I had my blazer fitted there last month.",
+        "I'll get the trousers shortened and have the jacket cleaned at the same time.\""
+      ]
+    },
+    "writingPrompt": "Write about things you have done for you before an important day (a meeting, an exam, a party). Use have / get something done.",
+    "sentenceTranslations": [
+      "Sáng thứ Hai, hai đồng nghiệp ở một công ty marketing tại Hà Nội là Hoàng và Quyên đang nói chuyện trong bếp văn phòng.",
+      "Thứ Sáu này, họ sẽ thuyết trình một dự án lớn cho một khách hàng quan trọng đến từ Nhật Bản.",
+      "Quyên hỏi: \"Anh đã chọn mặc gì vào thứ Sáu chưa?\"",
+      "\"Chắc là bộ com-lê xám.",
+      "Nhưng quần dài quá.",
+      "Anh cần mang đi lên gấu.\"",
+      "\"Anh có biết thợ may nào giỏi không?\"",
+      "\"Không hẳn.",
+      "Ngày trước mẹ anh hay mang quần áo của anh ra chợ sửa.\"",
+      "\"Phố Hàng Bông có một ông thợ may rất giỏi.",
+      "Tháng trước em mang áo blazer đến đó chỉnh cho vừa.",
+      "Anh xem này.\"",
+      "Cô đứng dậy và xoay một vòng.",
+      "\"Trông hoàn hảo!",
+      "Áo rất vừa với em.\"",
+      "\"Cảm ơn anh.",
+      "Áo bị rộng ở vai nên em nhờ bóp lại.",
+      "Chỉ mất hai trăm nghìn đồng.\"",
+      "\"Rẻ thật.",
+      "Mất bao lâu?\"",
+      "\"Hai ngày.",
+      "Nhưng tuần này bận, nên anh nên đi ngay hôm nay.\"",
+      "\"Ý hay.",
+      "Anh sẽ mang quần đi lên gấu và nhờ giặt áo luôn một thể.\"",
+      "\"Áo bẩn à?\"",
+      "\"Có một vết cà phê trên tay áo.",
+      "Tháng trước anh làm đổ đồ uống trong một cuộc họp.\"",
+      "Quyên bật cười.",
+      "\"Vậy nhất định phải mang đi giặt khô.",
+      "Anh không thể gặp khách hàng với vết cà phê trên tay được!\"",
+      "\"Còn em thì sao?",
+      "Em mặc áo blazer mới à?\"",
+      "\"Vâng, với một chiếc sơ mi trắng.",
+      "Tối thứ Năm em cũng sẽ đi cắt tóc.\"",
+      "\"Em chu đáo thật.\"",
+      "\"Ấn tượng đầu tiên rất quan trọng.",
+      "Khách hàng này đã làm việc với chúng ta mười năm, và mình muốn giữ như vậy.\"",
+      "\"Em nói đúng.",
+      "Giờ nghỉ trưa anh sẽ đến thợ may.",
+      "Em gửi anh địa chỉ được không?\"",
+      "\"Được ạ.",
+      "Anh cứ nói là Quyên giới thiệu.",
+      "Có khi ông ấy giảm giá cho anh.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về việc nhờ thợ sửa, chỉnh quần áo bằng have / get + tân ngữ + V3.",
+    "examples": [
+      {
+        "lemma": "colleague",
+        "sentence": "My colleague sits next to me at work.",
+        "meaningVi": "Đồng nghiệp của tôi ngồi cạnh tôi ở chỗ làm."
+      },
+      {
+        "lemma": "client",
+        "sentence": "We are meeting a new client this afternoon.",
+        "meaningVi": "Chiều nay chúng tôi gặp một khách hàng mới."
+      },
+      {
+        "lemma": "suit",
+        "sentence": "He wore a dark suit to the wedding.",
+        "meaningVi": "Anh ấy mặc bộ com-lê tối màu đến đám cưới."
+      },
+      {
+        "lemma": "trousers",
+        "sentence": "These trousers are too tight for me.",
+        "meaningVi": "Chiếc quần này quá chật với tôi."
+      },
+      {
+        "lemma": "fit",
+        "sentence": "These shoes do not fit me any more.",
+        "meaningVi": "Đôi giày này không còn vừa với tôi nữa."
+      },
+      {
+        "lemma": "shoulder",
+        "sentence": "She put her bag on her shoulder.",
+        "meaningVi": "Cô ấy đeo túi lên vai."
+      },
+      {
+        "lemma": "sleeve",
+        "sentence": "The sleeve of my shirt is torn.",
+        "meaningVi": "Tay áo sơ mi của tôi bị rách."
+      },
+      {
+        "lemma": "organised",
+        "sentence": "She is a very organised person.",
+        "meaningVi": "Cô ấy là người rất ngăn nắp."
+      },
+      {
+        "lemma": "impression",
+        "sentence": "He made a good impression at the interview.",
+        "meaningVi": "Anh ấy tạo ấn tượng tốt trong buổi phỏng vấn."
+      },
+      {
+        "lemma": "discount",
+        "sentence": "Students get a ten per cent discount.",
+        "meaningVi": "Sinh viên được giảm giá mười phần trăm."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tailor",
+        "Hoang"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hello. Quyen sent me. Can I have these trousers shortened?",
+          "meaningVi": "Chào bác. Quyên giới thiệu cháu đến. Bác lên gấu chiếc quần này giúp cháu được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. How much shorter do you want them?",
+          "meaningVi": "Được chứ. Cháu muốn ngắn đi bao nhiêu?"
+        },
+        {
+          "speaker": 1,
+          "text": "About three centimetres. Is that possible?",
+          "meaningVi": "Khoảng ba phân. Được không bác?"
+        },
+        {
+          "speaker": 0,
+          "text": "No problem. Do you want anything else done?",
+          "meaningVi": "Không vấn đề gì. Cháu có muốn sửa gì nữa không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Could I get this jacket cleaned too?",
+          "meaningVi": "Có ạ. Cháu nhờ giặt luôn chiếc áo này được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I don't clean clothes, but my neighbour does.",
+          "meaningVi": "Bác không giặt đồ, nhưng nhà bên cạnh có làm."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. When can I have them back?",
+          "meaningVi": "Tốt quá. Khi nào cháu lấy được ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Wednesday afternoon. You'll have everything done by then.",
+          "meaningVi": "Chiều thứ Tư. Lúc đó mọi thứ sẽ xong."
+        },
+        {
+          "speaker": 1,
+          "text": "Perfect. My presentation is on Friday.",
+          "meaningVi": "Tuyệt ạ. Thứ Sáu cháu thuyết trình."
+        },
+        {
+          "speaker": 0,
+          "text": "And because Quyen sent you, here's a small discount.",
+          "meaningVi": "Vì Quyên giới thiệu nên bác bớt cho cháu một chút."
+        }
+      ]
+    },
+    "grammarTipVi": "have / get + tân ngữ + V3: Can I have these trousers shortened? / Could I get this jacket cleaned? / You'll have everything done by then.",
+    "translations": [
+      {
+        "vi": "Anh sẽ mang quần đi lên gấu.",
+        "en": "I'll get the trousers shortened.",
+        "distractors": [
+          "cut",
+          "myself",
+          "long"
+        ]
+      },
+      {
+        "vi": "Áo rất vừa với em.",
+        "en": "It fits you really well.",
+        "distractors": [
+          "fit",
+          "badly",
+          "me"
+        ]
+      },
+      {
+        "vi": "Có khi ông ấy giảm giá cho anh.",
+        "en": "He might give you a discount.",
+        "distractors": [
+          "gives",
+          "price",
+          "me"
+        ]
+      },
+      {
+        "vi": "Áo bị rộng ở vai.",
+        "en": "The jacket was too big in the shoulders.",
+        "distractors": [
+          "small",
+          "arms",
+          "trousers"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoàng đến tiệm để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Lên gấu quần và giặt áo",
+          "Mua một bộ com-lê mới",
+          "Hỏi đường đến công ty"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoàng hỏi \"Can I have these trousers shortened?\" và \"Could I get this jacket cleaned too?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoàng muốn quần ngắn đi bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Khoảng ba phân",
+          "Khoảng mười phân",
+          "Một phân"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoàng nói \"About three centimetres.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Hoàng lấy được đồ?",
+        "promptVi": "",
+        "options": [
+          "Chiều thứ Tư",
+          "Sáng thứ Sáu",
+          "Ngay hôm nay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thợ may nói \"Wednesday afternoon.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The tailor cleans the jacket himself.",
+        "promptVi": "Thợ may tự giặt chiếc áo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì thợ may nói \"I don't clean clothes, but my neighbour does.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Hoàng và Quyên nhờ thợ làm những việc gì cho quần áo của mình? Để ý các câu có have / get + tân ngữ + V3.",
+    "grammarStep": {
+      "titleVi": "Thể nhờ làm (have / get something done)",
+      "noticing": [
+        {
+          "sentence": "I need to have them shortened.\"",
+          "highlights": [
+            "have them shortened"
+          ]
+        },
+        {
+          "sentence": "I had my blazer fitted there last month.",
+          "highlights": [
+            "had my blazer fitted"
+          ]
+        },
+        {
+          "sentence": "The jacket was too big in the shoulders, so I had it taken in.",
+          "highlights": [
+            "had it taken in"
+          ]
+        },
+        {
+          "sentence": "I'll get the trousers shortened and have the jacket cleaned at the same time.\"",
+          "highlights": [
+            "get the trousers shortened",
+            "have the jacket cleaned"
+          ]
+        }
+      ],
+      "questionVi": "Quyên không tự cắt tóc mà ra tiệm cắt. Câu nào đúng?",
+      "options": [
+        "I'm going to have my hair cut.",
+        "I'm going to cut my hair.",
+        "I'm going to have cut my hair."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Nhờ người khác làm: have + tân ngữ (my hair) + V3 (cut). Câu \"cut my hair\" nghĩa là tự cắt.",
+      "whenVi": "Dùng khi một việc được người khác làm cho mình (thường là dịch vụ: may, sửa, giặt, cắt tóc), không phải tự làm.",
+      "table": [
+        {
+          "subject": "have + tân ngữ + V3",
+          "form": "I had my blazer fitted. / I need to have them shortened.",
+          "negative": "I didn't have it cleaned."
+        },
+        {
+          "subject": "get + tân ngữ + V3",
+          "form": "I'll get the trousers shortened.",
+          "negative": "Thân mật hơn have, nghĩa như nhau."
+        },
+        {
+          "subject": "have chia theo thì",
+          "form": "had (quá khứ) / am going to have (tương lai) / have had (hoàn thành)",
+          "negative": "Phân từ (V3) không đổi."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I had fitted my blazer there.",
+          "right": "I had my blazer fitted there."
+        },
+        {
+          "wrong": "I need to have them shorten.",
+          "right": "I need to have them shortened."
+        }
+      ],
+      "noteVi": "Tân ngữ luôn đứng trước V3: have + it / my hair / the jacket + V3.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "I had my blazer ___ (fit) there last month.",
+          "answers": [
+            "fitted"
+          ],
+          "explanationVi": "have + tân ngữ + V3: fitted."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Then definitely get it ___.",
+          "options": [
+            "dry-cleaned",
+            "dry-clean",
+            "dry-cleaning",
+            "to dry-clean"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "get + tân ngữ (it) + V3: dry-cleaned."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I had it take in last month.",
+          "sentence": "I had it taken in last month.",
+          "explanationVi": "Sau have + tân ngữ phải là V3: taken in."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tối thứ Năm em sẽ đi cắt tóc.",
+          "sentence": "I'm going to have my hair cut on Thursday.",
+          "words": [
+            "I'm",
+            "going",
+            "to",
+            "have",
+            "my",
+            "hair",
+            "cut",
+            "on",
+            "Thursday.",
+            "cutting"
+          ],
+          "explanationVi": "have + my hair + cut (V3); từ \"cutting\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I'll get the trousers shortened and have the jacket cleaned at the same time.\"",
+        "tipVi": "trousers /ˈtraʊzəz/; nối âm \"get the\", \"have the\"."
+      },
+      {
+        "text": "The jacket was too big in the shoulders, so I had it taken in.",
+        "tipVi": "shoulders /ˈʃəʊldəz/; đọc liền \"had it taken in\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you usually wear for an important meeting?",
+        "questionVi": "Bạn thường mặc gì cho một cuộc họp quan trọng?",
+        "frame": "I usually wear ___ because ___."
+      },
+      {
+        "question": "When did you last have something repaired or changed?",
+        "questionVi": "Lần gần nhất bạn mang đồ đi sửa hoặc chỉnh là khi nào?",
+        "frame": "Last ___, I had my ___ repaired because ___."
+      },
+      {
+        "question": "Do you think first impressions matter? Why?",
+        "questionVi": "Bạn có nghĩ ấn tượng đầu tiên quan trọng không? Vì sao?",
+        "frame": "I think ___, because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với have / get + tân ngữ + V3",
+      "anyOf": [
+        "have",
+        "had",
+        "having",
+        "get",
+        "got",
+        "getting"
+      ],
+      "outlineVi": [
+        "Ngày quan trọng là gì, khi nào.",
+        "Bạn nhờ làm những việc gì (I had my … cut / cleaned / repaired).",
+        "Kết quả và cảm nhận của bạn."
+      ],
+      "modelAnswer": "Before my sister's wedding last year, I wanted to look my best. I had my suit cleaned and got the trousers shortened at a small shop near my house. On the morning of the wedding, I had my hair cut. I also got my shoes polished. Everyone said I looked very smart."
+    }
+  },
+  "glosses": [
+    {
+      "text": "tailor",
+      "lemma": "tailor",
+      "meaningVi": "thợ may",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a good tailor",
+      "phraseVi": "một thợ may giỏi"
+    },
+    {
+      "text": "blazer",
+      "lemma": "blazer",
+      "meaningVi": "áo blazer, áo vest khoác",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "I had my blazer fitted.",
+      "phraseVi": "Tôi mang áo blazer đi chỉnh cho vừa."
+    },
+    {
+      "text": "taken in",
+      "lemma": "take in",
+      "meaningVi": "bóp lại (cho nhỏ)",
+      "sentenceIndex": 16,
+      "pos": "phrasal verb",
+      "phrase": "I had it taken in.",
+      "phraseVi": "Tôi nhờ bóp nhỏ lại."
+    },
+    {
+      "text": "shortened",
+      "lemma": "shorten",
+      "meaningVi": "làm ngắn lại, lên gấu",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "have them shortened",
+      "phraseVi": "mang đi lên gấu"
+    }
+  ]
+}

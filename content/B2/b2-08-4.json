@@ -1,0 +1,600 @@
+{
+  "content": "Thao and Mai, two university students in Hanoi, love fashion but don't have much money. On Saturday afternoon, they meet at a small craft shop in the Old Quarter with a bag of old clothes.\n\nMai asks, \"What did you bring?\"\n\"My mum's old denim jacket from the nineties. It's a bit boring, so I want to have it dyed dark blue.\"\n\"Great idea. Dark blue is very trendy this year.\"\n\"And you?\"\n\"Two plain white shirts and a cotton dress. I'm going to have flowers stitched on the collars.\"\nThe shop owner, Ms Hien, comes over. \"Hello, girls. What would you like to have done?\"\nThao asks, \"Could we get this jacket dyed?\"\n\"Of course. It takes about five days. Would you like to have the buttons changed too? We have some lovely vintage ones.\"\n\"Yes, please! Gold ones, if you have them.\"\n\"And for me,\" Mai says, \"can I have small flowers stitched on these collars? Each shirt in a different colour.\"\n\"No problem. Every design is done by hand, so it'll take a week.\"\n\"How much will it cost?\"\n\"For the flowers, about one hundred and fifty thousand dong per shirt.\"\n\"That's cheaper than buying a new shirt,\" Thao says.\n\"And much better for the planet,\" Ms Hien adds. \"Fashion creates so much waste. I'd rather see old clothes get a second life.\"\n\"What about the dress? It's too long,\" Mai says.\n\"We can have it shortened by our tailor next door. He's very quick.\"\n\"Perfect. Then I'll have a whole new wardrobe without buying anything!\"",
+  "targetWords": [
+    "fashion",
+    "craft",
+    "denim",
+    "dye",
+    "plain",
+    "cotton",
+    "collar",
+    "button",
+    "waste",
+    "wardrobe"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "fashion",
+        "lemma": "fashion",
+        "meaningVi": "thời trang",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "craft",
+        "lemma": "craft",
+        "meaningVi": "đồ thủ công",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "denim",
+        "lemma": "denim",
+        "meaningVi": "vải bò, vải jean",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "dyed",
+        "lemma": "dye",
+        "meaningVi": "nhuộm",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "plain",
+        "lemma": "plain",
+        "meaningVi": "trơn, không hoa văn",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "cotton",
+        "lemma": "cotton",
+        "meaningVi": "vải cotton, vải bông",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "collars",
+        "lemma": "collar",
+        "meaningVi": "cổ áo",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "buttons",
+        "lemma": "button",
+        "meaningVi": "cúc áo",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "waste",
+        "lemma": "waste",
+        "meaningVi": "rác thải, sự lãng phí",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "wardrobe",
+        "lemma": "wardrobe",
+        "meaningVi": "tủ quần áo, bộ quần áo",
+        "pos": "noun",
+        "sentenceIndex": 35
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Why do Thao and Mai go to the craft shop?",
+        "promptVi": "Vì sao Thảo và Mai đến cửa hàng thủ công?",
+        "options": [
+          "To have their old clothes changed into new styles",
+          "To sell their old clothes",
+          "To buy a new denim jacket",
+          "To learn how to sew"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai bạn mang quần áo cũ đến để nhờ nhuộm, thêu và sửa lại."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Thao want to do with her mum's jacket?",
+        "promptVi": "Thảo muốn làm gì với chiếc áo khoác của mẹ?",
+        "options": [
+          "Have it dyed dark blue",
+          "Have it shortened",
+          "Sell it online",
+          "Wear it to a party"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo nói \"I want to have it dyed dark blue.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long will the flowers on the collars take?",
+        "promptVi": "Thêu hoa lên cổ áo mất bao lâu?",
+        "options": [
+          "A week",
+          "Five days",
+          "Two days",
+          "A month"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô Hiền nói \"Every design is done by hand, so it'll take a week.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Hien will shorten the dress herself.",
+        "promptVi": "Cô Hiền sẽ tự lên gấu chiếc váy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói \"We can have it shortened by our tailor next door.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"plain\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Two plain white shirts and a cotton dress.\"",
+        "options": [
+          "trơn, không hoa văn",
+          "cũ kỹ",
+          "đắt tiền",
+          "rộng thùng thình"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Plain = trơn, không có hoa văn hay trang trí."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thể nhờ làm (have / get something done)",
+      "bodyVi": "Thể nhờ làm hay đi với các động từ chỉ mong muốn và đề nghị: want to have it dyed (muốn mang đi nhuộm), would like to have the buttons changed (muốn thay cúc), Could we get this jacket dyed? (nhờ nhuộm được không?). Câu hỏi What would you like to have done? nghĩa là \"Bạn muốn nhờ làm gì?\". Cũng có thể dùng sau can: We can have it shortened by our tailor.",
+      "examples": [
+        "It's a bit boring, so I want to have it dyed dark blue.\"",
+        "What would you like to have done?\"",
+        "Thao asks, \"Could we get this jacket dyed?\""
+      ]
+    },
+    "writingPrompt": "Choose an old piece of clothing you own. What would you like to have done to it to give it a second life?",
+    "sentenceTranslations": [
+      "Thảo và Mai, hai sinh viên đại học ở Hà Nội, mê thời trang nhưng không có nhiều tiền.",
+      "Chiều thứ Bảy, hai bạn gặp nhau ở một cửa hàng đồ thủ công nhỏ trong Phố Cổ với một túi quần áo cũ.",
+      "Mai hỏi: \"Cậu mang gì đến thế?\"",
+      "\"Áo khoác bò cũ của mẹ mình từ những năm 90.",
+      "Hơi nhàm chán, nên mình muốn mang đi nhuộm màu xanh đậm.\"",
+      "\"Ý hay đấy.",
+      "Năm nay màu xanh đậm đang rất mốt.\"",
+      "\"Còn cậu?\"",
+      "\"Hai chiếc sơ mi trắng trơn và một chiếc váy cotton.",
+      "Mình sẽ nhờ thêu hoa lên cổ áo.\"",
+      "Chủ cửa hàng là cô Hiền bước tới.",
+      "\"Chào các cháu.",
+      "Các cháu muốn làm gì nào?\"",
+      "Thảo hỏi: \"Cô nhuộm giúp cháu chiếc áo khoác này được không ạ?\"",
+      "\"Được chứ.",
+      "Mất khoảng năm ngày.",
+      "Cháu có muốn thay cúc luôn không?",
+      "Cô có mấy loại cúc cổ rất đẹp.\"",
+      "\"Có ạ!",
+      "Cúc vàng, nếu cô có.\"",
+      "Mai nói: \"Còn cháu, cô thêu hoa nhỏ lên cổ mấy chiếc áo này được không ạ?",
+      "Mỗi áo một màu khác nhau.\"",
+      "\"Không vấn đề gì.",
+      "Mẫu nào cũng làm bằng tay nên sẽ mất một tuần.\"",
+      "\"Hết bao nhiêu tiền ạ?\"",
+      "\"Thêu hoa thì khoảng một trăm năm mươi nghìn một áo.\"",
+      "Thảo nói: \"Rẻ hơn mua áo mới.\"",
+      "Cô Hiền nói thêm: \"Mà còn tốt cho trái đất hơn nhiều.",
+      "Thời trang tạo ra quá nhiều rác thải.",
+      "Cô muốn thấy quần áo cũ có cuộc đời thứ hai hơn.\"",
+      "\"Còn chiếc váy thì sao ạ?",
+      "Nó dài quá,\" Mai nói.",
+      "\"Cô có thể nhờ ông thợ may bên cạnh lên gấu.",
+      "Ông ấy làm nhanh lắm.\"",
+      "\"Tuyệt quá.",
+      "Thế là cháu có cả tủ đồ mới mà không phải mua gì!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói mình muốn nhờ sửa, nhuộm, thêu quần áo cũ thế nào bằng want / would like / could + have / get + tân ngữ + V3.",
+    "examples": [
+      {
+        "lemma": "fashion",
+        "sentence": "She reads every fashion magazine.",
+        "meaningVi": "Cô ấy đọc mọi tạp chí thời trang."
+      },
+      {
+        "lemma": "craft",
+        "sentence": "Hoi An is famous for its local craft.",
+        "meaningVi": "Hội An nổi tiếng với đồ thủ công địa phương."
+      },
+      {
+        "lemma": "denim",
+        "sentence": "He is wearing a denim shirt today.",
+        "meaningVi": "Hôm nay anh ấy mặc sơ mi bò."
+      },
+      {
+        "lemma": "dye",
+        "sentence": "I want to dye my hair brown.",
+        "meaningVi": "Tôi muốn nhuộm tóc màu nâu."
+      },
+      {
+        "lemma": "plain",
+        "sentence": "I prefer a plain shirt to a striped one.",
+        "meaningVi": "Tôi thích áo trơn hơn áo kẻ sọc."
+      },
+      {
+        "lemma": "cotton",
+        "sentence": "This shirt is made of cotton.",
+        "meaningVi": "Chiếc áo này làm bằng vải cotton."
+      },
+      {
+        "lemma": "collar",
+        "sentence": "The collar of this shirt is too tight.",
+        "meaningVi": "Cổ chiếc áo này chật quá."
+      },
+      {
+        "lemma": "button",
+        "sentence": "A button fell off my coat.",
+        "meaningVi": "Một chiếc cúc rơi khỏi áo khoác của tôi."
+      },
+      {
+        "lemma": "waste",
+        "sentence": "We should reduce plastic waste.",
+        "meaningVi": "Chúng ta nên giảm rác thải nhựa."
+      },
+      {
+        "lemma": "wardrobe",
+        "sentence": "My wardrobe is full of old clothes.",
+        "meaningVi": "Tủ quần áo của tôi đầy đồ cũ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ms Hien",
+        "Thao"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hello, Ms Hien. I've come for my denim jacket.",
+          "meaningVi": "Cháu chào cô Hiền. Cháu đến lấy áo khoác bò ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Here it is. We had it dyed twice to get this dark blue.",
+          "meaningVi": "Đây cháu. Cô cho nhuộm hai lần mới được màu xanh đậm này."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow, it looks brand new! And the buttons?",
+          "meaningVi": "Ôi, trông như mới! Còn cúc áo thì sao ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "I had them changed yesterday. Do you like the gold?",
+          "meaningVi": "Hôm qua cô cho thay rồi. Cháu thích màu vàng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I love it. How much do I owe you?",
+          "meaningVi": "Cháu rất thích. Cháu gửi cô bao nhiêu ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Three hundred thousand for everything.",
+          "meaningVi": "Ba trăm nghìn cho tất cả."
+        },
+        {
+          "speaker": 1,
+          "text": "That's fine. Is Mai's order ready too?",
+          "meaningVi": "Được ạ. Đồ của Mai xong chưa cô?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. We're still having the flowers stitched.",
+          "meaningVi": "Chưa. Bọn cô vẫn đang thêu hoa."
+        },
+        {
+          "speaker": 1,
+          "text": "OK, I'll tell her. Can I have my bag repaired next time?",
+          "meaningVi": "Vâng, cháu sẽ báo bạn ấy. Lần sau cháu mang túi đến sửa được không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Bring it whenever you like.",
+          "meaningVi": "Tất nhiên. Lúc nào cũng được."
+        }
+      ]
+    },
+    "grammarTipVi": "have + tân ngữ + V3: We had it dyed twice / I had them changed yesterday / We're still having the flowers stitched / Can I have my bag repaired?",
+    "translations": [
+      {
+        "vi": "Mình muốn mang nó đi nhuộm xanh đậm.",
+        "en": "I want to have it dyed dark blue.",
+        "distractors": [
+          "dyeing",
+          "red",
+          "myself"
+        ]
+      },
+      {
+        "vi": "Cháu có muốn thay cúc luôn không?",
+        "en": "Would you like to have the buttons changed too?",
+        "distractors": [
+          "button",
+          "changing",
+          "did"
+        ]
+      },
+      {
+        "vi": "Thời trang tạo ra quá nhiều rác thải.",
+        "en": "Fashion creates so much waste.",
+        "distractors": [
+          "fashions",
+          "little",
+          "creating"
+        ]
+      },
+      {
+        "vi": "Thế là mình có cả tủ đồ mới mà không phải mua gì!",
+        "en": "Then I'll have a whole new wardrobe without buying anything!",
+        "distractors": [
+          "wardrobes",
+          "with",
+          "selling"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thảo quay lại cửa hàng để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Lấy áo khoác đã nhuộm",
+          "Mua áo khoác mới",
+          "Học nhuộm vải"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo nói \"I've come for my denim jacket.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Áo được nhuộm mấy lần?",
+        "promptVi": "",
+        "options": [
+          "Hai lần",
+          "Một lần",
+          "Ba lần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô Hiền nói \"We had it dyed twice.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thảo phải trả bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Ba trăm nghìn",
+          "Một trăm năm mươi nghìn",
+          "Năm trăm nghìn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô Hiền nói \"Three hundred thousand for everything.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai's shirts are ready.",
+        "promptVi": "Áo của Mai đã xong.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô Hiền nói \"Not yet. We're still having the flowers stitched.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Mỗi bạn mang gì đến cửa hàng và muốn nhờ làm gì? Cô Hiền nghĩ gì về việc dùng lại quần áo cũ?",
+    "grammarStep": {
+      "titleVi": "Thể nhờ làm (have / get something done)",
+      "noticing": [
+        {
+          "sentence": "It's a bit boring, so I want to have it dyed dark blue.\"",
+          "highlights": [
+            "have it dyed"
+          ]
+        },
+        {
+          "sentence": "What would you like to have done?\"",
+          "highlights": [
+            "have done"
+          ]
+        },
+        {
+          "sentence": "Would you like to have the buttons changed too?",
+          "highlights": [
+            "have the buttons changed"
+          ]
+        },
+        {
+          "sentence": "\"We can have it shortened by our tailor next door.",
+          "highlights": [
+            "have it shortened by"
+          ]
+        }
+      ],
+      "questionVi": "Thảo muốn nhờ cô Hiền nhuộm áo. Câu nào đúng?",
+      "options": [
+        "Could we get this jacket dyed?",
+        "Could we get dyed this jacket?",
+        "Could we get this jacket dye?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "get + tân ngữ (this jacket) + V3 (dyed).",
+      "whenVi": "Dùng sau want to / would like to / could / can để nói mong muốn hoặc đề nghị nhờ người khác làm một việc.",
+      "table": [
+        {
+          "subject": "mong muốn",
+          "form": "I want to have it dyed. / Would you like to have the buttons changed?",
+          "negative": "I don't want to have it cut."
+        },
+        {
+          "subject": "đề nghị, hỏi",
+          "form": "Could we get this jacket dyed? / Can I have flowers stitched?",
+          "negative": "Could / Can + chủ ngữ + get / have + tân ngữ + V3?"
+        },
+        {
+          "subject": "hỏi muốn làm gì",
+          "form": "What would you like to have done?",
+          "negative": "done là V3 của do."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I want to have dyed it dark blue.",
+          "right": "I want to have it dyed dark blue."
+        },
+        {
+          "wrong": "What would you like to have do?",
+          "right": "What would you like to have done?"
+        }
+      ],
+      "noteVi": "Câu bị động thường: Every design is done by hand. Ở đây không có have / get vì không nói ai nhờ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "Would you like to have the buttons ___ (change) too?",
+          "answers": [
+            "changed"
+          ],
+          "explanationVi": "have + tân ngữ + V3: changed."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Could we ___ this jacket dyed?",
+          "options": [
+            "get",
+            "getting",
+            "got",
+            "to get"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau could dùng động từ nguyên mẫu: get."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We can have shortened it by our tailor.",
+          "sentence": "We can have it shortened by our tailor.",
+          "explanationVi": "Tân ngữ (it) đứng trước V3: have it shortened."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mình muốn mang nó đi nhuộm xanh đậm.",
+          "sentence": "I want to have it dyed dark blue.",
+          "words": [
+            "I",
+            "want",
+            "to",
+            "have",
+            "it",
+            "dyed",
+            "dark",
+            "blue.",
+            "dye"
+          ],
+          "explanationVi": "have + it + dyed; từ \"dye\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It's a bit boring, so I want to have it dyed dark blue.\"",
+        "tipVi": "dyed /daɪd/; nối âm \"have it\"."
+      },
+      {
+        "text": "\"Fashion creates so much waste.",
+        "tipVi": "Fashion /ˈfæʃn/; waste /weɪst/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you ever buy second-hand clothes? Why or why not?",
+        "questionVi": "Bạn có bao giờ mua quần áo cũ không? Vì sao?",
+        "frame": "I ___ because ___."
+      },
+      {
+        "question": "What would you like to have done to your old clothes?",
+        "questionVi": "Bạn muốn nhờ làm gì với quần áo cũ của mình?",
+        "frame": "I'd like to have my ___ ___."
+      },
+      {
+        "question": "How can we reduce waste from fashion?",
+        "questionVi": "Chúng ta có thể giảm rác thải từ thời trang bằng cách nào?",
+        "frame": "We can ___ instead of ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với have / get + tân ngữ + V3",
+      "anyOf": [
+        "have",
+        "had",
+        "having",
+        "get",
+        "got",
+        "getting"
+      ],
+      "outlineVi": [
+        "Món đồ cũ là gì, vì sao bạn không mặc nữa.",
+        "Bạn muốn nhờ làm gì (I want to have it dyed / shortened …).",
+        "Bạn sẽ mặc nó vào dịp nào."
+      ],
+      "modelAnswer": "I have an old pair of jeans that I never wear because they are too long and a bit boring. I would like to have them shortened to make them into summer shorts. I also want to get some small flowers stitched on the pockets. After that, I will wear them to the beach with a plain white T-shirt. It is cheaper and better for the planet than buying new ones."
+    }
+  },
+  "glosses": [
+    {
+      "text": "trendy",
+      "lemma": "trendy",
+      "meaningVi": "hợp mốt",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "Dark blue is very trendy.",
+      "phraseVi": "Màu xanh đậm đang rất mốt."
+    },
+    {
+      "text": "stitched",
+      "lemma": "stitch",
+      "meaningVi": "khâu, thêu",
+      "sentenceIndex": 9,
+      "pos": "verb",
+      "phrase": "flowers stitched on the collars",
+      "phraseVi": "hoa thêu trên cổ áo"
+    },
+    {
+      "text": "vintage",
+      "lemma": "vintage",
+      "meaningVi": "cổ điển, đồ cũ có giá trị",
+      "sentenceIndex": 17,
+      "pos": "adjective",
+      "phrase": "lovely vintage ones",
+      "phraseVi": "những chiếc cúc cổ rất đẹp"
+    },
+    {
+      "text": "second life",
+      "lemma": "second life",
+      "meaningVi": "cuộc đời thứ hai",
+      "sentenceIndex": 29,
+      "pos": "phrase",
+      "phrase": "old clothes get a second life",
+      "phraseVi": "quần áo cũ có cuộc đời thứ hai"
+    }
+  ]
+}

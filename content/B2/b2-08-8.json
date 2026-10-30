@@ -1,0 +1,602 @@
+{
+  "content": "Huong, a TV presenter in Da Nang, has been chosen to host the city's music awards next month. This afternoon she is meeting her assistant, Tram, to plan her look for the evening.\n\nTram asks, \"So, have you decided on a dress?\"\n\"Yes. I'm having an evening dress designed by Le Vy, a young local designer. I love her work.\"\n\"Wonderful! What colour?\"\n\"Deep green velvet. It'll be long, with a simple, elegant shape.\"\n\"Velvet? Won't it be hot under the stage lights?\"\n\"Maybe. That's why I'm having the sleeves made from lace. It'll be cooler.\"\n\"Smart. When is the first fitting?\"\n\"Next Tuesday. I'll have the final changes made the week before the show.\"\n\"What about accessories?\"\n\"Just small gold earrings and a little handbag. I don't want anything too heavy.\"\n\"And your nails? Will you have them done at the salon near the studio?\"\n\"Yes, on the morning of the show. I'm having them painted gold to match the earrings.\"\n\"Should I book your hair and makeup too?\"\n\"Please. I want to have my hair done at three, and my makeup at four.\"\n\"Got it. The car will pick you up at half past five.\"\n\"Perfect. Oh, and can you have my old dress cleaned? I wore it at last year's awards, and I want to lend it to my cousin.\"\n\"No problem. I'll take it to the dry-cleaner's tomorrow.\"\n\"Thank you, Tram. I don't know what I'd do without you.\"\n\"You'd probably go on stage in jeans!\"\nHuong laughs. \"Probably!\"",
+  "targetWords": [
+    "presenter",
+    "host",
+    "assistant",
+    "designer",
+    "elegant",
+    "shape",
+    "accessory",
+    "earring",
+    "handbag",
+    "lend"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "presenter",
+        "lemma": "presenter",
+        "meaningVi": "người dẫn chương trình",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "host",
+        "lemma": "host",
+        "meaningVi": "dẫn (chương trình)",
+        "pos": "verb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "assistant",
+        "lemma": "assistant",
+        "meaningVi": "trợ lý",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "designer",
+        "lemma": "designer",
+        "meaningVi": "nhà thiết kế",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "elegant",
+        "lemma": "elegant",
+        "meaningVi": "thanh lịch",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "shape",
+        "lemma": "shape",
+        "meaningVi": "dáng, hình dáng",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "accessories",
+        "lemma": "accessory",
+        "meaningVi": "phụ kiện",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "earrings",
+        "lemma": "earring",
+        "meaningVi": "hoa tai, khuyên tai",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "handbag",
+        "lemma": "handbag",
+        "meaningVi": "túi xách tay",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "lend",
+        "lemma": "lend",
+        "meaningVi": "cho mượn",
+        "pos": "verb",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Huong and Tram doing?",
+        "promptVi": "Hương và Trâm đang làm gì?",
+        "options": [
+          "Planning Huong's look for a music awards night",
+          "Choosing a singer for the awards",
+          "Opening a new salon",
+          "Buying a dress for Tram"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người lên kế hoạch trang phục, tóc, móng cho Hương dẫn lễ trao giải âm nhạc."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What will Huong's evening dress be made of?",
+        "promptVi": "Váy dạ hội của Hương làm bằng chất liệu gì?",
+        "options": [
+          "Green velvet with lace sleeves",
+          "Red silk",
+          "White cotton",
+          "Black leather"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "\"Deep green velvet\" và \"I'm having the sleeves made from lace.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time will Huong have her hair done?",
+        "promptVi": "Hương làm tóc lúc mấy giờ?",
+        "options": [
+          "At three",
+          "At four",
+          "At half past five",
+          "In the morning"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hương nói \"I want to have my hair done at three, and my makeup at four.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Huong wants to wear a lot of heavy jewellery.",
+        "promptVi": "Hương muốn đeo nhiều trang sức nặng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói \"Just small gold earrings … I don't want anything too heavy.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"lend\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I want to lend it to my cousin.\"",
+        "options": [
+          "cho mượn",
+          "bán",
+          "vứt đi",
+          "mượn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lend = cho ai mượn; borrow = mượn của ai."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thể nhờ làm (have / get something done)",
+      "bodyVi": "Bài này dùng thể nhờ làm ở nhiều thì để lên kế hoạch cho một sự kiện: I'm having an evening dress designed by Le Vy (đã đặt). I'll have the final changes made the week before the show (tương lai). Will you have them done at the salon? (câu hỏi). Khi nhờ trợ lý mang đồ đi làm giúp, ta hỏi: can you have my old dress cleaned?",
+      "examples": [
+        "I'm having an evening dress designed by Le Vy, a young local designer.",
+        "I'll have the final changes made the week before the show.\"",
+        "Oh, and can you have my old dress cleaned?"
+      ]
+    },
+    "writingPrompt": "Imagine you are going to a big event (an awards night, a wedding, a graduation). Plan your look. Use have / get something done.",
+    "sentenceTranslations": [
+      "Hương, một người dẫn chương trình truyền hình ở Đà Nẵng, đã được chọn dẫn lễ trao giải âm nhạc của thành phố vào tháng sau.",
+      "Chiều nay cô gặp trợ lý là Trâm để lên kế hoạch trang phục cho buổi tối hôm đó.",
+      "Trâm hỏi: \"Thế chị chọn được váy chưa?\"",
+      "\"Rồi.",
+      "Chị đang đặt Lê Vy, một nhà thiết kế trẻ ở địa phương, thiết kế một chiếc váy dạ hội.",
+      "Chị rất thích các thiết kế của cô ấy.\"",
+      "\"Tuyệt quá!",
+      "Màu gì ạ?\"",
+      "\"Nhung xanh lá đậm.",
+      "Váy dài, dáng đơn giản, thanh lịch.\"",
+      "\"Nhung ạ?",
+      "Dưới đèn sân khấu chị không nóng à?\"",
+      "\"Có thể.",
+      "Vì thế chị nhờ làm tay áo bằng ren.",
+      "Sẽ mát hơn.\"",
+      "\"Khéo thật.",
+      "Khi nào thử lần đầu ạ?\"",
+      "\"Thứ Ba tới.",
+      "Tuần trước buổi diễn chị sẽ nhờ chỉnh lần cuối.\"",
+      "\"Còn phụ kiện thì sao?\"",
+      "\"Chỉ đôi hoa tai vàng nhỏ và một chiếc túi xách nhỏ.",
+      "Chị không muốn thứ gì nặng nề.\"",
+      "\"Còn móng tay?",
+      "Chị làm móng ở tiệm gần trường quay à?\"",
+      "\"Ừ, vào sáng hôm diễn.",
+      "Chị sơn móng màu vàng cho hợp với hoa tai.\"",
+      "\"Em có cần đặt lịch làm tóc và trang điểm luôn không?\"",
+      "\"Đặt giúp chị.",
+      "Chị muốn làm tóc lúc ba giờ, trang điểm lúc bốn giờ.\"",
+      "\"Em biết rồi.",
+      "Xe sẽ đón chị lúc năm rưỡi.\"",
+      "\"Tuyệt.",
+      "À, em mang chiếc váy cũ của chị đi giặt giúp được không?",
+      "Chị mặc nó ở lễ trao giải năm ngoái, và chị muốn cho em họ mượn.\"",
+      "\"Không vấn đề gì.",
+      "Mai em mang ra tiệm giặt khô.\"",
+      "\"Cảm ơn Trâm.",
+      "Không có em chị không biết phải làm sao.\"",
+      "\"Chắc chị sẽ mặc quần bò lên sân khấu mất!\"",
+      "Hương bật cười.",
+      "\"Chắc vậy!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể lên kế hoạch trang phục, làm đẹp cho một sự kiện lớn bằng have / get + tân ngữ + V3 ở nhiều thì.",
+    "examples": [
+      {
+        "lemma": "presenter",
+        "sentence": "The presenter introduced the first singer.",
+        "meaningVi": "Người dẫn chương trình giới thiệu ca sĩ đầu tiên."
+      },
+      {
+        "lemma": "host",
+        "sentence": "Which city will host the next games?",
+        "meaningVi": "Thành phố nào sẽ đăng cai đại hội tới?"
+      },
+      {
+        "lemma": "assistant",
+        "sentence": "My assistant will send you the details.",
+        "meaningVi": "Trợ lý của tôi sẽ gửi bạn thông tin chi tiết."
+      },
+      {
+        "lemma": "designer",
+        "sentence": "The designer showed us her new collection.",
+        "meaningVi": "Nhà thiết kế cho chúng tôi xem bộ sưu tập mới của cô ấy."
+      },
+      {
+        "lemma": "elegant",
+        "sentence": "The hotel has an elegant old building.",
+        "meaningVi": "Khách sạn có một toà nhà cổ thanh lịch."
+      },
+      {
+        "lemma": "shape",
+        "sentence": "I love the shape of this vase.",
+        "meaningVi": "Tôi thích dáng của chiếc bình này."
+      },
+      {
+        "lemma": "accessory",
+        "sentence": "A scarf is a useful accessory in winter.",
+        "meaningVi": "Khăn quàng là một phụ kiện hữu ích vào mùa đông."
+      },
+      {
+        "lemma": "earring",
+        "sentence": "She lost an earring at the party.",
+        "meaningVi": "Cô ấy đánh rơi một chiếc hoa tai ở bữa tiệc."
+      },
+      {
+        "lemma": "handbag",
+        "sentence": "Her handbag is full of papers.",
+        "meaningVi": "Túi xách của cô ấy đầy giấy tờ."
+      },
+      {
+        "lemma": "lend",
+        "sentence": "Can you lend me your pen?",
+        "meaningVi": "Bạn cho tôi mượn bút được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Le Vy",
+        "Huong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Welcome, Huong. Your dress is ready for the first fitting.",
+          "meaningVi": "Chào chị Hương. Váy đã sẵn sàng để thử lần đầu."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh, the green is even deeper than I imagined!",
+          "meaningVi": "Ôi, màu xanh còn đậm hơn chị tưởng!"
+        },
+        {
+          "speaker": 0,
+          "text": "Do you like it? I had the velvet sent from Hanoi.",
+          "meaningVi": "Chị thích không? Em cho gửi nhung từ Hà Nội vào đấy."
+        },
+        {
+          "speaker": 1,
+          "text": "I love it. But the lace sleeves feel a bit long.",
+          "meaningVi": "Chị rất thích. Nhưng tay áo ren hơi dài."
+        },
+        {
+          "speaker": 0,
+          "text": "No problem. I'll have them shortened by two centimetres.",
+          "meaningVi": "Không sao. Em sẽ cho cắt ngắn hai phân."
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks. Could you have a small pocket added too?",
+          "meaningVi": "Cảm ơn em. Em cho thêm một túi nhỏ được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "A pocket? For your phone?",
+          "meaningVi": "Túi ạ? Để đựng điện thoại à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, for my notes. I don't want to carry a handbag on stage.",
+          "meaningVi": "Không, để đựng giấy ghi chú. Chị không muốn cầm túi xách lên sân khấu."
+        },
+        {
+          "speaker": 0,
+          "text": "Smart idea. You'll have everything done by next Tuesday.",
+          "meaningVi": "Ý hay. Thứ Ba tới mọi thứ sẽ xong."
+        },
+        {
+          "speaker": 1,
+          "text": "Perfect. I can't wait to wear it.",
+          "meaningVi": "Tuyệt. Chị nóng lòng được mặc nó quá."
+        }
+      ]
+    },
+    "grammarTipVi": "have + tân ngữ + V3: I had the velvet sent from Hanoi / I'll have them shortened / Could you have a small pocket added? / You'll have everything done.",
+    "translations": [
+      {
+        "vi": "Chị đang đặt một nhà thiết kế địa phương thiết kế váy dạ hội.",
+        "en": "I'm having an evening dress designed by a local designer.",
+        "distractors": [
+          "designing",
+          "foreign",
+          "had"
+        ]
+      },
+      {
+        "vi": "Váy dài, dáng đơn giản, thanh lịch.",
+        "en": "It'll be long, with a simple, elegant shape.",
+        "distractors": [
+          "shapes",
+          "short",
+          "elegantly"
+        ]
+      },
+      {
+        "vi": "Chỉ đôi hoa tai vàng nhỏ và một chiếc túi xách nhỏ.",
+        "en": "Just small gold earrings and a little handbag.",
+        "distractors": [
+          "silver",
+          "big",
+          "handbags"
+        ]
+      },
+      {
+        "vi": "Chị muốn cho em họ mượn.",
+        "en": "I want to lend it to my cousin.",
+        "distractors": [
+          "borrow",
+          "sister",
+          "lent"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hương đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Thử váy dạ hội lần đầu",
+          "Mua túi xách",
+          "Dẫn lễ trao giải"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lê Vy nói \"Your dress is ready for the first fitting.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vải nhung được gửi từ đâu?",
+        "promptVi": "",
+        "options": [
+          "Hà Nội",
+          "Đà Lạt",
+          "Nhật Bản"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lê Vy nói \"I had the velvet sent from Hanoi.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Hương muốn thêm túi nhỏ?",
+        "promptVi": "",
+        "options": [
+          "Để đựng giấy ghi chú",
+          "Để đựng điện thoại",
+          "Để đựng son"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hương nói \"No, for my notes.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The lace sleeves are too short.",
+        "promptVi": "Tay áo ren quá ngắn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hương nói \"the lace sleeves feel a bit long.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Hương nhờ người khác làm những gì để chuẩn bị cho lễ trao giải? Việc nào vào lúc nào?",
+    "grammarStep": {
+      "titleVi": "Thể nhờ làm (have / get something done)",
+      "noticing": [
+        {
+          "sentence": "I'm having an evening dress designed by Le Vy, a young local designer.",
+          "highlights": [
+            "having an evening dress designed by"
+          ]
+        },
+        {
+          "sentence": "That's why I'm having the sleeves made from lace.",
+          "highlights": [
+            "having the sleeves made"
+          ]
+        },
+        {
+          "sentence": "I'll have the final changes made the week before the show.\"",
+          "highlights": [
+            "have the final changes made"
+          ]
+        },
+        {
+          "sentence": "Oh, and can you have my old dress cleaned?",
+          "highlights": [
+            "have my old dress cleaned"
+          ]
+        }
+      ],
+      "questionVi": "Hương sẽ nhờ thợ làm tóc lúc ba giờ. Câu nào đúng?",
+      "options": [
+        "I want to have my hair done at three.",
+        "I want to have done my hair at three.",
+        "I want to do have my hair at three."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "have + tân ngữ (my hair) + V3 (done).",
+      "whenVi": "Dùng thể nhờ làm ở các thì khác nhau để nói việc đã đặt (I'm having …), sẽ làm (I'll have …) hoặc nhờ ai sắp xếp giúp (can you have … V3?).",
+      "table": [
+        {
+          "subject": "đã đặt, đang làm",
+          "form": "I'm having an evening dress designed.",
+          "negative": "I'm not having it made in red."
+        },
+        {
+          "subject": "tương lai",
+          "form": "I'll have the final changes made.",
+          "negative": "I won't have them painted red."
+        },
+        {
+          "subject": "nhờ ai sắp xếp",
+          "form": "Can you have my old dress cleaned?",
+          "negative": "Người được hỏi sẽ mang đồ đi cho người khác làm."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'm having designed an evening dress.",
+          "right": "I'm having an evening dress designed."
+        },
+        {
+          "wrong": "I'm having them paint gold.",
+          "right": "I'm having them painted gold."
+        }
+      ],
+      "noteVi": "Câu bị động thường: Huong has been chosen to host the awards. Ở đây không có have / get vì không ai nhờ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "I'm having the sleeves ___ (make) from lace.",
+          "answers": [
+            "made"
+          ],
+          "explanationVi": "having + tân ngữ + V3: made."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Will you have your nails ___ at the salon?",
+          "options": [
+            "done",
+            "do",
+            "doing",
+            "did"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "have + tân ngữ + V3: done."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Can you have my old dress clean?",
+          "sentence": "Can you have my old dress cleaned?",
+          "explanationVi": "Sau have + tân ngữ dùng V3: cleaned."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chị sẽ sơn móng màu vàng.",
+          "sentence": "I'm having them painted gold.",
+          "words": [
+            "I'm",
+            "having",
+            "them",
+            "painted",
+            "gold.",
+            "paint"
+          ],
+          "explanationVi": "having + them + painted; từ \"paint\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I'm having an evening dress designed by Le Vy, a young local designer.",
+        "tipVi": "designed /dɪˈzaɪnd/; evening /ˈiːvnɪŋ/."
+      },
+      {
+        "text": "I want to have my hair done at three, and my makeup at four.\"",
+        "tipVi": "done /dʌn/; ngắt hơi sau three."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What would you wear to an awards night?",
+        "questionVi": "Bạn sẽ mặc gì đến một lễ trao giải?",
+        "frame": "I would wear ___ with ___."
+      },
+      {
+        "question": "Before a big event, what do you have done?",
+        "questionVi": "Trước một sự kiện lớn, bạn nhờ làm những gì?",
+        "frame": "I usually have my ___ done and ___."
+      },
+      {
+        "question": "Do you prefer simple or colourful accessories?",
+        "questionVi": "Bạn thích phụ kiện đơn giản hay nhiều màu sắc?",
+        "frame": "I prefer ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với have / get + tân ngữ + V3",
+      "anyOf": [
+        "have",
+        "had",
+        "having",
+        "get",
+        "got",
+        "getting"
+      ],
+      "outlineVi": [
+        "Sự kiện là gì, khi nào.",
+        "Trang phục: bạn đặt may hay sửa gì (I'm having … made / I'll have … changed).",
+        "Tóc, móng, phụ kiện vào ngày hôm đó."
+      ],
+      "modelAnswer": "My graduation ceremony is next month, and I want to look elegant. I'm having a light blue ao dai made by a tailor near my house. I'll have the final changes made a week before the ceremony. On the morning of the day, I'm going to have my hair done at a small salon, and I'll get my nails painted the evening before. I will only wear small silver earrings."
+    }
+  },
+  "glosses": [
+    {
+      "text": "velvet",
+      "lemma": "velvet",
+      "meaningVi": "nhung",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "deep green velvet",
+      "phraseVi": "nhung xanh lá đậm"
+    },
+    {
+      "text": "lace",
+      "lemma": "lace",
+      "meaningVi": "ren",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "the sleeves made from lace",
+      "phraseVi": "tay áo làm bằng ren"
+    },
+    {
+      "text": "salon",
+      "lemma": "salon",
+      "meaningVi": "tiệm làm đẹp",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "the salon near the studio",
+      "phraseVi": "tiệm làm đẹp gần trường quay"
+    },
+    {
+      "text": "dry-cleaner's",
+      "lemma": "dry-cleaner",
+      "meaningVi": "tiệm giặt khô",
+      "sentenceIndex": 35,
+      "pos": "noun",
+      "phrase": "take it to the dry-cleaner's",
+      "phraseVi": "mang ra tiệm giặt khô"
+    }
+  ]
+}

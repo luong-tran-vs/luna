@@ -1,0 +1,611 @@
+{
+  "content": "Mr Danh runs a coffee export company in Buon Ma Thuot. Next month, he will travel to a big trade fair in Germany, so he has come to an old tailor's shop in Hanoi to have a suit made.\n\n\"Good morning,\" says the tailor, Mr Bay. \"What can I do for you?\"\n\"I'd like to have a suit made for a trade fair in Germany. It's my first time in Europe.\"\n\"Excellent. For Germany in March, I recommend wool. It's warm but not too heavy.\"\n\"Sounds good. How does the process work?\"\n\"First, I'll take your measurements. Then you choose the fabric and the style. After that, you come back twice to have the suit fitted.\"\n\"Twice? I thought once would be enough.\"\n\"For a suit made from the beginning, I always need two fittings. Every body is different.\"\nMr Bay measures his shoulders, arms and waist. \"Would you like the jacket with two buttons or three?\"\n\"Two, please. And can I have my name sewn inside the jacket?\"\n\"Of course. Many customers have their names sewn inside.\"\n\"How long will it take?\"\n\"About three weeks. When is your flight?\"\n\"On the twentieth of next month.\"\n\"No problem. You'll have it by the tenth.\"\n\"Great. I also need to get my shoes cleaned and polished. Do you know anywhere nearby?\"\n\"There's a man who cleans shoes outside the post office. He's the best in Hanoi.\"\n\"Thank you. One more question: how much will the suit cost?\"\n\"Around eight million dong, depending on the fabric.\"\n\"That's fine. A good suit is worth it.\"",
+  "targetWords": [
+    "export",
+    "fair",
+    "wool",
+    "process",
+    "measurement",
+    "fabric",
+    "waist",
+    "flight",
+    "polish",
+    "worth"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "export",
+        "lemma": "export",
+        "meaningVi": "xuất khẩu",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "fair",
+        "lemma": "fair",
+        "meaningVi": "hội chợ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "wool",
+        "lemma": "wool",
+        "meaningVi": "len",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "process",
+        "lemma": "process",
+        "meaningVi": "quy trình",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "measurements",
+        "lemma": "measurement",
+        "meaningVi": "số đo",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "fabric",
+        "lemma": "fabric",
+        "meaningVi": "vải",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "waist",
+        "lemma": "waist",
+        "meaningVi": "eo",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "flight",
+        "lemma": "flight",
+        "meaningVi": "chuyến bay",
+        "pos": "noun",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "polished",
+        "lemma": "polish",
+        "meaningVi": "đánh bóng",
+        "pos": "verb",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "worth",
+        "lemma": "worth",
+        "meaningVi": "đáng (giá)",
+        "pos": "adjective",
+        "sentenceIndex": 39
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Why has Mr Danh come to the tailor's shop?",
+        "promptVi": "Vì sao ông Danh đến tiệm may?",
+        "options": [
+          "To have a suit made for a trade fair in Germany",
+          "To sell coffee to the tailor",
+          "To buy a ready-made suit",
+          "To have his shoes polished"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông nói \"I'd like to have a suit made for a trade fair in Germany.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which fabric does Mr Bay recommend?",
+        "promptVi": "Ông Bảy khuyên dùng loại vải nào?",
+        "options": [
+          "Wool",
+          "Silk",
+          "Cotton",
+          "Leather"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Bảy nói \"For Germany in March, I recommend wool.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many fittings does Mr Danh need?",
+        "promptVi": "Ông Danh cần thử đồ mấy lần?",
+        "options": [
+          "Two",
+          "One",
+          "Three",
+          "None"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Bảy nói \"I always need two fittings.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The suit will be ready after Mr Danh's flight.",
+        "promptVi": "Bộ com-lê sẽ xong sau chuyến bay của ông Danh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chuyến bay ngày 20 và ông Bảy nói \"You'll have it by the tenth.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"worth\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"A good suit is worth it.\"",
+        "options": [
+          "đáng giá, đáng tiền",
+          "quá đắt",
+          "khó tìm",
+          "rất nặng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "be worth it = đáng với số tiền hay công sức bỏ ra."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thể nhờ làm (have / get something done)",
+      "bodyVi": "Thể nhờ làm hay dùng với to chỉ mục đích: he has come to an old tailor's shop to have a suit made (đến để đặt may com-lê). you come back twice to have the suit fitted (quay lại để thử và chỉnh). Khi xin phép, ta hỏi: Can I have my name sewn inside the jacket? Lưu ý V3 bất quy tắc: make → made, sew → sewn.",
+      "examples": [
+        "\"I'd like to have a suit made for a trade fair in Germany.",
+        "After that, you come back twice to have the suit fitted.\"",
+        "And can I have my name sewn inside the jacket?\""
+      ]
+    },
+    "writingPrompt": "Imagine you are having something made just for you (clothes, shoes, furniture, a cake). Describe the process. Use have / get something done.",
+    "sentenceTranslations": [
+      "Ông Danh điều hành một công ty xuất khẩu cà phê ở Buôn Ma Thuột.",
+      "Tháng sau ông sẽ đi một hội chợ thương mại lớn ở Đức, nên ông đến một tiệm may lâu năm ở Hà Nội để đặt may com-lê.",
+      "Ông thợ may là ông Bảy nói: \"Chào anh.",
+      "Tôi giúp gì được anh?\"",
+      "\"Tôi muốn đặt may một bộ com-lê để đi hội chợ thương mại ở Đức.",
+      "Đây là lần đầu tôi sang châu Âu.\"",
+      "\"Tuyệt quá.",
+      "Đi Đức vào tháng Ba thì tôi khuyên dùng len.",
+      "Ấm mà không quá nặng.\"",
+      "\"Nghe được đấy.",
+      "Quy trình thế nào ạ?\"",
+      "\"Đầu tiên tôi lấy số đo của anh.",
+      "Sau đó anh chọn vải và kiểu dáng.",
+      "Rồi anh quay lại hai lần để thử và chỉnh com-lê.\"",
+      "\"Hai lần ạ?",
+      "Tôi tưởng một lần là đủ.\"",
+      "\"Com-lê may đo từ đầu thì lúc nào tôi cũng cần thử hai lần.",
+      "Mỗi người một dáng.\"",
+      "Ông Bảy đo vai, tay và eo của ông Danh.",
+      "\"Anh muốn áo hai cúc hay ba cúc?\"",
+      "\"Hai cúc.",
+      "Tôi có thể nhờ thêu tên vào trong áo không?\"",
+      "\"Tất nhiên.",
+      "Nhiều khách thêu tên bên trong.\"",
+      "\"Mất bao lâu ạ?\"",
+      "\"Khoảng ba tuần.",
+      "Khi nào anh bay?\"",
+      "\"Ngày hai mươi tháng sau.\"",
+      "\"Không vấn đề gì.",
+      "Ngày mười anh sẽ có đồ.\"",
+      "\"Tốt quá.",
+      "Tôi cũng cần mang giày đi làm sạch và đánh bóng.",
+      "Gần đây có chỗ nào không ạ?\"",
+      "\"Có một ông đánh giày ngoài bưu điện.",
+      "Ông ấy giỏi nhất Hà Nội.\"",
+      "\"Cảm ơn ông.",
+      "Còn một câu nữa: bộ com-lê hết bao nhiêu tiền?\"",
+      "\"Khoảng tám triệu, tuỳ loại vải.\"",
+      "\"Được ạ.",
+      "Một bộ com-lê tốt thì đáng đồng tiền.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về việc đặt may đồ theo số đo, hỏi quy trình và xin thêm yêu cầu bằng have / get + tân ngữ + V3.",
+    "examples": [
+      {
+        "lemma": "export",
+        "sentence": "Coffee is an important export of Vietnam.",
+        "meaningVi": "Cà phê là một mặt hàng xuất khẩu quan trọng của Việt Nam."
+      },
+      {
+        "lemma": "fair",
+        "sentence": "We met many buyers at the book fair.",
+        "meaningVi": "Chúng tôi gặp nhiều người mua ở hội chợ sách."
+      },
+      {
+        "lemma": "wool",
+        "sentence": "This hat is made of wool.",
+        "meaningVi": "Chiếc mũ này làm bằng len."
+      },
+      {
+        "lemma": "process",
+        "sentence": "Learning a language is a slow process.",
+        "meaningVi": "Học một ngôn ngữ là một quá trình chậm."
+      },
+      {
+        "lemma": "measurement",
+        "sentence": "The tailor wrote down every measurement.",
+        "meaningVi": "Thợ may ghi lại từng số đo."
+      },
+      {
+        "lemma": "fabric",
+        "sentence": "Choose a light fabric for summer.",
+        "meaningVi": "Hãy chọn loại vải nhẹ cho mùa hè."
+      },
+      {
+        "lemma": "waist",
+        "sentence": "These trousers are too big at the waist.",
+        "meaningVi": "Chiếc quần này rộng ở eo."
+      },
+      {
+        "lemma": "flight",
+        "sentence": "Our flight leaves at six in the morning.",
+        "meaningVi": "Chuyến bay của chúng tôi cất cánh lúc sáu giờ sáng."
+      },
+      {
+        "lemma": "polish",
+        "sentence": "He likes to polish his shoes on Sunday.",
+        "meaningVi": "Anh ấy thích đánh giày vào Chủ Nhật."
+      },
+      {
+        "lemma": "worth",
+        "sentence": "The trip was long, but it was worth it.",
+        "meaningVi": "Chuyến đi dài, nhưng rất đáng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Bay",
+        "Mr Danh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Welcome back, Mr Danh. Your suit is ready for the second fitting.",
+          "meaningVi": "Chào anh Danh quay lại. Com-lê đã sẵn sàng cho lần thử thứ hai."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you. Did you have my name sewn inside?",
+          "meaningVi": "Cảm ơn ông. Ông đã cho thêu tên tôi bên trong chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, look. In gold, as you asked.",
+          "meaningVi": "Rồi, anh xem. Chỉ vàng như anh muốn."
+        },
+        {
+          "speaker": 1,
+          "text": "Beautiful. The jacket feels a bit tight here, though.",
+          "meaningVi": "Đẹp quá. Nhưng chỗ này áo hơi chật."
+        },
+        {
+          "speaker": 0,
+          "text": "I see. I'll have it let out a little at the waist.",
+          "meaningVi": "Tôi thấy rồi. Tôi sẽ cho nới ra một chút ở eo."
+        },
+        {
+          "speaker": 1,
+          "text": "And are the trousers the right length?",
+          "meaningVi": "Còn quần có đúng độ dài không ông?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, they're perfect. Shall I have the suit delivered to your hotel?",
+          "meaningVi": "Đúng rồi, rất vừa. Tôi cho người mang đến khách sạn cho anh nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "That would be very helpful. I fly on the twentieth.",
+          "meaningVi": "Thế thì tiện quá. Ngày hai mươi tôi bay."
+        },
+        {
+          "speaker": 0,
+          "text": "You'll have it by the tenth, as I promised.",
+          "meaningVi": "Ngày mười anh sẽ có, như tôi đã hứa."
+        },
+        {
+          "speaker": 1,
+          "text": "Excellent. I'll recommend your shop to my colleagues.",
+          "meaningVi": "Tuyệt. Tôi sẽ giới thiệu tiệm của ông cho đồng nghiệp."
+        }
+      ]
+    },
+    "grammarTipVi": "have + tân ngữ + V3: Did you have my name sewn inside? / I'll have it let out a little / Shall I have the suit delivered?",
+    "translations": [
+      {
+        "vi": "Tôi muốn đặt may một bộ com-lê để đi hội chợ.",
+        "en": "I'd like to have a suit made for a trade fair.",
+        "distractors": [
+          "make",
+          "fairs",
+          "shirt"
+        ]
+      },
+      {
+        "vi": "Đi Đức vào tháng Ba thì tôi khuyên dùng len.",
+        "en": "For Germany in March, I recommend wool.",
+        "distractors": [
+          "cotton",
+          "May",
+          "recommends"
+        ]
+      },
+      {
+        "vi": "Khi nào anh bay?",
+        "en": "When is your flight?",
+        "distractors": [
+          "flights",
+          "where",
+          "was"
+        ]
+      },
+      {
+        "vi": "Một bộ com-lê tốt thì đáng đồng tiền.",
+        "en": "A good suit is worth it.",
+        "distractors": [
+          "worthy",
+          "bad",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ông Danh quay lại tiệm để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Thử com-lê lần hai",
+          "Chọn vải",
+          "Trả lại com-lê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Bảy nói \"Your suit is ready for the second fitting.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tên ông Danh được thêu bằng chỉ màu gì?",
+        "promptVi": "",
+        "options": [
+          "Vàng",
+          "Trắng",
+          "Đen"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Bảy nói \"In gold, as you asked.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Áo cần sửa ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở eo",
+          "Ở vai",
+          "Ở tay áo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Bảy nói \"I'll have it let out a little at the waist.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Danh will collect the suit from the shop.",
+        "promptVi": "Ông Danh sẽ tự đến tiệm lấy com-lê.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông Bảy đề nghị mang đến khách sạn và ông Danh đồng ý.",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Quy trình may một bộ com-lê đo người gồm những bước nào? Ông Danh nhờ làm thêm những gì?",
+    "grammarStep": {
+      "titleVi": "Thể nhờ làm (have / get something done)",
+      "noticing": [
+        {
+          "sentence": "Next month, he will travel to a big trade fair in Germany, so he has come to an old tailor's shop in Hanoi to have a suit made.",
+          "highlights": [
+            "to have a suit made"
+          ]
+        },
+        {
+          "sentence": "After that, you come back twice to have the suit fitted.\"",
+          "highlights": [
+            "to have the suit fitted"
+          ]
+        },
+        {
+          "sentence": "And can I have my name sewn inside the jacket?\"",
+          "highlights": [
+            "have my name sewn"
+          ]
+        },
+        {
+          "sentence": "I also need to get my shoes cleaned and polished.",
+          "highlights": [
+            "get my shoes cleaned and polished"
+          ]
+        }
+      ],
+      "questionVi": "Ông Danh muốn nhờ thêu tên vào trong áo. Câu nào đúng?",
+      "options": [
+        "Can I have my name sewn inside the jacket?",
+        "Can I have my name sewed inside the jacket?",
+        "Can I have sewn my name inside the jacket?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "sew có V3 là sewn; tân ngữ (my name) đứng trước V3.",
+      "whenVi": "Dùng to have / to get + tân ngữ + V3 để nói mục đích; dùng Can I have … V3? để xin thêm một yêu cầu.",
+      "table": [
+        {
+          "subject": "mục đích",
+          "form": "He has come to have a suit made.",
+          "negative": "to + have / get + tân ngữ + V3"
+        },
+        {
+          "subject": "xin yêu cầu",
+          "form": "Can I have my name sewn inside?",
+          "negative": "Can / Could I have … V3?"
+        },
+        {
+          "subject": "hai V3 nối bằng and",
+          "form": "I need to get my shoes cleaned and polished.",
+          "negative": "Không lặp lại get."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He came to make a suit at the tailor's.",
+          "right": "He came to have a suit made at the tailor's."
+        },
+        {
+          "wrong": "Can I have my name sew inside?",
+          "right": "Can I have my name sewn inside?"
+        }
+      ],
+      "noteVi": "Câu \"He came to make a suit\" nghĩa là ông tự may. Muốn nói nhờ thợ may thì dùng have a suit made.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "You come back twice to have the suit ___ (fit).",
+          "answers": [
+            "fitted"
+          ],
+          "explanationVi": "have + tân ngữ + V3: fitted."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Many customers have their names ___ inside.",
+          "options": [
+            "sewn",
+            "sew",
+            "sewing",
+            "to sew"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "have + tân ngữ + V3: sewn."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I need to get cleaned my shoes.",
+          "sentence": "I need to get my shoes cleaned.",
+          "explanationVi": "Tân ngữ (my shoes) đứng trước V3: get my shoes cleaned."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi muốn đặt may một bộ com-lê.",
+          "sentence": "I'd like to have a suit made.",
+          "words": [
+            "I'd",
+            "like",
+            "to",
+            "have",
+            "a",
+            "suit",
+            "made.",
+            "make"
+          ],
+          "explanationVi": "have + a suit + made; từ \"make\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"I'd like to have a suit made for a trade fair in Germany.",
+        "tipVi": "suit /suːt/; fair /feə/."
+      },
+      {
+        "text": "\"First, I'll take your measurements.",
+        "tipVi": "measurements /ˈmeʒəmənts/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever had clothes made by a tailor?",
+        "questionVi": "Bạn đã bao giờ đặt thợ may quần áo chưa?",
+        "frame": "Yes, I had ___ made ___. / No, I usually ___."
+      },
+      {
+        "question": "Do you prefer ready-made clothes or clothes made for you? Why?",
+        "questionVi": "Bạn thích quần áo may sẵn hay may đo hơn? Vì sao?",
+        "frame": "I prefer ___ because ___."
+      },
+      {
+        "question": "What would you wear to an important meeting abroad?",
+        "questionVi": "Bạn sẽ mặc gì khi đi họp quan trọng ở nước ngoài?",
+        "frame": "I would wear ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với have / get + tân ngữ + V3",
+      "anyOf": [
+        "have",
+        "had",
+        "having",
+        "get",
+        "got"
+      ],
+      "outlineVi": [
+        "Bạn đặt làm món gì, cho dịp nào.",
+        "Các bước: lấy số đo, chọn vật liệu, thử (I had … measured / made / changed).",
+        "Giá và cảm nhận của bạn."
+      ],
+      "modelAnswer": "For my graduation, I decided to have an ao dai made at a small shop in Hue. First, the tailor took my measurements. Then I chose a light blue silk. A week later, I went back to have it fitted, and I had the sleeves shortened a little. I also had my initials sewn inside. It cost one million dong, but it was worth it."
+    }
+  },
+  "glosses": [
+    {
+      "text": "sewn",
+      "lemma": "sew",
+      "meaningVi": "khâu, thêu (V3 của sew)",
+      "sentenceIndex": 21,
+      "pos": "verb",
+      "phrase": "have my name sewn inside",
+      "phraseVi": "nhờ thêu tên vào bên trong"
+    },
+    {
+      "text": "trade fair",
+      "lemma": "trade fair",
+      "meaningVi": "hội chợ thương mại",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a big trade fair in Germany",
+      "phraseVi": "một hội chợ thương mại lớn ở Đức"
+    },
+    {
+      "text": "tailor's",
+      "lemma": "tailor",
+      "meaningVi": "tiệm may",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "an old tailor's shop",
+      "phraseVi": "một tiệm may lâu năm"
+    },
+    {
+      "text": "fittings",
+      "lemma": "fitting",
+      "meaningVi": "lần thử đồ",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "two fittings",
+      "phraseVi": "hai lần thử đồ"
+    },
+    {
+      "text": "depending on",
+      "lemma": "depend on",
+      "meaningVi": "tuỳ vào",
+      "sentenceIndex": 37,
+      "pos": "phrase",
+      "phrase": "depending on the fabric",
+      "phraseVi": "tuỳ loại vải"
+    }
+  ]
+}

@@ -1,0 +1,597 @@
+{
+  "content": "In early December, Dao is getting ready for a holiday in Sapa with her husband and their two children. She has heard that it can be very cold in the mountains, so she is talking to her neighbour, Mrs Hoa, who visited Sapa last winter.\n\nDao asks, \"How cold was it?\"\n\"Freezing! One morning it was only two degrees. You'll need warm coats, hats and good boots.\"\n\"We have winter coats, but we haven't worn them for years. They smell a bit.\"\n\"Then get them dry-cleaned. There's a good shop near the market. I had my coat cleaned there before my trip, and it came back like new.\"\n\"How long does it take?\"\n\"Usually three days. But if you pay a little more, you can have them done in one day.\"\n\"Good. We leave on Friday. What about boots? My leather boots have a broken zip.\"\n\"You can get the zip repaired at the shoe stall on Tran Phu Street. The man there fixes everything.\"\n\"Will it be expensive?\"\n\"Not at all. I had a new zip put in for eighty thousand dong.\"\n\"That's cheap. My son's boots are too small, though. He's grown so much this year.\"\n\"Then you'll have to buy new ones. Don't wait until Sapa. Prices are higher there.\"\n\"Thanks. Anything else?\"\n\"Take gloves for the children. And have your photos printed when you come back. The views are amazing.\"\nDao laughs. \"I will. I'll bring you back some Sapa tea.\"\n\"Lovely. Have a wonderful trip.\"",
+  "targetWords": [
+    "neighbour",
+    "freezing",
+    "degree",
+    "coat",
+    "smell",
+    "leather",
+    "zip",
+    "repair",
+    "stall",
+    "glove"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "neighbour",
+        "lemma": "neighbour",
+        "meaningVi": "hàng xóm",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "Freezing",
+        "lemma": "freezing",
+        "meaningVi": "rét cóng",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "degrees",
+        "lemma": "degree",
+        "meaningVi": "độ (nhiệt độ)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "coats",
+        "lemma": "coat",
+        "meaningVi": "áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "smell",
+        "lemma": "smell",
+        "meaningVi": "có mùi",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "leather",
+        "lemma": "leather",
+        "meaningVi": "da (thuộc)",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "zip",
+        "lemma": "zip",
+        "meaningVi": "khoá kéo",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "repaired",
+        "lemma": "repair",
+        "meaningVi": "sửa chữa",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "stall",
+        "lemma": "stall",
+        "meaningVi": "quầy, sạp hàng",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "gloves",
+        "lemma": "glove",
+        "meaningVi": "găng tay",
+        "pos": "noun",
+        "sentenceIndex": 31
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Dao and Mrs Hoa talking about?",
+        "promptVi": "Đào và bà Hoa đang nói về chuyện gì?",
+        "options": [
+          "Getting warm clothes ready for a trip to Sapa",
+          "Buying a house in Sapa",
+          "The weather in Hanoi",
+          "Mrs Hoa's new boots"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Hoa khuyên Đào chuẩn bị quần áo ấm, giày bốt trước khi đi Sa Pa."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is wrong with Dao's leather boots?",
+        "promptVi": "Đôi bốt da của Đào bị làm sao?",
+        "options": [
+          "The zip is broken.",
+          "They are too small.",
+          "They are dirty.",
+          "They smell bad."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đào nói \"My leather boots have a broken zip.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much did Mrs Hoa pay for a new zip?",
+        "promptVi": "Bà Hoa trả bao nhiêu để thay khoá kéo mới?",
+        "options": [
+          "80,000 dong",
+          "8,000 dong",
+          "180,000 dong",
+          "800,000 dong"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Hoa nói \"I had a new zip put in for eighty thousand dong.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dao's son can wear his old boots in Sapa.",
+        "promptVi": "Con trai Đào có thể đi đôi bốt cũ ở Sa Pa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"My son's boots are too small\", nên phải mua đôi mới."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"stall\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"You can get the zip repaired at the shoe stall on Tran Phu Street.\"",
+        "options": [
+          "quầy, sạp hàng",
+          "nhà máy",
+          "bến xe",
+          "kho hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Stall = quầy hoặc sạp bán hàng nhỏ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thể nhờ làm (have / get something done)",
+      "bodyVi": "Thể nhờ làm dùng khi khuyên ai đó mang đồ đi sửa, giặt: Then get them dry-cleaned (câu mệnh lệnh). You can get the zip repaired at the shoe stall. Khi kể lại kinh nghiệm, dùng quá khứ: I had my coat cleaned there before my trip. Nếu trả thêm tiền để làm nhanh: you can have them done in one day.",
+      "examples": [
+        "\"Then get them dry-cleaned.",
+        "I had my coat cleaned there before my trip, and it came back like new.\"",
+        "\"You can get the zip repaired at the shoe stall on Tran Phu Street."
+      ]
+    },
+    "writingPrompt": "Give advice to a friend who is going somewhere very cold. What should they buy, and what should they have repaired or cleaned?",
+    "sentenceTranslations": [
+      "Đầu tháng Mười Hai, Đào đang chuẩn bị đi nghỉ ở Sa Pa cùng chồng và hai con.",
+      "Chị nghe nói trên núi có thể rất lạnh, nên đang hỏi bà Hoa hàng xóm, người đã đi Sa Pa mùa đông năm ngoái.",
+      "Đào hỏi: \"Lạnh đến mức nào hả bác?\"",
+      "\"Rét cóng!",
+      "Có buổi sáng chỉ hai độ.",
+      "Cháu sẽ cần áo khoác ấm, mũ và giày bốt tốt.\"",
+      "\"Nhà cháu có áo khoác mùa đông, nhưng mấy năm rồi không mặc.",
+      "Hơi có mùi ạ.\"",
+      "\"Thế thì mang đi giặt khô.",
+      "Gần chợ có một tiệm tốt.",
+      "Trước chuyến đi bác mang áo khoác đến đó giặt, về như mới.\"",
+      "\"Mất bao lâu hả bác?\"",
+      "\"Thường là ba ngày.",
+      "Nhưng nếu trả thêm một chút, họ làm xong trong một ngày.\"",
+      "\"Tốt quá.",
+      "Thứ Sáu nhà cháu đi.",
+      "Còn giày bốt thì sao?",
+      "Đôi bốt da của cháu bị hỏng khoá kéo.\"",
+      "\"Cháu có thể mang khoá kéo đi sửa ở quầy giày phố Trần Phú.",
+      "Ông ở đó cái gì cũng sửa được.\"",
+      "\"Có đắt không bác?\"",
+      "\"Không đâu.",
+      "Bác thay khoá kéo mới hết tám mươi nghìn.\"",
+      "\"Rẻ thật.",
+      "Nhưng giày bốt của con trai cháu chật quá rồi.",
+      "Năm nay thằng bé lớn nhanh quá.\"",
+      "\"Thế thì phải mua đôi mới.",
+      "Đừng đợi đến Sa Pa.",
+      "Trên đó giá đắt hơn.\"",
+      "\"Cảm ơn bác.",
+      "Còn gì nữa không ạ?\"",
+      "\"Mang găng tay cho bọn trẻ.",
+      "Và về thì nhớ đi in ảnh.",
+      "Cảnh đẹp lắm.\"",
+      "Đào bật cười.",
+      "\"Cháu sẽ in ạ.",
+      "Cháu sẽ mang trà Sa Pa về biếu bác.\"",
+      "\"Thích quá.",
+      "Chúc cả nhà đi chơi vui vẻ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể khuyên người khác mang đồ đi sửa, giặt và kể kinh nghiệm của mình bằng have / get + tân ngữ + V3.",
+    "examples": [
+      {
+        "lemma": "neighbour",
+        "sentence": "Our neighbour has a big dog.",
+        "meaningVi": "Hàng xóm nhà tôi có một con chó to."
+      },
+      {
+        "lemma": "freezing",
+        "sentence": "It is freezing outside, so wear a hat.",
+        "meaningVi": "Ngoài trời rét cóng, nên đội mũ vào."
+      },
+      {
+        "lemma": "degree",
+        "sentence": "The temperature dropped by one degree.",
+        "meaningVi": "Nhiệt độ giảm một độ."
+      },
+      {
+        "lemma": "coat",
+        "sentence": "Take your coat because it is cold.",
+        "meaningVi": "Mang áo khoác đi vì trời lạnh."
+      },
+      {
+        "lemma": "smell",
+        "sentence": "These flowers smell wonderful.",
+        "meaningVi": "Những bông hoa này thơm quá."
+      },
+      {
+        "lemma": "leather",
+        "sentence": "He bought a leather bag in Hoi An.",
+        "meaningVi": "Anh ấy mua một chiếc túi da ở Hội An."
+      },
+      {
+        "lemma": "zip",
+        "sentence": "The zip on my bag is stuck.",
+        "meaningVi": "Khoá kéo túi của tôi bị kẹt."
+      },
+      {
+        "lemma": "repair",
+        "sentence": "How much does it cost to repair a phone?",
+        "meaningVi": "Sửa một chiếc điện thoại hết bao nhiêu tiền?"
+      },
+      {
+        "lemma": "stall",
+        "sentence": "She sells fruit at a stall in the market.",
+        "meaningVi": "Cô ấy bán hoa quả ở một sạp trong chợ."
+      },
+      {
+        "lemma": "glove",
+        "sentence": "I lost one glove on the bus.",
+        "meaningVi": "Tôi làm rơi một chiếc găng tay trên xe buýt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Assistant",
+        "Dao"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hello. Can I have these three coats dry-cleaned?",
+          "meaningVi": "Chào em. Chị giặt khô ba chiếc áo khoác này được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. When do you need them?",
+          "meaningVi": "Được ạ. Khi nào chị cần?"
+        },
+        {
+          "speaker": 1,
+          "text": "By Thursday. We're going to Sapa on Friday.",
+          "meaningVi": "Trước thứ Năm. Thứ Sáu nhà chị đi Sa Pa."
+        },
+        {
+          "speaker": 0,
+          "text": "Normally it takes three days. Do you want the express service?",
+          "meaningVi": "Bình thường mất ba ngày. Chị có muốn dùng dịch vụ nhanh không?"
+        },
+        {
+          "speaker": 1,
+          "text": "How much more is it?",
+          "meaningVi": "Đắt hơn bao nhiêu em?"
+        },
+        {
+          "speaker": 0,
+          "text": "Twenty thousand dong per coat. You'll have them done tomorrow.",
+          "meaningVi": "Thêm hai mươi nghìn một áo. Mai là xong."
+        },
+        {
+          "speaker": 1,
+          "text": "OK, let's do that. Can you get this button sewn back on too?",
+          "meaningVi": "Ừ, làm thế đi. Em đơm lại chiếc cúc này luôn được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, we can. Is anything else damaged?",
+          "meaningVi": "Được ạ. Còn chỗ nào hỏng nữa không chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "No. Just the button. Thank you!",
+          "meaningVi": "Không. Chỉ cái cúc thôi. Cảm ơn em!"
+        },
+        {
+          "speaker": 0,
+          "text": "Here's your ticket. Have a lovely trip!",
+          "meaningVi": "Phiếu của chị đây. Chúc chị đi chơi vui!"
+        }
+      ]
+    },
+    "grammarTipVi": "have / get + tân ngữ + V3: Can I have these three coats dry-cleaned? / You'll have them done tomorrow / Can you get this button sewn back on?",
+    "translations": [
+      {
+        "vi": "Cháu sẽ cần áo khoác ấm, mũ và giày bốt tốt.",
+        "en": "You'll need warm coats, hats and good boots.",
+        "distractors": [
+          "coat",
+          "cold",
+          "bad"
+        ]
+      },
+      {
+        "vi": "Đôi bốt da của cháu bị hỏng khoá kéo.",
+        "en": "My leather boots have a broken zip.",
+        "distractors": [
+          "zips",
+          "plastic",
+          "has"
+        ]
+      },
+      {
+        "vi": "Cháu có thể mang khoá kéo đi sửa ở quầy giày.",
+        "en": "You can get the zip repaired at the shoe stall.",
+        "distractors": [
+          "repairing",
+          "shop",
+          "must"
+        ]
+      },
+      {
+        "vi": "Có buổi sáng chỉ hai độ.",
+        "en": "One morning it was only two degrees.",
+        "distractors": [
+          "degree",
+          "evening",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Đào đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở tiệm giặt khô",
+          "Ở quầy sửa giày",
+          "Ở Sa Pa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đào hỏi \"Can I have these three coats dry-cleaned?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Dịch vụ nhanh đắt hơn bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Hai mươi nghìn một áo",
+          "Năm mươi nghìn một áo",
+          "Gấp đôi giá thường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhân viên nói \"Twenty thousand dong per coat.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đào nhờ làm thêm việc gì?",
+        "promptVi": "",
+        "options": [
+          "Đơm lại một chiếc cúc",
+          "Thay khoá kéo",
+          "Lên gấu áo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đào hỏi \"Can you get this button sewn back on too?\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dao will get the coats back in three days.",
+        "promptVi": "Ba ngày nữa Đào mới lấy được áo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đào chọn dịch vụ nhanh: \"You'll have them done tomorrow.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Bà Hoa khuyên Đào mang những gì đi giặt, đi sửa? Bà kể kinh nghiệm gì của chính mình?",
+    "grammarStep": {
+      "titleVi": "Thể nhờ làm (have / get something done)",
+      "noticing": [
+        {
+          "sentence": "\"Then get them dry-cleaned.",
+          "highlights": [
+            "get them dry-cleaned"
+          ]
+        },
+        {
+          "sentence": "I had my coat cleaned there before my trip, and it came back like new.\"",
+          "highlights": [
+            "had my coat cleaned"
+          ]
+        },
+        {
+          "sentence": "But if you pay a little more, you can have them done in one day.\"",
+          "highlights": [
+            "have them done"
+          ]
+        },
+        {
+          "sentence": "I had a new zip put in for eighty thousand dong.\"",
+          "highlights": [
+            "had a new zip put in"
+          ]
+        }
+      ],
+      "questionVi": "Bà Hoa khuyên Đào mang khoá kéo đi cho thợ sửa. Câu nào đúng?",
+      "options": [
+        "You can get the zip repaired.",
+        "You can get repaired the zip.",
+        "You can repair get the zip."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "get + tân ngữ (the zip) + V3 (repaired).",
+      "whenVi": "Dùng câu mệnh lệnh (Get them dry-cleaned.) hoặc can / should để khuyên; dùng had … V3 để kể lại việc mình đã nhờ làm.",
+      "table": [
+        {
+          "subject": "khuyên (mệnh lệnh)",
+          "form": "Get them dry-cleaned. / Have your photos printed.",
+          "negative": "Don't get them cleaned there."
+        },
+        {
+          "subject": "khuyên (can / should)",
+          "form": "You can get the zip repaired.",
+          "negative": "You shouldn't have it repaired there."
+        },
+        {
+          "subject": "kể lại (quá khứ)",
+          "form": "I had my coat cleaned before my trip.",
+          "negative": "I didn't have it cleaned."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Then get them dry-clean.",
+          "right": "Then get them dry-cleaned."
+        },
+        {
+          "wrong": "I had cleaned my coat there.",
+          "right": "I had my coat cleaned there."
+        }
+      ],
+      "noteVi": "put in là V3 của put in (lắp vào), giống nhau ở cả ba dạng: I had a new zip put in.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "You can get the zip ___ (repair) at the shoe stall.",
+          "answers": [
+            "repaired"
+          ],
+          "explanationVi": "get + tân ngữ + V3: repaired."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "And ___ your photos printed when you come back.",
+          "options": [
+            "have",
+            "having",
+            "had",
+            "to have"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: have."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I had my coat clean there before my trip.",
+          "sentence": "I had my coat cleaned there before my trip.",
+          "explanationVi": "Sau have + tân ngữ dùng V3: cleaned."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thế thì mang đi giặt khô.",
+          "sentence": "Then get them dry-cleaned.",
+          "words": [
+            "Then",
+            "get",
+            "them",
+            "dry-cleaned.",
+            "got"
+          ],
+          "explanationVi": "get + them + dry-cleaned; từ \"got\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I had my coat cleaned there before my trip, and it came back like new.\"",
+        "tipVi": "cleaned /kliːnd/; ngắt hơi trước and."
+      },
+      {
+        "text": "\"You can get the zip repaired at the shoe stall on Tran Phu Street.",
+        "tipVi": "repaired /rɪˈpeəd/; stall /stɔːl/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is the coldest place you have ever been to?",
+        "questionVi": "Nơi lạnh nhất bạn từng đến là đâu?",
+        "frame": "The coldest place was ___. It was ___."
+      },
+      {
+        "question": "What do you usually have repaired instead of buying new?",
+        "questionVi": "Bạn thường mang gì đi sửa thay vì mua mới?",
+        "frame": "I usually have my ___ repaired because ___."
+      },
+      {
+        "question": "What should people take on a winter trip to the mountains?",
+        "questionVi": "Mọi người nên mang gì khi đi núi vào mùa đông?",
+        "frame": "They should take ___ and ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với have / get + tân ngữ + V3",
+      "anyOf": [
+        "have",
+        "had",
+        "get",
+        "got"
+      ],
+      "outlineVi": [
+        "Bạn của bạn đi đâu, thời tiết ở đó thế nào.",
+        "Lời khuyên: nên mang gì, nên mang gì đi sửa / giặt (Get … cleaned / Have … repaired).",
+        "Kinh nghiệm của chính bạn (I had my … )."
+      ],
+      "modelAnswer": "Ha Giang will be very cold in January, so you need to prepare well. Get your winter jacket cleaned before you go, because you haven't worn it for a year. You should also have your boots repaired. Last winter I had my old boots fixed at a stall near the market, and they were fine for the whole trip. Don't forget gloves and a warm hat."
+    }
+  },
+  "glosses": [
+    {
+      "text": "dry-cleaned",
+      "lemma": "dry-clean",
+      "meaningVi": "giặt khô",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "get them dry-cleaned",
+      "phraseVi": "mang đi giặt khô"
+    },
+    {
+      "text": "came back like new",
+      "lemma": "come back like new",
+      "meaningVi": "trở lại như mới",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "it came back like new",
+      "phraseVi": "áo về như mới"
+    },
+    {
+      "text": "put in",
+      "lemma": "put in",
+      "meaningVi": "lắp vào",
+      "sentenceIndex": 22,
+      "pos": "phrasal verb",
+      "phrase": "I had a new zip put in.",
+      "phraseVi": "Tôi nhờ thay khoá kéo mới."
+    },
+    {
+      "text": "printed",
+      "lemma": "print",
+      "meaningVi": "in (ảnh)",
+      "sentenceIndex": 32,
+      "pos": "verb",
+      "phrase": "have your photos printed",
+      "phraseVi": "mang ảnh đi in"
+    }
+  ]
+}

@@ -1,0 +1,600 @@
+{
+  "content": "Luan, a twenty-eight-year-old sales manager in Ho Chi Minh City, is showing his younger cousin Tri around the beauty and care centre where he goes every two weeks.\n\nTri asks, \"Why do you come here so often? You look fine.\"\n\"In my job, I meet customers every day. Looking smart is part of the job. I have my hair styled here every second Saturday.\"\n\"Every two weeks? I get my hair cut once every three months!\"\n\"I can see that,\" Luan says with a smile. \"Here, they also wash it and give me a short head massage. It's very relaxing.\"\n\"What else can you do here?\"\n\"I get my suits dry-cleaned on the second floor. They pick them up from my office on Monday and bring them back on Wednesday.\"\n\"That's convenient. Do you have your shirts ironed too?\"\n\"Yes. I used to iron them myself, but it took my whole Sunday evening. Now I have them all done here for a monthly fee.\"\n\"Isn't it expensive?\"\n\"About two million dong a month for everything. It saves me a lot of time, though.\"\n\"Hmm. What about shoes?\"\n\"I get them polished at the stand by the entrance. The man there has been doing it for thirty years. He's an artist.\"\nTri looks at his old trainers. \"Maybe I should get mine cleaned.\"\n\"Good idea. You've got a job interview next week, haven't you?\"\n\"Yes, at a bank.\"\n\"Then let's get your hair cut today. My treat.\"\n\"Really? Thanks, Luan!\"\n\"You can thank me when you get the job.\"",
+  "targetWords": [
+    "cousin",
+    "customer",
+    "smart",
+    "style",
+    "relaxing",
+    "convenient",
+    "iron",
+    "fee",
+    "entrance",
+    "interview"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cousin",
+        "lemma": "cousin",
+        "meaningVi": "em họ, anh chị họ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "customers",
+        "lemma": "customer",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "smart",
+        "lemma": "smart",
+        "meaningVi": "chỉn chu, lịch sự",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "styled",
+        "lemma": "style",
+        "meaningVi": "tạo kiểu",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "relaxing",
+        "lemma": "relaxing",
+        "meaningVi": "thư giãn",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "convenient",
+        "lemma": "convenient",
+        "meaningVi": "tiện lợi",
+        "pos": "adjective",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "ironed",
+        "lemma": "iron",
+        "meaningVi": "là, ủi (quần áo)",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "fee",
+        "lemma": "fee",
+        "meaningVi": "phí",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "entrance",
+        "lemma": "entrance",
+        "meaningVi": "lối vào",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "interview",
+        "lemma": "interview",
+        "meaningVi": "buổi phỏng vấn",
+        "pos": "noun",
+        "sentenceIndex": 30
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Luan doing?",
+        "promptVi": "Luân đang làm gì?",
+        "options": [
+          "Showing his cousin the services at a care centre",
+          "Looking for a new job",
+          "Opening his own beauty centre",
+          "Buying new shoes for Tri"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Luân dẫn em họ là Trí đi xem trung tâm chăm sóc mà anh hay đến."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How often does Luan have his hair styled?",
+        "promptVi": "Bao lâu Luân làm tóc một lần?",
+        "options": [
+          "Every two weeks",
+          "Every three months",
+          "Every day",
+          "Once a month"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Luân nói \"I have my hair styled here every second Saturday.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much does Luan pay a month for everything?",
+        "promptVi": "Mỗi tháng Luân trả bao nhiêu cho tất cả dịch vụ?",
+        "options": [
+          "About two million dong",
+          "About two hundred thousand dong",
+          "About five million dong",
+          "Nothing"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Luân nói \"About two million dong a month for everything.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Luan still irons his shirts himself.",
+        "promptVi": "Luân vẫn tự là áo sơ mi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Luân nói \"I used to iron them myself … Now I have them all done here.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"convenient\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"That's convenient.\"",
+        "options": [
+          "tiện lợi",
+          "đắt đỏ",
+          "nguy hiểm",
+          "chậm chạp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Convenient = tiện lợi, đỡ mất công."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thể nhờ làm (have / get something done)",
+      "bodyVi": "Thể nhờ làm ở thì hiện tại đơn dùng để nói về thói quen, dịch vụ ta dùng thường xuyên: I have my hair styled here every second Saturday. I get my suits dry-cleaned on the second floor. Ta cũng dùng get + tân ngữ + V3 sau should, let's: Maybe I should get mine cleaned. / Let's get your hair cut today.",
+      "examples": [
+        "I have my hair styled here every second Saturday.\"",
+        "\"I get my suits dry-cleaned on the second floor.",
+        "\"Then let's get your hair cut today."
+      ]
+    },
+    "writingPrompt": "Write about the services you use regularly (hair, clothes, shoes, phone…). Use have / get something done.",
+    "sentenceTranslations": [
+      "Luân, một trưởng phòng kinh doanh 28 tuổi ở TP. Hồ Chí Minh, đang dẫn em họ là Trí đi xem trung tâm làm đẹp và chăm sóc mà anh đến hai tuần một lần.",
+      "Trí hỏi: \"Sao anh đến đây thường xuyên thế?",
+      "Trông anh ổn mà.\"",
+      "\"Trong công việc, ngày nào anh cũng gặp khách hàng.",
+      "Trông chỉn chu là một phần của công việc.",
+      "Cứ cách một thứ Bảy anh lại làm tóc ở đây.\"",
+      "\"Hai tuần một lần?",
+      "Ba tháng em mới cắt tóc một lần!\"",
+      "Luân mỉm cười: \"Nhìn là thấy.\"",
+      "\"Ở đây họ còn gội đầu và mát-xa đầu một lúc cho anh.",
+      "Thư giãn lắm.\"",
+      "\"Ở đây còn làm được gì nữa?\"",
+      "\"Anh mang com-lê đi giặt khô ở tầng hai.",
+      "Họ đến văn phòng lấy vào thứ Hai và mang trả vào thứ Tư.\"",
+      "\"Tiện thật.",
+      "Anh có nhờ là áo sơ mi luôn không?\"",
+      "\"Có.",
+      "Trước anh tự là, nhưng mất cả tối Chủ Nhật.",
+      "Giờ anh nhờ làm hết ở đây, trả phí theo tháng.\"",
+      "\"Không đắt à?\"",
+      "\"Khoảng hai triệu một tháng cho tất cả.",
+      "Nhưng tiết kiệm cho anh rất nhiều thời gian.\"",
+      "\"Hừm.",
+      "Còn giày thì sao?\"",
+      "\"Anh đánh giày ở quầy cạnh lối vào.",
+      "Chú ở đó làm nghề này ba mươi năm rồi.",
+      "Chú ấy là một nghệ nhân.\"",
+      "Trí nhìn đôi giày thể thao cũ của mình.",
+      "\"Có lẽ em nên mang giày đi giặt.\"",
+      "\"Ý hay.",
+      "Tuần sau em có buổi phỏng vấn xin việc, phải không?\"",
+      "\"Vâng, ở một ngân hàng.\"",
+      "\"Vậy hôm nay đi cắt tóc luôn.",
+      "Anh trả.\"",
+      "\"Thật ạ?",
+      "Cảm ơn anh Luân!\"",
+      "\"Khi nào được nhận việc thì cảm ơn anh.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về các dịch vụ chăm sóc cá nhân mình dùng thường xuyên bằng have / get + tân ngữ + V3.",
+    "examples": [
+      {
+        "lemma": "cousin",
+        "sentence": "My cousin lives in Da Nang.",
+        "meaningVi": "Em họ tôi sống ở Đà Nẵng."
+      },
+      {
+        "lemma": "customer",
+        "sentence": "The shop gives every customer a free drink.",
+        "meaningVi": "Cửa hàng tặng mỗi khách hàng một đồ uống miễn phí."
+      },
+      {
+        "lemma": "smart",
+        "sentence": "You look very smart in that jacket.",
+        "meaningVi": "Bạn mặc áo khoác đó trông rất chỉn chu."
+      },
+      {
+        "lemma": "style",
+        "sentence": "She likes to style her hair herself.",
+        "meaningVi": "Cô ấy thích tự tạo kiểu tóc."
+      },
+      {
+        "lemma": "relaxing",
+        "sentence": "A walk by the lake is very relaxing.",
+        "meaningVi": "Đi dạo bên hồ rất thư giãn."
+      },
+      {
+        "lemma": "convenient",
+        "sentence": "Is Monday convenient for you?",
+        "meaningVi": "Thứ Hai có tiện cho bạn không?"
+      },
+      {
+        "lemma": "iron",
+        "sentence": "I need to iron this shirt before work.",
+        "meaningVi": "Tôi cần là chiếc áo này trước khi đi làm."
+      },
+      {
+        "lemma": "fee",
+        "sentence": "The entrance fee is fifty thousand dong.",
+        "meaningVi": "Phí vào cửa là năm mươi nghìn đồng."
+      },
+      {
+        "lemma": "entrance",
+        "sentence": "Let's meet at the main entrance.",
+        "meaningVi": "Gặp nhau ở lối vào chính nhé."
+      },
+      {
+        "lemma": "interview",
+        "sentence": "She has a job interview tomorrow.",
+        "meaningVi": "Ngày mai cô ấy có buổi phỏng vấn xin việc."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Barber",
+        "Tri"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hello. How would you like to have your hair cut?",
+          "meaningVi": "Chào em. Em muốn cắt tóc thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Short and tidy, please. I have a job interview next week.",
+          "meaningVi": "Ngắn và gọn gàng ạ. Tuần sau em đi phỏng vấn."
+        },
+        {
+          "speaker": 0,
+          "text": "Good luck! Do you usually get it cut here?",
+          "meaningVi": "Chúc may mắn! Em hay cắt ở đây không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, my cousin Luan does. I usually go to a small shop.",
+          "meaningVi": "Không ạ, anh họ em là Luân hay cắt ở đây. Em thường ra quán nhỏ."
+        },
+        {
+          "speaker": 0,
+          "text": "Would you like to have it washed first?",
+          "meaningVi": "Em có muốn gội đầu trước không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please. Is it included in the price?",
+          "meaningVi": "Có ạ. Giá đã gồm gội chưa ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, and you get a short massage too.",
+          "meaningVi": "Gồm rồi, em còn được mát-xa một lúc nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. Can I get my shoes cleaned at the entrance after?",
+          "meaningVi": "Tuyệt. Lát nữa em giặt giày ở chỗ lối vào được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Sure. The man there will have them done in twenty minutes.",
+          "meaningVi": "Được. Chú ở đó làm hai mươi phút là xong."
+        },
+        {
+          "speaker": 1,
+          "text": "Perfect. My cousin is paying for everything today!",
+          "meaningVi": "Tuyệt quá. Hôm nay anh họ em trả hết!"
+        }
+      ]
+    },
+    "grammarTipVi": "have / get + tân ngữ + V3: How would you like to have your hair cut? / Do you usually get it cut here? / Can I get my shoes cleaned?",
+    "translations": [
+      {
+        "vi": "Cứ hai tuần anh lại làm tóc ở đây.",
+        "en": "I have my hair styled here every second Saturday.",
+        "distractors": [
+          "styling",
+          "myself",
+          "Sunday"
+        ]
+      },
+      {
+        "vi": "Anh có nhờ là áo sơ mi luôn không?",
+        "en": "Do you have your shirts ironed too?",
+        "distractors": [
+          "ironing",
+          "did",
+          "shoes"
+        ]
+      },
+      {
+        "vi": "Ngày nào anh cũng gặp khách hàng.",
+        "en": "In my job, I meet customers every day.",
+        "distractors": [
+          "customer",
+          "week",
+          "met"
+        ]
+      },
+      {
+        "vi": "Tuần sau em có buổi phỏng vấn, phải không?",
+        "en": "You've got a job interview next week, haven't you?",
+        "distractors": [
+          "interviews",
+          "month",
+          "didn't"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Trí đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở tiệm cắt tóc",
+          "Ở ngân hàng",
+          "Ở cửa hàng giày"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thợ hỏi \"How would you like to have your hair cut?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trí muốn cắt tóc kiểu gì?",
+        "promptVi": "",
+        "options": [
+          "Ngắn và gọn gàng",
+          "Dài và uốn xoăn",
+          "Nhuộm màu sáng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trí nói \"Short and tidy, please.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Giá cắt tóc gồm những gì?",
+        "promptVi": "",
+        "options": [
+          "Gội đầu và mát-xa",
+          "Đánh giày",
+          "Là áo sơ mi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thợ nói gội đầu đã gồm trong giá \"and you get a short massage too.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tri usually has his hair cut at this shop.",
+        "promptVi": "Trí thường cắt tóc ở tiệm này.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Trí nói \"No, my cousin Luan does. I usually go to a small shop.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Luân dùng những dịch vụ nào ở trung tâm? Bao lâu một lần? Để ý các câu have / get + tân ngữ + V3.",
+    "grammarStep": {
+      "titleVi": "Thể nhờ làm (have / get something done)",
+      "noticing": [
+        {
+          "sentence": "I have my hair styled here every second Saturday.\"",
+          "highlights": [
+            "have my hair styled"
+          ]
+        },
+        {
+          "sentence": "\"I get my suits dry-cleaned on the second floor.",
+          "highlights": [
+            "get my suits dry-cleaned"
+          ]
+        },
+        {
+          "sentence": "Now I have them all done here for a monthly fee.\"",
+          "highlights": [
+            "have them all done"
+          ]
+        },
+        {
+          "sentence": "\"I get them polished at the stand by the entrance.",
+          "highlights": [
+            "get them polished"
+          ]
+        }
+      ],
+      "questionVi": "Trí định mang giày đi cho người khác giặt. Câu nào đúng?",
+      "options": [
+        "Maybe I should get mine cleaned.",
+        "Maybe I should get cleaned mine.",
+        "Maybe I should clean get mine."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "get + tân ngữ (mine) + V3 (cleaned).",
+      "whenVi": "Dùng thì hiện tại đơn (I have / get … done) cho dịch vụ dùng thường xuyên; dùng sau should / let's để khuyên hoặc rủ.",
+      "table": [
+        {
+          "subject": "thói quen",
+          "form": "I have my hair styled every second Saturday.",
+          "negative": "I don't have my shirts ironed."
+        },
+        {
+          "subject": "câu hỏi",
+          "form": "Do you have your shirts ironed too?",
+          "negative": "Do / Does + chủ ngữ + have + tân ngữ + V3?"
+        },
+        {
+          "subject": "khuyên / rủ",
+          "form": "I should get mine cleaned. / Let's get your hair cut.",
+          "negative": "should / let's + get / have + tân ngữ + V3"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I get polished my shoes at the entrance.",
+          "right": "I get my shoes polished at the entrance."
+        },
+        {
+          "wrong": "Do you have ironed your shirts?",
+          "right": "Do you have your shirts ironed?"
+        }
+      ],
+      "noteVi": "used to + V nguyên mẫu nói thói quen cũ: I used to iron them myself.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "I get my suits ___ (dry-clean) on the second floor.",
+          "answers": [
+            "dry-cleaned"
+          ],
+          "explanationVi": "get + tân ngữ + V3: dry-cleaned."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Then let's ___ your hair cut today.",
+          "options": [
+            "get",
+            "getting",
+            "to get",
+            "got"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau let's dùng động từ nguyên mẫu: get."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I have my hair style here every Saturday.",
+          "sentence": "I have my hair styled here every Saturday.",
+          "explanationVi": "Sau have + tân ngữ dùng V3: styled."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh có nhờ là áo sơ mi luôn không?",
+          "sentence": "Do you have your shirts ironed too?",
+          "words": [
+            "Do",
+            "you",
+            "have",
+            "your",
+            "shirts",
+            "ironed",
+            "too?",
+            "iron"
+          ],
+          "explanationVi": "Do + you + have + your shirts + ironed; từ \"iron\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"I get my suits dry-cleaned on the second floor.",
+        "tipVi": "dry-cleaned /ˌdraɪ ˈkliːnd/; đuôi -ed đọc /d/."
+      },
+      {
+        "text": "I used to iron them myself, but it took my whole Sunday evening.",
+        "tipVi": "iron /ˈaɪən/, không đọc âm r; used to /ˈjuːstə/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How often do you have your hair cut?",
+        "questionVi": "Bao lâu bạn đi cắt tóc một lần?",
+        "frame": "I have my hair cut every ___."
+      },
+      {
+        "question": "Do you iron your own clothes or have them ironed?",
+        "questionVi": "Bạn tự là quần áo hay nhờ người là?",
+        "frame": "I ___ because ___."
+      },
+      {
+        "question": "Is it important to look smart at work? Why?",
+        "questionVi": "Trông chỉn chu ở chỗ làm có quan trọng không? Vì sao?",
+        "frame": "I think it is ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với have / get + tân ngữ + V3",
+      "anyOf": [
+        "have",
+        "has",
+        "had",
+        "get",
+        "gets",
+        "got"
+      ],
+      "outlineVi": [
+        "Bạn dùng những dịch vụ nào (I have my … cut / repaired / cleaned).",
+        "Bao lâu một lần, ở đâu, giá bao nhiêu.",
+        "Vì sao bạn không tự làm."
+      ],
+      "modelAnswer": "I am a busy student, so I use a few services every month. I have my hair cut at a small shop near my university every six weeks. It only costs sixty thousand dong. I get my clothes washed at a laundry because my flat has no washing machine. Last month I also had my phone screen repaired. It was cheaper than buying a new phone."
+    }
+  },
+  "glosses": [
+    {
+      "text": "massage",
+      "lemma": "massage",
+      "meaningVi": "mát-xa",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "a short head massage",
+      "phraseVi": "mát-xa đầu một lúc"
+    },
+    {
+      "text": "dry-cleaned",
+      "lemma": "dry-clean",
+      "meaningVi": "giặt khô",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "I get my suits dry-cleaned.",
+      "phraseVi": "Tôi mang com-lê đi giặt khô."
+    },
+    {
+      "text": "polished",
+      "lemma": "polish",
+      "meaningVi": "đánh bóng",
+      "sentenceIndex": 24,
+      "pos": "verb",
+      "phrase": "I get them polished.",
+      "phraseVi": "Tôi nhờ đánh bóng giày."
+    },
+    {
+      "text": "trainers",
+      "lemma": "trainer",
+      "meaningVi": "giày thể thao",
+      "sentenceIndex": 27,
+      "pos": "noun",
+      "phrase": "his old trainers",
+      "phraseVi": "đôi giày thể thao cũ của cậu"
+    }
+  ]
+}

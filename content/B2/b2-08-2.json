@@ -1,0 +1,604 @@
+{
+  "content": "Three weeks before her wedding, Han is having lunch with her best friend Vy in Ho Chi Minh City. Next Saturday, she and her future husband will take their wedding photos in Da Lat.\n\nVy asks, \"So, is everything ready for the photos?\"\n\"Almost. I'm having a red ao dai made by a designer in District 3. It'll be ready on Wednesday.\"\n\"Red? How traditional!\"\n\"My grandmother insisted. She had her own wedding ao dai made in red sixty years ago. I'm also having gold flowers stitched on the front.\"\n\"That sounds beautiful. Did you choose the fabric yourself?\"\n\"Yes, it's silk from Bao Loc. I wanted it to be soft and light.\"\n\"And your hair and makeup? Are you doing them yourself?\"\n\"No way! I'm going to have my hair done by a professional. The photographer recommended a woman who travels with the team.\"\n\"Good. Will she do your makeup too?\"\n\"Yes. I'm getting my makeup done at six in the morning, because the light is best early.\"\n\"Six! You'll have to get up at four.\"\n\"I know. Minh is getting his suit fitted this week too. He complained the whole time.\"\nVy laughs. \"Men always do. Have you had your nails done?\"\n\"Not yet. I'll have them painted on Friday afternoon, the day before we travel.\"\n\"What colour?\"\n\"Gold, to match the flowers on the dress.\"\n\"You've thought of everything. Can I see the ao dai when it's finished?\"\n\"Of course. Come with me on Wednesday when I pick it up.\"\n\"I'd love to. I'll bring my camera.\"",
+  "targetWords": [
+    "wedding",
+    "designer",
+    "traditional",
+    "insist",
+    "fabric",
+    "silk",
+    "professional",
+    "photographer",
+    "complain",
+    "match"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "wedding",
+        "lemma": "wedding",
+        "meaningVi": "đám cưới",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "designer",
+        "lemma": "designer",
+        "meaningVi": "nhà thiết kế",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "traditional",
+        "lemma": "traditional",
+        "meaningVi": "truyền thống",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "insisted",
+        "lemma": "insist",
+        "meaningVi": "khăng khăng, nhất quyết",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "fabric",
+        "lemma": "fabric",
+        "meaningVi": "vải",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "silk",
+        "lemma": "silk",
+        "meaningVi": "lụa",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "professional",
+        "lemma": "professional",
+        "meaningVi": "người chuyên nghiệp",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "photographer",
+        "lemma": "photographer",
+        "meaningVi": "thợ chụp ảnh",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "complained",
+        "lemma": "complain",
+        "meaningVi": "phàn nàn",
+        "pos": "verb",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "match",
+        "lemma": "match",
+        "meaningVi": "hợp với, ăn với",
+        "pos": "verb",
+        "sentenceIndex": 35
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Han and Vy talking about?",
+        "promptVi": "Hân và Vy đang nói về chuyện gì?",
+        "options": [
+          "Han's preparations for her wedding photos",
+          "A trip to Bao Loc to buy silk",
+          "Vy's new job as a photographer",
+          "A party for Han's grandmother"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hân kể những việc cô chuẩn bị cho buổi chụp ảnh cưới ở Đà Lạt."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What colour is Han's ao dai?",
+        "promptVi": "Áo dài của Hân màu gì?",
+        "options": [
+          "Red",
+          "White",
+          "Gold",
+          "Blue"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hân nói \"I'm having a red ao dai made by a designer in District 3.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why will Han have her makeup done at six in the morning?",
+        "promptVi": "Vì sao Hân trang điểm lúc sáu giờ sáng?",
+        "options": [
+          "Because the light is best early",
+          "Because the photographer is busy later",
+          "Because she travels at seven",
+          "Because the salon is cheaper"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hân nói \"... at six in the morning, because the light is best early.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Han has already had her nails done.",
+        "promptVi": "Hân đã làm móng rồi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hân trả lời \"Not yet. I'll have them painted on Friday afternoon.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"insisted\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"My grandmother insisted.\"",
+        "options": [
+          "nhất quyết đòi",
+          "từ chối",
+          "quên mất",
+          "ngạc nhiên"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Insist = khăng khăng, nhất quyết muốn điều gì."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thể nhờ làm (have / get something done)",
+      "bodyVi": "Thể nhờ làm cũng dùng được ở thì tiếp diễn để nói về việc đang hoặc sắp nhờ người làm: I'm having a red ao dai made (đang đặt may). I'm getting my makeup done at six (đã hẹn trang điểm). Khi muốn nói ai là người làm, thêm by + người: I'm going to have my hair done by a professional. Câu hỏi ở thì hoàn thành: Have you had your nails done?",
+      "examples": [
+        "I'm having a red ao dai made by a designer in District 3.",
+        "I'm going to have my hair done by a professional.",
+        "Have you had your nails done?\""
+      ]
+    },
+    "writingPrompt": "Describe how someone in your family got ready for a wedding or a big celebration. Use have / get something done.",
+    "sentenceTranslations": [
+      "Ba tuần trước đám cưới, Hân đang ăn trưa với bạn thân là Vy ở TP. Hồ Chí Minh.",
+      "Thứ Bảy tới, cô và chồng sắp cưới sẽ chụp ảnh cưới ở Đà Lạt.",
+      "Vy hỏi: \"Thế mọi thứ cho buổi chụp ảnh đã sẵn sàng chưa?\"",
+      "\"Gần xong rồi.",
+      "Mình đang đặt một nhà thiết kế ở Quận 3 may áo dài đỏ.",
+      "Thứ Tư sẽ xong.\"",
+      "\"Màu đỏ á?",
+      "Truyền thống thế!\"",
+      "\"Bà mình nhất quyết đòi vậy.",
+      "Sáu mươi năm trước, bà cũng đặt may áo dài cưới màu đỏ.",
+      "Mình còn nhờ thêu hoa vàng ở thân trước nữa.\"",
+      "\"Nghe đẹp quá.",
+      "Cậu tự chọn vải à?\"",
+      "\"Ừ, lụa Bảo Lộc đấy.",
+      "Mình muốn áo mềm và nhẹ.\"",
+      "\"Còn tóc và trang điểm?",
+      "Cậu tự làm à?\"",
+      "\"Không đời nào!",
+      "Mình sẽ nhờ thợ chuyên nghiệp làm tóc.",
+      "Thợ chụp ảnh giới thiệu một chị đi cùng ê-kíp.\"",
+      "\"Tốt.",
+      "Chị ấy trang điểm cho cậu luôn chứ?\"",
+      "\"Ừ.",
+      "Mình hẹn trang điểm lúc sáu giờ sáng, vì sáng sớm ánh sáng đẹp nhất.\"",
+      "\"Sáu giờ!",
+      "Cậu sẽ phải dậy lúc bốn giờ.\"",
+      "\"Mình biết.",
+      "Tuần này Minh cũng đi chỉnh com-lê.",
+      "Anh ấy than suốt.\"",
+      "Vy bật cười.",
+      "\"Đàn ông lúc nào cũng thế.",
+      "Cậu làm móng chưa?\"",
+      "\"Chưa.",
+      "Chiều thứ Sáu mình sẽ đi sơn móng, một ngày trước khi đi.\"",
+      "\"Màu gì?\"",
+      "\"Màu vàng, cho hợp với hoa trên áo.\"",
+      "\"Cậu tính hết mọi thứ rồi.",
+      "Áo dài may xong cho mình xem được không?\"",
+      "\"Tất nhiên.",
+      "Thứ Tư đi lấy áo với mình nhé.\"",
+      "\"Thích quá.",
+      "Mình sẽ mang máy ảnh theo.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về việc đặt may, làm tóc, trang điểm bằng thể nhờ làm ở nhiều thì khác nhau.",
+    "examples": [
+      {
+        "lemma": "wedding",
+        "sentence": "They had a small wedding by the sea.",
+        "meaningVi": "Họ tổ chức một đám cưới nhỏ bên bờ biển."
+      },
+      {
+        "lemma": "designer",
+        "sentence": "She wants to be a fashion designer.",
+        "meaningVi": "Cô ấy muốn trở thành nhà thiết kế thời trang."
+      },
+      {
+        "lemma": "traditional",
+        "sentence": "Pho is a traditional Vietnamese dish.",
+        "meaningVi": "Phở là một món ăn truyền thống của Việt Nam."
+      },
+      {
+        "lemma": "insist",
+        "sentence": "I insist on paying for dinner tonight.",
+        "meaningVi": "Tôi nhất quyết trả tiền bữa tối nay."
+      },
+      {
+        "lemma": "fabric",
+        "sentence": "This fabric is soft and easy to wash.",
+        "meaningVi": "Loại vải này mềm và dễ giặt."
+      },
+      {
+        "lemma": "silk",
+        "sentence": "My mother bought a silk scarf in Hoi An.",
+        "meaningVi": "Mẹ tôi mua một chiếc khăn lụa ở Hội An."
+      },
+      {
+        "lemma": "professional",
+        "sentence": "You should ask a professional for advice.",
+        "meaningVi": "Bạn nên hỏi ý kiến người chuyên nghiệp."
+      },
+      {
+        "lemma": "photographer",
+        "sentence": "The photographer asked us to smile.",
+        "meaningVi": "Thợ chụp ảnh bảo chúng tôi cười."
+      },
+      {
+        "lemma": "complain",
+        "sentence": "People often complain about the traffic.",
+        "meaningVi": "Mọi người hay phàn nàn về giao thông."
+      },
+      {
+        "lemma": "match",
+        "sentence": "Does this bag match my shoes?",
+        "meaningVi": "Chiếc túi này có hợp với đôi giày của tôi không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Designer",
+        "Han"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Good morning, Han. Your ao dai is ready. Do you want to try it on?",
+          "meaningVi": "Chào Hân. Áo dài xong rồi. Em mặc thử không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please! Oh, the flowers look wonderful.",
+          "meaningVi": "Dạ có! Ôi, hoa đẹp quá."
+        },
+        {
+          "speaker": 0,
+          "text": "I had them stitched by my best worker. Does it fit?",
+          "meaningVi": "Chị nhờ thợ giỏi nhất thêu đấy. Áo vừa không em?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's a little long. Can I have it shortened?",
+          "meaningVi": "Hơi dài một chút. Chị lên gấu giúp em được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. How many centimetres?",
+          "meaningVi": "Được chứ. Bao nhiêu phân?"
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe two. I'll wear low shoes in Da Lat.",
+          "meaningVi": "Chắc hai phân. Ở Đà Lạt em đi giày thấp."
+        },
+        {
+          "speaker": 0,
+          "text": "Fine. When do you need it?",
+          "meaningVi": "Được. Khi nào em cần?"
+        },
+        {
+          "speaker": 1,
+          "text": "On Thursday. We fly on Friday afternoon.",
+          "meaningVi": "Thứ Năm ạ. Chiều thứ Sáu bọn em bay."
+        },
+        {
+          "speaker": 0,
+          "text": "You'll have it on Thursday morning. Shall I have it delivered?",
+          "meaningVi": "Sáng thứ Năm sẽ xong. Chị cho người giao đến nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "That would be great. Thank you so much!",
+          "meaningVi": "Thế thì tốt quá. Cảm ơn chị nhiều!"
+        }
+      ]
+    },
+    "grammarTipVi": "have + tân ngữ + V3 ở nhiều thì: I had them stitched (quá khứ) / Can I have it shortened? (đề nghị) / Shall I have it delivered? (đề nghị giúp).",
+    "translations": [
+      {
+        "vi": "Mình đang đặt một nhà thiết kế may áo dài đỏ.",
+        "en": "I'm having a red ao dai made by a designer.",
+        "distractors": [
+          "make",
+          "designers",
+          "blue"
+        ]
+      },
+      {
+        "vi": "Cậu tự chọn vải à?",
+        "en": "Did you choose the fabric yourself?",
+        "distractors": [
+          "chose",
+          "myself",
+          "colour"
+        ]
+      },
+      {
+        "vi": "Mình sẽ nhờ thợ chuyên nghiệp làm tóc.",
+        "en": "I'm going to have my hair done by a professional.",
+        "distractors": [
+          "doing",
+          "myself",
+          "amateur"
+        ]
+      },
+      {
+        "vi": "Màu vàng, cho hợp với hoa trên áo.",
+        "en": "Gold, to match the flowers on the dress.",
+        "distractors": [
+          "matches",
+          "leaves",
+          "shirt"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hân đến tiệm để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Mặc thử áo dài đã may",
+          "Chọn vải mới",
+          "Chụp ảnh cưới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhà thiết kế nói \"Your ao dai is ready. Do you want to try it on?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Áo dài có vấn đề gì?",
+        "promptVi": "",
+        "options": [
+          "Hơi dài",
+          "Hơi rộng",
+          "Sai màu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hân nói \"It's a little long.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Hân chỉ muốn lên gấu hai phân?",
+        "promptVi": "",
+        "options": [
+          "Vì cô sẽ đi giày thấp",
+          "Vì cô thích áo dài",
+          "Vì không còn thời gian"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hân nói \"I'll wear low shoes in Da Lat.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Han will collect the ao dai herself.",
+        "promptVi": "Hân sẽ tự đến lấy áo dài.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì nhà thiết kế đề nghị \"Shall I have it delivered?\" và Hân đồng ý.",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Hân nhờ người khác làm những gì để chuẩn bị chụp ảnh cưới? Việc nào đã làm, việc nào sắp làm?",
+    "grammarStep": {
+      "titleVi": "Thể nhờ làm (have / get something done)",
+      "noticing": [
+        {
+          "sentence": "I'm having a red ao dai made by a designer in District 3.",
+          "highlights": [
+            "having a red ao dai made by"
+          ]
+        },
+        {
+          "sentence": "I'm going to have my hair done by a professional.",
+          "highlights": [
+            "have my hair done by"
+          ]
+        },
+        {
+          "sentence": "I'm getting my makeup done at six in the morning, because the light is best early.\"",
+          "highlights": [
+            "getting my makeup done"
+          ]
+        },
+        {
+          "sentence": "Have you had your nails done?\"",
+          "highlights": [
+            "had your nails done"
+          ]
+        }
+      ],
+      "questionVi": "Muốn nói rõ người may áo là một nhà thiết kế, câu nào đúng?",
+      "options": [
+        "I'm having an ao dai made by a designer.",
+        "I'm having a designer made an ao dai.",
+        "I'm having an ao dai make by a designer."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "have + tân ngữ (an ao dai) + V3 (made) + by + người làm.",
+      "whenVi": "Dùng thì tiếp diễn (I'm having / getting … done) cho việc đã đặt lịch hoặc đang được làm; thêm by … khi muốn nói ai làm.",
+      "table": [
+        {
+          "subject": "hiện tại tiếp diễn",
+          "form": "I'm having a red ao dai made.",
+          "negative": "I'm not having it made in white."
+        },
+        {
+          "subject": "hiện tại hoàn thành",
+          "form": "Have you had your nails done?",
+          "negative": "I haven't had them done yet."
+        },
+        {
+          "subject": "+ by + người làm",
+          "form": "I'm going to have my hair done by a professional.",
+          "negative": "Chỉ thêm by khi người làm là thông tin quan trọng."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'm having my makeup do at six.",
+          "right": "I'm having my makeup done at six."
+        },
+        {
+          "wrong": "Have you done your nails had?",
+          "right": "Have you had your nails done?"
+        }
+      ],
+      "noteVi": "get cũng chia ở thì tiếp diễn: Minh is getting his suit fitted this week.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "I'm also having gold flowers ___ (stitch) on the front.",
+          "answers": [
+            "stitched"
+          ],
+          "explanationVi": "having + tân ngữ + V3: stitched."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Minh is ___ his suit fitted this week.",
+          "options": [
+            "getting",
+            "got",
+            "get",
+            "gets"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Thì hiện tại tiếp diễn: is + getting."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She had her own ao dai make in red.",
+          "sentence": "She had her own ao dai made in red.",
+          "explanationVi": "Sau have + tân ngữ dùng V3: made."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cậu làm móng chưa?",
+          "sentence": "Have you had your nails done?",
+          "words": [
+            "Have",
+            "you",
+            "had",
+            "your",
+            "nails",
+            "done?",
+            "do"
+          ],
+          "explanationVi": "Have + you + had + your nails + done; từ \"do\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I'm having a red ao dai made by a designer in District 3.",
+        "tipVi": "designer /dɪˈzaɪnə/; nhấn \"made\"."
+      },
+      {
+        "text": "I'm getting my makeup done at six in the morning, because the light is best early.\"",
+        "tipVi": "makeup /ˈmeɪkʌp/; ngắt hơi trước because."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do people in your family wear at weddings?",
+        "questionVi": "Người trong gia đình bạn mặc gì khi dự đám cưới?",
+        "frame": "They usually wear ___ because ___."
+      },
+      {
+        "question": "Have you ever had clothes made for you? Tell me about it.",
+        "questionVi": "Bạn đã bao giờ đặt may quần áo chưa? Kể về điều đó.",
+        "frame": "Yes, I had a ___ made ___. / No, I ___."
+      },
+      {
+        "question": "Would you rather do your own hair or have it done? Why?",
+        "questionVi": "Bạn thích tự làm tóc hay nhờ người làm hơn? Vì sao?",
+        "frame": "I'd rather ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với have / get + tân ngữ + V3",
+      "anyOf": [
+        "have",
+        "had",
+        "having",
+        "get",
+        "got",
+        "getting"
+      ],
+      "outlineVi": [
+        "Sự kiện là gì, của ai.",
+        "Người đó nhờ làm những gì (had … made / done / cut).",
+        "Kết quả trong ngày hôm đó."
+      ],
+      "modelAnswer": "When my cousin got married last spring, she prepared for months. She had a white ao dai made by a famous designer in Hue. A week before the wedding, she got her hair cut and coloured. On the morning of the wedding, she had her makeup done by a professional. Everyone said she looked beautiful."
+    }
+  },
+  "glosses": [
+    {
+      "text": "ao dai",
+      "lemma": "ao dai",
+      "meaningVi": "áo dài",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a red ao dai",
+      "phraseVi": "một chiếc áo dài đỏ"
+    },
+    {
+      "text": "stitched",
+      "lemma": "stitch",
+      "meaningVi": "khâu, thêu",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "gold flowers stitched on the front",
+      "phraseVi": "hoa vàng thêu ở thân trước"
+    },
+    {
+      "text": "makeup",
+      "lemma": "makeup",
+      "meaningVi": "đồ trang điểm, việc trang điểm",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "hair and makeup",
+      "phraseVi": "làm tóc và trang điểm"
+    },
+    {
+      "text": "nails",
+      "lemma": "nail",
+      "meaningVi": "móng tay",
+      "sentenceIndex": 31,
+      "pos": "noun",
+      "phrase": "had your nails done",
+      "phraseVi": "đã làm móng"
+    }
+  ]
+}
