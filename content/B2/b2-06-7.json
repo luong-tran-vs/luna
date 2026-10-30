@@ -1,0 +1,597 @@
+{
+  "content": "Hoping to raise money for his company, Hieu is standing in front of three investors at a startup event in Ho Chi Minh City. On the table is a small black box with a blue light inside.\n\n\"This is NoBite,\" he says. \"It's a mosquito trap, which uses safe blue light and a special smell to catch mosquitoes.\"\nOne investor, Ms Loan, leans forward. \"What kind of smell?\"\n\"It's like human breath,\" Hieu says with a smile. \"The trap releases a tiny amount of gas, which mosquitoes follow. Attracted by the light and the gas, they fly into the box and can't get out.\"\n\"Is it safe for children?\"\n\"Completely. Using no chemicals at all, it's safer than sprays. It's also very quiet.\"\nMr Phat, another investor, asks, \"Does it really work?\"\n\"Tested in two hundred homes in Dong Nai, it reduced mosquitoes by eighty percent. In one district, which had many cases of dengue fever last year, cases fell by more than half.\"\n\"Impressive. How much does it cost to make?\"\n\"About three hundred thousand dong. We sell it for six hundred thousand.\"\n\"Who are your customers?\"\n\"Families, schools and small hotels. Having sold five thousand units online, we now want to sell in supermarkets.\"\n\"How much money do you need?\"\n\"Two billion dong. With it, we'll build a small factory, which will make fifty thousand traps a year.\"\nMs Loan writes something down. \"And who's on your team?\"\n\"My sister, who studied biology, designed the trap. My friend Long, who runs an online shop, handles sales.\"\n\"Thank you, Hieu. We'll discuss it and call you on Friday.\"\nLeaving the stage, Hieu takes a deep breath. He thinks it went well.",
+  "targetWords": [
+    "investor",
+    "mosquito",
+    "trap",
+    "breath",
+    "tiny",
+    "chemical",
+    "spray",
+    "district",
+    "factory",
+    "biology"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "investors",
+        "lemma": "investor",
+        "meaningVi": "nhà đầu tư",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "mosquito",
+        "lemma": "mosquito",
+        "meaningVi": "con muỗi",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "trap",
+        "lemma": "trap",
+        "meaningVi": "cái bẫy",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "breath",
+        "lemma": "breath",
+        "meaningVi": "hơi thở",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "tiny",
+        "lemma": "tiny",
+        "meaningVi": "rất nhỏ",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "chemicals",
+        "lemma": "chemical",
+        "meaningVi": "hoá chất",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "sprays",
+        "lemma": "spray",
+        "meaningVi": "thuốc xịt",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "district",
+        "lemma": "district",
+        "meaningVi": "huyện, quận",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "factory",
+        "lemma": "factory",
+        "meaningVi": "nhà máy",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "biology",
+        "lemma": "biology",
+        "meaningVi": "sinh học",
+        "pos": "noun",
+        "sentenceIndex": 28
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Hieu doing?",
+        "promptVi": "Hiếu đang làm gì?",
+        "options": [
+          "Asking investors for money for his mosquito trap",
+          "Selling traps in a supermarket",
+          "Teaching biology",
+          "Buying a factory"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiếu thuyết trình về bẫy muỗi để gọi vốn từ các nhà đầu tư."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much did the trap reduce mosquitoes in the tests?",
+        "promptVi": "Trong thử nghiệm, bẫy giảm được bao nhiêu muỗi?",
+        "options": [
+          "Fifty percent",
+          "Eighty percent",
+          "Twenty percent",
+          "One hundred percent"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hiếu nói \"it reduced mosquitoes by eighty percent.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much money does Hieu need?",
+        "promptVi": "Hiếu cần bao nhiêu tiền?",
+        "options": [
+          "Two hundred million dong",
+          "Two billion dong",
+          "Six hundred thousand dong",
+          "Five thousand dollars"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hiếu nói \"Two billion dong.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The trap uses chemicals to kill mosquitoes.",
+        "promptVi": "Bẫy dùng hoá chất để diệt muỗi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Using no chemicals at all, it's safer than sprays.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"tiny\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The trap releases a tiny amount of gas, which mosquitoes follow.\"",
+        "options": [
+          "rất nhỏ",
+          "rất lớn",
+          "độc hại",
+          "có mùi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tiny = rất nhỏ, tí xíu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề rút gọn với phân từ",
+      "bodyVi": "Mệnh đề phân từ giúp bài thuyết trình gọn và mạnh hơn. V-ing (chủ động): Hoping to raise money for his company, Hieu is standing in front of three investors / Using no chemicals at all, it's safer than sprays. V3 (bị động): Attracted by the light and the gas, they fly into the box / Tested in two hundred homes, it reduced mosquitoes by eighty percent. Having + V3 (việc đã xong trước): Having sold five thousand units online, we now want to sell in supermarkets.",
+      "examples": [
+        "Attracted by the light and the gas, they fly into the box and can't get out.\"",
+        "\"Tested in two hundred homes in Dong Nai, it reduced mosquitoes by eighty percent.",
+        "Having sold five thousand units online, we now want to sell in supermarkets.\""
+      ]
+    },
+    "writingPrompt": "Write a short pitch for a simple invention. Use participle clauses (Using …, Tested …, Having …) and one non-defining relative clause.",
+    "sentenceTranslations": [
+      "Mong gọi được vốn cho công ty, Hiếu đang đứng trước ba nhà đầu tư tại một sự kiện khởi nghiệp ở Thành phố Hồ Chí Minh.",
+      "Trên bàn là một chiếc hộp nhỏ màu đen có đèn xanh bên trong.",
+      "Anh nói: \"Đây là NoBite.",
+      "Đây là một chiếc bẫy muỗi, dùng ánh sáng xanh an toàn và một mùi đặc biệt để bắt muỗi.\"",
+      "Một nhà đầu tư, bà Loan, nghiêng người về phía trước.",
+      "\"Mùi gì vậy?\"",
+      "Hiếu cười: \"Giống hơi thở của người.",
+      "Bẫy thải ra một lượng khí rất nhỏ, thứ mà muỗi bám theo.",
+      "Bị ánh sáng và khí thu hút, chúng bay vào hộp và không ra được.\"",
+      "\"Có an toàn cho trẻ em không?\"",
+      "\"Hoàn toàn an toàn.",
+      "Không dùng chút hoá chất nào, nó an toàn hơn thuốc xịt.",
+      "Nó cũng rất êm.\"",
+      "Ông Phát, một nhà đầu tư khác, hỏi: \"Nó có thật sự hiệu quả không?\"",
+      "\"Được thử ở hai trăm hộ gia đình tại Đồng Nai, nó giảm được tám mươi phần trăm muỗi.",
+      "Ở một huyện, nơi năm ngoái có nhiều ca sốt xuất huyết, số ca giảm hơn một nửa.\"",
+      "\"Ấn tượng.",
+      "Chi phí sản xuất bao nhiêu?\"",
+      "\"Khoảng ba trăm nghìn đồng.",
+      "Chúng tôi bán sáu trăm nghìn.\"",
+      "\"Khách hàng của anh là ai?\"",
+      "\"Gia đình, trường học và khách sạn nhỏ.",
+      "Đã bán được năm nghìn chiếc qua mạng, giờ chúng tôi muốn bán ở siêu thị.\"",
+      "\"Anh cần bao nhiêu tiền?\"",
+      "\"Hai tỷ đồng.",
+      "Với số tiền đó, chúng tôi sẽ xây một nhà máy nhỏ, sản xuất năm mươi nghìn bẫy mỗi năm.\"",
+      "Bà Loan ghi gì đó.",
+      "\"Thế đội của anh có những ai?\"",
+      "\"Em gái tôi, người học sinh học, thiết kế cái bẫy.",
+      "Bạn tôi là Long, người điều hành một cửa hàng online, lo phần bán hàng.\"",
+      "\"Cảm ơn Hiếu.",
+      "Chúng tôi sẽ bàn bạc và gọi cho anh vào thứ Sáu.\"",
+      "Rời sân khấu, Hiếu hít một hơi thật sâu.",
+      "Anh nghĩ buổi thuyết trình đã suôn sẻ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một sản phẩm khởi nghiệp ngắn gọn và thuyết phục bằng mệnh đề phân từ (Using …, Tested …, Having + V3 …).",
+    "examples": [
+      {
+        "lemma": "investor",
+        "sentence": "An investor gave them money to start the company.",
+        "meaningVi": "Một nhà đầu tư cho họ tiền để mở công ty."
+      },
+      {
+        "lemma": "mosquito",
+        "sentence": "A mosquito bit me last night.",
+        "meaningVi": "Tối qua tôi bị muỗi đốt."
+      },
+      {
+        "lemma": "trap",
+        "sentence": "They set a trap for the mice.",
+        "meaningVi": "Họ đặt bẫy chuột."
+      },
+      {
+        "lemma": "breath",
+        "sentence": "Take a deep breath and relax.",
+        "meaningVi": "Hít một hơi thật sâu và thư giãn."
+      },
+      {
+        "lemma": "tiny",
+        "sentence": "The baby has tiny hands.",
+        "meaningVi": "Em bé có đôi bàn tay bé xíu."
+      },
+      {
+        "lemma": "chemical",
+        "sentence": "This chemical is dangerous for fish.",
+        "meaningVi": "Hoá chất này nguy hiểm cho cá."
+      },
+      {
+        "lemma": "spray",
+        "sentence": "Use this spray to clean the table.",
+        "meaningVi": "Dùng bình xịt này để lau bàn."
+      },
+      {
+        "lemma": "district",
+        "sentence": "She lives in a quiet district of the city.",
+        "meaningVi": "Cô ấy sống ở một quận yên tĩnh của thành phố."
+      },
+      {
+        "lemma": "factory",
+        "sentence": "The factory makes shoes for export.",
+        "meaningVi": "Nhà máy sản xuất giày để xuất khẩu."
+      },
+      {
+        "lemma": "biology",
+        "sentence": "Biology is my favourite subject.",
+        "meaningVi": "Sinh học là môn tôi thích nhất."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thu",
+        "Hieu"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "How did it go? Did they like NoBite?",
+          "meaningVi": "Thế nào rồi? Họ có thích NoBite không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I think so. Having seen the test results, Ms Loan looked very interested.",
+          "meaningVi": "Anh nghĩ là có. Xem kết quả thử nghiệm xong, bà Loan có vẻ rất quan tâm."
+        },
+        {
+          "speaker": 0,
+          "text": "Did they ask about the design?",
+          "meaningVi": "Họ có hỏi về thiết kế không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Asked about the design, I told them all about you.",
+          "meaningVi": "Có. Được hỏi về thiết kế, anh kể hết về em."
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! What did Mr Phat say?",
+          "meaningVi": "Ha! Ông Phát nói gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "He asked about costs. Hearing our price, he smiled.",
+          "meaningVi": "Ông hỏi về chi phí. Nghe giá của mình, ông mỉm cười."
+        },
+        {
+          "speaker": 0,
+          "text": "That's a good sign. When will they decide?",
+          "meaningVi": "Dấu hiệu tốt đấy. Khi nào họ quyết định?"
+        },
+        {
+          "speaker": 1,
+          "text": "On Friday. They'll call me.",
+          "meaningVi": "Thứ Sáu. Họ sẽ gọi cho anh."
+        },
+        {
+          "speaker": 0,
+          "text": "Shall we celebrate tonight anyway?",
+          "meaningVi": "Tối nay mình ăn mừng luôn nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Let's wait until Friday. I don't want to be unlucky!",
+          "meaningVi": "Đợi đến thứ Sáu đã. Anh không muốn xui!"
+        }
+      ]
+    },
+    "grammarTipVi": "Mệnh đề phân từ: Having seen the test results, Ms Loan looked very interested / Asked about the design, I told them … / Hearing our price, he smiled.",
+    "translations": [
+      {
+        "vi": "Đây là một chiếc bẫy muỗi.",
+        "en": "It's a mosquito trap.",
+        "distractors": [
+          "traps",
+          "fly",
+          "an"
+        ]
+      },
+      {
+        "vi": "Bẫy thải ra một lượng khí rất nhỏ.",
+        "en": "The trap releases a tiny amount of gas.",
+        "distractors": [
+          "huge",
+          "released",
+          "water"
+        ]
+      },
+      {
+        "vi": "Không dùng hoá chất, nó an toàn hơn thuốc xịt.",
+        "en": "Using no chemicals, it's safer than sprays.",
+        "distractors": [
+          "used",
+          "poison",
+          "sweets"
+        ]
+      },
+      {
+        "vi": "Em gái tôi, người học sinh học, đã thiết kế cái bẫy.",
+        "en": "My sister, who studied biology, designed the trap.",
+        "distractors": [
+          "which",
+          "studies",
+          "built"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thu và Hiếu nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi thuyết trình với nhà đầu tư",
+          "Một bữa tiệc",
+          "Bệnh sốt xuất huyết"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu hỏi \"Did they like NoBite?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bà Loan có vẻ thế nào?",
+        "promptVi": "",
+        "options": [
+          "Rất quan tâm",
+          "Không vui",
+          "Buồn chán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiếu nói \"Ms Loan looked very interested.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào nhà đầu tư quyết định?",
+        "promptVi": "",
+        "options": [
+          "Thứ Sáu",
+          "Hôm nay",
+          "Tuần sau"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiếu nói \"On Friday.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hieu wants to celebrate tonight.",
+        "promptVi": "Hiếu muốn ăn mừng tối nay.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hiếu nói \"Let's wait until Friday.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Bẫy muỗi NoBite hoạt động thế nào và hiệu quả ra sao? Hiếu cần tiền để làm gì?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề rút gọn với phân từ",
+      "noticing": [
+        {
+          "sentence": "Hoping to raise money for his company, Hieu is standing in front of three investors at a startup event in Ho Chi Minh City.",
+          "highlights": [
+            "Hoping to raise money"
+          ]
+        },
+        {
+          "sentence": "Attracted by the light and the gas, they fly into the box and can't get out.\"",
+          "highlights": [
+            "Attracted by the light and the gas"
+          ]
+        },
+        {
+          "sentence": "\"Tested in two hundred homes in Dong Nai, it reduced mosquitoes by eighty percent.",
+          "highlights": [
+            "Tested in two hundred homes"
+          ]
+        },
+        {
+          "sentence": "Having sold five thousand units online, we now want to sell in supermarkets.\"",
+          "highlights": [
+            "Having sold five thousand units"
+          ]
+        }
+      ],
+      "questionVi": "Muỗi bị ánh sáng thu hút rồi bay vào hộp. Câu nào đúng?",
+      "options": [
+        "Attracted by the light, the mosquitoes fly into the box.",
+        "Attracting by the light, the mosquitoes fly into the box.",
+        "Having attracted by the light, the mosquitoes fly into the box."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Muỗi bị thu hút (bị động): dùng phân từ V3 Attracted.",
+      "whenVi": "Dùng trong bài thuyết trình, quảng cáo để nói nhanh về cách sản phẩm hoạt động và kết quả đã đạt được.",
+      "table": [
+        {
+          "subject": "V-ing (chủ động)",
+          "form": "Hoping to raise money, Hieu is talking to investors.",
+          "negative": "Using no chemicals, it's safer than sprays."
+        },
+        {
+          "subject": "V3 (bị động)",
+          "form": "Attracted by the light, they fly into the box.",
+          "negative": "Tested in two hundred homes, it reduced mosquitoes."
+        },
+        {
+          "subject": "Having + V3",
+          "form": "Having sold five thousand units, we want to sell in supermarkets.",
+          "negative": "Việc bán đã xảy ra trước."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Testing in two hundred homes, it reduced mosquitoes by eighty percent.",
+          "right": "Tested in two hundred homes, it reduced mosquitoes by eighty percent."
+        },
+        {
+          "wrong": "Leaving the stage, a deep breath was taken by Hieu.",
+          "right": "Leaving the stage, Hieu takes a deep breath."
+        }
+      ],
+      "noteVi": "Bài cũng có mệnh đề quan hệ không xác định: a mosquito trap, which uses safe blue light / My sister, who studied biology, designed the trap.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ attract.",
+          "text": "___ by the light, mosquitoes fly into the box.",
+          "answers": [
+            "Attracted"
+          ],
+          "explanationVi": "Muỗi bị thu hút (bị động): Attracted."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ no chemicals, the trap is safe for children.",
+          "options": [
+            "Using",
+            "Used",
+            "Uses",
+            "To using"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bẫy không dùng hoá chất (chủ động): Using."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Testing in two hundred homes, it reduced mosquitoes.",
+          "sentence": "Tested in two hundred homes, it reduced mosquitoes.",
+          "explanationVi": "Bẫy được thử nghiệm (bị động): Tested."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Rời sân khấu, Hiếu hít một hơi thật sâu.",
+          "sentence": "Leaving the stage, Hieu takes a deep breath.",
+          "words": [
+            "Leaving",
+            "the",
+            "stage,",
+            "Hieu",
+            "takes",
+            "a",
+            "deep",
+            "breath.",
+            "left"
+          ],
+          "explanationVi": "V-ing …, chủ ngữ + động từ; từ \"left\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Attracted by the light and the gas, they fly into the box and can't get out.\"",
+        "tipVi": "Ngắt hơi sau gas; attracted /əˈtræktɪd/."
+      },
+      {
+        "text": "Having sold five thousand units online, we now want to sell in supermarkets.\"",
+        "tipVi": "units /ˈjuːnɪts/; ngắt hơi sau online."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "If you had a business idea, what would you tell investors?",
+        "questionVi": "Nếu có một ý tưởng kinh doanh, bạn sẽ nói gì với nhà đầu tư?",
+        "frame": "My idea is ___, which ___."
+      },
+      {
+        "question": "What do people in your country do to avoid mosquitoes?",
+        "questionVi": "Người dân nước bạn làm gì để tránh muỗi?",
+        "frame": "Most people ___."
+      },
+      {
+        "question": "How did you prepare for an important presentation?",
+        "questionVi": "Bạn đã chuẩn bị cho một buổi thuyết trình quan trọng thế nào?",
+        "frame": "Having ___, I ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề phân từ (Using …, Tested …, Having + V3 …)",
+      "anyOf": [
+        "Using",
+        "Tested",
+        "Having",
+        "Designed",
+        "Made"
+      ],
+      "outlineVi": [
+        "Sản phẩm là gì, dành cho ai (Designed for …).",
+        "Nó hoạt động thế nào (Using …).",
+        "Kết quả đã có và bạn cần gì tiếp (Tested … / Having sold …)."
+      ],
+      "modelAnswer": "Designed for busy students, our smart water bottle reminds you to drink every hour. Using a small light on the lid, it shows how much you have drunk. Tested by fifty students, it helped them drink twice as much water. Having sold our first hundred bottles online, we now want to sell in schools."
+    }
+  },
+  "glosses": [
+    {
+      "text": "startup event",
+      "lemma": "startup event",
+      "meaningVi": "sự kiện khởi nghiệp",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a startup event",
+      "phraseVi": "một sự kiện khởi nghiệp"
+    },
+    {
+      "text": "leans forward",
+      "lemma": "lean forward",
+      "meaningVi": "nghiêng người về phía trước",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "Ms Loan leans forward",
+      "phraseVi": "bà Loan nghiêng người về phía trước"
+    },
+    {
+      "text": "dengue fever",
+      "lemma": "dengue fever",
+      "meaningVi": "sốt xuất huyết",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "many cases of dengue fever",
+      "phraseVi": "nhiều ca sốt xuất huyết"
+    },
+    {
+      "text": "units",
+      "lemma": "unit",
+      "meaningVi": "chiếc, đơn vị sản phẩm",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "five thousand units",
+      "phraseVi": "năm nghìn chiếc"
+    }
+  ]
+}

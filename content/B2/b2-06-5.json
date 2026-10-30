@@ -1,0 +1,599 @@
+{
+  "content": "Designed to watch traffic in busy cities, a small white drone is flying above a park in the west of Hanoi. On the ground, two engineers, Long and Diep, are watching its camera images on a laptop.\n\n\"It's very steady,\" Diep says. \"The wind doesn't seem to affect it.\"\n\"That's the new software,\" Long replies. \"Using six sensors, the drone corrects its position fifty times a second.\"\n\"How long can it stay in the air?\"\n\"About forty minutes. After that, it returns to its base, which charges the battery automatically.\"\n\"So nobody needs to touch it?\"\n\"Exactly. Flying alone, it follows a route that we set in the morning. When it sees a traffic jam, it sends a message to the city's traffic centre, which can then change the traffic lights.\"\n\"Impressive. But what about privacy? People don't like cameras in the sky.\"\n\"We thought about that. Flying at a height of a hundred and twenty metres, the camera can't see people's faces. It only counts cars and motorbikes.\"\n\"Good. Has the city agreed to use it?\"\n\"Not yet. The police, who are responsible for traffic, want to see three months of tests first.\"\nDiep looks at the screen. \"Look, it's turning back already.\"\n\"Yes. Having finished its first route, it's coming home to charge. Watch how it lands.\"\nThe drone slowly comes down and lands exactly in the centre of the base.\n\"Perfect landing,\" Diep says. \"Who designed the landing system?\"\n\"Trang, who joined our team last year. She spent months on it.\"\n\"Then she deserves a coffee. Let's tell her it worked.\"",
+  "targetWords": [
+    "image",
+    "steady",
+    "affect",
+    "position",
+    "automatically",
+    "privacy",
+    "height",
+    "responsible",
+    "landing",
+    "deserve"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "images",
+        "lemma": "image",
+        "meaningVi": "hình ảnh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "steady",
+        "lemma": "steady",
+        "meaningVi": "ổn định, vững",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "affect",
+        "lemma": "affect",
+        "meaningVi": "ảnh hưởng",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "position",
+        "lemma": "position",
+        "meaningVi": "vị trí",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "automatically",
+        "lemma": "automatically",
+        "meaningVi": "tự động",
+        "pos": "adverb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "privacy",
+        "lemma": "privacy",
+        "meaningVi": "quyền riêng tư",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "height",
+        "lemma": "height",
+        "meaningVi": "độ cao",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "responsible",
+        "lemma": "responsible",
+        "meaningVi": "chịu trách nhiệm",
+        "pos": "adjective",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "landing",
+        "lemma": "landing",
+        "meaningVi": "sự hạ cánh",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "deserves",
+        "lemma": "deserve",
+        "meaningVi": "xứng đáng",
+        "pos": "verb",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Long and Diep doing?",
+        "promptVi": "Long và Điệp đang làm gì?",
+        "options": [
+          "Testing a drone that watches traffic",
+          "Driving through Hanoi",
+          "Building a new park",
+          "Taking photos of a concert"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ thử chiếc drone được thiết kế để theo dõi giao thông."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long can the drone stay in the air?",
+        "promptVi": "Drone bay được bao lâu?",
+        "options": [
+          "About ten minutes",
+          "About forty minutes",
+          "Two hours",
+          "All day"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Long nói \"About forty minutes.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't the camera see people's faces?",
+        "promptVi": "Vì sao máy quay không nhìn thấy mặt người?",
+        "options": [
+          "It flies very high.",
+          "It only works at night.",
+          "It has no camera.",
+          "The police turned it off."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nó bay ở độ cao một trăm hai mươi mét."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The city has already agreed to use the drone.",
+        "promptVi": "Thành phố đã đồng ý dùng drone.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Long nói \"Not yet.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"privacy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"But what about privacy?\"",
+        "options": [
+          "quyền riêng tư",
+          "an toàn",
+          "giá cả",
+          "tiếng ồn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Privacy = quyền riêng tư, không bị người khác theo dõi."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề rút gọn với phân từ",
+      "bodyVi": "Mệnh đề phân từ thay cho một mệnh đề đầy đủ, giúp mô tả máy móc ngắn gọn. V3 cho nghĩa bị động: Designed to watch traffic in busy cities, a small white drone is flying above a park (= It was designed …). V-ing cho nghĩa chủ động: Using six sensors, the drone corrects its position / Flying at a height of a hundred and twenty metres, the camera can't see people's faces. Having + V3 cho việc đã xong trước: Having finished its first route, it's coming home to charge.",
+      "examples": [
+        "Designed to watch traffic in busy cities, a small white drone is flying above a park in the west of Hanoi.",
+        "\"Using six sensors, the drone corrects its position fifty times a second.\"",
+        "Having finished its first route, it's coming home to charge."
+      ]
+    },
+    "writingPrompt": "Describe a machine or robot that does a job automatically. Use participle clauses (Designed …, Using …, Having …).",
+    "sentenceTranslations": [
+      "Được thiết kế để theo dõi giao thông ở các thành phố đông đúc, một chiếc drone nhỏ màu trắng đang bay trên một công viên ở phía tây Hà Nội.",
+      "Dưới mặt đất, hai kỹ sư là Long và Điệp đang xem hình ảnh từ camera của nó trên máy tính xách tay.",
+      "Điệp nói: \"Nó bay rất vững.",
+      "Gió dường như không ảnh hưởng gì.\"",
+      "Long đáp: \"Nhờ phần mềm mới đấy.",
+      "Dùng sáu cảm biến, drone chỉnh lại vị trí năm mươi lần mỗi giây.\"",
+      "\"Nó bay được bao lâu?\"",
+      "\"Khoảng bốn mươi phút.",
+      "Sau đó, nó quay về trạm, nơi tự động sạc pin.\"",
+      "\"Vậy là không ai phải đụng vào nó à?\"",
+      "\"Đúng vậy.",
+      "Bay một mình, nó đi theo tuyến mà mình cài buổi sáng.",
+      "Khi thấy tắc đường, nó gửi tin nhắn đến trung tâm giao thông thành phố, nơi có thể đổi đèn tín hiệu.\"",
+      "\"Ấn tượng thật.",
+      "Nhưng còn quyền riêng tư thì sao?",
+      "Mọi người không thích có máy quay trên trời.\"",
+      "\"Bọn tôi đã nghĩ đến chuyện đó.",
+      "Bay ở độ cao một trăm hai mươi mét, máy quay không nhìn thấy mặt người.",
+      "Nó chỉ đếm ô tô và xe máy.\"",
+      "\"Tốt.",
+      "Thành phố đã đồng ý dùng nó chưa?\"",
+      "\"Chưa.",
+      "Cảnh sát, đơn vị chịu trách nhiệm về giao thông, muốn xem ba tháng thử nghiệm trước đã.\"",
+      "Điệp nhìn màn hình.",
+      "\"Nhìn kìa, nó đang quay về rồi.\"",
+      "\"Ừ.",
+      "Bay xong tuyến đầu tiên, nó đang về để sạc.",
+      "Xem nó hạ cánh này.\"",
+      "Chiếc drone từ từ hạ xuống và đáp chính xác vào giữa trạm.",
+      "Điệp nói: \"Hạ cánh hoàn hảo.",
+      "Ai thiết kế hệ thống hạ cánh vậy?\"",
+      "\"Trang, người vào nhóm mình năm ngoái.",
+      "Cô ấy mất mấy tháng làm cái đó.\"",
+      "\"Vậy cô ấy xứng đáng được một ly cà phê.",
+      "Mình báo cô ấy là nó chạy tốt đi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mô tả cách một thiết bị tự động hoạt động bằng mệnh đề phân từ (Designed …, Using …, Having + V3 …).",
+    "examples": [
+      {
+        "lemma": "image",
+        "sentence": "The image on the screen was very clear.",
+        "meaningVi": "Hình ảnh trên màn hình rất rõ."
+      },
+      {
+        "lemma": "steady",
+        "sentence": "Hold the camera steady.",
+        "meaningVi": "Giữ máy ảnh cho vững."
+      },
+      {
+        "lemma": "affect",
+        "sentence": "The rain didn't affect the match.",
+        "meaningVi": "Mưa không ảnh hưởng đến trận đấu."
+      },
+      {
+        "lemma": "position",
+        "sentence": "Check the position of the ship on the map.",
+        "meaningVi": "Kiểm tra vị trí của con tàu trên bản đồ."
+      },
+      {
+        "lemma": "automatically",
+        "sentence": "The lights turn off automatically.",
+        "meaningVi": "Đèn tự động tắt."
+      },
+      {
+        "lemma": "privacy",
+        "sentence": "Everyone has a right to privacy.",
+        "meaningVi": "Ai cũng có quyền riêng tư."
+      },
+      {
+        "lemma": "height",
+        "sentence": "The tower is three hundred metres in height.",
+        "meaningVi": "Ngọn tháp cao ba trăm mét."
+      },
+      {
+        "lemma": "responsible",
+        "sentence": "Who is responsible for this project?",
+        "meaningVi": "Ai chịu trách nhiệm dự án này?"
+      },
+      {
+        "lemma": "landing",
+        "sentence": "The plane made a smooth landing.",
+        "meaningVi": "Máy bay hạ cánh êm."
+      },
+      {
+        "lemma": "deserve",
+        "sentence": "You deserve a holiday after all that work.",
+        "meaningVi": "Làm việc vất vả vậy, bạn xứng đáng được nghỉ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Trang",
+        "Diep"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "So how did the test flight go?",
+          "meaningVi": "Thế chuyến bay thử thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Perfectly. Having finished its route, it landed exactly in the centre.",
+          "meaningVi": "Hoàn hảo. Bay xong tuyến, nó đáp đúng chính giữa."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? My landing system worked?",
+          "meaningVi": "Thật à? Hệ thống hạ cánh của mình chạy à?"
+        },
+        {
+          "speaker": 1,
+          "text": "It did. Long, who was very nervous, started clapping.",
+          "meaningVi": "Chạy rồi. Long, người lo lắng nhất, còn vỗ tay."
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! What about the wind? It was quite strong this morning.",
+          "meaningVi": "Ha! Còn gió thì sao? Sáng nay gió khá mạnh."
+        },
+        {
+          "speaker": 1,
+          "text": "No problem. Using the new software, it stayed very steady.",
+          "meaningVi": "Không sao. Nhờ phần mềm mới, nó bay rất vững."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. When is the next test?",
+          "meaningVi": "Tuyệt. Khi nào thử tiếp?"
+        },
+        {
+          "speaker": 1,
+          "text": "Thursday, over Cau Giay at rush hour.",
+          "meaningVi": "Thứ Năm, trên Cầu Giấy vào giờ cao điểm."
+        },
+        {
+          "speaker": 0,
+          "text": "Can I come and watch?",
+          "meaningVi": "Mình đến xem được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Of course. And I owe you a coffee.",
+          "meaningVi": "Tất nhiên. Mà mình còn nợ cậu một ly cà phê."
+        }
+      ]
+    },
+    "grammarTipVi": "Mệnh đề phân từ: Having finished its route, it landed exactly in the centre / Using the new software, it stayed very steady. Mệnh đề quan hệ: Long, who was very nervous, started clapping.",
+    "translations": [
+      {
+        "vi": "Gió dường như không ảnh hưởng đến nó.",
+        "en": "The wind doesn't seem to affect it.",
+        "distractors": [
+          "effect",
+          "seems",
+          "rain"
+        ]
+      },
+      {
+        "vi": "Trạm tự động sạc pin.",
+        "en": "The base charges the battery automatically.",
+        "distractors": [
+          "slowly",
+          "charged",
+          "phone"
+        ]
+      },
+      {
+        "vi": "Nhưng còn quyền riêng tư thì sao?",
+        "en": "But what about privacy?",
+        "distractors": [
+          "private",
+          "safety",
+          "who"
+        ]
+      },
+      {
+        "vi": "Cảnh sát, đơn vị phụ trách giao thông, muốn xem thử nghiệm.",
+        "en": "The police, who are responsible for traffic, want to see tests.",
+        "distractors": [
+          "which",
+          "is",
+          "wants"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Trang và Điệp nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kết quả chuyến bay thử của drone",
+          "Một quán cà phê mới",
+          "Lịch nghỉ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang hỏi \"how did the test flight go?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đã vỗ tay?",
+        "promptVi": "",
+        "options": [
+          "Long",
+          "Trang",
+          "Cảnh sát"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Điệp nói \"Long, who was very nervous, started clapping.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào bay thử tiếp?",
+        "promptVi": "",
+        "options": [
+          "Thứ Năm",
+          "Thứ Hai",
+          "Cuối tuần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Điệp nói \"Thursday, over Cau Giay at rush hour.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The drone was unsteady in the wind.",
+        "promptVi": "Drone bay chao đảo trong gió.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"it stayed very steady.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Drone theo dõi giao thông hoạt động thế nào? Các kỹ sư giải quyết chuyện quyền riêng tư ra sao?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề rút gọn với phân từ",
+      "noticing": [
+        {
+          "sentence": "Designed to watch traffic in busy cities, a small white drone is flying above a park in the west of Hanoi.",
+          "highlights": [
+            "Designed to watch traffic"
+          ]
+        },
+        {
+          "sentence": "\"Using six sensors, the drone corrects its position fifty times a second.\"",
+          "highlights": [
+            "Using six sensors"
+          ]
+        },
+        {
+          "sentence": "Flying at a height of a hundred and twenty metres, the camera can't see people's faces.",
+          "highlights": [
+            "Flying at a height"
+          ]
+        },
+        {
+          "sentence": "Having finished its first route, it's coming home to charge.",
+          "highlights": [
+            "Having finished its first route"
+          ]
+        }
+      ],
+      "questionVi": "Chiếc drone được thiết kế để theo dõi giao thông. Câu nào đúng?",
+      "options": [
+        "Designed to watch traffic, the drone flies above the city.",
+        "Designing to watch traffic, the drone flies above the city.",
+        "Having designed to watch traffic, the drone flies above the city."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Drone được thiết kế (bị động): dùng phân từ V3 Designed.",
+      "whenVi": "Dùng khi mô tả máy móc, công nghệ một cách ngắn gọn: V3 (bị động), V-ing (chủ động), Having + V3 (việc đã xong trước).",
+      "table": [
+        {
+          "subject": "V-ing (chủ động)",
+          "form": "Using six sensors, the drone corrects its position.",
+          "negative": "= Because it uses six sensors, …"
+        },
+        {
+          "subject": "V3 (bị động)",
+          "form": "Designed to watch traffic, a drone is flying above the park.",
+          "negative": "= It was designed to watch traffic."
+        },
+        {
+          "subject": "Having + V3 (xảy ra trước)",
+          "form": "Having finished its route, it's coming home.",
+          "negative": "= After it has finished its route, …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Designing to watch traffic, the drone flies above the city.",
+          "right": "Designed to watch traffic, the drone flies above the city."
+        },
+        {
+          "wrong": "Flying at 120 metres, people's faces can't be seen.",
+          "right": "Flying at 120 metres, the camera can't see people's faces."
+        }
+      ],
+      "noteVi": "Bài cũng có mệnh đề quan hệ không xác định: its base, which charges the battery automatically / The police, who are responsible for traffic, …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "___ finished its route, the drone returns to its base.",
+          "answers": [
+            "Having"
+          ],
+          "explanationVi": "Việc đã xong trước: Having + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ six sensors, the drone stays very steady.",
+          "options": [
+            "Using",
+            "Used",
+            "Uses",
+            "To used"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Drone dùng cảm biến (chủ động): Using."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Designing to watch traffic, the drone flies above Hanoi.",
+          "sentence": "Designed to watch traffic, the drone flies above Hanoi.",
+          "explanationVi": "Drone được thiết kế (bị động): Designed."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bay xong tuyến đầu tiên, nó đang bay về.",
+          "sentence": "Having finished its first route, it is coming home.",
+          "words": [
+            "Having",
+            "finished",
+            "its",
+            "first",
+            "route,",
+            "it",
+            "is",
+            "coming",
+            "home.",
+            "finishing"
+          ],
+          "explanationVi": "Having + V3, mệnh đề chính; từ \"finishing\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Using six sensors, the drone corrects its position fifty times a second.\"",
+        "tipVi": "Ngắt hơi sau sensors; position /pəˈzɪʃən/."
+      },
+      {
+        "text": "Having finished its first route, it's coming home to charge.",
+        "tipVi": "route /ruːt/; charge /tʃɑːdʒ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Using your phone, what can you do that people couldn't do twenty years ago?",
+        "questionVi": "Dùng điện thoại, bạn làm được gì mà hai mươi năm trước người ta không làm được?",
+        "frame": "Using my phone, I can ___."
+      },
+      {
+        "question": "Would you be happy to have drones flying over your city? Why?",
+        "questionVi": "Bạn có vui khi có drone bay trên thành phố mình không? Vì sao?",
+        "frame": "I would / wouldn't because ___."
+      },
+      {
+        "question": "What is the worst traffic problem in your city? How could technology help?",
+        "questionVi": "Vấn đề giao thông tệ nhất ở thành phố bạn là gì? Công nghệ có thể giúp ra sao?",
+        "frame": "Technology could help by ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề phân từ (Designed …, Using …, Having + V3 …)",
+      "anyOf": [
+        "Designed",
+        "Using",
+        "Having",
+        "Made",
+        "Built"
+      ],
+      "outlineVi": [
+        "Máy được thiết kế để làm gì (Designed to …).",
+        "Nó làm việc thế nào (Using …).",
+        "Làm xong thì nó làm gì tiếp (Having + V3 …)."
+      ],
+      "modelAnswer": "Designed to clean floors, our robot vacuum works every morning while we are at work. Using small sensors, it avoids chairs and tables. Having finished the living room, it moves to the bedroom. When the battery is low, it goes back to its base by itself. Built in Korea, it was quite expensive, but it saves us a lot of time."
+    }
+  },
+  "glosses": [
+    {
+      "text": "drone",
+      "lemma": "drone",
+      "meaningVi": "thiết bị bay không người lái",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a small white drone",
+      "phraseVi": "một chiếc drone nhỏ màu trắng"
+    },
+    {
+      "text": "corrects",
+      "lemma": "correct",
+      "meaningVi": "chỉnh lại",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "corrects its position",
+      "phraseVi": "chỉnh lại vị trí"
+    },
+    {
+      "text": "counts",
+      "lemma": "count",
+      "meaningVi": "đếm",
+      "sentenceIndex": 18,
+      "pos": "verb",
+      "phrase": "It only counts cars and motorbikes.",
+      "phraseVi": "Nó chỉ đếm ô tô và xe máy."
+    },
+    {
+      "text": "turning back",
+      "lemma": "turn back",
+      "meaningVi": "quay về",
+      "sentenceIndex": 24,
+      "pos": "phrase",
+      "phrase": "it's turning back already",
+      "phraseVi": "nó đang quay về rồi"
+    }
+  ]
+}

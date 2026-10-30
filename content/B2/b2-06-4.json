@@ -1,0 +1,593 @@
+{
+  "content": "In her laboratory at an agricultural university near Hanoi, Professor Hang is showing a reporter, Minh, a thin, clear film. It looks like normal plastic food wrap, but it is made from cassava, which grows all over Vietnam.\n\nMinh asks, \"So this isn't plastic at all?\"\n\"Not in the usual sense. Our film, which is made from cassava starch, breaks down in soil within six weeks. Normal plastic wrap, which is made from oil, can stay in the ground for hundreds of years.\"\n\"How do you make it?\"\n\"First, we wash and peel the cassava roots, which we buy from farmers in Phu Tho. Then, having crushed the roots into a paste, we mix them with water and separate the starch.\"\n\"That sounds like cooking.\"\n\"It is quite similar! After that, the starch is heated with a little vegetable oil, which makes the film soft. Poured onto a flat tray, the mixture dries into a thin sheet overnight.\"\n\"Can it keep food fresh?\"\n\"Yes. Wrapped in our film, bread stays fresh for four days, almost the same as with plastic.\"\n\"Is it safe to eat?\"\n\"Yes, but I wouldn't recommend it. It doesn't taste very good!\"\nMinh laughs. \"What about the price?\"\n\"At the moment, it costs about twice as much as plastic. But the price will fall when factories, which can produce much larger amounts, start making it.\"\n\"Have any companies shown interest?\"\n\"Two supermarket chains have contacted us. Looking for greener packaging, they want to test it next year.\"\n\"And the farmers?\"\n\"They're very happy. Cassava, which used to be sold cheaply for animal food, could become much more valuable.\"\n\"That's wonderful news for them.\"",
+  "targetWords": [
+    "agricultural",
+    "film",
+    "wrap",
+    "peel",
+    "separate",
+    "mixture",
+    "fresh",
+    "recommend",
+    "packaging",
+    "valuable"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "agricultural",
+        "lemma": "agricultural",
+        "meaningVi": "nông nghiệp",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "film",
+        "lemma": "film",
+        "meaningVi": "màng mỏng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "wrap",
+        "lemma": "wrap",
+        "meaningVi": "màng bọc",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "peel",
+        "lemma": "peel",
+        "meaningVi": "gọt vỏ, bóc vỏ",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "separate",
+        "lemma": "separate",
+        "meaningVi": "tách ra",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "mixture",
+        "lemma": "mixture",
+        "meaningVi": "hỗn hợp",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "fresh",
+        "lemma": "fresh",
+        "meaningVi": "tươi",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "recommend",
+        "lemma": "recommend",
+        "meaningVi": "khuyên, giới thiệu",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "packaging",
+        "lemma": "packaging",
+        "meaningVi": "bao bì",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "valuable",
+        "lemma": "valuable",
+        "meaningVi": "có giá trị",
+        "pos": "adjective",
+        "sentenceIndex": 28
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Professor Hang showing the reporter?",
+        "promptVi": "Giáo sư Hằng đang cho phóng viên xem gì?",
+        "options": [
+          "A food wrap made from cassava",
+          "A new cassava recipe",
+          "A plastic factory",
+          "A farm in Phu Tho"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà cho xem một màng bọc thực phẩm làm từ tinh bột sắn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long does the film take to break down in soil?",
+        "promptVi": "Màng này phân huỷ trong đất mất bao lâu?",
+        "options": [
+          "Six days",
+          "Six weeks",
+          "Six months",
+          "Hundreds of years"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà nói nó \"breaks down in soil within six weeks.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long does bread stay fresh in the film?",
+        "promptVi": "Bọc trong màng này, bánh mì giữ tươi được bao lâu?",
+        "options": [
+          "One day",
+          "Two days",
+          "Four days",
+          "A week"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bà nói \"bread stays fresh for four days.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The film is cheaper than plastic at the moment.",
+        "promptVi": "Hiện nay màng này rẻ hơn nhựa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"it costs about twice as much as plastic.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"valuable\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Cassava, which used to be sold cheaply for animal food, could become much more valuable.\"",
+        "options": [
+          "có giá trị",
+          "rẻ tiền",
+          "phổ biến",
+          "khó trồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Valuable = có giá trị, đáng giá."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ không xác định",
+      "bodyVi": "Khi giải thích một quy trình, mệnh đề quan hệ không xác định giúp thêm chi tiết về nguyên liệu mà không cần câu mới. Which có thể là chủ ngữ của mệnh đề: Our film, which is made from cassava starch, breaks down in soil within six weeks. Hoặc là tân ngữ: the cassava roots, which we buy from farmers in Phu Tho. Ở cuối câu chỉ cần một dấu phẩy: a little vegetable oil, which makes the film soft. Không dùng that sau dấu phẩy.",
+      "examples": [
+        "Our film, which is made from cassava starch, breaks down in soil within six weeks.",
+        "\"First, we wash and peel the cassava roots, which we buy from farmers in Phu Tho.",
+        "Cassava, which used to be sold cheaply for animal food, could become much more valuable.\""
+      ]
+    },
+    "writingPrompt": "Write a short description of a product made from a natural material. Use non-defining relative clauses.",
+    "sentenceTranslations": [
+      "Trong phòng thí nghiệm của mình ở một trường đại học nông nghiệp gần Hà Nội, giáo sư Hằng đang cho phóng viên Minh xem một màng mỏng trong suốt.",
+      "Nó trông giống màng bọc thực phẩm bằng nhựa thông thường, nhưng được làm từ sắn, loại cây mọc khắp Việt Nam.",
+      "Minh hỏi: \"Vậy đây hoàn toàn không phải nhựa ạ?\"",
+      "\"Không phải nhựa theo nghĩa thông thường.",
+      "Màng của chúng tôi, làm từ tinh bột sắn, phân huỷ trong đất trong vòng sáu tuần.",
+      "Màng bọc nhựa thông thường, làm từ dầu mỏ, có thể nằm trong đất hàng trăm năm.\"",
+      "\"Bà làm nó thế nào ạ?\"",
+      "\"Trước tiên, chúng tôi rửa và gọt vỏ củ sắn, mua từ nông dân ở Phú Thọ.",
+      "Sau đó, nghiền củ thành bột nhão xong, chúng tôi trộn với nước và tách lấy tinh bột.\"",
+      "\"Nghe giống nấu ăn quá.\"",
+      "\"Khá giống đấy!",
+      "Sau đó, tinh bột được đun với một ít dầu thực vật, giúp màng mềm hơn.",
+      "Được đổ ra một khay phẳng, hỗn hợp khô thành một tấm mỏng qua đêm.\"",
+      "\"Nó có giữ đồ ăn tươi được không ạ?\"",
+      "\"Có.",
+      "Bọc trong màng của chúng tôi, bánh mì giữ tươi được bốn ngày, gần bằng màng nhựa.\"",
+      "\"Ăn được không ạ?\"",
+      "\"Được, nhưng tôi không khuyên ăn đâu.",
+      "Vị không ngon lắm!\"",
+      "Minh bật cười.",
+      "\"Thế còn giá thì sao ạ?\"",
+      "\"Hiện tại nó đắt gấp đôi nhựa.",
+      "Nhưng giá sẽ giảm khi các nhà máy, có thể sản xuất số lượng lớn hơn nhiều, bắt đầu làm.\"",
+      "\"Đã có công ty nào quan tâm chưa ạ?\"",
+      "\"Hai chuỗi siêu thị đã liên hệ với chúng tôi.",
+      "Đang tìm bao bì xanh hơn, họ muốn thử nghiệm vào năm sau.\"",
+      "\"Còn nông dân thì sao ạ?\"",
+      "\"Họ rất vui.",
+      "Sắn, trước đây bị bán rẻ làm thức ăn gia súc, có thể trở nên có giá trị hơn nhiều.\"",
+      "\"Thật là tin vui cho họ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mô tả cách làm ra một sản phẩm mới, thêm chi tiết về nguyên liệu bằng mệnh đề quan hệ không xác định với which.",
+    "examples": [
+      {
+        "lemma": "agricultural",
+        "sentence": "Vietnam is a big agricultural country.",
+        "meaningVi": "Việt Nam là một nước nông nghiệp lớn."
+      },
+      {
+        "lemma": "film",
+        "sentence": "A thin film of oil covered the water.",
+        "meaningVi": "Một lớp dầu mỏng phủ trên mặt nước."
+      },
+      {
+        "lemma": "wrap",
+        "sentence": "Cover the bowl with plastic wrap.",
+        "meaningVi": "Bọc bát bằng màng nhựa."
+      },
+      {
+        "lemma": "peel",
+        "sentence": "Can you peel the potatoes for me?",
+        "meaningVi": "Bạn gọt khoai tây giúp tôi được không?"
+      },
+      {
+        "lemma": "separate",
+        "sentence": "Separate the eggs into two bowls.",
+        "meaningVi": "Tách trứng vào hai cái bát."
+      },
+      {
+        "lemma": "mixture",
+        "sentence": "Pour the mixture into a cake tin.",
+        "meaningVi": "Đổ hỗn hợp vào khuôn bánh."
+      },
+      {
+        "lemma": "fresh",
+        "sentence": "We buy fresh fish every morning.",
+        "meaningVi": "Sáng nào chúng tôi cũng mua cá tươi."
+      },
+      {
+        "lemma": "recommend",
+        "sentence": "Can you recommend a good hotel?",
+        "meaningVi": "Bạn giới thiệu giúp một khách sạn tốt được không?"
+      },
+      {
+        "lemma": "packaging",
+        "sentence": "Too much packaging is bad for the environment.",
+        "meaningVi": "Quá nhiều bao bì có hại cho môi trường."
+      },
+      {
+        "lemma": "valuable",
+        "sentence": "This old coin is very valuable.",
+        "meaningVi": "Đồng xu cổ này rất có giá trị."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ms Chau",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "How was the visit to the university?",
+          "meaningVi": "Chuyến thăm trường đại học thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Great. Professor Hang, who is very friendly, showed me everything.",
+          "meaningVi": "Tuyệt lắm ạ. Giáo sư Hằng, người rất thân thiện, cho em xem mọi thứ."
+        },
+        {
+          "speaker": 0,
+          "text": "And the film? Does it really work?",
+          "meaningVi": "Thế còn màng bọc? Nó có thật sự hiệu quả không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Bread, which I tested myself, stayed fresh for four days.",
+          "meaningVi": "Có ạ. Bánh mì, em tự thử, giữ tươi được bốn ngày."
+        },
+        {
+          "speaker": 0,
+          "text": "Impressive. Is it expensive?",
+          "meaningVi": "Ấn tượng đấy. Có đắt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Twice the price of plastic at the moment, which is a problem.",
+          "meaningVi": "Hiện đắt gấp đôi nhựa, đó là một vấn đề."
+        },
+        {
+          "speaker": 0,
+          "text": "Will the price come down?",
+          "meaningVi": "Giá có giảm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "She thinks so, once factories start making it.",
+          "meaningVi": "Bà ấy nghĩ là có, khi các nhà máy bắt đầu sản xuất."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. Can you write six hundred words by Thursday?",
+          "meaningVi": "Tốt. Em viết sáu trăm chữ trước thứ Năm được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No problem. I'll include some photos of the film.",
+          "meaningVi": "Không vấn đề gì ạ. Em sẽ kèm vài ảnh của màng bọc."
+        }
+      ]
+    },
+    "grammarTipVi": "Thông tin phụ về người: Professor Hang, who is very friendly, … Về vật: Bread, which I tested myself, stayed fresh. Which cũng có thể chỉ cả ý trước đó: Twice the price of plastic, which is a problem.",
+    "translations": [
+      {
+        "vi": "Nó trông giống màng bọc thực phẩm bằng nhựa thông thường.",
+        "en": "It looks like normal plastic food wrap.",
+        "distractors": [
+          "seems",
+          "paper",
+          "strange"
+        ]
+      },
+      {
+        "vi": "Bánh mì giữ tươi được bốn ngày.",
+        "en": "Bread stays fresh for four days.",
+        "distractors": [
+          "keeps",
+          "old",
+          "weeks"
+        ]
+      },
+      {
+        "vi": "Tôi không khuyên bạn ăn nó.",
+        "en": "I wouldn't recommend eating it.",
+        "distractors": [
+          "recommended",
+          "will",
+          "drinking"
+        ]
+      },
+      {
+        "vi": "Họ đang tìm bao bì xanh hơn.",
+        "en": "They are looking for greener packaging.",
+        "distractors": [
+          "find",
+          "plastic",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chị Châu và Minh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bài viết về màng bọc làm từ sắn",
+          "Một nhà máy nhựa",
+          "Kỳ nghỉ của Minh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Châu hỏi về chuyến thăm và màng bọc thực phẩm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đã tự thử bánh mì?",
+        "promptVi": "",
+        "options": [
+          "Minh",
+          "Giáo sư Hằng",
+          "Chị Châu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"Bread, which I tested myself, …\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Minh phải nộp bài?",
+        "promptVi": "",
+        "options": [
+          "Thứ Năm",
+          "Thứ Hai",
+          "Thứ Sáu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Châu hỏi \"Can you write six hundred words by Thursday?\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The film is already cheaper than plastic.",
+        "promptVi": "Màng này đã rẻ hơn nhựa rồi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì nó đắt \"Twice the price of plastic.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Màng bọc từ sắn được làm ra qua những bước nào? Nó có ưu điểm và nhược điểm gì so với màng nhựa?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ không xác định",
+      "noticing": [
+        {
+          "sentence": "It looks like normal plastic food wrap, but it is made from cassava, which grows all over Vietnam.",
+          "highlights": [
+            "which grows all over Vietnam"
+          ]
+        },
+        {
+          "sentence": "Our film, which is made from cassava starch, breaks down in soil within six weeks.",
+          "highlights": [
+            "which is made from cassava starch"
+          ]
+        },
+        {
+          "sentence": "\"First, we wash and peel the cassava roots, which we buy from farmers in Phu Tho.",
+          "highlights": [
+            "which we buy from farmers in Phu Tho"
+          ]
+        },
+        {
+          "sentence": "Cassava, which used to be sold cheaply for animal food, could become much more valuable.\"",
+          "highlights": [
+            "which used to be sold cheaply for animal food"
+          ]
+        }
+      ],
+      "questionVi": "Thêm thông tin \"We buy the roots from farmers in Phu Tho\" vào câu \"We peel the cassava roots.\" Câu nào đúng?",
+      "options": [
+        "We peel the cassava roots, which we buy from farmers in Phu Tho.",
+        "We peel the cassava roots, that we buy from farmers in Phu Tho.",
+        "We peel the cassava roots which, we buy from farmers in Phu Tho."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Dấu phẩy đứng trước which; không dùng that trong mệnh đề không xác định.",
+      "whenVi": "Dùng khi mô tả quy trình hoặc sản phẩm, để thêm chi tiết về nguyên liệu, nguồn gốc mà không phải viết câu riêng.",
+      "table": [
+        {
+          "subject": ", which + động từ",
+          "form": "Our film, which is made from cassava starch, breaks down quickly.",
+          "negative": "which làm chủ ngữ của mệnh đề."
+        },
+        {
+          "subject": ", which + chủ ngữ + động từ",
+          "form": "the cassava roots, which we buy from farmers",
+          "negative": "which làm tân ngữ, không được bỏ."
+        },
+        {
+          "subject": "Cuối câu",
+          "form": "… a little vegetable oil, which makes the film soft.",
+          "negative": "Một dấu phẩy, không dùng that."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Cassava, that grows all over Vietnam, is cheap.",
+          "right": "Cassava, which grows all over Vietnam, is cheap."
+        },
+        {
+          "wrong": "We peel the roots, which we buy them from farmers.",
+          "right": "We peel the roots, which we buy from farmers."
+        }
+      ],
+      "noteVi": "Bài cũng có mệnh đề phân từ: having crushed the roots / Poured onto a flat tray, … / Wrapped in our film, … / Looking for greener packaging, …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Normal plastic wrap, ___ is made from oil, lasts for hundreds of years.",
+          "answers": [
+            "which"
+          ],
+          "explanationVi": "Vật, có dấu phẩy: which."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The starch is heated with vegetable oil, ___ makes the film soft.",
+          "options": [
+            "which",
+            "who",
+            "what",
+            "that"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau dấu phẩy, chỉ vật: which."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Cassava, that grows all over Vietnam, is cheap.",
+          "sentence": "Cassava, which grows all over Vietnam, is cheap.",
+          "explanationVi": "Mệnh đề không xác định không dùng that."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Màng của chúng tôi, làm từ sắn, phân huỷ nhanh.",
+          "sentence": "Our film, which is made from cassava, breaks down quickly.",
+          "words": [
+            "Our",
+            "film,",
+            "which",
+            "is",
+            "made",
+            "from",
+            "cassava,",
+            "breaks",
+            "down",
+            "quickly.",
+            "that"
+          ],
+          "explanationVi": "Danh từ, which + thông tin phụ, + động từ chính; từ \"that\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Our film, which is made from cassava starch, breaks down in soil within six weeks.",
+        "tipVi": "Ngắt hơi ở hai dấu phẩy; starch /stɑːtʃ/."
+      },
+      {
+        "text": "After that, the starch is heated with a little vegetable oil, which makes the film soft.",
+        "tipVi": "vegetable /ˈvedʒtəbəl/ ba âm tiết; ngắt hơi trước which."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What plastic things do you use every day? What could replace them?",
+        "questionVi": "Hằng ngày bạn dùng đồ nhựa gì? Có thể thay bằng gì?",
+        "frame": "I use ___, which could be replaced by ___."
+      },
+      {
+        "question": "Describe a local product from your hometown.",
+        "questionVi": "Hãy tả một sản phẩm đặc trưng ở quê bạn.",
+        "frame": "___, which ___, is famous in my hometown."
+      },
+      {
+        "question": "Would you pay more for packaging that is better for the environment? Why?",
+        "questionVi": "Bạn có sẵn sàng trả thêm cho bao bì thân thiện môi trường không? Vì sao?",
+        "frame": "I would / wouldn't because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ không xác định (, which … / , who …)",
+      "anyOf": [
+        ", which",
+        ", who",
+        ", whose"
+      ],
+      "outlineVi": [
+        "Sản phẩm là gì, làm từ nguyên liệu nào (, which …).",
+        "Được làm ra thế nào.",
+        "Ai làm, bán cho ai (, who …)."
+      ],
+      "modelAnswer": "Our village makes straws from grass, which grows near the river. The grass, which is cut by hand, is washed and dried in the sun. These straws, which are cheaper than paper straws, are now sold to cafés in Ho Chi Minh City. My aunt, who started the business, employs twenty local women."
+    }
+  },
+  "glosses": [
+    {
+      "text": "cassava",
+      "lemma": "cassava",
+      "meaningVi": "sắn, khoai mì",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "made from cassava",
+      "phraseVi": "làm từ sắn"
+    },
+    {
+      "text": "starch",
+      "lemma": "starch",
+      "meaningVi": "tinh bột",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "cassava starch",
+      "phraseVi": "tinh bột sắn"
+    },
+    {
+      "text": "crushed",
+      "lemma": "crush",
+      "meaningVi": "nghiền",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "having crushed the roots into a paste",
+      "phraseVi": "nghiền củ thành bột nhão"
+    },
+    {
+      "text": "tray",
+      "lemma": "tray",
+      "meaningVi": "khay",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "a flat tray",
+      "phraseVi": "một khay phẳng"
+    }
+  ]
+}

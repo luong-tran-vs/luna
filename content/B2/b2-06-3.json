@@ -1,0 +1,593 @@
+{
+  "content": "Standing on the stage of a technology conference in Ho Chi Minh City, Dr Ngoc looks out at five hundred people. She is about to present her new software, which can read lung X-rays in just a few seconds.\n\n\"Good morning,\" she begins. \"Three years ago, I was working at a hospital in Quang Ngai, which has only two lung specialists for over a million people. Doctors there had to wait days for results.\"\nShe shows a slide of a chest X-ray. \"Our software, which we call LungSee, looks at an image like this and marks any problem areas in red. Trained on more than two hundred thousand X-rays, it can find early signs of disease that busy doctors sometimes miss.\"\nA man in the audience raises his hand. \"Does it replace doctors?\"\n\"No, it doesn't. The final decision, which is always made by a doctor, is still the most important part. LungSee simply helps doctors work faster.\"\n\"How accurate is it?\"\n\"Tested in five hospitals last year, it was correct ninety-four percent of the time.\"\nA student asks, \"How did you build it?\"\n\"With a small team. My brother, who is a computer engineer, wrote most of the code. Working in the evenings and at weekends, we finished the first version in eighteen months.\"\n\"Is it expensive?\"\n\"Not for hospitals. Running on a normal computer, it doesn't need special equipment. That's important for small hospitals, which often have limited budgets.\"\n\"What's next?\"\n\"Next year, we hope to test it on heart scans. Having seen how much it helped in Quang Ngai, many hospitals have already asked to join.\"\nThe audience claps loudly, and Dr Ngoc smiles. \"Thank you. Please visit our stand if you want to try it.\"",
+  "targetWords": [
+    "stage",
+    "conference",
+    "specialist",
+    "disease",
+    "audience",
+    "replace",
+    "accurate",
+    "code",
+    "equipment",
+    "scan"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "stage",
+        "lemma": "stage",
+        "meaningVi": "sân khấu",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "conference",
+        "lemma": "conference",
+        "meaningVi": "hội nghị",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "specialists",
+        "lemma": "specialist",
+        "meaningVi": "bác sĩ chuyên khoa, chuyên gia",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "disease",
+        "lemma": "disease",
+        "meaningVi": "bệnh",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "audience",
+        "lemma": "audience",
+        "meaningVi": "khán giả",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "replace",
+        "lemma": "replace",
+        "meaningVi": "thay thế",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "accurate",
+        "lemma": "accurate",
+        "meaningVi": "chính xác",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "code",
+        "lemma": "code",
+        "meaningVi": "mã lập trình",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "equipment",
+        "lemma": "equipment",
+        "meaningVi": "thiết bị",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "scans",
+        "lemma": "scan",
+        "meaningVi": "ảnh chụp chiếu",
+        "pos": "noun",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Dr Ngoc presenting?",
+        "promptVi": "Bác sĩ Ngọc đang giới thiệu gì?",
+        "options": [
+          "Software that reads lung X-rays",
+          "A new hospital in Quang Ngai",
+          "A computer for doctors",
+          "A heart medicine"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị giới thiệu phần mềm \"which can read lung X-rays in just a few seconds.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How accurate was the software in the hospital tests?",
+        "promptVi": "Trong các lần thử ở bệnh viện, phần mềm chính xác đến mức nào?",
+        "options": [
+          "Eighty percent",
+          "Ninety percent",
+          "Ninety-four percent",
+          "One hundred percent"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị nói \"it was correct ninety-four percent of the time.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who wrote most of the code?",
+        "promptVi": "Ai viết phần lớn mã lập trình?",
+        "options": [
+          "Dr Ngoc",
+          "Her brother",
+          "A student",
+          "The hospital"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị nói \"My brother, who is a computer engineer, wrote most of the code.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The software makes the final decision instead of a doctor.",
+        "promptVi": "Phần mềm đưa ra quyết định cuối cùng thay bác sĩ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì quyết định cuối cùng \"is always made by a doctor.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"accurate\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"How accurate is it?\"",
+        "options": [
+          "chính xác",
+          "đắt tiền",
+          "nhanh",
+          "phổ biến"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Accurate = chính xác."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ không xác định",
+      "bodyVi": "Mệnh đề quan hệ không xác định thêm thông tin phụ, đặt sau dấu phẩy: her new software, which can read lung X-rays in just a few seconds / a hospital in Quang Ngai, which has only two lung specialists. Which còn có thể làm tân ngữ: Our software, which we call LungSee, … Với người dùng who: My brother, who is a computer engineer, wrote most of the code. Mệnh đề này không dùng that, và không thể bỏ which / who.",
+      "examples": [
+        "She is about to present her new software, which can read lung X-rays in just a few seconds.",
+        "The final decision, which is always made by a doctor, is still the most important part.",
+        "My brother, who is a computer engineer, wrote most of the code."
+      ]
+    },
+    "writingPrompt": "Write a short news article about new technology in medicine. Use at least two non-defining relative clauses.",
+    "sentenceTranslations": [
+      "Đứng trên sân khấu của một hội nghị công nghệ ở Thành phố Hồ Chí Minh, bác sĩ Ngọc nhìn xuống năm trăm người.",
+      "Chị sắp giới thiệu phần mềm mới của mình, có thể đọc phim X-quang phổi chỉ trong vài giây.",
+      "Chị mở đầu: \"Xin chào mọi người.",
+      "Ba năm trước, tôi làm ở một bệnh viện tại Quảng Ngãi, nơi chỉ có hai bác sĩ chuyên khoa phổi cho hơn một triệu dân.",
+      "Bác sĩ ở đó phải chờ kết quả nhiều ngày.\"",
+      "Chị chiếu ảnh X-quang ngực.",
+      "\"Phần mềm của chúng tôi, chúng tôi gọi là LungSee, xem một ảnh như thế này và đánh dấu đỏ những vùng có vấn đề.",
+      "Được huấn luyện trên hơn hai trăm nghìn phim X-quang, nó có thể phát hiện dấu hiệu bệnh sớm mà bác sĩ bận rộn đôi khi bỏ sót.\"",
+      "Một người đàn ông trong khán phòng giơ tay.",
+      "\"Nó có thay thế bác sĩ không?\"",
+      "\"Không.",
+      "Quyết định cuối cùng, luôn do bác sĩ đưa ra, vẫn là phần quan trọng nhất.",
+      "LungSee chỉ giúp bác sĩ làm việc nhanh hơn.\"",
+      "\"Nó chính xác đến mức nào?\"",
+      "\"Được thử ở năm bệnh viện năm ngoái, nó đúng chín mươi tư phần trăm.\"",
+      "Một sinh viên hỏi: \"Chị làm ra nó thế nào?\"",
+      "\"Với một nhóm nhỏ.",
+      "Em trai tôi, một kỹ sư máy tính, đã viết phần lớn mã.",
+      "Làm vào buổi tối và cuối tuần, chúng tôi xong phiên bản đầu trong mười tám tháng.\"",
+      "\"Nó có đắt không?\"",
+      "\"Không đắt với bệnh viện.",
+      "Chạy trên máy tính bình thường, nó không cần thiết bị đặc biệt.",
+      "Điều đó quan trọng với các bệnh viện nhỏ, vốn thường có ngân sách hạn hẹp.\"",
+      "\"Bước tiếp theo là gì?\"",
+      "\"Năm sau, chúng tôi hy vọng thử nó trên ảnh chụp tim.",
+      "Thấy nó giúp được Quảng Ngãi nhiều như vậy, nhiều bệnh viện đã xin tham gia.\"",
+      "Khán giả vỗ tay rầm rộ, và bác sĩ Ngọc mỉm cười.",
+      "\"Xin cảm ơn.",
+      "Mời mọi người ghé gian hàng của chúng tôi nếu muốn dùng thử.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một công nghệ y tế mới, thêm thông tin phụ về người và vật bằng mệnh đề quan hệ không xác định.",
+    "examples": [
+      {
+        "lemma": "stage",
+        "sentence": "The singer walked onto the stage.",
+        "meaningVi": "Ca sĩ bước lên sân khấu."
+      },
+      {
+        "lemma": "conference",
+        "sentence": "She spoke at a conference in Singapore.",
+        "meaningVi": "Cô ấy phát biểu ở một hội nghị tại Singapore."
+      },
+      {
+        "lemma": "specialist",
+        "sentence": "You should see a heart specialist.",
+        "meaningVi": "Bạn nên đi khám bác sĩ chuyên khoa tim."
+      },
+      {
+        "lemma": "disease",
+        "sentence": "This disease is spread by mosquitoes.",
+        "meaningVi": "Bệnh này lây qua muỗi."
+      },
+      {
+        "lemma": "audience",
+        "sentence": "The audience laughed at his jokes.",
+        "meaningVi": "Khán giả cười trước những câu đùa của anh ấy."
+      },
+      {
+        "lemma": "replace",
+        "sentence": "We need to replace this old printer.",
+        "meaningVi": "Chúng ta cần thay cái máy in cũ này."
+      },
+      {
+        "lemma": "accurate",
+        "sentence": "The weather forecast was very accurate.",
+        "meaningVi": "Dự báo thời tiết rất chính xác."
+      },
+      {
+        "lemma": "code",
+        "sentence": "He writes code for a bank.",
+        "meaningVi": "Anh ấy viết mã cho một ngân hàng."
+      },
+      {
+        "lemma": "equipment",
+        "sentence": "The gym has new equipment.",
+        "meaningVi": "Phòng tập có thiết bị mới."
+      },
+      {
+        "lemma": "scan",
+        "sentence": "The doctor looked at the brain scan.",
+        "meaningVi": "Bác sĩ xem ảnh chụp não."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khoa",
+        "Dr Ngoc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Well done! How do you think it went?",
+          "meaningVi": "Giỏi lắm! Chị thấy thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Better than I expected. The questions, which were all very good, kept me busy.",
+          "meaningVi": "Tốt hơn chị nghĩ. Các câu hỏi, câu nào cũng hay, làm chị bận rộn."
+        },
+        {
+          "speaker": 0,
+          "text": "Did anyone ask about the code?",
+          "meaningVi": "Có ai hỏi về mã không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. I said that my brother, who is a genius, wrote it.",
+          "meaningVi": "Có. Chị nói em trai chị, một thiên tài, đã viết nó."
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! Did any hospitals visit our stand?",
+          "meaningVi": "Ha! Có bệnh viện nào ghé gian hàng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Three. One of them, which is in Hue, wants to start next month.",
+          "meaningVi": "Ba bệnh viện. Một trong số đó, ở Huế, muốn bắt đầu từ tháng sau."
+        },
+        {
+          "speaker": 0,
+          "text": "Next month? Can we be ready by then?",
+          "meaningVi": "Tháng sau á? Mình kịp chuẩn bị không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I think so, if we work at weekends again.",
+          "meaningVi": "Chị nghĩ là kịp, nếu mình lại làm cuối tuần."
+        },
+        {
+          "speaker": 0,
+          "text": "Fine, but you're buying dinner tonight.",
+          "meaningVi": "Được, nhưng tối nay chị khao em ăn tối."
+        },
+        {
+          "speaker": 1,
+          "text": "Deal. Let's go to that restaurant near the river.",
+          "meaningVi": "Chốt. Mình đi nhà hàng gần sông nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Thông tin phụ về vật: The questions, which were all very good, kept me busy / One of them, which is in Hue, wants to start next month. Về người: my brother, who is a genius, wrote it.",
+    "translations": [
+      {
+        "vi": "Bệnh viện, nơi chỉ có hai bác sĩ chuyên khoa, rất bận.",
+        "en": "The hospital, which has only two specialists, is very busy.",
+        "distractors": [
+          "who",
+          "doctor",
+          "quiet"
+        ]
+      },
+      {
+        "vi": "Nó có thể phát hiện dấu hiệu bệnh sớm.",
+        "en": "It can find early signs of disease.",
+        "distractors": [
+          "late",
+          "finds",
+          "diseases"
+        ]
+      },
+      {
+        "vi": "Nó không thay thế bác sĩ.",
+        "en": "It doesn't replace doctors.",
+        "distractors": [
+          "replaces",
+          "don't",
+          "nurses"
+        ]
+      },
+      {
+        "vi": "Nó không cần thiết bị đặc biệt.",
+        "en": "It doesn't need special equipment.",
+        "distractors": [
+          "needs",
+          "normal",
+          "tools"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Khoa và bác sĩ Ngọc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi thuyết trình và các bệnh viện quan tâm",
+          "Một bệnh nhân mới",
+          "Kỳ nghỉ cuối tuần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa hỏi \"How do you think it went?\" và họ nói về các bệnh viện ghé gian hàng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bệnh viện muốn bắt đầu từ tháng sau ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Huế",
+          "Quảng Ngãi",
+          "Đà Nẵng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"One of them, which is in Hue, wants to start next month.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai trả tiền bữa tối nay?",
+        "promptVi": "",
+        "options": [
+          "Bác sĩ Ngọc",
+          "Khoa",
+          "Bệnh viện"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa nói \"you're buying dinner tonight\" và chị đồng ý.",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nobody visited their stand.",
+        "promptVi": "Không ai ghé gian hàng của họ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì có ba bệnh viện ghé: \"Three.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Phần mềm LungSee làm được gì, và vì sao nó hữu ích cho bệnh viện nhỏ? Ai đã giúp bác sĩ Ngọc làm ra nó?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ không xác định",
+      "noticing": [
+        {
+          "sentence": "She is about to present her new software, which can read lung X-rays in just a few seconds.",
+          "highlights": [
+            "which can read lung X-rays"
+          ]
+        },
+        {
+          "sentence": "\"Our software, which we call LungSee, looks at an image like this and marks any problem areas in red.",
+          "highlights": [
+            "which we call LungSee"
+          ]
+        },
+        {
+          "sentence": "The final decision, which is always made by a doctor, is still the most important part.",
+          "highlights": [
+            "which is always made by a doctor"
+          ]
+        },
+        {
+          "sentence": "My brother, who is a computer engineer, wrote most of the code.",
+          "highlights": [
+            "who is a computer engineer"
+          ]
+        }
+      ],
+      "questionVi": "Nối hai câu: \"My brother wrote most of the code. He is a computer engineer.\" Câu nào đúng?",
+      "options": [
+        "My brother, who is a computer engineer, wrote most of the code.",
+        "My brother, which is a computer engineer, wrote most of the code.",
+        "My brother who is a computer engineer, wrote most of the code."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Người: who; mệnh đề nằm giữa hai dấu phẩy.",
+      "whenVi": "Dùng trong bài thuyết trình, bản tin để thêm thông tin phụ về người hoặc vật mà không cần viết câu mới.",
+      "table": [
+        {
+          "subject": "Ở giữa câu",
+          "form": "Our software, which we call LungSee, marks problem areas.",
+          "negative": "Đặt giữa hai dấu phẩy."
+        },
+        {
+          "subject": "Ở cuối câu",
+          "form": "She presented her software, which can read X-rays.",
+          "negative": "Một dấu phẩy trước which."
+        },
+        {
+          "subject": "which làm tân ngữ",
+          "form": "Our software, which we call LungSee, …",
+          "negative": "Không được bỏ which (khác mệnh đề xác định)."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "My brother, which is an engineer, wrote the code.",
+          "right": "My brother, who is an engineer, wrote the code."
+        },
+        {
+          "wrong": "Our software, that we call LungSee, reads X-rays.",
+          "right": "Our software, which we call LungSee, reads X-rays."
+        }
+      ],
+      "noteVi": "Bài cũng có mệnh đề phân từ: Standing on the stage … / Trained on more than two hundred thousand X-rays, … / Running on a normal computer, …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Our software, ___ we call LungSee, reads X-rays in seconds.",
+          "answers": [
+            "which"
+          ],
+          "explanationVi": "Vật, mệnh đề có dấu phẩy: which."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Small hospitals, ___ often have limited budgets, need cheap tools.",
+          "options": [
+            "which",
+            "who",
+            "what",
+            "whose"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Hospitals là vật / tổ chức: which."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My brother, which is a computer engineer, wrote the code.",
+          "sentence": "My brother, who is a computer engineer, wrote the code.",
+          "explanationVi": "Người dùng who."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Quyết định cuối cùng, do bác sĩ đưa ra, quan trọng nhất.",
+          "sentence": "The final decision, which is made by a doctor, matters most.",
+          "words": [
+            "The",
+            "final",
+            "decision,",
+            "which",
+            "is",
+            "made",
+            "by",
+            "a",
+            "doctor,",
+            "matters",
+            "most.",
+            "who"
+          ],
+          "explanationVi": "Danh từ, which + thông tin phụ, + động từ chính; từ \"who\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The final decision, which is always made by a doctor, is still the most important part.",
+        "tipVi": "Hạ giọng ở phần which … doctor; ngắt hơi ở hai dấu phẩy."
+      },
+      {
+        "text": "My brother, who is a computer engineer, wrote most of the code.",
+        "tipVi": "engineer /ˌendʒɪˈnɪə/; code /kəʊd/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Should computers help doctors make decisions? Why or why not?",
+        "questionVi": "Máy tính có nên giúp bác sĩ ra quyết định không? Vì sao?",
+        "frame": "I think ___ because ___."
+      },
+      {
+        "question": "Describe a hospital or clinic in your town.",
+        "questionVi": "Hãy tả một bệnh viện hoặc phòng khám ở nơi bạn sống.",
+        "frame": "The hospital, which ___, ___."
+      },
+      {
+        "question": "Who in your family is good with technology?",
+        "questionVi": "Ai trong gia đình bạn giỏi công nghệ?",
+        "frame": "My ___, who ___, ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ không xác định (, which … / , who …)",
+      "anyOf": [
+        ", which",
+        ", who",
+        ", whose"
+      ],
+      "outlineVi": [
+        "Công nghệ mới là gì (, which …).",
+        "Ai làm ra nó (, who …).",
+        "Nó giúp được ai và kết quả ra sao."
+      ],
+      "modelAnswer": "A new app, which was made by students in Hue, helps old people remember to take their medicine. The app, which speaks in Vietnamese, reminds users three times a day. Its designer, who is only twenty-two, got the idea from her grandmother. The app is free and is already used by five thousand families."
+    }
+  },
+  "glosses": [
+    {
+      "text": "X-rays",
+      "lemma": "X-ray",
+      "meaningVi": "phim X-quang",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "lung X-rays",
+      "phraseVi": "phim X-quang phổi"
+    },
+    {
+      "text": "chest",
+      "lemma": "chest",
+      "meaningVi": "ngực",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "a chest X-ray",
+      "phraseVi": "ảnh X-quang ngực"
+    },
+    {
+      "text": "claps",
+      "lemma": "clap",
+      "meaningVi": "vỗ tay",
+      "sentenceIndex": 26,
+      "pos": "verb",
+      "phrase": "The audience claps loudly",
+      "phraseVi": "Khán giả vỗ tay rầm rộ"
+    },
+    {
+      "text": "stand",
+      "lemma": "stand",
+      "meaningVi": "gian hàng",
+      "sentenceIndex": 28,
+      "pos": "noun",
+      "phrase": "visit our stand",
+      "phraseVi": "ghé gian hàng của chúng tôi"
+    }
+  ]
+}

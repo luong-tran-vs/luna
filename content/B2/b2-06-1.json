@@ -1,0 +1,606 @@
+{
+  "content": "In a small laboratory at a technology institute in Hanoi, two engineers, Hoa and Kien, are testing a new water filter. The filter, which uses energy from the sun, can clean twenty litres of river water every hour.\n\n\"Look at this,\" Hoa says, holding up two glasses. \"This is the water before, and this is after.\"\n\"Amazing. The second glass looks like bottled water,\" Kien says. \"Has it passed the safety tests?\"\n\"Yes. Tested by an independent lab last week, it met every national standard.\"\n\"Dr Nam will be so pleased. He's been working on this idea for years.\"\n\"I know. Dr Nam, who grew up in a village in the Mekong Delta, saw how many children got sick from dirty water. That's why he started the project.\"\n\"I didn't know that. When did he start?\"\n\"About five years ago. Working at night after his normal job, he built the first prototype in his garage.\"\n\"In his garage? Really?\"\n\"Yes. The first version, which was made from old plastic boxes, didn't work very well. It leaked everywhere!\"\nKien laughs. \"And now we have this beautiful machine.\"\n\"Exactly. The new design, which weighs only eight kilos, can be carried by one person. Families can put it on a roof or near a river.\"\n\"What about cloudy days? There isn't always sun in the rainy season.\"\n\"Good question. Having stored energy in a small battery, the filter can keep working for two days without sun.\"\n\"That's clever. How much will it cost?\"\n\"We hope to sell it for about three million dong. Several charities, which work in rural areas, have already shown interest.\"\n\"Then we'd better prepare for the demonstration next week.\"\n\"Yes. Dr Nam, who is in Can Tho at the moment, will join us on Monday.\"\n\"Great. Let's test it once more before he arrives.\"",
+  "targetWords": [
+    "laboratory",
+    "institute",
+    "filter",
+    "energy",
+    "standard",
+    "garage",
+    "version",
+    "battery",
+    "charity",
+    "demonstration"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "laboratory",
+        "lemma": "laboratory",
+        "meaningVi": "phòng thí nghiệm",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "institute",
+        "lemma": "institute",
+        "meaningVi": "viện",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "filter",
+        "lemma": "filter",
+        "meaningVi": "máy lọc",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "energy",
+        "lemma": "energy",
+        "meaningVi": "năng lượng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "standard",
+        "lemma": "standard",
+        "meaningVi": "tiêu chuẩn",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "garage",
+        "lemma": "garage",
+        "meaningVi": "ga-ra, nhà để xe",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "version",
+        "lemma": "version",
+        "meaningVi": "phiên bản",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "battery",
+        "lemma": "battery",
+        "meaningVi": "pin, ắc quy",
+        "pos": "noun",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "charities",
+        "lemma": "charity",
+        "meaningVi": "tổ chức từ thiện",
+        "pos": "noun",
+        "sentenceIndex": 35
+      },
+      {
+        "text": "demonstration",
+        "lemma": "demonstration",
+        "meaningVi": "buổi trình diễn thử",
+        "pos": "noun",
+        "sentenceIndex": 36
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hoa and Kien testing?",
+        "promptVi": "Hoà và Kiên đang thử nghiệm gì?",
+        "options": [
+          "A water filter that uses energy from the sun",
+          "A new type of bottled water",
+          "A battery for cars",
+          "A garden pump"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ thử máy lọc nước \"which uses energy from the sun.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did Dr Nam start the project?",
+        "promptVi": "Vì sao bác sĩ Nam bắt đầu dự án?",
+        "options": [
+          "He saw children get sick from dirty water.",
+          "His company asked him to.",
+          "He wanted to sell bottled water.",
+          "He won a prize."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông \"saw how many children got sick from dirty water.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long can the filter work without sun?",
+        "promptVi": "Máy lọc chạy được bao lâu khi không có nắng?",
+        "options": [
+          "Two hours",
+          "One day",
+          "Two days",
+          "A week"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hoà nói \"the filter can keep working for two days without sun.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The first version of the filter worked very well.",
+        "promptVi": "Phiên bản đầu tiên của máy lọc chạy rất tốt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì nó \"didn't work very well. It leaked everywhere!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"demonstration\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Then we'd better prepare for the demonstration next week.\"",
+        "options": [
+          "buổi trình diễn thử",
+          "bài kiểm tra",
+          "bữa tiệc",
+          "cuộc họp báo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Demonstration = buổi trình diễn cho người khác xem sản phẩm hoạt động thế nào."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ không xác định",
+      "bodyVi": "Mệnh đề quan hệ không xác định thêm thông tin phụ về một người hay vật đã rõ là ai, cái gì. Nó nằm giữa hai dấu phẩy (hoặc sau một dấu phẩy nếu ở cuối câu), dùng who cho người và which cho vật, không dùng that. The filter, which uses energy from the sun, can clean twenty litres of river water every hour. / Dr Nam, who grew up in a village in the Mekong Delta, saw how many children got sick. Bỏ mệnh đề này đi, câu vẫn đủ nghĩa.",
+      "examples": [
+        "The filter, which uses energy from the sun, can clean twenty litres of river water every hour.",
+        "Dr Nam, who grew up in a village in the Mekong Delta, saw how many children got sick from dirty water.",
+        "The first version, which was made from old plastic boxes, didn't work very well."
+      ]
+    },
+    "writingPrompt": "Write a short article about a useful invention. Use at least two non-defining relative clauses (, which … / , who …).",
+    "sentenceTranslations": [
+      "Trong một phòng thí nghiệm nhỏ ở một viện công nghệ tại Hà Nội, hai kỹ sư là Hoà và Kiên đang thử nghiệm một máy lọc nước mới.",
+      "Máy lọc này, dùng năng lượng mặt trời, có thể làm sạch hai mươi lít nước sông mỗi giờ.",
+      "Hoà vừa giơ hai cốc nước lên vừa nói: \"Nhìn này.",
+      "Đây là nước trước khi lọc, còn đây là sau khi lọc.\"",
+      "\"Tuyệt quá.",
+      "Cốc thứ hai trông như nước đóng chai,\" Kiên nói.",
+      "\"Nó đã qua các bài kiểm tra an toàn chưa?\"",
+      "\"Rồi.",
+      "Được một phòng thí nghiệm độc lập kiểm tra tuần trước, nó đạt mọi tiêu chuẩn quốc gia.\"",
+      "\"Bác sĩ Nam chắc sẽ vui lắm.",
+      "Ông ấy theo đuổi ý tưởng này nhiều năm rồi.\"",
+      "\"Đúng vậy.",
+      "Bác sĩ Nam, người lớn lên ở một ngôi làng miền Tây, đã thấy biết bao trẻ em bị ốm vì nước bẩn.",
+      "Vì thế ông bắt đầu dự án.\"",
+      "\"Tôi không biết chuyện đó.",
+      "Ông ấy bắt đầu khi nào?\"",
+      "\"Khoảng năm năm trước.",
+      "Làm việc vào ban đêm sau giờ làm chính, ông đã chế tạo nguyên mẫu đầu tiên trong ga-ra nhà mình.\"",
+      "\"Trong ga-ra á?",
+      "Thật sao?\"",
+      "\"Thật.",
+      "Phiên bản đầu tiên, làm từ những hộp nhựa cũ, không chạy tốt lắm.",
+      "Nó rò nước khắp nơi!\"",
+      "Kiên bật cười.",
+      "\"Còn giờ thì mình có cỗ máy đẹp thế này.\"",
+      "\"Chính xác.",
+      "Thiết kế mới, chỉ nặng tám cân, có thể do một người mang đi.",
+      "Các gia đình có thể đặt nó trên mái nhà hoặc gần sông.\"",
+      "\"Thế còn những ngày nhiều mây?",
+      "Mùa mưa đâu phải lúc nào cũng có nắng.\"",
+      "\"Câu hỏi hay.",
+      "Nhờ đã trữ năng lượng trong một cục pin nhỏ, máy lọc có thể chạy tiếp hai ngày không cần nắng.\"",
+      "\"Thông minh thật.",
+      "Giá bao nhiêu?\"",
+      "\"Chúng tôi hy vọng bán khoảng ba triệu đồng.",
+      "Một số tổ chức từ thiện, hoạt động ở vùng nông thôn, đã tỏ ra quan tâm.\"",
+      "\"Vậy mình phải chuẩn bị cho buổi trình diễn tuần sau thôi.\"",
+      "\"Đúng.",
+      "Bác sĩ Nam, hiện đang ở Cần Thơ, sẽ tham gia cùng mình vào thứ Hai.\"",
+      "\"Tuyệt.",
+      "Mình thử thêm một lần trước khi ông ấy đến nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một phát minh và người tạo ra nó, thêm thông tin phụ bằng mệnh đề quan hệ không xác định (, which … / , who …).",
+    "examples": [
+      {
+        "lemma": "laboratory",
+        "sentence": "The samples were sent to a laboratory.",
+        "meaningVi": "Các mẫu được gửi đến phòng thí nghiệm."
+      },
+      {
+        "lemma": "institute",
+        "sentence": "She works at a research institute in Hanoi.",
+        "meaningVi": "Cô ấy làm ở một viện nghiên cứu tại Hà Nội."
+      },
+      {
+        "lemma": "filter",
+        "sentence": "Change the filter every three months.",
+        "meaningVi": "Hãy thay bộ lọc ba tháng một lần."
+      },
+      {
+        "lemma": "energy",
+        "sentence": "Wind is a clean source of energy.",
+        "meaningVi": "Gió là một nguồn năng lượng sạch."
+      },
+      {
+        "lemma": "standard",
+        "sentence": "This hotel has a high standard of service.",
+        "meaningVi": "Khách sạn này có tiêu chuẩn phục vụ cao."
+      },
+      {
+        "lemma": "garage",
+        "sentence": "He keeps his tools in the garage.",
+        "meaningVi": "Anh ấy để dụng cụ trong ga-ra."
+      },
+      {
+        "lemma": "version",
+        "sentence": "Have you got the latest version of the app?",
+        "meaningVi": "Bạn có phiên bản mới nhất của ứng dụng chưa?"
+      },
+      {
+        "lemma": "battery",
+        "sentence": "My phone battery is almost empty.",
+        "meaningVi": "Pin điện thoại của tôi gần hết rồi."
+      },
+      {
+        "lemma": "charity",
+        "sentence": "She works for a charity that helps old people.",
+        "meaningVi": "Cô ấy làm cho một tổ chức từ thiện giúp người già."
+      },
+      {
+        "lemma": "demonstration",
+        "sentence": "The teacher gave a demonstration of the experiment.",
+        "meaningVi": "Thầy giáo làm mẫu thí nghiệm."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dr Nam",
+        "Hoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hello, Hoa. How did the test go?",
+          "meaningVi": "Chào Hoà. Buổi thử thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Very well. The water, which came from the Red River, was perfectly clean.",
+          "meaningVi": "Rất tốt ạ. Nước, lấy từ sông Hồng, sạch hoàn toàn."
+        },
+        {
+          "speaker": 0,
+          "text": "Wonderful! Did the battery work too?",
+          "meaningVi": "Tuyệt! Pin cũng hoạt động tốt chứ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Having charged it yesterday, we ran the filter all night.",
+          "meaningVi": "Vâng. Sạc pin từ hôm qua, chúng tôi cho máy chạy suốt đêm."
+        },
+        {
+          "speaker": 0,
+          "text": "Excellent. Is Kien happy with the new design?",
+          "meaningVi": "Xuất sắc. Kiên có hài lòng với thiết kế mới không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Very. Kien, who was worried about the weight, carried it easily.",
+          "meaningVi": "Rất hài lòng. Kiên, người từng lo về cân nặng, đã mang nó dễ dàng."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. Will the charity people come next week?",
+          "meaningVi": "Tốt. Tuần sau người của tổ chức từ thiện có đến không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, two of them. They want to see it working.",
+          "meaningVi": "Có ạ, hai người. Họ muốn xem máy hoạt động."
+        },
+        {
+          "speaker": 0,
+          "text": "Then let's do the demonstration by the river.",
+          "meaningVi": "Vậy mình làm buổi trình diễn ở bờ sông nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "Great idea. See you on Monday.",
+          "meaningVi": "Ý hay ạ. Hẹn gặp ông thứ Hai."
+        }
+      ]
+    },
+    "grammarTipVi": "Thông tin phụ về vật: The water, which came from the Red River, was perfectly clean. Về người: Kien, who was worried about the weight, carried it easily. Mệnh đề phân từ: Having charged it yesterday, we ran the filter all night.",
+    "translations": [
+      {
+        "vi": "Máy lọc, dùng năng lượng mặt trời, làm sạch nước sông.",
+        "en": "The filter, which uses energy from the sun, cleans river water.",
+        "distractors": [
+          "who",
+          "that",
+          "cleaned"
+        ]
+      },
+      {
+        "vi": "Nó đã được một phòng thí nghiệm độc lập kiểm tra.",
+        "en": "It was tested by an independent laboratory.",
+        "distractors": [
+          "is",
+          "office",
+          "testing"
+        ]
+      },
+      {
+        "vi": "Ông ấy làm nguyên mẫu đầu tiên trong ga-ra.",
+        "en": "He built the first prototype in his garage.",
+        "distractors": [
+          "builds",
+          "last",
+          "kitchen"
+        ]
+      },
+      {
+        "vi": "Nhiều tổ chức từ thiện đã tỏ ra quan tâm.",
+        "en": "Several charities have already shown interest.",
+        "distractors": [
+          "charity",
+          "showed",
+          "few"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bác sĩ Nam và Hoà nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kết quả thử nghiệm máy lọc nước",
+          "Một chuyến đi Cần Thơ",
+          "Giá máy lọc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bác sĩ Nam hỏi \"How did the test go?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nước thử nghiệm lấy từ đâu?",
+        "promptVi": "",
+        "options": [
+          "Sông Hồng",
+          "Một cái giếng",
+          "Nước mưa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoà nói \"The water, which came from the Red River …\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ cho máy chạy bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Suốt đêm",
+          "Một tiếng",
+          "Hai ngày"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoà nói \"we ran the filter all night.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Kien found the filter too heavy to carry.",
+        "promptVi": "Kiên thấy máy lọc quá nặng, không mang được.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Kiên \"carried it easily.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Máy lọc nước hoạt động thế nào? Bác sĩ Nam là ai, và ông đã bắt đầu dự án ra sao?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ không xác định",
+      "noticing": [
+        {
+          "sentence": "The filter, which uses energy from the sun, can clean twenty litres of river water every hour.",
+          "highlights": [
+            "which uses energy from the sun"
+          ]
+        },
+        {
+          "sentence": "Dr Nam, who grew up in a village in the Mekong Delta, saw how many children got sick from dirty water.",
+          "highlights": [
+            "who grew up in a village in the Mekong Delta"
+          ]
+        },
+        {
+          "sentence": "The first version, which was made from old plastic boxes, didn't work very well.",
+          "highlights": [
+            "which was made from old plastic boxes"
+          ]
+        },
+        {
+          "sentence": "Several charities, which work in rural areas, have already shown interest.\"",
+          "highlights": [
+            "which work in rural areas"
+          ]
+        }
+      ],
+      "questionVi": "Thêm thông tin \"Dr Nam is in Can Tho at the moment\" vào câu \"Dr Nam will join us on Monday.\" Câu nào đúng?",
+      "options": [
+        "Dr Nam, who is in Can Tho at the moment, will join us on Monday.",
+        "Dr Nam who is in Can Tho at the moment will join us on Monday.",
+        "Dr Nam, that is in Can Tho at the moment, will join us on Monday."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Thông tin phụ về người đã rõ (Dr Nam): dùng who và đặt giữa hai dấu phẩy; không dùng that.",
+      "whenVi": "Dùng khi muốn thêm thông tin phụ về một người hay vật mà người nghe đã biết là ai, cái gì. Hay gặp trong bài viết, bản tin, bài thuyết trình.",
+      "table": [
+        {
+          "subject": "who (người)",
+          "form": "Dr Nam, who grew up in a village, started the project.",
+          "negative": "Không dùng that trong mệnh đề này."
+        },
+        {
+          "subject": "which (vật)",
+          "form": "The filter, which uses energy from the sun, can clean water.",
+          "negative": "Bỏ mệnh đề đi, câu vẫn đủ nghĩa."
+        },
+        {
+          "subject": "Dấu phẩy",
+          "form": "Hai dấu phẩy khi mệnh đề ở giữa câu.",
+          "negative": "Một dấu phẩy khi mệnh đề ở cuối câu."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Dr Nam that grew up in the Mekong Delta started the project.",
+          "right": "Dr Nam, who grew up in the Mekong Delta, started the project."
+        },
+        {
+          "wrong": "The first version, which it was made from boxes, didn't work.",
+          "right": "The first version, which was made from boxes, didn't work."
+        }
+      ],
+      "noteVi": "Bài cũng có mệnh đề phân từ: holding up two glasses / Tested by an independent lab, it met every standard / Working at night, he built the first prototype.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Dr Nam, ___ grew up in the Mekong Delta, started the project.",
+          "answers": [
+            "who"
+          ],
+          "explanationVi": "Thông tin phụ về người: who."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The new design, ___ weighs only eight kilos, can be carried by one person.",
+          "options": [
+            "which",
+            "who",
+            "that",
+            "what"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Thông tin phụ về vật, có dấu phẩy: which."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The filter, that uses energy from the sun, cleans river water.",
+          "sentence": "The filter, which uses energy from the sun, cleans river water.",
+          "explanationVi": "Mệnh đề không xác định (có dấu phẩy) không dùng that."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bác sĩ Nam, hiện ở Cần Thơ, sẽ tham gia vào thứ Hai.",
+          "sentence": "Dr Nam, who is in Can Tho, will join us on Monday.",
+          "words": [
+            "Dr",
+            "Nam,",
+            "who",
+            "is",
+            "in",
+            "Can",
+            "Tho,",
+            "will",
+            "join",
+            "us",
+            "on",
+            "Monday.",
+            "that"
+          ],
+          "explanationVi": "Danh từ, who + thông tin phụ, + động từ chính; từ \"that\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The new design, which weighs only eight kilos, can be carried by one person.",
+        "tipVi": "Hạ giọng ở phần which … kilos, ngắt hơi ở hai dấu phẩy; weighs /weɪz/."
+      },
+      {
+        "text": "Several charities, which work in rural areas, have already shown interest.\"",
+        "tipVi": "charities /ˈtʃærətiz/; rural /ˈrʊərəl/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Tell me about an invention that has changed your life.",
+        "questionVi": "Kể về một phát minh đã thay đổi cuộc sống của bạn.",
+        "frame": "The ___, which ___, has changed my life."
+      },
+      {
+        "question": "Who is a scientist or inventor you admire? Why?",
+        "questionVi": "Bạn ngưỡng mộ nhà khoa học hay nhà phát minh nào? Vì sao?",
+        "frame": "I admire ___, who ___."
+      },
+      {
+        "question": "What problem in your town could a new invention solve?",
+        "questionVi": "Một phát minh mới có thể giải quyết vấn đề gì ở nơi bạn sống?",
+        "frame": "A machine that ___ would solve ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ không xác định (, which … / , who …)",
+      "anyOf": [
+        ", which",
+        ", who",
+        ", whose"
+      ],
+      "outlineVi": [
+        "Phát minh là gì, có từ khi nào (, which …).",
+        "Ai phát minh ra hoặc ai dùng nó (, who …).",
+        "Nó đã thay đổi cuộc sống thế nào."
+      ],
+      "modelAnswer": "The rice cooker, which was invented in Japan in the 1950s, changed life for millions of families. My grandmother, who cooked over a wood fire for years, says it saved her an hour every day. Modern rice cookers, which can also make soup and cakes, are now in almost every Vietnamese kitchen."
+    }
+  },
+  "glosses": [
+    {
+      "text": "prototype",
+      "lemma": "prototype",
+      "meaningVi": "nguyên mẫu",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "the first prototype",
+      "phraseVi": "nguyên mẫu đầu tiên"
+    },
+    {
+      "text": "leaked",
+      "lemma": "leak",
+      "meaningVi": "rò rỉ",
+      "sentenceIndex": 22,
+      "pos": "verb",
+      "phrase": "It leaked everywhere!",
+      "phraseVi": "Nó rò nước khắp nơi!"
+    },
+    {
+      "text": "kilos",
+      "lemma": "kilo",
+      "meaningVi": "cân, ki-lô-gam",
+      "sentenceIndex": 26,
+      "pos": "noun",
+      "phrase": "only eight kilos",
+      "phraseVi": "chỉ tám cân"
+    },
+    {
+      "text": "cloudy",
+      "lemma": "cloudy",
+      "meaningVi": "nhiều mây",
+      "sentenceIndex": 28,
+      "pos": "adjective",
+      "phrase": "cloudy days",
+      "phraseVi": "những ngày nhiều mây"
+    }
+  ]
+}
