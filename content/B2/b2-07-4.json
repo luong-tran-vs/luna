@@ -1,0 +1,604 @@
+{
+  "content": "On a sunny morning in Da Nang, Mr Tai is drinking coffee outside his house when his neighbour Kim walks past. Along their street, the grey wall of an old market has been covered with bright paintings of fishing boats, waves and the Dragon Bridge.\n\nKim asks, \"What do you think of the new paintings?\"\n\"I didn't like them at first,\" Mr Tai says. \"Although they're colourful, I thought they looked messy.\"\n\"And now?\"\n\"Now I'm getting used to them. However, some of the older neighbours are still unhappy. Mrs Lan says it's damage to the wall.\"\n\"Damage? But the city paid the artists! It's not illegal at all.\"\n\"I know. Despite that, she thinks paintings belong in museums, not on market walls.\"\n\"I understand her feelings. Nevertheless, the street looks so much better now. The wall used to be dirty and covered in old adverts.\"\n\"That's true. In spite of my doubts, I have to admit that more people walk down our street now. Tourists stop to take photos.\"\n\"Exactly! The café on the corner has twice as many customers. Even though some people complain, the murals are good for business.\"\n\"Hmm. On the other hand, more tourists means more noise and more rubbish.\"\n\"That's a fair point. But the artists also painted messages about keeping the beach clean.\"\n\"Did they? I hadn't noticed.\"\n\"Look at the bottom of the wall, next to the boat. It says, 'Love our sea.'\"\nMr Tai puts on his glasses. \"So it does. Well, despite my age, I can still change my mind.\"\n\"So you like them now?\"\n\"Let's say I like them more than I did yesterday.\"",
+  "targetWords": [
+    "neighbour",
+    "colourful",
+    "messy",
+    "illegal",
+    "belong",
+    "doubt",
+    "admit",
+    "business",
+    "fair",
+    "mind"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "neighbour",
+        "lemma": "neighbour",
+        "meaningVi": "hàng xóm",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "colourful",
+        "lemma": "colourful",
+        "meaningVi": "sặc sỡ, nhiều màu",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "messy",
+        "lemma": "messy",
+        "meaningVi": "lộn xộn",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "illegal",
+        "lemma": "illegal",
+        "meaningVi": "trái phép, phạm pháp",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "belong",
+        "lemma": "belong",
+        "meaningVi": "thuộc về",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "doubts",
+        "lemma": "doubt",
+        "meaningVi": "sự nghi ngờ",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "admit",
+        "lemma": "admit",
+        "meaningVi": "thừa nhận",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "business",
+        "lemma": "business",
+        "meaningVi": "việc làm ăn, kinh doanh",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "fair",
+        "lemma": "fair",
+        "meaningVi": "hợp lý, công bằng",
+        "pos": "adjective",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "mind",
+        "lemma": "mind",
+        "meaningVi": "suy nghĩ, ý kiến",
+        "pos": "noun",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Mr Tai and Kim talking about?",
+        "promptVi": "Ông Tài và Kim đang nói về điều gì?",
+        "options": [
+          "The new paintings on the market wall",
+          "A new café in the street",
+          "Fishing boats in Da Nang",
+          "A problem with tourists at the beach"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ nói về những bức tranh mới trên bức tường chợ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Mrs Lan unhappy?",
+        "promptVi": "Vì sao bà Lan không vui?",
+        "options": [
+          "She thinks paintings belong in museums.",
+          "The paintings are too small.",
+          "She wasn't paid.",
+          "The café is too noisy."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà nghĩ \"paintings belong in museums, not on market walls.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What has happened to the café on the corner?",
+        "promptVi": "Quán cà phê ở góc phố thế nào rồi?",
+        "options": [
+          "It has twice as many customers.",
+          "It has closed.",
+          "It has been painted.",
+          "It has moved."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kim nói \"The café on the corner has twice as many customers.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "At the end, Mr Tai still hates the paintings.",
+        "promptVi": "Cuối cùng ông Tài vẫn ghét những bức tranh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông nói \"I like them more than I did yesterday.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"messy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Although they're colourful, I thought they looked messy.\"",
+        "options": [
+          "lộn xộn",
+          "tươi sáng",
+          "đắt tiền",
+          "nhỏ bé"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Messy = lộn xộn, bừa bộn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Từ nối (although, however, despite)",
+      "bodyVi": "Khi bàn về một vấn đề có hai mặt, ta dùng từ nối chỉ sự trái ngược. Although / even though + mệnh đề: Although they're colourful, I thought they looked messy / Even though some people complain, the murals are good for business. Despite / in spite of + danh từ: Despite that, … / In spite of my doubts, … / despite my age, … However, Nevertheless, On the other hand đứng đầu câu, có dấu phẩy: Nevertheless, the street looks so much better now.",
+      "examples": [
+        "\"Although they're colourful, I thought they looked messy.\"",
+        "In spite of my doubts, I have to admit that more people walk down our street now.",
+        "Even though some people complain, the murals are good for business.\""
+      ]
+    },
+    "writingPrompt": "Write a short opinion paragraph about street art in your city. Use although, despite, however and on the other hand.",
+    "sentenceTranslations": [
+      "Một buổi sáng nắng ở Đà Nẵng, ông Tài đang uống cà phê trước nhà thì cô hàng xóm Kim đi ngang qua.",
+      "Dọc con phố của họ, bức tường xám của một khu chợ cũ đã được phủ kín bằng những bức tranh rực rỡ vẽ thuyền đánh cá, sóng biển và cầu Rồng.",
+      "Kim hỏi: \"Bác thấy những bức tranh mới thế nào ạ?\"",
+      "Ông Tài nói: \"Lúc đầu tôi không thích.",
+      "Dù nhiều màu sắc, tôi thấy chúng trông lộn xộn.\"",
+      "\"Còn bây giờ ạ?\"",
+      "\"Giờ thì tôi đang dần quen.",
+      "Tuy nhiên, vài người hàng xóm lớn tuổi vẫn không vui.",
+      "Bà Lan bảo như thế là làm hỏng bức tường.\"",
+      "\"Làm hỏng ạ?",
+      "Nhưng thành phố trả tiền cho các họa sĩ mà!",
+      "Hoàn toàn không phạm pháp.\"",
+      "\"Tôi biết.",
+      "Dù vậy, bà ấy nghĩ tranh phải ở trong bảo tàng, không phải trên tường chợ.\"",
+      "\"Cháu hiểu cảm giác của bà.",
+      "Dù sao thì con phố bây giờ trông đẹp hơn nhiều.",
+      "Bức tường ngày trước bẩn và dán đầy quảng cáo cũ.\"",
+      "\"Đúng vậy.",
+      "Dù còn nghi ngờ, tôi phải thừa nhận là giờ nhiều người đi qua phố mình hơn.",
+      "Khách du lịch dừng lại chụp ảnh.\"",
+      "\"Chính xác!",
+      "Quán cà phê ở góc phố giờ đông khách gấp đôi.",
+      "Dù có người phàn nàn, tranh tường lại tốt cho việc làm ăn.\"",
+      "\"Ừm.",
+      "Mặt khác, nhiều khách du lịch hơn thì cũng nhiều tiếng ồn và rác hơn.\"",
+      "\"Bác nói cũng đúng.",
+      "Nhưng các họa sĩ còn vẽ thông điệp giữ sạch bãi biển nữa.\"",
+      "\"Thế à?",
+      "Tôi chưa để ý.\"",
+      "\"Bác nhìn phía dưới bức tường, cạnh con thuyền ấy.",
+      "Có ghi 'Yêu biển của chúng ta.'\"",
+      "Ông Tài đeo kính lên.",
+      "\"Đúng thật.",
+      "Chà, dù đã có tuổi, tôi vẫn có thể đổi ý.\"",
+      "\"Vậy giờ bác thích chúng rồi ạ?\"",
+      "\"Cứ cho là tôi thích chúng hơn hôm qua.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bày tỏ ý kiến về một vấn đề hai mặt (tranh tường đường phố) bằng although, even though, despite, in spite of, however, nevertheless, on the other hand.",
+    "examples": [
+      {
+        "lemma": "neighbour",
+        "sentence": "Our neighbour has a big dog.",
+        "meaningVi": "Hàng xóm nhà tôi có một con chó to."
+      },
+      {
+        "lemma": "colourful",
+        "sentence": "The market is full of colourful fruit.",
+        "meaningVi": "Chợ đầy hoa quả nhiều màu sắc."
+      },
+      {
+        "lemma": "messy",
+        "sentence": "My brother's room is always messy.",
+        "meaningVi": "Phòng anh tôi lúc nào cũng bừa bộn."
+      },
+      {
+        "lemma": "illegal",
+        "sentence": "It is illegal to drive without a licence.",
+        "meaningVi": "Lái xe không có bằng là phạm pháp."
+      },
+      {
+        "lemma": "belong",
+        "sentence": "These books belong to the library.",
+        "meaningVi": "Những cuốn sách này thuộc về thư viện."
+      },
+      {
+        "lemma": "doubt",
+        "sentence": "I have no doubt that she will win.",
+        "meaningVi": "Tôi không nghi ngờ gì là cô ấy sẽ thắng."
+      },
+      {
+        "lemma": "admit",
+        "sentence": "He didn't want to admit his mistake.",
+        "meaningVi": "Anh ấy không muốn thừa nhận lỗi của mình."
+      },
+      {
+        "lemma": "business",
+        "sentence": "Business is good this month.",
+        "meaningVi": "Tháng này làm ăn tốt."
+      },
+      {
+        "lemma": "fair",
+        "sentence": "That's a fair question.",
+        "meaningVi": "Đó là một câu hỏi hợp lý."
+      },
+      {
+        "lemma": "mind",
+        "sentence": "I changed my mind about the trip.",
+        "meaningVi": "Tôi đã đổi ý về chuyến đi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mrs Lan",
+        "Kim"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Kim, have you seen what they did to the market wall?",
+          "meaningVi": "Kim, cháu thấy người ta làm gì với bức tường chợ chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Although you don't like it, many tourists love it.",
+          "meaningVi": "Thấy rồi ạ. Dù bác không thích, nhiều khách du lịch rất mê."
+        },
+        {
+          "speaker": 0,
+          "text": "Tourists! Despite all the photos, nobody buys anything.",
+          "meaningVi": "Khách du lịch! Chụp ảnh nhiều vậy mà chẳng ai mua gì."
+        },
+        {
+          "speaker": 1,
+          "text": "Actually, the café is much busier now.",
+          "meaningVi": "Thật ra quán cà phê giờ đông hơn nhiều rồi ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Hmm. However, the colours are far too bright.",
+          "meaningVi": "Ừm. Tuy nhiên, màu sắc chói quá."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you see the message about the sea?",
+          "meaningVi": "Bác có thấy thông điệp về biển không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "No. Where is it?",
+          "meaningVi": "Không. Ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "Next to the boat. Even though it's small, it's important.",
+          "meaningVi": "Cạnh con thuyền ạ. Dù nhỏ nhưng quan trọng."
+        },
+        {
+          "speaker": 0,
+          "text": "Well, I'll look tomorrow. Nevertheless, I still prefer a grey wall.",
+          "meaningVi": "Thôi, mai tôi xem. Dù sao tôi vẫn thích bức tường xám hơn."
+        },
+        {
+          "speaker": 1,
+          "text": "That's fine. Everyone can have their own opinion.",
+          "meaningVi": "Không sao ạ. Ai cũng có ý kiến riêng mà."
+        }
+      ]
+    },
+    "grammarTipVi": "Although / Even though + mệnh đề: Although you don't like it, … / Even though it's small, … Despite + danh từ: Despite all the photos, … However, / Nevertheless, đầu câu.",
+    "translations": [
+      {
+        "vi": "Bà ấy nghĩ tranh phải ở trong bảo tàng.",
+        "en": "She thinks paintings belong in museums.",
+        "distractors": [
+          "belongs",
+          "says",
+          "shops"
+        ]
+      },
+      {
+        "vi": "Hoàn toàn không phạm pháp.",
+        "en": "It's not illegal at all.",
+        "distractors": [
+          "allowed",
+          "isn't",
+          "some"
+        ]
+      },
+      {
+        "vi": "Dù còn nghi ngờ, tôi phải thừa nhận điều đó.",
+        "en": "In spite of my doubts, I have to admit it.",
+        "distractors": [
+          "although",
+          "fears",
+          "had"
+        ]
+      },
+      {
+        "vi": "Tranh tường tốt cho việc làm ăn.",
+        "en": "The murals are good for business.",
+        "distractors": [
+          "is",
+          "bad",
+          "businesses"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bà Lan và Kim nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tranh tường mới ở chợ",
+          "Giá cà phê",
+          "Một chuyến du lịch"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Lan hỏi về \"the market wall.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bà Lan chê gì về màu sắc?",
+        "promptVi": "",
+        "options": [
+          "Quá chói",
+          "Quá tối",
+          "Quá ít màu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà nói \"the colours are far too bright.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thông điệp về biển ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Cạnh con thuyền",
+          "Trên cửa chợ",
+          "Ở quán cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kim nói \"Next to the boat.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mrs Lan now prefers the paintings to a grey wall.",
+        "promptVi": "Bây giờ bà Lan thích tranh hơn bức tường xám.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà nói \"I still prefer a grey wall.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Ông Tài và Kim thấy tranh tường có lợi gì và có điểm gì chưa tốt? Cuối cùng ông Tài nghĩ sao?",
+    "grammarStep": {
+      "titleVi": "Từ nối (although, however, despite)",
+      "noticing": [
+        {
+          "sentence": "\"Although they're colourful, I thought they looked messy.\"",
+          "highlights": [
+            "Although"
+          ]
+        },
+        {
+          "sentence": "Nevertheless, the street looks so much better now.",
+          "highlights": [
+            "Nevertheless,"
+          ]
+        },
+        {
+          "sentence": "In spite of my doubts, I have to admit that more people walk down our street now.",
+          "highlights": [
+            "In spite of my doubts"
+          ]
+        },
+        {
+          "sentence": "Even though some people complain, the murals are good for business.\"",
+          "highlights": [
+            "Even though"
+          ]
+        }
+      ],
+      "questionVi": "Chọn câu đúng cho ý: \"Dù còn nghi ngờ, tôi phải thừa nhận nhiều người đi qua đây hơn.\"",
+      "options": [
+        "In spite of my doubts, I have to admit that more people walk here.",
+        "In spite of I had doubts, I have to admit that more people walk here.",
+        "Although my doubts, I have to admit that more people walk here."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "In spite of + danh từ (my doubts); although phải đi với mệnh đề.",
+      "whenVi": "Dùng khi đưa ra ý kiến về một vấn đề có cả mặt tốt và mặt xấu, để thừa nhận một ý rồi nêu ý ngược lại.",
+      "table": [
+        {
+          "subject": "although / even though + mệnh đề",
+          "form": "Even though some people complain, the murals are good for business.",
+          "negative": "even though nhấn mạnh hơn although"
+        },
+        {
+          "subject": "despite / in spite of + danh từ",
+          "form": "In spite of my doubts, … / despite my age, …",
+          "negative": "Despite that, … (that = điều vừa nói)"
+        },
+        {
+          "subject": "However / Nevertheless / On the other hand",
+          "form": "Nevertheless, the street looks so much better now.",
+          "negative": "Đứng đầu câu, sau đó có dấu phẩy."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Even though my age, I can still change my mind.",
+          "right": "Despite my age, I can still change my mind."
+        },
+        {
+          "wrong": "Despite some people complain, the murals are good.",
+          "right": "Even though some people complain, the murals are good."
+        }
+      ],
+      "noteVi": "On the other hand dùng để đưa ra mặt kia của vấn đề: On the other hand, more tourists means more noise.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "___ my age, I can still change my mind.",
+          "answers": [
+            "Despite"
+          ],
+          "explanationVi": "Trước danh từ (my age): Despite."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ some people complain, the murals are good for business.",
+          "options": [
+            "Even though",
+            "Despite",
+            "In spite of",
+            "Nevertheless"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Trước mệnh đề (some people complain): Even though."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Although my doubts, I have to admit it looks better.",
+          "sentence": "Despite my doubts, I have to admit it looks better.",
+          "explanationVi": "Trước danh từ (my doubts) dùng Despite."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Dù sao, con phố bây giờ trông đẹp hơn nhiều.",
+          "sentence": "Nevertheless, the street looks so much better now.",
+          "words": [
+            "Nevertheless,",
+            "the",
+            "street",
+            "looks",
+            "so",
+            "much",
+            "better",
+            "now.",
+            "although"
+          ],
+          "explanationVi": "Nevertheless, + câu; từ \"although\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Although they're colourful, I thought they looked messy.\"",
+        "tipVi": "Although /ɔːlˈðəʊ/; ngắt hơi sau colourful."
+      },
+      {
+        "text": "Even though some people complain, the murals are good for business.\"",
+        "tipVi": "Nhấn vào Even though; murals /ˈmjʊərəlz/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there street art in your city? What do you think of it?",
+        "questionVi": "Thành phố bạn có tranh đường phố không? Bạn nghĩ gì về nó?",
+        "frame": "Although ___, I think ___."
+      },
+      {
+        "question": "Should cities pay artists to paint walls? Why?",
+        "questionVi": "Thành phố có nên trả tiền cho họa sĩ vẽ tường không? Vì sao?",
+        "frame": "Yes, despite ___, because ___."
+      },
+      {
+        "question": "Describe a change in your neighbourhood. Was it good or bad?",
+        "questionVi": "Kể về một thay đổi ở khu bạn sống. Nó tốt hay xấu?",
+        "frame": "Even though ___, ___. On the other hand, ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 từ nối although / despite / however / nevertheless / on the other hand",
+      "anyOf": [
+        "Although",
+        "although",
+        "However",
+        "Despite",
+        "despite",
+        "Nevertheless",
+        "On the other hand",
+        "Even though",
+        "even though",
+        "In spite of"
+      ],
+      "outlineVi": [
+        "Ý kiến của bạn về tranh đường phố (Although …).",
+        "Mặt tốt và mặt chưa tốt (However, … / On the other hand, …).",
+        "Kết luận (Despite …, I hope …)."
+      ],
+      "modelAnswer": "Although some people think street art is messy, I believe it makes our city more interesting. The new murals near the river attract many tourists. However, some old residents feel that the city is changing too fast. On the other hand, the paintings tell stories about our history. Despite the complaints, I hope the city paints more walls."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Dragon Bridge",
+      "lemma": "Dragon Bridge",
+      "meaningVi": "cầu Rồng",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "the Dragon Bridge",
+      "phraseVi": "cầu Rồng"
+    },
+    {
+      "text": "adverts",
+      "lemma": "advert",
+      "meaningVi": "tờ quảng cáo",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "old adverts",
+      "phraseVi": "quảng cáo cũ"
+    },
+    {
+      "text": "murals",
+      "lemma": "mural",
+      "meaningVi": "tranh tường",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "the murals are good for business",
+      "phraseVi": "tranh tường tốt cho việc làm ăn"
+    },
+    {
+      "text": "glasses",
+      "lemma": "glasses",
+      "meaningVi": "kính mắt",
+      "sentenceIndex": 31,
+      "pos": "noun",
+      "phrase": "puts on his glasses",
+      "phraseVi": "đeo kính lên"
+    }
+  ]
+}

@@ -1,0 +1,594 @@
+{
+  "content": "After the evening performance at the Thang Long Water Puppet Theatre in Hanoi, a theatre critic, Mr Khiem, is having tea with a tour guide, Ngoc, who often brings foreign visitors to puppet shows.\n\nMr Khiem asks, \"So, which show do you recommend to your tourists, this one or the one in the village near Hanoi?\"\n\"Honestly, either show is a good choice. Neither of them has ever disappointed my groups.\"\n\"I agree. Both shows tell the same old stories: farmers planting rice, children playing, dragons dancing on the water.\"\n\"Each show has its own character, though. In the city, the music is more professional, and every scene is perfectly timed.\"\n\"And in the village?\"\n\"The village show is simpler. However, the puppeteers are real farmers, and the audience sits outside next to a real pond.\"\n\"That sounds wonderful, despite the mosquitoes!\"\nNgoc laughs and opens her bag. \"Yes, I always give each tourist some cream before the show.\"\n\"What do the tourists understand? The songs are all in Vietnamese.\"\n\"Although they don't understand the words, they understand the stories. Every child laughs when the fox steals the duck.\"\n\"That's the magic of water puppetry. It's almost a thousand years old, but everyone can enjoy it.\"\n\"Neither the language nor the age seems to matter.\"\n\"Will you write about tonight's show?\"\n\"Yes, in Sunday's paper. Both the musicians and the puppeteers deserve praise.\"\n\"Then I'll bring my next group on Saturday, in case your review makes it popular.\"\n\"Good idea. Every seat may be sold out by Monday.\"",
+  "targetWords": [
+    "performance",
+    "critic",
+    "choice",
+    "disappoint",
+    "character",
+    "professional",
+    "scene",
+    "pond",
+    "magic",
+    "praise"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "performance",
+        "lemma": "performance",
+        "meaningVi": "buổi biểu diễn",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "critic",
+        "lemma": "critic",
+        "meaningVi": "nhà phê bình",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "choice",
+        "lemma": "choice",
+        "meaningVi": "lựa chọn",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "disappointed",
+        "lemma": "disappoint",
+        "meaningVi": "làm thất vọng",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "character",
+        "lemma": "character",
+        "meaningVi": "nét riêng, cá tính",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "professional",
+        "lemma": "professional",
+        "meaningVi": "chuyên nghiệp",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "scene",
+        "lemma": "scene",
+        "meaningVi": "cảnh, màn",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "pond",
+        "lemma": "pond",
+        "meaningVi": "cái ao",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "magic",
+        "lemma": "magic",
+        "meaningVi": "điều kỳ diệu",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "praise",
+        "lemma": "praise",
+        "meaningVi": "lời khen",
+        "pos": "noun",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Mr Khiem and Ngoc talking about?",
+        "promptVi": "Anh Khiêm và Ngọc đang nói về điều gì?",
+        "options": [
+          "Two water puppet shows",
+          "A trip to a rice farm",
+          "A new theatre in Hanoi",
+          "A newspaper article about tourists"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ so sánh buổi múa rối nước ở nhà hát và ở làng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who are the puppeteers in the village show?",
+        "promptVi": "Nghệ nhân múa rối ở buổi diễn trong làng là ai?",
+        "options": [
+          "Real farmers",
+          "Professional actors",
+          "Students",
+          "Tour guides"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"the puppeteers are real farmers.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Ngoc give each tourist?",
+        "promptVi": "Ngọc đưa mỗi du khách thứ gì?",
+        "options": [
+          "Some cream for mosquitoes",
+          "A ticket",
+          "A puppet",
+          "A song book"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"I always give each tourist some cream before the show.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tourists can't enjoy the shows because they don't understand Vietnamese.",
+        "promptVi": "Du khách không thể thưởng thức vì không hiểu tiếng Việt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"they understand the stories.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"praise\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Both the musicians and the puppeteers deserve praise.\"",
+        "options": [
+          "lời khen",
+          "tiền thưởng",
+          "sự chú ý",
+          "vé mời"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Praise = lời khen ngợi."
+      }
+    ],
+    "grammarNote": {
+      "title": "Each / every / both / either / neither",
+      "bodyVi": "Khi so sánh hai buổi diễn, ta dùng: either (cái nào trong hai cũng được) và neither (không cái nào trong hai) + danh từ số ít, động từ số ít: either show is a good choice / Neither of them has ever disappointed my groups. Các cặp từ: both … and … (cả hai), either … or … (hoặc … hoặc …), neither … nor … (không … cũng không …): Neither the language nor the age seems to matter. each nhấn mạnh từng cái riêng, every nói về tất cả: Each show has its own character / every scene is perfectly timed.",
+      "examples": [
+        "\"Honestly, either show is a good choice.",
+        "Neither of them has ever disappointed my groups.\"",
+        "\"Neither the language nor the age seems to matter.\""
+      ]
+    },
+    "writingPrompt": "Write a short review comparing two shows, concerts or films. Use each, every, both, either … or and neither … nor.",
+    "sentenceTranslations": [
+      "Sau buổi diễn tối ở Nhà hát Múa rối nước Thăng Long tại Hà Nội, nhà phê bình sân khấu Khiêm đang uống trà với hướng dẫn viên Ngọc, người thường đưa khách nước ngoài đi xem múa rối.",
+      "Anh Khiêm hỏi: \"Vậy em giới thiệu cho khách buổi nào, buổi này hay buổi ở làng gần Hà Nội?\"",
+      "\"Thật lòng thì buổi nào cũng là lựa chọn tốt.",
+      "Chưa buổi nào làm đoàn khách của em thất vọng.\"",
+      "\"Anh đồng ý.",
+      "Cả hai đều kể những tích cũ: nông dân cấy lúa, trẻ con chơi đùa, rồng múa trên mặt nước.\"",
+      "\"Nhưng mỗi buổi có nét riêng.",
+      "Ở thành phố, âm nhạc chuyên nghiệp hơn, và cảnh nào cũng khớp thời gian hoàn hảo.\"",
+      "\"Còn ở làng?\"",
+      "\"Buổi diễn ở làng đơn giản hơn.",
+      "Tuy nhiên, nghệ nhân là nông dân thật, và khán giả ngồi ngoài trời cạnh một cái ao thật.\"",
+      "\"Nghe tuyệt đấy, mặc dù có muỗi!\"",
+      "Ngọc cười và mở túi.",
+      "\"Vâng, em luôn đưa mỗi khách một ít kem trước buổi diễn.\"",
+      "\"Khách hiểu được gì?",
+      "Các bài hát đều bằng tiếng Việt.\"",
+      "\"Dù không hiểu lời, họ hiểu câu chuyện.",
+      "Đứa trẻ nào cũng cười khi con cáo bắt con vịt.\"",
+      "\"Đó là điều kỳ diệu của múa rối nước.",
+      "Nó đã gần một nghìn năm tuổi, nhưng ai cũng thưởng thức được.\"",
+      "\"Cả ngôn ngữ lẫn tuổi đời đều không quan trọng.\"",
+      "\"Anh sẽ viết về buổi diễn tối nay chứ?\"",
+      "\"Có, trên báo Chủ Nhật.",
+      "Cả nhạc công lẫn nghệ nhân múa rối đều đáng được khen.\"",
+      "\"Vậy thứ Bảy em sẽ đưa đoàn tiếp theo đến, phòng khi bài của anh làm nó đắt khách.\"",
+      "\"Ý hay.",
+      "Có khi đến thứ Hai là hết sạch vé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh hai buổi biểu diễn bằng each / every / both / either / neither và các cặp both … and, either … or, neither … nor.",
+    "examples": [
+      {
+        "lemma": "performance",
+        "sentence": "Her performance in the play was excellent.",
+        "meaningVi": "Màn trình diễn của cô ấy trong vở kịch rất xuất sắc."
+      },
+      {
+        "lemma": "critic",
+        "sentence": "The critic gave the film five stars.",
+        "meaningVi": "Nhà phê bình chấm bộ phim năm sao."
+      },
+      {
+        "lemma": "choice",
+        "sentence": "You have no choice.",
+        "meaningVi": "Bạn không có lựa chọn nào khác."
+      },
+      {
+        "lemma": "disappoint",
+        "sentence": "I don't want to disappoint my parents.",
+        "meaningVi": "Tôi không muốn làm bố mẹ thất vọng."
+      },
+      {
+        "lemma": "character",
+        "sentence": "This old house has a lot of character.",
+        "meaningVi": "Ngôi nhà cổ này rất có nét riêng."
+      },
+      {
+        "lemma": "professional",
+        "sentence": "He is a professional photographer.",
+        "meaningVi": "Anh ấy là nhiếp ảnh gia chuyên nghiệp."
+      },
+      {
+        "lemma": "scene",
+        "sentence": "The last scene of the film was very sad.",
+        "meaningVi": "Cảnh cuối của bộ phim rất buồn."
+      },
+      {
+        "lemma": "pond",
+        "sentence": "There are fish in the pond.",
+        "meaningVi": "Trong ao có cá."
+      },
+      {
+        "lemma": "magic",
+        "sentence": "The magic of music brings people together.",
+        "meaningVi": "Điều kỳ diệu của âm nhạc gắn kết mọi người."
+      },
+      {
+        "lemma": "praise",
+        "sentence": "The teacher gave her a lot of praise.",
+        "meaningVi": "Cô giáo khen cô bé rất nhiều."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Emma",
+        "Ngoc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Which show should we see, the city one or the village one?",
+          "meaningVi": "Chúng tôi nên xem buổi nào, ở thành phố hay ở làng?"
+        },
+        {
+          "speaker": 1,
+          "text": "Either one is great. Both tell the same old stories.",
+          "meaningVi": "Buổi nào cũng tuyệt. Cả hai đều kể những tích cũ."
+        },
+        {
+          "speaker": 0,
+          "text": "Is each show long?",
+          "meaningVi": "Mỗi buổi có dài không?"
+        },
+        {
+          "speaker": 1,
+          "text": "About fifty minutes. Every scene is short, so children love it.",
+          "meaningVi": "Khoảng năm mươi phút. Cảnh nào cũng ngắn nên trẻ con rất thích."
+        },
+        {
+          "speaker": 0,
+          "text": "Neither of my kids speaks Vietnamese. Will they understand?",
+          "meaningVi": "Cả hai đứa con tôi đều không nói tiếng Việt. Chúng có hiểu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Every child understands the fox and the duck!",
+          "meaningVi": "Có ạ. Đứa trẻ nào cũng hiểu chuyện con cáo và con vịt!"
+        },
+        {
+          "speaker": 0,
+          "text": "Then let's do both, if we have time.",
+          "meaningVi": "Vậy xem cả hai, nếu có thời gian."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. Each show feels different.",
+          "meaningVi": "Ý hay ạ. Mỗi buổi một cảm giác khác."
+        },
+        {
+          "speaker": 0,
+          "text": "Should we bring anything?",
+          "meaningVi": "Chúng tôi có nên mang gì theo không?"
+        },
+        {
+          "speaker": 1,
+          "text": "For the village show, bring mosquito cream. Every visitor needs it!",
+          "meaningVi": "Đi xem ở làng thì mang kem chống muỗi. Khách nào cũng cần!"
+        }
+      ]
+    },
+    "grammarTipVi": "either / neither + số ít: Either one is great / Neither of my kids speaks Vietnamese. both: Both tell the same old stories. each / every: Is each show long? / Every scene is short / Every visitor needs it!",
+    "translations": [
+      {
+        "vi": "Chưa buổi nào làm đoàn khách của tôi thất vọng.",
+        "en": "Neither of them has ever disappointed my groups.",
+        "distractors": [
+          "have",
+          "either",
+          "pleased"
+        ]
+      },
+      {
+        "vi": "Mỗi buổi diễn có nét riêng.",
+        "en": "Each show has its own character.",
+        "distractors": [
+          "every",
+          "have",
+          "their"
+        ]
+      },
+      {
+        "vi": "Khán giả ngồi ngoài trời cạnh một cái ao thật.",
+        "en": "The audience sits outside next to a real pond.",
+        "distractors": [
+          "sat",
+          "inside",
+          "lake"
+        ]
+      },
+      {
+        "vi": "Cả nhạc công lẫn nghệ nhân múa rối đều đáng được khen.",
+        "en": "Both the musicians and the puppeteers deserve praise.",
+        "distractors": [
+          "or",
+          "either",
+          "deserves"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Emma và Ngọc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chọn buổi múa rối nước",
+          "Giá vé tàu",
+          "Một nhà hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Emma hỏi \"Which show should we see?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mỗi buổi diễn dài bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Khoảng năm mươi phút",
+          "Hai tiếng",
+          "Mười phút"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"About fifty minutes.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đi xem ở làng cần mang gì?",
+        "promptVi": "",
+        "options": [
+          "Kem chống muỗi",
+          "Áo mưa",
+          "Đồ ăn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"bring mosquito cream.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Emma's children speak Vietnamese.",
+        "promptVi": "Các con của Emma nói được tiếng Việt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Neither of my kids speaks Vietnamese.\"",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Hai buổi múa rối nước giống và khác nhau thế nào? Vì sao du khách nước ngoài vẫn thích dù không hiểu tiếng Việt?",
+    "grammarStep": {
+      "titleVi": "Each / every / both / either / neither",
+      "noticing": [
+        {
+          "sentence": "\"Honestly, either show is a good choice.",
+          "highlights": [
+            "either show is"
+          ]
+        },
+        {
+          "sentence": "Neither of them has ever disappointed my groups.\"",
+          "highlights": [
+            "Neither of them has"
+          ]
+        },
+        {
+          "sentence": "\"Each show has its own character, though.",
+          "highlights": [
+            "Each show has"
+          ]
+        },
+        {
+          "sentence": "\"Neither the language nor the age seems to matter.\"",
+          "highlights": [
+            "Neither",
+            "nor"
+          ]
+        }
+      ],
+      "questionVi": "Cả nhạc công và nghệ nhân múa rối đều đáng được khen. Câu nào đúng?",
+      "options": [
+        "Both the musicians and the puppeteers deserve praise.",
+        "Both the musicians or the puppeteers deserve praise.",
+        "Either the musicians and the puppeteers deserve praise."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Cặp đúng là both … and …; either đi với or, neither đi với nor.",
+      "whenVi": "Dùng khi nhận xét, so sánh hai lựa chọn: cả hai (both … and), một trong hai (either … or), không cái nào (neither … nor), từng cái (each), tất cả (every).",
+      "table": [
+        {
+          "subject": "either / neither + danh từ số ít",
+          "form": "either show is a good choice / Neither of them has disappointed",
+          "negative": "Động từ chia số ít."
+        },
+        {
+          "subject": "both … and / either … or / neither … nor",
+          "form": "Both the musicians and the puppeteers deserve praise.",
+          "negative": "Không trộn: both … or, either … and"
+        },
+        {
+          "subject": "each / every",
+          "form": "Each show has its own character. / every scene is perfectly timed",
+          "negative": "each: từng cái riêng; every: tất cả"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Neither of them have ever disappointed my groups.",
+          "right": "Neither of them has ever disappointed my groups."
+        },
+        {
+          "wrong": "Both the musicians or the puppeteers deserve praise.",
+          "right": "Both the musicians and the puppeteers deserve praise."
+        }
+      ],
+      "noteVi": "Bài cũng có từ nối: However, the puppeteers are real farmers / despite the mosquitoes / Although they don't understand the words, …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Neither the language ___ the age seems to matter.",
+          "answers": [
+            "nor"
+          ],
+          "explanationVi": "Cặp neither … nor."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ show is a good choice for tourists.",
+          "options": [
+            "Either",
+            "Both",
+            "All",
+            "Neither of"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Danh từ số ít (show) + is, nghĩa \"cái nào trong hai cũng được\": Either."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Both the musicians or the puppeteers deserve praise.",
+          "sentence": "Both the musicians and the puppeteers deserve praise.",
+          "explanationVi": "both đi với and."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mỗi buổi diễn có nét riêng.",
+          "sentence": "Each show has its own character.",
+          "words": [
+            "Each",
+            "show",
+            "has",
+            "its",
+            "own",
+            "character.",
+            "have"
+          ],
+          "explanationVi": "Each + danh từ số ít + has; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Neither of them has ever disappointed my groups.\"",
+        "tipVi": "disappointed /ˌdɪsəˈpɔɪntɪd/; nhấn vào Neither."
+      },
+      {
+        "text": "\"Neither the language nor the age seems to matter.\"",
+        "tipVi": "nor /nɔː/; ngắt hơi nhẹ trước nor."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you seen a traditional performance? What was it like?",
+        "questionVi": "Bạn đã xem một buổi biểu diễn truyền thống chưa? Thấy thế nào?",
+        "frame": "Every ___. Both ___."
+      },
+      {
+        "question": "Which do you prefer, theatre or cinema? Why?",
+        "questionVi": "Bạn thích kịch hay phim hơn? Vì sao?",
+        "frame": "I prefer ___, but either is fine."
+      },
+      {
+        "question": "What would you show a foreign visitor in your city?",
+        "questionVi": "Bạn sẽ dẫn khách nước ngoài đi xem gì ở thành phố mình?",
+        "frame": "I would show them either ___ or ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với each / every / both / either / neither",
+      "anyOf": [
+        "each",
+        "Each",
+        "every",
+        "Every",
+        "both",
+        "Both",
+        "either",
+        "Either",
+        "neither",
+        "Neither"
+      ],
+      "outlineVi": [
+        "Hai buổi diễn là gì, giống nhau ở đâu (Both …).",
+        "Mỗi buổi có gì riêng (Each … / Every …).",
+        "Nhận xét chung (Neither … nor … / Either … would be …)."
+      ],
+      "modelAnswer": "Last month I saw two traditional music shows in Hue. Both shows were held by the Perfume River, and each one lasted about an hour. Every singer wore a beautiful ao dai. Neither the sound nor the lights were perfect, but the music was wonderful. Either show would be a great night out for visitors."
+    }
+  },
+  "glosses": [
+    {
+      "text": "puppet",
+      "lemma": "puppet",
+      "meaningVi": "con rối",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "puppet shows",
+      "phraseVi": "múa rối"
+    },
+    {
+      "text": "puppeteers",
+      "lemma": "puppeteer",
+      "meaningVi": "nghệ nhân múa rối",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "the puppeteers are real farmers",
+      "phraseVi": "nghệ nhân là nông dân thật"
+    },
+    {
+      "text": "fox",
+      "lemma": "fox",
+      "meaningVi": "con cáo",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "when the fox steals the duck",
+      "phraseVi": "khi con cáo bắt con vịt"
+    },
+    {
+      "text": "sold out",
+      "lemma": "sold out",
+      "meaningVi": "hết vé",
+      "sentenceIndex": 26,
+      "pos": "phrase",
+      "phrase": "Every seat may be sold out",
+      "phraseVi": "Có khi hết sạch vé"
+    }
+  ]
+}

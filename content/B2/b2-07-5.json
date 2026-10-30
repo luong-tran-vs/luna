@@ -1,0 +1,583 @@
+{
+  "content": "It's Friday evening at a design studio in Ho Chi Minh City. Two graphic designers, Khanh and Yen, are looking at their phones, trying to decide what to do at the weekend.\n\n\"There are two exhibitions I want to see,\" Yen says. \"One is a photography show, and the other is a sculpture show.\"\nKhanh asks, \"Can't we see both?\"\n\"Not this weekend. Each exhibition is in a different part of the city, and I have to visit my parents on Sunday.\"\n\"Then we'll choose one. What's the photography show about?\"\n\"Every photo shows daily life on the Mekong River. The photographer spent two years on boats.\"\n\"And the sculpture?\"\n\"Each piece is made from wood found on the beach after storms.\"\n\"Both sound inspiring. Either of them would give us ideas for the new hotel project.\"\n\"I know. Neither of us has much time, so we need to pick quickly.\"\n\"Which one is closer?\"\n\"The photography show is in District 1, near the river. The sculpture show is in Thu Duc.\"\n\"Every time we go to Thu Duc, we get stuck in traffic.\"\n\"True. And each ticket for the sculpture show costs two hundred thousand dong. The photography show is free.\"\n\"Then it's an easy decision. Let's go to the photography show on Saturday morning.\"\n\"Perfect. We can either have brunch first or go straight there.\"\n\"Brunch first, definitely. Neither of us thinks well without coffee.\"\nYen laughs and picks up her phone. \"That's true. I'll book a table for ten o'clock.\"",
+  "targetWords": [
+    "graphic",
+    "photography",
+    "daily",
+    "photographer",
+    "inspiring",
+    "pick",
+    "stuck",
+    "ticket",
+    "decision",
+    "definitely"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "graphic",
+        "lemma": "graphic",
+        "meaningVi": "đồ hoạ",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "photography",
+        "lemma": "photography",
+        "meaningVi": "nhiếp ảnh",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "daily",
+        "lemma": "daily",
+        "meaningVi": "hằng ngày",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "photographer",
+        "lemma": "photographer",
+        "meaningVi": "nhiếp ảnh gia",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "inspiring",
+        "lemma": "inspiring",
+        "meaningVi": "truyền cảm hứng",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "pick",
+        "lemma": "pick",
+        "meaningVi": "chọn",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "stuck",
+        "lemma": "stuck",
+        "meaningVi": "bị kẹt",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "ticket",
+        "lemma": "ticket",
+        "meaningVi": "vé",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "decision",
+        "lemma": "decision",
+        "meaningVi": "quyết định",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "definitely",
+        "lemma": "definitely",
+        "meaningVi": "chắc chắn",
+        "pos": "adverb",
+        "sentenceIndex": 28
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Khanh and Yen trying to decide?",
+        "promptVi": "Khánh và Yến đang cố quyết định điều gì?",
+        "options": [
+          "Which exhibition to visit at the weekend",
+          "Where to have dinner",
+          "How to design a hotel",
+          "Which boat to take"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ chọn giữa triển lãm ảnh và triển lãm điêu khắc."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What are the sculptures made from?",
+        "promptVi": "Các tác phẩm điêu khắc làm từ gì?",
+        "options": [
+          "Wood found on the beach",
+          "Plastic bottles",
+          "Old motorbike parts",
+          "Stone"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Yến nói \"Each piece is made from wood found on the beach after storms.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is a ticket for the photography show?",
+        "promptVi": "Vé xem triển lãm ảnh giá bao nhiêu?",
+        "options": [
+          "It's free.",
+          "Two hundred thousand dong",
+          "One hundred thousand dong",
+          "Fifty thousand dong"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Yến nói \"The photography show is free.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They will go to the sculpture show on Sunday.",
+        "promptVi": "Họ sẽ đi xem triển lãm điêu khắc vào Chủ Nhật.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì họ đi xem triển lãm ảnh vào sáng thứ Bảy."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"inspiring\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Both sound inspiring.\"",
+        "options": [
+          "truyền cảm hứng",
+          "nhàm chán",
+          "đắt đỏ",
+          "xa xôi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Inspiring = truyền cảm hứng, khơi gợi ý tưởng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Each / every / both / either / neither",
+      "bodyVi": "Khi cân nhắc giữa hai lựa chọn, ta dùng: each / every + danh từ số ít: Each exhibition is in a different part of the city / Every photo shows daily life on the Mekong River. both (cả hai): Both sound inspiring. either (cái nào trong hai cũng được): Either of them would give us ideas. neither (không ai / không cái nào trong hai) + động từ số ít: Neither of us has much time. either … or …: We can either have brunch first or go straight there.",
+      "examples": [
+        "\"Each piece is made from wood found on the beach after storms.\"",
+        "Either of them would give us ideas for the new hotel project.\"",
+        "Neither of us has much time, so we need to pick quickly.\""
+      ]
+    },
+    "writingPrompt": "Write a message to a friend suggesting two weekend activities. Use each, every, both, either … or and neither.",
+    "sentenceTranslations": [
+      "Tối thứ Sáu ở một xưởng thiết kế tại Thành phố Hồ Chí Minh.",
+      "Hai nhà thiết kế đồ hoạ là Khánh và Yến đang xem điện thoại, cố quyết định cuối tuần làm gì.",
+      "Yến nói: \"Có hai triển lãm mình muốn xem.",
+      "Một là triển lãm ảnh, một là triển lãm điêu khắc.\"",
+      "Khánh hỏi: \"Mình không xem cả hai được à?\"",
+      "\"Cuối tuần này thì không.",
+      "Mỗi triển lãm ở một đầu thành phố, mà Chủ Nhật mình phải về thăm bố mẹ.\"",
+      "\"Vậy chọn một thôi.",
+      "Triển lãm ảnh về cái gì?\"",
+      "\"Bức ảnh nào cũng là cuộc sống hằng ngày trên sông Mê Kông.",
+      "Nhiếp ảnh gia đã sống hai năm trên thuyền.\"",
+      "\"Còn điêu khắc?\"",
+      "\"Mỗi tác phẩm làm từ gỗ nhặt trên bãi biển sau bão.\"",
+      "\"Cả hai nghe đều truyền cảm hứng.",
+      "Cái nào cũng sẽ cho mình ý tưởng cho dự án khách sạn mới.\"",
+      "\"Mình biết.",
+      "Cả hai đứa đều không có nhiều thời gian, nên phải chọn nhanh.\"",
+      "\"Cái nào gần hơn?\"",
+      "\"Triển lãm ảnh ở Quận 1, gần sông.",
+      "Triển lãm điêu khắc ở Thủ Đức.\"",
+      "\"Lần nào đi Thủ Đức mình cũng bị kẹt xe.\"",
+      "\"Đúng.",
+      "Mà mỗi vé xem điêu khắc giá hai trăm nghìn đồng.",
+      "Triển lãm ảnh thì miễn phí.\"",
+      "\"Vậy thì dễ quyết định rồi.",
+      "Sáng thứ Bảy mình đi xem triển lãm ảnh nhé.\"",
+      "\"Hoàn hảo.",
+      "Mình có thể ăn sáng muộn trước hoặc đi thẳng đến đó.\"",
+      "\"Ăn sáng trước, chắc chắn rồi.",
+      "Không có cà phê thì cả hai đứa đều chẳng nghĩ được gì.\"",
+      "Yến bật cười và cầm điện thoại lên.",
+      "\"Đúng thật.",
+      "Mình đặt bàn lúc mười giờ nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể cân nhắc và chọn giữa hai hoạt động bằng each / every / both / either / neither và either … or.",
+    "examples": [
+      {
+        "lemma": "graphic",
+        "sentence": "She works as a graphic designer.",
+        "meaningVi": "Cô ấy làm nhà thiết kế đồ hoạ."
+      },
+      {
+        "lemma": "photography",
+        "sentence": "He became interested in photography at school.",
+        "meaningVi": "Anh ấy bắt đầu thích nhiếp ảnh từ hồi đi học."
+      },
+      {
+        "lemma": "daily",
+        "sentence": "Exercise is part of my daily routine.",
+        "meaningVi": "Tập thể dục là một phần thói quen hằng ngày của tôi."
+      },
+      {
+        "lemma": "photographer",
+        "sentence": "The photographer asked us to smile.",
+        "meaningVi": "Nhiếp ảnh gia bảo chúng tôi cười."
+      },
+      {
+        "lemma": "inspiring",
+        "sentence": "Her speech was very inspiring.",
+        "meaningVi": "Bài phát biểu của cô ấy rất truyền cảm hứng."
+      },
+      {
+        "lemma": "pick",
+        "sentence": "Pick a card from the table.",
+        "meaningVi": "Chọn một lá bài trên bàn."
+      },
+      {
+        "lemma": "stuck",
+        "sentence": "We were stuck in the lift for an hour.",
+        "meaningVi": "Chúng tôi bị kẹt trong thang máy một tiếng."
+      },
+      {
+        "lemma": "ticket",
+        "sentence": "I bought a ticket for the concert.",
+        "meaningVi": "Tôi đã mua vé xem hoà nhạc."
+      },
+      {
+        "lemma": "decision",
+        "sentence": "It was a difficult decision.",
+        "meaningVi": "Đó là một quyết định khó khăn."
+      },
+      {
+        "lemma": "definitely",
+        "sentence": "I'll definitely come to your party.",
+        "meaningVi": "Chắc chắn tôi sẽ đến bữa tiệc của bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khanh",
+        "Yen"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Wow. Every photo here tells a story.",
+          "meaningVi": "Chà. Bức ảnh nào ở đây cũng kể một câu chuyện."
+        },
+        {
+          "speaker": 1,
+          "text": "I know. Which one do you like best?",
+          "meaningVi": "Đúng vậy. Cậu thích bức nào nhất?"
+        },
+        {
+          "speaker": 0,
+          "text": "Both of these, the old woman and the floating market.",
+          "meaningVi": "Cả hai bức này, bà cụ và chợ nổi."
+        },
+        {
+          "speaker": 1,
+          "text": "Each one has amazing light. How did he do it?",
+          "meaningVi": "Bức nào ánh sáng cũng tuyệt. Anh ấy làm thế nào nhỉ?"
+        },
+        {
+          "speaker": 0,
+          "text": "He probably got up at four every morning.",
+          "meaningVi": "Chắc sáng nào anh ấy cũng dậy lúc bốn giờ."
+        },
+        {
+          "speaker": 1,
+          "text": "Neither of us would do that!",
+          "meaningVi": "Cả hai đứa mình đều không làm nổi!"
+        },
+        {
+          "speaker": 0,
+          "text": "True. Shall we buy either the book or a print?",
+          "meaningVi": "Đúng. Mình mua cuốn sách hay một bức ảnh in?"
+        },
+        {
+          "speaker": 1,
+          "text": "The book. Each page has notes about the photos.",
+          "meaningVi": "Cuốn sách. Trang nào cũng có ghi chú về ảnh."
+        },
+        {
+          "speaker": 0,
+          "text": "Good choice. It'll be useful for the hotel project.",
+          "meaningVi": "Chọn hay. Nó sẽ có ích cho dự án khách sạn."
+        },
+        {
+          "speaker": 1,
+          "text": "Every idea counts. Let's buy two.",
+          "meaningVi": "Ý tưởng nào cũng quý. Mua hai cuốn đi."
+        }
+      ]
+    },
+    "grammarTipVi": "every / each + số ít: Every photo here tells a story / Each one has amazing light / Each page has notes. both: Both of these. neither: Neither of us would do that! either … or: either the book or a print.",
+    "translations": [
+      {
+        "vi": "Bức ảnh nào cũng là cuộc sống hằng ngày trên sông.",
+        "en": "Every photo shows daily life on the river.",
+        "distractors": [
+          "photos",
+          "showed",
+          "each"
+        ]
+      },
+      {
+        "vi": "Nhiếp ảnh gia đã sống hai năm trên thuyền.",
+        "en": "The photographer spent two years on boats.",
+        "distractors": [
+          "painter",
+          "spends",
+          "months"
+        ]
+      },
+      {
+        "vi": "Lần nào đến đó chúng tôi cũng bị kẹt xe.",
+        "en": "Every time we go there, we get stuck.",
+        "distractors": [
+          "each",
+          "got",
+          "times"
+        ]
+      },
+      {
+        "vi": "Vậy thì là một quyết định dễ dàng.",
+        "en": "Then it's an easy decision.",
+        "distractors": [
+          "difficult",
+          "decide",
+          "choices"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Khánh và Yến nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Triển lãm ảnh về sông Mê Kông",
+          "Một bữa sáng",
+          "Dự án khách sạn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh nói \"Every photo here tells a story.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khánh thích những bức nào?",
+        "promptVi": "",
+        "options": [
+          "Bà cụ và chợ nổi",
+          "Con thuyền",
+          "Hoàng hôn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh nói \"the old woman and the floating market.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ quyết định mua gì?",
+        "promptVi": "",
+        "options": [
+          "Cuốn sách",
+          "Một bức ảnh in",
+          "Không mua gì"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Yến chọn \"The book.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Yen would happily get up at four every morning.",
+        "promptVi": "Yến sẵn lòng dậy lúc bốn giờ mỗi sáng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Yến nói \"Neither of us would do that!\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Hai triển lãm có gì khác nhau? Vì sao cuối cùng Khánh và Yến chọn triển lãm ảnh?",
+    "grammarStep": {
+      "titleVi": "Each / every / both / either / neither",
+      "noticing": [
+        {
+          "sentence": "\"Each piece is made from wood found on the beach after storms.\"",
+          "highlights": [
+            "Each piece is"
+          ]
+        },
+        {
+          "sentence": "Either of them would give us ideas for the new hotel project.\"",
+          "highlights": [
+            "Either of them"
+          ]
+        },
+        {
+          "sentence": "Neither of us has much time, so we need to pick quickly.\"",
+          "highlights": [
+            "Neither of us has"
+          ]
+        },
+        {
+          "sentence": "We can either have brunch first or go straight there.\"",
+          "highlights": [
+            "either",
+            "or"
+          ]
+        }
+      ],
+      "questionVi": "Cả hai người đều không có nhiều thời gian. Câu nào đúng?",
+      "options": [
+        "Neither of us has much time.",
+        "Neither of us doesn't have much time.",
+        "Both of us has much time."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Neither đã mang nghĩa phủ định, động từ chia số ít (has).",
+      "whenVi": "Dùng khi cân nhắc giữa hai lựa chọn hoặc nhận xét về từng thứ trong một nhóm.",
+      "table": [
+        {
+          "subject": "each / every + số ít",
+          "form": "Each piece is made from wood. / Every photo shows daily life.",
+          "negative": "Every time we go there, …"
+        },
+        {
+          "subject": "either / neither / both of + us / them",
+          "form": "Either of them would give us ideas. / Neither of us has much time.",
+          "negative": "both of us + động từ số nhiều"
+        },
+        {
+          "subject": "either … or …",
+          "form": "We can either have brunch first or go straight there.",
+          "negative": "Hai lựa chọn, chọn một."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Every photos show daily life.",
+          "right": "Every photo shows daily life."
+        },
+        {
+          "wrong": "Neither of us don't have time.",
+          "right": "Neither of us has time."
+        }
+      ],
+      "noteVi": "each có thể đứng một mình (each of them) hoặc trước danh từ; every luôn đứng trước danh từ: each ticket / every time.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "___ photo shows daily life on the Mekong River.",
+          "answers": [
+            "Every",
+            "Each"
+          ],
+          "explanationVi": "Danh từ số ít (photo): Every / Each."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "___ of us has much time this weekend.",
+          "options": [
+            "Neither",
+            "Both",
+            "Every",
+            "All"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Động từ số ít (has) và ý phủ định: Neither."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Every photos show daily life on the river.",
+          "sentence": "Every photo shows daily life on the river.",
+          "explanationVi": "Every + danh từ số ít + động từ số ít."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cả hai đứa mình đều không có nhiều thời gian.",
+          "sentence": "Neither of us has much time.",
+          "words": [
+            "Neither",
+            "of",
+            "us",
+            "has",
+            "much",
+            "time.",
+            "have"
+          ],
+          "explanationVi": "Neither of us + has; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Neither of us has much time, so we need to pick quickly.\"",
+        "tipVi": "Neither /ˈnaɪðə/; ngắt hơi sau time."
+      },
+      {
+        "text": "We can either have brunch first or go straight there.\"",
+        "tipVi": "either /ˈaɪðə/; nhấn vào either và or."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which do you prefer, photography or sculpture? Why?",
+        "questionVi": "Bạn thích nhiếp ảnh hay điêu khắc hơn? Vì sao?",
+        "frame": "Either is fine, but ___."
+      },
+      {
+        "question": "Describe two of your friends' hobbies.",
+        "questionVi": "Hãy tả sở thích của hai người bạn.",
+        "frame": "Both of my friends ___. Neither of them ___."
+      },
+      {
+        "question": "Where do you get ideas for your work or study?",
+        "questionVi": "Bạn lấy ý tưởng cho công việc hay việc học từ đâu?",
+        "frame": "Every time I ___, I ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với each / every / both / either / neither",
+      "anyOf": [
+        "each",
+        "Each",
+        "every",
+        "Every",
+        "both",
+        "Both",
+        "either",
+        "Either",
+        "neither",
+        "Neither"
+      ],
+      "outlineVi": [
+        "Hai hoạt động là gì (Either … or …).",
+        "Điểm chung (Both … / Neither …).",
+        "Chi tiết từng hoạt động (Each … / Every …)."
+      ],
+      "modelAnswer": "Hi Lan, there are two things we could do this weekend. Either we go to the flower market, or we watch the new film at the cinema. Both sound fun, and neither is expensive. The flower market opens every morning at six, and each stall sells something different. Let me know which one you prefer!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "storms",
+      "lemma": "storm",
+      "meaningVi": "cơn bão",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "on the beach after storms",
+      "phraseVi": "trên bãi biển sau bão"
+    },
+    {
+      "text": "brunch",
+      "lemma": "brunch",
+      "meaningVi": "bữa sáng muộn",
+      "sentenceIndex": 27,
+      "pos": "noun",
+      "phrase": "have brunch first",
+      "phraseVi": "ăn sáng muộn trước"
+    }
+  ]
+}
