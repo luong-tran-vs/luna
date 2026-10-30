@@ -1,0 +1,595 @@
+{
+  "content": "In a small office at a university in Toronto, Thao, an exchange student from Hue, is meeting her academic advisor, Dr Martin, halfway through her first semester.\n\nDr Martin asks, \"How are your classes going?\"\n\"Better now, thank you. At first, the seminars were really hard for me.\"\n\"In what way?\"\n\"In Vietnam, I used to sit quietly and take notes. The teacher would talk, and we would listen. Students didn't usually question the teacher.\"\n\"And here, everyone talks at once!\"\n\"Exactly. In my first seminar, I didn't say a word for two hours. I wasn't used to giving my opinion in front of everyone. I wish I had been braver.\"\n\"That's very common for international students. Are you getting used to it now?\"\n\"Slowly. Last week I spoke three times in the history seminar. I'm getting used to the fast debates, but I still need time to think before I speak.\"\n\"That's completely fine. Thinking first is a good habit.\"\n\"I just wish I could speak as quickly as the other students. If only my English were more natural.\"\n\"Your English is excellent. It's your confidence that's growing. Have you tried preparing questions before the seminar?\"\n\"No, I haven't. Is that allowed?\"\n\"Of course. Many students do it. Read the articles, write down two questions, and ask one early in the discussion.\"\n\"That's a good idea. I wish someone had told me that in my first week!\"\n\"Well, now you know. Is there anything else that's been difficult?\"\n\"The food, maybe. I used to have rice three times a day. Now I eat sandwiches. But I'm used to it now.\"\nDr Martin smiles. \"Come back and see me in December. I'm sure you'll be leading the debates by then.\"",
+  "targetWords": [
+    "advisor",
+    "seminar",
+    "note",
+    "opinion",
+    "common",
+    "debate",
+    "habit",
+    "confidence",
+    "article",
+    "discussion"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "advisor",
+        "lemma": "advisor",
+        "meaningVi": "cố vấn học tập",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "seminars",
+        "lemma": "seminar",
+        "meaningVi": "buổi thảo luận (seminar)",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "notes",
+        "lemma": "note",
+        "meaningVi": "ghi chép",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "opinion",
+        "lemma": "opinion",
+        "meaningVi": "ý kiến",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "common",
+        "lemma": "common",
+        "meaningVi": "phổ biến, thường gặp",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "debates",
+        "lemma": "debate",
+        "meaningVi": "cuộc tranh luận",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "habit",
+        "lemma": "habit",
+        "meaningVi": "thói quen",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "confidence",
+        "lemma": "confidence",
+        "meaningVi": "sự tự tin",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "articles",
+        "lemma": "article",
+        "meaningVi": "bài báo, bài viết",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "discussion",
+        "lemma": "discussion",
+        "meaningVi": "cuộc thảo luận",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Thao and Dr Martin talking about?",
+        "promptVi": "Thảo và tiến sĩ Martin đang nói về điều gì?",
+        "options": [
+          "How Thao is adapting to seminars in Canada",
+          "Thao's exam results",
+          "A history book",
+          "The food in Toronto"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo kể chuyện dần quen với các buổi thảo luận ở Canada."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many times did Thao speak in the history seminar last week?",
+        "promptVi": "Tuần trước Thảo phát biểu bao nhiêu lần ở buổi thảo luận lịch sử?",
+        "options": [
+          "Once",
+          "Twice",
+          "Three times",
+          "Never"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"Last week I spoke three times in the history seminar.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Dr Martin suggest?",
+        "promptVi": "Tiến sĩ Martin gợi ý điều gì?",
+        "options": [
+          "Preparing questions before the seminar",
+          "Taking more notes",
+          "Speaking more slowly",
+          "Changing classes"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông hỏi \"Have you tried preparing questions before the seminar?\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao spoke a lot in her first seminar.",
+        "promptVi": "Thảo phát biểu nhiều trong buổi thảo luận đầu tiên.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"I didn't say a word for two hours.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"confidence\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"It's your confidence that's growing.\"",
+        "options": [
+          "sự tự tin",
+          "vốn từ",
+          "điểm số",
+          "sự lo lắng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Confidence = sự tự tin."
+      }
+    ],
+    "grammarNote": {
+      "title": "Used to, be / get used to và would (thói quen)",
+      "bodyVi": "Khi so sánh cách học ở hai nước, ta dùng: used to + V cho thói quen trước đây: In Vietnam, I used to sit quietly and take notes. would + V cho hành động lặp lại: The teacher would talk, and we would listen. be / get used to + V-ing hoặc danh từ cho việc đã quen hoặc đang dần quen: I wasn't used to giving my opinion in front of everyone / I'm getting used to the fast debates / I'm used to it now.",
+      "examples": [
+        "\"In Vietnam, I used to sit quietly and take notes.",
+        "The teacher would talk, and we would listen.",
+        "I wasn't used to giving my opinion in front of everyone."
+      ]
+    },
+    "writingPrompt": "Write about how studying or working in a new place is different from what you used to do. Use used to, would and be / get used to.",
+    "sentenceTranslations": [
+      "Trong một văn phòng nhỏ ở một trường đại học tại Toronto, Thảo, sinh viên trao đổi đến từ Huế, đang gặp cố vấn học tập của mình, tiến sĩ Martin, vào giữa học kỳ đầu.",
+      "Tiến sĩ Martin hỏi: \"Các lớp học của em thế nào?\"",
+      "\"Giờ thì ổn hơn rồi ạ, em cảm ơn thầy.",
+      "Lúc đầu các buổi thảo luận rất khó với em.\"",
+      "\"Khó ở chỗ nào?\"",
+      "\"Ở Việt Nam, em thường ngồi im lặng và ghi chép.",
+      "Thầy cô giảng, còn bọn em lắng nghe.",
+      "Sinh viên thường không chất vấn thầy cô.\"",
+      "\"Còn ở đây ai cũng nói cùng lúc!\"",
+      "\"Đúng vậy ạ.",
+      "Buổi thảo luận đầu tiên, em không nói một lời nào suốt hai tiếng.",
+      "Em không quen đưa ra ý kiến trước mọi người.",
+      "Ước gì em đã dũng cảm hơn.\"",
+      "\"Chuyện đó rất phổ biến với sinh viên quốc tế.",
+      "Giờ em đã dần quen chưa?\"",
+      "\"Từ từ ạ.",
+      "Tuần trước em đã phát biểu ba lần ở buổi thảo luận lịch sử.",
+      "Em đang dần quen với những cuộc tranh luận nhanh, nhưng vẫn cần thời gian suy nghĩ trước khi nói.\"",
+      "\"Hoàn toàn ổn.",
+      "Suy nghĩ trước là một thói quen tốt.\"",
+      "\"Em chỉ ước mình nói nhanh được như các bạn khác.",
+      "Giá mà tiếng Anh của em tự nhiên hơn.\"",
+      "\"Tiếng Anh của em rất tốt.",
+      "Chính sự tự tin của em đang tăng lên.",
+      "Em đã thử chuẩn bị câu hỏi trước buổi thảo luận chưa?\"",
+      "\"Chưa ạ.",
+      "Như vậy có được không ạ?\"",
+      "\"Tất nhiên.",
+      "Nhiều sinh viên làm thế.",
+      "Đọc các bài viết, ghi ra hai câu hỏi, và hỏi một câu sớm trong buổi thảo luận.\"",
+      "\"Ý hay quá ạ.",
+      "Ước gì có người nói với em điều đó từ tuần đầu tiên!\"",
+      "\"Giờ em biết rồi đấy.",
+      "Còn gì khó khăn nữa không?\"",
+      "\"Có lẽ là đồ ăn ạ.",
+      "Trước đây ngày nào em cũng ăn cơm ba bữa.",
+      "Giờ em ăn bánh mì kẹp.",
+      "Nhưng giờ em quen rồi.\"",
+      "Tiến sĩ Martin mỉm cười.",
+      "\"Tháng Mười Hai em quay lại gặp thầy nhé.",
+      "Thầy chắc đến lúc đó em sẽ dẫn dắt các cuộc tranh luận.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh cách học trước đây và hiện tại bằng used to, would và be / get used to.",
+    "examples": [
+      {
+        "lemma": "advisor",
+        "sentence": "My advisor helped me choose my courses.",
+        "meaningVi": "Cố vấn học tập giúp tôi chọn môn học."
+      },
+      {
+        "lemma": "seminar",
+        "sentence": "The seminar starts at two o'clock.",
+        "meaningVi": "Buổi thảo luận bắt đầu lúc hai giờ."
+      },
+      {
+        "lemma": "note",
+        "sentence": "She left a note on my desk.",
+        "meaningVi": "Cô ấy để lại một mảnh giấy ghi chú trên bàn tôi."
+      },
+      {
+        "lemma": "opinion",
+        "sentence": "In my opinion, the film was too long.",
+        "meaningVi": "Theo ý kiến của tôi, bộ phim quá dài."
+      },
+      {
+        "lemma": "common",
+        "sentence": "It's a common mistake.",
+        "meaningVi": "Đó là một lỗi thường gặp."
+      },
+      {
+        "lemma": "debate",
+        "sentence": "There was a long debate about the new law.",
+        "meaningVi": "Đã có một cuộc tranh luận dài về luật mới."
+      },
+      {
+        "lemma": "habit",
+        "sentence": "Reading every night is a good habit.",
+        "meaningVi": "Đọc sách mỗi tối là một thói quen tốt."
+      },
+      {
+        "lemma": "confidence",
+        "sentence": "Speaking in public gave her more confidence.",
+        "meaningVi": "Nói trước đám đông giúp cô ấy tự tin hơn."
+      },
+      {
+        "lemma": "article",
+        "sentence": "I read an interesting article about sleep.",
+        "meaningVi": "Tôi đọc một bài báo thú vị về giấc ngủ."
+      },
+      {
+        "lemma": "discussion",
+        "sentence": "We had a long discussion about the project.",
+        "meaningVi": "Chúng tôi đã thảo luận lâu về dự án."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Sarah",
+        "Thao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "You spoke a lot in the seminar today!",
+          "meaningVi": "Hôm nay cậu phát biểu nhiều trong buổi thảo luận quá!"
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks! I'm getting used to it at last.",
+          "meaningVi": "Cảm ơn cậu! Cuối cùng mình cũng dần quen."
+        },
+        {
+          "speaker": 0,
+          "text": "Was it very different in Vietnam?",
+          "meaningVi": "Ở Việt Nam có khác lắm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. We used to listen more than we spoke.",
+          "meaningVi": "Có. Ngày trước bọn mình nghe nhiều hơn nói."
+        },
+        {
+          "speaker": 0,
+          "text": "Did you use to ask questions in class?",
+          "meaningVi": "Cậu có hay đặt câu hỏi trong lớp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not often. Our teachers would usually explain everything.",
+          "meaningVi": "Không thường xuyên. Thầy cô thường giải thích mọi thứ."
+        },
+        {
+          "speaker": 0,
+          "text": "I'd find that hard. I'm used to arguing with everyone!",
+          "meaningVi": "Mình thấy chắc khó lắm. Mình quen tranh luận với mọi người rồi!"
+        },
+        {
+          "speaker": 1,
+          "text": "I noticed! Do you prepare before seminars?",
+          "meaningVi": "Mình để ý rồi! Cậu có chuẩn bị trước các buổi thảo luận không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Always. I write my questions on the bus.",
+          "meaningVi": "Luôn luôn. Mình viết câu hỏi trên xe buýt."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. I'll try that too.",
+          "meaningVi": "Ý hay. Mình cũng sẽ thử."
+        }
+      ]
+    },
+    "grammarTipVi": "Thói quen cũ: We used to listen more than we spoke / Did you use to ask questions? Hành động lặp lại: Our teachers would usually explain everything. Đã quen / dần quen: I'm getting used to it / I'm used to arguing.",
+    "translations": [
+      {
+        "vi": "Lúc đầu các buổi thảo luận rất khó với tôi.",
+        "en": "At first, the seminars were really hard for me.",
+        "distractors": [
+          "was",
+          "easy",
+          "lectures"
+        ]
+      },
+      {
+        "vi": "Suy nghĩ trước là một thói quen tốt.",
+        "en": "Thinking first is a good habit.",
+        "distractors": [
+          "thought",
+          "bad",
+          "rule"
+        ]
+      },
+      {
+        "vi": "Chính sự tự tin của em đang tăng lên.",
+        "en": "It's your confidence that's growing.",
+        "distractors": [
+          "grows",
+          "fear",
+          "his"
+        ]
+      },
+      {
+        "vi": "Đọc các bài viết và ghi ra hai câu hỏi.",
+        "en": "Read the articles and write down two questions.",
+        "distractors": [
+          "books",
+          "wrote",
+          "three"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Sarah và Thảo nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Sự khác nhau khi học ở Việt Nam và Canada",
+          "Một chuyến du lịch",
+          "Bài kiểm tra lịch sử"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sarah hỏi \"Was it very different in Vietnam?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở Việt Nam, thầy cô của Thảo thường làm gì?",
+        "promptVi": "",
+        "options": [
+          "Giải thích mọi thứ",
+          "Hỏi sinh viên nhiều",
+          "Chia nhóm tranh luận"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo nói \"Our teachers would usually explain everything.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sarah viết câu hỏi ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên xe buýt",
+          "Trong thư viện",
+          "Ở căng tin"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sarah nói \"I write my questions on the bus.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Sarah isn't used to arguing.",
+        "promptVi": "Sarah không quen tranh luận.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Sarah nói \"I'm used to arguing with everyone!\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Cách học ở Việt Nam của Thảo khác gì ở Canada? Cô đã quen với điều gì và vẫn thấy khó ở đâu?",
+    "grammarStep": {
+      "titleVi": "Used to, be / get used to và would (thói quen)",
+      "noticing": [
+        {
+          "sentence": "\"In Vietnam, I used to sit quietly and take notes.",
+          "highlights": [
+            "used to sit"
+          ]
+        },
+        {
+          "sentence": "The teacher would talk, and we would listen.",
+          "highlights": [
+            "would talk",
+            "would listen"
+          ]
+        },
+        {
+          "sentence": "I wasn't used to giving my opinion in front of everyone.",
+          "highlights": [
+            "wasn't used to giving"
+          ]
+        },
+        {
+          "sentence": "I'm getting used to the fast debates, but I still need time to think before I speak.\"",
+          "highlights": [
+            "'m getting used to"
+          ]
+        }
+      ],
+      "questionVi": "Ở Việt Nam, thầy cô giảng và sinh viên lắng nghe (lặp đi lặp lại). Câu nào đúng?",
+      "options": [
+        "The teacher would talk, and we would listen.",
+        "The teacher was used to talk, and we listened.",
+        "The teacher would talking, and we would listening."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Hành động lặp lại trong quá khứ: would + V nguyên mẫu.",
+      "whenVi": "Dùng used to / would để kể cách học trước đây; be / get used to + V-ing để nói việc thích nghi với cách học mới.",
+      "table": [
+        {
+          "subject": "used to + V",
+          "form": "In Vietnam, I used to sit quietly and take notes.",
+          "negative": "didn't use to + V"
+        },
+        {
+          "subject": "would + V",
+          "form": "The teacher would talk, and we would listen.",
+          "negative": "Chỉ cho hành động lặp lại, không cho trạng thái."
+        },
+        {
+          "subject": "be / get used to + V-ing / danh từ",
+          "form": "I'm getting used to the fast debates.",
+          "negative": "I wasn't used to giving my opinion."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I wasn't used to give my opinion.",
+          "right": "I wasn't used to giving my opinion."
+        },
+        {
+          "wrong": "I am used to have rice three times a day.",
+          "right": "I used to have rice three times a day."
+        }
+      ],
+      "noteVi": "Bài cũng có wish / if only: I wish I had been braver / If only my English were more natural.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "I'm getting ___ to the fast debates.",
+          "answers": [
+            "used"
+          ],
+          "explanationVi": "get used to + danh từ."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "In Vietnam, I ___ sit quietly and take notes.",
+          "options": [
+            "used to",
+            "am used to",
+            "was used to",
+            "get used to"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Thói quen trong quá khứ: used to + V."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I wasn't used to give my opinion in class.",
+          "sentence": "I wasn't used to giving my opinion in class.",
+          "explanationVi": "be used to + V-ing: giving."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thầy cô giảng, còn chúng tôi lắng nghe.",
+          "sentence": "The teacher would talk, and we would listen.",
+          "words": [
+            "The",
+            "teacher",
+            "would",
+            "talk,",
+            "and",
+            "we",
+            "would",
+            "listen.",
+            "used"
+          ],
+          "explanationVi": "would + V cho hành động lặp lại; từ \"used\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The teacher would talk, and we would listen.",
+        "tipVi": "would đọc nhẹ /wəd/; ngắt hơi sau talk."
+      },
+      {
+        "text": "I wasn't used to giving my opinion in front of everyone.",
+        "tipVi": "used to /ˈjuːstə/; opinion /əˈpɪnjən/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How were classes at school different from your classes now?",
+        "questionVi": "Lớp học hồi phổ thông khác lớp học bây giờ của bạn thế nào?",
+        "frame": "At school, we used to ___. Now I'm used to ___."
+      },
+      {
+        "question": "Do you find it easy to give your opinion in class or at work? Why?",
+        "questionVi": "Bạn có thấy dễ đưa ra ý kiến trong lớp hay ở chỗ làm không? Vì sao?",
+        "frame": "I find it ___ because ___."
+      },
+      {
+        "question": "What advice would you give to a student who is shy in seminars?",
+        "questionVi": "Bạn sẽ khuyên gì một sinh viên nhút nhát trong buổi thảo luận?",
+        "frame": "I would tell him or her to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với used to / would / be (get) used to",
+      "anyOf": [
+        "used to",
+        "would ",
+        "getting used",
+        "got used"
+      ],
+      "outlineVi": [
+        "Trước đây bạn thường học / làm việc thế nào (used to / would …).",
+        "Ở nơi mới có gì khác, lúc đầu bạn chưa quen gì (wasn't used to …).",
+        "Bây giờ bạn đã quen ra sao (I'm getting used to …)."
+      ],
+      "modelAnswer": "At my old school, we used to sit in rows and copy notes from the board. The teacher would ask questions, and we would answer one by one. At my new university, students work in groups and discuss every topic. At first, I wasn't used to speaking so much, but now I'm getting used to it, and I enjoy it."
+    }
+  },
+  "glosses": [
+    {
+      "text": "halfway through",
+      "lemma": "halfway through",
+      "meaningVi": "giữa chừng",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "halfway through her first semester",
+      "phraseVi": "vào giữa học kỳ đầu"
+    },
+    {
+      "text": "at once",
+      "lemma": "at once",
+      "meaningVi": "cùng một lúc",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "everyone talks at once",
+      "phraseVi": "ai cũng nói cùng lúc"
+    },
+    {
+      "text": "leading",
+      "lemma": "lead",
+      "meaningVi": "dẫn dắt",
+      "sentenceIndex": 40,
+      "pos": "verb",
+      "phrase": "leading the debates",
+      "phraseVi": "dẫn dắt các cuộc tranh luận"
+    }
+  ]
+}

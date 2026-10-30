@@ -1,0 +1,601 @@
+{
+  "content": "It's a grey July morning in Melbourne, and the wind is cold. Tien, a Vietnamese master's student, is waiting for a tram with her classmate Emily.\n\nEmily asks, \"Are you OK? You look frozen.\"\n\"I'm fine. I'm slowly getting used to the cold, but I wish I had brought a warmer coat from home.\"\n\"Didn't you know about Melbourne winters?\"\n\"I knew, but I didn't believe it! In Ho Chi Minh City, I never needed a coat. It's thirty degrees there right now.\"\n\"So what was a normal day like back home?\"\n\"Very different. I used to get up at six and ride my motorbike to the office. At lunch, my colleagues and I would eat broken rice at a little stall on the street. In the evening, I would meet friends for iced coffee.\"\n\"Iced coffee every evening? I can't imagine that here.\"\n\"There's no winter in Saigon! That's the strange part. Here, I'm used to drinking hot tea all day now.\"\n\"What else has been hard?\"\n\"The early dark. At first, I wasn't used to the sun going down at five o'clock. I felt sleepy all the time. If only the days were longer!\"\n\"And the food?\"\n\"I've got used to cooking for myself. I didn't use to cook at all, because my mum always made dinner. Now I can make pho, although it isn't as good as hers.\"\nEmily laughs. \"You'll have to cook it for me one day.\"\n\"Deal. But I wish the Vietnamese supermarket weren't so far from my flat. It takes forty minutes by tram.\"\n\"I'll drive you there on Saturday, if you like.\"\n\"Really? That would be great.\"\nThe tram arrives, and they climb in quickly. \"I still haven't got used to these trams,\" Tien says. \"But I'm getting there.\"",
+  "targetWords": [
+    "frozen",
+    "coat",
+    "degree",
+    "stall",
+    "imagine",
+    "strange",
+    "sleepy",
+    "flat",
+    "tram",
+    "climb"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "frozen",
+        "lemma": "frozen",
+        "meaningVi": "lạnh cóng",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "coat",
+        "lemma": "coat",
+        "meaningVi": "áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "degrees",
+        "lemma": "degree",
+        "meaningVi": "độ (nhiệt độ)",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "stall",
+        "lemma": "stall",
+        "meaningVi": "quán nhỏ, quầy hàng",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "imagine",
+        "lemma": "imagine",
+        "meaningVi": "tưởng tượng",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "strange",
+        "lemma": "strange",
+        "meaningVi": "lạ",
+        "pos": "adjective",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "sleepy",
+        "lemma": "sleepy",
+        "meaningVi": "buồn ngủ",
+        "pos": "adjective",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "flat",
+        "lemma": "flat",
+        "meaningVi": "căn hộ",
+        "pos": "noun",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "tram",
+        "lemma": "tram",
+        "meaningVi": "xe điện",
+        "pos": "noun",
+        "sentenceIndex": 33
+      },
+      {
+        "text": "climb",
+        "lemma": "climb",
+        "meaningVi": "leo, bước lên",
+        "pos": "verb",
+        "sentenceIndex": 37
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Tien and Emily talking about?",
+        "promptVi": "Tiên và Emily đang nói về chuyện gì?",
+        "options": [
+          "How Tien is adapting to life in Melbourne",
+          "Their exam results",
+          "A trip to Ho Chi Minh City",
+          "Buying a new coat"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tiên kể chuyện dần quen với thời tiết và cuộc sống ở Melbourne."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Tien use to do in the evenings at home?",
+        "promptVi": "Ở quê, buổi tối Tiên thường làm gì?",
+        "options": [
+          "Meet friends for iced coffee",
+          "Cook dinner",
+          "Study at the library",
+          "Ride the tram"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tiên nói \"In the evening, I would meet friends for iced coffee.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did Tien feel sleepy all the time at first?",
+        "promptVi": "Vì sao lúc đầu Tiên lúc nào cũng buồn ngủ?",
+        "options": [
+          "It got dark very early.",
+          "She worked at night.",
+          "The tram was slow.",
+          "She drank too much tea."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tiên nói cô chưa quen với việc mặt trời lặn lúc năm giờ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tien used to cook a lot at home in Vietnam.",
+        "promptVi": "Ở Việt Nam Tiên thường nấu ăn nhiều.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tiên nói \"I didn't use to cook at all.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"stall\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"At lunch, my colleagues and I would eat broken rice at a little stall on the street.\"",
+        "options": [
+          "quán nhỏ, quầy hàng",
+          "nhà hàng sang trọng",
+          "căng tin",
+          "siêu thị"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Stall = quán nhỏ, quầy bán hàng ven đường."
+      }
+    ],
+    "grammarNote": {
+      "title": "Used to, be / get used to và would (thói quen)",
+      "bodyVi": "Ba cách nói về thói quen. used to + V: thói quen hoặc trạng thái trong quá khứ, nay không còn: I used to get up at six. / I didn't use to cook at all. would + V: hành động lặp lại trong quá khứ (không dùng cho trạng thái): my colleagues and I would eat broken rice at a little stall. be / get used to + V-ing hoặc danh từ: đã quen / dần quen với điều gì đó: I'm used to drinking hot tea / I'm slowly getting used to the cold / I wasn't used to the sun going down at five o'clock.",
+      "examples": [
+        "I used to get up at six and ride my motorbike to the office.",
+        "At lunch, my colleagues and I would eat broken rice at a little stall on the street.",
+        "\"I've got used to cooking for myself."
+      ]
+    },
+    "writingPrompt": "Imagine you have moved to another country. Write about what you used to do at home and what you are getting used to now.",
+    "sentenceTranslations": [
+      "Một buổi sáng tháng Bảy xám xịt ở Melbourne, gió lạnh buốt.",
+      "Tiên, một học viên thạc sĩ người Việt, đang đợi xe điện cùng bạn cùng lớp Emily.",
+      "Emily hỏi: \"Cậu ổn không?",
+      "Trông cậu lạnh cóng.\"",
+      "\"Mình ổn.",
+      "Mình đang dần quen với cái lạnh, nhưng ước gì mình mang theo áo khoác ấm hơn từ nhà.\"",
+      "\"Cậu không biết mùa đông ở Melbourne à?\"",
+      "\"Mình biết, nhưng mình không tin!",
+      "Ở Thành phố Hồ Chí Minh, mình chưa bao giờ cần áo khoác.",
+      "Ở đó bây giờ ba mươi độ.\"",
+      "\"Thế một ngày bình thường ở quê cậu thế nào?\"",
+      "\"Khác lắm.",
+      "Trước đây mình dậy lúc sáu giờ và đi xe máy đến văn phòng.",
+      "Buổi trưa, mình và đồng nghiệp hay ăn cơm tấm ở một quán nhỏ ven đường.",
+      "Buổi tối, mình hay đi cà phê đá với bạn.\"",
+      "\"Tối nào cũng cà phê đá?",
+      "Ở đây mình không tưởng tượng nổi.\"",
+      "\"Sài Gòn làm gì có mùa đông!",
+      "Đó mới là điều lạ.",
+      "Ở đây giờ mình quen uống trà nóng cả ngày rồi.\"",
+      "\"Còn gì khó nữa?\"",
+      "\"Trời tối sớm.",
+      "Lúc đầu mình không quen chuyện mặt trời lặn lúc năm giờ.",
+      "Lúc nào mình cũng buồn ngủ.",
+      "Giá mà ngày dài hơn!\"",
+      "\"Còn đồ ăn?\"",
+      "\"Mình quen tự nấu ăn rồi.",
+      "Trước đây mình chẳng bao giờ nấu, vì mẹ luôn nấu bữa tối.",
+      "Giờ mình nấu được phở, dù không ngon bằng mẹ nấu.\"",
+      "Emily bật cười.",
+      "\"Hôm nào cậu phải nấu cho mình ăn đấy.\"",
+      "\"Chốt.",
+      "Nhưng ước gì siêu thị Việt Nam không xa căn hộ của mình thế.",
+      "Đi xe điện mất bốn mươi phút.\"",
+      "\"Thứ Bảy mình chở cậu đi, nếu cậu muốn.\"",
+      "\"Thật á?",
+      "Thế thì tuyệt quá.\"",
+      "Xe điện đến, và hai người nhanh chóng bước lên.",
+      "Tiên nói: \"Mình vẫn chưa quen với mấy chiếc xe điện này.",
+      "Nhưng mình đang dần quen.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh cuộc sống trước đây và bây giờ khi du học bằng used to, would và be / get used to.",
+    "examples": [
+      {
+        "lemma": "frozen",
+        "sentence": "My hands are frozen.",
+        "meaningVi": "Tay tôi lạnh cóng."
+      },
+      {
+        "lemma": "coat",
+        "sentence": "Take your coat. It's cold outside.",
+        "meaningVi": "Mang áo khoác đi. Ngoài trời lạnh lắm."
+      },
+      {
+        "lemma": "degree",
+        "sentence": "It's one degree below zero today.",
+        "meaningVi": "Hôm nay âm một độ."
+      },
+      {
+        "lemma": "stall",
+        "sentence": "She sells fruit at a stall in the market.",
+        "meaningVi": "Cô ấy bán hoa quả ở một sạp trong chợ."
+      },
+      {
+        "lemma": "imagine",
+        "sentence": "I can't imagine life without my phone.",
+        "meaningVi": "Tôi không tưởng tượng nổi cuộc sống thiếu điện thoại."
+      },
+      {
+        "lemma": "strange",
+        "sentence": "Something strange happened last night.",
+        "meaningVi": "Tối qua đã xảy ra một chuyện lạ."
+      },
+      {
+        "lemma": "sleepy",
+        "sentence": "The warm room made me sleepy.",
+        "meaningVi": "Căn phòng ấm áp làm tôi buồn ngủ."
+      },
+      {
+        "lemma": "flat",
+        "sentence": "They rent a small flat near the university.",
+        "meaningVi": "Họ thuê một căn hộ nhỏ gần trường đại học."
+      },
+      {
+        "lemma": "tram",
+        "sentence": "We took the tram to the city centre.",
+        "meaningVi": "Chúng tôi đi xe điện vào trung tâm."
+      },
+      {
+        "lemma": "climb",
+        "sentence": "It took us three hours to climb the hill.",
+        "meaningVi": "Chúng tôi mất ba tiếng để leo lên đồi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mum",
+        "Tien"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tien, are you eating properly over there?",
+          "meaningVi": "Tiên ơi, ở bên đó con có ăn uống đàng hoàng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, Mum. I've got used to cooking for myself.",
+          "meaningVi": "Có ạ. Con quen tự nấu ăn rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? You never used to cook at home!",
+          "meaningVi": "Thật à? Ở nhà con có bao giờ nấu đâu!"
+        },
+        {
+          "speaker": 1,
+          "text": "I know. Now I cook pho every Sunday.",
+          "meaningVi": "Con biết. Giờ Chủ Nhật nào con cũng nấu phở."
+        },
+        {
+          "speaker": 0,
+          "text": "And the cold? Are you used to it yet?",
+          "meaningVi": "Còn cái lạnh? Con quen chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not really. I wish I had brought my thick jacket.",
+          "meaningVi": "Chưa hẳn ạ. Ước gì con mang theo cái áo dày."
+        },
+        {
+          "speaker": 0,
+          "text": "Shall I send it to you?",
+          "meaningVi": "Mẹ gửi sang cho con nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please! The post takes about a week.",
+          "meaningVi": "Vâng ạ! Gửi bưu điện mất khoảng một tuần."
+        },
+        {
+          "speaker": 0,
+          "text": "I'll send it tomorrow, with some coffee too.",
+          "meaningVi": "Mai mẹ gửi, kèm ít cà phê nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you, Mum. I miss you.",
+          "meaningVi": "Con cảm ơn mẹ. Con nhớ mẹ."
+        }
+      ]
+    },
+    "grammarTipVi": "Thói quen cũ: You never used to cook at home! Đã quen / chưa quen: I've got used to cooking for myself / Are you used to it yet? Tiếc nuối: I wish I had brought my thick jacket.",
+    "translations": [
+      {
+        "vi": "Trông bạn lạnh cóng.",
+        "en": "You look frozen.",
+        "distractors": [
+          "looks",
+          "warm",
+          "see"
+        ]
+      },
+      {
+        "vi": "Buổi trưa tôi hay ăn cơm tấm ở một quán nhỏ.",
+        "en": "At lunch, I would eat broken rice at a little stall.",
+        "distractors": [
+          "will",
+          "eating",
+          "shop"
+        ]
+      },
+      {
+        "vi": "Lúc đầu, lúc nào tôi cũng buồn ngủ.",
+        "en": "At first, I felt sleepy all the time.",
+        "distractors": [
+          "feel",
+          "tired",
+          "some"
+        ]
+      },
+      {
+        "vi": "Đi xe điện mất bốn mươi phút.",
+        "en": "It takes forty minutes by tram.",
+        "distractors": [
+          "took",
+          "bus",
+          "hours"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tiên và mẹ nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuộc sống của Tiên ở Úc",
+          "Kỳ thi cuối kỳ",
+          "Một chuyến du lịch"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ hỏi Tiên về chuyện ăn uống và thời tiết ở bên đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bây giờ Tiên nấu phở khi nào?",
+        "promptVi": "",
+        "options": [
+          "Mỗi Chủ Nhật",
+          "Mỗi tối",
+          "Mỗi thứ Bảy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tiên nói \"Now I cook pho every Sunday.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mẹ sẽ gửi gì cho Tiên?",
+        "promptVi": "",
+        "options": [
+          "Áo khoác dày và cà phê",
+          "Tiền",
+          "Sách"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ nói \"I'll send it tomorrow, with some coffee too.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tien is completely used to the cold now.",
+        "promptVi": "Tiên đã hoàn toàn quen với cái lạnh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tiên nói \"Not really.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Cuộc sống hằng ngày của Tiên ở Thành phố Hồ Chí Minh trước đây khác gì so với bây giờ ở Melbourne? Cô đã quen và chưa quen với điều gì?",
+    "grammarStep": {
+      "titleVi": "Used to, be / get used to và would (thói quen)",
+      "noticing": [
+        {
+          "sentence": "I used to get up at six and ride my motorbike to the office.",
+          "highlights": [
+            "used to get up"
+          ]
+        },
+        {
+          "sentence": "At lunch, my colleagues and I would eat broken rice at a little stall on the street.",
+          "highlights": [
+            "would eat"
+          ]
+        },
+        {
+          "sentence": "At first, I wasn't used to the sun going down at five o'clock.",
+          "highlights": [
+            "wasn't used to"
+          ]
+        },
+        {
+          "sentence": "\"I've got used to cooking for myself.",
+          "highlights": [
+            "'ve got used to cooking"
+          ]
+        }
+      ],
+      "questionVi": "Hồi ở Việt Nam, Tiên thường dậy lúc sáu giờ (bây giờ thì không). Câu nào đúng?",
+      "options": [
+        "I used to get up at six.",
+        "I am used to get up at six.",
+        "I used to getting up at six."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Thói quen trong quá khứ nay không còn: used to + động từ nguyên mẫu.",
+      "whenVi": "Dùng used to / would khi kể thói quen trước đây, và be / get used to khi nói mình đã quen hoặc đang dần quen với điều mới.",
+      "table": [
+        {
+          "subject": "used to + V",
+          "form": "Thói quen cũ, nay không còn: I used to get up at six.",
+          "negative": "didn't use to + V: I didn't use to cook."
+        },
+        {
+          "subject": "would + V",
+          "form": "Hành động lặp lại trong quá khứ: I would meet friends for iced coffee.",
+          "negative": "Không dùng would cho trạng thái (be, have, live …)."
+        },
+        {
+          "subject": "be / get used to + V-ing",
+          "form": "Đã quen / dần quen: I'm used to drinking hot tea. / I'm getting used to the cold.",
+          "negative": "wasn't used to + V-ing / danh từ"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'm used to drink hot tea now.",
+          "right": "I'm used to drinking hot tea now."
+        },
+        {
+          "wrong": "I didn't used to cook at all.",
+          "right": "I didn't use to cook at all."
+        }
+      ],
+      "noteVi": "Bài cũng có wish / if only: I wish I had brought a warmer coat / If only the days were longer!",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "I'm slowly getting used ___ the cold.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "get used to + danh từ / V-ing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "At first, I wasn't used to ___ cold food for lunch.",
+          "options": [
+            "eating",
+            "eat",
+            "ate",
+            "eaten"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "be used to + V-ing: eating."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I'm used to drink hot tea all day now.",
+          "sentence": "I'm used to drinking hot tea all day now.",
+          "explanationVi": "Sau be used to là V-ing: drinking."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Trước đây tôi thường dậy lúc sáu giờ.",
+          "sentence": "I used to get up at six.",
+          "words": [
+            "I",
+            "used",
+            "to",
+            "get",
+            "up",
+            "at",
+            "six.",
+            "getting"
+          ],
+          "explanationVi": "used to + V nguyên mẫu; từ \"getting\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I used to get up at six and ride my motorbike to the office.",
+        "tipVi": "used to đọc /ˈjuːstə/; ngắt hơi sau six."
+      },
+      {
+        "text": "\"I've got used to cooking for myself.",
+        "tipVi": "got used to đọc liền /ɡɒt ˈjuːstə/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What did you use to do as a child that you don't do now?",
+        "questionVi": "Hồi nhỏ bạn thường làm gì mà bây giờ không làm nữa?",
+        "frame": "When I was a child, I used to ___."
+      },
+      {
+        "question": "What new thing are you getting used to at the moment?",
+        "questionVi": "Hiện bạn đang dần quen với điều gì mới?",
+        "frame": "I'm getting used to ___."
+      },
+      {
+        "question": "Would it be hard for you to live in a cold country? Why?",
+        "questionVi": "Sống ở một nước lạnh có khó với bạn không? Vì sao?",
+        "frame": "It would be hard because I'm not used to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với used to / would / be (get) used to",
+      "anyOf": [
+        "used to",
+        "would ",
+        "getting used",
+        "got used"
+      ],
+      "outlineVi": [
+        "Ở quê bạn từng có thói quen gì (used to / would …).",
+        "Ở nơi mới, bạn đã quen với điều gì (I'm used to …).",
+        "Điều gì bạn vẫn đang dần quen (I'm getting used to …)."
+      ],
+      "modelAnswer": "When I lived in Hanoi, I used to ride my motorbike everywhere. On Sundays, my family would have lunch at my grandparents' house. Now I live in Seoul, and everything is different. I'm getting used to taking the subway, and I'm used to the spicy food now. But I still haven't got used to the cold winters."
+    }
+  },
+  "glosses": [
+    {
+      "text": "grey",
+      "lemma": "grey",
+      "meaningVi": "xám xịt",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "a grey July morning",
+      "phraseVi": "một buổi sáng tháng Bảy xám xịt"
+    },
+    {
+      "text": "broken rice",
+      "lemma": "broken rice",
+      "meaningVi": "cơm tấm",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "eat broken rice",
+      "phraseVi": "ăn cơm tấm"
+    },
+    {
+      "text": "Deal",
+      "lemma": "deal",
+      "meaningVi": "chốt, đồng ý",
+      "sentenceIndex": 31,
+      "pos": "phrase",
+      "phrase": "Deal.",
+      "phraseVi": "Chốt."
+    },
+    {
+      "text": "getting there",
+      "lemma": "get there",
+      "meaningVi": "đang dần ổn",
+      "sentenceIndex": 39,
+      "pos": "phrase",
+      "phrase": "But I'm getting there.",
+      "phraseVi": "Nhưng mình đang dần quen."
+    }
+  ]
+}

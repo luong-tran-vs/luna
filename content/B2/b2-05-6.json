@@ -1,0 +1,595 @@
+{
+  "content": "It's Sunday dinner at Quynh's family home in Can Tho. Quynh graduated in business last month, and her parents want to talk about her future.\n\n\"Quynh, your father and I think it's time you applied for a master's degree,\" her mother says. \"Your cousin Hoa started hers straight after university.\"\n\"I know, Mum. But I'd rather work for a few years first.\"\nHer father puts down his bowl. \"Why? Wouldn't you rather finish all your studying while you're young?\"\n\"Not really. I'd rather have some real experience before I study more. Then I'll know what I actually want to study.\"\n\"But a master's degree will help you get a better job,\" her mother says.\n\"Maybe. But many companies would rather hire someone with work experience than someone with only degrees. My friend Long has a master's, and he still can't find a job.\"\n\"Hmm. Where would you rather work?\"\n\"There's a position at a food export company here in Can Tho. They want someone for their sales team. I'd rather start there than move to Ho Chi Minh City.\"\n\"And when would you study?\"\n\"In two or three years. Some companies even pay for their staff to study. That would save you a lot of money.\"\nHer father thinks for a moment. \"I'd rather you didn't wait too long. People get busy, and then they never go back.\"\n\"I understand. I promise I won't wait more than three years.\"\n\"Then it's time you sent your application to that company,\" her father says. \"When is the deadline?\"\n\"This Friday.\"\n\"This Friday? It's high time you got started, then!\"\nQuynh laughs. \"I'll write it after dinner.\"\nHer mother asks, \"Would you rather I checked it for you?\"\n\"Yes, please, Mum. You're better at writing than me.\"",
+  "targetWords": [
+    "graduate",
+    "future",
+    "bowl",
+    "experience",
+    "actually",
+    "hire",
+    "position",
+    "export",
+    "save",
+    "promise"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "graduated",
+        "lemma": "graduate",
+        "meaningVi": "tốt nghiệp",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "future",
+        "lemma": "future",
+        "meaningVi": "tương lai",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "bowl",
+        "lemma": "bowl",
+        "meaningVi": "cái bát",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "experience",
+        "lemma": "experience",
+        "meaningVi": "kinh nghiệm",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "actually",
+        "lemma": "actually",
+        "meaningVi": "thật sự",
+        "pos": "adverb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "hire",
+        "lemma": "hire",
+        "meaningVi": "tuyển dụng",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "position",
+        "lemma": "position",
+        "meaningVi": "vị trí công việc",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "export",
+        "lemma": "export",
+        "meaningVi": "xuất khẩu",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "save",
+        "lemma": "save",
+        "meaningVi": "tiết kiệm",
+        "pos": "verb",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "promise",
+        "lemma": "promise",
+        "meaningVi": "hứa",
+        "pos": "verb",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Quynh and her parents discussing?",
+        "promptVi": "Quỳnh và bố mẹ đang bàn về điều gì?",
+        "options": [
+          "Whether Quynh should study for a master's degree now",
+          "Quynh's wedding plans",
+          "A holiday in Ho Chi Minh City",
+          "Her cousin's new job"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bố mẹ muốn Quỳnh học thạc sĩ ngay, còn Quỳnh muốn đi làm trước."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why would Quynh rather work first?",
+        "promptVi": "Vì sao Quỳnh muốn đi làm trước?",
+        "options": [
+          "She wants real experience before studying more.",
+          "She has no money.",
+          "She failed her exams.",
+          "Her cousin told her to."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quỳnh nói \"I'd rather have some real experience before I study more.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "When is the deadline for the job application?",
+        "promptVi": "Hạn nộp hồ sơ xin việc là khi nào?",
+        "options": [
+          "This Friday",
+          "Next month",
+          "Tomorrow",
+          "In two years"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quỳnh trả lời \"This Friday.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quynh would rather move to Ho Chi Minh City.",
+        "promptVi": "Quỳnh muốn chuyển lên Thành phố Hồ Chí Minh hơn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quỳnh nói \"I'd rather start there than move to Ho Chi Minh City.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"hire\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"But many companies would rather hire someone with work experience than someone with only degrees.\"",
+        "options": [
+          "tuyển dụng",
+          "sa thải",
+          "đào tạo",
+          "trả lương"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hire = thuê, tuyển người làm việc."
+      }
+    ],
+    "grammarNote": {
+      "title": "Would rather và It's time",
+      "bodyVi": "Would rather dùng để nói lựa chọn mình thích hơn: I'd rather work for a few years first / I'd rather start there than move to Ho Chi Minh City (would rather A than B, hai động từ đều nguyên mẫu). Khi nói về người khác, dùng would rather + người + quá khứ đơn: I'd rather you didn't wait too long / Would you rather I checked it for you? It's (high) time + chủ ngữ + quá khứ đơn: it's time you applied for a master's degree / It's high time you got started.",
+      "examples": [
+        "But I'd rather work for a few years first.\"",
+        "I'd rather start there than move to Ho Chi Minh City.\"",
+        "\"I'd rather you didn't wait too long."
+      ]
+    },
+    "writingPrompt": "Write a message to your parents explaining a decision about your studies or career. Use would rather and it's time.",
+    "sentenceTranslations": [
+      "Bữa tối Chủ Nhật ở nhà Quỳnh tại Cần Thơ.",
+      "Quỳnh tốt nghiệp ngành kinh doanh tháng trước, và bố mẹ muốn nói chuyện về tương lai của cô.",
+      "Mẹ nói: \"Quỳnh này, bố mẹ nghĩ đã đến lúc con nộp hồ sơ học thạc sĩ.",
+      "Chị họ Hoa của con học ngay sau đại học đấy.\"",
+      "\"Con biết, mẹ ạ.",
+      "Nhưng con muốn đi làm vài năm trước.\"",
+      "Bố đặt bát xuống.",
+      "\"Sao vậy?",
+      "Con không muốn học cho xong hết khi còn trẻ à?\"",
+      "\"Không hẳn ạ.",
+      "Con muốn có chút kinh nghiệm thực tế trước khi học tiếp.",
+      "Lúc đó con sẽ biết mình thật sự muốn học gì.\"",
+      "Mẹ nói: \"Nhưng bằng thạc sĩ sẽ giúp con có việc tốt hơn.\"",
+      "\"Có thể ạ.",
+      "Nhưng nhiều công ty thích tuyển người có kinh nghiệm làm việc hơn là người chỉ có bằng cấp.",
+      "Bạn con là Long có bằng thạc sĩ mà vẫn chưa tìm được việc.\"",
+      "\"Ừm.",
+      "Thế con muốn làm ở đâu?\"",
+      "\"Có một vị trí ở công ty xuất khẩu thực phẩm ngay ở Cần Thơ.",
+      "Họ cần người cho đội bán hàng.",
+      "Con muốn bắt đầu ở đó hơn là lên Thành phố Hồ Chí Minh.\"",
+      "\"Thế khi nào con học?\"",
+      "\"Hai ba năm nữa ạ.",
+      "Có công ty còn trả tiền cho nhân viên đi học.",
+      "Như thế bố mẹ sẽ tiết kiệm được nhiều tiền.\"",
+      "Bố nghĩ một lúc.",
+      "\"Bố mong con đừng chờ quá lâu.",
+      "Người ta bận rộn rồi chẳng bao giờ quay lại học nữa.\"",
+      "\"Con hiểu ạ.",
+      "Con hứa sẽ không chờ quá ba năm.\"",
+      "Bố nói: \"Vậy đã đến lúc con gửi hồ sơ cho công ty đó rồi.",
+      "Hạn chót là khi nào?\"",
+      "\"Thứ Sáu này ạ.\"",
+      "\"Thứ Sáu này?",
+      "Vậy phải bắt tay vào làm ngay đi chứ!\"",
+      "Quỳnh bật cười.",
+      "\"Ăn tối xong con viết ạ.\"",
+      "Mẹ hỏi: \"Con có muốn mẹ xem lại giúp không?\"",
+      "\"Có ạ, mẹ xem giúp con nhé.",
+      "Mẹ viết giỏi hơn con.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trình bày lựa chọn học tiếp hay đi làm bằng would rather (than), would rather + người + quá khứ đơn và It's (high) time.",
+    "examples": [
+      {
+        "lemma": "graduate",
+        "sentence": "She will graduate from university next June.",
+        "meaningVi": "Cô ấy sẽ tốt nghiệp đại học vào tháng Sáu tới."
+      },
+      {
+        "lemma": "future",
+        "sentence": "Nobody knows what the future will bring.",
+        "meaningVi": "Không ai biết tương lai sẽ ra sao."
+      },
+      {
+        "lemma": "bowl",
+        "sentence": "He ate a big bowl of noodles.",
+        "meaningVi": "Anh ấy ăn một bát mì to."
+      },
+      {
+        "lemma": "experience",
+        "sentence": "Do you have any experience in sales?",
+        "meaningVi": "Bạn có kinh nghiệm bán hàng không?"
+      },
+      {
+        "lemma": "actually",
+        "sentence": "I actually enjoyed the exam.",
+        "meaningVi": "Thật ra tôi thấy kỳ thi khá thú vị."
+      },
+      {
+        "lemma": "hire",
+        "sentence": "The hotel wants to hire more staff for the summer.",
+        "meaningVi": "Khách sạn muốn tuyển thêm nhân viên cho mùa hè."
+      },
+      {
+        "lemma": "position",
+        "sentence": "She applied for a position in the bank.",
+        "meaningVi": "Cô ấy nộp đơn vào một vị trí ở ngân hàng."
+      },
+      {
+        "lemma": "export",
+        "sentence": "Rice is an important export for Vietnam.",
+        "meaningVi": "Gạo là mặt hàng xuất khẩu quan trọng của Việt Nam."
+      },
+      {
+        "lemma": "save",
+        "sentence": "We save a little money every month.",
+        "meaningVi": "Mỗi tháng chúng tôi tiết kiệm một ít tiền."
+      },
+      {
+        "lemma": "promise",
+        "sentence": "I promise to call you tomorrow.",
+        "meaningVi": "Tôi hứa mai sẽ gọi cho bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Long",
+        "Quynh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Did your parents agree about the job?",
+          "meaningVi": "Bố mẹ cậu đồng ý chuyện đi làm chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "In the end, yes. But they'd rather I studied first.",
+          "meaningVi": "Cuối cùng là đồng ý. Nhưng bố mẹ vẫn muốn tớ học trước hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Mine were the same. Would you rather work in sales or marketing?",
+          "meaningVi": "Bố mẹ tớ cũng vậy. Cậu thích làm bán hàng hay tiếp thị hơn?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sales, I think. I'd rather talk to customers than sit at a desk.",
+          "meaningVi": "Bán hàng, chắc vậy. Tớ thích nói chuyện với khách hơn là ngồi bàn giấy."
+        },
+        {
+          "speaker": 0,
+          "text": "Good choice. When is the interview?",
+          "meaningVi": "Lựa chọn hay. Khi nào phỏng vấn?"
+        },
+        {
+          "speaker": 1,
+          "text": "Next Tuesday. It's time I bought a proper shirt!",
+          "meaningVi": "Thứ Ba tới. Đã đến lúc tớ phải mua một cái áo sơ mi tử tế rồi!"
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! Do you want to borrow my sister's?",
+          "meaningVi": "Ha! Cậu có muốn mượn áo của chị tớ không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, thanks. I'd rather buy my own.",
+          "meaningVi": "Thôi, cảm ơn. Tớ thích tự mua hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Fair enough. Good luck, anyway.",
+          "meaningVi": "Cũng được. Dù sao cũng chúc cậu may mắn."
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks. I'll tell you how it goes.",
+          "meaningVi": "Cảm ơn cậu. Tớ sẽ kể cậu nghe kết quả."
+        }
+      ]
+    },
+    "grammarTipVi": "would rather + người + quá khứ đơn: they'd rather I studied first. would rather A than B: I'd rather talk to customers than sit at a desk. It's time + quá khứ đơn: It's time I bought a proper shirt!",
+    "translations": [
+      {
+        "vi": "Quỳnh tốt nghiệp ngành kinh doanh tháng trước.",
+        "en": "Quynh graduated in business last month.",
+        "distractors": [
+          "graduates",
+          "studied",
+          "year"
+        ]
+      },
+      {
+        "vi": "Con muốn có kinh nghiệm thực tế trước.",
+        "en": "I'd rather have some real experience first.",
+        "distractors": [
+          "had",
+          "will",
+          "job"
+        ]
+      },
+      {
+        "vi": "Nhiều công ty thích tuyển người có kinh nghiệm hơn.",
+        "en": "Many companies would rather hire someone with experience.",
+        "distractors": [
+          "hired",
+          "to",
+          "few"
+        ]
+      },
+      {
+        "vi": "Có một vị trí ở một công ty xuất khẩu thực phẩm.",
+        "en": "There's a position at a food export company.",
+        "distractors": [
+          "import",
+          "job",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Long và Quỳnh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc mới và buổi phỏng vấn của Quỳnh",
+          "Kỳ thi thạc sĩ",
+          "Kỳ nghỉ của Long"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Long hỏi \"Did your parents agree about the job?\" và họ nói về buổi phỏng vấn.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quỳnh thích làm gì hơn?",
+        "promptVi": "",
+        "options": [
+          "Nói chuyện với khách hàng",
+          "Ngồi bàn giấy",
+          "Viết quảng cáo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quỳnh nói \"I'd rather talk to customers than sit at a desk.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Quỳnh phỏng vấn?",
+        "promptVi": "",
+        "options": [
+          "Thứ Ba tới",
+          "Thứ Sáu này",
+          "Ngày mai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quỳnh nói \"Next Tuesday.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quynh will borrow a shirt from Long's sister.",
+        "promptVi": "Quỳnh sẽ mượn áo của chị Long.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quỳnh nói \"I'd rather buy my own.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Quỳnh muốn làm gì sau khi tốt nghiệp, và vì sao? Bố mẹ cô nghĩ thế nào?",
+    "grammarStep": {
+      "titleVi": "Would rather và It's time",
+      "noticing": [
+        {
+          "sentence": "But I'd rather work for a few years first.\"",
+          "highlights": [
+            "I'd rather work"
+          ]
+        },
+        {
+          "sentence": "\"Quynh, your father and I think it's time you applied for a master's degree,\" her mother says.",
+          "highlights": [
+            "it's time you applied"
+          ]
+        },
+        {
+          "sentence": "I'd rather start there than move to Ho Chi Minh City.\"",
+          "highlights": [
+            "I'd rather start",
+            "than move"
+          ]
+        },
+        {
+          "sentence": "\"I'd rather you didn't wait too long.",
+          "highlights": [
+            "I'd rather you didn't wait"
+          ]
+        }
+      ],
+      "questionVi": "Bố muốn Quỳnh đừng chờ quá lâu. Câu nào đúng?",
+      "options": [
+        "I'd rather you didn't wait too long.",
+        "I'd rather you don't wait too long.",
+        "I'd rather not you wait too long."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Muốn người khác (không) làm gì: would rather + người + quá khứ đơn (didn't wait).",
+      "whenVi": "Dùng would rather để so sánh hai lựa chọn hoặc nói điều mình muốn người khác làm; It's (high) time để nói một việc cần làm ngay.",
+      "table": [
+        {
+          "subject": "would rather + V (than + V)",
+          "form": "I'd rather start there than move to Ho Chi Minh City.",
+          "negative": "I'd rather not move."
+        },
+        {
+          "subject": "would rather + người + quá khứ đơn",
+          "form": "Would you rather I checked it for you?",
+          "negative": "I'd rather you didn't wait too long."
+        },
+        {
+          "subject": "It's (high) time + quá khứ đơn",
+          "form": "It's time you sent your application.",
+          "negative": "It's high time you got started."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'd rather start there than to move to Ho Chi Minh City.",
+          "right": "I'd rather start there than move to Ho Chi Minh City."
+        },
+        {
+          "wrong": "It's time you apply for a master's degree.",
+          "right": "It's time you applied for a master's degree."
+        }
+      ],
+      "noteVi": "Câu hỏi: Would you rather + V? (Bạn có muốn … hơn không?) / Where would you rather work?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ get.",
+          "text": "It's high time you ___ started, then!",
+          "answers": [
+            "got"
+          ],
+          "explanationVi": "It's high time + chủ ngữ + quá khứ đơn."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Would you rather I ___ it for you?",
+          "options": [
+            "checked",
+            "check",
+            "will check",
+            "checking"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "would rather + người + quá khứ đơn."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I'd rather to work for a few years first.",
+          "sentence": "I'd rather work for a few years first.",
+          "explanationVi": "would rather + V nguyên mẫu, không có to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Con muốn đi làm vài năm trước.",
+          "sentence": "I'd rather work for a few years first.",
+          "words": [
+            "I'd",
+            "rather",
+            "work",
+            "for",
+            "a",
+            "few",
+            "years",
+            "first.",
+            "to"
+          ],
+          "explanationVi": "would rather + V; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I'd rather start there than move to Ho Chi Minh City.\"",
+        "tipVi": "Nhấn vào start và move để so sánh; than /ðən/."
+      },
+      {
+        "text": "\"I'd rather you didn't wait too long.",
+        "tipVi": "didn't wait đọc nối /ˈdɪdn weɪt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Would you rather start working or continue studying after university? Why?",
+        "questionVi": "Sau đại học bạn muốn đi làm hay học tiếp hơn? Vì sao?",
+        "frame": "I'd rather ___ because ___."
+      },
+      {
+        "question": "What would your parents rather you did in the future?",
+        "questionVi": "Bố mẹ muốn bạn làm gì trong tương lai?",
+        "frame": "They'd rather I ___."
+      },
+      {
+        "question": "What is something it's time you changed in your daily life?",
+        "questionVi": "Có thói quen nào trong cuộc sống bạn nên thay đổi rồi?",
+        "frame": "It's time I ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với would rather hoặc It's (high) time",
+      "anyOf": [
+        "would rather",
+        "'d rather",
+        "It's time",
+        "it's time",
+        "high time"
+      ],
+      "outlineVi": [
+        "Bố mẹ muốn bạn làm gì (You would rather I …).",
+        "Bạn muốn làm gì hơn và vì sao (I'd rather …).",
+        "Bạn sẽ làm gì ngay bây giờ (It's time I …)."
+      ],
+      "modelAnswer": "Dear Mum and Dad, I know you would rather I stayed in Hue after graduating. But I'd rather work in Ho Chi Minh City for a few years. There are more jobs in my field there. I'd rather you didn't worry too much. I'll call you every Sunday. It's time I started my own life. Love, Minh."
+    }
+  },
+  "glosses": [
+    {
+      "text": "straight after",
+      "lemma": "straight after",
+      "meaningVi": "ngay sau",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "straight after university",
+      "phraseVi": "ngay sau đại học"
+    },
+    {
+      "text": "Not really",
+      "lemma": "not really",
+      "meaningVi": "không hẳn",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "Not really.",
+      "phraseVi": "Không hẳn ạ."
+    },
+    {
+      "text": "got started",
+      "lemma": "get started",
+      "meaningVi": "bắt tay vào làm",
+      "sentenceIndex": 34,
+      "pos": "phrase",
+      "phrase": "It's high time you got started",
+      "phraseVi": "phải bắt tay vào làm ngay"
+    }
+  ]
+}

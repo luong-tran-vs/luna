@@ -1,0 +1,606 @@
+{
+  "content": "Linh works in the marketing team of a hotel company in Da Nang. For two years she has been thinking about studying abroad. Today she is having lunch with her old university teacher, Mr Trung, who has helped many students get scholarships.\n\nMr Trung asks, \"So, have you decided where to apply?\"\n\"Almost. I've found two scholarships, one in London and one in Sydney. Honestly, I'd rather study in Sydney.\"\n\"Why is that?\"\n\"London is very expensive, and the weather is cold. I'm used to hot weather, so Australia feels more comfortable. Also, my brother lives in Sydney.\"\n\"That makes sense. When are the deadlines?\"\n\"The Sydney one closes on the fifteenth of next month.\"\nMr Trung puts down his chopsticks. \"The fifteenth? Linh, that's only five weeks away. It's high time you submitted your application.\"\n\"I know. I keep putting it off. I've been so busy at work.\"\n\"Have you written your personal statement yet?\"\n\"Not yet. I'd rather you read my first draft before I send it. Would that be OK?\"\n\"Of course. But I'd rather you sent it this week, not the night before the deadline!\"\nLinh laughs. \"Fair enough. What else do I need?\"\n\"Two reference letters and your IELTS result. Have you taken the test?\"\n\"Yes, I got seven. But I'm not used to writing long academic essays in English. I used to write only short emails at work.\"\n\"Then it's time you started practising. Write one essay every weekend. You'll soon get used to it.\"\n\"Would you rather I wrote about marketing or something more general?\"\n\"Write about marketing. It's your field, and it shows the committee why you want this degree.\"\n\"Thank you, Mr Trung. I'll start tonight.\"\n\"Good. And remember, the best time to apply was last year. The second best time is now.\"",
+  "targetWords": [
+    "abroad",
+    "scholarship",
+    "comfortable",
+    "application",
+    "personal statement",
+    "draft",
+    "academic",
+    "essay",
+    "committee",
+    "degree"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "abroad",
+        "lemma": "abroad",
+        "meaningVi": "ở nước ngoài",
+        "pos": "adverb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "scholarships",
+        "lemma": "scholarship",
+        "meaningVi": "học bổng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "comfortable",
+        "lemma": "comfortable",
+        "meaningVi": "dễ chịu, thoải mái",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "application",
+        "lemma": "application",
+        "meaningVi": "hồ sơ ứng tuyển",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "personal statement",
+        "lemma": "personal statement",
+        "meaningVi": "bài luận cá nhân",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "draft",
+        "lemma": "draft",
+        "meaningVi": "bản nháp",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "academic",
+        "lemma": "academic",
+        "meaningVi": "học thuật",
+        "pos": "adjective",
+        "sentenceIndex": 33
+      },
+      {
+        "text": "essay",
+        "lemma": "essay",
+        "meaningVi": "bài luận",
+        "pos": "noun",
+        "sentenceIndex": 36
+      },
+      {
+        "text": "committee",
+        "lemma": "committee",
+        "meaningVi": "hội đồng",
+        "pos": "noun",
+        "sentenceIndex": 40
+      },
+      {
+        "text": "degree",
+        "lemma": "degree",
+        "meaningVi": "bằng cấp",
+        "pos": "noun",
+        "sentenceIndex": 40
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Linh and Mr Trung discussing?",
+        "promptVi": "Linh và thầy Trung đang bàn về điều gì?",
+        "options": [
+          "Linh's scholarship application",
+          "A new hotel in Sydney",
+          "Linh's marketing job",
+          "Mr Trung's trip to London"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn về việc Linh xin học bổng du học."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why would Linh rather study in Sydney?",
+        "promptVi": "Vì sao Linh muốn học ở Sydney hơn?",
+        "options": [
+          "London is expensive and cold, and her brother lives in Sydney.",
+          "Sydney has better universities.",
+          "The Sydney scholarship is bigger.",
+          "Her boss suggested it."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói London đắt, lạnh, còn anh trai cô sống ở Sydney."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What score did Linh get in IELTS?",
+        "promptVi": "Linh được bao nhiêu điểm IELTS?",
+        "options": [
+          "Six",
+          "Six point five",
+          "Seven",
+          "Eight"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"Yes, I got seven.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh has already written her personal statement.",
+        "promptVi": "Linh đã viết xong bài luận cá nhân.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"Not yet.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"committee\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"It's your field, and it shows the committee why you want this degree.\"",
+        "options": [
+          "hội đồng",
+          "giảng viên",
+          "gia đình",
+          "công ty"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Committee = hội đồng, nhóm người cùng xét duyệt."
+      }
+    ],
+    "grammarNote": {
+      "title": "Would rather và It's time",
+      "bodyVi": "Would rather nói điều mình thích hơn: would rather + V khi nói về chính mình: I'd rather study in Sydney. Khi muốn người khác làm gì, dùng would rather + người + quá khứ đơn (nghĩa vẫn là hiện tại hoặc tương lai): I'd rather you read my first draft / I'd rather you sent it this week. It's (high) time + chủ ngữ + quá khứ đơn nghĩa là \"đã đến lúc (lẽ ra phải làm rồi)\": It's high time you submitted your application / it's time you started practising.",
+      "examples": [
+        "Honestly, I'd rather study in Sydney.\"",
+        "It's high time you submitted your application.\"",
+        "But I'd rather you sent it this week, not the night before the deadline!\""
+      ]
+    },
+    "writingPrompt": "Write a short email to a teacher asking for help with a scholarship application. Use would rather and it's time.",
+    "sentenceTranslations": [
+      "Linh làm ở nhóm tiếp thị của một công ty khách sạn ở Đà Nẵng.",
+      "Hai năm nay cô luôn nghĩ đến chuyện đi du học.",
+      "Hôm nay cô ăn trưa với thầy giáo cũ ở đại học, thầy Trung, người đã giúp nhiều sinh viên giành học bổng.",
+      "Thầy Trung hỏi: \"Thế em đã quyết định nộp hồ sơ ở đâu chưa?\"",
+      "\"Gần rồi ạ.",
+      "Em tìm được hai học bổng, một ở London và một ở Sydney.",
+      "Thật lòng em thích học ở Sydney hơn.\"",
+      "\"Vì sao vậy?\"",
+      "\"London rất đắt đỏ, thời tiết lại lạnh.",
+      "Em quen với thời tiết nóng, nên Úc có vẻ dễ chịu hơn.",
+      "Với lại anh trai em sống ở Sydney.\"",
+      "\"Hợp lý đấy.",
+      "Hạn chót là khi nào?\"",
+      "\"Học bổng Sydney đóng vào ngày mười lăm tháng sau ạ.\"",
+      "Thầy Trung đặt đũa xuống.",
+      "\"Ngày mười lăm?",
+      "Linh, chỉ còn năm tuần nữa thôi.",
+      "Đã đến lúc em phải nộp hồ sơ rồi.\"",
+      "\"Em biết ạ.",
+      "Em cứ lần lữa mãi.",
+      "Dạo này em bận việc quá.\"",
+      "\"Em viết bài luận cá nhân chưa?\"",
+      "\"Chưa ạ.",
+      "Em muốn thầy đọc bản nháp đầu tiên trước khi em gửi.",
+      "Thầy có được không ạ?\"",
+      "\"Tất nhiên.",
+      "Nhưng thầy muốn em gửi trong tuần này, chứ không phải đêm trước hạn chót!\"",
+      "Linh bật cười.",
+      "\"Thầy nói đúng ạ.",
+      "Em còn cần gì nữa ạ?\"",
+      "\"Hai thư giới thiệu và kết quả IELTS.",
+      "Em thi chưa?\"",
+      "\"Rồi ạ, em được bảy.",
+      "Nhưng em không quen viết bài luận học thuật dài bằng tiếng Anh.",
+      "Trước đây ở chỗ làm em chỉ viết email ngắn.\"",
+      "\"Vậy đã đến lúc em bắt đầu luyện tập.",
+      "Mỗi cuối tuần viết một bài luận.",
+      "Em sẽ sớm quen thôi.\"",
+      "\"Thầy muốn em viết về tiếp thị hay về chủ đề chung hơn ạ?\"",
+      "\"Viết về tiếp thị.",
+      "Đó là lĩnh vực của em, và nó cho hội đồng thấy vì sao em muốn học bằng này.\"",
+      "\"Em cảm ơn thầy Trung.",
+      "Tối nay em sẽ bắt đầu.\"",
+      "\"Tốt.",
+      "Và nhớ nhé, thời điểm tốt nhất để nộp là năm ngoái.",
+      "Thời điểm tốt thứ hai là bây giờ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về lựa chọn du học bằng would rather (+ người + quá khứ đơn) và thúc giục bằng It's (high) time + quá khứ đơn.",
+    "examples": [
+      {
+        "lemma": "abroad",
+        "sentence": "She wants to study abroad next year.",
+        "meaningVi": "Cô ấy muốn đi du học vào năm sau."
+      },
+      {
+        "lemma": "scholarship",
+        "sentence": "He won a scholarship to study in Japan.",
+        "meaningVi": "Anh ấy giành học bổng du học Nhật Bản."
+      },
+      {
+        "lemma": "comfortable",
+        "sentence": "These shoes are very comfortable.",
+        "meaningVi": "Đôi giày này rất êm chân."
+      },
+      {
+        "lemma": "application",
+        "sentence": "Send your application by the end of May.",
+        "meaningVi": "Hãy gửi hồ sơ trước cuối tháng Năm."
+      },
+      {
+        "lemma": "personal statement",
+        "sentence": "Your personal statement should be about one page.",
+        "meaningVi": "Bài luận cá nhân nên dài khoảng một trang."
+      },
+      {
+        "lemma": "draft",
+        "sentence": "Can you check my first draft?",
+        "meaningVi": "Bạn xem giúp bản nháp đầu tiên của tôi được không?"
+      },
+      {
+        "lemma": "academic",
+        "sentence": "Academic writing needs clear arguments.",
+        "meaningVi": "Văn viết học thuật cần lập luận rõ ràng."
+      },
+      {
+        "lemma": "essay",
+        "sentence": "We have to write an essay about climate change.",
+        "meaningVi": "Chúng tôi phải viết một bài luận về biến đổi khí hậu."
+      },
+      {
+        "lemma": "committee",
+        "sentence": "The committee will choose ten students.",
+        "meaningVi": "Hội đồng sẽ chọn mười sinh viên."
+      },
+      {
+        "lemma": "degree",
+        "sentence": "She has a degree in economics.",
+        "meaningVi": "Cô ấy có bằng kinh tế."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ms Huyen",
+        "Linh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Linh, you look tired. Is everything OK?",
+          "meaningVi": "Linh, trông em mệt thế. Mọi chuyện ổn chứ?"
+        },
+        {
+          "speaker": 1,
+          "text": "I'm writing my scholarship application every night.",
+          "meaningVi": "Tối nào em cũng viết hồ sơ học bổng ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Good for you! Where would you rather study?",
+          "meaningVi": "Giỏi quá! Em muốn học ở đâu hơn?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sydney. But I'd rather you didn't tell the others yet.",
+          "meaningVi": "Sydney ạ. Nhưng em mong chị đừng kể với mọi người vội."
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Do you need a reference letter from me?",
+          "meaningVi": "Tất nhiên. Em có cần chị viết thư giới thiệu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please. Would that be possible this week?",
+          "meaningVi": "Có ạ. Tuần này chị viết được không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Sure. It's time I did something to help you.",
+          "meaningVi": "Được chứ. Đã đến lúc chị làm gì đó giúp em rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you so much. I'd rather send everything early.",
+          "meaningVi": "Em cảm ơn chị nhiều. Em muốn gửi mọi thứ sớm."
+        },
+        {
+          "speaker": 0,
+          "text": "Smart. When do you hear the results?",
+          "meaningVi": "Khôn đấy. Khi nào em biết kết quả?"
+        },
+        {
+          "speaker": 1,
+          "text": "In March, I think. I'll let you know.",
+          "meaningVi": "Chắc tháng Ba ạ. Em sẽ báo chị."
+        }
+      ]
+    },
+    "grammarTipVi": "would rather + người + quá khứ đơn: I'd rather you didn't tell the others yet. would rather + V: I'd rather send everything early. It's time + quá khứ đơn: It's time I did something to help you.",
+    "translations": [
+      {
+        "vi": "Em đã tìm được hai học bổng.",
+        "en": "I've found two scholarships.",
+        "distractors": [
+          "find",
+          "three",
+          "prizes"
+        ]
+      },
+      {
+        "vi": "Đã đến lúc em phải nộp hồ sơ rồi.",
+        "en": "It's high time you submitted your application.",
+        "distractors": [
+          "send",
+          "low",
+          "applied"
+        ]
+      },
+      {
+        "vi": "Em không quen viết bài luận học thuật dài.",
+        "en": "I'm not used to writing long academic essays.",
+        "distractors": [
+          "write",
+          "short",
+          "be"
+        ]
+      },
+      {
+        "vi": "Nó cho hội đồng thấy vì sao em muốn học bằng này.",
+        "en": "It shows the committee why you want this degree.",
+        "distractors": [
+          "showed",
+          "teacher",
+          "wants"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chị Huyền và Linh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Hồ sơ xin học bổng của Linh",
+          "Một dự án tiếp thị",
+          "Kỳ nghỉ ở Sydney"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"I'm writing my scholarship application every night.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Huyền đề nghị giúp Linh việc gì?",
+        "promptVi": "",
+        "options": [
+          "Viết thư giới thiệu",
+          "Cho nghỉ phép",
+          "Đọc bài luận"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị hỏi \"Do you need a reference letter from me?\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Linh biết kết quả?",
+        "promptVi": "",
+        "options": [
+          "Tháng Ba",
+          "Tháng Năm",
+          "Tuần sau"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"In March, I think.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh wants everyone at work to know about her plan now.",
+        "promptVi": "Linh muốn mọi người ở công ty biết kế hoạch của cô ngay bây giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"I'd rather you didn't tell the others yet.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Linh muốn du học ở đâu và vì sao? Thầy Trung khuyên cô phải làm gì ngay?",
+    "grammarStep": {
+      "titleVi": "Would rather và It's time",
+      "noticing": [
+        {
+          "sentence": "Honestly, I'd rather study in Sydney.\"",
+          "highlights": [
+            "I'd rather study"
+          ]
+        },
+        {
+          "sentence": "It's high time you submitted your application.\"",
+          "highlights": [
+            "It's high time you submitted"
+          ]
+        },
+        {
+          "sentence": "I'd rather you read my first draft before I send it.",
+          "highlights": [
+            "I'd rather you read"
+          ]
+        },
+        {
+          "sentence": "\"Then it's time you started practising.",
+          "highlights": [
+            "it's time you started"
+          ]
+        }
+      ],
+      "questionVi": "Thầy Trung muốn Linh gửi bài trong tuần này. Thầy nói thế nào?",
+      "options": [
+        "I'd rather you sent it this week.",
+        "I'd rather you send it this week.",
+        "I'd rather you to send it this week."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Muốn người khác làm gì: would rather + người + quá khứ đơn (sent).",
+      "whenVi": "Dùng would rather để nói lựa chọn mình thích hơn hoặc điều mình muốn người khác làm; It's (high) time để nói việc đáng lẽ phải làm rồi.",
+      "table": [
+        {
+          "subject": "would rather + V",
+          "form": "Bản thân thích hơn: I'd rather study in Sydney.",
+          "negative": "I'd rather not move to London."
+        },
+        {
+          "subject": "would rather + người + quá khứ đơn",
+          "form": "Muốn người khác làm: I'd rather you sent it this week.",
+          "negative": "I'd rather you didn't tell the others."
+        },
+        {
+          "subject": "It's (high) time + quá khứ đơn",
+          "form": "Đã đến lúc: It's high time you submitted your application.",
+          "negative": "Cũng có thể: It's time to start."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'd rather to study in Sydney.",
+          "right": "I'd rather study in Sydney."
+        },
+        {
+          "wrong": "It's high time you submit your application.",
+          "right": "It's high time you submitted your application."
+        }
+      ],
+      "noteVi": "Bài cũng có used to / be used to: I'm used to hot weather / I'm not used to writing long academic essays / I used to write only short emails.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ submit.",
+          "text": "It's high time you ___ your application.",
+          "answers": [
+            "submitted"
+          ],
+          "explanationVi": "It's high time + chủ ngữ + quá khứ đơn."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I'd rather you ___ it this week, not next week.",
+          "options": [
+            "sent",
+            "will send",
+            "to send",
+            "sending"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "would rather + người + quá khứ đơn: sent."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I'd rather to study in Sydney than London.",
+          "sentence": "I'd rather study in Sydney than London.",
+          "explanationVi": "would rather + V nguyên mẫu, không có to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đã đến lúc em bắt đầu luyện tập.",
+          "sentence": "It's time you started practising.",
+          "words": [
+            "It's",
+            "time",
+            "you",
+            "started",
+            "practising.",
+            "start"
+          ],
+          "explanationVi": "It's time + chủ ngữ + quá khứ đơn; từ \"start\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It's high time you submitted your application.\"",
+        "tipVi": "high time nhấn mạnh; submitted /səbˈmɪtɪd/."
+      },
+      {
+        "text": "I'd rather you read my first draft before I send it.",
+        "tipVi": "I'd rather đọc /aɪd ˈrɑːðə/; read ở đây là quá khứ, đọc /red/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Would you rather study in your own country or abroad? Why?",
+        "questionVi": "Bạn muốn học trong nước hay du học hơn? Vì sao?",
+        "frame": "I'd rather ___ because ___."
+      },
+      {
+        "question": "What is something it's high time you did?",
+        "questionVi": "Có việc gì đã đến lúc bạn phải làm rồi?",
+        "frame": "It's high time I ___."
+      },
+      {
+        "question": "What do you need to prepare when you apply for a scholarship?",
+        "questionVi": "Khi xin học bổng bạn cần chuẩn bị những gì?",
+        "frame": "You need ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với would rather hoặc It's (high) time",
+      "anyOf": [
+        "would rather",
+        "'d rather",
+        "It's time",
+        "it's time",
+        "high time"
+      ],
+      "outlineVi": [
+        "Bạn định xin học bổng gì, ở đâu.",
+        "Bạn thích lựa chọn nào hơn (I'd rather …).",
+        "Bạn nhờ thầy cô làm gì và nói vì sao phải gấp (I'd rather you … / It's high time …)."
+      ],
+      "modelAnswer": "Dear Ms Lan, I have decided to apply for a master's scholarship in New Zealand. It's high time I started, because the deadline is in six weeks. I'd rather study in Wellington than Auckland, because it is smaller and cheaper. I'd rather you read my personal statement before I send it, if you have time. Thank you very much. Best wishes, Nam."
+    }
+  },
+  "glosses": [
+    {
+      "text": "chopsticks",
+      "lemma": "chopsticks",
+      "meaningVi": "đôi đũa",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "puts down his chopsticks",
+      "phraseVi": "đặt đũa xuống"
+    },
+    {
+      "text": "putting it off",
+      "lemma": "put off",
+      "meaningVi": "trì hoãn, lần lữa",
+      "sentenceIndex": 19,
+      "pos": "phrase",
+      "phrase": "I keep putting it off.",
+      "phraseVi": "Em cứ lần lữa mãi."
+    },
+    {
+      "text": "Fair enough",
+      "lemma": "fair enough",
+      "meaningVi": "cũng phải",
+      "sentenceIndex": 28,
+      "pos": "phrase",
+      "phrase": "Fair enough.",
+      "phraseVi": "Thầy nói đúng ạ."
+    },
+    {
+      "text": "field",
+      "lemma": "field",
+      "meaningVi": "lĩnh vực",
+      "sentenceIndex": 40,
+      "pos": "noun",
+      "phrase": "It's your field",
+      "phraseVi": "Đó là lĩnh vực của em"
+    }
+  ]
+}

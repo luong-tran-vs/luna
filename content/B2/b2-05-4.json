@@ -1,0 +1,597 @@
+{
+  "content": "It's Sunday evening in a university hall of residence in London. Khoi, a first-year student from Hanoi, is in the shared kitchen, looking at a pan of burnt rice. His housemate, Tom, walks in.\n\nTom asks, \"What happened here?\"\n\"I tried to make fried rice. It didn't go very well.\"\nTom laughs. \"Don't worry. You'll get used to cooking.\"\n\"I hope so. At home, I never used to cook. My mum used to make three meals a day, and my grandmother would bring us cakes every Sunday.\"\n\"Lucky you! So what did you eat in your first week here?\"\n\"Instant noodles, mostly. And sandwiches from the supermarket. I wasn't used to eating cold food for lunch.\"\n\"Is it still strange?\"\n\"Less strange now. I'm getting used to it. I'm also getting used to sharing a kitchen with eight people.\"\n\"And a bathroom,\" Tom adds.\n\"Yes, that too. In Vietnam I used to have my own room in my parents' house. Here, I have to wait in a queue for the shower every morning.\"\n\"You could get up earlier.\"\n\"I'm not used to getting up early on cold, dark mornings. But I'm trying.\"\n\"What do you miss most about home?\"\n\"The street food. In Hanoi, I would go out at midnight and buy a bowl of pho on the corner. Here, everything closes so early.\"\n\"There's a good Vietnamese restaurant near the station. We could go on Friday.\"\n\"That sounds great. And maybe you could teach me how to cook something simple?\"\n\"Sure. I'm used to cooking pasta. It's hard to burn pasta.\"\nKhoi smiles and starts cleaning the pan. \"Pasta it is. Then one day I'll teach you to make real fried rice.\"\n\"Deal. But please don't burn it next time!\"",
+  "targetWords": [
+    "hall of residence",
+    "shared",
+    "pan",
+    "burnt",
+    "meal",
+    "instant",
+    "queue",
+    "shower",
+    "midnight",
+    "pasta"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "hall of residence",
+        "lemma": "hall of residence",
+        "meaningVi": "ký túc xá",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "shared",
+        "lemma": "shared",
+        "meaningVi": "dùng chung",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "pan",
+        "lemma": "pan",
+        "meaningVi": "cái chảo",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "burnt",
+        "lemma": "burnt",
+        "meaningVi": "bị cháy",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "meals",
+        "lemma": "meal",
+        "meaningVi": "bữa ăn",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "Instant",
+        "lemma": "instant",
+        "meaningVi": "ăn liền",
+        "pos": "adjective",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "queue",
+        "lemma": "queue",
+        "meaningVi": "hàng người chờ",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "shower",
+        "lemma": "shower",
+        "meaningVi": "vòi tắm, việc tắm",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "midnight",
+        "lemma": "midnight",
+        "meaningVi": "nửa đêm",
+        "pos": "noun",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "pasta",
+        "lemma": "pasta",
+        "meaningVi": "mì Ý",
+        "pos": "noun",
+        "sentenceIndex": 37
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Khoi and Tom talking about?",
+        "promptVi": "Khôi và Tom đang nói về chuyện gì?",
+        "options": [
+          "How Khoi is getting used to life in a student hall",
+          "A cooking competition",
+          "Their exams",
+          "A trip to Vietnam"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khôi kể chuyện dần quen với cuộc sống ở ký túc xá tại London."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Khoi eat in his first week?",
+        "promptVi": "Tuần đầu Khôi ăn gì?",
+        "options": [
+          "Instant noodles and sandwiches",
+          "Fried rice every day",
+          "Pho from a restaurant",
+          "Pasta"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khôi nói \"Instant noodles, mostly. And sandwiches from the supermarket.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many people share the kitchen?",
+        "promptVi": "Có bao nhiêu người dùng chung bếp?",
+        "options": [
+          "Two",
+          "Four",
+          "Eight",
+          "Ten"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khôi nói \"sharing a kitchen with eight people.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoi used to cook a lot in Hanoi.",
+        "promptVi": "Ở Hà Nội Khôi thường nấu ăn nhiều.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khôi nói \"At home, I never used to cook.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"queue\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Here, I have to wait in a queue for the shower every morning.\"",
+        "options": [
+          "hàng người chờ",
+          "phòng tắm",
+          "đồng hồ",
+          "tủ lạnh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Queue = hàng người đứng chờ đến lượt."
+      }
+    ],
+    "grammarNote": {
+      "title": "Used to, be / get used to và would (thói quen)",
+      "bodyVi": "Khi so sánh cuộc sống ở nhà và ở ký túc xá, ta dùng: used to + V cho thói quen hoặc trạng thái trước đây: At home, I never used to cook / In Vietnam I used to have my own room. would + V cho hành động lặp lại trong quá khứ: my grandmother would bring us cakes every Sunday. be / get used to + V-ing cho việc đã quen hoặc đang dần quen: I wasn't used to eating cold food / I'm getting used to sharing a kitchen / I'm not used to getting up early.",
+      "examples": [
+        "My mum used to make three meals a day, and my grandmother would bring us cakes every Sunday.\"",
+        "I wasn't used to eating cold food for lunch.\"",
+        "I'm also getting used to sharing a kitchen with eight people.\""
+      ]
+    },
+    "writingPrompt": "Write about your first weeks in a new place, such as a new school, city or job. Use used to, would and be / get used to.",
+    "sentenceTranslations": [
+      "Tối Chủ Nhật trong một ký túc xá đại học ở London.",
+      "Khôi, sinh viên năm nhất từ Hà Nội, đang đứng trong bếp chung, nhìn chảo cơm bị cháy.",
+      "Bạn cùng nhà của anh, Tom, bước vào.",
+      "Tom hỏi: \"Chuyện gì thế này?\"",
+      "\"Tớ định làm cơm rang.",
+      "Không ổn lắm.\"",
+      "Tom bật cười.",
+      "\"Đừng lo.",
+      "Cậu sẽ quen với việc nấu ăn thôi.\"",
+      "\"Mong là vậy.",
+      "Ở nhà, tớ chưa bao giờ nấu ăn.",
+      "Mẹ tớ nấu ba bữa một ngày, và Chủ Nhật nào bà tớ cũng mang bánh sang.\"",
+      "\"Sướng thế!",
+      "Vậy tuần đầu ở đây cậu ăn gì?\"",
+      "\"Chủ yếu là mì ăn liền.",
+      "Với bánh mì kẹp mua ở siêu thị.",
+      "Tớ không quen ăn đồ nguội vào bữa trưa.\"",
+      "\"Giờ vẫn thấy lạ à?\"",
+      "\"Đỡ lạ hơn rồi.",
+      "Tớ đang dần quen.",
+      "Tớ cũng đang dần quen với việc dùng chung bếp với tám người.\"",
+      "Tom thêm: \"Và cả nhà tắm nữa.\"",
+      "\"Ừ, cả cái đó nữa.",
+      "Ở Việt Nam tớ có phòng riêng trong nhà bố mẹ.",
+      "Ở đây, sáng nào tớ cũng phải xếp hàng chờ tắm.\"",
+      "\"Cậu có thể dậy sớm hơn.\"",
+      "\"Tớ không quen dậy sớm vào những buổi sáng lạnh và tối.",
+      "Nhưng tớ đang cố.\"",
+      "\"Cậu nhớ gì nhất ở quê?\"",
+      "\"Đồ ăn đường phố.",
+      "Ở Hà Nội, tớ hay ra ngoài lúc nửa đêm mua một bát phở ở góc phố.",
+      "Ở đây cái gì cũng đóng cửa sớm.\"",
+      "\"Gần nhà ga có một nhà hàng Việt Nam ngon lắm.",
+      "Thứ Sáu mình đi nhé.\"",
+      "\"Nghe tuyệt đấy.",
+      "Mà cậu dạy tớ nấu món gì đơn giản được không?\"",
+      "\"Được chứ.",
+      "Tớ quen nấu mì Ý rồi.",
+      "Khó mà làm cháy mì Ý lắm.\"",
+      "Khôi mỉm cười và bắt đầu rửa chảo.",
+      "\"Vậy mì Ý nhé.",
+      "Rồi một ngày tớ sẽ dạy cậu làm cơm rang thật sự.\"",
+      "\"Chốt.",
+      "Nhưng lần sau đừng làm cháy nữa nhé!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về những thay đổi khi sống xa nhà bằng used to, would và be / get used to + V-ing.",
+    "examples": [
+      {
+        "lemma": "hall of residence",
+        "sentence": "First-year students live in a hall of residence.",
+        "meaningVi": "Sinh viên năm nhất sống trong ký túc xá."
+      },
+      {
+        "lemma": "shared",
+        "sentence": "We have a shared bathroom on each floor.",
+        "meaningVi": "Mỗi tầng có một phòng tắm dùng chung."
+      },
+      {
+        "lemma": "pan",
+        "sentence": "Heat some oil in a pan.",
+        "meaningVi": "Đun nóng một ít dầu trong chảo."
+      },
+      {
+        "lemma": "burnt",
+        "sentence": "The toast is burnt again.",
+        "meaningVi": "Bánh mì nướng lại bị cháy rồi."
+      },
+      {
+        "lemma": "meal",
+        "sentence": "Breakfast is my favourite meal.",
+        "meaningVi": "Bữa sáng là bữa tôi thích nhất."
+      },
+      {
+        "lemma": "instant",
+        "sentence": "Instant coffee is quick but not very tasty.",
+        "meaningVi": "Cà phê hoà tan nhanh nhưng không ngon lắm."
+      },
+      {
+        "lemma": "queue",
+        "sentence": "There was a long queue at the bank.",
+        "meaningVi": "Ở ngân hàng có một hàng dài."
+      },
+      {
+        "lemma": "shower",
+        "sentence": "I usually have a shower in the morning.",
+        "meaningVi": "Tôi thường tắm vào buổi sáng."
+      },
+      {
+        "lemma": "midnight",
+        "sentence": "The shop is open until midnight.",
+        "meaningVi": "Cửa hàng mở cửa đến nửa đêm."
+      },
+      {
+        "lemma": "pasta",
+        "sentence": "We had pasta with tomato sauce for dinner.",
+        "meaningVi": "Bữa tối chúng tôi ăn mì Ý sốt cà chua."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tom",
+        "Khoi"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "So, does this taste like home?",
+          "meaningVi": "Thế món này có giống ở nhà không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Almost! My grandmother would make spring rolls like these.",
+          "meaningVi": "Gần giống! Bà tớ hay làm nem như thế này."
+        },
+        {
+          "speaker": 0,
+          "text": "Did you use to eat them often?",
+          "meaningVi": "Cậu có hay ăn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Every Sunday. I'm not used to paying so much for them, though!",
+          "meaningVi": "Chủ Nhật nào cũng ăn. Nhưng tớ chưa quen trả nhiều tiền thế cho món này!"
+        },
+        {
+          "speaker": 0,
+          "text": "London is expensive. Are you getting used to the prices?",
+          "meaningVi": "London đắt mà. Cậu đã dần quen với giá cả chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Slowly. I used to spend almost nothing on food.",
+          "meaningVi": "Từ từ thôi. Trước đây tớ gần như không tốn tiền ăn."
+        },
+        {
+          "speaker": 0,
+          "text": "Shall we cook together next week to save money?",
+          "meaningVi": "Tuần sau mình nấu chung cho đỡ tốn nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. Can you show me your pasta?",
+          "meaningVi": "Ý hay. Cậu chỉ tớ làm mì Ý được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. And you can teach me spring rolls.",
+          "meaningVi": "Tất nhiên. Còn cậu dạy tớ làm nem."
+        },
+        {
+          "speaker": 1,
+          "text": "Deal. I'm sure you'll get used to Vietnamese food quickly.",
+          "meaningVi": "Chốt. Tớ chắc cậu sẽ quen đồ ăn Việt nhanh thôi."
+        }
+      ]
+    },
+    "grammarTipVi": "Hành động lặp lại: My grandmother would make spring rolls. Thói quen cũ: Did you use to eat them often? / I used to spend almost nothing. Quen / chưa quen: I'm not used to paying so much / Are you getting used to the prices?",
+    "translations": [
+      {
+        "vi": "Khôi đang nhìn chảo cơm bị cháy.",
+        "en": "Khoi is looking at a pan of burnt rice.",
+        "distractors": [
+          "looked",
+          "pot",
+          "burning"
+        ]
+      },
+      {
+        "vi": "Mẹ tôi thường nấu ba bữa mỗi ngày.",
+        "en": "My mum used to make three meals a day.",
+        "distractors": [
+          "makes",
+          "dinners",
+          "would"
+        ]
+      },
+      {
+        "vi": "Tôi phải xếp hàng chờ tắm.",
+        "en": "I have to wait in a queue for the shower.",
+        "distractors": [
+          "had",
+          "line",
+          "bath"
+        ]
+      },
+      {
+        "vi": "Ở Hà Nội, tôi hay ra ngoài lúc nửa đêm.",
+        "en": "In Hanoi, I would go out at midnight.",
+        "distractors": [
+          "will",
+          "noon",
+          "used"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Khôi nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bữa ăn ở nhà hàng Việt Nam",
+          "Bài kiểm tra",
+          "Tiền thuê nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi \"does this taste like home?\" và họ nói về món nem.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bà của Khôi hay làm món gì?",
+        "promptVi": "",
+        "options": [
+          "Nem",
+          "Phở",
+          "Bánh mì"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khôi nói \"My grandmother would make spring rolls like these.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trước đây Khôi tiêu bao nhiêu cho đồ ăn?",
+        "promptVi": "",
+        "options": [
+          "Gần như không tốn gì",
+          "Rất nhiều",
+          "Một nửa số tiền có"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khôi nói \"I used to spend almost nothing on food.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoi is used to paying a lot for spring rolls.",
+        "promptVi": "Khôi đã quen trả nhiều tiền cho món nem.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khôi nói \"I'm not used to paying so much for them.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Cuộc sống của Khôi ở Hà Nội khác gì ở ký túc xá London? Anh đã quen và chưa quen với những gì?",
+    "grammarStep": {
+      "titleVi": "Used to, be / get used to và would (thói quen)",
+      "noticing": [
+        {
+          "sentence": "At home, I never used to cook.",
+          "highlights": [
+            "never used to cook"
+          ]
+        },
+        {
+          "sentence": "My mum used to make three meals a day, and my grandmother would bring us cakes every Sunday.\"",
+          "highlights": [
+            "used to make",
+            "would bring"
+          ]
+        },
+        {
+          "sentence": "I wasn't used to eating cold food for lunch.\"",
+          "highlights": [
+            "wasn't used to eating"
+          ]
+        },
+        {
+          "sentence": "I'm also getting used to sharing a kitchen with eight people.\"",
+          "highlights": [
+            "getting used to sharing"
+          ]
+        }
+      ],
+      "questionVi": "Khôi đang dần quen với việc dùng chung bếp. Câu nào đúng?",
+      "options": [
+        "I'm getting used to sharing a kitchen.",
+        "I'm getting used to share a kitchen.",
+        "I used to sharing a kitchen."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Đang dần quen: get used to + V-ing (sharing).",
+      "whenVi": "Dùng used to / would để kể chuyện ngày trước, be / get used to + V-ing để nói về việc thích nghi với điều mới.",
+      "table": [
+        {
+          "subject": "used to + V",
+          "form": "My mum used to make three meals a day.",
+          "negative": "I never used to cook. / I didn't use to cook."
+        },
+        {
+          "subject": "would + V",
+          "form": "My grandmother would bring us cakes every Sunday.",
+          "negative": "Chỉ dùng cho hành động lặp lại, không cho trạng thái."
+        },
+        {
+          "subject": "be / get used to + V-ing",
+          "form": "I'm getting used to sharing a kitchen.",
+          "negative": "I'm not used to getting up early."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'm not used to get up early.",
+          "right": "I'm not used to getting up early."
+        },
+        {
+          "wrong": "In Vietnam I would have my own room.",
+          "right": "In Vietnam I used to have my own room."
+        }
+      ],
+      "noteVi": "Would không dùng với động từ chỉ trạng thái như have (sở hữu), live, be; khi đó dùng used to.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "You'll soon get used ___ cooking.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "get used to + V-ing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "In Hanoi, I ___ go out at midnight for a bowl of pho.",
+          "options": [
+            "would",
+            "was used to",
+            "am used to",
+            "get used to"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Hành động lặp lại trong quá khứ: would + V."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I'm not used to get up early on cold mornings.",
+          "sentence": "I'm not used to getting up early on cold mornings.",
+          "explanationVi": "be used to + V-ing: getting up."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đang dần quen với việc dùng chung bếp.",
+          "sentence": "I'm getting used to sharing a kitchen.",
+          "words": [
+            "I'm",
+            "getting",
+            "used",
+            "to",
+            "sharing",
+            "a",
+            "kitchen.",
+            "share"
+          ],
+          "explanationVi": "get used to + V-ing; từ \"share\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "At home, I never used to cook.",
+        "tipVi": "used to đọc /ˈjuːstə/; nhấn vào never."
+      },
+      {
+        "text": "I'm also getting used to sharing a kitchen with eight people.\"",
+        "tipVi": "getting used to đọc liền; sharing /ˈʃeərɪŋ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What did your family use to do at weekends when you were a child?",
+        "questionVi": "Hồi bạn nhỏ, gia đình bạn thường làm gì vào cuối tuần?",
+        "frame": "We used to ___. My grandmother would ___."
+      },
+      {
+        "question": "Have you ever shared a room or a kitchen? What was it like?",
+        "questionVi": "Bạn đã từng ở chung phòng hay dùng chung bếp chưa? Thấy thế nào?",
+        "frame": "At first I wasn't used to ___, but I got used to it."
+      },
+      {
+        "question": "What would you find hardest about living in a student hall?",
+        "questionVi": "Sống ở ký túc xá, điều gì sẽ khó nhất với bạn?",
+        "frame": "I would find it hard to get used to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với used to / would / be (get) used to",
+      "anyOf": [
+        "used to",
+        "would ",
+        "getting used",
+        "got used"
+      ],
+      "outlineVi": [
+        "Ở nhà trước đây bạn thường làm gì (used to / would …).",
+        "Lúc đầu ở nơi mới bạn chưa quen điều gì (wasn't used to …).",
+        "Bây giờ bạn đã quen hoặc đang dần quen gì (I'm used to / getting used to …)."
+      ],
+      "modelAnswer": "When I started university in Ho Chi Minh City, I lived in a dormitory with five other girls. At home, I used to have my own room, and my mother would cook for me every day. At first, I wasn't used to the noise. Now I'm used to studying with my headphones on, and I'm getting used to cooking simple meals."
+    }
+  },
+  "glosses": [
+    {
+      "text": "first-year student",
+      "lemma": "first-year student",
+      "meaningVi": "sinh viên năm nhất",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a first-year student",
+      "phraseVi": "sinh viên năm nhất"
+    },
+    {
+      "text": "Lucky you",
+      "lemma": "lucky you",
+      "meaningVi": "sướng thế",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "Lucky you!",
+      "phraseVi": "Sướng thế!"
+    },
+    {
+      "text": "corner",
+      "lemma": "corner",
+      "meaningVi": "góc phố",
+      "sentenceIndex": 30,
+      "pos": "noun",
+      "phrase": "on the corner",
+      "phraseVi": "ở góc phố"
+    }
+  ]
+}
