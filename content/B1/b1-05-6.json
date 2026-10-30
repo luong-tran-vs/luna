@@ -1,0 +1,622 @@
+{
+  "content": "Linh and Tuan are friends who love films. Today, Linh has some exciting news.\n\nShe asks, \"Have you heard about the new cinema in Cau Giay? It's the one where the screens are as big as a house!\"\n\"Really? Is that the cinema which opened last week?\"\n\"Yes. My cousin went there on Sunday, and she loved it. The seats are so comfortable that you can almost sleep in them.\"\n\"That sounds great. What's on?\"\n\"There's a new Vietnamese action film that everyone is talking about. There might be no tickets left tonight, though.\"\nTuan opens the cinema's app. \"The seven o'clock show has no seats left. That film must be very popular.\"\n\"What about the nine o'clock show?\"\n\"There are a few seats in the front row. Those can't be very good. You have to look up for two hours.\"\n\"Hmm. Is there a show tomorrow?\"\n\"Yes, at six. There are lots of seats in the middle.\"\n\"Let's take two in the middle. Who's the actor who plays the main character?\"\n\"It's Thanh Son, the man whose film we watched last month.\"\n\"Oh, I liked him. This film must be good too.\"\nTuan says, \"Done! I've bought the tickets. The cinema is next to a restaurant where they make great pizza. Shall we eat there first?\"\n\"Perfect. My treat this time.\"",
+  "targetWords": [
+    "news",
+    "screen",
+    "comfortable",
+    "ticket",
+    "show",
+    "popular",
+    "row",
+    "middle",
+    "pizza",
+    "treat"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "news",
+        "lemma": "news",
+        "meaningVi": "tin tức",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "screens",
+        "lemma": "screen",
+        "meaningVi": "màn hình, màn chiếu",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "comfortable",
+        "lemma": "comfortable",
+        "meaningVi": "thoải mái, êm",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "tickets",
+        "lemma": "ticket",
+        "meaningVi": "vé",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "show",
+        "lemma": "show",
+        "meaningVi": "suất chiếu",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "popular",
+        "lemma": "popular",
+        "meaningVi": "được yêu thích",
+        "pos": "adjective",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "row",
+        "lemma": "row",
+        "meaningVi": "hàng ghế",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "middle",
+        "lemma": "middle",
+        "meaningVi": "ở giữa",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "pizza",
+        "lemma": "pizza",
+        "meaningVi": "bánh pizza",
+        "pos": "noun",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "treat",
+        "lemma": "treat",
+        "meaningVi": "lượt mời, khao",
+        "pos": "noun",
+        "sentenceIndex": 34
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Linh and Tuan mainly talking about?",
+        "promptVi": "Linh và Tuấn chủ yếu nói về điều gì?",
+        "options": [
+          "A new cinema and buying tickets for a film",
+          "A new restaurant in Cau Giay",
+          "Linh's cousin",
+          "How to use a cinema app"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người nói về rạp chiếu phim mới ở Cầu Giấy và cùng đặt vé xem phim."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't they go to the seven o'clock show?",
+        "promptVi": "Vì sao họ không thể xem suất bảy giờ?",
+        "options": [
+          "It is too early.",
+          "There are no seats left.",
+          "The cinema is closed.",
+          "Linh is busy."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tuấn nói \"The seven o'clock show has no seats left.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why don't they want seats in the front row?",
+        "promptVi": "Vì sao họ không muốn ngồi hàng ghế đầu?",
+        "options": [
+          "They are too expensive.",
+          "They are too far from the screen.",
+          "You have to look up for two hours.",
+          "They are broken."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tuấn nói \"Those can't be very good. You have to look up for two hours.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh is going to pay for dinner.",
+        "promptVi": "Linh sẽ trả tiền bữa tối.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Linh nói \"My treat this time.\" (Lần này mình khao.)"
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"What's on?\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "What's on?\"",
+        "options": [
+          "Đang chiếu phim gì?",
+          "Có chuyện gì thế?",
+          "Cái gì ở trên?",
+          "Bật lên chưa?"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "What's on? (nói về rạp phim, tivi) = đang chiếu gì?"
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "bodyVi": "Mệnh đề quan hệ mô tả nơi chốn, phim và người: the one where the screens are as big as a house (where – nơi chốn), the cinema which opened last week (which – vật), a film that everyone is talking about (that – vật), the actor who plays the main character (who – người), the man whose film we watched (whose – sở hữu), a restaurant where they make great pizza. Bài cũng đoán bằng might / must / can't.",
+      "examples": [
+        "It's the one where the screens are as big as a house!\"",
+        "Is that the cinema which opened last week?\"",
+        "\"It's Thanh Son, the man whose film we watched last month.\""
+      ]
+    },
+    "writingPrompt": "Write about a cinema, café or restaurant in your town: what is special about it, and who is the person who told you about it?",
+    "sentenceTranslations": [
+      "Linh và Tuấn là đôi bạn rất mê phim.",
+      "Hôm nay Linh có một tin thú vị.",
+      "Cô hỏi: \"Cậu nghe về rạp chiếu phim mới ở Cầu Giấy chưa?",
+      "Đó là rạp có màn chiếu to bằng cả ngôi nhà!\"",
+      "\"Thật á?",
+      "Có phải rạp mới mở tuần trước không?\"",
+      "\"Đúng rồi.",
+      "Chủ nhật vừa rồi em họ mình đến đó, và nó thích lắm.",
+      "Ghế êm đến mức gần như ngủ được.\"",
+      "\"Nghe hay quá.",
+      "Đang chiếu phim gì?\"",
+      "\"Có một phim hành động Việt Nam mới mà ai cũng đang bàn tán.",
+      "Nhưng có thể tối nay hết vé rồi.\"",
+      "Tuấn mở ứng dụng của rạp.",
+      "\"Suất bảy giờ hết ghế rồi.",
+      "Phim đó chắc hẳn rất được yêu thích.\"",
+      "\"Thế suất chín giờ?\"",
+      "\"Còn vài ghế ở hàng đầu.",
+      "Chỗ đó chắc không ổn đâu.",
+      "Phải ngửa cổ suốt hai tiếng.\"",
+      "\"Ừm.",
+      "Mai có suất nào không?\"",
+      "\"Có, lúc sáu giờ.",
+      "Còn nhiều ghế ở giữa.\"",
+      "\"Lấy hai ghế ở giữa nhé.",
+      "Diễn viên đóng vai chính là ai?\"",
+      "\"Là Thanh Sơn, người có bộ phim mà bọn mình xem tháng trước.\"",
+      "\"Ồ, mình thích anh ấy.",
+      "Chắc phim này cũng hay.\"",
+      "Tuấn nói: \"Xong!",
+      "Mình mua vé rồi.",
+      "Rạp ở cạnh một nhà hàng làm pizza rất ngon.",
+      "Mình ăn ở đó trước nhé?\"",
+      "\"Tuyệt.",
+      "Lần này mình khao.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một rạp phim, chọn suất chiếu và ghế ngồi bằng mệnh đề quan hệ và might / must / can't.",
+    "examples": [
+      {
+        "lemma": "news",
+        "sentence": "I have some good news for you.",
+        "meaningVi": "Tôi có tin vui cho bạn."
+      },
+      {
+        "lemma": "screen",
+        "sentence": "The screen in this cinema is huge.",
+        "meaningVi": "Màn chiếu ở rạp này rất to."
+      },
+      {
+        "lemma": "comfortable",
+        "sentence": "This bed is very comfortable.",
+        "meaningVi": "Chiếc giường này rất êm."
+      },
+      {
+        "lemma": "ticket",
+        "sentence": "How much is a ticket?",
+        "meaningVi": "Một vé bao nhiêu tiền?"
+      },
+      {
+        "lemma": "show",
+        "sentence": "The last show starts at ten.",
+        "meaningVi": "Suất chiếu cuối bắt đầu lúc mười giờ."
+      },
+      {
+        "lemma": "popular",
+        "sentence": "This song is very popular with young people.",
+        "meaningVi": "Bài hát này rất được giới trẻ yêu thích."
+      },
+      {
+        "lemma": "row",
+        "sentence": "We sat in the third row.",
+        "meaningVi": "Chúng tôi ngồi ở hàng thứ ba."
+      },
+      {
+        "lemma": "middle",
+        "sentence": "The table is in the middle of the room.",
+        "meaningVi": "Cái bàn ở giữa phòng."
+      },
+      {
+        "lemma": "pizza",
+        "sentence": "Let's order a pizza.",
+        "meaningVi": "Mình gọi một cái pizza nhé."
+      },
+      {
+        "lemma": "treat",
+        "sentence": "Dinner is my treat tonight.",
+        "meaningVi": "Tối nay bữa tối để tôi khao."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Mike"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, where are you going tonight?",
+          "meaningVi": "Linh ơi, tối nay cậu đi đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "To the new cinema which opened in Cau Giay.",
+          "meaningVi": "Đến rạp phim mới mở ở Cầu Giấy."
+        },
+        {
+          "speaker": 1,
+          "text": "Is that the one where the screens are huge?",
+          "meaningVi": "Có phải rạp có màn chiếu rất to không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! And the seats are really comfortable.",
+          "meaningVi": "Đúng! Mà ghế êm lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "What film are you watching?",
+          "meaningVi": "Cậu xem phim gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "An action film that everyone is talking about.",
+          "meaningVi": "Một phim hành động mà ai cũng đang bàn tán."
+        },
+        {
+          "speaker": 1,
+          "text": "Are there any tickets left?",
+          "meaningVi": "Còn vé không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Tuan bought two in the middle. The evening shows must be full.",
+          "meaningVi": "Tuấn mua được hai vé ở giữa. Các suất buổi tối chắc kín hết rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "It might be hard to get tickets this weekend, then.",
+          "meaningVi": "Vậy cuối tuần này có thể khó mua vé đấy."
+        },
+        {
+          "speaker": 0,
+          "text": "Book them online now. That's the best way.",
+          "meaningVi": "Đặt trên mạng ngay đi. Đó là cách tốt nhất."
+        }
+      ]
+    },
+    "grammarTipVi": "The new cinema which opened…, the one where the screens are huge, an action film that everyone is talking about. Đoán: must be full, might be hard.",
+    "translations": [
+      {
+        "vi": "Đó là rạp có màn chiếu rất to.",
+        "en": "It's the cinema where the screens are huge.",
+        "distractors": [
+          "which",
+          "who",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Có phải rạp mới mở tuần trước không? Chắc nó đông khách lắm.",
+        "en": "Is that the cinema which opened last week? It must be popular.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Đó là phim mà ai cũng đang bàn tán. Có thể hết vé rồi.",
+        "en": "It's a film that everyone is talking about. The tickets might be gone.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Rạp ở cạnh một nhà hàng làm pizza ngon.",
+        "en": "The cinema is next to a restaurant where they make great pizza.",
+        "distractors": [
+          "which",
+          "who",
+          "whose"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh kể với Mike về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Rạp chiếu phim mới và kế hoạch tối nay",
+          "Một nhà hàng pizza",
+          "Chuyến đi cuối tuần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mike hỏi Linh tối nay đi đâu, và Linh kể về rạp phim mới.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ghế ở rạp mới thế nào?",
+        "promptVi": "",
+        "options": [
+          "Nhỏ và cứng",
+          "Rất êm",
+          "Rất đắt"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"the seats are really comfortable.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Linh khuyên Mike làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đến rạp sớm",
+          "Xem suất chín giờ",
+          "Đặt vé trên mạng ngay"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"Book them online now.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh is going to watch a comedy tonight.",
+        "promptVi": "Tối nay Linh sẽ xem phim hài.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh xem \"An action film\".",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Rạp phim mới có gì đặc biệt? Vì sao Linh và Tuấn chọn suất sáu giờ ngày mai?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "noticing": [
+        {
+          "sentence": "Linh and Tuan are friends who love films.",
+          "highlights": [
+            "who love films"
+          ]
+        },
+        {
+          "sentence": "It's the one where the screens are as big as a house!\"",
+          "highlights": [
+            "where the screens are"
+          ]
+        },
+        {
+          "sentence": "Is that the cinema which opened last week?\"",
+          "highlights": [
+            "which opened last week"
+          ]
+        },
+        {
+          "sentence": "The cinema is next to a restaurant where they make great pizza.",
+          "highlights": [
+            "where they make great pizza"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"the cinema which opened\" nhưng \"the one where the screens are\"?",
+      "options": [
+        "Which thay cho \"the cinema\" làm chủ ngữ; where nghĩa là \"ở rạp đó\".",
+        "Vì which dùng cho quá khứ, where dùng cho hiện tại.",
+        "Hai câu dùng thay nhau được."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "The cinema which opened = rạp (nó) mở cửa. The one where the screens are big = rạp mà ở đó màn chiếu rất to (where = in which).",
+      "whenVi": "Dùng where khi muốn nói điều gì xảy ra ở một nơi; dùng which / that khi nơi đó tự làm chủ ngữ hoặc tân ngữ.",
+      "table": [
+        {
+          "subject": "which (vật làm chủ ngữ)",
+          "form": "the cinema which opened last week",
+          "negative": "—"
+        },
+        {
+          "subject": "where (ở nơi đó)",
+          "form": "a restaurant where they make great pizza",
+          "negative": "—"
+        },
+        {
+          "subject": "who (người)",
+          "form": "friends who love films",
+          "negative": "—"
+        },
+        {
+          "subject": "whose (sở hữu)",
+          "form": "the man whose film we watched",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It's a restaurant which they make great pizza.",
+          "right": "It's a restaurant where they make great pizza."
+        },
+        {
+          "wrong": "Is that the cinema where opened last week?",
+          "right": "Is that the cinema which opened last week?"
+        }
+      ],
+      "noteVi": "Sau where luôn có chủ ngữ riêng (they make, the screens are). Nếu không có chủ ngữ, dùng which / that.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền which hoặc where.",
+          "text": "It's a restaurant ___ they make great pizza.",
+          "answers": [
+            "where"
+          ],
+          "explanationVi": "Ở nhà hàng đó họ làm pizza: where."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Is that the cinema ___ opened last week?",
+          "options": [
+            "where",
+            "which",
+            "who",
+            "whose"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Rạp làm chủ ngữ (rạp mở cửa): which."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They are friends which love films.",
+          "sentence": "They are friends who love films.",
+          "explanationVi": "Friends là người: who."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đó là rạp có màn chiếu rất to.",
+          "sentence": "It is the cinema where the screens are huge.",
+          "words": [
+            "cinema",
+            "It",
+            "is",
+            "the",
+            "where",
+            "the",
+            "screens",
+            "are",
+            "huge.",
+            "which"
+          ],
+          "explanationVi": "Nơi chốn có chủ ngữ riêng: where; từ \"which\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "That film must be very popular.\"",
+        "tipVi": "Popular /ˈpɒpjələ/ nhấn âm đầu."
+      },
+      {
+        "text": "\"Perfect.",
+        "tipVi": "Perfect /ˈpɜːfɪkt/ nhấn âm đầu, giọng vui."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is a cinema or café that you really like?",
+        "questionVi": "Rạp phim hay quán cà phê nào bạn rất thích?",
+        "frame": "A place that I really like is ___."
+      },
+      {
+        "question": "Where do you like to sit in the cinema?",
+        "questionVi": "Ở rạp phim bạn thích ngồi chỗ nào?",
+        "frame": "I like to sit in the ___ row, because ___."
+      },
+      {
+        "question": "Who is the friend who goes to the cinema with you most? What does he or she like?",
+        "questionVi": "Ai là người bạn hay đi xem phim cùng bạn nhất? Người đó thích gì?",
+        "frame": "It's ___. He / She likes films that ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ (who, which, that, whose, where)",
+      "anyOf": [
+        " who ",
+        " which ",
+        " that ",
+        " whose ",
+        " where "
+      ],
+      "outlineVi": [
+        "Nơi đó là gì, ở đâu (a place where …).",
+        "Điều gì đặc biệt (It has seats that … / a cook who …).",
+        "Ai đã giới thiệu cho bạn (my friend who …), và bạn đoán vì sao nó nổi tiếng (It must …)."
+      ],
+      "modelAnswer": "There is a small cinema in my town where they show old films every Friday night. My friend Hoa, who loves old films, told me about it last year. It has red seats that are very comfortable, and there is a café where you can buy hot drinks. It must be popular, because the Friday shows are always full."
+    }
+  },
+  "glosses": [
+    {
+      "text": "exciting",
+      "lemma": "exciting",
+      "meaningVi": "thú vị, hào hứng",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "some exciting news",
+      "phraseVi": "một tin thú vị"
+    },
+    {
+      "text": "as big as",
+      "lemma": "as … as",
+      "meaningVi": "to bằng",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "as big as a house",
+      "phraseVi": "to bằng cả ngôi nhà"
+    },
+    {
+      "text": "What's on",
+      "lemma": "be on",
+      "meaningVi": "đang chiếu gì",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "What's on?",
+      "phraseVi": "Đang chiếu phim gì?"
+    },
+    {
+      "text": "left",
+      "lemma": "left",
+      "meaningVi": "còn lại",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "no tickets left tonight",
+      "phraseVi": "tối nay hết vé"
+    },
+    {
+      "text": "look up",
+      "lemma": "look up",
+      "meaningVi": "ngước lên",
+      "sentenceIndex": 19,
+      "pos": "phrasal verb",
+      "phrase": "You have to look up for two hours.",
+      "phraseVi": "Phải ngửa cổ suốt hai tiếng."
+    },
+    {
+      "text": "main character",
+      "lemma": "main character",
+      "meaningVi": "nhân vật chính",
+      "sentenceIndex": 25,
+      "pos": "noun",
+      "phrase": "the actor who plays the main character",
+      "phraseVi": "diễn viên đóng vai chính"
+    }
+  ]
+}

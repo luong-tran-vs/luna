@@ -1,0 +1,594 @@
+{
+  "content": "This year, Mai and her two friends, Thu and Ngoc, are not going to stay at home for Tet. They are going to travel to Da Lat. They meet at a coffee shop to talk about the trip.\n\nMai says, \"We are going to leave on the third day of Tet. I have the bus tickets already.\"\nThu asks, \"How long is the trip?\"\n\"About seven hours by bus. We are going to stay for three days.\"\nNgoc asks, \"Where are we going to sleep?\"\n\"In a small homestay near a lake. It has a beautiful garden, and it isn't expensive.\"\n\nThu looks at her phone. \"Look at the weather. It's going to be cold at night, only ten degrees!\"\nNgoc says, \"Then we need warm jackets. I'm not going to take my summer clothes.\"\nThu asks, \"What are we going to do there?\"\nMai says, \"We are going to walk around the lake, visit the flower gardens and drink a lot of hot coffee.\"\nNgoc laughs. \"It's going to be the best Tet trip ever!\"",
+  "targetWords": [
+    "travel",
+    "coffee",
+    "trip",
+    "bus",
+    "ticket",
+    "lake",
+    "cold",
+    "jacket"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "travel",
+        "lemma": "travel",
+        "meaningVi": "đi du lịch",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "coffee",
+        "lemma": "coffee",
+        "meaningVi": "cà phê",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "trip",
+        "lemma": "trip",
+        "meaningVi": "chuyến đi",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "bus",
+        "lemma": "bus",
+        "meaningVi": "xe buýt, xe khách",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "tickets",
+        "lemma": "ticket",
+        "meaningVi": "vé",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "lake",
+        "lemma": "lake",
+        "meaningVi": "hồ",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "cold",
+        "lemma": "cold",
+        "meaningVi": "lạnh",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "jackets",
+        "lemma": "jacket",
+        "meaningVi": "áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Three friends plan a trip to Da Lat for Tet.",
+          "Mai opens a coffee shop.",
+          "A family visits a lake in Hanoi.",
+          "Thu buys a new phone."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai, Thu và Ngọc gặp nhau để bàn kế hoạch đi Đà Lạt dịp Tết."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long is the bus trip?",
+        "promptVi": "Đi xe khách mất bao lâu?",
+        "options": [
+          "Three hours",
+          "About seven hours",
+          "Ten hours",
+          "Three days"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"About seven hours by bus.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why do they need warm jackets?",
+        "promptVi": "Vì sao họ cần áo khoác ấm?",
+        "options": [
+          "The homestay is near a lake.",
+          "They are going to walk a lot.",
+          "It's going to be cold at night.",
+          "The bus is cold."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thu xem dự báo: \"It's going to be cold at night, only ten degrees!\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The homestay is very expensive.",
+        "promptVi": "Homestay rất đắt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"it isn't expensive.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"already\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I have the bus tickets already.\"",
+        "options": [
+          "sắp",
+          "chưa",
+          "rồi, đã… rồi",
+          "cũng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Already = rồi: Mai đã mua vé xe rồi."
+      }
+    ],
+    "grammarNote": {
+      "title": "Be going to (dự định và dự đoán có căn cứ)",
+      "bodyVi": "Kế hoạch đã quyết định: am / is / are + going to + động từ (They are going to travel to Da Lat). Phủ định: are not going to stay, I'm not going to take. Hỏi: Where are we going to sleep? What are we going to do there? Đoán khi có căn cứ (xem dự báo thời tiết): It's going to be cold at night.",
+      "examples": [
+        "They are going to travel to Da Lat.",
+        "Ngoc asks, \"Where are we going to sleep?\"",
+        "It's going to be cold at night, only ten degrees!\""
+      ]
+    },
+    "writingPrompt": "Write about a holiday trip you are going to take: where are you going to go, how are you going to get there and what are you going to do?",
+    "sentenceTranslations": [
+      "Năm nay, Mai và hai người bạn là Thu và Ngọc sẽ không ở nhà ăn Tết.",
+      "Họ sẽ đi du lịch Đà Lạt.",
+      "Họ hẹn nhau ở một quán cà phê để bàn về chuyến đi.",
+      "Mai nói: \"Bọn mình sẽ đi vào mùng ba Tết.",
+      "Mình mua vé xe khách rồi.\"",
+      "Thu hỏi: \"Chuyến đi mất bao lâu?\"",
+      "\"Đi xe khách khoảng bảy tiếng.",
+      "Bọn mình sẽ ở đó ba ngày.\"",
+      "Ngọc hỏi: \"Bọn mình sẽ ngủ ở đâu?\"",
+      "\"Ở một homestay nhỏ gần hồ.",
+      "Ở đó có vườn đẹp lắm, mà lại không đắt.\"",
+      "Thu nhìn điện thoại.",
+      "\"Xem thời tiết này.",
+      "Ban đêm sẽ lạnh đấy, chỉ mười độ thôi!\"",
+      "Ngọc nói: \"Vậy bọn mình cần áo khoác ấm.",
+      "Mình sẽ không mang quần áo mùa hè đâu.\"",
+      "Thu hỏi: \"Bọn mình sẽ làm gì ở đó?\"",
+      "Mai nói: \"Bọn mình sẽ đi dạo quanh hồ, đi thăm vườn hoa và uống thật nhiều cà phê nóng.\"",
+      "Ngọc cười.",
+      "\"Đây sẽ là chuyến đi Tết tuyệt nhất từ trước tới giờ!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về kế hoạch đi du lịch dịp Tết bằng going to: đi đâu, đi bằng gì, ở đâu, làm gì.",
+    "examples": [
+      {
+        "lemma": "travel",
+        "sentence": "I want to travel to Japan.",
+        "meaningVi": "Tôi muốn đi du lịch Nhật Bản."
+      },
+      {
+        "lemma": "coffee",
+        "sentence": "My father drinks coffee every morning.",
+        "meaningVi": "Sáng nào bố tôi cũng uống cà phê."
+      },
+      {
+        "lemma": "trip",
+        "sentence": "Our school trip is next week.",
+        "meaningVi": "Chuyến đi của trường tôi là vào tuần sau."
+      },
+      {
+        "lemma": "bus",
+        "sentence": "I go to work by bus.",
+        "meaningVi": "Tôi đi làm bằng xe buýt."
+      },
+      {
+        "lemma": "ticket",
+        "sentence": "How much is a ticket to Hue?",
+        "meaningVi": "Vé đi Huế bao nhiêu tiền?"
+      },
+      {
+        "lemma": "lake",
+        "sentence": "There is a big lake in the city centre.",
+        "meaningVi": "Ở trung tâm thành phố có một cái hồ lớn."
+      },
+      {
+        "lemma": "cold",
+        "sentence": "It is very cold in Hanoi in January.",
+        "meaningVi": "Tháng Một ở Hà Nội rất lạnh."
+      },
+      {
+        "lemma": "jacket",
+        "sentence": "Take a jacket with you.",
+        "meaningVi": "Mang theo áo khoác nhé."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Olivia"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai, are you going to go home for Tet?",
+          "meaningVi": "Mai ơi, Tết này cậu có về nhà không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I'm going to travel to Da Lat with my friends.",
+          "meaningVi": "Không, mình sẽ đi Đà Lạt với bạn."
+        },
+        {
+          "speaker": 1,
+          "text": "How are you going to get there?",
+          "meaningVi": "Các cậu sẽ đi bằng gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "We are going to take the bus. It's cheaper than the plane.",
+          "meaningVi": "Bọn mình sẽ đi xe khách. Rẻ hơn máy bay."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it cold there at Tet?",
+          "meaningVi": "Dịp Tết ở đó có lạnh không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it's going to be about ten degrees at night.",
+          "meaningVi": "Có, ban đêm sẽ khoảng mười độ."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow! What are you going to do there?",
+          "meaningVi": "Chà! Các cậu sẽ làm gì ở đó?"
+        },
+        {
+          "speaker": 0,
+          "text": "We are going to walk around the lake and drink coffee.",
+          "meaningVi": "Bọn mình sẽ đi dạo quanh hồ và uống cà phê."
+        },
+        {
+          "speaker": 1,
+          "text": "That sounds lovely. Are you going to take a lot of photos?",
+          "meaningVi": "Nghe tuyệt quá. Cậu có định chụp nhiều ảnh không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course! I'm going to send you some.",
+          "meaningVi": "Tất nhiên! Mình sẽ gửi cho cậu vài tấm."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi cách đi: How are you going to get there? Trả lời: We are going to take the bus. Đoán thời tiết: it's going to be about ten degrees.",
+    "translations": [
+      {
+        "vi": "Chúng tôi sẽ đi du lịch Đà Lạt.",
+        "en": "We are going to travel to Da Lat.",
+        "distractors": [
+          "is",
+          "will",
+          "travelling"
+        ]
+      },
+      {
+        "vi": "Ban đêm trời sẽ lạnh.",
+        "en": "It is going to be cold at night.",
+        "distractors": [
+          "are",
+          "goes",
+          "will"
+        ]
+      },
+      {
+        "vi": "Tôi sẽ không mang áo khoác.",
+        "en": "I am not going to take a jacket.",
+        "distractors": [
+          "don't",
+          "is",
+          "taking"
+        ]
+      },
+      {
+        "vi": "Các bạn sẽ đi bằng xe buýt à?",
+        "en": "Are you going to take the bus?",
+        "distractors": [
+          "Do",
+          "taking",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai sẽ làm gì dịp Tết?",
+        "promptVi": "",
+        "options": [
+          "Về quê",
+          "Đi Đà Lạt với bạn",
+          "Ở nhà làm việc"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"I'm going to travel to Da Lat with my friends.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao họ đi xe khách?",
+        "promptVi": "",
+        "options": [
+          "Vì rẻ hơn máy bay",
+          "Vì nhanh hơn",
+          "Vì hết vé máy bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"It's cheaper than the plane.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ban đêm ở Đà Lạt khoảng bao nhiêu độ?",
+        "promptVi": "",
+        "options": [
+          "Hai mươi độ",
+          "Năm độ",
+          "Mười độ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"it's going to be about ten degrees at night.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai is going to send Olivia some photos.",
+        "promptVi": "Mai sẽ gửi cho Olivia vài tấm ảnh.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Mai nói \"I'm going to send you some.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Ba bạn sẽ đi bằng gì, ở đâu và làm gì ở Đà Lạt?",
+    "grammarStep": {
+      "titleVi": "Be going to (dự định và dự đoán có căn cứ)",
+      "noticing": [
+        {
+          "sentence": "They are going to travel to Da Lat.",
+          "highlights": [
+            "are going to travel"
+          ]
+        },
+        {
+          "sentence": "Ngoc asks, \"Where are we going to sleep?\"",
+          "highlights": [
+            "are we going to sleep"
+          ]
+        },
+        {
+          "sentence": "It's going to be cold at night, only ten degrees!\"",
+          "highlights": [
+            "It's going to be"
+          ]
+        },
+        {
+          "sentence": "I'm not going to take my summer clothes.\"",
+          "highlights": [
+            "I'm not going to take"
+          ]
+        }
+      ],
+      "questionVi": "Thu nói \"It's going to be cold at night\" sau khi làm gì?",
+      "options": [
+        "Sau khi đi Đà Lạt về",
+        "Sau khi xem thời tiết trên điện thoại",
+        "Sau khi uống cà phê"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Thu thấy dự báo thời tiết rồi mới đoán: đó là dự đoán có căn cứ, nên dùng be going to.",
+      "whenVi": "Dùng be going to cho kế hoạch đã quyết định (vé đã mua, chỗ đã đặt) và cho dự đoán dựa trên điều mình thấy.",
+      "table": [
+        {
+          "subject": "Kế hoạch",
+          "form": "We are going to leave on the third day.",
+          "negative": "We aren't going to stay at home."
+        },
+        {
+          "subject": "Câu hỏi Wh-",
+          "form": "Where are we going to sleep?",
+          "negative": "What are we going to do there?"
+        },
+        {
+          "subject": "Dự đoán có căn cứ",
+          "form": "It's going to be cold at night.",
+          "negative": "It isn't going to rain."
+        },
+        {
+          "subject": "I",
+          "form": "I'm going to take a jacket.",
+          "negative": "I'm not going to take my summer clothes."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Where we are going to sleep?",
+          "right": "Where are we going to sleep?"
+        },
+        {
+          "wrong": "It going to be cold at night.",
+          "right": "It's going to be cold at night."
+        }
+      ],
+      "noteVi": "Muốn nói \"đi đến đâu\" có thể dùng going to go: We are going to go to Da Lat, hoặc ngắn hơn: We are going to Da Lat. Cả hai đều đúng.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền am, is hoặc are.",
+          "text": "It ___ going to be cold at night.",
+          "answers": [
+            "is"
+          ],
+          "explanationVi": "It đi với is: It is going to be."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Where ___ going to sleep?",
+          "options": [
+            "we are",
+            "are we",
+            "we",
+            "do we"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu hỏi đảo are lên trước chủ ngữ: Where are we going to sleep?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I'm not going to taking my summer clothes.",
+          "sentence": "I'm not going to take my summer clothes.",
+          "explanationVi": "Sau going to là động từ nguyên mẫu: take."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi sẽ ở đó ba ngày.",
+          "sentence": "We are going to stay for three days.",
+          "words": [
+            "stay",
+            "We",
+            "for",
+            "going",
+            "are",
+            "three",
+            "to",
+            "days",
+            "will"
+          ],
+          "explanationVi": "We + are going to + stay; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "They are going to travel to Da Lat.",
+        "tipVi": "Travel /ˈtrævl/ nhấn âm đầu; going to đọc nhanh, to đọc nhẹ /tə/."
+      },
+      {
+        "text": "Thu asks, \"How long is the trip?\"",
+        "tipVi": "Trip /trɪp/ có âm /ɪ/ ngắn; câu hỏi Wh- xuống giọng ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where are you going to go on your next holiday?",
+        "questionVi": "Kỳ nghỉ tới bạn định đi đâu?",
+        "frame": "I'm going to go to ___."
+      },
+      {
+        "question": "How are you going to get there?",
+        "questionVi": "Bạn sẽ đi bằng gì?",
+        "frame": "I'm going to take the ___."
+      },
+      {
+        "question": "Is your best friend going to travel at Tet?",
+        "questionVi": "Bạn thân của bạn có định đi du lịch dịp Tết không?",
+        "frame": "Yes, he / she is going to ___. / No, he / she isn't going to travel."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng be going to",
+      "anyOf": [
+        "going to"
+      ],
+      "outlineVi": [
+        "Bạn sẽ đi đâu, với ai, vào lúc nào.",
+        "Đi bằng gì, ở đâu (going to take / stay).",
+        "Bạn sẽ làm gì ở đó, và một việc bạn không định làm."
+      ],
+      "modelAnswer": "This summer, my family is going to travel to Nha Trang. We are going to take the train because it is cheaper than the plane. We are going to stay in a small hotel near the beach for four days. My parents are going to swim every morning, and I'm going to try the seafood. We aren't going to stay in the hotel at all!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "stay at home",
+      "lemma": "stay at home",
+      "meaningVi": "ở nhà",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "not going to stay at home",
+      "phraseVi": "sẽ không ở nhà"
+    },
+    {
+      "text": "already",
+      "lemma": "already",
+      "meaningVi": "rồi",
+      "sentenceIndex": 4,
+      "pos": "adverb",
+      "phrase": "I have the bus tickets already.",
+      "phraseVi": "Mình mua vé xe khách rồi."
+    },
+    {
+      "text": "homestay",
+      "lemma": "homestay",
+      "meaningVi": "nhà nghỉ ở cùng chủ nhà",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "a small homestay near a lake",
+      "phraseVi": "một homestay nhỏ gần hồ"
+    },
+    {
+      "text": "garden",
+      "lemma": "garden",
+      "meaningVi": "khu vườn",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "a beautiful garden",
+      "phraseVi": "vườn đẹp"
+    },
+    {
+      "text": "degrees",
+      "lemma": "degree",
+      "meaningVi": "độ (nhiệt độ)",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "only ten degrees",
+      "phraseVi": "chỉ mười độ thôi"
+    },
+    {
+      "text": "warm",
+      "lemma": "warm",
+      "meaningVi": "ấm",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "warm jackets",
+      "phraseVi": "áo khoác ấm"
+    },
+    {
+      "text": "walk around",
+      "lemma": "walk around",
+      "meaningVi": "đi dạo quanh",
+      "sentenceIndex": 17,
+      "pos": "verb",
+      "phrase": "walk around the lake",
+      "phraseVi": "đi dạo quanh hồ"
+    },
+    {
+      "text": "ever",
+      "lemma": "ever",
+      "meaningVi": "từ trước tới giờ",
+      "sentenceIndex": 19,
+      "pos": "adverb",
+      "phrase": "the best Tet trip ever",
+      "phraseVi": "chuyến đi Tết tuyệt nhất từ trước tới giờ"
+    }
+  ]
+}

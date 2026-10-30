@@ -1,0 +1,595 @@
+{
+  "content": "It is two weeks before Tet. Minh and Lan are friends at work, and they have lunch together in a small café near their office.\n\nLan asks, \"What are your plans for the Tet holiday, Minh?\"\nMinh says, \"I'm going to visit my grandparents in the countryside. They live in a small village in Nam Dinh.\"\n\"That sounds nice. How are you going to get there?\"\n\"My brother is going to drive us. We are going to leave on the 28th.\"\nThen Minh asks, \"And you, Lan? Are you going to travel?\"\nLan says, \"No, I'm not going to go anywhere this year. My parents are going to come to my flat in Hanoi.\"\nMinh laughs. \"So you are going to clean the whole flat!\"\n\"Yes, and I'm going to buy some flowers at the market. My mother loves yellow flowers.\"\n\"Are you going to cook too?\"\n\"Of course. My mother is going to teach me a special soup. She makes it every Tet.\"\nMinh smiles. \"Your parents are going to be very happy.\"",
+  "targetWords": [
+    "holiday",
+    "plan",
+    "visit",
+    "countryside",
+    "clean",
+    "flower",
+    "market",
+    "special"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "holiday",
+        "lemma": "holiday",
+        "meaningVi": "kỳ nghỉ, ngày lễ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "plans",
+        "lemma": "plan",
+        "meaningVi": "kế hoạch",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "visit",
+        "lemma": "visit",
+        "meaningVi": "thăm",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "countryside",
+        "lemma": "countryside",
+        "meaningVi": "vùng quê",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "clean",
+        "lemma": "clean",
+        "meaningVi": "dọn dẹp, lau chùi",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "flowers",
+        "lemma": "flower",
+        "meaningVi": "hoa",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "market",
+        "lemma": "market",
+        "meaningVi": "chợ",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "special",
+        "lemma": "special",
+        "meaningVi": "đặc biệt",
+        "pos": "adjective",
+        "sentenceIndex": 19
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A trip to Nam Dinh for work",
+          "Two friends talk about their plans for Tet.",
+          "A new café near the office",
+          "Lan's mother's cooking class"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh và Lan kể cho nhau nghe mình sẽ làm gì vào dịp Tết."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is going to drive Minh to the countryside?",
+        "promptVi": "Ai sẽ lái xe đưa Minh về quê?",
+        "options": [
+          "His father",
+          "Lan",
+          "His brother",
+          "His grandparents"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"My brother is going to drive us.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Lan going to clean the whole flat?",
+        "promptVi": "Vì sao Lan sẽ dọn dẹp cả căn hộ?",
+        "options": [
+          "Her parents are going to come to her flat.",
+          "She is going to sell it.",
+          "Minh is going to visit her.",
+          "She has a new job."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"My parents are going to come to my flat in Hanoi.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan is going to travel to the countryside for Tet.",
+        "promptVi": "Lan sẽ về quê ăn Tết.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"No, I'm not going to go anywhere this year.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"village\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "They live in a small village in Nam Dinh.\"",
+        "options": [
+          "thành phố",
+          "ngôi làng",
+          "căn hộ",
+          "cửa hàng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Village là làng, nơi ở nhỏ ở vùng quê: a small village in Nam Dinh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Be going to (dự định và dự đoán có căn cứ)",
+      "bodyVi": "Nói việc đã định làm: am / is / are + going to + động từ nguyên mẫu (I'm going to visit, My brother is going to drive). Phủ định thêm not: I'm not going to go anywhere. Câu hỏi đảo am / is / are lên trước: Are you going to travel? How are you going to get there? Cũng dùng để đoán khi có căn cứ: Your parents are going to be very happy.",
+      "examples": [
+        "Minh says, \"I'm going to visit my grandparents in the countryside.",
+        "Lan says, \"No, I'm not going to go anywhere this year.",
+        "How are you going to get there?\""
+      ]
+    },
+    "writingPrompt": "Write about your plans for the next Tet holiday: where are you going to go and what are you going to do?",
+    "sentenceTranslations": [
+      "Còn hai tuần nữa là đến Tết.",
+      "Minh và Lan là bạn cùng công ty, và họ ăn trưa cùng nhau ở một quán cà phê nhỏ gần văn phòng.",
+      "Lan hỏi: \"Tết này cậu định làm gì, Minh?\"",
+      "Minh nói: \"Mình sẽ về quê thăm ông bà.",
+      "Ông bà sống ở một ngôi làng nhỏ ở Nam Định.\"",
+      "\"Nghe hay đấy.",
+      "Cậu định về bằng gì?\"",
+      "\"Anh trai mình sẽ lái xe đưa cả nhà về.",
+      "Bọn mình sẽ đi vào ngày 28.\"",
+      "Rồi Minh hỏi: \"Còn cậu, Lan?",
+      "Cậu có định đi đâu không?\"",
+      "Lan nói: \"Không, năm nay mình không định đi đâu cả.",
+      "Bố mẹ mình sẽ lên căn hộ của mình ở Hà Nội.\"",
+      "Minh cười.",
+      "\"Vậy là cậu sẽ phải dọn cả căn hộ rồi!\"",
+      "\"Ừ, mà mình còn định ra chợ mua ít hoa.",
+      "Mẹ mình thích hoa màu vàng.\"",
+      "\"Cậu có định nấu ăn nữa không?\"",
+      "\"Tất nhiên rồi.",
+      "Mẹ mình sẽ dạy mình nấu một món canh đặc biệt.",
+      "Tết nào mẹ cũng nấu món đó.\"",
+      "Minh mỉm cười.",
+      "\"Bố mẹ cậu chắc sẽ vui lắm.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về kế hoạch đón Tết bằng am / is / are going to.",
+    "examples": [
+      {
+        "lemma": "holiday",
+        "sentence": "We have a long holiday in summer.",
+        "meaningVi": "Chúng tôi có một kỳ nghỉ dài vào mùa hè."
+      },
+      {
+        "lemma": "plan",
+        "sentence": "What is your plan for the weekend?",
+        "meaningVi": "Cuối tuần này bạn có kế hoạch gì?"
+      },
+      {
+        "lemma": "visit",
+        "sentence": "I visit my aunt every Sunday.",
+        "meaningVi": "Chủ nhật nào tôi cũng đến thăm cô."
+      },
+      {
+        "lemma": "countryside",
+        "sentence": "The countryside is very quiet at night.",
+        "meaningVi": "Vùng quê rất yên tĩnh vào ban đêm."
+      },
+      {
+        "lemma": "clean",
+        "sentence": "Please clean your room before dinner.",
+        "meaningVi": "Con dọn phòng trước bữa tối nhé."
+      },
+      {
+        "lemma": "flower",
+        "sentence": "She has a red flower in her hair.",
+        "meaningVi": "Cô ấy cài một bông hoa đỏ trên tóc."
+      },
+      {
+        "lemma": "market",
+        "sentence": "My mother goes to the market every morning.",
+        "meaningVi": "Sáng nào mẹ tôi cũng đi chợ."
+      },
+      {
+        "lemma": "special",
+        "sentence": "Today is a special day for our family.",
+        "meaningVi": "Hôm nay là một ngày đặc biệt của gia đình tôi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Emma"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, what are you going to do for Tet?",
+          "meaningVi": "Lan ơi, Tết này cậu định làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm going to stay in Hanoi with my parents.",
+          "meaningVi": "Mình sẽ ở Hà Nội với bố mẹ."
+        },
+        {
+          "speaker": 1,
+          "text": "Are you going to cook a big dinner?",
+          "meaningVi": "Cậu có định nấu một bữa tối thịnh soạn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, my mother is going to teach me a special soup.",
+          "meaningVi": "Có, mẹ mình sẽ dạy mình nấu một món canh đặc biệt."
+        },
+        {
+          "speaker": 1,
+          "text": "That sounds great. What else are you going to do?",
+          "meaningVi": "Nghe hay quá. Cậu còn định làm gì nữa?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm going to buy yellow flowers at the market.",
+          "meaningVi": "Mình sẽ ra chợ mua hoa vàng."
+        },
+        {
+          "speaker": 1,
+          "text": "I'm not going to go home this year. My flight is too expensive.",
+          "meaningVi": "Năm nay mình không về nhà. Vé máy bay đắt quá."
+        },
+        {
+          "speaker": 0,
+          "text": "Oh no! Then come to my flat on the first day.",
+          "meaningVi": "Ôi! Vậy mùng một cậu đến nhà mình nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Thank you, Lan!",
+          "meaningVi": "Thật à? Cảm ơn cậu, Lan!"
+        },
+        {
+          "speaker": 0,
+          "text": "My parents are going to love you.",
+          "meaningVi": "Bố mẹ mình chắc chắn sẽ quý cậu lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi kế hoạch: What are you going to do? Phủ định: I'm not going to go home. Đoán có căn cứ: My parents are going to love you.",
+    "translations": [
+      {
+        "vi": "Tôi sẽ về quê thăm ông bà.",
+        "en": "I'm going to visit my grandparents.",
+        "distractors": [
+          "will",
+          "visiting",
+          "go"
+        ]
+      },
+      {
+        "vi": "Lan sẽ dọn dẹp căn hộ.",
+        "en": "Lan is going to clean her flat.",
+        "distractors": [
+          "are",
+          "cleans",
+          "will"
+        ]
+      },
+      {
+        "vi": "Kỳ nghỉ này chúng tôi không định đi du lịch.",
+        "en": "We are not going to travel this holiday.",
+        "distractors": [
+          "is",
+          "don't",
+          "travels"
+        ]
+      },
+      {
+        "vi": "Bạn có định ra chợ không?",
+        "en": "Are you going to go to the market?",
+        "distractors": [
+          "Do",
+          "will",
+          "goes"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Emma nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kế hoạch đón Tết",
+          "Một chuyến bay",
+          "Món ăn ở nhà hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Emma hỏi \"what are you going to do for Tet?\" và hai người kể kế hoạch của mình.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan sẽ mua gì ở chợ?",
+        "promptVi": "",
+        "options": [
+          "Hoa đỏ",
+          "Hoa vàng",
+          "Rau"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"I'm going to buy yellow flowers at the market.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Emma không về nhà?",
+        "promptVi": "",
+        "options": [
+          "Vé máy bay đắt quá",
+          "Cô ấy phải làm việc",
+          "Cô ấy bị ốm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Emma nói \"My flight is too expensive.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Emma is going to visit Lan's flat on the first day of Tet.",
+        "promptVi": "Emma sẽ đến nhà Lan vào mùng một Tết.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Lan mời \"come to my flat on the first day\" và Emma cảm ơn.",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Minh và Lan mỗi người định làm gì vào dịp Tết?",
+    "grammarStep": {
+      "titleVi": "Be going to (dự định và dự đoán có căn cứ)",
+      "noticing": [
+        {
+          "sentence": "Minh says, \"I'm going to visit my grandparents in the countryside.",
+          "highlights": [
+            "I'm going to visit"
+          ]
+        },
+        {
+          "sentence": "\"My brother is going to drive us.",
+          "highlights": [
+            "is going to drive"
+          ]
+        },
+        {
+          "sentence": "Lan says, \"No, I'm not going to go anywhere this year.",
+          "highlights": [
+            "I'm not going to go"
+          ]
+        },
+        {
+          "sentence": "\"Are you going to cook too?\"",
+          "highlights": [
+            "Are you going to cook"
+          ]
+        }
+      ],
+      "questionVi": "Sau \"going to\" là dạng nào của động từ?",
+      "options": [
+        "Động từ thêm -ing (going to visiting)",
+        "Động từ nguyên mẫu (going to visit)",
+        "Động từ thêm -s (going to visits)"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Sau going to luôn là động từ nguyên mẫu: going to visit, going to drive, going to cook.",
+      "whenVi": "Dùng be going to cho việc đã quyết định, đã lên kế hoạch từ trước, hoặc để đoán điều sắp xảy ra khi có căn cứ.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I'm going to visit my grandparents.",
+          "negative": "I'm not going to travel."
+        },
+        {
+          "subject": "He / She / It",
+          "form": "My brother is going to drive us.",
+          "negative": "She isn't going to cook."
+        },
+        {
+          "subject": "We / You / They",
+          "form": "We are going to leave on the 28th.",
+          "negative": "They aren't going to come."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Are you going to travel?",
+          "negative": "Yes, I am. / No, I'm not."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I going to visit my grandparents.",
+          "right": "I'm going to visit my grandparents."
+        },
+        {
+          "wrong": "She is going to cleans the flat.",
+          "right": "She is going to clean the flat."
+        }
+      ],
+      "noteVi": "Đừng quên am / is / are trước going to. Khi nói nhanh, người bản xứ hay đọc going to thành \"gonna\", nhưng khi viết hãy viết đủ going to.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền am, is hoặc are.",
+          "text": "My parents ___ going to come to Hanoi.",
+          "answers": [
+            "are"
+          ],
+          "explanationVi": "My parents là số nhiều: are going to."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Minh ___ his grandparents for Tet.",
+          "options": [
+            "is going visit",
+            "is going to visit",
+            "going to visit",
+            "is going to visits"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "He/She + is going to + động từ nguyên mẫu: is going to visit."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Are you going to buying flowers?",
+          "sentence": "Are you going to buy flowers?",
+          "explanationVi": "Sau going to là động từ nguyên mẫu: buy, không phải buying."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi sẽ không đi đâu cả.",
+          "sentence": "I'm not going to go anywhere.",
+          "words": [
+            "going",
+            "I'm",
+            "anywhere",
+            "not",
+            "to",
+            "go",
+            "don't"
+          ],
+          "explanationVi": "Phủ định: I'm not going to + động từ; từ \"don't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Are you going to cook too?\"",
+        "tipVi": "Going to đọc liền /ˈɡəʊɪŋ tə/, to đọc nhẹ /tə/; câu hỏi Yes/No lên giọng ở cuối."
+      },
+      {
+        "text": "\"Your parents are going to be very happy.\"",
+        "tipVi": "Nhấn vào very happy; parents /ˈpeərənts/ đọc rõ /ts/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you going to do for the next Tet holiday?",
+        "questionVi": "Dịp Tết tới bạn định làm gì?",
+        "frame": "I'm going to ___."
+      },
+      {
+        "question": "Are you going to visit your grandparents?",
+        "questionVi": "Bạn có định đi thăm ông bà không?",
+        "frame": "Yes, I'm going to visit ___. / No, I'm not going to ___."
+      },
+      {
+        "question": "What is your mother or father going to do for Tet?",
+        "questionVi": "Bố hoặc mẹ bạn định làm gì vào dịp Tết?",
+        "frame": "He / She is going to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng be going to",
+      "anyOf": [
+        "going to"
+      ],
+      "outlineVi": [
+        "Tết tới bạn ở đâu, với ai.",
+        "Kể 2–3 việc bạn định làm (I'm going to …).",
+        "Một việc bạn không định làm (I'm not going to …)."
+      ],
+      "modelAnswer": "This Tet, I'm going to go back to my hometown in Thanh Hoa. My sister and I are going to take the bus on the 27th. First, we are going to clean our parents' house. Then my mother is going to cook a lot of special food. On the first day, I'm going to visit my grandparents. I'm not going to work at all. It's going to be a great holiday!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "café",
+      "lemma": "café",
+      "meaningVi": "quán cà phê",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "in a small café near their office",
+      "phraseVi": "ở một quán cà phê nhỏ gần văn phòng"
+    },
+    {
+      "text": "village",
+      "lemma": "village",
+      "meaningVi": "làng",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "a small village in Nam Dinh",
+      "phraseVi": "một ngôi làng nhỏ ở Nam Định"
+    },
+    {
+      "text": "sounds nice",
+      "lemma": "sound",
+      "meaningVi": "nghe có vẻ hay",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "That sounds nice.",
+      "phraseVi": "Nghe hay đấy."
+    },
+    {
+      "text": "get there",
+      "lemma": "get there",
+      "meaningVi": "đến được đó",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "How are you going to get there?",
+      "phraseVi": "Cậu định về bằng gì?"
+    },
+    {
+      "text": "drive",
+      "lemma": "drive",
+      "meaningVi": "lái xe chở",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "is going to drive us",
+      "phraseVi": "sẽ lái xe đưa cả nhà về"
+    },
+    {
+      "text": "anywhere",
+      "lemma": "anywhere",
+      "meaningVi": "bất cứ đâu",
+      "sentenceIndex": 11,
+      "pos": "adverb",
+      "phrase": "not going to go anywhere",
+      "phraseVi": "không định đi đâu cả"
+    },
+    {
+      "text": "whole",
+      "lemma": "whole",
+      "meaningVi": "toàn bộ, cả",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "clean the whole flat",
+      "phraseVi": "dọn cả căn hộ"
+    },
+    {
+      "text": "teach",
+      "lemma": "teach",
+      "meaningVi": "dạy",
+      "sentenceIndex": 19,
+      "pos": "verb",
+      "phrase": "teach me a special soup",
+      "phraseVi": "dạy mình nấu một món canh đặc biệt"
+    }
+  ]
+}

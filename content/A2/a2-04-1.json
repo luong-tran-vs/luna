@@ -1,0 +1,601 @@
+{
+  "content": "Minh works in an office in Hanoi. He usually starts work at nine o'clock and finishes at five. Then he goes home and has dinner with his wife Lan and their son Tuan.\n\nBut today is different. It is seven o'clock in the evening, and Minh is still sitting at his desk. He is writing a big report about the company's money. His boss needs it tomorrow morning, so Minh is staying late.\n\nMinh calls his wife and says, \"Hi Lan, I'm sorry, but I'm still at the office.\"\nLan asks, \"Why are you still there?\" \"You usually come home at six.\"\n\"I'm finishing a report, and it's very important,\" Minh answers.\n\"OK, Tuan and I are eating dinner now,\" Lan says. \"Do you want some soup later?\"\n\"Yes, please, because I'm very hungry,\" Minh says.\n\nMinh doesn't usually work late, and he doesn't like it. He wants to see his son before bed. At nine o'clock, Minh is finally sending the report to his boss. He is tired, but he is happy. Now he is driving home through the quiet streets.",
+  "targetWords": [
+    "office",
+    "finish",
+    "desk",
+    "report",
+    "boss",
+    "stay late",
+    "important",
+    "tired"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "office",
+        "lemma": "office",
+        "meaningVi": "văn phòng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "finishes",
+        "lemma": "finish",
+        "meaningVi": "kết thúc, tan (làm)",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "desk",
+        "lemma": "desk",
+        "meaningVi": "bàn làm việc",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "report",
+        "lemma": "report",
+        "meaningVi": "bản báo cáo",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "boss",
+        "lemma": "boss",
+        "meaningVi": "sếp",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "staying late",
+        "lemma": "stay late",
+        "meaningVi": "ở lại muộn",
+        "pos": "phrase",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "important",
+        "lemma": "important",
+        "meaningVi": "quan trọng",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "tired",
+        "lemma": "tired",
+        "meaningVi": "mệt",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Minh's new job at a bank",
+          "Minh stays late at the office to finish a report.",
+          "A family dinner at a restaurant",
+          "Lan's busy day at work"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bình thường Minh làm từ chín đến năm giờ, nhưng hôm nay anh ở lại văn phòng muộn để làm xong bản báo cáo sếp cần sáng mai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time does Minh usually finish work?",
+        "promptVi": "Minh thường tan làm lúc mấy giờ?",
+        "options": [
+          "At five o'clock",
+          "At six o'clock",
+          "At seven o'clock",
+          "At nine o'clock"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"He usually starts work at nine o'clock and finishes at five\": năm giờ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Minh staying late today?",
+        "promptVi": "Vì sao hôm nay Minh ở lại muộn?",
+        "options": [
+          "He doesn't want to go home.",
+          "His car is broken.",
+          "His boss needs a report tomorrow morning.",
+          "He has a meeting at eight."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"His boss needs it tomorrow morning, so Minh is staying late\": sếp cần bản báo cáo vào sáng mai."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh likes to work late.",
+        "promptVi": "Minh thích làm việc muộn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Minh doesn't usually work late, and he doesn't like it\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"different\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "But today is different.",
+        "options": [
+          "giống mọi ngày",
+          "bận rộn",
+          "vui vẻ",
+          "khác (mọi ngày)"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Different là khác: hôm nay không giống mọi ngày, vì Minh không về nhà lúc năm giờ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "bodyVi": "Hiện tại đơn nói thói quen, việc thường làm: he usually starts work at nine. Hiện tại tiếp diễn nói việc đang diễn ra lúc này hoặc chỉ hôm nay: Minh is staying late, he is sitting at his desk. Một số động từ chỉ trạng thái như need, want, like, know không dùng dạng -ing: his boss needs it.",
+      "examples": [
+        "He usually starts work at nine o'clock and finishes at five.",
+        "It is seven o'clock in the evening, and Minh is still sitting at his desk.",
+        "His boss needs it tomorrow morning, so Minh is staying late."
+      ]
+    },
+    "writingPrompt": "Write about a normal day for you or someone in your family, and what is different today.",
+    "sentenceTranslations": [
+      "Minh làm việc ở một văn phòng ở Hà Nội.",
+      "Anh thường bắt đầu làm lúc chín giờ và tan làm lúc năm giờ.",
+      "Sau đó anh về nhà ăn tối với vợ là Lan và con trai là Tuấn.",
+      "Nhưng hôm nay thì khác.",
+      "Đã bảy giờ tối, mà Minh vẫn đang ngồi ở bàn làm việc.",
+      "Anh đang soạn một bản báo cáo lớn về tình hình tiền bạc của công ty.",
+      "Sếp cần bản báo cáo vào sáng mai, nên Minh ở lại muộn.",
+      "Minh gọi điện cho vợ và nói: \"Em à, anh xin lỗi, anh vẫn đang ở văn phòng.\"",
+      "Lan hỏi: \"Sao anh vẫn còn ở đó?\"",
+      "\"Anh thường về nhà lúc sáu giờ mà.\"",
+      "\"Anh đang làm cho xong bản báo cáo, việc này quan trọng lắm,\" Minh đáp.",
+      "\"Vâng, Tuấn với em đang ăn tối,\" Lan nói.",
+      "\"Lát nữa anh có muốn ăn chút súp không?\"",
+      "\"Có chứ, vì anh đói lắm rồi,\" Minh nói.",
+      "Minh không hay làm muộn, và anh cũng không thích thế.",
+      "Anh muốn gặp con trai trước giờ đi ngủ.",
+      "Đến chín giờ, cuối cùng Minh cũng đang gửi bản báo cáo cho sếp.",
+      "Anh mệt, nhưng anh vui.",
+      "Giờ anh đang lái xe về nhà qua những con phố yên tĩnh."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể phân biệt việc thường làm (hiện tại đơn) với việc đang làm hôm nay, lúc này (hiện tại tiếp diễn) khi nói về công việc.",
+    "examples": [
+      {
+        "lemma": "office",
+        "sentence": "My office is on the second floor.",
+        "meaningVi": "Văn phòng của mình ở tầng hai."
+      },
+      {
+        "lemma": "finish",
+        "sentence": "What time do you finish work?",
+        "meaningVi": "Bạn tan làm lúc mấy giờ?"
+      },
+      {
+        "lemma": "desk",
+        "sentence": "There is a computer on my desk.",
+        "meaningVi": "Trên bàn làm việc của mình có một cái máy tính."
+      },
+      {
+        "lemma": "report",
+        "sentence": "I'm writing a report for my boss.",
+        "meaningVi": "Mình đang viết một bản báo cáo cho sếp."
+      },
+      {
+        "lemma": "boss",
+        "sentence": "My boss is very kind.",
+        "meaningVi": "Sếp của mình rất tốt bụng."
+      },
+      {
+        "lemma": "stay late",
+        "sentence": "I don't like to stay late at work.",
+        "meaningVi": "Mình không thích ở lại chỗ làm muộn."
+      },
+      {
+        "lemma": "important",
+        "sentence": "This meeting is very important.",
+        "meaningVi": "Cuộc họp này rất quan trọng."
+      },
+      {
+        "lemma": "tired",
+        "sentence": "I'm very tired today.",
+        "meaningVi": "Hôm nay mình mệt lắm."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "George"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, are you still here? It's eight o'clock!",
+          "meaningVi": "Minh, cậu vẫn còn ở đây à? Tám giờ rồi đấy!"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I'm finishing a report for the boss.",
+          "meaningVi": "Ừ, mình đang làm cho xong bản báo cáo cho sếp."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you often work late?",
+          "meaningVi": "Cậu có hay làm muộn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I don't. I usually go home at five.",
+          "meaningVi": "Không. Mình thường về nhà lúc năm giờ."
+        },
+        {
+          "speaker": 1,
+          "text": "What's the report about?",
+          "meaningVi": "Bản báo cáo về chuyện gì thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's about the company's money this year. The boss needs it tomorrow.",
+          "meaningVi": "Về tiền bạc của công ty năm nay. Sếp cần nó vào ngày mai."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I help you?",
+          "meaningVi": "Mình giúp cậu được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks, but I'm checking the last page now.",
+          "meaningVi": "Cảm ơn, nhưng mình đang kiểm tra trang cuối rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. I'm going home now. Don't work too late!",
+          "meaningVi": "Được rồi. Giờ mình về đây. Đừng làm muộn quá nhé!"
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks, George. See you tomorrow.",
+          "meaningVi": "Cảm ơn George. Mai gặp nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi thói quen: Do you often work late? – No, I usually go home at five. Nói việc đang làm: I'm checking the last page now.",
+    "translations": [
+      {
+        "vi": "Anh ấy thường tan làm lúc năm giờ.",
+        "en": "He usually finishes at five.",
+        "distractors": [
+          "finishing",
+          "is",
+          "finish"
+        ]
+      },
+      {
+        "vi": "Hôm nay anh ấy ở lại muộn.",
+        "en": "Today he is staying late.",
+        "distractors": [
+          "stays",
+          "early",
+          "was"
+        ]
+      },
+      {
+        "vi": "Anh ấy đang ngồi ở bàn làm việc.",
+        "en": "He is sitting at his desk.",
+        "distractors": [
+          "sits",
+          "table",
+          "on"
+        ]
+      },
+      {
+        "vi": "Sếp cần bản báo cáo vào sáng mai.",
+        "en": "The boss needs the report tomorrow morning.",
+        "distractors": [
+          "needing",
+          "need",
+          "yesterday"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "George và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một cuộc họp ngày mai",
+          "Bữa tối ở nhà hàng",
+          "Minh đang ở lại làm báo cáo"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "George hỏi \"are you still here?\", Minh nói \"I'm finishing a report for the boss.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Minh thường về nhà lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm giờ",
+          "Sáu giờ",
+          "Tám giờ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"I usually go home at five.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lúc George hỏi có cần giúp không, Minh đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Gọi điện cho vợ",
+          "Kiểm tra trang cuối",
+          "Uống cà phê"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"I'm checking the last page now.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh often works late.",
+        "promptVi": "Minh hay làm muộn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"No, I don't. I usually go home at five.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Mọi ngày Minh làm việc thế nào, và hôm nay có gì khác?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "noticing": [
+        {
+          "sentence": "He usually starts work at nine o'clock and finishes at five.",
+          "highlights": [
+            "usually starts",
+            "finishes"
+          ]
+        },
+        {
+          "sentence": "It is seven o'clock in the evening, and Minh is still sitting at his desk.",
+          "highlights": [
+            "is still sitting"
+          ]
+        },
+        {
+          "sentence": "His boss needs it tomorrow morning, so Minh is staying late.",
+          "highlights": [
+            "needs",
+            "is staying"
+          ]
+        },
+        {
+          "sentence": "Minh doesn't usually work late, and he doesn't like it.",
+          "highlights": [
+            "doesn't usually work",
+            "doesn't like"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"His boss needs it\" mà không viết \"His boss is needing it\"?",
+      "options": [
+        "Vì need là động từ chỉ trạng thái, không dùng dạng -ing",
+        "Vì sếp không có ở văn phòng",
+        "Vì đây là chuyện hôm qua"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Need, want, like, know nói về trạng thái chứ không phải hành động, nên dùng hiện tại đơn kể cả khi nói về lúc này: his boss needs it, he wants to see his son. Hành động đang diễn ra thì dùng -ing: is staying, is sitting.",
+      "whenVi": "Dùng hiện tại đơn cho thói quen hằng ngày, hiện tại tiếp diễn cho việc đang làm lúc này hoặc chỉ hôm nay, và hiện tại đơn cho need, want, like, know.",
+      "table": [
+        {
+          "subject": "Thói quen",
+          "form": "He usually starts work at nine.",
+          "negative": "He doesn't usually work late."
+        },
+        {
+          "subject": "Lúc này, hôm nay",
+          "form": "Today he is staying late. He is sitting at his desk.",
+          "negative": "He isn't driving home yet."
+        },
+        {
+          "subject": "Động từ chỉ trạng thái",
+          "form": "His boss needs it. He wants to see his son.",
+          "negative": "He doesn't like it."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Look, Minh sits at his desk now.",
+          "right": "Look, Minh is sitting at his desk now."
+        },
+        {
+          "wrong": "His boss is needing the report.",
+          "right": "His boss needs the report."
+        }
+      ],
+      "noteVi": "Tiếng Việt dùng cùng một dạng động từ cho thói quen và việc đang làm, chỉ thêm \"đang\" khi cần, nên người Việt hay nhầm hai thì này, và hay thêm -ing cả vào need, want.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại đơn của động từ trong ngoặc.",
+          "text": "Minh usually ___ (finish) work at five.",
+          "answers": [
+            "finishes"
+          ],
+          "explanationVi": "Usually là thói quen, Minh là he: finishes."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Look! Minh ___ at his desk now.",
+          "options": [
+            "sits",
+            "is sitting",
+            "sit",
+            "sitting"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Look! và now cho thấy việc đang diễn ra: is sitting."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He is wanting to see his son before bed.",
+          "sentence": "He wants to see his son before bed.",
+          "explanationVi": "Want là động từ chỉ trạng thái, không dùng -ing: he wants."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Minh đang ở lại muộn.",
+          "sentence": "Minh is staying late.",
+          "words": [
+            "staying",
+            "Minh",
+            "late",
+            "is",
+            "stays"
+          ],
+          "explanationVi": "Việc chỉ diễn ra hôm nay: is staying; từ \"stays\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He usually starts work at nine o'clock and finishes at five.",
+        "tipVi": "Starts /stɑrts/ có cụm /st/ ở đầu và /ts/ ở cuối; finishes /ˈfɪnɪʃɪz/ có ba âm tiết."
+      },
+      {
+        "text": "He is tired, but he is happy.",
+        "tipVi": "Tired /ˈtaɪərd/ kết thúc bằng /d/; happy /ˈhæpi/ có âm /h/ bật hơi ở đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time do you usually start school or work?",
+        "questionVi": "Bạn thường bắt đầu đi học hoặc đi làm lúc mấy giờ?",
+        "frame": "I usually start at ___ and finish at ___."
+      },
+      {
+        "question": "What are you doing right now?",
+        "questionVi": "Bây giờ bạn đang làm gì?",
+        "frame": "Right now, I'm ___."
+      },
+      {
+        "question": "What does your mum or dad do, and what is he or she doing now?",
+        "questionVi": "Bố hoặc mẹ bạn làm nghề gì, và bây giờ đang làm gì?",
+        "frame": "He / She is a ___. Now he / she is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có 1 câu hiện tại đơn (thói quen) và 1 câu hiện tại tiếp diễn (hôm nay, lúc này)",
+      "anyOf": [
+        "usually",
+        "every",
+        "today",
+        "right now",
+        "at the moment",
+        "now"
+      ],
+      "outlineVi": [
+        "Nói người đó làm nghề gì và mọi ngày thường làm gì (He usually …).",
+        "Nói hôm nay có gì khác (But today …).",
+        "Kể người đó và những người khác đang làm gì lúc này (He is …, we are …)."
+      ],
+      "modelAnswer": "My dad is a doctor. He usually works in a big hospital from eight to four, and he comes home for dinner. But today is different. He is still at the hospital, because there are a lot of sick people. Now my mum and I are eating dinner without him. We are waiting for him."
+    }
+  },
+  "glosses": [
+    {
+      "text": "still",
+      "lemma": "still",
+      "meaningVi": "vẫn",
+      "sentenceIndex": 4,
+      "pos": "adverb",
+      "phrase": "Minh is still sitting at his desk",
+      "phraseVi": "Minh vẫn đang ngồi ở bàn làm việc"
+    },
+    {
+      "text": "writing",
+      "lemma": "write",
+      "meaningVi": "viết, soạn",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "He is writing a big report",
+      "phraseVi": "Anh đang soạn một bản báo cáo lớn"
+    },
+    {
+      "text": "company's",
+      "lemma": "company",
+      "meaningVi": "của công ty",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "the company's money",
+      "phraseVi": "tiền bạc của công ty"
+    },
+    {
+      "text": "sorry",
+      "lemma": "sorry",
+      "meaningVi": "xin lỗi",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "I'm sorry",
+      "phraseVi": "Anh xin lỗi"
+    },
+    {
+      "text": "later",
+      "lemma": "later",
+      "meaningVi": "lát nữa, sau đó",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "some soup later",
+      "phraseVi": "lát nữa ăn chút súp"
+    },
+    {
+      "text": "hungry",
+      "lemma": "hungry",
+      "meaningVi": "đói",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "I'm very hungry",
+      "phraseVi": "anh đói lắm rồi"
+    },
+    {
+      "text": "before bed",
+      "lemma": "before bed",
+      "meaningVi": "trước giờ đi ngủ",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "see his son before bed",
+      "phraseVi": "gặp con trai trước giờ đi ngủ"
+    },
+    {
+      "text": "finally",
+      "lemma": "finally",
+      "meaningVi": "cuối cùng",
+      "sentenceIndex": 16,
+      "pos": "adverb",
+      "phrase": "Minh is finally sending the report",
+      "phraseVi": "cuối cùng Minh cũng đang gửi bản báo cáo"
+    },
+    {
+      "text": "through",
+      "lemma": "through",
+      "meaningVi": "qua, xuyên qua",
+      "sentenceIndex": 18,
+      "pos": "preposition",
+      "phrase": "driving home through the quiet streets",
+      "phraseVi": "lái xe về nhà qua những con phố yên tĩnh"
+    }
+  ]
+}

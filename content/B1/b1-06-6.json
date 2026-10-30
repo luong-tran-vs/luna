@@ -1,0 +1,609 @@
+{
+  "content": "During a coffee break, Tu and Lien are talking about stories from their childhood.\n\nLien says, \"My son only wants fairy tales with princesses. Do you know any Vietnamese stories with more action?\"\nTu says, \"My grandmother told me one about a clever farmer and a giant. It's a traditional story from her village.\"\n\"A giant? Tell me.\"\n\"Long ago, a giant came to the village every autumn. He took all the rice, and the people were always hungry in winter.\"\n\"That's terrible.\"\n\"One year, a young farmer, Nhan, decided to stop him. Before the giant arrived, Nhan had prepared everything. He had dug a deep hole on the road to the village, and he had covered it with leaves. He had also asked everyone to hide in the hills.\"\n\"So the village was empty?\"\n\"Not completely. Nhan had stayed in the middle of a rice field, alone. When the giant came, Nhan shouted at him and laughed.\"\n\"He was very brave. What happened next?\"\n\"The giant was angry and ran towards him. But he hadn't seen the hole, so he fell into it. He couldn't climb out.\"\nLien laughs. \"Did they kill him?\"\n\"No. Nhan made him promise to leave the village forever. The giant never came back, and the people had enough rice all winter.\"\n\"I love it. My son will love it too.\"\n\"I'll lend you my grandmother's old storybook. It has lovely pictures.\"",
+  "targetWords": [
+    "fairy tale",
+    "clever",
+    "farmer",
+    "giant",
+    "traditional",
+    "village",
+    "prepare",
+    "hole",
+    "hide",
+    "brave"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "fairy tales",
+        "lemma": "fairy tale",
+        "meaningVi": "truyện cổ tích",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "clever",
+        "lemma": "clever",
+        "meaningVi": "thông minh, khôn khéo",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "farmer",
+        "lemma": "farmer",
+        "meaningVi": "người nông dân",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "giant",
+        "lemma": "giant",
+        "meaningVi": "người khổng lồ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "traditional",
+        "lemma": "traditional",
+        "meaningVi": "truyền thống",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "village",
+        "lemma": "village",
+        "meaningVi": "ngôi làng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "prepared",
+        "lemma": "prepare",
+        "meaningVi": "chuẩn bị",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "hole",
+        "lemma": "hole",
+        "meaningVi": "cái hố",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "hide",
+        "lemma": "hide",
+        "meaningVi": "trốn, ẩn nấp",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "brave",
+        "lemma": "brave",
+        "meaningVi": "dũng cảm",
+        "pos": "adjective",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Tu doing?",
+        "promptVi": "Tú đang làm gì?",
+        "options": [
+          "Telling Lien a traditional story about a farmer and a giant",
+          "Reading a fairy tale to his son",
+          "Talking about his job on a farm",
+          "Writing a story for children"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tú kể cho Liên câu chuyện truyền thống về anh nông dân thông minh và người khổng lồ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What had Nhan done on the road to the village?",
+        "promptVi": "Nhân đã làm gì trên đường vào làng?",
+        "options": [
+          "He had built a wall.",
+          "He had dug a deep hole and covered it with leaves.",
+          "He had put some rice there.",
+          "He had planted trees."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tú nói \"He had dug a deep hole on the road to the village, and he had covered it with leaves.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where had the people of the village gone?",
+        "promptVi": "Dân làng đã đi đâu?",
+        "options": [
+          "To the city",
+          "To the rice field",
+          "To the hills",
+          "To the river"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tú nói \"He had also asked everyone to hide in the hills.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The people killed the giant.",
+        "promptVi": "Dân làng đã giết người khổng lồ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tú nói \"No. Nhan made him promise to leave the village forever.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"prepared\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Before the giant arrived, Nhan had prepared everything.",
+        "options": [
+          "đã chuẩn bị",
+          "đã quên",
+          "đã phá hỏng",
+          "đã bán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Prepare = chuẩn bị; had prepared everything = đã chuẩn bị xong mọi thứ từ trước."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ hoàn thành",
+      "bodyVi": "Truyện kể thường dùng quá khứ đơn cho các sự việc chính (the giant came, he fell into it). Muốn quay lại kể những gì đã làm TRƯỚC đó, dùng had + V3: Before the giant arrived, Nhan had prepared everything. He had dug a deep hole … Phủ định hadn't + V3 giải thích lý do: he hadn't seen the hole, so he fell into it.",
+      "examples": [
+        "Before the giant arrived, Nhan had prepared everything.",
+        "He had dug a deep hole on the road to the village, and he had covered it with leaves.",
+        "But he hadn't seen the hole, so he fell into it."
+      ]
+    },
+    "writingPrompt": "Write a short traditional story or fairy tale that you know: what had the hero done before the big moment of the story?",
+    "sentenceTranslations": [
+      "Trong giờ nghỉ uống cà phê, Tú và Liên đang nói về những câu chuyện thời thơ ấu.",
+      "Liên nói: \"Con trai chị chỉ thích truyện cổ tích có công chúa.",
+      "Em có biết truyện Việt Nam nào nhiều pha hành động hơn không?\"",
+      "Tú nói: \"Bà em từng kể cho em một chuyện về anh nông dân thông minh và người khổng lồ.",
+      "Đó là một chuyện truyền thống ở làng bà.\"",
+      "\"Người khổng lồ á?",
+      "Kể chị nghe đi.\"",
+      "\"Ngày xưa, mùa thu nào cũng có một người khổng lồ đến làng.",
+      "Hắn lấy hết lúa, và mùa đông nào dân làng cũng đói.\"",
+      "\"Khổ quá.\"",
+      "\"Một năm nọ, một anh nông dân trẻ tên Nhân quyết định ngăn hắn lại.",
+      "Trước khi người khổng lồ đến, Nhân đã chuẩn bị mọi thứ.",
+      "Anh đã đào một cái hố sâu trên đường vào làng, và đã phủ lá lên trên.",
+      "Anh cũng đã bảo mọi người trốn lên đồi.\"",
+      "\"Vậy làng không còn ai à?\"",
+      "\"Không hẳn.",
+      "Nhân đã ở lại một mình giữa cánh đồng lúa.",
+      "Khi người khổng lồ đến, Nhân hét vào mặt hắn và cười.\"",
+      "\"Anh ấy dũng cảm thật.",
+      "Rồi sao nữa?\"",
+      "\"Người khổng lồ tức giận chạy về phía anh.",
+      "Nhưng hắn không nhìn thấy cái hố, nên ngã xuống đó.",
+      "Hắn không trèo lên được.\"",
+      "Liên cười.",
+      "\"Họ có giết hắn không?\"",
+      "\"Không.",
+      "Nhân bắt hắn hứa rời làng mãi mãi.",
+      "Người khổng lồ không bao giờ quay lại, và cả mùa đông dân làng có đủ gạo ăn.\"",
+      "\"Chị thích chuyện này.",
+      "Con chị cũng sẽ thích.\"",
+      "\"Em sẽ cho chị mượn cuốn truyện cũ của bà em.",
+      "Trong đó có nhiều tranh đẹp lắm.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại một truyện cổ tích, dùng quá khứ hoàn thành cho những việc nhân vật đã chuẩn bị trước.",
+    "examples": [
+      {
+        "lemma": "fairy tale",
+        "sentence": "My mother read me a fairy tale every night.",
+        "meaningVi": "Tối nào mẹ cũng đọc cho tôi một truyện cổ tích."
+      },
+      {
+        "lemma": "clever",
+        "sentence": "The little rabbit in the story is very clever.",
+        "meaningVi": "Chú thỏ con trong truyện rất khôn."
+      },
+      {
+        "lemma": "farmer",
+        "sentence": "The farmer grows rice and vegetables.",
+        "meaningVi": "Người nông dân trồng lúa và rau."
+      },
+      {
+        "lemma": "giant",
+        "sentence": "The giant was taller than the trees.",
+        "meaningVi": "Người khổng lồ cao hơn cả cây cối."
+      },
+      {
+        "lemma": "traditional",
+        "sentence": "Ao dai is a traditional dress in Vietnam.",
+        "meaningVi": "Áo dài là trang phục truyền thống của Việt Nam."
+      },
+      {
+        "lemma": "village",
+        "sentence": "My grandparents live in a small village.",
+        "meaningVi": "Ông bà tôi sống ở một ngôi làng nhỏ."
+      },
+      {
+        "lemma": "prepare",
+        "sentence": "I need to prepare for the meeting.",
+        "meaningVi": "Tôi cần chuẩn bị cho cuộc họp."
+      },
+      {
+        "lemma": "hole",
+        "sentence": "There is a hole in my shoe.",
+        "meaningVi": "Giày của tôi bị thủng một lỗ."
+      },
+      {
+        "lemma": "hide",
+        "sentence": "The children like to hide behind the door.",
+        "meaningVi": "Bọn trẻ thích trốn sau cánh cửa."
+      },
+      {
+        "lemma": "brave",
+        "sentence": "The brave girl saved her little brother.",
+        "meaningVi": "Cô bé dũng cảm đã cứu em trai."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lien",
+        "Tu"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tu, thanks for the storybook. My son loved it.",
+          "meaningVi": "Tú ơi, cảm ơn em vì cuốn truyện. Con chị thích lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Which story did he like best?",
+          "meaningVi": "Tuyệt! Bé thích chuyện nào nhất?"
+        },
+        {
+          "speaker": 0,
+          "text": "The giant story, of course. But he asked me a question.",
+          "meaningVi": "Tất nhiên là chuyện người khổng lồ. Nhưng bé hỏi chị một câu."
+        },
+        {
+          "speaker": 1,
+          "text": "What did he ask?",
+          "meaningVi": "Bé hỏi gì ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "He asked, \"Why was Nhan so clever?\" I didn't know the answer.",
+          "meaningVi": "Bé hỏi: \"Sao anh Nhân khôn thế?\" Chị không biết trả lời."
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! In the book, his father had taught him how to catch wild animals.",
+          "meaningVi": "Ha! Trong sách, bố Nhân đã dạy anh cách bắt thú rừng."
+        },
+        {
+          "speaker": 0,
+          "text": "So he had used a hole like that before?",
+          "meaningVi": "Vậy là trước đó anh ấy đã từng dùng cái hố như vậy à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, often. But never for a giant!",
+          "meaningVi": "Vâng, nhiều lần rồi. Nhưng chưa bao giờ dùng cho người khổng lồ!"
+        },
+        {
+          "speaker": 0,
+          "text": "Can you tell me another story next week?",
+          "meaningVi": "Tuần sau em kể chị nghe chuyện khác nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. I know one about a brave girl and a tiger.",
+          "meaningVi": "Được ạ. Em biết một chuyện về cô bé dũng cảm và con hổ."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về việc trước đó: So he had used a hole like that before? Kể lại nguyên nhân: his father had taught him how to catch wild animals.",
+    "translations": [
+      {
+        "vi": "Nhân đã chuẩn bị mọi thứ trước khi người khổng lồ đến.",
+        "en": "Nhan had prepared everything before the giant arrived.",
+        "distractors": [
+          "has",
+          "after",
+          "prepares"
+        ]
+      },
+      {
+        "vi": "Anh ấy đã đào một cái hố sâu.",
+        "en": "He had dug a deep hole.",
+        "distractors": [
+          "has",
+          "digs",
+          "tall"
+        ]
+      },
+      {
+        "vi": "Người khổng lồ đã không nhìn thấy cái hố.",
+        "en": "The giant hadn't seen the hole.",
+        "distractors": [
+          "didn't",
+          "saw",
+          "has"
+        ]
+      },
+      {
+        "vi": "Mọi người đã lên đồi để trốn.",
+        "en": "Everyone had gone to hide in the hills.",
+        "distractors": [
+          "has",
+          "went",
+          "river"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lien và Tu nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuốn truyện Tu cho Lien mượn",
+          "Một chuyến đi lên đồi",
+          "Con hổ trong sở thú"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lien nói \"thanks for the storybook. My son loved it.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con trai Lien thích chuyện nào nhất?",
+        "promptVi": "",
+        "options": [
+          "Chuyện công chúa",
+          "Chuyện người khổng lồ",
+          "Chuyện con hổ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lien nói \"The giant story, of course.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đã dạy Nhân bắt thú rừng?",
+        "promptVi": "",
+        "options": [
+          "Bố của Nhân",
+          "Bà của Tu",
+          "Người khổng lồ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tu nói \"his father had taught him how to catch wild animals.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nhan had never used a hole like that before.",
+        "promptVi": "Trước đó Nhân chưa bao giờ dùng cái hố như vậy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tu nói \"Yes, many times.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Nhân đã chuẩn bị những gì trước khi người khổng lồ đến? Vì sao người khổng lồ bị ngã?",
+    "grammarStep": {
+      "titleVi": "Quá khứ hoàn thành",
+      "noticing": [
+        {
+          "sentence": "Before the giant arrived, Nhan had prepared everything.",
+          "highlights": [
+            "arrived",
+            "had prepared"
+          ]
+        },
+        {
+          "sentence": "He had dug a deep hole on the road to the village, and he had covered it with leaves.",
+          "highlights": [
+            "had dug",
+            "had covered"
+          ]
+        },
+        {
+          "sentence": "He had also asked everyone to hide in the hills.\"",
+          "highlights": [
+            "had also asked"
+          ]
+        },
+        {
+          "sentence": "But he hadn't seen the hole, so he fell into it.",
+          "highlights": [
+            "hadn't seen",
+            "fell"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao câu \"he hadn't seen the hole, so he fell into it\" dùng hadn't seen?",
+      "options": [
+        "Vì việc không nhìn thấy cái hố xảy ra trước, rồi mới ngã.",
+        "Vì người khổng lồ đang ngã.",
+        "Vì đó là việc ở hiện tại."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Hadn't seen là nguyên nhân có trước; fell (quá khứ đơn) là kết quả xảy ra sau.",
+      "whenVi": "Khi kể chuyện, dùng quá khứ hoàn thành để quay lại những việc nhân vật đã làm trước sự việc chính.",
+      "table": [
+        {
+          "subject": "Đã chuẩn bị",
+          "form": "had prepared, had dug, had covered",
+          "negative": "hadn't prepared"
+        },
+        {
+          "subject": "Trạng từ",
+          "form": "had also asked, had already left",
+          "negative": "had never seen"
+        },
+        {
+          "subject": "V3 bất quy tắc",
+          "form": "dig → dug, see → seen, hide → hidden",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Before the giant arrived, Nhan has prepared everything.",
+          "right": "Before the giant arrived, Nhan had prepared everything."
+        },
+        {
+          "wrong": "He had dig a deep hole.",
+          "right": "He had dug a deep hole."
+        }
+      ],
+      "noteVi": "Also, already, never đứng giữa had và V3: He had also asked …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (cover).",
+          "text": "He ___ the hole with leaves before the giant came.",
+          "answers": [
+            "had covered"
+          ],
+          "explanationVi": "Phủ lá trước khi người khổng lồ đến: had covered."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The giant fell into the hole because he ___ it.",
+          "options": [
+            "hadn't seen",
+            "hasn't seen",
+            "doesn't see",
+            "isn't seeing"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Không nhìn thấy trước khi ngã: hadn't seen."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He had dig a deep hole on the road.",
+          "sentence": "He had dug a deep hole on the road.",
+          "explanationVi": "V3 của dig là dug."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nhân đã chuẩn bị mọi thứ.",
+          "sentence": "Nhan had prepared everything.",
+          "words": [
+            "everything.",
+            "Nhan",
+            "had",
+            "prepared",
+            "prepares"
+          ],
+          "explanationVi": "Had + V3: had prepared; từ \"prepares\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Before the giant arrived, Nhan had prepared everything.",
+        "tipVi": "Giant /ˈdʒaɪənt/; prepared /prɪˈpeəd/ nhấn âm thứ hai."
+      },
+      {
+        "text": "But he hadn't seen the hole, so he fell into it.",
+        "tipVi": "Nối \"fell into it\" thành /felˈɪntʊ ɪt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What fairy tale did you love when you were a child?",
+        "questionVi": "Hồi nhỏ bạn thích truyện cổ tích nào?",
+        "frame": "When I was a child, I loved ___."
+      },
+      {
+        "question": "Who told you that story?",
+        "questionVi": "Ai đã kể cho bạn câu chuyện đó?",
+        "frame": "My ___ told me that story."
+      },
+      {
+        "question": "What had the hero done before the big moment of the story?",
+        "questionVi": "Nhân vật chính đã làm gì trước khoảnh khắc quan trọng của câu chuyện?",
+        "frame": "Before ___, the hero had ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (had + V3)",
+      "anyOf": [
+        " had ",
+        "'d "
+      ],
+      "outlineVi": [
+        "Tên câu chuyện và nhân vật chính.",
+        "Nhân vật đã chuẩn bị hoặc đã làm gì trước sự việc chính (Before …, … had …).",
+        "Chuyện gì xảy ra cuối cùng."
+      ],
+      "modelAnswer": "My favourite story is about a poor boy, Thanh, and a big snake. Every year, the snake came out of the mountain and took a young person from the village. One year, Thanh decided to fight it. Before he went to the mountain, he had made a strong bow, and he had practised every day for a month. When the snake came, Thanh was ready. He won, and everyone in the village was safe."
+    }
+  },
+  "glosses": [
+    {
+      "text": "childhood",
+      "lemma": "childhood",
+      "meaningVi": "thời thơ ấu",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "stories from their childhood",
+      "phraseVi": "những câu chuyện thời thơ ấu"
+    },
+    {
+      "text": "princesses",
+      "lemma": "princess",
+      "meaningVi": "công chúa",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "fairy tales with princesses",
+      "phraseVi": "truyện cổ tích có công chúa"
+    },
+    {
+      "text": "dug",
+      "lemma": "dig",
+      "meaningVi": "đào",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "He had dug a deep hole",
+      "phraseVi": "Anh đã đào một cái hố sâu"
+    },
+    {
+      "text": "covered",
+      "lemma": "cover",
+      "meaningVi": "phủ lên, che",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "he had covered it with leaves",
+      "phraseVi": "đã phủ lá lên trên"
+    },
+    {
+      "text": "climb out",
+      "lemma": "climb out",
+      "meaningVi": "trèo ra, trèo lên",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "He couldn't climb out.",
+      "phraseVi": "Hắn không trèo lên được."
+    },
+    {
+      "text": "storybook",
+      "lemma": "storybook",
+      "meaningVi": "cuốn truyện (thiếu nhi)",
+      "sentenceIndex": 30,
+      "pos": "noun",
+      "phrase": "my grandmother's old storybook",
+      "phraseVi": "cuốn truyện cũ của bà em"
+    }
+  ]
+}

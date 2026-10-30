@@ -1,0 +1,603 @@
+{
+  "content": "Lan is waiting at the side of a busy road in the Old Quarter. Hundreds of bikes and cars go past her.\n\nA young man with a big bag stands next to her. He looks worried.\nHe says, \"Excuse me. How do I get across this road? There are so many bikes!\"\nLan smiles. \"Don't worry. I'll help you. Where are you going?\"\n\"To the lake. I'm Jake, from Canada.\"\n\"OK, Jake. Hold my arm and walk with me. Walk slowly, and don't stop in the middle.\"\n\"Don't stop? But the bikes are coming!\"\n\"Yes, but the drivers can see us. They will go around us. Never run across the road.\"\n\nThey walk into the road together. Bikes go past in front of them and behind them, but nobody hits them. A minute later, they are on the other side.\nJake says, \"Wow! Thank you. I was so afraid.\"\n\"You're welcome. Now go along this street and turn right. The lake is at the end.\"\n\"Thanks! I think I can do it alone next time.\"",
+  "targetWords": [
+    "worried",
+    "hold",
+    "arm",
+    "middle",
+    "driver",
+    "afraid",
+    "welcome",
+    "alone"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "worried",
+        "lemma": "worried",
+        "meaningVi": "lo lắng",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "Hold",
+        "lemma": "hold",
+        "meaningVi": "nắm, giữ",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "arm",
+        "lemma": "arm",
+        "meaningVi": "cánh tay",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "middle",
+        "lemma": "middle",
+        "meaningVi": "giữa",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "drivers",
+        "lemma": "driver",
+        "meaningVi": "người lái xe",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "afraid",
+        "lemma": "afraid",
+        "meaningVi": "sợ",
+        "pos": "adjective",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "welcome",
+        "lemma": "welcome",
+        "meaningVi": "không có gì (đáp lời cảm ơn)",
+        "pos": "adjective",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "alone",
+        "lemma": "alone",
+        "meaningVi": "một mình",
+        "pos": "adverb",
+        "sentenceIndex": 31
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan helps a tourist walk across a busy road.",
+          "Jake sells bikes in the Old Quarter.",
+          "Lan loses her way to the lake.",
+          "Jake teaches Lan to ride a bike."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan giúp Jake, một chàng trai Canada, đi bộ qua con đường đông xe ở phố cổ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Jake going?",
+        "promptVi": "Jake định đi đâu?",
+        "options": [
+          "To the market",
+          "To the lake",
+          "To his hotel",
+          "To Canada"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Jake nói \"To the lake.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why don't the bikes hit them?",
+        "promptVi": "Vì sao xe không đâm vào họ?",
+        "options": [
+          "The bikes stop for them.",
+          "There is a traffic light.",
+          "The drivers can see them and go around them.",
+          "They run very fast."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"the drivers can see us. They will go around us.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan tells Jake to run across the road.",
+        "promptVi": "Lan bảo Jake chạy qua đường.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"Never run across the road.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"hits\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Bikes go past in front of them and behind them, but nobody hits them.",
+        "options": [
+          "đâm vào, va vào",
+          "giúp đỡ",
+          "chờ",
+          "nhìn thấy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hit = đâm vào, va vào: không ai đâm vào họ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "bodyVi": "Đi từ bên này sang bên kia đường dùng across: get across this road, run across the road. Go past = đi ngang qua (bikes go past her). Go around = vòng quanh, đi vòng tránh (they will go around us). Walk into the road = bước xuống lòng đường. Go along this street = đi dọc con phố này.",
+      "examples": [
+        "How do I get across this road?",
+        "They will go around us.",
+        "Now go along this street and turn right."
+      ]
+    },
+    "writingPrompt": "Write some advice for a tourist: how do you walk across a busy road in your city?",
+    "sentenceTranslations": [
+      "Lan đang đứng chờ bên một con đường đông xe ở phố cổ.",
+      "Hàng trăm xe đạp, xe máy và ô tô đi ngang qua cô.",
+      "Một chàng trai mang chiếc túi to đứng cạnh cô.",
+      "Trông anh có vẻ lo lắng.",
+      "Anh nói: \"Xin lỗi.",
+      "Làm sao để qua được con đường này?",
+      "Nhiều xe quá!\"",
+      "Lan mỉm cười.",
+      "\"Đừng lo.",
+      "Tôi sẽ giúp anh.",
+      "Anh định đi đâu?\"",
+      "\"Ra hồ.",
+      "Tôi là Jake, đến từ Canada.\"",
+      "\"Được rồi, Jake.",
+      "Nắm tay tôi và đi cùng tôi.",
+      "Đi chậm thôi, và đừng dừng lại giữa đường.\"",
+      "\"Không dừng lại?",
+      "Nhưng xe đang đến kìa!\"",
+      "\"Đúng, nhưng người lái xe nhìn thấy mình.",
+      "Họ sẽ đi vòng tránh mình.",
+      "Đừng bao giờ chạy qua đường.\"",
+      "Họ cùng nhau bước xuống lòng đường.",
+      "Xe đi qua phía trước và phía sau họ, nhưng không ai đâm vào họ.",
+      "Một phút sau, họ đã ở bên kia đường.",
+      "Jake nói: \"Chà!",
+      "Cảm ơn chị.",
+      "Tôi sợ quá.\"",
+      "\"Không có gì.",
+      "Giờ anh đi dọc phố này rồi rẽ phải.",
+      "Hồ ở cuối đường.\"",
+      "\"Cảm ơn!",
+      "Tôi nghĩ lần sau tôi tự đi một mình được.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hướng dẫn người khác qua đường và chỉ đường bằng across, past, around, along.",
+    "examples": [
+      {
+        "lemma": "worried",
+        "sentence": "My mother is worried about me.",
+        "meaningVi": "Mẹ tôi lo cho tôi."
+      },
+      {
+        "lemma": "hold",
+        "sentence": "Can you hold my bag, please?",
+        "meaningVi": "Bạn cầm giúp tôi cái túi nhé?"
+      },
+      {
+        "lemma": "arm",
+        "sentence": "She has a bag on her arm.",
+        "meaningVi": "Cô ấy khoác một chiếc túi trên tay."
+      },
+      {
+        "lemma": "middle",
+        "sentence": "The table is in the middle of the room.",
+        "meaningVi": "Cái bàn ở giữa phòng."
+      },
+      {
+        "lemma": "driver",
+        "sentence": "The bus driver is very kind.",
+        "meaningVi": "Bác tài xe buýt rất tốt bụng."
+      },
+      {
+        "lemma": "afraid",
+        "sentence": "I am afraid of dogs.",
+        "meaningVi": "Tôi sợ chó."
+      },
+      {
+        "lemma": "welcome",
+        "sentence": "You're welcome!",
+        "meaningVi": "Không có gì!"
+      },
+      {
+        "lemma": "alone",
+        "sentence": "She lives alone.",
+        "meaningVi": "Bà ấy sống một mình."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Jake"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Excuse me, can you help me? I want to go across the road.",
+          "meaningVi": "Xin lỗi, chị giúp tôi được không? Tôi muốn qua đường."
+        },
+        {
+          "speaker": 0,
+          "text": "Sure. Walk with me, and walk slowly.",
+          "meaningVi": "Được thôi. Đi cùng tôi, và đi chậm thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "Shall I wait for the bikes to stop?",
+          "meaningVi": "Tôi có nên chờ xe dừng lại không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, they won't stop. They will go around you.",
+          "meaningVi": "Không, họ không dừng đâu. Họ sẽ đi vòng tránh anh."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Should I run?",
+          "meaningVi": "Được. Tôi có nên chạy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No! Never run across the road.",
+          "meaningVi": "Không! Đừng bao giờ chạy qua đường."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow, we are on the other side. Thank you!",
+          "meaningVi": "Chà, mình sang bên kia rồi. Cảm ơn chị!"
+        },
+        {
+          "speaker": 0,
+          "text": "You're welcome. Where are you going now?",
+          "meaningVi": "Không có gì. Giờ anh đi đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "To the lake. Is it far?",
+          "meaningVi": "Ra hồ. Có xa không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No. Go along this street and turn right.",
+          "meaningVi": "Không. Đi dọc phố này rồi rẽ phải."
+        }
+      ]
+    },
+    "grammarTipVi": "Go across the road: qua đường. Go around you: đi vòng tránh anh. Go along this street: đi dọc phố này.",
+    "translations": [
+      {
+        "vi": "Làm sao để qua con đường này? Tôi lo quá.",
+        "en": "How do I walk across this road? I am worried.",
+        "distractors": [
+          "along",
+          "into",
+          "over"
+        ]
+      },
+      {
+        "vi": "Đừng dừng lại giữa đường.",
+        "en": "Don't stop in the middle of the road.",
+        "distractors": [
+          "across",
+          "stops",
+          "at"
+        ]
+      },
+      {
+        "vi": "Người lái xe sẽ đi vòng tránh chúng ta.",
+        "en": "The drivers will go around us.",
+        "distractors": [
+          "across",
+          "into",
+          "goes"
+        ]
+      },
+      {
+        "vi": "Đi dọc phố này. Tôi không sợ.",
+        "en": "Go along this street. I am not afraid.",
+        "distractors": [
+          "across",
+          "through",
+          "over"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Jake nhờ Lan giúp gì?",
+        "promptVi": "",
+        "options": [
+          "Qua đường",
+          "Tìm khách sạn",
+          "Mua vé"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Jake nói \"I want to go across the road.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Lan, xe sẽ làm gì?",
+        "promptVi": "",
+        "options": [
+          "Dừng lại",
+          "Đi vòng tránh Jake",
+          "Bấm còi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"they won't stop. They will go around you.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đi ra hồ thế nào?",
+        "promptVi": "",
+        "options": [
+          "Đi thẳng rồi rẽ trái",
+          "Qua cầu",
+          "Đi dọc phố này rồi rẽ phải"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"Go along this street and turn right.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan tells Jake to run.",
+        "promptVi": "Lan bảo Jake chạy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"No! Never run across the road.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Lan hướng dẫn Jake qua đường thế nào? Sau đó Jake đi đường nào ra hồ?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "noticing": [
+        {
+          "sentence": "Hundreds of bikes and cars go past her.",
+          "highlights": [
+            "past"
+          ]
+        },
+        {
+          "sentence": "How do I get across this road?",
+          "highlights": [
+            "across"
+          ]
+        },
+        {
+          "sentence": "They will go around us.",
+          "highlights": [
+            "around"
+          ]
+        },
+        {
+          "sentence": "Now go along this street and turn right.",
+          "highlights": [
+            "along"
+          ]
+        }
+      ],
+      "questionVi": "Jake muốn sang bên kia đường. Giới từ nào đúng?",
+      "options": [
+        "along the road",
+        "across the road",
+        "past the road"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Across = từ bên này sang bên kia. Along = dọc theo chiều dài con đường.",
+      "whenVi": "Across khi đi ngang qua bề rộng (đường, sông, cầu); along khi đi theo chiều dài; around khi đi vòng.",
+      "table": [
+        {
+          "subject": "across",
+          "form": "walk across the road",
+          "negative": "Never run across the road."
+        },
+        {
+          "subject": "along",
+          "form": "go along this street",
+          "negative": "—"
+        },
+        {
+          "subject": "around",
+          "form": "go around us",
+          "negative": "—"
+        },
+        {
+          "subject": "past",
+          "form": "bikes go past her",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I want to walk along the road to the other side.",
+          "right": "I want to walk across the road to the other side."
+        },
+        {
+          "wrong": "The bikes go around of us.",
+          "right": "The bikes go around us."
+        }
+      ],
+      "noteVi": "Cross cũng là động từ \"băng qua\": cross the road = walk across the road (không cần across sau cross).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền across, along hoặc around.",
+          "text": "Go ___ this street and turn right.",
+          "answers": [
+            "along"
+          ],
+          "explanationVi": "Đi dọc con phố: along."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Don't worry. The drivers will go ___ you.",
+          "options": [
+            "into",
+            "around",
+            "across",
+            "up"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Đi vòng tránh: go around."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Never run along the road to the other side.",
+          "sentence": "Never run across the road to the other side.",
+          "explanationVi": "Sang bên kia đường: across."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ đi bộ qua đường cùng nhau.",
+          "sentence": "They walk across the road together.",
+          "words": [
+            "across",
+            "They",
+            "road",
+            "walk",
+            "the",
+            "together",
+            "along"
+          ],
+          "explanationVi": "Qua đường: across; từ \"along\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "How do I get across this road?",
+        "tipVi": "Get across nối liền /ɡetəˈkrɒs/; câu hỏi Wh- xuống giọng."
+      },
+      {
+        "text": "Never run across the road.\"",
+        "tipVi": "Never /ˈnevə/ nhấn âm đầu; đọc mạnh như lời khuyên."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is it easy to walk across the road in your city?",
+        "questionVi": "Ở thành phố bạn đi bộ qua đường có dễ không?",
+        "frame": "Yes, it is. / No, it isn't because ___."
+      },
+      {
+        "question": "What do you tell a tourist about walking across the road?",
+        "questionVi": "Bạn sẽ dặn khách du lịch gì khi qua đường?",
+        "frame": "Walk slowly and don't ___."
+      },
+      {
+        "question": "Who helps you when you are worried?",
+        "questionVi": "Khi bạn lo lắng, ai giúp bạn?",
+        "frame": "My ___ helps me. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 giới từ chỉ chuyển động (across, along, around, past…)",
+      "anyOf": [
+        "across",
+        "along",
+        "around",
+        "past",
+        "through",
+        "into",
+        "over",
+        "up",
+        "down"
+      ],
+      "outlineVi": [
+        "Đường phố ở chỗ bạn đông xe thế nào.",
+        "Cách đi qua đường (walk across, slowly, don't stop…).",
+        "Chỉ đường đến một nơi gần đó (go along, turn left / right)."
+      ],
+      "modelAnswer": "The streets in my city are very busy. When you walk across the road, walk slowly and don't run. Look at the drivers, and they will go around you. Don't stop in the middle of the road. After that, go along the street and turn left. The big market is at the end of the street."
+    }
+  },
+  "glosses": [
+    {
+      "text": "side",
+      "lemma": "side",
+      "meaningVi": "bên, lề",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "at the side of a busy road",
+      "phraseVi": "bên một con đường đông xe"
+    },
+    {
+      "text": "go past",
+      "lemma": "go past",
+      "meaningVi": "đi ngang qua",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "cars go past her",
+      "phraseVi": "xe đi ngang qua cô"
+    },
+    {
+      "text": "get across",
+      "lemma": "get across",
+      "meaningVi": "đi qua được",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "How do I get across this road?",
+      "phraseVi": "Làm sao để qua được con đường này?"
+    },
+    {
+      "text": "go around",
+      "lemma": "go around",
+      "meaningVi": "đi vòng tránh",
+      "sentenceIndex": 19,
+      "pos": "verb",
+      "phrase": "They will go around us.",
+      "phraseVi": "Họ sẽ đi vòng tránh mình."
+    },
+    {
+      "text": "behind",
+      "lemma": "behind",
+      "meaningVi": "phía sau",
+      "sentenceIndex": 22,
+      "pos": "preposition",
+      "phrase": "in front of them and behind them",
+      "phraseVi": "phía trước và phía sau họ"
+    },
+    {
+      "text": "hits",
+      "lemma": "hit",
+      "meaningVi": "đâm vào",
+      "sentenceIndex": 22,
+      "pos": "verb",
+      "phrase": "nobody hits them",
+      "phraseVi": "không ai đâm vào họ"
+    },
+    {
+      "text": "the other side",
+      "lemma": "side",
+      "meaningVi": "bên kia",
+      "sentenceIndex": 23,
+      "pos": "phrase",
+      "phrase": "they are on the other side",
+      "phraseVi": "họ đã ở bên kia đường"
+    }
+  ]
+}

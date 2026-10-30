@@ -1,0 +1,610 @@
+{
+  "content": "Dat owns a small phone shop in Da Nang. On a quiet afternoon, his young assistant, Vy, asks him how he learned to run a business.\n\nDat says, \"From my parents. They had a small shop in our home town in Quang Ngai. They sold rice, eggs, sugar, fish sauce and soap.\"\n\"Did they make you work there?\"\n\"Every summer holiday. My mother asked me to open the shop at six in the morning. My father made me count all the eggs before I could go and play.\"\nVy laughs. \"That doesn't sound easy.\"\n\"At first, I hated it. But my father let me keep a little of the money. I wanted to buy a bicycle, so I worked very hard.\"\n\"Did your parents let you serve customers?\"\n\"When I was twelve, yes. My mother told me to smile and to talk politely to everyone. She also taught me to remember the customers' names.\"\n\"Did you make any mistakes?\"\n\"Lots! Once I gave a woman too much change. My father made me walk to her house and say sorry. I was so embarrassed!\"\n\"Do you use those lessons now?\"\n\"Every day. My parents helped me understand that customers are the most important part of a business.\"\nVy smiles. \"Then I want to learn from you. Will you let me help with the shop's money?\"\n\"Of course. But first, let me show you how to count it.\"",
+  "targetWords": [
+    "own",
+    "assistant",
+    "business",
+    "egg",
+    "sugar",
+    "soap",
+    "count",
+    "bicycle",
+    "serve",
+    "change"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "owns",
+        "lemma": "own",
+        "meaningVi": "sở hữu, làm chủ",
+        "pos": "verb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "assistant",
+        "lemma": "assistant",
+        "meaningVi": "trợ lý, người phụ việc",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "business",
+        "lemma": "business",
+        "meaningVi": "việc kinh doanh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "eggs",
+        "lemma": "egg",
+        "meaningVi": "quả trứng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "sugar",
+        "lemma": "sugar",
+        "meaningVi": "đường",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "soap",
+        "lemma": "soap",
+        "meaningVi": "xà phòng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "count",
+        "lemma": "count",
+        "meaningVi": "đếm",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "bicycle",
+        "lemma": "bicycle",
+        "meaningVi": "xe đạp",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "serve",
+        "lemma": "serve",
+        "meaningVi": "phục vụ, bán hàng cho",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "change",
+        "lemma": "change",
+        "meaningVi": "tiền thừa, tiền trả lại",
+        "pos": "noun",
+        "sentenceIndex": 20
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "How Dat learned about business in his parents' shop",
+          "Vy's first job in a phone shop",
+          "A new shop in Quang Ngai",
+          "How to buy a bicycle"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đạt kể với Vy hồi nhỏ bố mẹ bắt anh phụ bán hàng ở quê, và anh học được cách kinh doanh từ đó."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Dat's father make him do before he could play?",
+        "promptVi": "Bố bắt Đạt làm gì trước khi được đi chơi?",
+        "options": [
+          "Open the shop",
+          "Count all the eggs",
+          "Serve the customers",
+          "Clean the shop"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đạt nói \"My father made me count all the eggs before I could go and play.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did Dat work very hard?",
+        "promptVi": "Vì sao Đạt làm việc rất chăm?",
+        "options": [
+          "His mother was ill.",
+          "He wanted to open his own shop.",
+          "He wanted to buy a bicycle.",
+          "He liked counting money."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Đạt nói \"my father let me keep a little of the money. I wanted to buy a bicycle, so I worked very hard.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dat never made mistakes in his parents' shop.",
+        "promptVi": "Đạt chưa bao giờ mắc lỗi ở cửa hàng của bố mẹ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đạt nói \"Lots! Once I gave a woman too much change.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"run a business\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "On a quiet afternoon, his young assistant, Vy, asks him how he learned to run a business.",
+        "options": [
+          "điều hành việc kinh doanh",
+          "chạy đi làm",
+          "đóng cửa hàng",
+          "mua một công ty"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Run a business = điều hành, quản lý việc kinh doanh (không phải \"chạy\")."
+      }
+    ],
+    "grammarNote": {
+      "title": "Make / let / help + tân ngữ + động từ",
+      "bodyVi": "Make + người + động từ (bắt làm): My father made me count all the eggs, he made me walk to her house. Let + người + động từ (cho phép): my father let me keep a little of the money. Ask / tell + người + to + động từ (nhờ / bảo): My mother asked me to open the shop, she told me to smile. Help + người + động từ: My parents helped me understand…",
+      "examples": [
+        "My mother asked me to open the shop at six in the morning.",
+        "My father made me count all the eggs before I could go and play.\"",
+        "But my father let me keep a little of the money."
+      ]
+    },
+    "writingPrompt": "Write about a time you helped your family with work: what did they ask you to do, and what did they let you do?",
+    "sentenceTranslations": [
+      "Đạt làm chủ một cửa hàng điện thoại nhỏ ở Đà Nẵng.",
+      "Một buổi chiều vắng khách, cô trợ lý trẻ là Vy hỏi anh đã học cách kinh doanh thế nào.",
+      "Đạt nói: \"Từ bố mẹ anh.",
+      "Bố mẹ có một cửa hàng nhỏ ở quê anh tại Quảng Ngãi.",
+      "Bố mẹ bán gạo, trứng, đường, nước mắm và xà phòng.\"",
+      "\"Bố mẹ có bắt anh làm ở đó không?\"",
+      "\"Hè nào cũng thế.",
+      "Mẹ nhờ anh mở cửa hàng lúc sáu giờ sáng.",
+      "Bố bắt anh đếm hết số trứng rồi mới được đi chơi.\"",
+      "Vy cười.",
+      "\"Nghe không dễ chút nào nhỉ.\"",
+      "\"Lúc đầu anh ghét lắm.",
+      "Nhưng bố cho anh giữ lại một ít tiền.",
+      "Anh muốn mua xe đạp, nên làm việc rất chăm.\"",
+      "\"Bố mẹ có cho anh bán hàng cho khách không?\"",
+      "\"Năm mười hai tuổi thì có.",
+      "Mẹ bảo anh phải cười và nói chuyện lịch sự với mọi người.",
+      "Mẹ còn dạy anh nhớ tên khách hàng.\"",
+      "\"Anh có mắc lỗi nào không?\"",
+      "\"Nhiều lắm!",
+      "Có lần anh trả thừa tiền cho một bà khách.",
+      "Bố bắt anh đi bộ đến nhà bà ấy để xin lỗi.",
+      "Anh xấu hổ lắm!\"",
+      "\"Giờ anh còn dùng những bài học đó không?\"",
+      "\"Ngày nào cũng dùng.",
+      "Bố mẹ giúp anh hiểu rằng khách hàng là phần quan trọng nhất của việc kinh doanh.\"",
+      "Vy mỉm cười.",
+      "\"Vậy em muốn học hỏi từ anh.",
+      "Anh có cho em phụ quản lý tiền của cửa hàng không?\"",
+      "\"Tất nhiên.",
+      "Nhưng trước tiên, để anh chỉ em cách đếm tiền.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể chuyện phụ giúp việc kinh doanh của gia đình bằng make / let / help + người + động từ và ask / tell + người + to.",
+    "examples": [
+      {
+        "lemma": "own",
+        "sentence": "My uncle owns a small restaurant.",
+        "meaningVi": "Chú tôi làm chủ một nhà hàng nhỏ."
+      },
+      {
+        "lemma": "assistant",
+        "sentence": "Her assistant answers the phone.",
+        "meaningVi": "Trợ lý của cô ấy nghe điện thoại."
+      },
+      {
+        "lemma": "business",
+        "sentence": "They started a business last year.",
+        "meaningVi": "Năm ngoái họ bắt đầu kinh doanh."
+      },
+      {
+        "lemma": "egg",
+        "sentence": "I have an egg for breakfast.",
+        "meaningVi": "Bữa sáng tôi ăn một quả trứng."
+      },
+      {
+        "lemma": "sugar",
+        "sentence": "Do you take sugar in your coffee?",
+        "meaningVi": "Bạn có cho đường vào cà phê không?"
+      },
+      {
+        "lemma": "soap",
+        "sentence": "Wash your hands with soap.",
+        "meaningVi": "Rửa tay bằng xà phòng."
+      },
+      {
+        "lemma": "count",
+        "sentence": "Can you count to one hundred in English?",
+        "meaningVi": "Bạn đếm đến một trăm bằng tiếng Anh được không?"
+      },
+      {
+        "lemma": "bicycle",
+        "sentence": "I go to school by bicycle.",
+        "meaningVi": "Tôi đi học bằng xe đạp."
+      },
+      {
+        "lemma": "serve",
+        "sentence": "The waiter will serve you soon.",
+        "meaningVi": "Người phục vụ sẽ đến phục vụ bạn ngay."
+      },
+      {
+        "lemma": "change",
+        "sentence": "Here is your change.",
+        "meaningVi": "Tiền thừa của bạn đây."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Mark"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Vy, how is your new job?",
+          "meaningVi": "Vy ơi, công việc mới thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Great. My boss, Dat, lets me help with the shop's money.",
+          "meaningVi": "Tuyệt lắm. Sếp mình, anh Đạt, cho mình phụ quản lý tiền của cửa hàng."
+        },
+        {
+          "speaker": 1,
+          "text": "Already? That's nice of him.",
+          "meaningVi": "Sớm thế à? Anh ấy tốt thật."
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. But he makes me count everything twice.",
+          "meaningVi": "Ừ. Nhưng anh ấy bắt mình đếm mọi thứ hai lần."
+        },
+        {
+          "speaker": 1,
+          "text": "Why?",
+          "meaningVi": "Sao thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "His father used to make him do the same thing.",
+          "meaningVi": "Ngày xưa bố anh ấy cũng bắt anh ấy làm như vậy."
+        },
+        {
+          "speaker": 1,
+          "text": "Does he let you serve customers too?",
+          "meaningVi": "Anh ấy có cho cậu bán hàng cho khách không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. He told me to smile and remember their names.",
+          "meaningVi": "Có. Anh ấy bảo mình phải cười và nhớ tên khách."
+        },
+        {
+          "speaker": 1,
+          "text": "He sounds like a good teacher.",
+          "meaningVi": "Nghe có vẻ là một người thầy giỏi."
+        },
+        {
+          "speaker": 0,
+          "text": "He is. He's helping me learn a lot.",
+          "meaningVi": "Đúng vậy. Anh ấy đang giúp mình học được rất nhiều."
+        }
+      ]
+    },
+    "grammarTipVi": "Lets me help, makes me count, let you serve: không có to. Told me to smile: có to. Helping me learn: help + người + động từ.",
+    "translations": [
+      {
+        "vi": "Bố bắt tôi đếm hết số trứng.",
+        "en": "My father made me count all the eggs.",
+        "distractors": [
+          "to",
+          "let",
+          "counting"
+        ]
+      },
+      {
+        "vi": "Mẹ nhờ tôi mở cửa hàng. Đó là một cửa hàng nhỏ.",
+        "en": "My mother asked me to open the shop. It was a small business.",
+        "distractors": [
+          "made",
+          "let",
+          "opening"
+        ]
+      },
+      {
+        "vi": "Bố cho tôi giữ lại một ít tiền thừa.",
+        "en": "My father let me keep a little of the change.",
+        "distractors": [
+          "to",
+          "made",
+          "keeping"
+        ]
+      },
+      {
+        "vi": "Bố mẹ có cho bạn bán hàng cho khách không?",
+        "en": "Did your parents let you serve customers?",
+        "distractors": [
+          "to",
+          "make",
+          "serving"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vy kể với Mark về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc mới và người sếp của Vy",
+          "Bố của Mark",
+          "Một cửa hàng ở Quảng Ngãi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mark hỏi \"how is your new job?\" và Vy kể về anh Đạt.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Anh Đạt bắt Vy làm gì?",
+        "promptVi": "",
+        "options": [
+          "Mở cửa hàng sớm",
+          "Đếm mọi thứ hai lần",
+          "Gọi điện cho khách"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"he makes me count everything twice.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Anh Đạt bảo Vy làm gì với khách hàng?",
+        "promptVi": "",
+        "options": [
+          "Nói nhanh",
+          "Giảm giá",
+          "Cười và nhớ tên khách"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vy nói \"He told me to smile and remember their names.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dat doesn't let Vy serve customers.",
+        "promptVi": "Anh Đạt không cho Vy bán hàng cho khách.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vy trả lời \"Yes.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Bố mẹ Đạt bắt anh làm gì, cho anh làm gì, và anh học được gì?",
+    "grammarStep": {
+      "titleVi": "Make / let / help + tân ngữ + động từ",
+      "noticing": [
+        {
+          "sentence": "My mother asked me to open the shop at six in the morning.",
+          "highlights": [
+            "asked me to open"
+          ]
+        },
+        {
+          "sentence": "My father made me count all the eggs before I could go and play.\"",
+          "highlights": [
+            "made me count"
+          ]
+        },
+        {
+          "sentence": "But my father let me keep a little of the money.",
+          "highlights": [
+            "let me keep"
+          ]
+        },
+        {
+          "sentence": "My mother told me to smile and to talk politely to everyone.",
+          "highlights": [
+            "told me to smile"
+          ]
+        }
+      ],
+      "questionVi": "Câu nào dùng to trước động từ thứ hai?",
+      "options": [
+        "asked me to open, told me to smile",
+        "made me count, let me keep",
+        "Tất cả các câu"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Ask / tell / want + người + to + động từ. Make / let + người + động từ (không có to).",
+      "whenVi": "Make: bắt; let: cho phép; ask: nhờ; tell: bảo; help: giúp.",
+      "table": [
+        {
+          "subject": "make / let + O + V",
+          "form": "He made me count. He let me keep money.",
+          "negative": "They didn't let me play."
+        },
+        {
+          "subject": "ask / tell + O + to V",
+          "form": "She asked me to open the shop.",
+          "negative": "She told me not to shout."
+        },
+        {
+          "subject": "help + O + (to) V",
+          "form": "They helped me understand customers.",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Did they make you work there?",
+          "negative": "Did your parents let you serve customers?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "My mother asked me open the shop.",
+          "right": "My mother asked me to open the shop."
+        },
+        {
+          "wrong": "My father let me to keep the money.",
+          "right": "My father let me keep the money."
+        }
+      ],
+      "noteVi": "Phủ định với tell: tell + người + not to + động từ: She told me not to be late.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ còn thiếu.",
+          "text": "My mother told me ___ smile at every customer.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "Tell + người + to + động từ."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "My father made me ___ to her house and say sorry.",
+          "options": [
+            "to walk",
+            "walk",
+            "walking",
+            "walked"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Make + người + động từ nguyên mẫu: walk."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My mother asked me open the shop at six.",
+          "sentence": "My mother asked me to open the shop at six.",
+          "explanationVi": "Ask + người + to + động từ."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bố cho tôi giữ lại một ít tiền.",
+          "sentence": "My father let me keep some money.",
+          "words": [
+            "let",
+            "My",
+            "father",
+            "me",
+            "keep",
+            "some",
+            "money.",
+            "to"
+          ],
+          "explanationVi": "Let + người + động từ; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "But my father let me keep a little of the money.",
+        "tipVi": "Let me nối /letmi/; a little of /əˈlɪtləv/."
+      },
+      {
+        "text": "I was so embarrassed!\"",
+        "tipVi": "Embarrassed /ɪmˈbærəst/ nhấn âm thứ hai, -ed đọc /t/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Did your parents ask you to help with their work?",
+        "questionVi": "Bố mẹ có nhờ bạn giúp việc của họ không?",
+        "frame": "Yes, they asked me to ___. / No, they didn't."
+      },
+      {
+        "question": "What did your parents let you do with your money?",
+        "questionVi": "Bố mẹ cho bạn làm gì với tiền của mình?",
+        "frame": "They let me ___."
+      },
+      {
+        "question": "What did your first teacher or boss tell you to do?",
+        "questionVi": "Thầy cô đầu tiên hay sếp đầu tiên bảo bạn làm gì?",
+        "frame": "He / She told me to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu make / let / ask / tell + người + (to) + động từ",
+      "anyOf": [
+        "made me",
+        "let me",
+        "asked me to",
+        "told me to",
+        "helped me",
+        "make me",
+        "let us",
+        "made us"
+      ],
+      "outlineVi": [
+        "Gia đình bạn làm nghề gì, bạn giúp khi nào.",
+        "Họ nhờ / bắt bạn làm gì (They asked me to … / made me …).",
+        "Họ cho bạn làm gì, bạn học được gì (They let me … / helped me …)."
+      ],
+      "modelAnswer": "My aunt has a small noodle shop in Hue. Every summer, she asked me to help her. She made me wash the bowls and clean the tables. When I was fourteen, she let me take orders from customers. She told me to write everything down carefully. That summer job helped me become more patient, and I still love her noodles."
+    }
+  },
+  "glosses": [
+    {
+      "text": "run a business",
+      "lemma": "run",
+      "meaningVi": "điều hành việc kinh doanh",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "how he learned to run a business",
+      "phraseVi": "đã học cách kinh doanh thế nào"
+    },
+    {
+      "text": "fish sauce",
+      "lemma": "fish sauce",
+      "meaningVi": "nước mắm",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "sugar, fish sauce and soap",
+      "phraseVi": "đường, nước mắm và xà phòng"
+    },
+    {
+      "text": "hated",
+      "lemma": "hate",
+      "meaningVi": "ghét",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "At first, I hated it.",
+      "phraseVi": "Lúc đầu anh ghét lắm."
+    },
+    {
+      "text": "too much",
+      "lemma": "too much",
+      "meaningVi": "quá nhiều",
+      "sentenceIndex": 20,
+      "pos": "phrase",
+      "phrase": "too much change",
+      "phraseVi": "trả thừa tiền"
+    },
+    {
+      "text": "embarrassed",
+      "lemma": "embarrassed",
+      "meaningVi": "xấu hổ",
+      "sentenceIndex": 22,
+      "pos": "adjective",
+      "phrase": "I was so embarrassed!",
+      "phraseVi": "Anh xấu hổ lắm!"
+    }
+  ]
+}

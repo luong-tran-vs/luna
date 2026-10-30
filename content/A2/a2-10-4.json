@@ -1,0 +1,595 @@
+{
+  "content": "Hoa can't sleep well, so she goes to see Dr Long.\n\nThe doctor asks, \"What's the problem?\"\n\"I go to bed at eleven, but I don't fall asleep until two. Then I wake up at six, and I feel terrible.\"\n\"What time do you have dinner?\"\n\"Late. I work until eight, so I have dinner at nine. I usually eat a big plate of rice and meat.\"\n\"That's the problem. When people eat a heavy meal late at night, they don't sleep well. Your stomach works all night.\"\n\"Oh! I didn't know that.\"\n\"Do you eat snacks in the evening too?\"\n\"Yes, I often eat chocolate in bed.\"\n\"Chocolate has a lot of sugar. If you eat sugar before bed, you stay awake.\"\n\"So what should I do?\"\n\"Eat a small, light dinner before seven, and don't use your phone in bed. When the room is dark and quiet, your body knows it's time to sleep.\"\nHoa smiles. \"Thank you, doctor. I'll try it tonight.\"",
+  "targetWords": [
+    "doctor",
+    "asleep",
+    "wake",
+    "plate",
+    "meal",
+    "stomach",
+    "snack",
+    "sugar"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "doctor",
+        "lemma": "doctor",
+        "meaningVi": "bác sĩ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "asleep",
+        "lemma": "asleep",
+        "meaningVi": "ngủ (fall asleep: ngủ thiếp đi)",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "wake",
+        "lemma": "wake",
+        "meaningVi": "thức dậy (wake up)",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "plate",
+        "lemma": "plate",
+        "meaningVi": "đĩa",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "meal",
+        "lemma": "meal",
+        "meaningVi": "bữa ăn",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "stomach",
+        "lemma": "stomach",
+        "meaningVi": "dạ dày, bụng",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "snacks",
+        "lemma": "snack",
+        "meaningVi": "đồ ăn vặt",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "sugar",
+        "lemma": "sugar",
+        "meaningVi": "đường",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa talks to a doctor about her sleep problem.",
+          "Hoa cooks dinner for Dr Long.",
+          "Dr Long can't sleep.",
+          "Hoa buys a new phone."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa ngủ không ngon nên đi gặp bác sĩ Long, và bác sĩ giải thích nguyên nhân."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time does Hoa have dinner?",
+        "promptVi": "Hoa ăn tối lúc mấy giờ?",
+        "options": [
+          "At seven",
+          "At eight",
+          "At nine",
+          "At eleven"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hoa nói \"I have dinner at nine.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Hoa sleep well?",
+        "promptVi": "Vì sao Hoa ngủ không ngon?",
+        "options": [
+          "Her room is noisy.",
+          "She eats a heavy meal late and chocolate in bed.",
+          "She drinks too much tea.",
+          "She works at night."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bác sĩ nói \"When people eat a heavy meal late at night, they don't sleep well.\" và sô-cô-la có nhiều đường."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa falls asleep at eleven.",
+        "promptVi": "Hoa ngủ thiếp đi lúc mười một giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô lên giường lúc mười một giờ nhưng \"I don't fall asleep until two.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"heavy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "When people eat a heavy meal late at night, they don't sleep well.",
+        "options": [
+          "nặng bụng, nhiều",
+          "nhẹ",
+          "ngọt",
+          "lạnh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "A heavy meal = bữa ăn nhiều, nặng bụng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Bác sĩ dùng câu điều kiện loại 0 để nói sự thật chung về cơ thể: When people eat a heavy meal late at night, they don't sleep well. If you eat sugar before bed, you stay awake. When the room is dark and quiet, your body knows it's time to sleep. Chủ ngữ thường là people, you (mọi người nói chung) hoặc your body.",
+      "examples": [
+        "When people eat a heavy meal late at night, they don't sleep well.",
+        "If you eat sugar before bed, you stay awake.\"",
+        "When the room is dark and quiet, your body knows it's time to sleep.\""
+      ]
+    },
+    "writingPrompt": "Write about your evening: what do you eat and do before bed, and how do you sleep?",
+    "sentenceTranslations": [
+      "Hoa ngủ không ngon, nên cô đi gặp bác sĩ Long.",
+      "Bác sĩ hỏi: \"Chị bị sao?\"",
+      "\"Tôi lên giường lúc mười một giờ, nhưng mãi hai giờ mới ngủ được.",
+      "Rồi sáu giờ tôi đã dậy, và thấy rất mệt.\"",
+      "\"Chị ăn tối lúc mấy giờ?\"",
+      "\"Muộn ạ.",
+      "Tôi làm đến tám giờ, nên chín giờ mới ăn tối.",
+      "Tôi thường ăn một đĩa đầy cơm và thịt.\"",
+      "\"Đấy là lý do.",
+      "Hễ ăn bữa no nặng vào đêm muộn là người ta ngủ không ngon.",
+      "Dạ dày của chị làm việc cả đêm.\"",
+      "\"Ồ!",
+      "Tôi không biết điều đó.\"",
+      "\"Buổi tối chị có ăn vặt không?\"",
+      "\"Có, tôi hay ăn sô-cô-la trên giường.\"",
+      "\"Sô-cô-la có nhiều đường.",
+      "Nếu ăn đồ ngọt trước khi ngủ thì sẽ bị tỉnh.\"",
+      "\"Vậy tôi nên làm gì?\"",
+      "\"Ăn tối nhẹ, ít, trước bảy giờ, và đừng dùng điện thoại trên giường.",
+      "Hễ phòng tối và yên tĩnh là cơ thể biết đã đến giờ ngủ.\"",
+      "Hoa mỉm cười.",
+      "\"Cảm ơn bác sĩ.",
+      "Tối nay tôi sẽ thử.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về thói quen ăn uống, giấc ngủ và giải thích sự thật chung bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "doctor",
+        "sentence": "The doctor is very kind.",
+        "meaningVi": "Bác sĩ rất tốt bụng."
+      },
+      {
+        "lemma": "asleep",
+        "sentence": "The baby is asleep.",
+        "meaningVi": "Em bé đang ngủ."
+      },
+      {
+        "lemma": "wake",
+        "sentence": "I wake up at six every day.",
+        "meaningVi": "Ngày nào tôi cũng dậy lúc sáu giờ."
+      },
+      {
+        "lemma": "plate",
+        "sentence": "Put the cake on a plate.",
+        "meaningVi": "Đặt bánh lên đĩa."
+      },
+      {
+        "lemma": "meal",
+        "sentence": "Breakfast is my favourite meal.",
+        "meaningVi": "Bữa sáng là bữa tôi thích nhất."
+      },
+      {
+        "lemma": "stomach",
+        "sentence": "My stomach is full.",
+        "meaningVi": "Bụng tôi no rồi."
+      },
+      {
+        "lemma": "snack",
+        "sentence": "I have a snack at four o'clock.",
+        "meaningVi": "Bốn giờ tôi ăn nhẹ một chút."
+      },
+      {
+        "lemma": "sugar",
+        "sentence": "I don't put sugar in my coffee.",
+        "meaningVi": "Tôi không cho đường vào cà phê."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Dr Brown"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Good morning, Hoa. Do you sleep well now?",
+          "meaningVi": "Chào Hoa. Giờ chị ngủ ngon chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Much better, doctor. I eat dinner at seven now.",
+          "meaningVi": "Đỡ nhiều rồi bác sĩ. Giờ tôi ăn tối lúc bảy giờ."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. When you eat early, your stomach can sleep too.",
+          "meaningVi": "Tốt. Hễ ăn sớm là dạ dày cũng được nghỉ."
+        },
+        {
+          "speaker": 0,
+          "text": "And I don't eat chocolate in bed.",
+          "meaningVi": "Và tôi không ăn sô-cô-la trên giường nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! What do you do before bed?",
+          "meaningVi": "Tuyệt! Trước khi ngủ chị làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I read a book. When I read, I feel sleepy.",
+          "meaningVi": "Tôi đọc sách. Hễ đọc là tôi buồn ngủ."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you use your phone in bed?",
+          "meaningVi": "Chị có dùng điện thoại trên giường không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No. If I look at my phone, I can't sleep.",
+          "meaningVi": "Không. Hễ nhìn điện thoại là tôi không ngủ được."
+        },
+        {
+          "speaker": 1,
+          "text": "Very good. What time do you wake up?",
+          "meaningVi": "Rất tốt. Chị dậy lúc mấy giờ?"
+        },
+        {
+          "speaker": 0,
+          "text": "At six, and I feel fresh now!",
+          "meaningVi": "Sáu giờ, và giờ tôi thấy tươi tỉnh lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Thói quen và kết quả: When I read, I feel sleepy. If I look at my phone, I can't sleep. When you eat early, your stomach can sleep too.",
+    "translations": [
+      {
+        "vi": "Hễ ăn bữa no vào đêm muộn là tôi ngủ không ngon.",
+        "en": "When I eat a big meal late, I don't sleep well.",
+        "distractors": [
+          "won't",
+          "ate",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Nếu ăn đường trước khi ngủ, bạn sẽ tỉnh.",
+        "en": "If you eat sugar before bed, you stay awake.",
+        "distractors": [
+          "will",
+          "ate",
+          "stays"
+        ]
+      },
+      {
+        "vi": "Hễ ăn vặt buổi tối là bụng tôi khó chịu.",
+        "en": "When I eat snacks at night, my stomach feels bad.",
+        "distractors": [
+          "will",
+          "ate",
+          "felt"
+        ]
+      },
+      {
+        "vi": "Hễ đọc sách là tôi ngủ thiếp đi.",
+        "en": "When I read, I fall asleep.",
+        "distractors": [
+          "will",
+          "fell",
+          "falls"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bác sĩ Brown hỏi Hoa về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Giấc ngủ của Hoa bây giờ",
+          "Công việc của Hoa",
+          "Một món ăn mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bác sĩ hỏi \"Do you sleep well now?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bây giờ Hoa ăn tối lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Bảy giờ",
+          "Chín giờ",
+          "Sáu giờ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"I eat dinner at seven now.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trước khi ngủ Hoa làm gì?",
+        "promptVi": "",
+        "options": [
+          "Xem điện thoại",
+          "Đọc sách",
+          "Ăn sô-cô-la"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"I read a book. When I read, I feel sleepy.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa still uses her phone in bed.",
+        "promptVi": "Hoa vẫn dùng điện thoại trên giường.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"No. If I look at my phone, I can't sleep.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Vì sao Hoa ngủ không ngon? Bác sĩ khuyên những gì?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "When people eat a heavy meal late at night, they don't sleep well.",
+          "highlights": [
+            "When",
+            "eat",
+            "don't sleep"
+          ]
+        },
+        {
+          "sentence": "If you eat sugar before bed, you stay awake.\"",
+          "highlights": [
+            "If",
+            "eat",
+            "stay"
+          ]
+        },
+        {
+          "sentence": "When the room is dark and quiet, your body knows it's time to sleep.\"",
+          "highlights": [
+            "When",
+            "is",
+            "knows"
+          ]
+        },
+        {
+          "sentence": "Your stomach works all night.\"",
+          "highlights": [
+            "works"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bác sĩ nói \"your body knows\" mà không nói \"your body know\"?",
+      "options": [
+        "Vì your body là số ít nên động từ thêm -s.",
+        "Vì câu ở thì quá khứ.",
+        "Vì có từ when."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Chủ ngữ số ít (your body, the room, your stomach) đi với động từ thêm -s ở hiện tại đơn: knows, is, works.",
+      "whenVi": "Dùng câu điều kiện loại 0 để nói sự thật chung về cơ thể, sức khoẻ: điều luôn xảy ra với mọi người.",
+      "table": [
+        {
+          "subject": "people / they",
+          "form": "When people eat late, they don't sleep well.",
+          "negative": "—"
+        },
+        {
+          "subject": "you (mọi người)",
+          "form": "If you eat sugar, you stay awake.",
+          "negative": "If you eat early, you don't feel heavy."
+        },
+        {
+          "subject": "your body / the room",
+          "form": "When the room is dark, your body knows.",
+          "negative": "—"
+        },
+        {
+          "subject": "Đảo vế",
+          "form": "You stay awake if you eat sugar before bed.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "When people eat late, they will not sleep well. (sự thật chung)",
+          "right": "When people eat late, they don't sleep well."
+        },
+        {
+          "wrong": "When the room is dark, your body know it's time to sleep.",
+          "right": "When the room is dark, your body knows it's time to sleep."
+        }
+      ],
+      "noteVi": "Câu điều kiện loại 0 rất hay gặp trong lời khuyên của bác sĩ, sách khoa học, và hướng dẫn sức khoẻ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "When the room is dark, your body ___ it's time to sleep. (know)",
+          "answers": [
+            "knows"
+          ],
+          "explanationVi": "Your body là số ít: knows."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If you eat sugar before bed, you ___ awake.",
+          "options": [
+            "stays",
+            "stay",
+            "stayed",
+            "will stays"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "You + stay (hiện tại đơn)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "When people eats late, they don't sleep well.",
+          "sentence": "When people eat late, they don't sleep well.",
+          "explanationVi": "People là số nhiều: eat."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu ăn đồ ngọt trước khi ngủ, bạn sẽ bị tỉnh.",
+          "sentence": "If you eat sugar before bed, you stay awake.",
+          "words": [
+            "sugar",
+            "If",
+            "you",
+            "eat",
+            "before",
+            "bed,",
+            "you",
+            "stay",
+            "awake.",
+            "stays"
+          ],
+          "explanationVi": "You + stay; từ \"stays\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The doctor asks, \"What's the problem?\"",
+        "tipVi": "Problem /ˈprɒbləm/ nhấn âm đầu; câu hỏi Wh- xuống giọng."
+      },
+      {
+        "text": "\"Do you eat snacks in the evening too?\"",
+        "tipVi": "Snacks /snæks/ đọc rõ /ks/; câu hỏi Yes/No lên giọng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time do you have dinner?",
+        "questionVi": "Bạn ăn tối lúc mấy giờ?",
+        "frame": "I have dinner at ___."
+      },
+      {
+        "question": "How do you sleep when you eat late?",
+        "questionVi": "Khi ăn muộn bạn ngủ thế nào?",
+        "frame": "When I eat late, I ___."
+      },
+      {
+        "question": "What does your mother or father do before bed?",
+        "questionVi": "Trước khi ngủ bố hoặc mẹ bạn làm gì?",
+        "frame": "He / She ___ before bed."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, hiện tại đơn)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you",
+        "When people",
+        "If people"
+      ],
+      "outlineVi": [
+        "Bạn ăn tối lúc mấy giờ, ăn gì.",
+        "Bạn làm gì trước khi ngủ.",
+        "Kết quả: bạn ngủ thế nào (When I …, I …)."
+      ],
+      "modelAnswer": "I usually have dinner at seven with my family. After dinner, I do my homework. Before bed, I drink a glass of warm milk. When I drink warm milk, I fall asleep quickly. But if I eat snacks late at night, I don't sleep well. When I sleep for eight hours, I feel fresh in the morning."
+    }
+  },
+  "glosses": [
+    {
+      "text": "fall asleep",
+      "lemma": "fall asleep",
+      "meaningVi": "ngủ thiếp đi",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "I don't fall asleep until two",
+      "phraseVi": "mãi hai giờ mới ngủ được"
+    },
+    {
+      "text": "wake up",
+      "lemma": "wake up",
+      "meaningVi": "thức dậy",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "I wake up at six",
+      "phraseVi": "sáu giờ tôi đã dậy"
+    },
+    {
+      "text": "heavy",
+      "lemma": "heavy",
+      "meaningVi": "nặng bụng",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "a heavy meal",
+      "phraseVi": "bữa no nặng"
+    },
+    {
+      "text": "chocolate",
+      "lemma": "chocolate",
+      "meaningVi": "sô-cô-la",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "I often eat chocolate in bed",
+      "phraseVi": "tôi hay ăn sô-cô-la trên giường"
+    },
+    {
+      "text": "stay awake",
+      "lemma": "stay awake",
+      "meaningVi": "thức, không ngủ được",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "you stay awake",
+      "phraseVi": "thì sẽ bị tỉnh"
+    },
+    {
+      "text": "light",
+      "lemma": "light",
+      "meaningVi": "nhẹ",
+      "sentenceIndex": 18,
+      "pos": "adjective",
+      "phrase": "a small, light dinner",
+      "phraseVi": "bữa tối nhẹ, ít"
+    }
+  ]
+}

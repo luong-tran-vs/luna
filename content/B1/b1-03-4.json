@@ -1,0 +1,620 @@
+{
+  "content": "It's three o'clock on a busy Friday afternoon at a bank in Da Nang. Everybody is trying to finish their work before the weekend.\n\nSuddenly, they hear Tuan's loud voice. \"Good news, everyone! Our team has won the football game!\"\nLinh looks up from her computer, and she says quietly to Phong, \"Tuan is so loud that I can't think.\"\nPhong laughs. \"I know. But he's very funny. I find him amusing.\"\n\"Amusing? I find him annoying. This is the third time today. He sings while he works, and he tells jokes on the phone.\"\n\"He's just full of life.\"\n\"Maybe. But I'm tired, and I have a lot of numbers to check.\"\n\"Why don't you talk to him?\"\n\"I don't want to hurt his feelings. He's such a nice guy that nobody tells him anything.\"\nJust then, Tuan comes to their desks with a box. \"I've brought cakes for everyone!\"\nLinh feels a little embarrassed. \"Thank you, Tuan. That's very kind.\"\n\"Is everything OK, Linh? You look stressed.\"\nLinh takes a deep breath. \"Actually, Tuan, could you speak a little more quietly this afternoon? I have a difficult report to finish.\"\nTuan looks surprised. Then he smiles. \"Of course! I'm sorry. I didn't know I was so loud.\"\n\"Thanks. The cake is delicious, by the way.\"\nFor the rest of the afternoon, the office is quiet. Phong whispers, \"You see? It was so easy!\"",
+  "targetWords": [
+    "loud",
+    "voice",
+    "quietly",
+    "amusing",
+    "annoying",
+    "joke",
+    "feeling",
+    "stressed",
+    "breath",
+    "delicious"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "loud",
+        "lemma": "loud",
+        "meaningVi": "to, ồn",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "voice",
+        "lemma": "voice",
+        "meaningVi": "giọng nói",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "quietly",
+        "lemma": "quietly",
+        "meaningVi": "khẽ, nhỏ nhẹ",
+        "pos": "adverb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "amusing",
+        "lemma": "amusing",
+        "meaningVi": "buồn cười, vui",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "annoying",
+        "lemma": "annoying",
+        "meaningVi": "gây khó chịu",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "jokes",
+        "lemma": "joke",
+        "meaningVi": "chuyện đùa",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "feelings",
+        "lemma": "feeling",
+        "meaningVi": "cảm xúc, tình cảm",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "stressed",
+        "lemma": "stressed",
+        "meaningVi": "căng thẳng",
+        "pos": "adjective",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "breath",
+        "lemma": "breath",
+        "meaningVi": "hơi thở",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "delicious",
+        "lemma": "delicious",
+        "meaningVi": "ngon",
+        "pos": "adjective",
+        "sentenceIndex": 36
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Linh politely asks her loud teammate to be quieter.",
+          "Tuan's team wins a football game.",
+          "Phong and Linh buy cakes for the office.",
+          "A new rule at the bank"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn quá ồn, Linh thấy khó chịu nhưng cuối cùng nhẹ nhàng nhờ anh nói nhỏ hơn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How does Phong feel about Tuan?",
+        "promptVi": "Phong thấy Tuấn thế nào?",
+        "options": [
+          "He finds him annoying.",
+          "He finds him amusing.",
+          "He finds him boring.",
+          "He is afraid of him."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong nói \"I find him amusing.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't anyone tell Tuan that he is loud?",
+        "promptVi": "Vì sao không ai nói với Tuấn là anh ồn?",
+        "options": [
+          "He is the boss.",
+          "Nobody can hear him.",
+          "He's such a nice guy, and nobody wants to hurt his feelings.",
+          "He is always out of the office."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"I don't want to hurt his feelings. He's such a nice guy that nobody tells him anything.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan is angry when Linh asks him to be quiet.",
+        "promptVi": "Tuấn tức giận khi Linh nhờ anh im lặng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tuấn ngạc nhiên rồi mỉm cười: \"Of course! I'm sorry.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"full of life\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"He's just full of life.\"",
+        "options": [
+          "tràn đầy sức sống",
+          "ăn no",
+          "rất bận",
+          "hay giận"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Full of life = tràn đầy sức sống, năng động."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tính từ đuôi -ed và -ing",
+      "bodyVi": "Tính từ -ing tả người / việc gây ra cảm giác: Tuan is amusing (gây cười), Tuan is annoying (gây khó chịu). Tính từ -ed tả cảm giác của người: I'm tired, Linh feels embarrassed, you look stressed, Tuan looks surprised. Cấu trúc find + người + tính từ (-ing) để nói nhận xét: I find him amusing / annoying. Bài cũng dùng so / such … that: so loud that I can't think, such a nice guy that nobody tells him anything.",
+      "examples": [
+        "I find him amusing.\"",
+        "I find him annoying.",
+        "Linh feels a little embarrassed."
+      ]
+    },
+    "writingPrompt": "Write about a person or habit you find annoying or amusing: what does the person do, and how do you feel?",
+    "sentenceTranslations": [
+      "Ba giờ chiều thứ Sáu, một buổi chiều bận rộn ở một ngân hàng tại Đà Nẵng.",
+      "Ai cũng cố làm xong việc trước cuối tuần.",
+      "Bỗng nhiên, mọi người nghe thấy giọng to của Tuấn.",
+      "\"Tin vui đây mọi người!",
+      "Đội mình thắng trận bóng rồi!\"",
+      "Linh ngẩng lên khỏi máy tính, và cô nói khẽ với Phong: \"Tuấn ồn đến mức mình không nghĩ được gì.\"",
+      "Phong cười.",
+      "\"Mình biết.",
+      "Nhưng anh ấy vui tính lắm.",
+      "Mình thấy anh ấy buồn cười.\"",
+      "\"Buồn cười á?",
+      "Mình thấy khó chịu thì có.",
+      "Hôm nay là lần thứ ba rồi.",
+      "Anh ấy vừa làm vừa hát, và còn kể chuyện cười qua điện thoại.\"",
+      "\"Anh ấy chỉ là tràn đầy sức sống thôi.\"",
+      "\"Có thể.",
+      "Nhưng mình mệt, mà còn bao nhiêu con số phải kiểm tra.\"",
+      "\"Sao cậu không nói với anh ấy?\"",
+      "\"Mình không muốn làm anh ấy buồn.",
+      "Anh ấy tốt đến mức không ai nói gì với anh ấy cả.\"",
+      "Đúng lúc đó, Tuấn đi đến bàn họ, tay cầm một cái hộp.",
+      "\"Anh mang bánh cho mọi người đây!\"",
+      "Linh thấy hơi ngượng.",
+      "\"Cảm ơn anh Tuấn.",
+      "Anh tốt quá.\"",
+      "\"Linh có sao không?",
+      "Trông em căng thẳng thế.\"",
+      "Linh hít một hơi thật sâu.",
+      "\"Thật ra, anh Tuấn, chiều nay anh nói nhỏ hơn một chút được không?",
+      "Em có một bản báo cáo khó phải làm xong.\"",
+      "Tuấn có vẻ ngạc nhiên.",
+      "Rồi anh mỉm cười.",
+      "\"Tất nhiên rồi!",
+      "Anh xin lỗi.",
+      "Anh không biết là anh ồn thế.\"",
+      "\"Cảm ơn anh.",
+      "Mà bánh ngon lắm ạ.\"",
+      "Suốt buổi chiều còn lại, văn phòng yên tĩnh.",
+      "Phong thì thầm: \"Thấy chưa?",
+      "Dễ thế mà!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói một người gây cảm giác gì (-ing) và mình cảm thấy thế nào (-ed), và nhờ ai đó thay đổi một cách lịch sự.",
+    "examples": [
+      {
+        "lemma": "loud",
+        "sentence": "The music is too loud.",
+        "meaningVi": "Nhạc to quá."
+      },
+      {
+        "lemma": "voice",
+        "sentence": "She has a beautiful voice.",
+        "meaningVi": "Cô ấy có giọng hát rất hay."
+      },
+      {
+        "lemma": "quietly",
+        "sentence": "Please speak quietly in the library.",
+        "meaningVi": "Làm ơn nói khẽ trong thư viện."
+      },
+      {
+        "lemma": "amusing",
+        "sentence": "His stories are always amusing.",
+        "meaningVi": "Chuyện của anh ấy lúc nào cũng buồn cười."
+      },
+      {
+        "lemma": "annoying",
+        "sentence": "That noise is really annoying.",
+        "meaningVi": "Tiếng ồn đó thật khó chịu."
+      },
+      {
+        "lemma": "joke",
+        "sentence": "He told a funny joke.",
+        "meaningVi": "Anh ấy kể một chuyện cười."
+      },
+      {
+        "lemma": "feeling",
+        "sentence": "I have a feeling that it will rain.",
+        "meaningVi": "Tôi có cảm giác trời sẽ mưa."
+      },
+      {
+        "lemma": "stressed",
+        "sentence": "I feel stressed before exams.",
+        "meaningVi": "Trước kỳ thi tôi thấy căng thẳng."
+      },
+      {
+        "lemma": "breath",
+        "sentence": "Take a deep breath and relax.",
+        "meaningVi": "Hít một hơi thật sâu và thư giãn."
+      },
+      {
+        "lemma": "delicious",
+        "sentence": "This soup is delicious.",
+        "meaningVi": "Món canh này ngon quá."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, you look tired. Is everything OK?",
+          "meaningVi": "Linh ơi, trông cậu mệt thế. Có chuyện gì không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm a bit stressed. The office was so noisy today.",
+          "meaningVi": "Mình hơi căng thẳng. Hôm nay văn phòng ồn quá."
+        },
+        {
+          "speaker": 1,
+          "text": "Why? What happened?",
+          "meaningVi": "Sao thế? Có chuyện gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "Tuan was singing and telling jokes all afternoon.",
+          "meaningVi": "Tuấn hát và kể chuyện cười cả buổi chiều."
+        },
+        {
+          "speaker": 1,
+          "text": "Some people find that amusing.",
+          "meaningVi": "Có người thấy thế là vui đấy."
+        },
+        {
+          "speaker": 0,
+          "text": "I know, but I thought it was annoying.",
+          "meaningVi": "Mình biết, nhưng mình thấy khó chịu."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you tell him?",
+          "meaningVi": "Cậu có nói với anh ấy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. I was embarrassed, but he was very nice about it.",
+          "meaningVi": "Có. Mình ngượng lắm, nhưng anh ấy rất dễ chịu."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. Was he angry?",
+          "meaningVi": "Tốt. Anh ấy có giận không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not at all. He gave me a delicious cake!",
+          "meaningVi": "Không hề. Anh ấy còn cho mình một cái bánh rất ngon!"
+        }
+      ]
+    },
+    "grammarTipVi": "Cảm giác của mình: I'm stressed, I was embarrassed (-ed). Điều gây cảm giác: amusing, annoying (-ing). Find + it / him + tính từ: I thought it was annoying.",
+    "translations": [
+      {
+        "vi": "Tôi thấy anh ấy buồn cười.",
+        "en": "I find him amusing.",
+        "distractors": [
+          "amused",
+          "he",
+          "funnily"
+        ]
+      },
+      {
+        "vi": "Giọng của anh ấy to quá, thật khó chịu.",
+        "en": "His voice is so loud. It is annoying.",
+        "distractors": [
+          "annoyed",
+          "such",
+          "very"
+        ]
+      },
+      {
+        "vi": "Trông bạn căng thẳng. Hít một hơi thật sâu đi.",
+        "en": "You look stressed. Take a deep breath.",
+        "distractors": [
+          "stressful",
+          "stressing",
+          "feel"
+        ]
+      },
+      {
+        "vi": "Cái bánh ngon lắm, và tôi không còn khó chịu nữa.",
+        "en": "The cake is delicious, and I am not annoyed now.",
+        "distractors": [
+          "annoying",
+          "very",
+          "such"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh kể với Tom về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một buổi chiều ồn ào ở văn phòng",
+          "Một trận bóng",
+          "Món bánh mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"The office was so noisy today\" và kể về Tuấn.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Linh cảm thấy thế nào khi nói với Tuấn?",
+        "promptVi": "",
+        "options": [
+          "Tức giận",
+          "Ngượng",
+          "Vui"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"I was embarrassed.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tuấn đã cho Linh cái gì?",
+        "promptVi": "",
+        "options": [
+          "Một bài hát",
+          "Một tách cà phê",
+          "Một cái bánh ngon"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"He gave me a delicious cake!\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan was angry with Linh.",
+        "promptVi": "Tuấn giận Linh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"Not at all.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Mỗi người cảm thấy thế nào về Tuấn? Linh giải quyết chuyện này ra sao?",
+    "grammarStep": {
+      "titleVi": "Tính từ đuôi -ed và -ing",
+      "noticing": [
+        {
+          "sentence": "I find him amusing.\"",
+          "highlights": [
+            "amusing"
+          ]
+        },
+        {
+          "sentence": "I find him annoying.",
+          "highlights": [
+            "annoying"
+          ]
+        },
+        {
+          "sentence": "Linh feels a little embarrassed.",
+          "highlights": [
+            "embarrassed"
+          ]
+        },
+        {
+          "sentence": "You look stressed.\"",
+          "highlights": [
+            "stressed"
+          ]
+        }
+      ],
+      "questionVi": "Linh nói \"I find him annoying\". Vậy Linh cảm thấy thế nào?",
+      "options": [
+        "Linh cảm thấy annoyed (khó chịu).",
+        "Linh cảm thấy annoying.",
+        "Linh cảm thấy amusing."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Tuấn annoying (gây khó chịu) → Linh annoyed (cảm thấy khó chịu).",
+      "whenVi": "Find + người / vật + tính từ -ing để nói nhận xét của mình; look / feel + tính từ -ed để nói cảm giác.",
+      "table": [
+        {
+          "subject": "find + O + -ing",
+          "form": "I find him amusing / annoying.",
+          "negative": "I don't find him boring."
+        },
+        {
+          "subject": "look / feel + -ed",
+          "form": "You look stressed. Linh feels embarrassed.",
+          "negative": "I'm not annoyed now."
+        },
+        {
+          "subject": "Cặp",
+          "form": "amusing / amused, annoying / annoyed",
+          "negative": "embarrassing / embarrassed"
+        },
+        {
+          "subject": "so … that",
+          "form": "Tuan is so loud that I can't think.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I feel annoying when he sings.",
+          "right": "I feel annoyed when he sings."
+        },
+        {
+          "wrong": "His jokes are very amused.",
+          "right": "His jokes are very amusing."
+        }
+      ],
+      "noteVi": "Annoying chỉ người / việc gây khó chịu: an annoying habit. Đừng dùng nó cho cảm giác của chính mình.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của từ trong ngoặc (-ed hoặc -ing).",
+          "text": "Linh feels a little ___. (embarrass)",
+          "answers": [
+            "embarrassed"
+          ],
+          "explanationVi": "Cảm giác của Linh: embarrassed."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I find his loud singing ___.",
+          "options": [
+            "annoyed",
+            "annoying",
+            "annoy",
+            "annoys"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Tiếng hát gây khó chịu: annoying."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "You look stressing today.",
+          "sentence": "You look stressed today.",
+          "explanationVi": "Cảm giác của người: stressed."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi thấy anh ấy gây khó chịu.",
+          "sentence": "I find him annoying.",
+          "words": [
+            "him",
+            "I",
+            "annoying.",
+            "find",
+            "annoyed"
+          ],
+          "explanationVi": "Anh ấy gây khó chịu: annoying; từ \"annoyed\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Linh takes a deep breath.",
+        "tipVi": "Breath /breθ/ kết thúc bằng /θ/ (khác breathe /briːð/)."
+      },
+      {
+        "text": "\"He's just full of life.\"",
+        "tipVi": "Full of life nối liền /fʊləvlaɪf/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you find annoying at work or school?",
+        "questionVi": "Ở chỗ làm hay ở trường bạn thấy điều gì gây khó chịu?",
+        "frame": "I find ___ annoying."
+      },
+      {
+        "question": "When do you feel stressed?",
+        "questionVi": "Khi nào bạn thấy căng thẳng?",
+        "frame": "I feel stressed when ___."
+      },
+      {
+        "question": "Who is the most amusing person you know? What does he or she do?",
+        "questionVi": "Ai là người vui tính nhất bạn biết? Người đó làm gì?",
+        "frame": "My ___. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 tính từ đuôi -ed hoặc -ing (annoying / annoyed, amusing / amused…)",
+      "anyOf": [
+        "annoying",
+        "annoyed",
+        "amusing",
+        "amused",
+        "embarrassing",
+        "embarrassed",
+        "stressed",
+        "tired",
+        "boring",
+        "bored",
+        "surprised",
+        "interesting"
+      ],
+      "outlineVi": [
+        "Người đó là ai, có thói quen gì.",
+        "Bạn thấy thói quen đó thế nào (I find it annoying / amusing).",
+        "Bạn cảm thấy ra sao và đã làm gì (I feel / I felt + -ed)."
+      ],
+      "modelAnswer": "My younger brother has an annoying habit. He plays loud music in his room every evening, and I can't study. At first, I thought it was amusing, because he sings very badly. But now I feel stressed, because my exams are next month. Last week, I asked him to use his headphones. He was a bit surprised, but now the house is quiet."
+    }
+  },
+  "glosses": [
+    {
+      "text": "so loud that",
+      "lemma": "so … that",
+      "meaningVi": "ồn đến mức",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "Tuan is so loud that I can't think",
+      "phraseVi": "Tuấn ồn đến mức mình không nghĩ được gì"
+    },
+    {
+      "text": "full of life",
+      "lemma": "full of life",
+      "meaningVi": "tràn đầy sức sống",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "He's just full of life.",
+      "phraseVi": "Anh ấy chỉ là tràn đầy sức sống thôi."
+    },
+    {
+      "text": "hurt his feelings",
+      "lemma": "hurt someone's feelings",
+      "meaningVi": "làm ai buồn lòng",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "I don't want to hurt his feelings.",
+      "phraseVi": "Mình không muốn làm anh ấy buồn."
+    },
+    {
+      "text": "guy",
+      "lemma": "guy",
+      "meaningVi": "anh chàng",
+      "sentenceIndex": 19,
+      "pos": "noun",
+      "phrase": "such a nice guy",
+      "phraseVi": "tốt đến mức"
+    },
+    {
+      "text": "whispers",
+      "lemma": "whisper",
+      "meaningVi": "thì thầm",
+      "sentenceIndex": 38,
+      "pos": "verb",
+      "phrase": "Phong whispers",
+      "phraseVi": "Phong thì thầm"
+    }
+  ]
+}

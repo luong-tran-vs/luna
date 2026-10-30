@@ -1,0 +1,603 @@
+{
+  "content": "Vy is a sales manager from Ho Chi Minh City. Tonight she is flying to Tokyo for an important meeting, but her flight is two hours late. She decides to wait in the airport lounge.\n\nAt the desk, she shows her boarding pass to the receptionist. \"Good evening. I'm on the flight to Tokyo. Could you tell me if I can wait here?\"\n\"Of course. You're flying business class, so the lounge is free for you. Welcome.\"\n\"Thank you. I need to send some emails. Do you know what the Wi-Fi password is?\"\n\"It's on this card. The connection is best near the windows.\"\n\"Great. I'd also like to know where I can charge my phone.\"\n\"There's a socket next to every seat.\"\nVy looks at the screen. \"There's a delay on my flight. Do you know when it will leave?\"\n\"The new departure time is a quarter past eleven. We'll make an announcement here when boarding starts.\"\n\"Could you tell me which gate it leaves from?\"\n\"Not yet, I'm afraid. We'll know about an hour before. Don't worry, we'll tell you.\"\n\"Thank you. And I wonder if there's somewhere quiet. I have a video call at ten.\"\n\"Yes. There are small rooms at the back. You can use one for free.\"\n\"Perfect. Do you know if the restaurant is still open?\"\n\"It's open until midnight. Try the beef noodle soup. Everyone loves it.\"\nVy smiles. \"Maybe this delay isn't so bad after all.\"",
+  "targetWords": [
+    "manager",
+    "meeting",
+    "boarding pass",
+    "business",
+    "password",
+    "connection",
+    "charge",
+    "delay",
+    "departure",
+    "announcement"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "quản lý, trưởng phòng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "meeting",
+        "lemma": "meeting",
+        "meaningVi": "cuộc họp",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "boarding pass",
+        "lemma": "boarding pass",
+        "meaningVi": "thẻ lên máy bay",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "business",
+        "lemma": "business",
+        "meaningVi": "thương gia, kinh doanh",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "password",
+        "lemma": "password",
+        "meaningVi": "mật khẩu",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "connection",
+        "lemma": "connection",
+        "meaningVi": "kết nối",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "charge",
+        "lemma": "charge",
+        "meaningVi": "sạc (pin)",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "delay",
+        "lemma": "delay",
+        "meaningVi": "sự chậm trễ",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "departure",
+        "lemma": "departure",
+        "meaningVi": "giờ khởi hành, cất cánh",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "announcement",
+        "lemma": "announcement",
+        "meaningVi": "thông báo",
+        "pos": "noun",
+        "sentenceIndex": 22
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Why is Vy in the airport lounge?",
+        "promptVi": "Vì sao Vy ngồi trong phòng chờ sân bay?",
+        "options": [
+          "Her flight to Tokyo is two hours late.",
+          "She works in the lounge.",
+          "She missed her flight.",
+          "She is meeting a friend there."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chuyến bay đi Tokyo của Vy trễ hai tiếng, nên cô vào phòng chờ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the Wi-Fi connection best?",
+        "promptVi": "Kết nối Wi-Fi tốt nhất ở đâu?",
+        "options": [
+          "At the desk",
+          "Near the windows",
+          "In the small rooms",
+          "In the restaurant"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nhân viên nói \"The connection is best near the windows.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the new departure time?",
+        "promptVi": "Giờ cất cánh mới là mấy giờ?",
+        "options": [
+          "Ten o'clock",
+          "Half past ten",
+          "A quarter past eleven",
+          "Midnight"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nhân viên nói \"The new departure time is a quarter past eleven.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy has to pay to use a small room.",
+        "promptVi": "Vy phải trả tiền để dùng phòng nhỏ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì nhân viên nói \"You can use one for free.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"announcement\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "We'll make an announcement here when boarding starts.\"",
+        "options": [
+          "thông báo",
+          "bữa ăn",
+          "chỗ ngồi",
+          "vé máy bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Make an announcement = đưa ra thông báo (thường qua loa)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "bodyVi": "Câu hỏi gián tiếp có từ để hỏi: What is the Wi-Fi password? → Do you know what the Wi-Fi password is? When will it leave? → Do you know when it will leave? Which gate does it leave from? → Could you tell me which gate it leaves from? Câu hỏi Yes / No dùng if: Could you tell me if I can wait here? Câu bắt đầu bằng I'd like to know / I wonder thì kết thúc bằng dấu chấm.",
+      "examples": [
+        "Do you know what the Wi-Fi password is?\"",
+        "I'd also like to know where I can charge my phone.\"",
+        "\"Could you tell me which gate it leaves from?\""
+      ]
+    },
+    "writingPrompt": "Your flight is late and you are waiting at the airport. Write four polite questions to ask the staff (Could you tell me …? / Do you know …? / I'd like to know …).",
+    "sentenceTranslations": [
+      "Vy là trưởng phòng kinh doanh ở Thành phố Hồ Chí Minh.",
+      "Tối nay cô bay sang Tokyo dự một cuộc họp quan trọng, nhưng chuyến bay trễ hai tiếng.",
+      "Cô quyết định ngồi chờ trong phòng chờ của sân bay.",
+      "Ở quầy, cô đưa thẻ lên máy bay cho nhân viên lễ tân.",
+      "\"Chào buổi tối.",
+      "Tôi bay chuyến đi Tokyo.",
+      "Chị cho tôi hỏi tôi có thể ngồi chờ ở đây không?\"",
+      "\"Tất nhiên ạ.",
+      "Chị bay hạng thương gia nên được dùng phòng chờ miễn phí.",
+      "Mời chị vào.\"",
+      "\"Cảm ơn chị.",
+      "Tôi cần gửi vài email.",
+      "Chị có biết mật khẩu Wi-Fi là gì không?\"",
+      "\"Có trên tấm thẻ này.",
+      "Kết nối tốt nhất ở gần cửa sổ.\"",
+      "\"Tuyệt.",
+      "Tôi cũng muốn biết tôi có thể sạc điện thoại ở đâu.\"",
+      "\"Ghế nào cũng có ổ cắm bên cạnh.\"",
+      "Vy nhìn lên màn hình.",
+      "\"Chuyến bay của tôi bị trễ.",
+      "Chị có biết khi nào nó cất cánh không?\"",
+      "\"Giờ cất cánh mới là mười một giờ mười lăm.",
+      "Khi bắt đầu lên máy bay, chúng tôi sẽ thông báo ở đây.\"",
+      "\"Chị cho tôi hỏi máy bay đi từ cửa nào?\"",
+      "\"Tôi e là chưa có.",
+      "Khoảng một tiếng trước chúng tôi mới biết.",
+      "Chị đừng lo, chúng tôi sẽ báo chị.\"",
+      "\"Cảm ơn chị.",
+      "Và không biết có chỗ nào yên tĩnh không.",
+      "Mười giờ tôi có một cuộc gọi video.\"",
+      "\"Có ạ.",
+      "Có mấy phòng nhỏ ở phía sau.",
+      "Chị có thể dùng một phòng miễn phí.\"",
+      "\"Tuyệt vời.",
+      "Chị có biết nhà hàng còn mở không?\"",
+      "\"Mở đến nửa đêm ạ.",
+      "Chị ăn thử phở bò nhé.",
+      "Ai cũng thích.\"",
+      "Vy mỉm cười.",
+      "\"Có lẽ chuyến bay trễ này cũng không tệ lắm.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi lịch sự về Wi-Fi, giờ bay và cửa ra máy bay bằng câu hỏi gián tiếp khi chờ ở sân bay.",
+    "examples": [
+      {
+        "lemma": "manager",
+        "sentence": "I'd like to speak to the manager.",
+        "meaningVi": "Tôi muốn nói chuyện với quản lý."
+      },
+      {
+        "lemma": "meeting",
+        "sentence": "The meeting starts at nine.",
+        "meaningVi": "Cuộc họp bắt đầu lúc chín giờ."
+      },
+      {
+        "lemma": "boarding pass",
+        "sentence": "I can't find my boarding pass!",
+        "meaningVi": "Tôi không tìm thấy thẻ lên máy bay!"
+      },
+      {
+        "lemma": "business",
+        "sentence": "He travels a lot for business.",
+        "meaningVi": "Anh ấy đi công tác rất nhiều."
+      },
+      {
+        "lemma": "password",
+        "sentence": "I forgot my password again.",
+        "meaningVi": "Tôi lại quên mật khẩu rồi."
+      },
+      {
+        "lemma": "connection",
+        "sentence": "The internet connection is very slow.",
+        "meaningVi": "Kết nối mạng rất chậm."
+      },
+      {
+        "lemma": "charge",
+        "sentence": "I need to charge my phone.",
+        "meaningVi": "Tôi cần sạc điện thoại."
+      },
+      {
+        "lemma": "delay",
+        "sentence": "Sorry for the delay.",
+        "meaningVi": "Xin lỗi vì sự chậm trễ."
+      },
+      {
+        "lemma": "departure",
+        "sentence": "Check the departure time on the screen.",
+        "meaningVi": "Hãy xem giờ khởi hành trên màn hình."
+      },
+      {
+        "lemma": "announcement",
+        "sentence": "Listen to the announcement, please.",
+        "meaningVi": "Xin hãy nghe thông báo."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Staff"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Excuse me. I heard an announcement. Was it for the Tokyo flight?",
+          "meaningVi": "Xin lỗi. Tôi vừa nghe một thông báo. Có phải cho chuyến đi Tokyo không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, boarding starts in twenty minutes.",
+          "meaningVi": "Vâng, hai mươi phút nữa bắt đầu lên máy bay."
+        },
+        {
+          "speaker": 0,
+          "text": "Could you tell me which gate it is?",
+          "meaningVi": "Chị cho tôi hỏi là cửa số mấy?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's Gate 14.",
+          "meaningVi": "Cửa số 14 ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you know how long it takes to walk there?",
+          "meaningVi": "Chị có biết đi bộ đến đó mất bao lâu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "About ten minutes. It's at the end of the building.",
+          "meaningVi": "Khoảng mười phút. Ở cuối toà nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "I'd like to know if I can take a coffee with me.",
+          "meaningVi": "Tôi muốn biết tôi có mang cà phê theo được không."
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. Here's a cup to take away.",
+          "meaningVi": "Được ạ. Đây là cốc mang đi."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you. I didn't expect such a nice evening.",
+          "meaningVi": "Cảm ơn chị. Tôi không ngờ có một buổi tối dễ chịu thế."
+        },
+        {
+          "speaker": 1,
+          "text": "Have a good trip to Tokyo.",
+          "meaningVi": "Chúc chị chuyến đi Tokyo tốt đẹp."
+        }
+      ]
+    },
+    "grammarTipVi": "Could you tell me which gate it is? (không phải which gate is it). Do you know how long it takes? (không dùng does). I'd like to know if I can take a coffee. (dấu chấm cuối câu).",
+    "translations": [
+      {
+        "vi": "Chị có biết mật khẩu là gì không?",
+        "en": "Do you know what the password is?",
+        "distractors": [
+          "does",
+          "where",
+          "are"
+        ]
+      },
+      {
+        "vi": "Chị cho tôi hỏi khi nào có thông báo?",
+        "en": "Could you tell me when the announcement is?",
+        "distractors": [
+          "does",
+          "what",
+          "are"
+        ]
+      },
+      {
+        "vi": "Tôi muốn biết giờ cất cánh mới.",
+        "en": "I'd like to know the new departure time.",
+        "distractors": [
+          "old",
+          "want",
+          "tell"
+        ]
+      },
+      {
+        "vi": "Chị có biết tôi có thể sạc điện thoại không?",
+        "en": "Do you know if I can charge my phone?",
+        "distractors": [
+          "does",
+          "what",
+          "where"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vy hỏi nhân viên về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thông báo lên máy bay và cửa ra máy bay",
+          "Mật khẩu Wi-Fi",
+          "Giá đồ ăn trong phòng chờ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy hỏi thông báo có phải cho chuyến Tokyo không và cửa nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chuyến bay đi từ cửa nào?",
+        "promptVi": "",
+        "options": [
+          "Cửa số 4",
+          "Cửa số 14",
+          "Cửa số 40"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nhân viên nói \"It's Gate 14.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đi bộ đến cửa mất bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Khoảng năm phút",
+          "Khoảng mười phút",
+          "Khoảng hai mươi phút"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nhân viên nói \"About ten minutes.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy can't take her coffee with her.",
+        "promptVi": "Vy không được mang cà phê theo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì nhân viên nói \"Sure.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Vy hỏi nhân viên phòng chờ những gì? Cô hỏi bằng những câu lịch sự nào?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "noticing": [
+        {
+          "sentence": "Could you tell me if I can wait here?\"",
+          "highlights": [
+            "if I can wait"
+          ]
+        },
+        {
+          "sentence": "Do you know what the Wi-Fi password is?\"",
+          "highlights": [
+            "what the Wi-Fi password is"
+          ]
+        },
+        {
+          "sentence": "Do you know when it will leave?\"",
+          "highlights": [
+            "when it will leave"
+          ]
+        },
+        {
+          "sentence": "\"Could you tell me which gate it leaves from?\"",
+          "highlights": [
+            "which gate it leaves from"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"What is the Wi-Fi password?\" chuyển thành câu hỏi gián tiếp thế nào?",
+      "options": [
+        "Do you know what the Wi-Fi password is?",
+        "Do you know what is the Wi-Fi password?",
+        "Do you know the Wi-Fi password what is?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Từ để hỏi + chủ ngữ (the Wi-Fi password) + động từ (is).",
+      "whenVi": "Dùng câu hỏi gián tiếp để hỏi nhân viên sân bay, khách sạn một cách lịch sự, nhất là khi hỏi nhiều câu liền nhau.",
+      "table": [
+        {
+          "subject": "Với be",
+          "form": "What is the password? → … what the password is",
+          "negative": "—"
+        },
+        {
+          "subject": "Với does",
+          "form": "Which gate does it leave from? → … which gate it leaves from",
+          "negative": "Bỏ does, thêm -s"
+        },
+        {
+          "subject": "Câu hỏi Yes / No",
+          "form": "Can I wait here? → … if I can wait here",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Do you know what is the Wi-Fi password?",
+          "right": "Do you know what the Wi-Fi password is?"
+        },
+        {
+          "wrong": "Could you tell me which gate does it leave from?",
+          "right": "Could you tell me which gate it leaves from?"
+        }
+      ],
+      "noteVi": "Giới từ có thể đứng cuối câu hỏi gián tiếp: which gate it leaves from.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (leave).",
+          "text": "Could you tell me which gate it ___ from?",
+          "answers": [
+            "leaves"
+          ],
+          "explanationVi": "Bỏ does, động từ thêm -s: it leaves."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Do you know ___?",
+          "options": [
+            "what the password is",
+            "what is the password",
+            "what does the password",
+            "the password is what"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Từ để hỏi + chủ ngữ + động từ: what the password is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Do you know when will it leave?",
+          "sentence": "Do you know when it will leave?",
+          "explanationVi": "Chủ ngữ it đứng trước will."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chị cho tôi hỏi tôi có thể chờ ở đây không?",
+          "sentence": "Could you tell me if I can wait here?",
+          "words": [
+            "you",
+            "Could",
+            "tell",
+            "me",
+            "if",
+            "I",
+            "can",
+            "wait",
+            "here?",
+            "what"
+          ],
+          "explanationVi": "Câu hỏi Yes / No dùng if; từ \"what\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Do you know what the Wi-Fi password is?\"",
+        "tipVi": "Wi-Fi /ˈwaɪ faɪ/; password /ˈpɑːswɜːd/ không đọc âm w thứ hai."
+      },
+      {
+        "text": "We'll make an announcement here when boarding starts.\"",
+        "tipVi": "Announcement /əˈnaʊnsmənt/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you usually do when your flight is late?",
+        "questionVi": "Bạn thường làm gì khi chuyến bay bị trễ?",
+        "frame": "When my flight is late, I usually ___."
+      },
+      {
+        "question": "Do you like waiting at airports? Why or why not?",
+        "questionVi": "Bạn có thích chờ ở sân bay không? Vì sao?",
+        "frame": "I like / don't like it because ___."
+      },
+      {
+        "question": "Ask politely: what time does the restaurant close?",
+        "questionVi": "Hãy hỏi lịch sự: nhà hàng đóng cửa lúc mấy giờ?",
+        "frame": "Do you know what time ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi gián tiếp (Could you tell me … / Do you know … / I'd like to know …)",
+      "anyOf": [
+        "tell me",
+        "do you know",
+        "wonder",
+        "like to know"
+      ],
+      "outlineVi": [
+        "Nói chuyến bay của bạn bị trễ.",
+        "Hỏi về giờ bay mới và cửa ra máy bay (Do you know when … / Could you tell me which …).",
+        "Hỏi về Wi-Fi hoặc chỗ ăn uống (I'd like to know where …)."
+      ],
+      "modelAnswer": "Excuse me. My flight to Seoul is late. Do you know when it will leave? Could you tell me which gate I should go to? I'd also like to know where I can buy some food. And do you know what the Wi-Fi password is? I need to send an email to my office."
+    }
+  },
+  "glosses": [
+    {
+      "text": "sales",
+      "lemma": "sales",
+      "meaningVi": "kinh doanh, bán hàng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a sales manager",
+      "phraseVi": "trưởng phòng kinh doanh"
+    },
+    {
+      "text": "lounge",
+      "lemma": "lounge",
+      "meaningVi": "phòng chờ",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "the airport lounge",
+      "phraseVi": "phòng chờ của sân bay"
+    },
+    {
+      "text": "socket",
+      "lemma": "socket",
+      "meaningVi": "ổ cắm điện",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "a socket next to every seat",
+      "phraseVi": "ổ cắm bên cạnh mỗi ghế"
+    },
+    {
+      "text": "after all",
+      "lemma": "after all",
+      "meaningVi": "rốt cuộc, hoá ra",
+      "sentenceIndex": 39,
+      "pos": "phrase",
+      "phrase": "isn't so bad after all",
+      "phraseVi": "cũng không tệ lắm"
+    }
+  ]
+}

@@ -1,0 +1,617 @@
+{
+  "content": "Mai has worked as a senior designer at an advertising company in Hanoi since 2021. Her friend Khoa joined the company last month.\n\nMai asks, \"Khoa, have you had your first meeting with the boss yet?\"\n\"Yes, I had it yesterday. She was really kind. What about you? Why do you look so nervous?\"\n\"My review is tomorrow. I've waited for it for weeks.\"\n\"What do you need to tell her?\"\n\"Well, I've done a lot this year. I've designed the posters for three big companies, and I've already finished the new website for a hotel.\"\n\"That's a lot! Have you asked for a higher position before?\"\n\"Yes. I asked two years ago, but I didn't have enough experience then. I've worked very hard since then.\"\nKhoa says, \"You've also trained me! I didn't know anything about design when I arrived.\"\nMai laughs. \"You've learned fast. Have you finished the hotel menu yet?\"\n\"Not yet. I've just started the second page.\"\n\"Don't worry. It isn't due until Friday.\"\nThe next day, Mai comes out of the boss's office with a big smile.\nKhoa asks, \"Well? What happened?\"\n\"She has just given me the job of team leader!\"",
+  "targetWords": [
+    "senior",
+    "designer",
+    "boss",
+    "nervous",
+    "review",
+    "poster",
+    "website",
+    "position",
+    "design",
+    "leader"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "senior",
+        "lemma": "senior",
+        "meaningVi": "cấp cao, lâu năm",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "designer",
+        "lemma": "designer",
+        "meaningVi": "nhà thiết kế",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "boss",
+        "lemma": "boss",
+        "meaningVi": "sếp",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "nervous",
+        "lemma": "nervous",
+        "meaningVi": "lo lắng, hồi hộp",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "review",
+        "lemma": "review",
+        "meaningVi": "buổi đánh giá",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "posters",
+        "lemma": "poster",
+        "meaningVi": "áp phích",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "website",
+        "lemma": "website",
+        "meaningVi": "trang web",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "position",
+        "lemma": "position",
+        "meaningVi": "vị trí, chức vụ",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "design",
+        "lemma": "design",
+        "meaningVi": "thiết kế",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "leader",
+        "lemma": "leader",
+        "meaningVi": "trưởng nhóm",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Mai waits for her review and gets a better job.",
+          "Khoa's first day at the company",
+          "Mai designs a new hotel.",
+          "The boss leaves the company."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai lo lắng chờ buổi đánh giá, và cuối cùng sếp cho cô làm trưởng nhóm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Since when has Mai worked at the company?",
+        "promptVi": "Mai làm ở công ty từ khi nào?",
+        "options": [
+          "Last month",
+          "Two years ago",
+          "Since 2021",
+          "Since yesterday"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"Mai has worked as a senior designer… since 2021.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why didn't Mai get a higher position two years ago?",
+        "promptVi": "Vì sao hai năm trước Mai không được lên vị trí cao hơn?",
+        "options": [
+          "She didn't ask for it.",
+          "She didn't have enough experience then.",
+          "The boss was new.",
+          "She was working on a website."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"I asked two years ago, but I didn't have enough experience then.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoa has finished the hotel menu.",
+        "promptVi": "Khoa đã làm xong thực đơn cho khách sạn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"Not yet. I've just started the second page.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"due\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It isn't due until Friday.\"",
+        "options": [
+          "phải nộp, đến hạn",
+          "đã xong",
+          "quá đắt",
+          "bị hủy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Due = đến hạn phải nộp: đến thứ Sáu mới phải nộp."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành với for / since / already / just / yet",
+      "bodyVi": "Has worked … since 2021 = đã làm từ năm 2021 đến nay. I've waited for it for weeks = đã chờ mấy tuần rồi. Câu hỏi với yet: Have you had your first meeting yet? (đã… chưa). Already = đã… rồi: I've already finished the new website. Just = vừa mới: She has just given me the job. Chú ý: khi có thời điểm đã qua (yesterday, two years ago) thì dùng quá khứ đơn: I had it yesterday.",
+      "examples": [
+        "Mai has worked as a senior designer at an advertising company in Hanoi since 2021.",
+        "I've waited for it for weeks.\"",
+        "\"She has just given me the job of team leader!\""
+      ]
+    },
+    "writingPrompt": "Write about something you are waiting for at work or school: how long have you waited, and what have you already done?",
+    "sentenceTranslations": [
+      "Mai làm nhà thiết kế cấp cao ở một công ty quảng cáo tại Hà Nội từ năm 2021.",
+      "Bạn cô là Khoa vào công ty hồi tháng trước.",
+      "Mai hỏi: \"Khoa ơi, em đã có buổi gặp đầu tiên với sếp chưa?\"",
+      "\"Rồi chị, hôm qua ạ.",
+      "Chị ấy dễ chịu lắm.",
+      "Còn chị thì sao?",
+      "Sao trông chị hồi hộp thế?\"",
+      "\"Mai là buổi đánh giá của chị.",
+      "Chị chờ mấy tuần nay rồi.\"",
+      "\"Chị cần nói gì với chị ấy?\"",
+      "\"Ừm, năm nay chị đã làm được nhiều việc.",
+      "Chị đã thiết kế áp phích cho ba công ty lớn, và đã làm xong trang web mới cho một khách sạn.\"",
+      "\"Nhiều thật!",
+      "Trước đây chị đã xin lên vị trí cao hơn chưa?\"",
+      "\"Rồi.",
+      "Chị xin hai năm trước, nhưng lúc đó chị chưa đủ kinh nghiệm.",
+      "Từ đó đến giờ chị làm việc rất chăm chỉ.\"",
+      "Khoa nói: \"Chị còn dạy em nữa!",
+      "Lúc mới đến em chẳng biết gì về thiết kế.\"",
+      "Mai cười.",
+      "\"Em học nhanh đấy.",
+      "Em làm xong thực đơn cho khách sạn chưa?\"",
+      "\"Chưa ạ.",
+      "Em vừa bắt đầu trang thứ hai.\"",
+      "\"Đừng lo.",
+      "Đến thứ Sáu mới phải nộp.\"",
+      "Hôm sau, Mai bước ra khỏi phòng sếp với nụ cười thật tươi.",
+      "Khoa hỏi: \"Sao rồi chị?",
+      "Có chuyện gì thế?\"",
+      "\"Chị ấy vừa cho chị làm trưởng nhóm!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói mình đã làm một vị trí bao lâu, việc nào đã xong, vừa xong hay chưa xong, và phân biệt với việc ở thời điểm đã qua.",
+    "examples": [
+      {
+        "lemma": "senior",
+        "sentence": "She is a senior teacher at our school.",
+        "meaningVi": "Cô ấy là giáo viên lâu năm ở trường tôi."
+      },
+      {
+        "lemma": "designer",
+        "sentence": "My cousin is a fashion designer.",
+        "meaningVi": "Anh họ tôi là nhà thiết kế thời trang."
+      },
+      {
+        "lemma": "boss",
+        "sentence": "My boss is very busy today.",
+        "meaningVi": "Hôm nay sếp tôi rất bận."
+      },
+      {
+        "lemma": "nervous",
+        "sentence": "I always feel nervous before exams.",
+        "meaningVi": "Trước kỳ thi tôi luôn thấy hồi hộp."
+      },
+      {
+        "lemma": "review",
+        "sentence": "Every worker has a review once a year.",
+        "meaningVi": "Mỗi nhân viên được đánh giá mỗi năm một lần."
+      },
+      {
+        "lemma": "poster",
+        "sentence": "There is a big poster on the wall.",
+        "meaningVi": "Trên tường có một tấm áp phích lớn."
+      },
+      {
+        "lemma": "website",
+        "sentence": "You can find the menu on our website.",
+        "meaningVi": "Bạn có thể xem thực đơn trên trang web của chúng tôi."
+      },
+      {
+        "lemma": "position",
+        "sentence": "He applied for a position in our team.",
+        "meaningVi": "Anh ấy ứng tuyển vào một vị trí trong nhóm chúng tôi."
+      },
+      {
+        "lemma": "design",
+        "sentence": "I love the design of this book.",
+        "meaningVi": "Tôi rất thích thiết kế của cuốn sách này."
+      },
+      {
+        "lemma": "leader",
+        "sentence": "She is a good leader.",
+        "meaningVi": "Cô ấy là một người lãnh đạo giỏi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Rachel"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai, I heard the news! Congratulations!",
+          "meaningVi": "Mai ơi, mình nghe tin rồi! Chúc mừng cậu!"
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks! I've just become the team leader.",
+          "meaningVi": "Cảm ơn! Mình vừa lên làm trưởng nhóm."
+        },
+        {
+          "speaker": 1,
+          "text": "How long have you worked there now?",
+          "meaningVi": "Đến giờ cậu làm ở đó bao lâu rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "Since 2021, so about five years.",
+          "meaningVi": "Từ năm 2021, tức là khoảng năm năm."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you told your parents yet?",
+          "meaningVi": "Cậu đã báo bố mẹ chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I've already called them. They were very happy.",
+          "meaningVi": "Rồi, mình gọi cho bố mẹ rồi. Bố mẹ vui lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you started your new job yet?",
+          "meaningVi": "Cậu đã bắt đầu công việc mới chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. I start next Monday.",
+          "meaningVi": "Chưa. Thứ Hai tuần sau mình mới bắt đầu."
+        },
+        {
+          "speaker": 1,
+          "text": "Let's have dinner to celebrate!",
+          "meaningVi": "Mình đi ăn tối ăn mừng nhé!"
+        },
+        {
+          "speaker": 0,
+          "text": "Great idea. I haven't been out for weeks.",
+          "meaningVi": "Ý hay đấy. Mấy tuần nay mình chưa đi chơi."
+        }
+      ]
+    },
+    "grammarTipVi": "Vừa xảy ra: I've just become the team leader. Đã xong: I've already called them. Chưa: Have you started yet? — Not yet. Khoảng thời gian đến nay: I haven't been out for weeks.",
+    "translations": [
+      {
+        "vi": "Cô ấy làm nhà thiết kế từ năm 2021.",
+        "en": "She has worked as a designer since 2021.",
+        "distractors": [
+          "for",
+          "have",
+          "works"
+        ]
+      },
+      {
+        "vi": "Tôi đã làm xong trang web rồi.",
+        "en": "I have already finished the website.",
+        "distractors": [
+          "yet",
+          "just",
+          "finishes"
+        ]
+      },
+      {
+        "vi": "Bạn đã gặp sếp chưa?",
+        "en": "Have you met the boss yet?",
+        "distractors": [
+          "already",
+          "Did",
+          "meet"
+        ]
+      },
+      {
+        "vi": "Sếp vừa cho tôi làm trưởng nhóm.",
+        "en": "The boss has just made me team leader.",
+        "distractors": [
+          "yet",
+          "have",
+          "make"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Rachel chúc mừng Mai vì điều gì?",
+        "promptVi": "",
+        "options": [
+          "Mai vừa được làm trưởng nhóm",
+          "Mai mới chuyển nhà",
+          "Mai sắp đi du lịch"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"I've just become the team leader.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mai đã làm ở công ty khoảng bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Hai năm",
+          "Khoảng năm năm",
+          "Một tháng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"Since 2021, so about five years.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Mai bắt đầu công việc mới?",
+        "promptVi": "",
+        "options": [
+          "Hôm nay",
+          "Ngày mai",
+          "Thứ Hai tuần sau"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"I start next Monday.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai hasn't told her parents yet.",
+        "promptVi": "Mai chưa báo cho bố mẹ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"I've already called them.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mai đã làm ở công ty bao lâu? Cô đã làm được những gì trong năm nay?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành với for / since / already / just / yet",
+      "noticing": [
+        {
+          "sentence": "Mai has worked as a senior designer at an advertising company in Hanoi since 2021.",
+          "highlights": [
+            "has worked",
+            "since 2021"
+          ]
+        },
+        {
+          "sentence": "Mai asks, \"Khoa, have you had your first meeting with the boss yet?\"",
+          "highlights": [
+            "have you had",
+            "yet"
+          ]
+        },
+        {
+          "sentence": "\"Yes, I had it yesterday.",
+          "highlights": [
+            "had",
+            "yesterday"
+          ]
+        },
+        {
+          "sentence": "\"She has just given me the job of team leader!\"",
+          "highlights": [
+            "has just given"
+          ]
+        }
+      ],
+      "questionVi": "Khoa hỏi bằng \"have you had… yet?\" nhưng Mai lại trả lời \"I had it yesterday\". Vì sao?",
+      "options": [
+        "Vì câu trả lời có thời điểm cụ thể (yesterday) nên dùng quá khứ đơn.",
+        "Vì Mai nói sai.",
+        "Vì yet chỉ dùng với quá khứ đơn."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu hỏi \"đã… chưa\" dùng hiện tại hoàn thành; khi trả lời có thời điểm đã qua thì chuyển sang quá khứ đơn.",
+      "whenVi": "For / since nói thời gian kéo dài đến nay; already, just, yet nói việc đã xong, vừa xong, chưa xong.",
+      "table": [
+        {
+          "subject": "since + mốc",
+          "form": "She has worked here since 2021.",
+          "negative": "I haven't been out since May."
+        },
+        {
+          "subject": "for + khoảng",
+          "form": "I've waited for it for weeks.",
+          "negative": "I haven't been out for weeks."
+        },
+        {
+          "subject": "already / just",
+          "form": "I've already finished it. / She has just given me the job.",
+          "negative": "—"
+        },
+        {
+          "subject": "yet",
+          "form": "Have you finished it yet?",
+          "negative": "Not yet. / I haven't finished it yet."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Mai works here since 2021.",
+          "right": "Mai has worked here since 2021."
+        },
+        {
+          "wrong": "I have had it yesterday.",
+          "right": "I had it yesterday."
+        }
+      ],
+      "noteVi": "Since then = từ đó đến nay: I've worked very hard since then.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền already, just hoặc yet.",
+          "text": "Have you finished the hotel menu ___?",
+          "answers": [
+            "yet"
+          ],
+          "explanationVi": "Câu hỏi \"đã… chưa\" dùng yet ở cuối."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Mai ___ as a designer since 2021.",
+          "options": [
+            "works",
+            "worked",
+            "has worked",
+            "is working"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Since 2021 → hiện tại hoàn thành: has worked."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I have waited for it since weeks.",
+          "sentence": "I have waited for it for weeks.",
+          "explanationVi": "Weeks là khoảng thời gian: for."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đã làm xong trang web rồi.",
+          "sentence": "I have already finished the website.",
+          "words": [
+            "already",
+            "I",
+            "website.",
+            "have",
+            "finished",
+            "the",
+            "yet"
+          ],
+          "explanationVi": "Already đứng giữa have và phân từ; từ \"yet\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"My review is tomorrow.",
+        "tipVi": "Review /rɪˈvjuː/ nhấn âm thứ hai; tomorrow /təˈmɒrəʊ/."
+      },
+      {
+        "text": "\"She has just given me the job of team leader!\"",
+        "tipVi": "Has just nối liền /həzdʒʌst/; nhấn vào team leader, giọng vui."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How long have you studied English?",
+        "questionVi": "Bạn học tiếng Anh bao lâu rồi?",
+        "frame": "I've studied English for ___ / since ___."
+      },
+      {
+        "question": "Have you finished all your work for this week yet?",
+        "questionVi": "Bạn đã làm xong hết việc của tuần này chưa?",
+        "frame": "Yes, I've already ___. / Not yet. I haven't ___ yet."
+      },
+      {
+        "question": "What has your boss or teacher just asked you to do?",
+        "questionVi": "Sếp hoặc thầy cô vừa giao cho bạn việc gì?",
+        "frame": "He / She has just given me ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành với for / since / already / just / yet",
+      "anyOf": [
+        " for ",
+        " since ",
+        "already",
+        "just",
+        " yet"
+      ],
+      "outlineVi": [
+        "Bạn đang chờ điều gì (kết quả thi, buổi đánh giá…), chờ bao lâu rồi (for / since).",
+        "Những gì bạn đã làm để chuẩn bị (already / just).",
+        "Việc bạn chưa làm (haven't … yet)."
+      ],
+      "modelAnswer": "I've waited for my exam results for two weeks. I've been nervous since the exam day. I've already checked the school website again and again today, but the results aren't there yet. My friend Lan has just got her results, and she passed. I haven't told my parents about the exam yet. I hope I get good news tomorrow."
+    }
+  },
+  "glosses": [
+    {
+      "text": "advertising company",
+      "lemma": "advertising",
+      "meaningVi": "công ty quảng cáo",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "an advertising company in Hanoi",
+      "phraseVi": "một công ty quảng cáo tại Hà Nội"
+    },
+    {
+      "text": "joined",
+      "lemma": "join",
+      "meaningVi": "vào làm, gia nhập",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "Khoa joined the company last month",
+      "phraseVi": "Khoa vào công ty hồi tháng trước"
+    },
+    {
+      "text": "higher",
+      "lemma": "high",
+      "meaningVi": "cao hơn",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "a higher position",
+      "phraseVi": "vị trí cao hơn"
+    },
+    {
+      "text": "since then",
+      "lemma": "since then",
+      "meaningVi": "từ đó đến nay",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "I've worked very hard since then.",
+      "phraseVi": "Từ đó đến giờ chị làm việc rất chăm chỉ."
+    },
+    {
+      "text": "menu",
+      "lemma": "menu",
+      "meaningVi": "thực đơn",
+      "sentenceIndex": 21,
+      "pos": "noun",
+      "phrase": "the hotel menu",
+      "phraseVi": "thực đơn cho khách sạn"
+    },
+    {
+      "text": "due",
+      "lemma": "due",
+      "meaningVi": "đến hạn nộp",
+      "sentenceIndex": 25,
+      "pos": "adjective",
+      "phrase": "It isn't due until Friday.",
+      "phraseVi": "Đến thứ Sáu mới phải nộp."
+    }
+  ]
+}

@@ -1,0 +1,603 @@
+{
+  "content": "Hanh and Duy work at the front desk of a hotel in Nha Trang. Every month, the hotel manager, Mrs Lan, comes and checks everything. Today is that day, and she comes at ten.\n\nIt is half past nine now. Hanh is cleaning the front desk, and Duy is reading the list of rules. \"We must keep the desk clean, and we mustn't put cups or food on it,\" Hanh says. \"We also have to wear our uniforms and our name cards.\"\n\nDuy looks at his shirt and says, \"Oh no, I'm not wearing my name card!\"\n\"You have to find it, because Mrs Lan always checks it,\" Hanh says.\nDuy finds the card in his bag and puts it on. Then he asks, \"What else do we have to do?\"\n\"We should smile and say hello to every guest, and we should answer the phone quickly,\" Hanh answers.\n\nDuy asks, \"Do we have to speak English with every guest?\"\n\"No, we don't have to, but we should speak English with guests from other countries,\" Hanh says.\n\nAt ten o'clock, Mrs Lan arrives. She looks at the clean desk and the smiling faces. \"Very good,\" she says.",
+  "targetWords": [
+    "hotel",
+    "front desk",
+    "manager",
+    "clean",
+    "uniform",
+    "smile",
+    "guest",
+    "answer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "front desk",
+        "lemma": "front desk",
+        "meaningVi": "quầy lễ tân",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "hotel",
+        "lemma": "hotel",
+        "meaningVi": "khách sạn",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "quản lý",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "clean",
+        "lemma": "clean",
+        "meaningVi": "sạch sẽ",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "uniforms",
+        "lemma": "uniform",
+        "meaningVi": "đồng phục",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "smile",
+        "lemma": "smile",
+        "meaningVi": "mỉm cười",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "guest",
+        "lemma": "guest",
+        "meaningVi": "khách (ở khách sạn)",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "answer",
+        "lemma": "answer",
+        "meaningVi": "trả lời, nghe (điện thoại)",
+        "pos": "verb",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A guest's holiday in Nha Trang",
+          "Two hotel workers get ready for a visit from their manager.",
+          "Duy's new uniform",
+          "A party at the hotel"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Trước khi bà quản lý đến kiểm tra hằng tháng, Hạnh và Duy nhắc nhau những việc phải làm, không được làm và nên làm ở quầy lễ tân."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Duy not wearing at first?",
+        "promptVi": "Lúc đầu Duy quên đeo gì?",
+        "options": [
+          "His name card",
+          "His uniform",
+          "His shoes",
+          "His tie"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy nói \"Oh no, I'm not wearing my name card!\": anh quên đeo thẻ tên."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Duy have to find his name card?",
+        "promptVi": "Vì sao Duy phải tìm thẻ tên?",
+        "options": [
+          "A guest wants it.",
+          "It is very expensive.",
+          "Mrs Lan always checks it.",
+          "Hanh wants to see it."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hạnh nói \"You have to find it, because Mrs Lan always checks it\": bà quản lý luôn kiểm tra thẻ tên."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They have to speak English with every guest.",
+        "promptVi": "Họ phải nói tiếng Anh với mọi vị khách.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hạnh nói \"No, we don't have to\": không bắt buộc, chỉ nên nói tiếng Anh với khách nước ngoài."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"keep\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"We must keep the desk clean, and we mustn't put cups or food on it,\" Hanh says.",
+        "options": [
+          "mua",
+          "mở",
+          "dời đi",
+          "giữ"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Keep … clean là giữ cho sạch: quầy lễ tân lúc nào cũng phải sạch sẽ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Must / have to / should; mustn't và don't have to",
+      "bodyVi": "Must / have to: phải làm (we must keep the desk clean, we have to wear our uniforms). Mustn't: không được làm (we mustn't put cups on it). Don't have to: không bắt buộc (we don't have to speak English with every guest). Should: nên làm, lời khuyên (we should smile and say hello).",
+      "examples": [
+        "\"We must keep the desk clean, and we mustn't put cups or food on it,\" Hanh says.",
+        "\"We should smile and say hello to every guest, and we should answer the phone quickly,\" Hanh answers.",
+        "\"No, we don't have to, but we should speak English with guests from other countries,\" Hanh says."
+      ]
+    },
+    "writingPrompt": "Write about the rules at a hotel, shop or restaurant: what workers must, mustn't, don't have to and should do.",
+    "sentenceTranslations": [
+      "Hạnh và Duy làm ở quầy lễ tân của một khách sạn ở Nha Trang.",
+      "Tháng nào bà quản lý khách sạn, bà Lan, cũng đến kiểm tra mọi thứ.",
+      "Hôm nay là ngày đó, và bà đến lúc mười giờ.",
+      "Bây giờ là chín giờ rưỡi.",
+      "Hạnh đang lau quầy lễ tân, còn Duy đang đọc danh sách quy định.",
+      "\"Chúng ta phải giữ quầy sạch sẽ, và không được để cốc hay đồ ăn lên đó,\" Hạnh nói.",
+      "\"Chúng ta cũng phải mặc đồng phục và đeo thẻ tên.\"",
+      "Duy nhìn áo mình và nói: \"Ôi không, mình không đeo thẻ tên!\"",
+      "\"Cậu phải tìm nó, vì bà Lan lúc nào cũng kiểm tra,\" Hạnh nói.",
+      "Duy tìm thấy thẻ trong túi và đeo vào.",
+      "Rồi anh hỏi: \"Còn phải làm gì nữa?\"",
+      "\"Chúng ta nên mỉm cười chào mọi vị khách, và nên nghe điện thoại thật nhanh,\" Hạnh trả lời.",
+      "Duy hỏi: \"Mình có phải nói tiếng Anh với mọi vị khách không?\"",
+      "\"Không bắt buộc, nhưng mình nên nói tiếng Anh với khách đến từ nước khác,\" Hạnh nói.",
+      "Mười giờ, bà Lan đến.",
+      "Bà nhìn quầy lễ tân sạch sẽ và những gương mặt tươi cười.",
+      "\"Tốt lắm,\" bà nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói các quy định ở khách sạn, cửa hàng: việc phải làm, không được làm, không cần làm và nên làm.",
+    "examples": [
+      {
+        "lemma": "hotel",
+        "sentence": "Our hotel is near the beach.",
+        "meaningVi": "Khách sạn của chúng tôi ở gần biển."
+      },
+      {
+        "lemma": "front desk",
+        "sentence": "Please leave your key at the front desk.",
+        "meaningVi": "Vui lòng để chìa khoá ở quầy lễ tân."
+      },
+      {
+        "lemma": "manager",
+        "sentence": "The manager is very busy today.",
+        "meaningVi": "Hôm nay quản lý rất bận."
+      },
+      {
+        "lemma": "clean",
+        "sentence": "The rooms are very clean.",
+        "meaningVi": "Các phòng rất sạch sẽ."
+      },
+      {
+        "lemma": "uniform",
+        "sentence": "The waiters wear a white uniform.",
+        "meaningVi": "Nhân viên phục vụ mặc đồng phục trắng."
+      },
+      {
+        "lemma": "smile",
+        "sentence": "She always has a smile for her guests.",
+        "meaningVi": "Cô ấy luôn tươi cười với khách."
+      },
+      {
+        "lemma": "guest",
+        "sentence": "Every guest gets a free breakfast.",
+        "meaningVi": "Mỗi vị khách được ăn sáng miễn phí."
+      },
+      {
+        "lemma": "answer",
+        "sentence": "Can you answer the phone, please?",
+        "meaningVi": "Bạn nghe điện thoại giúp mình được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duy",
+        "Mr Brown"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Good morning! Can I have my key, please? Room 205.",
+          "meaningVi": "Chào buổi sáng! Cho tôi xin chìa khoá phòng 205."
+        },
+        {
+          "speaker": 0,
+          "text": "Good morning, Mr Brown. Here you are.",
+          "meaningVi": "Chào buổi sáng, ông Brown. Của ông đây ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you. Do I have to leave the key here when I go out?",
+          "meaningVi": "Cảm ơn. Khi ra ngoài tôi có phải để chìa khoá ở đây không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, you don't have to, but you should keep it safe.",
+          "meaningVi": "Không bắt buộc ạ, nhưng ông nên cất giữ cẩn thận."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. What time is breakfast?",
+          "meaningVi": "Được. Mấy giờ có bữa sáng?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's from six to ten, in the restaurant on the first floor.",
+          "meaningVi": "Từ sáu đến mười giờ, ở nhà hàng tầng một ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I smoke in my room?",
+          "meaningVi": "Tôi hút thuốc trong phòng được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm sorry, but you mustn't smoke in the rooms.",
+          "meaningVi": "Xin lỗi ông, nhưng không được hút thuốc trong phòng ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "That's fine. Do I have to pay for the swimming pool?",
+          "meaningVi": "Không sao. Tôi có phải trả tiền bể bơi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, you don't. It's free for our guests.",
+          "meaningVi": "Không ạ. Bể bơi miễn phí cho khách của chúng tôi."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi điều bắt buộc: Do I have to leave the key here? Trả lời: No, you don't have to, but you should keep it safe. Nói điều bị cấm: You mustn't smoke in the rooms.",
+    "translations": [
+      {
+        "vi": "Chúng ta phải giữ quầy sạch sẽ.",
+        "en": "We must keep the desk clean.",
+        "distractors": [
+          "mustn't",
+          "keeps",
+          "dirty"
+        ]
+      },
+      {
+        "vi": "Chúng ta phải mặc đồng phục.",
+        "en": "We have to wear our uniforms.",
+        "distractors": [
+          "has",
+          "don't",
+          "uniform"
+        ]
+      },
+      {
+        "vi": "Chúng ta nên mỉm cười với mọi vị khách.",
+        "en": "We should smile at every guest.",
+        "distractors": [
+          "mustn't",
+          "smiles",
+          "guests"
+        ]
+      },
+      {
+        "vi": "Quản lý luôn kiểm tra mọi thứ.",
+        "en": "The manager always checks everything.",
+        "distractors": [
+          "check",
+          "never",
+          "anything"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ông Brown hỏi Duy về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đường ra biển",
+          "Một nhà hàng ngoài phố",
+          "Các quy định của khách sạn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ông Brown hỏi về chìa khoá, bữa sáng, hút thuốc và bể bơi: những quy định ở khách sạn.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bữa sáng ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở nhà hàng tầng một",
+          "Trong phòng",
+          "Cạnh bể bơi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy nói \"in the restaurant on the first floor.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khách có được hút thuốc trong phòng không?",
+        "promptVi": "",
+        "options": [
+          "Có",
+          "Không",
+          "Chỉ buổi tối"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Duy nói \"you mustn't smoke in the rooms.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Guests have to pay for the swimming pool.",
+        "promptVi": "Khách phải trả tiền bể bơi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Duy nói \"No, you don't. It's free for our guests.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Nhân viên quầy lễ tân phải làm gì, không được làm gì và nên làm gì?",
+    "grammarStep": {
+      "titleVi": "Must / have to / should; mustn't và don't have to",
+      "noticing": [
+        {
+          "sentence": "\"We must keep the desk clean, and we mustn't put cups or food on it,\" Hanh says.",
+          "highlights": [
+            "must keep",
+            "mustn't put"
+          ]
+        },
+        {
+          "sentence": "\"We also have to wear our uniforms and our name cards.\"",
+          "highlights": [
+            "have to wear"
+          ]
+        },
+        {
+          "sentence": "\"We should smile and say hello to every guest, and we should answer the phone quickly,\" Hanh answers.",
+          "highlights": [
+            "should smile",
+            "should answer"
+          ]
+        },
+        {
+          "sentence": "\"No, we don't have to, but we should speak English with guests from other countries,\" Hanh says.",
+          "highlights": [
+            "don't have to",
+            "should speak"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"we don't have to, but we should speak English with guests from other countries\" cho biết điều gì?",
+      "options": [
+        "Nói tiếng Anh không bắt buộc, nhưng là việc tốt nên làm",
+        "Nói tiếng Anh bị cấm",
+        "Phải nói tiếng Anh với mọi vị khách"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Don't have to là không bắt buộc, should là nên làm. Ghép lại: không bắt buộc nhưng nên làm. Mustn't mới là bị cấm.",
+      "whenVi": "Dùng must / have to cho quy định bắt buộc, mustn't cho điều bị cấm, don't have to cho điều không bắt buộc, và should cho lời khuyên.",
+      "table": [
+        {
+          "subject": "Bắt buộc",
+          "form": "We must keep the desk clean. We have to wear uniforms.",
+          "negative": "We mustn't put food on the desk. (không được)"
+        },
+        {
+          "subject": "Không bắt buộc",
+          "form": "You can keep your key.",
+          "negative": "You don't have to leave the key here. (không cần)"
+        },
+        {
+          "subject": "Lời khuyên",
+          "form": "We should smile at every guest.",
+          "negative": "We shouldn't talk loudly at the desk."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We should to smile at every guest.",
+          "right": "We should smile at every guest."
+        },
+        {
+          "wrong": "Duy have to find his name card.",
+          "right": "Duy has to find his name card."
+        }
+      ],
+      "noteVi": "Người Việt hay thêm to sau should, must (vì nhớ have to), và hay quên đổi have to thành has to với he, she.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa \"không được\" vào chỗ trống.",
+          "text": "We ___ put cups or food on the desk.",
+          "answers": [
+            "mustn't",
+            "must not"
+          ],
+          "explanationVi": "Điều bị cấm dùng mustn't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "We ___ speak English with every guest, but it's good with guests from other countries.",
+          "options": [
+            "don't have to",
+            "mustn't",
+            "have to",
+            "must"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Không bắt buộc với mọi khách nhưng vẫn tốt: don't have to."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We should to answer the phone quickly.",
+          "sentence": "We should answer the phone quickly.",
+          "explanationVi": "Sau should, động từ giữ nguyên mẫu, không có to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy phải tìm thẻ tên.",
+          "sentence": "He has to find his name card.",
+          "words": [
+            "has",
+            "He",
+            "find",
+            "to",
+            "his",
+            "name",
+            "card",
+            "have"
+          ],
+          "explanationVi": "He đi với has to; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Duy finds the card in his bag and puts it on.",
+        "tipVi": "Finds /faɪndz/ có cụm /ndz/ ở cuối; puts it on nối âm thành \"pút-xit-on\"."
+      },
+      {
+        "text": "At ten o'clock, Mrs Lan arrives.",
+        "tipVi": "Arrives /əˈraɪvz/ nhấn ở âm thứ hai và kết thúc bằng /vz/; Mrs đọc là /ˈmɪsɪz/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you have to wear a uniform at school or at work?",
+        "questionVi": "Bạn có phải mặc đồng phục ở trường hoặc chỗ làm không?",
+        "frame": "Yes, I do. I have to wear ___. / No, I don't have to."
+      },
+      {
+        "question": "What should a good shop assistant do?",
+        "questionVi": "Một nhân viên bán hàng giỏi nên làm gì?",
+        "frame": "He / She should ___ and ___."
+      },
+      {
+        "question": "What does your mum or dad have to do before work?",
+        "questionVi": "Trước khi đi làm, bố hoặc mẹ bạn phải làm gì?",
+        "frame": "He / She has to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng must / have to / mustn't / don't have to / should",
+      "anyOf": [
+        "must",
+        "mustn't",
+        "have to",
+        "has to",
+        "don't have to",
+        "should"
+      ],
+      "outlineVi": [
+        "Nói người đó làm ở đâu.",
+        "Viết việc người đó phải làm và không được làm.",
+        "Viết việc không cần làm và việc nên làm."
+      ],
+      "modelAnswer": "My sister works in a small restaurant. She has to start at ten in the morning, and she must wear a black uniform. She mustn't use her phone when there are customers. She doesn't have to cook, but she should help in the kitchen when it is busy. She always smiles at the customers."
+    }
+  },
+  "glosses": [
+    {
+      "text": "checks everything",
+      "lemma": "check",
+      "meaningVi": "kiểm tra mọi thứ",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "comes and checks everything",
+      "phraseVi": "đến kiểm tra mọi thứ"
+    },
+    {
+      "text": "comes",
+      "lemma": "come",
+      "meaningVi": "đến",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "she comes at ten",
+      "phraseVi": "bà đến lúc mười giờ"
+    },
+    {
+      "text": "list",
+      "lemma": "list",
+      "meaningVi": "danh sách",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "the list of rules",
+      "phraseVi": "danh sách quy định"
+    },
+    {
+      "text": "keep",
+      "lemma": "keep",
+      "meaningVi": "giữ",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "We must keep the desk clean",
+      "phraseVi": "Chúng ta phải giữ quầy sạch sẽ"
+    },
+    {
+      "text": "name cards",
+      "lemma": "name card",
+      "meaningVi": "thẻ tên",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "our uniforms and our name cards",
+      "phraseVi": "đồng phục và thẻ tên"
+    },
+    {
+      "text": "puts it on",
+      "lemma": "put on",
+      "meaningVi": "đeo vào",
+      "sentenceIndex": 9,
+      "pos": "phrasal verb",
+      "phrase": "Duy finds the card in his bag and puts it on",
+      "phraseVi": "Duy tìm thấy thẻ trong túi và đeo vào"
+    },
+    {
+      "text": "What else",
+      "lemma": "what else",
+      "meaningVi": "còn gì nữa",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "What else do we have to do",
+      "phraseVi": "Còn phải làm gì nữa"
+    },
+    {
+      "text": "other countries",
+      "lemma": "country",
+      "meaningVi": "nước khác",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "guests from other countries",
+      "phraseVi": "khách đến từ nước khác"
+    },
+    {
+      "text": "faces",
+      "lemma": "face",
+      "meaningVi": "gương mặt",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "the smiling faces",
+      "phraseVi": "những gương mặt tươi cười"
+    }
+  ]
+}

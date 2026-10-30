@@ -1,0 +1,595 @@
+{
+  "content": "Every morning at half past six, my dad turns on the TV. He watches the weather before work, and my mum and I listen too.\n\nThis morning, a woman on TV talks about the weather in some cities. In Hanoi, it is cloudy and cool, with a little wind. In Hue, it rains in the morning, but the sun comes out in the afternoon. Ho Chi Minh City is hot and sunny all day. In Da Lat, the day is warm, but the night is cold.\n\nWe live in Hue, so my mum takes her umbrella to work. \"Do you need an umbrella too, Minh?\" she asks.\n\"No, I don't, because my school is near our house,\" I answer.\n\nMy dad doesn't like rain, but I love it. I like rainy mornings in Hue!",
+  "targetWords": [
+    "weather",
+    "cloudy",
+    "cool",
+    "wind",
+    "rain",
+    "sunny",
+    "cold",
+    "umbrella"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "weather",
+        "lemma": "weather",
+        "meaningVi": "thời tiết",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cloudy",
+        "lemma": "cloudy",
+        "meaningVi": "nhiều mây",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "cool",
+        "lemma": "cool",
+        "meaningVi": "mát, mát mẻ",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "wind",
+        "lemma": "wind",
+        "meaningVi": "gió",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "rains",
+        "lemma": "rain",
+        "meaningVi": "mưa",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "sunny",
+        "lemma": "sunny",
+        "meaningVi": "nắng, có nắng",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "cold",
+        "lemma": "cold",
+        "meaningVi": "lạnh",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "umbrella",
+        "lemma": "umbrella",
+        "meaningVi": "cái ô, cái dù",
+        "pos": "noun",
+        "sentenceIndex": 7
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Minh's school in Hue",
+          "The weather in some cities in Vietnam today",
+          "A family trip to Da Lat",
+          "Minh's dad and his work"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cả nhà Minh xem bản tin thời tiết hôm nay ở Hà Nội, Huế, Thành phố Hồ Chí Minh và Đà Lạt, rồi mẹ mang ô đi làm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the weather like in Ho Chi Minh City today?",
+        "promptVi": "Hôm nay thời tiết ở Thành phố Hồ Chí Minh thế nào?",
+        "options": [
+          "Cloudy and cool",
+          "Rainy in the morning",
+          "Warm in the day and cold at night",
+          "Hot and sunny"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết \"Ho Chi Minh City is hot and sunny all day\": nóng và nắng cả ngày."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Minh need an umbrella?",
+        "promptVi": "Vì sao Minh không cần ô?",
+        "options": [
+          "It is sunny in Hue.",
+          "He has a coat.",
+          "His school is near his house.",
+          "He stays at home today."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh trả lời \"No, I don't, because my school is near our house\": trường gần nhà nên không cần ô."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh's dad loves rain.",
+        "promptVi": "Bố Minh rất thích mưa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"My dad doesn't like rain, but I love it\": người thích mưa là Minh, còn bố thì không, nên bài nói ngược lại."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cool\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In Hanoi, it is cloudy and cool, with a little wind.",
+        "options": [
+          "mát, mát mẻ",
+          "lạnh buốt",
+          "nóng bức",
+          "tuyệt vời, hay ho"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khi nói về thời tiết, cool là mát: không nóng mà cũng không lạnh lắm. Cool còn có nghĩa \"hay ho, tuyệt\" nhưng không hợp với câu này."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thì hiện tại đơn (khẳng định)",
+      "bodyVi": "Thì hiện tại đơn dùng để nói việc thường làm (He watches the weather before work) và để nói thời tiết, sự thật (In Hue, it rains in the morning). Với I, you, we, they động từ giữ nguyên: we live. Với he, she, it (hoặc một người, một vật) thêm -s hoặc -es: watches, rains, takes, comes out.",
+      "examples": [
+        "He watches the weather before work, and my mum and I listen too.",
+        "In Hue, it rains in the morning, but the sun comes out in the afternoon.",
+        "We live in Hue, so my mum takes her umbrella to work."
+      ]
+    },
+    "writingPrompt": "Write about the weather in your town today, and say what someone in your family does in this weather.",
+    "sentenceTranslations": [
+      "Sáng nào cũng vậy, sáu giờ rưỡi là bố mình bật tivi.",
+      "Bố xem dự báo thời tiết trước khi đi làm, và mẹ với mình cũng nghe cùng.",
+      "Sáng nay, một cô trên tivi nói về thời tiết ở một số thành phố.",
+      "Ở Hà Nội, trời nhiều mây và mát, có một chút gió.",
+      "Ở Huế, buổi sáng trời mưa, nhưng đến chiều thì nắng lên.",
+      "Thành phố Hồ Chí Minh nóng và nắng cả ngày.",
+      "Ở Đà Lạt, ban ngày trời ấm, nhưng ban đêm lạnh.",
+      "Nhà mình ở Huế, nên mẹ mang ô đi làm.",
+      "\"Con có cần mang ô không, Minh?\" mẹ hỏi.",
+      "\"Không ạ, vì trường con ở gần nhà mình,\" mình trả lời.",
+      "Bố mình không thích mưa, nhưng mình thì rất thích.",
+      "Mình thích những buổi sáng mưa ở Huế!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói thời tiết hôm nay ở một nơi (It is cloudy and cool, it rains…) và việc người khác thường làm, dùng thì hiện tại đơn.",
+    "examples": [
+      {
+        "lemma": "weather",
+        "sentence": "The weather is nice today.",
+        "meaningVi": "Hôm nay thời tiết đẹp."
+      },
+      {
+        "lemma": "cloudy",
+        "sentence": "It is cloudy in the morning.",
+        "meaningVi": "Buổi sáng trời nhiều mây."
+      },
+      {
+        "lemma": "cool",
+        "sentence": "Da Lat is cool in summer.",
+        "meaningVi": "Mùa hè Đà Lạt mát mẻ."
+      },
+      {
+        "lemma": "wind",
+        "sentence": "The wind is cold in winter.",
+        "meaningVi": "Mùa đông gió lạnh."
+      },
+      {
+        "lemma": "rain",
+        "sentence": "I like the rain.",
+        "meaningVi": "Mình thích mưa."
+      },
+      {
+        "lemma": "sunny",
+        "sentence": "It is sunny and hot today.",
+        "meaningVi": "Hôm nay trời nắng và nóng."
+      },
+      {
+        "lemma": "cold",
+        "sentence": "My hands are cold.",
+        "meaningVi": "Tay mình lạnh quá."
+      },
+      {
+        "lemma": "umbrella",
+        "sentence": "Where is my umbrella?",
+        "meaningVi": "Cái ô của mình đâu rồi?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hi Minh! What's the weather like in Hue today?",
+          "meaningVi": "Chào Minh! Hôm nay thời tiết ở Huế thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's rainy and cool. What about Sydney?",
+          "meaningVi": "Trời mưa và mát. Còn ở Sydney thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's sunny and hot here.",
+          "meaningVi": "Ở đây trời nắng và nóng."
+        },
+        {
+          "speaker": 0,
+          "text": "Hot? Really? Is it summer in Sydney?",
+          "meaningVi": "Nóng á? Thật à? Ở Sydney đang là mùa hè à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it's spring, but the sun is very hot today!",
+          "meaningVi": "Không, đang là mùa xuân, nhưng hôm nay nắng gắt lắm!"
+        },
+        {
+          "speaker": 0,
+          "text": "Do you go to the beach in spring?",
+          "meaningVi": "Mùa xuân cậu có đi biển không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I do. My family goes to the beach every Sunday.",
+          "meaningVi": "Có chứ. Chủ nhật nào nhà mình cũng đi biển."
+        },
+        {
+          "speaker": 0,
+          "text": "Wow! In Hue, we stay at home on rainy days.",
+          "meaningVi": "Ồ! Ở Huế, những hôm mưa bọn mình ở nhà."
+        },
+        {
+          "speaker": 1,
+          "text": "What do you do at home?",
+          "meaningVi": "Ở nhà cậu làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I read books, and my mum cooks hot soup.",
+          "meaningVi": "Mình đọc sách, còn mẹ mình nấu súp nóng."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi thời tiết: What's the weather like in Hue? Trả lời: It's rainy and cool. / It's sunny and hot.",
+    "translations": [
+      {
+        "vi": "Hôm nay ở Hà Nội trời nhiều mây và mát.",
+        "en": "It is cloudy and cool in Hanoi today.",
+        "distractors": [
+          "are",
+          "cold",
+          "cloud"
+        ]
+      },
+      {
+        "vi": "Ở Huế, trời mưa vào buổi sáng.",
+        "en": "In Hue, it rains in the morning.",
+        "distractors": [
+          "rain",
+          "at",
+          "on"
+        ]
+      },
+      {
+        "vi": "Mẹ tôi mang ô đi làm.",
+        "en": "My mum takes her umbrella to work.",
+        "distractors": [
+          "take",
+          "his",
+          "at"
+        ]
+      },
+      {
+        "vi": "Thành phố Hồ Chí Minh nắng cả ngày.",
+        "en": "Ho Chi Minh City is sunny all day.",
+        "distractors": [
+          "sun",
+          "are",
+          "every"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thời tiết ở Huế và ở Sydney",
+          "Một chuyến đi biển",
+          "Món súp của mẹ Minh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi \"What's the weather like in Hue today?\" và Minh hỏi lại \"What about Sydney?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hôm nay thời tiết ở Sydney thế nào?",
+        "promptVi": "",
+        "options": [
+          "Mưa và mát",
+          "Nắng và nóng",
+          "Nhiều mây và lạnh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"It's sunny and hot here.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Gia đình Tom đi biển khi nào?",
+        "promptVi": "",
+        "options": [
+          "Thứ Bảy nào cũng đi",
+          "Chủ nhật nào cũng đi",
+          "Tối nào cũng đi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"My family goes to the beach every Sunday.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "It is summer in Sydney now.",
+        "promptVi": "Bây giờ ở Sydney đang là mùa hè.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom nói \"No, it's spring\": ở Sydney đang là mùa xuân.",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Hôm nay ở Huế trời thế nào, và mẹ Minh làm gì?",
+    "grammarStep": {
+      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "noticing": [
+        {
+          "sentence": "He watches the weather before work, and my mum and I listen too.",
+          "highlights": [
+            "watches",
+            "listen"
+          ]
+        },
+        {
+          "sentence": "In Hue, it rains in the morning, but the sun comes out in the afternoon.",
+          "highlights": [
+            "rains",
+            "comes out"
+          ]
+        },
+        {
+          "sentence": "We live in Hue, so my mum takes her umbrella to work.",
+          "highlights": [
+            "live",
+            "takes"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao có câu là watches, rains, takes, có câu lại là listen, live?",
+      "options": [
+        "Vì he / she / it (một người, một vật) đi với động từ thêm -s / -es, còn I, we giữ nguyên",
+        "Vì watches, rains, takes là việc đã xảy ra",
+        "Vì listen, live chỉ dùng trong câu hỏi"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "He (bố), it (trời), my mum, the sun là ngôi thứ ba số ít nên động từ thêm -s / -es: watches, rains, comes, takes. Còn my mum and I, we thì giữ nguyên: listen, live.",
+      "whenVi": "Dùng thì hiện tại đơn để nói việc thường làm hằng ngày và để nói thời tiết, sự thật.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "We live in Hue.",
+          "negative": "We don't live in Hanoi."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "It rains. He watches TV. The sun comes out.",
+          "negative": "He doesn't like rain."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It rain in the morning.",
+          "right": "It rains in the morning."
+        },
+        {
+          "wrong": "My dad watch the weather.",
+          "right": "My dad watches the weather."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"trời mưa\", \"bố xem\" mà động từ không đổi, nên người Việt hay quên thêm -s / -es sau he, she, it.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại đơn của động từ trong ngoặc.",
+          "text": "My dad ___ (watch) the weather every morning.",
+          "answers": [
+            "watches"
+          ],
+          "explanationVi": "My dad là he, và watch kết thúc bằng -ch nên thêm -es: watches."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "In Hue, it ___ a lot in autumn.",
+          "options": [
+            "rain",
+            "rains",
+            "raining",
+            "is rain"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chủ ngữ it nên động từ thêm -s: rains."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The sun come out in the afternoon.",
+          "sentence": "The sun comes out in the afternoon.",
+          "explanationVi": "The sun là it, nên come phải thêm -s: comes out."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bố tôi xem thời tiết trước giờ làm.",
+          "sentence": "My dad watches the weather before work.",
+          "words": [
+            "weather",
+            "My",
+            "before",
+            "watches",
+            "the",
+            "dad",
+            "work",
+            "watch"
+          ],
+          "explanationVi": "My dad là he nên dùng watches; từ \"watch\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Ho Chi Minh City is hot and sunny all day.",
+        "tipVi": "Hot /hɑt/ phải đọc rõ âm /t/ ở cuối; city /ˈsɪti/ nhấn ở âm đầu."
+      },
+      {
+        "text": "In Da Lat, the day is warm, but the night is cold.",
+        "tipVi": "Cold /koʊld/ có cụm /ld/ ở cuối, đừng đọc thành \"câu\"; warm /wɔrm/ có âm /w/ tròn môi ở đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What's the weather like today?",
+        "questionVi": "Hôm nay thời tiết thế nào?",
+        "frame": "It is ___ and ___ today."
+      },
+      {
+        "question": "Do you like rainy days?",
+        "questionVi": "Bạn có thích những ngày mưa không?",
+        "frame": "Yes, I do. / No, I don't. I like ___ days."
+      },
+      {
+        "question": "What does your mum or dad do on rainy days?",
+        "questionVi": "Những hôm mưa, bố hoặc mẹ bạn làm gì?",
+        "frame": "My ___ takes ___. He / She ___ at home."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại đơn với he / she / it (động từ thêm -s / -es)",
+      "anyOf": [
+        "he",
+        "she",
+        "it",
+        "my mum",
+        "my dad",
+        "rains"
+      ],
+      "outlineVi": [
+        "Nói thời tiết buổi sáng ở nơi bạn sống (It is …).",
+        "Nói buổi chiều hoặc buổi tối thời tiết đổi thế nào.",
+        "Kể một người trong nhà làm gì vì thời tiết này (He / She takes …)."
+      ],
+      "modelAnswer": "Today in Hanoi, it is cloudy and cool in the morning. The sun comes out in the afternoon, and it is warm. In the evening, the wind is cold. My mum always takes her umbrella to work, and my dad wears a coat. I like the weather today!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "half past six",
+      "lemma": "half past six",
+      "meaningVi": "sáu giờ rưỡi",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "at half past six",
+      "phraseVi": "lúc sáu giờ rưỡi"
+    },
+    {
+      "text": "turns on",
+      "lemma": "turn on",
+      "meaningVi": "bật",
+      "sentenceIndex": 0,
+      "pos": "phrasal verb",
+      "phrase": "my dad turns on the TV",
+      "phraseVi": "bố mình bật tivi"
+    },
+    {
+      "text": "before work",
+      "lemma": "before work",
+      "meaningVi": "trước khi đi làm",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "He watches the weather before work",
+      "phraseVi": "Bố xem thời tiết trước khi đi làm"
+    },
+    {
+      "text": "cities",
+      "lemma": "city",
+      "meaningVi": "thành phố",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "in some cities",
+      "phraseVi": "ở một số thành phố"
+    },
+    {
+      "text": "a little",
+      "lemma": "a little",
+      "meaningVi": "một chút, một ít",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "with a little wind",
+      "phraseVi": "có một chút gió"
+    },
+    {
+      "text": "comes out",
+      "lemma": "come out",
+      "meaningVi": "ló ra, xuất hiện (mặt trời)",
+      "sentenceIndex": 4,
+      "pos": "phrasal verb",
+      "phrase": "the sun comes out in the afternoon",
+      "phraseVi": "đến chiều thì nắng lên"
+    },
+    {
+      "text": "all day",
+      "lemma": "all day",
+      "meaningVi": "cả ngày",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "hot and sunny all day",
+      "phraseVi": "nóng và nắng cả ngày"
+    },
+    {
+      "text": "warm",
+      "lemma": "warm",
+      "meaningVi": "ấm, ấm áp",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "the day is warm",
+      "phraseVi": "ban ngày trời ấm"
+    },
+    {
+      "text": "takes",
+      "lemma": "take",
+      "meaningVi": "mang theo",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "my mum takes her umbrella to work",
+      "phraseVi": "mẹ mang ô đi làm"
+    },
+    {
+      "text": "near",
+      "lemma": "near",
+      "meaningVi": "gần",
+      "sentenceIndex": 9,
+      "pos": "preposition",
+      "phrase": "my school is near our house",
+      "phraseVi": "trường con ở gần nhà mình"
+    }
+  ]
+}

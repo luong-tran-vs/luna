@@ -1,0 +1,607 @@
+{
+  "content": "It's Friday afternoon at a small travel company in Hanoi. Hien and Tuan are talking about a trip to Ha Long Bay for their team.\n\nTuan asks, \"Have you been to Ha Long Bay before?\"\n\"Yes, twice,\" she says. \"It's beautiful. There are nearly two thousand islands in the bay.\"\n\"How were the islands made? They look like huge green rocks in the sea.\"\n\"They were formed by nature over millions of years. Rain and sea water slowly changed the shape of the rocks. Some of them have caves inside.\"\n\"Wow. Is the bay a World Heritage Site?\"\n\"Yes, it is. It was named a World Heritage Site in 1994. Now it's visited by millions of tourists every year.\"\n\"So how are the boat tours organised?\"\n\"Most tours start at the harbour in Bai Chay. Tickets are sold online or at the harbour, but they aren't sold on the boat.\"\n\"And what happens on the tour?\"\n\"First, the boat takes you past the famous islands. Lunch is served on the boat, usually fresh seafood. In the afternoon, the group is taken to a cave, and then you can go kayaking.\"\n\"Is the boat trip safe?\"\n\"Yes. Life jackets are given to everyone, and the boats are checked every day.\"\nTuan smiles. \"Great. Let's book a two-day tour. I want to see the sunrise over the islands.\"\n\"Good idea. I'll send the booking today.\"",
+  "targetWords": [
+    "island",
+    "rock",
+    "form",
+    "nature",
+    "shape",
+    "cave",
+    "tourist",
+    "harbour",
+    "seafood",
+    "sunrise"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "islands",
+        "lemma": "island",
+        "meaningVi": "hòn đảo",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "rocks",
+        "lemma": "rock",
+        "meaningVi": "đá, khối đá",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "formed",
+        "lemma": "form",
+        "meaningVi": "hình thành, tạo nên",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "nature",
+        "lemma": "nature",
+        "meaningVi": "thiên nhiên",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "shape",
+        "lemma": "shape",
+        "meaningVi": "hình dạng",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "caves",
+        "lemma": "cave",
+        "meaningVi": "hang động",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "tourists",
+        "lemma": "tourist",
+        "meaningVi": "khách du lịch",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "harbour",
+        "lemma": "harbour",
+        "meaningVi": "bến cảng",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "seafood",
+        "lemma": "seafood",
+        "meaningVi": "hải sản",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "sunrise",
+        "lemma": "sunrise",
+        "meaningVi": "bình minh, mặt trời mọc",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hien and Tuan talking about?",
+        "promptVi": "Hiền và Tuấn đang nói về điều gì?",
+        "options": [
+          "A team trip to Ha Long Bay",
+          "A new job at a travel company",
+          "How to cook seafood",
+          "A cave near Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người bàn chuyến đi Hạ Long cho cả nhóm: các hòn đảo, tour thuyền, an toàn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How were the islands formed?",
+        "promptVi": "Các hòn đảo được hình thành thế nào?",
+        "options": [
+          "People built them.",
+          "By nature over millions of years",
+          "By a big storm in 1994",
+          "By the boats"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hiền nói \"They were formed by nature over millions of years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where can you NOT buy tickets?",
+        "promptVi": "Bạn KHÔNG mua được vé ở đâu?",
+        "options": [
+          "Online",
+          "At the harbour",
+          "On the boat",
+          "In Bai Chay"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hiền nói vé \"aren't sold on the boat.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Life jackets are only given to children.",
+        "promptVi": "Áo phao chỉ được phát cho trẻ em.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hiền nói \"Life jackets are given to everyone.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"formed\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"They were formed by nature over millions of years.",
+        "options": [
+          "được hình thành",
+          "bị phá huỷ",
+          "được bán",
+          "được vẽ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Form = hình thành, tạo nên; were formed = đã được hình thành."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu bị động (hiện tại và quá khứ đơn)",
+      "bodyVi": "Câu bị động (be + V3) dùng khi ta quan tâm đến sự vật hơn là người làm: The islands were formed by nature (quá khứ đơn: was / were + V3). Tickets are sold online (hiện tại đơn: am / is / are + V3). Muốn nói ai / cái gì làm thì thêm by: visited by millions of tourists. Phủ định: they aren't sold on the boat.",
+      "examples": [
+        "\"They were formed by nature over millions of years.",
+        "It was named a World Heritage Site in 1994.",
+        "Tickets are sold online or at the harbour, but they aren't sold on the boat.\""
+      ]
+    },
+    "writingPrompt": "Write about a famous place in nature in your country. How was it formed, and how is it visited by tourists today?",
+    "sentenceTranslations": [
+      "Chiều thứ Sáu ở một công ty du lịch nhỏ tại Hà Nội.",
+      "Hiền và Tuấn đang bàn về một chuyến đi vịnh Hạ Long cho cả nhóm.",
+      "Tuấn hỏi: \"Chị đến vịnh Hạ Long bao giờ chưa?\"",
+      "Hiền nói: \"Rồi, hai lần.",
+      "Đẹp lắm.",
+      "Trong vịnh có gần hai nghìn hòn đảo.\"",
+      "\"Các hòn đảo được tạo ra thế nào?",
+      "Trông chúng như những khối đá xanh khổng lồ giữa biển.\"",
+      "\"Chúng được thiên nhiên hình thành qua hàng triệu năm.",
+      "Mưa và nước biển dần dần làm thay đổi hình dạng của đá.",
+      "Một số đảo có hang động bên trong.\"",
+      "\"Ồ.",
+      "Vịnh có phải là Di sản Thế giới không?\"",
+      "\"Có.",
+      "Vịnh được công nhận là Di sản Thế giới năm 1994.",
+      "Giờ mỗi năm có hàng triệu khách du lịch đến thăm.\"",
+      "\"Vậy các tour thuyền được tổ chức thế nào?\"",
+      "\"Phần lớn tour bắt đầu ở bến cảng Bãi Cháy.",
+      "Vé được bán trên mạng hoặc ở bến, nhưng không bán trên thuyền.\"",
+      "\"Thế trong tour có gì?\"",
+      "\"Đầu tiên, thuyền đưa mình đi qua các hòn đảo nổi tiếng.",
+      "Bữa trưa được phục vụ trên thuyền, thường là hải sản tươi.",
+      "Buổi chiều, cả đoàn được đưa vào một hang động, rồi có thể chèo thuyền kayak.\"",
+      "\"Đi thuyền có an toàn không?\"",
+      "\"Có.",
+      "Ai cũng được phát áo phao, và thuyền được kiểm tra mỗi ngày.\"",
+      "Tuấn mỉm cười.",
+      "\"Tuyệt.",
+      "Mình đặt tour hai ngày nhé.",
+      "Em muốn ngắm bình minh trên các hòn đảo.\"",
+      "\"Ý hay đấy.",
+      "Hôm nay chị sẽ gửi đơn đặt.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu vịnh Hạ Long và cách tổ chức tour bằng câu bị động (were formed, is visited, are sold).",
+    "examples": [
+      {
+        "lemma": "island",
+        "sentence": "We stayed on a small island for three days.",
+        "meaningVi": "Chúng tôi ở trên một hòn đảo nhỏ ba ngày."
+      },
+      {
+        "lemma": "rock",
+        "sentence": "The children sat on a big rock.",
+        "meaningVi": "Bọn trẻ ngồi trên một tảng đá lớn."
+      },
+      {
+        "lemma": "form",
+        "sentence": "Ice can form on the lake in winter.",
+        "meaningVi": "Mùa đông băng có thể hình thành trên hồ."
+      },
+      {
+        "lemma": "nature",
+        "sentence": "I love walking in nature.",
+        "meaningVi": "Tôi thích đi dạo giữa thiên nhiên."
+      },
+      {
+        "lemma": "shape",
+        "sentence": "The cloud had the shape of a dog.",
+        "meaningVi": "Đám mây có hình con chó."
+      },
+      {
+        "lemma": "cave",
+        "sentence": "The cave was dark and cold.",
+        "meaningVi": "Hang động tối và lạnh."
+      },
+      {
+        "lemma": "tourist",
+        "sentence": "A tourist asked me for directions.",
+        "meaningVi": "Một khách du lịch hỏi đường tôi."
+      },
+      {
+        "lemma": "harbour",
+        "sentence": "The boats are in the harbour.",
+        "meaningVi": "Những chiếc thuyền đang ở bến cảng."
+      },
+      {
+        "lemma": "seafood",
+        "sentence": "Da Nang is famous for its seafood.",
+        "meaningVi": "Đà Nẵng nổi tiếng với hải sản."
+      },
+      {
+        "lemma": "sunrise",
+        "sentence": "We got up early to watch the sunrise.",
+        "meaningVi": "Chúng tôi dậy sớm để ngắm bình minh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tuan",
+        "Hien"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hien, how was the cave on your last trip?",
+          "meaningVi": "Chị Hiền, hang động trong chuyến trước thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Amazing. It's called Sung Sot Cave.",
+          "meaningVi": "Tuyệt lắm. Nó tên là hang Sửng Sốt."
+        },
+        {
+          "speaker": 0,
+          "text": "When was it discovered?",
+          "meaningVi": "Nó được phát hiện khi nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It was discovered by the French in 1901.",
+          "meaningVi": "Nó được người Pháp phát hiện năm 1901."
+        },
+        {
+          "speaker": 0,
+          "text": "Is it very dark inside?",
+          "meaningVi": "Bên trong có tối lắm không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No. Lights are put along the path, so it's easy to see.",
+          "meaningVi": "Không. Đèn được lắp dọc lối đi nên dễ nhìn lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "How long does the visit take?",
+          "meaningVi": "Tham quan mất bao lâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "About an hour. Visitors are taken in small groups.",
+          "meaningVi": "Khoảng một tiếng. Khách được dẫn đi theo nhóm nhỏ."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. I'll bring good shoes.",
+          "meaningVi": "Tuyệt. Em sẽ mang giày tốt."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. The steps are wet in some places.",
+          "meaningVi": "Ý hay. Có chỗ bậc thang bị ướt."
+        }
+      ]
+    },
+    "grammarTipVi": "Quá khứ: It was discovered by the French in 1901 (was + V3 + by …). Hiện tại: Lights are put along the path / Visitors are taken in small groups (are + V3). Câu hỏi bị động: When was it discovered?",
+    "translations": [
+      {
+        "vi": "Các hòn đảo được thiên nhiên tạo nên.",
+        "en": "The islands were formed by nature.",
+        "distractors": [
+          "are",
+          "forms",
+          "from"
+        ]
+      },
+      {
+        "vi": "Vịnh được rất nhiều khách du lịch đến thăm.",
+        "en": "The bay is visited by many tourists.",
+        "distractors": [
+          "visits",
+          "are",
+          "from"
+        ]
+      },
+      {
+        "vi": "Hải sản được phục vụ trên thuyền.",
+        "en": "Seafood is served on the boat.",
+        "distractors": [
+          "serves",
+          "are",
+          "by"
+        ]
+      },
+      {
+        "vi": "Hang động được phát hiện năm 1901.",
+        "en": "The cave was discovered in 1901.",
+        "distractors": [
+          "are",
+          "discovers",
+          "on"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tuấn và Hiền nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Hang Sửng Sốt ở vịnh Hạ Long",
+          "Một khách sạn ở Bãi Cháy",
+          "Chuyến đi Pháp của Hiền"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn hỏi về hang động và Hiền nói \"It's called Sung Sot Cave.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hang được phát hiện năm nào?",
+        "promptVi": "",
+        "options": [
+          "Năm 1901",
+          "Năm 1994",
+          "Năm 2001"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiền nói \"It was discovered by the French in 1901.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tham quan hang mất bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Khoảng nửa tiếng",
+          "Khoảng một tiếng",
+          "Khoảng hai tiếng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hiền nói \"About an hour.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "It is very dark inside the cave.",
+        "promptVi": "Bên trong hang rất tối.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hiền nói \"No. Lights are put along the path.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Các hòn đảo ở vịnh Hạ Long được hình thành thế nào? Tour thuyền được tổ chức ra sao?",
+    "grammarStep": {
+      "titleVi": "Câu bị động (hiện tại và quá khứ đơn)",
+      "noticing": [
+        {
+          "sentence": "\"They were formed by nature over millions of years.",
+          "highlights": [
+            "were formed",
+            "by nature"
+          ]
+        },
+        {
+          "sentence": "It was named a World Heritage Site in 1994.",
+          "highlights": [
+            "was named"
+          ]
+        },
+        {
+          "sentence": "Now it's visited by millions of tourists every year.\"",
+          "highlights": [
+            "'s visited",
+            "by millions of tourists"
+          ]
+        },
+        {
+          "sentence": "Lunch is served on the boat, usually fresh seafood.",
+          "highlights": [
+            "is served"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"The islands were formed by nature\" mà không phải \"Nature formed the islands\"?",
+      "options": [
+        "Vì người nói muốn tập trung vào các hòn đảo.",
+        "Vì nature là số nhiều.",
+        "Vì câu ở hiện tại."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu bị động đưa sự vật được nói đến (the islands) lên đầu câu; người / vật thực hiện đứng sau by.",
+      "whenVi": "Dùng câu bị động khi giới thiệu địa danh: nó được hình thành, được phát hiện, được đặt tên, được tham quan thế nào.",
+      "table": [
+        {
+          "subject": "Hiện tại đơn",
+          "form": "am / is / are + V3 (Tickets are sold online.)",
+          "negative": "isn't / aren't + V3 (They aren't sold on the boat.)"
+        },
+        {
+          "subject": "Quá khứ đơn",
+          "form": "was / were + V3 (They were formed by nature.)",
+          "negative": "wasn't / weren't + V3"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "How were the islands made? / When was it discovered?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The islands formed by nature.",
+          "right": "The islands were formed by nature."
+        },
+        {
+          "wrong": "Tickets are sell at the harbour.",
+          "right": "Tickets are sold at the harbour."
+        }
+      ],
+      "noteVi": "Chỉ thêm by + người / vật khi thông tin đó quan trọng. \"Lunch is served on the boat\" không cần nói ai phục vụ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng bị động đúng của động từ trong ngoặc (visit).",
+          "text": "Ha Long Bay ___ by millions of tourists every year.",
+          "answers": [
+            "is visited"
+          ],
+          "explanationVi": "Hiện tại đơn, chủ ngữ số ít: is visited."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The islands ___ by nature over millions of years.",
+          "options": [
+            "were formed",
+            "formed",
+            "are form",
+            "was forming"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Quá khứ, chủ ngữ số nhiều: were formed."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Tickets are sell online.",
+          "sentence": "Tickets are sold online.",
+          "explanationVi": "Bị động: are + V3 (sold)."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bữa trưa được phục vụ trên thuyền.",
+          "sentence": "Lunch is served on the boat.",
+          "words": [
+            "is",
+            "Lunch",
+            "served",
+            "on",
+            "the",
+            "boat.",
+            "serves"
+          ],
+          "explanationVi": "Is + V3: is served; từ \"serves\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"They were formed by nature over millions of years.",
+        "tipVi": "Formed /fɔːmd/ đuôi -ed đọc /d/; nhấn vào nature và millions."
+      },
+      {
+        "text": "It was named a World Heritage Site in 1994.",
+        "tipVi": "Heritage /ˈherɪtɪdʒ/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is the most beautiful place in nature that you have visited?",
+        "questionVi": "Nơi thiên nhiên đẹp nhất bạn từng đến là đâu?",
+        "frame": "The most beautiful place I have visited is ___."
+      },
+      {
+        "question": "How is that place visited by tourists?",
+        "questionVi": "Du khách thường tham quan nơi đó bằng cách nào?",
+        "frame": "It is visited by ___. Tours are ___."
+      },
+      {
+        "question": "Would you like to see a sunrise over the sea? Why?",
+        "questionVi": "Bạn có muốn ngắm bình minh trên biển không? Vì sao?",
+        "frame": "Yes / No, because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is / are / was / were + V3)",
+      "anyOf": [
+        "ed by",
+        "en by",
+        "is visited",
+        "are visited",
+        "was formed",
+        "were formed",
+        "is called",
+        "was named",
+        "are sold",
+        "is sold",
+        "was made",
+        "were made",
+        "is made",
+        "are made",
+        "was built",
+        "is used",
+        "are used"
+      ],
+      "outlineVi": [
+        "Tên địa danh và nó ở đâu.",
+        "Nó được hình thành / phát hiện thế nào (… was formed / discovered …).",
+        "Ngày nay du khách tham quan ra sao (… is visited by …, tours are …)."
+      ],
+      "modelAnswer": "Phong Nha is in Quang Binh. Its caves were formed by water over millions of years. The biggest ones were discovered in the 1990s. Today, the area is visited by thousands of tourists every year. Boat tours are organised every morning, and visitors are taken into the caves by local guides."
+    }
+  },
+  "glosses": [
+    {
+      "text": "World Heritage Site",
+      "lemma": "World Heritage Site",
+      "meaningVi": "Di sản Thế giới",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "Is the bay a World Heritage Site?",
+      "phraseVi": "Vịnh có phải là Di sản Thế giới không?"
+    },
+    {
+      "text": "organised",
+      "lemma": "organise",
+      "meaningVi": "tổ chức",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "how are the boat tours organised?",
+      "phraseVi": "các tour thuyền được tổ chức thế nào?"
+    },
+    {
+      "text": "go kayaking",
+      "lemma": "go kayaking",
+      "meaningVi": "chèo thuyền kayak",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "then you can go kayaking",
+      "phraseVi": "rồi có thể chèo thuyền kayak"
+    },
+    {
+      "text": "Life jackets",
+      "lemma": "life jacket",
+      "meaningVi": "áo phao",
+      "sentenceIndex": 25,
+      "pos": "noun",
+      "phrase": "Life jackets are given to everyone",
+      "phraseVi": "Ai cũng được phát áo phao"
+    }
+  ]
+}

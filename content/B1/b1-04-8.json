@@ -1,0 +1,602 @@
+{
+  "content": "Every year in March, the whole family meets at the old family house in Bac Ninh. Today is the anniversary of their great-grandfather's death, and cousins Thao and Minh are in the kitchen together.\n\nThao asks, \"Do you remember when we were kids? We used to sit in the corner and watch the adults cook.\"\n\"Yes! The grandmothers didn't let us touch anything. They only let us wash the vegetables.\"\n\"And Grandma used to make us sit quietly during the ceremony. I always wanted to run outside.\"\nMinh laughs. \"We used to hide under the table and eat the sweets.\"\n\"Now look at us. Grandma lets us cook the whole meal!\"\nGrandma is eighty-five this year. She sits on a chair near the door and watches them. She says, \"Thao, don't let the spring rolls get too dark. And Minh, help your cousin fold them.\"\nMinh says, \"Grandma used to make the spring rolls herself. Hers were always the best.\"\n\"She taught me last year. She made me practise again and again.\"\nThao puts the first plate of spring rolls on the table. Grandma tries one and smiles.\n\"Not bad. Almost as good as mine.\"\nLater, the whole family sits together at a long table. The children are hiding under the table and eating sweets, just like Thao and Minh used to do.\nThao smiles. \"Some things never change.\"",
+  "targetWords": [
+    "anniversary",
+    "corner",
+    "touch",
+    "vegetable",
+    "ceremony",
+    "hide",
+    "sweet",
+    "spring roll",
+    "fold",
+    "plate"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "anniversary",
+        "lemma": "anniversary",
+        "meaningVi": "ngày giỗ, ngày kỷ niệm",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "corner",
+        "lemma": "corner",
+        "meaningVi": "góc",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "touch",
+        "lemma": "touch",
+        "meaningVi": "chạm vào",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "vegetables",
+        "lemma": "vegetable",
+        "meaningVi": "rau",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "ceremony",
+        "lemma": "ceremony",
+        "meaningVi": "nghi lễ, lễ cúng",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "hide",
+        "lemma": "hide",
+        "meaningVi": "trốn",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "sweets",
+        "lemma": "sweet",
+        "meaningVi": "kẹo, bánh kẹo",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "spring rolls",
+        "lemma": "spring roll",
+        "meaningVi": "nem rán, chả giò",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "fold",
+        "lemma": "fold",
+        "meaningVi": "gói, gấp",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "plate",
+        "lemma": "plate",
+        "meaningVi": "cái đĩa",
+        "pos": "noun",
+        "sentenceIndex": 21
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Two cousins cook for a family anniversary and remember their childhood.",
+          "Grandma's eighty-fifth birthday party",
+          "How to make spring rolls",
+          "A new house in Bac Ninh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo và Minh nấu cỗ ngày giỗ ở nhà thờ họ và nhớ lại hồi nhỏ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did the grandmothers use to let the children do?",
+        "promptVi": "Ngày xưa các bà cho bọn trẻ làm gì?",
+        "options": [
+          "Cook the whole meal",
+          "Only wash the vegetables",
+          "Make the spring rolls",
+          "Sit at the long table"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"They only let us wash the vegetables.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How did Thao learn to make spring rolls?",
+        "promptVi": "Thảo học làm nem như thế nào?",
+        "options": [
+          "From a cooking book",
+          "From Minh",
+          "Grandma taught her and made her practise again and again.",
+          "She learned it at school."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"She taught me last year. She made me practise again and again.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Grandma thinks Thao's spring rolls are better than hers.",
+        "promptVi": "Bà nghĩ nem của Thảo ngon hơn nem của bà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà nói \"Almost as good as mine.\" — gần ngon bằng, chưa ngon hơn."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Hers\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Hers were always the best.",
+        "options": [
+          "nem của bà",
+          "các bà",
+          "nhà của bà",
+          "cô ấy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hers = của bà ấy, ở đây là những chiếc nem do bà làm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Used to",
+      "bodyVi": "Used to + động từ kể những việc thường làm ngày xưa trong những dịp gia đình: We used to sit in the corner, We used to hide under the table, Grandma used to make the spring rolls herself. Có thể ghép với make / let: Grandma used to make us sit quietly. So sánh với bây giờ (hiện tại đơn): Now Grandma lets us cook the whole meal.",
+      "examples": [
+        "We used to sit in the corner and watch the adults cook.\"",
+        "\"And Grandma used to make us sit quietly during the ceremony.",
+        "Minh says, \"Grandma used to make the spring rolls herself."
+      ]
+    },
+    "writingPrompt": "Write about a family event you used to go to as a child: what did you use to do, and what do you do now?",
+    "sentenceTranslations": [
+      "Năm nào cũng vậy, vào tháng Ba, cả đại gia đình gặp nhau ở ngôi nhà cũ của dòng họ tại Bắc Ninh.",
+      "Hôm nay là ngày giỗ cụ, và hai anh em họ Thảo và Minh đang cùng ở trong bếp.",
+      "Thảo hỏi: \"Anh có nhớ hồi mình còn nhỏ không?",
+      "Mình hay ngồi trong góc xem người lớn nấu ăn.\"",
+      "\"Có chứ!",
+      "Các bà chẳng cho mình động vào thứ gì.",
+      "Chỉ cho mình rửa rau thôi.\"",
+      "\"Mà bà hay bắt mình ngồi im trong lúc cúng.",
+      "Em lúc nào cũng muốn chạy ra ngoài.\"",
+      "Minh cười.",
+      "\"Mình hay trốn dưới gầm bàn ăn kẹo.\"",
+      "\"Giờ nhìn mình xem.",
+      "Bà cho mình nấu cả mâm cỗ!\"",
+      "Năm nay bà đã tám mươi lăm tuổi.",
+      "Bà ngồi trên ghế gần cửa và nhìn hai anh em.",
+      "Bà nói: \"Thảo, đừng để nem cháy quá.",
+      "Còn Minh, giúp em cuốn nem đi.\"",
+      "Minh nói: \"Ngày xưa bà toàn tự cuốn nem.",
+      "Nem của bà lúc nào cũng ngon nhất.\"",
+      "\"Năm ngoái bà dạy em rồi.",
+      "Bà bắt em tập đi tập lại.\"",
+      "Thảo đặt đĩa nem đầu tiên lên bàn.",
+      "Bà nếm thử một chiếc và mỉm cười.",
+      "\"Không tệ.",
+      "Gần ngon bằng nem của bà.\"",
+      "Sau đó, cả nhà ngồi quây quần bên một chiếc bàn dài.",
+      "Bọn trẻ đang trốn dưới gầm bàn ăn kẹo, y như Thảo và Minh ngày xưa.",
+      "Thảo mỉm cười.",
+      "\"Có những thứ không bao giờ thay đổi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về những dịp sum họp gia đình ngày xưa bằng used to, và so sánh với bây giờ.",
+    "examples": [
+      {
+        "lemma": "anniversary",
+        "sentence": "Today is my parents' wedding anniversary.",
+        "meaningVi": "Hôm nay là kỷ niệm ngày cưới của bố mẹ tôi."
+      },
+      {
+        "lemma": "corner",
+        "sentence": "There is a lamp in the corner.",
+        "meaningVi": "Trong góc có một cái đèn."
+      },
+      {
+        "lemma": "touch",
+        "sentence": "Please don't touch the paintings.",
+        "meaningVi": "Vui lòng không chạm vào tranh."
+      },
+      {
+        "lemma": "vegetable",
+        "sentence": "Carrot is my favourite vegetable.",
+        "meaningVi": "Cà rốt là loại rau tôi thích nhất."
+      },
+      {
+        "lemma": "ceremony",
+        "sentence": "The ceremony starts at ten.",
+        "meaningVi": "Buổi lễ bắt đầu lúc mười giờ."
+      },
+      {
+        "lemma": "hide",
+        "sentence": "The cat likes to hide under the bed.",
+        "meaningVi": "Con mèo thích trốn dưới gầm giường."
+      },
+      {
+        "lemma": "sweet",
+        "sentence": "He gave the child a sweet.",
+        "meaningVi": "Anh ấy cho đứa bé một cái kẹo."
+      },
+      {
+        "lemma": "spring roll",
+        "sentence": "Can I have one more spring roll?",
+        "meaningVi": "Cho tôi thêm một chiếc nem nữa được không?"
+      },
+      {
+        "lemma": "fold",
+        "sentence": "Fold the paper in half.",
+        "meaningVi": "Gấp đôi tờ giấy lại."
+      },
+      {
+        "lemma": "plate",
+        "sentence": "Put the cake on a plate.",
+        "meaningVi": "Đặt bánh lên đĩa."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thao",
+        "Emily"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thao, what did you use to do at family parties?",
+          "meaningVi": "Thảo ơi, hồi nhỏ ở các buổi họp mặt gia đình cậu hay làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I used to hide under the table with my cousins.",
+          "meaningVi": "Mình hay trốn dưới gầm bàn với các anh chị em họ."
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! Did your grandmother let you help in the kitchen?",
+          "meaningVi": "Ha! Bà có cho cậu phụ bếp không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only a little. She let us wash the vegetables.",
+          "meaningVi": "Một chút thôi. Bà cho bọn mình rửa rau."
+        },
+        {
+          "speaker": 1,
+          "text": "And now?",
+          "meaningVi": "Còn bây giờ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Now she lets us cook the whole meal!",
+          "meaningVi": "Giờ bà cho bọn mình nấu cả mâm cỗ!"
+        },
+        {
+          "speaker": 1,
+          "text": "Who used to make the spring rolls?",
+          "meaningVi": "Ngày xưa ai làm nem?"
+        },
+        {
+          "speaker": 0,
+          "text": "My grandmother. Hers used to be the best.",
+          "meaningVi": "Bà mình. Nem của bà ngày xưa ngon nhất."
+        },
+        {
+          "speaker": 1,
+          "text": "Can you make them now?",
+          "meaningVi": "Giờ cậu làm được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. She made me practise for a long time.",
+          "meaningVi": "Được. Bà bắt mình tập rất lâu."
+        }
+      ]
+    },
+    "grammarTipVi": "Ngày xưa: I used to hide under the table. Who used to make…? Bây giờ: Now she lets us cook. Kết hợp: She made me practise.",
+    "translations": [
+      {
+        "vi": "Chúng tôi hay ngồi trong góc.",
+        "en": "We used to sit in the corner.",
+        "distractors": [
+          "uses",
+          "sat",
+          "sitting"
+        ]
+      },
+      {
+        "vi": "Các bà không cho chúng tôi chạm vào thứ gì.",
+        "en": "The grandmothers didn't let us touch anything.",
+        "distractors": [
+          "for",
+          "made",
+          "touching"
+        ]
+      },
+      {
+        "vi": "Ngày xưa bà tự cuốn nem.",
+        "en": "Grandma used to make the spring rolls herself.",
+        "distractors": [
+          "uses",
+          "made",
+          "making"
+        ]
+      },
+      {
+        "vi": "Chúng tôi hay trốn dưới gầm bàn ăn kẹo.",
+        "en": "We used to hide under the table and eat sweets.",
+        "distractors": [
+          "uses",
+          "hid",
+          "hiding"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Emily hỏi Thảo về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Những buổi họp mặt gia đình hồi nhỏ",
+          "Công thức làm nem",
+          "Sinh nhật của bà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Emily hỏi \"what did you use to do at family parties?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngày xưa bà cho Thảo làm gì trong bếp?",
+        "promptVi": "",
+        "options": [
+          "Cuốn nem",
+          "Rửa rau",
+          "Nấu cơm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo nói \"She let us wash the vegetables.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngày xưa ai làm nem?",
+        "promptVi": "",
+        "options": [
+          "Mẹ Thảo",
+          "Thảo",
+          "Bà của Thảo"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"My grandmother. Hers used to be the best.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao can't make spring rolls.",
+        "promptVi": "Thảo không biết làm nem.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thảo nói \"Yes. She made me practise for a long time.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Ngày xưa Thảo và Minh hay làm gì trong ngày giỗ? Bây giờ thì sao?",
+    "grammarStep": {
+      "titleVi": "Used to",
+      "noticing": [
+        {
+          "sentence": "We used to sit in the corner and watch the adults cook.\"",
+          "highlights": [
+            "used to sit"
+          ]
+        },
+        {
+          "sentence": "\"And Grandma used to make us sit quietly during the ceremony.",
+          "highlights": [
+            "used to make us sit"
+          ]
+        },
+        {
+          "sentence": "\"We used to hide under the table and eat the sweets.\"",
+          "highlights": [
+            "used to hide"
+          ]
+        },
+        {
+          "sentence": "Grandma lets us cook the whole meal!\"",
+          "highlights": [
+            "lets us cook"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"Grandma lets us cook\" (hiện tại) mà không viết \"used to let us cook\"?",
+      "options": [
+        "Vì đây là việc bây giờ mới có, không phải thói quen ngày xưa.",
+        "Vì let không dùng được với used to.",
+        "Vì Grandma là số ít."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Used to cho ngày xưa (bây giờ không còn). Việc bây giờ dùng hiện tại đơn: lets.",
+      "whenVi": "Dùng used to khi kể thói quen ngày xưa, nhất là để so sánh với bây giờ.",
+      "table": [
+        {
+          "subject": "Ngày xưa",
+          "form": "We used to hide under the table.",
+          "negative": "They didn't use to let us cook."
+        },
+        {
+          "subject": "Bây giờ",
+          "form": "Grandma lets us cook the whole meal.",
+          "negative": "—"
+        },
+        {
+          "subject": "used to + make / let",
+          "form": "Grandma used to make us sit quietly.",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Who used to make the spring rolls?",
+          "negative": "Did you use to help in the kitchen?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We use to sit in the corner when we were kids.",
+          "right": "We used to sit in the corner when we were kids."
+        },
+        {
+          "wrong": "Grandma used to made the spring rolls.",
+          "right": "Grandma used to make the spring rolls."
+        }
+      ],
+      "noteVi": "Câu hỏi với Who làm chủ ngữ không cần did: Who used to make the spring rolls?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "We used to ___ under the table. (hide)",
+          "answers": [
+            "hide"
+          ],
+          "explanationVi": "Used to + động từ nguyên mẫu."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Who ___ make the spring rolls?",
+          "options": [
+            "did use to",
+            "used to",
+            "use to",
+            "was used to"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Who làm chủ ngữ: Who used to…?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Grandma used to let us washing the vegetables.",
+          "sentence": "Grandma used to let us wash the vegetables.",
+          "explanationVi": "Let + người + động từ nguyên mẫu: wash."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi hay ngồi trong góc.",
+          "sentence": "We used to sit in the corner.",
+          "words": [
+            "used",
+            "We",
+            "to",
+            "sit",
+            "in",
+            "the",
+            "corner.",
+            "use"
+          ],
+          "explanationVi": "Khẳng định: used to; từ \"use\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Grandma tries one and smiles.",
+        "tipVi": "Tries /traɪz/; smiles /smaɪlz/ đều có âm /aɪ/."
+      },
+      {
+        "text": "\"Some things never change.\"",
+        "tipVi": "Change /tʃeɪndʒ/ kết thúc bằng /dʒ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What did you use to do at family events as a child?",
+        "questionVi": "Hồi nhỏ ở các dịp gia đình bạn hay làm gì?",
+        "frame": "I used to ___."
+      },
+      {
+        "question": "Who used to cook the most in your family?",
+        "questionVi": "Ngày xưa ai trong nhà bạn nấu ăn nhiều nhất?",
+        "frame": "My ___ used to ___."
+      },
+      {
+        "question": "What does your grandmother or grandfather let you do now?",
+        "questionVi": "Bây giờ ông hoặc bà cho bạn làm gì?",
+        "frame": "He / She lets me ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu used to / didn't use to",
+      "anyOf": [
+        "used to",
+        "use to"
+      ],
+      "outlineVi": [
+        "Dịp gia đình đó là gì, ở đâu.",
+        "Ngày xưa bạn hay làm gì (I used to …), người lớn cho / bắt bạn làm gì.",
+        "Bây giờ bạn làm gì khác."
+      ],
+      "modelAnswer": "Every Tet, my whole family used to meet at my grandparents' house in Nam Dinh. The adults used to cook for two days. My grandmother didn't let me help, so I used to play outside with my cousins. Now I'm older, and she lets me make the spring rolls. Last year, I made fifty of them myself. My grandmother was very proud."
+    }
+  },
+  "glosses": [
+    {
+      "text": "great-grandfather",
+      "lemma": "great-grandfather",
+      "meaningVi": "cụ ông",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "their great-grandfather's death",
+      "phraseVi": "ngày giỗ cụ"
+    },
+    {
+      "text": "quietly",
+      "lemma": "quietly",
+      "meaningVi": "yên lặng",
+      "sentenceIndex": 7,
+      "pos": "adverb",
+      "phrase": "make us sit quietly",
+      "phraseVi": "bắt mình ngồi im"
+    },
+    {
+      "text": "meal",
+      "lemma": "meal",
+      "meaningVi": "bữa ăn, mâm cỗ",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "cook the whole meal",
+      "phraseVi": "nấu cả mâm cỗ"
+    },
+    {
+      "text": "Hers",
+      "lemma": "hers",
+      "meaningVi": "của bà ấy",
+      "sentenceIndex": 18,
+      "pos": "pronoun",
+      "phrase": "Hers were always the best.",
+      "phraseVi": "Nem của bà lúc nào cũng ngon nhất."
+    },
+    {
+      "text": "again and again",
+      "lemma": "again",
+      "meaningVi": "đi đi lại lại, nhiều lần",
+      "sentenceIndex": 20,
+      "pos": "phrase",
+      "phrase": "practise again and again",
+      "phraseVi": "tập đi tập lại"
+    }
+  ]
+}

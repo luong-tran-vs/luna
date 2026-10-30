@@ -1,0 +1,597 @@
+{
+  "content": "It's Sunday evening. Linh is putting her clothes in her suitcase because she is flying to Bangkok tomorrow. Her mother is sitting on the bed.\n\nHer mother asks, \"What time are you leaving tomorrow?\"\n\"My flight is at ten, but I'm leaving the house at seven. Mr Long is driving me to the airport.\"\n\"Who is Mr Long?\"\n\"He's my manager. He's coming to Bangkok with me.\"\nHer mother asks, \"Where are you staying?\"\n\"We're staying at a hotel in the city centre. On Tuesday, we're having a meeting with a big company.\"\n\"Are you visiting anything in Bangkok?\"\n\"Yes, on Wednesday afternoon, we're going to a famous temple. Then we're having dinner by the river.\"\n\"When are you coming home?\"\n\"I'm coming back on Thursday evening. Don't worry, Mum. I'm not staying long.\"\nHer mother smiles. \"Take a warm jacket. It's cold on the plane.\"\n\"OK. And I'm taking a dress for the dinner too!\"",
+  "targetWords": [
+    "clothes",
+    "suitcase",
+    "manager",
+    "centre",
+    "meeting",
+    "company",
+    "famous",
+    "plane"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "clothes",
+        "lemma": "clothes",
+        "meaningVi": "quần áo",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "suitcase",
+        "lemma": "suitcase",
+        "meaningVi": "va li",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "quản lý, sếp",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "centre",
+        "lemma": "centre",
+        "meaningVi": "trung tâm",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "meeting",
+        "lemma": "meeting",
+        "meaningVi": "cuộc họp",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "company",
+        "lemma": "company",
+        "meaningVi": "công ty",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "famous",
+        "lemma": "famous",
+        "meaningVi": "nổi tiếng",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "plane",
+        "lemma": "plane",
+        "meaningVi": "máy bay",
+        "pos": "noun",
+        "sentenceIndex": 21
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh tells her mother about her work trip to Bangkok.",
+          "Linh's mother is flying to Bangkok.",
+          "Linh buys a new suitcase.",
+          "Mr Long visits Linh's family."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh vừa xếp va li vừa kể cho mẹ lịch trình chuyến công tác Bangkok."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time is Linh leaving the house?",
+        "promptVi": "Mấy giờ Linh rời nhà?",
+        "options": [
+          "At ten",
+          "At seven",
+          "At nine",
+          "At six"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"I'm leaving the house at seven.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Linh taking a dress?",
+        "promptVi": "Vì sao Linh mang theo một chiếc váy?",
+        "options": [
+          "For the meeting",
+          "It's cold on the plane.",
+          "For the dinner by the river",
+          "For the temple"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"I'm taking a dress for the dinner too!\" — bữa tối bên sông vào thứ Tư."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh is staying in Bangkok for two weeks.",
+        "promptVi": "Linh ở Bangkok hai tuần.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô về vào tối thứ Năm và nói \"I'm not staying long.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"by the river\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then we're having dinner by the river.\"",
+        "options": [
+          "bằng thuyền",
+          "bên bờ sông",
+          "qua sông",
+          "dưới sông"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "By the river = cạnh, bên bờ sông."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại tiếp diễn chỉ lịch hẹn tương lai",
+      "bodyVi": "Kế hoạch đã sắp xếp (vé đã đặt, đã hẹn với người khác) dùng am / is / are + V-ing và thời gian tương lai: she is flying to Bangkok tomorrow, Mr Long is driving me to the airport, On Tuesday, we're having a meeting. Câu hỏi: What time are you leaving tomorrow? Where are you staying? Phủ định: I'm not staying long.",
+      "examples": [
+        "Linh is putting her clothes in her suitcase because she is flying to Bangkok tomorrow.",
+        "Her mother asks, \"What time are you leaving tomorrow?\"",
+        "On Tuesday, we're having a meeting with a big company.\""
+      ]
+    },
+    "writingPrompt": "Imagine you are going on a work trip next week. Write about your schedule: when are you leaving, who are you meeting and when are you coming back?",
+    "sentenceTranslations": [
+      "Hôm nay là tối Chủ nhật.",
+      "Linh đang xếp quần áo vào va li vì ngày mai cô bay đi Bangkok.",
+      "Mẹ cô đang ngồi trên giường.",
+      "Mẹ hỏi: \"Mai mấy giờ con đi?\"",
+      "\"Chuyến bay lúc mười giờ, nhưng bảy giờ con đã ra khỏi nhà rồi.",
+      "Anh Long lái xe đưa con ra sân bay.\"",
+      "\"Anh Long là ai?\"",
+      "\"Anh ấy là sếp của con.",
+      "Anh ấy đi Bangkok cùng con.\"",
+      "Mẹ hỏi: \"Con ở đâu?\"",
+      "\"Bọn con ở một khách sạn ở trung tâm thành phố.",
+      "Thứ Ba bọn con có cuộc họp với một công ty lớn.\"",
+      "\"Con có đi thăm chỗ nào ở Bangkok không?\"",
+      "\"Có, chiều thứ Tư bọn con đến một ngôi chùa nổi tiếng.",
+      "Rồi ăn tối bên bờ sông.\"",
+      "\"Khi nào con về?\"",
+      "\"Tối thứ Năm con về.",
+      "Mẹ đừng lo.",
+      "Con không đi lâu đâu.\"",
+      "Mẹ cô mỉm cười.",
+      "\"Mang theo áo khoác ấm nhé.",
+      "Trên máy bay lạnh lắm.\"",
+      "\"Vâng ạ.",
+      "Con còn mang một chiếc váy để đi ăn tối nữa!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lịch trình chuyến đi đã đặt sẵn (giờ bay, nơi ở, cuộc hẹn) bằng hiện tại tiếp diễn.",
+    "examples": [
+      {
+        "lemma": "clothes",
+        "sentence": "I need some new clothes.",
+        "meaningVi": "Tôi cần mấy bộ quần áo mới."
+      },
+      {
+        "lemma": "suitcase",
+        "sentence": "My suitcase is very heavy.",
+        "meaningVi": "Va li của tôi rất nặng."
+      },
+      {
+        "lemma": "manager",
+        "sentence": "The manager is in a meeting.",
+        "meaningVi": "Quản lý đang họp."
+      },
+      {
+        "lemma": "centre",
+        "sentence": "We live in the city centre.",
+        "meaningVi": "Chúng tôi sống ở trung tâm thành phố."
+      },
+      {
+        "lemma": "meeting",
+        "sentence": "The meeting starts at nine.",
+        "meaningVi": "Cuộc họp bắt đầu lúc chín giờ."
+      },
+      {
+        "lemma": "company",
+        "sentence": "She works for a big company.",
+        "meaningVi": "Cô ấy làm cho một công ty lớn."
+      },
+      {
+        "lemma": "famous",
+        "sentence": "Hoi An is famous for its lanterns.",
+        "meaningVi": "Hội An nổi tiếng với đèn lồng."
+      },
+      {
+        "lemma": "plane",
+        "sentence": "The plane is very big.",
+        "meaningVi": "Chiếc máy bay rất to."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Laura"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, are you coming to my party on Wednesday?",
+          "meaningVi": "Linh ơi, thứ Tư cậu đến dự tiệc của mình chứ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Sorry, Laura. I'm flying to Bangkok tomorrow.",
+          "meaningVi": "Xin lỗi Laura. Ngày mai mình bay đi Bangkok."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh! Are you going on holiday?",
+          "meaningVi": "Ồ! Cậu đi nghỉ à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's for work. I'm having a meeting there on Tuesday.",
+          "meaningVi": "Không, đi công tác. Thứ Ba mình có cuộc họp ở đó."
+        },
+        {
+          "speaker": 1,
+          "text": "Is anyone going with you?",
+          "meaningVi": "Có ai đi cùng cậu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, my manager is coming too.",
+          "meaningVi": "Có, sếp mình cũng đi."
+        },
+        {
+          "speaker": 1,
+          "text": "When are you coming back?",
+          "meaningVi": "Khi nào cậu về?"
+        },
+        {
+          "speaker": 0,
+          "text": "On Thursday evening. I'm not staying long.",
+          "meaningVi": "Tối thứ Năm. Mình không ở lâu đâu."
+        },
+        {
+          "speaker": 1,
+          "text": "Then let's meet on Friday for lunch.",
+          "meaningVi": "Vậy thứ Sáu mình đi ăn trưa nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! I'm bringing you something from Bangkok.",
+          "meaningVi": "Tuyệt! Mình sẽ mang quà Bangkok về cho cậu."
+        }
+      ]
+    },
+    "grammarTipVi": "Từ chối lời mời bằng lịch đã có: I'm flying to Bangkok tomorrow. Hỏi: Are you coming to my party? When are you coming back?",
+    "translations": [
+      {
+        "vi": "Ngày mai tôi bay đi Bangkok cùng sếp.",
+        "en": "I'm flying to Bangkok with my manager tomorrow.",
+        "distractors": [
+          "flew",
+          "will",
+          "is"
+        ]
+      },
+      {
+        "vi": "Thứ Ba chúng tôi có một cuộc họp.",
+        "en": "We are having a meeting on Tuesday.",
+        "distractors": [
+          "have",
+          "is",
+          "met"
+        ]
+      },
+      {
+        "vi": "Bạn ở khách sạn ở trung tâm à?",
+        "en": "Are you staying at a hotel in the centre?",
+        "distractors": [
+          "stayed",
+          "Do",
+          "is"
+        ]
+      },
+      {
+        "vi": "Tôi không ở lâu đâu, tôi về bằng máy bay tối thứ Năm.",
+        "en": "I'm not staying long. My plane is on Thursday evening.",
+        "distractors": [
+          "don't",
+          "stayed",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vì sao Linh không đến dự tiệc của Laura?",
+        "promptVi": "",
+        "options": [
+          "Vì cô ấy bị ốm",
+          "Vì cô ấy đi công tác Bangkok",
+          "Vì cô ấy phải làm thêm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"I'm flying to Bangkok tomorrow… it's for work.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đi cùng Linh?",
+        "promptVi": "",
+        "options": [
+          "Laura",
+          "Mẹ của Linh",
+          "Sếp của Linh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"my manager is coming too.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Linh và Laura hẹn nhau khi nào?",
+        "promptVi": "",
+        "options": [
+          "Trưa thứ Sáu",
+          "Tối thứ Năm",
+          "Thứ Tư"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Laura nói \"let's meet on Friday for lunch.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh is going to Bangkok on holiday.",
+        "promptVi": "Linh đi Bangkok để nghỉ mát.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"No, it's for work.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Lịch trình của Linh từ ngày mai đến thứ Năm có những gì?",
+    "grammarStep": {
+      "titleVi": "Hiện tại tiếp diễn chỉ lịch hẹn tương lai",
+      "noticing": [
+        {
+          "sentence": "Linh is putting her clothes in her suitcase because she is flying to Bangkok tomorrow.",
+          "highlights": [
+            "is flying",
+            "tomorrow"
+          ]
+        },
+        {
+          "sentence": "Mr Long is driving me to the airport.\"",
+          "highlights": [
+            "is driving"
+          ]
+        },
+        {
+          "sentence": "On Tuesday, we're having a meeting with a big company.\"",
+          "highlights": [
+            "On Tuesday",
+            "we're having"
+          ]
+        },
+        {
+          "sentence": "I'm not staying long.\"",
+          "highlights": [
+            "I'm not staying"
+          ]
+        }
+      ],
+      "questionVi": "Câu đầu có hai chỗ dùng hiện tại tiếp diễn: \"is putting\" và \"is flying\". Chỗ nào nói về tương lai?",
+      "options": [
+        "\"is putting\" (đang xếp quần áo)",
+        "\"is flying … tomorrow\" (bay vào ngày mai)",
+        "Cả hai đều nói về bây giờ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Is putting là việc đang làm lúc nói; is flying có tomorrow nên chỉ lịch đã đặt trong tương lai.",
+      "whenVi": "Cùng một dạng am / is / are + V-ing: không có thời gian tương lai là đang diễn ra; có tomorrow, on Tuesday… là lịch tương lai.",
+      "table": [
+        {
+          "subject": "Bây giờ",
+          "form": "Linh is putting her clothes in her suitcase.",
+          "negative": "She isn't sleeping."
+        },
+        {
+          "subject": "Tương lai (đã đặt)",
+          "form": "She is flying to Bangkok tomorrow.",
+          "negative": "She isn't flying on Monday."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "What time are you leaving tomorrow?",
+          "negative": "Are you visiting anything?"
+        },
+        {
+          "subject": "I",
+          "form": "I'm coming back on Thursday.",
+          "negative": "I'm not staying long."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "What time you are leaving tomorrow?",
+          "right": "What time are you leaving tomorrow?"
+        },
+        {
+          "wrong": "Mr Long drive me to the airport tomorrow.",
+          "right": "Mr Long is driving me to the airport tomorrow."
+        }
+      ],
+      "noteVi": "Động từ tận cùng bằng -e bỏ e rồi thêm -ing: leave → leaving, come → coming, drive → driving, have → having.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (hiện tại tiếp diễn).",
+          "text": "I ___ back on Thursday evening. (come)",
+          "answers": [
+            "am coming",
+            "'m coming"
+          ],
+          "explanationVi": "Come bỏ e: I am coming."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "My manager ___ to Bangkok with me tomorrow.",
+          "options": [
+            "come",
+            "are coming",
+            "is coming",
+            "is comeing"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "My manager là số ít: is coming (come bỏ e)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We are haveing dinner by the river on Wednesday.",
+          "sentence": "We are having dinner by the river on Wednesday.",
+          "explanationVi": "Have bỏ e rồi thêm -ing: having."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn ở đâu (trong chuyến đi)?",
+          "sentence": "Where are you staying?",
+          "words": [
+            "you",
+            "Where",
+            "staying",
+            "are",
+            "do"
+          ],
+          "explanationVi": "Câu hỏi: Where + are + you + staying; từ \"do\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Who is Mr Long?\"",
+        "tipVi": "Who /huː/ không đọc âm w; câu hỏi Wh- xuống giọng."
+      },
+      {
+        "text": "\"When are you coming home?\"",
+        "tipVi": "When are nối liền /wenə/; coming /ˈkʌmɪŋ/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you doing tomorrow evening?",
+        "questionVi": "Tối mai bạn làm gì?",
+        "frame": "Tomorrow evening, I'm ___."
+      },
+      {
+        "question": "Are you meeting anyone this weekend?",
+        "questionVi": "Cuối tuần này bạn có hẹn gặp ai không?",
+        "frame": "Yes, I'm meeting ___. / No, I'm not meeting anyone."
+      },
+      {
+        "question": "What is your mother or father doing next weekend?",
+        "questionVi": "Cuối tuần sau bố hoặc mẹ bạn làm gì?",
+        "frame": "He / She is ___ next weekend."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại tiếp diễn chỉ tương lai (am / is / are + V-ing)",
+      "anyOf": [
+        "flying",
+        "leaving",
+        "staying",
+        "taking",
+        "visiting",
+        "coming",
+        "meeting",
+        "going",
+        "having",
+        "driving"
+      ],
+      "outlineVi": [
+        "Bạn đi đâu, khi nào, đi bằng gì.",
+        "Bạn ở đâu, gặp ai, làm gì từng ngày (I'm having / meeting …).",
+        "Khi nào bạn về."
+      ],
+      "modelAnswer": "Next Monday, I'm flying to Singapore for work. My flight is at eight, and my brother is driving me to the airport. I'm staying at a small hotel near the city centre. On Tuesday, I'm having a meeting with two customers. On Wednesday evening, I'm visiting a friend. I'm not staying long. I'm coming back on Thursday."
+    }
+  },
+  "glosses": [
+    {
+      "text": "putting",
+      "lemma": "put",
+      "meaningVi": "xếp, đặt",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "putting her clothes in her suitcase",
+      "phraseVi": "đang xếp quần áo vào va li"
+    },
+    {
+      "text": "driving",
+      "lemma": "drive",
+      "meaningVi": "lái xe đưa",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "Mr Long is driving me to the airport",
+      "phraseVi": "Anh Long lái xe đưa con ra sân bay"
+    },
+    {
+      "text": "city centre",
+      "lemma": "city centre",
+      "meaningVi": "trung tâm thành phố",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "a hotel in the city centre",
+      "phraseVi": "một khách sạn ở trung tâm thành phố"
+    },
+    {
+      "text": "temple",
+      "lemma": "temple",
+      "meaningVi": "ngôi chùa",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "a famous temple",
+      "phraseVi": "một ngôi chùa nổi tiếng"
+    },
+    {
+      "text": "coming back",
+      "lemma": "come back",
+      "meaningVi": "quay về",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "I'm coming back on Thursday evening",
+      "phraseVi": "Tối thứ Năm con về"
+    },
+    {
+      "text": "jacket",
+      "lemma": "jacket",
+      "meaningVi": "áo khoác",
+      "sentenceIndex": 20,
+      "pos": "noun",
+      "phrase": "Take a warm jacket.",
+      "phraseVi": "Mang theo áo khoác ấm nhé."
+    },
+    {
+      "text": "dress",
+      "lemma": "dress",
+      "meaningVi": "váy liền",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "I'm taking a dress",
+      "phraseVi": "Con mang một chiếc váy"
+    }
+  ]
+}

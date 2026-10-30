@@ -1,0 +1,604 @@
+{
+  "content": "After ten years in Ho Chi Minh City, Hoa has come back to her home town in Ha Tinh for Tet. On her first morning, she meets her old neighbour, Mr Tam, outside his house.\n\nHe says, \"Hoa! You've grown up so much. Do you still remember this street?\"\n\"Of course! But everything looks different. There didn't use to be so many shops here.\"\nMr Tam laughs. \"You're right. When you were a child, this road used to be a dirt road. When it rained, it used to be full of mud.\"\n\"I remember! We used to walk to school with our shoes in our hands.\"\n\"And we didn't use to have electricity every evening. People used to sit outside and talk under the stars.\"\n\"Did people use to have phones?\"\n\"Only one or two families had a phone. To call someone, you had to go to the post office.\"\nHoa says, \"That's hard to imagine now. Everyone in my office looks at their phone all day.\"\n\"Life was harder then, but people used to help each other more. We used to cook together and share food with our neighbours.\"\n\"Do people still do that?\"\n\"Some do. But many young people have moved to the big cities, like you.\" He smiles. \"The village is quieter now.\"\nHoa looks at the new houses and the busy road. \"I think I miss the old village a little.\"\n\"Then come back more often. Your grandmother is so happy that you're here.\"",
+  "targetWords": [
+    "street",
+    "shop",
+    "dirt",
+    "mud",
+    "shoe",
+    "electricity",
+    "star",
+    "post office",
+    "miss",
+    "often"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "street",
+        "lemma": "street",
+        "meaningVi": "con phố, con đường",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "shops",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "dirt",
+        "lemma": "dirt",
+        "meaningVi": "đất (đường đất)",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "mud",
+        "lemma": "mud",
+        "meaningVi": "bùn",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "shoes",
+        "lemma": "shoe",
+        "meaningVi": "giày, dép",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "electricity",
+        "lemma": "electricity",
+        "meaningVi": "điện",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "stars",
+        "lemma": "star",
+        "meaningVi": "ngôi sao",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "post office",
+        "lemma": "post office",
+        "meaningVi": "bưu điện",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "miss",
+        "lemma": "miss",
+        "meaningVi": "nhớ",
+        "pos": "verb",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "often",
+        "lemma": "often",
+        "meaningVi": "thường xuyên",
+        "pos": "adverb",
+        "sentenceIndex": 30
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Hoa and an old neighbour talk about how her home town has changed.",
+          "Hoa buys a new phone for Tet.",
+          "Mr Tam moves to Ho Chi Minh City.",
+          "A new post office opens in Ha Tinh."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sau mười năm, Hoa về quê và cùng ông Tâm nhớ lại cuộc sống ngày xưa không có công nghệ hiện đại."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What was the road like when it rained?",
+        "promptVi": "Ngày xưa, khi trời mưa con đường thế nào?",
+        "options": [
+          "Very busy",
+          "Full of mud",
+          "Closed",
+          "Full of shops"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Tâm nói \"When it rained, it used to be full of mud.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How did people use to call someone?",
+        "promptVi": "Ngày xưa muốn gọi điện người ta làm thế nào?",
+        "options": [
+          "They used their own phones.",
+          "They wrote a letter.",
+          "They had to go to the post office.",
+          "They went to the market."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ông Tâm nói \"To call someone, you had to go to the post office.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There used to be many shops on Hoa's street.",
+        "promptVi": "Ngày xưa trên phố nhà Hoa có nhiều cửa hàng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"There didn't use to be so many shops here.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"grown up\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "You've grown up so much.",
+        "options": [
+          "lớn lên, trưởng thành",
+          "già đi",
+          "đi xa",
+          "cao thêm một chút"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Grow up (phân từ: grown up) = lớn lên, trưởng thành."
+      }
+    ],
+    "grammarNote": {
+      "title": "Used to",
+      "bodyVi": "Used to + động từ cho thói quen ngày xưa: We used to walk to school, people used to sit outside. Used to be cho trạng thái ngày xưa: this road used to be a dirt road. There used to be / There didn't use to be = ngày xưa có / không có: There didn't use to be so many shops here. Câu hỏi: Did people use to have phones? Tất cả đều ngụ ý bây giờ đã khác.",
+      "examples": [
+        "There didn't use to be so many shops here.\"",
+        "When you were a child, this road used to be a dirt road.",
+        "\"Did people use to have phones?\""
+      ]
+    },
+    "writingPrompt": "Write about how your home town or neighbourhood has changed: what used to be there, and what didn't use to be there?",
+    "sentenceTranslations": [
+      "Sau mười năm ở Thành phố Hồ Chí Minh, Hoa về quê ở Hà Tĩnh ăn Tết.",
+      "Buổi sáng đầu tiên, cô gặp người hàng xóm cũ, ông Tâm, ở trước nhà ông.",
+      "Ông nói: \"Hoa!",
+      "Cháu lớn quá rồi.",
+      "Cháu còn nhớ con phố này không?\"",
+      "\"Tất nhiên rồi ạ!",
+      "Nhưng mọi thứ trông khác quá.",
+      "Ngày xưa ở đây đâu có nhiều cửa hàng thế.\"",
+      "Ông Tâm cười.",
+      "\"Cháu nói đúng.",
+      "Hồi cháu còn nhỏ, con đường này là đường đất.",
+      "Trời mưa là toàn bùn.\"",
+      "\"Cháu nhớ!",
+      "Bọn cháu hay cầm giày trên tay đi học.\"",
+      "\"Mà tối nào cũng có điện đâu.",
+      "Mọi người hay ngồi ngoài trời nói chuyện dưới những vì sao.\"",
+      "\"Ngày xưa mọi người có điện thoại không ạ?\"",
+      "\"Cả làng chỉ một hai nhà có điện thoại.",
+      "Muốn gọi cho ai thì phải ra bưu điện.\"",
+      "Hoa nói: \"Giờ khó mà tưởng tượng được.",
+      "Ở văn phòng cháu ai cũng nhìn điện thoại cả ngày.\"",
+      "\"Hồi đó cuộc sống vất vả hơn, nhưng mọi người hay giúp nhau hơn.",
+      "Bọn ông hay nấu ăn cùng nhau và chia đồ ăn cho hàng xóm.\"",
+      "\"Bây giờ mọi người còn làm thế không ạ?\"",
+      "\"Có người còn.",
+      "Nhưng nhiều người trẻ đã ra thành phố lớn, như cháu.\"",
+      "Ông mỉm cười.",
+      "\"Giờ làng yên tĩnh hơn.\"",
+      "Hoa nhìn những ngôi nhà mới và con đường đông đúc.",
+      "\"Cháu nghĩ cháu hơi nhớ làng ngày xưa.\"",
+      "\"Vậy thì về thường xuyên hơn đi.",
+      "Bà cháu vui lắm vì cháu về đấy.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể quê mình ngày xưa và bây giờ khác nhau thế nào bằng used to, didn't use to và there used to be.",
+    "examples": [
+      {
+        "lemma": "street",
+        "sentence": "This street is very busy.",
+        "meaningVi": "Con phố này rất đông."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "The shop opens at eight.",
+        "meaningVi": "Cửa hàng mở cửa lúc tám giờ."
+      },
+      {
+        "lemma": "dirt",
+        "sentence": "There is dirt on your shoes.",
+        "meaningVi": "Giày của bạn dính đất."
+      },
+      {
+        "lemma": "mud",
+        "sentence": "The car is covered in mud.",
+        "meaningVi": "Chiếc xe dính đầy bùn."
+      },
+      {
+        "lemma": "shoe",
+        "sentence": "I can't find my other shoe.",
+        "meaningVi": "Tôi không tìm thấy chiếc giày còn lại."
+      },
+      {
+        "lemma": "electricity",
+        "sentence": "The village has electricity now.",
+        "meaningVi": "Giờ làng đã có điện."
+      },
+      {
+        "lemma": "star",
+        "sentence": "Look at that bright star!",
+        "meaningVi": "Nhìn ngôi sao sáng kia kìa!"
+      },
+      {
+        "lemma": "post office",
+        "sentence": "The post office is next to the bank.",
+        "meaningVi": "Bưu điện ở cạnh ngân hàng."
+      },
+      {
+        "lemma": "miss",
+        "sentence": "I miss my family.",
+        "meaningVi": "Tôi nhớ gia đình."
+      },
+      {
+        "lemma": "often",
+        "sentence": "How often do you visit your parents?",
+        "meaningVi": "Bạn có hay về thăm bố mẹ không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Daniel"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hoa, how was your trip to your home town?",
+          "meaningVi": "Hoa ơi, chuyến về quê thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Lovely, but everything has changed.",
+          "meaningVi": "Vui lắm, nhưng mọi thứ đã thay đổi."
+        },
+        {
+          "speaker": 1,
+          "text": "What used to be different?",
+          "meaningVi": "Ngày xưa khác thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "The roads used to be dirt roads. Now they're all new.",
+          "meaningVi": "Đường ngày xưa là đường đất. Giờ đều mới hết."
+        },
+        {
+          "speaker": 1,
+          "text": "Did people use to have TVs?",
+          "meaningVi": "Ngày xưa mọi người có tivi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not many. We used to watch TV at our neighbour's house.",
+          "meaningVi": "Không nhiều. Bọn mình hay sang nhà hàng xóm xem tivi."
+        },
+        {
+          "speaker": 1,
+          "text": "That sounds fun!",
+          "meaningVi": "Nghe vui nhỉ!"
+        },
+        {
+          "speaker": 0,
+          "text": "It was. People used to visit each other every evening.",
+          "meaningVi": "Vui lắm. Tối nào mọi người cũng sang chơi nhà nhau."
+        },
+        {
+          "speaker": 1,
+          "text": "Do they still do that?",
+          "meaningVi": "Giờ họ còn thế không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not so much. Everyone stays at home with their phones now.",
+          "meaningVi": "Không nhiều nữa. Giờ ai cũng ở nhà với điện thoại."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi: What used to be different? Did people use to have TVs? Trả lời: The roads used to be dirt roads. We used to watch TV at our neighbour's house.",
+    "translations": [
+      {
+        "vi": "Ngày xưa ở đây không có nhiều cửa hàng.",
+        "en": "There didn't use to be many shops here.",
+        "distractors": [
+          "used",
+          "wasn't",
+          "is"
+        ]
+      },
+      {
+        "vi": "Con phố này ngày xưa là đường đất.",
+        "en": "This street used to be a dirt road.",
+        "distractors": [
+          "uses",
+          "was",
+          "is"
+        ]
+      },
+      {
+        "vi": "Mọi người hay ngồi ngoài trời dưới những vì sao.",
+        "en": "People used to sit outside under the stars.",
+        "distractors": [
+          "uses",
+          "sat",
+          "sitting"
+        ]
+      },
+      {
+        "vi": "Tôi hơi nhớ ngôi làng ngày xưa.",
+        "en": "I miss the old village a little.",
+        "distractors": [
+          "missed",
+          "misses",
+          "used"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa kể với Daniel về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Quê của Hoa đã thay đổi thế nào",
+          "Chiếc tivi mới",
+          "Công việc của Daniel"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"everything has changed\" và kể ngày xưa ở quê thế nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngày xưa Hoa hay xem tivi ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở trường",
+          "Ở nhà hàng xóm",
+          "Ở bưu điện"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"We used to watch TV at our neighbour's house.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bây giờ mọi người buổi tối làm gì?",
+        "promptVi": "",
+        "options": [
+          "Sang nhà nhau chơi",
+          "Xem tivi cùng nhau",
+          "Ở nhà với điện thoại"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hoa nói \"Everyone stays at home with their phones now.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The roads in Hoa's home town are still dirt roads.",
+        "promptVi": "Đường ở quê Hoa vẫn là đường đất.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"Now they're all new.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Quê của Hoa ngày xưa khác bây giờ ở những điểm nào?",
+    "grammarStep": {
+      "titleVi": "Used to",
+      "noticing": [
+        {
+          "sentence": "There didn't use to be so many shops here.\"",
+          "highlights": [
+            "There didn't use to be"
+          ]
+        },
+        {
+          "sentence": "When you were a child, this road used to be a dirt road.",
+          "highlights": [
+            "used to be"
+          ]
+        },
+        {
+          "sentence": "We used to walk to school with our shoes in our hands.\"",
+          "highlights": [
+            "used to walk"
+          ]
+        },
+        {
+          "sentence": "\"Did people use to have phones?\"",
+          "highlights": [
+            "Did people use to have"
+          ]
+        }
+      ],
+      "questionVi": "\"There didn't use to be so many shops here\" nghĩa là gì?",
+      "options": [
+        "Ngày xưa ở đây không có nhiều cửa hàng (bây giờ thì có).",
+        "Bây giờ ở đây không có cửa hàng nào.",
+        "Sau này sẽ không có cửa hàng."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "There used to be / There didn't use to be nói ngày xưa có / không có cái gì, và bây giờ đã khác.",
+      "whenVi": "Dùng used to để so sánh quá khứ với hiện tại, nhất là khi kể về một nơi đã thay đổi.",
+      "table": [
+        {
+          "subject": "There used to be",
+          "form": "There used to be a small market here.",
+          "negative": "There didn't use to be many shops."
+        },
+        {
+          "subject": "used to be + danh từ",
+          "form": "This road used to be a dirt road.",
+          "negative": "—"
+        },
+        {
+          "subject": "used to + động từ",
+          "form": "People used to sit outside.",
+          "negative": "We didn't use to have electricity."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Did people use to have phones?",
+          "negative": "Yes, they did. / No, they didn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There didn't used to be many shops here.",
+          "right": "There didn't use to be many shops here."
+        },
+        {
+          "wrong": "This road is used to be a dirt road.",
+          "right": "This road used to be a dirt road."
+        }
+      ],
+      "noteVi": "Used to không có dạng hiện tại. Muốn nói thói quen bây giờ, dùng hiện tại đơn: People often visit each other.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ còn thiếu.",
+          "text": "There didn't ___ to be so many shops here.",
+          "answers": [
+            "use"
+          ],
+          "explanationVi": "Sau didn't: use (không có -d)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "When it rained, the road ___ full of mud.",
+          "options": [
+            "use to be",
+            "used to be",
+            "was used to be",
+            "used to being"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Trạng thái ngày xưa: used to be."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "People used to sitting outside in the evening.",
+          "sentence": "People used to sit outside in the evening.",
+          "explanationVi": "Used to + động từ nguyên mẫu: sit."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ngày xưa chúng tôi không có điện.",
+          "sentence": "We didn't use to have electricity.",
+          "words": [
+            "use",
+            "We",
+            "didn't",
+            "to",
+            "have",
+            "electricity.",
+            "used"
+          ],
+          "explanationVi": "Phủ định: didn't use to; từ \"used\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Did people use to have phones?\"",
+        "tipVi": "Use to đọc /juːstə/; câu hỏi Yes/No lên giọng ở cuối."
+      },
+      {
+        "text": "\"The village is quieter now.\"",
+        "tipVi": "Quieter /ˈkwaɪətə/; nhấn vào now."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What used to be in your street when you were a child?",
+        "questionVi": "Hồi bạn nhỏ, phố nhà bạn có gì?",
+        "frame": "There used to be ___."
+      },
+      {
+        "question": "What didn't your town use to have?",
+        "questionVi": "Ngày xưa thị trấn / thành phố của bạn không có gì?",
+        "frame": "It didn't use to have ___."
+      },
+      {
+        "question": "How did your grandfather or grandmother use to call people?",
+        "questionVi": "Ngày xưa ông bà bạn liên lạc với người khác bằng cách nào?",
+        "frame": "He / She used to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu used to / didn't use to / there used to be",
+      "anyOf": [
+        "used to",
+        "use to"
+      ],
+      "outlineVi": [
+        "Bạn đến từ đâu, lâu rồi chưa về.",
+        "Ngày xưa nơi đó thế nào (It used to be … / There used to be …).",
+        "Bây giờ đã thay đổi ra sao, bạn cảm thấy thế nào."
+      ],
+      "modelAnswer": "My home town is a small town in Phu Tho. It used to be very quiet, and there didn't use to be any big shops. People used to buy everything at the morning market. Children used to play football in the street after school. Now there are two supermarkets and a lot of cars. The town is more modern, but I miss the old quiet streets."
+    }
+  },
+  "glosses": [
+    {
+      "text": "come back",
+      "lemma": "come back",
+      "meaningVi": "trở về",
+      "sentenceIndex": 0,
+      "pos": "phrasal verb",
+      "phrase": "Hoa has come back to her home town",
+      "phraseVi": "Hoa về quê"
+    },
+    {
+      "text": "grown up",
+      "lemma": "grow up",
+      "meaningVi": "lớn lên",
+      "sentenceIndex": 3,
+      "pos": "phrasal verb",
+      "phrase": "You've grown up so much.",
+      "phraseVi": "Cháu lớn quá rồi."
+    },
+    {
+      "text": "full of",
+      "lemma": "full of",
+      "meaningVi": "đầy",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "full of mud",
+      "phraseVi": "toàn bùn"
+    },
+    {
+      "text": "each other",
+      "lemma": "each other",
+      "meaningVi": "nhau",
+      "sentenceIndex": 21,
+      "pos": "pronoun",
+      "phrase": "people used to help each other more",
+      "phraseVi": "mọi người hay giúp nhau hơn"
+    },
+    {
+      "text": "quieter",
+      "lemma": "quiet",
+      "meaningVi": "yên tĩnh hơn",
+      "sentenceIndex": 27,
+      "pos": "adjective",
+      "phrase": "The village is quieter now.",
+      "phraseVi": "Giờ làng yên tĩnh hơn."
+    }
+  ]
+}

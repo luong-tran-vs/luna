@@ -1,0 +1,607 @@
+{
+  "content": "It's Monday morning. Minh comes back to his desk after a long phone call. His co-worker Hoa looks up from her computer.\n\n\"Who was that?\" she asks.\n\"It was Ms Lan from Sun Travel, our biggest customer,\" Minh says. \"She had some news about the new website.\"\n\"Good news or bad news?\"\n\"Good news, I think. She said that her boss wanted to make some changes. She told me that they needed two more weeks.\"\n\"So the deadline isn't this Friday?\"\n\"No. She said the new deadline was the twentieth.\"\nHoa smiles. \"Thank goodness. I'm so tired this week.\"\n\"So am I. I worked until ten o'clock last night.\"\n\"What else did she say?\"\n\"She said she would send us the new photos tomorrow. She also said that she liked our first design very much.\"\n\"That's great. I don't want to start again.\"\n\"Neither do I. She asked if we could have a video call on Wednesday.\"\n\"Wednesday is fine for me. What time?\"\n\"She said she was free after two.\"\n\"OK. I think we should finish the home page first.\"\n\"So do I. Then we can show it to her on Wednesday.\"\n\"Perfect. Can you write to her and say that we agree?\"\n\"Sure. I'll send her a message now.\"",
+  "targetWords": [
+    "phone",
+    "customer",
+    "news",
+    "website",
+    "boss",
+    "deadline",
+    "send",
+    "design",
+    "video call",
+    "message"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "phone",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "customer",
+        "lemma": "customer",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "news",
+        "lemma": "news",
+        "meaningVi": "tin tức",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "website",
+        "lemma": "website",
+        "meaningVi": "trang web",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "boss",
+        "lemma": "boss",
+        "meaningVi": "sếp",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "deadline",
+        "lemma": "deadline",
+        "meaningVi": "hạn chót",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "send",
+        "lemma": "send",
+        "meaningVi": "gửi",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "design",
+        "lemma": "design",
+        "meaningVi": "bản thiết kế",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "video call",
+        "lemma": "video call",
+        "meaningVi": "cuộc gọi video",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "message",
+        "lemma": "message",
+        "meaningVi": "tin nhắn",
+        "pos": "noun",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Minh telling Hoa about?",
+        "promptVi": "Minh đang kể cho Hoa nghe về điều gì?",
+        "options": [
+          "A phone call from a customer about their website",
+          "His plans for the weekend",
+          "A problem with his computer",
+          "A new job at Sun Travel"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh kể lại cuộc gọi của chị Lan ở Sun Travel về trang web mới."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the new deadline?",
+        "promptVi": "Hạn chót mới là ngày nào?",
+        "options": [
+          "This Friday",
+          "Wednesday",
+          "The twentieth",
+          "Tomorrow"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"She said the new deadline was the twentieth.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Ms Lan say about the first design?",
+        "promptVi": "Chị Lan nói gì về bản thiết kế đầu tiên?",
+        "options": [
+          "She didn't like it.",
+          "She liked it very much.",
+          "She wanted a new one.",
+          "She hadn't seen it."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"She also said that she liked our first design very much.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa wants to start the work again.",
+        "promptVi": "Hoa muốn làm lại từ đầu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"I don't want to start again.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"deadline\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"So the deadline isn't this Friday?\"",
+        "options": [
+          "hạn chót",
+          "cuộc họp",
+          "ngày nghỉ",
+          "bản thiết kế"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Deadline = hạn chót phải xong việc."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu tường thuật",
+      "bodyVi": "Câu tường thuật kể lại lời người khác: said (that) / told + người nghe + (that), rồi lùi thì một bậc: \"My boss wants changes.\" → She said that her boss wanted to make some changes. \"The new deadline is the twentieth.\" → She said the new deadline was the twentieth. will → would: She said she would send us the new photos. Câu hỏi Yes / No: She asked if we could … Bài cũng có So am I / So do I / Neither do I để đồng ý.",
+      "examples": [
+        "She said that her boss wanted to make some changes.",
+        "She told me that they needed two more weeks.\"",
+        "\"She said she would send us the new photos tomorrow."
+      ]
+    },
+    "writingPrompt": "Think of a phone call you had recently. Write what the other person said, using said (that) and told me (that).",
+    "sentenceTranslations": [
+      "Sáng thứ Hai.",
+      "Minh quay về bàn làm việc sau một cuộc điện thoại dài.",
+      "Đồng nghiệp của anh là Hoa ngẩng lên khỏi máy tính.",
+      "Cô hỏi: \"Ai gọi thế?\"",
+      "Minh nói: \"Chị Lan ở Sun Travel, khách hàng lớn nhất của mình.",
+      "Chị ấy có tin về trang web mới.\"",
+      "\"Tin tốt hay tin xấu?\"",
+      "\"Tin tốt, anh nghĩ vậy.",
+      "Chị ấy nói sếp chị ấy muốn sửa vài chỗ.",
+      "Chị ấy bảo họ cần thêm hai tuần.\"",
+      "\"Vậy hạn chót không phải thứ Sáu này à?\"",
+      "\"Không.",
+      "Chị ấy nói hạn chót mới là ngày hai mươi.\"",
+      "Hoa mỉm cười.",
+      "\"May quá.",
+      "Tuần này em mệt lắm.\"",
+      "\"Anh cũng vậy. Tối qua anh làm đến mười giờ.\"",
+      "\"Chị ấy còn nói gì nữa?\"",
+      "\"Chị ấy nói mai sẽ gửi ảnh mới cho mình.",
+      "Chị ấy cũng nói rất thích bản thiết kế đầu tiên của mình.\"",
+      "\"Tuyệt quá.",
+      "Em không muốn làm lại từ đầu.\"",
+      "\"Anh cũng không. Chị ấy hỏi thứ Tư mình có gọi video được không.\"",
+      "\"Thứ Tư em được.",
+      "Mấy giờ ạ?\"",
+      "\"Chị ấy nói chị ấy rảnh sau hai giờ.\"",
+      "\"Vâng.",
+      "Em nghĩ mình nên làm xong trang chủ trước.\"",
+      "\"Anh cũng nghĩ vậy. Rồi thứ Tư mình cho chị ấy xem.\"",
+      "\"Tuyệt.",
+      "Anh viết cho chị ấy nói là mình đồng ý nhé?\"",
+      "\"Được.",
+      "Anh gửi tin nhắn cho chị ấy ngay đây.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại một cuộc điện thoại công việc bằng câu tường thuật (She said that … / She told me that …) và đồng ý bằng So do I / Neither do I.",
+    "examples": [
+      {
+        "lemma": "phone",
+        "sentence": "My phone is on the table.",
+        "meaningVi": "Điện thoại của tôi ở trên bàn."
+      },
+      {
+        "lemma": "customer",
+        "sentence": "The customer wanted a new design.",
+        "meaningVi": "Khách hàng muốn một bản thiết kế mới."
+      },
+      {
+        "lemma": "news",
+        "sentence": "I have some good news for you.",
+        "meaningVi": "Tôi có tin vui cho bạn."
+      },
+      {
+        "lemma": "website",
+        "sentence": "You can buy tickets on our website.",
+        "meaningVi": "Bạn có thể mua vé trên trang web của chúng tôi."
+      },
+      {
+        "lemma": "boss",
+        "sentence": "My boss is on holiday this week.",
+        "meaningVi": "Tuần này sếp tôi đi nghỉ."
+      },
+      {
+        "lemma": "deadline",
+        "sentence": "The deadline for the report is Monday.",
+        "meaningVi": "Hạn chót nộp báo cáo là thứ Hai."
+      },
+      {
+        "lemma": "send",
+        "sentence": "Can you send me the photos?",
+        "meaningVi": "Bạn gửi cho tôi mấy tấm ảnh được không?"
+      },
+      {
+        "lemma": "design",
+        "sentence": "I like the design of this bag.",
+        "meaningVi": "Tôi thích thiết kế của chiếc túi này."
+      },
+      {
+        "lemma": "video call",
+        "sentence": "We have a video call every Monday.",
+        "meaningVi": "Thứ Hai nào chúng tôi cũng gọi video."
+      },
+      {
+        "lemma": "message",
+        "sentence": "I got your message this morning.",
+        "meaningVi": "Sáng nay tôi nhận được tin nhắn của bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Minh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Minh, how was the video call with Ms Lan?",
+          "meaningVi": "Anh Minh, cuộc gọi video với chị Lan thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Good. She said that she loved the new home page.",
+          "meaningVi": "Tốt. Chị ấy nói rất thích trang chủ mới."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? Did she ask for any changes?",
+          "meaningVi": "Thật à? Chị ấy có yêu cầu sửa gì không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Only one. She said the logo was too small.",
+          "meaningVi": "Chỉ một chỗ. Chị ấy nói logo nhỏ quá."
+        },
+        {
+          "speaker": 0,
+          "text": "I thought that too.",
+          "meaningVi": "Em cũng nghĩ thế."
+        },
+        {
+          "speaker": 1,
+          "text": "So did I. I'll make it bigger today.",
+          "meaningVi": "Anh cũng vậy. Hôm nay anh sẽ làm to hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Did she say anything about the price?",
+          "meaningVi": "Chị ấy có nói gì về giá không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. She told me the price was fine.",
+          "meaningVi": "Có. Chị ấy bảo giá như vậy là ổn."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! I didn't want to talk about money again.",
+          "meaningVi": "Tuyệt! Em không muốn nói chuyện tiền nong nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Neither did I. Let's celebrate with a coffee.",
+          "meaningVi": "Anh cũng không. Đi uống cà phê ăn mừng thôi."
+        }
+      ]
+    },
+    "grammarTipVi": "Tường thuật: She said that she loved … / She said the logo was too small / She told me the price was fine. Đồng ý với câu quá khứ: I thought that too. – So did I. / I didn't want … – Neither did I.",
+    "translations": [
+      {
+        "vi": "Chị ấy nói hạn chót là ngày hai mươi.",
+        "en": "She said the deadline was the twentieth.",
+        "distractors": [
+          "is",
+          "told",
+          "says"
+        ]
+      },
+      {
+        "vi": "Chị ấy bảo tôi rằng sếp muốn sửa vài chỗ.",
+        "en": "She told me that her boss wanted some changes.",
+        "distractors": [
+          "said",
+          "wants",
+          "his"
+        ]
+      },
+      {
+        "vi": "Chị ấy nói sẽ gửi ảnh vào ngày mai.",
+        "en": "She said she would send the photos tomorrow.",
+        "distractors": [
+          "will",
+          "sent",
+          "told"
+        ]
+      },
+      {
+        "vi": "Sếp nói khách hàng rất vui.",
+        "en": "The boss said the customer was very happy.",
+        "distractors": [
+          "is",
+          "told",
+          "says"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa và Minh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuộc gọi video với chị Lan",
+          "Giá cà phê",
+          "Một khách hàng mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa hỏi \"how was the video call with Ms Lan?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Lan muốn sửa gì?",
+        "promptVi": "",
+        "options": [
+          "Màu trang chủ",
+          "Logo nhỏ quá",
+          "Giá"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"She said the logo was too small.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Lan nói gì về giá?",
+        "promptVi": "",
+        "options": [
+          "Giá quá cao",
+          "Giá ổn",
+          "Chưa nói về giá"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"She told me the price was fine.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Lan didn't like the new home page.",
+        "promptVi": "Chị Lan không thích trang chủ mới.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"She said that she loved the new home page.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Chị Lan đã nói gì qua điện thoại? Minh và Hoa đồng ý với nhau những điểm nào?",
+    "grammarStep": {
+      "titleVi": "Câu tường thuật",
+      "noticing": [
+        {
+          "sentence": "She said that her boss wanted to make some changes.",
+          "highlights": [
+            "said that",
+            "wanted"
+          ]
+        },
+        {
+          "sentence": "She told me that they needed two more weeks.\"",
+          "highlights": [
+            "told me that",
+            "needed"
+          ]
+        },
+        {
+          "sentence": "She said the new deadline was the twentieth.\"",
+          "highlights": [
+            "said",
+            "was"
+          ]
+        },
+        {
+          "sentence": "\"She said she would send us the new photos tomorrow.",
+          "highlights": [
+            "would send"
+          ]
+        }
+      ],
+      "questionVi": "Chị Lan nói: \"The new deadline is the twentieth.\" Minh tường thuật lại thế nào?",
+      "options": [
+        "She said the new deadline was the twentieth.",
+        "She said the new deadline is the twentieth yesterday.",
+        "She told the new deadline was the twentieth."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Lùi thì: is → was. Told phải có người nghe (told me), còn said thì không.",
+      "whenVi": "Dùng câu tường thuật khi kể lại cho người khác điều ai đó đã nói, ví dụ sau một cuộc điện thoại.",
+      "table": [
+        {
+          "subject": "Hiện tại đơn → quá khứ đơn",
+          "form": "\"My boss wants changes.\" → She said her boss wanted changes.",
+          "negative": "\"It isn't Friday.\" → She said it wasn't Friday."
+        },
+        {
+          "subject": "will → would",
+          "form": "\"I'll send the photos.\" → She said she would send the photos.",
+          "negative": "won't → wouldn't"
+        },
+        {
+          "subject": "said / told",
+          "form": "said (that) … / told + người nghe + (that) …",
+          "negative": "Không viết: told that …, said me …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She said me that the deadline was the twentieth.",
+          "right": "She told me that the deadline was the twentieth."
+        },
+        {
+          "wrong": "She said she will send the photos.",
+          "right": "She said she would send the photos."
+        }
+      ],
+      "noteVi": "Đại từ cũng đổi theo người kể: \"I like your design\" → She said she liked our design.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền said hoặc told.",
+          "text": "She ___ me that they needed two more weeks.",
+          "answers": [
+            "told"
+          ],
+          "explanationVi": "Có người nghe (me) ngay sau → told."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu tường thuật đúng của: \"I will call you on Wednesday.\"",
+          "text": "She said she ___ us on Wednesday.",
+          "options": [
+            "would call",
+            "will call",
+            "calls",
+            "is calling"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "will → would: would call."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She said me that she liked our design.",
+          "sentence": "She told me that she liked our design.",
+          "explanationVi": "Có người nghe (me) thì dùng told, không dùng said."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chị ấy nói hạn chót mới là ngày hai mươi.",
+          "sentence": "She said the new deadline was the twentieth.",
+          "words": [
+            "said",
+            "She",
+            "the",
+            "new",
+            "deadline",
+            "was",
+            "the",
+            "twentieth.",
+            "is"
+          ],
+          "explanationVi": "Lùi thì is → was; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She said that her boss wanted to make some changes.",
+        "tipVi": "Wanted /ˈwɒntɪd/ đuôi -ed đọc /ɪd/; \"said that\" đọc nhẹ that."
+      },
+      {
+        "text": "\"So do I. Then we can show it to her on Wednesday.\"",
+        "tipVi": "Nhấn vào I trong \"So do I\"; Wednesday /ˈwenzdeɪ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who called you last? What did he or she say?",
+        "questionVi": "Ai gọi cho bạn gần nhất? Người đó nói gì?",
+        "frame": "___ called me. He / She said that ___."
+      },
+      {
+        "question": "Do you prefer phone calls or messages? Why?",
+        "questionVi": "Bạn thích gọi điện hay nhắn tin hơn? Vì sao?",
+        "frame": "I prefer ___ because ___."
+      },
+      {
+        "question": "Agree with this: \"I don't like long meetings.\"",
+        "questionVi": "Hãy đồng ý với câu: \"Tôi không thích họp lâu.\"",
+        "frame": "Neither ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật (said that … / told me that …)",
+      "anyOf": [
+        " said ",
+        " told ",
+        "said that",
+        "told me"
+      ],
+      "outlineVi": [
+        "Ai gọi cho bạn và khi nào.",
+        "Người đó nói gì (He / She said that … / told me that …).",
+        "Bạn trả lời hoặc sẽ làm gì tiếp theo."
+      ],
+      "modelAnswer": "Yesterday my sister called me from Da Nang. She said that she had a new job at a hotel. She told me that she started next Monday and that she was very nervous. She said she would visit us in July. I told her that she would do well."
+    }
+  },
+  "glosses": [
+    {
+      "text": "co-worker",
+      "lemma": "co-worker",
+      "meaningVi": "đồng nghiệp",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "His co-worker Hoa",
+      "phraseVi": "Đồng nghiệp của anh là Hoa"
+    },
+    {
+      "text": "Thank goodness",
+      "lemma": "thank goodness",
+      "meaningVi": "may quá",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "Thank goodness.",
+      "phraseVi": "May quá."
+    },
+    {
+      "text": "So am I",
+      "lemma": "so am I",
+      "meaningVi": "tôi cũng vậy",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "So am I.",
+      "phraseVi": "Anh cũng vậy."
+    },
+    {
+      "text": "Neither do I",
+      "lemma": "neither do I",
+      "meaningVi": "tôi cũng không",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "Neither do I.",
+      "phraseVi": "Anh cũng không."
+    },
+    {
+      "text": "home page",
+      "lemma": "home page",
+      "meaningVi": "trang chủ",
+      "sentenceIndex": 27,
+      "pos": "noun",
+      "phrase": "finish the home page first",
+      "phraseVi": "làm xong trang chủ trước"
+    }
+  ]
+}

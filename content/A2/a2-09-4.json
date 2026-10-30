@@ -1,0 +1,592 @@
+{
+  "content": "Dung works in a tall building in Hanoi. Every morning, it is hard to find a space for his car.\n\nToday he is late. He drives into the car park under the building and goes down to the first floor. There aren't any spaces. Then he goes down to the next floor. It's dark, and it's full too.\nHe says, \"Oh no! Is there any space here?\"\nHe drives slowly round the corner. Finally, he sees a small space next to a big white car. He parks carefully and gets out of his car.\nHe wants to take the elevator up, but a lot of people are waiting for it. So he walks up the stairs. He goes up one floor, two floors, three floors. His office is on floor 6!\n\nWhen he walks into the office, he is very hot and tired. His friend Huong looks at him and laughs.\nShe asks, \"Did you walk up the stairs again?\"\nDung says, \"Yes. Tomorrow I'm coming by bus!\"",
+  "targetWords": [
+    "space",
+    "car park",
+    "floor",
+    "dark",
+    "slowly",
+    "corner",
+    "elevator",
+    "stairs"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "space",
+        "lemma": "space",
+        "meaningVi": "chỗ trống",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "car park",
+        "lemma": "car park",
+        "meaningVi": "bãi đỗ xe",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "tầng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "dark",
+        "lemma": "dark",
+        "meaningVi": "tối",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "slowly",
+        "lemma": "slowly",
+        "meaningVi": "chậm rãi",
+        "pos": "adverb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "corner",
+        "lemma": "corner",
+        "meaningVi": "góc",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "elevator",
+        "lemma": "elevator",
+        "meaningVi": "thang máy",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "stairs",
+        "lemma": "stairs",
+        "meaningVi": "cầu thang",
+        "pos": "noun",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Dung buys a new car.",
+          "Dung looks for a space in the car park and walks up to his office.",
+          "Huong drives Dung to work.",
+          "A new elevator in Dung's building"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Dũng tìm mãi mới có chỗ đỗ xe dưới hầm rồi phải đi bộ lên văn phòng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where does Dung find a space?",
+        "promptVi": "Dũng tìm được chỗ đỗ ở đâu?",
+        "options": [
+          "On the first floor",
+          "Next to the elevator",
+          "In the street",
+          "Next to a big white car"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết: \"he sees a small space next to a big white car.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Dung walk up the stairs?",
+        "promptVi": "Vì sao Dũng đi bộ lên cầu thang?",
+        "options": [
+          "A lot of people are waiting for the elevator.",
+          "The elevator is closed.",
+          "He likes walking.",
+          "His office is on the first floor."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết: \"a lot of people are waiting for it. So he walks up the stairs.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dung is early today.",
+        "promptVi": "Hôm nay Dũng đến sớm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Today he is late.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"carefully\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He parks carefully and gets out of his car.",
+        "options": [
+          "nhanh chóng",
+          "cẩn thận",
+          "vui vẻ",
+          "ồn ào"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Carefully = một cách cẩn thận."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "bodyVi": "Giới từ chuyển động lên xuống, ra vào: drive into the car park (lái vào trong), go down to the next floor (đi xuống), drive round the corner (vòng qua góc), get out of the car (ra khỏi xe), walk up the stairs (đi lên cầu thang), walk into the office (đi vào văn phòng). Ngược lại: get into the car, walk down the stairs.",
+      "examples": [
+        "He drives into the car park under the building and goes down to the first floor.",
+        "He parks carefully and gets out of his car.",
+        "So he walks up the stairs."
+      ]
+    },
+    "writingPrompt": "Write about how you get into your school or office building: do you take the stairs or the elevator? Which floor do you go up to?",
+    "sentenceTranslations": [
+      "Dũng làm việc trong một toà nhà cao ở Hà Nội.",
+      "Sáng nào tìm chỗ đỗ xe cũng khó.",
+      "Hôm nay anh đến muộn.",
+      "Anh lái xe vào bãi đỗ dưới toà nhà và đi xuống tầng một.",
+      "Không còn chỗ nào trống.",
+      "Rồi anh đi xuống tầng tiếp theo.",
+      "Ở đó tối, và cũng kín chỗ.",
+      "Anh nói: \"Ôi không!",
+      "Ở đây có chỗ nào không?\"",
+      "Anh lái xe chậm rãi vòng qua góc.",
+      "Cuối cùng, anh thấy một chỗ nhỏ cạnh một chiếc xe màu trắng to.",
+      "Anh đỗ xe cẩn thận rồi ra khỏi xe.",
+      "Anh muốn đi thang máy lên, nhưng có rất nhiều người đang chờ.",
+      "Vậy là anh đi bộ lên cầu thang.",
+      "Anh leo lên một tầng, hai tầng, ba tầng.",
+      "Văn phòng của anh ở tầng 6!",
+      "Lúc bước vào văn phòng, anh nóng và mệt lắm.",
+      "Chị Hương, bạn cùng làm, nhìn anh và cười.",
+      "Chị hỏi: \"Anh lại đi cầu thang bộ à?\"",
+      "Dũng nói: \"Ừ.",
+      "Mai tôi đi xe buýt!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể việc vào bãi đỗ xe, lên xuống tầng bằng into, out of, up, down, round.",
+    "examples": [
+      {
+        "lemma": "space",
+        "sentence": "Is there a space for my bag?",
+        "meaningVi": "Có chỗ để túi của tôi không?"
+      },
+      {
+        "lemma": "car park",
+        "sentence": "The car park is behind the hotel.",
+        "meaningVi": "Bãi đỗ xe ở phía sau khách sạn."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "My flat is on the third floor.",
+        "meaningVi": "Căn hộ của tôi ở tầng ba."
+      },
+      {
+        "lemma": "dark",
+        "sentence": "It gets dark at six.",
+        "meaningVi": "Sáu giờ là trời tối."
+      },
+      {
+        "lemma": "slowly",
+        "sentence": "Please speak slowly.",
+        "meaningVi": "Làm ơn nói chậm thôi."
+      },
+      {
+        "lemma": "corner",
+        "sentence": "The shop is on the corner.",
+        "meaningVi": "Cửa hàng ở ngay góc phố."
+      },
+      {
+        "lemma": "elevator",
+        "sentence": "The elevator is next to the stairs.",
+        "meaningVi": "Thang máy ở cạnh cầu thang bộ."
+      },
+      {
+        "lemma": "stairs",
+        "sentence": "Be careful on the stairs.",
+        "meaningVi": "Cẩn thận khi đi cầu thang nhé."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dung",
+        "Mark"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Dung, where can I leave my car?",
+          "meaningVi": "Dũng ơi, tôi để xe ở đâu được?"
+        },
+        {
+          "speaker": 0,
+          "text": "Drive into the car park under the building.",
+          "meaningVi": "Anh lái xe vào bãi đỗ dưới toà nhà."
+        },
+        {
+          "speaker": 1,
+          "text": "Is there a space on the first floor?",
+          "meaningVi": "Tầng một có chỗ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's always full. Go down to the next floor.",
+          "meaningVi": "Không, lúc nào cũng kín. Anh xuống tầng tiếp theo."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. And how do I get to your office?",
+          "meaningVi": "Được. Thế đến văn phòng anh thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Get out of your car and take the elevator up.",
+          "meaningVi": "Ra khỏi xe rồi đi thang máy lên."
+        },
+        {
+          "speaker": 1,
+          "text": "Which floor is it on?",
+          "meaningVi": "Ở tầng mấy?"
+        },
+        {
+          "speaker": 0,
+          "text": "Floor 6. Turn left when you come out of the elevator.",
+          "meaningVi": "Tầng 6. Ra khỏi thang máy thì rẽ trái."
+        },
+        {
+          "speaker": 1,
+          "text": "Is the elevator always busy?",
+          "meaningVi": "Thang máy có hay đông không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, in the morning. Then walk up the stairs!",
+          "meaningVi": "Có, buổi sáng. Lúc đó thì đi bộ lên cầu thang!"
+        }
+      ]
+    },
+    "grammarTipVi": "Chỉ đường trong toà nhà: Drive into the car park. Go down to the next floor. Get out of your car. Take the elevator up. Come out of the elevator.",
+    "translations": [
+      {
+        "vi": "Anh ấy lái xe vào bãi đỗ xe.",
+        "en": "He drives into the car park.",
+        "distractors": [
+          "out of",
+          "over",
+          "drove"
+        ]
+      },
+      {
+        "vi": "Anh ấy ra khỏi xe và đi tìm cầu thang.",
+        "en": "He gets out of his car and looks for the stairs.",
+        "distractors": [
+          "into",
+          "got",
+          "off"
+        ]
+      },
+      {
+        "vi": "Tôi đi bộ lên cầu thang.",
+        "en": "I walk up the stairs.",
+        "distractors": [
+          "down",
+          "into",
+          "walks"
+        ]
+      },
+      {
+        "vi": "Đi xuống tầng tiếp theo.",
+        "en": "Go down to the next floor.",
+        "distractors": [
+          "up",
+          "into",
+          "over"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mark hỏi Dũng về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chỗ đỗ xe và đường lên văn phòng",
+          "Giờ làm việc",
+          "Một chiếc xe mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mark hỏi để xe ở đâu và đến văn phòng Dũng thế nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Mark phải xuống tầng tiếp theo?",
+        "promptVi": "",
+        "options": [
+          "Tầng một tối quá",
+          "Tầng một lúc nào cũng kín",
+          "Tầng một đóng cửa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Dũng nói \"it's always full. Go down to the next floor.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ra khỏi thang máy thì đi thế nào?",
+        "promptVi": "",
+        "options": [
+          "Rẽ phải",
+          "Đi thẳng",
+          "Rẽ trái"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Dũng nói \"Turn left when you come out of the elevator.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dung's office is on floor 3.",
+        "promptVi": "Văn phòng của Dũng ở tầng 3.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Dũng nói \"Floor 6.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Dũng đi từ ngoài đường đến văn phòng: lái vào đâu, xuống đâu, lên đâu?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "noticing": [
+        {
+          "sentence": "He drives into the car park under the building and goes down to the first floor.",
+          "highlights": [
+            "into",
+            "down"
+          ]
+        },
+        {
+          "sentence": "He drives slowly round the corner.",
+          "highlights": [
+            "round"
+          ]
+        },
+        {
+          "sentence": "He parks carefully and gets out of his car.",
+          "highlights": [
+            "out of"
+          ]
+        },
+        {
+          "sentence": "So he walks up the stairs.",
+          "highlights": [
+            "up"
+          ]
+        }
+      ],
+      "questionVi": "Từ nào ngược nghĩa với \"get out of the car\"?",
+      "options": [
+        "get up the car",
+        "get into the car",
+        "get past the car"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Into (vào trong) ngược với out of (ra khỏi): get into the car / get out of the car.",
+      "whenVi": "Dùng các cặp ngược nghĩa: into ↔ out of, up ↔ down.",
+      "table": [
+        {
+          "subject": "into ↔ out of",
+          "form": "drive into the car park",
+          "negative": "get out of the car"
+        },
+        {
+          "subject": "up ↔ down",
+          "form": "walk up the stairs",
+          "negative": "go down to the next floor"
+        },
+        {
+          "subject": "round",
+          "form": "drive round the corner",
+          "negative": "—"
+        },
+        {
+          "subject": "Vị trí",
+          "form": "on floor 6, under the building",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He gets out his car.",
+          "right": "He gets out of his car."
+        },
+        {
+          "wrong": "He walks on the stairs to floor 6.",
+          "right": "He walks up the stairs to floor 6."
+        }
+      ],
+      "noteVi": "Với tầng nhà, dùng on: on the first floor, on floor 6. Với hướng đi lên xuống tầng: go up to floor 6, go down to the next floor.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền up, down hoặc into.",
+          "text": "He drives ___ the car park under the building.",
+          "answers": [
+            "into"
+          ],
+          "explanationVi": "Lái vào trong bãi đỗ: into."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "His office is on floor 6, so he walks ___ the stairs.",
+          "options": [
+            "down",
+            "up",
+            "out of",
+            "past"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Đi lên tầng 6: up the stairs."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He gets out his car and walks to the elevator.",
+          "sentence": "He gets out of his car and walks to the elevator.",
+          "explanationVi": "Ra khỏi xe: get out of."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy lái xe vòng qua góc.",
+          "sentence": "He drives round the corner.",
+          "words": [
+            "round",
+            "He",
+            "corner",
+            "drives",
+            "the",
+            "into"
+          ],
+          "explanationVi": "Vòng qua góc: round the corner; từ \"into\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "So he walks up the stairs.",
+        "tipVi": "Walks /wɔːks/ không đọc âm l; stairs /steəz/ kết thúc bằng /z/."
+      },
+      {
+        "text": "He drives slowly round the corner.",
+        "tipVi": "Slowly /ˈsləʊli/; corner /ˈkɔːnə/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you take the stairs or the elevator at school or work?",
+        "questionVi": "Ở trường hoặc chỗ làm bạn đi cầu thang bộ hay thang máy?",
+        "frame": "I take the ___."
+      },
+      {
+        "question": "Which floor is your classroom or office on?",
+        "questionVi": "Lớp học hoặc văn phòng của bạn ở tầng mấy?",
+        "frame": "It's on the ___ floor."
+      },
+      {
+        "question": "Where does your father or mother leave the car or bike?",
+        "questionVi": "Bố hoặc mẹ bạn để xe ở đâu?",
+        "frame": "He / She leaves it in ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 giới từ chỉ chuyển động (into, out of, up, down, round…)",
+      "anyOf": [
+        "into",
+        "out of",
+        "up",
+        "down",
+        "round",
+        "along",
+        "past",
+        "through",
+        "across"
+      ],
+      "outlineVi": [
+        "Bạn đến trường / chỗ làm và để xe ở đâu.",
+        "Bạn đi vào toà nhà, lên tầng bằng cách nào (up the stairs, into the elevator…).",
+        "Một chuyện vui hoặc khó khăn trên đường lên."
+      ],
+      "modelAnswer": "Every morning, I go to school by bike. I ride into the school car park and leave my bike under a big tree. Then I walk into the big building. My classroom is on the fourth floor, but there is no elevator. So I walk up the stairs with my friends. When the bell rings, we run up very fast!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "hard",
+      "lemma": "hard",
+      "meaningVi": "khó",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "it is hard to find a space",
+      "phraseVi": "tìm chỗ đỗ xe cũng khó"
+    },
+    {
+      "text": "full",
+      "lemma": "full",
+      "meaningVi": "kín chỗ",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "it's full too",
+      "phraseVi": "cũng kín chỗ"
+    },
+    {
+      "text": "round",
+      "lemma": "round",
+      "meaningVi": "vòng qua",
+      "sentenceIndex": 9,
+      "pos": "preposition",
+      "phrase": "round the corner",
+      "phraseVi": "vòng qua góc"
+    },
+    {
+      "text": "parks",
+      "lemma": "park",
+      "meaningVi": "đỗ xe",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "He parks carefully",
+      "phraseVi": "Anh đỗ xe cẩn thận"
+    },
+    {
+      "text": "gets out of",
+      "lemma": "get out of",
+      "meaningVi": "ra khỏi",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "gets out of his car",
+      "phraseVi": "ra khỏi xe"
+    },
+    {
+      "text": "hot",
+      "lemma": "hot",
+      "meaningVi": "nóng",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "he is very hot and tired",
+      "phraseVi": "anh nóng và mệt lắm"
+    },
+    {
+      "text": "by bus",
+      "lemma": "by bus",
+      "meaningVi": "bằng xe buýt",
+      "sentenceIndex": 20,
+      "pos": "phrase",
+      "phrase": "I'm coming by bus",
+      "phraseVi": "tôi đi xe buýt"
+    }
+  ]
+}

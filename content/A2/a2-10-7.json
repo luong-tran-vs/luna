@@ -1,0 +1,615 @@
+{
+  "content": "Duy is twenty-five, and he lives with his parents in Hue. Every evening, he comes home from work and eats instant noodles in his room.\n\nOne evening, his mother knocks on his door. She says, \"Duy, come and eat with us. I made vegetable soup.\"\n\"I'm not hungry, Mum. I had a burger at lunch.\"\n\"A burger again? You eat a lot of fast food. When you eat fast food every day, you feel tired and heavy.\"\n\"But it's quick and easy.\"\n\"Vegetables are easy too. If you eat fresh vegetables every day, your stomach feels good, and you feel strong.\"\nDuy thinks. \"Maybe you're right. I often have stomach problems.\"\n\"Of course you do! Come on. Your father grows beans and carrots in the garden. They are very fresh.\"\nDuy sits at the table and tries the soup. \"Mmm, this is good. What's in it?\"\n\"Carrots, beans and onions. When I cook with fresh vegetables, the food is always better.\"\n\"OK, Mum. I'll eat dinner with you from now on.\"",
+  "targetWords": [
+    "soup",
+    "hungry",
+    "burger",
+    "fast food",
+    "fresh",
+    "problem",
+    "grow",
+    "carrot"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "soup",
+        "lemma": "soup",
+        "meaningVi": "canh, súp",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "hungry",
+        "lemma": "hungry",
+        "meaningVi": "đói",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "burger",
+        "lemma": "burger",
+        "meaningVi": "bánh mì kẹp thịt",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "fast food",
+        "lemma": "fast food",
+        "meaningVi": "đồ ăn nhanh",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "fresh",
+        "lemma": "fresh",
+        "meaningVi": "tươi",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "problems",
+        "lemma": "problem",
+        "meaningVi": "vấn đề",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "grows",
+        "lemma": "grow",
+        "meaningVi": "trồng",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "carrots",
+        "lemma": "carrot",
+        "meaningVi": "cà rốt",
+        "pos": "noun",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Duy's mother asks him to eat more vegetables.",
+          "Duy opens a burger shop.",
+          "Duy's father sells vegetables.",
+          "Duy cooks soup for his parents."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mẹ Duy khuyên anh bớt ăn đồ ăn nhanh và ăn nhiều rau tươi hơn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Duy usually eat in the evening?",
+        "promptVi": "Buổi tối Duy thường ăn gì?",
+        "options": [
+          "Vegetable soup",
+          "Instant noodles",
+          "Rice and fish",
+          "Fruit"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết: \"he comes home from work and eats instant noodles in his room.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why are the beans and carrots very fresh?",
+        "promptVi": "Vì sao đậu và cà rốt rất tươi?",
+        "options": [
+          "They come from a big supermarket.",
+          "Duy buys them every day.",
+          "Duy's father grows them in the garden.",
+          "They are in the fridge."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mẹ Duy nói \"Your father grows beans and carrots in the garden.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duy doesn't like the soup.",
+        "promptVi": "Duy không thích món canh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Duy nói \"Mmm, this is good.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"from now on\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I'll eat dinner with you from now on.\"",
+        "options": [
+          "từ hôm qua",
+          "chỉ hôm nay",
+          "từ bây giờ trở đi",
+          "thỉnh thoảng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "From now on = từ giờ trở đi."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Mẹ Duy dùng câu điều kiện loại 0 để nói điều luôn đúng về ăn uống: When you eat fast food every day, you feel tired and heavy. If you eat fresh vegetables every day, your stomach feels good, and you feel strong. When I cook with fresh vegetables, the food is always better. Vế sau có thể có hai kết quả nối bằng and.",
+      "examples": [
+        "When you eat fast food every day, you feel tired and heavy.\"",
+        "If you eat fresh vegetables every day, your stomach feels good, and you feel strong.\"",
+        "When I cook with fresh vegetables, the food is always better.\""
+      ]
+    },
+    "writingPrompt": "Write about the food you eat: what happens when you eat fast food, and what happens when you eat fresh vegetables?",
+    "sentenceTranslations": [
+      "Duy hai mươi lăm tuổi, và anh sống cùng bố mẹ ở Huế.",
+      "Tối nào đi làm về anh cũng ăn mì gói trong phòng.",
+      "Một buổi tối, mẹ anh gõ cửa phòng.",
+      "Mẹ nói: \"Duy, ra ăn cùng bố mẹ đi.",
+      "Mẹ nấu canh rau.\"",
+      "\"Con không đói, mẹ ạ.",
+      "Trưa nay con ăn bánh mì kẹp thịt rồi.\"",
+      "\"Lại bánh mì kẹp thịt à?",
+      "Con ăn đồ ăn nhanh nhiều quá.",
+      "Ngày nào cũng ăn đồ ăn nhanh thì người mệt mỏi, nặng nề.\"",
+      "\"Nhưng nó nhanh và tiện mà.\"",
+      "\"Rau cũng tiện mà.",
+      "Nếu ngày nào cũng ăn rau tươi, bụng sẽ dễ chịu, và người khoẻ ra.\"",
+      "Duy nghĩ ngợi.",
+      "\"Có lẽ mẹ nói đúng.",
+      "Con hay bị đau bụng.\"",
+      "\"Đương nhiên rồi!",
+      "Ra đây nào.",
+      "Bố con trồng đậu và cà rốt ngoài vườn.",
+      "Tươi lắm.\"",
+      "Duy ngồi vào bàn và ăn thử canh.",
+      "\"Ừm, ngon quá.",
+      "Có gì trong này thế mẹ?\"",
+      "\"Cà rốt, đậu và hành.",
+      "Hễ nấu bằng rau tươi là món ăn lúc nào cũng ngon hơn.\"",
+      "\"Vâng, mẹ.",
+      "Từ giờ con sẽ ăn tối cùng bố mẹ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh đồ ăn nhanh và rau tươi, nói kết quả của thói quen ăn uống bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "soup",
+        "sentence": "This soup is very hot.",
+        "meaningVi": "Bát canh này rất nóng."
+      },
+      {
+        "lemma": "hungry",
+        "sentence": "Are you hungry?",
+        "meaningVi": "Bạn có đói không?"
+      },
+      {
+        "lemma": "burger",
+        "sentence": "He wants a burger for lunch.",
+        "meaningVi": "Anh ấy muốn ăn bánh mì kẹp thịt vào bữa trưa."
+      },
+      {
+        "lemma": "fast food",
+        "sentence": "Fast food is not very healthy.",
+        "meaningVi": "Đồ ăn nhanh không tốt cho sức khoẻ lắm."
+      },
+      {
+        "lemma": "fresh",
+        "sentence": "I buy fresh fish at the market.",
+        "meaningVi": "Tôi mua cá tươi ở chợ."
+      },
+      {
+        "lemma": "problem",
+        "sentence": "There is a problem with my phone.",
+        "meaningVi": "Điện thoại của tôi có vấn đề."
+      },
+      {
+        "lemma": "grow",
+        "sentence": "Farmers grow rice here.",
+        "meaningVi": "Nông dân trồng lúa ở đây."
+      },
+      {
+        "lemma": "carrot",
+        "sentence": "The rabbit is eating a carrot.",
+        "meaningVi": "Con thỏ đang ăn một củ cà rốt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duy",
+        "Chris"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Duy, no burger today?",
+          "meaningVi": "Duy ơi, hôm nay không ăn bánh mì kẹp thịt à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No. I have vegetable soup from home.",
+          "meaningVi": "Không. Mình mang canh rau từ nhà."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow! Who made it?",
+          "meaningVi": "Chà! Ai nấu thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "My mother. She says fast food is bad for me.",
+          "meaningVi": "Mẹ mình. Mẹ bảo đồ ăn nhanh không tốt cho mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Is she right?",
+          "meaningVi": "Mẹ cậu nói đúng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I think so. When I eat burgers every day, I feel heavy.",
+          "meaningVi": "Mình nghĩ là đúng. Hễ ngày nào cũng ăn bánh mì kẹp là mình thấy nặng nề."
+        },
+        {
+          "speaker": 1,
+          "text": "And now?",
+          "meaningVi": "Còn bây giờ?"
+        },
+        {
+          "speaker": 0,
+          "text": "If I eat fresh vegetables, my stomach feels good.",
+          "meaningVi": "Nếu ăn rau tươi, bụng mình dễ chịu."
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe I should try it too.",
+          "meaningVi": "Có lẽ mình cũng nên thử."
+        },
+        {
+          "speaker": 0,
+          "text": "Come to my house on Sunday. My mother cooks a lot!",
+          "meaningVi": "Chủ nhật đến nhà mình đi. Mẹ mình nấu nhiều lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "When I eat burgers every day, I feel heavy. If I eat fresh vegetables, my stomach feels good.",
+    "translations": [
+      {
+        "vi": "Hễ ăn đồ ăn nhanh mỗi ngày là bạn thấy mệt.",
+        "en": "When you eat fast food every day, you feel tired.",
+        "distractors": [
+          "will",
+          "ate",
+          "feels"
+        ]
+      },
+      {
+        "vi": "Nếu ăn rau tươi, bụng tôi dễ chịu.",
+        "en": "If I eat fresh vegetables, my stomach feels good.",
+        "distractors": [
+          "will",
+          "ate",
+          "felt"
+        ]
+      },
+      {
+        "vi": "Hễ nấu bằng rau tươi là món ăn ngon hơn.",
+        "en": "When I cook with fresh vegetables, the food is better.",
+        "distractors": [
+          "will",
+          "cooked",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bố tôi trồng cà rốt ngoài vườn.",
+        "en": "My father grows carrots in the garden.",
+        "distractors": [
+          "plants",
+          "grew",
+          "on"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Duy và Chris nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đồ ăn trưa của Duy",
+          "Một nhà hàng mới",
+          "Công việc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chris thấy Duy mang canh rau thay vì ăn bánh mì kẹp thịt.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai nấu canh cho Duy?",
+        "promptVi": "",
+        "options": [
+          "Duy",
+          "Bố Duy",
+          "Mẹ Duy"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Duy nói \"My mother.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi ăn rau tươi, Duy thấy thế nào?",
+        "promptVi": "",
+        "options": [
+          "Bụng dễ chịu",
+          "Nặng nề",
+          "Đói"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy nói \"If I eat fresh vegetables, my stomach feels good.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duy has a burger for lunch today.",
+        "promptVi": "Hôm nay Duy ăn bánh mì kẹp thịt vào bữa trưa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Duy nói \"No. I have vegetable soup from home.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Mẹ Duy nói ăn đồ ăn nhanh và ăn rau tươi mang lại kết quả gì?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "When you eat fast food every day, you feel tired and heavy.\"",
+          "highlights": [
+            "When",
+            "eat",
+            "feel"
+          ]
+        },
+        {
+          "sentence": "If you eat fresh vegetables every day, your stomach feels good, and you feel strong.\"",
+          "highlights": [
+            "If",
+            "eat",
+            "feels",
+            "feel"
+          ]
+        },
+        {
+          "sentence": "When I cook with fresh vegetables, the food is always better.\"",
+          "highlights": [
+            "When",
+            "cook",
+            "is"
+          ]
+        },
+        {
+          "sentence": "I often have stomach problems.\"",
+          "highlights": [
+            "often have"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao trong cùng một câu lại có \"your stomach feels\" và \"you feel\"?",
+      "options": [
+        "Vì your stomach là số ít, còn you đi với động từ nguyên mẫu.",
+        "Vì một vế ở quá khứ.",
+        "Vì feels là danh từ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Động từ chia theo chủ ngữ của từng vế: your stomach → feels; you → feel.",
+      "whenVi": "Dùng câu điều kiện loại 0 để nói thói quen ăn uống dẫn đến kết quả gì, luôn luôn như vậy.",
+      "table": [
+        {
+          "subject": "you",
+          "form": "When you eat fast food, you feel tired.",
+          "negative": "If you eat vegetables, you don't feel heavy."
+        },
+        {
+          "subject": "your stomach / the food",
+          "form": "your stomach feels good / the food is better",
+          "negative": "—"
+        },
+        {
+          "subject": "Hai kết quả",
+          "form": "your stomach feels good, and you feel strong",
+          "negative": "—"
+        },
+        {
+          "subject": "I",
+          "form": "When I cook with fresh vegetables, the food is better.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If you eat fresh vegetables, your stomach feel good.",
+          "right": "If you eat fresh vegetables, your stomach feels good."
+        },
+        {
+          "wrong": "When you eat fast food, you will feel tired. (luôn đúng)",
+          "right": "When you eat fast food, you feel tired."
+        }
+      ],
+      "noteVi": "Fast food là danh từ không đếm được: a lot of fast food (không nói fast foods).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "If you eat fresh vegetables, your stomach ___ good. (feel)",
+          "answers": [
+            "feels"
+          ],
+          "explanationVi": "Your stomach là số ít: feels."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "When Duy ___ fast food every day, he feels heavy.",
+          "options": [
+            "eat",
+            "eats",
+            "will eat",
+            "ate"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Duy là ngôi thứ ba số ít: eats."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "When I cook with fresh vegetables, the food are better.",
+          "sentence": "When I cook with fresh vegetables, the food is better.",
+          "explanationVi": "The food là danh từ không đếm được, dùng is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hễ ăn đồ ăn nhanh là tôi thấy mệt.",
+          "sentence": "When I eat fast food, I feel tired.",
+          "words": [
+            "eat",
+            "When",
+            "fast",
+            "I",
+            "food,",
+            "I",
+            "feel",
+            "tired.",
+            "feels"
+          ],
+          "explanationVi": "I + feel; từ \"feels\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"I'm not hungry, Mum.",
+        "tipVi": "Hungry /ˈhʌŋɡri/ nhấn âm đầu; Mum /mʌm/."
+      },
+      {
+        "text": "Duy sits at the table and tries the soup.",
+        "tipVi": "Sits at nối liền /sɪtsət/; soup /suːp/ có âm /uː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How often do you eat fast food?",
+        "questionVi": "Bạn có hay ăn đồ ăn nhanh không?",
+        "frame": "I eat fast food ___."
+      },
+      {
+        "question": "How do you feel when you eat a lot of vegetables?",
+        "questionVi": "Khi ăn nhiều rau bạn thấy thế nào?",
+        "frame": "When I eat a lot of vegetables, I feel ___."
+      },
+      {
+        "question": "Who cooks in your family? What does he or she often cook?",
+        "questionVi": "Ai nấu ăn trong nhà bạn? Người đó hay nấu món gì?",
+        "frame": "My ___ cooks. He / She often cooks ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, hiện tại đơn)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you"
+      ],
+      "outlineVi": [
+        "Bạn thường ăn gì mỗi ngày.",
+        "Khi ăn đồ ăn nhanh thì sao (When I eat …, I …).",
+        "Khi ăn rau tươi thì sao (If I eat …, I …)."
+      ],
+      "modelAnswer": "I usually have lunch at school, and I often eat fried chicken. When I eat fried chicken every day, I feel tired and heavy. My mother cooks vegetable soup at home. If I eat soup and fresh vegetables, my stomach feels good. Now I take vegetables to school, and I feel strong."
+    }
+  },
+  "glosses": [
+    {
+      "text": "instant noodles",
+      "lemma": "instant noodles",
+      "meaningVi": "mì gói",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "eats instant noodles in his room",
+      "phraseVi": "ăn mì gói trong phòng"
+    },
+    {
+      "text": "knocks on",
+      "lemma": "knock on",
+      "meaningVi": "gõ (cửa)",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "knocks on his door",
+      "phraseVi": "gõ cửa phòng"
+    },
+    {
+      "text": "heavy",
+      "lemma": "heavy",
+      "meaningVi": "nặng nề",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "you feel tired and heavy",
+      "phraseVi": "người mệt mỏi, nặng nề"
+    },
+    {
+      "text": "quick",
+      "lemma": "quick",
+      "meaningVi": "nhanh",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "it's quick and easy",
+      "phraseVi": "nó nhanh và tiện"
+    },
+    {
+      "text": "stomach",
+      "lemma": "stomach",
+      "meaningVi": "bụng, dạ dày",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "your stomach feels good",
+      "phraseVi": "bụng sẽ dễ chịu"
+    },
+    {
+      "text": "tries",
+      "lemma": "try",
+      "meaningVi": "ăn thử",
+      "sentenceIndex": 20,
+      "pos": "verb",
+      "phrase": "tries the soup",
+      "phraseVi": "ăn thử canh"
+    },
+    {
+      "text": "onions",
+      "lemma": "onion",
+      "meaningVi": "hành",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "Carrots, beans and onions.",
+      "phraseVi": "Cà rốt, đậu và hành."
+    },
+    {
+      "text": "from now on",
+      "lemma": "from now on",
+      "meaningVi": "từ giờ trở đi",
+      "sentenceIndex": 26,
+      "pos": "phrase",
+      "phrase": "from now on",
+      "phraseVi": "từ giờ"
+    }
+  ]
+}

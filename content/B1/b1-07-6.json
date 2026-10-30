@@ -1,0 +1,602 @@
+{
+  "content": "It's eleven o'clock at night at the airport in Ho Chi Minh City. Ngoc has just flown back from Singapore. Everyone from her flight has taken their bags, but her suitcase hasn't come out.\n\nShe goes to the baggage claim counter. \"Excuse me. My suitcase isn't here. Could you tell me what I should do?\"\nThe man at the counter, Binh, says, \"I'm sorry to hear that. Can I see your boarding pass and your baggage ticket?\"\n\"Here they are. It's a big red suitcase.\"\nHe types something on his computer. \"Thank you. You came from Singapore on the nine o'clock flight, didn't you?\"\n\"Yes. Do you know where my suitcase is now?\"\n\"Let me check. I'm afraid it's still in Singapore. It missed the plane.\"\n\"Oh no! Do you know when it will arrive?\"\n\"There's another flight tomorrow afternoon, so it should arrive then.\"\nNgoc looks worried. \"You'll send it to my home, won't you? I can't come back to the airport.\"\n\"Of course. We'll deliver it for free. I just need your address and phone number.\"\nShe writes them on the form. \"Could you tell me if I can buy a few things tonight? All my clothes are in that suitcase.\"\n\"Yes. Keep your receipts, and the airline will pay you back.\"\n\"Good. And you'll call me before you deliver it, won't you?\"\n\"Yes, I'll call you tomorrow. Here's a paper with your report number.\"\n\"Thank you. You've been very kind.\"",
+  "targetWords": [
+    "suitcase",
+    "baggage claim",
+    "counter",
+    "miss",
+    "deliver",
+    "address",
+    "form",
+    "receipt",
+    "airline",
+    "report"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "suitcase",
+        "lemma": "suitcase",
+        "meaningVi": "vali",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "baggage claim",
+        "lemma": "baggage claim",
+        "meaningVi": "khu nhận hành lý",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "counter",
+        "lemma": "counter",
+        "meaningVi": "quầy",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "missed",
+        "lemma": "miss",
+        "meaningVi": "lỡ, trễ (chuyến)",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "deliver",
+        "lemma": "deliver",
+        "meaningVi": "giao (hàng)",
+        "pos": "verb",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "address",
+        "lemma": "address",
+        "meaningVi": "địa chỉ",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "form",
+        "lemma": "form",
+        "meaningVi": "tờ khai, mẫu đơn",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "receipts",
+        "lemma": "receipt",
+        "meaningVi": "hoá đơn, biên lai",
+        "pos": "noun",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "airline",
+        "lemma": "airline",
+        "meaningVi": "hãng hàng không",
+        "pos": "noun",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "report",
+        "lemma": "report",
+        "meaningVi": "biên bản, báo cáo",
+        "pos": "noun",
+        "sentenceIndex": 36
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Ngoc's problem?",
+        "promptVi": "Ngọc gặp rắc rối gì?",
+        "options": [
+          "Her suitcase didn't arrive with her flight.",
+          "She missed her flight to Singapore.",
+          "She lost her boarding pass.",
+          "Her phone isn't working."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mọi người đã lấy túi, nhưng vali của Ngọc không ra: \"her suitcase hasn't come out.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Ngoc's suitcase now?",
+        "promptVi": "Vali của Ngọc bây giờ ở đâu?",
+        "options": [
+          "In Ho Chi Minh City",
+          "In Singapore",
+          "On another plane",
+          "At her home"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh Bình nói \"I'm afraid it's still in Singapore.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Ngoc need to keep?",
+        "promptVi": "Ngọc cần giữ lại gì?",
+        "options": [
+          "Her boarding pass",
+          "The form",
+          "Her receipts",
+          "Her old suitcase"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anh Bình nói \"Keep your receipts, and the airline will pay you back.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngoc has to come back to the airport for her suitcase.",
+        "promptVi": "Ngọc phải quay lại sân bay để lấy vali.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì anh Bình nói \"We'll deliver it for free.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"missed\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It missed the plane.\"",
+        "options": [
+          "đã lỡ, không kịp lên",
+          "đã rơi khỏi",
+          "đã nhớ",
+          "đã tìm thấy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Miss the plane = lỡ chuyến bay, không kịp lên máy bay."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "bodyVi": "Khi lo lắng, ta vẫn nên hỏi lịch sự bằng câu hỏi gián tiếp: What should I do? → Could you tell me what I should do? Where is my suitcase? → Do you know where my suitcase is? When will it arrive? → Do you know when it will arrive? (will đứng sau chủ ngữ). Câu hỏi đuôi để chắc chắn người kia sẽ làm điều mình mong: You'll send it to my home, won't you?",
+      "examples": [
+        "Could you tell me what I should do?\"",
+        "\"Yes. Do you know where my suitcase is now?\"",
+        "Do you know when it will arrive?\""
+      ]
+    },
+    "writingPrompt": "Your bag did not arrive after a flight. Write what you say at the baggage counter. Use polite questions (Could you tell me …? / Do you know …?).",
+    "sentenceTranslations": [
+      "Mười một giờ đêm ở sân bay Thành phố Hồ Chí Minh.",
+      "Ngọc vừa bay từ Singapore về.",
+      "Mọi người trên chuyến bay đã lấy túi của họ, nhưng vali của cô vẫn chưa ra.",
+      "Cô đến quầy ở khu nhận hành lý.",
+      "\"Xin lỗi anh.",
+      "Vali của tôi không có ở đây.",
+      "Anh cho tôi hỏi tôi nên làm gì?\"",
+      "Anh nhân viên ở quầy, Bình, nói: \"Tôi rất tiếc.",
+      "Cho tôi xem thẻ lên máy bay và phiếu hành lý của chị được không?\"",
+      "\"Đây ạ.",
+      "Đó là một chiếc vali to màu đỏ.\"",
+      "Anh gõ gì đó trên máy tính.",
+      "\"Cảm ơn chị.",
+      "Chị bay từ Singapore về trên chuyến chín giờ, phải không?\"",
+      "\"Vâng.",
+      "Anh có biết vali của tôi giờ đang ở đâu không?\"",
+      "\"Để tôi kiểm tra.",
+      "Tôi e là nó vẫn còn ở Singapore.",
+      "Nó bị lỡ chuyến bay.\"",
+      "\"Ôi không!",
+      "Anh có biết khi nào nó đến không?\"",
+      "\"Chiều mai có một chuyến bay khác, nên nó sẽ đến lúc đó.\"",
+      "Ngọc có vẻ lo lắng.",
+      "\"Các anh sẽ gửi nó về nhà tôi, phải không?",
+      "Tôi không quay lại sân bay được.\"",
+      "\"Tất nhiên.",
+      "Chúng tôi sẽ giao miễn phí.",
+      "Tôi chỉ cần địa chỉ và số điện thoại của chị.\"",
+      "Cô ghi chúng vào tờ khai.",
+      "\"Anh cho tôi hỏi tối nay tôi có thể mua vài thứ không?",
+      "Toàn bộ quần áo của tôi ở trong vali đó.\"",
+      "\"Được ạ.",
+      "Chị giữ lại hoá đơn, hãng hàng không sẽ trả lại tiền cho chị.\"",
+      "\"Tốt quá.",
+      "Và anh sẽ gọi cho tôi trước khi giao, phải không?\"",
+      "\"Vâng, mai tôi sẽ gọi cho chị.",
+      "Đây là giấy có số biên bản của chị.\"",
+      "\"Cảm ơn anh.",
+      "Anh tốt quá.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể báo mất hành lý ở sân bay, hỏi lịch sự bằng câu hỏi gián tiếp và xác nhận lại bằng câu hỏi đuôi.",
+    "examples": [
+      {
+        "lemma": "suitcase",
+        "sentence": "I need a bigger suitcase for this trip.",
+        "meaningVi": "Tôi cần một chiếc vali to hơn cho chuyến này."
+      },
+      {
+        "lemma": "baggage claim",
+        "sentence": "Let's meet at baggage claim.",
+        "meaningVi": "Gặp nhau ở khu nhận hành lý nhé."
+      },
+      {
+        "lemma": "counter",
+        "sentence": "Ask at the counter over there.",
+        "meaningVi": "Hãy hỏi ở quầy đằng kia."
+      },
+      {
+        "lemma": "miss",
+        "sentence": "Hurry up, or we'll miss the bus!",
+        "meaningVi": "Nhanh lên, không thì lỡ xe buýt!"
+      },
+      {
+        "lemma": "deliver",
+        "sentence": "They deliver food until midnight.",
+        "meaningVi": "Họ giao đồ ăn đến nửa đêm."
+      },
+      {
+        "lemma": "address",
+        "sentence": "Please write your address here.",
+        "meaningVi": "Vui lòng ghi địa chỉ của bạn ở đây."
+      },
+      {
+        "lemma": "form",
+        "sentence": "Fill in this form, please.",
+        "meaningVi": "Vui lòng điền vào tờ khai này."
+      },
+      {
+        "lemma": "receipt",
+        "sentence": "Can I have a receipt, please?",
+        "meaningVi": "Cho tôi xin hoá đơn được không?"
+      },
+      {
+        "lemma": "airline",
+        "sentence": "Which airline are you flying with?",
+        "meaningVi": "Bạn bay hãng hàng không nào?"
+      },
+      {
+        "lemma": "report",
+        "sentence": "The police wrote a report.",
+        "meaningVi": "Cảnh sát đã viết biên bản."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngoc",
+        "Binh"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hello, Ms Ngoc. This is Binh from the airport.",
+          "meaningVi": "Chào chị Ngọc. Tôi là Bình ở sân bay."
+        },
+        {
+          "speaker": 0,
+          "text": "Hi! You've got my suitcase, haven't you?",
+          "meaningVi": "Chào anh! Các anh có vali của tôi rồi, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it arrived this afternoon.",
+          "meaningVi": "Vâng, nó đến chiều nay."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! Do you know when you can bring it?",
+          "meaningVi": "Tuyệt quá! Anh có biết khi nào các anh mang đến được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Our driver can come at seven this evening.",
+          "meaningVi": "Tài xế của chúng tôi có thể đến lúc bảy giờ tối nay."
+        },
+        {
+          "speaker": 0,
+          "text": "Seven is fine. Could you tell me if I need to sign anything?",
+          "meaningVi": "Bảy giờ được. Anh cho tôi hỏi tôi có cần ký gì không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, just one paper. Please show your ID card too.",
+          "meaningVi": "Có, chỉ một tờ thôi. Chị cũng đưa căn cước nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "No problem. Is everything still inside?",
+          "meaningVi": "Không sao. Đồ bên trong vẫn còn đủ chứ?"
+        },
+        {
+          "speaker": 1,
+          "text": "We didn't open it, so it should be.",
+          "meaningVi": "Chúng tôi không mở nó, nên chắc là còn đủ."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you so much for your help.",
+          "meaningVi": "Cảm ơn anh rất nhiều vì đã giúp."
+        }
+      ]
+    },
+    "grammarTipVi": "Do you know when you can bring it? (chủ ngữ you trước can). Could you tell me if I need to sign anything? (không dùng do). Xác nhận: You've got my suitcase, haven't you?",
+    "translations": [
+      {
+        "vi": "Anh có biết vali của tôi ở đâu không?",
+        "en": "Do you know where my suitcase is?",
+        "distractors": [
+          "does",
+          "are",
+          "what"
+        ]
+      },
+      {
+        "vi": "Anh cho tôi hỏi khi nào hãng hàng không gọi?",
+        "en": "Could you tell me when the airline will call?",
+        "distractors": [
+          "does",
+          "where",
+          "calls"
+        ]
+      },
+      {
+        "vi": "Các anh sẽ giao nó, phải không?",
+        "en": "You'll deliver it, won't you?",
+        "distractors": [
+          "don't",
+          "aren't",
+          "will"
+        ]
+      },
+      {
+        "vi": "Tôi cần điền tờ khai này, phải không?",
+        "en": "I need to fill in this form, don't I?",
+        "distractors": [
+          "doesn't",
+          "isn't",
+          "needn't"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Bình gọi cho Ngọc để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Báo vali đã đến",
+          "Hỏi địa chỉ mới",
+          "Bán vé máy bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Bình nói vali \"arrived this afternoon.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tài xế đến lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm giờ chiều",
+          "Bảy giờ tối",
+          "Chín giờ tối"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anh Bình nói \"Our driver can come at seven this evening.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngọc cần đưa thêm giấy tờ gì?",
+        "promptVi": "",
+        "options": [
+          "Hộ chiếu",
+          "Thẻ lên máy bay",
+          "Căn cước"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anh Bình nói \"Please show your ID card too.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The airport opened the suitcase.",
+        "promptVi": "Sân bay đã mở vali ra.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì anh Bình nói \"We didn't open it.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Ngọc hỏi những gì ở quầy hành lý? Sân bay sẽ giúp cô thế nào?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "noticing": [
+        {
+          "sentence": "Could you tell me what I should do?\"",
+          "highlights": [
+            "what I should do"
+          ]
+        },
+        {
+          "sentence": "\"Yes. Do you know where my suitcase is now?\"",
+          "highlights": [
+            "where my suitcase is"
+          ]
+        },
+        {
+          "sentence": "Do you know when it will arrive?\"",
+          "highlights": [
+            "when it will arrive"
+          ]
+        },
+        {
+          "sentence": "\"You'll send it to my home, won't you?",
+          "highlights": [
+            "You'll",
+            "won't you"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"When will it arrive?\" chuyển thành câu hỏi gián tiếp thế nào?",
+      "options": [
+        "Do you know when it will arrive?",
+        "Do you know when will it arrive?",
+        "Do you know will it arrive when?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Chủ ngữ it đứng trước will: when it will arrive.",
+      "whenVi": "Dùng câu hỏi gián tiếp để hỏi lịch sự khi gặp sự cố, và câu hỏi đuôi để chắc chắn về điều người kia sẽ làm.",
+      "table": [
+        {
+          "subject": "Với will",
+          "form": "When will it arrive? → … when it will arrive",
+          "negative": "—"
+        },
+        {
+          "subject": "Với be",
+          "form": "Where is my suitcase? → … where my suitcase is",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu hỏi đuôi với will",
+          "form": "You'll send it, won't you?",
+          "negative": "You won't forget, will you?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Do you know where is my suitcase?",
+          "right": "Do you know where my suitcase is?"
+        },
+        {
+          "wrong": "You'll call me, will you?",
+          "right": "You'll call me, won't you?"
+        }
+      ],
+      "noteVi": "Đuôi của will là won't (will not): You'll call me, won't you?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền câu hỏi đuôi đúng.",
+          "text": "You'll call me before you deliver it, ___?",
+          "answers": [
+            "won't you"
+          ],
+          "explanationVi": "You'll = you will → đuôi won't you."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Do you know ___?",
+          "options": [
+            "when it will arrive",
+            "when will it arrive",
+            "when does it arrive",
+            "it will arrive when"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Chủ ngữ trước will: when it will arrive."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Do you know where is my suitcase now?",
+          "sentence": "Do you know where my suitcase is now?",
+          "explanationVi": "Câu hỏi gián tiếp: where my suitcase is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh cho tôi hỏi tôi nên làm gì?",
+          "sentence": "Could you tell me what I should do?",
+          "words": [
+            "you",
+            "Could",
+            "tell",
+            "me",
+            "what",
+            "I",
+            "should",
+            "do?",
+            "does"
+          ],
+          "explanationVi": "Chủ ngữ I trước should; từ \"does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Do you know when it will arrive?\"",
+        "tipVi": "Nhấn vào when và arrive /əˈraɪv/."
+      },
+      {
+        "text": "\"You'll send it to my home, won't you?",
+        "tipVi": "Won't /wəʊnt/ khác want /wɒnt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever lost something on a trip? What happened?",
+        "questionVi": "Bạn đã từng mất đồ khi đi du lịch chưa? Chuyện gì đã xảy ra?",
+        "frame": "Yes, once I lost ___ / No, I haven't."
+      },
+      {
+        "question": "What do you always keep in your hand luggage, and why?",
+        "questionVi": "Bạn luôn để gì trong hành lý xách tay, vì sao?",
+        "frame": "I always keep ___ in my hand luggage because ___."
+      },
+      {
+        "question": "Ask politely: where is the baggage claim counter?",
+        "questionVi": "Hãy hỏi lịch sự: quầy hành lý ở đâu?",
+        "frame": "Could you tell me where ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi gián tiếp (Could you tell me … / Do you know …)",
+      "anyOf": [
+        "tell me",
+        "do you know",
+        "wonder",
+        "like to know"
+      ],
+      "outlineVi": [
+        "Nói hành lý của bạn trông thế nào và bạn bay chuyến nào.",
+        "Hỏi lịch sự hành lý đang ở đâu, khi nào đến (Do you know where / when …).",
+        "Xác nhận họ sẽ giao về và gọi cho bạn (…, won't you?)."
+      ],
+      "modelAnswer": "Excuse me. My bag isn't here. It's a small black suitcase, and I was on the flight from Bangkok. Could you tell me what I should do? Do you know where my bag is now? I'm staying at the Green Hotel tonight. You'll send it there, won't you? And you'll call me first, won't you?"
+    }
+  },
+  "glosses": [
+    {
+      "text": "flown back",
+      "lemma": "fly back",
+      "meaningVi": "bay về",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "Ngoc has just flown back",
+      "phraseVi": "Ngọc vừa bay về"
+    },
+    {
+      "text": "I'm afraid",
+      "lemma": "I'm afraid",
+      "meaningVi": "tôi e là",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "I'm afraid it's still in Singapore.",
+      "phraseVi": "Tôi e là nó vẫn còn ở Singapore."
+    },
+    {
+      "text": "worried",
+      "lemma": "worried",
+      "meaningVi": "lo lắng",
+      "sentenceIndex": 22,
+      "pos": "adjective",
+      "phrase": "Ngoc looks worried.",
+      "phraseVi": "Ngọc có vẻ lo lắng."
+    },
+    {
+      "text": "pay you back",
+      "lemma": "pay back",
+      "meaningVi": "trả lại tiền",
+      "sentenceIndex": 32,
+      "pos": "phrase",
+      "phrase": "the airline will pay you back",
+      "phraseVi": "hãng hàng không sẽ trả lại tiền cho chị"
+    }
+  ]
+}

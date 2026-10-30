@@ -1,0 +1,616 @@
+{
+  "content": "Quan is in the security line at the airport in Ho Chi Minh City. He is flying to Singapore for a work meeting, and he has a computer in his backpack.\n\nWhen it's his turn, the officer says, \"Good morning. Please put your bag in the box.\"\nQuan says, \"I need to take my computer out, don't I?\"\n\"Yes, please. Put it in a separate box. Your phone can stay in your bag.\"\n\"OK. My jacket has to go in the box too, doesn't it?\"\n\"That's right. And your belt, please. It has metal on it.\"\nQuan takes off his belt. \"I have a bottle of water. I can't take that, can I?\"\n\"No, I'm sorry. You can't take bottles of water through security. You can buy water on the other side.\"\n\"No problem. I'll drink it now.\" He drinks the water quickly.\n\"What about this small bottle of face cream? That's OK, isn't it?\"\nThe officer looks at it. \"Yes, it's small enough. But it should be in a clear plastic bag.\"\n\"Oh, I forgot. I've got a plastic bag here somewhere.\"\n\"Good. Now please walk through the machine slowly.\"\nQuan walks through, and the machine is quiet.\n\"Everything's fine, isn't it?\" he asks.\n\"Yes, you can go. Don't forget your computer and your belt.\"\nQuan laughs. \"I nearly forgot them. Thanks for your help.\"\n\"You're welcome. Have a good trip.\"",
+  "targetWords": [
+    "security",
+    "computer",
+    "officer",
+    "separate",
+    "jacket",
+    "belt",
+    "metal",
+    "bottle",
+    "clear",
+    "plastic"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "security",
+        "lemma": "security",
+        "meaningVi": "khu kiểm tra an ninh",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "computer",
+        "lemma": "computer",
+        "meaningVi": "máy tính",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "officer",
+        "lemma": "officer",
+        "meaningVi": "nhân viên (an ninh)",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "separate",
+        "lemma": "separate",
+        "meaningVi": "riêng, khác",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "jacket",
+        "lemma": "jacket",
+        "meaningVi": "áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "belt",
+        "lemma": "belt",
+        "meaningVi": "thắt lưng",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "metal",
+        "lemma": "metal",
+        "meaningVi": "kim loại",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "bottle",
+        "lemma": "bottle",
+        "meaningVi": "chai",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "clear",
+        "lemma": "clear",
+        "meaningVi": "trong suốt",
+        "pos": "adjective",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "plastic",
+        "lemma": "plastic",
+        "meaningVi": "bằng nhựa",
+        "pos": "adjective",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is happening in the story?",
+        "promptVi": "Chuyện gì đang diễn ra trong bài?",
+        "options": [
+          "Quan is going through airport security.",
+          "Quan is buying a new computer.",
+          "Quan is checking in at a hotel.",
+          "Quan is looking for his lost bag."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quân đang xếp hàng ở khu kiểm tra an ninh và hỏi nhân viên những gì cần bỏ ra."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Quan take off his belt?",
+        "promptVi": "Vì sao Quân tháo thắt lưng?",
+        "options": [
+          "It is too big.",
+          "It has metal on it.",
+          "It is new.",
+          "The officer wants to buy it."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nhân viên nói \"It has metal on it.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Quan do with his bottle of water?",
+        "promptVi": "Quân làm gì với chai nước?",
+        "options": [
+          "He puts it in his bag.",
+          "He gives it to the officer.",
+          "He drinks it.",
+          "He puts it in a plastic bag."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quân nói \"I'll drink it now\" và uống hết."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quan can keep his phone in his bag.",
+        "promptVi": "Quân được để điện thoại trong túi.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, nhân viên nói \"Your phone can stay in your bag.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"separate\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Put it in a separate box.",
+        "options": [
+          "riêng, khác",
+          "to",
+          "cũ",
+          "nặng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "A separate box = một khay / hộp riêng, không chung với túi."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi đuôi",
+      "bodyVi": "Câu hỏi đuôi giúp kiểm tra lại quy định khi bạn gần như đã biết câu trả lời. Câu khẳng định → đuôi phủ định: I need to take my computer out, don't I? My jacket has to go in the box too, doesn't it? Câu phủ định → đuôi khẳng định: I can't take that, can I? Đuôi dùng lại trợ động từ (can) hoặc mượn do / does với động từ thường (need, has to).",
+      "examples": [
+        "Quan says, \"I need to take my computer out, don't I?\"",
+        "My jacket has to go in the box too, doesn't it?\"",
+        "I can't take that, can I?\""
+      ]
+    },
+    "writingPrompt": "Write a short conversation at airport security. Check three rules with a short question at the end of a sentence (…, don't I? / …, can I? / …, isn't it?).",
+    "sentenceTranslations": [
+      "Quân đang xếp hàng ở khu kiểm tra an ninh tại sân bay Thành phố Hồ Chí Minh.",
+      "Anh bay sang Singapore họp công việc, và trong ba lô có một chiếc máy tính.",
+      "Khi đến lượt anh, nhân viên an ninh nói: \"Chào anh.",
+      "Anh để túi vào khay nhé.\"",
+      "Quân nói: \"Tôi phải lấy máy tính ra, phải không?\"",
+      "\"Vâng, anh lấy ra giúp.",
+      "Để nó vào một khay riêng.",
+      "Điện thoại thì để trong túi được.\"",
+      "\"Được.",
+      "Áo khoác của tôi cũng phải để vào khay, phải không?\"",
+      "\"Đúng rồi.",
+      "Cả thắt lưng nữa.",
+      "Nó có kim loại.\"",
+      "Quân tháo thắt lưng.",
+      "\"Tôi có một chai nước.",
+      "Tôi không được mang nó, phải không?\"",
+      "\"Không, xin lỗi anh.",
+      "Anh không được mang chai nước qua khu an ninh.",
+      "Anh có thể mua nước ở phía bên kia.\"",
+      "\"Không sao.",
+      "Tôi uống luôn bây giờ.\"",
+      "Anh uống nhanh chai nước.",
+      "\"Còn lọ kem dưỡng da nhỏ này thì sao?",
+      "Cái này được, phải không?\"",
+      "Nhân viên nhìn nó.",
+      "\"Vâng, nó đủ nhỏ.",
+      "Nhưng nó nên để trong một túi nhựa trong suốt.\"",
+      "\"Ôi, tôi quên mất.",
+      "Tôi có một cái túi nhựa ở đâu đây.\"",
+      "\"Tốt.",
+      "Giờ anh đi chậm qua máy nhé.\"",
+      "Quân đi qua, và máy không kêu.",
+      "Anh hỏi: \"Mọi thứ ổn cả, phải không?\"",
+      "\"Vâng, anh đi được rồi.",
+      "Đừng quên máy tính và thắt lưng nhé.\"",
+      "Quân cười.",
+      "\"Suýt nữa tôi quên.",
+      "Cảm ơn anh đã giúp.\"",
+      "\"Không có gì.",
+      "Chúc anh chuyến đi tốt đẹp.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và xác nhận lại các quy định ở khu kiểm tra an ninh sân bay bằng câu hỏi đuôi (…, don't I? / …, can I?).",
+    "examples": [
+      {
+        "lemma": "security",
+        "sentence": "Security checked my bag twice.",
+        "meaningVi": "Khu an ninh kiểm tra túi của tôi hai lần."
+      },
+      {
+        "lemma": "computer",
+        "sentence": "I use my computer for work.",
+        "meaningVi": "Tôi dùng máy tính để làm việc."
+      },
+      {
+        "lemma": "officer",
+        "sentence": "The officer asked for my passport.",
+        "meaningVi": "Nhân viên hỏi hộ chiếu của tôi."
+      },
+      {
+        "lemma": "separate",
+        "sentence": "We stayed in separate rooms.",
+        "meaningVi": "Chúng tôi ở hai phòng riêng."
+      },
+      {
+        "lemma": "jacket",
+        "sentence": "Take a jacket, it's cold on the plane.",
+        "meaningVi": "Mang theo áo khoác, trên máy bay lạnh lắm."
+      },
+      {
+        "lemma": "belt",
+        "sentence": "This belt is too long for me.",
+        "meaningVi": "Cái thắt lưng này dài quá với tôi."
+      },
+      {
+        "lemma": "metal",
+        "sentence": "The door is made of metal.",
+        "meaningVi": "Cánh cửa làm bằng kim loại."
+      },
+      {
+        "lemma": "bottle",
+        "sentence": "Can I have a bottle of water?",
+        "meaningVi": "Cho tôi một chai nước được không?"
+      },
+      {
+        "lemma": "clear",
+        "sentence": "Put your things in a clear bag.",
+        "meaningVi": "Hãy để đồ vào một túi trong suốt."
+      },
+      {
+        "lemma": "plastic",
+        "sentence": "Please don't use plastic bags.",
+        "meaningVi": "Xin đừng dùng túi nhựa."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Quan",
+        "Officer"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Excuse me, sir. Is this your backpack?",
+          "meaningVi": "Xin lỗi anh. Đây là ba lô của anh à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. There isn't a problem, is there?",
+          "meaningVi": "Vâng. Không có vấn đề gì, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I need to look inside. You don't mind, do you?",
+          "meaningVi": "Tôi cần xem bên trong. Anh không phiền chứ?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, of course not. Go ahead.",
+          "meaningVi": "Không, tất nhiên là không. Anh cứ xem."
+        },
+        {
+          "speaker": 1,
+          "text": "What's this? It looks like a small knife.",
+          "meaningVi": "Đây là gì? Trông giống một con dao nhỏ."
+        },
+        {
+          "speaker": 0,
+          "text": "Oh, it's for opening letters. I forgot it was there.",
+          "meaningVi": "Ồ, đó là dao rọc thư. Tôi quên là nó ở đó."
+        },
+        {
+          "speaker": 1,
+          "text": "I'm sorry, but you can't take it on the plane.",
+          "meaningVi": "Xin lỗi, nhưng anh không được mang nó lên máy bay."
+        },
+        {
+          "speaker": 0,
+          "text": "I understand. I can't get it back later, can I?",
+          "meaningVi": "Tôi hiểu. Tôi không lấy lại được sau đó, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I'm afraid not. Everything else is fine.",
+          "meaningVi": "Không, tôi e là không. Những thứ khác đều ổn."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Thanks for checking.",
+          "meaningVi": "Được. Cảm ơn anh đã kiểm tra."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu phủ định → đuôi khẳng định: There isn't a problem, is there? / You don't mind, do you? / I can't get it back, can I? Với there is / isn't, đuôi dùng there.",
+    "translations": [
+      {
+        "vi": "Tôi phải lấy máy tính ra, phải không?",
+        "en": "I need to take my computer out, don't I?",
+        "distractors": [
+          "doesn't",
+          "isn't",
+          "does"
+        ]
+      },
+      {
+        "vi": "Tôi không được mang chai nước, phải không?",
+        "en": "I can't take a bottle of water, can I?",
+        "distractors": [
+          "do",
+          "is",
+          "don't"
+        ]
+      },
+      {
+        "vi": "Thắt lưng của tôi có kim loại, phải không?",
+        "en": "My belt has metal on it, doesn't it?",
+        "distractors": [
+          "isn't",
+          "hasn't",
+          "is"
+        ]
+      },
+      {
+        "vi": "Nó nên để trong túi nhựa trong suốt.",
+        "en": "It should be in a clear plastic bag.",
+        "distractors": [
+          "must",
+          "box",
+          "paper"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vì sao nhân viên muốn xem ba lô của Quân?",
+        "promptVi": "",
+        "options": [
+          "Trong ba lô có thứ trông giống con dao nhỏ",
+          "Ba lô quá nặng",
+          "Quân quên ba lô"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhân viên thấy một vật \"looks like a small knife.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con dao nhỏ dùng để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Để cắt hoa quả",
+          "Để rọc thư",
+          "Để sửa máy tính"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quân nói \"it's for opening letters.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quân có lấy lại được con dao sau đó không?",
+        "promptVi": "",
+        "options": [
+          "Có, ở cửa ra máy bay",
+          "Có, khi về nước",
+          "Không"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nhân viên nói \"No, I'm afraid not.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quan doesn't want the officer to look in his bag.",
+        "promptVi": "Quân không muốn nhân viên xem túi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quân nói \"No, of course not. Go ahead.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Quân phải bỏ những gì vào khay? Thứ gì anh không được mang qua khu an ninh?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi đuôi",
+      "noticing": [
+        {
+          "sentence": "Quan says, \"I need to take my computer out, don't I?\"",
+          "highlights": [
+            "I need",
+            "don't I"
+          ]
+        },
+        {
+          "sentence": "My jacket has to go in the box too, doesn't it?\"",
+          "highlights": [
+            "has to",
+            "doesn't it"
+          ]
+        },
+        {
+          "sentence": "I can't take that, can I?\"",
+          "highlights": [
+            "can't",
+            "can I"
+          ]
+        },
+        {
+          "sentence": "That's OK, isn't it?\"",
+          "highlights": [
+            "That's",
+            "isn't it"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao \"I can't take that\" có đuôi \"can I\" chứ không phải \"can't I\"?",
+      "options": [
+        "Vì câu phủ định thì đuôi khẳng định.",
+        "Vì chủ ngữ là I.",
+        "Vì câu ở hiện tại đơn."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu chính phủ định (can't) → đuôi khẳng định (can I).",
+      "whenVi": "Dùng câu hỏi đuôi để xác nhận nhanh một quy định mà bạn nghĩ là đúng, ví dụ ở khu an ninh sân bay.",
+      "table": [
+        {
+          "subject": "need / has to (động từ thường)",
+          "form": "I need …, don't I? / It has to …, doesn't it?",
+          "negative": "Mượn do / does"
+        },
+        {
+          "subject": "can / can't",
+          "form": "I can …, can't I?",
+          "negative": "I can't …, can I?"
+        },
+        {
+          "subject": "be",
+          "form": "That's OK, isn't it?",
+          "negative": "There isn't a problem, is there?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I need to take my computer out, needn't I?",
+          "right": "I need to take my computer out, don't I?"
+        },
+        {
+          "wrong": "My jacket has to go in the box, hasn't it?",
+          "right": "My jacket has to go in the box, doesn't it?"
+        }
+      ],
+      "noteVi": "Need to và have / has to là động từ thường, nên đuôi mượn do / does: …, don't I? / …, doesn't it?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền câu hỏi đuôi đúng.",
+          "text": "I can't take this bottle, ___?",
+          "answers": [
+            "can I"
+          ],
+          "explanationVi": "Câu phủ định với can't → can I."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu hỏi đuôi đúng.",
+          "text": "My jacket has to go in the box, ___?",
+          "options": [
+            "hasn't it",
+            "doesn't it",
+            "isn't it",
+            "does it"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Has to là động từ thường → mượn does; câu khẳng định → doesn't it."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I need to take my computer out, need I?",
+          "sentence": "I need to take my computer out, don't I?",
+          "explanationVi": "Need to là động từ thường → don't I."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cái này được, phải không?",
+          "sentence": "That's OK, isn't it?",
+          "words": [
+            "OK,",
+            "That's",
+            "isn't",
+            "it?",
+            "doesn't"
+          ],
+          "explanationVi": "Câu có is (That's) → đuôi isn't it; từ \"doesn't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I can't take that, can I?\"",
+        "tipVi": "Can't /kɑːnt/ đọc dài, can I đọc lên giọng."
+      },
+      {
+        "text": "But it should be in a clear plastic bag.\"",
+        "tipVi": "Clear /klɪə/, plastic /ˈplæstɪk/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you usually take in your hand luggage?",
+        "questionVi": "Bạn thường mang gì trong hành lý xách tay?",
+        "frame": "I usually take ___."
+      },
+      {
+        "question": "Have you ever had a problem at airport security?",
+        "questionVi": "Bạn đã bao giờ gặp rắc rối ở khu an ninh sân bay chưa?",
+        "frame": "Yes, once I ___ / No, I haven't."
+      },
+      {
+        "question": "Check a rule with a short question at the end: you can't take water on the plane.",
+        "questionVi": "Hãy xác nhận quy định bằng câu hỏi đuôi: bạn không được mang nước lên máy bay.",
+        "frame": "I can't take water on the plane, ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi đuôi (…, don't I? / …, can I? / …, isn't it?)",
+      "anyOf": [
+        "n't it?",
+        "n't I?",
+        "n't you?",
+        "n't we?",
+        "n't they?",
+        ", is it?",
+        ", can I?",
+        ", do I?",
+        ", is there?"
+      ],
+      "outlineVi": [
+        "Hỏi bạn có phải lấy đồ gì ra khỏi túi không (…, don't I?).",
+        "Hỏi về chai nước hoặc đồ dùng cá nhân (…, can I?).",
+        "Xác nhận mọi thứ ổn rồi cảm ơn (…, isn't it?)."
+      ],
+      "modelAnswer": "Me: I need to take my shoes off, don't I? Officer: No, you don't. Just your jacket. Me: OK. I can't take this juice, can I? Officer: No, I'm sorry. Me: That's fine. My camera can stay in my bag, can't it? Officer: Yes, it can. Me: Great. Everything is OK now, isn't it? Officer: Yes, have a good flight."
+    }
+  },
+  "glosses": [
+    {
+      "text": "turn",
+      "lemma": "turn",
+      "meaningVi": "lượt",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "When it's his turn",
+      "phraseVi": "Khi đến lượt anh"
+    },
+    {
+      "text": "takes off",
+      "lemma": "take off",
+      "meaningVi": "cởi, tháo",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "Quan takes off his belt.",
+      "phraseVi": "Quân tháo thắt lưng."
+    },
+    {
+      "text": "on the other side",
+      "lemma": "on the other side",
+      "meaningVi": "ở phía bên kia",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "buy water on the other side",
+      "phraseVi": "mua nước ở phía bên kia"
+    },
+    {
+      "text": "face cream",
+      "lemma": "face cream",
+      "meaningVi": "kem dưỡng da mặt",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "this small bottle of face cream",
+      "phraseVi": "lọ kem dưỡng da nhỏ này"
+    },
+    {
+      "text": "nearly",
+      "lemma": "nearly",
+      "meaningVi": "suýt, gần như",
+      "sentenceIndex": 36,
+      "pos": "adverb",
+      "phrase": "I nearly forgot them.",
+      "phraseVi": "Suýt nữa tôi quên."
+    }
+  ]
+}

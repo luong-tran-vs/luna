@@ -1,0 +1,606 @@
+{
+  "content": "Linh works in the office of a small design company in Da Nang. Today she is waiting for a delivery, but it hasn't arrived. At eleven, she goes to see her manager, Mr Quang.\n\n\"Mr Quang, I've just called the delivery company about our new printer.\"\n\"Good. What did they say?\"\n\"The man on the phone said that the printer was still in Ho Chi Minh City. He told me there was a problem with their truck.\"\n\"Not again! It was late last month too.\"\n\"I know. He said he was very sorry. He said that it would arrive on Thursday afternoon.\"\n\"Thursday? That's two days late. I'm tired of these delays.\"\n\"So am I. We can't print anything for the meeting with the bank.\"\n\"Did he say anything else?\"\n\"Yes. He said we wouldn't pay for the delivery this time. And he said he would call me on Thursday morning.\"\n\"Well, that's something. But I don't really believe him.\"\n\"Neither do I, to be honest. Shall I look for another delivery company?\"\n\"Yes, please. Ask Nam. He said a friend of his used a good one.\"\n\"OK. And for the meeting, I can print the papers at the shop across the street.\"\n\"Good idea. Can you ask them how much it costs?\"\n\"Sure. I'll go there now.\"",
+  "targetWords": [
+    "delivery",
+    "manager",
+    "printer",
+    "problem",
+    "truck",
+    "delay",
+    "print",
+    "believe",
+    "honest",
+    "cost"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "delivery",
+        "lemma": "delivery",
+        "meaningVi": "việc giao hàng, kiện hàng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "quản lý, trưởng phòng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "printer",
+        "lemma": "printer",
+        "meaningVi": "máy in",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "problem",
+        "lemma": "problem",
+        "meaningVi": "vấn đề, trục trặc",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "truck",
+        "lemma": "truck",
+        "meaningVi": "xe tải",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "delays",
+        "lemma": "delay",
+        "meaningVi": "sự chậm trễ",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "print",
+        "lemma": "print",
+        "meaningVi": "in",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "believe",
+        "lemma": "believe",
+        "meaningVi": "tin",
+        "pos": "verb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "honest",
+        "lemma": "honest",
+        "meaningVi": "thật lòng, thành thật",
+        "pos": "adjective",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "costs",
+        "lemma": "cost",
+        "meaningVi": "có giá, tốn",
+        "pos": "verb",
+        "sentenceIndex": 31
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Linh telling Mr Quang about?",
+        "promptVi": "Linh đang báo với anh Quang điều gì?",
+        "options": [
+          "What the delivery company said about the new printer",
+          "A problem with the bank meeting",
+          "Her new job at a design company",
+          "A shop across the street"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh kể lại những gì người ở công ty giao hàng nói về chiếc máy in mới."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where was the printer?",
+        "promptVi": "Chiếc máy in đang ở đâu?",
+        "options": [
+          "In Da Nang",
+          "Still in Ho Chi Minh City",
+          "At the bank",
+          "In the office"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"the printer was still in Ho Chi Minh City.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "When will the printer arrive?",
+        "promptVi": "Khi nào máy in đến?",
+        "options": [
+          "This afternoon",
+          "Tomorrow morning",
+          "On Thursday afternoon",
+          "Next week"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Người giao hàng nói \"it would arrive on Thursday afternoon.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The office must pay for the delivery this time.",
+        "promptVi": "Lần này văn phòng phải trả tiền giao hàng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"He said we wouldn't pay for the delivery this time.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"delays\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I'm tired of these delays.\"",
+        "options": [
+          "sự chậm trễ",
+          "cuộc gọi",
+          "chiếc xe tải",
+          "hoá đơn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Delay = sự chậm trễ; tired of these delays = chán những lần trễ hẹn này."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu tường thuật",
+      "bodyVi": "Khi báo lại cho sếp, dùng câu tường thuật: \"The printer is still in Ho Chi Minh City.\" → He said that the printer was still in Ho Chi Minh City. \"There's a problem with our truck.\" → He told me there was a problem with their truck. \"It will arrive on Thursday.\" → He said that it would arrive on Thursday afternoon. Chú ý đổi our → their, we → they / we theo người kể. Đồng ý: I'm tired … – So am I. I don't believe him. – Neither do I.",
+      "examples": [
+        "\"The man on the phone said that the printer was still in Ho Chi Minh City.",
+        "He told me there was a problem with their truck.\"",
+        "He said that it would arrive on Thursday afternoon.\""
+      ]
+    },
+    "writingPrompt": "You called a shop or a company about a late order. Write a short message to your manager: what did they say?",
+    "sentenceTranslations": [
+      "Linh làm ở văn phòng của một công ty thiết kế nhỏ ở Đà Nẵng.",
+      "Hôm nay cô đang chờ một kiện hàng, nhưng nó vẫn chưa đến.",
+      "Mười một giờ, cô đến gặp trưởng phòng, anh Quang.",
+      "\"Anh Quang ơi, em vừa gọi công ty giao hàng về chiếc máy in mới.\"",
+      "\"Tốt.",
+      "Họ nói gì?\"",
+      "\"Người nghe máy nói máy in vẫn còn ở Thành phố Hồ Chí Minh.",
+      "Anh ấy bảo em xe tải của họ bị trục trặc.\"",
+      "\"Lại nữa à!",
+      "Tháng trước cũng trễ.\"",
+      "\"Em biết.",
+      "Anh ấy nói rất xin lỗi.",
+      "Anh ấy nói máy in sẽ đến vào chiều thứ Năm.\"",
+      "\"Thứ Năm à?",
+      "Trễ hai ngày.",
+      "Anh chán mấy vụ trễ hẹn này lắm rồi.\"",
+      "\"Em cũng vậy. Mình không in được gì cho buổi họp với ngân hàng.\"",
+      "\"Anh ta còn nói gì nữa không?\"",
+      "\"Có.",
+      "Anh ấy nói lần này mình không phải trả tiền giao hàng.",
+      "Và anh ấy nói sáng thứ Năm sẽ gọi cho em.\"",
+      "\"Thôi, cũng được.",
+      "Nhưng anh không tin anh ta lắm.\"",
+      "\"Thật lòng thì em cũng không.",
+      "Em tìm công ty giao hàng khác nhé?\"",
+      "\"Ừ, nhờ em.",
+      "Hỏi Nam ấy.",
+      "Cậu ấy nói một người bạn dùng một công ty tốt.\"",
+      "\"Vâng.",
+      "Còn cho buổi họp, em có thể in tài liệu ở tiệm bên kia đường.\"",
+      "\"Ý hay.",
+      "Em hỏi giúp họ giá bao nhiêu nhé?\"",
+      "\"Vâng.",
+      "Em đi ngay đây.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể báo lại cho cấp trên những gì người khác nói qua điện thoại (He said that … / He told me …) và đồng ý bằng So am I / Neither do I.",
+    "examples": [
+      {
+        "lemma": "delivery",
+        "sentence": "The delivery came late again.",
+        "meaningVi": "Hàng lại giao trễ."
+      },
+      {
+        "lemma": "manager",
+        "sentence": "I need to talk to my manager.",
+        "meaningVi": "Tôi cần nói chuyện với trưởng phòng."
+      },
+      {
+        "lemma": "printer",
+        "sentence": "The printer has no paper.",
+        "meaningVi": "Máy in hết giấy."
+      },
+      {
+        "lemma": "problem",
+        "sentence": "There is a problem with my computer.",
+        "meaningVi": "Máy tính của tôi có vấn đề."
+      },
+      {
+        "lemma": "truck",
+        "sentence": "A big truck stopped in front of the shop.",
+        "meaningVi": "Một chiếc xe tải lớn dừng trước cửa hàng."
+      },
+      {
+        "lemma": "delay",
+        "sentence": "Sorry for the delay.",
+        "meaningVi": "Xin lỗi vì sự chậm trễ."
+      },
+      {
+        "lemma": "print",
+        "sentence": "Can you print this page for me?",
+        "meaningVi": "Bạn in giúp tôi trang này được không?"
+      },
+      {
+        "lemma": "believe",
+        "sentence": "I don't believe his story.",
+        "meaningVi": "Tôi không tin câu chuyện của anh ta."
+      },
+      {
+        "lemma": "honest",
+        "sentence": "To be honest, I don't like it.",
+        "meaningVi": "Thật lòng mà nói, tôi không thích nó."
+      },
+      {
+        "lemma": "cost",
+        "sentence": "How much does it cost?",
+        "meaningVi": "Cái này giá bao nhiêu?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Quang",
+        "Linh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Linh, did the delivery man call this morning?",
+          "meaningVi": "Linh, sáng nay người giao hàng có gọi không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. He said the printer was on the truck.",
+          "meaningVi": "Có ạ. Anh ấy nói máy in đã ở trên xe tải."
+        },
+        {
+          "speaker": 0,
+          "text": "Finally! What time will it arrive?",
+          "meaningVi": "Cuối cùng! Mấy giờ nó đến?"
+        },
+        {
+          "speaker": 1,
+          "text": "He told me it would be here at about two.",
+          "meaningVi": "Anh ấy bảo em khoảng hai giờ sẽ tới."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. I don't want any more problems.",
+          "meaningVi": "Tốt. Anh không muốn có thêm rắc rối nào nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Neither do I. And Nam's friend called too.",
+          "meaningVi": "Em cũng không. Bạn của Nam cũng gọi nữa."
+        },
+        {
+          "speaker": 0,
+          "text": "What did she say?",
+          "meaningVi": "Cô ấy nói gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "She said her company was cheaper and faster.",
+          "meaningVi": "Cô ấy nói công ty cô ấy rẻ hơn và nhanh hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Then let's try them next time.",
+          "meaningVi": "Vậy lần sau mình thử họ."
+        },
+        {
+          "speaker": 1,
+          "text": "I think that's a good idea.",
+          "meaningVi": "Em nghĩ đó là ý hay."
+        }
+      ]
+    },
+    "grammarTipVi": "Tường thuật: He said the printer was on the truck / He told me it would be here at about two / She said her company was cheaper. Đồng ý câu phủ định: I don't want any more problems. – Neither do I.",
+    "translations": [
+      {
+        "vi": "Anh ấy nói máy in vẫn ở Thành phố Hồ Chí Minh.",
+        "en": "He said the printer was still in Ho Chi Minh City.",
+        "distractors": [
+          "is",
+          "told",
+          "says"
+        ]
+      },
+      {
+        "vi": "Anh ấy bảo tôi xe tải bị trục trặc.",
+        "en": "He told me the truck had a problem.",
+        "distractors": [
+          "said",
+          "has",
+          "tells"
+        ]
+      },
+      {
+        "vi": "Anh ấy nói hàng sẽ đến vào thứ Năm.",
+        "en": "He said the delivery would arrive on Thursday.",
+        "distractors": [
+          "will",
+          "told",
+          "arrives"
+        ]
+      },
+      {
+        "vi": "Tôi chán những vụ trễ hẹn này. – Tôi cũng vậy.",
+        "en": "I'm tired of these delays. So am I.",
+        "distractors": [
+          "do",
+          "Neither",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Quang và Linh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Máy in sắp đến và một công ty giao hàng mới",
+          "Buổi họp với ngân hàng",
+          "Giá máy in"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh kể người giao hàng nói máy in đã lên xe, và bạn của Nam cũng gọi.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Máy in đến lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Khoảng mười giờ",
+          "Khoảng hai giờ",
+          "Khoảng năm giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"He told me it would be here at about two.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bạn của Nam nói gì về công ty cô ấy?",
+        "promptVi": "",
+        "options": [
+          "Rẻ hơn và nhanh hơn",
+          "Đắt hơn nhưng tốt hơn",
+          "Chỉ giao vào cuối tuần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"She said her company was cheaper and faster.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Quang wants more problems.",
+        "promptVi": "Anh Quang muốn có thêm rắc rối.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì anh nói \"I don't want any more problems.\"",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Người ở công ty giao hàng đã nói gì với Linh? Linh và anh Quang đồng ý với nhau những gì?",
+    "grammarStep": {
+      "titleVi": "Câu tường thuật",
+      "noticing": [
+        {
+          "sentence": "\"The man on the phone said that the printer was still in Ho Chi Minh City.",
+          "highlights": [
+            "said that",
+            "was"
+          ]
+        },
+        {
+          "sentence": "He told me there was a problem with their truck.\"",
+          "highlights": [
+            "told me",
+            "was",
+            "their"
+          ]
+        },
+        {
+          "sentence": "He said that it would arrive on Thursday afternoon.\"",
+          "highlights": [
+            "would arrive"
+          ]
+        },
+        {
+          "sentence": "He said we wouldn't pay for the delivery this time.",
+          "highlights": [
+            "wouldn't pay"
+          ]
+        }
+      ],
+      "questionVi": "Người giao hàng nói: \"There's a problem with our truck.\" Vì sao Linh kể lại là \"their truck\"?",
+      "options": [
+        "Vì Linh kể lại lời người khác, nên our (của chúng tôi) thành their (của họ).",
+        "Vì truck là số nhiều.",
+        "Vì câu ở tương lai."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Trong câu tường thuật, đại từ và tính từ sở hữu đổi theo người kể: our truck → their truck.",
+      "whenVi": "Dùng câu tường thuật để báo lại cho sếp hoặc đồng nghiệp những gì khách hàng, người giao hàng đã nói.",
+      "table": [
+        {
+          "subject": "is / are → was / were",
+          "form": "\"The printer is in HCMC.\" → He said the printer was in HCMC.",
+          "negative": "\"It isn't here.\" → He said it wasn't here."
+        },
+        {
+          "subject": "will → would",
+          "form": "\"It will arrive on Thursday.\" → He said it would arrive on Thursday.",
+          "negative": "\"You won't pay.\" → He said we wouldn't pay."
+        },
+        {
+          "subject": "Đại từ",
+          "form": "our → their, I → he / she, you → I / we",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He said that the printer is still in Ho Chi Minh City.",
+          "right": "He said that the printer was still in Ho Chi Minh City."
+        },
+        {
+          "wrong": "He told there was a problem with their truck.",
+          "right": "He told me there was a problem with their truck."
+        }
+      ],
+      "noteVi": "Nếu điều được kể vẫn còn đúng ở hiện tại, đôi khi có thể giữ nguyên thì, nhưng ở B1 nên lùi thì cho chắc.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (will).",
+          "text": "He said that it ___ arrive on Thursday afternoon.",
+          "answers": [
+            "would"
+          ],
+          "explanationVi": "will → would trong câu tường thuật."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu tường thuật đúng của: \"The printer is still in Ho Chi Minh City.\"",
+          "text": "He said that the printer ___ still in Ho Chi Minh City.",
+          "options": [
+            "was",
+            "is",
+            "be",
+            "were"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "is → was."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He told there was a problem with their truck.",
+          "sentence": "He told me there was a problem with their truck.",
+          "explanationVi": "Told cần người nghe: told me."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy nói anh ấy rất xin lỗi.",
+          "sentence": "He said he was very sorry.",
+          "words": [
+            "said",
+            "He",
+            "he",
+            "was",
+            "very",
+            "sorry.",
+            "is"
+          ],
+          "explanationVi": "Lùi thì is → was; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He told me there was a problem with their truck.\"",
+        "tipVi": "Truck /trʌk/; nối \"told me\" thành /təʊld miː/."
+      },
+      {
+        "text": "\"So am I. We can't print anything for the meeting with the bank.\"",
+        "tipVi": "Nhấn vào I trong \"So am I\"; can't /kɑːnt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever waited a long time for a delivery? What happened?",
+        "questionVi": "Bạn đã bao giờ chờ giao hàng rất lâu chưa? Chuyện gì đã xảy ra?",
+        "frame": "Yes. The shop said that ___."
+      },
+      {
+        "question": "What do you say to a shop when your order is late?",
+        "questionVi": "Bạn nói gì với cửa hàng khi đơn hàng của bạn bị trễ?",
+        "frame": "I usually say that ___."
+      },
+      {
+        "question": "Agree with this: \"I'm tired of waiting.\"",
+        "questionVi": "Hãy đồng ý với câu: \"Tôi chán chờ đợi rồi.\"",
+        "frame": "So ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật (said that … / told me …)",
+      "anyOf": [
+        " said ",
+        " told ",
+        "said that",
+        "told me"
+      ],
+      "outlineVi": [
+        "Bạn đã gọi cho ai, về đơn hàng nào.",
+        "Họ nói gì (They said that … / The man told me that …).",
+        "Bạn đề nghị làm gì tiếp theo."
+      ],
+      "modelAnswer": "Hi Mr Tuan, I called the paper shop this morning. The woman said that our order was in their shop. She told me that their driver was sick, so they couldn't deliver it today. She said it would arrive tomorrow before nine. Shall I go and get it myself this afternoon?"
+    }
+  },
+  "glosses": [
+    {
+      "text": "design company",
+      "lemma": "design company",
+      "meaningVi": "công ty thiết kế",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a small design company",
+      "phraseVi": "một công ty thiết kế nhỏ"
+    },
+    {
+      "text": "Not again!",
+      "lemma": "not again",
+      "meaningVi": "lại nữa à!",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "Not again!",
+      "phraseVi": "Lại nữa à!"
+    },
+    {
+      "text": "tired of",
+      "lemma": "be tired of",
+      "meaningVi": "chán, ngán",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "I'm tired of these delays.",
+      "phraseVi": "Anh chán mấy vụ trễ hẹn này lắm rồi."
+    },
+    {
+      "text": "that's something",
+      "lemma": "that's something",
+      "meaningVi": "cũng còn đỡ",
+      "sentenceIndex": 21,
+      "pos": "phrase",
+      "phrase": "Well, that's something.",
+      "phraseVi": "Thôi, cũng được."
+    },
+    {
+      "text": "across the street",
+      "lemma": "across the street",
+      "meaningVi": "bên kia đường",
+      "sentenceIndex": 29,
+      "pos": "phrase",
+      "phrase": "the shop across the street",
+      "phraseVi": "tiệm bên kia đường"
+    }
+  ]
+}

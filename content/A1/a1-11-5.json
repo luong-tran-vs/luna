@@ -1,0 +1,592 @@
+{
+  "content": "Milo is our cat. He is orange and white, and he loves sleeping under the sofa.\n\nThis evening, Milo isn't at home. He isn't under the sofa, and he isn't in the kitchen. \"Where is Milo?\" my little sister Mai asks. She is very sad.\n\nMy dad and my brother Duc look in the garden, but they can't find him. My mum calls, \"Milo, where are you?\" but he doesn't come.\n\nThen we ask our neighbours for help. Mrs Lien looks under her car, and the children in our street look in the park. Then Mr Binh says, \"I can see a cat in my tree!\"\n\nWe all run to his house. Milo is high in the tree, and he can't come down! Duc can climb very well, so he climbs up and gets Milo.\n\nMai holds Milo and says, \"Bad cat, but I love you!\"",
+  "targetWords": [
+    "cat",
+    "sofa",
+    "garden",
+    "find",
+    "neighbour",
+    "street",
+    "tree",
+    "climb"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cat",
+        "lemma": "cat",
+        "meaningVi": "con mèo",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "garden",
+        "lemma": "garden",
+        "meaningVi": "khu vườn",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "find",
+        "lemma": "find",
+        "meaningVi": "tìm thấy",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "neighbours",
+        "lemma": "neighbour",
+        "meaningVi": "hàng xóm",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "street",
+        "lemma": "street",
+        "meaningVi": "con phố, đường phố",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "tree",
+        "lemma": "tree",
+        "meaningVi": "cái cây",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "climb",
+        "lemma": "climb",
+        "meaningVi": "trèo, leo",
+        "pos": "verb",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan's family and their neighbours look for Milo.",
+          "A new cat comes to the street.",
+          "Mr Binh and his garden",
+          "Duc and his new bike"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tối nay Milo không có ở nhà, cả nhà Lan và hàng xóm cùng đi tìm, cuối cùng thấy Milo trên cây nhà ông Bình."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where does Mr Binh see Milo?",
+        "promptVi": "Ông Bình nhìn thấy Milo ở đâu?",
+        "options": [
+          "Under the sofa",
+          "In the kitchen",
+          "Under a car",
+          "In his tree"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ông Bình nói \"I can see a cat in my tree!\": Milo ở trên cây nhà ông."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Duc climb the tree?",
+        "promptVi": "Vì sao anh Đức trèo lên cây?",
+        "options": [
+          "Mr Binh asks him.",
+          "Milo can't come down.",
+          "He wants to see the park.",
+          "Mai is in the tree."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Milo is high in the tree, and he can't come down!\" nên anh Đức, người trèo giỏi, trèo lên đưa Milo xuống."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mrs Lien finds Milo.",
+        "promptVi": "Bà Liên tìm thấy Milo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Liên chỉ tìm dưới gầm xe; người nhìn thấy Milo là ông Bình (\"I can see a cat in my tree!\")."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"neighbours\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then we ask our neighbours for help.",
+        "options": [
+          "bạn cùng lớp",
+          "họ hàng",
+          "hàng xóm",
+          "thầy cô"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Neighbours là hàng xóm, những người sống gần nhà mình, như bà Liên, ông Bình và các bạn nhỏ cùng phố."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't (khả năng)",
+      "bodyVi": "Can + động từ nói làm được gì: Duc can climb very well, I can see a cat. Can't + động từ nói không làm được: they can't find him, he can't come down. Phủ định của can là can't (cannot), không dùng don't / doesn't với can.",
+      "examples": [
+        "My dad and my brother Duc look in the garden, but they can't find him.",
+        "Milo is high in the tree, and he can't come down!",
+        "Duc can climb very well, so he climbs up and gets Milo."
+      ]
+    },
+    "writingPrompt": "Write a short story about a pet that is not at home: who looks for it, and where is it?",
+    "sentenceTranslations": [
+      "Milo là con mèo nhà mình.",
+      "Nó có lông màu cam và trắng, và rất thích ngủ dưới gầm ghế sofa.",
+      "Tối nay, Milo không có ở nhà.",
+      "Nó không ở dưới ghế sofa, cũng không ở trong bếp.",
+      "\"Milo đâu rồi?\" em gái Mai hỏi.",
+      "Em buồn lắm.",
+      "Bố và anh Đức tìm ngoài vườn, nhưng không thấy nó đâu.",
+      "Mẹ gọi: \"Milo ơi, con đâu rồi?\" nhưng nó không về.",
+      "Thế là cả nhà nhờ hàng xóm giúp.",
+      "Bà Liên tìm dưới gầm xe của bà, còn bọn trẻ trong phố thì tìm ở công viên.",
+      "Rồi ông Bình nói: \"Ông thấy một con mèo trên cây nhà ông này!\"",
+      "Cả nhà chạy sang nhà ông.",
+      "Milo ở tít trên cây cao, và nó không xuống được!",
+      "Anh Đức trèo rất giỏi, nên anh trèo lên và đưa Milo xuống.",
+      "Mai ôm Milo và nói: \"Mèo hư, nhưng chị vẫn thương em!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể chuyện đi tìm một con vật, nói ai làm được và không làm được gì, dùng can / can't.",
+    "examples": [
+      {
+        "lemma": "cat",
+        "sentence": "Our cat is orange and white.",
+        "meaningVi": "Con mèo nhà mình màu cam và trắng."
+      },
+      {
+        "lemma": "sofa",
+        "sentence": "The cat sleeps on the sofa.",
+        "meaningVi": "Con mèo ngủ trên ghế sofa."
+      },
+      {
+        "lemma": "garden",
+        "sentence": "We have a small garden.",
+        "meaningVi": "Nhà mình có một khu vườn nhỏ."
+      },
+      {
+        "lemma": "find",
+        "sentence": "I can't find my phone.",
+        "meaningVi": "Mình không tìm thấy điện thoại."
+      },
+      {
+        "lemma": "neighbour",
+        "sentence": "Our neighbour has a big dog.",
+        "meaningVi": "Nhà hàng xóm có một con chó to."
+      },
+      {
+        "lemma": "street",
+        "sentence": "There are a lot of trees in our street.",
+        "meaningVi": "Phố nhà mình có rất nhiều cây."
+      },
+      {
+        "lemma": "tree",
+        "sentence": "The cat is in the tree.",
+        "meaningVi": "Con mèo ở trên cây."
+      },
+      {
+        "lemma": "climb",
+        "sentence": "My brother can climb trees.",
+        "meaningVi": "Anh trai mình trèo cây được."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, is Milo OK now?",
+          "meaningVi": "Lan ơi, giờ Milo ổn chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, he is. He's at home, and he's very hungry!",
+          "meaningVi": "Ổn rồi. Nó ở nhà, và đói lắm!"
+        },
+        {
+          "speaker": 1,
+          "text": "Can cats come down from trees?",
+          "meaningVi": "Mèo có tự xuống khỏi cây được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Some cats can, but Milo can't. He's very bad at it!",
+          "meaningVi": "Có con được, nhưng Milo thì không. Nó kém khoản đó lắm!"
+        },
+        {
+          "speaker": 1,
+          "text": "My cat Snow can climb and jump very well.",
+          "meaningVi": "Con mèo Snow nhà mình trèo và nhảy giỏi lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Does Snow go out at night?",
+          "meaningVi": "Buổi tối Snow có ra ngoài không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, she doesn't. She sleeps on my bed.",
+          "meaningVi": "Không. Nó ngủ trên giường của mình."
+        },
+        {
+          "speaker": 0,
+          "text": "Milo loves the garden at night.",
+          "meaningVi": "Milo thì tối nào cũng thích ra vườn."
+        },
+        {
+          "speaker": 1,
+          "text": "Can you put a bell on him? Then you can hear him!",
+          "meaningVi": "Cậu đeo cho nó một cái chuông được không? Thế là cậu nghe thấy nó!"
+        },
+        {
+          "speaker": 0,
+          "text": "That's a great idea!",
+          "meaningVi": "Ý hay đấy!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi có làm được không: Can cats come down from trees? Trả lời: Some cats can, but Milo can't.",
+    "translations": [
+      {
+        "vi": "Chúng tôi không tìm thấy con mèo.",
+        "en": "We can't find the cat.",
+        "distractors": [
+          "can",
+          "finds",
+          "dog"
+        ]
+      },
+      {
+        "vi": "Con mèo ở trên cây, và nó không xuống được.",
+        "en": "The cat is in the tree, and it can't come down.",
+        "distractors": [
+          "can",
+          "comes",
+          "up"
+        ]
+      },
+      {
+        "vi": "Anh Đức trèo rất giỏi.",
+        "en": "Duc can climb very well.",
+        "distractors": [
+          "climbs",
+          "good",
+          "can't"
+        ]
+      },
+      {
+        "vi": "Chúng tôi nhờ hàng xóm giúp đỡ.",
+        "en": "We ask our neighbours for help.",
+        "distractors": [
+          "asks",
+          "neighbour",
+          "to"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Anna nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi sở thú",
+          "Con mèo của hai bạn",
+          "Ông Bình và khu vườn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna hỏi \"is Milo OK now?\", rồi hai bạn nói về Milo và con mèo Snow của Anna.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bây giờ Milo thế nào?",
+        "promptVi": "",
+        "options": [
+          "Ở nhà và rất đói",
+          "Vẫn ở trên cây",
+          "Ngủ ở nhà Anna"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"He's at home, and he's very hungry!\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Buổi tối Snow ngủ ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ngoài vườn",
+          "Trên giường của Anna",
+          "Dưới ghế sofa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"She sleeps on my bed.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Snow goes out at night.",
+        "promptVi": "Buổi tối Snow ra ngoài.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna nói \"No, she doesn't. She sleeps on my bed.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Mỗi người tìm Milo ở đâu, và ai tìm thấy nó?",
+    "grammarStep": {
+      "titleVi": "Can / can't (khả năng)",
+      "noticing": [
+        {
+          "sentence": "My dad and my brother Duc look in the garden, but they can't find him.",
+          "highlights": [
+            "can't find"
+          ]
+        },
+        {
+          "sentence": "Then Mr Binh says, \"I can see a cat in my tree!\"",
+          "highlights": [
+            "can see"
+          ]
+        },
+        {
+          "sentence": "Milo is high in the tree, and he can't come down!",
+          "highlights": [
+            "can't come down"
+          ]
+        },
+        {
+          "sentence": "Duc can climb very well, so he climbs up and gets Milo.",
+          "highlights": [
+            "can climb"
+          ]
+        }
+      ],
+      "questionVi": "Muốn nói Milo không xuống được, câu trong bài viết thế nào?",
+      "options": [
+        "Milo doesn't can come down.",
+        "Milo can't come down.",
+        "Milo can't comes down."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Phủ định của can là can't, không dùng doesn't; sau can't động từ giữ nguyên: can't come down, can't find.",
+      "whenVi": "Dùng can để nói làm được gì (can see, can climb), can't để nói không làm được (can't find, can't come down).",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "I can see a cat.",
+          "negative": "They can't find him."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Duc can climb very well.",
+          "negative": "Milo can't come down."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He doesn't can come down.",
+          "right": "He can't come down."
+        },
+        {
+          "wrong": "I can sees a cat.",
+          "right": "I can see a cat."
+        }
+      ],
+      "noteVi": "Người Việt đã quen dùng don't / doesn't để phủ định, nên hay viết \"doesn't can\"; với can, chỉ cần thêm n't: can't.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't vào chỗ trống.",
+          "text": "Milo is high in the tree, and he ___ come down.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Milo ở trên cao và cần anh Đức giúp, nên nó không xuống được: can't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Duc can ___ very well.",
+          "options": [
+            "climbs",
+            "climb",
+            "to climb",
+            "is climb"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sau can, động từ giữ nguyên: can climb."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We don't can find Milo.",
+          "sentence": "We can't find Milo.",
+          "explanationVi": "Phủ định của can là can't, không dùng don't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi nhìn thấy một con mèo trên cây.",
+          "sentence": "I can see a cat in the tree.",
+          "words": [
+            "see",
+            "I",
+            "tree",
+            "can",
+            "a",
+            "in",
+            "cat",
+            "the",
+            "sees"
+          ],
+          "explanationVi": "Sau can, động từ giữ nguyên: can see; từ \"sees\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Milo is high in the tree, and he can't come down!",
+        "tipVi": "High /haɪ/ không đọc chữ gh; can't /kænt/ đọc rõ âm /t/ ở cuối để người nghe không nhầm với can."
+      },
+      {
+        "text": "Then we ask our neighbours for help.",
+        "tipVi": "Neighbours /ˈneɪbərz/ không đọc chữ gh và kết thúc bằng /z/; help /hɛlp/ có cụm /lp/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you have a cat or a dog?",
+        "questionVi": "Bạn có nuôi mèo hay chó không?",
+        "frame": "Yes, I have a ___. / No, I don't, but I like ___."
+      },
+      {
+        "question": "What can cats do?",
+        "questionVi": "Mèo làm được những gì?",
+        "frame": "Cats can ___, but they can't ___."
+      },
+      {
+        "question": "Does your neighbour have a pet?",
+        "questionVi": "Hàng xóm nhà bạn có nuôi con vật nào không?",
+        "frame": "Yes, he / she does. He / She has a ___. / No, he / she doesn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can hoặc can't",
+      "anyOf": [
+        "can",
+        "can't",
+        "cannot",
+        "can see"
+      ],
+      "outlineVi": [
+        "Nói con vật nào không có ở nhà và nó trông thế nào.",
+        "Kể ai đi tìm và tìm ở đâu (we can't find …).",
+        "Kể ai nhìn thấy nó và nó ở đâu (I can see …)."
+      ],
+      "modelAnswer": "Our dog Lucky is not at home today. My brother and I look in the garden, but we can't find him. Then our neighbour, Mrs Mai, says, \"I can see a dog in my kitchen!\" Lucky is there, under her table. He loves her food!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "meaningVi": "nhà bếp",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "he isn't in the kitchen",
+      "phraseVi": "nó không ở trong bếp"
+    },
+    {
+      "text": "sad",
+      "lemma": "sad",
+      "meaningVi": "buồn",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "She is very sad",
+      "phraseVi": "Em buồn lắm"
+    },
+    {
+      "text": "calls",
+      "lemma": "call",
+      "meaningVi": "gọi",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "My mum calls",
+      "phraseVi": "Mẹ gọi"
+    },
+    {
+      "text": "for help",
+      "lemma": "ask for help",
+      "meaningVi": "nhờ giúp đỡ",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "ask our neighbours for help",
+      "phraseVi": "nhờ hàng xóm giúp"
+    },
+    {
+      "text": "under her car",
+      "lemma": "under",
+      "meaningVi": "dưới gầm xe của bà",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "Mrs Lien looks under her car",
+      "phraseVi": "Bà Liên tìm dưới gầm xe của bà"
+    },
+    {
+      "text": "high",
+      "lemma": "high",
+      "meaningVi": "cao, trên cao",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "Milo is high in the tree",
+      "phraseVi": "Milo ở tít trên cây cao"
+    },
+    {
+      "text": "come down",
+      "lemma": "come down",
+      "meaningVi": "xuống, đi xuống",
+      "sentenceIndex": 12,
+      "pos": "phrasal verb",
+      "phrase": "he can't come down",
+      "phraseVi": "nó không xuống được"
+    },
+    {
+      "text": "very well",
+      "lemma": "well",
+      "meaningVi": "rất giỏi",
+      "sentenceIndex": 13,
+      "pos": "adverb",
+      "phrase": "Duc can climb very well",
+      "phraseVi": "Anh Đức trèo rất giỏi"
+    },
+    {
+      "text": "holds",
+      "lemma": "hold",
+      "meaningVi": "ôm, bế",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "Mai holds Milo",
+      "phraseVi": "Mai ôm Milo"
+    }
+  ]
+}

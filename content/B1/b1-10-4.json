@@ -1,0 +1,594 @@
+{
+  "content": "Phong rides his bike to work across Ho Chi Minh City every day. On Friday evening, he meets his friend Ly at a café. He is coughing.\n\nLy asks, \"Are you OK?\"\n\"Not really. I've been coughing all week. The air has been getting worse recently.\"\n\"I know. I've been checking the air quality on my phone every morning. It's been red for ten days.\"\n\"Ten days? No wonder I feel tired. My eyes have been hurting too.\"\n\"How long have you been riding to work?\"\n\"Five years. But I've never felt like this before. The sky has been grey every day.\"\n\"It's the traffic and the dust from all the new buildings. If I were you, I would take the bus for a while.\"\n\"The bus takes an hour. If I had a car, I would drive.\"\n\"A car would only make more smoke! And it doesn't help your health if you sit in traffic all day.\"\n\"True. If the city had more parks, the air wouldn't be so bad.\"\n\"And if people didn't burn rubbish in the street, we would breathe better.\"\n\"So what can I do now? I don't want to damage my lungs.\"\n\"Stop riding on the main roads and use the small streets. And see a doctor about that cough.\"\n\"OK, I will. Thanks, Ly. Shall we order?\"",
+  "targetWords": [
+    "worse",
+    "quality",
+    "sky",
+    "traffic",
+    "dust",
+    "health",
+    "burn",
+    "breathe",
+    "lung",
+    "cough"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "worse",
+        "lemma": "worse",
+        "meaningVi": "tệ hơn",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "quality",
+        "lemma": "quality",
+        "meaningVi": "chất lượng",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "sky",
+        "lemma": "sky",
+        "meaningVi": "bầu trời",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "traffic",
+        "lemma": "traffic",
+        "meaningVi": "xe cộ, giao thông",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "dust",
+        "lemma": "dust",
+        "meaningVi": "bụi",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "health",
+        "lemma": "health",
+        "meaningVi": "sức khoẻ",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "burn",
+        "lemma": "burn",
+        "meaningVi": "đốt",
+        "pos": "verb",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "breathe",
+        "lemma": "breathe",
+        "meaningVi": "thở",
+        "pos": "verb",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "lungs",
+        "lemma": "lung",
+        "meaningVi": "phổi",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "cough",
+        "lemma": "cough",
+        "meaningVi": "cơn ho",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the main problem in the story?",
+        "promptVi": "Vấn đề chính trong bài là gì?",
+        "options": [
+          "The air in the city has been getting worse.",
+          "Phong has lost his bike.",
+          "Ly doesn't like the café.",
+          "The buses are too expensive."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong nói \"The air has been getting worse recently.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long has Phong been riding to work?",
+        "promptVi": "Phong đã đạp xe đi làm được bao lâu?",
+        "options": [
+          "Ten days",
+          "One year",
+          "Five years",
+          "All week"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phong trả lời \"Five years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What would Phong do if he had a car?",
+        "promptVi": "Phong sẽ làm gì nếu có ô tô?",
+        "options": [
+          "Drive to work",
+          "Sell his bike",
+          "Take Ly to the café",
+          "Stay at home"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong nói \"If I had a car, I would drive.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ly thinks a car is a good idea for Phong.",
+        "promptVi": "Ly nghĩ đi ô tô là ý hay cho Phong.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ly nói \"A car would only make more smoke!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"dust\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"It's the traffic and the dust from all the new buildings.\"",
+        "options": [
+          "bụi",
+          "khói",
+          "tiếng ồn",
+          "mưa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Dust = bụi, những hạt rất nhỏ bay trong không khí."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành tiếp diễn",
+      "bodyVi": "Hiện tại hoàn thành tiếp diễn (have / has been + V-ing) nói về việc bắt đầu trước đây và kéo dài đến bây giờ, thường để giải thích tình trạng hiện tại: I've been coughing all week. The air has been getting worse recently. Hỏi bao lâu: How long have you been riding to work? Bài cũng có câu điều kiện loại 2 để khuyên và tưởng tượng: If I were you, I would take the bus. If I had a car, I would drive.",
+      "examples": [
+        "I've been coughing all week.",
+        "The air has been getting worse recently.\"",
+        "\"How long have you been riding to work?\""
+      ]
+    },
+    "writingPrompt": "Write about the air in your town or city. How has it been recently? What would you change if you could?",
+    "sentenceTranslations": [
+      "Ngày nào Phong cũng đạp xe băng qua Thành phố Hồ Chí Minh để đi làm.",
+      "Tối thứ Sáu, anh gặp bạn là Ly ở một quán cà phê.",
+      "Anh đang ho.",
+      "Ly hỏi: \"Anh có sao không?\"",
+      "\"Không ổn lắm.",
+      "Cả tuần nay anh cứ ho suốt.",
+      "Gần đây không khí ngày càng tệ.\"",
+      "\"Em biết.",
+      "Sáng nào em cũng xem chất lượng không khí trên điện thoại.",
+      "Mười ngày nay toàn báo đỏ.\"",
+      "\"Mười ngày á?",
+      "Thảo nào anh thấy mệt.",
+      "Mắt anh cũng đau mấy hôm nay.\"",
+      "\"Anh đạp xe đi làm bao lâu rồi?\"",
+      "\"Năm năm.",
+      "Nhưng chưa bao giờ anh thấy thế này.",
+      "Ngày nào trời cũng xám xịt.\"",
+      "\"Là do xe cộ và bụi từ mấy toà nhà mới.",
+      "Nếu em là anh, em sẽ đi xe buýt một thời gian.\"",
+      "\"Xe buýt mất cả tiếng.",
+      "Nếu anh có ô tô thì anh sẽ lái xe.\"",
+      "\"Ô tô chỉ thải thêm khói thôi!",
+      "Mà ngồi giữa dòng xe cả ngày cũng chẳng tốt cho sức khoẻ của anh.\"",
+      "\"Đúng.",
+      "Nếu thành phố có nhiều công viên hơn, không khí đã không tệ thế này.\"",
+      "\"Và nếu mọi người không đốt rác ngoài đường, mình sẽ thở dễ hơn.\"",
+      "\"Vậy bây giờ anh làm được gì?",
+      "Anh không muốn hỏng phổi.\"",
+      "\"Đừng đi đường lớn nữa, đi đường nhỏ ấy.",
+      "Và đi khám bác sĩ về cơn ho đó đi.\"",
+      "\"Ừ, anh sẽ đi.",
+      "Cảm ơn Ly nhé.",
+      "Mình gọi món nhé?\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một tình trạng kéo dài đến bây giờ bằng have / has been + V-ing (I've been coughing …) và khuyên người khác bằng If I were you, I would …",
+    "examples": [
+      {
+        "lemma": "worse",
+        "sentence": "My cold is worse today.",
+        "meaningVi": "Hôm nay tôi bị cảm nặng hơn."
+      },
+      {
+        "lemma": "quality",
+        "sentence": "The quality of the water here is good.",
+        "meaningVi": "Chất lượng nước ở đây tốt."
+      },
+      {
+        "lemma": "sky",
+        "sentence": "The sky is blue this morning.",
+        "meaningVi": "Sáng nay trời xanh."
+      },
+      {
+        "lemma": "traffic",
+        "sentence": "The traffic was terrible on Monday.",
+        "meaningVi": "Thứ Hai xe cộ đông kinh khủng."
+      },
+      {
+        "lemma": "dust",
+        "sentence": "There is dust on the table.",
+        "meaningVi": "Trên bàn có bụi."
+      },
+      {
+        "lemma": "health",
+        "sentence": "Smoking is bad for your health.",
+        "meaningVi": "Hút thuốc có hại cho sức khoẻ."
+      },
+      {
+        "lemma": "burn",
+        "sentence": "Don't burn plastic in the garden.",
+        "meaningVi": "Đừng đốt nhựa trong vườn."
+      },
+      {
+        "lemma": "breathe",
+        "sentence": "It's hard to breathe in this room.",
+        "meaningVi": "Trong phòng này khó thở quá."
+      },
+      {
+        "lemma": "lung",
+        "sentence": "The doctor checked his left lung.",
+        "meaningVi": "Bác sĩ khám phổi trái của anh ấy."
+      },
+      {
+        "lemma": "cough",
+        "sentence": "I have a bad cough.",
+        "meaningVi": "Tôi bị ho nặng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Doctor",
+        "Phong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "How long have you been coughing, Phong?",
+          "meaningVi": "Anh Phong ho bao lâu rồi?"
+        },
+        {
+          "speaker": 1,
+          "text": "For about two weeks. And my eyes have been hurting.",
+          "meaningVi": "Khoảng hai tuần ạ. Mắt tôi cũng bị đau."
+        },
+        {
+          "speaker": 0,
+          "text": "Have you been sleeping well?",
+          "meaningVi": "Anh có ngủ ngon không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not really. I wake up at night and cough.",
+          "meaningVi": "Không lắm ạ. Đêm tôi hay tỉnh dậy ho."
+        },
+        {
+          "speaker": 0,
+          "text": "How do you get to work?",
+          "meaningVi": "Anh đi làm bằng gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "By bike. I've been riding on the main roads for five years.",
+          "meaningVi": "Bằng xe đạp ạ. Năm năm nay tôi đạp xe trên đường lớn."
+        },
+        {
+          "speaker": 0,
+          "text": "That's the problem. If I were you, I would take the bus for a month.",
+          "meaningVi": "Vấn đề là ở đó. Nếu tôi là anh, tôi sẽ đi xe buýt một tháng."
+        },
+        {
+          "speaker": 1,
+          "text": "Would the small streets be better?",
+          "meaningVi": "Đi đường nhỏ thì có đỡ hơn không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, they would. And if you drank more warm water, your cough would get better.",
+          "meaningVi": "Có chứ. Và nếu anh uống nhiều nước ấm hơn thì sẽ đỡ ho."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Thank you, Doctor. I'll try both.",
+          "meaningVi": "Vâng. Cảm ơn bác sĩ. Tôi sẽ thử cả hai."
+        }
+      ]
+    },
+    "grammarTipVi": "Việc kéo dài đến giờ: How long have you been coughing? / I've been riding on the main roads for five years. Lời khuyên: If I were you, I would take the bus. / If you drank more warm water, your cough would get better.",
+    "translations": [
+      {
+        "vi": "Một tháng nay không khí ngày càng tệ hơn.",
+        "en": "The air has been getting worse for a month.",
+        "distractors": [
+          "have",
+          "got",
+          "bad"
+        ]
+      },
+      {
+        "vi": "Sáng nào tôi cũng kiểm tra chất lượng không khí.",
+        "en": "I have been checking the air quality every morning.",
+        "distractors": [
+          "has",
+          "checked",
+          "since"
+        ]
+      },
+      {
+        "vi": "Nếu tôi là bạn, tôi sẽ đi khám bác sĩ về cơn ho đó.",
+        "en": "If I were you, I would see a doctor about that cough.",
+        "distractors": [
+          "am",
+          "will",
+          "coughing"
+        ]
+      },
+      {
+        "vi": "Nếu mọi người không đốt rác, chúng ta sẽ thở dễ hơn.",
+        "en": "If people didn't burn rubbish, we would breathe better.",
+        "distractors": [
+          "don't",
+          "will",
+          "burned"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vì sao Phong đi gặp bác sĩ?",
+        "promptVi": "",
+        "options": [
+          "Vì anh bị ho",
+          "Vì anh bị ngã xe",
+          "Vì anh đau chân"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bác sĩ hỏi \"How long have you been coughing, Phong?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phong đã ho bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Hai ngày",
+          "Khoảng hai tuần",
+          "Năm năm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong nói \"For about two weeks.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bác sĩ khuyên Phong làm gì trong một tháng?",
+        "promptVi": "",
+        "options": [
+          "Đi xe buýt",
+          "Nghỉ làm",
+          "Đi bộ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bác sĩ nói \"If I were you, I would take the bus for a month.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phong has been sleeping very well.",
+        "promptVi": "Phong vẫn ngủ rất ngon.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phong nói \"Not really. I wake up at night and cough.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Phong bị làm sao, và tình trạng đó kéo dài bao lâu rồi? Ly khuyên Phong những gì?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành tiếp diễn",
+      "noticing": [
+        {
+          "sentence": "I've been coughing all week.",
+          "highlights": [
+            "'ve been coughing"
+          ]
+        },
+        {
+          "sentence": "The air has been getting worse recently.\"",
+          "highlights": [
+            "has been getting"
+          ]
+        },
+        {
+          "sentence": "I've been checking the air quality on my phone every morning.",
+          "highlights": [
+            "'ve been checking"
+          ]
+        },
+        {
+          "sentence": "\"How long have you been riding to work?\"",
+          "highlights": [
+            "How long have you been riding"
+          ]
+        }
+      ],
+      "questionVi": "Phong bắt đầu ho từ đầu tuần và đến giờ vẫn ho. Anh nói thế nào?",
+      "options": [
+        "I've been coughing all week.",
+        "I cough all week.",
+        "I am coughing all week."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc bắt đầu trước đây và vẫn tiếp tục đến bây giờ: have been + V-ing.",
+      "whenVi": "Dùng để kể một việc, một tình trạng đã kéo dài một thời gian đến bây giờ, nhất là khi giải thích vì sao bây giờ lại như vậy (mệt vì đã ho cả tuần).",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "have been + V-ing: I've been checking the air quality.",
+          "negative": "haven't been + V-ing: I haven't been sleeping well."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "has been + V-ing: The air has been getting worse.",
+          "negative": "hasn't been + V-ing"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "How long have you been riding to work?",
+          "negative": "Have you been sleeping well? – No, I haven't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "How long are you riding to work?",
+          "right": "How long have you been riding to work?"
+        },
+        {
+          "wrong": "The air has been get worse recently.",
+          "right": "The air has been getting worse recently."
+        }
+      ],
+      "noteVi": "Động từ chỉ trạng thái như know, like, want thường không dùng dạng này: I've known him for years (không nói I've been knowing).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền have hoặc has.",
+          "text": "My eyes ___ been hurting since Monday.",
+          "answers": [
+            "have"
+          ],
+          "explanationVi": "Chủ ngữ số nhiều (my eyes) → have been + V-ing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Phong ___ coughing all week.",
+          "options": [
+            "has been",
+            "have been",
+            "is been",
+            "was be"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Chủ ngữ Phong (he) → has been + V-ing."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I have been check the air every morning.",
+          "sentence": "I have been checking the air every morning.",
+          "explanationVi": "Sau have been phải là động từ thêm -ing: checking."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Gần đây không khí ngày càng tệ hơn.",
+          "sentence": "The air has been getting worse recently.",
+          "words": [
+            "The",
+            "air",
+            "has",
+            "been",
+            "getting",
+            "worse",
+            "recently.",
+            "have"
+          ],
+          "explanationVi": "Chủ ngữ the air → has been + V-ing; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The air has been getting worse recently.\"",
+        "tipVi": "has been đọc lướt /həz bɪn/; worse /wɜːs/."
+      },
+      {
+        "text": "\"How long have you been riding to work?\"",
+        "tipVi": "Lên giọng nhẹ ở How long, xuống giọng ở cuối câu hỏi Wh-."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What have you been doing a lot recently?",
+        "questionVi": "Gần đây bạn hay làm việc gì?",
+        "frame": "I've been ___ a lot recently."
+      },
+      {
+        "question": "Has the air in your city been getting better or worse?",
+        "questionVi": "Không khí ở thành phố bạn đang tốt lên hay tệ đi?",
+        "frame": "I think it has been getting ___ because ___."
+      },
+      {
+        "question": "If you were Phong, what would you do?",
+        "questionVi": "Nếu bạn là Phong, bạn sẽ làm gì?",
+        "frame": "If I were Phong, I would ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu have / has been + V-ing",
+      "anyOf": [
+        "have been",
+        "has been",
+        "'ve been",
+        "'s been"
+      ],
+      "outlineVi": [
+        "Không khí ở nơi bạn sống gần đây thế nào (has been …).",
+        "Bạn hoặc người nhà đã bị ảnh hưởng ra sao (I've been …).",
+        "Bạn sẽ thay đổi gì nếu có thể (If …, I would …)."
+      ],
+      "modelAnswer": "The air in my city has been getting worse for a few months. I have been checking it on my phone, and it is often red in the morning. My little sister has been coughing a lot. If there were not so many old trucks, the air would be much better. If I had a car, I wouldn't drive it every day."
+    }
+  },
+  "glosses": [
+    {
+      "text": "recently",
+      "lemma": "recently",
+      "meaningVi": "gần đây",
+      "sentenceIndex": 6,
+      "pos": "adverb",
+      "phrase": "getting worse recently",
+      "phraseVi": "gần đây ngày càng tệ"
+    },
+    {
+      "text": "No wonder",
+      "lemma": "no wonder",
+      "meaningVi": "thảo nào",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "No wonder I feel tired.",
+      "phraseVi": "Thảo nào anh thấy mệt."
+    },
+    {
+      "text": "hurting",
+      "lemma": "hurt",
+      "meaningVi": "đau",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "My eyes have been hurting too.",
+      "phraseVi": "Mắt anh cũng đau mấy hôm nay."
+    },
+    {
+      "text": "damage",
+      "lemma": "damage",
+      "meaningVi": "làm hỏng, gây hại",
+      "sentenceIndex": 27,
+      "pos": "verb",
+      "phrase": "damage my lungs",
+      "phraseVi": "hỏng phổi"
+    }
+  ]
+}

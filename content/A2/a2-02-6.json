@@ -1,0 +1,590 @@
+{
+  "content": "Mai Anh works at a bank in Da Nang. After work, she often goes to a sport centre near her office. Last Friday, she saw Quang there with a tennis racket. Quang works in her office too.\n\nMai Anh asked him, \"Can you play tennis?\"\n\"Yes, I can, but not very well now,\" Quang said. \"When I was in high school, I could play really well.\"\nMai Anh asked, \"Did you play in competitions?\"\n\"Yes, I did, and I won a school competition when I was sixteen.\"\n\nMai Anh smiled and said, \"I can't play tennis at all, and I didn't play sport at school.\" \"Could you teach me?\"\n\"Of course, let's start now,\" Quang answered.\n\nFirst, he showed her how to hold the racket. Then he hit the ball slowly to her. At first, she couldn't hit it back. But after twenty minutes, she could hit the ball over the net. \"You learn fast,\" Quang said.\n\nMai Anh asked, \"Could we play again next Friday?\"\n\"Sure, but you need your own racket,\" Quang said with a laugh.",
+  "targetWords": [
+    "sport centre",
+    "tennis",
+    "racket",
+    "teach",
+    "hold",
+    "ball",
+    "net",
+    "learn"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "sport centre",
+        "lemma": "sport centre",
+        "meaningVi": "trung tâm thể thao",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "tennis",
+        "lemma": "tennis",
+        "meaningVi": "quần vợt",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "racket",
+        "lemma": "racket",
+        "meaningVi": "cây vợt",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "teach",
+        "lemma": "teach",
+        "meaningVi": "dạy",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "hold",
+        "lemma": "hold",
+        "meaningVi": "cầm",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "ball",
+        "lemma": "ball",
+        "meaningVi": "quả bóng",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "net",
+        "lemma": "net",
+        "meaningVi": "lưới",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "learn",
+        "lemma": "learn",
+        "meaningVi": "học",
+        "pos": "verb",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mai Anh's job at the bank",
+          "Quang teaches Mai Anh to play tennis.",
+          "A tennis competition on TV",
+          "Quang buys a new racket."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai Anh gặp Quang ở trung tâm thể thao và nhờ anh dạy chơi quần vợt; sau hai mươi phút cô đã đánh được bóng qua lưới."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When could Quang play tennis really well?",
+        "promptVi": "Khi nào Quang chơi quần vợt rất giỏi?",
+        "options": [
+          "When he was in high school",
+          "Last Friday",
+          "When he was six",
+          "At university"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quang nói \"When I was in high school, I could play really well\": hồi học cấp ba."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Mai Anh need her own racket?",
+        "promptVi": "Vì sao Mai Anh cần có vợt riêng?",
+        "options": [
+          "Her racket is very old.",
+          "The sport centre has no balls.",
+          "She played with Quang's racket that day.",
+          "She wants to win a competition."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai Anh chưa từng chơi nên không có vợt; hôm đó cô dùng vợt của Quang, vì thế Quang cười bảo \"you need your own racket\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai Anh played tennis at school.",
+        "promptVi": "Mai Anh từng chơi quần vợt ở trường.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai Anh nói \"I can't play tennis at all, and I didn't play sport at school\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"hold\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "First, he showed her how to hold the racket.",
+        "options": [
+          "mua",
+          "ném",
+          "đánh rơi",
+          "cầm"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Hold là cầm, giữ: đầu tiên Quang chỉ cho Mai Anh cách cầm vợt."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / could (xin phép, nhờ vả, khả năng trong quá khứ)",
+      "bodyVi": "Can / can't nói khả năng bây giờ: Can you play tennis? I can't play at all. Could / couldn't nói khả năng trong quá khứ: I could play really well, at first she couldn't hit it back. Could you …? / Could we …? dùng để nhờ hay đề nghị lịch sự: Could you teach me?",
+      "examples": [
+        "Mai Anh asked him, \"Can you play tennis?\"",
+        "\"When I was in high school, I could play really well.\"",
+        "At first, she couldn't hit it back."
+      ]
+    },
+    "writingPrompt": "Write about a time when someone taught you a sport or a new game: what could you do at first, and what could you do later?",
+    "sentenceTranslations": [
+      "Mai Anh làm việc ở một ngân hàng ở Đà Nẵng.",
+      "Tan làm, cô hay đến một trung tâm thể thao gần văn phòng.",
+      "Thứ Sáu tuần trước, cô thấy Quang ở đó với một cây vợt quần vợt.",
+      "Quang cũng làm cùng văn phòng với cô.",
+      "Mai Anh hỏi anh: \"Anh biết chơi quần vợt à?\"",
+      "\"Biết, nhưng giờ không giỏi lắm,\" Quang nói.",
+      "\"Hồi học cấp ba, anh chơi giỏi lắm.\"",
+      "Mai Anh hỏi: \"Anh có đi thi đấu không?\"",
+      "\"Có, năm mười sáu tuổi anh còn thắng một giải của trường.\"",
+      "Mai Anh cười và nói: \"Em chẳng biết chơi quần vợt tí nào, hồi đi học em cũng không chơi môn thể thao nào.\"",
+      "\"Anh dạy em được không?\"",
+      "\"Được chứ, mình bắt đầu luôn nhé,\" Quang đáp.",
+      "Đầu tiên, anh chỉ cho cô cách cầm vợt.",
+      "Rồi anh đánh bóng thật chậm sang cho cô.",
+      "Lúc đầu, cô không đánh trả được.",
+      "Nhưng sau hai mươi phút, cô đã đánh được bóng qua lưới.",
+      "\"Em học nhanh đấy,\" Quang nói.",
+      "Mai Anh hỏi: \"Thứ Sáu tới mình chơi tiếp được không anh?\"",
+      "\"Được, nhưng em cần có vợt riêng đấy,\" Quang cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi ai đó có biết chơi môn gì không, nhờ họ dạy, và kể ngày trước mình làm được gì, dùng can / could và Did … ?",
+    "examples": [
+      {
+        "lemma": "sport centre",
+        "sentence": "The sport centre opens at six.",
+        "meaningVi": "Trung tâm thể thao mở cửa lúc sáu giờ."
+      },
+      {
+        "lemma": "tennis",
+        "sentence": "Do you like tennis?",
+        "meaningVi": "Bạn có thích quần vợt không?"
+      },
+      {
+        "lemma": "racket",
+        "sentence": "This racket is very light.",
+        "meaningVi": "Cây vợt này rất nhẹ."
+      },
+      {
+        "lemma": "teach",
+        "sentence": "My mum can teach you English.",
+        "meaningVi": "Mẹ mình có thể dạy bạn tiếng Anh."
+      },
+      {
+        "lemma": "hold",
+        "sentence": "Can you hold my bag, please?",
+        "meaningVi": "Bạn cầm giúp mình cái túi được không?"
+      },
+      {
+        "lemma": "ball",
+        "sentence": "Throw the ball to me!",
+        "meaningVi": "Ném bóng cho mình đi!"
+      },
+      {
+        "lemma": "net",
+        "sentence": "The ball hit the net.",
+        "meaningVi": "Quả bóng chạm lưới."
+      },
+      {
+        "lemma": "learn",
+        "sentence": "I want to learn French.",
+        "meaningVi": "Mình muốn học tiếng Pháp."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai Anh",
+        "Kevin"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai Anh, did you play tennis last Friday?",
+          "meaningVi": "Mai Anh ơi, thứ Sáu vừa rồi cậu có chơi quần vợt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I did! Quang from my office taught me.",
+          "meaningVi": "Có! Anh Quang ở văn phòng mình dạy mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Can he play well?",
+          "meaningVi": "Anh ấy chơi giỏi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. He could play very well in high school.",
+          "meaningVi": "Giỏi. Hồi cấp ba anh ấy chơi giỏi lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Could you hit the ball at first?",
+          "meaningVi": "Lúc đầu cậu có đánh được bóng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I couldn't. But after twenty minutes, I could.",
+          "meaningVi": "Không. Nhưng sau hai mươi phút thì được."
+        },
+        {
+          "speaker": 1,
+          "text": "That's great! Can I come with you next time?",
+          "meaningVi": "Tuyệt! Lần sau mình đi cùng được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Can you play tennis?",
+          "meaningVi": "Tất nhiên. Cậu biết chơi quần vợt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "A little. I played with my dad when I was a child.",
+          "meaningVi": "Một chút. Hồi nhỏ mình chơi với bố."
+        },
+        {
+          "speaker": 0,
+          "text": "Then you can teach me too!",
+          "meaningVi": "Thế thì cậu cũng dạy mình được rồi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi khả năng trong quá khứ: Could you hit the ball at first? Trả lời: No, I couldn't. But after twenty minutes, I could.",
+    "translations": [
+      {
+        "vi": "Bạn có biết chơi quần vợt không?",
+        "en": "Can you play tennis?",
+        "distractors": [
+          "Did",
+          "plays",
+          "football"
+        ]
+      },
+      {
+        "vi": "Lúc đầu, cô ấy không đánh được bóng.",
+        "en": "At first, she couldn't hit the ball.",
+        "distractors": [
+          "can't",
+          "hits",
+          "net"
+        ]
+      },
+      {
+        "vi": "Anh dạy em được không?",
+        "en": "Could you teach me?",
+        "distractors": [
+          "taught",
+          "Did",
+          "I"
+        ]
+      },
+      {
+        "vi": "Cô ấy đánh bóng qua lưới.",
+        "en": "She hit the ball over the net.",
+        "distractors": [
+          "under",
+          "hits",
+          "nets"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Kevin và Mai Anh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một trận bóng đá",
+          "Công việc ở ngân hàng",
+          "Buổi học quần vợt của Mai Anh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Kevin hỏi \"did you play tennis last Friday?\", Mai Anh kể Quang đã dạy mình chơi.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai dạy Mai Anh chơi quần vợt?",
+        "promptVi": "",
+        "options": [
+          "Kevin",
+          "Quang",
+          "Bố của Kevin"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai Anh nói \"Quang from my office taught me.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hồi nhỏ Kevin chơi quần vợt với ai?",
+        "promptVi": "",
+        "options": [
+          "Với bố",
+          "Với Quang",
+          "Với thầy giáo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kevin nói \"I played with my dad when I was a child.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai Anh could hit the ball at first.",
+        "promptVi": "Lúc đầu Mai Anh đã đánh được bóng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai Anh nói \"No, I couldn't. But after twenty minutes, I could.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Hồi cấp ba Quang chơi quần vợt thế nào, và Mai Anh học được gì sau hai mươi phút?",
+    "grammarStep": {
+      "titleVi": "Can / could (xin phép, nhờ vả, khả năng trong quá khứ)",
+      "noticing": [
+        {
+          "sentence": "Mai Anh asked him, \"Can you play tennis?\"",
+          "highlights": [
+            "Can you play"
+          ]
+        },
+        {
+          "sentence": "\"When I was in high school, I could play really well.\"",
+          "highlights": [
+            "could play"
+          ]
+        },
+        {
+          "sentence": "At first, she couldn't hit it back.",
+          "highlights": [
+            "couldn't hit"
+          ]
+        },
+        {
+          "sentence": "But after twenty minutes, she could hit the ball over the net.",
+          "highlights": [
+            "could hit"
+          ]
+        }
+      ],
+      "questionVi": "\"At first, she couldn't hit it back\" và \"after twenty minutes, she could hit the ball\" cho thấy điều gì?",
+      "options": [
+        "Lúc đầu cô ấy không làm được, sau đó thì làm được",
+        "Cô ấy không bao giờ đánh được bóng",
+        "Cô ấy nhờ Quang đánh bóng giúp"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Couldn't + động từ là đã không làm được, could + động từ là đã làm được, cả hai nói về quá khứ. Bây giờ thì dùng can / can't.",
+      "whenVi": "Dùng can / can't cho khả năng bây giờ, could / couldn't cho khả năng trong quá khứ, và Could you …? để nhờ lịch sự.",
+      "table": [
+        {
+          "subject": "Khả năng bây giờ",
+          "form": "Can you play tennis? – Yes, I can.",
+          "negative": "I can't play at all."
+        },
+        {
+          "subject": "Khả năng trong quá khứ",
+          "form": "I could play really well in high school.",
+          "negative": "At first, she couldn't hit it back."
+        },
+        {
+          "subject": "Nhờ, đề nghị",
+          "form": "Could you teach me? Could we play again?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Can you to play tennis?",
+          "right": "Can you play tennis?"
+        },
+        {
+          "wrong": "When I was sixteen, I can play well.",
+          "right": "When I was sixteen, I could play well."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"hồi đó tôi chơi được\" mà không đổi từ \"được\", nên người Việt hay dùng can khi kể chuyện quá khứ thay vì could.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền could hoặc couldn't vào chỗ trống.",
+          "text": "After twenty minutes, she ___ hit the ball over the net.",
+          "answers": [
+            "could"
+          ],
+          "explanationVi": "Sau hai mươi phút cô đã làm được, nên dùng could."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ you teach me, please? – Of course.",
+          "options": [
+            "Could",
+            "Did",
+            "Are",
+            "Do"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Nhờ ai làm gì một cách lịch sự dùng Could you …?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "At first, she couldn't hits it back.",
+          "sentence": "At first, she couldn't hit it back.",
+          "explanationVi": "Sau couldn't, động từ giữ nguyên mẫu: hit."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Thứ Sáu tới chúng ta chơi tiếp được không?",
+          "sentence": "Could we play again next Friday?",
+          "words": [
+            "play",
+            "Could",
+            "Friday",
+            "we",
+            "again",
+            "next",
+            "played"
+          ],
+          "explanationVi": "Could + we + play (nguyên mẫu); từ \"played\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "First, he showed her how to hold the racket.",
+        "tipVi": "Showed /ʃoʊd/ bắt đầu bằng /ʃ/ và đọc -ed là /d/; hold /hoʊld/ có cụm /ld/ ở cuối."
+      },
+      {
+        "text": "But after twenty minutes, she could hit the ball over the net.",
+        "tipVi": "Could /kʊd/ không đọc chữ l; net /nɛt/ đọc rõ âm /t/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Can you play tennis or badminton?",
+        "questionVi": "Bạn có biết chơi quần vợt hay cầu lông không?",
+        "frame": "Yes, I can. / No, I can't, but I can ___."
+      },
+      {
+        "question": "What could you do well when you were ten?",
+        "questionVi": "Hồi mười tuổi bạn làm giỏi việc gì?",
+        "frame": "When I was ten, I could ___ well."
+      },
+      {
+        "question": "Who taught you to ride a bike?",
+        "questionVi": "Ai dạy bạn đi xe đạp?",
+        "frame": "My ___ taught me. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng could / couldn't hoặc Can / Could you …?",
+      "anyOf": [
+        "could",
+        "couldn't",
+        "could you",
+        "can you",
+        "can't"
+      ],
+      "outlineVi": [
+        "Nói ai đã dạy bạn môn gì và khi nào.",
+        "Kể lúc đầu bạn không làm được gì (At first, I couldn't …).",
+        "Kể sau đó bạn làm được gì (After …, I could …) và bây giờ thế nào."
+      ],
+      "modelAnswer": "Two years ago, my uncle taught me to swim. At first, I couldn't swim at all, and I was very worried. My uncle held my hands and helped me. After one week, I could swim slowly. After one month, I could swim quite well. Now I can teach my little brother!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "After work",
+      "lemma": "after work",
+      "meaningVi": "tan làm, sau giờ làm",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "After work, she often goes to a sport centre",
+      "phraseVi": "Tan làm, cô hay đến trung tâm thể thao"
+    },
+    {
+      "text": "really well",
+      "lemma": "well",
+      "meaningVi": "rất giỏi",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "I could play really well",
+      "phraseVi": "anh chơi giỏi lắm"
+    },
+    {
+      "text": "competitions",
+      "lemma": "competition",
+      "meaningVi": "cuộc thi, giải đấu",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "Did you play in competitions",
+      "phraseVi": "Anh có đi thi đấu không"
+    },
+    {
+      "text": "won",
+      "lemma": "win",
+      "meaningVi": "thắng",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "I won a school competition",
+      "phraseVi": "anh thắng một giải của trường"
+    },
+    {
+      "text": "at all",
+      "lemma": "at all",
+      "meaningVi": "chút nào",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "I can't play tennis at all",
+      "phraseVi": "Em chẳng biết chơi quần vợt tí nào"
+    },
+    {
+      "text": "showed",
+      "lemma": "show",
+      "meaningVi": "chỉ cho",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "he showed her how to hold the racket",
+      "phraseVi": "anh chỉ cho cô cách cầm vợt"
+    },
+    {
+      "text": "hit it back",
+      "lemma": "hit back",
+      "meaningVi": "đánh trả lại",
+      "sentenceIndex": 14,
+      "pos": "phrasal verb",
+      "phrase": "she couldn't hit it back",
+      "phraseVi": "cô không đánh trả được"
+    },
+    {
+      "text": "your own",
+      "lemma": "own",
+      "meaningVi": "của riêng em",
+      "sentenceIndex": 18,
+      "pos": "determiner",
+      "phrase": "you need your own racket",
+      "phraseVi": "em cần có vợt riêng"
+    }
+  ]
+}

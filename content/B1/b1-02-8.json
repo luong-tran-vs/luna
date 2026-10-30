@@ -1,0 +1,626 @@
+{
+  "content": "Mr Nam is fifty-five, and he has just retired. His doctor says that walking is good for his heart. So today, he is at a phone shop in Da Nang, and he wants to buy a smartwatch.\n\nThe shop assistant, Linh, asks, \"Good morning. Can I help you?\"\n\"Yes, please. I'd like to buy a watch to count my steps. But I'm not good with technology.\"\n\"No problem. This one is easy to use. It counts your steps, and it checks your heart and your sleep too.\"\n\"How much is it?\"\n\"It's two million dong. Would you like to try it on?\"\nMr Nam puts it on his wrist. \"It's light. I like it. How do I set it up?\"\n\"First, you need to download our app on your phone. Then turn the watch on and hold it next to your phone.\"\n\"Can you do it for me? I'm afraid of pressing the wrong button.\"\nLinh smiles. \"Of course.\" She sets up the app on his phone. \"Now, look. You've walked 1,200 steps today.\"\n\"Only 1,200? I want to walk 8,000 steps every day.\"\n\"You can do it. Try walking after dinner. And remember to charge the watch every three days.\"\n\"How long does the battery last?\"\n\"About four days. When the battery is low, the watch tells you.\"\nMr Nam says, \"Thank you. I'll take it. I can't wait to start walking!\"",
+  "targetWords": [
+    "doctor",
+    "heart",
+    "step",
+    "million",
+    "wrist",
+    "download",
+    "wrong",
+    "charge",
+    "last",
+    "low"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "doctor",
+        "lemma": "doctor",
+        "meaningVi": "bác sĩ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "heart",
+        "lemma": "heart",
+        "meaningVi": "tim",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "steps",
+        "lemma": "step",
+        "meaningVi": "bước chân",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "million",
+        "lemma": "million",
+        "meaningVi": "triệu",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "wrist",
+        "lemma": "wrist",
+        "meaningVi": "cổ tay",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "download",
+        "lemma": "download",
+        "meaningVi": "tải về",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "wrong",
+        "lemma": "wrong",
+        "meaningVi": "sai",
+        "pos": "adjective",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "charge",
+        "lemma": "charge",
+        "meaningVi": "sạc (pin)",
+        "pos": "verb",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "last",
+        "lemma": "last",
+        "meaningVi": "dùng được, kéo dài",
+        "pos": "verb",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "low",
+        "lemma": "low",
+        "meaningVi": "yếu, thấp",
+        "pos": "adjective",
+        "sentenceIndex": 34
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Mr Nam buys a smartwatch to count his steps.",
+          "Linh repairs Mr Nam's phone.",
+          "Mr Nam visits his doctor.",
+          "A new phone shop opens in Da Nang."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Nam mới nghỉ hưu, muốn đi bộ nhiều hơn nên đến cửa hàng mua đồng hồ thông minh để đếm bước chân."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is the watch?",
+        "promptVi": "Chiếc đồng hồ giá bao nhiêu?",
+        "options": [
+          "One million dong",
+          "Two million dong",
+          "Eight thousand dong",
+          "Four million dong"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"It's two million dong.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Mr Nam ask Linh to set up the app?",
+        "promptVi": "Vì sao ông Nam nhờ Linh cài ứng dụng?",
+        "options": [
+          "He doesn't have a phone.",
+          "He has no time.",
+          "He is afraid of pressing the wrong button.",
+          "The app is very expensive."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ông nói \"I'm afraid of pressing the wrong button.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The battery lasts about four days.",
+        "promptVi": "Pin dùng được khoảng bốn ngày.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Linh nói \"About four days.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"try it on\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Would you like to try it on?\"",
+        "options": [
+          "đeo thử, mặc thử",
+          "thử sửa",
+          "bật thử",
+          "thử mua"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Try on (quần áo, đồ đeo) = mặc thử, đeo thử. Đại từ it đứng giữa: try it on."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm động từ và vị trí tân ngữ",
+      "bodyVi": "Cụm động từ khi mua và dùng đồng hồ: try it on (đeo thử), put it on (đeo vào), set it up (cài đặt), turn the watch on (bật đồng hồ), set up the app (cài ứng dụng). Đại từ (it) luôn ở giữa; danh từ có thể ở giữa hoặc sau tiểu từ. Đi kèm là V-ing / to + động từ: afraid of pressing, try walking, remember to charge, can't wait to start.",
+      "examples": [
+        "Would you like to try it on?\"",
+        "How do I set it up?\"",
+        "Then turn the watch on and hold it next to your phone.\""
+      ]
+    },
+    "writingPrompt": "Write about a new device you have or want to buy: how do you set it up, and what do you want to use it for?",
+    "sentenceTranslations": [
+      "Ông Nam năm mươi lăm tuổi, và ông vừa nghỉ hưu.",
+      "Bác sĩ của ông nói đi bộ tốt cho tim.",
+      "Vì vậy hôm nay ông đến một cửa hàng điện thoại ở Đà Nẵng để mua đồng hồ thông minh.",
+      "Nhân viên bán hàng là Linh hỏi: \"Chào bác.",
+      "Cháu giúp gì được cho bác ạ?\"",
+      "\"Ừ, cháu giúp bác với.",
+      "Bác muốn mua một chiếc đồng hồ để đếm bước chân.",
+      "Nhưng bác không giỏi công nghệ lắm.\"",
+      "\"Không sao ạ.",
+      "Chiếc này dễ dùng lắm.",
+      "Nó đếm bước chân, và còn đo nhịp tim và giấc ngủ nữa.\"",
+      "\"Bao nhiêu tiền cháu?\"",
+      "\"Hai triệu đồng ạ.",
+      "Bác có muốn đeo thử không?\"",
+      "Ông Nam đeo nó lên cổ tay.",
+      "\"Nhẹ nhỉ.",
+      "Bác thích.",
+      "Cài đặt thế nào hả cháu?\"",
+      "\"Đầu tiên, bác cần tải ứng dụng của bên cháu về điện thoại.",
+      "Rồi bật đồng hồ lên và để nó gần điện thoại.\"",
+      "\"Cháu làm giúp bác được không?",
+      "Bác sợ bấm nhầm nút.\"",
+      "Linh mỉm cười.",
+      "\"Được ạ.\"",
+      "Cô cài ứng dụng trên điện thoại của ông.",
+      "\"Bác xem này.",
+      "Hôm nay bác đã đi được 1.200 bước.\"",
+      "\"Mới 1.200 thôi à?",
+      "Bác muốn đi 8.000 bước mỗi ngày.\"",
+      "\"Bác làm được mà.",
+      "Bác thử đi bộ sau bữa tối xem.",
+      "Và nhớ sạc đồng hồ ba ngày một lần nhé.\"",
+      "\"Pin dùng được bao lâu cháu?\"",
+      "\"Khoảng bốn ngày ạ.",
+      "Khi pin yếu, đồng hồ sẽ báo cho bác.\"",
+      "Ông Nam nói: \"Cảm ơn cháu.",
+      "Bác lấy chiếc này.",
+      "Bác nóng lòng muốn bắt đầu đi bộ quá!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi mua và cài đặt một thiết bị bằng các cụm động từ (try on, put on, set up, turn on) cùng với V-ing / to + động từ.",
+    "examples": [
+      {
+        "lemma": "doctor",
+        "sentence": "You should see a doctor.",
+        "meaningVi": "Bạn nên đi khám bác sĩ."
+      },
+      {
+        "lemma": "heart",
+        "sentence": "Exercise is good for your heart.",
+        "meaningVi": "Tập thể dục tốt cho tim."
+      },
+      {
+        "lemma": "step",
+        "sentence": "The baby took her first step today.",
+        "meaningVi": "Hôm nay em bé bước bước đầu tiên."
+      },
+      {
+        "lemma": "million",
+        "sentence": "The city has eight million people.",
+        "meaningVi": "Thành phố có tám triệu dân."
+      },
+      {
+        "lemma": "wrist",
+        "sentence": "She wears a watch on her left wrist.",
+        "meaningVi": "Cô ấy đeo đồng hồ ở cổ tay trái."
+      },
+      {
+        "lemma": "download",
+        "sentence": "You can download the app for free.",
+        "meaningVi": "Bạn có thể tải ứng dụng miễn phí."
+      },
+      {
+        "lemma": "wrong",
+        "sentence": "Sorry, I called the wrong number.",
+        "meaningVi": "Xin lỗi, tôi gọi nhầm số."
+      },
+      {
+        "lemma": "charge",
+        "sentence": "I need to charge my phone.",
+        "meaningVi": "Tôi cần sạc điện thoại."
+      },
+      {
+        "lemma": "last",
+        "sentence": "Good batteries last a long time.",
+        "meaningVi": "Pin tốt dùng được lâu."
+      },
+      {
+        "lemma": "low",
+        "sentence": "My battery is low.",
+        "meaningVi": "Pin của tôi yếu rồi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nam",
+        "Mike"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nam, is that a new watch?",
+          "meaningVi": "Nam ơi, đồng hồ mới à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. I bought it yesterday. It counts my steps.",
+          "meaningVi": "Ừ. Hôm qua tôi mới mua. Nó đếm bước chân."
+        },
+        {
+          "speaker": 1,
+          "text": "Was it difficult to set it up?",
+          "meaningVi": "Cài đặt có khó không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, the girl in the shop set it up for me.",
+          "meaningVi": "Không, cô bé ở cửa hàng cài giúp tôi."
+        },
+        {
+          "speaker": 1,
+          "text": "How many steps have you walked today?",
+          "meaningVi": "Hôm nay ông đi được bao nhiêu bước rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "Let me look. Oh, only 3,000. I want to walk 8,000.",
+          "meaningVi": "Để tôi xem. Ồ, mới 3.000. Tôi muốn đi 8.000."
+        },
+        {
+          "speaker": 1,
+          "text": "Let's go for a walk after dinner, then.",
+          "meaningVi": "Vậy tối nay ăn xong mình đi dạo nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "Good idea. I'll put on my running shoes.",
+          "meaningVi": "Ý hay đấy. Tôi sẽ đi giày chạy bộ."
+        },
+        {
+          "speaker": 1,
+          "text": "Don't forget to charge your watch!",
+          "meaningVi": "Đừng quên sạc đồng hồ nhé!"
+        },
+        {
+          "speaker": 0,
+          "text": "I won't. The battery is still OK. It lasts four days.",
+          "meaningVi": "Không quên đâu. Pin vẫn còn. Nó dùng được bốn ngày."
+        }
+      ]
+    },
+    "grammarTipVi": "Set it up, put on my running shoes: cụm động từ. Want to walk, forget to charge: to + động từ. Go for a walk: đi dạo.",
+    "translations": [
+      {
+        "vi": "Bạn có muốn đeo thử không? Nó rất nhẹ ở cổ tay.",
+        "en": "Would you like to try it on? It's light on your wrist.",
+        "distractors": [
+          "up",
+          "off",
+          "out"
+        ]
+      },
+      {
+        "vi": "Đầu tiên, hãy tải ứng dụng về rồi bật đồng hồ lên.",
+        "en": "First, download the app and turn the watch on.",
+        "distractors": [
+          "off",
+          "up",
+          "out"
+        ]
+      },
+      {
+        "vi": "Nhớ sạc đồng hồ ba ngày một lần.",
+        "en": "Remember to charge the watch every three days.",
+        "distractors": [
+          "charging",
+          "charges",
+          "up"
+        ]
+      },
+      {
+        "vi": "Tôi sợ bấm nhầm nút.",
+        "en": "I'm afraid of pressing the wrong button.",
+        "distractors": [
+          "pressed",
+          "to",
+          "presses"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mike và ông Nam nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chiếc đồng hồ mới của ông Nam",
+          "Bữa tối",
+          "Một cửa hàng giày"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mike hỏi \"is that a new watch?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đã cài đặt đồng hồ cho ông Nam?",
+        "promptVi": "",
+        "options": [
+          "Mike",
+          "Cô gái ở cửa hàng",
+          "Con trai ông"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Nam nói \"the girl in the shop set it up for me.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hôm nay ông Nam đã đi được bao nhiêu bước?",
+        "promptVi": "",
+        "options": [
+          "8.000",
+          "1.200",
+          "3.000"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ông nói \"only 3,000.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Nam's watch battery is low.",
+        "promptVi": "Pin đồng hồ của ông Nam đã yếu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông nói \"The battery is still OK.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Ông Nam muốn đồng hồ để làm gì? Cách cài đặt đồng hồ gồm những bước nào?",
+    "grammarStep": {
+      "titleVi": "Cụm động từ và vị trí tân ngữ",
+      "noticing": [
+        {
+          "sentence": "Would you like to try it on?\"",
+          "highlights": [
+            "try it on"
+          ]
+        },
+        {
+          "sentence": "How do I set it up?\"",
+          "highlights": [
+            "set it up"
+          ]
+        },
+        {
+          "sentence": "Then turn the watch on and hold it next to your phone.\"",
+          "highlights": [
+            "turn the watch on"
+          ]
+        },
+        {
+          "sentence": "She sets up the app on his phone.",
+          "highlights": [
+            "sets up the app"
+          ]
+        }
+      ],
+      "questionVi": "Linh nói \"turn the watch on\" và \"sets up the app\". Có thể nói \"turn on the watch\" không?",
+      "options": [
+        "Có, với danh từ có thể đặt tiểu từ trước hoặc sau danh từ.",
+        "Không, luôn phải nói turn the watch on.",
+        "Chỉ khi nói về quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Danh từ: turn the watch on = turn on the watch. Đại từ: chỉ nói turn it on.",
+      "whenVi": "Dùng cụm động từ khi mua, đeo, cài đặt thiết bị; đặt đại từ vào giữa động từ và tiểu từ.",
+      "table": [
+        {
+          "subject": "try on / put on",
+          "form": "try it on, put it on",
+          "negative": "không nói: try on it"
+        },
+        {
+          "subject": "set up",
+          "form": "set up the app / set the app up",
+          "negative": "set it up"
+        },
+        {
+          "subject": "turn on",
+          "form": "turn the watch on / turn on the watch",
+          "negative": "turn it on"
+        },
+        {
+          "subject": "Kèm V-ing / to",
+          "form": "try walking, remember to charge",
+          "negative": "afraid of pressing"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Would you like to try on it?",
+          "right": "Would you like to try it on?"
+        },
+        {
+          "wrong": "How do I set up it?",
+          "right": "How do I set it up?"
+        }
+      ],
+      "noteVi": "Put on (đeo, mặc vào) ngược với take off (tháo ra): put it on / take it off.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền tiểu từ đúng (on, off, up).",
+          "text": "Would you like to try it ___?",
+          "answers": [
+            "on"
+          ],
+          "explanationVi": "Đeo thử: try it on."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Can you ___ for me?",
+          "options": [
+            "set up it",
+            "set it up",
+            "up set it",
+            "set it on"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Đại từ it ở giữa: set it up."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Mr Nam puts on it and smiles.",
+          "sentence": "Mr Nam puts it on and smiles.",
+          "explanationVi": "Đại từ it đứng giữa: puts it on."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hãy bật đồng hồ lên.",
+          "sentence": "Turn the watch on.",
+          "words": [
+            "the",
+            "Turn",
+            "on.",
+            "watch",
+            "off"
+          ],
+          "explanationVi": "Bật lên: turn … on; từ \"off\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "How do I set it up?\"",
+        "tipVi": "Set it up nối liền /setɪtʌp/; câu hỏi Wh- xuống giọng."
+      },
+      {
+        "text": "\"How long does the battery last?\"",
+        "tipVi": "Battery /ˈbætəri/ nhấn âm đầu; last /lɑːst/ có âm /ɑː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you use a watch or an app to count your steps?",
+        "questionVi": "Bạn có dùng đồng hồ hay ứng dụng để đếm bước chân không?",
+        "frame": "Yes, I use ___. / No, I don't."
+      },
+      {
+        "question": "What do you do when your phone battery is low?",
+        "questionVi": "Khi pin điện thoại yếu bạn làm gì?",
+        "frame": "I plug it in / I turn it off / I ___."
+      },
+      {
+        "question": "Who in your family likes new devices? What has he or she bought?",
+        "questionVi": "Ai trong gia đình bạn thích thiết bị mới? Người đó đã mua gì?",
+        "frame": "My ___ does. He / She has bought ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm động từ (set up, turn on, try on, put on, plug in…)",
+      "anyOf": [
+        "set up",
+        "set it up",
+        "turn on",
+        "turn it on",
+        "try on",
+        "try it on",
+        "put on",
+        "put it on",
+        "plug in",
+        "plug it in",
+        "switch on"
+      ],
+      "outlineVi": [
+        "Bạn có / muốn mua thiết bị gì, để làm gì (I want to …).",
+        "Cách cài đặt (set it up, turn it on, download …).",
+        "Lời khuyên khi dùng (remember to charge, try + V-ing…)."
+      ],
+      "modelAnswer": "Last month, I bought a small speaker for my room. I wanted to listen to music while I study. Setting it up was easy. I plugged it in and charged it for two hours. Then I turned it on and connected it to my phone. Now I enjoy listening to music every evening. Remember to turn it off before bed, or the battery runs down quickly."
+    }
+  },
+  "glosses": [
+    {
+      "text": "retired",
+      "lemma": "retire",
+      "meaningVi": "nghỉ hưu",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "he has just retired",
+      "phraseVi": "ông vừa nghỉ hưu"
+    },
+    {
+      "text": "count",
+      "lemma": "count",
+      "meaningVi": "đếm",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "to count my steps",
+      "phraseVi": "để đếm bước chân"
+    },
+    {
+      "text": "try it on",
+      "lemma": "try on",
+      "meaningVi": "đeo thử",
+      "sentenceIndex": 13,
+      "pos": "phrasal verb",
+      "phrase": "Would you like to try it on?",
+      "phraseVi": "Bác có muốn đeo thử không?"
+    },
+    {
+      "text": "set it up",
+      "lemma": "set up",
+      "meaningVi": "cài đặt",
+      "sentenceIndex": 17,
+      "pos": "phrasal verb",
+      "phrase": "How do I set it up?",
+      "phraseVi": "Cài đặt thế nào?"
+    },
+    {
+      "text": "pressing",
+      "lemma": "press",
+      "meaningVi": "bấm",
+      "sentenceIndex": 21,
+      "pos": "verb",
+      "phrase": "afraid of pressing the wrong button",
+      "phraseVi": "sợ bấm nhầm nút"
+    },
+    {
+      "text": "can't wait",
+      "lemma": "can't wait",
+      "meaningVi": "nóng lòng",
+      "sentenceIndex": 37,
+      "pos": "phrase",
+      "phrase": "I can't wait to start walking!",
+      "phraseVi": "Bác nóng lòng muốn bắt đầu đi bộ quá!"
+    }
+  ]
+}

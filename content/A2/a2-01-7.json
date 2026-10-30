@@ -1,0 +1,606 @@
+{
+  "content": "Last Sunday, Binh visited his childhood friend Quan. When they were children, they lived in the same old building in Hanoi. Binh's family was on the third floor, and Quan's family was on the fourth floor.\n\nThey looked at old photos and talked about those days. Binh laughed and said, \"Our flat was so small!\"\n\"Yes, there were only two rooms, and five people lived in them,\" Quan answered.\n\nIt wasn't a new building, so they climbed the stairs every day. The neighbours were very kind, and they shared everything. Mrs Nga on the second floor often cooked soup for all the children. Old Mr Tung played the guitar in the evening, and the children danced.\n\nIn summer, the flats were very hot. The families opened all the doors and windows. The children played together on the stairs until late.\n\nQuan asked, \"Were you happy there?\"\n\"Yes, our rooms were small, but our hearts were big,\" Binh said.\n\nAfter lunch, they walked to the old building together. It was still there, but the stairs were quiet now.",
+  "targetWords": [
+    "children",
+    "floor",
+    "flat",
+    "room",
+    "stairs",
+    "neighbour",
+    "kind",
+    "share"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "children",
+        "lemma": "children",
+        "meaningVi": "trẻ con, những đứa trẻ",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "tầng (nhà)",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "flat",
+        "lemma": "flat",
+        "meaningVi": "căn hộ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "rooms",
+        "lemma": "room",
+        "meaningVi": "căn phòng",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "stairs",
+        "lemma": "stairs",
+        "meaningVi": "cầu thang",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "neighbours",
+        "lemma": "neighbour",
+        "meaningVi": "hàng xóm",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "kind",
+        "lemma": "kind",
+        "meaningVi": "tốt bụng",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "shared",
+        "lemma": "share",
+        "meaningVi": "chia sẻ, chia nhau",
+        "pos": "verb",
+        "sentenceIndex": 7
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Binh's new flat in Hanoi",
+          "Binh and Quan remember their childhood in an old building.",
+          "Mrs Nga's soup",
+          "A guitar lesson with Mr Tung"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hai người bạn thời thơ ấu nhớ lại những ngày sống trong khu nhà cũ: căn hộ nhỏ, hàng xóm tốt bụng, bọn trẻ chơi trên cầu thang."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many people lived in the two rooms?",
+        "promptVi": "Có bao nhiêu người sống trong hai căn phòng đó?",
+        "options": [
+          "Two",
+          "Four",
+          "Five",
+          "Seven"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quân nói \"there were only two rooms, and five people lived in them\": năm người."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why were the doors and windows open in summer?",
+        "promptVi": "Vì sao mùa hè các nhà mở hết cửa?",
+        "options": [
+          "The flats were very hot.",
+          "The neighbours were noisy.",
+          "The children wanted to play.",
+          "Mr Tung played the guitar."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"In summer, the flats were very hot\", nên các gia đình mở hết cửa ra vào và cửa sổ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quan's family lived on the third floor.",
+        "promptVi": "Gia đình Quân sống ở tầng ba.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì nhà Bình ở tầng ba, còn \"Quan's family was on the fourth floor\": nhà Quân ở tầng bốn."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"kind\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The neighbours were very kind, and they shared everything.",
+        "options": [
+          "loại, kiểu",
+          "nghiêm khắc",
+          "ồn ào",
+          "tốt bụng"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ở đây kind là tốt bụng: hàng xóm hay chia sẻ, nấu súp cho bọn trẻ. Kind còn có nghĩa \"loại\" (a kind of …) nhưng không hợp với câu này."
+      }
+    ],
+    "grammarNote": {
+      "title": "Was / were",
+      "bodyVi": "Muốn tả một nơi, một người trong quá khứ, đổi is thành was, are thành were: our flat was so small, the neighbours were very kind. There is / there are thành there was / there were: there were only two rooms. Phủ định: wasn't, weren't. Hỏi: Were you happy there?",
+      "examples": [
+        "Binh laughed and said, \"Our flat was so small!\"",
+        "\"Yes, there were only two rooms, and five people lived in them,\" Quan answered.",
+        "\"Yes, our rooms were small, but our hearts were big,\" Binh said."
+      ]
+    },
+    "writingPrompt": "Write about your home and your neighbours when you were a child.",
+    "sentenceTranslations": [
+      "Chủ nhật vừa rồi, Bình đến thăm Quân, người bạn thời thơ ấu.",
+      "Hồi nhỏ, hai người sống trong cùng một khu nhà cũ ở Hà Nội.",
+      "Nhà Bình ở tầng ba, còn nhà Quân ở tầng bốn.",
+      "Họ xem ảnh cũ và nói chuyện về những ngày ấy.",
+      "Bình cười và nói: \"Căn hộ nhà mình bé tí!\"",
+      "\"Ừ, chỉ có hai phòng mà những năm người ở,\" Quân đáp.",
+      "Tòa nhà không mới, nên ngày nào họ cũng leo cầu thang.",
+      "Hàng xóm rất tốt bụng, có gì cũng chia cho nhau.",
+      "Bà Nga ở tầng hai hay nấu súp cho tất cả bọn trẻ.",
+      "Buổi tối ông Tùng chơi đàn guitar, còn bọn trẻ thì nhảy múa.",
+      "Mùa hè, các căn hộ rất nóng.",
+      "Các gia đình mở hết cửa ra vào và cửa sổ.",
+      "Bọn trẻ chơi với nhau trên cầu thang đến tận khuya.",
+      "Quân hỏi: \"Hồi đó cậu có vui không?\"",
+      "\"Vui chứ, phòng thì nhỏ, nhưng lòng người thì rộng,\" Bình nói.",
+      "Ăn trưa xong, hai người cùng đi bộ đến khu nhà cũ.",
+      "Tòa nhà vẫn còn đó, nhưng bây giờ cầu thang yên ắng."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả ngôi nhà và hàng xóm hồi nhỏ, dùng was / were, there was / there were và động từ quá khứ có quy tắc.",
+    "examples": [
+      {
+        "lemma": "children",
+        "sentence": "The children are in the garden.",
+        "meaningVi": "Bọn trẻ đang ở ngoài vườn."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "The bank is on the first floor.",
+        "meaningVi": "Ngân hàng ở tầng một."
+      },
+      {
+        "lemma": "flat",
+        "sentence": "We live in a small flat.",
+        "meaningVi": "Nhà mình ở một căn hộ nhỏ."
+      },
+      {
+        "lemma": "room",
+        "sentence": "My room is on the second floor.",
+        "meaningVi": "Phòng mình ở tầng hai."
+      },
+      {
+        "lemma": "stairs",
+        "sentence": "Be careful on the stairs!",
+        "meaningVi": "Đi cầu thang cẩn thận nhé!"
+      },
+      {
+        "lemma": "neighbour",
+        "sentence": "My neighbour has a big dog.",
+        "meaningVi": "Hàng xóm nhà mình có một con chó to."
+      },
+      {
+        "lemma": "kind",
+        "sentence": "Thank you, you are very kind.",
+        "meaningVi": "Cảm ơn bạn, bạn tốt bụng quá."
+      },
+      {
+        "lemma": "share",
+        "sentence": "We share a flat with two friends.",
+        "meaningVi": "Bọn mình ở chung căn hộ với hai người bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Binh",
+        "Sarah"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Binh, is this your first home in Hanoi?",
+          "meaningVi": "Bình ơi, đây là ngôi nhà đầu tiên của anh ở Hà Nội à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it isn't. When I was a child, we lived in an old building.",
+          "meaningVi": "Không phải. Hồi nhỏ nhà anh ở một khu nhà cũ."
+        },
+        {
+          "speaker": 1,
+          "text": "Was it nice?",
+          "meaningVi": "Ở đó có dễ chịu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was very small, but the neighbours were kind.",
+          "meaningVi": "Nhà rất nhỏ, nhưng hàng xóm tốt bụng lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Were there a lot of children?",
+          "meaningVi": "Ở đó có nhiều trẻ con không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there were. We played on the stairs every evening.",
+          "meaningVi": "Nhiều lắm. Tối nào bọn anh cũng chơi trên cầu thang."
+        },
+        {
+          "speaker": 1,
+          "text": "That sounds fun. Was it noisy?",
+          "meaningVi": "Nghe vui nhỉ. Có ồn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Very noisy! Old Mr Tung played the guitar every night.",
+          "meaningVi": "Ồn lắm! Tối nào ông Tùng cũng chơi đàn guitar."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you still see your old neighbours?",
+          "meaningVi": "Anh còn gặp hàng xóm cũ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I visited my friend Quan last Sunday.",
+          "meaningVi": "Có, Chủ nhật vừa rồi anh đến thăm bạn Quân."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về một nơi trong quá khứ: Was it nice? Were there a lot of children? Trả lời: It was very small. Yes, there were.",
+    "translations": [
+      {
+        "vi": "Căn hộ của chúng tôi rất nhỏ.",
+        "en": "Our flat was very small.",
+        "distractors": [
+          "were",
+          "is",
+          "big"
+        ]
+      },
+      {
+        "vi": "Hàng xóm rất tốt bụng.",
+        "en": "The neighbours were very kind.",
+        "distractors": [
+          "was",
+          "neighbour",
+          "funny"
+        ]
+      },
+      {
+        "vi": "Ngày nào chúng tôi cũng leo cầu thang.",
+        "en": "We climbed the stairs every day.",
+        "distractors": [
+          "climb",
+          "stair",
+          "all"
+        ]
+      },
+      {
+        "vi": "Bọn trẻ chơi cùng nhau.",
+        "en": "The children played together.",
+        "distractors": [
+          "play",
+          "child",
+          "alone"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Sarah và Bình nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một buổi hòa nhạc",
+          "Công việc của Sarah",
+          "Ngôi nhà và hàng xóm hồi nhỏ của Bình"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bình kể \"When I was a child, we lived in an old building\", rồi nói về hàng xóm và bọn trẻ ở đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hàng xóm cũ của Bình là người thế nào?",
+        "promptVi": "",
+        "options": [
+          "Tốt bụng",
+          "Ồn ào",
+          "Ít nói"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bình nói \"the neighbours were kind.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Buổi tối bọn trẻ chơi ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trong công viên",
+          "Trên cầu thang",
+          "Trên sân thượng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bình nói \"We played on the stairs every evening.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Binh visited Quan last Saturday.",
+        "promptVi": "Bình đến thăm Quân vào thứ Bảy tuần trước.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Bình nói \"I visited my friend Quan last Sunday\": Chủ nhật chứ không phải thứ Bảy.",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Khu nhà cũ của Bình và Quân trước đây như thế nào, và hàng xóm ở đó ra sao?",
+    "grammarStep": {
+      "titleVi": "Was / were",
+      "noticing": [
+        {
+          "sentence": "Binh's family was on the third floor, and Quan's family was on the fourth floor.",
+          "highlights": [
+            "was",
+            "was"
+          ]
+        },
+        {
+          "sentence": "Binh laughed and said, \"Our flat was so small!\"",
+          "highlights": [
+            "was"
+          ]
+        },
+        {
+          "sentence": "\"Yes, there were only two rooms, and five people lived in them,\" Quan answered.",
+          "highlights": [
+            "there were"
+          ]
+        },
+        {
+          "sentence": "The neighbours were very kind, and they shared everything.",
+          "highlights": [
+            "were"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"Our flat was so small\" nói về căn hộ lúc nào?",
+      "options": [
+        "Trong quá khứ, khi Bình còn nhỏ",
+        "Bây giờ",
+        "Trong tương lai"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Was / were là dạng quá khứ của is / are: Bình đang nhớ lại căn hộ hồi nhỏ. Nếu nói về bây giờ thì dùng is: Our flat is small.",
+      "whenVi": "Dùng was / were để tả một nơi, một người trong quá khứ, ví dụ ngôi nhà và hàng xóm hồi bạn còn nhỏ.",
+      "table": [
+        {
+          "subject": "is → was",
+          "form": "Our flat was so small.",
+          "negative": "It wasn't a new building."
+        },
+        {
+          "subject": "are → were",
+          "form": "The neighbours were very kind.",
+          "negative": "The rooms weren't big."
+        },
+        {
+          "subject": "there is / are → there was / were",
+          "form": "There were only two rooms.",
+          "negative": "There wasn't a garden."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Our rooms was small.",
+          "right": "Our rooms were small."
+        },
+        {
+          "wrong": "When we was children, we lived there.",
+          "right": "When we were children, we lived there."
+        }
+      ],
+      "noteVi": "Người Việt hay dùng was cho mọi chủ ngữ vì tiếng Việt không chia động từ theo số ít, số nhiều; với we, they và danh từ số nhiều phải dùng were.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền was hoặc were vào chỗ trống.",
+          "text": "When they ___ children, they lived in the same building.",
+          "answers": [
+            "were"
+          ],
+          "explanationVi": "They đi với were."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Twenty years ago, Binh's family ___ on the third floor.",
+          "options": [
+            "were",
+            "was",
+            "is",
+            "are"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Twenty years ago là quá khứ, và Binh's family là một gia đình (it), nên dùng was."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The neighbours was very kind.",
+          "sentence": "The neighbours were very kind.",
+          "explanationVi": "The neighbours là số nhiều nên dùng were."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tòa nhà không mới.",
+          "sentence": "The building wasn't new.",
+          "words": [
+            "wasn't",
+            "The",
+            "new",
+            "building",
+            "weren't"
+          ],
+          "explanationVi": "The building là một vật (it), nên dùng wasn't; từ \"weren't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The children played together on the stairs until late.",
+        "tipVi": "Stairs /stɛrz/ có cụm /st/ ở đầu và /rz/ ở cuối; played /pleɪd/ đọc -ed là /d/."
+      },
+      {
+        "text": "In summer, the flats were very hot.",
+        "tipVi": "Flats /flæts/ kết thúc bằng /ts/; hot /hɑt/ đọc rõ âm /t/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where was your home when you were a child?",
+        "questionVi": "Hồi nhỏ nhà bạn ở đâu?",
+        "frame": "It was in ___. It was ___."
+      },
+      {
+        "question": "Are your neighbours kind?",
+        "questionVi": "Hàng xóm nhà bạn có tốt bụng không?",
+        "frame": "Yes, they are. / No, they aren't. My neighbour ___."
+      },
+      {
+        "question": "Who was your best friend when you were a child?",
+        "questionVi": "Hồi nhỏ bạn thân nhất của bạn là ai?",
+        "frame": "His / Her name was ___. He / She lived ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng was / were nói về quá khứ",
+      "anyOf": [
+        "was",
+        "were",
+        "wasn't",
+        "weren't",
+        "there was",
+        "there were"
+      ],
+      "outlineVi": [
+        "Nói hồi nhỏ nhà bạn ở đâu và trông thế nào (It was …, there were …).",
+        "Tả một người hàng xóm và người đó hay làm gì (She was …, she often cooked …).",
+        "Kể bạn và bọn trẻ hàng xóm đã chơi gì."
+      ],
+      "modelAnswer": "When I was a child, my family lived in a small house in Hai Phong. There were three rooms and a little garden. Our neighbours were very kind. Mrs Lan often gave us fruit from her trees. Her son, Tuan, was my best friend. We played football in the street every evening. Those were happy days!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "childhood friend",
+      "lemma": "childhood friend",
+      "meaningVi": "bạn thời thơ ấu",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "his childhood friend Quan",
+      "phraseVi": "Quân, người bạn thời thơ ấu"
+    },
+    {
+      "text": "same",
+      "lemma": "same",
+      "meaningVi": "cùng, giống nhau",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "in the same old building",
+      "phraseVi": "trong cùng một khu nhà cũ"
+    },
+    {
+      "text": "those days",
+      "lemma": "those days",
+      "meaningVi": "những ngày ấy",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "talked about those days",
+      "phraseVi": "nói chuyện về những ngày ấy"
+    },
+    {
+      "text": "climbed",
+      "lemma": "climb",
+      "meaningVi": "leo, trèo",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "they climbed the stairs every day",
+      "phraseVi": "ngày nào họ cũng leo cầu thang"
+    },
+    {
+      "text": "cooked",
+      "lemma": "cook",
+      "meaningVi": "nấu",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "often cooked soup for all the children",
+      "phraseVi": "hay nấu súp cho tất cả bọn trẻ"
+    },
+    {
+      "text": "danced",
+      "lemma": "dance",
+      "meaningVi": "nhảy múa",
+      "sentenceIndex": 9,
+      "pos": "verb",
+      "phrase": "the children danced",
+      "phraseVi": "bọn trẻ thì nhảy múa"
+    },
+    {
+      "text": "opened",
+      "lemma": "open",
+      "meaningVi": "mở",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "opened all the doors and windows",
+      "phraseVi": "mở hết cửa ra vào và cửa sổ"
+    },
+    {
+      "text": "until late",
+      "lemma": "until",
+      "meaningVi": "đến tận khuya",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "played together on the stairs until late",
+      "phraseVi": "chơi với nhau trên cầu thang đến tận khuya"
+    },
+    {
+      "text": "hearts",
+      "lemma": "heart",
+      "meaningVi": "trái tim, tấm lòng",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "our hearts were big",
+      "phraseVi": "lòng người thì rộng"
+    },
+    {
+      "text": "still",
+      "lemma": "still",
+      "meaningVi": "vẫn",
+      "sentenceIndex": 16,
+      "pos": "adverb",
+      "phrase": "It was still there",
+      "phraseVi": "Tòa nhà vẫn còn đó"
+    }
+  ]
+}

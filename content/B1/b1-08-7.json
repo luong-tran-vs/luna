@@ -1,0 +1,596 @@
+{
+  "content": "Duc comes home from work and finds his wife, Lan, in the kitchen. He has just talked to the man from the garage on the phone.\n\nLan asks, \"How's the car?\"\n\"Not good. The mechanic called me an hour ago. He said that the car needed new brakes.\"\n\"New brakes? But we only bought it three years ago.\"\n\"I know. He said the old ones were very dangerous. He told me we couldn't drive it until he changed them.\"\n\"How much will it cost?\"\n\"He said it would cost about five million dong. And he said that the battery was old too.\"\n\"Five million! I thought it would be cheaper.\"\n\"So did I. I thought it would be about two million.\"\n\"When will the car be ready?\"\n\"He said he would finish it on Friday. He told me to pick it up after five.\"\n\"I don't want to take the bus all week.\"\n\"Neither do I. But we don't have a choice.\"\n\"We need to save more money. Things always break when we don't expect it.\"\n\"I agree. I think we should put some money away every month.\"\n\"So do I. Let's start next month. One million every month.\"\n\"OK. And let's eat at home more often.\"\nDuc smiles. \"Good. Then you can teach me how to cook.\"",
+  "targetWords": [
+    "wife",
+    "garage",
+    "mechanic",
+    "brake",
+    "dangerous",
+    "cost",
+    "battery",
+    "ready",
+    "choice",
+    "save"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "wife",
+        "lemma": "wife",
+        "meaningVi": "vợ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "garage",
+        "lemma": "garage",
+        "meaningVi": "gara, xưởng sửa xe",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "mechanic",
+        "lemma": "mechanic",
+        "meaningVi": "thợ sửa xe",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "brakes",
+        "lemma": "brake",
+        "meaningVi": "phanh",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "dangerous",
+        "lemma": "dangerous",
+        "meaningVi": "nguy hiểm",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "cost",
+        "lemma": "cost",
+        "meaningVi": "tốn, có giá",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "battery",
+        "lemma": "battery",
+        "meaningVi": "ắc quy, pin",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "ready",
+        "lemma": "ready",
+        "meaningVi": "xong, sẵn sàng",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "choice",
+        "lemma": "choice",
+        "meaningVi": "sự lựa chọn",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "save",
+        "lemma": "save",
+        "meaningVi": "tiết kiệm",
+        "pos": "verb",
+        "sentenceIndex": 22
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Duc telling Lan about?",
+        "promptVi": "Đức đang kể cho Lan nghe về điều gì?",
+        "options": [
+          "What the mechanic said about their car",
+          "A new car that he wants to buy",
+          "His job at the garage",
+          "A bus trip next week"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức kể lại những gì thợ sửa xe nói qua điện thoại về chiếc ô tô."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the car need?",
+        "promptVi": "Chiếc xe cần gì?",
+        "options": [
+          "New brakes",
+          "A new door",
+          "New lights",
+          "Nothing"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức nói \"He said that the car needed new brakes.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much will the repairs cost?",
+        "promptVi": "Sửa xe tốn bao nhiêu?",
+        "options": [
+          "About one million dong",
+          "About two million dong",
+          "About five million dong",
+          "About ten million dong"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Đức nói \"He said it would cost about five million dong.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duc and Lan can drive the car this week.",
+        "promptVi": "Tuần này Đức và Lan vẫn lái xe được.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì thợ nói \"we couldn't drive it until he changed them.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"choice\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Neither do I. But we don't have a choice.\"",
+        "options": [
+          "sự lựa chọn",
+          "chiếc xe",
+          "tiền",
+          "thời gian"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "We don't have a choice = chúng ta không có lựa chọn nào khác."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu tường thuật",
+      "bodyVi": "Câu tường thuật kể lại lời thợ: \"The car needs new brakes.\" → He said that the car needed new brakes. \"You can't drive it.\" → He told me we couldn't drive it. \"It will cost five million.\" → He said it would cost about five million dong. Câu mệnh lệnh: \"Pick it up after five.\" → He told me to pick it up after five (told + người + to + V). Đồng ý: I thought … – So did I. I don't want … – Neither do I.",
+      "examples": [
+        "He said that the car needed new brakes.\"",
+        "He told me we couldn't drive it until he changed them.\"",
+        "He told me to pick it up after five.\""
+      ]
+    },
+    "writingPrompt": "Write about a time something broke at home (a phone, a bike, a fridge…). What did the repair person say?",
+    "sentenceTranslations": [
+      "Đức đi làm về và thấy vợ, Lan, đang ở trong bếp.",
+      "Anh vừa nói chuyện điện thoại với người ở gara.",
+      "Lan hỏi: \"Xe thế nào rồi?\"",
+      "\"Không ổn.",
+      "Thợ sửa xe gọi cho anh một tiếng trước.",
+      "Anh ấy nói xe cần thay phanh mới.\"",
+      "\"Phanh mới á?",
+      "Nhưng mình mới mua xe ba năm trước mà.\"",
+      "\"Anh biết.",
+      "Anh ấy nói phanh cũ rất nguy hiểm.",
+      "Anh ấy bảo mình không được lái cho đến khi anh ấy thay xong.\"",
+      "\"Tốn bao nhiêu?\"",
+      "\"Anh ấy nói khoảng năm triệu đồng.",
+      "Và anh ấy nói ắc quy cũng cũ rồi.\"",
+      "\"Năm triệu!",
+      "Em tưởng sẽ rẻ hơn.\"",
+      "\"Anh cũng tưởng vậy. Anh nghĩ chỉ khoảng hai triệu.\"",
+      "\"Khi nào xe xong?\"",
+      "\"Anh ấy nói thứ Sáu sẽ xong.",
+      "Anh ấy bảo anh đến lấy sau năm giờ.\"",
+      "\"Em không muốn đi xe buýt cả tuần.\"",
+      "\"Anh cũng không. Nhưng mình không có lựa chọn nào khác.\"",
+      "\"Mình cần tiết kiệm nhiều hơn.",
+      "Đồ đạc lúc nào cũng hỏng khi mình không ngờ tới.\"",
+      "\"Anh đồng ý.",
+      "Anh nghĩ mình nên để dành một ít tiền mỗi tháng.\"",
+      "\"Em cũng nghĩ vậy. Bắt đầu từ tháng sau nhé.",
+      "Mỗi tháng một triệu.\"",
+      "\"Được.",
+      "Và mình ăn ở nhà nhiều hơn nhé.\"",
+      "Đức mỉm cười.",
+      "\"Tốt.",
+      "Vậy em dạy anh nấu ăn nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại lời thợ sửa xe qua điện thoại (He said that … / He told me to …) và đồng ý bằng So did I / Neither do I / So do I.",
+    "examples": [
+      {
+        "lemma": "wife",
+        "sentence": "His wife is a teacher.",
+        "meaningVi": "Vợ anh ấy là giáo viên."
+      },
+      {
+        "lemma": "garage",
+        "sentence": "I took my car to the garage.",
+        "meaningVi": "Tôi mang xe đến gara."
+      },
+      {
+        "lemma": "mechanic",
+        "sentence": "The mechanic is checking my car.",
+        "meaningVi": "Thợ sửa xe đang kiểm tra xe tôi."
+      },
+      {
+        "lemma": "brake",
+        "sentence": "The brake on my bike doesn't work.",
+        "meaningVi": "Phanh xe đạp của tôi không ăn."
+      },
+      {
+        "lemma": "dangerous",
+        "sentence": "It's dangerous to drive so fast.",
+        "meaningVi": "Lái nhanh như vậy thật nguy hiểm."
+      },
+      {
+        "lemma": "cost",
+        "sentence": "How much does the ticket cost?",
+        "meaningVi": "Vé giá bao nhiêu?"
+      },
+      {
+        "lemma": "battery",
+        "sentence": "My phone battery is almost empty.",
+        "meaningVi": "Pin điện thoại tôi gần hết."
+      },
+      {
+        "lemma": "ready",
+        "sentence": "Dinner is ready!",
+        "meaningVi": "Bữa tối xong rồi!"
+      },
+      {
+        "lemma": "choice",
+        "sentence": "You can make your own choice.",
+        "meaningVi": "Bạn có thể tự lựa chọn."
+      },
+      {
+        "lemma": "save",
+        "sentence": "We save a little money every month.",
+        "meaningVi": "Mỗi tháng chúng tôi tiết kiệm một ít tiền."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Duc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Duc, did you get the car back?",
+          "meaningVi": "Anh Đức, anh lấy xe về chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. The mechanic said it was fine now.",
+          "meaningVi": "Rồi. Thợ nói giờ xe ổn rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Did it really cost five million?",
+          "meaningVi": "Có thật tốn năm triệu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No. He told me the battery was still OK, so it was only four.",
+          "meaningVi": "Không. Anh ấy bảo ắc quy vẫn còn tốt, nên chỉ bốn triệu."
+        },
+        {
+          "speaker": 0,
+          "text": "That's good. I was so worried about the money.",
+          "meaningVi": "Tốt quá. Em lo về tiền lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "So was I. He also said we should check the brakes every year.",
+          "meaningVi": "Anh cũng vậy. Anh ấy còn nói mình nên kiểm tra phanh mỗi năm."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. I don't want another surprise like that.",
+          "meaningVi": "Được. Em không muốn bất ngờ như vậy nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Neither do I. Let's write it in the calendar.",
+          "meaningVi": "Anh cũng không. Mình ghi vào lịch nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "Good idea. Shall we drive to the beach on Sunday?",
+          "meaningVi": "Ý hay. Chủ nhật mình lái xe ra biển nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. But we'll drive slowly!",
+          "meaningVi": "Được. Nhưng mình sẽ lái chậm thôi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Tường thuật: The mechanic said it was fine / He told me the battery was still OK / He said we should check the brakes. Đồng ý với câu quá khứ: I was so worried. – So was I.",
+    "translations": [
+      {
+        "vi": "Anh ấy nói xe cần phanh mới.",
+        "en": "He said the car needed new brakes.",
+        "distractors": [
+          "needs",
+          "told",
+          "says"
+        ]
+      },
+      {
+        "vi": "Anh ấy nói sẽ tốn năm triệu.",
+        "en": "He said it would cost five million.",
+        "distractors": [
+          "will",
+          "costs",
+          "told"
+        ]
+      },
+      {
+        "vi": "Anh ấy bảo tôi ắc quy đã cũ.",
+        "en": "He told me the battery was old.",
+        "distractors": [
+          "said",
+          "is",
+          "tells"
+        ]
+      },
+      {
+        "vi": "Anh ấy bảo tôi lấy xe ở gara.",
+        "en": "He told me to get the car at the garage.",
+        "distractors": [
+          "said",
+          "gets",
+          "from"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Đức nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chiếc xe đã sửa xong và tiền sửa",
+          "Chuyến đi biển tuần trước",
+          "Một chiếc xe mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức lấy xe về và kể thợ nói gì, tốn bao nhiêu.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cuối cùng sửa xe tốn bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Bốn triệu",
+          "Năm triệu",
+          "Hai triệu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức nói \"so it was only four.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thợ khuyên nên làm gì?",
+        "promptVi": "",
+        "options": [
+          "Kiểm tra phanh mỗi năm",
+          "Mua xe mới",
+          "Thay ắc quy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức nói \"He also said we should check the brakes every year.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They want to drive fast to the beach.",
+        "promptVi": "Họ muốn lái nhanh ra biển.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"we'll drive slowly!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Thợ sửa xe đã nói gì với Đức? Đức và Lan quyết định làm gì?",
+    "grammarStep": {
+      "titleVi": "Câu tường thuật",
+      "noticing": [
+        {
+          "sentence": "He said that the car needed new brakes.\"",
+          "highlights": [
+            "said that",
+            "needed"
+          ]
+        },
+        {
+          "sentence": "He said the old ones were very dangerous.",
+          "highlights": [
+            "were"
+          ]
+        },
+        {
+          "sentence": "\"He said it would cost about five million dong.",
+          "highlights": [
+            "would cost"
+          ]
+        },
+        {
+          "sentence": "He told me to pick it up after five.\"",
+          "highlights": [
+            "told me to pick"
+          ]
+        }
+      ],
+      "questionVi": "Thợ nói: \"Pick it up after five.\" Đức kể lại thế nào?",
+      "options": [
+        "He told me to pick it up after five.",
+        "He said me pick it up after five.",
+        "He told me that pick it up after five."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu mệnh lệnh → told + người nghe + to + động từ nguyên mẫu.",
+      "whenVi": "Dùng câu tường thuật để kể lại lời thợ sửa, kể cả lời dặn (told me to …).",
+      "table": [
+        {
+          "subject": "Câu kể",
+          "form": "\"It needs new brakes.\" → He said it needed new brakes.",
+          "negative": "\"You can't drive it.\" → He told me we couldn't drive it."
+        },
+        {
+          "subject": "Câu mệnh lệnh",
+          "form": "\"Pick it up after five.\" → He told me to pick it up after five.",
+          "negative": "\"Don't drive it.\" → He told me not to drive it."
+        },
+        {
+          "subject": "should",
+          "form": "\"You should check the brakes.\" → He said we should check the brakes.",
+          "negative": "should giữ nguyên"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He told me pick it up after five.",
+          "right": "He told me to pick it up after five."
+        },
+        {
+          "wrong": "He said it will cost five million.",
+          "right": "He said it would cost five million."
+        }
+      ],
+      "noteVi": "Should, could, would giữ nguyên khi tường thuật.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (need).",
+          "text": "He said that the car ___ new brakes.",
+          "answers": [
+            "needed"
+          ],
+          "explanationVi": "needs → needed."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu tường thuật đúng của: \"Pick it up after five.\"",
+          "text": "He told me ___ it up after five.",
+          "options": [
+            "to pick",
+            "pick",
+            "picked",
+            "picking"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "told + người + to + V: to pick."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He said it will cost about five million dong.",
+          "sentence": "He said it would cost about five million dong.",
+          "explanationVi": "will → would."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy nói phanh cũ rất nguy hiểm.",
+          "sentence": "He said the old brakes were very dangerous.",
+          "words": [
+            "said",
+            "He",
+            "the",
+            "old",
+            "brakes",
+            "were",
+            "very",
+            "dangerous.",
+            "are"
+          ],
+          "explanationVi": "Lùi thì are → were; từ \"are\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He said that the car needed new brakes.\"",
+        "tipVi": "Brakes /breɪks/ đọc giống breaks."
+      },
+      {
+        "text": "\"So did I. I thought it would be about two million.\"",
+        "tipVi": "Nhấn vào I; thought /θɔːt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Has anything broken in your home recently? What happened?",
+        "questionVi": "Gần đây trong nhà bạn có gì bị hỏng không? Chuyện gì đã xảy ra?",
+        "frame": "Yes, our ___ broke. The repair person said that ___."
+      },
+      {
+        "question": "How do you save money?",
+        "questionVi": "Bạn tiết kiệm tiền bằng cách nào?",
+        "frame": "I save money by ___."
+      },
+      {
+        "question": "Agree with this: \"I don't like taking the bus.\"",
+        "questionVi": "Hãy đồng ý với câu: \"Tôi không thích đi xe buýt.\"",
+        "frame": "Neither ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật (said that … / told me (to) …)",
+      "anyOf": [
+        " said ",
+        " told ",
+        "said that",
+        "told me"
+      ],
+      "outlineVi": [
+        "Cái gì bị hỏng và bạn gọi cho ai.",
+        "Người sửa nói gì (He / She said that … / told me to …).",
+        "Hết bao nhiêu tiền và bạn rút ra điều gì."
+      ],
+      "modelAnswer": "Last month, our fridge stopped working. My father called a repair shop. The man said that the fridge was very old. He told us that a new part would cost two million dong. He told my father to buy a new fridge instead. We were sad, but we bought a new one. It was more expensive, but it uses less electricity."
+    }
+  },
+  "glosses": [
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "meaningVi": "nhà bếp",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "in the kitchen",
+      "phraseVi": "trong bếp"
+    },
+    {
+      "text": "pick it up",
+      "lemma": "pick up",
+      "meaningVi": "đến lấy",
+      "sentenceIndex": 19,
+      "pos": "phrase",
+      "phrase": "He told me to pick it up after five.",
+      "phraseVi": "Anh ấy bảo anh đến lấy sau năm giờ."
+    },
+    {
+      "text": "expect",
+      "lemma": "expect",
+      "meaningVi": "ngờ tới, mong đợi",
+      "sentenceIndex": 23,
+      "pos": "verb",
+      "phrase": "when we don't expect it",
+      "phraseVi": "khi mình không ngờ tới"
+    },
+    {
+      "text": "put some money away",
+      "lemma": "put away",
+      "meaningVi": "để dành tiền",
+      "sentenceIndex": 25,
+      "pos": "phrase",
+      "phrase": "put some money away every month",
+      "phraseVi": "để dành một ít tiền mỗi tháng"
+    }
+  ]
+}

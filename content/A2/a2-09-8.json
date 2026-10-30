@@ -1,0 +1,600 @@
+{
+  "content": "Mai lives in an old street in Hanoi. One morning, her new neighbour, Mrs Hanh, knocks on her door.\n\nMrs Hanh says, \"Good morning, Mai. I want to buy some vegetables. Where is the market?\"\nMai says, \"Hang Be Market? It's not far. I'm going there now. Come with me!\"\nThey walk out of the house together. Mrs Hanh starts to walk along the big road, but Mai stops her.\n\"Not that way. The big road is long and noisy. I know a quicker way.\"\n\nMai takes her down a small alley between two houses. It's very quiet, and there are plants in front of every door.\nMrs Hanh asks, \"Is this really the way to the market?\"\nMai laughs, and she says, \"Yes, trust me.\"\nAt the end of the alley, they turn left and walk past an old pagoda. Some people are going into the pagoda with flowers and fruit. Then they go up some steps and through a small gate. And there is the market, right in front of them!\nMrs Hanh says, \"Only five minutes! Thank you, Mai. Now I know the way.\"",
+  "targetWords": [
+    "door",
+    "vegetable",
+    "far",
+    "way",
+    "plant",
+    "trust",
+    "end",
+    "left"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "door",
+        "lemma": "door",
+        "meaningVi": "cửa",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "vegetables",
+        "lemma": "vegetable",
+        "meaningVi": "rau",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "far",
+        "lemma": "far",
+        "meaningVi": "xa",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "way",
+        "lemma": "way",
+        "meaningVi": "đường, lối đi",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "plants",
+        "lemma": "plant",
+        "meaningVi": "cây cảnh, chậu cây",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "trust",
+        "lemma": "trust",
+        "meaningVi": "tin tưởng",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "end",
+        "lemma": "end",
+        "meaningVi": "cuối",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "left",
+        "lemma": "left",
+        "meaningVi": "bên trái",
+        "pos": "adverb",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mai shows her new neighbour a quick way to the market.",
+          "Mrs Hanh sells vegetables at the market.",
+          "Mai and Mrs Hanh visit a pagoda.",
+          "Mai moves to a new house."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai dẫn bà Hạnh, hàng xóm mới, đi đường tắt ra chợ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Mrs Hanh want to buy?",
+        "promptVi": "Bà Hạnh muốn mua gì?",
+        "options": [
+          "Flowers",
+          "Fruit",
+          "Vegetables",
+          "Plants"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bà Hạnh nói \"I want to buy some vegetables.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Mai go along the big road?",
+        "promptVi": "Vì sao Mai không đi dọc đường lớn?",
+        "options": [
+          "It is closed.",
+          "It is long and noisy.",
+          "There is a pagoda on it.",
+          "It is too quiet."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"The big road is long and noisy. I know a quicker way.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The trip to the market takes about half an hour.",
+        "promptVi": "Đi ra chợ mất khoảng nửa tiếng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Hạnh nói \"Only five minutes!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"alley\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mai takes her down a small alley between two houses.",
+        "options": [
+          "đường lớn",
+          "ngõ, hẻm",
+          "cây cầu",
+          "khu chợ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Alley = ngõ nhỏ, hẻm giữa các ngôi nhà."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "bodyVi": "Chỉ đường tắt bằng giới từ chuyển động: walk out of the house (ra khỏi nhà), walk along the big road (dọc đường lớn), take her down a small alley (dẫn đi xuống ngõ), walk past an old pagoda (ngang qua chùa), go into the pagoda (vào trong chùa), go up some steps (đi lên bậc), through a small gate (qua cổng). Between = ở giữa hai thứ.",
+      "examples": [
+        "They walk out of the house together.",
+        "Mai takes her down a small alley between two houses.",
+        "Then they go up some steps and through a small gate."
+      ]
+    },
+    "writingPrompt": "Write directions from your house to a shop or market near you: which way do you go?",
+    "sentenceTranslations": [
+      "Mai sống ở một con phố cổ ở Hà Nội.",
+      "Một buổi sáng, hàng xóm mới của cô là bà Hạnh gõ cửa nhà cô.",
+      "Bà Hạnh nói: \"Chào Mai.",
+      "Bà muốn mua ít rau.",
+      "Chợ ở đâu nhỉ?\"",
+      "Mai nói: \"Chợ Hàng Bè ạ?",
+      "Không xa đâu ạ.",
+      "Cháu đang định ra đó đây.",
+      "Bà đi cùng cháu nhé!\"",
+      "Hai người cùng ra khỏi nhà.",
+      "Bà Hạnh định đi dọc đường lớn, nhưng Mai giữ bà lại.",
+      "\"Không phải lối đó ạ.",
+      "Đường lớn vừa dài vừa ồn.",
+      "Cháu biết một lối nhanh hơn.\"",
+      "Mai dẫn bà đi vào một con ngõ nhỏ giữa hai ngôi nhà.",
+      "Ngõ rất yên tĩnh, và trước cửa nhà nào cũng có chậu cây.",
+      "Bà Hạnh hỏi: \"Đây đúng là đường ra chợ thật à?\"",
+      "Mai cười và nói: \"Thật mà, bà tin cháu đi.\"",
+      "Đến cuối ngõ, họ rẽ trái và đi ngang qua một ngôi chùa cổ.",
+      "Vài người đang mang hoa và trái cây vào chùa.",
+      "Rồi họ đi lên mấy bậc thang và qua một cánh cổng nhỏ.",
+      "Và chợ hiện ra ngay trước mặt họ!",
+      "Bà Hạnh nói: \"Có năm phút thôi!",
+      "Cảm ơn cháu, Mai.",
+      "Giờ thì bà biết đường rồi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chỉ một lối tắt trong khu phố bằng out of, along, down, past, into, up, through.",
+    "examples": [
+      {
+        "lemma": "door",
+        "sentence": "Please close the door.",
+        "meaningVi": "Làm ơn đóng cửa lại."
+      },
+      {
+        "lemma": "vegetable",
+        "sentence": "Carrot is my favourite vegetable.",
+        "meaningVi": "Cà rốt là loại rau tôi thích nhất."
+      },
+      {
+        "lemma": "far",
+        "sentence": "The station is not far from here.",
+        "meaningVi": "Nhà ga không xa đây."
+      },
+      {
+        "lemma": "way",
+        "sentence": "Is this the way to the station?",
+        "meaningVi": "Đây có phải đường ra ga không?"
+      },
+      {
+        "lemma": "plant",
+        "sentence": "There is a plant on my desk.",
+        "meaningVi": "Trên bàn tôi có một chậu cây."
+      },
+      {
+        "lemma": "trust",
+        "sentence": "I trust my best friend.",
+        "meaningVi": "Tôi tin bạn thân của tôi."
+      },
+      {
+        "lemma": "end",
+        "sentence": "The bank is at the end of the street.",
+        "meaningVi": "Ngân hàng ở cuối phố."
+      },
+      {
+        "lemma": "left",
+        "sentence": "Turn left at the school.",
+        "meaningVi": "Đến trường học thì rẽ trái."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Helen"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai, is there a quick way to the market?",
+          "meaningVi": "Mai ơi, có đường nào ra chợ nhanh không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. Go down the small alley next to my house.",
+          "meaningVi": "Có. Đi xuống con ngõ nhỏ cạnh nhà mình."
+        },
+        {
+          "speaker": 1,
+          "text": "And then?",
+          "meaningVi": "Rồi sao nữa?"
+        },
+        {
+          "speaker": 0,
+          "text": "At the end of the alley, turn left.",
+          "meaningVi": "Đến cuối ngõ thì rẽ trái."
+        },
+        {
+          "speaker": 1,
+          "text": "Do I go past the pagoda?",
+          "meaningVi": "Mình có đi ngang qua chùa không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, walk past the pagoda, but don't go into it.",
+          "meaningVi": "Có, đi ngang qua chùa, nhưng đừng đi vào."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. What do I do after the pagoda?",
+          "meaningVi": "Được. Qua chùa rồi làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "Go up some steps and through a small gate.",
+          "meaningVi": "Đi lên mấy bậc thang và qua một cánh cổng nhỏ."
+        },
+        {
+          "speaker": 1,
+          "text": "Is the market far from the gate?",
+          "meaningVi": "Từ cổng đến chợ có xa không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's right there!",
+          "meaningVi": "Không, chợ ở ngay đó!"
+        }
+      ]
+    },
+    "grammarTipVi": "Chỉ đường: Go down the small alley. Turn left. Walk past the pagoda, but don't go into it. Go up some steps and through a small gate.",
+    "translations": [
+      {
+        "vi": "Đi xuống con ngõ nhỏ. Không xa đâu.",
+        "en": "Go down the small alley. It isn't far.",
+        "distractors": [
+          "up",
+          "into",
+          "over"
+        ]
+      },
+      {
+        "vi": "Đến cuối ngõ thì rẽ trái.",
+        "en": "Turn left at the end of the alley.",
+        "distractors": [
+          "right",
+          "into",
+          "over"
+        ]
+      },
+      {
+        "vi": "Đi ngang qua chùa. Đây là đường đi.",
+        "en": "Walk past the pagoda. This is the way.",
+        "distractors": [
+          "through",
+          "along",
+          "across"
+        ]
+      },
+      {
+        "vi": "Đi qua một cánh cổng nhỏ cạnh cửa nhà.",
+        "en": "Go through a small gate next to the door.",
+        "distractors": [
+          "across",
+          "over",
+          "past"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Helen hỏi Mai về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đường tắt ra chợ",
+          "Giờ mở cửa chùa",
+          "Giá rau"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Helen hỏi \"is there a quick way to the market?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đến cuối ngõ thì đi thế nào?",
+        "promptVi": "",
+        "options": [
+          "Rẽ phải",
+          "Rẽ trái",
+          "Đi thẳng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"At the end of the alley, turn left.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Qua chùa rồi Helen phải làm gì?",
+        "promptVi": "",
+        "options": [
+          "Vào trong chùa",
+          "Quay lại",
+          "Lên bậc thang và qua cổng nhỏ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"Go up some steps and through a small gate.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Helen needs to go into the pagoda.",
+        "promptVi": "Helen phải đi vào trong chùa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"walk past the pagoda, but don't go into it.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mai dẫn bà Hạnh đi lối nào ra chợ? Ghi lại từng chỗ rẽ, chỗ đi qua.",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "noticing": [
+        {
+          "sentence": "They walk out of the house together.",
+          "highlights": [
+            "out of"
+          ]
+        },
+        {
+          "sentence": "Mai takes her down a small alley between two houses.",
+          "highlights": [
+            "down"
+          ]
+        },
+        {
+          "sentence": "At the end of the alley, they turn left and walk past an old pagoda.",
+          "highlights": [
+            "past"
+          ]
+        },
+        {
+          "sentence": "Then they go up some steps and through a small gate.",
+          "highlights": [
+            "up",
+            "through"
+          ]
+        }
+      ],
+      "questionVi": "Những người mang hoa \"are going into the pagoda\". Còn Mai và bà Hạnh \"walk past the pagoda\". Khác nhau thế nào?",
+      "options": [
+        "Cả hai đều đi vào chùa.",
+        "Những người kia vào trong chùa; Mai và bà Hạnh chỉ đi ngang qua.",
+        "Mai và bà Hạnh vào chùa; những người kia đi ngang qua."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Into = vào bên trong; past = đi ngang qua, không vào.",
+      "whenVi": "Khi chỉ đường, dùng câu mệnh lệnh: Go / Walk / Turn + giới từ chuyển động + nơi chốn.",
+      "table": [
+        {
+          "subject": "out of / into",
+          "form": "walk out of the house / go into the pagoda",
+          "negative": "don't go into it"
+        },
+        {
+          "subject": "down / up",
+          "form": "go down a small alley / go up some steps",
+          "negative": "—"
+        },
+        {
+          "subject": "past / through",
+          "form": "walk past a pagoda / go through a gate",
+          "negative": "—"
+        },
+        {
+          "subject": "Vị trí",
+          "form": "between two houses, at the end of the alley",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Walk past into the pagoda.",
+          "right": "Walk past the pagoda."
+        },
+        {
+          "wrong": "Go through of a small gate.",
+          "right": "Go through a small gate."
+        }
+      ],
+      "noteVi": "Go down a street / an alley thường chỉ nghĩa là đi theo con đường đó, không nhất thiết đi xuống dốc.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền past hoặc into.",
+          "text": "Walk ___ the pagoda, but don't go in.",
+          "answers": [
+            "past"
+          ],
+          "explanationVi": "Đi ngang qua, không vào: past."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Then they go up some steps and ___ a small gate.",
+          "options": [
+            "through",
+            "along",
+            "across",
+            "out"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Đi qua cổng: through a gate."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They walk out the house together.",
+          "sentence": "They walk out of the house together.",
+          "explanationVi": "Ra khỏi nhà: out of the house."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đến cuối ngõ thì rẽ trái.",
+          "sentence": "Turn left at the end of the alley.",
+          "words": [
+            "left",
+            "Turn",
+            "end",
+            "at",
+            "the",
+            "of",
+            "the",
+            "alley",
+            "into"
+          ],
+          "explanationVi": "Turn left at the end of …; từ \"into\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Mrs Hanh asks, \"Is this really the way to the market?\"",
+        "tipVi": "Really /ˈrɪəli/ nhấn âm đầu; câu hỏi Yes/No lên giọng ở cuối."
+      },
+      {
+        "text": "They walk out of the house together.",
+        "tipVi": "Out of nối liền /aʊtəv/; together /təˈɡeðə/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a market near your house?",
+        "questionVi": "Gần nhà bạn có chợ không?",
+        "frame": "Yes, there is. It's ___. / No, there isn't."
+      },
+      {
+        "question": "How do you go from your house to the nearest shop?",
+        "questionVi": "Từ nhà bạn đến cửa hàng gần nhất đi thế nào?",
+        "frame": "I walk out of my house, go along ___ and ___."
+      },
+      {
+        "question": "Who in your family goes to the market most?",
+        "questionVi": "Trong nhà ai hay đi chợ nhất?",
+        "frame": "My ___. He / She goes there every ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 giới từ chỉ chuyển động (out of, along, down, past, into, up, through…)",
+      "anyOf": [
+        "out of",
+        "along",
+        "down",
+        "past",
+        "into",
+        "up",
+        "through",
+        "across",
+        "over",
+        "around"
+      ],
+      "outlineVi": [
+        "Bạn muốn chỉ đường đến đâu.",
+        "Kể từng bước bằng câu mệnh lệnh + giới từ (Walk out of …, go along …).",
+        "Mất bao lâu, và nơi đó ở đâu (at the end of, next to…)."
+      ],
+      "modelAnswer": "From my house to the cake shop is very easy. Walk out of my house and turn right. Go along the street and past a small school. At the end of the street, go across the road. Then walk through the park. The shop is next to the park gate. It only takes ten minutes."
+    }
+  },
+  "glosses": [
+    {
+      "text": "knocks on",
+      "lemma": "knock on",
+      "meaningVi": "gõ (cửa)",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "knocks on her door",
+      "phraseVi": "gõ cửa nhà cô"
+    },
+    {
+      "text": "out of",
+      "lemma": "out of",
+      "meaningVi": "ra khỏi",
+      "sentenceIndex": 9,
+      "pos": "preposition",
+      "phrase": "walk out of the house",
+      "phraseVi": "ra khỏi nhà"
+    },
+    {
+      "text": "quicker",
+      "lemma": "quick",
+      "meaningVi": "nhanh hơn",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "a quicker way",
+      "phraseVi": "một lối nhanh hơn"
+    },
+    {
+      "text": "alley",
+      "lemma": "alley",
+      "meaningVi": "ngõ, hẻm",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "a small alley",
+      "phraseVi": "một con ngõ nhỏ"
+    },
+    {
+      "text": "between",
+      "lemma": "between",
+      "meaningVi": "ở giữa",
+      "sentenceIndex": 14,
+      "pos": "preposition",
+      "phrase": "between two houses",
+      "phraseVi": "giữa hai ngôi nhà"
+    },
+    {
+      "text": "pagoda",
+      "lemma": "pagoda",
+      "meaningVi": "ngôi chùa",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "an old pagoda",
+      "phraseVi": "một ngôi chùa cổ"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ngay trước mặt",
+      "sentenceIndex": 21,
+      "pos": "phrase",
+      "phrase": "right in front of them",
+      "phraseVi": "ngay trước mặt họ"
+    }
+  ]
+}

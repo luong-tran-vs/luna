@@ -1,0 +1,589 @@
+{
+  "content": "Sophie is from London, and she is on holiday in Hanoi with her mum. Hanoi is a big, busy city. Today Sophie wants to see a show at the City Theatre, but she can't find it.\n\nShe stops a girl in the street and asks, \"Excuse me, where is the City Theatre?\"\nThe girl's name is Linh, and she smiles. \"Go straight on this street,\" she says. \"Then turn left at the bank, and walk past the park.\"\n\nSophie asks, \"Is it near here?\"\n\"Yes, it is, and the theatre is behind the post office,\" says Linh. \"Don't take a taxi, because it's only five minutes!\"\n\"Thank you!\" says Sophie.\n\nSophie goes straight on, turns left at the bank and walks past the park. The theatre is there, behind the post office!",
+  "targetWords": [
+    "city",
+    "street",
+    "straight on",
+    "left",
+    "bank",
+    "park",
+    "post office",
+    "behind"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "city",
+        "lemma": "city",
+        "meaningVi": "thành phố",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "street",
+        "lemma": "street",
+        "meaningVi": "con phố, đường phố",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "straight on",
+        "lemma": "straight on",
+        "meaningVi": "thẳng, đi thẳng",
+        "pos": "phrase",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "left",
+        "lemma": "left",
+        "meaningVi": "bên trái",
+        "pos": "adverb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "bank",
+        "lemma": "bank",
+        "meaningVi": "ngân hàng",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "park",
+        "lemma": "park",
+        "meaningVi": "công viên",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "behind",
+        "lemma": "behind",
+        "meaningVi": "phía sau, đằng sau",
+        "pos": "preposition",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "post office",
+        "lemma": "post office",
+        "meaningVi": "bưu điện",
+        "pos": "noun",
+        "sentenceIndex": 8
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh shows Sophie the way to the City Theatre.",
+          "Sophie's holiday in London",
+          "A show at Linh's school",
+          "A taxi trip in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sophie không tìm thấy nhà hát City Theatre, Linh chỉ đường cho bạn ấy: đi thẳng, rẽ trái ở ngân hàng, đi qua công viên."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the theatre?",
+        "promptVi": "Nhà hát ở đâu?",
+        "options": [
+          "In front of the bank",
+          "Behind the post office",
+          "In the park",
+          "Between two hotels"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"the theatre is behind the post office\": nhà hát ở phía sau bưu điện."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Sophie need a taxi?",
+        "promptVi": "Vì sao Sophie không cần đi taxi?",
+        "options": [
+          "Taxis are very expensive.",
+          "There are no taxis.",
+          "It's only five minutes.",
+          "Her mum has a car."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"Don't take a taxi, because it's only five minutes!\": nhà hát gần, đi bộ năm phút là đến."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Sophie turns right at the bank.",
+        "promptVi": "Sophie rẽ phải ở ngân hàng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh bảo \"Then turn left at the bank\" và Sophie \"turns left at the bank\": rẽ trái chứ không phải rẽ phải."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"busy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Hanoi is a big, busy city.",
+        "options": [
+          "yên tĩnh",
+          "sạch sẽ",
+          "đông đúc, nhộn nhịp",
+          "đắt đỏ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khi nói về thành phố, busy là đông đúc, nhộn nhịp, nhiều người và xe cộ. Nói về người thì busy là bận."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh",
+      "bodyVi": "Muốn chỉ đường hay bảo ai làm gì, bắt đầu câu bằng động từ nguyên mẫu, không cần you: Go straight on, turn left, walk past the park. Muốn bảo đừng làm gì, dùng Don't + động từ: Don't take a taxi.",
+      "examples": [
+        "\"Go straight on this street,\" she says.",
+        "\"Then turn left at the bank, and walk past the park.\"",
+        "\"Don't take a taxi, because it's only five minutes!\""
+      ]
+    },
+    "writingPrompt": "Write how to go from your home to a place near it, like a park or a bank.",
+    "sentenceTranslations": [
+      "Sophie đến từ London, và bạn ấy đang đi du lịch ở Hà Nội cùng mẹ.",
+      "Hà Nội là một thành phố lớn và nhộn nhịp.",
+      "Hôm nay Sophie muốn xem một buổi biểu diễn ở nhà hát City Theatre, nhưng bạn ấy không tìm thấy nhà hát.",
+      "Bạn ấy dừng một cô bé trên phố và hỏi: \"Xin lỗi, nhà hát City Theatre ở đâu ạ?\"",
+      "Cô bé tên là Linh, và bạn ấy mỉm cười.",
+      "\"Cậu đi thẳng phố này,\" Linh nói.",
+      "\"Rồi rẽ trái ở ngân hàng, và đi qua công viên.\"",
+      "Sophie hỏi: \"Có gần đây không?\"",
+      "\"Gần lắm, nhà hát ở phía sau bưu điện,\" Linh nói.",
+      "\"Đừng đi taxi, vì chỉ năm phút thôi!\"",
+      "\"Cảm ơn cậu!\" Sophie nói.",
+      "Sophie đi thẳng, rẽ trái ở ngân hàng rồi đi qua công viên.",
+      "Nhà hát ở ngay đó, phía sau bưu điện!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi đường và chỉ đường đơn giản bằng câu mệnh lệnh: Go straight on, turn left, don't take a taxi.",
+    "examples": [
+      {
+        "lemma": "city",
+        "sentence": "Hanoi is a big city.",
+        "meaningVi": "Hà Nội là một thành phố lớn."
+      },
+      {
+        "lemma": "street",
+        "sentence": "My house is on this street.",
+        "meaningVi": "Nhà mình ở phố này."
+      },
+      {
+        "lemma": "straight on",
+        "sentence": "Go straight on, and you can see the bank.",
+        "meaningVi": "Đi thẳng là bạn sẽ thấy ngân hàng."
+      },
+      {
+        "lemma": "left",
+        "sentence": "The bank is on the left.",
+        "meaningVi": "Ngân hàng ở bên trái."
+      },
+      {
+        "lemma": "bank",
+        "sentence": "My mum works in a bank.",
+        "meaningVi": "Mẹ mình làm việc ở ngân hàng."
+      },
+      {
+        "lemma": "park",
+        "sentence": "There is a park near my school.",
+        "meaningVi": "Gần trường mình có một công viên."
+      },
+      {
+        "lemma": "post office",
+        "sentence": "The post office is near the station.",
+        "meaningVi": "Bưu điện ở gần nhà ga."
+      },
+      {
+        "lemma": "behind",
+        "sentence": "The cat is behind the sofa.",
+        "meaningVi": "Con mèo ở phía sau ghế sofa."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Anna, where is the library?",
+          "meaningVi": "Anna ơi, thư viện ở đâu thế?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's in Trang Tien Street. Do you have a map?",
+          "meaningVi": "Ở phố Tràng Tiền. Cậu có bản đồ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I don't. Is it near here?",
+          "meaningVi": "Không có. Có gần đây không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. Go straight on, and turn right at the cinema.",
+          "meaningVi": "Gần. Cậu đi thẳng, rồi rẽ phải ở rạp chiếu phim."
+        },
+        {
+          "speaker": 0,
+          "text": "Turn right at the cinema. And then?",
+          "meaningVi": "Rẽ phải ở rạp chiếu phim. Rồi sao nữa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Walk past the hotel. The library is on the left.",
+          "meaningVi": "Đi qua khách sạn. Thư viện ở bên trái."
+        },
+        {
+          "speaker": 0,
+          "text": "Is it in front of the bank?",
+          "meaningVi": "Nó có ở trước ngân hàng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it's between the hotel and a café.",
+          "meaningVi": "Không, nó nằm giữa khách sạn và một quán cà phê."
+        },
+        {
+          "speaker": 0,
+          "text": "Great, thanks! Can I walk there?",
+          "meaningVi": "Tuyệt, cảm ơn cậu! Mình đi bộ đến đó được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's only ten minutes. Don't take the bus!",
+          "meaningVi": "Được, chỉ mười phút thôi. Đừng đi xe buýt nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi đường: Where is the library? Is it near here? Chỉ đường: Go straight on, and turn right at the cinema.",
+    "translations": [
+      {
+        "vi": "Đi thẳng phố này.",
+        "en": "Go straight on this street.",
+        "distractors": [
+          "Goes",
+          "left",
+          "in"
+        ]
+      },
+      {
+        "vi": "Rẽ trái ở ngân hàng.",
+        "en": "Turn left at the bank.",
+        "distractors": [
+          "right",
+          "Turns",
+          "in"
+        ]
+      },
+      {
+        "vi": "Nhà hát ở phía sau bưu điện.",
+        "en": "The theatre is behind the post office.",
+        "distractors": [
+          "in",
+          "front",
+          "are"
+        ]
+      },
+      {
+        "vi": "Hà Nội là một thành phố lớn.",
+        "en": "Hanoi is a big city.",
+        "distractors": [
+          "town",
+          "are",
+          "small"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh hỏi Anna điều gì?",
+        "promptVi": "",
+        "options": [
+          "Giờ mở cửa của rạp chiếu phim",
+          "Đường đến thư viện",
+          "Số xe buýt đến trường"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh hỏi \"where is the library?\" và Anna chỉ đường cho Minh.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đến rạp chiếu phim thì Minh phải làm gì?",
+        "promptVi": "",
+        "options": [
+          "Rẽ trái",
+          "Rẽ phải",
+          "Đi thẳng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna nói \"Go straight on, and turn right at the cinema.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thư viện nằm ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Giữa khách sạn và một quán cà phê",
+          "Phía sau khách sạn",
+          "Trước ngân hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna nói \"No, it's between the hotel and a café.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh has a map.",
+        "promptVi": "Minh có bản đồ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Anna hỏi có bản đồ không, Minh nói \"No, I don't.\"",
+        "turnIndex": 2
+      }
+    ],
+    "readingGuideVi": "Linh chỉ cho Sophie đi đường nào để đến nhà hát?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"Go straight on this street,\" she says.",
+          "highlights": [
+            "Go straight on"
+          ]
+        },
+        {
+          "sentence": "\"Then turn left at the bank, and walk past the park.\"",
+          "highlights": [
+            "turn left",
+            "walk past"
+          ]
+        },
+        {
+          "sentence": "\"Don't take a taxi, because it's only five minutes!\"",
+          "highlights": [
+            "Don't take"
+          ]
+        }
+      ],
+      "questionVi": "Các câu \"Go straight on\", \"turn left\", \"Don't take a taxi\" bắt đầu bằng gì?",
+      "options": [
+        "Bằng chủ ngữ you",
+        "Bằng động từ (hoặc Don't + động từ), không có chủ ngữ",
+        "Bằng từ please"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu mệnh lệnh bắt đầu thẳng bằng động từ nguyên mẫu (Go, turn, walk), không có you. Muốn bảo đừng làm, thêm Don't trước động từ: Don't take.",
+      "whenVi": "Dùng câu mệnh lệnh để chỉ đường, hướng dẫn, hoặc bảo ai đó làm hay đừng làm gì.",
+      "table": [
+        {
+          "subject": "Chỉ đường",
+          "form": "Go straight on. Turn left at the bank.",
+          "negative": "Don't turn right."
+        },
+        {
+          "subject": "Khuyên, nhắc",
+          "form": "Walk. It's only five minutes.",
+          "negative": "Don't take a taxi."
+        },
+        {
+          "subject": "Lịch sự hơn",
+          "form": "Please turn left here.",
+          "negative": "Please don't run."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "No take a taxi.",
+          "right": "Don't take a taxi."
+        },
+        {
+          "wrong": "Goes straight on this street.",
+          "right": "Go straight on this street."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"đừng đi taxi\", nên người Việt hay dịch \"đừng\" thành no; còn khi nhớ quy tắc -s thì lại thêm -s vào động từ đầu câu (Goes), trong khi câu mệnh lệnh luôn dùng động từ nguyên mẫu.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền động từ có nghĩa \"rẽ\" vào chỗ trống.",
+          "text": "___ left at the bank.",
+          "answers": [
+            "Turn",
+            "turn"
+          ],
+          "explanationVi": "Rẽ là turn; câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: Turn left."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ take a taxi. It's only five minutes.",
+          "options": [
+            "Not",
+            "No",
+            "Don't",
+            "Doesn't"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Muốn bảo ai đừng làm gì, dùng Don't + động từ: Don't take a taxi."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "No take a taxi, because it's near.",
+          "sentence": "Don't take a taxi, because it's near.",
+          "explanationVi": "Câu mệnh lệnh phủ định dùng Don't, không dùng No."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Rẽ phải ở rạp chiếu phim.",
+          "sentence": "Turn right at the cinema.",
+          "words": [
+            "right",
+            "Turn",
+            "the",
+            "at",
+            "cinema",
+            "left"
+          ],
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ Turn; rẽ phải là right, nên từ \"left\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The theatre is there, behind the post office!",
+        "tipVi": "Theatre /ˈθiətər/ bắt đầu bằng âm /θ/: đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi, không đọc thành \"thi\" hay \"ti\"."
+      },
+      {
+        "text": "Hanoi is a big, busy city.",
+        "tipVi": "Busy /ˈbɪzi/ đọc là \"bi-zi\" với âm /z/, không đọc \"bu-xi\"; city /ˈsɪti/ nhấn ở âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a bank near your home?",
+        "questionVi": "Gần nhà bạn có ngân hàng không?",
+        "frame": "Yes, there is. It's near the ___. / No, there isn't."
+      },
+      {
+        "question": "How can I go from your home to the park?",
+        "questionVi": "Từ nhà bạn đến công viên thì đi thế nào?",
+        "frame": "Go straight on ___. Then turn ___ at the ___."
+      },
+      {
+        "question": "Where does your best friend live?",
+        "questionVi": "Bạn thân của bạn sống ở đâu?",
+        "frame": "He / She lives in ___ Street, near the ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu mệnh lệnh chỉ đường (Go …, Turn …, Don't …)",
+      "anyOf": [
+        "go",
+        "turn",
+        "walk",
+        "don't",
+        "take",
+        "stop"
+      ],
+      "outlineVi": [
+        "Nói nơi đó là gì và có gần nhà bạn không.",
+        "Chỉ đường từng bước (Go straight on …, turn left / right at …).",
+        "Nói nơi đó nằm ở đâu và nhắc một điều (Don't …)."
+      ],
+      "modelAnswer": "The park is near my home. Go out of my house and turn right. Go straight on this street, and walk past the bank. Then turn left at the post office. The park is behind the library. Don't take the bus, because it's only five minutes!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "on holiday",
+      "lemma": "on holiday",
+      "meaningVi": "đi du lịch, đi nghỉ",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "she is on holiday in Hanoi",
+      "phraseVi": "bạn ấy đang đi du lịch ở Hà Nội"
+    },
+    {
+      "text": "busy",
+      "lemma": "busy",
+      "meaningVi": "đông đúc, nhộn nhịp",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "a big, busy city",
+      "phraseVi": "một thành phố lớn và nhộn nhịp"
+    },
+    {
+      "text": "show",
+      "lemma": "show",
+      "meaningVi": "buổi biểu diễn",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "see a show at the City Theatre",
+      "phraseVi": "xem một buổi biểu diễn ở nhà hát"
+    },
+    {
+      "text": "Excuse me",
+      "lemma": "excuse me",
+      "meaningVi": "xin lỗi (khi muốn hỏi ai)",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "Excuse me, where is the City Theatre",
+      "phraseVi": "Xin lỗi, nhà hát City Theatre ở đâu ạ"
+    },
+    {
+      "text": "smiles",
+      "lemma": "smile",
+      "meaningVi": "mỉm cười",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "she smiles",
+      "phraseVi": "bạn ấy mỉm cười"
+    },
+    {
+      "text": "walk past",
+      "lemma": "walk past",
+      "meaningVi": "đi qua, đi ngang qua",
+      "sentenceIndex": 6,
+      "pos": "phrasal verb",
+      "phrase": "walk past the park",
+      "phraseVi": "đi qua công viên"
+    },
+    {
+      "text": "near here",
+      "lemma": "near here",
+      "meaningVi": "gần đây",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "Is it near here",
+      "phraseVi": "Có gần đây không"
+    },
+    {
+      "text": "only five minutes",
+      "lemma": "only",
+      "meaningVi": "chỉ năm phút thôi",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "it's only five minutes",
+      "phraseVi": "chỉ năm phút thôi"
+    },
+    {
+      "text": "theatre",
+      "lemma": "theatre",
+      "meaningVi": "nhà hát",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "The theatre is there",
+      "phraseVi": "Nhà hát ở ngay đó"
+    }
+  ]
+}

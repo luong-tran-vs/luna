@@ -1,0 +1,614 @@
+{
+  "content": "On Saturday evening, five old friends meet for dinner at Mai's house in Hanoi. They talk about their friend Quang. He can't come tonight, because he is helping his neighbour move house.\n\nMai says, \"That's so typical of Quang. He's such a generous person that he never says no.\"\nToan says, \"I know. When my car broke down last year, he drove me to work himself for two weeks.\"\nLien says, \"And when I was ill, he came to the hospital every day. He brought me soup. He made it himself!\"\nEverybody laughs. \"Quang can cook?\"\nLien smiles. \"Not very well. But it was so kind of him that I didn't care.\"\nMai says, \"He always thinks about others before himself. Last month, he gave his old computer to a student. He has no computer himself now!\"\nToan says, \"We should do something for him. He never does anything nice for himself.\"\n\"What about a birthday party? His birthday is next Sunday.\"\n\"Great idea! But it has to be a surprise. He's so shy about his birthday that he'll say no.\"\n\"Let's tell him we need help with a party for a friend. He always helps, so he'll come!\"\nEveryone laughs. \"That's perfect. He'll come to help, and then he'll find out the party is for him!\"\nMai says, \"I can't wait to see his face. For once, he can enjoy himself.\"",
+  "targetWords": [
+    "neighbour",
+    "typical",
+    "generous",
+    "soup",
+    "care",
+    "student",
+    "party",
+    "surprise",
+    "perfect",
+    "face"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "neighbour",
+        "lemma": "neighbour",
+        "meaningVi": "hàng xóm",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "typical",
+        "lemma": "typical",
+        "meaningVi": "đúng kiểu, điển hình",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "generous",
+        "lemma": "generous",
+        "meaningVi": "hào phóng, rộng lượng",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "soup",
+        "lemma": "soup",
+        "meaningVi": "súp, canh",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "care",
+        "lemma": "care",
+        "meaningVi": "để tâm, bận tâm",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "student",
+        "lemma": "student",
+        "meaningVi": "sinh viên, học sinh",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "party",
+        "lemma": "party",
+        "meaningVi": "bữa tiệc",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "surprise",
+        "lemma": "surprise",
+        "meaningVi": "điều bất ngờ",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "perfect",
+        "lemma": "perfect",
+        "meaningVi": "hoàn hảo",
+        "pos": "adjective",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "face",
+        "lemma": "face",
+        "meaningVi": "khuôn mặt",
+        "pos": "noun",
+        "sentenceIndex": 30
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Friends talk about generous Quang and plan a surprise party for him.",
+          "Quang moves to a new house.",
+          "Lien is ill in hospital.",
+          "Toan buys a new car."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhóm bạn kể những việc tốt Quang đã làm, rồi lên kế hoạch tổ chức sinh nhật bất ngờ cho anh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't Quang come to dinner?",
+        "promptVi": "Vì sao Quang không đến ăn tối được?",
+        "options": [
+          "He is ill.",
+          "He is helping his neighbour move house.",
+          "He is at the hospital.",
+          "He is working late."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết: \"he is helping his neighbour move house.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why didn't Lien care that the soup wasn't very good?",
+        "promptVi": "Vì sao Liên không bận tâm dù món súp không ngon lắm?",
+        "options": [
+          "She wasn't hungry.",
+          "She doesn't like soup.",
+          "It was so kind of Quang to make it.",
+          "Her mother made it."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Liên nói \"But it was so kind of him that I didn't care.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quang knows about the birthday party.",
+        "promptVi": "Quang biết về bữa tiệc sinh nhật.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bữa tiệc là bất ngờ: \"it has to be a surprise\", và họ chỉ nói với anh là cần giúp tổ chức tiệc cho một người bạn."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"typical of Quang\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mai says, \"That's so typical of Quang.",
+        "options": [
+          "đúng là tính Quang",
+          "khác hẳn Quang",
+          "lạ đối với Quang",
+          "Quang không thích"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Typical of someone = đúng kiểu, đúng tính cách của người đó."
+      }
+    ],
+    "grammarNote": {
+      "title": "So / such ... that",
+      "bodyVi": "Such a + tính từ + danh từ + that: He's such a generous person that he never says no. So + tính từ + that: It was so kind of him that I didn't care. He's so shy about his birthday that he'll say no. Bài cũng dùng nhiều đại từ phản thân: he drove me to work himself, he made it himself (nhấn mạnh tự làm), thinks about others before himself, enjoy himself.",
+      "examples": [
+        "He's such a generous person that he never says no.\"",
+        "But it was so kind of him that I didn't care.\"",
+        "He's so shy about his birthday that he'll say no.\""
+      ]
+    },
+    "writingPrompt": "Write about a generous friend or family member: what has he or she done for other people? Use so … that or such … that.",
+    "sentenceTranslations": [
+      "Tối thứ Bảy, năm người bạn cũ gặp nhau ăn tối ở nhà Mai tại Hà Nội.",
+      "Họ nói về người bạn tên Quang.",
+      "Tối nay anh không đến được, vì đang giúp hàng xóm chuyển nhà.",
+      "Mai nói: \"Đúng là tính Quang.",
+      "Cậu ấy hào phóng đến mức không bao giờ từ chối ai.\"",
+      "Toàn nói: \"Mình biết.",
+      "Năm ngoái xe ô tô của mình bị hỏng, cậu ấy tự lái xe đưa mình đi làm suốt hai tuần.\"",
+      "Liên nói: \"Còn khi mình ốm, ngày nào cậu ấy cũng vào bệnh viện.",
+      "Cậu ấy mang súp cho mình.",
+      "Tự tay nấu luôn!\"",
+      "Mọi người cười.",
+      "\"Quang biết nấu ăn à?\"",
+      "Liên mỉm cười.",
+      "\"Không ngon lắm.",
+      "Nhưng cậu ấy tốt bụng đến mức mình chẳng bận tâm.\"",
+      "Mai nói: \"Cậu ấy luôn nghĩ cho người khác trước bản thân.",
+      "Tháng trước, cậu ấy tặng cái máy tính cũ cho một sinh viên.",
+      "Giờ chính cậu ấy không có máy tính!\"",
+      "Toàn nói: \"Mình nên làm gì đó cho cậu ấy.",
+      "Cậu ấy chẳng bao giờ làm điều gì tốt cho chính mình.\"",
+      "\"Tổ chức tiệc sinh nhật thì sao?",
+      "Chủ nhật tới là sinh nhật cậu ấy.\"",
+      "\"Ý hay đấy!",
+      "Nhưng phải là bất ngờ.",
+      "Cậu ấy ngại chuyện sinh nhật đến mức sẽ từ chối.\"",
+      "\"Mình cứ bảo cậu ấy là cần giúp tổ chức tiệc cho một người bạn.",
+      "Cậu ấy lúc nào cũng giúp, nên sẽ đến thôi!\"",
+      "Mọi người cười.",
+      "\"Hoàn hảo.",
+      "Cậu ấy sẽ đến giúp, rồi mới phát hiện ra bữa tiệc là dành cho mình!\"",
+      "Mai nói: \"Mình nóng lòng muốn xem mặt cậu ấy lúc đó.",
+      "Một lần thôi, cậu ấy được vui chơi cho chính mình.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một người bạn hào phóng bằng so / such … that và đại từ phản thân (himself, herself).",
+    "examples": [
+      {
+        "lemma": "neighbour",
+        "sentence": "Our neighbour has a big dog.",
+        "meaningVi": "Hàng xóm của chúng tôi có một con chó to."
+      },
+      {
+        "lemma": "typical",
+        "sentence": "Rice is a typical Vietnamese food.",
+        "meaningVi": "Cơm là món ăn điển hình của người Việt."
+      },
+      {
+        "lemma": "generous",
+        "sentence": "My uncle is very generous.",
+        "meaningVi": "Chú tôi rất hào phóng."
+      },
+      {
+        "lemma": "soup",
+        "sentence": "I'd like some chicken soup.",
+        "meaningVi": "Tôi muốn ăn một ít súp gà."
+      },
+      {
+        "lemma": "care",
+        "sentence": "I don't care about the rain.",
+        "meaningVi": "Tôi không bận tâm chuyện mưa."
+      },
+      {
+        "lemma": "student",
+        "sentence": "She is a student at Hue University.",
+        "meaningVi": "Cô ấy là sinh viên Đại học Huế."
+      },
+      {
+        "lemma": "party",
+        "sentence": "We had a party for her birthday.",
+        "meaningVi": "Chúng tôi tổ chức tiệc mừng sinh nhật cô ấy."
+      },
+      {
+        "lemma": "surprise",
+        "sentence": "The gift was a big surprise.",
+        "meaningVi": "Món quà là một bất ngờ lớn."
+      },
+      {
+        "lemma": "perfect",
+        "sentence": "The weather is perfect today.",
+        "meaningVi": "Hôm nay thời tiết thật hoàn hảo."
+      },
+      {
+        "lemma": "face",
+        "sentence": "She has a happy face.",
+        "meaningVi": "Cô ấy có khuôn mặt vui vẻ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Lucy"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai, who is the party for?",
+          "meaningVi": "Mai ơi, bữa tiệc này dành cho ai thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's for Quang. He's such a kind friend that we want to thank him.",
+          "meaningVi": "Cho Quang. Cậu ấy là người bạn tốt đến mức bọn mình muốn cảm ơn cậu ấy."
+        },
+        {
+          "speaker": 1,
+          "text": "What has he done?",
+          "meaningVi": "Cậu ấy đã làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "So many things. He drove Toan to work himself for two weeks.",
+          "meaningVi": "Nhiều lắm. Cậu ấy tự lái xe đưa Toàn đi làm suốt hai tuần."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow. He sounds really generous.",
+          "meaningVi": "Chà. Nghe có vẻ rất hào phóng."
+        },
+        {
+          "speaker": 0,
+          "text": "He is. He's so generous that he gave his computer away.",
+          "meaningVi": "Đúng vậy. Cậu ấy hào phóng đến mức tặng cả máy tính đi."
+        },
+        {
+          "speaker": 1,
+          "text": "Does he know about the party?",
+          "meaningVi": "Cậu ấy có biết về bữa tiệc không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's a surprise. He thinks he's helping us.",
+          "meaningVi": "Không, đó là bất ngờ. Cậu ấy tưởng là đang giúp bọn mình."
+        },
+        {
+          "speaker": 1,
+          "text": "That's perfect. I'll bring a cake.",
+          "meaningVi": "Hoàn hảo. Mình sẽ mang bánh."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. Finally, he can enjoy himself!",
+          "meaningVi": "Tuyệt. Cuối cùng thì cậu ấy cũng được vui chơi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Such a kind friend that…, so generous that…: so / such … that. Drove … himself, enjoy himself: đại từ phản thân.",
+    "translations": [
+      {
+        "vi": "Cậu ấy hào phóng đến mức không bao giờ từ chối.",
+        "en": "He is so generous that he never says no.",
+        "distractors": [
+          "such",
+          "very",
+          "said"
+        ]
+      },
+      {
+        "vi": "Cậu ấy là người hàng xóm tốt đến mức ai cũng quý.",
+        "en": "He is such a good neighbour that everyone likes him.",
+        "distractors": [
+          "so",
+          "very",
+          "an"
+        ]
+      },
+      {
+        "vi": "Cậu ấy tự nấu món súp.",
+        "en": "He made the soup himself.",
+        "distractors": [
+          "his",
+          "herself",
+          "make"
+        ]
+      },
+      {
+        "vi": "Bữa tiệc phải là một bất ngờ.",
+        "en": "The party has to be a surprise.",
+        "distractors": [
+          "have",
+          "surprised",
+          "surprising"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai và Lucy nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bữa tiệc bất ngờ cho Quang",
+          "Chiếc máy tính mới",
+          "Công việc của Toàn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lucy hỏi \"who is the party for?\" và Mai kể về Quang.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quang đã tặng gì đi?",
+        "promptVi": "",
+        "options": [
+          "Ô tô",
+          "Máy tính",
+          "Bánh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"he gave his computer away.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lucy sẽ mang gì đến?",
+        "promptVi": "",
+        "options": [
+          "Hoa",
+          "Đồ uống",
+          "Bánh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lucy nói \"I'll bring a cake.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quang knows that the party is for him.",
+        "promptVi": "Quang biết bữa tiệc là dành cho mình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"No, it's a surprise. He thinks he's helping us.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Quang đã làm những việc tốt gì cho bạn bè? Nhóm bạn định làm gì cho anh?",
+    "grammarStep": {
+      "titleVi": "So / such ... that",
+      "noticing": [
+        {
+          "sentence": "He's such a generous person that he never says no.\"",
+          "highlights": [
+            "such a generous person that"
+          ]
+        },
+        {
+          "sentence": "But it was so kind of him that I didn't care.\"",
+          "highlights": [
+            "so kind of him that"
+          ]
+        },
+        {
+          "sentence": "He's so shy about his birthday that he'll say no.\"",
+          "highlights": [
+            "so shy about his birthday that"
+          ]
+        },
+        {
+          "sentence": "Mai says, \"He always thinks about others before himself.",
+          "highlights": [
+            "himself"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"such a generous person that…\", vì sao có \"a\"?",
+      "options": [
+        "Vì person là danh từ số ít đếm được.",
+        "Vì generous bắt đầu bằng phụ âm.",
+        "Vì such luôn đi với a."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Such + a / an + tính từ + danh từ số ít. Với danh từ số nhiều hoặc không đếm được thì bỏ a: such kind people, such good soup.",
+      "whenVi": "So / such … that: nói một mức độ cao đến nỗi dẫn đến kết quả. So kind of him = anh ấy thật tốt bụng.",
+      "table": [
+        {
+          "subject": "such a + tính từ + danh từ số ít",
+          "form": "such a generous person that…",
+          "negative": "—"
+        },
+        {
+          "subject": "such + tính từ + danh từ số nhiều / không đếm được",
+          "form": "such kind friends that…, such good soup that…",
+          "negative": "—"
+        },
+        {
+          "subject": "so + tính từ",
+          "form": "so shy that he'll say no",
+          "negative": "so kind that I didn't care"
+        },
+        {
+          "subject": "so kind of + người",
+          "form": "It was so kind of him.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He's such generous person that he never says no.",
+          "right": "He's such a generous person that he never says no."
+        },
+        {
+          "wrong": "They are such a kind friends.",
+          "right": "They are such kind friends."
+        }
+      ],
+      "noteVi": "It's kind of you / so kind of him = bạn / anh ấy thật tốt bụng (khen một việc ai đó đã làm).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền so hoặc such.",
+          "text": "He's ___ a generous person that he never says no.",
+          "answers": [
+            "such"
+          ],
+          "explanationVi": "Có a + tính từ + danh từ: such."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "They are ___ kind friends that everyone likes them.",
+          "options": [
+            "so",
+            "such a",
+            "such",
+            "so a"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Danh từ số nhiều (friends): such, không có a."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It was such kind of him that I didn't care.",
+          "sentence": "It was so kind of him that I didn't care.",
+          "explanationVi": "Kind of him (không có danh từ sau kind): dùng so."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy tự nấu món súp.",
+          "sentence": "He made the soup himself.",
+          "words": [
+            "made",
+            "He",
+            "soup",
+            "the",
+            "himself.",
+            "him"
+          ],
+          "explanationVi": "Tự làm: himself; từ \"him\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He brought me soup.",
+        "tipVi": "Brought /brɔːt/ không đọc gh; soup /suːp/."
+      },
+      {
+        "text": "\"That's perfect.",
+        "tipVi": "Perfect /ˈpɜːfɪkt/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is the most generous person you know?",
+        "questionVi": "Người hào phóng nhất bạn biết là ai?",
+        "frame": "My ___ is so generous that ___."
+      },
+      {
+        "question": "Have you ever planned a surprise for someone?",
+        "questionVi": "Bạn đã bao giờ chuẩn bị một bất ngờ cho ai chưa?",
+        "frame": "Yes, I planned ___. / No, I haven't."
+      },
+      {
+        "question": "What did your best friend do for you last time you were ill?",
+        "questionVi": "Lần gần nhất bạn ốm, bạn thân đã làm gì cho bạn?",
+        "frame": "He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu so … that hoặc such … that",
+      "anyOf": [
+        " so ",
+        "such a",
+        "such an",
+        "such "
+      ],
+      "outlineVi": [
+        "Người đó là ai, bạn quen người đó thế nào.",
+        "Những việc người đó đã làm cho người khác (he did it himself…).",
+        "Tính cách và kết quả (He's such a … that / so … that)."
+      ],
+      "modelAnswer": "My grandmother is the most generous person in my family. She is so kind that she cooks for our neighbours when they are ill. Last year, she knitted a warm hat herself for every child in the street. She is such a busy person that she rarely rests. But she says helping others makes her happy. I want to be like her."
+    }
+  },
+  "glosses": [
+    {
+      "text": "move house",
+      "lemma": "move house",
+      "meaningVi": "chuyển nhà",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "helping his neighbour move house",
+      "phraseVi": "giúp hàng xóm chuyển nhà"
+    },
+    {
+      "text": "broke down",
+      "lemma": "break down",
+      "meaningVi": "bị hỏng",
+      "sentenceIndex": 6,
+      "pos": "phrasal verb",
+      "phrase": "my car broke down",
+      "phraseVi": "xe ô tô của mình bị hỏng"
+    },
+    {
+      "text": "himself",
+      "lemma": "himself",
+      "meaningVi": "tự mình (anh ấy)",
+      "sentenceIndex": 9,
+      "pos": "pronoun",
+      "phrase": "He made it himself!",
+      "phraseVi": "Tự tay nấu luôn!"
+    },
+    {
+      "text": "others",
+      "lemma": "other",
+      "meaningVi": "người khác",
+      "sentenceIndex": 15,
+      "pos": "pronoun",
+      "phrase": "thinks about others before himself",
+      "phraseVi": "nghĩ cho người khác trước bản thân"
+    },
+    {
+      "text": "find out",
+      "lemma": "find out",
+      "meaningVi": "phát hiện ra",
+      "sentenceIndex": 29,
+      "pos": "phrasal verb",
+      "phrase": "he'll find out the party is for him",
+      "phraseVi": "mới phát hiện ra bữa tiệc là dành cho mình"
+    },
+    {
+      "text": "For once",
+      "lemma": "for once",
+      "meaningVi": "một lần hiếm hoi",
+      "sentenceIndex": 31,
+      "pos": "phrase",
+      "phrase": "For once, he can enjoy himself.",
+      "phraseVi": "Một lần thôi, cậu ấy được vui chơi."
+    }
+  ]
+}

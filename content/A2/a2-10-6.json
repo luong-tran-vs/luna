@@ -1,0 +1,597 @@
+{
+  "content": "It's twelve o'clock, and the sun is very hot. Thu and her friend Kien are going out for lunch.\n\nThu asks, \"Wait, Kien! Where is your hat?\"\n\"I don't need a hat. The restaurant is only ten minutes away.\"\n\"Ten minutes is long in this sun. When you walk in the hot sun without a hat, your face burns quickly.\"\n\"Really? I never think about it.\"\n\"And look at your arms. Your shirt is short. If the sun is very strong, your arms get red too.\"\n\"OK, OK. What do you have in your bag?\"\nShe opens her bag. \"A hat, sunglasses, a bottle of water and some sun cream.\"\n\"Wow! You have everything.\"\n\"When I go out at midday, I always take these. Last summer, my nose got very red and hot. It was terrible.\"\nKien laughs. \"OK, can I borrow your sunglasses?\"\n\"Yes, and put on some sun cream too. Then we can go.\"",
+  "targetWords": [
+    "sun",
+    "hat",
+    "face",
+    "burn",
+    "sunglasses",
+    "cream",
+    "midday",
+    "borrow"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "sun",
+        "lemma": "sun",
+        "meaningVi": "mặt trời, nắng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "hat",
+        "lemma": "hat",
+        "meaningVi": "mũ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "face",
+        "lemma": "face",
+        "meaningVi": "khuôn mặt",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "burns",
+        "lemma": "burn",
+        "meaningVi": "bị cháy nắng, bỏng rát",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "sunglasses",
+        "lemma": "sunglasses",
+        "meaningVi": "kính râm",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "cream",
+        "lemma": "cream",
+        "meaningVi": "kem (bôi)",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "midday",
+        "lemma": "midday",
+        "meaningVi": "giữa trưa",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "borrow",
+        "lemma": "borrow",
+        "meaningVi": "mượn",
+        "pos": "verb",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Thu tells Kien how to stay safe in the hot sun.",
+          "Kien buys a new hat.",
+          "Thu and Kien cook lunch.",
+          "A summer trip to the beach"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trước khi ra ngoài ăn trưa, Thu nhắc Kiên che nắng vì trời rất gắt."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How far is the restaurant?",
+        "promptVi": "Nhà hàng cách bao xa?",
+        "options": [
+          "Ten minutes",
+          "Five minutes",
+          "Half an hour",
+          "An hour"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kiên nói \"The restaurant is only ten minutes away.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why should Kien think about his arms?",
+        "promptVi": "Vì sao Kiên phải để ý đến tay?",
+        "options": [
+          "His arms are tired.",
+          "His shirt is short, and strong sun makes arms red.",
+          "He has a bag on his arm.",
+          "His arms are cold."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thu nói \"Your shirt is short. If the sun is very strong, your arms get red too.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thu doesn't have a hat in her bag.",
+        "promptVi": "Trong túi Thu không có mũ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thu có \"A hat, sunglasses, a bottle of water and some sun cream.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"borrow\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"OK, can I borrow your sunglasses?\"",
+        "options": [
+          "mua",
+          "mượn",
+          "cho",
+          "làm vỡ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Borrow = mượn (lấy của người khác dùng rồi trả lại)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Câu điều kiện loại 0 để cảnh báo điều luôn xảy ra: When you walk in the hot sun without a hat, your face burns quickly. If the sun is very strong, your arms get red too. Cũng dùng để nói thói quen của mình: When I go out at midday, I always take these. Trạng từ tần suất (always, often) đứng sau chủ ngữ ở vế sau.",
+      "examples": [
+        "When you walk in the hot sun without a hat, your face burns quickly.\"",
+        "If the sun is very strong, your arms get red too.\"",
+        "\"When I go out at midday, I always take these."
+      ]
+    },
+    "writingPrompt": "Write about summer: what do you take when you go out in the sun, and what happens if you forget?",
+    "sentenceTranslations": [
+      "Mười hai giờ trưa, và nắng rất gắt.",
+      "Thu và bạn là Kiên chuẩn bị ra ngoài ăn trưa.",
+      "Thu hỏi: \"Đợi đã, Kiên!",
+      "Mũ của cậu đâu?\"",
+      "\"Mình không cần mũ.",
+      "Nhà hàng chỉ cách mười phút thôi.\"",
+      "\"Mười phút dưới nắng này là lâu đấy.",
+      "Hễ đi dưới nắng gắt mà không đội mũ là mặt bị cháy nắng rất nhanh.\"",
+      "\"Thật à?",
+      "Mình chưa bao giờ nghĩ đến chuyện đó.\"",
+      "\"Mà nhìn tay cậu kìa.",
+      "Áo cậu ngắn tay.",
+      "Nếu nắng gắt thì tay cũng bị đỏ.\"",
+      "\"Được rồi, được rồi.",
+      "Trong túi cậu có gì thế?\"",
+      "Cô mở túi.",
+      "\"Một cái mũ, kính râm, một chai nước và ít kem chống nắng.\"",
+      "\"Chà!",
+      "Cậu có đủ hết.\"",
+      "\"Hễ ra ngoài lúc giữa trưa là mình luôn mang mấy thứ này.",
+      "Hè năm ngoái, mũi mình bị đỏ và rát lắm.",
+      "Khổ lắm.\"",
+      "Kiên cười.",
+      "\"Được, mình mượn kính râm của cậu nhé?\"",
+      "\"Ừ, và bôi thêm kem chống nắng nữa.",
+      "Rồi mình đi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nhắc nhở và cảnh báo người khác khi ra nắng bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "sun",
+        "sentence": "The sun is very hot today.",
+        "meaningVi": "Hôm nay nắng rất gắt."
+      },
+      {
+        "lemma": "hat",
+        "sentence": "She has a big hat.",
+        "meaningVi": "Cô ấy có một chiếc mũ to."
+      },
+      {
+        "lemma": "face",
+        "sentence": "Wash your face in the morning.",
+        "meaningVi": "Buổi sáng hãy rửa mặt."
+      },
+      {
+        "lemma": "burn",
+        "sentence": "Be careful. The soup can burn you.",
+        "meaningVi": "Cẩn thận. Canh nóng có thể làm bạn bỏng."
+      },
+      {
+        "lemma": "sunglasses",
+        "sentence": "I wear sunglasses at the beach.",
+        "meaningVi": "Tôi đeo kính râm ở bãi biển."
+      },
+      {
+        "lemma": "cream",
+        "sentence": "Put some cream on your arms.",
+        "meaningVi": "Bôi ít kem lên tay."
+      },
+      {
+        "lemma": "midday",
+        "sentence": "We have lunch at midday.",
+        "meaningVi": "Chúng tôi ăn trưa lúc giữa trưa."
+      },
+      {
+        "lemma": "borrow",
+        "sentence": "Can I borrow your pen?",
+        "meaningVi": "Cho tôi mượn cái bút nhé?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thu",
+        "Emily"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thu, it's so hot! Are you going out?",
+          "meaningVi": "Thu ơi, nóng quá! Cậu ra ngoài à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but I always wear a hat.",
+          "meaningVi": "Ừ, nhưng mình luôn đội mũ."
+        },
+        {
+          "speaker": 1,
+          "text": "Why? It's only a short walk.",
+          "meaningVi": "Sao thế? Đi bộ có một đoạn ngắn thôi mà."
+        },
+        {
+          "speaker": 0,
+          "text": "When I don't wear a hat, my face gets red.",
+          "meaningVi": "Hễ không đội mũ là mặt mình bị đỏ."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you use sun cream too?",
+          "meaningVi": "Cậu có bôi kem chống nắng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. If I put on cream, my arms don't burn.",
+          "meaningVi": "Có. Nếu bôi kem, tay mình không bị cháy nắng."
+        },
+        {
+          "speaker": 1,
+          "text": "I don't have any cream. Can I borrow some?",
+          "meaningVi": "Mình không có kem. Cho mình mượn một ít nhé?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Here you are.",
+          "meaningVi": "Tất nhiên. Của cậu đây."
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks! And sunglasses?",
+          "meaningVi": "Cảm ơn! Còn kính râm?"
+        },
+        {
+          "speaker": 0,
+          "text": "When the sun is strong, I wear them too.",
+          "meaningVi": "Hễ nắng gắt là mình đeo kính luôn."
+        }
+      ]
+    },
+    "grammarTipVi": "When I don't wear a hat, my face gets red. If I put on cream, my arms don't burn. When the sun is strong, I wear them too.",
+    "translations": [
+      {
+        "vi": "Hễ đi dưới nắng mà không đội mũ là mặt bị cháy nắng.",
+        "en": "When you walk in the sun without a hat, your face burns.",
+        "distractors": [
+          "will",
+          "burned",
+          "is"
+        ]
+      },
+      {
+        "vi": "Nếu nắng gắt, tay bạn bị đỏ.",
+        "en": "If the sun is strong, your arms get red.",
+        "distractors": [
+          "will",
+          "are",
+          "gets"
+        ]
+      },
+      {
+        "vi": "Hễ ra ngoài lúc giữa trưa, tôi luôn mang mũ.",
+        "en": "When I go out at midday, I always take a hat.",
+        "distractors": [
+          "will",
+          "went",
+          "takes"
+        ]
+      },
+      {
+        "vi": "Nếu bôi kem, tôi không bị cháy nắng.",
+        "en": "If I put on cream, I don't burn.",
+        "distractors": [
+          "won't",
+          "doesn't",
+          "burns"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thu và Emily nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách che nắng khi ra ngoài",
+          "Một nhà hàng mới",
+          "Đi biển"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người nói về mũ, kem chống nắng và kính râm khi trời nóng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi không đội mũ, Thu bị sao?",
+        "promptVi": "",
+        "options": [
+          "Đau đầu",
+          "Mặt bị đỏ",
+          "Bị cảm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thu nói \"When I don't wear a hat, my face gets red.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Emily mượn Thu cái gì?",
+        "promptVi": "",
+        "options": [
+          "Mũ",
+          "Kính râm",
+          "Kem chống nắng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Emily nói \"I don't have any cream. Can I borrow some?\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thu never wears sunglasses.",
+        "promptVi": "Thu không bao giờ đeo kính râm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thu nói \"When the sun is strong, I wear them too.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Thu cảnh báo Kiên điều gì? Trong túi Thu có những gì?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "When you walk in the hot sun without a hat, your face burns quickly.\"",
+          "highlights": [
+            "When",
+            "walk",
+            "burns"
+          ]
+        },
+        {
+          "sentence": "If the sun is very strong, your arms get red too.\"",
+          "highlights": [
+            "If",
+            "is",
+            "get"
+          ]
+        },
+        {
+          "sentence": "\"When I go out at midday, I always take these.",
+          "highlights": [
+            "When",
+            "go",
+            "always take"
+          ]
+        },
+        {
+          "sentence": "Last summer, my nose got very red and hot.",
+          "highlights": [
+            "got"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"Last summer, my nose got very red and hot\" có phải câu điều kiện loại 0 không?",
+      "options": [
+        "Có, vì có từ red",
+        "Không, đó là một việc xảy ra một lần trong quá khứ",
+        "Có, vì nói về mùa hè"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu điều kiện loại 0 nói điều luôn đúng (hiện tại đơn). Last summer … got là chuyện đã xảy ra một lần (quá khứ đơn).",
+      "whenVi": "Dùng If / When + hiện tại đơn, hiện tại đơn để cảnh báo, nhắc nhở về điều luôn xảy ra.",
+      "table": [
+        {
+          "subject": "Cảnh báo",
+          "form": "When you walk in the sun without a hat, your face burns.",
+          "negative": "—"
+        },
+        {
+          "subject": "Chủ ngữ khác nhau",
+          "form": "If the sun is strong, your arms get red.",
+          "negative": "—"
+        },
+        {
+          "subject": "Thói quen + always",
+          "form": "When I go out at midday, I always take a hat.",
+          "negative": "If I put on cream, I don't burn."
+        },
+        {
+          "subject": "So sánh: quá khứ",
+          "form": "Last summer, my nose got red. (một lần)",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If the sun is strong, your arms gets red.",
+          "right": "If the sun is strong, your arms get red."
+        },
+        {
+          "wrong": "When I go out at midday, I take always a hat.",
+          "right": "When I go out at midday, I always take a hat."
+        }
+      ],
+      "noteVi": "Your arms là số nhiều nên dùng get; your face là số ít nên dùng burns.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "When you walk in the sun without a hat, your face ___. (burn)",
+          "answers": [
+            "burns"
+          ],
+          "explanationVi": "Your face là số ít: burns."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If the sun ___ very strong, your arms get red.",
+          "options": [
+            "are",
+            "is",
+            "will be",
+            "be"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "The sun là số ít: is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "When I go out at midday, I take always my hat.",
+          "sentence": "When I go out at midday, I always take my hat.",
+          "explanationVi": "Always đứng trước động từ thường: always take."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu bôi kem, tôi không bị cháy nắng.",
+          "sentence": "If I put on cream, I don't burn.",
+          "words": [
+            "put",
+            "If",
+            "on",
+            "I",
+            "cream,",
+            "I",
+            "don't",
+            "burn.",
+            "won't"
+          ],
+          "explanationVi": "Câu điều kiện loại 0 dùng don't; từ \"won't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Thu asks, \"Wait, Kien!",
+        "tipVi": "Wait /weɪt/ đọc rõ /t/; giọng gọi to, gấp."
+      },
+      {
+        "text": "\"OK, can I borrow your sunglasses?\"",
+        "tipVi": "Borrow /ˈbɒrəʊ/ nhấn âm đầu; sunglasses /ˈsʌnɡlɑːsɪz/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you take when you go out in summer?",
+        "questionVi": "Mùa hè ra ngoài bạn mang theo gì?",
+        "frame": "When I go out in summer, I take ___."
+      },
+      {
+        "question": "What happens when you stay in the sun for a long time?",
+        "questionVi": "Khi ở ngoài nắng lâu thì bạn bị sao?",
+        "frame": "When I stay in the sun for a long time, I ___."
+      },
+      {
+        "question": "What does your mother wear when it's sunny?",
+        "questionVi": "Khi trời nắng mẹ bạn đội, đeo gì?",
+        "frame": "When it's sunny, she wears ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, hiện tại đơn)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you",
+        "If the sun",
+        "When the sun"
+      ],
+      "outlineVi": [
+        "Mùa hè ở chỗ bạn nắng thế nào.",
+        "Bạn mang gì khi ra ngoài (When I go out, I …).",
+        "Điều gì xảy ra nếu quên (If you …, your …)."
+      ],
+      "modelAnswer": "Summer in my city is very hot. When I go out at midday, I always wear a hat and sunglasses. I also put on sun cream. If I forget my hat, I get a headache. When you stay in the sun for a long time, your face burns. So I usually walk on the other side of the street, under the trees."
+    }
+  },
+  "glosses": [
+    {
+      "text": "going out",
+      "lemma": "go out",
+      "meaningVi": "ra ngoài",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "are going out for lunch",
+      "phraseVi": "chuẩn bị ra ngoài ăn trưa"
+    },
+    {
+      "text": "away",
+      "lemma": "away",
+      "meaningVi": "cách (bao xa)",
+      "sentenceIndex": 5,
+      "pos": "adverb",
+      "phrase": "only ten minutes away",
+      "phraseVi": "chỉ cách mười phút"
+    },
+    {
+      "text": "without",
+      "lemma": "without",
+      "meaningVi": "không có",
+      "sentenceIndex": 7,
+      "pos": "preposition",
+      "phrase": "without a hat",
+      "phraseVi": "không đội mũ"
+    },
+    {
+      "text": "short",
+      "lemma": "short",
+      "meaningVi": "ngắn",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "Your shirt is short.",
+      "phraseVi": "Áo cậu ngắn tay."
+    },
+    {
+      "text": "sun cream",
+      "lemma": "sun cream",
+      "meaningVi": "kem chống nắng",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "some sun cream",
+      "phraseVi": "ít kem chống nắng"
+    },
+    {
+      "text": "put on",
+      "lemma": "put on",
+      "meaningVi": "bôi, mặc",
+      "sentenceIndex": 24,
+      "pos": "verb",
+      "phrase": "put on some sun cream",
+      "phraseVi": "bôi thêm kem chống nắng"
+    }
+  ]
+}

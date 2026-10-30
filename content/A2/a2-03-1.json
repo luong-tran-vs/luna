@@ -1,0 +1,609 @@
+{
+  "content": "It is eight o'clock on Monday morning. Huong is standing in her bedroom in Hanoi, and she is looking at her clothes. Today, she has an important meeting with a customer from Japan. She calls Tuan from her team.\n\nHuong asks, \"Tuan, what are you wearing today?\"\n\"I'm wearing my dark blue suit and a white shirt,\" Tuan says. \"I'm not wearing a tie, because it's very hot.\"\n\"Good idea,\" Huong says. \"I'm trying on a black dress, but it isn't right for a meeting.\"\nTuan asks, \"What about your grey jacket and skirt?\"\n\"Yes, that's nice, and I'm putting them on now,\" she answers.\n\nAn hour later, they meet at the office. The customer, Mr Sato, is sitting in the meeting room. He is wearing a dark suit and a red tie.\nTuan says quietly, \"He's wearing a tie, but I'm not!\"\n\"Don't worry, you look great,\" Huong says with a smile.",
+  "targetWords": [
+    "clothes",
+    "wear",
+    "suit",
+    "shirt",
+    "tie",
+    "dress",
+    "jacket",
+    "skirt"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "clothes",
+        "lemma": "clothes",
+        "meaningVi": "quần áo",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "wearing",
+        "lemma": "wear",
+        "meaningVi": "mặc, đeo",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "suit",
+        "lemma": "suit",
+        "meaningVi": "bộ com-lê, bộ vest",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "shirt",
+        "lemma": "shirt",
+        "meaningVi": "áo sơ mi",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "tie",
+        "lemma": "tie",
+        "meaningVi": "cà vạt",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "dress",
+        "lemma": "dress",
+        "meaningVi": "váy liền",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "jacket",
+        "lemma": "jacket",
+        "meaningVi": "áo khoác (vest)",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "skirt",
+        "lemma": "skirt",
+        "meaningVi": "chân váy",
+        "pos": "noun",
+        "sentenceIndex": 9
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Shopping for a black dress",
+          "A trip to Japan",
+          "Huong and Tuan talk about their clothes for an important meeting.",
+          "Mr Sato's new suit"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Sáng thứ Hai, Hương gọi cho Tuấn hỏi anh mặc gì cho buổi họp quan trọng với khách hàng Nhật, rồi chọn đồ cho mình."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why isn't Tuan wearing a tie?",
+        "promptVi": "Vì sao Tuấn không đeo cà vạt?",
+        "options": [
+          "It's very hot.",
+          "He doesn't have one.",
+          "Huong doesn't like ties.",
+          "The meeting isn't important."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn nói \"I'm not wearing a tie, because it's very hot\": trời rất nóng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Huong putting on for the meeting?",
+        "promptVi": "Hương mặc gì đi họp?",
+        "options": [
+          "A black dress",
+          "Her grey jacket and skirt",
+          "A white shirt and jeans",
+          "A red dress"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chiếc váy đen không hợp đi họp, nên khi Tuấn gợi ý bộ áo khoác và chân váy xám, Hương nói \"I'm putting them on now\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Sato is wearing a red tie.",
+        "promptVi": "Ông Sato đeo cà vạt đỏ.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"He is wearing a dark suit and a red tie\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"trying on\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I'm trying on a black dress, but it isn't right for a meeting.",
+        "options": [
+          "cởi ra",
+          "mua",
+          "giặt",
+          "mặc thử"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Try on là mặc thử: Hương đang mặc thử chiếc váy đen xem có hợp đi họp không."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại tiếp diễn",
+      "bodyVi": "Thì hiện tại tiếp diễn nói việc đang diễn ra ngay lúc nói: am / is / are + động từ thêm -ing. I'm wearing my suit, she is looking at her clothes. Phủ định thêm not: I'm not wearing a tie. Câu hỏi đưa am / is / are lên trước chủ ngữ: What are you wearing today?",
+      "examples": [
+        "Huong is standing in her bedroom in Hanoi, and she is looking at her clothes.",
+        "Huong asks, \"Tuan, what are you wearing today?\"",
+        "\"I'm not wearing a tie, because it's very hot.\""
+      ]
+    },
+    "writingPrompt": "Write about what you and someone in your family or office are wearing today.",
+    "sentenceTranslations": [
+      "Bây giờ là tám giờ sáng thứ Hai.",
+      "Hương đang đứng trong phòng ngủ ở Hà Nội, và cô đang ngắm đống quần áo của mình.",
+      "Hôm nay cô có một buổi họp quan trọng với một khách hàng đến từ Nhật Bản.",
+      "Cô gọi điện cho Tuấn, người cùng nhóm.",
+      "Hương hỏi: \"Tuấn ơi, hôm nay anh mặc gì?\"",
+      "\"Anh mặc bộ vest xanh đậm với áo sơ mi trắng,\" Tuấn nói.",
+      "\"Anh không đeo cà vạt, vì trời nóng quá.\"",
+      "\"Ý hay đấy,\" Hương nói.",
+      "\"Em đang mặc thử một chiếc váy đen, nhưng nó không hợp để đi họp.\"",
+      "Tuấn hỏi: \"Thế còn bộ áo khoác và chân váy xám của em?\"",
+      "\"Ừ, bộ đó đẹp, em đang mặc vào đây,\" cô trả lời.",
+      "Một tiếng sau, hai người gặp nhau ở văn phòng.",
+      "Vị khách, ông Sato, đang ngồi trong phòng họp.",
+      "Ông mặc một bộ vest tối màu và đeo cà vạt đỏ.",
+      "Tuấn nói nhỏ: \"Ông ấy đeo cà vạt, còn anh thì không!\"",
+      "\"Đừng lo, trông anh ổn mà,\" Hương mỉm cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả quần áo mình và người khác đang mặc, dùng thì hiện tại tiếp diễn (I'm wearing …, she is wearing …).",
+    "examples": [
+      {
+        "lemma": "clothes",
+        "sentence": "I buy new clothes every summer.",
+        "meaningVi": "Mùa hè nào mình cũng mua quần áo mới."
+      },
+      {
+        "lemma": "wear",
+        "sentence": "I wear a uniform at school.",
+        "meaningVi": "Ở trường mình mặc đồng phục."
+      },
+      {
+        "lemma": "suit",
+        "sentence": "My dad wears a suit to work.",
+        "meaningVi": "Bố mình mặc vest đi làm."
+      },
+      {
+        "lemma": "shirt",
+        "sentence": "This shirt is very nice.",
+        "meaningVi": "Chiếc áo sơ mi này đẹp lắm."
+      },
+      {
+        "lemma": "tie",
+        "sentence": "He has a blue tie.",
+        "meaningVi": "Anh ấy có một chiếc cà vạt xanh."
+      },
+      {
+        "lemma": "dress",
+        "sentence": "She has a beautiful red dress.",
+        "meaningVi": "Cô ấy có một chiếc váy đỏ rất đẹp."
+      },
+      {
+        "lemma": "jacket",
+        "sentence": "Take your jacket, because it's cold.",
+        "meaningVi": "Mang áo khoác theo nhé, trời lạnh đấy."
+      },
+      {
+        "lemma": "skirt",
+        "sentence": "Her skirt is long and blue.",
+        "meaningVi": "Chân váy của cô ấy dài, màu xanh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huong",
+        "Laura"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Huong, you look nice today! What are you wearing?",
+          "meaningVi": "Hương ơi, hôm nay trông em xinh quá! Em mặc gì thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks! I'm wearing my grey jacket and skirt.",
+          "meaningVi": "Cảm ơn chị! Em mặc bộ áo khoác và chân váy xám."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it for the meeting with Mr Sato?",
+          "meaningVi": "Để đi họp với ông Sato à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. Is he here now?",
+          "meaningVi": "Vâng. Ông ấy đến chưa chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he's sitting in the meeting room. He's drinking tea.",
+          "meaningVi": "Đến rồi, ông ấy đang ngồi trong phòng họp. Ông ấy đang uống trà."
+        },
+        {
+          "speaker": 0,
+          "text": "Is Tuan with him?",
+          "meaningVi": "Tuấn có ở đó không chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Tuan is talking to him, but he isn't wearing a tie!",
+          "meaningVi": "Có. Tuấn đang nói chuyện với ông ấy, nhưng cậu ấy không đeo cà vạt!"
+        },
+        {
+          "speaker": 0,
+          "text": "I know. It's very hot today.",
+          "meaningVi": "Em biết. Hôm nay nóng quá mà."
+        },
+        {
+          "speaker": 1,
+          "text": "Mr Sato is wearing a tie. Are you ready?",
+          "meaningVi": "Ông Sato thì đeo cà vạt đấy. Em sẵn sàng chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I'm ready. Let's go!",
+          "meaningVi": "Rồi ạ. Mình đi thôi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi ai đó đang mặc gì: What are you wearing? Trả lời: I'm wearing my grey jacket. Nói người khác đang làm gì: He's sitting in the meeting room.",
+    "translations": [
+      {
+        "vi": "Hôm nay bạn mặc gì?",
+        "en": "What are you wearing today?",
+        "distractors": [
+          "do",
+          "wear",
+          "is"
+        ]
+      },
+      {
+        "vi": "Tôi đang mặc áo sơ mi trắng.",
+        "en": "I'm wearing a white shirt.",
+        "distractors": [
+          "wear",
+          "is",
+          "shirts"
+        ]
+      },
+      {
+        "vi": "Anh ấy không đeo cà vạt.",
+        "en": "He isn't wearing a tie.",
+        "distractors": [
+          "doesn't",
+          "wear",
+          "not"
+        ]
+      },
+      {
+        "vi": "Cô ấy đang mặc thử một chiếc váy đen.",
+        "en": "She's trying on a black dress.",
+        "distractors": [
+          "try",
+          "tries",
+          "skirt"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Laura và Hương nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi Nhật Bản",
+          "Quần áo và buổi họp với ông Sato",
+          "Đi mua váy mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Laura khen \"What are you wearing?\", rồi hai người nói về buổi họp với ông Sato.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Sato đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Uống trà",
+          "Đọc báo",
+          "Gọi điện thoại"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Laura nói \"He's drinking tea.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đang nói chuyện với ông Sato?",
+        "promptVi": "",
+        "options": [
+          "Laura",
+          "Tuấn",
+          "Hương"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Laura nói \"Tuan is talking to him.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan is wearing a tie.",
+        "promptVi": "Tuấn đang đeo cà vạt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Laura nói \"but he isn't wearing a tie!\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Tuấn, Hương và ông Sato mỗi người mặc gì đi họp?",
+    "grammarStep": {
+      "titleVi": "Hiện tại tiếp diễn",
+      "noticing": [
+        {
+          "sentence": "Huong is standing in her bedroom in Hanoi, and she is looking at her clothes.",
+          "highlights": [
+            "is standing",
+            "is looking"
+          ]
+        },
+        {
+          "sentence": "Huong asks, \"Tuan, what are you wearing today?\"",
+          "highlights": [
+            "are you wearing"
+          ]
+        },
+        {
+          "sentence": "\"I'm not wearing a tie, because it's very hot.\"",
+          "highlights": [
+            "I'm not wearing"
+          ]
+        },
+        {
+          "sentence": "He is wearing a dark suit and a red tie.",
+          "highlights": [
+            "is wearing"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"she is looking\", \"what are you wearing\" mà không viết \"she looks\", \"what do you wear\"?",
+      "options": [
+        "Vì đó là việc đang diễn ra ngay lúc nói",
+        "Vì đó là thói quen hằng ngày",
+        "Vì đó là chuyện đã xảy ra hôm qua"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Hương đang đứng ngắm quần áo, Tuấn đang mặc gì ngay sáng nay: việc diễn ra lúc nói thì dùng am / is / are + V-ing.",
+      "whenVi": "Dùng thì hiện tại tiếp diễn để nói việc đang diễn ra lúc này, ví dụ ai đang mặc gì, đang làm gì.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I'm wearing a suit.",
+          "negative": "I'm not wearing a tie."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "She is looking at her clothes.",
+          "negative": "He isn't wearing a tie."
+        },
+        {
+          "subject": "you / we / they",
+          "form": "What are you wearing?",
+          "negative": "We aren't wearing jackets."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I wearing a white shirt.",
+          "right": "I'm wearing a white shirt."
+        },
+        {
+          "wrong": "What you are wearing?",
+          "right": "What are you wearing?"
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ cần thêm \"đang\" trước động từ, nên người Việt hay quên am / is / are (I wearing) và quên đảo is / are lên trước khi hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại tiếp diễn của động từ trong ngoặc.",
+          "text": "Mr Sato ___ (wear) a red tie.",
+          "answers": [
+            "is wearing",
+            "'s wearing"
+          ],
+          "explanationVi": "Mr Sato là he, nên dùng is + wearing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "What ___ you wearing today?",
+          "options": [
+            "are",
+            "do",
+            "is",
+            "does"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu hỏi thì hiện tại tiếp diễn với you: What are you wearing?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She is look at her clothes.",
+          "sentence": "She is looking at her clothes.",
+          "explanationVi": "Sau is cần động từ thêm -ing: is looking."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ông ấy đang ngồi trong phòng họp.",
+          "sentence": "He is sitting in the meeting room.",
+          "words": [
+            "sitting",
+            "He",
+            "meeting",
+            "is",
+            "the",
+            "in",
+            "room",
+            "sits"
+          ],
+          "explanationVi": "Việc đang diễn ra: is + sitting; từ \"sits\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He is wearing a dark suit and a red tie.",
+        "tipVi": "Suit /sut/ đọc giống \"sút\", không đọc \"su-ít\"; wearing /ˈwɛrɪŋ/ kết thúc bằng /ŋ/."
+      },
+      {
+        "text": "\"I'm not wearing a tie, because it's very hot.\"",
+        "tipVi": "Tie /taɪ/ đọc \"tai\"; because /bɪˈkɔz/ nhấn ở âm thứ hai và kết thúc bằng /z/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you wearing now?",
+        "questionVi": "Bây giờ bạn đang mặc gì?",
+        "frame": "I'm wearing ___ and ___."
+      },
+      {
+        "question": "What do you usually wear to school or work?",
+        "questionVi": "Bạn thường mặc gì đi học hoặc đi làm?",
+        "frame": "I usually wear ___."
+      },
+      {
+        "question": "What is someone in your family wearing today?",
+        "questionVi": "Hôm nay một người trong nhà bạn đang mặc gì?",
+        "frame": "My ___ is wearing ___. He / She isn't wearing ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu thì hiện tại tiếp diễn (am / is / are + V-ing)",
+      "anyOf": [
+        "wearing",
+        "i'm",
+        "is wearing",
+        "are wearing",
+        "she is",
+        "he is"
+      ],
+      "outlineVi": [
+        "Nói bây giờ bạn đang ở đâu và đang mặc gì (I'm wearing …).",
+        "Tả một người bên cạnh đang mặc gì (She is wearing …).",
+        "Nói một thứ người đó không mặc và vì sao (He isn't wearing …, because …)."
+      ],
+      "modelAnswer": "Today is Monday, and I'm at my office. I'm wearing a white shirt, black trousers and black shoes. My friend Nga is sitting next to me. She is wearing a lovely green dress and a grey jacket. Our boss isn't wearing a suit today, because it's very hot."
+    }
+  },
+  "glosses": [
+    {
+      "text": "standing",
+      "lemma": "stand",
+      "meaningVi": "đứng",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "Huong is standing in her bedroom",
+      "phraseVi": "Hương đang đứng trong phòng ngủ"
+    },
+    {
+      "text": "important",
+      "lemma": "important",
+      "meaningVi": "quan trọng",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "an important meeting",
+      "phraseVi": "một buổi họp quan trọng"
+    },
+    {
+      "text": "customer",
+      "lemma": "customer",
+      "meaningVi": "khách hàng",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a customer from Japan",
+      "phraseVi": "một khách hàng đến từ Nhật Bản"
+    },
+    {
+      "text": "dark blue",
+      "lemma": "dark",
+      "meaningVi": "xanh đậm",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "my dark blue suit",
+      "phraseVi": "bộ vest xanh đậm"
+    },
+    {
+      "text": "right for",
+      "lemma": "right",
+      "meaningVi": "hợp với, phù hợp",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "it isn't right for a meeting",
+      "phraseVi": "nó không hợp để đi họp"
+    },
+    {
+      "text": "What about",
+      "lemma": "what about",
+      "meaningVi": "thế còn … thì sao",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "What about your grey jacket and skirt",
+      "phraseVi": "Thế còn bộ áo khoác và chân váy xám"
+    },
+    {
+      "text": "putting them on",
+      "lemma": "put on",
+      "meaningVi": "mặc vào",
+      "sentenceIndex": 10,
+      "pos": "phrasal verb",
+      "phrase": "I'm putting them on now",
+      "phraseVi": "em đang mặc vào đây"
+    },
+    {
+      "text": "meeting room",
+      "lemma": "meeting room",
+      "meaningVi": "phòng họp",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "sitting in the meeting room",
+      "phraseVi": "đang ngồi trong phòng họp"
+    },
+    {
+      "text": "quietly",
+      "lemma": "quietly",
+      "meaningVi": "khẽ, nhỏ nhẹ",
+      "sentenceIndex": 14,
+      "pos": "adverb",
+      "phrase": "Tuan says quietly",
+      "phraseVi": "Tuấn nói nhỏ"
+    },
+    {
+      "text": "look great",
+      "lemma": "look",
+      "meaningVi": "trông ổn, trông đẹp",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "you look great",
+      "phraseVi": "trông anh ổn mà"
+    }
+  ]
+}

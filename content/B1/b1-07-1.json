@@ -1,0 +1,615 @@
+{
+  "content": "It's three o'clock in the afternoon at the Sunrise Hotel in Hoi An. Mai has just arrived from Hanoi with a big suitcase. She walks to the reception desk.\n\nThe receptionist smiles. \"Good afternoon. Welcome to the Sunrise Hotel. How can I help you?\"\nMai says, \"Hi. I'd like to check in, please. I have a reservation under the name Tran Mai.\"\n\"Let me see. Yes, a double room for three nights. You're leaving on Friday, aren't you?\"\n\"That's right. Could you tell me what time breakfast starts?\"\n\"Of course. Breakfast is from half past six to ten in the restaurant on the first floor. It's included in the price.\"\n\"Great. And do you know if the pool is open in the evening?\"\n\"Yes, it's open until nine.\"\n\"Lovely. I asked for a room with a view of the river. That's possible, isn't it?\"\n\"Yes, don't worry. You're in Room 508. It's on the fifth floor, and you can see the river from the balcony.\"\n\"Perfect. Could you tell me where the lift is?\"\n\"It's just behind you, on the left. Here's your key. Can I see your passport, please?\"\nMai gives him her passport. \"One more thing. I wonder if you could recommend a good place for dinner.\"\n\"Sure. Many guests like the small restaurants near the river. The fish there is very fresh.\"\n\"Thank you. You've been very helpful.\"\n\"You're welcome. Enjoy your stay.\"",
+  "targetWords": [
+    "receptionist",
+    "check in",
+    "reservation",
+    "double room",
+    "floor",
+    "include",
+    "balcony",
+    "lift",
+    "passport",
+    "guest"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "receptionist",
+        "lemma": "receptionist",
+        "meaningVi": "nhân viên lễ tân",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "check in",
+        "lemma": "check in",
+        "meaningVi": "nhận phòng, làm thủ tục",
+        "pos": "phrase",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "reservation",
+        "lemma": "reservation",
+        "meaningVi": "sự đặt chỗ, đặt phòng",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "double room",
+        "lemma": "double room",
+        "meaningVi": "phòng đôi (một giường lớn)",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "floor",
+        "lemma": "floor",
+        "meaningVi": "tầng",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "included",
+        "lemma": "include",
+        "meaningVi": "bao gồm",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "balcony",
+        "lemma": "balcony",
+        "meaningVi": "ban công",
+        "pos": "noun",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "lift",
+        "lemma": "lift",
+        "meaningVi": "thang máy",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "passport",
+        "lemma": "passport",
+        "meaningVi": "hộ chiếu",
+        "pos": "noun",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "guests",
+        "lemma": "guest",
+        "meaningVi": "khách (khách sạn)",
+        "pos": "noun",
+        "sentenceIndex": 36
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Mai doing at the hotel?",
+        "promptVi": "Mai đang làm gì ở khách sạn?",
+        "options": [
+          "Checking in and asking about the hotel",
+          "Paying for her room before she leaves",
+          "Looking for a job at the reception desk",
+          "Booking a table for dinner"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai vừa đến, nói \"I'd like to check in\" rồi hỏi về bữa sáng, bể bơi, thang máy."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long is Mai staying?",
+        "promptVi": "Mai ở lại bao lâu?",
+        "options": [
+          "One night",
+          "Two nights",
+          "Three nights",
+          "A week"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lễ tân nói \"a double room for three nights.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can Mai see from her balcony?",
+        "promptVi": "Từ ban công, Mai nhìn thấy gì?",
+        "options": [
+          "The pool",
+          "The river",
+          "The market",
+          "The sea"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lễ tân nói \"you can see the river from the balcony.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai has to pay extra for breakfast.",
+        "promptVi": "Mai phải trả thêm tiền cho bữa sáng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì lễ tân nói \"It's included in the price.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"reservation\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I have a reservation under the name Tran Mai.\"",
+        "options": [
+          "sự đặt phòng trước",
+          "chiếc chìa khoá",
+          "hoá đơn",
+          "tấm vé máy bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Reservation = việc đặt trước (phòng, bàn, vé); under the name … = đứng tên …"
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "bodyVi": "Câu hỏi gián tiếp lịch sự hơn câu hỏi thường: bắt đầu bằng Could you tell me / Do you know / I wonder, rồi đến từ để hỏi (what, where …) hoặc if, sau đó chủ ngữ đứng TRƯỚC động từ: Where is the lift? → Could you tell me where the lift is? Is the pool open? → Do you know if the pool is open? Bài cũng dùng câu hỏi đuôi để xác nhận lại: You're leaving on Friday, aren't you?",
+      "examples": [
+        "Could you tell me what time breakfast starts?\"",
+        "And do you know if the pool is open in the evening?\"",
+        "Could you tell me where the lift is?\""
+      ]
+    },
+    "writingPrompt": "Imagine you are checking in at a hotel. Write a short conversation with the receptionist and use at least two polite questions (Could you tell me …? / Do you know if …?).",
+    "sentenceTranslations": [
+      "Ba giờ chiều ở khách sạn Sunrise tại Hội An.",
+      "Mai vừa từ Hà Nội đến với một chiếc vali to.",
+      "Cô đi đến quầy lễ tân.",
+      "Anh nhân viên lễ tân mỉm cười.",
+      "\"Chào buổi chiều.",
+      "Chào mừng chị đến khách sạn Sunrise.",
+      "Tôi có thể giúp gì cho chị?\"",
+      "Mai nói: \"Chào anh.",
+      "Tôi muốn nhận phòng.",
+      "Tôi có đặt phòng dưới tên Trần Mai.\"",
+      "\"Để tôi xem.",
+      "Vâng, một phòng đôi trong ba đêm.",
+      "Chị trả phòng vào thứ Sáu, phải không ạ?\"",
+      "\"Đúng rồi.",
+      "Anh cho tôi hỏi mấy giờ bắt đầu bữa sáng?\"",
+      "\"Vâng.",
+      "Bữa sáng từ sáu rưỡi đến mười giờ ở nhà hàng tầng một.",
+      "Đã bao gồm trong giá phòng.\"",
+      "\"Tuyệt.",
+      "Còn anh có biết bể bơi có mở cửa buổi tối không?\"",
+      "\"Có, mở đến chín giờ.\"",
+      "\"Hay quá.",
+      "Tôi đã xin một phòng nhìn ra sông.",
+      "Được chứ, phải không anh?\"",
+      "\"Vâng, chị đừng lo.",
+      "Phòng của chị là 508.",
+      "Ở tầng năm, và chị có thể ngắm sông từ ban công.\"",
+      "\"Tuyệt vời.",
+      "Anh cho tôi hỏi thang máy ở đâu?\"",
+      "\"Ngay sau lưng chị, bên trái.",
+      "Đây là chìa khoá của chị.",
+      "Cho tôi xem hộ chiếu của chị được không ạ?\"",
+      "Mai đưa anh hộ chiếu.",
+      "\"Thêm một việc nữa.",
+      "Không biết anh có thể giới thiệu một chỗ ăn tối ngon không.\"",
+      "\"Được chứ.",
+      "Nhiều khách thích những nhà hàng nhỏ gần sông.",
+      "Cá ở đó rất tươi.\"",
+      "\"Cảm ơn anh.",
+      "Anh giúp tôi nhiều lắm.\"",
+      "\"Không có gì.",
+      "Chúc chị nghỉ ngơi vui vẻ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nhận phòng khách sạn và hỏi thông tin lịch sự bằng câu hỏi gián tiếp (Could you tell me …? / Do you know if …?).",
+    "examples": [
+      {
+        "lemma": "receptionist",
+        "sentence": "The receptionist gave me a map of the city.",
+        "meaningVi": "Lễ tân đưa tôi một tấm bản đồ thành phố."
+      },
+      {
+        "lemma": "check in",
+        "sentence": "You can check in after two o'clock.",
+        "meaningVi": "Bạn có thể nhận phòng sau hai giờ."
+      },
+      {
+        "lemma": "reservation",
+        "sentence": "I made a reservation for two nights.",
+        "meaningVi": "Tôi đã đặt phòng hai đêm."
+      },
+      {
+        "lemma": "double room",
+        "sentence": "We'd like a double room, please.",
+        "meaningVi": "Chúng tôi muốn một phòng đôi."
+      },
+      {
+        "lemma": "floor",
+        "sentence": "My office is on the third floor.",
+        "meaningVi": "Văn phòng tôi ở tầng ba."
+      },
+      {
+        "lemma": "include",
+        "sentence": "Does the price include dinner?",
+        "meaningVi": "Giá này có bao gồm bữa tối không?"
+      },
+      {
+        "lemma": "balcony",
+        "sentence": "We had coffee on the balcony.",
+        "meaningVi": "Chúng tôi uống cà phê ngoài ban công."
+      },
+      {
+        "lemma": "lift",
+        "sentence": "The lift isn't working, so take the stairs.",
+        "meaningVi": "Thang máy hỏng rồi, đi cầu thang bộ nhé."
+      },
+      {
+        "lemma": "passport",
+        "sentence": "Don't forget your passport.",
+        "meaningVi": "Đừng quên hộ chiếu nhé."
+      },
+      {
+        "lemma": "guest",
+        "sentence": "Every guest gets a free drink.",
+        "meaningVi": "Mỗi vị khách được một đồ uống miễn phí."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Receptionist"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi, I'm in Room 508. Could you tell me where the gym is?",
+          "meaningVi": "Chào anh, tôi ở phòng 508. Anh cho tôi hỏi phòng tập ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's on the second floor, next to the pool.",
+          "meaningVi": "Ở tầng hai, cạnh bể bơi."
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks. Do you know what time it closes?",
+          "meaningVi": "Cảm ơn anh. Anh có biết mấy giờ nó đóng cửa không?"
+        },
+        {
+          "speaker": 1,
+          "text": "At ten in the evening.",
+          "meaningVi": "Lúc mười giờ tối."
+        },
+        {
+          "speaker": 0,
+          "text": "And I wonder if I can borrow a bike tomorrow.",
+          "meaningVi": "Và không biết mai tôi có mượn được xe đạp không."
+        },
+        {
+          "speaker": 1,
+          "text": "Of course. The bikes are free for guests.",
+          "meaningVi": "Được chứ. Xe đạp miễn phí cho khách."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. You open at seven, don't you?",
+          "meaningVi": "Tuyệt. Các anh mở cửa lúc bảy giờ, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, we do. Just come to this desk.",
+          "meaningVi": "Vâng. Chị cứ đến quầy này."
+        },
+        {
+          "speaker": 0,
+          "text": "Could you tell me how far the beach is?",
+          "meaningVi": "Anh cho tôi hỏi biển cách đây bao xa?"
+        },
+        {
+          "speaker": 1,
+          "text": "About fifteen minutes by bike.",
+          "meaningVi": "Khoảng mười lăm phút đi xe đạp."
+        }
+      ]
+    },
+    "grammarTipVi": "Sau Could you tell me / Do you know + từ để hỏi, chủ ngữ đứng trước động từ: where the gym is (không phải where is the gym), what time it closes (không phải what time does it close). Câu hỏi Yes / No thì dùng if: I wonder if I can borrow a bike.",
+    "translations": [
+      {
+        "vi": "Anh cho tôi hỏi thang máy ở đâu?",
+        "en": "Could you tell me where the lift is?",
+        "distractors": [
+          "does",
+          "what",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bạn có biết bữa sáng có bao gồm không?",
+        "en": "Do you know if breakfast is included?",
+        "distractors": [
+          "does",
+          "what",
+          "includes"
+        ]
+      },
+      {
+        "vi": "Phòng đôi ở tầng năm, phải không?",
+        "en": "The double room is on the fifth floor, isn't it?",
+        "distractors": [
+          "doesn't",
+          "are",
+          "they"
+        ]
+      },
+      {
+        "vi": "Không biết tôi có thể nhận phòng sớm không.",
+        "en": "I wonder if I can check in early.",
+        "distractors": [
+          "what",
+          "late",
+          "do"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai hỏi lễ tân về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Phòng tập, xe đạp và bãi biển",
+          "Giá phòng và bữa sáng",
+          "Chuyến bay về Hà Nội"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai hỏi phòng tập ở đâu, có mượn được xe đạp không và biển cách bao xa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phòng tập đóng cửa lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Chín giờ tối",
+          "Mười giờ tối",
+          "Mười một giờ tối"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lễ tân nói \"At ten in the evening.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Từ khách sạn đến biển mất bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Năm phút đi bộ",
+          "Mười lăm phút đi xe đạp",
+          "Nửa tiếng đi taxi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lễ tân nói \"About fifteen minutes by bike.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Guests have to pay for the bikes.",
+        "promptVi": "Khách phải trả tiền thuê xe đạp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì lễ tân nói \"The bikes are free for guests.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mai hỏi lễ tân những gì, và cô hỏi bằng cách nào cho lịch sự?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "noticing": [
+        {
+          "sentence": "Could you tell me what time breakfast starts?\"",
+          "highlights": [
+            "Could you tell me",
+            "what time breakfast starts"
+          ]
+        },
+        {
+          "sentence": "And do you know if the pool is open in the evening?\"",
+          "highlights": [
+            "do you know if",
+            "the pool is"
+          ]
+        },
+        {
+          "sentence": "Could you tell me where the lift is?\"",
+          "highlights": [
+            "where the lift is"
+          ]
+        },
+        {
+          "sentence": "I wonder if you could recommend a good place for dinner.\"",
+          "highlights": [
+            "I wonder if"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao viết \"Could you tell me where the lift is?\" mà không viết \"where is the lift\"?",
+      "options": [
+        "Vì trong câu hỏi gián tiếp, chủ ngữ đứng trước động từ.",
+        "Vì lift là danh từ số nhiều.",
+        "Vì câu ở thì quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Sau Could you tell me + từ để hỏi, câu theo trật tự câu kể: where + the lift (chủ ngữ) + is (động từ).",
+      "whenVi": "Dùng câu hỏi gián tiếp khi muốn hỏi lịch sự, nhất là với người lạ: lễ tân, nhân viên sân bay, người đi đường.",
+      "table": [
+        {
+          "subject": "Có từ để hỏi",
+          "form": "Could you tell me + where / what / when + chủ ngữ + động từ",
+          "negative": "Could you tell me where the lift is?"
+        },
+        {
+          "subject": "Câu hỏi Yes / No",
+          "form": "Do you know + if + chủ ngữ + động từ",
+          "negative": "Do you know if the pool is open?"
+        },
+        {
+          "subject": "Không dùng do / does / did",
+          "form": "What time does breakfast start? → … what time breakfast starts",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Could you tell me where is the lift?",
+          "right": "Could you tell me where the lift is?"
+        },
+        {
+          "wrong": "Do you know what time does breakfast start?",
+          "right": "Do you know what time breakfast starts?"
+        }
+      ],
+      "noteVi": "Câu bắt đầu bằng I wonder … không phải câu hỏi nên kết thúc bằng dấu chấm: I wonder if you could recommend a good place.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ để hoàn thành câu hỏi gián tiếp.",
+          "text": "Do you know ___ the pool is open in the evening?",
+          "answers": [
+            "if"
+          ],
+          "explanationVi": "Câu hỏi Yes / No (Is the pool open?) chuyển thành if."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Could you tell me ___?",
+          "options": [
+            "where the lift is",
+            "where is the lift",
+            "where does the lift",
+            "the lift where is"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Từ để hỏi + chủ ngữ + động từ: where the lift is."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Could you tell me what time does breakfast start?",
+          "sentence": "Could you tell me what time breakfast starts?",
+          "explanationVi": "Câu hỏi gián tiếp không dùng does: what time breakfast starts."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh cho tôi hỏi mấy giờ bữa sáng bắt đầu?",
+          "sentence": "Could you tell me what time breakfast starts?",
+          "words": [
+            "tell",
+            "Could",
+            "you",
+            "me",
+            "what",
+            "time",
+            "breakfast",
+            "starts?",
+            "does"
+          ],
+          "explanationVi": "Không dùng does trong câu hỏi gián tiếp; từ \"does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Could you tell me where the lift is?\"",
+        "tipVi": "Nối \"tell me\" và \"lift is\"; xuống giọng nhẹ ở cuối."
+      },
+      {
+        "text": "You're leaving on Friday, aren't you?\"",
+        "tipVi": "Câu hỏi đuôi để xác nhận: xuống giọng ở \"aren't you\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you usually ask when you check in at a hotel?",
+        "questionVi": "Bạn thường hỏi gì khi nhận phòng khách sạn?",
+        "frame": "I usually ask the receptionist where ___ / what time ___."
+      },
+      {
+        "question": "Do you prefer a room with a balcony or a room on a high floor? Why?",
+        "questionVi": "Bạn thích phòng có ban công hay phòng ở tầng cao? Vì sao?",
+        "frame": "I prefer ___ because ___."
+      },
+      {
+        "question": "Ask politely: where is the nearest bank?",
+        "questionVi": "Hãy hỏi lịch sự: ngân hàng gần nhất ở đâu?",
+        "frame": "Could you tell me where ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi gián tiếp (Could you tell me … / Do you know … / I wonder …)",
+      "anyOf": [
+        "tell me",
+        "do you know",
+        "wonder",
+        "like to know"
+      ],
+      "outlineVi": [
+        "Chào lễ tân và nói bạn muốn nhận phòng.",
+        "Hỏi lịch sự về bữa sáng, thang máy hoặc bể bơi (Could you tell me … ?).",
+        "Xác nhận lại thông tin đặt phòng (…, isn't it?) và cảm ơn."
+      ],
+      "modelAnswer": "Me: Good evening. I'd like to check in, please. My name is Nam. Receptionist: Welcome, Mr Nam. A single room for two nights, isn't it? Me: Yes. Could you tell me what time breakfast starts? Receptionist: At six. It's included in the price. Me: Great. And do you know if there is a shop near the hotel? Receptionist: Yes, there's one across the street."
+    }
+  },
+  "glosses": [
+    {
+      "text": "under the name",
+      "lemma": "under the name",
+      "meaningVi": "đứng tên",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "a reservation under the name Tran Mai",
+      "phraseVi": "đặt phòng dưới tên Trần Mai"
+    },
+    {
+      "text": "aren't you",
+      "lemma": "aren't you",
+      "meaningVi": "phải không (câu hỏi đuôi)",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "You're leaving on Friday, aren't you?",
+      "phraseVi": "Chị trả phòng vào thứ Sáu, phải không ạ?"
+    },
+    {
+      "text": "view",
+      "lemma": "view",
+      "meaningVi": "tầm nhìn, cảnh",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "a room with a view of the river",
+      "phraseVi": "một phòng nhìn ra sông"
+    },
+    {
+      "text": "I wonder if",
+      "lemma": "wonder",
+      "meaningVi": "không biết liệu",
+      "sentenceIndex": 34,
+      "pos": "phrase",
+      "phrase": "I wonder if you could recommend",
+      "phraseVi": "Không biết anh có thể giới thiệu"
+    },
+    {
+      "text": "Enjoy your stay",
+      "lemma": "enjoy your stay",
+      "meaningVi": "chúc nghỉ ngơi vui vẻ",
+      "sentenceIndex": 41,
+      "pos": "phrase",
+      "phrase": "Enjoy your stay.",
+      "phraseVi": "Chúc chị nghỉ ngơi vui vẻ."
+    }
+  ]
+}

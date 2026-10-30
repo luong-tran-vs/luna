@@ -1,0 +1,612 @@
+{
+  "content": "Phuc and Ben are big fans of action films. Last night, they watched Fast Road, a film which has the best car chase of the year.\n\nBen asks, \"Did you see the scene on the bridge? The car jumps over a boat!\"\nPhuc says, \"I watched it twice. It can't be real. They must use a computer for that part.\"\n\"I don't think so. I read an interview with the driver who did it. His name is Kim, and he's a special driver from Korea.\"\n\"A real driver? He must be crazy!\"\nBen laughs. \"He might be a little crazy. But he's the best driver who works in films today. He's done this job for twenty years.\"\n\"Wow. What about the fire at the end? That must be from a computer.\"\n\"Some of it could be. But the fire which you see behind the car is real. They used a part of the road where nobody lives.\"\n\"How do you know so much?\"\n\"There's a short film about the making of the movie. It shows the place where they filmed the bridge scene.\"\n\"I must watch it. Is it on the internet?\"\n\"Yes. You can find it on the film's website.\"\n\"The actors must be happy. They don't have to do the dangerous parts themselves.\"\n\"Exactly. People who see the film might never know the driver's name.\"\nPhuc says, \"That's a pity. He should be famous too.\"",
+  "targetWords": [
+    "fan",
+    "action",
+    "chase",
+    "jump",
+    "driver",
+    "crazy",
+    "fire",
+    "behind",
+    "dangerous",
+    "famous"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "fans",
+        "lemma": "fan",
+        "meaningVi": "người hâm mộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "action",
+        "lemma": "action",
+        "meaningVi": "hành động",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "chase",
+        "lemma": "chase",
+        "meaningVi": "cuộc rượt đuổi",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "jumps",
+        "lemma": "jump",
+        "meaningVi": "nhảy, bay qua",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "driver",
+        "lemma": "driver",
+        "meaningVi": "người lái xe",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "crazy",
+        "lemma": "crazy",
+        "meaningVi": "điên",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "fire",
+        "lemma": "fire",
+        "meaningVi": "lửa, đám cháy",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "behind",
+        "lemma": "behind",
+        "meaningVi": "phía sau",
+        "pos": "preposition",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "dangerous",
+        "lemma": "dangerous",
+        "meaningVi": "nguy hiểm",
+        "pos": "adjective",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "famous",
+        "lemma": "famous",
+        "meaningVi": "nổi tiếng",
+        "pos": "adjective",
+        "sentenceIndex": 34
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Phuc and Ben mainly talking about?",
+        "promptVi": "Phúc và Ben chủ yếu nói về điều gì?",
+        "options": [
+          "How the dangerous scenes in an action film were made",
+          "Buying a new car",
+          "A trip to Korea",
+          "Their favourite actors"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người đoán xem các cảnh nguy hiểm trong phim Fast Road là thật hay làm bằng máy tính."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the special driver from?",
+        "promptVi": "Người lái xe đặc biệt đến từ đâu?",
+        "options": [
+          "Vietnam",
+          "Korea",
+          "Japan",
+          "America"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ben nói \"he's a special driver from Korea.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How does Ben know so much about the film?",
+        "promptVi": "Vì sao Ben biết nhiều về bộ phim như vậy?",
+        "options": [
+          "He was in the film.",
+          "He knows the director.",
+          "He watched a short film about how they made it.",
+          "He works at a cinema."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ben nói \"There's a short film about the making of the movie.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The actors did all the dangerous parts themselves.",
+        "promptVi": "Các diễn viên tự đóng tất cả các cảnh nguy hiểm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phúc nói \"They don't have to do the dangerous parts themselves.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"chase\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Last night, they watched Fast Road, a film which has the best car chase of the year.",
+        "options": [
+          "cuộc rượt đuổi",
+          "cuộc đua xe",
+          "tai nạn",
+          "bãi đỗ xe"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Car chase = cảnh rượt đuổi bằng ô tô."
+      }
+    ],
+    "grammarNote": {
+      "title": "Might / must / can't (khả năng và suy đoán)",
+      "bodyVi": "Đoán điều gì đó ở hiện tại: must + động từ (gần như chắc chắn): He must be crazy, That must be from a computer, The actors must be happy. Can't + động từ (chắc chắn không): It can't be real. Might / could + động từ (có thể): He might be a little crazy, Some of it could be. Chú ý: \"I must watch it\" ở đây nghĩa là \"mình phải xem\" (bắt buộc), không phải đoán.",
+      "examples": [
+        "It can't be real.",
+        "They must use a computer for that part.\"",
+        "\"He might be a little crazy."
+      ]
+    },
+    "writingPrompt": "Write about a surprising scene in a film you have seen: how do you think they made it? Use must, might and can't.",
+    "sentenceTranslations": [
+      "Phúc và Ben rất mê phim hành động.",
+      "Tối qua, họ xem Fast Road, bộ phim có cảnh rượt đuổi bằng ô tô hay nhất năm.",
+      "Ben hỏi: \"Cậu có xem cảnh trên cầu không?",
+      "Chiếc xe bay qua một con thuyền!\"",
+      "Phúc nói: \"Mình xem hai lần rồi.",
+      "Không thể là thật được.",
+      "Chắc chắn họ dùng máy tính cho đoạn đó.\"",
+      "\"Mình không nghĩ thế.",
+      "Mình đọc một bài phỏng vấn người lái xe đã làm cảnh đó.",
+      "Anh ấy tên là Kim, là một tay lái đặc biệt đến từ Hàn Quốc.\"",
+      "\"Một người lái thật á?",
+      "Chắc anh ấy điên rồi!\"",
+      "Ben cười.",
+      "\"Có thể hơi điên một chút.",
+      "Nhưng anh ấy là tay lái giỏi nhất đang làm trong ngành phim bây giờ.",
+      "Anh ấy làm nghề này hai mươi năm rồi.\"",
+      "\"Chà.",
+      "Thế còn đám cháy ở cuối phim?",
+      "Chắc chắn là làm bằng máy tính.\"",
+      "\"Một phần thì có thể.",
+      "Nhưng ngọn lửa cậu thấy phía sau chiếc xe là thật.",
+      "Họ dùng một đoạn đường không có ai sống.\"",
+      "\"Sao cậu biết nhiều thế?\"",
+      "\"Có một phim ngắn về quá trình làm bộ phim.",
+      "Phim đó cho thấy nơi họ quay cảnh trên cầu.\"",
+      "\"Mình phải xem mới được.",
+      "Có trên mạng không?\"",
+      "\"Có.",
+      "Cậu tìm trên trang web của bộ phim.\"",
+      "\"Các diễn viên chắc vui lắm.",
+      "Họ không phải tự đóng những cảnh nguy hiểm.\"",
+      "\"Chính xác.",
+      "Những người xem phim có thể không bao giờ biết tên người lái xe.\"",
+      "Phúc nói: \"Tiếc thật.",
+      "Anh ấy cũng nên được nổi tiếng chứ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đoán cách người ta làm một cảnh phim bằng must / might / could / can't, kèm mệnh đề quan hệ.",
+    "examples": [
+      {
+        "lemma": "fan",
+        "sentence": "She is a big fan of Korean films.",
+        "meaningVi": "Cô ấy rất mê phim Hàn."
+      },
+      {
+        "lemma": "action",
+        "sentence": "I like films with a lot of action.",
+        "meaningVi": "Tôi thích phim có nhiều cảnh hành động."
+      },
+      {
+        "lemma": "chase",
+        "sentence": "The film starts with a long chase.",
+        "meaningVi": "Bộ phim mở đầu bằng một cuộc rượt đuổi dài."
+      },
+      {
+        "lemma": "jump",
+        "sentence": "Can you jump over the wall?",
+        "meaningVi": "Bạn nhảy qua bức tường được không?"
+      },
+      {
+        "lemma": "driver",
+        "sentence": "The bus driver stopped the bus.",
+        "meaningVi": "Bác tài dừng xe buýt lại."
+      },
+      {
+        "lemma": "crazy",
+        "sentence": "That idea is crazy!",
+        "meaningVi": "Ý tưởng đó thật điên rồ!"
+      },
+      {
+        "lemma": "fire",
+        "sentence": "We sat around the fire.",
+        "meaningVi": "Chúng tôi ngồi quanh đống lửa."
+      },
+      {
+        "lemma": "behind",
+        "sentence": "The garden is behind the house.",
+        "meaningVi": "Khu vườn ở phía sau ngôi nhà."
+      },
+      {
+        "lemma": "dangerous",
+        "sentence": "Swimming here is dangerous.",
+        "meaningVi": "Bơi ở đây rất nguy hiểm."
+      },
+      {
+        "lemma": "famous",
+        "sentence": "Hoi An is famous for its lanterns.",
+        "meaningVi": "Hội An nổi tiếng với đèn lồng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ben",
+        "Lan"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ben, have you seen Fast Road?",
+          "meaningVi": "Ben ơi, cậu xem Fast Road chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! The car chase on the bridge is amazing.",
+          "meaningVi": "Rồi! Cảnh rượt đuổi trên cầu tuyệt lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it real? It can't be real!",
+          "meaningVi": "Có thật không? Không thể là thật được!"
+        },
+        {
+          "speaker": 0,
+          "text": "It is. A special driver did it.",
+          "meaningVi": "Thật đấy. Một tay lái đặc biệt làm cảnh đó."
+        },
+        {
+          "speaker": 1,
+          "text": "He must be very brave.",
+          "meaningVi": "Anh ấy chắc chắn rất dũng cảm."
+        },
+        {
+          "speaker": 0,
+          "text": "He is. He's done dangerous scenes for twenty years.",
+          "meaningVi": "Đúng vậy. Anh ấy đã làm cảnh nguy hiểm hai mươi năm rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "What about the fire? Could it be from a computer?",
+          "meaningVi": "Còn đám cháy? Có thể làm bằng máy tính không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Some of it might be, but most of it is real.",
+          "meaningVi": "Một phần có thể, nhưng phần lớn là thật."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow. I must watch that film this weekend.",
+          "meaningVi": "Chà. Cuối tuần này mình phải xem phim đó mới được."
+        },
+        {
+          "speaker": 0,
+          "text": "You should. It's the best action film this year.",
+          "meaningVi": "Nên xem đấy. Đó là phim hành động hay nhất năm nay."
+        }
+      ]
+    },
+    "grammarTipVi": "Đoán: It can't be real! He must be very brave. Could it be from a computer? Some of it might be. Bắt buộc: I must watch that film.",
+    "translations": [
+      {
+        "vi": "Không thể là thật được. Chiếc xe bay qua một con thuyền!",
+        "en": "It can't be real. The car jumps over a boat!",
+        "distractors": [
+          "must",
+          "might",
+          "isn't"
+        ]
+      },
+      {
+        "vi": "Chắc anh ấy là người lái xe giỏi nhất trong ngành phim.",
+        "en": "He must be the best driver in films.",
+        "distractors": [
+          "can't",
+          "might",
+          "is"
+        ]
+      },
+      {
+        "vi": "Có thể đám cháy là làm bằng máy tính.",
+        "en": "The fire might be from a computer.",
+        "distractors": [
+          "must",
+          "can't",
+          "is"
+        ]
+      },
+      {
+        "vi": "Các diễn viên chắc vui lắm. Những cảnh đó nguy hiểm.",
+        "en": "The actors must be happy. The scenes are dangerous.",
+        "distractors": [
+          "can't",
+          "might",
+          "are being"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Ben nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Phim Fast Road và các cảnh nguy hiểm",
+          "Một cây cầu mới",
+          "Một khoá học lái xe"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan hỏi \"have you seen Fast Road?\" và họ nói về cảnh rượt đuổi, đám cháy.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai làm cảnh rượt đuổi trên cầu?",
+        "promptVi": "",
+        "options": [
+          "Diễn viên chính",
+          "Một tay lái đặc biệt",
+          "Máy tính"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ben nói \"A special driver did it.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan định làm gì cuối tuần này?",
+        "promptVi": "",
+        "options": [
+          "Đi lái xe",
+          "Đọc bài phỏng vấn",
+          "Xem phim Fast Road"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"I must watch that film this weekend.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ben says all of the fire is from a computer.",
+        "promptVi": "Ben nói toàn bộ đám cháy làm bằng máy tính.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ben nói \"most of it is real.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Phúc và Ben đoán những cảnh nào là thật, cảnh nào làm bằng máy tính?",
+    "grammarStep": {
+      "titleVi": "Might / must / can't (khả năng và suy đoán)",
+      "noticing": [
+        {
+          "sentence": "It can't be real.",
+          "highlights": [
+            "can't be"
+          ]
+        },
+        {
+          "sentence": "They must use a computer for that part.\"",
+          "highlights": [
+            "must use"
+          ]
+        },
+        {
+          "sentence": "\"He might be a little crazy.",
+          "highlights": [
+            "might be"
+          ]
+        },
+        {
+          "sentence": "\"Some of it could be.",
+          "highlights": [
+            "could be"
+          ]
+        }
+      ],
+      "questionVi": "\"I must watch it\" có phải là câu đoán không?",
+      "options": [
+        "Không, ở đây must nghĩa là \"phải\" (bắt buộc, rất muốn).",
+        "Có, Phúc đoán là mình đã xem.",
+        "Có, nghĩa là có thể mình sẽ xem."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Must có hai nghĩa: đoán chắc chắn (He must be crazy) và phải làm gì (I must watch it). Dựa vào ngữ cảnh để hiểu.",
+      "whenVi": "Dùng must / can't / might / could để nói mức độ chắc chắn khi đoán về hiện tại.",
+      "table": [
+        {
+          "subject": "must (≈ 90%)",
+          "form": "He must be crazy.",
+          "negative": "—"
+        },
+        {
+          "subject": "might / could (≈ 50%)",
+          "form": "He might be a little crazy.",
+          "negative": "It might not be real."
+        },
+        {
+          "subject": "can't (≈ 0%)",
+          "form": "It can't be real.",
+          "negative": "—"
+        },
+        {
+          "subject": "must = phải",
+          "form": "I must watch it.",
+          "negative": "(không phải đoán)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It mustn't be real. A car can't fly.",
+          "right": "It can't be real. A car can't fly."
+        },
+        {
+          "wrong": "He might is a little crazy.",
+          "right": "He might be a little crazy."
+        }
+      ],
+      "noteVi": "Might not (có thể không) khác can't (chắc chắn không): It might not be real (không chắc) / It can't be real (chắc chắn không thật).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền must, might hoặc can't.",
+          "text": "A car can't fly over a boat. That ___ be real.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Chắc chắn không thể: can't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "He has done this job for twenty years. He ___ be very good.",
+          "options": [
+            "can't",
+            "must",
+            "mustn't",
+            "might not"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Có lý do rõ ràng → gần như chắc chắn: must."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The fire could to be from a computer.",
+          "sentence": "The fire could be from a computer.",
+          "explanationVi": "Sau could không có to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chắc anh ấy điên rồi!",
+          "sentence": "He must be crazy!",
+          "words": [
+            "must",
+            "He",
+            "be",
+            "crazy!",
+            "to"
+          ],
+          "explanationVi": "Must + be; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It can't be real.",
+        "tipVi": "Can't /kɑːnt/ dài và rõ /t/; real /rɪəl/."
+      },
+      {
+        "text": "\"He might be a little crazy.",
+        "tipVi": "Might be nối /maɪtbi/; crazy /ˈkreɪzi/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is the best action film that you have seen?",
+        "questionVi": "Bộ phim hành động hay nhất bạn từng xem là phim gì?",
+        "frame": "The best action film that I have seen is ___."
+      },
+      {
+        "question": "Look at a famous film scene. How do you think they made it?",
+        "questionVi": "Hãy nghĩ về một cảnh phim nổi tiếng. Bạn đoán họ làm nó thế nào?",
+        "frame": "They must / might ___. It can't ___."
+      },
+      {
+        "question": "Who is your favourite actor? Why might he or she be so popular?",
+        "questionVi": "Diễn viên bạn thích nhất là ai? Vì sao người đó có thể được yêu thích đến vậy?",
+        "frame": "My favourite actor is ___. He / She might be popular because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng must / might / could / can't để đoán",
+      "anyOf": [
+        "must be",
+        "might be",
+        "could be",
+        "can't be",
+        "must use",
+        "might use",
+        "must have",
+        "might not"
+      ],
+      "outlineVi": [
+        "Bộ phim và cảnh phim đáng ngạc nhiên.",
+        "Bạn đoán họ làm cảnh đó thế nào (They must / might …).",
+        "Điều gì không thể là thật (It can't be …)."
+      ],
+      "modelAnswer": "In the film Big Wave, there is a scene where a man surfs on a huge wave in the middle of a storm. It can't be real, because the wave is as tall as a building. They must use a computer for the wave. But the man on the board might be a real surfer. He must be very brave. I want to watch that scene again."
+    }
+  },
+  "glosses": [
+    {
+      "text": "twice",
+      "lemma": "twice",
+      "meaningVi": "hai lần",
+      "sentenceIndex": 4,
+      "pos": "adverb",
+      "phrase": "I watched it twice.",
+      "phraseVi": "Mình xem hai lần rồi."
+    },
+    {
+      "text": "interview",
+      "lemma": "interview",
+      "meaningVi": "bài phỏng vấn",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "an interview with the driver",
+      "phraseVi": "một bài phỏng vấn người lái xe"
+    },
+    {
+      "text": "the making of",
+      "lemma": "making",
+      "meaningVi": "quá trình làm (phim)",
+      "sentenceIndex": 23,
+      "pos": "phrase",
+      "phrase": "the making of the movie",
+      "phraseVi": "quá trình làm bộ phim"
+    },
+    {
+      "text": "themselves",
+      "lemma": "themselves",
+      "meaningVi": "tự họ",
+      "sentenceIndex": 30,
+      "pos": "pronoun",
+      "phrase": "do the dangerous parts themselves",
+      "phraseVi": "tự đóng những cảnh nguy hiểm"
+    },
+    {
+      "text": "pity",
+      "lemma": "pity",
+      "meaningVi": "điều đáng tiếc",
+      "sentenceIndex": 33,
+      "pos": "noun",
+      "phrase": "That's a pity.",
+      "phraseVi": "Tiếc thật."
+    }
+  ]
+}

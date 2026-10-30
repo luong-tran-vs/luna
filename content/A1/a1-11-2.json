@@ -1,0 +1,598 @@
+{
+  "content": "On Friday, Miss Thanh takes our class to the zoo. We go there by bus, and everyone is very happy.\n\nFirst, we see the monkeys. They are very funny! They can climb trees, and they can jump from tree to tree.\n\nThen we visit the tigers and the lions. A big tiger sleeps under a tree. Tigers can run fast, and they can swim too! Linh asks, \"Can lions swim?\"\n\"Not very well,\" says Miss Thanh.\n\nAfter that, we see a long snake. It can't walk, but it can move very fast. Linh doesn't like snakes, so she stands behind me!\n\nMy favourite animals are the birds. They are red, blue and yellow, and they can fly and sing. At four o'clock, we go home. What a great day!",
+  "targetWords": [
+    "zoo",
+    "monkey",
+    "tiger",
+    "lion",
+    "snake",
+    "animal",
+    "bird",
+    "fly"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "zoo",
+        "lemma": "zoo",
+        "meaningVi": "sở thú, vườn thú",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "monkeys",
+        "lemma": "monkey",
+        "meaningVi": "con khỉ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "tigers",
+        "lemma": "tiger",
+        "meaningVi": "con hổ",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "lions",
+        "lemma": "lion",
+        "meaningVi": "con sư tử",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "snake",
+        "lemma": "snake",
+        "meaningVi": "con rắn",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "con vật, động vật",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "birds",
+        "lemma": "bird",
+        "meaningVi": "con chim",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "fly",
+        "lemma": "fly",
+        "meaningVi": "bay",
+        "pos": "verb",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan's pet at home",
+          "A class trip to the zoo",
+          "Miss Thanh's English lesson",
+          "A bus trip to Hue"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cô Thanh đưa lớp Lan đi sở thú: các bạn xem khỉ, hổ, sư tử, rắn, chim, và biết mỗi con làm được gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can the monkeys do?",
+        "promptVi": "Những con khỉ làm được gì?",
+        "options": [
+          "They can swim.",
+          "They can fly.",
+          "They can jump from tree to tree.",
+          "They can sing."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan viết \"They can climb trees, and they can jump from tree to tree\": khỉ trèo cây và nhảy từ cây này sang cây khác."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Linh stand behind Lan?",
+        "promptVi": "Vì sao Linh đứng nấp sau lưng Lan?",
+        "options": [
+          "She doesn't like snakes.",
+          "She is cold.",
+          "She wants to see the birds.",
+          "She is very tired."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Linh doesn't like snakes, so she stands behind me!\": Linh không thích rắn nên nấp sau Lan."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The birds eat bananas.",
+        "promptVi": "Những con chim ăn chuối.",
+        "options": [],
+        "answerIndex": 2,
+        "explanationVi": "Không có thông tin: bài chỉ nói chim có màu đỏ, xanh, vàng, bay và hót được, không nói chúng ăn gì."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"move\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It can't walk, but it can move very fast.",
+        "options": [
+          "chuyển nhà",
+          "nhảy lên",
+          "bơi",
+          "di chuyển, bò"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ở đây move là di chuyển: con rắn không có chân nên không đi được, nhưng bò đi rất nhanh. Move còn có nghĩa \"chuyển nhà\" nhưng không hợp với câu này."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't (khả năng)",
+      "bodyVi": "Can + động từ nói con vật làm được gì: they can climb trees. Can't + động từ nói không làm được: it can't walk. Muốn hỏi, đưa can lên đầu câu, trước con vật: Can lions swim? Trả lời ngắn: Yes, they can. / No, they can't. Động từ sau can luôn giữ nguyên.",
+      "examples": [
+        "They can climb trees, and they can jump from tree to tree.",
+        "Tigers can run fast, and they can swim too!",
+        "It can't walk, but it can move very fast."
+      ]
+    },
+    "writingPrompt": "Write about a trip to the zoo: the animals you see and what they can and can't do.",
+    "sentenceTranslations": [
+      "Thứ Sáu, cô Thanh đưa lớp mình đi sở thú.",
+      "Cả lớp đi bằng xe buýt, và ai cũng rất vui.",
+      "Đầu tiên, bọn mình xem những con khỉ.",
+      "Chúng buồn cười lắm!",
+      "Chúng trèo cây được, và nhảy được từ cây này sang cây khác.",
+      "Sau đó bọn mình đến xem hổ và sư tử.",
+      "Một con hổ to nằm ngủ dưới gốc cây.",
+      "Hổ chạy nhanh, mà còn bơi được nữa!",
+      "Linh hỏi: \"Sư tử có bơi được không ạ?\"",
+      "\"Không giỏi lắm đâu,\" cô Thanh nói.",
+      "Sau đó, bọn mình xem một con rắn dài.",
+      "Nó không đi được, nhưng bò rất nhanh.",
+      "Linh không thích rắn, nên bạn ấy đứng nấp sau lưng mình!",
+      "Những con vật mình thích nhất là chim.",
+      "Chúng có màu đỏ, xanh và vàng, và chúng vừa bay được vừa hót được.",
+      "Bốn giờ, cả lớp về nhà.",
+      "Thật là một ngày tuyệt vời!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về các con vật ở sở thú, nói chúng làm được gì, không làm được gì và hỏi bằng Can …?",
+    "examples": [
+      {
+        "lemma": "zoo",
+        "sentence": "We go to the zoo on Friday.",
+        "meaningVi": "Thứ Sáu bọn mình đi sở thú."
+      },
+      {
+        "lemma": "monkey",
+        "sentence": "The monkey eats a banana.",
+        "meaningVi": "Con khỉ ăn một quả chuối."
+      },
+      {
+        "lemma": "tiger",
+        "sentence": "A tiger can run fast.",
+        "meaningVi": "Con hổ chạy được rất nhanh."
+      },
+      {
+        "lemma": "lion",
+        "sentence": "The lion is big and strong.",
+        "meaningVi": "Con sư tử to và khoẻ."
+      },
+      {
+        "lemma": "snake",
+        "sentence": "I can see a snake!",
+        "meaningVi": "Mình nhìn thấy một con rắn!"
+      },
+      {
+        "lemma": "animal",
+        "sentence": "What is your favourite animal?",
+        "meaningVi": "Con vật bạn thích nhất là con gì?"
+      },
+      {
+        "lemma": "bird",
+        "sentence": "A bird can fly and sing.",
+        "meaningVi": "Chim bay được và hót được."
+      },
+      {
+        "lemma": "fly",
+        "sentence": "Birds can fly high.",
+        "meaningVi": "Chim bay được rất cao."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, do you like the zoo?",
+          "meaningVi": "Minh ơi, cậu có thích sở thú không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do! I love the monkeys. They can climb very well.",
+          "meaningVi": "Có chứ! Mình rất thích mấy con khỉ. Chúng trèo giỏi lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "What's your favourite animal?",
+          "meaningVi": "Con vật cậu thích nhất là con gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "The tiger. It's big and strong. And you?",
+          "meaningVi": "Con hổ. Nó to và khoẻ. Còn cậu?"
+        },
+        {
+          "speaker": 1,
+          "text": "I love birds, because they can fly.",
+          "meaningVi": "Mình thích chim, vì chúng bay được."
+        },
+        {
+          "speaker": 0,
+          "text": "Can you see birds in London?",
+          "meaningVi": "Ở London cậu có thấy chim không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, in the parks. But I can't see tigers there!",
+          "meaningVi": "Có, trong các công viên. Nhưng ở đó thì không thấy hổ đâu!"
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! Can tigers swim?",
+          "meaningVi": "Ha! Hổ có bơi được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they can. They like water.",
+          "meaningVi": "Có. Chúng thích nước."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? I can't swim very well!",
+          "meaningVi": "Thật à? Mình còn bơi không giỏi nữa là!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi con vật làm được gì: Can tigers swim? Trả lời ngắn: Yes, they can. / No, they can't.",
+    "translations": [
+      {
+        "vi": "Những con khỉ có thể trèo cây.",
+        "en": "The monkeys can climb trees.",
+        "distractors": [
+          "climbs",
+          "can't",
+          "monkey"
+        ]
+      },
+      {
+        "vi": "Hổ bơi được.",
+        "en": "Tigers can swim.",
+        "distractors": [
+          "swims",
+          "can't",
+          "tiger"
+        ]
+      },
+      {
+        "vi": "Con rắn không đi được, nhưng nó di chuyển rất nhanh.",
+        "en": "The snake can't walk, but it can move very fast.",
+        "distractors": [
+          "walks",
+          "slow",
+          "and"
+        ]
+      },
+      {
+        "vi": "Những con vật tôi thích nhất là chim.",
+        "en": "My favourite animals are the birds.",
+        "distractors": [
+          "is",
+          "bird",
+          "animal"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và Anna nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuyến đi London của Anna",
+          "Những con vật hai bạn thích ở sở thú",
+          "Bài tập về nhà"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna hỏi \"do you like the zoo?\" và \"What's your favourite animal?\", rồi hai bạn nói về khỉ, hổ và chim.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con vật Minh thích nhất là con gì?",
+        "promptVi": "",
+        "options": [
+          "Con khỉ",
+          "Con hổ",
+          "Con chim"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"The tiger. It's big and strong.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Anna thích chim?",
+        "promptVi": "",
+        "options": [
+          "Vì chim bay được",
+          "Vì chim hót hay",
+          "Vì chim có nhiều màu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna nói \"I love birds, because they can fly.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna can see tigers in the parks in London.",
+        "promptVi": "Anna nhìn thấy hổ trong các công viên ở London.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna nói \"But I can't see tigers there!\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Ở sở thú, mỗi con vật làm được gì và không làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't (khả năng)",
+      "noticing": [
+        {
+          "sentence": "They can climb trees, and they can jump from tree to tree.",
+          "highlights": [
+            "can climb",
+            "can jump"
+          ]
+        },
+        {
+          "sentence": "Tigers can run fast, and they can swim too!",
+          "highlights": [
+            "can run",
+            "can swim"
+          ]
+        },
+        {
+          "sentence": "Linh asks, \"Can lions swim?\"",
+          "highlights": [
+            "Can lions swim"
+          ]
+        },
+        {
+          "sentence": "It can't walk, but it can move very fast.",
+          "highlights": [
+            "can't walk",
+            "can move"
+          ]
+        }
+      ],
+      "questionVi": "Muốn hỏi một con vật có làm được việc gì không, ta đặt can ở đâu?",
+      "options": [
+        "Ở cuối câu (Lions swim can?)",
+        "Ở đầu câu, trước con vật (Can lions swim?)",
+        "Sau động từ (Lions swim can?)"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Câu hỏi với can: đưa can lên đầu câu, rồi đến con vật và động từ giữ nguyên: Can lions swim? Trả lời: Yes, they can. / No, they can't.",
+      "whenVi": "Dùng can / can't để nói con vật làm được hay không làm được gì, và Can …? để hỏi.",
+      "table": [
+        {
+          "subject": "they (monkeys, tigers)",
+          "form": "They can climb trees.",
+          "negative": "They can't fly."
+        },
+        {
+          "subject": "it (a snake)",
+          "form": "It can move very fast.",
+          "negative": "It can't walk."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Can lions swim? – Yes, they can. / No, they can't.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Lions can swim? (muốn hỏi)",
+          "right": "Can lions swim?"
+        },
+        {
+          "wrong": "The snake can't walks.",
+          "right": "The snake can't walk."
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi bằng cách thêm \"… được không?\" vào cuối câu, nên người Việt hay giữ nguyên câu và chỉ lên giọng (Lions can swim?) thay vì đưa can lên đầu.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't vào chỗ trống.",
+          "text": "Snakes ___ walk, but they can move very fast.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Rắn không có chân nên không đi được: can't (hoặc cannot)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Tigers can ___ very fast.",
+          "options": [
+            "runs",
+            "run",
+            "is run",
+            "to run"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sau can, động từ giữ nguyên: can run."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Monkeys can climbs trees.",
+          "sentence": "Monkeys can climb trees.",
+          "explanationVi": "Sau can, động từ giữ nguyên: can climb."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Sư tử có trèo cây được không?",
+          "sentence": "Can lions climb trees?",
+          "words": [
+            "trees",
+            "lions",
+            "climb",
+            "Can",
+            "Do"
+          ],
+          "explanationVi": "Câu hỏi với can đưa Can lên đầu: Can lions climb trees? Từ \"Do\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Tigers can run fast, and they can swim too!",
+        "tipVi": "Tigers /ˈtaɪɡərz/ nhấn ở âm đầu và kết thúc bằng /z/; swim /swɪm/ có cụm /sw/ ở đầu."
+      },
+      {
+        "text": "They can climb trees, and they can jump from tree to tree.",
+        "tipVi": "Climb /klaɪm/ không đọc chữ b; trees /triz/ có cụm /tr/ ở đầu và /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like the zoo?",
+        "questionVi": "Bạn có thích sở thú không?",
+        "frame": "Yes, I do. / No, I don't. I like ___."
+      },
+      {
+        "question": "What's your favourite animal? What can it do?",
+        "questionVi": "Con vật bạn thích nhất là con gì? Nó làm được gì?",
+        "frame": "My favourite animal is the ___. It can ___."
+      },
+      {
+        "question": "What animal does your best friend like?",
+        "questionVi": "Bạn thân của bạn thích con vật nào?",
+        "frame": "He / She likes ___, because they can ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can / can't nói về con vật",
+      "anyOf": [
+        "can",
+        "can't",
+        "cannot",
+        "they can"
+      ],
+      "outlineVi": [
+        "Nói bạn đi sở thú khi nào và với ai.",
+        "Kể hai con vật bạn thấy và chúng làm được gì (They can …).",
+        "Nói một con vật không làm được gì, hoặc người đi cùng thích con nào (He / She loves …)."
+      ],
+      "modelAnswer": "On Sunday, my family goes to the zoo. First, we see the monkeys. They can climb trees and jump very high. Then we see a big lion, and it sleeps all day. My sister loves the birds, because they can fly and sing. Snakes can't walk, but they can move fast!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "class",
+      "lemma": "class",
+      "meaningVi": "lớp học",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "takes our class to the zoo",
+      "phraseVi": "đưa lớp mình đi sở thú"
+    },
+    {
+      "text": "by bus",
+      "lemma": "by bus",
+      "meaningVi": "bằng xe buýt",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "We go there by bus",
+      "phraseVi": "Cả lớp đi bằng xe buýt"
+    },
+    {
+      "text": "funny",
+      "lemma": "funny",
+      "meaningVi": "buồn cười",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "They are very funny",
+      "phraseVi": "Chúng buồn cười lắm"
+    },
+    {
+      "text": "from tree to tree",
+      "lemma": "from tree to tree",
+      "meaningVi": "từ cây này sang cây khác",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "jump from tree to tree",
+      "phraseVi": "nhảy từ cây này sang cây khác"
+    },
+    {
+      "text": "under a tree",
+      "lemma": "under a tree",
+      "meaningVi": "dưới gốc cây",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "A big tiger sleeps under a tree",
+      "phraseVi": "Một con hổ to nằm ngủ dưới gốc cây"
+    },
+    {
+      "text": "Not very well",
+      "lemma": "well",
+      "meaningVi": "không giỏi lắm",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "Not very well",
+      "phraseVi": "Không giỏi lắm đâu"
+    },
+    {
+      "text": "move",
+      "lemma": "move",
+      "meaningVi": "di chuyển, bò",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "it can move very fast",
+      "phraseVi": "nó bò rất nhanh"
+    },
+    {
+      "text": "behind",
+      "lemma": "behind",
+      "meaningVi": "đằng sau",
+      "sentenceIndex": 12,
+      "pos": "preposition",
+      "phrase": "she stands behind me",
+      "phraseVi": "bạn ấy đứng nấp sau lưng mình"
+    },
+    {
+      "text": "great",
+      "lemma": "great",
+      "meaningVi": "tuyệt vời",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "What a great day",
+      "phraseVi": "Thật là một ngày tuyệt vời"
+    }
+  ]
+}

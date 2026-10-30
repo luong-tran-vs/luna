@@ -1,0 +1,597 @@
+{
+  "content": "Hi, I'm Lan, and I walk to school every morning. It takes twenty minutes. Do you want to come with me? Here is my way to school.\n\nCome out of my house and turn left. Walk to the end of our street. There is a big supermarket on the corner. Turn right there, and go straight on for five minutes.\n\nThen you can see a small park. Walk past the park, and go over the small bridge. The station is on the left, and my school is behind it. I always buy bread at a shop near the bridge. Don't be late, because the school bell rings at seven!\n\nMy little sister Mai goes to a different school. Her school is in front of our house, so she only walks for one minute!",
+  "targetWords": [
+    "street",
+    "corner",
+    "right",
+    "straight on",
+    "park",
+    "bridge",
+    "station",
+    "behind"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "street",
+        "lemma": "street",
+        "meaningVi": "con phố, đường phố",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "corner",
+        "lemma": "corner",
+        "meaningVi": "góc phố",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "right",
+        "lemma": "right",
+        "meaningVi": "bên phải",
+        "pos": "adverb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "straight on",
+        "lemma": "straight on",
+        "meaningVi": "thẳng, đi thẳng",
+        "pos": "phrase",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "park",
+        "lemma": "park",
+        "meaningVi": "công viên",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "station",
+        "lemma": "station",
+        "meaningVi": "nhà ga",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "behind",
+        "lemma": "behind",
+        "meaningVi": "phía sau, đằng sau",
+        "pos": "preposition",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Lan tell us?",
+        "promptVi": "Lan kể cho chúng ta điều gì?",
+        "options": [
+          "How to go from her house to her school",
+          "What she buys at the supermarket",
+          "Her sister's new teacher",
+          "A trip to the station"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan chỉ đường từ nhà đến trường: ra khỏi nhà rẽ trái, đến góc phố rẽ phải, đi qua công viên và cây cầu, trường ở sau nhà ga."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is Lan's school?",
+        "promptVi": "Trường của Lan ở đâu?",
+        "options": [
+          "In front of her house",
+          "Near the supermarket",
+          "Behind the station",
+          "In the park"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan viết \"The station is on the left, and my school is behind it\": trường ở phía sau nhà ga."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Mai only walk for one minute?",
+        "promptVi": "Vì sao Mai chỉ đi bộ một phút?",
+        "options": [
+          "She goes by bus.",
+          "Her school is in front of their house.",
+          "She walks very fast.",
+          "Her school is behind the station."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan viết \"Her school is in front of our house, so she only walks for one minute!\": trường của Mai ở ngay trước nhà."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan goes to school by bus.",
+        "promptVi": "Lan đi học bằng xe buýt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan viết \"I walk to school every morning\": Lan đi bộ đến trường."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"end\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Walk to the end of our street.",
+        "options": [
+          "đầu phố",
+          "giữa phố",
+          "bên kia phố",
+          "cuối phố"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "The end of our street là cuối phố nhà mình: đi bộ hết con phố, đến góc có siêu thị."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh",
+      "bodyVi": "Khi tả đường đi cho người khác, ta nói từng bước bằng câu mệnh lệnh: Come out of my house, turn left, walk to the end of our street, go over the bridge. Muốn dặn đừng làm gì, dùng Don't + động từ; với tính từ thì nhớ có be: Don't be late.",
+      "examples": [
+        "Come out of my house and turn left.",
+        "Turn right there, and go straight on for five minutes.",
+        "Don't be late, because the school bell rings at seven!"
+      ]
+    },
+    "writingPrompt": "Write how to go from your house to your school.",
+    "sentenceTranslations": [
+      "Chào các bạn, mình là Lan, và sáng nào mình cũng đi bộ đến trường.",
+      "Mất hai mươi phút.",
+      "Bạn có muốn đi cùng mình không?",
+      "Đây là đường mình đi học.",
+      "Ra khỏi nhà mình rồi rẽ trái.",
+      "Đi bộ đến cuối phố nhà mình.",
+      "Ở góc phố có một siêu thị lớn.",
+      "Rẽ phải ở đó, rồi đi thẳng năm phút.",
+      "Sau đó bạn sẽ thấy một công viên nhỏ.",
+      "Đi qua công viên, rồi đi qua cây cầu nhỏ.",
+      "Nhà ga ở bên trái, và trường mình ở phía sau nhà ga.",
+      "Mình lúc nào cũng mua bánh mì ở một cửa hàng gần cây cầu.",
+      "Đừng đến muộn nhé, vì bảy giờ là chuông trường reo rồi!",
+      "Em gái mình, Mai, học ở một trường khác.",
+      "Trường của em ở ngay trước nhà, nên em chỉ đi bộ một phút thôi!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả đường từ nhà đến trường bằng câu mệnh lệnh (Come out …, turn …, go over …) và giới từ chỉ nơi chốn.",
+    "examples": [
+      {
+        "lemma": "street",
+        "sentence": "I live on a small street.",
+        "meaningVi": "Mình sống ở một con phố nhỏ."
+      },
+      {
+        "lemma": "corner",
+        "sentence": "There is a shop on the corner.",
+        "meaningVi": "Có một cửa hàng ở góc phố."
+      },
+      {
+        "lemma": "right",
+        "sentence": "Turn right at the supermarket.",
+        "meaningVi": "Rẽ phải ở siêu thị."
+      },
+      {
+        "lemma": "straight on",
+        "sentence": "Go straight on for five minutes.",
+        "meaningVi": "Đi thẳng năm phút."
+      },
+      {
+        "lemma": "park",
+        "sentence": "Walk past the park.",
+        "meaningVi": "Đi qua công viên."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "Go over the bridge.",
+        "meaningVi": "Đi qua cây cầu."
+      },
+      {
+        "lemma": "station",
+        "sentence": "The station is on the left.",
+        "meaningVi": "Nhà ga ở bên trái."
+      },
+      {
+        "lemma": "behind",
+        "sentence": "The bank is behind the hotel.",
+        "meaningVi": "Ngân hàng ở phía sau khách sạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, how do you go to school?",
+          "meaningVi": "Minh ơi, cậu đi học bằng gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I go by bike. My school isn't near my house.",
+          "meaningVi": "Mình đi xe đạp. Trường không gần nhà mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Which way do you go?",
+          "meaningVi": "Cậu đi đường nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "I go straight on Le Loi Street, and then I go over a big bridge.",
+          "meaningVi": "Mình đi thẳng đường Lê Lợi, rồi đi qua một cây cầu lớn."
+        },
+        {
+          "speaker": 1,
+          "text": "A bridge? Is it over a river?",
+          "meaningVi": "Cầu à? Cầu bắc qua sông à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. My school is near the station.",
+          "meaningVi": "Đúng rồi. Trường mình ở gần nhà ga."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you go to school with friends?",
+          "meaningVi": "Cậu có đi học cùng bạn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I go with Huy. He lives on my street.",
+          "meaningVi": "Có, mình đi với Huy. Bạn ấy sống cùng phố với mình."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. I walk to school with my dog Sam!",
+          "meaningVi": "Hay đấy. Mình đi bộ đến trường cùng con chó Sam!"
+        },
+        {
+          "speaker": 0,
+          "text": "Really? Does Sam go into the classroom too?",
+          "meaningVi": "Thật á? Sam có vào lớp học cùng cậu không?"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi đi học bằng gì: How do you go to school? Trả lời: I go by bike. / I walk to school. Hỏi đi đường nào: Which way do you go?",
+    "translations": [
+      {
+        "vi": "Ra khỏi nhà tôi rồi rẽ phải.",
+        "en": "Come out of my house and turn right.",
+        "distractors": [
+          "Comes",
+          "left",
+          "in"
+        ]
+      },
+      {
+        "vi": "Có một siêu thị lớn ở góc phố.",
+        "en": "There is a big supermarket on the corner.",
+        "distractors": [
+          "are",
+          "in",
+          "small"
+        ]
+      },
+      {
+        "vi": "Đi qua cây cầu nhỏ.",
+        "en": "Go over the small bridge.",
+        "distractors": [
+          "Goes",
+          "big",
+          "under"
+        ]
+      },
+      {
+        "vi": "Trường của tôi ở phía sau nhà ga.",
+        "en": "My school is behind the station.",
+        "distractors": [
+          "in",
+          "front",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một con sông ở Sydney",
+          "Con chó của Minh",
+          "Cách hai bạn đi đến trường"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tom hỏi \"how do you go to school?\" và \"Which way do you go?\", rồi kể mình đi học cùng chó Sam.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Minh đi học bằng gì?",
+        "promptVi": "",
+        "options": [
+          "Đi bộ",
+          "Xe đạp",
+          "Xe buýt"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"I go by bike.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trường của Minh ở gần đâu?",
+        "promptVi": "",
+        "options": [
+          "Gần nhà ga",
+          "Gần nhà Minh",
+          "Gần nhà Tom"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"My school is near the station.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh goes to school with Huy.",
+        "promptVi": "Minh đi học cùng Huy.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Minh nói \"Yes, I go with Huy.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Trên đường từ nhà đến trường, Lan đi qua những nơi nào?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "Come out of my house and turn left.",
+          "highlights": [
+            "Come out",
+            "turn left"
+          ]
+        },
+        {
+          "sentence": "Turn right there, and go straight on for five minutes.",
+          "highlights": [
+            "Turn right",
+            "go straight on"
+          ]
+        },
+        {
+          "sentence": "Walk past the park, and go over the small bridge.",
+          "highlights": [
+            "Walk past",
+            "go over"
+          ]
+        },
+        {
+          "sentence": "Don't be late, because the school bell rings at seven!",
+          "highlights": [
+            "Don't be late"
+          ]
+        }
+      ],
+      "questionVi": "Lan viết \"Don't be late\". Câu này có nghĩa là gì?",
+      "options": [
+        "Đừng đến muộn",
+        "Đừng đi bộ",
+        "Hãy đến muộn"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Don't + be + tính từ là dặn đừng ở trạng thái đó: Don't be late = đừng đến muộn. Các câu kia là câu mệnh lệnh chỉ từng bước đường đi: Come out, turn left, walk past, go over.",
+      "whenVi": "Dùng câu mệnh lệnh để tả từng bước đường đi, và Don't … để dặn người khác đừng làm gì.",
+      "table": [
+        {
+          "subject": "Ra, rẽ",
+          "form": "Come out of my house. Turn left / right.",
+          "negative": "Don't turn left."
+        },
+        {
+          "subject": "Đi thẳng, đi qua",
+          "form": "Go straight on. Walk past the park. Go over the bridge.",
+          "negative": "Don't go into the park."
+        },
+        {
+          "subject": "Dặn dò với be",
+          "form": "Be on time.",
+          "negative": "Don't be late."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Don't late!",
+          "right": "Don't be late!"
+        },
+        {
+          "wrong": "You walk to the end of our street. (khi chỉ đường)",
+          "right": "Walk to the end of our street."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"đừng muộn\" mà không có động từ \"là\", nên người Việt hay viết \"Don't late\"; với tính từ như late, phải có be: Don't be late.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ còn thiếu vào chỗ trống.",
+          "text": "Don't ___ late, because the bell rings at seven.",
+          "answers": [
+            "be"
+          ],
+          "explanationVi": "Late là tính từ, nên cần be: Don't be late."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ right there, and go straight on.",
+          "options": [
+            "Turn",
+            "Turns",
+            "Is turn",
+            "To turn"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: Turn right."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Don't late for school!",
+          "sentence": "Don't be late for school!",
+          "explanationVi": "Late là tính từ nên phải có be: Don't be late."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đi qua công viên.",
+          "sentence": "Walk past the park.",
+          "words": [
+            "park",
+            "Walk",
+            "the",
+            "past",
+            "Walks"
+          ],
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu Walk; từ \"Walks\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Walk to the end of our street.",
+        "tipVi": "Walk /wɔk/ không đọc chữ l; street /strit/ có cụm /str/ ở đầu và /t/ ở cuối."
+      },
+      {
+        "text": "The station is on the left, and my school is behind it.",
+        "tipVi": "Station /ˈsteɪʃən/ nhấn ở âm đầu \"STÂY-shần\"; left /lɛft/ có cụm /ft/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How do you go to school?",
+        "questionVi": "Bạn đi học bằng gì?",
+        "frame": "I go to school by ___. / I walk to school."
+      },
+      {
+        "question": "Is there a park or a shop near your school?",
+        "questionVi": "Gần trường bạn có công viên hay cửa hàng không?",
+        "frame": "Yes, there is a ___ near my school. It's behind / in front of the ___."
+      },
+      {
+        "question": "How does your brother or sister go to school?",
+        "questionVi": "Anh chị em của bạn đi học bằng gì?",
+        "frame": "He / She goes to school by ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có câu mệnh lệnh chỉ đường (Go …, Turn …, Walk …)",
+      "anyOf": [
+        "go",
+        "turn",
+        "walk",
+        "come",
+        "don't",
+        "take"
+      ],
+      "outlineVi": [
+        "Nói bạn đi học bằng gì và mất bao lâu.",
+        "Chỉ đường từng bước từ nhà (Come out …, turn …, go straight on …).",
+        "Nói trường nằm ở đâu và dặn một điều (Don't be late!)."
+      ],
+      "modelAnswer": "My school is near my house. Come out of my house and turn right. Go straight on for three minutes. There is a bank on the corner. Turn left at the bank, and walk past the park. My school is in front of the park. Don't be late!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "It takes twenty minutes",
+      "lemma": "take",
+      "meaningVi": "mất hai mươi phút",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "It takes twenty minutes",
+      "phraseVi": "Mất hai mươi phút"
+    },
+    {
+      "text": "way",
+      "lemma": "way",
+      "meaningVi": "đường đi",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "my way to school",
+      "phraseVi": "đường mình đi học"
+    },
+    {
+      "text": "Come out of",
+      "lemma": "come out of",
+      "meaningVi": "ra khỏi",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "Come out of my house",
+      "phraseVi": "Ra khỏi nhà mình"
+    },
+    {
+      "text": "end",
+      "lemma": "end",
+      "meaningVi": "cuối, đoạn cuối",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "the end of our street",
+      "phraseVi": "cuối phố nhà mình"
+    },
+    {
+      "text": "go over",
+      "lemma": "go over",
+      "meaningVi": "đi qua (cầu)",
+      "sentenceIndex": 9,
+      "pos": "phrasal verb",
+      "phrase": "go over the small bridge",
+      "phraseVi": "đi qua cây cầu nhỏ"
+    },
+    {
+      "text": "on the left",
+      "lemma": "on the left",
+      "meaningVi": "ở bên trái",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "The station is on the left",
+      "phraseVi": "Nhà ga ở bên trái"
+    },
+    {
+      "text": "late",
+      "lemma": "late",
+      "meaningVi": "muộn",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "Don't be late",
+      "phraseVi": "Đừng đến muộn"
+    },
+    {
+      "text": "rings",
+      "lemma": "ring",
+      "meaningVi": "reo (chuông)",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "the school bell rings at seven",
+      "phraseVi": "bảy giờ chuông trường reo"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "a different school",
+      "phraseVi": "một trường khác"
+    }
+  ]
+}

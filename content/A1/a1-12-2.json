@@ -1,0 +1,589 @@
+{
+  "content": "On Saturday, Anna wants to go to the zoo, and she waits at the bus stop near her house. There are a lot of people there.\n\nAnna asks a woman, \"Excuse me, which bus goes to the zoo?\"\n\"Take the number 9 bus,\" says the woman. \"Don't take the number 19, because it goes to the station.\"\n\"Where do I get off?\" asks Anna.\n\"Get off in front of the big park, and the zoo is behind it,\" the woman says.\n\nThe bus comes, and Anna gets on. She sits behind the driver, near the window. A boy with a big bag stands in front of her.\n\nAfter twenty minutes, Anna can see the big park. She gets off in front of it and walks to the zoo. \"Thank you, number 9!\" she says with a smile.",
+  "targetWords": [
+    "bus stop",
+    "near",
+    "bus",
+    "station",
+    "get off",
+    "in front of",
+    "park",
+    "behind"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "bus stop",
+        "lemma": "bus stop",
+        "meaningVi": "điểm dừng xe buýt",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "near",
+        "lemma": "near",
+        "meaningVi": "gần",
+        "pos": "preposition",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "bus",
+        "lemma": "bus",
+        "meaningVi": "xe buýt",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "station",
+        "lemma": "station",
+        "meaningVi": "nhà ga, bến xe",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "get off",
+        "lemma": "get off",
+        "meaningVi": "xuống xe",
+        "pos": "phrasal verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "in front of",
+        "lemma": "in front of",
+        "meaningVi": "ở phía trước",
+        "pos": "preposition",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "park",
+        "lemma": "park",
+        "meaningVi": "công viên",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "behind",
+        "lemma": "behind",
+        "meaningVi": "phía sau, đằng sau",
+        "pos": "preposition",
+        "sentenceIndex": 6
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Anna takes a bus to the zoo.",
+          "Anna's new school bag",
+          "A boy on the train",
+          "A day at the station"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi một người phụ nữ nên đi xe buýt số mấy và xuống ở đâu, rồi đi xe số 9 đến sở thú."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which bus goes to the zoo?",
+        "promptVi": "Xe buýt số mấy đi đến sở thú?",
+        "options": [
+          "Number 19",
+          "Number 9",
+          "Number 20",
+          "Number 90"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Người phụ nữ nói \"Take the number 9 bus\": xe số 9 đi đến sở thú."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Anna take the number 19?",
+        "promptVi": "Vì sao Anna không đi xe số 19?",
+        "options": [
+          "It is very old.",
+          "It doesn't stop there.",
+          "It has a lot of people.",
+          "It goes to the station."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Người phụ nữ nói \"Don't take the number 19, because it goes to the station\": xe 19 đi đến nhà ga chứ không đến sở thú."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna sits in front of the driver.",
+        "promptVi": "Anna ngồi ở phía trước bác tài xế.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"She sits behind the driver\": Anna ngồi phía sau tài xế; người đứng phía trước Anna là một cậu bé."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"get off\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Where do I get off?\" asks Anna.",
+        "options": [
+          "lên xe",
+          "đổi xe",
+          "xuống xe",
+          "chờ xe"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Get off là xuống xe. Ngược lại là get on (lên xe), như câu \"Anna gets on\"."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh",
+      "bodyVi": "Khi chỉ cho ai đi xe nào, xuống ở đâu, ta dùng câu mệnh lệnh: bắt đầu bằng động từ nguyên mẫu, không có you: Take the number 9 bus, get off in front of the big park. Muốn bảo đừng làm, dùng Don't + động từ: Don't take the number 19.",
+      "examples": [
+        "\"Take the number 9 bus,\" says the woman.",
+        "\"Don't take the number 19, because it goes to the station.\"",
+        "\"Get off in front of the big park, and the zoo is behind it,\" the woman says."
+      ]
+    },
+    "writingPrompt": "Write how to go by bus from your home to a place in your city: which bus to take and where to get off.",
+    "sentenceTranslations": [
+      "Thứ Bảy, Anna muốn đi sở thú, và bạn ấy đứng chờ ở điểm dừng xe buýt gần nhà.",
+      "Ở đó có rất đông người.",
+      "Anna hỏi một người phụ nữ: \"Xin lỗi, xe buýt nào đi đến sở thú ạ?\"",
+      "\"Cháu đi xe buýt số 9 nhé,\" người phụ nữ nói.",
+      "\"Đừng đi xe số 19, vì xe đó đi đến nhà ga.\"",
+      "\"Cháu xuống xe ở đâu ạ?\" Anna hỏi.",
+      "\"Xuống ở trước công viên lớn, sở thú ở ngay phía sau đó,\" người phụ nữ nói.",
+      "Xe buýt đến, và Anna lên xe.",
+      "Bạn ấy ngồi phía sau bác tài xế, gần cửa sổ.",
+      "Một cậu bé mang một chiếc túi to đứng phía trước bạn ấy.",
+      "Sau hai mươi phút, Anna nhìn thấy công viên lớn.",
+      "Bạn ấy xuống xe ở trước công viên rồi đi bộ đến sở thú.",
+      "\"Cảm ơn nhé, xe số 9!\" bạn ấy mỉm cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và chỉ cho ai đó đi xe buýt nào, xuống ở đâu, dùng câu mệnh lệnh và giới từ chỉ nơi chốn.",
+    "examples": [
+      {
+        "lemma": "bus stop",
+        "sentence": "The bus stop is near my house.",
+        "meaningVi": "Điểm dừng xe buýt ở gần nhà mình."
+      },
+      {
+        "lemma": "near",
+        "sentence": "My school is near the station.",
+        "meaningVi": "Trường mình ở gần nhà ga."
+      },
+      {
+        "lemma": "bus",
+        "sentence": "I go to school by bus.",
+        "meaningVi": "Mình đi học bằng xe buýt."
+      },
+      {
+        "lemma": "station",
+        "sentence": "The station is very big.",
+        "meaningVi": "Nhà ga rất lớn."
+      },
+      {
+        "lemma": "get off",
+        "sentence": "We get off at the park.",
+        "meaningVi": "Bọn mình xuống xe ở công viên."
+      },
+      {
+        "lemma": "in front of",
+        "sentence": "The bus stops in front of the bank.",
+        "meaningVi": "Xe buýt dừng ở trước ngân hàng."
+      },
+      {
+        "lemma": "park",
+        "sentence": "There is a big park in my city.",
+        "meaningVi": "Thành phố mình có một công viên lớn."
+      },
+      {
+        "lemma": "behind",
+        "sentence": "The zoo is behind the park.",
+        "meaningVi": "Sở thú ở phía sau công viên."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, which bus goes to the Old Quarter?",
+          "meaningVi": "Lan ơi, xe buýt nào đi đến Phố cổ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Take the number 14. It stops near Hoan Kiem Lake.",
+          "meaningVi": "Cậu đi xe số 14. Xe dừng gần hồ Hoàn Kiếm."
+        },
+        {
+          "speaker": 1,
+          "text": "Where is the bus stop?",
+          "meaningVi": "Điểm dừng xe buýt ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's in front of the bank, behind that big tree.",
+          "meaningVi": "Ở trước ngân hàng, phía sau cái cây to kia."
+        },
+        {
+          "speaker": 1,
+          "text": "Where do I get off?",
+          "meaningVi": "Mình xuống xe ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Get off at the post office. Then walk for five minutes.",
+          "meaningVi": "Xuống ở bưu điện. Rồi đi bộ năm phút."
+        },
+        {
+          "speaker": 1,
+          "text": "Is there a bus stop near the post office?",
+          "meaningVi": "Gần bưu điện có điểm dừng xe buýt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there is. It's in front of it.",
+          "meaningVi": "Có. Nó ở ngay trước bưu điện."
+        },
+        {
+          "speaker": 1,
+          "text": "Do I need a ticket?",
+          "meaningVi": "Mình có cần vé không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. Buy a ticket on the bus. Don't forget!",
+          "meaningVi": "Có. Mua vé trên xe nhé. Đừng quên đấy!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi đi xe nào: Which bus goes to …? Hỏi xuống ở đâu: Where do I get off? Trả lời bằng câu mệnh lệnh: Take the number 14. Get off at the post office.",
+    "translations": [
+      {
+        "vi": "Đi xe buýt số 9.",
+        "en": "Take the number 9 bus.",
+        "distractors": [
+          "Takes",
+          "train",
+          "a"
+        ]
+      },
+      {
+        "vi": "Xuống xe ở trước công viên.",
+        "en": "Get off in front of the park.",
+        "distractors": [
+          "Gets",
+          "behind",
+          "on"
+        ]
+      },
+      {
+        "vi": "Đừng đi xe buýt số 19.",
+        "en": "Don't take the number 19 bus.",
+        "distractors": [
+          "No",
+          "Doesn't",
+          "train"
+        ]
+      },
+      {
+        "vi": "Bạn ấy ngồi phía sau bác tài xế.",
+        "en": "She sits behind the driver.",
+        "distractors": [
+          "in",
+          "front",
+          "sit"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom hỏi Lan điều gì?",
+        "promptVi": "",
+        "options": [
+          "Giờ mở cửa của bưu điện",
+          "Đường đến trường của Lan",
+          "Cách đi xe buýt đến Phố cổ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tom hỏi \"which bus goes to the Old Quarter?\", \"Where is the bus stop?\" và \"Where do I get off?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tom nên đi xe buýt số mấy?",
+        "promptVi": "",
+        "options": [
+          "Số 4",
+          "Số 14",
+          "Số 40"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"Take the number 14.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tom xuống xe ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở bưu điện",
+          "Ở ngân hàng",
+          "Ở nhà ga"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"Get off at the post office.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom buys a ticket at the bus stop.",
+        "promptVi": "Tom mua vé ở điểm dừng xe buýt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan dặn \"Buy a ticket on the bus\": mua vé trên xe.",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Anna đi xe buýt số mấy, và xuống xe ở đâu?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"Take the number 9 bus,\" says the woman.",
+          "highlights": [
+            "Take"
+          ]
+        },
+        {
+          "sentence": "\"Don't take the number 19, because it goes to the station.\"",
+          "highlights": [
+            "Don't take"
+          ]
+        },
+        {
+          "sentence": "\"Get off in front of the big park, and the zoo is behind it,\" the woman says.",
+          "highlights": [
+            "Get off"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"Don't take the number 19\" có nghĩa là gì?",
+      "options": [
+        "Hãy đi xe số 19",
+        "Đừng đi xe số 19",
+        "Xe số 19 không chạy"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Don't + động từ là \"đừng làm\": Don't take = đừng đi (xe). Không có Don't thì là \"hãy làm\": Take the number 9 bus = hãy đi xe số 9.",
+      "whenVi": "Dùng câu mệnh lệnh để chỉ cho ai đi xe nào, xuống ở đâu, và Don't + động từ để dặn đừng làm gì.",
+      "table": [
+        {
+          "subject": "Đi xe",
+          "form": "Take the number 9 bus.",
+          "negative": "Don't take the number 19."
+        },
+        {
+          "subject": "Xuống xe",
+          "form": "Get off in front of the park.",
+          "negative": "Don't get off at the station."
+        },
+        {
+          "subject": "Dặn dò",
+          "form": "Buy a ticket on the bus.",
+          "negative": "Don't forget!"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Not get off here.",
+          "right": "Don't get off here."
+        },
+        {
+          "wrong": "Takes the number 9 bus.",
+          "right": "Take the number 9 bus."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"đừng xuống\", \"không xuống\", nên người Việt hay dùng not hoặc no ở đầu câu; câu mệnh lệnh phủ định luôn là Don't + động từ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền động từ có nghĩa \"đi (xe), bắt (xe)\" vào chỗ trống.",
+          "text": "___ the number 9 bus.",
+          "answers": [
+            "Take",
+            "take"
+          ],
+          "explanationVi": "Đi xe buýt là take the bus; câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: Take."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ get off at the station. Get off at the park.",
+          "options": [
+            "Not",
+            "Don't",
+            "No",
+            "Doesn't"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu sau bảo xuống ở công viên, nên câu trước là \"đừng xuống ở nhà ga\": Don't get off."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Not take the number 19 bus.",
+          "sentence": "Don't take the number 19 bus.",
+          "explanationVi": "Câu mệnh lệnh phủ định dùng Don't, không dùng Not."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đừng xuống xe ở nhà ga.",
+          "sentence": "Don't get off at the station.",
+          "words": [
+            "get",
+            "Don't",
+            "station",
+            "off",
+            "at",
+            "the",
+            "No"
+          ],
+          "explanationVi": "Câu mệnh lệnh phủ định bắt đầu bằng Don't; từ \"No\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She sits behind the driver, near the window.",
+        "tipVi": "Behind /bɪˈhaɪnd/ nhấn ở âm thứ hai và có cụm /nd/ ở cuối; driver /ˈdraɪvər/ có cụm /dr/ ở đầu."
+      },
+      {
+        "text": "After twenty minutes, Anna can see the big park.",
+        "tipVi": "Twenty /ˈtwɛnti/ có cụm /tw/ ở đầu; minutes /ˈmɪnɪts/ kết thúc bằng /ts/, đọc rõ, đừng bỏ."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you often take the bus?",
+        "questionVi": "Bạn có hay đi xe buýt không?",
+        "frame": "Yes, I do. I take the number ___. / No, I don't. I go by ___."
+      },
+      {
+        "question": "Where is the bus stop near your home?",
+        "questionVi": "Điểm dừng xe buýt gần nhà bạn ở đâu?",
+        "frame": "It's in front of / behind / near the ___."
+      },
+      {
+        "question": "How does your mum or dad go to work?",
+        "questionVi": "Bố hoặc mẹ bạn đi làm bằng gì?",
+        "frame": "He / She goes to work by ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu mệnh lệnh (Take …, Get off …, Don't …)",
+      "anyOf": [
+        "take",
+        "get off",
+        "don't",
+        "go",
+        "walk",
+        "wait"
+      ],
+      "outlineVi": [
+        "Nói điểm dừng xe buýt ở đâu (in front of / near …).",
+        "Bảo đi xe số mấy và đừng đi xe nào (Take …, Don't take …).",
+        "Bảo xuống xe ở đâu và nơi đó nằm ở đâu (Get off …, it's behind …)."
+      ],
+      "modelAnswer": "Do you want to go to the cinema? Walk to the bus stop in front of my house. Take the number 32 bus. Don't take the number 23, because it goes to the station. Get off near the big park. The cinema is behind the park."
+    }
+  },
+  "glosses": [
+    {
+      "text": "waits",
+      "lemma": "wait",
+      "meaningVi": "chờ, đợi",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "she waits at the bus stop",
+      "phraseVi": "bạn ấy đứng chờ ở điểm dừng xe buýt"
+    },
+    {
+      "text": "a lot of people",
+      "lemma": "a lot of",
+      "meaningVi": "rất nhiều người",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "There are a lot of people there",
+      "phraseVi": "Ở đó có rất đông người"
+    },
+    {
+      "text": "which",
+      "lemma": "which",
+      "meaningVi": "nào",
+      "sentenceIndex": 2,
+      "pos": "determiner",
+      "phrase": "which bus goes to the zoo",
+      "phraseVi": "xe buýt nào đi đến sở thú"
+    },
+    {
+      "text": "number",
+      "lemma": "number",
+      "meaningVi": "số",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "the number 9 bus",
+      "phraseVi": "xe buýt số 9"
+    },
+    {
+      "text": "gets on",
+      "lemma": "get on",
+      "meaningVi": "lên xe",
+      "sentenceIndex": 7,
+      "pos": "phrasal verb",
+      "phrase": "Anna gets on",
+      "phraseVi": "Anna lên xe"
+    },
+    {
+      "text": "driver",
+      "lemma": "driver",
+      "meaningVi": "tài xế, người lái xe",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "She sits behind the driver",
+      "phraseVi": "Bạn ấy ngồi phía sau bác tài xế"
+    },
+    {
+      "text": "window",
+      "lemma": "window",
+      "meaningVi": "cửa sổ",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "near the window",
+      "phraseVi": "gần cửa sổ"
+    },
+    {
+      "text": "After twenty minutes",
+      "lemma": "after",
+      "meaningVi": "sau hai mươi phút",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "After twenty minutes, Anna can see the big park",
+      "phraseVi": "Sau hai mươi phút, Anna nhìn thấy công viên lớn"
+    },
+    {
+      "text": "with a smile",
+      "lemma": "smile",
+      "meaningVi": "mỉm cười",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "she says with a smile",
+      "phraseVi": "bạn ấy mỉm cười nói"
+    }
+  ]
+}

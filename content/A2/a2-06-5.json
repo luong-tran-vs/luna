@@ -1,0 +1,594 @@
+{
+  "content": "Last weekend, Hien's big family had a party at her grandparents' house in Da Nang. On Monday, she shows the photos to her friend Trang at work.\n\nTrang points at a photo and asks, \"Who is this beautiful woman with long straight hair?\"\n\"That's my aunt Mai,\" Hien says. \"She is fifty, but she looks as young as my sister!\"\nTrang asks, \"And who is the man next to her?\"\n\"That's my uncle Thanh, her husband. He tells a lot of jokes.\"\n\nTrang looks at another photo and says, \"Is this your little brother Bao? He is so tall now!\"\n\"Yes, he is nineteen now, and he is taller than my father,\" Hien answers. \"He is as funny as my uncle, and he is as strong as my father. They play football together on the beach every morning.\"\nTrang asks, \"Does he look like your father?\"\n\"Not really. He has a round face like my mother, but his eyes aren't as big as hers.\"\n\nThen Trang finds a photo of Hien's grandparents. \"Your grandmother has the same smile as you,\" she says.\n\"Thanks, she is eighty, but she is as busy as a young woman,\" Hien says.",
+  "targetWords": [
+    "grandparents",
+    "photo",
+    "beautiful",
+    "straight",
+    "aunt",
+    "uncle",
+    "strong",
+    "face"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "grandparents",
+        "lemma": "grandparents",
+        "meaningVi": "ông bà",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "photos",
+        "lemma": "photo",
+        "meaningVi": "ảnh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "beautiful",
+        "lemma": "beautiful",
+        "meaningVi": "xinh đẹp",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "straight",
+        "lemma": "straight",
+        "meaningVi": "thẳng (tóc)",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "aunt",
+        "lemma": "aunt",
+        "meaningVi": "cô, dì, bác gái",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "uncle",
+        "lemma": "uncle",
+        "meaningVi": "chú, bác, cậu, dượng",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "strong",
+        "lemma": "strong",
+        "meaningVi": "khoẻ",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "face",
+        "lemma": "face",
+        "meaningVi": "khuôn mặt",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hien's new job in Da Nang",
+          "Hien and Trang look at photos of Hien's family.",
+          "A football game on the beach",
+          "Trang's grandmother's birthday"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hiền cho Trang xem ảnh buổi họp mặt gia đình và hai người nói về từng người."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old is Hien's aunt Mai?",
+        "promptVi": "Cô Mai của Hiền bao nhiêu tuổi?",
+        "options": [
+          "Nineteen",
+          "Eighty",
+          "Fifty",
+          "Fifteen"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hiền nói \"She is fifty, but she looks as young as my sister!\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Bao as strong as his father?",
+        "promptVi": "Vì sao Bảo khoẻ như bố?",
+        "options": [
+          "They play football together every morning.",
+          "He is taller than his father.",
+          "He works on a farm.",
+          "He eats a lot."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiền nói \"They play football together on the beach every morning.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao's eyes are as big as his mother's eyes.",
+        "promptVi": "Mắt Bảo to bằng mắt mẹ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hiền nói \"his eyes aren't as big as hers\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Not really\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Not really. He has a round face like my mother, but his eyes aren't as big as hers.\"",
+        "options": [
+          "Đúng vậy",
+          "Không hẳn",
+          "Chắc chắn",
+          "Tôi không biết"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Not really là \"không hẳn\": Bảo không giống bố lắm, mà giống mẹ hơn."
+      }
+    ],
+    "grammarNote": {
+      "title": "So sánh bằng (as ... as)",
+      "bodyVi": "As + tính từ + as nghĩa là \"… như / bằng …\": as funny as my uncle, as strong as my father. Phủ định: not as … as (không … bằng): his eyes aren't as big as hers. Dùng look as + tính từ + as để nói ai trông như thế nào: she looks as young as my sister.",
+      "examples": [
+        "\"She is fifty, but she looks as young as my sister!\"",
+        "\"He is as funny as my uncle, and he is as strong as my father.",
+        "\"Thanks, she is eighty, but she is as busy as a young woman,\" Hien says."
+      ]
+    },
+    "writingPrompt": "Write about a family photo: who is in it, and who is as tall, as funny or as kind as someone else?",
+    "sentenceTranslations": [
+      "Cuối tuần trước, đại gia đình Hiền tụ họp ở nhà ông bà cô ở Đà Nẵng.",
+      "Thứ Hai, cô cho Trang, bạn cùng chỗ làm, xem ảnh.",
+      "Trang chỉ vào một tấm ảnh và hỏi: \"Người phụ nữ xinh đẹp tóc dài thẳng này là ai vậy?\"",
+      "\"Đó là cô Mai của mình,\" Hiền nói.",
+      "\"Cô ấy năm mươi tuổi, nhưng trông trẻ như chị gái mình!\"",
+      "Trang hỏi: \"Còn người đàn ông bên cạnh là ai?\"",
+      "\"Đó là chú Thành, chồng cô ấy.",
+      "Chú ấy kể rất nhiều chuyện cười.\"",
+      "Trang xem một tấm ảnh khác và nói: \"Đây có phải em trai Bảo của cậu không?",
+      "Giờ cao quá!\"",
+      "\"Ừ, giờ nó mười chín tuổi, và cao hơn cả bố mình,\" Hiền trả lời.",
+      "\"Nó vui tính như chú mình, và khoẻ như bố mình.",
+      "Hai bố con sáng nào cũng đá bóng cùng nhau trên bãi biển.\"",
+      "Trang hỏi: \"Bảo có trông giống bố cậu không?\"",
+      "\"Không hẳn.",
+      "Nó có khuôn mặt tròn giống mẹ mình, nhưng mắt không to bằng mắt mẹ.\"",
+      "Rồi Trang tìm thấy một tấm ảnh ông bà của Hiền.",
+      "\"Bà cậu cười giống hệt cậu,\" cô nói.",
+      "\"Cảm ơn cậu, bà tám mươi tuổi rồi, nhưng vẫn bận rộn như một người trẻ,\" Hiền nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói người thân giống nhau thế nào bằng as … as, not as … as, look like và so sánh hơn.",
+    "examples": [
+      {
+        "lemma": "grandparents",
+        "sentence": "My grandparents live in the countryside.",
+        "meaningVi": "Ông bà tôi sống ở quê."
+      },
+      {
+        "lemma": "photo",
+        "sentence": "Can you take a photo of us?",
+        "meaningVi": "Bạn chụp giúp chúng tôi một tấm ảnh được không?"
+      },
+      {
+        "lemma": "beautiful",
+        "sentence": "Da Nang has a beautiful beach.",
+        "meaningVi": "Đà Nẵng có bãi biển rất đẹp."
+      },
+      {
+        "lemma": "straight",
+        "sentence": "My sister has straight black hair.",
+        "meaningVi": "Chị tôi có mái tóc đen thẳng."
+      },
+      {
+        "lemma": "aunt",
+        "sentence": "My aunt is a nurse.",
+        "meaningVi": "Cô tôi là y tá."
+      },
+      {
+        "lemma": "uncle",
+        "sentence": "My uncle has a small shop.",
+        "meaningVi": "Chú tôi có một cửa hàng nhỏ."
+      },
+      {
+        "lemma": "strong",
+        "sentence": "He is strong because he swims every day.",
+        "meaningVi": "Anh ấy khoẻ vì ngày nào cũng bơi."
+      },
+      {
+        "lemma": "face",
+        "sentence": "The baby has a lovely face.",
+        "meaningVi": "Em bé có khuôn mặt đáng yêu."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hien",
+        "Laura"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hien, how was the family party?",
+          "meaningVi": "Hiền ơi, buổi họp mặt gia đình thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Great! There were thirty people at my grandparents' house.",
+          "meaningVi": "Vui lắm! Có ba mươi người ở nhà ông bà mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Thirty! Is your grandparents' house very big?",
+          "meaningVi": "Ba mươi người! Nhà ông bà cậu to lắm à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but it isn't as big as our old school!",
+          "meaningVi": "Ừ, nhưng không to bằng trường cũ của bọn mình đâu!"
+        },
+        {
+          "speaker": 1,
+          "text": "Is your brother taller than you now?",
+          "meaningVi": "Giờ em trai cậu cao hơn cậu chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Much taller. He is as tall as my father now.",
+          "meaningVi": "Cao hơn nhiều. Giờ nó cao bằng bố mình rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "And who does he look like?",
+          "meaningVi": "Thế nó trông giống ai?"
+        },
+        {
+          "speaker": 0,
+          "text": "My mother. They have the same round face.",
+          "meaningVi": "Mẹ mình. Hai mẹ con có khuôn mặt tròn giống nhau."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I see the photos?",
+          "meaningVi": "Cho mình xem ảnh được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Look, this is my aunt. She is as beautiful as a film star!",
+          "meaningVi": "Tất nhiên. Nhìn này, đây là cô mình. Cô đẹp như ngôi sao điện ảnh!"
+        }
+      ]
+    },
+    "grammarTipVi": "Nói không bằng: it isn't as big as … Nói bằng: as tall as my father, as beautiful as a film star. Hơn nhiều: much taller.",
+    "translations": [
+      {
+        "vi": "Cô tôi trông trẻ như chị gái tôi.",
+        "en": "My aunt looks as young as my sister.",
+        "distractors": [
+          "than",
+          "younger",
+          "uncle"
+        ]
+      },
+      {
+        "vi": "Em trai tôi khoẻ như bố tôi.",
+        "en": "My brother is as strong as my father.",
+        "distractors": [
+          "stronger",
+          "than",
+          "mother"
+        ]
+      },
+      {
+        "vi": "Chú tôi có khuôn mặt tròn.",
+        "en": "My uncle has a round face.",
+        "distractors": [
+          "have",
+          "square",
+          "aunt"
+        ]
+      },
+      {
+        "vi": "Ông bà tôi đang xem ảnh.",
+        "en": "My grandparents are looking at the photos.",
+        "distractors": [
+          "is",
+          "photo",
+          "watching"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hiền và Laura nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trường cũ của hai người",
+          "Một ngôi sao điện ảnh",
+          "Buổi họp mặt gia đình của Hiền"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Laura hỏi \"how was the family party?\" và Hiền kể về gia đình.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Có bao nhiêu người ở nhà ông bà Hiền?",
+        "promptVi": "",
+        "options": [
+          "Ba mươi người",
+          "Mười ba người",
+          "Hai mươi người"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiền nói \"There were thirty people at my grandparents' house.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Em trai Hiền giống mẹ ở điểm nào?",
+        "promptVi": "",
+        "options": [
+          "Đôi mắt",
+          "Khuôn mặt tròn",
+          "Chiều cao"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hiền nói \"They have the same round face.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hien's brother isn't as tall as their father.",
+        "promptVi": "Em trai Hiền không cao bằng bố.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hiền nói \"He is as tall as my father now.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong ảnh giống ai, và giống ở điểm nào?",
+    "grammarStep": {
+      "titleVi": "So sánh bằng (as ... as)",
+      "noticing": [
+        {
+          "sentence": "\"She is fifty, but she looks as young as my sister!\"",
+          "highlights": [
+            "as young as"
+          ]
+        },
+        {
+          "sentence": "\"He is as funny as my uncle, and he is as strong as my father.",
+          "highlights": [
+            "as funny as",
+            "as strong as"
+          ]
+        },
+        {
+          "sentence": "He has a round face like my mother, but his eyes aren't as big as hers.\"",
+          "highlights": [
+            "aren't as big as"
+          ]
+        },
+        {
+          "sentence": "\"Thanks, she is eighty, but she is as busy as a young woman,\" Hien says.",
+          "highlights": [
+            "as busy as"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"his eyes aren't as big as hers\" nghĩa là gì?",
+      "options": [
+        "Mắt Bảo to hơn mắt mẹ.",
+        "Mắt mẹ to hơn mắt Bảo.",
+        "Mắt hai mẹ con to bằng nhau."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Not as big as = không to bằng, tức là mắt mẹ to hơn mắt Bảo.",
+      "whenVi": "Dùng as … as khi hai người giống nhau ở một điểm, not as … as khi người thứ nhất kém hơn.",
+      "table": [
+        {
+          "subject": "Bằng nhau",
+          "form": "He is as strong as my father.",
+          "negative": "He isn't as strong as my father."
+        },
+        {
+          "subject": "Với look",
+          "form": "She looks as young as my sister.",
+          "negative": "She doesn't look as young as my sister."
+        },
+        {
+          "subject": "Với đại từ",
+          "form": "as big as hers / as tall as me",
+          "negative": "not as big as hers"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He is as strong like my father.",
+          "right": "He is as strong as my father."
+        },
+        {
+          "wrong": "Her eyes aren't as big as my.",
+          "right": "Her eyes aren't as big as mine."
+        }
+      ],
+      "noteVi": "Người Việt hay dùng like (giống) thay cho as thứ hai. Sau as cuối câu dùng đại từ sở hữu khi so sánh đồ vật của hai người: as big as hers / mine.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "My brother is as strong ___ my father.",
+          "answers": [
+            "as"
+          ],
+          "explanationVi": "So sánh bằng: as strong as."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "My aunt is fifty, but she looks as ___ as my sister.",
+          "options": [
+            "younger",
+            "young",
+            "youngest",
+            "more young"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Giữa as … as dùng tính từ dạng gốc: as young as."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My uncle is as funny like my father.",
+          "sentence": "My uncle is as funny as my father.",
+          "explanationVi": "So sánh bằng dùng as … as, không dùng like."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mắt anh ấy không to bằng mắt cô ấy.",
+          "sentence": "His eyes aren't as big as hers.",
+          "words": [
+            "eyes",
+            "His",
+            "as",
+            "aren't",
+            "big",
+            "as",
+            "hers",
+            "than"
+          ],
+          "explanationVi": "Not as + tính từ + as; từ \"than\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"That's my aunt Mai,\" Hien says.",
+        "tipVi": "Aunt đọc /ɑːnt/ (Anh) hoặc /ænt/ (Mỹ); that's có âm /ts/ ở cuối."
+      },
+      {
+        "text": "Trang asks, \"Does he look like your father?\"",
+        "tipVi": "Câu hỏi Yes/No lên giọng ở cuối; look like nối thành \"lúc-lai\", father có âm /ð/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is as tall as you in your family?",
+        "questionVi": "Trong gia đình, ai cao bằng bạn?",
+        "frame": "My ___ is as tall as me."
+      },
+      {
+        "question": "Do you look like your mother or your father?",
+        "questionVi": "Bạn trông giống mẹ hay giống bố?",
+        "frame": "I look like my ___. We have the same ___."
+      },
+      {
+        "question": "Is your aunt or uncle as funny as your father?",
+        "questionVi": "Cô, dì hoặc chú, bác của bạn có vui tính như bố bạn không?",
+        "frame": "Yes, he / she is as funny as ___. / No, he / she isn't as funny as ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng as … as hoặc not as … as",
+      "anyOf": [
+        "as tall as",
+        "as funny as",
+        "as strong as",
+        "as big as",
+        "not as",
+        "isn't as",
+        "aren't as"
+      ],
+      "outlineVi": [
+        "Ảnh chụp lúc nào, ở đâu, có những ai.",
+        "Ai giống ai (as … as, look like, the same …).",
+        "Ai khác ai (not as … as, taller than …)."
+      ],
+      "modelAnswer": "This is a photo of my family at Tet. My grandparents are in the middle. My grandfather is eighty, but he is as strong as a young man. Next to him is my aunt Hoa. She has long straight hair, and she is as beautiful as my mother. My cousin Nam is in the photo too. He isn't as tall as me, but he is very funny."
+    }
+  },
+  "glosses": [
+    {
+      "text": "party",
+      "lemma": "party",
+      "meaningVi": "buổi tiệc, buổi họp mặt",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "had a party",
+      "phraseVi": "tụ họp, mở tiệc"
+    },
+    {
+      "text": "points at",
+      "lemma": "point at",
+      "meaningVi": "chỉ vào",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "points at a photo",
+      "phraseVi": "chỉ vào một tấm ảnh"
+    },
+    {
+      "text": "as young as",
+      "lemma": "young",
+      "meaningVi": "trẻ như",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "looks as young as my sister",
+      "phraseVi": "trông trẻ như chị gái mình"
+    },
+    {
+      "text": "husband",
+      "lemma": "husband",
+      "meaningVi": "chồng",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "her husband",
+      "phraseVi": "chồng cô ấy"
+    },
+    {
+      "text": "jokes",
+      "lemma": "joke",
+      "meaningVi": "chuyện cười",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "tells a lot of jokes",
+      "phraseVi": "kể rất nhiều chuyện cười"
+    },
+    {
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "play football together",
+      "phraseVi": "đá bóng cùng nhau"
+    },
+    {
+      "text": "round",
+      "lemma": "round",
+      "meaningVi": "tròn",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "a round face like my mother",
+      "phraseVi": "khuôn mặt tròn giống mẹ"
+    },
+    {
+      "text": "the same smile",
+      "lemma": "same",
+      "meaningVi": "nụ cười giống nhau",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "has the same smile as you",
+      "phraseVi": "cười giống hệt cậu"
+    }
+  ]
+}

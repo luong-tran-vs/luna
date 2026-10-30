@@ -1,0 +1,601 @@
+{
+  "content": "It's six o'clock at a travel company in Da Nang. Quyen is picking up her bag when she sees her co-worker Thang near the door.\n\n\"Thang, wait! You haven't turned off your computer.\"\n\"Oh, it's fine. It goes to sleep after an hour.\"\n\"But it still uses electricity. If everyone leaves their computers on, the company will waste a lot of power.\"\n\"Is it really that much?\"\n\"Yes. I've been checking the electricity bill for three months. It has been going up every month.\"\n\"Maybe it's the air conditioner.\"\n\"That too. People have been leaving it on all night. Unless we turn it off, the bill will be huge again this month.\"\n\"OK, OK. I'll turn off my computer.\"\n\"And the lights in the meeting room, please. Nobody turns them off.\"\nThang asks, \"Why do you care so much? It's not your money.\"\n\"It's not only about money. Most of our electricity comes from coal. Coal makes a lot of smoke, and it adds to global warming.\"\n\"Really? I didn't know that.\"\n\"If we use less electricity, we'll help the planet a little.\"\n\"Fine. I'll put a note on the printer. It will say, 'Turn me off!'\"\nQuyen laughs. \"Good idea. If the boss sees it, he'll love it.\"",
+  "targetWords": [
+    "electricity",
+    "waste",
+    "power",
+    "bill",
+    "air conditioner",
+    "turn off",
+    "light",
+    "coal",
+    "global warming",
+    "planet"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "electricity",
+        "lemma": "electricity",
+        "meaningVi": "điện",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "waste",
+        "lemma": "waste",
+        "meaningVi": "lãng phí",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "power",
+        "lemma": "power",
+        "meaningVi": "điện năng",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "bill",
+        "lemma": "bill",
+        "meaningVi": "hoá đơn",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "air conditioner",
+        "lemma": "air conditioner",
+        "meaningVi": "máy điều hoà",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "turn off",
+        "lemma": "turn off",
+        "meaningVi": "tắt",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "lights",
+        "lemma": "light",
+        "meaningVi": "đèn",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "coal",
+        "lemma": "coal",
+        "meaningVi": "than đá",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "global warming",
+        "lemma": "global warming",
+        "meaningVi": "sự nóng lên toàn cầu",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "planet",
+        "lemma": "planet",
+        "meaningVi": "hành tinh, Trái Đất",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Quyen want Thang to do?",
+        "promptVi": "Quyên muốn Thắng làm gì?",
+        "options": [
+          "Turn things off and use less electricity",
+          "Work later in the evening",
+          "Buy a new printer",
+          "Pay the electricity bill"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quyên nhắc Thắng tắt máy tính, đèn và điều hoà để đỡ tốn điện."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long has Quyen been checking the electricity bill?",
+        "promptVi": "Quyên đã theo dõi hoá đơn tiền điện được bao lâu?",
+        "options": [
+          "For three weeks",
+          "For three months",
+          "For a year",
+          "Since yesterday"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quyên nói \"I've been checking the electricity bill for three months.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where does most of their electricity come from?",
+        "promptVi": "Phần lớn điện họ dùng đến từ đâu?",
+        "options": [
+          "The sun",
+          "Wind",
+          "Coal",
+          "Water"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quyên nói \"Most of our electricity comes from coal.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "In the end, Thang leaves his computer on.",
+        "promptVi": "Cuối cùng Thắng vẫn để máy tính bật.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thắng nói \"I'll turn off my computer.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"bill\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I've been checking the electricity bill for three months.\"",
+        "options": [
+          "hoá đơn",
+          "công tắc",
+          "đồng hồ điện",
+          "tiền lương"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bill = tờ giấy ghi số tiền phải trả, ví dụ tiền điện."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 1 (if, unless)",
+      "bodyVi": "Câu điều kiện loại 1 dùng để nhắc nhở và cảnh báo về kết quả có thể xảy ra: If everyone leaves their computers on, the company will waste a lot of power. Unless = nếu … không: Unless we turn it off, the bill will be huge. Trong mệnh đề If / Unless dùng hiện tại đơn, kể cả khi nói về tương lai. Bài cũng có hiện tại hoàn thành tiếp diễn: I've been checking the electricity bill for three months.",
+      "examples": [
+        "If everyone leaves their computers on, the company will waste a lot of power.\"",
+        "Unless we turn it off, the bill will be huge again this month.\"",
+        "\"If we use less electricity, we'll help the planet a little.\""
+      ]
+    },
+    "writingPrompt": "Write a short message to your co-workers or classmates. Ask them to save electricity and say what will happen if they do it, or if they don't.",
+    "sentenceTranslations": [
+      "Sáu giờ chiều ở một công ty du lịch tại Đà Nẵng.",
+      "Quyên đang cầm túi lên thì thấy đồng nghiệp là Thắng đứng gần cửa.",
+      "\"Anh Thắng, đợi đã!",
+      "Anh chưa tắt máy tính.\"",
+      "\"Ồ, không sao.",
+      "Một tiếng sau nó tự ngủ mà.\"",
+      "\"Nhưng nó vẫn dùng điện.",
+      "Nếu ai cũng để máy tính bật, công ty sẽ lãng phí rất nhiều điện.\"",
+      "\"Thật sự nhiều đến thế à?\"",
+      "\"Vâng.",
+      "Em theo dõi hoá đơn tiền điện được ba tháng rồi.",
+      "Tháng nào nó cũng tăng.\"",
+      "\"Chắc là do máy điều hoà.\"",
+      "\"Cả cái đó nữa.",
+      "Mọi người để điều hoà chạy cả đêm.",
+      "Nếu mình không tắt, tháng này hoá đơn lại cao ngất.\"",
+      "\"Rồi, rồi.",
+      "Anh sẽ tắt máy tính.\"",
+      "\"Cả đèn phòng họp nữa nhé.",
+      "Chẳng ai tắt cả.\"",
+      "Thắng hỏi: \"Sao em để ý chuyện này thế?",
+      "Có phải tiền của em đâu.\"",
+      "\"Không chỉ là chuyện tiền.",
+      "Phần lớn điện của mình đến từ than đá.",
+      "Than đá thải nhiều khói và làm Trái Đất nóng lên.\"",
+      "\"Thật à?",
+      "Anh không biết đấy.\"",
+      "\"Nếu mình dùng ít điện hơn, mình sẽ giúp hành tinh này được một chút.\"",
+      "\"Được.",
+      "Anh sẽ dán một tờ giấy lên máy in.",
+      "Trên đó ghi: 'Hãy tắt tôi đi!'\"",
+      "Quyên cười.",
+      "\"Ý hay đấy.",
+      "Nếu sếp thấy, chắc sếp thích lắm.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nhắc nhở và cảnh báo người khác bằng câu điều kiện loại 1 (If … will … / Unless …) khi nói về việc tiết kiệm điện.",
+    "examples": [
+      {
+        "lemma": "electricity",
+        "sentence": "We use a lot of electricity in summer.",
+        "meaningVi": "Mùa hè chúng tôi dùng rất nhiều điện."
+      },
+      {
+        "lemma": "waste",
+        "sentence": "Don't waste water.",
+        "meaningVi": "Đừng lãng phí nước."
+      },
+      {
+        "lemma": "power",
+        "sentence": "The power went off during the storm.",
+        "meaningVi": "Trong cơn bão thì mất điện."
+      },
+      {
+        "lemma": "bill",
+        "sentence": "Can I pay the bill by card?",
+        "meaningVi": "Tôi trả hoá đơn bằng thẻ được không?"
+      },
+      {
+        "lemma": "air conditioner",
+        "sentence": "Our air conditioner is very old.",
+        "meaningVi": "Máy điều hoà nhà tôi cũ lắm rồi."
+      },
+      {
+        "lemma": "turn off",
+        "sentence": "Please turn off the TV.",
+        "meaningVi": "Làm ơn tắt ti vi đi."
+      },
+      {
+        "lemma": "light",
+        "sentence": "Can you turn on the light?",
+        "meaningVi": "Bạn bật đèn lên được không?"
+      },
+      {
+        "lemma": "coal",
+        "sentence": "This factory burns coal.",
+        "meaningVi": "Nhà máy này đốt than đá."
+      },
+      {
+        "lemma": "global warming",
+        "sentence": "Many people worry about global warming.",
+        "meaningVi": "Nhiều người lo lắng về sự nóng lên toàn cầu."
+      },
+      {
+        "lemma": "planet",
+        "sentence": "We only have one planet.",
+        "meaningVi": "Chúng ta chỉ có một hành tinh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ms Van",
+        "Thang"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thang, did you put this note on the printer?",
+          "meaningVi": "Thắng, em dán tờ giấy này lên máy in à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Quyen has been asking everyone to save electricity.",
+          "meaningVi": "Vâng ạ. Quyên cứ nhắc mọi người tiết kiệm điện."
+        },
+        {
+          "speaker": 0,
+          "text": "I love it. How much have we been spending on electricity?",
+          "meaningVi": "Chị thích lắm. Mình tốn bao nhiêu tiền điện thế?"
+        },
+        {
+          "speaker": 1,
+          "text": "About ten million dong a month. And it has been going up.",
+          "meaningVi": "Khoảng mười triệu một tháng ạ. Mà nó đang tăng."
+        },
+        {
+          "speaker": 0,
+          "text": "That's a lot. What will happen if we change the lights?",
+          "meaningVi": "Nhiều đấy. Nếu mình thay đèn thì sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "If we buy new lights, the bill will go down a little.",
+          "meaningVi": "Nếu mua đèn mới thì hoá đơn sẽ giảm một chút."
+        },
+        {
+          "speaker": 0,
+          "text": "And the air conditioner?",
+          "meaningVi": "Còn máy điều hoà?"
+        },
+        {
+          "speaker": 1,
+          "text": "Unless someone turns it off at six, it runs all night.",
+          "meaningVi": "Nếu không ai tắt lúc sáu giờ thì nó chạy cả đêm."
+        },
+        {
+          "speaker": 0,
+          "text": "Then I'll check it myself before I leave. Is that OK?",
+          "meaningVi": "Vậy chị sẽ tự kiểm tra trước khi về. Được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Perfect. Quyen will be very happy.",
+          "meaningVi": "Tuyệt ạ. Quyên sẽ vui lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Cảnh báo, nhắc nhở: If we buy new lights, the bill will go down a little. / Unless someone turns it off at six, it runs all night. Việc kéo dài đến giờ: Quyen has been asking everyone to save electricity.",
+    "translations": [
+      {
+        "vi": "Nếu chúng ta dùng ít điện hơn, chúng ta sẽ giúp hành tinh.",
+        "en": "If we use less electricity, we will help the planet.",
+        "distractors": [
+          "used",
+          "would",
+          "more"
+        ]
+      },
+      {
+        "vi": "Nếu không tắt điều hoà, hoá đơn sẽ rất cao.",
+        "en": "Unless we turn off the air conditioner, the bill will be high.",
+        "distractors": [
+          "don't",
+          "would",
+          "low"
+        ]
+      },
+      {
+        "vi": "Tôi đã theo dõi hoá đơn tiền điện được ba tháng.",
+        "en": "I have been checking the electricity bill for three months.",
+        "distractors": [
+          "has",
+          "checked",
+          "since"
+        ]
+      },
+      {
+        "vi": "Phần lớn điện của chúng tôi đến từ than đá.",
+        "en": "Most of our electricity comes from coal.",
+        "distractors": [
+          "came",
+          "oil",
+          "much"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chị Vân và Thắng nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tiết kiệm điện ở văn phòng",
+          "Một chuyến công tác",
+          "Mua máy in mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thắng nói \"Quyen has been asking everyone to save electricity.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mỗi tháng công ty trả khoảng bao nhiêu tiền điện?",
+        "promptVi": "",
+        "options": [
+          "Một triệu đồng",
+          "Mười triệu đồng",
+          "Một trăm triệu đồng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thắng nói \"About ten million dong a month.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nếu không ai tắt điều hoà lúc sáu giờ thì sao?",
+        "promptVi": "",
+        "options": [
+          "Nó chạy cả đêm",
+          "Nó tự tắt",
+          "Nó bị hỏng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thắng nói \"Unless someone turns it off at six, it runs all night.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Van doesn't like the note on the printer.",
+        "promptVi": "Chị Vân không thích tờ giấy trên máy in.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Vân nói \"I love it.\"",
+        "turnIndex": 2
+      }
+    ],
+    "readingGuideVi": "Quyên nhắc Thắng tắt những gì? Theo Quyên, điều gì sẽ xảy ra nếu mọi người không tiết kiệm điện?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 1 (if, unless)",
+      "noticing": [
+        {
+          "sentence": "If everyone leaves their computers on, the company will waste a lot of power.\"",
+          "highlights": [
+            "If everyone leaves",
+            "will waste"
+          ]
+        },
+        {
+          "sentence": "Unless we turn it off, the bill will be huge again this month.\"",
+          "highlights": [
+            "Unless we turn",
+            "will be"
+          ]
+        },
+        {
+          "sentence": "\"If we use less electricity, we'll help the planet a little.\"",
+          "highlights": [
+            "If we use",
+            "we'll help"
+          ]
+        },
+        {
+          "sentence": "If the boss sees it, he'll love it.\"",
+          "highlights": [
+            "If the boss sees",
+            "he'll love"
+          ]
+        }
+      ],
+      "questionVi": "Quyên muốn nói: nếu mọi người không tắt điều hoà thì hoá đơn sẽ rất cao. Câu nào đúng?",
+      "options": [
+        "Unless we turn it off, the bill will be huge.",
+        "Unless we don't turn it off, the bill will be huge.",
+        "Unless we will turn it off, the bill is huge."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Unless đã mang nghĩa phủ định (nếu … không), đi với hiện tại đơn; mệnh đề chính dùng will.",
+      "whenVi": "Dùng khi nhắc nhở hoặc cảnh báo: nói rõ điều gì sẽ xảy ra nếu người khác làm, hoặc không làm, một việc.",
+      "table": [
+        {
+          "subject": "If + hiện tại đơn",
+          "form": "If we use less electricity, we'll help the planet.",
+          "negative": "If we don't turn it off, the bill will be huge."
+        },
+        {
+          "subject": "Unless + hiện tại đơn",
+          "form": "Unless we turn it off, the bill will be huge.",
+          "negative": "unless = if … not"
+        },
+        {
+          "subject": "will / 'll",
+          "form": "he'll love it, we'll help",
+          "negative": "won't: The bill won't go down."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If everyone will leave their computers on, we will waste power.",
+          "right": "If everyone leaves their computers on, we will waste power."
+        },
+        {
+          "wrong": "Unless you don't turn off the lights, the bill will go up.",
+          "right": "Unless you turn off the lights, the bill will go up."
+        }
+      ],
+      "noteVi": "Chủ ngữ số ít trong mệnh đề If (everyone, the boss, someone) thì động từ thêm -s: If everyone leaves …, If the boss sees …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "If you ___ off the lights, we will save money.",
+          "answers": [
+            "turn"
+          ],
+          "explanationVi": "Mệnh đề If dùng hiện tại đơn: you turn off."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ we turn off the air conditioner, the bill will be huge.",
+          "options": [
+            "Unless",
+            "If",
+            "Because",
+            "So"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Ý câu là \"nếu không tắt\" nên dùng Unless."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If we will use less electricity, we will help the planet.",
+          "sentence": "If we use less electricity, we will help the planet.",
+          "explanationVi": "Mệnh đề If không dùng will: If we use …"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu sếp thấy nó, anh ấy sẽ rất thích.",
+          "sentence": "If the boss sees it, he will love it.",
+          "words": [
+            "If",
+            "the",
+            "boss",
+            "sees",
+            "it,",
+            "he",
+            "will",
+            "love",
+            "it.",
+            "would"
+          ],
+          "explanationVi": "If + hiện tại đơn (sees), will + động từ (will love); từ \"would\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Unless we turn it off, the bill will be huge again this month.\"",
+        "tipVi": "Nhấn vào Unless và huge /hjuːdʒ/; turn it off đọc nối /tɜːnɪtɒf/."
+      },
+      {
+        "text": "\"If we use less electricity, we'll help the planet a little.\"",
+        "tipVi": "electricity /ɪˌlekˈtrɪsəti/ nhấn âm thứ ba; we'll đọc /wiːl/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What will happen if everyone leaves their lights on?",
+        "questionVi": "Điều gì sẽ xảy ra nếu ai cũng để đèn sáng?",
+        "frame": "If everyone leaves their lights on, ___ will ___."
+      },
+      {
+        "question": "What do you do to use less electricity at home?",
+        "questionVi": "Ở nhà bạn làm gì để dùng ít điện hơn?",
+        "frame": "I always ___. I never ___."
+      },
+      {
+        "question": "What have you been doing at work or school this week?",
+        "questionVi": "Tuần này bạn đang làm gì ở chỗ làm hoặc ở trường?",
+        "frame": "This week I've been ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 1 (If … will … / unless)",
+      "anyOf": [
+        "If ",
+        " if ",
+        "unless",
+        "Unless"
+      ],
+      "outlineVi": [
+        "Chào mọi người và nêu vấn đề (hoá đơn điện đang tăng …).",
+        "Nhờ mọi người tắt những gì trước khi về.",
+        "Điều gì sẽ xảy ra nếu mọi người làm / không làm (If … / Unless …)."
+      ],
+      "modelAnswer": "Hi everyone, our electricity bill has been going up for three months. Please turn off your computer and the lights before you leave. If we all do this, we will save a lot of money. Unless we turn off the air conditioner at night, the bill will be huge again. Thank you!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "goes to sleep",
+      "lemma": "go to sleep",
+      "meaningVi": "tự ngủ (máy tính)",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "It goes to sleep after an hour.",
+      "phraseVi": "Một tiếng sau nó tự ngủ mà."
+    },
+    {
+      "text": "huge",
+      "lemma": "huge",
+      "meaningVi": "rất lớn",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "the bill will be huge",
+      "phraseVi": "hoá đơn sẽ cao ngất"
+    },
+    {
+      "text": "adds to",
+      "lemma": "add to",
+      "meaningVi": "làm tăng thêm",
+      "sentenceIndex": 24,
+      "pos": "phrase",
+      "phrase": "it adds to global warming",
+      "phraseVi": "làm Trái Đất nóng lên"
+    },
+    {
+      "text": "note",
+      "lemma": "note",
+      "meaningVi": "tờ ghi chú",
+      "sentenceIndex": 29,
+      "pos": "noun",
+      "phrase": "a note on the printer",
+      "phraseVi": "một tờ giấy trên máy in"
+    }
+  ]
+}

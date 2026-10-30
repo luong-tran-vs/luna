@@ -1,0 +1,603 @@
+{
+  "content": "My name is Minh, and this is my English homework about animals in Vietnam.\n\nIn Vietnam, a lot of farmers have buffaloes. Buffaloes are big and strong, and they can work in the rice fields. Children often sit on them!\n\nIn the hills and mountains, there are monkeys, bears and a lot of birds. Monkeys can climb very high, and some birds can sing beautiful songs. Bears are big and strong, and they can climb trees too.\n\nIn the rivers and the sea, there are a lot of fish. Some fish are very small, but some are very big.\n\nTigers live in Vietnam too, but there are not many tigers now. People can't see them very often.\n\nMy cousin Lan loves animals. She often asks me, \"Can we see monkeys near Hue?\"\n\"Yes, we can, in the hills,\" I answer.",
+  "targetWords": [
+    "animal",
+    "buffalo",
+    "monkey",
+    "bear",
+    "bird",
+    "river",
+    "fish",
+    "tiger"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "con vật, động vật",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "buffaloes",
+        "lemma": "buffalo",
+        "meaningVi": "con trâu",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "monkeys",
+        "lemma": "monkey",
+        "meaningVi": "con khỉ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "bears",
+        "lemma": "bear",
+        "meaningVi": "con gấu",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "birds",
+        "lemma": "bird",
+        "meaningVi": "con chim",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "rivers",
+        "lemma": "river",
+        "meaningVi": "dòng sông",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "fish",
+        "lemma": "fish",
+        "meaningVi": "con cá",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "Tigers",
+        "lemma": "tiger",
+        "meaningVi": "con hổ",
+        "pos": "noun",
+        "sentenceIndex": 9
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Minh's homework about?",
+        "promptVi": "Bài tập về nhà của Minh nói về điều gì?",
+        "options": [
+          "The pets in Minh's house",
+          "Some animals that live in Vietnam",
+          "A trip to the zoo",
+          "Farmers and their rice"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh viết về các con vật sống ở Việt Nam: trâu, khỉ, gấu, chim, cá, hổ, và chúng làm được gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can buffaloes do?",
+        "promptVi": "Trâu làm được gì?",
+        "options": [
+          "They can work in the rice fields.",
+          "They can climb trees.",
+          "They can sing.",
+          "They can live in the sea."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh viết \"Buffaloes are big and strong, and they can work in the rice fields\": trâu khoẻ, làm việc được ở ruộng lúa."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't people see tigers very often?",
+        "promptVi": "Vì sao người ta không hay nhìn thấy hổ?",
+        "options": [
+          "Tigers live in the sea.",
+          "Tigers sleep all day.",
+          "There are not many tigers now.",
+          "Tigers are very small."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh viết \"there are not many tigers now. People can't see them very often\": bây giờ còn ít hổ nên hiếm khi thấy."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bears can climb trees.",
+        "promptVi": "Gấu trèo cây được.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Minh viết \"Bears are big and strong, and they can climb trees too\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"strong\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Buffaloes are big and strong, and they can work in the rice fields.",
+        "options": [
+          "yếu",
+          "khoẻ, khoẻ mạnh",
+          "to béo",
+          "hiền lành"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Strong là khoẻ: trâu to và khoẻ nên làm việc được ở ruộng lúa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't (khả năng)",
+      "bodyVi": "Can + động từ nói con vật làm được gì: buffaloes can work in the rice fields, monkeys can climb very high. Can't nói không làm được: people can't see them very often. Hỏi: Can we see monkeys near Hue? Trả lời ngắn: Yes, we can. / No, we can't.",
+      "examples": [
+        "Buffaloes are big and strong, and they can work in the rice fields.",
+        "Monkeys can climb very high, and some birds can sing beautiful songs.",
+        "People can't see them very often."
+      ]
+    },
+    "writingPrompt": "Write about some animals that live in Vietnam and what they can and can't do.",
+    "sentenceTranslations": [
+      "Mình tên là Minh, và đây là bài tập tiếng Anh về nhà của mình, về các con vật ở Việt Nam.",
+      "Ở Việt Nam, nhiều bác nông dân nuôi trâu.",
+      "Trâu to và khoẻ, và chúng làm việc được ở ruộng lúa.",
+      "Trẻ con hay ngồi trên lưng trâu!",
+      "Trên đồi núi có khỉ, gấu và rất nhiều chim.",
+      "Khỉ trèo được rất cao, và một số loài chim hót rất hay.",
+      "Gấu to và khoẻ, và chúng cũng trèo cây được.",
+      "Dưới sông và ngoài biển có rất nhiều cá.",
+      "Có loài cá rất nhỏ, nhưng có loài lại rất to.",
+      "Ở Việt Nam cũng có hổ, nhưng bây giờ không còn nhiều.",
+      "Người ta không hay nhìn thấy chúng.",
+      "Em họ mình, Lan, rất yêu động vật.",
+      "Em hay hỏi mình: \"Gần Huế mình có xem khỉ được không anh?\"",
+      "\"Được chứ, ở trên đồi ấy,\" mình trả lời."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về những con vật sống ở Việt Nam và chúng làm được gì, dùng can / can't và danh từ số nhiều.",
+    "examples": [
+      {
+        "lemma": "animal",
+        "sentence": "This animal lives in Vietnam.",
+        "meaningVi": "Con vật này sống ở Việt Nam."
+      },
+      {
+        "lemma": "buffalo",
+        "sentence": "The buffalo is big and black.",
+        "meaningVi": "Con trâu to và màu đen."
+      },
+      {
+        "lemma": "monkey",
+        "sentence": "A monkey can climb very high.",
+        "meaningVi": "Khỉ trèo được rất cao."
+      },
+      {
+        "lemma": "bear",
+        "sentence": "The bear is very strong.",
+        "meaningVi": "Con gấu rất khoẻ."
+      },
+      {
+        "lemma": "bird",
+        "sentence": "I can see a bird in the tree.",
+        "meaningVi": "Mình nhìn thấy một con chim trên cây."
+      },
+      {
+        "lemma": "river",
+        "sentence": "There are fish in the river.",
+        "meaningVi": "Dưới sông có cá."
+      },
+      {
+        "lemma": "fish",
+        "sentence": "This fish is very big.",
+        "meaningVi": "Con cá này rất to."
+      },
+      {
+        "lemma": "tiger",
+        "sentence": "The tiger is orange and black.",
+        "meaningVi": "Con hổ có màu cam và đen."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, what animals can I see in Vietnam?",
+          "meaningVi": "Minh ơi, ở Việt Nam mình xem được những con vật nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "You can see buffaloes on farms. They work in the rice fields.",
+          "meaningVi": "Cậu có thể thấy trâu ở các trang trại. Chúng làm việc ở ruộng lúa."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I sit on a buffalo?",
+          "meaningVi": "Mình ngồi lên lưng trâu được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, you can! Children often do.",
+          "meaningVi": "Được chứ! Trẻ con hay ngồi lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Are there monkeys near Hue?",
+          "meaningVi": "Gần Huế có khỉ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there are. They live in the hills.",
+          "meaningVi": "Có. Chúng sống trên đồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Can we see tigers too?",
+          "meaningVi": "Mình xem hổ được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, we can't. There are not many tigers now.",
+          "meaningVi": "Không được đâu. Bây giờ không còn nhiều hổ nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "That's sad. In London, we can't see monkeys or tigers.",
+          "meaningVi": "Buồn nhỉ. Ở London thì không thấy khỉ hay hổ đâu."
+        },
+        {
+          "speaker": 0,
+          "text": "But you can see a lot of birds there!",
+          "meaningVi": "Nhưng ở đó cậu thấy được rất nhiều chim mà!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi xin phép hoặc hỏi có làm được không: Can I sit on a buffalo? Can we see tigers? Trả lời: Yes, you can. / No, we can't.",
+    "translations": [
+      {
+        "vi": "Trâu khoẻ và chúng làm việc được ở ruộng lúa.",
+        "en": "Buffaloes are strong, and they can work in the rice fields.",
+        "distractors": [
+          "is",
+          "works",
+          "can't"
+        ]
+      },
+      {
+        "vi": "Khỉ trèo được rất cao.",
+        "en": "Monkeys can climb very high.",
+        "distractors": [
+          "climbs",
+          "monkey",
+          "can't"
+        ]
+      },
+      {
+        "vi": "Dưới sông có rất nhiều cá.",
+        "en": "There are a lot of fish in the rivers.",
+        "distractors": [
+          "is",
+          "fishes",
+          "sea"
+        ]
+      },
+      {
+        "vi": "Một số loài chim hót rất hay.",
+        "en": "Some birds can sing beautiful songs.",
+        "distractors": [
+          "bird",
+          "sings",
+          "song"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thú cưng của Anna",
+          "Một chuyến đi London",
+          "Những con vật có thể thấy ở Việt Nam"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna hỏi \"what animals can I see in Vietnam?\", rồi hai bạn nói về trâu, khỉ và hổ.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở trang trại, Anna có thể thấy con vật nào?",
+        "promptVi": "",
+        "options": [
+          "Con trâu",
+          "Con hổ",
+          "Con khỉ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"You can see buffaloes on farms.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Gần Huế, khỉ sống ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở biển",
+          "Trên đồi",
+          "Ở ruộng lúa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"Yes, there are. They live in the hills.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna and Minh can see tigers near Hue.",
+        "promptVi": "Anna và Minh có thể xem hổ ở gần Huế.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"No, we can't. There are not many tigers now.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Mỗi con vật trong bài sống ở đâu và làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't (khả năng)",
+      "noticing": [
+        {
+          "sentence": "Buffaloes are big and strong, and they can work in the rice fields.",
+          "highlights": [
+            "can work"
+          ]
+        },
+        {
+          "sentence": "Monkeys can climb very high, and some birds can sing beautiful songs.",
+          "highlights": [
+            "can climb",
+            "can sing"
+          ]
+        },
+        {
+          "sentence": "People can't see them very often.",
+          "highlights": [
+            "can't see"
+          ]
+        },
+        {
+          "sentence": "She often asks me, \"Can we see monkeys near Hue?\"",
+          "highlights": [
+            "Can we see"
+          ]
+        }
+      ],
+      "questionVi": "Lan hỏi \"Can we see monkeys near Hue?\" và Minh trả lời \"Yes, we can\". Hai câu này cho thấy điều gì?",
+      "options": [
+        "Câu hỏi đưa can lên đầu, câu trả lời ngắn cũng dùng can",
+        "Câu hỏi dùng do, câu trả lời dùng can",
+        "Can chỉ dùng trong câu phủ định"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu hỏi với can: Can + we + see …? Câu trả lời ngắn lặp lại can: Yes, we can. / No, we can't. Không cần do hay does.",
+      "whenVi": "Dùng can / can't để nói con vật, con người làm được hay không làm được gì, và Can …? để hỏi.",
+      "table": [
+        {
+          "subject": "they (buffaloes, monkeys)",
+          "form": "Buffaloes can work in the rice fields.",
+          "negative": "They can't fly."
+        },
+        {
+          "subject": "people / we",
+          "form": "We can see monkeys in the hills.",
+          "negative": "People can't see tigers very often."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Can we see monkeys? – Yes, we can.",
+          "negative": "No, we can't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Monkeys can to climb very high.",
+          "right": "Monkeys can climb very high."
+        },
+        {
+          "wrong": "People don't can see tigers.",
+          "right": "People can't see tigers."
+        }
+      ],
+      "noteVi": "Người Việt hay thêm to sau can hoặc dùng don't với can, vì trong tiếng Việt \"được\" và \"không\" đứng ở chỗ khác; với can chỉ cần can + động từ, can't + động từ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't vào chỗ trống.",
+          "text": "Buffaloes are strong, and they ___ work in the rice fields.",
+          "answers": [
+            "can"
+          ],
+          "explanationVi": "Trâu khoẻ nên làm việc được: can."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Bears ___ climb trees.",
+          "options": [
+            "can",
+            "cans",
+            "are",
+            "does"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Can không thêm -s và đứng trước động từ climb: Bears can climb trees."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Some birds can sings beautiful songs.",
+          "sentence": "Some birds can sing beautiful songs.",
+          "explanationVi": "Sau can, động từ giữ nguyên: can sing."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Chúng ta có thể xem khỉ ở gần Huế không?",
+          "sentence": "Can we see monkeys near Hue?",
+          "words": [
+            "monkeys",
+            "we",
+            "Hue",
+            "Can",
+            "near",
+            "see",
+            "Do"
+          ],
+          "explanationVi": "Câu hỏi với can đưa Can lên đầu; từ \"Do\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Monkeys can climb very high, and some birds can sing beautiful songs.",
+        "tipVi": "Monkeys /ˈmʌŋkiz/ có âm /ŋk/ ở giữa và /z/ ở cuối; birds /bɝdz/ có âm /ɝ/ uốn lưỡi và cụm /dz/."
+      },
+      {
+        "text": "In the rivers and the sea, there are a lot of fish.",
+        "tipVi": "Rivers /ˈrɪvərz/ có âm /v/ và /z/ ở cuối; fish /fɪʃ/ kết thúc bằng /ʃ/ như \"s\" nặng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What animals can you see near your home?",
+        "questionVi": "Gần nhà bạn có thể thấy những con vật nào?",
+        "frame": "I can see ___ and ___ near my home."
+      },
+      {
+        "question": "What is your favourite animal in Vietnam?",
+        "questionVi": "Bạn thích con vật nào nhất ở Việt Nam?",
+        "frame": "I like ___ because they can ___."
+      },
+      {
+        "question": "What animal does your best friend like?",
+        "questionVi": "Bạn thân của bạn thích con vật nào?",
+        "frame": "He / She likes ___. They can ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can hoặc can't",
+      "anyOf": [
+        "can",
+        "can't",
+        "cannot",
+        "they can"
+      ],
+      "outlineVi": [
+        "Nói một con vật sống ở ruộng hoặc trang trại và nó làm được gì.",
+        "Nói con vật sống trên đồi núi hoặc dưới sông và chúng làm được gì.",
+        "Kể một người trong nhà thích con vật nào và vì sao (He / She loves …)."
+      ],
+      "modelAnswer": "There are a lot of animals in Vietnam. Buffaloes live on farms, and they can work in the rice fields. Monkeys live in the hills, and they can climb trees. There are a lot of fish in the rivers. My sister loves birds, because they can fly and sing."
+    }
+  },
+  "glosses": [
+    {
+      "text": "homework",
+      "lemma": "homework",
+      "meaningVi": "bài tập về nhà",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "my English homework",
+      "phraseVi": "bài tập tiếng Anh về nhà của mình"
+    },
+    {
+      "text": "farmers",
+      "lemma": "farmer",
+      "meaningVi": "nông dân",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a lot of farmers have buffaloes",
+      "phraseVi": "nhiều bác nông dân nuôi trâu"
+    },
+    {
+      "text": "strong",
+      "lemma": "strong",
+      "meaningVi": "khoẻ",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "big and strong",
+      "phraseVi": "to và khoẻ"
+    },
+    {
+      "text": "rice fields",
+      "lemma": "rice field",
+      "meaningVi": "ruộng lúa",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "work in the rice fields",
+      "phraseVi": "làm việc ở ruộng lúa"
+    },
+    {
+      "text": "sit on",
+      "lemma": "sit on",
+      "meaningVi": "ngồi lên",
+      "sentenceIndex": 3,
+      "pos": "phrasal verb",
+      "phrase": "Children often sit on them",
+      "phraseVi": "Trẻ con hay ngồi trên lưng trâu"
+    },
+    {
+      "text": "mountains",
+      "lemma": "mountain",
+      "meaningVi": "núi",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "In the hills and mountains",
+      "phraseVi": "Trên đồi núi"
+    },
+    {
+      "text": "beautiful",
+      "lemma": "beautiful",
+      "meaningVi": "hay, đẹp",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "sing beautiful songs",
+      "phraseVi": "hót rất hay"
+    },
+    {
+      "text": "not many",
+      "lemma": "not many",
+      "meaningVi": "không nhiều",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "there are not many tigers now",
+      "phraseVi": "bây giờ không còn nhiều"
+    },
+    {
+      "text": "very often",
+      "lemma": "often",
+      "meaningVi": "thường xuyên",
+      "sentenceIndex": 10,
+      "pos": "adverb",
+      "phrase": "People can't see them very often",
+      "phraseVi": "Người ta không hay nhìn thấy chúng"
+    },
+    {
+      "text": "cousin",
+      "lemma": "cousin",
+      "meaningVi": "em họ",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "My cousin Lan loves animals",
+      "phraseVi": "Em họ mình, Lan, rất yêu động vật"
+    }
+  ]
+}

@@ -1,0 +1,601 @@
+{
+  "content": "Hi Sophie,\n\nHow is London? Is it cold there now? Here in Hanoi, the weather is very different in spring, summer, autumn and winter.\n\nIn spring, it is usually warm, and it often rains a little. In summer, it is always very hot and sunny. People often go to the beach, and children eat a lot of ice cream.\n\nAutumn is my favourite. The sky is usually blue, and the wind is cool. Lan loves autumn too. She often walks in the park with her mum after school.\n\nIn winter, it is often cold and cloudy, but it never snows. I usually wear my coat to school. In Ho Chi Minh City, it is never cold!\n\nLove,\nAnna",
+  "targetWords": [
+    "spring",
+    "summer",
+    "autumn",
+    "winter",
+    "warm",
+    "hot",
+    "snow",
+    "coat"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "spring",
+        "lemma": "spring",
+        "meaningVi": "mùa xuân",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "summer",
+        "lemma": "summer",
+        "meaningVi": "mùa hè",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "autumn",
+        "lemma": "autumn",
+        "meaningVi": "mùa thu",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "winter",
+        "lemma": "winter",
+        "meaningVi": "mùa đông",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "warm",
+        "lemma": "warm",
+        "meaningVi": "ấm, ấm áp",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "hot",
+        "lemma": "hot",
+        "meaningVi": "nóng",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "snows",
+        "lemma": "snow",
+        "meaningVi": "có tuyết rơi",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "coat",
+        "lemma": "coat",
+        "meaningVi": "áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Anna tell Sophie about?",
+        "promptVi": "Anna kể với Sophie về điều gì?",
+        "options": [
+          "The weather in Hanoi in spring, summer, autumn and winter",
+          "Her new school in Hanoi",
+          "A trip to the beach",
+          "Lan and her mum"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna kể thời tiết Hà Nội thường thế nào vào mùa xuân, hè, thu, đông và mọi người hay làm gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the weather usually like in Hanoi in spring?",
+        "promptVi": "Mùa xuân ở Hà Nội thời tiết thường thế nào?",
+        "options": [
+          "Cold and cloudy",
+          "Very hot and sunny",
+          "Warm, with a little rain",
+          "Cool, with snow"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna viết \"In spring, it is usually warm, and it often rains a little\": trời ấm và hay mưa nhẹ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Anna wear her coat to school in winter?",
+        "promptVi": "Vì sao mùa đông Anna mặc áo khoác đi học?",
+        "options": [
+          "It always rains.",
+          "It snows a lot.",
+          "She likes her new coat.",
+          "It is often cold."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Anna viết \"In winter, it is often cold and cloudy\", nên bạn ấy thường mặc áo khoác đi học. Hà Nội không có tuyết."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "It snows in Hanoi in winter.",
+        "promptVi": "Mùa đông ở Hà Nội có tuyết rơi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna viết \"it never snows\": mùa đông lạnh nhưng không bao giờ có tuyết, nên bài nói ngược lại."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"usually\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In spring, it is usually warm, and it often rains a little.",
+        "options": [
+          "không bao giờ",
+          "thường, thường thường",
+          "luôn luôn",
+          "hiếm khi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Usually là thường: phần lớn thời gian mùa xuân trời ấm, nhưng không phải lúc nào cũng vậy (lúc nào cũng vậy là always)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Trạng từ tần suất",
+      "bodyVi": "Trạng từ tần suất cho biết việc gì xảy ra thường xuyên đến đâu: always (luôn luôn), usually (thường), often (hay), never (không bao giờ). Chúng đứng sau is / am / are: it is usually warm. Với động từ khác, chúng đứng trước động từ: it often rains, she often walks, it never snows.",
+      "examples": [
+        "In spring, it is usually warm, and it often rains a little.",
+        "In summer, it is always very hot and sunny.",
+        "In winter, it is often cold and cloudy, but it never snows."
+      ]
+    },
+    "writingPrompt": "Write about the weather in your city in spring, summer, autumn and winter, and what people often do.",
+    "sentenceTranslations": [
+      "Chào Sophie,",
+      "London dạo này thế nào?",
+      "Bây giờ ở đó có lạnh không?",
+      "Ở Hà Nội này, thời tiết mùa xuân, mùa hè, mùa thu và mùa đông rất khác nhau.",
+      "Mùa xuân trời thường ấm, và hay có mưa nhẹ.",
+      "Mùa hè lúc nào cũng rất nóng và nắng.",
+      "Mọi người hay đi biển, còn trẻ con thì ăn thật nhiều kem.",
+      "Mình thích nhất là mùa thu.",
+      "Bầu trời thường xanh, và gió mát.",
+      "Lan cũng rất thích mùa thu.",
+      "Bạn ấy hay đi dạo trong công viên với mẹ sau giờ học.",
+      "Mùa đông trời hay lạnh và nhiều mây, nhưng không bao giờ có tuyết.",
+      "Mình thường mặc áo khoác đi học.",
+      "Còn ở Thành phố Hồ Chí Minh thì không bao giờ lạnh!",
+      "Thương, Anna"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói thời tiết các mùa thường thế nào và mọi người hay làm gì, dùng always / usually / often / never.",
+    "examples": [
+      {
+        "lemma": "spring",
+        "sentence": "Spring is warm in Hanoi.",
+        "meaningVi": "Mùa xuân ở Hà Nội ấm áp."
+      },
+      {
+        "lemma": "summer",
+        "sentence": "We go to the beach in summer.",
+        "meaningVi": "Mùa hè bọn mình đi biển."
+      },
+      {
+        "lemma": "autumn",
+        "sentence": "I love autumn.",
+        "meaningVi": "Mình rất thích mùa thu."
+      },
+      {
+        "lemma": "winter",
+        "sentence": "It is cold in winter.",
+        "meaningVi": "Mùa đông trời lạnh."
+      },
+      {
+        "lemma": "warm",
+        "sentence": "The water is warm.",
+        "meaningVi": "Nước ấm."
+      },
+      {
+        "lemma": "hot",
+        "sentence": "It is very hot today.",
+        "meaningVi": "Hôm nay trời rất nóng."
+      },
+      {
+        "lemma": "snow",
+        "sentence": "There is no snow in Hue.",
+        "meaningVi": "Ở Huế không có tuyết."
+      },
+      {
+        "lemma": "coat",
+        "sentence": "My coat is red.",
+        "meaningVi": "Áo khoác của mình màu đỏ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tom, is it cold in Sydney in winter?",
+          "meaningVi": "Tom ơi, mùa đông ở Sydney có lạnh không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not very. It is usually cool, and it often rains.",
+          "meaningVi": "Không lạnh lắm. Trời thường mát, và hay mưa."
+        },
+        {
+          "speaker": 0,
+          "text": "Does it snow?",
+          "meaningVi": "Có tuyết không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it never snows in Sydney. What about Hanoi?",
+          "meaningVi": "Không, ở Sydney không bao giờ có tuyết. Còn Hà Nội thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "It never snows here, but winter is often cold.",
+          "meaningVi": "Ở đây cũng không bao giờ có tuyết, nhưng mùa đông hay lạnh."
+        },
+        {
+          "speaker": 1,
+          "text": "What do you usually do in summer?",
+          "meaningVi": "Mùa hè cậu thường làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I often go to the beach with my family.",
+          "meaningVi": "Mình hay đi biển với gia đình."
+        },
+        {
+          "speaker": 1,
+          "text": "Me too! I always swim in the sea in summer.",
+          "meaningVi": "Mình cũng vậy! Mùa hè nào mình cũng bơi ở biển."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you like summer or winter?",
+          "meaningVi": "Cậu thích mùa hè hay mùa đông?"
+        },
+        {
+          "speaker": 1,
+          "text": "Summer, because I love swimming!",
+          "meaningVi": "Mùa hè, vì mình mê bơi lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi ai đó thường làm gì: What do you usually do in summer? Trả lời: I often go to the beach.",
+    "translations": [
+      {
+        "vi": "Mùa xuân trời thường ấm.",
+        "en": "In spring, it is usually warm.",
+        "distractors": [
+          "always",
+          "are",
+          "cold"
+        ]
+      },
+      {
+        "vi": "Mùa hè lúc nào cũng rất nóng.",
+        "en": "Summer is always very hot.",
+        "distractors": [
+          "usually",
+          "never",
+          "are"
+        ]
+      },
+      {
+        "vi": "Ở Hà Nội không bao giờ có tuyết.",
+        "en": "It never snows in Hanoi.",
+        "distractors": [
+          "snow",
+          "always",
+          "don't"
+        ]
+      },
+      {
+        "vi": "Mùa đông tôi thường mặc áo khoác đi học.",
+        "en": "I usually wear my coat to school in winter.",
+        "distractors": [
+          "wears",
+          "never",
+          "at"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Tom nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một buổi học bơi",
+          "Những món ăn mùa hè",
+          "Thời tiết các mùa ở Sydney và Hà Nội"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan hỏi \"is it cold in Sydney in winter?\", rồi hai bạn nói về mùa đông, tuyết và mùa hè ở hai nơi.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mùa đông ở Sydney thường thế nào?",
+        "promptVi": "",
+        "options": [
+          "Rất lạnh và có tuyết",
+          "Mát và hay mưa",
+          "Nóng và nắng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"It is usually cool, and it often rains.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mùa hè Lan hay làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi biển cùng gia đình",
+          "Ở nhà đọc sách",
+          "Đi chơi Đà Lạt"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"I often go to the beach with my family.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom likes winter more than summer.",
+        "promptVi": "Tom thích mùa đông hơn mùa hè.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom chọn \"Summer, because I love swimming!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Ở Hà Nội, mùa nào có thời tiết mà Anna thích nhất, và mùa đó thường thế nào?",
+    "grammarStep": {
+      "titleVi": "Trạng từ tần suất",
+      "noticing": [
+        {
+          "sentence": "In spring, it is usually warm, and it often rains a little.",
+          "highlights": [
+            "is usually",
+            "often rains"
+          ]
+        },
+        {
+          "sentence": "In summer, it is always very hot and sunny.",
+          "highlights": [
+            "is always"
+          ]
+        },
+        {
+          "sentence": "She often walks in the park with her mum after school.",
+          "highlights": [
+            "often walks"
+          ]
+        },
+        {
+          "sentence": "In winter, it is often cold and cloudy, but it never snows.",
+          "highlights": [
+            "is often",
+            "never snows"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"it is usually warm\" và \"it often rains\", trạng từ tần suất đứng ở đâu?",
+      "options": [
+        "Luôn đứng ở đầu câu",
+        "Sau is (am, are), nhưng trước động từ thường (rains, walks)",
+        "Luôn đứng ở cuối câu"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Với is / am / are, trạng từ đứng sau: is usually, is always, is often. Với động từ thường, trạng từ đứng trước: often rains, often walks, never snows.",
+      "whenVi": "Dùng always, usually, often, never để nói một việc xảy ra thường xuyên đến mức nào.",
+      "table": [
+        {
+          "subject": "always (luôn luôn)",
+          "form": "In summer, it is always very hot.",
+          "negative": "—"
+        },
+        {
+          "subject": "usually (thường)",
+          "form": "I usually wear my coat to school.",
+          "negative": "—"
+        },
+        {
+          "subject": "often (hay)",
+          "form": "It often rains a little.",
+          "negative": "—"
+        },
+        {
+          "subject": "never (không bao giờ)",
+          "form": "It never snows in Hanoi.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It snows never in Hanoi.",
+          "right": "It never snows in Hanoi."
+        },
+        {
+          "wrong": "It usually is warm in spring.",
+          "right": "It is usually warm in spring."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"trời thường ấm\" (\"thường\" đứng trước \"ấm\"), nên người Việt hay viết \"it usually is warm\" thay vì để usually sau is.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền trạng từ có nghĩa \"không bao giờ\" vào chỗ trống.",
+          "text": "It ___ snows in Hanoi.",
+          "answers": [
+            "never"
+          ],
+          "explanationVi": "Không bao giờ là never, đứng trước động từ thường: never snows."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn trạng từ có nghĩa \"luôn luôn\".",
+          "text": "In summer, it is ___ very hot.",
+          "options": [
+            "never",
+            "always",
+            "often",
+            "usually"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Luôn luôn là always, đứng sau is: is always."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It usually is warm in spring.",
+          "sentence": "It is usually warm in spring.",
+          "explanationVi": "Trạng từ tần suất đứng sau is: is usually."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy hay đi dạo trong công viên.",
+          "sentence": "She often walks in the park.",
+          "words": [
+            "walks",
+            "She",
+            "park",
+            "often",
+            "the",
+            "in",
+            "always"
+          ],
+          "explanationVi": "Often (hay) đứng trước động từ walks; từ \"always\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The sky is usually blue, and the wind is cool.",
+        "tipVi": "Usually /ˈjuːʒuəli/ có âm /ʒ/ ở giữa (gần như \"giu-giu-ờ-li\"), nhấn ở âm đầu."
+      },
+      {
+        "text": "In summer, it is always very hot and sunny.",
+        "tipVi": "Always /ˈɔlweɪz/ kết thúc bằng /z/; very /ˈvɛri/ có âm /v/, môi dưới chạm răng trên, không đọc thành \"bê\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is the weather usually like in winter where you live?",
+        "questionVi": "Nơi bạn sống, mùa đông thời tiết thường thế nào?",
+        "frame": "In winter, it is usually ___. It never ___."
+      },
+      {
+        "question": "What do you often do in summer?",
+        "questionVi": "Mùa hè bạn hay làm gì?",
+        "frame": "In summer, I often ___."
+      },
+      {
+        "question": "What does your best friend usually do in autumn?",
+        "questionVi": "Mùa thu bạn thân của bạn thường làm gì?",
+        "frame": "He / She usually ___ in autumn."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng always / usually / often / never",
+      "anyOf": [
+        "always",
+        "usually",
+        "often",
+        "never"
+      ],
+      "outlineVi": [
+        "Nói mùa xuân và mùa hè ở thành phố bạn thường thế nào.",
+        "Nói mùa thu và mùa đông thường thế nào (it never …).",
+        "Kể một người bạn hoặc người thân hay làm gì vào mùa họ thích."
+      ],
+      "modelAnswer": "In my city, spring is usually warm, and it often rains. Summer is always very hot, so people often go to the beach. In autumn, the sky is usually blue. Winter is cold, but it never snows. My brother loves winter, and he always wears his big coat."
+    }
+  },
+  "glosses": [
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác nhau",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "the weather is very different",
+      "phraseVi": "thời tiết rất khác nhau"
+    },
+    {
+      "text": "a little",
+      "lemma": "a little",
+      "meaningVi": "một chút, nhẹ",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "it often rains a little",
+      "phraseVi": "hay có mưa nhẹ"
+    },
+    {
+      "text": "beach",
+      "lemma": "beach",
+      "meaningVi": "bãi biển",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "go to the beach",
+      "phraseVi": "đi biển"
+    },
+    {
+      "text": "ice cream",
+      "lemma": "ice cream",
+      "meaningVi": "kem",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "eat a lot of ice cream",
+      "phraseVi": "ăn thật nhiều kem"
+    },
+    {
+      "text": "favourite",
+      "lemma": "favourite",
+      "meaningVi": "điều được yêu thích nhất",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "Autumn is my favourite",
+      "phraseVi": "Mình thích nhất là mùa thu"
+    },
+    {
+      "text": "sky",
+      "lemma": "sky",
+      "meaningVi": "bầu trời",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "The sky is usually blue",
+      "phraseVi": "Bầu trời thường xanh"
+    },
+    {
+      "text": "walks",
+      "lemma": "walk",
+      "meaningVi": "đi bộ, đi dạo",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "She often walks in the park",
+      "phraseVi": "Bạn ấy hay đi dạo trong công viên"
+    },
+    {
+      "text": "cloudy",
+      "lemma": "cloudy",
+      "meaningVi": "nhiều mây",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "cold and cloudy",
+      "phraseVi": "lạnh và nhiều mây"
+    },
+    {
+      "text": "wear",
+      "lemma": "wear",
+      "meaningVi": "mặc",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "I usually wear my coat",
+      "phraseVi": "Mình thường mặc áo khoác"
+    }
+  ]
+}

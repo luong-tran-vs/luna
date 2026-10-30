@@ -1,0 +1,600 @@
+{
+  "content": "It is twelve o'clock, and Lan and Minh are hungry. They work in the same office in Hanoi, and they often have lunch together. Today they are at a small pho restaurant near their office. The restaurant is busy, but there is an empty table near the window. A young waiter brings them the menu.\n\n\"Good afternoon, what would you like?\" he asks.\n\"I'd like a bowl of beef pho, please,\" Lan says. \"Can I have some chilli with it?\"\n\"Of course, and would you like a drink?\"\n\"Yes, I'd like a cup of hot tea.\"\n\nMinh looks at the menu and asks, \"Is there any chicken pho today?\"\n\"Sorry, there isn't any chicken today, but we have some nice spring rolls,\" the waiter answers.\n\"OK, I'd like beef pho too,\" Minh says. \"How many spring rolls are there on one plate?\"\n\"There are six.\"\n\"Great, and I'd like a glass of water, but not much ice, please.\"\n\nTen minutes later, the food arrives. The pho is hot, and there is a lot of beef in it. Lan puts some chilli and a little lemon in her bowl. \"Mmm, it's delicious!\" she says.",
+  "targetWords": [
+    "hungry",
+    "waiter",
+    "menu",
+    "bowl",
+    "spring roll",
+    "plate",
+    "glass",
+    "delicious"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "hungry",
+        "lemma": "hungry",
+        "meaningVi": "đói",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "waiter",
+        "lemma": "waiter",
+        "meaningVi": "người phục vụ (nam)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "menu",
+        "lemma": "menu",
+        "meaningVi": "thực đơn",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "bowl",
+        "lemma": "bowl",
+        "meaningVi": "cái bát, tô",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "spring rolls",
+        "lemma": "spring roll",
+        "meaningVi": "nem rán, chả giò",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "plate",
+        "lemma": "plate",
+        "meaningVi": "cái đĩa",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "glass",
+        "lemma": "glass",
+        "meaningVi": "cái cốc (thuỷ tinh)",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "delicious",
+        "lemma": "delicious",
+        "meaningVi": "ngon",
+        "pos": "adjective",
+        "sentenceIndex": 19
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A new office in Hanoi",
+          "Minh cooks chicken pho at home.",
+          "Lan and Minh order lunch at a pho restaurant.",
+          "The waiter's first day at work"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan và Minh đi ăn trưa ở một quán phở gần văn phòng và gọi món với người phục vụ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Lan drink?",
+        "promptVi": "Lan uống gì?",
+        "options": [
+          "Hot tea",
+          "Water",
+          "Orange juice",
+          "Coffee"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"Yes, I'd like a cup of hot tea\": một tách trà nóng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Minh order chicken pho?",
+        "promptVi": "Vì sao Minh không gọi phở gà?",
+        "options": [
+          "He doesn't like chicken.",
+          "There isn't any chicken today.",
+          "It is too expensive.",
+          "Lan says no."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Người phục vụ nói \"there isn't any chicken today\": hôm nay quán hết gà."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There are eight spring rolls on one plate.",
+        "promptVi": "Một đĩa có tám cái nem.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì người phục vụ nói \"There are six\": một đĩa có sáu cái."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"empty\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The restaurant is busy, but there is an empty table near the window.",
+        "options": [
+          "bẩn",
+          "đầy",
+          "to",
+          "trống"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Empty là trống, không có ai ngồi: quán đông nhưng vẫn còn một bàn trống cạnh cửa sổ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Would like (đề nghị, gọi món)",
+      "bodyVi": "Would like là cách nói \"muốn\" lịch sự, hay dùng khi gọi món. I'd like (= I would like) + danh từ: I'd like a bowl of beef pho. Hỏi, mời: Would you like a drink? Trả lời: Yes, please. / Yes, I would. Muốn làm gì: would like + to + động từ: Would you like to come again?",
+      "examples": [
+        "\"Good afternoon, what would you like?\" he asks.",
+        "\"I'd like a bowl of beef pho, please,\" Lan says.",
+        "\"Great, and I'd like a glass of water, but not much ice, please.\""
+      ]
+    },
+    "writingPrompt": "Write a short conversation at a restaurant: what you and a friend would like to eat and drink.",
+    "sentenceTranslations": [
+      "Đã mười hai giờ, Lan và Minh đói bụng.",
+      "Họ làm cùng một văn phòng ở Hà Nội, và hay đi ăn trưa với nhau.",
+      "Hôm nay họ ở một quán phở nhỏ gần văn phòng.",
+      "Quán đông khách, nhưng vẫn còn một bàn trống cạnh cửa sổ.",
+      "Một anh phục vụ trẻ mang thực đơn đến cho họ.",
+      "\"Chào anh chị, anh chị muốn dùng gì ạ?\" anh hỏi.",
+      "\"Cho tôi một bát phở bò,\" Lan nói.",
+      "\"Cho tôi xin thêm ít ớt nhé?\"",
+      "\"Vâng ạ, chị có muốn uống gì không?\"",
+      "\"Có, cho tôi một tách trà nóng.\"",
+      "Minh nhìn thực đơn rồi hỏi: \"Hôm nay có phở gà không em?\"",
+      "\"Xin lỗi anh, hôm nay hết gà rồi, nhưng có nem rán ngon lắm ạ,\" người phục vụ trả lời.",
+      "\"Được, cho anh cũng phở bò,\" Minh nói.",
+      "\"Một đĩa có bao nhiêu cái nem?\"",
+      "\"Dạ, sáu cái ạ.\"",
+      "\"Tốt, cho anh thêm một cốc nước, nhưng ít đá thôi nhé.\"",
+      "Mười phút sau, đồ ăn được mang ra.",
+      "Phở nóng hổi, và có rất nhiều thịt bò.",
+      "Lan cho một ít ớt và một chút chanh vào bát.",
+      "\"Ừm, ngon quá!\" cô nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể gọi món lịch sự ở quán ăn bằng I'd like … / Would you like …? và hỏi có món gì bằng some, any, how many.",
+    "examples": [
+      {
+        "lemma": "hungry",
+        "sentence": "I'm hungry, so let's have lunch.",
+        "meaningVi": "Mình đói rồi, đi ăn trưa thôi."
+      },
+      {
+        "lemma": "waiter",
+        "sentence": "The waiter is very kind.",
+        "meaningVi": "Anh phục vụ rất dễ mến."
+      },
+      {
+        "lemma": "menu",
+        "sentence": "Can I see the menu, please?",
+        "meaningVi": "Cho tôi xem thực đơn được không?"
+      },
+      {
+        "lemma": "bowl",
+        "sentence": "I'd like a bowl of soup.",
+        "meaningVi": "Cho tôi một bát súp."
+      },
+      {
+        "lemma": "spring roll",
+        "sentence": "This spring roll is very hot.",
+        "meaningVi": "Cái nem này nóng lắm."
+      },
+      {
+        "lemma": "plate",
+        "sentence": "Put the rice on the plate.",
+        "meaningVi": "Để cơm vào đĩa nhé."
+      },
+      {
+        "lemma": "glass",
+        "sentence": "Can I have a glass of water?",
+        "meaningVi": "Cho tôi một cốc nước được không?"
+      },
+      {
+        "lemma": "delicious",
+        "sentence": "Your cake is delicious!",
+        "meaningVi": "Bánh của bạn ngon quá!"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Tim"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, where do you usually have lunch?",
+          "meaningVi": "Minh ơi, cậu thường ăn trưa ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "At a small pho restaurant near our office. Would you like to come with us tomorrow?",
+          "meaningVi": "Ở một quán phở nhỏ gần văn phòng. Mai cậu có muốn đi cùng bọn mình không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I'd love to! Is the food good?",
+          "meaningVi": "Có chứ! Đồ ăn có ngon không?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's delicious, and it isn't expensive.",
+          "meaningVi": "Ngon lắm, mà lại không đắt."
+        },
+        {
+          "speaker": 1,
+          "text": "What would you like to order tomorrow?",
+          "meaningVi": "Mai cậu muốn gọi món gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'd like beef pho again. They put a lot of beef in it.",
+          "meaningVi": "Mình lại gọi phở bò. Họ cho nhiều thịt bò lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Do they have any chicken pho?",
+          "meaningVi": "Quán có phở gà không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but not every day.",
+          "meaningVi": "Có, nhưng không phải ngày nào cũng có."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I have some chilli with it? I love hot food.",
+          "meaningVi": "Mình xin thêm ớt được không? Mình mê đồ cay lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. There's a lot of chilli on every table!",
+          "meaningVi": "Tất nhiên. Bàn nào cũng có rất nhiều ớt!"
+        }
+      ]
+    },
+    "grammarTipVi": "Mời ai đi cùng: Would you like to come with us tomorrow? Trả lời: Yes, I'd love to! Hỏi món: What would you like to order?",
+    "translations": [
+      {
+        "vi": "Cho tôi một bát phở bò.",
+        "en": "I'd like a bowl of beef pho.",
+        "distractors": [
+          "plate",
+          "would",
+          "likes"
+        ]
+      },
+      {
+        "vi": "Một đĩa có bao nhiêu cái nem?",
+        "en": "How many spring rolls are there on one plate?",
+        "distractors": [
+          "much",
+          "is",
+          "bowl"
+        ]
+      },
+      {
+        "vi": "Cho tôi một cốc nước, nhưng ít đá thôi.",
+        "en": "I'd like a glass of water, but not much ice.",
+        "distractors": [
+          "many",
+          "cup",
+          "some"
+        ]
+      },
+      {
+        "vi": "Món phở này ngon quá!",
+        "en": "This pho is delicious!",
+        "distractors": [
+          "are",
+          "hungry",
+          "these"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tim và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi xa",
+          "Quán phở gần văn phòng",
+          "Món phở gà Minh nấu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh kể về \"a small pho restaurant near our office\" và rủ Tim mai đi cùng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngày mai Minh muốn gọi món gì?",
+        "promptVi": "",
+        "options": [
+          "Phở bò",
+          "Phở gà",
+          "Nem rán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"I'd like beef pho again.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trên bàn ở quán có gì?",
+        "promptVi": "",
+        "options": [
+          "Nhiều chanh",
+          "Nhiều đường",
+          "Rất nhiều ớt"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"There's a lot of chilli on every table!\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The pho restaurant is very expensive.",
+        "promptVi": "Quán phở rất đắt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"It's delicious, and it isn't expensive.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Lan và Minh gọi những món gì, và món nào quán không có?",
+    "grammarStep": {
+      "titleVi": "Would like (đề nghị, gọi món)",
+      "noticing": [
+        {
+          "sentence": "\"Good afternoon, what would you like?\" he asks.",
+          "highlights": [
+            "would you like"
+          ]
+        },
+        {
+          "sentence": "\"I'd like a bowl of beef pho, please,\" Lan says.",
+          "highlights": [
+            "I'd like"
+          ]
+        },
+        {
+          "sentence": "\"Of course, and would you like a drink?\"",
+          "highlights": [
+            "would you like"
+          ]
+        },
+        {
+          "sentence": "\"Great, and I'd like a glass of water, but not much ice, please.\"",
+          "highlights": [
+            "I'd like"
+          ]
+        }
+      ],
+      "questionVi": "\"I'd like\" trong câu \"I'd like a bowl of beef pho\" là viết tắt của gì?",
+      "options": [
+        "I would like",
+        "I had like",
+        "I do like"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "I'd like = I would like (tôi muốn), lịch sự hơn I want. Hỏi: Would you like …? (bạn có muốn …?).",
+      "whenVi": "Dùng I'd like … để gọi món hoặc nói mình muốn gì một cách lịch sự, và Would you like …? để mời, hỏi người khác.",
+      "table": [
+        {
+          "subject": "Gọi món",
+          "form": "I'd like a bowl of pho, please.",
+          "negative": "—"
+        },
+        {
+          "subject": "Mời, hỏi",
+          "form": "Would you like a drink? – Yes, please.",
+          "negative": "No, thank you."
+        },
+        {
+          "subject": "+ to + động từ",
+          "form": "Would you like to come again? – Yes, I would.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'd like to a bowl of pho.",
+          "right": "I'd like a bowl of pho."
+        },
+        {
+          "wrong": "Would you like come here again?",
+          "right": "Would you like to come here again?"
+        }
+      ],
+      "noteVi": "Người Việt hay nói thẳng \"I want …\" khi gọi món, nghe hơi cộc; ngoài ra hay nhầm: sau would like + danh từ thì không có to, còn + động từ thì phải có to.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Would you ___ a drink? – Yes, please.",
+          "answers": [
+            "like"
+          ],
+          "explanationVi": "Mời ai đó: Would you like …?"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ you like some chilli with your pho?",
+          "options": [
+            "Would",
+            "Do",
+            "Are",
+            "Did"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Mời lịch sự dùng Would you like …?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Would you like come here again tomorrow?",
+          "sentence": "Would you like to come here again tomorrow?",
+          "explanationVi": "Would like + to + động từ: would you like to come."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cho tôi một tách trà nóng.",
+          "sentence": "I'd like a cup of hot tea.",
+          "words": [
+            "like",
+            "I'd",
+            "cup",
+            "a",
+            "of",
+            "hot",
+            "tea",
+            "want"
+          ],
+          "explanationVi": "Gọi món lịch sự: I'd like …; từ \"want\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "A young waiter brings them the menu.",
+        "tipVi": "Waiter /ˈweɪtər/ nhấn ở âm đầu; menu /ˈmɛnju/ đọc \"me-niu\", không đọc \"mơ-nu\"."
+      },
+      {
+        "text": "The pho is hot, and there is a lot of beef in it.",
+        "tipVi": "Beef /bif/ có âm /i/ dài và /f/ ở cuối; a lot of nối thành \"ơ-lót-ợp\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What would you like for lunch today?",
+        "questionVi": "Hôm nay bạn muốn ăn gì cho bữa trưa?",
+        "frame": "I'd like ___, please."
+      },
+      {
+        "question": "What do you usually drink with your lunch?",
+        "questionVi": "Bạn thường uống gì trong bữa trưa?",
+        "frame": "I usually drink ___."
+      },
+      {
+        "question": "What would your best friend like to eat now?",
+        "questionVi": "Bây giờ bạn thân của bạn muốn ăn gì?",
+        "frame": "He / She would like ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng I'd like … hoặc Would you like …?",
+      "anyOf": [
+        "i'd like",
+        "would like",
+        "would you like",
+        "i would"
+      ],
+      "outlineVi": [
+        "Viết câu người phục vụ hỏi (What would you like?).",
+        "Viết bạn và bạn của bạn gọi món ăn (I'd like …, she would like …).",
+        "Viết phần gọi đồ uống (Would you like a drink? – Yes, I'd like …)."
+      ],
+      "modelAnswer": "Waiter: Good evening. What would you like? Me: I'd like a bowl of chicken soup and some bread, please. My friend Nga would like rice with fish. Waiter: Would you like a drink? Me: Yes, I'd like an orange juice. Nga would like a glass of water, but not much ice."
+    }
+  },
+  "glosses": [
+    {
+      "text": "same",
+      "lemma": "same",
+      "meaningVi": "cùng",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "in the same office",
+      "phraseVi": "cùng một văn phòng"
+    },
+    {
+      "text": "empty",
+      "lemma": "empty",
+      "meaningVi": "trống",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "an empty table near the window",
+      "phraseVi": "một bàn trống cạnh cửa sổ"
+    },
+    {
+      "text": "brings",
+      "lemma": "bring",
+      "meaningVi": "mang đến",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "brings them the menu",
+      "phraseVi": "mang thực đơn đến cho họ"
+    },
+    {
+      "text": "chilli",
+      "lemma": "chilli",
+      "meaningVi": "ớt",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "some chilli with it",
+      "phraseVi": "thêm ít ớt"
+    },
+    {
+      "text": "any",
+      "lemma": "any",
+      "meaningVi": "nào (trong câu hỏi, phủ định)",
+      "sentenceIndex": 10,
+      "pos": "determiner",
+      "phrase": "Is there any chicken pho today",
+      "phraseVi": "Hôm nay có phở gà không"
+    },
+    {
+      "text": "not much ice",
+      "lemma": "much",
+      "meaningVi": "ít đá thôi",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "but not much ice",
+      "phraseVi": "nhưng ít đá thôi"
+    },
+    {
+      "text": "arrives",
+      "lemma": "arrive",
+      "meaningVi": "đến, được mang ra",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "the food arrives",
+      "phraseVi": "đồ ăn được mang ra"
+    },
+    {
+      "text": "a lot of",
+      "lemma": "a lot of",
+      "meaningVi": "rất nhiều",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "a lot of beef in it",
+      "phraseVi": "rất nhiều thịt bò"
+    },
+    {
+      "text": "a little",
+      "lemma": "a little",
+      "meaningVi": "một chút",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "a little lemon",
+      "phraseVi": "một chút chanh"
+    }
+  ]
+}

@@ -1,0 +1,606 @@
+{
+  "content": "Minh and his friend Khanh work in the same office in Da Nang. At lunch, Khanh looks very tired, and he doesn't want to eat.\n\nKhanh says, \"I don't understand. You always look so fresh. What's your secret?\"\nMinh laughs. \"It's not a secret. I have some easy habits.\"\n\"Like what?\"\n\"Every morning, I drink a cup of green tea. If I drink green tea in the morning, I feel awake all day.\"\n\"Really? I drink three cups of coffee.\"\n\"That's a lot! When I drink too much coffee, my heart goes very fast, and I can't sleep at night.\"\nKhanh says, \"That happens to me too. What else do you do?\"\n\"I walk to work. It takes twenty minutes. When I walk in the morning, I feel happy at work.\"\n\"And in the evening?\"\n\"I go to bed at ten. If I sleep for eight hours, I don't feel tired the next day.\"\nKhanh smiles. \"OK. Tomorrow I'm going to try green tea. But I want to keep one coffee!\"",
+  "targetWords": [
+    "fresh",
+    "secret",
+    "habit",
+    "cup",
+    "tea",
+    "awake",
+    "heart",
+    "bed"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "fresh",
+        "lemma": "fresh",
+        "meaningVi": "tươi tỉnh",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "secret",
+        "lemma": "secret",
+        "meaningVi": "bí mật",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "habits",
+        "lemma": "habit",
+        "meaningVi": "thói quen",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "cup",
+        "lemma": "cup",
+        "meaningVi": "cốc, tách",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "tea",
+        "lemma": "tea",
+        "meaningVi": "trà",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "awake",
+        "lemma": "awake",
+        "meaningVi": "tỉnh táo",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "heart",
+        "lemma": "heart",
+        "meaningVi": "tim",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "bed",
+        "lemma": "bed",
+        "meaningVi": "giường",
+        "pos": "noun",
+        "sentenceIndex": 21
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Minh tells Khanh about his healthy habits.",
+          "Khanh opens a coffee shop.",
+          "Minh walks to Da Nang.",
+          "A new office in Da Nang"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh kể cho Khanh những thói quen giúp anh luôn tươi tỉnh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Minh drink every morning?",
+        "promptVi": "Sáng nào Minh cũng uống gì?",
+        "options": [
+          "Three cups of coffee",
+          "A cup of green tea",
+          "Warm water",
+          "Orange juice"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"Every morning, I drink a cup of green tea.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Minh drink a lot of coffee?",
+        "promptVi": "Vì sao Minh không uống nhiều cà phê?",
+        "options": [
+          "It is expensive.",
+          "He doesn't like it.",
+          "His heart goes very fast, and he can't sleep.",
+          "There is no coffee in the office."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"When I drink too much coffee, my heart goes very fast, and I can't sleep at night.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh goes to work by car.",
+        "promptVi": "Minh đi làm bằng ô tô.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"I walk to work.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"habits\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I have some easy habits.\"",
+        "options": [
+          "bài tập",
+          "thói quen",
+          "món ăn",
+          "bí mật"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Habit = thói quen, việc mình làm thường xuyên."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Câu điều kiện loại 0 nói điều luôn đúng, luôn xảy ra mỗi khi có điều kiện: If / When + hiện tại đơn, hiện tại đơn. Ví dụ: If I drink green tea in the morning, I feel awake all day. When I drink too much coffee, my heart goes very fast. Hai vế đều dùng hiện tại đơn, không dùng will. If và when ở đây nghĩa gần giống nhau: \"hễ mà, mỗi khi\".",
+      "examples": [
+        "If I drink green tea in the morning, I feel awake all day.\"",
+        "When I walk in the morning, I feel happy at work.\"",
+        "If I sleep for eight hours, I don't feel tired the next day.\""
+      ]
+    },
+    "writingPrompt": "Write about your healthy habits: what happens if you do them, and what happens when you don't?",
+    "sentenceTranslations": [
+      "Minh và bạn là Khánh làm cùng một văn phòng ở Đà Nẵng.",
+      "Giờ ăn trưa, Khánh trông rất mệt, và anh không muốn ăn.",
+      "Khánh nói: \"Tớ không hiểu.",
+      "Lúc nào cậu cũng tươi tỉnh.",
+      "Bí mật của cậu là gì?\"",
+      "Minh cười.",
+      "\"Có bí mật gì đâu.",
+      "Tớ có vài thói quen dễ thôi.\"",
+      "\"Ví dụ như?\"",
+      "\"Sáng nào tớ cũng uống một tách trà xanh.",
+      "Nếu sáng uống trà xanh, tớ tỉnh táo cả ngày.\"",
+      "\"Thật à?",
+      "Tớ uống ba cốc cà phê.\"",
+      "\"Nhiều thế!",
+      "Hễ tớ uống nhiều cà phê là tim đập rất nhanh, và tối không ngủ được.\"",
+      "Khánh nói: \"Tớ cũng bị thế.",
+      "Cậu còn làm gì nữa?\"",
+      "\"Tớ đi bộ đi làm.",
+      "Mất hai mươi phút.",
+      "Hễ sáng đi bộ là đến chỗ làm tớ thấy vui.\"",
+      "\"Còn buổi tối?\"",
+      "\"Tớ đi ngủ lúc mười giờ.",
+      "Nếu ngủ đủ tám tiếng, hôm sau tớ không thấy mệt.\"",
+      "Khánh mỉm cười.",
+      "\"Được.",
+      "Mai tớ sẽ thử trà xanh.",
+      "Nhưng tớ muốn giữ lại một cốc cà phê!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về thói quen tốt cho sức khoẻ và kết quả của chúng bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "fresh",
+        "sentence": "I feel fresh after a shower.",
+        "meaningVi": "Tắm xong tôi thấy tươi tỉnh."
+      },
+      {
+        "lemma": "secret",
+        "sentence": "Can you keep a secret?",
+        "meaningVi": "Bạn giữ bí mật được không?"
+      },
+      {
+        "lemma": "habit",
+        "sentence": "Walking after dinner is a good habit.",
+        "meaningVi": "Đi bộ sau bữa tối là một thói quen tốt."
+      },
+      {
+        "lemma": "cup",
+        "sentence": "Would you like a cup of tea?",
+        "meaningVi": "Bạn có muốn một tách trà không?"
+      },
+      {
+        "lemma": "tea",
+        "sentence": "My grandfather drinks tea every morning.",
+        "meaningVi": "Sáng nào ông tôi cũng uống trà."
+      },
+      {
+        "lemma": "awake",
+        "sentence": "The baby is awake now.",
+        "meaningVi": "Em bé dậy rồi."
+      },
+      {
+        "lemma": "heart",
+        "sentence": "Exercise is good for your heart.",
+        "meaningVi": "Tập thể dục tốt cho tim."
+      },
+      {
+        "lemma": "bed",
+        "sentence": "I go to bed at ten.",
+        "meaningVi": "Tôi đi ngủ lúc mười giờ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Jenny"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, you always look so happy. What do you do?",
+          "meaningVi": "Minh ơi, lúc nào trông cậu cũng vui. Cậu làm gì vậy?"
+        },
+        {
+          "speaker": 0,
+          "text": "I walk to work every day.",
+          "meaningVi": "Ngày nào tớ cũng đi bộ đi làm."
+        },
+        {
+          "speaker": 1,
+          "text": "Does it help?",
+          "meaningVi": "Có tác dụng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. When I walk in the morning, I feel great.",
+          "meaningVi": "Có. Hễ sáng đi bộ là tớ thấy khoẻ lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "I drink a lot of coffee. Is that bad?",
+          "meaningVi": "Tớ uống nhiều cà phê. Thế có hại không?"
+        },
+        {
+          "speaker": 0,
+          "text": "If you drink too much, you can't sleep well.",
+          "meaningVi": "Nếu uống nhiều quá thì cậu ngủ không ngon."
+        },
+        {
+          "speaker": 1,
+          "text": "That's true. I often wake up at night.",
+          "meaningVi": "Đúng thật. Tớ hay tỉnh giấc ban đêm."
+        },
+        {
+          "speaker": 0,
+          "text": "Try green tea. If I drink it, I feel awake but not nervous.",
+          "meaningVi": "Thử trà xanh đi. Tớ uống là tỉnh táo mà vẫn thoải mái."
+        },
+        {
+          "speaker": 1,
+          "text": "OK, I will. When do you go to bed?",
+          "meaningVi": "Được, tớ sẽ thử. Cậu đi ngủ lúc mấy giờ?"
+        },
+        {
+          "speaker": 0,
+          "text": "At ten. If I go to bed early, I feel good the next day.",
+          "meaningVi": "Mười giờ. Nếu đi ngủ sớm, hôm sau tớ thấy khoẻ."
+        }
+      ]
+    },
+    "grammarTipVi": "Mỗi lần có điều kiện là có kết quả: When I walk in the morning, I feel great. If you drink too much, you can't sleep well. Cả hai vế đều ở hiện tại.",
+    "translations": [
+      {
+        "vi": "Nếu sáng tôi uống trà xanh, tôi tỉnh táo cả ngày.",
+        "en": "If I drink green tea in the morning, I feel awake all day.",
+        "distractors": [
+          "will",
+          "drank",
+          "felt"
+        ]
+      },
+      {
+        "vi": "Hễ uống nhiều cà phê là tim tôi đập nhanh.",
+        "en": "When I drink a lot of coffee, my heart goes fast.",
+        "distractors": [
+          "will",
+          "went",
+          "drank"
+        ]
+      },
+      {
+        "vi": "Nếu tôi ngủ đủ tám tiếng, tôi không thấy mệt. Đó là thói quen của tôi.",
+        "en": "If I sleep for eight hours, I don't feel tired. It is my habit.",
+        "distractors": [
+          "won't",
+          "slept",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Hễ đi ngủ sớm là tôi thấy khoẻ.",
+        "en": "When I go to bed early, I feel good.",
+        "distractors": [
+          "will",
+          "went",
+          "felt"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Jenny hỏi Minh về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Vì sao Minh luôn vui khoẻ",
+          "Đường đi làm của Minh",
+          "Một quán cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Jenny hỏi \"you always look so happy. What do you do?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Jenny hay gặp vấn đề gì?",
+        "promptVi": "",
+        "options": [
+          "Đau đầu",
+          "Hay tỉnh giấc ban đêm",
+          "Đói bụng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Jenny nói \"I often wake up at night.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "detail",
+        "prompt": "Minh khuyên Jenny thử gì?",
+        "promptVi": "",
+        "options": [
+          "Trà xanh",
+          "Sữa nóng",
+          "Nước cam"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"Try green tea.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh goes to bed at eleven.",
+        "promptVi": "Minh đi ngủ lúc mười một giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"At ten.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Minh có những thói quen nào, và mỗi thói quen mang lại kết quả gì?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "If I drink green tea in the morning, I feel awake all day.\"",
+          "highlights": [
+            "If",
+            "drink",
+            "feel"
+          ]
+        },
+        {
+          "sentence": "When I drink too much coffee, my heart goes very fast, and I can't sleep at night.\"",
+          "highlights": [
+            "When",
+            "drink",
+            "goes"
+          ]
+        },
+        {
+          "sentence": "When I walk in the morning, I feel happy at work.\"",
+          "highlights": [
+            "When",
+            "walk",
+            "feel"
+          ]
+        },
+        {
+          "sentence": "If I sleep for eight hours, I don't feel tired the next day.\"",
+          "highlights": [
+            "If",
+            "sleep",
+            "don't feel"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"If I drink green tea in the morning, I feel awake all day\", hai động từ ở thì nào?",
+      "options": [
+        "Cả hai ở hiện tại đơn",
+        "Vế if ở hiện tại, vế sau dùng will",
+        "Cả hai ở quá khứ"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu điều kiện loại 0: If / When + hiện tại đơn, hiện tại đơn. Dùng cho điều luôn đúng, thói quen.",
+      "whenVi": "Dùng câu điều kiện loại 0 cho thói quen và sự thật luôn đúng: hễ có A thì có B.",
+      "table": [
+        {
+          "subject": "If + hiện tại đơn",
+          "form": "If I drink green tea, I feel awake.",
+          "negative": "If I sleep well, I don't feel tired."
+        },
+        {
+          "subject": "When + hiện tại đơn",
+          "form": "When I walk, I feel happy.",
+          "negative": "When I drink coffee, I can't sleep."
+        },
+        {
+          "subject": "Đảo vế",
+          "form": "I feel awake if I drink green tea.",
+          "negative": "(không cần dấu phẩy)"
+        },
+        {
+          "subject": "He / She",
+          "form": "If he drinks coffee, his heart goes fast.",
+          "negative": "If she sleeps late, she doesn't feel good."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If I drink green tea, I will feel awake all day. (nói về thói quen)",
+          "right": "If I drink green tea, I feel awake all day."
+        },
+        {
+          "wrong": "If he drink coffee, he can't sleep.",
+          "right": "If he drinks coffee, he can't sleep."
+        }
+      ],
+      "noteVi": "Khi vế if / when đứng đầu câu, đặt dấu phẩy giữa hai vế. Khi vế if / when đứng sau, không cần dấu phẩy.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "If I sleep for eight hours, I ___ good. (feel)",
+          "answers": [
+            "feel"
+          ],
+          "explanationVi": "Câu điều kiện loại 0: vế sau ở hiện tại đơn: feel."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "When Minh ___ green tea, he feels awake.",
+          "options": [
+            "drink",
+            "drinks",
+            "will drink",
+            "drank"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Minh là ngôi thứ ba số ít, hiện tại đơn: drinks."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If I walk in the morning, I will feel happy every day.",
+          "sentence": "If I walk in the morning, I feel happy every day.",
+          "explanationVi": "Nói về thói quen luôn đúng: hiện tại đơn ở cả hai vế, không dùng will."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hễ uống cà phê là tôi không ngủ được.",
+          "sentence": "When I drink coffee, I can't sleep.",
+          "words": [
+            "coffee,",
+            "When",
+            "can't",
+            "I",
+            "drink",
+            "I",
+            "sleep.",
+            "will"
+          ],
+          "explanationVi": "When + hiện tại đơn, hiện tại đơn; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Khanh says, \"I don't understand.",
+        "tipVi": "Understand /ˌʌndəˈstænd/ nhấn âm cuối."
+      },
+      {
+        "text": "\"I go to bed at ten.",
+        "tipVi": "Go to bed đọc liền, nhấn vào bed và ten."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you drink in the morning?",
+        "questionVi": "Buổi sáng bạn uống gì?",
+        "frame": "I drink ___."
+      },
+      {
+        "question": "How do you feel when you sleep late?",
+        "questionVi": "Khi ngủ muộn bạn thấy thế nào?",
+        "frame": "When I sleep late, I feel ___."
+      },
+      {
+        "question": "What healthy habit does your friend have?",
+        "questionVi": "Bạn của bạn có thói quen tốt nào?",
+        "frame": "He / She ___. If he / she ___, he / she feels ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, hiện tại đơn)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you"
+      ],
+      "outlineVi": [
+        "Kể 2–3 thói quen tốt của bạn.",
+        "Mỗi thói quen mang lại kết quả gì (If / When I …, I …).",
+        "Một thói quen chưa tốt và kết quả của nó."
+      ],
+      "modelAnswer": "I have some healthy habits. Every morning, I drink a glass of warm water. If I drink water in the morning, I feel fresh. I also walk to school. When I walk, I feel happy all day. But I often play games late at night. When I go to bed late, I feel tired in class."
+    }
+  },
+  "glosses": [
+    {
+      "text": "look",
+      "lemma": "look",
+      "meaningVi": "trông có vẻ",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "Khanh looks very tired",
+      "phraseVi": "Khánh trông rất mệt"
+    },
+    {
+      "text": "Like what?",
+      "lemma": "like",
+      "meaningVi": "Ví dụ như?",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "Like what?",
+      "phraseVi": "Ví dụ như?"
+    },
+    {
+      "text": "green tea",
+      "lemma": "green tea",
+      "meaningVi": "trà xanh",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "a cup of green tea",
+      "phraseVi": "một tách trà xanh"
+    },
+    {
+      "text": "too much",
+      "lemma": "too much",
+      "meaningVi": "quá nhiều",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "drink too much coffee",
+      "phraseVi": "uống nhiều cà phê quá"
+    },
+    {
+      "text": "happens",
+      "lemma": "happen",
+      "meaningVi": "xảy ra",
+      "sentenceIndex": 15,
+      "pos": "verb",
+      "phrase": "That happens to me too.",
+      "phraseVi": "Tớ cũng bị thế."
+    },
+    {
+      "text": "the next day",
+      "lemma": "next",
+      "meaningVi": "hôm sau",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "I don't feel tired the next day",
+      "phraseVi": "hôm sau tớ không thấy mệt"
+    },
+    {
+      "text": "keep",
+      "lemma": "keep",
+      "meaningVi": "giữ lại",
+      "sentenceIndex": 26,
+      "pos": "verb",
+      "phrase": "I want to keep one coffee",
+      "phraseVi": "tớ muốn giữ lại một cốc cà phê"
+    }
+  ]
+}

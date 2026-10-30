@@ -1,0 +1,591 @@
+{
+  "content": "Dr Ha is a doctor at a big hospital in Hue. She usually helps sick adults on the second floor. But this week, a lot of children are ill, so she is helping on the children's floor.\n\nRight now, she is in a small room with a boy called Khoi. Khoi is six, and he is sitting on the bed. His parents are standing next to him, and they look worried. Dr Ha is listening to his heart, and then she is checking his temperature.\n\n\"Does he often have headaches?\" she asks his mother.\n\"No, he doesn't, but today his head hurts, and he isn't eating,\" his mother answers.\n\"His temperature is a little high, but don't worry,\" Dr Ha says. \"Children often get ill in winter.\" \"He needs some medicine and a lot of water.\"\n\nKhoi's father asks, \"Can he go to school tomorrow?\"\n\"No, he can't, and he should stay at home for two days,\" Dr Ha answers.\n\nNow Khoi is smiling, because Dr Ha is giving him a small toy. She always gives toys to sick children, because she wants them to smile. Dr Ha doesn't usually see children, but she loves this week.",
+  "targetWords": [
+    "doctor",
+    "hospital",
+    "ill",
+    "parents",
+    "heart",
+    "temperature",
+    "headache",
+    "medicine"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "doctor",
+        "lemma": "doctor",
+        "meaningVi": "bác sĩ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "hospital",
+        "lemma": "hospital",
+        "meaningVi": "bệnh viện",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "ill",
+        "lemma": "ill",
+        "meaningVi": "ốm",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "parents",
+        "lemma": "parents",
+        "meaningVi": "bố mẹ",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "heart",
+        "lemma": "heart",
+        "meaningVi": "tim",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "temperature",
+        "lemma": "temperature",
+        "meaningVi": "nhiệt độ (cơ thể)",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "headaches",
+        "lemma": "headache",
+        "meaningVi": "đau đầu",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "medicine",
+        "lemma": "medicine",
+        "meaningVi": "thuốc",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Khoi's first day at school",
+          "A new hospital in Hue",
+          "Dr Ha helps a sick boy on the children's floor.",
+          "Dr Ha's family"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bác sĩ Hà thường chữa cho người lớn, nhưng tuần này chị giúp ở tầng dành cho trẻ em và đang khám cho bé Khôi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who does Dr Ha usually help?",
+        "promptVi": "Bác sĩ Hà thường giúp ai?",
+        "options": [
+          "Sick adults on the second floor",
+          "Children at a school",
+          "Old people at home",
+          "Doctors from other hospitals"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"She usually helps sick adults on the second floor\": người lớn bị ốm ở tầng hai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Dr Ha helping on the children's floor this week?",
+        "promptVi": "Vì sao tuần này bác sĩ Hà giúp ở tầng trẻ em?",
+        "options": [
+          "She doesn't like adults.",
+          "A lot of children are ill.",
+          "Her son is in the hospital.",
+          "The second floor is closed."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"this week, a lot of children are ill, so she is helping on the children's floor\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoi can go to school tomorrow.",
+        "promptVi": "Ngày mai Khôi đi học được.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bác sĩ Hà nói \"No, he can't, and he should stay at home for two days\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"worried\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "His parents are standing next to him, and they look worried.",
+        "options": [
+          "vui vẻ",
+          "mệt mỏi",
+          "giận dữ",
+          "lo lắng"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Worried là lo lắng: con bị ốm nên bố mẹ Khôi trông rất lo."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "bodyVi": "Hiện tại đơn cho việc thường ngày: she usually helps sick adults. Hiện tại tiếp diễn cho việc tạm thời (this week) hoặc đang làm ngay lúc này (right now): she is helping on the children's floor, she is listening to his heart. Need, want, love là động từ chỉ trạng thái: he needs some medicine.",
+      "examples": [
+        "She usually helps sick adults on the second floor.",
+        "But this week, a lot of children are ill, so she is helping on the children's floor.",
+        "\"He needs some medicine and a lot of water.\""
+      ]
+    },
+    "writingPrompt": "Write about a person in a hospital or a school: what he or she usually does, and what he or she is doing this week.",
+    "sentenceTranslations": [
+      "Bác sĩ Hà làm việc ở một bệnh viện lớn ở Huế.",
+      "Chị thường chữa cho người lớn bị ốm ở tầng hai.",
+      "Nhưng tuần này có rất nhiều trẻ em bị ốm, nên chị giúp ở tầng dành cho trẻ em.",
+      "Ngay lúc này, chị đang ở trong một phòng nhỏ với một cậu bé tên là Khôi.",
+      "Khôi sáu tuổi, và em đang ngồi trên giường.",
+      "Bố mẹ em đứng bên cạnh, trông rất lo lắng.",
+      "Bác sĩ Hà đang nghe tim em, rồi chị đo nhiệt độ cho em.",
+      "\"Bé có hay bị đau đầu không?\" chị hỏi mẹ em.",
+      "\"Không, cháu không hay bị, nhưng hôm nay cháu đau đầu, và không chịu ăn,\" mẹ em trả lời.",
+      "\"Bé hơi sốt một chút, nhưng anh chị đừng lo,\" bác sĩ Hà nói.",
+      "\"Trẻ con hay bị ốm vào mùa đông.\"",
+      "\"Bé cần uống thuốc và uống nhiều nước.\"",
+      "Bố Khôi hỏi: \"Mai cháu đi học được không ạ?\"",
+      "\"Không được, bé nên ở nhà hai ngày,\" bác sĩ Hà trả lời.",
+      "Giờ Khôi đang cười, vì bác sĩ Hà đang tặng em một món đồ chơi nhỏ.",
+      "Chị luôn tặng đồ chơi cho các bé bị ốm, vì chị muốn các bé cười.",
+      "Bác sĩ Hà không hay khám cho trẻ em, nhưng chị rất thích tuần này."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả việc thường làm và việc đang làm tuần này của một người làm nghề y, và hỏi đáp đơn giản khi đi khám bệnh.",
+    "examples": [
+      {
+        "lemma": "doctor",
+        "sentence": "My aunt is a doctor.",
+        "meaningVi": "Cô mình là bác sĩ."
+      },
+      {
+        "lemma": "hospital",
+        "sentence": "The hospital is near my house.",
+        "meaningVi": "Bệnh viện ở gần nhà mình."
+      },
+      {
+        "lemma": "ill",
+        "sentence": "I'm ill today, so I can't go to school.",
+        "meaningVi": "Hôm nay mình ốm, nên không đi học được."
+      },
+      {
+        "lemma": "parents",
+        "sentence": "My parents are teachers.",
+        "meaningVi": "Bố mẹ mình là giáo viên."
+      },
+      {
+        "lemma": "heart",
+        "sentence": "The doctor is listening to my heart.",
+        "meaningVi": "Bác sĩ đang nghe tim mình."
+      },
+      {
+        "lemma": "temperature",
+        "sentence": "The nurse is checking my temperature.",
+        "meaningVi": "Y tá đang đo nhiệt độ cho mình."
+      },
+      {
+        "lemma": "headache",
+        "sentence": "I have a headache.",
+        "meaningVi": "Mình bị đau đầu."
+      },
+      {
+        "lemma": "medicine",
+        "sentence": "Take this medicine after dinner.",
+        "meaningVi": "Uống thuốc này sau bữa tối nhé."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dr Ha",
+        "Mrs Smith"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Good morning, doctor. My daughter Amy is ill.",
+          "meaningVi": "Chào bác sĩ. Con gái tôi là Amy bị ốm."
+        },
+        {
+          "speaker": 0,
+          "text": "Good morning. What's wrong with her?",
+          "meaningVi": "Chào chị. Bé bị làm sao?"
+        },
+        {
+          "speaker": 1,
+          "text": "She has a headache, and she isn't eating today.",
+          "meaningVi": "Bé bị đau đầu, và hôm nay không chịu ăn."
+        },
+        {
+          "speaker": 0,
+          "text": "Does she often have headaches?",
+          "meaningVi": "Bé có hay bị đau đầu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, she doesn't. She's usually very healthy.",
+          "meaningVi": "Không. Bình thường bé rất khoẻ."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. I'm checking her temperature now. It's a little high.",
+          "meaningVi": "Được. Tôi đang đo nhiệt độ cho bé. Hơi cao một chút."
+        },
+        {
+          "speaker": 1,
+          "text": "Does she need medicine?",
+          "meaningVi": "Bé có cần uống thuốc không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, she does. She should take this medicine after every meal.",
+          "meaningVi": "Có. Bé nên uống thuốc này sau mỗi bữa ăn."
+        },
+        {
+          "speaker": 1,
+          "text": "Can she go to school?",
+          "meaningVi": "Bé có đi học được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not this week. She should stay at home and drink a lot of water.",
+          "meaningVi": "Tuần này thì chưa. Bé nên ở nhà và uống nhiều nước."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi thói quen về sức khoẻ: Does she often have headaches? Nói việc đang làm: I'm checking her temperature now. Khuyên: She should stay at home.",
+    "translations": [
+      {
+        "vi": "Cô ấy thường làm việc ở bệnh viện.",
+        "en": "She usually works at the hospital.",
+        "distractors": [
+          "is",
+          "work",
+          "school"
+        ]
+      },
+      {
+        "vi": "Tuần này có nhiều trẻ em bị ốm.",
+        "en": "This week, a lot of children are ill.",
+        "distractors": [
+          "is",
+          "child",
+          "well"
+        ]
+      },
+      {
+        "vi": "Bác sĩ đang đo nhiệt độ cho cậu bé.",
+        "en": "The doctor is checking his temperature.",
+        "distractors": [
+          "checks",
+          "her",
+          "heart"
+        ]
+      },
+      {
+        "vi": "Cậu bé cần uống thuốc.",
+        "en": "He needs some medicine.",
+        "distractors": [
+          "needing",
+          "is",
+          "medicines"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bà Smith và bác sĩ Hà nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trường học của Amy",
+          "Con gái bà Smith bị ốm",
+          "Một bệnh viện mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà Smith nói \"My daughter Amy is ill\", rồi bác sĩ hỏi bệnh và khuyên cách chăm sóc.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hôm nay Amy bị làm sao?",
+        "promptVi": "",
+        "options": [
+          "Đau đầu và không chịu ăn",
+          "Đau chân",
+          "Đau bụng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Smith nói \"She has a headache, and she isn't eating today.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Amy nên uống thuốc khi nào?",
+        "promptVi": "",
+        "options": [
+          "Trước khi đi ngủ",
+          "Mỗi buổi sáng",
+          "Sau mỗi bữa ăn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bác sĩ Hà nói \"She should take this medicine after every meal.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Amy often has headaches.",
+        "promptVi": "Amy hay bị đau đầu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Smith nói \"No, she doesn't. She's usually very healthy.\"",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Mọi ngày bác sĩ Hà làm việc ở đâu, tuần này có gì khác, và bé Khôi bị làm sao?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "noticing": [
+        {
+          "sentence": "She usually helps sick adults on the second floor.",
+          "highlights": [
+            "usually helps"
+          ]
+        },
+        {
+          "sentence": "But this week, a lot of children are ill, so she is helping on the children's floor.",
+          "highlights": [
+            "is helping"
+          ]
+        },
+        {
+          "sentence": "Dr Ha is listening to his heart, and then she is checking his temperature.",
+          "highlights": [
+            "is listening",
+            "is checking"
+          ]
+        },
+        {
+          "sentence": "\"He needs some medicine and a lot of water.\"",
+          "highlights": [
+            "needs"
+          ]
+        }
+      ],
+      "questionVi": "\"She usually helps sick adults\" và \"this week, she is helping on the children's floor\" khác nhau thế nào?",
+      "options": [
+        "Câu đầu là việc thường ngày; câu sau là việc tạm thời trong tuần này",
+        "Câu đầu nói về chuyện đã qua",
+        "Hai câu có nghĩa giống nhau"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Usually helps: thói quen, mọi ngày. Is helping this week: chỉ tuần này, sau đó chị lại về tầng hai. Needs dùng hiện tại đơn vì need là động từ chỉ trạng thái.",
+      "whenVi": "Dùng hiện tại đơn cho việc thường ngày, hiện tại tiếp diễn cho việc tạm thời hoặc đang diễn ra, và hiện tại đơn cho need, want, love.",
+      "table": [
+        {
+          "subject": "Thói quen",
+          "form": "She usually helps sick adults.",
+          "negative": "She doesn't usually see children."
+        },
+        {
+          "subject": "Tạm thời, lúc này",
+          "form": "This week, she is helping on the children's floor.",
+          "negative": "He isn't eating today."
+        },
+        {
+          "subject": "Động từ chỉ trạng thái",
+          "form": "He needs some medicine. She loves this week.",
+          "negative": "He doesn't want to eat."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "This week she helps on the children's floor.",
+          "right": "This week she is helping on the children's floor."
+        },
+        {
+          "wrong": "He is needing some medicine.",
+          "right": "He needs some medicine."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"tuần này chị giúp ở tầng trẻ em\" mà không cần \"đang\", nên người Việt hay dùng hiện tại đơn cho việc tạm thời.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại tiếp diễn của động từ trong ngoặc.",
+          "text": "Right now, Dr Ha ___ (listen) to his heart.",
+          "answers": [
+            "is listening",
+            "'s listening"
+          ],
+          "explanationVi": "Right now là việc đang diễn ra: is listening."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Children often ___ ill in winter.",
+          "options": [
+            "get",
+            "are getting",
+            "gets",
+            "getting"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Often là điều thường xảy ra; children là they: get."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Dr Ha is wanting the children to smile.",
+          "sentence": "Dr Ha wants the children to smile.",
+          "explanationVi": "Want là động từ chỉ trạng thái, không dùng -ing: wants."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cậu bé đang ngồi trên giường.",
+          "sentence": "He is sitting on the bed.",
+          "words": [
+            "sitting",
+            "He",
+            "bed",
+            "is",
+            "on",
+            "the",
+            "sits"
+          ],
+          "explanationVi": "Việc đang diễn ra: is sitting; từ \"sits\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Khoi is six, and he is sitting on the bed.",
+        "tipVi": "Six /sɪks/ kết thúc bằng /ks/; sitting /ˈsɪtɪŋ/ có âm /ɪ/ ngắn, khác với seat."
+      },
+      {
+        "text": "\"He needs some medicine and a lot of water.\"",
+        "tipVi": "Medicine /ˈmɛdəsən/ nhấn ở âm đầu \"ME\"; needs /nidz/ kết thúc bằng /dz/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you usually do when you are ill?",
+        "questionVi": "Khi bị ốm bạn thường làm gì?",
+        "frame": "When I'm ill, I usually ___."
+      },
+      {
+        "question": "Do you often have headaches?",
+        "questionVi": "Bạn có hay bị đau đầu không?",
+        "frame": "Yes, I do. / No, I don't. I usually ___."
+      },
+      {
+        "question": "Who looks after you when you are ill?",
+        "questionVi": "Khi bạn ốm, ai chăm sóc bạn?",
+        "frame": "My ___ looks after me. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có 1 câu hiện tại đơn (thói quen) và 1 câu hiện tại tiếp diễn (tuần này, lúc này)",
+      "anyOf": [
+        "usually",
+        "every",
+        "this week",
+        "today",
+        "right now",
+        "now"
+      ],
+      "outlineVi": [
+        "Nói người đó làm nghề gì và thường làm gì (She usually …).",
+        "Nói tuần này có gì khác (But this week, she is …).",
+        "Kể ngay lúc này người đó đang làm gì và người đó thích gì (Right now …, she loves …)."
+      ],
+      "modelAnswer": "My cousin Lan is a nurse in Hanoi. She usually helps old people at a big hospital. But this week, she is helping at a school, because a lot of children are ill. Right now, she is checking a girl's temperature. She loves her job, because she wants to help people."
+    }
+  },
+  "glosses": [
+    {
+      "text": "adults",
+      "lemma": "adult",
+      "meaningVi": "người lớn",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "She usually helps sick adults",
+      "phraseVi": "Chị thường chữa cho người lớn bị ốm"
+    },
+    {
+      "text": "children's floor",
+      "lemma": "floor",
+      "meaningVi": "tầng dành cho trẻ em",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "on the children's floor",
+      "phraseVi": "ở tầng dành cho trẻ em"
+    },
+    {
+      "text": "Right now",
+      "lemma": "right now",
+      "meaningVi": "ngay lúc này",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "Right now, she is in a small room",
+      "phraseVi": "Ngay lúc này, chị đang ở trong một phòng nhỏ"
+    },
+    {
+      "text": "worried",
+      "lemma": "worried",
+      "meaningVi": "lo lắng",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "they look worried",
+      "phraseVi": "trông rất lo lắng"
+    },
+    {
+      "text": "hurts",
+      "lemma": "hurt",
+      "meaningVi": "đau",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "today his head hurts",
+      "phraseVi": "hôm nay cháu đau đầu"
+    },
+    {
+      "text": "a little high",
+      "lemma": "high",
+      "meaningVi": "hơi cao",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "His temperature is a little high",
+      "phraseVi": "Bé hơi sốt một chút"
+    },
+    {
+      "text": "get ill",
+      "lemma": "get ill",
+      "meaningVi": "bị ốm",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "Children often get ill in winter",
+      "phraseVi": "Trẻ con hay bị ốm vào mùa đông"
+    },
+    {
+      "text": "toy",
+      "lemma": "toy",
+      "meaningVi": "đồ chơi",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "giving him a small toy",
+      "phraseVi": "tặng em một món đồ chơi nhỏ"
+    }
+  ]
+}

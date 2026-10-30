@@ -1,0 +1,585 @@
+{
+  "content": "On Sunday morning, Lan meets her cousin Vy at a coffee shop in Hanoi. Vy shows Lan some new photos of their big family on her phone.\n\n\"Look at this photo of you and your mother,\" Vy says. \"You look like her! You have the same long black hair and big brown eyes.\"\nLan laughs and says, \"My father says that too!\"\n\"And you work as hard as she does,\" Vy says.\n\"That's true, but I'm not as quiet as her,\" Lan answers. \"My sister Hoa is quieter than me. She doesn't talk much.\"\n\nVy points at another photo and asks, \"Who is this tall man next to your sister?\"\n\"That's my uncle Tuan. He is as funny as my grandfather, and they have the same smile.\"\nVy asks, \"Is he older than your father?\"\nLan says, \"No, he is younger, but his hair is greyer!\"\n\nThen they look at a photo of Vy and her brother. \"You two look very different,\" Lan says. \"He is much taller than you, and his eyes are smaller.\"\nVy laughs and says, \"Yes, but we are both as noisy as our mother!\"",
+  "targetWords": [
+    "cousin",
+    "look like",
+    "hair",
+    "eye",
+    "quiet",
+    "funny",
+    "smile",
+    "different"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cousin",
+        "lemma": "cousin",
+        "meaningVi": "anh chị em họ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "look like",
+        "lemma": "look like",
+        "meaningVi": "trông giống",
+        "pos": "phrase",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "hair",
+        "lemma": "hair",
+        "meaningVi": "tóc",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "eyes",
+        "lemma": "eye",
+        "meaningVi": "mắt",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "quiet",
+        "lemma": "quiet",
+        "meaningVi": "trầm tính, ít nói",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "funny",
+        "lemma": "funny",
+        "meaningVi": "hài hước, vui tính",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "smile",
+        "lemma": "smile",
+        "meaningVi": "nụ cười",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "different",
+        "lemma": "different",
+        "meaningVi": "khác nhau",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan buys a new phone.",
+          "Lan's first day at a coffee shop",
+          "Lan and Vy talk about photos of their family.",
+          "Vy's brother visits Hanoi."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan và Vy xem ảnh gia đình trên điện thoại và so sánh mọi người với nhau."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is the tall man next to Lan's sister?",
+        "promptVi": "Người đàn ông cao đứng cạnh em gái Lan là ai?",
+        "options": [
+          "Lan's uncle",
+          "Lan's father",
+          "Vy's brother",
+          "Lan's grandfather"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"That's my uncle Tuan.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Vy say Lan looks like her mother?",
+        "promptVi": "Vì sao Vy nói Lan trông giống mẹ?",
+        "options": [
+          "They are both very tall.",
+          "They both talk a lot.",
+          "They have the same smile.",
+          "They have the same hair and eyes."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Vy nói \"You have the same long black hair and big brown eyes.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan is quieter than her sister Hoa.",
+        "promptVi": "Lan trầm tính hơn em gái Hoa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"My sister Hoa is quieter than me\": Hoa trầm hơn Lan."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"noisy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Vy laughs and says, \"Yes, but we are both as noisy as our mother!\"",
+        "options": [
+          "ồn ào, nói to",
+          "xinh đẹp",
+          "lười biếng",
+          "nhút nhát"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Noisy là ồn ào: hai anh em Vy đều nói nhiều, nói to như mẹ."
+      }
+    ],
+    "grammarNote": {
+      "title": "So sánh bằng (as ... as)",
+      "bodyVi": "As + tính từ / trạng từ + as nghĩa là \"… bằng / như …\": He is as funny as my grandfather. Phủ định not as … as nghĩa là \"không … bằng\": I'm not as quiet as her. Sau as thứ hai có thể dùng tân ngữ (her) hoặc mệnh đề (she does).",
+      "examples": [
+        "\"And you work as hard as she does,\" Vy says.",
+        "\"That's true, but I'm not as quiet as her,\" Lan answers.",
+        "Vy laughs and says, \"Yes, but we are both as noisy as our mother!\""
+      ]
+    },
+    "writingPrompt": "Write about someone in your family you look like: what is the same and what is different?",
+    "sentenceTranslations": [
+      "Sáng Chủ nhật, Lan gặp em họ Vy ở một quán cà phê ở Hà Nội.",
+      "Vy cho Lan xem vài tấm ảnh mới của đại gia đình trên điện thoại.",
+      "\"Chị xem tấm ảnh chị với bác gái này,\" Vy nói.",
+      "\"Chị trông giống bác quá!",
+      "Hai người có mái tóc đen dài và đôi mắt nâu to giống hệt nhau.\"",
+      "Lan cười và nói: \"Bố chị cũng nói thế!\"",
+      "\"Mà chị cũng làm việc chăm chỉ như bác,\" Vy nói.",
+      "\"Đúng, nhưng chị không trầm như mẹ,\" Lan trả lời.",
+      "\"Em gái chị là Hoa trầm hơn chị.",
+      "Nó ít nói lắm.\"",
+      "Vy chỉ vào một tấm ảnh khác và hỏi: \"Người đàn ông cao đứng cạnh em gái chị là ai thế?\"",
+      "\"Đó là chú Tuấn của chị.",
+      "Chú vui tính như ông, và hai người cười giống hệt nhau.\"",
+      "Vy hỏi: \"Chú có lớn tuổi hơn bố chị không?\"",
+      "Lan nói: \"Không, chú trẻ hơn, nhưng tóc lại bạc hơn!\"",
+      "Sau đó họ xem một tấm ảnh của Vy và em trai.",
+      "\"Hai chị em trông khác nhau quá,\" Lan nói.",
+      "\"Nó cao hơn em nhiều, mà mắt lại nhỏ hơn.\"",
+      "Vy cười và nói: \"Vâng, nhưng hai chị em đều ồn ào như mẹ!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói mình giống hay khác người thân thế nào bằng look like, as … as, not as … as và so sánh hơn.",
+    "examples": [
+      {
+        "lemma": "cousin",
+        "sentence": "My cousin lives in Da Nang.",
+        "meaningVi": "Anh họ tôi sống ở Đà Nẵng."
+      },
+      {
+        "lemma": "look like",
+        "sentence": "Does she look like her father?",
+        "meaningVi": "Cô ấy có trông giống bố không?"
+      },
+      {
+        "lemma": "hair",
+        "sentence": "My grandmother has short white hair.",
+        "meaningVi": "Bà tôi có mái tóc ngắn màu trắng."
+      },
+      {
+        "lemma": "eye",
+        "sentence": "The baby has one eye open.",
+        "meaningVi": "Em bé mở một mắt."
+      },
+      {
+        "lemma": "quiet",
+        "sentence": "He is a quiet man.",
+        "meaningVi": "Anh ấy là người ít nói."
+      },
+      {
+        "lemma": "funny",
+        "sentence": "My uncle tells funny stories.",
+        "meaningVi": "Chú tôi kể chuyện rất vui."
+      },
+      {
+        "lemma": "smile",
+        "sentence": "She has a lovely smile.",
+        "meaningVi": "Cô ấy có nụ cười rất đáng yêu."
+      },
+      {
+        "lemma": "different",
+        "sentence": "My two brothers are very different.",
+        "meaningVi": "Hai anh trai tôi rất khác nhau."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Mike"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, is that your sister in the photo?",
+          "meaningVi": "Lan ơi, người trong ảnh là em gái cậu à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, that's Hoa. She is two years younger than me.",
+          "meaningVi": "Ừ, đó là Hoa. Em ấy kém mình hai tuổi."
+        },
+        {
+          "speaker": 1,
+          "text": "She looks like you, but her hair is shorter.",
+          "meaningVi": "Em ấy trông giống cậu, nhưng tóc ngắn hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Right. And she isn't as tall as me.",
+          "meaningVi": "Đúng rồi. Mà em ấy không cao bằng mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Is she as funny as you?",
+          "meaningVi": "Em ấy có vui tính như cậu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, she's much quieter. She reads a lot of books.",
+          "meaningVi": "Không, em ấy trầm hơn nhiều. Em ấy đọc rất nhiều sách."
+        },
+        {
+          "speaker": 1,
+          "text": "And who do you look like, your mother or your father?",
+          "meaningVi": "Còn cậu giống ai, mẹ hay bố?"
+        },
+        {
+          "speaker": 0,
+          "text": "My mother. We have the same eyes and the same smile.",
+          "meaningVi": "Mẹ. Hai mẹ con có đôi mắt và nụ cười giống nhau."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. I look like my grandfather!",
+          "meaningVi": "Hay đấy. Mình thì giống ông nội!"
+        },
+        {
+          "speaker": 0,
+          "text": "Really? Is he as tall as you?",
+          "meaningVi": "Thật à? Ông có cao bằng cậu không?"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi giống ai: Who do you look like? Hỏi so sánh bằng: Is she as funny as you? Trả lời phủ định: She isn't as tall as me.",
+    "translations": [
+      {
+        "vi": "Bạn trông giống mẹ bạn.",
+        "en": "You look like your mother.",
+        "distractors": [
+          "looks",
+          "her",
+          "as"
+        ]
+      },
+      {
+        "vi": "Chú tôi vui tính như ông tôi.",
+        "en": "My uncle is as funny as my grandfather.",
+        "distractors": [
+          "than",
+          "more",
+          "funnier"
+        ]
+      },
+      {
+        "vi": "Em gái tôi không trầm tính như tôi.",
+        "en": "My sister isn't as quiet as me.",
+        "distractors": [
+          "than",
+          "quieter",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Hai chị em có mắt và nụ cười khác nhau.",
+        "en": "The two sisters have different eyes and smiles.",
+        "distractors": [
+          "same",
+          "hair",
+          "has"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Mike nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Ông nội của Lan",
+          "Em gái Lan và người Lan trông giống",
+          "Một cuốn sách hay"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mike hỏi về em gái Lan trong ảnh và hỏi Lan giống bố hay mẹ.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa kém Lan mấy tuổi?",
+        "promptVi": "",
+        "options": [
+          "Một tuổi",
+          "Ba tuổi",
+          "Hai tuổi"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"She is two years younger than me.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan giống mẹ ở điểm nào?",
+        "promptVi": "",
+        "options": [
+          "Đôi mắt và nụ cười",
+          "Mái tóc ngắn",
+          "Chiều cao"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"We have the same eyes and the same smile.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa's hair is longer than Lan's hair.",
+        "promptVi": "Tóc của Hoa dài hơn tóc của Lan.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mike nói \"her hair is shorter\": tóc Hoa ngắn hơn.",
+        "turnIndex": 2
+      }
+    ],
+    "readingGuideVi": "Ai giống ai trong gia đình Lan và Vy, và giống ở điểm nào?",
+    "grammarStep": {
+      "titleVi": "So sánh bằng (as ... as)",
+      "noticing": [
+        {
+          "sentence": "\"And you work as hard as she does,\" Vy says.",
+          "highlights": [
+            "as hard as"
+          ]
+        },
+        {
+          "sentence": "\"That's true, but I'm not as quiet as her,\" Lan answers.",
+          "highlights": [
+            "not as quiet as"
+          ]
+        },
+        {
+          "sentence": "Vy laughs and says, \"Yes, but we are both as noisy as our mother!\"",
+          "highlights": [
+            "as noisy as"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"I'm not as quiet as her\" nghĩa là gì?",
+      "options": [
+        "Lan trầm tính hơn mẹ.",
+        "Lan trầm tính bằng mẹ.",
+        "Lan không trầm tính bằng mẹ."
+      ],
+      "answerIndex": 2,
+      "explanationVi": "Not as … as là \"không … bằng\": mẹ trầm tính hơn Lan.",
+      "whenVi": "Dùng as … as khi hai người giống nhau về một điểm; dùng not as … as khi người thứ nhất kém hơn người thứ hai.",
+      "table": [
+        {
+          "subject": "Khẳng định",
+          "form": "He is as funny as my grandfather.",
+          "negative": "He isn't as funny as my grandfather."
+        },
+        {
+          "subject": "Với động từ",
+          "form": "You work as hard as she does.",
+          "negative": "You don't work as hard as she does."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Is she as tall as you?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She is as quiet than her sister.",
+          "right": "She is as quiet as her sister."
+        },
+        {
+          "wrong": "He is as taller as his father.",
+          "right": "He is as tall as his father."
+        }
+      ],
+      "noteVi": "Giữa hai chữ as luôn là tính từ dạng gốc (tall, funny), không dùng dạng -er hay more; và không dùng than.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Lan is as tall ___ her mother.",
+          "answers": [
+            "as"
+          ],
+          "explanationVi": "So sánh bằng: as tall as."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "My brother isn't as ___ as my uncle.",
+          "options": [
+            "funnier",
+            "more funny",
+            "funny",
+            "funniest"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Giữa as … as dùng tính từ dạng gốc: as funny as."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Hoa is as quiet than her mother.",
+          "sentence": "Hoa is as quiet as her mother.",
+          "explanationVi": "So sánh bằng dùng as … as, không dùng than."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Em gái tôi không cao bằng tôi.",
+          "sentence": "My sister isn't as tall as me.",
+          "words": [
+            "sister",
+            "as",
+            "My",
+            "tall",
+            "isn't",
+            "as",
+            "me",
+            "than"
+          ],
+          "explanationVi": "Not as + tính từ + as; từ \"than\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"And you work as hard as she does,\" Vy says.",
+        "tipVi": "As đọc nhẹ /əz/: \"ơz hard ơz\"; nhấn vào hard và she."
+      },
+      {
+        "text": "Then they look at a photo of Vy and her brother.",
+        "tipVi": "Photo /ˈfəʊtəʊ/ nhấn âm đầu; brother có âm /ð/, đặt lưỡi giữa hai hàm răng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who do you look like in your family?",
+        "questionVi": "Bạn trông giống ai trong gia đình?",
+        "frame": "I look like my ___. We have the same ___."
+      },
+      {
+        "question": "Are you as tall as your father?",
+        "questionVi": "Bạn có cao bằng bố không?",
+        "frame": "Yes, I'm as tall as him. / No, I'm not as tall as him."
+      },
+      {
+        "question": "Is your best friend as funny as you?",
+        "questionVi": "Bạn thân của bạn có vui tính như bạn không?",
+        "frame": "Yes, he / she is as funny as me. / No, he / she isn't as funny as me."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng as … as hoặc not as … as",
+      "anyOf": [
+        "as tall as",
+        "as funny as",
+        "as quiet as",
+        "not as",
+        "isn't as"
+      ],
+      "outlineVi": [
+        "Bạn trông giống ai trong gia đình (I look like …).",
+        "Hai người giống nhau ở điểm nào (the same …, as … as).",
+        "Hai người khác nhau ở điểm nào (not as … as, taller than …)."
+      ],
+      "modelAnswer": "I look like my father. We have the same round face and the same small eyes. I am as tall as him now, and we both love football. But we are very different too. My father is quieter than me, and he isn't as funny as my mother. I talk a lot, so people say I am as noisy as my mother!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "photos",
+      "lemma": "photo",
+      "meaningVi": "ảnh",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "some new photos of their big family",
+      "phraseVi": "vài tấm ảnh mới của đại gia đình"
+    },
+    {
+      "text": "the same",
+      "lemma": "same",
+      "meaningVi": "giống nhau",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "the same long black hair",
+      "phraseVi": "mái tóc đen dài giống nhau"
+    },
+    {
+      "text": "work as hard as",
+      "lemma": "hard",
+      "meaningVi": "làm việc chăm chỉ như",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "you work as hard as she does",
+      "phraseVi": "chị làm việc chăm chỉ như bác"
+    },
+    {
+      "text": "quieter",
+      "lemma": "quiet",
+      "meaningVi": "trầm tính hơn",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "quieter than me",
+      "phraseVi": "trầm hơn chị"
+    },
+    {
+      "text": "uncle",
+      "lemma": "uncle",
+      "meaningVi": "chú, bác, cậu",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "my uncle Tuan",
+      "phraseVi": "chú Tuấn của chị"
+    },
+    {
+      "text": "greyer",
+      "lemma": "grey",
+      "meaningVi": "bạc hơn, xám hơn",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "his hair is greyer",
+      "phraseVi": "tóc lại bạc hơn"
+    },
+    {
+      "text": "much taller",
+      "lemma": "tall",
+      "meaningVi": "cao hơn nhiều",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "much taller than you",
+      "phraseVi": "cao hơn em nhiều"
+    },
+    {
+      "text": "noisy",
+      "lemma": "noisy",
+      "meaningVi": "ồn ào",
+      "sentenceIndex": 18,
+      "pos": "adjective",
+      "phrase": "as noisy as our mother",
+      "phraseVi": "ồn ào như mẹ"
+    }
+  ]
+}

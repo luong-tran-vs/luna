@@ -1,0 +1,595 @@
+{
+  "content": "On Monday morning, Phuc and Long met at a coffee shop near their office. They work in Ho Chi Minh City, and they both love football.\n\nPhuc asked, \"Did you watch the match last night?\"\n\"No, I didn't, because I worked late,\" Long said. \"Did our team win?\"\n\"No, it didn't,\" Phuc answered. \"We lost two to one.\"\n\nLong was surprised. \"Why didn't we win?\" he asked.\n\nThen Phuc told him about the match. In the first half, their team played well, and they got a goal after ten minutes. But in the second half, the players were tired. They didn't run fast, and they didn't pass the ball well. The other team got two goals in the last twenty minutes.\n\nLong asked, \"Did the fans go home sad?\"\n\"Yes, they did, and I didn't sleep well,\" Phuc said with a laugh.\n\"There's another match on Saturday,\" Long said. \"Let's watch it together!\"",
+  "targetWords": [
+    "football",
+    "match",
+    "team",
+    "win",
+    "lose",
+    "player",
+    "goal",
+    "fan"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "football",
+        "lemma": "football",
+        "meaningVi": "bóng đá",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "match",
+        "lemma": "match",
+        "meaningVi": "trận đấu",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "đội",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "win",
+        "lemma": "win",
+        "meaningVi": "thắng",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "lost",
+        "lemma": "lose",
+        "meaningVi": "thua",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "players",
+        "lemma": "player",
+        "meaningVi": "cầu thủ, người chơi",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "goal",
+        "lemma": "goal",
+        "meaningVi": "bàn thắng",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "fans",
+        "lemma": "fan",
+        "meaningVi": "cổ động viên, người hâm mộ",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Long's late work at the office",
+          "Two men talk about last night's football match.",
+          "A new coffee shop in the city",
+          "Buying tickets for Saturday"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phúc và Long gặp nhau ở quán cà phê, nói về trận bóng tối qua mà đội của họ thua hai – một."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why didn't Long watch the match?",
+        "promptVi": "Vì sao Long không xem trận đấu?",
+        "options": [
+          "He worked late.",
+          "He was ill.",
+          "He didn't have a TV.",
+          "He was at another match."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Long nói \"No, I didn't, because I worked late\": anh phải làm việc muộn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many goals did the other team get?",
+        "promptVi": "Đội bên kia ghi được mấy bàn?",
+        "options": [
+          "One",
+          "Three",
+          "Two",
+          "Ten"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"The other team got two goals in the last twenty minutes\": hai bàn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Their team played badly in the first half.",
+        "promptVi": "Đội của họ chơi tệ trong hiệp một.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"In the first half, their team played well\": hiệp một đội chơi tốt, đến hiệp hai mới mệt."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"lost\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "We lost two to one.",
+        "options": [
+          "đánh mất đồ",
+          "thắng",
+          "hoà",
+          "thua"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Lost là quá khứ của lose. Trong trận đấu, lose là thua: đội của họ thua hai – một. Lose còn có nghĩa \"đánh mất\" nhưng không hợp ở đây."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ đơn: phủ định và câu hỏi",
+      "bodyVi": "Phủ định ở quá khứ: didn't (did not) + động từ nguyên mẫu: they didn't run fast. Câu hỏi: Did + chủ ngữ + động từ nguyên mẫu: Did you watch the match? Trả lời ngắn: Yes, I did. / No, I didn't. Có từ hỏi thì đặt ở đầu: Why didn't we win? Sau did, didn't không dùng dạng quá khứ.",
+      "examples": [
+        "Phuc asked, \"Did you watch the match last night?\"",
+        "\"Why didn't we win?\" he asked.",
+        "They didn't run fast, and they didn't pass the ball well."
+      ]
+    },
+    "writingPrompt": "Write about a match you watched or played: who won, and what the players did and didn't do.",
+    "sentenceTranslations": [
+      "Sáng thứ Hai, Phúc và Long gặp nhau ở một quán cà phê gần văn phòng.",
+      "Họ làm việc ở Thành phố Hồ Chí Minh, và cả hai đều mê bóng đá.",
+      "Phúc hỏi: \"Tối qua cậu có xem trận đấu không?\"",
+      "\"Không, vì mình phải làm muộn,\" Long nói.",
+      "\"Đội mình có thắng không?\"",
+      "\"Không,\" Phúc đáp.",
+      "\"Mình thua hai – một.\"",
+      "Long ngạc nhiên.",
+      "\"Sao mình lại không thắng nhỉ?\" anh hỏi.",
+      "Rồi Phúc kể cho Long nghe về trận đấu.",
+      "Hiệp một, đội nhà chơi tốt, và ghi bàn sau mười phút.",
+      "Nhưng sang hiệp hai, các cầu thủ mệt.",
+      "Họ không chạy nhanh, và chuyền bóng không tốt.",
+      "Đội bên kia ghi hai bàn trong hai mươi phút cuối.",
+      "Long hỏi: \"Cổ động viên có buồn khi ra về không?\"",
+      "\"Có, và mình còn ngủ không ngon nữa,\" Phúc cười nói.",
+      "\"Thứ Bảy có một trận nữa đấy,\" Long nói.",
+      "\"Mình xem cùng nhau nhé!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và kể về một trận đấu đã qua, dùng Did … ? và didn't + động từ.",
+    "examples": [
+      {
+        "lemma": "football",
+        "sentence": "I play football every Sunday.",
+        "meaningVi": "Chủ nhật nào mình cũng đá bóng."
+      },
+      {
+        "lemma": "match",
+        "sentence": "The match starts at eight.",
+        "meaningVi": "Trận đấu bắt đầu lúc tám giờ."
+      },
+      {
+        "lemma": "team",
+        "sentence": "Which team do you like?",
+        "meaningVi": "Bạn thích đội nào?"
+      },
+      {
+        "lemma": "win",
+        "sentence": "I hope our team can win.",
+        "meaningVi": "Mình mong đội mình thắng."
+      },
+      {
+        "lemma": "lose",
+        "sentence": "Don't be sad when you lose.",
+        "meaningVi": "Đừng buồn khi thua nhé."
+      },
+      {
+        "lemma": "player",
+        "sentence": "He is a very good player.",
+        "meaningVi": "Anh ấy là một cầu thủ rất giỏi."
+      },
+      {
+        "lemma": "goal",
+        "sentence": "What a beautiful goal!",
+        "meaningVi": "Bàn thắng đẹp quá!"
+      },
+      {
+        "lemma": "fan",
+        "sentence": "My dad is a big fan of this team.",
+        "meaningVi": "Bố mình là cổ động viên cuồng nhiệt của đội này."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Phuc",
+        "Chris"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Chris, did you play football at the weekend?",
+          "meaningVi": "Chris ơi, cuối tuần cậu có đá bóng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I did. I played with my friends in the park. Did you play?",
+          "meaningVi": "Có. Mình đá với bạn bè ở công viên. Cậu có đá không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I didn't. I watched a match on TV. Did your team win?",
+          "meaningVi": "Không. Mình xem một trận trên tivi. Đội cậu có thắng không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, we didn't. We lost three to two.",
+          "meaningVi": "Không. Bọn mình thua ba – hai."
+        },
+        {
+          "speaker": 0,
+          "text": "Oh no! What happened?",
+          "meaningVi": "Ôi không! Chuyện gì thế?"
+        },
+        {
+          "speaker": 1,
+          "text": "Two of our players were ill, so they didn't come.",
+          "meaningVi": "Hai cầu thủ của bọn mình bị ốm, nên họ không đến."
+        },
+        {
+          "speaker": 0,
+          "text": "That's bad luck. Did you get a goal?",
+          "meaningVi": "Xui thật. Cậu có ghi bàn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I did! I got one in the first half.",
+          "meaningVi": "Có chứ! Mình ghi một bàn ở hiệp một."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! Next time, your team can win.",
+          "meaningVi": "Tuyệt! Lần sau đội cậu sẽ thắng."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về một trận đấu đã qua: Did you play? Did your team win? Trả lời: Yes, I did. / No, we didn't. Hỏi chuyện gì xảy ra: What happened?",
+    "translations": [
+      {
+        "vi": "Tối qua bạn có xem trận đấu không?",
+        "en": "Did you watch the match last night?",
+        "distractors": [
+          "Do",
+          "watched",
+          "game"
+        ]
+      },
+      {
+        "vi": "Đội của chúng tôi không thắng.",
+        "en": "Our team didn't win.",
+        "distractors": [
+          "won",
+          "doesn't",
+          "lose"
+        ]
+      },
+      {
+        "vi": "Chúng tôi thua hai – một.",
+        "en": "We lost two to one.",
+        "distractors": [
+          "lose",
+          "won",
+          "for"
+        ]
+      },
+      {
+        "vi": "Các cầu thủ không chạy nhanh.",
+        "en": "The players didn't run fast.",
+        "distractors": [
+          "ran",
+          "player",
+          "quick"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chris và Phúc nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một quán cà phê mới",
+          "Một trận bóng trên tivi",
+          "Trận bóng cuối tuần của Chris"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phúc hỏi \"did you play football at the weekend?\", rồi Chris kể về trận đấu của đội mình.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đội của Chris thua với tỉ số nào?",
+        "promptVi": "",
+        "options": [
+          "3 – 2",
+          "2 – 1",
+          "3 – 0"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chris nói \"We lost three to two.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao hai cầu thủ không đến?",
+        "promptVi": "",
+        "options": [
+          "Vì họ phải đi làm",
+          "Vì họ bị ốm",
+          "Vì trời mưa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chris nói \"Two of our players were ill, so they didn't come.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Chris didn't get a goal.",
+        "promptVi": "Chris không ghi được bàn nào.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Chris nói \"Yes, I did! I got one in the first half.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Vì sao đội của Phúc và Long thua trận tối qua?",
+    "grammarStep": {
+      "titleVi": "Quá khứ đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "Phuc asked, \"Did you watch the match last night?\"",
+          "highlights": [
+            "Did you watch"
+          ]
+        },
+        {
+          "sentence": "\"No, I didn't, because I worked late,\" Long said.",
+          "highlights": [
+            "didn't",
+            "worked"
+          ]
+        },
+        {
+          "sentence": "\"Why didn't we win?\" he asked.",
+          "highlights": [
+            "didn't we win"
+          ]
+        },
+        {
+          "sentence": "They didn't run fast, and they didn't pass the ball well.",
+          "highlights": [
+            "didn't run",
+            "didn't pass"
+          ]
+        }
+      ],
+      "questionVi": "Sau did / didn't, động từ có dạng gì?",
+      "options": [
+        "Dạng nguyên mẫu (watch, win, run)",
+        "Dạng quá khứ (watched, won, ran)",
+        "Thêm -ing (watching, winning)"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Did đã cho biết là quá khứ, nên động từ sau did / didn't giữ nguyên mẫu: Did you watch, didn't win, didn't run. Câu khẳng định thì vẫn dùng dạng quá khứ: I worked late.",
+      "whenVi": "Dùng didn't + động từ để nói việc không xảy ra trong quá khứ, và Did … ? để hỏi về chuyện đã qua.",
+      "table": [
+        {
+          "subject": "Khẳng định",
+          "form": "I worked late. We lost.",
+          "negative": "We didn't win."
+        },
+        {
+          "subject": "Câu hỏi Có / Không",
+          "form": "Did you watch the match? – Yes, I did.",
+          "negative": "No, I didn't."
+        },
+        {
+          "subject": "Câu hỏi có từ hỏi",
+          "form": "What did you watch? Why didn't we win?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Did you watched the match?",
+          "right": "Did you watch the match?"
+        },
+        {
+          "wrong": "Our team didn't won.",
+          "right": "Our team didn't win."
+        }
+      ],
+      "noteVi": "Người Việt vừa học thêm -ed cho quá khứ nên hay dùng thêm dạng quá khứ sau did (did you watched, didn't won); thật ra did đã mang nghĩa quá khứ rồi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng phủ định quá khứ của động từ trong ngoặc.",
+          "text": "Long ___ (not watch) the match last night.",
+          "answers": [
+            "didn't watch",
+            "did not watch"
+          ],
+          "explanationVi": "Phủ định ở quá khứ: didn't + động từ nguyên mẫu: didn't watch."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ our team win? – No, it didn't.",
+          "options": [
+            "Did",
+            "Was",
+            "Does",
+            "Do"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu trả lời là \"No, it didn't\", nên câu hỏi dùng Did + chủ ngữ + động từ nguyên mẫu."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They didn't ran fast.",
+          "sentence": "They didn't run fast.",
+          "explanationVi": "Sau didn't, động từ giữ nguyên mẫu: didn't run."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Sao chúng ta lại không thắng?",
+          "sentence": "Why didn't we win?",
+          "words": [
+            "we",
+            "Why",
+            "win",
+            "didn't",
+            "won"
+          ],
+          "explanationVi": "Từ hỏi Why, rồi didn't, chủ ngữ we, động từ nguyên mẫu win; từ \"won\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "But in the second half, the players were tired.",
+        "tipVi": "Players /ˈpleɪərz/ kết thúc bằng /z/; tired /ˈtaɪərd/ có âm /d/ ở cuối, đừng bỏ."
+      },
+      {
+        "text": "They didn't run fast, and they didn't pass the ball well.",
+        "tipVi": "Didn't /ˈdɪdənt/ có âm /nt/ ở cuối, đọc rõ để người nghe biết là phủ định; fast /fæst/ có cụm /st/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Did you watch a match last week?",
+        "questionVi": "Tuần trước bạn có xem trận đấu nào không?",
+        "frame": "Yes, I did. I watched ___. / No, I didn't."
+      },
+      {
+        "question": "Did your favourite team win last time?",
+        "questionVi": "Lần trước đội bạn thích có thắng không?",
+        "frame": "Yes, it did. / No, it didn't. It lost ___."
+      },
+      {
+        "question": "Did your best friend play sport last weekend?",
+        "questionVi": "Cuối tuần trước bạn thân của bạn có chơi thể thao không?",
+        "frame": "Yes, he / she did. He / She played ___. / No, he / she didn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu phủ định với didn't hoặc 1 câu hỏi với Did … ?",
+      "anyOf": [
+        "didn't",
+        "did not",
+        "did you",
+        "did he",
+        "did she",
+        "did they"
+      ],
+      "outlineVi": [
+        "Nói bạn xem hoặc chơi trận nào, khi nào, với ai.",
+        "Kể đội đã chơi thế nào, có việc gì họ không làm được (They didn't …).",
+        "Nói ai thắng và người đi cùng bạn thấy thế nào (Did he …? Yes, he did!)."
+      ],
+      "modelAnswer": "Last Saturday, I watched a basketball match with my brother. Our team didn't play well in the first half. They didn't pass the ball fast. But in the second half, they played very well and got a lot of points. In the end, they won by five points! Did my brother shout? Yes, he did!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "met",
+      "lemma": "meet",
+      "meaningVi": "gặp",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Phuc and Long met at a coffee shop",
+      "phraseVi": "Phúc và Long gặp nhau ở một quán cà phê"
+    },
+    {
+      "text": "worked late",
+      "lemma": "work late",
+      "meaningVi": "làm việc muộn",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "because I worked late",
+      "phraseVi": "vì mình phải làm muộn"
+    },
+    {
+      "text": "surprised",
+      "lemma": "surprised",
+      "meaningVi": "ngạc nhiên",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "Long was surprised",
+      "phraseVi": "Long ngạc nhiên"
+    },
+    {
+      "text": "first half",
+      "lemma": "half",
+      "meaningVi": "hiệp một",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "In the first half",
+      "phraseVi": "Hiệp một"
+    },
+    {
+      "text": "got a goal",
+      "lemma": "get a goal",
+      "meaningVi": "ghi bàn",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "they got a goal after ten minutes",
+      "phraseVi": "ghi bàn sau mười phút"
+    },
+    {
+      "text": "tired",
+      "lemma": "tired",
+      "meaningVi": "mệt",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "the players were tired",
+      "phraseVi": "các cầu thủ mệt"
+    },
+    {
+      "text": "pass the ball",
+      "lemma": "pass",
+      "meaningVi": "chuyền bóng",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "they didn't pass the ball well",
+      "phraseVi": "chuyền bóng không tốt"
+    },
+    {
+      "text": "with a laugh",
+      "lemma": "laugh",
+      "meaningVi": "cười nói",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "Phuc said with a laugh",
+      "phraseVi": "Phúc cười nói"
+    },
+    {
+      "text": "another",
+      "lemma": "another",
+      "meaningVi": "một … nữa, khác",
+      "sentenceIndex": 16,
+      "pos": "determiner",
+      "phrase": "There's another match on Saturday",
+      "phraseVi": "Thứ Bảy có một trận nữa"
+    }
+  ]
+}

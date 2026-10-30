@@ -1,0 +1,595 @@
+{
+  "content": "On Saturday evening, Hoa and her husband Phong have dinner at a seafood restaurant in Da Nang. In the morning, Hoa books a table near the sea. The restaurant is full of customers, and there are a lot of tourists too. From their table, they can see the beach and a few small boats.\n\nThe waiter asks, \"What would you like this evening?\"\n\"I'd like some grilled fish and a lot of squid, please,\" Hoa says. \"We'd also like a little rice.\"\nPhong is thirsty after a long day at the beach, so he orders a few fruit juices.\n\nThe seafood here is very fresh, and Hoa eats a lot of squid. Phong doesn't eat much rice, but he loves the fish.\nAfter dinner, the waiter asks, \"Would you like some dessert?\"\nPhong says, \"Just a little fruit, please, because we are full.\"\n\nThen Hoa asks for the bill. The dinner isn't cheap, but the food is delicious. Hoa leaves a small tip for the waiter because he is very kind.\nPhong smiles and asks, \"Can we come here again next weekend?\"",
+  "targetWords": [
+    "seafood",
+    "book a table",
+    "customer",
+    "thirsty",
+    "fresh",
+    "dessert",
+    "bill",
+    "tip"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "seafood",
+        "lemma": "seafood",
+        "meaningVi": "hải sản",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "books a table",
+        "lemma": "book a table",
+        "meaningVi": "đặt bàn",
+        "pos": "phrase",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "customers",
+        "lemma": "customer",
+        "meaningVi": "khách hàng, thực khách",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "thirsty",
+        "lemma": "thirsty",
+        "meaningVi": "khát",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "fresh",
+        "lemma": "fresh",
+        "meaningVi": "tươi",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "dessert",
+        "lemma": "dessert",
+        "meaningVi": "món tráng miệng",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "bill",
+        "lemma": "bill",
+        "meaningVi": "hoá đơn",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "tip",
+        "lemma": "tip",
+        "meaningVi": "tiền bo, tiền boa",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A day at the beach with friends",
+          "Hoa cooks seafood at home.",
+          "A new restaurant in Hanoi",
+          "Hoa and Phong have dinner at a seafood restaurant."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Hoa và chồng là Phong ăn tối ở một nhà hàng hải sản ở Đà Nẵng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Phong order to drink?",
+        "promptVi": "Phong gọi đồ uống gì?",
+        "options": [
+          "A few fruit juices",
+          "A lot of iced tea",
+          "A little coffee",
+          "Some water"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"he orders a few fruit juices\": Phong gọi vài cốc nước hoa quả."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Phong want only a little fruit for dessert?",
+        "promptVi": "Vì sao Phong chỉ muốn một chút hoa quả tráng miệng?",
+        "options": [
+          "He doesn't like fruit.",
+          "The dessert is expensive.",
+          "They are full.",
+          "There isn't any ice cream."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phong nói \"because we are full\": họ đã no rồi."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The dinner at the restaurant is very cheap.",
+        "promptVi": "Bữa tối ở nhà hàng rất rẻ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"The dinner isn't cheap\": bữa tối không rẻ."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"full\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Phong says, \"Just a little fruit, please, because we are full.\"",
+        "options": [
+          "no",
+          "đói",
+          "mệt",
+          "vui"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Full ở đây là no bụng, ăn đủ rồi nên không ăn thêm nhiều được."
+      }
+    ],
+    "grammarNote": {
+      "title": "A lot of / a few / a little",
+      "bodyVi": "A lot of (nhiều) đi được với mọi danh từ: a lot of squid, a lot of tourists. A few (vài) đi với danh từ đếm được số nhiều: a few boats, a few fruit juices. A little (một chút) đi với danh từ không đếm được: a little rice, a little fruit. Câu phủ định hay dùng much / many: He doesn't eat much rice.",
+      "examples": [
+        "From their table, they can see the beach and a few small boats.",
+        "\"I'd like some grilled fish and a lot of squid, please,\" Hoa says.",
+        "\"We'd also like a little rice.\""
+      ]
+    },
+    "writingPrompt": "Write about a dinner at a restaurant: what you eat and drink, and how much (a lot of, a few, a little).",
+    "sentenceTranslations": [
+      "Tối thứ Bảy, Hoa và chồng là Phong ăn tối ở một nhà hàng hải sản ở Đà Nẵng.",
+      "Từ buổi sáng, Hoa đã đặt một bàn gần biển.",
+      "Nhà hàng kín khách, và cũng có rất nhiều khách du lịch.",
+      "Từ bàn của mình, họ có thể nhìn thấy bãi biển và vài chiếc thuyền nhỏ.",
+      "Người phục vụ hỏi: \"Tối nay anh chị muốn dùng gì ạ?\"",
+      "\"Cho tôi ít cá nướng và thật nhiều mực,\" Hoa nói.",
+      "\"Chúng tôi cũng muốn một chút cơm.\"",
+      "Phong khát nước sau một ngày dài ở bãi biển, nên anh gọi vài cốc nước hoa quả.",
+      "Hải sản ở đây rất tươi, và Hoa ăn rất nhiều mực.",
+      "Phong không ăn nhiều cơm, nhưng anh rất thích món cá.",
+      "Sau bữa tối, người phục vụ hỏi: \"Anh chị có muốn dùng tráng miệng không ạ?\"",
+      "Phong nói: \"Chỉ một chút hoa quả thôi, vì chúng tôi no rồi.\"",
+      "Rồi Hoa xin hoá đơn.",
+      "Bữa tối không rẻ, nhưng đồ ăn rất ngon.",
+      "Hoa để lại một ít tiền bo cho người phục vụ vì anh ấy rất tử tế.",
+      "Phong mỉm cười và hỏi: \"Cuối tuần sau mình lại đến đây được không em?\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói nhiều hay ít khi gọi món bằng a lot of, a few, a little, và gọi món lịch sự bằng I'd like / Would you like.",
+    "examples": [
+      {
+        "lemma": "seafood",
+        "sentence": "My father loves seafood.",
+        "meaningVi": "Bố tôi rất thích hải sản."
+      },
+      {
+        "lemma": "book a table",
+        "sentence": "Can I book a table for four?",
+        "meaningVi": "Tôi đặt bàn cho bốn người được không?"
+      },
+      {
+        "lemma": "customer",
+        "sentence": "The shop has a lot of customers today.",
+        "meaningVi": "Hôm nay cửa hàng có rất nhiều khách."
+      },
+      {
+        "lemma": "thirsty",
+        "sentence": "I'm thirsty. Can I have some water?",
+        "meaningVi": "Tôi khát. Cho tôi ít nước được không?"
+      },
+      {
+        "lemma": "fresh",
+        "sentence": "These eggs are very fresh.",
+        "meaningVi": "Những quả trứng này rất tươi."
+      },
+      {
+        "lemma": "dessert",
+        "sentence": "We have ice cream for dessert.",
+        "meaningVi": "Chúng tôi ăn kem tráng miệng."
+      },
+      {
+        "lemma": "bill",
+        "sentence": "Can we have the bill, please?",
+        "meaningVi": "Cho chúng tôi xin hoá đơn."
+      },
+      {
+        "lemma": "tip",
+        "sentence": "She leaves a tip on the table.",
+        "meaningVi": "Cô ấy để tiền bo trên bàn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Sarah"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hoa, how was your weekend in Da Nang?",
+          "meaningVi": "Hoa ơi, cuối tuần ở Đà Nẵng của cậu thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Lovely! On Saturday, Phong and I had dinner by the sea.",
+          "meaningVi": "Tuyệt lắm! Thứ Bảy mình với Phong ăn tối cạnh biển."
+        },
+        {
+          "speaker": 1,
+          "text": "What did you eat?",
+          "meaningVi": "Các cậu ăn gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "A lot of seafood. I ate a lot of squid, and Phong had fish.",
+          "meaningVi": "Rất nhiều hải sản. Mình ăn thật nhiều mực, còn Phong ăn cá."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you have any rice with it?",
+          "meaningVi": "Có ăn kèm cơm không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only a little. The seafood was enough for us.",
+          "meaningVi": "Chỉ một chút thôi. Hải sản là đủ no rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Was the restaurant busy?",
+          "meaningVi": "Nhà hàng có đông không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, very busy, but I booked a table in the morning.",
+          "meaningVi": "Có, rất đông, nhưng mình đã đặt bàn từ sáng."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea! I'd like to go there with my family.",
+          "meaningVi": "Hay đấy! Mình cũng muốn đến đó cùng gia đình."
+        },
+        {
+          "speaker": 0,
+          "text": "You should. But it isn't cheap, so take a lot of money!",
+          "meaningVi": "Nên đi đấy. Nhưng không rẻ đâu, mang nhiều tiền vào nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Nói ít: Only a little (với danh từ không đếm được như rice). Nói nhiều: a lot of squid, a lot of money. Muốn làm gì: I'd like to go there.",
+    "translations": [
+      {
+        "vi": "Hoa đặt một bàn cho hai người.",
+        "en": "Hoa books a table for two.",
+        "distractors": [
+          "book",
+          "chair",
+          "three"
+        ]
+      },
+      {
+        "vi": "Hải sản ở đây rất tươi.",
+        "en": "The seafood here is very fresh.",
+        "distractors": [
+          "are",
+          "there",
+          "cheap"
+        ]
+      },
+      {
+        "vi": "Phong khát nên anh ấy gọi vài cốc nước hoa quả.",
+        "en": "Phong is thirsty, so he orders a few fruit juices.",
+        "distractors": [
+          "little",
+          "hungry",
+          "she"
+        ]
+      },
+      {
+        "vi": "Hoa xin hoá đơn và để lại tiền bo.",
+        "en": "Hoa asks for the bill and leaves a tip.",
+        "distractors": [
+          "menu",
+          "many",
+          "ask"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa kể với Sarah về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi Hà Nội",
+          "Một nhà hàng mới mở gần nhà",
+          "Bữa tối cạnh biển ở Đà Nẵng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hoa nói \"Phong and I had dinner by the sea\" khi kể về cuối tuần ở Đà Nẵng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa ăn rất nhiều món gì?",
+        "promptVi": "",
+        "options": [
+          "Mực",
+          "Cá",
+          "Cơm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"I ate a lot of squid.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Hoa có bàn dù nhà hàng rất đông?",
+        "promptVi": "",
+        "options": [
+          "Vì họ đến rất sớm",
+          "Vì Hoa đặt bàn từ buổi sáng",
+          "Vì người phục vụ là bạn của Hoa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"I booked a table in the morning.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa says the restaurant is cheap.",
+        "promptVi": "Hoa nói nhà hàng đó rẻ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"it isn't cheap, so take a lot of money!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Hoa và Phong ăn uống những gì, mỗi thứ nhiều hay ít?",
+    "grammarStep": {
+      "titleVi": "A lot of / a few / a little",
+      "noticing": [
+        {
+          "sentence": "The restaurant is full of customers, and there are a lot of tourists too.",
+          "highlights": [
+            "a lot of tourists"
+          ]
+        },
+        {
+          "sentence": "From their table, they can see the beach and a few small boats.",
+          "highlights": [
+            "a few small boats"
+          ]
+        },
+        {
+          "sentence": "\"We'd also like a little rice.\"",
+          "highlights": [
+            "a little rice"
+          ]
+        },
+        {
+          "sentence": "Phong says, \"Just a little fruit, please, because we are full.\"",
+          "highlights": [
+            "a little fruit"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"a few small boats\" nhưng lại viết \"a little rice\"?",
+      "options": [
+        "Vì boats đếm được, còn rice không đếm được.",
+        "Vì boats nhiều hơn rice.",
+        "Vì rice là danh từ số nhiều."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "A few đi với danh từ đếm được số nhiều (boats, juices). A little đi với danh từ không đếm được (rice, fruit, sugar).",
+      "whenVi": "Dùng a lot of để nói nhiều, a few (vài) với danh từ đếm được và a little (một chút) với danh từ không đếm được để nói ít.",
+      "table": [
+        {
+          "subject": "Mọi danh từ",
+          "form": "a lot of squid / a lot of tourists",
+          "negative": "not much squid / not many tourists"
+        },
+        {
+          "subject": "Đếm được (boat, juice)",
+          "form": "a few boats",
+          "negative": "not many boats"
+        },
+        {
+          "subject": "Không đếm được (rice, fruit)",
+          "form": "a little rice",
+          "negative": "not much rice"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We need a few rice.",
+          "right": "We need a little rice."
+        },
+        {
+          "wrong": "There are a lot tourists here.",
+          "right": "There are a lot of tourists here."
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ có \"một ít\", \"vài\" cho mọi thứ, nên người Việt hay nhầm a few với a little; ngoài ra hay quên chữ of trong a lot of.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "I have a ___ friends in Da Nang.",
+          "answers": [
+            "few"
+          ],
+          "explanationVi": "Friends đếm được, số nhiều, nên dùng a few."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Can I have a ___ sugar in my coffee?",
+          "options": [
+            "few",
+            "many",
+            "lot",
+            "little"
+          ],
+          "answerIndex": 3,
+          "explanationVi": "Sugar không đếm được nên dùng a little."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We'd like a few rice with the fish.",
+          "sentence": "We'd like a little rice with the fish.",
+          "explanationVi": "Rice không đếm được nên dùng a little, không dùng a few."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hoa ăn rất nhiều mực.",
+          "sentence": "Hoa eats a lot of squid.",
+          "words": [
+            "lot",
+            "Hoa",
+            "of",
+            "eats",
+            "squid",
+            "a",
+            "few"
+          ],
+          "explanationVi": "A lot of + danh từ để nói nhiều; từ \"few\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "In the morning, Hoa books a table near the sea.",
+        "tipVi": "Books a table nối thành \"búc-xơ-tây-bồ\"; sea /si/ có âm /i/ dài."
+      },
+      {
+        "text": "Then Hoa asks for the bill.",
+        "tipVi": "Asks đọc /ɑːsks/ có đủ âm /sks/ ở cuối; bill /bɪl/ âm /ɪ/ ngắn, nhớ âm /l/ cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What would you like for dinner tonight?",
+        "questionVi": "Tối nay bạn muốn ăn gì?",
+        "frame": "I'd like some ___ and a little ___."
+      },
+      {
+        "question": "Do you eat a lot of seafood?",
+        "questionVi": "Bạn có ăn nhiều hải sản không?",
+        "frame": "Yes, I eat a lot of ___. / No, I don't eat much ___."
+      },
+      {
+        "question": "What does your best friend like for dessert?",
+        "questionVi": "Bạn thân của bạn thích ăn tráng miệng món gì?",
+        "frame": "He / She likes ___ for dessert."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng a lot of, a few hoặc a little",
+      "anyOf": [
+        "a lot of",
+        "a few",
+        "a little",
+        "lots of"
+      ],
+      "outlineVi": [
+        "Bạn ăn tối ở đâu, với ai.",
+        "Bạn ăn uống những gì, nhiều hay ít (a lot of, a few, a little).",
+        "Món tráng miệng, hoá đơn, và cảm nhận của bạn."
+      ],
+      "modelAnswer": "Last Sunday, I had dinner with my parents at a restaurant near our home. My father ordered a lot of grilled chicken, and my mother had some fish with a little rice. I was thirsty, so I had a few glasses of orange juice. For dessert, we had a little fruit. The bill wasn't cheap, but the food was very fresh and delicious."
+    }
+  },
+  "glosses": [
+    {
+      "text": "husband",
+      "lemma": "husband",
+      "meaningVi": "chồng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "her husband Phong",
+      "phraseVi": "chồng cô là Phong"
+    },
+    {
+      "text": "tourists",
+      "lemma": "tourist",
+      "meaningVi": "khách du lịch",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a lot of tourists",
+      "phraseVi": "rất nhiều khách du lịch"
+    },
+    {
+      "text": "a few",
+      "lemma": "a few",
+      "meaningVi": "vài",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "a few small boats",
+      "phraseVi": "vài chiếc thuyền nhỏ"
+    },
+    {
+      "text": "grilled",
+      "lemma": "grilled",
+      "meaningVi": "nướng",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "some grilled fish",
+      "phraseVi": "ít cá nướng"
+    },
+    {
+      "text": "squid",
+      "lemma": "squid",
+      "meaningVi": "mực",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "a lot of squid",
+      "phraseVi": "rất nhiều mực"
+    },
+    {
+      "text": "a little",
+      "lemma": "a little",
+      "meaningVi": "một chút",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "a little rice",
+      "phraseVi": "một chút cơm"
+    },
+    {
+      "text": "full",
+      "lemma": "full",
+      "meaningVi": "no (bụng)",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "because we are full",
+      "phraseVi": "vì chúng tôi no rồi"
+    },
+    {
+      "text": "cheap",
+      "lemma": "cheap",
+      "meaningVi": "rẻ",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "The dinner isn't cheap",
+      "phraseVi": "Bữa tối không rẻ"
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "meaningVi": "tử tế, tốt bụng",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "he is very kind",
+      "phraseVi": "anh ấy rất tử tế"
+    }
+  ]
+}

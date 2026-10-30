@@ -1,0 +1,607 @@
+{
+  "content": "Phong and Huy are on a train to Ha Long. Phong is reading a history book about the Bach Dang River.\n\nHuy asks, \"Is that for your exam?\"\n\"No, I'm reading it for fun. It's about the battle of Bach Dang in 938. Do you know the story?\"\n\"A little. Ngo Quyen won, right? But I don't remember how.\"\n\"It's a clever story. The enemy had a much bigger army and hundreds of ships. But before the battle, Ngo Quyen had studied the river very carefully.\"\n\"Why the river?\"\n\"Because the water there goes up and down every day. Before the enemy arrived, his soldiers had put thousands of long wooden poles into the river. They had made the ends very sharp.\"\n\"But wasn't that easy to see?\"\n\"No. When the water was high, the poles were under it. Nobody could see them.\"\n\"Smart. And then?\"\n\"Ngo Quyen sent some small boats to attack. Then his men turned and went back up the river. The enemy ships followed them. By the afternoon, the water had gone down, and the sharp poles had broken the big ships.\"\n\"Wow. So the army had planned everything before the fight started.\"\n\"Exactly. After that victory, Ngo Quyen became king.\"\nHuy says, \"History is much more fun than I thought. Can I read it after you?\"\n\"Sure. But first, look out of the window. That's the area where it all happened.\"",
+  "targetWords": [
+    "history",
+    "battle",
+    "enemy",
+    "army",
+    "ship",
+    "soldier",
+    "sharp",
+    "attack",
+    "victory",
+    "king"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "history",
+        "lemma": "history",
+        "meaningVi": "lịch sử",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "battle",
+        "lemma": "battle",
+        "meaningVi": "trận đánh",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "enemy",
+        "lemma": "enemy",
+        "meaningVi": "kẻ thù, quân địch",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "army",
+        "lemma": "army",
+        "meaningVi": "quân đội",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "ships",
+        "lemma": "ship",
+        "meaningVi": "tàu, thuyền lớn",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "soldiers",
+        "lemma": "soldier",
+        "meaningVi": "người lính",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "sharp",
+        "lemma": "sharp",
+        "meaningVi": "sắc, nhọn",
+        "pos": "adjective",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "attack",
+        "lemma": "attack",
+        "meaningVi": "tấn công",
+        "pos": "verb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "victory",
+        "lemma": "victory",
+        "meaningVi": "chiến thắng",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "king",
+        "lemma": "king",
+        "meaningVi": "vua",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Phong and Huy mainly talking about?",
+        "promptVi": "Phong và Huy chủ yếu nói về điều gì?",
+        "options": [
+          "The battle of Bach Dang in a history book",
+          "Their exam next week",
+          "A boat trip in Ha Long",
+          "How to make wooden poles"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phong đang đọc sách lịch sử và kể cho Huy về trận Bạch Đằng năm 938."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What had Ngo Quyen done before the battle?",
+        "promptVi": "Ngô Quyền đã làm gì trước trận đánh?",
+        "options": [
+          "He had bought hundreds of ships.",
+          "He had studied the river very carefully.",
+          "He had visited the enemy.",
+          "He had become king."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong nói \"before the battle, Ngo Quyen had studied the river very carefully.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why couldn't the enemy see the poles?",
+        "promptVi": "Vì sao quân địch không nhìn thấy những cây cọc?",
+        "options": [
+          "It was night.",
+          "The poles were very small.",
+          "The water was high, so the poles were under it.",
+          "The soldiers had hidden them in the boats."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phong nói \"When the water was high, the poles were under it.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phong is reading the book for an exam.",
+        "promptVi": "Phong đọc cuốn sách để ôn thi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phong nói \"No, I'm reading it for fun.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"victory\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "After that victory, Ngo Quyen became king.\"",
+        "options": [
+          "chiến thắng",
+          "thất bại",
+          "con sông",
+          "quân đội"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Victory = chiến thắng (trong một trận đánh hoặc cuộc thi)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ hoàn thành",
+      "bodyVi": "Khi kể lại một sự kiện lịch sử, dùng quá khứ đơn cho các việc theo thứ tự (Ngo Quyen sent some small boats, the enemy ships followed them) và had + V3 cho những việc đã chuẩn bị hoặc đã xảy ra trước: Before the enemy arrived, his soldiers had put thousands of long wooden poles into the river. By the afternoon, the water had gone down.",
+      "examples": [
+        "But before the battle, Ngo Quyen had studied the river very carefully.\"",
+        "Before the enemy arrived, his soldiers had put thousands of long wooden poles into the river.",
+        "By the afternoon, the water had gone down, and the sharp poles had broken the big ships.\""
+      ]
+    },
+    "writingPrompt": "Write about a historical event you know: what had people done before the most important day?",
+    "sentenceTranslations": [
+      "Phong và Huy đang ngồi trên tàu đi Hạ Long.",
+      "Phong đang đọc một cuốn sách lịch sử về sông Bạch Đằng.",
+      "Huy hỏi: \"Cậu đọc để ôn thi à?\"",
+      "\"Không, mình đọc cho vui thôi.",
+      "Sách viết về trận Bạch Đằng năm 938.",
+      "Cậu có biết chuyện này không?\"",
+      "\"Biết chút chút.",
+      "Ngô Quyền thắng, đúng không?",
+      "Nhưng mình không nhớ thắng thế nào.\"",
+      "\"Chuyện hay lắm.",
+      "Quân địch có đội quân đông hơn nhiều và hàng trăm chiếc thuyền lớn.",
+      "Nhưng trước trận đánh, Ngô Quyền đã nghiên cứu con sông rất kỹ.\"",
+      "\"Sao lại là con sông?\"",
+      "\"Vì nước ở đó lên xuống mỗi ngày.",
+      "Trước khi quân địch đến, lính của ông đã cắm hàng nghìn cây cọc gỗ dài xuống lòng sông.",
+      "Họ đã vót đầu cọc rất nhọn.\"",
+      "\"Nhưng như thế chẳng phải dễ bị nhìn thấy sao?\"",
+      "\"Không.",
+      "Khi nước lên cao, cọc nằm dưới nước.",
+      "Không ai nhìn thấy được.\"",
+      "\"Khôn thật.",
+      "Rồi sao nữa?\"",
+      "\"Ngô Quyền cho mấy chiếc thuyền nhỏ ra tấn công.",
+      "Rồi quân của ông quay lại, đi ngược lên sông.",
+      "Thuyền địch đuổi theo.",
+      "Đến chiều, nước đã rút, và những cây cọc nhọn đã đâm vỡ các thuyền lớn.\"",
+      "\"Trời.",
+      "Vậy là quân đội đã lên kế hoạch mọi thứ trước khi trận đánh bắt đầu.\"",
+      "\"Chính xác.",
+      "Sau chiến thắng đó, Ngô Quyền lên làm vua.\"",
+      "Huy nói: \"Lịch sử thú vị hơn mình tưởng nhiều.",
+      "Cậu đọc xong cho mình đọc nhé?\"",
+      "\"Được.",
+      "Nhưng trước tiên, nhìn ra cửa sổ đi.",
+      "Đó là vùng mà mọi chuyện đã diễn ra.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại một sự kiện lịch sử theo thứ tự, dùng quá khứ hoàn thành cho những gì đã được chuẩn bị trước.",
+    "examples": [
+      {
+        "lemma": "history",
+        "sentence": "History was my favourite subject at school.",
+        "meaningVi": "Lịch sử là môn tôi thích nhất ở trường."
+      },
+      {
+        "lemma": "battle",
+        "sentence": "The battle lasted three days.",
+        "meaningVi": "Trận đánh kéo dài ba ngày."
+      },
+      {
+        "lemma": "enemy",
+        "sentence": "The enemy came from the north.",
+        "meaningVi": "Quân địch đến từ phía bắc."
+      },
+      {
+        "lemma": "army",
+        "sentence": "My grandfather was in the army for ten years.",
+        "meaningVi": "Ông tôi ở trong quân đội mười năm."
+      },
+      {
+        "lemma": "ship",
+        "sentence": "A big ship is coming into the port.",
+        "meaningVi": "Một con tàu lớn đang vào cảng."
+      },
+      {
+        "lemma": "soldier",
+        "sentence": "The young soldier missed his family.",
+        "meaningVi": "Người lính trẻ nhớ gia đình."
+      },
+      {
+        "lemma": "sharp",
+        "sentence": "Be careful, the knife is very sharp.",
+        "meaningVi": "Cẩn thận, con dao rất sắc."
+      },
+      {
+        "lemma": "attack",
+        "sentence": "The dog didn't attack anyone.",
+        "meaningVi": "Con chó không tấn công ai cả."
+      },
+      {
+        "lemma": "victory",
+        "sentence": "The team celebrated their victory.",
+        "meaningVi": "Cả đội ăn mừng chiến thắng."
+      },
+      {
+        "lemma": "king",
+        "sentence": "The king lived in a big palace.",
+        "meaningVi": "Nhà vua sống trong một cung điện lớn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huy",
+        "Phong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Phong, is this the Bach Dang River?",
+          "meaningVi": "Phong ơi, đây là sông Bạch Đằng à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Can you imagine the battle here?",
+          "meaningVi": "Ừ. Cậu có tưởng tượng ra trận đánh ở đây không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not really. Had people used the same idea before?",
+          "meaningVi": "Không hẳn. Trước đó đã có ai dùng cách này chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they hadn't. It was Ngo Quyen's own idea.",
+          "meaningVi": "Chưa. Đó là ý tưởng của chính Ngô Quyền."
+        },
+        {
+          "speaker": 0,
+          "text": "How did he know about the water?",
+          "meaningVi": "Sao ông ấy biết về nước sông?"
+        },
+        {
+          "speaker": 1,
+          "text": "He had talked to the fishermen who lived here.",
+          "meaningVi": "Ông đã nói chuyện với những người đánh cá sống ở đây."
+        },
+        {
+          "speaker": 0,
+          "text": "Smart. And did anyone use it again later?",
+          "meaningVi": "Khôn thật. Sau này có ai dùng lại không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, Tran Hung Dao used it in 1288.",
+          "meaningVi": "Có, Trần Hưng Đạo dùng lại năm 1288."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? I didn't know that.",
+          "meaningVi": "Thật à? Mình không biết đấy."
+        },
+        {
+          "speaker": 1,
+          "text": "It's in the last chapter. You can read it later.",
+          "meaningVi": "Ở chương cuối đấy. Lát cậu đọc nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi việc đã có trước đó chưa: Had people used the same idea before? – No, they hadn't. Giải thích bằng had + V3: He had talked to the fishermen.",
+    "translations": [
+      {
+        "vi": "Ông ấy đã nghiên cứu con sông trước trận đánh.",
+        "en": "He had studied the river before the battle.",
+        "distractors": [
+          "has",
+          "after",
+          "studies"
+        ]
+      },
+      {
+        "vi": "Lính của ông đã cắm cọc xuống sông.",
+        "en": "His soldiers had put poles into the river.",
+        "distractors": [
+          "has",
+          "puts",
+          "boats"
+        ]
+      },
+      {
+        "vi": "Đến chiều, những cây cọc nhọn đã làm vỡ thuyền.",
+        "en": "By the afternoon, the sharp poles had broken the ships.",
+        "distractors": [
+          "has",
+          "breaks",
+          "boats"
+        ]
+      },
+      {
+        "vi": "Quân đội đã lên kế hoạch mọi thứ.",
+        "en": "The army had planned everything.",
+        "distractors": [
+          "has",
+          "plans",
+          "nothing"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Huy và Phong nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trận Bạch Đằng ở con sông họ đang nhìn",
+          "Những người đánh cá trên sông",
+          "Chuyến đi thuyền ngày mai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy hỏi \"is this the Bach Dang River?\" và họ nói về trận đánh.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngô Quyền biết về nước sông nhờ ai?",
+        "promptVi": "",
+        "options": [
+          "Nhờ những người lính",
+          "Nhờ những người đánh cá",
+          "Nhờ nhà vua"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong nói \"He had talked to the fishermen who lived here.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trần Hưng Đạo dùng lại cách này năm nào?",
+        "promptVi": "",
+        "options": [
+          "Năm 938",
+          "Năm 1288",
+          "Năm 1988"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong nói \"Tran Hung Dao used it in 1288.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Other people had used the same idea before Ngo Quyen.",
+        "promptVi": "Trước Ngô Quyền đã có người dùng cách này.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phong nói \"No, they hadn't.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Quân của Ngô Quyền đã chuẩn bị những gì trước khi quân địch đến? Vì sao thuyền địch bị vỡ?",
+    "grammarStep": {
+      "titleVi": "Quá khứ hoàn thành",
+      "noticing": [
+        {
+          "sentence": "But before the battle, Ngo Quyen had studied the river very carefully.\"",
+          "highlights": [
+            "had studied"
+          ]
+        },
+        {
+          "sentence": "Before the enemy arrived, his soldiers had put thousands of long wooden poles into the river.",
+          "highlights": [
+            "arrived",
+            "had put"
+          ]
+        },
+        {
+          "sentence": "By the afternoon, the water had gone down, and the sharp poles had broken the big ships.\"",
+          "highlights": [
+            "had gone down",
+            "had broken"
+          ]
+        },
+        {
+          "sentence": "So the army had planned everything before the fight started.\"",
+          "highlights": [
+            "had planned",
+            "started"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Before the enemy arrived, his soldiers had put … poles into the river\", việc nào xảy ra trước?",
+      "options": [
+        "Lính cắm cọc xuống sông.",
+        "Quân địch đến.",
+        "Hai việc xảy ra cùng lúc."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Had put (quá khứ hoàn thành) xảy ra trước arrived (quá khứ đơn).",
+      "whenVi": "Dùng quá khứ hoàn thành khi kể sự kiện lịch sử để nói những gì đã được chuẩn bị hoặc đã thay đổi trước một mốc.",
+      "table": [
+        {
+          "subject": "Before + quá khứ đơn",
+          "form": "Before the enemy arrived, they had put …",
+          "negative": "—"
+        },
+        {
+          "subject": "By + thời điểm",
+          "form": "By the afternoon, the water had gone down.",
+          "negative": "hadn't gone down"
+        },
+        {
+          "subject": "V3 bất quy tắc",
+          "form": "put → put, go → gone, break → broken",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "By the afternoon, the water has gone down.",
+          "right": "By the afternoon, the water had gone down."
+        },
+        {
+          "wrong": "Before the enemy had arrived, the soldiers put the poles.",
+          "right": "Before the enemy arrived, the soldiers had put the poles."
+        }
+      ],
+      "noteVi": "Put có V2 và V3 giống nhau (put – put – put), nên nhìn vào had để biết đó là quá khứ hoàn thành.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (break).",
+          "text": "By the afternoon, the sharp poles ___ the big ships.",
+          "answers": [
+            "had broken"
+          ],
+          "explanationVi": "By + thời điểm: had broken."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Before the battle, Ngo Quyen ___ the river very carefully.",
+          "options": [
+            "has studied",
+            "had studied",
+            "studies",
+            "is studying"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Việc xảy ra trước trận đánh: had studied."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "By the afternoon, the water has gone down.",
+          "sentence": "By the afternoon, the water had gone down.",
+          "explanationVi": "Mốc ở quá khứ nên dùng had gone."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Quân đội đã lên kế hoạch mọi thứ trước trận đánh.",
+          "sentence": "The army had planned everything before the battle.",
+          "words": [
+            "army",
+            "The",
+            "had",
+            "planned",
+            "everything",
+            "before",
+            "the",
+            "battle.",
+            "has"
+          ],
+          "explanationVi": "Had + V3: had planned; từ \"has\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Before the enemy arrived, his soldiers had put thousands of long wooden poles into the river.",
+        "tipVi": "Soldiers /ˈsəʊldʒəz/; nhấn vào thousands và poles."
+      },
+      {
+        "text": "After that victory, Ngo Quyen became king.\"",
+        "tipVi": "Victory /ˈvɪktəri/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like reading history books? Why or why not?",
+        "questionVi": "Bạn có thích đọc sách lịch sử không? Vì sao?",
+        "frame": "I like / don't like history books because ___."
+      },
+      {
+        "question": "What is a famous battle in your country's history?",
+        "questionVi": "Một trận đánh nổi tiếng trong lịch sử nước bạn là gì?",
+        "frame": "A famous battle is ___."
+      },
+      {
+        "question": "What had the army done before that battle?",
+        "questionVi": "Quân đội đã làm gì trước trận đánh đó?",
+        "frame": "Before the battle, the army had ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (had + V3)",
+      "anyOf": [
+        " had ",
+        "'d "
+      ],
+      "outlineVi": [
+        "Sự kiện là gì, xảy ra ở đâu và năm nào.",
+        "Người ta đã chuẩn bị những gì trước ngày quan trọng (Before …, they had …).",
+        "Kết quả của sự kiện."
+      ],
+      "modelAnswer": "In 1954, the Vietnamese army won a famous battle at Dien Bien Phu. Before the battle started, the soldiers had carried big guns up the mountains by hand. They had also built long roads through the forest. The enemy didn't expect this. After fifty-six days, the army had won, and the war soon ended."
+    }
+  },
+  "glosses": [
+    {
+      "text": "for fun",
+      "lemma": "for fun",
+      "meaningVi": "cho vui",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "I'm reading it for fun",
+      "phraseVi": "mình đọc cho vui thôi"
+    },
+    {
+      "text": "carefully",
+      "lemma": "carefully",
+      "meaningVi": "cẩn thận, kỹ",
+      "sentenceIndex": 11,
+      "pos": "adverb",
+      "phrase": "very carefully",
+      "phraseVi": "rất kỹ"
+    },
+    {
+      "text": "wooden poles",
+      "lemma": "wooden pole",
+      "meaningVi": "cọc gỗ",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "long wooden poles",
+      "phraseVi": "cây cọc gỗ dài"
+    },
+    {
+      "text": "had gone down",
+      "lemma": "go down",
+      "meaningVi": "đã rút xuống",
+      "sentenceIndex": 25,
+      "pos": "phrase",
+      "phrase": "the water had gone down",
+      "phraseVi": "nước đã rút"
+    },
+    {
+      "text": "area",
+      "lemma": "area",
+      "meaningVi": "vùng, khu vực",
+      "sentenceIndex": 34,
+      "pos": "noun",
+      "phrase": "the area where it all happened",
+      "phraseVi": "vùng mà mọi chuyện đã diễn ra"
+    }
+  ]
+}

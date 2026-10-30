@@ -1,0 +1,607 @@
+{
+  "content": "Emma is from Canada, and this is her first morning in Hanoi. After breakfast, she goes to the tour desk in her hotel. A young man, Hai, is working there.\n\n\"Good morning,\" says Emma. \"I have two free days in Hanoi. Could you tell me what I should see first?\"\n\"Good morning. Most visitors start with the Old Quarter. It's only ten minutes on foot from here, so you don't need a taxi.\"\n\"Great. Do you know if there are any walking tours?\"\n\"Yes. There's a free walking tour every day at nine. A local student is the guide, and she speaks very good English.\"\n\"That sounds perfect. I'd also like to know where I can try real Vietnamese food.\"\nHai smiles. \"Try pho for lunch. There's a famous pho restaurant near the Old Quarter. Local people queue there every day.\"\n\"Do you know how much it costs?\"\n\"About sixty thousand dong. It's cheap and delicious.\"\n\"And for tomorrow, I wonder if there's a day trip to Ha Long Bay.\"\n\"Yes, there is. The bus leaves at eight in the morning and comes back at eight in the evening. You have lunch on a boat.\"\n\"Could you tell me whether I need to book it today?\"\n\"Yes, please book before six this evening. The trip is very popular at this time of year.\"\n\"OK, please book one seat for me. Do you know what I should bring?\"\n\"Comfortable shoes, a hat and some sun cream. It's very hot on the boat.\"\n\"Thank you, Hai. You've made my plans so easy.\"",
+  "targetWords": [
+    "tour",
+    "visitor",
+    "local",
+    "guide",
+    "famous",
+    "cheap",
+    "delicious",
+    "trip",
+    "popular",
+    "comfortable"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "tour",
+        "lemma": "tour",
+        "meaningVi": "chuyến tham quan",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "visitors",
+        "lemma": "visitor",
+        "meaningVi": "du khách",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "local",
+        "lemma": "local",
+        "meaningVi": "người địa phương, ở địa phương",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "guide",
+        "lemma": "guide",
+        "meaningVi": "hướng dẫn viên",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "famous",
+        "lemma": "famous",
+        "meaningVi": "nổi tiếng",
+        "pos": "adjective",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "cheap",
+        "lemma": "cheap",
+        "meaningVi": "rẻ",
+        "pos": "adjective",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "delicious",
+        "lemma": "delicious",
+        "meaningVi": "ngon",
+        "pos": "adjective",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "trip",
+        "lemma": "trip",
+        "meaningVi": "chuyến đi",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "popular",
+        "lemma": "popular",
+        "meaningVi": "được ưa chuộng",
+        "pos": "adjective",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "Comfortable",
+        "lemma": "comfortable",
+        "meaningVi": "thoải mái, êm",
+        "pos": "adjective",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Emma want from Hai?",
+        "promptVi": "Emma muốn Hải giúp gì?",
+        "options": [
+          "Ideas for her two free days in Hanoi",
+          "A cheaper room in the hotel",
+          "A ticket to fly home to Canada",
+          "A job as a tour guide"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Emma nói cô có hai ngày rảnh ở Hà Nội và hỏi nên đi đâu, ăn gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time does the free walking tour start?",
+        "promptVi": "Chuyến đi bộ tham quan miễn phí bắt đầu lúc mấy giờ?",
+        "options": [
+          "At eight",
+          "At nine",
+          "At ten",
+          "At six"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hải nói \"There's a free walking tour every day at nine.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "When must Emma book the Ha Long Bay trip?",
+        "promptVi": "Emma phải đặt chuyến đi vịnh Hạ Long trước khi nào?",
+        "options": [
+          "Before nine this morning",
+          "Before lunch",
+          "Before six this evening",
+          "Tomorrow morning"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hải nói \"please book before six this evening.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The pho restaurant is expensive.",
+        "promptVi": "Quán phở đó đắt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hải nói \"It's cheap and delicious.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"popular\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The trip is very popular at this time of year.\"",
+        "options": [
+          "được nhiều người thích",
+          "rất đắt",
+          "rất xa",
+          "mới mở"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Popular = được nhiều người ưa chuộng, nhiều người muốn đi."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "bodyVi": "Khi hỏi người lạ, câu hỏi gián tiếp nghe lịch sự hơn: What should I see first? → Could you tell me what I should see first? Are there any walking tours? → Do you know if there are any walking tours? Where can I try Vietnamese food? → I'd like to know where I can try Vietnamese food. Sau các cụm này, chủ ngữ đứng trước động từ (I should, there are, I can).",
+      "examples": [
+        "Could you tell me what I should see first?\"",
+        "Do you know if there are any walking tours?\"",
+        "I'd also like to know where I can try real Vietnamese food.\""
+      ]
+    },
+    "writingPrompt": "You are at the tour desk of a hotel in a new city. Write three polite questions about food, places to visit and tours.",
+    "sentenceTranslations": [
+      "Emma đến từ Canada, và đây là buổi sáng đầu tiên của cô ở Hà Nội.",
+      "Ăn sáng xong, cô đến quầy tour trong khách sạn.",
+      "Một chàng trai trẻ, Hải, đang làm việc ở đó.",
+      "Emma nói: \"Chào anh.",
+      "Tôi có hai ngày rảnh ở Hà Nội.",
+      "Anh cho tôi hỏi tôi nên đi xem chỗ nào trước?\"",
+      "\"Chào chị.",
+      "Phần lớn du khách bắt đầu với khu Phố cổ.",
+      "Từ đây đi bộ chỉ mười phút, nên chị không cần đi taxi.\"",
+      "\"Tuyệt.",
+      "Anh có biết có tour đi bộ nào không?\"",
+      "\"Có ạ.",
+      "Ngày nào cũng có một tour đi bộ miễn phí lúc chín giờ.",
+      "Hướng dẫn viên là một bạn sinh viên người địa phương, và bạn ấy nói tiếng Anh rất giỏi.\"",
+      "\"Nghe tuyệt quá.",
+      "Tôi cũng muốn biết tôi có thể ăn món Việt thật sự ở đâu.\"",
+      "Hải mỉm cười.",
+      "\"Chị ăn thử phở vào bữa trưa nhé.",
+      "Có một quán phở nổi tiếng gần Phố cổ.",
+      "Ngày nào người dân ở đây cũng xếp hàng ở đó.\"",
+      "\"Anh có biết giá bao nhiêu không?\"",
+      "\"Khoảng sáu mươi nghìn đồng.",
+      "Vừa rẻ vừa ngon.\"",
+      "\"Còn ngày mai, không biết có chuyến đi vịnh Hạ Long trong ngày không.\"",
+      "\"Có ạ.",
+      "Xe chạy lúc tám giờ sáng và về lúc tám giờ tối.",
+      "Chị ăn trưa trên thuyền.\"",
+      "\"Anh cho tôi hỏi tôi có cần đặt ngay hôm nay không?\"",
+      "\"Có ạ, chị đặt trước sáu giờ tối nay nhé.",
+      "Thời điểm này trong năm chuyến đi rất đông khách.\"",
+      "\"Được, anh đặt cho tôi một chỗ nhé.",
+      "Anh có biết tôi nên mang theo gì không?\"",
+      "\"Giày thoải mái, mũ và kem chống nắng.",
+      "Trên thuyền rất nóng.\"",
+      "\"Cảm ơn anh, Hải.",
+      "Anh làm kế hoạch của tôi dễ hẳn.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi lịch sự về chỗ tham quan, món ăn và tour bằng câu hỏi gián tiếp (Could you tell me what …? / Do you know if …? / I'd like to know where …).",
+    "examples": [
+      {
+        "lemma": "tour",
+        "sentence": "We took a boat tour of the bay.",
+        "meaningVi": "Chúng tôi đi tour thuyền quanh vịnh."
+      },
+      {
+        "lemma": "visitor",
+        "sentence": "Every visitor gets a free map.",
+        "meaningVi": "Mỗi du khách được một tấm bản đồ miễn phí."
+      },
+      {
+        "lemma": "local",
+        "sentence": "Ask a local person for help.",
+        "meaningVi": "Hãy nhờ người dân địa phương giúp."
+      },
+      {
+        "lemma": "guide",
+        "sentence": "Our guide told us about the old houses.",
+        "meaningVi": "Hướng dẫn viên kể cho chúng tôi về những ngôi nhà cổ."
+      },
+      {
+        "lemma": "famous",
+        "sentence": "Hoi An is famous for its lanterns.",
+        "meaningVi": "Hội An nổi tiếng với đèn lồng."
+      },
+      {
+        "lemma": "cheap",
+        "sentence": "The food here is cheap.",
+        "meaningVi": "Đồ ăn ở đây rẻ."
+      },
+      {
+        "lemma": "delicious",
+        "sentence": "This soup is delicious.",
+        "meaningVi": "Món súp này ngon quá."
+      },
+      {
+        "lemma": "trip",
+        "sentence": "We had a great trip to Sapa.",
+        "meaningVi": "Chúng tôi có một chuyến đi Sapa tuyệt vời."
+      },
+      {
+        "lemma": "popular",
+        "sentence": "This beach is popular with families.",
+        "meaningVi": "Bãi biển này được các gia đình ưa chuộng."
+      },
+      {
+        "lemma": "comfortable",
+        "sentence": "These shoes are very comfortable.",
+        "meaningVi": "Đôi giày này rất êm chân."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Emma",
+        "Hai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi, Hai. I loved the walking tour this morning!",
+          "meaningVi": "Chào Hải. Sáng nay tôi rất thích tour đi bộ!"
+        },
+        {
+          "speaker": 1,
+          "text": "I'm glad. Did you try the pho?",
+          "meaningVi": "Tôi mừng quá. Chị đã ăn thử phở chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it was amazing. Now I need a gift for my mother. Do you know where I can buy silk?",
+          "meaningVi": "Rồi, tuyệt lắm. Giờ tôi cần một món quà cho mẹ. Anh có biết tôi mua lụa ở đâu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "There are many silk shops on Hang Gai Street.",
+          "meaningVi": "Có nhiều cửa hàng lụa trên phố Hàng Gai."
+        },
+        {
+          "speaker": 0,
+          "text": "Could you tell me how I can get there?",
+          "meaningVi": "Anh cho tôi hỏi tôi đến đó bằng cách nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Walk to the lake, then turn left. It takes about fifteen minutes.",
+          "meaningVi": "Chị đi bộ ra hồ rồi rẽ trái. Mất khoảng mười lăm phút."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you know what time the shops close?",
+          "meaningVi": "Anh có biết các cửa hàng đóng cửa lúc mấy giờ không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Most of them close at nine in the evening.",
+          "meaningVi": "Phần lớn đóng cửa lúc chín giờ tối."
+        },
+        {
+          "speaker": 0,
+          "text": "Perfect. I'll go after dinner.",
+          "meaningVi": "Tuyệt. Tôi sẽ đi sau bữa tối."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. It's cooler then.",
+          "meaningVi": "Ý hay đấy. Lúc đó trời mát hơn."
+        }
+      ]
+    },
+    "grammarTipVi": "Do you know where I can buy silk? (không phải where can I buy). Could you tell me how I can get there? Do you know what time the shops close? (không dùng do).",
+    "translations": [
+      {
+        "vi": "Anh cho tôi hỏi tôi nên đi tour nào?",
+        "en": "Could you tell me which tour I should take?",
+        "distractors": [
+          "can",
+          "does",
+          "where"
+        ]
+      },
+      {
+        "vi": "Bạn có biết quán phở nổi tiếng đó ở đâu không?",
+        "en": "Do you know where the famous pho restaurant is?",
+        "distractors": [
+          "does",
+          "what",
+          "are"
+        ]
+      },
+      {
+        "vi": "Tôi muốn biết chuyến đi có rẻ không.",
+        "en": "I'd like to know if the trip is cheap.",
+        "distractors": [
+          "does",
+          "what",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bạn có biết hướng dẫn viên có nói tiếng Anh không?",
+        "en": "Do you know if the guide speaks English?",
+        "distractors": [
+          "does",
+          "spoke",
+          "what"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Emma muốn làm gì tối nay?",
+        "promptVi": "",
+        "options": [
+          "Mua lụa làm quà cho mẹ",
+          "Đi tour đi bộ",
+          "Đi vịnh Hạ Long"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Emma nói \"I need a gift for my mother\" và hỏi chỗ mua lụa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Các cửa hàng lụa ở phố nào?",
+        "promptVi": "",
+        "options": [
+          "Phố Hàng Gai",
+          "Phố Hàng Bạc",
+          "Phố Tràng Tiền"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hải nói \"There are many silk shops on Hang Gai Street.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phần lớn cửa hàng đóng cửa lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Bảy giờ tối",
+          "Tám giờ tối",
+          "Chín giờ tối"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hải nói \"Most of them close at nine in the evening.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Emma didn't like the pho.",
+        "promptVi": "Emma không thích món phở.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Emma nói \"Yes, it was amazing.\"",
+        "turnIndex": 2
+      }
+    ],
+    "readingGuideVi": "Hải gợi ý cho Emma những gì cho hai ngày ở Hà Nội? Emma hỏi bằng những câu lịch sự nào?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "noticing": [
+        {
+          "sentence": "Could you tell me what I should see first?\"",
+          "highlights": [
+            "what I should see"
+          ]
+        },
+        {
+          "sentence": "Do you know if there are any walking tours?\"",
+          "highlights": [
+            "if there are"
+          ]
+        },
+        {
+          "sentence": "I'd also like to know where I can try real Vietnamese food.\"",
+          "highlights": [
+            "I'd also like to know",
+            "where I can try"
+          ]
+        },
+        {
+          "sentence": "\"Could you tell me whether I need to book it today?\"",
+          "highlights": [
+            "whether I need"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"What should I see first?\" chuyển thành câu hỏi gián tiếp thế nào?",
+      "options": [
+        "Could you tell me what I should see first?",
+        "Could you tell me what should I see first?",
+        "Could you tell me should I see what first?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Trong câu hỏi gián tiếp, chủ ngữ I đứng trước should: what I should see.",
+      "whenVi": "Dùng câu hỏi gián tiếp để xin lời khuyên hoặc thông tin từ nhân viên khách sạn, hướng dẫn viên, người lạ.",
+      "table": [
+        {
+          "subject": "Với động từ khuyết thiếu",
+          "form": "What should I see? → … what I should see",
+          "negative": "Where can I try …? → … where I can try …"
+        },
+        {
+          "subject": "Với there is / are",
+          "form": "Are there any tours? → … if there are any tours",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu mở đầu",
+          "form": "Could you tell me … / Do you know … / I'd like to know …",
+          "negative": "I'd like to know … kết thúc bằng dấu chấm"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Could you tell me what should I see first?",
+          "right": "Could you tell me what I should see first?"
+        },
+        {
+          "wrong": "I'd like to know where can I try Vietnamese food.",
+          "right": "I'd like to know where I can try Vietnamese food."
+        }
+      ],
+      "noteVi": "I'd like to know … là câu kể nên dùng dấu chấm; Could you tell me … / Do you know … là câu hỏi nên dùng dấu hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ để hoàn thành câu hỏi gián tiếp.",
+          "text": "Do you know ___ there are any walking tours?",
+          "answers": [
+            "if"
+          ],
+          "explanationVi": "Câu hỏi Yes / No (Are there …?) → if there are …"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I'd like to know ___.",
+          "options": [
+            "where I can try pho",
+            "where can I try pho",
+            "where do I try pho",
+            "can I try pho where"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Chủ ngữ trước động từ khuyết thiếu: where I can try."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Could you tell me what should I bring?",
+          "sentence": "Could you tell me what I should bring?",
+          "explanationVi": "Chủ ngữ I đứng trước should."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh có biết tôi nên mang theo gì không?",
+          "sentence": "Do you know what I should bring?",
+          "words": [
+            "you",
+            "Do",
+            "know",
+            "what",
+            "I",
+            "should",
+            "bring?",
+            "does"
+          ],
+          "explanationVi": "Câu hỏi gián tiếp: what I should bring; từ \"does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Could you tell me what I should see first?\"",
+        "tipVi": "Nhấn vào see và first; \"tell me\" nối liền."
+      },
+      {
+        "text": "\"Comfortable shoes, a hat and some sun cream.",
+        "tipVi": "Comfortable /ˈkʌmftəbəl/ chỉ có ba âm tiết."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is a famous place to visit in your city?",
+        "questionVi": "Một nơi nổi tiếng nên đến ở thành phố bạn là gì?",
+        "frame": "A famous place is ___."
+      },
+      {
+        "question": "What local food do you recommend to visitors?",
+        "questionVi": "Bạn giới thiệu món ăn địa phương nào cho du khách?",
+        "frame": "I recommend ___ because it's ___."
+      },
+      {
+        "question": "Ask politely: where can I buy a map?",
+        "questionVi": "Hãy hỏi lịch sự: tôi có thể mua bản đồ ở đâu?",
+        "frame": "Do you know where ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi gián tiếp (Could you tell me … / Do you know … / I'd like to know …)",
+      "anyOf": [
+        "tell me",
+        "do you know",
+        "wonder",
+        "like to know"
+      ],
+      "outlineVi": [
+        "Hỏi nên đi tham quan chỗ nào (Could you tell me what …).",
+        "Hỏi về món ăn địa phương (Do you know where …).",
+        "Hỏi về tour và cách đặt (I'd like to know if …)."
+      ],
+      "modelAnswer": "Good morning. I'm in Da Nang for three days. Could you tell me what I should see first? I love seafood, so do you know where I can try some local fish? I'd also like to know if there is a day trip to Hoi An. Do you know how much it costs?"
+    }
+  },
+  "glosses": [
+    {
+      "text": "Old Quarter",
+      "lemma": "Old Quarter",
+      "meaningVi": "khu Phố cổ",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "the Old Quarter",
+      "phraseVi": "khu Phố cổ"
+    },
+    {
+      "text": "on foot",
+      "lemma": "on foot",
+      "meaningVi": "đi bộ",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "ten minutes on foot",
+      "phraseVi": "đi bộ mười phút"
+    },
+    {
+      "text": "queue",
+      "lemma": "queue",
+      "meaningVi": "xếp hàng",
+      "sentenceIndex": 19,
+      "pos": "verb",
+      "phrase": "Local people queue there",
+      "phraseVi": "Người dân xếp hàng ở đó"
+    },
+    {
+      "text": "day trip",
+      "lemma": "day trip",
+      "meaningVi": "chuyến đi trong ngày",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "a day trip to Ha Long Bay",
+      "phraseVi": "chuyến đi vịnh Hạ Long trong ngày"
+    },
+    {
+      "text": "sun cream",
+      "lemma": "sun cream",
+      "meaningVi": "kem chống nắng",
+      "sentenceIndex": 32,
+      "pos": "noun",
+      "phrase": "some sun cream",
+      "phraseVi": "kem chống nắng"
+    }
+  ]
+}

@@ -1,0 +1,593 @@
+{
+  "content": "It is Friday, and Nam's team is having lunch at a local restaurant. There are ten people in the team, so Nam orders the food for them. A young waitress comes to their table with the menu.\n\nNam asks her, \"What is the dish of the day?\"\n\"It's fried fish with tomato sauce, and the chef makes it every Friday,\" she says.\n\"Great, we'd like five plates of fish,\" Nam says. \"How many spring rolls do we need for ten people?\"\n\"There are five on one plate, so you need four plates,\" she answers.\n\nThu, a woman in his team, doesn't eat meat. So Nam orders a side dish of vegetables and some tofu for her.\nThe waitress asks, \"How much rice do you need?\"\n\"A lot of rice, please, because we are very hungry!\"\n\"And would you like any drinks?\"\n\"Yes, ten glasses of iced tea, but only a little sugar.\"\n\nThe food arrives quickly. There aren't enough spoons on the table, and there aren't any napkins. Nam asks for a few more spoons and some napkins. The fish is delicious, and the team is very happy.",
+  "targetWords": [
+    "order",
+    "waitress",
+    "dish of the day",
+    "chef",
+    "side dish",
+    "enough",
+    "spoon",
+    "napkin"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "orders",
+        "lemma": "order",
+        "meaningVi": "gọi (món)",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "waitress",
+        "lemma": "waitress",
+        "meaningVi": "nữ phục vụ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "dish of the day",
+        "lemma": "dish of the day",
+        "meaningVi": "món đặc biệt trong ngày",
+        "pos": "phrase",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "chef",
+        "lemma": "chef",
+        "meaningVi": "đầu bếp",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "side dish",
+        "lemma": "side dish",
+        "meaningVi": "món ăn kèm",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "enough",
+        "lemma": "enough",
+        "meaningVi": "đủ",
+        "pos": "determiner",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "spoons",
+        "lemma": "spoon",
+        "meaningVi": "cái thìa",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "napkins",
+        "lemma": "napkin",
+        "meaningVi": "khăn giấy ăn",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Nam orders lunch for his team.",
+          "Nam cooks fish for his family.",
+          "A new chef at a restaurant",
+          "Thu's birthday party"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhóm của Nam đi ăn trưa ở quán, và Nam gọi món cho cả nhóm mười người."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many plates of spring rolls do they need?",
+        "promptVi": "Họ cần mấy đĩa nem?",
+        "options": [
+          "Two",
+          "Five",
+          "Ten",
+          "Four"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Cô phục vụ nói \"There are five on one plate, so you need four plates\": cần bốn đĩa."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Nam order a side dish of vegetables for Thu?",
+        "promptVi": "Vì sao Nam gọi món rau ăn kèm cho Thu?",
+        "options": [
+          "She is very hungry.",
+          "She doesn't eat meat.",
+          "She doesn't like fish sauce.",
+          "It is the dish of the day."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Thu, a woman in his team, doesn't eat meat\": Thu không ăn thịt."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There are a lot of napkins on the table.",
+        "promptVi": "Trên bàn có rất nhiều khăn giấy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"there aren't any napkins\": trên bàn không có cái khăn giấy nào."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"quickly\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The food arrives quickly.",
+        "options": [
+          "chậm",
+          "nhanh",
+          "nóng",
+          "muộn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quickly là nhanh: đồ ăn được mang ra rất nhanh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh từ đếm được / không đếm được (some, any, much, many)",
+      "bodyVi": "Danh từ đếm được (spoon, plate) có số nhiều: How many spoons? Danh từ không đếm được (rice, sugar, tea) không thêm -s: How much rice? Câu khẳng định dùng some, câu phủ định và câu hỏi dùng any: There aren't any napkins. Mời lịch sự vẫn dùng some: Would you like some tea?",
+      "examples": [
+        "\"How many spring rolls do we need for ten people?\"",
+        "The waitress asks, \"How much rice do you need?\"",
+        "There aren't enough spoons on the table, and there aren't any napkins."
+      ]
+    },
+    "writingPrompt": "Write about a meal for a group of friends: what food you need and how much or how many.",
+    "sentenceTranslations": [
+      "Hôm nay là thứ Sáu, nhóm của Nam đang ăn trưa ở một quán ăn gần đó.",
+      "Nhóm có mười người, nên Nam gọi đồ ăn cho cả nhóm.",
+      "Một cô phục vụ trẻ mang thực đơn đến bàn của họ.",
+      "Nam hỏi cô: \"Món đặc biệt hôm nay là gì vậy em?\"",
+      "\"Dạ, là cá rán sốt cà chua, thứ Sáu nào đầu bếp cũng làm món này ạ,\" cô nói.",
+      "\"Tốt quá, cho anh năm đĩa cá,\" Nam nói.",
+      "\"Mười người thì cần bao nhiêu cái nem?\"",
+      "\"Một đĩa có năm cái, vậy anh cần bốn đĩa ạ,\" cô trả lời.",
+      "Thu, một chị trong nhóm, không ăn thịt.",
+      "Vì vậy Nam gọi thêm một đĩa rau ăn kèm và ít đậu phụ cho chị.",
+      "Cô phục vụ hỏi: \"Anh cần bao nhiêu cơm ạ?\"",
+      "\"Nhiều cơm nhé em, vì bọn anh đói lắm!\"",
+      "\"Anh có muốn gọi đồ uống không ạ?\"",
+      "\"Có, mười cốc trà đá, nhưng chỉ cho một chút đường thôi.\"",
+      "Đồ ăn được mang ra rất nhanh.",
+      "Trên bàn không đủ thìa, và cũng không có cái khăn giấy nào.",
+      "Nam xin thêm vài cái thìa và ít khăn giấy.",
+      "Món cá rất ngon, và cả nhóm rất vui."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và nói về số lượng đồ ăn khi gọi món cho nhóm bằng How many / How much, some, any, a lot of, a few, a little.",
+    "examples": [
+      {
+        "lemma": "order",
+        "sentence": "Can we order now, please?",
+        "meaningVi": "Bây giờ chúng tôi gọi món được không?"
+      },
+      {
+        "lemma": "waitress",
+        "sentence": "The waitress brings us some water.",
+        "meaningVi": "Cô phục vụ mang cho chúng tôi ít nước."
+      },
+      {
+        "lemma": "dish of the day",
+        "sentence": "The dish of the day is chicken soup.",
+        "meaningVi": "Món đặc biệt hôm nay là súp gà."
+      },
+      {
+        "lemma": "chef",
+        "sentence": "My uncle is a chef in Hue.",
+        "meaningVi": "Chú tôi là đầu bếp ở Huế."
+      },
+      {
+        "lemma": "side dish",
+        "sentence": "I'd like a side dish of rice.",
+        "meaningVi": "Cho tôi một đĩa cơm ăn kèm."
+      },
+      {
+        "lemma": "enough",
+        "sentence": "We don't have enough chairs.",
+        "meaningVi": "Chúng ta không đủ ghế."
+      },
+      {
+        "lemma": "spoon",
+        "sentence": "Can I have a spoon, please?",
+        "meaningVi": "Cho tôi một cái thìa được không?"
+      },
+      {
+        "lemma": "napkin",
+        "sentence": "There is a napkin next to your plate.",
+        "meaningVi": "Có một tờ khăn giấy cạnh đĩa của bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nam",
+        "Emma"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nam, how was lunch with your team on Friday?",
+          "meaningVi": "Nam ơi, bữa trưa thứ Sáu với nhóm của cậu thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was great. I ordered the food for ten people.",
+          "meaningVi": "Tuyệt lắm. Mình gọi đồ ăn cho mười người."
+        },
+        {
+          "speaker": 1,
+          "text": "Ten people! How many plates of fish did you order?",
+          "meaningVi": "Mười người cơ à! Cậu gọi mấy đĩa cá?"
+        },
+        {
+          "speaker": 0,
+          "text": "Five plates, and four plates of spring rolls.",
+          "meaningVi": "Năm đĩa, thêm bốn đĩa nem nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "And how much rice did you have?",
+          "meaningVi": "Còn cơm thì các cậu ăn bao nhiêu?"
+        },
+        {
+          "speaker": 0,
+          "text": "A lot! We were very hungry after the meeting.",
+          "meaningVi": "Nhiều lắm! Sau cuộc họp bọn mình đói cực."
+        },
+        {
+          "speaker": 1,
+          "text": "Was there any food for Thu? She doesn't eat meat.",
+          "meaningVi": "Có món gì cho Thu không? Chị ấy không ăn thịt mà."
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I got her some vegetables and tofu.",
+          "meaningVi": "Có, mình gọi cho chị ấy ít rau với đậu phụ."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. Was the food good?",
+          "meaningVi": "Hay đấy. Đồ ăn có ngon không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Very good, but there weren't enough spoons at first.",
+          "meaningVi": "Ngon lắm, nhưng lúc đầu không đủ thìa."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi số lượng: How many + danh từ số nhiều (How many plates?), How much + danh từ không đếm được (How much rice?). Câu hỏi dùng any: Was there any food for Thu?",
+    "translations": [
+      {
+        "vi": "Đầu bếp làm món đặc biệt hôm nay.",
+        "en": "The chef makes the dish of the day.",
+        "distractors": [
+          "waiter",
+          "make",
+          "plate"
+        ]
+      },
+      {
+        "vi": "Nam gọi một món ăn kèm cho cô ấy.",
+        "en": "Nam orders a side dish for her.",
+        "distractors": [
+          "his",
+          "order",
+          "many"
+        ]
+      },
+      {
+        "vi": "Trên bàn không đủ thìa.",
+        "en": "There aren't enough spoons on the table.",
+        "distractors": [
+          "isn't",
+          "much",
+          "spoon"
+        ]
+      },
+      {
+        "vi": "Cô phục vụ mang cho chúng tôi vài tờ khăn giấy.",
+        "en": "The waitress brings us a few napkins.",
+        "distractors": [
+          "little",
+          "much",
+          "chef"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Nam và Emma nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bữa trưa của nhóm Nam hôm thứ Sáu",
+          "Một cuộc họp dài",
+          "Món cá Nam nấu ở nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Emma hỏi \"how was lunch with your team on Friday?\" và Nam kể về bữa trưa đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nam gọi mấy đĩa cá?",
+        "promptVi": "",
+        "options": [
+          "Bốn đĩa",
+          "Mười đĩa",
+          "Năm đĩa"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam nói \"Five plates, and four plates of spring rolls\": năm đĩa cá.",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao cả nhóm ăn nhiều cơm?",
+        "promptVi": "",
+        "options": [
+          "Vì cơm rất rẻ",
+          "Vì họ rất đói sau cuộc họp",
+          "Vì không có món khác"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"We were very hungry after the meeting.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thu had some fish for lunch.",
+        "promptVi": "Thu ăn cá trong bữa trưa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"I got her some vegetables and tofu\": Thu ăn rau và đậu phụ.",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Nam gọi những món gì, mỗi món bao nhiêu, và trên bàn thiếu gì?",
+    "grammarStep": {
+      "titleVi": "Danh từ đếm được / không đếm được (some, any, much, many)",
+      "noticing": [
+        {
+          "sentence": "\"How many spring rolls do we need for ten people?\"",
+          "highlights": [
+            "How many spring rolls"
+          ]
+        },
+        {
+          "sentence": "The waitress asks, \"How much rice do you need?\"",
+          "highlights": [
+            "How much rice"
+          ]
+        },
+        {
+          "sentence": "There aren't enough spoons on the table, and there aren't any napkins.",
+          "highlights": [
+            "aren't any napkins"
+          ]
+        },
+        {
+          "sentence": "Nam asks for a few more spoons and some napkins.",
+          "highlights": [
+            "some napkins"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"How much rice\" mà không viết \"How many rice\"?",
+      "options": [
+        "Vì rice là danh từ số nhiều.",
+        "Vì rice là danh từ không đếm được.",
+        "Vì câu này là câu phủ định."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Rice (cơm, gạo) không đếm được nên dùng How much. Spring rolls đếm được, có -s, nên dùng How many.",
+      "whenVi": "Dùng How many / many với danh từ đếm được số nhiều, How much / much với danh từ không đếm được; some cho câu khẳng định, any cho câu phủ định và câu hỏi.",
+      "table": [
+        {
+          "subject": "Đếm được (spoon, plate)",
+          "form": "There are some spoons. How many spoons?",
+          "negative": "There aren't any spoons. / not many spoons"
+        },
+        {
+          "subject": "Không đếm được (rice, sugar)",
+          "form": "There is some rice. How much rice?",
+          "negative": "There isn't any rice. / not much rice"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "How much spring rolls do we need?",
+          "right": "How many spring rolls do we need?"
+        },
+        {
+          "wrong": "There aren't some napkins.",
+          "right": "There aren't any napkins."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"bao nhiêu\" cho mọi thứ, nên người Việt hay dùng nhầm How much với danh từ đếm được. Nhớ thêm: rice, sugar, water, tea không thêm -s.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "How ___ rice do you need?",
+          "answers": [
+            "much"
+          ],
+          "explanationVi": "Rice không đếm được nên dùng How much."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "There aren't ___ napkins on the table.",
+          "options": [
+            "some",
+            "much",
+            "any",
+            "a little"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Câu phủ định với danh từ đếm được số nhiều dùng any."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "How much plates of fish do we need?",
+          "sentence": "How many plates of fish do we need?",
+          "explanationVi": "Plates đếm được, số nhiều, nên dùng How many."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi không có chút sữa nào.",
+          "sentence": "We don't have any milk.",
+          "words": [
+            "have",
+            "We",
+            "milk",
+            "don't",
+            "any",
+            "many"
+          ],
+          "explanationVi": "Câu phủ định dùng any; milk không đếm được nên từ \"many\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "A young waitress comes to their table with the menu.",
+        "tipVi": "Waitress /ˈweɪtrəs/ nhấn âm đầu \"guây\"; table đọc /ˈteɪbəl/, không đọc \"ta-bờ-lê\"."
+      },
+      {
+        "text": "Nam asks for a few more spoons and some napkins.",
+        "tipVi": "Asks for nối thành \"át-xờ-pho\"; spoons và napkins có âm /z/ ở cuối, đừng bỏ."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How much rice do you eat at lunch?",
+        "questionVi": "Bữa trưa bạn ăn bao nhiêu cơm?",
+        "frame": "I eat ___ rice at lunch."
+      },
+      {
+        "question": "How many people usually have lunch with you?",
+        "questionVi": "Thường có bao nhiêu người ăn trưa cùng bạn?",
+        "frame": "Usually ___ people have lunch with me."
+      },
+      {
+        "question": "What does your mother or father often order at a restaurant?",
+        "questionVi": "Bố hoặc mẹ bạn hay gọi món gì ở nhà hàng?",
+        "frame": "He / She often orders ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng How much / How many, some, any, much hoặc many",
+      "anyOf": [
+        "how many",
+        "how much",
+        "any",
+        "many",
+        "much",
+        "some"
+      ],
+      "outlineVi": [
+        "Bữa ăn của ai, có bao nhiêu người (There are … people).",
+        "Cần những món gì và bao nhiêu (some rice, a lot of fish, How many …?).",
+        "Thiếu gì hoặc không có gì (There isn't any … / There aren't enough …)."
+      ],
+      "modelAnswer": "On Saturday, I have dinner with five friends at a small restaurant. We are very hungry. We order two plates of fried chicken, a lot of rice and some vegetables. My friend Hoa asks, \"How many spring rolls do we need?\" We order ten. There isn't any orange juice today, so we have some iced tea with a little sugar. The food is delicious."
+    }
+  },
+  "glosses": [
+    {
+      "text": "local",
+      "lemma": "local",
+      "meaningVi": "ở gần đây, của địa phương",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "a local restaurant",
+      "phraseVi": "một quán ăn gần đó"
+    },
+    {
+      "text": "fried",
+      "lemma": "fried",
+      "meaningVi": "rán, chiên",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "fried fish with tomato sauce",
+      "phraseVi": "cá rán sốt cà chua"
+    },
+    {
+      "text": "How many",
+      "lemma": "how many",
+      "meaningVi": "bao nhiêu (đếm được)",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "How many spring rolls",
+      "phraseVi": "bao nhiêu cái nem"
+    },
+    {
+      "text": "meat",
+      "lemma": "meat",
+      "meaningVi": "thịt",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "doesn't eat meat",
+      "phraseVi": "không ăn thịt"
+    },
+    {
+      "text": "How much",
+      "lemma": "how much",
+      "meaningVi": "bao nhiêu (không đếm được)",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "How much rice",
+      "phraseVi": "bao nhiêu cơm"
+    },
+    {
+      "text": "A lot of",
+      "lemma": "a lot of",
+      "meaningVi": "nhiều",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "A lot of rice",
+      "phraseVi": "nhiều cơm"
+    },
+    {
+      "text": "iced tea",
+      "lemma": "iced tea",
+      "meaningVi": "trà đá",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "ten glasses of iced tea",
+      "phraseVi": "mười cốc trà đá"
+    },
+    {
+      "text": "a little",
+      "lemma": "a little",
+      "meaningVi": "một chút",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "only a little sugar",
+      "phraseVi": "chỉ một chút đường"
+    },
+    {
+      "text": "a few",
+      "lemma": "a few",
+      "meaningVi": "vài",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "a few more spoons",
+      "phraseVi": "thêm vài cái thìa"
+    }
+  ]
+}

@@ -1,0 +1,589 @@
+{
+  "content": "It is half past eleven, and Tuan is very hungry. He works for a big company, and there is a lunch room for workers on the second floor. Every day, the cooks make three set meals, and the price is only thirty thousand dong.\n\nToday, Tuan has lunch with Peter, a new man in his team. Peter is from England, and this is his first week in Vietnam. Tuan asks him, \"Which set meal would you like?\"\nPeter says, \"I don't know. What is in them?\"\n\"The first meal has fried chicken and a lot of rice. The second has fish, some vegetables and soup. The third has tofu and eggs, and there isn't any meat in it.\"\nPeter laughs and says, \"Oh, it's difficult to choose!\"\n\n\"I'd like the chicken meal, because I'm very hungry,\" Tuan says.\n\"Then I'd like the fish meal, because it's healthy.\"\nThey sit at a table near the window. Tuan asks, \"Would you like some fruit too? The bananas on that table are free.\"\n\"Yes, please, I'd like two.\"\nPeter tries the fish and smiles. \"I'd like to eat here every day!\" he says.",
+  "targetWords": [
+    "cook",
+    "set meal",
+    "price",
+    "vegetable",
+    "meat",
+    "choose",
+    "healthy",
+    "free"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cooks",
+        "lemma": "cook",
+        "meaningVi": "đầu bếp, người nấu ăn",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "set meals",
+        "lemma": "set meal",
+        "meaningVi": "suất ăn, phần cơm có sẵn",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "price",
+        "lemma": "price",
+        "meaningVi": "giá",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "vegetables",
+        "lemma": "vegetable",
+        "meaningVi": "rau",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "meat",
+        "lemma": "meat",
+        "meaningVi": "thịt",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "choose",
+        "lemma": "choose",
+        "meaningVi": "chọn",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "healthy",
+        "lemma": "healthy",
+        "meaningVi": "tốt cho sức khoẻ",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "free",
+        "lemma": "free",
+        "meaningVi": "miễn phí",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Peter's first day in England",
+          "Tuan cooks lunch for his team.",
+          "A new restaurant near Tuan's company",
+          "Tuan and Peter choose their lunch at work."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Tuấn và Peter ăn trưa ở phòng ăn của công ty và chọn suất cơm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is one set meal?",
+        "promptVi": "Một suất cơm giá bao nhiêu?",
+        "options": [
+          "Thirty thousand dong",
+          "Three thousand dong",
+          "Thirteen thousand dong",
+          "It is free."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"the price is only thirty thousand dong\": chỉ ba mươi nghìn đồng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Peter choose the fish meal?",
+        "promptVi": "Vì sao Peter chọn suất cá?",
+        "options": [
+          "He doesn't eat chicken.",
+          "It's healthy.",
+          "It has a lot of rice.",
+          "Tuan tells him to."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Peter nói \"I'd like the fish meal, because it's healthy.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The third meal has a lot of meat.",
+        "promptVi": "Suất thứ ba có nhiều thịt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tuấn nói suất thứ ba có đậu phụ và trứng, \"there isn't any meat in it\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"difficult\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Peter laughs and says, \"Oh, it's difficult to choose!\"",
+        "options": [
+          "dễ",
+          "vui",
+          "khó",
+          "lâu"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Difficult là khó: món nào cũng ngon nên Peter thấy khó chọn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Would like (đề nghị, gọi món)",
+      "bodyVi": "Hỏi người khác muốn chọn gì: Which set meal would you like? Trả lời: I'd like the chicken meal. Mời: Would you like some fruit? – Yes, please. Muốn làm gì thì thêm to + động từ: I'd like to eat here every day.",
+      "examples": [
+        "Tuan asks him, \"Which set meal would you like?\"",
+        "\"I'd like the chicken meal, because I'm very hungry,\" Tuan says.",
+        "\"I'd like to eat here every day!\" he says."
+      ]
+    },
+    "writingPrompt": "Write about lunch at your school or office: what food there is and what you would like to eat.",
+    "sentenceTranslations": [
+      "Đã mười một giờ rưỡi, và Tuấn rất đói.",
+      "Anh làm việc cho một công ty lớn, và ở tầng hai có một phòng ăn trưa cho nhân viên.",
+      "Mỗi ngày, các cô nấu ăn làm ba suất cơm, và giá chỉ ba mươi nghìn đồng.",
+      "Hôm nay Tuấn ăn trưa với Peter, một người mới trong nhóm.",
+      "Peter đến từ Anh, và đây là tuần đầu tiên anh ở Việt Nam.",
+      "Tuấn hỏi anh: \"Cậu muốn chọn suất nào?\"",
+      "Peter nói: \"Mình không biết.",
+      "Mỗi suất có gì vậy?\"",
+      "\"Suất thứ nhất có gà rán và nhiều cơm.",
+      "Suất thứ hai có cá, ít rau và canh.",
+      "Suất thứ ba có đậu phụ và trứng, không có thịt.\"",
+      "Peter cười và nói: \"Ôi, khó chọn quá!\"",
+      "\"Mình lấy suất gà, vì mình đói lắm,\" Tuấn nói.",
+      "\"Vậy mình lấy suất cá, vì nó tốt cho sức khoẻ.\"",
+      "Họ ngồi ở một cái bàn gần cửa sổ.",
+      "Tuấn hỏi: \"Cậu có muốn ăn thêm hoa quả không?",
+      "Chuối ở bàn kia được lấy miễn phí đấy.\"",
+      "\"Có chứ, mình lấy hai quả.\"",
+      "Peter ăn thử món cá và mỉm cười.",
+      "\"Mình muốn ngày nào cũng ăn ở đây!\" anh nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi người khác muốn chọn món gì bằng Which … would you like?, trả lời bằng I'd like … và mời lịch sự bằng Would you like …?",
+    "examples": [
+      {
+        "lemma": "cook",
+        "sentence": "My father is a very good cook.",
+        "meaningVi": "Bố tôi nấu ăn rất giỏi."
+      },
+      {
+        "lemma": "set meal",
+        "sentence": "The set meal has rice, soup and fish.",
+        "meaningVi": "Suất cơm có cơm, canh và cá."
+      },
+      {
+        "lemma": "price",
+        "sentence": "What is the price of this bag?",
+        "meaningVi": "Cái túi này giá bao nhiêu?"
+      },
+      {
+        "lemma": "vegetable",
+        "sentence": "Carrots are my favourite vegetable.",
+        "meaningVi": "Cà rốt là loại rau tôi thích nhất."
+      },
+      {
+        "lemma": "meat",
+        "sentence": "My sister doesn't eat meat.",
+        "meaningVi": "Chị tôi không ăn thịt."
+      },
+      {
+        "lemma": "choose",
+        "sentence": "Please choose a table near the window.",
+        "meaningVi": "Bạn chọn một bàn gần cửa sổ nhé."
+      },
+      {
+        "lemma": "healthy",
+        "sentence": "Fruit is good for a healthy life.",
+        "meaningVi": "Hoa quả rất tốt cho cuộc sống khoẻ mạnh."
+      },
+      {
+        "lemma": "free",
+        "sentence": "The water here is free.",
+        "meaningVi": "Nước ở đây miễn phí."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tuan",
+        "Peter"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Tuan, where do you usually have lunch?",
+          "meaningVi": "Tuấn ơi, cậu thường ăn trưa ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Usually in the lunch room, but on Fridays at a cafe.",
+          "meaningVi": "Thường là ở phòng ăn, nhưng thứ Sáu thì ra quán."
+        },
+        {
+          "speaker": 1,
+          "text": "Is the food in the lunch room good?",
+          "meaningVi": "Đồ ăn ở phòng ăn có ngon không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, and it isn't expensive. I like the chicken meal.",
+          "meaningVi": "Có, mà lại không đắt. Mình thích suất gà."
+        },
+        {
+          "speaker": 1,
+          "text": "Do they have any food without meat?",
+          "meaningVi": "Ở đó có món nào không có thịt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there's a tofu meal every day.",
+          "meaningVi": "Có, ngày nào cũng có suất đậu phụ."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. My wife would like me to eat a lot of vegetables.",
+          "meaningVi": "Tốt quá. Vợ mình muốn mình ăn nhiều rau."
+        },
+        {
+          "speaker": 0,
+          "text": "Then try the fish meal. It has a lot of vegetables.",
+          "meaningVi": "Vậy cậu thử suất cá đi. Suất đó nhiều rau lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Would you like to have lunch with me tomorrow?",
+          "meaningVi": "Mai cậu có muốn ăn trưa với mình không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I'd love to. Let's meet at half past eleven.",
+          "meaningVi": "Có chứ. Hẹn nhau lúc mười một giờ rưỡi nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Mời ai làm gì: Would you like to have lunch with me? Nhận lời: Yes, I'd love to. Muốn người khác làm gì: would like + người + to + động từ (My wife would like me to eat …).",
+    "translations": [
+      {
+        "vi": "Các cô nấu ăn làm ba suất cơm mỗi ngày.",
+        "en": "The cooks make three set meals every day.",
+        "distractors": [
+          "cook",
+          "meal",
+          "does"
+        ]
+      },
+      {
+        "vi": "Suất thứ ba không có thịt.",
+        "en": "There isn't any meat in the third meal.",
+        "distractors": [
+          "some",
+          "aren't",
+          "many"
+        ]
+      },
+      {
+        "vi": "Tôi muốn suất cá vì nó tốt cho sức khoẻ.",
+        "en": "I'd like the fish meal because it's healthy.",
+        "distractors": [
+          "want",
+          "chicken",
+          "so"
+        ]
+      },
+      {
+        "vi": "Rau ở đây miễn phí, bạn có thể chọn.",
+        "en": "The vegetables here are free, so you can choose.",
+        "distractors": [
+          "is",
+          "vegetable",
+          "price"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tuấn và Peter nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Vợ của Peter",
+          "Một quán cà phê mới",
+          "Bữa trưa ở phòng ăn của công ty"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Peter hỏi Tuấn thường ăn trưa ở đâu và đồ ăn ở phòng ăn thế nào.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Món nào không có thịt mà ngày nào cũng có?",
+        "promptVi": "",
+        "options": [
+          "Suất đậu phụ",
+          "Suất cá",
+          "Suất gà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn nói \"there's a tofu meal every day.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Tuấn bảo Peter thử suất cá?",
+        "promptVi": "",
+        "options": [
+          "Vì suất cá rẻ nhất",
+          "Vì suất cá có nhiều rau",
+          "Vì Tuấn không thích cá"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tuấn nói \"It has a lot of vegetables\", và vợ Peter muốn anh ăn nhiều rau.",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan would like to have lunch with Peter tomorrow.",
+        "promptVi": "Tuấn muốn ăn trưa với Peter vào ngày mai.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Tuấn trả lời \"Yes, I'd love to.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Mỗi suất cơm có những gì, và Tuấn, Peter chọn suất nào, vì sao?",
+    "grammarStep": {
+      "titleVi": "Would like (đề nghị, gọi món)",
+      "noticing": [
+        {
+          "sentence": "Tuan asks him, \"Which set meal would you like?\"",
+          "highlights": [
+            "would you like"
+          ]
+        },
+        {
+          "sentence": "\"I'd like the chicken meal, because I'm very hungry,\" Tuan says.",
+          "highlights": [
+            "I'd like"
+          ]
+        },
+        {
+          "sentence": "\"Then I'd like the fish meal, because it's healthy.\"",
+          "highlights": [
+            "I'd like"
+          ]
+        },
+        {
+          "sentence": "\"I'd like to eat here every day!\" he says.",
+          "highlights": [
+            "I'd like to eat"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"Which set meal would you like?\" dùng để làm gì?",
+      "options": [
+        "Hỏi người khác thích món gì nhất.",
+        "Hỏi lịch sự người khác muốn chọn suất nào.",
+        "Hỏi giá của suất cơm."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Which … would you like? là hỏi lịch sự \"bạn muốn chọn … nào?\". Còn Which … do you like? là hỏi bạn thích cái nào (nói chung).",
+      "whenVi": "Dùng Which / What … would you like? để hỏi người khác muốn chọn gì, I'd like … để trả lời, và Would you like …? để mời.",
+      "table": [
+        {
+          "subject": "Hỏi chọn",
+          "form": "Which set meal would you like?",
+          "negative": "—"
+        },
+        {
+          "subject": "Trả lời",
+          "form": "I'd like the chicken meal. / I'd like to eat here.",
+          "negative": "—"
+        },
+        {
+          "subject": "Mời",
+          "form": "Would you like some fruit? – Yes, please.",
+          "negative": "No, thank you."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Which set meal you would like?",
+          "right": "Which set meal would you like?"
+        },
+        {
+          "wrong": "I'd like eat here every day.",
+          "right": "I'd like to eat here every day."
+        }
+      ],
+      "noteVi": "Phân biệt: I like fish (tôi thích cá, nói chung) và I'd like the fish (tôi muốn chọn món cá bây giờ). Người Việt hay quên 'd khi gọi món.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "I'd like ___ eat with you tomorrow.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "Would like + to + động từ: I'd like to eat."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Peter would like ___ the fish meal.",
+          "options": [
+            "choose",
+            "choosing",
+            "to choose",
+            "chooses"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Sau would like là to + động từ nguyên mẫu: to choose."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Which set meal you would like today?",
+          "sentence": "Which set meal would you like today?",
+          "explanationVi": "Câu hỏi phải đảo would lên trước you."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn có muốn ăn thêm hoa quả không?",
+          "sentence": "Would you like some fruit?",
+          "words": [
+            "like",
+            "fruit",
+            "Would",
+            "some",
+            "you",
+            "are"
+          ],
+          "explanationVi": "Câu mời: Would you like …?; từ \"are\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Tuan asks him, \"Which set meal would you like?\"",
+        "tipVi": "Would you nối thành \"wu-dʒu\" /ˈwʊdʒu/; câu hỏi Wh- xuống giọng ở cuối."
+      },
+      {
+        "text": "They sit at a table near the window.",
+        "tipVi": "Sit /sɪt/ âm /ɪ/ ngắn, khác seat /siːt/; window nhấn âm đầu WIN-dow."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What would you like for lunch tomorrow?",
+        "questionVi": "Ngày mai bạn muốn ăn trưa món gì?",
+        "frame": "I'd like ___."
+      },
+      {
+        "question": "Where do you usually have lunch?",
+        "questionVi": "Bạn thường ăn trưa ở đâu?",
+        "frame": "I usually have lunch ___."
+      },
+      {
+        "question": "What would your friend like to eat for lunch?",
+        "questionVi": "Bạn của bạn muốn ăn trưa món gì?",
+        "frame": "He / She would like ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng I'd like … hoặc Would you like …?",
+      "anyOf": [
+        "i'd like",
+        "would like",
+        "would you like",
+        "i would"
+      ],
+      "outlineVi": [
+        "Bạn ăn trưa ở đâu ở trường hoặc công ty, giá bao nhiêu.",
+        "Ở đó có những món gì.",
+        "Hôm nay bạn muốn chọn món nào và vì sao (I'd like …, because …)."
+      ],
+      "modelAnswer": "At my school, there is a lunch room on the first floor. The price of a meal is twenty-five thousand dong. Every day, there are three meals: chicken with rice, fish with vegetables, and noodle soup. Today I'd like the fish meal, because it's healthy. My friend Nhung would like the chicken meal. After lunch, we would like some fruit too."
+    }
+  },
+  "glosses": [
+    {
+      "text": "half past eleven",
+      "lemma": "half past",
+      "meaningVi": "mười một giờ rưỡi",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "It is half past eleven",
+      "phraseVi": "Đã mười một giờ rưỡi"
+    },
+    {
+      "text": "company",
+      "lemma": "company",
+      "meaningVi": "công ty",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "works for a big company",
+      "phraseVi": "làm việc cho một công ty lớn"
+    },
+    {
+      "text": "workers",
+      "lemma": "worker",
+      "meaningVi": "nhân viên, người lao động",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a lunch room for workers",
+      "phraseVi": "một phòng ăn trưa cho nhân viên"
+    },
+    {
+      "text": "thousand",
+      "lemma": "thousand",
+      "meaningVi": "nghìn",
+      "sentenceIndex": 2,
+      "pos": "number",
+      "phrase": "thirty thousand dong",
+      "phraseVi": "ba mươi nghìn đồng"
+    },
+    {
+      "text": "fried",
+      "lemma": "fried",
+      "meaningVi": "rán, chiên",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "fried chicken",
+      "phraseVi": "gà rán"
+    },
+    {
+      "text": "tofu",
+      "lemma": "tofu",
+      "meaningVi": "đậu phụ",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "tofu and eggs",
+      "phraseVi": "đậu phụ và trứng"
+    },
+    {
+      "text": "difficult",
+      "lemma": "difficult",
+      "meaningVi": "khó",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "it's difficult to choose",
+      "phraseVi": "khó chọn quá"
+    },
+    {
+      "text": "bananas",
+      "lemma": "banana",
+      "meaningVi": "quả chuối",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "The bananas on that table",
+      "phraseVi": "Chuối ở bàn kia"
+    }
+  ]
+}

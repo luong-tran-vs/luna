@@ -1,0 +1,613 @@
+{
+  "content": "On the second day of Tet, Phuong goes by bike to her aunt's house. She has a box of cakes and some fruit for the family.\n\nThe gate is open, but the house is very quiet. She knocks on the door. Nobody answers. She calls, \"Hello? Is anybody home?\" There is nobody in the garden, and there is nothing on the table.\n\nPhuong takes out her phone and calls her aunt.\nHer aunt says, \"Hello, Phuong! Where are you?\"\n\"I'm at your house, but nobody is here. Is everybody out?\"\n\"Oh, I'm so sorry! We are at the temple festival near the river. Everyone is here, even Grandma.\"\n\"Is it far from here?\"\n\"No, it isn't far, only ten minutes. But it's very crowded. Can you wait for us at home?\"\n\"OK, but is there somewhere to sit? It's very hot.\"\n\"The key is under the flower box. Go inside and have some tea. You are our guest!\"\n\nPhuong finds the key and sits in the living room. Half an hour later, everybody comes home with a lot of food from the festival.",
+  "targetWords": [
+    "gate",
+    "answer",
+    "phone",
+    "temple",
+    "festival",
+    "crowded",
+    "wait",
+    "guest"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "gate",
+        "lemma": "gate",
+        "meaningVi": "cổng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "answers",
+        "lemma": "answer",
+        "meaningVi": "trả lời",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "phone",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "temple",
+        "lemma": "temple",
+        "meaningVi": "đền, chùa",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "festival",
+        "lemma": "festival",
+        "meaningVi": "lễ hội",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "crowded",
+        "lemma": "crowded",
+        "meaningVi": "đông người",
+        "pos": "adjective",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "wait",
+        "lemma": "wait",
+        "meaningVi": "chờ, đợi",
+        "pos": "verb",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "guest",
+        "lemma": "guest",
+        "meaningVi": "khách",
+        "pos": "noun",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Phuong loses her phone at a festival.",
+          "Phuong's aunt cooks for the family.",
+          "Phuong visits her aunt, but nobody is at home.",
+          "Phuong buys flowers at the temple."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mùng hai Tết, Phương đến nhà cô nhưng cả nhà đã đi lễ hội ở đền."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Phuong bring for the family?",
+        "promptVi": "Phương mang gì đến cho gia đình cô?",
+        "options": [
+          "Flowers and tea",
+          "A box of cakes and some fruit",
+          "Lucky money",
+          "Food from the festival"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết: \"She has a box of cakes and some fruit for the family.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does the aunt ask Phuong to wait at home?",
+        "promptVi": "Vì sao cô bảo Phương đợi ở nhà?",
+        "options": [
+          "The festival is very crowded.",
+          "The temple is far away.",
+          "Grandma is at home.",
+          "It is going to rain."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cô nói \"But it's very crowded. Can you wait for us at home?\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The key is under the door.",
+        "promptVi": "Chìa khoá để dưới cửa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói \"The key is under the flower box.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"knocks\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She knocks on the door.",
+        "options": [
+          "mở",
+          "khoá",
+          "gõ",
+          "đóng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Knock on the door = gõ cửa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đại từ bất định (someone, anything, nowhere)",
+      "bodyVi": "Không có ai: nobody (động từ khẳng định: Nobody answers, nobody is here). Hỏi có ai không: Is anybody home? Hỏi có phải tất cả không: Is everybody out? Everyone is here. Chỉ nơi chốn: somewhere (một nơi nào đó): is there somewhere to sit? Có thể nói nobody = no one, everybody = everyone.",
+      "examples": [
+        "Nobody answers.",
+        "Is anybody home?\"",
+        "\"OK, but is there somewhere to sit?"
+      ]
+    },
+    "writingPrompt": "Write about a visit to someone's house at Tet: who is there, and what does everybody do?",
+    "sentenceTranslations": [
+      "Mùng hai Tết, Phương đạp xe đến nhà cô.",
+      "Phương mang theo một hộp bánh và ít hoa quả biếu cả nhà.",
+      "Cổng mở, nhưng trong nhà rất yên tĩnh.",
+      "Phương gõ cửa.",
+      "Không ai trả lời.",
+      "Phương gọi: \"Có ai không ạ?",
+      "Có ai ở nhà không ạ?\"",
+      "Trong vườn không có ai, và trên bàn cũng chẳng có gì.",
+      "Phương lấy điện thoại ra và gọi cho cô.",
+      "Cô nói: \"A lô, Phương à!",
+      "Cháu đang ở đâu đấy?\"",
+      "\"Cháu đang ở nhà cô, nhưng không có ai cả.",
+      "Cả nhà đi vắng hết ạ?\"",
+      "\"Ôi, cô xin lỗi nhé!",
+      "Cả nhà đang ở lễ hội đền gần bờ sông.",
+      "Mọi người đều ở đây, cả bà nữa.\"",
+      "\"Có xa đây không ạ?\"",
+      "\"Không xa đâu, chỉ mười phút thôi.",
+      "Nhưng ở đây đông lắm.",
+      "Cháu đợi cả nhà ở nhà được không?\"",
+      "\"Vâng, nhưng có chỗ nào ngồi không cô?",
+      "Trời nóng quá.\"",
+      "\"Chìa khoá ở dưới chậu hoa.",
+      "Cháu vào nhà uống trà đi.",
+      "Cháu là khách của nhà mình mà!\"",
+      "Phương tìm thấy chìa khoá và ngồi trong phòng khách.",
+      "Nửa tiếng sau, cả nhà về, mang theo rất nhiều đồ ăn từ lễ hội."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi \"có ai ở nhà không, mọi người đâu cả\" khi đi chúc Tết bằng anybody, nobody, everybody, somewhere.",
+    "examples": [
+      {
+        "lemma": "gate",
+        "sentence": "Please close the gate.",
+        "meaningVi": "Làm ơn đóng cổng lại."
+      },
+      {
+        "lemma": "answer",
+        "sentence": "Can you answer the door, please?",
+        "meaningVi": "Bạn ra mở cửa giúp nhé?"
+      },
+      {
+        "lemma": "phone",
+        "sentence": "My phone is in my bag.",
+        "meaningVi": "Điện thoại của tôi ở trong túi."
+      },
+      {
+        "lemma": "temple",
+        "sentence": "We visit the temple on the first day of Tet.",
+        "meaningVi": "Mùng một Tết chúng tôi đi lễ đền."
+      },
+      {
+        "lemma": "festival",
+        "sentence": "There is a music festival in the park.",
+        "meaningVi": "Có một lễ hội âm nhạc ở công viên."
+      },
+      {
+        "lemma": "crowded",
+        "sentence": "The bus is very crowded today.",
+        "meaningVi": "Hôm nay xe buýt rất đông."
+      },
+      {
+        "lemma": "wait",
+        "sentence": "Please wait here for five minutes.",
+        "meaningVi": "Vui lòng đợi ở đây năm phút."
+      },
+      {
+        "lemma": "guest",
+        "sentence": "We have a guest for dinner tonight.",
+        "meaningVi": "Tối nay nhà tôi có khách đến ăn tối."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Phuong",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Phuong, where is everybody?",
+          "meaningVi": "Phương ơi, mọi người đâu cả rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "I don't know. There is nobody in the house.",
+          "meaningVi": "Mình không biết. Trong nhà chẳng có ai."
+        },
+        {
+          "speaker": 1,
+          "text": "Are they somewhere in the garden?",
+          "meaningVi": "Hay họ ở đâu đó ngoài vườn?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I looked. Let's call my aunt.",
+          "meaningVi": "Không, mình xem rồi. Gọi cho cô mình đi."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. Is she answering?",
+          "meaningVi": "Ý hay đấy. Cô có nghe máy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! Everyone is at the temple festival.",
+          "meaningVi": "Có rồi! Mọi người đều đang ở lễ hội đền."
+        },
+        {
+          "speaker": 1,
+          "text": "Can we go there too?",
+          "meaningVi": "Mình cũng đến đó được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "She says it's too crowded. We can wait here.",
+          "meaningVi": "Cô bảo đông quá. Mình đợi ở đây cũng được."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Is there anything to drink?",
+          "meaningVi": "Được. Có gì uống không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there is some tea in the kitchen.",
+          "meaningVi": "Có, trong bếp có ít trà đấy."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi mọi người đâu: Where is everybody? (động từ số ít). Đoán ở một nơi nào đó: Are they somewhere in the garden? Hỏi có gì: Is there anything to drink?",
+    "translations": [
+      {
+        "vi": "Không ai trả lời cả.",
+        "en": "Nobody answers.",
+        "distractors": [
+          "Anybody",
+          "doesn't",
+          "answering"
+        ]
+      },
+      {
+        "vi": "Có ai nghe điện thoại không?",
+        "en": "Can anybody answer the phone?",
+        "distractors": [
+          "somebody",
+          "Are",
+          "nobody"
+        ]
+      },
+      {
+        "vi": "Mọi người đều ở lễ hội.",
+        "en": "Everyone is at the festival.",
+        "distractors": [
+          "are",
+          "Anyone",
+          "Someone"
+        ]
+      },
+      {
+        "vi": "Bạn đợi ở đâu đó gần đây được không?",
+        "en": "Can you wait somewhere near here?",
+        "distractors": [
+          "anywhere",
+          "everywhere",
+          "waits"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Phương và Tom đang tìm ai?",
+        "promptVi": "",
+        "options": [
+          "Gia đình cô của Phương",
+          "Một người bạn",
+          "Con mèo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi \"where is everybody?\" và Phương gọi cho cô.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mọi người đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở vườn",
+          "Ở lễ hội đền",
+          "Ở chợ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phương nói \"Everyone is at the temple festival.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trong bếp có gì?",
+        "promptVi": "",
+        "options": [
+          "Nước cam",
+          "Bánh",
+          "Trà"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phương nói \"there is some tea in the kitchen.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuong and Tom are going to go to the festival.",
+        "promptVi": "Phương và Tom sẽ đến lễ hội.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cô nói lễ hội đông quá nên hai bạn đợi ở nhà: \"We can wait here.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Vì sao không ai ở nhà? Phương làm gì trong lúc đợi?",
+    "grammarStep": {
+      "titleVi": "Đại từ bất định (someone, anything, nowhere)",
+      "noticing": [
+        {
+          "sentence": "Nobody answers.",
+          "highlights": [
+            "Nobody"
+          ]
+        },
+        {
+          "sentence": "Is anybody home?\"",
+          "highlights": [
+            "anybody"
+          ]
+        },
+        {
+          "sentence": "Is everybody out?\"",
+          "highlights": [
+            "everybody"
+          ]
+        },
+        {
+          "sentence": "\"OK, but is there somewhere to sit?",
+          "highlights": [
+            "somewhere"
+          ]
+        }
+      ],
+      "questionVi": "\"Somewhere\" trong câu \"is there somewhere to sit?\" chỉ gì?",
+      "options": [
+        "Một người nào đó",
+        "Một nơi nào đó",
+        "Một thứ gì đó"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Some- + where = một nơi nào đó. Tương tự: anywhere (bất cứ đâu), everywhere (khắp nơi).",
+      "whenVi": "Dùng -body / -one cho người, -thing cho vật, -where cho nơi chốn.",
+      "table": [
+        {
+          "subject": "Người",
+          "form": "Is anybody home? Everybody is out.",
+          "negative": "Nobody answers."
+        },
+        {
+          "subject": "Vật",
+          "form": "Is there anything on the table?",
+          "negative": "There is nothing on the table."
+        },
+        {
+          "subject": "Nơi chốn",
+          "form": "Is there somewhere to sit?",
+          "negative": "I can't find it anywhere."
+        },
+        {
+          "subject": "Động từ",
+          "form": "Everyone is here.",
+          "negative": "Nobody is here."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Nobody don't answer.",
+          "right": "Nobody answers."
+        },
+        {
+          "wrong": "Everybody are at the festival.",
+          "right": "Everybody is at the festival."
+        }
+      ],
+      "noteVi": "Có thể dùng somewhere / something trong câu hỏi khi mong câu trả lời là \"có\", ví dụ khi xin hoặc mời: Is there somewhere to sit? Would you like something to drink?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền nobody, anybody hoặc everybody.",
+          "text": "Phuong knocks on the door, but ___ answers.",
+          "answers": [
+            "nobody"
+          ],
+          "explanationVi": "Câu có nghĩa phủ định nhưng động từ khẳng định (answers): nobody."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Hello? Is ___ home?",
+          "options": [
+            "nobody",
+            "anybody",
+            "anything",
+            "anywhere"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu hỏi về người: Is anybody home?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Everybody are at the temple festival.",
+          "sentence": "Everybody is at the temple festival.",
+          "explanationVi": "Everybody đi với động từ số ít: is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Trong vườn không có ai.",
+          "sentence": "There is nobody in the garden.",
+          "words": [
+            "nobody",
+            "There",
+            "garden",
+            "is",
+            "in",
+            "the",
+            "not"
+          ],
+          "explanationVi": "There is nobody … đã có nghĩa phủ định; từ \"not\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She knocks on the door.",
+        "tipVi": "Knocks /nɒks/ không đọc âm k đầu; knocks on nối liền /nɒksɒn/."
+      },
+      {
+        "text": "Is everybody out?\"",
+        "tipVi": "Everybody /ˈevribɒdi/ nhấn âm đầu; câu hỏi Yes/No lên giọng ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who do you visit at Tet?",
+        "questionVi": "Tết bạn đi thăm ai?",
+        "frame": "I visit my ___."
+      },
+      {
+        "question": "Is there anywhere special you go on the first day of Tet?",
+        "questionVi": "Mùng một Tết bạn có đi đâu đặc biệt không?",
+        "frame": "Yes, I go to ___. / No, I don't go anywhere."
+      },
+      {
+        "question": "What does your aunt or uncle do when guests come at Tet?",
+        "questionVi": "Cô chú bạn làm gì khi có khách đến chơi Tết?",
+        "frame": "He / She gives everyone ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 đại từ bất định (anybody, nobody, everybody, somewhere…)",
+      "anyOf": [
+        "someone",
+        "somebody",
+        "something",
+        "somewhere",
+        "anyone",
+        "anybody",
+        "anything",
+        "anywhere",
+        "nobody",
+        "nothing",
+        "everyone",
+        "everybody",
+        "everything",
+        "everywhere",
+        "no one"
+      ],
+      "outlineVi": [
+        "Bạn đến thăm nhà ai vào dịp Tết.",
+        "Ai có ở đó, mọi người làm gì (everybody, nobody…).",
+        "Bạn được mời ăn uống gì."
+      ],
+      "modelAnswer": "On the second day of Tet, I visit my uncle's house in the countryside. Everybody is there: my aunt, my cousins and my grandmother. Nobody works at Tet, so everyone sits and talks in the living room. My aunt always gives me something to eat, like cakes and fruit. I don't want to go home at the end of the day!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "by bike",
+      "lemma": "by bike",
+      "meaningVi": "bằng xe đạp",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "goes by bike to her aunt's house",
+      "phraseVi": "đạp xe đến nhà cô"
+    },
+    {
+      "text": "quiet",
+      "lemma": "quiet",
+      "meaningVi": "yên tĩnh",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "the house is very quiet",
+      "phraseVi": "trong nhà rất yên tĩnh"
+    },
+    {
+      "text": "knocks on",
+      "lemma": "knock on",
+      "meaningVi": "gõ (cửa)",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "She knocks on the door.",
+      "phraseVi": "Phương gõ cửa."
+    },
+    {
+      "text": "takes out",
+      "lemma": "take out",
+      "meaningVi": "lấy ra",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "takes out her phone",
+      "phraseVi": "lấy điện thoại ra"
+    },
+    {
+      "text": "out",
+      "lemma": "out",
+      "meaningVi": "đi vắng",
+      "sentenceIndex": 12,
+      "pos": "adverb",
+      "phrase": "Is everybody out?",
+      "phraseVi": "Cả nhà đi vắng hết ạ?"
+    },
+    {
+      "text": "far",
+      "lemma": "far",
+      "meaningVi": "xa",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "Is it far from here?",
+      "phraseVi": "Có xa đây không ạ?"
+    },
+    {
+      "text": "key",
+      "lemma": "key",
+      "meaningVi": "chìa khoá",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "The key is under the flower box.",
+      "phraseVi": "Chìa khoá ở dưới chậu hoa."
+    },
+    {
+      "text": "Half an hour later",
+      "lemma": "half an hour",
+      "meaningVi": "nửa tiếng sau",
+      "sentenceIndex": 26,
+      "pos": "phrase",
+      "phrase": "Half an hour later",
+      "phraseVi": "Nửa tiếng sau"
+    }
+  ]
+}

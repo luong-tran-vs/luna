@@ -1,0 +1,621 @@
+{
+  "content": "At lunch, Hoa, Duc and Linh are talking about White Hospital, a drama series that everyone in their office watches.\n\nHoa asks, \"Did you see last night's episode? Someone killed the old businessman!\"\nDuc says, \"I saw it. I think Dr Lam might be the killer.\"\n\"Dr Lam? He's the doctor who saves everyone's life. He can't be the killer!\"\n\"But think about it. He was the last person who saw the businessman. And he was very nervous after that.\"\nLinh agrees. \"He must have a secret. Remember the letter that he hid in his desk?\"\nHoa says, \"Yes! The letter which came from Da Lat. What was in it?\"\n\"It might be from his daughter. In episode three, she disappeared.\"\n\"So he could be angry with the businessman. Maybe the businessman knew where she was.\"\nHoa shakes her head. \"I still don't believe it. The nurse who works at night could be the killer. She's always alone in the hospital.\"\n\"She can't be. She was at home with her son. They showed that in the last scene.\"\nDuc laughs. \"We'll find out next week. The new episode comes out on Thursday.\"\nLinh says, \"I can't wait. This is the best series that I've watched this year.\"\nHoa says, \"Let's watch it together at my place. I'll make some popcorn.\"",
+  "targetWords": [
+    "drama",
+    "series",
+    "episode",
+    "businessman",
+    "save",
+    "secret",
+    "letter",
+    "nurse",
+    "alone",
+    "popcorn"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "drama",
+        "lemma": "drama",
+        "meaningVi": "phim truyền hình, phim tâm lý",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "series",
+        "lemma": "series",
+        "meaningVi": "loạt phim, bộ phim nhiều tập",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "episode",
+        "lemma": "episode",
+        "meaningVi": "tập phim",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "businessman",
+        "lemma": "businessman",
+        "meaningVi": "doanh nhân",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "saves",
+        "lemma": "save",
+        "meaningVi": "cứu",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "secret",
+        "lemma": "secret",
+        "meaningVi": "bí mật",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "letter",
+        "lemma": "letter",
+        "meaningVi": "lá thư",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "nurse",
+        "lemma": "nurse",
+        "meaningVi": "y tá",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "alone",
+        "lemma": "alone",
+        "meaningVi": "một mình",
+        "pos": "adjective",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "popcorn",
+        "lemma": "popcorn",
+        "meaningVi": "bỏng ngô",
+        "pos": "noun",
+        "sentenceIndex": 34
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are the three friends from the office doing?",
+        "promptVi": "Ba người đồng nghiệp đang làm gì?",
+        "options": [
+          "Guessing who the killer is in a drama series",
+          "Visiting a hospital",
+          "Writing a letter to a doctor",
+          "Booking a trip to Da Lat"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trong giờ ăn trưa, họ đoán xem ai là hung thủ trong phim truyền hình White Hospital."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where did the letter come from?",
+        "promptVi": "Lá thư được gửi từ đâu?",
+        "options": [
+          "From the hospital",
+          "From Da Lat",
+          "From the businessman",
+          "From the nurse"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"The letter which came from Da Lat.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't the nurse be the killer?",
+        "promptVi": "Vì sao người y tá không thể là hung thủ?",
+        "options": [
+          "She is always alone.",
+          "She works at night.",
+          "She was at home with her son.",
+          "She saves everyone's life."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"She can't be. She was at home with her son.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa thinks Dr Lam is the killer.",
+        "promptVi": "Hoa nghĩ bác sĩ Lâm là hung thủ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"He can't be the killer!\" và \"I still don't believe it.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"comes out\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The new episode comes out on Thursday.\"",
+        "options": [
+          "được phát hành, ra mắt",
+          "đi ra ngoài",
+          "kết thúc",
+          "bị huỷ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Come out (phim, sách, bài hát) = ra mắt, phát hành."
+      }
+    ],
+    "grammarNote": {
+      "title": "Might / must / can't (khả năng và suy đoán)",
+      "bodyVi": "Dùng might / could + động từ khi nghĩ điều gì có thể đúng nhưng không chắc: Dr Lam might be the killer, he could be angry. Must + động từ khi gần như chắc chắn dựa vào bằng chứng: He must have a secret. Can't + động từ khi chắc chắn là không thể: He can't be the killer! Bài còn dùng mệnh đề quan hệ: the doctor who saves everyone's life, the letter that he hid in his desk.",
+      "examples": [
+        "I think Dr Lam might be the killer.\"",
+        "\"He must have a secret.",
+        "He can't be the killer!\""
+      ]
+    },
+    "writingPrompt": "Write about a mystery in a film or series you know: who do you think did it? Use must, might and can't.",
+    "sentenceTranslations": [
+      "Giờ ăn trưa, Hoa, Đức và Linh đang bàn về White Hospital, một bộ phim truyền hình mà cả văn phòng ai cũng xem.",
+      "Hoa hỏi: \"Tối qua các cậu có xem tập mới không?",
+      "Có người giết ông doanh nhân già!\"",
+      "Đức nói: \"Mình xem rồi.",
+      "Mình nghĩ có thể bác sĩ Lâm là hung thủ.\"",
+      "\"Bác sĩ Lâm á?",
+      "Ông ấy là bác sĩ cứu sống mọi người mà.",
+      "Ông ấy không thể là hung thủ!\"",
+      "\"Nhưng nghĩ mà xem.",
+      "Ông ấy là người cuối cùng gặp ông doanh nhân.",
+      "Mà sau đó ông ấy rất lo lắng.\"",
+      "Linh đồng ý.",
+      "\"Chắc chắn ông ấy có bí mật.",
+      "Nhớ lá thư mà ông ấy giấu trong bàn không?\"",
+      "Hoa nói: \"Nhớ chứ!",
+      "Lá thư gửi từ Đà Lạt.",
+      "Trong đó có gì nhỉ?\"",
+      "\"Có thể là thư của con gái ông ấy.",
+      "Ở tập ba, cô ấy biến mất.\"",
+      "\"Vậy có thể ông ấy giận ông doanh nhân.",
+      "Có lẽ ông doanh nhân biết cô ấy ở đâu.\"",
+      "Hoa lắc đầu.",
+      "\"Mình vẫn không tin.",
+      "Cô y tá làm ca đêm có thể là hung thủ.",
+      "Cô ấy lúc nào cũng ở một mình trong bệnh viện.\"",
+      "\"Không thể là cô ấy.",
+      "Cô ấy ở nhà với con trai.",
+      "Phim có chiếu cảnh đó ở cuối tập.\"",
+      "Đức cười.",
+      "\"Tuần sau là biết.",
+      "Tập mới ra vào thứ Năm.\"",
+      "Linh nói: \"Mình nóng lòng quá.",
+      "Đây là bộ phim hay nhất mình xem năm nay.\"",
+      "Hoa nói: \"Mình xem cùng nhau ở nhà mình nhé.",
+      "Mình sẽ làm bỏng ngô.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đoán ai là thủ phạm trong một bộ phim bằng might / could / must / can't, kèm mệnh đề quan hệ.",
+    "examples": [
+      {
+        "lemma": "drama",
+        "sentence": "I like Korean dramas, but this drama is boring.",
+        "meaningVi": "Tôi thích phim Hàn, nhưng phim này chán."
+      },
+      {
+        "lemma": "series",
+        "sentence": "This series has ten episodes.",
+        "meaningVi": "Bộ phim này có mười tập."
+      },
+      {
+        "lemma": "episode",
+        "sentence": "The last episode was very sad.",
+        "meaningVi": "Tập cuối rất buồn."
+      },
+      {
+        "lemma": "businessman",
+        "sentence": "He is a rich businessman.",
+        "meaningVi": "Ông ấy là một doanh nhân giàu có."
+      },
+      {
+        "lemma": "save",
+        "sentence": "The doctor tried to save his life.",
+        "meaningVi": "Bác sĩ cố gắng cứu sống anh ấy."
+      },
+      {
+        "lemma": "secret",
+        "sentence": "Can you keep a secret?",
+        "meaningVi": "Bạn giữ bí mật được không?"
+      },
+      {
+        "lemma": "letter",
+        "sentence": "I wrote a letter to my grandmother.",
+        "meaningVi": "Tôi viết một lá thư cho bà."
+      },
+      {
+        "lemma": "nurse",
+        "sentence": "The nurse was very kind to me.",
+        "meaningVi": "Cô y tá rất tốt với tôi."
+      },
+      {
+        "lemma": "alone",
+        "sentence": "She lives alone in a small flat.",
+        "meaningVi": "Cô ấy sống một mình trong căn hộ nhỏ."
+      },
+      {
+        "lemma": "popcorn",
+        "sentence": "Do you want some popcorn?",
+        "meaningVi": "Bạn có muốn ăn bỏng ngô không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duc",
+        "Sarah"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Duc, who do you think the killer is?",
+          "meaningVi": "Đức ơi, cậu nghĩ hung thủ là ai?"
+        },
+        {
+          "speaker": 0,
+          "text": "It might be Dr Lam. He has a secret.",
+          "meaningVi": "Có thể là bác sĩ Lâm. Ông ấy có bí mật."
+        },
+        {
+          "speaker": 1,
+          "text": "Why him? He's the hero of the series!",
+          "meaningVi": "Sao lại là ông ấy? Ông ấy là nhân vật chính mà!"
+        },
+        {
+          "speaker": 0,
+          "text": "That's why it might be him. Heroes often have secrets.",
+          "meaningVi": "Vì thế mới có thể là ông ấy. Nhân vật chính hay có bí mật."
+        },
+        {
+          "speaker": 1,
+          "text": "What about the businessman's son?",
+          "meaningVi": "Còn con trai ông doanh nhân thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "He could be the killer. He wanted his father's money.",
+          "meaningVi": "Có thể lắm. Anh ta muốn tiền của bố."
+        },
+        {
+          "speaker": 1,
+          "text": "But he was in Da Lat that night.",
+          "meaningVi": "Nhưng đêm đó anh ta ở Đà Lạt."
+        },
+        {
+          "speaker": 0,
+          "text": "Then it can't be him.",
+          "meaningVi": "Vậy thì không thể là anh ta."
+        },
+        {
+          "speaker": 1,
+          "text": "Is this the best series on TV? It must be!",
+          "meaningVi": "Đây có phải bộ phim hay nhất trên tivi không? Chắc chắn rồi!"
+        },
+        {
+          "speaker": 0,
+          "text": "I agree. I can't wait for Thursday!",
+          "meaningVi": "Mình đồng ý. Mình nóng lòng chờ thứ Năm quá!"
+        }
+      ]
+    },
+    "grammarTipVi": "Might / could be: có thể. Must be: chắc chắn (có lý do). Can't be: không thể (có lý do). Sau might / must / can't là động từ nguyên mẫu.",
+    "translations": [
+      {
+        "vi": "Tập này có thể là tập hay nhất.",
+        "en": "This episode might be the best one.",
+        "distractors": [
+          "must",
+          "was",
+          "can't"
+        ]
+      },
+      {
+        "vi": "Chắc chắn ông ấy có bí mật. Nhớ lá thư không?",
+        "en": "He must have a secret. Remember the letter?",
+        "distractors": [
+          "might",
+          "has",
+          "can't"
+        ]
+      },
+      {
+        "vi": "Cô y tá không thể là hung thủ.",
+        "en": "The nurse can't be the killer.",
+        "distractors": [
+          "must",
+          "might",
+          "isn't"
+        ]
+      },
+      {
+        "vi": "Có thể ông ấy giận ông doanh nhân.",
+        "en": "He could be angry with the businessman.",
+        "distractors": [
+          "must",
+          "can't",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Sarah và Đức nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Ai là hung thủ trong phim",
+          "Công việc ở bệnh viện",
+          "Chuyến đi Đà Lạt"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sarah hỏi \"who do you think the killer is?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Sarah nghĩ bác sĩ Lâm không thể là hung thủ?",
+        "promptVi": "",
+        "options": [
+          "Vì ông ấy ở Đà Lạt",
+          "Vì ông ấy là nhân vật chính",
+          "Vì ông ấy không có bí mật"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Sarah nói \"He's the hero of the series!\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao con trai ông doanh nhân không thể là hung thủ?",
+        "promptVi": "",
+        "options": [
+          "Anh ta không muốn tiền",
+          "Anh ta là bác sĩ",
+          "Đêm đó anh ta ở Đà Lạt"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Sarah nói \"he was in Da Lat that night\", và Đức nói \"Then it can't be him.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duc doesn't like the series.",
+        "promptVi": "Đức không thích bộ phim.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"I can't wait for Thursday!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Mỗi người nghĩ ai có thể là hung thủ, và lý do của họ là gì?",
+    "grammarStep": {
+      "titleVi": "Might / must / can't (khả năng và suy đoán)",
+      "noticing": [
+        {
+          "sentence": "I think Dr Lam might be the killer.\"",
+          "highlights": [
+            "might be"
+          ]
+        },
+        {
+          "sentence": "He can't be the killer!\"",
+          "highlights": [
+            "can't be"
+          ]
+        },
+        {
+          "sentence": "\"He must have a secret.",
+          "highlights": [
+            "must have"
+          ]
+        },
+        {
+          "sentence": "So he could be angry with the businessman.",
+          "highlights": [
+            "could be"
+          ]
+        }
+      ],
+      "questionVi": "Khi nào dùng must, khi nào dùng might?",
+      "options": [
+        "Must khi gần như chắc chắn; might khi chỉ là có thể.",
+        "Must cho quá khứ; might cho tương lai.",
+        "Hai từ nghĩa giống nhau."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Must = mình gần như chắc chắn (có bằng chứng). Might / could = có thể, không chắc. Can't = chắc chắn không phải.",
+      "whenVi": "Dùng các động từ này để đoán về hiện tại dựa trên những gì mình biết.",
+      "table": [
+        {
+          "subject": "must (chắc chắn đúng)",
+          "form": "He must have a secret.",
+          "negative": "—"
+        },
+        {
+          "subject": "might / could (có thể)",
+          "form": "He might be the killer.",
+          "negative": "She might not know."
+        },
+        {
+          "subject": "can't (chắc chắn sai)",
+          "form": "He can't be the killer.",
+          "negative": "(không nói: mustn't be)"
+        },
+        {
+          "subject": "Cấu trúc",
+          "form": "must / might / could / can't + động từ nguyên mẫu",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He must to have a secret.",
+          "right": "He must have a secret."
+        },
+        {
+          "wrong": "She mustn't be the killer. She was at home.",
+          "right": "She can't be the killer. She was at home."
+        }
+      ],
+      "noteVi": "Khi đoán điều chắc chắn sai, dùng can't, không dùng mustn't (mustn't nghĩa là \"cấm\").",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền must, might hoặc can't.",
+          "text": "She was at home all night. She ___ be the killer.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Có bằng chứng là không thể: can't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I'm not sure, but the letter ___ be from his daughter.",
+          "options": [
+            "must",
+            "might",
+            "can't",
+            "mustn't"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Không chắc: might."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He must to be very nervous.",
+          "sentence": "He must be very nervous.",
+          "explanationVi": "Sau must không có to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Có thể ông ấy là hung thủ.",
+          "sentence": "He might be the killer.",
+          "words": [
+            "might",
+            "He",
+            "be",
+            "the",
+            "killer.",
+            "to"
+          ],
+          "explanationVi": "Might + be; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I think Dr Lam might be the killer.\"",
+        "tipVi": "Might be nối /maɪtbi/; killer /ˈkɪlə/."
+      },
+      {
+        "text": "\"I still don't believe it.",
+        "tipVi": "Believe it nối liền /bɪˈliːvɪt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What series are you watching now?",
+        "questionVi": "Bạn đang xem bộ phim nhiều tập nào?",
+        "frame": "I'm watching ___. It's a series that ___."
+      },
+      {
+        "question": "Who do you think is the funniest person in your class or office?",
+        "questionVi": "Bạn nghĩ ai là người vui tính nhất lớp hay văn phòng?",
+        "frame": "It must be ___, because ___."
+      },
+      {
+        "question": "Your friend isn't answering the phone. Where might he or she be?",
+        "questionVi": "Bạn của bạn không nghe máy. Có thể người đó đang ở đâu?",
+        "frame": "He / She might be ___. He / She can't be ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng must / might / could / can't để đoán",
+      "anyOf": [
+        "must be",
+        "might be",
+        "could be",
+        "can't be",
+        "must have",
+        "might have",
+        "might not"
+      ],
+      "outlineVi": [
+        "Bộ phim / truyện là gì, chuyện bí ẩn là gì.",
+        "Bạn đoán ai là người làm (He / She must be … / might be …).",
+        "Ai không thể là người làm và vì sao (He / She can't be … because …)."
+      ],
+      "modelAnswer": "In the series Night Train, someone took a bag of money from a rich woman. I think the young driver must be the thief, because he needed money for his sick mother. The cook might know something, because she always looks worried. The woman's son can't be the thief. He was with his friends in Hanoi that night."
+    }
+  },
+  "glosses": [
+    {
+      "text": "killed",
+      "lemma": "kill",
+      "meaningVi": "giết",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "Someone killed the old businessman!",
+      "phraseVi": "Có người giết ông doanh nhân già!"
+    },
+    {
+      "text": "might be",
+      "lemma": "might",
+      "meaningVi": "có thể là",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "Dr Lam might be the killer",
+      "phraseVi": "có thể bác sĩ Lâm là hung thủ"
+    },
+    {
+      "text": "hid",
+      "lemma": "hide",
+      "meaningVi": "giấu",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "the letter that he hid in his desk",
+      "phraseVi": "lá thư mà ông ấy giấu trong bàn"
+    },
+    {
+      "text": "disappeared",
+      "lemma": "disappear",
+      "meaningVi": "biến mất",
+      "sentenceIndex": 18,
+      "pos": "verb",
+      "phrase": "she disappeared",
+      "phraseVi": "cô ấy biến mất"
+    },
+    {
+      "text": "find out",
+      "lemma": "find out",
+      "meaningVi": "biết được, phát hiện ra",
+      "sentenceIndex": 29,
+      "pos": "phrasal verb",
+      "phrase": "We'll find out next week.",
+      "phraseVi": "Tuần sau là biết."
+    },
+    {
+      "text": "comes out",
+      "lemma": "come out",
+      "meaningVi": "ra mắt",
+      "sentenceIndex": 30,
+      "pos": "phrasal verb",
+      "phrase": "The new episode comes out on Thursday.",
+      "phraseVi": "Tập mới ra vào thứ Năm."
+    }
+  ]
+}

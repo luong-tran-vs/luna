@@ -1,0 +1,589 @@
+{
+  "content": "On Friday evening, Duc meets Anna, a friend from his office, at a rooftop bar in Ho Chi Minh City. The bar is on the top floor of a tall building, and the view of the city is beautiful. It is hot, so they are both very thirsty.\n\nA waiter brings them the menu. Anna asks, \"What would you like, Duc?\"\n\"I'd like a cup of coffee, but not too strong,\" he says.\n\"I'd like a watermelon smoothie with only a little sugar,\" Anna tells the waiter.\n\"Our smoothies are very popular, but they are a bit sweet,\" the waiter says.\nDuc asks, \"Can we have a bottle of water too?\"\n\"Of course, and would you like any snacks with your drinks?\"\n\"Yes, a few small cakes, please.\"\n\nThey sit and talk for a long time. There are a lot of people at the bar, but it isn't noisy. At nine o'clock, Duc asks for the bill.\nHe asks the waiter, \"Can I pay by card?\"\n\"Sorry, we don't take cards today, so please pay in cash.\"\nDuc doesn't have much money, but Anna has some in her bag.\n\"Thanks, Anna, next time I'd like to pay,\" Duc says.",
+  "targetWords": [
+    "view",
+    "cup",
+    "popular",
+    "sweet",
+    "bottle",
+    "drink",
+    "pay by card",
+    "in cash"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "view",
+        "lemma": "view",
+        "meaningVi": "quang cảnh, tầm nhìn",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cup",
+        "lemma": "cup",
+        "meaningVi": "cái tách, cốc",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "popular",
+        "lemma": "popular",
+        "meaningVi": "được nhiều người thích",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "sweet",
+        "lemma": "sweet",
+        "meaningVi": "ngọt",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "bottle",
+        "lemma": "bottle",
+        "meaningVi": "cái chai",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "drinks",
+        "lemma": "drink",
+        "meaningVi": "đồ uống",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "pay by card",
+        "lemma": "pay by card",
+        "meaningVi": "trả bằng thẻ",
+        "pos": "phrase",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "in cash",
+        "lemma": "in cash",
+        "meaningVi": "bằng tiền mặt",
+        "pos": "phrase",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Duc's new office in Ho Chi Minh City",
+          "Duc and Anna have drinks at a rooftop bar.",
+          "Anna makes smoothies at home.",
+          "A waiter's busy day at work"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức và Anna gặp nhau ở một quán bar trên sân thượng sau giờ làm và gọi đồ uống."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Anna order?",
+        "promptVi": "Anna gọi món gì?",
+        "options": [
+          "A cup of coffee",
+          "A bottle of water",
+          "A few small cakes",
+          "A watermelon smoothie"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Anna nói \"I'd like a watermelon smoothie with only a little sugar.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Anna pay?",
+        "promptVi": "Vì sao Anna là người trả tiền?",
+        "options": [
+          "It is her birthday.",
+          "Duc doesn't like the bar.",
+          "Duc doesn't have much money with him.",
+          "Anna has a new card."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quán chỉ nhận tiền mặt, mà \"Duc doesn't have much money with him\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The bar is very noisy.",
+        "promptVi": "Quán bar rất ồn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"There are a lot of people at the bar, but it isn't noisy.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"strong\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I'd like a cup of coffee, but not too strong,\" he says.",
+        "options": [
+          "nóng",
+          "đắt",
+          "đặc, đậm",
+          "to"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Strong khi nói về cà phê, trà là đặc, đậm: Đức muốn cà phê không đặc quá."
+      }
+    ],
+    "grammarNote": {
+      "title": "Would like (đề nghị, gọi món)",
+      "bodyVi": "Gọi đồ uống lịch sự: I'd like a cup of coffee. Hỏi người khác: What would you like? / Would you like any snacks? Muốn làm gì: would like + to + động từ: Next time I'd like to pay. I'd like nghe lịch sự hơn I want.",
+      "examples": [
+        "Anna asks, \"What would you like, Duc?\"",
+        "\"Of course, and would you like any snacks with your drinks?\"",
+        "\"Thanks, Anna, next time I'd like to pay,\" Duc says."
+      ]
+    },
+    "writingPrompt": "Write a short conversation at a cafe or bar: what you and a friend would like to drink.",
+    "sentenceTranslations": [
+      "Tối thứ Sáu, Đức gặp Anna, một người bạn cùng văn phòng, ở một quán bar trên sân thượng tại TP. Hồ Chí Minh.",
+      "Quán ở tầng trên cùng của một toà nhà cao, và quang cảnh thành phố rất đẹp.",
+      "Trời nóng, nên cả hai đều rất khát.",
+      "Một người phục vụ mang thực đơn đến cho họ.",
+      "Anna hỏi: \"Cậu muốn uống gì, Đức?\"",
+      "\"Mình muốn một tách cà phê, nhưng đừng đặc quá,\" anh nói.",
+      "\"Cho tôi một cốc sinh tố dưa hấu, chỉ một chút đường thôi,\" Anna nói với người phục vụ.",
+      "\"Sinh tố của quán được nhiều người thích lắm, nhưng hơi ngọt một chút ạ,\" người phục vụ nói.",
+      "Đức hỏi: \"Cho chúng tôi thêm một chai nước được không?\"",
+      "\"Vâng ạ, anh chị có muốn gọi đồ ăn vặt với đồ uống không?\"",
+      "\"Có, cho vài cái bánh nhỏ nhé.\"",
+      "Họ ngồi nói chuyện rất lâu.",
+      "Quán có rất nhiều người, nhưng không ồn.",
+      "Đến chín giờ, Đức xin hoá đơn.",
+      "Anh hỏi người phục vụ: \"Tôi trả bằng thẻ được không?\"",
+      "\"Xin lỗi anh, hôm nay quán không nhận thẻ, anh vui lòng trả tiền mặt ạ.\"",
+      "Đức không mang nhiều tiền, nhưng trong túi Anna có ít tiền.",
+      "\"Cảm ơn Anna, lần sau mình muốn được mời,\" Đức nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể gọi đồ uống lịch sự bằng I'd like … / Would you like …? và hỏi cách trả tiền ở quán.",
+    "examples": [
+      {
+        "lemma": "view",
+        "sentence": "Our hotel room has a nice view.",
+        "meaningVi": "Phòng khách sạn của chúng tôi có tầm nhìn đẹp."
+      },
+      {
+        "lemma": "cup",
+        "sentence": "Would you like a cup of tea?",
+        "meaningVi": "Bạn có muốn một tách trà không?"
+      },
+      {
+        "lemma": "popular",
+        "sentence": "This cafe is popular with students.",
+        "meaningVi": "Quán cà phê này được sinh viên rất thích."
+      },
+      {
+        "lemma": "sweet",
+        "sentence": "My little brother loves sweet food.",
+        "meaningVi": "Em trai tôi rất thích đồ ngọt."
+      },
+      {
+        "lemma": "bottle",
+        "sentence": "There is a bottle of milk in the fridge.",
+        "meaningVi": "Trong tủ lạnh có một chai sữa."
+      },
+      {
+        "lemma": "drink",
+        "sentence": "What drink would you like?",
+        "meaningVi": "Bạn muốn uống gì?"
+      },
+      {
+        "lemma": "pay by card",
+        "sentence": "You can pay by card here.",
+        "meaningVi": "Ở đây bạn có thể trả bằng thẻ."
+      },
+      {
+        "lemma": "in cash",
+        "sentence": "I usually pay in cash at the market.",
+        "meaningVi": "Ở chợ tôi thường trả bằng tiền mặt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duc",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Duc, would you like to try a new cafe tomorrow?",
+          "meaningVi": "Đức ơi, mai cậu có muốn thử một quán cà phê mới không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I'd love to. Where is it?",
+          "meaningVi": "Có chứ. Quán ở đâu vậy?"
+        },
+        {
+          "speaker": 1,
+          "text": "Near the river. It has a lovely view of the boats.",
+          "meaningVi": "Gần sông. Ở đó nhìn ra thuyền đẹp lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. What do they have?",
+          "meaningVi": "Hay quá. Quán có những gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "A lot of fruit juices and a few kinds of tea.",
+          "meaningVi": "Rất nhiều loại nước ép và vài loại trà."
+        },
+        {
+          "speaker": 0,
+          "text": "I'd like a lemon tea, I think. Is it expensive?",
+          "meaningVi": "Chắc mình sẽ uống trà chanh. Có đắt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it isn't. And you can pay by card there.",
+          "meaningVi": "Không đắt đâu. Mà ở đó trả bằng thẻ được."
+        },
+        {
+          "speaker": 0,
+          "text": "Good, because I don't have much cash with me.",
+          "meaningVi": "Tốt quá, vì mình không mang nhiều tiền mặt."
+        },
+        {
+          "speaker": 1,
+          "text": "Then let's meet at six. Is that OK?",
+          "meaningVi": "Vậy hẹn nhau lúc sáu giờ nhé. Được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Perfect. See you then!",
+          "meaningVi": "Hoàn hảo. Hẹn gặp lại nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Mời ai làm gì: Would you like to try …? Nhận lời: Yes, I'd love to. Gọi món: I'd like a lemon tea.",
+    "translations": [
+      {
+        "vi": "Quang cảnh từ quán bar rất đẹp.",
+        "en": "The view from the bar is beautiful.",
+        "distractors": [
+          "views",
+          "are",
+          "menu"
+        ]
+      },
+      {
+        "vi": "Cho tôi một tách cà phê và một chai nước.",
+        "en": "I'd like a cup of coffee and a bottle of water.",
+        "distractors": [
+          "glass",
+          "would",
+          "some"
+        ]
+      },
+      {
+        "vi": "Tôi trả bằng thẻ được không?",
+        "en": "Can I pay by card?",
+        "distractors": [
+          "cash",
+          "Do",
+          "in"
+        ]
+      },
+      {
+        "vi": "Món sinh tố này được nhiều người thích, nhưng hơi ngọt.",
+        "en": "This smoothie is popular, but it is a bit sweet.",
+        "distractors": [
+          "little",
+          "they",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna rủ Đức làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi xem thuyền trên sông",
+          "Thử một quán cà phê mới",
+          "Đi ăn tối ở nhà hàng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna hỏi \"would you like to try a new cafe tomorrow?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đức muốn uống gì?",
+        "promptVi": "",
+        "options": [
+          "Trà chanh",
+          "Cà phê",
+          "Nước ép"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức nói \"I'd like a lemon tea, I think.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Đức vui khi biết quán nhận thẻ?",
+        "promptVi": "",
+        "options": [
+          "Vì anh có thẻ mới",
+          "Vì quán rất đắt",
+          "Vì anh không mang nhiều tiền mặt"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Đức nói \"I don't have much cash with me.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They would like to meet at seven.",
+        "promptVi": "Họ muốn gặp nhau lúc bảy giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna nói \"let's meet at six\": họ hẹn lúc sáu giờ.",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Đức và Anna gọi những gì, và cuối cùng ai trả tiền, vì sao?",
+    "grammarStep": {
+      "titleVi": "Would like (đề nghị, gọi món)",
+      "noticing": [
+        {
+          "sentence": "Anna asks, \"What would you like, Duc?\"",
+          "highlights": [
+            "What would you like"
+          ]
+        },
+        {
+          "sentence": "\"I'd like a cup of coffee, but not too strong,\" he says.",
+          "highlights": [
+            "I'd like"
+          ]
+        },
+        {
+          "sentence": "\"Of course, and would you like any snacks with your drinks?\"",
+          "highlights": [
+            "would you like"
+          ]
+        },
+        {
+          "sentence": "\"Thanks, Anna, next time I'd like to pay,\" Duc says.",
+          "highlights": [
+            "I'd like to pay"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"next time I'd like to pay\", vì sao có to sau like?",
+      "options": [
+        "Vì sau would like là một động từ (pay).",
+        "Vì câu này là câu hỏi.",
+        "Vì pay là danh từ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Would like + danh từ: I'd like a cup of coffee. Would like + to + động từ: I'd like to pay.",
+      "whenVi": "Dùng I'd like … khi gọi món hay nói mong muốn lịch sự; Would you like …? để mời hoặc hỏi ý người khác.",
+      "table": [
+        {
+          "subject": "+ danh từ",
+          "form": "I'd like a cup of coffee.",
+          "negative": "—"
+        },
+        {
+          "subject": "+ to + động từ",
+          "form": "I'd like to pay.",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu hỏi, mời",
+          "form": "What would you like? / Would you like any snacks?",
+          "negative": "No, thank you."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'd like pay by card.",
+          "right": "I'd like to pay by card."
+        },
+        {
+          "wrong": "What you would like?",
+          "right": "What would you like?"
+        }
+      ],
+      "noteVi": "Người Việt hay quên đảo would lên trước you trong câu hỏi, và hay quên to trước động từ. Nhớ: What would you like? và I'd like to + động từ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "What ___ you like to drink?",
+          "answers": [
+            "would"
+          ],
+          "explanationVi": "Câu hỏi lịch sự: What would you like …?"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu trả lời đúng.",
+          "text": "Would you like a cup of tea? – ___",
+          "options": [
+            "Yes, I like.",
+            "Yes, please.",
+            "Yes, I would like.",
+            "Yes, I do."
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Nhận lời mời lịch sự: Yes, please. (hoặc Yes, I would.)"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I'd like pay in cash, please.",
+          "sentence": "I'd like to pay in cash, please.",
+          "explanationVi": "Sau would like là động từ thì cần to: I'd like to pay."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn có muốn một chai nước không?",
+          "sentence": "Would you like a bottle of water?",
+          "words": [
+            "you",
+            "Would",
+            "a",
+            "like",
+            "of",
+            "water",
+            "bottle",
+            "do"
+          ],
+          "explanationVi": "Câu mời lịch sự bắt đầu bằng Would you like; từ \"do\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "A waiter brings them the menu.",
+        "tipVi": "Brings them nối âm /z/ với /ð/; them đọc nhẹ /ðəm/, đặt lưỡi giữa hai hàm răng."
+      },
+      {
+        "text": "He asks the waiter, \"Can I pay by card?\"",
+        "tipVi": "Câu hỏi Yes/No lên giọng ở cuối: card ↗; pay by card nhấn vào pay và card."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What would you like to drink now?",
+        "questionVi": "Bây giờ bạn muốn uống gì?",
+        "frame": "I'd like a ___, please."
+      },
+      {
+        "question": "Do you usually pay by card or in cash?",
+        "questionVi": "Bạn thường trả bằng thẻ hay tiền mặt?",
+        "frame": "I usually pay ___."
+      },
+      {
+        "question": "What drink does your friend like?",
+        "questionVi": "Bạn của bạn thích uống gì?",
+        "frame": "He / She likes ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng I'd like … hoặc Would you like …?",
+      "anyOf": [
+        "i'd like",
+        "would like",
+        "would you like",
+        "i would"
+      ],
+      "outlineVi": [
+        "Bạn và bạn của bạn ở quán nào, trông quán thế nào.",
+        "Mỗi người gọi đồ uống gì (I'd like …, Would you like …?).",
+        "Cuối cùng trả tiền thế nào (pay by card, in cash)."
+      ],
+      "modelAnswer": "Me: Hi, Lan. What would you like to drink? Lan: I'd like a glass of orange juice with a little ice. And you? Me: I'd like a cup of hot chocolate. Would you like any cake? Lan: Yes, please. The cakes here are very popular. Waiter: Here are your drinks. Me: Thank you. Can I pay by card? Waiter: Yes, of course."
+    }
+  },
+  "glosses": [
+    {
+      "text": "rooftop bar",
+      "lemma": "rooftop bar",
+      "meaningVi": "quán bar trên sân thượng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "at a rooftop bar",
+      "phraseVi": "ở một quán bar trên sân thượng"
+    },
+    {
+      "text": "top floor",
+      "lemma": "top floor",
+      "meaningVi": "tầng trên cùng",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "on the top floor of a tall building",
+      "phraseVi": "ở tầng trên cùng của một toà nhà cao"
+    },
+    {
+      "text": "thirsty",
+      "lemma": "thirsty",
+      "meaningVi": "khát",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "they are both very thirsty",
+      "phraseVi": "cả hai đều rất khát"
+    },
+    {
+      "text": "strong",
+      "lemma": "strong",
+      "meaningVi": "đặc, đậm (cà phê, trà)",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "not too strong",
+      "phraseVi": "đừng đặc quá"
+    },
+    {
+      "text": "smoothie",
+      "lemma": "smoothie",
+      "meaningVi": "sinh tố",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a watermelon smoothie",
+      "phraseVi": "một cốc sinh tố dưa hấu"
+    },
+    {
+      "text": "snacks",
+      "lemma": "snack",
+      "meaningVi": "đồ ăn vặt",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "any snacks with your drinks",
+      "phraseVi": "đồ ăn vặt với đồ uống"
+    },
+    {
+      "text": "noisy",
+      "lemma": "noisy",
+      "meaningVi": "ồn ào",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "it isn't noisy",
+      "phraseVi": "không ồn"
+    },
+    {
+      "text": "take cards",
+      "lemma": "take",
+      "meaningVi": "nhận thẻ (để thanh toán)",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "we don't take cards today",
+      "phraseVi": "hôm nay quán không nhận thẻ"
+    }
+  ]
+}

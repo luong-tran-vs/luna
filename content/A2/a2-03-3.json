@@ -1,0 +1,608 @@
+{
+  "content": "Linh and Ngoc share a small flat in Hanoi. Last night, they had a party for their friends. This morning, they are cleaning the living room, and there are a lot of things on the floor.\n\nNgoc finds a black jacket on the sofa. \"Whose jacket is this?\" she asks.\n\"It isn't mine,\" Linh says. \"Mine is in my bedroom, so maybe it's Nam's.\"\n\"No, it isn't his, because his jacket is brown,\" Ngoc answers.\n\nThen Linh finds two umbrellas behind the door. One is red, and one is blue. \"Is the red one yours?\" she asks.\n\"Yes, it's mine, thanks,\" Ngoc says. \"The blue one is Hoa's, I think.\"\n\nLinh calls Hoa and asks, \"Is the blue umbrella yours?\"\n\"Yes, it's mine, and my sister's coat is at your flat too,\" Hoa says. \"It's grey, and it's on a chair in the kitchen.\"\nLinh goes to the kitchen and says, \"Yes, I can see hers.\"\n\nNgoc asks, \"So whose is the black jacket?\" Just then, Ngoc's phone rings, and it's their friend Tom. \"Is my black jacket at your flat?\" he asks.\n\"Yes, it's yours, so come and get it,\" Linh says with a laugh.",
+  "targetWords": [
+    "share",
+    "flat",
+    "party",
+    "living room",
+    "jacket",
+    "umbrella",
+    "coat",
+    "chair"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "share",
+        "lemma": "share",
+        "meaningVi": "ở chung, dùng chung",
+        "pos": "verb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "flat",
+        "lemma": "flat",
+        "meaningVi": "căn hộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "party",
+        "lemma": "party",
+        "meaningVi": "bữa tiệc",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "jacket",
+        "lemma": "jacket",
+        "meaningVi": "áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "umbrellas",
+        "lemma": "umbrella",
+        "meaningVi": "cái ô, cái dù",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "coat",
+        "lemma": "coat",
+        "meaningVi": "áo choàng, áo khoác dài",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "chair",
+        "lemma": "chair",
+        "meaningVi": "cái ghế",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh buys a new umbrella.",
+          "A party at Hoa's house",
+          "Two flatmates find out whose things are in their flat after a party.",
+          "Tom's new jacket"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Sau bữa tiệc, Linh và Ngọc dọn phòng khách và tìm xem áo khoác, ô, áo choàng mà khách để quên là của ai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Whose is the red umbrella?",
+        "promptVi": "Chiếc ô màu đỏ là của ai?",
+        "options": [
+          "Linh's",
+          "Ngoc's",
+          "Hoa's",
+          "Nam's"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh hỏi \"Is the red one yours?\" và Ngọc đáp \"Yes, it's mine\": ô đỏ là của Ngọc."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why isn't the black jacket Nam's?",
+        "promptVi": "Vì sao chiếc áo khoác đen không phải của Nam?",
+        "options": [
+          "Nam's jacket is brown.",
+          "Nam wasn't at the party.",
+          "Nam has a grey coat.",
+          "Nam took his jacket home."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"it isn't his, because his jacket is brown\": áo của Nam màu nâu."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The black jacket is Tom's.",
+        "promptVi": "Chiếc áo khoác đen là của Tom.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Tom gọi hỏi về áo khoác đen và Linh nói \"Yes, it's yours\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Whose\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Whose jacket is this?\" she asks.",
+        "options": [
+          "ở đâu",
+          "bao nhiêu",
+          "cái nào",
+          "của ai"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Whose dùng để hỏi một thứ là của ai: Whose jacket is this? = Áo khoác này của ai?"
+      }
+    ],
+    "grammarNote": {
+      "title": "Đại từ sở hữu (mine, yours)",
+      "bodyVi": "Đại từ sở hữu thay cho \"my / your … + danh từ\" và đứng một mình, không có danh từ theo sau: my jacket → mine, your umbrella → yours, his jacket → his, her coat → hers, our flat → ours, their party → theirs. Hỏi của ai: Whose jacket is this? Với tên người, thêm 's: it's Nam's, Hoa's.",
+      "examples": [
+        "\"Whose jacket is this?\" she asks.",
+        "\"It isn't mine,\" Linh says.",
+        "\"Yes, it's yours, so come and get it,\" Linh says with a laugh."
+      ]
+    },
+    "writingPrompt": "Write about a time you saw something at school or at home and didn't know whose it was.",
+    "sentenceTranslations": [
+      "Linh và Ngọc ở chung một căn hộ nhỏ ở Hà Nội.",
+      "Tối qua, hai người tổ chức một bữa tiệc cho bạn bè.",
+      "Sáng nay, họ đang dọn phòng khách, và trên sàn có rất nhiều đồ.",
+      "Ngọc thấy một chiếc áo khoác đen trên ghế sofa.",
+      "\"Áo khoác này của ai nhỉ?\" cô hỏi.",
+      "\"Không phải của mình,\" Linh nói.",
+      "\"Áo của mình ở trong phòng ngủ, chắc là của Nam.\"",
+      "\"Không phải của cậu ấy đâu, vì áo của Nam màu nâu,\" Ngọc đáp.",
+      "Rồi Linh thấy hai chiếc ô sau cánh cửa.",
+      "Một chiếc màu đỏ, một chiếc màu xanh.",
+      "\"Chiếc đỏ có phải của cậu không?\" cô hỏi.",
+      "\"Ừ, của mình, cảm ơn nhé,\" Ngọc nói.",
+      "\"Chiếc xanh chắc là của Hoa.\"",
+      "Linh gọi cho Hoa và hỏi: \"Chiếc ô xanh có phải của cậu không?\"",
+      "\"Ừ, của mình, mà áo choàng của chị gái mình cũng để ở nhà các cậu đấy,\" Hoa nói.",
+      "\"Áo màu xám, để trên một cái ghế trong bếp.\"",
+      "Linh đi vào bếp và nói: \"Ừ, mình thấy áo của chị ấy rồi.\"",
+      "Ngọc hỏi: \"Thế chiếc áo khoác đen là của ai?\"",
+      "Đúng lúc đó, điện thoại của Ngọc đổ chuông, là Tom, bạn của họ.",
+      "\"Áo khoác đen của mình có ở nhà các cậu không?\" anh hỏi.",
+      "\"Có, là của cậu đấy, qua mà lấy nhé,\" Linh cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và nói một món đồ là của ai, dùng Whose …?, mine, yours, his, hers và tên người + 's.",
+    "examples": [
+      {
+        "lemma": "share",
+        "sentence": "I share a room with my brother.",
+        "meaningVi": "Mình ở chung phòng với anh trai."
+      },
+      {
+        "lemma": "flat",
+        "sentence": "Their flat is very small.",
+        "meaningVi": "Căn hộ của họ rất nhỏ."
+      },
+      {
+        "lemma": "party",
+        "sentence": "We had a great party last night.",
+        "meaningVi": "Tối qua bọn mình có một bữa tiệc rất vui."
+      },
+      {
+        "lemma": "living room",
+        "sentence": "The TV is in the living room.",
+        "meaningVi": "Tivi ở trong phòng khách."
+      },
+      {
+        "lemma": "jacket",
+        "sentence": "Is this jacket yours?",
+        "meaningVi": "Chiếc áo khoác này có phải của bạn không?"
+      },
+      {
+        "lemma": "umbrella",
+        "sentence": "Don't forget your umbrella.",
+        "meaningVi": "Đừng quên ô của bạn nhé."
+      },
+      {
+        "lemma": "coat",
+        "sentence": "It's cold, so wear your coat.",
+        "meaningVi": "Trời lạnh, mặc áo choàng vào nhé."
+      },
+      {
+        "lemma": "chair",
+        "sentence": "Please sit on this chair.",
+        "meaningVi": "Mời bạn ngồi ghế này."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngoc",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hi Ngoc! Thanks for the party last night.",
+          "meaningVi": "Chào Ngọc! Cảm ơn bữa tiệc tối qua nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "You're welcome! Tom, is this black jacket yours?",
+          "meaningVi": "Không có gì! Tom, chiếc áo khoác đen này có phải của cậu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's mine! I'm looking for it now.",
+          "meaningVi": "Đúng rồi, của mình! Mình đang đi tìm nó đây."
+        },
+        {
+          "speaker": 0,
+          "text": "It's on our sofa. Can you come and get it?",
+          "meaningVi": "Nó ở trên sofa nhà mình. Cậu qua lấy được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. Is my scarf there too? It's green.",
+          "meaningVi": "Được. Khăn của mình có ở đó không? Nó màu xanh lá."
+        },
+        {
+          "speaker": 0,
+          "text": "No, I can't see a green scarf. Is it Hoa's?",
+          "meaningVi": "Không, mình không thấy khăn xanh lá nào. Hay là của Hoa?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, hers is red. Mine is green.",
+          "meaningVi": "Không, khăn của Hoa màu đỏ. Khăn của mình màu xanh lá."
+        },
+        {
+          "speaker": 0,
+          "text": "Wait, is it under the sofa? Yes, here it is!",
+          "meaningVi": "Khoan, có phải ở dưới sofa không? Đúng rồi, đây này!"
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Are you at home now?",
+          "meaningVi": "Tuyệt! Giờ các cậu có ở nhà không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, we're cleaning the flat. Come in an hour.",
+          "meaningVi": "Có, bọn mình đang dọn nhà. Một tiếng nữa cậu qua nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi đồ có phải của ai không: Is this black jacket yours? Trả lời: Yes, it's mine! / No, hers is red. Mine is green.",
+    "translations": [
+      {
+        "vi": "Áo khoác này của ai?",
+        "en": "Whose jacket is this?",
+        "distractors": [
+          "Who",
+          "Who's",
+          "that"
+        ]
+      },
+      {
+        "vi": "Chiếc ô màu đỏ là của tôi.",
+        "en": "The red umbrella is mine.",
+        "distractors": [
+          "my",
+          "me",
+          "yours"
+        ]
+      },
+      {
+        "vi": "Áo choàng của cô ấy ở trên ghế.",
+        "en": "Her coat is on the chair.",
+        "distractors": [
+          "Hers",
+          "She",
+          "in"
+        ]
+      },
+      {
+        "vi": "Họ ở chung một căn hộ nhỏ.",
+        "en": "They share a small flat.",
+        "distractors": [
+          "shares",
+          "big",
+          "house"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ngọc và Tom nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một bữa tiệc sắp tới",
+          "Đồ Tom để quên ở căn hộ của Ngọc",
+          "Đi mua khăn mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc hỏi \"is this black jacket yours?\", rồi hai bạn tìm cả chiếc khăn của Tom.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khăn của Tom màu gì?",
+        "promptVi": "",
+        "options": [
+          "Đỏ",
+          "Xanh lá",
+          "Xám"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"Mine is green.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngọc tìm thấy khăn ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Dưới ghế sofa",
+          "Trong bếp",
+          "Sau cánh cửa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"Wait, is it under the sofa? Yes, here it is!\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa's scarf is green.",
+        "promptVi": "Khăn của Hoa màu xanh lá.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom nói \"No, hers is red.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Áo khoác đen, chiếc ô đỏ, chiếc ô xanh và áo choàng xám là của ai?",
+    "grammarStep": {
+      "titleVi": "Đại từ sở hữu (mine, yours)",
+      "noticing": [
+        {
+          "sentence": "\"It isn't mine,\" Linh says.",
+          "highlights": [
+            "mine"
+          ]
+        },
+        {
+          "sentence": "\"No, it isn't his, because his jacket is brown,\" Ngoc answers.",
+          "highlights": [
+            "his",
+            "his jacket"
+          ]
+        },
+        {
+          "sentence": "\"Is the red one yours?\" she asks.",
+          "highlights": [
+            "yours"
+          ]
+        },
+        {
+          "sentence": "Linh goes to the kitchen and says, \"Yes, I can see hers.\"",
+          "highlights": [
+            "hers"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"It isn't mine\" mà không viết \"It isn't my\"?",
+      "options": [
+        "Vì sau đó không có danh từ, nên dùng đại từ sở hữu mine",
+        "Vì my chỉ dùng cho đồ màu đen",
+        "Vì mine dùng cho số nhiều"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "My, your, her phải đi với danh từ (my jacket, her coat). Khi đứng một mình thì dùng mine, yours, hers. His thì giống nhau ở cả hai cách: his jacket, it's his.",
+      "whenVi": "Dùng mine, yours, his, hers, ours, theirs để nói một thứ là của ai mà không cần nhắc lại danh từ, và Whose …? để hỏi của ai.",
+      "table": [
+        {
+          "subject": "my / your",
+          "form": "my jacket → mine, your umbrella → yours",
+          "negative": "It isn't mine."
+        },
+        {
+          "subject": "his / her",
+          "form": "his jacket → his, her coat → hers",
+          "negative": "It isn't hers."
+        },
+        {
+          "subject": "our / their",
+          "form": "our flat → ours, their party → theirs",
+          "negative": "—"
+        },
+        {
+          "subject": "Whose …? / tên + 's",
+          "form": "Whose jacket is this? – It's Tom's.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It isn't my.",
+          "right": "It isn't mine."
+        },
+        {
+          "wrong": "The blue umbrella is her's.",
+          "right": "The blue umbrella is hers."
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ nói \"của tôi\", \"của cô ấy\" dù có danh từ hay không, nên người Việt hay dùng my, her ở chỗ cần mine, hers, và hay thêm dấu ' vào hers, yours.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền đại từ sở hữu có nghĩa \"của bạn\" vào chỗ trống.",
+          "text": "Is the red umbrella ___?",
+          "answers": [
+            "yours"
+          ],
+          "explanationVi": "Của bạn, đứng một mình cuối câu: yours."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "This isn't my coat. ___ is grey.",
+          "options": [
+            "Mine",
+            "My",
+            "Me",
+            "I"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Không có danh từ theo sau nên dùng Mine (= my coat)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The blue umbrella is her's.",
+          "sentence": "The blue umbrella is hers.",
+          "explanationVi": "Hers không có dấu ': hers."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chiếc áo khoác đen là của bạn.",
+          "sentence": "The black jacket is yours.",
+          "words": [
+            "jacket",
+            "The",
+            "yours",
+            "black",
+            "is",
+            "your"
+          ],
+          "explanationVi": "Cuối câu không có danh từ nên dùng yours; từ \"your\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Whose jacket is this?\" she asks.",
+        "tipVi": "Whose /huz/ đọc như \"hu-dz\", không đọc chữ w; jacket /ˈdʒækɪt/ bắt đầu bằng /dʒ/."
+      },
+      {
+        "text": "Then Linh finds two umbrellas behind the door.",
+        "tipVi": "Umbrellas /ʌmˈbrɛləz/ nhấn ở âm thứ hai và kết thúc bằng /z/; finds /faɪndz/ có cụm /ndz/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you share a room with someone?",
+        "questionVi": "Bạn có ở chung phòng với ai không?",
+        "frame": "Yes, I do. I share a room with ___. / No, I don't."
+      },
+      {
+        "question": "What colour is your bag, and what colour is your friend's?",
+        "questionVi": "Túi của bạn màu gì, còn túi của bạn bè bạn màu gì?",
+        "frame": "Mine is ___, and his / hers is ___."
+      },
+      {
+        "question": "Do you wear your brother's or sister's clothes?",
+        "questionVi": "Bạn có mặc quần áo của anh chị em không?",
+        "frame": "Yes, I wear his / hers ___. / No, I don't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng mine / yours / his / hers / ours / theirs hoặc Whose …?",
+      "anyOf": [
+        "mine",
+        "yours",
+        "his",
+        "hers",
+        "ours",
+        "theirs",
+        "whose"
+      ],
+      "outlineVi": [
+        "Nói bạn tìm thấy món gì, ở đâu, khi nào.",
+        "Kể bạn hỏi mọi người (Whose … is this? Is it yours?).",
+        "Kể cuối cùng món đó là của ai (It's hers / his / mine!)."
+      ],
+      "modelAnswer": "Last week, I saw a blue pen on my desk at school. \"Whose pen is this?\" I asked. \"It isn't mine,\" said Lan. \"Maybe it's Minh's.\" But Minh said, \"No, it isn't mine. Mine is black.\" Then our teacher smiled and said, \"It's mine!\""
+    }
+  },
+  "glosses": [
+    {
+      "text": "had a party",
+      "lemma": "have a party",
+      "meaningVi": "tổ chức tiệc",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "they had a party for their friends",
+      "phraseVi": "hai người tổ chức một bữa tiệc cho bạn bè"
+    },
+    {
+      "text": "cleaning",
+      "lemma": "clean",
+      "meaningVi": "dọn dẹp",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "they are cleaning the living room",
+      "phraseVi": "họ đang dọn phòng khách"
+    },
+    {
+      "text": "sofa",
+      "lemma": "sofa",
+      "meaningVi": "ghế sofa",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "a black jacket on the sofa",
+      "phraseVi": "một chiếc áo khoác đen trên ghế sofa"
+    },
+    {
+      "text": "maybe",
+      "lemma": "maybe",
+      "meaningVi": "có lẽ, chắc là",
+      "sentenceIndex": 6,
+      "pos": "adverb",
+      "phrase": "maybe it's Nam's",
+      "phraseVi": "chắc là của Nam"
+    },
+    {
+      "text": "brown",
+      "lemma": "brown",
+      "meaningVi": "màu nâu",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "his jacket is brown",
+      "phraseVi": "áo của Nam màu nâu"
+    },
+    {
+      "text": "behind the door",
+      "lemma": "behind",
+      "meaningVi": "sau cánh cửa",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "two umbrellas behind the door",
+      "phraseVi": "hai chiếc ô sau cánh cửa"
+    },
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "meaningVi": "nhà bếp",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "on a chair in the kitchen",
+      "phraseVi": "trên một cái ghế trong bếp"
+    },
+    {
+      "text": "Just then",
+      "lemma": "just then",
+      "meaningVi": "đúng lúc đó",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "Just then, Ngoc's phone rings",
+      "phraseVi": "Đúng lúc đó, điện thoại của Ngọc đổ chuông"
+    },
+    {
+      "text": "come and get it",
+      "lemma": "come and get",
+      "meaningVi": "qua mà lấy",
+      "sentenceIndex": 20,
+      "pos": "phrase",
+      "phrase": "so come and get it",
+      "phraseVi": "qua mà lấy nhé"
+    }
+  ]
+}

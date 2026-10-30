@@ -1,0 +1,607 @@
+{
+  "content": "Three days before Tet, Hoa goes to the supermarket near her house. It is very busy. Everyone wants to buy something for the holiday.\n\nHoa has a long list in her hand: fruit, candy, a chicken, rice and some drinks. She puts the fruit and the candy in her cart, but she can't find the chicken anywhere. She looks around for someone to help her, but nobody is free. All the staff are busy.\n\nFinally, she sees a young man in a green shirt. She asks, \"Excuse me, is there anybody in the meat area?\"\nHe says, \"Sorry, there's nobody there now. But the chickens are next to the fish.\"\nHoa says, \"Thank you!\"\n\nThen she checks her list again. Is everything in the cart? Yes, she has everything. Hoa doesn't want to forget anything. When she pays, the price is high, but she isn't worried. Tet comes only once a year.\n\nThen her phone rings. It's her husband. He says, \"Don't forget the flowers!\"\nHoa laughs. She can't carry anything more, but she goes back for the flowers.",
+  "targetWords": [
+    "supermarket",
+    "list",
+    "fruit",
+    "candy",
+    "chicken",
+    "forget",
+    "price",
+    "carry"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "supermarket",
+        "lemma": "supermarket",
+        "meaningVi": "siêu thị",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "list",
+        "lemma": "list",
+        "meaningVi": "danh sách",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "fruit",
+        "lemma": "fruit",
+        "meaningVi": "hoa quả, trái cây",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "candy",
+        "lemma": "candy",
+        "meaningVi": "kẹo",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "chicken",
+        "lemma": "chicken",
+        "meaningVi": "con gà, thịt gà",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "forget",
+        "lemma": "forget",
+        "meaningVi": "quên",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "price",
+        "lemma": "price",
+        "meaningVi": "giá tiền",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "carry",
+        "lemma": "carry",
+        "meaningVi": "mang, xách",
+        "pos": "verb",
+        "sentenceIndex": 22
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa's new job at a supermarket",
+          "A young man looks for his wife.",
+          "Hoa does her Tet shopping at a busy supermarket.",
+          "Hoa cooks chicken for Tet."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ba ngày trước Tết, Hoa đi siêu thị mua đồ theo danh sách."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where are the chickens?",
+        "promptVi": "Gà để ở đâu?",
+        "options": [
+          "Next to the fish",
+          "Next to the fruit",
+          "In the meat area",
+          "Near the flowers"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh nhân viên nói \"the chickens are next to the fish.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why isn't Hoa worried about the high price?",
+        "promptVi": "Vì sao Hoa không lo dù giá cao?",
+        "options": [
+          "She has a lot of money.",
+          "Her husband is going to pay.",
+          "The candy is cheap.",
+          "Tet comes only once a year."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết: \"she isn't worried. Tet comes only once a year.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Somebody in the meat area helps Hoa.",
+        "promptVi": "Có người ở quầy thịt giúp Hoa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì anh nhân viên nói \"there's nobody there now.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"staff\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "All the staff are busy.",
+        "options": [
+          "khách hàng",
+          "nhân viên",
+          "hàng hoá",
+          "người bán hàng rong"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Staff là những người làm việc ở một nơi, ở đây là nhân viên siêu thị."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đại từ bất định (someone, anything, nowhere)",
+      "bodyVi": "Đại từ bất định chỉ người, vật, nơi chốn không nói rõ: some- / any- / no- / every- + one, body, thing, where. Câu khẳng định dùng some- (someone, something); câu hỏi và câu phủ định dùng any- (anybody, anything, anywhere). No- đã mang nghĩa phủ định nên động từ để khẳng định: nobody is free. Every- đi với động từ số ít: Everyone wants, Everything is.",
+      "examples": [
+        "She looks around for someone to help her, but nobody is free.",
+        "She asks, \"Excuse me, is there anybody in the meat area?\"",
+        "Hoa doesn't want to forget anything."
+      ]
+    },
+    "writingPrompt": "Write about your Tet shopping: what is on your list, and is there anything you always forget?",
+    "sentenceTranslations": [
+      "Ba ngày trước Tết, Hoa đi siêu thị gần nhà.",
+      "Siêu thị rất đông.",
+      "Ai cũng muốn mua gì đó cho ngày Tết.",
+      "Trên tay Hoa là một danh sách dài: hoa quả, kẹo, một con gà, gạo và ít đồ uống.",
+      "Chị cho hoa quả và kẹo vào xe đẩy, nhưng tìm mãi không thấy gà ở đâu.",
+      "Chị nhìn quanh tìm người giúp, nhưng chẳng ai rảnh cả.",
+      "Nhân viên ai cũng bận.",
+      "Cuối cùng, chị thấy một anh thanh niên mặc áo xanh lá.",
+      "Chị hỏi: \"Xin lỗi, ở quầy thịt có ai không anh?\"",
+      "Anh ấy nói: \"Xin lỗi chị, bây giờ ở đó không có ai.",
+      "Nhưng gà để cạnh chỗ cá chị ạ.\"",
+      "Hoa nói: \"Cảm ơn anh!\"",
+      "Rồi chị xem lại danh sách.",
+      "Mọi thứ đã có trong xe chưa?",
+      "Rồi, chị có đủ hết.",
+      "Hoa không muốn quên thứ gì.",
+      "Lúc trả tiền, giá khá cao, nhưng chị không lo.",
+      "Tết mỗi năm chỉ có một lần.",
+      "Rồi điện thoại chị đổ chuông.",
+      "Là chồng chị.",
+      "Anh nói: \"Đừng quên hoa nhé!\"",
+      "Hoa bật cười.",
+      "Chị không xách thêm được gì nữa, nhưng vẫn quay lại mua hoa."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về việc đi mua sắm Tết bằng someone, anything, nobody, everything.",
+    "examples": [
+      {
+        "lemma": "supermarket",
+        "sentence": "The supermarket opens at seven.",
+        "meaningVi": "Siêu thị mở cửa lúc bảy giờ."
+      },
+      {
+        "lemma": "list",
+        "sentence": "I write a list before I go shopping.",
+        "meaningVi": "Tôi viết danh sách trước khi đi mua sắm."
+      },
+      {
+        "lemma": "fruit",
+        "sentence": "We eat a lot of fruit in summer.",
+        "meaningVi": "Mùa hè chúng tôi ăn nhiều hoa quả."
+      },
+      {
+        "lemma": "candy",
+        "sentence": "Children love candy at Tet.",
+        "meaningVi": "Trẻ con thích kẹo vào dịp Tết."
+      },
+      {
+        "lemma": "chicken",
+        "sentence": "My mother cooks chicken soup on Sundays.",
+        "meaningVi": "Chủ nhật mẹ tôi nấu canh gà."
+      },
+      {
+        "lemma": "forget",
+        "sentence": "Don't forget your keys!",
+        "meaningVi": "Đừng quên chìa khoá nhé!"
+      },
+      {
+        "lemma": "price",
+        "sentence": "The price of this bag is very high.",
+        "meaningVi": "Giá chiếc túi này rất cao."
+      },
+      {
+        "lemma": "carry",
+        "sentence": "Can you carry this box for me?",
+        "meaningVi": "Bạn xách giúp tôi cái hộp này được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Mark"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hi, Hoa! Are you doing your Tet shopping?",
+          "meaningVi": "Chào Hoa! Chị đang đi sắm Tết à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but I can't find anything on my list.",
+          "meaningVi": "Ừ, nhưng chị chẳng tìm thấy thứ gì trong danh sách cả."
+        },
+        {
+          "speaker": 1,
+          "text": "What do you need?",
+          "meaningVi": "Chị cần gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "Some candy and a chicken. Is there anybody to ask?",
+          "meaningVi": "Ít kẹo và một con gà. Có ai để hỏi không nhỉ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Everyone here is busy. But the candy is next to the fruit.",
+          "meaningVi": "Ở đây ai cũng bận. Nhưng kẹo ở cạnh hoa quả đấy."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you! Do you need something too?",
+          "meaningVi": "Cảm ơn em! Em cũng cần mua gì à?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I have everything. I'm only here for a coffee.",
+          "meaningVi": "Không, em có đủ rồi. Em chỉ ghé uống cà phê thôi."
+        },
+        {
+          "speaker": 0,
+          "text": "Lucky you! My bags are so heavy.",
+          "meaningVi": "Sướng thế! Túi của chị nặng quá."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I carry something for you?",
+          "meaningVi": "Em xách giúp chị cái gì nhé?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, please. You are very kind.",
+          "meaningVi": "Ừ, nhờ em nhé. Em tốt bụng quá."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi dùng any-: Is there anybody to ask? Phủ định dùng any-: I can't find anything. Lời mời, đề nghị vẫn dùng some-: Can I carry something for you?",
+    "translations": [
+      {
+        "vi": "Siêu thị không có ai giúp tôi cả.",
+        "en": "Nobody in the supermarket can help me.",
+        "distractors": [
+          "Anybody",
+          "can't",
+          "Somebody"
+        ]
+      },
+      {
+        "vi": "Đừng quên thứ gì nhé.",
+        "en": "Don't forget anything.",
+        "distractors": [
+          "something",
+          "nothing",
+          "forgets"
+        ]
+      },
+      {
+        "vi": "Mọi thứ trong danh sách đều ở trong xe.",
+        "en": "Everything on the list is in the cart.",
+        "distractors": [
+          "are",
+          "Anything",
+          "Each"
+        ]
+      },
+      {
+        "vi": "Tôi có thể xách gì đó giúp bạn không?",
+        "en": "Can I carry something for you?",
+        "distractors": [
+          "anything",
+          "carries",
+          "nothing"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa và Mark đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở chợ hoa",
+          "Ở siêu thị",
+          "Ở nhà Hoa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mark hỏi Hoa có đang sắm Tết không, và kẹo ở cạnh hoa quả, tức là họ đang ở siêu thị.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa cần mua gì?",
+        "promptVi": "",
+        "options": [
+          "Kẹo và một con gà",
+          "Hoa quả và cá",
+          "Cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"Some candy and a chicken.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mark đến đó để làm gì?",
+        "promptVi": "",
+        "options": [
+          "Mua hoa quả",
+          "Tìm Hoa",
+          "Uống cà phê"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mark nói \"I'm only here for a coffee.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa's bags are very heavy.",
+        "promptVi": "Túi của Hoa rất nặng.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Hoa nói \"My bags are so heavy.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Hoa tìm thấy hết đồ trong danh sách chưa? Cuối cùng chị quên gì?",
+    "grammarStep": {
+      "titleVi": "Đại từ bất định (someone, anything, nowhere)",
+      "noticing": [
+        {
+          "sentence": "Everyone wants to buy something for the holiday.",
+          "highlights": [
+            "Everyone",
+            "something"
+          ]
+        },
+        {
+          "sentence": "She looks around for someone to help her, but nobody is free.",
+          "highlights": [
+            "someone",
+            "nobody"
+          ]
+        },
+        {
+          "sentence": "Is everything in the cart?",
+          "highlights": [
+            "everything"
+          ]
+        },
+        {
+          "sentence": "Hoa doesn't want to forget anything.",
+          "highlights": [
+            "anything"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"Hoa doesn't want to forget anything\" mà không viết \"something\"?",
+      "options": [
+        "Vì câu này là câu phủ định (doesn't).",
+        "Vì anything là số nhiều.",
+        "Vì Hoa là người."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu phủ định và câu hỏi thường dùng any-: anything, anybody, anywhere. Câu khẳng định dùng some-: something.",
+      "whenVi": "Some- cho câu khẳng định, any- cho câu hỏi và câu phủ định, no- khi muốn nói \"không ai, không gì\", every- khi nói \"tất cả mọi\".",
+      "table": [
+        {
+          "subject": "some-",
+          "form": "someone, something, somewhere",
+          "negative": "—"
+        },
+        {
+          "subject": "any-",
+          "form": "Is there anybody? (câu hỏi)",
+          "negative": "I don't want anything."
+        },
+        {
+          "subject": "no-",
+          "form": "Nobody is free.",
+          "negative": "(đã mang nghĩa phủ định)"
+        },
+        {
+          "subject": "every-",
+          "form": "Everyone wants something.",
+          "negative": "Not everything is cheap."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Nobody isn't free.",
+          "right": "Nobody is free."
+        },
+        {
+          "wrong": "Everyone want to buy something.",
+          "right": "Everyone wants to buy something."
+        }
+      ],
+      "noteVi": "Someone = somebody, anyone = anybody, no one = nobody, everyone = everybody: hai dạng nghĩa như nhau. Đại từ có every- và no- luôn đi với động từ số ít.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền something hoặc anything.",
+          "text": "Hoa doesn't want to forget ___.",
+          "answers": [
+            "anything"
+          ],
+          "explanationVi": "Câu phủ định (doesn't) dùng anything."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Is there ___ in the meat area?",
+          "options": [
+            "nobody",
+            "anybody",
+            "everything",
+            "something"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu hỏi về người: Is there anybody …?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Everyone want to buy candy.",
+          "sentence": "Everyone wants to buy candy.",
+          "explanationVi": "Everyone đi với động từ số ít: wants."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Không ai rảnh cả.",
+          "sentence": "Nobody is free.",
+          "words": [
+            "free",
+            "Nobody",
+            "is",
+            "not"
+          ],
+          "explanationVi": "Nobody đã có nghĩa phủ định nên không cần not; từ \"not\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Hoa doesn't want to forget anything.",
+        "tipVi": "Doesn't /ˈdʌznt/ đọc rõ /t/; forget /fəˈɡet/ nhấn âm thứ hai."
+      },
+      {
+        "text": "He says, \"Don't forget the flowers!\"",
+        "tipVi": "Câu cảm thán nhấn mạnh vào flowers /ˈflaʊəz/, giọng xuống ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you buy for Tet?",
+        "questionVi": "Bạn mua gì cho ngày Tết?",
+        "frame": "I buy ___ and ___."
+      },
+      {
+        "question": "Do you forget anything when you go shopping?",
+        "questionVi": "Khi đi mua sắm bạn có hay quên thứ gì không?",
+        "frame": "Yes, I often forget ___. / No, I don't forget anything."
+      },
+      {
+        "question": "Who does the Tet shopping in your family?",
+        "questionVi": "Ai trong gia đình bạn đi sắm Tết?",
+        "frame": "My ___ does it. He / She buys ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 đại từ bất định (someone, anything, nobody, everything…)",
+      "anyOf": [
+        "someone",
+        "somebody",
+        "something",
+        "anyone",
+        "anybody",
+        "anything",
+        "nobody",
+        "nothing",
+        "everyone",
+        "everybody",
+        "everything",
+        "somewhere",
+        "anywhere",
+        "everywhere"
+      ],
+      "outlineVi": [
+        "Bạn đi sắm Tết ở đâu, với ai.",
+        "Trong danh sách có những gì.",
+        "Có thứ gì bạn hay quên không (anything, nothing)."
+      ],
+      "modelAnswer": "Every year, my mother and I go to the market a week before Tet. We have a long list: fruit, candy, meat and flowers. The market is very busy, and everyone wants to buy something. We check our list again and again because we don't want to forget anything. But every year, we forget something small, like salt!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "drinks",
+      "lemma": "drink",
+      "meaningVi": "đồ uống",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "rice and some drinks",
+      "phraseVi": "gạo và ít đồ uống"
+    },
+    {
+      "text": "cart",
+      "lemma": "cart",
+      "meaningVi": "xe đẩy hàng",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "in her cart",
+      "phraseVi": "vào xe đẩy"
+    },
+    {
+      "text": "looks around",
+      "lemma": "look around",
+      "meaningVi": "nhìn quanh",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "She looks around for someone",
+      "phraseVi": "Chị nhìn quanh tìm người"
+    },
+    {
+      "text": "free",
+      "lemma": "free",
+      "meaningVi": "rảnh",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "nobody is free",
+      "phraseVi": "chẳng ai rảnh cả"
+    },
+    {
+      "text": "staff",
+      "lemma": "staff",
+      "meaningVi": "nhân viên",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "All the staff are busy.",
+      "phraseVi": "Nhân viên ai cũng bận."
+    },
+    {
+      "text": "meat area",
+      "lemma": "meat area",
+      "meaningVi": "quầy thịt",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "in the meat area",
+      "phraseVi": "ở quầy thịt"
+    },
+    {
+      "text": "worried",
+      "lemma": "worried",
+      "meaningVi": "lo lắng",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "she isn't worried",
+      "phraseVi": "chị không lo"
+    },
+    {
+      "text": "rings",
+      "lemma": "ring",
+      "meaningVi": "đổ chuông",
+      "sentenceIndex": 18,
+      "pos": "verb",
+      "phrase": "her phone rings",
+      "phraseVi": "điện thoại chị đổ chuông"
+    }
+  ]
+}

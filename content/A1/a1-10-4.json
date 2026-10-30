@@ -1,0 +1,603 @@
+{
+  "content": "Every summer, my family visits Da Lat for one week. Hanoi is very hot in June, but Da Lat is often cool. We usually go by plane, and we stay in a small hotel near the hills.\n\nIn the morning, it is usually cool and cloudy, so we always wear jackets. In the afternoon, the sun often comes out, and the sky is blue. At night, it is cold!\n\nMy dad loves the flowers in Da Lat, and he takes a lot of photos of them. My mum often buys fruit for our cake shop.\n\nMy little brother Khang doesn't like the cold mornings. He always asks, \"Why is it cold in summer?\"\n\"Because Da Lat is high in the hills,\" Dad answers.\n\nI love Da Lat because the weather is never too hot. Every evening, we drink hot milk in a small café.",
+  "targetWords": [
+    "hot",
+    "cool",
+    "cloudy",
+    "jacket",
+    "sun",
+    "sky",
+    "cold",
+    "weather"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "hot",
+        "lemma": "hot",
+        "meaningVi": "nóng",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cool",
+        "lemma": "cool",
+        "meaningVi": "mát, mát mẻ",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "cloudy",
+        "lemma": "cloudy",
+        "meaningVi": "nhiều mây",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "jackets",
+        "lemma": "jacket",
+        "meaningVi": "áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "sun",
+        "lemma": "sun",
+        "meaningVi": "mặt trời, nắng",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "sky",
+        "lemma": "sky",
+        "meaningVi": "bầu trời",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "cold",
+        "lemma": "cold",
+        "meaningVi": "lạnh",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "weather",
+        "lemma": "weather",
+        "meaningVi": "thời tiết",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh's family's cake shop in Hanoi",
+          "A hot summer in Hanoi",
+          "Linh's family trip to Da Lat every summer",
+          "Khang's new school"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mùa hè nào gia đình Linh cũng đi Đà Lạt một tuần: Linh kể thời tiết ở đó và mỗi người thường làm gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What do they always wear in the morning in Da Lat?",
+        "promptVi": "Buổi sáng ở Đà Lạt cả nhà luôn mặc gì?",
+        "options": [
+          "T-shirts",
+          "Jackets",
+          "Big hats",
+          "New shoes"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh viết \"it is usually cool and cloudy, so we always wear jackets\": trời mát nên cả nhà luôn mặc áo khoác."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Da Lat cold in summer?",
+        "promptVi": "Vì sao mùa hè mà Đà Lạt vẫn lạnh?",
+        "options": [
+          "It often rains.",
+          "It is near the sea.",
+          "The sun never comes out.",
+          "It is high in the hills."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bố trả lời Khang \"Because Da Lat is high in the hills\": Đà Lạt ở trên cao giữa đồi núi nên mát và lạnh."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh's dad takes a lot of photos of the flowers.",
+        "promptVi": "Bố Linh chụp rất nhiều ảnh hoa.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"My dad loves the flowers in Da Lat, and he takes a lot of photos of them\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cloudy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In the morning, it is usually cool and cloudy, so we always wear jackets.",
+        "options": [
+          "có gió",
+          "có nắng",
+          "nhiều mây",
+          "có mưa to"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Cloudy (từ cloud là mây) là trời nhiều mây: buổi sáng ở Đà Lạt mát và nhiều mây, đến chiều nắng mới lên."
+      }
+    ],
+    "grammarNote": {
+      "title": "Thì hiện tại đơn (khẳng định)",
+      "bodyVi": "Thì hiện tại đơn kể những việc lặp lại, ví dụ mỗi mùa hè: my family visits Da Lat. Với I, you, we, they động từ giữ nguyên: we go, we take, we drink. Với he, she, it (cả my family, my dad) thêm -s: visits, takes, buys, loves.",
+      "examples": [
+        "Every summer, my family visits Da Lat for one week.",
+        "My dad loves the flowers in Da Lat, and he takes a lot of photos of them.",
+        "My mum often buys fruit for our cake shop."
+      ]
+    },
+    "writingPrompt": "Write about a place you often visit: what the weather is like there and what your family does.",
+    "sentenceTranslations": [
+      "Mùa hè nào gia đình mình cũng đi Đà Lạt một tuần.",
+      "Tháng Sáu Hà Nội rất nóng, nhưng Đà Lạt thường mát mẻ.",
+      "Nhà mình thường đi máy bay, và ở trong một khách sạn nhỏ gần những ngọn đồi.",
+      "Buổi sáng trời thường mát và nhiều mây, nên cả nhà lúc nào cũng mặc áo khoác.",
+      "Buổi chiều nắng hay lên, và bầu trời xanh ngắt.",
+      "Ban đêm thì lạnh!",
+      "Bố mình rất thích hoa ở Đà Lạt, và bố chụp rất nhiều ảnh hoa.",
+      "Mẹ mình hay mua hoa quả cho tiệm bánh nhà mình.",
+      "Em trai mình, Khang, không thích những buổi sáng lạnh.",
+      "Em lúc nào cũng hỏi: \"Sao mùa hè mà trời lại lạnh ạ?\"",
+      "\"Vì Đà Lạt ở trên cao, giữa đồi núi,\" bố trả lời.",
+      "Mình rất thích Đà Lạt vì thời tiết không bao giờ quá nóng.",
+      "Tối nào cả nhà cũng uống sữa nóng ở một quán cà phê nhỏ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một nơi gia đình hay đến: thời tiết ở đó và mỗi người thường làm gì, dùng thì hiện tại đơn.",
+    "examples": [
+      {
+        "lemma": "hot",
+        "sentence": "Hanoi is hot in June.",
+        "meaningVi": "Tháng Sáu Hà Nội nóng."
+      },
+      {
+        "lemma": "cool",
+        "sentence": "The evening is cool.",
+        "meaningVi": "Buổi tối mát mẻ."
+      },
+      {
+        "lemma": "cloudy",
+        "sentence": "The sky is cloudy in the morning.",
+        "meaningVi": "Buổi sáng trời nhiều mây."
+      },
+      {
+        "lemma": "jacket",
+        "sentence": "I always wear a jacket in Da Lat.",
+        "meaningVi": "Ở Đà Lạt mình lúc nào cũng mặc áo khoác."
+      },
+      {
+        "lemma": "sun",
+        "sentence": "The sun is hot today.",
+        "meaningVi": "Hôm nay nắng gắt."
+      },
+      {
+        "lemma": "sky",
+        "sentence": "The sky is very blue.",
+        "meaningVi": "Bầu trời xanh ngắt."
+      },
+      {
+        "lemma": "cold",
+        "sentence": "The milk is cold.",
+        "meaningVi": "Sữa lạnh."
+      },
+      {
+        "lemma": "weather",
+        "sentence": "I love the weather in Da Lat.",
+        "meaningVi": "Mình rất thích thời tiết ở Đà Lạt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, where does your family go in summer?",
+          "meaningVi": "Linh ơi, mùa hè nhà cậu đi đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "We usually go to Da Lat. It's in the hills.",
+          "meaningVi": "Nhà mình thường đi Đà Lạt. Đà Lạt ở trên vùng đồi núi."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it hot there?",
+          "meaningVi": "Ở đó có nóng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it isn't. It's often cool, and the nights are cold.",
+          "meaningVi": "Không. Trời thường mát, và ban đêm thì lạnh."
+        },
+        {
+          "speaker": 1,
+          "text": "Cold in summer? Really?",
+          "meaningVi": "Mùa hè mà lạnh á? Thật à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! We always take our jackets.",
+          "meaningVi": "Thật! Nhà mình lúc nào cũng mang áo khoác."
+        },
+        {
+          "speaker": 1,
+          "text": "What do you do there?",
+          "meaningVi": "Ở đó cả nhà làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "We walk in the flower gardens, and my dad takes photos.",
+          "meaningVi": "Cả nhà đi dạo trong các vườn hoa, còn bố mình thì chụp ảnh."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. Do you like Da Lat?",
+          "meaningVi": "Hay đấy. Cậu có thích Đà Lạt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I love it, because it's never too hot.",
+          "meaningVi": "Có, mình rất thích, vì ở đó không bao giờ quá nóng."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi gia đình ai đó đi đâu: Where does your family go in summer? Trả lời: We usually go to Da Lat.",
+    "translations": [
+      {
+        "vi": "Đà Lạt thường mát mẻ.",
+        "en": "Da Lat is often cool.",
+        "distractors": [
+          "usually",
+          "are",
+          "cold"
+        ]
+      },
+      {
+        "vi": "Buổi sáng chúng tôi luôn mặc áo khoác.",
+        "en": "We always wear jackets in the morning.",
+        "distractors": [
+          "wears",
+          "never",
+          "at"
+        ]
+      },
+      {
+        "vi": "Buổi chiều nắng hay lên.",
+        "en": "In the afternoon, the sun often comes out.",
+        "distractors": [
+          "come",
+          "never",
+          "on"
+        ]
+      },
+      {
+        "vi": "Ban đêm trời lạnh.",
+        "en": "At night, it is cold.",
+        "distractors": [
+          "In",
+          "hot",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Linh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kỳ nghỉ hè của gia đình Linh ở Đà Lạt",
+          "Tiệm bánh của nhà Linh",
+          "Thời tiết ở Sydney"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi \"where does your family go in summer?\" và Linh kể về Đà Lạt.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ban đêm ở Đà Lạt thế nào?",
+        "promptVi": "",
+        "options": [
+          "Nóng",
+          "Lạnh",
+          "Mưa to"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"It's often cool, and the nights are cold.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở Đà Lạt, bố Linh làm gì?",
+        "promptVi": "",
+        "options": [
+          "Mua hoa quả",
+          "Uống sữa nóng",
+          "Chụp ảnh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"We walk in the flower gardens, and my dad takes photos.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh's family goes to Da Lat by car.",
+        "promptVi": "Gia đình Linh đi Đà Lạt bằng ô tô.",
+        "options": [],
+        "answerIndex": 2,
+        "explanationVi": "Không có thông tin: trong hội thoại Linh không nói cả nhà đi Đà Lạt bằng gì.",
+        "turnIndex": -1
+      }
+    ],
+    "readingGuideVi": "Ở Đà Lạt, thời tiết buổi sáng, buổi chiều và ban đêm khác nhau thế nào?",
+    "grammarStep": {
+      "titleVi": "Thì hiện tại đơn (khẳng định)",
+      "noticing": [
+        {
+          "sentence": "Every summer, my family visits Da Lat for one week.",
+          "highlights": [
+            "visits"
+          ]
+        },
+        {
+          "sentence": "We usually go by plane, and we stay in a small hotel near the hills.",
+          "highlights": [
+            "go",
+            "stay"
+          ]
+        },
+        {
+          "sentence": "My dad loves the flowers in Da Lat, and he takes a lot of photos of them.",
+          "highlights": [
+            "loves",
+            "takes"
+          ]
+        },
+        {
+          "sentence": "My mum often buys fruit for our cake shop.",
+          "highlights": [
+            "buys"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"we stay in a small hotel\" nhưng lại viết \"he takes a lot of photos\"?",
+      "options": [
+        "Vì chủ ngữ he đi với takes (thêm -s), còn we thì giữ nguyên stay",
+        "Vì takes là việc đã xảy ra",
+        "Vì hai cách viết giống nhau, dùng cách nào cũng được"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "He, she, it và một người, một nhóm (my dad, my mum, my family) đi với động từ thêm -s: takes, loves, buys, visits. We, I, you, they giữ nguyên: go, stay.",
+      "whenVi": "Dùng thì hiện tại đơn để kể những việc lặp lại, như việc gia đình làm mỗi mùa hè.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "We go by plane. We stay in a hotel.",
+          "negative": "We don't go by car."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Dad loves flowers. My family visits Da Lat.",
+          "negative": "Khang doesn't like the cold."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "My family visit Da Lat every summer.",
+          "right": "My family visits Da Lat every summer."
+        },
+        {
+          "wrong": "My dad take a lot of photos.",
+          "right": "My dad takes a lot of photos."
+        }
+      ],
+      "noteVi": "Trong tiếng Việt \"gia đình mình\" nghe như nhiều người và động từ không đổi, nhưng tiếng Anh coi my family là một (it), nên phải viết visits.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại đơn của động từ trong ngoặc.",
+          "text": "My dad ___ (take) a lot of photos.",
+          "answers": [
+            "takes"
+          ],
+          "explanationVi": "My dad là he nên thêm -s: takes."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "We usually ___ to Da Lat by plane.",
+          "options": [
+            "goes",
+            "go",
+            "going",
+            "is go"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chủ ngữ we nên động từ giữ nguyên: go."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My mum often buy fruit for our shop.",
+          "sentence": "My mum often buys fruit for our shop.",
+          "explanationVi": "My mum là she nên buy phải thêm -s: buys."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bố tôi rất thích hoa ở Đà Lạt.",
+          "sentence": "My dad loves the flowers in Da Lat.",
+          "words": [
+            "flowers",
+            "My",
+            "in",
+            "loves",
+            "the",
+            "dad",
+            "Da",
+            "Lat",
+            "love"
+          ],
+          "explanationVi": "My dad là he nên dùng loves; từ \"love\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "My mum often buys fruit for our cake shop.",
+        "tipVi": "Fruit /frut/ có cụm /fr/ ở đầu và âm /t/ ở cuối; buys /baɪz/ kết thúc bằng /z/."
+      },
+      {
+        "text": "Hanoi is very hot in June, but Da Lat is often cool.",
+        "tipVi": "Often /ˈɔfən/ thường không đọc chữ t; June /dʒun/ bắt đầu bằng âm /dʒ/ như \"chu\" bật hơi."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where do you usually go in summer?",
+        "questionVi": "Mùa hè bạn thường đi đâu?",
+        "frame": "I usually go to ___ in summer. It is often ___ there."
+      },
+      {
+        "question": "What do you wear on cold days?",
+        "questionVi": "Những ngày lạnh bạn mặc gì?",
+        "frame": "I always wear ___ on cold days."
+      },
+      {
+        "question": "What does your mum or dad like doing on a trip?",
+        "questionVi": "Bố hoặc mẹ bạn thích làm gì khi đi chơi xa?",
+        "frame": "My ___ loves ___. He / She often ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại đơn về người khác (he / she / my family + động từ thêm -s)",
+      "anyOf": [
+        "he",
+        "she",
+        "my family",
+        "my mum",
+        "my dad",
+        "my brother",
+        "my sister"
+      ],
+      "outlineVi": [
+        "Nói gia đình bạn hay đến nơi nào và vào mùa nào.",
+        "Tả thời tiết ở đó (It is often … , it never …).",
+        "Kể một người trong nhà thường làm gì ở đó (My dad takes …)."
+      ],
+      "modelAnswer": "Every winter, my family visits my grandparents in Hue. The weather is often cold and cloudy there, and it usually rains. We always wear our jackets. My grandmother cooks hot soup, and my dad takes us to the beach on sunny days. I love Hue in winter!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "visits",
+      "lemma": "visit",
+      "meaningVi": "đến thăm, đi chơi (một nơi)",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "my family visits Da Lat",
+      "phraseVi": "gia đình mình đi Đà Lạt"
+    },
+    {
+      "text": "by plane",
+      "lemma": "by plane",
+      "meaningVi": "bằng máy bay",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "We usually go by plane",
+      "phraseVi": "Nhà mình thường đi máy bay"
+    },
+    {
+      "text": "hotel",
+      "lemma": "hotel",
+      "meaningVi": "khách sạn",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a small hotel near the hills",
+      "phraseVi": "một khách sạn nhỏ gần những ngọn đồi"
+    },
+    {
+      "text": "hills",
+      "lemma": "hill",
+      "meaningVi": "đồi",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "near the hills",
+      "phraseVi": "gần những ngọn đồi"
+    },
+    {
+      "text": "comes out",
+      "lemma": "come out",
+      "meaningVi": "ló ra, xuất hiện (mặt trời)",
+      "sentenceIndex": 4,
+      "pos": "phrasal verb",
+      "phrase": "the sun often comes out",
+      "phraseVi": "nắng hay lên"
+    },
+    {
+      "text": "photos",
+      "lemma": "photo",
+      "meaningVi": "ảnh",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "he takes a lot of photos",
+      "phraseVi": "bố chụp rất nhiều ảnh"
+    },
+    {
+      "text": "buys",
+      "lemma": "buy",
+      "meaningVi": "mua",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "My mum often buys fruit",
+      "phraseVi": "Mẹ mình hay mua hoa quả"
+    },
+    {
+      "text": "high",
+      "lemma": "high",
+      "meaningVi": "cao, ở trên cao",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "Da Lat is high in the hills",
+      "phraseVi": "Đà Lạt ở trên cao, giữa đồi núi"
+    },
+    {
+      "text": "never too hot",
+      "lemma": "too",
+      "meaningVi": "không bao giờ quá nóng",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "the weather is never too hot",
+      "phraseVi": "thời tiết không bao giờ quá nóng"
+    },
+    {
+      "text": "café",
+      "lemma": "café",
+      "meaningVi": "quán cà phê",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "in a small café",
+      "phraseVi": "ở một quán cà phê nhỏ"
+    }
+  ]
+}

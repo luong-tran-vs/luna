@@ -1,0 +1,601 @@
+{
+  "content": "In a history class at a university in Hanoi, a student called Duc is giving a presentation on the Dien Bien Phu campaign of 1954. He shows a photo of a long line of bicycles on a mountain road.\n\n\"In 1953, the French army built a large base in the valley of Dien Bien Phu, near the border with Laos. Their generals believed the Vietnamese could never bring big guns into the mountains around it. They were wrong. Seldom had any army moved heavy guns across such steep mountain passes. Soldiers pulled the guns up the slopes with ropes, step by step, often at night.\"\nA classmate, Ha, raises her hand. \"How did they get enough food?\"\n\"That's the most surprising part. Thousands of ordinary people carried rice and supplies on bicycles. Each bicycle could carry more than two hundred kilos. Never before had bicycles been used like this in a war.\"\n\"How long did the battle last?\"\n\"Fifty-six days. It began on 13 March and ended on 7 May 1954, when the French commander and his soldiers gave up.\"\nThe teacher, Ms Lan, asks, \"And what did the victory change?\"\n\"A lot. Only after this defeat did France agree to leave Indochina. The Geneva Agreement was signed a few months later. Rarely has one battle changed the history of a whole region so quickly.\"\n\"Excellent. And what did you learn from your research?\"\n\"Not until I read the soldiers' letters did I understand how hard it was. They had little food and slept in tunnels, but they didn't give up.\"\n\"Thank you, Duc. Does anyone have more questions?\"\nHa says, \"Yes. Did you visit Dien Bien Phu yourself?\"\n\"Last summer, with my father. We walked up Hill A1 in the heat. Never have I climbed so many steps in one day!\"\nEveryone laughs, and Ms Lan writes a good mark in her notebook.",
+  "targetWords": [
+    "presentation",
+    "campaign",
+    "border",
+    "general",
+    "supply",
+    "victory",
+    "defeat",
+    "region",
+    "research",
+    "tunnel"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "presentation",
+        "lemma": "presentation",
+        "meaningVi": "bài thuyết trình",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "campaign",
+        "lemma": "campaign",
+        "meaningVi": "chiến dịch",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "border",
+        "lemma": "border",
+        "meaningVi": "biên giới",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "generals",
+        "lemma": "general",
+        "meaningVi": "tướng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "supplies",
+        "lemma": "supply",
+        "meaningVi": "hàng tiếp tế",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "victory",
+        "lemma": "victory",
+        "meaningVi": "chiến thắng",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "defeat",
+        "lemma": "defeat",
+        "meaningVi": "thất bại",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "region",
+        "lemma": "region",
+        "meaningVi": "khu vực",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "research",
+        "lemma": "research",
+        "meaningVi": "việc nghiên cứu",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "tunnels",
+        "lemma": "tunnel",
+        "meaningVi": "đường hầm",
+        "pos": "noun",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Duc's presentation about?",
+        "promptVi": "Bài thuyết trình của Đức nói về điều gì?",
+        "options": [
+          "The Dien Bien Phu campaign",
+          "Riding a bicycle in the mountains",
+          "A trip to Laos",
+          "How to write a history essay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức thuyết trình về chiến dịch Điện Biên Phủ năm 1954."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How did people carry rice and supplies?",
+        "promptVi": "Người dân chở gạo và hàng tiếp tế bằng gì?",
+        "options": [
+          "By truck",
+          "On bicycles",
+          "By train",
+          "On boats"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"Thousands of ordinary people carried rice and supplies on bicycles.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long did the battle last?",
+        "promptVi": "Trận đánh kéo dài bao lâu?",
+        "options": [
+          "Six days",
+          "Fifty-six days",
+          "Six months",
+          "A year"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức trả lời \"Fifty-six days.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The French generals expected the Vietnamese to bring big guns into the mountains.",
+        "promptVi": "Các tướng Pháp đã đoán trước quân Việt Nam sẽ đưa pháo lớn lên núi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì họ tin rằng \"the Vietnamese could never bring big guns into the mountains.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"supplies\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Thousands of ordinary people carried rice and supplies on bicycles.\"",
+        "options": [
+          "hàng tiếp tế",
+          "vũ khí",
+          "quần áo",
+          "thư từ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Supplies = lương thực, đồ dùng cần thiết được chở đến cho quân đội."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đảo ngữ với phủ định",
+      "bodyVi": "Đảo ngữ sau các trạng từ phủ định hoặc hạn chế giúp bài nói, bài viết trang trọng và nhấn mạnh hơn. Seldom / Rarely / Never before + trợ động từ + chủ ngữ: Seldom had any army moved heavy guns across such steep mountain passes. Câu bị động cũng đảo được: Never before had bicycles been used like this in a war. Với Only after … và Not until …, đảo ngữ nằm ở mệnh đề chính: Only after this defeat did France agree to leave Indochina.",
+      "examples": [
+        "Seldom had any army moved heavy guns across such steep mountain passes.",
+        "Only after this defeat did France agree to leave Indochina.",
+        "Rarely has one battle changed the history of a whole region so quickly.\""
+      ]
+    },
+    "writingPrompt": "Write a short paragraph for a presentation about an important event in history. Use at least two sentences with inversion.",
+    "sentenceTranslations": [
+      "Trong một lớp lịch sử ở một trường đại học tại Hà Nội, một sinh viên tên Đức đang thuyết trình về chiến dịch Điện Biên Phủ năm 1954.",
+      "Cậu chiếu bức ảnh một hàng dài xe đạp trên đường núi.",
+      "\"Năm 1953, quân Pháp xây một căn cứ lớn ở thung lũng Điện Biên Phủ, gần biên giới với Lào.",
+      "Các tướng của họ tin rằng quân Việt Nam không bao giờ đưa được pháo lớn lên những ngọn núi quanh đó.",
+      "Họ đã nhầm.",
+      "Hiếm có đội quân nào từng đưa pháo nặng qua những con đèo dốc như vậy.",
+      "Bộ đội kéo pháo lên dốc bằng dây thừng, từng bước một, thường là vào ban đêm.\"",
+      "Một bạn cùng lớp, Hà, giơ tay.",
+      "\"Làm sao họ có đủ lương thực?\"",
+      "\"Đó là phần bất ngờ nhất.",
+      "Hàng nghìn người dân bình thường chở gạo và hàng tiếp tế bằng xe đạp.",
+      "Mỗi chiếc xe đạp có thể chở hơn hai trăm cân.",
+      "Chưa bao giờ xe đạp được dùng như thế trong chiến tranh.\"",
+      "\"Trận đánh kéo dài bao lâu?\"",
+      "\"Năm mươi sáu ngày.",
+      "Nó bắt đầu ngày 13 tháng Ba và kết thúc ngày 7 tháng Năm năm 1954, khi viên chỉ huy Pháp cùng binh lính đầu hàng.\"",
+      "Cô giáo, cô Lan, hỏi: \"Chiến thắng này đã thay đổi điều gì?\"",
+      "\"Rất nhiều.",
+      "Chỉ sau thất bại này Pháp mới đồng ý rút khỏi Đông Dương.",
+      "Hiệp định Genève được ký vài tháng sau đó.",
+      "Hiếm có trận đánh nào thay đổi lịch sử cả một khu vực nhanh đến thế.\"",
+      "\"Rất tốt.",
+      "Em học được gì từ việc tìm hiểu này?\"",
+      "\"Phải đến khi đọc những lá thư của bộ đội em mới hiểu nó gian khổ đến mức nào.",
+      "Họ thiếu ăn và ngủ trong hầm, nhưng họ không bỏ cuộc.\"",
+      "\"Cảm ơn Đức.",
+      "Còn ai có câu hỏi nữa không?\"",
+      "Hà nói: \"Có ạ.",
+      "Cậu đã tự mình đến Điện Biên Phủ chưa?\"",
+      "\"Hè năm ngoái, đi cùng bố mình.",
+      "Bọn mình leo đồi A1 giữa trời nóng.",
+      "Chưa bao giờ mình leo nhiều bậc thang như vậy trong một ngày!\"",
+      "Cả lớp cười, và cô Lan ghi một điểm tốt vào sổ."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trình bày về một sự kiện lịch sử và nhấn mạnh những điều đặc biệt bằng đảo ngữ (Seldom had …, Never before had …, Only after … did …).",
+    "examples": [
+      {
+        "lemma": "presentation",
+        "sentence": "I have to give a presentation tomorrow.",
+        "meaningVi": "Ngày mai tôi phải thuyết trình."
+      },
+      {
+        "lemma": "campaign",
+        "sentence": "The campaign lasted almost two months.",
+        "meaningVi": "Chiến dịch kéo dài gần hai tháng."
+      },
+      {
+        "lemma": "border",
+        "sentence": "The village is close to the border.",
+        "meaningVi": "Ngôi làng nằm gần biên giới."
+      },
+      {
+        "lemma": "general",
+        "sentence": "The general planned the attack carefully.",
+        "meaningVi": "Vị tướng lên kế hoạch tấn công cẩn thận."
+      },
+      {
+        "lemma": "supply",
+        "sentence": "The army needed a steady supply of food.",
+        "meaningVi": "Quân đội cần nguồn lương thực ổn định."
+      },
+      {
+        "lemma": "victory",
+        "sentence": "The victory made everyone proud.",
+        "meaningVi": "Chiến thắng khiến ai cũng tự hào."
+      },
+      {
+        "lemma": "defeat",
+        "sentence": "The team accepted its defeat calmly.",
+        "meaningVi": "Đội bóng bình thản chấp nhận thất bại."
+      },
+      {
+        "lemma": "region",
+        "sentence": "This region is famous for its tea.",
+        "meaningVi": "Vùng này nổi tiếng về chè."
+      },
+      {
+        "lemma": "research",
+        "sentence": "She is doing research on old letters.",
+        "meaningVi": "Cô ấy đang nghiên cứu những lá thư cũ."
+      },
+      {
+        "lemma": "tunnel",
+        "sentence": "The train went into a long tunnel.",
+        "meaningVi": "Đoàn tàu đi vào một đường hầm dài."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ha",
+        "Duc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Great presentation, Duc! How long did you spend on it?",
+          "meaningVi": "Bài thuyết trình hay lắm, Đức! Cậu chuẩn bị mất bao lâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "About two weeks. Never have I read so many old letters.",
+          "meaningVi": "Khoảng hai tuần. Chưa bao giờ mình đọc nhiều thư cũ như vậy."
+        },
+        {
+          "speaker": 0,
+          "text": "Which part surprised you most?",
+          "meaningVi": "Phần nào làm cậu bất ngờ nhất?"
+        },
+        {
+          "speaker": 1,
+          "text": "The bicycles. Rarely do we think about the people who carried the food.",
+          "meaningVi": "Những chiếc xe đạp. Hiếm khi mình nghĩ đến những người chở lương thực."
+        },
+        {
+          "speaker": 0,
+          "text": "That's true. Did your father enjoy the trip to Dien Bien?",
+          "meaningVi": "Đúng thật. Bố cậu có thích chuyến đi Điện Biên không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Very much. His grandfather had fought there.",
+          "meaningVi": "Thích lắm. Ông nội của bố mình từng chiến đấu ở đó."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? Did he tell you any stories?",
+          "meaningVi": "Thật à? Bố cậu có kể chuyện gì không?"
+        },
+        {
+          "speaker": 1,
+          "text": "A few. Not until I saw the hills did I believe them.",
+          "meaningVi": "Vài chuyện. Phải đến khi thấy những ngọn đồi mình mới tin."
+        },
+        {
+          "speaker": 0,
+          "text": "Could you show me your photos some time?",
+          "meaningVi": "Hôm nào cậu cho mình xem ảnh được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. I'll bring them to class on Friday.",
+          "meaningVi": "Được chứ. Thứ Sáu mình mang đến lớp."
+        }
+      ]
+    },
+    "grammarTipVi": "Đảo ngữ để nhấn mạnh: Never have I read so many old letters. / Rarely do we think about … / Not until I saw the hills did I believe them. Hiện tại đơn mượn do, quá khứ đơn mượn did.",
+    "translations": [
+      {
+        "vi": "Chỉ sau thất bại này Pháp mới đồng ý rời đi.",
+        "en": "Only after this defeat did France agree to leave.",
+        "distractors": [
+          "agreed",
+          "had",
+          "stay"
+        ]
+      },
+      {
+        "vi": "Hiếm có trận đánh nào thay đổi cả khu vực nhanh như vậy.",
+        "en": "Rarely has one battle changed a whole region so quickly.",
+        "distractors": [
+          "have",
+          "city",
+          "slowly"
+        ]
+      },
+      {
+        "vi": "Người dân bình thường chở hàng tiếp tế bằng xe đạp.",
+        "en": "Ordinary people carried supplies on bicycles.",
+        "distractors": [
+          "carry",
+          "cars",
+          "food"
+        ]
+      },
+      {
+        "vi": "Chiến dịch kéo dài năm mươi sáu ngày.",
+        "en": "The campaign lasted fifty-six days.",
+        "distractors": [
+          "lasts",
+          "weeks",
+          "months"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hà và Đức nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bài thuyết trình của Đức",
+          "Kỳ thi cuối kỳ",
+          "Một chuyến đi biển"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hà khen \"Great presentation, Duc!\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đức chuẩn bị bài trong bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Khoảng hai tuần",
+          "Hai ngày",
+          "Hai tháng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức nói \"About two weeks.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai từng chiến đấu ở Điện Biên?",
+        "promptVi": "",
+        "options": [
+          "Ông nội của bố Đức",
+          "Bố của Đức",
+          "Chú của Đức"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức nói \"His grandfather had fought there.\" (his = bố Đức)",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duc will bring his photos to class on Monday.",
+        "promptVi": "Đức sẽ mang ảnh đến lớp vào thứ Hai.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"I'll bring them to class on Friday.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Điều gì đặc biệt ở cách quân và dân Việt Nam chuẩn bị cho chiến dịch Điện Biên Phủ? Chiến thắng này đã thay đổi điều gì?",
+    "grammarStep": {
+      "titleVi": "Đảo ngữ với phủ định",
+      "noticing": [
+        {
+          "sentence": "Seldom had any army moved heavy guns across such steep mountain passes.",
+          "highlights": [
+            "Seldom had any army moved"
+          ]
+        },
+        {
+          "sentence": "Never before had bicycles been used like this in a war.\"",
+          "highlights": [
+            "Never before had bicycles been used"
+          ]
+        },
+        {
+          "sentence": "Only after this defeat did France agree to leave Indochina.",
+          "highlights": [
+            "Only after this defeat",
+            "did France agree"
+          ]
+        },
+        {
+          "sentence": "Rarely has one battle changed the history of a whole region so quickly.\"",
+          "highlights": [
+            "Rarely has one battle changed"
+          ]
+        }
+      ],
+      "questionVi": "Chọn câu đúng cho ý: \"Chỉ sau thất bại này Pháp mới đồng ý rời đi.\"",
+      "options": [
+        "Only after this defeat did France agree to leave.",
+        "Only after this defeat France agreed to leave.",
+        "Only after this defeat France did agree to leave."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Only after + danh từ đứng đầu câu thì mệnh đề chính đảo ngữ: did + France + agree.",
+      "whenVi": "Dùng trong bài thuyết trình, bài viết, bản tin để nhấn mạnh một điều hiếm có hoặc chỉ xảy ra sau một mốc.",
+      "table": [
+        {
+          "subject": "Seldom / Rarely / Never before",
+          "form": "+ had / has / did + chủ ngữ + V: Seldom had any army moved …",
+          "negative": "Bị động: Never before had bicycles been used …"
+        },
+        {
+          "subject": "Only after …",
+          "form": "Only after this defeat did France agree …",
+          "negative": "Đảo ngữ ở mệnh đề chính."
+        },
+        {
+          "subject": "Not until …",
+          "form": "Not until I read the letters did I understand …",
+          "negative": "Không viết: Not until I read the letters I understood."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Only after this defeat France agreed to leave.",
+          "right": "Only after this defeat did France agree to leave."
+        },
+        {
+          "wrong": "Rarely one battle has changed history so quickly.",
+          "right": "Rarely has one battle changed history so quickly."
+        }
+      ],
+      "noteVi": "Nếu trạng từ phủ định không đứng đầu câu thì không đảo: Bicycles had never been used like this before.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một trợ động từ.",
+          "text": "Never before ___ bicycles been used like this in a war.",
+          "answers": [
+            "had"
+          ],
+          "explanationVi": "Bị động quá khứ hoàn thành đảo ngữ: had + bicycles + been used."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Only after the battle ___ the French agree to leave.",
+          "options": [
+            "did",
+            "had",
+            "do",
+            "were"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Quá khứ đơn đảo ngữ mượn did; sau did là động từ nguyên mẫu (agree)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Not until I read the letters I understood how hard it was.",
+          "sentence": "Not until I read the letters did I understand how hard it was.",
+          "explanationVi": "Sau Not until …, mệnh đề chính phải đảo ngữ: did I understand."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hiếm có đội quân nào kéo pháo qua những con đèo dốc như vậy.",
+          "sentence": "Seldom had an army pulled guns across such steep passes.",
+          "words": [
+            "Seldom",
+            "had",
+            "an",
+            "army",
+            "pulled",
+            "guns",
+            "across",
+            "such",
+            "steep",
+            "passes.",
+            "have"
+          ],
+          "explanationVi": "Seldom + had + chủ ngữ + V3; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Seldom had any army moved heavy guns across such steep mountain passes.",
+        "tipVi": "Nhấn vào Seldom và steep; passes /ˈpɑːsɪz/."
+      },
+      {
+        "text": "Only after this defeat did France agree to leave Indochina.",
+        "tipVi": "Ngắt hơi sau defeat; agree /əˈɡriː/ nhấn âm sau."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which event in history do you find most surprising? Why?",
+        "questionVi": "Sự kiện lịch sử nào khiến bạn bất ngờ nhất? Vì sao?",
+        "frame": "Never had I imagined that ___."
+      },
+      {
+        "question": "Have you ever given a presentation? How did you prepare?",
+        "questionVi": "Bạn đã từng thuyết trình chưa? Bạn chuẩn bị thế nào?",
+        "frame": "I prepared by ___."
+      },
+      {
+        "question": "Why should young people learn about wars in the past?",
+        "questionVi": "Vì sao người trẻ nên tìm hiểu về các cuộc chiến trong quá khứ?",
+        "frame": "Only by learning about the past can we ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never before had …, Rarely has …, Only after … did …)",
+      "anyOf": [
+        "Never before",
+        "Never have",
+        "Never had",
+        "Rarely",
+        "Seldom",
+        "Only after",
+        "Not until"
+      ],
+      "outlineVi": [
+        "Sự kiện là gì, xảy ra khi nào, ở đâu.",
+        "Điều gì đặc biệt hoặc hiếm có (Never before had …).",
+        "Sự kiện đã thay đổi điều gì (Only after … did …)."
+      ],
+      "modelAnswer": "In 1945, President Ho Chi Minh read the Declaration of Independence in Ba Dinh Square. Never before had so many people gathered in Hanoi. Rarely has one speech meant so much to a nation. Only after many more years of war did the country become fully united. Not until I visited the square did I feel how important that day was."
+    }
+  },
+  "glosses": [
+    {
+      "text": "valley",
+      "lemma": "valley",
+      "meaningVi": "thung lũng",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "the valley of Dien Bien Phu",
+      "phraseVi": "thung lũng Điện Biên Phủ"
+    },
+    {
+      "text": "steep",
+      "lemma": "steep",
+      "meaningVi": "dốc",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "such steep mountain passes",
+      "phraseVi": "những con đèo dốc như vậy"
+    },
+    {
+      "text": "ropes",
+      "lemma": "rope",
+      "meaningVi": "dây thừng",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "with ropes",
+      "phraseVi": "bằng dây thừng"
+    },
+    {
+      "text": "gave up",
+      "lemma": "give up",
+      "meaningVi": "đầu hàng, bỏ cuộc",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "his soldiers gave up",
+      "phraseVi": "binh lính đầu hàng"
+    }
+  ]
+}

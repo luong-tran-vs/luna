@@ -1,0 +1,600 @@
+{
+  "content": "Last Saturday, Lan visited her old friend Hoa in Hanoi. They looked at some old photos and laughed a lot. The photos were from their first day at university, ten years ago.\n\nLan asked, \"Do you remember that morning?\" \"I was so nervous!\"\n\"Me too,\" Hoa answered. \"My hands were cold, and I wasn't hungry at breakfast.\"\n\nTheir first class was in a big, old room. There were sixty students, but the classroom was very quiet. The students were shy, so they just waited and listened. The teacher was a tall man with glasses, and he smiled at everyone.\n\nHoa was Lan's new classmate, and she sat next to her. After the class, they walked to a small café together. They talked about their families and their hometowns. Lan was from Hue, and Hoa was from Hai Phong.\n\n\"We started a great friendship that day,\" Lan said. Now they live in different cities, but they are still best friends.",
+  "targetWords": [
+    "friend",
+    "visit",
+    "nervous",
+    "quiet",
+    "smile",
+    "classmate",
+    "talk",
+    "best friend"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "visited",
+        "lemma": "visit",
+        "meaningVi": "đến thăm",
+        "pos": "verb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "friend",
+        "lemma": "friend",
+        "meaningVi": "người bạn",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "nervous",
+        "lemma": "nervous",
+        "meaningVi": "hồi hộp, lo lắng",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "quiet",
+        "lemma": "quiet",
+        "meaningVi": "yên tĩnh, im lặng",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "smiled",
+        "lemma": "smile",
+        "meaningVi": "mỉm cười",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "classmate",
+        "lemma": "classmate",
+        "meaningVi": "bạn cùng lớp",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "talked",
+        "lemma": "talk",
+        "meaningVi": "nói chuyện",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "best friends",
+        "lemma": "best friend",
+        "meaningVi": "bạn thân nhất",
+        "pos": "noun",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan's new job in Hanoi",
+          "Two friends remember their first day at university.",
+          "A trip to Hai Phong",
+          "A tall teacher with glasses"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan và Hoa xem ảnh cũ và nhớ lại ngày đầu tiên ở đại học mười năm trước, ngày hai người trở thành bạn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many students were in their first class?",
+        "promptVi": "Lớp học đầu tiên của họ có bao nhiêu sinh viên?",
+        "options": [
+          "Ten",
+          "Sixteen",
+          "Six",
+          "Sixty"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết \"There were sixty students\": có sáu mươi sinh viên."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why was the classroom so quiet?",
+        "promptVi": "Vì sao lớp học yên tĩnh như vậy?",
+        "options": [
+          "The students were shy.",
+          "The teacher was angry.",
+          "There were only ten students.",
+          "It was very early."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"The students were shy, so they just waited and listened\": sinh viên còn ngại nên chỉ ngồi chờ và lắng nghe."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa was very hungry at breakfast that morning.",
+        "promptVi": "Sáng hôm đó Hoa rất đói lúc ăn sáng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"I wasn't hungry at breakfast\": Hoa hồi hộp nên không thấy đói."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"nervous\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I was so nervous!",
+        "options": [
+          "buồn ngủ",
+          "vui vẻ",
+          "hồi hộp, lo lắng",
+          "tức giận"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nervous là hồi hộp, lo lắng: ngày đầu ở đại học Lan hồi hộp đến mức tay lạnh, không muốn ăn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Was / were",
+      "bodyVi": "Was và were là dạng quá khứ của am / is / are. I, he, she, it (và một người, một vật) đi với was: I was so nervous, the classroom was very quiet. You, we, they (và số nhiều) đi với were: my hands were cold. Phủ định: wasn't, weren't. Câu hỏi: Were you nervous?",
+      "examples": [
+        "There were sixty students, but the classroom was very quiet.",
+        "The students were shy, so they just waited and listened.",
+        "Lan was from Hue, and Hoa was from Hai Phong."
+      ]
+    },
+    "writingPrompt": "Write about your first day at a new school or a new class: how you felt and who you met.",
+    "sentenceTranslations": [
+      "Thứ Bảy vừa rồi, Lan đến thăm người bạn cũ Hoa ở Hà Nội.",
+      "Hai người xem mấy tấm ảnh cũ và cười rất nhiều.",
+      "Những tấm ảnh chụp ngày đầu tiên của họ ở trường đại học, mười năm trước.",
+      "Lan hỏi: \"Cậu còn nhớ buổi sáng hôm đó không?\"",
+      "\"Hôm đó mình hồi hộp quá!\"",
+      "\"Mình cũng vậy,\" Hoa đáp.",
+      "\"Tay mình lạnh ngắt, và lúc ăn sáng mình chẳng thấy đói chút nào.\"",
+      "Buổi học đầu tiên diễn ra trong một căn phòng lớn và cũ.",
+      "Có sáu mươi sinh viên, nhưng lớp học rất yên tĩnh.",
+      "Sinh viên còn ngại, nên họ chỉ ngồi chờ và lắng nghe.",
+      "Thầy giáo là một người đàn ông cao, đeo kính, và thầy mỉm cười với mọi người.",
+      "Hoa là bạn cùng lớp mới của Lan, và Hoa ngồi cạnh Lan.",
+      "Tan học, hai người cùng đi bộ đến một quán cà phê nhỏ.",
+      "Họ nói chuyện về gia đình và quê hương của mình.",
+      "Lan quê ở Huế, còn Hoa quê ở Hải Phòng.",
+      "\"Tình bạn tuyệt vời của chúng mình bắt đầu từ hôm đó,\" Lan nói.",
+      "Bây giờ họ sống ở hai thành phố khác nhau, nhưng vẫn là bạn thân nhất của nhau."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về ngày đầu tiên ở một trường hay lớp mới và lần đầu gặp một người bạn, dùng was / were và động từ quá khứ có quy tắc.",
+    "examples": [
+      {
+        "lemma": "friend",
+        "sentence": "My friend lives in Hue.",
+        "meaningVi": "Bạn mình sống ở Huế."
+      },
+      {
+        "lemma": "visit",
+        "sentence": "I visit my grandmother every Sunday.",
+        "meaningVi": "Chủ nhật nào mình cũng đến thăm bà."
+      },
+      {
+        "lemma": "nervous",
+        "sentence": "I was nervous before the test.",
+        "meaningVi": "Trước bài kiểm tra mình rất hồi hộp."
+      },
+      {
+        "lemma": "quiet",
+        "sentence": "The library is always quiet.",
+        "meaningVi": "Thư viện lúc nào cũng yên tĩnh."
+      },
+      {
+        "lemma": "smile",
+        "sentence": "She has a lovely smile.",
+        "meaningVi": "Cô ấy có nụ cười rất đáng yêu."
+      },
+      {
+        "lemma": "classmate",
+        "sentence": "My classmate helped me with my homework.",
+        "meaningVi": "Bạn cùng lớp đã giúp mình làm bài tập về nhà."
+      },
+      {
+        "lemma": "talk",
+        "sentence": "We talk on the phone every evening.",
+        "meaningVi": "Tối nào bọn mình cũng nói chuyện điện thoại."
+      },
+      {
+        "lemma": "best friend",
+        "sentence": "Hoa is my best friend.",
+        "meaningVi": "Hoa là bạn thân nhất của mình."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Jack"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hoa, who is the woman in this photo?",
+          "meaningVi": "Hoa ơi, người phụ nữ trong ảnh này là ai thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "That's Lan, my best friend. We were classmates at university.",
+          "meaningVi": "Đó là Lan, bạn thân nhất của mình. Bọn mình học cùng lớp ở đại học."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Was it a long time ago?",
+          "meaningVi": "Thật à? Lâu lắm rồi à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it was ten years ago. We were eighteen.",
+          "meaningVi": "Ừ, mười năm trước rồi. Hồi đó bọn mình mười tám tuổi."
+        },
+        {
+          "speaker": 1,
+          "text": "Were you friends from the first day?",
+          "meaningVi": "Hai người thân nhau ngay từ ngày đầu à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! I sat next to her in our first class, and she smiled at me.",
+          "meaningVi": "Đúng vậy! Buổi học đầu tiên mình ngồi cạnh cô ấy, và cô ấy mỉm cười với mình."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. Were you nervous that day?",
+          "meaningVi": "Hay quá. Hôm đó cậu có hồi hộp không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Very nervous! And the room was so quiet.",
+          "meaningVi": "Hồi hộp lắm! Mà căn phòng lại im lặng nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "I was nervous on my first day too. My hands were cold!",
+          "meaningVi": "Ngày đầu tiên mình cũng hồi hộp lắm. Tay mình lạnh ngắt!"
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! Me too!",
+          "meaningVi": "Ha! Mình cũng thế!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về quá khứ với be: Were you nervous that day? Was it a long time ago? Trả lời: Yes, I was. / Yes, it was ten years ago.",
+    "translations": [
+      {
+        "vi": "Hôm qua tôi đến thăm một người bạn cũ.",
+        "en": "Yesterday I visited an old friend.",
+        "distractors": [
+          "visit",
+          "new",
+          "was"
+        ]
+      },
+      {
+        "vi": "Lớp học rất yên tĩnh.",
+        "en": "The classroom was very quiet.",
+        "distractors": [
+          "is",
+          "were",
+          "noisy"
+        ]
+      },
+      {
+        "vi": "Chúng tôi rất hồi hộp.",
+        "en": "We were very nervous.",
+        "distractors": [
+          "was",
+          "are",
+          "happy"
+        ]
+      },
+      {
+        "vi": "Cô ấy mỉm cười với tôi.",
+        "en": "She smiled at me.",
+        "distractors": [
+          "smile",
+          "to",
+          "her"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Jack và Hoa nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi Hà Nội",
+          "Lan và lần đầu Hoa gặp Lan",
+          "Công việc mới của Jack"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Jack hỏi người trong ảnh là ai, và Hoa kể về Lan, bạn cùng lớp đại học từ mười năm trước.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa và Lan học cùng lớp từ bao nhiêu năm trước?",
+        "promptVi": "",
+        "options": [
+          "Năm năm",
+          "Mười năm",
+          "Mười tám năm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"Yes, it was ten years ago.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trong buổi học đầu tiên, Hoa ngồi ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Cạnh Lan",
+          "Sau thầy giáo",
+          "Gần cửa sổ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"I sat next to her in our first class.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Jack wasn't nervous on his first day.",
+        "promptVi": "Ngày đầu tiên Jack không hồi hộp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Jack nói \"I was nervous on my first day too.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Ngày đầu tiên ở đại học, Lan và Hoa cảm thấy thế nào, và lớp học ra sao?",
+    "grammarStep": {
+      "titleVi": "Was / were",
+      "noticing": [
+        {
+          "sentence": "\"I was so nervous!\"",
+          "highlights": [
+            "was"
+          ]
+        },
+        {
+          "sentence": "\"My hands were cold, and I wasn't hungry at breakfast.\"",
+          "highlights": [
+            "were",
+            "wasn't"
+          ]
+        },
+        {
+          "sentence": "There were sixty students, but the classroom was very quiet.",
+          "highlights": [
+            "were",
+            "was"
+          ]
+        },
+        {
+          "sentence": "Lan was from Hue, and Hoa was from Hai Phong.",
+          "highlights": [
+            "was"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao có chỗ dùng was, có chỗ dùng were?",
+      "options": [
+        "I, he, she, it (một người, một vật) đi với was; you, we, they (số nhiều) đi với were",
+        "Was dùng cho câu hỏi, were dùng cho câu kể",
+        "Was dùng cho con trai, were dùng cho con gái"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "I, the classroom, Lan, Hoa là một người hay một vật nên dùng was; my hands, sixty students là số nhiều nên dùng were. Phủ định thêm n't: wasn't, weren't.",
+      "whenVi": "Dùng was / were để nói ai, cái gì ở đâu hoặc như thế nào trong quá khứ.",
+      "table": [
+        {
+          "subject": "I / he / she / it",
+          "form": "I was nervous. The room was quiet.",
+          "negative": "I wasn't hungry."
+        },
+        {
+          "subject": "you / we / they",
+          "form": "The students were shy.",
+          "negative": "We weren't late."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Were you nervous? – Yes, I was.",
+          "negative": "No, I wasn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I were very nervous.",
+          "right": "I was very nervous."
+        },
+        {
+          "wrong": "The students was shy.",
+          "right": "The students were shy."
+        }
+      ],
+      "noteVi": "Tiếng Việt không đổi từ theo thời gian và hay bỏ \"là\" trước tính từ (\"tôi hồi hộp\"), nên người Việt hay quên was / were hoặc dùng was cho cả số nhiều.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền was hoặc were vào chỗ trống.",
+          "text": "Our first class ___ in a big, old room.",
+          "answers": [
+            "was"
+          ],
+          "explanationVi": "Our first class là một vật (it), nên dùng was."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "The students ___ shy on the first day.",
+          "options": [
+            "was",
+            "were",
+            "is",
+            "be"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "The students là số nhiều (they) và chuyện đã qua, nên dùng were."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My hands was cold.",
+          "sentence": "My hands were cold.",
+          "explanationVi": "My hands là số nhiều nên dùng were."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thầy giáo là một người đàn ông cao.",
+          "sentence": "The teacher was a tall man.",
+          "words": [
+            "tall",
+            "The",
+            "man",
+            "was",
+            "teacher",
+            "a",
+            "were"
+          ],
+          "explanationVi": "The teacher là một người (he) nên dùng was; từ \"were\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The photos were from their first day at university, ten years ago.",
+        "tipVi": "University /ˌjunəˈvɝsəti/ nhấn ở âm thứ ba \"VƠ\"; photos /ˈfoʊtoʊz/ kết thúc bằng /z/."
+      },
+      {
+        "text": "There were sixty students, but the classroom was very quiet.",
+        "tipVi": "Students /ˈstudənts/ có cụm /nts/ ở cuối; quiet /ˈkwaɪət/ có hai âm tiết \"quai-ợt\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Were you nervous on your first day at a new school?",
+        "questionVi": "Ngày đầu đến trường mới bạn có hồi hộp không?",
+        "frame": "Yes, I was. / No, I wasn't. I was ___."
+      },
+      {
+        "question": "What was your first classroom like?",
+        "questionVi": "Lớp học đầu tiên của bạn trông thế nào?",
+        "frame": "It was ___, and there were ___ students."
+      },
+      {
+        "question": "Who was your first best friend at school?",
+        "questionVi": "Người bạn thân đầu tiên của bạn ở trường là ai?",
+        "frame": "His / Her name was ___. He / She was ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng was / were nói về người khác",
+      "anyOf": [
+        "was",
+        "were",
+        "wasn't",
+        "weren't",
+        "he was",
+        "she was"
+      ],
+      "outlineVi": [
+        "Nói ngày đầu tiên đó là khi nào và bạn cảm thấy thế nào (I was …).",
+        "Tả lớp học hoặc trường lúc đó (It was …, there were …).",
+        "Kể người bạn bạn gặp hôm đó và hai bạn đã làm gì (She was …, we talked …)."
+      ],
+      "modelAnswer": "My first day at high school was five years ago. I was very nervous, and my hands were cold. The classroom was big and quiet. A girl with long hair smiled at me. Her name was Mai, and she was very kind. We talked about our favourite songs. After school, we walked home together. Now she is my best friend!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "laughed",
+      "lemma": "laugh",
+      "meaningVi": "cười",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "looked at some old photos and laughed a lot",
+      "phraseVi": "xem ảnh cũ và cười rất nhiều"
+    },
+    {
+      "text": "ten years ago",
+      "lemma": "ago",
+      "meaningVi": "mười năm trước",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "their first day at university, ten years ago",
+      "phraseVi": "ngày đầu tiên ở đại học, mười năm trước"
+    },
+    {
+      "text": "remember",
+      "lemma": "remember",
+      "meaningVi": "nhớ",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "Do you remember that morning",
+      "phraseVi": "Cậu còn nhớ buổi sáng hôm đó không"
+    },
+    {
+      "text": "shy",
+      "lemma": "shy",
+      "meaningVi": "ngại, nhút nhát",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "The students were shy",
+      "phraseVi": "Sinh viên còn ngại"
+    },
+    {
+      "text": "glasses",
+      "lemma": "glasses",
+      "meaningVi": "kính đeo mắt",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "a tall man with glasses",
+      "phraseVi": "một người đàn ông cao, đeo kính"
+    },
+    {
+      "text": "sat next to",
+      "lemma": "sit next to",
+      "meaningVi": "ngồi cạnh",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "she sat next to her",
+      "phraseVi": "Hoa ngồi cạnh Lan"
+    },
+    {
+      "text": "hometowns",
+      "lemma": "hometown",
+      "meaningVi": "quê hương, quê nhà",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "their families and their hometowns",
+      "phraseVi": "gia đình và quê hương của mình"
+    },
+    {
+      "text": "friendship",
+      "lemma": "friendship",
+      "meaningVi": "tình bạn",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "We started a great friendship that day",
+      "phraseVi": "Tình bạn của chúng mình bắt đầu từ hôm đó"
+    },
+    {
+      "text": "still",
+      "lemma": "still",
+      "meaningVi": "vẫn",
+      "sentenceIndex": 16,
+      "pos": "adverb",
+      "phrase": "they are still best friends",
+      "phraseVi": "họ vẫn là bạn thân nhất của nhau"
+    }
+  ]
+}

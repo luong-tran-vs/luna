@@ -1,0 +1,595 @@
+{
+  "content": "Hi, I'm Tom, and I live in Sydney. I love animals, and my family has three pets.\n\nSam is our dog. He is big and brown, and he is very clever. Sam can run very fast, and he can catch a ball. But he can't swim, so he never goes in the sea with me.\n\nBella is my rabbit. She is small and white, with long ears. She can jump very high, but she can't climb trees.\n\nMy sister Emma has a hamster, and its name is Nut. It can sleep all day! At night, it plays in its box.\n\nMy friends often ask me, \"Which pet is your favourite?\"\n\"I love all my pets, but Sam is my best friend,\" I answer.",
+  "targetWords": [
+    "animal",
+    "pet",
+    "dog",
+    "run",
+    "rabbit",
+    "jump",
+    "climb",
+    "hamster"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "con vật, động vật",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "pets",
+        "lemma": "pet",
+        "meaningVi": "thú cưng, vật nuôi trong nhà",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "dog",
+        "lemma": "dog",
+        "meaningVi": "con chó",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "run",
+        "lemma": "run",
+        "meaningVi": "chạy",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "rabbit",
+        "lemma": "rabbit",
+        "meaningVi": "con thỏ",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "jump",
+        "lemma": "jump",
+        "meaningVi": "nhảy",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "climb",
+        "lemma": "climb",
+        "meaningVi": "trèo, leo",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "hamster",
+        "lemma": "hamster",
+        "meaningVi": "chuột hamster",
+        "pos": "noun",
+        "sentenceIndex": 9
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Tom talk about?",
+        "promptVi": "Tom nói về điều gì?",
+        "options": [
+          "His family's pets and what they can do",
+          "A trip to the zoo",
+          "His sister's school",
+          "Animals in the sea"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom kể về ba con vật nuôi trong nhà: chó Sam, thỏ Bella, chuột hamster Nut, và mỗi con làm được gì, không làm được gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What can Sam do?",
+        "promptVi": "Sam làm được gì?",
+        "options": [
+          "He can climb trees.",
+          "He can swim in the sea.",
+          "He can catch a ball.",
+          "He can sleep all day."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tom viết \"Sam can run very fast, and he can catch a ball\": Sam chạy nhanh và bắt được bóng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Sam go in the sea with Tom?",
+        "promptVi": "Vì sao Sam không xuống biển cùng Tom?",
+        "options": [
+          "The sea is cold.",
+          "He is very small.",
+          "He doesn't like Tom.",
+          "He can't swim."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Tom viết \"But he can't swim, so he never goes in the sea with me\": Sam không biết bơi nên không bao giờ xuống biển."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bella can climb trees.",
+        "promptVi": "Bella trèo cây được.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom viết \"She can jump very high, but she can't climb trees\": Bella nhảy cao được nhưng không trèo cây được."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"clever\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He is big and brown, and he is very clever.",
+        "options": [
+          "lười biếng",
+          "thông minh, khôn",
+          "dễ thương",
+          "nhanh nhẹn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Clever là thông minh, khôn: Sam biết bắt bóng nên Tom khen nó rất khôn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't (khả năng)",
+      "bodyVi": "Dùng can + động từ để nói ai, con vật nào làm được gì: Sam can run very fast. Dùng can't để nói không làm được: he can't swim. Can giữ nguyên với mọi chủ ngữ (he can, không nói \"he cans\"), và động từ sau can cũng giữ nguyên (can run, không nói \"can runs\").",
+      "examples": [
+        "Sam can run very fast, and he can catch a ball.",
+        "But he can't swim, so he never goes in the sea with me.",
+        "She can jump very high, but she can't climb trees."
+      ]
+    },
+    "writingPrompt": "Write about a pet you have or know: what it looks like and what it can and can't do.",
+    "sentenceTranslations": [
+      "Chào các bạn, mình là Tom, mình sống ở Sydney.",
+      "Mình rất yêu động vật, và nhà mình nuôi ba con vật.",
+      "Sam là con chó nhà mình.",
+      "Nó to, lông màu nâu, và rất khôn.",
+      "Sam chạy rất nhanh, và nó bắt được bóng.",
+      "Nhưng nó không biết bơi, nên nó không bao giờ xuống biển với mình.",
+      "Bella là con thỏ của mình.",
+      "Nó nhỏ, lông trắng, tai dài.",
+      "Nó nhảy được rất cao, nhưng không trèo cây được.",
+      "Em gái mình, Emma, có một con chuột hamster, tên là Nut.",
+      "Nó ngủ được cả ngày!",
+      "Ban đêm nó chơi trong cái hộp của nó.",
+      "Bạn bè hay hỏi mình: \"Cậu thích con nào nhất?\"",
+      "\"Con nào mình cũng yêu, nhưng Sam là bạn thân nhất của mình,\" mình trả lời."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả thú cưng và nói nó làm được gì, không làm được gì, dùng can / can't.",
+    "examples": [
+      {
+        "lemma": "animal",
+        "sentence": "My favourite animal is the dog.",
+        "meaningVi": "Con vật mình thích nhất là con chó."
+      },
+      {
+        "lemma": "pet",
+        "sentence": "Do you have a pet?",
+        "meaningVi": "Bạn có nuôi con vật nào không?"
+      },
+      {
+        "lemma": "dog",
+        "sentence": "Our dog is big and brown.",
+        "meaningVi": "Con chó nhà mình to và có lông màu nâu."
+      },
+      {
+        "lemma": "run",
+        "sentence": "Horses can run very fast.",
+        "meaningVi": "Ngựa chạy được rất nhanh."
+      },
+      {
+        "lemma": "rabbit",
+        "sentence": "The rabbit eats vegetables.",
+        "meaningVi": "Con thỏ ăn rau."
+      },
+      {
+        "lemma": "jump",
+        "sentence": "My cat can jump on the table.",
+        "meaningVi": "Con mèo nhà mình nhảy được lên bàn."
+      },
+      {
+        "lemma": "climb",
+        "sentence": "Monkeys can climb trees.",
+        "meaningVi": "Khỉ trèo cây được."
+      },
+      {
+        "lemma": "hamster",
+        "sentence": "My hamster sleeps all day.",
+        "meaningVi": "Con chuột hamster của mình ngủ cả ngày."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tom, do you have a pet?",
+          "meaningVi": "Tom ơi, cậu có nuôi con vật nào không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I have a dog. His name is Sam. Do you have a pet?",
+          "meaningVi": "Có, mình nuôi một con chó. Nó tên là Sam. Cậu có nuôi con gì không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I have a cat. His name is Milo.",
+          "meaningVi": "Có, mình nuôi một con mèo. Nó tên là Milo."
+        },
+        {
+          "speaker": 1,
+          "text": "Can Milo catch mice?",
+          "meaningVi": "Milo có bắt được chuột không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, he can't! He only eats and sleeps.",
+          "meaningVi": "Không đâu! Nó chỉ biết ăn với ngủ thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! Sam can catch a ball, but he can't catch mice.",
+          "meaningVi": "Ha! Sam bắt được bóng, nhưng không bắt được chuột."
+        },
+        {
+          "speaker": 0,
+          "text": "Can Sam swim?",
+          "meaningVi": "Sam có biết bơi không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he can't. He doesn't like water.",
+          "meaningVi": "Không. Nó không thích nước."
+        },
+        {
+          "speaker": 0,
+          "text": "Milo can't swim, and he doesn't like water.",
+          "meaningVi": "Milo cũng không biết bơi, và nó cũng không thích nước."
+        },
+        {
+          "speaker": 1,
+          "text": "Sam and Milo are funny pets!",
+          "meaningVi": "Sam với Milo đúng là hai con vật buồn cười!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi con vật làm được gì: Can Milo catch mice? Trả lời ngắn: Yes, he can. / No, he can't.",
+    "translations": [
+      {
+        "vi": "Con chó của tôi có thể chạy rất nhanh.",
+        "en": "My dog can run very fast.",
+        "distractors": [
+          "runs",
+          "can't",
+          "slow"
+        ]
+      },
+      {
+        "vi": "Con thỏ của tôi không trèo cây được.",
+        "en": "My rabbit can't climb trees.",
+        "distractors": [
+          "can",
+          "climbs",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Em gái tôi có một con chuột hamster.",
+        "en": "My sister has a hamster.",
+        "distractors": [
+          "have",
+          "rabbit",
+          "an"
+        ]
+      },
+      {
+        "vi": "Gia đình tôi nuôi ba con vật.",
+        "en": "My family has three pets.",
+        "distractors": [
+          "have",
+          "pet",
+          "animal"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Tom nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi sở thú",
+          "Bài tập về nhà",
+          "Con vật nuôi của hai bạn và chúng làm được gì"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan hỏi \"do you have a pet?\", rồi hai bạn nói Sam và Milo làm được gì, không làm được gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan nuôi con vật gì?",
+        "promptVi": "",
+        "options": [
+          "Một con chó",
+          "Một con mèo",
+          "Một con thỏ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"Yes, I have a cat. His name is Milo.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sam làm được gì?",
+        "promptVi": "",
+        "options": [
+          "Bắt chuột",
+          "Bơi",
+          "Bắt bóng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tom nói \"Sam can catch a ball, but he can't catch mice.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Milo can catch mice.",
+        "promptVi": "Milo bắt được chuột.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"No, he can't! He only eats and sleeps.\"",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Mỗi con vật nhà Tom làm được gì và không làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't (khả năng)",
+      "noticing": [
+        {
+          "sentence": "Sam can run very fast, and he can catch a ball.",
+          "highlights": [
+            "can run",
+            "can catch"
+          ]
+        },
+        {
+          "sentence": "But he can't swim, so he never goes in the sea with me.",
+          "highlights": [
+            "can't swim"
+          ]
+        },
+        {
+          "sentence": "She can jump very high, but she can't climb trees.",
+          "highlights": [
+            "can jump",
+            "can't climb"
+          ]
+        },
+        {
+          "sentence": "It can sleep all day!",
+          "highlights": [
+            "can sleep"
+          ]
+        }
+      ],
+      "questionVi": "Chủ ngữ là he, she, it, vậy vì sao bài viết \"he can run\" mà không viết \"he can runs\"?",
+      "options": [
+        "Vì sau can, động từ luôn giữ nguyên",
+        "Vì Sam là con chó",
+        "Vì run ở đây là danh từ"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Can không thêm -s và động từ đứng sau can luôn giữ nguyên, dù chủ ngữ là he, she hay it: can run, can jump, can't climb, can sleep.",
+      "whenVi": "Dùng can để nói ai, con vật nào làm được gì, và can't để nói không làm được gì.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "I can swim.",
+          "negative": "I can't climb trees."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Sam can run fast.",
+          "negative": "He can't swim."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Can Sam swim? – No, he can't.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He can runs very fast.",
+          "right": "He can run very fast."
+        },
+        {
+          "wrong": "She cans jump high.",
+          "right": "She can jump high."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"chạy được\", \"không trèo được\" (chữ \"được\" đứng sau động từ), nên người Việt hay quên can, hoặc nhớ quy tắc -s của he / she rồi thêm nhầm vào can hay động từ sau can.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't vào chỗ trống.",
+          "text": "Birds ___ fly, but fish can't.",
+          "answers": [
+            "can"
+          ],
+          "explanationVi": "Chim bay được nên dùng can; vế sau nói cá thì không."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Sam ___ swim, so he never goes in the sea.",
+          "options": [
+            "can",
+            "can't",
+            "cans",
+            "is"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sam không xuống biển vì không biết bơi, nên dùng can't."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My hamster can sleeps all day.",
+          "sentence": "My hamster can sleep all day.",
+          "explanationVi": "Sau can, động từ giữ nguyên: can sleep."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Con thỏ của tôi nhảy được rất cao.",
+          "sentence": "My rabbit can jump very high.",
+          "words": [
+            "jump",
+            "My",
+            "high",
+            "can",
+            "rabbit",
+            "very",
+            "jumps"
+          ],
+          "explanationVi": "Sau can, động từ giữ nguyên: can jump; từ \"jumps\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She can jump very high, but she can't climb trees.",
+        "tipVi": "Can't /kænt/ đọc rõ /æ/ và /t/ ở cuối, còn can trong câu thường đọc nhẹ /kən/; climb /klaɪm/ không đọc chữ b."
+      },
+      {
+        "text": "Sam can run very fast, and he can catch a ball.",
+        "tipVi": "Fast /fæst/ có cụm /st/ ở cuối; catch /kætʃ/ kết thúc bằng /tʃ/ như \"ch\" bật hơi."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you have a pet?",
+        "questionVi": "Bạn có nuôi con vật nào không?",
+        "frame": "Yes, I do. I have a ___. / No, I don't, but I like ___."
+      },
+      {
+        "question": "What animal do you like? What can it do?",
+        "questionVi": "Bạn thích con vật nào? Nó làm được gì?",
+        "frame": "I like ___. It can ___, but it can't ___."
+      },
+      {
+        "question": "Does your best friend have a pet?",
+        "questionVi": "Bạn thân của bạn có nuôi con vật nào không?",
+        "frame": "Yes, he / she does. He / She has a ___. It can ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can hoặc can't",
+      "anyOf": [
+        "can",
+        "can't",
+        "cannot",
+        "can it"
+      ],
+      "outlineVi": [
+        "Nói con vật đó của ai, tên gì, trông thế nào.",
+        "Nói nó làm được gì (It can …).",
+        "Nói nó không làm được gì hoặc không thích gì (It can't …)."
+      ],
+      "modelAnswer": "My cousin has a cat. Its name is Kitty, and it is small and black. Kitty can jump very high, and she can climb trees. But she can't swim, and she doesn't like water. She sleeps on the sofa all day. She is a very funny pet!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "clever",
+      "lemma": "clever",
+      "meaningVi": "thông minh, khôn",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "he is very clever",
+      "phraseVi": "nó rất khôn"
+    },
+    {
+      "text": "catch",
+      "lemma": "catch",
+      "meaningVi": "bắt (được)",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "he can catch a ball",
+      "phraseVi": "nó bắt được bóng"
+    },
+    {
+      "text": "sea",
+      "lemma": "sea",
+      "meaningVi": "biển",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "he never goes in the sea",
+      "phraseVi": "nó không bao giờ xuống biển"
+    },
+    {
+      "text": "ears",
+      "lemma": "ear",
+      "meaningVi": "tai",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "with long ears",
+      "phraseVi": "tai dài"
+    },
+    {
+      "text": "trees",
+      "lemma": "tree",
+      "meaningVi": "cây",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "she can't climb trees",
+      "phraseVi": "nó không trèo cây được"
+    },
+    {
+      "text": "all day",
+      "lemma": "all day",
+      "meaningVi": "cả ngày",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "It can sleep all day",
+      "phraseVi": "Nó ngủ được cả ngày"
+    },
+    {
+      "text": "box",
+      "lemma": "box",
+      "meaningVi": "cái hộp, cái chuồng nhỏ",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "it plays in its box",
+      "phraseVi": "nó chơi trong cái hộp của nó"
+    },
+    {
+      "text": "Which",
+      "lemma": "which",
+      "meaningVi": "nào, cái nào",
+      "sentenceIndex": 12,
+      "pos": "determiner",
+      "phrase": "Which pet is your favourite",
+      "phraseVi": "Cậu thích con nào nhất"
+    },
+    {
+      "text": "best friend",
+      "lemma": "best friend",
+      "meaningVi": "bạn thân nhất",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "Sam is my best friend",
+      "phraseVi": "Sam là bạn thân nhất của mình"
+    }
+  ]
+}

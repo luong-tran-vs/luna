@@ -1,0 +1,619 @@
+{
+  "content": "It's ten o'clock at night, and Vy and Nam are walking out of a cinema in Ho Chi Minh City. They have just watched a new mystery film.\n\nNam asks, \"What did you think?\"\nVy says, \"I loved it. The actor who plays the detective was amazing. What's his name?\"\n\"Tran Minh. He's the actor whose first film won a big prize last year.\"\n\"Really? He must be very talented. He looked so calm in every scene.\"\n\"I know. The scene that I liked best was the one in the old train station.\"\n\"Me too! That's the place where the detective finds the first clue.\"\n\"Do you think the woman who worked at the hotel was the killer?\"\nNam thinks for a moment. \"She can't be the killer. She was in Hanoi that night. It must be her brother.\"\n\"Her brother? But he was so kind to everyone.\"\n\"That's why it must be him. In mystery films, the kind people are often the killers.\"\nVy laughs. \"You might be right. But the film didn't show the answer at the end!\"\n\"Maybe there will be a second film. The director who made it loves surprises.\"\nVy says, \"Then I'm going to watch it on the first day. Let's buy tickets together.\"\n\"Deal. But this time, I'm choosing the snacks.\"",
+  "targetWords": [
+    "cinema",
+    "mystery",
+    "actor",
+    "detective",
+    "prize",
+    "talented",
+    "scene",
+    "station",
+    "clue",
+    "killer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cinema",
+        "lemma": "cinema",
+        "meaningVi": "rạp chiếu phim",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "mystery",
+        "lemma": "mystery",
+        "meaningVi": "trinh thám, bí ẩn",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "actor",
+        "lemma": "actor",
+        "meaningVi": "diễn viên (nam)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "detective",
+        "lemma": "detective",
+        "meaningVi": "thám tử",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "prize",
+        "lemma": "prize",
+        "meaningVi": "giải thưởng",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "talented",
+        "lemma": "talented",
+        "meaningVi": "tài năng",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "scene",
+        "lemma": "scene",
+        "meaningVi": "cảnh (phim)",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "station",
+        "lemma": "station",
+        "meaningVi": "nhà ga",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "clue",
+        "lemma": "clue",
+        "meaningVi": "manh mối",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "killer",
+        "lemma": "killer",
+        "meaningVi": "kẻ giết người, hung thủ",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Vy and Nam mainly talking about?",
+        "promptVi": "Vy và Nam chủ yếu nói về điều gì?",
+        "options": [
+          "A mystery film which they have just watched",
+          "A train trip to Hanoi",
+          "How to buy cinema tickets",
+          "A hotel in Ho Chi Minh City"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người vừa xem xong một phim trinh thám và bàn về diễn viên, các cảnh phim và ai là hung thủ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is Tran Minh?",
+        "promptVi": "Trần Minh là ai?",
+        "options": [
+          "The director of the film",
+          "The actor who plays the detective",
+          "The killer in the film",
+          "Vy's brother"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy hỏi tên \"the actor who plays the detective\", và Nam trả lời \"Tran Minh.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Nam think the woman can't be the killer?",
+        "promptVi": "Vì sao Nam nghĩ người phụ nữ không thể là hung thủ?",
+        "options": [
+          "She was very kind.",
+          "She worked at the hotel.",
+          "She was in Hanoi that night.",
+          "She saw the first clue."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam nói \"She can't be the killer. She was in Hanoi that night.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "At the end of the film, everyone knows who the killer is.",
+        "promptVi": "Cuối phim, mọi người đều biết ai là hung thủ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vy nói \"the film didn't show the answer at the end!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"talented\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He must be very talented.",
+        "options": [
+          "tài năng",
+          "giàu có",
+          "nổi tiếng",
+          "lười biếng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Talented = có tài năng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "bodyVi": "Mệnh đề quan hệ bổ sung thông tin cho danh từ đứng trước: who cho người (the actor who plays the detective), that / which cho vật (the scene that I liked best), whose chỉ sở hữu (the actor whose first film won a big prize), where cho nơi chốn (the place where the detective finds the first clue). Bài cũng dùng must / can't / might để đoán: He must be very talented (chắc chắn), She can't be the killer (không thể), You might be right (có thể).",
+      "examples": [
+        "The actor who plays the detective was amazing.",
+        "He's the actor whose first film won a big prize last year.\"",
+        "That's the place where the detective finds the first clue.\""
+      ]
+    },
+    "writingPrompt": "Write about a film you have seen: who is the actor who plays the main character, and what is the scene that you liked best?",
+    "sentenceTranslations": [
+      "Mười giờ tối, Vy và Nam đang đi ra khỏi một rạp chiếu phim ở Thành phố Hồ Chí Minh.",
+      "Họ vừa xem một bộ phim trinh thám mới.",
+      "Nam hỏi: \"Cậu thấy thế nào?\"",
+      "Vy nói: \"Mình thích lắm.",
+      "Anh diễn viên đóng vai thám tử diễn tuyệt quá.",
+      "Anh ấy tên gì nhỉ?\"",
+      "\"Trần Minh.",
+      "Anh ấy là diễn viên có bộ phim đầu tay đoạt giải lớn năm ngoái.\"",
+      "\"Thật à?",
+      "Chắc hẳn anh ấy rất tài năng.",
+      "Cảnh nào anh ấy cũng điềm tĩnh.\"",
+      "\"Mình biết.",
+      "Cảnh mình thích nhất là cảnh ở nhà ga cũ.\"",
+      "\"Mình cũng vậy!",
+      "Đó là chỗ thám tử tìm ra manh mối đầu tiên.\"",
+      "\"Cậu có nghĩ người phụ nữ làm ở khách sạn là hung thủ không?\"",
+      "Nam nghĩ một lúc.",
+      "\"Cô ấy không thể là hung thủ.",
+      "Đêm đó cô ấy ở Hà Nội.",
+      "Chắc chắn là anh trai cô ấy.\"",
+      "\"Anh trai cô ấy á?",
+      "Nhưng anh ta tốt với mọi người lắm mà.\"",
+      "\"Vì thế nên chắc chắn là anh ta.",
+      "Trong phim trinh thám, người tốt thường là hung thủ.\"",
+      "Vy cười.",
+      "\"Có thể cậu đúng.",
+      "Nhưng cuối phim đâu có cho biết câu trả lời!\"",
+      "\"Có lẽ sẽ có phần hai.",
+      "Đạo diễn làm phim này rất thích gây bất ngờ.\"",
+      "Vy nói: \"Vậy mình sẽ đi xem ngay ngày đầu.",
+      "Mình cùng mua vé nhé.\"",
+      "\"Chốt.",
+      "Nhưng lần này mình chọn đồ ăn vặt.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về một bộ phim, diễn viên và các cảnh phim bằng mệnh đề quan hệ (who, that, whose, where) và đoán bằng must / can't / might.",
+    "examples": [
+      {
+        "lemma": "cinema",
+        "sentence": "Let's go to the cinema tonight.",
+        "meaningVi": "Tối nay mình đi xem phim nhé."
+      },
+      {
+        "lemma": "mystery",
+        "sentence": "I love reading mystery stories.",
+        "meaningVi": "Tôi thích đọc truyện trinh thám."
+      },
+      {
+        "lemma": "actor",
+        "sentence": "He is a famous actor in Korea.",
+        "meaningVi": "Anh ấy là diễn viên nổi tiếng ở Hàn Quốc."
+      },
+      {
+        "lemma": "detective",
+        "sentence": "The detective asked a lot of questions.",
+        "meaningVi": "Viên thám tử hỏi rất nhiều câu hỏi."
+      },
+      {
+        "lemma": "prize",
+        "sentence": "She won first prize in the competition.",
+        "meaningVi": "Cô ấy đoạt giải nhất cuộc thi."
+      },
+      {
+        "lemma": "talented",
+        "sentence": "My sister is a talented singer.",
+        "meaningVi": "Chị tôi là một ca sĩ tài năng."
+      },
+      {
+        "lemma": "scene",
+        "sentence": "The last scene of the film was sad.",
+        "meaningVi": "Cảnh cuối của bộ phim rất buồn."
+      },
+      {
+        "lemma": "station",
+        "sentence": "The train leaves the station at eight.",
+        "meaningVi": "Tàu rời ga lúc tám giờ."
+      },
+      {
+        "lemma": "clue",
+        "sentence": "The police have an important clue.",
+        "meaningVi": "Cảnh sát có một manh mối quan trọng."
+      },
+      {
+        "lemma": "killer",
+        "sentence": "Nobody knows who the killer is.",
+        "meaningVi": "Không ai biết hung thủ là ai."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Jack"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Vy, did you enjoy the film last night?",
+          "meaningVi": "Vy ơi, tối qua cậu xem phim có thích không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! The actor who plays the detective is great.",
+          "meaningVi": "Có! Anh diễn viên đóng vai thám tử hay lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Is that the man whose photo is on the poster?",
+          "meaningVi": "Có phải người có ảnh trên áp phích không?"
+        },
+        {
+          "speaker": 0,
+          "text": "That's him. He must be very famous now.",
+          "meaningVi": "Đúng anh ấy. Chắc giờ anh ấy nổi tiếng lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Who is the killer?",
+          "meaningVi": "Hung thủ là ai?"
+        },
+        {
+          "speaker": 0,
+          "text": "We don't know. It might be the woman who works at the hotel.",
+          "meaningVi": "Bọn mình không biết. Có thể là người phụ nữ làm ở khách sạn."
+        },
+        {
+          "speaker": 1,
+          "text": "Or it could be someone that nobody thinks about.",
+          "meaningVi": "Hoặc có thể là một người mà không ai nghĩ tới."
+        },
+        {
+          "speaker": 0,
+          "text": "True. Nam thinks it must be her brother.",
+          "meaningVi": "Đúng. Nam nghĩ chắc chắn là anh trai cô ấy."
+        },
+        {
+          "speaker": 1,
+          "text": "Where did they film it?",
+          "meaningVi": "Họ quay phim ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "In Da Lat. There's a station where they filmed the best scene.",
+          "meaningVi": "Ở Đà Lạt. Có một nhà ga nơi họ quay cảnh hay nhất."
+        }
+      ]
+    },
+    "grammarTipVi": "Who cho người (the actor who plays…), whose cho sở hữu (the man whose photo…), that cho người / vật (someone that nobody thinks about), where cho nơi chốn (a station where…). Đoán: must be (chắc chắn), might / could be (có thể).",
+    "translations": [
+      {
+        "vi": "Diễn viên đóng vai thám tử rất tài năng.",
+        "en": "The actor who plays the detective is talented.",
+        "distractors": [
+          "which",
+          "whose",
+          "where"
+        ]
+      },
+      {
+        "vi": "Đó là cảnh mà tôi thích nhất.",
+        "en": "That is the scene that I liked best.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Đó là nơi thám tử tìm ra manh mối.",
+        "en": "That is the place where the detective finds the clue.",
+        "distractors": [
+          "which",
+          "who",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Cô ấy không thể là hung thủ. Cô ấy ở Hà Nội.",
+        "en": "She can't be the killer. She was in Hanoi.",
+        "distractors": [
+          "must",
+          "might",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Jack và Vy nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bộ phim Vy xem tối qua",
+          "Chuyến đi Đà Lạt của Jack",
+          "Một khách sạn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Jack hỏi \"did you enjoy the film last night?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vy nghĩ ai có thể là hung thủ?",
+        "promptVi": "",
+        "options": [
+          "Anh diễn viên",
+          "Người phụ nữ làm ở khách sạn",
+          "Jack"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"It might be the woman who works at the hotel.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ quay phim ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở Hà Nội",
+          "Ở Thành phố Hồ Chí Minh",
+          "Ở Đà Lạt"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vy nói \"In Da Lat.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy knows who the killer is.",
+        "promptVi": "Vy biết hung thủ là ai.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vy nói \"We don't know.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Vy và Nam thích gì ở bộ phim? Họ đoán ai là hung thủ, và vì sao?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "noticing": [
+        {
+          "sentence": "The actor who plays the detective was amazing.",
+          "highlights": [
+            "who plays the detective"
+          ]
+        },
+        {
+          "sentence": "He's the actor whose first film won a big prize last year.\"",
+          "highlights": [
+            "whose first film"
+          ]
+        },
+        {
+          "sentence": "The scene that I liked best was the one in the old train station.",
+          "highlights": [
+            "that I liked best"
+          ]
+        },
+        {
+          "sentence": "That's the place where the detective finds the first clue.\"",
+          "highlights": [
+            "where the detective finds"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao dùng \"whose\" trong \"the actor whose first film won a big prize\"?",
+      "options": [
+        "Vì nói về bộ phim của diễn viên đó (sở hữu).",
+        "Vì diễn viên là người.",
+        "Vì câu ở thì quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Whose + danh từ = của người đó: the actor whose first film = diễn viên mà bộ phim đầu tiên của anh ấy…",
+      "whenVi": "Dùng mệnh đề quan hệ để nói rõ người, vật, nơi nào mà mình đang nói đến.",
+      "table": [
+        {
+          "subject": "who (người)",
+          "form": "the actor who plays the detective",
+          "negative": "—"
+        },
+        {
+          "subject": "which / that (vật)",
+          "form": "the scene that I liked best",
+          "negative": "—"
+        },
+        {
+          "subject": "whose (sở hữu)",
+          "form": "the actor whose first film won a prize",
+          "negative": "—"
+        },
+        {
+          "subject": "where (nơi chốn)",
+          "form": "the place where the detective finds the clue",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The actor which plays the detective was amazing.",
+          "right": "The actor who plays the detective was amazing."
+        },
+        {
+          "wrong": "That's the place which the detective finds the clue.",
+          "right": "That's the place where the detective finds the clue."
+        }
+      ],
+      "noteVi": "That dùng được cho cả người và vật: the actor that plays…, the scene that I liked. Who chỉ dùng cho người; which chỉ dùng cho vật.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền who, which, whose hoặc where.",
+          "text": "He's the actor ___ first film won a big prize.",
+          "answers": [
+            "whose"
+          ],
+          "explanationVi": "Bộ phim của anh ấy (sở hữu): whose."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The director ___ made the film loves surprises.",
+          "options": [
+            "which",
+            "who",
+            "where",
+            "whose"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Director là người: who."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "That's the station which the detective finds the clue.",
+          "sentence": "That's the station where the detective finds the clue.",
+          "explanationVi": "Nơi chốn (ở nhà ga đó): where."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đây là cảnh mà tôi thích nhất.",
+          "sentence": "This is the scene that I liked best.",
+          "words": [
+            "scene",
+            "This",
+            "is",
+            "the",
+            "that",
+            "I",
+            "liked",
+            "best.",
+            "who"
+          ],
+          "explanationVi": "Scene là vật: that; từ \"who\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The actor who plays the detective was amazing.",
+        "tipVi": "Detective /dɪˈtektɪv/ nhấn âm thứ hai."
+      },
+      {
+        "text": "\"You might be right.",
+        "tipVi": "Might /maɪt/ không đọc gh; nhấn vào right."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is an actor who you really like?",
+        "questionVi": "Diễn viên mà bạn thực sự thích là ai?",
+        "frame": "An actor who I really like is ___."
+      },
+      {
+        "question": "What is a film that you want to see again?",
+        "questionVi": "Bộ phim mà bạn muốn xem lại là phim gì?",
+        "frame": "A film that I want to see again is ___."
+      },
+      {
+        "question": "Who is the person in your family who watches the most films? What does he or she like?",
+        "questionVi": "Ai trong nhà bạn là người xem phim nhiều nhất? Người đó thích gì?",
+        "frame": "My ___. He / She likes films that ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ (who, which, that, whose, where)",
+      "anyOf": [
+        " who ",
+        " which ",
+        " that ",
+        " whose ",
+        " where "
+      ],
+      "outlineVi": [
+        "Bộ phim đó là phim gì, bạn xem ở đâu.",
+        "Diễn viên đóng vai chính (the actor who plays …) và cảnh bạn thích (the scene that …).",
+        "Bạn đoán điều gì về phim (It must be … / It might be …)."
+      ],
+      "modelAnswer": "Last month, I watched a mystery film called The Red House. The actor who plays the old detective is Le Hung, an actor whose films I always enjoy. The scene that I liked best happens in a dark garden where the detective finds a letter. At the end, we don't know the killer. I think it must be the cook, because she always looks nervous."
+    }
+  },
+  "glosses": [
+    {
+      "text": "walking out of",
+      "lemma": "walk out of",
+      "meaningVi": "đi ra khỏi",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "walking out of a cinema",
+      "phraseVi": "đi ra khỏi một rạp chiếu phim"
+    },
+    {
+      "text": "must be",
+      "lemma": "must",
+      "meaningVi": "chắc hẳn là",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "He must be very talented.",
+      "phraseVi": "Chắc hẳn anh ấy rất tài năng."
+    },
+    {
+      "text": "can't be",
+      "lemma": "can't",
+      "meaningVi": "không thể là",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "She can't be the killer.",
+      "phraseVi": "Cô ấy không thể là hung thủ."
+    },
+    {
+      "text": "That's why",
+      "lemma": "that's why",
+      "meaningVi": "vì thế nên",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "That's why it must be him.",
+      "phraseVi": "Vì thế nên chắc chắn là anh ta."
+    },
+    {
+      "text": "surprises",
+      "lemma": "surprise",
+      "meaningVi": "điều bất ngờ",
+      "sentenceIndex": 28,
+      "pos": "noun",
+      "phrase": "loves surprises",
+      "phraseVi": "rất thích gây bất ngờ"
+    },
+    {
+      "text": "snacks",
+      "lemma": "snack",
+      "meaningVi": "đồ ăn vặt",
+      "sentenceIndex": 32,
+      "pos": "noun",
+      "phrase": "I'm choosing the snacks",
+      "phraseVi": "mình chọn đồ ăn vặt"
+    }
+  ]
+}

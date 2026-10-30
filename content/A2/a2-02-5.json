@@ -1,0 +1,599 @@
+{
+  "content": "Trang started running last month. Every morning, she runs around West Lake in Hanoi. Last Tuesday, she ran very fast, and the next day her legs hurt badly.\n\nSo on Saturday, she ran with her friend Hieu. He runs very well, and he can run twenty kilometres easily. Trang asked, \"Could you give me some advice?\" \"I want to run fast, but I don't want to get hurt.\"\n\n\"Of course,\" Hieu said. \"First, don't start quickly, and walk slowly for five minutes.\" \"Then run slowly, and listen to your body.\" \"Wear good shoes, and don't run hard every day.\"\n\nThey ran together around the lake. Hieu ran easily, but Trang was very hot after half an hour. She asked, \"Could I have your bottle of water, please?\"\n\"Here you are, but drink it slowly,\" Hieu said.\n\nTrang drank the water slowly and said, \"Thank you, Hieu.\" \"Can we run together again next week?\"",
+  "targetWords": [
+    "run",
+    "leg",
+    "hurt",
+    "easily",
+    "advice",
+    "slowly",
+    "shoe",
+    "bottle"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "running",
+        "lemma": "run",
+        "meaningVi": "chạy",
+        "pos": "verb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "legs",
+        "lemma": "leg",
+        "meaningVi": "chân",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "hurt",
+        "lemma": "hurt",
+        "meaningVi": "đau",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "easily",
+        "lemma": "easily",
+        "meaningVi": "dễ dàng",
+        "pos": "adverb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "advice",
+        "lemma": "advice",
+        "meaningVi": "lời khuyên",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "slowly",
+        "lemma": "slowly",
+        "meaningVi": "chậm, chậm rãi",
+        "pos": "adverb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "shoes",
+        "lemma": "shoe",
+        "meaningVi": "giày",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "bottle",
+        "lemma": "bottle",
+        "meaningVi": "chai",
+        "pos": "noun",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Trang's new shoes",
+          "A swimming lesson at West Lake",
+          "Hieu's new job",
+          "Hieu gives Trang advice about running."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Trang chạy quá nhanh nên đau chân, cô nhờ Hiếu khuyên cách chạy để không bị đau, rồi hai người chạy cùng nhau quanh hồ Tây."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What happened after Trang ran very fast last Tuesday?",
+        "promptVi": "Sau khi chạy rất nhanh hôm thứ Ba, Trang bị làm sao?",
+        "options": [
+          "Her legs hurt badly.",
+          "She won a medal.",
+          "She lost her shoes.",
+          "She felt very happy."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"the next day her legs hurt badly\": hôm sau chân cô đau nhiều."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How far can Hieu run easily?",
+        "promptVi": "Hiếu chạy được bao xa một cách dễ dàng?",
+        "options": [
+          "Five kilometres",
+          "Ten kilometres",
+          "Twenty kilometres",
+          "Fifty kilometres"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"he can run twenty kilometres easily\": hai mươi cây số."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hieu tells Trang to run hard every day.",
+        "promptVi": "Hiếu bảo Trang ngày nào cũng chạy thật sức.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hiếu nói \"don't run hard every day\": đừng ngày nào cũng chạy hết sức."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"advice\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Trang asked, \"Could you give me some advice?\"",
+        "options": [
+          "tiền",
+          "lời khuyên",
+          "nước uống",
+          "đôi giày"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Advice là lời khuyên: Trang nhờ Hiếu khuyên cách chạy nhanh mà không bị đau."
+      }
+    ],
+    "grammarNote": {
+      "title": "Trạng từ chỉ cách thức",
+      "bodyVi": "Trạng từ chỉ cách thức đứng sau động từ (hoặc sau tân ngữ) để nói làm việc gì như thế nào: her legs hurt badly, he can run twenty kilometres easily. Phần lớn thêm -ly: bad → badly, slow → slowly, easy → easily. Good → well; fast, hard giữ nguyên: he runs very well, don't run hard.",
+      "examples": [
+        "Last Tuesday, she ran very fast, and the next day her legs hurt badly.",
+        "He runs very well, and he can run twenty kilometres easily.",
+        "Hieu ran easily, but Trang was very hot after half an hour."
+      ]
+    },
+    "writingPrompt": "Write some advice for a friend who wants to start running.",
+    "sentenceTranslations": [
+      "Trang bắt đầu chạy bộ từ tháng trước.",
+      "Sáng nào cô cũng chạy quanh hồ Tây ở Hà Nội.",
+      "Thứ Ba tuần trước, cô chạy rất nhanh, và hôm sau chân cô đau nhiều.",
+      "Vì thế thứ Bảy cô chạy cùng bạn mình là Hiếu.",
+      "Hiếu chạy rất giỏi, anh chạy hai mươi cây số một cách dễ dàng.",
+      "Trang hỏi: \"Anh cho em vài lời khuyên được không?\"",
+      "\"Em muốn chạy nhanh, nhưng không muốn bị đau.\"",
+      "\"Được chứ,\" Hiếu nói.",
+      "\"Đầu tiên, đừng bắt đầu quá nhanh, hãy đi bộ chậm năm phút.\"",
+      "\"Sau đó chạy chậm thôi, và lắng nghe cơ thể mình.\"",
+      "\"Đi giày tốt, và đừng ngày nào cũng chạy hết sức.\"",
+      "Hai người cùng chạy quanh hồ.",
+      "Hiếu chạy rất nhẹ nhàng, còn Trang thì nóng bừng sau nửa tiếng.",
+      "Cô hỏi: \"Cho em xin chai nước của anh được không?\"",
+      "\"Đây, nhưng uống từ từ thôi,\" Hiếu nói.",
+      "Trang uống nước từ từ rồi nói: \"Cảm ơn anh Hiếu.\"",
+      "\"Tuần sau mình lại chạy cùng nhau nhé?\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể khuyên ai đó cách chạy hay chơi thể thao cho đúng, dùng trạng từ chỉ cách thức và xin, nhờ lịch sự bằng Could …?",
+    "examples": [
+      {
+        "lemma": "run",
+        "sentence": "I run in the park every morning.",
+        "meaningVi": "Sáng nào mình cũng chạy bộ ở công viên."
+      },
+      {
+        "lemma": "leg",
+        "sentence": "My left leg hurts.",
+        "meaningVi": "Chân trái của mình bị đau."
+      },
+      {
+        "lemma": "hurt",
+        "sentence": "Be careful, or you can hurt your hand.",
+        "meaningVi": "Cẩn thận, không là bị đau tay đấy."
+      },
+      {
+        "lemma": "easily",
+        "sentence": "She can answer the question easily.",
+        "meaningVi": "Cô ấy trả lời câu hỏi dễ dàng."
+      },
+      {
+        "lemma": "advice",
+        "sentence": "Thank you for your advice.",
+        "meaningVi": "Cảm ơn lời khuyên của bạn."
+      },
+      {
+        "lemma": "slowly",
+        "sentence": "Please speak slowly.",
+        "meaningVi": "Bạn nói chậm thôi nhé."
+      },
+      {
+        "lemma": "shoe",
+        "sentence": "I can't find my other shoe.",
+        "meaningVi": "Mình không tìm thấy chiếc giày còn lại."
+      },
+      {
+        "lemma": "bottle",
+        "sentence": "Can I have a bottle of water, please?",
+        "meaningVi": "Cho tôi một chai nước được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Trang",
+        "Helen"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Trang, do you still run at West Lake?",
+          "meaningVi": "Trang ơi, cậu vẫn chạy bộ ở hồ Tây chứ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do. I run every morning now.",
+          "meaningVi": "Ừ. Giờ sáng nào mình cũng chạy."
+        },
+        {
+          "speaker": 1,
+          "text": "Can you run fast?",
+          "meaningVi": "Cậu chạy nhanh không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not very fast. My friend Hieu told me to run slowly at first.",
+          "meaningVi": "Không nhanh lắm. Bạn mình là Hiếu bảo lúc đầu nên chạy chậm."
+        },
+        {
+          "speaker": 1,
+          "text": "That's good advice. Did your legs hurt?",
+          "meaningVi": "Lời khuyên hay đấy. Chân cậu có bị đau không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, last week they hurt badly. Now I run slowly and carefully.",
+          "meaningVi": "Có, tuần trước đau lắm. Giờ mình chạy chậm và cẩn thận."
+        },
+        {
+          "speaker": 1,
+          "text": "Could I run with you one day?",
+          "meaningVi": "Hôm nào mình chạy cùng cậu được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course! Can you come on Saturday?",
+          "meaningVi": "Tất nhiên rồi! Thứ Bảy cậu đến được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I can. What time?",
+          "meaningVi": "Được. Mấy giờ?"
+        },
+        {
+          "speaker": 0,
+          "text": "At six o'clock. Bring a bottle of water!",
+          "meaningVi": "Sáu giờ. Nhớ mang theo một chai nước nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Xin đi cùng lịch sự: Could I run with you one day? Hỏi lại: Can you come on Saturday? Nói cách mình chạy: I run slowly and carefully.",
+    "translations": [
+      {
+        "vi": "Chân cô ấy đau nhiều.",
+        "en": "Her legs hurt badly.",
+        "distractors": [
+          "leg",
+          "bad",
+          "hurts"
+        ]
+      },
+      {
+        "vi": "Anh ấy chạy hai mươi cây số một cách dễ dàng.",
+        "en": "He can run twenty kilometres easily.",
+        "distractors": [
+          "easy",
+          "runs",
+          "hard"
+        ]
+      },
+      {
+        "vi": "Bạn cho tôi vài lời khuyên được không?",
+        "en": "Could you give me some advice?",
+        "distractors": [
+          "Did",
+          "gave",
+          "advices"
+        ]
+      },
+      {
+        "vi": "Hãy đi giày tốt.",
+        "en": "Wear good shoes.",
+        "distractors": [
+          "Wears",
+          "well",
+          "shoe"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Helen và Trang nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi xa",
+          "Chạy bộ ở hồ Tây",
+          "Đôi giày mới của Helen"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Helen hỏi \"do you still run at West Lake?\", rồi hai bạn nói về cách chạy và hẹn chạy cùng nhau.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hiếu khuyên Trang thế nào?",
+        "promptVi": "",
+        "options": [
+          "Lúc đầu chạy chậm",
+          "Chạy thật nhanh",
+          "Chạy vào buổi tối"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang nói \"My friend Hieu told me to run slowly at first.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hai bạn hẹn chạy lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm giờ",
+          "Sáu giờ",
+          "Bảy giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Trang nói \"At six o'clock.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Helen can come on Saturday.",
+        "promptVi": "Helen đến được vào thứ Bảy.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Helen nói \"Yes, I can.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Hiếu khuyên Trang chạy thế nào để không bị đau chân?",
+    "grammarStep": {
+      "titleVi": "Trạng từ chỉ cách thức",
+      "noticing": [
+        {
+          "sentence": "Last Tuesday, she ran very fast, and the next day her legs hurt badly.",
+          "highlights": [
+            "fast",
+            "badly"
+          ]
+        },
+        {
+          "sentence": "He runs very well, and he can run twenty kilometres easily.",
+          "highlights": [
+            "well",
+            "easily"
+          ]
+        },
+        {
+          "sentence": "\"First, don't start quickly, and walk slowly for five minutes.\"",
+          "highlights": [
+            "quickly",
+            "slowly"
+          ]
+        },
+        {
+          "sentence": "Hieu ran easily, but Trang was very hot after half an hour.",
+          "highlights": [
+            "easily"
+          ]
+        }
+      ],
+      "questionVi": "Những trạng từ nào trong bài không thêm -ly?",
+      "options": [
+        "well, fast, hard",
+        "badly, easily, slowly",
+        "quick, slow, easy"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Well (từ good), fast và hard là trạng từ đặc biệt, không thêm -ly. Badly, easily, slowly, quickly thì thêm -ly (easy → easily). Quick, slow, easy là tính từ.",
+      "whenVi": "Dùng trạng từ chỉ cách thức để nói ai làm việc gì như thế nào, và để khuyên cách làm (walk slowly, don't run hard).",
+      "table": [
+        {
+          "subject": "Tính từ + ly",
+          "form": "slow → slowly, quick → quickly, bad → badly",
+          "negative": "—"
+        },
+        {
+          "subject": "y → ily",
+          "form": "easy → easily, happy → happily",
+          "negative": "—"
+        },
+        {
+          "subject": "Đặc biệt",
+          "form": "good → well, fast → fast, hard → hard",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He runs very good.",
+          "right": "He runs very well."
+        },
+        {
+          "wrong": "Don't run hardly every day.",
+          "right": "Don't run hard every day."
+        }
+      ],
+      "noteVi": "Người Việt hay thêm -ly vào mọi từ (hardly, fastly); nhưng trạng từ của hard là hard, của fast là fast, còn hardly lại có nghĩa khác (hầu như không).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền trạng từ của tính từ trong ngoặc.",
+          "text": "Hieu can run twenty kilometres ___ (easy).",
+          "answers": [
+            "easily"
+          ],
+          "explanationVi": "Easy tận cùng bằng y, đổi y thành i rồi thêm -ly: easily."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Don't start ___. Walk slowly first.",
+          "options": [
+            "quick",
+            "quickly",
+            "quicks",
+            "fastly"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sau động từ start cần trạng từ: quickly. Không có từ \"fastly\"."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Don't run hardly every day.",
+          "sentence": "Don't run hard every day.",
+          "explanationVi": "Trạng từ của hard là hard; hardly có nghĩa khác (hầu như không)."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Uống từ từ thôi.",
+          "sentence": "Drink it slowly.",
+          "words": [
+            "slowly",
+            "Drink",
+            "it",
+            "slow"
+          ],
+          "explanationVi": "Sau động từ và tân ngữ (drink it) cần trạng từ slowly; từ \"slow\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Every morning, she runs around West Lake in Hanoi.",
+        "tipVi": "Runs /rʌnz/ kết thúc bằng /nz/; around /əˈraʊnd/ nhấn ở âm thứ hai và có /nd/ ở cuối."
+      },
+      {
+        "text": "Hieu ran easily, but Trang was very hot after half an hour.",
+        "tipVi": "Easily /ˈizəli/ có âm /z/; hour /aʊər/ không đọc chữ h, nên nói \"an hour\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you run or walk in the morning?",
+        "questionVi": "Buổi sáng bạn có chạy hay đi bộ không?",
+        "frame": "Yes, I do. I ___ in the ___. / No, I don't."
+      },
+      {
+        "question": "Can you run fast?",
+        "questionVi": "Bạn chạy có nhanh không?",
+        "frame": "Yes, I can. / No, I can't. I run ___."
+      },
+      {
+        "question": "Who in your family can run or swim very well?",
+        "questionVi": "Trong nhà bạn ai chạy hoặc bơi giỏi?",
+        "frame": "My ___ can ___ very well."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 trạng từ chỉ cách thức (slowly, carefully, well …)",
+      "anyOf": [
+        "slowly",
+        "quickly",
+        "carefully",
+        "well",
+        "hard",
+        "fast",
+        "easily"
+      ],
+      "outlineVi": [
+        "Nói lời khuyên đầu tiên trước khi bắt đầu chạy (First, …).",
+        "Khuyên cách chạy (run slowly, listen carefully …).",
+        "Khuyên điều không nên làm (Don't run hard …) và nói kết quả."
+      ],
+      "modelAnswer": "Do you want to start running? Here is my advice. First, buy good shoes. Don't run fast at the start. Walk slowly for five minutes, and then run slowly. Listen to your body carefully. Don't run hard every day, and drink a lot of water. After one month, you can run well and easily!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "started",
+      "lemma": "start",
+      "meaningVi": "bắt đầu",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Trang started running last month",
+      "phraseVi": "Trang bắt đầu chạy bộ từ tháng trước"
+    },
+    {
+      "text": "around",
+      "lemma": "around",
+      "meaningVi": "quanh",
+      "sentenceIndex": 1,
+      "pos": "preposition",
+      "phrase": "she runs around West Lake",
+      "phraseVi": "cô chạy quanh hồ Tây"
+    },
+    {
+      "text": "the next day",
+      "lemma": "the next day",
+      "meaningVi": "hôm sau",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "the next day her legs hurt badly",
+      "phraseVi": "hôm sau chân cô đau nhiều"
+    },
+    {
+      "text": "kilometres",
+      "lemma": "kilometre",
+      "meaningVi": "ki-lô-mét, cây số",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "run twenty kilometres easily",
+      "phraseVi": "chạy hai mươi cây số dễ dàng"
+    },
+    {
+      "text": "get hurt",
+      "lemma": "get hurt",
+      "meaningVi": "bị đau, bị thương",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "I don't want to get hurt",
+      "phraseVi": "em không muốn bị đau"
+    },
+    {
+      "text": "body",
+      "lemma": "body",
+      "meaningVi": "cơ thể",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "listen to your body",
+      "phraseVi": "lắng nghe cơ thể mình"
+    },
+    {
+      "text": "Wear",
+      "lemma": "wear",
+      "meaningVi": "đi, mang (giày), mặc",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "Wear good shoes",
+      "phraseVi": "Đi giày tốt"
+    },
+    {
+      "text": "half an hour",
+      "lemma": "half an hour",
+      "meaningVi": "nửa tiếng",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "after half an hour",
+      "phraseVi": "sau nửa tiếng"
+    },
+    {
+      "text": "drank",
+      "lemma": "drink",
+      "meaningVi": "uống",
+      "sentenceIndex": 15,
+      "pos": "verb",
+      "phrase": "Trang drank the water slowly",
+      "phraseVi": "Trang uống nước từ từ"
+    }
+  ]
+}

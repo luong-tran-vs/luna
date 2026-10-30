@@ -1,0 +1,625 @@
+{
+  "content": "It's Monday morning at a travel company in Ho Chi Minh City. Suddenly, the internet stops working, and everybody looks up from their computers.\n\nTam says, \"The Wi-Fi is down again! I need to send an important email to a customer.\"\nPhuong tries to open a website, but nothing happens. \"Mine isn't working either. Has anyone called IT?\"\n\"I've already called Mr Kien. But he's in a meeting. He'll come down in half an hour.\"\nDuy, the youngest person in the office, says, \"Half an hour? I can't wait that long. Let's try turning the router off and on again. That often works at home.\"\n\"Do you know where it is?\"\n\"I think it's in the small room next to the kitchen.\"\nDuy goes into the room and finds a black box with green lights. He turns it off, waits for thirty seconds and turns it back on.\nEverybody waits. The lights on the box come on one by one.\nDuy shouts from the room, \"Is it working now?\"\nPhuong opens the page again. \"Not yet. Wait! Yes, it's back!\"\nEverybody cheers, and Tam sends her email quickly.\nTwenty minutes later, Mr Kien comes into the office. \"Sorry I'm late. What's the problem?\"\nDuy says with a smile, \"We've already sorted it out.\"\nMr Kien laughs. \"Well done. You should think about joining the IT team!\"",
+  "targetWords": [
+    "internet",
+    "email",
+    "customer",
+    "website",
+    "meeting",
+    "kitchen",
+    "light",
+    "second",
+    "page",
+    "problem"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "internet",
+        "lemma": "internet",
+        "meaningVi": "mạng internet",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "email",
+        "lemma": "email",
+        "meaningVi": "thư điện tử",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "customer",
+        "lemma": "customer",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "website",
+        "lemma": "website",
+        "meaningVi": "trang web",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "meeting",
+        "lemma": "meeting",
+        "meaningVi": "cuộc họp",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "phòng bếp",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "lights",
+        "lemma": "light",
+        "meaningVi": "đèn",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "seconds",
+        "lemma": "second",
+        "meaningVi": "giây",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "page",
+        "lemma": "page",
+        "meaningVi": "trang (web)",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "problem",
+        "lemma": "problem",
+        "meaningVi": "vấn đề, sự cố",
+        "pos": "noun",
+        "sentenceIndex": 28
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Office workers fix their internet without IT help.",
+          "Mr Kien buys a new router.",
+          "Tam writes an email to her boss.",
+          "Duy's first day in the IT team"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mạng bị mất, Duy tắt rồi bật lại bộ phát Wi-Fi, và mạng chạy lại trước khi anh Kiên đến."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't Mr Kien come at once?",
+        "promptVi": "Vì sao anh Kiên không đến ngay được?",
+        "options": [
+          "He is at home.",
+          "He is in a meeting.",
+          "He is on holiday.",
+          "His phone is off."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tâm nói \"But he's in a meeting.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How does Duy solve the problem?",
+        "promptVi": "Duy giải quyết sự cố bằng cách nào?",
+        "options": [
+          "He calls the internet company.",
+          "He buys a new computer.",
+          "He turns the router off and turns it back on.",
+          "He moves the router to the kitchen."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"He turns it off, waits for thirty seconds and turns it back on.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The internet comes back before Mr Kien arrives.",
+        "promptVi": "Mạng có lại trước khi anh Kiên đến.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì khi anh Kiên đến, Duy nói \"We've already sorted it out.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"is down\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Tam says, \"The Wi-Fi is down again!",
+        "options": [
+          "ở dưới tầng",
+          "đang mất, không hoạt động",
+          "chậm hơn",
+          "buồn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khi nói về mạng, máy móc, \"is down\" = đang bị sập, không hoạt động."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm động từ và vị trí tân ngữ",
+      "bodyVi": "Cụm động từ trong tình huống sửa mạng: look up (ngẩng lên), come down (đi xuống), turn it off / turn it back on (tắt / bật lại), come on (bật sáng lên), sort it out (giải quyết xong). Tân ngữ là đại từ (it) đứng giữa: turn it off, sort it out. Tân ngữ là danh từ có thể đứng giữa: turning the router off. Các động từ đi kèm V-ing hay to: try to open, try turning, think about joining.",
+      "examples": [
+        "Let's try turning the router off and on again.",
+        "He turns it off, waits for thirty seconds and turns it back on.",
+        "Duy says with a smile, \"We've already sorted it out.\""
+      ]
+    },
+    "writingPrompt": "Write about a time something stopped working at home, school or work: what did you do to sort it out?",
+    "sentenceTranslations": [
+      "Sáng thứ Hai tại một công ty du lịch ở Thành phố Hồ Chí Minh.",
+      "Bỗng nhiên mạng internet ngừng chạy, và ai cũng ngẩng lên khỏi máy tính.",
+      "Tâm nói: \"Wi-Fi lại mất rồi!",
+      "Mình cần gửi một email quan trọng cho khách hàng.\"",
+      "Phương thử mở một trang web, nhưng không được.",
+      "\"Máy mình cũng không vào được.",
+      "Đã ai gọi bộ phận IT chưa?\"",
+      "\"Mình gọi anh Kiên rồi.",
+      "Nhưng anh ấy đang họp.",
+      "Nửa tiếng nữa anh ấy mới xuống.\"",
+      "Duy, người trẻ nhất văn phòng, nói: \"Nửa tiếng á?",
+      "Mình không đợi lâu thế được đâu.",
+      "Thử tắt bộ phát Wi-Fi rồi bật lại xem.",
+      "Ở nhà làm thế thường được.\"",
+      "\"Cậu có biết nó ở đâu không?\"",
+      "\"Mình nghĩ nó ở trong phòng nhỏ cạnh phòng bếp.\"",
+      "Duy vào phòng và thấy một cái hộp đen có đèn xanh.",
+      "Cậu tắt nó đi, đợi ba mươi giây rồi bật lại.",
+      "Mọi người chờ.",
+      "Đèn trên hộp sáng lên từng cái một.",
+      "Duy gọi to từ trong phòng: \"Được chưa?\"",
+      "Phương mở lại trang.",
+      "\"Chưa.",
+      "Khoan!",
+      "Có rồi, mạng có lại rồi!\"",
+      "Mọi người reo lên, và Tâm gửi email thật nhanh.",
+      "Hai mươi phút sau, anh Kiên bước vào văn phòng.",
+      "\"Xin lỗi anh đến muộn.",
+      "Có chuyện gì thế?\"",
+      "Duy cười nói: \"Bọn em giải quyết xong rồi ạ.\"",
+      "Anh Kiên bật cười.",
+      "\"Giỏi lắm.",
+      "Em nên nghĩ đến chuyện vào nhóm IT đi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể cách xử lý sự cố mạng bằng các cụm động từ (turn off / back on, come on, sort out) và đặt tân ngữ đúng chỗ.",
+    "examples": [
+      {
+        "lemma": "internet",
+        "sentence": "The internet is very slow today.",
+        "meaningVi": "Hôm nay mạng rất chậm."
+      },
+      {
+        "lemma": "email",
+        "sentence": "I'll send you an email tonight.",
+        "meaningVi": "Tối nay tôi sẽ gửi email cho bạn."
+      },
+      {
+        "lemma": "customer",
+        "sentence": "The customer wants to speak to the manager.",
+        "meaningVi": "Khách hàng muốn nói chuyện với quản lý."
+      },
+      {
+        "lemma": "website",
+        "sentence": "Our website has a new design.",
+        "meaningVi": "Trang web của chúng tôi có thiết kế mới."
+      },
+      {
+        "lemma": "meeting",
+        "sentence": "The meeting starts at nine.",
+        "meaningVi": "Cuộc họp bắt đầu lúc chín giờ."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "There is coffee in the kitchen.",
+        "meaningVi": "Trong bếp có cà phê."
+      },
+      {
+        "lemma": "light",
+        "sentence": "Turn off the light when you leave.",
+        "meaningVi": "Tắt đèn khi bạn ra ngoài."
+      },
+      {
+        "lemma": "second",
+        "sentence": "Wait a second, please.",
+        "meaningVi": "Đợi một giây nhé."
+      },
+      {
+        "lemma": "page",
+        "sentence": "Open the first page of the book.",
+        "meaningVi": "Mở trang đầu tiên của cuốn sách."
+      },
+      {
+        "lemma": "problem",
+        "sentence": "We have a problem with the printer.",
+        "meaningVi": "Máy in của chúng tôi có vấn đề."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duy",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Duy, my internet isn't working.",
+          "meaningVi": "Duy ơi, mạng của mình không vào được."
+        },
+        {
+          "speaker": 0,
+          "text": "Have you tried turning the router off?",
+          "meaningVi": "Cậu đã thử tắt bộ phát Wi-Fi chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "No. How do I do that?",
+          "meaningVi": "Chưa. Làm thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Find the button on the back and switch it off.",
+          "meaningVi": "Tìm nút ở mặt sau rồi tắt nó đi."
+        },
+        {
+          "speaker": 1,
+          "text": "OK, I've switched it off. Now what?",
+          "meaningVi": "Được, mình tắt rồi. Giờ sao nữa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Wait for thirty seconds, then turn it back on.",
+          "meaningVi": "Đợi ba mươi giây rồi bật lại."
+        },
+        {
+          "speaker": 1,
+          "text": "The lights are coming on. Wait, the page is open now!",
+          "meaningVi": "Đèn đang sáng lên. Khoan, trang web mở được rồi!"
+        },
+        {
+          "speaker": 0,
+          "text": "Great. That sorts out most problems.",
+          "meaningVi": "Tuyệt. Cách đó giải quyết được phần lớn sự cố."
+        },
+        {
+          "speaker": 1,
+          "text": "You should work in IT!",
+          "meaningVi": "Cậu nên làm bên IT!"
+        },
+        {
+          "speaker": 0,
+          "text": "Maybe one day. I enjoy fixing things.",
+          "meaningVi": "Có thể một ngày nào đó. Mình thích sửa đồ."
+        }
+      ]
+    },
+    "grammarTipVi": "Switch it off, turn it back on: đại từ đứng giữa. Have you tried turning…? (try + V-ing = thử làm xem sao). I enjoy fixing things.",
+    "translations": [
+      {
+        "vi": "Tắt bộ phát Wi-Fi rồi đợi ba mươi giây.",
+        "en": "Turn the router off and wait thirty seconds.",
+        "distractors": [
+          "up",
+          "down",
+          "minutes"
+        ]
+      },
+      {
+        "vi": "Đèn sáng lên từng cái một.",
+        "en": "The lights come on one by one.",
+        "distractors": [
+          "off",
+          "up",
+          "out"
+        ]
+      },
+      {
+        "vi": "Chúng tôi đã giải quyết xong sự cố.",
+        "en": "We have sorted out the problem.",
+        "distractors": [
+          "up",
+          "off",
+          "sorts"
+        ]
+      },
+      {
+        "vi": "Tôi đã thử mở trang web.",
+        "en": "I tried to open the website.",
+        "distractors": [
+          "opening",
+          "opened",
+          "up"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Duy giúp Anna làm gì?",
+        "promptVi": "",
+        "options": [
+          "Sửa mạng internet",
+          "Viết email",
+          "Mua bộ phát Wi-Fi mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna nói \"my internet isn't working\" và Duy hướng dẫn cách sửa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nút tắt bộ phát ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở mặt trước",
+          "Ở mặt sau",
+          "Ở bên trên"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Duy nói \"Find the button on the back.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phải đợi bao lâu trước khi bật lại?",
+        "promptVi": "",
+        "options": [
+          "Mười phút",
+          "Ba phút",
+          "Ba mươi giây"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Duy nói \"Wait for thirty seconds.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duy doesn't like fixing things.",
+        "promptVi": "Duy không thích sửa đồ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Duy nói \"I enjoy fixing things.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Mạng bị mất thì mọi người làm gì? Duy sửa nó bằng những bước nào?",
+    "grammarStep": {
+      "titleVi": "Cụm động từ và vị trí tân ngữ",
+      "noticing": [
+        {
+          "sentence": "Suddenly, the internet stops working, and everybody looks up from their computers.",
+          "highlights": [
+            "looks up"
+          ]
+        },
+        {
+          "sentence": "He turns it off, waits for thirty seconds and turns it back on.",
+          "highlights": [
+            "turns it off",
+            "turns it back on"
+          ]
+        },
+        {
+          "sentence": "The lights on the box come on one by one.",
+          "highlights": [
+            "come on"
+          ]
+        },
+        {
+          "sentence": "Duy says with a smile, \"We've already sorted it out.\"",
+          "highlights": [
+            "sorted it out"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"turns it back on\", từ \"back\" đứng ở đâu?",
+      "options": [
+        "Giữa đại từ it và tiểu từ on",
+        "Sau on",
+        "Trước turns"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Turn it back on = bật nó lên lại; back (lại) đứng sau đại từ và trước tiểu từ.",
+      "whenVi": "Dùng cụm động từ để kể các bước sửa máy; với đại từ luôn đặt nó giữa động từ và tiểu từ.",
+      "table": [
+        {
+          "subject": "Có tân ngữ, tách được",
+          "form": "turn the router off / turn it off",
+          "negative": "không nói: turn off it"
+        },
+        {
+          "subject": "Có back",
+          "form": "turn it back on",
+          "negative": "—"
+        },
+        {
+          "subject": "Không có tân ngữ",
+          "form": "the lights come on, everybody looks up",
+          "negative": "—"
+        },
+        {
+          "subject": "sort out",
+          "form": "sort out the problem / sort it out",
+          "negative": "không nói: sort out it"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He turns off it and waits.",
+          "right": "He turns it off and waits."
+        },
+        {
+          "wrong": "We've already sorted out it.",
+          "right": "We've already sorted it out."
+        }
+      ],
+      "noteVi": "Try + to (cố gắng làm): Phuong tries to open a website. Try + V-ing (thử làm xem có được không): Let's try turning the router off.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền tiểu từ đúng (on, off, out, up).",
+          "text": "Wait for thirty seconds and turn it back ___.",
+          "answers": [
+            "on"
+          ],
+          "explanationVi": "Bật lại: turn it back on."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Don't worry. We've already ___.",
+          "options": [
+            "sorted out it",
+            "sorted it out",
+            "out sorted it",
+            "sorted it"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Đại từ it đứng giữa: sorted it out."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Find the router and switch off it.",
+          "sentence": "Find the router and switch it off.",
+          "explanationVi": "Đại từ it đứng giữa: switch it off."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy tắt nó đi.",
+          "sentence": "He turns it off.",
+          "words": [
+            "turns",
+            "He",
+            "off.",
+            "it",
+            "on"
+          ],
+          "explanationVi": "Tắt: turn it off; từ \"on\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Everybody waits.",
+        "tipVi": "Everybody /ˈevribɒdi/ nhấn âm đầu; waits /weɪts/ đọc rõ /ts/."
+      },
+      {
+        "text": "Phuong opens the page again.",
+        "tipVi": "Opens the nối nhẹ; again /əˈɡen/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you do when your internet stops working?",
+        "questionVi": "Khi mạng bị mất bạn làm gì?",
+        "frame": "I turn the router off and ___."
+      },
+      {
+        "question": "Have you ever sorted out a computer problem without help?",
+        "questionVi": "Bạn đã bao giờ tự xử lý sự cố máy tính mà không cần ai giúp chưa?",
+        "frame": "Yes, I have. I ___. / No, I haven't."
+      },
+      {
+        "question": "Who sorts out computer problems in your family?",
+        "questionVi": "Trong nhà bạn, ai hay xử lý sự cố máy tính?",
+        "frame": "My ___ does. He / She usually ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm động từ (turn off / on, switch off, sort out, come on…)",
+      "anyOf": [
+        "turn it off",
+        "turn off",
+        "turned it off",
+        "turn it on",
+        "turn on",
+        "turned it on",
+        "switch off",
+        "switched it off",
+        "sort out",
+        "sorted it out",
+        "sorted out",
+        "back on",
+        "come on",
+        "came on"
+      ],
+      "outlineVi": [
+        "Cái gì ngừng chạy, lúc nào, ở đâu.",
+        "Bạn đã làm những bước gì (turned it off, switched it back on…).",
+        "Kết quả: ai đã giải quyết xong (sorted it out)."
+      ],
+      "modelAnswer": "Last week, our TV at home stopped working in the middle of a football game. My father wanted to call a shop, but I wanted to try something first. I turned the TV off and unplugged it. After a minute, I plugged it back in and turned it on. The screen came on, and we watched the end of the game. My father was very happy."
+    }
+  },
+  "glosses": [
+    {
+      "text": "looks up",
+      "lemma": "look up",
+      "meaningVi": "ngẩng lên",
+      "sentenceIndex": 1,
+      "pos": "phrasal verb",
+      "phrase": "everybody looks up from their computers",
+      "phraseVi": "ai cũng ngẩng lên khỏi máy tính"
+    },
+    {
+      "text": "come down",
+      "lemma": "come down",
+      "meaningVi": "đi xuống",
+      "sentenceIndex": 9,
+      "pos": "phrasal verb",
+      "phrase": "He'll come down in half an hour.",
+      "phraseVi": "Nửa tiếng nữa anh ấy mới xuống."
+    },
+    {
+      "text": "router",
+      "lemma": "router",
+      "meaningVi": "bộ phát Wi-Fi",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "turning the router off and on again",
+      "phraseVi": "tắt bộ phát Wi-Fi rồi bật lại"
+    },
+    {
+      "text": "come on",
+      "lemma": "come on",
+      "meaningVi": "bật sáng lên",
+      "sentenceIndex": 19,
+      "pos": "phrasal verb",
+      "phrase": "The lights on the box come on",
+      "phraseVi": "Đèn trên hộp sáng lên"
+    },
+    {
+      "text": "cheers",
+      "lemma": "cheer",
+      "meaningVi": "reo hò",
+      "sentenceIndex": 25,
+      "pos": "verb",
+      "phrase": "Everybody cheers",
+      "phraseVi": "Mọi người reo lên"
+    },
+    {
+      "text": "sorted it out",
+      "lemma": "sort out",
+      "meaningVi": "giải quyết xong",
+      "sentenceIndex": 29,
+      "pos": "phrasal verb",
+      "phrase": "We've already sorted it out.",
+      "phraseVi": "Bọn em giải quyết xong rồi ạ."
+    }
+  ]
+}

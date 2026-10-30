@@ -1,0 +1,612 @@
+{
+  "content": "It's Thursday morning at a shoe factory in Binh Duong. Forty workers are standing in the big meeting room.\n\nA woman in a blue shirt says, \"Good morning, everyone. My name is Tran Thu Ha, and I'm your new manager. I joined the company on Monday, so I've only been here for three days.\"\nEverybody in the room listens carefully.\n\"First, a little about me. I've worked in factories for twelve years. Last year, I worked in Dong Nai as a production manager at a bicycle factory.\"\n\"In Dong Nai, we had a lot of problems at first. Machines often broke down, and workers were unhappy. So we made some changes. We trained all the staff, and we bought new machines. In two years, we cut our mistakes by half.\"\n\"Here, I've already met some of you, and I've visited every part of the factory. I've also read last year's reports.\"\nA young man asks, \"What have you noticed so far?\"\n\"Good question. I've noticed that you work very hard. But I've also seen that orders are often late.\"\n\"Have you made any plans yet?\" another worker asks.\n\"Not yet. First, I want to listen to you. Over the next two weeks, I'll talk with each team. I haven't met the night team yet, so I'm visiting them tonight.\"\nShe smiles. \"My door is always open. Thank you.\"",
+  "targetWords": [
+    "factory",
+    "worker",
+    "production",
+    "machine",
+    "unhappy",
+    "mistake",
+    "question",
+    "order",
+    "team",
+    "open"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "factory",
+        "lemma": "factory",
+        "meaningVi": "nhà máy",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "workers",
+        "lemma": "worker",
+        "meaningVi": "công nhân",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "production",
+        "lemma": "production",
+        "meaningVi": "sản xuất",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "Machines",
+        "lemma": "machine",
+        "meaningVi": "máy móc",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "unhappy",
+        "lemma": "unhappy",
+        "meaningVi": "không vui, bất mãn",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "mistakes",
+        "lemma": "mistake",
+        "meaningVi": "lỗi, sai sót",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "question",
+        "lemma": "question",
+        "meaningVi": "câu hỏi",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "orders",
+        "lemma": "order",
+        "meaningVi": "đơn hàng",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "nhóm, tổ",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "open",
+        "lemma": "open",
+        "meaningVi": "mở",
+        "pos": "adjective",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "A new manager introduces herself to the workers.",
+          "Workers buy new machines in Dong Nai.",
+          "A young man asks for a new job.",
+          "The night team works late."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Hà, trưởng phòng mới, tự giới thiệu với công nhân nhà máy giày và kể về kinh nghiệm của mình."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long has Ms Ha been at this company?",
+        "promptVi": "Chị Hà đã ở công ty này bao lâu?",
+        "options": [
+          "Twelve years",
+          "Two years",
+          "Three days",
+          "One year"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị nói \"I joined the company on Monday, so I've only been here for three days.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How did her team in Dong Nai cut their mistakes?",
+        "promptVi": "Nhóm của chị ở Đồng Nai đã giảm lỗi bằng cách nào?",
+        "options": [
+          "They hired more workers.",
+          "They trained all the staff and bought new machines.",
+          "They worked at night.",
+          "They closed the factory."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị nói \"We trained all the staff, and we bought new machines. In two years, we cut our mistakes by half.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Ha has already met the night team.",
+        "promptVi": "Chị Hà đã gặp tổ làm ca đêm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị nói \"I haven't met the night team yet, so I'm visiting them tonight.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cut … by half\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In two years, we cut our mistakes by half.\"",
+        "options": [
+          "cắt làm đôi",
+          "giảm một nửa",
+          "tăng gấp đôi",
+          "chia đều"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Cut something by half = giảm đi một nửa. \"Cắt làm đôi\" là nghĩa đen của cut, không hợp ở đây."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành và quá khứ đơn",
+      "bodyVi": "Khi tự giới thiệu, chị Hà dùng hiện tại hoàn thành cho kinh nghiệm và kết quả tính đến bây giờ: I've worked in factories for twelve years, I've already met some of you, I've noticed that… Còn khi kể việc ở nơi làm cũ, thời điểm đã qua (last year, in Dong Nai, at first), chị dùng quá khứ đơn: Last year, I worked in Dong Nai… we had a lot of problems… we bought new machines.",
+      "examples": [
+        "I've worked in factories for twelve years.",
+        "Last year, I worked in Dong Nai as a production manager at a bicycle factory.\"",
+        "\"Here, I've already met some of you, and I've visited every part of the factory."
+      ]
+    },
+    "writingPrompt": "Imagine you are new in a class or team. Introduce yourself: what did you do before, and what have you done here so far?",
+    "sentenceTranslations": [
+      "Sáng thứ Năm ở một nhà máy giày tại Bình Dương.",
+      "Bốn mươi công nhân đang đứng trong phòng họp lớn.",
+      "Một người phụ nữ mặc áo xanh dương nói: \"Chào buổi sáng mọi người.",
+      "Tôi tên là Trần Thu Hà, trưởng phòng mới của các bạn.",
+      "Tôi vào công ty hôm thứ Hai, nên mới ở đây được ba ngày.\"",
+      "Mọi người trong phòng chăm chú lắng nghe.",
+      "\"Trước tiên, đôi chút về tôi.",
+      "Tôi đã làm việc trong các nhà máy mười hai năm.",
+      "Năm ngoái, tôi làm trưởng phòng sản xuất ở một nhà máy xe đạp tại Đồng Nai.\"",
+      "\"Ở Đồng Nai, lúc đầu chúng tôi gặp rất nhiều vấn đề.",
+      "Máy móc hay hỏng, và công nhân không vui.",
+      "Vì vậy chúng tôi đã thay đổi một số thứ.",
+      "Chúng tôi đào tạo lại toàn bộ nhân viên, và mua máy mới.",
+      "Trong hai năm, chúng tôi giảm được một nửa số lỗi.\"",
+      "\"Ở đây, tôi đã gặp một số bạn, và đã đi thăm mọi khu của nhà máy.",
+      "Tôi cũng đã đọc các báo cáo của năm ngoái.\"",
+      "Một chàng trai hỏi: \"Đến giờ chị đã nhận thấy điều gì?\"",
+      "\"Câu hỏi hay.",
+      "Tôi nhận thấy các bạn làm việc rất chăm chỉ.",
+      "Nhưng tôi cũng thấy đơn hàng thường bị trễ.\"",
+      "\"Chị đã có kế hoạch gì chưa?\" một công nhân khác hỏi.",
+      "\"Chưa.",
+      "Trước tiên, tôi muốn lắng nghe các bạn.",
+      "Trong hai tuần tới, tôi sẽ nói chuyện với từng tổ.",
+      "Tôi chưa gặp tổ ca đêm, nên tối nay tôi sẽ đến thăm họ.\"",
+      "Chị mỉm cười.",
+      "\"Cửa phòng tôi lúc nào cũng mở.",
+      "Cảm ơn mọi người.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tự giới thiệu ở chỗ làm mới: kể việc đã làm ở nơi cũ (quá khứ đơn) và những gì đã làm được ở đây đến nay (hiện tại hoàn thành).",
+    "examples": [
+      {
+        "lemma": "factory",
+        "sentence": "My father works in a car factory.",
+        "meaningVi": "Bố tôi làm việc ở một nhà máy ô tô."
+      },
+      {
+        "lemma": "worker",
+        "sentence": "Every worker gets a free lunch.",
+        "meaningVi": "Mỗi công nhân được một bữa trưa miễn phí."
+      },
+      {
+        "lemma": "production",
+        "sentence": "Production starts at six in the morning.",
+        "meaningVi": "Việc sản xuất bắt đầu lúc sáu giờ sáng."
+      },
+      {
+        "lemma": "machine",
+        "sentence": "This machine makes coffee.",
+        "meaningVi": "Chiếc máy này pha cà phê."
+      },
+      {
+        "lemma": "unhappy",
+        "sentence": "She looks unhappy today.",
+        "meaningVi": "Hôm nay trông cô ấy không vui."
+      },
+      {
+        "lemma": "mistake",
+        "sentence": "I made a mistake in the email.",
+        "meaningVi": "Tôi viết sai một chỗ trong email."
+      },
+      {
+        "lemma": "question",
+        "sentence": "Can I ask you a question?",
+        "meaningVi": "Tôi hỏi bạn một câu được không?"
+      },
+      {
+        "lemma": "order",
+        "sentence": "We have a big order from Japan.",
+        "meaningVi": "Chúng tôi có một đơn hàng lớn từ Nhật Bản."
+      },
+      {
+        "lemma": "team",
+        "sentence": "Our team won the game.",
+        "meaningVi": "Đội chúng tôi thắng trận."
+      },
+      {
+        "lemma": "open",
+        "sentence": "The shop is open until ten.",
+        "meaningVi": "Cửa hàng mở cửa đến mười giờ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ha",
+        "Kevin"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ms Ha, welcome! Have you worked in a shoe factory before?",
+          "meaningVi": "Chị Hà, chào mừng chị! Chị đã từng làm ở nhà máy giày chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I haven't. Last year, I worked in a bicycle factory.",
+          "meaningVi": "Chưa. Năm ngoái tôi làm ở một nhà máy xe đạp."
+        },
+        {
+          "speaker": 1,
+          "text": "How long did you work there?",
+          "meaningVi": "Chị làm ở đó bao lâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "For three years. I left in December.",
+          "meaningVi": "Ba năm. Tôi nghỉ vào tháng Mười Hai."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you visited the whole factory yet?",
+          "meaningVi": "Chị đã đi hết nhà máy chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I've already seen every part of it.",
+          "meaningVi": "Rồi, tôi đã xem hết mọi khu rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "What do you think of our machines?",
+          "meaningVi": "Chị thấy máy móc của chúng tôi thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Some are old. I've just asked for a report on them.",
+          "meaningVi": "Một số đã cũ. Tôi vừa yêu cầu một bản báo cáo về chúng."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you met the night team?",
+          "meaningVi": "Chị đã gặp tổ ca đêm chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. I'm meeting them tonight.",
+          "meaningVi": "Chưa. Tối nay tôi sẽ gặp họ."
+        }
+      ]
+    },
+    "grammarTipVi": "Nơi làm cũ, đã kết thúc: How long did you work there? — For three years. I left in December. Ở đây, tính đến nay: Have you visited the whole factory yet? — I've already seen every part of it.",
+    "translations": [
+      {
+        "vi": "Tôi đã ở nhà máy này được ba ngày.",
+        "en": "I have been in this factory for three days.",
+        "distractors": [
+          "works",
+          "since",
+          "has"
+        ]
+      },
+      {
+        "vi": "Năm ngoái tôi làm trưởng phòng sản xuất.",
+        "en": "Last year, I was a production manager.",
+        "distractors": [
+          "have",
+          "am",
+          "been"
+        ]
+      },
+      {
+        "vi": "Máy móc hay hỏng.",
+        "en": "Machines often broke down.",
+        "distractors": [
+          "have",
+          "break",
+          "broken"
+        ]
+      },
+      {
+        "vi": "Tôi chưa gặp tổ ca đêm.",
+        "en": "I haven't met the night team yet.",
+        "distractors": [
+          "didn't",
+          "already",
+          "meet"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Kevin và chị Hà nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kinh nghiệm của chị Hà và những gì chị đã làm ở nhà máy mới",
+          "Một đơn hàng giày",
+          "Chuyến đi Đồng Nai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kevin hỏi chị Hà về nơi làm cũ và những việc chị đã làm ở nhà máy này.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Hà làm ở nhà máy xe đạp bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Mười hai năm",
+          "Ba năm",
+          "Một năm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Hà nói \"For three years.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Hà vừa yêu cầu gì?",
+        "promptVi": "",
+        "options": [
+          "Máy mới",
+          "Thêm công nhân",
+          "Một bản báo cáo về máy móc"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị Hà nói \"I've just asked for a report on them.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Ha has worked in a shoe factory before.",
+        "promptVi": "Chị Hà đã từng làm ở nhà máy giày.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Hà nói \"No, I haven't.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Chị Hà đã làm gì ở nơi cũ, và chị đã làm được gì ở nhà máy mới trong ba ngày?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành và quá khứ đơn",
+      "noticing": [
+        {
+          "sentence": "I joined the company on Monday, so I've only been here for three days.\"",
+          "highlights": [
+            "joined",
+            "on Monday",
+            "I've only been"
+          ]
+        },
+        {
+          "sentence": "I've worked in factories for twelve years.",
+          "highlights": [
+            "I've worked"
+          ]
+        },
+        {
+          "sentence": "Last year, I worked in Dong Nai as a production manager at a bicycle factory.\"",
+          "highlights": [
+            "Last year",
+            "worked"
+          ]
+        },
+        {
+          "sentence": "I've also read last year's reports.\"",
+          "highlights": [
+            "I've also read"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"I joined the company on Monday, so I've only been here for three days\", vì sao có cả quá khứ đơn và hiện tại hoàn thành?",
+      "options": [
+        "Joined có thời điểm cụ thể (on Monday); I've been here nói thời gian kéo dài đến bây giờ.",
+        "Vì chị Hà nói sai.",
+        "Vì cả hai vế nói về tương lai."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc bắt đầu ở một thời điểm (on Monday) dùng quá khứ đơn; thời gian từ đó đến nay dùng hiện tại hoàn thành với for.",
+      "whenVi": "Quá khứ đơn cho thời điểm cụ thể, nơi làm cũ đã kết thúc; hiện tại hoàn thành cho kinh nghiệm và kết quả tính đến nay.",
+      "table": [
+        {
+          "subject": "Quá khứ đơn",
+          "form": "I joined the company on Monday.",
+          "negative": "I didn't work there long."
+        },
+        {
+          "subject": "Hiện tại hoàn thành",
+          "form": "I've only been here for three days.",
+          "negative": "I haven't met the night team yet."
+        },
+        {
+          "subject": "Hỏi nơi cũ",
+          "form": "How long did you work there?",
+          "negative": "(đã kết thúc)"
+        },
+        {
+          "subject": "Hỏi nơi hiện tại",
+          "form": "How long have you worked here?",
+          "negative": "(vẫn đang làm)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I have joined the company on Monday.",
+          "right": "I joined the company on Monday."
+        },
+        {
+          "wrong": "I am here for three days.",
+          "right": "I have been here for three days."
+        }
+      ],
+      "noteVi": "Read (hiện tại) và read (phân từ) viết giống nhau nhưng đọc khác: /riːd/ và /red/. I've also read the reports = /red/.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "Last year, I ___ in Dong Nai. (work)",
+          "answers": [
+            "worked"
+          ],
+          "explanationVi": "Last year → quá khứ đơn: worked."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I joined on Monday, so I ___ here for three days.",
+          "options": [
+            "was",
+            "am",
+            "have been",
+            "had been"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Từ thứ Hai đến nay → hiện tại hoàn thành: have been."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "How long have you worked at the bicycle factory before?",
+          "sentence": "How long did you work at the bicycle factory before?",
+          "explanationVi": "Công việc cũ đã kết thúc → quá khứ đơn: How long did you work…?"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đã gặp một số bạn.",
+          "sentence": "I have met some of you.",
+          "words": [
+            "met",
+            "I",
+            "of",
+            "have",
+            "some",
+            "you.",
+            "did"
+          ],
+          "explanationVi": "Have + met; từ \"did\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I've worked in factories for twelve years.",
+        "tipVi": "Factories /ˈfæktəriz/ nhấn âm đầu; twelve /twelv/ đọc rõ /v/."
+      },
+      {
+        "text": "\"My door is always open.",
+        "tipVi": "Always /ˈɔːlweɪz/ nhấn âm đầu; open /ˈəʊpən/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where did you study or work last year?",
+        "questionVi": "Năm ngoái bạn học hoặc làm ở đâu?",
+        "frame": "Last year, I ___."
+      },
+      {
+        "question": "What have you done in your new class or job so far?",
+        "questionVi": "Đến nay bạn đã làm được gì ở lớp mới hay chỗ làm mới?",
+        "frame": "So far, I've ___."
+      },
+      {
+        "question": "How long has your teacher or manager been at your school or company?",
+        "questionVi": "Thầy cô hay quản lý của bạn đã ở trường hoặc công ty bao lâu?",
+        "frame": "He / She has been there for ___ / since ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành và 1 câu quá khứ đơn",
+      "anyOf": [
+        "have been",
+        "'ve been",
+        "have worked",
+        "'ve worked",
+        "have met",
+        "'ve met",
+        "have already",
+        "'ve already",
+        "haven't",
+        "have visited",
+        "'ve visited"
+      ],
+      "outlineVi": [
+        "Bạn là ai, bạn đến đây khi nào (quá khứ đơn: I joined … on …).",
+        "Trước đây bạn học / làm ở đâu (Last year, I …).",
+        "Những gì bạn đã làm ở đây đến nay, và việc chưa làm (I've already … / I haven't … yet)."
+      ],
+      "modelAnswer": "Hello, everyone. My name is Phuong, and I joined this class last week. Last year, I studied at a small school in Can Tho. I moved to Ho Chi Minh City in July because my mother got a new job here. So far, I've met some of you, and I've already joined the English club. I haven't seen the library yet, so please help me!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "joined",
+      "lemma": "join",
+      "meaningVi": "vào (công ty)",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "I joined the company on Monday",
+      "phraseVi": "Tôi vào công ty hôm thứ Hai"
+    },
+    {
+      "text": "at first",
+      "lemma": "at first",
+      "meaningVi": "lúc đầu",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "we had a lot of problems at first",
+      "phraseVi": "lúc đầu chúng tôi gặp rất nhiều vấn đề"
+    },
+    {
+      "text": "broke down",
+      "lemma": "break down",
+      "meaningVi": "bị hỏng",
+      "sentenceIndex": 10,
+      "pos": "phrasal verb",
+      "phrase": "Machines often broke down",
+      "phraseVi": "Máy móc hay hỏng"
+    },
+    {
+      "text": "by half",
+      "lemma": "by half",
+      "meaningVi": "một nửa",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "we cut our mistakes by half",
+      "phraseVi": "chúng tôi giảm được một nửa số lỗi"
+    },
+    {
+      "text": "noticed",
+      "lemma": "notice",
+      "meaningVi": "nhận thấy",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "What have you noticed so far?",
+      "phraseVi": "Đến giờ chị đã nhận thấy điều gì?"
+    }
+  ]
+}

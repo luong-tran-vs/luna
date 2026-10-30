@@ -1,0 +1,599 @@
+{
+  "content": "It is Sunday afternoon. Mrs Hoa and her daughter Nhung are sitting on the sofa with a lot of clean clothes. They are putting the clothes into four groups: Dad's, Mum's, Nhung's and her little brother Kien's.\n\nMrs Hoa holds up a pair of black trousers. \"Are these yours, Nhung?\" she asks.\n\"No, they aren't mine, because they're too big for me,\" Nhung says. \"I think they're Dad's.\"\n\"Yes, they're his, and they're very long,\" Mum answers.\n\nThen Nhung finds some small blue trousers and asks, \"Whose are these?\"\n\"They're yours, from last summer,\" Mum says with a laugh.\n\"Oh, they're too small for me now, and they aren't long enough,\" Nhung says.\nMum smiles and says, \"Then they're Kien's now, because he's only seven.\"\n\nNext, Nhung picks up a pink skirt and asks, \"Is this mine or yours?\"\n\"It's mine, because yours is red,\" Mum answers.\n\nAfter an hour, all the clothes are in the right groups. \"Good job, our work is finished,\" Mum says. \"Now let's have some cake!\"",
+  "targetWords": [
+    "sofa",
+    "clean",
+    "clothes",
+    "pair",
+    "trousers",
+    "long",
+    "small",
+    "skirt"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "clean",
+        "lemma": "clean",
+        "meaningVi": "sạch",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "clothes",
+        "lemma": "clothes",
+        "meaningVi": "quần áo",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "pair",
+        "lemma": "pair",
+        "meaningVi": "đôi, cặp (một chiếc quần)",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "trousers",
+        "lemma": "trousers",
+        "meaningVi": "quần dài",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "long",
+        "lemma": "long",
+        "meaningVi": "dài",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "small",
+        "lemma": "small",
+        "meaningVi": "nhỏ",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "skirt",
+        "lemma": "skirt",
+        "meaningVi": "chân váy",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Nhung buys a pink skirt.",
+          "A mother and daughter put clean clothes into groups and decide whose they are.",
+          "Dad's new trousers",
+          "Kien's birthday cake"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chiều Chủ nhật, mẹ và Nhung chia quần áo sạch thành bốn phần cho bốn người, và hỏi nhau từng món là của ai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Whose are the black trousers?",
+        "promptVi": "Chiếc quần đen là của ai?",
+        "options": [
+          "Dad's",
+          "Nhung's",
+          "Kien's",
+          "Mum's"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhung nói \"I think they're Dad's\" và mẹ đáp \"Yes, they're his\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why are the small blue trousers Kien's now?",
+        "promptVi": "Vì sao chiếc quần xanh nhỏ giờ thành của Kiên?",
+        "options": [
+          "Kien asked for them.",
+          "Dad bought them for Kien.",
+          "They are too small for Nhung now.",
+          "Kien likes the colour blue."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nhung nói \"they're too small for me now, and they aren't long enough\", nên mẹ cho Kiên mặc vì em mới bảy tuổi."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The pink skirt is Nhung's.",
+        "promptVi": "Chiếc chân váy hồng là của Nhung.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì mẹ nói \"It's mine, because yours is red\": váy hồng là của mẹ, váy của Nhung màu đỏ."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"a pair of\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mrs Hoa holds up a pair of black trousers.",
+        "options": [
+          "hai chiếc",
+          "rất nhiều",
+          "một nửa",
+          "một chiếc (quần), một đôi"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Trousers luôn ở số nhiều, nên nói một chiếc quần là a pair of trousers (tương tự a pair of shoes, a pair of glasses)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đại từ sở hữu (mine, yours)",
+      "bodyVi": "Hỏi của ai: Whose is this? (một thứ), Whose are these? (nhiều thứ, cả trousers). Trả lời bằng đại từ sở hữu: mine, yours, his, hers, hoặc tên + 's: they're Dad's, they're Kien's now. Có thể hỏi lựa chọn: Is this mine or yours?",
+      "examples": [
+        "\"Are these yours, Nhung?\" she asks.",
+        "\"Yes, they're his, and they're very long,\" Mum answers.",
+        "\"It's mine, because yours is red,\" Mum answers."
+      ]
+    },
+    "writingPrompt": "Write about helping your family with the clean clothes: whose clothes are they, and which are too big or too small?",
+    "sentenceTranslations": [
+      "Bây giờ là chiều Chủ nhật.",
+      "Bà Hoa và con gái là Nhung đang ngồi trên ghế sofa với cả đống quần áo sạch.",
+      "Hai mẹ con đang chia quần áo thành bốn phần: của bố, của mẹ, của Nhung và của em trai Kiên.",
+      "Bà Hoa giơ lên một chiếc quần dài màu đen.",
+      "\"Cái này của con à, Nhung?\" mẹ hỏi.",
+      "\"Không phải của con, vì nó to quá với con,\" Nhung nói.",
+      "\"Con nghĩ là của bố.\"",
+      "\"Ừ, của bố đấy, quần dài lắm,\" mẹ đáp.",
+      "Rồi Nhung thấy một chiếc quần xanh nhỏ và hỏi: \"Cái này của ai hả mẹ?\"",
+      "\"Của con đấy, từ hè năm ngoái,\" mẹ cười nói.",
+      "\"Ôi, giờ nó nhỏ quá với con rồi, mà lại không đủ dài,\" Nhung nói.",
+      "Mẹ mỉm cười và nói: \"Thế thì giờ nó là của Kiên, vì em mới bảy tuổi.\"",
+      "Tiếp theo, Nhung cầm lên một chiếc chân váy hồng và hỏi: \"Cái này của con hay của mẹ?\"",
+      "\"Của mẹ, vì váy của con màu đỏ,\" mẹ trả lời.",
+      "Sau một tiếng, quần áo đều đã nằm đúng chỗ.",
+      "\"Giỏi lắm, mình làm xong rồi,\" mẹ nói.",
+      "\"Giờ mình ăn bánh thôi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và nói quần áo trong nhà là của ai (Whose are these? They're Dad's / mine / yours) và nhận xét to, nhỏ bằng too / enough.",
+    "examples": [
+      {
+        "lemma": "sofa",
+        "sentence": "The cat is sleeping on the sofa.",
+        "meaningVi": "Con mèo đang ngủ trên ghế sofa."
+      },
+      {
+        "lemma": "clean",
+        "sentence": "My room is clean now.",
+        "meaningVi": "Giờ phòng mình sạch rồi."
+      },
+      {
+        "lemma": "clothes",
+        "sentence": "Where are my clean clothes?",
+        "meaningVi": "Quần áo sạch của mình đâu rồi?"
+      },
+      {
+        "lemma": "pair",
+        "sentence": "I need a new pair of shoes.",
+        "meaningVi": "Mình cần một đôi giày mới."
+      },
+      {
+        "lemma": "trousers",
+        "sentence": "These trousers are too long for me.",
+        "meaningVi": "Chiếc quần này dài quá với mình."
+      },
+      {
+        "lemma": "long",
+        "sentence": "Her hair is very long.",
+        "meaningVi": "Tóc cô ấy rất dài."
+      },
+      {
+        "lemma": "small",
+        "sentence": "This T-shirt is too small for me.",
+        "meaningVi": "Chiếc áo phông này nhỏ quá với mình."
+      },
+      {
+        "lemma": "skirt",
+        "sentence": "She's wearing a short skirt.",
+        "meaningVi": "Cô ấy đang mặc một chiếc chân váy ngắn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nhung",
+        "Alice"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nhung, are those your trousers? They look small.",
+          "meaningVi": "Nhung ơi, đó là quần của cậu à? Trông nhỏ thế."
+        },
+        {
+          "speaker": 0,
+          "text": "No, they aren't mine now. They're my brother's.",
+          "meaningVi": "Không, giờ không phải của mình nữa. Là của em trai mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Were they yours before?",
+          "meaningVi": "Thật à? Trước đây là của cậu à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but they're too small for me. Kien wears them now.",
+          "meaningVi": "Ừ, nhưng giờ mình mặc chật rồi. Bây giờ Kiên mặc."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. Is this pink skirt yours?",
+          "meaningVi": "Hay đấy. Chiếc chân váy hồng này của cậu à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's my mum's. Mine is red.",
+          "meaningVi": "Không, của mẹ mình. Váy của mình màu đỏ."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you help your mum with the clothes every week?",
+          "meaningVi": "Tuần nào cậu cũng giúp mẹ xếp quần áo à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, every Sunday. We put them in groups.",
+          "meaningVi": "Ừ, Chủ nhật nào cũng vậy. Bọn mình chia quần áo thành từng phần."
+        },
+        {
+          "speaker": 1,
+          "text": "Is your dad's group very big?",
+          "meaningVi": "Phần của bố cậu có nhiều không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, because his clothes are so big!",
+          "meaningVi": "Có, vì quần áo của bố to lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi đồ là của ai: Is this pink skirt yours? Trả lời: No, it's my mum's. Mine is red.",
+    "translations": [
+      {
+        "vi": "Chiếc quần này có phải của con không?",
+        "en": "Are these trousers yours?",
+        "distractors": [
+          "Is",
+          "your",
+          "this"
+        ]
+      },
+      {
+        "vi": "Nó nhỏ quá với con.",
+        "en": "They're too small for me.",
+        "distractors": [
+          "enough",
+          "big",
+          "my"
+        ]
+      },
+      {
+        "vi": "Chiếc chân váy hồng là của mẹ.",
+        "en": "The pink skirt is Mum's.",
+        "distractors": [
+          "Mum",
+          "dress",
+          "my"
+        ]
+      },
+      {
+        "vi": "Quần áo sạch ở trên ghế sofa.",
+        "en": "The clean clothes are on the sofa.",
+        "distractors": [
+          "is",
+          "dirty",
+          "in"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Alice và Nhung nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đi mua váy mới",
+          "Một bữa tiệc",
+          "Quần áo của từng người trong nhà Nhung"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Alice hỏi chiếc quần, chiếc váy là của ai, và Nhung kể chuyện chia quần áo mỗi Chủ nhật.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bây giờ chiếc quần nhỏ là của ai?",
+        "promptVi": "",
+        "options": [
+          "Của Nhung",
+          "Của em trai Nhung",
+          "Của mẹ Nhung"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nhung nói \"They're my brother's.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chân váy của Nhung màu gì?",
+        "promptVi": "",
+        "options": [
+          "Đỏ",
+          "Hồng",
+          "Xanh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhung nói \"Mine is red.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nhung helps her mum every Saturday.",
+        "promptVi": "Thứ Bảy nào Nhung cũng giúp mẹ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nhung nói \"Yes, every Sunday.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Chiếc quần đen, chiếc quần xanh nhỏ và chiếc chân váy hồng là của ai?",
+    "grammarStep": {
+      "titleVi": "Đại từ sở hữu (mine, yours)",
+      "noticing": [
+        {
+          "sentence": "\"Are these yours, Nhung?\" she asks.",
+          "highlights": [
+            "yours"
+          ]
+        },
+        {
+          "sentence": "\"Yes, they're his, and they're very long,\" Mum answers.",
+          "highlights": [
+            "his"
+          ]
+        },
+        {
+          "sentence": "Mum smiles and says, \"Then they're Kien's now, because he's only seven.\"",
+          "highlights": [
+            "Kien's"
+          ]
+        },
+        {
+          "sentence": "\"It's mine, because yours is red,\" Mum answers.",
+          "highlights": [
+            "mine",
+            "yours"
+          ]
+        }
+      ],
+      "questionVi": "Câu hỏi \"Whose are these?\" dùng để hỏi gì?",
+      "options": [
+        "Những thứ này là của ai",
+        "Những thứ này ở đâu",
+        "Những thứ này giá bao nhiêu"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Whose …? hỏi của ai. Một thứ: Whose is this? Nhiều thứ (hoặc trousers, glasses): Whose are these? Trả lời: They're yours / his / Kien's.",
+      "whenVi": "Dùng Whose …? để hỏi của ai, và mine, yours, his, hers hoặc tên + 's để trả lời.",
+      "table": [
+        {
+          "subject": "Câu hỏi",
+          "form": "Whose is this? Whose are these?",
+          "negative": "—"
+        },
+        {
+          "subject": "Trả lời bằng đại từ",
+          "form": "It's mine. They're yours. They're his.",
+          "negative": "They aren't mine."
+        },
+        {
+          "subject": "Trả lời bằng tên + 's",
+          "form": "They're Dad's. They're Kien's now.",
+          "negative": "It isn't Nhung's."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Whose are this?",
+          "right": "Whose is this?"
+        },
+        {
+          "wrong": "They're Kien now.",
+          "right": "They're Kien's now."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"của Kiên\" mà không thêm gì vào tên, nên người Việt hay quên 's; và vì trousers là số nhiều nên phải hỏi Whose are these?, không phải Whose is this?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền đại từ sở hữu có nghĩa \"của bố (của anh ấy)\" vào chỗ trống.",
+          "text": "These black trousers are Dad's. They're ___.",
+          "answers": [
+            "his"
+          ],
+          "explanationVi": "Của anh ấy (he) là his."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Is this skirt mine or ___?",
+          "options": [
+            "yours",
+            "your",
+            "you",
+            "your's"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Không có danh từ theo sau nên dùng yours (không có dấu ')."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My skirt is red, so this pink one is your.",
+          "sentence": "My skirt is red, so this pink one is yours.",
+          "explanationVi": "Cuối câu không có danh từ nên dùng yours."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Chiếc quần này là của ai?",
+          "sentence": "Whose trousers are these?",
+          "words": [
+            "trousers",
+            "Whose",
+            "these",
+            "are",
+            "is"
+          ],
+          "explanationVi": "Trousers là số nhiều nên dùng are; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Mrs Hoa holds up a pair of black trousers.",
+        "tipVi": "Pair /pɛr/ đọc giống \"pe\"; trousers /ˈtraʊzərz/ có cụm /tr/ ở đầu và /z/ ở cuối."
+      },
+      {
+        "text": "\"It's mine, because yours is red,\" Mum answers.",
+        "tipVi": "Yours /jɔrz/ kết thúc bằng /rz/; mine /maɪn/ có âm /n/ ở cuối, đọc rõ."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you help with the clean clothes at home?",
+        "questionVi": "Ở nhà bạn có giúp xếp quần áo sạch không?",
+        "frame": "Yes, I do. I ___. / No, I don't."
+      },
+      {
+        "question": "Can you wear your mum's or dad's clothes?",
+        "questionVi": "Bạn có mặc vừa quần áo của bố hoặc mẹ không?",
+        "frame": "Yes, I can. / No, I can't, because they're too ___ for me."
+      },
+      {
+        "question": "Who washes the clothes in your family?",
+        "questionVi": "Trong nhà bạn ai giặt quần áo?",
+        "frame": "My ___ washes the clothes. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng mine / yours / his / hers hoặc tên + 's",
+      "anyOf": [
+        "mine",
+        "yours",
+        "his",
+        "hers",
+        "ours",
+        "theirs",
+        "'s",
+        "whose"
+      ],
+      "outlineVi": [
+        "Nói bạn giúp ai, khi nào.",
+        "Kể từng món là của ai (It isn't mine. It's my dad's.).",
+        "Nói món nào quá to hoặc quá nhỏ với bạn (too big, too small)."
+      ],
+      "modelAnswer": "Every Saturday, I help my dad with the clean clothes. Today, there is a big blue shirt. It isn't mine, because it's too big for me. It's my dad's. Then I see some small socks. They aren't his, they're my sister's. My dad says, \"Thank you! You're a great help.\""
+    }
+  },
+  "glosses": [
+    {
+      "text": "daughter",
+      "lemma": "daughter",
+      "meaningVi": "con gái",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "her daughter Nhung",
+      "phraseVi": "con gái là Nhung"
+    },
+    {
+      "text": "groups",
+      "lemma": "group",
+      "meaningVi": "nhóm, phần",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "into four groups",
+      "phraseVi": "thành bốn phần"
+    },
+    {
+      "text": "holds up",
+      "lemma": "hold up",
+      "meaningVi": "giơ lên",
+      "sentenceIndex": 3,
+      "pos": "phrasal verb",
+      "phrase": "Mrs Hoa holds up a pair of black trousers",
+      "phraseVi": "Bà Hoa giơ lên một chiếc quần dài màu đen"
+    },
+    {
+      "text": "too big",
+      "lemma": "too",
+      "meaningVi": "to quá",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "they're too big for me",
+      "phraseVi": "nó to quá với con"
+    },
+    {
+      "text": "from last summer",
+      "lemma": "last summer",
+      "meaningVi": "từ hè năm ngoái",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "They're yours, from last summer",
+      "phraseVi": "Của con đấy, từ hè năm ngoái"
+    },
+    {
+      "text": "picks up",
+      "lemma": "pick up",
+      "meaningVi": "nhặt lên, cầm lên",
+      "sentenceIndex": 12,
+      "pos": "phrasal verb",
+      "phrase": "Nhung picks up a pink skirt",
+      "phraseVi": "Nhung cầm lên một chiếc chân váy hồng"
+    },
+    {
+      "text": "right",
+      "lemma": "right",
+      "meaningVi": "đúng",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "in the right groups",
+      "phraseVi": "nằm đúng chỗ"
+    },
+    {
+      "text": "Good job",
+      "lemma": "good job",
+      "meaningVi": "giỏi lắm, làm tốt lắm",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "Good job, our work is finished",
+      "phraseVi": "Giỏi lắm, mình làm xong rồi"
+    },
+    {
+      "text": "finished",
+      "lemma": "finished",
+      "meaningVi": "xong",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "our work is finished",
+      "phraseVi": "mình làm xong rồi"
+    }
+  ]
+}

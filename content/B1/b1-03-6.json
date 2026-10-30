@@ -1,0 +1,619 @@
+{
+  "content": "Vy is a young designer at an advertising company in Da Nang. On Monday, her manager, Mr Hai, calls her into his office.\n\nHe says, \"Vy, a big hotel wants a new logo and posters. Can your team prepare the plan by Friday?\"\n\"Our team? Everyone is very busy this week. I'd like to do it myself.\"\n\"By yourself? It's a lot of work.\"\n\"I know, but I've done similar work before. I'm sure I can do it.\"\nMr Hai is surprised. \"OK. But don't push yourself too hard.\"\nFor four days, Vy works so hard that she forgets to eat lunch. She draws the logo herself, she writes the texts herself, and she even makes the slides for the meeting. On Thursday night, she is so tired that she falls asleep at her desk.\nOn Friday morning, Vy shows her work to the hotel managers. She speaks so clearly that they smile and ask a lot of questions.\nAfter the meeting, Mr Hai comes to her desk. \"They loved it. They want to start next week.\"\nVy can't believe it. \"Really? I'm so happy!\"\n\"You should be proud of yourself. You did all of this by yourself, and you did it well. But next time, share the work with your team.\"\n\"I promise. I need a rest, and I want to enjoy myself at the weekend.\"\n\"Good. Take Monday off. You deserve it.\"",
+  "targetWords": [
+    "logo",
+    "similar",
+    "sure",
+    "push",
+    "draw",
+    "slide",
+    "asleep",
+    "proud",
+    "share",
+    "deserve"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "logo",
+        "lemma": "logo",
+        "meaningVi": "biểu tượng, logo",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "similar",
+        "lemma": "similar",
+        "meaningVi": "tương tự",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "sure",
+        "lemma": "sure",
+        "meaningVi": "chắc chắn",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "push",
+        "lemma": "push",
+        "meaningVi": "ép, thúc ép",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "draws",
+        "lemma": "draw",
+        "meaningVi": "vẽ",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "slides",
+        "lemma": "slide",
+        "meaningVi": "trang trình chiếu",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "asleep",
+        "lemma": "asleep",
+        "meaningVi": "ngủ",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "proud",
+        "lemma": "proud",
+        "meaningVi": "tự hào",
+        "pos": "adjective",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "share",
+        "lemma": "share",
+        "meaningVi": "chia sẻ, chia",
+        "pos": "verb",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "deserve",
+        "lemma": "deserve",
+        "meaningVi": "xứng đáng",
+        "pos": "verb",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Vy does a big job for a hotel by herself.",
+          "Mr Hai gives Vy a new team.",
+          "A hotel opens in Da Nang.",
+          "Vy takes a holiday."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy tự mình làm logo, áp phích và bài trình chiếu cho một khách sạn lớn, và khách hàng rất thích."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Vy want to do the work herself?",
+        "promptVi": "Vì sao Vy muốn tự làm?",
+        "options": [
+          "She doesn't like her team.",
+          "Everyone in her team is very busy this week.",
+          "Mr Hai tells her to.",
+          "The hotel asks for her."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"Everyone is very busy this week. I'd like to do it myself.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What happens on Thursday night?",
+        "promptVi": "Tối thứ Năm có chuyện gì xảy ra?",
+        "options": [
+          "Vy goes to a party.",
+          "Vy finishes early.",
+          "Vy is so tired that she falls asleep at her desk.",
+          "Mr Hai helps Vy."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"On Thursday night, she is so tired that she falls asleep at her desk.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The hotel managers didn't like Vy's work.",
+        "promptVi": "Quản lý khách sạn không thích sản phẩm của Vy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì anh Hải nói \"They loved it. They want to start next week.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"push yourself too hard\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "But don't push yourself too hard.\"",
+        "options": [
+          "ép bản thân làm việc quá sức",
+          "đẩy cửa thật mạnh",
+          "làm việc quá ít",
+          "nhờ người khác giúp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Push yourself too hard = ép mình làm việc quá sức."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đại từ phản thân (myself, yourself)",
+      "bodyVi": "Đại từ phản thân đứng sau động từ hoặc ở cuối câu để nhấn mạnh \"tự mình làm\": I'd like to do it myself, she draws the logo herself. By + đại từ phản thân = một mình, không ai giúp: By yourself? You did all of this by yourself. Dùng khi người làm và người nhận là một: don't push yourself, be proud of yourself, enjoy myself (vui vẻ, tận hưởng).",
+      "examples": [
+        "I'd like to do it myself.\"",
+        "She draws the logo herself, she writes the texts herself, and she even makes the slides for the meeting.",
+        "You did all of this by yourself, and you did it well."
+      ]
+    },
+    "writingPrompt": "Write about a time you did something difficult by yourself: what did you do, and how did you feel?",
+    "sentenceTranslations": [
+      "Vy là một nhà thiết kế trẻ ở một công ty quảng cáo tại Đà Nẵng.",
+      "Sáng thứ Hai, quản lý của cô là anh Hải gọi cô vào phòng.",
+      "Anh nói: \"Vy này, một khách sạn lớn muốn có logo và áp phích mới.",
+      "Nhóm em có thể chuẩn bị kế hoạch trước thứ Sáu không?\"",
+      "\"Nhóm em ạ?",
+      "Tuần này ai cũng rất bận.",
+      "Em muốn tự làm việc này.\"",
+      "\"Một mình em à?",
+      "Nhiều việc lắm đấy.\"",
+      "\"Em biết, nhưng em đã làm việc tương tự rồi.",
+      "Em chắc là em làm được.\"",
+      "Anh Hải ngạc nhiên.",
+      "\"Được.",
+      "Nhưng đừng ép mình quá sức.\"",
+      "Suốt bốn ngày, Vy làm việc chăm đến mức quên cả ăn trưa.",
+      "Cô tự vẽ logo, tự viết chữ, và còn tự làm cả bài trình chiếu cho buổi họp.",
+      "Tối thứ Năm, cô mệt đến mức ngủ gục trên bàn.",
+      "Sáng thứ Sáu, Vy trình bày sản phẩm với các quản lý khách sạn.",
+      "Cô nói rõ ràng đến mức họ mỉm cười và hỏi rất nhiều câu.",
+      "Sau buổi họp, anh Hải đến bàn cô.",
+      "\"Họ rất thích.",
+      "Họ muốn bắt đầu từ tuần sau.\"",
+      "Vy không thể tin được.",
+      "\"Thật ạ?",
+      "Em vui quá!\"",
+      "\"Em nên tự hào về bản thân.",
+      "Em đã tự mình làm hết, và làm rất tốt.",
+      "Nhưng lần sau hãy chia việc với cả nhóm nhé.\"",
+      "\"Em hứa ạ.",
+      "Em cần nghỉ ngơi, và cuối tuần này em muốn được vui chơi.\"",
+      "\"Tốt.",
+      "Thứ Hai em nghỉ đi.",
+      "Em xứng đáng được như vậy.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể việc mình tự làm một mình bằng đại từ phản thân (myself, herself, by yourself) và nói kết quả bằng so … that.",
+    "examples": [
+      {
+        "lemma": "logo",
+        "sentence": "The company has a new red logo.",
+        "meaningVi": "Công ty có logo mới màu đỏ."
+      },
+      {
+        "lemma": "similar",
+        "sentence": "My phone is similar to yours.",
+        "meaningVi": "Điện thoại của tôi giống của bạn."
+      },
+      {
+        "lemma": "sure",
+        "sentence": "Are you sure about the time?",
+        "meaningVi": "Bạn có chắc về giờ không?"
+      },
+      {
+        "lemma": "push",
+        "sentence": "Push the door to open it.",
+        "meaningVi": "Đẩy cửa để mở."
+      },
+      {
+        "lemma": "draw",
+        "sentence": "Can you draw a cat?",
+        "meaningVi": "Bạn vẽ được con mèo không?"
+      },
+      {
+        "lemma": "slide",
+        "sentence": "The first slide shows our team.",
+        "meaningVi": "Trang trình chiếu đầu tiên giới thiệu nhóm chúng tôi."
+      },
+      {
+        "lemma": "asleep",
+        "sentence": "The baby is asleep.",
+        "meaningVi": "Em bé đang ngủ."
+      },
+      {
+        "lemma": "proud",
+        "sentence": "My parents are proud of me.",
+        "meaningVi": "Bố mẹ tự hào về tôi."
+      },
+      {
+        "lemma": "share",
+        "sentence": "Let's share the cake.",
+        "meaningVi": "Mình chia nhau cái bánh nhé."
+      },
+      {
+        "lemma": "deserve",
+        "sentence": "You deserve a holiday.",
+        "meaningVi": "Bạn xứng đáng được đi nghỉ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Chris"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Vy, I heard you did the hotel job by yourself!",
+          "meaningVi": "Vy ơi, nghe nói cậu tự làm hết việc cho khách sạn!"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. I did the logo and the posters myself.",
+          "meaningVi": "Ừ. Mình tự làm logo và áp phích."
+        },
+        {
+          "speaker": 1,
+          "text": "Wasn't it too much work?",
+          "meaningVi": "Không phải là nhiều việc quá à?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was. I was so tired that I fell asleep at my desk!",
+          "meaningVi": "Đúng vậy. Mình mệt đến mức ngủ gục trên bàn!"
+        },
+        {
+          "speaker": 1,
+          "text": "Did the hotel like it?",
+          "meaningVi": "Khách sạn có thích không?"
+        },
+        {
+          "speaker": 0,
+          "text": "They loved it. I'm really proud of myself.",
+          "meaningVi": "Họ rất thích. Mình thật sự tự hào về bản thân."
+        },
+        {
+          "speaker": 1,
+          "text": "You should be. But next time, share the work with your team.",
+          "meaningVi": "Cậu nên tự hào. Nhưng lần sau chia việc với nhóm nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "I know. My boss said the same thing.",
+          "meaningVi": "Mình biết. Sếp mình cũng nói thế."
+        },
+        {
+          "speaker": 1,
+          "text": "Are you going to enjoy yourself this weekend?",
+          "meaningVi": "Cuối tuần này cậu có định đi chơi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Definitely. I'm going to the beach by myself!",
+          "meaningVi": "Chắc chắn rồi. Mình sẽ đi biển một mình!"
+        }
+      ]
+    },
+    "grammarTipVi": "Did … myself / by yourself / by myself: tự làm, một mình. Proud of myself, enjoy yourself: người làm và người nhận là một.",
+    "translations": [
+      {
+        "vi": "Tôi muốn tự làm việc này. Tôi chắc chắn.",
+        "en": "I want to do it myself. I am sure.",
+        "distractors": [
+          "me",
+          "mine",
+          "yourself"
+        ]
+      },
+      {
+        "vi": "Cô ấy tự vẽ logo.",
+        "en": "She draws the logo herself.",
+        "distractors": [
+          "itself",
+          "himself",
+          "drew"
+        ]
+      },
+      {
+        "vi": "Bạn nên tự hào về bản thân.",
+        "en": "You should be proud of yourself.",
+        "distractors": [
+          "mine",
+          "him",
+          "myself"
+        ]
+      },
+      {
+        "vi": "Lần sau hãy chia việc với cả nhóm.",
+        "en": "Next time, share the work with your team.",
+        "distractors": [
+          "yourself",
+          "shares",
+          "by"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chris và Vy nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Việc Vy tự làm cho khách sạn",
+          "Chuyến đi biển của Chris",
+          "Một logo mới của công ty Chris"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chris nói \"I heard you did the hotel job by yourself!\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vy mệt đến mức nào?",
+        "promptVi": "",
+        "options": [
+          "Không ăn được",
+          "Ngủ gục trên bàn",
+          "Bị ốm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"I was so tired that I fell asleep at my desk!\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cuối tuần Vy sẽ làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi làm thêm",
+          "Ở nhà ngủ",
+          "Đi biển một mình"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vy nói \"I'm going to the beach by myself!\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy is not proud of her work.",
+        "promptVi": "Vy không tự hào về sản phẩm của mình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vy nói \"I'm really proud of myself.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Vy đã tự làm những gì, và kết quả ra sao?",
+    "grammarStep": {
+      "titleVi": "Đại từ phản thân (myself, yourself)",
+      "noticing": [
+        {
+          "sentence": "I'd like to do it myself.\"",
+          "highlights": [
+            "myself"
+          ]
+        },
+        {
+          "sentence": "But don't push yourself too hard.\"",
+          "highlights": [
+            "yourself"
+          ]
+        },
+        {
+          "sentence": "She draws the logo herself, she writes the texts herself, and she even makes the slides for the meeting.",
+          "highlights": [
+            "herself",
+            "herself"
+          ]
+        },
+        {
+          "sentence": "You did all of this by yourself, and you did it well.",
+          "highlights": [
+            "by yourself"
+          ]
+        }
+      ],
+      "questionVi": "\"She draws the logo herself\" nghĩa là gì?",
+      "options": [
+        "Cô ấy tự vẽ logo, không nhờ ai.",
+        "Cô ấy vẽ chân dung mình.",
+        "Cô ấy vẽ logo cho mình dùng."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Đại từ phản thân ở cuối câu nhấn mạnh rằng chính người đó làm, không phải người khác.",
+      "whenVi": "Đặt đại từ phản thân sau tân ngữ hoặc cuối câu để nhấn mạnh \"tự mình\"; by + đại từ phản thân = một mình.",
+      "table": [
+        {
+          "subject": "Nhấn mạnh",
+          "form": "She draws the logo herself.",
+          "negative": "—"
+        },
+        {
+          "subject": "by + phản thân",
+          "form": "You did it by yourself.",
+          "negative": "You don't have to do it by yourself."
+        },
+        {
+          "subject": "Tân ngữ là chính mình",
+          "form": "Don't push yourself. Be proud of yourself.",
+          "negative": "—"
+        },
+        {
+          "subject": "enjoy + phản thân",
+          "form": "I want to enjoy myself.",
+          "negative": "(= vui chơi thoả thích)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She draws the logo herselves.",
+          "right": "She draws the logo herself."
+        },
+        {
+          "wrong": "You did it by you.",
+          "right": "You did it by yourself."
+        }
+      ],
+      "noteVi": "Enjoy luôn cần tân ngữ: I enjoyed myself / I enjoyed the party (không nói I enjoyed).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền đại từ phản thân đúng.",
+          "text": "She draws the logo ___.",
+          "answers": [
+            "herself"
+          ],
+          "explanationVi": "She → herself."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "You did all of this by ___.",
+          "options": [
+            "you",
+            "your",
+            "yourself",
+            "yours"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "By + đại từ phản thân: by yourself."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I want to enjoy me at the weekend.",
+          "sentence": "I want to enjoy myself at the weekend.",
+          "explanationVi": "Enjoy + đại từ phản thân: enjoy myself."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi muốn tự làm việc này.",
+          "sentence": "I'd like to do it myself.",
+          "words": [
+            "like",
+            "I'd",
+            "to",
+            "do",
+            "it",
+            "myself.",
+            "me"
+          ],
+          "explanationVi": "Tự làm: do it myself; từ \"me\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"You should be proud of yourself.",
+        "tipVi": "Proud of nối liền /praʊdəv/; yourself /jɔːˈself/."
+      },
+      {
+        "text": "Vy can't believe it.",
+        "tipVi": "Can't /kɑːnt/ đọc rõ /t/; believe it nối liền."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What can you do by yourself?",
+        "questionVi": "Bạn có thể tự làm một mình việc gì?",
+        "frame": "I can ___ by myself."
+      },
+      {
+        "question": "When were you really proud of yourself?",
+        "questionVi": "Khi nào bạn thấy thật sự tự hào về bản thân?",
+        "frame": "I was proud of myself when ___."
+      },
+      {
+        "question": "Does your friend like doing things by himself or herself?",
+        "questionVi": "Bạn của bạn có thích tự làm một mình không?",
+        "frame": "Yes, he / she likes doing things by himself / herself. / No, he / she ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 đại từ phản thân (myself, by myself, yourself…)",
+      "anyOf": [
+        "myself",
+        "yourself",
+        "himself",
+        "herself",
+        "ourselves",
+        "themselves"
+      ],
+      "outlineVi": [
+        "Việc khó đó là gì, vì sao bạn tự làm.",
+        "Bạn đã tự làm những gì (I did … myself / by myself).",
+        "Kết quả và cảm giác (I was so … that …, I was proud of myself)."
+      ],
+      "modelAnswer": "Last year, I moved to a new flat, and I decided to paint my room myself. I didn't ask anyone for help. I bought the paint and did everything by myself. It was such hard work that my arms hurt for three days. But when I saw the room, I was very proud of myself. Next time, I will paint it with my friends."
+    }
+  },
+  "glosses": [
+    {
+      "text": "calls her into",
+      "lemma": "call into",
+      "meaningVi": "gọi vào",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "calls her into his office",
+      "phraseVi": "gọi cô vào phòng"
+    },
+    {
+      "text": "By yourself",
+      "lemma": "by yourself",
+      "meaningVi": "một mình",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "By yourself?",
+      "phraseVi": "Một mình em à?"
+    },
+    {
+      "text": "forgets",
+      "lemma": "forget",
+      "meaningVi": "quên",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "she forgets to eat lunch",
+      "phraseVi": "quên cả ăn trưa"
+    },
+    {
+      "text": "falls asleep",
+      "lemma": "fall asleep",
+      "meaningVi": "ngủ thiếp đi",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "she falls asleep at her desk",
+      "phraseVi": "cô ngủ gục trên bàn"
+    },
+    {
+      "text": "enjoy myself",
+      "lemma": "enjoy yourself",
+      "meaningVi": "vui chơi, tận hưởng",
+      "sentenceIndex": 29,
+      "pos": "phrase",
+      "phrase": "I want to enjoy myself at the weekend",
+      "phraseVi": "cuối tuần này em muốn được vui chơi"
+    },
+    {
+      "text": "Take Monday off",
+      "lemma": "take off",
+      "meaningVi": "nghỉ (một ngày)",
+      "sentenceIndex": 31,
+      "pos": "phrasal verb",
+      "phrase": "Take Monday off.",
+      "phraseVi": "Thứ Hai em nghỉ đi."
+    }
+  ]
+}

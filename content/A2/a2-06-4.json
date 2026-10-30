@@ -1,0 +1,592 @@
+{
+  "content": "Today is Nga's first day at a big bank in Hanoi. Her team leader, Ms Lien, takes her to the computer room and introduces two young men.\n\n\"This is Hai, and this is Phong,\" Ms Lien says. \"They are brothers, and they were born on the same day.\"\nNga laughs and says, \"But they look the same! How do you know who is who?\"\n\"Phong's hair is a little shorter, and he wears glasses,\" Ms Lien answers. \"Hai smiles more than his brother, and he tells the funniest jokes in the team.\"\n\"But Phong works faster than Hai,\" she says. \"He is the fastest worker in our bank.\"\nPhong smiles and says, \"That's not true, Hai is more careful than me.\"\n\nThen Nga asks, \"Who is older?\"\n\"I am, by ten minutes,\" Hai says. \"So I'm the oldest and the most important person in our family!\"\nThey all laugh. Phong isn't as noisy as his brother, but he is very kind. He shows Nga her new computer and helps her with it.\n\nAt the end of the day, Nga feels happy. Her new team is the nicest team in the bank, she thinks.",
+  "targetWords": [
+    "leader",
+    "introduce",
+    "same",
+    "glasses",
+    "joke",
+    "worker",
+    "careful",
+    "important"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "leader",
+        "lemma": "leader",
+        "meaningVi": "người đứng đầu, trưởng (nhóm)",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "introduces",
+        "lemma": "introduce",
+        "meaningVi": "giới thiệu",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "same",
+        "lemma": "same",
+        "meaningVi": "giống nhau, cùng",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "glasses",
+        "lemma": "glasses",
+        "meaningVi": "kính (mắt)",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "jokes",
+        "lemma": "joke",
+        "meaningVi": "chuyện cười",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "worker",
+        "lemma": "worker",
+        "meaningVi": "nhân viên, người làm việc",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "careful",
+        "lemma": "careful",
+        "meaningVi": "cẩn thận",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "important",
+        "lemma": "important",
+        "meaningVi": "quan trọng",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Nga meets two brothers on her first day at work.",
+          "Ms Lien buys a new computer.",
+          "Hai and Phong's birthday party",
+          "Nga's family in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngày đầu đi làm, Nga được chị Liên giới thiệu với hai anh em Hải và Phong sinh cùng ngày."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who wears glasses?",
+        "promptVi": "Ai đeo kính?",
+        "options": [
+          "Hai",
+          "Nga",
+          "Phong",
+          "Ms Lien"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị Liên nói tóc Phong ngắn hơn một chút \"and he wears glasses\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Hai say he is the most important person in the family?",
+        "promptVi": "Vì sao Hải nói mình là người quan trọng nhất nhà?",
+        "options": [
+          "He is the fastest worker.",
+          "He is the oldest, by ten minutes.",
+          "He tells the funniest jokes.",
+          "He is taller than Phong."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hải ra đời trước mười phút nên nói đùa \"So I'm the oldest and the most important person\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phong is noisier than Hai.",
+        "promptVi": "Phong ồn ào hơn Hải.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Phong isn't as noisy as his brother\": Phong không ồn bằng Hải."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"born\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"They are brothers, and they were born on the same day.\"",
+        "options": [
+          "làm việc",
+          "gặp nhau",
+          "đi học",
+          "được sinh ra"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Be born là được sinh ra: hai anh em sinh cùng một ngày."
+      }
+    ],
+    "grammarNote": {
+      "title": "So sánh hơn",
+      "bodyVi": "So sánh hai người: tính từ / trạng từ ngắn + -er than (fast → faster than, short → shorter), tính từ dài: more + tính từ + than (more careful than). Động từ + more than: Hai smiles more than his brother. Hỏi giữa hai người: Who is older?",
+      "examples": [
+        "\"But Phong works faster than Hai,\" she says.",
+        "Phong smiles and says, \"That's not true, Hai is more careful than me.\"",
+        "Then Nga asks, \"Who is older?\""
+      ]
+    },
+    "writingPrompt": "Write about two brothers, sisters or friends: how are they different?",
+    "sentenceTranslations": [
+      "Hôm nay là ngày đầu tiên Nga đi làm ở một ngân hàng lớn ở Hà Nội.",
+      "Trưởng nhóm của cô, chị Liên, đưa cô đến phòng máy tính và giới thiệu hai chàng trai trẻ.",
+      "\"Đây là Hải, còn đây là Phong,\" chị Liên nói.",
+      "\"Hai cậu là anh em, sinh cùng một ngày.\"",
+      "Nga cười và nói: \"Nhưng hai anh ấy trông giống hệt nhau!",
+      "Làm sao biết ai là ai ạ?\"",
+      "\"Tóc Phong ngắn hơn một chút, và cậu ấy đeo kính,\" chị Liên trả lời.",
+      "\"Hải hay cười hơn em, và kể chuyện cười vui nhất nhóm.\"",
+      "\"Nhưng Phong làm nhanh hơn Hải,\" chị nói.",
+      "\"Cậu ấy là người làm nhanh nhất ngân hàng mình.\"",
+      "Phong mỉm cười và nói: \"Không đúng đâu ạ. Hải cẩn thận hơn em.\"",
+      "Rồi Nga hỏi: \"Ai là anh ạ?\"",
+      "\"Anh, hơn mười phút,\" Hải nói.",
+      "\"Nên anh là người lớn nhất và quan trọng nhất nhà!\"",
+      "Cả ba cùng cười.",
+      "Phong không ồn ào bằng anh mình, nhưng rất tốt bụng.",
+      "Cậu chỉ cho Nga chiếc máy tính mới và giúp cô dùng nó.",
+      "Cuối ngày, Nga thấy rất vui.",
+      "Cô nghĩ nhóm mới của mình là nhóm dễ mến nhất ngân hàng."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh hai người bằng -er than, more … than và nói ai nhất trong nhóm bằng the -est, the most.",
+    "examples": [
+      {
+        "lemma": "leader",
+        "sentence": "She is the leader of our group.",
+        "meaningVi": "Cô ấy là trưởng nhóm của chúng tôi."
+      },
+      {
+        "lemma": "introduce",
+        "sentence": "Can I introduce my friend Mai?",
+        "meaningVi": "Cho tôi giới thiệu bạn tôi là Mai nhé?"
+      },
+      {
+        "lemma": "same",
+        "sentence": "We live in the same street.",
+        "meaningVi": "Chúng tôi sống cùng một con phố."
+      },
+      {
+        "lemma": "glasses",
+        "sentence": "My grandfather needs his glasses to read.",
+        "meaningVi": "Ông tôi cần kính để đọc."
+      },
+      {
+        "lemma": "joke",
+        "sentence": "Do you know a good joke?",
+        "meaningVi": "Bạn có biết chuyện cười nào hay không?"
+      },
+      {
+        "lemma": "worker",
+        "sentence": "Mr Binh is a very good worker.",
+        "meaningVi": "Anh Bình là người làm việc rất giỏi."
+      },
+      {
+        "lemma": "careful",
+        "sentence": "Be careful, the soup is hot!",
+        "meaningVi": "Cẩn thận, súp nóng đấy!"
+      },
+      {
+        "lemma": "important",
+        "sentence": "Sleep is important for children.",
+        "meaningVi": "Giấc ngủ rất quan trọng với trẻ em."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nga",
+        "Lucy"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nga, how was your first day at the bank?",
+          "meaningVi": "Nga ơi, ngày đầu ở ngân hàng thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Great! I met two brothers. They look the same!",
+          "meaningVi": "Tuyệt lắm! Mình gặp hai anh em. Họ trông giống hệt nhau!"
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Is one taller than the other?",
+          "meaningVi": "Thật à? Có ai cao hơn ai không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, they are both tall, but Phong wears glasses.",
+          "meaningVi": "Không, cả hai đều cao, nhưng Phong đeo kính."
+        },
+        {
+          "speaker": 1,
+          "text": "Which brother is funnier?",
+          "meaningVi": "Anh nào vui tính hơn?"
+        },
+        {
+          "speaker": 0,
+          "text": "Hai. His jokes are the best in the team.",
+          "meaningVi": "Hải. Chuyện cười của anh ấy hay nhất nhóm."
+        },
+        {
+          "speaker": 1,
+          "text": "And what about Phong?",
+          "meaningVi": "Còn Phong thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "He is quieter, but he works faster.",
+          "meaningVi": "Anh ấy trầm hơn, nhưng làm nhanh hơn."
+        },
+        {
+          "speaker": 1,
+          "text": "And your team leader?",
+          "meaningVi": "Còn trưởng nhóm của cậu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Ms Lien is the kindest person in the bank, I think.",
+          "meaningVi": "Mình nghĩ chị Liên là người tốt bụng nhất ngân hàng."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi chọn giữa hai người: Which brother is funnier? Is one taller than the other? Nói ai nhất cả nhóm: the kindest person in the bank.",
+    "translations": [
+      {
+        "vi": "Trưởng nhóm giới thiệu hai anh em với Nga.",
+        "en": "The team leader introduces the two brothers to Nga.",
+        "distractors": [
+          "introduce",
+          "sisters",
+          "for"
+        ]
+      },
+      {
+        "vi": "Phong đeo kính và cẩn thận hơn anh trai.",
+        "en": "Phong wears glasses and is more careful.",
+        "distractors": [
+          "most",
+          "carefuller",
+          "has"
+        ]
+      },
+      {
+        "vi": "Hải kể những chuyện cười vui nhất.",
+        "en": "Hai tells the funniest jokes.",
+        "distractors": [
+          "funnier",
+          "most",
+          "stories"
+        ]
+      },
+      {
+        "vi": "Anh ấy là người làm việc nhanh nhất.",
+        "en": "He is the fastest worker.",
+        "distractors": [
+          "faster",
+          "more",
+          "workers"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Nga kể với Lucy về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Ngày đầu đi làm ở ngân hàng",
+          "Một chiếc máy tính mới",
+          "Anh trai của Lucy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lucy hỏi \"how was your first day at the bank?\" và Nga kể về những người trong nhóm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Làm sao để biết ai là Phong?",
+        "promptVi": "",
+        "options": [
+          "Phong cao hơn",
+          "Phong đeo kính",
+          "Phong tóc dài hơn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nga nói \"they are both tall, but Phong wears glasses.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Nga, ai là người tốt bụng nhất ngân hàng?",
+        "promptVi": "",
+        "options": [
+          "Hải",
+          "Phong",
+          "Chị Liên"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nga nói \"Ms Lien is the kindest person in the bank, I think.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phong is quieter than Hai.",
+        "promptVi": "Phong trầm tính hơn Hải.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Nga nói về Phong \"He is quieter, but he works faster.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Hai anh em Hải và Phong khác nhau ở những điểm nào?",
+    "grammarStep": {
+      "titleVi": "So sánh hơn",
+      "noticing": [
+        {
+          "sentence": "\"Phong's hair is a little shorter, and he wears glasses,\" Ms Lien answers.",
+          "highlights": [
+            "a little shorter"
+          ]
+        },
+        {
+          "sentence": "\"Hai smiles more than his brother, and he tells the funniest jokes in the team.\"",
+          "highlights": [
+            "more than"
+          ]
+        },
+        {
+          "sentence": "\"But Phong works faster than Hai,\" she says.",
+          "highlights": [
+            "faster than"
+          ]
+        },
+        {
+          "sentence": "Phong smiles and says, \"That's not true, Hai is more careful than me.\"",
+          "highlights": [
+            "more careful than"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Hai smiles more than his brother\", more đứng sau từ gì?",
+      "options": [
+        "Sau một tính từ",
+        "Sau một động từ (smiles)",
+        "Sau một danh từ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Động từ + more than nghĩa là \"làm gì nhiều hơn\": smiles more than (cười nhiều hơn). Còn more + tính từ dài: more careful.",
+      "whenVi": "Dùng so sánh hơn khi so sánh hai người: tính từ / trạng từ ngắn thêm -er, tính từ dài dùng more, động từ + more than.",
+      "table": [
+        {
+          "subject": "Ngắn: -er",
+          "form": "short → shorter, fast → faster than",
+          "negative": "He isn't faster than Hai."
+        },
+        {
+          "subject": "Dài: more",
+          "form": "more careful than me",
+          "negative": "He isn't more careful than me."
+        },
+        {
+          "subject": "Động từ + more",
+          "form": "Hai smiles more than his brother.",
+          "negative": "Phong doesn't smile more than Hai."
+        },
+        {
+          "subject": "Nói hơn ít / nhiều",
+          "form": "a little shorter / much faster",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Phong works more fast than Hai.",
+          "right": "Phong works faster than Hai."
+        },
+        {
+          "wrong": "Hai is more careful then me.",
+          "right": "Hai is more careful than me."
+        }
+      ],
+      "noteVi": "Hay nhầm than với then (rồi, sau đó). Muốn nói \"hơn một chút\" dùng a little + -er, \"hơn nhiều\" dùng much + -er.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng so sánh hơn của từ trong ngoặc.",
+          "text": "Phong works ___ than his brother. (fast)",
+          "answers": [
+            "faster"
+          ],
+          "explanationVi": "Fast là từ ngắn: faster than."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Hai is ___ than Phong.",
+          "options": [
+            "more funny",
+            "funnyer",
+            "funnier",
+            "the funniest"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Funny tận cùng -y: đổi y thành i rồi thêm -er: funnier."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My sister is more careful then me.",
+          "sentence": "My sister is more careful than me.",
+          "explanationVi": "So sánh hơn dùng than, không phải then."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tóc anh ấy ngắn hơn một chút.",
+          "sentence": "His hair is a little shorter.",
+          "words": [
+            "hair",
+            "His",
+            "a",
+            "is",
+            "shorter",
+            "little",
+            "more"
+          ],
+          "explanationVi": "A little + -er = hơn một chút; từ \"more\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"But Phong works faster than Hai,\" she says.",
+        "tipVi": "Faster /ˈfɑːstər/ nhấn âm đầu; works có âm /ks/ ở cuối, đừng bỏ."
+      },
+      {
+        "text": "At the end of the day, Nga feels happy.",
+        "tipVi": "End of the nối âm thành \"en-đơv-thơ\"; feels /fiːlz/ có âm /iː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is older, you or your best friend?",
+        "questionVi": "Ai lớn tuổi hơn, bạn hay bạn thân của bạn?",
+        "frame": "___ is older than ___."
+      },
+      {
+        "question": "Who is the most careful person in your family?",
+        "questionVi": "Ai là người cẩn thận nhất trong gia đình bạn?",
+        "frame": "The most careful person is my ___."
+      },
+      {
+        "question": "Does your brother or sister smile more than you?",
+        "questionVi": "Anh chị em của bạn có hay cười hơn bạn không?",
+        "frame": "Yes, he / she smiles more than me. / No, I smile more."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu so sánh hơn (-er than / more … than)",
+      "anyOf": [
+        "than",
+        "more"
+      ],
+      "outlineVi": [
+        "Giới thiệu hai người (anh em, bạn bè).",
+        "So sánh ngoại hình (taller, shorter hair, glasses).",
+        "So sánh tính cách và việc họ làm (funnier, more careful, works faster)."
+      ],
+      "modelAnswer": "My cousins Tam and Tu are sisters. They are both sixteen, and they look the same. Tam's hair is a little longer, and Tu wears glasses. Tam is funnier than her sister, and she talks a lot. Tu is quieter and more careful. She studies harder than Tam, and her marks are better. But Tam is the best singer in the family!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "team leader",
+      "lemma": "team leader",
+      "meaningVi": "trưởng nhóm",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "Her team leader, Ms Lien",
+      "phraseVi": "Trưởng nhóm của cô, chị Liên"
+    },
+    {
+      "text": "were born",
+      "lemma": "be born",
+      "meaningVi": "được sinh ra",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "they were born on the same day",
+      "phraseVi": "sinh cùng một ngày"
+    },
+    {
+      "text": "who is who",
+      "lemma": "who",
+      "meaningVi": "ai là ai",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "How do you know who is who",
+      "phraseVi": "Làm sao biết ai là ai"
+    },
+    {
+      "text": "shorter",
+      "lemma": "short",
+      "meaningVi": "ngắn hơn",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "a little shorter",
+      "phraseVi": "ngắn hơn một chút"
+    },
+    {
+      "text": "faster",
+      "lemma": "fast",
+      "meaningVi": "nhanh hơn",
+      "sentenceIndex": 8,
+      "pos": "adverb",
+      "phrase": "works faster than Hai",
+      "phraseVi": "làm nhanh hơn Hải"
+    },
+    {
+      "text": "by ten minutes",
+      "lemma": "by",
+      "meaningVi": "hơn mười phút",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "I am, by ten minutes",
+      "phraseVi": "Anh, hơn mười phút"
+    },
+    {
+      "text": "noisy",
+      "lemma": "noisy",
+      "meaningVi": "ồn ào",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "isn't as noisy as his brother",
+      "phraseVi": "không ồn ào bằng anh mình"
+    },
+    {
+      "text": "nicest",
+      "lemma": "nice",
+      "meaningVi": "dễ mến nhất",
+      "sentenceIndex": 18,
+      "pos": "adjective",
+      "phrase": "the nicest team in the bank",
+      "phraseVi": "nhóm dễ mến nhất ngân hàng"
+    }
+  ]
+}

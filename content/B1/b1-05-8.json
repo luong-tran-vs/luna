@@ -1,0 +1,612 @@
+{
+  "content": "Khoa is studying English, and he loves watching films. Today, he is telling his friend Lan about a British film which he watched last week.\n\nKhoa says, \"You must watch The Long Road. It's the film that won the big prize in London this year.\"\n\"What is it about?\"\n\"It's about an old farmer who walks across England to see his son.\"\n\"That sounds a bit slow.\"\n\"It isn't. The farmer is a man whose stories are really funny. I laughed all the time.\"\n\"Did you watch it with Vietnamese words on the screen?\"\n\"No, I watched it with English words. It helped me practise listening. The first time, I understood about half. The second time, I understood much more.\"\nLan looks worried. \"It might be too difficult for me. My English isn't as good as yours.\"\n\"You could try it. The people who speak in the film talk quite slowly. And the farmer's son, who lives in London, speaks very clearly.\"\n\"Hmm. The accent might be hard. Is it from the north of England?\"\n\"Some of it. But you can watch the parts that you don't understand again.\"\n\"OK. Where can I watch it?\"\n\"It's on the app that I told you about last month.\"\nLan says, \"Then I'll try it tonight. But I'll call you when I get lost!\"\nKhoa laughs. \"Deal. I'm sure you'll enjoy it.\"",
+  "targetWords": [
+    "across",
+    "slow",
+    "practise",
+    "half",
+    "difficult",
+    "try",
+    "quite",
+    "accent",
+    "north",
+    "enjoy"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "across",
+        "lemma": "across",
+        "meaningVi": "băng qua, khắp",
+        "pos": "preposition",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "slow",
+        "lemma": "slow",
+        "meaningVi": "chậm",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "practise",
+        "lemma": "practise",
+        "meaningVi": "luyện tập",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "half",
+        "lemma": "half",
+        "meaningVi": "một nửa",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "difficult",
+        "lemma": "difficult",
+        "meaningVi": "khó",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "try",
+        "lemma": "try",
+        "meaningVi": "thử",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "quite",
+        "lemma": "quite",
+        "meaningVi": "khá",
+        "pos": "adverb",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "accent",
+        "lemma": "accent",
+        "meaningVi": "giọng (vùng miền)",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "north",
+        "lemma": "north",
+        "meaningVi": "phía bắc, miền bắc",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "enjoy",
+        "lemma": "enjoy",
+        "meaningVi": "thích, tận hưởng",
+        "pos": "verb",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Khoa tells Lan about a foreign film which helped his English.",
+          "Lan travels to England.",
+          "Khoa wins a prize in London.",
+          "A new English app"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa giới thiệu cho Lan một bộ phim Anh đã đoạt giải và giúp anh luyện nghe."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the film about?",
+        "promptVi": "Bộ phim nói về điều gì?",
+        "options": [
+          "A young man who studies in London",
+          "An old farmer who walks across England to see his son",
+          "A family who moves to the north",
+          "A teacher whose students are funny"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa nói \"It's about an old farmer who walks across England to see his son.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Khoa think Lan could understand the film?",
+        "promptVi": "Vì sao Khoa nghĩ Lan có thể hiểu bộ phim?",
+        "options": [
+          "It has Vietnamese words on the screen.",
+          "It is very short.",
+          "The people in the film talk quite slowly.",
+          "Lan has been to England."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khoa nói \"The people who speak in the film talk quite slowly.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoa understood everything the first time he watched the film.",
+        "promptVi": "Lần đầu xem, Khoa hiểu hết mọi thứ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"The first time, I understood about half.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"get lost\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "But I'll call you when I get lost!\"",
+        "options": [
+          "không hiểu, bị \"lạc\" (không theo kịp)",
+          "bị lạc đường",
+          "bị mất đồ",
+          "ra ngoài"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ở đây get lost là không theo kịp, không hiểu phim nữa (không phải lạc đường)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "bodyVi": "Mệnh đề quan hệ giới thiệu bộ phim và nhân vật: a British film which he watched last week, the film that won the big prize, an old farmer who walks across England, a man whose stories are really funny, the parts that you don't understand. Mệnh đề có dấu phẩy chỉ thêm thông tin phụ: the farmer's son, who lives in London, speaks very clearly. Bài cũng dùng might / could: It might be too difficult, You could try it.",
+      "examples": [
+        "It's the film that won the big prize in London this year.\"",
+        "\"It's about an old farmer who walks across England to see his son.\"",
+        "The farmer is a man whose stories are really funny."
+      ]
+    },
+    "writingPrompt": "Recommend a film or video that helped you learn something: what is it about, and why might it be good for your friend?",
+    "sentenceTranslations": [
+      "Khoa đang học tiếng Anh, và anh rất thích xem phim.",
+      "Hôm nay, anh kể với bạn là Lan về một bộ phim Anh mà anh xem tuần trước.",
+      "Khoa nói: \"Cậu phải xem The Long Road.",
+      "Đó là bộ phim đoạt giải lớn ở London năm nay.\"",
+      "\"Phim nói về gì?\"",
+      "\"Về một ông nông dân già đi bộ băng qua nước Anh để thăm con trai.\"",
+      "\"Nghe có vẻ hơi chậm.\"",
+      "\"Không đâu.",
+      "Ông nông dân là người có những câu chuyện rất vui.",
+      "Mình cười suốt.\"",
+      "\"Cậu xem có phụ đề tiếng Việt không?\"",
+      "\"Không, mình xem phụ đề tiếng Anh.",
+      "Nó giúp mình luyện nghe.",
+      "Lần đầu, mình hiểu khoảng một nửa.",
+      "Lần thứ hai, mình hiểu nhiều hơn hẳn.\"",
+      "Lan có vẻ lo lắng.",
+      "\"Có thể khó quá với mình.",
+      "Tiếng Anh của mình không giỏi bằng cậu.\"",
+      "\"Cậu có thể thử xem.",
+      "Những người nói trong phim nói khá chậm.",
+      "Còn con trai ông nông dân, người sống ở London, nói rất rõ ràng.\"",
+      "\"Ừm.",
+      "Giọng có thể khó nghe.",
+      "Có phải giọng miền bắc nước Anh không?\"",
+      "\"Một phần thôi.",
+      "Nhưng cậu có thể xem lại những đoạn cậu không hiểu.\"",
+      "\"Được.",
+      "Xem ở đâu nhỉ?\"",
+      "\"Trên ứng dụng mà tháng trước mình kể cho cậu đấy.\"",
+      "Lan nói: \"Vậy tối nay mình sẽ thử.",
+      "Nhưng lúc nào không theo kịp là mình gọi cậu đấy!\"",
+      "Khoa cười.",
+      "\"Chốt.",
+      "Mình chắc chắn cậu sẽ thích.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một bộ phim nước ngoài giúp học tiếng Anh bằng mệnh đề quan hệ (who, which, that, whose) và might / could.",
+    "examples": [
+      {
+        "lemma": "across",
+        "sentence": "We walked across the bridge.",
+        "meaningVi": "Chúng tôi đi bộ qua cầu."
+      },
+      {
+        "lemma": "slow",
+        "sentence": "The internet is very slow today.",
+        "meaningVi": "Hôm nay mạng rất chậm."
+      },
+      {
+        "lemma": "practise",
+        "sentence": "I practise speaking English every day.",
+        "meaningVi": "Ngày nào tôi cũng luyện nói tiếng Anh."
+      },
+      {
+        "lemma": "half",
+        "sentence": "Half of the class went home early.",
+        "meaningVi": "Một nửa lớp về sớm."
+      },
+      {
+        "lemma": "difficult",
+        "sentence": "This question is too difficult.",
+        "meaningVi": "Câu hỏi này khó quá."
+      },
+      {
+        "lemma": "try",
+        "sentence": "Try this soup. It's delicious.",
+        "meaningVi": "Thử món canh này đi. Ngon lắm."
+      },
+      {
+        "lemma": "quite",
+        "sentence": "The film was quite long.",
+        "meaningVi": "Bộ phim khá dài."
+      },
+      {
+        "lemma": "accent",
+        "sentence": "She has a French accent.",
+        "meaningVi": "Cô ấy nói giọng Pháp."
+      },
+      {
+        "lemma": "north",
+        "sentence": "Ha Giang is in the north of Vietnam.",
+        "meaningVi": "Hà Giang ở phía bắc Việt Nam."
+      },
+      {
+        "lemma": "enjoy",
+        "sentence": "Did you enjoy the party?",
+        "meaningVi": "Bạn có thích bữa tiệc không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Grace"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, what are you watching?",
+          "meaningVi": "Lan ơi, cậu đang xem gì thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "A British film that my friend Khoa told me about.",
+          "meaningVi": "Một bộ phim Anh mà bạn mình là Khoa giới thiệu."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it the one that won the big prize?",
+          "meaningVi": "Có phải phim đoạt giải lớn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. It's about a farmer who walks across England.",
+          "meaningVi": "Đúng. Phim về một ông nông dân đi bộ băng qua nước Anh."
+        },
+        {
+          "speaker": 1,
+          "text": "Can you understand it?",
+          "meaningVi": "Cậu có hiểu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "About half. The accent might be from the north.",
+          "meaningVi": "Khoảng một nửa. Giọng có thể là miền bắc."
+        },
+        {
+          "speaker": 1,
+          "text": "It must be good practice for your listening.",
+          "meaningVi": "Chắc chắn đây là cách luyện nghe tốt."
+        },
+        {
+          "speaker": 0,
+          "text": "It is. And the son, who lives in London, speaks very clearly.",
+          "meaningVi": "Đúng vậy. Mà người con trai, sống ở London, nói rất rõ."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I watch it with you?",
+          "meaningVi": "Mình xem cùng cậu được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. I'll start it again from the beginning.",
+          "meaningVi": "Tất nhiên. Mình sẽ bật lại từ đầu."
+        }
+      ]
+    },
+    "grammarTipVi": "A British film that my friend told me about, a farmer who walks across England, the son, who lives in London (thông tin thêm, có dấu phẩy). Đoán: might be from the north, must be good practice.",
+    "translations": [
+      {
+        "vi": "Đó là bộ phim đoạt giải lớn. Phim không chậm đâu.",
+        "en": "It's the film that won the big prize. It isn't slow.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Phim kể về một ông nông dân đi bộ băng qua nước Anh.",
+        "en": "It's about a farmer who walks across England.",
+        "distractors": [
+          "which",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Có thể nó khó quá với tôi. Tôi có thể thử.",
+        "en": "It might be too difficult for me. I can try.",
+        "distractors": [
+          "must",
+          "can't",
+          "is"
+        ]
+      },
+      {
+        "vi": "Bạn có thể xem lại những đoạn mà bạn không hiểu. Bạn sẽ thích phim này.",
+        "en": "You can watch the parts that you don't understand again. You'll enjoy it.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Xem bộ phim Anh mà Khoa giới thiệu",
+          "Học ở trung tâm tiếng Anh",
+          "Đi du lịch London"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"A British film that my friend Khoa told me about.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan hiểu được bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Hết",
+          "Khoảng một nửa",
+          "Không hiểu gì"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"About half.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai trong phim nói rất rõ?",
+        "promptVi": "",
+        "options": [
+          "Ông nông dân",
+          "Khoa",
+          "Người con trai sống ở London"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"the son, who lives in London, speaks very clearly.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Grace doesn't want to watch the film.",
+        "promptVi": "Grace không muốn xem bộ phim.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Grace hỏi \"Can I watch it with you?\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Bộ phim Khoa giới thiệu nói về gì, và vì sao nó giúp anh luyện tiếng Anh?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "noticing": [
+        {
+          "sentence": "Today, he is telling his friend Lan about a British film which he watched last week.",
+          "highlights": [
+            "which he watched last week"
+          ]
+        },
+        {
+          "sentence": "\"It's about an old farmer who walks across England to see his son.\"",
+          "highlights": [
+            "who walks across England"
+          ]
+        },
+        {
+          "sentence": "The farmer is a man whose stories are really funny.",
+          "highlights": [
+            "whose stories"
+          ]
+        },
+        {
+          "sentence": "And the farmer's son, who lives in London, speaks very clearly.\"",
+          "highlights": [
+            ", who lives in London,"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao \"who lives in London\" được đặt giữa hai dấu phẩy?",
+      "options": [
+        "Vì đó là thông tin thêm; bỏ đi câu vẫn rõ nghĩa.",
+        "Vì London là tên riêng.",
+        "Vì câu ở thì hiện tại."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Mệnh đề có dấu phẩy chỉ thêm thông tin phụ về một người / vật đã rõ (the farmer's son). Với loại này không dùng that.",
+      "whenVi": "Không có dấu phẩy: để nói rõ là người / vật nào. Có dấu phẩy: thêm thông tin về người / vật đã biết.",
+      "table": [
+        {
+          "subject": "Xác định (không phẩy)",
+          "form": "the film that won the big prize",
+          "negative": "—"
+        },
+        {
+          "subject": "Thông tin thêm (có phẩy)",
+          "form": "the farmer's son, who lives in London, …",
+          "negative": "(không dùng that)"
+        },
+        {
+          "subject": "whose",
+          "form": "a man whose stories are really funny",
+          "negative": "—"
+        },
+        {
+          "subject": "which / that",
+          "form": "a film which he watched last week",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The farmer's son, that lives in London, speaks clearly.",
+          "right": "The farmer's son, who lives in London, speaks clearly."
+        },
+        {
+          "wrong": "He is a man who stories are really funny.",
+          "right": "He is a man whose stories are really funny."
+        }
+      ],
+      "noteVi": "Khi nói nhanh, ta thường bỏ who / that làm tân ngữ: the film (that) I watched, the app (that) I told you about.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền who, which, that hoặc whose.",
+          "text": "The farmer is a man ___ stories are really funny.",
+          "answers": [
+            "whose"
+          ],
+          "explanationVi": "Những câu chuyện của ông ấy: whose."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "His son, ___ lives in London, speaks very clearly.",
+          "options": [
+            "that",
+            "who",
+            "which",
+            "whose"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Có dấu phẩy, nói về người: who (không dùng that)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It's the film who won the big prize.",
+          "sentence": "It's the film that won the big prize.",
+          "explanationVi": "Film là vật: that / which."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đây là ứng dụng mà tôi đã kể cho bạn.",
+          "sentence": "This is the app that I told you about.",
+          "words": [
+            "app",
+            "This",
+            "is",
+            "the",
+            "that",
+            "I",
+            "told",
+            "you",
+            "about.",
+            "who"
+          ],
+          "explanationVi": "App là vật: that; từ \"who\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The farmer is a man whose stories are really funny.",
+        "tipVi": "Whose /huːz/ đọc giống who's; stories /ˈstɔːriz/."
+      },
+      {
+        "text": "\"It might be too difficult for me.",
+        "tipVi": "Difficult /ˈdɪfɪkəlt/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is a film or video that helped you learn English?",
+        "questionVi": "Bộ phim hay video nào đã giúp bạn học tiếng Anh?",
+        "frame": "A film that helped me is ___."
+      },
+      {
+        "question": "Do you watch films with English words on the screen?",
+        "questionVi": "Bạn có xem phim có phụ đề tiếng Anh không?",
+        "frame": "Yes, I do. It helps me ___. / No, I don't because ___."
+      },
+      {
+        "question": "Who is a friend who might enjoy this film? Why?",
+        "questionVi": "Người bạn nào có thể sẽ thích bộ phim này? Vì sao?",
+        "frame": "My friend ___ might enjoy it. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ (who, which, that, whose, where)",
+      "anyOf": [
+        " who ",
+        " which ",
+        " that ",
+        " whose ",
+        " where "
+      ],
+      "outlineVi": [
+        "Bộ phim / video là gì, nói về ai (a film about a … who …).",
+        "Nó giúp bạn thế nào (It's a film that helped me …).",
+        "Vì sao bạn của bạn có thể thích (It might be good for you because …)."
+      ],
+      "modelAnswer": "I want to recommend Little Kitchen, an Australian series that I watched last month. It's about a young woman who opens a small restaurant in Sydney. The people in it speak quite slowly, so it helped me practise listening. The main character, whose family is Vietnamese, sometimes speaks Vietnamese too. You might enjoy it, because you love cooking."
+    }
+  },
+  "glosses": [
+    {
+      "text": "must watch",
+      "lemma": "must",
+      "meaningVi": "phải xem",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "You must watch The Long Road.",
+      "phraseVi": "Cậu phải xem The Long Road."
+    },
+    {
+      "text": "all the time",
+      "lemma": "all the time",
+      "meaningVi": "suốt, lúc nào cũng",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "I laughed all the time.",
+      "phraseVi": "Mình cười suốt."
+    },
+    {
+      "text": "understood",
+      "lemma": "understand",
+      "meaningVi": "hiểu",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "I understood about half",
+      "phraseVi": "mình hiểu khoảng một nửa"
+    },
+    {
+      "text": "as good as yours",
+      "lemma": "as … as",
+      "meaningVi": "giỏi bằng cậu",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "My English isn't as good as yours.",
+      "phraseVi": "Tiếng Anh của mình không giỏi bằng cậu."
+    },
+    {
+      "text": "get lost",
+      "lemma": "get lost",
+      "meaningVi": "không theo kịp",
+      "sentenceIndex": 30,
+      "pos": "phrase",
+      "phrase": "I'll call you when I get lost!",
+      "phraseVi": "lúc nào không theo kịp là mình gọi cậu!"
+    }
+  ]
+}

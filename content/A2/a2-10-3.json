@@ -1,0 +1,607 @@
+{
+  "content": "Every morning at six, Nam and his friend Bao run in Thong Nhat Park. Today, Bao is late, and he looks sleepy.\n\nBao says, \"Sorry! I didn't want to get up. It's so cold.\"\nNam says, \"I know. But when I run in the morning, I feel strong all day.\"\n\"Me too. If I don't run, I feel slow and sleepy at work.\"\nThey start to run around the lake. After two kilometres, Bao stops.\n\"Wait, Nam. I can't breathe!\"\n\"Slow down. When you run too fast at the start, you get tired very quickly.\"\n\"OK. What's your exercise plan for this week?\"\n\"I run on Monday, Wednesday and Friday. On Tuesday and Thursday, I swim. If I do the same exercise every day, my legs hurt.\"\n\"That's a good idea. I only run, and my knees hurt.\"\n\"Then come to the pool with me on Tuesday. Swimming is good for your knees.\"\nBao smiles. \"OK! And when I swim, I don't feel cold!\"",
+  "targetWords": [
+    "sleepy",
+    "breathe",
+    "start",
+    "exercise",
+    "swim",
+    "leg",
+    "hurt",
+    "knee"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "sleepy",
+        "lemma": "sleepy",
+        "meaningVi": "buồn ngủ",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "breathe",
+        "lemma": "breathe",
+        "meaningVi": "thở",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "start",
+        "lemma": "start",
+        "meaningVi": "lúc bắt đầu",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "exercise",
+        "lemma": "exercise",
+        "meaningVi": "tập thể dục",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "swim",
+        "lemma": "swim",
+        "meaningVi": "bơi",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "legs",
+        "lemma": "leg",
+        "meaningVi": "chân",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "hurt",
+        "lemma": "hurt",
+        "meaningVi": "đau",
+        "pos": "verb",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "knees",
+        "lemma": "knee",
+        "meaningVi": "đầu gối",
+        "pos": "noun",
+        "sentenceIndex": 21
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Two friends run in the park and talk about exercise.",
+          "Bao loses his shoes.",
+          "Nam teaches Bao to swim.",
+          "A new park in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam và Bảo chạy bộ ở công viên Thống Nhất và nói về kế hoạch tập luyện."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Bao stop after two kilometres?",
+        "promptVi": "Vì sao Bảo dừng lại sau hai cây số?",
+        "options": [
+          "He can't breathe.",
+          "His phone rings.",
+          "It starts to rain.",
+          "He sees a friend."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"Wait, Nam. I can't breathe!\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Nam run every day?",
+        "promptVi": "Vì sao Nam không chạy mỗi ngày?",
+        "options": [
+          "He doesn't have time.",
+          "If he does the same exercise every day, his legs hurt.",
+          "The park is closed.",
+          "He doesn't like running."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"If I do the same exercise every day, my legs hurt.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam swims on Monday.",
+        "promptVi": "Nam bơi vào thứ Hai.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì thứ Hai Nam chạy; anh bơi vào thứ Ba và thứ Năm."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Slow down\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Slow down.",
+        "options": [
+          "Chạy nhanh lên",
+          "Chậm lại",
+          "Ngồi xuống",
+          "Dừng hẳn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Slow down = đi / chạy chậm lại."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Câu điều kiện loại 0 có thể có phủ định ở một vế: If I don't run, I feel slow and sleepy. When I swim, I don't feel cold. Chủ ngữ ở hai vế có thể khác nhau: If I do the same exercise every day, my legs hurt. Nhớ chia động từ hiện tại đơn theo chủ ngữ: my legs hurt, my knee hurts.",
+      "examples": [
+        "But when I run in the morning, I feel strong all day.\"",
+        "If I don't run, I feel slow and sleepy at work.\"",
+        "If I do the same exercise every day, my legs hurt.\""
+      ]
+    },
+    "writingPrompt": "Write about your exercise: what happens when you exercise, and what happens if you don't?",
+    "sentenceTranslations": [
+      "Sáng nào cũng vậy, sáu giờ, Nam và bạn là Bảo chạy bộ ở công viên Thống Nhất.",
+      "Hôm nay Bảo đến muộn, và trông cậu ấy buồn ngủ.",
+      "Bảo nói: \"Xin lỗi!",
+      "Mình không muốn dậy.",
+      "Lạnh quá.\"",
+      "Nam nói: \"Mình biết.",
+      "Nhưng hễ sáng chạy bộ là mình thấy khoẻ cả ngày.\"",
+      "\"Mình cũng vậy.",
+      "Nếu không chạy, đi làm mình thấy uể oải và buồn ngủ.\"",
+      "Hai người bắt đầu chạy quanh hồ.",
+      "Được hai cây số, Bảo dừng lại.",
+      "\"Đợi đã, Nam.",
+      "Mình không thở nổi!\"",
+      "\"Chậm lại.",
+      "Hễ lúc đầu chạy nhanh quá là sẽ mệt rất nhanh.\"",
+      "\"Ừ.",
+      "Tuần này cậu tập thế nào?\"",
+      "\"Thứ Hai, thứ Tư và thứ Sáu mình chạy.",
+      "Thứ Ba và thứ Năm mình bơi.",
+      "Nếu ngày nào cũng tập một môn, chân mình bị đau.\"",
+      "\"Ý hay đấy.",
+      "Mình chỉ chạy thôi, nên đầu gối bị đau.\"",
+      "\"Vậy thứ Ba đi bơi với mình.",
+      "Bơi tốt cho đầu gối.\"",
+      "Bảo mỉm cười.",
+      "\"Được!",
+      "Mà hễ bơi là mình không thấy lạnh!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về việc tập thể dục và kết quả của nó, kể cả câu phủ định, bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "sleepy",
+        "sentence": "I feel sleepy after lunch.",
+        "meaningVi": "Ăn trưa xong tôi thấy buồn ngủ."
+      },
+      {
+        "lemma": "breathe",
+        "sentence": "Breathe slowly through your nose.",
+        "meaningVi": "Thở chậm bằng mũi."
+      },
+      {
+        "lemma": "start",
+        "sentence": "At the start, the game is easy.",
+        "meaningVi": "Lúc đầu, trò chơi dễ."
+      },
+      {
+        "lemma": "exercise",
+        "sentence": "Exercise is good for you.",
+        "meaningVi": "Tập thể dục tốt cho bạn."
+      },
+      {
+        "lemma": "swim",
+        "sentence": "Can you swim?",
+        "meaningVi": "Bạn biết bơi không?"
+      },
+      {
+        "lemma": "leg",
+        "sentence": "My leg is very tired.",
+        "meaningVi": "Chân tôi rất mỏi."
+      },
+      {
+        "lemma": "hurt",
+        "sentence": "My eyes hurt.",
+        "meaningVi": "Mắt tôi đau."
+      },
+      {
+        "lemma": "knee",
+        "sentence": "He fell and hurt his knee.",
+        "meaningVi": "Anh ấy ngã và bị đau đầu gối."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nam",
+        "Oliver"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nam, do you exercise every day?",
+          "meaningVi": "Nam ơi, ngày nào cậu cũng tập à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. I run or swim every morning.",
+          "meaningVi": "Ừ. Sáng nào mình cũng chạy hoặc bơi."
+        },
+        {
+          "speaker": 1,
+          "text": "Why do you run and swim?",
+          "meaningVi": "Sao cậu vừa chạy vừa bơi?"
+        },
+        {
+          "speaker": 0,
+          "text": "If I only run, my knees hurt.",
+          "meaningVi": "Nếu chỉ chạy thì đầu gối mình bị đau."
+        },
+        {
+          "speaker": 1,
+          "text": "What happens when you don't exercise?",
+          "meaningVi": "Khi không tập thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "When I don't exercise, I feel sleepy all day.",
+          "meaningVi": "Hễ không tập là mình buồn ngủ cả ngày."
+        },
+        {
+          "speaker": 1,
+          "text": "I want to start running. Any tips?",
+          "meaningVi": "Mình muốn bắt đầu chạy. Có mẹo gì không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Don't run fast at the start. If you run too fast, you get tired.",
+          "meaningVi": "Lúc đầu đừng chạy nhanh. Chạy nhanh quá là mệt đấy."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Can I run with you tomorrow?",
+          "meaningVi": "Được. Mai mình chạy cùng cậu nhé?"
+        },
+        {
+          "speaker": 0,
+          "text": "Sure! Meet me at the park at six.",
+          "meaningVi": "Được! Sáu giờ gặp mình ở công viên."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi kết quả: What happens when you don't exercise? Trả lời: When I don't exercise, I feel sleepy all day. If I only run, my knees hurt.",
+    "translations": [
+      {
+        "vi": "Hễ lúc đầu chạy nhanh quá là tôi mệt.",
+        "en": "When I run too fast at the start, I get tired.",
+        "distractors": [
+          "will",
+          "ran",
+          "felt"
+        ]
+      },
+      {
+        "vi": "Nếu không tập, tôi thấy buồn ngủ.",
+        "en": "If I don't exercise, I feel sleepy.",
+        "distractors": [
+          "won't",
+          "doesn't",
+          "felt"
+        ]
+      },
+      {
+        "vi": "Nếu chạy mỗi ngày, đầu gối tôi bị đau.",
+        "en": "If I run every day, my knees hurt.",
+        "distractors": [
+          "will",
+          "hurts",
+          "ran"
+        ]
+      },
+      {
+        "vi": "Hễ bơi là tôi không thấy lạnh.",
+        "en": "When I swim, I don't feel cold.",
+        "distractors": [
+          "won't",
+          "swam",
+          "doesn't"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Nam và Oliver nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Việc tập thể dục",
+          "Một trận bóng",
+          "Đồ ăn sáng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Oliver hỏi \"do you exercise every day?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Nam không chỉ chạy?",
+        "promptVi": "",
+        "options": [
+          "Chạy chán quá",
+          "Nếu chỉ chạy thì đầu gối bị đau",
+          "Không có thời gian"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"If I only run, my knees hurt.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ hẹn gặp nhau lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Năm giờ",
+          "Bảy giờ",
+          "Sáu giờ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam nói \"Meet me at the park at six.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam tells Oliver to run fast at the start.",
+        "promptVi": "Nam bảo Oliver chạy nhanh lúc đầu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"Don't run fast at the start.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Chạy bộ và bơi mang lại kết quả gì cho Nam và Bảo? Khi không tập thì sao?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "But when I run in the morning, I feel strong all day.\"",
+          "highlights": [
+            "when",
+            "run",
+            "feel"
+          ]
+        },
+        {
+          "sentence": "If I don't run, I feel slow and sleepy at work.\"",
+          "highlights": [
+            "If",
+            "don't run",
+            "feel"
+          ]
+        },
+        {
+          "sentence": "If I do the same exercise every day, my legs hurt.\"",
+          "highlights": [
+            "If",
+            "do",
+            "hurt"
+          ]
+        },
+        {
+          "sentence": "And when I swim, I don't feel cold!\"",
+          "highlights": [
+            "when",
+            "swim",
+            "don't feel"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"If I don't run, I feel slow and sleepy\", vế nào là phủ định?",
+      "options": [
+        "Vế if (If I don't run)",
+        "Vế sau (I feel slow)",
+        "Cả hai vế"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Phủ định có thể ở vế if, vế sau, hoặc cả hai, nhưng vẫn dùng hiện tại đơn: don't / doesn't + động từ.",
+      "whenVi": "Dùng If / When + hiện tại đơn để nói điều luôn xảy ra mỗi khi có điều kiện, kể cả với phủ định.",
+      "table": [
+        {
+          "subject": "Khẳng định",
+          "form": "When I run, I feel strong.",
+          "negative": "—"
+        },
+        {
+          "subject": "Phủ định ở vế if",
+          "form": "If I don't run, I feel sleepy.",
+          "negative": "—"
+        },
+        {
+          "subject": "Phủ định ở vế sau",
+          "form": "When I swim, I don't feel cold.",
+          "negative": "—"
+        },
+        {
+          "subject": "He / She",
+          "form": "If he runs too fast, he gets tired.",
+          "negative": "If she doesn't exercise, she feels sleepy."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If I not run, I feel sleepy.",
+          "right": "If I don't run, I feel sleepy."
+        },
+        {
+          "wrong": "If he run too fast, he gets tired.",
+          "right": "If he runs too fast, he gets tired."
+        }
+      ],
+      "noteVi": "Khi chủ ngữ là he / she / it hoặc một danh từ số ít (my knee), động từ thêm -s: my knee hurts, he gets tired.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền don't hoặc doesn't.",
+          "text": "If I ___ run, I feel slow at work.",
+          "answers": [
+            "don't",
+            "do not"
+          ],
+          "explanationVi": "I đi với don't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "When Bao runs too fast, he ___ tired.",
+          "options": [
+            "get",
+            "gets",
+            "will gets",
+            "getting"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "He là ngôi thứ ba số ít: gets."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If I not swim, I feel tired.",
+          "sentence": "If I don't swim, I feel tired.",
+          "explanationVi": "Phủ định hiện tại đơn: don't + động từ."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hễ bơi là tôi không thấy lạnh.",
+          "sentence": "When I swim, I don't feel cold.",
+          "words": [
+            "swim,",
+            "When",
+            "don't",
+            "I",
+            "feel",
+            "I",
+            "cold.",
+            "not"
+          ],
+          "explanationVi": "Phủ định: don't feel; từ \"not\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Wait, Nam.",
+        "tipVi": "Wait /weɪt/ đọc rõ /t/ cuối; giọng gấp gáp."
+      },
+      {
+        "text": "Swimming is good for your knees.\"",
+        "tipVi": "Knees /niːz/ không đọc âm k; swimming /ˈswɪmɪŋ/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What exercise do you do?",
+        "questionVi": "Bạn tập môn thể thao nào?",
+        "frame": "I ___."
+      },
+      {
+        "question": "How do you feel when you don't exercise?",
+        "questionVi": "Khi không tập thể dục bạn thấy thế nào?",
+        "frame": "When I don't exercise, I feel ___."
+      },
+      {
+        "question": "What exercise does your best friend like?",
+        "questionVi": "Bạn thân của bạn thích môn thể thao nào?",
+        "frame": "He / She likes ___. When he / she ___, he / she feels ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, hiện tại đơn)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you"
+      ],
+      "outlineVi": [
+        "Bạn tập môn gì, khi nào, ở đâu.",
+        "Khi tập bạn thấy thế nào (When I …, I …).",
+        "Khi không tập thì sao (If I don't …, I …)."
+      ],
+      "modelAnswer": "I play badminton with my sister every evening. When I play badminton, I feel happy and strong. If I play for an hour, I sleep very well at night. But if I don't exercise, I feel sleepy at school. When it rains, we can't play, so we walk around the house!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "get up",
+      "lemma": "get up",
+      "meaningVi": "thức dậy",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "I didn't want to get up.",
+      "phraseVi": "Mình không muốn dậy."
+    },
+    {
+      "text": "slow",
+      "lemma": "slow",
+      "meaningVi": "chậm chạp, uể oải",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "I feel slow and sleepy",
+      "phraseVi": "mình thấy uể oải và buồn ngủ"
+    },
+    {
+      "text": "kilometres",
+      "lemma": "kilometre",
+      "meaningVi": "cây số",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "After two kilometres",
+      "phraseVi": "Được hai cây số"
+    },
+    {
+      "text": "Slow down",
+      "lemma": "slow down",
+      "meaningVi": "chậm lại",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "Slow down.",
+      "phraseVi": "Chậm lại."
+    },
+    {
+      "text": "plan",
+      "lemma": "plan",
+      "meaningVi": "kế hoạch",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "your exercise plan for this week",
+      "phraseVi": "kế hoạch tập tuần này"
+    },
+    {
+      "text": "same",
+      "lemma": "same",
+      "meaningVi": "giống nhau",
+      "sentenceIndex": 19,
+      "pos": "adjective",
+      "phrase": "the same exercise every day",
+      "phraseVi": "ngày nào cũng tập một môn"
+    },
+    {
+      "text": "pool",
+      "lemma": "pool",
+      "meaningVi": "bể bơi",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "come to the pool with me",
+      "phraseVi": "đi bơi với mình"
+    }
+  ]
+}

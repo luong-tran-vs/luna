@@ -1,0 +1,601 @@
+{
+  "content": "Huan and Toan are old friends from university. Last night, Toan sent Huan some photos from their trip to Da Nang. It was three years ago. Toan wrote, \"Look at us on the Dragon Bridge!\" Huan smiled and called him, and they talked about that weekend for an hour.\n\nThey arrived in Da Nang on a Friday evening. Their hotel wasn't big, but it was near the sea. On Saturday morning, they walked on the beach and swam in the sea. The water was warm and very blue.\n\nIn the afternoon, they visited the famous Golden Bridge in the hills. There were a lot of people, so they waited for a long time. But the view from the bridge was beautiful.\n\nAt night, they saw fire come out of the Dragon Bridge. Then they enjoyed seafood at a small restaurant. Toan ordered a lot of food, and they ate it all.\n\nOn the phone, Toan asked, \"Do you remember that big fish?\"\n\"Yes, and that was a great trip,\" Huan said. \"Let's go back next summer!\"",
+  "targetWords": [
+    "friend",
+    "photo",
+    "trip",
+    "beach",
+    "visit",
+    "famous",
+    "bridge",
+    "enjoy"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "friends",
+        "lemma": "friend",
+        "meaningVi": "người bạn",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "photos",
+        "lemma": "photo",
+        "meaningVi": "tấm ảnh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "trip",
+        "lemma": "trip",
+        "meaningVi": "chuyến đi",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "beach",
+        "lemma": "beach",
+        "meaningVi": "bãi biển",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "visited",
+        "lemma": "visit",
+        "meaningVi": "đến thăm, tham quan",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "famous",
+        "lemma": "famous",
+        "meaningVi": "nổi tiếng",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "enjoyed",
+        "lemma": "enjoy",
+        "meaningVi": "thưởng thức, thích thú",
+        "pos": "verb",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Toan's new hotel in Da Nang",
+          "A football match at the beach",
+          "Two friends remember a weekend trip to Da Nang.",
+          "Huan's first job after university"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Xem lại ảnh cũ, Huân và Toàn nhớ chuyến đi Đà Nẵng ba năm trước: tắm biển, đi Cầu Vàng, xem Cầu Rồng, ăn hải sản."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where was their hotel?",
+        "promptVi": "Khách sạn của họ ở đâu?",
+        "options": [
+          "Near the sea",
+          "In the hills",
+          "Near the Golden Bridge",
+          "Next to a restaurant"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Their hotel wasn't big, but it was near the sea\": khách sạn ở gần biển."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why was there a long wait at the Golden Bridge?",
+        "promptVi": "Vì sao ở Cầu Vàng họ phải chờ lâu?",
+        "options": [
+          "The bridge was closed.",
+          "There were a lot of people.",
+          "It rained all afternoon.",
+          "Their car was very slow."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"There were a lot of people, so they waited for a long time\": đông người nên phải chờ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They swam in the sea on Saturday morning.",
+        "promptVi": "Sáng thứ Bảy họ bơi ở biển.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"On Saturday morning, they walked on the beach and swam in the sea\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"famous\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In the afternoon, they visited the famous Golden Bridge in the hills.",
+        "options": [
+          "đắt tiền",
+          "mới xây",
+          "nguy hiểm",
+          "nổi tiếng"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Famous là nổi tiếng, nhiều người biết đến: Cầu Vàng nổi tiếng nên có rất đông người đến tham quan."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ đơn: động từ có quy tắc",
+      "bodyVi": "Động từ có quy tắc thêm -ed ở quá khứ, nhưng đuôi -ed đọc ba cách. Sau âm /p/, /k/, /s/, /tʃ/, /ʃ/ đọc /t/: walked. Sau âm /t/, /d/ đọc /ɪd/ và thành thêm một âm tiết: visited, waited. Các trường hợp còn lại đọc /d/: arrived, enjoyed, called.",
+      "examples": [
+        "They arrived in Da Nang on a Friday evening.",
+        "In the afternoon, they visited the famous Golden Bridge in the hills.",
+        "Then they enjoyed seafood at a small restaurant."
+      ]
+    },
+    "writingPrompt": "Write about a weekend trip with a friend: where you went, what you visited and what you ate.",
+    "sentenceTranslations": [
+      "Huân và Toàn là bạn cũ từ thời đại học.",
+      "Tối qua, Toàn gửi cho Huân mấy tấm ảnh trong chuyến đi Đà Nẵng của hai người.",
+      "Đó là chuyện ba năm trước.",
+      "Toàn viết: \"Nhìn bọn mình trên Cầu Rồng này!\"",
+      "Huân mỉm cười và gọi điện cho Toàn, hai người nói chuyện về cuối tuần đó cả tiếng đồng hồ.",
+      "Họ đến Đà Nẵng vào một tối thứ Sáu.",
+      "Khách sạn của họ không lớn, nhưng ở gần biển.",
+      "Sáng thứ Bảy, họ đi dạo trên bãi biển và bơi ở biển.",
+      "Nước biển ấm và xanh ngắt.",
+      "Buổi chiều, họ đi tham quan Cầu Vàng nổi tiếng trên đồi.",
+      "Có rất đông người, nên họ phải chờ rất lâu.",
+      "Nhưng cảnh nhìn từ trên cầu thật đẹp.",
+      "Buổi tối, họ xem Cầu Rồng phun lửa.",
+      "Sau đó họ thưởng thức hải sản ở một nhà hàng nhỏ.",
+      "Toàn gọi rất nhiều món, và hai người ăn hết sạch.",
+      "Trong điện thoại, Toàn hỏi: \"Cậu còn nhớ con cá to hôm đó không?\"",
+      "\"Nhớ chứ, chuyến đi đó tuyệt thật,\" Huân nói.",
+      "\"Hè sau mình quay lại đó nhé!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một chuyến đi cuối tuần cùng bạn, dùng động từ quá khứ có quy tắc (đọc đúng đuôi -ed) và bất quy tắc.",
+    "examples": [
+      {
+        "lemma": "friend",
+        "sentence": "He is a good friend.",
+        "meaningVi": "Anh ấy là một người bạn tốt."
+      },
+      {
+        "lemma": "photo",
+        "sentence": "Can I take a photo of you?",
+        "meaningVi": "Mình chụp cho bạn một tấm ảnh nhé?"
+      },
+      {
+        "lemma": "trip",
+        "sentence": "How was your trip?",
+        "meaningVi": "Chuyến đi của bạn thế nào?"
+      },
+      {
+        "lemma": "beach",
+        "sentence": "We play football on the beach.",
+        "meaningVi": "Bọn mình đá bóng trên bãi biển."
+      },
+      {
+        "lemma": "visit",
+        "sentence": "Let's visit Hoi An next year.",
+        "meaningVi": "Năm sau mình đi Hội An nhé."
+      },
+      {
+        "lemma": "famous",
+        "sentence": "Hoi An is a famous old town.",
+        "meaningVi": "Hội An là một phố cổ nổi tiếng."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "There is a long bridge over the river.",
+        "meaningVi": "Có một cây cầu dài bắc qua sông."
+      },
+      {
+        "lemma": "enjoy",
+        "sentence": "I enjoy cooking with my mum.",
+        "meaningVi": "Mình thích nấu ăn cùng mẹ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huan",
+        "Mark"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Huan, nice photos! Where were you?",
+          "meaningVi": "Huân ơi, ảnh đẹp quá! Cậu ở đâu thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "In Da Nang. Toan and I visited it three years ago.",
+          "meaningVi": "Ở Đà Nẵng. Toàn với mình đi đó ba năm trước."
+        },
+        {
+          "speaker": 1,
+          "text": "Was the weather good?",
+          "meaningVi": "Thời tiết có đẹp không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it was sunny every day. We swam in the sea.",
+          "meaningVi": "Đẹp lắm, ngày nào cũng nắng. Bọn mình bơi ở biển."
+        },
+        {
+          "speaker": 1,
+          "text": "Lucky you! What's this bridge?",
+          "meaningVi": "Sướng thế! Cây cầu này là cầu gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's the Golden Bridge. It's very famous.",
+          "meaningVi": "Đó là Cầu Vàng. Nó nổi tiếng lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "It looks beautiful. Were there a lot of people?",
+          "meaningVi": "Trông đẹp thật. Có đông người không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there were. We waited for a long time.",
+          "meaningVi": "Đông lắm. Bọn mình phải chờ rất lâu."
+        },
+        {
+          "speaker": 1,
+          "text": "And what about the food?",
+          "meaningVi": "Còn đồ ăn thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "We enjoyed great seafood. Toan ordered a lot!",
+          "meaningVi": "Bọn mình được ăn hải sản ngon. Toàn gọi nhiều món lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về chuyến đi: Where were you? Was the weather good? Were there a lot of people? Trả lời bằng was / were và động từ quá khứ: We swam in the sea.",
+    "translations": [
+      {
+        "vi": "Chúng tôi đi dạo trên bãi biển.",
+        "en": "We walked on the beach.",
+        "distractors": [
+          "walk",
+          "in",
+          "sea"
+        ]
+      },
+      {
+        "vi": "Họ đi tham quan một cây cầu nổi tiếng.",
+        "en": "They visited a famous bridge.",
+        "distractors": [
+          "visit",
+          "river",
+          "an"
+        ]
+      },
+      {
+        "vi": "Chúng tôi thưởng thức món hải sản.",
+        "en": "We enjoyed the seafood.",
+        "distractors": [
+          "enjoy",
+          "fish",
+          "a"
+        ]
+      },
+      {
+        "vi": "Toàn gửi cho Huân vài tấm ảnh.",
+        "en": "Toan sent Huan some photos.",
+        "distractors": [
+          "send",
+          "photo",
+          "any"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mark và Huân nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc của Mark",
+          "Chuyến đi Đà Nẵng của Huân",
+          "Một nhà hàng ở Hà Nội"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mark khen ảnh và hỏi \"Where were you?\", Huân kể về chuyến đi Đà Nẵng với Toàn.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thời tiết ở Đà Nẵng hôm đó thế nào?",
+        "promptVi": "",
+        "options": [
+          "Ngày nào cũng nắng",
+          "Mưa nhiều",
+          "Lạnh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huân nói \"it was sunny every day.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai gọi nhiều đồ ăn?",
+        "promptVi": "",
+        "options": [
+          "Huân",
+          "Mark",
+          "Toàn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Huân nói \"Toan ordered a lot!\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There weren't many people at the Golden Bridge.",
+        "promptVi": "Ở Cầu Vàng không có nhiều người.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Huân nói \"Yes, there were. We waited for a long time.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Ở Đà Nẵng, Huân và Toàn đã làm gì vào buổi sáng, buổi chiều và buổi tối?",
+    "grammarStep": {
+      "titleVi": "Quá khứ đơn: động từ có quy tắc",
+      "noticing": [
+        {
+          "sentence": "They arrived in Da Nang on a Friday evening.",
+          "highlights": [
+            "arrived"
+          ]
+        },
+        {
+          "sentence": "On Saturday morning, they walked on the beach and swam in the sea.",
+          "highlights": [
+            "walked"
+          ]
+        },
+        {
+          "sentence": "In the afternoon, they visited the famous Golden Bridge in the hills.",
+          "highlights": [
+            "visited"
+          ]
+        },
+        {
+          "sentence": "Then they enjoyed seafood at a small restaurant.",
+          "highlights": [
+            "enjoyed"
+          ]
+        }
+      ],
+      "questionVi": "Đuôi -ed trong arrived, walked, visited, enjoyed có đọc giống nhau không?",
+      "options": [
+        "Không: walked đọc /t/, arrived và enjoyed đọc /d/, visited đọc /ɪd/",
+        "Có, đều đọc là /ɪd/",
+        "Đuôi -ed không bao giờ được đọc"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Đuôi -ed đọc /t/ sau âm vô thanh như /k/ (walked), /ɪd/ sau /t/, /d/ (visited), và /d/ trong các trường hợp còn lại (arrived, enjoyed).",
+      "whenVi": "Dùng động từ -ed để kể việc đã xảy ra, và đọc đúng đuôi -ed để người nghe biết đó là chuyện quá khứ.",
+      "table": [
+        {
+          "subject": "-ed đọc /t/",
+          "form": "walked, cooked, stopped, watched",
+          "negative": "—"
+        },
+        {
+          "subject": "-ed đọc /d/",
+          "form": "arrived, enjoyed, called, played",
+          "negative": "—"
+        },
+        {
+          "subject": "-ed đọc /ɪd/ (sau t, d)",
+          "form": "visited, waited, needed",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We arrive in Da Nang last Friday.",
+          "right": "We arrived in Da Nang last Friday."
+        },
+        {
+          "wrong": "They enjoied the seafood.",
+          "right": "They enjoyed the seafood."
+        }
+      ],
+      "noteVi": "Người Việt hay bỏ âm cuối hoặc đọc mọi đuôi -ed thành \"ệt\", nên người nghe không biết là chuyện quá khứ; còn khi viết, y sau nguyên âm giữ nguyên: enjoy → enjoyed, play → played.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng quá khứ của động từ trong ngoặc.",
+          "text": "Three years ago, they ___ (arrive) in Da Nang on a Friday.",
+          "answers": [
+            "arrived"
+          ],
+          "explanationVi": "Arrive tận cùng bằng e nên chỉ thêm -d: arrived."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Last night, they ___ the seafood very much.",
+          "options": [
+            "enjoied",
+            "enjoyed",
+            "enjoys",
+            "enjoy"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Last night là quá khứ; enjoy có y sau nguyên âm o nên giữ y và thêm -ed: enjoyed."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We walk on the beach last Saturday.",
+          "sentence": "We walked on the beach last Saturday.",
+          "explanationVi": "Last Saturday là quá khứ, nên walk thêm -ed: walked."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ chờ rất lâu.",
+          "sentence": "They waited for a long time.",
+          "words": [
+            "waited",
+            "They",
+            "a",
+            "for",
+            "long",
+            "time",
+            "wait"
+          ],
+          "explanationVi": "Chuyện đã qua nên dùng waited; từ \"wait\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "They arrived in Da Nang on a Friday evening.",
+        "tipVi": "Arrived /əˈraɪvd/ đọc -ed là /d/, chỉ hai âm tiết \"ơ-RAIVD\"; evening /ˈivnɪŋ/ kết thúc bằng /ŋ/."
+      },
+      {
+        "text": "In the afternoon, they visited the famous Golden Bridge in the hills.",
+        "tipVi": "Visited /ˈvɪzɪtɪd/ có ba âm tiết vì -ed sau /t/ đọc /ɪd/; famous /ˈfeɪməs/ nhấn ở âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where was your last trip?",
+        "questionVi": "Chuyến đi gần đây nhất của bạn là đến đâu?",
+        "frame": "My last trip was to ___. I visited ___."
+      },
+      {
+        "question": "Do you like the beach or the hills?",
+        "questionVi": "Bạn thích biển hay đồi núi?",
+        "frame": "I like ___ because ___."
+      },
+      {
+        "question": "What does your best friend enjoy on holiday?",
+        "questionVi": "Bạn thân của bạn thích làm gì khi đi nghỉ?",
+        "frame": "He / She enjoys ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 động từ quá khứ (visited, walked, enjoyed, swam …)",
+      "anyOf": [
+        "visited",
+        "walked",
+        "enjoyed",
+        "stayed",
+        "arrived",
+        "played",
+        "watched",
+        "swam"
+      ],
+      "outlineVi": [
+        "Nói bạn đi đâu, khi nào và với ai.",
+        "Kể những nơi bạn đã đến và đã làm gì (We visited …, we walked …).",
+        "Kể món đã ăn và người bạn đi cùng đã làm gì."
+      ],
+      "modelAnswer": "Last summer, my friend Lan and I visited Hoi An for two days. We stayed in a small hotel near the river. In the morning, we walked in the old town and took a lot of photos. In the evening, we enjoyed noodles and fresh fruit. Lan bought a lovely lamp for her mum. It was a great weekend!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "sent",
+      "lemma": "send",
+      "meaningVi": "gửi",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "Toan sent Huan some photos",
+      "phraseVi": "Toàn gửi cho Huân mấy tấm ảnh"
+    },
+    {
+      "text": "called",
+      "lemma": "call",
+      "meaningVi": "gọi điện",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "Huan smiled and called him",
+      "phraseVi": "Huân mỉm cười và gọi điện cho Toàn"
+    },
+    {
+      "text": "arrived",
+      "lemma": "arrive",
+      "meaningVi": "đến nơi",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "They arrived in Da Nang",
+      "phraseVi": "Họ đến Đà Nẵng"
+    },
+    {
+      "text": "swam",
+      "lemma": "swim",
+      "meaningVi": "bơi",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "swam in the sea",
+      "phraseVi": "bơi ở biển"
+    },
+    {
+      "text": "waited",
+      "lemma": "wait",
+      "meaningVi": "chờ",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "they waited for a long time",
+      "phraseVi": "họ phải chờ rất lâu"
+    },
+    {
+      "text": "view",
+      "lemma": "view",
+      "meaningVi": "quang cảnh, cảnh nhìn",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "the view from the bridge",
+      "phraseVi": "cảnh nhìn từ trên cầu"
+    },
+    {
+      "text": "fire",
+      "lemma": "fire",
+      "meaningVi": "lửa",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "they saw fire come out of the Dragon Bridge",
+      "phraseVi": "họ xem Cầu Rồng phun lửa"
+    },
+    {
+      "text": "ordered",
+      "lemma": "order",
+      "meaningVi": "gọi món",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "Toan ordered a lot of food",
+      "phraseVi": "Toàn gọi rất nhiều món"
+    },
+    {
+      "text": "go back",
+      "lemma": "go back",
+      "meaningVi": "quay lại",
+      "sentenceIndex": 17,
+      "pos": "phrasal verb",
+      "phrase": "Let's go back next summer",
+      "phraseVi": "Hè sau mình quay lại đó nhé"
+    }
+  ]
+}

@@ -1,0 +1,608 @@
+{
+  "content": "On Monday, Khanh met his friend Duy in the university café. Last weekend, their university team played in a local football competition. Khanh watched the match, but Duy didn't go.\n\nDuy asked, \"Did we win?\"\n\"No, we didn't, but we didn't lose,\" Khanh said. \"It was a draw, one to one.\"\n\nThen Duy asked, \"Did Tuan play well?\" Tuan was their number 9.\n\"Yes, he played very well, and he ran fast,\" Khanh answered. \"But he didn't get a goal.\"\n\"Why not?\" asked Duy.\n\"He kicked the ball very hard, but it went over the goal again and again!\"\n\nDuy asked, \"Did the fans enjoy the match?\"\n\"Yes, they sang loudly for ninety minutes,\" Khanh said.\n\nThen he showed Duy a video on his phone. In the video, Tuan ran quickly, but he kicked the ball badly. Duy laughed and said, \"Next time, we can win!\"",
+  "targetWords": [
+    "team",
+    "football",
+    "competition",
+    "match",
+    "win",
+    "goal",
+    "kick",
+    "fan"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "đội",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "football",
+        "lemma": "football",
+        "meaningVi": "bóng đá",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "competition",
+        "lemma": "competition",
+        "meaningVi": "cuộc thi, giải đấu",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "match",
+        "lemma": "match",
+        "meaningVi": "trận đấu",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "win",
+        "lemma": "win",
+        "meaningVi": "thắng",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "goal",
+        "lemma": "goal",
+        "meaningVi": "bàn thắng; khung thành",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "kicked",
+        "lemma": "kick",
+        "meaningVi": "đá, sút",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "fans",
+        "lemma": "fan",
+        "meaningVi": "cổ động viên",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Duy's new phone",
+          "A music show at university",
+          "Tuan's new job",
+          "Khanh tells Duy about the university football match."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Duy không đi xem trận bóng của trường, nên Khánh kể lại: hoà một – một, Tuấn chạy nhanh nhưng không ghi bàn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What was the result of the match?",
+        "promptVi": "Kết quả trận đấu thế nào?",
+        "options": [
+          "They won two to one.",
+          "It was a draw, one to one.",
+          "They lost one to nil.",
+          "The match didn't finish."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khánh nói \"It was a draw, one to one\": hai đội hoà một – một."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why didn't Tuan get a goal?",
+        "promptVi": "Vì sao Tuấn không ghi được bàn?",
+        "options": [
+          "He kicked the ball over the goal.",
+          "He was ill.",
+          "He didn't run fast.",
+          "He didn't play in the match."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khánh nói \"He kicked the ball very hard, but it went over the goal again and again!\": Tuấn sút mạnh quá nên bóng cứ bay qua khung thành."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duy watched the match with Khanh.",
+        "promptVi": "Duy xem trận đấu cùng Khánh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Khanh watched the match, but Duy didn't go\": Duy không đi xem."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"loudly\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Yes, they sang loudly for ninety minutes,\" Khanh said.",
+        "options": [
+          "nhỏ nhẹ",
+          "buồn bã",
+          "to, lớn tiếng",
+          "chậm rãi"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Loudly là to, lớn tiếng: cổ động viên hát rất to suốt chín mươi phút."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ đơn: phủ định và câu hỏi",
+      "bodyVi": "Hỏi về chuyện đã qua: Did + chủ ngữ + động từ nguyên mẫu: Did we win? Did the fans enjoy the match? Trả lời ngắn: Yes, they did. / No, we didn't. Phủ định: didn't + động từ nguyên mẫu: Duy didn't go, he didn't get a goal.",
+      "examples": [
+        "Duy asked, \"Did we win?\"",
+        "\"But he didn't get a goal.\"",
+        "Duy asked, \"Did the fans enjoy the match?\""
+      ]
+    },
+    "writingPrompt": "Write about a match you watched: did your team win, and what did the players do well or badly?",
+    "sentenceTranslations": [
+      "Thứ Hai, Khánh gặp bạn mình là Duy ở quán cà phê của trường đại học.",
+      "Cuối tuần trước, đội của trường thi đấu trong một giải bóng đá ở địa phương.",
+      "Khánh đi xem trận đấu, còn Duy thì không đi.",
+      "Duy hỏi: \"Mình có thắng không?\"",
+      "\"Không thắng, nhưng cũng không thua,\" Khánh nói.",
+      "\"Hai đội hoà một – một.\"",
+      "Rồi Duy hỏi: \"Tuấn có chơi tốt không?\"",
+      "Tuấn là cầu thủ số 9 của đội.",
+      "\"Có, cậu ấy chơi rất hay, và chạy nhanh lắm,\" Khánh đáp.",
+      "\"Nhưng cậu ấy không ghi được bàn nào.\"",
+      "\"Sao thế?\" Duy hỏi.",
+      "\"Cậu ấy sút rất mạnh, nhưng lần nào bóng cũng bay qua khung thành!\"",
+      "Duy hỏi: \"Cổ động viên có thích trận đấu không?\"",
+      "\"Có, họ hát to suốt chín mươi phút,\" Khánh nói.",
+      "Rồi Khánh cho Duy xem một đoạn video trên điện thoại.",
+      "Trong video, Tuấn chạy rất nhanh, nhưng sút bóng tệ.",
+      "Duy cười và nói: \"Lần sau mình sẽ thắng!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi về kết quả một trận đấu và giải thích vì sao, dùng Did … ?, didn't và trạng từ chỉ cách thức.",
+    "examples": [
+      {
+        "lemma": "team",
+        "sentence": "There are eleven players in a football team.",
+        "meaningVi": "Một đội bóng đá có mười một cầu thủ."
+      },
+      {
+        "lemma": "football",
+        "sentence": "Football is very popular in Vietnam.",
+        "meaningVi": "Bóng đá rất được yêu thích ở Việt Nam."
+      },
+      {
+        "lemma": "competition",
+        "sentence": "Our school has a football competition every year.",
+        "meaningVi": "Năm nào trường mình cũng có giải bóng đá."
+      },
+      {
+        "lemma": "match",
+        "sentence": "Did you enjoy the match?",
+        "meaningVi": "Bạn có thích trận đấu không?"
+      },
+      {
+        "lemma": "win",
+        "sentence": "Our team didn't win.",
+        "meaningVi": "Đội mình đã không thắng."
+      },
+      {
+        "lemma": "goal",
+        "sentence": "He got a goal in the last minute.",
+        "meaningVi": "Anh ấy ghi bàn ở phút cuối."
+      },
+      {
+        "lemma": "kick",
+        "sentence": "Kick the ball to me!",
+        "meaningVi": "Đá bóng sang đây cho mình!"
+      },
+      {
+        "lemma": "fan",
+        "sentence": "I'm a big fan of this team.",
+        "meaningVi": "Mình là cổ động viên nhiệt tình của đội này."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duy",
+        "Ryan"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Duy, did you watch the university match on Saturday?",
+          "meaningVi": "Duy ơi, thứ Bảy cậu có xem trận đấu của trường không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I didn't. I was at work. Did you go?",
+          "meaningVi": "Không. Mình phải đi làm. Cậu có đi không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I did. It was a great match!",
+          "meaningVi": "Có. Trận đấu hay lắm!"
+        },
+        {
+          "speaker": 0,
+          "text": "Did our team play well?",
+          "meaningVi": "Đội mình có chơi tốt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they played really well, but the other team played well too.",
+          "meaningVi": "Có, chơi rất tốt, nhưng đội kia cũng chơi hay."
+        },
+        {
+          "speaker": 0,
+          "text": "Did Tuan get a goal?",
+          "meaningVi": "Tuấn có ghi bàn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he didn't. He kicked the ball badly.",
+          "meaningVi": "Không. Cậu ấy sút bóng tệ quá."
+        },
+        {
+          "speaker": 0,
+          "text": "Oh no. Did you take a video?",
+          "meaningVi": "Tiếc thế. Cậu có quay video không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I did. Look, here it is.",
+          "meaningVi": "Có. Đây, xem này."
+        },
+        {
+          "speaker": 0,
+          "text": "Wow, the fans sang very loudly!",
+          "meaningVi": "Chà, cổ động viên hát to thật!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về một trận đấu đã qua: Did you go? Did our team play well? Did Tuan get a goal? Trả lời: Yes, I did. / No, he didn't.",
+    "translations": [
+      {
+        "vi": "Chúng ta có thắng không?",
+        "en": "Did we win?",
+        "distractors": [
+          "Do",
+          "won",
+          "lose"
+        ]
+      },
+      {
+        "vi": "Anh ấy không ghi được bàn.",
+        "en": "He didn't get a goal.",
+        "distractors": [
+          "got",
+          "doesn't",
+          "goals"
+        ]
+      },
+      {
+        "vi": "Cổ động viên hát rất to.",
+        "en": "The fans sang very loudly.",
+        "distractors": [
+          "fan",
+          "noisy",
+          "sing"
+        ]
+      },
+      {
+        "vi": "Đội của trường thi đấu trong một giải bóng đá.",
+        "en": "The university team played in a football competition.",
+        "distractors": [
+          "plays",
+          "match",
+          "at"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ryan và Duy nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc của Duy",
+          "Một video ca nhạc",
+          "Trận bóng của trường đại học hôm thứ Bảy"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ryan hỏi \"did you watch the university match on Saturday?\", rồi hai bạn nói về trận đấu.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Duy không đi xem trận đấu?",
+        "promptVi": "",
+        "options": [
+          "Vì anh ấy phải đi làm",
+          "Vì anh ấy bị ốm",
+          "Vì anh ấy không thích bóng đá"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy nói \"No, I didn't. I was at work.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tuấn sút bóng thế nào?",
+        "promptVi": "",
+        "options": [
+          "Rất tốt",
+          "Tệ",
+          "Nhẹ nhàng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ryan nói \"He kicked the ball badly.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ryan didn't take a video of the match.",
+        "promptVi": "Ryan không quay video trận đấu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ryan nói \"Yes, I did. Look, here it is.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Kết quả trận đấu thế nào, và vì sao Tuấn không ghi được bàn?",
+    "grammarStep": {
+      "titleVi": "Quá khứ đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "Khanh watched the match, but Duy didn't go.",
+          "highlights": [
+            "watched",
+            "didn't go"
+          ]
+        },
+        {
+          "sentence": "Duy asked, \"Did we win?\"",
+          "highlights": [
+            "Did we win"
+          ]
+        },
+        {
+          "sentence": "\"But he didn't get a goal.\"",
+          "highlights": [
+            "didn't get"
+          ]
+        },
+        {
+          "sentence": "Duy asked, \"Did the fans enjoy the match?\"",
+          "highlights": [
+            "Did the fans enjoy"
+          ]
+        }
+      ],
+      "questionVi": "Nếu đội không thắng, câu trả lời ngắn cho \"Did we win?\" là gì?",
+      "options": [
+        "No, we didn't.",
+        "No, we don't.",
+        "No, we weren't."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu hỏi bắt đầu bằng Did thì trả lời ngắn cũng dùng did: Yes, we did. / No, we didn't. Don't là hiện tại, weren't đi với câu hỏi Were …?",
+      "whenVi": "Dùng Did … ? để hỏi chuyện đã xảy ra, và didn't + động từ để nói việc đã không xảy ra.",
+      "table": [
+        {
+          "subject": "Câu hỏi",
+          "form": "Did we win? Did the fans enjoy the match?",
+          "negative": "—"
+        },
+        {
+          "subject": "Trả lời ngắn",
+          "form": "Yes, we did. / Yes, they did.",
+          "negative": "No, we didn't."
+        },
+        {
+          "subject": "Câu kể",
+          "form": "Khanh watched the match.",
+          "negative": "Duy didn't go. He didn't get a goal."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Did the fans enjoyed the match?",
+          "right": "Did the fans enjoy the match?"
+        },
+        {
+          "wrong": "Duy not go to the match.",
+          "right": "Duy didn't go to the match."
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ cần thêm \"không\" (\"Duy không đi\"), nên người Việt hay viết \"Duy not go\" mà quên didn't.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng phủ định quá khứ của động từ trong ngoặc.",
+          "text": "Tuan ran fast, but he ___ (not get) a goal.",
+          "answers": [
+            "didn't get",
+            "did not get"
+          ],
+          "explanationVi": "Phủ định quá khứ: didn't + get."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ you watch the match? – Yes, I did.",
+          "options": [
+            "Did",
+            "Were",
+            "Do",
+            "Was"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu trả lời là \"Yes, I did\" nên câu hỏi bắt đầu bằng Did."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Did Tuan played well?",
+          "sentence": "Did Tuan play well?",
+          "explanationVi": "Sau Did, động từ giữ nguyên mẫu: play."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Bạn có quay video không?",
+          "sentence": "Did you take a video?",
+          "words": [
+            "take",
+            "Did",
+            "video",
+            "you",
+            "a",
+            "took"
+          ],
+          "explanationVi": "Did + you + take (nguyên mẫu); từ \"took\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Khanh watched the match, but Duy didn't go.",
+        "tipVi": "Watched /wɑtʃt/ chỉ một âm tiết, -ed đọc /t/; match /mætʃ/ kết thúc bằng /tʃ/."
+      },
+      {
+        "text": "In the video, Tuan ran quickly, but he kicked the ball badly.",
+        "tipVi": "Kicked /kɪkt/ đọc -ed là /t/; quickly /ˈkwɪkli/ có cụm /kw/ ở đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Did you play football at school?",
+        "questionVi": "Hồi đi học bạn có đá bóng không?",
+        "frame": "Yes, I did. / No, I didn't. I played ___."
+      },
+      {
+        "question": "Do you like watching football matches?",
+        "questionVi": "Bạn có thích xem bóng đá không?",
+        "frame": "Yes, I do. / No, I don't, because ___."
+      },
+      {
+        "question": "Did your best friend watch a match last week?",
+        "questionVi": "Tuần trước bạn thân của bạn có xem trận đấu nào không?",
+        "frame": "Yes, he / she did. He / She watched ___. / No, he / she didn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với didn't hoặc Did … ?",
+      "anyOf": [
+        "didn't",
+        "did not",
+        "did you",
+        "did they",
+        "did he",
+        "did she"
+      ],
+      "outlineVi": [
+        "Nói bạn xem trận đấu nào, với ai, khi nào.",
+        "Kể đội đã chơi thế nào (They played well / badly, they didn't …).",
+        "Nói kết quả và người đi cùng bạn đã làm gì."
+      ],
+      "modelAnswer": "Last Sunday, I watched a volleyball match with my sister. Our team didn't play well at first. They moved slowly, and they didn't hit the ball hard. But in the end, they played very well and won. Did my sister shout loudly? Yes, she did!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "university café",
+      "lemma": "café",
+      "meaningVi": "quán cà phê của trường đại học",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "in the university café",
+      "phraseVi": "ở quán cà phê của trường"
+    },
+    {
+      "text": "local",
+      "lemma": "local",
+      "meaningVi": "ở địa phương",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "a local football competition",
+      "phraseVi": "một giải bóng đá ở địa phương"
+    },
+    {
+      "text": "draw",
+      "lemma": "draw",
+      "meaningVi": "trận hoà",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "It was a draw, one to one",
+      "phraseVi": "Hai đội hoà một – một"
+    },
+    {
+      "text": "number 9",
+      "lemma": "number",
+      "meaningVi": "cầu thủ số 9",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "Tuan was their number 9",
+      "phraseVi": "Tuấn là cầu thủ số 9 của đội"
+    },
+    {
+      "text": "Why not",
+      "lemma": "why not",
+      "meaningVi": "sao thế, sao lại không",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "Why not? asked Duy",
+      "phraseVi": "Sao thế? Duy hỏi"
+    },
+    {
+      "text": "went over",
+      "lemma": "go over",
+      "meaningVi": "bay qua",
+      "sentenceIndex": 11,
+      "pos": "phrasal verb",
+      "phrase": "it went over the goal again and again",
+      "phraseVi": "bóng cứ bay qua khung thành"
+    },
+    {
+      "text": "loudly",
+      "lemma": "loudly",
+      "meaningVi": "to, lớn tiếng",
+      "sentenceIndex": 13,
+      "pos": "adverb",
+      "phrase": "they sang loudly for ninety minutes",
+      "phraseVi": "họ hát to suốt chín mươi phút"
+    },
+    {
+      "text": "showed",
+      "lemma": "show",
+      "meaningVi": "cho xem",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "he showed Duy a video",
+      "phraseVi": "Khánh cho Duy xem một đoạn video"
+    },
+    {
+      "text": "badly",
+      "lemma": "badly",
+      "meaningVi": "tệ, kém",
+      "sentenceIndex": 15,
+      "pos": "adverb",
+      "phrase": "he kicked the ball badly",
+      "phraseVi": "sút bóng tệ"
+    },
+    {
+      "text": "Next time",
+      "lemma": "next time",
+      "meaningVi": "lần sau",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "Next time, we can win",
+      "phraseVi": "Lần sau mình sẽ thắng"
+    }
+  ]
+}

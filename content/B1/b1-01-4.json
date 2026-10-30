@@ -1,0 +1,614 @@
+{
+  "content": "Ms Lan is the manager of a travel company in Hue. She needs a new tour guide for the busy summer season, and today she is talking to Quoc.\n\nMs Lan asks, \"So, Quoc, have you ever worked as a tour guide?\"\n\"Yes, I have. I've worked as a local guide in Hue for three years. I've shown visitors the Citadel and the royal palaces every week.\"\n\"Have you ever led international groups?\"\n\"Yes. I've led groups from France, Korea and Australia. Most of them have been very kind.\"\n\"What languages do you speak?\"\n\"I speak English and some French. I've also started to learn Korean.\"\n\"Good. Our tours often last five or six days. Have you ever planned a long trip for a group?\"\n\"Not alone, but I've helped my manager with a few plans. I've booked hotels, buses and restaurants for groups of thirty people.\"\n\"Has anything ever gone wrong on one of your tours?\"\nQuoc laughs. \"Of course. Once, our bus broke down on the way to Bach Ma. I called another company, and we were only an hour late.\"\n\"That's good thinking. Has a guest ever got ill on your tour?\"\n\"Yes. Last spring, an old man felt very sick. I took him to the hospital, and I stayed with him until his son arrived.\"\nMs Lan smiles. \"You have a lot of experience. Can you start in June?\"",
+  "targetWords": [
+    "tour guide",
+    "season",
+    "local",
+    "visitor",
+    "royal",
+    "international",
+    "language",
+    "plan",
+    "sick",
+    "hospital"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "tour guide",
+        "lemma": "tour guide",
+        "meaningVi": "hướng dẫn viên du lịch",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "season",
+        "lemma": "season",
+        "meaningVi": "mùa",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "local",
+        "lemma": "local",
+        "meaningVi": "địa phương",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "visitors",
+        "lemma": "visitor",
+        "meaningVi": "du khách",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "royal",
+        "lemma": "royal",
+        "meaningVi": "thuộc hoàng gia",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "international",
+        "lemma": "international",
+        "meaningVi": "quốc tế",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "languages",
+        "lemma": "language",
+        "meaningVi": "ngôn ngữ",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "plans",
+        "lemma": "plan",
+        "meaningVi": "kế hoạch",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "sick",
+        "lemma": "sick",
+        "meaningVi": "ốm, mệt",
+        "pos": "adjective",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "hospital",
+        "lemma": "hospital",
+        "meaningVi": "bệnh viện",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "A manager asks Quoc about his experience as a tour guide.",
+          "Quoc plans a holiday in France.",
+          "A bus trip to Bach Ma goes wrong.",
+          "Ms Lan visits the royal palaces in Hue."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Lan cần hướng dẫn viên cho mùa hè và hỏi Quốc về kinh nghiệm dẫn đoàn."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long has Quoc worked as a local guide?",
+        "promptVi": "Quốc đã làm hướng dẫn viên địa phương bao lâu?",
+        "options": [
+          "Six days",
+          "Three years",
+          "Thirty years",
+          "One summer"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quốc nói \"I've worked as a local guide in Hue for three years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How did Quoc solve the problem when the bus broke down?",
+        "promptVi": "Khi xe buýt hỏng, Quốc giải quyết thế nào?",
+        "options": [
+          "He repaired the bus himself.",
+          "He took the group back to Hue.",
+          "He called another company.",
+          "He asked Ms Lan for help."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quốc nói \"I called another company, and we were only an hour late.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quoc has planned long trips alone.",
+        "promptVi": "Quốc đã tự mình lên kế hoạch cho những chuyến đi dài.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quốc nói \"Not alone, but I've helped my manager with a few plans.\" Bài có nói về điều này nên không phải \"không có thông tin\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"broke down\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Once, our bus broke down on the way to Bach Ma.",
+        "options": [
+          "bị vỡ",
+          "bị hỏng, chết máy",
+          "dừng lại nghỉ",
+          "đi chậm lại"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Break down (quá khứ: broke down) dùng cho xe, máy móc = bị hỏng, không chạy được nữa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành",
+      "bodyVi": "Câu hỏi về kinh nghiệm: Have you ever + phân từ…? (Have you ever led international groups?) Với chủ ngữ số ít dùng has: Has anything ever gone wrong? Has a guest ever got ill? Câu trả lời dùng hiện tại hoàn thành khi nói chung (I've led groups from France…), rồi chuyển sang quá khứ đơn khi kể chi tiết một lần cụ thể (Once, our bus broke down… Last spring, an old man felt very sick).",
+      "examples": [
+        "Have you ever led international groups?\"",
+        "I've led groups from France, Korea and Australia.",
+        "Has anything ever gone wrong on one of your tours?\""
+      ]
+    },
+    "writingPrompt": "Write about a trip or event you have helped with: what have you done, and has anything ever gone wrong?",
+    "sentenceTranslations": [
+      "Chị Lan là quản lý một công ty du lịch ở Huế.",
+      "Chị cần một hướng dẫn viên mới cho mùa hè đông khách, và hôm nay chị nói chuyện với Quốc.",
+      "Chị Lan hỏi: \"Vậy, Quốc, em đã từng làm hướng dẫn viên du lịch chưa?\"",
+      "\"Dạ rồi ạ.",
+      "Em đã làm hướng dẫn viên địa phương ở Huế ba năm.",
+      "Tuần nào em cũng đưa du khách đi tham quan Đại Nội và các cung điện của hoàng gia.\"",
+      "\"Em đã bao giờ dẫn đoàn khách quốc tế chưa?\"",
+      "\"Rồi ạ.",
+      "Em đã dẫn các đoàn từ Pháp, Hàn Quốc và Úc.",
+      "Hầu hết họ đều rất dễ mến.\"",
+      "\"Em nói được những thứ tiếng nào?\"",
+      "\"Em nói tiếng Anh và một ít tiếng Pháp.",
+      "Em cũng đã bắt đầu học tiếng Hàn.\"",
+      "\"Tốt.",
+      "Các tour của chị thường kéo dài năm, sáu ngày.",
+      "Em đã bao giờ lên kế hoạch cho một chuyến đi dài cho cả đoàn chưa?\"",
+      "\"Một mình thì chưa, nhưng em đã giúp quản lý của em làm vài kế hoạch.",
+      "Em đã đặt khách sạn, xe buýt và nhà hàng cho những đoàn ba mươi người.\"",
+      "\"Trong các tour của em đã bao giờ có chuyện gì không ổn chưa?\"",
+      "Quốc cười.",
+      "\"Tất nhiên rồi ạ.",
+      "Có lần xe buýt của đoàn bị hỏng trên đường đi Bạch Mã.",
+      "Em gọi cho một công ty khác, và đoàn chỉ muộn có một tiếng.\"",
+      "\"Xử lý hay đấy.",
+      "Đã bao giờ có khách bị ốm trong tour của em chưa?\"",
+      "\"Có ạ.",
+      "Mùa xuân năm ngoái, một ông cụ bị mệt nặng.",
+      "Em đưa ông vào bệnh viện, và ở lại với ông cho đến khi con trai ông đến.\"",
+      "Chị Lan mỉm cười.",
+      "\"Em có nhiều kinh nghiệm đấy.",
+      "Tháng Sáu em bắt đầu được không?\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và kể về kinh nghiệm dẫn đoàn, xử lý tình huống bằng Have you ever…? / Has … ever…? và quá khứ đơn cho chi tiết.",
+    "examples": [
+      {
+        "lemma": "tour guide",
+        "sentence": "Our tour guide speaks four languages.",
+        "meaningVi": "Hướng dẫn viên của chúng tôi nói bốn thứ tiếng."
+      },
+      {
+        "lemma": "season",
+        "sentence": "Summer is the busy season for hotels.",
+        "meaningVi": "Mùa hè là mùa đông khách của các khách sạn."
+      },
+      {
+        "lemma": "local",
+        "sentence": "We ate at a local restaurant.",
+        "meaningVi": "Chúng tôi ăn ở một nhà hàng địa phương."
+      },
+      {
+        "lemma": "visitor",
+        "sentence": "Every visitor gets a free map.",
+        "meaningVi": "Mỗi du khách được một tấm bản đồ miễn phí."
+      },
+      {
+        "lemma": "royal",
+        "sentence": "The king lived in the royal palace.",
+        "meaningVi": "Nhà vua sống trong cung điện hoàng gia."
+      },
+      {
+        "lemma": "international",
+        "sentence": "It is an international school.",
+        "meaningVi": "Đó là một trường quốc tế."
+      },
+      {
+        "lemma": "language",
+        "sentence": "English is an international language.",
+        "meaningVi": "Tiếng Anh là một ngôn ngữ quốc tế."
+      },
+      {
+        "lemma": "plan",
+        "sentence": "What is your plan for the weekend?",
+        "meaningVi": "Cuối tuần bạn có kế hoạch gì?"
+      },
+      {
+        "lemma": "sick",
+        "sentence": "I feel sick on long bus trips.",
+        "meaningVi": "Tôi bị mệt khi đi xe buýt đường dài."
+      },
+      {
+        "lemma": "hospital",
+        "sentence": "My uncle works in a hospital.",
+        "meaningVi": "Chú tôi làm việc ở bệnh viện."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Quoc",
+        "Mark"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Excuse me, are you our tour guide?",
+          "meaningVi": "Xin lỗi, anh là hướng dẫn viên của chúng tôi phải không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I'm Quoc. Welcome to Hue!",
+          "meaningVi": "Vâng, tôi là Quốc. Chào mừng đến Huế!"
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks. Have you ever been to the royal palaces at night?",
+          "meaningVi": "Cảm ơn. Anh đã bao giờ đến các cung điện vào ban đêm chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I have. They look beautiful with all the lights.",
+          "meaningVi": "Rồi. Lúc có đèn trông đẹp lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you worked as a guide for a long time?",
+          "meaningVi": "Anh làm hướng dẫn viên lâu chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "For three years. I've met people from all over the world.",
+          "meaningVi": "Ba năm rồi. Tôi đã gặp người từ khắp nơi trên thế giới."
+        },
+        {
+          "speaker": 1,
+          "text": "Has anything funny ever happened on a tour?",
+          "meaningVi": "Đã bao giờ có chuyện gì buồn cười trong tour chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! Once, a visitor fell asleep in a palace, and we almost left him there.",
+          "meaningVi": "Có! Có lần một du khách ngủ quên trong cung điện, và suýt nữa cả đoàn bỏ anh ấy lại."
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! I promise I won't sleep today.",
+          "meaningVi": "Ha! Tôi hứa hôm nay sẽ không ngủ."
+        },
+        {
+          "speaker": 0,
+          "text": "Good! Let's go. The bus is waiting.",
+          "meaningVi": "Tốt! Đi thôi. Xe buýt đang chờ."
+        }
+      ]
+    },
+    "grammarTipVi": "Have you ever been to…? (đã từng đến…chưa) — Yes, I have. Has anything funny ever happened? Rồi kể chi tiết bằng quá khứ đơn: Once, a visitor fell asleep.",
+    "translations": [
+      {
+        "vi": "Anh đã bao giờ dẫn đoàn khách quốc tế chưa?",
+        "en": "Have you ever led international groups?",
+        "distractors": [
+          "Did",
+          "lead",
+          "Has"
+        ]
+      },
+      {
+        "vi": "Tôi đã làm hướng dẫn viên địa phương ba năm.",
+        "en": "I have worked as a local guide for three years.",
+        "distractors": [
+          "works",
+          "has",
+          "was"
+        ]
+      },
+      {
+        "vi": "Đã bao giờ có khách bị ốm chưa?",
+        "en": "Has a guest ever been sick?",
+        "distractors": [
+          "Have",
+          "was",
+          "Did"
+        ]
+      },
+      {
+        "vi": "Tôi đã giúp quản lý làm vài kế hoạch.",
+        "en": "I have helped my manager with a few plans.",
+        "distractors": [
+          "helps",
+          "has",
+          "did"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mark nói chuyện với ai?",
+        "promptVi": "",
+        "options": [
+          "Hướng dẫn viên của đoàn",
+          "Tài xế xe buýt",
+          "Quản lý khách sạn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mark hỏi \"are you our tour guide?\" và Quốc trả lời \"Yes, I'm Quoc.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Quốc, cung điện ban đêm trông thế nào?",
+        "promptVi": "",
+        "options": [
+          "Tối và đáng sợ",
+          "Đẹp, có nhiều đèn",
+          "Đông người"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quốc nói \"They look beautiful with all the lights.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chuyện buồn cười nào đã xảy ra?",
+        "promptVi": "",
+        "options": [
+          "Xe buýt bị hỏng",
+          "Quốc bị lạc",
+          "Một du khách ngủ quên trong cung điện"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quốc kể \"a visitor fell asleep in a palace, and we almost left him there.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quoc has worked as a guide for ten years.",
+        "promptVi": "Quốc đã làm hướng dẫn viên mười năm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quốc nói \"For three years.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Quốc đã có những kinh nghiệm gì? Anh kể chi tiết những lần nào?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành",
+      "noticing": [
+        {
+          "sentence": "Ms Lan asks, \"So, Quoc, have you ever worked as a tour guide?\"",
+          "highlights": [
+            "have you ever worked"
+          ]
+        },
+        {
+          "sentence": "I've led groups from France, Korea and Australia.",
+          "highlights": [
+            "I've led"
+          ]
+        },
+        {
+          "sentence": "Has anything ever gone wrong on one of your tours?\"",
+          "highlights": [
+            "Has anything ever gone"
+          ]
+        },
+        {
+          "sentence": "Has a guest ever got ill on your tour?\"",
+          "highlights": [
+            "Has a guest ever got"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao chị Lan hỏi \"Has anything ever gone wrong\" mà không phải \"Have anything\"?",
+      "options": [
+        "Vì anything (chủ ngữ số ít) đi với has.",
+        "Vì câu ở thì quá khứ.",
+        "Vì gone là phân từ bất quy tắc."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "He / she / it và các chủ ngữ số ít như anything, a guest đi với has; I / you / we / they đi với have.",
+      "whenVi": "Dùng Have / Has + chủ ngữ + ever + phân từ để hỏi về kinh nghiệm; trả lời Yes, I have / No, I haven't, rồi kể chi tiết bằng quá khứ đơn.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "Have you ever led a group?",
+          "negative": "I haven't planned a long trip."
+        },
+        {
+          "subject": "he / she / it / anything",
+          "form": "Has anything ever gone wrong?",
+          "negative": "Nothing has gone wrong."
+        },
+        {
+          "subject": "Phân từ bất quy tắc",
+          "form": "lead → led, go → gone, show → shown",
+          "negative": "get → got, break → broken"
+        },
+        {
+          "subject": "Kể chi tiết",
+          "form": "Once, our bus broke down. (quá khứ đơn)",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Have anything ever gone wrong?",
+          "right": "Has anything ever gone wrong?"
+        },
+        {
+          "wrong": "Have you ever lead an international group?",
+          "right": "Have you ever led an international group?"
+        }
+      ],
+      "noteVi": "Been to và gone to: I've been to France (đã đi và đã về); he has gone to France (đã đi và đang ở đó).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền have hoặc has.",
+          "text": "___ a guest ever got ill on your tour?",
+          "answers": [
+            "Has"
+          ],
+          "explanationVi": "A guest là số ít: Has."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I've ___ groups from France and Korea.",
+          "options": [
+            "lead",
+            "leaded",
+            "led",
+            "leading"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Phân từ của lead là led."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Have you ever show visitors the Citadel?",
+          "sentence": "Have you ever shown visitors the Citadel?",
+          "explanationVi": "Have + phân từ: shown."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đã bao giờ có chuyện gì không ổn chưa?",
+          "sentence": "Has anything ever gone wrong?",
+          "words": [
+            "anything",
+            "Has",
+            "wrong?",
+            "ever",
+            "gone",
+            "Have"
+          ],
+          "explanationVi": "Anything đi với Has; từ \"Have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Have you ever led international groups?\"",
+        "tipVi": "International /ˌɪntəˈnæʃnəl/ nhấn âm thứ ba; câu hỏi Yes/No lên giọng."
+      },
+      {
+        "text": "\"You have a lot of experience.",
+        "tipVi": "Experience /ɪkˈspɪəriəns/ nhấn âm thứ hai; a lot of nối liền /əlɒtəv/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever been a guide for a friend or visitor?",
+        "questionVi": "Bạn đã bao giờ dẫn bạn bè hay du khách đi tham quan chưa?",
+        "frame": "Yes, I have. I showed them ___. / No, I haven't."
+      },
+      {
+        "question": "Has anything ever gone wrong on one of your trips?",
+        "questionVi": "Trong các chuyến đi của bạn đã bao giờ có chuyện gì không ổn chưa?",
+        "frame": "Yes. Once, ___. / No, nothing has gone wrong."
+      },
+      {
+        "question": "Has your best friend ever travelled abroad?",
+        "questionVi": "Bạn thân của bạn đã từng đi nước ngoài chưa?",
+        "frame": "Yes, he / she has been to ___. / No, he / she hasn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành (have / has + phân từ)",
+      "anyOf": [
+        "have ",
+        "has ",
+        "'ve ",
+        "Have you ever",
+        "Has "
+      ],
+      "outlineVi": [
+        "Một chuyến đi hay sự kiện bạn đã giúp tổ chức (I've helped / I've planned …).",
+        "Những gì bạn đã làm được (I've booked / I've shown …).",
+        "Có lần nào không ổn không: kể bằng quá khứ đơn (Once, …)."
+      ],
+      "modelAnswer": "I've helped my class with three school trips. I've booked buses, and I've planned the lunch for forty students. I've also shown visitors around our town. Has anything ever gone wrong? Yes. Once, it rained all day on our trip to Ba Vi, and we couldn't walk in the forest. So we visited a local museum. In the end, everyone enjoyed it."
+    }
+  },
+  "glosses": [
+    {
+      "text": "shown",
+      "lemma": "show",
+      "meaningVi": "đưa đi xem, chỉ cho xem",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "I've shown visitors the Citadel",
+      "phraseVi": "em đưa du khách đi tham quan Đại Nội"
+    },
+    {
+      "text": "led",
+      "lemma": "lead",
+      "meaningVi": "dẫn (đoàn)",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "Have you ever led international groups?",
+      "phraseVi": "Em đã bao giờ dẫn đoàn khách quốc tế chưa?"
+    },
+    {
+      "text": "last",
+      "lemma": "last",
+      "meaningVi": "kéo dài",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "Our tours often last five or six days.",
+      "phraseVi": "Các tour thường kéo dài năm, sáu ngày."
+    },
+    {
+      "text": "gone wrong",
+      "lemma": "go wrong",
+      "meaningVi": "trục trặc, có vấn đề",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "Has anything ever gone wrong",
+      "phraseVi": "Đã bao giờ có chuyện gì không ổn chưa"
+    },
+    {
+      "text": "broke down",
+      "lemma": "break down",
+      "meaningVi": "bị hỏng (xe, máy)",
+      "sentenceIndex": 21,
+      "pos": "phrasal verb",
+      "phrase": "our bus broke down",
+      "phraseVi": "xe buýt của đoàn bị hỏng"
+    },
+    {
+      "text": "good thinking",
+      "lemma": "good thinking",
+      "meaningVi": "ý hay, xử lý khéo",
+      "sentenceIndex": 23,
+      "pos": "phrase",
+      "phrase": "That's good thinking.",
+      "phraseVi": "Xử lý hay đấy."
+    }
+  ]
+}

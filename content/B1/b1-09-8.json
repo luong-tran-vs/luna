@@ -1,0 +1,605 @@
+{
+  "content": "Last summer, Thao spent a week on Ly Son Island. Now she is telling her workmate Binh about the trip.\n\nBinh asks, \"Where is Ly Son?\"\n\"It's off the coast of Quang Ngai, about thirty kilometres from the land. You get there by fast boat in an hour.\"\n\"Is it a big island?\"\n\"No, it's quite small. You can drive around it in an hour. But it's very special because it was made by volcanoes millions of years ago.\"\n\"Volcanoes? Are they still active?\"\n\"No, they aren't. But you can still see them. The island has five old volcanoes, and the rocks along the coast are black.\"\n\"What do people do there?\"\n\"Most people are farmers or fishermen. Ly Son is famous for its garlic. It's grown in small fields all over the island.\"\n\"Why is the garlic so famous?\"\n\"Because of the soil. The volcanic soil is very rich, and white sand is carried from the sea and put on the fields. The garlic is small, but it has a lovely smell. It's sold all over Vietnam.\"\n\"What else did you see?\"\n\"The most beautiful place was To Vo Gate. It's a big stone gate on the beach. It was shaped by the sea and the wind over thousands of years. Hundreds of photos are taken there every evening at sunset.\"\nBinh laughs. \"And I'm sure you took a hundred of them.\"\n\"Only fifty,\" Thao says, \"and I brought you some garlic.\"",
+  "targetWords": [
+    "coast",
+    "volcano",
+    "active",
+    "garlic",
+    "field",
+    "soil",
+    "rich",
+    "smell",
+    "shape",
+    "sunset"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "coast",
+        "lemma": "coast",
+        "meaningVi": "bờ biển",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "volcanoes",
+        "lemma": "volcano",
+        "meaningVi": "núi lửa",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "active",
+        "lemma": "active",
+        "meaningVi": "còn hoạt động",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "garlic",
+        "lemma": "garlic",
+        "meaningVi": "tỏi",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "fields",
+        "lemma": "field",
+        "meaningVi": "ruộng, cánh đồng",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "soil",
+        "lemma": "soil",
+        "meaningVi": "đất (trồng trọt)",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "rich",
+        "lemma": "rich",
+        "meaningVi": "màu mỡ",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "smell",
+        "lemma": "smell",
+        "meaningVi": "mùi",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "shaped",
+        "lemma": "shape",
+        "meaningVi": "tạo hình, mài thành hình",
+        "pos": "verb",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "sunset",
+        "lemma": "sunset",
+        "meaningVi": "hoàng hôn",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Thao telling Binh about?",
+        "promptVi": "Thảo đang kể cho Bình nghe về điều gì?",
+        "options": [
+          "Her week on Ly Son Island",
+          "Her new job in Quang Ngai",
+          "How to cook with garlic",
+          "A boat she wants to buy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo kể về chuyến đi một tuần ở đảo Lý Sơn: núi lửa, tỏi và Cổng Tò Vò."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How was Ly Son Island made?",
+        "promptVi": "Đảo Lý Sơn được tạo nên thế nào?",
+        "options": [
+          "By people from Quang Ngai",
+          "By volcanoes millions of years ago",
+          "By a big storm",
+          "By the river"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo nói \"it was made by volcanoes millions of years ago.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is put on the garlic fields?",
+        "promptVi": "Người ta rải gì lên ruộng tỏi?",
+        "options": [
+          "Black rocks",
+          "Fish",
+          "White sand from the sea",
+          "Rice"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"white sand is carried from the sea and put on the fields.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The volcanoes on Ly Son are still active.",
+        "promptVi": "Núi lửa ở Lý Sơn vẫn còn hoạt động.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thảo nói \"No, they aren't.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"soil\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The volcanic soil is very rich, and white sand is carried from the sea and put on the fields.",
+        "options": [
+          "đất trồng",
+          "nước biển",
+          "đá",
+          "không khí"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Soil = đất (để trồng cây); rich soil = đất màu mỡ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu bị động (hiện tại và quá khứ đơn)",
+      "bodyVi": "Câu bị động quá khứ kể lịch sử tự nhiên: it was made by volcanoes millions of years ago; It was shaped by the sea and the wind. Câu bị động hiện tại kể việc diễn ra hằng ngày: It's grown in small fields all over the island. It's sold all over Vietnam. Hundreds of photos are taken there every evening.",
+      "examples": [
+        "But it's very special because it was made by volcanoes millions of years ago.\"",
+        "It's grown in small fields all over the island.\"",
+        "It was shaped by the sea and the wind over thousands of years."
+      ]
+    },
+    "writingPrompt": "Write about an island or a village that is famous for something. What is grown, made or sold there, and how was the place formed?",
+    "sentenceTranslations": [
+      "Hè năm ngoái, Thảo ở đảo Lý Sơn một tuần.",
+      "Giờ cô đang kể cho đồng nghiệp Bình nghe về chuyến đi.",
+      "Bình hỏi: \"Lý Sơn ở đâu?\"",
+      "\"Ở ngoài khơi Quảng Ngãi, cách đất liền khoảng ba mươi cây số.",
+      "Đi tàu cao tốc mất một tiếng.\"",
+      "\"Đảo có lớn không?\"",
+      "\"Không, khá nhỏ.",
+      "Lái xe một vòng đảo mất một tiếng.",
+      "Nhưng nó rất đặc biệt vì được núi lửa tạo nên từ hàng triệu năm trước.\"",
+      "\"Núi lửa á?",
+      "Chúng còn hoạt động không?\"",
+      "\"Không.",
+      "Nhưng vẫn còn nhìn thấy được.",
+      "Đảo có năm ngọn núi lửa cổ, và đá dọc bờ biển có màu đen.\"",
+      "\"Người dân ở đó làm gì?\"",
+      "\"Phần lớn là nông dân hoặc ngư dân.",
+      "Lý Sơn nổi tiếng với tỏi.",
+      "Tỏi được trồng trên những thửa ruộng nhỏ khắp đảo.\"",
+      "\"Sao tỏi ở đó nổi tiếng thế?\"",
+      "\"Vì đất.",
+      "Đất núi lửa rất màu mỡ, và cát trắng được chở từ biển lên rải trên ruộng.",
+      "Củ tỏi nhỏ, nhưng có mùi thơm dễ chịu.",
+      "Nó được bán khắp Việt Nam.\"",
+      "\"Cậu còn thấy gì nữa?\"",
+      "\"Nơi đẹp nhất là Cổng Tò Vò.",
+      "Đó là một cổng đá lớn trên bãi biển.",
+      "Nó được biển và gió mài thành hình qua hàng nghìn năm.",
+      "Chiều nào cũng có hàng trăm bức ảnh được chụp ở đó lúc hoàng hôn.\"",
+      "Bình cười.",
+      "\"Mình chắc cậu đã chụp cả trăm tấm.\"",
+      "Thảo nói: \"Chỉ năm mươi thôi, và mình mang tỏi về cho cậu này.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một hòn đảo, nguồn gốc và đặc sản của nó bằng câu bị động (was made by volcanoes, is grown, is sold).",
+    "examples": [
+      {
+        "lemma": "coast",
+        "sentence": "We drove along the coast to Nha Trang.",
+        "meaningVi": "Chúng tôi lái xe dọc bờ biển đến Nha Trang."
+      },
+      {
+        "lemma": "volcano",
+        "sentence": "There is an old volcano near the town.",
+        "meaningVi": "Gần thị trấn có một ngọn núi lửa cổ."
+      },
+      {
+        "lemma": "active",
+        "sentence": "My grandmother is still very active.",
+        "meaningVi": "Bà tôi vẫn còn rất năng động."
+      },
+      {
+        "lemma": "garlic",
+        "sentence": "Add some garlic to the soup.",
+        "meaningVi": "Cho thêm ít tỏi vào súp."
+      },
+      {
+        "lemma": "field",
+        "sentence": "The cows are in the field.",
+        "meaningVi": "Mấy con bò đang ở ngoài đồng."
+      },
+      {
+        "lemma": "soil",
+        "sentence": "This plant needs wet soil.",
+        "meaningVi": "Cây này cần đất ẩm."
+      },
+      {
+        "lemma": "rich",
+        "sentence": "The soil here is rich, so vegetables grow well.",
+        "meaningVi": "Đất ở đây màu mỡ nên rau mọc tốt."
+      },
+      {
+        "lemma": "smell",
+        "sentence": "I love the smell of fresh bread.",
+        "meaningVi": "Tôi thích mùi bánh mì mới nướng."
+      },
+      {
+        "lemma": "shape",
+        "sentence": "The cake is in the shape of a heart.",
+        "meaningVi": "Chiếc bánh có hình trái tim."
+      },
+      {
+        "lemma": "sunset",
+        "sentence": "The sunset over the sea was beautiful.",
+        "meaningVi": "Hoàng hôn trên biển rất đẹp."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Binh",
+        "Thao"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thao, how is the garlic planted?",
+          "meaningVi": "Thảo ơi, tỏi được trồng thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's planted by hand in October or November.",
+          "meaningVi": "Nó được trồng bằng tay vào tháng Mười hoặc tháng Mười Một."
+        },
+        {
+          "speaker": 0,
+          "text": "And when is it collected?",
+          "meaningVi": "Thế khi nào thì thu hoạch?"
+        },
+        {
+          "speaker": 1,
+          "text": "In February. Then it's dried in the sun.",
+          "meaningVi": "Vào tháng Hai. Sau đó nó được phơi nắng."
+        },
+        {
+          "speaker": 0,
+          "text": "Is Ly Son famous for anything else?",
+          "meaningVi": "Lý Sơn còn nổi tiếng về gì khác không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Its fish and squid are very fresh.",
+          "meaningVi": "Có. Cá và mực ở đó rất tươi."
+        },
+        {
+          "speaker": 0,
+          "text": "Where did you stay?",
+          "meaningVi": "Cậu ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "In a small house. It was built by a fisherman's family.",
+          "meaningVi": "Ở một ngôi nhà nhỏ. Nó do gia đình một ngư dân xây."
+        },
+        {
+          "speaker": 0,
+          "text": "Was it expensive?",
+          "meaningVi": "Có đắt không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, it wasn't. Breakfast was included too.",
+          "meaningVi": "Không. Còn bao gồm cả bữa sáng nữa."
+        }
+      ]
+    },
+    "grammarTipVi": "Hiện tại: It's planted by hand / it's dried in the sun. Câu hỏi: How is the garlic planted? When is it collected? Quá khứ: It was built by a fisherman's family / Breakfast was included.",
+    "translations": [
+      {
+        "vi": "Hòn đảo được núi lửa tạo nên.",
+        "en": "The island was made by volcanoes.",
+        "distractors": [
+          "are",
+          "makes",
+          "from"
+        ]
+      },
+      {
+        "vi": "Tỏi được trồng trên những thửa ruộng nhỏ.",
+        "en": "Garlic is grown in small fields.",
+        "distractors": [
+          "are",
+          "grows",
+          "by"
+        ]
+      },
+      {
+        "vi": "Đất núi lửa rất màu mỡ.",
+        "en": "The volcanic soil is very rich.",
+        "distractors": [
+          "poor",
+          "are",
+          "sand"
+        ]
+      },
+      {
+        "vi": "Cổng đá được biển mài thành hình.",
+        "en": "The stone gate was shaped by the sea.",
+        "distractors": [
+          "is",
+          "shapes",
+          "with"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bình hỏi Thảo về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách trồng tỏi và chỗ ở trên đảo",
+          "Giá vé tàu ra đảo",
+          "Những bức ảnh của Thảo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bình hỏi tỏi được trồng, thu hoạch thế nào và Thảo ở đâu.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tỏi được thu hoạch vào tháng mấy?",
+        "promptVi": "",
+        "options": [
+          "Tháng Mười",
+          "Tháng Mười Một",
+          "Tháng Hai"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"In February.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngôi nhà Thảo ở do ai xây?",
+        "promptVi": "",
+        "options": [
+          "Một gia đình ngư dân",
+          "Một công ty du lịch",
+          "Bố của Thảo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo nói \"It was built by a fisherman's family.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao had to pay extra for breakfast.",
+        "promptVi": "Thảo phải trả thêm tiền bữa sáng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thảo nói \"Breakfast was included too.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Đảo Lý Sơn được hình thành thế nào? Vì sao tỏi Lý Sơn nổi tiếng?",
+    "grammarStep": {
+      "titleVi": "Câu bị động (hiện tại và quá khứ đơn)",
+      "noticing": [
+        {
+          "sentence": "But it's very special because it was made by volcanoes millions of years ago.\"",
+          "highlights": [
+            "was made",
+            "by volcanoes"
+          ]
+        },
+        {
+          "sentence": "It's grown in small fields all over the island.\"",
+          "highlights": [
+            "'s grown"
+          ]
+        },
+        {
+          "sentence": "It was shaped by the sea and the wind over thousands of years.",
+          "highlights": [
+            "was shaped"
+          ]
+        },
+        {
+          "sentence": "Hundreds of photos are taken there every evening at sunset.\"",
+          "highlights": [
+            "are taken"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"It's grown in small fields\", 's là viết tắt của từ nào?",
+      "options": [
+        "is (bị động hiện tại: is grown)",
+        "has",
+        "was"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "It's grown = It is grown: được trồng (bị động hiện tại).",
+      "whenVi": "Dùng câu bị động khi giới thiệu một vùng đất: nó được tạo nên thế nào (quá khứ) và sản vật được trồng, bán ra sao (hiện tại).",
+      "table": [
+        {
+          "subject": "Quá khứ",
+          "form": "It was made by volcanoes.",
+          "negative": "It wasn't made by people."
+        },
+        {
+          "subject": "Hiện tại (viết tắt)",
+          "form": "It's grown … / It's sold …",
+          "negative": "It isn't sold abroad."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "How is the garlic planted? / When is it collected?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The island made by volcanoes.",
+          "right": "The island was made by volcanoes."
+        },
+        {
+          "wrong": "Garlic is grow in small fields.",
+          "right": "Garlic is grown in small fields."
+        }
+      ],
+      "noteVi": "It's có thể là it is hoặc it has. Nếu theo sau là V3 và nghĩa \"được …\" thì đó là it is (bị động).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng bị động đúng của động từ trong ngoặc (sell).",
+          "text": "Ly Son garlic ___ all over Vietnam.",
+          "answers": [
+            "is sold"
+          ],
+          "explanationVi": "Hiện tại, số ít: is sold."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "To Vo Gate ___ by the sea and the wind.",
+          "options": [
+            "was shaped",
+            "shaped",
+            "is shape",
+            "were shaped"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Quá khứ, số ít: was shaped."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Garlic is grow in small fields.",
+          "sentence": "Garlic is grown in small fields.",
+          "explanationVi": "V3 của grow là grown."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hòn đảo được núi lửa tạo nên.",
+          "sentence": "The island was made by volcanoes.",
+          "words": [
+            "island",
+            "The",
+            "was",
+            "made",
+            "by",
+            "volcanoes.",
+            "makes"
+          ],
+          "explanationVi": "Was + V3: was made; từ \"makes\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It's grown in small fields all over the island.\"",
+        "tipVi": "Island /ˈaɪlənd/ không đọc chữ s."
+      },
+      {
+        "text": "It was shaped by the sea and the wind over thousands of years.",
+        "tipVi": "Shaped /ʃeɪpt/ đuôi -ed đọc /t/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever been to an island? Which one?",
+        "questionVi": "Bạn đã từng đến hòn đảo nào chưa? Đảo nào?",
+        "frame": "Yes, I have been to ___ / No, I haven't."
+      },
+      {
+        "question": "What is your hometown famous for?",
+        "questionVi": "Quê bạn nổi tiếng về gì?",
+        "frame": "My hometown is famous for ___. It is grown / made ___."
+      },
+      {
+        "question": "Do you like to watch the sunset? Where?",
+        "questionVi": "Bạn có thích ngắm hoàng hôn không? Ở đâu?",
+        "frame": "Yes, I like to watch it ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is / are / was / were + V3)",
+      "anyOf": [
+        "ed by",
+        "en by",
+        "was made",
+        "were made",
+        "is made",
+        "are made",
+        "is grown",
+        "are grown",
+        "is sold",
+        "are sold",
+        "was formed",
+        "was shaped",
+        "is called",
+        "are taken",
+        "is visited",
+        "are visited",
+        "was built"
+      ],
+      "outlineVi": [
+        "Tên nơi đó và nó ở đâu.",
+        "Nó được hình thành thế nào (… was made / formed by …).",
+        "Nó nổi tiếng về gì (… is grown / made / sold …)."
+      ],
+      "modelAnswer": "Phu Quoc is a big island in the south of Vietnam. It is famous for fish sauce and black pepper. The pepper is grown on small farms, and the fish sauce is made in big wooden houses. Both are sold all over the world. The island is visited by many tourists because its beaches are beautiful."
+    }
+  },
+  "glosses": [
+    {
+      "text": "off the coast",
+      "lemma": "off the coast",
+      "meaningVi": "ngoài khơi",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "off the coast of Quang Ngai",
+      "phraseVi": "ngoài khơi Quảng Ngãi"
+    },
+    {
+      "text": "fishermen",
+      "lemma": "fisherman",
+      "meaningVi": "ngư dân",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "farmers or fishermen",
+      "phraseVi": "nông dân hoặc ngư dân"
+    },
+    {
+      "text": "volcanic",
+      "lemma": "volcanic",
+      "meaningVi": "thuộc núi lửa",
+      "sentenceIndex": 20,
+      "pos": "adjective",
+      "phrase": "The volcanic soil",
+      "phraseVi": "Đất núi lửa"
+    },
+    {
+      "text": "stone gate",
+      "lemma": "stone gate",
+      "meaningVi": "cổng đá",
+      "sentenceIndex": 25,
+      "pos": "noun",
+      "phrase": "a big stone gate on the beach",
+      "phraseVi": "một cổng đá lớn trên bãi biển"
+    }
+  ]
+}

@@ -1,0 +1,612 @@
+{
+  "content": "Trang and Long work in the same office in Hanoi. At lunch, they often sit together and look at their phones.\n\nOne day, Long puts his phone down and asks, \"Trang, how much time do you spend on your phone every day?\"\nTrang laughs. \"Too much! I enjoy posting photos on Zalo. I love sharing pictures of my food and my cat with my family.\"\n\"Me too. But I don't enjoy scrolling for hours. Last night, I wanted to read a book, but I started watching short videos instead. And then it was one o'clock!\"\n\"That happens to me too. I've tried to stop, but it's really hard.\"\nLong thinks for a moment, and then he smiles. \"I want to spend less time online. Maybe we can help each other.\"\n\"Good idea. What do you want to do?\"\n\"First, I want to stop using my phone at lunch. We can talk instead.\"\nTrang says, \"OK. And I'm going to avoid looking at my phone in bed. I keep checking messages until midnight.\"\nLong says, \"Let's try it for one week. At the end of the week, we can check our screen time.\"\nA week later, Trang shows Long her phone. \"Look! I've spent two hours less online this week.\"\nLong smiles. \"Well done! I've finished half of my book.\"\n\"So, do you want to keep going?\"\n\"Definitely. But I still want to post photos of my cat!\"",
+  "targetWords": [
+    "spend",
+    "picture",
+    "video",
+    "instead",
+    "online",
+    "message",
+    "midnight",
+    "screen time",
+    "half",
+    "post"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "spend",
+        "lemma": "spend",
+        "meaningVi": "dành (thời gian), tiêu",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "pictures",
+        "lemma": "picture",
+        "meaningVi": "bức ảnh",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "videos",
+        "lemma": "video",
+        "meaningVi": "video",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "instead",
+        "lemma": "instead",
+        "meaningVi": "thay vào đó",
+        "pos": "adverb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "online",
+        "lemma": "online",
+        "meaningVi": "trên mạng",
+        "pos": "adverb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "messages",
+        "lemma": "message",
+        "meaningVi": "tin nhắn",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "midnight",
+        "lemma": "midnight",
+        "meaningVi": "nửa đêm",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "screen time",
+        "lemma": "screen time",
+        "meaningVi": "thời gian dùng màn hình",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "half",
+        "lemma": "half",
+        "meaningVi": "một nửa",
+        "pos": "noun",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "post",
+        "lemma": "post",
+        "meaningVi": "đăng (lên mạng)",
+        "pos": "verb",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Two friends try to spend less time on their phones.",
+          "Trang buys a new phone.",
+          "Long writes a book about Zalo.",
+          "A new rule at their office"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang và Long nhận ra mình dùng điện thoại quá nhiều và cùng thử bớt lại trong một tuần."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Trang enjoy posting on Zalo?",
+        "promptVi": "Trang thích đăng gì lên Zalo?",
+        "options": [
+          "Short videos",
+          "Pictures of her food and her cat",
+          "Messages to her boss",
+          "Books she has read"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Trang nói \"I love sharing pictures of my food and my cat with my family.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did Long go to bed late last night?",
+        "promptVi": "Vì sao tối qua Long đi ngủ muộn?",
+        "options": [
+          "He read a long book.",
+          "He worked until one o'clock.",
+          "He started watching short videos.",
+          "He was posting photos."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Long nói \"I wanted to read a book, but I started watching short videos instead. And then it was one o'clock!\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "At the end of the week, Trang has spent more time online.",
+        "promptVi": "Cuối tuần, Trang dùng mạng nhiều hơn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Trang nói \"I've spent two hours less online this week.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"keep going\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"So, do you want to keep going?\"",
+        "options": [
+          "tiếp tục",
+          "đi tiếp về nhà",
+          "giữ lại",
+          "dừng lại"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Keep going = tiếp tục làm việc đang làm (ở đây là tiếp tục bớt dùng điện thoại)."
+      }
+    ],
+    "grammarNote": {
+      "title": "V-ing hay to + động từ",
+      "bodyVi": "Sau một số động từ, động từ thứ hai thêm -ing: enjoy, love, avoid, keep, stop (enjoy posting, avoid looking, keep checking). Sau một số động từ khác thì dùng to + động từ: want, try, decide, hope (want to spend, tried to stop). Start và love dùng được cả hai cách. Chú ý: stop using = thôi không dùng nữa.",
+      "examples": [
+        "I enjoy posting photos on Zalo.",
+        "I want to spend less time online.",
+        "And I'm going to avoid looking at my phone in bed."
+      ]
+    },
+    "writingPrompt": "Write about your phone habits: what do you enjoy doing online, and what do you want to change?",
+    "sentenceTranslations": [
+      "Trang và Long làm cùng một văn phòng ở Hà Nội.",
+      "Giờ trưa, họ thường ngồi cùng nhau và cắm mặt vào điện thoại.",
+      "Một hôm, Long đặt điện thoại xuống và hỏi: \"Trang này, mỗi ngày cậu dành bao nhiêu thời gian cho điện thoại?\"",
+      "Trang cười.",
+      "\"Nhiều lắm!",
+      "Mình thích đăng ảnh lên Zalo.",
+      "Mình thích chia sẻ ảnh đồ ăn và con mèo với gia đình.\"",
+      "\"Mình cũng vậy.",
+      "Nhưng mình không thích lướt mạng hàng giờ liền.",
+      "Tối qua, mình định đọc sách, nhưng rồi lại xem video ngắn.",
+      "Thế là đã một giờ sáng!\"",
+      "\"Mình cũng hay bị thế.",
+      "Mình đã cố bỏ, nhưng khó lắm.\"",
+      "Long nghĩ một lúc, rồi anh mỉm cười.",
+      "\"Mình muốn bớt thời gian lên mạng.",
+      "Có lẽ mình giúp nhau được.\"",
+      "\"Ý hay đấy.",
+      "Cậu muốn làm gì?\"",
+      "\"Trước tiên, mình muốn thôi dùng điện thoại vào giờ trưa.",
+      "Thay vào đó mình nói chuyện với nhau.\"",
+      "Trang nói: \"Được.",
+      "Còn mình sẽ tránh nhìn điện thoại khi lên giường.",
+      "Mình cứ xem tin nhắn đến tận nửa đêm.\"",
+      "Long nói: \"Thử một tuần nhé.",
+      "Cuối tuần mình xem lại thời gian dùng màn hình.\"",
+      "Một tuần sau, Trang đưa Long xem điện thoại.",
+      "\"Nhìn này!",
+      "Tuần này mình lên mạng ít hơn hai tiếng.\"",
+      "Long mỉm cười.",
+      "\"Giỏi lắm!",
+      "Mình đọc xong nửa cuốn sách rồi.\"",
+      "\"Vậy cậu có muốn tiếp tục không?\"",
+      "\"Chắc chắn rồi.",
+      "Nhưng mình vẫn muốn đăng ảnh con mèo!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về thói quen dùng điện thoại, mạng xã hội bằng enjoy / avoid / keep + V-ing và want / try + to + động từ.",
+    "examples": [
+      {
+        "lemma": "spend",
+        "sentence": "I spend an hour on the bus every day.",
+        "meaningVi": "Mỗi ngày tôi mất một tiếng trên xe buýt."
+      },
+      {
+        "lemma": "picture",
+        "sentence": "Can you send me that picture?",
+        "meaningVi": "Bạn gửi mình bức ảnh đó được không?"
+      },
+      {
+        "lemma": "video",
+        "sentence": "We watched a funny video.",
+        "meaningVi": "Chúng tôi xem một video hài."
+      },
+      {
+        "lemma": "instead",
+        "sentence": "There was no tea, so I drank coffee instead.",
+        "meaningVi": "Không có trà nên tôi uống cà phê thay vào đó."
+      },
+      {
+        "lemma": "online",
+        "sentence": "I often buy books online.",
+        "meaningVi": "Tôi hay mua sách trên mạng."
+      },
+      {
+        "lemma": "message",
+        "sentence": "I got a message from my mother.",
+        "meaningVi": "Tôi nhận được tin nhắn của mẹ."
+      },
+      {
+        "lemma": "midnight",
+        "sentence": "The party ended at midnight.",
+        "meaningVi": "Bữa tiệc kết thúc lúc nửa đêm."
+      },
+      {
+        "lemma": "screen time",
+        "sentence": "Children need less screen time.",
+        "meaningVi": "Trẻ em cần ít thời gian dùng màn hình hơn."
+      },
+      {
+        "lemma": "half",
+        "sentence": "I ate half of the cake.",
+        "meaningVi": "Tôi ăn một nửa cái bánh."
+      },
+      {
+        "lemma": "post",
+        "sentence": "She likes to post photos of her trips.",
+        "meaningVi": "Cô ấy thích đăng ảnh các chuyến đi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Long",
+        "Emma"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Long, you look happy. What's new?",
+          "meaningVi": "Long ơi, trông cậu vui thế. Có gì mới à?"
+        },
+        {
+          "speaker": 0,
+          "text": "I've stopped using my phone at lunch.",
+          "meaningVi": "Mình đã thôi dùng điện thoại vào giờ trưa."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Why did you decide to do that?",
+          "meaningVi": "Thật à? Sao cậu quyết định làm thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "I spent too much time online. I wanted to change.",
+          "meaningVi": "Mình lên mạng nhiều quá. Mình muốn thay đổi."
+        },
+        {
+          "speaker": 1,
+          "text": "Was it hard to stop?",
+          "meaningVi": "Bỏ có khó không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but now I enjoy talking to my friends at lunch.",
+          "meaningVi": "Có, nhưng giờ mình thích nói chuyện với bạn bè vào giờ trưa."
+        },
+        {
+          "speaker": 1,
+          "text": "I keep checking my phone in bed.",
+          "meaningVi": "Mình cứ xem điện thoại trên giường."
+        },
+        {
+          "speaker": 0,
+          "text": "Try to leave it in the kitchen at night.",
+          "meaningVi": "Thử để nó trong bếp vào buổi tối xem."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. I'd like to read more.",
+          "meaningVi": "Ý hay đấy. Mình muốn đọc sách nhiều hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Me too. I've finished half of my book!",
+          "meaningVi": "Mình cũng vậy. Mình đọc xong nửa cuốn rồi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Stop + V-ing: I've stopped using my phone. Decide / want / try + to: Why did you decide to do that? Try to leave it… Enjoy / keep + V-ing: I enjoy talking… I keep checking…",
+    "translations": [
+      {
+        "vi": "Tôi thích đăng ảnh lên mạng.",
+        "en": "I enjoy posting pictures online.",
+        "distractors": [
+          "posted",
+          "to",
+          "posts"
+        ]
+      },
+      {
+        "vi": "Tôi muốn dành ít thời gian hơn cho điện thoại.",
+        "en": "I want to spend less time on my phone.",
+        "distractors": [
+          "spending",
+          "spends",
+          "for"
+        ]
+      },
+      {
+        "vi": "Tôi cứ xem tin nhắn đến nửa đêm.",
+        "en": "I keep checking messages until midnight.",
+        "distractors": [
+          "checked",
+          "to",
+          "checks"
+        ]
+      },
+      {
+        "vi": "Tôi sẽ tránh xem video trên giường.",
+        "en": "I will avoid watching videos in bed.",
+        "distractors": [
+          "watched",
+          "to",
+          "watches"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Long kể với Emma về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thói quen mới bỏ điện thoại giờ trưa",
+          "Một cuốn sách mới",
+          "Chiếc điện thoại mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Long nói \"I've stopped using my phone at lunch.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bây giờ vào giờ trưa Long thích làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đọc sách",
+          "Nói chuyện với bạn bè",
+          "Xem video"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Long nói \"now I enjoy talking to my friends at lunch.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Long khuyên Emma để điện thoại ở đâu vào buổi tối?",
+        "promptVi": "",
+        "options": [
+          "Trên giường",
+          "Ở văn phòng",
+          "Trong bếp"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Long nói \"Try to leave it in the kitchen at night.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Long has finished his book.",
+        "promptVi": "Long đã đọc xong cuốn sách.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Long nói \"I've finished half of my book!\" — mới được một nửa.",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Trang và Long thích làm gì trên điện thoại, và họ muốn thay đổi điều gì?",
+    "grammarStep": {
+      "titleVi": "V-ing hay to + động từ",
+      "noticing": [
+        {
+          "sentence": "I enjoy posting photos on Zalo.",
+          "highlights": [
+            "enjoy posting"
+          ]
+        },
+        {
+          "sentence": "I've tried to stop, but it's really hard.\"",
+          "highlights": [
+            "tried to stop"
+          ]
+        },
+        {
+          "sentence": "\"I want to spend less time online.",
+          "highlights": [
+            "want to spend"
+          ]
+        },
+        {
+          "sentence": "I keep checking messages until midnight.\"",
+          "highlights": [
+            "keep checking"
+          ]
+        }
+      ],
+      "questionVi": "Sau enjoy và keep, động từ đứng sau có dạng gì?",
+      "options": [
+        "V-ing (posting, checking)",
+        "to + động từ (to post, to check)",
+        "Động từ nguyên mẫu không to"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Enjoy, keep, avoid, stop + V-ing. Want, try, decide, hope + to + động từ.",
+      "whenVi": "Nhớ theo nhóm: động từ chỉ sở thích, thói quen (enjoy, keep, avoid, stop) thường + V-ing; động từ chỉ mong muốn, dự định (want, hope, decide, try) + to.",
+      "table": [
+        {
+          "subject": "+ V-ing",
+          "form": "enjoy, keep, avoid, stop, finish",
+          "negative": "I enjoy posting photos."
+        },
+        {
+          "subject": "+ to + động từ",
+          "form": "want, hope, decide, try, need",
+          "negative": "I want to spend less time."
+        },
+        {
+          "subject": "Cả hai",
+          "form": "love, like, start",
+          "negative": "I love sharing / I love to share."
+        },
+        {
+          "subject": "Phủ định",
+          "form": "I don't enjoy scrolling.",
+          "negative": "I don't want to stay up late."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I enjoy to post photos on Zalo.",
+          "right": "I enjoy posting photos on Zalo."
+        },
+        {
+          "wrong": "I want spending less time online.",
+          "right": "I want to spend less time online."
+        }
+      ],
+      "noteVi": "Stop + V-ing (thôi làm việc gì): I stopped using my phone. Stop + to (dừng lại để làm việc khác): I stopped to drink some water.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "I enjoy ___ photos of my cat. (post)",
+          "answers": [
+            "posting"
+          ],
+          "explanationVi": "Enjoy + V-ing: posting."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I want ___ less time online.",
+          "options": [
+            "spending",
+            "to spend",
+            "spend",
+            "spent"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Want + to + động từ: to spend."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I'm going to avoid to look at my phone in bed.",
+          "sentence": "I'm going to avoid looking at my phone in bed.",
+          "explanationVi": "Avoid + V-ing: looking."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi cứ xem tin nhắn mãi.",
+          "sentence": "I keep checking messages.",
+          "words": [
+            "checking",
+            "I",
+            "messages.",
+            "keep",
+            "to"
+          ],
+          "explanationVi": "Keep + V-ing; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I enjoy posting photos on Zalo.",
+        "tipVi": "Enjoy /ɪnˈdʒɔɪ/ nhấn âm thứ hai; posting /ˈpəʊstɪŋ/."
+      },
+      {
+        "text": "\"I want to spend less time online.",
+        "tipVi": "Want to đọc nhanh /ˈwɒntə/; online /ˌɒnˈlaɪn/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you enjoy doing on your phone?",
+        "questionVi": "Bạn thích làm gì trên điện thoại?",
+        "frame": "I enjoy ___ing."
+      },
+      {
+        "question": "Do you want to spend less time online?",
+        "questionVi": "Bạn có muốn bớt thời gian lên mạng không?",
+        "frame": "Yes, I want to ___. / No, I don't. I ___."
+      },
+      {
+        "question": "What does your friend keep doing on his or her phone?",
+        "questionVi": "Bạn của bạn cứ hay làm gì trên điện thoại?",
+        "frame": "He / She keeps ___ing."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cấu trúc V-ing hoặc to + động từ sau enjoy / want / avoid / keep / try…",
+      "anyOf": [
+        "enjoy",
+        "want to",
+        "avoid",
+        "keep",
+        "try to",
+        "tried to",
+        "decided to",
+        "stop",
+        "hope to",
+        "love"
+      ],
+      "outlineVi": [
+        "Bạn thích làm gì trên điện thoại (I enjoy / I love + V-ing).",
+        "Thói quen chưa tốt (I keep + V-ing).",
+        "Điều bạn muốn thay đổi (I want to / I've decided to …)."
+      ],
+      "modelAnswer": "I spend about four hours on my phone every day. I enjoy watching cooking videos, and I love chatting with my friends on Zalo. But I keep checking my phone during class, and my teacher isn't happy about it. I want to change this habit. I've decided to turn off my phone at school, and I'll try to read more books in the evening."
+    }
+  },
+  "glosses": [
+    {
+      "text": "puts his phone down",
+      "lemma": "put down",
+      "meaningVi": "đặt xuống",
+      "sentenceIndex": 2,
+      "pos": "phrasal verb",
+      "phrase": "Long puts his phone down",
+      "phraseVi": "Long đặt điện thoại xuống"
+    },
+    {
+      "text": "scrolling",
+      "lemma": "scroll",
+      "meaningVi": "lướt (màn hình)",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "I don't enjoy scrolling for hours",
+      "phraseVi": "mình không thích lướt mạng hàng giờ"
+    },
+    {
+      "text": "each other",
+      "lemma": "each other",
+      "meaningVi": "nhau",
+      "sentenceIndex": 15,
+      "pos": "pronoun",
+      "phrase": "we can help each other",
+      "phraseVi": "mình giúp nhau được"
+    },
+    {
+      "text": "avoid",
+      "lemma": "avoid",
+      "meaningVi": "tránh",
+      "sentenceIndex": 21,
+      "pos": "verb",
+      "phrase": "avoid looking at my phone",
+      "phraseVi": "tránh nhìn điện thoại"
+    },
+    {
+      "text": "keep going",
+      "lemma": "keep going",
+      "meaningVi": "tiếp tục",
+      "sentenceIndex": 31,
+      "pos": "phrase",
+      "phrase": "do you want to keep going?",
+      "phraseVi": "cậu có muốn tiếp tục không?"
+    }
+  ]
+}

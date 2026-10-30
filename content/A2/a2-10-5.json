@@ -1,0 +1,608 @@
+{
+  "content": "It's three o'clock in the afternoon. Trang puts her hand on her head and closes her eyes.\n\nHer friend Quan asks, \"Are you OK?\"\n\"I have a headache again. I get one every afternoon.\"\n\"How much water do you drink at work?\"\n\"Water? Maybe one glass. I drink tea at lunch.\"\n\"That's not enough. When you don't drink enough water, you get a headache. It happens to me too.\"\n\"Really? How much do you drink?\"\nHe shows her a big bottle. \"Two of these every day. If I drink a glass every hour, my head feels fine.\"\n\"But I forget!\"\n\"Then use your phone. My phone rings every hour, and I go to the kitchen for water. When I walk to the kitchen, I move my legs too.\"\nTrang laughs. \"That's clever. Can you give me a bottle?\"\nQuan says, \"Of course. Here you are. Fill it in the kitchen and drink!\"",
+  "targetWords": [
+    "hand",
+    "headache",
+    "glass",
+    "enough",
+    "bottle",
+    "kitchen",
+    "move",
+    "fill"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "hand",
+        "lemma": "hand",
+        "meaningVi": "bàn tay",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "headache",
+        "lemma": "headache",
+        "meaningVi": "đau đầu",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "glass",
+        "lemma": "glass",
+        "meaningVi": "cốc (thuỷ tinh)",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "enough",
+        "lemma": "enough",
+        "meaningVi": "đủ",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "bottle",
+        "lemma": "bottle",
+        "meaningVi": "chai, bình",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "move",
+        "lemma": "move",
+        "meaningVi": "cử động",
+        "pos": "verb",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "Fill",
+        "lemma": "fill",
+        "meaningVi": "đổ đầy",
+        "pos": "verb",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Quan helps Trang with her headaches at work.",
+          "Trang buys a new phone.",
+          "Quan cooks lunch in the kitchen.",
+          "Trang goes to the doctor."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang hay đau đầu buổi chiều, Quân giải thích là do uống ít nước và chỉ cách khắc phục."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much water does Trang drink at work?",
+        "promptVi": "Ở chỗ làm Trang uống bao nhiêu nước?",
+        "options": [
+          "Two bottles",
+          "Maybe one glass",
+          "A glass every hour",
+          "Ten glasses"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Trang nói \"Maybe one glass.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Quan's phone ring every hour?",
+        "promptVi": "Vì sao điện thoại của Quân reo mỗi tiếng?",
+        "options": [
+          "His mother calls him.",
+          "It tells him to drink water.",
+          "He has a meeting.",
+          "It tells him to eat."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quân nói \"My phone rings every hour, and I go to the kitchen for water.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Trang gets a headache only on Mondays.",
+        "promptVi": "Trang chỉ đau đầu vào thứ Hai.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Trang nói \"I get one every afternoon.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"clever\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"That's clever.",
+        "options": [
+          "khó",
+          "thông minh, khéo",
+          "buồn cười",
+          "đắt"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Clever = thông minh, khéo: Trang thấy cách của Quân rất hay."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Câu điều kiện loại 0 với vế phủ định: When you don't drink enough water, you get a headache. Với vế khẳng định: If I drink a glass every hour, my head feels fine. When I walk to the kitchen, I move my legs too. Có thể dùng \"It happens to me too\" để nói mình cũng gặp chuyện đó.",
+      "examples": [
+        "When you don't drink enough water, you get a headache.",
+        "If I drink a glass every hour, my head feels fine.\"",
+        "When I walk to the kitchen, I move my legs too.\""
+      ]
+    },
+    "writingPrompt": "Write about drinking water: how much do you drink, and what happens when you don't drink enough?",
+    "sentenceTranslations": [
+      "Bây giờ là ba giờ chiều.",
+      "Trang đặt tay lên đầu và nhắm mắt lại.",
+      "Bạn cô là Quân hỏi: \"Cậu ổn chứ?\"",
+      "\"Mình lại đau đầu.",
+      "Chiều nào mình cũng bị.\"",
+      "\"Ở chỗ làm cậu uống bao nhiêu nước?\"",
+      "\"Nước á?",
+      "Chắc một cốc.",
+      "Bữa trưa mình uống trà.\"",
+      "\"Thế là không đủ.",
+      "Hễ không uống đủ nước là bị đau đầu.",
+      "Mình cũng bị thế.\"",
+      "\"Thật à?",
+      "Cậu uống bao nhiêu?\"",
+      "Cậu đưa cô xem một chiếc bình to.",
+      "\"Mỗi ngày hai bình thế này.",
+      "Nếu mỗi tiếng uống một cốc, đầu mình thấy bình thường.\"",
+      "\"Nhưng mình hay quên!\"",
+      "\"Thì dùng điện thoại.",
+      "Cứ mỗi tiếng điện thoại mình reo, và mình xuống bếp lấy nước.",
+      "Hễ đi xuống bếp là mình cũng được cử động chân.\"",
+      "Trang cười.",
+      "\"Hay đấy.",
+      "Cậu cho mình một cái bình được không?\"",
+      "Quân nói: \"Tất nhiên.",
+      "Của cậu đây.",
+      "Ra bếp đổ đầy nước rồi uống đi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về thói quen uống nước ở chỗ làm và kết quả của nó bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "hand",
+        "sentence": "Wash your hand before you eat.",
+        "meaningVi": "Rửa tay trước khi ăn."
+      },
+      {
+        "lemma": "headache",
+        "sentence": "I have a headache today.",
+        "meaningVi": "Hôm nay tôi bị đau đầu."
+      },
+      {
+        "lemma": "glass",
+        "sentence": "Can I have a glass of milk?",
+        "meaningVi": "Cho tôi một cốc sữa nhé?"
+      },
+      {
+        "lemma": "enough",
+        "sentence": "We have enough food for everyone.",
+        "meaningVi": "Chúng ta có đủ đồ ăn cho mọi người."
+      },
+      {
+        "lemma": "bottle",
+        "sentence": "There is a bottle of water in my bag.",
+        "meaningVi": "Trong túi tôi có một chai nước."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "My mother is in the kitchen.",
+        "meaningVi": "Mẹ tôi đang ở trong bếp."
+      },
+      {
+        "lemma": "move",
+        "sentence": "Don't move! There is a bee on your arm.",
+        "meaningVi": "Đừng cử động! Có con ong trên tay bạn."
+      },
+      {
+        "lemma": "fill",
+        "sentence": "Please fill the glass with water.",
+        "meaningVi": "Làm ơn rót đầy cốc nước."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Trang",
+        "Paul"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Trang, you look better today!",
+          "meaningVi": "Trang ơi, hôm nay trông cậu khoẻ hơn!"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! I don't have a headache now.",
+          "meaningVi": "Ừ! Giờ mình không đau đầu nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "What do you do?",
+          "meaningVi": "Cậu làm gì vậy?"
+        },
+        {
+          "speaker": 0,
+          "text": "I drink a glass of water every hour.",
+          "meaningVi": "Mỗi tiếng mình uống một cốc nước."
+        },
+        {
+          "speaker": 1,
+          "text": "Does it help?",
+          "meaningVi": "Có tác dụng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. When I drink enough water, my head feels fine.",
+          "meaningVi": "Có. Hễ uống đủ nước là đầu mình thấy bình thường."
+        },
+        {
+          "speaker": 1,
+          "text": "I often forget to drink.",
+          "meaningVi": "Mình hay quên uống nước."
+        },
+        {
+          "speaker": 0,
+          "text": "Use your phone. When it rings, fill your bottle.",
+          "meaningVi": "Dùng điện thoại đi. Hễ nó reo là đi đổ đầy bình."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. Where do you fill it?",
+          "meaningVi": "Ý hay đấy. Cậu đổ nước ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "In the kitchen, next to the coffee machine.",
+          "meaningVi": "Ở trong bếp, cạnh máy pha cà phê."
+        }
+      ]
+    },
+    "grammarTipVi": "When I drink enough water, my head feels fine. When it rings, fill your bottle. (vế sau có thể là câu mệnh lệnh)",
+    "translations": [
+      {
+        "vi": "Hễ không uống đủ nước là bạn bị đau đầu.",
+        "en": "When you don't drink enough water, you get a headache.",
+        "distractors": [
+          "won't",
+          "got",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Nếu mỗi tiếng tôi uống một cốc nước, đầu tôi thấy ổn.",
+        "en": "If I drink a glass every hour, my head feels fine.",
+        "distractors": [
+          "will",
+          "drank",
+          "felt"
+        ]
+      },
+      {
+        "vi": "Hễ điện thoại reo là tôi đi xuống bếp.",
+        "en": "When my phone rings, I go to the kitchen.",
+        "distractors": [
+          "will",
+          "went",
+          "rang"
+        ]
+      },
+      {
+        "vi": "Hễ điện thoại reo, hãy đổ đầy chai nước.",
+        "en": "When your phone rings, fill your bottle.",
+        "distractors": [
+          "will",
+          "filled",
+          "fills"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Trang kể với Paul về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách cô hết đau đầu",
+          "Công việc mới",
+          "Máy pha cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang nói \"I don't have a headache now\" và giải thích cách làm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trang uống nước thế nào?",
+        "promptVi": "",
+        "options": [
+          "Mỗi tiếng một cốc",
+          "Một chai buổi sáng",
+          "Chỉ lúc ăn trưa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang nói \"I drink a glass of water every hour.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trang đổ nước ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở bàn làm việc",
+          "Ở quán cà phê",
+          "Trong bếp, cạnh máy pha cà phê"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Trang nói \"In the kitchen, next to the coffee machine.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Trang still has a headache.",
+        "promptVi": "Trang vẫn còn đau đầu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Trang nói \"I don't have a headache now.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Vì sao Trang hay đau đầu? Quân làm gì để không bị đau đầu?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "When you don't drink enough water, you get a headache.",
+          "highlights": [
+            "When",
+            "don't drink",
+            "get"
+          ]
+        },
+        {
+          "sentence": "If I drink a glass every hour, my head feels fine.\"",
+          "highlights": [
+            "If",
+            "drink",
+            "feels"
+          ]
+        },
+        {
+          "sentence": "When I walk to the kitchen, I move my legs too.\"",
+          "highlights": [
+            "When",
+            "walk",
+            "move"
+          ]
+        },
+        {
+          "sentence": "My phone rings every hour, and I go to the kitchen for water.",
+          "highlights": [
+            "rings",
+            "go"
+          ]
+        }
+      ],
+      "questionVi": "Câu điều kiện loại 0 nào nói về điều Trang không làm?",
+      "options": [
+        "When you don't drink enough water, you get a headache.",
+        "When I walk to the kitchen, I move my legs too.",
+        "If I drink a glass every hour, my head feels fine."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Vế when có phủ định: don't drink. Kết quả: get a headache.",
+      "whenVi": "Dùng If / When + hiện tại đơn để nói nguyên nhân – kết quả luôn đúng. Vế if có thể phủ định (don't / doesn't).",
+      "table": [
+        {
+          "subject": "Phủ định ở vế when",
+          "form": "When you don't drink water, you get a headache.",
+          "negative": "—"
+        },
+        {
+          "subject": "Khẳng định",
+          "form": "If I drink a glass every hour, my head feels fine.",
+          "negative": "—"
+        },
+        {
+          "subject": "He / She",
+          "form": "When she drinks enough water, she feels good.",
+          "negative": "If he doesn't drink water, he gets a headache."
+        },
+        {
+          "subject": "Mệnh lệnh",
+          "form": "When your phone rings, fill your bottle.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "When you don't drink enough water, you will get a headache. (luôn đúng)",
+          "right": "When you don't drink enough water, you get a headache."
+        },
+        {
+          "wrong": "If she drink water, she feels fine.",
+          "right": "If she drinks water, she feels fine."
+        }
+      ],
+      "noteVi": "Enough đứng trước danh từ: enough water, enough sleep. Đứng sau tính từ: old enough, big enough.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "When you don't drink enough water, you ___ a headache. (get)",
+          "answers": [
+            "get"
+          ],
+          "explanationVi": "You + get (hiện tại đơn)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If Trang ___ a glass every hour, her head feels fine.",
+          "options": [
+            "drink",
+            "drinks",
+            "will drink",
+            "drinking"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Trang là ngôi thứ ba số ít: drinks."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "When I don't drink water, I gets a headache.",
+          "sentence": "When I don't drink water, I get a headache.",
+          "explanationVi": "I đi với get, không thêm -s."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hễ đi xuống bếp là tôi được cử động chân.",
+          "sentence": "When I walk to the kitchen, I move my legs.",
+          "words": [
+            "walk",
+            "When",
+            "to",
+            "I",
+            "the",
+            "kitchen,",
+            "I",
+            "move",
+            "my",
+            "legs.",
+            "will"
+          ],
+          "explanationVi": "When + hiện tại đơn, hiện tại đơn; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"I have a headache again.",
+        "tipVi": "Headache /ˈhedeɪk/ nhấn âm đầu, ch đọc là /k/."
+      },
+      {
+        "text": "Fill it in the kitchen and drink!\"",
+        "tipVi": "Kitchen /ˈkɪtʃɪn/ nhấn âm đầu; câu mệnh lệnh đọc mạnh."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How much water do you drink every day?",
+        "questionVi": "Mỗi ngày bạn uống bao nhiêu nước?",
+        "frame": "I drink about ___ glasses."
+      },
+      {
+        "question": "What happens when you don't drink enough water?",
+        "questionVi": "Khi không uống đủ nước thì bạn bị sao?",
+        "frame": "When I don't drink enough water, I ___."
+      },
+      {
+        "question": "What does your friend drink at school or work?",
+        "questionVi": "Ở trường hoặc chỗ làm bạn của bạn uống gì?",
+        "frame": "He / She drinks ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, hiện tại đơn)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you"
+      ],
+      "outlineVi": [
+        "Mỗi ngày bạn uống bao nhiêu nước, uống khi nào.",
+        "Khi uống đủ nước bạn thấy thế nào (When I …, I …).",
+        "Khi không uống đủ thì sao (If I don't …, I …)."
+      ],
+      "modelAnswer": "I drink about six glasses of water every day. I always have a big bottle in my bag. When I drink enough water, I feel fresh and happy. If I don't drink enough, I get a headache in the afternoon. In summer, I drink more water because it is very hot."
+    }
+  },
+  "glosses": [
+    {
+      "text": "closes",
+      "lemma": "close",
+      "meaningVi": "nhắm (mắt)",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "closes her eyes",
+      "phraseVi": "nhắm mắt lại"
+    },
+    {
+      "text": "Maybe",
+      "lemma": "maybe",
+      "meaningVi": "có lẽ",
+      "sentenceIndex": 7,
+      "pos": "adverb",
+      "phrase": "Maybe one glass.",
+      "phraseVi": "Chắc một cốc."
+    },
+    {
+      "text": "happens",
+      "lemma": "happen",
+      "meaningVi": "xảy ra",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "It happens to me too.",
+      "phraseVi": "Mình cũng bị thế."
+    },
+    {
+      "text": "fine",
+      "lemma": "fine",
+      "meaningVi": "ổn, bình thường",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "my head feels fine",
+      "phraseVi": "đầu mình thấy bình thường"
+    },
+    {
+      "text": "rings",
+      "lemma": "ring",
+      "meaningVi": "reo",
+      "sentenceIndex": 19,
+      "pos": "verb",
+      "phrase": "My phone rings every hour",
+      "phraseVi": "Cứ mỗi tiếng điện thoại mình reo"
+    },
+    {
+      "text": "clever",
+      "lemma": "clever",
+      "meaningVi": "thông minh, hay",
+      "sentenceIndex": 22,
+      "pos": "adjective",
+      "phrase": "That's clever.",
+      "phraseVi": "Hay đấy."
+    },
+    {
+      "text": "Here you are",
+      "lemma": "here you are",
+      "meaningVi": "của bạn đây",
+      "sentenceIndex": 25,
+      "pos": "phrase",
+      "phrase": "Here you are.",
+      "phraseVi": "Của cậu đây."
+    }
+  ]
+}

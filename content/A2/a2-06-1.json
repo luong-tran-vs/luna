@@ -1,0 +1,591 @@
+{
+  "content": "Ms Thao and Mr Long work at a big company in Ho Chi Minh City. Today they have interviews for a new office job, and now they are talking about two people, Khoa and Ngoc.\n\nMr Long asks, \"Who do you like more?\"\n\"Well, Khoa is taller than Ngoc, and he looks more confident,\" Ms Thao says. \"His answers are longer than hers too.\"\n\"Yes, but Ngoc is more polite, and she is very clever,\" Mr Long says. \"She has more experience. She worked at a bank for five years.\"\n\"That's true. Khoa is younger than her, and he isn't as quiet as she is.\"\n\nMs Thao thinks for a minute. \"Ngoc is a bit shy, but she is as kind as Khoa.\"\nMr Long asks, \"Is her English as good as his?\"\n\"No, it isn't as good, but she learns fast,\" Ms Thao answers.\n\nIn the end, they choose Ngoc for the job. \"She is quieter than Khoa, but she is the right person for our team,\" Mr Long says.",
+  "targetWords": [
+    "interview",
+    "look",
+    "confident",
+    "polite",
+    "clever",
+    "experience",
+    "shy",
+    "choose"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "interviews",
+        "lemma": "interview",
+        "meaningVi": "buổi phỏng vấn",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "looks",
+        "lemma": "look",
+        "meaningVi": "trông có vẻ",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "confident",
+        "lemma": "confident",
+        "meaningVi": "tự tin",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "polite",
+        "lemma": "polite",
+        "meaningVi": "lịch sự",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "clever",
+        "lemma": "clever",
+        "meaningVi": "thông minh",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "experience",
+        "lemma": "experience",
+        "meaningVi": "kinh nghiệm",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "shy",
+        "lemma": "shy",
+        "meaningVi": "nhút nhát",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "choose",
+        "lemma": "choose",
+        "meaningVi": "chọn",
+        "pos": "verb",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Khoa's first day at a bank",
+          "Two managers talk about two people for a job.",
+          "Ms Thao and Mr Long's new office",
+          "Ngoc teaches English at a company."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Thảo và anh Long so sánh hai người đến phỏng vấn, Khoa và Ngọc, để chọn một người."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where did Ngoc work before?",
+        "promptVi": "Trước đây Ngọc làm việc ở đâu?",
+        "options": [
+          "At a school",
+          "At a hotel",
+          "At a hospital",
+          "At a bank"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Anh Long nói \"She worked at a bank for five years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why do they choose Ngoc?",
+        "promptVi": "Vì sao họ chọn Ngọc?",
+        "options": [
+          "She is the right person for their team.",
+          "She is taller than Khoa.",
+          "Her English is better than Khoa's.",
+          "She is younger than Khoa."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Long nói Ngọc trầm hơn Khoa \"but she is the right person for our team\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngoc's English is as good as Khoa's.",
+        "promptVi": "Tiếng Anh của Ngọc tốt bằng tiếng Anh của Khoa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Thảo nói \"No, it isn't as good, but she learns fast.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"learns fast\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"No, it isn't as good, but she learns fast,\" Ms Thao answers.",
+        "options": [
+          "nói nhanh",
+          "học nhanh",
+          "đi nhanh",
+          "làm muộn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Learn fast là học nhanh, tiếp thu nhanh: tiếng Anh của Ngọc chưa bằng Khoa nhưng cô học rất nhanh."
+      }
+    ],
+    "grammarNote": {
+      "title": "So sánh hơn",
+      "bodyVi": "Tính từ ngắn thêm -er + than: tall → taller than, young → younger than, quiet → quieter than. Tính từ dài dùng more + tính từ + than: more confident, more polite. Danh từ cũng dùng more: more experience. Than đi với tân ngữ hoặc đại từ sở hữu: than her, than hers.",
+      "examples": [
+        "\"Well, Khoa is taller than Ngoc, and he looks more confident,\" Ms Thao says.",
+        "\"Yes, but Ngoc is more polite, and she is very clever,\" Mr Long says.",
+        "\"She is quieter than Khoa, but she is the right person for our team,\" Mr Long says."
+      ]
+    },
+    "writingPrompt": "Compare two people you know: who is taller, older or more confident?",
+    "sentenceTranslations": [
+      "Chị Thảo và anh Long làm việc ở một công ty lớn tại TP. Hồ Chí Minh.",
+      "Hôm nay họ phỏng vấn cho một công việc văn phòng mới, và bây giờ họ đang nói về hai người, Khoa và Ngọc.",
+      "Anh Long hỏi: \"Chị thích ai hơn?\"",
+      "\"Ừm, Khoa cao hơn Ngọc, và trông tự tin hơn,\" chị Thảo nói.",
+      "\"Câu trả lời của cậu ấy cũng dài hơn của Ngọc.\"",
+      "\"Đúng, nhưng Ngọc lịch sự hơn, và cô ấy rất thông minh,\" anh Long nói.",
+      "\"Cô ấy có nhiều kinh nghiệm hơn.",
+      "Cô ấy đã làm ở ngân hàng năm năm.\"",
+      "\"Đúng vậy.",
+      "Khoa trẻ hơn cô ấy, và không trầm như cô ấy.\"",
+      "Chị Thảo nghĩ một lúc.",
+      "\"Ngọc hơi nhút nhát, nhưng cô ấy cũng tốt bụng như Khoa.\"",
+      "Anh Long hỏi: \"Tiếng Anh của cô ấy có tốt bằng của Khoa không?\"",
+      "\"Không, không bằng, nhưng cô ấy học nhanh,\" chị Thảo trả lời.",
+      "Cuối cùng, họ chọn Ngọc cho công việc đó.",
+      "\"Cô ấy trầm hơn Khoa, nhưng là người phù hợp với nhóm mình,\" anh Long nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh hai người về ngoại hình, tính cách bằng -er than, more … than và as … as.",
+    "examples": [
+      {
+        "lemma": "interview",
+        "sentence": "I have a job interview tomorrow.",
+        "meaningVi": "Ngày mai tôi có buổi phỏng vấn xin việc."
+      },
+      {
+        "lemma": "look",
+        "sentence": "You look tired today.",
+        "meaningVi": "Hôm nay trông bạn có vẻ mệt."
+      },
+      {
+        "lemma": "confident",
+        "sentence": "She is confident when she speaks English.",
+        "meaningVi": "Cô ấy tự tin khi nói tiếng Anh."
+      },
+      {
+        "lemma": "polite",
+        "sentence": "The children are always polite.",
+        "meaningVi": "Bọn trẻ lúc nào cũng lễ phép."
+      },
+      {
+        "lemma": "clever",
+        "sentence": "What a clever idea!",
+        "meaningVi": "Ý tưởng thông minh quá!"
+      },
+      {
+        "lemma": "experience",
+        "sentence": "He has a lot of experience with computers.",
+        "meaningVi": "Anh ấy có nhiều kinh nghiệm về máy tính."
+      },
+      {
+        "lemma": "shy",
+        "sentence": "My little sister is shy with new people.",
+        "meaningVi": "Em gái tôi ngại người lạ."
+      },
+      {
+        "lemma": "choose",
+        "sentence": "Which colour do you choose?",
+        "meaningVi": "Bạn chọn màu nào?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngoc",
+        "Sarah"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ngoc, how was your interview?",
+          "meaningVi": "Ngọc ơi, buổi phỏng vấn thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "I got the job! I start next Monday.",
+          "meaningVi": "Mình được nhận rồi! Thứ Hai tuần sau mình đi làm."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Were there many people at the interview?",
+          "meaningVi": "Tuyệt quá! Có nhiều người phỏng vấn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only one more, a young man called Khoa.",
+          "meaningVi": "Chỉ thêm một người nữa, một cậu trẻ tên Khoa."
+        },
+        {
+          "speaker": 1,
+          "text": "Was he older than you?",
+          "meaningVi": "Cậu ấy lớn tuổi hơn cậu à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, he was younger, and much more confident.",
+          "meaningVi": "Không, cậu ấy trẻ hơn, và tự tin hơn nhiều."
+        },
+        {
+          "speaker": 1,
+          "text": "But you have more experience than him.",
+          "meaningVi": "Nhưng cậu có nhiều kinh nghiệm hơn cậu ấy mà."
+        },
+        {
+          "speaker": 0,
+          "text": "That's true. And my English isn't as bad as I think!",
+          "meaningVi": "Đúng thế. Mà tiếng Anh của mình cũng không tệ như mình nghĩ!"
+        },
+        {
+          "speaker": 1,
+          "text": "What are the managers like?",
+          "meaningVi": "Các quản lý ở đó thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Very kind. Ms Thao is a bit shorter than me, and she smiles a lot.",
+          "meaningVi": "Rất tốt bụng. Chị Thảo thấp hơn mình một chút, và hay cười lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Nói hơn nhiều: much more confident. Nói không bằng: isn't as bad as … Hỏi về tính cách: What is she like? / What are they like?",
+    "translations": [
+      {
+        "vi": "Khoa trông tự tin hơn Ngọc.",
+        "en": "Khoa looks more confident than Ngoc.",
+        "distractors": [
+          "look",
+          "most",
+          "as"
+        ]
+      },
+      {
+        "vi": "Cô ấy lịch sự và thông minh hơn.",
+        "en": "She is more polite and clever.",
+        "distractors": [
+          "than",
+          "most",
+          "he"
+        ]
+      },
+      {
+        "vi": "Ngọc có nhiều kinh nghiệm hơn nhưng cô ấy hơi nhút nhát.",
+        "en": "Ngoc has more experience, but she is a bit shy.",
+        "distractors": [
+          "much",
+          "as",
+          "he"
+        ]
+      },
+      {
+        "vi": "Họ chọn người tự tin nhất.",
+        "en": "They choose the most confident person.",
+        "distractors": [
+          "more",
+          "than",
+          "chooses"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ngọc kể với Sarah về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi phỏng vấn và công việc mới",
+          "Một người bạn tên Khoa",
+          "Lớp học tiếng Anh"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sarah hỏi về buổi phỏng vấn, và Ngọc nói \"I got the job!\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Ngọc bắt đầu đi làm?",
+        "promptVi": "",
+        "options": [
+          "Ngày mai",
+          "Thứ Sáu tuần này",
+          "Thứ Hai tuần sau"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ngọc nói \"I start next Monday.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngọc nói gì về Khoa?",
+        "promptVi": "",
+        "options": [
+          "Cậu ấy lớn tuổi hơn và nhút nhát hơn",
+          "Cậu ấy trẻ hơn và tự tin hơn nhiều",
+          "Cậu ấy có nhiều kinh nghiệm hơn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc nói \"he was younger, and much more confident.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Thao is taller than Ngoc.",
+        "promptVi": "Chị Thảo cao hơn Ngọc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ngọc nói \"Ms Thao is a bit shorter than me\": chị Thảo thấp hơn.",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Khoa và Ngọc khác nhau thế nào, và cuối cùng ai được chọn?",
+    "grammarStep": {
+      "titleVi": "So sánh hơn",
+      "noticing": [
+        {
+          "sentence": "\"Well, Khoa is taller than Ngoc, and he looks more confident,\" Ms Thao says.",
+          "highlights": [
+            "taller than",
+            "more confident"
+          ]
+        },
+        {
+          "sentence": "\"His answers are longer than hers too.\"",
+          "highlights": [
+            "longer than"
+          ]
+        },
+        {
+          "sentence": "\"Yes, but Ngoc is more polite, and she is very clever,\" Mr Long says.",
+          "highlights": [
+            "more polite"
+          ]
+        },
+        {
+          "sentence": "\"She is quieter than Khoa, but she is the right person for our team,\" Mr Long says.",
+          "highlights": [
+            "quieter than"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"taller\" nhưng lại viết \"more polite\"?",
+      "options": [
+        "Vì tall là tính từ ngắn, polite là tính từ dài hơn.",
+        "Vì Khoa là nam, Ngọc là nữ.",
+        "Vì polite là danh từ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Tính từ một âm tiết (tall, long, young) thêm -er. Tính từ dài (polite, confident) dùng more phía trước.",
+      "whenVi": "Dùng so sánh hơn khi so sánh hai người hoặc hai vật: A + is + tính từ-er / more + tính từ + than + B.",
+      "table": [
+        {
+          "subject": "Tính từ ngắn",
+          "form": "tall → taller than, young → younger than",
+          "negative": "Khoa isn't taller than Ngoc."
+        },
+        {
+          "subject": "Tận cùng -y",
+          "form": "quiet → quieter, happy → happier, funny → funnier",
+          "negative": "—"
+        },
+        {
+          "subject": "Tính từ dài",
+          "form": "more polite than, more confident than",
+          "negative": "He isn't more confident than her."
+        },
+        {
+          "subject": "Bất quy tắc",
+          "form": "good → better, bad → worse",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Khoa is more tall than Ngoc.",
+          "right": "Khoa is taller than Ngoc."
+        },
+        {
+          "wrong": "Ngoc is politer that Khoa.",
+          "right": "Ngoc is more polite than Khoa."
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ thêm \"hơn\", nên người Việt hay nói more tall hoặc quên than. Nhớ: than, không phải that.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng so sánh hơn của từ trong ngoặc.",
+          "text": "My father is ___ than my mother. (tall)",
+          "answers": [
+            "taller"
+          ],
+          "explanationVi": "Tall là tính từ ngắn: taller than."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Ngoc is ___ than Khoa.",
+          "options": [
+            "politer",
+            "more polite",
+            "most polite",
+            "as polite"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Polite là tính từ dài nên dùng more polite than."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He is more young than his sister.",
+          "sentence": "He is younger than his sister.",
+          "explanationVi": "Young là tính từ ngắn: younger than, không dùng more."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy tự tin hơn tôi.",
+          "sentence": "He is more confident than me.",
+          "words": [
+            "confident",
+            "He",
+            "than",
+            "is",
+            "more",
+            "me",
+            "as"
+          ],
+          "explanationVi": "More + tính từ dài + than; từ \"as\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"His answers are longer than hers too.\"",
+        "tipVi": "Than đọc nhẹ /ðən/, đặt đầu lưỡi giữa hai hàm răng; longer /ˈlɒŋɡər/ có âm /ŋɡ/."
+      },
+      {
+        "text": "In the end, they choose Ngoc for the job.",
+        "tipVi": "Choose /tʃuːz/ âm /uː/ dài và /z/ cuối; job /dʒɒb/ nhớ bật /b/ cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Are you taller than your best friend?",
+        "questionVi": "Bạn có cao hơn bạn thân của mình không?",
+        "frame": "Yes, I'm taller than ___. / No, I'm shorter than ___."
+      },
+      {
+        "question": "Who is more confident, you or your brother or sister?",
+        "questionVi": "Ai tự tin hơn, bạn hay anh chị em của bạn?",
+        "frame": "___ is more confident than ___."
+      },
+      {
+        "question": "Is your father older than your mother?",
+        "questionVi": "Bố bạn có lớn tuổi hơn mẹ bạn không?",
+        "frame": "Yes, he is ___ years older. / No, he is younger than her."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu so sánh hơn (-er than / more … than)",
+      "anyOf": [
+        "than",
+        "more",
+        "-er than"
+      ],
+      "outlineVi": [
+        "Giới thiệu hai người bạn muốn so sánh.",
+        "So sánh ngoại hình (taller, older, shorter than …).",
+        "So sánh tính cách (more confident, quieter than …)."
+      ],
+      "modelAnswer": "My two best friends are Vy and Trang. Vy is taller than Trang, and she has long hair. Trang is older than Vy, but she looks younger. Vy is more confident, and she talks a lot. Trang is quieter and more polite. She isn't as funny as Vy, but she is very kind. I love them both."
+    }
+  },
+  "glosses": [
+    {
+      "text": "company",
+      "lemma": "company",
+      "meaningVi": "công ty",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a big company",
+      "phraseVi": "một công ty lớn"
+    },
+    {
+      "text": "hers",
+      "lemma": "hers",
+      "meaningVi": "của cô ấy",
+      "sentenceIndex": 4,
+      "pos": "pronoun",
+      "phrase": "longer than hers",
+      "phraseVi": "dài hơn của cô ấy"
+    },
+    {
+      "text": "bank",
+      "lemma": "bank",
+      "meaningVi": "ngân hàng",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "worked at a bank",
+      "phraseVi": "đã làm ở ngân hàng"
+    },
+    {
+      "text": "younger",
+      "lemma": "young",
+      "meaningVi": "trẻ hơn",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "younger than her",
+      "phraseVi": "trẻ hơn cô ấy"
+    },
+    {
+      "text": "as quiet as",
+      "lemma": "quiet",
+      "meaningVi": "trầm bằng, ít nói như",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "he isn't as quiet as she is",
+      "phraseVi": "cậu ấy không trầm như cô ấy"
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "meaningVi": "tốt bụng",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "as kind as Khoa",
+      "phraseVi": "tốt bụng như Khoa"
+    },
+    {
+      "text": "In the end",
+      "lemma": "in the end",
+      "meaningVi": "cuối cùng",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "In the end, they choose Ngoc",
+      "phraseVi": "Cuối cùng, họ chọn Ngọc"
+    },
+    {
+      "text": "right person",
+      "lemma": "right",
+      "meaningVi": "người phù hợp",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "the right person for our team",
+      "phraseVi": "người phù hợp với nhóm mình"
+    }
+  ]
+}

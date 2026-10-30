@@ -1,0 +1,600 @@
+{
+  "content": "Phuong is at home on Saturday afternoon when her phone rings. It's her friend Thu.\n\nThu asks, \"Hi, Phuong. Is everything OK for tonight?\"\n\"Not really. Ha called me this morning. She said she couldn't come to dinner.\"\n\"Oh no! Why not?\"\n\"She said that she was ill. She told me she had a high fever and needed to stay in bed.\"\n\"Poor Ha. I was so excited to see her.\"\n\"So was I. We haven't seen her since we left school. That's six years!\"\n\"I know. What else did she say?\"\n\"She said she was very sorry. She said she would call us next week.\"\n\"Should we still go to the restaurant without her?\"\n\"I don't want to. It won't be the same.\"\n\"Neither do I. It was her idea to meet.\"\n\"Exactly. I've already called the restaurant. The man said that we could book again for next Saturday.\"\n\"Great. I'm free next weekend.\"\n\"So am I. And Ha said she would be better by then.\"\n\"Let's send her some flowers and a message today.\"\n\"Good idea. I'll buy the flowers, and you can write the card.\"\n\"OK. I'll tell her that we're all waiting for her.\"\n\"She'll love that. See you next Saturday, then.\"",
+  "targetWords": [
+    "dinner",
+    "ill",
+    "fever",
+    "excited",
+    "sorry",
+    "restaurant",
+    "book",
+    "weekend",
+    "flower",
+    "card"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "dinner",
+        "lemma": "dinner",
+        "meaningVi": "bữa tối",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "ill",
+        "lemma": "ill",
+        "meaningVi": "ốm",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "fever",
+        "lemma": "fever",
+        "meaningVi": "sốt",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "excited",
+        "lemma": "excited",
+        "meaningVi": "háo hức, mong chờ",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "sorry",
+        "lemma": "sorry",
+        "meaningVi": "xin lỗi, tiếc",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "restaurant",
+        "lemma": "restaurant",
+        "meaningVi": "nhà hàng",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "book",
+        "lemma": "book",
+        "meaningVi": "đặt (bàn, chỗ)",
+        "pos": "verb",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "weekend",
+        "lemma": "weekend",
+        "meaningVi": "cuối tuần",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "flowers",
+        "lemma": "flower",
+        "meaningVi": "hoa",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "card",
+        "lemma": "card",
+        "meaningVi": "thiệp",
+        "pos": "noun",
+        "sentenceIndex": 31
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the main news in the phone call?",
+        "promptVi": "Tin chính trong cuộc gọi là gì?",
+        "options": [
+          "Ha can't come to dinner tonight.",
+          "Thu has booked a new restaurant.",
+          "Phuong is ill.",
+          "Ha has a new job in another city."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương kể với Thu rằng Hà gọi báo không đến ăn tối được."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is wrong with Ha?",
+        "promptVi": "Hà bị làm sao?",
+        "options": [
+          "She has a high fever.",
+          "She has to work.",
+          "She is on holiday.",
+          "She forgot the dinner."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương nói \"She told me she had a high fever and needed to stay in bed.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "When will they meet now?",
+        "promptVi": "Bây giờ họ sẽ gặp nhau khi nào?",
+        "options": [
+          "Tonight",
+          "Tomorrow",
+          "Next Saturday",
+          "In six years"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Người ở nhà hàng nói \"we could book again for next Saturday.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuong and Thu will go to the restaurant tonight without Ha.",
+        "promptVi": "Tối nay Phương và Thu vẫn đi nhà hàng mà không có Hà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì cả hai không muốn đi: \"I don't want to.\" – \"Neither do I.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"So was I\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"So was I. We haven't seen her since we left school.",
+        "options": [
+          "Mình cũng vậy (cũng đã háo hức).",
+          "Mình thì không.",
+          "Mình sẽ đi.",
+          "Mình đã ốm."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đáp lại \"I was so excited\" → So was I = mình cũng đã háo hức."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu tường thuật",
+      "bodyVi": "Kể lại lời bạn qua điện thoại: \"I can't come to dinner.\" → She said she couldn't come to dinner. \"I'm ill.\" → She said that she was ill. \"I have a high fever.\" → She told me she had a high fever. \"I'll call you next week.\" → She said she would call us next week. Đồng ý với câu quá khứ dùng was / did: I was so excited. – So was I.",
+      "examples": [
+        "She said she couldn't come to dinner.\"",
+        "She told me she had a high fever and needed to stay in bed.\"",
+        "She said she would call us next week.\""
+      ]
+    },
+    "writingPrompt": "A friend called to change your plans. Write what he or she said and what you decided to do.",
+    "sentenceTranslations": [
+      "Chiều thứ Bảy, Phương đang ở nhà thì điện thoại reo.",
+      "Đó là bạn cô, Thu.",
+      "Thu hỏi: \"Chào Phương.",
+      "Tối nay mọi thứ ổn chứ?\"",
+      "\"Không hẳn.",
+      "Sáng nay Hà gọi cho mình.",
+      "Bạn ấy nói không đến ăn tối được.\"",
+      "\"Ôi không!",
+      "Sao vậy?\"",
+      "\"Bạn ấy nói bạn ấy bị ốm.",
+      "Bạn ấy bảo mình là bị sốt cao và phải nằm nghỉ.\"",
+      "\"Tội nghiệp Hà.",
+      "Mình háo hức gặp bạn ấy lắm.\"",
+      "\"Mình cũng vậy. Từ hồi ra trường tụi mình chưa gặp bạn ấy.",
+      "Sáu năm rồi!\"",
+      "\"Ừ.",
+      "Bạn ấy còn nói gì nữa?\"",
+      "\"Bạn ấy nói rất xin lỗi.",
+      "Bạn ấy nói tuần sau sẽ gọi cho tụi mình.\"",
+      "\"Tụi mình có nên vẫn đi nhà hàng mà không có bạn ấy không?\"",
+      "\"Mình không muốn.",
+      "Sẽ không giống nhau.\"",
+      "\"Mình cũng không. Gặp nhau là ý của bạn ấy mà.\"",
+      "\"Đúng vậy.",
+      "Mình gọi nhà hàng rồi.",
+      "Anh ở đó nói tụi mình có thể đặt lại vào thứ Bảy tuần sau.\"",
+      "\"Tuyệt.",
+      "Cuối tuần sau mình rảnh.\"",
+      "\"Mình cũng vậy. Hà cũng nói lúc đó bạn ấy sẽ khoẻ.\"",
+      "\"Hôm nay mình gửi hoa và tin nhắn cho bạn ấy đi.\"",
+      "\"Ý hay.",
+      "Mình mua hoa, cậu viết thiệp nhé.\"",
+      "\"Được.",
+      "Mình sẽ nói với bạn ấy là tụi mình đều đang chờ.\"",
+      "\"Bạn ấy sẽ thích lắm.",
+      "Hẹn gặp cậu thứ Bảy tuần sau nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại lời bạn bè báo đổi kế hoạch (She said she couldn't come …) và bày tỏ cùng cảm xúc bằng So was I / Neither do I / So am I.",
+    "examples": [
+      {
+        "lemma": "dinner",
+        "sentence": "We had dinner at a small restaurant.",
+        "meaningVi": "Chúng tôi ăn tối ở một nhà hàng nhỏ."
+      },
+      {
+        "lemma": "ill",
+        "sentence": "I was ill last week, so I stayed at home.",
+        "meaningVi": "Tuần trước tôi ốm nên ở nhà."
+      },
+      {
+        "lemma": "fever",
+        "sentence": "My son has a fever today.",
+        "meaningVi": "Hôm nay con trai tôi bị sốt."
+      },
+      {
+        "lemma": "excited",
+        "sentence": "The children are excited about the trip.",
+        "meaningVi": "Bọn trẻ háo hức về chuyến đi."
+      },
+      {
+        "lemma": "sorry",
+        "sentence": "I'm sorry I'm late.",
+        "meaningVi": "Xin lỗi tôi đến muộn."
+      },
+      {
+        "lemma": "restaurant",
+        "sentence": "This restaurant is always full.",
+        "meaningVi": "Nhà hàng này lúc nào cũng kín chỗ."
+      },
+      {
+        "lemma": "book",
+        "sentence": "Let's book a table for six.",
+        "meaningVi": "Đặt một bàn cho sáu người nhé."
+      },
+      {
+        "lemma": "weekend",
+        "sentence": "What are you doing this weekend?",
+        "meaningVi": "Cuối tuần này bạn làm gì?"
+      },
+      {
+        "lemma": "flower",
+        "sentence": "She put a flower in her hair.",
+        "meaningVi": "Cô ấy cài một bông hoa lên tóc."
+      },
+      {
+        "lemma": "card",
+        "sentence": "I wrote a birthday card for my mother.",
+        "meaningVi": "Tôi viết thiệp sinh nhật cho mẹ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thu",
+        "Phuong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Phuong, did you hear from Ha today?",
+          "meaningVi": "Phương ơi, hôm nay cậu có tin gì của Hà không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, she sent me a message this morning.",
+          "meaningVi": "Có, sáng nay bạn ấy nhắn cho mình."
+        },
+        {
+          "speaker": 0,
+          "text": "How is she?",
+          "meaningVi": "Bạn ấy thế nào rồi?"
+        },
+        {
+          "speaker": 1,
+          "text": "She said she felt much better. She said she loved our flowers.",
+          "meaningVi": "Bạn ấy nói thấy khoẻ hơn nhiều rồi. Bạn ấy nói rất thích hoa của tụi mình."
+        },
+        {
+          "speaker": 0,
+          "text": "I'm so glad.",
+          "meaningVi": "Mừng quá."
+        },
+        {
+          "speaker": 1,
+          "text": "So am I. And she told me she would bring photos from school.",
+          "meaningVi": "Mình cũng vậy. Bạn ấy còn bảo sẽ mang ảnh hồi đi học theo."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! I don't have any old photos.",
+          "meaningVi": "Tuyệt! Mình chẳng còn tấm ảnh cũ nào."
+        },
+        {
+          "speaker": 1,
+          "text": "Neither do I. I lost them all.",
+          "meaningVi": "Mình cũng không. Mình làm mất hết rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "What time are we meeting on Saturday?",
+          "meaningVi": "Thứ Bảy mấy giờ mình gặp nhau?"
+        },
+        {
+          "speaker": 1,
+          "text": "At seven. Ha said she would come early.",
+          "meaningVi": "Bảy giờ. Hà nói bạn ấy sẽ đến sớm."
+        }
+      ]
+    },
+    "grammarTipVi": "Tường thuật: She said she felt much better / she told me she would bring photos / Ha said she would come early. Đồng ý: I'm so glad. – So am I. I don't have any old photos. – Neither do I.",
+    "translations": [
+      {
+        "vi": "Bạn ấy nói không đến ăn tối được.",
+        "en": "She said she couldn't come to dinner.",
+        "distractors": [
+          "can't",
+          "told",
+          "says"
+        ]
+      },
+      {
+        "vi": "Bạn ấy bảo tôi là bị sốt.",
+        "en": "She told me she had a fever.",
+        "distractors": [
+          "said",
+          "has",
+          "is"
+        ]
+      },
+      {
+        "vi": "Bạn ấy nói bạn ấy rất xin lỗi.",
+        "en": "She said she was very sorry.",
+        "distractors": [
+          "is",
+          "told",
+          "were"
+        ]
+      },
+      {
+        "vi": "Tôi đã rất háo hức. – Tôi cũng vậy.",
+        "en": "I was very excited. So was I.",
+        "distractors": [
+          "did",
+          "Neither",
+          "am"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thu và Phương nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Hà đã khoẻ hơn và buổi gặp thứ Bảy",
+          "Một nhà hàng mới",
+          "Ảnh đám cưới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương kể tin nhắn của Hà và hẹn giờ gặp thứ Bảy.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hà sẽ mang gì đến?",
+        "promptVi": "",
+        "options": [
+          "Hoa",
+          "Ảnh hồi đi học",
+          "Bánh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phương nói \"she told me she would bring photos from school.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thứ Bảy họ gặp nhau lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Sáu giờ",
+          "Bảy giờ",
+          "Tám giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phương nói \"At seven.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuong still has a lot of old photos.",
+        "promptVi": "Phương vẫn còn nhiều ảnh cũ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phương nói \"I lost them all.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Hà đã nói gì khi gọi điện? Phương và Thu quyết định thế nào?",
+    "grammarStep": {
+      "titleVi": "Câu tường thuật",
+      "noticing": [
+        {
+          "sentence": "She said she couldn't come to dinner.\"",
+          "highlights": [
+            "said",
+            "couldn't come"
+          ]
+        },
+        {
+          "sentence": "\"She said that she was ill.",
+          "highlights": [
+            "said that",
+            "was"
+          ]
+        },
+        {
+          "sentence": "She told me she had a high fever and needed to stay in bed.\"",
+          "highlights": [
+            "told me",
+            "had",
+            "needed"
+          ]
+        },
+        {
+          "sentence": "She said she would call us next week.\"",
+          "highlights": [
+            "would call"
+          ]
+        }
+      ],
+      "questionVi": "Hà nói: \"I can't come to dinner.\" Phương kể lại thế nào?",
+      "options": [
+        "She said she couldn't come to dinner.",
+        "She said I can't come to dinner.",
+        "She told she couldn't come to dinner."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "I → she, can't → couldn't; said không cần người nghe.",
+      "whenVi": "Dùng câu tường thuật để báo cho bạn bè biết ai đó đã gọi và nói gì về kế hoạch chung.",
+      "table": [
+        {
+          "subject": "can't → couldn't",
+          "form": "\"I can't come.\" → She said she couldn't come.",
+          "negative": "—"
+        },
+        {
+          "subject": "am / have → was / had",
+          "form": "\"I'm ill. I have a fever.\" → She said she was ill and had a fever.",
+          "negative": "—"
+        },
+        {
+          "subject": "will → would",
+          "form": "\"I'll call you.\" → She said she would call us.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She said she can't come to dinner.",
+          "right": "She said she couldn't come to dinner."
+        },
+        {
+          "wrong": "She told she had a high fever.",
+          "right": "She told me she had a high fever."
+        }
+      ],
+      "noteVi": "You trong lời gốc có thể thành us / me khi kể lại: \"I'll call you\" → She said she would call us.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (have).",
+          "text": "She told me she ___ a high fever.",
+          "answers": [
+            "had"
+          ],
+          "explanationVi": "have → had."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu tường thuật đúng của: \"I'll be better by then.\"",
+          "text": "Ha said she ___ better by then.",
+          "options": [
+            "would be",
+            "will be",
+            "is",
+            "can be"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "will → would: would be."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She said she can't come to dinner.",
+          "sentence": "She said she couldn't come to dinner.",
+          "explanationVi": "can't → couldn't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn ấy nói bạn ấy bị ốm.",
+          "sentence": "She said that she was ill.",
+          "words": [
+            "said",
+            "She",
+            "that",
+            "she",
+            "was",
+            "ill.",
+            "is"
+          ],
+          "explanationVi": "Lùi thì is → was; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She told me she had a high fever and needed to stay in bed.\"",
+        "tipVi": "Fever /ˈfiːvə/; needed /ˈniːdɪd/."
+      },
+      {
+        "text": "\"So was I. We haven't seen her since we left school.",
+        "tipVi": "Nhấn vào I trong \"So was I\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Has a friend ever cancelled a plan with you? What did he or she say?",
+        "questionVi": "Có người bạn nào từng huỷ hẹn với bạn chưa? Người đó nói gì?",
+        "frame": "Yes. He / She said that ___."
+      },
+      {
+        "question": "What do you do when a friend is ill?",
+        "questionVi": "Bạn làm gì khi bạn bè bị ốm?",
+        "frame": "I usually ___."
+      },
+      {
+        "question": "Agree with this: \"I was so happy to see my old friends.\"",
+        "questionVi": "Hãy đồng ý với câu: \"Tôi rất vui khi gặp lại bạn cũ.\"",
+        "frame": "So ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật (said that … / told me …)",
+      "anyOf": [
+        " said ",
+        " told ",
+        "said that",
+        "told me"
+      ],
+      "outlineVi": [
+        "Ai gọi cho bạn và kế hoạch ban đầu là gì.",
+        "Người đó nói gì (He / She said that … / told me that …).",
+        "Các bạn quyết định làm gì thay vào đó."
+      ],
+      "modelAnswer": "Last Friday, my friend Khoa called me. We had a plan to go to the cinema that evening. He said that his boss needed him at work late. He told me he was very sorry and that he would pay for the tickets next time. I wasn't angry. We decided to go on Sunday instead."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Poor Ha",
+      "lemma": "poor",
+      "meaningVi": "tội nghiệp Hà",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "Poor Ha.",
+      "phraseVi": "Tội nghiệp Hà."
+    },
+    {
+      "text": "So was I",
+      "lemma": "so was I",
+      "meaningVi": "mình cũng vậy",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "So was I.",
+      "phraseVi": "Mình cũng vậy."
+    },
+    {
+      "text": "without",
+      "lemma": "without",
+      "meaningVi": "mà không có",
+      "sentenceIndex": 19,
+      "pos": "preposition",
+      "phrase": "go to the restaurant without her",
+      "phraseVi": "đi nhà hàng mà không có bạn ấy"
+    },
+    {
+      "text": "It won't be the same",
+      "lemma": "not the same",
+      "meaningVi": "sẽ không giống nhau",
+      "sentenceIndex": 21,
+      "pos": "phrase",
+      "phrase": "It won't be the same.",
+      "phraseVi": "Sẽ không giống nhau."
+    }
+  ]
+}

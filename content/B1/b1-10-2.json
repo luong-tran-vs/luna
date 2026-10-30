@@ -1,0 +1,601 @@
+{
+  "content": "Duy is a volunteer for a nature group in Can Tho. This week he is visiting a small village by the river. He meets Mrs Nga outside her house.\n\nDuy asks, \"Good morning, Mrs Nga. How long have you been living here?\"\n\"For forty years. My family has been fishing in this river for a long time.\"\n\"Has the water changed?\"\n\"Yes, a lot. It was clear when I was young. Now it's brown, and there aren't many fish.\"\n\"That's water pollution. Farmers have been using a lot of chemicals on their fields. When it rains, the chemicals go into the river.\"\n\"Can we stop it?\"\n\"We can do a lot. Our group wants to plant trees along the river. If we plant more trees, their roots will hold the soil.\"\n\"Will that make the water clean?\"\n\"It will help. The trees will catch some of the chemicals before they reach the water. If the water is clean again, the fish will come back.\"\n\"And the birds too?\"\n\"Yes. The whole ecosystem will improve. But unless the farmers help us, it won't work.\"\n\"My son is a farmer. I'll talk to him tonight.\"\n\"Thank you! We're going to plant the first hundred trees next Saturday. If you come, we will give you a free lunch.\"\nMrs Nga laughs. \"I'll be there, and I'll bring my son too.\"",
+  "targetWords": [
+    "volunteer",
+    "village",
+    "fish",
+    "water pollution",
+    "chemical",
+    "plant",
+    "soil",
+    "ecosystem",
+    "improve",
+    "farmer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "volunteer",
+        "lemma": "volunteer",
+        "meaningVi": "tình nguyện viên",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "village",
+        "lemma": "village",
+        "meaningVi": "ngôi làng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "fish",
+        "lemma": "fish",
+        "meaningVi": "cá",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "water pollution",
+        "lemma": "water pollution",
+        "meaningVi": "ô nhiễm nước",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "chemicals",
+        "lemma": "chemical",
+        "meaningVi": "hoá chất",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "plant",
+        "lemma": "plant",
+        "meaningVi": "trồng",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "soil",
+        "lemma": "soil",
+        "meaningVi": "đất",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "ecosystem",
+        "lemma": "ecosystem",
+        "meaningVi": "hệ sinh thái",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "improve",
+        "lemma": "improve",
+        "meaningVi": "cải thiện, tốt lên",
+        "pos": "verb",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "farmer",
+        "lemma": "farmer",
+        "meaningVi": "nông dân",
+        "pos": "noun",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Why is Duy visiting the village?",
+        "promptVi": "Vì sao Duy đến ngôi làng?",
+        "options": [
+          "To help clean the river",
+          "To buy fish",
+          "To see his family",
+          "To sell trees"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy là tình nguyện viên, nhóm của anh muốn trồng cây để nước sông sạch lại."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long has Mrs Nga been living there?",
+        "promptVi": "Bà Nga đã sống ở đó bao lâu?",
+        "options": [
+          "Ten years",
+          "Twenty years",
+          "Forty years",
+          "Since last year"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bà Nga trả lời \"For forty years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is the river dirty?",
+        "promptVi": "Vì sao nước sông bẩn?",
+        "options": [
+          "Factories put smoke into it.",
+          "Farmers use a lot of chemicals.",
+          "Tourists leave rubbish.",
+          "There are too many fish."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Duy nói \"Farmers have been using a lot of chemicals on their fields.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mrs Nga's son works on a fishing boat.",
+        "promptVi": "Con trai bà Nga làm trên thuyền đánh cá.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Nga nói \"My son is a farmer.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"soil\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"If we plant more trees, their roots will hold the soil.\"",
+        "options": [
+          "đất",
+          "nước",
+          "lá cây",
+          "cá"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Soil = lớp đất nơi cây mọc."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 1 (if, unless)",
+      "bodyVi": "Câu điều kiện loại 1 nói về điều có thể xảy ra trong tương lai: If + hiện tại đơn, will + động từ. If we plant more trees, their roots will hold the soil. Unless nghĩa là \"nếu không\": Unless the farmers help us, it won't work. Mệnh đề If không dùng will. Bài cũng có hiện tại hoàn thành tiếp diễn: Farmers have been using a lot of chemicals.",
+      "examples": [
+        "If we plant more trees, their roots will hold the soil.\"",
+        "If the water is clean again, the fish will come back.\"",
+        "But unless the farmers help us, it won't work.\""
+      ]
+    },
+    "writingPrompt": "Is there a river, lake or park near your home? Write what will happen if people look after it, or if they don't. Use if or unless.",
+    "sentenceTranslations": [
+      "Duy là tình nguyện viên của một nhóm bảo vệ thiên nhiên ở Cần Thơ.",
+      "Tuần này anh đến thăm một ngôi làng nhỏ bên sông.",
+      "Anh gặp bà Nga trước cửa nhà bà.",
+      "Duy hỏi: \"Chào bà Nga ạ.",
+      "Bà sống ở đây bao lâu rồi ạ?\"",
+      "\"Bốn mươi năm rồi.",
+      "Nhà tôi đánh cá trên con sông này lâu lắm rồi.\"",
+      "\"Nước sông có thay đổi không ạ?\"",
+      "\"Có, nhiều lắm.",
+      "Hồi tôi còn trẻ nước trong lắm.",
+      "Giờ thì nước nâu, cá cũng chẳng còn nhiều.\"",
+      "\"Đó là ô nhiễm nước ạ.",
+      "Nông dân dùng nhiều hoá chất trên ruộng quá.",
+      "Khi trời mưa, hoá chất chảy xuống sông.\"",
+      "\"Mình có ngăn được không?\"",
+      "\"Mình làm được nhiều việc lắm.",
+      "Nhóm cháu muốn trồng cây dọc bờ sông.",
+      "Nếu trồng thêm cây, rễ cây sẽ giữ đất lại.\"",
+      "\"Thế thì nước có sạch không?\"",
+      "\"Sẽ đỡ hơn ạ.",
+      "Cây sẽ giữ lại một phần hoá chất trước khi chúng xuống nước.",
+      "Nếu nước sạch lại, cá sẽ quay về.\"",
+      "\"Cả chim nữa chứ?\"",
+      "\"Vâng.",
+      "Cả hệ sinh thái sẽ tốt lên.",
+      "Nhưng nếu nông dân không giúp thì sẽ không được đâu ạ.\"",
+      "\"Con trai tôi làm nông.",
+      "Tối nay tôi sẽ nói với nó.\"",
+      "\"Cháu cảm ơn bà!",
+      "Thứ Bảy tới nhóm cháu sẽ trồng một trăm cây đầu tiên.",
+      "Nếu bà đến, nhóm cháu sẽ mời bà bữa trưa.\"",
+      "Bà Nga cười.",
+      "\"Tôi sẽ đến, và dẫn cả con trai tôi đi nữa.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói điều sẽ xảy ra nếu con người làm (hoặc không làm) gì đó cho thiên nhiên bằng câu điều kiện loại 1 với if và unless.",
+    "examples": [
+      {
+        "lemma": "volunteer",
+        "sentence": "She works as a volunteer at the hospital.",
+        "meaningVi": "Cô ấy làm tình nguyện viên ở bệnh viện."
+      },
+      {
+        "lemma": "village",
+        "sentence": "My grandparents live in a small village.",
+        "meaningVi": "Ông bà tôi sống ở một ngôi làng nhỏ."
+      },
+      {
+        "lemma": "fish",
+        "sentence": "There are a lot of fish in this lake.",
+        "meaningVi": "Hồ này có rất nhiều cá."
+      },
+      {
+        "lemma": "water pollution",
+        "sentence": "Factories are a big cause of water pollution.",
+        "meaningVi": "Nhà máy là nguyên nhân lớn gây ô nhiễm nước."
+      },
+      {
+        "lemma": "chemical",
+        "sentence": "This chemical is dangerous for animals.",
+        "meaningVi": "Hoá chất này nguy hiểm cho động vật."
+      },
+      {
+        "lemma": "plant",
+        "sentence": "Let's plant some flowers in the garden.",
+        "meaningVi": "Mình trồng ít hoa trong vườn đi."
+      },
+      {
+        "lemma": "soil",
+        "sentence": "The soil here is good for rice.",
+        "meaningVi": "Đất ở đây hợp để trồng lúa."
+      },
+      {
+        "lemma": "ecosystem",
+        "sentence": "A forest is a large ecosystem.",
+        "meaningVi": "Một khu rừng là một hệ sinh thái lớn."
+      },
+      {
+        "lemma": "improve",
+        "sentence": "I want to improve my English.",
+        "meaningVi": "Tôi muốn cải thiện tiếng Anh."
+      },
+      {
+        "lemma": "farmer",
+        "sentence": "The farmer grows rice and vegetables.",
+        "meaningVi": "Người nông dân trồng lúa và rau."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mrs Nga",
+        "Toan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Toan, a young volunteer came to the village today.",
+          "meaningVi": "Toàn ơi, hôm nay có một tình nguyện viên trẻ đến làng."
+        },
+        {
+          "speaker": 1,
+          "text": "What did he want, Mum?",
+          "meaningVi": "Cậu ấy muốn gì hả mẹ?"
+        },
+        {
+          "speaker": 0,
+          "text": "He says the river is dirty because of the chemicals on the farms.",
+          "meaningVi": "Cậu ấy bảo nước sông bẩn là do hoá chất trên ruộng."
+        },
+        {
+          "speaker": 1,
+          "text": "But I need them. If I don't use them, I won't get much rice.",
+          "meaningVi": "Nhưng con cần hoá chất. Nếu không dùng thì con sẽ không được nhiều lúa."
+        },
+        {
+          "speaker": 0,
+          "text": "Have you tried using less?",
+          "meaningVi": "Con thử dùng ít đi chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "No. Will that really help the river?",
+          "meaningVi": "Chưa. Làm vậy có giúp được dòng sông thật không?"
+        },
+        {
+          "speaker": 0,
+          "text": "He thinks so. And if the river is clean, the fish will come back.",
+          "meaningVi": "Cậu ấy nghĩ thế. Mà nếu sông sạch, cá sẽ quay về."
+        },
+        {
+          "speaker": 1,
+          "text": "Hmm. If my rice is OK this year, I'll use less next year.",
+          "meaningVi": "Ừm. Nếu năm nay lúa ổn thì sang năm con sẽ dùng ít đi."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. Will you come and plant trees with me on Saturday?",
+          "meaningVi": "Tốt. Thứ Bảy con đi trồng cây với mẹ nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "OK, Mum. If they give us lunch, I'll come!",
+          "meaningVi": "Vâng ạ. Nếu họ mời cơm trưa thì con đi!"
+        }
+      ]
+    },
+    "grammarTipVi": "Điều kiện có thể xảy ra: If I don't use them, I won't get much rice. / If the river is clean, the fish will come back. Mệnh đề If dùng hiện tại đơn, không dùng will.",
+    "translations": [
+      {
+        "vi": "Nếu chúng ta trồng thêm cây, dòng sông sẽ sạch.",
+        "en": "If we plant more trees, the river will be clean.",
+        "distractors": [
+          "planted",
+          "would",
+          "cleaned"
+        ]
+      },
+      {
+        "vi": "Nông dân đang dùng hoá chất trên ruộng của họ.",
+        "en": "Farmers have been using chemicals on their fields.",
+        "distractors": [
+          "has",
+          "used",
+          "since"
+        ]
+      },
+      {
+        "vi": "Nếu nông dân không giúp, hệ sinh thái sẽ không tốt lên.",
+        "en": "Unless the farmers help, the ecosystem won't improve.",
+        "distractors": [
+          "don't",
+          "will",
+          "if"
+        ]
+      },
+      {
+        "vi": "Tình nguyện viên đã ở làng này được một tuần.",
+        "en": "The volunteer has been staying in the village for a week.",
+        "distractors": [
+          "have",
+          "stayed",
+          "since"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bà Nga và Toàn nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Hoá chất và dòng sông",
+          "Giá lúa",
+          "Một chuyến đi chơi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Nga nói \"the river is dirty because of the chemicals on the farms.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Toàn sợ điều gì nếu không dùng hoá chất?",
+        "promptVi": "",
+        "options": [
+          "Không được nhiều lúa",
+          "Cá sẽ chết",
+          "Mất việc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Toàn nói \"If I don't use them, I won't get much rice.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào họ đi trồng cây?",
+        "promptVi": "",
+        "options": [
+          "Thứ Bảy",
+          "Chủ Nhật",
+          "Hôm nay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Nga hỏi \"Will you come and plant trees with me on Saturday?\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Toan doesn't want to change anything on his farm.",
+        "promptVi": "Toàn không muốn thay đổi gì trên ruộng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Toàn nói \"If my rice is OK this year, I'll use less next year.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Vì sao nước sông ở làng bà Nga bẩn? Nhóm của Duy muốn làm gì, và điều gì sẽ xảy ra nếu kế hoạch thành công?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 1 (if, unless)",
+      "noticing": [
+        {
+          "sentence": "If we plant more trees, their roots will hold the soil.\"",
+          "highlights": [
+            "If we plant",
+            "will hold"
+          ]
+        },
+        {
+          "sentence": "If the water is clean again, the fish will come back.\"",
+          "highlights": [
+            "If the water is",
+            "will come"
+          ]
+        },
+        {
+          "sentence": "But unless the farmers help us, it won't work.\"",
+          "highlights": [
+            "unless the farmers help",
+            "won't work"
+          ]
+        },
+        {
+          "sentence": "If you come, we will give you a free lunch.\"",
+          "highlights": [
+            "If you come",
+            "will give"
+          ]
+        }
+      ],
+      "questionVi": "Duy muốn nói: có thể nhóm sẽ trồng thêm cây, và khi đó rễ cây sẽ giữ đất. Câu nào đúng?",
+      "options": [
+        "If we plant more trees, their roots will hold the soil.",
+        "If we will plant more trees, their roots hold the soil.",
+        "If we planted more trees, their roots will hold the soil."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Mệnh đề If dùng hiện tại đơn (plant), mệnh đề chính dùng will + động từ (will hold).",
+      "whenVi": "Dùng khi nói về một việc có thể xảy ra thật trong tương lai và kết quả của nó.",
+      "table": [
+        {
+          "subject": "Mệnh đề If",
+          "form": "If + hiện tại đơn: If we plant more trees, …",
+          "negative": "If we don't plant trees, …"
+        },
+        {
+          "subject": "Mệnh đề chính",
+          "form": "will + động từ: … their roots will hold the soil.",
+          "negative": "won't + động từ: … it won't work."
+        },
+        {
+          "subject": "unless",
+          "form": "unless = if … not: Unless the farmers help us, …",
+          "negative": "Không viết: Unless they don't help …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If we will plant more trees, the water will be clean.",
+          "right": "If we plant more trees, the water will be clean."
+        },
+        {
+          "wrong": "Unless the farmers don't help us, it won't work.",
+          "right": "Unless the farmers help us, it won't work."
+        }
+      ],
+      "noteVi": "Mệnh đề If đứng đầu thì có dấu phẩy; đứng sau thì thường không: The fish will come back if the water is clean.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ rain.",
+          "text": "If it ___ tomorrow, we will plant the trees on Sunday.",
+          "answers": [
+            "rains"
+          ],
+          "explanationVi": "Mệnh đề If dùng hiện tại đơn: it rains."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If we clean the river, the fish ___ back.",
+          "options": [
+            "will come",
+            "come",
+            "came",
+            "are coming"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Mệnh đề chính của câu điều kiện loại 1: will + động từ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Unless we don't stop the pollution, the fish will die.",
+          "sentence": "Unless we stop the pollution, the fish will die.",
+          "explanationVi": "Unless đã có nghĩa \"nếu không\", nên không thêm don't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu bà đến, chúng tôi sẽ mời bà bữa trưa miễn phí.",
+          "sentence": "If you come, we will give you a free lunch.",
+          "words": [
+            "If",
+            "you",
+            "come,",
+            "we",
+            "will",
+            "give",
+            "you",
+            "a",
+            "free",
+            "lunch.",
+            "would"
+          ],
+          "explanationVi": "If + hiện tại đơn, will + động từ; từ \"would\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "If we plant more trees, their roots will hold the soil.\"",
+        "tipVi": "Ngắt hơi sau trees; soil /sɔɪl/."
+      },
+      {
+        "text": "But unless the farmers help us, it won't work.\"",
+        "tipVi": "Nhấn vào unless và won't; won't /wəʊnt/ khác want."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What will happen if we don't protect our rivers?",
+        "questionVi": "Điều gì sẽ xảy ra nếu chúng ta không bảo vệ sông ngòi?",
+        "frame": "If we don't protect our rivers, ___ will ___."
+      },
+      {
+        "question": "How long have you been living in your town?",
+        "questionVi": "Bạn đã sống ở thị trấn / thành phố của mình bao lâu rồi?",
+        "frame": "I've been living in ___ for ___."
+      },
+      {
+        "question": "What will you do this weekend if the weather is nice?",
+        "questionVi": "Cuối tuần này nếu trời đẹp bạn sẽ làm gì?",
+        "frame": "If the weather is nice, I'll ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 1 (If … will … / unless)",
+      "anyOf": [
+        "If ",
+        " if ",
+        "unless",
+        "Unless"
+      ],
+      "outlineVi": [
+        "Nơi đó ở đâu và bây giờ ra sao.",
+        "Điều gì sẽ xảy ra nếu mọi người chăm sóc nó (If …, … will …).",
+        "Điều gì sẽ xảy ra nếu không ai làm gì (Unless …)."
+      ],
+      "modelAnswer": "There is a small lake near my house. People have been throwing rubbish into it for years, and now it smells bad. If we clean it, birds and fish will come back. If the city puts more bins around it, people will use them. Unless we do something soon, the lake will die."
+    }
+  },
+  "glosses": [
+    {
+      "text": "clear",
+      "lemma": "clear",
+      "meaningVi": "trong (nước)",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "It was clear when I was young.",
+      "phraseVi": "Hồi tôi còn trẻ nước trong lắm."
+    },
+    {
+      "text": "fields",
+      "lemma": "field",
+      "meaningVi": "ruộng",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "on their fields",
+      "phraseVi": "trên ruộng của họ"
+    },
+    {
+      "text": "roots",
+      "lemma": "root",
+      "meaningVi": "rễ cây",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "their roots will hold the soil",
+      "phraseVi": "rễ cây sẽ giữ đất lại"
+    },
+    {
+      "text": "reach",
+      "lemma": "reach",
+      "meaningVi": "tới, chạm tới",
+      "sentenceIndex": 20,
+      "pos": "verb",
+      "phrase": "before they reach the water",
+      "phraseVi": "trước khi chúng xuống nước"
+    }
+  ]
+}

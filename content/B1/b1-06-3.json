@@ -1,0 +1,608 @@
+{
+  "content": "Nam and his friend Toan are waiting for a bus after work. Nam is holding a thick book.\n\nToan says, \"Everyone on the bus has that book. What is it?\"\nNam says, \"It's Red Dust. It's the most popular science fiction book in Vietnam this year. It has sold two million copies.\"\n\"Is it good? I don't usually like stories about space.\"\n\"It's brilliant. It's about five astronauts who travelled to Mars in 2090.\"\n\"What happened?\"\n\"When the story began, they had already lived on the planet for two years. They had built a base under the ground and a garden for potatoes.\"\n\"Potatoes on Mars? That's funny.\"\n\"Wait, it gets better. One night, a huge storm hit the base. After the storm, the astronauts couldn't talk to Earth any more. They had lost contact.\"\n\"Why? What had happened?\"\n\"The storm had broken their radio. And their leader, Hana, had gone outside before the storm started. Nobody knew where she was.\"\n\"Did they find her?\"\n\"That's the best part. Three days later, they got a strange signal. It wasn't from Earth, and it wasn't from Hana.\"\n\"So who sent it?\"\nNam laughs. \"I'm not going to tell you. I hadn't slept for two nights when I finally finished it.\"\n\"OK, you've made me curious. Can I borrow it?\"\n\"Sure, but I want it back by Friday. My sister is waiting for it too.\"",
+  "targetWords": [
+    "popular",
+    "science fiction",
+    "copy",
+    "astronaut",
+    "planet",
+    "base",
+    "storm",
+    "contact",
+    "radio",
+    "signal"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "popular",
+        "lemma": "popular",
+        "meaningVi": "được ưa chuộng, nổi tiếng",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "science fiction",
+        "lemma": "science fiction",
+        "meaningVi": "khoa học viễn tưởng",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "copies",
+        "lemma": "copy",
+        "meaningVi": "bản (sách)",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "astronauts",
+        "lemma": "astronaut",
+        "meaningVi": "phi hành gia",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "planet",
+        "lemma": "planet",
+        "meaningVi": "hành tinh",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "base",
+        "lemma": "base",
+        "meaningVi": "căn cứ",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "storm",
+        "lemma": "storm",
+        "meaningVi": "cơn bão",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "contact",
+        "lemma": "contact",
+        "meaningVi": "liên lạc",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "radio",
+        "lemma": "radio",
+        "meaningVi": "máy bộ đàm, radio",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "signal",
+        "lemma": "signal",
+        "meaningVi": "tín hiệu",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Nam doing?",
+        "promptVi": "Nam đang làm gì?",
+        "options": [
+          "Telling Toan about a popular science fiction book",
+          "Asking Toan to lend him a book",
+          "Talking about a trip to space",
+          "Explaining how to grow potatoes"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam kể cho Toàn về Red Dust, cuốn khoa học viễn tưởng nổi tiếng nhất năm nay."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What had the astronauts built before the story began?",
+        "promptVi": "Các phi hành gia đã xây gì trước khi câu chuyện bắt đầu?",
+        "options": [
+          "A radio and a ship",
+          "A base under the ground and a garden",
+          "A house for Hana",
+          "A road across the planet"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"They had built a base under the ground and a garden for potatoes.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why had the astronauts lost contact with Earth?",
+        "promptVi": "Vì sao các phi hành gia mất liên lạc với Trái Đất?",
+        "options": [
+          "Hana had taken the radio.",
+          "They had forgotten the signal.",
+          "The storm had broken their radio.",
+          "Earth had stopped calling them."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam nói \"The storm had broken their radio.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The strange signal came from Hana.",
+        "promptVi": "Tín hiệu lạ đến từ Hana.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"It wasn't from Earth, and it wasn't from Hana.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"lost contact\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "They had lost contact.\"",
+        "options": [
+          "đã mất liên lạc",
+          "đã bị lạc đường",
+          "đã mất đồ ăn",
+          "đã thua cuộc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lose contact = mất liên lạc, không nói chuyện được với nhau nữa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ hoàn thành",
+      "bodyVi": "Khi kể cốt truyện ở quá khứ, quá khứ hoàn thành (had + V3) cho biết việc gì đã có trước: When the story began, they had already lived on the planet for two years (sống ở đó từ trước). Nó cũng giải thích nguyên nhân: Why? What had happened? – The storm had broken their radio. Phủ định: hadn't + V3 (I hadn't slept for two nights).",
+      "examples": [
+        "\"When the story began, they had already lived on the planet for two years.",
+        "The storm had broken their radio.",
+        "I hadn't slept for two nights when I finally finished it.\""
+      ]
+    },
+    "writingPrompt": "Write about a science fiction story or film you know: what had happened before the main problem started?",
+    "sentenceTranslations": [
+      "Nam và bạn anh là Toàn đang đợi xe buýt sau giờ làm.",
+      "Nam đang cầm một cuốn sách dày.",
+      "Toàn nói: \"Ai trên xe buýt cũng có cuốn đó.",
+      "Sách gì thế?\"",
+      "Nam nói: \"Bụi Đỏ đấy.",
+      "Đó là cuốn khoa học viễn tưởng được ưa chuộng nhất Việt Nam năm nay.",
+      "Nó đã bán được hai triệu bản.\"",
+      "\"Có hay không?",
+      "Mình không hay thích truyện về vũ trụ.\"",
+      "\"Hay tuyệt.",
+      "Nó kể về năm phi hành gia bay lên sao Hoả vào năm 2090.\"",
+      "\"Chuyện gì xảy ra?\"",
+      "\"Khi câu chuyện bắt đầu, họ đã sống trên hành tinh đó được hai năm rồi.",
+      "Họ đã xây một căn cứ dưới lòng đất và một khu vườn trồng khoai tây.\"",
+      "\"Khoai tây trên sao Hoả á?",
+      "Buồn cười thật.\"",
+      "\"Đợi đã, càng về sau càng hay.",
+      "Một đêm, một cơn bão lớn ập vào căn cứ.",
+      "Sau cơn bão, các phi hành gia không nói chuyện được với Trái Đất nữa.",
+      "Họ đã mất liên lạc.\"",
+      "\"Sao vậy?",
+      "Chuyện gì đã xảy ra?\"",
+      "\"Cơn bão đã làm hỏng máy bộ đàm của họ.",
+      "Còn chỉ huy của họ, Hana, đã ra ngoài trước khi bão bắt đầu.",
+      "Không ai biết cô ấy ở đâu.\"",
+      "\"Họ có tìm thấy cô ấy không?\"",
+      "\"Đó là đoạn hay nhất.",
+      "Ba ngày sau, họ nhận được một tín hiệu lạ.",
+      "Nó không đến từ Trái Đất, cũng không đến từ Hana.\"",
+      "\"Vậy ai gửi nó?\"",
+      "Nam cười.",
+      "\"Mình không kể đâu.",
+      "Mình đã thức trắng hai đêm khi cuối cùng cũng đọc xong.\"",
+      "\"Được rồi, cậu làm mình tò mò rồi đấy.",
+      "Cho mình mượn nhé?\"",
+      "\"Được, nhưng thứ Sáu phải trả mình.",
+      "Em gái mình cũng đang chờ đọc.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại cốt truyện một cuốn khoa học viễn tưởng và giải thích nguyên nhân bằng quá khứ hoàn thành (What had happened? – The storm had broken …).",
+    "examples": [
+      {
+        "lemma": "popular",
+        "sentence": "This café is very popular with students.",
+        "meaningVi": "Quán cà phê này rất được sinh viên ưa chuộng."
+      },
+      {
+        "lemma": "science fiction",
+        "sentence": "My brother loves science fiction films.",
+        "meaningVi": "Anh tôi mê phim khoa học viễn tưởng."
+      },
+      {
+        "lemma": "copy",
+        "sentence": "Can I have a copy of this book?",
+        "meaningVi": "Tôi lấy một bản của cuốn sách này được không?"
+      },
+      {
+        "lemma": "astronaut",
+        "sentence": "When I was a child, I wanted to be an astronaut.",
+        "meaningVi": "Hồi nhỏ tôi muốn làm phi hành gia."
+      },
+      {
+        "lemma": "planet",
+        "sentence": "Mars is a small red planet.",
+        "meaningVi": "Sao Hoả là một hành tinh nhỏ màu đỏ."
+      },
+      {
+        "lemma": "base",
+        "sentence": "The soldiers went back to their base.",
+        "meaningVi": "Những người lính quay về căn cứ."
+      },
+      {
+        "lemma": "storm",
+        "sentence": "The storm broke many trees last night.",
+        "meaningVi": "Cơn bão tối qua làm gãy nhiều cây."
+      },
+      {
+        "lemma": "contact",
+        "sentence": "We lost contact after school.",
+        "meaningVi": "Chúng tôi mất liên lạc sau khi ra trường."
+      },
+      {
+        "lemma": "radio",
+        "sentence": "My grandfather listens to the radio every morning.",
+        "meaningVi": "Sáng nào ông tôi cũng nghe radio."
+      },
+      {
+        "lemma": "signal",
+        "sentence": "There is no phone signal in the mountains.",
+        "meaningVi": "Trên núi không có sóng điện thoại."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Toan",
+        "Nam"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Nam, I started Red Dust last night.",
+          "meaningVi": "Nam ơi, tối qua mình bắt đầu đọc Bụi Đỏ rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "And? What do you think of the astronauts?",
+          "meaningVi": "Sao? Cậu thấy mấy phi hành gia thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "I like Hana. Had she been to Mars before?",
+          "meaningVi": "Mình thích Hana. Cô ấy từng lên sao Hoả trước đó chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, but she had trained in a desert for a year.",
+          "meaningVi": "Chưa, nhưng cô ấy đã tập luyện trong sa mạc một năm."
+        },
+        {
+          "speaker": 0,
+          "text": "Why did she go outside in the storm?",
+          "meaningVi": "Sao cô ấy lại ra ngoài lúc có bão?"
+        },
+        {
+          "speaker": 1,
+          "text": "She had seen a light near the base.",
+          "meaningVi": "Cô ấy đã nhìn thấy một ánh sáng gần căn cứ."
+        },
+        {
+          "speaker": 0,
+          "text": "A light? That sounds a bit scary.",
+          "meaningVi": "Ánh sáng á? Nghe hơi sợ."
+        },
+        {
+          "speaker": 1,
+          "text": "Keep reading. You haven't reached the best part yet.",
+          "meaningVi": "Đọc tiếp đi. Cậu chưa đến đoạn hay nhất đâu."
+        },
+        {
+          "speaker": 0,
+          "text": "How many chapters are there?",
+          "meaningVi": "Có bao nhiêu chương?"
+        },
+        {
+          "speaker": 1,
+          "text": "Twenty. I read them all in two nights.",
+          "meaningVi": "Hai mươi. Mình đọc hết trong hai đêm."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về việc trước đó: Had she been to Mars before? Giải thích lý do bằng had + V3: She had seen a light (nhìn thấy ánh sáng trước, rồi mới ra ngoài).",
+    "translations": [
+      {
+        "vi": "Họ đã mất liên lạc với Trái Đất.",
+        "en": "They had lost contact with Earth.",
+        "distractors": [
+          "have",
+          "lose",
+          "from"
+        ]
+      },
+      {
+        "vi": "Cơn bão đã làm hỏng máy bộ đàm.",
+        "en": "The storm had broken the radio.",
+        "distractors": [
+          "has",
+          "breaks",
+          "was"
+        ]
+      },
+      {
+        "vi": "Họ đã sống trên hành tinh đó hai năm.",
+        "en": "They had lived on the planet for two years.",
+        "distractors": [
+          "have",
+          "since",
+          "lives"
+        ]
+      },
+      {
+        "vi": "Cuốn sách đã bán được hai triệu bản.",
+        "en": "The book had sold two million copies.",
+        "distractors": [
+          "has",
+          "sells",
+          "many"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Toan và Nam nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuốn sách Bụi Đỏ mà Toan mới bắt đầu đọc",
+          "Một chuyến đi sa mạc",
+          "Một bộ phim về sao Hoả"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Toan nói \"I started Red Dust last night.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hana đã tập luyện ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên núi",
+          "Trong sa mạc",
+          "Dưới biển"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"she had trained in a desert for a year.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Hana ra ngoài lúc có bão?",
+        "promptVi": "",
+        "options": [
+          "Cô ấy đã nhìn thấy một ánh sáng",
+          "Cô ấy muốn sửa máy bộ đàm",
+          "Cô ấy đi tìm khoai tây"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam nói \"She had seen a light near the base.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The book has twenty chapters.",
+        "promptVi": "Cuốn sách có hai mươi chương.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Nam nói \"Twenty.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Các phi hành gia đã làm gì trước khi câu chuyện bắt đầu? Vì sao họ mất liên lạc với Trái Đất?",
+    "grammarStep": {
+      "titleVi": "Quá khứ hoàn thành",
+      "noticing": [
+        {
+          "sentence": "\"When the story began, they had already lived on the planet for two years.",
+          "highlights": [
+            "began",
+            "had already lived"
+          ]
+        },
+        {
+          "sentence": "They had built a base under the ground and a garden for potatoes.\"",
+          "highlights": [
+            "had built"
+          ]
+        },
+        {
+          "sentence": "The storm had broken their radio.",
+          "highlights": [
+            "had broken"
+          ]
+        },
+        {
+          "sentence": "And their leader, Hana, had gone outside before the storm started.",
+          "highlights": [
+            "had gone",
+            "started"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"What had happened?\" hỏi về điều gì?",
+      "options": [
+        "Việc đã xảy ra trước khi họ mất liên lạc.",
+        "Việc sẽ xảy ra sau này.",
+        "Việc đang xảy ra lúc Nam kể."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "What had happened? hỏi nguyên nhân, tức việc đã xảy ra trước một việc trong quá khứ (mất liên lạc).",
+      "whenVi": "Dùng quá khứ hoàn thành để nói việc đã có sẵn hoặc đã xảy ra trước một mốc trong câu chuyện, và để giải thích vì sao một việc xảy ra.",
+      "table": [
+        {
+          "subject": "Khẳng định",
+          "form": "had + V3 (had built, had broken, had gone)",
+          "negative": "hadn't + V3 (hadn't slept)"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "What had happened? / Had she been there?",
+          "negative": "—"
+        },
+        {
+          "subject": "V3 bất quy tắc",
+          "form": "build → built, break → broken, go → gone",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The storm had broke their radio.",
+          "right": "The storm had broken their radio."
+        },
+        {
+          "wrong": "What did happen before the storm?",
+          "right": "What had happened before the storm?"
+        }
+      ],
+      "noteVi": "Nhiều động từ có V3 bất quy tắc: break → broken, go → gone, build → built, lose → lost. Học V3 cùng lúc với V2.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (go).",
+          "text": "Hana ___ outside before the storm started.",
+          "answers": [
+            "had gone"
+          ],
+          "explanationVi": "Ra ngoài trước khi bão bắt đầu: had gone."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "When the story began, they ___ on the planet for two years.",
+          "options": [
+            "have lived",
+            "had lived",
+            "live",
+            "are living"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sống ở đó trước mốc \"when the story began\": had lived."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The storm had broke their radio.",
+          "sentence": "The storm had broken their radio.",
+          "explanationVi": "V3 của break là broken."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ đã xây một căn cứ dưới lòng đất.",
+          "sentence": "They had built a base under the ground.",
+          "words": [
+            "a",
+            "They",
+            "had",
+            "built",
+            "base",
+            "under",
+            "the",
+            "ground.",
+            "build"
+          ],
+          "explanationVi": "Had + V3: had built; từ \"build\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The storm had broken their radio.",
+        "tipVi": "Broken /ˈbrəʊkən/ nhấn âm đầu; radio /ˈreɪdiəʊ/."
+      },
+      {
+        "text": "Three days later, they got a strange signal.",
+        "tipVi": "Signal /ˈsɪɡnəl/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like science fiction? Why or why not?",
+        "questionVi": "Bạn có thích khoa học viễn tưởng không? Vì sao?",
+        "frame": "I like / don't like science fiction because ___."
+      },
+      {
+        "question": "What is the most popular book in your country this year?",
+        "questionVi": "Cuốn sách được ưa chuộng nhất ở nước bạn năm nay là gì?",
+        "frame": "I think the most popular book is ___."
+      },
+      {
+        "question": "Have you ever stayed up late to finish a book? What had happened in the story?",
+        "questionVi": "Bạn đã bao giờ thức khuya để đọc xong một cuốn sách chưa? Truyện đã xảy ra chuyện gì?",
+        "frame": "Yes, I have. In the story, ___ had ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (had + V3)",
+      "anyOf": [
+        " had ",
+        "'d "
+      ],
+      "outlineVi": [
+        "Tên câu chuyện và các nhân vật chính.",
+        "Trước khi rắc rối bắt đầu, họ đã làm gì (… had …).",
+        "Rắc rối là gì và vì sao nó xảy ra."
+      ],
+      "modelAnswer": "I love the film Blue Moon. In the story, four astronauts live on the moon in 2100. Before the problem started, they had built a small town there, and they had planted trees. One day, the lights went out. They didn't know why. Later, they discovered that a young engineer had turned off the power because he wanted to go home."
+    }
+  },
+  "glosses": [
+    {
+      "text": "brilliant",
+      "lemma": "brilliant",
+      "meaningVi": "tuyệt vời, xuất sắc",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "It's brilliant.",
+      "phraseVi": "Hay tuyệt."
+    },
+    {
+      "text": "Mars",
+      "lemma": "Mars",
+      "meaningVi": "sao Hoả",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "travelled to Mars",
+      "phraseVi": "bay lên sao Hoả"
+    },
+    {
+      "text": "it gets better",
+      "lemma": "get better",
+      "meaningVi": "càng về sau càng hay",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "Wait, it gets better.",
+      "phraseVi": "Đợi đã, càng về sau càng hay."
+    },
+    {
+      "text": "leader",
+      "lemma": "leader",
+      "meaningVi": "người chỉ huy, trưởng nhóm",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "their leader, Hana",
+      "phraseVi": "chỉ huy của họ, Hana"
+    },
+    {
+      "text": "curious",
+      "lemma": "curious",
+      "meaningVi": "tò mò",
+      "sentenceIndex": 33,
+      "pos": "adjective",
+      "phrase": "you've made me curious",
+      "phraseVi": "cậu làm mình tò mò rồi"
+    }
+  ]
+}

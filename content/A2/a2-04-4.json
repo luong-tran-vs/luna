@@ -1,0 +1,601 @@
+{
+  "content": "Nam's job is to take boxes to people's homes in Ho Chi Minh City. Every day, he drives a small truck in the city centre. He usually starts at seven, and he visits forty homes.\n\nBut today, Nam isn't alone in his truck. His name is Bao, and this is his first week. Right now, they are stopping in a busy street. Nam is looking at his phone, and Bao is reading an address on a big box.\n\n\"I always check the address on my phone first,\" Nam says. \"Then I call the customer.\"\nBao is calling the customer now. \"Hello, I'm standing in front of your building with your box,\" he says.\nA woman comes down from the third floor. She takes the box and says with a smile, \"Thank you, you're early today!\"\n\nThen Bao asks, \"Do you usually eat lunch in the truck?\"\n\"No, I usually eat at a small rice shop near the market,\" Nam answers.\n\nAt the rice shop, Nam tells Bao about his day. \"I know every street here, and I like my job, because I meet a lot of people.\" Bao is listening carefully, and he is writing notes.",
+  "targetWords": [
+    "box",
+    "truck",
+    "address",
+    "check",
+    "phone",
+    "call",
+    "customer",
+    "building"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "boxes",
+        "lemma": "box",
+        "meaningVi": "thùng, hộp",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "truck",
+        "lemma": "truck",
+        "meaningVi": "xe tải",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "address",
+        "lemma": "address",
+        "meaningVi": "địa chỉ",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "check",
+        "lemma": "check",
+        "meaningVi": "kiểm tra",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "phone",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "call",
+        "lemma": "call",
+        "meaningVi": "gọi điện",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "customer",
+        "lemma": "customer",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "building",
+        "lemma": "building",
+        "meaningVi": "toà nhà",
+        "pos": "noun",
+        "sentenceIndex": 10
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Nam buys a new truck.",
+          "A woman's new flat",
+          "Nam shows a new man how to do his job.",
+          "A rice shop in the city"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam lái xe tải chở hàng đến nhà khách, và hôm nay anh chỉ cho Bảo, người mới vào làm, cách làm công việc này."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many homes does Nam usually visit every day?",
+        "promptVi": "Mỗi ngày Nam thường đến bao nhiêu nhà?",
+        "options": [
+          "Forty",
+          "Fourteen",
+          "Seven",
+          "Four"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"He usually starts at seven, and he visits forty homes\": bốn mươi nhà."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Nam like his job?",
+        "promptVi": "Vì sao Nam thích công việc của mình?",
+        "options": [
+          "He drives a big truck.",
+          "He meets a lot of people.",
+          "He finishes very early.",
+          "He eats at the market."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"I like my job, because I meet a lot of people\": anh được gặp nhiều người."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam usually eats lunch in the truck.",
+        "promptVi": "Nam thường ăn trưa trong xe tải.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"No, I usually eat at a small rice shop near the market\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"check\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I always check the address on my phone first,\" Nam says.",
+        "options": [
+          "viết",
+          "quên",
+          "gửi",
+          "kiểm tra"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Check là kiểm tra: lần nào Nam cũng xem lại địa chỉ trên điện thoại trước."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "bodyVi": "Nói việc thường làm mỗi ngày dùng hiện tại đơn: he usually starts at seven, I always check the address. Nói việc đang diễn ra ngay lúc này dùng hiện tại tiếp diễn: right now, they are stopping in a busy street. Know, like là động từ chỉ trạng thái nên luôn dùng hiện tại đơn: I know every street.",
+      "examples": [
+        "He usually starts at seven, and he visits forty homes.",
+        "Right now, they are stopping in a busy street.",
+        "\"I know every street here, and I like my job, because I meet a lot of people.\""
+      ]
+    },
+    "writingPrompt": "Write about a job you know: what the person usually does every day, and what he or she is doing today.",
+    "sentenceTranslations": [
+      "Công việc của Nam là chở các thùng hàng đến nhà mọi người ở Thành phố Hồ Chí Minh.",
+      "Ngày nào anh cũng lái một chiếc xe tải nhỏ trong trung tâm thành phố.",
+      "Anh thường bắt đầu lúc bảy giờ, và đến bốn mươi nhà.",
+      "Nhưng hôm nay, Nam không đi một mình trên xe.",
+      "Anh ấy tên là Bảo, và đây là tuần đầu tiên của anh.",
+      "Ngay lúc này, họ đang dừng xe trên một con phố đông đúc.",
+      "Nam đang nhìn điện thoại, còn Bảo đang đọc địa chỉ trên một thùng hàng lớn.",
+      "\"Anh luôn kiểm tra địa chỉ trên điện thoại trước,\" Nam nói.",
+      "\"Rồi anh gọi cho khách hàng.\"",
+      "Bây giờ Bảo đang gọi cho khách hàng.",
+      "\"Chào chị, em đang đứng trước toà nhà của chị với thùng hàng ạ,\" anh nói.",
+      "Một người phụ nữ đi xuống từ tầng ba.",
+      "Chị nhận thùng hàng và mỉm cười nói: \"Cảm ơn em, hôm nay em đến sớm thế!\"",
+      "Rồi Bảo hỏi: \"Anh có hay ăn trưa trên xe không?\"",
+      "\"Không, anh thường ăn ở một quán cơm nhỏ gần chợ,\" Nam đáp.",
+      "Ở quán cơm, Nam kể cho Bảo về một ngày làm việc của mình.",
+      "\"Anh biết hết các con phố ở đây, và anh thích công việc này, vì được gặp nhiều người.\"",
+      "Bảo đang chăm chú lắng nghe và ghi chép."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả công việc hằng ngày của một người và việc họ đang làm lúc này, dùng hiện tại đơn, hiện tại tiếp diễn và động từ chỉ trạng thái.",
+    "examples": [
+      {
+        "lemma": "box",
+        "sentence": "Put the books in this box.",
+        "meaningVi": "Bỏ sách vào cái thùng này nhé."
+      },
+      {
+        "lemma": "truck",
+        "sentence": "A big truck is in front of my house.",
+        "meaningVi": "Có một chiếc xe tải lớn ở trước nhà mình."
+      },
+      {
+        "lemma": "address",
+        "sentence": "What is your address?",
+        "meaningVi": "Địa chỉ của bạn là gì?"
+      },
+      {
+        "lemma": "check",
+        "sentence": "Please check your email.",
+        "meaningVi": "Bạn kiểm tra email nhé."
+      },
+      {
+        "lemma": "phone",
+        "sentence": "Can I use your phone?",
+        "meaningVi": "Mình dùng điện thoại của bạn được không?"
+      },
+      {
+        "lemma": "call",
+        "sentence": "I call my mum every evening.",
+        "meaningVi": "Tối nào mình cũng gọi cho mẹ."
+      },
+      {
+        "lemma": "customer",
+        "sentence": "The customer is waiting outside.",
+        "meaningVi": "Khách hàng đang đợi bên ngoài."
+      },
+      {
+        "lemma": "building",
+        "sentence": "My office is in a tall building.",
+        "meaningVi": "Văn phòng mình ở trong một toà nhà cao."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Bao",
+        "Andy"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Bao, how is your new job?",
+          "meaningVi": "Bảo ơi, công việc mới thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's great! This week, I'm going with a driver called Nam.",
+          "meaningVi": "Tuyệt lắm! Tuần này mình đi cùng một anh tài xế tên là Nam."
+        },
+        {
+          "speaker": 1,
+          "text": "What does Nam do every day?",
+          "meaningVi": "Hằng ngày anh Nam làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "He takes boxes to people's homes. He visits forty homes a day!",
+          "meaningVi": "Anh ấy chở hàng đến nhà mọi người. Một ngày anh ấy đến bốn mươi nhà!"
+        },
+        {
+          "speaker": 1,
+          "text": "Wow. Are you driving the truck too?",
+          "meaningVi": "Chà. Cậu có lái xe tải không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I'm not. I'm only watching this week.",
+          "meaningVi": "Không. Tuần này mình chỉ đứng xem thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "Does Nam know the city well?",
+          "meaningVi": "Anh Nam có thuộc đường thành phố không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, he knows every street. He always checks the address first.",
+          "meaningVi": "Có, anh ấy biết hết các con phố. Lúc nào anh ấy cũng kiểm tra địa chỉ trước."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you like the job?",
+          "meaningVi": "Cậu có thích công việc này không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do, because I meet a lot of people.",
+          "meaningVi": "Có, vì mình được gặp nhiều người."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi việc thường làm: What does Nam do every day? Hỏi việc đang làm tuần này: Are you driving the truck too? – No, I'm only watching this week.",
+    "translations": [
+      {
+        "vi": "Anh ấy lái một chiếc xe tải nhỏ.",
+        "en": "He drives a small truck.",
+        "distractors": [
+          "driving",
+          "big",
+          "car"
+        ]
+      },
+      {
+        "vi": "Tôi luôn kiểm tra địa chỉ trước.",
+        "en": "I always check the address first.",
+        "distractors": [
+          "checks",
+          "never",
+          "checking"
+        ]
+      },
+      {
+        "vi": "Bảo đang gọi cho khách hàng.",
+        "en": "Bao is calling the customer.",
+        "distractors": [
+          "calls",
+          "call",
+          "customers"
+        ]
+      },
+      {
+        "vi": "Tôi đang đứng trước toà nhà của bạn.",
+        "en": "I'm standing in front of your building.",
+        "distractors": [
+          "stand",
+          "behind",
+          "house"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Andy và Bảo nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chiếc xe tải mới",
+          "Công việc mới của Bảo",
+          "Một quán cơm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Andy hỏi \"how is your new job?\", Bảo kể về anh Nam và việc chở hàng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mỗi ngày anh Nam đến bao nhiêu nhà?",
+        "promptVi": "",
+        "options": [
+          "Bốn mươi nhà",
+          "Mười bốn nhà",
+          "Bốn nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"He visits forty homes a day!\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tuần này Bảo đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Lái xe tải",
+          "Gọi cho khách",
+          "Chỉ đứng xem"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bảo nói \"I'm only watching this week.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao is driving the truck this week.",
+        "promptVi": "Tuần này Bảo đang lái xe tải.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Bảo nói \"No, I'm not. I'm only watching this week.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mọi ngày Nam làm những việc gì, và lúc này hai người đang làm gì?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "noticing": [
+        {
+          "sentence": "He usually starts at seven, and he visits forty homes.",
+          "highlights": [
+            "usually starts",
+            "visits"
+          ]
+        },
+        {
+          "sentence": "Right now, they are stopping in a busy street.",
+          "highlights": [
+            "are stopping"
+          ]
+        },
+        {
+          "sentence": "\"I always check the address on my phone first,\" Nam says.",
+          "highlights": [
+            "always check"
+          ]
+        },
+        {
+          "sentence": "\"I know every street here, and I like my job, because I meet a lot of people.\"",
+          "highlights": [
+            "know",
+            "like"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"I know every street here, and I like my job\", vì sao không viết \"I'm knowing\", \"I'm liking\"?",
+      "options": [
+        "Vì know và like là động từ chỉ trạng thái, không dùng dạng -ing",
+        "Vì Nam đang lái xe",
+        "Vì đây là một câu hỏi"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Know, like, want, need nói về trạng thái, cảm xúc, không phải hành động, nên dùng hiện tại đơn. Hành động đang diễn ra mới dùng -ing: are stopping, is calling.",
+      "whenVi": "Dùng hiện tại đơn cho việc thường làm và cho động từ chỉ trạng thái, hiện tại tiếp diễn cho việc đang diễn ra lúc này.",
+      "table": [
+        {
+          "subject": "Thói quen",
+          "form": "He usually starts at seven. I always check the address.",
+          "negative": "He doesn't eat in the truck."
+        },
+        {
+          "subject": "Đang diễn ra",
+          "form": "Right now, they are stopping in a busy street.",
+          "negative": "Bao isn't driving."
+        },
+        {
+          "subject": "Động từ chỉ trạng thái",
+          "form": "I know every street. I like my job.",
+          "negative": "I don't know this street."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Right now, they stop in a busy street.",
+          "right": "Right now, they are stopping in a busy street."
+        },
+        {
+          "wrong": "I am knowing every street here.",
+          "right": "I know every street here."
+        }
+      ],
+      "noteVi": "Người Việt vừa học thì tiếp diễn hay thêm -ing vào cả know, like vì nghĩ \"đang biết\", \"đang thích\"; những động từ này luôn dùng hiện tại đơn.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại tiếp diễn của động từ trong ngoặc.",
+          "text": "Right now, Bao ___ (call) the customer.",
+          "answers": [
+            "is calling",
+            "'s calling"
+          ],
+          "explanationVi": "Right now là việc đang diễn ra; Bao là he: is calling."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Nam always ___ the address on his phone first.",
+          "options": [
+            "checks",
+            "is checking",
+            "check",
+            "checking"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Always là thói quen; Nam là he: checks."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Nam is liking his job.",
+          "sentence": "Nam likes his job.",
+          "explanationVi": "Like là động từ chỉ trạng thái, không dùng -ing: likes."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy thường bắt đầu lúc bảy giờ.",
+          "sentence": "He usually starts at seven.",
+          "words": [
+            "starts",
+            "He",
+            "seven",
+            "usually",
+            "at",
+            "is"
+          ],
+          "explanationVi": "Usually đứng trước động từ starts; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Every day, he drives a small truck in the city centre.",
+        "tipVi": "Drives /draɪvz/ có cụm /dr/ ở đầu và /vz/ ở cuối; truck /trʌk/ có cụm /tr/."
+      },
+      {
+        "text": "Bao is calling the customer now.",
+        "tipVi": "Calling /ˈkɔlɪŋ/ kết thúc bằng /ŋ/; customer /ˈkʌstəmər/ nhấn ở âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you usually do in the morning?",
+        "questionVi": "Buổi sáng bạn thường làm gì?",
+        "frame": "I usually ___ in the morning."
+      },
+      {
+        "question": "What are you doing at the moment?",
+        "questionVi": "Lúc này bạn đang làm gì?",
+        "frame": "At the moment, I'm ___."
+      },
+      {
+        "question": "What does your mum or dad usually do at work?",
+        "questionVi": "Ở chỗ làm bố hoặc mẹ bạn thường làm gì?",
+        "frame": "He / She usually ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có 1 câu hiện tại đơn (thói quen) và 1 câu hiện tại tiếp diễn (lúc này)",
+      "anyOf": [
+        "usually",
+        "always",
+        "every day",
+        "right now",
+        "today",
+        "now"
+      ],
+      "outlineVi": [
+        "Nói người đó làm nghề gì và mỗi ngày thường làm gì (He usually …).",
+        "Nói người đó biết hoặc thích gì ở công việc (He knows …, he likes …).",
+        "Nói hôm nay hoặc lúc này người đó đang làm gì (Right now, he is …)."
+      ],
+      "modelAnswer": "My uncle is a taxi driver in Da Nang. He usually starts at six in the morning, and he drives a lot of tourists to the beach. He knows every street in the city. Today is Sunday, so he isn't driving. Right now, he is playing football with my cousins in the park."
+    }
+  },
+  "glosses": [
+    {
+      "text": "city centre",
+      "lemma": "city centre",
+      "meaningVi": "trung tâm thành phố",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "in the city centre",
+      "phraseVi": "trong trung tâm thành phố"
+    },
+    {
+      "text": "visits",
+      "lemma": "visit",
+      "meaningVi": "đến (nhà)",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "he visits forty homes",
+      "phraseVi": "anh đến bốn mươi nhà"
+    },
+    {
+      "text": "first week",
+      "lemma": "first",
+      "meaningVi": "tuần đầu tiên",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "this is his first week",
+      "phraseVi": "đây là tuần đầu tiên của anh"
+    },
+    {
+      "text": "Right now",
+      "lemma": "right now",
+      "meaningVi": "ngay lúc này",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "Right now, they are stopping",
+      "phraseVi": "Ngay lúc này, họ đang dừng xe"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ở phía trước",
+      "sentenceIndex": 10,
+      "pos": "preposition",
+      "phrase": "in front of your building",
+      "phraseVi": "trước toà nhà của chị"
+    },
+    {
+      "text": "comes down",
+      "lemma": "come down",
+      "meaningVi": "đi xuống",
+      "sentenceIndex": 11,
+      "pos": "phrasal verb",
+      "phrase": "A woman comes down from the third floor",
+      "phraseVi": "Một người phụ nữ đi xuống từ tầng ba"
+    },
+    {
+      "text": "early",
+      "lemma": "early",
+      "meaningVi": "sớm",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "you're early today",
+      "phraseVi": "hôm nay em đến sớm thế"
+    },
+    {
+      "text": "rice shop",
+      "lemma": "rice shop",
+      "meaningVi": "quán cơm",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "a small rice shop near the market",
+      "phraseVi": "một quán cơm nhỏ gần chợ"
+    },
+    {
+      "text": "notes",
+      "lemma": "note",
+      "meaningVi": "ghi chép",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "he is writing notes",
+      "phraseVi": "anh đang ghi chép"
+    }
+  ]
+}

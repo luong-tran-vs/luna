@@ -1,0 +1,600 @@
+{
+  "content": "My name is Lan, and my family loves music. Every morning, my mum turns on the radio in the kitchen. She likes listening to old songs when she cooks breakfast.\n\nMy brother Duc is seventeen. He loves playing music on his computer, but his music isn't quiet! At ten o'clock, my dad asks, \"Duc, is that your music again?\" Then Duc turns off his computer and goes to bed.\n\nMy dad likes quiet music. He listens to piano music after work. My little sister Mai is six, and she loves dancing. She often sings a song for us after dinner.\n\nOn Sunday evening, we play music in the living room, and we all dance together. Only Milo, our cat, doesn't like it. He sleeps under the sofa!",
+  "targetWords": [
+    "turn on",
+    "radio",
+    "play music",
+    "computer",
+    "quiet",
+    "turn off",
+    "sing a song",
+    "dance"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "turns on",
+        "lemma": "turn on",
+        "meaningVi": "bật (đài, đèn, máy)",
+        "pos": "phrasal verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "radio",
+        "lemma": "radio",
+        "meaningVi": "đài, radio",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "playing music",
+        "lemma": "play music",
+        "meaningVi": "mở nhạc, chơi nhạc",
+        "pos": "phrase",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "computer",
+        "lemma": "computer",
+        "meaningVi": "máy tính",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "quiet",
+        "lemma": "quiet",
+        "meaningVi": "nhỏ, yên tĩnh",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "turns off",
+        "lemma": "turn off",
+        "meaningVi": "tắt (đài, đèn, máy)",
+        "pos": "phrasal verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "sings a song",
+        "lemma": "sing a song",
+        "meaningVi": "hát một bài",
+        "pos": "phrase",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "dance",
+        "lemma": "dance",
+        "meaningVi": "nhảy, khiêu vũ",
+        "pos": "verb",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Lan talk about?",
+        "promptVi": "Lan nói về điều gì?",
+        "options": [
+          "Her music lessons at school",
+          "Her favourite singer",
+          "How her family listens to music at home",
+          "A music show on TV"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan kể từng người trong nhà nghe nhạc thế nào: mẹ nghe radio buổi sáng, anh Đức mở nhạc trên máy tính, bố nghe piano, Mai hát sau bữa tối."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When does Lan's mum listen to old songs?",
+        "promptVi": "Mẹ Lan nghe những bài hát cũ vào lúc nào?",
+        "options": [
+          "When she cooks breakfast",
+          "After dinner",
+          "At ten o'clock at night",
+          "On Sunday evening"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan viết \"She likes listening to old songs when she cooks breakfast\": mẹ nghe lúc nấu bữa sáng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Lan's dad ask Duc about his music at ten o'clock?",
+        "promptVi": "Vì sao lúc mười giờ bố Lan hỏi Đức về tiếng nhạc?",
+        "options": [
+          "Dad wants to listen to it too.",
+          "Duc is at school.",
+          "Dad likes Duc's songs.",
+          "Duc's music isn't quiet, and it is late."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Nhạc của Đức \"isn't quiet\" mà đã mười giờ đêm, nên bố hỏi, và sau đó Đức tắt máy tính đi ngủ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai sings a song for the family after dinner.",
+        "promptVi": "Mai hát cho cả nhà nghe sau bữa tối.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì bài viết \"She often sings a song for us after dinner\". Bài có nói điều này và nói giống như vậy."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"turns off\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then Duc turns off his computer and goes to bed.",
+        "options": [
+          "bật lên",
+          "tắt đi",
+          "sửa lại",
+          "mang đi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Turn off là tắt: Đức tắt máy tính rồi đi ngủ. Ngược lại với turn on (bật) ở câu về chiếc radio của mẹ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Like / love + danh từ hoặc V-ing",
+      "bodyVi": "Sau like / love có thể là một thứ (danh từ): My dad likes quiet music. Hoặc là một việc mình thích làm, khi đó động từ thêm -ing: She likes listening to old songs, he loves playing music. Với he / she dùng likes, loves; muốn nói không thích thì dùng doesn't like.",
+      "examples": [
+        "She likes listening to old songs when she cooks breakfast.",
+        "He loves playing music on his computer, but his music isn't quiet!",
+        "My little sister Mai is six, and she loves dancing."
+      ]
+    },
+    "writingPrompt": "Write about how your family listens to music at home: who likes what music, and when.",
+    "sentenceTranslations": [
+      "Mình tên là Lan, và cả nhà mình đều mê âm nhạc.",
+      "Sáng nào mẹ mình cũng bật radio trong bếp.",
+      "Mẹ thích nghe những bài hát cũ khi nấu bữa sáng.",
+      "Anh trai mình, Đức, mười bảy tuổi.",
+      "Anh ấy rất thích mở nhạc trên máy tính, nhưng nhạc của anh ấy chẳng nhỏ chút nào!",
+      "Đến mười giờ, bố mình hỏi: \"Đức ơi, lại là nhạc của con đấy à?\"",
+      "Thế là anh Đức tắt máy tính rồi đi ngủ.",
+      "Bố mình thích nhạc nhẹ nhàng.",
+      "Bố nghe nhạc piano sau giờ làm.",
+      "Em gái mình, Mai, sáu tuổi, và em rất thích nhảy.",
+      "Em hay hát cho cả nhà nghe một bài sau bữa tối.",
+      "Tối Chủ nhật, cả nhà mở nhạc ở phòng khách và cùng nhau nhảy.",
+      "Chỉ có Milo, con mèo nhà mình, là không thích.",
+      "Nó nằm ngủ dưới gầm ghế sofa!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể cả nhà nghe nhạc ở nhà lúc nào, ai thích nhạc gì, dùng like / love + danh từ hoặc V-ing.",
+    "examples": [
+      {
+        "lemma": "turn on",
+        "sentence": "I turn on the radio in the morning.",
+        "meaningVi": "Buổi sáng mình bật radio."
+      },
+      {
+        "lemma": "radio",
+        "sentence": "My grandfather listens to the radio every day.",
+        "meaningVi": "Ngày nào ông mình cũng nghe radio."
+      },
+      {
+        "lemma": "play music",
+        "sentence": "We play music at the party.",
+        "meaningVi": "Bọn mình mở nhạc ở bữa tiệc."
+      },
+      {
+        "lemma": "computer",
+        "sentence": "My computer is very old.",
+        "meaningVi": "Máy tính của mình cũ lắm rồi."
+      },
+      {
+        "lemma": "quiet",
+        "sentence": "The house is quiet at night.",
+        "meaningVi": "Ban đêm ngôi nhà yên tĩnh."
+      },
+      {
+        "lemma": "turn off",
+        "sentence": "I turn off my phone at night.",
+        "meaningVi": "Ban đêm mình tắt điện thoại."
+      },
+      {
+        "lemma": "sing a song",
+        "sentence": "Mai wants to sing a song for Grandma.",
+        "meaningVi": "Mai muốn hát một bài tặng bà."
+      },
+      {
+        "lemma": "dance",
+        "sentence": "Do you dance at home?",
+        "meaningVi": "Bạn có nhảy ở nhà không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huy",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Huy, do you listen to music at home?",
+          "meaningVi": "Huy ơi, ở nhà cậu có nghe nhạc không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do. I listen to the radio with my grandfather.",
+          "meaningVi": "Có chứ. Mình nghe radio cùng ông."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? What music does he like?",
+          "meaningVi": "Thật à? Ông thích nhạc gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "He loves old songs. He sings along in the kitchen!",
+          "meaningVi": "Ông rất thích những bài hát cũ. Ông hát theo ngay trong bếp!"
+        },
+        {
+          "speaker": 1,
+          "text": "That's fun. Does your sister Vy like music too?",
+          "meaningVi": "Vui thế. Em gái Vy của cậu cũng thích nhạc chứ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, she loves dancing. She plays music on her computer.",
+          "meaningVi": "Có, em ấy rất thích nhảy. Em ấy mở nhạc trên máy tính."
+        },
+        {
+          "speaker": 1,
+          "text": "Is her music quiet?",
+          "meaningVi": "Nhạc của em ấy có nhỏ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it isn't! My mum often turns it off.",
+          "meaningVi": "Không hề! Mẹ mình hay tắt nhạc của em ấy đi."
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! My dad likes quiet music, and he doesn't like pop.",
+          "meaningVi": "Ha! Bố mình thích nhạc nhẹ nhàng, và bố không thích nhạc pop."
+        },
+        {
+          "speaker": 0,
+          "text": "Then your house is very quiet!",
+          "meaningVi": "Vậy chắc nhà cậu yên tĩnh lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi ai đó thích nhạc gì: What music does he like? Trả lời: He loves old songs. Thích làm gì thì dùng V-ing: She loves dancing.",
+    "translations": [
+      {
+        "vi": "Mẹ tôi bật radio trong bếp.",
+        "en": "My mum turns on the radio in the kitchen.",
+        "distractors": [
+          "off",
+          "turn",
+          "at"
+        ]
+      },
+      {
+        "vi": "Anh trai tôi rất thích chơi nhạc trên máy tính.",
+        "en": "My brother loves playing music on his computer.",
+        "distractors": [
+          "play",
+          "love",
+          "her"
+        ]
+      },
+      {
+        "vi": "Bố tôi thích nhạc nhẹ nhàng.",
+        "en": "My dad likes quiet music.",
+        "distractors": [
+          "like",
+          "is",
+          "sad"
+        ]
+      },
+      {
+        "vi": "Chúng tôi cùng nhau nhảy vào tối Chủ nhật.",
+        "en": "We dance together on Sunday evening.",
+        "distractors": [
+          "dances",
+          "in",
+          "at"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna và Huy nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Gia đình Huy nghe nhạc ở nhà thế nào",
+          "Một buổi hoà nhạc ở trường",
+          "Bài hát yêu thích của Anna"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi \"do you listen to music at home?\", rồi Huy kể về ông, em gái Vy và mẹ.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Huy nghe radio cùng ai?",
+        "promptVi": "",
+        "options": [
+          "Em gái Vy",
+          "Ông",
+          "Mẹ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy nói \"I listen to the radio with my grandfather.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai hay tắt nhạc của Vy?",
+        "promptVi": "",
+        "options": [
+          "Ông của Huy",
+          "Bố của Anna",
+          "Mẹ của Huy"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Huy nói \"My mum often turns it off.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Huy's grandfather likes new songs.",
+        "promptVi": "Ông của Huy thích những bài hát mới.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Huy nói \"He loves old songs\": ông thích bài hát cũ.",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong nhà Lan nghe nhạc vào lúc nào?",
+    "grammarStep": {
+      "titleVi": "Like / love + danh từ hoặc V-ing",
+      "noticing": [
+        {
+          "sentence": "She likes listening to old songs when she cooks breakfast.",
+          "highlights": [
+            "likes listening"
+          ]
+        },
+        {
+          "sentence": "He loves playing music on his computer, but his music isn't quiet!",
+          "highlights": [
+            "loves playing"
+          ]
+        },
+        {
+          "sentence": "My dad likes quiet music.",
+          "highlights": [
+            "likes quiet music"
+          ]
+        },
+        {
+          "sentence": "My little sister Mai is six, and she loves dancing.",
+          "highlights": [
+            "loves dancing"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"My dad likes quiet music\" khác ba câu còn lại ở chỗ nào?",
+      "options": [
+        "Sau likes là một thứ (quiet music), không phải một việc làm (V-ing)",
+        "Câu này không có động từ",
+        "Câu này nói về một việc đã qua"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Sau like / love có thể là danh từ (quiet music) hoặc V-ing (listening, playing, dancing). Ba câu kia nói về việc thích làm nên dùng V-ing.",
+      "whenVi": "Dùng like / love + danh từ khi thích một thứ, like / love + V-ing khi thích làm một việc.",
+      "table": [
+        {
+          "subject": "+ danh từ",
+          "form": "My dad likes quiet music.",
+          "negative": "He doesn't like pop."
+        },
+        {
+          "subject": "+ V-ing",
+          "form": "My brother loves playing music.",
+          "negative": "Milo doesn't like dancing."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "My brother loves play music.",
+          "right": "My brother loves playing music."
+        },
+        {
+          "wrong": "I like listen to the radio.",
+          "right": "I like listening to the radio."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"thích nghe\", \"thích chơi\" với động từ giữ nguyên, nên người Việt hay viết \"like listen\" thay vì \"like listening\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng V-ing của động từ trong ngoặc.",
+          "text": "Mai loves ___ (dance) after dinner.",
+          "answers": [
+            "dancing"
+          ],
+          "explanationVi": "Sau loves, việc thích làm có dạng V-ing: dancing (bỏ e rồi thêm -ing)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "My mum likes ___ to the radio.",
+          "options": [
+            "listening",
+            "listen",
+            "listens",
+            "is listen"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau likes dùng V-ing: likes listening."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My brother love playing music on his computer.",
+          "sentence": "My brother loves playing music on his computer.",
+          "explanationVi": "Chủ ngữ my brother (he) nên love phải thêm -s: loves."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bố tôi thích nghe nhạc piano.",
+          "sentence": "My dad likes listening to piano music.",
+          "words": [
+            "piano",
+            "likes",
+            "My",
+            "to",
+            "listening",
+            "dad",
+            "music",
+            "listen"
+          ],
+          "explanationVi": "Sau likes dùng V-ing: likes listening; từ \"listen\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He listens to piano music after work.",
+        "tipVi": "Listens /ˈlɪsənz/ có chữ t câm và âm /z/ ở cuối: đọc \"lis-sần-z\", đừng bỏ /z/."
+      },
+      {
+        "text": "Then Duc turns off his computer and goes to bed.",
+        "tipVi": "Turns /tɝnz/ có âm /ɝ/ uốn lưỡi và kết thúc bằng /nz/; then /ðɛn/ bắt đầu bằng âm /ð/, đặt đầu lưỡi giữa hai hàm răng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you listen to music at home?",
+        "questionVi": "Ở nhà bạn có nghe nhạc không?",
+        "frame": "Yes, I do. / No, I don't. I listen to music on my ___."
+      },
+      {
+        "question": "When do you like listening to music?",
+        "questionVi": "Bạn thích nghe nhạc vào lúc nào?",
+        "frame": "I like listening to music in the ___ / after ___."
+      },
+      {
+        "question": "What music does your mum or dad like?",
+        "questionVi": "Bố hoặc mẹ bạn thích nhạc gì?",
+        "frame": "My ___ likes ___. He / She loves ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng like / love + V-ing",
+      "anyOf": [
+        "listening",
+        "playing",
+        "dancing",
+        "watching",
+        "reading",
+        "going"
+      ],
+      "outlineVi": [
+        "Nói ai trong nhà bật nhạc và bật lúc nào.",
+        "Kể một người thích nhạc gì hoặc thích làm gì (He / She likes …ing).",
+        "Nói buổi tối nhà bạn ồn hay yên tĩnh."
+      ],
+      "modelAnswer": "My family loves music. Every morning, my dad turns on the radio, and he likes listening to old songs. My mum likes quiet music. My little brother loves dancing, and he often sings a song after dinner. At night, my mum turns off the radio, and the house is quiet."
+    }
+  },
+  "glosses": [
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "meaningVi": "nhà bếp",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "in the kitchen",
+      "phraseVi": "trong bếp"
+    },
+    {
+      "text": "listening to",
+      "lemma": "listen to",
+      "meaningVi": "nghe",
+      "sentenceIndex": 2,
+      "pos": "phrasal verb",
+      "phrase": "listening to old songs",
+      "phraseVi": "nghe những bài hát cũ"
+    },
+    {
+      "text": "cooks",
+      "lemma": "cook",
+      "meaningVi": "nấu",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "when she cooks breakfast",
+      "phraseVi": "khi mẹ nấu bữa sáng"
+    },
+    {
+      "text": "again",
+      "lemma": "again",
+      "meaningVi": "lại, lần nữa",
+      "sentenceIndex": 5,
+      "pos": "adverb",
+      "phrase": "is that your music again",
+      "phraseVi": "lại là nhạc của con à"
+    },
+    {
+      "text": "goes to bed",
+      "lemma": "go to bed",
+      "meaningVi": "đi ngủ",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "and goes to bed",
+      "phraseVi": "rồi đi ngủ"
+    },
+    {
+      "text": "after work",
+      "lemma": "after work",
+      "meaningVi": "sau giờ làm",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "piano music after work",
+      "phraseVi": "nhạc piano sau giờ làm"
+    },
+    {
+      "text": "after dinner",
+      "lemma": "after dinner",
+      "meaningVi": "sau bữa tối",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "for us after dinner",
+      "phraseVi": "cho cả nhà sau bữa tối"
+    },
+    {
+      "text": "living room",
+      "lemma": "living room",
+      "meaningVi": "phòng khách",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "in the living room",
+      "phraseVi": "ở phòng khách"
+    },
+    {
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
+      "sentenceIndex": 11,
+      "pos": "adverb",
+      "phrase": "we all dance together",
+      "phraseVi": "cả nhà cùng nhau nhảy"
+    },
+    {
+      "text": "under the sofa",
+      "lemma": "under the sofa",
+      "meaningVi": "dưới gầm ghế sofa",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "He sleeps under the sofa",
+      "phraseVi": "Nó nằm ngủ dưới gầm ghế sofa"
+    }
+  ]
+}

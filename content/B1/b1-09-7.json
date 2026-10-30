@@ -1,0 +1,614 @@
+{
+  "content": "Three friends, Vy, Khoa and Nga, love travelling. They're choosing their next trip, and Khoa wants to visit his favourite place, Ban Gioc Waterfall in Cao Bang.\n\n\"I've seen photos of it,\" Vy says. \"It's huge. Where exactly is it?\"\n\"It's in the far north, on the border between Vietnam and China,\" Khoa says. \"The waterfall is shared by the two countries.\"\n\"So can we cross into China?\"\n\"No, we can't. The border area is controlled by soldiers from both countries. Visitors are asked to stay on the Vietnamese side.\"\nNga asks, \"How big is it?\"\n\"It's about thirty metres high and three hundred metres wide. It's one of the biggest waterfalls in Asia. The water comes from the Quay Son River.\"\n\"What's the best way to see it?\"\n\"Bamboo rafts are used to take visitors close to the water. The rafts are pushed with long poles by local men.\"\n\"Do we get wet?\"\n\"A little. Life jackets are given to everyone, and a raincoat is useful too.\"\n\"When should we go?\"\n\"The waterfall looks best in September. That's after the rainy season, so there's a lot of water. The rice fields around it are golden then too.\"\n\"How do we get there from Hanoi?\"\n\"It's about seven hours by bus. Most tours are organised over three days.\"\nVy smiles. \"September is perfect. Let's book it tonight.\"",
+  "targetWords": [
+    "north",
+    "border",
+    "waterfall",
+    "cross",
+    "soldier",
+    "side",
+    "wide",
+    "push",
+    "wet",
+    "season"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "north",
+        "lemma": "north",
+        "meaningVi": "phía bắc",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "border",
+        "lemma": "border",
+        "meaningVi": "biên giới",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "waterfall",
+        "lemma": "waterfall",
+        "meaningVi": "thác nước",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "cross",
+        "lemma": "cross",
+        "meaningVi": "đi qua, sang",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "soldiers",
+        "lemma": "soldier",
+        "meaningVi": "người lính, bộ đội",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "side",
+        "lemma": "side",
+        "meaningVi": "phía, bên",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "wide",
+        "lemma": "wide",
+        "meaningVi": "rộng",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "pushed",
+        "lemma": "push",
+        "meaningVi": "đẩy",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "wet",
+        "lemma": "wet",
+        "meaningVi": "ướt",
+        "pos": "adjective",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "season",
+        "lemma": "season",
+        "meaningVi": "mùa",
+        "pos": "noun",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are the three friends doing?",
+        "promptVi": "Ba người bạn đang làm gì?",
+        "options": [
+          "Talking about a trip to Ban Gioc Waterfall",
+          "Travelling by bus to China",
+          "Working on a rice farm",
+          "Buying raincoats in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ba người đang chọn chuyến đi tiếp theo, và Khoa kể về thác Bản Giốc."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is the border area controlled by?",
+        "promptVi": "Khu vực biên giới do ai kiểm soát?",
+        "options": [
+          "Local farmers",
+          "Tour guides",
+          "Soldiers from both countries",
+          "Nobody"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khoa nói \"The border area is controlled by soldiers from both countries.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is September the best month?",
+        "promptVi": "Vì sao tháng Chín là tháng đẹp nhất?",
+        "options": [
+          "It's the coldest month.",
+          "There is a lot of water after the rainy season.",
+          "The tours are cheaper.",
+          "There are no tourists."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa nói \"That's after the rainy season, so there's a lot of water.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Visitors can cross into China.",
+        "promptVi": "Du khách được sang Trung Quốc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"No, we can't.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"pushed\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The rafts are pushed with long poles by local men.\"",
+        "options": [
+          "được đẩy",
+          "được kéo",
+          "bị lật",
+          "được buộc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Push = đẩy; are pushed with long poles = được đẩy bằng sào dài."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu bị động (hiện tại và quá khứ đơn)",
+      "bodyVi": "Câu bị động hiện tại giới thiệu một địa danh: The waterfall is shared by the two countries. The border area is controlled by soldiers. Bamboo rafts are used to take visitors close to the water. With + dụng cụ (with long poles) và by + người làm (by local men) có thể đi cùng nhau: The rafts are pushed with long poles by local men.",
+      "examples": [
+        "\"The waterfall is shared by the two countries.\"",
+        "The border area is controlled by soldiers from both countries.",
+        "The rafts are pushed with long poles by local men.\""
+      ]
+    },
+    "writingPrompt": "Write about a waterfall, lake or river you know. How is it reached, and how is it seen or enjoyed by visitors?",
+    "sentenceTranslations": [
+      "Ba người bạn, Vy, Khoa và Nga, rất thích đi du lịch.",
+      "Họ đang chọn chuyến đi tiếp theo, và Khoa muốn đến nơi anh yêu thích, thác Bản Giốc ở Cao Bằng.",
+      "Vy nói: \"Mình xem ảnh rồi.",
+      "Thác to lắm.",
+      "Chính xác thì nó ở đâu?\"",
+      "Khoa nói: \"Ở tận phía bắc, trên biên giới giữa Việt Nam và Trung Quốc.",
+      "Thác nước là của chung hai nước.\"",
+      "\"Vậy mình có sang Trung Quốc được không?\"",
+      "\"Không.",
+      "Khu vực biên giới được bộ đội hai nước kiểm soát.",
+      "Du khách được yêu cầu ở phía Việt Nam.\"",
+      "Nga hỏi: \"Thác lớn cỡ nào?\"",
+      "\"Cao khoảng ba mươi mét và rộng ba trăm mét.",
+      "Đó là một trong những thác lớn nhất châu Á.",
+      "Nước chảy từ sông Quây Sơn.\"",
+      "\"Cách ngắm thác đẹp nhất là gì?\"",
+      "\"Bè tre được dùng để đưa du khách đến gần thác.",
+      "Bè được những người dân địa phương đẩy bằng sào dài.\"",
+      "\"Mình có bị ướt không?\"",
+      "\"Một chút.",
+      "Ai cũng được phát áo phao, và mang áo mưa cũng có ích.\"",
+      "\"Mình nên đi khi nào?\"",
+      "\"Thác đẹp nhất vào tháng Chín.",
+      "Đó là sau mùa mưa nên nước rất nhiều.",
+      "Lúc đó ruộng lúa xung quanh cũng vàng óng.\"",
+      "\"Từ Hà Nội đến đó bằng cách nào?\"",
+      "\"Đi xe khách khoảng bảy tiếng.",
+      "Phần lớn các tour được tổ chức trong ba ngày.\"",
+      "Vy mỉm cười.",
+      "\"Tháng Chín là hoàn hảo.",
+      "Tối nay mình đặt luôn nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu thác Bản Giốc, vị trí và cách tham quan bằng câu bị động (is shared, is controlled, are used, are pushed).",
+    "examples": [
+      {
+        "lemma": "north",
+        "sentence": "Ha Giang is in the far north of Vietnam.",
+        "meaningVi": "Hà Giang ở tận cực bắc Việt Nam."
+      },
+      {
+        "lemma": "border",
+        "sentence": "We stopped at the border for an hour.",
+        "meaningVi": "Chúng tôi dừng ở biên giới một tiếng."
+      },
+      {
+        "lemma": "waterfall",
+        "sentence": "We swam under the waterfall.",
+        "meaningVi": "Chúng tôi bơi dưới thác nước."
+      },
+      {
+        "lemma": "cross",
+        "sentence": "Be careful when you cross the road.",
+        "meaningVi": "Cẩn thận khi bạn sang đường."
+      },
+      {
+        "lemma": "soldier",
+        "sentence": "A soldier stood at the gate.",
+        "meaningVi": "Một người lính đứng ở cổng."
+      },
+      {
+        "lemma": "side",
+        "sentence": "The shop is on the other side of the street.",
+        "meaningVi": "Cửa hàng ở bên kia đường."
+      },
+      {
+        "lemma": "wide",
+        "sentence": "The river is very wide here.",
+        "meaningVi": "Ở đây sông rất rộng."
+      },
+      {
+        "lemma": "push",
+        "sentence": "Push the door to open it.",
+        "meaningVi": "Đẩy cửa để mở."
+      },
+      {
+        "lemma": "wet",
+        "sentence": "My shoes are wet from the rain.",
+        "meaningVi": "Giày tôi ướt vì mưa."
+      },
+      {
+        "lemma": "season",
+        "sentence": "Summer is my favourite season.",
+        "meaningVi": "Mùa hè là mùa tôi thích nhất."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nga",
+        "Khoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Khoa, is the waterfall open all year?",
+          "meaningVi": "Khoa ơi, thác mở cửa quanh năm à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, but the rafts aren't used in very bad weather.",
+          "meaningVi": "Ừ, nhưng thời tiết quá xấu thì không dùng bè."
+        },
+        {
+          "speaker": 0,
+          "text": "Where are the tickets sold?",
+          "meaningVi": "Vé được bán ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "They're sold at the gate. A raft ride is about fifty thousand dong.",
+          "meaningVi": "Bán ở cổng. Đi bè khoảng năm mươi nghìn đồng."
+        },
+        {
+          "speaker": 0,
+          "text": "Is there anything else to see near there?",
+          "meaningVi": "Gần đó còn gì để xem không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Nguom Ngao Cave is only a few kilometres away.",
+          "meaningVi": "Có. Động Ngườm Ngao chỉ cách vài cây số."
+        },
+        {
+          "speaker": 0,
+          "text": "When was that cave discovered?",
+          "meaningVi": "Động đó được phát hiện khi nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "It was discovered a long time ago by local people.",
+          "meaningVi": "Nó được người dân địa phương phát hiện từ lâu rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. Let's visit both places.",
+          "meaningVi": "Tuyệt. Mình đi cả hai chỗ nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. They're often visited on the same day.",
+          "meaningVi": "Ý hay. Người ta thường đi cả hai trong cùng một ngày."
+        }
+      ]
+    },
+    "grammarTipVi": "Hiện tại: the rafts aren't used in very bad weather / They're sold at the gate / They're often visited on the same day. Quá khứ: It was discovered a long time ago. Câu hỏi: Where are the tickets sold? When was that cave discovered?",
+    "translations": [
+      {
+        "vi": "Thác nước là của chung hai nước.",
+        "en": "The waterfall is shared by two countries.",
+        "distractors": [
+          "are",
+          "shares",
+          "from"
+        ]
+      },
+      {
+        "vi": "Biên giới được bộ đội kiểm soát.",
+        "en": "The border is controlled by soldiers.",
+        "distractors": [
+          "are",
+          "controls",
+          "with"
+        ]
+      },
+      {
+        "vi": "Bè được đẩy bằng sào dài.",
+        "en": "The rafts are pushed with long poles.",
+        "distractors": [
+          "is",
+          "pushes",
+          "by"
+        ]
+      },
+      {
+        "vi": "Thác đẹp nhất sau mùa mưa.",
+        "en": "The waterfall looks best after the rainy season.",
+        "distractors": [
+          "before",
+          "looked",
+          "dry"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Nga hỏi Khoa về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Vé, bè và những nơi gần thác",
+          "Đường đi Trung Quốc",
+          "Thời tiết ở Hà Nội"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nga hỏi thác có mở quanh năm không, vé bán ở đâu và gần đó có gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vé được bán ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở cổng",
+          "Trên mạng",
+          "Trên bè"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa nói \"They're sold at the gate.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Gần thác có nơi nào để tham quan?",
+        "promptVi": "",
+        "options": [
+          "Một ngôi chùa",
+          "Động Ngườm Ngao",
+          "Một chợ nổi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa nói \"Nguom Ngao Cave is only a few kilometres away.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The rafts are used in very bad weather.",
+        "promptVi": "Bè vẫn được dùng khi thời tiết quá xấu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"the rafts aren't used in very bad weather.\"",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Thác Bản Giốc nằm ở đâu? Du khách được đưa đến gần thác bằng cách nào?",
+    "grammarStep": {
+      "titleVi": "Câu bị động (hiện tại và quá khứ đơn)",
+      "noticing": [
+        {
+          "sentence": "\"The waterfall is shared by the two countries.\"",
+          "highlights": [
+            "is shared",
+            "by the two countries"
+          ]
+        },
+        {
+          "sentence": "The border area is controlled by soldiers from both countries.",
+          "highlights": [
+            "is controlled"
+          ]
+        },
+        {
+          "sentence": "Visitors are asked to stay on the Vietnamese side.\"",
+          "highlights": [
+            "are asked"
+          ]
+        },
+        {
+          "sentence": "\"Bamboo rafts are used to take visitors close to the water.",
+          "highlights": [
+            "are used"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"The rafts are pushed with long poles by local men\", with và by khác nhau thế nào?",
+      "options": [
+        "With chỉ dụng cụ (sào), by chỉ người làm (dân địa phương).",
+        "With chỉ người làm, by chỉ dụng cụ.",
+        "Hai từ giống nhau."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Pushed with long poles = đẩy bằng sào; by local men = do người dân địa phương làm.",
+      "whenVi": "Dùng câu bị động để giới thiệu địa danh: nó thuộc về ai, được quản lý thế nào và được tham quan ra sao.",
+      "table": [
+        {
+          "subject": "is / are + V3",
+          "form": "The area is controlled by soldiers.",
+          "negative": "The rafts aren't used in bad weather."
+        },
+        {
+          "subject": "are + V3 + to …",
+          "form": "Visitors are asked to stay on this side.",
+          "negative": "—"
+        },
+        {
+          "subject": "with / by",
+          "form": "pushed with long poles (dụng cụ) / by local men (người làm)",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The rafts are pushed by long poles with local men.",
+          "right": "The rafts are pushed with long poles by local men."
+        },
+        {
+          "wrong": "Visitors are ask to stay on the Vietnamese side.",
+          "right": "Visitors are asked to stay on the Vietnamese side."
+        }
+      ],
+      "noteVi": "Be used to + động từ nguyên mẫu = được dùng để: Bamboo rafts are used to take visitors …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng bị động đúng của động từ trong ngoặc (use).",
+          "text": "Bamboo rafts ___ to take visitors close to the water.",
+          "answers": [
+            "are used"
+          ],
+          "explanationVi": "Hiện tại, số nhiều: are used."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The border area ___ by soldiers from both countries.",
+          "options": [
+            "is controlled",
+            "are controlled",
+            "controls",
+            "is control"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Chủ ngữ số ít (the border area): is controlled."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Visitors are ask to stay on this side.",
+          "sentence": "Visitors are asked to stay on this side.",
+          "explanationVi": "Bị động cần V3: asked."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thác nước là của chung hai nước.",
+          "sentence": "The waterfall is shared by two countries.",
+          "words": [
+            "waterfall",
+            "The",
+            "is",
+            "shared",
+            "by",
+            "two",
+            "countries.",
+            "shares"
+          ],
+          "explanationVi": "Is + V3: is shared; từ \"shares\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"The waterfall is shared by the two countries.\"",
+        "tipVi": "Waterfall /ˈwɔːtəfɔːl/ nhấn âm đầu."
+      },
+      {
+        "text": "The border area is controlled by soldiers from both countries.",
+        "tipVi": "Controlled /kənˈtrəʊld/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever been to a waterfall? Which one?",
+        "questionVi": "Bạn đã từng đến thác nước nào chưa? Thác nào?",
+        "frame": "Yes, I have been to ___ / No, I haven't."
+      },
+      {
+        "question": "Which season is the best time to travel in your area? Why?",
+        "questionVi": "Mùa nào là thời điểm đi du lịch tốt nhất ở vùng bạn? Vì sao?",
+        "frame": "The best season is ___ because ___."
+      },
+      {
+        "question": "How are visitors taken around a famous place near you?",
+        "questionVi": "Ở một địa danh gần bạn, du khách được đưa đi tham quan bằng cách nào?",
+        "frame": "Visitors are taken around by ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is / are / was / were + V3)",
+      "anyOf": [
+        "ed by",
+        "en by",
+        "is shared",
+        "is controlled",
+        "are used",
+        "is used",
+        "are pushed",
+        "are asked",
+        "are taken",
+        "is visited",
+        "are visited",
+        "is reached",
+        "are sold",
+        "is called",
+        "was discovered",
+        "are organised"
+      ],
+      "outlineVi": [
+        "Tên địa danh và nó ở đâu.",
+        "Đến đó bằng cách nào (… is reached by …).",
+        "Du khách tham quan thế nào (… are used / are taken / is enjoyed …)."
+      ],
+      "modelAnswer": "Pongour Waterfall is near Da Lat. It is reached by car in about an hour. The waterfall is called \"the most beautiful waterfall in the south\". Visitors are allowed to walk on the big flat rocks, and photos are taken there all day. It is visited by many people in the rainy season, when there is a lot of water."
+    }
+  },
+  "glosses": [
+    {
+      "text": "raincoat",
+      "lemma": "raincoat",
+      "meaningVi": "áo mưa",
+      "sentenceIndex": 20,
+      "pos": "noun",
+      "phrase": "a raincoat is useful too",
+      "phraseVi": "mang áo mưa cũng có ích"
+    },
+    {
+      "text": "Bamboo rafts",
+      "lemma": "bamboo raft",
+      "meaningVi": "bè tre",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "Bamboo rafts are used",
+      "phraseVi": "Bè tre được dùng"
+    },
+    {
+      "text": "poles",
+      "lemma": "pole",
+      "meaningVi": "sào",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "with long poles",
+      "phraseVi": "bằng sào dài"
+    },
+    {
+      "text": "golden",
+      "lemma": "golden",
+      "meaningVi": "vàng óng",
+      "sentenceIndex": 24,
+      "pos": "adjective",
+      "phrase": "The rice fields are golden",
+      "phraseVi": "Ruộng lúa vàng óng"
+    },
+    {
+      "text": "organised",
+      "lemma": "organise",
+      "meaningVi": "tổ chức",
+      "sentenceIndex": 27,
+      "pos": "verb",
+      "phrase": "Most tours are organised over three days.",
+      "phraseVi": "Phần lớn các tour được tổ chức trong ba ngày."
+    }
+  ]
+}

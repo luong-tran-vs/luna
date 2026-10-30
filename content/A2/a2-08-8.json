@@ -1,0 +1,605 @@
+{
+  "content": "It's Monday morning. Duc is showing his friend at work, Hanh, some photos of his trip to Sapa.\n\nDuc says, \"This is the first day. We were walking through a small village when we took this photo.\"\n\"Who is the man in the red jacket?\"\n\"That's my friend Bao. He was talking to a little girl. She was selling bags.\"\nHanh looks at the next photo. \"Wow, the mountains are beautiful! What were you doing here?\"\n\"We were climbing Fansipan. It was very cold, and the clouds were all around us.\"\n\"And this one? Why is everybody laughing?\"\n\"We were having dinner at a homestay. The owner was cooking for us, and his son was playing music.\"\n\"Were you tired after the trip?\"\n\"Yes, very. On the last day, we were walking in the rice fields when it started to rain. We didn't have an umbrella!\"\nHanh laughs. \"I want to go to Sapa too.\"",
+  "targetWords": [
+    "village",
+    "girl",
+    "mountain",
+    "cloud",
+    "owner",
+    "music",
+    "tired",
+    "field"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "village",
+        "lemma": "village",
+        "meaningVi": "ngôi làng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "girl",
+        "lemma": "girl",
+        "meaningVi": "cô bé",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "mountains",
+        "lemma": "mountain",
+        "meaningVi": "núi",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "clouds",
+        "lemma": "cloud",
+        "meaningVi": "mây",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "owner",
+        "lemma": "owner",
+        "meaningVi": "chủ nhà",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "music",
+        "lemma": "music",
+        "meaningVi": "âm nhạc",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "tired",
+        "lemma": "tired",
+        "meaningVi": "mệt",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "fields",
+        "lemma": "field",
+        "meaningVi": "cánh đồng, ruộng",
+        "pos": "noun",
+        "sentenceIndex": 19
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Duc shows Hanh photos of his trip to Sapa.",
+          "Hanh wants to live in Sapa.",
+          "Duc buys bags from a little girl.",
+          "A music show in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức cho Hạnh xem ảnh chuyến đi Sa Pa và kể lúc đó mọi người đang làm gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What was the little girl doing?",
+        "promptVi": "Cô bé đang làm gì?",
+        "options": [
+          "Playing music",
+          "Selling bags",
+          "Cooking dinner",
+          "Climbing a mountain"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"She was selling bags.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is everybody laughing in the dinner photo?",
+        "promptVi": "Vì sao trong ảnh bữa tối ai cũng cười?",
+        "options": [
+          "It was raining.",
+          "They were very tired.",
+          "They were having dinner, and the owner's son was playing music.",
+          "Bao fell down."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Đức kể họ đang ăn tối ở homestay, chủ nhà nấu ăn và con trai ông chơi nhạc."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They had an umbrella in the rice fields.",
+        "promptVi": "Họ có ô khi ở ruộng lúa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"We didn't have an umbrella!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"all around us\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It was very cold, and the clouds were all around us.\"",
+        "options": [
+          "ở xa chúng tôi",
+          "bao quanh chúng tôi",
+          "phía trên đầu",
+          "ở dưới chân núi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "All around us = bao quanh chúng tôi: mây ở khắp xung quanh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ tiếp diễn (when, while)",
+      "bodyVi": "Khi xem ảnh và kể lúc đó ai đang làm gì, dùng was / were + V-ing: He was talking to a little girl, She was selling bags, We were climbing Fansipan. Việc đang diễn ra thì một việc ngắn xảy ra dùng when + quá khứ đơn: We were walking through a small village when we took this photo. Hỏi: What were you doing here?",
+      "examples": [
+        "We were walking through a small village when we took this photo.\"",
+        "He was talking to a little girl.",
+        "What were you doing here?\""
+      ]
+    },
+    "writingPrompt": "Choose a photo from a trip. Write about it: where were you, and what were you and other people doing?",
+    "sentenceTranslations": [
+      "Hôm nay là sáng thứ Hai.",
+      "Đức đang cho bạn cùng công ty là Hạnh xem ảnh chuyến đi Sa Pa.",
+      "Đức nói: \"Đây là ngày đầu tiên.",
+      "Bọn mình đang đi qua một ngôi làng nhỏ thì chụp ảnh này.\"",
+      "\"Anh mặc áo khoác đỏ là ai thế?\"",
+      "\"Đó là Bảo, bạn mình.",
+      "Lúc đó cậu ấy đang nói chuyện với một cô bé.",
+      "Cô bé đang bán túi.\"",
+      "Hạnh xem ảnh tiếp theo.",
+      "\"Ồ, núi đẹp quá!",
+      "Ở đây các cậu đang làm gì?\"",
+      "\"Bọn mình đang leo Fansipan.",
+      "Trời rất lạnh, và mây bao quanh bọn mình.\"",
+      "\"Còn ảnh này?",
+      "Sao ai cũng cười thế?\"",
+      "\"Bọn mình đang ăn tối ở một homestay.",
+      "Ông chủ nấu ăn cho bọn mình, còn con trai ông thì chơi nhạc.\"",
+      "\"Đi về có mệt không?\"",
+      "\"Có, mệt lắm.",
+      "Hôm cuối, bọn mình đang đi bộ trên ruộng lúa thì trời đổ mưa.",
+      "Bọn mình không mang ô!\"",
+      "Hạnh cười.",
+      "\"Mình cũng muốn đi Sa Pa.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại ảnh chuyến đi: lúc đó mình và mọi người đang làm gì, bằng was / were + V-ing và when.",
+    "examples": [
+      {
+        "lemma": "village",
+        "sentence": "My grandparents live in a small village.",
+        "meaningVi": "Ông bà tôi sống ở một ngôi làng nhỏ."
+      },
+      {
+        "lemma": "girl",
+        "sentence": "The girl in the photo is my sister.",
+        "meaningVi": "Cô bé trong ảnh là em gái tôi."
+      },
+      {
+        "lemma": "mountain",
+        "sentence": "Fansipan is a very high mountain.",
+        "meaningVi": "Fansipan là một ngọn núi rất cao."
+      },
+      {
+        "lemma": "cloud",
+        "sentence": "There is a big cloud over the sea.",
+        "meaningVi": "Có một đám mây lớn trên biển."
+      },
+      {
+        "lemma": "owner",
+        "sentence": "The owner of this shop is very kind.",
+        "meaningVi": "Chủ cửa hàng này rất tốt bụng."
+      },
+      {
+        "lemma": "music",
+        "sentence": "I listen to music every evening.",
+        "meaningVi": "Tối nào tôi cũng nghe nhạc."
+      },
+      {
+        "lemma": "tired",
+        "sentence": "I'm tired after the long trip.",
+        "meaningVi": "Tôi mệt sau chuyến đi dài."
+      },
+      {
+        "lemma": "field",
+        "sentence": "The cows are in the field.",
+        "meaningVi": "Mấy con bò đang ở ngoài đồng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duc",
+        "Mike"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Duc, is this your photo from Sapa?",
+          "meaningVi": "Đức ơi, đây là ảnh cậu chụp ở Sa Pa à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. We were walking in the mountains.",
+          "meaningVi": "Ừ. Lúc đó bọn mình đang đi bộ trên núi."
+        },
+        {
+          "speaker": 1,
+          "text": "What was the weather like?",
+          "meaningVi": "Thời tiết thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was cold, and it was raining a little.",
+          "meaningVi": "Trời lạnh, và mưa lất phất."
+        },
+        {
+          "speaker": 1,
+          "text": "Who is that woman?",
+          "meaningVi": "Người phụ nữ kia là ai?"
+        },
+        {
+          "speaker": 0,
+          "text": "She was the owner of our homestay. She was cooking for us.",
+          "meaningVi": "Cô ấy là chủ homestay. Lúc đó cô ấy đang nấu ăn cho bọn mình."
+        },
+        {
+          "speaker": 1,
+          "text": "And why were you all laughing here?",
+          "meaningVi": "Còn ở ảnh này sao mọi người đều cười?"
+        },
+        {
+          "speaker": 0,
+          "text": "Bao was dancing when he fell on the floor!",
+          "meaningVi": "Bảo đang nhảy thì ngã ra sàn!"
+        },
+        {
+          "speaker": 1,
+          "text": "Oh no! Was he OK?",
+          "meaningVi": "Ôi! Cậu ấy có sao không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, he was fine. He was laughing too.",
+          "meaningVi": "Không sao. Cậu ấy cũng cười mà."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về ảnh: Why were you all laughing? What was the weather like? Kể: She was cooking for us. Bao was dancing when he fell on the floor.",
+    "translations": [
+      {
+        "vi": "Chúng tôi đang đi qua một ngôi làng thì trời mưa.",
+        "en": "We were walking through a village when it rained.",
+        "distractors": [
+          "was",
+          "walked",
+          "while"
+        ]
+      },
+      {
+        "vi": "Lúc đó ông chủ đang nấu ăn.",
+        "en": "The owner was cooking.",
+        "distractors": [
+          "were",
+          "cooked",
+          "is"
+        ]
+      },
+      {
+        "vi": "Con trai ông ấy đang chơi nhạc.",
+        "en": "His son was playing music.",
+        "distractors": [
+          "were",
+          "played",
+          "plays"
+        ]
+      },
+      {
+        "vi": "Mây bao quanh chúng tôi.",
+        "en": "The clouds were all around us.",
+        "distractors": [
+          "was",
+          "are",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Đức và Mike nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Ảnh chuyến đi Sa Pa của Đức",
+          "Một bữa tiệc ở công ty",
+          "Kế hoạch đi Sa Pa năm sau"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mike hỏi \"is this your photo from Sapa?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thời tiết lúc đó thế nào?",
+        "promptVi": "",
+        "options": [
+          "Nắng và nóng",
+          "Lạnh và mưa nhẹ",
+          "Có tuyết"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Đức nói \"It was cold, and it was raining a little.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bảo đang làm gì thì bị ngã?",
+        "promptVi": "",
+        "options": [
+          "Đang nhảy",
+          "Đang nấu ăn",
+          "Đang leo núi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đức nói \"Bao was dancing when he fell on the floor!\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao was angry after he fell.",
+        "promptVi": "Bảo tức giận sau khi bị ngã.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"he was fine. He was laughing too.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Trong từng bức ảnh, Đức và mọi người đang làm gì?",
+    "grammarStep": {
+      "titleVi": "Quá khứ tiếp diễn (when, while)",
+      "noticing": [
+        {
+          "sentence": "We were walking through a small village when we took this photo.\"",
+          "highlights": [
+            "were walking",
+            "when",
+            "took"
+          ]
+        },
+        {
+          "sentence": "He was talking to a little girl.",
+          "highlights": [
+            "was talking"
+          ]
+        },
+        {
+          "sentence": "\"We were climbing Fansipan.",
+          "highlights": [
+            "were climbing"
+          ]
+        },
+        {
+          "sentence": "The owner was cooking for us, and his son was playing music.",
+          "highlights": [
+            "was cooking",
+            "was playing"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"He was talking\" nhưng \"We were climbing\"?",
+      "options": [
+        "Vì He đi với was, We đi với were.",
+        "Vì talking ngắn hơn climbing.",
+        "Vì câu thứ hai là câu hỏi."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "I / He / She / It + was; We / You / They + were.",
+      "whenVi": "Dùng quá khứ tiếp diễn để tả cảnh trong một bức ảnh hay một lúc trong quá khứ: ai đang làm gì.",
+      "table": [
+        {
+          "subject": "I / He / She / It",
+          "form": "He was talking to a little girl.",
+          "negative": "She wasn't cooking."
+        },
+        {
+          "subject": "We / You / They",
+          "form": "We were climbing Fansipan.",
+          "negative": "They weren't laughing."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "What were you doing here?",
+          "negative": "Were you tired? — Yes, we were."
+        },
+        {
+          "subject": "when + quá khứ đơn",
+          "form": "We were walking when it started to rain.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "His son were playing music.",
+          "right": "His son was playing music."
+        },
+        {
+          "wrong": "What you were doing here?",
+          "right": "What were you doing here?"
+        }
+      ],
+      "noteVi": "Động từ một âm tiết tận cùng bằng một nguyên âm + một phụ âm thì gấp đôi phụ âm: run → running, sit → sitting, swim → swimming.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền was hoặc were.",
+          "text": "The clouds ___ all around us.",
+          "answers": [
+            "were"
+          ],
+          "explanationVi": "The clouds là số nhiều: were."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "We ___ in the rice fields when it started to rain.",
+          "options": [
+            "was walking",
+            "were walking",
+            "walking",
+            "were walk"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "We + were + walking."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The owner was cook for us.",
+          "sentence": "The owner was cooking for us.",
+          "explanationVi": "Quá khứ tiếp diễn: was + cooking."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô bé đang bán túi.",
+          "sentence": "The girl was selling bags.",
+          "words": [
+            "selling",
+            "The",
+            "bags",
+            "was",
+            "girl",
+            "were"
+          ],
+          "explanationVi": "The girl là số ít: was selling; từ \"were\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He was talking to a little girl.",
+        "tipVi": "Talking /ˈtɔːkɪŋ/ không đọc âm l; girl /ɡɜːl/ có âm /ɜː/."
+      },
+      {
+        "text": "\"Were you tired after the trip?\"",
+        "tipVi": "Were you nối liền /wɜːju/; câu hỏi Yes/No lên giọng ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What were you doing at this time yesterday?",
+        "questionVi": "Giờ này hôm qua bạn đang làm gì?",
+        "frame": "I was ___."
+      },
+      {
+        "question": "Were you travelling last summer?",
+        "questionVi": "Hè năm ngoái bạn có đi du lịch không?",
+        "frame": "Yes, I was ___ in ___. / No, I wasn't."
+      },
+      {
+        "question": "Look at a photo of a friend. What was he or she doing?",
+        "questionVi": "Nhìn một tấm ảnh của bạn bè. Lúc đó bạn ấy đang làm gì?",
+        "frame": "He / She was ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ tiếp diễn (was / were + V-ing)",
+      "anyOf": [
+        "was walking",
+        "were walking",
+        "was talking",
+        "were talking",
+        "was eating",
+        "were eating",
+        "was having",
+        "were having",
+        "was sitting",
+        "were sitting",
+        "was playing",
+        "were playing",
+        "was swimming",
+        "were swimming",
+        "was climbing",
+        "were climbing",
+        "was laughing",
+        "were laughing"
+      ],
+      "outlineVi": [
+        "Ảnh chụp ở đâu, khi nào.",
+        "Trong ảnh ai đang làm gì (was / were + V-ing).",
+        "Có chuyện gì xảy ra (when + quá khứ đơn)."
+      ],
+      "modelAnswer": "This is a photo from my trip to Ha Long last year. We were sitting on a boat, and the sun was shining. My father was taking photos of the islands, and my little brother was eating ice cream. My mother wasn't looking at the sea. She was sleeping! We were laughing when my uncle took this photo."
+    }
+  },
+  "glosses": [
+    {
+      "text": "through",
+      "lemma": "through",
+      "meaningVi": "xuyên qua",
+      "sentenceIndex": 3,
+      "pos": "preposition",
+      "phrase": "walking through a small village",
+      "phraseVi": "đi qua một ngôi làng nhỏ"
+    },
+    {
+      "text": "took this photo",
+      "lemma": "take a photo",
+      "meaningVi": "chụp ảnh",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "when we took this photo",
+      "phraseVi": "thì chụp ảnh này"
+    },
+    {
+      "text": "selling",
+      "lemma": "sell",
+      "meaningVi": "bán",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "She was selling bags.",
+      "phraseVi": "Cô bé đang bán túi."
+    },
+    {
+      "text": "climbing",
+      "lemma": "climb",
+      "meaningVi": "leo",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "We were climbing Fansipan.",
+      "phraseVi": "Bọn mình đang leo Fansipan."
+    },
+    {
+      "text": "all around us",
+      "lemma": "around",
+      "meaningVi": "bao quanh",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "the clouds were all around us",
+      "phraseVi": "mây bao quanh bọn mình"
+    },
+    {
+      "text": "homestay",
+      "lemma": "homestay",
+      "meaningVi": "nhà nghỉ ở cùng chủ nhà",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "dinner at a homestay",
+      "phraseVi": "ăn tối ở một homestay"
+    },
+    {
+      "text": "started to rain",
+      "lemma": "start",
+      "meaningVi": "bắt đầu mưa",
+      "sentenceIndex": 19,
+      "pos": "phrase",
+      "phrase": "when it started to rain",
+      "phraseVi": "thì trời đổ mưa"
+    }
+  ]
+}

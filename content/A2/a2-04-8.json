@@ -1,0 +1,589 @@
+{
+  "content": "Hoa makes websites for a computer company in Ho Chi Minh City. She usually takes the bus to her office every morning. The bus is often slow, and the trip takes an hour.\n\nBut today, Hoa is staying at home, because her son Tam is ill. She is sitting at the kitchen table with her computer. It is ten o'clock now. Tam is sleeping in his room, and the cat is sleeping on the sofa.\n\nEvery Friday, Hoa sends a report to her manager, and she needs to send it before noon. She is writing the report now, but it isn't easy. The neighbours are building a new house, and it is very noisy.\n\nAt eleven, her manager calls and asks, \"Hi Hoa, are you at home today?\"\n\"Yes, I am, because my son is ill,\" Hoa answers. \"I'm writing the report now.\"\n\"No problem, do you need more time?\" he asks.\n\"No, thanks, I know what to write,\" Hoa says.\n\nAt half past eleven, Hoa sends the report. Then she makes some hot soup for Tam. Staying at home is nice, but she misses her friends at the office.",
+  "targetWords": [
+    "company",
+    "computer",
+    "bus",
+    "kitchen",
+    "report",
+    "send",
+    "noisy",
+    "problem"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "company",
+        "lemma": "company",
+        "meaningVi": "công ty",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "computer",
+        "lemma": "computer",
+        "meaningVi": "máy tính",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "bus",
+        "lemma": "bus",
+        "meaningVi": "xe buýt",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "kitchen",
+        "lemma": "kitchen",
+        "meaningVi": "nhà bếp",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "report",
+        "lemma": "report",
+        "meaningVi": "bản báo cáo",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "send",
+        "lemma": "send",
+        "meaningVi": "gửi",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "noisy",
+        "lemma": "noisy",
+        "meaningVi": "ồn ào",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "problem",
+        "lemma": "problem",
+        "meaningVi": "vấn đề",
+        "pos": "noun",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa's new bus",
+          "A noisy party next door",
+          "Tam's day at school",
+          "Hoa stays at home today and sends a report from there."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Hoa thường đi xe buýt đến văn phòng, nhưng hôm nay con trai ốm nên chị ở nhà, viết và gửi báo cáo cho quản lý từ bếp nhà mình."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How does Hoa usually go to her office?",
+        "promptVi": "Hoa thường đến văn phòng bằng gì?",
+        "options": [
+          "By bus",
+          "By car",
+          "By bike",
+          "By taxi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"She usually takes the bus to her office every morning\": chị đi xe buýt."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Hoa staying at home today?",
+        "promptVi": "Vì sao hôm nay Hoa ở nhà?",
+        "options": [
+          "The bus isn't running.",
+          "Her son is ill.",
+          "Her office is closed.",
+          "She doesn't like the office."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Hoa is staying at home, because her son Tam is ill\": con trai chị bị ốm."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa needs more time for the report.",
+        "promptVi": "Hoa cần thêm thời gian để làm báo cáo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi quản lý hỏi, Hoa nói \"No, thanks, I know what to write\" và gửi báo cáo lúc mười một giờ rưỡi."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"noisy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "The neighbours are building a new house, and it is very noisy.",
+        "options": [
+          "yên tĩnh",
+          "sạch sẽ",
+          "ồn ào",
+          "cao"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Noisy là ồn ào: hàng xóm đang xây nhà nên rất ồn, Hoa khó viết báo cáo."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "bodyVi": "Hiện tại đơn nói việc thường làm, lặp lại: she usually takes the bus, every Friday Hoa sends a report. Hiện tại tiếp diễn nói việc chỉ diễn ra hôm nay hoặc ngay lúc này: Hoa is staying at home, she is writing the report now. Need, know, miss là động từ chỉ trạng thái: she needs to send it.",
+      "examples": [
+        "She usually takes the bus to her office every morning.",
+        "But today, Hoa is staying at home, because her son Tam is ill.",
+        "Every Friday, Hoa sends a report to her manager, and she needs to send it before noon."
+      ]
+    },
+    "writingPrompt": "Write about a day when you or someone in your family stays at home: what you usually do, and what you are doing today.",
+    "sentenceTranslations": [
+      "Hoa làm trang web cho một công ty máy tính ở Thành phố Hồ Chí Minh.",
+      "Sáng nào chị cũng thường đi xe buýt đến văn phòng.",
+      "Xe buýt hay chạy chậm, và đi mất một tiếng.",
+      "Nhưng hôm nay Hoa ở nhà, vì con trai chị là Tâm bị ốm.",
+      "Chị đang ngồi ở bàn bếp với chiếc máy tính.",
+      "Bây giờ là mười giờ.",
+      "Tâm đang ngủ trong phòng, còn con mèo đang ngủ trên ghế sofa.",
+      "Thứ Sáu nào Hoa cũng gửi báo cáo cho quản lý, và chị cần gửi trước buổi trưa.",
+      "Chị đang viết báo cáo, nhưng không dễ.",
+      "Hàng xóm đang xây nhà mới, và rất ồn.",
+      "Mười một giờ, quản lý gọi điện và hỏi: \"Chào Hoa, hôm nay em ở nhà à?\"",
+      "\"Vâng, vì con trai em bị ốm,\" Hoa trả lời.",
+      "\"Em đang viết báo cáo ạ.\"",
+      "\"Không sao, em có cần thêm thời gian không?\" anh hỏi.",
+      "\"Không cần đâu, cảm ơn anh, em biết phải viết gì rồi,\" Hoa nói.",
+      "Mười một giờ rưỡi, Hoa gửi báo cáo.",
+      "Rồi chị nấu súp nóng cho Tâm.",
+      "Ở nhà cũng dễ chịu, nhưng chị nhớ các bạn ở văn phòng."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể việc thường làm mỗi ngày và việc khác đang làm hôm nay, dùng hiện tại đơn, hiện tại tiếp diễn và động từ chỉ trạng thái.",
+    "examples": [
+      {
+        "lemma": "company",
+        "sentence": "She works for a big company.",
+        "meaningVi": "Cô ấy làm cho một công ty lớn."
+      },
+      {
+        "lemma": "computer",
+        "sentence": "I use my computer every day.",
+        "meaningVi": "Ngày nào mình cũng dùng máy tính."
+      },
+      {
+        "lemma": "bus",
+        "sentence": "I go to school by bus.",
+        "meaningVi": "Mình đi học bằng xe buýt."
+      },
+      {
+        "lemma": "kitchen",
+        "sentence": "My mum is cooking in the kitchen.",
+        "meaningVi": "Mẹ mình đang nấu ăn trong bếp."
+      },
+      {
+        "lemma": "report",
+        "sentence": "I have to finish this report today.",
+        "meaningVi": "Hôm nay mình phải làm xong bản báo cáo này."
+      },
+      {
+        "lemma": "send",
+        "sentence": "Can you send me the photos?",
+        "meaningVi": "Bạn gửi ảnh cho mình được không?"
+      },
+      {
+        "lemma": "noisy",
+        "sentence": "The street is very noisy at night.",
+        "meaningVi": "Con phố rất ồn vào ban đêm."
+      },
+      {
+        "lemma": "problem",
+        "sentence": "No problem, I can help you.",
+        "meaningVi": "Không sao, mình giúp bạn được."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Mr Green"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hi Hoa, are you at home today?",
+          "meaningVi": "Chào Hoa, hôm nay em ở nhà à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I am. My son is ill, so I'm staying with him.",
+          "meaningVi": "Vâng. Con trai em bị ốm, nên em ở nhà với cháu."
+        },
+        {
+          "speaker": 1,
+          "text": "I'm sorry. How is he now?",
+          "meaningVi": "Tiếc quá. Giờ cháu thế nào rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "He's sleeping now, so I'm writing the report.",
+          "meaningVi": "Cháu đang ngủ, nên em đang viết báo cáo."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you usually write it on Friday morning?",
+          "meaningVi": "Em thường viết báo cáo vào sáng thứ Sáu à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do. I always send it before noon.",
+          "meaningVi": "Vâng. Em luôn gửi trước buổi trưa."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it quiet at your house?",
+          "meaningVi": "Nhà em có yên tĩnh không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not really! My neighbours are building a new house.",
+          "meaningVi": "Không hẳn! Hàng xóm đang xây nhà mới."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh no! Can I help you?",
+          "meaningVi": "Ôi! Anh giúp gì được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, thanks. I know what to write.",
+          "meaningVi": "Không cần đâu, cảm ơn anh. Em biết phải viết gì rồi."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi thói quen: Do you usually write it on Friday morning? – Yes, I always send it before noon. Nói việc hôm nay: I'm staying with him.",
+    "translations": [
+      {
+        "vi": "Cô ấy thường đi xe buýt đến văn phòng.",
+        "en": "She usually takes the bus to her office.",
+        "distractors": [
+          "is",
+          "taking",
+          "car"
+        ]
+      },
+      {
+        "vi": "Cô ấy đang ngồi với chiếc máy tính.",
+        "en": "She is sitting with her computer.",
+        "distractors": [
+          "sits",
+          "his",
+          "phone"
+        ]
+      },
+      {
+        "vi": "Cô ấy cần gửi báo cáo trước buổi trưa.",
+        "en": "She needs to send the report before noon.",
+        "distractors": [
+          "needing",
+          "sends",
+          "after"
+        ]
+      },
+      {
+        "vi": "Hàng xóm rất ồn.",
+        "en": "The neighbours are very noisy.",
+        "distractors": [
+          "is",
+          "quiet",
+          "neighbour"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Green và Hoa nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một ngôi nhà mới",
+          "Chuyến xe buýt buổi sáng",
+          "Hôm nay Hoa ở nhà và viết báo cáo"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anh Green hỏi \"are you at home today?\", Hoa kể con ốm nên chị ở nhà và đang viết báo cáo.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Hoa ở nhà?",
+        "promptVi": "",
+        "options": [
+          "Vì con trai bị ốm",
+          "Vì xe buýt hỏng",
+          "Vì văn phòng đóng cửa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"My son is ill, so I'm staying with him.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa thường gửi báo cáo lúc nào?",
+        "promptVi": "",
+        "options": [
+          "Buổi tối",
+          "Trước buổi trưa",
+          "Sáng thứ Hai"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"I always send it before noon.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "It is quiet at Hoa's house.",
+        "promptVi": "Nhà Hoa yên tĩnh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"Not really! My neighbours are building a new house.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Mọi ngày Hoa đi làm thế nào, và hôm nay ở nhà chị đang làm gì?",
+    "grammarStep": {
+      "titleVi": "Hiện tại đơn và hiện tại tiếp diễn, động từ chỉ trạng thái",
+      "noticing": [
+        {
+          "sentence": "She usually takes the bus to her office every morning.",
+          "highlights": [
+            "usually takes"
+          ]
+        },
+        {
+          "sentence": "But today, Hoa is staying at home, because her son Tam is ill.",
+          "highlights": [
+            "is staying"
+          ]
+        },
+        {
+          "sentence": "Every Friday, Hoa sends a report to her manager, and she needs to send it before noon.",
+          "highlights": [
+            "sends",
+            "needs"
+          ]
+        },
+        {
+          "sentence": "She is writing the report now, but it isn't easy.",
+          "highlights": [
+            "is writing"
+          ]
+        }
+      ],
+      "questionVi": "\"Every Friday, Hoa sends a report\" và \"She is writing the report now\" khác nhau thế nào?",
+      "options": [
+        "Câu đầu là việc lặp lại mỗi thứ Sáu; câu sau là việc đang làm lúc này",
+        "Câu đầu nói về tương lai",
+        "Hai câu có nghĩa giống nhau"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Every Friday + hiện tại đơn (sends): việc lặp lại. Now + hiện tại tiếp diễn (is writing): việc đang làm. Needs dùng hiện tại đơn vì need là động từ chỉ trạng thái.",
+      "whenVi": "Dùng hiện tại đơn cho việc thường làm, hiện tại tiếp diễn cho việc đang làm hôm nay hoặc lúc này, và hiện tại đơn cho need, know, miss.",
+      "table": [
+        {
+          "subject": "Thói quen",
+          "form": "She usually takes the bus. Every Friday, she sends a report.",
+          "negative": "She doesn't usually stay at home."
+        },
+        {
+          "subject": "Hôm nay, lúc này",
+          "form": "Today, Hoa is staying at home. She is writing the report now.",
+          "negative": "Tam isn't going to school today."
+        },
+        {
+          "subject": "Động từ chỉ trạng thái",
+          "form": "She needs to send it. She knows what to write.",
+          "negative": "She doesn't need more time."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Today Hoa stays at home.",
+          "right": "Today Hoa is staying at home."
+        },
+        {
+          "wrong": "She is knowing what to write.",
+          "right": "She knows what to write."
+        }
+      ],
+      "noteVi": "Người Việt hay dùng hiện tại đơn cho việc chỉ diễn ra hôm nay (vì tiếng Việt không đổi động từ), và thêm -ing vào know, need vì nghĩ \"đang biết\", \"đang cần\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại đơn của động từ trong ngoặc.",
+          "text": "Every Friday, Hoa ___ (send) a report to her manager.",
+          "answers": [
+            "sends"
+          ],
+          "explanationVi": "Every Friday là việc lặp lại; Hoa là she: sends."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Listen! The neighbours ___ a new house.",
+          "options": [
+            "are building",
+            "build",
+            "builds",
+            "building"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Listen! cho thấy việc đang diễn ra: are building."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She is needing more time.",
+          "sentence": "She needs more time.",
+          "explanationVi": "Need là động từ chỉ trạng thái, không dùng -ing: needs."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Con trai cô ấy đang ngủ.",
+          "sentence": "Her son is sleeping.",
+          "words": [
+            "sleeping",
+            "Her",
+            "son",
+            "is",
+            "sleeps"
+          ],
+          "explanationVi": "Việc đang diễn ra: is sleeping; từ \"sleeps\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The bus is often slow, and the trip takes an hour.",
+        "tipVi": "Trip /trɪp/ có cụm /tr/ và âm /p/ ở cuối; hour /aʊər/ không đọc chữ h, nên nói an hour."
+      },
+      {
+        "text": "Then she makes some hot soup for Tam.",
+        "tipVi": "Soup /sup/ đọc \"súp\" với âm /u/ dài; makes /meɪks/ kết thúc bằng /ks/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How do you usually go to school or work?",
+        "questionVi": "Bạn thường đi học hoặc đi làm bằng gì?",
+        "frame": "I usually go by ___. It takes ___."
+      },
+      {
+        "question": "Where are you now, and what are you doing?",
+        "questionVi": "Bây giờ bạn đang ở đâu và đang làm gì?",
+        "frame": "I'm at ___, and I'm ___."
+      },
+      {
+        "question": "Is someone in your family at home today? What is he or she doing?",
+        "questionVi": "Hôm nay có ai trong nhà bạn ở nhà không? Người đó đang làm gì?",
+        "frame": "My ___ is at home. He / She is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có 1 câu hiện tại đơn (thói quen) và 1 câu hiện tại tiếp diễn (hôm nay, lúc này)",
+      "anyOf": [
+        "usually",
+        "every",
+        "today",
+        "right now",
+        "now",
+        "at the moment"
+      ],
+      "outlineVi": [
+        "Nói mọi ngày bạn thường làm gì (I usually …).",
+        "Nói hôm nay có gì khác và vì sao (But today, I'm …, because …).",
+        "Kể lúc này bạn và người trong nhà đang làm gì."
+      ],
+      "modelAnswer": "I usually go to school by bike, and I have lunch with my friends there. But today I'm staying at home, because it's raining very hard and the streets are wet. Right now, I'm doing my English homework at the kitchen table. My little sister is watching TV, and my mum is cooking lunch."
+    }
+  },
+  "glosses": [
+    {
+      "text": "websites",
+      "lemma": "website",
+      "meaningVi": "trang web",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Hoa makes websites",
+      "phraseVi": "Hoa làm trang web"
+    },
+    {
+      "text": "slow",
+      "lemma": "slow",
+      "meaningVi": "chậm",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "The bus is often slow",
+      "phraseVi": "Xe buýt hay chạy chậm"
+    },
+    {
+      "text": "takes an hour",
+      "lemma": "take",
+      "meaningVi": "mất một tiếng",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "the trip takes an hour",
+      "phraseVi": "đi mất một tiếng"
+    },
+    {
+      "text": "before noon",
+      "lemma": "noon",
+      "meaningVi": "trước buổi trưa",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "send it before noon",
+      "phraseVi": "gửi trước buổi trưa"
+    },
+    {
+      "text": "building",
+      "lemma": "build",
+      "meaningVi": "xây",
+      "sentenceIndex": 9,
+      "pos": "verb",
+      "phrase": "The neighbours are building a new house",
+      "phraseVi": "Hàng xóm đang xây nhà mới"
+    },
+    {
+      "text": "more time",
+      "lemma": "time",
+      "meaningVi": "thêm thời gian",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "do you need more time",
+      "phraseVi": "em có cần thêm thời gian không"
+    },
+    {
+      "text": "what to write",
+      "lemma": "write",
+      "meaningVi": "phải viết gì",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "I know what to write",
+      "phraseVi": "em biết phải viết gì rồi"
+    },
+    {
+      "text": "misses",
+      "lemma": "miss",
+      "meaningVi": "nhớ",
+      "sentenceIndex": 17,
+      "pos": "verb",
+      "phrase": "she misses her friends at the office",
+      "phraseVi": "chị nhớ các bạn ở văn phòng"
+    }
+  ]
+}

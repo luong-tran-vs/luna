@@ -1,0 +1,627 @@
+{
+  "content": "Ms Hoa is an accountant at a small company in Hanoi. This morning, a big box arrived on her desk. Inside, there was a new computer.\n\nShe asks her young friend from the next desk, \"Bao, can you help me? I don't know how to set it up.\"\nBao says, \"Of course. First, let's take it out of the box.\"\nHe puts the computer on the desk and plugs in the charger. \"Now press this button to turn it on.\"\nMs Hoa presses the button, but nothing happens.\n\"Wait a moment. The battery is empty. Let's leave it for ten minutes.\"\nAfter ten minutes, the screen lights up. \"Great! Now you need to log into your work account. Do you remember your password?\"\n\"I wrote it down somewhere.\" She looks through her notebook. \"Here it is!\"\n\"Type it in here. Good. Now let's plug in the mouse and the keyboard.\"\n\"Can I use my old printer too?\"\n\"Yes, I'll set it up for you this afternoon.\"\n\"Thank you so much, Bao. I'm terrible with technology.\"\n\"Don't worry. And please don't throw away the box. Keep it for a few weeks.\"\nFinally, Ms Hoa opens her email. \"It works! Should I turn it off at night?\"\nBao says, \"Yes. Always switch it off before you go home. It's better for the battery.\"",
+  "targetWords": [
+    "box",
+    "button",
+    "battery",
+    "screen",
+    "account",
+    "password",
+    "mouse",
+    "keyboard",
+    "printer",
+    "technology"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "box",
+        "lemma": "box",
+        "meaningVi": "cái hộp, thùng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "button",
+        "lemma": "button",
+        "meaningVi": "nút bấm",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "battery",
+        "lemma": "battery",
+        "meaningVi": "pin",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "screen",
+        "lemma": "screen",
+        "meaningVi": "màn hình",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "account",
+        "lemma": "account",
+        "meaningVi": "tài khoản",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "password",
+        "lemma": "password",
+        "meaningVi": "mật khẩu",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "mouse",
+        "lemma": "mouse",
+        "meaningVi": "chuột (máy tính)",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "keyboard",
+        "lemma": "keyboard",
+        "meaningVi": "bàn phím",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "printer",
+        "lemma": "printer",
+        "meaningVi": "máy in",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "technology",
+        "lemma": "technology",
+        "meaningVi": "công nghệ",
+        "pos": "noun",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Bao helps Ms Hoa set up her new computer.",
+          "Ms Hoa buys a new printer.",
+          "Bao forgets his password.",
+          "The office gets new desks."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo giúp chị Hoa lấy máy ra, cắm sạc, bật máy và đăng nhập tài khoản."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't the computer turn on at first?",
+        "promptVi": "Vì sao lúc đầu máy tính không bật lên?",
+        "options": [
+          "The button is broken.",
+          "The battery is empty.",
+          "Ms Hoa forgot her password.",
+          "The screen is too dark."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bảo nói \"The battery is empty.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How does Ms Hoa find her password?",
+        "promptVi": "Chị Hoa tìm mật khẩu bằng cách nào?",
+        "options": [
+          "She asks Bao.",
+          "She calls her boss.",
+          "She looks through her notebook.",
+          "She makes a new one."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị nói \"I wrote it down somewhere.\" rồi \"She looks through her notebook.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao tells Ms Hoa to throw away the box.",
+        "promptVi": "Bảo bảo chị Hoa vứt cái hộp đi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Bảo nói \"please don't throw away the box. Keep it for a few weeks.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"lights up\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "After ten minutes, the screen lights up.",
+        "options": [
+          "sáng lên",
+          "tắt đi",
+          "bị vỡ",
+          "nóng lên"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Light up = sáng lên (màn hình bắt đầu hiện hình)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Cụm động từ và vị trí tân ngữ",
+      "bodyVi": "Cụm động từ = động từ + tiểu từ (on, off, up, in, out, down…), nghĩa thường khác động từ gốc: set up (cài đặt), turn on / off (bật / tắt), plug in (cắm điện), write down (ghi lại). Nhiều cụm tách được: tân ngữ là danh từ có thể đứng giữa hoặc sau (plug in the charger / plug the charger in), nhưng tân ngữ là đại từ (it, them) phải đứng giữa: turn it on, set it up, không nói turn on it. Một số cụm không tách được: look through her notebook.",
+      "examples": [
+        "I don't know how to set it up.\"",
+        "He puts the computer on the desk and plugs in the charger.",
+        "\"Now press this button to turn it on.\""
+      ]
+    },
+    "writingPrompt": "Write instructions for a friend: how do you set up a new phone or computer?",
+    "sentenceTranslations": [
+      "Chị Hoa là kế toán ở một công ty nhỏ tại Hà Nội.",
+      "Sáng nay, có một cái hộp to được đưa đến bàn của chị.",
+      "Bên trong là một chiếc máy tính mới.",
+      "Chị hỏi cậu đồng nghiệp trẻ ngồi bàn bên cạnh: \"Bảo ơi, em giúp chị được không?",
+      "Chị không biết cài đặt nó thế nào.\"",
+      "Bảo nói: \"Được chị.",
+      "Trước tiên mình lấy nó ra khỏi hộp đã.\"",
+      "Cậu đặt máy lên bàn và cắm sạc.",
+      "\"Giờ chị bấm nút này để bật máy.\"",
+      "Chị Hoa bấm nút, nhưng không có gì xảy ra.",
+      "\"Đợi một chút.",
+      "Hết pin rồi.",
+      "Để mười phút đã chị.\"",
+      "Mười phút sau, màn hình sáng lên.",
+      "\"Tuyệt!",
+      "Giờ chị cần đăng nhập vào tài khoản công việc.",
+      "Chị có nhớ mật khẩu không?\"",
+      "\"Chị có ghi lại ở đâu đó.\"",
+      "Chị lật xem sổ tay.",
+      "\"Đây rồi!\"",
+      "\"Chị gõ vào đây.",
+      "Tốt rồi.",
+      "Giờ mình cắm chuột và bàn phím.\"",
+      "\"Chị dùng máy in cũ được không?\"",
+      "\"Được, chiều nay em cài cho chị.\"",
+      "\"Cảm ơn em nhiều, Bảo.",
+      "Chị dở công nghệ lắm.\"",
+      "\"Chị đừng lo.",
+      "Mà chị đừng vứt cái hộp đi nhé.",
+      "Giữ lại vài tuần.\"",
+      "Cuối cùng, chị Hoa mở email.",
+      "\"Chạy rồi!",
+      "Tối chị có nên tắt máy không?\"",
+      "Bảo nói: \"Có chị.",
+      "Trước khi về chị luôn tắt máy nhé.",
+      "Như thế tốt cho pin hơn.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hướng dẫn cài đặt máy tính bằng các cụm động từ (set up, turn on / off, plug in, log into, write down) và đặt tân ngữ đúng chỗ.",
+    "examples": [
+      {
+        "lemma": "box",
+        "sentence": "Put the books in that box.",
+        "meaningVi": "Để sách vào cái hộp đó."
+      },
+      {
+        "lemma": "button",
+        "sentence": "Press the red button to stop.",
+        "meaningVi": "Bấm nút đỏ để dừng."
+      },
+      {
+        "lemma": "battery",
+        "sentence": "My phone battery is low.",
+        "meaningVi": "Pin điện thoại của tôi sắp hết."
+      },
+      {
+        "lemma": "screen",
+        "sentence": "The screen is too bright.",
+        "meaningVi": "Màn hình sáng quá."
+      },
+      {
+        "lemma": "account",
+        "sentence": "I have an account at this bank.",
+        "meaningVi": "Tôi có tài khoản ở ngân hàng này."
+      },
+      {
+        "lemma": "password",
+        "sentence": "Don't tell anyone your password.",
+        "meaningVi": "Đừng nói mật khẩu cho ai."
+      },
+      {
+        "lemma": "mouse",
+        "sentence": "My mouse doesn't work.",
+        "meaningVi": "Con chuột của tôi không chạy."
+      },
+      {
+        "lemma": "keyboard",
+        "sentence": "This keyboard is very quiet.",
+        "meaningVi": "Bàn phím này gõ rất êm."
+      },
+      {
+        "lemma": "printer",
+        "sentence": "The printer is out of paper.",
+        "meaningVi": "Máy in hết giấy rồi."
+      },
+      {
+        "lemma": "technology",
+        "sentence": "Technology changes very fast.",
+        "meaningVi": "Công nghệ thay đổi rất nhanh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Peter"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hoa, is that a new computer?",
+          "meaningVi": "Hoa ơi, máy tính mới à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. Bao and I set it up this morning.",
+          "meaningVi": "Ừ. Sáng nay mình với Bảo cùng cài đặt."
+        },
+        {
+          "speaker": 1,
+          "text": "Was it difficult?",
+          "meaningVi": "Có khó không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not really. First, we plugged it in and turned it on.",
+          "meaningVi": "Không khó lắm. Đầu tiên bọn mình cắm điện rồi bật máy."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you remember your password?",
+          "meaningVi": "Cậu có nhớ mật khẩu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, but I wrote it down in my notebook.",
+          "meaningVi": "Không, nhưng mình có ghi vào sổ."
+        },
+        {
+          "speaker": 1,
+          "text": "That's not safe! Somebody can find it.",
+          "meaningVi": "Thế không an toàn đâu! Người khác có thể thấy."
+        },
+        {
+          "speaker": 0,
+          "text": "You're right. I'll change it today.",
+          "meaningVi": "Cậu nói đúng. Hôm nay mình sẽ đổi."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. And don't forget to turn the computer off at night.",
+          "meaningVi": "Tốt. Và đừng quên tắt máy vào buổi tối nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "I won't. Bao told me that too!",
+          "meaningVi": "Không quên đâu. Bảo cũng dặn mình thế!"
+        }
+      ]
+    },
+    "grammarTipVi": "Đại từ đứng giữa: set it up, plugged it in, turned it on, wrote it down. Danh từ đứng giữa hoặc sau đều được: turn the computer off / turn off the computer.",
+    "translations": [
+      {
+        "vi": "Bạn bật máy lên bằng nút này.",
+        "en": "You turn it on with this button.",
+        "distractors": [
+          "turn on it",
+          "off",
+          "up"
+        ]
+      },
+      {
+        "vi": "Tôi ghi mật khẩu vào sổ.",
+        "en": "I wrote the password down in my notebook.",
+        "distractors": [
+          "up",
+          "off",
+          "writes"
+        ]
+      },
+      {
+        "vi": "Hãy cắm chuột và bàn phím vào.",
+        "en": "Plug in the mouse and the keyboard.",
+        "distractors": [
+          "out",
+          "off",
+          "on"
+        ]
+      },
+      {
+        "vi": "Tối nào tôi cũng tắt máy tính và máy in.",
+        "en": "I switch the computer and the printer off every night.",
+        "distractors": [
+          "on",
+          "up",
+          "out"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa và Peter nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chiếc máy tính mới của Hoa",
+          "Một công ty mới",
+          "Chuyến đi của Bảo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Peter hỏi \"is that a new computer?\" và Hoa kể chuyện cài đặt.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa ghi mật khẩu ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên điện thoại",
+          "Trong sổ tay",
+          "Trên bàn phím"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"I wrote it down in my notebook.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hôm nay Hoa sẽ làm gì?",
+        "promptVi": "",
+        "options": [
+          "Mua máy in mới",
+          "Gọi cho Bảo",
+          "Đổi mật khẩu"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hoa nói \"I'll change it today.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Peter thinks writing a password in a notebook is safe.",
+        "promptVi": "Peter nghĩ ghi mật khẩu vào sổ là an toàn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Peter nói \"That's not safe!\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Bảo và chị Hoa làm những bước nào để cài đặt máy tính mới?",
+    "grammarStep": {
+      "titleVi": "Cụm động từ và vị trí tân ngữ",
+      "noticing": [
+        {
+          "sentence": "I don't know how to set it up.\"",
+          "highlights": [
+            "set it up"
+          ]
+        },
+        {
+          "sentence": "He puts the computer on the desk and plugs in the charger.",
+          "highlights": [
+            "plugs in the charger"
+          ]
+        },
+        {
+          "sentence": "\"Now press this button to turn it on.\"",
+          "highlights": [
+            "turn it on"
+          ]
+        },
+        {
+          "sentence": "\"I wrote it down somewhere.\"",
+          "highlights": [
+            "wrote it down"
+          ]
+        }
+      ],
+      "questionVi": "Có thể nói \"turn on it\" thay cho \"turn it on\" không?",
+      "options": [
+        "Không, khi tân ngữ là đại từ (it, them) thì phải đặt giữa động từ và tiểu từ.",
+        "Có, hai cách đều đúng.",
+        "Chỉ được nói \"turn on it\"."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Với đại từ: turn it on, set it up, write it down. Với danh từ: turn on the computer hoặc turn the computer on đều đúng.",
+      "whenVi": "Dùng cụm động từ để nói các thao tác với máy móc; nhớ đặt đại từ vào giữa với cụm tách được.",
+      "table": [
+        {
+          "subject": "Danh từ (2 cách)",
+          "form": "plug in the charger / plug the charger in",
+          "negative": "—"
+        },
+        {
+          "subject": "Đại từ (1 cách)",
+          "form": "turn it on, set it up, write it down",
+          "negative": "không nói: turn on it"
+        },
+        {
+          "subject": "Không tách được",
+          "form": "look through her notebook, log into your account",
+          "negative": "không nói: look her notebook through"
+        },
+        {
+          "subject": "Cặp trái nghĩa",
+          "form": "turn on / turn off, plug in / unplug",
+          "negative": "switch on / switch off"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Please turn on it.",
+          "right": "Please turn it on."
+        },
+        {
+          "wrong": "I wrote down it.",
+          "right": "I wrote it down."
+        }
+      ],
+      "noteVi": "Look through (lật xem, xem qua) không tách được: She looks through her notebook. Log into (đăng nhập vào) cũng vậy: log into your account.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền tiểu từ đúng (on, off, up, down).",
+          "text": "Always switch it ___ before you go home.",
+          "answers": [
+            "off"
+          ],
+          "explanationVi": "Tắt máy trước khi về: switch it off."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I don't know how to ___.",
+          "options": [
+            "set up it",
+            "set it up",
+            "up set it",
+            "set it"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Đại từ it đứng giữa: set it up."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Press this button to turn on it.",
+          "sentence": "Press this button to turn it on.",
+          "explanationVi": "Đại từ it phải đứng giữa: turn it on."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đã ghi nó lại.",
+          "sentence": "I wrote it down.",
+          "words": [
+            "wrote",
+            "I",
+            "down.",
+            "it",
+            "up"
+          ],
+          "explanationVi": "Write it down: ghi lại; từ \"up\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Now press this button to turn it on.\"",
+        "tipVi": "Turn it on nối liền /tɜːnɪtɒn/; nhấn vào on."
+      },
+      {
+        "text": "After ten minutes, the screen lights up.",
+        "tipVi": "Lights up nối liền /laɪtsʌp/; screen /skriːn/ có âm /iː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Can you set up a new phone without help?",
+        "questionVi": "Bạn có tự cài đặt điện thoại mới được không?",
+        "frame": "Yes, I can set it up without help. / No, I can't. I ask ___."
+      },
+      {
+        "question": "Do you turn off your phone at night?",
+        "questionVi": "Buổi tối bạn có tắt điện thoại không?",
+        "frame": "Yes, I turn it off at ___. / No, I don't."
+      },
+      {
+        "question": "Who helps you when your computer doesn't work?",
+        "questionVi": "Khi máy tính không chạy, ai giúp bạn?",
+        "frame": "My ___ helps me. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 cụm động từ (set up, turn on / off, plug in, write down…)",
+      "anyOf": [
+        "set up",
+        "set it up",
+        "turn on",
+        "turn it on",
+        "turn off",
+        "turn it off",
+        "plug in",
+        "plug it in",
+        "write down",
+        "write it down",
+        "switch off",
+        "switch on",
+        "log into",
+        "log in"
+      ],
+      "outlineVi": [
+        "Bước 1: lấy máy ra và cắm sạc (take it out, plug in).",
+        "Bước 2: bật máy, đăng nhập (turn it on, log into).",
+        "Bước 3: lời khuyên an toàn (write down, turn it off…)."
+      ],
+      "modelAnswer": "Setting up a new phone is easy. First, take it out of the box and plug in the charger. Wait for a few minutes, and then press the button on the side to turn it on. Next, choose your language and log into your account. Make a strong password, but don't write it down on paper. At night, you can turn it off to save the battery."
+    }
+  },
+  "glosses": [
+    {
+      "text": "set it up",
+      "lemma": "set up",
+      "meaningVi": "cài đặt",
+      "sentenceIndex": 4,
+      "pos": "phrasal verb",
+      "phrase": "how to set it up",
+      "phraseVi": "cài đặt nó thế nào"
+    },
+    {
+      "text": "plugs in",
+      "lemma": "plug in",
+      "meaningVi": "cắm (điện)",
+      "sentenceIndex": 7,
+      "pos": "phrasal verb",
+      "phrase": "plugs in the charger",
+      "phraseVi": "cắm sạc"
+    },
+    {
+      "text": "lights up",
+      "lemma": "light up",
+      "meaningVi": "sáng lên",
+      "sentenceIndex": 13,
+      "pos": "phrasal verb",
+      "phrase": "the screen lights up",
+      "phraseVi": "màn hình sáng lên"
+    },
+    {
+      "text": "wrote it down",
+      "lemma": "write down",
+      "meaningVi": "ghi lại",
+      "sentenceIndex": 17,
+      "pos": "phrasal verb",
+      "phrase": "I wrote it down somewhere.",
+      "phraseVi": "Chị có ghi lại ở đâu đó."
+    },
+    {
+      "text": "looks through",
+      "lemma": "look through",
+      "meaningVi": "lật xem, xem qua",
+      "sentenceIndex": 18,
+      "pos": "phrasal verb",
+      "phrase": "She looks through her notebook.",
+      "phraseVi": "Chị lật xem sổ tay."
+    },
+    {
+      "text": "throw away",
+      "lemma": "throw away",
+      "meaningVi": "vứt đi",
+      "sentenceIndex": 28,
+      "pos": "phrasal verb",
+      "phrase": "don't throw away the box",
+      "phraseVi": "đừng vứt cái hộp đi"
+    }
+  ]
+}

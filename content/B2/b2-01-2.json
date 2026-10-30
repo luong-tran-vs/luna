@@ -1,0 +1,610 @@
+{
+  "content": "On Monday morning, Hieu and Phuong are having coffee in the office kitchen before work. Both of them visited Hoa Lo Prison in Hanoi at the weekend, but they went on different days.\n\nPhuong asks, \"So, what did you think of Hoa Lo?\"\n\"Honestly, rarely have I felt such deep respect for our national heroes,\" Hieu says. \"The prison is right in the middle of the city, but it feels like another world.\"\n\"I know. Never had I imagined that the cells would be so small and dark.\"\n\"The French built the prison at the end of the nineteenth century, didn't they?\"\n\"Yes, in 1896. They used it to hold Vietnamese people who were fighting for independence. Some prisoners were kept in chains for years.\"\n\"I saw those chains. Not until I stood in front of them did I understand how terrible life there was.\"\n\"And did you read about the prisoners who escaped through the sewer?\"\n\"Yes! In 1945, more than a hundred of them climbed out through a narrow tunnel under the walls. Seldom have I heard such a brave story.\"\n\"What surprised me most was how they kept studying. They taught each other to read and wrote secret newspapers.\"\n\"That's true. Only then did I realise how strong they were. They had no freedom, but they never gave up hope.\"\n\"Later, during the war, American pilots were held there too. They called it the 'Hanoi Hilton'.\"\n\"I saw their photos and uniforms in the last room. It shows how history keeps changing a place.\"\nPhuong finishes her coffee. \"You know, at school I thought history was boring. Never did I expect to feel so moved by a museum.\"\n\"Neither did I. We should take the new interns there next month.\"\n\"Good idea. Hardly anyone their age knows these stories well.\"\n\"Then let's be their tour guides. I'll ask the manager this afternoon.\"",
+  "targetWords": [
+    "respect",
+    "hero",
+    "prison",
+    "cell",
+    "century",
+    "independence",
+    "prisoner",
+    "escape",
+    "freedom",
+    "war"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "respect",
+        "lemma": "respect",
+        "meaningVi": "sự kính trọng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "heroes",
+        "lemma": "hero",
+        "meaningVi": "anh hùng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "cells",
+        "lemma": "cell",
+        "meaningVi": "phòng giam",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "century",
+        "lemma": "century",
+        "meaningVi": "thế kỷ",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "independence",
+        "lemma": "independence",
+        "meaningVi": "nền độc lập",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "prisoners",
+        "lemma": "prisoner",
+        "meaningVi": "tù nhân",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "escaped",
+        "lemma": "escape",
+        "meaningVi": "trốn thoát",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "freedom",
+        "lemma": "freedom",
+        "meaningVi": "sự tự do",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "war",
+        "lemma": "war",
+        "meaningVi": "chiến tranh",
+        "pos": "noun",
+        "sentenceIndex": 22
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hieu and Phuong talking about?",
+        "promptVi": "Hiếu và Phương đang nói về chuyện gì?",
+        "options": [
+          "Their visits to Hoa Lo Prison",
+          "A new office",
+          "A history exam",
+          "A film about the war"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người kể lại cảm nhận sau khi đi thăm nhà tù Hoả Lò cuối tuần."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When was the prison built?",
+        "promptVi": "Nhà tù được xây năm nào?",
+        "options": [
+          "In 1896",
+          "In 1945",
+          "In 1968",
+          "In 1975"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phương nói \"Yes, in 1896.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How did the prisoners escape in 1945?",
+        "promptVi": "Năm 1945 các tù nhân trốn thoát bằng cách nào?",
+        "options": [
+          "Over the walls",
+          "Through a narrow tunnel under the walls",
+          "In a car",
+          "By boat"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hiếu nói \"more than a hundred of them climbed out through a narrow tunnel under the walls.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuong always loved history at school.",
+        "promptVi": "Hồi đi học Phương luôn thích môn lịch sử.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phương nói \"at school I thought history was boring.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"freedom\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"They had no freedom, but they never gave up hope.\"",
+        "options": [
+          "sự tự do",
+          "thức ăn",
+          "tiền bạc",
+          "bạn bè"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Freedom = sự tự do, được làm và đi lại theo ý mình."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đảo ngữ với phủ định",
+      "bodyVi": "Đảo ngữ với trạng từ phủ định dùng để nhấn mạnh: đưa Never / Rarely / Seldom lên đầu câu, rồi đặt trợ động từ trước chủ ngữ. Rarely have I felt such deep respect for our national heroes. Never had I imagined that the cells would be so small and dark. Với Not until … và Only then …, đảo ngữ nằm ở mệnh đề chính: Not until I stood in front of them did I understand … / Only then did I realise … Thì đơn không có trợ động từ thì mượn do / does / did: Never did I expect to feel so moved.",
+      "examples": [
+        "\"Honestly, rarely have I felt such deep respect for our national heroes,\" Hieu says.",
+        "Never had I imagined that the cells would be so small and dark.\"",
+        "Not until I stood in front of them did I understand how terrible life there was.\""
+      ]
+    },
+    "writingPrompt": "Write a short review of a museum or historical place you have visited. Use at least two sentences with inversion (Never have I …, Rarely do …, Not until … did I …).",
+    "sentenceTranslations": [
+      "Sáng thứ Hai, Hiếu và Phương đang uống cà phê trong bếp của văn phòng trước giờ làm.",
+      "Cả hai đều đến thăm nhà tù Hoả Lò ở Hà Nội vào cuối tuần, nhưng vào hai ngày khác nhau.",
+      "Phương hỏi: \"Thế anh thấy Hoả Lò thế nào?\"",
+      "Hiếu nói: \"Thật lòng mà nói, hiếm khi anh thấy kính trọng các anh hùng dân tộc đến vậy.",
+      "Nhà tù nằm ngay giữa thành phố mà cảm giác như một thế giới khác.\"",
+      "\"Em hiểu.",
+      "Em chưa bao giờ tưởng tượng các phòng giam lại nhỏ và tối đến thế.\"",
+      "\"Người Pháp xây nhà tù vào cuối thế kỷ mười chín, đúng không?\"",
+      "\"Vâng, năm 1896.",
+      "Họ dùng nó để giam những người Việt Nam đấu tranh giành độc lập.",
+      "Có những tù nhân bị cùm chân suốt nhiều năm.\"",
+      "\"Anh thấy mấy cái cùm đó rồi.",
+      "Phải đến khi đứng trước chúng anh mới hiểu cuộc sống ở đó khủng khiếp thế nào.\"",
+      "\"Thế anh có đọc về những tù nhân trốn thoát qua đường cống không?\"",
+      "\"Có chứ!",
+      "Năm 1945, hơn một trăm người đã bò ra ngoài qua một đường hầm hẹp dưới chân tường.",
+      "Hiếm khi anh được nghe một câu chuyện dũng cảm như vậy.\"",
+      "\"Điều làm em ngạc nhiên nhất là họ vẫn không ngừng học.",
+      "Họ dạy nhau đọc chữ và viết báo bí mật.\"",
+      "\"Đúng vậy.",
+      "Chỉ đến lúc đó anh mới nhận ra họ mạnh mẽ đến nhường nào.",
+      "Họ không có tự do, nhưng chưa bao giờ mất hy vọng.\"",
+      "\"Về sau, trong chiến tranh, các phi công Mỹ cũng bị giam ở đó.",
+      "Họ gọi nó là 'Hanoi Hilton'.\"",
+      "\"Em thấy ảnh và quân phục của họ ở phòng cuối.",
+      "Nó cho thấy lịch sử luôn làm một nơi thay đổi.\"",
+      "Phương uống hết cà phê.",
+      "\"Anh biết không, hồi đi học em thấy môn lịch sử chán lắm.",
+      "Em chưa bao giờ nghĩ mình lại xúc động đến thế vì một bảo tàng.\"",
+      "\"Anh cũng vậy. Tháng sau mình nên dẫn các bạn thực tập sinh mới đến đó.\"",
+      "\"Ý hay đấy.",
+      "Hầu như chẳng ai ở tuổi các bạn ấy biết rõ những câu chuyện này.\"",
+      "\"Vậy mình làm hướng dẫn viên cho các bạn ấy.",
+      "Chiều nay anh sẽ hỏi trưởng phòng.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nhấn mạnh cảm xúc khi kể về một nơi lịch sử bằng đảo ngữ với trạng từ phủ định (Never have I …, Rarely have I …, Not until … did I …).",
+    "examples": [
+      {
+        "lemma": "respect",
+        "sentence": "She has great respect for her teachers.",
+        "meaningVi": "Cô ấy rất kính trọng thầy cô của mình."
+      },
+      {
+        "lemma": "hero",
+        "sentence": "My grandfather is my hero.",
+        "meaningVi": "Ông tôi là người hùng của tôi."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "He spent ten years in prison.",
+        "meaningVi": "Ông ấy ngồi tù mười năm."
+      },
+      {
+        "lemma": "cell",
+        "sentence": "The cell had only one small window.",
+        "meaningVi": "Phòng giam chỉ có một ô cửa sổ nhỏ."
+      },
+      {
+        "lemma": "century",
+        "sentence": "This house was built in the last century.",
+        "meaningVi": "Ngôi nhà này được xây vào thế kỷ trước."
+      },
+      {
+        "lemma": "independence",
+        "sentence": "The country celebrates its independence in September.",
+        "meaningVi": "Đất nước kỷ niệm ngày độc lập vào tháng Chín."
+      },
+      {
+        "lemma": "prisoner",
+        "sentence": "The prisoner wrote letters to his family.",
+        "meaningVi": "Người tù viết thư cho gia đình."
+      },
+      {
+        "lemma": "escape",
+        "sentence": "The bird tried to escape from its cage.",
+        "meaningVi": "Con chim cố thoát ra khỏi lồng."
+      },
+      {
+        "lemma": "freedom",
+        "sentence": "Students here have a lot of freedom.",
+        "meaningVi": "Sinh viên ở đây được tự do nhiều."
+      },
+      {
+        "lemma": "war",
+        "sentence": "My grandmother rarely talks about the war.",
+        "meaningVi": "Bà tôi hiếm khi kể về chiến tranh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Kiet",
+        "Phuong"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Ms Phuong, why are we visiting a prison today?",
+          "meaningVi": "Chị Phương ơi, sao hôm nay mình lại đi thăm nhà tù ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Because rarely do you see history so close. Have you been to Hoa Lo before?",
+          "meaningVi": "Vì hiếm khi em được thấy lịch sử gần đến thế. Em đến Hoả Lò bao giờ chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, never. Is it very big?",
+          "meaningVi": "Chưa ạ. Nó có rộng không chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "Only part of it is left. The rest was pulled down in the 1990s.",
+          "meaningVi": "Chỉ còn một phần thôi. Phần còn lại bị phá vào những năm 1990."
+        },
+        {
+          "speaker": 0,
+          "text": "What should I look at first?",
+          "meaningVi": "Em nên xem gì trước ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "The cells. Never have I seen rooms so small and dark.",
+          "meaningVi": "Các phòng giam. Chị chưa từng thấy căn phòng nào nhỏ và tối như vậy."
+        },
+        {
+          "speaker": 0,
+          "text": "Were the prisoners kept there for a long time?",
+          "meaningVi": "Tù nhân bị giam ở đó lâu không chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "Some for years. Not until I saw the chains did I understand.",
+          "meaningVi": "Có người nhiều năm. Phải đến khi thấy mấy cái cùm chị mới hiểu."
+        },
+        {
+          "speaker": 0,
+          "text": "That sounds hard to see. Can we take photos?",
+          "meaningVi": "Nghe chắc khó xem lắm. Mình có được chụp ảnh không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, but please be quiet and respectful inside.",
+          "meaningVi": "Được, nhưng vào trong nhớ giữ trật tự và tôn trọng nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Đảo ngữ nhấn mạnh: rarely do you see history so close / Never have I seen rooms so small and dark / Not until I saw the chains did I understand. Trong hội thoại thường ngày vẫn có thể nói: I've never seen …",
+    "translations": [
+      {
+        "vi": "Hiếm khi tôi thấy kính trọng các anh hùng đến vậy.",
+        "en": "Rarely have I felt such respect for our heroes.",
+        "distractors": [
+          "had",
+          "feel",
+          "never"
+        ]
+      },
+      {
+        "vi": "Chưa bao giờ tôi nghĩ phòng giam lại tối đến thế.",
+        "en": "Never had I imagined the cells were so dark.",
+        "distractors": [
+          "have",
+          "think",
+          "was"
+        ]
+      },
+      {
+        "vi": "Những tù nhân đó đã đấu tranh vì độc lập.",
+        "en": "Those prisoners were fighting for independence.",
+        "distractors": [
+          "was",
+          "fought",
+          "freedom"
+        ]
+      },
+      {
+        "vi": "Hơn một trăm tù nhân đã trốn thoát qua một đường hầm.",
+        "en": "More than a hundred prisoners escaped through a tunnel.",
+        "distractors": [
+          "ran",
+          "thousand",
+          "bridge"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Kiệt và chị Phương nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuyến thăm nhà tù Hoả Lò",
+          "Ngày làm việc đầu tiên",
+          "Một bộ phim"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kiệt hỏi \"why are we visiting a prison today?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phần lớn nhà tù bị phá khi nào?",
+        "promptVi": "",
+        "options": [
+          "Những năm 1990",
+          "Năm 1945",
+          "Năm 1896"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Phương nói \"The rest was pulled down in the 1990s.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị Phương khuyên Kiệt xem gì trước?",
+        "promptVi": "",
+        "options": [
+          "Các phòng giam",
+          "Phòng ảnh",
+          "Cửa hàng lưu niệm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Phương trả lời \"The cells.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Kiet has visited Hoa Lo many times.",
+        "promptVi": "Kiệt đã đến Hoả Lò nhiều lần.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Kiệt nói \"No, never.\"",
+        "turnIndex": 2
+      }
+    ],
+    "readingGuideVi": "Điều gì ở nhà tù Hoả Lò làm Hiếu và Phương xúc động nhất? Họ dùng những câu đảo ngữ nào để nhấn mạnh cảm xúc?",
+    "grammarStep": {
+      "titleVi": "Đảo ngữ với phủ định",
+      "noticing": [
+        {
+          "sentence": "\"Honestly, rarely have I felt such deep respect for our national heroes,\" Hieu says.",
+          "highlights": [
+            "rarely have I felt"
+          ]
+        },
+        {
+          "sentence": "Never had I imagined that the cells would be so small and dark.\"",
+          "highlights": [
+            "Never had I imagined"
+          ]
+        },
+        {
+          "sentence": "Not until I stood in front of them did I understand how terrible life there was.\"",
+          "highlights": [
+            "Not until I stood in front of them",
+            "did I understand"
+          ]
+        },
+        {
+          "sentence": "Only then did I realise how strong they were.",
+          "highlights": [
+            "Only then did I realise"
+          ]
+        }
+      ],
+      "questionVi": "Hiếu muốn nhấn mạnh: hiếm khi anh được nghe câu chuyện nào dũng cảm như vậy. Câu nào đúng?",
+      "options": [
+        "Seldom have I heard such a brave story.",
+        "Seldom I have heard such a brave story.",
+        "Seldom have heard I such a brave story."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Sau Seldom đứng đầu câu: trợ động từ (have) + chủ ngữ (I) + động từ chính (heard).",
+      "whenVi": "Dùng để nhấn mạnh một trải nghiệm đặc biệt, thường trong văn viết, bài phát biểu hoặc khi kể chuyện đầy cảm xúc.",
+      "table": [
+        {
+          "subject": "Never / Rarely / Seldom",
+          "form": "Never + trợ động từ + chủ ngữ + V: Never had I imagined …",
+          "negative": "Không viết: Never I had imagined …"
+        },
+        {
+          "subject": "Not until …",
+          "form": "Not until + mệnh đề, did + chủ ngữ + V: Not until I stood there did I understand.",
+          "negative": "Đảo ngữ nằm ở mệnh đề thứ hai."
+        },
+        {
+          "subject": "Only then / Only after …",
+          "form": "Only then did I realise …",
+          "negative": "Thì đơn mượn do / does / did: Never did I expect …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Never I have seen such small cells.",
+          "right": "Never have I seen such small cells."
+        },
+        {
+          "wrong": "Not until I read the story I understood.",
+          "right": "Not until I read the story did I understand."
+        }
+      ],
+      "noteVi": "Đảo ngữ khá trang trọng; nói chuyện bình thường thì \"I have never seen …\" tự nhiên hơn.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một trợ động từ.",
+          "text": "Rarely ___ I felt so moved by a museum.",
+          "answers": [
+            "have"
+          ],
+          "explanationVi": "Rarely + have + I + felt (hiện tại hoàn thành đảo ngữ)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Not until I saw the chains ___ how hard life was.",
+          "options": [
+            "did I understand",
+            "I understood",
+            "I did understand",
+            "understood I"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Not until … thì mệnh đề chính đảo ngữ: did + I + understand."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Seldom I have heard such a brave story.",
+          "sentence": "Seldom have I heard such a brave story.",
+          "explanationVi": "Sau Seldom phải đảo trợ động từ lên trước chủ ngữ: have I heard."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chưa bao giờ tôi tưởng tượng phòng giam lại nhỏ như vậy.",
+          "sentence": "Never had I imagined the cells were so small.",
+          "words": [
+            "Never",
+            "had",
+            "I",
+            "imagined",
+            "the",
+            "cells",
+            "were",
+            "so",
+            "small.",
+            "have"
+          ],
+          "explanationVi": "Never + had + I + V3; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Never had I imagined that the cells would be so small and dark.\"",
+        "tipVi": "Nhấn mạnh vào Never; had I đọc nối /hædaɪ/."
+      },
+      {
+        "text": "Not until I stood in front of them did I understand how terrible life there was.\"",
+        "tipVi": "Ngắt hơi sau them; nhấn vào did I understand."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which museum or historical place has moved you the most? Why?",
+        "questionVi": "Bảo tàng hay di tích nào làm bạn xúc động nhất? Vì sao?",
+        "frame": "Never have I felt so ___ as when I visited ___."
+      },
+      {
+        "question": "How much do young people in your country know about history?",
+        "questionVi": "Giới trẻ ở nước bạn biết về lịch sử nhiều không?",
+        "frame": "I think young people ___ because ___."
+      },
+      {
+        "question": "Describe something that surprised you on a trip.",
+        "questionVi": "Kể một điều làm bạn ngạc nhiên trong một chuyến đi.",
+        "frame": "Never had I expected ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu đảo ngữ (Never have I …, Rarely do …, Not until … did …)",
+      "anyOf": [
+        "Never have",
+        "Never had",
+        "Never did",
+        "Rarely",
+        "Seldom",
+        "Not until",
+        "Only then"
+      ],
+      "outlineVi": [
+        "Bạn đến nơi nào, khi nào, đi cùng ai.",
+        "Điều gì làm bạn ấn tượng (Never have I seen …).",
+        "Bạn hiểu ra điều gì sau chuyến đi (Not until … did I …)."
+      ],
+      "modelAnswer": "Last year I visited the War Remnants Museum in Ho Chi Minh City. Never have I seen such powerful photos. Not until I stood in the last room did I understand how much people had suffered. Rarely do museums make me cry, but this one did. I think every student should visit it."
+    }
+  },
+  "glosses": [
+    {
+      "text": "chains",
+      "lemma": "chain",
+      "meaningVi": "xiềng xích, cùm",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "kept in chains",
+      "phraseVi": "bị cùm"
+    },
+    {
+      "text": "sewer",
+      "lemma": "sewer",
+      "meaningVi": "đường cống",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "escaped through the sewer",
+      "phraseVi": "trốn thoát qua đường cống"
+    },
+    {
+      "text": "secret",
+      "lemma": "secret",
+      "meaningVi": "bí mật",
+      "sentenceIndex": 18,
+      "pos": "adjective",
+      "phrase": "wrote secret newspapers",
+      "phraseVi": "viết báo bí mật"
+    },
+    {
+      "text": "moved",
+      "lemma": "moved",
+      "meaningVi": "xúc động",
+      "sentenceIndex": 28,
+      "pos": "adjective",
+      "phrase": "so moved by a museum",
+      "phraseVi": "xúc động đến thế vì một bảo tàng"
+    },
+    {
+      "text": "interns",
+      "lemma": "intern",
+      "meaningVi": "thực tập sinh",
+      "sentenceIndex": 29,
+      "pos": "noun",
+      "phrase": "the new interns",
+      "phraseVi": "các bạn thực tập sinh mới"
+    }
+  ]
+}

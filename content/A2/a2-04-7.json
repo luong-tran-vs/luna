@@ -1,0 +1,589 @@
+{
+  "content": "Trang and Hieu work in the same team at a big company in Hanoi. It is Friday morning, and today they have a meeting with an important customer from Korea. Hieu is wearing jeans and a T-shirt.\n\nTrang looks at him and says, \"Hieu, you can't wear jeans today!\"\n\"We usually wear jeans on Fridays,\" Hieu says.\n\"Yes, we don't have to wear smart clothes on normal Fridays, but today is different,\" Trang answers. \"When we meet customers, we must wear smart clothes.\"\n\nHieu asks, \"What do I have to wear, then?\"\n\"You have to wear a shirt and dark trousers.\" \"You don't have to wear a jacket, but you should wear a tie.\"\nThen Hieu asks, \"And what are you wearing?\"\n\"I'm wearing my grey dress and black shoes, because we mustn't wear sport shoes at meetings,\" Trang says.\n\nHieu runs to a shop near the office and buys a white shirt and a blue tie. At half past one, he is changing his clothes in the bathroom. At two o'clock, the customer arrives. Hieu is standing next to Trang in his new shirt, and he looks very smart.",
+  "targetWords": [
+    "company",
+    "meeting",
+    "jeans",
+    "smart",
+    "trousers",
+    "jacket",
+    "tie",
+    "change"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "company",
+        "lemma": "company",
+        "meaningVi": "công ty",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "meeting",
+        "lemma": "meeting",
+        "meaningVi": "cuộc họp",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "jeans",
+        "lemma": "jeans",
+        "meaningVi": "quần bò, quần jeans",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "smart",
+        "lemma": "smart",
+        "meaningVi": "lịch sự, chỉn chu",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "trousers",
+        "lemma": "trousers",
+        "meaningVi": "quần dài (âu)",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "jacket",
+        "lemma": "jacket",
+        "meaningVi": "áo vest, áo khoác",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "tie",
+        "lemma": "tie",
+        "meaningVi": "cà vạt",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "changing",
+        "lemma": "change",
+        "meaningVi": "thay (quần áo)",
+        "pos": "verb",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Trang buys a new dress.",
+          "Hieu changes his clothes for an important meeting.",
+          "A party on Friday",
+          "Hieu's new job in Korea"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hôm nay có buổi họp với khách hàng quan trọng, Trang nhắc Hiếu quy định trang phục, và Hiếu đi mua áo sơ mi, cà vạt để thay."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What do they usually wear on Fridays?",
+        "promptVi": "Thứ Sáu họ thường mặc gì?",
+        "options": [
+          "Jeans",
+          "Suits",
+          "Uniforms",
+          "Ties"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hiếu nói \"We usually wear jeans on Fridays\": thứ Sáu thường mặc quần jeans."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't Hieu wear jeans today?",
+        "promptVi": "Vì sao hôm nay Hiếu không được mặc quần jeans?",
+        "options": [
+          "It's too hot.",
+          "His boss doesn't like blue.",
+          "They have a meeting with an important customer.",
+          "His jeans are too old."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Trang nói \"When we meet customers, we must wear smart clothes\", mà hôm nay có khách quan trọng đến."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hieu has to wear a jacket.",
+        "promptVi": "Hiếu phải mặc áo vest.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Trang nói \"You don't have to wear a jacket, but you should wear a tie\": không bắt buộc mặc áo vest."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"smart\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Hieu is standing next to Trang in his new shirt, and he looks very smart.",
+        "options": [
+          "thông minh",
+          "nhanh nhẹn",
+          "mệt mỏi",
+          "lịch sự, chỉn chu"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Khi nói về quần áo, smart là lịch sự, chỉn chu. Smart còn có nghĩa \"thông minh\" nhưng ở đây nói về cách ăn mặc."
+      }
+    ],
+    "grammarNote": {
+      "title": "Must / have to / should; mustn't và don't have to",
+      "bodyVi": "Must / have to: phải (we must wear smart clothes, you have to wear a shirt). Don't have to: không bắt buộc (you don't have to wear a jacket). Mustn't: không được (we mustn't wear sport shoes at meetings). Should: nên (you should wear a tie). Với he / she dùng has to, doesn't have to.",
+      "examples": [
+        "\"When we meet customers, we must wear smart clothes.\"",
+        "\"You have to wear a shirt and dark trousers.\"",
+        "\"You don't have to wear a jacket, but you should wear a tie.\""
+      ]
+    },
+    "writingPrompt": "Write the clothes rules for an office, a school or a restaurant: what people must, mustn't and don't have to wear.",
+    "sentenceTranslations": [
+      "Trang và Hiếu làm cùng nhóm ở một công ty lớn ở Hà Nội.",
+      "Hôm nay là sáng thứ Sáu, và họ có buổi họp với một khách hàng quan trọng đến từ Hàn Quốc.",
+      "Hiếu đang mặc quần jeans và áo phông.",
+      "Trang nhìn anh và nói: \"Hiếu, hôm nay anh không được mặc quần jeans đâu!\"",
+      "\"Thứ Sáu mình vẫn hay mặc quần jeans mà,\" Hiếu nói.",
+      "\"Ừ, thứ Sáu bình thường thì không cần mặc lịch sự, nhưng hôm nay khác,\" Trang đáp.",
+      "\"Khi gặp khách hàng, mình phải mặc quần áo lịch sự.\"",
+      "Hiếu hỏi: \"Thế anh phải mặc gì?\"",
+      "\"Anh phải mặc áo sơ mi và quần âu tối màu.\"",
+      "\"Anh không cần mặc áo vest, nhưng nên đeo cà vạt.\"",
+      "Rồi Hiếu hỏi: \"Thế em mặc gì?\"",
+      "\"Em mặc váy xám và đi giày đen, vì khi họp mình không được đi giày thể thao,\" Trang nói.",
+      "Hiếu chạy ra một cửa hàng gần văn phòng mua một chiếc áo sơ mi trắng và một chiếc cà vạt xanh.",
+      "Một giờ rưỡi, anh đang thay quần áo trong nhà vệ sinh.",
+      "Hai giờ, khách hàng đến.",
+      "Hiếu đứng cạnh Trang trong chiếc áo sơ mi mới, trông rất chỉn chu."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói quy định trang phục ở nơi làm việc: phải mặc gì, không được mặc gì, không cần mặc gì và nên mặc gì.",
+    "examples": [
+      {
+        "lemma": "company",
+        "sentence": "My father works for a big company.",
+        "meaningVi": "Bố mình làm cho một công ty lớn."
+      },
+      {
+        "lemma": "meeting",
+        "sentence": "The meeting starts at two o'clock.",
+        "meaningVi": "Cuộc họp bắt đầu lúc hai giờ."
+      },
+      {
+        "lemma": "jeans",
+        "sentence": "I usually wear jeans at the weekend.",
+        "meaningVi": "Cuối tuần mình thường mặc quần jeans."
+      },
+      {
+        "lemma": "smart",
+        "sentence": "You look very smart today!",
+        "meaningVi": "Hôm nay trông bạn chỉn chu quá!"
+      },
+      {
+        "lemma": "trousers",
+        "sentence": "These trousers are new.",
+        "meaningVi": "Chiếc quần này mới."
+      },
+      {
+        "lemma": "jacket",
+        "sentence": "Take your jacket, because it's cold.",
+        "meaningVi": "Mang áo khoác theo nhé, trời lạnh đấy."
+      },
+      {
+        "lemma": "tie",
+        "sentence": "My dad wears a tie to work.",
+        "meaningVi": "Bố mình đeo cà vạt đi làm."
+      },
+      {
+        "lemma": "change",
+        "sentence": "I have to change my clothes.",
+        "meaningVi": "Mình phải thay quần áo."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Trang",
+        "Rose"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Trang, do we have to wear suits every day here?",
+          "meaningVi": "Trang ơi, ở đây ngày nào mình cũng phải mặc vest à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, we don't. We usually wear normal clothes, and on Fridays we can wear jeans.",
+          "meaningVi": "Không. Bình thường mình mặc đồ thường, còn thứ Sáu thì được mặc quần jeans."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! But what about meetings?",
+          "meaningVi": "Tuyệt! Thế còn lúc họp thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "When we meet customers, we must wear smart clothes.",
+          "meaningVi": "Khi gặp khách hàng, mình phải mặc lịch sự."
+        },
+        {
+          "speaker": 1,
+          "text": "Do men have to wear ties?",
+          "meaningVi": "Nam có phải đeo cà vạt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "They should wear a tie, but they don't have to wear a jacket.",
+          "meaningVi": "Họ nên đeo cà vạt, nhưng không cần mặc áo vest."
+        },
+        {
+          "speaker": 1,
+          "text": "And can women wear sport shoes?",
+          "meaningVi": "Thế nữ có được đi giày thể thao không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, we mustn't wear them at meetings.",
+          "meaningVi": "Không, khi họp mình không được đi giày thể thao."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Is Hieu wearing a tie today?",
+          "meaningVi": "Được rồi. Hôm nay Hiếu có đeo cà vạt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, he is. He's wearing a new blue tie!",
+          "meaningVi": "Có. Anh ấy đang đeo một chiếc cà vạt xanh mới!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi quy định: Do we have to wear suits every day? Do men have to wear ties? Trả lời: No, we don't. / They should wear a tie, but they don't have to wear a jacket.",
+    "translations": [
+      {
+        "vi": "Hôm nay anh không được mặc quần jeans.",
+        "en": "You can't wear jeans today.",
+        "distractors": [
+          "wears",
+          "jean",
+          "shorts"
+        ]
+      },
+      {
+        "vi": "Chúng ta phải mặc quần áo lịch sự.",
+        "en": "We must wear smart clothes.",
+        "distractors": [
+          "mustn't",
+          "clothe",
+          "wears"
+        ]
+      },
+      {
+        "vi": "Anh không cần mặc áo vest.",
+        "en": "You don't have to wear a jacket.",
+        "distractors": [
+          "mustn't",
+          "has",
+          "tie"
+        ]
+      },
+      {
+        "vi": "Anh ấy đang thay quần áo.",
+        "en": "He is changing his clothes.",
+        "distractors": [
+          "changes",
+          "her",
+          "clothe"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Rose và Trang nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi Hàn Quốc",
+          "Đi mua giày mới",
+          "Quy định trang phục ở công ty"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Rose hỏi \"do we have to wear suits every day here?\", rồi hai người nói về quần áo khi đi làm và khi họp.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thứ Sáu nhân viên được mặc gì?",
+        "promptVi": "",
+        "options": [
+          "Quần jeans",
+          "Đồng phục",
+          "Vest"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang nói \"on Fridays we can wear jeans.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi họp, phụ nữ không được đi gì?",
+        "promptVi": "",
+        "options": [
+          "Giày đen",
+          "Giày thể thao",
+          "Giày cao gót"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Rose hỏi về giày thể thao và Trang nói \"No, we mustn't wear them at meetings.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Men have to wear a jacket at meetings.",
+        "promptVi": "Nam phải mặc áo vest khi họp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Trang nói \"they don't have to wear a jacket.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Khi gặp khách hàng, Hiếu phải mặc gì, không cần mặc gì và nên mặc gì?",
+    "grammarStep": {
+      "titleVi": "Must / have to / should; mustn't và don't have to",
+      "noticing": [
+        {
+          "sentence": "\"Yes, we don't have to wear smart clothes on normal Fridays, but today is different,\" Trang answers.",
+          "highlights": [
+            "don't have to wear"
+          ]
+        },
+        {
+          "sentence": "\"When we meet customers, we must wear smart clothes.\"",
+          "highlights": [
+            "must wear"
+          ]
+        },
+        {
+          "sentence": "\"You don't have to wear a jacket, but you should wear a tie.\"",
+          "highlights": [
+            "don't have to wear",
+            "should wear"
+          ]
+        },
+        {
+          "sentence": "\"I'm wearing my grey dress and black shoes, because we mustn't wear sport shoes at meetings,\" Trang says.",
+          "highlights": [
+            "mustn't wear"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"You don't have to wear a jacket, but you should wear a tie\", Hiếu có phải mặc áo vest không?",
+      "options": [
+        "Không bắt buộc; mặc hay không cũng được",
+        "Có, bắt buộc phải mặc",
+        "Không được mặc"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Don't have to là không bắt buộc. Nếu bị cấm thì dùng mustn't (we mustn't wear sport shoes). Should wear a tie là lời khuyên: nên đeo cà vạt.",
+      "whenVi": "Dùng must / have to cho điều bắt buộc, mustn't cho điều bị cấm, don't have to cho điều không cần, và should cho lời khuyên.",
+      "table": [
+        {
+          "subject": "Bắt buộc",
+          "form": "We must wear smart clothes. You have to wear a shirt.",
+          "negative": "We mustn't wear sport shoes. (không được)"
+        },
+        {
+          "subject": "Không bắt buộc",
+          "form": "On Fridays, we can wear jeans.",
+          "negative": "You don't have to wear a jacket. (không cần)"
+        },
+        {
+          "subject": "Lời khuyên",
+          "form": "You should wear a tie.",
+          "negative": "You shouldn't wear a T-shirt to a meeting."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "You don't must wear sport shoes.",
+          "right": "You mustn't wear sport shoes."
+        },
+        {
+          "wrong": "We mustn't wear a jacket. (muốn nói: không cần)",
+          "right": "We don't have to wear a jacket."
+        }
+      ],
+      "noteVi": "Người Việt hay viết \"don't must\" (vì quen don't + động từ) và hay dùng mustn't khi chỉ muốn nói \"không cần\"; phủ định của must là mustn't, còn \"không cần\" là don't have to.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa \"phải\" vào chỗ trống (must hoặc have to).",
+          "text": "When we meet customers, we ___ wear smart clothes.",
+          "answers": [
+            "must",
+            "have to"
+          ],
+          "explanationVi": "Điều bắt buộc: must hoặc have to."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "On normal Fridays, we ___ wear smart clothes. We can wear jeans.",
+          "options": [
+            "don't have to",
+            "mustn't",
+            "must",
+            "has to"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Được mặc jeans nghĩa là không bắt buộc mặc lịch sự: don't have to."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "You don't must wear sport shoes at meetings.",
+          "sentence": "You mustn't wear sport shoes at meetings.",
+          "explanationVi": "Phủ định của must là mustn't, không dùng don't must."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh nên đeo cà vạt.",
+          "sentence": "You should wear a tie.",
+          "words": [
+            "wear",
+            "You",
+            "tie",
+            "should",
+            "a",
+            "must"
+          ],
+          "explanationVi": "\"Nên\" là should; từ \"must\" (phải) bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "At half past one, he is changing his clothes in the bathroom.",
+        "tipVi": "Clothes /kloʊðz/ có âm /ð/ và /z/ ở cuối, đừng đọc thành \"clo-thes\"; changing /ˈtʃeɪndʒɪŋ/."
+      },
+      {
+        "text": "Hieu is wearing jeans and a T-shirt.",
+        "tipVi": "Jeans /dʒinz/ có âm /i/ dài và /nz/ ở cuối; T-shirt /ˈtiʃɝt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you usually wear at the weekend?",
+        "questionVi": "Cuối tuần bạn thường mặc gì?",
+        "frame": "I usually wear ___ at the weekend."
+      },
+      {
+        "question": "What should people wear to an important meeting?",
+        "questionVi": "Khi đi họp quan trọng, người ta nên mặc gì?",
+        "frame": "They should wear ___. They mustn't wear ___."
+      },
+      {
+        "question": "What does your mum or dad have to wear at work?",
+        "questionVi": "Bố hoặc mẹ bạn phải mặc gì khi đi làm?",
+        "frame": "He / She has to wear ___. He / She doesn't have to wear ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng must / have to / mustn't / don't have to / should",
+      "anyOf": [
+        "must",
+        "mustn't",
+        "have to",
+        "has to",
+        "don't have to",
+        "should"
+      ],
+      "outlineVi": [
+        "Nói đây là quy định ở đâu.",
+        "Viết mọi người phải mặc gì và không được mặc gì.",
+        "Viết khi nào không cần mặc đồng phục hoặc đồ lịch sự, và một lời khuyên."
+      ],
+      "modelAnswer": "At my school, we have to wear a uniform from Monday to Friday. Boys must wear white shirts and blue trousers, and girls wear white shirts and blue skirts. We mustn't wear sport shoes in class. On Saturdays, we don't have to wear a uniform. We should keep our uniforms clean."
+    }
+  },
+  "glosses": [
+    {
+      "text": "same team",
+      "lemma": "team",
+      "meaningVi": "cùng nhóm",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "work in the same team",
+      "phraseVi": "làm cùng nhóm"
+    },
+    {
+      "text": "important",
+      "lemma": "important",
+      "meaningVi": "quan trọng",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "an important customer from Korea",
+      "phraseVi": "một khách hàng quan trọng đến từ Hàn Quốc"
+    },
+    {
+      "text": "normal",
+      "lemma": "normal",
+      "meaningVi": "bình thường",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "on normal Fridays",
+      "phraseVi": "vào thứ Sáu bình thường"
+    },
+    {
+      "text": "then",
+      "lemma": "then",
+      "meaningVi": "thế thì, vậy thì",
+      "sentenceIndex": 7,
+      "pos": "adverb",
+      "phrase": "What do I have to wear, then",
+      "phraseVi": "Thế anh phải mặc gì"
+    },
+    {
+      "text": "sport shoes",
+      "lemma": "sport shoes",
+      "meaningVi": "giày thể thao",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "we mustn't wear sport shoes at meetings",
+      "phraseVi": "khi họp không được đi giày thể thao"
+    },
+    {
+      "text": "runs",
+      "lemma": "run",
+      "meaningVi": "chạy",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "Hieu runs to a shop near the office",
+      "phraseVi": "Hiếu chạy ra một cửa hàng gần văn phòng"
+    },
+    {
+      "text": "bathroom",
+      "lemma": "bathroom",
+      "meaningVi": "nhà vệ sinh, phòng tắm",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "in the bathroom",
+      "phraseVi": "trong nhà vệ sinh"
+    },
+    {
+      "text": "arrives",
+      "lemma": "arrive",
+      "meaningVi": "đến nơi",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "the customer arrives",
+      "phraseVi": "khách hàng đến"
+    }
+  ]
+}

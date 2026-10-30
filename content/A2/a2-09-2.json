@@ -1,0 +1,591 @@
+{
+  "content": "On Sunday morning, Nam and his friend Tuan go for a walk in Ho Chi Minh City. The streets are quiet, and the air is cool.\n\nThey start at Bach Dang Park and walk along the Saigon River. Small boats go up and down the river, and some old men are fishing.\nTuan says, \"Look at that tall building over there. What is it?\"\nNam answers, \"It's a new tower. But I don't like it very much.\"\n\nThey walk away from the river and go up Dong Khoi Street. They go past an old hotel and a beautiful theatre. Then they walk through a small square with a lot of trees. At the end of the street, they see a big red church. Next to it, there is an old post office.\nTuan asks, \"Can we go into the post office?\"\nNam says, \"Yes, it's open on Sundays. It's more than a hundred years old.\"\nThey walk into the post office and look at the old maps on the walls. Then they come out and sit in a coffee shop across the street.\nTuan smiles, and he says, \"This is a perfect Sunday.\"",
+  "targetWords": [
+    "walk",
+    "quiet",
+    "boat",
+    "building",
+    "square",
+    "church",
+    "post office",
+    "wall"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "walk",
+        "lemma": "walk",
+        "meaningVi": "cuộc đi dạo",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "quiet",
+        "lemma": "quiet",
+        "meaningVi": "yên tĩnh",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "boats",
+        "lemma": "boat",
+        "meaningVi": "thuyền",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "building",
+        "lemma": "building",
+        "meaningVi": "toà nhà",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "square",
+        "lemma": "square",
+        "meaningVi": "quảng trường",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "church",
+        "lemma": "church",
+        "meaningVi": "nhà thờ",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "post office",
+        "lemma": "post office",
+        "meaningVi": "bưu điện",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "walls",
+        "lemma": "wall",
+        "meaningVi": "bức tường",
+        "pos": "noun",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Two friends take a Sunday walk past old buildings in Ho Chi Minh City.",
+          "Nam buys a flat in a new tower.",
+          "Tuan works at the post office.",
+          "A boat trip on the Saigon River"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sáng Chủ nhật, Nam và Tuấn đi dạo dọc sông Sài Gòn rồi qua các toà nhà cũ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What are the old men doing near the river?",
+        "promptVi": "Mấy ông cụ đang làm gì gần sông?",
+        "options": [
+          "Selling boats",
+          "Fishing",
+          "Walking",
+          "Drinking coffee"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết: \"some old men are fishing.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What do they look at in the post office?",
+        "promptVi": "Trong bưu điện họ xem gì?",
+        "options": [
+          "Old photos",
+          "New phones",
+          "Old maps on the walls",
+          "Letters"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"look at the old maps on the walls.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam likes the new tower very much.",
+        "promptVi": "Nam rất thích toà tháp mới.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"But I don't like it very much.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"away from\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "They walk away from the river and go up Dong Khoi Street.",
+        "options": [
+          "đến gần",
+          "rời xa, đi khỏi",
+          "băng qua",
+          "đi dọc theo"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Walk away from the river = đi rời xa con sông."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "bodyVi": "Khi kể đường đi bộ, dùng: along (dọc theo: walk along the Saigon River), up (đi lên phố, lên dốc: go up Dong Khoi Street), past (đi ngang qua: go past an old hotel), through (xuyên qua: walk through a small square), into (đi vào trong: go into the post office), out (đi ra: come out), across the street (bên kia đường). Away from = rời xa.",
+      "examples": [
+        "They start at Bach Dang Park and walk along the Saigon River.",
+        "They go past an old hotel and a beautiful theatre.",
+        "They walk into the post office and look at the old maps on the walls."
+      ]
+    },
+    "writingPrompt": "Write about a walk in your town or city: where do you go along, past and through?",
+    "sentenceTranslations": [
+      "Sáng Chủ nhật, Nam và bạn là Tuấn đi dạo ở Thành phố Hồ Chí Minh.",
+      "Đường phố yên tĩnh, và không khí mát mẻ.",
+      "Họ bắt đầu ở công viên Bạch Đằng và đi bộ dọc sông Sài Gòn.",
+      "Những chiếc thuyền nhỏ đi lên đi xuống trên sông, và vài ông cụ đang câu cá.",
+      "Tuấn nói: \"Nhìn toà nhà cao đằng kia kìa.",
+      "Đó là gì vậy?\"",
+      "Nam trả lời: \"Đó là một toà tháp mới.",
+      "Nhưng mình không thích nó lắm.\"",
+      "Họ rời bờ sông và đi lên phố Đồng Khởi.",
+      "Họ đi ngang qua một khách sạn cũ và một nhà hát đẹp.",
+      "Rồi họ đi xuyên qua một quảng trường nhỏ có nhiều cây.",
+      "Ở cuối phố, họ thấy một nhà thờ lớn màu đỏ.",
+      "Bên cạnh là một bưu điện cũ.",
+      "Tuấn hỏi: \"Mình vào bưu điện được không?\"",
+      "Nam nói: \"Được, Chủ nhật vẫn mở cửa.",
+      "Nó đã hơn một trăm năm tuổi rồi.\"",
+      "Họ đi vào bưu điện và xem những tấm bản đồ cũ trên tường.",
+      "Rồi họ đi ra và ngồi ở một quán cà phê bên kia đường.",
+      "Tuấn mỉm cười và nói: \"Đúng là một ngày Chủ nhật tuyệt vời.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một cuộc đi dạo trong thành phố bằng along, up, past, through, into, out.",
+    "examples": [
+      {
+        "lemma": "walk",
+        "sentence": "Let's go for a walk after dinner.",
+        "meaningVi": "Ăn tối xong mình đi dạo nhé."
+      },
+      {
+        "lemma": "quiet",
+        "sentence": "The library is very quiet.",
+        "meaningVi": "Thư viện rất yên tĩnh."
+      },
+      {
+        "lemma": "boat",
+        "sentence": "We go to the island by boat.",
+        "meaningVi": "Chúng tôi ra đảo bằng thuyền."
+      },
+      {
+        "lemma": "building",
+        "sentence": "My office is in a tall building.",
+        "meaningVi": "Văn phòng tôi ở trong một toà nhà cao."
+      },
+      {
+        "lemma": "square",
+        "sentence": "There is a big square in the city centre.",
+        "meaningVi": "Ở trung tâm thành phố có một quảng trường lớn."
+      },
+      {
+        "lemma": "church",
+        "sentence": "The church is next to the school.",
+        "meaningVi": "Nhà thờ ở cạnh trường học."
+      },
+      {
+        "lemma": "post office",
+        "sentence": "Where is the post office?",
+        "meaningVi": "Bưu điện ở đâu?"
+      },
+      {
+        "lemma": "wall",
+        "sentence": "There is a clock on the wall.",
+        "meaningVi": "Trên tường có một cái đồng hồ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nam",
+        "Alice"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nam, how do I get to the old post office?",
+          "meaningVi": "Nam ơi, đến bưu điện cũ đi thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Walk along the river to Dong Khoi Street.",
+          "meaningVi": "Đi bộ dọc bờ sông đến phố Đồng Khởi."
+        },
+        {
+          "speaker": 1,
+          "text": "And then?",
+          "meaningVi": "Rồi sao nữa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Go up Dong Khoi Street, past an old hotel.",
+          "meaningVi": "Đi lên phố Đồng Khởi, ngang qua một khách sạn cũ."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it far?",
+          "meaningVi": "Có xa không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's a fifteen-minute walk.",
+          "meaningVi": "Không, đi bộ khoảng mười lăm phút."
+        },
+        {
+          "speaker": 1,
+          "text": "Do I go through the square?",
+          "meaningVi": "Có phải đi qua quảng trường không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. Walk through the square, and you can see the church.",
+          "meaningVi": "Có. Đi xuyên qua quảng trường là thấy nhà thờ."
+        },
+        {
+          "speaker": 1,
+          "text": "Is the post office near the church?",
+          "meaningVi": "Bưu điện có gần nhà thờ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it's right next to it. You can't miss it!",
+          "meaningVi": "Có, ngay bên cạnh luôn. Không thể không thấy đâu!"
+        }
+      ]
+    },
+    "grammarTipVi": "Chỉ đường bằng câu mệnh lệnh + giới từ: Walk along the river. Go up Dong Khoi Street, past an old hotel. Walk through the square.",
+    "translations": [
+      {
+        "vi": "Họ đi bộ dọc bờ sông và ngắm thuyền.",
+        "en": "They walk along the river and look at the boats.",
+        "distractors": [
+          "across",
+          "into",
+          "walks"
+        ]
+      },
+      {
+        "vi": "Chúng tôi đi ngang qua một toà nhà cũ.",
+        "en": "We go past an old building.",
+        "distractors": [
+          "into",
+          "through",
+          "goes"
+        ]
+      },
+      {
+        "vi": "Đi xuyên qua quảng trường.",
+        "en": "Walk through the square.",
+        "distractors": [
+          "across",
+          "into",
+          "over"
+        ]
+      },
+      {
+        "vi": "Họ đi vào bưu điện.",
+        "en": "They go into the post office.",
+        "distractors": [
+          "through",
+          "past",
+          "goes"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Alice hỏi Nam về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đường đến bưu điện cũ",
+          "Giờ mở cửa nhà thờ",
+          "Một quán cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Alice hỏi \"how do I get to the old post office?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đi bộ mất bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Năm phút",
+          "Mười lăm phút",
+          "Một tiếng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"it's a fifteen-minute walk.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bưu điện ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ngay cạnh nhà thờ",
+          "Bên kia sông",
+          "Trong quảng trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam nói \"it's right next to it\" — ngay cạnh nhà thờ.",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Alice needs to go across the river.",
+        "promptVi": "Alice phải đi qua sông.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam bảo \"Walk along the river\" — đi dọc bờ sông, không qua sông.",
+        "turnIndex": 1
+      }
+    ],
+    "readingGuideVi": "Nam và Tuấn đi theo đường nào: dọc theo đâu, ngang qua đâu, vào đâu?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "noticing": [
+        {
+          "sentence": "They start at Bach Dang Park and walk along the Saigon River.",
+          "highlights": [
+            "along"
+          ]
+        },
+        {
+          "sentence": "They walk away from the river and go up Dong Khoi Street.",
+          "highlights": [
+            "away from",
+            "up"
+          ]
+        },
+        {
+          "sentence": "Then they walk through a small square with a lot of trees.",
+          "highlights": [
+            "through"
+          ]
+        },
+        {
+          "sentence": "Then they come out and sit in a coffee shop across the street.",
+          "highlights": [
+            "out",
+            "across"
+          ]
+        }
+      ],
+      "questionVi": "Khác nhau giữa \"walk into the post office\" và \"walk past the post office\" là gì?",
+      "options": [
+        "Không khác gì nhau",
+        "Into là đi vào trong; past là đi ngang qua",
+        "Into là đi ngang qua; past là đi vào trong"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Into = vào bên trong một nơi; past = đi ngang qua, không vào.",
+      "whenVi": "Chọn giới từ theo hướng đi: dọc theo (along), lên (up), qua bên cạnh (past), xuyên qua (through), vào trong (into), ra ngoài (out of).",
+      "table": [
+        {
+          "subject": "along",
+          "form": "walk along the river",
+          "negative": "—"
+        },
+        {
+          "subject": "up / down",
+          "form": "go up Dong Khoi Street",
+          "negative": "go down the street"
+        },
+        {
+          "subject": "past / through",
+          "form": "go past a hotel / walk through a square",
+          "negative": "—"
+        },
+        {
+          "subject": "into / out of",
+          "form": "walk into the post office",
+          "negative": "come out of the post office"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "They walk in the post office from the street.",
+          "right": "They walk into the post office from the street."
+        },
+        {
+          "wrong": "We walk along of the river.",
+          "right": "We walk along the river."
+        }
+      ],
+      "noteVi": "Go up / go down a street có thể chỉ đơn giản là đi dọc con phố, không nhất thiết phải là dốc.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền along, past hoặc into.",
+          "text": "They walk ___ the post office and look at the maps.",
+          "answers": [
+            "into"
+          ],
+          "explanationVi": "Vào bên trong bưu điện: into."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Walk ___ the square, and you can see the church.",
+          "options": [
+            "through",
+            "into",
+            "over",
+            "out of"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Đi xuyên qua quảng trường: through."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They come out the post office.",
+          "sentence": "They come out of the post office.",
+          "explanationVi": "Ra khỏi một nơi: come out of."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ đi bộ dọc bờ sông.",
+          "sentence": "They walk along the river.",
+          "words": [
+            "along",
+            "They",
+            "river",
+            "walk",
+            "the",
+            "across"
+          ],
+          "explanationVi": "Dọc theo: along; từ \"across\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "They go past an old hotel and a beautiful theatre.",
+        "tipVi": "Past an nối liền /pɑːstən/; theatre /ˈθɪətə/ có âm /θ/."
+      },
+      {
+        "text": "Tuan asks, \"Can we go into the post office?\"",
+        "tipVi": "Post office /ˈpəʊst ɒfɪs/ nhấn vào post; câu hỏi Yes/No lên giọng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where do you like to go for a walk?",
+        "questionVi": "Bạn thích đi dạo ở đâu?",
+        "frame": "I like to walk along ___."
+      },
+      {
+        "question": "Is there an old building in your town?",
+        "questionVi": "Ở nơi bạn sống có toà nhà cổ nào không?",
+        "frame": "Yes, there is an old ___ near ___. / No, there isn't."
+      },
+      {
+        "question": "Where does your friend like to walk at the weekend?",
+        "questionVi": "Cuối tuần bạn của bạn thích đi dạo ở đâu?",
+        "frame": "He / She likes to walk ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 giới từ chỉ chuyển động (along, past, through, into, out of…)",
+      "anyOf": [
+        "along",
+        "across",
+        "over",
+        "past",
+        "through",
+        "into",
+        "out of",
+        "up",
+        "down"
+      ],
+      "outlineVi": [
+        "Bạn đi dạo ở đâu, với ai, khi nào.",
+        "Bạn đi dọc theo, ngang qua, xuyên qua những đâu.",
+        "Bạn vào đâu và cuối cùng làm gì."
+      ],
+      "modelAnswer": "On Saturday evening, I often go for a walk with my sister. We walk along the lake near our house. Then we go past a big school and through a small park. There are a lot of people there. At the end, we walk into a small café and drink some juice. Then we walk back home."
+    }
+  },
+  "glosses": [
+    {
+      "text": "cool",
+      "lemma": "cool",
+      "meaningVi": "mát mẻ",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "the air is cool",
+      "phraseVi": "không khí mát mẻ"
+    },
+    {
+      "text": "fishing",
+      "lemma": "fish",
+      "meaningVi": "câu cá",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "some old men are fishing",
+      "phraseVi": "vài ông cụ đang câu cá"
+    },
+    {
+      "text": "tower",
+      "lemma": "tower",
+      "meaningVi": "toà tháp",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a new tower",
+      "phraseVi": "một toà tháp mới"
+    },
+    {
+      "text": "away from",
+      "lemma": "away from",
+      "meaningVi": "rời xa",
+      "sentenceIndex": 8,
+      "pos": "preposition",
+      "phrase": "walk away from the river",
+      "phraseVi": "rời bờ sông"
+    },
+    {
+      "text": "theatre",
+      "lemma": "theatre",
+      "meaningVi": "nhà hát",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "a beautiful theatre",
+      "phraseVi": "một nhà hát đẹp"
+    },
+    {
+      "text": "hundred",
+      "lemma": "hundred",
+      "meaningVi": "trăm",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "more than a hundred years old",
+      "phraseVi": "hơn một trăm năm tuổi"
+    },
+    {
+      "text": "across the street",
+      "lemma": "across",
+      "meaningVi": "bên kia đường",
+      "sentenceIndex": 17,
+      "pos": "phrase",
+      "phrase": "a coffee shop across the street",
+      "phraseVi": "một quán cà phê bên kia đường"
+    }
+  ]
+}

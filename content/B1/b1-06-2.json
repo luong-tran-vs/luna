@@ -1,0 +1,615 @@
+{
+  "content": "It's Monday morning at a travel company in Da Nang. Linh puts a book on Quang's desk.\n\n\"You have to read this,\" she says. \"I finished it at two o'clock last night.\"\nQuang looks at the cover. \"The Lighthouse? I don't usually read fiction. What's it about?\"\n\"The main character is Thao, a young teacher. She moved to a small island to teach at the village school.\"\n\"That sounds a bit boring.\"\n\"Wait. Before she moved there, she had lost her job in the city, and her mother had died. She was completely alone.\"\n\"Oh, that's sad.\"\n\"On the island, she met an old man, Mr Bao. He lived alone in the lighthouse. Every evening, she brought him soup, and he told her stories about the sea.\"\n\"So where's the surprise?\"\nLinh smiles. \"On page three hundred, the book reveals a huge secret. Mr Bao was her father!\"\n\"No way! Did she know?\"\n\"No. Her mother had never told her about him. But Mr Bao had recognised her on the first day. He had kept all her mother's letters in a box.\"\n\"Why didn't he tell her?\"\n\"He was afraid. He had left her mother before Thao was born, and he felt terrible about it.\"\nQuang thinks for a moment. \"That's a great twist. I understand the title now.\"\n\"Exactly. I really recommend it.\"\n\"OK, can I borrow it? I'll lend you my new comic.\"",
+  "targetWords": [
+    "cover",
+    "fiction",
+    "character",
+    "page",
+    "reveal",
+    "secret",
+    "recognise",
+    "twist",
+    "title",
+    "recommend"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cover",
+        "lemma": "cover",
+        "meaningVi": "bìa (sách)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "fiction",
+        "lemma": "fiction",
+        "meaningVi": "truyện hư cấu, tiểu thuyết",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "character",
+        "lemma": "character",
+        "meaningVi": "nhân vật",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "page",
+        "lemma": "page",
+        "meaningVi": "trang (sách)",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "reveals",
+        "lemma": "reveal",
+        "meaningVi": "tiết lộ",
+        "pos": "verb",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "secret",
+        "lemma": "secret",
+        "meaningVi": "bí mật",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "recognised",
+        "lemma": "recognise",
+        "meaningVi": "nhận ra (người quen)",
+        "pos": "verb",
+        "sentenceIndex": 26
+      },
+      {
+        "text": "twist",
+        "lemma": "twist",
+        "meaningVi": "tình tiết bất ngờ, cú lật",
+        "pos": "noun",
+        "sentenceIndex": 32
+      },
+      {
+        "text": "title",
+        "lemma": "title",
+        "meaningVi": "tên sách, nhan đề",
+        "pos": "noun",
+        "sentenceIndex": 33
+      },
+      {
+        "text": "recommend",
+        "lemma": "recommend",
+        "meaningVi": "giới thiệu, khuyên nên đọc",
+        "pos": "verb",
+        "sentenceIndex": 35
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Linh doing?",
+        "promptVi": "Linh đang làm gì?",
+        "options": [
+          "Telling Quang about a novel which she has just finished",
+          "Asking Quang to help her with her job",
+          "Booking a trip to a small island",
+          "Writing a book about a lighthouse"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh đặt cuốn sách lên bàn Quang, kể về câu chuyện và khuyên Quang đọc."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What had happened to Thao before she moved to the island?",
+        "promptVi": "Chuyện gì đã xảy ra với Thao trước khi cô chuyển ra đảo?",
+        "options": [
+          "She had married a fisherman.",
+          "She had lost her job and her mother had died.",
+          "She had met her father.",
+          "She had written a book."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"she had lost her job in the city, and her mother had died.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What had Mr Bao kept in a box?",
+        "promptVi": "Ông Bảo đã giữ gì trong một chiếc hộp?",
+        "options": [
+          "Old photos of the sea",
+          "Thao's school books",
+          "All her mother's letters",
+          "Money for Thao"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"He had kept all her mother's letters in a box.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao's mother had told her about Mr Bao.",
+        "promptVi": "Mẹ Thảo đã kể cho cô về ông Bảo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"Her mother had never told her about him.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"twist\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"That's a great twist.",
+        "options": [
+          "tình tiết bất ngờ",
+          "cái kết buồn",
+          "nhân vật chính",
+          "cuốn sách dày"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Twist = tình tiết bất ngờ làm câu chuyện rẽ sang hướng khác."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ hoàn thành",
+      "bodyVi": "Khi kể lại một cuốn truyện ở quá khứ, dùng quá khứ hoàn thành (had + V3) cho những việc đã xảy ra trước đó: Before she moved there, she had lost her job (mất việc trước, chuyển đi sau). Phủ định với never / hadn't: Her mother had never told her about him. Câu kể việc chính vẫn dùng quá khứ đơn: she moved, she met, he told.",
+      "examples": [
+        "Before she moved there, she had lost her job in the city, and her mother had died.",
+        "Her mother had never told her about him.",
+        "He had kept all her mother's letters in a box.\""
+      ]
+    },
+    "writingPrompt": "Write about a character from a book you have read: what had happened to him or her before the story started?",
+    "sentenceTranslations": [
+      "Sáng thứ Hai ở một công ty du lịch tại Đà Nẵng.",
+      "Linh đặt một cuốn sách lên bàn của Quang.",
+      "Cô nói: \"Anh phải đọc cuốn này.",
+      "Hai giờ sáng hôm qua em mới đọc xong.\"",
+      "Quang nhìn bìa sách.",
+      "\"Ngọn hải đăng á?",
+      "Anh không hay đọc tiểu thuyết.",
+      "Nó kể về gì?\"",
+      "\"Nhân vật chính là Thảo, một cô giáo trẻ.",
+      "Cô chuyển ra một hòn đảo nhỏ để dạy ở trường làng.\"",
+      "\"Nghe hơi chán.\"",
+      "\"Đợi đã.",
+      "Trước khi chuyển ra đó, cô ấy đã mất việc ở thành phố, và mẹ cô đã qua đời.",
+      "Cô hoàn toàn chỉ có một mình.\"",
+      "\"Ôi, buồn thế.\"",
+      "\"Trên đảo, cô gặp một ông lão, ông Bảo.",
+      "Ông sống một mình trong ngọn hải đăng.",
+      "Tối nào cô cũng mang súp cho ông, và ông kể cho cô nghe chuyện về biển.\"",
+      "\"Thế bất ngờ ở đâu?\"",
+      "Linh mỉm cười.",
+      "\"Ở trang ba trăm, cuốn sách tiết lộ một bí mật lớn.",
+      "Ông Bảo là bố của cô!\"",
+      "\"Không thể nào!",
+      "Cô ấy có biết không?\"",
+      "\"Không.",
+      "Mẹ cô chưa bao giờ kể với cô về ông.",
+      "Nhưng ông Bảo đã nhận ra cô ngay từ ngày đầu.",
+      "Ông đã giữ tất cả thư của mẹ cô trong một chiếc hộp.\"",
+      "\"Sao ông ấy không nói với cô?\"",
+      "\"Ông sợ.",
+      "Ông đã bỏ mẹ cô đi trước khi Thảo ra đời, và ông thấy rất có lỗi.\"",
+      "Quang nghĩ một lúc.",
+      "\"Cú lật hay thật.",
+      "Giờ anh hiểu tên sách rồi.\"",
+      "\"Chính xác.",
+      "Em rất khuyên anh đọc.\"",
+      "\"Được, anh mượn nhé?",
+      "Anh sẽ cho em mượn cuốn truyện tranh mới của anh.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về nhân vật và tình tiết bất ngờ của một cuốn tiểu thuyết, dùng quá khứ hoàn thành cho những việc đã xảy ra trước.",
+    "examples": [
+      {
+        "lemma": "cover",
+        "sentence": "The book has a beautiful blue cover.",
+        "meaningVi": "Cuốn sách có bìa màu xanh rất đẹp."
+      },
+      {
+        "lemma": "fiction",
+        "sentence": "My father reads history, but I prefer fiction.",
+        "meaningVi": "Bố tôi đọc sách lịch sử, còn tôi thích tiểu thuyết hơn."
+      },
+      {
+        "lemma": "character",
+        "sentence": "Who is your favourite character in the book?",
+        "meaningVi": "Nhân vật bạn thích nhất trong cuốn sách là ai?"
+      },
+      {
+        "lemma": "page",
+        "sentence": "Please open your books at page ten.",
+        "meaningVi": "Hãy mở sách ra trang mười."
+      },
+      {
+        "lemma": "reveal",
+        "sentence": "Don't reveal the ending to me!",
+        "meaningVi": "Đừng tiết lộ đoạn kết cho tôi nhé!"
+      },
+      {
+        "lemma": "secret",
+        "sentence": "Can you keep a secret?",
+        "meaningVi": "Bạn giữ bí mật được không?"
+      },
+      {
+        "lemma": "recognise",
+        "sentence": "I didn't recognise her with short hair.",
+        "meaningVi": "Tóc ngắn thế tôi không nhận ra cô ấy."
+      },
+      {
+        "lemma": "twist",
+        "sentence": "The story has a clever twist at the end.",
+        "meaningVi": "Câu chuyện có một cú lật thông minh ở cuối."
+      },
+      {
+        "lemma": "title",
+        "sentence": "I can't remember the title of the book.",
+        "meaningVi": "Tôi không nhớ tên cuốn sách."
+      },
+      {
+        "lemma": "recommend",
+        "sentence": "Can you recommend a good book?",
+        "meaningVi": "Bạn giới thiệu cho tôi một cuốn sách hay được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Quang"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, I read the first part of your book last night.",
+          "meaningVi": "Linh ơi, tối qua anh đọc phần đầu cuốn sách của em rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Great! What do you think of Thao?",
+          "meaningVi": "Tuyệt! Anh thấy Thảo thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "I feel sorry for her. Had she lived alone in the city?",
+          "meaningVi": "Anh thấy thương cô ấy. Trước đó cô ấy sống một mình ở thành phố à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. Her mother had died a year before.",
+          "meaningVi": "Ừ. Mẹ cô ấy đã mất trước đó một năm."
+        },
+        {
+          "speaker": 1,
+          "text": "And why did she choose the island?",
+          "meaningVi": "Thế sao cô ấy chọn hòn đảo?"
+        },
+        {
+          "speaker": 0,
+          "text": "Her mother had talked about it when Thao was small.",
+          "meaningVi": "Mẹ cô đã kể về nó khi Thảo còn nhỏ."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh, that might be a clue. Don't tell me the secret!",
+          "meaningVi": "Ồ, đó có thể là một manh mối. Đừng kể bí mật cho anh nhé!"
+        },
+        {
+          "speaker": 0,
+          "text": "I won't. But read the letters part carefully.",
+          "meaningVi": "Em không kể đâu. Nhưng đọc kỹ đoạn về những lá thư nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "How many pages are left?",
+          "meaningVi": "Còn bao nhiêu trang nữa?"
+        },
+        {
+          "speaker": 0,
+          "text": "About two hundred. You'll finish it by Friday.",
+          "meaningVi": "Khoảng hai trăm. Thứ Sáu là anh đọc xong."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi quá khứ hoàn thành: Had + chủ ngữ + V3? (Had she lived alone?). Kể việc xảy ra trước: Her mother had died a year before; Her mother had talked about it when Thao was small.",
+    "translations": [
+      {
+        "vi": "Nhân vật chính đã mất việc trước khi chuyển đi.",
+        "en": "The main character had lost her job before she moved.",
+        "distractors": [
+          "has",
+          "loses",
+          "after"
+        ]
+      },
+      {
+        "vi": "Mẹ cô chưa bao giờ kể cho cô bí mật đó.",
+        "en": "Her mother had never told her the secret.",
+        "distractors": [
+          "has",
+          "tells",
+          "always"
+        ]
+      },
+      {
+        "vi": "Ông ấy đã nhận ra cô từ ngày đầu tiên.",
+        "en": "He had recognised her from the first day.",
+        "distractors": [
+          "has",
+          "recognises",
+          "last"
+        ]
+      },
+      {
+        "vi": "Đến trang ba trăm, tôi đã đoán ra cú lật.",
+        "en": "By page three hundred, I had guessed the twist.",
+        "distractors": [
+          "have",
+          "guesses",
+          "was"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh và Quang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuốn sách Linh cho Quang mượn",
+          "Chuyến đi ra đảo của Linh",
+          "Mẹ của Quang"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quang nói \"I read the first part of your book last night.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mẹ Thảo mất khi nào?",
+        "promptVi": "",
+        "options": [
+          "Một năm trước đó",
+          "Khi Thảo còn nhỏ",
+          "Sau khi Thảo ra đảo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"Her mother had died a year before.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Còn khoảng bao nhiêu trang?",
+        "promptVi": "",
+        "options": [
+          "Khoảng một trăm",
+          "Khoảng hai trăm",
+          "Khoảng ba trăm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"About two hundred.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quang wants Linh to tell him the secret.",
+        "promptVi": "Quang muốn Linh kể bí mật cho anh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quang nói \"Don't tell me the secret!\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Thảo đã trải qua chuyện gì trước khi ra đảo? Bí mật lớn của cuốn sách là gì?",
+    "grammarStep": {
+      "titleVi": "Quá khứ hoàn thành",
+      "noticing": [
+        {
+          "sentence": "Before she moved there, she had lost her job in the city, and her mother had died.",
+          "highlights": [
+            "moved",
+            "had lost",
+            "had died"
+          ]
+        },
+        {
+          "sentence": "Her mother had never told her about him.",
+          "highlights": [
+            "had never told"
+          ]
+        },
+        {
+          "sentence": "But Mr Bao had recognised her on the first day.",
+          "highlights": [
+            "had recognised"
+          ]
+        },
+        {
+          "sentence": "He had left her mother before Thao was born, and he felt terrible about it.\"",
+          "highlights": [
+            "had left",
+            "was born"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Before she moved there, she had lost her job\", việc nào xảy ra trước?",
+      "options": [
+        "Cô ấy mất việc.",
+        "Cô ấy chuyển ra đảo.",
+        "Không biết được."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Had lost (quá khứ hoàn thành) xảy ra trước moved (quá khứ đơn).",
+      "whenVi": "Dùng quá khứ hoàn thành để kể lại những việc đã xảy ra trước thời điểm câu chuyện đang kể, ví dụ quá khứ của một nhân vật.",
+      "table": [
+        {
+          "subject": "Khẳng định",
+          "form": "had + V3 (she had lost her job)",
+          "negative": "hadn't / had never + V3 (had never told)"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Had + chủ ngữ + V3? (Had she lived alone?)",
+          "negative": "Yes, she had. / No, she hadn't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Her mother never had told her about him.",
+          "right": "Her mother had never told her about him."
+        },
+        {
+          "wrong": "Before she moved there, she had lose her job.",
+          "right": "Before she moved there, she had lost her job."
+        }
+      ],
+      "noteVi": "Never, already, just đứng giữa had và V3: had never told, had already left, had just finished.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (keep).",
+          "text": "For twenty years, he ___ all her letters in a box.",
+          "answers": [
+            "had kept"
+          ],
+          "explanationVi": "Việc giữ thư kéo dài trước thời điểm trong truyện: had kept."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Her mother ___ her about him.",
+          "options": [
+            "had never told",
+            "never had told",
+            "had never tell",
+            "has never told"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Never đứng giữa had và V3: had never told."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Before she moved there, she had lose her job.",
+          "sentence": "Before she moved there, she had lost her job.",
+          "explanationVi": "Sau had là V3: lost."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ông Bảo đã nhận ra cô ngay từ ngày đầu.",
+          "sentence": "Mr Bao had recognised her on the first day.",
+          "words": [
+            "her",
+            "Mr",
+            "Bao",
+            "had",
+            "recognised",
+            "on",
+            "the",
+            "first",
+            "day.",
+            "has"
+          ],
+          "explanationVi": "Had + V3: had recognised; từ \"has\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Her mother had never told her about him.",
+        "tipVi": "Nối \"told her\" thành /təʊld ə/; nhấn vào never."
+      },
+      {
+        "text": "\"That's a great twist.",
+        "tipVi": "Twist /twɪst/ đọc rõ cụm st cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is the last novel that you read?",
+        "questionVi": "Cuốn tiểu thuyết gần nhất bạn đọc là gì?",
+        "frame": "The last novel I read was ___."
+      },
+      {
+        "question": "What had the main character done before the story started?",
+        "questionVi": "Nhân vật chính đã làm gì trước khi câu chuyện bắt đầu?",
+        "frame": "Before the story started, he / she had ___."
+      },
+      {
+        "question": "Would you recommend it to a friend? Why?",
+        "questionVi": "Bạn có giới thiệu nó cho bạn bè không? Vì sao?",
+        "frame": "Yes, I would recommend it because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (had + V3)",
+      "anyOf": [
+        " had ",
+        "'d "
+      ],
+      "outlineVi": [
+        "Tên cuốn sách và nhân vật chính.",
+        "Nhân vật đã trải qua chuyện gì trước khi truyện bắt đầu (… had …).",
+        "Tình tiết bất ngờ và bạn có giới thiệu cuốn sách không."
+      ],
+      "modelAnswer": "My favourite character is Nga from the novel Green Tea. When the story starts, she is a doctor in a small village. Before she came to the village, she had worked in a big hospital in Hanoi, and she had lost her husband. She hadn't told anyone about her past. In the middle of the book, there is a great twist. I really recommend it."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Lighthouse",
+      "lemma": "lighthouse",
+      "meaningVi": "ngọn hải đăng",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "The Lighthouse?",
+      "phraseVi": "Ngọn hải đăng á?"
+    },
+    {
+      "text": "island",
+      "lemma": "island",
+      "meaningVi": "hòn đảo",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "a small island",
+      "phraseVi": "một hòn đảo nhỏ"
+    },
+    {
+      "text": "boring",
+      "lemma": "boring",
+      "meaningVi": "chán, tẻ nhạt",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "That sounds a bit boring.",
+      "phraseVi": "Nghe hơi chán."
+    },
+    {
+      "text": "No way!",
+      "lemma": "no way",
+      "meaningVi": "không thể nào!",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "No way!",
+      "phraseVi": "Không thể nào!"
+    },
+    {
+      "text": "felt terrible",
+      "lemma": "feel terrible",
+      "meaningVi": "thấy rất có lỗi, rất khổ tâm",
+      "sentenceIndex": 30,
+      "pos": "phrase",
+      "phrase": "he felt terrible about it",
+      "phraseVi": "ông thấy rất có lỗi về chuyện đó"
+    },
+    {
+      "text": "lend",
+      "lemma": "lend",
+      "meaningVi": "cho mượn",
+      "sentenceIndex": 37,
+      "pos": "verb",
+      "phrase": "I'll lend you my new comic.",
+      "phraseVi": "Anh sẽ cho em mượn cuốn truyện tranh mới."
+    }
+  ]
+}

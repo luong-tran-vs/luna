@@ -1,0 +1,597 @@
+{
+  "content": "Hoang works in an office in Hanoi. He sits at his desk all day, so he wants to play a sport after work. Last Monday, he went to a volleyball club near his flat, and he met the club manager, Mrs Kim.\n\n\"Excuse me, could you tell me about the evening team?\" he asked.\n\"Of course,\" Mrs Kim said. \"We play on Tuesday and Thursday evenings, from seven to nine.\"\n\nThen Hoang asked, \"Can I join the team?\"\n\"Can you play volleyball well?\" she asked.\n\"I played a lot at university, and I could jump very high,\" Hoang answered. \"But I didn't play last year, so now I play quite badly.\"\nMrs Kim laughed and said, \"Don't worry, our players are kind.\"\n\nHoang asked, \"Did the team win the city competition last year?\"\n\"No, it didn't, but we played really well in the last match.\"\nHoang asked, \"Could I watch a practice first?\"\n\"Sure, come on Tuesday at seven,\" she said.\n\nOn Tuesday, Hoang watched the team carefully. The players moved quickly, and they served the ball hard. After an hour, he joined them, and the players helped him kindly.",
+  "targetWords": [
+    "volleyball",
+    "club",
+    "manager",
+    "evening",
+    "join",
+    "kind",
+    "practice",
+    "serve"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "volleyball",
+        "lemma": "volleyball",
+        "meaningVi": "bóng chuyền",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "club",
+        "lemma": "club",
+        "meaningVi": "câu lạc bộ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "người quản lý",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "evening",
+        "lemma": "evening",
+        "meaningVi": "buổi tối",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "join",
+        "lemma": "join",
+        "meaningVi": "tham gia, gia nhập",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "kind",
+        "lemma": "kind",
+        "meaningVi": "tốt bụng, dễ mến",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "practice",
+        "lemma": "practice",
+        "meaningVi": "buổi tập",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "served",
+        "lemma": "serve",
+        "meaningVi": "giao bóng, phát bóng",
+        "pos": "verb",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mrs Kim's new job",
+          "A volleyball match on TV",
+          "Hoang's office in Hanoi",
+          "Hoang asks about joining a volleyball club."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Hoàng muốn chơi thể thao sau giờ làm nên đến câu lạc bộ bóng chuyền, hỏi bà Kim về đội buổi tối rồi xin vào đội."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When does the evening team play?",
+        "promptVi": "Đội buổi tối chơi vào lúc nào?",
+        "options": [
+          "On Tuesday and Thursday evenings",
+          "Every morning",
+          "On Saturday afternoon",
+          "On Monday and Friday evenings"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Kim nói \"We play on Tuesday and Thursday evenings, from seven to nine\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Hoang play quite badly now?",
+        "promptVi": "Vì sao bây giờ Hoàng chơi khá tệ?",
+        "options": [
+          "He is very short.",
+          "He didn't play last year.",
+          "He doesn't like volleyball.",
+          "He hurt his leg."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoàng nói \"But I didn't play last year, so now I play quite badly\": cả năm ngoái anh không chơi."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The team won the city competition last year.",
+        "promptVi": "Năm ngoái đội đã thắng giải của thành phố.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bà Kim nói \"No, it didn't, but we played really well in the last match\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"join\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Then Hoang asked, \"Can I join the team?\"",
+        "options": [
+          "rời khỏi",
+          "xem",
+          "tham gia, gia nhập",
+          "trả tiền"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Join là tham gia, vào một nhóm: Hoàng xin vào đội bóng chuyền buổi tối."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / could (xin phép, nhờ vả, khả năng trong quá khứ)",
+      "bodyVi": "Could you …? để nhờ ai đó lịch sự: Could you tell me about the evening team? Can I …? / Could I …? để xin phép: Can I join the team? Could I watch a practice first? Could + động từ còn nói việc làm được trong quá khứ: I could jump very high.",
+      "examples": [
+        "\"Excuse me, could you tell me about the evening team?\" he asked.",
+        "\"I played a lot at university, and I could jump very high,\" Hoang answered.",
+        "Hoang asked, \"Could I watch a practice first?\""
+      ]
+    },
+    "writingPrompt": "Write a short message to a sport club: say what sport you can play, how well you play, and ask two polite questions.",
+    "sentenceTranslations": [
+      "Hoàng làm việc ở một văn phòng ở Hà Nội.",
+      "Cả ngày anh ngồi ở bàn làm việc, nên anh muốn chơi một môn thể thao sau giờ làm.",
+      "Thứ Hai vừa rồi, anh đến một câu lạc bộ bóng chuyền gần căn hộ và gặp người quản lý câu lạc bộ, bà Kim.",
+      "\"Xin lỗi, bà cho cháu biết về đội buổi tối được không ạ?\" anh hỏi.",
+      "\"Được chứ,\" bà Kim nói.",
+      "\"Đội chơi vào tối thứ Ba và thứ Năm, từ bảy đến chín giờ.\"",
+      "Rồi Hoàng hỏi: \"Cháu tham gia đội được không ạ?\"",
+      "\"Cháu chơi bóng chuyền có giỏi không?\" bà hỏi.",
+      "\"Hồi đại học cháu chơi nhiều lắm, và cháu bật nhảy được rất cao,\" Hoàng đáp.",
+      "\"Nhưng năm ngoái cháu không chơi, nên giờ cháu chơi khá tệ.\"",
+      "Bà Kim cười và nói: \"Đừng lo, các thành viên ở đây dễ mến lắm.\"",
+      "Hoàng hỏi: \"Năm ngoái đội có thắng giải của thành phố không ạ?\"",
+      "\"Không, nhưng trận cuối đội chơi rất hay.\"",
+      "Hoàng hỏi: \"Cháu xem một buổi tập trước được không ạ?\"",
+      "\"Được, thứ Ba bảy giờ cháu đến nhé,\" bà nói.",
+      "Thứ Ba, Hoàng chăm chú xem cả đội chơi.",
+      "Các cầu thủ di chuyển rất nhanh, và giao bóng rất mạnh.",
+      "Sau một tiếng, anh vào chơi cùng, và mọi người giúp anh rất nhiệt tình."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi thông tin và xin tham gia một câu lạc bộ thể thao một cách lịch sự, nói mình chơi giỏi đến đâu và hỏi về các trận đã qua.",
+    "examples": [
+      {
+        "lemma": "volleyball",
+        "sentence": "We play volleyball on the beach.",
+        "meaningVi": "Bọn mình chơi bóng chuyền trên bãi biển."
+      },
+      {
+        "lemma": "club",
+        "sentence": "I want to join a music club.",
+        "meaningVi": "Mình muốn vào một câu lạc bộ âm nhạc."
+      },
+      {
+        "lemma": "manager",
+        "sentence": "The manager of the hotel is very kind.",
+        "meaningVi": "Người quản lý khách sạn rất tốt bụng."
+      },
+      {
+        "lemma": "evening",
+        "sentence": "I usually go for a walk in the evening.",
+        "meaningVi": "Buổi tối mình thường đi dạo."
+      },
+      {
+        "lemma": "join",
+        "sentence": "Can I join you?",
+        "meaningVi": "Mình tham gia cùng được không?"
+      },
+      {
+        "lemma": "kind",
+        "sentence": "Our neighbours are very kind.",
+        "meaningVi": "Hàng xóm nhà mình rất tốt bụng."
+      },
+      {
+        "lemma": "practice",
+        "sentence": "Football practice is on Tuesday.",
+        "meaningVi": "Buổi tập bóng đá vào thứ Ba."
+      },
+      {
+        "lemma": "serve",
+        "sentence": "It's your turn to serve.",
+        "meaningVi": "Đến lượt bạn giao bóng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoang",
+        "Daniel"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hoang, did you join the volleyball club?",
+          "meaningVi": "Hoàng ơi, cậu vào câu lạc bộ bóng chuyền chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I did! I play on Tuesday and Thursday evenings now.",
+          "meaningVi": "Vào rồi! Giờ mình chơi vào tối thứ Ba và thứ Năm."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Can you play well?",
+          "meaningVi": "Tuyệt! Cậu chơi giỏi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not very well. I could play well at university, but now I play slowly.",
+          "meaningVi": "Không giỏi lắm. Hồi đại học mình chơi giỏi, nhưng giờ chơi chậm."
+        },
+        {
+          "speaker": 1,
+          "text": "Are the other players nice?",
+          "meaningVi": "Những người khác có dễ chịu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, they are. They help me kindly.",
+          "meaningVi": "Có. Họ giúp mình nhiệt tình lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Could I come and watch one evening?",
+          "meaningVi": "Hôm nào mình đến xem được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Can you come on Thursday?",
+          "meaningVi": "Tất nhiên. Thứ Năm cậu đến được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I can. What time does it start?",
+          "meaningVi": "Được. Mấy giờ bắt đầu?"
+        },
+        {
+          "speaker": 0,
+          "text": "At seven o'clock. Don't be late!",
+          "meaningVi": "Bảy giờ. Đừng đến muộn nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Xin đến xem lịch sự: Could I come and watch one evening? Hỏi lại: Can you come on Thursday? – Yes, I can.",
+    "translations": [
+      {
+        "vi": "Tôi có thể tham gia đội không?",
+        "en": "Can I join the team?",
+        "distractors": [
+          "Do",
+          "joined",
+          "club"
+        ]
+      },
+      {
+        "vi": "Bạn có thể cho tôi biết về đội buổi tối không?",
+        "en": "Could you tell me about the evening team?",
+        "distractors": [
+          "Did",
+          "told",
+          "morning"
+        ]
+      },
+      {
+        "vi": "Tôi xem một buổi tập trước được không?",
+        "en": "Could I watch a practice first?",
+        "distractors": [
+          "Did",
+          "watched",
+          "match"
+        ]
+      },
+      {
+        "vi": "Họ giao bóng rất mạnh.",
+        "en": "They served the ball hard.",
+        "distractors": [
+          "serve",
+          "soft",
+          "slowly"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Daniel và Hoàng nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một trận bóng đá",
+          "Câu lạc bộ bóng chuyền của Hoàng",
+          "Công việc ở văn phòng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Daniel hỏi \"did you join the volleyball club?\", rồi hai bạn nói về đội và hẹn đi xem.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hồi đại học Hoàng chơi bóng chuyền thế nào?",
+        "promptVi": "",
+        "options": [
+          "Giỏi",
+          "Tệ",
+          "Chậm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoàng nói \"I could play well at university.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Daniel đến xem vào ngày nào?",
+        "promptVi": "",
+        "options": [
+          "Thứ Ba",
+          "Thứ Năm",
+          "Thứ Bảy"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoàng hỏi \"Can you come on Thursday?\" và Daniel trả lời \"Yes, I can.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The volleyball practice starts at eight o'clock.",
+        "promptVi": "Buổi tập bóng chuyền bắt đầu lúc tám giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoàng nói \"At seven o'clock.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Hoàng hỏi bà Kim những gì trước khi vào đội?",
+    "grammarStep": {
+      "titleVi": "Can / could (xin phép, nhờ vả, khả năng trong quá khứ)",
+      "noticing": [
+        {
+          "sentence": "\"Excuse me, could you tell me about the evening team?\" he asked.",
+          "highlights": [
+            "could you tell"
+          ]
+        },
+        {
+          "sentence": "Then Hoang asked, \"Can I join the team?\"",
+          "highlights": [
+            "Can I join"
+          ]
+        },
+        {
+          "sentence": "\"I played a lot at university, and I could jump very high,\" Hoang answered.",
+          "highlights": [
+            "could jump"
+          ]
+        },
+        {
+          "sentence": "Hoang asked, \"Could I watch a practice first?\"",
+          "highlights": [
+            "Could I watch"
+          ]
+        }
+      ],
+      "questionVi": "\"Could you tell me …?\" và \"Could I watch …?\" khác nhau thế nào?",
+      "options": [
+        "Could you …? là nhờ người khác làm; Could I …? là xin phép để mình được làm",
+        "Không khác gì nhau",
+        "Could I …? chỉ dùng để nói về quá khứ"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Could you tell me …? nhờ bà Kim làm một việc (kể cho mình nghe). Can I join …? / Could I watch …? xin phép để chính Hoàng được làm. Could còn dùng để kể khả năng trong quá khứ: I could jump very high.",
+      "whenVi": "Dùng Could you …? để nhờ lịch sự, Can / Could I …? để xin phép, và could để kể việc làm được trong quá khứ.",
+      "table": [
+        {
+          "subject": "Nhờ người khác",
+          "form": "Could you tell me about the team?",
+          "negative": "—"
+        },
+        {
+          "subject": "Xin phép",
+          "form": "Can I join the team? Could I watch a practice?",
+          "negative": "—"
+        },
+        {
+          "subject": "Khả năng trong quá khứ",
+          "form": "I could jump very high at university.",
+          "negative": "I couldn't play well last year."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Could you telling me about the team?",
+          "right": "Could you tell me about the team?"
+        },
+        {
+          "wrong": "Can I to join the team?",
+          "right": "Can I join the team?"
+        }
+      ],
+      "noteVi": "Người Việt hay thêm to hoặc -ing sau can, could (vì nhớ want to, like + -ing); sau can, could động từ luôn ở dạng nguyên mẫu.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền could hoặc couldn't vào chỗ trống.",
+          "text": "At university, I ___ jump very high.",
+          "answers": [
+            "could"
+          ],
+          "explanationVi": "Hồi đại học Hoàng làm được, nên dùng could."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Excuse me, ___ you tell me about the evening team?",
+          "options": [
+            "could",
+            "are",
+            "have",
+            "was"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Nhờ ai làm gì một cách lịch sự dùng Could you + động từ nguyên mẫu."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Can I joining the team?",
+          "sentence": "Can I join the team?",
+          "explanationVi": "Sau can, động từ giữ nguyên mẫu: join."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bây giờ anh ấy chơi khá tệ.",
+          "sentence": "Now he plays quite badly.",
+          "words": [
+            "plays",
+            "Now",
+            "he",
+            "badly",
+            "quite",
+            "bad"
+          ],
+          "explanationVi": "Sau động từ plays cần trạng từ badly; từ \"bad\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Last Monday, he went to a volleyball club near his flat.",
+        "tipVi": "Volleyball /ˈvɑlibɔl/ bắt đầu bằng /v/, môi dưới chạm răng trên; club /klʌb/ có cụm /kl/."
+      },
+      {
+        "text": "The players moved quickly, and they served the ball hard.",
+        "tipVi": "Served /sɝvd/ có âm /ɝ/ uốn lưỡi và -ed đọc /d/; quickly /ˈkwɪkli/ có cụm /kw/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you want to join a sport club?",
+        "questionVi": "Bạn có muốn vào một câu lạc bộ thể thao không?",
+        "frame": "Yes, I do. I want to join ___. / No, I don't, because ___."
+      },
+      {
+        "question": "What sport could you play well at school?",
+        "questionVi": "Hồi đi học bạn chơi giỏi môn thể thao nào?",
+        "frame": "I could play ___ well. / I couldn't play sport well."
+      },
+      {
+        "question": "What sport does your best friend play well?",
+        "questionVi": "Bạn thân của bạn chơi giỏi môn thể thao nào?",
+        "frame": "He / She plays ___ very well."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi lịch sự với Could you …? hoặc Can / Could I …?",
+      "anyOf": [
+        "could you",
+        "could i",
+        "can i",
+        "can you",
+        "could"
+      ],
+      "outlineVi": [
+        "Giới thiệu bạn và nói bạn muốn vào câu lạc bộ nào.",
+        "Nói bạn đã chơi thế nào trước đây và bây giờ (I could …, now I play …).",
+        "Hỏi hai câu lịch sự (Could you tell me …? Can I …?)."
+      ],
+      "modelAnswer": "Hello, my name is Lan. I want to join your badminton club. I played badminton a lot at school, and I could play quite well. Now I play slowly, but I can learn quickly. Could you tell me when the team practises? Can I come and watch on Saturday? Thank you!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "desk",
+      "lemma": "desk",
+      "meaningVi": "bàn làm việc",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "He sits at his desk all day",
+      "phraseVi": "Cả ngày anh ngồi ở bàn làm việc"
+    },
+    {
+      "text": "after work",
+      "lemma": "after work",
+      "meaningVi": "sau giờ làm",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "play a sport after work",
+      "phraseVi": "chơi thể thao sau giờ làm"
+    },
+    {
+      "text": "Excuse me",
+      "lemma": "excuse me",
+      "meaningVi": "xin lỗi (khi muốn hỏi)",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "Excuse me, could you tell me",
+      "phraseVi": "Xin lỗi, bà cho cháu biết"
+    },
+    {
+      "text": "from seven to nine",
+      "lemma": "from … to …",
+      "meaningVi": "từ bảy đến chín giờ",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "from seven to nine",
+      "phraseVi": "từ bảy đến chín giờ"
+    },
+    {
+      "text": "quite badly",
+      "lemma": "badly",
+      "meaningVi": "khá tệ",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "now I play quite badly",
+      "phraseVi": "giờ cháu chơi khá tệ"
+    },
+    {
+      "text": "worry",
+      "lemma": "worry",
+      "meaningVi": "lo lắng",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "Don't worry",
+      "phraseVi": "Đừng lo"
+    },
+    {
+      "text": "city competition",
+      "lemma": "competition",
+      "meaningVi": "giải đấu của thành phố",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "the city competition last year",
+      "phraseVi": "giải của thành phố năm ngoái"
+    },
+    {
+      "text": "carefully",
+      "lemma": "carefully",
+      "meaningVi": "chăm chú, cẩn thận",
+      "sentenceIndex": 15,
+      "pos": "adverb",
+      "phrase": "Hoang watched the team carefully",
+      "phraseVi": "Hoàng chăm chú xem cả đội chơi"
+    },
+    {
+      "text": "kindly",
+      "lemma": "kindly",
+      "meaningVi": "nhiệt tình, tử tế",
+      "sentenceIndex": 17,
+      "pos": "adverb",
+      "phrase": "the players helped him kindly",
+      "phraseVi": "mọi người giúp anh rất nhiệt tình"
+    }
+  ]
+}

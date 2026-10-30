@@ -1,0 +1,590 @@
+{
+  "content": "Every Tuesday evening, Kim, Long and Vinh go to a running club near their office in Hanoi. After their training, they sit and drink some water.\n\nVinh asks, \"Who is the strongest person in our group, do you think?\"\n\"Long, of course,\" Kim says. \"He trains the hardest, and he can carry the heaviest bags.\"\nLong laughs and says, \"Maybe, but Vinh is the fastest runner. He runs as fast as our coach!\"\n\"That's not true,\" Vinh says. \"Mr Tan is faster than me. He is fifty, but he is the fittest man in the club.\"\n\nKim asks, \"And who is the tallest?\"\nLong answers, \"You are, Kim! You are taller than both of us.\"\n\"Yes, but I'm not as strong as you, and I'm the slowest in the group,\" Kim says.\nVinh smiles. \"It's OK. You are the best at basketball, and you never get tired.\"\n\nThen Mr Tan comes over with his bag. \"Stop talking and go home,\" he says. \"You need to sleep!\"\nThey all laugh.",
+  "targetWords": [
+    "club",
+    "group",
+    "runner",
+    "fast",
+    "coach",
+    "strong",
+    "basketball",
+    "tired"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "club",
+        "lemma": "club",
+        "meaningVi": "câu lạc bộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "group",
+        "lemma": "group",
+        "meaningVi": "nhóm",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "runner",
+        "lemma": "runner",
+        "meaningVi": "người chạy",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "fast",
+        "lemma": "fast",
+        "meaningVi": "nhanh",
+        "pos": "adverb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "coach",
+        "lemma": "coach",
+        "meaningVi": "huấn luyện viên",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "strong",
+        "lemma": "strong",
+        "meaningVi": "khoẻ",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "basketball",
+        "lemma": "basketball",
+        "meaningVi": "bóng rổ",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "tired",
+        "lemma": "tired",
+        "meaningVi": "mệt",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Three friends compare the people at their running club.",
+          "Mr Tan's first day as a coach",
+          "A basketball game in Hanoi",
+          "Kim's new office"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sau buổi tập, Kim, Long và Vinh so sánh xem ai khoẻ nhất, nhanh nhất, cao nhất."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old is Mr Tan?",
+        "promptVi": "Thầy Tân bao nhiêu tuổi?",
+        "options": [
+          "Forty",
+          "Fifteen",
+          "Sixty",
+          "Fifty"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Vinh nói \"He is fifty, but he is the fittest man in the club.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Kim think Long is the strongest?",
+        "promptVi": "Vì sao Kim nghĩ Long khoẻ nhất?",
+        "options": [
+          "He is the tallest.",
+          "He trains the hardest and carries the heaviest bags.",
+          "He runs as fast as the coach.",
+          "He is the best at basketball."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Kim nói \"He trains the hardest, and he can carry the heaviest bags.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Kim is as strong as Long.",
+        "promptVi": "Kim khoẻ như Long.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Kim nói \"I'm not as strong as you\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"fittest\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He is fifty, but he is the fittest man in the club.\"",
+        "options": [
+          "béo nhất",
+          "lớn tuổi nhất",
+          "vui nhất",
+          "khoẻ mạnh, dẻo dai nhất"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Fit là khoẻ mạnh, có thể lực tốt → the fittest: khoẻ mạnh nhất câu lạc bộ."
+      }
+    ],
+    "grammarNote": {
+      "title": "So sánh nhất",
+      "bodyVi": "Nói ai nhất trong nhóm: the + tính từ-est (the strongest, the tallest, the slowest; heavy → the heaviest; fit → the fittest). Trạng từ cũng vậy: trains the hardest. Good → the best: the best at basketball. So với hai người dùng so sánh hơn: taller than both of us.",
+      "examples": [
+        "Vinh asks, \"Who is the strongest person in our group, do you think?\"",
+        "Kim asks, \"And who is the tallest?\"",
+        "\"Yes, but I'm not as strong as you, and I'm the slowest in the group,\" Kim says."
+      ]
+    },
+    "writingPrompt": "Write about your friends or classmates: who is the tallest, the fastest and the strongest?",
+    "sentenceTranslations": [
+      "Tối thứ Ba nào Kim, Long và Vinh cũng đến một câu lạc bộ chạy bộ gần văn phòng ở Hà Nội.",
+      "Tập xong, họ ngồi uống nước.",
+      "Vinh hỏi: \"Theo các cậu, ai là người khoẻ nhất nhóm mình?\"",
+      "\"Long chứ còn ai,\" Kim nói.",
+      "\"Cậu ấy tập chăm nhất, và có thể mang những túi nặng nhất.\"",
+      "Long cười và nói: \"Có thể, nhưng Vinh là người chạy nhanh nhất.",
+      "Cậu ấy chạy nhanh như thầy huấn luyện của mình!\"",
+      "\"Không đúng đâu,\" Vinh nói.",
+      "\"Thầy Tân nhanh hơn mình.",
+      "Thầy năm mươi tuổi rồi, nhưng khoẻ nhất câu lạc bộ.\"",
+      "Kim hỏi: \"Thế ai cao nhất?\"",
+      "Long trả lời: \"Cậu chứ ai, Kim!",
+      "Cậu cao hơn cả hai bọn mình.\"",
+      "\"Ừ, nhưng mình không khoẻ bằng các cậu, mà lại chậm nhất nhóm,\" Kim nói.",
+      "Vinh mỉm cười.",
+      "\"Không sao.",
+      "Cậu chơi bóng rổ giỏi nhất, mà chẳng bao giờ thấy mệt.\"",
+      "Rồi thầy Tân đi tới, tay cầm túi.",
+      "\"Thôi nói chuyện đi, về nhà đi,\" thầy nói.",
+      "\"Các cậu cần ngủ!\"",
+      "Cả ba cùng cười."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể so sánh bạn bè về thể lực bằng the -est, as … as và -er than.",
+    "examples": [
+      {
+        "lemma": "club",
+        "sentence": "I go to an English club on Sundays.",
+        "meaningVi": "Chủ nhật tôi đi câu lạc bộ tiếng Anh."
+      },
+      {
+        "lemma": "group",
+        "sentence": "We work in a group of four.",
+        "meaningVi": "Chúng tôi làm việc theo nhóm bốn người."
+      },
+      {
+        "lemma": "runner",
+        "sentence": "She is a very good runner.",
+        "meaningVi": "Cô ấy chạy rất giỏi."
+      },
+      {
+        "lemma": "fast",
+        "sentence": "Don't drive so fast!",
+        "meaningVi": "Đừng lái xe nhanh thế!"
+      },
+      {
+        "lemma": "coach",
+        "sentence": "Our coach is very kind.",
+        "meaningVi": "Huấn luyện viên của chúng tôi rất tốt bụng."
+      },
+      {
+        "lemma": "strong",
+        "sentence": "You need strong arms to swim well.",
+        "meaningVi": "Bạn cần đôi tay khoẻ để bơi giỏi."
+      },
+      {
+        "lemma": "basketball",
+        "sentence": "Do you play basketball?",
+        "meaningVi": "Bạn có chơi bóng rổ không?"
+      },
+      {
+        "lemma": "tired",
+        "sentence": "I'm tired after work.",
+        "meaningVi": "Tôi mệt sau giờ làm."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vinh",
+        "Daniel"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Vinh, is your running club good?",
+          "meaningVi": "Vinh ơi, câu lạc bộ chạy bộ của cậu có tốt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it's the best club in our area.",
+          "meaningVi": "Có, đó là câu lạc bộ tốt nhất khu mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it bigger than the club near my house?",
+          "meaningVi": "Nó có to hơn câu lạc bộ gần nhà mình không?"
+        },
+        {
+          "speaker": 0,
+          "text": "I think so, and it isn't as expensive.",
+          "meaningVi": "Mình nghĩ là có, mà lại không đắt bằng."
+        },
+        {
+          "speaker": 1,
+          "text": "Who is the best runner there?",
+          "meaningVi": "Ở đó ai chạy giỏi nhất?"
+        },
+        {
+          "speaker": 0,
+          "text": "Our coach, Mr Tan. He is older than us, but he is the fastest.",
+          "meaningVi": "Thầy huấn luyện, thầy Tân. Thầy lớn tuổi hơn bọn mình, nhưng nhanh nhất."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? How old is he?",
+          "meaningVi": "Thật à? Thầy bao nhiêu tuổi?"
+        },
+        {
+          "speaker": 0,
+          "text": "Fifty. And he's as strong as a young man.",
+          "meaningVi": "Năm mươi. Mà thầy khoẻ như thanh niên."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I come with you next Tuesday?",
+          "meaningVi": "Thứ Ba tới mình đi cùng cậu được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course! But bring a lot of water.",
+          "meaningVi": "Tất nhiên! Nhưng nhớ mang nhiều nước nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi ai nhất: Who is the best runner there? So sánh hai nơi: Is it bigger than …? Không bằng: it isn't as expensive.",
+    "translations": [
+      {
+        "vi": "Vinh là người chạy nhanh nhất câu lạc bộ.",
+        "en": "Vinh is the fastest runner in the club.",
+        "distractors": [
+          "faster",
+          "most",
+          "of"
+        ]
+      },
+      {
+        "vi": "Cậu ấy chạy nhanh như huấn luyện viên.",
+        "en": "He runs as fast as the coach.",
+        "distractors": [
+          "than",
+          "faster",
+          "run"
+        ]
+      },
+      {
+        "vi": "Tôi không khoẻ bằng bạn.",
+        "en": "I'm not as strong as you.",
+        "distractors": [
+          "than",
+          "stronger",
+          "don't"
+        ]
+      },
+      {
+        "vi": "Kim chơi bóng rổ giỏi nhất nhóm.",
+        "en": "Kim is the best at basketball in the group.",
+        "distractors": [
+          "better",
+          "good",
+          "of"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Daniel hỏi Vinh về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Câu lạc bộ chạy bộ của Vinh",
+          "Nhà của Daniel",
+          "Một trận bóng rổ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Daniel hỏi \"is your running club good?\" và hai người nói về câu lạc bộ đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai chạy giỏi nhất ở câu lạc bộ?",
+        "promptVi": "",
+        "options": [
+          "Vinh",
+          "Thầy Tân",
+          "Kim"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vinh nói \"Our coach, Mr Tan… he is the fastest.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vinh dặn Daniel mang theo gì?",
+        "promptVi": "",
+        "options": [
+          "Một cái túi",
+          "Giày chạy",
+          "Nhiều nước"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vinh nói \"bring a lot of water.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vinh's club is more expensive than the club near Daniel's house.",
+        "promptVi": "Câu lạc bộ của Vinh đắt hơn câu lạc bộ gần nhà Daniel.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vinh nói \"it isn't as expensive\": không đắt bằng.",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong nhóm \"nhất\" ở điểm gì?",
+    "grammarStep": {
+      "titleVi": "So sánh nhất",
+      "noticing": [
+        {
+          "sentence": "Vinh asks, \"Who is the strongest person in our group, do you think?\"",
+          "highlights": [
+            "the strongest"
+          ]
+        },
+        {
+          "sentence": "\"He trains the hardest, and he can carry the heaviest bags.\"",
+          "highlights": [
+            "the hardest",
+            "the heaviest"
+          ]
+        },
+        {
+          "sentence": "Kim asks, \"And who is the tallest?\"",
+          "highlights": [
+            "the tallest"
+          ]
+        },
+        {
+          "sentence": "\"Yes, but I'm not as strong as you, and I'm the slowest in the group,\" Kim says.",
+          "highlights": [
+            "the slowest"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"the heaviest\" mà không viết \"the heavyest\"?",
+      "options": [
+        "Vì heavy là tính từ dài.",
+        "Vì tính từ tận cùng phụ âm + y thì đổi y thành i rồi thêm -est.",
+        "Vì bags là số nhiều."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Heavy, happy, funny: đổi y thành i rồi thêm -est: the heaviest, the happiest, the funniest.",
+      "whenVi": "Dùng the -est khi so một người với cả nhóm; dùng -er than khi chỉ so hai người.",
+      "table": [
+        {
+          "subject": "Thêm -est",
+          "form": "strong → the strongest, tall → the tallest",
+          "negative": "I'm not the strongest."
+        },
+        {
+          "subject": "y → iest",
+          "form": "heavy → the heaviest, funny → the funniest",
+          "negative": "—"
+        },
+        {
+          "subject": "Gấp đôi phụ âm",
+          "form": "fit → the fittest, big → the biggest",
+          "negative": "—"
+        },
+        {
+          "subject": "So với hai người",
+          "form": "taller than both of us",
+          "negative": "not as strong as you"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Kim is the most tall in the group.",
+          "right": "Kim is the tallest in the group."
+        },
+        {
+          "wrong": "He is the fitest man in the club.",
+          "right": "He is the fittest man in the club."
+        }
+      ],
+      "noteVi": "Nhớ dùng in + nhóm, nơi chốn sau so sánh nhất: the slowest in the group, the fittest in the club (không dùng of the club).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng so sánh nhất của từ trong ngoặc.",
+          "text": "Kim is the ___ person in the group. (tall)",
+          "answers": [
+            "tallest"
+          ],
+          "explanationVi": "Tall là tính từ ngắn: the tallest."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Long can carry the ___ bags in the club.",
+          "options": [
+            "heavyest",
+            "most heavy",
+            "heavier",
+            "heaviest"
+          ],
+          "answerIndex": 3,
+          "explanationVi": "Heavy → đổi y thành i: the heaviest."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Vinh is the most fast runner in our group.",
+          "sentence": "Vinh is the fastest runner in our group.",
+          "explanationVi": "Fast là từ ngắn: the fastest, không dùng most."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi là người chậm nhất trong nhóm.",
+          "sentence": "I'm the slowest in the group.",
+          "words": [
+            "slowest",
+            "I'm",
+            "in",
+            "the",
+            "group",
+            "the",
+            "most"
+          ],
+          "explanationVi": "Slow → the slowest; từ \"most\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Kim asks, \"And who is the tallest?\"",
+        "tipVi": "Tallest /ˈtɔːlɪst/ có âm /ɔː/ dài và /st/ ở cuối; câu hỏi Wh- xuống giọng."
+      },
+      {
+        "text": "After their training, they sit and drink some water.",
+        "tipVi": "Training /ˈtreɪnɪŋ/ nhấn âm đầu; drink some nối nhẹ, đọc rõ /k/ trong drink."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is the tallest person in your family?",
+        "questionVi": "Ai là người cao nhất trong gia đình bạn?",
+        "frame": "The tallest person is my ___."
+      },
+      {
+        "question": "Can you run as fast as your best friend?",
+        "questionVi": "Bạn có chạy nhanh bằng bạn thân không?",
+        "frame": "Yes, I can run as fast as ___. / No, I can't run as fast as ___."
+      },
+      {
+        "question": "Who is the strongest person you know?",
+        "questionVi": "Ai là người khoẻ nhất mà bạn biết?",
+        "frame": "___ is the strongest. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu so sánh nhất (the -est / the most …)",
+      "anyOf": [
+        "the most",
+        "the best",
+        "the tallest",
+        "the fastest",
+        "the strongest",
+        "the slowest"
+      ],
+      "outlineVi": [
+        "Giới thiệu nhóm bạn hoặc lớp của bạn.",
+        "Ai cao nhất, nhanh nhất, khoẻ nhất (the -est).",
+        "So sánh bạn với một người trong nhóm (as … as, -er than)."
+      ],
+      "modelAnswer": "There are five people in my football team. Tuan is the tallest, and he is the best player. Hai is the fastest runner, but he isn't as strong as Tuan. Phuong is the youngest, and she is the funniest person in the team. I'm not the fastest, but I'm faster than my brother. We play every Saturday, and we never get tired."
+    }
+  },
+  "glosses": [
+    {
+      "text": "running club",
+      "lemma": "running club",
+      "meaningVi": "câu lạc bộ chạy bộ",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a running club near their office",
+      "phraseVi": "một câu lạc bộ chạy bộ gần văn phòng"
+    },
+    {
+      "text": "training",
+      "lemma": "training",
+      "meaningVi": "buổi tập",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "After their training",
+      "phraseVi": "Tập xong"
+    },
+    {
+      "text": "heaviest",
+      "lemma": "heavy",
+      "meaningVi": "nặng nhất",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "the heaviest bags",
+      "phraseVi": "những túi nặng nhất"
+    },
+    {
+      "text": "fittest",
+      "lemma": "fit",
+      "meaningVi": "khoẻ mạnh nhất",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "the fittest man in the club",
+      "phraseVi": "người khoẻ nhất câu lạc bộ"
+    },
+    {
+      "text": "both of us",
+      "lemma": "both",
+      "meaningVi": "cả hai chúng tôi",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "taller than both of us",
+      "phraseVi": "cao hơn cả hai bọn mình"
+    },
+    {
+      "text": "slowest",
+      "lemma": "slow",
+      "meaningVi": "chậm nhất",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "the slowest in the group",
+      "phraseVi": "chậm nhất nhóm"
+    },
+    {
+      "text": "comes over",
+      "lemma": "come over",
+      "meaningVi": "đi tới",
+      "sentenceIndex": 17,
+      "pos": "verb",
+      "phrase": "Mr Tan comes over with his bag",
+      "phraseVi": "thầy Tân đi tới, tay cầm túi"
+    }
+  ]
+}

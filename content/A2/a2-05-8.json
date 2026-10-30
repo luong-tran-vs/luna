@@ -1,0 +1,590 @@
+{
+  "content": "On Saturday evening, Bac and his friend Ben have dinner at a hotpot restaurant in Hanoi. They eat a lot of beef, some mushrooms and a few plates of vegetables. After two hours, they are very full.\n\nBac asks the waiter for the bill. He checks it, and the bill is wrong.\n\"How many drinks did we have?\" he asks Ben.\n\"Only four cans of cola, I think,\" Ben says.\n\"But there are eight cans on the bill,\" Bac says.\nHe calls the waiter and asks, \"Excuse me, can you check the bill, please? We only had four drinks.\"\n\nThe young waiter looks at the bill and counts the empty cans on the table.\n\"You're right, there are only four cans here,\" he says. \"I'm very sorry, it's my mistake.\"\nHe brings them a new bill, and this time it is correct. Bac doesn't have a card with him, so he pays in cash. He leaves a little change for the waiter.\n\nBen laughs and says, \"Always check the bill!\"",
+  "targetWords": [
+    "full",
+    "bill",
+    "check",
+    "can",
+    "count",
+    "empty",
+    "mistake",
+    "change"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "full",
+        "lemma": "full",
+        "meaningVi": "no (bụng)",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "bill",
+        "lemma": "bill",
+        "meaningVi": "hoá đơn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "checks",
+        "lemma": "check",
+        "meaningVi": "kiểm tra",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "cans",
+        "lemma": "can",
+        "meaningVi": "lon (đồ uống)",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "counts",
+        "lemma": "count",
+        "meaningVi": "đếm",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "empty",
+        "lemma": "empty",
+        "meaningVi": "trống, rỗng",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "mistake",
+        "lemma": "mistake",
+        "meaningVi": "lỗi, sự nhầm lẫn",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "change",
+        "lemma": "change",
+        "meaningVi": "tiền lẻ, tiền thừa",
+        "pos": "noun",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Bac cooks hotpot for Ben.",
+          "Bac finds a mistake on the restaurant bill.",
+          "Ben's new job as a waiter",
+          "A cheap restaurant in Hanoi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Sau bữa lẩu, Bắc kiểm tra hoá đơn và thấy bị tính sai số đồ uống."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many cans of cola are there on the first bill?",
+        "promptVi": "Hoá đơn đầu tiên ghi bao nhiêu lon cola?",
+        "options": [
+          "Four",
+          "Two",
+          "Six",
+          "Eight"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bắc nói \"But there are eight cans on the bill\", trong khi họ chỉ uống bốn lon."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Bac pay in cash?",
+        "promptVi": "Vì sao Bắc trả bằng tiền mặt?",
+        "options": [
+          "He doesn't have a card with him.",
+          "The restaurant doesn't take cards.",
+          "Ben tells him to.",
+          "Cash is cheap."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"Bac doesn't have a card with him, so he pays in cash.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The waiter says the bill is correct the first time.",
+        "promptVi": "Người phục vụ nói hoá đơn lần đầu là đúng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì người phục vụ nói \"I'm very sorry, it's my mistake\" và mang hoá đơn mới."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"correct\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He brings them a new bill, and this time it is correct.",
+        "options": [
+          "sai",
+          "mới",
+          "đúng",
+          "rẻ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Correct là đúng, không có lỗi: hoá đơn mới đã ghi đúng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh từ đếm được / không đếm được (some, any, much, many)",
+      "bodyVi": "Danh từ đếm được (drink, can, plate) có số nhiều và đi với many, a few, How many: How many drinks did we have? Danh từ không đếm được (beef, money) đi với much, a little, How much. Muốn đếm danh từ không đếm được thì dùng đơn vị: four cans of cola, a few plates of vegetables.",
+      "examples": [
+        "They eat a lot of beef, some mushrooms and a few plates of vegetables.",
+        "\"How many drinks did we have?\" he asks Ben.",
+        "\"Only four cans of cola, I think,\" Ben says."
+      ]
+    },
+    "writingPrompt": "Write about a meal with friends: what you ate and drank, how much or how many, and the bill.",
+    "sentenceTranslations": [
+      "Tối thứ Bảy, Bắc và bạn là Ben ăn tối ở một quán lẩu ở Hà Nội.",
+      "Họ ăn rất nhiều thịt bò, ít nấm và vài đĩa rau.",
+      "Sau hai tiếng, họ đã rất no.",
+      "Bắc gọi người phục vụ mang hoá đơn.",
+      "Anh kiểm tra, và thấy hoá đơn bị sai.",
+      "\"Bọn mình đã uống bao nhiêu đồ uống nhỉ?\" anh hỏi Ben.",
+      "\"Chỉ bốn lon cola thôi, mình nghĩ thế,\" Ben nói.",
+      "\"Nhưng hoá đơn ghi tám lon,\" Bắc nói.",
+      "Anh gọi người phục vụ và hỏi: \"Xin lỗi, em kiểm tra lại hoá đơn giúp anh được không?",
+      "Bọn anh chỉ uống bốn lon thôi.\"",
+      "Anh phục vụ trẻ nhìn hoá đơn và đếm số lon rỗng trên bàn.",
+      "\"Anh nói đúng, ở đây chỉ có bốn lon,\" anh nói.",
+      "\"Em rất xin lỗi, là lỗi của em.\"",
+      "Anh mang cho họ hoá đơn mới, và lần này thì đúng.",
+      "Bắc không mang thẻ, nên anh trả bằng tiền mặt.",
+      "Anh để lại một ít tiền lẻ cho người phục vụ.",
+      "Ben cười và nói: \"Luôn luôn phải kiểm tra hoá đơn nhé!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kiểm tra hoá đơn và hỏi về số lượng đồ ăn, đồ uống bằng How many / How much, many, much, a few, a little.",
+    "examples": [
+      {
+        "lemma": "full",
+        "sentence": "No more rice for me, I'm full.",
+        "meaningVi": "Thôi không lấy cơm nữa, tôi no rồi."
+      },
+      {
+        "lemma": "bill",
+        "sentence": "The bill is on the table.",
+        "meaningVi": "Hoá đơn ở trên bàn."
+      },
+      {
+        "lemma": "check",
+        "sentence": "Please check your answers.",
+        "meaningVi": "Hãy kiểm tra lại câu trả lời của bạn."
+      },
+      {
+        "lemma": "can",
+        "sentence": "There is a can of cola in the fridge.",
+        "meaningVi": "Trong tủ lạnh có một lon cola."
+      },
+      {
+        "lemma": "count",
+        "sentence": "Can you count to ten in English?",
+        "meaningVi": "Bạn đếm đến mười bằng tiếng Anh được không?"
+      },
+      {
+        "lemma": "empty",
+        "sentence": "My glass is empty.",
+        "meaningVi": "Cốc của tôi hết rồi."
+      },
+      {
+        "lemma": "mistake",
+        "sentence": "Sorry, it's my mistake.",
+        "meaningVi": "Xin lỗi, là lỗi của tôi."
+      },
+      {
+        "lemma": "change",
+        "sentence": "Here is your change.",
+        "meaningVi": "Đây là tiền thừa của bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Bac",
+        "Ben"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Bac, how much was our dinner last night?",
+          "meaningVi": "Bắc ơi, bữa tối hôm qua của bọn mình hết bao nhiêu tiền?"
+        },
+        {
+          "speaker": 0,
+          "text": "Six hundred thousand dong for the two of us.",
+          "meaningVi": "Sáu trăm nghìn đồng cho cả hai đứa."
+        },
+        {
+          "speaker": 1,
+          "text": "That isn't much for a lot of beef.",
+          "meaningVi": "Thế là không nhiều đâu với ngần ấy thịt bò."
+        },
+        {
+          "speaker": 0,
+          "text": "No, and the mushrooms were very fresh too.",
+          "meaningVi": "Ừ, mà nấm cũng rất tươi nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "How many plates of beef did we eat?",
+          "meaningVi": "Bọn mình ăn mấy đĩa bò nhỉ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Three, and a few plates of vegetables.",
+          "meaningVi": "Ba đĩa, thêm vài đĩa rau."
+        },
+        {
+          "speaker": 1,
+          "text": "Was there any problem with the new bill?",
+          "meaningVi": "Hoá đơn mới có vấn đề gì không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, and the waiter was very nice about it.",
+          "meaningVi": "Không, mà anh phục vụ cũng rất lịch sự."
+        },
+        {
+          "speaker": 1,
+          "text": "Would you like to go there again next month?",
+          "meaningVi": "Tháng sau cậu có muốn đến đó nữa không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but next time I'd like to try the fish hotpot.",
+          "meaningVi": "Có, nhưng lần sau mình muốn ăn thử lẩu cá."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi giá: How much was the dinner? (money không đếm được). Hỏi số đĩa: How many plates of beef? Trả lời ngắn: Three. / Not much.",
+    "translations": [
+      {
+        "vi": "Bắc kiểm tra hoá đơn sau bữa tối.",
+        "en": "Bac checks the bill after dinner.",
+        "distractors": [
+          "check",
+          "menu",
+          "before"
+        ]
+      },
+      {
+        "vi": "Trên bàn có bốn lon rỗng.",
+        "en": "There are four empty cans on the table.",
+        "distractors": [
+          "is",
+          "full",
+          "can"
+        ]
+      },
+      {
+        "vi": "Người phục vụ đếm số lon và nói đó là lỗi của anh ấy.",
+        "en": "The waiter counts the cans and says it is his mistake.",
+        "distractors": [
+          "count",
+          "her",
+          "many"
+        ]
+      },
+      {
+        "vi": "Bọn mình no rồi, nhưng mình vẫn muốn một chút trà.",
+        "en": "We are full, but I'd like a little tea.",
+        "distractors": [
+          "few",
+          "empty",
+          "much"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ben và Bắc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bữa tối ở quán lẩu hôm qua",
+          "Một món lẩu Ben nấu",
+          "Công việc mới của Bắc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ben hỏi \"how much was our dinner last night?\" và hai người nói về bữa lẩu đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bữa tối hết bao nhiêu tiền?",
+        "promptVi": "",
+        "options": [
+          "Sáu mươi nghìn đồng",
+          "Sáu trăm nghìn đồng",
+          "Sáu triệu đồng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bắc nói \"Six hundred thousand dong for the two of us.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lần sau Bắc muốn ăn thử món gì?",
+        "promptVi": "",
+        "options": [
+          "Lẩu bò",
+          "Nấm tươi",
+          "Lẩu cá"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bắc nói \"next time I'd like to try the fish hotpot.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They ate five plates of beef.",
+        "promptVi": "Họ ăn năm đĩa thịt bò.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Bắc nói \"Three, and a few plates of vegetables\": họ ăn ba đĩa bò.",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Hoá đơn sai ở chỗ nào, và người phục vụ làm gì?",
+    "grammarStep": {
+      "titleVi": "Danh từ đếm được / không đếm được (some, any, much, many)",
+      "noticing": [
+        {
+          "sentence": "They eat a lot of beef, some mushrooms and a few plates of vegetables.",
+          "highlights": [
+            "some mushrooms",
+            "a few plates of vegetables"
+          ]
+        },
+        {
+          "sentence": "\"How many drinks did we have?\" he asks Ben.",
+          "highlights": [
+            "How many drinks"
+          ]
+        },
+        {
+          "sentence": "\"Only four cans of cola, I think,\" Ben says.",
+          "highlights": [
+            "four cans of cola"
+          ]
+        },
+        {
+          "sentence": "He leaves a little change for the waiter.",
+          "highlights": [
+            "a little change"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao Ben nói \"four cans of cola\" mà không nói \"four colas\"?",
+      "options": [
+        "Vì cola là danh từ số nhiều.",
+        "Vì không có cách nào khác để nói.",
+        "Vì cola (nước) không đếm được, nên đếm bằng lon (cans)."
+      ],
+      "answerIndex": 2,
+      "explanationVi": "Đồ uống như cola, tea, water không đếm được; muốn đếm thì dùng đơn vị: a can of cola, a cup of tea, a glass of water.",
+      "whenVi": "Dùng many / How many với danh từ đếm được, much / How much với danh từ không đếm được; đếm danh từ không đếm được bằng đơn vị như a can of, a plate of, a cup of.",
+      "table": [
+        {
+          "subject": "Đếm được (drink, can)",
+          "form": "How many drinks? / four cans",
+          "negative": "We didn't have many drinks."
+        },
+        {
+          "subject": "Không đếm được (beef, money)",
+          "form": "How much beef? / a lot of money",
+          "negative": "We didn't eat much beef."
+        },
+        {
+          "subject": "Đơn vị",
+          "form": "a can of cola / a plate of beef",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "How many money do we need?",
+          "right": "How much money do we need?"
+        },
+        {
+          "wrong": "We had four can of cola.",
+          "right": "We had four cans of cola."
+        }
+      ],
+      "noteVi": "Money là danh từ không đếm được (How much money?), dù tiền đếm được bằng tờ; người Việt hay nói nhầm How many money.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "How ___ cans of cola did you have?",
+          "answers": [
+            "many"
+          ],
+          "explanationVi": "Cans đếm được, số nhiều, nên dùng How many."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "We didn't eat ___ rice last night.",
+          "options": [
+            "many",
+            "a few",
+            "much",
+            "some"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Rice không đếm được, câu phủ định dùng much."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "How many money do we need for dinner?",
+          "sentence": "How much money do we need for dinner?",
+          "explanationVi": "Money không đếm được nên dùng How much."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Các bạn đã ăn bao nhiêu thịt bò?",
+          "sentence": "How much beef did you eat?",
+          "words": [
+            "beef",
+            "much",
+            "How",
+            "eat",
+            "you",
+            "did",
+            "many"
+          ],
+          "explanationVi": "Beef không đếm được nên dùng How much; từ \"many\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Bac asks the waiter for the bill.",
+        "tipVi": "Asks the nối âm, đọc rõ /sks/; bill /bɪl/ âm /ɪ/ ngắn và có /l/ cuối."
+      },
+      {
+        "text": "He leaves a little change for the waiter.",
+        "tipVi": "Change /tʃeɪndʒ/ đọc \"chêin-dʒ\"; a little nối thành \"ơ-lít-tồ\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How much money do you usually pay for lunch?",
+        "questionVi": "Bạn thường trả bao nhiêu tiền cho bữa trưa?",
+        "frame": "I usually pay ___ for lunch."
+      },
+      {
+        "question": "How many glasses of water do you drink every day?",
+        "questionVi": "Mỗi ngày bạn uống mấy cốc nước?",
+        "frame": "I drink ___ glasses of water every day."
+      },
+      {
+        "question": "Who pays the bill in your family at a restaurant?",
+        "questionVi": "Khi đi nhà hàng, ai trong gia đình bạn trả tiền?",
+        "frame": "My ___ pays. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng How many / How much, some, any, much hoặc many",
+      "anyOf": [
+        "how many",
+        "how much",
+        "any",
+        "many",
+        "much",
+        "some"
+      ],
+      "outlineVi": [
+        "Bạn ăn với ai, ở đâu.",
+        "Các bạn ăn uống những gì, bao nhiêu (a lot of, a few, two cans of …).",
+        "Hoá đơn bao nhiêu tiền và ai trả (How much was …?)."
+      ],
+      "modelAnswer": "Last Friday, I had dinner with three friends at a noodle restaurant. We ate a lot of noodles and some fried chicken. We didn't drink much, only a few cans of cola. After dinner, my friend Huy asked, \"How much is the bill?\" It was four hundred thousand dong. We checked the bill, and it was correct. Huy had some cash, so he gave it to the waiter."
+    }
+  },
+  "glosses": [
+    {
+      "text": "hotpot",
+      "lemma": "hotpot",
+      "meaningVi": "lẩu",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a hotpot restaurant",
+      "phraseVi": "một quán lẩu"
+    },
+    {
+      "text": "mushrooms",
+      "lemma": "mushroom",
+      "meaningVi": "nấm",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "some mushrooms",
+      "phraseVi": "ít nấm"
+    },
+    {
+      "text": "wrong",
+      "lemma": "wrong",
+      "meaningVi": "sai",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "the bill is wrong",
+      "phraseVi": "hoá đơn bị sai"
+    },
+    {
+      "text": "How many",
+      "lemma": "how many",
+      "meaningVi": "bao nhiêu (đếm được)",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "How many drinks did we have",
+      "phraseVi": "Bọn mình đã uống bao nhiêu đồ uống"
+    },
+    {
+      "text": "Excuse me",
+      "lemma": "excuse me",
+      "meaningVi": "xin lỗi (khi gọi ai)",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "Excuse me, can you check the bill",
+      "phraseVi": "Xin lỗi, kiểm tra lại hoá đơn giúp"
+    },
+    {
+      "text": "right",
+      "lemma": "right",
+      "meaningVi": "đúng",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "You're right",
+      "phraseVi": "Anh nói đúng"
+    },
+    {
+      "text": "correct",
+      "lemma": "correct",
+      "meaningVi": "đúng, chính xác",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "this time it is correct",
+      "phraseVi": "lần này thì đúng"
+    },
+    {
+      "text": "in cash",
+      "lemma": "in cash",
+      "meaningVi": "bằng tiền mặt",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "he pays in cash",
+      "phraseVi": "anh trả bằng tiền mặt"
+    }
+  ]
+}

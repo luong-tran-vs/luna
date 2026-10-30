@@ -1,0 +1,617 @@
+{
+  "content": "After class, Mai, Long and Thu meet at a coffee shop near their university in Hue. Everyone is talking about The Lost Son, a drama whose final episode comes out on Sunday.\n\nMai says, \"In the last episode, Khang ran away from the police. Where do you think he is?\"\nLong says, \"He might be at his grandmother's house. That's the place where he grew up.\"\n\"He can't be there. The police went there first.\"\nThu looks at her phone. \"Remember the boat that his father used? Maybe he's hiding on it.\"\n\"That's possible. The boat is in the small village where his father lived.\"\n\"Or he could be with Hanh, the girl who helped him in episode five.\"\nMai shakes her head. \"Hanh must be angry with him. He left without a word.\"\n\"True. But she's the only person who knows his secret.\"\n\"What secret?\"\n\"The secret that the writer showed in episode two. Khang isn't really the son of the rich man.\"\n\"Oh, right! Then the man who is looking for him might be his real father.\"\nThu says, \"That must be the big surprise of the ending. I think he'll meet his real father on the boat.\"\nLong says, \"We'll see on Sunday. Shall we watch it together at my flat?\"\n\"Yes! I'll bring the snacks.\"",
+  "targetWords": [
+    "university",
+    "final",
+    "police",
+    "boat",
+    "possible",
+    "girl",
+    "only",
+    "rich",
+    "real",
+    "ending"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "university",
+        "lemma": "university",
+        "meaningVi": "trường đại học",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "final",
+        "lemma": "final",
+        "meaningVi": "cuối cùng",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "police",
+        "lemma": "police",
+        "meaningVi": "cảnh sát",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "boat",
+        "lemma": "boat",
+        "meaningVi": "con thuyền",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "possible",
+        "lemma": "possible",
+        "meaningVi": "có thể",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "girl",
+        "lemma": "girl",
+        "meaningVi": "cô gái",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "only",
+        "lemma": "only",
+        "meaningVi": "duy nhất",
+        "pos": "adjective",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "rich",
+        "lemma": "rich",
+        "meaningVi": "giàu có",
+        "pos": "adjective",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "real",
+        "lemma": "real",
+        "meaningVi": "thật, ruột",
+        "pos": "adjective",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "ending",
+        "lemma": "ending",
+        "meaningVi": "đoạn kết",
+        "pos": "noun",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are the three friends mainly doing?",
+        "promptVi": "Ba người bạn chủ yếu đang làm gì?",
+        "options": [
+          "Guessing what will happen in the final episode of a drama",
+          "Looking for a boat",
+          "Studying for a university exam",
+          "Writing a story about the police"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai, Long và Thu đoán xem nhân vật Khang đang trốn ở đâu và tập cuối sẽ kết thúc ra sao."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't Khang be at his grandmother's house?",
+        "promptVi": "Vì sao Khang không thể ở nhà bà?",
+        "options": [
+          "His grandmother moved away.",
+          "The police went there first.",
+          "He doesn't like his grandmother.",
+          "The house is too far."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"He can't be there. The police went there first.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Khang's secret?",
+        "promptVi": "Bí mật của Khang là gì?",
+        "options": [
+          "He has a boat.",
+          "He loves Hanh.",
+          "He isn't really the son of the rich man.",
+          "He works for the police."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"Khang isn't really the son of the rich man.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The final episode comes out on Saturday.",
+        "promptVi": "Tập cuối ra mắt vào thứ Bảy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"a drama whose final episode comes out on Sunday\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"ran away from\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mai says, \"In the last episode, Khang ran away from the police.",
+        "options": [
+          "chạy trốn khỏi",
+          "chạy đến chỗ",
+          "chạy cùng",
+          "chạy thi với"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Run away from = chạy trốn khỏi ai / cái gì."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "bodyVi": "Mệnh đề quan hệ giúp nói rõ người, vật, nơi chốn: the girl who helped him (who – người), the boat that his father used (that – vật), a drama whose final episode comes out on Sunday (whose – sở hữu), the place where he grew up / the small village where his father lived (where – nơi chốn). Bài cũng dùng might / could / must / can't để đoán Khang đang ở đâu.",
+      "examples": [
+        "Everyone is talking about The Lost Son, a drama whose final episode comes out on Sunday.",
+        "That's the place where he grew up.\"",
+        "\"Or he could be with Hanh, the girl who helped him in episode five.\""
+      ]
+    },
+    "writingPrompt": "Write about a character in a film or book: who is he or she, where does he or she live, and what might happen to him or her?",
+    "sentenceTranslations": [
+      "Tan học, Mai, Long và Thu gặp nhau ở một quán cà phê gần trường đại học ở Huế.",
+      "Ai cũng đang bàn về The Lost Son, một bộ phim mà tập cuối sẽ ra vào Chủ nhật.",
+      "Mai nói: \"Ở tập trước, Khang chạy trốn khỏi cảnh sát.",
+      "Các cậu nghĩ anh ấy đang ở đâu?\"",
+      "Long nói: \"Có thể anh ấy ở nhà bà.",
+      "Đó là nơi anh ấy lớn lên.\"",
+      "\"Không thể ở đó được.",
+      "Cảnh sát đến đó đầu tiên rồi.\"",
+      "Thu nhìn điện thoại.",
+      "\"Nhớ con thuyền bố anh ấy hay dùng không?",
+      "Có lẽ anh ấy đang trốn trên đó.\"",
+      "\"Có thể lắm.",
+      "Con thuyền ở trong ngôi làng nhỏ nơi bố anh ấy từng sống.\"",
+      "\"Hoặc có thể anh ấy ở với Hạnh, cô gái đã giúp anh ấy ở tập năm.\"",
+      "Mai lắc đầu.",
+      "\"Chắc chắn Hạnh đang giận anh ấy.",
+      "Anh ấy bỏ đi mà không nói một lời.\"",
+      "\"Đúng.",
+      "Nhưng cô ấy là người duy nhất biết bí mật của anh ấy.\"",
+      "\"Bí mật gì?\"",
+      "\"Bí mật mà biên kịch đã cho thấy ở tập hai.",
+      "Khang thật ra không phải con trai của ông nhà giàu.\"",
+      "\"À, đúng rồi!",
+      "Vậy người đàn ông đang tìm anh ấy có thể là bố ruột của anh ấy.\"",
+      "Thu nói: \"Chắc chắn đó là bất ngờ lớn của đoạn kết.",
+      "Mình nghĩ anh ấy sẽ gặp bố ruột trên con thuyền.\"",
+      "Long nói: \"Chủ nhật là biết.",
+      "Mình cùng xem ở căn hộ của mình nhé?\"",
+      "\"Được!",
+      "Mình sẽ mang đồ ăn vặt.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể bàn về nhân vật và đoán kết thúc của một bộ phim bằng mệnh đề quan hệ (who, that, whose, where) và might / must / can't.",
+    "examples": [
+      {
+        "lemma": "university",
+        "sentence": "My brother studies at Hue University.",
+        "meaningVi": "Anh tôi học ở Đại học Huế."
+      },
+      {
+        "lemma": "final",
+        "sentence": "This is the final question.",
+        "meaningVi": "Đây là câu hỏi cuối cùng."
+      },
+      {
+        "lemma": "police",
+        "sentence": "Call the police!",
+        "meaningVi": "Gọi cảnh sát đi!"
+      },
+      {
+        "lemma": "boat",
+        "sentence": "We went to the island by boat.",
+        "meaningVi": "Chúng tôi ra đảo bằng thuyền."
+      },
+      {
+        "lemma": "possible",
+        "sentence": "Is it possible to visit the museum today?",
+        "meaningVi": "Hôm nay có thể vào bảo tàng không?"
+      },
+      {
+        "lemma": "girl",
+        "sentence": "The girl in the red dress is my sister.",
+        "meaningVi": "Cô gái mặc váy đỏ là em gái tôi."
+      },
+      {
+        "lemma": "only",
+        "sentence": "She is the only doctor in the village.",
+        "meaningVi": "Bà ấy là bác sĩ duy nhất trong làng."
+      },
+      {
+        "lemma": "rich",
+        "sentence": "He became rich after many years of hard work.",
+        "meaningVi": "Ông ấy trở nên giàu có sau nhiều năm làm việc chăm chỉ."
+      },
+      {
+        "lemma": "real",
+        "sentence": "Is that a real flower?",
+        "meaningVi": "Đó có phải hoa thật không?"
+      },
+      {
+        "lemma": "ending",
+        "sentence": "The film has a happy ending.",
+        "meaningVi": "Bộ phim có kết thúc có hậu."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Lucy"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai, have you watched The Lost Son?",
+          "meaningVi": "Mai ơi, cậu xem The Lost Son chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! It's the drama that everyone is talking about.",
+          "meaningVi": "Rồi! Đó là bộ phim mà ai cũng đang bàn tán."
+        },
+        {
+          "speaker": 1,
+          "text": "Who is the main character?",
+          "meaningVi": "Nhân vật chính là ai?"
+        },
+        {
+          "speaker": 0,
+          "text": "Khang. He's a young man who is running away from the police.",
+          "meaningVi": "Khang. Anh ấy là một chàng trai đang chạy trốn cảnh sát."
+        },
+        {
+          "speaker": 1,
+          "text": "Where is he now?",
+          "meaningVi": "Giờ anh ấy ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Nobody knows. He might be on a boat.",
+          "meaningVi": "Không ai biết. Có thể anh ấy ở trên một con thuyền."
+        },
+        {
+          "speaker": 1,
+          "text": "Is there a girl who helps him?",
+          "meaningVi": "Có cô gái nào giúp anh ấy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, Hanh. She's the only person who knows his secret.",
+          "meaningVi": "Có, Hạnh. Cô ấy là người duy nhất biết bí mật của anh ấy."
+        },
+        {
+          "speaker": 1,
+          "text": "When is the final episode?",
+          "meaningVi": "Khi nào có tập cuối?"
+        },
+        {
+          "speaker": 0,
+          "text": "On Sunday. Come and watch it at Long's flat with us!",
+          "meaningVi": "Chủ nhật. Đến căn hộ của Long xem cùng bọn mình nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "The drama that everyone is talking about (vật – that), a young man who is running away (người – who), the only person who knows his secret. He might be on a boat (đoán).",
+    "translations": [
+      {
+        "vi": "Đó là nơi anh ấy lớn lên. Trốn ở đó là không thể.",
+        "en": "That is the place where he grew up. It isn't possible to hide there.",
+        "distractors": [
+          "which",
+          "who",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Cô gái đã giúp anh ấy biết bí mật.",
+        "en": "The girl who helped him knows the secret.",
+        "distractors": [
+          "which",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Con thuyền mà bố anh ấy dùng ở trong làng.",
+        "en": "The boat that his father used is in the village.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Đó là bộ phim có tập cuối ra vào Chủ nhật.",
+        "en": "It's a drama whose final episode comes out on Sunday.",
+        "distractors": [
+          "what",
+          "which",
+          "where"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai kể với Lucy về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bộ phim The Lost Son",
+          "Trường đại học của Mai",
+          "Căn hộ của Long"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lucy hỏi \"have you watched The Lost Son?\" và Mai kể về bộ phim.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khang là ai?",
+        "promptVi": "",
+        "options": [
+          "Một cảnh sát",
+          "Một chàng trai đang chạy trốn cảnh sát",
+          "Bố của Hạnh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"He's a young man who is running away from the police.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào có tập cuối?",
+        "promptVi": "",
+        "options": [
+          "Thứ Bảy",
+          "Tối nay",
+          "Chủ nhật"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"On Sunday.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai knows where Khang is.",
+        "promptVi": "Mai biết Khang đang ở đâu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"Nobody knows. He might be on a boat.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Ba người bạn đoán Khang có thể ở những đâu? Bí mật của anh ấy là gì?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "noticing": [
+        {
+          "sentence": "Everyone is talking about The Lost Son, a drama whose final episode comes out on Sunday.",
+          "highlights": [
+            "whose final episode"
+          ]
+        },
+        {
+          "sentence": "That's the place where he grew up.\"",
+          "highlights": [
+            "where he grew up"
+          ]
+        },
+        {
+          "sentence": "\"Remember the boat that his father used?",
+          "highlights": [
+            "that his father used"
+          ]
+        },
+        {
+          "sentence": "But she's the only person who knows his secret.\"",
+          "highlights": [
+            "who knows his secret"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"the boat that his father used\", có thể bỏ \"that\" không?",
+      "options": [
+        "Có, vì that là tân ngữ (his father used the boat).",
+        "Không bao giờ được bỏ.",
+        "Chỉ bỏ được khi nói về người."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Khi who / which / that làm tân ngữ (theo sau là chủ ngữ khác), có thể bỏ: the boat (that) his father used. Khi làm chủ ngữ thì không bỏ được: the person who knows his secret.",
+      "whenVi": "Dùng mệnh đề quan hệ để nói rõ người / vật / nơi mình đang nhắc tới trong câu chuyện.",
+      "table": [
+        {
+          "subject": "who làm chủ ngữ",
+          "form": "the person who knows his secret",
+          "negative": "(không bỏ who)"
+        },
+        {
+          "subject": "that làm tân ngữ",
+          "form": "the boat (that) his father used",
+          "negative": "(có thể bỏ that)"
+        },
+        {
+          "subject": "whose",
+          "form": "a drama whose final episode comes out on Sunday",
+          "negative": "—"
+        },
+        {
+          "subject": "where",
+          "form": "the village where his father lived",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She's the only person knows his secret.",
+          "right": "She's the only person who knows his secret."
+        },
+        {
+          "wrong": "The village which his father lived is small.",
+          "right": "The village where his father lived is small."
+        }
+      ],
+      "noteVi": "Where = in / at which: the village where his father lived = the village in which his father lived.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền who, that, whose hoặc where.",
+          "text": "That's the village ___ his father lived.",
+          "answers": [
+            "where"
+          ],
+          "explanationVi": "Nơi chốn: where."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Hanh is the girl ___ helped him in episode five.",
+          "options": [
+            "which",
+            "who",
+            "where",
+            "whose"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Người, làm chủ ngữ: who."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It's a drama who final episode comes out on Sunday.",
+          "sentence": "It's a drama whose final episode comes out on Sunday.",
+          "explanationVi": "Sở hữu (tập cuối của bộ phim): whose."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy là người duy nhất biết bí mật.",
+          "sentence": "She is the only person who knows the secret.",
+          "words": [
+            "only",
+            "She",
+            "is",
+            "the",
+            "person",
+            "who",
+            "knows",
+            "the",
+            "secret.",
+            "which"
+          ],
+          "explanationVi": "Người: who; từ \"which\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"He can't be there.",
+        "tipVi": "Can't /kɑːnt/ đọc rõ /t/; nhấn vào can't."
+      },
+      {
+        "text": "\"Remember the boat that his father used?",
+        "tipVi": "Remember /rɪˈmembə/ nhấn âm thứ hai; câu hỏi lên giọng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is a film that has a surprising ending?",
+        "questionVi": "Bộ phim nào có đoạn kết bất ngờ?",
+        "frame": "A film that has a surprising ending is ___."
+      },
+      {
+        "question": "Where do you think the main character of your favourite series might be next?",
+        "questionVi": "Bạn nghĩ nhân vật chính trong phim bạn thích có thể sẽ ở đâu tiếp theo?",
+        "frame": "He / She might be ___."
+      },
+      {
+        "question": "Who is the person in your family who always guesses the ending?",
+        "questionVi": "Ai trong gia đình bạn luôn đoán được đoạn kết?",
+        "frame": "It's my ___. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ (who, which, that, whose, where)",
+      "anyOf": [
+        " who ",
+        " which ",
+        " that ",
+        " whose ",
+        " where "
+      ],
+      "outlineVi": [
+        "Nhân vật đó là ai (a man / woman who …).",
+        "Nhân vật sống ở đâu (the place where …) và có bí mật gì.",
+        "Bạn đoán chuyện gì sẽ xảy ra (He / She might … / must …)."
+      ],
+      "modelAnswer": "My favourite character is Lan, a young doctor who works in a small hospital in the mountains. She lives in a village where there is no road. She has a brother whose job is a secret. In the last episode, a man that nobody knew came to the hospital. I think he might be her brother. Lan must be very worried about him."
+    }
+  },
+  "glosses": [
+    {
+      "text": "ran away from",
+      "lemma": "run away from",
+      "meaningVi": "chạy trốn khỏi",
+      "sentenceIndex": 2,
+      "pos": "phrasal verb",
+      "phrase": "Khang ran away from the police",
+      "phraseVi": "Khang chạy trốn khỏi cảnh sát"
+    },
+    {
+      "text": "grew up",
+      "lemma": "grow up",
+      "meaningVi": "lớn lên",
+      "sentenceIndex": 5,
+      "pos": "phrasal verb",
+      "phrase": "the place where he grew up",
+      "phraseVi": "nơi anh ấy lớn lên"
+    },
+    {
+      "text": "hiding",
+      "lemma": "hide",
+      "meaningVi": "trốn",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "Maybe he's hiding on it.",
+      "phraseVi": "Có lẽ anh ấy đang trốn trên đó."
+    },
+    {
+      "text": "without a word",
+      "lemma": "without",
+      "meaningVi": "không nói một lời",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "He left without a word.",
+      "phraseVi": "Anh ấy bỏ đi mà không nói một lời."
+    },
+    {
+      "text": "looking for",
+      "lemma": "look for",
+      "meaningVi": "tìm kiếm",
+      "sentenceIndex": 23,
+      "pos": "phrasal verb",
+      "phrase": "the man who is looking for him",
+      "phraseVi": "người đàn ông đang tìm anh ấy"
+    },
+    {
+      "text": "flat",
+      "lemma": "flat",
+      "meaningVi": "căn hộ",
+      "sentenceIndex": 27,
+      "pos": "noun",
+      "phrase": "at my flat",
+      "phraseVi": "ở căn hộ của mình"
+    }
+  ]
+}

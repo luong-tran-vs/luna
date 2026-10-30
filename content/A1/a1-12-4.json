@@ -1,0 +1,600 @@
+{
+  "content": "After school, Huy walks home with his little sister Vy. In front of the bank, an old woman stops them. She has a big bag and a letter in her hand.\n\n\"Excuse me, where is the post office?\" she asks. \"I have a map, but I can't read it.\"\n\"It's near here,\" says Huy. \"Go straight on this street, and then turn right at the supermarket.\"\n\"Please walk with me, because my bag is very heavy,\" the woman says.\n\"Don't worry, we can help you,\" says Vy.\n\nHuy carries her bag, and Vy holds her hand. They walk past the supermarket and turn right. The post office is between a big hotel and a small café.\n\n\"Here it is!\" says Vy. The woman smiles and says, \"Thank you, children!\" Then she gives them some sweets from her bag.",
+  "targetWords": [
+    "post office",
+    "map",
+    "near",
+    "straight on",
+    "right",
+    "supermarket",
+    "between",
+    "hotel"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "post office",
+        "lemma": "post office",
+        "meaningVi": "bưu điện",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "map",
+        "lemma": "map",
+        "meaningVi": "bản đồ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "near",
+        "lemma": "near",
+        "meaningVi": "gần",
+        "pos": "preposition",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "straight on",
+        "lemma": "straight on",
+        "meaningVi": "thẳng, đi thẳng",
+        "pos": "phrase",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "right",
+        "lemma": "right",
+        "meaningVi": "bên phải",
+        "pos": "adverb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "supermarket",
+        "lemma": "supermarket",
+        "meaningVi": "siêu thị",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "between",
+        "lemma": "between",
+        "meaningVi": "ở giữa",
+        "pos": "preposition",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "hotel",
+        "lemma": "hotel",
+        "meaningVi": "khách sạn",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Huy and Vy buy sweets at the supermarket.",
+          "Huy and Vy help an old woman find the post office.",
+          "An old woman lives in a hotel.",
+          "Vy writes a letter to her friend."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Trên đường đi học về, Huy và Vy gặp một bà cụ hỏi đường đến bưu điện, hai anh em chỉ đường và đưa bà đến tận nơi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the post office?",
+        "promptVi": "Bưu điện ở đâu?",
+        "options": [
+          "In front of the bank",
+          "Behind the supermarket",
+          "Between a big hotel and a small café",
+          "Near Huy's school"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"The post office is between a big hotel and a small café\": bưu điện nằm giữa khách sạn và quán cà phê."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does the woman ask the children to walk with her?",
+        "promptVi": "Vì sao bà cụ nhờ hai bạn nhỏ đi cùng?",
+        "options": [
+          "Her bag is very heavy.",
+          "She is hungry.",
+          "It is very late.",
+          "She doesn't like the street."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà nói \"Please walk with me, because my bag is very heavy\": túi của bà rất nặng."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy carries the woman's bag.",
+        "promptVi": "Vy xách túi cho bà cụ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Huy carries her bag, and Vy holds her hand\": Huy xách túi, còn Vy nắm tay bà."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"carries\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Huy carries her bag, and Vy holds her hand.",
+        "options": [
+          "mua",
+          "mở ra",
+          "đánh rơi",
+          "mang, xách"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Carry là mang, xách: túi của bà nặng nên Huy xách giúp bà."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh",
+      "bodyVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: Go straight on, turn right. Thêm Please ở đầu để nhờ ai lịch sự hơn: Please walk with me. Dùng Don't + động từ để bảo đừng làm: Don't worry (đừng lo).",
+      "examples": [
+        "\"Go straight on this street, and then turn right at the supermarket.\"",
+        "\"Please walk with me, because my bag is very heavy,\" the woman says.",
+        "\"Don't worry, we can help you,\" says Vy."
+      ]
+    },
+    "writingPrompt": "Write a short story: someone asks you the way to a place, and you help them.",
+    "sentenceTranslations": [
+      "Tan học, Huy đi bộ về nhà cùng em gái Vy.",
+      "Đến trước ngân hàng, một bà cụ gọi hai anh em lại.",
+      "Bà mang một chiếc túi to, và trên tay cầm một lá thư.",
+      "\"Cháu ơi, bưu điện ở đâu vậy?\" bà hỏi.",
+      "\"Bà có bản đồ, nhưng bà không đọc được.\"",
+      "\"Gần đây thôi ạ,\" Huy nói.",
+      "\"Bà đi thẳng phố này, rồi rẽ phải ở siêu thị.\"",
+      "\"Các cháu đi cùng bà nhé, vì túi của bà nặng lắm,\" bà cụ nói.",
+      "\"Bà đừng lo, bọn cháu giúp bà được ạ,\" Vy nói.",
+      "Huy xách túi cho bà, còn Vy nắm tay bà.",
+      "Ba bà cháu đi qua siêu thị rồi rẽ phải.",
+      "Bưu điện nằm giữa một khách sạn lớn và một quán cà phê nhỏ.",
+      "\"Đến rồi bà ơi!\" Vy nói.",
+      "Bà cụ mỉm cười và nói: \"Cảm ơn các cháu nhé!\"",
+      "Rồi bà lấy trong túi ra ít kẹo cho hai anh em."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chỉ đường cho người khác, nhờ ai đó lịch sự bằng Please … và trấn an bằng Don't worry.",
+    "examples": [
+      {
+        "lemma": "post office",
+        "sentence": "I go to the post office with my mum.",
+        "meaningVi": "Mình đi bưu điện với mẹ."
+      },
+      {
+        "lemma": "map",
+        "sentence": "I can't read this map.",
+        "meaningVi": "Mình không đọc được tấm bản đồ này."
+      },
+      {
+        "lemma": "near",
+        "sentence": "The supermarket is near my house.",
+        "meaningVi": "Siêu thị ở gần nhà mình."
+      },
+      {
+        "lemma": "straight on",
+        "sentence": "Go straight on, and you can see the café.",
+        "meaningVi": "Đi thẳng là bạn sẽ thấy quán cà phê."
+      },
+      {
+        "lemma": "right",
+        "sentence": "Turn right at the bank.",
+        "meaningVi": "Rẽ phải ở ngân hàng."
+      },
+      {
+        "lemma": "supermarket",
+        "sentence": "My mum buys food at the supermarket.",
+        "meaningVi": "Mẹ mình mua đồ ăn ở siêu thị."
+      },
+      {
+        "lemma": "between",
+        "sentence": "The café is between the bank and the hotel.",
+        "meaningVi": "Quán cà phê nằm giữa ngân hàng và khách sạn."
+      },
+      {
+        "lemma": "hotel",
+        "sentence": "This hotel is very big.",
+        "meaningVi": "Khách sạn này rất lớn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, is there a supermarket near your house?",
+          "meaningVi": "Linh ơi, gần nhà cậu có siêu thị không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there is. It's on Ba Trieu Street.",
+          "meaningVi": "Có. Nó ở phố Bà Triệu."
+        },
+        {
+          "speaker": 1,
+          "text": "How do I get there from school?",
+          "meaningVi": "Từ trường đến đó đi thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Go out of the school and turn left.",
+          "meaningVi": "Cậu ra khỏi trường rồi rẽ trái."
+        },
+        {
+          "speaker": 1,
+          "text": "Turn left. And then?",
+          "meaningVi": "Rẽ trái. Rồi sao nữa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Go straight on. The supermarket is between the bank and the cinema.",
+          "meaningVi": "Đi thẳng. Siêu thị nằm giữa ngân hàng và rạp chiếu phim."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it a long walk?",
+          "meaningVi": "Đi bộ có lâu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it isn't. Only ten minutes.",
+          "meaningVi": "Không lâu đâu. Chỉ mười phút."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Can you come with me after school?",
+          "meaningVi": "Tuyệt! Tan học cậu đi cùng mình được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Sorry, I can't. I help my mum in our cake shop.",
+          "meaningVi": "Xin lỗi, mình không đi được. Mình phụ mẹ ở tiệm bánh."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi đường đi: How do I get there from school? Chỉ đường: Go out of the school and turn left. Go straight on.",
+    "translations": [
+      {
+        "vi": "Bưu điện ở đâu ạ?",
+        "en": "Where is the post office?",
+        "distractors": [
+          "What",
+          "are",
+          "bank"
+        ]
+      },
+      {
+        "vi": "Rẽ phải ở siêu thị.",
+        "en": "Turn right at the supermarket.",
+        "distractors": [
+          "left",
+          "Turns",
+          "in"
+        ]
+      },
+      {
+        "vi": "Bưu điện nằm giữa một khách sạn lớn và một quán cà phê nhỏ.",
+        "en": "The post office is between a big hotel and a small café.",
+        "distractors": [
+          "behind",
+          "are",
+          "near"
+        ]
+      },
+      {
+        "vi": "Tôi có bản đồ, nhưng tôi không đọc được.",
+        "en": "I have a map, but I can't read it.",
+        "distractors": [
+          "can",
+          "reads",
+          "and"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna hỏi Linh điều gì?",
+        "promptVi": "",
+        "options": [
+          "Giờ học ở trường",
+          "Đường đến siêu thị",
+          "Tiệm bánh của nhà Linh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna hỏi \"is there a supermarket near your house?\" và \"How do I get there from school?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ra khỏi trường, Anna phải rẽ hướng nào?",
+        "promptVi": "",
+        "options": [
+          "Rẽ phải",
+          "Rẽ trái",
+          "Đi thẳng, không rẽ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"Go out of the school and turn left.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Siêu thị nằm ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Giữa ngân hàng và rạp chiếu phim",
+          "Phía sau ngân hàng",
+          "Trước cổng trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"The supermarket is between the bank and the cinema.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh goes to the supermarket with Anna after school.",
+        "promptVi": "Tan học Linh đi siêu thị cùng Anna.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"Sorry, I can't. I help my mum in our cake shop.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Huy chỉ cho bà cụ đi đường nào, và bưu điện nằm ở đâu?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"Go straight on this street, and then turn right at the supermarket.\"",
+          "highlights": [
+            "Go straight on",
+            "turn right"
+          ]
+        },
+        {
+          "sentence": "\"Please walk with me, because my bag is very heavy,\" the woman says.",
+          "highlights": [
+            "Please walk"
+          ]
+        },
+        {
+          "sentence": "\"Don't worry, we can help you,\" says Vy.",
+          "highlights": [
+            "Don't worry"
+          ]
+        }
+      ],
+      "questionVi": "Bà cụ nói \"Please walk with me\". Thêm please vào đầu câu mệnh lệnh để làm gì?",
+      "options": [
+        "Để câu nhờ vả lịch sự hơn",
+        "Để biến câu thành câu hỏi",
+        "Để nói về một việc đã qua"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Please + động từ là cách nhờ ai làm gì một cách lịch sự: Please walk with me = cháu đi cùng bà nhé. Câu vẫn bắt đầu bằng động từ, không có you.",
+      "whenVi": "Dùng câu mệnh lệnh để chỉ đường, thêm please để nhờ lịch sự, và Don't worry để trấn an ai đó.",
+      "table": [
+        {
+          "subject": "Chỉ đường",
+          "form": "Go straight on. Turn right.",
+          "negative": "Don't turn left."
+        },
+        {
+          "subject": "Nhờ lịch sự",
+          "form": "Please walk with me.",
+          "negative": "Please don't go."
+        },
+        {
+          "subject": "Trấn an",
+          "form": "Wait here.",
+          "negative": "Don't worry."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Please you walk with me.",
+          "right": "Please walk with me."
+        },
+        {
+          "wrong": "Don't worries.",
+          "right": "Don't worry."
+        }
+      ],
+      "noteVi": "Tiếng Việt hay có chủ ngữ khi nhờ (\"cháu đi cùng bà nhé\"), nên người Việt hay thêm you sau please; câu mệnh lệnh tiếng Anh không có you.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa \"đừng\" vào chỗ trống.",
+          "text": "___ worry, we can help you.",
+          "answers": [
+            "Don't",
+            "Don’t",
+            "don't"
+          ],
+          "explanationVi": "Bảo ai đừng làm gì dùng Don't + động từ: Don't worry."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng để nhờ một cách lịch sự.",
+          "text": "___ walk with me, because my bag is heavy.",
+          "options": [
+            "Please",
+            "Pleases",
+            "You",
+            "Not"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Nhờ lịch sự dùng Please + động từ: Please walk with me."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Please you walk with me.",
+          "sentence": "Please walk with me.",
+          "explanationVi": "Câu mệnh lệnh không có you: Please walk with me."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cháu đi cùng bà nhé.",
+          "sentence": "Please walk with me.",
+          "words": [
+            "walk",
+            "Please",
+            "with",
+            "me",
+            "you"
+          ],
+          "explanationVi": "Please đứng đầu, rồi đến động từ walk; từ \"you\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Huy carries her bag, and Vy holds her hand.",
+        "tipVi": "Carries /ˈkæriz/ kết thúc bằng /z/; holds /hoʊldz/ có cụm /ldz/ khó ở cuối, đọc chậm cho rõ."
+      },
+      {
+        "text": "The post office is between a big hotel and a small café.",
+        "tipVi": "Hotel /hoʊˈtɛl/ nhấn ở âm thứ hai \"hâu-TEL\"; post /poʊst/ có cụm /st/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Is there a post office near your home?",
+        "questionVi": "Gần nhà bạn có bưu điện không?",
+        "frame": "Yes, there is. It's near the ___. / No, there isn't."
+      },
+      {
+        "question": "How do I get from your school to the supermarket?",
+        "questionVi": "Từ trường bạn đến siêu thị đi thế nào?",
+        "frame": "Go out of the school and turn ___. Then go ___."
+      },
+      {
+        "question": "What does your mum or dad buy at the supermarket?",
+        "questionVi": "Bố hoặc mẹ bạn mua gì ở siêu thị?",
+        "frame": "He / She buys ___ and ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu mệnh lệnh (Go …, Turn …, Please …, Don't …)",
+      "anyOf": [
+        "go",
+        "turn",
+        "please",
+        "don't",
+        "walk",
+        "wait"
+      ],
+      "outlineVi": [
+        "Kể ai hỏi đường bạn, ở đâu, và họ muốn đến nơi nào.",
+        "Viết lời bạn chỉ đường (Go straight on …, turn …).",
+        "Nói nơi đó nằm ở đâu và người kia nói gì."
+      ],
+      "modelAnswer": "An old man stops me in front of my school. \"Where is the supermarket?\" he asks. \"It's near here,\" I say. \"Go straight on, and turn left at the bank. The supermarket is between the bank and a café.\" The man smiles and says, \"Thank you!\""
+    }
+  },
+  "glosses": [
+    {
+      "text": "walks home",
+      "lemma": "walk home",
+      "meaningVi": "đi bộ về nhà",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "Huy walks home",
+      "phraseVi": "Huy đi bộ về nhà"
+    },
+    {
+      "text": "stops",
+      "lemma": "stop",
+      "meaningVi": "gọi lại, chặn lại",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "an old woman stops them",
+      "phraseVi": "một bà cụ gọi hai anh em lại"
+    },
+    {
+      "text": "letter",
+      "lemma": "letter",
+      "meaningVi": "lá thư",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "a letter in her hand",
+      "phraseVi": "trên tay cầm một lá thư"
+    },
+    {
+      "text": "near here",
+      "lemma": "near here",
+      "meaningVi": "gần đây",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "It's near here",
+      "phraseVi": "Gần đây thôi"
+    },
+    {
+      "text": "heavy",
+      "lemma": "heavy",
+      "meaningVi": "nặng",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "my bag is very heavy",
+      "phraseVi": "túi của bà nặng lắm"
+    },
+    {
+      "text": "worry",
+      "lemma": "worry",
+      "meaningVi": "lo lắng",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "Don't worry",
+      "phraseVi": "Bà đừng lo"
+    },
+    {
+      "text": "holds her hand",
+      "lemma": "hold someone's hand",
+      "meaningVi": "nắm tay bà",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "Vy holds her hand",
+      "phraseVi": "Vy nắm tay bà"
+    },
+    {
+      "text": "walk past",
+      "lemma": "walk past",
+      "meaningVi": "đi qua, đi ngang qua",
+      "sentenceIndex": 10,
+      "pos": "phrasal verb",
+      "phrase": "They walk past the supermarket",
+      "phraseVi": "Ba bà cháu đi qua siêu thị"
+    },
+    {
+      "text": "Here it is",
+      "lemma": "here it is",
+      "meaningVi": "đến rồi, đây rồi",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "Here it is",
+      "phraseVi": "Đến rồi"
+    },
+    {
+      "text": "sweets",
+      "lemma": "sweet",
+      "meaningVi": "kẹo",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "some sweets from her bag",
+      "phraseVi": "ít kẹo trong túi"
+    }
+  ]
+}

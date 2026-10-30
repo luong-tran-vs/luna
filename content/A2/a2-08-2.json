@@ -1,0 +1,600 @@
+{
+  "content": "Nam and Hoa are going to Da Nang next month, but they don't have a hotel yet. Tonight they are looking at a travel website together.\n\nHoa says, \"Look at this one. It has a big pool and a sea view.\"\nNam looks at the price. \"It's two million a night. That's too expensive.\"\n\"OK. What about this hotel? It's cheaper, and breakfast is free.\"\nNam says, \"The rooms are small, but they look clean. I think we'll be happy there.\"\n\"Then I'll book it now,\" she says. \"I'll send the email to your phone.\"\nThen Nam asks, \"Shall we choose a tour too?\"\n\"Yes. There's a tour to Hoi An, and there's a tour to the mountains.\"\nNam says, \"I'll take the Hoi An tour. I want to see the old town.\"\n\"Me too. But it won't be cheap.\"\n\"It doesn't matter. It'll be a great trip!\"\nHoa says, \"OK, I'll pay for the tour, and you'll pay for dinner!\"\nNam laughs. \"Deal.\"",
+  "targetWords": [
+    "website",
+    "pool",
+    "view",
+    "breakfast",
+    "room",
+    "book",
+    "tour",
+    "pay"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "website",
+        "lemma": "website",
+        "meaningVi": "trang web",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "pool",
+        "lemma": "pool",
+        "meaningVi": "bể bơi",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "view",
+        "lemma": "view",
+        "meaningVi": "quang cảnh, tầm nhìn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "breakfast",
+        "lemma": "breakfast",
+        "meaningVi": "bữa sáng",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "rooms",
+        "lemma": "room",
+        "meaningVi": "phòng",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "book",
+        "lemma": "book",
+        "meaningVi": "đặt (phòng, vé)",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "tour",
+        "lemma": "tour",
+        "meaningVi": "chuyến tham quan",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "pay",
+        "lemma": "pay",
+        "meaningVi": "trả tiền",
+        "pos": "verb",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Nam and Hoa choose a hotel and a tour for their trip.",
+          "Nam and Hoa work at a hotel in Da Nang.",
+          "Hoa writes an email to her boss.",
+          "A tour of the old town in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam và Hoa xem trang web du lịch, chọn khách sạn và chọn tour cho chuyến đi Đà Nẵng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is the first hotel?",
+        "promptVi": "Khách sạn đầu tiên giá bao nhiêu?",
+        "options": [
+          "One million a night",
+          "Two million a night",
+          "Free",
+          "Three million a night"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"It's two million a night.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Nam choose the Hoi An tour?",
+        "promptVi": "Vì sao Nam chọn tour Hội An?",
+        "options": [
+          "It is cheap.",
+          "Hoa wants it.",
+          "He wants to see the old town.",
+          "It has a pool."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam nói \"I want to see the old town.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam is going to pay for the tour.",
+        "promptVi": "Nam sẽ trả tiền tour.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"I'll pay for the tour, and you'll pay for dinner!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"It doesn't matter\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"It doesn't matter.",
+        "options": [
+          "Không quan trọng, không sao",
+          "Không đúng",
+          "Không có tiền",
+          "Không thích"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "It doesn't matter = không sao, không quan trọng: Nam không ngại tour đắt."
+      }
+    ],
+    "grammarNote": {
+      "title": "Will (quyết định, dự đoán)",
+      "bodyVi": "Dùng will + động từ nguyên mẫu khi quyết định ngay lúc nói: Then I'll book it now, I'll take the Hoi An tour. Dùng will để đoán, thường với I think: I think we'll be happy there, It'll be a great trip! Phủ định: will not = won't (it won't be cheap). Gợi ý, rủ rê dùng Shall we …?",
+      "examples": [
+        "\"Then I'll book it now,\" she says.",
+        "I think we'll be happy there.\"",
+        "But it won't be cheap.\""
+      ]
+    },
+    "writingPrompt": "Write about choosing a hotel for a trip: what will you look for, and which hotel will you book?",
+    "sentenceTranslations": [
+      "Tháng sau Nam và Hoa đi Đà Nẵng, nhưng họ chưa có khách sạn.",
+      "Tối nay họ cùng xem một trang web du lịch.",
+      "Hoa nói: \"Anh xem cái này này.",
+      "Có bể bơi to và nhìn ra biển.\"",
+      "Nam nhìn giá.",
+      "\"Hai triệu một đêm.",
+      "Đắt quá.\"",
+      "\"Thôi được.",
+      "Thế khách sạn này thì sao?",
+      "Rẻ hơn, mà còn miễn phí bữa sáng.\"",
+      "Nam nói: \"Phòng nhỏ nhưng trông sạch sẽ.",
+      "Anh nghĩ mình sẽ thấy thoải mái ở đó.\"",
+      "\"Vậy em đặt luôn bây giờ nhé,\" chị nói.",
+      "\"Em sẽ gửi email sang điện thoại anh.\"",
+      "Rồi Nam hỏi: \"Mình chọn tour luôn nhé?\"",
+      "\"Ừ.",
+      "Có tour đi Hội An, và có tour lên núi.\"",
+      "Nam nói: \"Anh chọn tour Hội An.",
+      "Anh muốn xem phố cổ.\"",
+      "\"Em cũng thế.",
+      "Nhưng chắc là không rẻ đâu.\"",
+      "\"Không sao.",
+      "Sẽ là một chuyến đi tuyệt vời!\"",
+      "Hoa nói: \"Được, em trả tiền tour, còn anh trả tiền ăn tối nhé!\"",
+      "Nam cười.",
+      "\"Chốt.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đưa ra quyết định nhanh và dự đoán khi chọn khách sạn, chọn tour bằng will.",
+    "examples": [
+      {
+        "lemma": "website",
+        "sentence": "You can buy tickets on our website.",
+        "meaningVi": "Bạn có thể mua vé trên trang web của chúng tôi."
+      },
+      {
+        "lemma": "pool",
+        "sentence": "The children are in the pool.",
+        "meaningVi": "Bọn trẻ đang ở trong bể bơi."
+      },
+      {
+        "lemma": "view",
+        "sentence": "My room has a view of the river.",
+        "meaningVi": "Phòng tôi nhìn ra sông."
+      },
+      {
+        "lemma": "breakfast",
+        "sentence": "I have breakfast at seven.",
+        "meaningVi": "Tôi ăn sáng lúc bảy giờ."
+      },
+      {
+        "lemma": "room",
+        "sentence": "This room is very big.",
+        "meaningVi": "Căn phòng này rất rộng."
+      },
+      {
+        "lemma": "book",
+        "sentence": "Can I book a table for two?",
+        "meaningVi": "Tôi đặt bàn cho hai người được không?"
+      },
+      {
+        "lemma": "tour",
+        "sentence": "The tour starts at nine.",
+        "meaningVi": "Chuyến tham quan bắt đầu lúc chín giờ."
+      },
+      {
+        "lemma": "pay",
+        "sentence": "Can I pay by card?",
+        "meaningVi": "Tôi trả bằng thẻ được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Ben"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hoa, do you have a hotel for Da Nang?",
+          "meaningVi": "Hoa ơi, chị có khách sạn ở Đà Nẵng chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I booked one last night. It has free breakfast.",
+          "meaningVi": "Rồi, tối qua chị đặt một chỗ. Có bữa sáng miễn phí."
+        },
+        {
+          "speaker": 1,
+          "text": "Nice! Is it near the beach?",
+          "meaningVi": "Hay đấy! Có gần biển không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, about five minutes. I think we'll love it.",
+          "meaningVi": "Có, khoảng năm phút. Chị nghĩ bọn chị sẽ thích lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Are you taking a tour?",
+          "meaningVi": "Chị có đi tour không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, we'll go to Hoi An for a day.",
+          "meaningVi": "Có, bọn chị sẽ đi Hội An một ngày."
+        },
+        {
+          "speaker": 1,
+          "text": "It's very hot there in June.",
+          "meaningVi": "Tháng Sáu ở đó nóng lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? Then I'll buy a big hat.",
+          "meaningVi": "Thật à? Vậy chị sẽ mua một cái mũ to."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. You won't need a jacket.",
+          "meaningVi": "Ý hay đấy. Chị sẽ không cần áo khoác đâu."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. I'll take only summer clothes.",
+          "meaningVi": "Ừ. Chị sẽ chỉ mang quần áo mùa hè."
+        }
+      ]
+    },
+    "grammarTipVi": "Quyết định ngay khi nghe thông tin mới: Then I'll buy a big hat. Đoán: I think we'll love it. Phủ định: You won't need a jacket.",
+    "translations": [
+      {
+        "vi": "Tôi sẽ đặt khách sạn này ngay.",
+        "en": "I'll book this hotel now.",
+        "distractors": [
+          "books",
+          "am",
+          "going"
+        ]
+      },
+      {
+        "vi": "Tôi nghĩ phòng sẽ sạch sẽ.",
+        "en": "I think the room will be clean.",
+        "distractors": [
+          "is",
+          "are",
+          "being"
+        ]
+      },
+      {
+        "vi": "Tour sẽ không rẻ đâu.",
+        "en": "The tour won't be cheap.",
+        "distractors": [
+          "isn't",
+          "doesn't",
+          "not"
+        ]
+      },
+      {
+        "vi": "Tôi sẽ trả tiền bữa tối.",
+        "en": "I will pay for dinner.",
+        "distractors": [
+          "paying",
+          "pays",
+          "am"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hoa và Ben nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuyến đi Đà Nẵng của Hoa",
+          "Công việc của Ben",
+          "Một bữa tiệc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ben hỏi về khách sạn ở Đà Nẵng và Hoa kể kế hoạch của mình.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khách sạn cách biển bao xa?",
+        "promptVi": "",
+        "options": [
+          "Khoảng năm phút",
+          "Một tiếng",
+          "Mười phút"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"Yes, about five minutes.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa quyết định mua gì?",
+        "promptVi": "",
+        "options": [
+          "Một chiếc áo khoác",
+          "Một cái mũ to",
+          "Vé tour"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"Then I'll buy a big hat.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa will need a jacket in Da Nang.",
+        "promptVi": "Hoa sẽ cần áo khoác ở Đà Nẵng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ben nói \"You won't need a jacket.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Nam và Hoa chọn khách sạn nào, tour nào, và ai trả tiền gì?",
+    "grammarStep": {
+      "titleVi": "Will (quyết định, dự đoán)",
+      "noticing": [
+        {
+          "sentence": "\"Then I'll book it now,\" she says.",
+          "highlights": [
+            "I'll book"
+          ]
+        },
+        {
+          "sentence": "I think we'll be happy there.\"",
+          "highlights": [
+            "we'll be"
+          ]
+        },
+        {
+          "sentence": "Nam says, \"I'll take the Hoi An tour.",
+          "highlights": [
+            "I'll take"
+          ]
+        },
+        {
+          "sentence": "But it won't be cheap.\"",
+          "highlights": [
+            "won't be"
+          ]
+        }
+      ],
+      "questionVi": "Hoa quyết định đặt khách sạn vào lúc nào?",
+      "options": [
+        "Từ tuần trước",
+        "Ngay lúc đang nói chuyện với Nam",
+        "Sau chuyến đi"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Hoa vừa nghe Nam nói phòng sạch thì quyết định luôn: \"Then I'll book it now\". Quyết định tức thì dùng will.",
+      "whenVi": "Dùng will cho quyết định ngay lúc nói, lời hứa, đề nghị và dự đoán (I think … will …).",
+      "table": [
+        {
+          "subject": "I / You / He / She / We / They",
+          "form": "I'll book it. It'll be great.",
+          "negative": "It won't be cheap."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Will it be expensive?",
+          "negative": "Yes, it will. / No, it won't."
+        },
+        {
+          "subject": "Dự đoán",
+          "form": "I think we'll be happy.",
+          "negative": "I don't think it'll rain."
+        },
+        {
+          "subject": "Gợi ý",
+          "form": "Shall we choose a tour?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I will to book it now.",
+          "right": "I will book it now."
+        },
+        {
+          "wrong": "It will is a great trip.",
+          "right": "It will be a great trip."
+        }
+      ],
+      "noteVi": "Sau will không có to và động từ luôn để nguyên mẫu, kể cả với he / she / it: She will pay (không nói She will pays).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền will hoặc won't.",
+          "text": "The tour is expensive. It ___ be cheap.",
+          "answers": [
+            "won't",
+            "will not"
+          ],
+          "explanationVi": "Tour đắt nên dự đoán phủ định: won't be cheap."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The rooms look clean. I think we ___ happy there.",
+          "options": [
+            "will",
+            "will be",
+            "are be",
+            "will to be"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Will + be: we will be happy."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She will pays for the tour.",
+          "sentence": "She will pay for the tour.",
+          "explanationVi": "Sau will là động từ nguyên mẫu: pay."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi sẽ đặt nó ngay bây giờ.",
+          "sentence": "I will book it now.",
+          "words": [
+            "book",
+            "I",
+            "now",
+            "will",
+            "it",
+            "to"
+          ],
+          "explanationVi": "I + will + book; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Nam looks at the price.",
+        "tipVi": "Price /praɪs/ có âm /aɪ/ và kết thúc bằng /s/."
+      },
+      {
+        "text": "But it won't be cheap.\"",
+        "tipVi": "Won't /wəʊnt/ khác want /wɒnt/; cheap /tʃiːp/ có âm /iː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What will you look for in a hotel?",
+        "questionVi": "Bạn sẽ tìm gì ở một khách sạn?",
+        "frame": "I'll look for a hotel with ___."
+      },
+      {
+        "question": "Do you think it will rain tomorrow?",
+        "questionVi": "Bạn nghĩ ngày mai trời có mưa không?",
+        "frame": "Yes, I think it will. / No, I don't think it will rain."
+      },
+      {
+        "question": "Who will pay for dinner on your next family trip?",
+        "questionVi": "Ai sẽ trả tiền bữa tối trong chuyến đi gia đình tới?",
+        "frame": "My ___ will pay. He / She always ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng will / won't",
+      "anyOf": [
+        "will",
+        "'ll",
+        "won't"
+      ],
+      "outlineVi": [
+        "Bạn sắp đi đâu.",
+        "Khách sạn có gì (pool, view, breakfast…).",
+        "Bạn quyết định chọn gì và đoán chuyến đi sẽ thế nào (I'll …, I think it will …)."
+      ],
+      "modelAnswer": "Next month, my family is going to Phu Quoc. We looked at two hotels online. The first one has a pool, but it is far from the beach. The second one has a sea view and free breakfast. I think the children will love it, so I'll book it today. It won't be cheap, but it will be a great holiday."
+    }
+  },
+  "glosses": [
+    {
+      "text": "yet",
+      "lemma": "yet",
+      "meaningVi": "vẫn chưa",
+      "sentenceIndex": 0,
+      "pos": "adverb",
+      "phrase": "they don't have a hotel yet",
+      "phraseVi": "họ chưa có khách sạn"
+    },
+    {
+      "text": "a night",
+      "lemma": "night",
+      "meaningVi": "mỗi đêm",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "two million a night",
+      "phraseVi": "hai triệu một đêm"
+    },
+    {
+      "text": "free",
+      "lemma": "free",
+      "meaningVi": "miễn phí",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "breakfast is free",
+      "phraseVi": "miễn phí bữa sáng"
+    },
+    {
+      "text": "clean",
+      "lemma": "clean",
+      "meaningVi": "sạch sẽ",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "they look clean",
+      "phraseVi": "trông sạch sẽ"
+    },
+    {
+      "text": "Shall we",
+      "lemma": "shall",
+      "meaningVi": "mình… nhé (rủ rê)",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "Shall we choose a tour too?",
+      "phraseVi": "Mình chọn tour luôn nhé?"
+    },
+    {
+      "text": "old town",
+      "lemma": "old town",
+      "meaningVi": "phố cổ",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "see the old town",
+      "phraseVi": "xem phố cổ"
+    },
+    {
+      "text": "matter",
+      "lemma": "matter",
+      "meaningVi": "quan trọng",
+      "sentenceIndex": 21,
+      "pos": "verb",
+      "phrase": "It doesn't matter.",
+      "phraseVi": "Không sao."
+    },
+    {
+      "text": "Deal",
+      "lemma": "deal",
+      "meaningVi": "chốt, đồng ý",
+      "sentenceIndex": 25,
+      "pos": "noun",
+      "phrase": "Deal.",
+      "phraseVi": "Chốt."
+    }
+  ]
+}

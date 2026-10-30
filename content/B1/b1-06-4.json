@@ -1,0 +1,605 @@
+{
+  "content": "At lunch, Mai and Duc are eating noodles near their office. Mai has a heavy book next to her bowl.\n\nDuc asks, \"What are you reading?\"\n\"It's a biography of Nelson Mandela. I've almost finished it.\"\n\"Mandela? He was the president of South Africa, right?\"\n\"Yes, but his life had been very hard before he became president.\"\n\"Really? What happened?\"\n\"When he was young, he had studied law and worked as a lawyer. He fought for equal rights for black people, so the government put him in prison.\"\n\"For how long?\"\n\"Twenty-seven years. When he finally left prison in 1990, he was seventy-one years old.\"\n\"Wow. I didn't know that.\"\n\"And the amazing thing is that he wasn't angry. By 1993, he had won the Nobel Peace Prize. A year later, he became the country's first black president.\"\n\"What did he do after that?\"\n\"He was president for five years. By the time he retired in 1999, he had achieved so much. He had brought people together, and he had shown the world a new way.\"\nDuc says, \"He sounds like a great leader. Is the book difficult?\"\n\"Not really. The writer explains everything clearly. I usually prefer novels, but this story is better than any novel.\"\n\"Can I read it after you?\"\n\"Sure. You should also read his autobiography. He wrote it himself in prison.\"",
+  "targetWords": [
+    "biography",
+    "president",
+    "law",
+    "lawyer",
+    "government",
+    "prison",
+    "peace",
+    "retire",
+    "achieve",
+    "leader"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "biography",
+        "lemma": "biography",
+        "meaningVi": "tiểu sử",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "president",
+        "lemma": "president",
+        "meaningVi": "tổng thống",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "law",
+        "lemma": "law",
+        "meaningVi": "luật",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "lawyer",
+        "lemma": "lawyer",
+        "meaningVi": "luật sư",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "government",
+        "lemma": "government",
+        "meaningVi": "chính phủ",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "prison",
+        "lemma": "prison",
+        "meaningVi": "nhà tù",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "Peace",
+        "lemma": "peace",
+        "meaningVi": "hoà bình",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "retired",
+        "lemma": "retire",
+        "meaningVi": "nghỉ hưu",
+        "pos": "verb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "achieved",
+        "lemma": "achieve",
+        "meaningVi": "đạt được",
+        "pos": "verb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "leader",
+        "lemma": "leader",
+        "meaningVi": "nhà lãnh đạo",
+        "pos": "noun",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Mai and Duc mainly talking about?",
+        "promptVi": "Mai và Đức chủ yếu nói về điều gì?",
+        "options": [
+          "The life of Nelson Mandela in a biography",
+          "A trip to South Africa",
+          "Their jobs as lawyers",
+          "A novel about a prison"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai đang đọc cuốn tiểu sử Nelson Mandela và kể cho Đức về cuộc đời ông."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What had Mandela done when he was young?",
+        "promptVi": "Khi còn trẻ, Mandela đã làm gì?",
+        "options": [
+          "He had been a teacher.",
+          "He had studied law and worked as a lawyer.",
+          "He had lived in prison for ten years.",
+          "He had written a novel."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"When he was young, he had studied law and worked as a lawyer.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How old was Mandela when he left prison?",
+        "promptVi": "Mandela bao nhiêu tuổi khi ra tù?",
+        "options": [
+          "Twenty-seven",
+          "Fifty",
+          "Seventy-one",
+          "Ninety-nine"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"When he finally left prison in 1990, he was seventy-one years old.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mandela was angry when he left prison.",
+        "promptVi": "Mandela tức giận khi ra tù.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"the amazing thing is that he wasn't angry.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"achieved\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "By the time he retired in 1999, he had achieved so much.",
+        "options": [
+          "đạt được",
+          "đánh mất",
+          "mua được",
+          "quên mất"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Achieve = đạt được (một thành tựu, một mục tiêu) nhờ cố gắng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ hoàn thành",
+      "bodyVi": "Quá khứ hoàn thành rất hay dùng khi kể tiểu sử: by + năm / by the time + quá khứ đơn, rồi had + V3 cho những gì đã làm được trước mốc đó. By 1993, he had won the Nobel Peace Prize. By the time he retired in 1999, he had achieved so much. Với be: had been (his life had been very hard).",
+      "examples": [
+        "\"Yes, but his life had been very hard before he became president.\"",
+        "By 1993, he had won the Nobel Peace Prize.",
+        "By the time he retired in 1999, he had achieved so much."
+      ]
+    },
+    "writingPrompt": "Write about a famous person you admire: what had he or she done by the age of thirty, or before he or she became famous?",
+    "sentenceTranslations": [
+      "Giờ trưa, Mai và Đức đang ăn mì gần văn phòng.",
+      "Mai có một cuốn sách nặng bên cạnh bát mì.",
+      "Đức hỏi: \"Em đang đọc gì thế?\"",
+      "\"Cuốn tiểu sử Nelson Mandela.",
+      "Em gần đọc xong rồi.\"",
+      "\"Mandela á?",
+      "Ông ấy là tổng thống Nam Phi, đúng không?\"",
+      "\"Vâng, nhưng trước khi làm tổng thống, cuộc đời ông đã rất vất vả.\"",
+      "\"Thật à?",
+      "Đã có chuyện gì?\"",
+      "\"Hồi trẻ, ông đã học luật và làm luật sư.",
+      "Ông đấu tranh cho quyền bình đẳng của người da đen, nên chính phủ bỏ tù ông.\"",
+      "\"Bao lâu?\"",
+      "\"Hai mươi bảy năm.",
+      "Khi cuối cùng được ra tù năm 1990, ông đã bảy mươi mốt tuổi.\"",
+      "\"Trời.",
+      "Anh không biết điều đó.\"",
+      "\"Và điều tuyệt vời là ông không hề tức giận.",
+      "Đến năm 1993, ông đã đoạt giải Nobel Hoà bình.",
+      "Một năm sau, ông trở thành tổng thống da đen đầu tiên của đất nước.\"",
+      "\"Sau đó ông làm gì?\"",
+      "\"Ông làm tổng thống năm năm.",
+      "Đến lúc nghỉ hưu năm 1999, ông đã đạt được rất nhiều điều.",
+      "Ông đã gắn kết mọi người với nhau, và đã cho thế giới thấy một con đường mới.\"",
+      "Đức nói: \"Nghe như một nhà lãnh đạo vĩ đại.",
+      "Sách có khó đọc không?\"",
+      "\"Không hẳn.",
+      "Người viết giải thích mọi thứ rất rõ.",
+      "Em thường thích tiểu thuyết hơn, nhưng câu chuyện này hay hơn bất cứ cuốn tiểu thuyết nào.\"",
+      "\"Em đọc xong cho anh đọc nhé?\"",
+      "\"Vâng.",
+      "Anh cũng nên đọc tự truyện của ông.",
+      "Ông tự viết nó khi còn ở trong tù.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại cuộc đời một người nổi tiếng theo mốc thời gian, dùng by + năm / by the time + had + V3.",
+    "examples": [
+      {
+        "lemma": "biography",
+        "sentence": "I'm reading a biography of a famous singer.",
+        "meaningVi": "Tôi đang đọc tiểu sử của một ca sĩ nổi tiếng."
+      },
+      {
+        "lemma": "president",
+        "sentence": "The president visited our city last year.",
+        "meaningVi": "Năm ngoái tổng thống đến thăm thành phố chúng tôi."
+      },
+      {
+        "lemma": "law",
+        "sentence": "My cousin studies law at university.",
+        "meaningVi": "Anh họ tôi học luật ở đại học."
+      },
+      {
+        "lemma": "lawyer",
+        "sentence": "She wants to become a lawyer.",
+        "meaningVi": "Cô ấy muốn trở thành luật sư."
+      },
+      {
+        "lemma": "government",
+        "sentence": "The government built a new hospital here.",
+        "meaningVi": "Chính phủ đã xây một bệnh viện mới ở đây."
+      },
+      {
+        "lemma": "prison",
+        "sentence": "The thief spent two years in prison.",
+        "meaningVi": "Tên trộm ngồi tù hai năm."
+      },
+      {
+        "lemma": "peace",
+        "sentence": "Everyone wants peace in the world.",
+        "meaningVi": "Ai cũng muốn thế giới hoà bình."
+      },
+      {
+        "lemma": "retire",
+        "sentence": "My father wants to retire at sixty.",
+        "meaningVi": "Bố tôi muốn nghỉ hưu ở tuổi sáu mươi."
+      },
+      {
+        "lemma": "achieve",
+        "sentence": "You can achieve a lot if you work hard.",
+        "meaningVi": "Bạn có thể đạt được nhiều thứ nếu chăm chỉ."
+      },
+      {
+        "lemma": "leader",
+        "sentence": "She is the leader of our team.",
+        "meaningVi": "Cô ấy là trưởng nhóm của chúng tôi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Duc",
+        "Mai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mai, I've started the Mandela book.",
+          "meaningVi": "Mai ơi, anh bắt đầu đọc cuốn sách về Mandela rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Which part are you reading now?",
+          "meaningVi": "Tuyệt! Anh đang đọc đến phần nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "His childhood. Had he lived in a city when he was a boy?",
+          "meaningVi": "Thời thơ ấu. Hồi nhỏ ông ấy có sống ở thành phố không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, he hadn't. He grew up in a small village.",
+          "meaningVi": "Không. Ông lớn lên ở một ngôi làng nhỏ."
+        },
+        {
+          "speaker": 0,
+          "text": "And when did he move to the city?",
+          "meaningVi": "Thế ông chuyển lên thành phố khi nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "In his twenties. By then, he had already finished school.",
+          "meaningVi": "Khoảng hai mươi mấy tuổi. Lúc đó ông đã học xong phổ thông."
+        },
+        {
+          "speaker": 0,
+          "text": "I didn't know he was so good at sport.",
+          "meaningVi": "Anh không biết ông ấy chơi thể thao giỏi vậy."
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he loved running and boxing.",
+          "meaningVi": "Vâng, ông thích chạy bộ và đấm bốc."
+        },
+        {
+          "speaker": 0,
+          "text": "How long will it take me to finish it?",
+          "meaningVi": "Anh mất bao lâu để đọc xong?"
+        },
+        {
+          "speaker": 1,
+          "text": "About two weeks, I think.",
+          "meaningVi": "Em nghĩ khoảng hai tuần."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về quá khứ trước một mốc: Had he lived in a city? – No, he hadn't. Mốc thời gian + had + V3: By then, he had already finished school.",
+    "translations": [
+      {
+        "vi": "Đến năm 1993, ông ấy đã đoạt một giải thưởng lớn.",
+        "en": "By 1993, the leader had won a big prize.",
+        "distractors": [
+          "has",
+          "wins",
+          "in"
+        ]
+      },
+      {
+        "vi": "Ông ấy đã học luật trước khi làm luật sư.",
+        "en": "He had studied law before he became a lawyer.",
+        "distractors": [
+          "has",
+          "after",
+          "study"
+        ]
+      },
+      {
+        "vi": "Đến lúc nghỉ hưu, ông ấy đã đạt được rất nhiều.",
+        "en": "By the time he retired, he had achieved a lot.",
+        "distractors": [
+          "has",
+          "retires",
+          "little"
+        ]
+      },
+      {
+        "vi": "Chính phủ đã bỏ tù ông ấy nhiều năm.",
+        "en": "The government had put him in prison for years.",
+        "distractors": [
+          "has",
+          "puts",
+          "since"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Duc và Mai nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Phần đầu cuốn sách về Mandela",
+          "Một ngôi làng nhỏ ở Việt Nam",
+          "Môn đấm bốc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duc nói \"I've started the Mandela book.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mandela lớn lên ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở một thành phố lớn",
+          "Ở một ngôi làng nhỏ",
+          "Ở trong tù"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"He grew up in a small village.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Duc cần bao lâu để đọc xong?",
+        "promptVi": "",
+        "options": [
+          "Khoảng hai ngày",
+          "Khoảng hai tuần",
+          "Khoảng hai tháng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"About two weeks, I think.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mandela had finished school before he moved to the city.",
+        "promptVi": "Mandela đã học xong trước khi lên thành phố.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Mai nói \"By then, he had already finished school.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mandela đã làm gì trước khi vào tù, và đã đạt được gì đến khi nghỉ hưu?",
+    "grammarStep": {
+      "titleVi": "Quá khứ hoàn thành",
+      "noticing": [
+        {
+          "sentence": "\"When he was young, he had studied law and worked as a lawyer.",
+          "highlights": [
+            "had studied"
+          ]
+        },
+        {
+          "sentence": "By 1993, he had won the Nobel Peace Prize.",
+          "highlights": [
+            "By 1993",
+            "had won"
+          ]
+        },
+        {
+          "sentence": "By the time he retired in 1999, he had achieved so much.",
+          "highlights": [
+            "By the time he retired",
+            "had achieved"
+          ]
+        },
+        {
+          "sentence": "He had brought people together, and he had shown the world a new way.\"",
+          "highlights": [
+            "had brought",
+            "had shown"
+          ]
+        }
+      ],
+      "questionVi": "\"By 1993, he had won the Nobel Peace Prize\" nghĩa là gì?",
+      "options": [
+        "Ông đoạt giải vào năm 1993 hoặc trước đó.",
+        "Ông đoạt giải sau năm 1993.",
+        "Ông chưa bao giờ đoạt giải."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "By + mốc thời gian = muộn nhất là lúc đó; had won cho biết việc đã xong trước hoặc đúng mốc ấy.",
+      "whenVi": "Dùng by + năm hoặc by the time + quá khứ đơn, kèm had + V3, để nói những gì ai đó đã làm được trước một mốc trong quá khứ.",
+      "table": [
+        {
+          "subject": "By + năm",
+          "form": "By 1993, he had won …",
+          "negative": "By 1993, he hadn't retired."
+        },
+        {
+          "subject": "By the time + quá khứ đơn",
+          "form": "By the time he retired, he had achieved …",
+          "negative": "—"
+        },
+        {
+          "subject": "be",
+          "form": "had been (his life had been very hard)",
+          "negative": "hadn't been"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "By the time he retired, he has achieved so much.",
+          "right": "By the time he retired, he had achieved so much."
+        },
+        {
+          "wrong": "By the time he had retired, he achieved so much.",
+          "right": "By the time he retired, he had achieved so much."
+        }
+      ],
+      "noteVi": "Sau by the time dùng quá khứ đơn (retired), còn had + V3 đặt ở mệnh đề kia.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (win).",
+          "text": "By 1993, he ___ the Nobel Peace Prize.",
+          "answers": [
+            "had won"
+          ],
+          "explanationVi": "By + năm: had won."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "By the time he retired, he ___ a lot for his country.",
+          "options": [
+            "has done",
+            "had done",
+            "does",
+            "was doing"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Trước mốc \"by the time he retired\": had done."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "By the time he retired, he has achieved so much.",
+          "sentence": "By the time he retired, he had achieved so much.",
+          "explanationVi": "Mốc ở quá khứ (retired) nên dùng had achieved."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hồi trẻ, ông ấy đã học luật.",
+          "sentence": "When he was young, he had studied law.",
+          "words": [
+            "he",
+            "When",
+            "was",
+            "young,",
+            "he",
+            "had",
+            "studied",
+            "law.",
+            "has"
+          ],
+          "explanationVi": "Had + V3: had studied; từ \"has\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "By the time he retired in 1999, he had achieved so much.",
+        "tipVi": "Achieved /əˈtʃiːvd/ nhấn âm thứ hai; 1999 đọc là nineteen ninety-nine."
+      },
+      {
+        "text": "He fought for equal rights for black people, so the government put him in prison.\"",
+        "tipVi": "Government /ˈɡʌvənmənt/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like reading about real people's lives? Why?",
+        "questionVi": "Bạn có thích đọc về cuộc đời người thật không? Vì sao?",
+        "frame": "Yes / No, because ___."
+      },
+      {
+        "question": "Who is a great leader that you admire?",
+        "questionVi": "Một nhà lãnh đạo vĩ đại mà bạn ngưỡng mộ là ai?",
+        "frame": "I admire ___ because ___."
+      },
+      {
+        "question": "What had that person done before he or she became famous?",
+        "questionVi": "Người đó đã làm gì trước khi nổi tiếng?",
+        "frame": "Before he / she became famous, he / she had ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (had + V3)",
+      "anyOf": [
+        " had ",
+        "'d "
+      ],
+      "outlineVi": [
+        "Người đó là ai và vì sao nổi tiếng.",
+        "Họ đã làm gì trước khi nổi tiếng (Before …, he / she had …).",
+        "Đến một mốc nào đó, họ đã đạt được gì (By …, he / she had …)."
+      ],
+      "modelAnswer": "I admire Marie Curie. Before she moved to Paris, she had studied in secret in Poland because women couldn't go to university there. By 1903, she had discovered two new elements with her husband, and she had won a Nobel Prize. By the time she died, she had won a second one. She was the first person who did that."
+    }
+  },
+  "glosses": [
+    {
+      "text": "noodles",
+      "lemma": "noodle",
+      "meaningVi": "mì, phở",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "eating noodles",
+      "phraseVi": "đang ăn mì"
+    },
+    {
+      "text": "equal rights",
+      "lemma": "equal rights",
+      "meaningVi": "quyền bình đẳng",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "He fought for equal rights",
+      "phraseVi": "Ông đấu tranh cho quyền bình đẳng"
+    },
+    {
+      "text": "amazing",
+      "lemma": "amazing",
+      "meaningVi": "đáng kinh ngạc, tuyệt vời",
+      "sentenceIndex": 17,
+      "pos": "adjective",
+      "phrase": "the amazing thing",
+      "phraseVi": "điều tuyệt vời"
+    },
+    {
+      "text": "brought people together",
+      "lemma": "bring together",
+      "meaningVi": "gắn kết mọi người",
+      "sentenceIndex": 23,
+      "pos": "phrase",
+      "phrase": "He had brought people together",
+      "phraseVi": "Ông đã gắn kết mọi người với nhau"
+    },
+    {
+      "text": "autobiography",
+      "lemma": "autobiography",
+      "meaningVi": "tự truyện",
+      "sentenceIndex": 31,
+      "pos": "noun",
+      "phrase": "read his autobiography",
+      "phraseVi": "đọc tự truyện của ông"
+    }
+  ]
+}

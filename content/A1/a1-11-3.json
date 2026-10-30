@@ -1,0 +1,586 @@
+{
+  "content": "Every Friday, Mr Nam plays a game with our English class. Today, the game is about animals. We have two teams, and Huy and I are in the same team.\n\nMr Nam says, \"This animal lives in the water, and it can swim, but it can't walk.\"\n\"A fish!\" says Huy. He is right, and our team gets one point.\n\nThen Mr Nam says, \"These animals live on farms, and they give us milk.\"\n\"Cows,\" I answer, and we get two points.\n\nAfter that, Mr Nam says, \"This animal is small and grey.\" A girl from the other team asks, \"What can it do?\"\n\"It can run very fast, and cats love it,\" says Mr Nam.\n\"A mouse!\" she says.\n\nAt the end, our team has five points, and the other team has four. Mr Nam laughs and says, \"You are very clever children!\"",
+  "targetWords": [
+    "animal",
+    "water",
+    "swim",
+    "fish",
+    "farm",
+    "milk",
+    "cow",
+    "mouse"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "animals",
+        "lemma": "animal",
+        "meaningVi": "con vật, động vật",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "water",
+        "lemma": "water",
+        "meaningVi": "nước",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "swim",
+        "lemma": "swim",
+        "meaningVi": "bơi",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "fish",
+        "lemma": "fish",
+        "meaningVi": "con cá",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "farms",
+        "lemma": "farm",
+        "meaningVi": "trang trại",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "milk",
+        "lemma": "milk",
+        "meaningVi": "sữa",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "Cows",
+        "lemma": "cow",
+        "meaningVi": "con bò",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "mouse",
+        "lemma": "mouse",
+        "meaningVi": "con chuột",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A trip to a farm",
+          "An animal game in Mr Nam's English class",
+          "Huy's pet fish",
+          "A test about cows"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thầy Nam cho lớp tiếng Anh chơi trò đoán con vật: thầy nói con vật làm được gì, các đội đoán tên con vật để ghi điểm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is the answer to Mr Nam's first question?",
+        "promptVi": "Câu đố đầu tiên của thầy Nam có đáp án là gì?",
+        "options": [
+          "A cow",
+          "A mouse",
+          "A fish",
+          "A cat"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Con vật sống dưới nước, bơi được nhưng không đi được là con cá: Huy trả lời \"A fish!\" và đúng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Minh's team win?",
+        "promptVi": "Vì sao đội của Minh thắng?",
+        "options": [
+          "They have five points, and the other team has four.",
+          "Mr Nam is in their team.",
+          "The other team can't answer.",
+          "They have more children."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cuối trò chơi, đội Minh có năm điểm còn đội kia có bốn điểm, nên đội Minh nhiều điểm hơn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Huy gives the answer about the cows.",
+        "promptVi": "Huy là người trả lời câu đố về con bò.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Cows, I answer\": người trả lời là Minh (người kể chuyện), còn Huy trả lời câu về con cá."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"right\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He is right, and our team gets one point.",
+        "options": [
+          "bên phải",
+          "có quyền",
+          "ngay lập tức",
+          "đúng"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ở đây right là đúng: Huy trả lời đúng nên đội được một điểm. Right còn có nghĩa \"bên phải\" nhưng không hợp với câu này."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't (khả năng)",
+      "bodyVi": "Can / can't + động từ nói con vật làm được hay không làm được gì: it can swim, but it can't walk. Muốn hỏi con vật làm được những gì, dùng What can it do? (What, rồi can, rồi it, rồi do). Trả lời: It can run very fast. Động từ sau can luôn giữ nguyên.",
+      "examples": [
+        "Mr Nam says, \"This animal lives in the water, and it can swim, but it can't walk.\"",
+        "A girl from the other team asks, \"What can it do?\"",
+        "\"It can run very fast, and cats love it,\" says Mr Nam."
+      ]
+    },
+    "writingPrompt": "Write three animal questions for a game: say what each animal can and can't do.",
+    "sentenceTranslations": [
+      "Thứ Sáu nào thầy Nam cũng cho lớp tiếng Anh của mình chơi một trò chơi.",
+      "Hôm nay trò chơi là về các con vật.",
+      "Lớp chia hai đội, và Huy với mình ở cùng một đội.",
+      "Thầy Nam nói: \"Con vật này sống dưới nước, nó bơi được nhưng không đi được.\"",
+      "\"Con cá ạ!\" Huy nói.",
+      "Bạn ấy trả lời đúng, và đội mình được một điểm.",
+      "Rồi thầy Nam nói: \"Những con vật này sống ở trang trại, và chúng cho chúng ta sữa.\"",
+      "\"Con bò ạ,\" mình trả lời, và đội mình được hai điểm.",
+      "Sau đó, thầy Nam nói: \"Con vật này nhỏ và có màu xám.\"",
+      "Một bạn gái ở đội kia hỏi: \"Nó làm được gì ạ?\"",
+      "\"Nó chạy rất nhanh, và mèo rất thích nó,\" thầy Nam nói.",
+      "\"Con chuột ạ!\" bạn ấy nói.",
+      "Cuối cùng, đội mình có năm điểm, còn đội kia có bốn điểm.",
+      "Thầy Nam cười và nói: \"Các em giỏi lắm!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đố và trả lời về con vật, nói nó làm được gì, không làm được gì, và hỏi What can it do?",
+    "examples": [
+      {
+        "lemma": "animal",
+        "sentence": "This animal is very big.",
+        "meaningVi": "Con vật này rất to."
+      },
+      {
+        "lemma": "water",
+        "sentence": "Fish live in the water.",
+        "meaningVi": "Cá sống dưới nước."
+      },
+      {
+        "lemma": "swim",
+        "sentence": "Can you swim?",
+        "meaningVi": "Bạn có biết bơi không?"
+      },
+      {
+        "lemma": "fish",
+        "sentence": "I have a red fish.",
+        "meaningVi": "Mình có một con cá màu đỏ."
+      },
+      {
+        "lemma": "farm",
+        "sentence": "My uncle has a farm.",
+        "meaningVi": "Chú mình có một trang trại."
+      },
+      {
+        "lemma": "milk",
+        "sentence": "I drink milk every morning.",
+        "meaningVi": "Sáng nào mình cũng uống sữa."
+      },
+      {
+        "lemma": "cow",
+        "sentence": "The cow is black and white.",
+        "meaningVi": "Con bò có màu đen trắng."
+      },
+      {
+        "lemma": "mouse",
+        "sentence": "The cat can't catch the mouse.",
+        "meaningVi": "Con mèo không bắt được con chuột."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Anna, do you want to play an animal game?",
+          "meaningVi": "Anna ơi, cậu có muốn chơi trò đoán con vật không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes! How do we play?",
+          "meaningVi": "Có chứ! Chơi thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm an animal. I can climb trees, and I love bananas. What am I?",
+          "meaningVi": "Mình là một con vật. Mình trèo cây được, và mình rất thích chuối. Mình là con gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "Are you a monkey?",
+          "meaningVi": "Cậu là con khỉ à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes! Now it's your turn.",
+          "meaningVi": "Đúng rồi! Giờ đến lượt cậu."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. I'm a big animal. I can't climb trees, but I can run fast.",
+          "meaningVi": "Được. Mình là một con vật to. Mình không trèo cây được, nhưng chạy được rất nhanh."
+        },
+        {
+          "speaker": 0,
+          "text": "Can you swim?",
+          "meaningVi": "Cậu có bơi được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I can, and I'm orange and black.",
+          "meaningVi": "Có, và mình có màu cam và đen."
+        },
+        {
+          "speaker": 0,
+          "text": "Are you a tiger?",
+          "meaningVi": "Cậu là con hổ à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I am! You're very good at this game.",
+          "meaningVi": "Đúng rồi! Cậu chơi trò này giỏi thật đấy."
+        }
+      ]
+    },
+    "grammarTipVi": "Đố con vật: I can climb trees. What am I? Đoán: Are you a monkey? Hỏi thêm: Can you swim?",
+    "translations": [
+      {
+        "vi": "Con vật này sống dưới nước.",
+        "en": "This animal lives in the water.",
+        "distractors": [
+          "live",
+          "on",
+          "These"
+        ]
+      },
+      {
+        "vi": "Cá bơi được, nhưng không đi được.",
+        "en": "Fish can swim, but they can't walk.",
+        "distractors": [
+          "swims",
+          "and",
+          "it"
+        ]
+      },
+      {
+        "vi": "Bò sống ở trang trại.",
+        "en": "Cows live on farms.",
+        "distractors": [
+          "lives",
+          "in",
+          "cow"
+        ]
+      },
+      {
+        "vi": "Con chuột chạy được rất nhanh.",
+        "en": "A mouse can run very fast.",
+        "distractors": [
+          "runs",
+          "mice",
+          "slow"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Anna đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi sở thú",
+          "Làm bài tập về nhà",
+          "Chơi trò đoán con vật"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan rủ \"do you want to play an animal game?\", rồi hai bạn lần lượt đố nhau con vật.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con vật mà Lan đố thích ăn gì?",
+        "promptVi": "",
+        "options": [
+          "Cá",
+          "Chuối",
+          "Sữa"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"I can climb trees, and I love bananas.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Con vật mà Anna đố có màu gì?",
+        "promptVi": "",
+        "options": [
+          "Cam và đen",
+          "Trắng và đen",
+          "Xám"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna nói \"Yes, I can, and I'm orange and black.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna's animal can climb trees.",
+        "promptVi": "Con vật Anna đố trèo cây được.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Anna nói \"I can't climb trees, but I can run fast.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Thầy Nam đố ba con vật nào, và mỗi con làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't (khả năng)",
+      "noticing": [
+        {
+          "sentence": "Mr Nam says, \"This animal lives in the water, and it can swim, but it can't walk.\"",
+          "highlights": [
+            "can swim",
+            "can't walk"
+          ]
+        },
+        {
+          "sentence": "A girl from the other team asks, \"What can it do?\"",
+          "highlights": [
+            "What can it do"
+          ]
+        },
+        {
+          "sentence": "\"It can run very fast, and cats love it,\" says Mr Nam.",
+          "highlights": [
+            "can run"
+          ]
+        }
+      ],
+      "questionVi": "Câu hỏi \"What can it do?\" hỏi điều gì?",
+      "options": [
+        "Con vật đó làm được những gì",
+        "Con vật đó tên là gì",
+        "Con vật đó sống ở đâu"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "What can it do? là \"Nó làm được gì?\". Thứ tự là What + can + it + do, và thầy Nam trả lời bằng can: It can run very fast.",
+      "whenVi": "Dùng What can it do? để hỏi con vật làm được gì, Can it …? để hỏi có làm được một việc không.",
+      "table": [
+        {
+          "subject": "Câu hỏi với What",
+          "form": "What can it do? – It can run very fast.",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu hỏi Có / Không",
+          "form": "Can it swim? – Yes, it can.",
+          "negative": "No, it can't."
+        },
+        {
+          "subject": "Câu kể",
+          "form": "It can swim.",
+          "negative": "It can't walk."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "What it can do?",
+          "right": "What can it do?"
+        },
+        {
+          "wrong": "What can it does?",
+          "right": "What can it do?"
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi \"Nó làm được gì?\" mà không đổi trật tự từ, nên người Việt hay viết \"What it can do?\" thay vì đưa can lên trước it.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống để hoàn thành câu hỏi.",
+          "text": "What ___ it do? – It can swim.",
+          "answers": [
+            "can"
+          ],
+          "explanationVi": "Câu trả lời dùng can, nên câu hỏi là What can it do?"
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "A fish can swim, but it ___ walk.",
+          "options": [
+            "can",
+            "can't",
+            "isn't",
+            "doesn't can"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Cá không đi được, và vế trước dùng but, nên dùng can't."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "A mouse can runs very fast.",
+          "sentence": "A mouse can run very fast.",
+          "explanationVi": "Sau can, động từ giữ nguyên: can run."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Nó làm được gì?",
+          "sentence": "What can it do?",
+          "words": [
+            "it",
+            "What",
+            "do",
+            "can",
+            "does"
+          ],
+          "explanationVi": "Thứ tự là What + can + it + do; từ \"does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He is right, and our team gets one point.",
+        "tipVi": "Right /raɪt/ có âm /r/ uốn lưỡi và /t/ ở cuối; point /pɔɪnt/ kết thúc bằng cụm /nt/."
+      },
+      {
+        "text": "A girl from the other team asks, \"What can it do?\"",
+        "tipVi": "Other /ˈʌðər/ có âm /ð/: đặt đầu lưỡi giữa hai hàm răng; asks /æsks/ có cụm /sks/ khó ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What can your favourite animal do?",
+        "questionVi": "Con vật bạn thích nhất làm được gì?",
+        "frame": "It can ___, but it can't ___."
+      },
+      {
+        "question": "Can you swim?",
+        "questionVi": "Bạn có biết bơi không?",
+        "frame": "Yes, I can. / No, I can't, but I can ___."
+      },
+      {
+        "question": "What can your best friend do very well?",
+        "questionVi": "Bạn thân của bạn làm giỏi việc gì?",
+        "frame": "He / She can ___ very well."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can hoặc can't",
+      "anyOf": [
+        "can",
+        "can't",
+        "cannot",
+        "what can"
+      ],
+      "outlineVi": [
+        "Câu đố 1: tả một con vật và nói nó làm được gì (It can …).",
+        "Câu đố 2: nói một con vật không làm được gì (It can't …).",
+        "Hỏi \"What is it?\" và viết đáp án."
+      ],
+      "modelAnswer": "This animal is big and orange. It can run fast, and it can swim, but it can't climb trees. What is it? It's a tiger! This animal is small and white. It can jump very high, and it has long ears. What is it? It's a rabbit!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "game",
+      "lemma": "game",
+      "meaningVi": "trò chơi",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "plays a game with our English class",
+      "phraseVi": "cho lớp tiếng Anh chơi một trò chơi"
+    },
+    {
+      "text": "teams",
+      "lemma": "team",
+      "meaningVi": "đội",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "We have two teams",
+      "phraseVi": "Lớp chia hai đội"
+    },
+    {
+      "text": "same",
+      "lemma": "same",
+      "meaningVi": "cùng, giống nhau",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "in the same team",
+      "phraseVi": "ở cùng một đội"
+    },
+    {
+      "text": "right",
+      "lemma": "right",
+      "meaningVi": "đúng",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "He is right",
+      "phraseVi": "Bạn ấy trả lời đúng"
+    },
+    {
+      "text": "point",
+      "lemma": "point",
+      "meaningVi": "điểm",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "our team gets one point",
+      "phraseVi": "đội mình được một điểm"
+    },
+    {
+      "text": "grey",
+      "lemma": "grey",
+      "meaningVi": "màu xám",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "small and grey",
+      "phraseVi": "nhỏ và có màu xám"
+    },
+    {
+      "text": "other",
+      "lemma": "other",
+      "meaningVi": "kia, khác",
+      "sentenceIndex": 9,
+      "pos": "determiner",
+      "phrase": "the other team",
+      "phraseVi": "đội kia"
+    },
+    {
+      "text": "At the end",
+      "lemma": "at the end",
+      "meaningVi": "cuối cùng, lúc kết thúc",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "At the end, our team has five points",
+      "phraseVi": "Cuối cùng, đội mình có năm điểm"
+    },
+    {
+      "text": "clever",
+      "lemma": "clever",
+      "meaningVi": "giỏi, thông minh",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "You are very clever children",
+      "phraseVi": "Các em giỏi lắm"
+    }
+  ]
+}

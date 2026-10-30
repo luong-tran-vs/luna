@@ -1,0 +1,610 @@
+{
+  "content": "It's eight in the morning. Long is in Room 715 of a hotel in Nha Trang. His flight home leaves at six this evening, but check-out time is twelve o'clock. He picks up the phone and calls reception.\n\n\"Good morning, reception. This is Hanh speaking.\"\n\"Good morning. This is Long in Room 715. I'm leaving today, but my flight isn't until six. You offer late check-out, don't you?\"\n\"Yes, we do. You can stay until two for free, or until six for an extra fee.\"\n\"I see. The fee isn't very high, is it?\"\n\"It's half the price of one night, so six hundred thousand dong.\"\n\"Hmm. Could you tell me if I can leave my bags at reception instead?\"\n\"Of course. Many guests do that. You can also use the pool and the showers until your taxi comes.\"\n\"That's great. So I'll check out at two, and you'll keep my bags, won't you?\"\n\"Yes. I'm writing it down now. Late check-out at two, Room 715.\"\n\"Thank you. One more thing. I'd like to order room service for breakfast. Do you know how long it takes?\"\n\"About twenty minutes. What would you like?\"\n\"Two eggs, some bread and a coffee, please.\"\n\"No problem. And you'll need a taxi to the airport later, won't you?\"\n\"Yes, please. Could you tell me what time I should leave?\"\n\"Four o'clock is fine. I'll book it for you.\"\n\"Perfect. Thanks, Hanh.\"",
+  "targetWords": [
+    "flight",
+    "reception",
+    "offer",
+    "late",
+    "extra",
+    "fee",
+    "price",
+    "guest",
+    "check out",
+    "room service"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "flight",
+        "lemma": "flight",
+        "meaningVi": "chuyến bay",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "reception",
+        "lemma": "reception",
+        "meaningVi": "quầy lễ tân",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "offer",
+        "lemma": "offer",
+        "meaningVi": "có cung cấp, mời",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "late",
+        "lemma": "late",
+        "meaningVi": "muộn",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "extra",
+        "lemma": "extra",
+        "meaningVi": "thêm, phụ",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "fee",
+        "lemma": "fee",
+        "meaningVi": "phí",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "price",
+        "lemma": "price",
+        "meaningVi": "giá",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "guests",
+        "lemma": "guest",
+        "meaningVi": "khách",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "check out",
+        "lemma": "check out",
+        "meaningVi": "trả phòng",
+        "pos": "phrase",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "room service",
+        "lemma": "room service",
+        "meaningVi": "dịch vụ phục vụ tại phòng",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Why does Long call reception?",
+        "promptVi": "Vì sao anh Long gọi cho lễ tân?",
+        "options": [
+          "To ask about late check-out and order breakfast",
+          "To complain about his room",
+          "To book a flight home",
+          "To ask for a bigger room"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Long hỏi về trả phòng muộn, gọi bữa sáng tại phòng và đặt taxi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Until what time can Long stay for free?",
+        "promptVi": "Anh Long được ở miễn phí đến mấy giờ?",
+        "options": [
+          "Twelve o'clock",
+          "Two o'clock",
+          "Four o'clock",
+          "Six o'clock"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hạnh nói \"You can stay until two for free.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Long order for breakfast?",
+        "promptVi": "Anh Long gọi gì cho bữa sáng?",
+        "options": [
+          "Pho and tea",
+          "Fruit and juice",
+          "Two eggs, some bread and a coffee",
+          "Rice and fish"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anh Long nói \"Two eggs, some bread and a coffee, please.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Long decides to pay the extra fee and stay until six.",
+        "promptVi": "Anh Long quyết định trả thêm phí để ở đến sáu giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, anh trả phòng lúc hai giờ và gửi túi ở lễ tân: \"So I'll check out at two.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"fee\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The fee isn't very high, is it?\"",
+        "options": [
+          "phí, khoản tiền phải trả",
+          "chìa khoá",
+          "bữa ăn",
+          "giờ bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Fee = khoản phí; an extra fee = phí phụ thu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi đuôi",
+      "bodyVi": "Câu hỏi đuôi rất hay dùng khi nói điện thoại để xác nhận: You offer late check-out, don't you? (động từ thường → mượn do). The fee isn't very high, is it? (câu phủ định → đuôi khẳng định). You'll keep my bags, won't you? (will → won't). Bài cũng có câu hỏi gián tiếp: Could you tell me if I can leave my bags at reception?",
+      "examples": [
+        "You offer late check-out, don't you?\"",
+        "\"The fee isn't very high, is it?\"",
+        "So I'll check out at two, and you'll keep my bags, won't you?\""
+      ]
+    },
+    "writingPrompt": "You call hotel reception on your last day. Write the conversation: ask about late check-out and check the details with short questions at the end of your sentences (…, don't you? / …, is it?).",
+    "sentenceTranslations": [
+      "Tám giờ sáng.",
+      "Anh Long ở phòng 715 của một khách sạn ở Nha Trang.",
+      "Chuyến bay về nhà của anh cất cánh lúc sáu giờ tối nay, nhưng giờ trả phòng là mười hai giờ.",
+      "Anh nhấc điện thoại gọi cho lễ tân.",
+      "\"Chào buổi sáng, lễ tân xin nghe.",
+      "Tôi là Hạnh.\"",
+      "\"Chào buổi sáng.",
+      "Tôi là Long ở phòng 715.",
+      "Hôm nay tôi đi, nhưng sáu giờ chuyến bay mới cất cánh.",
+      "Khách sạn có cho trả phòng muộn, phải không?\"",
+      "\"Có ạ.",
+      "Anh có thể ở đến hai giờ miễn phí, hoặc đến sáu giờ với một khoản phí phụ thu.\"",
+      "\"Tôi hiểu.",
+      "Phí không cao lắm, phải không?\"",
+      "\"Bằng nửa giá một đêm, tức là sáu trăm nghìn đồng.\"",
+      "\"Hừm.",
+      "Chị cho tôi hỏi tôi có thể gửi túi ở lễ tân thay vào đó không?\"",
+      "\"Tất nhiên ạ.",
+      "Nhiều khách vẫn làm vậy.",
+      "Anh cũng có thể dùng bể bơi và phòng tắm cho đến khi taxi đến.\"",
+      "\"Tuyệt quá.",
+      "Vậy tôi sẽ trả phòng lúc hai giờ, và chị giữ túi cho tôi, phải không?\"",
+      "\"Vâng.",
+      "Tôi đang ghi lại đây.",
+      "Trả phòng muộn lúc hai giờ, phòng 715.\"",
+      "\"Cảm ơn chị.",
+      "Thêm một việc nữa.",
+      "Tôi muốn gọi bữa sáng tại phòng.",
+      "Chị có biết mất bao lâu không?\"",
+      "\"Khoảng hai mươi phút.",
+      "Anh muốn dùng gì ạ?\"",
+      "\"Hai quả trứng, ít bánh mì và một cốc cà phê.\"",
+      "\"Không vấn đề gì.",
+      "Lát nữa anh sẽ cần taxi ra sân bay, phải không?\"",
+      "\"Vâng, nhờ chị.",
+      "Chị cho tôi hỏi tôi nên đi lúc mấy giờ?\"",
+      "\"Bốn giờ là được.",
+      "Tôi sẽ đặt cho anh.\"",
+      "\"Tuyệt vời.",
+      "Cảm ơn chị, Hạnh.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể gọi điện cho lễ tân, hỏi về trả phòng muộn và xác nhận lại bằng câu hỏi đuôi (…, don't you? / …, is it? / …, won't you?).",
+    "examples": [
+      {
+        "lemma": "flight",
+        "sentence": "The flight was very smooth.",
+        "meaningVi": "Chuyến bay rất êm."
+      },
+      {
+        "lemma": "reception",
+        "sentence": "You can leave your key at reception.",
+        "meaningVi": "Bạn có thể để chìa khoá ở lễ tân."
+      },
+      {
+        "lemma": "offer",
+        "sentence": "Many hotels offer free breakfast.",
+        "meaningVi": "Nhiều khách sạn có bữa sáng miễn phí."
+      },
+      {
+        "lemma": "late",
+        "sentence": "Sorry, I'm late.",
+        "meaningVi": "Xin lỗi, tôi đến muộn."
+      },
+      {
+        "lemma": "extra",
+        "sentence": "Can I have an extra towel?",
+        "meaningVi": "Cho tôi thêm một chiếc khăn được không?"
+      },
+      {
+        "lemma": "fee",
+        "sentence": "There is a small fee for the gym.",
+        "meaningVi": "Phòng tập có thu một khoản phí nhỏ."
+      },
+      {
+        "lemma": "price",
+        "sentence": "The price is the same at weekends.",
+        "meaningVi": "Giá cuối tuần vẫn vậy."
+      },
+      {
+        "lemma": "guest",
+        "sentence": "Each guest can bring one bag.",
+        "meaningVi": "Mỗi khách được mang một túi."
+      },
+      {
+        "lemma": "check out",
+        "sentence": "Please check out by noon.",
+        "meaningVi": "Vui lòng trả phòng trước buổi trưa."
+      },
+      {
+        "lemma": "room service",
+        "sentence": "We ordered room service last night.",
+        "meaningVi": "Tối qua chúng tôi gọi đồ ăn lên phòng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Long",
+        "Hanh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi, Hanh. I'm back from the pool. My bags are still here, aren't they?",
+          "meaningVi": "Chào Hạnh. Tôi từ bể bơi về. Túi của tôi vẫn ở đây, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they're behind the desk. Here they are.",
+          "meaningVi": "Vâng, ở sau quầy. Đây ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks. The taxi is coming at four, isn't it?",
+          "meaningVi": "Cảm ơn chị. Bốn giờ taxi đến, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. It's already outside, actually.",
+          "meaningVi": "Vâng. Thật ra xe đã ở bên ngoài rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. I don't need to pay anything else, do I?",
+          "meaningVi": "Tuyệt. Tôi không phải trả thêm gì nữa, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Just the breakfast. It's one hundred and fifty thousand.",
+          "meaningVi": "Chỉ tiền bữa sáng thôi. Một trăm năm mươi nghìn."
+        },
+        {
+          "speaker": 0,
+          "text": "Could you tell me if I can pay by card?",
+          "meaningVi": "Chị cho tôi hỏi tôi trả bằng thẻ được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Of course. Here's your receipt.",
+          "meaningVi": "Được ạ. Đây là hoá đơn của anh."
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks for everything. It was a lovely stay.",
+          "meaningVi": "Cảm ơn chị vì mọi thứ. Kỳ nghỉ rất tuyệt."
+        },
+        {
+          "speaker": 1,
+          "text": "You're welcome. Come back soon, won't you?",
+          "meaningVi": "Không có gì ạ. Anh sớm quay lại nhé?"
+        }
+      ]
+    },
+    "grammarTipVi": "My bags are still here, aren't they? / The taxi is coming at four, isn't it? (be → isn't / aren't). I don't need to pay anything else, do I? (câu phủ định → đuôi khẳng định).",
+    "translations": [
+      {
+        "vi": "Khách sạn có cho trả phòng muộn, phải không?",
+        "en": "You offer late check-out, don't you?",
+        "distractors": [
+          "doesn't",
+          "aren't",
+          "isn't"
+        ]
+      },
+      {
+        "vi": "Phí không cao lắm, phải không?",
+        "en": "The fee isn't very high, is it?",
+        "distractors": [
+          "does",
+          "are",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Tôi sẽ trả phòng lúc hai giờ, phải không?",
+        "en": "I'll check out at two, won't I?",
+        "distractors": [
+          "will",
+          "don't",
+          "can't"
+        ]
+      },
+      {
+        "vi": "Tôi muốn gọi bữa sáng tại phòng.",
+        "en": "I'd like to order room service for breakfast.",
+        "distractors": [
+          "dinner",
+          "ask",
+          "want"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Long và Hạnh nói chuyện khi nào?",
+        "promptVi": "",
+        "options": [
+          "Lúc Long chuẩn bị ra sân bay",
+          "Lúc Long vừa đến khách sạn",
+          "Lúc Long ở trên máy bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Long lấy túi, taxi đã ở ngoài, và anh trả tiền bữa sáng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Taxi đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Đang trên đường đến",
+          "Đã ở bên ngoài",
+          "Ở sân bay"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hạnh nói \"It's already outside, actually.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Long còn phải trả bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Không phải trả gì",
+          "150.000 đồng",
+          "600.000 đồng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hạnh nói \"It's one hundred and fifty thousand.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Long can't pay by card.",
+        "promptVi": "Long không trả được bằng thẻ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hạnh nói \"Of course.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Anh Long có những lựa chọn nào cho ngày cuối? Anh xác nhận lại những gì với lễ tân?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi đuôi",
+      "noticing": [
+        {
+          "sentence": "You offer late check-out, don't you?\"",
+          "highlights": [
+            "You offer",
+            "don't you"
+          ]
+        },
+        {
+          "sentence": "\"The fee isn't very high, is it?\"",
+          "highlights": [
+            "isn't",
+            "is it"
+          ]
+        },
+        {
+          "sentence": "So I'll check out at two, and you'll keep my bags, won't you?\"",
+          "highlights": [
+            "you'll",
+            "won't you"
+          ]
+        },
+        {
+          "sentence": "And you'll need a taxi to the airport later, won't you?\"",
+          "highlights": [
+            "you'll need",
+            "won't you"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao \"You offer late check-out\" có đuôi \"don't you\"?",
+      "options": [
+        "Vì offer là động từ thường ở hiện tại đơn, nên mượn do.",
+        "Vì câu là câu phủ định.",
+        "Vì có từ late."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Động từ thường với you ở hiện tại đơn → mượn do; câu khẳng định → đuôi phủ định don't you.",
+      "whenVi": "Dùng câu hỏi đuôi khi gọi điện hoặc nói chuyện với lễ tân để xác nhận lại giờ giấc, phí và những gì đã thống nhất.",
+      "table": [
+        {
+          "subject": "Động từ thường",
+          "form": "You offer …, don't you?",
+          "negative": "I don't need …, do I?"
+        },
+        {
+          "subject": "be",
+          "form": "The taxi is coming, isn't it?",
+          "negative": "The fee isn't high, is it?"
+        },
+        {
+          "subject": "will",
+          "form": "You'll keep my bags, won't you?",
+          "negative": "You won't forget, will you?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "You offer late check-out, aren't you?",
+          "right": "You offer late check-out, don't you?"
+        },
+        {
+          "wrong": "The fee isn't very high, isn't it?",
+          "right": "The fee isn't very high, is it?"
+        }
+      ],
+      "noteVi": "Câu mời hoặc nhờ thân thiện cũng có thể dùng đuôi: Come back soon, won't you?",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền câu hỏi đuôi đúng.",
+          "text": "You offer late check-out, ___?",
+          "answers": [
+            "don't you"
+          ],
+          "explanationVi": "Offer là động từ thường → don't you."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu hỏi đuôi đúng.",
+          "text": "I don't need to pay anything else, ___?",
+          "options": [
+            "don't I",
+            "do I",
+            "am I",
+            "need I"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu phủ định với don't → do I."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "You'll keep my bags, will you?",
+          "sentence": "You'll keep my bags, won't you?",
+          "explanationVi": "Câu khẳng định với will → won't you."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Phí không cao lắm, phải không?",
+          "sentence": "The fee isn't very high, is it?",
+          "words": [
+            "fee",
+            "The",
+            "isn't",
+            "very",
+            "high,",
+            "is",
+            "it?",
+            "does"
+          ],
+          "explanationVi": "Câu phủ định với isn't → is it; từ \"does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "You offer late check-out, don't you?\"",
+        "tipVi": "Xuống giọng ở \"don't you\" vì bạn khá chắc."
+      },
+      {
+        "text": "I'd like to order room service for breakfast.",
+        "tipVi": "Service /ˈsɜːvɪs/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What time do you usually check out of a hotel?",
+        "questionVi": "Bạn thường trả phòng khách sạn lúc mấy giờ?",
+        "frame": "I usually check out at ___."
+      },
+      {
+        "question": "Have you ever ordered room service? What did you order?",
+        "questionVi": "Bạn đã từng gọi đồ ăn lên phòng chưa? Bạn gọi gì?",
+        "frame": "Yes, I ordered ___ / No, I haven't."
+      },
+      {
+        "question": "Check with a short question at the end: breakfast is included.",
+        "questionVi": "Hãy xác nhận bằng câu hỏi đuôi: bữa sáng đã bao gồm.",
+        "frame": "Breakfast is included, ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi đuôi (…, don't you? / …, is it? / …, won't you?)",
+      "anyOf": [
+        "n't it?",
+        "n't I?",
+        "n't you?",
+        "n't we?",
+        "n't they?",
+        ", is it?",
+        ", do I?",
+        ", are they?",
+        ", will you?"
+      ],
+      "outlineVi": [
+        "Chào lễ tân, nói số phòng và giờ bay của bạn.",
+        "Hỏi về trả phòng muộn và phí (…, don't you? / …, is it?).",
+        "Xác nhận lại những gì đã thống nhất (…, won't you?) và cảm ơn."
+      ],
+      "modelAnswer": "Me: Hello, this is Room 302. My train leaves at five, but check-out is at eleven. You offer late check-out, don't you? Receptionist: Yes, until three. It's free. Me: Great. It isn't a problem, is it? Receptionist: Not at all. Me: Thank you. And you'll call a taxi for me at four, won't you? Receptionist: Of course."
+    }
+  },
+  "glosses": [
+    {
+      "text": "picks up",
+      "lemma": "pick up",
+      "meaningVi": "nhấc (điện thoại)",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "He picks up the phone",
+      "phraseVi": "Anh nhấc điện thoại"
+    },
+    {
+      "text": "speaking",
+      "lemma": "speak",
+      "meaningVi": "xin nghe (khi nghe điện thoại)",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "This is Hanh speaking.",
+      "phraseVi": "Tôi là Hạnh."
+    },
+    {
+      "text": "instead",
+      "lemma": "instead",
+      "meaningVi": "thay vào đó",
+      "sentenceIndex": 16,
+      "pos": "adverb",
+      "phrase": "leave my bags at reception instead",
+      "phraseVi": "gửi túi ở lễ tân thay vào đó"
+    },
+    {
+      "text": "writing it down",
+      "lemma": "write down",
+      "meaningVi": "ghi lại",
+      "sentenceIndex": 23,
+      "pos": "phrase",
+      "phrase": "I'm writing it down now.",
+      "phraseVi": "Tôi đang ghi lại đây."
+    }
+  ]
+}

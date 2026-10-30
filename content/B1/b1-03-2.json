@@ -1,0 +1,607 @@
+{
+  "content": "Thao and Minh are drinking coffee in a small café in Hue after work.\n\nMinh asks, \"How is your new job?\"\nThao says, \"I love it. And my manager, Ms Hanh, is wonderful. She's such a polite leader that everybody in our team admires her.\"\n\"Polite? Many managers shout at their staff.\"\n\"Not Ms Hanh. She never shouts. She always says please and thank you, even when she's busy. And she's so kind that she remembers everyone's birthday.\"\n\"That's lovely. Is she strict?\"\n\"A little. She works so hard that she often stays in the office until eight. But we always go home at six.\"\n\"Does she do everything herself?\"\n\"Almost. Last month, our designer was ill, so she made the posters herself. She taught herself to use the design program in one weekend!\"\nMinh laughs. \"She sounds amazing. My boss is the opposite. He's so rude that nobody wants to talk to him.\"\n\"Oh no. What do you do?\"\n\"I keep myself busy, and I try not to think about him.\"\nThao says, \"You should look for a new job. Our company needs a new writer.\"\n\"Really? Then I'll write my CV myself tonight!\"",
+  "targetWords": [
+    "wonderful",
+    "polite",
+    "admire",
+    "shout",
+    "kind",
+    "birthday",
+    "strict",
+    "opposite",
+    "rude",
+    "writer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "wonderful",
+        "lemma": "wonderful",
+        "meaningVi": "tuyệt vời",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "polite",
+        "lemma": "polite",
+        "meaningVi": "lịch sự",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "admires",
+        "lemma": "admire",
+        "meaningVi": "ngưỡng mộ",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "shout",
+        "lemma": "shout",
+        "meaningVi": "quát, la hét",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "kind",
+        "lemma": "kind",
+        "meaningVi": "tốt bụng",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "birthday",
+        "lemma": "birthday",
+        "meaningVi": "sinh nhật",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "strict",
+        "lemma": "strict",
+        "meaningVi": "nghiêm khắc",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "opposite",
+        "lemma": "opposite",
+        "meaningVi": "người trái ngược",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "rude",
+        "lemma": "rude",
+        "meaningVi": "thô lỗ",
+        "pos": "adjective",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "writer",
+        "lemma": "writer",
+        "meaningVi": "người viết bài",
+        "pos": "noun",
+        "sentenceIndex": 28
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the conversation mainly about?",
+        "promptVi": "Cuộc trò chuyện chủ yếu nói về điều gì?",
+        "options": [
+          "Thao's wonderful manager and Minh's rude boss",
+          "A new café in Hue",
+          "How to write a CV",
+          "Thao's birthday party"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thảo kể về chị Hạnh, người quản lý lịch sự và tốt bụng; Minh thì có một ông sếp thô lỗ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Ms Hanh remember?",
+        "promptVi": "Chị Hạnh nhớ điều gì?",
+        "options": [
+          "Everyone's phone number",
+          "Everyone's birthday",
+          "The design program",
+          "The office rules"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo nói \"she's so kind that she remembers everyone's birthday.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did Ms Hanh make the posters herself last month?",
+        "promptVi": "Vì sao tháng trước chị Hạnh tự làm áp phích?",
+        "options": [
+          "She didn't like the old posters.",
+          "The boss asked her.",
+          "The designer was ill.",
+          "She wanted to learn a new program."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"our designer was ill, so she made the posters herself.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Hanh often shouts at her team.",
+        "promptVi": "Chị Hạnh hay quát nhóm của mình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thảo nói \"She never shouts.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"keep myself busy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I keep myself busy, and I try not to think about him.\"",
+        "options": [
+          "tự làm cho mình bận rộn",
+          "giữ bí mật",
+          "nghỉ ngơi",
+          "bỏ việc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Keep yourself busy = tự tìm việc để làm cho mình bận rộn (để không nghĩ đến chuyện khác)."
+      }
+    ],
+    "grammarNote": {
+      "title": "So / such ... that",
+      "bodyVi": "So / such … that nói một mức độ cao dẫn đến kết quả. So + tính từ / trạng từ + that: she's so kind that she remembers everyone's birthday; she works so hard that she stays until eight. Such + a / an + tính từ + danh từ + that: She's such a polite leader that everybody admires her. Bài còn dùng đại từ phản thân: she made the posters herself (tự mình làm), she taught herself (tự học), I keep myself busy.",
+      "examples": [
+        "She's such a polite leader that everybody in our team admires her.\"",
+        "And she's so kind that she remembers everyone's birthday.\"",
+        "He's so rude that nobody wants to talk to him.\""
+      ]
+    },
+    "writingPrompt": "Write about a good or bad boss, teacher or leader you know: what is he or she like? Use so … that and such … that.",
+    "sentenceTranslations": [
+      "Thảo và Minh đang uống cà phê ở một quán nhỏ tại Huế sau giờ làm.",
+      "Minh hỏi: \"Công việc mới thế nào?\"",
+      "Thảo nói: \"Mình thích lắm.",
+      "Còn quản lý của mình, chị Hạnh, thì tuyệt vời.",
+      "Chị ấy là người lãnh đạo lịch sự đến mức cả nhóm ai cũng ngưỡng mộ.\"",
+      "\"Lịch sự à?",
+      "Nhiều quản lý hay quát nhân viên lắm.\"",
+      "\"Chị Hạnh thì không.",
+      "Chị ấy không bao giờ quát.",
+      "Lúc nào chị ấy cũng nói làm ơn và cảm ơn, kể cả khi bận.",
+      "Mà chị ấy tốt bụng đến mức nhớ cả sinh nhật của mọi người.\"",
+      "\"Dễ thương quá.",
+      "Chị ấy có nghiêm khắc không?\"",
+      "\"Một chút.",
+      "Chị ấy làm việc chăm đến mức hay ở lại văn phòng đến tám giờ.",
+      "Nhưng bọn mình thì luôn về lúc sáu giờ.\"",
+      "\"Chị ấy tự làm hết mọi việc à?\"",
+      "\"Gần như vậy.",
+      "Tháng trước, nhà thiết kế của bọn mình bị ốm, thế là chị ấy tự làm áp phích.",
+      "Chị ấy tự học dùng phần mềm thiết kế chỉ trong một cuối tuần!\"",
+      "Minh cười.",
+      "\"Nghe tuyệt thật.",
+      "Sếp của mình thì ngược lại.",
+      "Ông ấy thô lỗ đến mức không ai muốn nói chuyện với ông ấy.\"",
+      "\"Ôi.",
+      "Thế cậu làm gì?\"",
+      "\"Mình tự làm cho mình bận rộn, và cố không nghĩ về ông ấy.\"",
+      "Thảo nói: \"Cậu nên tìm việc mới đi.",
+      "Công ty mình đang cần một người viết bài.\"",
+      "\"Thật à?",
+      "Vậy tối nay mình sẽ tự viết CV luôn!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể miêu tả tính cách của một người lãnh đạo và kết quả của tính cách đó bằng so / such … that, cùng với đại từ phản thân.",
+    "examples": [
+      {
+        "lemma": "wonderful",
+        "sentence": "We had a wonderful time in Da Lat.",
+        "meaningVi": "Chúng tôi đã có khoảng thời gian tuyệt vời ở Đà Lạt."
+      },
+      {
+        "lemma": "polite",
+        "sentence": "Be polite to older people.",
+        "meaningVi": "Hãy lịch sự với người lớn tuổi."
+      },
+      {
+        "lemma": "admire",
+        "sentence": "I admire my grandfather very much.",
+        "meaningVi": "Tôi rất ngưỡng mộ ông tôi."
+      },
+      {
+        "lemma": "shout",
+        "sentence": "Please don't shout in the library.",
+        "meaningVi": "Làm ơn đừng la hét trong thư viện."
+      },
+      {
+        "lemma": "kind",
+        "sentence": "It was kind of you to help me.",
+        "meaningVi": "Bạn thật tốt bụng khi giúp tôi."
+      },
+      {
+        "lemma": "birthday",
+        "sentence": "When is your birthday?",
+        "meaningVi": "Sinh nhật bạn là khi nào?"
+      },
+      {
+        "lemma": "strict",
+        "sentence": "Our teacher is strict but fair.",
+        "meaningVi": "Thầy giáo chúng tôi nghiêm khắc nhưng công bằng."
+      },
+      {
+        "lemma": "opposite",
+        "sentence": "My brother is the opposite of me.",
+        "meaningVi": "Anh trai tôi trái ngược hẳn với tôi."
+      },
+      {
+        "lemma": "rude",
+        "sentence": "It's rude to look at your phone during dinner.",
+        "meaningVi": "Xem điện thoại trong bữa tối là bất lịch sự."
+      },
+      {
+        "lemma": "writer",
+        "sentence": "She wants to be a writer.",
+        "meaningVi": "Cô ấy muốn trở thành nhà văn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thao",
+        "Kate"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thao, what's your new manager like?",
+          "meaningVi": "Thảo ơi, quản lý mới của cậu là người thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "She's so kind that everyone loves her.",
+          "meaningVi": "Chị ấy tốt bụng đến mức ai cũng quý."
+        },
+        {
+          "speaker": 1,
+          "text": "Is she a good leader?",
+          "meaningVi": "Chị ấy có phải người lãnh đạo giỏi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. She's such a hard worker that we all want to work hard too.",
+          "meaningVi": "Có. Chị ấy chăm chỉ đến mức ai cũng muốn chăm theo."
+        },
+        {
+          "speaker": 1,
+          "text": "Does she ever get angry?",
+          "meaningVi": "Chị ấy có bao giờ nổi giận không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Never. She's so patient that she never shouts.",
+          "meaningVi": "Không bao giờ. Chị ấy kiên nhẫn đến mức chẳng bao giờ quát."
+        },
+        {
+          "speaker": 1,
+          "text": "My boss is the opposite. He's really rude.",
+          "meaningVi": "Sếp mình thì ngược lại. Ông ấy thô lỗ lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "Oh no. Do you talk to him?",
+          "meaningVi": "Ôi. Cậu có nói chuyện với ông ấy không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not much. I do my work by myself.",
+          "meaningVi": "Không nhiều. Mình tự làm việc của mình."
+        },
+        {
+          "speaker": 0,
+          "text": "You should come and work with us!",
+          "meaningVi": "Cậu nên sang làm cùng bọn mình!"
+        }
+      ]
+    },
+    "grammarTipVi": "So + tính từ + that: so kind that, so patient that. Such a + tính từ + danh từ + that: such a hard worker that. By myself = tự mình, một mình.",
+    "translations": [
+      {
+        "vi": "Chị ấy lịch sự đến mức ai cũng ngưỡng mộ.",
+        "en": "She is so polite that everyone admires her.",
+        "distractors": [
+          "such",
+          "very",
+          "admired"
+        ]
+      },
+      {
+        "vi": "Chị ấy là người lãnh đạo tốt bụng đến mức cả nhóm đều quý.",
+        "en": "She is such a kind leader that the team loves her.",
+        "distractors": [
+          "so",
+          "very",
+          "an"
+        ]
+      },
+      {
+        "vi": "Ông ấy thô lỗ đến mức không ai nói chuyện với ông ấy.",
+        "en": "He is so rude that nobody talks to him.",
+        "distractors": [
+          "such",
+          "very",
+          "talked"
+        ]
+      },
+      {
+        "vi": "Chị ấy tự làm áp phích. Chị ấy thật tuyệt vời.",
+        "en": "She made the posters herself. She is wonderful.",
+        "distractors": [
+          "itself",
+          "himself",
+          "make"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thảo và Kate nói về ai?",
+        "promptVi": "",
+        "options": [
+          "Quản lý của Thảo và sếp của Kate",
+          "Bạn cùng lớp",
+          "Một khách hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kate hỏi về quản lý mới của Thảo, rồi kể về sếp của mình.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao cả nhóm muốn làm việc chăm chỉ?",
+        "promptVi": "",
+        "options": [
+          "Vì sếp nghiêm khắc",
+          "Vì quản lý rất chăm chỉ",
+          "Vì có thưởng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo nói \"She's such a hard worker that we all want to work hard too.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Kate làm việc thế nào?",
+        "promptVi": "",
+        "options": [
+          "Cùng sếp",
+          "Theo nhóm",
+          "Tự làm một mình"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Kate nói \"I do my work by myself.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao's manager often gets angry.",
+        "promptVi": "Quản lý của Thảo hay nổi giận.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thảo nói \"Never. She's so patient that she never shouts.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Chị Hạnh có những tính cách gì, và mỗi tính cách dẫn đến kết quả gì?",
+    "grammarStep": {
+      "titleVi": "So / such ... that",
+      "noticing": [
+        {
+          "sentence": "She's such a polite leader that everybody in our team admires her.\"",
+          "highlights": [
+            "such a polite leader that"
+          ]
+        },
+        {
+          "sentence": "And she's so kind that she remembers everyone's birthday.\"",
+          "highlights": [
+            "so kind that"
+          ]
+        },
+        {
+          "sentence": "She works so hard that she often stays in the office until eight.",
+          "highlights": [
+            "so hard that"
+          ]
+        },
+        {
+          "sentence": "He's so rude that nobody wants to talk to him.\"",
+          "highlights": [
+            "so rude that"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"such a polite leader\" nhưng \"so kind\"?",
+      "options": [
+        "Such đi với (a / an) + tính từ + danh từ; so đi với tính từ đứng một mình.",
+        "Such dùng cho người, so dùng cho vật.",
+        "Hai từ dùng thay nhau được."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Có danh từ (leader) → such a polite leader. Chỉ có tính từ (kind) → so kind.",
+      "whenVi": "Dùng so / such … that để nói một điều quá mức đến nỗi gây ra kết quả.",
+      "table": [
+        {
+          "subject": "so + tính từ",
+          "form": "She's so kind that…",
+          "negative": "He's so rude that nobody…"
+        },
+        {
+          "subject": "so + trạng từ",
+          "form": "She works so hard that…",
+          "negative": "—"
+        },
+        {
+          "subject": "such + a + tính từ + danh từ",
+          "form": "She's such a polite leader that…",
+          "negative": "—"
+        },
+        {
+          "subject": "such + tính từ + danh từ số nhiều",
+          "form": "They are such kind people that…",
+          "negative": "(không có a / an)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She's so a polite leader that everybody admires her.",
+          "right": "She's such a polite leader that everybody admires her."
+        },
+        {
+          "wrong": "He's such rude that nobody talks to him.",
+          "right": "He's so rude that nobody talks to him."
+        }
+      ],
+      "noteVi": "Trong văn nói, that thường được lược bỏ: She's so kind she remembers everyone's birthday.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền so hoặc such.",
+          "text": "She's ___ a polite leader that everybody admires her.",
+          "answers": [
+            "such"
+          ],
+          "explanationVi": "Có a + tính từ + danh từ: such."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "He's ___ rude that nobody wants to talk to him.",
+          "options": [
+            "such",
+            "so",
+            "such a",
+            "very"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chỉ có tính từ: so rude that."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She works such hard that she stays until eight.",
+          "sentence": "She works so hard that she stays until eight.",
+          "explanationVi": "Trạng từ hard đi với so."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chị ấy tốt bụng đến mức ai cũng quý.",
+          "sentence": "She is so kind that everyone loves her.",
+          "words": [
+            "kind",
+            "She",
+            "that",
+            "is",
+            "so",
+            "everyone",
+            "loves",
+            "her.",
+            "such"
+          ],
+          "explanationVi": "So + tính từ + that; từ \"such\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She never shouts.",
+        "tipVi": "Never /ˈnevə/ nhấn mạnh; shouts /ʃaʊts/ có âm /aʊ/."
+      },
+      {
+        "text": "\"That's lovely.",
+        "tipVi": "Lovely /ˈlʌvli/ nhấn âm đầu, giọng ấm."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is the kindest person you know?",
+        "questionVi": "Ai là người tốt bụng nhất bạn biết?",
+        "frame": "My ___ is so kind that ___."
+      },
+      {
+        "question": "What was your favourite teacher like?",
+        "questionVi": "Thầy cô bạn thích nhất là người thế nào?",
+        "frame": "He / She was such a ___ teacher that ___."
+      },
+      {
+        "question": "Do you like doing things by yourself or with others?",
+        "questionVi": "Bạn thích tự làm một mình hay làm cùng người khác?",
+        "frame": "I like doing things by myself / with others because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu so … that hoặc such … that",
+      "anyOf": [
+        " so ",
+        "such a",
+        "such an",
+        "such "
+      ],
+      "outlineVi": [
+        "Người đó là ai (sếp, thầy cô, trưởng nhóm).",
+        "Tính cách nổi bật và kết quả (so … that / such … that).",
+        "Bạn có muốn giống người đó không, vì sao."
+      ],
+      "modelAnswer": "My English teacher at high school, Ms Thu, was wonderful. She was such a patient teacher that even weak students liked her class. She never shouted at us. She was also so kind that she stayed after class to help us. Sometimes she was strict, but we knew she cared about us. I want to be a teacher like her one day."
+    }
+  },
+  "glosses": [
+    {
+      "text": "even when",
+      "lemma": "even",
+      "meaningVi": "kể cả khi",
+      "sentenceIndex": 9,
+      "pos": "phrase",
+      "phrase": "even when she's busy",
+      "phraseVi": "kể cả khi bận"
+    },
+    {
+      "text": "herself",
+      "lemma": "herself",
+      "meaningVi": "tự mình (chị ấy)",
+      "sentenceIndex": 18,
+      "pos": "pronoun",
+      "phrase": "she made the posters herself",
+      "phraseVi": "chị ấy tự làm áp phích"
+    },
+    {
+      "text": "taught herself",
+      "lemma": "teach yourself",
+      "meaningVi": "tự học",
+      "sentenceIndex": 19,
+      "pos": "phrase",
+      "phrase": "She taught herself to use the design program",
+      "phraseVi": "Chị ấy tự học dùng phần mềm thiết kế"
+    },
+    {
+      "text": "keep myself busy",
+      "lemma": "keep busy",
+      "meaningVi": "tự làm cho mình bận rộn",
+      "sentenceIndex": 26,
+      "pos": "phrase",
+      "phrase": "I keep myself busy",
+      "phraseVi": "Mình tự làm cho mình bận rộn"
+    },
+    {
+      "text": "look for",
+      "lemma": "look for",
+      "meaningVi": "tìm kiếm",
+      "sentenceIndex": 27,
+      "pos": "phrasal verb",
+      "phrase": "You should look for a new job.",
+      "phraseVi": "Cậu nên tìm việc mới đi."
+    }
+  ]
+}

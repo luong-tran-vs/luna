@@ -1,0 +1,596 @@
+{
+  "content": "On the evening of the Hai Ba Trung festival, Grandma Tuyet is sitting on the sofa with her grandchildren, Bao Anh and Khang. On TV, people are carrying flowers to a temple in Hanoi.\n\nKhang asks, \"Grandma, who were the Hai Ba Trung?\"\n\"They were two sisters, Trung Trac and Trung Nhi. They lived almost two thousand years ago, when our land was ruled by the Han dynasty from China.\"\n\"Were the Han rulers kind?\"\n\"Not at all. The governor, To Dinh, was cruel. He had been taking heavy taxes from the people for years, and many families were hungry.\"\nBao Anh asks, \"So what did the sisters do?\"\n\"Trung Trac's husband, Thi Sach, had been speaking against the governor, and To Dinh killed him. But Trung Trac didn't cry and hide. She and her sister had been preparing for a long time. They had been training with weapons and visiting villages to meet local leaders.\"\n\"Did people join them?\"\n\"Thousands did. In the year 40, the sisters led an army against the Han. Many women fought in it too. While the soldiers were marching from village to village, more and more people joined them. Soon they had won back sixty-five towns, and To Dinh had run away to China.\"\n\"Then they became queens?\"\n\"Trung Trac became queen, and she ruled for about three years. But the Han emperor sent a huge army back. The sisters fought bravely, but in the end they lost.\"\n\"That's a sad ending,\" Khang says.\n\"In a way. But people never forgot them. That's why we still remember them two thousand years later, and why there are streets named after them in every city.\"\nBao Anh smiles. \"I'm going to tell my class about them tomorrow.\"\n\"Good girl. Now, it's late. Go and brush your teeth.\"",
+  "targetWords": [
+    "festival",
+    "ruler",
+    "governor",
+    "cruel",
+    "tax",
+    "weapon",
+    "leader",
+    "march",
+    "queen",
+    "bravely"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "festival",
+        "lemma": "festival",
+        "meaningVi": "lễ hội",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "rulers",
+        "lemma": "ruler",
+        "meaningVi": "người cai trị",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "governor",
+        "lemma": "governor",
+        "meaningVi": "thái thú, quan cai trị",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "cruel",
+        "lemma": "cruel",
+        "meaningVi": "độc ác",
+        "pos": "adjective",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "taxes",
+        "lemma": "tax",
+        "meaningVi": "thuế",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "weapons",
+        "lemma": "weapon",
+        "meaningVi": "vũ khí",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "leaders",
+        "lemma": "leader",
+        "meaningVi": "thủ lĩnh, người đứng đầu",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "marching",
+        "lemma": "march",
+        "meaningVi": "hành quân",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "queen",
+        "lemma": "queen",
+        "meaningVi": "nữ vương, nữ hoàng",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "bravely",
+        "lemma": "bravely",
+        "meaningVi": "dũng cảm",
+        "pos": "adverb",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What story is Grandma Tuyet telling?",
+        "promptVi": "Bà Tuyết đang kể chuyện gì?",
+        "options": [
+          "The story of the Trung sisters",
+          "A story about a cruel king",
+          "How to make flowers for a temple",
+          "The history of China"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà kể cho cháu nghe về Hai Bà Trưng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why were many families hungry?",
+        "promptVi": "Vì sao nhiều gia đình bị đói?",
+        "options": [
+          "There was no rain.",
+          "The governor had been taking heavy taxes.",
+          "The army took their rice.",
+          "They had lost their land."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà nói \"He had been taking heavy taxes from the people for years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many towns did the sisters win back?",
+        "promptVi": "Hai Bà đã giành lại bao nhiêu thành?",
+        "options": [
+          "Fifteen",
+          "Forty",
+          "Sixty-five",
+          "A hundred"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bà nói \"Soon they had won back sixty-five towns.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Trung Trac ruled for more than ten years.",
+        "promptVi": "Trưng Trắc trị vì hơn mười năm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"she ruled for about three years.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"cruel\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The governor, To Dinh, was cruel.\"",
+        "options": [
+          "độc ác",
+          "tốt bụng",
+          "giàu có",
+          "dũng cảm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cruel = độc ác, làm người khác khổ sở mà không thương xót."
+      }
+    ],
+    "grammarNote": {
+      "title": "Các thì kể chuyện và quá khứ hoàn thành tiếp diễn",
+      "bodyVi": "Khi kể chuyện xưa, quá khứ hoàn thành tiếp diễn giải thích vì sao một việc xảy ra: He had been taking heavy taxes from the people for years, and many families were hungry. Nó cũng cho thấy sự chuẩn bị lâu dài trước một sự kiện: She and her sister had been preparing for a long time. Quá khứ tiếp diễn tả bối cảnh (While the soldiers were marching …), còn quá khứ hoàn thành nói kết quả đã đạt được trước một mốc: Soon they had won back sixty-five towns.",
+      "examples": [
+        "He had been taking heavy taxes from the people for years, and many families were hungry.\"",
+        "She and her sister had been preparing for a long time.",
+        "Soon they had won back sixty-five towns, and To Dinh had run away to China.\""
+      ]
+    },
+    "writingPrompt": "Write about a hero from your country's history. Explain what he or she had been doing before the most famous moment.",
+    "sentenceTranslations": [
+      "Vào tối lễ hội Hai Bà Trưng, bà Tuyết ngồi trên ghế sofa cùng hai cháu là Bảo Anh và Khang.",
+      "Trên ti vi, mọi người đang mang hoa đến một ngôi đền ở Hà Nội.",
+      "Khang hỏi: \"Bà ơi, Hai Bà Trưng là ai ạ?\"",
+      "\"Đó là hai chị em, Trưng Trắc và Trưng Nhị.",
+      "Hai bà sống cách đây gần hai nghìn năm, khi đất nước ta bị nhà Hán bên Trung Quốc cai trị.\"",
+      "\"Người nhà Hán có tốt không bà?\"",
+      "\"Không hề.",
+      "Viên thái thú Tô Định rất độc ác.",
+      "Hắn đã thu thuế nặng của dân suốt nhiều năm, nhiều gia đình bị đói.\"",
+      "Bảo Anh hỏi: \"Thế Hai Bà đã làm gì ạ?\"",
+      "\"Chồng bà Trưng Trắc là Thi Sách đã lên tiếng chống lại viên thái thú, và Tô Định giết ông.",
+      "Nhưng bà Trưng Trắc không khóc lóc hay trốn tránh.",
+      "Bà và em gái đã chuẩn bị từ lâu.",
+      "Hai bà đã luyện tập võ nghệ và đi khắp các làng để gặp những thủ lĩnh địa phương.\"",
+      "\"Mọi người có theo hai bà không ạ?\"",
+      "\"Hàng nghìn người.",
+      "Năm 40, Hai Bà dẫn quân đánh nhà Hán.",
+      "Nhiều phụ nữ cũng cầm quân.",
+      "Trong lúc nghĩa quân hành quân từ làng này sang làng khác, ngày càng nhiều người theo.",
+      "Chẳng bao lâu hai bà đã giành lại sáu mươi lăm thành, còn Tô Định phải chạy về Trung Quốc.\"",
+      "\"Rồi hai bà làm vua ạ?\"",
+      "\"Bà Trưng Trắc lên làm vua và trị vì khoảng ba năm.",
+      "Nhưng vua nhà Hán lại đưa một đội quân rất lớn sang.",
+      "Hai Bà chiến đấu dũng cảm, nhưng cuối cùng đã thua.\"",
+      "Khang nói: \"Kết thúc buồn quá.\"",
+      "\"Cũng có phần buồn.",
+      "Nhưng người ta không bao giờ quên hai bà.",
+      "Vì thế mà hai nghìn năm sau chúng ta vẫn nhớ đến hai bà, và thành phố nào cũng có phố mang tên Hai Bà.\"",
+      "Bảo Anh mỉm cười.",
+      "\"Mai cháu sẽ kể cho cả lớp nghe.\"",
+      "\"Cháu ngoan.",
+      "Thôi, muộn rồi.",
+      "Đi đánh răng đi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một câu chuyện lịch sử và giải thích nguyên nhân bằng had been + V-ing, kết hợp với quá khứ tiếp diễn và quá khứ hoàn thành.",
+    "examples": [
+      {
+        "lemma": "festival",
+        "sentence": "The village festival takes place in spring.",
+        "meaningVi": "Lễ hội làng diễn ra vào mùa xuân."
+      },
+      {
+        "lemma": "ruler",
+        "sentence": "The ruler of the city lived in a big house.",
+        "meaningVi": "Người cai trị thành phố sống trong một ngôi nhà lớn."
+      },
+      {
+        "lemma": "governor",
+        "sentence": "The governor visited the flooded area.",
+        "meaningVi": "Ông thống đốc đến thăm vùng bị lũ."
+      },
+      {
+        "lemma": "cruel",
+        "sentence": "It is cruel to keep a dog in a small cage.",
+        "meaningVi": "Nhốt chó trong cái lồng nhỏ thật tàn nhẫn."
+      },
+      {
+        "lemma": "tax",
+        "sentence": "Everyone has to pay tax on their income.",
+        "meaningVi": "Ai cũng phải đóng thuế thu nhập."
+      },
+      {
+        "lemma": "weapon",
+        "sentence": "The police found a weapon in the car.",
+        "meaningVi": "Cảnh sát tìm thấy một món vũ khí trong xe."
+      },
+      {
+        "lemma": "leader",
+        "sentence": "She is the leader of our group.",
+        "meaningVi": "Cô ấy là trưởng nhóm của chúng tôi."
+      },
+      {
+        "lemma": "march",
+        "sentence": "The soldiers had to march all night.",
+        "meaningVi": "Những người lính phải hành quân suốt đêm."
+      },
+      {
+        "lemma": "queen",
+        "sentence": "The queen waved to the crowd.",
+        "meaningVi": "Nữ hoàng vẫy tay chào đám đông."
+      },
+      {
+        "lemma": "bravely",
+        "sentence": "He bravely jumped into the river to save the child.",
+        "meaningVi": "Anh ấy dũng cảm nhảy xuống sông cứu đứa trẻ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ms Hoa",
+        "Bao Anh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Bao Anh, you wanted to tell us a story?",
+          "meaningVi": "Bảo Anh, em muốn kể cho cả lớp một câu chuyện à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. It's about the Trung sisters. My grandma told me last night.",
+          "meaningVi": "Vâng ạ. Chuyện về Hai Bà Trưng. Tối qua bà em kể."
+        },
+        {
+          "speaker": 0,
+          "text": "Wonderful. Why did they fight?",
+          "meaningVi": "Hay quá. Vì sao Hai Bà khởi nghĩa?"
+        },
+        {
+          "speaker": 1,
+          "text": "The governor had been treating people badly for years.",
+          "meaningVi": "Viên thái thú đã đối xử tệ với dân suốt nhiều năm."
+        },
+        {
+          "speaker": 0,
+          "text": "And what had happened to Trung Trac's husband?",
+          "meaningVi": "Thế chồng bà Trưng Trắc đã gặp chuyện gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "The governor had killed him, but she didn't give up.",
+          "meaningVi": "Viên thái thú đã giết ông, nhưng bà không bỏ cuộc."
+        },
+        {
+          "speaker": 0,
+          "text": "Did many people help them?",
+          "meaningVi": "Có nhiều người giúp Hai Bà không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. While the army was marching, thousands of people joined.",
+          "meaningVi": "Có ạ. Trong lúc nghĩa quân hành quân, hàng nghìn người đi theo."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you know how the story ended?",
+          "meaningVi": "Em có biết câu chuyện kết thúc thế nào không?"
+        },
+        {
+          "speaker": 1,
+          "text": "They lost in the end, but we still remember them.",
+          "meaningVi": "Cuối cùng Hai Bà thua, nhưng chúng ta vẫn nhớ đến các bà."
+        }
+      ]
+    },
+    "grammarTipVi": "Nguyên nhân kéo dài: The governor had been treating people badly for years. Việc xảy ra trước: The governor had killed him. Bối cảnh: While the army was marching, thousands of people joined.",
+    "translations": [
+      {
+        "vi": "Viên thái thú đã thu thuế nặng suốt nhiều năm.",
+        "en": "The governor had been taking heavy taxes for years.",
+        "distractors": [
+          "has",
+          "took",
+          "since"
+        ]
+      },
+      {
+        "vi": "Hai Bà đã luyện tập với vũ khí.",
+        "en": "The sisters had been training with weapons.",
+        "distractors": [
+          "have",
+          "trained",
+          "food"
+        ]
+      },
+      {
+        "vi": "Trong lúc quân lính hành quân, nhiều người đi theo hơn.",
+        "en": "While the soldiers were marching, more people joined them.",
+        "distractors": [
+          "marched",
+          "was",
+          "fewer"
+        ]
+      },
+      {
+        "vi": "Trưng Trắc lên làm vua và trị vì ba năm.",
+        "en": "Trung Trac became queen and ruled for three years.",
+        "distractors": [
+          "king",
+          "becomes",
+          "two"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bảo Anh kể cho cả lớp nghe chuyện gì?",
+        "promptVi": "",
+        "options": [
+          "Câu chuyện Hai Bà Trưng",
+          "Một bài toán khó",
+          "Một lễ hội ở quê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo Anh nói \"It's about the Trung sisters.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đã kể chuyện cho Bảo Anh?",
+        "promptVi": "",
+        "options": [
+          "Bà của em",
+          "Mẹ của em",
+          "Cô giáo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo Anh nói \"My grandma told me last night.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chuyện gì đã xảy ra với chồng bà Trưng Trắc?",
+        "promptVi": "",
+        "options": [
+          "Bị viên thái thú giết",
+          "Bỏ trốn sang nước khác",
+          "Lên làm vua"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo Anh nói \"The governor had killed him.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Only a few people joined the sisters.",
+        "promptVi": "Chỉ có vài người theo Hai Bà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"thousands of people joined.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Vì sao Hai Bà Trưng khởi nghĩa? Hai bà đã chuẩn bị những gì, và kết quả ra sao?",
+    "grammarStep": {
+      "titleVi": "Các thì kể chuyện và quá khứ hoàn thành tiếp diễn",
+      "noticing": [
+        {
+          "sentence": "He had been taking heavy taxes from the people for years, and many families were hungry.\"",
+          "highlights": [
+            "had been taking",
+            "were hungry"
+          ]
+        },
+        {
+          "sentence": "She and her sister had been preparing for a long time.",
+          "highlights": [
+            "had been preparing"
+          ]
+        },
+        {
+          "sentence": "While the soldiers were marching from village to village, more and more people joined them.",
+          "highlights": [
+            "were marching",
+            "joined"
+          ]
+        },
+        {
+          "sentence": "Soon they had won back sixty-five towns, and To Dinh had run away to China.\"",
+          "highlights": [
+            "had won back",
+            "had run away"
+          ]
+        }
+      ],
+      "questionVi": "Tô Định thu thuế nặng nhiều năm, vì vậy nhiều gia đình bị đói. Câu nào đúng?",
+      "options": [
+        "He had been taking heavy taxes for years, so many families were hungry.",
+        "He has been taking heavy taxes for years, so many families were hungry.",
+        "He took heavy taxes for years, so many families have been hungry."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Nguyên nhân kéo dài trước tình trạng trong quá khứ (were hungry): had been taking.",
+      "whenVi": "Dùng khi kể chuyện để giải thích nguyên nhân (việc đã kéo dài trước đó) và kể lại kết quả đã đạt được trước một mốc trong quá khứ.",
+      "table": [
+        {
+          "subject": "Nguyên nhân kéo dài",
+          "form": "He had been taking heavy taxes for years, and families were hungry.",
+          "negative": "hadn't been + V-ing"
+        },
+        {
+          "subject": "Bối cảnh + sự việc",
+          "form": "While the soldiers were marching, more people joined them.",
+          "negative": "wasn't / weren't + V-ing"
+        },
+        {
+          "subject": "Kết quả đã xong",
+          "form": "Soon they had won back sixty-five towns.",
+          "negative": "hadn't + V3"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "They had been train with weapons for months.",
+          "right": "They had been training with weapons for months."
+        },
+        {
+          "wrong": "Soon they have won back many towns.",
+          "right": "Soon they had won back many towns."
+        }
+      ],
+      "noteVi": "Câu chuyện cổ thường mở đầu bằng quá khứ đơn (They lived …), rồi dùng had been + V-ing để quay lại những việc đã kéo dài trước đó.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ prepare.",
+          "text": "The sisters had been ___ for a long time before they attacked.",
+          "answers": [
+            "preparing"
+          ],
+          "explanationVi": "had been + V-ing: preparing."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Thi Sach ___ against the governor, so To Dinh killed him.",
+          "options": [
+            "had been speaking",
+            "has been speaking",
+            "speaks",
+            "is speaking"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Việc kéo dài trước một việc trong quá khứ (killed): had been speaking."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The governor had been take heavy taxes for years.",
+          "sentence": "The governor had been taking heavy taxes for years.",
+          "explanationVi": "Sau had been phải là V-ing: taking."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ đã luyện tập với vũ khí suốt nhiều tháng.",
+          "sentence": "They had been training with weapons for months.",
+          "words": [
+            "They",
+            "had",
+            "been",
+            "training",
+            "with",
+            "weapons",
+            "for",
+            "months.",
+            "has"
+          ],
+          "explanationVi": "had been + V-ing + for + khoảng thời gian; từ \"has\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She and her sister had been preparing for a long time.",
+        "tipVi": "had been preparing đọc liền một hơi; preparing /prɪˈpeərɪŋ/."
+      },
+      {
+        "text": "The sisters fought bravely, but in the end they lost.\"",
+        "tipVi": "fought /fɔːt/ không đọc gh; ngắt hơi sau bravely."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is a hero from your country's history? What had he or she done?",
+        "questionVi": "Ai là anh hùng trong lịch sử nước bạn? Người đó đã làm gì?",
+        "frame": "___ is a hero because he / she had ___."
+      },
+      {
+        "question": "What stories did your grandparents tell you when you were a child?",
+        "questionVi": "Hồi nhỏ ông bà hay kể cho bạn nghe chuyện gì?",
+        "frame": "They often told me about ___."
+      },
+      {
+        "question": "Why do you think people still remember the Trung sisters?",
+        "questionVi": "Theo bạn vì sao người ta vẫn nhớ đến Hai Bà Trưng?",
+        "frame": "I think people remember them because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu had been + V-ing",
+      "anyOf": [
+        "had been",
+        "'d been"
+      ],
+      "outlineVi": [
+        "Người anh hùng là ai, sống vào thời nào.",
+        "Người đó đã làm gì từ trước (had been + V-ing).",
+        "Khoảnh khắc nổi tiếng nhất và vì sao người ta còn nhớ."
+      ],
+      "modelAnswer": "Lady Trieu was a young woman who lived in the third century. She had been living in Thanh Hoa with her brother and had been training in the mountains for years. In 248, she led an army against the Wu rulers. While she was fighting, she became a symbol of courage. People still remember her today."
+    }
+  },
+  "glosses": [
+    {
+      "text": "grandchildren",
+      "lemma": "grandchild",
+      "meaningVi": "cháu",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "her grandchildren",
+      "phraseVi": "hai cháu của bà"
+    },
+    {
+      "text": "won back",
+      "lemma": "win back",
+      "meaningVi": "giành lại",
+      "sentenceIndex": 19,
+      "pos": "phrase",
+      "phrase": "had won back sixty-five towns",
+      "phraseVi": "đã giành lại sáu mươi lăm thành"
+    },
+    {
+      "text": "run away",
+      "lemma": "run away",
+      "meaningVi": "bỏ chạy",
+      "sentenceIndex": 19,
+      "pos": "phrase",
+      "phrase": "had run away to China",
+      "phraseVi": "đã chạy về Trung Quốc"
+    },
+    {
+      "text": "named after",
+      "lemma": "name after",
+      "meaningVi": "mang tên, đặt theo tên",
+      "sentenceIndex": 27,
+      "pos": "phrase",
+      "phrase": "streets named after them",
+      "phraseVi": "phố mang tên hai bà"
+    }
+  ]
+}

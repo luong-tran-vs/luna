@@ -1,0 +1,583 @@
+{
+  "content": "On Saturday morning, Minh and his friend Phong go for a bike ride around West Lake. They meet at six, when it isn't hot yet.\n\nThey ride along the path next to the lake. The water is blue and quiet, and a lot of people are running and walking on the path too.\nAn old woman walks in front of them, so Minh says, \"Ring your bell!\"\nPhong rings his bell, and she moves to the side.\n\nAfter about an hour, they turn off the path and ride into Quang Ba flower village. They go through small streets with flower gardens on both sides. There are pink, red and yellow flowers everywhere.\nPhong says, \"Let's stop here. I want to take some photos.\"\nThey get off their bikes and walk into a garden. A farmer gives them some cold water.\nThe farmer asks, \"Do you come here every week?\"\nMinh says, \"No, it's our first time. But we will come again!\"\nThen they ride back along the other side of the lake. They are tired, but very happy.",
+  "targetWords": [
+    "path",
+    "water",
+    "ring",
+    "bell",
+    "garden",
+    "farmer",
+    "week",
+    "happy"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "path",
+        "lemma": "path",
+        "meaningVi": "đường mòn, lối đi",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "water",
+        "lemma": "water",
+        "meaningVi": "nước, mặt nước",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "Ring",
+        "lemma": "ring",
+        "meaningVi": "rung (chuông)",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "bell",
+        "lemma": "bell",
+        "meaningVi": "chuông",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "gardens",
+        "lemma": "garden",
+        "meaningVi": "khu vườn",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "farmer",
+        "lemma": "farmer",
+        "meaningVi": "người nông dân",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "week",
+        "lemma": "week",
+        "meaningVi": "tuần",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "happy",
+        "lemma": "happy",
+        "meaningVi": "vui vẻ",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Two friends ride their bikes around West Lake and into a flower village.",
+          "Minh buys flowers for his mother.",
+          "A farmer sells bikes near the lake.",
+          "Phong takes a boat across West Lake."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh và Phong đạp xe quanh Hồ Tây rồi vào làng hoa Quảng Bá."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why do they meet at six?",
+        "promptVi": "Vì sao họ hẹn nhau lúc sáu giờ?",
+        "options": [
+          "The village opens at six.",
+          "It isn't hot yet.",
+          "The farmer wants to see them.",
+          "They have work at eight."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết: \"They meet at six, when it isn't hot yet.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the farmer give them?",
+        "promptVi": "Bác nông dân cho họ gì?",
+        "options": [
+          "Some flowers",
+          "Some fruit",
+          "Some cold water",
+          "A map"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"A farmer gives them some cold water.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh and Phong go to the flower village every week.",
+        "promptVi": "Tuần nào Minh và Phong cũng đến làng hoa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"No, it's our first time.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"turn off\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "After about an hour, they turn off the path and ride into Quang Ba flower village.",
+        "options": [
+          "tắt (đèn)",
+          "rẽ khỏi (con đường)",
+          "quay lại",
+          "dừng lại"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Turn off the path = rẽ ra khỏi con đường đang đi để sang đường khác."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "bodyVi": "Kể chuyến đạp xe: a bike ride around West Lake (vòng quanh), ride along the path (dọc theo), turn off the path (rẽ khỏi), ride into the village (đi vào trong), go through small streets (xuyên qua), get off their bikes (xuống xe), walk into a garden (đi vào), ride back along the other side (quay về dọc theo bờ bên kia).",
+      "examples": [
+        "They ride along the path next to the lake.",
+        "After about an hour, they turn off the path and ride into Quang Ba flower village.",
+        "They go through small streets with flower gardens on both sides."
+      ]
+    },
+    "writingPrompt": "Write about a bike ride or a walk at the weekend: where do you go around, along, through or into?",
+    "sentenceTranslations": [
+      "Sáng thứ Bảy, Minh và bạn là Phong đạp xe vòng quanh Hồ Tây.",
+      "Họ gặp nhau lúc sáu giờ, khi trời chưa nóng.",
+      "Họ đạp xe dọc con đường cạnh hồ.",
+      "Mặt nước xanh và yên ả, và nhiều người cũng đang chạy bộ, đi bộ trên đường.",
+      "Một bà cụ đi phía trước họ, nên Minh nói: \"Rung chuông đi!\"",
+      "Phong rung chuông, và bà cụ tránh sang một bên.",
+      "Khoảng một tiếng sau, họ rẽ khỏi con đường và đạp xe vào làng hoa Quảng Bá.",
+      "Họ đi xuyên qua những con phố nhỏ có vườn hoa ở hai bên.",
+      "Khắp nơi là hoa hồng, hoa đỏ và hoa vàng.",
+      "Phong nói: \"Dừng ở đây đi.",
+      "Mình muốn chụp vài tấm ảnh.\"",
+      "Họ xuống xe và đi bộ vào một khu vườn.",
+      "Một bác nông dân cho họ ít nước mát.",
+      "Bác hỏi: \"Tuần nào các cháu cũng đến đây à?\"",
+      "Minh nói: \"Không ạ, đây là lần đầu tiên.",
+      "Nhưng chúng cháu sẽ quay lại!\"",
+      "Rồi họ đạp xe về dọc theo bờ bên kia của hồ.",
+      "Họ mệt, nhưng rất vui."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể một chuyến đạp xe cuối tuần bằng around, along, off, into, through, back.",
+    "examples": [
+      {
+        "lemma": "path",
+        "sentence": "There is a path through the park.",
+        "meaningVi": "Có một lối đi xuyên qua công viên."
+      },
+      {
+        "lemma": "water",
+        "sentence": "Can I have some water, please?",
+        "meaningVi": "Cho tôi xin ít nước nhé?"
+      },
+      {
+        "lemma": "ring",
+        "sentence": "Ring the bell, please.",
+        "meaningVi": "Làm ơn bấm chuông."
+      },
+      {
+        "lemma": "bell",
+        "sentence": "The school bell rings at seven.",
+        "meaningVi": "Chuông trường reo lúc bảy giờ."
+      },
+      {
+        "lemma": "garden",
+        "sentence": "My grandmother has a small garden.",
+        "meaningVi": "Bà tôi có một khu vườn nhỏ."
+      },
+      {
+        "lemma": "farmer",
+        "sentence": "The farmer works in the field every day.",
+        "meaningVi": "Người nông dân làm việc ngoài đồng mỗi ngày."
+      },
+      {
+        "lemma": "week",
+        "sentence": "I go swimming twice a week.",
+        "meaningVi": "Tôi đi bơi hai lần một tuần."
+      },
+      {
+        "lemma": "happy",
+        "sentence": "She is happy today.",
+        "meaningVi": "Hôm nay cô ấy vui."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Ryan"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, what did you do at the weekend?",
+          "meaningVi": "Minh ơi, cuối tuần cậu làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I rode my bike around West Lake with Phong.",
+          "meaningVi": "Mình đạp xe vòng quanh Hồ Tây với Phong."
+        },
+        {
+          "speaker": 1,
+          "text": "Around the whole lake?",
+          "meaningVi": "Vòng quanh cả hồ luôn à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. We rode along the path next to the water.",
+          "meaningVi": "Ừ. Bọn mình đạp dọc con đường sát mặt nước."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you stop anywhere?",
+          "meaningVi": "Các cậu có dừng ở đâu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, we went into a flower village.",
+          "meaningVi": "Có, bọn mình vào một làng hoa."
+        },
+        {
+          "speaker": 1,
+          "text": "How long was the ride?",
+          "meaningVi": "Đạp mất bao lâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "About three hours. We came back at nine.",
+          "meaningVi": "Khoảng ba tiếng. Chín giờ bọn mình về."
+        },
+        {
+          "speaker": 1,
+          "text": "I want to come next time!",
+          "meaningVi": "Lần sau mình muốn đi cùng!"
+        },
+        {
+          "speaker": 0,
+          "text": "Great! We go every Saturday morning.",
+          "meaningVi": "Tuyệt! Sáng thứ Bảy nào bọn mình cũng đi."
+        }
+      ]
+    },
+    "grammarTipVi": "Kể lại chuyến đi ở quá khứ, giới từ vẫn giữ nguyên: rode around the lake, rode along the path, went into a flower village, came back at nine.",
+    "translations": [
+      {
+        "vi": "Họ đạp xe dọc con đường cạnh hồ.",
+        "en": "They ride along the path next to the lake.",
+        "distractors": [
+          "across",
+          "into",
+          "rode"
+        ]
+      },
+      {
+        "vi": "Họ đi xuyên qua những khu vườn.",
+        "en": "They go through the gardens.",
+        "distractors": [
+          "over",
+          "along",
+          "goes"
+        ]
+      },
+      {
+        "vi": "Rung chuông của bạn đi!",
+        "en": "Ring your bell!",
+        "distractors": [
+          "Rings",
+          "Ringing",
+          "Rang"
+        ]
+      },
+      {
+        "vi": "Họ xuống xe và đi vào một khu vườn.",
+        "en": "They get off their bikes and walk into a garden.",
+        "distractors": [
+          "on",
+          "out of",
+          "walks"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh kể với Ryan về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuyến đạp xe cuối tuần",
+          "Một bài kiểm tra",
+          "Chiếc xe đạp mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"I rode my bike around West Lake with Phong.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ đạp xe ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trên đường lớn",
+          "Trên con đường sát mặt nước",
+          "Qua cầu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"We rode along the path next to the water.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chuyến đi mất bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Một tiếng",
+          "Cả ngày",
+          "Khoảng ba tiếng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh nói \"About three hours.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh and Phong go every Sunday morning.",
+        "promptVi": "Sáng Chủ nhật nào Minh và Phong cũng đi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"We go every Saturday morning.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Hai bạn đạp xe theo đường nào: quanh đâu, dọc đâu, vào đâu?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "noticing": [
+        {
+          "sentence": "On Saturday morning, Minh and his friend Phong go for a bike ride around West Lake.",
+          "highlights": [
+            "around"
+          ]
+        },
+        {
+          "sentence": "They ride along the path next to the lake.",
+          "highlights": [
+            "along"
+          ]
+        },
+        {
+          "sentence": "After about an hour, they turn off the path and ride into Quang Ba flower village.",
+          "highlights": [
+            "off",
+            "into"
+          ]
+        },
+        {
+          "sentence": "Then they ride back along the other side of the lake.",
+          "highlights": [
+            "back",
+            "along"
+          ]
+        }
+      ],
+      "questionVi": "\"A bike ride around West Lake\" nghĩa là gì?",
+      "options": [
+        "Đạp xe qua hồ",
+        "Đạp xe vòng quanh hồ",
+        "Đạp xe vào trong hồ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Around = vòng quanh một nơi. Across thì là băng qua từ bên này sang bên kia.",
+      "whenVi": "Around cho đường vòng; along cho đường dọc theo; into khi đi vào trong một nơi; off khi rời khỏi một con đường hay xuống xe.",
+      "table": [
+        {
+          "subject": "around",
+          "form": "a bike ride around West Lake",
+          "negative": "—"
+        },
+        {
+          "subject": "along",
+          "form": "ride along the path",
+          "negative": "—"
+        },
+        {
+          "subject": "off ↔ on",
+          "form": "get off their bikes / turn off the path",
+          "negative": "get on their bikes"
+        },
+        {
+          "subject": "into / through",
+          "form": "ride into the village / go through small streets",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "They ride on along the path.",
+          "right": "They ride along the path."
+        },
+        {
+          "wrong": "They get out of their bikes.",
+          "right": "They get off their bikes."
+        }
+      ],
+      "noteVi": "Với xe đạp, xe máy, xe buýt dùng get on / get off; với ô tô dùng get into / get out of.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền around, along hoặc into.",
+          "text": "They go for a bike ride ___ West Lake.",
+          "answers": [
+            "around"
+          ],
+          "explanationVi": "Vòng quanh hồ: around."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "They get ___ their bikes and walk into a garden.",
+          "options": [
+            "out of",
+            "off",
+            "down",
+            "into"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Xuống xe đạp: get off."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They ride in the flower village from the path.",
+          "sentence": "They ride into the flower village from the path.",
+          "explanationVi": "Đi vào trong một nơi (có chuyển động): into."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ đạp xe dọc con đường.",
+          "sentence": "They ride along the path.",
+          "words": [
+            "along",
+            "They",
+            "path",
+            "ride",
+            "the",
+            "around"
+          ],
+          "explanationVi": "Dọc theo: along; từ \"around\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "They ride along the path next to the lake.",
+        "tipVi": "Path /pɑːθ/ kết thúc bằng /θ/; along /əˈlɒŋ/ nhấn âm thứ hai."
+      },
+      {
+        "text": "They are tired, but very happy.",
+        "tipVi": "Tired /ˈtaɪəd/; nhấn vào very happy, giọng vui."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you often go out by bike?",
+        "questionVi": "Bạn có hay đi xe đạp không?",
+        "frame": "Yes, I do. I often ride ___. / No, I don't."
+      },
+      {
+        "question": "Where do you go at the weekend?",
+        "questionVi": "Cuối tuần bạn đi đâu?",
+        "frame": "I go to ___. I walk / ride along ___."
+      },
+      {
+        "question": "What does your friend do on Saturday mornings?",
+        "questionVi": "Sáng thứ Bảy bạn của bạn làm gì?",
+        "frame": "He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 giới từ chỉ chuyển động (around, along, into, through, off…)",
+      "anyOf": [
+        "around",
+        "along",
+        "into",
+        "through",
+        "off",
+        "across",
+        "past",
+        "over",
+        "up",
+        "down",
+        "out of"
+      ],
+      "outlineVi": [
+        "Bạn đi đâu, với ai, vào lúc nào.",
+        "Kể đường đi bằng giới từ chuyển động.",
+        "Bạn dừng ở đâu, làm gì, và cảm thấy thế nào."
+      ],
+      "modelAnswer": "Last Sunday, my sister and I went for a bike ride. We rode along the river and past some rice fields. Then we turned into a small village and rode through its quiet streets. We got off our bikes near a big tree and had some fruit. After that, we rode back home. We were tired, but very happy."
+    }
+  },
+  "glosses": [
+    {
+      "text": "bike ride",
+      "lemma": "bike ride",
+      "meaningVi": "chuyến đạp xe",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "go for a bike ride around West Lake",
+      "phraseVi": "đạp xe vòng quanh Hồ Tây"
+    },
+    {
+      "text": "around",
+      "lemma": "around",
+      "meaningVi": "vòng quanh",
+      "sentenceIndex": 0,
+      "pos": "preposition",
+      "phrase": "around West Lake",
+      "phraseVi": "vòng quanh Hồ Tây"
+    },
+    {
+      "text": "moves to the side",
+      "lemma": "move",
+      "meaningVi": "tránh sang một bên",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "she moves to the side",
+      "phraseVi": "bà cụ tránh sang một bên"
+    },
+    {
+      "text": "turn off",
+      "lemma": "turn off",
+      "meaningVi": "rẽ khỏi",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "they turn off the path",
+      "phraseVi": "họ rẽ khỏi con đường"
+    },
+    {
+      "text": "get off",
+      "lemma": "get off",
+      "meaningVi": "xuống (xe)",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "They get off their bikes",
+      "phraseVi": "Họ xuống xe"
+    },
+    {
+      "text": "ride back",
+      "lemma": "ride back",
+      "meaningVi": "đạp xe về",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "they ride back along the other side",
+      "phraseVi": "họ đạp xe về dọc theo bờ bên kia"
+    }
+  ]
+}

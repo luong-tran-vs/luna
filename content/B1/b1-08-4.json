@@ -1,0 +1,602 @@
+{
+  "content": "Nam shares a flat with his friend Tuan in Hanoi. When Tuan comes home from work, Nam is sitting at the kitchen table with a pen and a piece of paper.\n\nTuan asks, \"What are you doing?\"\n\"I'm looking at our monthly bills. Mr Hung, our landlord, called this afternoon.\"\n\"What did he want?\"\n\"He said that the internet would cost more from next month. He told me the price was going up by fifty thousand dong.\"\n\"Why? The internet is so slow!\"\n\"That's what I said. He explained that the internet company had changed its prices. He said he couldn't do anything about it.\"\n\"I'm not happy about that.\"\n\"Neither am I. But he also said that the rent wouldn't change this year.\"\n\"Well, that's good news. I can't pay more rent.\"\n\"Neither can I. So, let's look at the other bills. Electricity was eight hundred thousand last month.\"\n\"That's a lot. I think we use the air conditioner too much.\"\n\"So do I. Let's only use it at night.\"\n\"OK. And we spend too much on food delivery.\"\n\"I know,\" Nam laughs. \"Let's cook at home more.\"\n\"Good idea. I can cook on Monday and Wednesday.\"\n\"And I'll cook on the other days. We'll save a lot.\"",
+  "targetWords": [
+    "flat",
+    "bill",
+    "landlord",
+    "internet",
+    "price",
+    "explain",
+    "rent",
+    "air conditioner",
+    "spend",
+    "save"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "flat",
+        "lemma": "flat",
+        "meaningVi": "căn hộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "bills",
+        "lemma": "bill",
+        "meaningVi": "hoá đơn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "landlord",
+        "lemma": "landlord",
+        "meaningVi": "chủ nhà (cho thuê)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "internet",
+        "lemma": "internet",
+        "meaningVi": "mạng internet",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "price",
+        "lemma": "price",
+        "meaningVi": "giá",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "explained",
+        "lemma": "explain",
+        "meaningVi": "giải thích",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "rent",
+        "lemma": "rent",
+        "meaningVi": "tiền thuê nhà",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "air conditioner",
+        "lemma": "air conditioner",
+        "meaningVi": "máy điều hoà",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "spend",
+        "lemma": "spend",
+        "meaningVi": "tiêu (tiền)",
+        "pos": "verb",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "save",
+        "lemma": "save",
+        "meaningVi": "tiết kiệm",
+        "pos": "verb",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Nam and Tuan talking about?",
+        "promptVi": "Nam và Tuấn đang nói về điều gì?",
+        "options": [
+          "Their monthly bills and the landlord's phone call",
+          "A new flat in Hanoi",
+          "Tuan's new job",
+          "A restaurant for dinner"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam kể lại cuộc gọi của chủ nhà và hai người xem lại các hoá đơn hằng tháng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much more will the internet cost?",
+        "promptVi": "Tiền mạng tăng thêm bao nhiêu?",
+        "options": [
+          "Twenty thousand dong",
+          "Fifty thousand dong",
+          "Eight hundred thousand dong",
+          "Nothing"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"He told me the price was going up by fifty thousand dong.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is the internet price going up?",
+        "promptVi": "Vì sao giá mạng tăng?",
+        "options": [
+          "The landlord wants more money.",
+          "The internet company had changed its prices.",
+          "They use the internet too much.",
+          "The rent is going up too."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"He explained that the internet company had changed its prices.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The rent will go up this year.",
+        "promptVi": "Năm nay tiền thuê nhà sẽ tăng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chủ nhà nói \"the rent wouldn't change this year.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"landlord\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Mr Hung, our landlord, called this afternoon.\"",
+        "options": [
+          "chủ nhà cho thuê",
+          "hàng xóm",
+          "sếp",
+          "thợ sửa điện"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Landlord = người cho thuê nhà."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu tường thuật",
+      "bodyVi": "Câu tường thuật với nhiều thì khác nhau: \"The internet will cost more.\" → He said that the internet would cost more. \"The price is going up.\" → He told me the price was going up (is going → was going). \"The company has changed its prices.\" → He explained that the company had changed its prices (has changed → had changed). \"I can't do anything.\" → He said he couldn't do anything (can't → couldn't). Đồng ý: I'm not happy. – Neither am I. I can't pay more. – Neither can I.",
+      "examples": [
+        "\"He said that the internet would cost more from next month.",
+        "He explained that the internet company had changed its prices.",
+        "He said he couldn't do anything about it.\""
+      ]
+    },
+    "writingPrompt": "Write about a phone call about money or bills that you or your family got. What did the caller say, and did you agree?",
+    "sentenceTranslations": [
+      "Nam ở chung căn hộ với bạn là Tuấn ở Hà Nội.",
+      "Khi Tuấn đi làm về, Nam đang ngồi ở bàn bếp với một cây bút và một tờ giấy.",
+      "Tuấn hỏi: \"Cậu đang làm gì thế?\"",
+      "\"Mình đang xem các hoá đơn hằng tháng.",
+      "Chiều nay chú Hùng, chủ nhà, gọi điện.\"",
+      "\"Chú ấy muốn gì?\"",
+      "\"Chú ấy nói từ tháng sau tiền mạng sẽ đắt hơn.",
+      "Chú ấy bảo mình giá tăng năm mươi nghìn đồng.\"",
+      "\"Sao vậy?",
+      "Mạng chậm thế cơ mà!\"",
+      "\"Mình cũng nói thế.",
+      "Chú ấy giải thích là công ty mạng đã đổi giá.",
+      "Chú ấy nói chú ấy không làm gì được.\"",
+      "\"Mình không vui về chuyện đó.\"",
+      "\"Mình cũng không. Nhưng chú ấy cũng nói năm nay tiền nhà sẽ không đổi.\"",
+      "\"Thế thì là tin tốt.",
+      "Mình không trả thêm tiền nhà được.\"",
+      "\"Mình cũng không. Vậy xem các hoá đơn khác đi.",
+      "Tháng trước tiền điện là tám trăm nghìn.\"",
+      "\"Nhiều quá.",
+      "Mình nghĩ tụi mình dùng điều hoà nhiều quá.\"",
+      "\"Mình cũng nghĩ vậy. Chỉ bật vào ban đêm thôi.\"",
+      "\"Được.",
+      "Còn tụi mình tiêu quá nhiều cho đồ ăn giao tận nơi.\"",
+      "\"Biết rồi,\" Nam cười.",
+      "\"Nấu ăn ở nhà nhiều hơn đi.\"",
+      "\"Ý hay.",
+      "Mình nấu được thứ Hai và thứ Tư.\"",
+      "\"Còn mình nấu những ngày khác.",
+      "Tụi mình sẽ tiết kiệm được nhiều.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại một cuộc gọi về chi phí bằng câu tường thuật (would, was going, had changed, couldn't) và đồng ý bằng Neither am I / Neither can I / So do I.",
+    "examples": [
+      {
+        "lemma": "flat",
+        "sentence": "They live in a small flat near the lake.",
+        "meaningVi": "Họ sống trong một căn hộ nhỏ gần hồ."
+      },
+      {
+        "lemma": "bill",
+        "sentence": "Can I have the bill, please?",
+        "meaningVi": "Cho tôi xin hoá đơn."
+      },
+      {
+        "lemma": "landlord",
+        "sentence": "Our landlord lives on the first floor.",
+        "meaningVi": "Chủ nhà chúng tôi sống ở tầng một."
+      },
+      {
+        "lemma": "internet",
+        "sentence": "The internet is very slow today.",
+        "meaningVi": "Hôm nay mạng rất chậm."
+      },
+      {
+        "lemma": "price",
+        "sentence": "The price of rice went up last month.",
+        "meaningVi": "Tháng trước giá gạo tăng."
+      },
+      {
+        "lemma": "explain",
+        "sentence": "Can you explain this word to me?",
+        "meaningVi": "Bạn giải thích từ này cho tôi được không?"
+      },
+      {
+        "lemma": "rent",
+        "sentence": "The rent is due on the first of the month.",
+        "meaningVi": "Tiền nhà phải trả vào ngày đầu tháng."
+      },
+      {
+        "lemma": "air conditioner",
+        "sentence": "Please turn off the air conditioner.",
+        "meaningVi": "Làm ơn tắt máy điều hoà."
+      },
+      {
+        "lemma": "spend",
+        "sentence": "I spend too much on coffee.",
+        "meaningVi": "Tôi tiêu quá nhiều tiền cho cà phê."
+      },
+      {
+        "lemma": "save",
+        "sentence": "I want to save money for a trip.",
+        "meaningVi": "Tôi muốn tiết kiệm tiền cho một chuyến đi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tuan",
+        "Nam"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Nam, did you talk to Mr Hung again?",
+          "meaningVi": "Nam ơi, cậu nói chuyện lại với chú Hùng chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. He said he would fix the kitchen light on Saturday.",
+          "meaningVi": "Rồi. Chú ấy nói thứ Bảy sẽ sửa đèn bếp."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. It's been broken for weeks.",
+          "meaningVi": "Tuyệt. Nó hỏng mấy tuần rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "I know. He also said that we could have a new fridge.",
+          "meaningVi": "Biết mà. Chú ấy còn nói tụi mình được thay tủ lạnh mới."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? The old one is so noisy.",
+          "meaningVi": "Thật à? Cái cũ ồn quá."
+        },
+        {
+          "speaker": 1,
+          "text": "I can't sleep when it starts at night.",
+          "meaningVi": "Ban đêm nó chạy là mình không ngủ được."
+        },
+        {
+          "speaker": 0,
+          "text": "Neither can I. When will it come?",
+          "meaningVi": "Mình cũng không. Khi nào tủ mới đến?"
+        },
+        {
+          "speaker": 1,
+          "text": "He told me it would come next week.",
+          "meaningVi": "Chú ấy bảo tuần sau sẽ đến."
+        },
+        {
+          "speaker": 0,
+          "text": "He's a good landlord, isn't he?",
+          "meaningVi": "Chú ấy là chủ nhà tốt, nhỉ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. I think we're lucky.",
+          "meaningVi": "Ừ. Mình nghĩ tụi mình may mắn."
+        }
+      ]
+    },
+    "grammarTipVi": "Tường thuật: He said he would fix … / He also said that we could … / He told me it would come next week. Đồng ý câu phủ định với can't: I can't sleep … – Neither can I.",
+    "translations": [
+      {
+        "vi": "Chú ấy nói tiền mạng sẽ đắt hơn.",
+        "en": "He said the internet would cost more.",
+        "distractors": [
+          "will",
+          "told",
+          "says"
+        ]
+      },
+      {
+        "vi": "Chú ấy giải thích rằng giá đã thay đổi.",
+        "en": "He explained that the price had changed.",
+        "distractors": [
+          "has",
+          "said",
+          "changes"
+        ]
+      },
+      {
+        "vi": "Chú ấy nói tiền nhà sẽ không đổi.",
+        "en": "He said the rent wouldn't change.",
+        "distractors": [
+          "won't",
+          "told",
+          "changes"
+        ]
+      },
+      {
+        "vi": "Tôi không trả thêm tiền nhà được. – Tôi cũng không.",
+        "en": "I can't pay more rent. Neither can I.",
+        "distractors": [
+          "So",
+          "do",
+          "am"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tuấn và Nam nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Những gì chủ nhà sẽ sửa và thay",
+          "Hoá đơn tiền điện",
+          "Một căn hộ mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam kể chú Hùng sẽ sửa đèn bếp và thay tủ lạnh mới.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào chú Hùng sửa đèn bếp?",
+        "promptVi": "",
+        "options": [
+          "Thứ Sáu",
+          "Thứ Bảy",
+          "Chủ nhật"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"He said he would fix the kitchen light on Saturday.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao họ cần tủ lạnh mới?",
+        "promptVi": "",
+        "options": [
+          "Tủ cũ quá ồn",
+          "Tủ cũ quá nhỏ",
+          "Tủ cũ bị mất"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn nói \"The old one is so noisy.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The new fridge will come tomorrow.",
+        "promptVi": "Ngày mai tủ lạnh mới sẽ đến.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"He told me it would come next week.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Chủ nhà đã nói gì qua điện thoại? Nam và Tuấn quyết định làm gì để tiết kiệm?",
+    "grammarStep": {
+      "titleVi": "Câu tường thuật",
+      "noticing": [
+        {
+          "sentence": "\"He said that the internet would cost more from next month.",
+          "highlights": [
+            "would cost"
+          ]
+        },
+        {
+          "sentence": "He told me the price was going up by fifty thousand dong.\"",
+          "highlights": [
+            "was going up"
+          ]
+        },
+        {
+          "sentence": "He explained that the internet company had changed its prices.",
+          "highlights": [
+            "explained that",
+            "had changed"
+          ]
+        },
+        {
+          "sentence": "He said he couldn't do anything about it.\"",
+          "highlights": [
+            "couldn't do"
+          ]
+        }
+      ],
+      "questionVi": "Chủ nhà nói: \"The internet company has changed its prices.\" Khi kể lại, has changed thành gì?",
+      "options": [
+        "had changed",
+        "changed",
+        "has changed"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Hiện tại hoàn thành lùi thành quá khứ hoàn thành: has changed → had changed.",
+      "whenVi": "Dùng câu tường thuật để kể lại cuộc gọi từ chủ nhà, công ty điện nước… cho người sống cùng.",
+      "table": [
+        {
+          "subject": "will / can",
+          "form": "will → would, can → could",
+          "negative": "won't → wouldn't, can't → couldn't"
+        },
+        {
+          "subject": "Hiện tại tiếp diễn",
+          "form": "is going up → was going up",
+          "negative": "—"
+        },
+        {
+          "subject": "Hiện tại hoàn thành",
+          "form": "has changed → had changed",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He said he can't do anything about it.",
+          "right": "He said he couldn't do anything about it."
+        },
+        {
+          "wrong": "He explained me that the company had changed its prices.",
+          "right": "He explained that the company had changed its prices."
+        }
+      ],
+      "noteVi": "Explain không đi trực tiếp với người nghe: explain that … hoặc explain to me that …, không nói explain me.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (can't).",
+          "text": "He said he ___ do anything about it.",
+          "answers": [
+            "couldn't"
+          ],
+          "explanationVi": "can't → couldn't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu tường thuật đúng của: \"The rent won't change this year.\"",
+          "text": "He said that the rent ___ this year.",
+          "options": [
+            "wouldn't change",
+            "won't change",
+            "didn't change",
+            "doesn't change"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "won't → wouldn't."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He explained me that the internet company had changed its prices.",
+          "sentence": "He explained that the internet company had changed its prices.",
+          "explanationVi": "Explain không có người nghe ngay sau: bỏ me."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chú ấy nói tiền mạng sẽ đắt hơn.",
+          "sentence": "He said the internet would cost more.",
+          "words": [
+            "said",
+            "He",
+            "the",
+            "internet",
+            "would",
+            "cost",
+            "more.",
+            "will"
+          ],
+          "explanationVi": "will → would; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He explained that the internet company had changed its prices.",
+        "tipVi": "Explained /ɪkˈspleɪnd/; changed /tʃeɪndʒd/."
+      },
+      {
+        "text": "\"Neither can I. So, let's look at the other bills.",
+        "tipVi": "Neither can I: nhấn vào I; can đọc yếu /kən/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Which bill is the biggest in your home every month?",
+        "questionVi": "Hoá đơn nào nhà bạn tốn nhiều nhất mỗi tháng?",
+        "frame": "The biggest bill is ___."
+      },
+      {
+        "question": "What do you do to save money?",
+        "questionVi": "Bạn làm gì để tiết kiệm tiền?",
+        "frame": "To save money, I ___."
+      },
+      {
+        "question": "Agree with this: \"I can't live without the internet.\"",
+        "questionVi": "Hãy đồng ý với câu: \"Tôi không sống thiếu mạng được.\"",
+        "frame": "Neither ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật (said that … / told me … / explained that …)",
+      "anyOf": [
+        " said ",
+        " told ",
+        "said that",
+        "told me",
+        "explained that"
+      ],
+      "outlineVi": [
+        "Ai gọi và gọi về chuyện gì.",
+        "Người đó nói gì (He / She said that … / explained that …).",
+        "Bạn và người nhà có đồng ý không (So do I / Neither am I …)."
+      ],
+      "modelAnswer": "Last month, the water company called my mother. The woman said that our water bill was very high. She explained that there was a problem with our pipe. She told my mother that a worker would come the next day. My mother said she wasn't happy about it, and neither was I."
+    }
+  },
+  "glosses": [
+    {
+      "text": "shares",
+      "lemma": "share",
+      "meaningVi": "ở chung",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Nam shares a flat",
+      "phraseVi": "Nam ở chung căn hộ"
+    },
+    {
+      "text": "monthly",
+      "lemma": "monthly",
+      "meaningVi": "hằng tháng",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "our monthly bills",
+      "phraseVi": "các hoá đơn hằng tháng"
+    },
+    {
+      "text": "going up",
+      "lemma": "go up",
+      "meaningVi": "tăng lên",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "the price was going up",
+      "phraseVi": "giá tăng"
+    },
+    {
+      "text": "Electricity",
+      "lemma": "electricity",
+      "meaningVi": "điện, tiền điện",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "Electricity was eight hundred thousand",
+      "phraseVi": "Tiền điện là tám trăm nghìn"
+    },
+    {
+      "text": "food delivery",
+      "lemma": "food delivery",
+      "meaningVi": "đồ ăn giao tận nơi",
+      "sentenceIndex": 23,
+      "pos": "noun",
+      "phrase": "we spend too much on food delivery",
+      "phraseVi": "tụi mình tiêu quá nhiều cho đồ ăn giao tận nơi"
+    }
+  ]
+}

@@ -1,0 +1,595 @@
+{
+  "content": "On Sunday morning, I take my cousin Sophie and her mum for a walk in the Old Quarter of Hanoi. The streets are small and busy, and there are a lot of shops. \"Don't walk in the street, because there are a lot of bikes,\" I say.\n\nFirst, we stop in front of an old house. \"Look at this house,\" I say. \"It is very old, and a family lives in it.\"\n\nThen we walk to Hoan Kiem Lake. \"Look, there's a red bridge!\" says Sophie. The bridge is between the street and a small temple. Sophie asks, \"Can we walk on the bridge?\"\n\"Yes, let's go,\" I answer.\n\nAfter that, we sit in a café on the corner of two streets. We drink egg coffee, and Sophie's mum loves it. \"Take a photo of us, Mum,\" says Sophie.",
+  "targetWords": [
+    "street",
+    "shop",
+    "in front of",
+    "house",
+    "bridge",
+    "between",
+    "café",
+    "corner"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "streets",
+        "lemma": "street",
+        "meaningVi": "con phố, đường phố",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "shops",
+        "lemma": "shop",
+        "meaningVi": "cửa hàng, cửa hiệu",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "in front of",
+        "lemma": "in front of",
+        "meaningVi": "ở phía trước",
+        "pos": "preposition",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "house",
+        "lemma": "house",
+        "meaningVi": "ngôi nhà",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "between",
+        "lemma": "between",
+        "meaningVi": "ở giữa",
+        "pos": "preposition",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "café",
+        "lemma": "café",
+        "meaningVi": "quán cà phê",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "corner",
+        "lemma": "corner",
+        "meaningVi": "góc phố",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Anna shows Sophie and her mum the Old Quarter.",
+          "Anna's school in Hanoi",
+          "A bus trip to the zoo",
+          "Sophie's house in London"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna dẫn em họ Sophie và mẹ Sophie đi dạo Phố cổ Hà Nội: xem nhà cổ, cây cầu đỏ và uống cà phê trứng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where is the red bridge?",
+        "promptVi": "Cây cầu đỏ nằm ở đâu?",
+        "options": [
+          "Behind the café",
+          "Between the street and a small temple",
+          "In front of the old house",
+          "On the corner of two streets"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"The bridge is between the street and a small temple\": cây cầu nằm giữa con phố và một ngôi đền nhỏ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't they walk in the street?",
+        "promptVi": "Vì sao mọi người không được đi dưới lòng đường?",
+        "options": [
+          "It is very small.",
+          "It is very hot.",
+          "The shops are closed.",
+          "There are a lot of bikes."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Anna nói \"Don't walk in the street, because there are a lot of bikes\": đường có nhiều xe nên đi dưới lòng đường không an toàn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Sophie's mum doesn't like egg coffee.",
+        "promptVi": "Mẹ của Sophie không thích cà phê trứng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"We drink egg coffee, and Sophie's mum loves it\": mẹ Sophie rất thích."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"corner\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "After that, we sit in a café on the corner of two streets.",
+        "options": [
+          "cuối phố",
+          "giữa phố",
+          "góc phố",
+          "đầu cầu"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Corner là góc: quán cà phê nằm ở góc, chỗ hai con phố gặp nhau."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu mệnh lệnh",
+      "bodyVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu để bảo ai làm gì: Look at this house, take a photo of us. Don't + động từ để bảo đừng làm: Don't walk in the street. Let's + động từ để rủ cả mình cùng làm: Let's go.",
+      "examples": [
+        "\"Don't walk in the street, because there are a lot of bikes,\" I say.",
+        "\"Look at this house,\" I say.",
+        "\"Yes, let's go,\" I answer."
+      ]
+    },
+    "writingPrompt": "Write about a walk in your town or city: where to go and what to see.",
+    "sentenceTranslations": [
+      "Sáng Chủ nhật, mình đưa em họ Sophie và mẹ em ấy đi dạo Phố cổ Hà Nội.",
+      "Phố ở đây nhỏ và đông đúc, và có rất nhiều cửa hàng.",
+      "\"Đừng đi dưới lòng đường, vì có rất nhiều xe,\" mình nói.",
+      "Đầu tiên, mọi người dừng lại trước một ngôi nhà cổ.",
+      "\"Mọi người nhìn ngôi nhà này đi,\" mình nói.",
+      "\"Nhà này cũ lắm rồi, và có một gia đình đang sống trong đó.\"",
+      "Sau đó mọi người đi bộ đến hồ Hoàn Kiếm.",
+      "\"Nhìn kìa, có một cây cầu màu đỏ!\" Sophie nói.",
+      "Cây cầu nằm giữa con phố và một ngôi đền nhỏ.",
+      "Sophie hỏi: \"Mình đi lên cầu được không chị?\"",
+      "\"Được chứ, đi nào,\" mình trả lời.",
+      "Sau đó, mọi người ngồi trong một quán cà phê ở góc của hai con phố.",
+      "Mọi người uống cà phê trứng, và mẹ Sophie rất thích.",
+      "\"Mẹ chụp cho bọn con một tấm ảnh đi,\" Sophie nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể dẫn ai đó đi dạo, bảo họ nhìn gì, đừng làm gì và rủ cùng làm, dùng câu mệnh lệnh, Let's … và giới từ chỉ nơi chốn.",
+    "examples": [
+      {
+        "lemma": "street",
+        "sentence": "This street is very busy.",
+        "meaningVi": "Con phố này rất đông đúc."
+      },
+      {
+        "lemma": "shop",
+        "sentence": "There is a shoe shop on the corner.",
+        "meaningVi": "Có một cửa hàng giày ở góc phố."
+      },
+      {
+        "lemma": "in front of",
+        "sentence": "Wait for me in front of the café.",
+        "meaningVi": "Đợi mình ở trước quán cà phê nhé."
+      },
+      {
+        "lemma": "house",
+        "sentence": "This house is very old.",
+        "meaningVi": "Ngôi nhà này rất cũ."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "The bridge is red.",
+        "meaningVi": "Cây cầu màu đỏ."
+      },
+      {
+        "lemma": "between",
+        "sentence": "The bank is between the hotel and the café.",
+        "meaningVi": "Ngân hàng nằm giữa khách sạn và quán cà phê."
+      },
+      {
+        "lemma": "café",
+        "sentence": "Let's meet in the café.",
+        "meaningVi": "Mình gặp nhau ở quán cà phê nhé."
+      },
+      {
+        "lemma": "corner",
+        "sentence": "The post office is on the corner.",
+        "meaningVi": "Bưu điện ở góc phố."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huy",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Huy, what can we see in the Old Quarter?",
+          "meaningVi": "Huy ơi, ở Phố cổ có gì để xem?"
+        },
+        {
+          "speaker": 0,
+          "text": "A lot of old houses and small shops. Let's go on Sunday!",
+          "meaningVi": "Rất nhiều nhà cổ và cửa hàng nhỏ. Chủ nhật mình đi nhé!"
+        },
+        {
+          "speaker": 1,
+          "text": "Great! Where do we meet?",
+          "meaningVi": "Tuyệt! Mình gặp nhau ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Wait for me in front of the post office.",
+          "meaningVi": "Cậu đợi mình ở trước bưu điện nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "What time?",
+          "meaningVi": "Mấy giờ?"
+        },
+        {
+          "speaker": 0,
+          "text": "At eight o'clock. Don't be late!",
+          "meaningVi": "Tám giờ. Đừng đến muộn đấy!"
+        },
+        {
+          "speaker": 1,
+          "text": "Is there a good café there?",
+          "meaningVi": "Ở đó có quán cà phê nào ngon không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there's one on the corner, near the bank.",
+          "meaningVi": "Có, có một quán ở góc phố, gần ngân hàng."
+        },
+        {
+          "speaker": 1,
+          "text": "Can we drink egg coffee?",
+          "meaningVi": "Mình uống cà phê trứng được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, we can. Try it, it's very good!",
+          "meaningVi": "Được chứ. Cậu thử đi, ngon lắm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Rủ nhau đi: Let's go on Sunday! Hẹn chỗ gặp: Wait for me in front of the post office. Dặn: Don't be late!",
+    "translations": [
+      {
+        "vi": "Đừng đi dưới lòng đường.",
+        "en": "Don't walk in the street.",
+        "distractors": [
+          "No",
+          "walks",
+          "on"
+        ]
+      },
+      {
+        "vi": "Nhìn ngôi nhà này đi.",
+        "en": "Look at this house.",
+        "distractors": [
+          "Looks",
+          "see",
+          "these"
+        ]
+      },
+      {
+        "vi": "Cây cầu nằm giữa con phố và một ngôi đền nhỏ.",
+        "en": "The bridge is between the street and a small temple.",
+        "distractors": [
+          "behind",
+          "are",
+          "big"
+        ]
+      },
+      {
+        "vi": "Chúng tôi ngồi trong một quán cà phê ở góc phố.",
+        "en": "We sit in a café on the corner.",
+        "distractors": [
+          "sits",
+          "behind",
+          "under"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Huy và Tom đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi xe buýt đến trường",
+          "Hẹn nhau đi dạo Phố cổ",
+          "Nói về món trứng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy rủ \"Let's go on Sunday!\" rồi hai bạn hẹn chỗ gặp và giờ gặp.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hai bạn gặp nhau ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trước bưu điện",
+          "Trong quán cà phê",
+          "Ở ngân hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy nói \"Wait for me in front of the post office.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hai bạn gặp nhau lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Bảy giờ",
+          "Tám giờ",
+          "Chín giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy nói \"At eight o'clock. Don't be late!\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The café is near the bank.",
+        "promptVi": "Quán cà phê ở gần ngân hàng.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Huy nói \"there's one on the corner, near the bank.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Anna dẫn Sophie và mẹ đi qua những nơi nào trong Phố cổ?",
+    "grammarStep": {
+      "titleVi": "Câu mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"Don't walk in the street, because there are a lot of bikes,\" I say.",
+          "highlights": [
+            "Don't walk"
+          ]
+        },
+        {
+          "sentence": "\"Look at this house,\" I say.",
+          "highlights": [
+            "Look at"
+          ]
+        },
+        {
+          "sentence": "\"Yes, let's go,\" I answer.",
+          "highlights": [
+            "let's go"
+          ]
+        },
+        {
+          "sentence": "\"Take a photo of us, Mum,\" says Sophie.",
+          "highlights": [
+            "Take"
+          ]
+        }
+      ],
+      "questionVi": "\"Let's go\" khác \"Go\" ở chỗ nào?",
+      "options": [
+        "Let's go là rủ cả mình cùng đi, còn Go là bảo người khác đi",
+        "Let's go là một câu hỏi",
+        "Không khác, nghĩa giống hệt nhau"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Let's (= let us) + động từ là rủ mọi người, kể cả mình, cùng làm: Let's go = mình cùng đi nào. Look, Take, Don't walk là bảo người khác làm hay đừng làm.",
+      "whenVi": "Dùng câu mệnh lệnh để bảo ai đó làm hay đừng làm gì, và Let's + động từ để rủ mọi người cùng làm.",
+      "table": [
+        {
+          "subject": "Bảo làm",
+          "form": "Look at this house. Take a photo.",
+          "negative": "Don't walk in the street."
+        },
+        {
+          "subject": "Rủ cùng làm (Let's)",
+          "form": "Let's go. Let's walk on the bridge.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Let's to go.",
+          "right": "Let's go."
+        },
+        {
+          "wrong": "Don't walks in the street.",
+          "right": "Don't walk in the street."
+        }
+      ],
+      "noteVi": "Người Việt hay thêm to sau Let's (vì nhớ want to) và thêm -s sau Don't; sau Let's và Don't, động từ luôn giữ nguyên.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ để rủ mọi người cùng đi (\"mình cùng … nào\").",
+          "text": "___ go to the café. I'm hungry!",
+          "answers": [
+            "Let's",
+            "Let’s",
+            "let's"
+          ],
+          "explanationVi": "Rủ mọi người cùng làm dùng Let's + động từ: Let's go."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ at this old house!",
+          "options": [
+            "Looks",
+            "Look",
+            "To look",
+            "Is look"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu: Look at …"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Let's to walk on the bridge.",
+          "sentence": "Let's walk on the bridge.",
+          "explanationVi": "Sau Let's, động từ giữ nguyên, không có to: Let's walk."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đợi mình ở trước bưu điện.",
+          "sentence": "Wait for me in front of the post office.",
+          "words": [
+            "office",
+            "for",
+            "Wait",
+            "in",
+            "the",
+            "me",
+            "front",
+            "post",
+            "of",
+            "Waits"
+          ],
+          "explanationVi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên mẫu Wait; từ \"Waits\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "First, we stop in front of an old house.",
+        "tipVi": "First /fɝst/ có âm /ɝ/ uốn lưỡi và cụm /st/ ở cuối; front /frʌnt/ có cụm /fr/ ở đầu."
+      },
+      {
+        "text": "The bridge is between the street and a small temple.",
+        "tipVi": "Bridge /brɪdʒ/ kết thúc bằng /dʒ/; between /bɪˈtwin/ nhấn ở âm thứ hai; street /strit/ có cụm /str/ ở đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where do you like to go in your city?",
+        "questionVi": "Bạn thích đi đâu trong thành phố của mình?",
+        "frame": "I like to go to ___. It's near ___."
+      },
+      {
+        "question": "Is there a café near your home?",
+        "questionVi": "Gần nhà bạn có quán cà phê không?",
+        "frame": "Yes, there is. It's on the corner of ___. / No, there isn't."
+      },
+      {
+        "question": "Where does your best friend like to go at the weekend?",
+        "questionVi": "Cuối tuần bạn thân của bạn thích đi đâu?",
+        "frame": "He / She likes to go to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu mệnh lệnh hoặc Let's …",
+      "anyOf": [
+        "let's",
+        "look",
+        "go",
+        "walk",
+        "don't",
+        "take"
+      ],
+      "outlineVi": [
+        "Rủ người đọc đi dạo (Let's …) và nói đi đâu trước.",
+        "Bảo họ nhìn gì và nói nơi đó ở đâu (Look at …, it's between …).",
+        "Dặn một điều (Don't …) hoặc rủ làm gì ở cuối."
+      ],
+      "modelAnswer": "Let's walk in my town on Sunday! First, go to the big park in front of the school. Look at the old trees there. Then walk to the bridge. The bridge is between the park and the river. Don't forget your phone, because you can take a lot of photos!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "for a walk",
+      "lemma": "go for a walk",
+      "meaningVi": "đi dạo",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "for a walk in the Old Quarter",
+      "phraseVi": "đi dạo Phố cổ"
+    },
+    {
+      "text": "busy",
+      "lemma": "busy",
+      "meaningVi": "đông đúc, nhộn nhịp",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "small and busy",
+      "phraseVi": "nhỏ và đông đúc"
+    },
+    {
+      "text": "bikes",
+      "lemma": "bike",
+      "meaningVi": "xe (xe đạp, xe máy)",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "there are a lot of bikes",
+      "phraseVi": "có rất nhiều xe"
+    },
+    {
+      "text": "First",
+      "lemma": "first",
+      "meaningVi": "đầu tiên",
+      "sentenceIndex": 3,
+      "pos": "adverb",
+      "phrase": "First, we stop",
+      "phraseVi": "Đầu tiên, mọi người dừng lại"
+    },
+    {
+      "text": "lives in it",
+      "lemma": "live in",
+      "meaningVi": "sống trong đó",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "a family lives in it",
+      "phraseVi": "có một gia đình sống trong đó"
+    },
+    {
+      "text": "temple",
+      "lemma": "temple",
+      "meaningVi": "ngôi đền",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "a small temple",
+      "phraseVi": "một ngôi đền nhỏ"
+    },
+    {
+      "text": "let's go",
+      "lemma": "let's",
+      "meaningVi": "mình cùng đi nào",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "Yes, let's go",
+      "phraseVi": "Được chứ, đi nào"
+    },
+    {
+      "text": "egg coffee",
+      "lemma": "egg coffee",
+      "meaningVi": "cà phê trứng",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "We drink egg coffee",
+      "phraseVi": "Mọi người uống cà phê trứng"
+    },
+    {
+      "text": "Take a photo",
+      "lemma": "take a photo",
+      "meaningVi": "chụp ảnh",
+      "sentenceIndex": 13,
+      "pos": "phrase",
+      "phrase": "Take a photo of us, Mum",
+      "phraseVi": "Mẹ chụp cho bọn con một tấm ảnh đi"
+    }
+  ]
+}

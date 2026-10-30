@@ -1,0 +1,591 @@
+{
+  "content": "It's six o'clock, and Hoa is ready to go home. She takes her bag and comes out of her office building.\n\nIt's raining a little, so she opens her umbrella. She walks along the street and goes past her favourite coffee shop. It smells of hot coffee and cake.\nTam, the young man in the shop, asks, \"Hi, Hoa! Do you want a coffee?\"\nHoa says, \"Not today, thanks. I need to catch my bus.\"\n\nHer bus stop is on the other side of a very busy road. There is no traffic light here, so she goes up the steps of the bridge over the road. From the top, she can see a long line of cars and bikes below her.\nShe walks across the bridge and comes down the steps on the other side. Just then, her bus arrives. She runs to the bus stop and gets on the bus. She can't find a seat, so she stands near the door.\n\nTwenty minutes later, she gets off the bus and walks into her street. She is home!",
+  "targetWords": [
+    "ready",
+    "favourite",
+    "smell",
+    "catch",
+    "bus stop",
+    "step",
+    "top",
+    "line"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "ready",
+        "lemma": "ready",
+        "meaningVi": "sẵn sàng",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "favourite",
+        "lemma": "favourite",
+        "meaningVi": "yêu thích",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "smells",
+        "lemma": "smell",
+        "meaningVi": "có mùi",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "catch",
+        "lemma": "catch",
+        "meaningVi": "bắt (xe)",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "bus stop",
+        "lemma": "bus stop",
+        "meaningVi": "bến xe buýt",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "steps",
+        "lemma": "step",
+        "meaningVi": "bậc thang",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "top",
+        "lemma": "top",
+        "meaningVi": "đỉnh, trên cùng",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "line",
+        "lemma": "line",
+        "meaningVi": "hàng, dòng",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Hoa's way home from work by bus",
+          "Hoa buys a cake at a coffee shop.",
+          "Tam drives Hoa home.",
+          "A new bridge in Hoa's city"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài kể Hoa tan làm, đi bộ qua quán cà phê, qua cầu vượt rồi bắt xe buýt về nhà."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Hoa open her umbrella?",
+        "promptVi": "Vì sao Hoa mở ô?",
+        "options": [
+          "It is very sunny.",
+          "It is raining a little.",
+          "It is very windy.",
+          "She wants to hide from Tam."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết: \"It's raining a little, so she opens her umbrella.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Hoa go up the steps of the bridge?",
+        "promptVi": "Vì sao Hoa đi lên cầu thang cầu vượt?",
+        "options": [
+          "She wants to see the cars.",
+          "Her office is on the bridge.",
+          "The bus stops on the bridge.",
+          "There is no traffic light, and the road is very busy."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết: \"There is no traffic light here, so she goes up the steps of the bridge over the road.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa has a coffee with Tam.",
+        "promptVi": "Hoa uống cà phê với Tâm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"Not today, thanks. I need to catch my bus.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"below\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "From the top, she can see a long line of cars and bikes below her.",
+        "options": [
+          "phía trên",
+          "phía dưới",
+          "bên cạnh",
+          "phía sau"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Below = ở phía dưới: Hoa đứng trên cầu nhìn xuống dòng xe bên dưới."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "bodyVi": "Đường về nhà của Hoa: come out of her office building (ra khỏi), walk along the street (dọc theo), go past the coffee shop (ngang qua), go up the steps (đi lên), walk across the bridge (đi qua cầu), come down the steps (đi xuống), get on / get off the bus (lên / xuống xe buýt), walk into her street (đi vào phố nhà mình).",
+      "examples": [
+        "She takes her bag and comes out of her office building.",
+        "She walks along the street and goes past her favourite coffee shop.",
+        "She walks across the bridge and comes down the steps on the other side."
+      ]
+    },
+    "writingPrompt": "Write about your way home from school or work: where do you go out of, along, past and across?",
+    "sentenceTranslations": [
+      "Sáu giờ rồi, và Hoa đã sẵn sàng về nhà.",
+      "Cô cầm túi và đi ra khỏi toà nhà văn phòng.",
+      "Trời đang mưa lất phất, nên cô mở ô.",
+      "Cô đi dọc con phố và đi ngang qua quán cà phê yêu thích.",
+      "Quán thơm mùi cà phê nóng và bánh ngọt.",
+      "Tâm, chàng trai trong quán, hỏi: \"Chào Hoa!",
+      "Chị uống cà phê không?\"",
+      "Hoa nói: \"Hôm nay thì thôi, cảm ơn em.",
+      "Chị phải bắt xe buýt.\"",
+      "Bến xe buýt của cô ở bên kia một con đường rất đông.",
+      "Ở đây không có đèn giao thông, nên cô đi lên cầu thang của cây cầu vượt qua đường.",
+      "Từ trên cao, cô thấy một hàng dài ô tô và xe máy bên dưới.",
+      "Cô đi qua cầu rồi đi xuống cầu thang ở phía bên kia.",
+      "Đúng lúc đó, xe buýt của cô đến.",
+      "Cô chạy ra bến và lên xe.",
+      "Cô không tìm được chỗ ngồi, nên đứng gần cửa.",
+      "Hai mươi phút sau, cô xuống xe và đi bộ vào con phố nhà mình.",
+      "Cô đã về đến nhà!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể đường đi về nhà bằng out of, along, past, up, across, down, on / off.",
+    "examples": [
+      {
+        "lemma": "ready",
+        "sentence": "Are you ready to go?",
+        "meaningVi": "Bạn sẵn sàng đi chưa?"
+      },
+      {
+        "lemma": "favourite",
+        "sentence": "Blue is my favourite colour.",
+        "meaningVi": "Màu xanh dương là màu tôi thích nhất."
+      },
+      {
+        "lemma": "smell",
+        "sentence": "I love the smell of coffee.",
+        "meaningVi": "Tôi thích mùi cà phê."
+      },
+      {
+        "lemma": "catch",
+        "sentence": "I catch the bus at seven.",
+        "meaningVi": "Tôi bắt xe buýt lúc bảy giờ."
+      },
+      {
+        "lemma": "bus stop",
+        "sentence": "The bus stop is near my house.",
+        "meaningVi": "Bến xe buýt ở gần nhà tôi."
+      },
+      {
+        "lemma": "step",
+        "sentence": "Be careful. There is a step here.",
+        "meaningVi": "Cẩn thận. Ở đây có một bậc."
+      },
+      {
+        "lemma": "top",
+        "sentence": "We can see the sea from the top of the hill.",
+        "meaningVi": "Từ đỉnh đồi có thể nhìn thấy biển."
+      },
+      {
+        "lemma": "line",
+        "sentence": "There is a long line of people at the shop.",
+        "meaningVi": "Có một hàng người dài ở cửa hàng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Hoa",
+        "Sam"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hoa, where is your bus stop?",
+          "meaningVi": "Hoa ơi, bến xe buýt của chị ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's on the other side of the big road.",
+          "meaningVi": "Ở bên kia con đường lớn."
+        },
+        {
+          "speaker": 1,
+          "text": "How do you get there? The traffic is terrible.",
+          "meaningVi": "Chị sang đó thế nào? Xe cộ đông kinh khủng."
+        },
+        {
+          "speaker": 0,
+          "text": "I go over the bridge. I walk up the steps and across.",
+          "meaningVi": "Chị đi cầu vượt. Chị đi lên cầu thang rồi đi qua."
+        },
+        {
+          "speaker": 1,
+          "text": "Isn't there a traffic light?",
+          "meaningVi": "Ở đó không có đèn giao thông à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, there isn't. So the bridge is the best way.",
+          "meaningVi": "Không có. Nên đi cầu vượt là tốt nhất."
+        },
+        {
+          "speaker": 1,
+          "text": "And then you come down on the other side?",
+          "meaningVi": "Rồi chị đi xuống ở phía bên kia à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, and the bus stop is right there.",
+          "meaningVi": "Ừ, và bến xe buýt ở ngay đó."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I walk with you? I take the same bus.",
+          "meaningVi": "Em đi cùng chị được không? Em cũng đi chuyến đó."
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Let's go out of the building together.",
+          "meaningVi": "Tất nhiên. Mình cùng ra khỏi toà nhà nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Go over the bridge: đi trên cầu vượt. Walk up the steps and across: đi lên rồi đi qua. Come down: đi xuống. Go out of the building: đi ra khỏi toà nhà.",
+    "translations": [
+      {
+        "vi": "Cô ấy ra khỏi toà nhà, sẵn sàng về nhà.",
+        "en": "She comes out of the building, ready to go home.",
+        "distractors": [
+          "into",
+          "came",
+          "over"
+        ]
+      },
+      {
+        "vi": "Cô ấy đi ngang qua quán cà phê yêu thích.",
+        "en": "She goes past her favourite coffee shop.",
+        "distractors": [
+          "into",
+          "through",
+          "went"
+        ]
+      },
+      {
+        "vi": "Cô ấy đi lên cầu thang.",
+        "en": "She goes up the steps.",
+        "distractors": [
+          "down",
+          "into",
+          "went"
+        ]
+      },
+      {
+        "vi": "Cô ấy xuống xe buýt ở bến.",
+        "en": "She gets off the bus at the bus stop.",
+        "distractors": [
+          "on",
+          "into",
+          "got"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Sam hỏi Hoa về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đường ra bến xe buýt",
+          "Quán cà phê gần đó",
+          "Giờ tan làm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sam hỏi \"where is your bus stop?\" và cách sang đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hoa sang bên kia đường bằng cách nào?",
+        "promptVi": "",
+        "options": [
+          "Đi qua đèn giao thông",
+          "Đi cầu vượt",
+          "Đi taxi"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"I go over the bridge.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bến xe buýt ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Trước toà nhà văn phòng",
+          "Cạnh quán cà phê",
+          "Ngay chỗ chân cầu phía bên kia"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hoa nói \"the bus stop is right there\" — ngay chỗ cô đi xuống ở phía bên kia.",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "There is a traffic light on the big road.",
+        "promptVi": "Trên con đường lớn có đèn giao thông.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"No, there isn't.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Hoa đi những đâu từ văn phòng đến nhà? Ghi lại từng giới từ chỉ hướng.",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "noticing": [
+        {
+          "sentence": "She takes her bag and comes out of her office building.",
+          "highlights": [
+            "out of"
+          ]
+        },
+        {
+          "sentence": "She walks along the street and goes past her favourite coffee shop.",
+          "highlights": [
+            "along",
+            "past"
+          ]
+        },
+        {
+          "sentence": "There is no traffic light here, so she goes up the steps of the bridge over the road.",
+          "highlights": [
+            "up",
+            "over"
+          ]
+        },
+        {
+          "sentence": "She walks across the bridge and comes down the steps on the other side.",
+          "highlights": [
+            "across",
+            "down"
+          ]
+        }
+      ],
+      "questionVi": "Với xe buýt, ta nói \"get on / get off\" hay \"get into / get out of\"?",
+      "options": [
+        "get on / get off the bus",
+        "get into / get out of the bus",
+        "Cả hai đều không dùng"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Xe buýt, tàu, máy bay, xe đạp: get on / get off. Ô tô, taxi: get into / get out of.",
+      "whenVi": "Dùng các cặp: out of ↔ into, up ↔ down, on ↔ off.",
+      "table": [
+        {
+          "subject": "out of ↔ into",
+          "form": "come out of the building",
+          "negative": "walk into her street"
+        },
+        {
+          "subject": "up ↔ down",
+          "form": "go up the steps",
+          "negative": "come down the steps"
+        },
+        {
+          "subject": "on ↔ off",
+          "form": "get on the bus",
+          "negative": "get off the bus"
+        },
+        {
+          "subject": "along / past / across",
+          "form": "walk along the street, past the shop, across the bridge",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She gets into the bus.",
+          "right": "She gets on the bus."
+        },
+        {
+          "wrong": "She comes out from of her office.",
+          "right": "She comes out of her office."
+        }
+      ],
+      "noteVi": "Over chỉ vị trí phía trên (the bridge over the road); across chỉ hướng đi từ đầu này sang đầu kia (walk across the bridge).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền on hoặc off.",
+          "text": "Twenty minutes later, she gets ___ the bus and walks home.",
+          "answers": [
+            "off"
+          ],
+          "explanationVi": "Xuống xe buýt: get off."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "She goes ___ the steps of the bridge.",
+          "options": [
+            "up",
+            "into",
+            "out of",
+            "past"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Đi lên cầu thang: go up the steps."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She comes out her office building.",
+          "sentence": "She comes out of her office building.",
+          "explanationVi": "Ra khỏi một nơi: come out of."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy đi dọc con phố.",
+          "sentence": "She walks along the street.",
+          "words": [
+            "along",
+            "She",
+            "street",
+            "walks",
+            "the",
+            "over"
+          ],
+          "explanationVi": "Dọc theo: along; từ \"over\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It smells of hot coffee and cake.",
+        "tipVi": "Smells /smelz/ kết thúc bằng /z/; coffee /ˈkɒfi/ nhấn âm đầu."
+      },
+      {
+        "text": "Just then, her bus arrives.",
+        "tipVi": "Arrives /əˈraɪvz/ nhấn âm thứ hai, kết thúc bằng /z/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How do you go home from school or work?",
+        "questionVi": "Bạn đi học hoặc đi làm về nhà thế nào?",
+        "frame": "I go home by ___."
+      },
+      {
+        "question": "Do you go past a shop on your way home?",
+        "questionVi": "Trên đường về bạn có đi ngang qua cửa hàng nào không?",
+        "frame": "Yes, I go past ___. / No, I don't."
+      },
+      {
+        "question": "Where does your friend catch the bus?",
+        "questionVi": "Bạn của bạn bắt xe buýt ở đâu?",
+        "frame": "He / She catches the bus at ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 giới từ chỉ chuyển động (out of, along, past, up, down, across, over…)",
+      "anyOf": [
+        "out of",
+        "along",
+        "past",
+        "up",
+        "down",
+        "across",
+        "over",
+        "into",
+        "through"
+      ],
+      "outlineVi": [
+        "Mấy giờ bạn ra khỏi trường / chỗ làm.",
+        "Kể đường về theo thứ tự với giới từ chuyển động.",
+        "Bạn về đến nhà lúc mấy giờ và làm gì."
+      ],
+      "modelAnswer": "At five o'clock, I come out of school with my friend. We walk along the street and go past a small cake shop. It smells of cake. Then we walk across the road at the traffic light. My bus stop is on the corner. I get on the bus, and fifteen minutes later I get off near my house."
+    }
+  },
+  "glosses": [
+    {
+      "text": "comes out of",
+      "lemma": "come out of",
+      "meaningVi": "đi ra khỏi",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "comes out of her office building",
+      "phraseVi": "đi ra khỏi toà nhà văn phòng"
+    },
+    {
+      "text": "umbrella",
+      "lemma": "umbrella",
+      "meaningVi": "cái ô",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "she opens her umbrella",
+      "phraseVi": "cô mở ô"
+    },
+    {
+      "text": "traffic light",
+      "lemma": "traffic light",
+      "meaningVi": "đèn giao thông",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "There is no traffic light here",
+      "phraseVi": "Ở đây không có đèn giao thông"
+    },
+    {
+      "text": "below",
+      "lemma": "below",
+      "meaningVi": "ở phía dưới",
+      "sentenceIndex": 11,
+      "pos": "preposition",
+      "phrase": "cars and bikes below her",
+      "phraseVi": "ô tô và xe máy bên dưới"
+    },
+    {
+      "text": "arrives",
+      "lemma": "arrive",
+      "meaningVi": "đến",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "her bus arrives",
+      "phraseVi": "xe buýt của cô đến"
+    },
+    {
+      "text": "gets on",
+      "lemma": "get on",
+      "meaningVi": "lên (xe buýt)",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "gets on the bus",
+      "phraseVi": "lên xe"
+    },
+    {
+      "text": "gets off",
+      "lemma": "get off",
+      "meaningVi": "xuống (xe buýt)",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "she gets off the bus",
+      "phraseVi": "cô xuống xe"
+    }
+  ]
+}

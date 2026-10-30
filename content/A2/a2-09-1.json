@@ -1,0 +1,588 @@
+{
+  "content": "My name is Linh, and I work in an office in Hanoi. Every morning, I ride my bike to work.\n\nI leave my house at seven and go along a small road to the river. Then I ride across Long Bien Bridge. It is a very old bridge, and trains go over it too. When a train goes past, the bridge is very noisy!\n\nFrom the bridge, I can see the Red River and the city. After the bridge, I go down into the busy streets of the Old Quarter. There is a lot of traffic, and everybody is in a hurry. I go past Dong Xuan Market and through two small streets. Then I turn into a quiet road, and my office is at the end of it.\n\nThe trip takes about thirty minutes. My friend Thu asks me, \"Why don't you go by bus?\" She thinks the bike is too slow. But I don't want to change. I love the bridge in the morning, and the bike is cheaper than the bus!",
+  "targetWords": [
+    "ride",
+    "bike",
+    "road",
+    "bridge",
+    "train",
+    "noisy",
+    "traffic",
+    "minute"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "ride",
+        "lemma": "ride",
+        "meaningVi": "đạp xe, đi (xe)",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "bike",
+        "lemma": "bike",
+        "meaningVi": "xe đạp",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "road",
+        "lemma": "road",
+        "meaningVi": "con đường",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "trains",
+        "lemma": "train",
+        "meaningVi": "tàu hoả",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "noisy",
+        "lemma": "noisy",
+        "meaningVi": "ồn ào",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "traffic",
+        "lemma": "traffic",
+        "meaningVi": "xe cộ, giao thông",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "minutes",
+        "lemma": "minute",
+        "meaningVi": "phút",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text about?",
+        "promptVi": "Bài đọc nói về điều gì?",
+        "options": [
+          "Linh's new bike",
+          "How Linh goes to work every morning",
+          "A train trip across Vietnam",
+          "Linh's friend Thu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh kể đường đạp xe đi làm mỗi sáng, qua cầu Long Biên và phố cổ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long does Linh's trip take?",
+        "promptVi": "Linh đi làm mất bao lâu?",
+        "options": [
+          "About ten minutes",
+          "About an hour",
+          "About thirty minutes",
+          "Two hours"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"The trip takes about thirty minutes.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "When is the bridge very noisy?",
+        "promptVi": "Khi nào cây cầu rất ồn?",
+        "options": [
+          "In the morning",
+          "At night",
+          "When it rains",
+          "When a train goes past"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Linh viết \"When a train goes past, the bridge is very noisy!\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh wants to go to work by bus.",
+        "promptVi": "Linh muốn đi làm bằng xe buýt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh viết \"But I don't want to change.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"in a hurry\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "There is a lot of traffic, and everybody is in a hurry.",
+        "options": [
+          "đang vội",
+          "đang nghỉ",
+          "đang lạc đường",
+          "đang vui"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "In a hurry = đang vội, muốn đi thật nhanh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "bodyVi": "Giới từ chỉ chuyển động đi sau động từ di chuyển (go, ride, walk, drive) để nói đi theo hướng nào: along (dọc theo), across (băng qua, từ bên này sang bên kia), over (bên trên, vượt qua), past (đi ngang qua), through (xuyên qua), into (đi vào trong), down (đi xuống). Ví dụ: ride across Long Bien Bridge, go past Dong Xuan Market, turn into a quiet road.",
+      "examples": [
+        "Then I ride across Long Bien Bridge.",
+        "After the bridge, I go down into the busy streets of the Old Quarter.",
+        "I go past Dong Xuan Market and through two small streets."
+      ]
+    },
+    "writingPrompt": "Write about how you go to school or work: which roads, bridges or streets do you go along, across or through?",
+    "sentenceTranslations": [
+      "Tôi tên là Linh, và tôi làm việc ở một văn phòng tại Hà Nội.",
+      "Sáng nào tôi cũng đạp xe đi làm.",
+      "Tôi ra khỏi nhà lúc bảy giờ và đi dọc một con đường nhỏ ra đến sông.",
+      "Rồi tôi đạp xe qua cầu Long Biên.",
+      "Đó là một cây cầu rất cũ, và tàu hoả cũng chạy trên cầu.",
+      "Khi tàu chạy qua, cây cầu ồn lắm!",
+      "Từ trên cầu, tôi nhìn thấy sông Hồng và cả thành phố.",
+      "Qua cầu, tôi đi xuống những con phố đông đúc của khu phố cổ.",
+      "Xe cộ rất đông, và ai cũng vội.",
+      "Tôi đi ngang qua chợ Đồng Xuân và xuyên qua hai con phố nhỏ.",
+      "Rồi tôi rẽ vào một con đường yên tĩnh, và văn phòng của tôi ở cuối đường.",
+      "Quãng đường mất khoảng ba mươi phút.",
+      "Bạn tôi là Thu hỏi: \"Sao cậu không đi xe buýt?\"",
+      "Cô ấy nghĩ đi xe đạp chậm quá.",
+      "Nhưng tôi không muốn đổi.",
+      "Tôi yêu cây cầu vào buổi sáng, mà đi xe đạp còn rẻ hơn xe buýt!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể tả đường đi làm, đi học bằng các giới từ chỉ chuyển động: along, across, over, past, through, into.",
+    "examples": [
+      {
+        "lemma": "ride",
+        "sentence": "I ride to school with my brother.",
+        "meaningVi": "Tôi đạp xe đến trường cùng anh trai."
+      },
+      {
+        "lemma": "bike",
+        "sentence": "My bike is red.",
+        "meaningVi": "Xe đạp của tôi màu đỏ."
+      },
+      {
+        "lemma": "road",
+        "sentence": "This road is very long.",
+        "meaningVi": "Con đường này rất dài."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "There is a bridge over the river.",
+        "meaningVi": "Có một cây cầu bắc qua sông."
+      },
+      {
+        "lemma": "train",
+        "sentence": "The train leaves at eight.",
+        "meaningVi": "Tàu khởi hành lúc tám giờ."
+      },
+      {
+        "lemma": "noisy",
+        "sentence": "The street is noisy at night.",
+        "meaningVi": "Ban đêm con phố rất ồn."
+      },
+      {
+        "lemma": "traffic",
+        "sentence": "There is a lot of traffic in the morning.",
+        "meaningVi": "Buổi sáng xe cộ rất đông."
+      },
+      {
+        "lemma": "minute",
+        "sentence": "Wait a minute, please.",
+        "meaningVi": "Vui lòng đợi một phút."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Peter"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, how do you get to work?",
+          "meaningVi": "Linh ơi, cậu đi làm bằng gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I ride my bike across Long Bien Bridge.",
+          "meaningVi": "Mình đạp xe qua cầu Long Biên."
+        },
+        {
+          "speaker": 1,
+          "text": "Across the old bridge? Is it safe?",
+          "meaningVi": "Qua cây cầu cũ ấy à? Có an toàn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. Trains go over it too.",
+          "meaningVi": "Có chứ. Tàu hoả cũng chạy trên đó mà."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow. What do you do after the bridge?",
+          "meaningVi": "Chà. Qua cầu rồi cậu đi thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "I go through the Old Quarter and past Dong Xuan Market.",
+          "meaningVi": "Mình đi xuyên qua phố cổ và ngang qua chợ Đồng Xuân."
+        },
+        {
+          "speaker": 1,
+          "text": "Isn't the traffic terrible there?",
+          "meaningVi": "Ở đó xe cộ không kinh khủng à?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's busy, but I ride slowly.",
+          "meaningVi": "Đông lắm, nhưng mình đi chậm."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I come with you one day?",
+          "meaningVi": "Hôm nào mình đi cùng cậu được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course! Meet me at the bridge at seven.",
+          "meaningVi": "Tất nhiên! Bảy giờ gặp mình ở cầu nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Across the bridge: đi từ đầu này sang đầu kia cầu. Over it: đi trên cầu. Through the Old Quarter: xuyên qua khu phố. Past the market: đi ngang qua chợ, không vào.",
+    "translations": [
+      {
+        "vi": "Tôi đạp xe qua cây cầu.",
+        "en": "I ride across the bridge.",
+        "distractors": [
+          "through",
+          "into",
+          "rode"
+        ]
+      },
+      {
+        "vi": "Tàu chạy trên cầu.",
+        "en": "Trains go over the bridge.",
+        "distractors": [
+          "into",
+          "through",
+          "goes"
+        ]
+      },
+      {
+        "vi": "Tôi đi ngang qua chợ trên con đường này.",
+        "en": "I go past the market on this road.",
+        "distractors": [
+          "into",
+          "through",
+          "passed"
+        ]
+      },
+      {
+        "vi": "Đi làm mất ba mươi phút.",
+        "en": "The trip to work takes thirty minutes.",
+        "distractors": [
+          "took",
+          "hour",
+          "hours"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Peter hỏi Linh về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đường Linh đi làm",
+          "Chuyến du lịch của Linh",
+          "Xe đạp mới của Peter"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Peter hỏi \"how do you get to work?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Qua cầu rồi Linh đi đâu?",
+        "promptVi": "",
+        "options": [
+          "Vào chợ Đồng Xuân",
+          "Xuyên qua phố cổ",
+          "Về nhà"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"I go through the Old Quarter and past Dong Xuan Market.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ hẹn gặp nhau ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở chợ",
+          "Ở văn phòng",
+          "Ở cầu"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"Meet me at the bridge at seven.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh goes very fast in the Old Quarter.",
+        "promptVi": "Linh đạp xe rất nhanh trong phố cổ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"I ride slowly.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Linh đi qua những nơi nào trên đường đi làm, và đi theo hướng nào?",
+    "grammarStep": {
+      "titleVi": "Giới từ chỉ chuyển động (into, across, along, through)",
+      "noticing": [
+        {
+          "sentence": "I leave my house at seven and go along a small road to the river.",
+          "highlights": [
+            "along"
+          ]
+        },
+        {
+          "sentence": "Then I ride across Long Bien Bridge.",
+          "highlights": [
+            "across"
+          ]
+        },
+        {
+          "sentence": "It is a very old bridge, and trains go over it too.",
+          "highlights": [
+            "over"
+          ]
+        },
+        {
+          "sentence": "I go past Dong Xuan Market and through two small streets.",
+          "highlights": [
+            "past",
+            "through"
+          ]
+        }
+      ],
+      "questionVi": "\"I go past Dong Xuan Market\" nghĩa là Linh làm gì?",
+      "options": [
+        "Đi vào trong chợ",
+        "Đi ngang qua chợ, không vào",
+        "Đi dọc theo chợ rồi dừng lại"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Past = đi ngang qua một nơi mà không dừng, không vào trong. Đi vào trong thì dùng into.",
+      "whenVi": "Dùng giới từ chuyển động sau động từ di chuyển (go, ride, walk, drive, run) để chỉ hướng đi.",
+      "table": [
+        {
+          "subject": "along",
+          "form": "go along a small road (dọc theo)",
+          "negative": "—"
+        },
+        {
+          "subject": "across / over",
+          "form": "ride across the bridge / go over it (băng qua / bên trên)",
+          "negative": "—"
+        },
+        {
+          "subject": "past",
+          "form": "go past the market (đi ngang qua)",
+          "negative": "không vào trong"
+        },
+        {
+          "subject": "through / into",
+          "form": "go through the streets / turn into a road",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I ride on across the bridge.",
+          "right": "I ride across the bridge."
+        },
+        {
+          "wrong": "I go into the market and don't stop.",
+          "right": "I go past the market and don't stop."
+        }
+      ],
+      "noteVi": "Across nhấn mạnh đi từ bên này sang bên kia (cầu, đường, sông). Over nhấn mạnh ở phía trên: trains go over the bridge, a bridge over the river.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền across, past hoặc through.",
+          "text": "I ride ___ the bridge to the other side of the river.",
+          "answers": [
+            "across"
+          ],
+          "explanationVi": "Sang bờ bên kia: across."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I go ___ the market, but I don't go in.",
+          "options": [
+            "into",
+            "past",
+            "through",
+            "over"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Đi ngang qua mà không vào: past."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Then I turn in a quiet road.",
+          "sentence": "Then I turn into a quiet road.",
+          "explanationVi": "Rẽ vào một con đường: turn into."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đi dọc một con đường nhỏ.",
+          "sentence": "I go along a small road.",
+          "words": [
+            "along",
+            "I",
+            "road",
+            "go",
+            "a",
+            "small",
+            "into"
+          ],
+          "explanationVi": "Dọc theo: along; từ \"into\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Then I ride across Long Bien Bridge.",
+        "tipVi": "Across /əˈkrɒs/ nhấn âm thứ hai; bridge /brɪdʒ/ kết thúc bằng /dʒ/."
+      },
+      {
+        "text": "The trip takes about thirty minutes.",
+        "tipVi": "Thirty /ˈθɜːti/ có âm /θ/; minutes /ˈmɪnɪts/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How do you go to school or work?",
+        "questionVi": "Bạn đi học hoặc đi làm bằng gì?",
+        "frame": "I go by ___."
+      },
+      {
+        "question": "Do you go across a bridge or past a market on the way?",
+        "questionVi": "Trên đường đi bạn có đi qua cầu hay ngang qua chợ không?",
+        "frame": "Yes, I go across ___. / No, I don't. I go along ___."
+      },
+      {
+        "question": "How does your best friend go to school or work?",
+        "questionVi": "Bạn thân của bạn đi học hoặc đi làm thế nào?",
+        "frame": "He / She goes by ___. He / She goes past ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 giới từ chỉ chuyển động (along, across, over, past, through, into…)",
+      "anyOf": [
+        "along",
+        "across",
+        "over",
+        "past",
+        "through",
+        "into",
+        "out of",
+        "up",
+        "down"
+      ],
+      "outlineVi": [
+        "Bạn đi học / đi làm bằng gì, lúc mấy giờ.",
+        "Đi qua những đường, cầu, chợ nào (along, across, past, through…).",
+        "Mất bao lâu và bạn thích điều gì trên đường đi."
+      ],
+      "modelAnswer": "I go to school by bike every day. First, I ride along a small road next to the rice fields. Then I go across a small bridge over the river. After that, I go past a market and through the town centre. The school is at the end of a quiet street. The trip takes about twenty minutes."
+    }
+  },
+  "glosses": [
+    {
+      "text": "across",
+      "lemma": "across",
+      "meaningVi": "băng qua",
+      "sentenceIndex": 3,
+      "pos": "preposition",
+      "phrase": "ride across Long Bien Bridge",
+      "phraseVi": "đạp xe qua cầu Long Biên"
+    },
+    {
+      "text": "over",
+      "lemma": "over",
+      "meaningVi": "bên trên",
+      "sentenceIndex": 4,
+      "pos": "preposition",
+      "phrase": "trains go over it",
+      "phraseVi": "tàu chạy trên cầu"
+    },
+    {
+      "text": "goes past",
+      "lemma": "go past",
+      "meaningVi": "đi ngang qua",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "When a train goes past",
+      "phraseVi": "Khi tàu chạy qua"
+    },
+    {
+      "text": "in a hurry",
+      "lemma": "hurry",
+      "meaningVi": "đang vội",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "everybody is in a hurry",
+      "phraseVi": "ai cũng vội"
+    },
+    {
+      "text": "through",
+      "lemma": "through",
+      "meaningVi": "xuyên qua",
+      "sentenceIndex": 9,
+      "pos": "preposition",
+      "phrase": "through two small streets",
+      "phraseVi": "xuyên qua hai con phố nhỏ"
+    },
+    {
+      "text": "turn into",
+      "lemma": "turn into",
+      "meaningVi": "rẽ vào",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "I turn into a quiet road",
+      "phraseVi": "tôi rẽ vào một con đường yên tĩnh"
+    },
+    {
+      "text": "change",
+      "lemma": "change",
+      "meaningVi": "thay đổi",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "I don't want to change.",
+      "phraseVi": "Tôi không muốn đổi."
+    }
+  ]
+}

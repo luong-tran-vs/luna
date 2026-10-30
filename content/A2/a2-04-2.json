@@ -1,0 +1,598 @@
+{
+  "content": "It is Tien's first day at a big factory in Bac Ninh. The factory makes phones, and there are two hundred workers. Tien is twenty, and he is a little nervous. His team leader, Ms Thao, shows him around.\n\n\"Welcome, Tien, there are some important rules here,\" she says. \"First, you must wear a hard hat in this room, because there are big machines above us.\" \"You also have to wear gloves when you carry the boxes.\"\n\nTien asks, \"Do I have to wear a shirt and tie?\"\nMs Thao laughs and says, \"No, you don't have to wear a shirt and tie.\" \"You can wear a T-shirt and comfortable trousers.\" \"But you mustn't use your phone here, because it's dangerous.\"\n\nTien asks, \"Can I drink water here?\"\n\"Yes, but you should drink it in the kitchen, and you mustn't eat near the machines.\"\n\nTien listens carefully and writes the rules in a small notebook. \"Thank you, I don't want to make a mistake on my first day,\" he says.\n\"Don't worry, and you should always ask me first,\" Ms Thao says with a smile.",
+  "targetWords": [
+    "factory",
+    "nervous",
+    "rule",
+    "wear",
+    "machine",
+    "gloves",
+    "dangerous",
+    "mistake"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "factory",
+        "lemma": "factory",
+        "meaningVi": "nhà máy",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "nervous",
+        "lemma": "nervous",
+        "meaningVi": "hồi hộp, lo lắng",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "rules",
+        "lemma": "rule",
+        "meaningVi": "quy định, nội quy",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "wear",
+        "lemma": "wear",
+        "meaningVi": "đội, mặc, đeo",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "machines",
+        "lemma": "machine",
+        "meaningVi": "máy móc",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "gloves",
+        "lemma": "gloves",
+        "meaningVi": "găng tay",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "dangerous",
+        "lemma": "dangerous",
+        "meaningVi": "nguy hiểm",
+        "pos": "adjective",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "mistake",
+        "lemma": "mistake",
+        "meaningVi": "lỗi, sai sót",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Tien's job interview",
+          "A party at the factory",
+          "How the factory makes phones",
+          "Ms Thao tells a new worker the rules at a factory."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ngày đầu Tiến đi làm ở nhà máy, chị Thảo dẫn anh đi xem và nói những điều phải làm, không được làm và không cần làm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What must Tien wear in this room?",
+        "promptVi": "Trong phòng này Tiến phải đội gì?",
+        "options": [
+          "A hard hat",
+          "A shirt and tie",
+          "A uniform",
+          "Glasses"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Thảo nói \"you must wear a hard hat in this room\": phải đội mũ cứng vì có máy lớn ở trên."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why mustn't Tien use his phone near the machines?",
+        "promptVi": "Vì sao Tiến không được dùng điện thoại gần máy?",
+        "options": [
+          "Ms Thao is talking.",
+          "It's dangerous.",
+          "His phone is too old.",
+          "It's too noisy."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Thảo nói \"you mustn't use your phone here, because it's dangerous\": làm vậy rất nguy hiểm."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tien has to wear a shirt and tie.",
+        "promptVi": "Tiến phải mặc áo sơ mi và đeo cà vạt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Thảo nói \"you don't have to wear a shirt and tie\": không cần, mặc áo phông cũng được."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"mistake\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Thank you, I don't want to make a mistake on my first day,\" he says.",
+        "options": [
+          "bạn bè",
+          "món quà",
+          "lỗi, sai sót",
+          "câu hỏi"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Make a mistake là mắc lỗi, làm sai: ngày đầu đi làm Tiến không muốn làm sai điều gì."
+      }
+    ],
+    "grammarNote": {
+      "title": "Must / have to / should; mustn't và don't have to",
+      "bodyVi": "Must / have to + động từ: phải làm (you must wear a hard hat). Mustn't: không được làm, bị cấm (you mustn't use your phone here). Don't have to: không cần làm, làm hay không cũng được (you don't have to wear a tie). Should: nên làm (you should drink it in the kitchen).",
+      "examples": [
+        "\"First, you must wear a hard hat in this room, because there are big machines above us.\"",
+        "Ms Thao laughs and says, \"No, you don't have to wear a shirt and tie.\"",
+        "\"But you mustn't use your phone here, because it's dangerous.\""
+      ]
+    },
+    "writingPrompt": "Write some rules for your school, office or home: what people must, mustn't, don't have to and should do.",
+    "sentenceTranslations": [
+      "Hôm nay là ngày đầu tiên Tiến đi làm ở một nhà máy lớn ở Bắc Ninh.",
+      "Nhà máy sản xuất điện thoại, và có hai trăm công nhân.",
+      "Tiến hai mươi tuổi, và hơi hồi hộp.",
+      "Trưởng nhóm của anh, chị Thảo, dẫn anh đi xem một vòng.",
+      "\"Chào mừng em, Tiến, ở đây có một số quy định quan trọng,\" chị nói.",
+      "\"Thứ nhất, trong phòng này em phải đội mũ cứng, vì có máy lớn ở phía trên.\"",
+      "\"Em cũng phải đeo găng tay khi bê thùng hàng.\"",
+      "Tiến hỏi: \"Em có phải mặc áo sơ mi và đeo cà vạt không ạ?\"",
+      "Chị Thảo cười và nói: \"Không, em không cần mặc áo sơ mi và đeo cà vạt.\"",
+      "\"Em có thể mặc áo phông và quần thoải mái.\"",
+      "\"Nhưng em không được dùng điện thoại ở đây, vì nguy hiểm lắm.\"",
+      "Tiến hỏi: \"Em uống nước ở đây được không ạ?\"",
+      "\"Được, nhưng em nên uống trong bếp, và không được ăn gần máy.\"",
+      "Tiến chăm chú lắng nghe và ghi các quy định vào một cuốn sổ nhỏ.",
+      "\"Em cảm ơn chị, em không muốn làm sai gì trong ngày đầu tiên,\" anh nói.",
+      "\"Đừng lo, và em nên luôn hỏi chị trước nhé,\" chị Thảo mỉm cười nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói các quy định ở nơi làm việc: việc phải làm (must, have to), không được làm (mustn't), không cần làm (don't have to) và nên làm (should).",
+    "examples": [
+      {
+        "lemma": "factory",
+        "sentence": "My uncle works in a factory.",
+        "meaningVi": "Chú mình làm việc ở một nhà máy."
+      },
+      {
+        "lemma": "nervous",
+        "sentence": "I'm nervous about my first day.",
+        "meaningVi": "Mình hồi hộp về ngày đầu tiên."
+      },
+      {
+        "lemma": "rule",
+        "sentence": "This is an important rule.",
+        "meaningVi": "Đây là một quy định quan trọng."
+      },
+      {
+        "lemma": "wear",
+        "sentence": "We wear a uniform at school.",
+        "meaningVi": "Ở trường bọn mình mặc đồng phục."
+      },
+      {
+        "lemma": "machine",
+        "sentence": "This machine makes coffee.",
+        "meaningVi": "Cái máy này pha cà phê."
+      },
+      {
+        "lemma": "gloves",
+        "sentence": "Wear your gloves, because it's cold.",
+        "meaningVi": "Đeo găng tay vào, vì trời lạnh."
+      },
+      {
+        "lemma": "dangerous",
+        "sentence": "This road is dangerous at night.",
+        "meaningVi": "Ban đêm con đường này nguy hiểm."
+      },
+      {
+        "lemma": "mistake",
+        "sentence": "It's OK to make a mistake.",
+        "meaningVi": "Mắc lỗi cũng không sao."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tien",
+        "Steve"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Tien, how is your new job at the factory?",
+          "meaningVi": "Tiến ơi, công việc mới ở nhà máy thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's good! But there are a lot of rules.",
+          "meaningVi": "Ổn lắm! Nhưng có nhiều quy định lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? What do you have to do?",
+          "meaningVi": "Thật à? Cậu phải làm những gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I have to wear a hard hat and gloves.",
+          "meaningVi": "Mình phải đội mũ cứng và đeo găng tay."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you have to wear a uniform?",
+          "meaningVi": "Cậu có phải mặc đồng phục không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I don't. I can wear a T-shirt.",
+          "meaningVi": "Không. Mình mặc áo phông cũng được."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. Can you use your phone at work?",
+          "meaningVi": "Thế thì hay. Ở chỗ làm cậu có được dùng điện thoại không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I mustn't use it near the machines.",
+          "meaningVi": "Không, mình không được dùng gần máy."
+        },
+        {
+          "speaker": 1,
+          "text": "What time do you start?",
+          "meaningVi": "Cậu bắt đầu làm lúc mấy giờ?"
+        },
+        {
+          "speaker": 0,
+          "text": "At seven, so I have to get up at five. I should go to bed early!",
+          "meaningVi": "Bảy giờ, nên mình phải dậy lúc năm giờ. Mình nên đi ngủ sớm!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi điều bắt buộc: What do you have to do? Do you have to wear a uniform? Trả lời: I have to wear a hard hat. / No, I don't.",
+    "translations": [
+      {
+        "vi": "Bạn phải đội mũ cứng.",
+        "en": "You must wear a hard hat.",
+        "distractors": [
+          "mustn't",
+          "wears",
+          "cap"
+        ]
+      },
+      {
+        "vi": "Bạn không cần mặc áo sơ mi và đeo cà vạt.",
+        "en": "You don't have to wear a shirt and tie.",
+        "distractors": [
+          "mustn't",
+          "has",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Máy móc rất nguy hiểm.",
+        "en": "The machines are very dangerous.",
+        "distractors": [
+          "is",
+          "machine",
+          "safe"
+        ]
+      },
+      {
+        "vi": "Tôi không muốn mắc lỗi.",
+        "en": "I don't want to make a mistake.",
+        "distractors": [
+          "do",
+          "mistakes",
+          "doesn't"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Steve và Tiến nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chiếc điện thoại mới",
+          "Kỳ nghỉ của Steve",
+          "Công việc mới và các quy định ở nhà máy"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Steve hỏi \"how is your new job at the factory?\", Tiến kể về các quy định ở đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi làm việc, Tiến phải đội và đeo gì?",
+        "promptVi": "",
+        "options": [
+          "Mũ cứng và găng tay",
+          "Mũ lưỡi trai",
+          "Kính"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tiến nói \"I have to wear a hard hat and gloves.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tiến phải dậy lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Bốn giờ",
+          "Năm giờ",
+          "Bảy giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tiến nói \"so I have to get up at five.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tien has to wear a uniform.",
+        "promptVi": "Tiến phải mặc đồng phục.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tiến nói \"No, I don't. I can wear a T-shirt.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Ở nhà máy, Tiến phải làm gì, không được làm gì và không cần làm gì?",
+    "grammarStep": {
+      "titleVi": "Must / have to / should; mustn't và don't have to",
+      "noticing": [
+        {
+          "sentence": "\"First, you must wear a hard hat in this room, because there are big machines above us.\"",
+          "highlights": [
+            "must wear"
+          ]
+        },
+        {
+          "sentence": "Ms Thao laughs and says, \"No, you don't have to wear a shirt and tie.\"",
+          "highlights": [
+            "don't have to wear"
+          ]
+        },
+        {
+          "sentence": "\"But you mustn't use your phone here, because it's dangerous.\"",
+          "highlights": [
+            "mustn't use"
+          ]
+        },
+        {
+          "sentence": "\"Yes, but you should drink it in the kitchen, and you mustn't eat near the machines.\"",
+          "highlights": [
+            "should drink",
+            "mustn't eat"
+          ]
+        }
+      ],
+      "questionVi": "\"You mustn't use your phone\" và \"you don't have to wear a shirt and tie\" khác nhau thế nào?",
+      "options": [
+        "Mustn't là không được làm; don't have to là không cần làm",
+        "Hai câu có nghĩa giống nhau",
+        "Mustn't là nên làm; don't have to là phải làm"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Mustn't nghĩa là bị cấm: dùng điện thoại ở đó là không được. Don't have to nghĩa là không bắt buộc: mặc sơ mi cũng được, không mặc cũng được. Hai từ này rất khác nhau.",
+      "whenVi": "Dùng must / have to cho việc bắt buộc, mustn't cho việc bị cấm, don't have to cho việc không cần, và should cho lời khuyên.",
+      "table": [
+        {
+          "subject": "Bắt buộc",
+          "form": "You must wear a hard hat. You have to wear gloves.",
+          "negative": "You mustn't use your phone. (không được)"
+        },
+        {
+          "subject": "Không bắt buộc",
+          "form": "You can wear a T-shirt.",
+          "negative": "You don't have to wear a tie. (không cần)"
+        },
+        {
+          "subject": "Lời khuyên",
+          "form": "You should ask me first.",
+          "negative": "You shouldn't eat near the machines."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "You must to wear a hard hat.",
+          "right": "You must wear a hard hat."
+        },
+        {
+          "wrong": "You mustn't wear a tie. (muốn nói: không cần)",
+          "right": "You don't have to wear a tie."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"không phải\" cho cả \"không được\" lẫn \"không cần\", nên người Việt hay dùng mustn't khi muốn nói don't have to, và hay thêm to sau must.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền từ có nghĩa \"không được\" vào chỗ trống.",
+          "text": "You ___ use your phone near the machines.",
+          "answers": [
+            "mustn't",
+            "must not"
+          ],
+          "explanationVi": "Bị cấm, không được làm: mustn't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "You ___ wear a tie. A T-shirt is fine.",
+          "options": [
+            "don't have to",
+            "mustn't",
+            "must",
+            "have to"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Mặc áo phông cũng được nghĩa là không bắt buộc đeo cà vạt: don't have to."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Tien have to wear gloves.",
+          "sentence": "Tien has to wear gloves.",
+          "explanationVi": "Tien là he, nên dùng has to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Em nên hỏi chị trước.",
+          "sentence": "You should ask me first.",
+          "words": [
+            "ask",
+            "You",
+            "first",
+            "should",
+            "me",
+            "must"
+          ],
+          "explanationVi": "\"Nên\" là should; từ \"must\" (phải) bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Tien listens carefully and writes the rules in a small notebook.",
+        "tipVi": "Listens /ˈlɪsənz/ không đọc chữ t; rules /rulz/ kết thúc bằng /lz/."
+      },
+      {
+        "text": "\"You also have to wear gloves when you carry the boxes.\"",
+        "tipVi": "Have to thường đọc nối thành /ˈhæftə/ \"háp-tơ\"; gloves /ɡlʌvz/ có cụm /ɡl/ và /vz/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What rules do you have at school or at work?",
+        "questionVi": "Ở trường hoặc chỗ làm của bạn có những quy định gì?",
+        "frame": "We have to ___. We mustn't ___."
+      },
+      {
+        "question": "What do you have to wear at school or at work?",
+        "questionVi": "Ở trường hoặc chỗ làm bạn phải mặc gì?",
+        "frame": "I have to wear ___. I don't have to wear ___."
+      },
+      {
+        "question": "What does your mum or dad have to do at work?",
+        "questionVi": "Ở chỗ làm bố hoặc mẹ bạn phải làm những gì?",
+        "frame": "He / She has to ___. He / She doesn't have to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng must / have to / mustn't / don't have to / should",
+      "anyOf": [
+        "must",
+        "mustn't",
+        "have to",
+        "has to",
+        "don't have to",
+        "should"
+      ],
+      "outlineVi": [
+        "Nói đây là quy định ở đâu.",
+        "Viết việc phải làm và không được làm (We must …, we mustn't …).",
+        "Viết việc không cần làm và một lời khuyên (We don't have to …, we should …)."
+      ],
+      "modelAnswer": "Here are the rules in our English class. We must come to class on time, and we have to bring a notebook. We mustn't use our phones in the lesson. We don't have to wear a uniform. We should speak English with our friends, because it helps us learn quickly."
+    }
+  },
+  "glosses": [
+    {
+      "text": "workers",
+      "lemma": "worker",
+      "meaningVi": "công nhân",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "two hundred workers",
+      "phraseVi": "hai trăm công nhân"
+    },
+    {
+      "text": "team leader",
+      "lemma": "team leader",
+      "meaningVi": "trưởng nhóm",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "His team leader, Ms Thao",
+      "phraseVi": "Trưởng nhóm của anh, chị Thảo"
+    },
+    {
+      "text": "shows him around",
+      "lemma": "show around",
+      "meaningVi": "dẫn đi xem một vòng",
+      "sentenceIndex": 3,
+      "pos": "phrasal verb",
+      "phrase": "Ms Thao shows him around",
+      "phraseVi": "chị Thảo dẫn anh đi xem một vòng"
+    },
+    {
+      "text": "hard hat",
+      "lemma": "hard hat",
+      "meaningVi": "mũ cứng (mũ bảo hộ)",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "you must wear a hard hat",
+      "phraseVi": "em phải đội mũ cứng"
+    },
+    {
+      "text": "above",
+      "lemma": "above",
+      "meaningVi": "ở trên",
+      "sentenceIndex": 5,
+      "pos": "preposition",
+      "phrase": "big machines above us",
+      "phraseVi": "máy lớn ở phía trên"
+    },
+    {
+      "text": "carry",
+      "lemma": "carry",
+      "meaningVi": "bê, mang",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "when you carry the boxes",
+      "phraseVi": "khi bê thùng hàng"
+    },
+    {
+      "text": "comfortable",
+      "lemma": "comfortable",
+      "meaningVi": "thoải mái",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "comfortable trousers",
+      "phraseVi": "quần thoải mái"
+    },
+    {
+      "text": "notebook",
+      "lemma": "notebook",
+      "meaningVi": "cuốn sổ",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "in a small notebook",
+      "phraseVi": "vào một cuốn sổ nhỏ"
+    },
+    {
+      "text": "with a smile",
+      "lemma": "smile",
+      "meaningVi": "mỉm cười",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "Ms Thao says with a smile",
+      "phraseVi": "chị Thảo mỉm cười nói"
+    }
+  ]
+}

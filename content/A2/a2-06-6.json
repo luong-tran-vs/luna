@@ -1,0 +1,596 @@
+{
+  "content": "Last month, Ngan went on a three-day tour of Hue with a travel company. Now she is back at work in Hanoi, and she tells her friend Phuc about it.\n\n\"There were three tour leaders, and Mr Hoang was the best,\" Ngan says. \"He is the oldest of the three, and he knows the most about the history of Hue.\"\nPhuc asks, \"Was he the most patient too?\"\n\"Yes, he was. He answered all our questions, even the silliest ones!\"\nPhuc asks, \"What about the other two?\"\n\"Ms Diep was the youngest. She was very funny, but she wasn't as patient as Mr Hoang. And Mr Kien was the quietest person on the tour. He didn't talk much, but he took the most beautiful photos of us.\"\n\nPhuc asks, \"Was the weather good?\"\n\"It was the hottest week of the year, but the old city was as beautiful as in the photos. The food was great too. The best dish was beef noodle soup, and it wasn't as expensive as in Hanoi.\"\nPhuc smiles. \"Then I'd like to go on the same tour next summer.\"",
+  "targetWords": [
+    "tour",
+    "history",
+    "patient",
+    "question",
+    "talk",
+    "weather",
+    "city",
+    "expensive"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "tour",
+        "lemma": "tour",
+        "meaningVi": "chuyến tham quan, tour du lịch",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "history",
+        "lemma": "history",
+        "meaningVi": "lịch sử",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "patient",
+        "lemma": "patient",
+        "meaningVi": "kiên nhẫn",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "questions",
+        "lemma": "question",
+        "meaningVi": "câu hỏi",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "talk",
+        "lemma": "talk",
+        "meaningVi": "nói chuyện",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "weather",
+        "lemma": "weather",
+        "meaningVi": "thời tiết",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "city",
+        "lemma": "city",
+        "meaningVi": "thành phố",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "expensive",
+        "lemma": "expensive",
+        "meaningVi": "đắt",
+        "pos": "adjective",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Ngan's new job at a travel company",
+          "Phuc's holiday next summer",
+          "The history of Hanoi",
+          "Ngan tells Phuc about her tour of Hue."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Ngân kể cho Phúc về chuyến đi Huế ba ngày và ba trưởng đoàn của tour."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who took the most beautiful photos?",
+        "promptVi": "Ai chụp những bức ảnh đẹp nhất?",
+        "options": [
+          "Mr Hoang",
+          "Mr Kien",
+          "Ms Diep",
+          "Ngan"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngân nói anh Kiên \"took the most beautiful photos of us\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Ngan think Mr Hoang was the best?",
+        "promptVi": "Vì sao Ngân nghĩ chú Hoàng là người giỏi nhất?",
+        "options": [
+          "He was the youngest and the funniest.",
+          "He took a lot of photos.",
+          "He knows the most about Hue's history, and he is the most patient.",
+          "He didn't talk much."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chú Hoàng \"knows the most about the history of Hue\" và kiên nhẫn trả lời mọi câu hỏi."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The beef noodle soup in Hue was more expensive than in Hanoi.",
+        "promptVi": "Bún bò Huế ở Huế đắt hơn ở Hà Nội.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ngân nói \"it wasn't as expensive as in Hanoi\": ở Huế rẻ hơn."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"silliest\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He answered all our questions, even the silliest ones!\"",
+        "options": [
+          "khó nhất",
+          "dài nhất",
+          "ngớ ngẩn nhất",
+          "hay nhất"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Silly là ngớ ngẩn → the silliest là ngớ ngẩn nhất: chú trả lời cả những câu hỏi ngớ ngẩn nhất."
+      }
+    ],
+    "grammarNote": {
+      "title": "So sánh nhất",
+      "bodyVi": "So sánh nhất khi nói về một người trong nhóm ba người trở lên: the + tính từ-est (the oldest, the youngest, the quietest, hot → the hottest), the most + tính từ dài (the most patient, the most beautiful). Bất quy tắc: good → the best. Dùng of hoặc in để nói nhóm: the oldest of the three, the hottest week of the year.",
+      "examples": [
+        "\"There were three tour leaders, and Mr Hoang was the best,\" Ngan says.",
+        "\"He is the oldest of the three, and he knows the most about the history of Hue.\"",
+        "Phuc asks, \"Was he the most patient too?\""
+      ]
+    },
+    "writingPrompt": "Write about a trip: who was the best, the funniest or the most helpful person, and what was the best place?",
+    "sentenceTranslations": [
+      "Tháng trước, Ngân đi tour Huế ba ngày với một công ty du lịch.",
+      "Giờ cô đã về lại chỗ làm ở Hà Nội, và kể cho bạn là Phúc nghe về chuyến đi.",
+      "\"Có ba trưởng đoàn, và chú Hoàng là giỏi nhất,\" Ngân nói.",
+      "\"Chú lớn tuổi nhất trong ba người, và biết nhiều nhất về lịch sử Huế.\"",
+      "Phúc hỏi: \"Chú ấy cũng kiên nhẫn nhất à?\"",
+      "\"Ừ.",
+      "Chú trả lời mọi câu hỏi của bọn mình, kể cả những câu ngớ ngẩn nhất!\"",
+      "Phúc hỏi: \"Còn hai người kia thì sao?\"",
+      "\"Chị Diệp trẻ nhất.",
+      "Chị ấy rất vui tính, nhưng không kiên nhẫn bằng chú Hoàng.",
+      "Còn anh Kiên là người trầm nhất trong đoàn.",
+      "Anh ấy ít nói, nhưng chụp cho bọn mình những bức ảnh đẹp nhất.\"",
+      "Phúc hỏi: \"Thời tiết có đẹp không?\"",
+      "\"Đó là tuần nóng nhất trong năm, nhưng phố cổ đẹp y như trong ảnh.",
+      "Đồ ăn cũng rất ngon.",
+      "Món ngon nhất là bún bò Huế, mà lại không đắt bằng ở Hà Nội.\"",
+      "Phúc mỉm cười.",
+      "\"Vậy hè sau mình muốn đi đúng tour đó.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một chuyến đi và nói ai, cái gì là nhất bằng the -est, the most, và so sánh bằng not as … as.",
+    "examples": [
+      {
+        "lemma": "tour",
+        "sentence": "We took a bus tour of the city.",
+        "meaningVi": "Chúng tôi đi xe buýt tham quan thành phố."
+      },
+      {
+        "lemma": "history",
+        "sentence": "I love history books.",
+        "meaningVi": "Tôi rất thích sách lịch sử."
+      },
+      {
+        "lemma": "patient",
+        "sentence": "Please be patient, the food is coming.",
+        "meaningVi": "Bạn chờ một chút nhé, đồ ăn sắp ra rồi."
+      },
+      {
+        "lemma": "question",
+        "sentence": "Can I ask a question?",
+        "meaningVi": "Tôi hỏi một câu được không?"
+      },
+      {
+        "lemma": "talk",
+        "sentence": "We talk on the phone every evening.",
+        "meaningVi": "Tối nào chúng tôi cũng nói chuyện điện thoại."
+      },
+      {
+        "lemma": "weather",
+        "sentence": "The weather is lovely today.",
+        "meaningVi": "Hôm nay thời tiết rất đẹp."
+      },
+      {
+        "lemma": "city",
+        "sentence": "Hanoi is a busy city.",
+        "meaningVi": "Hà Nội là một thành phố nhộn nhịp."
+      },
+      {
+        "lemma": "expensive",
+        "sentence": "This hotel is too expensive for us.",
+        "meaningVi": "Khách sạn này đắt quá với chúng tôi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngan",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ngan, which city in Vietnam is the most beautiful?",
+          "meaningVi": "Ngân ơi, thành phố nào ở Việt Nam đẹp nhất?"
+        },
+        {
+          "speaker": 0,
+          "text": "For me, Hue is the most beautiful. It has a lot of history.",
+          "meaningVi": "Với mình thì Huế đẹp nhất. Ở đó có rất nhiều di tích lịch sử."
+        },
+        {
+          "speaker": 1,
+          "text": "Is it bigger than Hanoi?",
+          "meaningVi": "Huế có lớn hơn Hà Nội không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's much smaller, and it isn't as busy.",
+          "meaningVi": "Không, nhỏ hơn nhiều, mà cũng không đông đúc bằng."
+        },
+        {
+          "speaker": 1,
+          "text": "When is the best time to go there?",
+          "meaningVi": "Khi nào là lúc đẹp nhất để đến đó?"
+        },
+        {
+          "speaker": 0,
+          "text": "In spring. Summer is the hottest time of the year.",
+          "meaningVi": "Mùa xuân. Mùa hè là lúc nóng nhất trong năm."
+        },
+        {
+          "speaker": 1,
+          "text": "And is the food expensive?",
+          "meaningVi": "Đồ ăn có đắt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, it's the cheapest food I know, and very good.",
+          "meaningVi": "Không, rẻ nhất mà mình biết, lại rất ngon."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. I'd like to go there in March.",
+          "meaningVi": "Tuyệt. Tháng Ba mình muốn đến đó."
+        },
+        {
+          "speaker": 0,
+          "text": "Then take a tour with Mr Hoang. He's the best!",
+          "meaningVi": "Vậy cậu đi tour với chú Hoàng nhé. Chú ấy giỏi nhất!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi cái gì nhất: Which city is the most beautiful? When is the best time …? Trả lời: Summer is the hottest time of the year.",
+    "translations": [
+      {
+        "vi": "Chú Hoàng biết nhiều nhất về lịch sử.",
+        "en": "Mr Hoang knows the most about history.",
+        "distractors": [
+          "more",
+          "best",
+          "than"
+        ]
+      },
+      {
+        "vi": "Chị ấy không kiên nhẫn bằng chú ấy.",
+        "en": "She wasn't as patient as him.",
+        "distractors": [
+          "than",
+          "more",
+          "he"
+        ]
+      },
+      {
+        "vi": "Thời tiết là nóng nhất trong năm.",
+        "en": "The weather was the hottest of the year.",
+        "distractors": [
+          "hotter",
+          "most",
+          "in"
+        ]
+      },
+      {
+        "vi": "Đồ ăn ở thành phố này không đắt.",
+        "en": "The food in this city isn't expensive.",
+        "distractors": [
+          "cheap",
+          "aren't",
+          "most"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom hỏi Ngân về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thành phố Huế",
+          "Công việc của Ngân",
+          "Món ăn ở Hà Nội"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi thành phố nào đẹp nhất, và hai người nói về Huế.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Ngân, nên đến Huế vào mùa nào?",
+        "promptVi": "",
+        "options": [
+          "Mùa hè",
+          "Mùa thu",
+          "Mùa xuân"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ngân nói \"In spring. Summer is the hottest time of the year.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Huế khác Hà Nội thế nào?",
+        "promptVi": "",
+        "options": [
+          "Nhỏ hơn nhiều và không đông đúc bằng",
+          "Lớn hơn và đông đúc hơn",
+          "Đắt hơn nhiều"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngân nói \"it's much smaller, and it isn't as busy.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom would like to go to Hue in May.",
+        "promptVi": "Tom muốn đến Huế vào tháng Năm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tom nói \"I'd like to go there in March\": tháng Ba.",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Ba trưởng đoàn khác nhau thế nào, và chuyến đi có gì \"nhất\"?",
+    "grammarStep": {
+      "titleVi": "So sánh nhất",
+      "noticing": [
+        {
+          "sentence": "\"He is the oldest of the three, and he knows the most about the history of Hue.\"",
+          "highlights": [
+            "the oldest",
+            "the most"
+          ]
+        },
+        {
+          "sentence": "Phuc asks, \"Was he the most patient too?\"",
+          "highlights": [
+            "the most patient"
+          ]
+        },
+        {
+          "sentence": "\"Ms Diep was the youngest.",
+          "highlights": [
+            "the youngest"
+          ]
+        },
+        {
+          "sentence": "\"There were three tour leaders, and Mr Hoang was the best,\" Ngan says.",
+          "highlights": [
+            "the best"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"the best\" mà không viết \"the goodest\"?",
+      "options": [
+        "Vì good là tính từ dài.",
+        "Vì good là tính từ bất quy tắc.",
+        "Vì Mr Hoang là người lớn tuổi nhất."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Good là bất quy tắc: good → better → the best. Tương tự: bad → worse → the worst.",
+      "whenVi": "Dùng so sánh nhất để nói một người, vật hay thời gian là nhất trong nhóm: the -est, the most, hoặc dạng bất quy tắc the best.",
+      "table": [
+        {
+          "subject": "Tính từ ngắn",
+          "form": "old → the oldest, young → the youngest",
+          "negative": "He wasn't the oldest."
+        },
+        {
+          "subject": "Gấp đôi phụ âm",
+          "form": "hot → the hottest, big → the biggest",
+          "negative": "—"
+        },
+        {
+          "subject": "Tính từ dài",
+          "form": "the most patient, the most beautiful",
+          "negative": "She wasn't the most patient."
+        },
+        {
+          "subject": "Bất quy tắc",
+          "form": "good → the best, bad → the worst",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It was the hotest week of the year.",
+          "right": "It was the hottest week of the year."
+        },
+        {
+          "wrong": "He was the most good tour leader.",
+          "right": "He was the best tour leader."
+        }
+      ],
+      "noteVi": "Tính từ ngắn tận cùng phụ âm – nguyên âm – phụ âm thì gấp đôi phụ âm cuối: hot → hottest, big → biggest.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng so sánh nhất của từ trong ngoặc.",
+          "text": "July is the ___ month of the year. (hot)",
+          "answers": [
+            "hottest"
+          ],
+          "explanationVi": "Hot gấp đôi t rồi thêm -est: the hottest."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Mr Hoang was the ___ tour leader on our trip.",
+          "options": [
+            "goodest",
+            "better",
+            "most good",
+            "best"
+          ],
+          "answerIndex": 3,
+          "explanationVi": "Good bất quy tắc: the best."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Ms Diep was the most young of the three.",
+          "sentence": "Ms Diep was the youngest of the three.",
+          "explanationVi": "Young là tính từ ngắn: the youngest, không dùng most."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy chụp những bức ảnh đẹp nhất.",
+          "sentence": "He took the most beautiful photos.",
+          "words": [
+            "took",
+            "He",
+            "most",
+            "the",
+            "photos",
+            "beautiful",
+            "more"
+          ],
+          "explanationVi": "Beautiful là tính từ dài: the most beautiful; từ \"more\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Phuc asks, \"Was the weather good?\"",
+        "tipVi": "Weather /ˈweðər/ có âm /ð/, đặt lưỡi giữa hai hàm răng; câu hỏi lên giọng ở good."
+      },
+      {
+        "text": "Phuc asks, \"What about the other two?\"",
+        "tipVi": "What about nối thành \"wo-tơ-bao\"; other có âm /ð/, two đọc /tuː/ với âm /uː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is the most beautiful city you know?",
+        "questionVi": "Thành phố đẹp nhất mà bạn biết là thành phố nào?",
+        "frame": "The most beautiful city I know is ___."
+      },
+      {
+        "question": "What is the hottest month in your town?",
+        "questionVi": "Tháng nào nóng nhất ở nơi bạn sống?",
+        "frame": "The hottest month is ___."
+      },
+      {
+        "question": "Who is the oldest person in your family?",
+        "questionVi": "Ai là người lớn tuổi nhất trong gia đình bạn?",
+        "frame": "The oldest person is my ___. He / She is ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu so sánh nhất (the -est / the most …)",
+      "anyOf": [
+        "the most",
+        "the best",
+        "the oldest",
+        "the youngest",
+        "the hottest",
+        "the funniest"
+      ],
+      "outlineVi": [
+        "Bạn đi đâu, khi nào, với ai.",
+        "Ai là người nhất trong chuyến đi (the funniest, the most helpful …).",
+        "Nơi, món ăn hoặc ngày nào là nhất (the best, the most beautiful …)."
+      ],
+      "modelAnswer": "Last summer, I went to Da Lat with my family. It was the best trip of the year. My little brother was the funniest person on the trip, and my father was the most helpful. He carried all our bags. The most beautiful place was a small lake in the hills. The weather wasn't as hot as in Saigon, and the food was cheap and good."
+    }
+  },
+  "glosses": [
+    {
+      "text": "travel company",
+      "lemma": "travel company",
+      "meaningVi": "công ty du lịch",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "with a travel company",
+      "phraseVi": "với một công ty du lịch"
+    },
+    {
+      "text": "tour leaders",
+      "lemma": "tour leader",
+      "meaningVi": "trưởng đoàn",
+      "sentenceIndex": 2,
+      "pos": "noun",
+      "phrase": "three tour leaders",
+      "phraseVi": "ba trưởng đoàn"
+    },
+    {
+      "text": "oldest",
+      "lemma": "old",
+      "meaningVi": "lớn tuổi nhất",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "the oldest of the three",
+      "phraseVi": "lớn tuổi nhất trong ba người"
+    },
+    {
+      "text": "silliest",
+      "lemma": "silly",
+      "meaningVi": "ngớ ngẩn nhất",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "even the silliest ones",
+      "phraseVi": "kể cả những câu ngớ ngẩn nhất"
+    },
+    {
+      "text": "youngest",
+      "lemma": "young",
+      "meaningVi": "trẻ nhất",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "Ms Diep was the youngest",
+      "phraseVi": "Chị Diệp trẻ nhất"
+    },
+    {
+      "text": "quietest",
+      "lemma": "quiet",
+      "meaningVi": "trầm nhất",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "the quietest person on the tour",
+      "phraseVi": "người trầm nhất trong đoàn"
+    },
+    {
+      "text": "hottest",
+      "lemma": "hot",
+      "meaningVi": "nóng nhất",
+      "sentenceIndex": 13,
+      "pos": "adjective",
+      "phrase": "the hottest week of the year",
+      "phraseVi": "tuần nóng nhất trong năm"
+    },
+    {
+      "text": "dish",
+      "lemma": "dish",
+      "meaningVi": "món ăn",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "The best dish was beef noodle soup",
+      "phraseVi": "Món ngon nhất là bún bò Huế"
+    }
+  ]
+}

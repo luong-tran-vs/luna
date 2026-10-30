@@ -1,0 +1,594 @@
+{
+  "content": "On Sunday, Minh, my little sister Mai and I visit Uncle Hai's farm near Hue. Uncle Hai and Aunt Hoa have a lot of animals.\n\nThere are ten cows, five pigs and twenty chickens. The cows eat grass all day, and they give milk. The chickens can't fly very high, but they can run fast! Every morning, Aunt Hoa gets a lot of eggs from them.\n\nUncle Hai also has two horses and three sheep. \"Can we ride the horses?\" asks Minh.\n\"Yes, you can, but only the small horse,\" says Uncle Hai.\n\nMai loves the baby pigs, but she can't touch them, because they run away. Little Bo is two, and he can say \"moo\" like a cow!\n\nIn the evening, we drink milk from the farm and eat eggs for dinner. I love the farm!",
+  "targetWords": [
+    "farm",
+    "cow",
+    "pig",
+    "chicken",
+    "grass",
+    "egg",
+    "horse",
+    "sheep"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "farm",
+        "lemma": "farm",
+        "meaningVi": "trang trại",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "cows",
+        "lemma": "cow",
+        "meaningVi": "con bò",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "pigs",
+        "lemma": "pig",
+        "meaningVi": "con lợn, con heo",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "chickens",
+        "lemma": "chicken",
+        "meaningVi": "con gà",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "grass",
+        "lemma": "grass",
+        "meaningVi": "cỏ",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "eggs",
+        "lemma": "egg",
+        "meaningVi": "quả trứng",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "horses",
+        "lemma": "horse",
+        "meaningVi": "con ngựa",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "sheep",
+        "lemma": "sheep",
+        "meaningVi": "con cừu",
+        "pos": "noun",
+        "sentenceIndex": 6
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A trip to the zoo",
+          "A day at Uncle Hai's farm",
+          "Aunt Hoa and her food",
+          "A big horse show"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan, Mai và Minh đến trang trại của chú Hai gần Huế, xem các con vật và chúng làm được gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many chickens are there on the farm?",
+        "promptVi": "Trang trại có bao nhiêu con gà?",
+        "options": [
+          "Five",
+          "Ten",
+          "Twenty",
+          "Three"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"There are ten cows, five pigs and twenty chickens\": có hai mươi con gà."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't Mai touch the baby pigs?",
+        "promptVi": "Vì sao Mai không chạm vào được mấy con lợn con?",
+        "options": [
+          "They are very big.",
+          "Uncle Hai says no.",
+          "She doesn't like them.",
+          "They run away."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Bài viết \"she can't touch them, because they run away\": lợn con chạy mất nên Mai không chạm vào được."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The children can ride the big horse.",
+        "promptVi": "Các bạn nhỏ được cưỡi con ngựa lớn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chú Hai nói \"Yes, you can, but only the small horse\": chỉ được cưỡi con ngựa nhỏ."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"sheep\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Uncle Hai also has two horses and three sheep.",
+        "options": [
+          "con cừu",
+          "con dê",
+          "con bò",
+          "con ngựa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sheep là con cừu. Sheep giữ nguyên ở số nhiều: one sheep, three sheep (không nói \"sheeps\")."
+      }
+    ],
+    "grammarNote": {
+      "title": "Can / can't (khả năng)",
+      "bodyVi": "Can + động từ nói ai, con vật nào làm được gì: they can run fast, Bo can say \"moo\". Can't nói không làm được: the chickens can't fly very high. Can còn dùng để xin phép: Can we ride the horses? Trả lời: Yes, you can. / No, you can't.",
+      "examples": [
+        "The chickens can't fly very high, but they can run fast!",
+        "\"Yes, you can, but only the small horse,\" says Uncle Hai.",
+        "Mai loves the baby pigs, but she can't touch them, because they run away."
+      ]
+    },
+    "writingPrompt": "Write about a farm: the animals there and what they can and can't do.",
+    "sentenceTranslations": [
+      "Chủ nhật, anh Minh, em gái Mai và mình đến thăm trang trại của chú Hai gần Huế.",
+      "Chú Hai và thím Hoa nuôi rất nhiều con vật.",
+      "Có mười con bò, năm con lợn và hai mươi con gà.",
+      "Bò ăn cỏ cả ngày, và chúng cho sữa.",
+      "Gà không bay cao được, nhưng chạy rất nhanh!",
+      "Sáng nào thím Hoa cũng nhặt được rất nhiều trứng gà.",
+      "Chú Hai còn có hai con ngựa và ba con cừu.",
+      "\"Bọn cháu cưỡi ngựa được không ạ?\" anh Minh hỏi.",
+      "\"Được chứ, nhưng chỉ con ngựa nhỏ thôi,\" chú Hai nói.",
+      "Mai rất thích mấy con lợn con, nhưng em không chạm vào chúng được, vì chúng chạy mất.",
+      "Bé Bo hai tuổi, và em kêu được \"ò ó\" giống con bò!",
+      "Buổi tối, cả nhà uống sữa của trang trại và ăn trứng cho bữa tối.",
+      "Mình thích trang trại lắm!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về các con vật ở trang trại, nói chúng làm được gì, và xin phép bằng Can we …?",
+    "examples": [
+      {
+        "lemma": "farm",
+        "sentence": "The farm is near Hue.",
+        "meaningVi": "Trang trại ở gần Huế."
+      },
+      {
+        "lemma": "cow",
+        "sentence": "A cow gives milk.",
+        "meaningVi": "Bò cho sữa."
+      },
+      {
+        "lemma": "pig",
+        "sentence": "The pig is pink and fat.",
+        "meaningVi": "Con lợn màu hồng và béo."
+      },
+      {
+        "lemma": "chicken",
+        "sentence": "This chicken can't fly.",
+        "meaningVi": "Con gà này không bay được."
+      },
+      {
+        "lemma": "grass",
+        "sentence": "The grass is very green.",
+        "meaningVi": "Cỏ xanh lắm."
+      },
+      {
+        "lemma": "egg",
+        "sentence": "I eat an egg for breakfast.",
+        "meaningVi": "Bữa sáng mình ăn một quả trứng."
+      },
+      {
+        "lemma": "horse",
+        "sentence": "A horse can run very fast.",
+        "meaningVi": "Ngựa chạy được rất nhanh."
+      },
+      {
+        "lemma": "sheep",
+        "sentence": "The sheep is white.",
+        "meaningVi": "Con cừu màu trắng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, are there farms near Hue?",
+          "meaningVi": "Minh ơi, gần Huế có trang trại không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, there are. My uncle has a farm with a lot of animals.",
+          "meaningVi": "Có chứ. Chú mình có một trang trại nuôi rất nhiều con vật."
+        },
+        {
+          "speaker": 1,
+          "text": "What animals does he have?",
+          "meaningVi": "Chú nuôi những con gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "Cows, pigs, chickens and two horses.",
+          "meaningVi": "Bò, lợn, gà và hai con ngựa."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow! Can you ride a horse?",
+          "meaningVi": "Ồ! Cậu có cưỡi ngựa được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I can, but only a small one. Can you?",
+          "meaningVi": "Được, nhưng chỉ con nhỏ thôi. Còn cậu?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, I can't. But I can ride a bike!",
+          "meaningVi": "Không. Nhưng mình đi xe đạp được!"
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! Do you have animals at home?",
+          "meaningVi": "Ha! Nhà cậu có nuôi con vật nào không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Only my dog Sam. He can't give us milk!",
+          "meaningVi": "Chỉ có con chó Sam thôi. Nó đâu có cho sữa được!"
+        },
+        {
+          "speaker": 0,
+          "text": "But he can catch a ball!",
+          "meaningVi": "Nhưng nó bắt được bóng mà!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi ai đó có làm được không: Can you ride a horse? Hỏi lại ngắn gọn: Can you? Trả lời: Yes, I can. / No, I can't.",
+    "translations": [
+      {
+        "vi": "Có mười con bò và năm con lợn.",
+        "en": "There are ten cows and five pigs.",
+        "distractors": [
+          "is",
+          "cow",
+          "pig"
+        ]
+      },
+      {
+        "vi": "Gà không bay cao được.",
+        "en": "The chickens can't fly very high.",
+        "distractors": [
+          "can",
+          "flies",
+          "chicken"
+        ]
+      },
+      {
+        "vi": "Chúng tôi cưỡi ngựa được không?",
+        "en": "Can we ride the horses?",
+        "distractors": [
+          "Do",
+          "Are",
+          "horse"
+        ]
+      },
+      {
+        "vi": "Bò ăn cỏ cả ngày.",
+        "en": "The cows eat grass all day.",
+        "distractors": [
+          "eats",
+          "every",
+          "cow"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và Tom nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Trang trại của chú Minh và các con vật",
+          "Con chó của Minh",
+          "Một chuyến đi Sydney"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tom hỏi \"are there farms near Hue?\" và Minh kể về trang trại của chú mình.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chú của Minh có mấy con ngựa?",
+        "promptVi": "",
+        "options": [
+          "Một con",
+          "Hai con",
+          "Ba con"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"Cows, pigs, chickens and two horses.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tom làm được gì?",
+        "promptVi": "",
+        "options": [
+          "Vắt sữa bò",
+          "Cưỡi ngựa",
+          "Đi xe đạp"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tom nói \"No, I can't. But I can ride a bike!\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom can ride a horse.",
+        "promptVi": "Tom cưỡi ngựa được.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Minh hỏi lại, Tom nói \"No, I can't.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Trang trại của chú Hai có những con vật nào, và mỗi con làm được gì?",
+    "grammarStep": {
+      "titleVi": "Can / can't (khả năng)",
+      "noticing": [
+        {
+          "sentence": "The chickens can't fly very high, but they can run fast!",
+          "highlights": [
+            "can't fly",
+            "can run"
+          ]
+        },
+        {
+          "sentence": "\"Can we ride the horses?\" asks Minh.",
+          "highlights": [
+            "Can we ride"
+          ]
+        },
+        {
+          "sentence": "\"Yes, you can, but only the small horse,\" says Uncle Hai.",
+          "highlights": [
+            "you can"
+          ]
+        },
+        {
+          "sentence": "Little Bo is two, and he can say \"moo\" like a cow!",
+          "highlights": [
+            "can say"
+          ]
+        }
+      ],
+      "questionVi": "Minh hỏi \"Can we ride the horses?\". Chú Hai trả lời ngắn thế nào?",
+      "options": [
+        "Yes, you can.",
+        "Yes, we do.",
+        "Yes, you ride."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu hỏi với can được trả lời ngắn bằng can: Yes, you can. / No, you can't. Minh hỏi \"we\" nên chú Hai trả lời \"you\".",
+      "whenVi": "Dùng can / can't để nói làm được hay không, và Can we …? để xin phép làm một việc.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "We can ride the small horse.",
+          "negative": "You can't ride the big horse."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "Bo can say \"moo\".",
+          "negative": "Mai can't touch the pigs."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Can we ride the horses? – Yes, you can.",
+          "negative": "No, you can't."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Can we to ride the horses?",
+          "right": "Can we ride the horses?"
+        },
+        {
+          "wrong": "Mai can't touches them.",
+          "right": "Mai can't touch them."
+        }
+      ],
+      "noteVi": "Người Việt hay thêm to sau can (vì nhớ want to, need to) hoặc thêm -s vào động từ sau can khi chủ ngữ là he / she; sau can, động từ luôn giữ nguyên.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền can hoặc can't vào chỗ trống.",
+          "text": "Chickens ___ fly very high, but they can run fast.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Vế sau có but … can run, nên vế trước là việc không làm được: can't fly."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "___ we ride the horses? – Yes, you can.",
+          "options": [
+            "Do",
+            "Can",
+            "Are",
+            "Does"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu trả lời là \"Yes, you can\", nên câu hỏi phải bắt đầu bằng Can."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Bo can says \"moo\" like a cow.",
+          "sentence": "Bo can say \"moo\" like a cow.",
+          "explanationVi": "Sau can, động từ giữ nguyên: can say."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mai không chạm vào được những con lợn con.",
+          "sentence": "Mai can't touch the baby pigs.",
+          "words": [
+            "touch",
+            "Mai",
+            "pigs",
+            "can't",
+            "the",
+            "baby",
+            "touches"
+          ],
+          "explanationVi": "Sau can't, động từ giữ nguyên: can't touch; từ \"touches\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There are ten cows, five pigs and twenty chickens.",
+        "tipVi": "Cows /kaʊz/ và chickens /ˈtʃɪkənz/ đều kết thúc bằng /z/; pigs /pɪɡz/ có cụm /ɡz/ ở cuối."
+      },
+      {
+        "text": "The cows eat grass all day, and they give milk.",
+        "tipVi": "Grass /ɡræs/ có cụm /ɡr/ ở đầu; milk /mɪlk/ có cụm /lk/ ở cuối, đọc rõ /k/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Can you ride a horse?",
+        "questionVi": "Bạn có cưỡi ngựa được không?",
+        "frame": "Yes, I can. / No, I can't, but I can ___."
+      },
+      {
+        "question": "What farm animals do you like?",
+        "questionVi": "Bạn thích con vật nào ở trang trại?",
+        "frame": "I like ___ because they can ___."
+      },
+      {
+        "question": "What animals does your grandfather or grandmother have?",
+        "questionVi": "Ông hoặc bà của bạn nuôi những con vật gì?",
+        "frame": "He / She has ___ and ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng can hoặc can't",
+      "anyOf": [
+        "can",
+        "can't",
+        "cannot",
+        "they can"
+      ],
+      "outlineVi": [
+        "Nói trang trại của ai, ở đâu, có những con vật nào (There are …).",
+        "Nói các con vật cho gì hoặc làm được gì (They can …).",
+        "Kể một người làm được hoặc không làm được gì ở đó (He / She can't …)."
+      ],
+      "modelAnswer": "My grandfather has a small farm. There are three cows, four pigs and ten chickens. The cows give milk, and the chickens give eggs. My grandfather also has a horse, and it can run very fast. My little brother loves the pigs, but he can't catch them!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "visit",
+      "lemma": "visit",
+      "meaningVi": "đến thăm",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "visit Uncle Hai's farm",
+      "phraseVi": "đến thăm trang trại của chú Hai"
+    },
+    {
+      "text": "all day",
+      "lemma": "all day",
+      "meaningVi": "cả ngày",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "The cows eat grass all day",
+      "phraseVi": "Bò ăn cỏ cả ngày"
+    },
+    {
+      "text": "gets",
+      "lemma": "get",
+      "meaningVi": "lấy, nhặt được",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "gets a lot of eggs from them",
+      "phraseVi": "nhặt được rất nhiều trứng gà"
+    },
+    {
+      "text": "ride",
+      "lemma": "ride",
+      "meaningVi": "cưỡi",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "Can we ride the horses",
+      "phraseVi": "Bọn cháu cưỡi ngựa được không"
+    },
+    {
+      "text": "only",
+      "lemma": "only",
+      "meaningVi": "chỉ",
+      "sentenceIndex": 8,
+      "pos": "adverb",
+      "phrase": "only the small horse",
+      "phraseVi": "chỉ con ngựa nhỏ thôi"
+    },
+    {
+      "text": "touch",
+      "lemma": "touch",
+      "meaningVi": "chạm vào, sờ",
+      "sentenceIndex": 9,
+      "pos": "verb",
+      "phrase": "she can't touch them",
+      "phraseVi": "em không chạm vào chúng được"
+    },
+    {
+      "text": "run away",
+      "lemma": "run away",
+      "meaningVi": "chạy mất, chạy đi",
+      "sentenceIndex": 9,
+      "pos": "phrasal verb",
+      "phrase": "because they run away",
+      "phraseVi": "vì chúng chạy mất"
+    },
+    {
+      "text": "like a cow",
+      "lemma": "like",
+      "meaningVi": "giống như con bò",
+      "sentenceIndex": 10,
+      "pos": "preposition",
+      "phrase": "he can say \"moo\" like a cow",
+      "phraseVi": "em kêu được \"ò ó\" giống con bò"
+    },
+    {
+      "text": "for dinner",
+      "lemma": "for dinner",
+      "meaningVi": "cho bữa tối",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "eat eggs for dinner",
+      "phraseVi": "ăn trứng cho bữa tối"
+    }
+  ]
+}

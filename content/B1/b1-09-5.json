@@ -1,0 +1,617 @@
+{
+  "content": "A group of students is visiting Cuc Phuong National Park. Mr Tien, who has worked in the park for twenty years, is showing them around.\n\n\"Cuc Phuong was opened in 1962,\" Mr Tien says. \"It was the first national park in Vietnam.\"\nA girl asks, \"How big is the park?\"\n\"It's about two hundred and twenty square kilometres. Most of it is covered by forest. Thousands of plants grow here, and many of them don't grow anywhere else.\"\n\"Are there many animals?\"\n\"Yes. Bears, monkeys, snakes and many kinds of birds live here. Some of them are very rare.\"\nThey walk to a building with large cages. \"This is our rescue centre,\" he says. \"Rare monkeys are looked after here. Most of them were taken from people who wanted to sell them. When they are healthy again, they are returned to the forest.\"\n\"Can people hunt in the park?\"\n\"No. It isn't allowed, and the forest is watched day and night. People who break the rules are stopped by the police.\"\n\"What else do you do to protect the park?\"\n\"Every year, thousands of young trees are planted. The seeds are collected in the forest, and the trees are grown in our garden for two years first.\"\nA boy points at a tall tree. \"How old is that one?\"\n\"About a thousand years old. It's one of the oldest trees in the park. Please don't touch it.\"\n\"Wow. Can we plant a tree today?\"\nMr Tien smiles. \"Of course. Your trees are already waiting for you.\"",
+  "targetWords": [
+    "national park",
+    "forest",
+    "plant",
+    "rescue",
+    "healthy",
+    "return",
+    "hunt",
+    "protect",
+    "seed",
+    "collect"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "national park",
+        "lemma": "national park",
+        "meaningVi": "vườn quốc gia",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "forest",
+        "lemma": "forest",
+        "meaningVi": "rừng",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "plants",
+        "lemma": "plant",
+        "meaningVi": "cây cối, thực vật",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "rescue",
+        "lemma": "rescue",
+        "meaningVi": "cứu hộ",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "healthy",
+        "lemma": "healthy",
+        "meaningVi": "khoẻ mạnh",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "returned",
+        "lemma": "return",
+        "meaningVi": "trả về, đưa về",
+        "pos": "verb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "hunt",
+        "lemma": "hunt",
+        "meaningVi": "săn bắt",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "protect",
+        "lemma": "protect",
+        "meaningVi": "bảo vệ",
+        "pos": "verb",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "seeds",
+        "lemma": "seed",
+        "meaningVi": "hạt giống",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "collected",
+        "lemma": "collect",
+        "meaningVi": "thu nhặt, thu gom",
+        "pos": "verb",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Mr Tien doing?",
+        "promptVi": "Ông Tiến đang làm gì?",
+        "options": [
+          "Showing students around Cuc Phuong National Park",
+          "Selling monkeys to visitors",
+          "Teaching a history lesson at school",
+          "Building a new hotel in the forest"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Tiến làm ở vườn hai mươi năm và đang dẫn học sinh đi tham quan."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When was Cuc Phuong opened?",
+        "promptVi": "Cúc Phương được mở năm nào?",
+        "options": [
+          "In 1926",
+          "In 1962",
+          "In 1992",
+          "In 2002"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Tiến nói \"Cuc Phuong was opened in 1962.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What happens to the monkeys when they are healthy again?",
+        "promptVi": "Khi khoẻ lại, những con khỉ được làm gì?",
+        "options": [
+          "They are sold.",
+          "They are kept in cages.",
+          "They are returned to the forest.",
+          "They are sent to a zoo."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ông Tiến nói \"When they are healthy again, they are returned to the forest.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The young trees are planted in the forest at once.",
+        "promptVi": "Cây non được trồng ngay vào rừng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chúng \"are grown in our garden for two years first.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"looked after\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Rare monkeys are looked after here.",
+        "options": [
+          "được chăm sóc",
+          "bị nhốt",
+          "được tìm thấy",
+          "bị bán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Look after = chăm sóc; are looked after = được chăm sóc."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu bị động (hiện tại và quá khứ đơn)",
+      "bodyVi": "Câu bị động nói về việc bảo vệ thiên nhiên: Rare monkeys are looked after here (hiện tại). Most of them were taken from people who wanted to sell them (quá khứ). Every year, thousands of young trees are planted. Với cụm động từ, giữ nguyên giới từ sau V3: are looked after. Thêm by khi người làm quan trọng: are stopped by the police.",
+      "examples": [
+        "\"Cuc Phuong was opened in 1962,\" Mr Tien says.",
+        "\"Rare monkeys are looked after here.",
+        "\"Every year, thousands of young trees are planted."
+      ]
+    },
+    "writingPrompt": "Write about a park, zoo or forest you know. How are the animals or trees protected there?",
+    "sentenceTranslations": [
+      "Một nhóm học sinh đang tham quan Vườn quốc gia Cúc Phương.",
+      "Ông Tiến, người đã làm ở vườn hai mươi năm, đang dẫn các em đi xem.",
+      "Ông Tiến nói: \"Cúc Phương được mở năm 1962.",
+      "Đó là vườn quốc gia đầu tiên của Việt Nam.\"",
+      "Một bạn nữ hỏi: \"Vườn rộng bao nhiêu ạ?\"",
+      "\"Khoảng hai trăm hai mươi ki-lô-mét vuông.",
+      "Phần lớn được rừng bao phủ.",
+      "Hàng nghìn loài cây mọc ở đây, và nhiều loài không mọc ở bất cứ nơi nào khác.\"",
+      "\"Có nhiều động vật không ạ?\"",
+      "\"Có.",
+      "Gấu, khỉ, rắn và nhiều loài chim sống ở đây.",
+      "Một số loài rất hiếm.\"",
+      "Họ đi đến một toà nhà có những chiếc chuồng lớn.",
+      "Ông nói: \"Đây là trung tâm cứu hộ của chúng tôi.",
+      "Những con khỉ quý hiếm được chăm sóc ở đây.",
+      "Phần lớn chúng được lấy lại từ những người muốn bán chúng.",
+      "Khi khoẻ lại, chúng được thả về rừng.\"",
+      "\"Người ta có được săn bắt trong vườn không ạ?\"",
+      "\"Không.",
+      "Việc đó không được phép, và rừng được canh gác cả ngày lẫn đêm.",
+      "Ai vi phạm sẽ bị công an ngăn lại.\"",
+      "\"Ông còn làm gì khác để bảo vệ vườn ạ?\"",
+      "\"Mỗi năm, hàng nghìn cây non được trồng.",
+      "Hạt giống được thu nhặt trong rừng, và cây được ươm trong vườn của chúng tôi hai năm trước.\"",
+      "Một bạn nam chỉ vào một cây cao.",
+      "\"Cây kia bao nhiêu tuổi ạ?\"",
+      "\"Khoảng một nghìn năm tuổi.",
+      "Đó là một trong những cây già nhất vườn.",
+      "Các cháu đừng chạm vào nhé.\"",
+      "\"Ồ.",
+      "Hôm nay chúng cháu có được trồng cây không ạ?\"",
+      "Ông Tiến mỉm cười.",
+      "\"Tất nhiên.",
+      "Cây của các cháu đang đợi sẵn rồi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu một vườn quốc gia và cách bảo vệ động vật, cây cối bằng câu bị động (are looked after, are planted, were taken).",
+    "examples": [
+      {
+        "lemma": "national park",
+        "sentence": "Cat Tien is a national park in the south.",
+        "meaningVi": "Cát Tiên là một vườn quốc gia ở miền Nam."
+      },
+      {
+        "lemma": "forest",
+        "sentence": "We got lost in the forest.",
+        "meaningVi": "Chúng tôi bị lạc trong rừng."
+      },
+      {
+        "lemma": "plant",
+        "sentence": "This plant needs a lot of water.",
+        "meaningVi": "Cây này cần nhiều nước."
+      },
+      {
+        "lemma": "rescue",
+        "sentence": "The rescue team arrived quickly.",
+        "meaningVi": "Đội cứu hộ đến rất nhanh."
+      },
+      {
+        "lemma": "healthy",
+        "sentence": "Fruit keeps you healthy.",
+        "meaningVi": "Trái cây giúp bạn khoẻ mạnh."
+      },
+      {
+        "lemma": "return",
+        "sentence": "Please return the book next week.",
+        "meaningVi": "Vui lòng trả sách vào tuần sau."
+      },
+      {
+        "lemma": "hunt",
+        "sentence": "Cats hunt mice at night.",
+        "meaningVi": "Mèo bắt chuột vào ban đêm."
+      },
+      {
+        "lemma": "protect",
+        "sentence": "Sun cream will protect your skin.",
+        "meaningVi": "Kem chống nắng sẽ bảo vệ da bạn."
+      },
+      {
+        "lemma": "seed",
+        "sentence": "Put one seed in each small pot.",
+        "meaningVi": "Gieo một hạt vào mỗi chậu nhỏ."
+      },
+      {
+        "lemma": "collect",
+        "sentence": "My brother likes to collect stamps.",
+        "meaningVi": "Anh tôi thích sưu tầm tem."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Student",
+        "Mr Tien"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mr Tien, how is the forest watched at night?",
+          "meaningVi": "Thưa ông, ban đêm rừng được canh gác thế nào ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "It's watched by small teams. Each team has three people.",
+          "meaningVi": "Do các nhóm nhỏ canh. Mỗi nhóm có ba người."
+        },
+        {
+          "speaker": 0,
+          "text": "Are cameras used too?",
+          "meaningVi": "Có dùng cả camera không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Forty cameras were put in the trees last year.",
+          "meaningVi": "Có. Năm ngoái có bốn mươi camera được lắp trên cây."
+        },
+        {
+          "speaker": 0,
+          "text": "Were any bears seen on the cameras?",
+          "meaningVi": "Camera có ghi được con gấu nào không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, two. We were all very happy.",
+          "meaningVi": "Có, hai con. Chúng tôi ai cũng rất vui."
+        },
+        {
+          "speaker": 0,
+          "text": "Can visitors see the bears?",
+          "meaningVi": "Khách có xem được gấu không ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, they can't. They live deep in the forest.",
+          "meaningVi": "Không. Chúng sống sâu trong rừng."
+        },
+        {
+          "speaker": 0,
+          "text": "What should we do to help?",
+          "meaningVi": "Chúng cháu nên làm gì để giúp ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "Never buy wild animals, and tell your friends too.",
+          "meaningVi": "Đừng bao giờ mua động vật hoang dã, và hãy nói với bạn bè nữa."
+        }
+      ]
+    },
+    "grammarTipVi": "Hiện tại: It's watched by small teams / Are cameras used? Quá khứ: Forty cameras were put in the trees / Were any bears seen?",
+    "translations": [
+      {
+        "vi": "Rừng được canh gác cả ngày lẫn đêm.",
+        "en": "The forest is watched day and night.",
+        "distractors": [
+          "are",
+          "watches",
+          "by"
+        ]
+      },
+      {
+        "vi": "Khi khoẻ lại, chúng được thả về rừng.",
+        "en": "When they are healthy, they are returned to the forest.",
+        "distractors": [
+          "is",
+          "returns",
+          "from"
+        ]
+      },
+      {
+        "vi": "Hạt giống được thu nhặt trong rừng.",
+        "en": "The seeds are collected in the forest.",
+        "distractors": [
+          "is",
+          "collects",
+          "by"
+        ]
+      },
+      {
+        "vi": "Vườn quốc gia được mở năm 1962.",
+        "en": "The national park was opened in 1962.",
+        "distractors": [
+          "were",
+          "opens",
+          "at"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Học sinh hỏi ông Tiến về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách rừng được canh gác và bảo vệ",
+          "Giá vé vào vườn",
+          "Cách trồng cây"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Học sinh hỏi về việc canh gác ban đêm, camera và gấu.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mỗi nhóm canh gác có mấy người?",
+        "promptVi": "",
+        "options": [
+          "Hai người",
+          "Ba người",
+          "Bốn người"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Tiến nói \"Each team has three people.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Năm ngoái có bao nhiêu camera được lắp?",
+        "promptVi": "",
+        "options": [
+          "Mười bốn",
+          "Bốn mươi",
+          "Bốn trăm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Tiến nói \"Forty cameras were put in the trees last year.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Visitors can see the bears.",
+        "promptVi": "Khách có thể xem gấu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông Tiến nói \"No, they can't.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Động vật và cây cối ở Cúc Phương được bảo vệ bằng những cách nào?",
+    "grammarStep": {
+      "titleVi": "Câu bị động (hiện tại và quá khứ đơn)",
+      "noticing": [
+        {
+          "sentence": "\"Rare monkeys are looked after here.",
+          "highlights": [
+            "are looked after"
+          ]
+        },
+        {
+          "sentence": "Most of them were taken from people who wanted to sell them.",
+          "highlights": [
+            "were taken"
+          ]
+        },
+        {
+          "sentence": "People who break the rules are stopped by the police.\"",
+          "highlights": [
+            "are stopped",
+            "by the police"
+          ]
+        },
+        {
+          "sentence": "\"Every year, thousands of young trees are planted.",
+          "highlights": [
+            "are planted"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"Rare monkeys are looked after here\", vì sao vẫn giữ \"after\"?",
+      "options": [
+        "Vì look after là cụm động từ; ở bị động vẫn giữ nguyên giới từ.",
+        "Vì after nghĩa là \"sau đó\".",
+        "Vì câu ở quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Cụm động từ look after (chăm sóc) → bị động: be looked after.",
+      "whenVi": "Dùng câu bị động để nói việc gì được làm để bảo vệ thiên nhiên, khi người làm không quan trọng hoặc ai cũng biết.",
+      "table": [
+        {
+          "subject": "Hiện tại",
+          "form": "Trees are planted every year.",
+          "negative": "Rubbish isn't left in the forest."
+        },
+        {
+          "subject": "Quá khứ",
+          "form": "The park was opened in 1962.",
+          "negative": "It wasn't opened until 1962."
+        },
+        {
+          "subject": "Cụm động từ",
+          "form": "look after → are looked after",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Rare monkeys are looked here.",
+          "right": "Rare monkeys are looked after here."
+        },
+        {
+          "wrong": "Cuc Phuong opened by the government in 1962.",
+          "right": "Cuc Phuong was opened by the government in 1962."
+        }
+      ],
+      "noteVi": "People who break the rules are stopped by the police: thêm by vì người làm (cảnh sát) là thông tin quan trọng.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng bị động đúng của động từ trong ngoặc (plant).",
+          "text": "Every year, thousands of young trees ___.",
+          "answers": [
+            "are planted"
+          ],
+          "explanationVi": "Hiện tại, số nhiều: are planted."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Cuc Phuong ___ in 1962.",
+          "options": [
+            "was opened",
+            "is opened",
+            "opened",
+            "were opened"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Quá khứ, số ít: was opened."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Rare monkeys are looked here.",
+          "sentence": "Rare monkeys are looked after here.",
+          "explanationVi": "Look after = chăm sóc; phải giữ after."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Hạt giống được thu nhặt trong rừng.",
+          "sentence": "The seeds are collected in the forest.",
+          "words": [
+            "seeds",
+            "The",
+            "are",
+            "collected",
+            "in",
+            "the",
+            "forest.",
+            "collect"
+          ],
+          "explanationVi": "Are + V3: are collected; từ \"collect\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Rare monkeys are looked after here.",
+        "tipVi": "Looked after /lʊkt ˈɑːftə/: nối \"looked after\"."
+      },
+      {
+        "text": "\"Every year, thousands of young trees are planted.",
+        "tipVi": "Planted /ˈplɑːntɪd/ đuôi -ed đọc /ɪd/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever visited a national park? Which one?",
+        "questionVi": "Bạn đã từng đến vườn quốc gia nào chưa? Vườn nào?",
+        "frame": "Yes, I have visited ___ / No, I haven't."
+      },
+      {
+        "question": "What can people do to protect animals?",
+        "questionVi": "Mọi người có thể làm gì để bảo vệ động vật?",
+        "frame": "People can ___."
+      },
+      {
+        "question": "Have you ever planted a tree? Where?",
+        "questionVi": "Bạn đã từng trồng cây chưa? Ở đâu?",
+        "frame": "Yes, I planted one ___ / No, I haven't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is / are / was / were + V3)",
+      "anyOf": [
+        "ed by",
+        "en by",
+        "are looked after",
+        "is looked after",
+        "are planted",
+        "is planted",
+        "are protected",
+        "is protected",
+        "was opened",
+        "are kept",
+        "is kept",
+        "are fed",
+        "is allowed",
+        "are allowed",
+        "was built",
+        "were taken"
+      ],
+      "outlineVi": [
+        "Tên nơi đó và nó ở đâu.",
+        "Có những động vật / cây gì.",
+        "Chúng được bảo vệ thế nào (… are looked after / are planted / isn't allowed …)."
+      ],
+      "modelAnswer": "Cat Tien National Park is in the south of Vietnam. It was opened in 1992. Many rare animals live there, like bears and wild cows. Bears are looked after in a special centre. Visitors are taken around by local guides, and nobody can hunt there. Every year, young trees are planted by students."
+    }
+  },
+  "glosses": [
+    {
+      "text": "showing them around",
+      "lemma": "show around",
+      "meaningVi": "dẫn đi tham quan",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "is showing them around",
+      "phraseVi": "đang dẫn các em đi xem"
+    },
+    {
+      "text": "square kilometres",
+      "lemma": "square kilometre",
+      "meaningVi": "ki-lô-mét vuông",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "two hundred and twenty square kilometres",
+      "phraseVi": "hai trăm hai mươi ki-lô-mét vuông"
+    },
+    {
+      "text": "cages",
+      "lemma": "cage",
+      "meaningVi": "chuồng, lồng",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "a building with large cages",
+      "phraseVi": "một toà nhà có những chiếc chuồng lớn"
+    },
+    {
+      "text": "looked after",
+      "lemma": "look after",
+      "meaningVi": "chăm sóc",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "Rare monkeys are looked after here.",
+      "phraseVi": "Những con khỉ quý hiếm được chăm sóc ở đây."
+    },
+    {
+      "text": "break the rules",
+      "lemma": "break the rules",
+      "meaningVi": "vi phạm quy định",
+      "sentenceIndex": 20,
+      "pos": "phrase",
+      "phrase": "People who break the rules",
+      "phraseVi": "Ai vi phạm"
+    }
+  ]
+}

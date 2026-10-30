@@ -1,0 +1,602 @@
+{
+  "content": "On Saturday afternoon, Thanh and her sister Diep are at a clothes shop in Hanoi. Thanh needs a new dress for her birthday party. She finds a lovely pink dress and tries it on. When she comes out of the changing room, she looks unhappy.\n\n\"This dress is too small,\" she says. \"It's too tight, and it isn't long enough.\"\nDiep laughs and says, \"You're right, and the colour is too bright for you.\"\n\nThen Thanh tries on a blue dress. It is long enough, but it is too big. \"I can't walk in it!\" she says.\n\nThe shop assistant brings a size M green dress. \"Is this one big enough?\" she asks. Thanh tries it on, and it is perfect. It isn't too tight, and it's long enough.\n\nDiep asks the assistant, \"How much is it?\"\n\"It's eight hundred thousand dong,\" the assistant answers.\n\"Oh no, it's too expensive, and I don't have enough money,\" Thanh says sadly.\nDiep smiles and says, \"Don't worry, I have enough money.\" \"This dress is my birthday present for you!\"",
+  "targetWords": [
+    "dress",
+    "try on",
+    "tight",
+    "colour",
+    "shop assistant",
+    "size",
+    "perfect",
+    "expensive"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "dress",
+        "lemma": "dress",
+        "meaningVi": "váy liền",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "tries it on",
+        "lemma": "try on",
+        "meaningVi": "mặc thử",
+        "pos": "phrasal verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "tight",
+        "lemma": "tight",
+        "meaningVi": "chật, bó",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "colour",
+        "lemma": "colour",
+        "meaningVi": "màu sắc",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "shop assistant",
+        "lemma": "shop assistant",
+        "meaningVi": "nhân viên bán hàng",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "size",
+        "lemma": "size",
+        "meaningVi": "cỡ, kích cỡ",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "perfect",
+        "lemma": "perfect",
+        "meaningVi": "hoàn hảo, vừa khít",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "expensive",
+        "lemma": "expensive",
+        "meaningVi": "đắt",
+        "pos": "adjective",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Diep's birthday party",
+          "A new shop in Hanoi",
+          "Thanh buys a pair of shoes.",
+          "Thanh tries on dresses and finds one for her birthday."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Thanh thử ba chiếc váy để mặc sinh nhật: chiếc hồng quá chật, chiếc xanh dương quá rộng, chiếc xanh lá thì vừa và chị Điệp mua tặng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is wrong with the pink dress?",
+        "promptVi": "Chiếc váy hồng có vấn đề gì?",
+        "options": [
+          "It's too tight and not long enough.",
+          "It's too big.",
+          "It's too expensive.",
+          "It's too long."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thanh nói \"It's too tight, and it isn't long enough\": váy quá chật và không đủ dài."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't Thanh walk in the blue dress?",
+        "promptVi": "Vì sao Thanh không đi lại được trong chiếc váy xanh dương?",
+        "options": [
+          "It's too short.",
+          "It's too tight.",
+          "It's too big.",
+          "It's too heavy."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"It is long enough, but it is too big\": váy quá rộng nên Thanh không đi lại được."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Diep pays for the green dress.",
+        "promptVi": "Điệp trả tiền chiếc váy xanh lá.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Điệp nói \"I have enough money\" và \"This dress is my birthday present for you!\": chị mua tặng Thanh."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"tight\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It's too tight, and it isn't long enough.",
+        "options": [
+          "rộng thùng thình",
+          "chật, bó",
+          "dài",
+          "đắt"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tight là chật, bó sát: chiếc váy hồng nhỏ quá nên mặc vào rất chật."
+      }
+    ],
+    "grammarNote": {
+      "title": "Too và enough",
+      "bodyVi": "Too + tính từ nghĩa là quá, nhiều hơn mức mình muốn: too small, too big, too expensive. Tính từ + enough nghĩa là đủ: long enough, big enough; isn't … enough là chưa đủ. Enough đứng trước danh từ: enough money.",
+      "examples": [
+        "\"It's too tight, and it isn't long enough.\"",
+        "It is long enough, but it is too big.",
+        "\"Oh no, it's too expensive, and I don't have enough money,\" Thanh says sadly."
+      ]
+    },
+    "writingPrompt": "Write about a time you tried on clothes in a shop: what was too small, too big or too expensive?",
+    "sentenceTranslations": [
+      "Chiều thứ Bảy, Thanh và chị gái Điệp đang ở một cửa hàng quần áo ở Hà Nội.",
+      "Thanh cần một chiếc váy mới cho bữa tiệc sinh nhật của mình.",
+      "Cô tìm thấy một chiếc váy hồng rất xinh và mặc thử.",
+      "Lúc bước ra khỏi phòng thử đồ, trông cô không vui.",
+      "\"Chiếc váy này nhỏ quá,\" cô nói.",
+      "\"Chật quá, mà lại không đủ dài.\"",
+      "Điệp cười và nói: \"Em nói đúng, mà màu này cũng sáng quá với em.\"",
+      "Rồi Thanh mặc thử một chiếc váy xanh dương.",
+      "Váy đủ dài, nhưng lại rộng quá.",
+      "\"Em không đi lại được!\" cô nói.",
+      "Cô nhân viên bán hàng mang ra một chiếc váy xanh lá cỡ M.",
+      "\"Chiếc này có đủ rộng không ạ?\" cô hỏi.",
+      "Thanh mặc thử, và nó vừa khít.",
+      "Không quá chật, mà cũng đủ dài.",
+      "Điệp hỏi cô nhân viên: \"Chiếc này bao nhiêu tiền?\"",
+      "\"Tám trăm nghìn đồng ạ,\" cô nhân viên trả lời.",
+      "\"Ôi, đắt quá, em không đủ tiền,\" Thanh buồn bã nói.",
+      "Điệp mỉm cười và nói: \"Đừng lo, chị có đủ tiền.\"",
+      "\"Chiếc váy này là quà sinh nhật chị tặng em!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nhận xét quần áo có vừa không khi đi mua sắm, dùng too + tính từ, tính từ + enough và enough + danh từ.",
+    "examples": [
+      {
+        "lemma": "dress",
+        "sentence": "Her dress is very beautiful.",
+        "meaningVi": "Chiếc váy của cô ấy rất đẹp."
+      },
+      {
+        "lemma": "try on",
+        "sentence": "Can I try on this jacket?",
+        "meaningVi": "Tôi mặc thử chiếc áo khoác này được không?"
+      },
+      {
+        "lemma": "tight",
+        "sentence": "These shoes are tight.",
+        "meaningVi": "Đôi giày này chật."
+      },
+      {
+        "lemma": "colour",
+        "sentence": "What colour is your bag?",
+        "meaningVi": "Túi của bạn màu gì?"
+      },
+      {
+        "lemma": "shop assistant",
+        "sentence": "The shop assistant is very kind.",
+        "meaningVi": "Cô nhân viên bán hàng rất dễ mến."
+      },
+      {
+        "lemma": "size",
+        "sentence": "What size are you?",
+        "meaningVi": "Bạn mặc cỡ nào?"
+      },
+      {
+        "lemma": "perfect",
+        "sentence": "Your English is perfect!",
+        "meaningVi": "Tiếng Anh của bạn hoàn hảo quá!"
+      },
+      {
+        "lemma": "expensive",
+        "sentence": "This phone is very expensive.",
+        "meaningVi": "Chiếc điện thoại này rất đắt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thanh",
+        "Grace"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thanh, I love your new dress! Where did you buy it?",
+          "meaningVi": "Thanh ơi, mình thích chiếc váy mới của cậu quá! Cậu mua ở đâu thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "At a small shop near the lake. My sister bought it for me.",
+          "meaningVi": "Ở một cửa hàng nhỏ gần hồ. Chị mình mua tặng mình."
+        },
+        {
+          "speaker": 1,
+          "text": "That's so kind! Did you try on a lot of dresses?",
+          "meaningVi": "Chị cậu tốt thật! Cậu có thử nhiều váy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, three. The first one was too small.",
+          "meaningVi": "Có, ba chiếc. Chiếc đầu tiên nhỏ quá."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh no! And the second one?",
+          "meaningVi": "Ôi! Còn chiếc thứ hai?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was too big. I couldn't walk in it!",
+          "meaningVi": "Rộng quá. Mình không đi lại được!"
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! Is this one comfortable?",
+          "meaningVi": "Ha! Chiếc này mặc có thoải mái không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it isn't too tight, and it's long enough.",
+          "meaningVi": "Có, nó không chật quá, mà cũng đủ dài."
+        },
+        {
+          "speaker": 1,
+          "text": "Was it expensive?",
+          "meaningVi": "Có đắt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it was too expensive for me, so my sister bought it.",
+          "meaningVi": "Có, với mình thì đắt quá, nên chị mình mua."
+        }
+      ]
+    },
+    "grammarTipVi": "Nhận xét quần áo: It was too small. It was too big. It isn't too tight, and it's long enough.",
+    "translations": [
+      {
+        "vi": "Chiếc váy này chật quá.",
+        "en": "This dress is too tight.",
+        "distractors": [
+          "enough",
+          "much",
+          "small"
+        ]
+      },
+      {
+        "vi": "Chiếc váy không đủ dài.",
+        "en": "The dress isn't long enough.",
+        "distractors": [
+          "too",
+          "short",
+          "aren't"
+        ]
+      },
+      {
+        "vi": "Nó đắt quá.",
+        "en": "It's too expensive.",
+        "distractors": [
+          "enough",
+          "cheap",
+          "much"
+        ]
+      },
+      {
+        "vi": "Cô nhân viên bán hàng mang ra một chiếc váy xanh lá.",
+        "en": "The shop assistant brings a green dress.",
+        "distractors": [
+          "bring",
+          "blue",
+          "skirt"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Grace và Thanh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một bữa tiệc sinh nhật",
+          "Chiếc váy mới của Thanh",
+          "Một cửa hàng giày"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Grace khen \"I love your new dress!\", rồi Thanh kể chuyện thử váy.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thanh mặc thử mấy chiếc váy?",
+        "promptVi": "",
+        "options": [
+          "Hai chiếc",
+          "Ba chiếc",
+          "Bốn chiếc"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thanh nói \"Yes, three.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Thanh không chọn chiếc váy thứ hai?",
+        "promptVi": "",
+        "options": [
+          "Vì nó quá chật",
+          "Vì nó quá đắt",
+          "Vì nó quá rộng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thanh nói \"It was too big. I couldn't walk in it!\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thanh bought the dress with her money.",
+        "promptVi": "Thanh tự bỏ tiền mua chiếc váy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thanh nói \"it was too expensive for me, so my sister bought it.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Mỗi chiếc váy Thanh thử có vấn đề gì, và chiếc nào vừa?",
+    "grammarStep": {
+      "titleVi": "Too và enough",
+      "noticing": [
+        {
+          "sentence": "\"This dress is too small,\" she says.",
+          "highlights": [
+            "too small"
+          ]
+        },
+        {
+          "sentence": "\"It's too tight, and it isn't long enough.\"",
+          "highlights": [
+            "too tight",
+            "long enough"
+          ]
+        },
+        {
+          "sentence": "It is long enough, but it is too big.",
+          "highlights": [
+            "long enough",
+            "too big"
+          ]
+        },
+        {
+          "sentence": "\"Oh no, it's too expensive, and I don't have enough money,\" Thanh says sadly.",
+          "highlights": [
+            "too expensive",
+            "enough money"
+          ]
+        }
+      ],
+      "questionVi": "Vị trí của enough trong \"long enough\" và \"enough money\" khác nhau thế nào?",
+      "options": [
+        "Enough đứng sau tính từ (long enough) nhưng đứng trước danh từ (enough money)",
+        "Enough luôn đứng trước từ nó đi kèm",
+        "Enough luôn đứng sau từ nó đi kèm"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Với tính từ, enough đứng sau: long enough, big enough. Với danh từ, enough đứng trước: enough money. Còn too luôn đứng trước tính từ: too small, too expensive.",
+      "whenVi": "Dùng too khi một thứ vượt quá mức mình cần (quá nhỏ, quá đắt), và enough khi nó vừa đủ.",
+      "table": [
+        {
+          "subject": "too + tính từ",
+          "form": "too small, too big, too expensive",
+          "negative": "It isn't too tight."
+        },
+        {
+          "subject": "tính từ + enough",
+          "form": "long enough, big enough",
+          "negative": "It isn't long enough."
+        },
+        {
+          "subject": "enough + danh từ",
+          "form": "I have enough money.",
+          "negative": "I don't have enough money."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It isn't enough long.",
+          "right": "It isn't long enough."
+        },
+        {
+          "wrong": "This dress is too much small.",
+          "right": "This dress is too small."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"đủ dài\" (\"đủ\" đứng trước), nên người Việt hay viết \"enough long\"; còn \"quá\" thì hay dịch thành \"too much\" thay vì chỉ \"too\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền too hoặc enough vào chỗ trống.",
+          "text": "The blue dress is long ___, but it's too big.",
+          "answers": [
+            "enough"
+          ],
+          "explanationVi": "Sau tính từ long dùng enough: long enough (đủ dài)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "I can't buy it. It's ___ expensive.",
+          "options": [
+            "too",
+            "enough",
+            "too much",
+            "much"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Quá đắt nên không mua được: too + tính từ: too expensive."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It isn't enough long for me.",
+          "sentence": "It isn't long enough for me.",
+          "explanationVi": "Enough đứng sau tính từ: long enough."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi không có đủ tiền.",
+          "sentence": "I don't have enough money.",
+          "words": [
+            "have",
+            "I",
+            "money",
+            "don't",
+            "enough",
+            "too"
+          ],
+          "explanationVi": "Enough đứng trước danh từ money; từ \"too\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"It's too tight, and it isn't long enough.\"",
+        "tipVi": "Enough /ɪˈnʌf/ nhấn ở âm thứ hai, gh đọc là /f/; tight /taɪt/ không đọc gh, đọc rõ /t/ ở cuối."
+      },
+      {
+        "text": "The shop assistant brings a size M green dress.",
+        "tipVi": "Assistant /əˈsɪstənt/ nhấn ở âm thứ hai; brings /brɪŋz/ có cụm /br/ ở đầu và /ŋz/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like shopping for clothes?",
+        "questionVi": "Bạn có thích đi mua quần áo không?",
+        "frame": "Yes, I do. / No, I don't, because ___."
+      },
+      {
+        "question": "Are your shoes comfortable enough for a long walk?",
+        "questionVi": "Giày của bạn có đủ thoải mái để đi bộ đường dài không?",
+        "frame": "Yes, they are. / No, they're too ___."
+      },
+      {
+        "question": "Does your mum or sister like trying on clothes?",
+        "questionVi": "Mẹ hoặc chị em gái bạn có thích thử quần áo không?",
+        "frame": "Yes, she does. She ___. / No, she doesn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng too + tính từ hoặc tính từ + enough",
+      "anyOf": [
+        "too",
+        "enough",
+        "too small",
+        "too big",
+        "long enough",
+        "big enough"
+      ],
+      "outlineVi": [
+        "Nói bạn đi mua gì, ở đâu, với ai.",
+        "Kể món đầu tiên bạn thử có vấn đề gì (It was too …, it wasn't … enough).",
+        "Kể món cuối cùng bạn chọn và vì sao."
+      ],
+      "modelAnswer": "Last week, I went to a shoe shop with my brother. I tried on some black shoes, but they were too small. Then I tried on some white shoes. They were big enough, but they were too expensive. In the end, I bought some blue shoes. They were comfortable and cheap enough!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "birthday party",
+      "lemma": "birthday party",
+      "meaningVi": "tiệc sinh nhật",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a new dress for her birthday party",
+      "phraseVi": "một chiếc váy mới cho tiệc sinh nhật"
+    },
+    {
+      "text": "changing room",
+      "lemma": "changing room",
+      "meaningVi": "phòng thử đồ",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "comes out of the changing room",
+      "phraseVi": "bước ra khỏi phòng thử đồ"
+    },
+    {
+      "text": "unhappy",
+      "lemma": "unhappy",
+      "meaningVi": "không vui",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "she looks unhappy",
+      "phraseVi": "trông cô không vui"
+    },
+    {
+      "text": "bright",
+      "lemma": "bright",
+      "meaningVi": "sáng, chói",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "the colour is too bright for you",
+      "phraseVi": "màu này sáng quá với em"
+    },
+    {
+      "text": "brings",
+      "lemma": "bring",
+      "meaningVi": "mang đến",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "The shop assistant brings a green dress",
+      "phraseVi": "Cô nhân viên mang ra một chiếc váy xanh lá"
+    },
+    {
+      "text": "How much",
+      "lemma": "how much",
+      "meaningVi": "bao nhiêu (tiền)",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "How much is it",
+      "phraseVi": "Chiếc này bao nhiêu tiền"
+    },
+    {
+      "text": "eight hundred thousand",
+      "lemma": "hundred",
+      "meaningVi": "tám trăm nghìn",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "eight hundred thousand dong",
+      "phraseVi": "tám trăm nghìn đồng"
+    },
+    {
+      "text": "sadly",
+      "lemma": "sadly",
+      "meaningVi": "buồn bã",
+      "sentenceIndex": 16,
+      "pos": "adverb",
+      "phrase": "Thanh says sadly",
+      "phraseVi": "Thanh buồn bã nói"
+    },
+    {
+      "text": "present",
+      "lemma": "present",
+      "meaningVi": "món quà",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "my birthday present for you",
+      "phraseVi": "quà sinh nhật chị tặng em"
+    }
+  ]
+}

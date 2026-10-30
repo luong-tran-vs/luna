@@ -1,0 +1,603 @@
+{
+  "content": "Mai is in Hoi An on holiday. This morning, she is telling her friend Vy about yesterday on the phone.\n\nMai says, \"Yesterday afternoon, we were walking along the river with our tour leader. The sky was blue, and the sun was shining.\"\nVy asks, \"And then?\"\n\"We were walking over the old bridge when the storm started. It was so sudden! Some tourists were taking photos, and two children were eating ice cream.\"\n\"Oh no! What did you do?\"\n\"We ran into a small shop. The owner was making lanterns, and she gave us some hot tea.\"\n\"Did it rain for a long time?\"\n\"Yes, it rained for about an hour. The streets were full of water.\"\n\"Did you have an umbrella?\"\n\"No, I didn't. My bag was wet, and my shoes were wet too.\"\nVy laughs. \"So what were you doing in the shop for an hour?\"\n\"I was watching the owner. She was showing me how to make a lantern. Now I have a beautiful yellow lantern!\"",
+  "targetWords": [
+    "river",
+    "sky",
+    "bridge",
+    "storm",
+    "tourist",
+    "street",
+    "umbrella",
+    "wet"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "river",
+        "lemma": "river",
+        "meaningVi": "dòng sông",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "sky",
+        "lemma": "sky",
+        "meaningVi": "bầu trời",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "storm",
+        "lemma": "storm",
+        "meaningVi": "cơn bão, cơn dông",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "tourists",
+        "lemma": "tourist",
+        "meaningVi": "khách du lịch",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "streets",
+        "lemma": "street",
+        "meaningVi": "đường phố",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "umbrella",
+        "lemma": "umbrella",
+        "meaningVi": "cái ô",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "wet",
+        "lemma": "wet",
+        "meaningVi": "ướt",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mai buys an umbrella in Hoi An.",
+          "Mai tells Vy about a storm during her tour in Hoi An.",
+          "Vy visits Mai in Hoi An.",
+          "A boat trip on the river"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai kể cho Vy nghe chuyện gặp cơn dông khi đang đi tour ở Hội An hôm qua."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where were they when the storm started?",
+        "promptVi": "Khi cơn dông bắt đầu họ đang ở đâu?",
+        "options": [
+          "In a shop",
+          "On a boat",
+          "On the old bridge",
+          "At the hotel"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"We were walking over the old bridge when the storm started.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Mai have a yellow lantern now?",
+        "promptVi": "Vì sao bây giờ Mai có một chiếc đèn lồng vàng?",
+        "options": [
+          "The owner showed her how to make one.",
+          "She bought it on the bridge.",
+          "Vy gave it to her.",
+          "The tour leader gave it to everyone."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"She was showing me how to make a lantern.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai had an umbrella.",
+        "promptVi": "Mai có mang ô.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"No, I didn't.\" và túi, giày đều ướt."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"sudden\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It was so sudden!",
+        "options": [
+          "chậm rãi",
+          "bất ngờ, đột ngột",
+          "nhẹ nhàng",
+          "lạnh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Sudden = đột ngột: trời đang nắng thì dông đến bất ngờ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ tiếp diễn (when, while)",
+      "bodyVi": "Quá khứ tiếp diễn was / were + V-ing kể việc đang diễn ra tại một lúc trong quá khứ: we were walking along the river, the sun was shining. Việc đang diễn ra thì một việc ngắn xen vào: was / were + V-ing + when + quá khứ đơn (We were walking over the old bridge when the storm started). Câu hỏi: What were you doing?",
+      "examples": [
+        "Mai says, \"Yesterday afternoon, we were walking along the river with our tour leader.",
+        "\"We were walking over the old bridge when the storm started.",
+        "\"So what were you doing in the shop for an hour?\""
+      ]
+    },
+    "writingPrompt": "Write about a time when the weather changed on a trip: what were you doing when it started to rain?",
+    "sentenceTranslations": [
+      "Mai đang đi nghỉ ở Hội An.",
+      "Sáng nay, cô gọi điện kể cho bạn là Vy nghe chuyện hôm qua.",
+      "Mai nói: \"Chiều qua, bọn mình đang đi dọc bờ sông với trưởng đoàn.",
+      "Trời xanh, nắng đang chiếu.\"",
+      "Vy hỏi: \"Rồi sao nữa?\"",
+      "\"Bọn mình đang đi qua cây cầu cổ thì cơn dông đến.",
+      "Đột ngột lắm!",
+      "Có mấy người khách đang chụp ảnh, và hai đứa trẻ đang ăn kem.\"",
+      "\"Ôi!",
+      "Thế các cậu làm gì?\"",
+      "\"Bọn mình chạy vào một cửa hàng nhỏ.",
+      "Bà chủ đang làm đèn lồng, và bà cho bọn mình uống trà nóng.\"",
+      "\"Mưa có lâu không?\"",
+      "\"Có, mưa khoảng một tiếng.",
+      "Đường phố ngập nước.\"",
+      "\"Cậu có mang ô không?\"",
+      "\"Không.",
+      "Túi mình ướt, giày cũng ướt.\"",
+      "Vy cười.",
+      "\"Thế một tiếng trong cửa hàng cậu làm gì?\"",
+      "\"Mình ngồi xem bà chủ làm.",
+      "Bà chỉ cho mình cách làm đèn lồng.",
+      "Giờ mình có một chiếc đèn lồng vàng rất đẹp!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể việc đang diễn ra trong quá khứ khi có chuyện bất ngờ xảy ra bằng was / were + V-ing và when.",
+    "examples": [
+      {
+        "lemma": "river",
+        "sentence": "We walk along the river every evening.",
+        "meaningVi": "Tối nào chúng tôi cũng đi dạo dọc bờ sông."
+      },
+      {
+        "lemma": "sky",
+        "sentence": "The sky is very blue today.",
+        "meaningVi": "Hôm nay trời rất xanh."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "There is an old bridge in the town.",
+        "meaningVi": "Trong thị trấn có một cây cầu cổ."
+      },
+      {
+        "lemma": "storm",
+        "sentence": "There was a big storm last night.",
+        "meaningVi": "Đêm qua có một cơn bão lớn."
+      },
+      {
+        "lemma": "tourist",
+        "sentence": "He is a tourist from Japan.",
+        "meaningVi": "Anh ấy là khách du lịch đến từ Nhật Bản."
+      },
+      {
+        "lemma": "street",
+        "sentence": "My street is very quiet.",
+        "meaningVi": "Con phố nhà tôi rất yên tĩnh."
+      },
+      {
+        "lemma": "umbrella",
+        "sentence": "Take an umbrella with you.",
+        "meaningVi": "Mang theo ô nhé."
+      },
+      {
+        "lemma": "wet",
+        "sentence": "My hair is wet.",
+        "meaningVi": "Tóc tôi bị ướt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Jack"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai, how was your tour yesterday?",
+          "meaningVi": "Mai ơi, tour hôm qua thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was fun, but we got very wet.",
+          "meaningVi": "Vui lắm, nhưng bọn mình bị ướt hết."
+        },
+        {
+          "speaker": 1,
+          "text": "Why? What were you doing?",
+          "meaningVi": "Sao thế? Lúc đó các cậu đang làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "We were walking in the old town when it started to rain.",
+          "meaningVi": "Bọn mình đang đi bộ trong phố cổ thì trời bắt đầu mưa."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you have an umbrella?",
+          "meaningVi": "Cậu có mang ô không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No. Nobody in our group had one.",
+          "meaningVi": "Không. Cả đoàn không ai có ô."
+        },
+        {
+          "speaker": 1,
+          "text": "Where did you go?",
+          "meaningVi": "Thế các cậu đi đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "We ran into a lantern shop. The owner was very kind.",
+          "meaningVi": "Bọn mình chạy vào một cửa hàng đèn lồng. Bà chủ tốt bụng lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "What was she doing?",
+          "meaningVi": "Lúc đó bà ấy đang làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "She was making lanterns, and she gave us tea.",
+          "meaningVi": "Bà đang làm đèn lồng, và bà mời bọn mình uống trà."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi lúc đó đang làm gì: What were you doing? What was she doing? Kể: We were walking … when it started to rain.",
+    "translations": [
+      {
+        "vi": "Chúng tôi đang đi dọc bờ sông thì trời mưa.",
+        "en": "We were walking along the river when it rained.",
+        "distractors": [
+          "was",
+          "walked",
+          "while"
+        ]
+      },
+      {
+        "vi": "Khách du lịch đang chụp ảnh.",
+        "en": "The tourists were taking photos.",
+        "distractors": [
+          "was",
+          "took",
+          "are"
+        ]
+      },
+      {
+        "vi": "Lúc có dông bạn đang làm gì?",
+        "en": "What were you doing in the storm?",
+        "distractors": [
+          "was",
+          "did",
+          "does"
+        ]
+      },
+      {
+        "vi": "Đường phố ướt hết.",
+        "en": "The streets were wet.",
+        "distractors": [
+          "was",
+          "are",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai kể cho Jack về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bị mưa khi đi tour",
+          "Một bữa tối ngon",
+          "Chuyến bay về nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"It was fun, but we got very wet.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi trời mưa, Mai đang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đang ăn trưa",
+          "Đang đi bộ trong phố cổ",
+          "Đang chụp ảnh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"We were walking in the old town when it started to rain.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ chạy vào đâu?",
+        "promptVi": "",
+        "options": [
+          "Một quán cà phê",
+          "Khách sạn",
+          "Một cửa hàng đèn lồng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai nói \"We ran into a lantern shop.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Somebody in Mai's group had an umbrella.",
+        "promptVi": "Có người trong đoàn của Mai mang ô.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"Nobody in our group had one.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Khi cơn dông bắt đầu, mọi người đang làm gì?",
+    "grammarStep": {
+      "titleVi": "Quá khứ tiếp diễn (when, while)",
+      "noticing": [
+        {
+          "sentence": "The sky was blue, and the sun was shining.\"",
+          "highlights": [
+            "was shining"
+          ]
+        },
+        {
+          "sentence": "\"We were walking over the old bridge when the storm started.",
+          "highlights": [
+            "were walking",
+            "when",
+            "started"
+          ]
+        },
+        {
+          "sentence": "Some tourists were taking photos, and two children were eating ice cream.\"",
+          "highlights": [
+            "were taking",
+            "were eating"
+          ]
+        },
+        {
+          "sentence": "The owner was making lanterns, and she gave us some hot tea.",
+          "highlights": [
+            "was making",
+            "gave"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"We were walking over the old bridge when the storm started\", việc nào diễn ra lâu hơn?",
+      "options": [
+        "The storm started (cơn dông đến)",
+        "We were walking (đang đi bộ)",
+        "Hai việc dài như nhau"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Việc dài, đang diễn ra dùng was / were + V-ing (were walking); việc ngắn xen vào dùng quá khứ đơn (started).",
+      "whenVi": "Dùng quá khứ tiếp diễn để tả cảnh lúc đó mọi người đang làm gì, và kể một việc đang diễn ra thì bị việc khác xen vào.",
+      "table": [
+        {
+          "subject": "I / He / She / It",
+          "form": "The sun was shining.",
+          "negative": "I wasn't walking."
+        },
+        {
+          "subject": "We / You / They",
+          "form": "We were walking along the river.",
+          "negative": "They weren't eating."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "What were you doing?",
+          "negative": "Was it raining? — Yes, it was."
+        },
+        {
+          "subject": "when + quá khứ đơn",
+          "form": "We were walking when the storm started.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We was walking along the river.",
+          "right": "We were walking along the river."
+        },
+        {
+          "wrong": "We were walk over the bridge when the storm started.",
+          "right": "We were walking over the bridge when the storm started."
+        }
+      ],
+      "noteVi": "Việc ngắn xen vào (started, came, called) dùng quá khứ đơn, không dùng was / were + V-ing: when the storm started, không nói when the storm was starting.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền was hoặc were.",
+          "text": "Some tourists ___ taking photos.",
+          "answers": [
+            "were"
+          ],
+          "explanationVi": "Tourists là số nhiều: were taking."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The owner ___ lanterns when we came in.",
+          "options": [
+            "was making",
+            "were making",
+            "making",
+            "makes"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "The owner là số ít, việc đang diễn ra: was making."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "What was you doing in the shop?",
+          "sentence": "What were you doing in the shop?",
+          "explanationVi": "You đi với were: What were you doing?"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mặt trời đang chiếu sáng.",
+          "sentence": "The sun was shining.",
+          "words": [
+            "sun",
+            "The",
+            "shining",
+            "was",
+            "were"
+          ],
+          "explanationVi": "The sun là số ít: was shining; từ \"were\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It was so sudden!",
+        "tipVi": "Sudden /ˈsʌdn/ nhấn âm đầu, âm cuối đọc nhẹ."
+      },
+      {
+        "text": "\"Did you have an umbrella?\"",
+        "tipVi": "Did you nối thành /dɪdʒu/; umbrella /ʌmˈbrelə/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What were you doing at eight o'clock last night?",
+        "questionVi": "Lúc tám giờ tối qua bạn đang làm gì?",
+        "frame": "I was ___ at eight o'clock."
+      },
+      {
+        "question": "Were you walking outside when it last rained?",
+        "questionVi": "Lần gần nhất trời mưa, bạn có đang đi ngoài đường không?",
+        "frame": "Yes, I was ___. / No, I wasn't. I was ___."
+      },
+      {
+        "question": "What was your mother or father doing this morning when you left home?",
+        "questionVi": "Sáng nay khi bạn ra khỏi nhà, bố hoặc mẹ bạn đang làm gì?",
+        "frame": "He / She was ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ tiếp diễn (was / were + V-ing)",
+      "anyOf": [
+        "was walking",
+        "were walking",
+        "was eating",
+        "were eating",
+        "was having",
+        "were having",
+        "was sitting",
+        "were sitting",
+        "was taking",
+        "were taking",
+        "was raining",
+        "was shining",
+        "was sleeping",
+        "were sleeping",
+        "was swimming",
+        "were swimming"
+      ],
+      "outlineVi": [
+        "Bạn đi đâu, với ai.",
+        "Lúc đó mọi người đang làm gì (was / were + V-ing).",
+        "Chuyện gì xảy ra (when + quá khứ đơn) và bạn đã làm gì."
+      ],
+      "modelAnswer": "Last summer, my family went to Ha Long. One afternoon, we were swimming in the sea, and my father was sleeping on the beach. We were having a great time when the sky became dark. Then a storm started. We ran to the hotel, but we didn't have an umbrella. Everybody was wet, but we laughed a lot."
+    }
+  },
+  "glosses": [
+    {
+      "text": "on holiday",
+      "lemma": "holiday",
+      "meaningVi": "đi nghỉ",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "in Hoi An on holiday",
+      "phraseVi": "đang đi nghỉ ở Hội An"
+    },
+    {
+      "text": "along",
+      "lemma": "along",
+      "meaningVi": "dọc theo",
+      "sentenceIndex": 2,
+      "pos": "preposition",
+      "phrase": "walking along the river",
+      "phraseVi": "đi dọc bờ sông"
+    },
+    {
+      "text": "shining",
+      "lemma": "shine",
+      "meaningVi": "chiếu sáng",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "the sun was shining",
+      "phraseVi": "nắng đang chiếu"
+    },
+    {
+      "text": "sudden",
+      "lemma": "sudden",
+      "meaningVi": "đột ngột",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "It was so sudden!",
+      "phraseVi": "Đột ngột lắm!"
+    },
+    {
+      "text": "ran into",
+      "lemma": "run into",
+      "meaningVi": "chạy vào",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "We ran into a small shop.",
+      "phraseVi": "Bọn mình chạy vào một cửa hàng nhỏ."
+    },
+    {
+      "text": "lanterns",
+      "lemma": "lantern",
+      "meaningVi": "đèn lồng",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "making lanterns",
+      "phraseVi": "làm đèn lồng"
+    },
+    {
+      "text": "full of water",
+      "lemma": "full",
+      "meaningVi": "ngập nước",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "full of water",
+      "phraseVi": "ngập nước"
+    }
+  ]
+}

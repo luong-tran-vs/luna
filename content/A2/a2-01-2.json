@@ -1,0 +1,604 @@
+{
+  "content": "Yesterday, Minh and his old classmate Tuan chatted at a coffee shop. They talked about a school trip to Ba Vi. It was fifteen years ago, when they were fourteen.\n\nTuan asked, \"Do you remember our bus?\"\n\"Yes, it was old and very noisy,\" Minh answered. \"We played music and laughed all the way to Ba Vi.\"\n\nAt Ba Vi, the weather was cool and sunny. The students walked in the forest for two hours. Their teacher, Mrs Hanh, showed them old trees and beautiful birds.\n\nIn the afternoon, they stopped near a small lake. They played games on the grass, and Minh's team finished first. In the evening, they cooked a simple dinner together. They shared their food, and there was a lot for everyone.\n\n\"The rice wasn't very good, but we were so happy,\" Tuan said. At the coffee shop, Minh showed Tuan an old photo of their team. \"We were so young!\" said Tuan, and they both laughed.",
+  "targetWords": [
+    "classmate",
+    "trip",
+    "laugh",
+    "forest",
+    "walk",
+    "game",
+    "team",
+    "share"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "classmate",
+        "lemma": "classmate",
+        "meaningVi": "bạn cùng lớp",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "trip",
+        "lemma": "trip",
+        "meaningVi": "chuyến đi",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "laughed",
+        "lemma": "laugh",
+        "meaningVi": "cười",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "walked",
+        "lemma": "walk",
+        "meaningVi": "đi bộ",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "forest",
+        "lemma": "forest",
+        "meaningVi": "khu rừng",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "games",
+        "lemma": "game",
+        "meaningVi": "trò chơi",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "đội, nhóm",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "shared",
+        "lemma": "share",
+        "meaningVi": "chia sẻ, chia nhau",
+        "pos": "verb",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What do Minh and Tuan talk about?",
+        "promptVi": "Minh và Tuấn nói chuyện về điều gì?",
+        "options": [
+          "A school trip to Ba Vi fifteen years ago",
+          "Their new jobs",
+          "A football match on TV",
+          "Their teacher's family"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người bạn cũ nhớ lại chuyến dã ngoại của lớp đến Ba Vì mười lăm năm trước: đi bộ trong rừng, chơi trò chơi, nấu cơm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many hours were the students in the forest?",
+        "promptVi": "Học sinh đi bộ trong rừng bao nhiêu tiếng?",
+        "options": [
+          "One hour",
+          "Two hours",
+          "Three hours",
+          "Four hours"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"The students walked in the forest for two hours\": hai tiếng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why was there a lot of food for everyone?",
+        "promptVi": "Vì sao ai cũng có nhiều đồ ăn?",
+        "options": [
+          "Mrs Hanh bought a lot.",
+          "Some students weren't hungry.",
+          "They shared their food.",
+          "They were at a restaurant."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"They shared their food, and there was a lot for everyone\": mọi người chia nhau đồ ăn nên ai cũng đủ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The bus to Ba Vi was new and quiet.",
+        "promptVi": "Chiếc xe buýt đi Ba Vì mới và yên tĩnh.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"it was old and very noisy\": xe cũ và rất ồn."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"shared\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "They shared their food, and there was a lot for everyone.",
+        "options": [
+          "nấu",
+          "mua",
+          "giấu đi",
+          "chia nhau"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Share là chia sẻ, chia nhau: các bạn chia đồ ăn cho nhau nên ai cũng có phần."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ đơn: động từ có quy tắc",
+      "bodyVi": "Muốn kể việc đã xảy ra và đã xong, thêm -ed vào động từ: walk → walked, cook → cooked. Động từ tận cùng bằng e chỉ thêm -d: share → shared. Động từ ngắn có phụ âm – nguyên âm – phụ âm thì gấp đôi phụ âm cuối: stop → stopped, chat → chatted. Dạng này dùng cho mọi chủ ngữ.",
+      "examples": [
+        "The students walked in the forest for two hours.",
+        "In the afternoon, they stopped near a small lake.",
+        "In the evening, they cooked a simple dinner together."
+      ]
+    },
+    "writingPrompt": "Write about a school trip or a day out with your classmates: where you went and what you did there.",
+    "sentenceTranslations": [
+      "Hôm qua, Minh và người bạn học cũ Tuấn ngồi trò chuyện ở một quán cà phê.",
+      "Họ nói về chuyến dã ngoại của trường đến Ba Vì.",
+      "Đó là chuyện mười lăm năm trước, khi họ mười bốn tuổi.",
+      "Tuấn hỏi: \"Cậu còn nhớ chiếc xe buýt của lớp mình không?\"",
+      "\"Nhớ chứ, nó cũ và ồn kinh khủng,\" Minh đáp.",
+      "\"Bọn mình bật nhạc và cười suốt đường đến Ba Vì.\"",
+      "Ở Ba Vì, thời tiết mát mẻ và có nắng.",
+      "Học sinh đi bộ trong rừng hai tiếng.",
+      "Cô giáo của họ, cô Hạnh, chỉ cho các bạn những cây cổ thụ và những chú chim đẹp.",
+      "Buổi chiều, cả lớp dừng lại gần một cái hồ nhỏ.",
+      "Các bạn chơi trò chơi trên bãi cỏ, và đội của Minh về nhất.",
+      "Buổi tối, mọi người cùng nhau nấu một bữa tối đơn giản.",
+      "Các bạn chia nhau đồ ăn, và ai cũng có nhiều.",
+      "\"Cơm không ngon lắm, nhưng bọn mình vui ghê,\" Tuấn nói.",
+      "Ở quán cà phê, Minh cho Tuấn xem một tấm ảnh cũ của đội.",
+      "\"Hồi đó bọn mình trẻ quá!\" Tuấn nói, và cả hai cùng cười."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một chuyến đi chơi cùng bạn bè ngày trước, dùng động từ quá khứ có quy tắc (walked, played, cooked…) và was / were.",
+    "examples": [
+      {
+        "lemma": "classmate",
+        "sentence": "Tuan is my old classmate.",
+        "meaningVi": "Tuấn là bạn học cũ của mình."
+      },
+      {
+        "lemma": "trip",
+        "sentence": "Our school trip was in May.",
+        "meaningVi": "Chuyến dã ngoại của trường mình vào tháng Năm."
+      },
+      {
+        "lemma": "laugh",
+        "sentence": "My little brother always makes me laugh.",
+        "meaningVi": "Em trai mình lúc nào cũng làm mình cười."
+      },
+      {
+        "lemma": "forest",
+        "sentence": "There are a lot of birds in the forest.",
+        "meaningVi": "Trong rừng có rất nhiều chim."
+      },
+      {
+        "lemma": "walk",
+        "sentence": "I walk to school every day.",
+        "meaningVi": "Ngày nào mình cũng đi bộ đến trường."
+      },
+      {
+        "lemma": "game",
+        "sentence": "We played a game after lunch.",
+        "meaningVi": "Bọn mình chơi một trò chơi sau bữa trưa."
+      },
+      {
+        "lemma": "team",
+        "sentence": "Our team has eleven players.",
+        "meaningVi": "Đội mình có mười một người chơi."
+      },
+      {
+        "lemma": "share",
+        "sentence": "I share a room with my sister.",
+        "meaningVi": "Mình ở chung phòng với chị gái."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Ben"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Minh, what's this photo?",
+          "meaningVi": "Minh ơi, ảnh gì thế này?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's my class on a school trip to Ba Vi. It was fifteen years ago.",
+          "meaningVi": "Lớp mình trong chuyến dã ngoại đến Ba Vì. Từ mười lăm năm trước rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow! Was it fun?",
+          "meaningVi": "Ồ! Có vui không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it was. We walked in the forest and played games.",
+          "meaningVi": "Vui lắm. Bọn mình đi bộ trong rừng và chơi trò chơi."
+        },
+        {
+          "speaker": 1,
+          "text": "Were you with your best friend?",
+          "meaningVi": "Cậu đi cùng bạn thân à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, Tuan was in my group. We cooked dinner together.",
+          "meaningVi": "Ừ, Tuấn ở cùng nhóm với mình. Bọn mình cùng nấu bữa tối."
+        },
+        {
+          "speaker": 1,
+          "text": "Was the food good?",
+          "meaningVi": "Đồ ăn có ngon không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not really! But we laughed a lot.",
+          "meaningVi": "Không ngon lắm! Nhưng bọn mình cười nhiều lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "I remember my school trip to the sea. It rained every day!",
+          "meaningVi": "Mình nhớ chuyến dã ngoại ra biển của trường mình. Ngày nào cũng mưa!"
+        },
+        {
+          "speaker": 0,
+          "text": "Oh no! But I'm sure it was fun.",
+          "meaningVi": "Ôi không! Nhưng chắc là vẫn vui chứ."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về một chuyến đi đã qua với be: Was it fun? Was the food good? Kể lại bằng động từ -ed: We walked in the forest and played games.",
+    "translations": [
+      {
+        "vi": "Chúng tôi đi bộ trong rừng hai tiếng.",
+        "en": "We walked in the forest for two hours.",
+        "distractors": [
+          "walk",
+          "at",
+          "hour"
+        ]
+      },
+      {
+        "vi": "Đội của Minh về nhất.",
+        "en": "Minh's team finished first.",
+        "distractors": [
+          "finish",
+          "last",
+          "group"
+        ]
+      },
+      {
+        "vi": "Chúng tôi chia nhau đồ ăn.",
+        "en": "We shared our food.",
+        "distractors": [
+          "share",
+          "their",
+          "cooked"
+        ]
+      },
+      {
+        "vi": "Họ cười rất nhiều.",
+        "en": "They laughed a lot.",
+        "distractors": [
+          "laugh",
+          "smiled",
+          "many"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ben và Minh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một bữa tối ở nhà hàng",
+          "Kỳ nghỉ của Ben",
+          "Chuyến dã ngoại của lớp Minh đến Ba Vì"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ben hỏi về tấm ảnh, và Minh kể \"It's my class on a school trip to Ba Vi.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở Ba Vì, lớp Minh đã làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi bộ trong rừng và chơi trò chơi",
+          "Bơi ở biển",
+          "Xem phim"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh nói \"We walked in the forest and played games.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai ở cùng nhóm với Minh?",
+        "promptVi": "",
+        "options": [
+          "Ben",
+          "Tuấn",
+          "Cô Hạnh"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"Yes, Tuan was in my group.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The weather was sunny on Ben's school trip.",
+        "promptVi": "Trong chuyến dã ngoại của Ben, trời nắng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ben nói \"It rained every day!\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Trong chuyến đi Ba Vì, cả lớp đã làm những gì vào buổi sáng, buổi chiều và buổi tối?",
+    "grammarStep": {
+      "titleVi": "Quá khứ đơn: động từ có quy tắc",
+      "noticing": [
+        {
+          "sentence": "The students walked in the forest for two hours.",
+          "highlights": [
+            "walked"
+          ]
+        },
+        {
+          "sentence": "In the afternoon, they stopped near a small lake.",
+          "highlights": [
+            "stopped"
+          ]
+        },
+        {
+          "sentence": "In the evening, they cooked a simple dinner together.",
+          "highlights": [
+            "cooked"
+          ]
+        },
+        {
+          "sentence": "They shared their food, and there was a lot for everyone.",
+          "highlights": [
+            "shared"
+          ]
+        }
+      ],
+      "questionVi": "Walked, stopped, cooked, shared có điểm gì chung?",
+      "options": [
+        "Đều là động từ quá khứ có quy tắc, tận cùng bằng -ed hoặc -d",
+        "Đều là động từ ở thì hiện tại",
+        "Đều chỉ dùng với he / she"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Đây là quá khứ đơn của động từ có quy tắc: thêm -ed (walked, cooked), tận cùng e thì thêm -d (shared), stop gấp đôi p thành stopped. Dạng này giống nhau với mọi chủ ngữ.",
+      "whenVi": "Dùng quá khứ đơn để kể những việc đã xảy ra và đã kết thúc, thường đi với yesterday, last year, ago.",
+      "table": [
+        {
+          "subject": "Thêm -ed",
+          "form": "walk → walked, play → played, cook → cooked",
+          "negative": "—"
+        },
+        {
+          "subject": "Tận cùng e: thêm -d",
+          "form": "share → shared, smile → smiled",
+          "negative": "—"
+        },
+        {
+          "subject": "Gấp đôi phụ âm cuối",
+          "form": "stop → stopped, chat → chatted",
+          "negative": "—"
+        },
+        {
+          "subject": "Phụ âm + y: đổi thành -ied",
+          "form": "study → studied, try → tried",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We walk in the forest yesterday.",
+          "right": "We walked in the forest yesterday."
+        },
+        {
+          "wrong": "They stoped near a lake.",
+          "right": "They stopped near a lake."
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ thêm \"đã\", \"hôm qua\" mà không đổi động từ, nên người Việt hay quên -ed khi câu đã có yesterday hay ago.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng quá khứ của động từ trong ngoặc.",
+          "text": "Last year, we ___ (visit) Ba Vi.",
+          "answers": [
+            "visited"
+          ],
+          "explanationVi": "Last year là quá khứ, nên visit thêm -ed: visited."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Yesterday evening, they ___ a simple dinner.",
+          "options": [
+            "cook",
+            "cooks",
+            "cooked",
+            "are cook"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Yesterday evening là quá khứ, nên dùng cooked."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They stoped near a small lake.",
+          "sentence": "They stopped near a small lake.",
+          "explanationVi": "Stop gấp đôi chữ p trước khi thêm -ed: stopped."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi chơi trò chơi trên bãi cỏ.",
+          "sentence": "We played games on the grass.",
+          "words": [
+            "games",
+            "We",
+            "grass",
+            "played",
+            "on",
+            "the",
+            "play"
+          ],
+          "explanationVi": "Chuyện đã qua nên dùng played; từ \"play\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The students walked in the forest for two hours.",
+        "tipVi": "Walked /wɔkt/ chỉ có một âm tiết, -ed đọc là /t/, không đọc \"wóc-kệt\"; forest /ˈfɔrɪst/ có /st/ ở cuối."
+      },
+      {
+        "text": "In the evening, they cooked a simple dinner together.",
+        "tipVi": "Cooked /kʊkt/ đọc -ed là /t/; together /təˈɡɛðər/ có âm /ð/ ở giữa."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you remember a school trip?",
+        "questionVi": "Bạn có nhớ một chuyến dã ngoại của trường không?",
+        "frame": "Yes, I do. We visited ___. / No, I don't."
+      },
+      {
+        "question": "Where was your favourite school trip?",
+        "questionVi": "Chuyến dã ngoại bạn thích nhất là ở đâu?",
+        "frame": "It was in ___. We walked / played / visited ___."
+      },
+      {
+        "question": "Who was your best friend on that trip?",
+        "questionVi": "Trong chuyến đi đó, bạn thân của bạn là ai?",
+        "frame": "My best friend was ___. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 động từ quá khứ có quy tắc (-ed)",
+      "anyOf": [
+        "walked",
+        "played",
+        "visited",
+        "cooked",
+        "talked",
+        "laughed",
+        "stayed",
+        "watched"
+      ],
+      "outlineVi": [
+        "Nói chuyến đi là khi nào, đến đâu, và thời tiết thế nào (It was …).",
+        "Kể cả lớp đã làm gì (We walked …, we played …).",
+        "Kể một người bạn đã làm gì và bạn thấy chuyến đi thế nào."
+      ],
+      "modelAnswer": "Last year, my class visited Tam Dao for one day. The weather was cool and cloudy. In the morning, we walked up a small mountain. My friend Lan helped me, because I was very tired. In the afternoon, we played games and laughed a lot. We shared our snacks on the bus. It was a great day!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "chatted",
+      "lemma": "chat",
+      "meaningVi": "trò chuyện",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "Minh and his old classmate Tuan chatted",
+      "phraseVi": "Minh và người bạn học cũ Tuấn trò chuyện"
+    },
+    {
+      "text": "fifteen years ago",
+      "lemma": "ago",
+      "meaningVi": "mười lăm năm trước",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "It was fifteen years ago",
+      "phraseVi": "Đó là chuyện mười lăm năm trước"
+    },
+    {
+      "text": "noisy",
+      "lemma": "noisy",
+      "meaningVi": "ồn ào",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "it was old and very noisy",
+      "phraseVi": "nó cũ và ồn kinh khủng"
+    },
+    {
+      "text": "all the way",
+      "lemma": "all the way",
+      "meaningVi": "suốt dọc đường",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "laughed all the way to Ba Vi",
+      "phraseVi": "cười suốt đường đến Ba Vì"
+    },
+    {
+      "text": "showed",
+      "lemma": "show",
+      "meaningVi": "chỉ cho xem",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "showed them old trees and beautiful birds",
+      "phraseVi": "chỉ cho các bạn những cây cổ thụ và những chú chim đẹp"
+    },
+    {
+      "text": "lake",
+      "lemma": "lake",
+      "meaningVi": "cái hồ",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "near a small lake",
+      "phraseVi": "gần một cái hồ nhỏ"
+    },
+    {
+      "text": "finished first",
+      "lemma": "finish first",
+      "meaningVi": "về nhất",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "Minh's team finished first",
+      "phraseVi": "đội của Minh về nhất"
+    },
+    {
+      "text": "simple",
+      "lemma": "simple",
+      "meaningVi": "đơn giản",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "a simple dinner",
+      "phraseVi": "một bữa tối đơn giản"
+    },
+    {
+      "text": "young",
+      "lemma": "young",
+      "meaningVi": "trẻ",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "We were so young",
+      "phraseVi": "Hồi đó bọn mình trẻ quá"
+    }
+  ]
+}

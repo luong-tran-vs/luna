@@ -1,0 +1,593 @@
+{
+  "content": "In a small museum in the old town of Hoi An, a guide called Ms Diep is showing a group of visitors some old plates and bowls behind glass.\n\n\"These pieces came from a ship that sank near Cu Lao Cham island,\" she says. \"They show us how busy this coast was in the past.\"\nA man named Phat asks, \"When did Hoi An become an important port?\"\n\"It reached its peak in the sixteenth and seventeenth centuries. But traders had been sailing along this coast for a very long time before that. In the time of Champa, ships had been stopping here for water and food on their way between China and India.\"\n\"What were they buying?\"\n\"Silk, pottery, and spices like cinnamon and pepper. And the local people were selling wood, sugar and rice. Later, Japanese and Chinese merchants settled in the town. The Japanese community built the famous bridge in the late sixteenth century.\"\n\"Why did so many traders come here and not somewhere else?\"\n\"Because of the wind. Ships from China and Japan came in spring, when the wind was blowing south. They had to wait for months before the wind changed. While they were waiting, they lived in Hoi An, built houses and opened shops.\"\nA woman named Nhi asks, \"So why isn't it a big port today?\"\n\"Several things happened. By the nineteenth century, the river had become too shallow for large ships. Merchants had been moving their business to Da Nang for years, and Hoi An slowly became a quiet town.\"\n\"That's lucky for us, though,\" Phat says with a smile. \"That's why the old houses are still here.\"\n\"Exactly. Because the town didn't grow, its old streets survived. Now, let's walk to the Japanese Bridge. Please stay together, because the streets are very busy at this time of day.\"",
+  "targetWords": [
+    "port",
+    "peak",
+    "trader",
+    "silk",
+    "spice",
+    "merchant",
+    "settle",
+    "community",
+    "shallow",
+    "survive"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "port",
+        "lemma": "port",
+        "meaningVi": "thương cảng",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "peak",
+        "lemma": "peak",
+        "meaningVi": "đỉnh cao",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "traders",
+        "lemma": "trader",
+        "meaningVi": "người buôn bán",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "Silk",
+        "lemma": "silk",
+        "meaningVi": "lụa",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "spices",
+        "lemma": "spice",
+        "meaningVi": "gia vị",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "merchants",
+        "lemma": "merchant",
+        "meaningVi": "thương nhân",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "settled",
+        "lemma": "settle",
+        "meaningVi": "định cư",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "community",
+        "lemma": "community",
+        "meaningVi": "cộng đồng",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "shallow",
+        "lemma": "shallow",
+        "meaningVi": "nông, cạn",
+        "pos": "adjective",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "survived",
+        "lemma": "survive",
+        "meaningVi": "tồn tại, còn sót lại",
+        "pos": "verb",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Ms Diep talking about?",
+        "promptVi": "Chị Điệp đang nói về điều gì?",
+        "options": [
+          "The history of Hoi An as a trading port",
+          "How to make pottery",
+          "The best restaurants in Hoi An",
+          "A storm near Cu Lao Cham"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Điệp kể Hội An từng là thương cảng quốc tế và vì sao nó trở nên yên tĩnh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did traders stay in Hoi An for months?",
+        "promptVi": "Vì sao thương nhân ở lại Hội An hàng tháng trời?",
+        "options": [
+          "They liked the food.",
+          "They had to wait for the wind to change.",
+          "Their ships were broken.",
+          "The river was closed."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Điệp nói \"They had to wait for months before the wind changed.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who built the famous bridge?",
+        "promptVi": "Ai đã xây cây cầu nổi tiếng?",
+        "options": [
+          "The Chinese community",
+          "The Champa kings",
+          "The Japanese community",
+          "Merchants from India"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị Điệp nói \"The Japanese community built the famous bridge.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoi An is still a big international port today.",
+        "promptVi": "Ngày nay Hội An vẫn là một thương cảng quốc tế lớn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hội An \"slowly became a quiet town.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"shallow\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"By the nineteenth century, the river had become too shallow for large ships.\"",
+        "options": [
+          "nông, cạn",
+          "rộng",
+          "bẩn",
+          "sâu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Shallow = nông, nước không sâu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Các thì kể chuyện và quá khứ hoàn thành tiếp diễn",
+      "bodyVi": "Khi kể lịch sử một nơi qua nhiều thế kỷ, quá khứ hoàn thành tiếp diễn cho thấy việc đã diễn ra rất lâu trước một mốc: But traders had been sailing along this coast for a very long time before that. By + mốc thời gian đi với quá khứ hoàn thành: By the nineteenth century, the river had become too shallow for large ships. Quá khứ tiếp diễn tả việc đang diễn ra làm nền: While they were waiting, they lived in Hoi An, built houses and opened shops.",
+      "examples": [
+        "But traders had been sailing along this coast for a very long time before that.",
+        "By the nineteenth century, the river had become too shallow for large ships.",
+        "Merchants had been moving their business to Da Nang for years, and Hoi An slowly became a quiet town.\""
+      ]
+    },
+    "writingPrompt": "Write a short history of a town or a market you know. Say what people had been doing there before it became famous or changed.",
+    "sentenceTranslations": [
+      "Trong một bảo tàng nhỏ ở phố cổ Hội An, một hướng dẫn viên tên Điệp đang cho một đoàn khách xem những chiếc đĩa và bát cổ sau lớp kính.",
+      "Chị nói: \"Những hiện vật này từ một con tàu bị đắm gần đảo Cù Lao Chàm.",
+      "Chúng cho thấy vùng biển này từng nhộn nhịp thế nào.\"",
+      "Một người đàn ông tên Phát hỏi: \"Hội An trở thành thương cảng quan trọng từ khi nào?\"",
+      "\"Hội An đạt đỉnh cao vào thế kỷ mười sáu và mười bảy.",
+      "Nhưng trước đó rất lâu, thương nhân đã đi thuyền dọc bờ biển này.",
+      "Vào thời Champa, tàu thuyền đã ghé lại đây lấy nước và lương thực trên đường giữa Trung Quốc và Ấn Độ.\"",
+      "\"Họ mua những gì ạ?\"",
+      "\"Lụa, đồ gốm, và gia vị như quế và hồ tiêu.",
+      "Còn người dân địa phương bán gỗ, đường và gạo.",
+      "Về sau, thương nhân Nhật Bản và Trung Quốc đến định cư ở phố.",
+      "Cộng đồng người Nhật đã xây cây cầu nổi tiếng vào cuối thế kỷ mười sáu.\"",
+      "\"Vì sao nhiều thương nhân đến đây mà không đến nơi khác?\"",
+      "\"Vì gió.",
+      "Tàu từ Trung Quốc và Nhật Bản đến vào mùa xuân, khi gió thổi về phương nam.",
+      "Họ phải đợi hàng tháng cho đến khi gió đổi chiều.",
+      "Trong lúc chờ đợi, họ sống ở Hội An, dựng nhà và mở cửa hàng.\"",
+      "Một người phụ nữ tên Nhi hỏi: \"Vậy sao bây giờ nó không còn là cảng lớn?\"",
+      "\"Có nhiều nguyên nhân.",
+      "Đến thế kỷ mười chín, dòng sông đã trở nên quá cạn với tàu lớn.",
+      "Thương nhân đã dần chuyển việc buôn bán sang Đà Nẵng nhiều năm, và Hội An từ từ trở thành một thị trấn yên tĩnh.\"",
+      "Phát mỉm cười nói: \"Nhưng như vậy lại may cho chúng ta.",
+      "Nhờ thế mà những ngôi nhà cổ vẫn còn đây.\"",
+      "\"Chính xác.",
+      "Vì thị trấn không phát triển, những con phố cổ của nó còn tồn tại.",
+      "Bây giờ chúng ta đi bộ đến Chùa Cầu nhé.",
+      "Mọi người nhớ đi cùng nhau, vì giờ này phố rất đông.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lịch sử của một nơi qua nhiều thế kỷ bằng các thì kể chuyện: had been + V-ing, by + mốc thời gian + had + V3, while + quá khứ tiếp diễn.",
+    "examples": [
+      {
+        "lemma": "port",
+        "sentence": "Hai Phong is a busy port in the north.",
+        "meaningVi": "Hải Phòng là một cảng nhộn nhịp ở miền Bắc."
+      },
+      {
+        "lemma": "peak",
+        "sentence": "The town was at its peak in the seventeenth century.",
+        "meaningVi": "Thị trấn ở thời kỳ hưng thịnh nhất vào thế kỷ mười bảy."
+      },
+      {
+        "lemma": "trader",
+        "sentence": "The trader sold cloth at the market.",
+        "meaningVi": "Người lái buôn bán vải ở chợ."
+      },
+      {
+        "lemma": "silk",
+        "sentence": "This scarf is made of silk.",
+        "meaningVi": "Chiếc khăn này làm bằng lụa."
+      },
+      {
+        "lemma": "spice",
+        "sentence": "Cinnamon is my favourite spice.",
+        "meaningVi": "Quế là gia vị tôi thích nhất."
+      },
+      {
+        "lemma": "merchant",
+        "sentence": "A rich merchant built this house.",
+        "meaningVi": "Một thương nhân giàu có đã xây ngôi nhà này."
+      },
+      {
+        "lemma": "settle",
+        "sentence": "They decided to settle near the river.",
+        "meaningVi": "Họ quyết định định cư gần con sông."
+      },
+      {
+        "lemma": "community",
+        "sentence": "The local community helped clean the park.",
+        "meaningVi": "Cộng đồng địa phương cùng dọn dẹp công viên."
+      },
+      {
+        "lemma": "shallow",
+        "sentence": "The water is shallow here, so children can swim.",
+        "meaningVi": "Nước ở đây nông nên trẻ con có thể bơi."
+      },
+      {
+        "lemma": "survive",
+        "sentence": "Only a few old houses survive in this street.",
+        "meaningVi": "Chỉ còn vài ngôi nhà cổ trên con phố này."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nhi",
+        "Phat"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "So this is the Japanese Bridge. It's smaller than I thought.",
+          "meaningVi": "Vậy đây là Chùa Cầu. Nhỏ hơn em tưởng."
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe, but it's more than four hundred years old.",
+          "meaningVi": "Có thể, nhưng nó đã hơn bốn trăm năm tuổi rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "Had the Japanese been living here long before they built it?",
+          "meaningVi": "Người Nhật đã sống ở đây lâu rồi mới xây cầu à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Ms Diep said they had been trading here for years.",
+          "meaningVi": "Chị Điệp bảo họ đã buôn bán ở đây nhiều năm."
+        },
+        {
+          "speaker": 0,
+          "text": "And why did they leave in the end?",
+          "meaningVi": "Thế sao cuối cùng họ lại đi?"
+        },
+        {
+          "speaker": 1,
+          "text": "The river had become too shallow, so the big ships stopped coming.",
+          "meaningVi": "Sông đã trở nên quá cạn nên tàu lớn không đến nữa."
+        },
+        {
+          "speaker": 0,
+          "text": "What a pity. But the town is so beautiful now.",
+          "meaningVi": "Tiếc thật. Nhưng bây giờ phố đẹp quá."
+        },
+        {
+          "speaker": 1,
+          "text": "Exactly. Shall we take a photo on the bridge?",
+          "meaningVi": "Đúng thế. Mình chụp một tấm trên cầu nhé?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but let's wait. A big group is crossing it now.",
+          "meaningVi": "Ừ, nhưng đợi chút. Đang có một đoàn đông qua cầu."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. While we're waiting, let's buy some coffee.",
+          "meaningVi": "Được. Trong lúc chờ, mình đi mua cà phê đi."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi quá khứ hoàn thành tiếp diễn: Had the Japanese been living here long before they built it? Trả lời: they had been trading here for years. Việc xong trước một mốc: The river had become too shallow.",
+    "translations": [
+      {
+        "vi": "Hội An đạt đỉnh cao vào thế kỷ mười bảy.",
+        "en": "Hoi An reached its peak in the seventeenth century.",
+        "distractors": [
+          "reaches",
+          "sixteenth",
+          "lost"
+        ]
+      },
+      {
+        "vi": "Thương nhân Nhật Bản và Trung Quốc định cư ở phố.",
+        "en": "Japanese and Chinese merchants settled in the town.",
+        "distractors": [
+          "moved",
+          "left",
+          "village"
+        ]
+      },
+      {
+        "vi": "Đến thế kỷ mười chín, dòng sông đã trở nên quá cạn.",
+        "en": "By the nineteenth century, the river had become too shallow.",
+        "distractors": [
+          "has",
+          "deep",
+          "becomes"
+        ]
+      },
+      {
+        "vi": "Vì thị trấn không phát triển, những con phố cổ còn tồn tại.",
+        "en": "Because the town didn't grow, its old streets survived.",
+        "distractors": [
+          "grew",
+          "new",
+          "died"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Nhi và Phát nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chùa Cầu ở Hội An",
+          "Một con tàu đắm",
+          "Giá vé tham quan"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nhi nói \"So this is the Japanese Bridge.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cây cầu bao nhiêu tuổi?",
+        "promptVi": "",
+        "options": [
+          "Hơn bốn trăm năm",
+          "Một trăm năm",
+          "Hai trăm năm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phát nói \"it's more than four hundred years old.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao tàu lớn không đến nữa?",
+        "promptVi": "",
+        "options": [
+          "Sông trở nên quá cạn",
+          "Vì có chiến tranh",
+          "Vì bão lớn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phát nói \"The river had become too shallow.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nhi thinks the town is ugly now.",
+        "promptVi": "Nhi nghĩ bây giờ phố cổ xấu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nhi nói \"the town is so beautiful now.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Vì sao Hội An từng là thương cảng nhộn nhịp? Điều gì làm nó trở thành một thị trấn yên tĩnh?",
+    "grammarStep": {
+      "titleVi": "Các thì kể chuyện và quá khứ hoàn thành tiếp diễn",
+      "noticing": [
+        {
+          "sentence": "But traders had been sailing along this coast for a very long time before that.",
+          "highlights": [
+            "had been sailing",
+            "before that"
+          ]
+        },
+        {
+          "sentence": "While they were waiting, they lived in Hoi An, built houses and opened shops.\"",
+          "highlights": [
+            "were waiting",
+            "lived"
+          ]
+        },
+        {
+          "sentence": "By the nineteenth century, the river had become too shallow for large ships.",
+          "highlights": [
+            "By the nineteenth century",
+            "had become"
+          ]
+        },
+        {
+          "sentence": "Merchants had been moving their business to Da Nang for years, and Hoi An slowly became a quiet town.\"",
+          "highlights": [
+            "had been moving",
+            "became"
+          ]
+        }
+      ],
+      "questionVi": "Thương nhân đã dần chuyển sang Đà Nẵng suốt nhiều năm, rồi Hội An mới trở nên yên tĩnh. Câu nào đúng?",
+      "options": [
+        "Merchants had been moving to Da Nang for years, and Hoi An became quiet.",
+        "Merchants have been moving to Da Nang for years, and Hoi An became quiet.",
+        "Merchants were moved to Da Nang for years, and Hoi An has become quiet."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Quá trình kéo dài trước kết quả trong quá khứ (became): had been moving.",
+      "whenVi": "Dùng khi kể lịch sử một nơi: việc đã diễn ra rất lâu trước một mốc (had been + V-ing), tình trạng đã có trước một mốc (by … had + V3), việc làm nền (while + quá khứ tiếp diễn).",
+      "table": [
+        {
+          "subject": "had been + V-ing … before",
+          "form": "Traders had been sailing along this coast long before that.",
+          "negative": "hadn't been + V-ing"
+        },
+        {
+          "subject": "By + mốc thời gian",
+          "form": "By the nineteenth century, the river had become too shallow.",
+          "negative": "hadn't + V3"
+        },
+        {
+          "subject": "While + quá khứ tiếp diễn",
+          "form": "While they were waiting, they built houses.",
+          "negative": "wasn't / weren't + V-ing"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "By the nineteenth century, the river has become too shallow.",
+          "right": "By the nineteenth century, the river had become too shallow."
+        },
+        {
+          "wrong": "Traders have been sailing here for centuries before that.",
+          "right": "Traders had been sailing here for centuries before that."
+        }
+      ],
+      "noteVi": "Before that / by then / by the nineteenth century là những dấu hiệu cho thấy ta đang nói về thời gian trước một mốc quá khứ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ become.",
+          "text": "By the nineteenth century, the river had ___ too shallow for big ships.",
+          "answers": [
+            "become"
+          ],
+          "explanationVi": "had + V3: become."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "While the merchants ___ for the wind to change, they opened shops.",
+          "options": [
+            "were waiting",
+            "had waited",
+            "wait",
+            "have waited"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "While + quá khứ tiếp diễn cho việc đang diễn ra làm nền."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Ships had been stop here for water and food.",
+          "sentence": "Ships had been stopping here for water and food.",
+          "explanationVi": "Sau had been phải là V-ing: stopping (nhân đôi p)."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Thương nhân đã đi thuyền dọc bờ biển này nhiều thế kỷ.",
+          "sentence": "Traders had been sailing along this coast for centuries.",
+          "words": [
+            "Traders",
+            "had",
+            "been",
+            "sailing",
+            "along",
+            "this",
+            "coast",
+            "for",
+            "centuries.",
+            "since"
+          ],
+          "explanationVi": "had been + V-ing + for + khoảng thời gian; từ \"since\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "But traders had been sailing along this coast for a very long time before that.",
+        "tipVi": "traders /ˈtreɪdəz/; ngắt hơi nhẹ sau coast."
+      },
+      {
+        "text": "By the nineteenth century, the river had become too shallow for large ships.",
+        "tipVi": "nineteenth /ˌnaɪnˈtiːnθ/; shallow /ˈʃæləʊ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How has your town or city changed over the last hundred years?",
+        "questionVi": "Thị trấn hay thành phố của bạn đã thay đổi thế nào trong một trăm năm qua?",
+        "frame": "A hundred years ago, people had been ___. Now ___."
+      },
+      {
+        "question": "Why do you think old towns like Hoi An are popular with tourists?",
+        "questionVi": "Theo bạn vì sao những phố cổ như Hội An được khách du lịch yêu thích?",
+        "frame": "I think they are popular because ___."
+      },
+      {
+        "question": "What were you doing when you first heard about Hoi An?",
+        "questionVi": "Lần đầu nghe nói về Hội An, bạn đang làm gì?",
+        "frame": "I was ___ when I first heard about it."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (tiếp diễn): had + V3 / had been + V-ing",
+      "anyOf": [
+        "had been",
+        "had ",
+        "'d been"
+      ],
+      "outlineVi": [
+        "Nơi đó ở đâu, bao nhiêu tuổi.",
+        "Người ta đã làm gì ở đó từ trước (had been + V-ing).",
+        "Nó đã thay đổi ra sao (By … had …)."
+      ],
+      "modelAnswer": "Ben Thanh Market in Ho Chi Minh City is more than a hundred years old. Before the new building opened in 1914, traders had been selling goods near the river for many years. While the city was growing, the market became the heart of Saigon. By the end of the century, it had become famous with tourists from all over the world."
+    }
+  },
+  "glosses": [
+    {
+      "text": "sank",
+      "lemma": "sink",
+      "meaningVi": "chìm, đắm",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "a ship that sank",
+      "phraseVi": "một con tàu bị đắm"
+    },
+    {
+      "text": "cinnamon",
+      "lemma": "cinnamon",
+      "meaningVi": "quế",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "cinnamon and pepper",
+      "phraseVi": "quế và hồ tiêu"
+    },
+    {
+      "text": "pepper",
+      "lemma": "pepper",
+      "meaningVi": "hồ tiêu",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "cinnamon and pepper",
+      "phraseVi": "quế và hồ tiêu"
+    },
+    {
+      "text": "blowing",
+      "lemma": "blow",
+      "meaningVi": "thổi",
+      "sentenceIndex": 14,
+      "pos": "verb",
+      "phrase": "the wind was blowing south",
+      "phraseVi": "gió thổi về phương nam"
+    }
+  ]
+}

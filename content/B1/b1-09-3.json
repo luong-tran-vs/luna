@@ -1,0 +1,614 @@
+{
+  "content": "Linh and her friend Mark are drinking coffee by the river in Can Tho. Mark has just arrived from Australia.\n\nMark asks, \"Is this the Mekong River?\"\n\"Yes, it is. It's one of the longest rivers in Asia,\" Linh says. \"It's almost five thousand kilometres long.\"\n\"Where does it start?\"\n\"It starts in the mountains in China. Then it flows through Myanmar, Laos, Thailand and Cambodia before it reaches Vietnam. Its water is shared by six countries.\"\n\"That's amazing. Is the water used for farming here?\"\n\"Yes, a lot. Rice and fruit are grown all over the delta. In fact, more than half of Vietnam's rice is grown here.\"\n\"And what's that boat over there? It's full of watermelons.\"\n\"It's going to the floating market. Tomorrow morning, I'll take you to Cai Rang. It's the most famous floating market in the delta.\"\n\"How does a floating market work?\"\n\"Everything is sold from boats. Fruit and vegetables are brought from the farms at night. Then they're sold early in the morning, from about five until nine.\"\n\"How do people know what each boat sells?\"\n\"That's the clever part. The fruit is hung on a long pole above the boat, so buyers can see it from far away.\"\n\"Is breakfast sold there too?\"\n\"Of course. Hot noodle soup is cooked on small boats. You haven't tried anything like it.\"\nMark laughs. \"Then I'll set my alarm for half past four.\"",
+  "targetWords": [
+    "river",
+    "mountain",
+    "flow",
+    "share",
+    "country",
+    "grow",
+    "market",
+    "sell",
+    "vegetable",
+    "buyer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "river",
+        "lemma": "river",
+        "meaningVi": "dòng sông",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "mountains",
+        "lemma": "mountain",
+        "meaningVi": "núi",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "flows",
+        "lemma": "flow",
+        "meaningVi": "chảy",
+        "pos": "verb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "shared",
+        "lemma": "share",
+        "meaningVi": "chia sẻ, dùng chung",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "countries",
+        "lemma": "country",
+        "meaningVi": "quốc gia, đất nước",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "grown",
+        "lemma": "grow",
+        "meaningVi": "trồng",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "market",
+        "lemma": "market",
+        "meaningVi": "chợ",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "sold",
+        "lemma": "sell",
+        "meaningVi": "bán",
+        "pos": "verb",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "vegetables",
+        "lemma": "vegetable",
+        "meaningVi": "rau củ",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "buyers",
+        "lemma": "buyer",
+        "meaningVi": "người mua",
+        "pos": "noun",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Linh and Mark mainly talking about?",
+        "promptVi": "Linh và Mark chủ yếu nói về điều gì?",
+        "options": [
+          "The Mekong River and the floating market",
+          "Mark's trip from Australia",
+          "How to cook noodle soup",
+          "Rice farms in China"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người nói về sông Mê Kông, việc trồng lúa và chợ nổi Cái Răng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many countries share the water of the Mekong?",
+        "promptVi": "Bao nhiêu nước dùng chung nước sông Mê Kông?",
+        "options": [
+          "Four",
+          "Five",
+          "Six",
+          "Seven"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"Its water is shared by six countries.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How do buyers know what each boat sells?",
+        "promptVi": "Người mua biết mỗi thuyền bán gì bằng cách nào?",
+        "options": [
+          "The boat owner shouts the names.",
+          "There is a list on the boat.",
+          "The fruit is hung on a long pole.",
+          "They ask on the phone."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"The fruit is hung on a long pole above the boat.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The floating market is open all day.",
+        "promptVi": "Chợ nổi họp cả ngày.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì hàng được bán \"early in the morning, from about five until nine.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"shared\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Its water is shared by six countries.\"",
+        "options": [
+          "được dùng chung",
+          "bị làm bẩn",
+          "được bán",
+          "bị mất"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Share = chia sẻ, dùng chung; is shared by six countries = sáu nước cùng dùng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu bị động (hiện tại và quá khứ đơn)",
+      "bodyVi": "Câu bị động hiện tại (is / are + V3) rất hợp để mô tả một vùng đất và những việc diễn ra thường xuyên ở đó: Its water is shared by six countries. Rice and fruit are grown all over the delta. Everything is sold from boats. Câu hỏi: Is the water used for farming? Is breakfast sold there too?",
+      "examples": [
+        "Its water is shared by six countries.\"",
+        "Rice and fruit are grown all over the delta.",
+        "\"Everything is sold from boats."
+      ]
+    },
+    "writingPrompt": "Write about a river, lake or market in your area. What is grown or sold there, and how is it used by local people?",
+    "sentenceTranslations": [
+      "Linh và bạn cô là Mark đang uống cà phê bên bờ sông ở Cần Thơ.",
+      "Mark vừa từ Úc sang.",
+      "Mark hỏi: \"Đây là sông Mê Kông à?\"",
+      "\"Đúng rồi.",
+      "Đó là một trong những con sông dài nhất châu Á,\" Linh nói.",
+      "\"Nó dài gần năm nghìn cây số.\"",
+      "\"Nó bắt nguồn từ đâu?\"",
+      "\"Nó bắt nguồn từ vùng núi ở Trung Quốc.",
+      "Sau đó chảy qua Myanmar, Lào, Thái Lan và Campuchia rồi mới đến Việt Nam.",
+      "Nước sông được sáu quốc gia dùng chung.\"",
+      "\"Thật đáng kinh ngạc.",
+      "Ở đây nước có được dùng để làm nông không?\"",
+      "\"Có, rất nhiều.",
+      "Lúa và trái cây được trồng khắp vùng đồng bằng.",
+      "Thật ra, hơn một nửa lượng lúa của Việt Nam được trồng ở đây.\"",
+      "\"Còn chiếc thuyền đằng kia là gì?",
+      "Nó chở đầy dưa hấu.\"",
+      "\"Nó đang đến chợ nổi.",
+      "Sáng mai mình sẽ đưa cậu đi Cái Răng.",
+      "Đó là chợ nổi nổi tiếng nhất vùng đồng bằng.\"",
+      "\"Chợ nổi hoạt động thế nào?\"",
+      "\"Mọi thứ được bán từ trên thuyền.",
+      "Trái cây và rau củ được chở từ các vườn ra vào ban đêm.",
+      "Rồi chúng được bán vào sáng sớm, từ khoảng năm đến chín giờ.\"",
+      "\"Làm sao mọi người biết mỗi thuyền bán gì?\"",
+      "\"Đó là chỗ thông minh.",
+      "Trái cây được treo trên một cây sào dài phía trên thuyền, nên người mua nhìn thấy từ xa.\"",
+      "\"Ở đó có bán đồ ăn sáng không?\"",
+      "\"Tất nhiên.",
+      "Bún, hủ tiếu nóng được nấu ngay trên những chiếc thuyền nhỏ.",
+      "Cậu chưa từng ăn món nào như vậy đâu.\"",
+      "Mark cười.",
+      "\"Vậy mình sẽ đặt báo thức lúc bốn rưỡi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu sông Mê Kông và chợ nổi bằng câu bị động hiện tại (is shared, are grown, is sold).",
+    "examples": [
+      {
+        "lemma": "river",
+        "sentence": "We swam in the river when we were young.",
+        "meaningVi": "Hồi nhỏ chúng tôi bơi ở sông."
+      },
+      {
+        "lemma": "mountain",
+        "sentence": "That mountain is covered with snow.",
+        "meaningVi": "Ngọn núi kia phủ đầy tuyết."
+      },
+      {
+        "lemma": "flow",
+        "sentence": "Rivers flow into the sea.",
+        "meaningVi": "Các con sông chảy ra biển."
+      },
+      {
+        "lemma": "share",
+        "sentence": "We share a room at university.",
+        "meaningVi": "Chúng tôi ở chung phòng ở đại học."
+      },
+      {
+        "lemma": "country",
+        "sentence": "Vietnam is a long, thin country.",
+        "meaningVi": "Việt Nam là một đất nước dài và hẹp."
+      },
+      {
+        "lemma": "grow",
+        "sentence": "My grandfather likes to grow vegetables.",
+        "meaningVi": "Ông tôi thích trồng rau."
+      },
+      {
+        "lemma": "market",
+        "sentence": "I buy fruit at the market every morning.",
+        "meaningVi": "Sáng nào tôi cũng mua trái cây ở chợ."
+      },
+      {
+        "lemma": "sell",
+        "sentence": "They sell fresh fish near the harbour.",
+        "meaningVi": "Họ bán cá tươi gần bến cảng."
+      },
+      {
+        "lemma": "vegetable",
+        "sentence": "Which vegetable do you like best?",
+        "meaningVi": "Bạn thích loại rau nào nhất?"
+      },
+      {
+        "lemma": "buyer",
+        "sentence": "The buyer paid in cash.",
+        "meaningVi": "Người mua trả bằng tiền mặt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mark",
+        "Linh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Linh, what are these fruits on that boat?",
+          "meaningVi": "Linh ơi, mấy quả trên thuyền kia là gì vậy?"
+        },
+        {
+          "speaker": 1,
+          "text": "They're rambutans. They're grown in Ben Tre, near here.",
+          "meaningVi": "Đó là chôm chôm. Chúng được trồng ở Bến Tre, gần đây."
+        },
+        {
+          "speaker": 0,
+          "text": "Are they sold by the kilo?",
+          "meaningVi": "Chúng được bán theo ký à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. Fruit is usually sold by the kilo here.",
+          "meaningVi": "Ừ. Ở đây trái cây thường được bán theo ký."
+        },
+        {
+          "speaker": 0,
+          "text": "How much is one kilo?",
+          "meaningVi": "Một ký bao nhiêu tiền?"
+        },
+        {
+          "speaker": 1,
+          "text": "About twenty thousand dong. It's very cheap.",
+          "meaningVi": "Khoảng hai mươi nghìn đồng. Rẻ lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "And how is the soup boat moved? I can't see an engine.",
+          "meaningVi": "Còn thuyền bán bún di chuyển thế nào? Mình không thấy động cơ."
+        },
+        {
+          "speaker": 1,
+          "text": "It's moved by hand. The woman uses a long oar.",
+          "meaningVi": "Nó được chèo bằng tay. Cô ấy dùng một mái chèo dài."
+        },
+        {
+          "speaker": 0,
+          "text": "That's amazing. Can we buy two bowls?",
+          "meaningVi": "Hay quá. Mình mua hai bát được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. Breakfast is on me today!",
+          "meaningVi": "Được chứ. Hôm nay bữa sáng mình mời!"
+        }
+      ]
+    },
+    "grammarTipVi": "They're grown in Ben Tre / Fruit is sold by the kilo / It's moved by hand: is / are + V3. Hỏi: Are they sold by the kilo? How is the boat moved?",
+    "translations": [
+      {
+        "vi": "Nước sông được sáu quốc gia dùng chung.",
+        "en": "The water is shared by six countries.",
+        "distractors": [
+          "shares",
+          "are",
+          "from"
+        ]
+      },
+      {
+        "vi": "Lúa được trồng khắp vùng đồng bằng.",
+        "en": "Rice is grown all over the delta.",
+        "distractors": [
+          "grows",
+          "are",
+          "by"
+        ]
+      },
+      {
+        "vi": "Mọi thứ được bán từ trên thuyền.",
+        "en": "Everything is sold from boats.",
+        "distractors": [
+          "sells",
+          "are",
+          "by"
+        ]
+      },
+      {
+        "vi": "Trái cây và rau được chở từ các nông trại.",
+        "en": "Fruit and vegetables are brought from the farms.",
+        "distractors": [
+          "is",
+          "brings",
+          "by"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mark và Linh đang ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở chợ nổi",
+          "Ở một vườn trái cây",
+          "Ở sân bay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ nhìn các thuyền bán trái cây và thuyền bán bún.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chôm chôm được trồng ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở Cần Thơ",
+          "Ở Bến Tre",
+          "Ở Trung Quốc"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"They're grown in Ben Tre, near here.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Một ký chôm chôm giá khoảng bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Mười nghìn đồng",
+          "Hai mươi nghìn đồng",
+          "Năm mươi nghìn đồng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"About twenty thousand dong.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The soup boat has an engine.",
+        "promptVi": "Thuyền bán bún có động cơ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"It's moved by hand.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Sông Mê Kông chảy qua những nước nào? Ở chợ nổi, hàng hoá được bán thế nào?",
+    "grammarStep": {
+      "titleVi": "Câu bị động (hiện tại và quá khứ đơn)",
+      "noticing": [
+        {
+          "sentence": "Its water is shared by six countries.\"",
+          "highlights": [
+            "is shared",
+            "by six countries"
+          ]
+        },
+        {
+          "sentence": "Is the water used for farming here?\"",
+          "highlights": [
+            "Is the water used"
+          ]
+        },
+        {
+          "sentence": "Rice and fruit are grown all over the delta.",
+          "highlights": [
+            "are grown"
+          ]
+        },
+        {
+          "sentence": "The fruit is hung on a long pole above the boat, so buyers can see it from far away.\"",
+          "highlights": [
+            "is hung"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao dùng \"are grown\" trong \"Rice and fruit are grown all over the delta\"?",
+      "options": [
+        "Vì chủ ngữ số nhiều (rice and fruit) và việc trồng diễn ra thường xuyên.",
+        "Vì việc trồng đã kết thúc.",
+        "Vì người trồng là chủ ngữ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Hai danh từ nối bằng and → số nhiều → are; hiện tại đơn cho việc thường xuyên; grown là V3 của grow.",
+      "whenVi": "Dùng câu bị động hiện tại để mô tả một vùng đất: cái gì được trồng, được bán, được dùng ở đó.",
+      "table": [
+        {
+          "subject": "Số ít",
+          "form": "is + V3 (Everything is sold from boats.)",
+          "negative": "isn't + V3"
+        },
+        {
+          "subject": "Số nhiều",
+          "form": "are + V3 (Rice and fruit are grown here.)",
+          "negative": "aren't + V3"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Is the water used …? / How is it moved?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Rice and fruit is grown all over the delta.",
+          "right": "Rice and fruit are grown all over the delta."
+        },
+        {
+          "wrong": "Everything is sell from boats.",
+          "right": "Everything is sold from boats."
+        }
+      ],
+      "noteVi": "Everything, everyone, nobody đi với động từ số ít: Everything is sold …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng bị động đúng của động từ trong ngoặc (share).",
+          "text": "The water of the Mekong ___ by six countries.",
+          "answers": [
+            "is shared"
+          ],
+          "explanationVi": "Chủ ngữ số ít (the water): is shared."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Fruit and vegetables ___ from the farms at night.",
+          "options": [
+            "are brought",
+            "is brought",
+            "bring",
+            "are bring"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Chủ ngữ số nhiều: are + V3 (brought)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Rice and fruit is grown here.",
+          "sentence": "Rice and fruit are grown here.",
+          "explanationVi": "Hai danh từ nối bằng and → are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mọi thứ được bán từ trên thuyền.",
+          "sentence": "Everything is sold from boats.",
+          "words": [
+            "is",
+            "Everything",
+            "sold",
+            "from",
+            "boats.",
+            "sells"
+          ],
+          "explanationVi": "Is + V3: is sold; từ \"sells\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Its water is shared by six countries.\"",
+        "tipVi": "Shared /ʃeəd/ đuôi -ed đọc /d/."
+      },
+      {
+        "text": "Rice and fruit are grown all over the delta.",
+        "tipVi": "Grown /ɡrəʊn/; nối \"all over\" thành /ɔːˈləʊvə/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is grown in your area?",
+        "questionVi": "Ở vùng bạn người ta trồng gì?",
+        "frame": "In my area, ___ is / are grown."
+      },
+      {
+        "question": "Have you ever been to a floating market or a big market? What was sold there?",
+        "questionVi": "Bạn đã từng đi chợ nổi hay một chợ lớn chưa? Ở đó bán gì?",
+        "frame": "Yes. ___ was / were sold there."
+      },
+      {
+        "question": "Which river do you know best? Describe it.",
+        "questionVi": "Bạn biết rõ con sông nào nhất? Hãy tả nó.",
+        "frame": "I know the ___ River. It flows through ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is / are / was / were + V3)",
+      "anyOf": [
+        "ed by",
+        "en by",
+        "is grown",
+        "are grown",
+        "is sold",
+        "are sold",
+        "is used",
+        "are used",
+        "is shared",
+        "is called",
+        "are brought",
+        "is visited",
+        "are visited",
+        "is made",
+        "are made",
+        "was built"
+      ],
+      "outlineVi": [
+        "Tên con sông / hồ / chợ và nó ở đâu.",
+        "Cái gì được trồng hoặc bán ở đó (… is / are grown / sold …).",
+        "Người dân dùng nó thế nào và vì sao bạn thích nơi đó."
+      ],
+      "modelAnswer": "The Perfume River flows through Hue. Its water is used by farmers, and fish are caught by local fishermen every morning. Near the river, there is Dong Ba Market. Fruit, clothes and Hue cakes are sold there. In the evening, dragon boats are used to take tourists along the river."
+    }
+  },
+  "glosses": [
+    {
+      "text": "kilometres",
+      "lemma": "kilometre",
+      "meaningVi": "cây số, ki-lô-mét",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "almost five thousand kilometres long",
+      "phraseVi": "dài gần năm nghìn cây số"
+    },
+    {
+      "text": "delta",
+      "lemma": "delta",
+      "meaningVi": "vùng đồng bằng (châu thổ)",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "all over the delta",
+      "phraseVi": "khắp vùng đồng bằng"
+    },
+    {
+      "text": "watermelons",
+      "lemma": "watermelon",
+      "meaningVi": "dưa hấu",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "It's full of watermelons.",
+      "phraseVi": "Nó chở đầy dưa hấu."
+    },
+    {
+      "text": "floating market",
+      "lemma": "floating market",
+      "meaningVi": "chợ nổi",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "to the floating market",
+      "phraseVi": "đến chợ nổi"
+    },
+    {
+      "text": "pole",
+      "lemma": "pole",
+      "meaningVi": "cây sào",
+      "sentenceIndex": 26,
+      "pos": "noun",
+      "phrase": "a long pole above the boat",
+      "phraseVi": "một cây sào dài phía trên thuyền"
+    }
+  ]
+}

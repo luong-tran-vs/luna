@@ -1,0 +1,590 @@
+{
+  "content": "Linh's mother is sixty next Sunday, and Linh wants to have a surprise party for her. Today, Linh is at a restaurant near her home, and she talks to Mr Quang, the manager.\n\n\"I'd like to book a room for twenty guests next Sunday,\" she says.\n\"No problem,\" Mr Quang says. \"How many children are there?\"\n\"There are five children and fifteen adults.\"\nLinh asks, \"How much food do we need for twenty people?\"\n\"Our party menu has six dishes, and that is enough for twenty people,\" he answers.\nShe looks at the menu and asks, \"Are there any special dishes?\"\n\"Yes, we have roast duck and fish soup.\"\n\"Great, I'd like two roast ducks, please. My mother loves duck.\"\n\nThen Mr Quang asks, \"Would you like a birthday cake too?\"\n\"No, thank you, my sister makes the cake. But can we have some balloons and flowers on the tables?\"\n\"Of course, and they are free,\" he says.\n\nLinh is very happy. \"Please don't tell my mother, it's a surprise!\" she says.",
+  "targetWords": [
+    "surprise",
+    "party",
+    "manager",
+    "guest",
+    "dish",
+    "special",
+    "birthday cake",
+    "balloon"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "surprise",
+        "lemma": "surprise",
+        "meaningVi": "bất ngờ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "party",
+        "lemma": "party",
+        "meaningVi": "bữa tiệc",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "người quản lý",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "guests",
+        "lemma": "guest",
+        "meaningVi": "khách (được mời)",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "dishes",
+        "lemma": "dish",
+        "meaningVi": "món ăn",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "special",
+        "lemma": "special",
+        "meaningVi": "đặc biệt",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "birthday cake",
+        "lemma": "birthday cake",
+        "meaningVi": "bánh sinh nhật",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "balloons",
+        "lemma": "balloon",
+        "meaningVi": "bóng bay",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Linh's new job at a restaurant",
+          "A party at Linh's office",
+          "Linh plans a birthday party for her mother.",
+          "Linh's sister makes a cake."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói chuyện với quản lý nhà hàng để chuẩn bị tiệc sinh nhật bất ngờ cho mẹ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many children are there at the party?",
+        "promptVi": "Bữa tiệc có bao nhiêu trẻ em?",
+        "options": [
+          "Five",
+          "Fifteen",
+          "Six",
+          "Twenty"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh nói \"There are five children and fifteen adults.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Linh order two roast ducks?",
+        "promptVi": "Vì sao Linh gọi hai con vịt quay?",
+        "options": [
+          "The manager says so.",
+          "Duck is free today.",
+          "There isn't any fish.",
+          "Her mother loves duck."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Linh nói \"My mother loves duck\": mẹ cô rất thích vịt."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh orders a birthday cake from the restaurant.",
+        "promptVi": "Linh đặt bánh sinh nhật ở nhà hàng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"No, thank you, my sister makes the cake\": chị (em) gái cô làm bánh."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"free\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Of course, and they are free,\" he says.",
+        "options": [
+          "rảnh rỗi",
+          "miễn phí",
+          "đắt",
+          "đẹp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Free ở đây là miễn phí, không phải trả tiền cho bóng bay và hoa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Danh từ đếm được / không đếm được (some, any, much, many)",
+      "bodyVi": "Hỏi số lượng: How many + danh từ đếm được số nhiều (How many children?), How much + danh từ không đếm được (How much food?). Câu hỏi thường dùng any: Are there any special dishes? Khi xin hoặc mời lịch sự thì dùng some: Can we have some balloons?",
+      "examples": [
+        "\"How many children are there?\"",
+        "Linh asks, \"How much food do we need for twenty people?\"",
+        "She looks at the menu and asks, \"Are there any special dishes?\""
+      ]
+    },
+    "writingPrompt": "Write about a party for someone in your family: how many guests, how much food, and what you would like.",
+    "sentenceTranslations": [
+      "Chủ nhật tới mẹ Linh tròn sáu mươi tuổi, và Linh muốn tổ chức một bữa tiệc bất ngờ cho mẹ.",
+      "Hôm nay Linh đến một nhà hàng gần nhà và nói chuyện với ông Quang, người quản lý.",
+      "\"Tôi muốn đặt một phòng cho hai mươi khách vào Chủ nhật tới,\" cô nói.",
+      "\"Không vấn đề gì,\" ông Quang nói.",
+      "\"Có bao nhiêu trẻ em?\"",
+      "\"Có năm trẻ em và mười lăm người lớn.\"",
+      "Linh hỏi: \"Hai mươi người thì cần bao nhiêu đồ ăn ạ?\"",
+      "\"Thực đơn tiệc của chúng tôi có sáu món, đủ cho hai mươi người,\" ông trả lời.",
+      "Cô xem thực đơn và hỏi: \"Có món nào đặc biệt không ạ?\"",
+      "\"Có, chúng tôi có vịt quay và canh cá.\"",
+      "\"Tuyệt quá, cho tôi hai con vịt quay.\"",
+      "\"Mẹ tôi rất thích vịt.\"",
+      "Rồi ông Quang hỏi: \"Cô có muốn đặt bánh sinh nhật không?\"",
+      "\"Dạ không, cảm ơn ông, chị tôi làm bánh rồi.\"",
+      "\"Nhưng có thể để ít bóng bay và hoa trên bàn được không ạ?\"",
+      "\"Tất nhiên rồi, mà không mất tiền đâu,\" ông nói.",
+      "Linh rất vui.",
+      "\"Ông đừng nói với mẹ cháu nhé, đây là bất ngờ mà!\" cô nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi về số lượng khi đặt tiệc ở nhà hàng bằng How many / How much, some, any, và nói điều mình muốn bằng I'd like.",
+    "examples": [
+      {
+        "lemma": "surprise",
+        "sentence": "The flowers are a surprise for you.",
+        "meaningVi": "Hoa này là món quà bất ngờ cho bạn."
+      },
+      {
+        "lemma": "party",
+        "sentence": "There is a party at my house tonight.",
+        "meaningVi": "Tối nay có một bữa tiệc ở nhà tôi."
+      },
+      {
+        "lemma": "manager",
+        "sentence": "The manager of the hotel is very kind.",
+        "meaningVi": "Người quản lý khách sạn rất tử tế."
+      },
+      {
+        "lemma": "guest",
+        "sentence": "We have a guest from Japan today.",
+        "meaningVi": "Hôm nay chúng tôi có một vị khách từ Nhật."
+      },
+      {
+        "lemma": "dish",
+        "sentence": "This dish is from the south of Vietnam.",
+        "meaningVi": "Món này đến từ miền Nam Việt Nam."
+      },
+      {
+        "lemma": "special",
+        "sentence": "Today is a special day for my family.",
+        "meaningVi": "Hôm nay là một ngày đặc biệt với gia đình tôi."
+      },
+      {
+        "lemma": "birthday cake",
+        "sentence": "My grandmother makes a birthday cake for me.",
+        "meaningVi": "Bà làm bánh sinh nhật cho tôi."
+      },
+      {
+        "lemma": "balloon",
+        "sentence": "The little girl has a red balloon.",
+        "meaningVi": "Cô bé có một quả bóng bay màu đỏ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Kate"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Linh, is your mother's party next Sunday?",
+          "meaningVi": "Linh ơi, tiệc của mẹ cậu là Chủ nhật tới à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, it is. I need some help with it.",
+          "meaningVi": "Ừ đúng rồi. Mình cần cậu giúp một chút."
+        },
+        {
+          "speaker": 1,
+          "text": "Of course! How many people are there?",
+          "meaningVi": "Tất nhiên rồi! Có bao nhiêu người?"
+        },
+        {
+          "speaker": 0,
+          "text": "Twenty, and five of them are children.",
+          "meaningVi": "Hai mươi người, trong đó có năm đứa trẻ."
+        },
+        {
+          "speaker": 1,
+          "text": "Do the children need any special food?",
+          "meaningVi": "Bọn trẻ có cần món gì riêng không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Maybe some fried chicken. Children love it.",
+          "meaningVi": "Chắc là ít gà rán. Trẻ con thích lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "And how much juice do you want?",
+          "meaningVi": "Còn nước hoa quả thì cậu muốn bao nhiêu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not much. My mother's friends prefer tea.",
+          "meaningVi": "Không nhiều đâu. Bạn của mẹ mình thích uống trà hơn."
+        },
+        {
+          "speaker": 1,
+          "text": "Would you like me to buy some flowers?",
+          "meaningVi": "Cậu có muốn mình đi mua ít hoa không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, please! She loves yellow flowers.",
+          "meaningVi": "Có chứ! Mẹ mình rất thích hoa màu vàng."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi có hay không: Do the children need any special food? Hỏi số lượng: How many people? How much juice? Đề nghị giúp: Would you like me to buy some flowers?",
+    "translations": [
+      {
+        "vi": "Tôi muốn tổ chức một bữa tiệc bất ngờ cho mẹ.",
+        "en": "I'd like to have a surprise party for my mother.",
+        "distractors": [
+          "her",
+          "would",
+          "parties"
+        ]
+      },
+      {
+        "vi": "Có bao nhiêu khách?",
+        "en": "How many guests are there?",
+        "distractors": [
+          "much",
+          "is",
+          "guest"
+        ]
+      },
+      {
+        "vi": "Người quản lý nói có hai món đặc biệt.",
+        "en": "The manager says there are two special dishes.",
+        "distractors": [
+          "is",
+          "dish",
+          "any"
+        ]
+      },
+      {
+        "vi": "Chị tôi làm bánh sinh nhật, còn tôi mua bóng bay.",
+        "en": "My sister makes the birthday cake, and I buy balloons.",
+        "distractors": [
+          "much",
+          "brother",
+          "balloon"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh và Kate nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bữa tiệc của mẹ Linh",
+          "Một nhà hàng mới",
+          "Sinh nhật của Kate"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Kate hỏi \"is your mother's party next Sunday?\" và hai người bàn chuẩn bị cho tiệc.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Linh muốn có món gì cho bọn trẻ?",
+        "promptVi": "",
+        "options": [
+          "Bánh ngọt",
+          "Gà rán",
+          "Nước hoa quả"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh nói \"Maybe some fried chicken. Children love it.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Linh không cần nhiều nước hoa quả?",
+        "promptVi": "",
+        "options": [
+          "Vì nước hoa quả rất đắt",
+          "Vì bọn trẻ không thích",
+          "Vì bạn của mẹ cô thích uống trà hơn"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"My mother's friends prefer tea.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Linh's mother loves red flowers.",
+        "promptVi": "Mẹ Linh rất thích hoa màu đỏ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Linh nói \"She loves yellow flowers\": mẹ cô thích hoa màu vàng.",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Linh hỏi ông Quang những gì về số khách, đồ ăn và trang trí?",
+    "grammarStep": {
+      "titleVi": "Danh từ đếm được / không đếm được (some, any, much, many)",
+      "noticing": [
+        {
+          "sentence": "\"How many children are there?\"",
+          "highlights": [
+            "How many children"
+          ]
+        },
+        {
+          "sentence": "Linh asks, \"How much food do we need for twenty people?\"",
+          "highlights": [
+            "How much food"
+          ]
+        },
+        {
+          "sentence": "She looks at the menu and asks, \"Are there any special dishes?\"",
+          "highlights": [
+            "any special dishes"
+          ]
+        },
+        {
+          "sentence": "\"But can we have some balloons and flowers on the tables?\"",
+          "highlights": [
+            "some balloons and flowers"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao Linh hỏi \"How much food\" nhưng ông Quang hỏi \"How many children\"?",
+      "options": [
+        "Vì food là số nhiều.",
+        "Vì children không đếm được.",
+        "Vì food không đếm được, còn children đếm được."
+      ],
+      "answerIndex": 2,
+      "explanationVi": "Food (đồ ăn nói chung) không đếm được nên dùng How much. Children là số nhiều của child, đếm được, nên dùng How many.",
+      "whenVi": "Dùng many / How many với danh từ đếm được số nhiều, much / How much với danh từ không đếm được; any trong câu hỏi và câu phủ định, some khi xin hoặc mời.",
+      "table": [
+        {
+          "subject": "Đếm được (guest, dish)",
+          "form": "How many guests? / some dishes",
+          "negative": "There aren't any dishes. / not many guests"
+        },
+        {
+          "subject": "Không đếm được (food, juice)",
+          "form": "How much food? / some juice",
+          "negative": "There isn't any juice. / not much food"
+        },
+        {
+          "subject": "Xin, mời",
+          "form": "Can we have some balloons? / Would you like some tea?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There isn't any balloons.",
+          "right": "There aren't any balloons."
+        },
+        {
+          "wrong": "How many food do we need?",
+          "right": "How much food do we need?"
+        }
+      ],
+      "noteVi": "Người Việt hay quên chia is / are theo danh từ: số nhiều (balloons) đi với are, không đếm được (food, juice) đi với is.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "How ___ guests are there at the party?",
+          "answers": [
+            "many"
+          ],
+          "explanationVi": "Guests đếm được, số nhiều, nên dùng How many."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "We don't need ___ juice for the party.",
+          "options": [
+            "many",
+            "much",
+            "a few",
+            "some"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Juice không đếm được, câu phủ định dùng much."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "There isn't any balloons on the tables.",
+          "sentence": "There aren't any balloons on the tables.",
+          "explanationVi": "Balloons là số nhiều nên dùng aren't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn cần bao nhiêu cái bánh?",
+          "sentence": "How many cakes do you need?",
+          "words": [
+            "cakes",
+            "How",
+            "need",
+            "many",
+            "you",
+            "do",
+            "much"
+          ],
+          "explanationVi": "Cakes đếm được nên dùng How many; từ \"much\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"There are five children and fifteen adults.\"",
+        "tipVi": "Fifteen nhấn âm sau: fif-TEEN, để khỏi nhầm với fifty (FIF-ty); children đọc /ˈtʃɪldrən/."
+      },
+      {
+        "text": "\"Yes, we have roast duck and fish soup.\"",
+        "tipVi": "Roast /roʊst/ có âm /st/ ở cuối; duck /dʌk/ âm /ʌ/ ngắn như \"ă\", nhớ bật /k/ cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How many people are there in your family?",
+        "questionVi": "Gia đình bạn có bao nhiêu người?",
+        "frame": "There are ___ people in my family."
+      },
+      {
+        "question": "What food would you like at your birthday party?",
+        "questionVi": "Bạn muốn có món gì trong tiệc sinh nhật của mình?",
+        "frame": "I'd like some ___ and ___."
+      },
+      {
+        "question": "What does your mother or father like at a party?",
+        "questionVi": "Bố hoặc mẹ bạn thích gì ở một bữa tiệc?",
+        "frame": "He / She likes ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng How many / How much, some, any, much hoặc many",
+      "anyOf": [
+        "how many",
+        "how much",
+        "any",
+        "many",
+        "much",
+        "some"
+      ],
+      "outlineVi": [
+        "Tiệc của ai, khi nào, ở đâu.",
+        "Có bao nhiêu khách, cần những món gì và bao nhiêu (How many …, some …).",
+        "Bạn muốn có gì thêm (I'd like …), thứ gì không cần (We don't need any …)."
+      ],
+      "modelAnswer": "My grandfather is eighty next month, and we would like to have a party for him at home. There are thirty guests, and ten of them are children. We need a lot of food, so my mother cooks some chicken and rice. We don't need much juice, because my grandfather's friends drink tea. I'd like some flowers on the tables. He loves flowers."
+    }
+  },
+  "glosses": [
+    {
+      "text": "sixty",
+      "lemma": "sixty",
+      "meaningVi": "sáu mươi (tuổi)",
+      "sentenceIndex": 0,
+      "pos": "number",
+      "phrase": "Linh's mother is sixty next Sunday",
+      "phraseVi": "Chủ nhật tới mẹ Linh tròn sáu mươi tuổi"
+    },
+    {
+      "text": "book a room",
+      "lemma": "book",
+      "meaningVi": "đặt (phòng, bàn)",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "book a room for twenty guests",
+      "phraseVi": "đặt một phòng cho hai mươi khách"
+    },
+    {
+      "text": "adults",
+      "lemma": "adult",
+      "meaningVi": "người lớn",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "five children and fifteen adults",
+      "phraseVi": "năm trẻ em và mười lăm người lớn"
+    },
+    {
+      "text": "How much food",
+      "lemma": "how much",
+      "meaningVi": "bao nhiêu đồ ăn",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "How much food do we need",
+      "phraseVi": "cần bao nhiêu đồ ăn"
+    },
+    {
+      "text": "enough",
+      "lemma": "enough",
+      "meaningVi": "đủ",
+      "sentenceIndex": 7,
+      "pos": "determiner",
+      "phrase": "enough for twenty people",
+      "phraseVi": "đủ cho hai mươi người"
+    },
+    {
+      "text": "roast duck",
+      "lemma": "roast duck",
+      "meaningVi": "vịt quay",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "roast duck and fish soup",
+      "phraseVi": "vịt quay và canh cá"
+    },
+    {
+      "text": "free",
+      "lemma": "free",
+      "meaningVi": "miễn phí",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "they are free",
+      "phraseVi": "không mất tiền"
+    },
+    {
+      "text": "tell",
+      "lemma": "tell",
+      "meaningVi": "kể, nói cho biết",
+      "sentenceIndex": 17,
+      "pos": "verb",
+      "phrase": "don't tell my mother",
+      "phraseVi": "đừng nói với mẹ tôi"
+    }
+  ]
+}

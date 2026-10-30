@@ -1,0 +1,592 @@
+{
+  "content": "Hoa works in an office in Ho Chi Minh City. Last week, she ordered paper, pens and ink for the whole office, but nothing has arrived. This morning, she called the shop's customer service, and they called her back at lunchtime.\n\nAfter the call, she tells her co-worker Kien about it.\nKien asks, \"So, what did they say?\"\n\"The woman said that our order was still in their warehouse. She said they had too many orders this month.\"\n\"Did she say when it would come?\"\n\"She said it would arrive tomorrow morning. She told me that a driver would bring it before ten.\"\n\"I hope so. I don't have any paper left.\"\n\"Neither do I. I used the last box yesterday.\"\n\"Did she say sorry?\"\n\"Yes. She said she was very sorry, and she gave us ten percent off.\"\n\"That's nice, but I'm tired of waiting.\"\n\"So am I. It's the second time this year.\"\n\"I think we should find another shop.\"\n\"So do I. I asked my friend Thao. She said her company used a shop near Ben Thanh Market.\"\n\"Can you call them and ask about their prices?\"\n\"Sure. But first, I'll wait until tomorrow. Let's see if our order really arrives.\"\n\"OK. Let's call the new shop on Thursday.\"",
+  "targetWords": [
+    "ink",
+    "customer",
+    "service",
+    "warehouse",
+    "order",
+    "driver",
+    "paper",
+    "box",
+    "percent",
+    "price"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "ink",
+        "lemma": "ink",
+        "meaningVi": "mực",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "customer",
+        "lemma": "customer",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "service",
+        "lemma": "service",
+        "meaningVi": "dịch vụ",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "warehouse",
+        "lemma": "warehouse",
+        "meaningVi": "nhà kho",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "orders",
+        "lemma": "order",
+        "meaningVi": "đơn hàng",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "driver",
+        "lemma": "driver",
+        "meaningVi": "tài xế",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "paper",
+        "lemma": "paper",
+        "meaningVi": "giấy",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "box",
+        "lemma": "box",
+        "meaningVi": "hộp, thùng",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "percent",
+        "lemma": "percent",
+        "meaningVi": "phần trăm",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "prices",
+        "lemma": "price",
+        "meaningVi": "giá",
+        "pos": "noun",
+        "sentenceIndex": 21
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Hoa telling Kien about?",
+        "promptVi": "Hoa đang kể cho Kiên nghe về điều gì?",
+        "options": [
+          "What customer service said about their late order",
+          "A new shop near Ben Thanh Market",
+          "Her friend Thao's company",
+          "A problem with the office printer"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa kể lại những gì bên chăm sóc khách hàng nói về đơn hàng văn phòng phẩm bị trễ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where was the order?",
+        "promptVi": "Đơn hàng đang ở đâu?",
+        "options": [
+          "On a truck",
+          "Still in their warehouse",
+          "At Ben Thanh Market",
+          "In the office"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"The woman said that our order was still in their warehouse.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did the shop give them?",
+        "promptVi": "Cửa hàng đã cho họ gì?",
+        "options": [
+          "Free paper",
+          "A new printer",
+          "Ten percent off",
+          "Free delivery"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hoa nói \"she gave us ten percent off.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "This is the first time the order is late.",
+        "promptVi": "Đây là lần đầu tiên đơn hàng bị trễ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hoa nói \"It's the second time this year.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"warehouse\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The woman said that our order was still in their warehouse.",
+        "options": [
+          "nhà kho",
+          "cửa hàng",
+          "văn phòng",
+          "xe tải"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Warehouse = nhà kho, nơi chứa hàng trước khi giao."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu tường thuật",
+      "bodyVi": "Câu tường thuật khi kể lại cuộc gọi với cửa hàng: \"Your order is still in our warehouse.\" → She said that our order was still in their warehouse. \"We have too many orders.\" → She said they had too many orders. \"It will arrive tomorrow.\" → She said it would arrive tomorrow morning. Câu hỏi được kể lại: Did she say when it would come? Đồng ý: I'm tired of waiting. – So am I. I don't have any paper left. – Neither do I.",
+      "examples": [
+        "\"The woman said that our order was still in their warehouse.",
+        "She said they had too many orders this month.\"",
+        "\"She said it would arrive tomorrow morning."
+      ]
+    },
+    "writingPrompt": "You ordered something online, but it was late. Write what the shop said when you called, and what you decided to do.",
+    "sentenceTranslations": [
+      "Hoa làm việc ở một văn phòng tại Thành phố Hồ Chí Minh.",
+      "Tuần trước, cô đặt giấy, bút và mực cho cả văn phòng, nhưng chưa có gì đến cả.",
+      "Sáng nay, cô gọi cho bộ phận chăm sóc khách hàng của cửa hàng, và họ gọi lại vào giờ trưa.",
+      "Sau cuộc gọi, cô kể cho đồng nghiệp Kiên nghe.",
+      "Kiên hỏi: \"Thế họ nói gì?\"",
+      "\"Chị ấy nói đơn hàng của mình vẫn ở trong kho của họ.",
+      "Chị ấy nói tháng này họ có quá nhiều đơn.\"",
+      "\"Chị ấy có nói khi nào hàng đến không?\"",
+      "\"Chị ấy nói sáng mai sẽ đến.",
+      "Chị ấy bảo em là tài xế sẽ mang đến trước mười giờ.\"",
+      "\"Mong là vậy.",
+      "Anh hết sạch giấy rồi.\"",
+      "\"Em cũng hết. Hôm qua em dùng hộp cuối cùng rồi.\"",
+      "\"Chị ấy có xin lỗi không?\"",
+      "\"Có.",
+      "Chị ấy nói rất xin lỗi, và giảm cho mình mười phần trăm.\"",
+      "\"Thế cũng được, nhưng anh chán chờ lắm rồi.\"",
+      "\"Em cũng vậy. Năm nay là lần thứ hai rồi.\"",
+      "\"Anh nghĩ mình nên tìm cửa hàng khác.\"",
+      "\"Em cũng nghĩ vậy. Em hỏi bạn em là Thảo rồi.",
+      "Bạn ấy nói công ty bạn ấy dùng một cửa hàng gần chợ Bến Thành.\"",
+      "\"Em gọi cho họ hỏi giá được không?\"",
+      "\"Được ạ.",
+      "Nhưng trước hết, em đợi đến mai đã.",
+      "Xem đơn hàng có thật sự đến không.\"",
+      "\"Được.",
+      "Thứ Năm mình gọi cho cửa hàng mới nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại cuộc gọi với bộ phận chăm sóc khách hàng (She said that … / She told me that …) và đồng ý bằng So am I / Neither do I / So do I.",
+    "examples": [
+      {
+        "lemma": "ink",
+        "sentence": "The printer needs more ink.",
+        "meaningVi": "Máy in cần thêm mực."
+      },
+      {
+        "lemma": "customer",
+        "sentence": "Every customer gets a small gift.",
+        "meaningVi": "Mỗi khách hàng được một món quà nhỏ."
+      },
+      {
+        "lemma": "service",
+        "sentence": "The service in this hotel is very good.",
+        "meaningVi": "Dịch vụ ở khách sạn này rất tốt."
+      },
+      {
+        "lemma": "warehouse",
+        "sentence": "The boxes are in the warehouse.",
+        "meaningVi": "Những thùng hàng ở trong nhà kho."
+      },
+      {
+        "lemma": "order",
+        "sentence": "I want to check my order.",
+        "meaningVi": "Tôi muốn kiểm tra đơn hàng của mình."
+      },
+      {
+        "lemma": "driver",
+        "sentence": "The driver will call you before he arrives.",
+        "meaningVi": "Tài xế sẽ gọi cho bạn trước khi đến."
+      },
+      {
+        "lemma": "paper",
+        "sentence": "Can I have a piece of paper?",
+        "meaningVi": "Cho tôi xin một tờ giấy."
+      },
+      {
+        "lemma": "box",
+        "sentence": "Put the books in this box.",
+        "meaningVi": "Để sách vào thùng này."
+      },
+      {
+        "lemma": "percent",
+        "sentence": "Prices went up by five percent.",
+        "meaningVi": "Giá tăng năm phần trăm."
+      },
+      {
+        "lemma": "price",
+        "sentence": "The price is too high for me.",
+        "meaningVi": "Giá quá cao với tôi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Kien",
+        "Hoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hoa, did the order arrive this morning?",
+          "meaningVi": "Hoa ơi, sáng nay hàng đến chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, at nine thirty. But the ink wasn't in the box.",
+          "meaningVi": "Đến rồi, lúc chín rưỡi. Nhưng trong thùng không có mực."
+        },
+        {
+          "speaker": 0,
+          "text": "Not again! What did the driver say?",
+          "meaningVi": "Lại nữa à! Tài xế nói gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "He said he didn't know anything about it.",
+          "meaningVi": "Anh ấy nói anh ấy không biết gì cả."
+        },
+        {
+          "speaker": 0,
+          "text": "I don't want to call them again.",
+          "meaningVi": "Anh không muốn gọi cho họ nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Neither do I. So I called Thao's shop.",
+          "meaningVi": "Em cũng không. Nên em gọi cho cửa hàng của bên Thảo."
+        },
+        {
+          "speaker": 0,
+          "text": "What did they say?",
+          "meaningVi": "Họ nói gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "They said they could send ink this afternoon.",
+          "meaningVi": "Họ nói chiều nay có thể gửi mực."
+        },
+        {
+          "speaker": 0,
+          "text": "That's fast. Were their prices OK?",
+          "meaningVi": "Nhanh thật. Giá của họ có ổn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. They told me the prices were the same.",
+          "meaningVi": "Ổn ạ. Họ bảo giá cũng như bên kia."
+        }
+      ]
+    },
+    "grammarTipVi": "Tường thuật: He said he didn't know anything / They said they could send ink / They told me the prices were the same. Đồng ý câu phủ định: I don't want to call them again. – Neither do I.",
+    "translations": [
+      {
+        "vi": "Chị ấy nói đơn hàng vẫn ở trong kho.",
+        "en": "She said the order was still in the warehouse.",
+        "distractors": [
+          "is",
+          "told",
+          "says"
+        ]
+      },
+      {
+        "vi": "Chị ấy bảo tôi tài xế sẽ đến trước mười giờ.",
+        "en": "She told me the driver would come before ten.",
+        "distractors": [
+          "will",
+          "said",
+          "after"
+        ]
+      },
+      {
+        "vi": "Chị ấy nói họ có quá nhiều đơn hàng.",
+        "en": "She said they had too many orders.",
+        "distractors": [
+          "have",
+          "told",
+          "much"
+        ]
+      },
+      {
+        "vi": "Tôi hết giấy rồi. – Tôi cũng vậy.",
+        "en": "I don't have any paper. Neither do I.",
+        "distractors": [
+          "So",
+          "am",
+          "does"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Kiên và Hoa nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đơn hàng thiếu mực và cửa hàng mới",
+          "Một tài xế mới",
+          "Giá giấy tăng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hàng đến nhưng thiếu mực, nên Hoa gọi cho cửa hàng mới.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hàng đến lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Tám giờ",
+          "Chín rưỡi",
+          "Mười giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"at nine thirty.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào cửa hàng mới gửi mực?",
+        "promptVi": "",
+        "options": [
+          "Chiều nay",
+          "Sáng mai",
+          "Tuần sau"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hoa nói \"They said they could send ink this afternoon.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The new shop is more expensive.",
+        "promptVi": "Cửa hàng mới đắt hơn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"They told me the prices were the same.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Bên chăm sóc khách hàng đã nói gì với Hoa? Hoa và Kiên đồng ý với nhau những gì?",
+    "grammarStep": {
+      "titleVi": "Câu tường thuật",
+      "noticing": [
+        {
+          "sentence": "\"The woman said that our order was still in their warehouse.",
+          "highlights": [
+            "said that",
+            "was",
+            "their"
+          ]
+        },
+        {
+          "sentence": "She said they had too many orders this month.\"",
+          "highlights": [
+            "had"
+          ]
+        },
+        {
+          "sentence": "She told me that a driver would bring it before ten.\"",
+          "highlights": [
+            "told me that",
+            "would bring"
+          ]
+        },
+        {
+          "sentence": "\"Did she say when it would come?\"",
+          "highlights": [
+            "would come"
+          ]
+        }
+      ],
+      "questionVi": "Người bán nói: \"We have too many orders.\" Hoa kể lại thế nào?",
+      "options": [
+        "She said they had too many orders.",
+        "She said we have too many orders.",
+        "She told they had too many orders."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "we → they, have → had; said không cần người nghe.",
+      "whenVi": "Dùng câu tường thuật để kể lại cho đồng nghiệp những gì cửa hàng, tài xế đã nói qua điện thoại.",
+      "table": [
+        {
+          "subject": "is / have → was / had",
+          "form": "\"It is in our warehouse.\" → She said it was in their warehouse.",
+          "negative": "\"I don't know.\" → He said he didn't know."
+        },
+        {
+          "subject": "will / can → would / could",
+          "form": "\"A driver will bring it.\" → She said a driver would bring it.",
+          "negative": "\"We can send ink.\" → They said they could send ink."
+        },
+        {
+          "subject": "Đại từ",
+          "form": "our → their, we → they, your → our",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She said that our order is still in their warehouse.",
+          "right": "She said that our order was still in their warehouse."
+        },
+        {
+          "wrong": "He said he doesn't know anything about it.",
+          "right": "He said he didn't know anything about it."
+        }
+      ],
+      "noteVi": "Don't / doesn't → didn't khi tường thuật: \"I don't know.\" → He said he didn't know.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (can).",
+          "text": "They said they ___ send ink this afternoon.",
+          "answers": [
+            "could"
+          ],
+          "explanationVi": "can → could."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu tường thuật đúng của: \"I don't know anything about it.\"",
+          "text": "He said he ___ anything about it.",
+          "options": [
+            "didn't know",
+            "doesn't know",
+            "don't know",
+            "not knew"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "don't know → didn't know."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She said that our order is still in their warehouse.",
+          "sentence": "She said that our order was still in their warehouse.",
+          "explanationVi": "is → was."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ bảo tôi giá vẫn như cũ.",
+          "sentence": "They told me the prices were the same.",
+          "words": [
+            "told",
+            "They",
+            "me",
+            "the",
+            "prices",
+            "were",
+            "the",
+            "same.",
+            "said"
+          ],
+          "explanationVi": "Có người nghe (me) → told; từ \"said\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"The woman said that our order was still in their warehouse.",
+        "tipVi": "Warehouse /ˈweəhaʊs/ nhấn âm đầu."
+      },
+      {
+        "text": "\"So am I. It's the second time this year.\"",
+        "tipVi": "Nhấn vào I trong \"So am I\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever called customer service? What did they say?",
+        "questionVi": "Bạn đã từng gọi bộ phận chăm sóc khách hàng chưa? Họ nói gì?",
+        "frame": "Yes. They said that ___."
+      },
+      {
+        "question": "What do you do when an order is late?",
+        "questionVi": "Bạn làm gì khi đơn hàng bị trễ?",
+        "frame": "When an order is late, I ___."
+      },
+      {
+        "question": "Agree with this: \"I'm tired of waiting.\"",
+        "questionVi": "Hãy đồng ý với câu: \"Tôi chán chờ rồi.\"",
+        "frame": "So ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật (said that … / told me …)",
+      "anyOf": [
+        " said ",
+        " told ",
+        "said that",
+        "told me"
+      ],
+      "outlineVi": [
+        "Bạn đã đặt gì và khi nào.",
+        "Cửa hàng nói gì khi bạn gọi (They said that … / The man told me …).",
+        "Bạn quyết định làm gì."
+      ],
+      "modelAnswer": "Two weeks ago, I ordered a pair of shoes online. They didn't arrive, so I called the shop. The man said that my order was in their warehouse. He told me that the driver was sick. He said the shoes would arrive on Monday and that I wouldn't pay for the delivery. They finally came on Tuesday."
+    }
+  },
+  "glosses": [
+    {
+      "text": "called her back",
+      "lemma": "call back",
+      "meaningVi": "gọi lại",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "they called her back at lunchtime",
+      "phraseVi": "họ gọi lại vào giờ trưa"
+    },
+    {
+      "text": "left",
+      "lemma": "left",
+      "meaningVi": "còn lại",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "I don't have any paper left.",
+      "phraseVi": "Anh hết sạch giấy rồi."
+    },
+    {
+      "text": "ten percent off",
+      "lemma": "off",
+      "meaningVi": "giảm mười phần trăm",
+      "sentenceIndex": 15,
+      "pos": "phrase",
+      "phrase": "she gave us ten percent off",
+      "phraseVi": "giảm cho mình mười phần trăm"
+    },
+    {
+      "text": "tired of waiting",
+      "lemma": "be tired of",
+      "meaningVi": "chán chờ",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "I'm tired of waiting.",
+      "phraseVi": "anh chán chờ lắm rồi"
+    }
+  ]
+}

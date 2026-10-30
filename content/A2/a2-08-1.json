@@ -1,0 +1,602 @@
+{
+  "content": "Minh and Lan are a young couple in Hanoi. They are very excited because they are flying to Phu Quoc next Friday. This evening, they are sitting at home and checking their plans.\n\nLan asks, \"What time is our flight on Friday?\"\nMinh looks at the tickets, and he smiles. \"We're leaving at seven in the morning. A taxi is taking us to the airport at five.\"\nLan says, \"Five? That's so early!\"\n\"I know, but the flight is only two hours. We're arriving on the island before ten.\"\n\"Where are we staying?\"\n\"We're staying at a small hotel near the beach. My friend Tuan is meeting us at the airport.\"\nLan smiles. \"Great. What are we doing on Saturday?\"\n\"On Saturday morning, we're taking a boat trip. In the afternoon, we're swimming at Sao Beach.\"\n\"And on Sunday?\"\n\"We aren't doing anything on Sunday. We're just sleeping and eating.\"\nLan asks, \"When are we coming home?\"\n\"We're flying back on Monday evening, and I'm going back to work on Tuesday.\"",
+  "targetWords": [
+    "flight",
+    "ticket",
+    "airport",
+    "early",
+    "island",
+    "hotel",
+    "beach",
+    "boat"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "flight",
+        "lemma": "flight",
+        "meaningVi": "chuyến bay",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "tickets",
+        "lemma": "ticket",
+        "meaningVi": "vé",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "airport",
+        "lemma": "airport",
+        "meaningVi": "sân bay",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "early",
+        "lemma": "early",
+        "meaningVi": "sớm",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "island",
+        "lemma": "island",
+        "meaningVi": "hòn đảo",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "hotel",
+        "lemma": "hotel",
+        "meaningVi": "khách sạn",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "beach",
+        "lemma": "beach",
+        "meaningVi": "bãi biển",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "boat",
+        "lemma": "boat",
+        "meaningVi": "thuyền",
+        "pos": "noun",
+        "sentenceIndex": 17
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A couple talk about their plans for a trip to Phu Quoc.",
+          "Minh's new job at an airport",
+          "A boat trip in Hanoi",
+          "Lan buys plane tickets online."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh và Lan xem lại lịch trình chuyến đi Phú Quốc vào thứ Sáu tới."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time is the taxi taking them to the airport?",
+        "promptVi": "Mấy giờ taxi đưa họ ra sân bay?",
+        "options": [
+          "At seven",
+          "At ten",
+          "At two",
+          "At five"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Minh nói \"A taxi is taking us to the airport at five.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who is meeting them at the airport in Phu Quoc?",
+        "promptVi": "Ai sẽ đón họ ở sân bay Phú Quốc?",
+        "options": [
+          "Lan's mother",
+          "Minh's friend Tuan",
+          "A taxi driver",
+          "Nobody"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh nói \"My friend Tuan is meeting us at the airport.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They are taking a boat trip on Sunday.",
+        "promptVi": "Họ đi thuyền vào Chủ nhật.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì họ đi thuyền sáng thứ Bảy; Chủ nhật \"We aren't doing anything\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"couple\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Minh and Lan are a young couple in Hanoi.",
+        "options": [
+          "hai anh em",
+          "đôi vợ chồng, cặp đôi",
+          "hai đồng nghiệp",
+          "hai người hàng xóm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Couple là một cặp, thường là vợ chồng hoặc người yêu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại tiếp diễn chỉ lịch hẹn tương lai",
+      "bodyVi": "Việc đã sắp xếp chắc chắn (vé đã mua, đã hẹn) dùng am / is / are + động từ-ing kèm thời gian tương lai: they are flying to Phu Quoc next Friday, A taxi is taking us to the airport at five. Phủ định: We aren't doing anything on Sunday. Câu hỏi: What are we doing on Saturday? When are we coming home?",
+      "examples": [
+        "They are very excited because they are flying to Phu Quoc next Friday.",
+        "A taxi is taking us to the airport at five.\"",
+        "What are we doing on Saturday?\""
+      ]
+    },
+    "writingPrompt": "Write about a trip you are taking soon: when are you leaving, where are you staying and what are you doing there?",
+    "sentenceTranslations": [
+      "Minh và Lan là một cặp vợ chồng trẻ ở Hà Nội.",
+      "Họ rất háo hức vì thứ Sáu tới họ bay đi Phú Quốc.",
+      "Tối nay, họ ngồi ở nhà xem lại kế hoạch.",
+      "Lan hỏi: \"Chuyến bay thứ Sáu của mình mấy giờ anh?\"",
+      "Minh nhìn vé, rồi mỉm cười.",
+      "\"Mình đi lúc bảy giờ sáng.",
+      "Năm giờ taxi đưa mình ra sân bay.\"",
+      "Lan nói: \"Năm giờ á?",
+      "Sớm quá!\"",
+      "\"Anh biết, nhưng chuyến bay chỉ hai tiếng thôi.",
+      "Trước mười giờ là mình đến đảo rồi.\"",
+      "\"Mình ở đâu anh?\"",
+      "\"Mình ở một khách sạn nhỏ gần bãi biển.",
+      "Bạn anh là Tuấn ra sân bay đón mình.\"",
+      "Lan mỉm cười.",
+      "\"Tuyệt.",
+      "Thứ Bảy mình làm gì?\"",
+      "\"Sáng thứ Bảy mình đi thuyền.",
+      "Buổi chiều mình đi bơi ở Bãi Sao.\"",
+      "\"Còn Chủ nhật?\"",
+      "\"Chủ nhật mình không làm gì cả.",
+      "Chỉ ngủ và ăn thôi.\"",
+      "Lan hỏi: \"Khi nào mình về?\"",
+      "\"Tối thứ Hai mình bay về, và thứ Ba anh đi làm lại.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về lịch trình chuyến đi đã đặt sẵn bằng hiện tại tiếp diễn kèm thời gian tương lai.",
+    "examples": [
+      {
+        "lemma": "flight",
+        "sentence": "Our flight is at six in the morning.",
+        "meaningVi": "Chuyến bay của chúng tôi lúc sáu giờ sáng."
+      },
+      {
+        "lemma": "ticket",
+        "sentence": "I have two tickets for the film.",
+        "meaningVi": "Tôi có hai vé xem phim."
+      },
+      {
+        "lemma": "airport",
+        "sentence": "The airport is far from the city.",
+        "meaningVi": "Sân bay ở xa thành phố."
+      },
+      {
+        "lemma": "early",
+        "sentence": "I get up early every day.",
+        "meaningVi": "Ngày nào tôi cũng dậy sớm."
+      },
+      {
+        "lemma": "island",
+        "sentence": "Phu Quoc is a big island.",
+        "meaningVi": "Phú Quốc là một hòn đảo lớn."
+      },
+      {
+        "lemma": "hotel",
+        "sentence": "Our hotel has a nice garden.",
+        "meaningVi": "Khách sạn của chúng tôi có khu vườn đẹp."
+      },
+      {
+        "lemma": "beach",
+        "sentence": "The children play on the beach.",
+        "meaningVi": "Bọn trẻ chơi trên bãi biển."
+      },
+      {
+        "lemma": "boat",
+        "sentence": "We go to the island by boat.",
+        "meaningVi": "Chúng tôi ra đảo bằng thuyền."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Kate"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, are you doing anything next weekend?",
+          "meaningVi": "Lan ơi, cuối tuần sau cậu có làm gì không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I'm flying to Phu Quoc with Minh on Friday.",
+          "meaningVi": "Có, thứ Sáu mình bay đi Phú Quốc với Minh."
+        },
+        {
+          "speaker": 1,
+          "text": "Lucky you! How long are you staying?",
+          "meaningVi": "Sướng thế! Các cậu ở đó bao lâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "Four days. We're coming back on Monday.",
+          "meaningVi": "Bốn ngày. Thứ Hai bọn mình về."
+        },
+        {
+          "speaker": 1,
+          "text": "Are you staying at a big hotel?",
+          "meaningVi": "Các cậu ở khách sạn lớn à?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, a small one near the beach.",
+          "meaningVi": "Không, một khách sạn nhỏ gần biển thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "What are you doing on the island?",
+          "meaningVi": "Các cậu sẽ làm gì trên đảo?"
+        },
+        {
+          "speaker": 0,
+          "text": "We're taking a boat trip on Saturday.",
+          "meaningVi": "Thứ Bảy bọn mình đi thuyền."
+        },
+        {
+          "speaker": 1,
+          "text": "That sounds great. Have a good time!",
+          "meaningVi": "Nghe tuyệt quá. Chúc cậu đi vui nhé!"
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks, Kate. I'm bringing you a gift from Phu Quoc.",
+          "meaningVi": "Cảm ơn Kate. Mình sẽ mang quà Phú Quốc về cho cậu."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi lịch đã hẹn: Are you doing anything next weekend? How long are you staying? Trả lời: I'm flying to Phu Quoc on Friday.",
+    "translations": [
+      {
+        "vi": "Thứ Sáu tới chuyến bay của chúng tôi khởi hành sớm.",
+        "en": "Our flight is leaving early next Friday.",
+        "distractors": [
+          "leave",
+          "will",
+          "are"
+        ]
+      },
+      {
+        "vi": "Chúng tôi ở một khách sạn gần biển.",
+        "en": "We are staying at a hotel near the beach.",
+        "distractors": [
+          "stayed",
+          "is",
+          "stays"
+        ]
+      },
+      {
+        "vi": "Thứ Bảy họ đi thuyền.",
+        "en": "They are taking a boat trip on Saturday.",
+        "distractors": [
+          "take",
+          "is",
+          "takes"
+        ]
+      },
+      {
+        "vi": "Ai đón bạn ở sân bay?",
+        "en": "Who is meeting you at the airport?",
+        "distractors": [
+          "met",
+          "are",
+          "meets"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan kể với Kate về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuyến đi Phú Quốc sắp tới",
+          "Công việc mới",
+          "Một bộ phim"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"I'm flying to Phu Quoc with Minh on Friday.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan ở Phú Quốc bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Hai ngày",
+          "Bốn ngày",
+          "Một tuần"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"Four days.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Thứ Bảy Lan làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi bơi",
+          "Đi mua sắm",
+          "Đi thuyền"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"We're taking a boat trip on Saturday.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan is staying at a big hotel.",
+        "promptVi": "Lan ở một khách sạn lớn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"No, a small one near the beach.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Minh và Lan làm gì vào từng ngày của chuyến đi?",
+    "grammarStep": {
+      "titleVi": "Hiện tại tiếp diễn chỉ lịch hẹn tương lai",
+      "noticing": [
+        {
+          "sentence": "They are very excited because they are flying to Phu Quoc next Friday.",
+          "highlights": [
+            "are flying",
+            "next Friday"
+          ]
+        },
+        {
+          "sentence": "A taxi is taking us to the airport at five.\"",
+          "highlights": [
+            "is taking",
+            "at five"
+          ]
+        },
+        {
+          "sentence": "\"On Saturday morning, we're taking a boat trip.",
+          "highlights": [
+            "On Saturday morning",
+            "we're taking"
+          ]
+        },
+        {
+          "sentence": "\"We aren't doing anything on Sunday.",
+          "highlights": [
+            "aren't doing",
+            "on Sunday"
+          ]
+        }
+      ],
+      "questionVi": "Làm sao biết câu \"they are flying to Phu Quoc\" nói về tương lai chứ không phải bây giờ?",
+      "options": [
+        "Vì có từ \"very\"",
+        "Vì có cụm chỉ thời gian tương lai \"next Friday\"",
+        "Vì động từ thêm -ing"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Hiện tại tiếp diễn chỉ tương lai luôn đi kèm thời gian tương lai: next Friday, on Saturday, at five, tomorrow.",
+      "whenVi": "Dùng am / is / are + V-ing cho việc đã lên lịch, đã đặt vé, đã hẹn với người khác.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I'm flying to Phu Quoc on Friday.",
+          "negative": "I'm not leaving on Monday."
+        },
+        {
+          "subject": "He / She / It",
+          "form": "A taxi is taking us at five.",
+          "negative": "Tuan isn't coming."
+        },
+        {
+          "subject": "We / You / They",
+          "form": "We're staying at a small hotel.",
+          "negative": "We aren't doing anything."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "What are we doing on Saturday?",
+          "negative": "Are you staying long?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We flying to Phu Quoc next Friday.",
+          "right": "We are flying to Phu Quoc next Friday."
+        },
+        {
+          "wrong": "We are fly to Phu Quoc next Friday.",
+          "right": "We are flying to Phu Quoc next Friday."
+        }
+      ],
+      "noteVi": "Nếu không có thời gian tương lai, người nghe sẽ hiểu là đang diễn ra bây giờ. Vì vậy nhớ thêm next Friday, tomorrow, on Monday…",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (hiện tại tiếp diễn).",
+          "text": "We ___ at a small hotel next week. (stay)",
+          "answers": [
+            "are staying",
+            "'re staying"
+          ],
+          "explanationVi": "We + are + staying."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "My friend ___ us at the airport tomorrow.",
+          "options": [
+            "meeting",
+            "are meeting",
+            "is meeting",
+            "meet"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "My friend là số ít: is meeting."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "What we are doing on Saturday?",
+          "sentence": "What are we doing on Saturday?",
+          "explanationVi": "Câu hỏi đảo are lên trước chủ ngữ: What are we doing …?"
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tối thứ Hai chúng tôi bay về.",
+          "sentence": "We are flying back on Monday evening.",
+          "words": [
+            "flying",
+            "We",
+            "back",
+            "are",
+            "on",
+            "Monday",
+            "evening",
+            "fly"
+          ],
+          "explanationVi": "We + are + flying; từ \"fly\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Lan asks, \"What time is our flight on Friday?\"",
+        "tipVi": "Flight /flaɪt/ có âm /aɪ/; câu hỏi Wh- xuống giọng ở cuối."
+      },
+      {
+        "text": "\"Where are we staying?\"",
+        "tipVi": "Where are nối liền /weərə/; staying /ˈsteɪɪŋ/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you doing next weekend?",
+        "questionVi": "Cuối tuần sau bạn làm gì?",
+        "frame": "I'm ___ next weekend."
+      },
+      {
+        "question": "Are you travelling anywhere this year?",
+        "questionVi": "Năm nay bạn có đi du lịch đâu không?",
+        "frame": "Yes, I'm going to ___ in ___. / No, I'm not travelling this year."
+      },
+      {
+        "question": "What is your best friend doing tomorrow?",
+        "questionVi": "Ngày mai bạn thân của bạn làm gì?",
+        "frame": "He / She is ___ tomorrow."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại tiếp diễn chỉ tương lai (am / is / are + V-ing)",
+      "anyOf": [
+        "'m flying",
+        "are flying",
+        "is flying",
+        "leaving",
+        "staying",
+        "taking",
+        "visiting",
+        "coming",
+        "meeting",
+        "going"
+      ],
+      "outlineVi": [
+        "Bạn đi đâu, khi nào, với ai.",
+        "Đi bằng gì, ở đâu (I'm flying / staying …).",
+        "Mỗi ngày bạn làm gì, và khi nào về."
+      ],
+      "modelAnswer": "Next month, my sister and I are going to Nha Trang. We're flying there on Saturday morning, and we're staying at a small hotel near the beach. On Sunday, we're taking a boat trip to the islands. On Monday, my cousin is meeting us for lunch. We aren't staying long because we're coming home on Tuesday."
+    }
+  },
+  "glosses": [
+    {
+      "text": "couple",
+      "lemma": "couple",
+      "meaningVi": "cặp vợ chồng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a young couple in Hanoi",
+      "phraseVi": "một cặp vợ chồng trẻ ở Hà Nội"
+    },
+    {
+      "text": "excited",
+      "lemma": "excited",
+      "meaningVi": "háo hức",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "They are very excited",
+      "phraseVi": "Họ rất háo hức"
+    },
+    {
+      "text": "checking",
+      "lemma": "check",
+      "meaningVi": "xem lại, kiểm tra",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "checking their plans",
+      "phraseVi": "xem lại kế hoạch"
+    },
+    {
+      "text": "arriving",
+      "lemma": "arrive",
+      "meaningVi": "đến nơi",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "We're arriving on the island",
+      "phraseVi": "Mình đến đảo"
+    },
+    {
+      "text": "meeting",
+      "lemma": "meet",
+      "meaningVi": "đón",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "is meeting us at the airport",
+      "phraseVi": "ra sân bay đón mình"
+    },
+    {
+      "text": "boat trip",
+      "lemma": "boat trip",
+      "meaningVi": "chuyến đi thuyền",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "we're taking a boat trip",
+      "phraseVi": "mình đi thuyền"
+    },
+    {
+      "text": "flying back",
+      "lemma": "fly back",
+      "meaningVi": "bay về",
+      "sentenceIndex": 23,
+      "pos": "verb",
+      "phrase": "We're flying back on Monday evening",
+      "phraseVi": "Tối thứ Hai mình bay về"
+    }
+  ]
+}

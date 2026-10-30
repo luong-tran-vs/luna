@@ -1,0 +1,611 @@
+{
+  "content": "On Monday morning, Hieu and Ngoc are making coffee in the office kitchen. They both watched Blue Planet, a science fiction film that came out on Friday.\n\nNgoc says, \"I didn't understand the ending. What happened to Captain Rao?\"\n\"You mean the man who disappeared in the last scene? I'm not sure.\"\n\"He was standing next to the machine, and then he was gone.\"\nHieu thinks for a moment. \"He might be dead.\"\n\"He can't be dead. They didn't show his body. In films, the person is usually still alive then.\"\n\"True. Then he could be in another world. Remember the machine that opens a door to other worlds?\"\n\"Yes! The scientist who built it wanted to find a world where people live forever.\"\n\"So Rao might be in that world now.\"\n\"Or he could be in the past. The machine can travel in time too.\"\nNgoc laughs. \"This film is so confusing. The writer must love difficult stories.\"\n\"I think there must be a second film. They can't end the story like that.\"\n\"I hope you're right. Rao was the character that I liked most.\"\n\"Me too. He's the one who always made jokes.\"\nJust then, their boss walks in. \"Are you talking about Blue Planet? Don't tell me the ending! I'm watching it tonight.\"",
+  "targetWords": [
+    "science fiction",
+    "planet",
+    "machine",
+    "dead",
+    "body",
+    "alive",
+    "world",
+    "scientist",
+    "forever",
+    "past"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "science fiction",
+        "lemma": "science fiction",
+        "meaningVi": "khoa học viễn tưởng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "Planet",
+        "lemma": "planet",
+        "meaningVi": "hành tinh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "machine",
+        "lemma": "machine",
+        "meaningVi": "cỗ máy",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "dead",
+        "lemma": "dead",
+        "meaningVi": "chết",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "body",
+        "lemma": "body",
+        "meaningVi": "thi thể, cơ thể",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "alive",
+        "lemma": "alive",
+        "meaningVi": "còn sống",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "world",
+        "lemma": "world",
+        "meaningVi": "thế giới",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "scientist",
+        "lemma": "scientist",
+        "meaningVi": "nhà khoa học",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "forever",
+        "lemma": "forever",
+        "meaningVi": "mãi mãi",
+        "pos": "adverb",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "past",
+        "lemma": "past",
+        "meaningVi": "quá khứ",
+        "pos": "noun",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hieu and Ngoc mainly talking about?",
+        "promptVi": "Hiếu và Ngọc chủ yếu nói về điều gì?",
+        "options": [
+          "What happened to a character at the end of a science fiction film",
+          "A new coffee machine in the office",
+          "Their boss's favourite films",
+          "A trip to another planet"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người đoán xem Captain Rao đã đi đâu khi biến mất ở cuối phim Blue Planet."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Ngoc think Rao can't be dead?",
+        "promptVi": "Vì sao Ngọc nghĩ Rao không thể chết?",
+        "options": [
+          "He is the hero.",
+          "They didn't show his body.",
+          "The machine saved him.",
+          "There is a second film."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc nói \"He can't be dead. They didn't show his body.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did the scientist who built the machine want?",
+        "promptVi": "Nhà khoa học tạo ra cỗ máy muốn gì?",
+        "options": [
+          "To travel to the past",
+          "To make the machine bigger",
+          "To find a world where people live forever",
+          "To meet Captain Rao"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết: \"The scientist who built it wanted to find a world where people live forever.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Their boss has already watched Blue Planet.",
+        "promptVi": "Sếp của họ đã xem Blue Planet rồi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì sếp nói \"Don't tell me the ending! I'm watching it tonight.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"gone\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"He was standing next to the machine, and then he was gone.\"",
+        "options": [
+          "biến mất, không còn ở đó",
+          "đi làm",
+          "chết",
+          "ngủ quên"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Be gone = không còn ở đó nữa, biến mất."
+      }
+    ],
+    "grammarNote": {
+      "title": "Might / must / can't (khả năng và suy đoán)",
+      "bodyVi": "Để đoán điều không rõ: might / could + động từ (có thể): He might be dead, he could be in another world, he could be in the past. Can't + động từ (chắc chắn không, vì có lý do): He can't be dead. They didn't show his body. Must + động từ (gần như chắc chắn): The writer must love difficult stories, there must be a second film. Sau các từ này luôn là động từ nguyên mẫu.",
+      "examples": [
+        "\"He might be dead.\"",
+        "\"He can't be dead.",
+        "Then he could be in another world."
+      ]
+    },
+    "writingPrompt": "Write about a film with a strange ending: what do you think happened? Use might, could, must and can't.",
+    "sentenceTranslations": [
+      "Sáng thứ Hai, Hiếu và Ngọc đang pha cà phê trong bếp của văn phòng.",
+      "Cả hai đều xem Blue Planet, bộ phim khoa học viễn tưởng ra mắt hôm thứ Sáu.",
+      "Ngọc nói: \"Mình không hiểu đoạn kết.",
+      "Chuyện gì xảy ra với Captain Rao vậy?\"",
+      "\"Cậu nói người biến mất ở cảnh cuối à?",
+      "Mình không chắc.\"",
+      "\"Anh ấy đang đứng cạnh cỗ máy, rồi đột nhiên không còn ở đó nữa.\"",
+      "Hiếu nghĩ một lúc.",
+      "\"Có thể anh ấy chết rồi.\"",
+      "\"Không thể chết được.",
+      "Phim đâu có chiếu thi thể.",
+      "Trong phim, như thế thường là người đó vẫn còn sống.\"",
+      "\"Đúng.",
+      "Vậy có thể anh ấy đang ở một thế giới khác.",
+      "Nhớ cỗ máy mở cánh cửa sang những thế giới khác không?\"",
+      "\"Có!",
+      "Nhà khoa học tạo ra nó muốn tìm một thế giới nơi con người sống mãi mãi.\"",
+      "\"Vậy có thể bây giờ Rao đang ở thế giới đó.\"",
+      "\"Hoặc có thể anh ấy đang ở quá khứ.",
+      "Cỗ máy còn du hành thời gian được nữa.\"",
+      "Ngọc cười.",
+      "\"Phim này khó hiểu quá.",
+      "Biên kịch chắc mê những câu chuyện khó lắm.\"",
+      "\"Mình nghĩ chắc chắn sẽ có phần hai.",
+      "Họ không thể kết thúc câu chuyện như thế được.\"",
+      "\"Mong là cậu đúng.",
+      "Rao là nhân vật mình thích nhất.\"",
+      "\"Mình cũng vậy.",
+      "Anh ấy là người lúc nào cũng pha trò.\"",
+      "Đúng lúc đó, sếp của họ bước vào.",
+      "\"Các bạn đang nói về Blue Planet à?",
+      "Đừng kể đoạn kết cho tôi nhé!",
+      "Tối nay tôi mới xem.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đoán chuyện gì đã xảy ra với một nhân vật bằng might / could / must / can't và mệnh đề quan hệ.",
+    "examples": [
+      {
+        "lemma": "science fiction",
+        "sentence": "My brother loves science fiction books.",
+        "meaningVi": "Anh tôi rất thích sách khoa học viễn tưởng."
+      },
+      {
+        "lemma": "planet",
+        "sentence": "Mars is a red planet.",
+        "meaningVi": "Sao Hoả là một hành tinh màu đỏ."
+      },
+      {
+        "lemma": "machine",
+        "sentence": "This machine makes ice.",
+        "meaningVi": "Chiếc máy này làm đá."
+      },
+      {
+        "lemma": "dead",
+        "sentence": "The plant is dead because nobody watered it.",
+        "meaningVi": "Cái cây chết vì không ai tưới."
+      },
+      {
+        "lemma": "body",
+        "sentence": "Exercise is good for your body.",
+        "meaningVi": "Tập thể dục tốt cho cơ thể."
+      },
+      {
+        "lemma": "alive",
+        "sentence": "The fish is still alive.",
+        "meaningVi": "Con cá vẫn còn sống."
+      },
+      {
+        "lemma": "world",
+        "sentence": "She wants to travel around the world.",
+        "meaningVi": "Cô ấy muốn đi du lịch vòng quanh thế giới."
+      },
+      {
+        "lemma": "scientist",
+        "sentence": "The scientist works in a big laboratory.",
+        "meaningVi": "Nhà khoa học làm việc trong một phòng thí nghiệm lớn."
+      },
+      {
+        "lemma": "forever",
+        "sentence": "I will remember this day forever.",
+        "meaningVi": "Tôi sẽ nhớ ngày này mãi mãi."
+      },
+      {
+        "lemma": "past",
+        "sentence": "In the past, people didn't have phones.",
+        "meaningVi": "Ngày xưa người ta không có điện thoại."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngoc",
+        "James"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ngoc, did you like Blue Planet?",
+          "meaningVi": "Ngọc ơi, cậu có thích Blue Planet không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but the ending was so confusing.",
+          "meaningVi": "Có, nhưng đoạn kết khó hiểu quá."
+        },
+        {
+          "speaker": 1,
+          "text": "Where do you think Rao is?",
+          "meaningVi": "Cậu nghĩ Rao đang ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "He might be in another world.",
+          "meaningVi": "Có thể anh ấy đang ở một thế giới khác."
+        },
+        {
+          "speaker": 1,
+          "text": "Or he could be dead.",
+          "meaningVi": "Hoặc có thể anh ấy chết rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "He can't be dead. He's the most popular character.",
+          "meaningVi": "Không thể chết được. Anh ấy là nhân vật được yêu thích nhất."
+        },
+        {
+          "speaker": 1,
+          "text": "That's true. There must be a second film.",
+          "meaningVi": "Đúng. Chắc chắn sẽ có phần hai."
+        },
+        {
+          "speaker": 0,
+          "text": "I hope so. The director who made it loves surprises.",
+          "meaningVi": "Mong là vậy. Đạo diễn làm phim này thích gây bất ngờ lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "When might the second film come out?",
+          "meaningVi": "Khi nào phần hai có thể ra?"
+        },
+        {
+          "speaker": 0,
+          "text": "It might be next year, but I'm not sure.",
+          "meaningVi": "Có thể năm sau, nhưng mình không chắc."
+        }
+      ]
+    },
+    "grammarTipVi": "He might be / he could be: có thể. He can't be dead: không thể. There must be a second film: chắc chắn. When might… come out? câu hỏi đoán.",
+    "translations": [
+      {
+        "vi": "Có thể anh ấy đang ở một thế giới khác.",
+        "en": "He might be in another world.",
+        "distractors": [
+          "must",
+          "can't",
+          "is"
+        ]
+      },
+      {
+        "vi": "Anh ấy không thể chết được, vì phim không chiếu thi thể.",
+        "en": "He can't be dead. They didn't show his body.",
+        "distractors": [
+          "must",
+          "might",
+          "isn't"
+        ]
+      },
+      {
+        "vi": "Có thể anh ấy đang ở quá khứ.",
+        "en": "He could be in the past.",
+        "distractors": [
+          "must",
+          "can't",
+          "was"
+        ]
+      },
+      {
+        "vi": "Nhà khoa học muốn tìm một thế giới nơi con người sống mãi mãi.",
+        "en": "The scientist wanted a world where people live forever.",
+        "distractors": [
+          "which",
+          "who",
+          "whose"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "James và Ngọc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Đoạn kết của phim Blue Planet",
+          "Một đạo diễn mới",
+          "Một chuyến du lịch"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "James hỏi \"did you like Blue Planet?\" và họ bàn về đoạn kết.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Ngọc nghĩ Rao không thể chết?",
+        "promptVi": "",
+        "options": [
+          "Vì không chiếu thi thể",
+          "Vì Rao là nhân vật được yêu thích nhất",
+          "Vì có cỗ máy"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc nói \"He's the most popular character.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phần hai có thể ra khi nào?",
+        "promptVi": "",
+        "options": [
+          "Tháng sau",
+          "Tuần sau",
+          "Có thể năm sau"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ngọc nói \"It might be next year, but I'm not sure.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngoc is sure about the date of the second film.",
+        "promptVi": "Ngọc chắc chắn về ngày ra phần hai.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ngọc nói \"I'm not sure.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Hiếu và Ngọc đoán Rao có thể đang ở đâu? Lý do của họ là gì?",
+    "grammarStep": {
+      "titleVi": "Might / must / can't (khả năng và suy đoán)",
+      "noticing": [
+        {
+          "sentence": "\"He might be dead.\"",
+          "highlights": [
+            "might be"
+          ]
+        },
+        {
+          "sentence": "\"He can't be dead.",
+          "highlights": [
+            "can't be"
+          ]
+        },
+        {
+          "sentence": "Then he could be in another world.",
+          "highlights": [
+            "could be"
+          ]
+        },
+        {
+          "sentence": "The writer must love difficult stories.",
+          "highlights": [
+            "must love"
+          ]
+        }
+      ],
+      "questionVi": "Ngọc nói \"He can't be dead\" ngay sau khi Hiếu nói \"He might be dead\". Vì sao Ngọc chắc chắn như vậy?",
+      "options": [
+        "Vì Ngọc có lý do: phim không chiếu thi thể.",
+        "Vì Ngọc đã xem phần hai.",
+        "Vì Ngọc không thích Hiếu."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Can't dùng khi có bằng chứng cho thấy điều đó không thể đúng.",
+      "whenVi": "Chọn từ theo mức độ chắc chắn: must (chắc là có), might / could (có thể), can't (chắc là không).",
+      "table": [
+        {
+          "subject": "must",
+          "form": "There must be a second film.",
+          "negative": "—"
+        },
+        {
+          "subject": "might / could",
+          "form": "He might be dead. He could be in the past.",
+          "negative": "He might not be alive."
+        },
+        {
+          "subject": "can't",
+          "form": "He can't be dead.",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Where might he be?",
+          "negative": "Could he be in the past?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He can't is dead.",
+          "right": "He can't be dead."
+        },
+        {
+          "wrong": "He coulds be in another world.",
+          "right": "He could be in another world."
+        }
+      ],
+      "noteVi": "Must, might, could, can't không thêm -s với he / she và luôn đi với động từ nguyên mẫu.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền must, might hoặc can't.",
+          "text": "They didn't show his body. He ___ be dead.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "explanationVi": "Có lý do để nói không thể: can't."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I'm not sure where he is. He ___ be in the past.",
+          "options": [
+            "must",
+            "can't",
+            "could",
+            "mustn't"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Không chắc: could."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The writer musts love difficult stories.",
+          "sentence": "The writer must love difficult stories.",
+          "explanationVi": "Must không thêm -s."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Có thể anh ấy ở một thế giới khác.",
+          "sentence": "He might be in another world.",
+          "words": [
+            "might",
+            "He",
+            "be",
+            "in",
+            "another",
+            "world.",
+            "is"
+          ],
+          "explanationVi": "Might + be; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"He might be dead.\"",
+        "tipVi": "Might be nối /maɪtbi/; dead /ded/."
+      },
+      {
+        "text": "The machine can travel in time too.\"",
+        "tipVi": "Machine /məˈʃiːn/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like science fiction films? Why or why not?",
+        "questionVi": "Bạn có thích phim khoa học viễn tưởng không? Vì sao?",
+        "frame": "Yes, I do because ___. / No, I don't because ___."
+      },
+      {
+        "question": "A film character disappears. Where might he or she be?",
+        "questionVi": "Một nhân vật trong phim biến mất. Người đó có thể ở đâu?",
+        "frame": "He / She might be ___. He / She can't be ___."
+      },
+      {
+        "question": "Who is a famous person whose life might make a good film?",
+        "questionVi": "Người nổi tiếng nào có cuộc đời có thể làm thành một bộ phim hay?",
+        "frame": "___. His / Her life might make a good film because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng must / might / could / can't để đoán",
+      "anyOf": [
+        "must be",
+        "might be",
+        "could be",
+        "can't be",
+        "must have",
+        "might have",
+        "might not"
+      ],
+      "outlineVi": [
+        "Bộ phim và đoạn kết lạ.",
+        "Bạn đoán chuyện gì đã xảy ra (might / could).",
+        "Điều gì chắc chắn đúng / không thể (must / can't) và lý do."
+      ],
+      "modelAnswer": "At the end of the film Night City, the main character walks into the sea, and the film stops. She might be dead, but I don't think so. She can't be dead, because she is a very strong swimmer. She could be on a boat that we can't see. The director must want us to think about it. There might be a second film."
+    }
+  },
+  "glosses": [
+    {
+      "text": "came out",
+      "lemma": "come out",
+      "meaningVi": "ra mắt",
+      "sentenceIndex": 1,
+      "pos": "phrasal verb",
+      "phrase": "a film that came out on Friday",
+      "phraseVi": "bộ phim ra mắt hôm thứ Sáu"
+    },
+    {
+      "text": "disappeared",
+      "lemma": "disappear",
+      "meaningVi": "biến mất",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "the man who disappeared in the last scene",
+      "phraseVi": "người biến mất ở cảnh cuối"
+    },
+    {
+      "text": "was gone",
+      "lemma": "be gone",
+      "meaningVi": "biến mất, không còn ở đó",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "then he was gone",
+      "phraseVi": "rồi không còn ở đó nữa"
+    },
+    {
+      "text": "confusing",
+      "lemma": "confusing",
+      "meaningVi": "khó hiểu",
+      "sentenceIndex": 21,
+      "pos": "adjective",
+      "phrase": "This film is so confusing.",
+      "phraseVi": "Phim này khó hiểu quá."
+    },
+    {
+      "text": "made jokes",
+      "lemma": "make a joke",
+      "meaningVi": "pha trò",
+      "sentenceIndex": 28,
+      "pos": "phrase",
+      "phrase": "He's the one who always made jokes.",
+      "phraseVi": "Anh ấy là người lúc nào cũng pha trò."
+    }
+  ]
+}

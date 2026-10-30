@@ -1,0 +1,583 @@
+{
+  "content": "Every Saturday evening in summer, there is a concert in the park near Lan's home. It is free, and people don't need a ticket.\n\nThis Saturday, Lan goes to the concert with her friends Linh and Anna. \"Do you want to sit near the stage or under a tree?\" asks Linh. They sit on the grass near the stage, and Linh has some cakes for her friends.\n\nThe band plays happy songs and old songs. Anna loves dancing to the music, but Linh doesn't like dancing in front of people. She likes sitting and listening.\n\nThen the singer asks, \"Do you know this song?\" Everyone sings along, and the park isn't quiet!\n\nAt nine o'clock, the concert ends. \"Do you want to come again in a week?\" asks Anna.\n\"Yes, because I love going to concerts!\" says Lan.",
+  "targetWords": [
+    "concert",
+    "free",
+    "ticket",
+    "stage",
+    "band",
+    "dance to",
+    "sing along",
+    "quiet"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "concert",
+        "lemma": "concert",
+        "meaningVi": "buổi hoà nhạc",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "free",
+        "lemma": "free",
+        "meaningVi": "miễn phí",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "ticket",
+        "lemma": "ticket",
+        "meaningVi": "vé",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "stage",
+        "lemma": "stage",
+        "meaningVi": "sân khấu",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "band",
+        "lemma": "band",
+        "meaningVi": "ban nhạc",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "dancing to",
+        "lemma": "dance to",
+        "meaningVi": "nhảy theo (nhạc)",
+        "pos": "phrasal verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "sings along",
+        "lemma": "sing along",
+        "meaningVi": "hát theo, hát cùng",
+        "pos": "phrasal verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "quiet",
+        "lemma": "quiet",
+        "meaningVi": "yên tĩnh, im ắng",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A music lesson at Lan's school",
+          "Linh's cakes and her family",
+          "A singer from London",
+          "Three friends at a free concert in the park"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Lan, Linh và Anna cùng đi xem buổi hoà nhạc miễn phí trong công viên gần nhà Lan vào tối thứ Bảy."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why don't people need a ticket?",
+        "promptVi": "Vì sao mọi người không cần vé?",
+        "options": [
+          "The concert is free.",
+          "The concert is at school.",
+          "They have tickets at home.",
+          "The band isn't there."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết \"It is free, and people don't need a ticket\": buổi hoà nhạc miễn phí nên không cần vé."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Linh like doing at the concert?",
+        "promptVi": "Ở buổi hoà nhạc, Linh thích làm gì?",
+        "options": [
+          "Dancing in front of people",
+          "Talking to the singer",
+          "Sitting and listening",
+          "Playing the guitar"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh không thích nhảy trước mặt mọi người: \"She likes sitting and listening\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna doesn't like dancing.",
+        "promptVi": "Anna không thích nhảy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"Anna loves dancing to the music\". Người không thích nhảy là Linh, nên bài có nói nhưng nói ngược lại."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"free\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It is free, and people don't need a ticket.",
+        "options": [
+          "rảnh rỗi",
+          "tự do",
+          "miễn phí",
+          "đông người"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ở đây free là miễn phí, không mất tiền: vì thế mọi người không cần mua vé. Free còn có nghĩa là rảnh, tự do, nhưng không hợp với câu này."
+      }
+    ],
+    "grammarNote": {
+      "title": "Like / love + danh từ hoặc V-ing",
+      "bodyVi": "Muốn nói ai thích làm gì, dùng like / love + V-ing: Anna loves dancing, Linh likes sitting and listening. Muốn nói không thích, dùng don't / doesn't like + V-ing: Linh doesn't like dancing. Sau doesn't, like giữ nguyên, không thêm -s. Muốn nói thích một thứ, đặt danh từ sau like / love: I love concerts.",
+      "examples": [
+        "Anna loves dancing to the music, but Linh doesn't like dancing in front of people.",
+        "She likes sitting and listening.",
+        "\"Yes, because I love going to concerts!\" says Lan."
+      ]
+    },
+    "writingPrompt": "Write about a concert or a music show: where it is, what people do there, and what you and a friend like doing.",
+    "sentenceTranslations": [
+      "Mùa hè, tối thứ Bảy nào cũng có một buổi hoà nhạc trong công viên gần nhà Lan.",
+      "Buổi hoà nhạc miễn phí, mọi người không cần vé.",
+      "Thứ Bảy này, Lan đi xem hoà nhạc cùng hai người bạn là Linh và Anna.",
+      "\"Các cậu muốn ngồi gần sân khấu hay dưới gốc cây?\" Linh hỏi.",
+      "Ba bạn ngồi trên bãi cỏ gần sân khấu, và Linh mang theo ít bánh cho các bạn.",
+      "Ban nhạc chơi những bài hát vui và những bài hát cũ.",
+      "Anna rất thích nhảy theo nhạc, nhưng Linh không thích nhảy trước mặt mọi người.",
+      "Linh thích ngồi nghe hơn.",
+      "Rồi ca sĩ hỏi: \"Mọi người có biết bài này không?\"",
+      "Ai cũng hát theo, và công viên chẳng còn yên tĩnh chút nào!",
+      "Chín giờ, buổi hoà nhạc kết thúc.",
+      "\"Một tuần nữa các cậu có muốn đến nữa không?\" Anna hỏi.",
+      "\"Có chứ, vì mình rất thích đi xem hoà nhạc!\" Lan nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một buổi hoà nhạc, nói mình và bạn bè thích hay không thích làm gì ở đó, dùng like / love + V-ing.",
+    "examples": [
+      {
+        "lemma": "concert",
+        "sentence": "The concert is on Saturday evening.",
+        "meaningVi": "Buổi hoà nhạc diễn ra vào tối thứ Bảy."
+      },
+      {
+        "lemma": "free",
+        "sentence": "The music show is free for children.",
+        "meaningVi": "Buổi biểu diễn âm nhạc miễn phí cho trẻ em."
+      },
+      {
+        "lemma": "ticket",
+        "sentence": "Do you need a ticket?",
+        "meaningVi": "Bạn có cần vé không?"
+      },
+      {
+        "lemma": "stage",
+        "sentence": "The singer is on the stage.",
+        "meaningVi": "Ca sĩ đang ở trên sân khấu."
+      },
+      {
+        "lemma": "band",
+        "sentence": "My brother plays the guitar in a band.",
+        "meaningVi": "Anh trai mình chơi guitar trong một ban nhạc."
+      },
+      {
+        "lemma": "dance to",
+        "sentence": "Children love to dance to this song.",
+        "meaningVi": "Trẻ con rất thích nhảy theo bài hát này."
+      },
+      {
+        "lemma": "sing along",
+        "sentence": "We sing along to our favourite songs.",
+        "meaningVi": "Bọn mình hát theo những bài hát yêu thích."
+      },
+      {
+        "lemma": "quiet",
+        "sentence": "The park is quiet in the morning.",
+        "meaningVi": "Buổi sáng công viên rất yên tĩnh."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huy",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Huy, do you like going to concerts?",
+          "meaningVi": "Huy ơi, cậu có thích đi xem hoà nhạc không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do! There is a free concert in our park on Sunday.",
+          "meaningVi": "Có chứ! Chủ nhật này có một buổi hoà nhạc miễn phí ở công viên chỗ mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Free? Great! What music does the band play?",
+          "meaningVi": "Miễn phí à? Tuyệt quá! Ban nhạc chơi nhạc gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "Pop songs and old songs. Do you want to come with me?",
+          "meaningVi": "Nhạc pop và những bài hát cũ. Cậu có muốn đi cùng mình không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please. Do we need a ticket?",
+          "meaningVi": "Có chứ. Bọn mình có cần vé không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, we don't, because it's free.",
+          "meaningVi": "Không cần, vì nó miễn phí mà."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you dance at concerts?",
+          "meaningVi": "Đi xem hoà nhạc cậu có nhảy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I don't. I like sitting on the grass and listening.",
+          "meaningVi": "Không. Mình thích ngồi trên bãi cỏ và nghe thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "Me too. But my sister loves dancing near the stage!",
+          "meaningVi": "Mình cũng vậy. Nhưng em gái mình thì rất thích nhảy gần sân khấu!"
+        },
+        {
+          "speaker": 0,
+          "text": "That's fun!",
+          "meaningVi": "Vui nhỉ!"
+        }
+      ]
+    },
+    "grammarTipVi": "Rủ ai đi cùng: Do you want to come with me? Hỏi ai có thích làm gì không: Do you like going to concerts? (sau like dùng V-ing).",
+    "translations": [
+      {
+        "vi": "Buổi hoà nhạc miễn phí, và bạn không cần vé.",
+        "en": "The concert is free, and you don't need a ticket.",
+        "distractors": [
+          "doesn't",
+          "isn't",
+          "tickets"
+        ]
+      },
+      {
+        "vi": "Anna rất thích nhảy theo nhạc.",
+        "en": "Anna loves dancing to the music.",
+        "distractors": [
+          "dance",
+          "love",
+          "with"
+        ]
+      },
+      {
+        "vi": "Ban nhạc chơi những bài hát vui.",
+        "en": "The band plays happy songs.",
+        "distractors": [
+          "play",
+          "sad",
+          "sings"
+        ]
+      },
+      {
+        "vi": "Mọi người cùng hát theo.",
+        "en": "Everyone sings along.",
+        "distractors": [
+          "sing",
+          "with",
+          "together"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tom và Huy nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một lớp học đàn piano",
+          "Một bài hát buồn",
+          "Một buổi hoà nhạc miễn phí trong công viên"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Huy nói \"There is a free concert in our park on Sunday\" và rủ Tom đi cùng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Buổi hoà nhạc diễn ra vào ngày nào?",
+        "promptVi": "",
+        "options": [
+          "Thứ Bảy",
+          "Chủ nhật",
+          "Thứ Sáu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Huy nói \"There is a free concert in our park on Sunday.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao hai bạn không cần vé?",
+        "promptVi": "",
+        "options": [
+          "Vì buổi hoà nhạc miễn phí",
+          "Vì Huy có vé rồi",
+          "Vì Tom có vé rồi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Huy nói \"No, we don't, because it's free.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tom likes dancing at concerts.",
+        "promptVi": "Tom thích nhảy ở các buổi hoà nhạc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Huy nói thích ngồi nghe và Tom đáp \"Me too\"; người thích nhảy là em gái Tom.",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Ở buổi hoà nhạc, Anna và Linh mỗi bạn thích làm gì?",
+    "grammarStep": {
+      "titleVi": "Like / love + danh từ hoặc V-ing",
+      "noticing": [
+        {
+          "sentence": "Anna loves dancing to the music, but Linh doesn't like dancing in front of people.",
+          "highlights": [
+            "loves dancing",
+            "doesn't like dancing"
+          ]
+        },
+        {
+          "sentence": "She likes sitting and listening.",
+          "highlights": [
+            "likes sitting"
+          ]
+        },
+        {
+          "sentence": "\"Yes, because I love going to concerts!\" says Lan.",
+          "highlights": [
+            "love going"
+          ]
+        }
+      ],
+      "questionVi": "Muốn nói Linh không thích nhảy, câu trong bài viết thế nào?",
+      "options": [
+        "Linh not like dance.",
+        "Linh don't likes dancing.",
+        "Linh doesn't like dancing."
+      ],
+      "answerIndex": 2,
+      "explanationVi": "Với he / she dùng doesn't like, và sau like vẫn là V-ing: doesn't like dancing. Sau doesn't, like không thêm -s.",
+      "whenVi": "Dùng like / love + V-ing để nói thích làm gì, và don't / doesn't like + V-ing để nói không thích làm gì.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "We love going to concerts.",
+          "negative": "I don't like dancing."
+        },
+        {
+          "subject": "he / she",
+          "form": "Anna loves dancing.",
+          "negative": "Linh doesn't like dancing."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Linh doesn't likes dancing.",
+          "right": "Linh doesn't like dancing."
+        },
+        {
+          "wrong": "I love go to concerts.",
+          "right": "I love going to concerts."
+        }
+      ],
+      "noteVi": "Tiếng Việt không đổi dạng động từ (\"không thích nhảy\", \"thích đi\"), nên người Việt hay thêm -s sau doesn't và quên -ing sau love.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng V-ing của động từ trong ngoặc.",
+          "text": "Linh likes ___ (sit) on the grass.",
+          "answers": [
+            "sitting"
+          ],
+          "explanationVi": "Sau likes dùng V-ing; sit thêm một chữ t rồi mới thêm -ing: sitting."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Anna ___ dancing to the music.",
+          "options": [
+            "love",
+            "loves",
+            "loving",
+            "is love"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Chủ ngữ Anna (she) nên dùng loves."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Linh doesn't likes dancing in front of people.",
+          "sentence": "Linh doesn't like dancing in front of people.",
+          "explanationVi": "Sau doesn't, động từ giữ nguyên: doesn't like."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi rất thích đi xem hoà nhạc.",
+          "sentence": "We love going to concerts.",
+          "words": [
+            "going",
+            "We",
+            "concerts",
+            "love",
+            "to",
+            "go"
+          ],
+          "explanationVi": "Sau love dùng V-ing: love going; từ \"go\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Everyone sings along, and the park isn't quiet!",
+        "tipVi": "Sings /sɪŋz/ kết thúc bằng /ŋz/; quiet /ˈkwaɪət/ có hai âm tiết \"quai-ợt\" và âm /t/ nhẹ ở cuối."
+      },
+      {
+        "text": "The band plays happy songs and old songs.",
+        "tipVi": "Band /bænd/ có cụm /nd/ ở cuối; plays /pleɪz/ có cụm /pl/ ở đầu và /z/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like going to concerts?",
+        "questionVi": "Bạn có thích đi xem hoà nhạc không?",
+        "frame": "Yes, I do, because ___. / No, I don't, because ___."
+      },
+      {
+        "question": "What do you like doing at a concert: dancing or listening?",
+        "questionVi": "Ở buổi hoà nhạc bạn thích làm gì: nhảy hay ngồi nghe?",
+        "frame": "I like ___ because ___."
+      },
+      {
+        "question": "Does your best friend like dancing?",
+        "questionVi": "Bạn thân của bạn có thích nhảy không?",
+        "frame": "Yes, he / she does. He / She loves ___. / No, he / she doesn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng like / love + V-ing",
+      "anyOf": [
+        "dancing",
+        "listening",
+        "sitting",
+        "going",
+        "watching",
+        "playing"
+      ],
+      "outlineVi": [
+        "Nói buổi hoà nhạc ở đâu và khi nào.",
+        "Kể ban nhạc chơi gì và mọi người làm gì ở đó.",
+        "Nói bạn và một người bạn thích hay không thích làm gì (I love …ing, He / She doesn't like …ing)."
+      ],
+      "modelAnswer": "There is a free concert in my town every summer. People sit on the grass near the stage, and the band plays pop songs. I love dancing to the music, but my friend Nam doesn't like dancing. He likes sitting and listening. We always sing along to our favourite songs."
+    }
+  },
+  "glosses": [
+    {
+      "text": "summer",
+      "lemma": "summer",
+      "meaningVi": "mùa hè",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "Every Saturday evening in summer",
+      "phraseVi": "Mùa hè, tối thứ Bảy nào cũng"
+    },
+    {
+      "text": "need",
+      "lemma": "need",
+      "meaningVi": "cần",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "people don't need a ticket",
+      "phraseVi": "mọi người không cần vé"
+    },
+    {
+      "text": "under a tree",
+      "lemma": "under a tree",
+      "meaningVi": "dưới gốc cây",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "sit near the stage or under a tree",
+      "phraseVi": "ngồi gần sân khấu hay dưới gốc cây"
+    },
+    {
+      "text": "grass",
+      "lemma": "grass",
+      "meaningVi": "bãi cỏ, cỏ",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "They sit on the grass",
+      "phraseVi": "Ba bạn ngồi trên bãi cỏ"
+    },
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "trước mặt, phía trước",
+      "sentenceIndex": 6,
+      "pos": "preposition",
+      "phrase": "dancing in front of people",
+      "phraseVi": "nhảy trước mặt mọi người"
+    },
+    {
+      "text": "Everyone",
+      "lemma": "everyone",
+      "meaningVi": "mọi người, ai cũng",
+      "sentenceIndex": 9,
+      "pos": "pronoun",
+      "phrase": "Everyone sings along",
+      "phraseVi": "Ai cũng hát theo"
+    },
+    {
+      "text": "ends",
+      "lemma": "end",
+      "meaningVi": "kết thúc",
+      "sentenceIndex": 10,
+      "pos": "verb",
+      "phrase": "the concert ends",
+      "phraseVi": "buổi hoà nhạc kết thúc"
+    },
+    {
+      "text": "in a week",
+      "lemma": "in a week",
+      "meaningVi": "một tuần nữa",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "come again in a week",
+      "phraseVi": "một tuần nữa lại đến"
+    },
+    {
+      "text": "because",
+      "lemma": "because",
+      "meaningVi": "vì",
+      "sentenceIndex": 12,
+      "pos": "conjunction",
+      "phrase": "because I love going to concerts",
+      "phraseVi": "vì mình rất thích đi xem hoà nhạc"
+    }
+  ]
+}

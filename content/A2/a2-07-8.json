@@ -1,0 +1,589 @@
+{
+  "content": "It is Saturday morning, and Khang is at the Tet flower market with his wife, Yen, and his son, Bao. The market is very busy. Everyone wants something for their home.\n\nKhang says, \"I'm going to find something special for our living room.\"\nThey walk past pink flowers, yellow flowers and small orange trees.\nBao says, \"Look at that tree! It has so many little oranges.\"\nKhang says, \"It's a kumquat tree. We are going to buy it.\"\n\nA woman sells the trees. Khang asks, \"How much is that one?\"\n\"Two million dong,\" she says.\nYen says, \"That's not cheap. We don't have that much money with us.\"\nKhang asks, \"Is there anything cheaper?\"\n\"This one is smaller. It's one million.\"\nKhang looks at Yen and Bao. \"Do you both agree?\"\nThey say, \"Yes!\" Nobody wants to go home without a tree.\n\nKhang says, \"OK, we are going to take it. But how are we going to carry it home?\"\nThe woman laughs. \"My son is going to take it to your house this afternoon.\"",
+  "targetWords": [
+    "busy",
+    "pink",
+    "tree",
+    "orange",
+    "sell",
+    "cheap",
+    "money",
+    "agree"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "busy",
+        "lemma": "busy",
+        "meaningVi": "đông đúc, nhộn nhịp",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "pink",
+        "lemma": "pink",
+        "meaningVi": "màu hồng",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "tree",
+        "lemma": "tree",
+        "meaningVi": "cây",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "oranges",
+        "lemma": "orange",
+        "meaningVi": "quả cam, quả quất",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "sells",
+        "lemma": "sell",
+        "meaningVi": "bán",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "cheap",
+        "lemma": "cheap",
+        "meaningVi": "rẻ",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "money",
+        "lemma": "money",
+        "meaningVi": "tiền",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "agree",
+        "lemma": "agree",
+        "meaningVi": "đồng ý",
+        "pos": "verb",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Khang sells flowers at the market.",
+          "Bao gets lost at the market.",
+          "Khang's family buys a kumquat tree at the Tet flower market.",
+          "Yen cooks dinner for Tet."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Cả nhà Khang đi chợ hoa Tết và mua một cây quất cho phòng khách."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much is the first tree?",
+        "promptVi": "Cây đầu tiên giá bao nhiêu?",
+        "options": [
+          "One million dong",
+          "Two million dong",
+          "Three million dong",
+          "Five hundred thousand dong"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Người bán nói \"Two million dong.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why don't they buy the first tree?",
+        "promptVi": "Vì sao họ không mua cây đầu tiên?",
+        "options": [
+          "It is too small.",
+          "Bao doesn't like it.",
+          "They don't have that much money with them.",
+          "The woman doesn't want to sell it."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Yến nói \"That's not cheap. We don't have that much money with us.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khang is going to carry the tree home.",
+        "promptVi": "Khang sẽ tự mang cây về nhà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì người bán nói \"My son is going to take it to your house this afternoon.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"walk past\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "They walk past pink flowers, yellow flowers and small orange trees.",
+        "options": [
+          "đi ngang qua",
+          "dừng lại mua",
+          "chạy về nhà",
+          "trồng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Walk past = đi ngang qua: cả nhà đi qua các hàng hoa và cây."
+      }
+    ],
+    "grammarNote": {
+      "title": "Be going to (dự định và dự đoán có căn cứ)",
+      "bodyVi": "Nói việc đã quyết định: I'm going to find something special, We are going to buy it, We are going to take it. Hỏi cách làm: How are we going to carry it home? Câu trả lời về kế hoạch của người khác: My son is going to take it. Bài cũng dùng đại từ bất định: Everyone wants something, Is there anything cheaper? Nobody wants to go home without a tree.",
+      "examples": [
+        "Khang says, \"I'm going to find something special for our living room.\"",
+        "But how are we going to carry it home?\"",
+        "\"My son is going to take it to your house this afternoon.\""
+      ]
+    },
+    "writingPrompt": "Write about your plan for a trip to a Tet market: what are you going to buy, and is there anything you are not going to buy?",
+    "sentenceTranslations": [
+      "Sáng thứ Bảy, Khang đi chợ hoa Tết với vợ là Yến và con trai là Bảo.",
+      "Chợ rất đông.",
+      "Ai cũng muốn mua gì đó cho nhà mình.",
+      "Khang nói: \"Anh sẽ tìm một thứ gì đặc biệt cho phòng khách.\"",
+      "Cả nhà đi ngang qua những hàng hoa hồng, hoa vàng và những cây quả màu cam nho nhỏ.",
+      "Bảo nói: \"Bố nhìn cây kia kìa!",
+      "Nhiều quả nhỏ quá.\"",
+      "Khang nói: \"Đó là cây quất.",
+      "Nhà mình sẽ mua cây đó.\"",
+      "Một người phụ nữ bán cây.",
+      "Khang hỏi: \"Cây kia bao nhiêu tiền chị?\"",
+      "\"Hai triệu,\" chị nói.",
+      "Yến nói: \"Không rẻ đâu.",
+      "Mình không mang nhiều tiền thế.\"",
+      "Khang hỏi: \"Có cây nào rẻ hơn không chị?\"",
+      "\"Cây này nhỏ hơn.",
+      "Một triệu thôi.\"",
+      "Khang nhìn Yến và Bảo.",
+      "\"Hai mẹ con đồng ý chứ?\"",
+      "Hai mẹ con nói: \"Đồng ý!\"",
+      "Không ai muốn về nhà mà không có cây.",
+      "Khang nói: \"Được, chúng tôi lấy cây này.",
+      "Nhưng làm sao mang về nhà đây?\"",
+      "Người phụ nữ cười.",
+      "\"Chiều nay con trai tôi sẽ chở đến tận nhà anh chị.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về kế hoạch đi chợ hoa Tết, hỏi giá và cùng quyết định mua gì bằng going to và something, anything, nobody.",
+    "examples": [
+      {
+        "lemma": "busy",
+        "sentence": "The road is very busy at five o'clock.",
+        "meaningVi": "Lúc năm giờ đường rất đông."
+      },
+      {
+        "lemma": "pink",
+        "sentence": "She has a pink bag.",
+        "meaningVi": "Cô ấy có một chiếc túi màu hồng."
+      },
+      {
+        "lemma": "tree",
+        "sentence": "There is a big tree in our garden.",
+        "meaningVi": "Vườn nhà tôi có một cái cây to."
+      },
+      {
+        "lemma": "orange",
+        "sentence": "I eat an orange every morning.",
+        "meaningVi": "Sáng nào tôi cũng ăn một quả cam."
+      },
+      {
+        "lemma": "sell",
+        "sentence": "They sell fruit at the market.",
+        "meaningVi": "Họ bán hoa quả ở chợ."
+      },
+      {
+        "lemma": "cheap",
+        "sentence": "This shirt is very cheap.",
+        "meaningVi": "Chiếc áo này rất rẻ."
+      },
+      {
+        "lemma": "money",
+        "sentence": "I don't have any money with me.",
+        "meaningVi": "Tôi không mang theo đồng nào."
+      },
+      {
+        "lemma": "agree",
+        "sentence": "I agree with you.",
+        "meaningVi": "Tôi đồng ý với bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khang",
+        "David"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Khang, what are you going to buy at the flower market?",
+          "meaningVi": "Khang ơi, cậu định mua gì ở chợ hoa?"
+        },
+        {
+          "speaker": 0,
+          "text": "I'm going to buy a kumquat tree for our living room.",
+          "meaningVi": "Mình sẽ mua một cây quất cho phòng khách."
+        },
+        {
+          "speaker": 1,
+          "text": "A kumquat tree? Is it something special for Tet?",
+          "meaningVi": "Cây quất à? Đó là thứ gì đặc biệt cho ngày Tết sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, the little oranges mean good luck.",
+          "meaningVi": "Ừ, những quả nhỏ màu cam mang ý nghĩa may mắn."
+        },
+        {
+          "speaker": 1,
+          "text": "Are the trees expensive?",
+          "meaningVi": "Cây có đắt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Some are, but there is always something cheap.",
+          "meaningVi": "Có cây đắt, nhưng lúc nào cũng có cây rẻ."
+        },
+        {
+          "speaker": 1,
+          "text": "Is anyone going to go with you?",
+          "meaningVi": "Có ai đi cùng cậu không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, my wife and my son are going to come.",
+          "meaningVi": "Có, vợ và con trai mình sẽ đi cùng."
+        },
+        {
+          "speaker": 1,
+          "text": "How are you going to get the tree home?",
+          "meaningVi": "Cậu định mang cây về nhà bằng cách nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "I don't know yet. Maybe someone at the market can help.",
+          "meaningVi": "Mình chưa biết. Có thể ai đó ở chợ giúp được."
+        }
+      ]
+    },
+    "grammarTipVi": "Kế hoạch: I'm going to buy a kumquat tree. Hỏi người đi cùng: Is anyone going to go with you? Chưa biết ai sẽ giúp: Maybe someone at the market can help.",
+    "translations": [
+      {
+        "vi": "Tôi sẽ mua một cây quất.",
+        "en": "I'm going to buy a kumquat tree.",
+        "distractors": [
+          "will",
+          "buying",
+          "is"
+        ]
+      },
+      {
+        "vi": "Ở đây có cây nào rẻ không?",
+        "en": "Is there a cheap tree here?",
+        "distractors": [
+          "some",
+          "Are",
+          "nothing"
+        ]
+      },
+      {
+        "vi": "Chúng tôi sẽ không tiêu nhiều tiền.",
+        "en": "We are not going to spend a lot of money.",
+        "distractors": [
+          "is",
+          "don't",
+          "spending"
+        ]
+      },
+      {
+        "vi": "Mọi người có đồng ý không?",
+        "en": "Does everyone agree?",
+        "distractors": [
+          "agrees",
+          "Is",
+          "anyone"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Khang nói với David về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kế hoạch đi chợ hoa mua cây quất",
+          "Một chuyến đi xa",
+          "Việc dọn nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khang nói \"I'm going to buy a kumquat tree for our living room.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Những quả quất nhỏ mang ý nghĩa gì?",
+        "promptVi": "",
+        "options": [
+          "Sức khoẻ",
+          "May mắn",
+          "Tiền bạc"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khang nói \"the little oranges mean good luck.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai sẽ đi chợ cùng Khang?",
+        "promptVi": "",
+        "options": [
+          "David",
+          "Bố mẹ Khang",
+          "Vợ và con trai Khang"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khang nói \"my wife and my son are going to come.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khang knows how he is going to get the tree home.",
+        "promptVi": "Khang biết sẽ mang cây về nhà bằng cách nào.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khang nói \"I don't know yet.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Cả nhà Khang định mua gì? Cuối cùng họ mua cây nào, và cây được mang về bằng cách nào?",
+    "grammarStep": {
+      "titleVi": "Be going to (dự định và dự đoán có căn cứ)",
+      "noticing": [
+        {
+          "sentence": "Khang says, \"I'm going to find something special for our living room.\"",
+          "highlights": [
+            "I'm going to find"
+          ]
+        },
+        {
+          "sentence": "We are going to buy it.\"",
+          "highlights": [
+            "are going to buy"
+          ]
+        },
+        {
+          "sentence": "But how are we going to carry it home?\"",
+          "highlights": [
+            "are we going to carry"
+          ]
+        },
+        {
+          "sentence": "\"My son is going to take it to your house this afternoon.\"",
+          "highlights": [
+            "is going to take"
+          ]
+        }
+      ],
+      "questionVi": "Khi nào Khang nói \"We are going to buy it\"?",
+      "options": [
+        "Sau khi đã trả tiền xong",
+        "Khi vừa quyết định sẽ mua cây quất",
+        "Khi đang ở nhà trước khi đi chợ"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Khang nhìn thấy cây và quyết định sẽ mua: be going to diễn tả ý định đã có, việc chưa xảy ra.",
+      "whenVi": "Dùng be going to để nói ý định, kế hoạch (ai sẽ làm gì) và hỏi về cách thực hiện kế hoạch đó.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I'm going to find something special.",
+          "negative": "I'm not going to buy anything expensive."
+        },
+        {
+          "subject": "He / She",
+          "form": "My son is going to take it.",
+          "negative": "She isn't going to pay."
+        },
+        {
+          "subject": "We / They",
+          "form": "We are going to take it.",
+          "negative": "We aren't going to carry it."
+        },
+        {
+          "subject": "Câu hỏi How …?",
+          "form": "How are we going to carry it home?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We going to buy a tree.",
+          "right": "We are going to buy a tree."
+        },
+        {
+          "wrong": "How we are going to carry it?",
+          "right": "How are we going to carry it?"
+        }
+      ],
+      "noteVi": "Với kế hoạch của người khác, đổi am / is / are theo chủ ngữ: My son is going to …, My wife and my son are going to …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền am, is hoặc are.",
+          "text": "My son ___ going to take it to your house.",
+          "answers": [
+            "is"
+          ],
+          "explanationVi": "My son là ngôi thứ ba số ít: is going to."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "How ___ carry the tree home?",
+          "options": [
+            "we are going to",
+            "are we going to",
+            "are we going",
+            "we going to"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu hỏi đảo are lên trước we: How are we going to carry …?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My son is going to takes it home.",
+          "sentence": "My son is going to take it home.",
+          "explanationVi": "Sau going to là động từ nguyên mẫu: take, không thêm -s."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi sẽ mua cây này.",
+          "sentence": "We are going to buy this tree.",
+          "words": [
+            "buy",
+            "We",
+            "this",
+            "are",
+            "going",
+            "tree",
+            "to",
+            "buying"
+          ],
+          "explanationVi": "We + are going to + buy; từ \"buying\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "A woman sells the trees.",
+        "tipVi": "Sells /selz/ kết thúc bằng /z/; trees /triːz/ có âm /iː/ dài."
+      },
+      {
+        "text": "Nobody wants to go home without a tree.",
+        "tipVi": "Wants to đọc liền /wɒntstə/; without /wɪˈðaʊt/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you going to buy for Tet this year?",
+        "questionVi": "Năm nay bạn định mua gì cho ngày Tết?",
+        "frame": "I'm going to buy ___."
+      },
+      {
+        "question": "Is there anything you are not going to buy?",
+        "questionVi": "Có thứ gì bạn sẽ không mua không?",
+        "frame": "I'm not going to buy ___ because ___."
+      },
+      {
+        "question": "Who is going to go to the flower market in your family?",
+        "questionVi": "Ai trong nhà bạn sẽ đi chợ hoa?",
+        "frame": "My ___. He / She is going to buy ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng be going to",
+      "anyOf": [
+        "going to"
+      ],
+      "outlineVi": [
+        "Bạn sẽ đi chợ Tết với ai, khi nào.",
+        "Bạn sẽ mua gì (I'm going to buy …).",
+        "Một thứ bạn không định mua, và vì sao."
+      ],
+      "modelAnswer": "Next Sunday, my mother and I are going to go to the Tet flower market. I'm going to buy some yellow flowers for our table. My mother is going to look for a small kumquat tree. We aren't going to buy anything expensive because we don't have much money this year. My father is going to stay at home and clean the house."
+    }
+  },
+  "glosses": [
+    {
+      "text": "flower market",
+      "lemma": "flower market",
+      "meaningVi": "chợ hoa",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the Tet flower market",
+      "phraseVi": "chợ hoa Tết"
+    },
+    {
+      "text": "something special",
+      "lemma": "something",
+      "meaningVi": "thứ gì đó đặc biệt",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "find something special",
+      "phraseVi": "tìm một thứ gì đặc biệt"
+    },
+    {
+      "text": "walk past",
+      "lemma": "walk past",
+      "meaningVi": "đi ngang qua",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "They walk past pink flowers",
+      "phraseVi": "Cả nhà đi ngang qua những hàng hoa hồng"
+    },
+    {
+      "text": "kumquat",
+      "lemma": "kumquat",
+      "meaningVi": "quả quất",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "a kumquat tree",
+      "phraseVi": "cây quất"
+    },
+    {
+      "text": "million",
+      "lemma": "million",
+      "meaningVi": "triệu",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "Two million dong",
+      "phraseVi": "Hai triệu"
+    },
+    {
+      "text": "both",
+      "lemma": "both",
+      "meaningVi": "cả hai",
+      "sentenceIndex": 18,
+      "pos": "pronoun",
+      "phrase": "Do you both agree?",
+      "phraseVi": "Hai mẹ con đồng ý chứ?"
+    },
+    {
+      "text": "without",
+      "lemma": "without",
+      "meaningVi": "mà không có",
+      "sentenceIndex": 20,
+      "pos": "preposition",
+      "phrase": "go home without a tree",
+      "phraseVi": "về nhà mà không có cây"
+    }
+  ]
+}

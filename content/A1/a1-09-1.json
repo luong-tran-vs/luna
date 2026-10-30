@@ -1,0 +1,602 @@
+{
+  "content": "Hi, I'm Anna, and I love music. I like listening to songs on my phone every day. My favourite song is \"Sunny Day\" by Mia Rose. It is a happy song about summer and friends.\n\nMia Rose is my favourite singer. She is from Canada, and she is twenty-two. Her songs are short and fun. I love watching her music videos, and I often dance to her songs in my bedroom!\n\nMy dad doesn't like her music. He likes old songs on the radio.\n\nMy cousin Sophie loves Mia Rose too, and she loves dancing. We often talk on the phone, and we sing along together! Sophie always asks me, \"Do you like her new song?\"\n\"Yes, I do, but it's a sad song,\" I answer.",
+  "targetWords": [
+    "favourite song",
+    "happy song",
+    "singer",
+    "music video",
+    "dance to",
+    "phone",
+    "sing along",
+    "sad song"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "phone",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "favourite song",
+        "lemma": "favourite song",
+        "meaningVi": "bài hát yêu thích",
+        "pos": "phrase",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "happy song",
+        "lemma": "happy song",
+        "meaningVi": "bài hát vui",
+        "pos": "phrase",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "singer",
+        "lemma": "singer",
+        "meaningVi": "ca sĩ",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "music videos",
+        "lemma": "music video",
+        "meaningVi": "video ca nhạc",
+        "pos": "phrase",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "dance to",
+        "lemma": "dance to",
+        "meaningVi": "nhảy theo (nhạc)",
+        "pos": "phrasal verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "sing along",
+        "lemma": "sing along",
+        "meaningVi": "hát theo, hát cùng",
+        "pos": "phrasal verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "sad song",
+        "lemma": "sad song",
+        "meaningVi": "bài hát buồn",
+        "pos": "phrase",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Anna talk about?",
+        "promptVi": "Anna nói về điều gì?",
+        "options": [
+          "Anna's music lessons at school",
+          "Anna's favourite song and singer",
+          "A big concert in London",
+          "Anna's dad and his old radio"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Anna kể về bài hát yêu thích \"Sunny Day\" và ca sĩ yêu thích Mia Rose, rồi nói bố và em họ thích nhạc gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where does Anna often dance to Mia Rose's songs?",
+        "promptVi": "Anna hay nhảy theo các bài hát của Mia Rose ở đâu?",
+        "options": [
+          "In the car",
+          "At school",
+          "In her bedroom",
+          "In the park"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Anna viết \"I often dance to her songs in my bedroom!\", tức là trong phòng ngủ của mình."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why doesn't Anna's dad listen to Mia Rose?",
+        "promptVi": "Vì sao bố Anna không nghe nhạc của Mia Rose?",
+        "options": [
+          "He doesn't like her music.",
+          "He doesn't have a radio.",
+          "He is always at work.",
+          "He doesn't know her name."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna viết \"My dad doesn't like her music\": bố không thích nhạc của cô ấy mà thích những bài hát cũ trên radio."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mia Rose is from London.",
+        "promptVi": "Mia Rose đến từ London.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"She is from Canada\": Mia Rose đến từ Canada, không phải London, nên bài có nói và nói khác đi."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"sing along\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "We often talk on the phone, and we sing along together!",
+        "options": [
+          "hát một mình",
+          "nghe nhạc",
+          "hát thật to",
+          "hát theo, hát cùng"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Sing along là hát theo một bài hát, hát cùng người khác: Anna và Sophie cùng hát theo các bài của Mia Rose."
+      }
+    ],
+    "grammarNote": {
+      "title": "Like / love + danh từ hoặc V-ing",
+      "bodyVi": "Muốn nói mình thích cái gì, đặt danh từ sau like / love: I love music. Muốn nói mình thích làm gì, thêm -ing vào động từ sau like / love: I like listening to songs, she loves dancing. Với he / she, nhớ thêm -s: likes, loves. Câu phủ định: doesn't like / don't like.",
+      "examples": [
+        "I like listening to songs on my phone every day.",
+        "I love watching her music videos, and I often dance to her songs in my bedroom!",
+        "My cousin Sophie loves Mia Rose too, and she loves dancing."
+      ]
+    },
+    "writingPrompt": "Write about your favourite song and singer, and about the music someone in your family likes.",
+    "sentenceTranslations": [
+      "Chào các bạn, mình là Anna, và mình rất mê âm nhạc.",
+      "Ngày nào mình cũng thích nghe nhạc trên điện thoại.",
+      "Bài hát yêu thích của mình là \"Sunny Day\" của Mia Rose.",
+      "Đó là một bài hát vui về mùa hè và bạn bè.",
+      "Mia Rose là ca sĩ mình yêu thích.",
+      "Cô ấy đến từ Canada, năm nay hai mươi hai tuổi.",
+      "Các bài hát của cô ấy ngắn và vui.",
+      "Mình rất thích xem video ca nhạc của cô ấy, và mình hay nhảy theo các bài hát của cô ấy trong phòng ngủ!",
+      "Bố mình không thích nhạc của cô ấy.",
+      "Bố thích những bài hát cũ trên radio.",
+      "Em họ mình, Sophie, cũng mê Mia Rose, và em ấy rất thích nhảy.",
+      "Bọn mình hay nói chuyện điện thoại, và cùng nhau hát theo!",
+      "Sophie lúc nào cũng hỏi mình: \"Chị có thích bài hát mới của cô ấy không?\"",
+      "\"Có chứ, nhưng đó là một bài hát buồn,\" mình trả lời."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói về bài hát và ca sĩ mình yêu thích, dùng like / love + danh từ hoặc V-ing.",
+    "examples": [
+      {
+        "lemma": "favourite song",
+        "sentence": "What is your favourite song?",
+        "meaningVi": "Bài hát yêu thích của bạn là bài gì?"
+      },
+      {
+        "lemma": "happy song",
+        "sentence": "I love this happy song.",
+        "meaningVi": "Mình rất thích bài hát vui này."
+      },
+      {
+        "lemma": "singer",
+        "sentence": "My sister wants to be a singer.",
+        "meaningVi": "Em gái mình muốn trở thành ca sĩ."
+      },
+      {
+        "lemma": "music video",
+        "sentence": "This music video is very funny.",
+        "meaningVi": "Video ca nhạc này rất buồn cười."
+      },
+      {
+        "lemma": "dance to",
+        "sentence": "We dance to this song at parties.",
+        "meaningVi": "Bọn mình nhảy theo bài hát này ở các bữa tiệc."
+      },
+      {
+        "lemma": "phone",
+        "sentence": "All my songs are on my phone.",
+        "meaningVi": "Tất cả bài hát của mình đều ở trong điện thoại."
+      },
+      {
+        "lemma": "sing along",
+        "sentence": "My little brother likes to sing along in the car.",
+        "meaningVi": "Em trai mình thích hát theo khi ngồi trên xe."
+      },
+      {
+        "lemma": "sad song",
+        "sentence": "Is it a sad song?",
+        "meaningVi": "Đó có phải là một bài hát buồn không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Minh",
+        "Tom"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Tom, what music do you like?",
+          "meaningVi": "Tom ơi, cậu thích nhạc gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "I like happy songs. I listen to them every morning.",
+          "meaningVi": "Mình thích những bài hát vui. Sáng nào mình cũng nghe."
+        },
+        {
+          "speaker": 0,
+          "text": "Who is your favourite singer?",
+          "meaningVi": "Ca sĩ yêu thích của cậu là ai?"
+        },
+        {
+          "speaker": 1,
+          "text": "Leo Park. I love watching his music videos. Do you know him?",
+          "meaningVi": "Leo Park. Mình rất thích xem video ca nhạc của anh ấy. Cậu có biết anh ấy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, I don't. Is he good?",
+          "meaningVi": "Không, mình không biết. Anh ấy hát hay không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he is! His songs are great for dancing.",
+          "meaningVi": "Hay lắm! Các bài hát của anh ấy rất hợp để nhảy."
+        },
+        {
+          "speaker": 0,
+          "text": "I don't like dancing, but I love sad songs.",
+          "meaningVi": "Mình không thích nhảy, nhưng mình rất thích những bài hát buồn."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? What's your favourite song, Minh?",
+          "meaningVi": "Thật à? Bài hát yêu thích của cậu là bài gì, Minh?"
+        },
+        {
+          "speaker": 0,
+          "text": "\"Rainy Night\". I often sing along to it in my room.",
+          "meaningVi": "\"Rainy Night\". Mình hay hát theo bài đó trong phòng."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. I like sad songs too!",
+          "meaningVi": "Hay đấy. Mình cũng thích những bài hát buồn!"
+        }
+      ]
+    },
+    "grammarTipVi": "Sau like / love, động từ thêm -ing: I love watching his music videos (không nói \"I love watch\"). Muốn nói không thích, dùng I don't like dancing.",
+    "translations": [
+      {
+        "vi": "Tôi thích nghe nhạc trên điện thoại.",
+        "en": "I like listening to music on my phone.",
+        "distractors": [
+          "listen",
+          "likes",
+          "in"
+        ]
+      },
+      {
+        "vi": "Ca sĩ yêu thích của cô ấy là Mia Rose.",
+        "en": "Her favourite singer is Mia Rose.",
+        "distractors": [
+          "She",
+          "song",
+          "are"
+        ]
+      },
+      {
+        "vi": "Chúng tôi rất thích xem video ca nhạc.",
+        "en": "We love watching music videos.",
+        "distractors": [
+          "watch",
+          "loves",
+          "see"
+        ]
+      },
+      {
+        "vi": "Bố tôi không thích bài hát buồn này.",
+        "en": "My dad doesn't like this sad song.",
+        "distractors": [
+          "don't",
+          "likes",
+          "happy"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Minh và Tom nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Ca sĩ và bài hát mà hai bạn yêu thích",
+          "Lớp học nhạc ở trường",
+          "Một buổi hoà nhạc trong công viên"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai bạn hỏi nhau \"what music do you like?\", \"Who is your favourite singer?\" và \"What's your favourite song?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tom thích nghe loại bài hát nào mỗi sáng?",
+        "promptVi": "",
+        "options": [
+          "Bài hát buồn",
+          "Bài hát vui",
+          "Bài hát cũ trên radio"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tom nói \"I like happy songs. I listen to them every morning.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bài hát yêu thích của Minh tên là gì?",
+        "promptVi": "",
+        "options": [
+          "Sunny Day",
+          "Blue Sky",
+          "Rainy Night"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Minh trả lời \"Rainy Night\". I often sing along to it in my room.",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh likes dancing.",
+        "promptVi": "Minh thích nhảy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"I don't like dancing, but I love sad songs.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Anna thích ca sĩ nào, còn bố Anna thích nghe gì?",
+    "grammarStep": {
+      "titleVi": "Like / love + danh từ hoặc V-ing",
+      "noticing": [
+        {
+          "sentence": "I like listening to songs on my phone every day.",
+          "highlights": [
+            "like listening"
+          ]
+        },
+        {
+          "sentence": "I love watching her music videos, and I often dance to her songs in my bedroom!",
+          "highlights": [
+            "love watching"
+          ]
+        },
+        {
+          "sentence": "My dad doesn't like her music.",
+          "highlights": [
+            "doesn't like her music"
+          ]
+        },
+        {
+          "sentence": "My cousin Sophie loves Mia Rose too, and she loves dancing.",
+          "highlights": [
+            "loves Mia Rose",
+            "loves dancing"
+          ]
+        }
+      ],
+      "questionVi": "Sau like / love, khi muốn nói về một việc mình thích làm, động từ có dạng gì?",
+      "options": [
+        "Giữ nguyên (listen, watch)",
+        "Thêm -ing (listening, watching)",
+        "Thêm -s (listens, watches)"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Sau like / love, việc mình thích làm có dạng V-ing: like listening, love watching, loves dancing. Còn khi thích một thứ, ta đặt danh từ ngay sau: loves Mia Rose, like her music.",
+      "whenVi": "Dùng like / love + danh từ để nói mình thích cái gì, và like / love + V-ing để nói mình thích làm gì.",
+      "table": [
+        {
+          "subject": "I / you / we / they",
+          "form": "I like listening to music. We love music.",
+          "negative": "I don't like dancing."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "She loves dancing. He likes old songs.",
+          "negative": "He doesn't like her music."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I love watch music videos.",
+          "right": "I love watching music videos."
+        },
+        {
+          "wrong": "She like dancing.",
+          "right": "She likes dancing."
+        }
+      ],
+      "noteVi": "Tiếng Việt nói \"thích xem\", \"thích nhảy\" mà động từ không đổi, nên người Việt hay quên thêm -ing sau like / love và quên -s với he / she.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng V-ing của động từ trong ngoặc.",
+          "text": "I love ___ (watch) music videos.",
+          "answers": [
+            "watching"
+          ],
+          "explanationVi": "Sau love, việc mình thích làm có dạng V-ing: watching."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "We love ___ to music in the car.",
+          "options": [
+            "listen",
+            "listens",
+            "listening",
+            "to listening"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Sau love dùng V-ing: love listening. Không dùng \"to listening\"."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She loves watch music videos.",
+          "sentence": "She loves watching music videos.",
+          "explanationVi": "Sau loves, động từ phải thêm -ing: watching."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi thích nghe nhạc trên điện thoại.",
+          "sentence": "I like listening to music on my phone.",
+          "words": [
+            "on",
+            "listening",
+            "I",
+            "music",
+            "phone",
+            "like",
+            "to",
+            "my",
+            "listen"
+          ],
+          "explanationVi": "Sau like dùng V-ing: like listening; từ \"listen\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Her songs are short and fun.",
+        "tipVi": "Songs /sɔŋz/ kết thúc bằng âm /ŋz/: đọc rõ âm /z/ ở cuối, đừng bỏ."
+      },
+      {
+        "text": "I like listening to songs on my phone every day.",
+        "tipVi": "Listening /ˈlɪsənɪŋ/ có chữ t câm, không đọc là \"lis-ten-ning\"; phone /foʊn/ có âm /f/ ở đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What music do you like?",
+        "questionVi": "Bạn thích nhạc gì?",
+        "frame": "I like ___ songs. I like listening to them ___."
+      },
+      {
+        "question": "Who is your favourite singer?",
+        "questionVi": "Ca sĩ yêu thích của bạn là ai?",
+        "frame": "My favourite singer is ___. I love ___."
+      },
+      {
+        "question": "What music does your best friend like?",
+        "questionVi": "Bạn thân của bạn thích nhạc gì?",
+        "frame": "He / She likes ___. He / She doesn't like ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng like / love + V-ing",
+      "anyOf": [
+        "listening",
+        "watching",
+        "dancing",
+        "playing",
+        "reading",
+        "going"
+      ],
+      "outlineVi": [
+        "Nói bài hát yêu thích của bạn và đó là bài hát vui hay buồn.",
+        "Kể ca sĩ yêu thích và bạn thích làm gì với nhạc của họ (I love …ing).",
+        "Nói một người trong nhà thích hoặc không thích nhạc gì (He / She likes …)."
+      ],
+      "modelAnswer": "My favourite song is \"Blue Sky\". It is a happy song, and I love dancing to it. My favourite singer is Leo Park. I like watching his music videos on my phone. My brother doesn't like happy songs. He likes sad songs, and he often sings along in his room."
+    }
+  },
+  "glosses": [
+    {
+      "text": "listening to",
+      "lemma": "listen to",
+      "meaningVi": "nghe",
+      "sentenceIndex": 1,
+      "pos": "phrasal verb",
+      "phrase": "listening to songs",
+      "phraseVi": "nghe nhạc"
+    },
+    {
+      "text": "summer",
+      "lemma": "summer",
+      "meaningVi": "mùa hè",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "about summer and friends",
+      "phraseVi": "về mùa hè và bạn bè"
+    },
+    {
+      "text": "twenty-two",
+      "lemma": "twenty-two",
+      "meaningVi": "hai mươi hai (tuổi)",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "she is twenty-two",
+      "phraseVi": "cô ấy hai mươi hai tuổi"
+    },
+    {
+      "text": "fun",
+      "lemma": "fun",
+      "meaningVi": "vui",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "short and fun",
+      "phraseVi": "ngắn và vui"
+    },
+    {
+      "text": "bedroom",
+      "lemma": "bedroom",
+      "meaningVi": "phòng ngủ",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "in my bedroom",
+      "phraseVi": "trong phòng ngủ của mình"
+    },
+    {
+      "text": "radio",
+      "lemma": "radio",
+      "meaningVi": "radio, đài",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "old songs on the radio",
+      "phraseVi": "những bài hát cũ trên radio"
+    },
+    {
+      "text": "cousin",
+      "lemma": "cousin",
+      "meaningVi": "em họ",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "My cousin Sophie",
+      "phraseVi": "Em họ mình, Sophie"
+    },
+    {
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
+      "sentenceIndex": 11,
+      "pos": "adverb",
+      "phrase": "we sing along together",
+      "phraseVi": "bọn mình cùng nhau hát theo"
+    },
+    {
+      "text": "answer",
+      "lemma": "answer",
+      "meaningVi": "trả lời",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "I answer",
+      "phraseVi": "mình trả lời"
+    },
+    {
+      "text": "but",
+      "lemma": "but",
+      "meaningVi": "nhưng",
+      "sentenceIndex": 13,
+      "pos": "conjunction",
+      "phrase": "but it's a sad song",
+      "phraseVi": "nhưng đó là một bài hát buồn"
+    }
+  ]
+}

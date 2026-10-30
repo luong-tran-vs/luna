@@ -1,0 +1,579 @@
+{
+  "content": "It is Friday, and Mai, Quang and Ha are having lunch near their office in Da Nang. They work for a small travel company. Every month, the team votes for the best person at work, and today they need to choose.\n\nMai asks, \"Who is the most helpful person in our team?\"\n\"Phuong, I think,\" Quang says. \"She answers the most phone calls, and she always has time for new people.\"\n\"Yes, but Duy is the smartest,\" Ha says. \"He fixes our computers, and his ideas are the best.\"\n\nMai thinks and says, \"Duy is clever, but he isn't as kind as Thuy.\"\n\"Thuy is the kindest person in the office. She remembers our birthdays and brings us cakes.\"\n\"That's true,\" Quang says. \"And she is more patient than Duy with customers.\"\nHa laughs. \"Duy is the busiest person, so he doesn't have time for cakes!\"\n\nIn the end, they vote for Thuy. \"She isn't the fastest, but she is the best friend at work,\" Mai says.",
+  "targetWords": [
+    "team",
+    "vote",
+    "helpful",
+    "idea",
+    "kind",
+    "remember",
+    "patient",
+    "customer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "nhóm, đội",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "votes",
+        "lemma": "vote",
+        "meaningVi": "bỏ phiếu, bình chọn",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "helpful",
+        "lemma": "helpful",
+        "meaningVi": "hay giúp đỡ, có ích",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "ideas",
+        "lemma": "idea",
+        "meaningVi": "ý tưởng",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "kind",
+        "lemma": "kind",
+        "meaningVi": "tốt bụng",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "remembers",
+        "lemma": "remember",
+        "meaningVi": "nhớ",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "patient",
+        "lemma": "patient",
+        "meaningVi": "kiên nhẫn",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "customers",
+        "lemma": "customer",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A new travel company in Da Nang",
+          "Thuy's birthday party",
+          "Three people choose the best person at work.",
+          "Duy fixes the office computers."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Mai, Quang và Hà bàn nhau để bình chọn người tốt nhất trong nhóm tháng này."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who answers the most phone calls?",
+        "promptVi": "Ai nghe nhiều cuộc điện thoại nhất?",
+        "options": [
+          "Phuong",
+          "Duy",
+          "Thuy",
+          "Mai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quang nói Phương \"answers the most phone calls\"."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why do they think Thuy is the kindest?",
+        "promptVi": "Vì sao họ nghĩ Thủy là người tốt bụng nhất?",
+        "options": [
+          "She fixes their computers.",
+          "She is the busiest person.",
+          "She answers a lot of calls.",
+          "She remembers their birthdays and brings cakes."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Mai nói \"She remembers our birthdays and brings us cakes.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duy is as kind as Thuy.",
+        "promptVi": "Duy tốt bụng như Thủy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"he isn't as kind as Thuy\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"busiest\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Duy is the busiest person, so he doesn't have time for cakes!\"",
+        "options": [
+          "rảnh nhất",
+          "bận nhất",
+          "vui nhất",
+          "nhanh nhất"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Busy (bận) → busiest (bận nhất): Duy bận nhất nên không có thời gian ăn bánh."
+      }
+    ],
+    "grammarNote": {
+      "title": "So sánh nhất",
+      "bodyVi": "So sánh nhất dùng khi so một người với cả nhóm (từ ba người trở lên). Tính từ ngắn: the + tính từ-est (the smartest, the kindest; busy → the busiest). Tính từ dài: the most + tính từ (the most helpful). Bất quy tắc: good → the best. Thường thêm in + nơi chốn, nhóm: in our team, in the office.",
+      "examples": [
+        "Mai asks, \"Who is the most helpful person in our team?\"",
+        "\"Yes, but Duy is the smartest,\" Ha says.",
+        "\"Duy is the busiest person, so he doesn't have time for cakes!\""
+      ]
+    },
+    "writingPrompt": "Write about the people in your class or team: who is the kindest, the funniest and the most helpful?",
+    "sentenceTranslations": [
+      "Hôm nay là thứ Sáu, Mai, Quang và Hà đang ăn trưa gần văn phòng ở Đà Nẵng.",
+      "Họ làm việc cho một công ty du lịch nhỏ.",
+      "Tháng nào cả nhóm cũng bình chọn người tốt nhất ở chỗ làm, và hôm nay họ cần chọn.",
+      "Mai hỏi: \"Ai là người hay giúp đỡ nhất trong nhóm mình?\"",
+      "\"Mình nghĩ là Phương,\" Quang nói.",
+      "\"Cô ấy nghe nhiều cuộc điện thoại nhất, và lúc nào cũng có thời gian cho người mới.\"",
+      "\"Đúng, nhưng Duy thông minh nhất,\" Hà nói.",
+      "\"Anh ấy sửa máy tính cho cả nhóm, và ý tưởng của anh ấy là hay nhất.\"",
+      "Mai nghĩ rồi nói: \"Duy thông minh, nhưng không tốt bụng bằng Thủy.\"",
+      "\"Thủy là người tốt bụng nhất văn phòng.",
+      "Chị ấy nhớ sinh nhật của mọi người và mang bánh cho bọn mình.\"",
+      "\"Đúng vậy,\" Quang nói.",
+      "\"Mà chị ấy cũng kiên nhẫn với khách hàng hơn Duy.\"",
+      "Hà cười.",
+      "\"Duy là người bận nhất, nên chẳng có thời gian ăn bánh!\"",
+      "Cuối cùng, họ bình chọn cho Thủy.",
+      "\"Chị ấy không phải người nhanh nhất, nhưng là người bạn tốt nhất ở chỗ làm,\" Mai nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói ai nhất trong một nhóm bằng the -est, the most … và so sánh hai người bằng -er than, more … than.",
+    "examples": [
+      {
+        "lemma": "team",
+        "sentence": "There are six people in our team.",
+        "meaningVi": "Nhóm chúng tôi có sáu người."
+      },
+      {
+        "lemma": "vote",
+        "sentence": "Who do you vote for?",
+        "meaningVi": "Bạn bỏ phiếu cho ai?"
+      },
+      {
+        "lemma": "helpful",
+        "sentence": "The hotel staff are very helpful.",
+        "meaningVi": "Nhân viên khách sạn rất nhiệt tình giúp đỡ."
+      },
+      {
+        "lemma": "idea",
+        "sentence": "That's a good idea!",
+        "meaningVi": "Ý hay đấy!"
+      },
+      {
+        "lemma": "kind",
+        "sentence": "It's very kind of you.",
+        "meaningVi": "Bạn thật tốt bụng."
+      },
+      {
+        "lemma": "remember",
+        "sentence": "I can't remember his name.",
+        "meaningVi": "Tôi không nhớ tên anh ấy."
+      },
+      {
+        "lemma": "patient",
+        "sentence": "Our teacher is very patient with us.",
+        "meaningVi": "Cô giáo rất kiên nhẫn với chúng tôi."
+      },
+      {
+        "lemma": "customer",
+        "sentence": "The shop has a new customer.",
+        "meaningVi": "Cửa hàng có một khách hàng mới."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thuy",
+        "James"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thuy, congratulations! You are the best person of the month.",
+          "meaningVi": "Thủy ơi, chúc mừng nhé! Bạn là người xuất sắc nhất tháng."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you! But I'm not the smartest in the team.",
+          "meaningVi": "Cảm ơn bạn! Nhưng mình đâu phải người thông minh nhất nhóm."
+        },
+        {
+          "speaker": 1,
+          "text": "Who is the smartest, then?",
+          "meaningVi": "Thế ai thông minh nhất?"
+        },
+        {
+          "speaker": 0,
+          "text": "Duy. He is cleverer than me with computers.",
+          "meaningVi": "Duy. Anh ấy giỏi máy tính hơn mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe, but you are the kindest. The customers love you.",
+          "meaningVi": "Có thể, nhưng bạn tốt bụng nhất. Khách hàng rất quý bạn."
+        },
+        {
+          "speaker": 0,
+          "text": "That's nice. Who is the funniest person, do you think?",
+          "meaningVi": "Vui quá. Theo bạn ai là người vui tính nhất?"
+        },
+        {
+          "speaker": 1,
+          "text": "Ha, of course! Her stories are the best.",
+          "meaningVi": "Hà chứ còn ai! Chuyện của cô ấy hay nhất."
+        },
+        {
+          "speaker": 0,
+          "text": "And who is the busiest?",
+          "meaningVi": "Còn ai bận nhất?"
+        },
+        {
+          "speaker": 1,
+          "text": "Duy again. He works all day and all night!",
+          "meaningVi": "Lại là Duy. Anh ấy làm cả ngày lẫn đêm!"
+        },
+        {
+          "speaker": 0,
+          "text": "Then let's take him a cake this afternoon.",
+          "meaningVi": "Vậy chiều nay mình mang bánh cho anh ấy nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi ai nhất: Who is the smartest / the funniest / the busiest? Tính từ tận cùng -y đổi y thành i: funny → the funniest, busy → the busiest.",
+    "translations": [
+      {
+        "vi": "Phương là người hay giúp đỡ nhất trong nhóm.",
+        "en": "Phuong is the most helpful person in the team.",
+        "distractors": [
+          "more",
+          "than",
+          "helpfulest"
+        ]
+      },
+      {
+        "vi": "Ý tưởng của anh ấy là hay nhất.",
+        "en": "His ideas are the best.",
+        "distractors": [
+          "better",
+          "her",
+          "good"
+        ]
+      },
+      {
+        "vi": "Cô ấy kiên nhẫn với khách hàng hơn tôi.",
+        "en": "She is more patient with customers than me.",
+        "distractors": [
+          "most",
+          "as",
+          "the"
+        ]
+      },
+      {
+        "vi": "Thủy nhớ sinh nhật của chúng tôi.",
+        "en": "Thuy remembers our birthdays.",
+        "distractors": [
+          "remember",
+          "their",
+          "birthday"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "James và Thủy nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Máy tính mới của Duy",
+          "Thủy được bình chọn và những người trong nhóm",
+          "Một chuyến du lịch"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "James chúc mừng Thủy là người xuất sắc nhất tháng, rồi hai người nói về các bạn trong nhóm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo James, ai là người vui tính nhất?",
+        "promptVi": "",
+        "options": [
+          "Hà",
+          "Duy",
+          "Thủy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "James nói \"Ha, of course! Her stories are the best.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chiều nay Thủy muốn làm gì?",
+        "promptVi": "",
+        "options": [
+          "Sửa máy tính",
+          "Kể chuyện cho Hà",
+          "Mang bánh cho Duy"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thủy nói \"let's take him a cake this afternoon.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thuy thinks she is cleverer than Duy with computers.",
+        "promptVi": "Thủy nghĩ mình giỏi máy tính hơn Duy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thủy nói \"He is cleverer than me with computers.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong nhóm \"nhất\" ở điểm gì, và cuối cùng ai được chọn?",
+    "grammarStep": {
+      "titleVi": "So sánh nhất",
+      "noticing": [
+        {
+          "sentence": "Mai asks, \"Who is the most helpful person in our team?\"",
+          "highlights": [
+            "the most helpful"
+          ]
+        },
+        {
+          "sentence": "\"Yes, but Duy is the smartest,\" Ha says.",
+          "highlights": [
+            "the smartest"
+          ]
+        },
+        {
+          "sentence": "\"Duy is the busiest person, so he doesn't have time for cakes!\"",
+          "highlights": [
+            "the busiest"
+          ]
+        },
+        {
+          "sentence": "\"She isn't the fastest, but she is the best friend at work,\" Mai says.",
+          "highlights": [
+            "the fastest",
+            "the best"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"the smartest\" nhưng lại viết \"the most helpful\"?",
+      "options": [
+        "Vì smart là tính từ ngắn, helpful là tính từ dài.",
+        "Vì Duy là nam, Phương là nữ.",
+        "Vì helpful là danh từ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Tính từ một âm tiết (smart, kind) thêm -est. Tính từ dài hơn (helpful, patient) dùng the most.",
+      "whenVi": "Dùng so sánh nhất khi so một người hay vật với cả nhóm từ ba trở lên: the + tính từ-est / the most + tính từ.",
+      "table": [
+        {
+          "subject": "Tính từ ngắn",
+          "form": "smart → the smartest, kind → the kindest",
+          "negative": "He isn't the smartest."
+        },
+        {
+          "subject": "Tận cùng -y",
+          "form": "busy → the busiest, funny → the funniest",
+          "negative": "—"
+        },
+        {
+          "subject": "Tính từ dài",
+          "form": "the most helpful, the most patient",
+          "negative": "She isn't the most patient."
+        },
+        {
+          "subject": "Bất quy tắc",
+          "form": "good → the best, bad → the worst",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Duy is the most smart in the team.",
+          "right": "Duy is the smartest in the team."
+        },
+        {
+          "wrong": "Thuy is kindest person in the office.",
+          "right": "Thuy is the kindest person in the office."
+        }
+      ],
+      "noteVi": "Người Việt hay quên the trước so sánh nhất, vì tiếng Việt chỉ thêm \"nhất\". Nhớ: the kindest, the most helpful.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng so sánh nhất của từ trong ngoặc.",
+          "text": "Thuy is the ___ person in our office. (kind)",
+          "answers": [
+            "kindest"
+          ],
+          "explanationVi": "Kind là tính từ ngắn: the kindest."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Phuong is ___ person in the team.",
+          "options": [
+            "the most helpful",
+            "the helpfulest",
+            "more helpful",
+            "most helpful"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Helpful là tính từ dài: the most helpful (cần có the)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Ha is the most funny person in our team.",
+          "sentence": "Ha is the funniest person in our team.",
+          "explanationVi": "Funny tận cùng -y: the funniest, không dùng most."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy là người bận nhất trong văn phòng.",
+          "sentence": "He is the busiest person in the office.",
+          "words": [
+            "busiest",
+            "He",
+            "the",
+            "person",
+            "is",
+            "in",
+            "office",
+            "the",
+            "most"
+          ],
+          "explanationVi": "Busy → the busiest; từ \"most\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "They work for a small travel company.",
+        "tipVi": "Travel /ˈtrævəl/ nhấn âm đầu; company /ˈkʌmpəni/ nhấn âm đầu \"căm\"."
+      },
+      {
+        "text": "In the end, they vote for Thuy.",
+        "tipVi": "Vote /vəʊt/ bắt đầu bằng /v/ (răng trên chạm môi dưới), đừng đọc thành \"bốt\"."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is the funniest person in your family?",
+        "questionVi": "Ai là người vui tính nhất trong gia đình bạn?",
+        "frame": "The funniest person is my ___."
+      },
+      {
+        "question": "Who is the most helpful person in your class or team?",
+        "questionVi": "Ai là người hay giúp đỡ nhất trong lớp hoặc nhóm của bạn?",
+        "frame": "___ is the most helpful person."
+      },
+      {
+        "question": "Who is the kindest person you know, and why?",
+        "questionVi": "Ai là người tốt bụng nhất bạn biết, vì sao?",
+        "frame": "___ is the kindest. He / She ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu so sánh nhất (the -est / the most …)",
+      "anyOf": [
+        "the most",
+        "the best",
+        "the tallest",
+        "the funniest",
+        "the kindest",
+        "the smartest"
+      ],
+      "outlineVi": [
+        "Giới thiệu lớp hoặc nhóm của bạn (có bao nhiêu người).",
+        "Ai nhất ở điểm gì (the tallest, the funniest, the most helpful).",
+        "Bạn sẽ bình chọn cho ai và vì sao."
+      ],
+      "modelAnswer": "There are twelve people in my English class. Nam is the tallest, and he is the best at football. Hoa is the funniest person, and her stories are great. But the most helpful person is Trang. She is quieter than the others, but she always helps me with my homework. I think she is the kindest person in the class, so I vote for her."
+    }
+  },
+  "glosses": [
+    {
+      "text": "travel company",
+      "lemma": "travel company",
+      "meaningVi": "công ty du lịch",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a small travel company",
+      "phraseVi": "một công ty du lịch nhỏ"
+    },
+    {
+      "text": "phone calls",
+      "lemma": "phone call",
+      "meaningVi": "cuộc điện thoại",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "the most phone calls",
+      "phraseVi": "nhiều cuộc điện thoại nhất"
+    },
+    {
+      "text": "smartest",
+      "lemma": "smart",
+      "meaningVi": "thông minh nhất",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "Duy is the smartest",
+      "phraseVi": "Duy thông minh nhất"
+    },
+    {
+      "text": "fixes",
+      "lemma": "fix",
+      "meaningVi": "sửa",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "fixes our computers",
+      "phraseVi": "sửa máy tính cho cả nhóm"
+    },
+    {
+      "text": "busiest",
+      "lemma": "busy",
+      "meaningVi": "bận nhất",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "the busiest person",
+      "phraseVi": "người bận nhất"
+    },
+    {
+      "text": "fastest",
+      "lemma": "fast",
+      "meaningVi": "nhanh nhất",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "She isn't the fastest",
+      "phraseVi": "Chị ấy không phải người nhanh nhất"
+    }
+  ]
+}

@@ -1,0 +1,600 @@
+{
+  "content": "I'm Minh, and I have a music lesson every Tuesday. Our music class is in a big room with a piano and ten guitars. Our teacher, Mr Long, is young and funny.\n\nAt the start of the lesson, he often plays a music game with us, and we love it. Then we sing together, or we play a song on the guitar. I like playing the guitar, but it is difficult for me. So I have guitar practice after school on Thursday.\n\nMy friend Huy loves playing the piano because his grandfather plays it at home. Mr Long often asks us, \"Do you like the guitar or the piano?\"\n\"The piano, because it is beautiful,\" says Huy.\n\nMy friend Bao doesn't like music lessons because he likes football more. But he loves the music game, and he is sad when the bell rings!",
+  "targetWords": [
+    "music lesson",
+    "music class",
+    "piano",
+    "guitar",
+    "music game",
+    "play a song",
+    "practice",
+    "bell"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "music lesson",
+        "lemma": "music lesson",
+        "meaningVi": "giờ học nhạc, tiết âm nhạc",
+        "pos": "phrase",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "music class",
+        "lemma": "music class",
+        "meaningVi": "lớp học nhạc, giờ học nhạc",
+        "pos": "phrase",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "piano",
+        "lemma": "piano",
+        "meaningVi": "đàn piano, dương cầm",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "guitars",
+        "lemma": "guitar",
+        "meaningVi": "đàn guitar, đàn ghi-ta",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "music game",
+        "lemma": "music game",
+        "meaningVi": "trò chơi âm nhạc",
+        "pos": "phrase",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "play a song",
+        "lemma": "play a song",
+        "meaningVi": "chơi (đàn) một bài hát",
+        "pos": "phrase",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "practice",
+        "lemma": "practice",
+        "meaningVi": "buổi tập, sự luyện tập",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "bell",
+        "lemma": "bell",
+        "meaningVi": "chuông (báo hết giờ)",
+        "pos": "noun",
+        "sentenceIndex": 11
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Minh talk about?",
+        "promptVi": "Minh nói về điều gì?",
+        "options": [
+          "His music lessons at school and what the students like",
+          "A big concert in Hue",
+          "His favourite singer",
+          "Huy's grandfather and his piano"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh kể về giờ học nhạc ở trường: thầy Long, trò chơi âm nhạc, đàn guitar, đàn piano, và các bạn thích hay không thích gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When does Minh have guitar practice?",
+        "promptVi": "Minh tập đàn guitar vào lúc nào?",
+        "options": [
+          "On Tuesday morning",
+          "After school on Thursday",
+          "On Sunday evening",
+          "Before school on Monday"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Minh viết \"So I have guitar practice after school on Thursday\". Thứ Ba là ngày có giờ học nhạc trên lớp."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Huy love playing the piano?",
+        "promptVi": "Vì sao Huy rất thích chơi đàn piano?",
+        "options": [
+          "It is easy for him.",
+          "Mr Long plays it in class.",
+          "His grandfather plays it at home.",
+          "He has piano practice every day."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"Huy loves playing the piano because his grandfather plays it at home\": lý do nằm sau because."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Long plays the guitar in a band.",
+        "promptVi": "Thầy Long chơi guitar trong một ban nhạc.",
+        "options": [],
+        "answerIndex": 2,
+        "explanationVi": "Không có thông tin: bài chỉ nói thầy Long trẻ, vui tính và hay cho cả lớp chơi trò chơi âm nhạc, không nhắc đến ban nhạc nào, nên không thể nói đúng hay sai."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"practice\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "So I have guitar practice after school on Thursday.",
+        "options": [
+          "bài kiểm tra",
+          "buổi tập, luyện tập",
+          "câu lạc bộ",
+          "buổi biểu diễn"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Guitar practice là buổi tập đàn guitar: Minh thấy guitar khó nên tập thêm sau giờ học vào thứ Năm."
+      }
+    ],
+    "grammarNote": {
+      "title": "Liên từ and / but / or / because",
+      "bodyVi": "Bốn từ này nối hai ý thành một câu. And (và) nối hai ý cùng chiều. But (nhưng) nối hai ý trái ngược: I like playing the guitar, but it is difficult. Or (hay, hoặc) đưa ra lựa chọn: the guitar or the piano? Because (vì) đứng trước lý do: Huy loves the piano because his grandfather plays it.",
+      "examples": [
+        "I like playing the guitar, but it is difficult for me.",
+        "My friend Huy loves playing the piano because his grandfather plays it at home.",
+        "Mr Long often asks us, \"Do you like the guitar or the piano?\""
+      ]
+    },
+    "writingPrompt": "Write about music lessons at your school: what you like, what a friend likes, and why.",
+    "sentenceTranslations": [
+      "Mình là Minh, và thứ Ba nào mình cũng có giờ học nhạc.",
+      "Giờ học nhạc của lớp mình diễn ra trong một phòng lớn có một cây đàn piano và mười cây đàn guitar.",
+      "Thầy giáo của bọn mình, thầy Long, còn trẻ và rất vui tính.",
+      "Đầu giờ học, thầy hay cho cả lớp chơi một trò chơi âm nhạc, và bọn mình rất thích.",
+      "Sau đó bọn mình cùng nhau hát, hoặc tập chơi một bài hát bằng đàn guitar.",
+      "Mình thích chơi guitar, nhưng với mình thì khó lắm.",
+      "Vì thế thứ Năm nào mình cũng ở lại tập đàn guitar sau giờ học.",
+      "Bạn mình, Huy, rất thích chơi đàn piano vì ông của bạn ấy chơi đàn piano ở nhà.",
+      "Thầy Long hay hỏi bọn mình: \"Các em thích đàn guitar hay đàn piano?\"",
+      "\"Đàn piano ạ, vì nó hay lắm,\" Huy trả lời.",
+      "Bạn mình, Bảo, không thích giờ học nhạc vì bạn ấy thích bóng đá hơn.",
+      "Nhưng Bảo lại rất mê trò chơi âm nhạc, và bạn ấy buồn khi chuông reo hết giờ!"
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về giờ học nhạc ở trường, nói mình thích gì và vì sao, nối ý bằng and / but / or / because.",
+    "examples": [
+      {
+        "lemma": "music lesson",
+        "sentence": "My music lesson is on Tuesday.",
+        "meaningVi": "Giờ học nhạc của mình vào thứ Ba."
+      },
+      {
+        "lemma": "music class",
+        "sentence": "There are thirty students in my music class.",
+        "meaningVi": "Lớp học nhạc của mình có ba mươi học sinh."
+      },
+      {
+        "lemma": "piano",
+        "sentence": "My grandfather plays the piano.",
+        "meaningVi": "Ông mình chơi đàn piano."
+      },
+      {
+        "lemma": "guitar",
+        "sentence": "This guitar is new.",
+        "meaningVi": "Cây đàn guitar này còn mới."
+      },
+      {
+        "lemma": "music game",
+        "sentence": "We play a music game at the start of the lesson.",
+        "meaningVi": "Đầu giờ học, bọn mình chơi một trò chơi âm nhạc."
+      },
+      {
+        "lemma": "play a song",
+        "sentence": "Huy wants to play a song for us.",
+        "meaningVi": "Huy muốn chơi một bài hát cho bọn mình nghe."
+      },
+      {
+        "lemma": "practice",
+        "sentence": "I have guitar practice on Thursday.",
+        "meaningVi": "Thứ Năm mình có buổi tập đàn guitar."
+      },
+      {
+        "lemma": "bell",
+        "sentence": "The school bell rings at seven o'clock.",
+        "meaningVi": "Chuông trường reo lúc bảy giờ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Linh",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Anna, do you like music lessons?",
+          "meaningVi": "Anna ơi, cậu có thích giờ học nhạc không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I do, because I love playing the guitar.",
+          "meaningVi": "Có chứ, vì mình rất thích chơi đàn guitar."
+        },
+        {
+          "speaker": 0,
+          "text": "Is the guitar difficult?",
+          "meaningVi": "Đàn guitar có khó không?"
+        },
+        {
+          "speaker": 1,
+          "text": "A little, but I practise every day. Do you play the guitar or the piano?",
+          "meaningVi": "Hơi khó, nhưng ngày nào mình cũng tập. Cậu chơi guitar hay piano?"
+        },
+        {
+          "speaker": 0,
+          "text": "The piano. My mum has a piano at home.",
+          "meaningVi": "Piano. Mẹ mình có một cây đàn piano ở nhà."
+        },
+        {
+          "speaker": 1,
+          "text": "Great! What do you like in the music class?",
+          "meaningVi": "Tuyệt quá! Trong giờ học nhạc cậu thích gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I like the music games, but I don't like the tests.",
+          "meaningVi": "Mình thích các trò chơi âm nhạc, nhưng không thích những bài kiểm tra."
+        },
+        {
+          "speaker": 1,
+          "text": "Me too! Does Lan like music lessons?",
+          "meaningVi": "Mình cũng vậy! Lan có thích giờ học nhạc không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, she does. She loves dancing to the songs.",
+          "meaningVi": "Có. Bạn ấy rất thích nhảy theo các bài hát."
+        },
+        {
+          "speaker": 1,
+          "text": "That's nice. Music is more fun with friends!",
+          "meaningVi": "Hay đấy. Học nhạc cùng bạn bè vui hơn nhiều!"
+        }
+      ]
+    },
+    "grammarTipVi": "Muốn hỏi lựa chọn, dùng or: Do you play the guitar or the piano? Muốn nói lý do, dùng because: I like music lessons because I love playing the guitar.",
+    "translations": [
+      {
+        "vi": "Tôi thích chơi đàn guitar, nhưng nó khó.",
+        "en": "I like playing the guitar, but it is difficult.",
+        "distractors": [
+          "and",
+          "because",
+          "play"
+        ]
+      },
+      {
+        "vi": "Bảo rất thích trò chơi âm nhạc vì nó vui.",
+        "en": "Bao loves the music game because it is fun.",
+        "distractors": [
+          "but",
+          "or",
+          "likes",
+          "are"
+        ]
+      },
+      {
+        "vi": "Bạn thích đàn guitar hay đàn piano?",
+        "en": "Do you like the guitar or the piano?",
+        "distractors": [
+          "and",
+          "Does",
+          "but"
+        ]
+      },
+      {
+        "vi": "Chúng tôi có giờ học nhạc vào thứ Ba.",
+        "en": "We have a music lesson on Tuesday.",
+        "distractors": [
+          "has",
+          "in",
+          "class"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Linh và Anna nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tiệm bánh nhà Linh",
+          "Giờ học nhạc ở trường",
+          "Một buổi hoà nhạc ngoài công viên"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh hỏi \"do you like music lessons?\", rồi hai bạn nói về đàn guitar, đàn piano và giờ học nhạc.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Linh chơi loại đàn nào?",
+        "promptVi": "",
+        "options": [
+          "Đàn guitar",
+          "Đàn piano",
+          "Trống"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Linh trả lời \"The piano. My mum has a piano at home.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trong giờ học nhạc, Linh không thích điều gì?",
+        "promptVi": "",
+        "options": [
+          "Các trò chơi âm nhạc",
+          "Đàn piano",
+          "Những bài kiểm tra"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"I like the music games, but I don't like the tests.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Anna practises the guitar every day.",
+        "promptVi": "Anna tập đàn guitar mỗi ngày.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, vì Anna nói \"A little, but I practise every day.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Mỗi bạn trong lớp Minh thích hay không thích giờ học nhạc, và vì sao?",
+    "grammarStep": {
+      "titleVi": "Liên từ and / but / or / because",
+      "noticing": [
+        {
+          "sentence": "At the start of the lesson, he often plays a music game with us, and we love it.",
+          "highlights": [
+            "and"
+          ]
+        },
+        {
+          "sentence": "Then we sing together, or we play a song on the guitar.",
+          "highlights": [
+            "or"
+          ]
+        },
+        {
+          "sentence": "I like playing the guitar, but it is difficult for me.",
+          "highlights": [
+            "but"
+          ]
+        },
+        {
+          "sentence": "My friend Huy loves playing the piano because his grandfather plays it at home.",
+          "highlights": [
+            "because"
+          ]
+        }
+      ],
+      "questionVi": "Trong bốn từ được tô, từ nào đứng trước lý do (trả lời câu hỏi \"vì sao?\")?",
+      "options": [
+        "but",
+        "because",
+        "or"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Because (vì) đứng trước lý do: Huy thích piano vì ông bạn ấy chơi piano. But nối hai ý trái ngược, or đưa ra lựa chọn, and nối hai ý cùng chiều.",
+      "whenVi": "Dùng and, but, or, because để nối hai ý thành một câu dài hơn: thêm ý, ý trái ngược, lựa chọn, hoặc lý do.",
+      "table": [
+        {
+          "subject": "and (và)",
+          "form": "He plays a game with us, and we love it.",
+          "negative": "—"
+        },
+        {
+          "subject": "but (nhưng)",
+          "form": "I like the guitar, but it is difficult.",
+          "negative": "—"
+        },
+        {
+          "subject": "or (hay, hoặc)",
+          "form": "Do you like the guitar or the piano?",
+          "negative": "—"
+        },
+        {
+          "subject": "because (vì)",
+          "form": "Huy loves the piano because his grandfather plays it.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Do you like the guitar and the piano? (muốn hỏi bạn thích cái nào)",
+          "right": "Do you like the guitar or the piano?"
+        },
+        {
+          "wrong": "We love the music game because is fun.",
+          "right": "We love the music game because it is fun."
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi lựa chọn bằng \"hay\" và hay bỏ chủ ngữ sau \"vì\" (\"vì vui\"), nên người Việt dễ dùng and thay cho or và quên it sau because.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền because hoặc but vào chỗ trống.",
+          "text": "I love music lessons ___ Mr Long is funny.",
+          "answers": [
+            "because"
+          ],
+          "explanationVi": "Thầy Long vui tính là lý do mình thích giờ học nhạc, nên dùng because."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng để hỏi bạn chọn cái nào.",
+          "text": "Do you play the guitar ___ the piano?",
+          "options": [
+            "or",
+            "because",
+            "but",
+            "so"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu hỏi lựa chọn giữa hai thứ dùng or (hay)."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We love the music game because is fun.",
+          "sentence": "We love the music game because it is fun.",
+          "explanationVi": "Sau because là một câu đầy đủ, cần có chủ ngữ: because it is fun."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Huy rất thích đàn piano vì ông của bạn ấy chơi nó.",
+          "sentence": "Huy loves the piano because his grandfather plays it.",
+          "words": [
+            "because",
+            "plays",
+            "Huy",
+            "the",
+            "his",
+            "loves",
+            "piano",
+            "grandfather",
+            "it",
+            "but"
+          ],
+          "explanationVi": "Lý do đứng sau because; từ \"but\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Our teacher, Mr Long, is young and funny.",
+        "tipVi": "Young /jʌŋ/ kết thúc bằng âm /ŋ/ như \"ng\" trong tiếng Việt, không có âm /g/ ở cuối."
+      },
+      {
+        "text": "I like playing the guitar, but it is difficult for me.",
+        "tipVi": "Guitar /ɡɪˈtɑːr/ nhấn ở âm tiết thứ hai: \"ghi-TAR\"; difficult /ˈdɪfɪkəlt/ nhấn ở âm đầu và có /lt/ ở cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you like music lessons at school?",
+        "questionVi": "Bạn có thích giờ học nhạc ở trường không?",
+        "frame": "Yes, I do, because ___. / No, I don't, because ___."
+      },
+      {
+        "question": "Do you like the guitar or the piano?",
+        "questionVi": "Bạn thích đàn guitar hay đàn piano?",
+        "frame": "I like the ___ because ___."
+      },
+      {
+        "question": "Does your best friend like music?",
+        "questionVi": "Bạn thân của bạn có thích âm nhạc không?",
+        "frame": "Yes, he / she does, because ___. / No, he / she doesn't, but he / she likes ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu nối bằng because, but hoặc or",
+      "anyOf": [
+        "because",
+        "but",
+        "or",
+        "because it"
+      ],
+      "outlineVi": [
+        "Nói bạn có giờ học nhạc vào ngày nào và thầy cô dạy nhạc thế nào.",
+        "Kể bạn thích gì trong giờ học và vì sao (because …).",
+        "Kể một người bạn thích hoặc không thích giờ học nhạc (He / She … but …)."
+      ],
+      "modelAnswer": "I have a music lesson every Friday. I like the music class because our teacher is kind and funny. I love playing the piano, but it is difficult for me. My friend Lan likes the guitar because it is small. She has guitar practice after school, and she plays a song for us every week."
+    }
+  },
+  "glosses": [
+    {
+      "text": "funny",
+      "lemma": "funny",
+      "meaningVi": "vui tính, hài hước",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "young and funny",
+      "phraseVi": "trẻ và vui tính"
+    },
+    {
+      "text": "start",
+      "lemma": "start",
+      "meaningVi": "lúc bắt đầu, đầu (giờ)",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "At the start of the lesson",
+      "phraseVi": "Đầu giờ học"
+    },
+    {
+      "text": "together",
+      "lemma": "together",
+      "meaningVi": "cùng nhau",
+      "sentenceIndex": 4,
+      "pos": "adverb",
+      "phrase": "we sing together",
+      "phraseVi": "bọn mình cùng nhau hát"
+    },
+    {
+      "text": "difficult",
+      "lemma": "difficult",
+      "meaningVi": "khó",
+      "sentenceIndex": 5,
+      "pos": "adjective",
+      "phrase": "it is difficult for me",
+      "phraseVi": "với mình thì khó"
+    },
+    {
+      "text": "after school",
+      "lemma": "after school",
+      "meaningVi": "sau giờ học",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "guitar practice after school",
+      "phraseVi": "tập đàn guitar sau giờ học"
+    },
+    {
+      "text": "grandfather",
+      "lemma": "grandfather",
+      "meaningVi": "ông",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "his grandfather plays it at home",
+      "phraseVi": "ông bạn ấy chơi đàn ở nhà"
+    },
+    {
+      "text": "beautiful",
+      "lemma": "beautiful",
+      "meaningVi": "hay, đẹp",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "because it is beautiful",
+      "phraseVi": "vì nó hay lắm"
+    },
+    {
+      "text": "football",
+      "lemma": "football",
+      "meaningVi": "bóng đá",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "he likes football more",
+      "phraseVi": "bạn ấy thích bóng đá hơn"
+    },
+    {
+      "text": "rings",
+      "lemma": "ring",
+      "meaningVi": "reo (chuông)",
+      "sentenceIndex": 11,
+      "pos": "verb",
+      "phrase": "when the bell rings",
+      "phraseVi": "khi chuông reo"
+    }
+  ]
+}

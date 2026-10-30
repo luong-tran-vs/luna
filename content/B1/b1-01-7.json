@@ -1,0 +1,618 @@
+{
+  "content": "Hai and Phuc are engineers at a building company in Binh Duong. Their manager needs a short history of their team for the company website.\n\nHai says, \"Let's start with our customers. How long have we worked with Sun Hotels?\"\n\"For five years. We've built three hotels for them since 2021.\"\n\"And the school in Thu Dau Mot?\"\n\"We finished it last summer, but we've already started a second building there.\"\nHai opens his computer, and he types quickly. \"OK. Have we finished the hospital in Di An yet?\"\n\"Not yet. The walls are up, but we haven't finished the roof yet. The deadline is in December.\"\n\"Right. What else have we done this year?\"\n\"We've just finished the new bridge near the river. And we've repaired two old factories.\"\n\"That's a lot of work. Have we had any accidents?\"\n\"No, we haven't. We've worked for two years without one. I'm really proud of that.\"\nHai smiles. \"Me too. Have you sent the photos to the manager yet?\"\n\"I've already sent the photos of the bridge, but I haven't seen the hotel photos yet.\"\n\"They're on the team computer, in the folder called Work 2025.\"\n\"Great. Let's finish this today. I want to go home early for once!\"",
+  "targetWords": [
+    "engineer",
+    "history",
+    "customer",
+    "wall",
+    "roof",
+    "bridge",
+    "accident",
+    "proud",
+    "photo",
+    "folder"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "engineers",
+        "lemma": "engineer",
+        "meaningVi": "kỹ sư",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "history",
+        "lemma": "history",
+        "meaningVi": "lịch sử, quá trình",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "customers",
+        "lemma": "customer",
+        "meaningVi": "khách hàng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "walls",
+        "lemma": "wall",
+        "meaningVi": "bức tường",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "roof",
+        "lemma": "roof",
+        "meaningVi": "mái nhà",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "bridge",
+        "lemma": "bridge",
+        "meaningVi": "cây cầu",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "accidents",
+        "lemma": "accident",
+        "meaningVi": "tai nạn",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "proud",
+        "lemma": "proud",
+        "meaningVi": "tự hào",
+        "pos": "adjective",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "photos",
+        "lemma": "photo",
+        "meaningVi": "ảnh",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "folder",
+        "lemma": "folder",
+        "meaningVi": "thư mục",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hai and Phuc doing?",
+        "promptVi": "Hải và Phúc đang làm gì?",
+        "options": [
+          "Writing a short history of their team's work",
+          "Building a new hotel for Sun Hotels",
+          "Looking for a new job",
+          "Visiting a hospital in Di An"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trưởng phòng cần một bản lịch sử ngắn của nhóm, nên hai người cùng điểm lại các công việc đã làm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many hotels have they built for Sun Hotels?",
+        "promptVi": "Họ đã xây bao nhiêu khách sạn cho Sun Hotels?",
+        "options": [
+          "Two",
+          "Five",
+          "Three",
+          "One"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phúc nói \"We've built three hotels for them since 2021.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why is Phuc proud?",
+        "promptVi": "Vì sao Phúc tự hào?",
+        "options": [
+          "The team has worked for two years without an accident.",
+          "They finished the hospital early.",
+          "The manager liked the photos.",
+          "They have worked with Sun Hotels for five years."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phúc nói \"We've worked for two years without one. I'm really proud of that.\" — \"one\" ở đây là một vụ tai nạn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They have finished the roof of the hospital.",
+        "promptVi": "Họ đã làm xong mái của bệnh viện.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phúc nói \"we haven't finished the roof yet.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"for once\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I want to go home early for once!\"",
+        "options": [
+          "một lần thôi, hiếm hoi một lần",
+          "mãi mãi",
+          "cho một người",
+          "ngay lập tức"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "For once = một lần hiếm hoi (ngụ ý bình thường không được như vậy)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành với for / since / already / just / yet",
+      "bodyVi": "Hiện tại hoàn thành với for / since nói khoảng thời gian đến nay: How long have we worked with Sun Hotels? — For five years. We've built three hotels since 2021. Already = đã… rồi (we've already started a second building), just = vừa mới (we've just finished the new bridge), yet = chưa / đã… chưa (Have we finished the hospital yet? We haven't finished the roof yet).",
+      "examples": [
+        "We've built three hotels for them since 2021.\"",
+        "The walls are up, but we haven't finished the roof yet.",
+        "\"We've just finished the new bridge near the river."
+      ]
+    },
+    "writingPrompt": "Write a short history of your class, club or team: how long has it existed, and what has it done so far?",
+    "sentenceTranslations": [
+      "Hải và Phúc là kỹ sư ở một công ty xây dựng tại Bình Dương.",
+      "Trưởng phòng cần một bản lịch sử ngắn về nhóm của họ để đưa lên trang web của công ty.",
+      "Hải nói: \"Mình bắt đầu với các khách hàng nhé.",
+      "Mình làm với Sun Hotels bao lâu rồi?\"",
+      "\"Năm năm rồi.",
+      "Từ năm 2021 đến giờ mình đã xây cho họ ba khách sạn.\"",
+      "\"Còn trường học ở Thủ Dầu Một?\"",
+      "\"Mình làm xong hồi hè năm ngoái, nhưng đã bắt đầu xây toà thứ hai ở đó rồi.\"",
+      "Hải mở máy tính và gõ thật nhanh.",
+      "\"Được.",
+      "Bệnh viện ở Dĩ An xong chưa nhỉ?\"",
+      "\"Chưa.",
+      "Tường đã lên rồi, nhưng mái thì chưa xong.",
+      "Hạn chót là tháng Mười Hai.\"",
+      "\"Ừ.",
+      "Năm nay mình còn làm gì nữa?\"",
+      "\"Mình vừa làm xong cây cầu mới gần sông.",
+      "Và đã sửa hai nhà máy cũ.\"",
+      "\"Nhiều việc thật.",
+      "Mình có bị tai nạn nào không?\"",
+      "\"Không.",
+      "Hai năm nay mình làm việc mà không có vụ nào.",
+      "Mình thật sự tự hào về điều đó.\"",
+      "Hải mỉm cười.",
+      "\"Mình cũng vậy.",
+      "Cậu đã gửi ảnh cho trưởng phòng chưa?\"",
+      "\"Mình gửi ảnh cây cầu rồi, nhưng chưa thấy ảnh khách sạn đâu.\"",
+      "\"Ảnh ở trong máy tính chung của nhóm, trong thư mục tên là Work 2025.\"",
+      "\"Tuyệt.",
+      "Làm xong hôm nay luôn nhé.",
+      "Mình muốn về sớm một lần cho biết!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể điểm lại công việc của nhóm: làm bao lâu (for / since), việc gì đã xong, vừa xong, chưa xong (already / just / yet).",
+    "examples": [
+      {
+        "lemma": "engineer",
+        "sentence": "My brother is an engineer.",
+        "meaningVi": "Anh trai tôi là kỹ sư."
+      },
+      {
+        "lemma": "history",
+        "sentence": "This school has a long history.",
+        "meaningVi": "Ngôi trường này có lịch sử lâu đời."
+      },
+      {
+        "lemma": "customer",
+        "sentence": "The customer wants a new design.",
+        "meaningVi": "Khách hàng muốn một thiết kế mới."
+      },
+      {
+        "lemma": "wall",
+        "sentence": "There is a clock on the wall.",
+        "meaningVi": "Trên tường có một cái đồng hồ."
+      },
+      {
+        "lemma": "roof",
+        "sentence": "The roof is red.",
+        "meaningVi": "Mái nhà màu đỏ."
+      },
+      {
+        "lemma": "bridge",
+        "sentence": "They built a bridge over the river.",
+        "meaningVi": "Họ xây một cây cầu qua sông."
+      },
+      {
+        "lemma": "accident",
+        "sentence": "There was an accident on the road.",
+        "meaningVi": "Trên đường có một vụ tai nạn."
+      },
+      {
+        "lemma": "proud",
+        "sentence": "I'm proud of my team.",
+        "meaningVi": "Tôi tự hào về nhóm của mình."
+      },
+      {
+        "lemma": "photo",
+        "sentence": "Can you take a photo of us?",
+        "meaningVi": "Bạn chụp giúp chúng tôi một tấm ảnh nhé?"
+      },
+      {
+        "lemma": "folder",
+        "sentence": "Put the file in this folder.",
+        "meaningVi": "Để tệp vào thư mục này."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Phuc",
+        "Daniel"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Phuc, how long have you worked on the bridge?",
+          "meaningVi": "Phúc ơi, cậu làm cây cầu bao lâu rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "Since March. We've just finished it.",
+          "meaningVi": "Từ tháng Ba. Bọn mình vừa làm xong."
+        },
+        {
+          "speaker": 1,
+          "text": "Congratulations! Has it opened yet?",
+          "meaningVi": "Chúc mừng! Cầu đã thông xe chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. It opens next week.",
+          "meaningVi": "Chưa. Tuần sau mới thông xe."
+        },
+        {
+          "speaker": 1,
+          "text": "What are you working on now?",
+          "meaningVi": "Giờ cậu đang làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "A hospital. We've already built the walls.",
+          "meaningVi": "Một bệnh viện. Bọn mình đã xây xong tường rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "And the roof?",
+          "meaningVi": "Còn mái?"
+        },
+        {
+          "speaker": 0,
+          "text": "We haven't started it yet. The deadline is in December.",
+          "meaningVi": "Chưa bắt đầu. Hạn chót là tháng Mười Hai."
+        },
+        {
+          "speaker": 1,
+          "text": "You've been busy for months!",
+          "meaningVi": "Mấy tháng nay cậu bận thật đấy!"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but I haven't had a single accident. I'm proud of that.",
+          "meaningVi": "Ừ, nhưng mình chưa để xảy ra vụ tai nạn nào. Mình tự hào về điều đó."
+        }
+      ]
+    },
+    "grammarTipVi": "Since March (mốc) / for months (khoảng). We've just finished it (vừa xong). We've already built the walls (đã xong). Has it opened yet? — Not yet.",
+    "translations": [
+      {
+        "vi": "Chúng tôi làm với khách hàng này năm năm rồi.",
+        "en": "We have worked with this customer for five years.",
+        "distractors": [
+          "since",
+          "works",
+          "has"
+        ]
+      },
+      {
+        "vi": "Chúng tôi vừa làm xong cây cầu.",
+        "en": "We have just finished the bridge.",
+        "distractors": [
+          "yet",
+          "finishes",
+          "has"
+        ]
+      },
+      {
+        "vi": "Chúng tôi chưa làm xong mái nhà.",
+        "en": "We haven't finished the roof yet.",
+        "distractors": [
+          "already",
+          "just",
+          "didn't"
+        ]
+      },
+      {
+        "vi": "Tôi đã gửi ảnh rồi.",
+        "en": "I have already sent the photos.",
+        "distractors": [
+          "yet",
+          "send",
+          "has"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Daniel hỏi Phúc về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc xây dựng của Phúc",
+          "Một chuyến du lịch",
+          "Một cuộc họp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Daniel hỏi về cây cầu và bệnh viện mà Phúc đang làm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào cây cầu thông xe?",
+        "promptVi": "",
+        "options": [
+          "Hôm nay",
+          "Tuần sau",
+          "Tháng Mười Hai"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phúc nói \"It opens next week.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ở bệnh viện, họ đã xây xong phần nào?",
+        "promptVi": "",
+        "options": [
+          "Mái",
+          "Cửa sổ",
+          "Tường"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phúc nói \"We've already built the walls.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuc has had an accident at work.",
+        "promptVi": "Phúc đã gặp tai nạn khi làm việc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phúc nói \"I haven't had a single accident.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Nhóm của Hải và Phúc đã làm những công trình nào? Việc nào xong rồi, việc nào chưa xong?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành với for / since / already / just / yet",
+      "noticing": [
+        {
+          "sentence": "How long have we worked with Sun Hotels?\"",
+          "highlights": [
+            "How long have we worked"
+          ]
+        },
+        {
+          "sentence": "We've built three hotels for them since 2021.\"",
+          "highlights": [
+            "since 2021"
+          ]
+        },
+        {
+          "sentence": "\"We finished it last summer, but we've already started a second building there.\"",
+          "highlights": [
+            "finished",
+            "last summer",
+            "already started"
+          ]
+        },
+        {
+          "sentence": "The walls are up, but we haven't finished the roof yet.",
+          "highlights": [
+            "haven't finished",
+            "yet"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"We finished it last summer, but we've already started a second building\", vì sao hai vế dùng hai thì khác nhau?",
+      "options": [
+        "Vế đầu có thời điểm đã qua (last summer); vế sau nói việc đã làm tính đến nay (already).",
+        "Vì vế sau nói về tương lai.",
+        "Vì finish là động từ bất quy tắc."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Last summer → quá khứ đơn; already (đã… rồi, tính đến bây giờ) → hiện tại hoàn thành.",
+      "whenVi": "For / since cho thời gian kéo dài đến nay; already / just / yet cho tiến độ công việc.",
+      "table": [
+        {
+          "subject": "for / since",
+          "form": "We've worked with them for five years / since 2021.",
+          "negative": "—"
+        },
+        {
+          "subject": "already",
+          "form": "We've already started a second building.",
+          "negative": "—"
+        },
+        {
+          "subject": "just",
+          "form": "We've just finished the new bridge.",
+          "negative": "—"
+        },
+        {
+          "subject": "yet",
+          "form": "Have we finished the hospital yet?",
+          "negative": "We haven't finished the roof yet."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We have worked with them since five years.",
+          "right": "We have worked with them for five years."
+        },
+        {
+          "wrong": "We have already finished the roof yet.",
+          "right": "We have already finished the roof."
+        }
+      ],
+      "noteVi": "Không dùng already và yet trong cùng một câu: already cho câu khẳng định, yet cho câu phủ định và câu hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền for hoặc since.",
+          "text": "We have built three hotels for them ___ 2021.",
+          "answers": [
+            "since"
+          ],
+          "explanationVi": "2021 là mốc thời gian: since."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "We've ___ finished the new bridge. It was ready this morning.",
+          "options": [
+            "yet",
+            "just",
+            "since",
+            "for"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Vừa mới xong: just."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We haven't finished yet the roof.",
+          "sentence": "We haven't finished the roof yet.",
+          "explanationVi": "Yet đứng cuối câu."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn đã gửi ảnh chưa?",
+          "sentence": "Have you sent the photos yet?",
+          "words": [
+            "sent",
+            "Have",
+            "photos",
+            "you",
+            "the",
+            "yet?",
+            "already"
+          ],
+          "explanationVi": "Câu hỏi dùng yet ở cuối; từ \"already\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"We've just finished the new bridge near the river.",
+        "tipVi": "We've just nối liền /wiːvdʒʌst/; bridge /brɪdʒ/."
+      },
+      {
+        "text": "I'm really proud of that.\"",
+        "tipVi": "Proud /praʊd/ có nguyên âm đôi /aʊ/; nhấn vào really proud."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How long have you been in your class or club?",
+        "questionVi": "Bạn ở lớp hoặc câu lạc bộ hiện tại bao lâu rồi?",
+        "frame": "I've been in it for ___ / since ___."
+      },
+      {
+        "question": "What have you already done this week?",
+        "questionVi": "Tuần này bạn đã làm xong những gì?",
+        "frame": "I've already ___."
+      },
+      {
+        "question": "What hasn't your friend finished yet?",
+        "questionVi": "Bạn của bạn còn việc gì chưa làm xong?",
+        "frame": "He / She hasn't finished ___ yet."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành với for / since / already / just / yet",
+      "anyOf": [
+        " for ",
+        " since ",
+        "already",
+        "just",
+        " yet"
+      ],
+      "outlineVi": [
+        "Nhóm / lớp / câu lạc bộ của bạn có từ khi nào (since / for).",
+        "Những gì nhóm đã làm được (already / just).",
+        "Việc nhóm chưa làm xong (haven't … yet)."
+      ],
+      "modelAnswer": "Our English club has met every Saturday since 2023. We have had more than fifty meetings so far. We have already made two short films, and we have just finished a play for the school festival. We haven't chosen a name for our club yet, but we have talked about it for weeks. I'm really proud of our club."
+    }
+  },
+  "glosses": [
+    {
+      "text": "building company",
+      "lemma": "building company",
+      "meaningVi": "công ty xây dựng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a building company in Binh Duong",
+      "phraseVi": "một công ty xây dựng tại Bình Dương"
+    },
+    {
+      "text": "built",
+      "lemma": "build",
+      "meaningVi": "xây",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "We've built three hotels",
+      "phraseVi": "đã xây ba khách sạn"
+    },
+    {
+      "text": "types",
+      "lemma": "type",
+      "meaningVi": "gõ (bàn phím)",
+      "sentenceIndex": 8,
+      "pos": "verb",
+      "phrase": "he types quickly",
+      "phraseVi": "gõ thật nhanh"
+    },
+    {
+      "text": "repaired",
+      "lemma": "repair",
+      "meaningVi": "sửa chữa",
+      "sentenceIndex": 17,
+      "pos": "verb",
+      "phrase": "we've repaired two old factories",
+      "phraseVi": "đã sửa hai nhà máy cũ"
+    },
+    {
+      "text": "without",
+      "lemma": "without",
+      "meaningVi": "mà không có",
+      "sentenceIndex": 21,
+      "pos": "preposition",
+      "phrase": "for two years without one",
+      "phraseVi": "hai năm nay mà không có vụ nào"
+    },
+    {
+      "text": "for once",
+      "lemma": "for once",
+      "meaningVi": "một lần hiếm hoi",
+      "sentenceIndex": 30,
+      "pos": "phrase",
+      "phrase": "go home early for once",
+      "phraseVi": "về sớm một lần cho biết"
+    }
+  ]
+}

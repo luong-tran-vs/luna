@@ -1,0 +1,612 @@
+{
+  "content": "It's Saturday evening. Mr Quan and his wife, Lan, are sitting on the sofa. They want to choose a film that the whole family can enjoy.\n\nQuan says, \"How about this one? It's a comedy that has very good reviews.\"\n\"What is it about?\"\n\"A dog that can talk. It helps a family who loses all their money.\"\nLan laughs. \"That might be good for the children. But your mother is coming too. She might not like a film about a talking dog.\"\n\"OK. What about this one? It's about an old man who opens a noodle shop in Hanoi.\"\n\"Who is the actor?\"\n\"Hoai Linh. He's the actor who made everyone laugh in that Tet film last year.\"\n\"Oh, I love him. That must be funny.\"\n\"But look at the reviews. Only two stars.\"\n\"Two stars? Then it can't be very good. People who watched it must be disappointed.\"\nQuan scrolls down. \"Here's another one. It has four and a half stars. It's about a family whose car breaks down on the way to Da Lat.\"\n\"That sounds like us last summer!\"\n\"Exactly. The children might laugh a lot, and my mother loves Da Lat.\"\nLan says, \"Perfect. Let's watch that one. I'll call the children.\"",
+  "targetWords": [
+    "sofa",
+    "choose",
+    "comedy",
+    "review",
+    "dog",
+    "money",
+    "laugh",
+    "disappointed",
+    "car",
+    "summer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "sofa",
+        "lemma": "sofa",
+        "meaningVi": "ghế sofa",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "choose",
+        "lemma": "choose",
+        "meaningVi": "chọn",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "comedy",
+        "lemma": "comedy",
+        "meaningVi": "phim hài",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "reviews",
+        "lemma": "review",
+        "meaningVi": "bài đánh giá, nhận xét",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "dog",
+        "lemma": "dog",
+        "meaningVi": "con chó",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "money",
+        "lemma": "money",
+        "meaningVi": "tiền",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "laugh",
+        "lemma": "laugh",
+        "meaningVi": "cười",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "disappointed",
+        "lemma": "disappointed",
+        "meaningVi": "thất vọng",
+        "pos": "adjective",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "car",
+        "lemma": "car",
+        "meaningVi": "xe ô tô",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "summer",
+        "lemma": "summer",
+        "meaningVi": "mùa hè",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Quan and Lan doing?",
+        "promptVi": "Quân và Lan đang làm gì?",
+        "options": [
+          "Choosing a comedy for the whole family",
+          "Buying a new car",
+          "Writing reviews of a film",
+          "Booking a hotel in Da Lat"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai vợ chồng chọn một bộ phim hài mà cả nhà đều có thể xem."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why don't they choose the film about the noodle shop?",
+        "promptVi": "Vì sao họ không chọn phim về quán phở?",
+        "options": [
+          "The actor isn't funny.",
+          "It has bad reviews.",
+          "It is too long.",
+          "The children don't like noodles."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quân nói \"look at the reviews. Only two stars.\" và Lan nói \"Then it can't be very good.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why might Quan's mother like the last film?",
+        "promptVi": "Vì sao có thể mẹ Quân sẽ thích bộ phim cuối?",
+        "options": [
+          "It is about a talking dog.",
+          "Hoai Linh is in it.",
+          "She loves Da Lat.",
+          "It has two stars."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quân nói \"my mother loves Da Lat\", và bộ phim kể về một gia đình đi Đà Lạt."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan thinks Quan's mother will love the film about the talking dog.",
+        "promptVi": "Lan nghĩ mẹ Quân sẽ rất thích phim về chú chó biết nói.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"She might not like a film about a talking dog.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"breaks down\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It's about a family whose car breaks down on the way to Da Lat.\"",
+        "options": [
+          "bị hỏng giữa đường",
+          "đi nhanh",
+          "bị mất",
+          "quay về"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Break down (xe, máy) = bị hỏng, không chạy được."
+      }
+    ],
+    "grammarNote": {
+      "title": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "bodyVi": "Mệnh đề quan hệ giúp mô tả bộ phim, nhân vật, diễn viên: a film that the whole family can enjoy, a comedy that has very good reviews, a family who loses all their money, the actor who made everyone laugh, a family whose car breaks down. People who watched it = những người đã xem phim. Bài còn dùng might / must / can't để đoán phim hay hay dở.",
+      "examples": [
+        "They want to choose a film that the whole family can enjoy.",
+        "It's a comedy that has very good reviews.\"",
+        "It's about a family whose car breaks down on the way to Da Lat.\""
+      ]
+    },
+    "writingPrompt": "Write about a film that your family enjoyed watching together: what is it about, and who is the actor who plays the main character?",
+    "sentenceTranslations": [
+      "Tối thứ Bảy.",
+      "Anh Quân và vợ là chị Lan đang ngồi trên ghế sofa.",
+      "Họ muốn chọn một bộ phim mà cả nhà đều có thể xem.",
+      "Quân nói: \"Phim này thì sao?",
+      "Đây là phim hài có nhận xét rất tốt.\"",
+      "\"Phim nói về gì?\"",
+      "\"Một con chó biết nói.",
+      "Nó giúp một gia đình bị mất hết tiền.\"",
+      "Lan cười.",
+      "\"Có thể hợp với bọn trẻ.",
+      "Nhưng mẹ anh cũng đến nữa.",
+      "Có thể mẹ không thích phim về chó biết nói đâu.\"",
+      "\"Được.",
+      "Thế phim này?",
+      "Phim về một ông cụ mở quán phở ở Hà Nội.\"",
+      "\"Diễn viên là ai?\"",
+      "\"Hoài Linh.",
+      "Ông ấy là diễn viên làm cả nhà cười trong bộ phim Tết năm ngoái.\"",
+      "\"Ồ, em thích ông ấy lắm.",
+      "Chắc chắn là phim vui.\"",
+      "\"Nhưng xem nhận xét này.",
+      "Chỉ có hai sao.\"",
+      "\"Hai sao á?",
+      "Vậy thì không thể hay lắm được.",
+      "Chắc những người đã xem thấy thất vọng.\"",
+      "Quân kéo xuống.",
+      "\"Đây có phim khác.",
+      "Phim này được bốn sao rưỡi.",
+      "Phim kể về một gia đình bị hỏng xe trên đường đi Đà Lạt.\"",
+      "\"Nghe giống nhà mình hè năm ngoái!\"",
+      "\"Đúng thế.",
+      "Bọn trẻ có thể sẽ cười nhiều, mà mẹ anh lại thích Đà Lạt.\"",
+      "Lan nói: \"Tuyệt.",
+      "Xem phim đó đi.",
+      "Em gọi bọn trẻ đây.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể chọn và giới thiệu một bộ phim bằng mệnh đề quan hệ (a film that…, an actor who…, a family whose…) và đoán bằng might / must / can't.",
+    "examples": [
+      {
+        "lemma": "sofa",
+        "sentence": "The cat is sleeping on the sofa.",
+        "meaningVi": "Con mèo đang ngủ trên ghế sofa."
+      },
+      {
+        "lemma": "choose",
+        "sentence": "Which colour do you choose?",
+        "meaningVi": "Bạn chọn màu nào?"
+      },
+      {
+        "lemma": "comedy",
+        "sentence": "I want to watch a comedy tonight.",
+        "meaningVi": "Tối nay tôi muốn xem phim hài."
+      },
+      {
+        "lemma": "review",
+        "sentence": "I read a review of the film online.",
+        "meaningVi": "Tôi đọc một bài đánh giá về bộ phim trên mạng."
+      },
+      {
+        "lemma": "dog",
+        "sentence": "Our dog loves the beach.",
+        "meaningVi": "Con chó của chúng tôi rất thích bãi biển."
+      },
+      {
+        "lemma": "money",
+        "sentence": "I don't have much money.",
+        "meaningVi": "Tôi không có nhiều tiền."
+      },
+      {
+        "lemma": "laugh",
+        "sentence": "His jokes always make me laugh.",
+        "meaningVi": "Chuyện cười của anh ấy luôn làm tôi cười."
+      },
+      {
+        "lemma": "disappointed",
+        "sentence": "I was disappointed with the ending.",
+        "meaningVi": "Tôi thất vọng với đoạn kết."
+      },
+      {
+        "lemma": "car",
+        "sentence": "They bought a new car.",
+        "meaningVi": "Họ đã mua một chiếc ô tô mới."
+      },
+      {
+        "lemma": "summer",
+        "sentence": "We go to the beach every summer.",
+        "meaningVi": "Mùa hè nào chúng tôi cũng đi biển."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Peter"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, what did your family watch last night?",
+          "meaningVi": "Lan ơi, tối qua nhà cậu xem phim gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "A comedy about a family whose car breaks down.",
+          "meaningVi": "Một phim hài về một gia đình bị hỏng xe."
+        },
+        {
+          "speaker": 1,
+          "text": "Was it funny?",
+          "meaningVi": "Có vui không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Very! My mother-in-law laughed the most.",
+          "meaningVi": "Rất vui! Mẹ chồng mình cười nhiều nhất."
+        },
+        {
+          "speaker": 1,
+          "text": "Who is the actor who plays the father?",
+          "meaningVi": "Diễn viên đóng vai người bố là ai?"
+        },
+        {
+          "speaker": 0,
+          "text": "I don't know his name. He must be new.",
+          "meaningVi": "Mình không biết tên. Chắc là diễn viên mới."
+        },
+        {
+          "speaker": 1,
+          "text": "I want a film that my children can enjoy too.",
+          "meaningVi": "Mình muốn một bộ phim mà con mình cũng xem được."
+        },
+        {
+          "speaker": 0,
+          "text": "Then this one is perfect. It's the film that we all liked.",
+          "meaningVi": "Vậy phim này hợp đấy. Đó là bộ phim mà cả nhà mình đều thích."
+        },
+        {
+          "speaker": 1,
+          "text": "What about the dog film?",
+          "meaningVi": "Còn phim về chú chó thì sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "It might be good for small children, but the reviews aren't great.",
+          "meaningVi": "Có thể hợp với trẻ nhỏ, nhưng nhận xét không tốt lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "A family whose car breaks down (sở hữu), the actor who plays the father (người), a film that my children can enjoy (vật). He must be new: chắc là diễn viên mới.",
+    "translations": [
+      {
+        "vi": "Đó là phim hài có nhận xét rất tốt.",
+        "en": "It is a comedy that has very good reviews.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Chúng tôi muốn chọn một bộ phim mà cả nhà đều xem được.",
+        "en": "We want to choose a film that the whole family can enjoy.",
+        "distractors": [
+          "who",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Ông ấy là diễn viên làm mọi người cười.",
+        "en": "He is the actor who makes everyone laugh.",
+        "distractors": [
+          "which",
+          "where",
+          "whose"
+        ]
+      },
+      {
+        "vi": "Những người đã xem chắc thấy thất vọng.",
+        "en": "People who watched it must be disappointed.",
+        "distractors": [
+          "which",
+          "might",
+          "whose"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan kể với Peter về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bộ phim nhà Lan xem tối qua",
+          "Chiếc xe mới của Lan",
+          "Một quán phở"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Peter hỏi \"what did your family watch last night?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai cười nhiều nhất?",
+        "promptVi": "",
+        "options": [
+          "Con của Lan",
+          "Mẹ chồng Lan",
+          "Chồng Lan"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"My mother-in-law laughed the most.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan nghĩ gì về phim chú chó?",
+        "promptVi": "",
+        "options": [
+          "Rất hay cho người lớn",
+          "Không ai thích",
+          "Có thể hợp với trẻ nhỏ nhưng nhận xét không tốt"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"It might be good for small children, but the reviews aren't great.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan knows the name of the actor who plays the father.",
+        "promptVi": "Lan biết tên diễn viên đóng vai người bố.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"I don't know his name.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Quân và Lan xem xét những bộ phim nào? Vì sao cuối cùng họ chọn phim thứ ba?",
+    "grammarStep": {
+      "titleVi": "Mệnh đề quan hệ (who, which, that, whose, where)",
+      "noticing": [
+        {
+          "sentence": "They want to choose a film that the whole family can enjoy.",
+          "highlights": [
+            "that the whole family can enjoy"
+          ]
+        },
+        {
+          "sentence": "It helps a family who loses all their money.\"",
+          "highlights": [
+            "who loses all their money"
+          ]
+        },
+        {
+          "sentence": "People who watched it must be disappointed.\"",
+          "highlights": [
+            "who watched it"
+          ]
+        },
+        {
+          "sentence": "It's about a family whose car breaks down on the way to Da Lat.\"",
+          "highlights": [
+            "whose car breaks down"
+          ]
+        }
+      ],
+      "questionVi": "Trong \"People who watched it must be disappointed\", mệnh đề quan hệ đứng ở đâu?",
+      "options": [
+        "Ngay sau danh từ people, trước động từ chính must be.",
+        "Ở cuối câu.",
+        "Trước people."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Mệnh đề quan hệ luôn đứng ngay sau danh từ nó bổ nghĩa, kể cả khi danh từ đó là chủ ngữ: People [who watched it] must be disappointed.",
+      "whenVi": "Dùng mệnh đề quan hệ để mô tả bộ phim, nhân vật, diễn viên khi chọn phim.",
+      "table": [
+        {
+          "subject": "that (vật)",
+          "form": "a comedy that has very good reviews",
+          "negative": "—"
+        },
+        {
+          "subject": "who (người)",
+          "form": "the actor who made everyone laugh",
+          "negative": "—"
+        },
+        {
+          "subject": "whose (sở hữu)",
+          "form": "a family whose car breaks down",
+          "negative": "—"
+        },
+        {
+          "subject": "Ở giữa câu",
+          "form": "People who watched it must be disappointed.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "It's a comedy who has very good reviews.",
+          "right": "It's a comedy that has very good reviews."
+        },
+        {
+          "wrong": "It's about a family who car breaks down.",
+          "right": "It's about a family whose car breaks down."
+        }
+      ],
+      "noteVi": "Động từ trong mệnh đề quan hệ chia theo danh từ đứng trước: a family who loses (số ít), people who watch (số nhiều).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền who, that hoặc whose.",
+          "text": "It's about a family ___ car breaks down.",
+          "answers": [
+            "whose"
+          ],
+          "explanationVi": "Chiếc xe của gia đình: whose."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "He's the actor ___ made everyone laugh.",
+          "options": [
+            "which",
+            "who",
+            "whose",
+            "where"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Actor là người: who."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It's a film who the whole family can enjoy.",
+          "sentence": "It's a film that the whole family can enjoy.",
+          "explanationVi": "Film là vật: that / which."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đó là phim hài có nhận xét tốt.",
+          "sentence": "It is a comedy that has good reviews.",
+          "words": [
+            "comedy",
+            "It",
+            "is",
+            "a",
+            "that",
+            "has",
+            "good",
+            "reviews.",
+            "who"
+          ],
+          "explanationVi": "Comedy là vật: that; từ \"who\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"That sounds like us last summer!\"",
+        "tipVi": "Sounds like nối liền; nhấn vào us và summer."
+      },
+      {
+        "text": "Then it can't be very good.",
+        "tipVi": "Can't be nối /kɑːntbi/; giọng nghi ngờ."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is a film that your family enjoys?",
+        "questionVi": "Bộ phim nào gia đình bạn thích?",
+        "frame": "A film that my family enjoys is ___."
+      },
+      {
+        "question": "Who is an actor who always makes you laugh?",
+        "questionVi": "Diễn viên nào luôn làm bạn cười?",
+        "frame": "An actor who always makes me laugh is ___."
+      },
+      {
+        "question": "Who chooses the films in your family? What does he or she like?",
+        "questionVi": "Ai trong nhà bạn hay chọn phim? Người đó thích phim gì?",
+        "frame": "My ___. He / She likes films that ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 mệnh đề quan hệ (who, which, that, whose, where)",
+      "anyOf": [
+        " who ",
+        " which ",
+        " that ",
+        " whose ",
+        " where "
+      ],
+      "outlineVi": [
+        "Bộ phim đó là phim gì, nói về ai (a film about a … who …).",
+        "Diễn viên chính (the actor who plays …).",
+        "Vì sao cả nhà thích (It's a film that …)."
+      ],
+      "modelAnswer": "Last Tet, my family watched a comedy about a man who wants to win a cooking competition. The actor who plays the man is very funny, and his wife is a woman whose food is terrible. It's a film that everyone in my family can enjoy, from my little brother to my grandmother. We laughed so much that my father cried."
+    }
+  },
+  "glosses": [
+    {
+      "text": "How about",
+      "lemma": "how about",
+      "meaningVi": "thế còn… thì sao",
+      "sentenceIndex": 3,
+      "pos": "phrase",
+      "phrase": "How about this one?",
+      "phraseVi": "Phim này thì sao?"
+    },
+    {
+      "text": "talking dog",
+      "lemma": "talking",
+      "meaningVi": "chó biết nói",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "a film about a talking dog",
+      "phraseVi": "phim về chó biết nói"
+    },
+    {
+      "text": "noodle shop",
+      "lemma": "noodle shop",
+      "meaningVi": "quán phở, quán mì",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "opens a noodle shop in Hanoi",
+      "phraseVi": "mở quán phở ở Hà Nội"
+    },
+    {
+      "text": "scrolls down",
+      "lemma": "scroll down",
+      "meaningVi": "kéo xuống (màn hình)",
+      "sentenceIndex": 25,
+      "pos": "phrasal verb",
+      "phrase": "Quan scrolls down.",
+      "phraseVi": "Quân kéo xuống."
+    },
+    {
+      "text": "breaks down",
+      "lemma": "break down",
+      "meaningVi": "bị hỏng",
+      "sentenceIndex": 28,
+      "pos": "phrasal verb",
+      "phrase": "whose car breaks down",
+      "phraseVi": "bị hỏng xe"
+    }
+  ]
+}

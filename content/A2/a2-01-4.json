@@ -1,0 +1,597 @@
+{
+  "content": "Last Friday evening, Thu went to a restaurant in Da Nang. There was a party for her old high school classmates. It was ten years after their last day at school.\n\nThere were twenty people at the big table. Some faces were the same, but some were very different! Thu's best friend from school, Ngoc, was there too. They hugged and laughed.\n\nTheir old teacher, Mr Phong, came too. His hair was grey, but his voice was the same. He asked his students, \"Where were you after school?\"\nDuc said, \"I was in Japan for five years, and I worked for a car company.\"\nLinh was a nurse at a big hospital in Hue. Thu told them about her job at a bank in Hanoi.\n\nThey ate seafood, drank fruit juice and sang their old school songs. At eleven o'clock, they still weren't ready to go home.\n\n\"We were so happy to meet again,\" Thu said to Ngoc. \"Let's have another party next year!\"",
+  "targetWords": [
+    "party",
+    "classmate",
+    "people",
+    "best friend",
+    "laugh",
+    "teacher",
+    "meet",
+    "again"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "party",
+        "lemma": "party",
+        "meaningVi": "bữa tiệc, buổi gặp mặt",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "classmates",
+        "lemma": "classmate",
+        "meaningVi": "bạn cùng lớp",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "people",
+        "lemma": "people",
+        "meaningVi": "người",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "best friend",
+        "lemma": "best friend",
+        "meaningVi": "bạn thân nhất",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "laughed",
+        "lemma": "laugh",
+        "meaningVi": "cười",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "teacher",
+        "lemma": "teacher",
+        "meaningVi": "thầy giáo, cô giáo",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "meet",
+        "lemma": "meet",
+        "meaningVi": "gặp",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "again",
+        "lemma": "again",
+        "meaningVi": "lại, một lần nữa",
+        "pos": "adverb",
+        "sentenceIndex": 15
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Thu's new job at a bank",
+          "A party with Thu's old high school classmates",
+          "A trip to Japan",
+          "Mr Phong's last lesson"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mười năm sau khi ra trường, Thu đi họp lớp cấp ba ở một nhà hàng ở Đà Nẵng và gặp lại bạn bè, thầy giáo cũ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many people were at the big table?",
+        "promptVi": "Có bao nhiêu người ngồi ở chiếc bàn lớn?",
+        "options": [
+          "Ten",
+          "Twelve",
+          "Twenty",
+          "Twenty-eight"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"There were twenty people at the big table\": hai mươi người."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why weren't they ready to go home at eleven o'clock?",
+        "promptVi": "Vì sao mười một giờ rồi mà mọi người vẫn chưa muốn về?",
+        "options": [
+          "There was no bus.",
+          "The food wasn't ready.",
+          "The weather was bad.",
+          "They were very happy together."
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Thu nói \"We were so happy to meet again\": mọi người vui vì được gặp lại nhau nên chưa muốn về."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duc was in Japan for ten years.",
+        "promptVi": "Đức ở Nhật Bản mười năm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"I was in Japan for five years\": năm năm chứ không phải mười năm."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"the same\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "His hair was grey, but his voice was the same.",
+        "options": [
+          "vẫn như cũ, không đổi",
+          "khác hẳn",
+          "to hơn",
+          "trầm hơn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "The same là giống như trước, không thay đổi: tóc thầy Phong đã bạc, nhưng giọng thầy vẫn như ngày xưa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Was / were",
+      "bodyVi": "Kể trong quá khứ có gì ở đâu: There was + một thứ (there was a party), There were + nhiều thứ (there were twenty people). Hỏi bằng từ hỏi + was / were + chủ ngữ: Where were you after school? Phủ định: wasn't, weren't (they weren't ready).",
+      "examples": [
+        "There were twenty people at the big table.",
+        "He asked his students, \"Where were you after school?\"",
+        "At eleven o'clock, they still weren't ready to go home."
+      ]
+    },
+    "writingPrompt": "Write about a party or a meeting with old friends: where it was, who was there and what you did.",
+    "sentenceTranslations": [
+      "Tối thứ Sáu tuần trước, Thu đến một nhà hàng ở Đà Nẵng.",
+      "Ở đó có buổi họp mặt các bạn cùng lớp cấp ba cũ của cô.",
+      "Đã mười năm kể từ ngày cuối cùng họ còn đi học.",
+      "Có hai mươi người ngồi quanh chiếc bàn lớn.",
+      "Có những gương mặt vẫn như xưa, nhưng có người thì khác hẳn!",
+      "Ngọc, bạn thân nhất của Thu thời đi học, cũng có mặt.",
+      "Hai người ôm nhau và cười.",
+      "Thầy giáo cũ của họ, thầy Phong, cũng đến.",
+      "Tóc thầy đã bạc, nhưng giọng thầy vẫn như xưa.",
+      "Thầy hỏi học trò: \"Ra trường rồi các em ở đâu?\"",
+      "Đức nói: \"Em ở Nhật năm năm, làm cho một công ty ô tô ạ.\"",
+      "Linh là y tá ở một bệnh viện lớn ở Huế.",
+      "Thu kể cho mọi người về công việc của mình ở một ngân hàng ở Hà Nội.",
+      "Họ ăn hải sản, uống nước hoa quả và hát những bài hát thời đi học.",
+      "Mười một giờ rồi mà mọi người vẫn chưa muốn về.",
+      "\"Được gặp lại nhau vui quá,\" Thu nói với Ngọc.",
+      "\"Sang năm mình lại tổ chức một buổi nữa nhé!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một buổi gặp lại bạn cũ: ở đâu, có ai, mọi người ra sao, dùng was / were, there was / there were và động từ bất quy tắc.",
+    "examples": [
+      {
+        "lemma": "party",
+        "sentence": "There is a party at my house on Saturday.",
+        "meaningVi": "Thứ Bảy có một bữa tiệc ở nhà mình."
+      },
+      {
+        "lemma": "classmate",
+        "sentence": "She was my classmate for four years.",
+        "meaningVi": "Cô ấy học cùng lớp với mình bốn năm."
+      },
+      {
+        "lemma": "people",
+        "sentence": "There are a lot of people in the park.",
+        "meaningVi": "Trong công viên có rất nhiều người."
+      },
+      {
+        "lemma": "best friend",
+        "sentence": "My best friend lives in Da Nang.",
+        "meaningVi": "Bạn thân nhất của mình sống ở Đà Nẵng."
+      },
+      {
+        "lemma": "laugh",
+        "sentence": "Don't laugh at me!",
+        "meaningVi": "Đừng cười mình!"
+      },
+      {
+        "lemma": "teacher",
+        "sentence": "Our teacher is very kind.",
+        "meaningVi": "Thầy giáo của bọn mình rất tốt bụng."
+      },
+      {
+        "lemma": "meet",
+        "sentence": "Nice to meet you.",
+        "meaningVi": "Rất vui được gặp bạn."
+      },
+      {
+        "lemma": "again",
+        "sentence": "Can you say it again, please?",
+        "meaningVi": "Bạn nói lại lần nữa được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thu",
+        "Emily"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thu, how was your party last Friday?",
+          "meaningVi": "Thu ơi, buổi tiệc tối thứ Sáu của cậu thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was great! There were twenty people from my old class.",
+          "meaningVi": "Tuyệt lắm! Có hai mươi người từ lớp cũ của mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Was your best friend there?",
+          "meaningVi": "Bạn thân nhất của cậu có đến không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, Ngoc was there. We laughed all night.",
+          "meaningVi": "Có, Ngọc có đến. Bọn mình cười cả tối."
+        },
+        {
+          "speaker": 1,
+          "text": "Were your old teachers there too?",
+          "meaningVi": "Thầy cô cũ của cậu có đến không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only Mr Phong. He was our teacher for three years.",
+          "meaningVi": "Chỉ có thầy Phong. Thầy dạy bọn mình ba năm."
+        },
+        {
+          "speaker": 1,
+          "text": "Where was the party?",
+          "meaningVi": "Buổi tiệc ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "It was at a seafood restaurant in Da Nang.",
+          "meaningVi": "Ở một nhà hàng hải sản ở Đà Nẵng."
+        },
+        {
+          "speaker": 1,
+          "text": "Were you tired the next day?",
+          "meaningVi": "Hôm sau cậu có mệt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I was! But I was very happy.",
+          "meaningVi": "Có chứ! Nhưng mình vui lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về một sự kiện đã qua: How was your party? Where was the party? Was your best friend there? Trả lời: It was great! Yes, she was there.",
+    "translations": [
+      {
+        "vi": "Có hai mươi người ở bàn.",
+        "en": "There were twenty people at the table.",
+        "distractors": [
+          "was",
+          "peoples",
+          "in"
+        ]
+      },
+      {
+        "vi": "Bạn thân nhất của tôi cũng ở đó.",
+        "en": "My best friend was there too.",
+        "distractors": [
+          "were",
+          "is",
+          "here"
+        ]
+      },
+      {
+        "vi": "Chúng tôi rất vui khi gặp lại nhau.",
+        "en": "We were very happy to meet again.",
+        "distractors": [
+          "was",
+          "met",
+          "sad"
+        ]
+      },
+      {
+        "vi": "Thầy giáo cũ của chúng tôi cũng đến.",
+        "en": "Our old teacher came too.",
+        "distractors": [
+          "come",
+          "new",
+          "comes"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Emily và Thu nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một chuyến đi Nhật Bản",
+          "Một món hải sản",
+          "Buổi họp lớp của Thu"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Emily hỏi \"how was your party last Friday?\" và Thu kể về buổi gặp lớp cũ.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Có bao nhiêu người từ lớp cũ của Thu?",
+        "promptVi": "",
+        "options": [
+          "Mười người",
+          "Hai mươi người",
+          "Ba mươi người"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thu nói \"There were twenty people from my old class.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Buổi tiệc diễn ra ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở một nhà hàng hải sản ở Đà Nẵng",
+          "Ở trường cũ",
+          "Ở nhà Ngọc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu nói \"It was at a seafood restaurant in Da Nang.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Phong was Thu's teacher for five years.",
+        "promptVi": "Thầy Phong dạy Thu năm năm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thu nói \"He was our teacher for three years.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Sau khi ra trường, mỗi người bạn của Thu ở đâu và làm gì?",
+    "grammarStep": {
+      "titleVi": "Was / were",
+      "noticing": [
+        {
+          "sentence": "There were twenty people at the big table.",
+          "highlights": [
+            "There were"
+          ]
+        },
+        {
+          "sentence": "Thu's best friend from school, Ngoc, was there too.",
+          "highlights": [
+            "was"
+          ]
+        },
+        {
+          "sentence": "He asked his students, \"Where were you after school?\"",
+          "highlights": [
+            "Where were you"
+          ]
+        },
+        {
+          "sentence": "At eleven o'clock, they still weren't ready to go home.",
+          "highlights": [
+            "weren't"
+          ]
+        }
+      ],
+      "questionVi": "Câu hỏi \"Where were you after school?\" được tạo theo thứ tự nào?",
+      "options": [
+        "Từ hỏi Where + were + you",
+        "Where + you + were",
+        "Did + you + were"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu hỏi với be ở quá khứ: từ hỏi + was / were + chủ ngữ: Where were you? Where was the party? Không cần did.",
+      "whenVi": "Dùng there was / there were để nói trong quá khứ có gì, và was / were để nói ai ở đâu, thế nào.",
+      "table": [
+        {
+          "subject": "there was / there were",
+          "form": "There was a party. There were twenty people.",
+          "negative": "There wasn't a bus."
+        },
+        {
+          "subject": "I / he / she / it",
+          "form": "Ngoc was there.",
+          "negative": "He wasn't late."
+        },
+        {
+          "subject": "you / we / they",
+          "form": "Where were you? – We were in Hanoi.",
+          "negative": "They weren't ready to go home."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "There was twenty people.",
+          "right": "There were twenty people."
+        },
+        {
+          "wrong": "Where you were after school?",
+          "right": "Where were you after school?"
+        }
+      ],
+      "noteVi": "Tiếng Việt hỏi \"Bạn đã ở đâu?\" theo thứ tự chủ ngữ trước, nên người Việt hay viết \"Where you were?\"; tiếng Anh phải đưa were lên trước you.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền was hoặc were vào chỗ trống.",
+          "text": "There ___ twenty people at the table.",
+          "answers": [
+            "were"
+          ],
+          "explanationVi": "Twenty people là số nhiều, nên dùng there were."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Where ___ the party? – It was in Da Nang.",
+          "options": [
+            "was",
+            "were",
+            "is",
+            "did"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "The party là một sự kiện (it) và câu trả lời dùng was, nên hỏi Where was the party?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They wasn't ready to go home.",
+          "sentence": "They weren't ready to go home.",
+          "explanationVi": "They đi với were, phủ định là weren't."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Ra trường rồi các em ở đâu?",
+          "sentence": "Where were you after school?",
+          "words": [
+            "were",
+            "Where",
+            "school",
+            "you",
+            "after",
+            "was"
+          ],
+          "explanationVi": "Từ hỏi Where, rồi were, rồi you; từ \"was\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "There were twenty people at the big table.",
+        "tipVi": "There /ðɛr/ bắt đầu bằng /ð/; twenty /ˈtwɛnti/ có cụm /tw/ ở đầu; people /ˈpipəl/ kết thúc bằng /l/."
+      },
+      {
+        "text": "His hair was grey, but his voice was the same.",
+        "tipVi": "Voice /vɔɪs/ có âm /v/, môi dưới chạm răng trên; same /seɪm/ kết thúc bằng /m/, ngậm môi lại."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where were you ten years ago?",
+        "questionVi": "Mười năm trước bạn ở đâu?",
+        "frame": "Ten years ago, I was in ___. I was ___ years old."
+      },
+      {
+        "question": "Do you still meet your old classmates?",
+        "questionVi": "Bạn có còn gặp các bạn học cũ không?",
+        "frame": "Yes, I do. We meet ___. / No, I don't, but I ___."
+      },
+      {
+        "question": "Where was your best friend last weekend?",
+        "questionVi": "Cuối tuần trước bạn thân của bạn ở đâu?",
+        "frame": "He / She was at ___ with ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu dùng there was / there were hoặc was / were",
+      "anyOf": [
+        "was",
+        "were",
+        "there was",
+        "there were",
+        "wasn't",
+        "weren't"
+      ],
+      "outlineVi": [
+        "Nói buổi gặp ở đâu, khi nào và có bao nhiêu người (There were …).",
+        "Kể một người bạn bây giờ ra sao hoặc trước đây ở đâu (He / She was …).",
+        "Kể mọi người đã làm gì và bạn thấy thế nào."
+      ],
+      "modelAnswer": "Last month, I met my old classmates at a restaurant in Hanoi. There were fifteen people there. My best friend, Hieu, was there too. He was a student in Japan for three years. We ate a lot, told funny stories and laughed all evening. We were so happy to meet again!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "high school",
+      "lemma": "high school",
+      "meaningVi": "trường cấp ba",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "her old high school classmates",
+      "phraseVi": "các bạn cùng lớp cấp ba cũ"
+    },
+    {
+      "text": "faces",
+      "lemma": "face",
+      "meaningVi": "gương mặt",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "Some faces were the same",
+      "phraseVi": "Có những gương mặt vẫn như xưa"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "meaningVi": "khác",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "some were very different",
+      "phraseVi": "có người thì khác hẳn"
+    },
+    {
+      "text": "hugged",
+      "lemma": "hug",
+      "meaningVi": "ôm",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "They hugged and laughed",
+      "phraseVi": "Hai người ôm nhau và cười"
+    },
+    {
+      "text": "voice",
+      "lemma": "voice",
+      "meaningVi": "giọng nói",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "his voice was the same",
+      "phraseVi": "giọng thầy vẫn như xưa"
+    },
+    {
+      "text": "nurse",
+      "lemma": "nurse",
+      "meaningVi": "y tá",
+      "sentenceIndex": 11,
+      "pos": "noun",
+      "phrase": "Linh was a nurse",
+      "phraseVi": "Linh là y tá"
+    },
+    {
+      "text": "seafood",
+      "lemma": "seafood",
+      "meaningVi": "hải sản",
+      "sentenceIndex": 13,
+      "pos": "noun",
+      "phrase": "They ate seafood",
+      "phraseVi": "Họ ăn hải sản"
+    },
+    {
+      "text": "sang",
+      "lemma": "sing",
+      "meaningVi": "hát",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "sang their old school songs",
+      "phraseVi": "hát những bài hát thời đi học"
+    },
+    {
+      "text": "ready",
+      "lemma": "ready",
+      "meaningVi": "sẵn sàng",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "they still weren't ready to go home",
+      "phraseVi": "mọi người vẫn chưa muốn về"
+    }
+  ]
+}

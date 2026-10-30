@@ -1,0 +1,620 @@
+{
+  "content": "Lan and Phuc both grew up in the countryside, but their parents were very different. Today they are talking about it over coffee.\n\nLan says, \"My parents were strict. They made me study for two hours every evening. They didn't let me watch TV on school days.\"\nPhuc says, \"Really? My parents let me do almost anything. They let me play outside until dinner, and they didn't make me do homework at the weekend.\"\n\"Lucky you! My mother made me help in the kitchen too. I had to wash the dishes every night.\"\n\"Did your parents let you go out with friends?\"\n\"Only on Sundays. And my father always made me come home before six.\"\nPhuc laughs. \"My father wanted me to work on the farm in the summer. He asked me to look after the buffaloes. I loved it.\"\n\"Did you study at all?\"\n\"Not much. My teacher told me to study harder, but I didn't listen. My exam results were terrible.\"\nLan says, \"My results were good, but I didn't have much fun. Now I think my parents were right. They helped me get a place at a good university.\"\n\"And my parents helped me love nature. Now I'm a farmer, and I'm very happy.\"\nLan smiles. \"So both of our parents were right in different ways.\"\n\"I think so. One day, I want to let my children play outside, but I'll also make them study a little!\"",
+  "targetWords": [
+    "countryside",
+    "strict",
+    "homework",
+    "dish",
+    "farm",
+    "exam",
+    "result",
+    "terrible",
+    "nature",
+    "farmer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "countryside",
+        "lemma": "countryside",
+        "meaningVi": "vùng quê",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "strict",
+        "lemma": "strict",
+        "meaningVi": "nghiêm khắc",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "homework",
+        "lemma": "homework",
+        "meaningVi": "bài tập về nhà",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "dishes",
+        "lemma": "dish",
+        "meaningVi": "bát đĩa",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "farm",
+        "lemma": "farm",
+        "meaningVi": "trang trại, ruộng vườn",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "exam",
+        "lemma": "exam",
+        "meaningVi": "kỳ thi",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "results",
+        "lemma": "result",
+        "meaningVi": "kết quả",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "terrible",
+        "lemma": "terrible",
+        "meaningVi": "rất tệ",
+        "pos": "adjective",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "nature",
+        "lemma": "nature",
+        "meaningVi": "thiên nhiên",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "farmer",
+        "lemma": "farmer",
+        "meaningVi": "nông dân",
+        "pos": "noun",
+        "sentenceIndex": 26
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Lan and Phuc mainly talking about?",
+        "promptVi": "Lan và Phúc chủ yếu nói về điều gì?",
+        "options": [
+          "How their parents brought them up in the countryside",
+          "Their university exams",
+          "Buying a farm",
+          "Their children's homework"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người so sánh cách bố mẹ dạy dỗ mình hồi nhỏ ở quê: người thì bắt học, người thì cho chơi."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Lan's mother make her do?",
+        "promptVi": "Mẹ Lan bắt cô làm gì?",
+        "options": [
+          "Look after the buffaloes",
+          "Help in the kitchen and wash the dishes",
+          "Play outside until dinner",
+          "Work on the farm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"My mother made me help in the kitchen too. I had to wash the dishes every night.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why were Phuc's exam results terrible?",
+        "promptVi": "Vì sao kết quả thi của Phúc rất tệ?",
+        "options": [
+          "The exams were too hard.",
+          "He was ill.",
+          "He didn't listen when his teacher told him to study harder.",
+          "His parents made him work all day."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phúc nói \"My teacher told me to study harder, but I didn't listen.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phuc is unhappy with his job now.",
+        "promptVi": "Bây giờ Phúc không vui với công việc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phúc nói \"Now I'm a farmer, and I'm very happy.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"look after\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "He asked me to look after the buffaloes.",
+        "options": [
+          "trông nom, chăm sóc",
+          "nhìn theo",
+          "tìm kiếm",
+          "mua bán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Look after = trông nom, chăm sóc."
+      }
+    ],
+    "grammarNote": {
+      "title": "Make / let / help + tân ngữ + động từ",
+      "bodyVi": "Make + người + động từ nguyên mẫu = bắt ai làm gì: They made me study. Let + người + động từ nguyên mẫu = cho phép ai làm gì: They let me play outside. Phủ định: didn't let me watch TV, didn't make me do homework. Help + người + động từ (có hoặc không có to): They helped me get a place. Còn want / ask / tell + người + to + động từ: My father wanted me to work, He asked me to look after the buffaloes, My teacher told me to study harder.",
+      "examples": [
+        "They made me study for two hours every evening.",
+        "They let me play outside until dinner, and they didn't make me do homework at the weekend.\"",
+        "My teacher told me to study harder, but I didn't listen."
+      ]
+    },
+    "writingPrompt": "Write about the rules in your home when you were a child: what did your parents make you do, and what did they let you do?",
+    "sentenceTranslations": [
+      "Lan và Phúc đều lớn lên ở vùng quê, nhưng bố mẹ họ rất khác nhau.",
+      "Hôm nay họ ngồi uống cà phê và nói về chuyện đó.",
+      "Lan nói: \"Bố mẹ mình nghiêm khắc lắm.",
+      "Tối nào cũng bắt mình học hai tiếng.",
+      "Ngày đi học thì không cho mình xem tivi.\"",
+      "Phúc nói: \"Thật à?",
+      "Bố mẹ mình cho mình làm gần như mọi thứ.",
+      "Cho mình chơi ngoài trời đến giờ ăn tối, và cuối tuần cũng không bắt làm bài tập.\"",
+      "\"Sướng thế!",
+      "Mẹ mình còn bắt mình phụ bếp nữa.",
+      "Tối nào mình cũng phải rửa bát.\"",
+      "\"Bố mẹ có cho cậu đi chơi với bạn không?\"",
+      "\"Chỉ Chủ nhật thôi.",
+      "Mà bố lúc nào cũng bắt mình về nhà trước sáu giờ.\"",
+      "Phúc cười.",
+      "\"Bố mình muốn mình làm ruộng vào mùa hè.",
+      "Bố nhờ mình chăn trâu.",
+      "Mình thích lắm.\"",
+      "\"Thế cậu có học hành gì không?\"",
+      "\"Không nhiều.",
+      "Thầy giáo bảo mình học chăm hơn, nhưng mình không nghe.",
+      "Kết quả thi của mình tệ lắm.\"",
+      "Lan nói: \"Kết quả của mình tốt, nhưng mình không được vui chơi mấy.",
+      "Giờ mình nghĩ bố mẹ mình đúng.",
+      "Bố mẹ đã giúp mình đỗ vào một trường đại học tốt.\"",
+      "\"Còn bố mẹ mình giúp mình yêu thiên nhiên.",
+      "Giờ mình là nông dân, và mình rất vui.\"",
+      "Lan mỉm cười.",
+      "\"Vậy là bố mẹ cả hai đứa đều đúng, mỗi người một kiểu.\"",
+      "\"Mình nghĩ vậy.",
+      "Sau này, mình muốn cho con mình chơi ngoài trời, nhưng cũng sẽ bắt chúng học một chút!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về các quy định trong nhà hồi nhỏ bằng make / let + người + động từ và want / ask / tell + người + to.",
+    "examples": [
+      {
+        "lemma": "countryside",
+        "sentence": "We spent the weekend in the countryside.",
+        "meaningVi": "Chúng tôi đi chơi cuối tuần ở vùng quê."
+      },
+      {
+        "lemma": "strict",
+        "sentence": "My teacher is strict but kind.",
+        "meaningVi": "Cô giáo tôi nghiêm khắc nhưng tốt bụng."
+      },
+      {
+        "lemma": "homework",
+        "sentence": "I do my homework after dinner.",
+        "meaningVi": "Tôi làm bài tập sau bữa tối."
+      },
+      {
+        "lemma": "dish",
+        "sentence": "Put the dish on the table.",
+        "meaningVi": "Đặt cái đĩa lên bàn."
+      },
+      {
+        "lemma": "farm",
+        "sentence": "They have a small farm near the river.",
+        "meaningVi": "Họ có một trang trại nhỏ gần sông."
+      },
+      {
+        "lemma": "exam",
+        "sentence": "I have an exam on Monday.",
+        "meaningVi": "Thứ Hai tôi có bài thi."
+      },
+      {
+        "lemma": "result",
+        "sentence": "The result was a surprise.",
+        "meaningVi": "Kết quả thật bất ngờ."
+      },
+      {
+        "lemma": "terrible",
+        "sentence": "The weather was terrible.",
+        "meaningVi": "Thời tiết rất tệ."
+      },
+      {
+        "lemma": "nature",
+        "sentence": "I love walking in nature.",
+        "meaningVi": "Tôi thích đi dạo giữa thiên nhiên."
+      },
+      {
+        "lemma": "farmer",
+        "sentence": "The farmer grows rice and vegetables.",
+        "meaningVi": "Người nông dân trồng lúa và rau."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Oliver"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, were your parents strict?",
+          "meaningVi": "Lan ơi, bố mẹ cậu có nghiêm khắc không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Very! They made me study every evening.",
+          "meaningVi": "Rất nghiêm! Tối nào cũng bắt mình học."
+        },
+        {
+          "speaker": 1,
+          "text": "Did they let you watch TV?",
+          "meaningVi": "Có cho cậu xem tivi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only on Saturday nights.",
+          "meaningVi": "Chỉ tối thứ Bảy thôi."
+        },
+        {
+          "speaker": 1,
+          "text": "My parents let me watch TV every day.",
+          "meaningVi": "Bố mẹ mình cho xem tivi hằng ngày."
+        },
+        {
+          "speaker": 0,
+          "text": "Lucky you! Did they make you do any housework?",
+          "meaningVi": "Sướng thế! Có bắt cậu làm việc nhà không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they made me clean my room.",
+          "meaningVi": "Có, bắt mình dọn phòng."
+        },
+        {
+          "speaker": 0,
+          "text": "My mother wanted me to help in the kitchen too.",
+          "meaningVi": "Mẹ mình còn muốn mình phụ bếp nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you think strict parents are good?",
+          "meaningVi": "Cậu có nghĩ bố mẹ nghiêm khắc là tốt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. They helped me do well at school.",
+          "meaningVi": "Có. Bố mẹ giúp mình học tốt ở trường."
+        }
+      ]
+    },
+    "grammarTipVi": "Made me study, let me watch, made me clean: không có to. Wanted me to help: có to. Helped me do well: help + người + động từ (to có thể bỏ).",
+    "translations": [
+      {
+        "vi": "Bố mẹ bắt tôi làm bài tập mỗi tối.",
+        "en": "My parents made me do my homework every evening.",
+        "distractors": [
+          "to",
+          "let",
+          "doing"
+        ]
+      },
+      {
+        "vi": "Bố mẹ không cho tôi ra ngoài sau bữa tối. Bố mẹ rất nghiêm khắc.",
+        "en": "My parents didn't let me go out after dinner. They were strict.",
+        "distractors": [
+          "to",
+          "make",
+          "going"
+        ]
+      },
+      {
+        "vi": "Bố muốn tôi làm việc ở trang trại.",
+        "en": "My father wanted me to work on the farm.",
+        "distractors": [
+          "let",
+          "made",
+          "working"
+        ]
+      },
+      {
+        "vi": "Thầy giáo bảo tôi học chăm hơn trước kỳ thi.",
+        "en": "My teacher told me to study harder before the exam.",
+        "distractors": [
+          "let",
+          "make",
+          "studying"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Oliver nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bố mẹ nghiêm khắc và quy định trong nhà",
+          "Chương trình tivi",
+          "Trường học của Oliver"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Oliver hỏi \"were your parents strict?\" và hai người so sánh các quy định.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lan được xem tivi khi nào?",
+        "promptVi": "",
+        "options": [
+          "Hằng ngày",
+          "Chỉ tối thứ Bảy",
+          "Chủ nhật"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"Only on Saturday nights.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bố mẹ Oliver bắt cậu làm gì?",
+        "promptVi": "",
+        "options": [
+          "Phụ bếp",
+          "Làm bài tập",
+          "Dọn phòng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Oliver nói \"they made me clean my room.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan thinks strict parents are bad.",
+        "promptVi": "Lan nghĩ bố mẹ nghiêm khắc là không tốt.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"Yes. They helped me do well at school.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Bố mẹ Lan và bố mẹ Phúc bắt con làm gì, cho con làm gì?",
+    "grammarStep": {
+      "titleVi": "Make / let / help + tân ngữ + động từ",
+      "noticing": [
+        {
+          "sentence": "They made me study for two hours every evening.",
+          "highlights": [
+            "made me study"
+          ]
+        },
+        {
+          "sentence": "They didn't let me watch TV on school days.\"",
+          "highlights": [
+            "didn't let me watch"
+          ]
+        },
+        {
+          "sentence": "\"My father wanted me to work on the farm in the summer.",
+          "highlights": [
+            "wanted me to work"
+          ]
+        },
+        {
+          "sentence": "They helped me get a place at a good university.\"",
+          "highlights": [
+            "helped me get"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao nói \"made me study\" (không có to) nhưng \"wanted me to work\" (có to)?",
+      "options": [
+        "Make / let + người + động từ nguyên mẫu không to; want / ask / tell + người + to + động từ.",
+        "Vì study ngắn hơn work.",
+        "Vì want ở thì quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Make và let không dùng to. Want, ask, tell luôn dùng to. Help dùng được cả hai.",
+      "whenVi": "Make = bắt buộc; let = cho phép; help = giúp; want / ask / tell = muốn / nhờ / bảo ai làm gì.",
+      "table": [
+        {
+          "subject": "make + O + V",
+          "form": "They made me study.",
+          "negative": "They didn't make me do homework."
+        },
+        {
+          "subject": "let + O + V",
+          "form": "They let me play outside.",
+          "negative": "They didn't let me watch TV."
+        },
+        {
+          "subject": "help + O + (to) V",
+          "form": "They helped me get a place.",
+          "negative": "(= helped me to get)"
+        },
+        {
+          "subject": "want / ask / tell + O + to V",
+          "form": "He asked me to look after the buffaloes.",
+          "negative": "My teacher told me to study harder."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "My parents made me to study every evening.",
+          "right": "My parents made me study every evening."
+        },
+        {
+          "wrong": "My father wanted me work on the farm.",
+          "right": "My father wanted me to work on the farm."
+        }
+      ],
+      "noteVi": "Let không chia ở quá khứ: let – let – let. They let me play (hôm qua) vẫn viết let.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ còn thiếu.",
+          "text": "My father asked me ___ look after the buffaloes.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "Ask + người + to + động từ."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "My parents didn't let me ___ TV on school days.",
+          "options": [
+            "to watch",
+            "watch",
+            "watching",
+            "watched"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Let + người + động từ nguyên mẫu: watch."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "My mother made me to help in the kitchen.",
+          "sentence": "My mother made me help in the kitchen.",
+          "explanationVi": "Make + người + động từ nguyên mẫu, không có to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bố mẹ cho tôi chơi ngoài trời.",
+          "sentence": "My parents let me play outside.",
+          "words": [
+            "let",
+            "My",
+            "parents",
+            "me",
+            "play",
+            "outside.",
+            "to"
+          ],
+          "explanationVi": "Let + người + động từ; từ \"to\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "They made me study for two hours every evening.",
+        "tipVi": "Made me nối /meɪdmi/; nhấn vào study và two hours."
+      },
+      {
+        "text": "\"Lucky you!",
+        "tipVi": "Lucky /ˈlʌki/ nhấn âm đầu, giọng vui."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What did your parents make you do as a child?",
+        "questionVi": "Hồi nhỏ bố mẹ bắt bạn làm gì?",
+        "frame": "They made me ___."
+      },
+      {
+        "question": "What didn't your parents let you do?",
+        "questionVi": "Bố mẹ không cho bạn làm gì?",
+        "frame": "They didn't let me ___."
+      },
+      {
+        "question": "What did your teacher often tell you to do?",
+        "questionVi": "Thầy cô hay bảo bạn làm gì?",
+        "frame": "He / She often told me to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu make / let / help + người + động từ",
+      "anyOf": [
+        "made me",
+        "make me",
+        "let me",
+        "let us",
+        "made us",
+        "helped me",
+        "help me",
+        "wanted me to",
+        "told me to",
+        "asked me to"
+      ],
+      "outlineVi": [
+        "Bố mẹ bạn nghiêm khắc hay dễ tính.",
+        "Những việc bố mẹ bắt bạn làm (They made me …).",
+        "Những việc bố mẹ cho / không cho bạn làm (They let me … / didn't let me …)."
+      ],
+      "modelAnswer": "My parents were quite strict when I was a child. They made me get up at six every morning, and they made me wash the dishes after dinner. They didn't let me play computer games on school days. But they let me go to the river with my friends at the weekend. My mother helped me learn to cook, and now I love cooking."
+    }
+  },
+  "glosses": [
+    {
+      "text": "grew up",
+      "lemma": "grow up",
+      "meaningVi": "lớn lên",
+      "sentenceIndex": 0,
+      "pos": "phrasal verb",
+      "phrase": "both grew up in the countryside",
+      "phraseVi": "đều lớn lên ở vùng quê"
+    },
+    {
+      "text": "over coffee",
+      "lemma": "over",
+      "meaningVi": "trong lúc uống cà phê",
+      "sentenceIndex": 1,
+      "pos": "phrase",
+      "phrase": "talking about it over coffee",
+      "phraseVi": "ngồi uống cà phê và nói về chuyện đó"
+    },
+    {
+      "text": "Lucky you",
+      "lemma": "lucky",
+      "meaningVi": "sướng thế, may thế",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "Lucky you!",
+      "phraseVi": "Sướng thế!"
+    },
+    {
+      "text": "look after",
+      "lemma": "look after",
+      "meaningVi": "trông nom, chăm sóc",
+      "sentenceIndex": 16,
+      "pos": "phrasal verb",
+      "phrase": "look after the buffaloes",
+      "phraseVi": "chăn trâu"
+    },
+    {
+      "text": "buffaloes",
+      "lemma": "buffalo",
+      "meaningVi": "con trâu",
+      "sentenceIndex": 16,
+      "pos": "noun",
+      "phrase": "the buffaloes",
+      "phraseVi": "trâu"
+    },
+    {
+      "text": "a place",
+      "lemma": "place",
+      "meaningVi": "một suất học",
+      "sentenceIndex": 24,
+      "pos": "noun",
+      "phrase": "get a place at a good university",
+      "phraseVi": "đỗ vào một trường đại học tốt"
+    }
+  ]
+}

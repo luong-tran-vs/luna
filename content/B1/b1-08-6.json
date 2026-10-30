@@ -1,0 +1,605 @@
+{
+  "content": "It's nine o'clock in the evening. Vy and her co-worker Bao are on the phone. They have both just got a message from their manager, Mr Dung.\n\nVy asks, \"Did you read Mr Dung's message?\"\n\"Yes. He said that he had made a new chat group for the sales team,\" Bao says.\n\"Another group? I'm already in twelve groups for work.\"\n\"So am I. My phone never stops ringing.\"\n\"What else did he say?\"\n\"He said everyone had to join the group tonight. He told us to read the messages every morning before nine.\"\n\"Every morning? I don't like that idea.\"\n\"Neither do I. I already get too many messages at night.\"\n\"Me too. Last night, someone sent forty messages after eleven.\"\n\"I saw that. I don't usually turn my phone off at night, so it woke me up.\"\n\"Neither do I. Maybe we should start doing that.\"\n\"I think we should talk to Mr Dung. He said he wanted our ideas.\"\n\"So do I. Let's ask him to use only one group for the whole team.\"\n\"And no messages after eight in the evening.\"\n\"Good idea. I'll call him tomorrow morning.\"\n\"Great. I'm going to bed now. Good night.\"\n\"Good night. And turn your phone off!\"",
+  "targetWords": [
+    "phone",
+    "manager",
+    "chat",
+    "group",
+    "team",
+    "join",
+    "idea",
+    "night",
+    "whole",
+    "evening"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "phone",
+        "lemma": "phone",
+        "meaningVi": "điện thoại",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "quản lý, trưởng phòng",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "chat",
+        "lemma": "chat",
+        "meaningVi": "trò chuyện, nhắn tin",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "group",
+        "lemma": "group",
+        "meaningVi": "nhóm",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "team",
+        "lemma": "team",
+        "meaningVi": "nhóm, đội",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "join",
+        "lemma": "join",
+        "meaningVi": "tham gia",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "idea",
+        "lemma": "idea",
+        "meaningVi": "ý tưởng",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "night",
+        "lemma": "night",
+        "meaningVi": "ban đêm",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "whole",
+        "lemma": "whole",
+        "meaningVi": "toàn bộ, cả",
+        "pos": "adjective",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "evening",
+        "lemma": "evening",
+        "meaningVi": "buổi tối",
+        "pos": "noun",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Vy and Bao talking about?",
+        "promptVi": "Vy và Bảo đang nói về điều gì?",
+        "options": [
+          "Their manager's message about a new chat group",
+          "A new phone for the sales team",
+          "A party at the office",
+          "Their plans for the weekend"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người bàn về tin nhắn của anh Dũng lập thêm một nhóm chat mới."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many work groups is Vy already in?",
+        "promptVi": "Vy đã ở trong bao nhiêu nhóm công việc?",
+        "options": [
+          "Two",
+          "Nine",
+          "Twelve",
+          "Forty"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vy nói \"I'm already in twelve groups for work.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Mr Dung tell them to do?",
+        "promptVi": "Anh Dũng bảo họ làm gì?",
+        "options": [
+          "Turn their phones off at night",
+          "Read the messages every morning before nine",
+          "Call him tomorrow",
+          "Leave the old groups"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bảo nói \"He told us to read the messages every morning before nine.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy and Bao usually turn their phones off at night.",
+        "promptVi": "Vy và Bảo thường tắt điện thoại vào ban đêm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Bảo nói \"I don't usually turn my phone off at night\" và Vy đáp \"Neither do I.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"So am I\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"So am I. My phone never stops ringing.\"",
+        "options": [
+          "Mình cũng vậy.",
+          "Mình thì không.",
+          "Mình đang bận.",
+          "Mình sẽ gọi."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đáp lại \"I'm already in twelve groups\" → So am I = mình cũng vậy."
+      }
+    ],
+    "grammarNote": {
+      "title": "So do I / Neither do I",
+      "bodyVi": "Đồng ý ngắn gọn: câu khẳng định → So + trợ động từ + I; câu phủ định → Neither + trợ động từ + I. I'm already in twelve groups. – So am I. I don't like that idea. – Neither do I. I don't usually turn my phone off at night. – Neither do I. I think we should talk to Mr Dung. – So do I. Bài cũng kể lại tin nhắn của sếp: He said that he had made a new chat group. He told us to read the messages every morning.",
+      "examples": [
+        "\"So am I. My phone never stops ringing.\"",
+        "\"Neither do I. I already get too many messages at night.\"",
+        "\"So do I. Let's ask him to use only one group for the whole team.\""
+      ]
+    },
+    "writingPrompt": "Write about how you use chat groups for work or study. Do your friends feel the same? Use So do I / Neither do I.",
+    "sentenceTranslations": [
+      "Chín giờ tối.",
+      "Vy và đồng nghiệp Bảo đang nói chuyện điện thoại.",
+      "Cả hai vừa nhận được tin nhắn của trưởng phòng, anh Dũng.",
+      "Vy hỏi: \"Anh đọc tin nhắn của anh Dũng chưa?\"",
+      "\"Rồi.",
+      "Anh ấy nói anh ấy vừa lập một nhóm chat mới cho nhóm bán hàng,\" Bảo nói.",
+      "\"Thêm nhóm nữa à?",
+      "Em đã ở trong mười hai nhóm công việc rồi.\"",
+      "\"Anh cũng vậy. Điện thoại anh reo suốt.\"",
+      "\"Anh ấy còn nói gì nữa?\"",
+      "\"Anh ấy nói mọi người phải vào nhóm ngay tối nay.",
+      "Anh ấy bảo tụi mình đọc tin nhắn mỗi sáng trước chín giờ.\"",
+      "\"Mỗi sáng á?",
+      "Em không thích ý đó.\"",
+      "\"Anh cũng không. Ban đêm anh đã nhận quá nhiều tin nhắn rồi.\"",
+      "\"Em cũng thế.",
+      "Tối qua có người gửi bốn mươi tin sau mười một giờ.\"",
+      "\"Anh thấy rồi.",
+      "Anh thường không tắt điện thoại ban đêm, nên nó làm anh thức giấc.\"",
+      "\"Em cũng không tắt. Có lẽ tụi mình nên bắt đầu tắt.\"",
+      "\"Anh nghĩ tụi mình nên nói chuyện với anh Dũng.",
+      "Anh ấy nói anh ấy muốn nghe ý kiến của tụi mình.\"",
+      "\"Em cũng nghĩ vậy. Mình đề nghị anh ấy chỉ dùng một nhóm cho cả đội.\"",
+      "\"Và không nhắn tin sau tám giờ tối.\"",
+      "\"Ý hay.",
+      "Sáng mai anh sẽ gọi cho anh ấy.\"",
+      "\"Tuyệt.",
+      "Em đi ngủ đây.",
+      "Chúc ngủ ngon.\"",
+      "\"Ngủ ngon.",
+      "Và nhớ tắt điện thoại đấy!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đồng ý nhanh về thói quen dùng điện thoại và nhóm chat bằng So am I / Neither do I / So do I, và kể lại tin nhắn của sếp.",
+    "examples": [
+      {
+        "lemma": "phone",
+        "sentence": "Can I use your phone?",
+        "meaningVi": "Tôi dùng điện thoại của bạn được không?"
+      },
+      {
+        "lemma": "manager",
+        "sentence": "The manager wants to see you.",
+        "meaningVi": "Trưởng phòng muốn gặp bạn."
+      },
+      {
+        "lemma": "chat",
+        "sentence": "We had a long chat after work.",
+        "meaningVi": "Sau giờ làm chúng tôi nói chuyện rất lâu."
+      },
+      {
+        "lemma": "group",
+        "sentence": "Our family has a group on Zalo.",
+        "meaningVi": "Gia đình tôi có một nhóm trên Zalo."
+      },
+      {
+        "lemma": "team",
+        "sentence": "Our team won the game.",
+        "meaningVi": "Đội chúng tôi thắng trận."
+      },
+      {
+        "lemma": "join",
+        "sentence": "Do you want to join our club?",
+        "meaningVi": "Bạn có muốn tham gia câu lạc bộ của chúng tôi không?"
+      },
+      {
+        "lemma": "idea",
+        "sentence": "That's a great idea!",
+        "meaningVi": "Ý tưởng hay quá!"
+      },
+      {
+        "lemma": "night",
+        "sentence": "I can't sleep at night.",
+        "meaningVi": "Ban đêm tôi không ngủ được."
+      },
+      {
+        "lemma": "whole",
+        "sentence": "I read the whole book in one day.",
+        "meaningVi": "Tôi đọc hết cả cuốn sách trong một ngày."
+      },
+      {
+        "lemma": "evening",
+        "sentence": "We usually go for a walk in the evening.",
+        "meaningVi": "Chúng tôi thường đi dạo vào buổi tối."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Bao",
+        "Vy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Vy, I called Mr Dung this morning.",
+          "meaningVi": "Vy ơi, sáng nay anh gọi cho anh Dũng rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "What did he say?",
+          "meaningVi": "Anh ấy nói gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "He said he liked our idea. He said he would close the old groups.",
+          "meaningVi": "Anh ấy nói thích ý của tụi mình. Anh ấy nói sẽ đóng các nhóm cũ."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? That's great news. I'm so happy.",
+          "meaningVi": "Thật à? Tin tốt quá. Em vui lắm."
+        },
+        {
+          "speaker": 0,
+          "text": "So am I. And no messages after eight.",
+          "meaningVi": "Anh cũng vậy. Và không nhắn sau tám giờ."
+        },
+        {
+          "speaker": 1,
+          "text": "Did he agree to that too?",
+          "meaningVi": "Anh ấy cũng đồng ý chuyện đó à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. He told me he didn't like late messages either.",
+          "meaningVi": "Ừ. Anh ấy bảo anh ấy cũng không thích tin nhắn khuya."
+        },
+        {
+          "speaker": 1,
+          "text": "I can't believe it. He sends a lot of them!",
+          "meaningVi": "Em không tin nổi. Anh ấy gửi nhiều lắm mà!"
+        },
+        {
+          "speaker": 0,
+          "text": "Neither can I. But let's see what happens.",
+          "meaningVi": "Anh cũng vậy. Nhưng cứ chờ xem sao."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Thanks for calling him.",
+          "meaningVi": "Được. Cảm ơn anh đã gọi cho anh ấy."
+        }
+      ]
+    },
+    "grammarTipVi": "Đồng ý: I'm so happy. – So am I. I can't believe it. – Neither can I. Tường thuật: He said he liked our idea / He said he would close the old groups / He told me he didn't like late messages.",
+    "translations": [
+      {
+        "vi": "Tôi ở trong nhóm chat của đội. – Tôi cũng vậy.",
+        "en": "I'm in the team chat. So am I.",
+        "distractors": [
+          "do",
+          "Neither",
+          "is"
+        ]
+      },
+      {
+        "vi": "Tôi không thích ý đó. – Tôi cũng không.",
+        "en": "I don't like that idea. Neither do I.",
+        "distractors": [
+          "So",
+          "am",
+          "does"
+        ]
+      },
+      {
+        "vi": "Tôi nghĩ cả đội nên dùng một nhóm. – Tôi cũng vậy.",
+        "en": "I think the whole team should use one group. So do I.",
+        "distractors": [
+          "am",
+          "Neither",
+          "does"
+        ]
+      },
+      {
+        "vi": "Anh ấy bảo chúng tôi vào nhóm tối nay.",
+        "en": "He told us to join the group tonight.",
+        "distractors": [
+          "said",
+          "joins",
+          "them"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bảo kể cho Vy điều gì?",
+        "promptVi": "",
+        "options": [
+          "Anh Dũng đồng ý với ý của họ",
+          "Anh Dũng nghỉ việc",
+          "Nhóm chat mới bị đóng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"He said he liked our idea.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Anh Dũng sẽ làm gì với các nhóm cũ?",
+        "promptVi": "",
+        "options": [
+          "Đóng chúng",
+          "Đổi tên",
+          "Gộp vào nhóm mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bảo nói \"He said he would close the old groups.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sau mấy giờ thì không nhắn tin nữa?",
+        "promptVi": "",
+        "options": [
+          "Sáu giờ",
+          "Tám giờ",
+          "Mười giờ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bảo nói \"no messages after eight.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Dung likes late messages.",
+        "promptVi": "Anh Dũng thích tin nhắn khuya.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"He told me he didn't like late messages either.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Anh Dũng đã nhắn gì? Vy và Bảo đồng ý với nhau những điểm nào?",
+    "grammarStep": {
+      "titleVi": "So do I / Neither do I",
+      "noticing": [
+        {
+          "sentence": "\"So am I. My phone never stops ringing.\"",
+          "highlights": [
+            "So am I"
+          ]
+        },
+        {
+          "sentence": "\"Neither do I. I already get too many messages at night.\"",
+          "highlights": [
+            "Neither do I"
+          ]
+        },
+        {
+          "sentence": "\"Neither do I. Maybe we should start doing that.\"",
+          "highlights": [
+            "Neither do I"
+          ]
+        },
+        {
+          "sentence": "\"So do I. Let's ask him to use only one group for the whole team.\"",
+          "highlights": [
+            "So do I"
+          ]
+        }
+      ],
+      "questionVi": "Vy nói \"I'm already in twelve groups.\" Vì sao Bảo đáp \"So am I\" chứ không phải \"So do I\"?",
+      "options": [
+        "Vì câu của Vy dùng am (I'm), nên trợ động từ là am.",
+        "Vì câu của Vy là câu phủ định.",
+        "Vì Bảo nói về quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu có be (I'm) → So am I; câu có động từ thường (I think) → So do I.",
+      "whenVi": "Dùng So / Neither để đồng ý nhanh khi trò chuyện với đồng nghiệp, bạn bè.",
+      "table": [
+        {
+          "subject": "be",
+          "form": "I'm tired. – So am I.",
+          "negative": "I'm not happy. – Neither am I."
+        },
+        {
+          "subject": "Động từ thường",
+          "form": "I think so. – So do I.",
+          "negative": "I don't like it. – Neither do I."
+        },
+        {
+          "subject": "can",
+          "form": "I can come. – So can I.",
+          "negative": "I can't believe it. – Neither can I."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I'm in twelve groups. – So do I.",
+          "right": "I'm in twelve groups. – So am I."
+        },
+        {
+          "wrong": "I don't like that idea. – So don't I.",
+          "right": "I don't like that idea. – Neither do I."
+        }
+      ],
+      "noteVi": "Sau Neither dùng trợ động từ khẳng định (do, am, can), không dùng don't / am not.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền trợ động từ đúng.",
+          "text": "I'm already in twelve groups. – So ___ I.",
+          "answers": [
+            "am"
+          ],
+          "explanationVi": "Câu có am → So am I."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu đáp đúng.",
+          "text": "I can't believe it. – ___",
+          "options": [
+            "Neither can I.",
+            "So can I.",
+            "Neither can't I.",
+            "So do I."
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu phủ định với can't → Neither can I."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu đáp sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I don't like that idea. – Neither don't I.",
+          "sentence": "I don't like that idea. – Neither do I.",
+          "explanationVi": "Sau Neither dùng trợ động từ khẳng định: do."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi cũng vậy (đáp lại \"I'm tired\").",
+          "sentence": "So am I.",
+          "words": [
+            "am",
+            "So",
+            "I.",
+            "do"
+          ],
+          "explanationVi": "Câu gốc có am → So am I; từ \"do\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"So am I. My phone never stops ringing.\"",
+        "tipVi": "Nhấn vào I; ringing /ˈrɪŋɪŋ/."
+      },
+      {
+        "text": "\"So do I. Let's ask him to use only one group for the whole team.\"",
+        "tipVi": "Whole /həʊl/ không đọc w."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How many chat groups are you in?",
+        "questionVi": "Bạn ở trong bao nhiêu nhóm chat?",
+        "frame": "I'm in about ___ groups."
+      },
+      {
+        "question": "Do you turn your phone off at night? Why or why not?",
+        "questionVi": "Ban đêm bạn có tắt điện thoại không? Vì sao?",
+        "frame": "Yes / No, because ___."
+      },
+      {
+        "question": "Agree with this: \"I get too many messages.\"",
+        "questionVi": "Hãy đồng ý với câu: \"Tôi nhận quá nhiều tin nhắn.\"",
+        "frame": "So ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu So / Neither + trợ động từ + I",
+      "anyOf": [
+        "So do I",
+        "Neither do I",
+        "So am I",
+        "Neither am I",
+        "So can I",
+        "Neither can I",
+        "So did I",
+        "Neither did I",
+        "So have I",
+        "so do I",
+        "neither do I",
+        "so am I"
+      ],
+      "outlineVi": [
+        "Bạn ở trong những nhóm chat nào.",
+        "Bạn thích và không thích điều gì ở chúng.",
+        "Bạn của bạn trả lời thế nào (So do I / Neither do I …)."
+      ],
+      "modelAnswer": "I'm in about ten chat groups. Most of them are for my English class. I like them because I can ask questions quickly. But I don't like messages after ten at night. Yesterday I told my friend Mai about this. She said, \"Neither do I. I always turn my phone off at night.\" \"So do I,\" I said."
+    }
+  },
+  "glosses": [
+    {
+      "text": "co-worker",
+      "lemma": "co-worker",
+      "meaningVi": "đồng nghiệp",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "her co-worker Bao",
+      "phraseVi": "đồng nghiệp Bảo"
+    },
+    {
+      "text": "sales team",
+      "lemma": "sales team",
+      "meaningVi": "nhóm bán hàng",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "the sales team",
+      "phraseVi": "nhóm bán hàng"
+    },
+    {
+      "text": "never stops ringing",
+      "lemma": "stop",
+      "meaningVi": "reo suốt, không ngừng reo",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "My phone never stops ringing.",
+      "phraseVi": "Điện thoại anh reo suốt."
+    },
+    {
+      "text": "woke me up",
+      "lemma": "wake up",
+      "meaningVi": "làm (ai) thức giấc",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "so it woke me up",
+      "phraseVi": "nên nó làm anh thức giấc"
+    },
+    {
+      "text": "turn your phone off",
+      "lemma": "turn off",
+      "meaningVi": "tắt điện thoại",
+      "sentenceIndex": 30,
+      "pos": "phrase",
+      "phrase": "And turn your phone off!",
+      "phraseVi": "Và nhớ tắt điện thoại đấy!"
+    }
+  ]
+}

@@ -1,0 +1,613 @@
+{
+  "content": "On Saturday morning, Minh and Lan are sitting in a small café in Hanoi. They have both just finished The Silent House, a mystery novel by a young Vietnamese author.\n\nLan asks, \"So, what did you think of the ending?\"\nMinh says, \"I loved it, but I was confused at first. Can you explain the last chapter?\"\n\"Sure. Before the story starts, someone had stolen a gold necklace from an old hotel in Da Lat. Mr Khoa, the detective, arrives a week later.\"\n\"Right. And by chapter five, he had discovered three clues.\"\n\"Yes. He had noticed a broken window, a train ticket and a red umbrella. All three clues pointed to one suspect, the hotel manager.\"\n\"But when the police came to the hotel, the manager had already disappeared.\"\n\"Exactly. He hadn't told anyone about his plans. That was my favourite moment.\"\nMinh drinks his coffee. \"I didn't guess the truth. I thought he had escaped to Ho Chi Minh City.\"\n\"Me too. But in the final chapter, the detective realised that the manager had never left the hotel. He had stayed in a secret room under the kitchen.\"\n\"I couldn't believe it. The author had put that room in a picture on page twelve.\"\n\"Really? I didn't notice it. I want to read the book again now.\"\nLan laughs. \"That's why I love mystery novels. You always want to read them twice.\"\nMinh says, \"Can you lend me another one? I've got a long train journey next week.\"\n\"Of course. I'll bring you a thriller tomorrow.\"",
+  "targetWords": [
+    "mystery",
+    "novel",
+    "author",
+    "ending",
+    "chapter",
+    "detective",
+    "discover",
+    "clue",
+    "suspect",
+    "disappear"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "mystery",
+        "lemma": "mystery",
+        "meaningVi": "trinh thám, bí ẩn",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "novel",
+        "lemma": "novel",
+        "meaningVi": "tiểu thuyết",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "author",
+        "lemma": "author",
+        "meaningVi": "tác giả",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "ending",
+        "lemma": "ending",
+        "meaningVi": "đoạn kết",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "chapter",
+        "lemma": "chapter",
+        "meaningVi": "chương (sách)",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "detective",
+        "lemma": "detective",
+        "meaningVi": "thám tử",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "discovered",
+        "lemma": "discover",
+        "meaningVi": "phát hiện ra",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "clues",
+        "lemma": "clue",
+        "meaningVi": "manh mối",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "suspect",
+        "lemma": "suspect",
+        "meaningVi": "nghi phạm",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "disappeared",
+        "lemma": "disappear",
+        "meaningVi": "biến mất",
+        "pos": "verb",
+        "sentenceIndex": 13
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Minh and Lan mainly talking about?",
+        "promptVi": "Minh và Lan chủ yếu nói về điều gì?",
+        "options": [
+          "The story of a mystery novel which they have both read",
+          "A trip to a hotel in Da Lat",
+          "A film about a detective",
+          "How to write a novel"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Cả hai vừa đọc xong tiểu thuyết trinh thám The Silent House và Lan giải thích lại chương cuối cho Minh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What had someone stolen before the story starts?",
+        "promptVi": "Trước khi câu chuyện bắt đầu, ai đó đã lấy trộm gì?",
+        "options": [
+          "A red umbrella",
+          "A train ticket",
+          "A gold necklace",
+          "A picture"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"someone had stolen a gold necklace from an old hotel in Da Lat.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where was the hotel manager at the end of the story?",
+        "promptVi": "Cuối truyện, người quản lý khách sạn ở đâu?",
+        "options": [
+          "In Ho Chi Minh City",
+          "In a secret room under the kitchen",
+          "At the police station",
+          "On a train"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói anh ta \"had never left the hotel. He had stayed in a secret room under the kitchen.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Minh guessed the truth before the last chapter.",
+        "promptVi": "Minh đoán ra sự thật trước chương cuối.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Minh nói \"I didn't guess the truth. I thought he had escaped to Ho Chi Minh City.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"disappeared\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"But when the police came to the hotel, the manager had already disappeared.\"",
+        "options": [
+          "đã biến mất",
+          "đã quay lại",
+          "đã ngủ quên",
+          "đã bị bắt"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Disappear = biến mất, không ai thấy nữa; had already disappeared = đã biến mất từ trước khi cảnh sát đến."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ hoàn thành",
+      "bodyVi": "Quá khứ hoàn thành (had + V3/V-ed) nói việc đã xảy ra TRƯỚC một việc khác trong quá khứ. Việc xảy ra sau dùng quá khứ đơn: when the police came (sau), the manager had already disappeared (trước). Thường đi với before, by, when, already, never: by chapter five, he had discovered three clues. Phủ định: hadn't + V3 (He hadn't told anyone).",
+      "examples": [
+        "Before the story starts, someone had stolen a gold necklace from an old hotel in Da Lat.",
+        "And by chapter five, he had discovered three clues.\"",
+        "\"But when the police came to the hotel, the manager had already disappeared.\""
+      ]
+    },
+    "writingPrompt": "Write about a story you have read: what had happened before the story started, and what had the main character done by the end?",
+    "sentenceTranslations": [
+      "Sáng thứ Bảy, Minh và Lan đang ngồi trong một quán cà phê nhỏ ở Hà Nội.",
+      "Cả hai vừa đọc xong \"Ngôi nhà im lặng\", một cuốn tiểu thuyết trinh thám của một tác giả trẻ người Việt.",
+      "Lan hỏi: \"Vậy cậu thấy đoạn kết thế nào?\"",
+      "Minh nói: \"Mình thích lắm, nhưng lúc đầu mình hơi rối.",
+      "Cậu giải thích chương cuối được không?\"",
+      "\"Được chứ.",
+      "Trước khi câu chuyện bắt đầu, ai đó đã lấy trộm một sợi dây chuyền vàng ở một khách sạn cũ tại Đà Lạt.",
+      "Một tuần sau, thám tử Khoa đến.\"",
+      "\"Đúng rồi.",
+      "Và đến chương năm thì ông ấy đã phát hiện ra ba manh mối.\"",
+      "\"Ừ.",
+      "Ông ấy đã để ý thấy một cửa sổ vỡ, một tấm vé tàu và một chiếc ô màu đỏ.",
+      "Cả ba manh mối đều chỉ về một nghi phạm, ông quản lý khách sạn.\"",
+      "\"Nhưng khi cảnh sát đến khách sạn thì ông quản lý đã biến mất rồi.\"",
+      "\"Chính xác.",
+      "Ông ta chưa hề nói với ai về kế hoạch của mình.",
+      "Đó là đoạn mình thích nhất.\"",
+      "Minh uống cà phê.",
+      "\"Mình không đoán ra sự thật.",
+      "Mình tưởng ông ta đã trốn vào Thành phố Hồ Chí Minh.\"",
+      "\"Mình cũng vậy.",
+      "Nhưng ở chương cuối, thám tử nhận ra ông quản lý chưa bao giờ rời khỏi khách sạn.",
+      "Ông ta đã ở trong một căn phòng bí mật dưới nhà bếp.\"",
+      "\"Mình không tin nổi.",
+      "Tác giả đã vẽ căn phòng đó trong một bức tranh ở trang mười hai.\"",
+      "\"Thật à?",
+      "Mình không để ý.",
+      "Giờ mình muốn đọc lại cuốn sách.\"",
+      "Lan cười.",
+      "\"Thế nên mình mới mê tiểu thuyết trinh thám.",
+      "Lúc nào cậu cũng muốn đọc chúng hai lần.\"",
+      "Minh nói: \"Cậu cho mình mượn một cuốn khác được không?",
+      "Tuần sau mình có một chuyến tàu dài.\"",
+      "\"Tất nhiên.",
+      "Mai mình mang cho cậu một cuốn truyện ly kỳ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại cốt truyện một cuốn tiểu thuyết trinh thám, dùng quá khứ hoàn thành (had + V3) cho việc xảy ra trước.",
+    "examples": [
+      {
+        "lemma": "mystery",
+        "sentence": "She reads a mystery story every night.",
+        "meaningVi": "Tối nào cô ấy cũng đọc một truyện trinh thám."
+      },
+      {
+        "lemma": "novel",
+        "sentence": "This novel has more than five hundred pages.",
+        "meaningVi": "Cuốn tiểu thuyết này dày hơn năm trăm trang."
+      },
+      {
+        "lemma": "author",
+        "sentence": "The author signed my book.",
+        "meaningVi": "Tác giả đã ký vào cuốn sách của tôi."
+      },
+      {
+        "lemma": "ending",
+        "sentence": "I didn't like the ending of the story.",
+        "meaningVi": "Tôi không thích đoạn kết của câu chuyện."
+      },
+      {
+        "lemma": "chapter",
+        "sentence": "I read one chapter before bed.",
+        "meaningVi": "Tôi đọc một chương trước khi đi ngủ."
+      },
+      {
+        "lemma": "detective",
+        "sentence": "The detective asked everyone a lot of questions.",
+        "meaningVi": "Viên thám tử hỏi mọi người rất nhiều câu."
+      },
+      {
+        "lemma": "discover",
+        "sentence": "Scientists discover new animals every year.",
+        "meaningVi": "Các nhà khoa học phát hiện ra loài vật mới mỗi năm."
+      },
+      {
+        "lemma": "clue",
+        "sentence": "The police had only one clue.",
+        "meaningVi": "Cảnh sát chỉ có một manh mối."
+      },
+      {
+        "lemma": "suspect",
+        "sentence": "The police talked to the suspect for two hours.",
+        "meaningVi": "Cảnh sát nói chuyện với nghi phạm hai tiếng."
+      },
+      {
+        "lemma": "disappear",
+        "sentence": "My keys always disappear in the morning.",
+        "meaningVi": "Sáng nào chìa khoá của tôi cũng biến mất."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Phuc"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Lan, what are you reading?",
+          "meaningVi": "Lan ơi, cậu đang đọc gì thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "A mystery novel. I'm on the last chapter now.",
+          "meaningVi": "Một cuốn tiểu thuyết trinh thám. Mình đang ở chương cuối."
+        },
+        {
+          "speaker": 1,
+          "text": "Who is the suspect?",
+          "meaningVi": "Nghi phạm là ai?"
+        },
+        {
+          "speaker": 0,
+          "text": "A young cook. When the detective arrived, she had already left the city.",
+          "meaningVi": "Một cô đầu bếp trẻ. Khi thám tử đến thì cô ấy đã rời thành phố rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Had she taken anything with her?",
+          "meaningVi": "Cô ấy có mang theo thứ gì không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, an old map. Nobody had seen it before.",
+          "meaningVi": "Có, một tấm bản đồ cũ. Trước đó chưa ai từng thấy nó."
+        },
+        {
+          "speaker": 1,
+          "text": "Did the detective follow her?",
+          "meaningVi": "Thám tử có đi theo cô ấy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not at first. He hadn't noticed the map was missing.",
+          "meaningVi": "Lúc đầu thì không. Ông ấy chưa để ý thấy tấm bản đồ bị mất."
+        },
+        {
+          "speaker": 1,
+          "text": "It sounds exciting. Can I borrow it after you?",
+          "meaningVi": "Nghe hấp dẫn quá. Cậu đọc xong cho mình mượn nhé?"
+        },
+        {
+          "speaker": 0,
+          "text": "Sure. I'll finish it tonight.",
+          "meaningVi": "Được. Tối nay mình đọc xong."
+        }
+      ]
+    },
+    "grammarTipVi": "Việc xảy ra trước dùng had + V3 (she had already left, nobody had seen it), việc xảy ra sau dùng quá khứ đơn (when the detective arrived). Câu hỏi: Had she taken …? Phủ định: hadn't noticed.",
+    "translations": [
+      {
+        "vi": "Thám tử đã phát hiện ra ba manh mối.",
+        "en": "The detective had discovered three clues.",
+        "distractors": [
+          "has",
+          "discovers",
+          "was"
+        ]
+      },
+      {
+        "vi": "Khi cảnh sát đến, nghi phạm đã biến mất.",
+        "en": "When the police came, the suspect had disappeared.",
+        "distractors": [
+          "has",
+          "comes",
+          "did"
+        ]
+      },
+      {
+        "vi": "Tôi đã đọc chương cuối trước khi bạn gọi.",
+        "en": "I had read the last chapter before you called.",
+        "distractors": [
+          "have",
+          "after",
+          "calls"
+        ]
+      },
+      {
+        "vi": "Tác giả chưa nói với ai về đoạn kết.",
+        "en": "The author hadn't told anyone about the ending.",
+        "distractors": [
+          "didn't",
+          "tell",
+          "has"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Phuc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cuốn tiểu thuyết trinh thám Lan đang đọc",
+          "Một tấm bản đồ cũ của Phuc",
+          "Một quán ăn trong thành phố"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phuc hỏi \"what are you reading?\" và Lan kể về một cuốn tiểu thuyết trinh thám.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nghi phạm là ai?",
+        "promptVi": "",
+        "options": [
+          "Một thám tử",
+          "Một cô đầu bếp trẻ",
+          "Một người lái tàu"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Lan nói \"A young cook.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cô ấy mang theo thứ gì?",
+        "promptVi": "",
+        "options": [
+          "Một tấm bản đồ cũ",
+          "Một chiếc ô",
+          "Một sợi dây chuyền"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"Yes, an old map.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The detective noticed the missing map at once.",
+        "promptVi": "Thám tử thấy ngay tấm bản đồ bị mất.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói \"He hadn't noticed the map was missing.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Trong truyện, chuyện gì đã xảy ra trước khi thám tử đến? Cuối cùng người quản lý ở đâu?",
+    "grammarStep": {
+      "titleVi": "Quá khứ hoàn thành",
+      "noticing": [
+        {
+          "sentence": "Before the story starts, someone had stolen a gold necklace from an old hotel in Da Lat.",
+          "highlights": [
+            "had stolen"
+          ]
+        },
+        {
+          "sentence": "And by chapter five, he had discovered three clues.\"",
+          "highlights": [
+            "had discovered"
+          ]
+        },
+        {
+          "sentence": "\"But when the police came to the hotel, the manager had already disappeared.\"",
+          "highlights": [
+            "came",
+            "had already disappeared"
+          ]
+        },
+        {
+          "sentence": "He hadn't told anyone about his plans.",
+          "highlights": [
+            "hadn't told"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"when the police came to the hotel, the manager had already disappeared\", việc nào xảy ra trước?",
+      "options": [
+        "Ông quản lý biến mất.",
+        "Cảnh sát đến khách sạn.",
+        "Hai việc xảy ra cùng lúc."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Had already disappeared (quá khứ hoàn thành) là việc xảy ra trước; came (quá khứ đơn) là việc xảy ra sau.",
+      "whenVi": "Dùng quá khứ hoàn thành khi kể chuyện quá khứ và muốn nói rõ việc nào đã xảy ra trước một việc hoặc một thời điểm khác.",
+      "table": [
+        {
+          "subject": "I / you / he / she / we / they",
+          "form": "had + V3 (had discovered)",
+          "negative": "hadn't + V3 (hadn't told)"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Had + chủ ngữ + V3? (Had she left?)",
+          "negative": "—"
+        },
+        {
+          "subject": "Đi với",
+          "form": "before, by (+ thời điểm), when, already, never",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "When the police came, the manager has already disappeared.",
+          "right": "When the police came, the manager had already disappeared."
+        },
+        {
+          "wrong": "By chapter five, he had discover three clues.",
+          "right": "By chapter five, he had discovered three clues."
+        }
+      ],
+      "noteVi": "Nếu dùng before / after đã đủ rõ thứ tự thì quá khứ đơn cũng được, nhưng quá khứ hoàn thành làm thứ tự rõ hơn. Dạng rút gọn: he'd discovered = he had discovered.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (steal).",
+          "text": "Before the detective arrived, someone ___ the necklace.",
+          "answers": [
+            "had stolen"
+          ],
+          "explanationVi": "Việc lấy trộm xảy ra trước khi thám tử đến: had stolen."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "When the police came, the suspect ___.",
+          "options": [
+            "has disappeared",
+            "had disappeared",
+            "disappears",
+            "is disappearing"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Biến mất trước khi cảnh sát đến: had disappeared."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "By chapter five, the detective had discover three clues.",
+          "sentence": "By chapter five, the detective had discovered three clues.",
+          "explanationVi": "Sau had là V3: discovered."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ông ta chưa nói với ai về kế hoạch của mình.",
+          "sentence": "He hadn't told anyone about his plans.",
+          "words": [
+            "told",
+            "He",
+            "hadn't",
+            "anyone",
+            "about",
+            "his",
+            "plans.",
+            "tell"
+          ],
+          "explanationVi": "Hadn't + V3: hadn't told; từ \"tell\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"But when the police came to the hotel, the manager had already disappeared.\"",
+        "tipVi": "Disappeared /ˌdɪsəˈpɪəd/ nhấn âm cuối; had đọc nhẹ /həd/."
+      },
+      {
+        "text": "He hadn't told anyone about his plans.",
+        "tipVi": "Hadn't /ˈhædnt/ đọc rõ âm t cuối."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is a story that you have read and enjoyed?",
+        "questionVi": "Một câu chuyện bạn đã đọc và thích là gì?",
+        "frame": "I have read ___. I enjoyed it because ___."
+      },
+      {
+        "question": "What had happened before the story started?",
+        "questionVi": "Chuyện gì đã xảy ra trước khi câu chuyện bắt đầu?",
+        "frame": "Before the story started, ___ had ___."
+      },
+      {
+        "question": "Do you like mystery novels? Why or why not?",
+        "questionVi": "Bạn có thích tiểu thuyết trinh thám không? Vì sao?",
+        "frame": "I like / don't like mystery novels because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (had + V3)",
+      "anyOf": [
+        " had ",
+        "'d "
+      ],
+      "outlineVi": [
+        "Tên cuốn sách / câu chuyện và tác giả.",
+        "Chuyện gì đã xảy ra trước khi truyện bắt đầu (… had …).",
+        "Nhân vật chính đã làm được gì đến cuối truyện (By the end, … had …)."
+      ],
+      "modelAnswer": "Last month, I read The Red Garden, a mystery novel by a Japanese author. Before the story starts, an old painter had disappeared from his house. When his daughter came home, she noticed that someone had opened all the windows. She called a young detective. By the end of the book, the detective had discovered the truth: the painter had never left the garden. I loved the ending."
+    }
+  },
+  "glosses": [
+    {
+      "text": "confused",
+      "lemma": "confused",
+      "meaningVi": "bối rối, rối",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "I was confused at first.",
+      "phraseVi": "Lúc đầu mình hơi rối."
+    },
+    {
+      "text": "necklace",
+      "lemma": "necklace",
+      "meaningVi": "dây chuyền",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a gold necklace",
+      "phraseVi": "một sợi dây chuyền vàng"
+    },
+    {
+      "text": "pointed to",
+      "lemma": "point to",
+      "meaningVi": "chỉ về",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "All three clues pointed to one suspect",
+      "phraseVi": "Cả ba manh mối đều chỉ về một nghi phạm"
+    },
+    {
+      "text": "escaped",
+      "lemma": "escape",
+      "meaningVi": "trốn thoát",
+      "sentenceIndex": 19,
+      "pos": "verb",
+      "phrase": "he had escaped to Ho Chi Minh City",
+      "phraseVi": "ông ta đã trốn vào Thành phố Hồ Chí Minh"
+    },
+    {
+      "text": "realised",
+      "lemma": "realise",
+      "meaningVi": "nhận ra",
+      "sentenceIndex": 21,
+      "pos": "verb",
+      "phrase": "the detective realised that",
+      "phraseVi": "thám tử nhận ra rằng"
+    },
+    {
+      "text": "thriller",
+      "lemma": "thriller",
+      "meaningVi": "truyện ly kỳ, giật gân",
+      "sentenceIndex": 34,
+      "pos": "noun",
+      "phrase": "I'll bring you a thriller",
+      "phraseVi": "mình mang cho cậu một cuốn truyện ly kỳ"
+    }
+  ]
+}

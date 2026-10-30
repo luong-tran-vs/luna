@@ -1,0 +1,598 @@
+{
+  "content": "Today is Vy's first week at a big company in Hanoi. Her friend at work, Long, sits next to her. At four o'clock, she closes her eyes for a minute.\n\nLong asks, \"Are your eyes tired?\"\n\"Yes. I look at my computer all day. My eyes feel dry, and I can't see the words well.\"\n\"That happens to everyone here. When you look at a screen for hours, your eyes get tired.\"\n\"So what do you do?\"\n\"I have a simple rule. Every twenty minutes, I look out of the window for twenty seconds. If I look at something far away, my eyes feel better.\"\n\"That's easy. What else?\"\n\"Don't sit too close to the screen. And when the screen is too bright, it hurts your eyes.\"\nVy says, \"I didn't know that. Thank you, Long.\"\n\"No problem. And at lunch, don't look at your phone. Your eyes need a break too!\"\nVy laughs. \"OK. No phone at lunch.\"",
+  "targetWords": [
+    "eye",
+    "computer",
+    "dry",
+    "screen",
+    "rule",
+    "second",
+    "close",
+    "break"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "eyes",
+        "lemma": "eye",
+        "meaningVi": "mắt",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "computer",
+        "lemma": "computer",
+        "meaningVi": "máy tính",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "dry",
+        "lemma": "dry",
+        "meaningVi": "khô",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "screen",
+        "lemma": "screen",
+        "meaningVi": "màn hình",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "rule",
+        "lemma": "rule",
+        "meaningVi": "quy tắc",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "seconds",
+        "lemma": "second",
+        "meaningVi": "giây",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "close",
+        "lemma": "close",
+        "meaningVi": "gần",
+        "pos": "adjective",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "break",
+        "lemma": "break",
+        "meaningVi": "giờ nghỉ, sự nghỉ ngơi",
+        "pos": "noun",
+        "sentenceIndex": 21
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Long gives Vy tips to stop her eyes getting tired.",
+          "Vy buys a new computer.",
+          "Long and Vy have lunch together.",
+          "Vy's first day at school"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mắt Vy mỏi vì nhìn máy tính cả ngày, Long chỉ cho cô vài mẹo đơn giản."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How do Vy's eyes feel?",
+        "promptVi": "Mắt Vy thấy thế nào?",
+        "options": [
+          "Wet and red",
+          "Dry, and she can't see the words well",
+          "Fine",
+          "Hot"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"My eyes feel dry, and I can't see the words well.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Long's simple rule?",
+        "promptVi": "Quy tắc đơn giản của Long là gì?",
+        "options": [
+          "Every hour, he drinks water.",
+          "He doesn't use a computer.",
+          "Every twenty minutes, he looks out of the window for twenty seconds.",
+          "He closes his eyes at lunch."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Long nói \"Every twenty minutes, I look out of the window for twenty seconds.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Long tells Vy to look at her phone at lunch.",
+        "promptVi": "Long bảo Vy xem điện thoại vào giờ ăn trưa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Long nói \"don't look at your phone. Your eyes need a break too!\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"far away\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "If I look at something far away, my eyes feel better.\"",
+        "options": [
+          "ở gần",
+          "ở xa",
+          "ở trên bàn",
+          "ở trong máy tính"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Far away = ở xa."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Câu điều kiện loại 0 để giải thích và đưa mẹo: When you look at a screen for hours, your eyes get tired. If I look at something far away, my eyes feel better. When the screen is too bright, it hurts your eyes. Vế when / if có thể đứng sau: Your eyes get tired when you look at a screen for hours.",
+      "examples": [
+        "When you look at a screen for hours, your eyes get tired.\"",
+        "If I look at something far away, my eyes feel better.\"",
+        "And when the screen is too bright, it hurts your eyes.\""
+      ]
+    },
+    "writingPrompt": "Write some tips for people who use a computer all day: what happens when they don't take a break?",
+    "sentenceTranslations": [
+      "Hôm nay là tuần đầu tiên Vy làm việc ở một công ty lớn tại Hà Nội.",
+      "Bạn cùng chỗ làm của cô là Long ngồi cạnh cô.",
+      "Lúc bốn giờ, cô nhắm mắt một phút.",
+      "Long hỏi: \"Mắt cậu mỏi à?\"",
+      "\"Ừ.",
+      "Mình nhìn máy tính cả ngày.",
+      "Mắt mình khô, và mình nhìn chữ không rõ.\"",
+      "\"Ở đây ai cũng bị thế.",
+      "Hễ nhìn màn hình hàng giờ là mắt mỏi.\"",
+      "\"Thế cậu làm gì?\"",
+      "\"Mình có một quy tắc đơn giản.",
+      "Cứ hai mươi phút, mình nhìn ra cửa sổ hai mươi giây.",
+      "Nếu nhìn thứ gì đó ở xa, mắt mình thấy đỡ hơn.\"",
+      "\"Dễ nhỉ.",
+      "Còn gì nữa không?\"",
+      "\"Đừng ngồi gần màn hình quá.",
+      "Và hễ màn hình sáng quá là hại mắt.\"",
+      "Vy nói: \"Mình không biết điều đó.",
+      "Cảm ơn Long.\"",
+      "\"Không có gì.",
+      "Mà giờ ăn trưa thì đừng xem điện thoại.",
+      "Mắt cậu cũng cần được nghỉ!\"",
+      "Vy cười.",
+      "\"Được.",
+      "Giờ trưa không điện thoại.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đưa mẹo giữ mắt khoẻ khi làm việc với máy tính bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "eye",
+        "sentence": "She has a cat with one blue eye.",
+        "meaningVi": "Cô ấy có một con mèo có một mắt màu xanh."
+      },
+      {
+        "lemma": "computer",
+        "sentence": "I use a computer at work.",
+        "meaningVi": "Tôi dùng máy tính ở chỗ làm."
+      },
+      {
+        "lemma": "dry",
+        "sentence": "My clothes are dry now.",
+        "meaningVi": "Quần áo của tôi khô rồi."
+      },
+      {
+        "lemma": "screen",
+        "sentence": "The phone has a big screen.",
+        "meaningVi": "Chiếc điện thoại có màn hình to."
+      },
+      {
+        "lemma": "rule",
+        "sentence": "This is the first rule of the game.",
+        "meaningVi": "Đây là luật đầu tiên của trò chơi."
+      },
+      {
+        "lemma": "second",
+        "sentence": "Wait a second!",
+        "meaningVi": "Đợi một giây!"
+      },
+      {
+        "lemma": "close",
+        "sentence": "My house is close to the school.",
+        "meaningVi": "Nhà tôi gần trường."
+      },
+      {
+        "lemma": "break",
+        "sentence": "Let's have a break.",
+        "meaningVi": "Mình nghỉ một lát đi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Mark"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Vy, why are you looking out of the window?",
+          "meaningVi": "Vy ơi, sao cậu nhìn ra cửa sổ thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's my new rule. It helps my eyes.",
+          "meaningVi": "Đó là quy tắc mới của mình. Nó giúp mắt mình."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? How?",
+          "meaningVi": "Thật à? Thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "When I look at something far away, my eyes feel better.",
+          "meaningVi": "Hễ nhìn thứ gì ở xa là mắt mình thấy đỡ hơn."
+        },
+        {
+          "speaker": 1,
+          "text": "My eyes are always tired at work.",
+          "meaningVi": "Ở chỗ làm mắt mình lúc nào cũng mỏi."
+        },
+        {
+          "speaker": 0,
+          "text": "If you look at a screen for hours, your eyes get tired.",
+          "meaningVi": "Nếu nhìn màn hình hàng giờ thì mắt sẽ mỏi."
+        },
+        {
+          "speaker": 1,
+          "text": "How often do you do it?",
+          "meaningVi": "Cậu làm thế bao lâu một lần?"
+        },
+        {
+          "speaker": 0,
+          "text": "Every twenty minutes, for twenty seconds.",
+          "meaningVi": "Cứ hai mươi phút, mỗi lần hai mươi giây."
+        },
+        {
+          "speaker": 1,
+          "text": "That's easy. I'll try it.",
+          "meaningVi": "Dễ thế. Mình sẽ thử."
+        },
+        {
+          "speaker": 0,
+          "text": "And don't sit too close to your screen!",
+          "meaningVi": "Và đừng ngồi gần màn hình quá nhé!"
+        }
+      ]
+    },
+    "grammarTipVi": "Giải thích mẹo: When I look at something far away, my eyes feel better. If you look at a screen for hours, your eyes get tired.",
+    "translations": [
+      {
+        "vi": "Hễ nhìn màn hình hàng giờ là mắt bạn mỏi.",
+        "en": "When you look at a screen for hours, your eyes get tired.",
+        "distractors": [
+          "will",
+          "gets",
+          "looked"
+        ]
+      },
+      {
+        "vi": "Nếu tôi nhìn thứ gì ở xa, mắt tôi thấy đỡ hơn.",
+        "en": "If I look at something far away, my eyes feel better.",
+        "distractors": [
+          "will",
+          "feels",
+          "looked"
+        ]
+      },
+      {
+        "vi": "Hễ màn hình sáng quá là hại mắt.",
+        "en": "When the screen is too bright, it hurts your eyes.",
+        "distractors": [
+          "will",
+          "are",
+          "did"
+        ]
+      },
+      {
+        "vi": "Đừng ngồi gần máy tính quá.",
+        "en": "Don't sit too close to the computer.",
+        "distractors": [
+          "near",
+          "far",
+          "sits"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Vy giải thích cho Mark về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Quy tắc giúp mắt đỡ mỏi",
+          "Một chiếc máy tính mới",
+          "Kế hoạch ăn trưa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy nói \"It's my new rule. It helps my eyes.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao mắt Mark hay mỏi?",
+        "promptVi": "",
+        "options": [
+          "Vì Mark ngủ ít",
+          "Vì Mark nhìn màn hình hàng giờ",
+          "Vì phòng tối"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vy nói \"If you look at a screen for hours, your eyes get tired.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vy nhìn ra xa bao lâu một lần?",
+        "promptVi": "",
+        "options": [
+          "Mỗi tiếng",
+          "Mỗi năm phút",
+          "Cứ hai mươi phút"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vy nói \"Every twenty minutes, for twenty seconds.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy tells Mark to sit close to his screen.",
+        "promptVi": "Vy bảo Mark ngồi gần màn hình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vy nói \"don't sit too close to your screen!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Vì sao mắt Vy mỏi? Long có những mẹo gì?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "When you look at a screen for hours, your eyes get tired.\"",
+          "highlights": [
+            "When",
+            "look",
+            "get"
+          ]
+        },
+        {
+          "sentence": "If I look at something far away, my eyes feel better.\"",
+          "highlights": [
+            "If",
+            "look",
+            "feel"
+          ]
+        },
+        {
+          "sentence": "And when the screen is too bright, it hurts your eyes.\"",
+          "highlights": [
+            "when",
+            "is",
+            "hurts"
+          ]
+        },
+        {
+          "sentence": "Your eyes need a break too!\"",
+          "highlights": [
+            "need"
+          ]
+        }
+      ],
+      "questionVi": "Viết lại \"When you look at a screen for hours, your eyes get tired\" với vế when ở sau. Câu nào đúng?",
+      "options": [
+        "Your eyes get tired when you look at a screen for hours.",
+        "Your eyes get tired, when you will look at a screen for hours.",
+        "Your eyes will tired when you look at a screen."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Đổi vị trí hai vế thì nghĩa không đổi; khi vế when đứng sau thì không cần dấu phẩy.",
+      "whenVi": "Dùng If / When + hiện tại đơn, hiện tại đơn để giải thích nguyên nhân và đưa mẹo. Vế if / when có thể đứng trước hoặc sau.",
+      "table": [
+        {
+          "subject": "When đứng trước",
+          "form": "When you look at a screen, your eyes get tired.",
+          "negative": "(có dấu phẩy)"
+        },
+        {
+          "subject": "When đứng sau",
+          "form": "Your eyes get tired when you look at a screen.",
+          "negative": "(không có dấu phẩy)"
+        },
+        {
+          "subject": "If",
+          "form": "If I look far away, my eyes feel better.",
+          "negative": "If I take a break, my eyes don't hurt."
+        },
+        {
+          "subject": "it",
+          "form": "When the screen is too bright, it hurts your eyes.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Your eyes get tired, when you look at a screen.",
+          "right": "Your eyes get tired when you look at a screen."
+        },
+        {
+          "wrong": "When the screen is too bright, it hurt your eyes.",
+          "right": "When the screen is too bright, it hurts your eyes."
+        }
+      ],
+      "noteVi": "Close (gần) đọc /kləʊs/, còn close (đóng) đọc /kləʊz/. Close to = gần với.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "When the screen is too bright, it ___ your eyes. (hurt)",
+          "answers": [
+            "hurts"
+          ],
+          "explanationVi": "It là ngôi thứ ba số ít: hurts."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If you look at a screen for hours, your eyes ___ tired.",
+          "options": [
+            "gets",
+            "get",
+            "will gets",
+            "getting"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Your eyes là số nhiều: get."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If I look at something far away, my eyes feels better.",
+          "sentence": "If I look at something far away, my eyes feel better.",
+          "explanationVi": "My eyes là số nhiều: feel."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mắt bạn mỏi khi bạn nhìn màn hình hàng giờ.",
+          "sentence": "Your eyes get tired when you look at a screen for hours.",
+          "words": [
+            "eyes",
+            "Your",
+            "get",
+            "tired",
+            "when",
+            "you",
+            "look",
+            "at",
+            "a",
+            "screen",
+            "for",
+            "hours.",
+            "will"
+          ],
+          "explanationVi": "Vế when đứng sau, không có dấu phẩy; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Long asks, \"Are your eyes tired?\"",
+        "tipVi": "Eyes /aɪz/ kết thúc bằng /z/; câu hỏi Yes/No lên giọng."
+      },
+      {
+        "text": "\"I have a simple rule.",
+        "tipVi": "Simple /ˈsɪmpl/ nhấn âm đầu; rule /ruːl/ có âm /uː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How many hours do you look at a screen every day?",
+        "questionVi": "Mỗi ngày bạn nhìn màn hình bao nhiêu tiếng?",
+        "frame": "I look at a screen for about ___ hours."
+      },
+      {
+        "question": "What happens when you look at your phone for a long time?",
+        "questionVi": "Khi nhìn điện thoại lâu thì bạn bị sao?",
+        "frame": "When I look at my phone for a long time, my eyes ___."
+      },
+      {
+        "question": "What does your friend do when his or her eyes are tired?",
+        "questionVi": "Khi mắt mỏi, bạn của bạn làm gì?",
+        "frame": "When his / her eyes are tired, he / she ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, hiện tại đơn)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you"
+      ],
+      "outlineVi": [
+        "Bạn dùng máy tính hoặc điện thoại bao lâu mỗi ngày.",
+        "Khi dùng quá lâu thì sao (When I …, my eyes …).",
+        "Mẹo của bạn (If you …, your eyes …)."
+      ],
+      "modelAnswer": "I use my computer for about six hours every day. When I look at the screen for a long time, my eyes get dry and tired. So I have some rules. Every hour, I take a short break and walk to the window. If I look at the trees outside, my eyes feel better. I don't use my phone in bed."
+    }
+  },
+  "glosses": [
+    {
+      "text": "company",
+      "lemma": "company",
+      "meaningVi": "công ty",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a big company in Hanoi",
+      "phraseVi": "một công ty lớn tại Hà Nội"
+    },
+    {
+      "text": "for hours",
+      "lemma": "hour",
+      "meaningVi": "hàng giờ",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "look at a screen for hours",
+      "phraseVi": "nhìn màn hình hàng giờ"
+    },
+    {
+      "text": "simple",
+      "lemma": "simple",
+      "meaningVi": "đơn giản",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "a simple rule",
+      "phraseVi": "một quy tắc đơn giản"
+    },
+    {
+      "text": "far away",
+      "lemma": "far away",
+      "meaningVi": "ở xa",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "something far away",
+      "phraseVi": "thứ gì đó ở xa"
+    },
+    {
+      "text": "bright",
+      "lemma": "bright",
+      "meaningVi": "sáng",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "the screen is too bright",
+      "phraseVi": "màn hình sáng quá"
+    },
+    {
+      "text": "hurts",
+      "lemma": "hurt",
+      "meaningVi": "làm đau, hại",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "it hurts your eyes",
+      "phraseVi": "hại mắt"
+    }
+  ]
+}

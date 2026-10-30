@@ -1,0 +1,607 @@
+{
+  "content": "Linh and Mai are close friends, and they often remember how they met. Five years ago, they both went to an English class at an evening centre in Hanoi. The class was at seven o'clock, after work.\n\nOn the first evening, Linh was late. The only free seat was next to Mai. The teacher, Mr Peter, was from Australia. He spoke very fast, and Linh's English wasn't very good at that time. She was very worried, so Mai wrote some new words for her on a piece of paper.\n\nAfter class, they were both hungry. They bought some snacks at a small shop and ate them on the street. They talked about their jobs. Linh was a nurse, and Mai worked in a bank.\n\nThe next week, they saw a funny movie at the cinema after class. They laughed so much! Soon they became close friends, and they did their homework together every weekend.\n\nLast week, Mai asked, \"Do you remember our first lesson?\"\n\"Of course, I was so worried, but you helped me,\" Linh said. \"Thank you, my friend!\"",
+  "targetWords": [
+    "close friend",
+    "class",
+    "late",
+    "seat",
+    "snack",
+    "movie",
+    "become",
+    "help"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "close friends",
+        "lemma": "close friend",
+        "meaningVi": "bạn thân",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "class",
+        "lemma": "class",
+        "meaningVi": "lớp học",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "late",
+        "lemma": "late",
+        "meaningVi": "muộn, trễ",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "seat",
+        "lemma": "seat",
+        "meaningVi": "chỗ ngồi, ghế",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "snacks",
+        "lemma": "snack",
+        "meaningVi": "đồ ăn vặt",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "movie",
+        "lemma": "movie",
+        "meaningVi": "bộ phim",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "became",
+        "lemma": "become",
+        "meaningVi": "trở thành",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "helped",
+        "lemma": "help",
+        "meaningVi": "giúp đỡ",
+        "pos": "verb",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Mr Peter's life in Australia",
+          "A new cinema in Hanoi",
+          "Linh's job at the hospital",
+          "How Linh and Mai became close friends at an English class"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Linh và Mai quen nhau ở lớp tiếng Anh buổi tối năm năm trước: ngồi cạnh nhau, ăn vặt, đi xem phim, rồi thành bạn thân."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why was Linh's seat next to Mai?",
+        "promptVi": "Vì sao Linh ngồi cạnh Mai?",
+        "options": [
+          "It was the only free seat.",
+          "Mai was her old friend.",
+          "The teacher asked her.",
+          "She liked the window."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh đến muộn, và \"The only free seat was next to Mai\": chỉ còn chỗ trống cạnh Mai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What was Mai's job?",
+        "promptVi": "Mai làm nghề gì?",
+        "options": [
+          "She was a nurse.",
+          "She worked in a bank.",
+          "She was a teacher.",
+          "She worked in a shop."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bài viết \"Linh was a nurse, and Mai worked in a bank\": Linh là y tá, còn Mai làm ở ngân hàng."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Peter spoke very slowly.",
+        "promptVi": "Thầy Peter nói rất chậm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"He spoke very fast\": thầy nói rất nhanh, nên Linh thấy lo."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"late\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "On the first evening, Linh was late.",
+        "options": [
+          "sớm",
+          "mệt",
+          "muộn, trễ",
+          "vội vàng"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Late là muộn: Linh đến lớp muộn nên chỉ còn chỗ trống cạnh Mai."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ đơn: động từ bất quy tắc",
+      "bodyVi": "Nhiều động từ thường gặp có dạng quá khứ riêng, không thêm -ed: go → went, speak → spoke, write → wrote, buy → bought, eat → ate, see → saw, become → became, do → did. Dạng này dùng cho mọi chủ ngữ và phải học thuộc.",
+      "examples": [
+        "They bought some snacks at a small shop and ate them on the street.",
+        "The next week, they saw a funny movie at the cinema after class.",
+        "Soon they became close friends, and they did their homework together every weekend."
+      ]
+    },
+    "writingPrompt": "Write about your first English class or another class: who you met and what you did together.",
+    "sentenceTranslations": [
+      "Linh và Mai là bạn thân, và họ hay nhớ lại lần đầu quen nhau.",
+      "Năm năm trước, cả hai cùng đi học một lớp tiếng Anh ở một trung tâm buổi tối ở Hà Nội.",
+      "Lớp học bắt đầu lúc bảy giờ, sau giờ làm.",
+      "Buổi học đầu tiên, Linh đến muộn.",
+      "Chỗ trống duy nhất là cạnh Mai.",
+      "Thầy giáo, thầy Peter, đến từ Úc.",
+      "Thầy nói rất nhanh, mà hồi đó tiếng Anh của Linh không giỏi lắm.",
+      "Linh lo lắm, nên Mai viết mấy từ mới lên một mẩu giấy cho Linh.",
+      "Tan học, cả hai đều đói.",
+      "Họ mua ít đồ ăn vặt ở một cửa hàng nhỏ và ăn ngay trên phố.",
+      "Họ nói chuyện về công việc của mình.",
+      "Linh là y tá, còn Mai làm ở ngân hàng.",
+      "Tuần sau, tan học họ đi xem một bộ phim hài ở rạp.",
+      "Hai người cười nhiều lắm!",
+      "Chẳng bao lâu họ trở thành bạn thân, và cuối tuần nào cũng cùng nhau làm bài tập.",
+      "Tuần trước, Mai hỏi: \"Cậu còn nhớ buổi học đầu tiên của bọn mình không?\"",
+      "\"Nhớ chứ, hôm đó mình lo lắm, nhưng cậu đã giúp mình,\" Linh nói.",
+      "\"Cảm ơn cậu nhé, bạn của mình!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về một lớp học và người bạn quen ở đó, dùng động từ quá khứ bất quy tắc (went, saw, ate, became…) và was / were.",
+    "examples": [
+      {
+        "lemma": "close friend",
+        "sentence": "Mai is my close friend.",
+        "meaningVi": "Mai là bạn thân của mình."
+      },
+      {
+        "lemma": "class",
+        "sentence": "My English class starts at seven.",
+        "meaningVi": "Lớp tiếng Anh của mình bắt đầu lúc bảy giờ."
+      },
+      {
+        "lemma": "late",
+        "sentence": "Sorry, I'm late!",
+        "meaningVi": "Xin lỗi, mình đến muộn!"
+      },
+      {
+        "lemma": "seat",
+        "sentence": "Is this seat free?",
+        "meaningVi": "Chỗ này có ai ngồi chưa?"
+      },
+      {
+        "lemma": "snack",
+        "sentence": "I usually have a snack after school.",
+        "meaningVi": "Tan học mình thường ăn chút đồ ăn vặt."
+      },
+      {
+        "lemma": "movie",
+        "sentence": "Let's watch a movie tonight.",
+        "meaningVi": "Tối nay mình xem phim nhé."
+      },
+      {
+        "lemma": "become",
+        "sentence": "I want to become a doctor.",
+        "meaningVi": "Mình muốn trở thành bác sĩ."
+      },
+      {
+        "lemma": "help",
+        "sentence": "Can you help me, please?",
+        "meaningVi": "Bạn giúp mình được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Peter"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Mai! I remember you. You were in my evening class!",
+          "meaningVi": "Mai! Thầy nhớ em. Em học lớp buổi tối của thầy!"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, Mr Peter! That was five years ago.",
+          "meaningVi": "Vâng, thầy Peter! Từ năm năm trước rồi ạ."
+        },
+        {
+          "speaker": 1,
+          "text": "Was Linh in that class too?",
+          "meaningVi": "Linh cũng học lớp đó phải không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, she was. Now she's my best friend.",
+          "meaningVi": "Vâng ạ. Giờ cô ấy là bạn thân nhất của em."
+        },
+        {
+          "speaker": 1,
+          "text": "That's great! Do you still study English?",
+          "meaningVi": "Tuyệt quá! Em còn học tiếng Anh không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I do. Linh and I study together every weekend.",
+          "meaningVi": "Còn ạ. Cuối tuần nào em với Linh cũng học cùng nhau."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you remember your first lesson?",
+          "meaningVi": "Em còn nhớ buổi học đầu tiên không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. You spoke very fast!",
+          "meaningVi": "Nhớ chứ ạ. Thầy nói nhanh lắm!"
+        },
+        {
+          "speaker": 1,
+          "text": "Oh no! Was it difficult for you?",
+          "meaningVi": "Ôi không! Thế có khó với em không?"
+        },
+        {
+          "speaker": 0,
+          "text": "A little. But we learned a lot from you.",
+          "meaningVi": "Hơi khó ạ. Nhưng bọn em học được rất nhiều từ thầy."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về một người trong quá khứ: Was Linh in that class too? Trả lời: Yes, she was. Kể lại bằng động từ bất quy tắc: You spoke very fast!",
+    "translations": [
+      {
+        "vi": "Linh đến muộn.",
+        "en": "Linh was late.",
+        "distractors": [
+          "were",
+          "is",
+          "early"
+        ]
+      },
+      {
+        "vi": "Họ mua ít đồ ăn vặt.",
+        "en": "They bought some snacks.",
+        "distractors": [
+          "buy",
+          "brought",
+          "any"
+        ]
+      },
+      {
+        "vi": "Tuần sau, họ đi xem một bộ phim hài.",
+        "en": "The next week, they saw a funny movie.",
+        "distractors": [
+          "see",
+          "sad",
+          "watch"
+        ]
+      },
+      {
+        "vi": "Họ trở thành bạn thân.",
+        "en": "They became close friends.",
+        "distractors": [
+          "become",
+          "friend",
+          "good"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thầy Peter và Mai nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một bộ phim hay",
+          "Lớp tiếng Anh buổi tối năm năm trước",
+          "Công việc ở ngân hàng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thầy Peter nhận ra Mai: \"You were in my evening class!\", rồi hai người nhớ lại lớp học đó.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lớp học đó cách đây bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Ba năm",
+          "Năm năm",
+          "Mười năm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mai nói \"That was five years ago.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mai và Linh học cùng nhau khi nào?",
+        "promptVi": "",
+        "options": [
+          "Mỗi cuối tuần",
+          "Mỗi tối",
+          "Mỗi sáng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"Linh and I study together every weekend.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Peter spoke very slowly in the first lesson.",
+        "promptVi": "Trong buổi học đầu tiên thầy Peter nói rất chậm.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai nói \"You spoke very fast!\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Sau buổi học đầu tiên và tuần sau đó, Linh và Mai đã cùng làm gì?",
+    "grammarStep": {
+      "titleVi": "Quá khứ đơn: động từ bất quy tắc",
+      "noticing": [
+        {
+          "sentence": "Five years ago, they both went to an English class at an evening centre in Hanoi.",
+          "highlights": [
+            "went"
+          ]
+        },
+        {
+          "sentence": "He spoke very fast, and Linh's English wasn't very good at that time.",
+          "highlights": [
+            "spoke"
+          ]
+        },
+        {
+          "sentence": "They bought some snacks at a small shop and ate them on the street.",
+          "highlights": [
+            "bought",
+            "ate"
+          ]
+        },
+        {
+          "sentence": "Soon they became close friends, and they did their homework together every weekend.",
+          "highlights": [
+            "became",
+            "did"
+          ]
+        }
+      ],
+      "questionVi": "Trong bài, quá khứ của speak, eat, become là gì?",
+      "options": [
+        "spoke, ate, became",
+        "speaked, eated, becomed",
+        "spoke, eat, become"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Speak, eat, become là động từ bất quy tắc: speak → spoke, eat → ate, become → became. Không thêm -ed vào các động từ này.",
+      "whenVi": "Dùng dạng quá khứ của động từ bất quy tắc để kể những việc đã xảy ra, như mọi động từ quá khứ khác.",
+      "table": [
+        {
+          "subject": "speak → spoke",
+          "form": "He spoke very fast.",
+          "negative": "—"
+        },
+        {
+          "subject": "eat → ate",
+          "form": "They ate snacks on the street.",
+          "negative": "—"
+        },
+        {
+          "subject": "see → saw",
+          "form": "They saw a funny movie.",
+          "negative": "—"
+        },
+        {
+          "subject": "become → became, do → did",
+          "form": "They became close friends. They did their homework.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He speaked very fast.",
+          "right": "He spoke very fast."
+        },
+        {
+          "wrong": "They becamed close friends.",
+          "right": "They became close friends."
+        }
+      ],
+      "noteVi": "Người Việt hay thêm -ed vào cả động từ bất quy tắc (speaked) hoặc thêm -ed vào dạng quá khứ đã đổi (becamed), vì quen quy tắc chung.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng quá khứ của động từ trong ngoặc.",
+          "text": "Five years ago, they ___ (go) to an English class.",
+          "answers": [
+            "went"
+          ],
+          "explanationVi": "Go là động từ bất quy tắc: go → went."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "The next week, they ___ a funny movie.",
+          "options": [
+            "see",
+            "saw",
+            "seen",
+            "sawed"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "The next week kể chuyện đã qua; quá khứ của see là saw."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "They eated some snacks on the street.",
+          "sentence": "They ate some snacks on the street.",
+          "explanationVi": "Eat là động từ bất quy tắc: eat → ate."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Họ cùng nhau làm bài tập về nhà.",
+          "sentence": "They did their homework together.",
+          "words": [
+            "did",
+            "They",
+            "homework",
+            "their",
+            "together",
+            "do"
+          ],
+          "explanationVi": "Chuyện đã qua nên dùng did (quá khứ của do); từ \"do\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The only free seat was next to Mai.",
+        "tipVi": "Seat /sit/ có âm /i/ dài, khác với sit /sɪt/ (ngồi); next /nɛkst/ có cụm /kst/ ở cuối."
+      },
+      {
+        "text": "After class, they were both hungry.",
+        "tipVi": "Both /boʊθ/ kết thúc bằng /θ/: đưa đầu lưỡi ra giữa hai hàm răng; hungry /ˈhʌŋɡri/ có /ŋɡ/ ở giữa."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you go to an English class?",
+        "questionVi": "Bạn có đi học lớp tiếng Anh không?",
+        "frame": "Yes, I do. It's on ___. / No, I don't. I study English ___."
+      },
+      {
+        "question": "What do you usually do after class?",
+        "questionVi": "Tan học bạn thường làm gì?",
+        "frame": "After class, I usually ___."
+      },
+      {
+        "question": "What was your first English teacher like?",
+        "questionVi": "Thầy cô dạy tiếng Anh đầu tiên của bạn là người thế nào?",
+        "frame": "He / She was ___. He / She spoke ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 động từ quá khứ bất quy tắc (went, saw, ate, became …)",
+      "anyOf": [
+        "went",
+        "saw",
+        "ate",
+        "became",
+        "bought",
+        "spoke",
+        "met",
+        "had"
+      ],
+      "outlineVi": [
+        "Nói lớp học đó là lớp gì và khi nào (… was … years ago).",
+        "Kể người bạn bạn gặp ở lớp và người đó đã làm gì (He / She spoke …, helped …).",
+        "Kể hai bạn đã cùng làm gì sau giờ học (we went …, we became …)."
+      ],
+      "modelAnswer": "My first English class was three years ago. I was very shy, and I sat at the back. A boy named Quang sat next to me. He spoke English very well, and he helped me a lot. After class, we went to a café and ate cakes. Soon we became good friends. Now we study together every Sunday."
+    }
+  },
+  "glosses": [
+    {
+      "text": "remember",
+      "lemma": "remember",
+      "meaningVi": "nhớ lại",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "they often remember how they met",
+      "phraseVi": "họ hay nhớ lại lần đầu quen nhau"
+    },
+    {
+      "text": "evening centre",
+      "lemma": "centre",
+      "meaningVi": "trung tâm (học) buổi tối",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "an English class at an evening centre",
+      "phraseVi": "một lớp tiếng Anh ở trung tâm buổi tối"
+    },
+    {
+      "text": "after work",
+      "lemma": "after work",
+      "meaningVi": "sau giờ làm",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "at seven o'clock, after work",
+      "phraseVi": "lúc bảy giờ, sau giờ làm"
+    },
+    {
+      "text": "spoke",
+      "lemma": "speak",
+      "meaningVi": "nói",
+      "sentenceIndex": 6,
+      "pos": "verb",
+      "phrase": "He spoke very fast",
+      "phraseVi": "Thầy nói rất nhanh"
+    },
+    {
+      "text": "worried",
+      "lemma": "worried",
+      "meaningVi": "lo lắng",
+      "sentenceIndex": 7,
+      "pos": "adjective",
+      "phrase": "She was very worried",
+      "phraseVi": "Linh lo lắm"
+    },
+    {
+      "text": "wrote",
+      "lemma": "write",
+      "meaningVi": "viết",
+      "sentenceIndex": 7,
+      "pos": "verb",
+      "phrase": "Mai wrote some new words for her",
+      "phraseVi": "Mai viết mấy từ mới cho Linh"
+    },
+    {
+      "text": "hungry",
+      "lemma": "hungry",
+      "meaningVi": "đói",
+      "sentenceIndex": 8,
+      "pos": "adjective",
+      "phrase": "they were both hungry",
+      "phraseVi": "cả hai đều đói"
+    },
+    {
+      "text": "cinema",
+      "lemma": "cinema",
+      "meaningVi": "rạp chiếu phim",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "a funny movie at the cinema",
+      "phraseVi": "một bộ phim hài ở rạp"
+    },
+    {
+      "text": "Soon",
+      "lemma": "soon",
+      "meaningVi": "chẳng bao lâu sau",
+      "sentenceIndex": 14,
+      "pos": "adverb",
+      "phrase": "Soon they became close friends",
+      "phraseVi": "Chẳng bao lâu họ trở thành bạn thân"
+    }
+  ]
+}

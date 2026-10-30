@@ -1,0 +1,597 @@
+{
+  "content": "On his last evening in Da Nang, Peter goes down to the reception desk of his hotel. His flight home to Sydney leaves early the next morning.\n\nHe says to the receptionist, \"Hi. Could you tell me if the hotel has a bus to the airport?\"\nThu smiles. \"Yes, we do. Our airport bus leaves every hour from six in the morning.\"\n\"Great. Do you know how long the trip takes?\"\n\"About twenty minutes, but there's more traffic after seven.\"\n\"My flight is at a quarter past nine. So the six o'clock bus is too early, isn't it?\"\n\"I think the seven o'clock bus is best. International passengers should arrive two hours before departure.\"\n\"OK. I need to book a seat, don't I?\"\n\"Yes, you do. I can book it for you now. It costs fifty thousand dong, and you can pay when you check out.\"\n\"That's fine. Could you tell me what time I need to check out?\"\n\"Usually at twelve, but you're leaving early, so please come to the desk before the bus leaves. We're open all night.\"\n\"Perfect. I wonder whether I can have breakfast before I go.\"\n\"The restaurant opens at half past six. But we can make you a breakfast box for the bus.\"\n\"That would be great. You've thought of everything, haven't you?\"\nThu laughs. \"That's my job. So, that's one seat on the seven o'clock bus tomorrow. Your room is 304, isn't it?\"\n\"Yes, it is. Thanks so much, Thu.\"",
+  "targetWords": [
+    "flight",
+    "airport",
+    "traffic",
+    "international",
+    "passenger",
+    "departure",
+    "book",
+    "seat",
+    "pay",
+    "check out"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "flight",
+        "lemma": "flight",
+        "meaningVi": "chuyến bay",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "airport",
+        "lemma": "airport",
+        "meaningVi": "sân bay",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "traffic",
+        "lemma": "traffic",
+        "meaningVi": "giao thông, xe cộ",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "International",
+        "lemma": "international",
+        "meaningVi": "quốc tế",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "passengers",
+        "lemma": "passenger",
+        "meaningVi": "hành khách",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "departure",
+        "lemma": "departure",
+        "meaningVi": "giờ khởi hành, cất cánh",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "book",
+        "lemma": "book",
+        "meaningVi": "đặt (chỗ, vé)",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "seat",
+        "lemma": "seat",
+        "meaningVi": "chỗ ngồi",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "pay",
+        "lemma": "pay",
+        "meaningVi": "trả tiền",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "check out",
+        "lemma": "check out",
+        "meaningVi": "trả phòng",
+        "pos": "phrase",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What does Peter want to know?",
+        "promptVi": "Peter muốn biết điều gì?",
+        "options": [
+          "How to get to the airport by the hotel bus",
+          "Where to have dinner in Da Nang",
+          "How to book a flight to Sydney",
+          "Why his room is so expensive"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Peter hỏi khách sạn có xe buýt ra sân bay không, đi mất bao lâu và cần đặt chỗ không."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long does the trip to the airport take?",
+        "promptVi": "Đi ra sân bay mất bao lâu?",
+        "options": [
+          "About ten minutes",
+          "About twenty minutes",
+          "About an hour",
+          "About two hours"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thu nói \"About twenty minutes, but there's more traffic after seven.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which bus does Peter take?",
+        "promptVi": "Peter đi chuyến xe buýt nào?",
+        "options": [
+          "The six o'clock bus",
+          "The half past six bus",
+          "The seven o'clock bus",
+          "The nine o'clock bus"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thu nói \"that's one seat on the seven o'clock bus tomorrow.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Peter has to pay for the bus now.",
+        "promptVi": "Peter phải trả tiền xe buýt ngay bây giờ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thu nói \"you can pay when you check out.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"departure\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "International passengers should arrive two hours before departure.\"",
+        "options": [
+          "giờ cất cánh",
+          "giờ hạ cánh",
+          "cửa ra máy bay",
+          "hành lý"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Departure = lúc khởi hành; before departure = trước giờ máy bay cất cánh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "bodyVi": "Câu hỏi gián tiếp giúp hỏi lịch sự: Does the hotel have a bus? → Could you tell me if the hotel has a bus? How long does the trip take? → Do you know how long the trip takes? Bỏ do / does / did và để chủ ngữ trước động từ. Với I wonder whether / if …, câu kết thúc bằng dấu chấm. Lễ tân và Peter cũng xác nhận lại bằng câu hỏi đuôi: Your room is 304, isn't it?",
+      "examples": [
+        "Could you tell me if the hotel has a bus to the airport?\"",
+        "Do you know how long the trip takes?\"",
+        "Could you tell me what time I need to check out?\""
+      ]
+    },
+    "writingPrompt": "Write a short conversation at a hotel desk: ask about getting to the airport. Use at least two polite questions (Could you tell me …? / Do you know …?).",
+    "sentenceTranslations": [
+      "Vào buổi tối cuối cùng ở Đà Nẵng, Peter đi xuống quầy lễ tân của khách sạn.",
+      "Chuyến bay về Sydney của anh cất cánh sáng sớm hôm sau.",
+      "Anh nói với lễ tân: \"Chào chị.",
+      "Chị cho tôi hỏi khách sạn có xe buýt ra sân bay không?\"",
+      "Thu mỉm cười.",
+      "\"Có ạ.",
+      "Xe buýt sân bay của chúng tôi chạy mỗi tiếng một chuyến, từ sáu giờ sáng.\"",
+      "\"Tuyệt.",
+      "Chị có biết đi mất bao lâu không?\"",
+      "\"Khoảng hai mươi phút, nhưng sau bảy giờ thì đông xe hơn.\"",
+      "\"Chuyến bay của tôi lúc chín giờ mười lăm.",
+      "Vậy xe sáu giờ thì sớm quá, phải không?\"",
+      "\"Tôi nghĩ xe bảy giờ là tốt nhất.",
+      "Hành khách bay quốc tế nên có mặt hai tiếng trước giờ cất cánh.\"",
+      "\"Được.",
+      "Tôi cần đặt chỗ, phải không?\"",
+      "\"Vâng.",
+      "Tôi có thể đặt cho anh ngay bây giờ.",
+      "Giá năm mươi nghìn đồng, và anh có thể trả khi trả phòng.\"",
+      "\"Được thôi.",
+      "Chị cho tôi hỏi tôi cần trả phòng lúc mấy giờ?\"",
+      "\"Thường là mười hai giờ, nhưng anh đi sớm nên anh ghé quầy trước khi xe chạy nhé.",
+      "Chúng tôi mở cửa cả đêm.\"",
+      "\"Tuyệt vời.",
+      "Không biết tôi có thể ăn sáng trước khi đi không.\"",
+      "\"Nhà hàng mở cửa lúc sáu rưỡi.",
+      "Nhưng chúng tôi có thể làm cho anh một hộp đồ ăn sáng mang lên xe.\"",
+      "\"Thế thì tốt quá.",
+      "Chị nghĩ chu đáo thật, phải không?\"",
+      "Thu cười.",
+      "\"Đó là việc của tôi mà.",
+      "Vậy là một chỗ trên xe bảy giờ sáng mai.",
+      "Phòng anh là 304, phải không?\"",
+      "\"Đúng vậy.",
+      "Cảm ơn chị nhiều, Thu.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi lịch sự về giờ xe, thời gian đi và việc đặt chỗ bằng câu hỏi gián tiếp (Could you tell me if …? / Do you know how long …?).",
+    "examples": [
+      {
+        "lemma": "flight",
+        "sentence": "My flight is at six in the morning.",
+        "meaningVi": "Chuyến bay của tôi lúc sáu giờ sáng."
+      },
+      {
+        "lemma": "airport",
+        "sentence": "It takes an hour to get to the airport.",
+        "meaningVi": "Ra sân bay mất một tiếng."
+      },
+      {
+        "lemma": "traffic",
+        "sentence": "There is a lot of traffic in the evening.",
+        "meaningVi": "Buổi tối đường rất đông xe."
+      },
+      {
+        "lemma": "international",
+        "sentence": "This is an international school.",
+        "meaningVi": "Đây là một trường quốc tế."
+      },
+      {
+        "lemma": "passenger",
+        "sentence": "Only one passenger was late.",
+        "meaningVi": "Chỉ có một hành khách bị trễ."
+      },
+      {
+        "lemma": "departure",
+        "sentence": "Please arrive an hour before departure.",
+        "meaningVi": "Vui lòng có mặt một tiếng trước giờ khởi hành."
+      },
+      {
+        "lemma": "book",
+        "sentence": "I want to book a table for four.",
+        "meaningVi": "Tôi muốn đặt một bàn cho bốn người."
+      },
+      {
+        "lemma": "seat",
+        "sentence": "Is this seat free?",
+        "meaningVi": "Chỗ này còn trống không?"
+      },
+      {
+        "lemma": "pay",
+        "sentence": "Can I pay by card?",
+        "meaningVi": "Tôi trả bằng thẻ được không?"
+      },
+      {
+        "lemma": "check out",
+        "sentence": "We have to check out before noon.",
+        "meaningVi": "Chúng tôi phải trả phòng trước buổi trưa."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Peter",
+        "Thu"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Good morning, Thu. The bus is here, isn't it?",
+          "meaningVi": "Chào Thu. Xe buýt đến rồi, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it's outside. Here's your breakfast box.",
+          "meaningVi": "Vâng, xe ở ngoài. Đây là hộp đồ ăn sáng của anh."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you! Could you tell me how much I owe for the bus?",
+          "meaningVi": "Cảm ơn chị! Chị cho tôi hỏi tiền xe buýt là bao nhiêu?"
+        },
+        {
+          "speaker": 1,
+          "text": "Fifty thousand dong. It's on your bill.",
+          "meaningVi": "Năm mươi nghìn đồng. Đã tính vào hoá đơn của anh."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Do you know if I can pay by card?",
+          "meaningVi": "Được. Chị có biết tôi trả bằng thẻ được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, of course. Here's the machine.",
+          "meaningVi": "Được chứ ạ. Máy đây ạ."
+        },
+        {
+          "speaker": 0,
+          "text": "And do you know which terminal I need?",
+          "meaningVi": "Còn chị có biết tôi cần đến nhà ga nào không?"
+        },
+        {
+          "speaker": 1,
+          "text": "International flights leave from Terminal 2.",
+          "meaningVi": "Các chuyến bay quốc tế đi từ nhà ga 2."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. The driver knows that, doesn't he?",
+          "meaningVi": "Tuyệt. Tài xế biết điều đó, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he does. Have a safe trip home!",
+          "meaningVi": "Vâng, anh ấy biết. Chúc anh về nhà an toàn!"
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi gián tiếp có từ để hỏi: Could you tell me how much I owe? / Do you know which terminal I need? Câu hỏi Yes / No: Do you know if I can pay by card? Xác nhận: The driver knows that, doesn't he?",
+    "translations": [
+      {
+        "vi": "Chị cho tôi hỏi khách sạn có xe ra sân bay không?",
+        "en": "Could you tell me if the hotel has an airport bus?",
+        "distractors": [
+          "does",
+          "what",
+          "have"
+        ]
+      },
+      {
+        "vi": "Bạn có biết chuyến bay mất bao lâu không?",
+        "en": "Do you know how long the flight takes?",
+        "distractors": [
+          "does",
+          "took",
+          "what"
+        ]
+      },
+      {
+        "vi": "Tôi cần đặt một chỗ, phải không?",
+        "en": "I need to book a seat, don't I?",
+        "distractors": [
+          "does",
+          "isn't",
+          "you"
+        ]
+      },
+      {
+        "vi": "Chị cho tôi hỏi mấy giờ tôi phải trả phòng?",
+        "en": "Could you tell me what time I must check out?",
+        "distractors": [
+          "do",
+          "where",
+          "in"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Peter và Thu nói chuyện khi nào?",
+        "promptVi": "",
+        "options": [
+          "Sáng hôm sau, lúc Peter sắp lên xe buýt",
+          "Tối hôm trước, lúc Peter đặt chỗ",
+          "Ở sân bay Sydney"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Peter nói \"Good morning, Thu. The bus is here, isn't it?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Peter trả tiền bằng gì?",
+        "promptVi": "",
+        "options": [
+          "Tiền mặt",
+          "Thẻ",
+          "Không trả"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Peter hỏi \"Do you know if I can pay by card?\" và Thu nói \"Yes, of course.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chuyến bay quốc tế đi từ nhà ga nào?",
+        "promptVi": "",
+        "options": [
+          "Nhà ga 1",
+          "Nhà ga 2",
+          "Nhà ga 3"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thu nói \"International flights leave from Terminal 2.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The driver doesn't know which terminal Peter needs.",
+        "promptVi": "Tài xế không biết Peter cần đến nhà ga nào.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thu nói \"Yes, he does.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Peter hỏi lễ tân những gì về chuyến xe ra sân bay? Cuối cùng anh chọn xe mấy giờ?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi gián tiếp (Could you tell me where ...?)",
+      "noticing": [
+        {
+          "sentence": "Could you tell me if the hotel has a bus to the airport?\"",
+          "highlights": [
+            "if the hotel has"
+          ]
+        },
+        {
+          "sentence": "Do you know how long the trip takes?\"",
+          "highlights": [
+            "how long the trip takes"
+          ]
+        },
+        {
+          "sentence": "Could you tell me what time I need to check out?\"",
+          "highlights": [
+            "what time I need"
+          ]
+        },
+        {
+          "sentence": "I wonder whether I can have breakfast before I go.\"",
+          "highlights": [
+            "I wonder whether I can"
+          ]
+        }
+      ],
+      "questionVi": "Câu hỏi thường \"How long does the trip take?\" chuyển thành câu hỏi gián tiếp thế nào?",
+      "options": [
+        "Do you know how long the trip takes?",
+        "Do you know how long does the trip take?",
+        "Do you know how long takes the trip?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Bỏ does, chủ ngữ (the trip) đứng trước động từ, và động từ thêm -s: the trip takes.",
+      "whenVi": "Dùng câu hỏi gián tiếp để hỏi thông tin một cách lịch sự ở khách sạn, sân bay, nhà ga.",
+      "table": [
+        {
+          "subject": "Câu hỏi có do / does",
+          "form": "How long does it take? → Do you know how long it takes?",
+          "negative": "Bỏ do / does, động từ chia theo chủ ngữ"
+        },
+        {
+          "subject": "Câu hỏi Yes / No",
+          "form": "Does the hotel have a bus? → Could you tell me if the hotel has a bus?",
+          "negative": "Thêm if hoặc whether"
+        },
+        {
+          "subject": "I wonder",
+          "form": "I wonder whether I can have breakfast.",
+          "negative": "Kết thúc bằng dấu chấm"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Could you tell me if does the hotel have a bus?",
+          "right": "Could you tell me if the hotel has a bus?"
+        },
+        {
+          "wrong": "Do you know how long does the trip take?",
+          "right": "Do you know how long the trip takes?"
+        }
+      ],
+      "noteVi": "Khi bỏ does ở hiện tại đơn, nhớ thêm -s cho động từ với he / she / it: the trip takes, the hotel has.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (take).",
+          "text": "Do you know how long the trip ___?",
+          "answers": [
+            "takes"
+          ],
+          "explanationVi": "Câu hỏi gián tiếp: the trip + takes (không dùng does)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Could you tell me ___?",
+          "options": [
+            "if the hotel has a bus",
+            "if does the hotel have a bus",
+            "does the hotel have a bus",
+            "if has the hotel a bus"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "If + chủ ngữ + động từ: if the hotel has a bus."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Do you know what time does the bus leave?",
+          "sentence": "Do you know what time the bus leaves?",
+          "explanationVi": "Bỏ does, chủ ngữ trước động từ: the bus leaves."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn có biết chuyến đi mất bao lâu không?",
+          "sentence": "Do you know how long the trip takes?",
+          "words": [
+            "you",
+            "Do",
+            "know",
+            "how",
+            "long",
+            "the",
+            "trip",
+            "takes?",
+            "does"
+          ],
+          "explanationVi": "Câu hỏi gián tiếp không dùng does; từ \"does\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Could you tell me if the hotel has a bus to the airport?\"",
+        "tipVi": "Lên giọng nhẹ ở cuối câu hỏi Yes / No; airport /ˈeəpɔːt/."
+      },
+      {
+        "text": "International passengers should arrive two hours before departure.\"",
+        "tipVi": "International /ˌɪntəˈnæʃənəl/; departure /dɪˈpɑːtʃə/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How do you usually get to the airport?",
+        "questionVi": "Bạn thường ra sân bay bằng gì?",
+        "frame": "I usually get there by ___."
+      },
+      {
+        "question": "How early do you arrive before a flight?",
+        "questionVi": "Bạn thường có mặt sớm bao lâu trước chuyến bay?",
+        "frame": "I usually arrive ___ before my flight."
+      },
+      {
+        "question": "Ask politely: what time does the bus leave?",
+        "questionVi": "Hãy hỏi lịch sự: xe buýt chạy lúc mấy giờ?",
+        "frame": "Could you tell me what time ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi gián tiếp (Could you tell me … / Do you know … / I wonder …)",
+      "anyOf": [
+        "tell me",
+        "do you know",
+        "wonder",
+        "like to know"
+      ],
+      "outlineVi": [
+        "Nói chuyến bay của bạn lúc mấy giờ.",
+        "Hỏi lịch sự về xe ra sân bay (Could you tell me if … / Do you know how long …).",
+        "Đặt chỗ, hỏi cách trả tiền và cảm ơn."
+      ],
+      "modelAnswer": "Me: Hello. My flight leaves at eleven tomorrow. Could you tell me if there is a bus to the airport? Receptionist: Yes, there is. It leaves every hour. Me: Do you know how long it takes? Receptionist: About thirty minutes. Me: Great. I'd like to book a seat on the eight o'clock bus. Can I pay when I check out? Receptionist: Of course."
+    }
+  },
+  "glosses": [
+    {
+      "text": "every hour",
+      "lemma": "every hour",
+      "meaningVi": "mỗi tiếng một chuyến",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "leaves every hour",
+      "phraseVi": "chạy mỗi tiếng một chuyến"
+    },
+    {
+      "text": "a quarter past nine",
+      "lemma": "a quarter past",
+      "meaningVi": "chín giờ mười lăm",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "at a quarter past nine",
+      "phraseVi": "lúc chín giờ mười lăm"
+    },
+    {
+      "text": "I wonder whether",
+      "lemma": "wonder",
+      "meaningVi": "không biết liệu",
+      "sentenceIndex": 24,
+      "pos": "phrase",
+      "phrase": "I wonder whether I can have breakfast",
+      "phraseVi": "Không biết tôi có thể ăn sáng không"
+    },
+    {
+      "text": "thought of everything",
+      "lemma": "think of",
+      "meaningVi": "nghĩ chu đáo mọi thứ",
+      "sentenceIndex": 28,
+      "pos": "phrase",
+      "phrase": "You've thought of everything",
+      "phraseVi": "Chị nghĩ chu đáo thật"
+    }
+  ]
+}

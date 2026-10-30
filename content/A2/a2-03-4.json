@@ -1,0 +1,602 @@
+{
+  "content": "Today is the wedding of Vinh's cousin Mai. Vinh is standing in front of the mirror in his bedroom. He is trying on clothes, and he isn't happy. His brother Tung is sitting on the bed. He is wearing a dark grey suit and a white shirt.\n\nTung asks, \"Vinh, what are you wearing?\"\n\"I'm trying on my black suit, but the trousers are too short,\" Vinh says. \"And the jacket isn't big enough.\"\n\"You're too tall for that suit now,\" Tung says with a laugh.\n\nVinh asks, \"What is Dad wearing?\"\n\"He's wearing his blue suit and a red tie,\" Tung answers. \"Mum is putting on her new ao dai.\"\n\nThen Vinh tries on a light blue shirt and grey trousers. The shirt is nice, but the trousers are too long. \"Wear my brown belt, and they're OK,\" Tung says.\n\nVinh puts on the belt and a dark blue jacket. He looks in the mirror and smiles, because now his clothes are perfect.\n\"Hurry up, the car is waiting outside,\" Tung says.",
+  "targetWords": [
+    "wedding",
+    "mirror",
+    "try on",
+    "suit",
+    "shirt",
+    "trousers",
+    "tall",
+    "belt"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "wedding",
+        "lemma": "wedding",
+        "meaningVi": "đám cưới",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "mirror",
+        "lemma": "mirror",
+        "meaningVi": "cái gương",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "trying on",
+        "lemma": "try on",
+        "meaningVi": "mặc thử",
+        "pos": "phrasal verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "suit",
+        "lemma": "suit",
+        "meaningVi": "bộ vest, bộ com-lê",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "shirt",
+        "lemma": "shirt",
+        "meaningVi": "áo sơ mi",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "trousers",
+        "lemma": "trousers",
+        "meaningVi": "quần dài",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "tall",
+        "lemma": "tall",
+        "meaningVi": "cao",
+        "pos": "adjective",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "belt",
+        "lemma": "belt",
+        "meaningVi": "thắt lưng",
+        "pos": "noun",
+        "sentenceIndex": 14
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Tung buys a new suit.",
+          "Vinh chooses clothes for his cousin's wedding.",
+          "A wedding in another city",
+          "Mum's new ao dai"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vinh đứng trước gương thử quần áo để đi đám cưới chị họ, anh trai Tùng giúp em chọn đồ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is wrong with Vinh's black suit?",
+        "promptVi": "Bộ vest đen của Vinh có vấn đề gì?",
+        "options": [
+          "The trousers are too short, and the jacket isn't big enough.",
+          "It's too expensive.",
+          "It's the wrong colour.",
+          "It's too big."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vinh nói \"the trousers are too short\" và \"the jacket isn't big enough\": quần quá ngắn, áo không đủ rộng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Tung give Vinh his brown belt?",
+        "promptVi": "Vì sao Tùng đưa Vinh chiếc thắt lưng nâu?",
+        "options": [
+          "Vinh's belt is very old.",
+          "Dad asks him to.",
+          "The grey trousers are too long.",
+          "It goes with the red tie."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bài viết \"the trousers are too long\", nên Tùng nói \"Wear my brown belt, and they're OK\"."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tung is wearing a black suit.",
+        "promptVi": "Tùng đang mặc bộ vest đen.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bài viết \"He is wearing a dark grey suit and a white shirt\": Tùng mặc vest xám đậm."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"tall\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"You're too tall for that suit now,\" Tung says with a laugh.",
+        "options": [
+          "thấp",
+          "béo",
+          "gầy",
+          "cao"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Tall là cao: Vinh cao lên nhiều nên bộ vest cũ bị ngắn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại tiếp diễn",
+      "bodyVi": "Hiện tại tiếp diễn (am / is / are + V-ing) kể những việc đang diễn ra ngay lúc này: Vinh is standing in front of the mirror, the car is waiting outside. Phủ định: isn't, aren't. Hỏi: What is Dad wearing? Động từ tận cùng bằng e bỏ e trước khi thêm -ing (wait → waiting, smile → smiling).",
+      "examples": [
+        "Vinh is standing in front of the mirror in his bedroom.",
+        "He is trying on clothes, and he isn't happy.",
+        "\"Hurry up, the car is waiting outside,\" Tung says."
+      ]
+    },
+    "writingPrompt": "You are getting ready for a wedding or a party. Write what you and your family are wearing and doing.",
+    "sentenceTranslations": [
+      "Hôm nay là đám cưới của Mai, chị họ của Vinh.",
+      "Vinh đang đứng trước gương trong phòng ngủ.",
+      "Cậu đang thử quần áo, và trông không vui.",
+      "Anh trai cậu là Tùng đang ngồi trên giường.",
+      "Tùng mặc bộ vest xám đậm và áo sơ mi trắng.",
+      "Tùng hỏi: \"Vinh, em mặc gì thế?\"",
+      "\"Em đang thử bộ vest đen, nhưng quần ngắn quá,\" Vinh nói.",
+      "\"Mà áo cũng không đủ rộng.\"",
+      "\"Giờ em cao quá so với bộ đó rồi,\" Tùng cười nói.",
+      "Vinh hỏi: \"Bố mặc gì hả anh?\"",
+      "\"Bố mặc bộ vest xanh và đeo cà vạt đỏ,\" Tùng đáp.",
+      "\"Mẹ đang mặc chiếc áo dài mới.\"",
+      "Rồi Vinh thử chiếc áo sơ mi xanh nhạt và quần xám.",
+      "Áo đẹp, nhưng quần lại dài quá.",
+      "\"Thắt cái thắt lưng nâu của anh vào là được,\" Tùng nói.",
+      "Vinh thắt thắt lưng và mặc thêm áo khoác xanh đậm.",
+      "Cậu nhìn vào gương và mỉm cười, vì giờ quần áo đã vừa vặn.",
+      "\"Nhanh lên, xe đang chờ ngoài kia,\" Tùng nói."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể mọi người đang mặc gì, đang làm gì khi chuẩn bị đi đám cưới, dùng hiện tại tiếp diễn và too / enough.",
+    "examples": [
+      {
+        "lemma": "wedding",
+        "sentence": "The wedding is on Sunday.",
+        "meaningVi": "Đám cưới vào Chủ nhật."
+      },
+      {
+        "lemma": "mirror",
+        "sentence": "There is a big mirror in my bedroom.",
+        "meaningVi": "Phòng ngủ của mình có một cái gương to."
+      },
+      {
+        "lemma": "try on",
+        "sentence": "Can I try on these shoes?",
+        "meaningVi": "Tôi đi thử đôi giày này được không?"
+      },
+      {
+        "lemma": "suit",
+        "sentence": "He looks great in a suit.",
+        "meaningVi": "Anh ấy mặc vest trông rất đẹp."
+      },
+      {
+        "lemma": "shirt",
+        "sentence": "I'm wearing a white shirt.",
+        "meaningVi": "Mình đang mặc áo sơ mi trắng."
+      },
+      {
+        "lemma": "trousers",
+        "sentence": "These trousers are very comfortable.",
+        "meaningVi": "Chiếc quần này mặc rất thoải mái."
+      },
+      {
+        "lemma": "tall",
+        "sentence": "My brother is very tall.",
+        "meaningVi": "Anh trai mình rất cao."
+      },
+      {
+        "lemma": "belt",
+        "sentence": "I need a new belt.",
+        "meaningVi": "Mình cần một cái thắt lưng mới."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vinh",
+        "Oliver"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Hi Vinh! Are you at the wedding now?",
+          "meaningVi": "Chào Vinh! Cậu đang ở đám cưới à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I am. I'm standing near the door with my brother.",
+          "meaningVi": "Ừ. Mình đang đứng gần cửa với anh trai."
+        },
+        {
+          "speaker": 1,
+          "text": "What's happening there?",
+          "meaningVi": "Ở đó đang có gì thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "The guests are arriving, and the band is playing music.",
+          "meaningVi": "Khách đang đến, và ban nhạc đang chơi nhạc."
+        },
+        {
+          "speaker": 1,
+          "text": "What are you wearing?",
+          "meaningVi": "Cậu đang mặc gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "A light blue shirt and a dark blue jacket. My old suit was too small!",
+          "meaningVi": "Áo sơ mi xanh nhạt với áo khoác xanh đậm. Bộ vest cũ của mình chật quá!"
+        },
+        {
+          "speaker": 1,
+          "text": "Ha! What is your cousin wearing?",
+          "meaningVi": "Ha! Chị họ cậu mặc gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "She's wearing a beautiful white ao dai.",
+          "meaningVi": "Chị ấy mặc một chiếc áo dài trắng rất đẹp."
+        },
+        {
+          "speaker": 1,
+          "text": "Are people dancing?",
+          "meaningVi": "Mọi người có đang nhảy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. They're eating now.",
+          "meaningVi": "Chưa. Giờ mọi người đang ăn."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi chuyện đang diễn ra: What's happening there? Are people dancing? Trả lời: The guests are arriving. They're eating now.",
+    "translations": [
+      {
+        "vi": "Vinh đang mặc thử quần áo.",
+        "en": "Vinh is trying on clothes.",
+        "distractors": [
+          "try",
+          "tries",
+          "are"
+        ]
+      },
+      {
+        "vi": "Quần ngắn quá.",
+        "en": "The trousers are too short.",
+        "distractors": [
+          "is",
+          "enough",
+          "long"
+        ]
+      },
+      {
+        "vi": "Em cao quá so với bộ vest đó.",
+        "en": "You're too tall for that suit.",
+        "distractors": [
+          "enough",
+          "short",
+          "this"
+        ]
+      },
+      {
+        "vi": "Cậu ấy đang soi gương.",
+        "en": "He is looking in the mirror.",
+        "distractors": [
+          "looks",
+          "at",
+          "window"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Oliver và Vinh nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một bữa tiệc sinh nhật",
+          "Đi mua áo vest",
+          "Đám cưới của chị họ Vinh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Oliver hỏi \"Are you at the wedding now?\", rồi Vinh kể mọi người đang làm gì, mặc gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vinh đang đứng ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Gần cửa",
+          "Gần sân khấu",
+          "Trong bếp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vinh nói \"I'm standing near the door with my brother.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chị họ của Vinh đang mặc gì?",
+        "promptVi": "",
+        "options": [
+          "Váy hồng",
+          "Áo dài trắng",
+          "Áo dài đỏ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Vinh nói \"She's wearing a beautiful white ao dai.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "People are dancing now.",
+        "promptVi": "Bây giờ mọi người đang nhảy.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vinh nói \"Not yet. They're eating now.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong nhà Vinh đang mặc gì, và bộ đồ nào hợp với Vinh?",
+    "grammarStep": {
+      "titleVi": "Hiện tại tiếp diễn",
+      "noticing": [
+        {
+          "sentence": "Vinh is standing in front of the mirror in his bedroom.",
+          "highlights": [
+            "is standing"
+          ]
+        },
+        {
+          "sentence": "He is trying on clothes, and he isn't happy.",
+          "highlights": [
+            "is trying on"
+          ]
+        },
+        {
+          "sentence": "\"Mum is putting on her new ao dai.\"",
+          "highlights": [
+            "is putting on"
+          ]
+        },
+        {
+          "sentence": "\"Hurry up, the car is waiting outside,\" Tung says.",
+          "highlights": [
+            "is waiting"
+          ]
+        }
+      ],
+      "questionVi": "Câu \"Mum is putting on her new ao dai\" cho biết điều gì?",
+      "options": [
+        "Mẹ đang mặc áo dài ngay lúc đó",
+        "Ngày nào mẹ cũng mặc áo dài",
+        "Hôm qua mẹ đã mặc áo dài"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Is + putting on: việc đang xảy ra ngay lúc Tùng nói. Nếu là thói quen thì dùng hiện tại đơn (Mum wears an ao dai at Tet), còn chuyện hôm qua thì dùng quá khứ.",
+      "whenVi": "Dùng hiện tại tiếp diễn để kể những việc mọi người đang làm ngay lúc này.",
+      "table": [
+        {
+          "subject": "I",
+          "form": "I'm trying on my black suit.",
+          "negative": "I'm not happy."
+        },
+        {
+          "subject": "he / she / it",
+          "form": "The car is waiting outside.",
+          "negative": "He isn't wearing a tie."
+        },
+        {
+          "subject": "you / we / they",
+          "form": "What are you wearing? – We're wearing suits.",
+          "negative": "They aren't dancing."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Mum putting on her ao dai.",
+          "right": "Mum is putting on her ao dai."
+        },
+        {
+          "wrong": "The car is wait outside.",
+          "right": "The car is waiting outside."
+        }
+      ],
+      "noteVi": "Tiếng Việt chỉ thêm \"đang\" mà không cần \"là\", nên người Việt hay bỏ is / are hoặc quên thêm -ing vào động từ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng hiện tại tiếp diễn của động từ trong ngoặc.",
+          "text": "Tung ___ (sit) on the bed.",
+          "answers": [
+            "is sitting",
+            "'s sitting"
+          ],
+          "explanationVi": "Tung là he: is + sitting (sit gấp đôi t rồi thêm -ing)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "What ___ Dad wearing?",
+          "options": [
+            "is",
+            "does",
+            "are",
+            "do"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Câu hỏi hiện tại tiếp diễn với Dad (he): What is Dad wearing?"
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The car is wait outside.",
+          "sentence": "The car is waiting outside.",
+          "explanationVi": "Sau is cần V-ing: is waiting."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mẹ đang mặc chiếc áo dài mới.",
+          "sentence": "Mum is putting on her new ao dai.",
+          "words": [
+            "putting",
+            "Mum",
+            "new",
+            "is",
+            "her",
+            "on",
+            "ao",
+            "dai",
+            "puts"
+          ],
+          "explanationVi": "Việc đang diễn ra: is + putting on; từ \"puts\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He is wearing a dark grey suit and a white shirt.",
+        "tipVi": "Shirt /ʃɝt/ có âm /ɝ/ uốn lưỡi, khác với short /ʃɔrt/; grey /ɡreɪ/ có cụm /ɡr/."
+      },
+      {
+        "text": "The shirt is nice, but the trousers are too long.",
+        "tipVi": "Trousers /ˈtraʊzərz/ có cụm /tr/ ở đầu và /z/ ở cuối; long /lɔŋ/ kết thúc bằng /ŋ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you wearing today?",
+        "questionVi": "Hôm nay bạn đang mặc gì?",
+        "frame": "I'm wearing ___ and ___."
+      },
+      {
+        "question": "What do people wear to weddings in Vietnam?",
+        "questionVi": "Ở Việt Nam người ta thường mặc gì đi đám cưới?",
+        "frame": "Men usually wear ___, and women wear ___."
+      },
+      {
+        "question": "What is your brother or sister doing now?",
+        "questionVi": "Bây giờ anh chị em của bạn đang làm gì?",
+        "frame": "He / She is ___ now."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại tiếp diễn (am / is / are + V-ing)",
+      "anyOf": [
+        "i'm wearing",
+        "is wearing",
+        "are wearing",
+        "is putting",
+        "i'm trying",
+        "is waiting"
+      ],
+      "outlineVi": [
+        "Nói bạn đang chuẩn bị đi đâu.",
+        "Tả bạn đang mặc gì và có gì chưa vừa (too long, not big enough).",
+        "Kể mỗi người trong nhà đang làm gì (My sister is putting on …)."
+      ],
+      "modelAnswer": "It's Sunday morning, and my family is getting ready for a party. I'm wearing a white shirt and black trousers, but the trousers are too long. My sister is putting on her pink dress. My dad is looking for his tie, and my mum is waiting in the car. We're late!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "in front of",
+      "lemma": "in front of",
+      "meaningVi": "ở phía trước",
+      "sentenceIndex": 1,
+      "pos": "preposition",
+      "phrase": "standing in front of the mirror",
+      "phraseVi": "đang đứng trước gương"
+    },
+    {
+      "text": "sitting",
+      "lemma": "sit",
+      "meaningVi": "ngồi",
+      "sentenceIndex": 3,
+      "pos": "verb",
+      "phrase": "Tung is sitting on the bed",
+      "phraseVi": "Tùng đang ngồi trên giường"
+    },
+    {
+      "text": "dark grey",
+      "lemma": "dark",
+      "meaningVi": "xám đậm",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "a dark grey suit",
+      "phraseVi": "bộ vest xám đậm"
+    },
+    {
+      "text": "with a laugh",
+      "lemma": "laugh",
+      "meaningVi": "cười nói",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "Tung says with a laugh",
+      "phraseVi": "Tùng cười nói"
+    },
+    {
+      "text": "putting on",
+      "lemma": "put on",
+      "meaningVi": "mặc vào",
+      "sentenceIndex": 11,
+      "pos": "phrasal verb",
+      "phrase": "Mum is putting on her new ao dai",
+      "phraseVi": "Mẹ đang mặc chiếc áo dài mới"
+    },
+    {
+      "text": "light blue",
+      "lemma": "light",
+      "meaningVi": "xanh nhạt",
+      "sentenceIndex": 12,
+      "pos": "adjective",
+      "phrase": "a light blue shirt",
+      "phraseVi": "chiếc áo sơ mi xanh nhạt"
+    },
+    {
+      "text": "brown",
+      "lemma": "brown",
+      "meaningVi": "màu nâu",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "my brown belt",
+      "phraseVi": "cái thắt lưng nâu của anh"
+    },
+    {
+      "text": "perfect",
+      "lemma": "perfect",
+      "meaningVi": "hoàn hảo, vừa vặn",
+      "sentenceIndex": 16,
+      "pos": "adjective",
+      "phrase": "now his clothes are perfect",
+      "phraseVi": "giờ quần áo đã vừa vặn"
+    },
+    {
+      "text": "Hurry up",
+      "lemma": "hurry up",
+      "meaningVi": "nhanh lên",
+      "sentenceIndex": 17,
+      "pos": "phrasal verb",
+      "phrase": "Hurry up, the car is waiting outside",
+      "phraseVi": "Nhanh lên, xe đang chờ ngoài kia"
+    }
+  ]
+}

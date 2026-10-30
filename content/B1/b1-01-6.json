@@ -1,0 +1,611 @@
+{
+  "content": "Tuan and his old school friend Duc meet for dinner in Ho Chi Minh City. They haven't seen each other for a long time.\n\nDuc asks, \"So, what do you do now? Are you still an accountant?\"\n\"No, I'm not. I've changed my career. I write computer programs for a software company now.\"\n\"Really? When did you change?\"\n\"Two years ago. I worked as an accountant for three years after university, but I didn't enjoy it. I worked with numbers all day, and I felt bored.\"\n\"How did you learn to write programs?\"\n\"I took an online course in the evenings. It was hard, because I worked during the day. Then I got a job at a small company in 2024.\"\n\"Have you ever regretted it?\"\n\"Never. I've learned so much in two years. I've worked on four different apps, and I've met a lot of interesting people.\"\n\"Has your pay gone up?\"\n\"Yes, it has, but that isn't the most important thing. I finally love my job.\"\nDuc thinks for a moment. \"I've worked at the same bank for six years. I've sometimes thought about a change too.\"\n\"Then try it! Last year, my sister moved from banking to teaching. She's much happier now.\"\n\"Maybe I will. Can you tell me more about your course?\"",
+  "targetWords": [
+    "accountant",
+    "program",
+    "software",
+    "enjoy",
+    "bored",
+    "online",
+    "course",
+    "app",
+    "pay",
+    "moment"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "accountant",
+        "lemma": "accountant",
+        "meaningVi": "kế toán",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "programs",
+        "lemma": "program",
+        "meaningVi": "chương trình (máy tính)",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "software",
+        "lemma": "software",
+        "meaningVi": "phần mềm",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "enjoy",
+        "lemma": "enjoy",
+        "meaningVi": "thích, tận hưởng",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "bored",
+        "lemma": "bored",
+        "meaningVi": "chán",
+        "pos": "adjective",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "online",
+        "lemma": "online",
+        "meaningVi": "trực tuyến",
+        "pos": "adjective",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "course",
+        "lemma": "course",
+        "meaningVi": "khoá học",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "apps",
+        "lemma": "app",
+        "meaningVi": "ứng dụng",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "pay",
+        "lemma": "pay",
+        "meaningVi": "lương, tiền công",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "moment",
+        "lemma": "moment",
+        "meaningVi": "chốc lát",
+        "pos": "noun",
+        "sentenceIndex": 23
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Tuan tells an old friend how he changed his career.",
+          "Duc gets a new job at a bank.",
+          "Two friends take an online course together.",
+          "Tuan's sister becomes a teacher."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn kể cho Đức chuyện anh bỏ nghề kế toán để chuyển sang viết phần mềm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When did Tuan change his job?",
+        "promptVi": "Tuấn đổi nghề khi nào?",
+        "options": [
+          "After university",
+          "Two years ago",
+          "Six years ago",
+          "Last month"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tuấn nói \"Two years ago.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why was the online course hard for Tuan?",
+        "promptVi": "Vì sao khoá học trực tuyến khó với Tuấn?",
+        "options": [
+          "It was very expensive.",
+          "He didn't like computers.",
+          "He worked during the day.",
+          "The teacher was bad."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Tuấn nói \"It was hard, because I worked during the day.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duc has always been happy at his bank.",
+        "promptVi": "Đức lúc nào cũng hài lòng với công việc ở ngân hàng.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đức nói \"I've sometimes thought about a change too.\" — nghĩa là anh không hoàn toàn hài lòng."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"regretted\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Have you ever regretted it?\"",
+        "options": [
+          "hối tiếc",
+          "quên mất",
+          "thích thú",
+          "kể lại"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Regret = hối tiếc vì đã làm điều gì đó."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành và quá khứ đơn",
+      "bodyVi": "Hiện tại hoàn thành nói về thay đổi và kết quả đến bây giờ: I've changed my career, I've learned so much in two years. Quá khứ đơn kể lại từng việc đã xong ở thời điểm cụ thể hoặc giai đoạn đã kết thúc: When did you change? — Two years ago. I worked as an accountant for three years (bây giờ không còn làm). Câu hỏi When…? luôn dùng quá khứ đơn, không dùng hiện tại hoàn thành.",
+      "examples": [
+        "I've changed my career.",
+        "I worked as an accountant for three years after university, but I didn't enjoy it.",
+        "I've learned so much in two years."
+      ]
+    },
+    "writingPrompt": "Write about a big change in your life or the life of someone you know: what happened, and how has life changed since then?",
+    "sentenceTranslations": [
+      "Tuấn và người bạn học cũ là Đức gặp nhau ăn tối ở Thành phố Hồ Chí Minh.",
+      "Lâu lắm rồi họ chưa gặp nhau.",
+      "Đức hỏi: \"Thế giờ cậu làm gì?",
+      "Vẫn làm kế toán à?\"",
+      "\"Không.",
+      "Mình đổi nghề rồi.",
+      "Giờ mình viết chương trình máy tính cho một công ty phần mềm.\"",
+      "\"Thật à?",
+      "Cậu đổi khi nào?\"",
+      "\"Hai năm trước.",
+      "Ra trường mình làm kế toán ba năm, nhưng mình không thích.",
+      "Cả ngày làm việc với con số, mình thấy chán.\"",
+      "\"Cậu học viết chương trình bằng cách nào?\"",
+      "\"Mình học một khoá trực tuyến vào buổi tối.",
+      "Vất vả lắm, vì ban ngày mình vẫn đi làm.",
+      "Rồi năm 2024 mình xin được việc ở một công ty nhỏ.\"",
+      "\"Cậu có bao giờ hối tiếc không?\"",
+      "\"Chưa bao giờ.",
+      "Trong hai năm mình học được rất nhiều.",
+      "Mình đã làm bốn ứng dụng khác nhau, và đã gặp rất nhiều người thú vị.\"",
+      "\"Lương của cậu có tăng không?\"",
+      "\"Có, nhưng đó không phải điều quan trọng nhất.",
+      "Cuối cùng mình đã yêu công việc của mình.\"",
+      "Đức suy nghĩ một lát.",
+      "\"Mình làm ở cùng một ngân hàng sáu năm rồi.",
+      "Thỉnh thoảng mình cũng nghĩ đến chuyện thay đổi.\"",
+      "\"Vậy thì thử đi!",
+      "Năm ngoái chị mình chuyển từ ngân hàng sang dạy học.",
+      "Giờ chị ấy vui hơn nhiều.\"",
+      "\"Có lẽ mình sẽ thử.",
+      "Kể thêm cho mình về khoá học của cậu được không?\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể chuyện đổi nghề: việc đã làm trong quá khứ (quá khứ đơn) và kết quả đến bây giờ (hiện tại hoàn thành).",
+    "examples": [
+      {
+        "lemma": "accountant",
+        "sentence": "My aunt is an accountant at a hotel.",
+        "meaningVi": "Cô tôi là kế toán ở một khách sạn."
+      },
+      {
+        "lemma": "program",
+        "sentence": "This program helps you learn English.",
+        "meaningVi": "Chương trình này giúp bạn học tiếng Anh."
+      },
+      {
+        "lemma": "software",
+        "sentence": "We need new software for the office.",
+        "meaningVi": "Văn phòng cần phần mềm mới."
+      },
+      {
+        "lemma": "enjoy",
+        "sentence": "I enjoy my job very much.",
+        "meaningVi": "Tôi rất thích công việc của mình."
+      },
+      {
+        "lemma": "bored",
+        "sentence": "The children were bored at home.",
+        "meaningVi": "Bọn trẻ thấy chán khi ở nhà."
+      },
+      {
+        "lemma": "online",
+        "sentence": "I buy most things online.",
+        "meaningVi": "Tôi mua hầu hết mọi thứ trên mạng."
+      },
+      {
+        "lemma": "course",
+        "sentence": "She is taking a cooking course.",
+        "meaningVi": "Cô ấy đang học một khoá nấu ăn."
+      },
+      {
+        "lemma": "app",
+        "sentence": "This app shows when the next bus comes.",
+        "meaningVi": "Ứng dụng này cho biết khi nào xe buýt tiếp theo đến."
+      },
+      {
+        "lemma": "pay",
+        "sentence": "The pay is good, but the hours are long.",
+        "meaningVi": "Lương thì tốt, nhưng giờ làm dài."
+      },
+      {
+        "lemma": "moment",
+        "sentence": "Please wait a moment.",
+        "meaningVi": "Vui lòng đợi một chút."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tuan",
+        "James"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Tuan, how long have you written computer programs?",
+          "meaningVi": "Tuấn ơi, cậu viết chương trình máy tính bao lâu rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only two years. Before that, I was an accountant.",
+          "meaningVi": "Mới hai năm thôi. Trước đó mình làm kế toán."
+        },
+        {
+          "speaker": 1,
+          "text": "Why did you change?",
+          "meaningVi": "Sao cậu đổi nghề?"
+        },
+        {
+          "speaker": 0,
+          "text": "I didn't enjoy it. I felt bored every day.",
+          "meaningVi": "Mình không thích. Ngày nào cũng thấy chán."
+        },
+        {
+          "speaker": 1,
+          "text": "Was it hard to learn to write programs?",
+          "meaningVi": "Học viết chương trình có khó không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. I studied every evening for a year.",
+          "meaningVi": "Có. Mình học mỗi tối suốt một năm."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you made any apps yet?",
+          "meaningVi": "Cậu đã làm ứng dụng nào chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I've made four. Last month, we finished a shopping app.",
+          "meaningVi": "Rồi, mình làm được bốn cái. Tháng trước bọn mình làm xong một ứng dụng mua sắm."
+        },
+        {
+          "speaker": 1,
+          "text": "That's great. Have you ever thought about going back?",
+          "meaningVi": "Tuyệt quá. Cậu đã bao giờ nghĩ đến chuyện quay lại chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Never. I've never felt so happy at work.",
+          "meaningVi": "Chưa bao giờ. Mình chưa bao giờ thấy vui với công việc như thế này."
+        }
+      ]
+    },
+    "grammarTipVi": "Kết quả đến nay: I've made four apps. Việc ở thời điểm cụ thể: Last month, we finished a shopping app. Giai đoạn đã kết thúc: Before that, I was an accountant.",
+    "translations": [
+      {
+        "vi": "Tôi đã đổi nghề. Giờ tôi viết phần mềm.",
+        "en": "I have changed my career. I write software now.",
+        "distractors": [
+          "changes",
+          "did",
+          "has"
+        ]
+      },
+      {
+        "vi": "Tôi làm kế toán ba năm.",
+        "en": "I worked as an accountant for three years.",
+        "distractors": [
+          "have",
+          "works",
+          "has"
+        ]
+      },
+      {
+        "vi": "Bạn đổi nghề khi nào? Lương có tốt không?",
+        "en": "When did you change your job? Was the pay good?",
+        "distractors": [
+          "have",
+          "changed",
+          "do"
+        ]
+      },
+      {
+        "vi": "Tôi đã học được rất nhiều từ khoá học.",
+        "en": "I have learned a lot from the course.",
+        "distractors": [
+          "learns",
+          "did",
+          "has"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "James hỏi Tuấn về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc lập trình và chuyện đổi nghề",
+          "Một ứng dụng mua sắm",
+          "Khoá học của James"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "James hỏi Tuấn làm lập trình bao lâu, vì sao đổi nghề và đã làm được gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tuấn học lập trình bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Một tháng",
+          "Một năm",
+          "Ba năm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Tuấn nói \"I studied every evening for a year.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tháng trước nhóm của Tuấn làm xong gì?",
+        "promptVi": "",
+        "options": [
+          "Một ứng dụng mua sắm",
+          "Một trang web ngân hàng",
+          "Một khoá học"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuấn nói \"Last month, we finished a shopping app.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Tuan wants to go back to his old job.",
+        "promptVi": "Tuấn muốn quay lại công việc cũ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Tuấn nói \"Never. I've never felt so happy at work.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Tuấn đã làm những gì trước khi đổi nghề, và cuộc sống của anh thay đổi thế nào?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành và quá khứ đơn",
+      "noticing": [
+        {
+          "sentence": "I've changed my career.",
+          "highlights": [
+            "I've changed"
+          ]
+        },
+        {
+          "sentence": "\"Two years ago.",
+          "highlights": [
+            "ago"
+          ]
+        },
+        {
+          "sentence": "I worked as an accountant for three years after university, but I didn't enjoy it.",
+          "highlights": [
+            "worked",
+            "didn't enjoy"
+          ]
+        },
+        {
+          "sentence": "I've learned so much in two years.",
+          "highlights": [
+            "I've learned"
+          ]
+        }
+      ],
+      "questionVi": "Đức hỏi \"When did you change?\" bằng quá khứ đơn. Có thể hỏi \"When have you changed?\" không?",
+      "options": [
+        "Không, câu hỏi When…? luôn dùng quá khứ đơn.",
+        "Có, hai cách giống nhau.",
+        "Chỉ dùng khi nói về tương lai."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "When hỏi về một thời điểm cụ thể, nên dùng quá khứ đơn: When did you change? — Two years ago.",
+      "whenVi": "Hiện tại hoàn thành cho kết quả, thay đổi tính đến nay; quá khứ đơn cho thời điểm cụ thể và giai đoạn đã kết thúc.",
+      "table": [
+        {
+          "subject": "Hiện tại hoàn thành",
+          "form": "I've changed my career.",
+          "negative": "I haven't regretted it."
+        },
+        {
+          "subject": "Quá khứ đơn",
+          "form": "I worked as an accountant for three years.",
+          "negative": "I didn't enjoy it."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Have you ever regretted it?",
+          "negative": "When did you change?"
+        },
+        {
+          "subject": "Dấu hiệu",
+          "form": "so far, in two years (đến nay), ever, never",
+          "negative": "ago, in 2024, last year, when"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "When have you changed your job?",
+          "right": "When did you change your job?"
+        },
+        {
+          "wrong": "I have got a job at a small company in 2024.",
+          "right": "I got a job at a small company in 2024."
+        }
+      ],
+      "noteVi": "Worked … for three years ở quá khứ đơn nghĩa là việc đã kết thúc. So sánh: I've worked at the same bank for six years (vẫn đang làm).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "Two years ago, I ___ my job. (change)",
+          "answers": [
+            "changed"
+          ],
+          "explanationVi": "Two years ago → quá khứ đơn: changed."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I ___ at the same bank for six years, and I still work there.",
+          "options": [
+            "worked",
+            "have worked",
+            "work",
+            "was working"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Vẫn còn làm đến nay → hiện tại hoàn thành: have worked."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "When have you started your new job?",
+          "sentence": "When did you start your new job?",
+          "explanationVi": "When…? dùng quá khứ đơn."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đã đổi nghề.",
+          "sentence": "I have changed my career.",
+          "words": [
+            "changed",
+            "I",
+            "career.",
+            "have",
+            "my",
+            "did"
+          ],
+          "explanationVi": "Have + changed; từ \"did\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Have you ever regretted it?\"",
+        "tipVi": "Regretted /rɪˈɡretɪd/ nhấn âm thứ hai, -ed đọc /ɪd/."
+      },
+      {
+        "text": "I've learned so much in two years.",
+        "tipVi": "Learned /lɜːnd/ đọc /d/ ở cuối; nhấn vào so much."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever changed your plans for your studies or job?",
+        "questionVi": "Bạn đã bao giờ thay đổi kế hoạch học tập hay công việc chưa?",
+        "frame": "Yes, I have. I ___. / No, I haven't."
+      },
+      {
+        "question": "When did you start to learn English?",
+        "questionVi": "Bạn bắt đầu học tiếng Anh khi nào?",
+        "frame": "I started ___ ago / in ___."
+      },
+      {
+        "question": "Has anyone in your family changed jobs? What did he or she do before?",
+        "questionVi": "Có ai trong gia đình bạn đã đổi nghề chưa? Trước đó người đó làm gì?",
+        "frame": "Yes, my ___ has. He / She was a ___ before."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành và 1 câu quá khứ đơn",
+      "anyOf": [
+        "have changed",
+        "has changed",
+        "'ve changed",
+        "'ve learned",
+        "have learned",
+        "'ve been",
+        "have been",
+        "has been",
+        "'ve had",
+        "have had"
+      ],
+      "outlineVi": [
+        "Thay đổi gì đã xảy ra, khi nào (quá khứ đơn: Two years ago, I …).",
+        "Trước đó như thế nào (I worked / I lived …).",
+        "Cuộc sống đã thay đổi ra sao đến nay (I've learned / I've met …)."
+      ],
+      "modelAnswer": "Three years ago, my father left his job at a bank. He worked there for fifteen years, but he often felt tired and bored. He opened a small coffee shop near our house. Since then, he has worked very hard, but he has been much happier. He has met a lot of new people, and he has learned to make many kinds of coffee."
+    }
+  },
+  "glosses": [
+    {
+      "text": "each other",
+      "lemma": "each other",
+      "meaningVi": "nhau",
+      "sentenceIndex": 1,
+      "pos": "pronoun",
+      "phrase": "They haven't seen each other",
+      "phraseVi": "Họ chưa gặp nhau"
+    },
+    {
+      "text": "career",
+      "lemma": "career",
+      "meaningVi": "nghề nghiệp",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "I've changed my career.",
+      "phraseVi": "Mình đổi nghề rồi."
+    },
+    {
+      "text": "regretted",
+      "lemma": "regret",
+      "meaningVi": "hối tiếc",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "Have you ever regretted it?",
+      "phraseVi": "Cậu có bao giờ hối tiếc không?"
+    },
+    {
+      "text": "gone up",
+      "lemma": "go up",
+      "meaningVi": "tăng lên",
+      "sentenceIndex": 20,
+      "pos": "phrasal verb",
+      "phrase": "Has your pay gone up?",
+      "phraseVi": "Lương của cậu có tăng không?"
+    },
+    {
+      "text": "banking",
+      "lemma": "banking",
+      "meaningVi": "ngành ngân hàng",
+      "sentenceIndex": 27,
+      "pos": "noun",
+      "phrase": "moved from banking to teaching",
+      "phraseVi": "chuyển từ ngân hàng sang dạy học"
+    }
+  ]
+}

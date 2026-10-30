@@ -1,0 +1,605 @@
+{
+  "content": "Last month, Duy climbed Fansipan, the highest mountain in Indochina. Now he is showing his photos to his friend Lan at a café in Hanoi.\n\nLan asks, \"How high is Fansipan?\"\n\"It's more than three thousand one hundred metres high. It's sometimes called the Roof of Indochina.\"\n\"Did you walk all the way to the top?\"\n\"Yes, I did. It took two days. We started in Sapa, and we slept in a tent at two thousand eight hundred metres. It was really cold at night.\"\n\"Two days? I thought people went up in a few minutes.\"\n\"Most visitors don't walk. They're taken up in small cars that hang from a long wire. The trip takes about fifteen minutes.\"\n\"Is that safe?\"\n\"Yes, it's very safe. The cars are checked every morning. But I wanted to walk, because the forest is so beautiful.\"\n\"What did you see on the way?\"\n\"Old trees, wild flowers and lots of birds. Our path was covered with clouds in the afternoon. Many rare plants are protected in this national park.\"\n\"And what was the view like from the top?\"\n\"Amazing. The whole valley was covered in white cloud, like a sea. Some temples and a big statue of Buddha were built near the top a few years ago.\"\nLan looks at the photos. \"They're beautiful. Was the walk difficult?\"\n\"Yes, very. But I'd do it again.\"",
+  "targetWords": [
+    "climb",
+    "top",
+    "tent",
+    "wire",
+    "wild",
+    "path",
+    "rare",
+    "protect",
+    "view",
+    "valley"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "climbed",
+        "lemma": "climb",
+        "meaningVi": "leo, trèo",
+        "pos": "verb",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "top",
+        "lemma": "top",
+        "meaningVi": "đỉnh",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "tent",
+        "lemma": "tent",
+        "meaningVi": "lều",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "wire",
+        "lemma": "wire",
+        "meaningVi": "dây cáp, dây kim loại",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "wild",
+        "lemma": "wild",
+        "meaningVi": "hoang dã, mọc dại",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "path",
+        "lemma": "path",
+        "meaningVi": "đường mòn, lối đi",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "rare",
+        "lemma": "rare",
+        "meaningVi": "quý hiếm",
+        "pos": "adjective",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "protected",
+        "lemma": "protect",
+        "meaningVi": "bảo vệ",
+        "pos": "verb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "view",
+        "lemma": "view",
+        "meaningVi": "quang cảnh, tầm nhìn",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "valley",
+        "lemma": "valley",
+        "meaningVi": "thung lũng",
+        "pos": "noun",
+        "sentenceIndex": 25
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Duy telling Lan about?",
+        "promptVi": "Duy đang kể cho Lan nghe về điều gì?",
+        "options": [
+          "His walk to the top of Fansipan",
+          "His new job in Sapa",
+          "A hotel in Hanoi",
+          "A trip to the sea"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Duy cho Lan xem ảnh chuyến leo Fansipan bằng đường bộ trong hai ngày."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How do most visitors go up the mountain?",
+        "promptVi": "Phần lớn du khách lên núi bằng cách nào?",
+        "options": [
+          "On foot",
+          "By horse",
+          "In small cars that hang from a long wire",
+          "By bus"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Duy nói \"They're taken up in small cars that hang from a long wire.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where did Duy sleep?",
+        "promptVi": "Duy ngủ ở đâu?",
+        "options": [
+          "In a hotel in Sapa",
+          "In a tent at 2,800 metres",
+          "In a temple near the top",
+          "In a car"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Duy nói \"we slept in a tent at two thousand eight hundred metres.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The temples near the top are very old.",
+        "promptVi": "Các ngôi chùa gần đỉnh rất cổ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chúng \"were built near the top a few years ago.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"protected\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Many rare plants are protected in this national park.\"",
+        "options": [
+          "được bảo vệ",
+          "bị chặt",
+          "được bán",
+          "bị ăn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Protect = bảo vệ; are protected = được bảo vệ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu bị động (hiện tại và quá khứ đơn)",
+      "bodyVi": "Câu bị động giúp mô tả một ngọn núi: It's sometimes called the Roof of Indochina (hiện tại). Many rare plants are protected in this national park (hiện tại). The whole valley was covered in white cloud (quá khứ). Some temples were built near the top a few years ago (quá khứ, số nhiều → were). Ai làm không quan trọng nên không cần by.",
+      "examples": [
+        "It's sometimes called the Roof of Indochina.\"",
+        "They're taken up in small cars that hang from a long wire.",
+        "Some temples and a big statue of Buddha were built near the top a few years ago.\""
+      ]
+    },
+    "writingPrompt": "Write about a mountain or hill you have visited or would like to visit. How is the top reached, and what can be seen from there?",
+    "sentenceTranslations": [
+      "Tháng trước, Duy đã leo Fansipan, ngọn núi cao nhất Đông Dương.",
+      "Giờ anh đang cho bạn mình là Lan xem ảnh ở một quán cà phê tại Hà Nội.",
+      "Lan hỏi: \"Fansipan cao bao nhiêu?\"",
+      "\"Hơn ba nghìn một trăm mét.",
+      "Đôi khi nó được gọi là Nóc nhà Đông Dương.\"",
+      "\"Cậu đi bộ lên tận đỉnh à?\"",
+      "\"Ừ.",
+      "Mất hai ngày.",
+      "Bọn mình xuất phát từ Sapa, và ngủ trong lều ở độ cao hai nghìn tám trăm mét.",
+      "Ban đêm lạnh thật sự.\"",
+      "\"Hai ngày á?",
+      "Mình tưởng người ta lên mất có vài phút.\"",
+      "\"Phần lớn du khách không đi bộ.",
+      "Họ được đưa lên bằng những cabin nhỏ treo trên một sợi cáp dài.",
+      "Đi mất khoảng mười lăm phút.\"",
+      "\"Có an toàn không?\"",
+      "\"Rất an toàn.",
+      "Các cabin được kiểm tra mỗi sáng.",
+      "Nhưng mình muốn đi bộ, vì rừng đẹp lắm.\"",
+      "\"Trên đường cậu thấy gì?\"",
+      "\"Cây cổ thụ, hoa dại và rất nhiều chim.",
+      "Buổi chiều, đường mòn bị mây phủ kín.",
+      "Nhiều loài cây quý hiếm được bảo vệ trong vườn quốc gia này.\"",
+      "\"Thế quang cảnh từ trên đỉnh thế nào?\"",
+      "\"Tuyệt vời.",
+      "Cả thung lũng phủ mây trắng, như một biển mây.",
+      "Vài ngôi chùa và một bức tượng Phật lớn được xây gần đỉnh cách đây vài năm.\"",
+      "Lan nhìn những tấm ảnh.",
+      "\"Đẹp quá.",
+      "Đi bộ có khó không?\"",
+      "\"Có, rất khó.",
+      "Nhưng mình sẽ đi lại.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mô tả một ngọn núi, cách lên đỉnh và cảnh vật bằng câu bị động (is called, are taken up, was covered, were built).",
+    "examples": [
+      {
+        "lemma": "climb",
+        "sentence": "We want to climb the hill before sunset.",
+        "meaningVi": "Chúng tôi muốn leo lên đồi trước khi mặt trời lặn."
+      },
+      {
+        "lemma": "top",
+        "sentence": "There is a small temple at the top of the hill.",
+        "meaningVi": "Trên đỉnh đồi có một ngôi chùa nhỏ."
+      },
+      {
+        "lemma": "tent",
+        "sentence": "It rained, so we stayed in the tent.",
+        "meaningVi": "Trời mưa nên chúng tôi ở trong lều."
+      },
+      {
+        "lemma": "wire",
+        "sentence": "Birds are sitting on the wire.",
+        "meaningVi": "Chim đang đậu trên dây điện."
+      },
+      {
+        "lemma": "wild",
+        "sentence": "Wild animals live in this forest.",
+        "meaningVi": "Động vật hoang dã sống trong khu rừng này."
+      },
+      {
+        "lemma": "path",
+        "sentence": "Follow this path to the lake.",
+        "meaningVi": "Đi theo lối này để ra hồ."
+      },
+      {
+        "lemma": "rare",
+        "sentence": "This bird is very rare.",
+        "meaningVi": "Loài chim này rất hiếm."
+      },
+      {
+        "lemma": "protect",
+        "sentence": "We must protect our forests.",
+        "meaningVi": "Chúng ta phải bảo vệ rừng."
+      },
+      {
+        "lemma": "view",
+        "sentence": "The view from my window is lovely.",
+        "meaningVi": "Quang cảnh từ cửa sổ nhà tôi rất đẹp."
+      },
+      {
+        "lemma": "valley",
+        "sentence": "A small river runs through the valley.",
+        "meaningVi": "Một con sông nhỏ chảy qua thung lũng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Duy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Duy, who organised your trip?",
+          "meaningVi": "Duy, ai tổ chức chuyến đi của cậu?"
+        },
+        {
+          "speaker": 1,
+          "text": "It was organised by a small company in Sapa.",
+          "meaningVi": "Một công ty nhỏ ở Sapa tổ chức."
+        },
+        {
+          "speaker": 0,
+          "text": "Were you given food on the way?",
+          "meaningVi": "Trên đường có được phát đồ ăn không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. All our meals were cooked by the guides.",
+          "meaningVi": "Có. Tất cả bữa ăn đều do hướng dẫn viên nấu."
+        },
+        {
+          "speaker": 0,
+          "text": "And who carried the tents?",
+          "meaningVi": "Thế ai mang lều?"
+        },
+        {
+          "speaker": 1,
+          "text": "They were carried by two local men. They were so fast!",
+          "meaningVi": "Hai người dân địa phương mang. Họ đi nhanh lắm!"
+        },
+        {
+          "speaker": 0,
+          "text": "How much did the trip cost?",
+          "meaningVi": "Chuyến đi hết bao nhiêu tiền?"
+        },
+        {
+          "speaker": 1,
+          "text": "About three million dong. Everything was included.",
+          "meaningVi": "Khoảng ba triệu đồng. Đã bao gồm mọi thứ."
+        },
+        {
+          "speaker": 0,
+          "text": "That isn't bad. Can you send me the company's name?",
+          "meaningVi": "Không đắt lắm. Cậu gửi mình tên công ty nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. I'll send it tonight.",
+          "meaningVi": "Được. Tối nay mình gửi."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu bị động quá khứ: It was organised by a small company / All our meals were cooked by the guides. Câu hỏi: Were you given food on the way?",
+    "translations": [
+      {
+        "vi": "Quang cảnh từ trên đỉnh được nhiều người yêu thích.",
+        "en": "The view from the top is loved by many people.",
+        "distractors": [
+          "loves",
+          "are",
+          "with"
+        ]
+      },
+      {
+        "vi": "Những loài cây quý hiếm được bảo vệ ở đây.",
+        "en": "Rare plants are protected here.",
+        "distractors": [
+          "is",
+          "protects",
+          "by"
+        ]
+      },
+      {
+        "vi": "Cả thung lũng được phủ mây trắng.",
+        "en": "The whole valley was covered in white cloud.",
+        "distractors": [
+          "were",
+          "covers",
+          "by"
+        ]
+      },
+      {
+        "vi": "Đường mòn bị mây phủ kín.",
+        "en": "The path was covered with clouds.",
+        "distractors": [
+          "were",
+          "covers",
+          "by"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan hỏi Duy về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách chuyến leo núi được tổ chức",
+          "Thời tiết ở Sapa",
+          "Ảnh của Duy"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan hỏi ai tổ chức, ai nấu ăn, ai mang lều và giá bao nhiêu.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai nấu các bữa ăn?",
+        "promptVi": "",
+        "options": [
+          "Duy",
+          "Các hướng dẫn viên",
+          "Hai người dân địa phương"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Duy nói \"All our meals were cooked by the guides.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Chuyến đi giá khoảng bao nhiêu?",
+        "promptVi": "",
+        "options": [
+          "Một triệu đồng",
+          "Ba triệu đồng",
+          "Năm triệu đồng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Duy nói \"About three million dong.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Duy carried the tents himself.",
+        "promptVi": "Duy tự mang lều.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì lều \"were carried by two local men.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Du khách lên đỉnh Fansipan bằng những cách nào? Từ trên đỉnh nhìn thấy gì?",
+    "grammarStep": {
+      "titleVi": "Câu bị động (hiện tại và quá khứ đơn)",
+      "noticing": [
+        {
+          "sentence": "It's sometimes called the Roof of Indochina.\"",
+          "highlights": [
+            "'s sometimes called"
+          ]
+        },
+        {
+          "sentence": "The cars are checked every morning.",
+          "highlights": [
+            "are checked"
+          ]
+        },
+        {
+          "sentence": "The whole valley was covered in white cloud, like a sea.",
+          "highlights": [
+            "was covered"
+          ]
+        },
+        {
+          "sentence": "Some temples and a big statue of Buddha were built near the top a few years ago.\"",
+          "highlights": [
+            "were built"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao dùng \"were built\" mà không phải \"was built\"?",
+      "options": [
+        "Vì chủ ngữ số nhiều (some temples and a big statue) và việc xây đã xảy ra trong quá khứ.",
+        "Vì câu ở hiện tại.",
+        "Vì có từ top."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Quá khứ + chủ ngữ số nhiều → were + V3.",
+      "whenVi": "Dùng câu bị động để mô tả cảnh vật (được bao phủ, được bảo vệ) và các công trình (được xây khi nào).",
+      "table": [
+        {
+          "subject": "Hiện tại",
+          "form": "is / are + V3 (It's called …, plants are protected)",
+          "negative": "isn't / aren't + V3"
+        },
+        {
+          "subject": "Quá khứ",
+          "form": "was / were + V3 (The valley was covered …, temples were built …)",
+          "negative": "wasn't / weren't + V3"
+        },
+        {
+          "subject": "Trạng từ",
+          "form": "It's sometimes called … (trạng từ đứng giữa be và V3)",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Some temples was built near the top.",
+          "right": "Some temples were built near the top."
+        },
+        {
+          "wrong": "It sometimes is called the Roof of Indochina.",
+          "right": "It's sometimes called the Roof of Indochina."
+        }
+      ],
+      "noteVi": "Covered đi với in hoặc with: covered in / with white cloud.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng bị động đúng của động từ trong ngoặc (check).",
+          "text": "The cars ___ every morning.",
+          "answers": [
+            "are checked"
+          ],
+          "explanationVi": "Hiện tại, số nhiều: are checked."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "A big statue of Buddha ___ near the top a few years ago.",
+          "options": [
+            "was built",
+            "were built",
+            "is built",
+            "built"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Quá khứ (a few years ago), số ít: was built."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Many rare plants is protected here.",
+          "sentence": "Many rare plants are protected here.",
+          "explanationVi": "Chủ ngữ số nhiều → are."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Các cabin được kiểm tra mỗi sáng.",
+          "sentence": "The cars are checked every morning.",
+          "words": [
+            "cars",
+            "The",
+            "are",
+            "checked",
+            "every",
+            "morning.",
+            "check"
+          ],
+          "explanationVi": "Are + V3: are checked; từ \"check\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It's sometimes called the Roof of Indochina.\"",
+        "tipVi": "Called /kɔːld/; Indochina /ˌɪndəʊˈtʃaɪnə/."
+      },
+      {
+        "text": "The whole valley was covered in white cloud, like a sea.",
+        "tipVi": "Whole đọc giống hole /həʊl/; valley /ˈvæli/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever climbed a mountain? Which one?",
+        "questionVi": "Bạn đã bao giờ leo núi chưa? Núi nào?",
+        "frame": "Yes, I have climbed ___ / No, I haven't."
+      },
+      {
+        "question": "Do you prefer to walk up or to be taken up by car? Why?",
+        "questionVi": "Bạn thích tự đi bộ lên hay được chở lên? Vì sao?",
+        "frame": "I prefer to ___ because ___."
+      },
+      {
+        "question": "What is the best view you have ever seen?",
+        "questionVi": "Quang cảnh đẹp nhất bạn từng thấy là gì?",
+        "frame": "The best view I have seen was ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is / are / was / were + V3)",
+      "anyOf": [
+        "ed by",
+        "en by",
+        "is called",
+        "was called",
+        "is reached",
+        "are taken",
+        "is covered",
+        "was covered",
+        "were built",
+        "was built",
+        "are protected",
+        "is protected",
+        "is visited",
+        "are visited",
+        "are checked",
+        "is made",
+        "was made"
+      ],
+      "outlineVi": [
+        "Tên ngọn núi / ngọn đồi và nó ở đâu.",
+        "Đỉnh núi được lên bằng cách nào (… is reached by … / visitors are taken …).",
+        "Từ trên đỉnh nhìn thấy gì (… is covered in …, … was built …)."
+      ],
+      "modelAnswer": "Ba Den Mountain is in Tay Ninh. It is called the Roof of the South. Some people walk to the top, but most visitors are taken up in small cars on a wire. From the top, you can see the fields and Dau Tieng Lake. A big statue was built there in 2020, and it is visited by many people every weekend."
+    }
+  },
+  "glosses": [
+    {
+      "text": "Indochina",
+      "lemma": "Indochina",
+      "meaningVi": "Đông Dương",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the highest mountain in Indochina",
+      "phraseVi": "ngọn núi cao nhất Đông Dương"
+    },
+    {
+      "text": "all the way",
+      "lemma": "all the way",
+      "meaningVi": "suốt cả quãng đường, tận",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "walk all the way to the top",
+      "phraseVi": "đi bộ lên tận đỉnh"
+    },
+    {
+      "text": "hang",
+      "lemma": "hang",
+      "meaningVi": "treo",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "small cars that hang from a long wire",
+      "phraseVi": "những cabin nhỏ treo trên một sợi cáp dài"
+    },
+    {
+      "text": "statue",
+      "lemma": "statue",
+      "meaningVi": "bức tượng",
+      "sentenceIndex": 26,
+      "pos": "noun",
+      "phrase": "a big statue of Buddha",
+      "phraseVi": "một bức tượng Phật lớn"
+    }
+  ]
+}

@@ -1,0 +1,599 @@
+{
+  "content": "Yesterday, there was a swimming competition at the pool near Lien's flat. Her little brother Nghia swam in it. Lien's friend Ha didn't go, so today she asked Lien about it at work.\n\nHa asked, \"Did Nghia win?\"\n\"No, he didn't, but he came third,\" Lien said. \"He swam really fast.\"\n\"Who won?\" asked Ha.\n\"A girl from Hue won. She swam very easily, and she didn't look tired at all.\"\n\nHa asked, \"Why did she swim so easily?\"\n\"She practises hard every day. She gets up at five and swims for two hours before school.\"\n\nHa asked, \"Did all the children finish?\"\n\"No, they didn't,\" Lien said. \"One boy swam very fast at the start, and then he stopped in the middle of the pool.\"\n\nHa asked, \"Oh no, did Nghia feel sad?\"\n\"No, he didn't, and he smiled happily with his medal.\"\nHa said, \"Maybe next year he can win!\"",
+  "targetWords": [
+    "swimming",
+    "pool",
+    "swim",
+    "win",
+    "easily",
+    "practise",
+    "finish",
+    "medal"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "swimming",
+        "lemma": "swimming",
+        "meaningVi": "bơi lội",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "pool",
+        "lemma": "pool",
+        "meaningVi": "bể bơi",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "swam",
+        "lemma": "swim",
+        "meaningVi": "bơi",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "win",
+        "lemma": "win",
+        "meaningVi": "thắng",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "easily",
+        "lemma": "easily",
+        "meaningVi": "dễ dàng, nhẹ nhàng",
+        "pos": "adverb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "practises",
+        "lemma": "practise",
+        "meaningVi": "luyện tập",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "finish",
+        "lemma": "finish",
+        "meaningVi": "về đích, hoàn thành",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "medal",
+        "lemma": "medal",
+        "meaningVi": "huy chương",
+        "pos": "noun",
+        "sentenceIndex": 16
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Ha's new job",
+          "Lien tells Ha about a swimming competition.",
+          "A trip to Hue",
+          "Nghia's new school"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hà không đi xem nên Liên kể lại cuộc thi bơi hôm qua: em trai Nghĩa về thứ ba, một bạn gái ở Huế thắng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What place did Nghia come in?",
+        "promptVi": "Nghĩa đứng thứ mấy?",
+        "options": [
+          "First",
+          "Second",
+          "Third",
+          "Last"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Liên nói \"No, he didn't, but he came third\": Nghĩa về thứ ba."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did the girl from Hue swim so easily?",
+        "promptVi": "Vì sao cô bé ở Huế bơi nhẹ nhàng như vậy?",
+        "options": [
+          "She practises hard every day.",
+          "She is very tall.",
+          "The pool was very small.",
+          "She swam with her brother."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Liên nói \"She practises hard every day\": ngày nào cô bé cũng tập hai tiếng trước giờ học."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "All the children finished.",
+        "promptVi": "Tất cả bọn trẻ đều về đích.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Liên nói \"No, they didn't\": một cậu bé dừng lại giữa bể."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"easily\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "She swam very easily, and she didn't look tired at all.",
+        "options": [
+          "vất vả",
+          "chậm chạp",
+          "buồn bã",
+          "dễ dàng, nhẹ nhàng"
+        ],
+        "answerIndex": 3,
+        "explanationVi": "Easily là dễ dàng: cô bé bơi rất nhẹ nhàng, trông không mệt chút nào."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ đơn: phủ định và câu hỏi",
+      "bodyVi": "Câu hỏi Có / Không ở quá khứ: Did + chủ ngữ + động từ nguyên mẫu: Did Nghia win? Có từ hỏi thì đặt trước did: Why did she swim so easily? Phủ định: didn't + động từ nguyên mẫu: Ha didn't go. Riêng câu hỏi về người làm (Who won?) thì không cần did.",
+      "examples": [
+        "Ha asked, \"Did Nghia win?\"",
+        "Ha asked, \"Why did she swim so easily?\"",
+        "Ha asked, \"Did all the children finish?\""
+      ]
+    },
+    "writingPrompt": "Write about a competition you watched or joined: who won, who didn't finish, and how they did it.",
+    "sentenceTranslations": [
+      "Hôm qua, ở bể bơi gần căn hộ của Liên có một cuộc thi bơi.",
+      "Em trai cô là Nghĩa có tham gia.",
+      "Bạn của Liên là Hà không đi xem, nên hôm nay ở chỗ làm Hà hỏi Liên về cuộc thi.",
+      "Hà hỏi: \"Nghĩa có thắng không?\"",
+      "\"Không, nhưng em ấy về thứ ba,\" Liên nói.",
+      "\"Em ấy bơi nhanh lắm.\"",
+      "\"Thế ai thắng?\" Hà hỏi.",
+      "\"Một cô bé ở Huế thắng.\"",
+      "\"Cô bé bơi rất nhẹ nhàng, trông chẳng mệt chút nào.\"",
+      "Hà hỏi: \"Sao cô bé bơi nhẹ nhàng thế?\"",
+      "\"Ngày nào cô bé cũng tập rất chăm.\"",
+      "\"Cô bé dậy lúc năm giờ và bơi hai tiếng trước khi đi học.\"",
+      "Hà hỏi: \"Tất cả bọn trẻ có về đích không?\"",
+      "\"Không,\" Liên nói.",
+      "\"Một cậu bé bơi rất nhanh lúc đầu, rồi dừng lại giữa bể.\"",
+      "Hà hỏi: \"Ôi, thế Nghĩa có buồn không?\"",
+      "\"Không, em ấy cười tươi với chiếc huy chương của mình.\"",
+      "Hà nói: \"Có khi năm sau em ấy thắng đấy!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và kể về một cuộc thi đã qua (Did …? Why did …?), nói ai làm gì như thế nào bằng trạng từ.",
+    "examples": [
+      {
+        "lemma": "swimming",
+        "sentence": "Swimming is good for you.",
+        "meaningVi": "Bơi lội tốt cho sức khoẻ."
+      },
+      {
+        "lemma": "pool",
+        "sentence": "There is a big pool at my school.",
+        "meaningVi": "Trường mình có một bể bơi lớn."
+      },
+      {
+        "lemma": "swim",
+        "sentence": "Can you swim?",
+        "meaningVi": "Bạn biết bơi không?"
+      },
+      {
+        "lemma": "win",
+        "sentence": "I want to win next time.",
+        "meaningVi": "Lần sau mình muốn thắng."
+      },
+      {
+        "lemma": "easily",
+        "sentence": "He can carry the box easily.",
+        "meaningVi": "Anh ấy bê cái hộp dễ dàng."
+      },
+      {
+        "lemma": "practise",
+        "sentence": "I practise English every day.",
+        "meaningVi": "Ngày nào mình cũng luyện tiếng Anh."
+      },
+      {
+        "lemma": "finish",
+        "sentence": "Did you finish your homework?",
+        "meaningVi": "Bạn làm xong bài tập chưa?"
+      },
+      {
+        "lemma": "medal",
+        "sentence": "She got a gold medal.",
+        "meaningVi": "Cô ấy được huy chương vàng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nghia",
+        "Mike"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nghia, did you swim in the competition yesterday?",
+          "meaningVi": "Nghĩa ơi, hôm qua cậu có bơi trong cuộc thi không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I did. I came third.",
+          "meaningVi": "Có. Mình về thứ ba."
+        },
+        {
+          "speaker": 1,
+          "text": "Well done! Did you swim fast?",
+          "meaningVi": "Giỏi quá! Cậu bơi có nhanh không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I swam fast, but the girl from Hue swam very easily.",
+          "meaningVi": "Có, mình bơi nhanh, nhưng cô bạn ở Huế bơi nhẹ nhàng lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you talk to her?",
+          "meaningVi": "Cậu có nói chuyện với bạn ấy không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. She told me she practises every morning.",
+          "meaningVi": "Có. Bạn ấy bảo sáng nào cũng tập."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow. Did you get a medal?",
+          "meaningVi": "Chà. Cậu có được huy chương không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I did! A small one.",
+          "meaningVi": "Có chứ! Một chiếc nho nhỏ."
+        },
+        {
+          "speaker": 1,
+          "text": "Can I see it?",
+          "meaningVi": "Cho mình xem được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Sure. Look, here it is.",
+          "meaningVi": "Được. Đây này."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về một cuộc thi đã qua: Did you swim fast? Did you get a medal? Trả lời: Yes, I did. Hỏi về người thắng: Who won?",
+    "translations": [
+      {
+        "vi": "Nghĩa có thắng không?",
+        "en": "Did Nghia win?",
+        "distractors": [
+          "Does",
+          "won",
+          "lose"
+        ]
+      },
+      {
+        "vi": "Cô ấy bơi rất nhẹ nhàng.",
+        "en": "She swam very easily.",
+        "distractors": [
+          "swim",
+          "easy",
+          "swims"
+        ]
+      },
+      {
+        "vi": "Tất cả bọn trẻ có về đích không?",
+        "en": "Did all the children finish?",
+        "distractors": [
+          "finished",
+          "Do",
+          "child"
+        ]
+      },
+      {
+        "vi": "Cô bé được một chiếc huy chương nhỏ.",
+        "en": "She got a small medal.",
+        "distractors": [
+          "gets",
+          "big",
+          "medals"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mike và Nghĩa nói chuyện về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Một trận bóng đá",
+          "Cuộc thi bơi hôm qua",
+          "Bài kiểm tra ở trường"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Mike hỏi \"did you swim in the competition yesterday?\", rồi hai bạn nói về cuộc thi.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nghĩa đứng thứ mấy?",
+        "promptVi": "",
+        "options": [
+          "Thứ nhất",
+          "Thứ hai",
+          "Thứ ba"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nghĩa nói \"I came third.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cô bạn ở Huế tập bơi khi nào?",
+        "promptVi": "",
+        "options": [
+          "Mỗi sáng",
+          "Mỗi tối",
+          "Cuối tuần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nghĩa nói \"She told me she practises every morning.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nghia didn't get a medal.",
+        "promptVi": "Nghĩa không được huy chương.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nghĩa nói \"Yes, I did! A small one.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Ai thắng cuộc thi bơi, vì sao, và ai không về đích?",
+    "grammarStep": {
+      "titleVi": "Quá khứ đơn: phủ định và câu hỏi",
+      "noticing": [
+        {
+          "sentence": "Lien's friend Ha didn't go, so today she asked Lien about it at work.",
+          "highlights": [
+            "didn't go"
+          ]
+        },
+        {
+          "sentence": "Ha asked, \"Why did she swim so easily?\"",
+          "highlights": [
+            "Why did she swim"
+          ]
+        },
+        {
+          "sentence": "Ha asked, \"Did all the children finish?\"",
+          "highlights": [
+            "Did all the children finish"
+          ]
+        },
+        {
+          "sentence": "\"No, he didn't, and he smiled happily with his medal.\"",
+          "highlights": [
+            "didn't"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"Why did she swim so easily?\", vì sao dùng swim mà không dùng swam?",
+      "options": [
+        "Vì đã có did, nên động từ giữ nguyên mẫu",
+        "Vì swim ở đây là danh từ",
+        "Vì câu này nói về hiện tại"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Did đã cho biết chuyện xảy ra trong quá khứ, nên động từ sau did luôn ở dạng nguyên mẫu: did she swim, did all the children finish, didn't go.",
+      "whenVi": "Dùng Did …? và từ hỏi + did …? để hỏi về chuyện đã qua, và didn't + động từ để nói việc đã không xảy ra.",
+      "table": [
+        {
+          "subject": "Câu hỏi Có / Không",
+          "form": "Did Nghia win? – No, he didn't.",
+          "negative": "He didn't win."
+        },
+        {
+          "subject": "Câu hỏi có từ hỏi",
+          "form": "Why did she swim so easily?",
+          "negative": "—"
+        },
+        {
+          "subject": "Hỏi về người làm (không có did)",
+          "form": "Who won? – A girl from Hue won.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Why did she swam so easily?",
+          "right": "Why did she swim so easily?"
+        },
+        {
+          "wrong": "Ha didn't went to the competition.",
+          "right": "Ha didn't go to the competition."
+        }
+      ],
+      "noteVi": "Người Việt hay giữ dạng quá khứ sau did (did she swam, didn't went), vì nghĩ câu nói về quá khứ thì động từ phải ở quá khứ; thật ra chỉ cần did mang nghĩa quá khứ.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng phủ định quá khứ của động từ trong ngoặc.",
+          "text": "Ha ___ (not go) to the competition.",
+          "answers": [
+            "didn't go",
+            "did not go"
+          ],
+          "explanationVi": "Phủ định quá khứ: didn't + go."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn từ đúng.",
+          "text": "Why ___ she swim so easily yesterday?",
+          "options": [
+            "did",
+            "was",
+            "does",
+            "is"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Yesterday là quá khứ, và swim là động từ thường, nên hỏi bằng did."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Did all the children finished?",
+          "sentence": "Did all the children finish?",
+          "explanationVi": "Sau Did, động từ giữ nguyên mẫu: finish."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu hỏi đúng.",
+          "text": "Bạn có được huy chương không?",
+          "sentence": "Did you get a medal?",
+          "words": [
+            "get",
+            "Did",
+            "medal",
+            "you",
+            "a",
+            "got"
+          ],
+          "explanationVi": "Did + you + get (nguyên mẫu); từ \"got\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Yesterday, there was a swimming competition at the pool near Lien's flat.",
+        "tipVi": "Competition /ˌkɑmpəˈtɪʃən/ nhấn ở âm thứ ba \"TI\"; pool /pul/ có âm /u/ dài và /l/ ở cuối."
+      },
+      {
+        "text": "She gets up at five and swims for two hours before school.",
+        "tipVi": "Swims /swɪmz/ có cụm /sw/ ở đầu và /mz/ ở cuối; hours /aʊərz/ không đọc chữ h."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Did you learn to swim when you were a child?",
+        "questionVi": "Hồi nhỏ bạn có học bơi không?",
+        "frame": "Yes, I did. I learned at ___. / No, I didn't."
+      },
+      {
+        "question": "How often do you practise a sport?",
+        "questionVi": "Bạn tập thể thao thường xuyên thế nào?",
+        "frame": "I practise ___ every ___."
+      },
+      {
+        "question": "Did your friend win a competition at school?",
+        "questionVi": "Bạn của bạn có từng thắng cuộc thi nào ở trường không?",
+        "frame": "Yes, he / she did. He / She won ___. / No, he / she didn't."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với didn't hoặc Did … ?",
+      "anyOf": [
+        "didn't",
+        "did not",
+        "did you",
+        "did he",
+        "did she",
+        "why did"
+      ],
+      "outlineVi": [
+        "Nói đó là cuộc thi gì, ở đâu, khi nào.",
+        "Kể ai thắng và người đó làm thế nào (He ran fast, she swam easily …).",
+        "Kể ai không thắng hoặc không về đích (didn't …) và vì sao."
+      ],
+      "modelAnswer": "Last month, my school had a running competition. My friend Tam ran very fast, and she won! I didn't win, but I finished. One boy didn't finish, because he hurt his leg. Did Tam feel tired after it? No, she didn't. She practises hard every morning, so she can run easily."
+    }
+  },
+  "glosses": [
+    {
+      "text": "at work",
+      "lemma": "at work",
+      "meaningVi": "ở chỗ làm",
+      "sentenceIndex": 2,
+      "pos": "phrase",
+      "phrase": "she asked Lien about it at work",
+      "phraseVi": "ở chỗ làm Hà hỏi Liên về cuộc thi"
+    },
+    {
+      "text": "came third",
+      "lemma": "come third",
+      "meaningVi": "về thứ ba",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "he came third",
+      "phraseVi": "em ấy về thứ ba"
+    },
+    {
+      "text": "really fast",
+      "lemma": "fast",
+      "meaningVi": "rất nhanh",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "He swam really fast",
+      "phraseVi": "Em ấy bơi nhanh lắm"
+    },
+    {
+      "text": "look tired",
+      "lemma": "look",
+      "meaningVi": "trông mệt",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "she didn't look tired at all",
+      "phraseVi": "trông chẳng mệt chút nào"
+    },
+    {
+      "text": "gets up",
+      "lemma": "get up",
+      "meaningVi": "thức dậy",
+      "sentenceIndex": 11,
+      "pos": "phrasal verb",
+      "phrase": "She gets up at five",
+      "phraseVi": "Cô bé dậy lúc năm giờ"
+    },
+    {
+      "text": "at the start",
+      "lemma": "at the start",
+      "meaningVi": "lúc đầu",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "One boy swam very fast at the start",
+      "phraseVi": "Một cậu bé bơi rất nhanh lúc đầu"
+    },
+    {
+      "text": "middle",
+      "lemma": "middle",
+      "meaningVi": "giữa",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "in the middle of the pool",
+      "phraseVi": "giữa bể bơi"
+    },
+    {
+      "text": "happily",
+      "lemma": "happily",
+      "meaningVi": "vui vẻ",
+      "sentenceIndex": 16,
+      "pos": "adverb",
+      "phrase": "he smiled happily",
+      "phraseVi": "em ấy cười tươi"
+    },
+    {
+      "text": "Maybe",
+      "lemma": "maybe",
+      "meaningVi": "có lẽ, có khi",
+      "sentenceIndex": 17,
+      "pos": "adverb",
+      "phrase": "Maybe next year he can win",
+      "phraseVi": "Có khi năm sau em ấy thắng"
+    }
+  ]
+}

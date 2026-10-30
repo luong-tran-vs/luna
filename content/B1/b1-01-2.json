@@ -1,0 +1,618 @@
+{
+  "content": "Linh and Nam work at a bank in Hanoi. It's Friday afternoon, and they are having a coffee in the staff room.\n\nLinh asks, \"How long have you worked here, Nam?\"\n\"For five years. I started in 2021, right after university. And you?\"\n\"I've been here since 2019, so seven years now. Time goes so fast!\"\nNam laughs. \"You've seen a lot of changes, then.\"\n\"Yes. We've moved to a new building, and we've changed our computer system twice.\"\n\"Speaking of computers, have you finished the new customer guide yet?\"\n\"Yes, I've just finished it. I sent it to the manager an hour ago.\"\n\"Great. I haven't finished my report yet. I still need to check the numbers.\"\n\"When is the deadline?\"\n\"Monday morning. I've already written most of it, but the last part is difficult.\"\n\"Have you asked Mr Toan for help?\"\n\"Not yet. He's been very busy since the start of the month.\"\nLinh puts down her cup. \"I can help you. I've written this kind of report before.\"\n\"Really? Thank you! I'll buy you lunch next week.\"\nLinh smiles. \"Deal. Let's look at it together on Monday at eight. Bring all your numbers.\"",
+  "targetWords": [
+    "bank",
+    "staff",
+    "change",
+    "system",
+    "guide",
+    "manager",
+    "report",
+    "check",
+    "number",
+    "deadline"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "bank",
+        "lemma": "bank",
+        "meaningVi": "ngân hàng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "staff",
+        "lemma": "staff",
+        "meaningVi": "nhân viên",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "changes",
+        "lemma": "change",
+        "meaningVi": "sự thay đổi",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "system",
+        "lemma": "system",
+        "meaningVi": "hệ thống",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "guide",
+        "lemma": "guide",
+        "meaningVi": "tài liệu hướng dẫn",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "manager",
+        "lemma": "manager",
+        "meaningVi": "quản lý, trưởng phòng",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "report",
+        "lemma": "report",
+        "meaningVi": "báo cáo",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "check",
+        "lemma": "check",
+        "meaningVi": "kiểm tra",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "numbers",
+        "lemma": "number",
+        "meaningVi": "con số",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "deadline",
+        "lemma": "deadline",
+        "meaningVi": "hạn chót",
+        "pos": "noun",
+        "sentenceIndex": 18
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the conversation mainly about?",
+        "promptVi": "Cuộc trò chuyện chủ yếu nói về điều gì?",
+        "options": [
+          "Two bank workers talk about their time at the bank and their work this week.",
+          "Nam asks for a new job at another bank.",
+          "Linh and Nam plan a holiday.",
+          "The bank's new building in Hanoi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Linh và Nam nói đã làm ở ngân hàng bao lâu, rồi nói về những việc đã xong và chưa xong."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long has Linh worked at the bank?",
+        "promptVi": "Linh đã làm ở ngân hàng bao lâu?",
+        "options": [
+          "Five years",
+          "Two years",
+          "Seven years",
+          "Since 2021"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Linh nói \"I've been here since 2019, so seven years now.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why hasn't Nam asked Mr Toan for help?",
+        "promptVi": "Vì sao Nam chưa nhờ ông Toàn giúp?",
+        "options": [
+          "Mr Toan doesn't like him.",
+          "Mr Toan has been very busy.",
+          "Nam has already finished the report.",
+          "Mr Toan is on holiday."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nam nói \"Not yet. He's been very busy since the start of the month.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam has finished his report.",
+        "promptVi": "Nam đã làm xong báo cáo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"I haven't finished my report yet.\" Bài có nhắc đến việc này nên không phải \"không có thông tin\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Deal\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Linh smiles. \"Deal.",
+        "options": [
+          "Thỏa thuận vậy nhé, chốt",
+          "Xử lý",
+          "Chia bài",
+          "Món hời"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ở đây \"Deal.\" là lời đồng ý một thỏa thuận: được, chốt vậy. Xử lý, chia bài, món hời là các nghĩa khác của deal."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành với for / since / already / just / yet",
+      "bodyVi": "Hiện tại hoàn thành nói việc kéo dài từ quá khứ đến bây giờ: for + khoảng thời gian (for five years), since + mốc thời gian (since 2019, since the start of the month). Hỏi: How long have you worked here? Just = vừa mới (I've just finished it), already = đã… rồi (I've already written most of it), yet ở cuối câu phủ định = vẫn chưa (I haven't finished my report yet) hoặc câu hỏi = đã… chưa (Have you finished it yet?).",
+      "examples": [
+        "I've been here since 2019, so seven years now.",
+        "I haven't finished my report yet.",
+        "I've already written most of it, but the last part is difficult.\""
+      ]
+    },
+    "writingPrompt": "Write about your work or study this week: what have you already done, what have you just finished, and what haven't you done yet?",
+    "sentenceTranslations": [
+      "Linh và Nam làm việc ở một ngân hàng tại Hà Nội.",
+      "Bây giờ là chiều thứ Sáu, và họ đang uống cà phê trong phòng nghỉ của nhân viên.",
+      "Linh hỏi: \"Cậu làm ở đây được bao lâu rồi, Nam?\"",
+      "\"Năm năm rồi.",
+      "Mình bắt đầu vào năm 2021, ngay sau khi tốt nghiệp đại học.",
+      "Còn cậu?\"",
+      "\"Mình ở đây từ năm 2019, tức là bảy năm rồi.",
+      "Thời gian trôi nhanh quá!\"",
+      "Nam cười.",
+      "\"Vậy là cậu đã thấy nhiều thay đổi rồi.\"",
+      "\"Ừ.",
+      "Bọn mình đã chuyển sang toà nhà mới, và đã đổi hệ thống máy tính hai lần.\"",
+      "\"Nhắc đến máy tính, cậu đã làm xong tài liệu hướng dẫn khách hàng mới chưa?\"",
+      "\"Rồi, mình vừa làm xong.",
+      "Mình gửi cho trưởng phòng cách đây một tiếng.\"",
+      "\"Tuyệt.",
+      "Mình thì vẫn chưa xong báo cáo.",
+      "Mình còn phải kiểm tra các con số.\"",
+      "\"Khi nào là hạn chót?\"",
+      "\"Sáng thứ Hai.",
+      "Mình đã viết gần hết rồi, nhưng phần cuối khó lắm.\"",
+      "\"Cậu đã nhờ ông Toàn giúp chưa?\"",
+      "\"Chưa.",
+      "Từ đầu tháng đến giờ ông ấy rất bận.\"",
+      "Linh đặt cốc xuống.",
+      "\"Mình giúp cậu được.",
+      "Mình đã viết loại báo cáo này rồi.\"",
+      "\"Thật à?",
+      "Cảm ơn cậu!",
+      "Tuần sau mình mời cậu ăn trưa.\"",
+      "Linh mỉm cười.",
+      "\"Chốt.",
+      "Sáng thứ Hai lúc tám giờ mình cùng xem nhé.",
+      "Mang hết các con số theo.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói mình đã làm một công việc bao lâu (for / since) và việc nào đã xong, vừa xong, chưa xong (already / just / yet).",
+    "examples": [
+      {
+        "lemma": "bank",
+        "sentence": "My sister works at a bank.",
+        "meaningVi": "Chị tôi làm ở ngân hàng."
+      },
+      {
+        "lemma": "staff",
+        "sentence": "All the staff are in the meeting.",
+        "meaningVi": "Tất cả nhân viên đang họp."
+      },
+      {
+        "lemma": "change",
+        "sentence": "There will be a big change next year.",
+        "meaningVi": "Năm sau sẽ có một thay đổi lớn."
+      },
+      {
+        "lemma": "system",
+        "sentence": "The new system is easy to use.",
+        "meaningVi": "Hệ thống mới rất dễ dùng."
+      },
+      {
+        "lemma": "guide",
+        "sentence": "Read the guide before you start.",
+        "meaningVi": "Đọc tài liệu hướng dẫn trước khi bắt đầu."
+      },
+      {
+        "lemma": "manager",
+        "sentence": "I need to talk to the manager.",
+        "meaningVi": "Tôi cần nói chuyện với quản lý."
+      },
+      {
+        "lemma": "report",
+        "sentence": "The report is on your desk.",
+        "meaningVi": "Báo cáo ở trên bàn của bạn."
+      },
+      {
+        "lemma": "check",
+        "sentence": "Please check your email.",
+        "meaningVi": "Vui lòng kiểm tra email."
+      },
+      {
+        "lemma": "number",
+        "sentence": "This number is wrong.",
+        "meaningVi": "Con số này sai."
+      },
+      {
+        "lemma": "deadline",
+        "sentence": "The deadline is next Friday.",
+        "meaningVi": "Hạn chót là thứ Sáu tuần sau."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nam",
+        "Lisa"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Nam, how long have you lived in Hanoi?",
+          "meaningVi": "Nam ơi, cậu sống ở Hà Nội bao lâu rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "Since 2017. I came here for university.",
+          "meaningVi": "Từ năm 2017. Mình lên đây học đại học."
+        },
+        {
+          "speaker": 1,
+          "text": "And how long have you worked at the bank?",
+          "meaningVi": "Còn làm ở ngân hàng bao lâu rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "For five years. I've just finished a big report.",
+          "meaningVi": "Năm năm. Mình vừa làm xong một bản báo cáo lớn."
+        },
+        {
+          "speaker": 1,
+          "text": "Congratulations! Have you sent it to your manager yet?",
+          "meaningVi": "Chúc mừng! Cậu gửi cho trưởng phòng chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I've already sent it. Linh helped me with the numbers.",
+          "meaningVi": "Rồi, mình gửi rồi. Linh giúp mình phần số liệu."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you had a holiday this year?",
+          "meaningVi": "Năm nay cậu đã đi nghỉ chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. I haven't had time.",
+          "meaningVi": "Chưa. Mình chưa có thời gian."
+        },
+        {
+          "speaker": 1,
+          "text": "You need a break!",
+          "meaningVi": "Cậu cần nghỉ ngơi đấy!"
+        },
+        {
+          "speaker": 0,
+          "text": "I know. I've already booked a trip for next month.",
+          "meaningVi": "Mình biết. Mình đã đặt một chuyến đi cho tháng sau rồi."
+        }
+      ]
+    },
+    "grammarTipVi": "How long have you…? → Since 2017 (mốc) / For five years (khoảng). Have you sent it yet? → Yes, I've already sent it. / Not yet.",
+    "translations": [
+      {
+        "vi": "Tôi đã làm ở ngân hàng này được năm năm.",
+        "en": "I have worked at this bank for five years.",
+        "distractors": [
+          "since",
+          "works",
+          "has"
+        ]
+      },
+      {
+        "vi": "Trưởng phòng ở đây từ năm 2019.",
+        "en": "The manager has been here since 2019.",
+        "distractors": [
+          "for",
+          "have",
+          "was"
+        ]
+      },
+      {
+        "vi": "Tôi vừa làm xong bản hướng dẫn.",
+        "en": "I have just finished the guide.",
+        "distractors": [
+          "yet",
+          "finishes",
+          "has"
+        ]
+      },
+      {
+        "vi": "Tôi vẫn chưa làm xong báo cáo.",
+        "en": "I haven't finished my report yet.",
+        "distractors": [
+          "already",
+          "just",
+          "didn't"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lisa hỏi Nam về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thời gian Nam sống và làm việc ở Hà Nội",
+          "Kỳ nghỉ của Lisa",
+          "Một ngân hàng mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lisa hỏi Nam sống ở Hà Nội và làm ở ngân hàng bao lâu, rồi hỏi về công việc gần đây.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nam đến Hà Nội từ năm nào?",
+        "promptVi": "",
+        "options": [
+          "2017",
+          "2019",
+          "2021"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nam nói \"Since 2017.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai giúp Nam phần số liệu?",
+        "promptVi": "",
+        "options": [
+          "Lisa",
+          "Trưởng phòng",
+          "Linh"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nam nói \"Linh helped me with the numbers.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Nam has had a holiday this year.",
+        "promptVi": "Năm nay Nam đã đi nghỉ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Nam nói \"Not yet. I haven't had time.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Linh và Nam đã làm ở ngân hàng bao lâu? Việc nào đã xong, việc nào chưa xong?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành với for / since / already / just / yet",
+      "noticing": [
+        {
+          "sentence": "Linh asks, \"How long have you worked here, Nam?\"",
+          "highlights": [
+            "How long have you worked"
+          ]
+        },
+        {
+          "sentence": "\"I've been here since 2019, so seven years now.",
+          "highlights": [
+            "since 2019"
+          ]
+        },
+        {
+          "sentence": "\"Yes, I've just finished it.",
+          "highlights": [
+            "I've just finished"
+          ]
+        },
+        {
+          "sentence": "I haven't finished my report yet.",
+          "highlights": [
+            "haven't finished",
+            "yet"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao Linh nói \"since 2019\" nhưng Nam nói \"For five years\"?",
+      "options": [
+        "Since đi với mốc thời gian (2019), for đi với khoảng thời gian (five years).",
+        "Since dùng cho người lớn tuổi hơn.",
+        "For chỉ dùng trong câu trả lời ngắn."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Since + mốc bắt đầu (2019, Monday, the start of the month); for + độ dài (five years, two weeks).",
+      "whenVi": "Dùng for / since để nói việc kéo dài bao lâu đến bây giờ; just, already, yet để nói việc vừa xong, đã xong hay chưa xong.",
+      "table": [
+        {
+          "subject": "for / since",
+          "form": "I've worked here for five years / since 2021.",
+          "negative": "I haven't seen him since Monday."
+        },
+        {
+          "subject": "just",
+          "form": "I've just finished it.",
+          "negative": "—"
+        },
+        {
+          "subject": "already",
+          "form": "I've already written most of it.",
+          "negative": "—"
+        },
+        {
+          "subject": "yet",
+          "form": "Have you finished it yet?",
+          "negative": "I haven't finished my report yet."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I have worked here since five years.",
+          "right": "I have worked here for five years."
+        },
+        {
+          "wrong": "I haven't finished yet my report.",
+          "right": "I haven't finished my report yet."
+        }
+      ],
+      "noteVi": "Just và already đứng giữa have và phân từ; yet đứng ở cuối câu phủ định hoặc câu hỏi.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền for hoặc since.",
+          "text": "Nam has worked at the bank ___ five years.",
+          "answers": [
+            "for"
+          ],
+          "explanationVi": "Five years là khoảng thời gian: for."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Have you finished the guide ___?",
+          "options": [
+            "already",
+            "just",
+            "yet",
+            "since"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Câu hỏi \"đã… chưa\" dùng yet ở cuối câu."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I have been here for 2019.",
+          "sentence": "I have been here since 2019.",
+          "explanationVi": "2019 là mốc thời gian: since."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi vừa làm xong.",
+          "sentence": "I have just finished it.",
+          "words": [
+            "just",
+            "I",
+            "it.",
+            "have",
+            "finished",
+            "yet"
+          ],
+          "explanationVi": "Just đứng giữa have và phân từ; từ \"yet\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Linh asks, \"How long have you worked here, Nam?\"",
+        "tipVi": "How long have you nối liền; câu hỏi Wh- xuống giọng ở cuối."
+      },
+      {
+        "text": "I haven't finished my report yet.",
+        "tipVi": "Haven't /ˈhævnt/ đọc rõ /t/; nhấn vào yet."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "How long have you lived in your town or city?",
+        "questionVi": "Bạn sống ở thành phố, thị trấn của mình bao lâu rồi?",
+        "frame": "I've lived here for ___ / since ___."
+      },
+      {
+        "question": "What have you already done today?",
+        "questionVi": "Hôm nay bạn đã làm được những gì rồi?",
+        "frame": "I've already ___."
+      },
+      {
+        "question": "How long has your best friend lived in his or her home?",
+        "questionVi": "Bạn thân của bạn sống ở nhà hiện tại bao lâu rồi?",
+        "frame": "He / She has lived there for ___ / since ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành với for / since / already / just / yet",
+      "anyOf": [
+        " for ",
+        " since ",
+        "already",
+        "just",
+        " yet"
+      ],
+      "outlineVi": [
+        "Bạn làm việc / học ở đâu, bao lâu rồi (for / since).",
+        "Những việc bạn đã làm xong tuần này (already / just).",
+        "Một việc bạn chưa làm xong (haven't … yet)."
+      ],
+      "modelAnswer": "I've worked at a small travel company in Da Nang since 2022. It has been a busy week. I've already answered all my emails, and I've just finished a long report for my manager. I've also booked two hotels for a group from Korea. But I haven't checked the bus tickets yet, and I haven't called the restaurant yet. I'll do that on Monday."
+    }
+  },
+  "glosses": [
+    {
+      "text": "staff room",
+      "lemma": "staff room",
+      "meaningVi": "phòng nghỉ nhân viên",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "in the staff room",
+      "phraseVi": "trong phòng nghỉ của nhân viên"
+    },
+    {
+      "text": "right after",
+      "lemma": "right after",
+      "meaningVi": "ngay sau",
+      "sentenceIndex": 4,
+      "pos": "phrase",
+      "phrase": "right after university",
+      "phraseVi": "ngay sau khi tốt nghiệp đại học"
+    },
+    {
+      "text": "twice",
+      "lemma": "twice",
+      "meaningVi": "hai lần",
+      "sentenceIndex": 11,
+      "pos": "adverb",
+      "phrase": "changed our computer system twice",
+      "phraseVi": "đã đổi hệ thống máy tính hai lần"
+    },
+    {
+      "text": "Speaking of",
+      "lemma": "speaking of",
+      "meaningVi": "nhắc đến",
+      "sentenceIndex": 12,
+      "pos": "phrase",
+      "phrase": "Speaking of computers",
+      "phraseVi": "Nhắc đến máy tính"
+    },
+    {
+      "text": "puts down",
+      "lemma": "put down",
+      "meaningVi": "đặt xuống",
+      "sentenceIndex": 24,
+      "pos": "phrasal verb",
+      "phrase": "Linh puts down her cup.",
+      "phraseVi": "Linh đặt cốc xuống."
+    },
+    {
+      "text": "kind of",
+      "lemma": "kind",
+      "meaningVi": "loại",
+      "sentenceIndex": 26,
+      "pos": "noun",
+      "phrase": "this kind of report",
+      "phraseVi": "loại báo cáo này"
+    }
+  ]
+}

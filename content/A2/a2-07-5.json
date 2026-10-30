@@ -1,0 +1,598 @@
+{
+  "content": "On the first morning of Tet, everybody in Ha's family wears new clothes. They all sit in the living room with Grandpa and Grandma.\n\nGrandpa says, \"Happy New Year, everyone! I wish you good luck and a healthy year.\"\nThen Grandma gives a red envelope to everyone. The children say thank you and hope for a lot of money.\n\nHa opens her envelope. There is a new 50,000 dong note inside. She says, \"Thank you, Grandma!\"\nHer little brother Quan looks at his envelope. He asks, \"Is there anything in mine? It's very thin.\"\n\"Look again,\" Grandma says. There are two notes inside!\nHa asks, \"Did someone receive more money than me?\"\nGrandpa says, \"Yes, Quan did. It's his birthday too.\"\nQuan says, \"Then I'm going to share my lucky money with you, Ha.\"\n\nEverybody laughs. Then Grandma looks around the room. She asks, \"Is there anyone without an envelope?\"\nHa says, \"Yes, Uncle Duc! He isn't awake yet.\"\nGrandma smiles. \"Nobody is going to be without a gift on Tet. I have one for him too.\"",
+  "targetWords": [
+    "living room",
+    "wish",
+    "luck",
+    "healthy",
+    "hope",
+    "receive",
+    "share",
+    "gift"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "living room",
+        "lemma": "living room",
+        "meaningVi": "phòng khách",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "wish",
+        "lemma": "wish",
+        "meaningVi": "chúc",
+        "pos": "verb",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "luck",
+        "lemma": "luck",
+        "meaningVi": "may mắn",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "healthy",
+        "lemma": "healthy",
+        "meaningVi": "khoẻ mạnh",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "hope",
+        "lemma": "hope",
+        "meaningVi": "mong, hy vọng",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "receive",
+        "lemma": "receive",
+        "meaningVi": "nhận được",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "share",
+        "lemma": "share",
+        "meaningVi": "chia sẻ, chia cho",
+        "pos": "verb",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "gift",
+        "lemma": "gift",
+        "meaningVi": "quà",
+        "pos": "noun",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Quan's birthday party",
+          "Grandparents give lucky money to the family on the first morning of Tet.",
+          "Ha buys new clothes for Tet.",
+          "Uncle Duc visits the family."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Sáng mùng một, ông bà lì xì cho cả nhà trong phòng khách."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How much money is in Ha's envelope?",
+        "promptVi": "Trong phong bì của Hà có bao nhiêu tiền?",
+        "options": [
+          "50,000 dong",
+          "100,000 dong",
+          "20,000 dong",
+          "Nothing"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bài viết: \"There is a new 50,000 dong note inside.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Quan receive two notes?",
+        "promptVi": "Vì sao Quân nhận được hai tờ tiền?",
+        "options": [
+          "He is the youngest.",
+          "He helps Grandma.",
+          "It is his birthday too.",
+          "His envelope is very thin."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ông nói \"Yes, Quan did. It's his birthday too.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Everybody gets an envelope at the same time.",
+        "promptVi": "Mọi người đều nhận phong bì cùng một lúc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chú Đức vẫn chưa dậy: \"He isn't awake yet.\" Bà giữ phong bì cho chú."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"thin\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "It's very thin.\"",
+        "options": [
+          "dày",
+          "mỏng",
+          "đỏ",
+          "mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thin là mỏng: phong bì mỏng nên Quân nghĩ bên trong không có gì."
+      }
+    ],
+    "grammarNote": {
+      "title": "Đại từ bất định (someone, anything, nowhere)",
+      "bodyVi": "Every- chỉ tất cả mọi người, mọi vật: everyone, everybody (động từ số ít: everybody wears). Câu hỏi dùng any- hoặc some-: Is there anything in mine? Is there anyone without an envelope? Did someone receive more money? (người hỏi nghĩ là có). No- mang nghĩa \"không ai\": Nobody is going to be without a gift.",
+      "examples": [
+        "Then Grandma gives a red envelope to everyone.",
+        "He asks, \"Is there anything in mine?",
+        "Ha asks, \"Did someone receive more money than me?\""
+      ]
+    },
+    "writingPrompt": "Write about lucky money in your family: who gives it, who receives it, and what do people wish for?",
+    "sentenceTranslations": [
+      "Sáng mùng một Tết, mọi người trong nhà Hà đều mặc quần áo mới.",
+      "Cả nhà ngồi trong phòng khách với ông bà.",
+      "Ông nói: \"Chúc mừng năm mới cả nhà!",
+      "Ông chúc các con các cháu may mắn và một năm mạnh khoẻ.\"",
+      "Rồi bà phát cho mỗi người một phong bì đỏ.",
+      "Bọn trẻ cảm ơn và mong được nhiều tiền.",
+      "Hà mở phong bì của mình.",
+      "Bên trong có một tờ 50.000 đồng mới.",
+      "Hà nói: \"Cháu cảm ơn bà ạ!\"",
+      "Em trai Quân nhìn phong bì của mình.",
+      "Em hỏi: \"Trong của cháu có gì không ạ?",
+      "Mỏng quá.\"",
+      "\"Cháu xem lại đi,\" bà nói.",
+      "Bên trong có tới hai tờ!",
+      "Hà hỏi: \"Có ai được nhiều tiền hơn cháu không ạ?\"",
+      "Ông nói: \"Có, Quân đấy.",
+      "Hôm nay cũng là sinh nhật em.\"",
+      "Quân nói: \"Vậy em sẽ chia tiền lì xì cho chị, chị Hà.\"",
+      "Mọi người cùng cười.",
+      "Rồi bà nhìn quanh phòng.",
+      "Bà hỏi: \"Còn ai chưa có phong bì không?\"",
+      "Hà nói: \"Có ạ, chú Đức!",
+      "Chú vẫn chưa dậy.\"",
+      "Bà mỉm cười.",
+      "\"Ngày Tết không ai thiếu quà cả.",
+      "Bà có một cái cho chú rồi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể về việc lì xì ngày Tết và hỏi \"có ai…, có gì…\" bằng everyone, anything, someone, nobody.",
+    "examples": [
+      {
+        "lemma": "living room",
+        "sentence": "We watch TV in the living room.",
+        "meaningVi": "Chúng tôi xem TV ở phòng khách."
+      },
+      {
+        "lemma": "wish",
+        "sentence": "I wish you a happy new year.",
+        "meaningVi": "Chúc bạn năm mới vui vẻ."
+      },
+      {
+        "lemma": "luck",
+        "sentence": "Good luck with your exam!",
+        "meaningVi": "Chúc bạn thi tốt!"
+      },
+      {
+        "lemma": "healthy",
+        "sentence": "My grandfather is old but very healthy.",
+        "meaningVi": "Ông tôi già rồi nhưng rất khoẻ mạnh."
+      },
+      {
+        "lemma": "hope",
+        "sentence": "I hope you like the cake.",
+        "meaningVi": "Mong là bạn thích chiếc bánh."
+      },
+      {
+        "lemma": "receive",
+        "sentence": "Children receive lucky money at Tet.",
+        "meaningVi": "Trẻ con được nhận tiền lì xì vào dịp Tết."
+      },
+      {
+        "lemma": "share",
+        "sentence": "Can I share your umbrella?",
+        "meaningVi": "Mình che chung ô với bạn được không?"
+      },
+      {
+        "lemma": "gift",
+        "sentence": "This gift is for you.",
+        "meaningVi": "Món quà này là của bạn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ha",
+        "Sophie"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ha, what is in that red envelope?",
+          "meaningVi": "Hà ơi, trong phong bì đỏ đó có gì vậy?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's lucky money. Everyone gets some at Tet.",
+          "meaningVi": "Tiền lì xì đấy. Tết ai cũng được nhận."
+        },
+        {
+          "speaker": 1,
+          "text": "Everyone? Even the adults?",
+          "meaningVi": "Ai cũng được à? Cả người lớn sao?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but children usually receive the most.",
+          "meaningVi": "Ừ, nhưng thường trẻ con được nhiều nhất."
+        },
+        {
+          "speaker": 1,
+          "text": "Who gives the envelopes?",
+          "meaningVi": "Ai là người phát phong bì?"
+        },
+        {
+          "speaker": 0,
+          "text": "My grandparents. They wish us good luck too.",
+          "meaningVi": "Ông bà mình. Ông bà còn chúc mọi người may mắn nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "Is there anything special inside?",
+          "meaningVi": "Bên trong có gì đặc biệt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Just new notes. Nobody gives old money at Tet.",
+          "meaningVi": "Chỉ có tiền mới thôi. Tết không ai lì xì tiền cũ."
+        },
+        {
+          "speaker": 1,
+          "text": "I love that! Can someone give me an envelope too?",
+          "meaningVi": "Hay quá! Có ai lì xì cho mình với không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Here you are, Sophie. Happy New Year!",
+          "meaningVi": "Của cậu đây, Sophie. Chúc mừng năm mới!"
+        }
+      ]
+    },
+    "grammarTipVi": "Mọi người: Everyone gets some (động từ số ít). Hỏi có gì: Is there anything special? Không ai: Nobody gives old money. Xin, nhờ dùng some-: Can someone give me …?",
+    "translations": [
+      {
+        "vi": "Bà chúc mọi người may mắn.",
+        "en": "Grandma wishes everyone good luck.",
+        "distractors": [
+          "anyone",
+          "wishing",
+          "nobody"
+        ]
+      },
+      {
+        "vi": "Trong phòng khách có gì không?",
+        "en": "Is there anything in the living room?",
+        "distractors": [
+          "something",
+          "Are",
+          "nothing"
+        ]
+      },
+      {
+        "vi": "Có ai nhận được nhiều tiền hơn tôi không?",
+        "en": "Did someone receive more money than me?",
+        "distractors": [
+          "received",
+          "nobody",
+          "Does"
+        ]
+      },
+      {
+        "vi": "Ngày Tết không ai thiếu quà cả.",
+        "en": "Nobody is without a gift at Tet.",
+        "distractors": [
+          "isn't",
+          "Anybody",
+          "are"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hà giải thích cho Sophie về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tiền lì xì ngày Tết",
+          "Cách gói bánh chưng",
+          "Một cửa hàng mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hà nói \"It's lucky money. Everyone gets some at Tet.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai thường nhận được nhiều tiền nhất?",
+        "promptVi": "",
+        "options": [
+          "Người lớn",
+          "Ông bà",
+          "Trẻ con"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Hà nói \"children usually receive the most.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trong phong bì thường có gì?",
+        "promptVi": "",
+        "options": [
+          "Tiền cũ",
+          "Tiền mới",
+          "Kẹo"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hà nói \"Just new notes. Nobody gives old money at Tet.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Sophie gets an envelope from Ha.",
+        "promptVi": "Sophie được Hà lì xì.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Hà nói \"Here you are, Sophie. Happy New Year!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Ai được nhận nhiều tiền hơn, và vì sao? Còn ai chưa có phong bì?",
+    "grammarStep": {
+      "titleVi": "Đại từ bất định (someone, anything, nowhere)",
+      "noticing": [
+        {
+          "sentence": "On the first morning of Tet, everybody in Ha's family wears new clothes.",
+          "highlights": [
+            "everybody"
+          ]
+        },
+        {
+          "sentence": "He asks, \"Is there anything in mine?",
+          "highlights": [
+            "anything"
+          ]
+        },
+        {
+          "sentence": "She asks, \"Is there anyone without an envelope?\"",
+          "highlights": [
+            "anyone"
+          ]
+        },
+        {
+          "sentence": "\"Nobody is going to be without a gift on Tet.",
+          "highlights": [
+            "Nobody"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"everybody in Ha's family wears\" mà không viết \"wear\"?",
+      "options": [
+        "Vì everybody luôn đi với động từ số ít.",
+        "Vì gia đình Hà chỉ có một người.",
+        "Vì câu ở thì quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Everybody, everyone, everything, nobody… đều đi với động từ số ít: everybody wears, nobody is.",
+      "whenVi": "Dùng every- khi nói \"tất cả mọi người, mọi thứ\"; any- trong câu hỏi chung; no- khi nói \"không ai, không gì\".",
+      "table": [
+        {
+          "subject": "Người",
+          "form": "everyone / everybody, someone / somebody",
+          "negative": "nobody / no one"
+        },
+        {
+          "subject": "Vật",
+          "form": "everything, something",
+          "negative": "nothing"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Is there anyone …? Is there anything …?",
+          "negative": "There isn't anyone. = There is nobody."
+        },
+        {
+          "subject": "Động từ",
+          "form": "Everybody wears new clothes.",
+          "negative": "Nobody gives old money."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Everybody wear new clothes.",
+          "right": "Everybody wears new clothes."
+        },
+        {
+          "wrong": "There isn't nobody in the room.",
+          "right": "There isn't anybody in the room."
+        }
+      ],
+      "noteVi": "Không dùng hai từ phủ định trong một câu: There isn't anybody = There is nobody, không nói \"There isn't nobody\".",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền anything hoặc nothing.",
+          "text": "Is there ___ in your envelope?",
+          "answers": [
+            "anything"
+          ],
+          "explanationVi": "Câu hỏi dùng anything."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Grandma gives a red envelope to ___.",
+          "options": [
+            "anything",
+            "nothing",
+            "everyone",
+            "somewhere"
+          ],
+          "answerIndex": 2,
+          "explanationVi": "Bà phát cho tất cả mọi người: everyone."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Nobody aren't without a gift.",
+          "sentence": "Nobody is without a gift.",
+          "explanationVi": "Nobody đã mang nghĩa phủ định và đi với động từ số ít: is."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Mọi người đều mặc quần áo mới.",
+          "sentence": "Everybody wears new clothes.",
+          "words": [
+            "new",
+            "wears",
+            "Everybody",
+            "clothes",
+            "wear"
+          ],
+          "explanationVi": "Everybody + động từ số ít: wears; từ \"wear\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Then Grandma gives a red envelope to everyone.",
+        "tipVi": "Gives a nối liền /ɡɪvzə/; everyone /ˈevriwʌn/ nhấn âm đầu."
+      },
+      {
+        "text": "She asks, \"Is there anyone without an envelope?\"",
+        "tipVi": "Anyone /ˈeniwʌn/; envelope /ˈenvələʊp/ nhấn âm đầu, nối an envelope."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who gives you lucky money at Tet?",
+        "questionVi": "Ai lì xì cho bạn vào dịp Tết?",
+        "frame": "My ___ gives me lucky money."
+      },
+      {
+        "question": "Is there anything special you want for the new year?",
+        "questionVi": "Năm mới bạn có mong muốn điều gì đặc biệt không?",
+        "frame": "Yes, I want ___. / No, there isn't anything special."
+      },
+      {
+        "question": "What does your grandmother or grandfather wish for at Tet?",
+        "questionVi": "Ông hoặc bà bạn thường chúc gì vào dịp Tết?",
+        "frame": "He / She wishes everyone ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 đại từ bất định (everyone, someone, anything, nobody…)",
+      "anyOf": [
+        "someone",
+        "somebody",
+        "something",
+        "anyone",
+        "anybody",
+        "anything",
+        "nobody",
+        "nothing",
+        "everyone",
+        "everybody",
+        "everything",
+        "no one"
+      ],
+      "outlineVi": [
+        "Ai lì xì và vào lúc nào.",
+        "Mọi người chúc nhau điều gì.",
+        "Bạn làm gì với tiền lì xì (everyone, nobody, something…)."
+      ],
+      "modelAnswer": "On the first day of Tet, everyone in my family goes to my grandparents' house. My grandparents give a red envelope to everybody, even the adults. They wish us good luck and a healthy year. Nobody opens the envelope in front of them. I usually buy something small with my money, and I give some to my mother."
+    }
+  },
+  "glosses": [
+    {
+      "text": "wears",
+      "lemma": "wear",
+      "meaningVi": "mặc",
+      "sentenceIndex": 0,
+      "pos": "verb",
+      "phrase": "wears new clothes",
+      "phraseVi": "mặc quần áo mới"
+    },
+    {
+      "text": "Grandpa",
+      "lemma": "grandpa",
+      "meaningVi": "ông",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "with Grandpa and Grandma",
+      "phraseVi": "với ông bà"
+    },
+    {
+      "text": "note",
+      "lemma": "note",
+      "meaningVi": "tờ tiền",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "a new 50,000 dong note",
+      "phraseVi": "một tờ 50.000 đồng mới"
+    },
+    {
+      "text": "inside",
+      "lemma": "inside",
+      "meaningVi": "bên trong",
+      "sentenceIndex": 7,
+      "pos": "adverb",
+      "phrase": "note inside",
+      "phraseVi": "bên trong có tờ tiền"
+    },
+    {
+      "text": "thin",
+      "lemma": "thin",
+      "meaningVi": "mỏng",
+      "sentenceIndex": 11,
+      "pos": "adjective",
+      "phrase": "It's very thin.",
+      "phraseVi": "Mỏng quá."
+    },
+    {
+      "text": "without",
+      "lemma": "without",
+      "meaningVi": "không có",
+      "sentenceIndex": 20,
+      "pos": "preposition",
+      "phrase": "anyone without an envelope",
+      "phraseVi": "ai chưa có phong bì"
+    },
+    {
+      "text": "awake",
+      "lemma": "awake",
+      "meaningVi": "thức, tỉnh dậy",
+      "sentenceIndex": 22,
+      "pos": "adjective",
+      "phrase": "He isn't awake yet.",
+      "phraseVi": "Chú vẫn chưa dậy."
+    }
+  ]
+}

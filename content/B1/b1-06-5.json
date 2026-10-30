@@ -1,0 +1,602 @@
+{
+  "content": "Every Sunday afternoon, a small book club meets in a bookshop near Hoan Kiem Lake. This week, the members are talking about Coming Home, a novel by Tran Mai Anh.\n\nMrs Thu, who runs the club, starts. \"So, what did everyone think of Ha, the main character?\"\nPhuong says, \"I loved her. When she left Hanoi, she was a shy girl of eighteen. By the time she returned to Vietnam, she had become a strong woman.\"\n\"What had changed her?\" asks Mr Son.\n\"Life abroad. She had lived in Melbourne for fifteen years. She had worked in a restaurant kitchen, and she had opened her own café.\"\nKhanh says, \"I didn't like her very much. She had forgotten her family. She hadn't called her mother for three years.\"\n\"But she felt terrible about it,\" says Phuong.\nMrs Thu agrees. \"That's true. Remember chapter ten? When Ha arrived at her old house, her mother had already sold it. Ha cried all night.\"\nMr Son says, \"That was the saddest part. I think the writer wanted to show that you can't go back to the past.\"\n\"Exactly. Ha had changed, but Hanoi had changed too.\"\nKhanh laughs. \"OK, maybe I was too hard on her. The ending was beautiful.\"\n\"So, what are we reading next month?\" asks Phuong.\nMrs Thu holds up a thin book. \"Some poetry. Don't worry, it's short.\"",
+  "targetWords": [
+    "club",
+    "member",
+    "character",
+    "shy",
+    "return",
+    "strong",
+    "abroad",
+    "forget",
+    "chapter",
+    "poetry"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "club",
+        "lemma": "club",
+        "meaningVi": "câu lạc bộ",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "members",
+        "lemma": "member",
+        "meaningVi": "thành viên",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "character",
+        "lemma": "character",
+        "meaningVi": "nhân vật",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "shy",
+        "lemma": "shy",
+        "meaningVi": "nhút nhát",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "returned",
+        "lemma": "return",
+        "meaningVi": "trở về",
+        "pos": "verb",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "strong",
+        "lemma": "strong",
+        "meaningVi": "mạnh mẽ",
+        "pos": "adjective",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "abroad",
+        "lemma": "abroad",
+        "meaningVi": "ở nước ngoài",
+        "pos": "adverb",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "forgotten",
+        "lemma": "forget",
+        "meaningVi": "quên",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "chapter",
+        "lemma": "chapter",
+        "meaningVi": "chương (sách)",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "poetry",
+        "lemma": "poetry",
+        "meaningVi": "thơ",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is happening at the bookshop?",
+        "promptVi": "Chuyện gì đang diễn ra ở hiệu sách?",
+        "options": [
+          "A book club is talking about a novel.",
+          "A writer is selling her new book.",
+          "Some students are studying for an exam.",
+          "Mrs Thu is opening a new café."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Câu lạc bộ sách đang thảo luận cuốn tiểu thuyết Coming Home."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long had Ha lived in Melbourne?",
+        "promptVi": "Hà đã sống ở Melbourne bao lâu?",
+        "options": [
+          "Three years",
+          "Ten years",
+          "Fifteen years",
+          "Eighteen years"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phương nói \"She had lived in Melbourne for fifteen years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did Ha cry all night in chapter ten?",
+        "promptVi": "Vì sao ở chương mười Hà khóc cả đêm?",
+        "options": [
+          "Her café had closed.",
+          "Her mother had sold their old house.",
+          "She had lost her job.",
+          "Nobody had remembered her."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà Thu nói \"When Ha arrived at her old house, her mother had already sold it.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khanh liked Ha very much from the start.",
+        "promptVi": "Ngay từ đầu Khánh đã rất thích Hà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khánh nói \"I didn't like her very much.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"abroad\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Life abroad.",
+        "options": [
+          "ở nước ngoài",
+          "ở quê",
+          "ở thành phố",
+          "ở trường"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Abroad = ở nước ngoài; life abroad = cuộc sống ở nước ngoài."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ hoàn thành",
+      "bodyVi": "Khi nói một nhân vật đã thay đổi thế nào, ta so sánh \"trước\" và \"sau\": When she left Hanoi, she was a shy girl (lúc đó). By the time she returned, she had become a strong woman (đã thay đổi trước lúc trở về). Câu hỏi nguyên nhân: What had changed her? Phủ định: She hadn't called her mother for three years.",
+      "examples": [
+        "By the time she returned to Vietnam, she had become a strong woman.\"",
+        "\"What had changed her?\" asks Mr Son.",
+        "When Ha arrived at her old house, her mother had already sold it."
+      ]
+    },
+    "writingPrompt": "Write about a character in a book or film who changed: what was he or she like at the start, and how had he or she changed by the end?",
+    "sentenceTranslations": [
+      "Chiều Chủ nhật nào cũng có một câu lạc bộ sách nhỏ họp ở một hiệu sách gần hồ Hoàn Kiếm.",
+      "Tuần này, các thành viên đang bàn về \"Về nhà\", một cuốn tiểu thuyết của Trần Mai Anh.",
+      "Bà Thu, người điều hành câu lạc bộ, mở đầu.",
+      "\"Nào, mọi người thấy Hà, nhân vật chính, thế nào?\"",
+      "Phương nói: \"Em thích cô ấy lắm.",
+      "Khi rời Hà Nội, cô ấy là một cô gái mười tám tuổi nhút nhát.",
+      "Đến lúc trở về Việt Nam, cô ấy đã thành một người phụ nữ mạnh mẽ.\"",
+      "Ông Sơn hỏi: \"Điều gì đã thay đổi cô ấy?\"",
+      "\"Cuộc sống ở nước ngoài.",
+      "Cô ấy đã sống ở Melbourne mười lăm năm.",
+      "Cô ấy đã làm trong bếp một nhà hàng, rồi đã mở quán cà phê riêng.\"",
+      "Khánh nói: \"Em không thích cô ấy lắm.",
+      "Cô ấy đã quên gia đình mình.",
+      "Ba năm liền cô ấy không gọi cho mẹ.\"",
+      "Phương nói: \"Nhưng cô ấy thấy rất có lỗi mà.\"",
+      "Bà Thu đồng ý.",
+      "\"Đúng vậy.",
+      "Nhớ chương mười không?",
+      "Khi Hà về đến ngôi nhà cũ thì mẹ cô đã bán nó rồi.",
+      "Hà khóc cả đêm.\"",
+      "Ông Sơn nói: \"Đó là đoạn buồn nhất.",
+      "Tôi nghĩ tác giả muốn cho thấy ta không thể quay lại quá khứ.\"",
+      "\"Chính xác.",
+      "Hà đã thay đổi, nhưng Hà Nội cũng đã thay đổi.\"",
+      "Khánh cười.",
+      "\"Thôi được, có lẽ em hơi khắt khe với cô ấy.",
+      "Đoạn kết rất đẹp.\"",
+      "Phương hỏi: \"Vậy tháng sau mình đọc gì ạ?\"",
+      "Bà Thu giơ lên một cuốn sách mỏng.",
+      "\"Một ít thơ.",
+      "Đừng lo, nó ngắn thôi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói một nhân vật đã thay đổi thế nào và vì sao, dùng by the time + had + V3 và What had changed …?",
+    "examples": [
+      {
+        "lemma": "club",
+        "sentence": "I joined a reading club last year.",
+        "meaningVi": "Năm ngoái tôi tham gia một câu lạc bộ đọc sách."
+      },
+      {
+        "lemma": "member",
+        "sentence": "Every member brings a book to the meeting.",
+        "meaningVi": "Mỗi thành viên mang một cuốn sách đến buổi họp."
+      },
+      {
+        "lemma": "character",
+        "sentence": "The main character is a young doctor.",
+        "meaningVi": "Nhân vật chính là một bác sĩ trẻ."
+      },
+      {
+        "lemma": "shy",
+        "sentence": "He was too shy to speak in class.",
+        "meaningVi": "Cậu ấy quá nhút nhát nên không dám nói trong lớp."
+      },
+      {
+        "lemma": "return",
+        "sentence": "When will you return to Hanoi?",
+        "meaningVi": "Khi nào bạn trở về Hà Nội?"
+      },
+      {
+        "lemma": "strong",
+        "sentence": "My grandmother is a very strong woman.",
+        "meaningVi": "Bà tôi là một người phụ nữ rất mạnh mẽ."
+      },
+      {
+        "lemma": "abroad",
+        "sentence": "She wants to study abroad next year.",
+        "meaningVi": "Năm sau cô ấy muốn đi du học."
+      },
+      {
+        "lemma": "forget",
+        "sentence": "Don't forget your umbrella.",
+        "meaningVi": "Đừng quên ô nhé."
+      },
+      {
+        "lemma": "chapter",
+        "sentence": "Let's read the next chapter together.",
+        "meaningVi": "Cùng đọc chương tiếp theo nhé."
+      },
+      {
+        "lemma": "poetry",
+        "sentence": "My father loves reading poetry.",
+        "meaningVi": "Bố tôi rất thích đọc thơ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Phuong",
+        "Khanh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Khanh, did you enjoy the meeting today?",
+          "meaningVi": "Khánh ơi, buổi họp hôm nay cậu thấy vui không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. I changed my mind about Ha a little.",
+          "meaningVi": "Có. Mình đã nghĩ khác về Hà một chút."
+        },
+        {
+          "speaker": 0,
+          "text": "Really? What made you change your mind?",
+          "meaningVi": "Thật à? Điều gì làm cậu nghĩ khác?"
+        },
+        {
+          "speaker": 1,
+          "text": "Mr Son. He had lived abroad too, so he understood her.",
+          "meaningVi": "Ông Sơn. Ông ấy cũng từng sống ở nước ngoài nên hiểu cô ấy."
+        },
+        {
+          "speaker": 0,
+          "text": "Where had he lived?",
+          "meaningVi": "Ông ấy đã sống ở đâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "In Paris. He hadn't come home for ten years.",
+          "meaningVi": "Ở Paris. Mười năm ông ấy không về nhà."
+        },
+        {
+          "speaker": 0,
+          "text": "That's a long time. Did he feel like Ha?",
+          "meaningVi": "Lâu thật. Ông ấy có thấy giống Hà không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. When he came back, his street had changed completely.",
+          "meaningVi": "Có. Khi ông ấy về, con phố của ông đã thay đổi hoàn toàn."
+        },
+        {
+          "speaker": 0,
+          "text": "I see. Are you coming next month?",
+          "meaningVi": "Mình hiểu rồi. Tháng sau cậu có đến không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Of course. I like poems.",
+          "meaningVi": "Tất nhiên. Mình thích thơ mà."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi về quá khứ trước đó: Where had he lived? Kể việc xảy ra trước: When he came back, his street had changed completely. Phủ định: He hadn't come home for ten years.",
+    "translations": [
+      {
+        "vi": "Đến lúc trở về, cô ấy đã thay đổi rất nhiều.",
+        "en": "By the time she returned, she had changed a lot.",
+        "distractors": [
+          "has",
+          "returns",
+          "little"
+        ]
+      },
+      {
+        "vi": "Cô ấy đã sống ở nước ngoài mười lăm năm.",
+        "en": "She had lived abroad for fifteen years.",
+        "distractors": [
+          "has",
+          "since",
+          "lives"
+        ]
+      },
+      {
+        "vi": "Cô ấy đã quên gia đình mình.",
+        "en": "She had forgotten her family.",
+        "distractors": [
+          "has",
+          "forgets",
+          "his"
+        ]
+      },
+      {
+        "vi": "Khi rời Hà Nội, cô ấy là một cô gái nhút nhát.",
+        "en": "When she left Hanoi, she was a shy girl.",
+        "distractors": [
+          "is",
+          "had",
+          "leaves"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Phuong và Khanh nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi họp câu lạc bộ sách hôm nay",
+          "Chuyến đi Paris của Khanh",
+          "Quán cà phê của Hà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Phuong hỏi \"did you enjoy the meeting today?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Sơn đã sống ở đâu?",
+        "promptVi": "",
+        "options": [
+          "Ở Melbourne",
+          "Ở Paris",
+          "Ở London"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khanh nói \"In Paris.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bao lâu ông Sơn không về nhà?",
+        "promptVi": "",
+        "options": [
+          "Năm năm",
+          "Mười năm",
+          "Mười lăm năm"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khanh nói \"He hadn't come home for ten years.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khanh is not coming to the club next month.",
+        "promptVi": "Tháng sau Khánh không đến câu lạc bộ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khanh nói \"Of course. I like poems.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Hà đã thay đổi thế nào từ lúc rời Hà Nội đến lúc trở về? Các thành viên nghĩ gì về cô?",
+    "grammarStep": {
+      "titleVi": "Quá khứ hoàn thành",
+      "noticing": [
+        {
+          "sentence": "By the time she returned to Vietnam, she had become a strong woman.\"",
+          "highlights": [
+            "returned",
+            "had become"
+          ]
+        },
+        {
+          "sentence": "\"What had changed her?\" asks Mr Son.",
+          "highlights": [
+            "had changed"
+          ]
+        },
+        {
+          "sentence": "She hadn't called her mother for three years.\"",
+          "highlights": [
+            "hadn't called"
+          ]
+        },
+        {
+          "sentence": "When Ha arrived at her old house, her mother had already sold it.",
+          "highlights": [
+            "arrived",
+            "had already sold"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"When Ha arrived at her old house, her mother had already sold it\", mẹ Hà bán nhà khi nào?",
+      "options": [
+        "Trước khi Hà về đến.",
+        "Sau khi Hà về đến.",
+        "Đúng lúc Hà về đến."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Had already sold = đã bán từ trước; arrived (quá khứ đơn) là việc xảy ra sau.",
+      "whenVi": "Dùng quá khứ hoàn thành để kể những thay đổi đã xảy ra trước một thời điểm trong quá khứ, ví dụ trước lúc nhân vật trở về.",
+      "table": [
+        {
+          "subject": "Thay đổi",
+          "form": "had become, had changed, had forgotten",
+          "negative": "hadn't changed"
+        },
+        {
+          "subject": "Hỏi nguyên nhân",
+          "form": "What had changed her?",
+          "negative": "—"
+        },
+        {
+          "subject": "Khoảng thời gian",
+          "form": "had lived … for fifteen years",
+          "negative": "hadn't called … for three years"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "When Ha arrived, her mother already sold the house.",
+          "right": "When Ha arrived, her mother had already sold the house."
+        },
+        {
+          "wrong": "She had forget her family.",
+          "right": "She had forgotten her family."
+        }
+      ],
+      "noteVi": "Nếu dùng quá khứ đơn ở cả hai vế (When Ha arrived, her mother sold it) thì nghĩa là mẹ bán nhà SAU khi Hà về. Muốn nói bán trước thì phải dùng had sold.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (become).",
+          "text": "By the time she returned, she ___ a strong woman.",
+          "answers": [
+            "had become"
+          ],
+          "explanationVi": "Đã thay đổi trước lúc trở về: had become."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "When Ha arrived, her mother ___ the house.",
+          "options": [
+            "had already sold",
+            "has already sold",
+            "already sells",
+            "is selling"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bán trước khi Hà về: had already sold."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She had forget her family.",
+          "sentence": "She had forgotten her family.",
+          "explanationVi": "V3 của forget là forgotten."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ba năm liền cô ấy không gọi cho mẹ.",
+          "sentence": "She hadn't called her mother for three years.",
+          "words": [
+            "her",
+            "She",
+            "hadn't",
+            "called",
+            "mother",
+            "for",
+            "three",
+            "years.",
+            "since"
+          ],
+          "explanationVi": "For + khoảng thời gian; từ \"since\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "By the time she returned to Vietnam, she had become a strong woman.\"",
+        "tipVi": "Nhấn vào returned, become và strong."
+      },
+      {
+        "text": "When Ha arrived at her old house, her mother had already sold it.",
+        "tipVi": "Already /ɔːlˈredi/ nhấn âm thứ hai."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever joined a club? What kind of club was it?",
+        "questionVi": "Bạn đã từng tham gia câu lạc bộ nào chưa? Đó là câu lạc bộ gì?",
+        "frame": "Yes, I have. It was a ___ club."
+      },
+      {
+        "question": "Who is a character that changed a lot in a story you know?",
+        "questionVi": "Nhân vật nào đã thay đổi nhiều trong một câu chuyện bạn biết?",
+        "frame": "___ changed a lot. At first, he / she was ___."
+      },
+      {
+        "question": "How had he or she changed by the end?",
+        "questionVi": "Đến cuối truyện, nhân vật đó đã thay đổi thế nào?",
+        "frame": "By the end, he / she had become ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ hoàn thành (had + V3)",
+      "anyOf": [
+        " had ",
+        "'d "
+      ],
+      "outlineVi": [
+        "Nhân vật là ai, trong truyện / phim nào.",
+        "Lúc đầu nhân vật như thế nào.",
+        "Đến cuối, nhân vật đã thay đổi ra sao và vì sao (By the end, … had …)."
+      ],
+      "modelAnswer": "In the novel Blue Water, the main character, Tuan, was a lazy boy at the start. He didn't study, and he often lied to his parents. Then his father got sick, and Tuan had to work on a fishing boat. By the end of the book, he had become a hard-working young man. He had saved enough money for his father, and he had learned to say sorry."
+    }
+  },
+  "glosses": [
+    {
+      "text": "runs",
+      "lemma": "run",
+      "meaningVi": "điều hành",
+      "sentenceIndex": 2,
+      "pos": "verb",
+      "phrase": "who runs the club",
+      "phraseVi": "người điều hành câu lạc bộ"
+    },
+    {
+      "text": "felt terrible",
+      "lemma": "feel terrible",
+      "meaningVi": "thấy rất có lỗi",
+      "sentenceIndex": 14,
+      "pos": "phrase",
+      "phrase": "she felt terrible about it",
+      "phraseVi": "cô ấy thấy rất có lỗi"
+    },
+    {
+      "text": "saddest",
+      "lemma": "sad",
+      "meaningVi": "buồn nhất",
+      "sentenceIndex": 20,
+      "pos": "adjective",
+      "phrase": "the saddest part",
+      "phraseVi": "đoạn buồn nhất"
+    },
+    {
+      "text": "too hard on her",
+      "lemma": "be hard on",
+      "meaningVi": "khắt khe với cô ấy",
+      "sentenceIndex": 25,
+      "pos": "phrase",
+      "phrase": "I was too hard on her",
+      "phraseVi": "em hơi khắt khe với cô ấy"
+    },
+    {
+      "text": "thin",
+      "lemma": "thin",
+      "meaningVi": "mỏng",
+      "sentenceIndex": 28,
+      "pos": "adjective",
+      "phrase": "a thin book",
+      "phraseVi": "một cuốn sách mỏng"
+    }
+  ]
+}

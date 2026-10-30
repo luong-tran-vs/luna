@@ -1,0 +1,608 @@
+{
+  "content": "Last weekend, Khoa took his girlfriend, Mai, to his home village in Thai Binh for the first time.\n\nAs they walk along the small road between the rice fields, Khoa points at an old house. \"That's my grandparents' house. I used to live there until I was ten.\"\nMai says, \"It's lovely. Did you use to help on the farm?\"\n\"All the time. My grandfather used to make me get up at five to feed the buffaloes. Then I had to help him in the rice fields before school.\"\n\"At five! That's so early.\"\n\"I know. I didn't use to like it. But my grandmother used to let me sleep a little longer on Sundays.\"\nThey stop next to a big tree near a pond. Khoa says, \"I used to climb this tree with my friends. My grandmother didn't let us climb too high. She was always afraid of us falling.\"\n\"Where did you use to go to school?\"\n\"Over there, past the market. It used to be a small building with three classrooms. Now it's much bigger.\"\nMai laughs. \"You used to be a real country boy!\"\n\"I still am. My grandfather taught me to work hard.\"\nJust then, an old woman comes out of the house. She shouts, \"Khoa! You're home!\"\nKhoa runs to her and gives her a big hug. \"Grandma! This is Mai.\"\nHis grandmother smiles. \"Come in, come in. Let me make you some tea.\"",
+  "targetWords": [
+    "girlfriend",
+    "field",
+    "point",
+    "feed",
+    "tree",
+    "pond",
+    "climb",
+    "classroom",
+    "country",
+    "hug"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "girlfriend",
+        "lemma": "girlfriend",
+        "meaningVi": "bạn gái",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "fields",
+        "lemma": "field",
+        "meaningVi": "cánh đồng, ruộng",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "points",
+        "lemma": "point",
+        "meaningVi": "chỉ tay",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "feed",
+        "lemma": "feed",
+        "meaningVi": "cho ăn",
+        "pos": "verb",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "tree",
+        "lemma": "tree",
+        "meaningVi": "cái cây",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "pond",
+        "lemma": "pond",
+        "meaningVi": "cái ao",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "climb",
+        "lemma": "climb",
+        "meaningVi": "trèo",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "classrooms",
+        "lemma": "classroom",
+        "meaningVi": "phòng học",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "country",
+        "lemma": "country",
+        "meaningVi": "nông thôn, quê",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "hug",
+        "lemma": "hug",
+        "meaningVi": "cái ôm",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "Khoa shows his girlfriend the village where he grew up.",
+          "Khoa buys a farm in Thai Binh.",
+          "Mai meets Khoa at school.",
+          "Khoa's grandmother moves to the city."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khoa đưa Mai về làng quê ở Thái Bình và kể ngày xưa anh sống, làm việc, vui chơi ở đó thế nào."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What time did Khoa's grandfather use to make him get up?",
+        "promptVi": "Ông bắt Khoa dậy lúc mấy giờ?",
+        "options": [
+          "At six",
+          "At five",
+          "At seven",
+          "At ten"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa nói \"My grandfather used to make me get up at five to feed the buffaloes.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why didn't his grandmother let the children climb too high?",
+        "promptVi": "Vì sao bà không cho bọn trẻ trèo quá cao?",
+        "options": [
+          "The tree was very old.",
+          "They had to go to school.",
+          "She was afraid of them falling.",
+          "The tree was hers."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khoa nói \"She was always afraid of us falling.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The village school is smaller now than before.",
+        "promptVi": "Trường làng bây giờ nhỏ hơn trước.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"It used to be a small building with three classrooms. Now it's much bigger.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"country boy\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"You used to be a real country boy!\"",
+        "options": [
+          "cậu bé nhà quê, cậu bé lớn lên ở nông thôn",
+          "cậu bé yêu nước",
+          "cậu bé thành phố",
+          "cậu bé nước ngoài"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Country ở đây là vùng nông thôn (khác với country = đất nước)."
+      }
+    ],
+    "grammarNote": {
+      "title": "Used to",
+      "bodyVi": "Used to + động từ kể thói quen, sự việc hay lặp lại trong quá khứ: I used to live there, I used to climb this tree. Used to be cho trạng thái ngày xưa: It used to be a small building. Câu hỏi: Did you use to help on the farm? Phủ định: I didn't use to like it. Có thể ghép với make / let: My grandfather used to make me get up at five; my grandmother used to let me sleep longer.",
+      "examples": [
+        "I used to live there until I was ten.\"",
+        "My grandfather used to make me get up at five to feed the buffaloes.",
+        "It used to be a small building with three classrooms."
+      ]
+    },
+    "writingPrompt": "Imagine you take a friend to the place where you grew up. Write what you tell him or her: what did you use to do there?",
+    "sentenceTranslations": [
+      "Cuối tuần trước, Khoa lần đầu đưa bạn gái là Mai về làng quê của anh ở Thái Bình.",
+      "Khi đi dọc con đường nhỏ giữa những ruộng lúa, Khoa chỉ vào một ngôi nhà cũ.",
+      "\"Đó là nhà ông bà anh.",
+      "Anh sống ở đó đến năm mười tuổi.\"",
+      "Mai nói: \"Đẹp quá.",
+      "Hồi đó anh có hay phụ việc đồng áng không?\"",
+      "\"Suốt.",
+      "Ông hay bắt anh dậy lúc năm giờ để cho trâu ăn.",
+      "Rồi anh phải giúp ông ngoài đồng trước khi đi học.\"",
+      "\"Năm giờ!",
+      "Sớm thế.\"",
+      "\"Anh biết.",
+      "Hồi đó anh chẳng thích chút nào.",
+      "Nhưng Chủ nhật bà hay cho anh ngủ thêm một chút.\"",
+      "Họ dừng lại cạnh một cái cây to gần cái ao.",
+      "Khoa nói: \"Ngày xưa anh hay trèo cây này với bạn.",
+      "Bà không cho bọn anh trèo cao quá.",
+      "Bà lúc nào cũng sợ bọn anh ngã.\"",
+      "\"Hồi đó anh học ở đâu?\"",
+      "\"Đằng kia, qua cái chợ.",
+      "Ngày xưa đó là một ngôi nhà nhỏ có ba phòng học.",
+      "Giờ thì to hơn nhiều rồi.\"",
+      "Mai cười.",
+      "\"Ngày xưa anh đúng là cậu bé nhà quê!\"",
+      "\"Giờ vẫn thế mà.",
+      "Ông dạy anh phải chăm chỉ làm việc.\"",
+      "Đúng lúc đó, một bà cụ bước ra khỏi nhà.",
+      "Bà gọi to: \"Khoa!",
+      "Cháu về rồi!\"",
+      "Khoa chạy đến ôm bà thật chặt.",
+      "\"Bà ơi!",
+      "Đây là Mai.\"",
+      "Bà mỉm cười.",
+      "\"Vào nhà, vào nhà đi.",
+      "Để bà pha trà cho các cháu.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giới thiệu quê mình và kể ngày xưa ở đó thế nào bằng used to, kết hợp make / let.",
+    "examples": [
+      {
+        "lemma": "girlfriend",
+        "sentence": "His girlfriend is a nurse.",
+        "meaningVi": "Bạn gái anh ấy là y tá."
+      },
+      {
+        "lemma": "field",
+        "sentence": "The cows are in the field.",
+        "meaningVi": "Mấy con bò đang ở ngoài đồng."
+      },
+      {
+        "lemma": "point",
+        "sentence": "Don't point at people.",
+        "meaningVi": "Đừng chỉ tay vào người khác."
+      },
+      {
+        "lemma": "feed",
+        "sentence": "Can you feed the cat?",
+        "meaningVi": "Bạn cho mèo ăn được không?"
+      },
+      {
+        "lemma": "tree",
+        "sentence": "There is a big tree in front of our house.",
+        "meaningVi": "Trước nhà chúng tôi có một cái cây to."
+      },
+      {
+        "lemma": "pond",
+        "sentence": "There are fish in the pond.",
+        "meaningVi": "Trong ao có cá."
+      },
+      {
+        "lemma": "climb",
+        "sentence": "Children love to climb trees.",
+        "meaningVi": "Trẻ con thích trèo cây."
+      },
+      {
+        "lemma": "classroom",
+        "sentence": "Our classroom is on the second floor.",
+        "meaningVi": "Phòng học của chúng tôi ở tầng hai."
+      },
+      {
+        "lemma": "country",
+        "sentence": "They live in the country.",
+        "meaningVi": "Họ sống ở nông thôn."
+      },
+      {
+        "lemma": "hug",
+        "sentence": "She gave her son a hug.",
+        "meaningVi": "Cô ấy ôm con trai."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Khoa",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Khoa, did you use to live in a village?",
+          "meaningVi": "Khoa ơi, ngày xưa anh sống ở làng à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, until I was ten. I used to live with my grandparents.",
+          "meaningVi": "Ừ, đến năm mười tuổi. Anh sống với ông bà."
+        },
+        {
+          "speaker": 1,
+          "text": "What did you use to do there?",
+          "meaningVi": "Hồi đó anh hay làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I used to feed the buffaloes every morning.",
+          "meaningVi": "Sáng nào anh cũng cho trâu ăn."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you use to like it?",
+          "meaningVi": "Anh có thích không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not really. My grandfather used to make me get up at five.",
+          "meaningVi": "Không hẳn. Ông bắt anh dậy lúc năm giờ."
+        },
+        {
+          "speaker": 1,
+          "text": "Did you use to play with other children?",
+          "meaningVi": "Anh có hay chơi với những đứa trẻ khác không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. We used to climb trees and swim in the pond.",
+          "meaningVi": "Có. Bọn anh hay trèo cây và bơi ở ao."
+        },
+        {
+          "speaker": 1,
+          "text": "It sounds like a happy childhood.",
+          "meaningVi": "Nghe có vẻ là một tuổi thơ hạnh phúc."
+        },
+        {
+          "speaker": 0,
+          "text": "It was. I miss it a lot.",
+          "meaningVi": "Đúng vậy. Anh nhớ lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi: Did you use to…? What did you use to do? Trả lời: I used to feed…, We used to climb… Kết hợp: used to make me get up.",
+    "translations": [
+      {
+        "vi": "Tôi hay trèo cái cây này.",
+        "en": "I used to climb this tree.",
+        "distractors": [
+          "uses",
+          "climbed",
+          "climbing"
+        ]
+      },
+      {
+        "vi": "Ông bắt tôi dậy sớm để cho trâu ăn.",
+        "en": "My grandfather used to make me get up early to feed the buffaloes.",
+        "distractors": [
+          "to get",
+          "let",
+          "uses"
+        ]
+      },
+      {
+        "vi": "Ngày xưa trường chỉ có ba phòng học.",
+        "en": "The school used to have only three classrooms.",
+        "distractors": [
+          "uses",
+          "has",
+          "having"
+        ]
+      },
+      {
+        "vi": "Bạn có hay bơi ở ao không?",
+        "en": "Did you use to swim in the pond?",
+        "distractors": [
+          "used",
+          "swam",
+          "swimming"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anna hỏi Khoa về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Tuổi thơ của Khoa ở làng",
+          "Công việc hiện tại của Khoa",
+          "Kỳ nghỉ của Anna"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi Khoa ngày xưa sống ở làng và hay làm gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sáng nào Khoa cũng làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi học sớm",
+          "Cho trâu ăn",
+          "Bơi ở ao"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khoa nói \"I used to feed the buffaloes every morning.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khoa và các bạn hay chơi gì?",
+        "promptVi": "",
+        "options": [
+          "Đá bóng",
+          "Thả diều",
+          "Trèo cây và bơi ở ao"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khoa nói \"We used to climb trees and swim in the pond.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Khoa doesn't miss his childhood.",
+        "promptVi": "Khoa không nhớ tuổi thơ của mình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khoa nói \"I miss it a lot.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Khoa kể với Mai những thói quen gì của ngày xưa? Ngôi làng đã thay đổi thế nào?",
+    "grammarStep": {
+      "titleVi": "Used to",
+      "noticing": [
+        {
+          "sentence": "I used to live there until I was ten.\"",
+          "highlights": [
+            "used to live"
+          ]
+        },
+        {
+          "sentence": "Did you use to help on the farm?\"",
+          "highlights": [
+            "Did you use to help"
+          ]
+        },
+        {
+          "sentence": "I didn't use to like it.",
+          "highlights": [
+            "didn't use to like"
+          ]
+        },
+        {
+          "sentence": "It used to be a small building with three classrooms.",
+          "highlights": [
+            "used to be"
+          ]
+        }
+      ],
+      "questionVi": "\"It used to be a small building. Now it's much bigger.\" Câu này cho biết điều gì?",
+      "options": [
+        "Ngày xưa trường nhỏ, bây giờ đã khác.",
+        "Trường vẫn nhỏ như trước.",
+        "Trường sẽ nhỏ đi trong tương lai."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Used to luôn ngụ ý: ngày xưa như vậy, bây giờ không còn như vậy nữa.",
+      "whenVi": "Dùng used to khi so sánh quá khứ với hiện tại: thói quen hoặc trạng thái đã thay đổi.",
+      "table": [
+        {
+          "subject": "Thói quen",
+          "form": "I used to climb this tree.",
+          "negative": "I didn't use to like it."
+        },
+        {
+          "subject": "Trạng thái",
+          "form": "It used to be a small building.",
+          "negative": "It didn't use to be big."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Where did you use to go to school?",
+          "negative": "Did you use to help on the farm?"
+        },
+        {
+          "subject": "Với make / let",
+          "form": "He used to make me get up at five.",
+          "negative": "She used to let me sleep longer."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Where did you used to go to school?",
+          "right": "Where did you use to go to school?"
+        },
+        {
+          "wrong": "I used to living there.",
+          "right": "I used to live there."
+        }
+      ],
+      "noteVi": "Sau used to là động từ nguyên mẫu: used to live, used to be (không thêm -ing).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "I used to ___ this tree with my friends. (climb)",
+          "answers": [
+            "climb"
+          ],
+          "explanationVi": "Used to + động từ nguyên mẫu."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Where ___ go to school?",
+          "options": [
+            "did you used to",
+            "did you use to",
+            "you used to",
+            "used you to"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu hỏi: did + chủ ngữ + use to."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "It use to be a small school.",
+          "sentence": "It used to be a small school.",
+          "explanationVi": "Khẳng định: used to."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ngày xưa anh là cậu bé nhà quê.",
+          "sentence": "You used to be a country boy.",
+          "words": [
+            "used",
+            "You",
+            "to",
+            "be",
+            "a",
+            "country",
+            "boy.",
+            "use"
+          ],
+          "explanationVi": "Khẳng định: used to; từ \"use\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I didn't use to like it.",
+        "tipVi": "Use to đọc /juːstə/; nhấn vào didn't."
+      },
+      {
+        "text": "\"You used to be a real country boy!\"",
+        "tipVi": "Used to đọc /juːstə/; country /ˈkʌntri/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Where did you use to live as a child?",
+        "questionVi": "Hồi nhỏ bạn sống ở đâu?",
+        "frame": "I used to live in ___."
+      },
+      {
+        "question": "Did you use to help your family at home?",
+        "questionVi": "Hồi nhỏ bạn có hay giúp việc nhà không?",
+        "frame": "Yes, I used to ___. / No, I didn't use to ___."
+      },
+      {
+        "question": "What did your grandmother or grandfather use to make you do?",
+        "questionVi": "Ông hoặc bà hay bắt bạn làm gì?",
+        "frame": "He / She used to make me ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu used to / didn't use to",
+      "anyOf": [
+        "used to",
+        "use to"
+      ],
+      "outlineVi": [
+        "Bạn đưa ai về đâu, nơi đó như thế nào.",
+        "Ngày xưa bạn hay làm gì ở đó (I used to …).",
+        "Nơi đó đã thay đổi thế nào (It used to be … Now …)."
+      ],
+      "modelAnswer": "Last summer, I took my friend Nam to my home town in Nghe An. I showed him the river where I used to swim every afternoon. My father used to make me catch fish there for dinner. We also visited my old school. It used to be a small building, but now it has a big library. Nam loved the town, and he wants to come back."
+    }
+  },
+  "glosses": [
+    {
+      "text": "rice fields",
+      "lemma": "rice field",
+      "meaningVi": "ruộng lúa",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "between the rice fields",
+      "phraseVi": "giữa những ruộng lúa"
+    },
+    {
+      "text": "buffaloes",
+      "lemma": "buffalo",
+      "meaningVi": "con trâu",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "feed the buffaloes",
+      "phraseVi": "cho trâu ăn"
+    },
+    {
+      "text": "falling",
+      "lemma": "fall",
+      "meaningVi": "ngã",
+      "sentenceIndex": 17,
+      "pos": "verb",
+      "phrase": "afraid of us falling",
+      "phraseVi": "sợ bọn anh ngã"
+    },
+    {
+      "text": "taught me to",
+      "lemma": "teach",
+      "meaningVi": "dạy (ai) làm gì",
+      "sentenceIndex": 25,
+      "pos": "phrase",
+      "phrase": "My grandfather taught me to work hard.",
+      "phraseVi": "Ông dạy anh phải chăm chỉ làm việc."
+    },
+    {
+      "text": "Let me",
+      "lemma": "let",
+      "meaningVi": "để tôi",
+      "sentenceIndex": 34,
+      "pos": "phrase",
+      "phrase": "Let me make you some tea.",
+      "phraseVi": "Để bà pha trà cho các cháu."
+    }
+  ]
+}

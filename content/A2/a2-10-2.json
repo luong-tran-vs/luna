@@ -1,0 +1,606 @@
+{
+  "content": "Lan's friend Vy calls her on a rainy evening. She has a cold again.\n\nVy says, \"I feel terrible. My head is hot, and my nose is red. Why do I always get a cold?\"\nLan asks, \"Do you wear a warm jacket when it rains?\"\n\"No, I don't. I usually forget it.\"\n\"That's the problem. If you get wet and cold, you often get ill.\"\n\"OK. What can I do now?\"\n\"Drink warm water with honey and lemon. When I have a cold, it always helps me. My grandmother makes it for everyone in our family.\"\n\"Is it sweet?\"\n\"Yes, it's very nice. And go to bed early. When you sleep a lot, your body gets better quickly.\"\n\"Should I go to the doctor?\"\n\"If you have a high fever, call the doctor. But first, try the honey water.\"\nVy laughs. \"Thanks, Lan. You are better than a doctor!\"",
+  "targetWords": [
+    "cold",
+    "nose",
+    "ill",
+    "honey",
+    "lemon",
+    "body",
+    "quickly",
+    "fever"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "cold",
+        "lemma": "cold",
+        "meaningVi": "cảm lạnh",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "nose",
+        "lemma": "nose",
+        "meaningVi": "mũi",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "ill",
+        "lemma": "ill",
+        "meaningVi": "ốm",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "honey",
+        "lemma": "honey",
+        "meaningVi": "mật ong",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "lemon",
+        "lemma": "lemon",
+        "meaningVi": "chanh",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "body",
+        "lemma": "body",
+        "meaningVi": "cơ thể",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "quickly",
+        "lemma": "quickly",
+        "meaningVi": "nhanh chóng",
+        "pos": "adverb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "fever",
+        "lemma": "fever",
+        "meaningVi": "sốt",
+        "pos": "noun",
+        "sentenceIndex": 20
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Lan gives Vy advice about her cold.",
+          "Vy's grandmother is ill.",
+          "Lan goes to the doctor.",
+          "Vy buys a new jacket."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy bị cảm, Lan khuyên bạn cách giữ ấm và chữa cảm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Lan tell Vy to drink?",
+        "promptVi": "Lan bảo Vy uống gì?",
+        "options": [
+          "Hot coffee",
+          "Cold water",
+          "Warm water with honey and lemon",
+          "Green tea"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Lan nói \"Drink warm water with honey and lemon.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Vy often get a cold?",
+        "promptVi": "Vì sao Vy hay bị cảm?",
+        "options": [
+          "She doesn't wear a warm jacket when it rains.",
+          "She drinks cold water.",
+          "She doesn't sleep.",
+          "Her room is cold."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy nói \"No, I don't. I usually forget it.\" — cô hay quên mặc áo ấm khi trời mưa."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lan says Vy must go to the doctor now.",
+        "promptVi": "Lan bảo Vy phải đi bác sĩ ngay.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan nói chỉ gọi bác sĩ khi sốt cao: \"But first, try the honey water.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"terrible\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Vy says, \"I feel terrible.",
+        "options": [
+          "rất khoẻ",
+          "rất tệ",
+          "rất vui",
+          "rất đói"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "I feel terrible = tôi thấy rất mệt, rất khó chịu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 0",
+      "bodyVi": "Câu điều kiện loại 0 cũng dùng để giải thích nguyên nhân và kết quả: If you get wet and cold, you often get ill. When you sleep a lot, your body gets better quickly. Khi khuyên ai làm gì trong một tình huống, vế sau có thể là câu mệnh lệnh: If you have a high fever, call the doctor.",
+      "examples": [
+        "If you get wet and cold, you often get ill.\"",
+        "When you sleep a lot, your body gets better quickly.\"",
+        "\"If you have a high fever, call the doctor."
+      ]
+    },
+    "writingPrompt": "Write some advice for a friend with a cold: what helps when you have a cold?",
+    "sentenceTranslations": [
+      "Một tối mưa, Vy, bạn của Lan, gọi điện cho cô.",
+      "Vy lại bị cảm.",
+      "Vy nói: \"Mình thấy mệt lắm.",
+      "Đầu mình nóng, mũi thì đỏ.",
+      "Sao lúc nào mình cũng bị cảm thế nhỉ?\"",
+      "Lan hỏi: \"Trời mưa cậu có mặc áo khoác ấm không?\"",
+      "\"Không.",
+      "Mình hay quên.\"",
+      "\"Thế đấy.",
+      "Hễ bị ướt và lạnh là người ta hay bị ốm.\"",
+      "\"Ừ.",
+      "Giờ mình làm gì?\"",
+      "\"Uống nước ấm pha mật ong và chanh.",
+      "Hễ mình bị cảm là uống cái đó, lần nào cũng đỡ.",
+      "Bà mình pha cho cả nhà.\"",
+      "\"Có ngọt không?\"",
+      "\"Có, ngon lắm.",
+      "Và đi ngủ sớm nhé.",
+      "Hễ ngủ nhiều là cơ thể khoẻ lại nhanh.\"",
+      "\"Mình có nên đi bác sĩ không?\"",
+      "\"Nếu sốt cao thì gọi bác sĩ.",
+      "Nhưng trước hết, thử uống nước mật ong đã.\"",
+      "Vy cười.",
+      "\"Cảm ơn Lan.",
+      "Cậu còn giỏi hơn bác sĩ!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đưa lời khuyên khi bị cảm và giải thích nguyên nhân – kết quả bằng câu điều kiện loại 0.",
+    "examples": [
+      {
+        "lemma": "cold",
+        "sentence": "I have a cold today.",
+        "meaningVi": "Hôm nay tôi bị cảm."
+      },
+      {
+        "lemma": "nose",
+        "sentence": "The baby has a small nose.",
+        "meaningVi": "Em bé có cái mũi nhỏ xíu."
+      },
+      {
+        "lemma": "ill",
+        "sentence": "My father is ill in bed.",
+        "meaningVi": "Bố tôi bị ốm nằm trên giường."
+      },
+      {
+        "lemma": "honey",
+        "sentence": "I put honey in my tea.",
+        "meaningVi": "Tôi cho mật ong vào trà."
+      },
+      {
+        "lemma": "lemon",
+        "sentence": "I like lemon in my tea.",
+        "meaningVi": "Tôi thích cho chanh vào trà."
+      },
+      {
+        "lemma": "body",
+        "sentence": "Water is good for your body.",
+        "meaningVi": "Nước tốt cho cơ thể."
+      },
+      {
+        "lemma": "quickly",
+        "sentence": "Please come quickly!",
+        "meaningVi": "Làm ơn đến nhanh lên!"
+      },
+      {
+        "lemma": "fever",
+        "sentence": "She has a fever and stays at home.",
+        "meaningVi": "Cô ấy bị sốt và ở nhà."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Vy",
+        "Grace"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Vy, you don't look well. Are you OK?",
+          "meaningVi": "Vy ơi, trông cậu không khoẻ. Cậu ổn chứ?"
+        },
+        {
+          "speaker": 0,
+          "text": "I have a cold. My nose is red.",
+          "meaningVi": "Mình bị cảm. Mũi đỏ hết rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh no. Do you have a fever?",
+          "meaningVi": "Ôi. Cậu có sốt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, just a cold. What do you do when you have a cold?",
+          "meaningVi": "Không, chỉ cảm thôi. Khi bị cảm cậu làm gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "When I have a cold, I drink a lot of warm water.",
+          "meaningVi": "Hễ bị cảm là mình uống nhiều nước ấm."
+        },
+        {
+          "speaker": 0,
+          "text": "My friend Lan says honey and lemon help.",
+          "meaningVi": "Bạn mình là Lan bảo mật ong với chanh có tác dụng."
+        },
+        {
+          "speaker": 1,
+          "text": "Yes! If you drink it every evening, you feel better.",
+          "meaningVi": "Đúng! Nếu tối nào cũng uống thì cậu sẽ thấy đỡ."
+        },
+        {
+          "speaker": 0,
+          "text": "Should I stay at home tomorrow?",
+          "meaningVi": "Mai mình có nên ở nhà không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. If you sleep a lot, your body gets better.",
+          "meaningVi": "Có. Ngủ nhiều thì cơ thể khoẻ lại."
+        },
+        {
+          "speaker": 0,
+          "text": "Thanks, Grace. I'm going to bed now!",
+          "meaningVi": "Cảm ơn Grace. Mình đi ngủ đây!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi thói quen: What do you do when you have a cold? Trả lời: When I have a cold, I drink a lot of warm water. If you sleep a lot, your body gets better.",
+    "translations": [
+      {
+        "vi": "Hễ bị cảm là tôi uống nước mật ong.",
+        "en": "When I have a cold, I drink honey water.",
+        "distractors": [
+          "will",
+          "had",
+          "drank"
+        ]
+      },
+      {
+        "vi": "Nếu bị ướt, bạn hay bị ốm.",
+        "en": "If you get wet, you often get ill.",
+        "distractors": [
+          "will",
+          "got",
+          "gets"
+        ]
+      },
+      {
+        "vi": "Nếu sốt cao, hãy gọi bác sĩ.",
+        "en": "If you have a high fever, call the doctor.",
+        "distractors": [
+          "will",
+          "had",
+          "calls"
+        ]
+      },
+      {
+        "vi": "Hễ ngủ nhiều là cơ thể khoẻ lại nhanh.",
+        "en": "When you sleep a lot, your body gets better quickly.",
+        "distractors": [
+          "will",
+          "slept",
+          "got"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Grace và Vy nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Cách chữa cảm",
+          "Một bộ phim",
+          "Chuyến du lịch"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Vy bị cảm, hai người nói về cách làm cho khoẻ lại.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Grace làm gì khi bị cảm?",
+        "promptVi": "",
+        "options": [
+          "Uống cà phê",
+          "Uống nhiều nước ấm",
+          "Đi bác sĩ ngay"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Grace nói \"When I have a cold, I drink a lot of warm water.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Cuối cùng Vy làm gì?",
+        "promptVi": "",
+        "options": [
+          "Đi làm",
+          "Đi mua thuốc",
+          "Đi ngủ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Vy nói \"I'm going to bed now!\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Vy has a high fever.",
+        "promptVi": "Vy bị sốt cao.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Vy nói \"No, just a cold.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Vì sao Vy hay bị cảm, và Lan khuyên bạn làm những gì?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 0",
+      "noticing": [
+        {
+          "sentence": "If you get wet and cold, you often get ill.\"",
+          "highlights": [
+            "If",
+            "get",
+            "get ill"
+          ]
+        },
+        {
+          "sentence": "When I have a cold, it always helps me.",
+          "highlights": [
+            "When",
+            "have",
+            "helps"
+          ]
+        },
+        {
+          "sentence": "When you sleep a lot, your body gets better quickly.\"",
+          "highlights": [
+            "When",
+            "sleep",
+            "gets"
+          ]
+        },
+        {
+          "sentence": "\"If you have a high fever, call the doctor.",
+          "highlights": [
+            "If",
+            "have",
+            "call"
+          ]
+        }
+      ],
+      "questionVi": "Trong câu \"If you have a high fever, call the doctor\", vế sau là gì?",
+      "options": [
+        "Câu mệnh lệnh (lời khuyên)",
+        "Câu ở thì quá khứ",
+        "Câu hỏi"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Khi khuyên ai làm gì trong một tình huống: If + hiện tại đơn, + câu mệnh lệnh (call the doctor).",
+      "whenVi": "Dùng If / When + hiện tại đơn để nói tình huống; vế sau là kết quả luôn xảy ra (hiện tại đơn) hoặc lời khuyên (câu mệnh lệnh).",
+      "table": [
+        {
+          "subject": "Kết quả",
+          "form": "If you get wet, you get ill.",
+          "negative": "If you sleep well, you don't get ill."
+        },
+        {
+          "subject": "Lời khuyên",
+          "form": "If you have a fever, call the doctor.",
+          "negative": "If you have a cold, don't go out."
+        },
+        {
+          "subject": "When",
+          "form": "When I have a cold, I drink honey water.",
+          "negative": "—"
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "What do you do when you have a cold?",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If you will have a fever, call the doctor.",
+          "right": "If you have a fever, call the doctor."
+        },
+        {
+          "wrong": "When you sleeps a lot, your body gets better.",
+          "right": "When you sleep a lot, your body gets better."
+        }
+      ],
+      "noteVi": "You trong những câu này không chỉ người nghe mà chỉ \"mọi người nói chung\": If you get wet, you get ill = ai bị ướt cũng dễ ốm.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "When I ___ a cold, I drink honey water. (have)",
+          "answers": [
+            "have"
+          ],
+          "explanationVi": "Vế when ở hiện tại đơn: have."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If you have a high fever, ___ the doctor.",
+          "options": [
+            "calling",
+            "call",
+            "will calls",
+            "called"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Lời khuyên dùng câu mệnh lệnh: call the doctor."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If you get wet, you often gets ill.",
+          "sentence": "If you get wet, you often get ill.",
+          "explanationVi": "You đi với động từ nguyên mẫu: get."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu bạn bị cảm, hãy đi ngủ sớm.",
+          "sentence": "If you have a cold, go to bed early.",
+          "words": [
+            "cold,",
+            "If",
+            "go",
+            "you",
+            "have",
+            "a",
+            "to",
+            "bed",
+            "early.",
+            "will"
+          ],
+          "explanationVi": "If + hiện tại đơn, + mệnh lệnh; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"Drink warm water with honey and lemon.",
+        "tipVi": "Honey /ˈhʌni/ nhấn âm đầu; lemon /ˈlemən/ nhấn âm đầu."
+      },
+      {
+        "text": "\"Should I go to the doctor?\"",
+        "tipVi": "Should /ʃʊd/ không đọc âm l; câu hỏi Yes/No lên giọng."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you do when you have a cold?",
+        "questionVi": "Khi bị cảm bạn làm gì?",
+        "frame": "When I have a cold, I ___."
+      },
+      {
+        "question": "Do you go to the doctor when you have a fever?",
+        "questionVi": "Khi sốt bạn có đi bác sĩ không?",
+        "frame": "Yes, I do. / No, I don't. I ___."
+      },
+      {
+        "question": "What does your mother do when someone in your family is ill?",
+        "questionVi": "Khi trong nhà có người ốm, mẹ bạn làm gì?",
+        "frame": "When someone is ill, she ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 0 (If / When + hiện tại đơn, …)",
+      "anyOf": [
+        "If I",
+        "When I",
+        "If you",
+        "When you",
+        "if I",
+        "when I",
+        "if you",
+        "when you"
+      ],
+      "outlineVi": [
+        "Vì sao người ta hay bị cảm (If you …, you …).",
+        "Khi bị cảm bạn làm gì (When I have a cold, I …).",
+        "Khi nào nên đi bác sĩ (If you have …, call / go …)."
+      ],
+      "modelAnswer": "When I have a cold, I stay at home and drink a lot of warm water. My mother gives me soup with onions. If I sleep a lot, I feel better the next day. If you get wet in the rain, you often get a cold. So take a jacket. If you have a high fever, go to the doctor."
+    }
+  },
+  "glosses": [
+    {
+      "text": "rainy",
+      "lemma": "rainy",
+      "meaningVi": "có mưa",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "on a rainy evening",
+      "phraseVi": "một tối mưa"
+    },
+    {
+      "text": "terrible",
+      "lemma": "terrible",
+      "meaningVi": "rất tệ",
+      "sentenceIndex": 2,
+      "pos": "adjective",
+      "phrase": "I feel terrible.",
+      "phraseVi": "Mình thấy mệt lắm."
+    },
+    {
+      "text": "problem",
+      "lemma": "problem",
+      "meaningVi": "vấn đề",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "That's the problem.",
+      "phraseVi": "Thế đấy."
+    },
+    {
+      "text": "wet",
+      "lemma": "wet",
+      "meaningVi": "ướt",
+      "sentenceIndex": 9,
+      "pos": "adjective",
+      "phrase": "If you get wet and cold",
+      "phraseVi": "Hễ bị ướt và lạnh"
+    },
+    {
+      "text": "helps",
+      "lemma": "help",
+      "meaningVi": "có tác dụng, giúp",
+      "sentenceIndex": 13,
+      "pos": "verb",
+      "phrase": "it always helps me",
+      "phraseVi": "lần nào cũng đỡ"
+    },
+    {
+      "text": "sweet",
+      "lemma": "sweet",
+      "meaningVi": "ngọt",
+      "sentenceIndex": 15,
+      "pos": "adjective",
+      "phrase": "Is it sweet?",
+      "phraseVi": "Có ngọt không?"
+    },
+    {
+      "text": "high",
+      "lemma": "high",
+      "meaningVi": "cao",
+      "sentenceIndex": 20,
+      "pos": "adjective",
+      "phrase": "a high fever",
+      "phraseVi": "sốt cao"
+    }
+  ]
+}

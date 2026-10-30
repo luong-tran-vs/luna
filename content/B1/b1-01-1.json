@@ -1,0 +1,627 @@
+{
+  "content": "Minh is a sales manager at a technology company in Ho Chi Minh City. This morning, he is interviewing Thao for a job in his team.\n\nMinh says, \"Thanks for coming, Thao. Let's start with your experience. Have you ever worked in sales?\"\nThao answers, \"Yes, I have. I've worked in two shops, and I've also sold phones online.\"\n\"Good. Have you ever dealt with an angry customer?\"\nThao smiles. \"Yes, often. Last year, a man shouted at me because his computer didn't work. I listened carefully, and I gave him a quick solution.\"\nMinh writes something in his notebook. \"What else have you learned from customer service?\"\n\"I've learned to stay calm and to explain things clearly. I've never lost a customer because of a problem.\"\n\"That's impressive. Have you ever given a presentation to a large group?\"\n\"Not in a big company, but I've given talks at my university. I've also organised a few small events for my club.\"\n\"Our team often visits companies to show them our products. Have you ever travelled for work?\"\n\"No, I haven't, but I'm happy to travel.\"\nMinh closes his notebook. \"Do you have any questions for me?\"\n\"Yes. What are the main tasks in this job?\"\n\"You'll call customers, answer their emails and write a weekly report. We'll make our decision by Friday.\"\nThao shakes his hand. \"Thank you for your time.\"",
+  "targetWords": [
+    "experience",
+    "sales",
+    "solution",
+    "calm",
+    "presentation",
+    "event",
+    "product",
+    "task",
+    "report",
+    "decision"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "experience",
+        "lemma": "experience",
+        "meaningVi": "kinh nghiệm",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "sales",
+        "lemma": "sales",
+        "meaningVi": "bán hàng, kinh doanh",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "solution",
+        "lemma": "solution",
+        "meaningVi": "giải pháp, cách giải quyết",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "calm",
+        "lemma": "calm",
+        "meaningVi": "bình tĩnh",
+        "pos": "adjective",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "presentation",
+        "lemma": "presentation",
+        "meaningVi": "bài thuyết trình",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "events",
+        "lemma": "event",
+        "meaningVi": "sự kiện",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "products",
+        "lemma": "product",
+        "meaningVi": "sản phẩm",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "tasks",
+        "lemma": "task",
+        "meaningVi": "nhiệm vụ, công việc",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "report",
+        "lemma": "report",
+        "meaningVi": "báo cáo",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "decision",
+        "lemma": "decision",
+        "meaningVi": "quyết định",
+        "pos": "noun",
+        "sentenceIndex": 29
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the text mainly about?",
+        "promptVi": "Bài đọc chủ yếu nói về điều gì?",
+        "options": [
+          "A job interview for a sales position",
+          "Thao's first day at a technology company",
+          "A presentation at a university",
+          "An angry customer in a phone shop"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Minh phỏng vấn Thảo cho một vị trí trong nhóm bán hàng và hỏi về kinh nghiệm của cô."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where has Thao sold phones?",
+        "promptVi": "Thảo đã bán điện thoại ở đâu?",
+        "options": [
+          "At a technology company",
+          "Online",
+          "At her university",
+          "In Minh's team"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo nói \"I've also sold phones online.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Minh probably think Thao is good with customers?",
+        "promptVi": "Vì sao có lẽ Minh nghĩ Thảo giỏi làm việc với khách hàng?",
+        "options": [
+          "She has travelled a lot for work.",
+          "She has given presentations in big companies.",
+          "She stays calm and has never lost a customer because of a problem.",
+          "She knows a lot about computers."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói cô đã học cách bình tĩnh, giải thích rõ ràng và \"I've never lost a customer because of a problem.\" Minh khen \"That's impressive.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao has travelled for work before.",
+        "promptVi": "Thảo đã từng đi công tác.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Minh hỏi \"Have you ever travelled for work?\", Thảo trả lời \"No, I haven't\". Bài có nói về chuyện này nên không phải \"không có thông tin\"."
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"dealt with\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Have you ever dealt with an angry customer?",
+        "options": [
+          "buôn bán với",
+          "xử lý, đối phó với",
+          "chia bài cho",
+          "tránh mặt"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Deal with (quá khứ: dealt with) ở đây là xử lý, giải quyết một tình huống hay một người khó tính. \"Buôn bán\" và \"chia bài\" là các nghĩa khác của deal."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành",
+      "bodyVi": "Hiện tại hoàn thành (have / has + quá khứ phân từ) dùng để nói về kinh nghiệm, những việc đã từng làm trong đời mà không nói rõ lúc nào: I've worked in two shops. Hỏi về kinh nghiệm: Have you ever + phân từ…? (ever = đã bao giờ). Trả lời ngắn: Yes, I have. / No, I haven't. Never (chưa bao giờ) đứng giữa have và phân từ: I've never lost a customer. Khi kể một lần cụ thể có thời gian (last year) thì chuyển sang quá khứ đơn.",
+      "examples": [
+        "Have you ever worked in sales?\"",
+        "I've worked in two shops, and I've also sold phones online.\"",
+        "I've never lost a customer because of a problem.\""
+      ]
+    },
+    "writingPrompt": "Imagine you are at a job interview. Write about your work or study experience: what have you done, and what have you never done?",
+    "sentenceTranslations": [
+      "Minh là trưởng nhóm bán hàng ở một công ty công nghệ tại Thành phố Hồ Chí Minh.",
+      "Sáng nay, anh phỏng vấn Thảo cho một vị trí trong nhóm.",
+      "Minh nói: \"Cảm ơn em đã đến, Thảo.",
+      "Mình bắt đầu với kinh nghiệm của em nhé.",
+      "Em đã từng làm bán hàng chưa?\"",
+      "Thảo trả lời: \"Dạ có ạ.",
+      "Em đã làm ở hai cửa hàng, và em cũng từng bán điện thoại trên mạng.\"",
+      "\"Tốt.",
+      "Em đã bao giờ phải xử lý một khách hàng đang tức giận chưa?\"",
+      "Thảo mỉm cười.",
+      "\"Dạ, thường xuyên ạ.",
+      "Năm ngoái, có một người đàn ông quát em vì máy tính của anh ấy bị hỏng.",
+      "Em lắng nghe cẩn thận, và đưa ra cho anh ấy một cách giải quyết nhanh.\"",
+      "Minh ghi gì đó vào sổ.",
+      "\"Em còn học được gì từ công việc chăm sóc khách hàng?\"",
+      "\"Em học được cách giữ bình tĩnh và giải thích mọi thứ rõ ràng.",
+      "Em chưa bao giờ mất khách vì một sự cố.\"",
+      "\"Ấn tượng đấy.",
+      "Em đã bao giờ thuyết trình trước một nhóm đông người chưa?\"",
+      "\"Ở công ty lớn thì chưa, nhưng em đã nói chuyện trước mọi người ở trường đại học.",
+      "Em cũng đã tổ chức vài sự kiện nhỏ cho câu lạc bộ.\"",
+      "\"Nhóm anh hay đến các công ty để giới thiệu sản phẩm.",
+      "Em đã bao giờ đi công tác chưa?\"",
+      "\"Dạ chưa, nhưng em sẵn sàng đi ạ.\"",
+      "Minh gấp sổ lại.",
+      "\"Em có câu hỏi nào cho anh không?\"",
+      "\"Dạ có.",
+      "Những nhiệm vụ chính của công việc này là gì ạ?\"",
+      "\"Em sẽ gọi điện cho khách, trả lời email và viết báo cáo hằng tuần.",
+      "Đến thứ Sáu bọn anh sẽ có quyết định.\"",
+      "Thảo bắt tay anh.",
+      "\"Cảm ơn anh đã dành thời gian.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể hỏi và trả lời về kinh nghiệm làm việc trong buổi phỏng vấn bằng hiện tại hoàn thành và Have you ever…?",
+    "examples": [
+      {
+        "lemma": "experience",
+        "sentence": "She has a lot of experience with children.",
+        "meaningVi": "Cô ấy có nhiều kinh nghiệm làm việc với trẻ em."
+      },
+      {
+        "lemma": "sales",
+        "sentence": "Our sales were very good this month.",
+        "meaningVi": "Doanh số tháng này của chúng tôi rất tốt."
+      },
+      {
+        "lemma": "solution",
+        "sentence": "We need a quick solution to this problem.",
+        "meaningVi": "Chúng ta cần một cách giải quyết nhanh cho vấn đề này."
+      },
+      {
+        "lemma": "calm",
+        "sentence": "Try to stay calm in the exam.",
+        "meaningVi": "Cố gắng giữ bình tĩnh trong lúc thi."
+      },
+      {
+        "lemma": "presentation",
+        "sentence": "I have to give a presentation tomorrow.",
+        "meaningVi": "Ngày mai tôi phải thuyết trình."
+      },
+      {
+        "lemma": "event",
+        "sentence": "The company holds a big event every year.",
+        "meaningVi": "Năm nào công ty cũng tổ chức một sự kiện lớn."
+      },
+      {
+        "lemma": "product",
+        "sentence": "This is our newest product.",
+        "meaningVi": "Đây là sản phẩm mới nhất của chúng tôi."
+      },
+      {
+        "lemma": "task",
+        "sentence": "My first task is to answer the emails.",
+        "meaningVi": "Nhiệm vụ đầu tiên của tôi là trả lời email."
+      },
+      {
+        "lemma": "report",
+        "sentence": "Please send me the report before lunch.",
+        "meaningVi": "Làm ơn gửi báo cáo cho tôi trước giờ trưa."
+      },
+      {
+        "lemma": "decision",
+        "sentence": "It was a difficult decision.",
+        "meaningVi": "Đó là một quyết định khó khăn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Thao",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Thao, how was your interview?",
+          "meaningVi": "Thảo ơi, buổi phỏng vấn thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "I think it went well. The manager asked a lot of questions.",
+          "meaningVi": "Mình nghĩ là ổn. Anh quản lý hỏi rất nhiều."
+        },
+        {
+          "speaker": 1,
+          "text": "What did he ask?",
+          "meaningVi": "Anh ấy hỏi gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "He asked, \"Have you ever worked in sales?\" I said yes.",
+          "meaningVi": "Anh ấy hỏi: \"Em đã từng làm bán hàng chưa?\" Mình trả lời là có."
+        },
+        {
+          "speaker": 1,
+          "text": "Good! Have you ever had an interview like that before?",
+          "meaningVi": "Tốt quá! Trước đây cậu đã từng phỏng vấn kiểu đó chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, never. It was my first interview at a big company.",
+          "meaningVi": "Chưa, chưa bao giờ. Đó là buổi phỏng vấn đầu tiên của mình ở công ty lớn."
+        },
+        {
+          "speaker": 1,
+          "text": "Were you nervous?",
+          "meaningVi": "Cậu có hồi hộp không?"
+        },
+        {
+          "speaker": 0,
+          "text": "A little, but I stayed calm. I've practised a lot this week.",
+          "meaningVi": "Một chút, nhưng mình vẫn bình tĩnh. Tuần này mình đã luyện tập nhiều."
+        },
+        {
+          "speaker": 1,
+          "text": "When will they tell you?",
+          "meaningVi": "Khi nào họ báo kết quả?"
+        },
+        {
+          "speaker": 0,
+          "text": "On Friday. I've never waited so long for a phone call!",
+          "meaningVi": "Thứ Sáu. Mình chưa bao giờ phải chờ một cuộc điện thoại lâu như vậy!"
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi kinh nghiệm: Have you ever had an interview like that? Trả lời: No, never. Kể một lần cụ thể đã kết thúc thì dùng quá khứ đơn: It was my first interview.",
+    "translations": [
+      {
+        "vi": "Bạn đã từng làm bán hàng chưa?",
+        "en": "Have you ever worked in sales?",
+        "distractors": [
+          "Did",
+          "works",
+          "Do"
+        ]
+      },
+      {
+        "vi": "Tôi đã tổ chức vài sự kiện nhỏ.",
+        "en": "I have organised a few small events.",
+        "distractors": [
+          "organising",
+          "has",
+          "did"
+        ]
+      },
+      {
+        "vi": "Cô ấy chưa bao giờ thuyết trình.",
+        "en": "She has never given a presentation.",
+        "distractors": [
+          "have",
+          "gave",
+          "did"
+        ]
+      },
+      {
+        "vi": "Anh ấy đã có nhiều kinh nghiệm.",
+        "en": "He has had a lot of experience.",
+        "distractors": [
+          "have",
+          "was",
+          "having"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Thảo và Anna nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi phỏng vấn của Thảo",
+          "Một bài thuyết trình",
+          "Chuyến công tác của Anna"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anna hỏi \"how was your interview?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đây là lần thứ mấy Thảo phỏng vấn ở công ty lớn?",
+        "promptVi": "",
+        "options": [
+          "Lần thứ hai",
+          "Lần đầu tiên",
+          "Lần thứ ba"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thảo nói \"It was my first interview at a big company.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào Thảo biết kết quả?",
+        "promptVi": "",
+        "options": [
+          "Hôm nay",
+          "Tuần sau",
+          "Thứ Sáu"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Thảo nói \"On Friday.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Thao was very nervous and forgot her answers.",
+        "promptVi": "Thảo rất hồi hộp và quên hết câu trả lời.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Thảo nói \"A little, but I stayed calm.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Thảo đã từng làm những gì, và có điều gì cô chưa từng làm?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành",
+      "noticing": [
+        {
+          "sentence": "Have you ever worked in sales?\"",
+          "highlights": [
+            "Have you ever worked"
+          ]
+        },
+        {
+          "sentence": "I've worked in two shops, and I've also sold phones online.\"",
+          "highlights": [
+            "I've worked",
+            "I've also sold"
+          ]
+        },
+        {
+          "sentence": "I've never lost a customer because of a problem.\"",
+          "highlights": [
+            "I've never lost"
+          ]
+        },
+        {
+          "sentence": "Last year, a man shouted at me because his computer didn't work.",
+          "highlights": [
+            "Last year",
+            "shouted"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao Thảo nói \"I've worked in two shops\" nhưng lại nói \"Last year, a man shouted at me\"?",
+      "options": [
+        "Vì câu đầu nói kinh nghiệm chung, không nêu thời gian; câu sau kể một lần cụ thể có \"last year\".",
+        "Vì câu đầu ở tương lai.",
+        "Vì shout là động từ bất quy tắc."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Kinh nghiệm không rõ thời gian dùng hiện tại hoàn thành; khi có thời điểm đã qua (last year) thì dùng quá khứ đơn.",
+      "whenVi": "Dùng hiện tại hoàn thành để nói kinh nghiệm trong đời, việc đã làm mà thời gian không quan trọng.",
+      "table": [
+        {
+          "subject": "I / You / We / They",
+          "form": "I've worked in two shops.",
+          "negative": "I haven't travelled for work."
+        },
+        {
+          "subject": "He / She",
+          "form": "She has sold phones online.",
+          "negative": "She has never lost a customer."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "Have you ever worked in sales?",
+          "negative": "Yes, I have. / No, I haven't."
+        },
+        {
+          "subject": "Phân từ bất quy tắc",
+          "form": "give → given, sell → sold, lose → lost",
+          "negative": "deal → dealt, learn → learned"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Have you ever work in sales?",
+          "right": "Have you ever worked in sales?"
+        },
+        {
+          "wrong": "I have lost a customer last year.",
+          "right": "I lost a customer last year."
+        }
+      ],
+      "noteVi": "Ever chỉ dùng trong câu hỏi (Have you ever…?); never dùng trong câu trả lời phủ định và không cần thêm not: I've never given a presentation.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (hiện tại hoàn thành).",
+          "text": "I have never ___ a presentation to a big group. (give)",
+          "answers": [
+            "given"
+          ],
+          "explanationVi": "Have + given (phân từ của give)."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Has she ever ___ with an angry customer?",
+          "options": [
+            "deal",
+            "dealt",
+            "dealing",
+            "deals"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Has + phân từ: dealt."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I have travelled to Hanoi for work last month.",
+          "sentence": "I travelled to Hanoi for work last month.",
+          "explanationVi": "Có thời gian cụ thể đã qua (last month) thì dùng quá khứ đơn."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn đã từng làm bán hàng chưa?",
+          "sentence": "Have you ever worked in sales?",
+          "words": [
+            "ever",
+            "Have",
+            "sales?",
+            "you",
+            "worked",
+            "in",
+            "did"
+          ],
+          "explanationVi": "Have + you + ever + phân từ; từ \"did\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Have you ever given a presentation to a large group?\"",
+        "tipVi": "Have you ever nối liền /həvjuˈevə/; presentation /ˌpreznˈteɪʃn/ nhấn âm thứ ba."
+      },
+      {
+        "text": "\"I've learned to stay calm and to explain things clearly.",
+        "tipVi": "I've /aɪv/ đọc rõ âm /v/; calm /kɑːm/ không đọc âm l."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever had a job interview?",
+        "questionVi": "Bạn đã từng đi phỏng vấn xin việc chưa?",
+        "frame": "Yes, I have. I ___. / No, I haven't, but ___."
+      },
+      {
+        "question": "What jobs have you done so far?",
+        "questionVi": "Đến giờ bạn đã làm những công việc gì?",
+        "frame": "I've worked as ___ and ___."
+      },
+      {
+        "question": "Has anyone in your family worked abroad?",
+        "questionVi": "Có ai trong gia đình bạn từng làm việc ở nước ngoài không?",
+        "frame": "Yes, my ___ has worked in ___. He / She ___. / No, nobody has."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành (have / has + phân từ)",
+      "anyOf": [
+        "have worked",
+        "has worked",
+        "'ve worked",
+        "have never",
+        "'ve never",
+        "have been",
+        "'ve been",
+        "have done",
+        "'ve done",
+        "have learned",
+        "'ve learned",
+        "Have you ever",
+        "have had",
+        "'ve had"
+      ],
+      "outlineVi": [
+        "Giới thiệu bạn là ai, bạn đang học hay làm gì.",
+        "Những việc bạn đã từng làm (I've worked / I've done …).",
+        "Một việc bạn chưa bao giờ làm nhưng muốn thử (I've never …)."
+      ],
+      "modelAnswer": "My name is Hieu, and I'm a final-year student. I've worked part-time in a coffee shop for two years, so I've dealt with a lot of customers. I've also organised two music events for my university club. Last summer, I helped my uncle in his shop. I've never given a presentation to a big company, but I really want to try. I've learned to stay calm, and I always explain things clearly."
+    }
+  },
+  "glosses": [
+    {
+      "text": "interviewing",
+      "lemma": "interview",
+      "meaningVi": "phỏng vấn",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "he is interviewing Thao",
+      "phraseVi": "anh phỏng vấn Thảo"
+    },
+    {
+      "text": "dealt with",
+      "lemma": "deal with",
+      "meaningVi": "xử lý, đối phó với",
+      "sentenceIndex": 8,
+      "pos": "phrasal verb",
+      "phrase": "Have you ever dealt with an angry customer?",
+      "phraseVi": "Em đã bao giờ phải xử lý một khách hàng tức giận chưa?"
+    },
+    {
+      "text": "shouted at",
+      "lemma": "shout at",
+      "meaningVi": "quát, hét vào",
+      "sentenceIndex": 11,
+      "pos": "phrasal verb",
+      "phrase": "a man shouted at me",
+      "phraseVi": "một người đàn ông quát em"
+    },
+    {
+      "text": "customer service",
+      "lemma": "customer service",
+      "meaningVi": "chăm sóc khách hàng",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "from customer service",
+      "phraseVi": "từ công việc chăm sóc khách hàng"
+    },
+    {
+      "text": "impressive",
+      "lemma": "impressive",
+      "meaningVi": "ấn tượng",
+      "sentenceIndex": 17,
+      "pos": "adjective",
+      "phrase": "That's impressive.",
+      "phraseVi": "Ấn tượng đấy."
+    },
+    {
+      "text": "travelled for work",
+      "lemma": "travel for work",
+      "meaningVi": "đi công tác",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "Have you ever travelled for work?",
+      "phraseVi": "Em đã bao giờ đi công tác chưa?"
+    }
+  ]
+}

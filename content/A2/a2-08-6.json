@@ -1,0 +1,604 @@
+{
+  "content": "Phong is back at work today. His friend Khoa asks him about his trip to Hanoi yesterday.\n\nKhoa asks, \"How was your flight?\"\nPhong says, \"Terrible! It was three hours late. My flight was delayed because of bad weather in Hanoi.\"\n\"Oh no! What were you doing all that time?\"\n\"First, I was sitting at the gate and reading a magazine. Then I was hungry, so I bought a sandwich and a coffee.\"\n\"Were there a lot of people?\"\n\"Yes, hundreds of passengers were waiting. Some children were running around, and an old man was sleeping on three seats.\"\nKhoa laughs. \"Did you sleep too?\"\n\"No, I didn't. While I was eating my sandwich, I met an old friend from school. She was waiting for the same flight.\"\n\"Really? That's lucky.\"\n\"Yes. We were talking about our school days when they called our flight. The three hours went very fast!\"",
+  "targetWords": [
+    "late",
+    "delayed",
+    "gate",
+    "magazine",
+    "hungry",
+    "sandwich",
+    "passenger",
+    "seat"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "late",
+        "lemma": "late",
+        "meaningVi": "muộn, trễ",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "delayed",
+        "lemma": "delayed",
+        "meaningVi": "bị hoãn, bị chậm",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "gate",
+        "lemma": "gate",
+        "meaningVi": "cửa ra máy bay",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "magazine",
+        "lemma": "magazine",
+        "meaningVi": "tạp chí",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "hungry",
+        "lemma": "hungry",
+        "meaningVi": "đói",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "sandwich",
+        "lemma": "sandwich",
+        "meaningVi": "bánh mì kẹp",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "passengers",
+        "lemma": "passenger",
+        "meaningVi": "hành khách",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "seats",
+        "lemma": "seat",
+        "meaningVi": "ghế ngồi",
+        "pos": "noun",
+        "sentenceIndex": 12
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "Phong's new job at an airport",
+          "Phong tells Khoa about his long wait for a delayed flight.",
+          "Khoa's trip to Hanoi",
+          "A school party"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong kể với Khoa chuyện chuyến bay bị trễ ba tiếng và lúc đó anh làm gì."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why was the flight delayed?",
+        "promptVi": "Vì sao chuyến bay bị hoãn?",
+        "options": [
+          "There were too many passengers.",
+          "The pilot was late.",
+          "Bad weather in Hanoi",
+          "The plane was old."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phong nói \"My flight was delayed because of bad weather in Hanoi.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why did the three hours go very fast?",
+        "promptVi": "Vì sao ba tiếng trôi qua rất nhanh?",
+        "options": [
+          "Phong was sleeping.",
+          "Phong met an old friend and they were talking.",
+          "Phong was reading a long magazine.",
+          "The children were funny."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong gặp một người bạn cũ, hai người nói chuyện về thời đi học đến khi được gọi lên máy bay."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phong was sleeping at the airport.",
+        "promptVi": "Phong ngủ ở sân bay.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi Khoa hỏi \"Did you sleep too?\", Phong nói \"No, I didn't.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"Terrible\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Phong says, \"Terrible!",
+        "options": [
+          "Tuyệt vời",
+          "Rất tệ",
+          "Rất nhanh",
+          "Bình thường"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Terrible = rất tệ: chuyến bay bị trễ ba tiếng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Quá khứ tiếp diễn (when, while)",
+      "bodyVi": "Quá khứ tiếp diễn kể cảnh đang diễn ra lúc chờ đợi: I was sitting at the gate, hundreds of passengers were waiting, an old man was sleeping. While + quá khứ tiếp diễn, rồi một việc ngắn xen vào ở quá khứ đơn: While I was eating my sandwich, I met an old friend. Hoặc ngược lại với when: We were talking … when they called our flight.",
+      "examples": [
+        "\"First, I was sitting at the gate and reading a magazine.",
+        "While I was eating my sandwich, I met an old friend from school.",
+        "We were talking about our school days when they called our flight."
+      ]
+    },
+    "writingPrompt": "Write about a time you were waiting for a long time (at an airport, a station or a hospital): what were you and other people doing?",
+    "sentenceTranslations": [
+      "Hôm nay Phong đi làm lại.",
+      "Bạn anh là Khoa hỏi về chuyến đi Hà Nội hôm qua.",
+      "Khoa hỏi: \"Chuyến bay thế nào?\"",
+      "Phong nói: \"Tệ lắm!",
+      "Trễ ba tiếng.",
+      "Chuyến bay bị hoãn vì thời tiết xấu ở Hà Nội.\"",
+      "\"Ôi!",
+      "Thế suốt thời gian đó cậu làm gì?\"",
+      "\"Đầu tiên, mình ngồi ở cửa ra máy bay đọc tạp chí.",
+      "Sau đó mình đói, nên mua một cái bánh mì kẹp và một cốc cà phê.\"",
+      "\"Có đông người không?\"",
+      "\"Có, hàng trăm hành khách đang chờ.",
+      "Mấy đứa trẻ chạy lung tung, còn một ông cụ thì nằm ngủ trên ba cái ghế.\"",
+      "Khoa cười.",
+      "\"Thế cậu có ngủ không?\"",
+      "\"Không.",
+      "Đang ăn bánh mì thì mình gặp một người bạn cũ hồi đi học.",
+      "Cô ấy cũng đang chờ chuyến bay đó.\"",
+      "\"Thật à?",
+      "May thế.\"",
+      "\"Ừ.",
+      "Bọn mình đang nói chuyện hồi đi học thì loa gọi lên máy bay.",
+      "Ba tiếng trôi qua nhanh lắm!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể mình và mọi người đang làm gì trong lúc chờ đợi bằng was / were + V-ing, while và when.",
+    "examples": [
+      {
+        "lemma": "late",
+        "sentence": "Sorry, I'm late.",
+        "meaningVi": "Xin lỗi, tôi đến muộn."
+      },
+      {
+        "lemma": "delayed",
+        "sentence": "The train is delayed today.",
+        "meaningVi": "Hôm nay tàu bị chậm."
+      },
+      {
+        "lemma": "gate",
+        "sentence": "Our plane leaves from gate 12.",
+        "meaningVi": "Máy bay của chúng tôi khởi hành ở cửa số 12."
+      },
+      {
+        "lemma": "magazine",
+        "sentence": "She reads a magazine on the bus.",
+        "meaningVi": "Cô ấy đọc tạp chí trên xe buýt."
+      },
+      {
+        "lemma": "hungry",
+        "sentence": "I'm hungry. Let's eat!",
+        "meaningVi": "Tôi đói rồi. Ăn thôi!"
+      },
+      {
+        "lemma": "sandwich",
+        "sentence": "I have a sandwich for lunch.",
+        "meaningVi": "Tôi ăn một cái bánh mì kẹp vào bữa trưa."
+      },
+      {
+        "lemma": "passenger",
+        "sentence": "There is only one passenger on the bus.",
+        "meaningVi": "Trên xe buýt chỉ có một hành khách."
+      },
+      {
+        "lemma": "seat",
+        "sentence": "Is this seat free?",
+        "meaningVi": "Ghế này có ai ngồi chưa?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Phong",
+        "Chris"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Phong, I called you at six yesterday. Where were you?",
+          "meaningVi": "Phong ơi, sáu giờ hôm qua mình gọi cậu. Lúc đó cậu ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "I was waiting at the airport. My flight was late.",
+          "meaningVi": "Mình đang chờ ở sân bay. Chuyến bay bị trễ."
+        },
+        {
+          "speaker": 1,
+          "text": "Oh no! What were you doing?",
+          "meaningVi": "Ôi! Lúc đó cậu đang làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "I was reading a magazine at the gate.",
+          "meaningVi": "Mình đang đọc tạp chí ở cửa ra máy bay."
+        },
+        {
+          "speaker": 1,
+          "text": "Why didn't you answer the phone?",
+          "meaningVi": "Sao cậu không nghe máy?"
+        },
+        {
+          "speaker": 0,
+          "text": "I was talking to an old friend. I didn't hear it.",
+          "meaningVi": "Mình đang nói chuyện với một người bạn cũ. Mình không nghe thấy."
+        },
+        {
+          "speaker": 1,
+          "text": "An old friend? Was she waiting for a flight too?",
+          "meaningVi": "Bạn cũ à? Cô ấy cũng đang chờ chuyến bay à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, the same flight to Hanoi.",
+          "meaningVi": "Ừ, cùng chuyến đi Hà Nội."
+        },
+        {
+          "speaker": 1,
+          "text": "That's lucky. Were you sitting together on the plane?",
+          "meaningVi": "May thế. Trên máy bay hai người có ngồi cạnh nhau không?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, she was sitting at the front, and I was at the back.",
+          "meaningVi": "Không, cô ấy ngồi phía trước, còn mình ngồi phía sau."
+        }
+      ]
+    },
+    "grammarTipVi": "Hỏi lúc đó ở đâu, làm gì: Where were you? What were you doing? Trả lời: I was waiting at the airport. Phủ định quá khứ đơn: I didn't hear it.",
+    "translations": [
+      {
+        "vi": "Tôi đang ngồi đọc tạp chí.",
+        "en": "I was sitting and reading a magazine.",
+        "distractors": [
+          "were",
+          "sat",
+          "am"
+        ]
+      },
+      {
+        "vi": "Hàng trăm hành khách đang chờ.",
+        "en": "Hundreds of passengers were waiting.",
+        "distractors": [
+          "was",
+          "waited",
+          "are"
+        ]
+      },
+      {
+        "vi": "Đang ăn bánh mì thì tôi gặp một người bạn.",
+        "en": "While I was eating my sandwich, I met a friend.",
+        "distractors": [
+          "were",
+          "meet",
+          "ate"
+        ]
+      },
+      {
+        "vi": "Chuyến bay của chúng tôi bị trễ ba tiếng.",
+        "en": "Our flight was three hours late.",
+        "distractors": [
+          "were",
+          "is",
+          "later"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chris hỏi Phong về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Vì sao Phong không nghe máy hôm qua",
+          "Công việc mới của Phong",
+          "Một bộ phim"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chris gọi cho Phong lúc sáu giờ và hỏi lúc đó Phong đang ở đâu, làm gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Phong đang làm gì ở cửa ra máy bay?",
+        "promptVi": "",
+        "options": [
+          "Ăn trưa",
+          "Đọc tạp chí",
+          "Ngủ"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Phong nói \"I was reading a magazine at the gate.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao Phong không nghe thấy điện thoại?",
+        "promptVi": "",
+        "options": [
+          "Điện thoại hết pin",
+          "Sân bay ồn quá",
+          "Anh đang nói chuyện với bạn cũ"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Phong nói \"I was talking to an old friend. I didn't hear it.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Phong and his friend were sitting together on the plane.",
+        "promptVi": "Phong và bạn ngồi cạnh nhau trên máy bay.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Phong nói \"she was sitting at the front, and I was at the back.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Trong ba tiếng chờ, Phong và những người khác ở sân bay đang làm gì?",
+    "grammarStep": {
+      "titleVi": "Quá khứ tiếp diễn (when, while)",
+      "noticing": [
+        {
+          "sentence": "\"First, I was sitting at the gate and reading a magazine.",
+          "highlights": [
+            "was sitting",
+            "reading"
+          ]
+        },
+        {
+          "sentence": "\"Yes, hundreds of passengers were waiting.",
+          "highlights": [
+            "were waiting"
+          ]
+        },
+        {
+          "sentence": "While I was eating my sandwich, I met an old friend from school.",
+          "highlights": [
+            "While",
+            "was eating",
+            "met"
+          ]
+        },
+        {
+          "sentence": "We were talking about our school days when they called our flight.",
+          "highlights": [
+            "were talking",
+            "when",
+            "called"
+          ]
+        }
+      ],
+      "questionVi": "Sau \"while\" là thì nào?",
+      "options": [
+        "Quá khứ đơn (I ate)",
+        "Quá khứ tiếp diễn (I was eating)",
+        "Hiện tại đơn (I eat)"
+      ],
+      "answerIndex": 1,
+      "explanationVi": "While đi với việc đang diễn ra, kéo dài: While I was eating …; việc ngắn xen vào dùng quá khứ đơn: I met.",
+      "whenVi": "While + việc dài (was / were + V-ing); when + việc ngắn xen vào (quá khứ đơn).",
+      "table": [
+        {
+          "subject": "I / He / She",
+          "form": "I was sitting at the gate.",
+          "negative": "I wasn't sleeping."
+        },
+        {
+          "subject": "We / You / They",
+          "form": "Passengers were waiting.",
+          "negative": "They weren't talking."
+        },
+        {
+          "subject": "while",
+          "form": "While I was eating, I met a friend.",
+          "negative": "—"
+        },
+        {
+          "subject": "when",
+          "form": "We were talking when they called our flight.",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "While I ate my sandwich, I was meeting a friend.",
+          "right": "While I was eating my sandwich, I met a friend."
+        },
+        {
+          "wrong": "The passengers was waiting.",
+          "right": "The passengers were waiting."
+        }
+      ],
+      "noteVi": "Khi một người làm hai việc cùng lúc, chỉ cần một was: I was sitting at the gate and reading a magazine.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền was hoặc were.",
+          "text": "Hundreds of passengers ___ waiting at the gate.",
+          "answers": [
+            "were"
+          ],
+          "explanationVi": "Passengers là số nhiều: were waiting."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "While I ___ my sandwich, I met an old friend.",
+          "options": [
+            "ate",
+            "was eating",
+            "were eating",
+            "eat"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Sau while là việc đang diễn ra: was eating."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "An old man were sleeping on three seats.",
+          "sentence": "An old man was sleeping on three seats.",
+          "explanationVi": "An old man là số ít: was sleeping."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi đang ngồi ở cửa ra máy bay.",
+          "sentence": "I was sitting at the gate.",
+          "words": [
+            "sitting",
+            "I",
+            "gate",
+            "was",
+            "at",
+            "the",
+            "were"
+          ],
+          "explanationVi": "I + was + sitting; từ \"were\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Khoa asks, \"How was your flight?\"",
+        "tipVi": "Flight /flaɪt/ đọc rõ /t/ ở cuối; câu hỏi Wh- xuống giọng."
+      },
+      {
+        "text": "She was waiting for the same flight.\"",
+        "tipVi": "Waiting /ˈweɪtɪŋ/ nhấn âm đầu; same /seɪm/ có âm /eɪ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What were you doing at seven o'clock this morning?",
+        "questionVi": "Lúc bảy giờ sáng nay bạn đang làm gì?",
+        "frame": "I was ___."
+      },
+      {
+        "question": "Were you waiting for anything last week?",
+        "questionVi": "Tuần trước bạn có phải chờ đợi điều gì không?",
+        "frame": "Yes, I was waiting for ___. / No, I wasn't."
+      },
+      {
+        "question": "What was your friend doing when you last called him or her?",
+        "questionVi": "Lần cuối bạn gọi cho bạn mình, bạn ấy đang làm gì?",
+        "frame": "He / She was ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu quá khứ tiếp diễn (was / were + V-ing)",
+      "anyOf": [
+        "was waiting",
+        "were waiting",
+        "was sitting",
+        "were sitting",
+        "was reading",
+        "was eating",
+        "were eating",
+        "was sleeping",
+        "was talking",
+        "were talking",
+        "was playing",
+        "were playing",
+        "were running",
+        "was watching"
+      ],
+      "outlineVi": [
+        "Bạn chờ ở đâu, vì sao phải chờ.",
+        "Bạn và mọi người đang làm gì (was / were + V-ing).",
+        "Chuyện gì xảy ra (while / when) và cuối cùng thế nào."
+      ],
+      "modelAnswer": "Last month, I was waiting for my train at Hue station. The train was two hours late. I was sitting on a seat and reading a book. Some people were eating, and two children were playing a game. While I was drinking a coffee, a woman asked me for help with her bags. We were talking when the train came."
+    }
+  },
+  "glosses": [
+    {
+      "text": "back at work",
+      "lemma": "back",
+      "meaningVi": "đi làm lại",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "Phong is back at work today.",
+      "phraseVi": "Hôm nay Phong đi làm lại."
+    },
+    {
+      "text": "Terrible",
+      "lemma": "terrible",
+      "meaningVi": "rất tệ",
+      "sentenceIndex": 3,
+      "pos": "adjective",
+      "phrase": "Terrible!",
+      "phraseVi": "Tệ lắm!"
+    },
+    {
+      "text": "because of",
+      "lemma": "because of",
+      "meaningVi": "vì, do",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "because of bad weather",
+      "phraseVi": "vì thời tiết xấu"
+    },
+    {
+      "text": "hundreds of",
+      "lemma": "hundred",
+      "meaningVi": "hàng trăm",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "hundreds of passengers",
+      "phraseVi": "hàng trăm hành khách"
+    },
+    {
+      "text": "running around",
+      "lemma": "run around",
+      "meaningVi": "chạy lung tung",
+      "sentenceIndex": 12,
+      "pos": "verb",
+      "phrase": "Some children were running around",
+      "phraseVi": "Mấy đứa trẻ chạy lung tung"
+    },
+    {
+      "text": "met",
+      "lemma": "meet",
+      "meaningVi": "gặp",
+      "sentenceIndex": 16,
+      "pos": "verb",
+      "phrase": "I met an old friend from school",
+      "phraseVi": "mình gặp một người bạn cũ hồi đi học"
+    },
+    {
+      "text": "called our flight",
+      "lemma": "call",
+      "meaningVi": "gọi (lên máy bay)",
+      "sentenceIndex": 21,
+      "pos": "phrase",
+      "phrase": "when they called our flight",
+      "phraseVi": "thì loa gọi lên máy bay"
+    }
+  ]
+}

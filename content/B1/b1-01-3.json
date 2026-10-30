@@ -1,0 +1,624 @@
+{
+  "content": "Hoa and Quang work for a hotel company in Da Nang. They are waiting for a meeting to start, and they are talking about their careers.\n\nQuang asks, \"Have you always worked in hotels?\"\nHoa says, \"No. After university, I worked as an English teacher for two years. Then, in 2020, I joined this company.\"\n\"Really? I didn't know that. I've only worked in hotels. My first job was at a small hotel in Hoi An. I carried bags and cleaned rooms.\"\n\"So you've done almost every job in a hotel!\"\n\"Not every job, but many. I've been a receptionist, a waiter and a manager. Last year, I became the head of the front desk team.\"\n\"Congratulations! I've had three different jobs in this company. I started in the sales team, and I moved to training in 2023.\"\n\"Which job have you liked most?\"\n\"Training, definitely. I've trained more than two hundred new staff so far. Last month, I gave a workshop in Hanoi. It went really well.\"\nQuang shakes his head. \"I've never given a workshop. I'm a bit shy in front of big groups.\"\n\"You'll be fine. You've worked with guests for ten years!\"\n\"That's true. Maybe I should try it next year.\"\nThe door opens, and their manager comes in. She says, \"Sorry I'm late. Let's start.\"",
+  "targetWords": [
+    "career",
+    "teacher",
+    "almost",
+    "receptionist",
+    "waiter",
+    "head",
+    "training",
+    "definitely",
+    "workshop",
+    "shy"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "careers",
+        "lemma": "career",
+        "meaningVi": "sự nghiệp, quá trình làm việc",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "teacher",
+        "lemma": "teacher",
+        "meaningVi": "giáo viên",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "almost",
+        "lemma": "almost",
+        "meaningVi": "gần như",
+        "pos": "adverb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "receptionist",
+        "lemma": "receptionist",
+        "meaningVi": "lễ tân",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "waiter",
+        "lemma": "waiter",
+        "meaningVi": "người phục vụ bàn",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "head",
+        "lemma": "head",
+        "meaningVi": "trưởng, người đứng đầu",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "training",
+        "lemma": "training",
+        "meaningVi": "đào tạo",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "definitely",
+        "lemma": "definitely",
+        "meaningVi": "chắc chắn",
+        "pos": "adverb",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "workshop",
+        "lemma": "workshop",
+        "meaningVi": "buổi hội thảo, buổi tập huấn",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "shy",
+        "lemma": "shy",
+        "meaningVi": "ngại, nhút nhát",
+        "pos": "adjective",
+        "sentenceIndex": 25
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hoa and Quang mainly talking about?",
+        "promptVi": "Hoa và Quang chủ yếu nói về điều gì?",
+        "options": [
+          "The jobs they have done in their careers",
+          "A new hotel in Hoi An",
+          "A workshop for their manager",
+          "How to become a teacher"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trong lúc chờ họp, hai người kể cho nhau nghe những công việc đã làm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Hoa do before she joined the hotel company?",
+        "promptVi": "Trước khi vào công ty khách sạn, Hoa làm gì?",
+        "options": [
+          "She was a receptionist.",
+          "She worked as an English teacher.",
+          "She cleaned rooms in Hoi An.",
+          "She was in the sales team."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hoa nói \"After university, I worked as an English teacher for two years.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Quang think he can't give a workshop?",
+        "promptVi": "Vì sao Quang nghĩ mình không thể dẫn một buổi tập huấn?",
+        "options": [
+          "He has never worked with guests.",
+          "He doesn't know enough about hotels.",
+          "He is a bit shy in front of big groups.",
+          "He is too busy at the front desk."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Quang nói \"I'm a bit shy in front of big groups.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hoa has trained more than two hundred new staff.",
+        "promptVi": "Hoa đã đào tạo hơn hai trăm nhân viên mới.",
+        "options": [],
+        "answerIndex": 0,
+        "explanationVi": "Đúng, Hoa nói \"I've trained more than two hundred new staff so far.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"head\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "Last year, I became the head of the front desk team.",
+        "options": [
+          "cái đầu",
+          "trưởng nhóm, người phụ trách",
+          "phía trước",
+          "người mới"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "The head of a team = người đứng đầu, trưởng nhóm. \"Cái đầu\" là nghĩa thường gặp khác của head."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại hoàn thành và quá khứ đơn",
+      "bodyVi": "Hiện tại hoàn thành (I've worked, I've been) nói những gì mình đã làm được tính đến bây giờ, không nêu thời điểm. Quá khứ đơn (I worked, I became) kể việc đã xong vào một thời điểm cụ thể: in 2020, last year, last month. So sánh: I've had three different jobs (tính đến nay) / I moved to training in 2023 (năm cụ thể). Câu hỏi có thời gian đã qua cũng dùng quá khứ đơn: When did you join?",
+      "examples": [
+        "I've been a receptionist, a waiter and a manager.",
+        "Last year, I became the head of the front desk team.\"",
+        "I started in the sales team, and I moved to training in 2023.\""
+      ]
+    },
+    "writingPrompt": "Write about your own path so far: what have you done in your studies or career, and what did you do last year?",
+    "sentenceTranslations": [
+      "Hoa và Quang làm việc cho một công ty khách sạn ở Đà Nẵng.",
+      "Họ đang chờ cuộc họp bắt đầu và kể cho nhau về quá trình làm việc của mình.",
+      "Quang hỏi: \"Chị lúc nào cũng làm trong ngành khách sạn à?\"",
+      "Hoa nói: \"Không.",
+      "Ra trường, chị làm giáo viên tiếng Anh hai năm.",
+      "Rồi năm 2020, chị vào công ty này.\"",
+      "\"Thật ạ?",
+      "Em không biết đấy.",
+      "Em chỉ làm khách sạn thôi.",
+      "Công việc đầu tiên của em là ở một khách sạn nhỏ ở Hội An.",
+      "Em xách hành lý và dọn phòng.\"",
+      "\"Vậy là em đã làm gần như mọi việc trong khách sạn rồi!\"",
+      "\"Không phải mọi việc, nhưng nhiều ạ.",
+      "Em đã làm lễ tân, phục vụ bàn và quản lý.",
+      "Năm ngoái em lên làm trưởng nhóm quầy lễ tân.\"",
+      "\"Chúc mừng em!",
+      "Chị đã làm ba vị trí khác nhau ở công ty này.",
+      "Chị bắt đầu ở nhóm bán hàng, rồi năm 2023 chuyển sang mảng đào tạo.\"",
+      "\"Chị thích công việc nào nhất ạ?\"",
+      "\"Đào tạo, chắc chắn rồi.",
+      "Đến giờ chị đã đào tạo hơn hai trăm nhân viên mới.",
+      "Tháng trước chị dẫn một buổi tập huấn ở Hà Nội.",
+      "Buổi đó rất thành công.\"",
+      "Quang lắc đầu.",
+      "\"Em chưa bao giờ dẫn buổi tập huấn nào.",
+      "Em hơi ngại khi đứng trước đông người.\"",
+      "\"Em sẽ ổn thôi.",
+      "Em đã làm việc với khách mười năm rồi mà!\"",
+      "\"Cũng đúng ạ.",
+      "Có lẽ năm sau em sẽ thử.\"",
+      "Cửa mở, và trưởng phòng của họ bước vào.",
+      "Chị nói: \"Xin lỗi, tôi đến muộn.",
+      "Bắt đầu thôi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể quá trình làm việc của mình, phân biệt điều đã làm được đến nay (hiện tại hoàn thành) và việc ở một thời điểm cụ thể (quá khứ đơn).",
+    "examples": [
+      {
+        "lemma": "career",
+        "sentence": "She has a long career in teaching.",
+        "meaningVi": "Bà ấy có một sự nghiệp dạy học lâu năm."
+      },
+      {
+        "lemma": "teacher",
+        "sentence": "My mother is a teacher.",
+        "meaningVi": "Mẹ tôi là giáo viên."
+      },
+      {
+        "lemma": "almost",
+        "sentence": "It's almost eight o'clock.",
+        "meaningVi": "Gần tám giờ rồi."
+      },
+      {
+        "lemma": "receptionist",
+        "sentence": "The receptionist gave us the key.",
+        "meaningVi": "Lễ tân đưa chìa khoá cho chúng tôi."
+      },
+      {
+        "lemma": "waiter",
+        "sentence": "The waiter brought our food.",
+        "meaningVi": "Người phục vụ mang đồ ăn ra."
+      },
+      {
+        "lemma": "head",
+        "sentence": "He is the head of the sales team.",
+        "meaningVi": "Anh ấy là trưởng nhóm bán hàng."
+      },
+      {
+        "lemma": "training",
+        "sentence": "New staff get two weeks of training.",
+        "meaningVi": "Nhân viên mới được đào tạo hai tuần."
+      },
+      {
+        "lemma": "definitely",
+        "sentence": "I'll definitely come to your party.",
+        "meaningVi": "Tôi chắc chắn sẽ đến dự tiệc của bạn."
+      },
+      {
+        "lemma": "workshop",
+        "sentence": "There is a writing workshop on Saturday.",
+        "meaningVi": "Thứ Bảy có một buổi tập huấn viết."
+      },
+      {
+        "lemma": "shy",
+        "sentence": "He is too shy to sing.",
+        "meaningVi": "Anh ấy ngại quá nên không hát."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Quang",
+        "Sophie"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Quang, how long have you worked at the front desk?",
+          "meaningVi": "Quang ơi, anh làm ở quầy lễ tân bao lâu rồi?"
+        },
+        {
+          "speaker": 0,
+          "text": "I've worked there since last year.",
+          "meaningVi": "Tôi làm ở đó từ năm ngoái."
+        },
+        {
+          "speaker": 1,
+          "text": "And before that?",
+          "meaningVi": "Còn trước đó?"
+        },
+        {
+          "speaker": 0,
+          "text": "I was a waiter in the hotel restaurant.",
+          "meaningVi": "Tôi làm phục vụ ở nhà hàng của khách sạn."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you ever worked outside Da Nang?",
+          "meaningVi": "Anh đã bao giờ làm việc ngoài Đà Nẵng chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. My first job was in Hoi An. I started there in 2016.",
+          "meaningVi": "Rồi. Công việc đầu tiên của tôi ở Hội An. Tôi bắt đầu ở đó năm 2016."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you ever given a workshop?",
+          "meaningVi": "Anh đã bao giờ dẫn buổi tập huấn chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, never. But Hoa gave a great one last month.",
+          "meaningVi": "Chưa bao giờ. Nhưng tháng trước Hoa đã dẫn một buổi rất hay."
+        },
+        {
+          "speaker": 1,
+          "text": "Maybe she can help you with your first one.",
+          "meaningVi": "Có lẽ chị ấy có thể giúp anh buổi đầu tiên."
+        },
+        {
+          "speaker": 0,
+          "text": "Good idea. I'll ask her after the meeting.",
+          "meaningVi": "Ý hay đấy. Họp xong tôi sẽ hỏi chị ấy."
+        }
+      ]
+    },
+    "grammarTipVi": "Đến nay: I've worked there since last year. Have you ever…? Thời điểm cụ thể: I started there in 2016. Hoa gave a great one last month.",
+    "translations": [
+      {
+        "vi": "Tôi đã làm lễ tân và phục vụ bàn.",
+        "en": "I have been a receptionist and a waiter.",
+        "distractors": [
+          "was",
+          "am",
+          "has"
+        ]
+      },
+      {
+        "vi": "Năm ngoái cô ấy làm trưởng nhóm.",
+        "en": "Last year, she became the head of the team.",
+        "distractors": [
+          "has",
+          "become",
+          "becomes"
+        ]
+      },
+      {
+        "vi": "Tôi chưa bao giờ dẫn một buổi tập huấn.",
+        "en": "I have never given a workshop.",
+        "distractors": [
+          "gave",
+          "didn't",
+          "gives"
+        ]
+      },
+      {
+        "vi": "Năm 2020 tôi đi làm giáo viên.",
+        "en": "In 2020, I worked as a teacher.",
+        "distractors": [
+          "have",
+          "works",
+          "has"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Sophie hỏi Quang về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Quá trình làm việc của Quang",
+          "Một khách sạn ở Hội An",
+          "Cuộc họp chiều nay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sophie hỏi Quang làm ở quầy lễ tân bao lâu, trước đó làm gì và đã từng làm ở đâu.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trước khi làm lễ tân, Quang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Giáo viên",
+          "Phục vụ ở nhà hàng của khách sạn",
+          "Quản lý"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Quang nói \"I was a waiter in the hotel restaurant.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Quang bắt đầu làm ở Hội An năm nào?",
+        "promptVi": "",
+        "options": [
+          "2016",
+          "2020",
+          "2023"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quang nói \"I started there in 2016.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quang has given a workshop before.",
+        "promptVi": "Quang đã từng dẫn buổi tập huấn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Quang nói \"No, never.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Hoa và Quang đã làm những công việc gì? Việc nào có năm cụ thể?",
+    "grammarStep": {
+      "titleVi": "Hiện tại hoàn thành và quá khứ đơn",
+      "noticing": [
+        {
+          "sentence": "After university, I worked as an English teacher for two years.",
+          "highlights": [
+            "worked"
+          ]
+        },
+        {
+          "sentence": "I've been a receptionist, a waiter and a manager.",
+          "highlights": [
+            "I've been"
+          ]
+        },
+        {
+          "sentence": "Last year, I became the head of the front desk team.\"",
+          "highlights": [
+            "Last year",
+            "became"
+          ]
+        },
+        {
+          "sentence": "I've trained more than two hundred new staff so far.",
+          "highlights": [
+            "I've trained",
+            "so far"
+          ]
+        }
+      ],
+      "questionVi": "Hoa nói \"I worked as an English teacher for two years\" bằng quá khứ đơn dù có \"for two years\". Vì sao?",
+      "options": [
+        "Vì việc dạy học đã kết thúc, Hoa không còn là giáo viên nữa.",
+        "Vì for luôn đi với quá khứ đơn.",
+        "Vì Hoa đang nói về tương lai."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc đã kết thúc hẳn trong quá khứ dùng quá khứ đơn, kể cả khi có for. Nếu việc vẫn còn tiếp diễn đến nay thì dùng hiện tại hoàn thành: You've worked with guests for ten years.",
+      "whenVi": "Hiện tại hoàn thành: kết quả tính đến bây giờ, không nêu thời điểm (so far, ever, never). Quá khứ đơn: việc đã xong, có thời điểm cụ thể hoặc đã chấm dứt (in 2020, last year).",
+      "table": [
+        {
+          "subject": "Hiện tại hoàn thành",
+          "form": "I've had three different jobs.",
+          "negative": "I've never given a workshop."
+        },
+        {
+          "subject": "Quá khứ đơn",
+          "form": "I moved to training in 2023.",
+          "negative": "I didn't know that."
+        },
+        {
+          "subject": "Từ đi kèm HTHT",
+          "form": "so far, ever, never, already, for (đến nay)",
+          "negative": "—"
+        },
+        {
+          "subject": "Từ đi kèm QKĐ",
+          "form": "last year, in 2020, ago, last month",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I have joined this company in 2020.",
+          "right": "I joined this company in 2020."
+        },
+        {
+          "wrong": "I trained two hundred staff so far.",
+          "right": "I have trained two hundred staff so far."
+        }
+      ],
+      "noteVi": "So far (cho đến nay) luôn đi với hiện tại hoàn thành; ago, last…, in + năm luôn đi với quá khứ đơn.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc.",
+          "text": "Last month, Hoa ___ a workshop in Hanoi. (give)",
+          "answers": [
+            "gave"
+          ],
+          "explanationVi": "Last month là thời điểm đã qua: quá khứ đơn gave."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I ___ three different jobs in this company so far.",
+          "options": [
+            "had",
+            "have had",
+            "has had",
+            "have"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "So far → hiện tại hoàn thành: have had."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I have become the head of the team last year.",
+          "sentence": "I became the head of the team last year.",
+          "explanationVi": "Last year → quá khứ đơn: became."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi chỉ làm trong ngành khách sạn.",
+          "sentence": "I have only worked in hotels.",
+          "words": [
+            "only",
+            "I",
+            "hotels.",
+            "have",
+            "worked",
+            "in",
+            "did"
+          ],
+          "explanationVi": "Have + only + phân từ; từ \"did\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I've been a receptionist, a waiter and a manager.",
+        "tipVi": "Receptionist /rɪˈsepʃənɪst/ nhấn âm thứ hai; đọc liệt kê lên giọng ở hai mục đầu."
+      },
+      {
+        "text": "\"I've never given a workshop.",
+        "tipVi": "Never /ˈnevə/ nhấn mạnh; workshop /ˈwɜːkʃɒp/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What jobs or part-time jobs have you had?",
+        "questionVi": "Bạn đã làm những công việc hay việc bán thời gian nào?",
+        "frame": "I've worked as ___. / I haven't had a job yet."
+      },
+      {
+        "question": "What did you do last summer?",
+        "questionVi": "Hè năm ngoái bạn làm gì?",
+        "frame": "Last summer, I ___."
+      },
+      {
+        "question": "What job has your father or mother had for a long time?",
+        "questionVi": "Bố hoặc mẹ bạn đã làm công việc gì trong thời gian dài?",
+        "frame": "He / She has worked as ___ for ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại hoàn thành và 1 câu quá khứ đơn có thời gian cụ thể",
+      "anyOf": [
+        "have worked",
+        "has worked",
+        "'ve worked",
+        "'ve been",
+        "have been",
+        "'ve had",
+        "have had",
+        "'ve done",
+        "have done",
+        "so far"
+      ],
+      "outlineVi": [
+        "Bạn đã học / làm những gì đến nay (I've …, so far).",
+        "Một vài mốc cụ thể (In 2022, I …; Last year, I …).",
+        "Điều bạn chưa từng làm và muốn thử (I've never …)."
+      ],
+      "modelAnswer": "I've studied English for eight years, and I've had two part-time jobs so far. In 2023, I worked as a waiter in a small café near my school. Last summer, I got a job at a bookshop, and I helped customers find books. I've learned a lot from these jobs. I've never worked in an office, but I want to try it after university."
+    }
+  },
+  "glosses": [
+    {
+      "text": "joined",
+      "lemma": "join",
+      "meaningVi": "vào (công ty), gia nhập",
+      "sentenceIndex": 5,
+      "pos": "verb",
+      "phrase": "I joined this company",
+      "phraseVi": "chị vào công ty này"
+    },
+    {
+      "text": "front desk",
+      "lemma": "front desk",
+      "meaningVi": "quầy lễ tân",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "the front desk team",
+      "phraseVi": "nhóm quầy lễ tân"
+    },
+    {
+      "text": "Congratulations",
+      "lemma": "congratulations",
+      "meaningVi": "chúc mừng",
+      "sentenceIndex": 15,
+      "pos": "interjection",
+      "phrase": "Congratulations!",
+      "phraseVi": "Chúc mừng em!"
+    },
+    {
+      "text": "so far",
+      "lemma": "so far",
+      "meaningVi": "cho đến nay",
+      "sentenceIndex": 20,
+      "pos": "phrase",
+      "phrase": "two hundred new staff so far",
+      "phraseVi": "đến giờ… hơn hai trăm nhân viên mới"
+    },
+    {
+      "text": "went really well",
+      "lemma": "go well",
+      "meaningVi": "diễn ra rất tốt",
+      "sentenceIndex": 22,
+      "pos": "phrase",
+      "phrase": "It went really well.",
+      "phraseVi": "Buổi đó rất thành công."
+    },
+    {
+      "text": "shakes his head",
+      "lemma": "shake",
+      "meaningVi": "lắc đầu",
+      "sentenceIndex": 23,
+      "pos": "phrase",
+      "phrase": "Quang shakes his head.",
+      "phraseVi": "Quang lắc đầu."
+    }
+  ]
+}

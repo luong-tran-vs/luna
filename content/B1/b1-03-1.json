@@ -1,0 +1,618 @@
+{
+  "content": "Ngoc and Bao work for a design company in Ho Chi Minh City. Last week, a new person joined their team. His name is Khanh.\n\nAt lunch, Ngoc asks Bao, \"What do you think of Khanh?\"\nBao says, \"He's fascinating. He has travelled to twenty countries, and he speaks four languages. His stories are so interesting that I forgot to eat my lunch yesterday!\"\nNgoc laughs. \"I know. I was surprised by his habits too. He starts work at six every morning, and he goes for a run at lunch.\"\n\"Six! That's so early that I can't imagine it. I'm always tired before nine.\"\n\"And he writes all his ideas in a small notebook. He showed it to me. It was full of amazing drawings.\"\n\"He's such a creative person that the boss has already given him a big job.\"\n\"Really? Which one?\"\n\"The new website for a hotel in Vung Tau. I'm a bit worried, because it's a difficult job. But Khanh seems very calm.\"\nNgoc says, \"Calm and confident. I find him really inspiring. After talking to him, I always feel excited about my own work.\"\n\"Me too. Yesterday he showed me a new way to plan my week. It was so useful that I've already tried it.\"\n\"Maybe we can have lunch with him tomorrow.\"\nBao laughs. \"Good idea. But no long stories this time. We were late again yesterday!\"",
+  "targetWords": [
+    "fascinating",
+    "surprised",
+    "habit",
+    "imagine",
+    "drawing",
+    "creative",
+    "worried",
+    "calm",
+    "confident",
+    "inspiring"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "fascinating",
+        "lemma": "fascinating",
+        "meaningVi": "cuốn hút, rất thú vị",
+        "pos": "adjective",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "surprised",
+        "lemma": "surprised",
+        "meaningVi": "ngạc nhiên",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "habits",
+        "lemma": "habit",
+        "meaningVi": "thói quen",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "imagine",
+        "lemma": "imagine",
+        "meaningVi": "tưởng tượng",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "drawings",
+        "lemma": "drawing",
+        "meaningVi": "bức vẽ",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "creative",
+        "lemma": "creative",
+        "meaningVi": "sáng tạo",
+        "pos": "adjective",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "worried",
+        "lemma": "worried",
+        "meaningVi": "lo lắng",
+        "pos": "adjective",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "calm",
+        "lemma": "calm",
+        "meaningVi": "bình tĩnh",
+        "pos": "adjective",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "confident",
+        "lemma": "confident",
+        "meaningVi": "tự tin",
+        "pos": "adjective",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "inspiring",
+        "lemma": "inspiring",
+        "meaningVi": "truyền cảm hứng",
+        "pos": "adjective",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Ngoc and Bao mainly talking about?",
+        "promptVi": "Ngọc và Bảo chủ yếu nói về điều gì?",
+        "options": [
+          "Their new team member, Khanh",
+          "A trip to Vung Tau",
+          "Their boss's new job",
+          "A difficult website"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người nói về Khánh, người mới vào nhóm: những câu chuyện, thói quen và tính cách của anh."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Khanh do at lunch?",
+        "promptVi": "Khánh làm gì vào giờ trưa?",
+        "options": [
+          "He draws in his notebook.",
+          "He goes for a run.",
+          "He tells stories.",
+          "He works on the website."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc nói \"he goes for a run at lunch.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why has the boss given Khanh a big job?",
+        "promptVi": "Vì sao sếp đã giao cho Khánh một việc lớn?",
+        "options": [
+          "He speaks four languages.",
+          "He starts work at six.",
+          "He is such a creative person.",
+          "He knows Vung Tau well."
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Bảo nói \"He's such a creative person that the boss has already given him a big job.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Bao usually feels awake before nine o'clock.",
+        "promptVi": "Trước chín giờ, Bảo thường rất tỉnh táo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Bảo nói \"I'm always tired before nine.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"inspiring\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "I find him really inspiring.",
+        "options": [
+          "khiến người khác muốn cố gắng, truyền cảm hứng",
+          "đáng sợ",
+          "nhàm chán",
+          "nóng tính"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Inspiring = truyền cảm hứng: nói chuyện với Khánh xong, Ngọc thấy hào hứng với công việc của mình."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tính từ đuôi -ed và -ing",
+      "bodyVi": "Tính từ đuôi -ing nói về người hay vật gây ra cảm giác (Khanh is fascinating, his stories are interesting, he is inspiring). Tính từ đuôi -ed nói về cảm giác của người (I was surprised, I'm tired, I'm worried, I feel excited). So sánh: His stories are interesting (câu chuyện gây hứng thú) / I'm interested in his stories (tôi thấy hứng thú). Bài cũng dùng so / such … that để nói kết quả: so interesting that…, such a creative person that…",
+      "examples": [
+        "His stories are so interesting that I forgot to eat my lunch yesterday!\"",
+        "I was surprised by his habits too.",
+        "After talking to him, I always feel excited about my own work.\""
+      ]
+    },
+    "writingPrompt": "Write about an interesting person you know: what is surprising or inspiring about him or her, and how do you feel when you are with this person?",
+    "sentenceTranslations": [
+      "Ngọc và Bảo làm việc cho một công ty thiết kế ở Thành phố Hồ Chí Minh.",
+      "Tuần trước, nhóm họ có thêm một người mới.",
+      "Tên anh ấy là Khánh.",
+      "Giờ trưa, Ngọc hỏi Bảo: \"Cậu thấy Khánh thế nào?\"",
+      "Bảo nói: \"Anh ấy cuốn hút lắm.",
+      "Anh ấy đã đi hai mươi nước, và nói được bốn thứ tiếng.",
+      "Chuyện anh ấy kể hay đến mức hôm qua mình quên cả ăn trưa!\"",
+      "Ngọc cười.",
+      "\"Mình biết.",
+      "Mình cũng ngạc nhiên về các thói quen của anh ấy.",
+      "Sáng nào anh ấy cũng bắt đầu làm việc từ sáu giờ, và giờ trưa thì đi chạy bộ.\"",
+      "\"Sáu giờ!",
+      "Sớm đến mức mình không tưởng tượng nổi.",
+      "Trước chín giờ lúc nào mình cũng mệt.\"",
+      "\"Còn nữa, anh ấy ghi hết ý tưởng vào một cuốn sổ nhỏ.",
+      "Anh ấy cho mình xem rồi.",
+      "Toàn những bức vẽ tuyệt đẹp.\"",
+      "\"Anh ấy sáng tạo đến mức sếp đã giao cho anh ấy một việc lớn.\"",
+      "\"Thật à?",
+      "Việc gì thế?\"",
+      "\"Trang web mới cho một khách sạn ở Vũng Tàu.",
+      "Mình hơi lo, vì đó là việc khó.",
+      "Nhưng Khánh có vẻ rất bình tĩnh.\"",
+      "Ngọc nói: \"Bình tĩnh và tự tin.",
+      "Mình thấy anh ấy thật sự truyền cảm hứng.",
+      "Nói chuyện với anh ấy xong, mình luôn thấy hào hứng với công việc của mình.\"",
+      "\"Mình cũng vậy.",
+      "Hôm qua anh ấy chỉ cho mình một cách mới để lên kế hoạch cho cả tuần.",
+      "Hữu ích đến mức mình đã thử luôn rồi.\"",
+      "\"Có lẽ mai mình ăn trưa cùng anh ấy.\"",
+      "Bảo cười.",
+      "\"Ý hay đấy.",
+      "Nhưng lần này không kể chuyện dài nhé.",
+      "Hôm qua bọn mình lại muộn rồi!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể miêu tả một người thú vị và cảm giác của mình về người đó bằng tính từ -ing / -ed và so / such … that.",
+    "examples": [
+      {
+        "lemma": "fascinating",
+        "sentence": "The history of this city is fascinating.",
+        "meaningVi": "Lịch sử thành phố này rất cuốn hút."
+      },
+      {
+        "lemma": "surprised",
+        "sentence": "I was surprised to see him at the party.",
+        "meaningVi": "Tôi ngạc nhiên khi gặp anh ấy ở bữa tiệc."
+      },
+      {
+        "lemma": "habit",
+        "sentence": "Reading before bed is a good habit.",
+        "meaningVi": "Đọc sách trước khi ngủ là một thói quen tốt."
+      },
+      {
+        "lemma": "imagine",
+        "sentence": "Can you imagine a city without cars?",
+        "meaningVi": "Bạn có tưởng tượng được một thành phố không có ô tô không?"
+      },
+      {
+        "lemma": "drawing",
+        "sentence": "My son gave me a drawing of our family.",
+        "meaningVi": "Con trai tôi tặng tôi một bức vẽ cả nhà."
+      },
+      {
+        "lemma": "creative",
+        "sentence": "She is very creative with colours.",
+        "meaningVi": "Cô ấy dùng màu sắc rất sáng tạo."
+      },
+      {
+        "lemma": "worried",
+        "sentence": "My mother is worried about my exams.",
+        "meaningVi": "Mẹ tôi lo về kỳ thi của tôi."
+      },
+      {
+        "lemma": "calm",
+        "sentence": "Please stay calm.",
+        "meaningVi": "Hãy giữ bình tĩnh."
+      },
+      {
+        "lemma": "confident",
+        "sentence": "He feels confident about the interview.",
+        "meaningVi": "Anh ấy tự tin về buổi phỏng vấn."
+      },
+      {
+        "lemma": "inspiring",
+        "sentence": "It was an inspiring speech.",
+        "meaningVi": "Đó là một bài phát biểu truyền cảm hứng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngoc",
+        "Sarah"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ngoc, how is your new team?",
+          "meaningVi": "Ngọc ơi, nhóm mới của cậu thế nào?"
+        },
+        {
+          "speaker": 0,
+          "text": "Great. We have a new person called Khanh. He's fascinating.",
+          "meaningVi": "Tuyệt lắm. Bọn mình có một người mới tên Khánh. Anh ấy cuốn hút lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Why is he so interesting?",
+          "meaningVi": "Sao anh ấy thú vị thế?"
+        },
+        {
+          "speaker": 0,
+          "text": "He has travelled to twenty countries. His stories are amazing.",
+          "meaningVi": "Anh ấy đã đi hai mươi nước. Chuyện anh ấy kể tuyệt lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Wow. Are you interested in travelling too?",
+          "meaningVi": "Chà. Cậu cũng thích đi du lịch à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but I'm a bit worried about money.",
+          "meaningVi": "Có, nhưng mình hơi lo chuyện tiền."
+        },
+        {
+          "speaker": 1,
+          "text": "Is he a good worker?",
+          "meaningVi": "Anh ấy làm việc có tốt không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Very. He's so creative that the boss loves him.",
+          "meaningVi": "Rất tốt. Anh ấy sáng tạo đến mức sếp rất quý."
+        },
+        {
+          "speaker": 1,
+          "text": "You sound excited about your work now.",
+          "meaningVi": "Giờ nghe cậu hào hứng với công việc ghê."
+        },
+        {
+          "speaker": 0,
+          "text": "I am! He's really inspiring.",
+          "meaningVi": "Đúng vậy! Anh ấy thật sự truyền cảm hứng."
+        }
+      ]
+    },
+    "grammarTipVi": "Người / vật gây cảm giác: fascinating, interesting, amazing, inspiring. Cảm giác của người: interested, worried, excited.",
+    "translations": [
+      {
+        "vi": "Anh ấy rất cuốn hút.",
+        "en": "He is fascinating.",
+        "distractors": [
+          "fascinates",
+          "are",
+          "very"
+        ]
+      },
+      {
+        "vi": "Tôi ngạc nhiên về thói quen của anh ấy.",
+        "en": "I was surprised by his habits.",
+        "distractors": [
+          "surprising",
+          "surprises",
+          "with"
+        ]
+      },
+      {
+        "vi": "Tôi thấy anh ấy truyền cảm hứng.",
+        "en": "I find him inspiring.",
+        "distractors": [
+          "inspired",
+          "inspire",
+          "he"
+        ]
+      },
+      {
+        "vi": "Tôi hơi lo, nhưng anh ấy rất bình tĩnh.",
+        "en": "I am a bit worried, but he is very calm.",
+        "distractors": [
+          "worries",
+          "worry",
+          "quiet"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ngọc kể với Sarah về ai?",
+        "promptVi": "",
+        "options": [
+          "Khánh, người mới trong nhóm",
+          "Sếp của Ngọc",
+          "Một khách hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"We have a new person called Khanh.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ngọc lo về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Công việc",
+          "Tiền",
+          "Sếp"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc nói \"I'm a bit worried about money.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao sếp rất quý Khánh?",
+        "promptVi": "",
+        "options": [
+          "Anh ấy đến sớm",
+          "Anh ấy kể chuyện hay",
+          "Anh ấy rất sáng tạo"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ngọc nói \"He's so creative that the boss loves him.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngoc feels bored at work now.",
+        "promptVi": "Giờ Ngọc thấy chán công việc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Sarah nói Ngọc nghe có vẻ \"excited\" và Ngọc đáp \"I am!\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Khánh có những điểm gì thú vị? Ngọc và Bảo cảm thấy thế nào về anh?",
+    "grammarStep": {
+      "titleVi": "Tính từ đuôi -ed và -ing",
+      "noticing": [
+        {
+          "sentence": "Bao says, \"He's fascinating.",
+          "highlights": [
+            "fascinating"
+          ]
+        },
+        {
+          "sentence": "I was surprised by his habits too.",
+          "highlights": [
+            "surprised"
+          ]
+        },
+        {
+          "sentence": "I'm always tired before nine.\"",
+          "highlights": [
+            "tired"
+          ]
+        },
+        {
+          "sentence": "I find him really inspiring.",
+          "highlights": [
+            "inspiring"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao bài viết \"He's fascinating\" mà không viết \"He's fascinated\"?",
+      "options": [
+        "Vì Khánh là người gây ra cảm giác thú vị cho người khác.",
+        "Vì Khánh đang cảm thấy thích thú.",
+        "Vì câu ở thì quá khứ."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "-ing: người / vật gây ra cảm giác. -ed: người cảm nhận cảm giác. Khánh cuốn hút (fascinating); Bảo thì bị cuốn hút.",
+      "whenVi": "Hỏi: ai / cái gì gây ra cảm giác → -ing; ai cảm thấy → -ed.",
+      "table": [
+        {
+          "subject": "-ing (gây cảm giác)",
+          "form": "interesting, surprising, inspiring, amazing",
+          "negative": "The meeting was boring."
+        },
+        {
+          "subject": "-ed (cảm thấy)",
+          "form": "interested, surprised, worried, excited",
+          "negative": "I'm not bored."
+        },
+        {
+          "subject": "Cặp so sánh",
+          "form": "His stories are interesting. / I'm interested in his stories.",
+          "negative": "—"
+        },
+        {
+          "subject": "Đi với giới từ",
+          "form": "surprised by, worried about, excited about, interested in",
+          "negative": "—"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I was surprising by his habits.",
+          "right": "I was surprised by his habits."
+        },
+        {
+          "wrong": "His stories are very interested.",
+          "right": "His stories are very interesting."
+        }
+      ],
+      "noteVi": "Tired, worried không có cặp -ing quen thuộc như interested / interesting, nhưng vẫn là tính từ -ed nói về cảm giác của người.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của từ trong ngoặc (-ed hoặc -ing).",
+          "text": "I always feel ___ about my work after talking to him. (excite)",
+          "answers": [
+            "excited"
+          ],
+          "explanationVi": "Nói cảm giác của tôi: excited."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "His stories are so ___ that I forgot to eat.",
+          "options": [
+            "interested",
+            "interesting",
+            "interest",
+            "interests"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Câu chuyện gây hứng thú: interesting."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I find him really inspired.",
+          "sentence": "I find him really inspiring.",
+          "explanationVi": "Anh ấy truyền cảm hứng cho người khác: inspiring."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi ngạc nhiên về thói quen của anh ấy.",
+          "sentence": "I was surprised by his habits.",
+          "words": [
+            "surprised",
+            "I",
+            "his",
+            "was",
+            "by",
+            "habits.",
+            "surprising"
+          ],
+          "explanationVi": "Tôi cảm thấy ngạc nhiên: surprised; từ \"surprising\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I find him really inspiring.",
+        "tipVi": "Inspiring /ɪnˈspaɪərɪŋ/ nhấn âm thứ hai."
+      },
+      {
+        "text": "I was surprised by his habits too.",
+        "tipVi": "Surprised /səˈpraɪzd/ -ed đọc /d/; habits /ˈhæbɪts/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Who is the most interesting person you know?",
+        "questionVi": "Người thú vị nhất bạn biết là ai?",
+        "frame": "The most interesting person I know is ___."
+      },
+      {
+        "question": "What makes you feel excited at work or school?",
+        "questionVi": "Điều gì khiến bạn thấy hào hứng ở chỗ làm hay ở trường?",
+        "frame": "I feel excited when ___."
+      },
+      {
+        "question": "What surprising habit does your friend have?",
+        "questionVi": "Bạn của bạn có thói quen gì đáng ngạc nhiên?",
+        "frame": "He / She ___. I was surprised because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 tính từ đuôi -ed hoặc -ing (interesting / interested, surprising / surprised…)",
+      "anyOf": [
+        "interesting",
+        "interested",
+        "surprising",
+        "surprised",
+        "inspiring",
+        "fascinating",
+        "excited",
+        "exciting",
+        "amazing",
+        "amazed",
+        "worried",
+        "bored",
+        "boring",
+        "tired"
+      ],
+      "outlineVi": [
+        "Người đó là ai, bạn quen thế nào.",
+        "Điều gì thú vị, đáng ngạc nhiên về người đó (-ing).",
+        "Bạn cảm thấy thế nào khi ở cạnh người đó (-ed, so … that)."
+      ],
+      "modelAnswer": "My uncle Hoang is the most interesting person in my family. He is a doctor, but he also plays the guitar in a band. I was surprised when I heard him for the first time. His songs are so beautiful that people stop to listen. He works very hard, but he never looks tired. When I talk to him, I feel excited about my own future."
+    }
+  },
+  "glosses": [
+    {
+      "text": "joined",
+      "lemma": "join",
+      "meaningVi": "vào, gia nhập",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "a new person joined their team",
+      "phraseVi": "nhóm có thêm một người mới"
+    },
+    {
+      "text": "so interesting that",
+      "lemma": "so … that",
+      "meaningVi": "hay đến mức",
+      "sentenceIndex": 6,
+      "pos": "phrase",
+      "phrase": "so interesting that I forgot to eat",
+      "phraseVi": "hay đến mức mình quên cả ăn"
+    },
+    {
+      "text": "goes for a run",
+      "lemma": "go for a run",
+      "meaningVi": "đi chạy bộ",
+      "sentenceIndex": 10,
+      "pos": "phrase",
+      "phrase": "he goes for a run at lunch",
+      "phraseVi": "giờ trưa thì đi chạy bộ"
+    },
+    {
+      "text": "full of",
+      "lemma": "full of",
+      "meaningVi": "đầy",
+      "sentenceIndex": 16,
+      "pos": "phrase",
+      "phrase": "It was full of amazing drawings.",
+      "phraseVi": "Toàn những bức vẽ tuyệt đẹp."
+    },
+    {
+      "text": "seems",
+      "lemma": "seem",
+      "meaningVi": "có vẻ",
+      "sentenceIndex": 22,
+      "pos": "verb",
+      "phrase": "Khanh seems very calm",
+      "phraseVi": "Khánh có vẻ rất bình tĩnh"
+    }
+  ]
+}

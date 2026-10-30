@@ -1,0 +1,615 @@
+{
+  "content": "At Noi Bai Airport in Hanoi, Dang is standing at the check-in counter. He is flying to Da Nang for his sister's wedding.\n\nThe woman at the counter says, \"Good morning. Can I see your ID card, please?\"\nDang gives her his ID card. \"Here you are. This is the counter for the flight to Da Nang, isn't it?\"\n\"Yes, it is. The flight leaves at a quarter past ten. Do you have any bags to check in?\"\n\"Just this suitcase. It isn't over the limit, is it? I think it's about twenty kilos.\"\nShe puts it on the machine. \"It's twenty-two kilos. The limit is twenty-three, so it's fine.\"\n\"Good. And I can take this backpack on the plane, can't I?\"\n\"Yes, one piece of hand luggage is free. It must be under seven kilos.\"\n\"Could you tell me if I can get a window seat?\"\n\"Let me check. Yes, there's one in row twelve. Here's your boarding pass.\"\nDang looks at it. \"Sorry, it says Gate 5 here, but the screen says Gate 7. Do you know which one is correct?\"\nShe checks her computer again. \"Thank you for asking. The gate changed this morning. It's Gate 7.\"\n\"Boarding starts at a quarter to ten, doesn't it?\"\n\"That's right. Please be at the gate twenty minutes before that. Security is slow today.\"\n\"OK. I'll go there now.\"\n\"Have a nice flight.\"",
+  "targetWords": [
+    "counter",
+    "flight",
+    "suitcase",
+    "limit",
+    "plane",
+    "hand luggage",
+    "window seat",
+    "boarding pass",
+    "gate",
+    "security"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "counter",
+        "lemma": "counter",
+        "meaningVi": "quầy",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "flight",
+        "lemma": "flight",
+        "meaningVi": "chuyến bay",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "suitcase",
+        "lemma": "suitcase",
+        "meaningVi": "vali",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "limit",
+        "lemma": "limit",
+        "meaningVi": "giới hạn, mức tối đa",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "plane",
+        "lemma": "plane",
+        "meaningVi": "máy bay",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "hand luggage",
+        "lemma": "hand luggage",
+        "meaningVi": "hành lý xách tay",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "window seat",
+        "lemma": "window seat",
+        "meaningVi": "ghế cạnh cửa sổ",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "boarding pass",
+        "lemma": "boarding pass",
+        "meaningVi": "thẻ lên máy bay",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "gate",
+        "lemma": "gate",
+        "meaningVi": "cửa ra máy bay",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "Security",
+        "lemma": "security",
+        "meaningVi": "khu kiểm tra an ninh",
+        "pos": "noun",
+        "sentenceIndex": 34
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Where is Dang and what is he doing?",
+        "promptVi": "Đăng đang ở đâu và làm gì?",
+        "options": [
+          "At the airport, checking in for his flight",
+          "At a hotel, checking out of his room",
+          "On the plane, looking for his seat",
+          "At his sister's wedding"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đăng đứng ở quầy làm thủ tục ở sân bay Nội Bài để bay vào Đà Nẵng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How heavy is Dang's suitcase?",
+        "promptVi": "Vali của Đăng nặng bao nhiêu?",
+        "options": [
+          "Seven kilos",
+          "Twenty kilos",
+          "Twenty-two kilos",
+          "Twenty-three kilos"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Nhân viên nói \"It's twenty-two kilos.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Which gate is correct?",
+        "promptVi": "Cửa ra máy bay nào mới đúng?",
+        "options": [
+          "Gate 5",
+          "Gate 7",
+          "Gate 12",
+          "Gate 23"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nhân viên nói \"The gate changed this morning. It's Gate 7.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Dang's suitcase is over the limit.",
+        "promptVi": "Vali của Đăng vượt quá giới hạn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì giới hạn là 23 kg và vali chỉ nặng 22 kg: \"so it's fine.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"hand luggage\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Yes, one piece of hand luggage is free.",
+        "options": [
+          "hành lý xách tay",
+          "hành lý ký gửi",
+          "vé máy bay",
+          "túi mua sắm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hand luggage = hành lý mang theo lên máy bay."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu hỏi đuôi",
+      "bodyVi": "Câu hỏi đuôi dùng để xác nhận điều mình nghĩ là đúng: câu khẳng định + đuôi phủ định (This is the counter for Da Nang, isn't it?), câu phủ định + đuôi khẳng định (It isn't over the limit, is it?). Đuôi lặp lại trợ động từ của câu (is, can, does …) và dùng đại từ (it, I, you …): I can take this backpack, can't I? Boarding starts at a quarter to ten, doesn't it? Bài cũng có câu hỏi gián tiếp: Could you tell me if I can get a window seat?",
+      "examples": [
+        "This is the counter for the flight to Da Nang, isn't it?\"",
+        "It isn't over the limit, is it?",
+        "\"Boarding starts at a quarter to ten, doesn't it?\""
+      ]
+    },
+    "writingPrompt": "Imagine you are checking in at the airport. Write a short conversation and check information at least twice with a short question at the end of a sentence (…, isn't it? / …, can't I?).",
+    "sentenceTranslations": [
+      "Ở sân bay Nội Bài tại Hà Nội, Đăng đang đứng ở quầy làm thủ tục.",
+      "Anh bay vào Đà Nẵng dự đám cưới của em gái.",
+      "Chị nhân viên ở quầy nói: \"Chào anh.",
+      "Cho tôi xem căn cước của anh nhé?\"",
+      "Đăng đưa chị căn cước.",
+      "\"Đây ạ.",
+      "Đây là quầy cho chuyến bay vào Đà Nẵng, phải không chị?\"",
+      "\"Đúng rồi.",
+      "Chuyến bay cất cánh lúc mười giờ mười lăm.",
+      "Anh có hành lý ký gửi không?\"",
+      "\"Chỉ cái vali này thôi.",
+      "Nó không quá giới hạn, phải không?",
+      "Tôi nghĩ nó khoảng hai mươi ký.\"",
+      "Chị đặt nó lên máy.",
+      "\"Hai mươi hai ký.",
+      "Giới hạn là hai mươi ba, nên không sao.\"",
+      "\"Tốt quá.",
+      "Và tôi được mang ba lô này lên máy bay, phải không?\"",
+      "\"Vâng, được miễn phí một kiện hành lý xách tay.",
+      "Nó phải dưới bảy ký.\"",
+      "\"Chị cho tôi hỏi tôi có được ngồi ghế cạnh cửa sổ không?\"",
+      "\"Để tôi xem.",
+      "Vâng, còn một ghế ở hàng mười hai.",
+      "Đây là thẻ lên máy bay của anh.\"",
+      "Đăng nhìn thẻ.",
+      "\"Xin lỗi, ở đây ghi cửa số 5, nhưng màn hình ghi cửa số 7.",
+      "Chị có biết cái nào đúng không?\"",
+      "Chị kiểm tra lại máy tính.",
+      "\"Cảm ơn anh đã hỏi.",
+      "Sáng nay cửa ra máy bay đã đổi.",
+      "Là cửa số 7.\"",
+      "\"Lên máy bay lúc mười giờ kém mười lăm, phải không chị?\"",
+      "\"Đúng vậy.",
+      "Anh nhớ có mặt ở cửa trước đó hai mươi phút.",
+      "Hôm nay khu kiểm tra an ninh chậm.\"",
+      "\"Vâng.",
+      "Tôi đi ngay đây.\"",
+      "\"Chúc anh chuyến bay vui vẻ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể làm thủ tục ở sân bay và xác nhận lại thông tin bằng câu hỏi đuôi (…, isn't it? / …, can't I?).",
+    "examples": [
+      {
+        "lemma": "counter",
+        "sentence": "Please wait at the counter.",
+        "meaningVi": "Vui lòng đợi ở quầy."
+      },
+      {
+        "lemma": "flight",
+        "sentence": "Our flight leaves at seven.",
+        "meaningVi": "Chuyến bay của chúng tôi cất cánh lúc bảy giờ."
+      },
+      {
+        "lemma": "suitcase",
+        "sentence": "My suitcase is too heavy.",
+        "meaningVi": "Vali của tôi nặng quá."
+      },
+      {
+        "lemma": "limit",
+        "sentence": "There is a limit of two bags.",
+        "meaningVi": "Mỗi người chỉ được tối đa hai túi."
+      },
+      {
+        "lemma": "plane",
+        "sentence": "The plane landed on time.",
+        "meaningVi": "Máy bay hạ cánh đúng giờ."
+      },
+      {
+        "lemma": "hand luggage",
+        "sentence": "Keep your phone in your hand luggage.",
+        "meaningVi": "Hãy để điện thoại trong hành lý xách tay."
+      },
+      {
+        "lemma": "window seat",
+        "sentence": "I always ask for a window seat.",
+        "meaningVi": "Tôi luôn xin ghế cạnh cửa sổ."
+      },
+      {
+        "lemma": "boarding pass",
+        "sentence": "Please show your boarding pass at the gate.",
+        "meaningVi": "Vui lòng xuất trình thẻ lên máy bay ở cửa."
+      },
+      {
+        "lemma": "gate",
+        "sentence": "Our gate is at the end of the building.",
+        "meaningVi": "Cửa ra máy bay của chúng tôi ở cuối toà nhà."
+      },
+      {
+        "lemma": "security",
+        "sentence": "There was a long queue at security.",
+        "meaningVi": "Ở khu kiểm tra an ninh có hàng dài."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dang",
+        "Staff"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Excuse me, this is Gate 7, isn't it?",
+          "meaningVi": "Xin lỗi, đây là cửa số 7, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, it is. Are you on the flight to Da Nang?",
+          "meaningVi": "Đúng rồi. Anh đi chuyến bay vào Đà Nẵng à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. We haven't started boarding yet, have we?",
+          "meaningVi": "Vâng. Mình chưa lên máy bay, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "No, not yet. We'll start in ten minutes.",
+          "meaningVi": "Chưa ạ. Mười phút nữa mới bắt đầu."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. I can buy a coffee first, can't I?",
+          "meaningVi": "Tốt quá. Tôi đi mua cà phê trước được, phải không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Sure. There's a café just over there.",
+          "meaningVi": "Được chứ. Có quán cà phê ngay đằng kia."
+        },
+        {
+          "speaker": 0,
+          "text": "Do you know if they sell sandwiches?",
+          "meaningVi": "Chị có biết ở đó có bán bánh mì kẹp không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, they do. But please be quick.",
+          "meaningVi": "Có ạ. Nhưng anh nhanh lên nhé."
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. I won't be late.",
+          "meaningVi": "Tất nhiên. Tôi sẽ không trễ đâu."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you. Please have your boarding pass ready.",
+          "meaningVi": "Cảm ơn anh. Anh chuẩn bị sẵn thẻ lên máy bay nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu khẳng định → đuôi phủ định: this is Gate 7, isn't it? / I can buy a coffee, can't I? Câu phủ định → đuôi khẳng định: We haven't started boarding yet, have we?",
+    "translations": [
+      {
+        "vi": "Đây là chuyến bay vào Đà Nẵng, phải không?",
+        "en": "This is the flight to Da Nang, isn't it?",
+        "distractors": [
+          "doesn't",
+          "aren't",
+          "does"
+        ]
+      },
+      {
+        "vi": "Vali của tôi không quá giới hạn, phải không?",
+        "en": "My suitcase isn't over the limit, is it?",
+        "distractors": [
+          "does",
+          "are",
+          "doesn't"
+        ]
+      },
+      {
+        "vi": "Tôi được mang hành lý xách tay, phải không?",
+        "en": "I can take hand luggage, can't I?",
+        "distractors": [
+          "don't",
+          "do",
+          "you"
+        ]
+      },
+      {
+        "vi": "Đây là thẻ lên máy bay của anh.",
+        "en": "Here's your boarding pass.",
+        "distractors": [
+          "ticket",
+          "gate",
+          "my"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Đăng và nhân viên nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Giờ lên máy bay ở cửa số 7",
+          "Chiếc vali bị thất lạc",
+          "Đám cưới của em gái Đăng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đăng hỏi có phải cửa số 7 và đã bắt đầu lên máy bay chưa.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bao lâu nữa thì bắt đầu lên máy bay?",
+        "promptVi": "",
+        "options": [
+          "Năm phút",
+          "Mười phút",
+          "Hai mươi phút"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Nhân viên nói \"We'll start in ten minutes.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Đăng muốn mua gì?",
+        "promptVi": "",
+        "options": [
+          "Một cốc cà phê",
+          "Một tờ báo",
+          "Một chai nước"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đăng nói \"I can buy a coffee first, can't I?\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The café doesn't sell sandwiches.",
+        "promptVi": "Quán cà phê không bán bánh mì kẹp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì nhân viên nói \"Yes, they do.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Đăng muốn xác nhận lại những thông tin gì ở quầy? Anh dùng câu hỏi nào để kiểm tra?",
+    "grammarStep": {
+      "titleVi": "Câu hỏi đuôi",
+      "noticing": [
+        {
+          "sentence": "This is the counter for the flight to Da Nang, isn't it?\"",
+          "highlights": [
+            "This is",
+            "isn't it"
+          ]
+        },
+        {
+          "sentence": "It isn't over the limit, is it?",
+          "highlights": [
+            "isn't",
+            "is it"
+          ]
+        },
+        {
+          "sentence": "And I can take this backpack on the plane, can't I?\"",
+          "highlights": [
+            "I can",
+            "can't I"
+          ]
+        },
+        {
+          "sentence": "\"Boarding starts at a quarter to ten, doesn't it?\"",
+          "highlights": [
+            "starts",
+            "doesn't it"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao \"Boarding starts at a quarter to ten\" có đuôi là \"doesn't it\"?",
+      "options": [
+        "Vì câu ở hiện tại đơn (starts) nên mượn trợ động từ does, và câu khẳng định thì đuôi phủ định.",
+        "Vì boarding là số nhiều.",
+        "Vì câu là câu phủ định."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Động từ thường ở hiện tại đơn với it → does; câu khẳng định → đuôi phủ định: doesn't it.",
+      "whenVi": "Dùng câu hỏi đuôi khi bạn gần như chắc chắn và chỉ muốn người kia xác nhận lại, ví dụ giờ bay, số cửa, giới hạn hành lý.",
+      "table": [
+        {
+          "subject": "Câu khẳng định",
+          "form": "This is …, isn't it? / I can …, can't I?",
+          "negative": "Đuôi phủ định"
+        },
+        {
+          "subject": "Câu phủ định",
+          "form": "It isn't …, is it? / We haven't …, have we?",
+          "negative": "Đuôi khẳng định"
+        },
+        {
+          "subject": "Động từ thường",
+          "form": "Boarding starts …, doesn't it? / You came …, didn't you?",
+          "negative": "Mượn do / does / did"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "This is the flight to Da Nang, is it?",
+          "right": "This is the flight to Da Nang, isn't it?"
+        },
+        {
+          "wrong": "Boarding starts at ten, isn't it?",
+          "right": "Boarding starts at ten, doesn't it?"
+        }
+      ],
+      "noteVi": "Đuôi dùng đại từ chứ không lặp lại danh từ: The flight leaves at ten, doesn't it? (không phải doesn't the flight). Với I am, đuôi là aren't I.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền câu hỏi đuôi đúng.",
+          "text": "Your suitcase isn't too heavy, ___?",
+          "answers": [
+            "is it"
+          ],
+          "explanationVi": "Câu phủ định với isn't → đuôi khẳng định is it."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn câu hỏi đuôi đúng.",
+          "text": "Boarding starts at a quarter to ten, ___?",
+          "options": [
+            "isn't it",
+            "doesn't it",
+            "does it",
+            "don't they"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "Hiện tại đơn với it, câu khẳng định → doesn't it."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I can take this backpack on the plane, can I?",
+          "sentence": "I can take this backpack on the plane, can't I?",
+          "explanationVi": "Câu khẳng định → đuôi phủ định: can't I."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đây là cửa số 7, phải không?",
+          "sentence": "This is Gate 7, isn't it?",
+          "words": [
+            "is",
+            "This",
+            "Gate",
+            "7,",
+            "isn't",
+            "it?",
+            "doesn't"
+          ],
+          "explanationVi": "Câu có is → đuôi isn't it; từ \"doesn't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "It isn't over the limit, is it?",
+        "tipVi": "Lên giọng ở \"is it\" vì bạn chưa chắc và cần câu trả lời."
+      },
+      {
+        "text": "\"Boarding starts at a quarter to ten, doesn't it?\"",
+        "tipVi": "Xuống giọng ở \"doesn't it\" vì bạn khá chắc, chỉ muốn xác nhận."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you prefer a window seat or an aisle seat? Why?",
+        "questionVi": "Bạn thích ghế cạnh cửa sổ hay ghế cạnh lối đi? Vì sao?",
+        "frame": "I prefer a ___ seat because ___."
+      },
+      {
+        "question": "What do you check before you go to the airport?",
+        "questionVi": "Bạn kiểm tra gì trước khi ra sân bay?",
+        "frame": "I check my ___ and ___."
+      },
+      {
+        "question": "Check this with a short question at the end: the flight leaves at eight.",
+        "questionVi": "Hãy xác nhận thông tin bằng câu hỏi đuôi: chuyến bay cất cánh lúc tám giờ.",
+        "frame": "The flight leaves at eight, ___?"
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hỏi đuôi (…, isn't it? / …, can't I? / …, is it?)",
+      "anyOf": [
+        "n't it?",
+        "n't I?",
+        "n't you?",
+        "n't we?",
+        "n't they?",
+        ", is it?",
+        ", can I?",
+        ", are they?"
+      ],
+      "outlineVi": [
+        "Chào nhân viên và đưa giấy tờ.",
+        "Xác nhận chuyến bay và hành lý bằng câu hỏi đuôi.",
+        "Hỏi về ghế ngồi hoặc cửa ra máy bay, rồi cảm ơn."
+      ],
+      "modelAnswer": "Me: Good morning. This is the counter for the flight to Hue, isn't it? Staff: Yes, it is. Can I see your passport? Me: Here you are. My bag isn't too heavy, is it? Staff: No, it's fifteen kilos. That's fine. Me: Great. I can take my coffee through security, can't I? Staff: No, I'm sorry. Please finish it here."
+    }
+  },
+  "glosses": [
+    {
+      "text": "ID card",
+      "lemma": "ID card",
+      "meaningVi": "căn cước, chứng minh thư",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "Can I see your ID card?",
+      "phraseVi": "Cho tôi xem căn cước của anh nhé?"
+    },
+    {
+      "text": "kilos",
+      "lemma": "kilo",
+      "meaningVi": "ký, cân",
+      "sentenceIndex": 12,
+      "pos": "noun",
+      "phrase": "about twenty kilos",
+      "phraseVi": "khoảng hai mươi ký"
+    },
+    {
+      "text": "backpack",
+      "lemma": "backpack",
+      "meaningVi": "ba lô",
+      "sentenceIndex": 17,
+      "pos": "noun",
+      "phrase": "this backpack",
+      "phraseVi": "ba lô này"
+    },
+    {
+      "text": "row",
+      "lemma": "row",
+      "meaningVi": "hàng (ghế)",
+      "sentenceIndex": 22,
+      "pos": "noun",
+      "phrase": "in row twelve",
+      "phraseVi": "ở hàng mười hai"
+    },
+    {
+      "text": "Have a nice flight",
+      "lemma": "have a nice flight",
+      "meaningVi": "chúc chuyến bay vui vẻ",
+      "sentenceIndex": 37,
+      "pos": "phrase",
+      "phrase": "Have a nice flight.",
+      "phraseVi": "Chúc anh chuyến bay vui vẻ."
+    }
+  ]
+}

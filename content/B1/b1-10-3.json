@@ -1,0 +1,598 @@
+{
+  "content": "It's a grey morning in Hanoi. Hai arrives at the office and coughs. His co-worker Trang is looking out of the window.\n\n\"I can't see the buildings across the lake today,\" she says.\n\"It's the air pollution again. My phone says the air is very bad today.\"\n\"What would you do if you were the mayor?\"\nHai thinks for a moment. \"If I were the mayor, I would stop old trucks from coming into the city centre.\"\n\"That's a good idea. Their smoke is terrible.\"\n\"What about you?\"\n\"I would plant trees on every street. And I would make the buses free.\"\n\"Free buses? Where would the money come from?\"\n\"From the factories. I would make a new law. If a factory makes too much smoke, it will pay a big fine.\"\n\"I like that. But people love their own cars. They wouldn't take the bus.\"\n\"They would if the buses were clean and fast. Then there wouldn't be so much traffic.\"\n\"Maybe. But we aren't the mayor. What can we do now?\"\n\"Well, if we take the bus to work next week, we will help a little.\"\n\"OK, let's try it. And if it works, we'll tell everyone in the office.\"\n\"Deal. The government can't do everything alone.\"\nTrang smiles. \"Public transport, here we come!\"",
+  "targetWords": [
+    "cough",
+    "air pollution",
+    "mayor",
+    "truck",
+    "smoke",
+    "law",
+    "factory",
+    "traffic",
+    "government",
+    "transport"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "coughs",
+        "lemma": "cough",
+        "meaningVi": "ho",
+        "pos": "verb",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "air pollution",
+        "lemma": "air pollution",
+        "meaningVi": "ô nhiễm không khí",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "mayor",
+        "lemma": "mayor",
+        "meaningVi": "thị trưởng",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "trucks",
+        "lemma": "truck",
+        "meaningVi": "xe tải",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "smoke",
+        "lemma": "smoke",
+        "meaningVi": "khói",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "law",
+        "lemma": "law",
+        "meaningVi": "luật",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "factory",
+        "lemma": "factory",
+        "meaningVi": "nhà máy",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "traffic",
+        "lemma": "traffic",
+        "meaningVi": "xe cộ, giao thông",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "government",
+        "lemma": "government",
+        "meaningVi": "chính phủ, chính quyền",
+        "pos": "noun",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "transport",
+        "lemma": "transport",
+        "meaningVi": "phương tiện đi lại",
+        "pos": "noun",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hai and Trang talking about?",
+        "promptVi": "Hải và Trang đang nói về chuyện gì?",
+        "options": [
+          "What they would do about air pollution",
+          "Their new mayor",
+          "A trip to the lake",
+          "Buying a new car"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hai người tưởng tượng mình là thị trưởng và nói sẽ làm gì để giảm ô nhiễm không khí."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What would Hai do if he were the mayor?",
+        "promptVi": "Hải sẽ làm gì nếu anh là thị trưởng?",
+        "options": [
+          "Make the buses free",
+          "Stop old trucks from coming into the city centre",
+          "Close all the factories",
+          "Plant trees on every street"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hải nói \"If I were the mayor, I would stop old trucks from coming into the city centre.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "In Trang's idea, who would pay for the free buses?",
+        "promptVi": "Theo ý của Trang, ai sẽ trả tiền cho xe buýt miễn phí?",
+        "options": [
+          "The government",
+          "The people on the bus",
+          "The factories",
+          "The mayor"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Trang trả lời \"From the factories.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hai thinks people would happily leave their cars at home.",
+        "promptVi": "Hải nghĩ mọi người sẽ vui vẻ để ô tô ở nhà.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Hải nói \"But people love their own cars. They wouldn't take the bus.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"mayor\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"What would you do if you were the mayor?\"",
+        "options": [
+          "thị trưởng",
+          "cảnh sát",
+          "giám đốc",
+          "tài xế"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mayor = người đứng đầu chính quyền một thành phố."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 2",
+      "bodyVi": "Câu điều kiện loại 2 nói về điều không có thật hoặc khó xảy ra ở hiện tại: If + quá khứ đơn, would + động từ. If I were the mayor, I would stop old trucks. Với be, dùng were cho mọi ngôi: If I were …, if it were … Câu hỏi: What would you do if you were the mayor? So sánh với câu điều kiện loại 1 (có thể xảy ra thật): If we take the bus to work next week, we will help a little.",
+      "examples": [
+        "\"What would you do if you were the mayor?\"",
+        "\"If I were the mayor, I would stop old trucks from coming into the city centre.\"",
+        "\"They would if the buses were clean and fast."
+      ]
+    },
+    "writingPrompt": "Imagine you are the mayor of your city for one year. Write what you would do to make the air better. Use If I were … and would.",
+    "sentenceTranslations": [
+      "Một buổi sáng xám xịt ở Hà Nội.",
+      "Hải đến văn phòng và ho.",
+      "Đồng nghiệp của anh là Trang đang nhìn ra cửa sổ.",
+      "Cô nói: \"Hôm nay em không nhìn thấy mấy toà nhà bên kia hồ.\"",
+      "\"Lại ô nhiễm không khí đấy.",
+      "Điện thoại anh báo hôm nay không khí rất tệ.\"",
+      "\"Nếu anh là thị trưởng thì anh sẽ làm gì?\"",
+      "Hải nghĩ một lát.",
+      "\"Nếu anh là thị trưởng, anh sẽ cấm xe tải cũ vào trung tâm thành phố.\"",
+      "\"Ý hay đấy.",
+      "Khói xe tải kinh khủng lắm.\"",
+      "\"Còn em thì sao?\"",
+      "\"Em sẽ trồng cây trên mọi con phố.",
+      "Và em sẽ cho đi xe buýt miễn phí.\"",
+      "\"Xe buýt miễn phí á?",
+      "Tiền lấy ở đâu ra?\"",
+      "\"Từ các nhà máy.",
+      "Em sẽ ra một luật mới.",
+      "Nhà máy nào thải quá nhiều khói sẽ bị phạt nặng.\"",
+      "\"Anh thích ý đó.",
+      "Nhưng ai cũng thích xe riêng của mình.",
+      "Họ sẽ không đi xe buýt đâu.\"",
+      "\"Họ sẽ đi nếu xe buýt sạch và nhanh.",
+      "Khi đó sẽ không còn nhiều xe cộ như thế.\"",
+      "\"Có thể.",
+      "Nhưng mình đâu phải thị trưởng.",
+      "Bây giờ mình làm được gì?\"",
+      "\"Thì nếu tuần sau mình đi làm bằng xe buýt, mình sẽ giúp được một chút.\"",
+      "\"Được, thử xem.",
+      "Nếu ổn thì mình sẽ kể cho cả văn phòng.\"",
+      "\"Chốt.",
+      "Chính quyền không thể tự làm hết mọi việc.\"",
+      "Trang mỉm cười.",
+      "\"Phương tiện công cộng ơi, bọn mình đến đây!\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói mình sẽ làm gì trong một tình huống không có thật bằng câu điều kiện loại 2 (If I were …, I would …) và đưa ý kiến về ô nhiễm không khí.",
+    "examples": [
+      {
+        "lemma": "cough",
+        "sentence": "The smoke made me cough.",
+        "meaningVi": "Khói làm tôi ho."
+      },
+      {
+        "lemma": "air pollution",
+        "sentence": "Many big cities have air pollution.",
+        "meaningVi": "Nhiều thành phố lớn bị ô nhiễm không khí."
+      },
+      {
+        "lemma": "mayor",
+        "sentence": "The mayor opened the new park.",
+        "meaningVi": "Thị trưởng khai trương công viên mới."
+      },
+      {
+        "lemma": "truck",
+        "sentence": "A big truck stopped outside our house.",
+        "meaningVi": "Một chiếc xe tải to dừng trước nhà tôi."
+      },
+      {
+        "lemma": "smoke",
+        "sentence": "There was smoke in the kitchen.",
+        "meaningVi": "Trong bếp có khói."
+      },
+      {
+        "lemma": "law",
+        "sentence": "This law protects old trees.",
+        "meaningVi": "Luật này bảo vệ cây cổ thụ."
+      },
+      {
+        "lemma": "factory",
+        "sentence": "My uncle works in a shoe factory.",
+        "meaningVi": "Chú tôi làm ở một nhà máy giày."
+      },
+      {
+        "lemma": "traffic",
+        "sentence": "There is a lot of traffic in the morning.",
+        "meaningVi": "Buổi sáng có rất nhiều xe cộ."
+      },
+      {
+        "lemma": "government",
+        "sentence": "The government wants to build a new bridge.",
+        "meaningVi": "Chính phủ muốn xây một cây cầu mới."
+      },
+      {
+        "lemma": "transport",
+        "sentence": "Public transport in this city is cheap.",
+        "meaningVi": "Phương tiện công cộng ở thành phố này rẻ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Trang",
+        "Hai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "So, how was the bus this morning?",
+          "meaningVi": "Thế sáng nay đi xe buýt thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not bad. It took forty minutes, but I didn't have to drive.",
+          "meaningVi": "Không tệ. Mất bốn mươi phút nhưng anh không phải lái xe."
+        },
+        {
+          "speaker": 0,
+          "text": "If the bus were faster, would you take it every day?",
+          "meaningVi": "Nếu xe buýt nhanh hơn, anh có đi hằng ngày không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, I would. What about you?",
+          "meaningVi": "Có chứ. Còn em?"
+        },
+        {
+          "speaker": 0,
+          "text": "I would too. But the bus stop is far from my house.",
+          "meaningVi": "Em cũng thế. Nhưng bến xe buýt xa nhà em quá."
+        },
+        {
+          "speaker": 1,
+          "text": "If you had a bike, you could ride to the stop.",
+          "meaningVi": "Nếu em có xe đạp thì có thể đạp ra bến."
+        },
+        {
+          "speaker": 0,
+          "text": "Good idea! My brother has an old one.",
+          "meaningVi": "Ý hay! Anh trai em có một chiếc cũ."
+        },
+        {
+          "speaker": 1,
+          "text": "Will he lend it to you?",
+          "meaningVi": "Anh ấy có cho em mượn không?"
+        },
+        {
+          "speaker": 0,
+          "text": "If I ask him today, he will.",
+          "meaningVi": "Nếu hôm nay em hỏi thì anh ấy sẽ cho."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. Then we can both help with the air pollution.",
+          "meaningVi": "Tuyệt. Vậy là cả hai mình cùng góp phần giảm ô nhiễm không khí."
+        }
+      ]
+    },
+    "grammarTipVi": "Điều không có thật: If the bus were faster, would you take it every day? / If you had a bike, you could ride to the stop. Điều có thể xảy ra thật: If I ask nicely, he will.",
+    "translations": [
+      {
+        "vi": "Nếu tôi là thị trưởng, tôi sẽ ra một luật mới.",
+        "en": "If I were the mayor, I would make a new law.",
+        "distractors": [
+          "am",
+          "will",
+          "was"
+        ]
+      },
+      {
+        "vi": "Nếu nhà máy thải quá nhiều khói, nó sẽ bị phạt.",
+        "en": "If a factory makes too much smoke, it will pay a fine.",
+        "distractors": [
+          "made",
+          "would",
+          "many"
+        ]
+      },
+      {
+        "vi": "Nếu xe buýt miễn phí, sẽ không có nhiều xe cộ như vậy.",
+        "en": "If the buses were free, there wouldn't be so much traffic.",
+        "distractors": [
+          "are",
+          "won't",
+          "many"
+        ]
+      },
+      {
+        "vi": "Nếu có nhiều cây hơn, ô nhiễm không khí sẽ ít hơn.",
+        "en": "If there were more trees, there would be less air pollution.",
+        "distractors": [
+          "are",
+          "will",
+          "fewer"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Trang và Hải nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Việc đi làm bằng xe buýt",
+          "Một cuộc họp",
+          "Giá xăng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang hỏi \"how was the bus this morning?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Sáng nay đi xe buýt mất bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Hai mươi phút",
+          "Bốn mươi phút",
+          "Một tiếng"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Hải nói \"It took forty minutes.\"",
+        "turnIndex": 1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai có một chiếc xe đạp cũ?",
+        "promptVi": "",
+        "options": [
+          "Anh trai Trang",
+          "Hải",
+          "Bố Trang"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Trang nói \"My brother has an old one.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Hai would never take the bus every day.",
+        "promptVi": "Hải sẽ không bao giờ đi xe buýt hằng ngày.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì khi được hỏi, Hải trả lời \"Yes, I would.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Nếu là thị trưởng, Hải và Trang sẽ làm gì? Cuối cùng họ quyết định làm gì ngay bây giờ?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 2",
+      "noticing": [
+        {
+          "sentence": "\"What would you do if you were the mayor?\"",
+          "highlights": [
+            "would you do",
+            "if you were"
+          ]
+        },
+        {
+          "sentence": "\"If I were the mayor, I would stop old trucks from coming into the city centre.\"",
+          "highlights": [
+            "If I were",
+            "would stop"
+          ]
+        },
+        {
+          "sentence": "\"They would if the buses were clean and fast.",
+          "highlights": [
+            "would",
+            "if the buses were"
+          ]
+        },
+        {
+          "sentence": "Then there wouldn't be so much traffic.\"",
+          "highlights": [
+            "wouldn't be"
+          ]
+        }
+      ],
+      "questionVi": "Hải không phải thị trưởng, anh chỉ tưởng tượng. Câu nào đúng?",
+      "options": [
+        "If I were the mayor, I would stop old trucks.",
+        "If I am the mayor, I would stop old trucks.",
+        "If I were the mayor, I will stop old trucks."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Điều không có thật ở hiện tại: If + quá khứ đơn (were), would + động từ (would stop).",
+      "whenVi": "Dùng khi tưởng tượng một tình huống không có thật ở hiện tại (mình không phải thị trưởng, mình không có xe) và nói kết quả của nó, hoặc khi khuyên: If I were you, I would …",
+      "table": [
+        {
+          "subject": "Mệnh đề If",
+          "form": "If + quá khứ đơn: If the buses were clean, …",
+          "negative": "If people didn't burn rubbish, …"
+        },
+        {
+          "subject": "Mệnh đề chính",
+          "form": "would + động từ: … I would make the buses free.",
+          "negative": "wouldn't + động từ: They wouldn't take the bus."
+        },
+        {
+          "subject": "be",
+          "form": "If I / he / she / it were …",
+          "negative": "Lời khuyên: If I were you, I would …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If I am the mayor, I would make a new law.",
+          "right": "If I were the mayor, I would make a new law."
+        },
+        {
+          "wrong": "If I would have more power, I would stop the trucks.",
+          "right": "If I had more power, I would stop the trucks."
+        }
+      ],
+      "noteVi": "Loại 1 (If + hiện tại, will): việc có thể xảy ra thật. Loại 2 (If + quá khứ, would): việc tưởng tượng, không có thật lúc này.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của be.",
+          "text": "If I ___ the mayor, I would plant more trees.",
+          "answers": [
+            "were"
+          ],
+          "explanationVi": "Câu điều kiện loại 2 dùng were cho mọi ngôi."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If the buses were free, more people ___ them.",
+          "options": [
+            "would use",
+            "will use",
+            "use",
+            "used"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Mệnh đề If dùng quá khứ (were) nên mệnh đề chính dùng would + động từ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If I had more money, I will buy an electric car.",
+          "sentence": "If I had more money, I would buy an electric car.",
+          "explanationVi": "If + quá khứ đơn (had) đi với would, không đi với will."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Bạn sẽ làm gì nếu bạn là thị trưởng?",
+          "sentence": "What would you do if you were the mayor?",
+          "words": [
+            "What",
+            "would",
+            "you",
+            "do",
+            "if",
+            "you",
+            "were",
+            "the",
+            "mayor?",
+            "will"
+          ],
+          "explanationVi": "Câu hỏi: What would you do if you were …?; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"What would you do if you were the mayor?\"",
+        "tipVi": "would you đọc nối /wʊdʒu/; mayor /ˈmeə/."
+      },
+      {
+        "text": "\"If I were the mayor, I would stop old trucks from coming into the city centre.\"",
+        "tipVi": "Ngắt hơi sau mayor; nhấn vào stop và trucks."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What would you do if you were the mayor of your city?",
+        "questionVi": "Bạn sẽ làm gì nếu là thị trưởng thành phố của mình?",
+        "frame": "If I were the mayor, I would ___."
+      },
+      {
+        "question": "Would you take the bus every day if it were free?",
+        "questionVi": "Bạn có đi xe buýt hằng ngày không nếu xe buýt miễn phí?",
+        "frame": "Yes, I would. / No, I wouldn't, because ___."
+      },
+      {
+        "question": "What will you do if the air is very bad tomorrow?",
+        "questionVi": "Nếu mai không khí rất tệ thì bạn sẽ làm gì?",
+        "frame": "If the air is very bad tomorrow, I'll ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 2 (If … were / had …, … would …)",
+      "anyOf": [
+        "would",
+        "'d "
+      ],
+      "outlineVi": [
+        "Bạn tưởng tượng mình là thị trưởng thành phố nào.",
+        "Bạn sẽ làm 2–3 việc gì (If I were …, I would …).",
+        "Khi đó thành phố sẽ thay đổi thế nào (… would …)."
+      ],
+      "modelAnswer": "If I were the mayor of Da Nang, I would plant trees on every street. I would make the buses free for students and old people. If I had more money, I would build more parks near the sea. I wouldn't let big trucks into the city centre during the day. Then the air would be much better."
+    }
+  },
+  "glosses": [
+    {
+      "text": "grey",
+      "lemma": "grey",
+      "meaningVi": "xám xịt",
+      "sentenceIndex": 0,
+      "pos": "adjective",
+      "phrase": "a grey morning",
+      "phraseVi": "một buổi sáng xám xịt"
+    },
+    {
+      "text": "centre",
+      "lemma": "centre",
+      "meaningVi": "trung tâm",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "the city centre",
+      "phraseVi": "trung tâm thành phố"
+    },
+    {
+      "text": "fine",
+      "lemma": "fine",
+      "meaningVi": "tiền phạt",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "it will pay a big fine",
+      "phraseVi": "sẽ bị phạt nặng"
+    },
+    {
+      "text": "alone",
+      "lemma": "alone",
+      "meaningVi": "một mình",
+      "sentenceIndex": 31,
+      "pos": "adverb",
+      "phrase": "can't do everything alone",
+      "phraseVi": "không thể tự làm hết mọi việc"
+    }
+  ]
+}

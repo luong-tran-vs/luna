@@ -1,0 +1,600 @@
+{
+  "content": "Mr Hieu and his wife, Ngoc, are at the office of a travel company in Hanoi. Their family is travelling to Nha Trang next Monday, and today they are getting their schedule.\n\nMs Thao, the travel agent, gives them a paper. \"You're flying to Nha Trang on Monday morning. A car is meeting you at the airport.\"\nMr Hieu asks, \"Great. What are we doing on Tuesday?\"\n\"On Tuesday, you're visiting the islands by boat. You're having lunch on the boat.\"\nNgoc asks, \"Will the sea be OK in March?\"\n\"Yes, I think it will be sunny and warm. The children will love it.\"\n\"And on Wednesday?\"\n\"On Wednesday morning, you're visiting the museum. In the afternoon, you're free.\"\nNgoc says, \"Free? Then we'll go to the beach.\"\n\"Good idea. On Thursday, you're taking the train back to Hanoi at nine.\"\nMr Hieu says, \"The children won't like a long train trip.\"\n\"Don't worry. I'll give you some games for them,\" she says.\n\"Thank you. We'll pay now.\"",
+  "targetWords": [
+    "schedule",
+    "travel agent",
+    "paper",
+    "car",
+    "sea",
+    "museum",
+    "train",
+    "game"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "schedule",
+        "lemma": "schedule",
+        "meaningVi": "lịch trình",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "travel agent",
+        "lemma": "travel agent",
+        "meaningVi": "nhân viên đại lý du lịch",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "paper",
+        "lemma": "paper",
+        "meaningVi": "tờ giấy",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "car",
+        "lemma": "car",
+        "meaningVi": "xe ô tô",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "sea",
+        "lemma": "sea",
+        "meaningVi": "biển",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "museum",
+        "lemma": "museum",
+        "meaningVi": "bảo tàng",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "train",
+        "lemma": "train",
+        "meaningVi": "tàu hoả",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "games",
+        "lemma": "game",
+        "meaningVi": "trò chơi",
+        "pos": "noun",
+        "sentenceIndex": 21
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is the story about?",
+        "promptVi": "Câu chuyện nói về điều gì?",
+        "options": [
+          "A family buys a car.",
+          "A travel agent explains a family's schedule for their trip to Nha Trang.",
+          "Ms Thao goes to Nha Trang on holiday.",
+          "The children play games at a museum."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Thảo, nhân viên đại lý du lịch, giải thích lịch trình chuyến đi Nha Trang cho gia đình anh Hiếu."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What are they doing on Tuesday?",
+        "promptVi": "Thứ Ba họ làm gì?",
+        "options": [
+          "Visiting the museum",
+          "Taking the train",
+          "Visiting the islands by boat",
+          "Flying to Nha Trang"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Chị Thảo nói \"On Tuesday, you're visiting the islands by boat.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why does Ms Thao give them some games?",
+        "promptVi": "Vì sao chị Thảo đưa họ mấy trò chơi?",
+        "options": [
+          "The children won't like the long train trip.",
+          "It will rain in Nha Trang.",
+          "The museum is boring.",
+          "The games are free."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Hiếu nói \"The children won't like a long train trip.\" nên chị Thảo đưa trò chơi cho bọn trẻ."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The family is flying back to Hanoi on Thursday.",
+        "promptVi": "Thứ Năm cả nhà bay về Hà Nội.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì họ về bằng tàu: \"you're taking the train back to Hanoi at nine.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"free\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "In the afternoon, you're free.\"",
+        "options": [
+          "miễn phí",
+          "rảnh, không có lịch",
+          "mệt",
+          "bận"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ở đây free là rảnh, không có hoạt động nào trong lịch."
+      }
+    ],
+    "grammarNote": {
+      "title": "Hiện tại tiếp diễn chỉ lịch hẹn tương lai",
+      "bodyVi": "Lịch trình đã đặt chắc chắn dùng am / is / are + V-ing kèm thời gian tương lai: You're flying to Nha Trang on Monday morning, A car is meeting you at the airport. Còn khi đoán hoặc quyết định ngay lúc nói thì dùng will: I think it will be sunny, Then we'll go to the beach, The children won't like a long train trip.",
+      "examples": [
+        "\"You're flying to Nha Trang on Monday morning.",
+        "A car is meeting you at the airport.\"",
+        "\"On Tuesday, you're visiting the islands by boat."
+      ]
+    },
+    "writingPrompt": "Write the schedule for a family trip: what are you doing each day, and what do you think the trip will be like?",
+    "sentenceTranslations": [
+      "Anh Hiếu và vợ là chị Ngọc đang ở văn phòng một công ty du lịch ở Hà Nội.",
+      "Thứ Hai tới cả nhà đi Nha Trang, và hôm nay họ đến lấy lịch trình.",
+      "Chị Thảo, nhân viên đại lý du lịch, đưa họ một tờ giấy.",
+      "\"Sáng thứ Hai anh chị bay đi Nha Trang.",
+      "Sẽ có xe ô tô đón anh chị ở sân bay.\"",
+      "Anh Hiếu hỏi: \"Tốt quá.",
+      "Thứ Ba nhà tôi làm gì?\"",
+      "\"Thứ Ba anh chị đi thuyền thăm các đảo.",
+      "Anh chị ăn trưa trên thuyền.\"",
+      "Chị Ngọc hỏi: \"Tháng Ba biển có ổn không chị?\"",
+      "\"Có, tôi nghĩ trời sẽ nắng và ấm.",
+      "Bọn trẻ sẽ thích lắm.\"",
+      "\"Thế còn thứ Tư?\"",
+      "\"Sáng thứ Tư anh chị đi thăm bảo tàng.",
+      "Buổi chiều thì tự do.\"",
+      "Chị Ngọc nói: \"Tự do à?",
+      "Vậy nhà mình sẽ ra biển.\"",
+      "\"Ý hay đấy.",
+      "Thứ Năm, anh chị đi tàu về Hà Nội lúc chín giờ.\"",
+      "Anh Hiếu nói: \"Bọn trẻ sẽ không thích đi tàu lâu đâu.\"",
+      "\"Anh chị đừng lo.",
+      "Tôi sẽ đưa anh chị mấy trò chơi cho các cháu,\" chị nói.",
+      "\"Cảm ơn chị.",
+      "Chúng tôi sẽ trả tiền luôn.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói lịch trình chuyến đi đã đặt (am / is / are + V-ing) và đưa ra dự đoán, quyết định (will).",
+    "examples": [
+      {
+        "lemma": "schedule",
+        "sentence": "What is your schedule for tomorrow?",
+        "meaningVi": "Lịch của bạn ngày mai thế nào?"
+      },
+      {
+        "lemma": "travel agent",
+        "sentence": "My aunt is a travel agent.",
+        "meaningVi": "Cô tôi làm nhân viên đại lý du lịch."
+      },
+      {
+        "lemma": "paper",
+        "sentence": "Write your name on the paper.",
+        "meaningVi": "Viết tên bạn lên tờ giấy."
+      },
+      {
+        "lemma": "car",
+        "sentence": "My father drives his car to work.",
+        "meaningVi": "Bố tôi lái ô tô đi làm."
+      },
+      {
+        "lemma": "sea",
+        "sentence": "The sea is very blue in summer.",
+        "meaningVi": "Mùa hè biển rất xanh."
+      },
+      {
+        "lemma": "museum",
+        "sentence": "The museum opens at nine.",
+        "meaningVi": "Bảo tàng mở cửa lúc chín giờ."
+      },
+      {
+        "lemma": "train",
+        "sentence": "I go to Hue by train.",
+        "meaningVi": "Tôi đi Huế bằng tàu hoả."
+      },
+      {
+        "lemma": "game",
+        "sentence": "Let's play a game!",
+        "meaningVi": "Mình chơi một trò chơi đi!"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ngoc",
+        "Anna"
+      ],
+      "turns": [
+        {
+          "speaker": 1,
+          "text": "Ngoc, are you going on holiday next week?",
+          "meaningVi": "Ngọc ơi, tuần sau chị đi nghỉ à?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, we're flying to Nha Trang on Monday.",
+          "meaningVi": "Ừ, thứ Hai nhà chị bay đi Nha Trang."
+        },
+        {
+          "speaker": 1,
+          "text": "Lovely! Where are you staying?",
+          "meaningVi": "Tuyệt quá! Chị ở đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "At a hotel near the sea. A car is meeting us at the airport.",
+          "meaningVi": "Ở một khách sạn gần biển. Có xe ra sân bay đón."
+        },
+        {
+          "speaker": 1,
+          "text": "Will the weather be good?",
+          "meaningVi": "Thời tiết có đẹp không chị?"
+        },
+        {
+          "speaker": 0,
+          "text": "I think it will be sunny and warm.",
+          "meaningVi": "Chị nghĩ trời sẽ nắng và ấm."
+        },
+        {
+          "speaker": 1,
+          "text": "How are you coming back?",
+          "meaningVi": "Chị về bằng gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "We're taking the train on Thursday.",
+          "meaningVi": "Thứ Năm nhà chị đi tàu về."
+        },
+        {
+          "speaker": 1,
+          "text": "The train? The children won't like that!",
+          "meaningVi": "Tàu à? Bọn trẻ không thích đâu!"
+        },
+        {
+          "speaker": 0,
+          "text": "Don't worry. I'll bring some games.",
+          "meaningVi": "Không sao. Chị sẽ mang theo mấy trò chơi."
+        }
+      ]
+    },
+    "grammarTipVi": "Lịch đã đặt: We're flying on Monday, A car is meeting us. Dự đoán: I think it will be sunny. Quyết định ngay: I'll bring some games.",
+    "translations": [
+      {
+        "vi": "Sáng thứ Hai chúng tôi bay đi Nha Trang, rồi đi tàu về.",
+        "en": "We are flying to Nha Trang on Monday and taking the train back.",
+        "distractors": [
+          "flew",
+          "will",
+          "takes"
+        ]
+      },
+      {
+        "vi": "Sẽ có xe ô tô đón bạn ở sân bay.",
+        "en": "A car is meeting you at the airport.",
+        "distractors": [
+          "met",
+          "are",
+          "meets"
+        ]
+      },
+      {
+        "vi": "Tôi nghĩ biển sẽ đẹp.",
+        "en": "I think the sea will be nice.",
+        "distractors": [
+          "is",
+          "are",
+          "being"
+        ]
+      },
+      {
+        "vi": "Thứ Tư họ đi thăm bảo tàng.",
+        "en": "They are visiting the museum on Wednesday.",
+        "distractors": [
+          "visited",
+          "does",
+          "visits"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ngọc và Anna nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuyến đi Nha Trang tuần sau",
+          "Một bảo tàng mới",
+          "Trường học của bọn trẻ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ngọc nói \"we're flying to Nha Trang on Monday.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ai đón nhà Ngọc ở sân bay?",
+        "promptVi": "",
+        "options": [
+          "Anna",
+          "Một chiếc xe ô tô",
+          "Nhân viên khách sạn đi xe buýt"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ngọc nói \"A car is meeting us at the airport.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nhà Ngọc về bằng gì?",
+        "promptVi": "",
+        "options": [
+          "Máy bay",
+          "Xe khách",
+          "Tàu hoả"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Ngọc nói \"We're taking the train on Thursday.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ngoc thinks it will rain in Nha Trang.",
+        "promptVi": "Ngọc nghĩ ở Nha Trang trời sẽ mưa.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Ngọc nói \"I think it will be sunny and warm.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Mỗi ngày của chuyến đi cả nhà làm gì? Câu nào là lịch đã đặt, câu nào là dự đoán?",
+    "grammarStep": {
+      "titleVi": "Hiện tại tiếp diễn chỉ lịch hẹn tương lai",
+      "noticing": [
+        {
+          "sentence": "\"You're flying to Nha Trang on Monday morning.",
+          "highlights": [
+            "You're flying",
+            "on Monday morning"
+          ]
+        },
+        {
+          "sentence": "A car is meeting you at the airport.\"",
+          "highlights": [
+            "is meeting"
+          ]
+        },
+        {
+          "sentence": "\"On Wednesday morning, you're visiting the museum.",
+          "highlights": [
+            "On Wednesday morning",
+            "you're visiting"
+          ]
+        },
+        {
+          "sentence": "\"Yes, I think it will be sunny and warm.",
+          "highlights": [
+            "will be"
+          ]
+        }
+      ],
+      "questionVi": "Vì sao chị Thảo nói \"you're visiting the museum\" nhưng lại nói \"it will be sunny\"?",
+      "options": [
+        "Vì bảo tàng ở xa.",
+        "Vì đi bảo tàng là lịch đã đặt, còn thời tiết chỉ là dự đoán.",
+        "Vì cả hai đều là quyết định ngay lúc nói."
+      ],
+      "answerIndex": 1,
+      "explanationVi": "Lịch đã sắp xếp dùng hiện tại tiếp diễn; điều mình đoán (thời tiết) dùng will.",
+      "whenVi": "Hiện tại tiếp diễn cho lịch trình, cuộc hẹn đã sắp xếp; will cho dự đoán và quyết định tức thì.",
+      "table": [
+        {
+          "subject": "Lịch đã đặt",
+          "form": "You're flying on Monday.",
+          "negative": "We aren't flying back."
+        },
+        {
+          "subject": "He / She / It",
+          "form": "A car is meeting you.",
+          "negative": "Ms Thao isn't coming."
+        },
+        {
+          "subject": "Câu hỏi",
+          "form": "What are we doing on Tuesday?",
+          "negative": "Are we visiting the islands?"
+        },
+        {
+          "subject": "So sánh: will",
+          "form": "I think it will be sunny.",
+          "negative": "The children won't like it."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "A car meeting you at the airport.",
+          "right": "A car is meeting you at the airport."
+        },
+        {
+          "wrong": "What we are doing on Tuesday?",
+          "right": "What are we doing on Tuesday?"
+        }
+      ],
+      "noteVi": "Khi kể lịch trình, thêm rõ ngày giờ ở đầu hoặc cuối câu: On Tuesday, you're visiting … / You're flying … on Monday morning.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền dạng đúng của động từ trong ngoặc (hiện tại tiếp diễn).",
+          "text": "On Tuesday, they ___ the islands by boat. (visit)",
+          "answers": [
+            "are visiting",
+            "'re visiting"
+          ],
+          "explanationVi": "They + are + visiting."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "A car ___ you at the airport on Monday.",
+          "options": [
+            "are meeting",
+            "is meeting",
+            "meeting",
+            "meet"
+          ],
+          "answerIndex": 1,
+          "explanationVi": "A car là số ít: is meeting."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We are take the train on Thursday.",
+          "sentence": "We are taking the train on Thursday.",
+          "explanationVi": "Hiện tại tiếp diễn: are + taking."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Sáng thứ Tư bạn đi thăm bảo tàng.",
+          "sentence": "You are visiting the museum on Wednesday morning.",
+          "words": [
+            "visiting",
+            "You",
+            "museum",
+            "are",
+            "the",
+            "on",
+            "Wednesday",
+            "morning",
+            "visit"
+          ],
+          "explanationVi": "You + are + visiting; từ \"visit\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "A car is meeting you at the airport.\"",
+        "tipVi": "Airport /ˈeəpɔːt/ nhấn âm đầu; meeting you nối nhẹ."
+      },
+      {
+        "text": "Ngoc asks, \"Will the sea be OK in March?\"",
+        "tipVi": "Câu hỏi Yes/No lên giọng ở cuối; sea /siː/ có âm /iː/ dài."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you doing next Monday?",
+        "questionVi": "Thứ Hai tới bạn làm gì?",
+        "frame": "Next Monday, I'm ___."
+      },
+      {
+        "question": "Do you think it will be sunny tomorrow?",
+        "questionVi": "Bạn nghĩ ngày mai trời có nắng không?",
+        "frame": "Yes, I think it will. / No, I don't think it will be sunny."
+      },
+      {
+        "question": "Is anyone in your family travelling soon?",
+        "questionVi": "Có ai trong nhà bạn sắp đi du lịch không?",
+        "frame": "Yes, my ___. He / She is ___ next ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu hiện tại tiếp diễn chỉ tương lai (am / is / are + V-ing)",
+      "anyOf": [
+        "flying",
+        "leaving",
+        "staying",
+        "taking",
+        "visiting",
+        "coming",
+        "meeting",
+        "going",
+        "having"
+      ],
+      "outlineVi": [
+        "Cả nhà đi đâu, ngày nào đi (We're flying / taking …).",
+        "Lịch từng ngày (On Tuesday, we're …).",
+        "Bạn đoán chuyến đi sẽ thế nào (I think … will …)."
+      ],
+      "modelAnswer": "Our family is travelling to Hue next month. We're taking the train on Saturday morning, and my uncle is meeting us at the station. On Sunday, we're visiting the old city and a museum. On Monday, we're having lunch by the river. I think the weather will be cold, but the trip will be great."
+    }
+  },
+  "glosses": [
+    {
+      "text": "travel company",
+      "lemma": "travel company",
+      "meaningVi": "công ty du lịch",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the office of a travel company",
+      "phraseVi": "văn phòng một công ty du lịch"
+    },
+    {
+      "text": "travelling",
+      "lemma": "travel",
+      "meaningVi": "đi (du lịch)",
+      "sentenceIndex": 1,
+      "pos": "verb",
+      "phrase": "is travelling to Nha Trang next Monday",
+      "phraseVi": "thứ Hai tới đi Nha Trang"
+    },
+    {
+      "text": "meeting",
+      "lemma": "meet",
+      "meaningVi": "đón",
+      "sentenceIndex": 4,
+      "pos": "verb",
+      "phrase": "A car is meeting you",
+      "phraseVi": "Sẽ có xe đón anh chị"
+    },
+    {
+      "text": "islands",
+      "lemma": "island",
+      "meaningVi": "các hòn đảo",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "visiting the islands by boat",
+      "phraseVi": "đi thuyền thăm các đảo"
+    },
+    {
+      "text": "warm",
+      "lemma": "warm",
+      "meaningVi": "ấm",
+      "sentenceIndex": 10,
+      "pos": "adjective",
+      "phrase": "sunny and warm",
+      "phraseVi": "nắng và ấm"
+    },
+    {
+      "text": "free",
+      "lemma": "free",
+      "meaningVi": "rảnh, tự do",
+      "sentenceIndex": 14,
+      "pos": "adjective",
+      "phrase": "you're free",
+      "phraseVi": "thì tự do"
+    },
+    {
+      "text": "back",
+      "lemma": "back",
+      "meaningVi": "về, trở lại",
+      "sentenceIndex": 18,
+      "pos": "adverb",
+      "phrase": "the train back to Hanoi",
+      "phraseVi": "đi tàu về Hà Nội"
+    }
+  ]
+}
