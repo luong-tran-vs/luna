@@ -1,0 +1,592 @@
+{
+  "content": "Ms Cuc is the purchasing manager for a chain of fifteen restaurants in Ho Chi Minh City. Today she is talking on a video call with Mr Hoan, who runs a vegetable cooperative in Da Lat.\n\n\"Mr Hoan, our chefs love your vegetables,\" Ms Cuc says. \"We'd like to sign a three-year agreement.\"\n\"That's wonderful news. What do you need from us?\"\n\"Fresh vegetables delivered every morning by seven. We're happy to sign for three years provided that your prices stay the same for the first year.\"\n\"Fixed for a whole year? That isn't easy. If the weather is bad, prices go up.\"\n\"I understand. What if we agree to fixed prices as long as there are no storms or floods? In a really bad year, we could talk again.\"\n\"That sounds fair. I can accept that.\"\n\"Good. Next, delivery. Da Lat is three hundred kilometres away. What will happen if a truck breaks down?\"\n\"We have two trucks. In case one breaks down, the other will be ready to go. We also work with a delivery company as a backup.\"\n\"Perfect. I'd also like to keep a small amount of frozen vegetables in each kitchen, in case a delivery is very late.\"\n\"Good idea. When would you like to start?\"\n\"On the first of next month. By then, we will have trained our kitchen staff to order through your new app.\"\n\"And by the end of the first year, we will have doubled the size of our farm, so we can supply even more restaurants.\"\nMs Cuc laughs. \"Then we'll be opening five more restaurants just to keep up with you.\"\n\"I'll send you the agreement tonight. Please read it carefully in case anything is missing.\"\n\"I will. As long as everything looks right, we'll sign on Friday.\"\n\"Wonderful. I'll tell my farmers the good news this evening.\"",
+  "targetWords": [
+    "chain",
+    "cooperative",
+    "chef",
+    "agreement",
+    "fixed",
+    "delivery",
+    "backup",
+    "frozen",
+    "supply",
+    "missing"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "chain",
+        "lemma": "chain",
+        "meaningVi": "chuỗi",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "cooperative",
+        "lemma": "cooperative",
+        "meaningVi": "hợp tác xã",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "chefs",
+        "lemma": "chef",
+        "meaningVi": "đầu bếp",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "agreement",
+        "lemma": "agreement",
+        "meaningVi": "thoả thuận",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "fixed",
+        "lemma": "fixed",
+        "meaningVi": "cố định",
+        "pos": "adjective",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "delivery",
+        "lemma": "delivery",
+        "meaningVi": "việc giao hàng",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "backup",
+        "lemma": "backup",
+        "meaningVi": "phương án dự phòng",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "frozen",
+        "lemma": "frozen",
+        "meaningVi": "đông lạnh",
+        "pos": "adjective",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "supply",
+        "lemma": "supply",
+        "meaningVi": "cung cấp",
+        "pos": "verb",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "missing",
+        "lemma": "missing",
+        "meaningVi": "thiếu, bị sót",
+        "pos": "adjective",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Ms Cuc and Mr Hoan discussing?",
+        "promptVi": "Chị Cúc và anh Hoàn đang bàn về điều gì?",
+        "options": [
+          "An agreement to supply vegetables to restaurants",
+          "Opening a new restaurant in Da Lat",
+          "Buying a new truck",
+          "A cooking course for chefs"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn thoả thuận ba năm để hợp tác xã cung cấp rau cho chuỗi nhà hàng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What condition does Ms Cuc give for a three-year agreement?",
+        "promptVi": "Chị Cúc đặt điều kiện gì cho thoả thuận ba năm?",
+        "options": [
+          "Prices must stay the same for the first year.",
+          "Vegetables must be organic.",
+          "Deliveries must be at night.",
+          "Mr Hoan must open a shop."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị nói \"provided that your prices stay the same for the first year.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What will happen if a truck breaks down?",
+        "promptVi": "Nếu một xe tải bị hỏng thì sao?",
+        "options": [
+          "The other truck will go.",
+          "The restaurants will close.",
+          "Ms Cuc will drive.",
+          "There will be no delivery."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Hoàn nói \"In case one breaks down, the other will be ready to go.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Ms Cuc wants to sign the agreement today.",
+        "promptVi": "Chị Cúc muốn ký thoả thuận ngay hôm nay.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị nói \"we'll sign on Friday.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"frozen\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I'd also like to keep a small amount of frozen vegetables in each kitchen, in case a delivery is very late.\"",
+        "options": [
+          "đông lạnh",
+          "tươi sống",
+          "khô",
+          "đóng hộp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Frozen = đông lạnh."
+      }
+    ],
+    "grammarNote": {
+      "title": "In case / as long as / provided that",
+      "bodyVi": "Khi đàm phán với nhà cung cấp, ta nêu điều kiện bằng provided (that) và as long as, và nói biện pháp phòng xa bằng in case. Điều kiện: We're happy to sign for three years provided that your prices stay the same for the first year. / fixed prices as long as there are no storms or floods. Phòng xa: In case one breaks down, the other will be ready to go. / keep a small amount of frozen vegetables in each kitchen, in case a delivery is very late. Sau ba từ này dùng hiện tại đơn, không dùng will.",
+      "examples": [
+        "We're happy to sign for three years provided that your prices stay the same for the first year.\"",
+        "What if we agree to fixed prices as long as there are no storms or floods?",
+        "In case one breaks down, the other will be ready to go."
+      ]
+    },
+    "writingPrompt": "Write a message to a supplier of food, paper or flowers. Explain your conditions and what you want them to prepare in case there is a problem.",
+    "sentenceTranslations": [
+      "Chị Cúc là quản lý mua hàng của một chuỗi mười lăm nhà hàng ở Thành phố Hồ Chí Minh.",
+      "Hôm nay chị gọi video với anh Hoàn, người điều hành một hợp tác xã rau ở Đà Lạt.",
+      "Chị Cúc nói: \"Anh Hoàn, các đầu bếp của chúng tôi rất thích rau của anh.",
+      "Chúng tôi muốn ký thoả thuận ba năm.\"",
+      "\"Tin tuyệt vời quá.",
+      "Chị cần gì ở chúng tôi?\"",
+      "\"Rau tươi giao mỗi sáng trước bảy giờ.",
+      "Chúng tôi sẵn sàng ký ba năm với điều kiện giá giữ nguyên trong năm đầu tiên.\"",
+      "\"Cố định cả năm à?",
+      "Không dễ đâu.",
+      "Thời tiết xấu là giá tăng.\"",
+      "\"Tôi hiểu.",
+      "Hay mình thống nhất giá cố định, miễn là không có bão hay lũ?",
+      "Năm nào thật sự tệ thì mình bàn lại.\"",
+      "\"Nghe hợp lý.",
+      "Tôi đồng ý.\"",
+      "\"Tốt.",
+      "Tiếp theo là giao hàng.",
+      "Đà Lạt cách đây ba trăm cây số.",
+      "Nếu xe tải hỏng thì sao?\"",
+      "\"Chúng tôi có hai xe.",
+      "Phòng khi một xe hỏng, xe kia sẽ sẵn sàng.",
+      "Chúng tôi cũng làm việc với một công ty giao hàng làm phương án dự phòng.\"",
+      "\"Hoàn hảo.",
+      "Tôi cũng muốn để một ít rau đông lạnh trong mỗi bếp, phòng khi hàng đến quá muộn.\"",
+      "\"Ý hay.",
+      "Chị muốn bắt đầu khi nào?\"",
+      "\"Ngày một tháng sau.",
+      "Đến lúc đó, chúng tôi sẽ đã hướng dẫn nhân viên bếp đặt hàng qua ứng dụng mới của anh.\"",
+      "\"Và đến cuối năm đầu tiên, chúng tôi sẽ đã mở rộng trang trại gấp đôi, để cung cấp cho nhiều nhà hàng hơn nữa.\"",
+      "Chị Cúc bật cười.",
+      "\"Vậy chúng tôi sẽ phải mở thêm năm nhà hàng mới theo kịp anh.\"",
+      "\"Tối nay tôi sẽ gửi chị bản thoả thuận.",
+      "Chị đọc kỹ giúp tôi, phòng khi thiếu sót gì.\"",
+      "\"Tôi sẽ đọc.",
+      "Miễn là mọi thứ ổn, chúng tôi sẽ ký vào thứ Sáu.\"",
+      "\"Tuyệt vời.",
+      "Tối nay tôi sẽ báo tin vui cho bà con nông dân.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đàm phán với nhà cung cấp: nêu điều kiện (provided that, as long as) và chuẩn bị phương án phòng xa (in case).",
+    "examples": [
+      {
+        "lemma": "chain",
+        "sentence": "They own a chain of coffee shops.",
+        "meaningVi": "Họ sở hữu một chuỗi quán cà phê."
+      },
+      {
+        "lemma": "cooperative",
+        "sentence": "The farmers started a cooperative to sell their tea.",
+        "meaningVi": "Nông dân lập hợp tác xã để bán chè."
+      },
+      {
+        "lemma": "chef",
+        "sentence": "The chef cooked a special dish for us.",
+        "meaningVi": "Đầu bếp nấu một món đặc biệt cho chúng tôi."
+      },
+      {
+        "lemma": "agreement",
+        "sentence": "Both sides signed the agreement.",
+        "meaningVi": "Hai bên đã ký thoả thuận."
+      },
+      {
+        "lemma": "fixed",
+        "sentence": "The rent is fixed for two years.",
+        "meaningVi": "Tiền thuê cố định trong hai năm."
+      },
+      {
+        "lemma": "delivery",
+        "sentence": "Delivery takes about three days.",
+        "meaningVi": "Giao hàng mất khoảng ba ngày."
+      },
+      {
+        "lemma": "backup",
+        "sentence": "Always keep a backup of your files.",
+        "meaningVi": "Luôn giữ bản sao dự phòng các tệp của bạn."
+      },
+      {
+        "lemma": "frozen",
+        "sentence": "We bought some frozen fish.",
+        "meaningVi": "Chúng tôi mua ít cá đông lạnh."
+      },
+      {
+        "lemma": "supply",
+        "sentence": "This farm can supply ten restaurants.",
+        "meaningVi": "Trang trại này có thể cung cấp cho mười nhà hàng."
+      },
+      {
+        "lemma": "missing",
+        "sentence": "One page of the report is missing.",
+        "meaningVi": "Báo cáo bị thiếu một trang."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Chef Hau",
+        "Ms Cuc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Did the farm agree to deliver every morning?",
+          "meaningVi": "Trang trại có đồng ý giao hàng mỗi sáng không chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, by seven, as long as the roads are open.",
+          "meaningVi": "Có, trước bảy giờ, miễn là đường thông."
+        },
+        {
+          "speaker": 0,
+          "text": "And if there's a storm?",
+          "meaningVi": "Thế nếu có bão?"
+        },
+        {
+          "speaker": 1,
+          "text": "In case that happens, we'll use the frozen vegetables.",
+          "meaningVi": "Phòng khi chuyện đó xảy ra, mình sẽ dùng rau đông lạnh."
+        },
+        {
+          "speaker": 0,
+          "text": "Fine. Will the prices go up?",
+          "meaningVi": "Được. Giá có tăng không chị?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not this year, provided that the weather is normal.",
+          "meaningVi": "Năm nay thì không, với điều kiện thời tiết bình thường."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. Can I visit the farm one day?",
+          "meaningVi": "Tuyệt. Hôm nào em đi thăm trang trại được không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Of course, as long as you tell me a week before.",
+          "meaningVi": "Tất nhiên, miễn là em báo chị trước một tuần."
+        },
+        {
+          "speaker": 0,
+          "text": "Perfect. I'll go in the spring.",
+          "meaningVi": "Hay quá. Mùa xuân em sẽ đi."
+        },
+        {
+          "speaker": 1,
+          "text": "Good idea. Take a warm jacket, in case it's cold in Da Lat.",
+          "meaningVi": "Ý hay. Mang theo áo ấm, phòng khi Đà Lạt lạnh."
+        }
+      ]
+    },
+    "grammarTipVi": "Điều kiện: by seven, as long as the roads are open / Not this year, provided that the weather is normal. Phòng xa: In case that happens, we'll use the frozen vegetables / Take a warm jacket, in case it's cold.",
+    "translations": [
+      {
+        "vi": "Chúng tôi sẽ ký thoả thuận với điều kiện giá giữ nguyên.",
+        "en": "We will sign the agreement provided that prices stay the same.",
+        "distractors": [
+          "case",
+          "change",
+          "unless"
+        ]
+      },
+      {
+        "vi": "Phòng khi một xe hỏng, chúng tôi có phương án dự phòng.",
+        "en": "In case one truck breaks down, we have a backup.",
+        "distractors": [
+          "will",
+          "broke",
+          "unless"
+        ]
+      },
+      {
+        "vi": "Chúng tôi sẽ để rau đông lạnh trong mỗi bếp.",
+        "en": "We will keep frozen vegetables in each kitchen.",
+        "distractors": [
+          "fresh",
+          "kept",
+          "every"
+        ]
+      },
+      {
+        "vi": "Hãy đọc kỹ phòng khi thiếu sót gì.",
+        "en": "Please read it carefully in case anything is missing.",
+        "distractors": [
+          "will",
+          "quickly",
+          "unless"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bếp trưởng Hậu và chị Cúc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Thoả thuận với trang trại rau",
+          "Một món ăn mới",
+          "Lịch nghỉ của đầu bếp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Hậu hỏi \"Did the farm agree to deliver every morning?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nếu có bão thì nhà hàng dùng gì?",
+        "promptVi": "",
+        "options": [
+          "Rau đông lạnh",
+          "Rau ngoài chợ",
+          "Rau trong vườn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Cúc nói \"we'll use the frozen vegetables.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Muốn thăm trang trại, anh Hậu phải báo trước bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Một tuần",
+          "Một ngày",
+          "Một tháng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Cúc nói \"as long as you tell me a week before.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Prices will go up this year even if the weather is normal.",
+        "promptVi": "Năm nay giá sẽ tăng dù thời tiết bình thường.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Not this year, provided that the weather is normal.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Chị Cúc đặt ra những điều kiện gì? Hai bên chuẩn bị những phương án dự phòng nào?",
+    "grammarStep": {
+      "titleVi": "In case / as long as / provided that",
+      "noticing": [
+        {
+          "sentence": "We're happy to sign for three years provided that your prices stay the same for the first year.\"",
+          "highlights": [
+            "provided that"
+          ]
+        },
+        {
+          "sentence": "What if we agree to fixed prices as long as there are no storms or floods?",
+          "highlights": [
+            "as long as"
+          ]
+        },
+        {
+          "sentence": "In case one breaks down, the other will be ready to go.",
+          "highlights": [
+            "In case one breaks down"
+          ]
+        },
+        {
+          "sentence": "I'd also like to keep a small amount of frozen vegetables in each kitchen, in case a delivery is very late.\"",
+          "highlights": [
+            "in case a delivery is very late"
+          ]
+        }
+      ],
+      "questionVi": "Chị Cúc muốn giữ rau đông lạnh để phòng khi hàng đến muộn. Câu nào đúng?",
+      "options": [
+        "We'll keep frozen vegetables in case a delivery is late.",
+        "We'll keep frozen vegetables provided that a delivery is late.",
+        "We'll keep frozen vegetables in case a delivery will be late."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Phòng xa: in case + hiện tại đơn (is), không dùng will.",
+      "whenVi": "Dùng trong đàm phán, hợp đồng: provided that (trang trọng) và as long as để nêu điều kiện; in case để nói việc chuẩn bị trước đề phòng.",
+      "table": [
+        {
+          "subject": "provided (that)",
+          "form": "Điều kiện trang trọng: We'll sign provided that your prices stay the same.",
+          "negative": "Hay dùng trong hợp đồng, đàm phán"
+        },
+        {
+          "subject": "as long as",
+          "form": "Điều kiện (thân mật hơn): fixed prices as long as there are no storms",
+          "negative": "= miễn là"
+        },
+        {
+          "subject": "in case",
+          "form": "Phòng xa: keep frozen vegetables in case a delivery is late",
+          "negative": "Không viết: in case it will be late"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We'll sign provided that the prices will stay the same.",
+          "right": "We'll sign provided that the prices stay the same."
+        },
+        {
+          "wrong": "Take a jacket in case it will be cold.",
+          "right": "Take a jacket in case it's cold."
+        }
+      ],
+      "noteVi": "Bài cũng có tương lai hoàn thành và tiếp diễn: By then, we will have trained our kitchen staff / we'll be opening five more restaurants.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "We have a second truck in ___ the first one breaks down.",
+          "answers": [
+            "case"
+          ],
+          "explanationVi": "in case = phòng khi."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "We'll sign for three years ___ your prices stay the same.",
+          "options": [
+            "provided that",
+            "in case",
+            "although",
+            "because"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Điều kiện để ký: provided that."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "Please read it carefully in case anything will be missing.",
+          "sentence": "Please read it carefully in case anything is missing.",
+          "explanationVi": "Sau in case dùng hiện tại đơn: is missing."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi sẽ ký miễn là mọi thứ ổn.",
+          "sentence": "We will sign as long as everything looks right.",
+          "words": [
+            "We",
+            "will",
+            "sign",
+            "as",
+            "long",
+            "as",
+            "everything",
+            "looks",
+            "right.",
+            "case"
+          ],
+          "explanationVi": "as long as + hiện tại đơn; từ \"case\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "In case one breaks down, the other will be ready to go.",
+        "tipVi": "Ngắt hơi sau down; breaks /breɪks/."
+      },
+      {
+        "text": "As long as everything looks right, we'll sign on Friday.\"",
+        "tipVi": "As long as đọc liền; nhấn vào right và Friday."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you take with you on a trip in case something goes wrong?",
+        "questionVi": "Khi đi xa bạn mang theo gì phòng khi có chuyện?",
+        "frame": "I always take ___ in case ___."
+      },
+      {
+        "question": "Under what conditions would you work for a company in another city?",
+        "questionVi": "Với điều kiện nào bạn sẽ làm việc cho một công ty ở thành phố khác?",
+        "frame": "I would do it provided that ___."
+      },
+      {
+        "question": "What should a restaurant do in case a supplier is late?",
+        "questionVi": "Nhà hàng nên làm gì phòng khi nhà cung cấp giao muộn?",
+        "frame": "It should ___ in case ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với provided that / as long as / in case",
+      "anyOf": [
+        "provided that",
+        "as long as",
+        "in case",
+        "provided "
+      ],
+      "outlineVi": [
+        "Bạn muốn đặt hàng gì, bao lâu một lần.",
+        "Điều kiện của bạn (provided that / as long as …).",
+        "Bạn muốn nhà cung cấp làm gì phòng khi có sự cố (in case …)."
+      ],
+      "modelAnswer": "Dear Ms Nhu, we would like to order flowers for our hotel every Monday. We are happy to sign a one-year agreement, provided that the price stays the same. Please deliver before eight, as long as the roads are clear. In case you cannot deliver on time, please call us so we can buy flowers nearby. Thank you."
+    }
+  },
+  "glosses": [
+    {
+      "text": "purchasing manager",
+      "lemma": "purchasing manager",
+      "meaningVi": "quản lý mua hàng",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the purchasing manager",
+      "phraseVi": "quản lý mua hàng"
+    },
+    {
+      "text": "kilometres",
+      "lemma": "kilometre",
+      "meaningVi": "cây số",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "three hundred kilometres away",
+      "phraseVi": "cách đây ba trăm cây số"
+    },
+    {
+      "text": "keep up with",
+      "lemma": "keep up with",
+      "meaningVi": "theo kịp",
+      "sentenceIndex": 31,
+      "pos": "phrase",
+      "phrase": "just to keep up with you",
+      "phraseVi": "để theo kịp anh"
+    }
+  ]
+}

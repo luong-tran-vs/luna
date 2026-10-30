@@ -1,0 +1,598 @@
+{
+  "content": "It's Lien's first morning at a shipping company in Hai Phong. Ms Giang from the HR department is showing her around the office and explaining the rules.\n\n\"Let's start with your working hours,\" Ms Giang says. \"We're supposed to start at eight and finish at five, with an hour for lunch.\"\n\"Am I allowed to start earlier and leave earlier?\"\n\"Yes, you are, as long as your manager agrees. Some people start at seven so they can pick up their children.\"\n\"That's good to know. What am I supposed to do every day?\"\n\"Every morning you're supposed to check the list of ships arriving at the port and update the tracking system. By eleven, customers are supposed to receive an email about their containers.\"\n\"And at the end of the day?\"\n\"You're supposed to write a short report for your team leader. It needn't be long. Five or six lines is enough.\"\n\"What about the documents for my contract? I brought my university certificate.\"\n\"Thanks, but you needn't give us the original. A copy is fine. And you needn't bring your health check results, because we'll do the check here next week.\"\nLien looks relieved. \"Good. I wasn't sure what to bring.\"\nThey walk past the reception desk. \"Visitors aren't allowed to go upstairs alone,\" Ms Giang explains. \"They're supposed to wait in the reception area until someone comes down to meet them.\"\n\"Can they wait in the café on the ground floor?\"\n\"Yes, they're allowed to wait there too. But please tell reception in case they can't find your guest.\"\n\"And are we allowed to eat at our desks?\"\n\"Only snacks. You can have lunch in the kitchen, provided that you clean up afterwards.\"\n\"Got it. Thank you, Ms Giang. That's very clear.\"\n\"You're welcome. Here's your ID card. Don't lose it, or you won't be able to open the doors.\"",
+  "targetWords": [
+    "port",
+    "container",
+    "certificate",
+    "original",
+    "relieved",
+    "visitor",
+    "upstairs",
+    "snack",
+    "afterwards",
+    "ID card"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "port",
+        "lemma": "port",
+        "meaningVi": "cảng",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "containers",
+        "lemma": "container",
+        "meaningVi": "công-te-nơ, thùng hàng",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "certificate",
+        "lemma": "certificate",
+        "meaningVi": "bằng, giấy chứng nhận",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "original",
+        "lemma": "original",
+        "meaningVi": "bản gốc",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "relieved",
+        "lemma": "relieved",
+        "meaningVi": "nhẹ nhõm",
+        "pos": "adjective",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "Visitors",
+        "lemma": "visitor",
+        "meaningVi": "khách đến thăm",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "upstairs",
+        "lemma": "upstairs",
+        "meaningVi": "lên tầng trên",
+        "pos": "adverb",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "snacks",
+        "lemma": "snack",
+        "meaningVi": "đồ ăn vặt",
+        "pos": "noun",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "afterwards",
+        "lemma": "afterwards",
+        "meaningVi": "sau đó",
+        "pos": "adverb",
+        "sentenceIndex": 31
+      },
+      {
+        "text": "ID card",
+        "lemma": "ID card",
+        "meaningVi": "thẻ nhân viên",
+        "pos": "noun",
+        "sentenceIndex": 36
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Ms Giang doing?",
+        "promptVi": "Chị Giang đang làm gì?",
+        "options": [
+          "Explaining the office rules to a new employee",
+          "Interviewing Lien for a job",
+          "Showing visitors around the port",
+          "Checking the ships' timetable"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Giang giải thích các quy định cho Liên trong buổi sáng đầu tiên đi làm."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What is Lien supposed to write at the end of the day?",
+        "promptVi": "Cuối ngày Liên phải viết gì?",
+        "options": [
+          "A short report",
+          "A long email to customers",
+          "A list of visitors",
+          "Her timesheet"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Giang nói \"You're supposed to write a short report for your team leader.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why needn't Lien bring her health check results?",
+        "promptVi": "Vì sao Liên không cần mang kết quả khám sức khoẻ?",
+        "options": [
+          "The company will do the check next week.",
+          "She is very healthy.",
+          "Her manager has them.",
+          "They are not important."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Giang nói \"we'll do the check here next week.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Staff are allowed to eat lunch at their desks.",
+        "promptVi": "Nhân viên được ăn trưa tại bàn làm việc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì tại bàn chỉ được ăn \"Only snacks.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"relieved\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Lien looks relieved.\"",
+        "options": [
+          "nhẹ nhõm",
+          "lo lắng",
+          "buồn chán",
+          "tức giận"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Relieved = nhẹ nhõm, không còn lo lắng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Needn't / be supposed to / be allowed to",
+      "bodyVi": "Ba cách nói về quy định và sự cần thiết. be supposed to + V: việc theo quy định hoặc được mong đợi: We're supposed to start at eight / You're supposed to write a short report. be allowed to + V: được phép: Am I allowed to start earlier? / Visitors aren't allowed to go upstairs alone. needn't + V (không có to): không cần thiết: It needn't be long / you needn't give us the original. Chú ý needn't (không cần) khác mustn't (bị cấm).",
+      "examples": [
+        "\"We're supposed to start at eight and finish at five, with an hour for lunch.\"",
+        "\"Thanks, but you needn't give us the original.",
+        "\"Visitors aren't allowed to go upstairs alone,\" Ms Giang explains."
+      ]
+    },
+    "writingPrompt": "Write a short guide for a new student or employee at your school or workplace. Use be supposed to, be allowed to and needn't.",
+    "sentenceTranslations": [
+      "Hôm nay là buổi sáng đầu tiên Liên đi làm ở một công ty vận tải biển tại Hải Phòng.",
+      "Chị Giang ở phòng nhân sự đang dẫn cô đi xem văn phòng và giải thích các quy định.",
+      "Chị Giang nói: \"Bắt đầu với giờ làm việc nhé.",
+      "Mình phải vào làm lúc tám giờ và về lúc năm giờ, nghỉ trưa một tiếng.\"",
+      "\"Em có được đến sớm hơn và về sớm hơn không ạ?\"",
+      "\"Được, miễn là quản lý của em đồng ý.",
+      "Có người bắt đầu lúc bảy giờ để còn đón con.\"",
+      "\"Tốt quá ạ.",
+      "Hằng ngày em phải làm những gì ạ?\"",
+      "\"Sáng nào em cũng phải kiểm tra danh sách tàu cập cảng và cập nhật hệ thống theo dõi.",
+      "Trước mười một giờ, khách hàng phải nhận được email về công-te-nơ của họ.\"",
+      "\"Còn cuối ngày ạ?\"",
+      "\"Em phải viết một báo cáo ngắn cho trưởng nhóm.",
+      "Không cần dài đâu.",
+      "Năm sáu dòng là đủ.\"",
+      "\"Còn giấy tờ cho hợp đồng thì sao ạ?",
+      "Em có mang bằng đại học.\"",
+      "\"Cảm ơn em, nhưng em không cần nộp bản gốc.",
+      "Bản sao là được.",
+      "Và em không cần mang kết quả khám sức khoẻ, vì tuần sau công ty sẽ khám ở đây.\"",
+      "Liên trông nhẹ nhõm.",
+      "\"May quá.",
+      "Em không chắc phải mang gì.\"",
+      "Họ đi qua quầy lễ tân.",
+      "Chị Giang giải thích: \"Khách không được phép lên tầng một mình.",
+      "Họ phải đợi ở khu lễ tân cho đến khi có người xuống đón.\"",
+      "\"Họ có thể đợi ở quán cà phê tầng trệt không ạ?\"",
+      "\"Được, họ cũng được phép đợi ở đó.",
+      "Nhưng em nhớ báo lễ tân phòng khi họ không tìm thấy khách của em.\"",
+      "\"Thế mình có được ăn ở bàn làm việc không ạ?\"",
+      "\"Chỉ đồ ăn vặt thôi.",
+      "Em có thể ăn trưa trong bếp, miễn là dọn dẹp sau đó.\"",
+      "\"Em hiểu rồi.",
+      "Cảm ơn chị Giang.",
+      "Rất rõ ràng ạ.\"",
+      "\"Không có gì.",
+      "Đây là thẻ nhân viên của em.",
+      "Đừng làm mất, không thì em sẽ không mở được cửa đâu.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể giải thích và hỏi về quy định nơi làm việc bằng be supposed to, be allowed to và needn't.",
+    "examples": [
+      {
+        "lemma": "port",
+        "sentence": "Our ship arrived at the port at dawn.",
+        "meaningVi": "Tàu của chúng tôi cập cảng lúc bình minh."
+      },
+      {
+        "lemma": "container",
+        "sentence": "The container was full of rice.",
+        "meaningVi": "Công-te-nơ chứa đầy gạo."
+      },
+      {
+        "lemma": "certificate",
+        "sentence": "She has a certificate in first aid.",
+        "meaningVi": "Cô ấy có chứng chỉ sơ cứu."
+      },
+      {
+        "lemma": "original",
+        "sentence": "Please keep the original and send us a copy.",
+        "meaningVi": "Hãy giữ bản gốc và gửi chúng tôi bản sao."
+      },
+      {
+        "lemma": "relieved",
+        "sentence": "I was relieved when I found my keys.",
+        "meaningVi": "Tôi thấy nhẹ nhõm khi tìm được chìa khoá."
+      },
+      {
+        "lemma": "visitor",
+        "sentence": "Every visitor must sign in at the gate.",
+        "meaningVi": "Mọi khách đến thăm phải ký tên ở cổng."
+      },
+      {
+        "lemma": "upstairs",
+        "sentence": "The meeting room is upstairs.",
+        "meaningVi": "Phòng họp ở trên tầng."
+      },
+      {
+        "lemma": "snack",
+        "sentence": "I had a snack before the meeting.",
+        "meaningVi": "Tôi ăn nhẹ trước cuộc họp."
+      },
+      {
+        "lemma": "afterwards",
+        "sentence": "We had dinner and went for a walk afterwards.",
+        "meaningVi": "Chúng tôi ăn tối rồi sau đó đi dạo."
+      },
+      {
+        "lemma": "ID card",
+        "sentence": "Show your ID card to the guard.",
+        "meaningVi": "Hãy đưa thẻ nhân viên cho bảo vệ."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Nghia",
+        "Lien"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hi Lien, welcome to the team! Has Giang explained everything?",
+          "meaningVi": "Chào Liên, chào mừng em vào nhóm! Chị Giang giải thích hết chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. I'm supposed to check the ship list every morning, right?",
+          "meaningVi": "Rồi ạ. Sáng nào em cũng phải kiểm tra danh sách tàu, đúng không anh?"
+        },
+        {
+          "speaker": 0,
+          "text": "That's right. And you needn't do it before eight.",
+          "meaningVi": "Đúng. Và em không cần làm trước tám giờ đâu."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. Are we allowed to listen to music while we work?",
+          "meaningVi": "Tốt quá. Mình có được nghe nhạc khi làm việc không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, as long as you use headphones.",
+          "meaningVi": "Được, miễn là đeo tai nghe."
+        },
+        {
+          "speaker": 1,
+          "text": "And when am I supposed to send my daily report?",
+          "meaningVi": "Thế em phải gửi báo cáo hằng ngày lúc nào ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Before five. It needn't be perfect, just clear.",
+          "meaningVi": "Trước năm giờ. Không cần hoàn hảo, chỉ cần rõ ràng."
+        },
+        {
+          "speaker": 1,
+          "text": "OK. Is there anything I'm not allowed to do?",
+          "meaningVi": "Vâng. Có việc gì em không được phép làm không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "You're not supposed to share customer files outside the company.",
+          "meaningVi": "Em không được chia sẻ hồ sơ khách hàng ra ngoài công ty."
+        },
+        {
+          "speaker": 1,
+          "text": "Understood. Thanks, Nghia.",
+          "meaningVi": "Em hiểu rồi. Cảm ơn anh Nghĩa."
+        }
+      ]
+    },
+    "grammarTipVi": "Quy định: I'm supposed to check the ship list / You're not supposed to share customer files. Cho phép: Are we allowed to listen to music? Không cần: you needn't do it before eight / It needn't be perfect.",
+    "translations": [
+      {
+        "vi": "Em không cần nộp bản gốc.",
+        "en": "You needn't give us the original.",
+        "distractors": [
+          "mustn't",
+          "copy",
+          "gave"
+        ]
+      },
+      {
+        "vi": "Khách được phép đợi ở quán cà phê.",
+        "en": "Visitors are allowed to wait in the café.",
+        "distractors": [
+          "supposed",
+          "aren't",
+          "kitchen"
+        ]
+      },
+      {
+        "vi": "Em phải kiểm tra danh sách tàu cập cảng.",
+        "en": "You're supposed to check the ships arriving at the port.",
+        "distractors": [
+          "allowed",
+          "leaving",
+          "needn't"
+        ]
+      },
+      {
+        "vi": "Em có thể ăn trong bếp, miễn là dọn dẹp sau đó.",
+        "en": "You can eat in the kitchen, provided that you clean up afterwards.",
+        "distractors": [
+          "case",
+          "before",
+          "unless"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Nghĩa và Liên nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Những quy định khi làm việc",
+          "Kỳ nghỉ cuối tuần",
+          "Một chuyến tàu bị trễ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Liên hỏi về việc phải làm và được phép làm ở văn phòng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Có được nghe nhạc khi làm việc không?",
+        "promptVi": "",
+        "options": [
+          "Được, nếu đeo tai nghe",
+          "Không bao giờ",
+          "Chỉ vào giờ trưa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Nghĩa nói \"Yes, as long as you use headphones.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào phải gửi báo cáo hằng ngày?",
+        "promptVi": "",
+        "options": [
+          "Trước năm giờ",
+          "Trước tám giờ",
+          "Cuối tuần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Nghĩa nói \"Before five.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lien is allowed to share customer files with her friends.",
+        "promptVi": "Liên được chia sẻ hồ sơ khách hàng với bạn bè.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"You're not supposed to share customer files outside the company.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Liên phải làm gì mỗi ngày, được phép làm gì và không cần làm gì?",
+    "grammarStep": {
+      "titleVi": "Needn't / be supposed to / be allowed to",
+      "noticing": [
+        {
+          "sentence": "\"We're supposed to start at eight and finish at five, with an hour for lunch.\"",
+          "highlights": [
+            "'re supposed to start"
+          ]
+        },
+        {
+          "sentence": "\"Am I allowed to start earlier and leave earlier?\"",
+          "highlights": [
+            "Am I allowed to"
+          ]
+        },
+        {
+          "sentence": "It needn't be long.",
+          "highlights": [
+            "needn't be"
+          ]
+        },
+        {
+          "sentence": "\"Visitors aren't allowed to go upstairs alone,\" Ms Giang explains.",
+          "highlights": [
+            "aren't allowed to go"
+          ]
+        }
+      ],
+      "questionVi": "Liên không cần nộp bản gốc, chỉ cần bản sao. Câu nào đúng?",
+      "options": [
+        "You needn't give us the original.",
+        "You mustn't give us the original.",
+        "You aren't supposed give us the original."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Không cần thiết: needn't + V. Mustn't nghĩa là bị cấm.",
+      "whenVi": "Dùng khi giải thích nội quy: việc phải làm theo quy định (be supposed to), việc được phép (be allowed to) và việc không cần làm (needn't).",
+      "table": [
+        {
+          "subject": "be supposed to + V",
+          "form": "Quy định, việc được mong đợi: You're supposed to write a short report.",
+          "negative": "not supposed to: không được làm (theo quy định)"
+        },
+        {
+          "subject": "be allowed to + V",
+          "form": "Được phép: They're allowed to wait in the café.",
+          "negative": "Visitors aren't allowed to go upstairs alone."
+        },
+        {
+          "subject": "needn't + V",
+          "form": "Không cần thiết: You needn't give us the original.",
+          "negative": "needn't ≠ mustn't (mustn't = bị cấm)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "You needn't to bring your health check results.",
+          "right": "You needn't bring your health check results."
+        },
+        {
+          "wrong": "Visitors don't allowed to go upstairs.",
+          "right": "Visitors aren't allowed to go upstairs."
+        }
+      ],
+      "noteVi": "Bài cũng có as long as, in case, provided that: as long as your manager agrees / in case they can't find your guest / provided that you clean up afterwards.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "Your daily report ___ be long. Five lines is enough.",
+          "answers": [
+            "needn't"
+          ],
+          "explanationVi": "Không cần thiết: needn't + V."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Visitors ___ go upstairs alone.",
+          "options": [
+            "aren't allowed to",
+            "needn't to",
+            "don't supposed to",
+            "aren't allow to"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bị cấm theo quy định: aren't allowed to + V."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We are suppose to start at eight.",
+          "sentence": "We are supposed to start at eight.",
+          "explanationVi": "Cấu trúc đúng là be supposed to (có -d)."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Khách không được phép lên tầng một mình.",
+          "sentence": "Visitors aren't allowed to go upstairs alone.",
+          "words": [
+            "Visitors",
+            "aren't",
+            "allowed",
+            "to",
+            "go",
+            "upstairs",
+            "alone.",
+            "needn't"
+          ],
+          "explanationVi": "aren't allowed to + V; từ \"needn't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"We're supposed to start at eight and finish at five, with an hour for lunch.\"",
+        "tipVi": "supposed to đọc liền /səˈpəʊstə/; hour không đọc h."
+      },
+      {
+        "text": "\"Visitors aren't allowed to go upstairs alone,\" Ms Giang explains.",
+        "tipVi": "allowed /əˈlaʊd/; nhấn vào aren't."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What are you supposed to do at your school or workplace every day?",
+        "questionVi": "Hằng ngày ở trường hoặc chỗ làm bạn phải làm những gì?",
+        "frame": "I'm supposed to ___."
+      },
+      {
+        "question": "What are you not allowed to do at your school or workplace?",
+        "questionVi": "Ở trường hoặc chỗ làm bạn không được phép làm gì?",
+        "frame": "We aren't allowed to ___."
+      },
+      {
+        "question": "What advice would you give a new student or colleague on the first day?",
+        "questionVi": "Bạn sẽ khuyên một bạn học hay đồng nghiệp mới điều gì trong ngày đầu?",
+        "frame": "You needn't ___, but you're supposed to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với be supposed to / be allowed to / needn't",
+      "anyOf": [
+        "supposed to",
+        "allowed to",
+        "needn't"
+      ],
+      "outlineVi": [
+        "Giờ giấc và những việc phải làm (are supposed to …).",
+        "Những việc được và không được phép (are / aren't allowed to …).",
+        "Những việc không cần làm (needn't …)."
+      ],
+      "modelAnswer": "Welcome to our English centre! Students are supposed to arrive ten minutes before class. You are allowed to use the library and the computers, but you aren't allowed to eat in the classrooms. You needn't buy a textbook, because we will give you one. If you are ill, you are supposed to call the office before nine."
+    }
+  },
+  "glosses": [
+    {
+      "text": "tracking system",
+      "lemma": "tracking system",
+      "meaningVi": "hệ thống theo dõi",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "update the tracking system",
+      "phraseVi": "cập nhật hệ thống theo dõi"
+    },
+    {
+      "text": "health check",
+      "lemma": "health check",
+      "meaningVi": "khám sức khoẻ",
+      "sentenceIndex": 19,
+      "pos": "noun",
+      "phrase": "your health check results",
+      "phraseVi": "kết quả khám sức khoẻ"
+    },
+    {
+      "text": "ground floor",
+      "lemma": "ground floor",
+      "meaningVi": "tầng trệt",
+      "sentenceIndex": 26,
+      "pos": "noun",
+      "phrase": "the café on the ground floor",
+      "phraseVi": "quán cà phê tầng trệt"
+    },
+    {
+      "text": "Got it",
+      "lemma": "got it",
+      "meaningVi": "hiểu rồi",
+      "sentenceIndex": 32,
+      "pos": "phrase",
+      "phrase": "Got it.",
+      "phraseVi": "Em hiểu rồi."
+    }
+  ]
+}

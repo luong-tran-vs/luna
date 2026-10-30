@@ -1,0 +1,604 @@
+{
+  "content": "It's the last Friday of November in the finance department of a clothing company in Hanoi. Ms Thanh, the finance supervisor, has called a short meeting with her two accountants, Duc and Mai.\n\n\"December is going to be busy,\" she says. \"This time next month, we'll be working on the annual budget report, so I want to plan now.\"\nDuc asks, \"What will we be doing in the first week?\"\n\"You'll be finalising the balance sheets for each department. Mai will be checking the sales figures from our twelve shops.\"\n\"And the auditors? When are they coming?\"\n\"They're coming on the second of December. By the time we start the report, they will have reviewed all our tax documents.\"\n\"That's good. We needn't prepare those documents again, then.\"\n\"Exactly. You needn't print anything either. The auditors are allowed to see everything online.\"\nMai looks at her calendar. \"I'm supposed to be on holiday from the twentieth to the twenty-fourth. Is that still OK?\"\n\"Yes, it is. By the twentieth, you will have finished your part. Duc will be covering for you while you're away.\"\n\"Thanks. What's the deadline for the whole report?\"\n\"We're supposed to send it to the directors by the thirtieth. By then, we will have checked every number twice.\"\nDuc asks, \"Will we be working at weekends?\"\n\"I hope not. As long as we stick to the plan, we won't need to.\"\n\"And what about the new shops in Da Nang? Their numbers aren't in the system yet.\"\n\"They will be. Their manager has promised that she'll have uploaded everything by next Wednesday.\"\n\"OK. I'll make a checklist for the team.\"\n\"Perfect. Thank you both. Let's make this the calmest December ever.\"",
+  "targetWords": [
+    "finance",
+    "accountant",
+    "annual",
+    "figure",
+    "review",
+    "tax",
+    "calendar",
+    "deadline",
+    "director",
+    "upload"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "finance",
+        "lemma": "finance",
+        "meaningVi": "tài chính",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "accountants",
+        "lemma": "accountant",
+        "meaningVi": "kế toán viên",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "annual",
+        "lemma": "annual",
+        "meaningVi": "hằng năm",
+        "pos": "adjective",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "figures",
+        "lemma": "figure",
+        "meaningVi": "số liệu",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "reviewed",
+        "lemma": "review",
+        "meaningVi": "xem xét, rà soát",
+        "pos": "verb",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "tax",
+        "lemma": "tax",
+        "meaningVi": "thuế",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "calendar",
+        "lemma": "calendar",
+        "meaningVi": "lịch",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "deadline",
+        "lemma": "deadline",
+        "meaningVi": "hạn chót",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "directors",
+        "lemma": "director",
+        "meaningVi": "giám đốc",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "uploaded",
+        "lemma": "upload",
+        "meaningVi": "tải lên",
+        "pos": "verb",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Ms Thanh planning?",
+        "promptVi": "Chị Thanh đang lên kế hoạch gì?",
+        "options": [
+          "The team's work on the annual budget report in December",
+          "A Christmas party",
+          "A holiday for the accountants",
+          "A visit to the shops in Da Nang"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị lên kế hoạch cho việc làm báo cáo ngân sách năm trong tháng Mười Hai."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When are the auditors coming?",
+        "promptVi": "Khi nào kiểm toán viên đến?",
+        "options": [
+          "On the second of December",
+          "On the twentieth",
+          "On the thirtieth",
+          "Next Wednesday"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Thanh nói \"They're coming on the second of December.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Who will cover for Mai while she's away?",
+        "promptVi": "Ai sẽ làm thay Mai khi cô đi vắng?",
+        "options": [
+          "Ms Thanh",
+          "Duc",
+          "The auditors",
+          "The Da Nang manager"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Thanh nói \"Duc will be covering for you while you're away.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The team will definitely have to work at weekends.",
+        "promptVi": "Chắc chắn cả nhóm phải làm cuối tuần.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Thanh nói \"As long as we stick to the plan, we won't need to.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"figures\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Mai will be checking the sales figures from our twelve shops.\"",
+        "options": [
+          "số liệu",
+          "hình ảnh",
+          "khách hàng",
+          "sản phẩm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Figures = các con số, số liệu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tương lai hoàn thành và tiếp diễn",
+      "bodyVi": "Khi phân công công việc cho một tháng bận rộn, ta dùng hai dạng tương lai. will be + V-ing cho việc sẽ đang diễn ra: This time next month, we'll be working on the annual budget report / You'll be finalising the balance sheets. will have + V3 cho việc sẽ xong trước một mốc: By the time we start the report, they will have reviewed all our tax documents / By then, we will have checked every number twice. Sau by the time dùng hiện tại đơn (we start), không dùng will.",
+      "examples": [
+        "\"This time next month, we'll be working on the annual budget report, so I want to plan now.\"",
+        "By the time we start the report, they will have reviewed all our tax documents.\"",
+        "By then, we will have checked every number twice.\""
+      ]
+    },
+    "writingPrompt": "Write an email to your team about a busy week ahead. Say what people will be doing and what will have been finished by the end of the week.",
+    "sentenceTranslations": [
+      "Hôm nay là thứ Sáu cuối cùng của tháng Mười Một ở phòng tài chính của một công ty may mặc tại Hà Nội.",
+      "Chị Thanh, giám sát tài chính, gọi hai kế toán viên là Đức và Mai đến họp nhanh.",
+      "Chị nói: \"Tháng Mười Hai sẽ bận lắm đây.",
+      "Giờ này tháng sau, mình sẽ đang làm báo cáo ngân sách năm, nên chị muốn lên kế hoạch từ bây giờ.\"",
+      "Đức hỏi: \"Tuần đầu tiên bọn em sẽ làm gì ạ?\"",
+      "\"Em sẽ hoàn thiện bảng cân đối của từng phòng ban.",
+      "Mai sẽ kiểm tra số liệu bán hàng của mười hai cửa hàng.\"",
+      "\"Còn kiểm toán viên?",
+      "Khi nào họ đến ạ?\"",
+      "\"Họ đến vào ngày hai tháng Mười Hai.",
+      "Đến lúc mình bắt đầu làm báo cáo, họ sẽ đã rà soát xong toàn bộ hồ sơ thuế.\"",
+      "\"Tốt quá.",
+      "Vậy mình không cần chuẩn bị lại mấy hồ sơ đó.\"",
+      "\"Chính xác.",
+      "Em cũng không cần in gì cả.",
+      "Kiểm toán viên được phép xem mọi thứ trên mạng.\"",
+      "Mai nhìn lịch.",
+      "\"Em định nghỉ phép từ ngày hai mươi đến hai mươi tư.",
+      "Như vậy có được không chị?\"",
+      "\"Được.",
+      "Đến ngày hai mươi, em sẽ đã làm xong phần của mình.",
+      "Đức sẽ làm thay em khi em đi vắng.\"",
+      "\"Em cảm ơn chị.",
+      "Hạn chót của cả báo cáo là khi nào ạ?\"",
+      "\"Mình phải gửi cho ban giám đốc trước ngày ba mươi.",
+      "Đến lúc đó, mình sẽ đã kiểm tra mọi con số hai lần.\"",
+      "Đức hỏi: \"Mình có phải làm cuối tuần không chị?\"",
+      "\"Chị mong là không.",
+      "Miễn là mình bám sát kế hoạch thì sẽ không phải làm.\"",
+      "\"Còn các cửa hàng mới ở Đà Nẵng thì sao?",
+      "Số liệu của họ chưa có trên hệ thống.\"",
+      "\"Sẽ có.",
+      "Quản lý bên đó đã hứa sẽ tải lên mọi thứ trước thứ Tư tới.\"",
+      "\"Vâng.",
+      "Em sẽ lập danh sách việc cần làm cho cả nhóm.\"",
+      "\"Hoàn hảo.",
+      "Cảm ơn hai em.",
+      "Mình làm cho tháng Mười Hai này êm ả nhất từ trước đến nay nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể phân công và lên kế hoạch công việc cho một giai đoạn bận rộn bằng will be + V-ing và will have + V3.",
+    "examples": [
+      {
+        "lemma": "finance",
+        "sentence": "She studied finance at university.",
+        "meaningVi": "Cô ấy học tài chính ở trường đại học."
+      },
+      {
+        "lemma": "accountant",
+        "sentence": "Our accountant checks the numbers every month.",
+        "meaningVi": "Kế toán của chúng tôi kiểm tra số liệu mỗi tháng."
+      },
+      {
+        "lemma": "annual",
+        "sentence": "The annual meeting is in March.",
+        "meaningVi": "Cuộc họp thường niên diễn ra vào tháng Ba."
+      },
+      {
+        "lemma": "figure",
+        "sentence": "The latest figure shows a small rise.",
+        "meaningVi": "Số liệu mới nhất cho thấy mức tăng nhẹ."
+      },
+      {
+        "lemma": "review",
+        "sentence": "The manager will review your work next week.",
+        "meaningVi": "Quản lý sẽ xem xét công việc của bạn vào tuần sau."
+      },
+      {
+        "lemma": "tax",
+        "sentence": "You have to pay tax on this income.",
+        "meaningVi": "Bạn phải đóng thuế cho khoản thu nhập này."
+      },
+      {
+        "lemma": "calendar",
+        "sentence": "I wrote the date in my calendar.",
+        "meaningVi": "Tôi đã ghi ngày đó vào lịch."
+      },
+      {
+        "lemma": "deadline",
+        "sentence": "The deadline for the project is Friday.",
+        "meaningVi": "Hạn chót của dự án là thứ Sáu."
+      },
+      {
+        "lemma": "director",
+        "sentence": "The director signed the report.",
+        "meaningVi": "Giám đốc đã ký báo cáo."
+      },
+      {
+        "lemma": "upload",
+        "sentence": "Please upload your photo to the website.",
+        "meaningVi": "Vui lòng tải ảnh của bạn lên trang web."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mai",
+        "Duc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Duc, thanks for covering for me next month.",
+          "meaningVi": "Anh Đức, cảm ơn anh làm thay em tháng sau nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "No problem. Where will you be going?",
+          "meaningVi": "Không có gì. Em sẽ đi đâu?"
+        },
+        {
+          "speaker": 0,
+          "text": "To Phu Quoc. This time next month, I'll be lying on the beach!",
+          "meaningVi": "Đi Phú Quốc ạ. Giờ này tháng sau em sẽ đang nằm trên bãi biển!"
+        },
+        {
+          "speaker": 1,
+          "text": "Lucky you. Will you have finished the sales figures by then?",
+          "meaningVi": "Sướng thế. Đến lúc đó em sẽ làm xong số liệu bán hàng chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes. By the nineteenth, I'll have sent them to Ms Thanh.",
+          "meaningVi": "Rồi ạ. Trước ngày mười chín em sẽ gửi cho chị Thanh."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. What will I need to do while you're away?",
+          "meaningVi": "Tốt. Khi em đi vắng anh cần làm gì?"
+        },
+        {
+          "speaker": 0,
+          "text": "You'll be answering questions from the shop managers.",
+          "meaningVi": "Anh sẽ trả lời câu hỏi của các quản lý cửa hàng."
+        },
+        {
+          "speaker": 1,
+          "text": "That's fine. Will you be checking your emails?",
+          "meaningVi": "Được thôi. Em có xem email không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only once a day, in case there's a problem.",
+          "meaningVi": "Mỗi ngày một lần thôi, phòng khi có chuyện."
+        },
+        {
+          "speaker": 1,
+          "text": "Don't worry. We'll have finished everything by the time you get back.",
+          "meaningVi": "Đừng lo. Trước khi em về, bọn anh sẽ làm xong hết."
+        }
+      ]
+    },
+    "grammarTipVi": "Tương lai tiếp diễn: This time next month, I'll be lying on the beach / Will you be checking your emails? Tương lai hoàn thành: By the nineteenth, I'll have sent them / We'll have finished everything by the time you get back.",
+    "translations": [
+      {
+        "vi": "Họ sẽ đã rà soát xong toàn bộ hồ sơ thuế của chúng ta.",
+        "en": "They will have reviewed all our tax documents.",
+        "distractors": [
+          "be",
+          "reviewing",
+          "has"
+        ]
+      },
+      {
+        "vi": "Mai sẽ đang kiểm tra số liệu bán hàng.",
+        "en": "Mai will be checking the sales figures.",
+        "distractors": [
+          "have",
+          "checked",
+          "prices"
+        ]
+      },
+      {
+        "vi": "Hạn chót của cả báo cáo là ngày ba mươi.",
+        "en": "The deadline for the whole report is the thirtieth.",
+        "distractors": [
+          "twentieth",
+          "are",
+          "date"
+        ]
+      },
+      {
+        "vi": "Chị ấy sẽ tải lên mọi thứ trước thứ Tư tới.",
+        "en": "She will have uploaded everything by next Wednesday.",
+        "distractors": [
+          "be",
+          "uploading",
+          "until"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Mai và Đức nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kỳ nghỉ của Mai và việc khi cô vắng mặt",
+          "Một khách hàng mới",
+          "Giá vé đi Phú Quốc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai cảm ơn Đức \"for covering for me next month.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Mai sẽ gửi số liệu cho chị Thanh trước ngày nào?",
+        "promptVi": "",
+        "options": [
+          "Ngày mười chín",
+          "Ngày hai mươi",
+          "Ngày ba mươi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"By the nineteenth, I'll have sent them.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi Mai đi vắng, Đức sẽ làm gì?",
+        "promptVi": "",
+        "options": [
+          "Trả lời câu hỏi của quản lý cửa hàng",
+          "Đi Phú Quốc",
+          "Làm kiểm toán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Mai nói \"You'll be answering questions from the shop managers.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mai won't check her emails at all.",
+        "promptVi": "Mai sẽ không xem email chút nào.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Mai sẽ xem \"Only once a day.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Mỗi người trong phòng tài chính sẽ làm gì trong tháng Mười Hai? Những việc gì sẽ xong trước các mốc nào?",
+    "grammarStep": {
+      "titleVi": "Tương lai hoàn thành và tiếp diễn",
+      "noticing": [
+        {
+          "sentence": "\"This time next month, we'll be working on the annual budget report, so I want to plan now.\"",
+          "highlights": [
+            "This time next month",
+            "'ll be working"
+          ]
+        },
+        {
+          "sentence": "\"You'll be finalising the balance sheets for each department.",
+          "highlights": [
+            "'ll be finalising"
+          ]
+        },
+        {
+          "sentence": "By the time we start the report, they will have reviewed all our tax documents.\"",
+          "highlights": [
+            "By the time",
+            "will have reviewed"
+          ]
+        },
+        {
+          "sentence": "By then, we will have checked every number twice.\"",
+          "highlights": [
+            "By then",
+            "will have checked"
+          ]
+        }
+      ],
+      "questionVi": "Trước ngày hai mươi, Mai sẽ làm xong phần việc của mình. Chị Thanh nói thế nào?",
+      "options": [
+        "By the twentieth, you will have finished your part.",
+        "By the twentieth, you will be finishing your part.",
+        "By the twentieth, you finish your part."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc sẽ xong trước một mốc (by the twentieth): will have + V3.",
+      "whenVi": "Dùng khi phân công công việc: will be + V-ing cho việc sẽ đang làm vào một lúc trong tương lai, will have + V3 cho việc sẽ xong trước một mốc.",
+      "table": [
+        {
+          "subject": "will be + V-ing",
+          "form": "This time next month, we'll be working on the report.",
+          "negative": "Câu hỏi: Will we be working at weekends?"
+        },
+        {
+          "subject": "will have + V3",
+          "form": "By then, we will have checked every number twice.",
+          "negative": "won't have + V3"
+        },
+        {
+          "subject": "By the time + hiện tại đơn",
+          "form": "By the time we start, they will have reviewed the documents.",
+          "negative": "Không viết: By the time we will start"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "By the time we will start the report, they will have reviewed everything.",
+          "right": "By the time we start the report, they will have reviewed everything."
+        },
+        {
+          "wrong": "This time next month, we will working on the report.",
+          "right": "This time next month, we will be working on the report."
+        }
+      ],
+      "noteVi": "Bài cũng có needn't / be supposed to / be allowed to: We needn't prepare those documents again / The auditors are allowed to see everything online.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "By the twentieth, you will ___ finished your part.",
+          "answers": [
+            "have"
+          ],
+          "explanationVi": "Tương lai hoàn thành: will have + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Duc ___ for Mai while she is away.",
+          "options": [
+            "will be covering",
+            "will have covered",
+            "covers",
+            "is covered"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Việc sẽ đang diễn ra trong lúc Mai vắng: will be covering."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "By the time we will start, the auditors will have finished.",
+          "sentence": "By the time we start, the auditors will have finished.",
+          "explanationVi": "Sau by the time dùng hiện tại đơn: we start."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Đến lúc đó, chúng ta sẽ đã kiểm tra mọi con số hai lần.",
+          "sentence": "By then, we will have checked every number twice.",
+          "words": [
+            "By",
+            "then,",
+            "we",
+            "will",
+            "have",
+            "checked",
+            "every",
+            "number",
+            "twice.",
+            "be"
+          ],
+          "explanationVi": "By then + will have + V3; từ \"be\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "By then, we will have checked every number twice.\"",
+        "tipVi": "will have checked đọc lướt /wɪləv tʃekt/; nhấn vào twice."
+      },
+      {
+        "text": "Duc will be covering for you while you're away.\"",
+        "tipVi": "covering /ˈkʌvərɪŋ/; away nhấn âm sau."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What will you be doing at this time next month?",
+        "questionVi": "Giờ này tháng sau bạn sẽ đang làm gì?",
+        "frame": "This time next month, I'll be ___."
+      },
+      {
+        "question": "What will you have finished by the end of this week?",
+        "questionVi": "Đến cuối tuần này bạn sẽ làm xong việc gì?",
+        "frame": "By Friday, I will have ___."
+      },
+      {
+        "question": "How do you plan a busy week?",
+        "questionVi": "Bạn lên kế hoạch cho một tuần bận rộn thế nào?",
+        "frame": "First I ___. Then ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu will be + V-ing hoặc will have + V3",
+      "anyOf": [
+        "will be",
+        "will have",
+        "'ll be",
+        "'ll have"
+      ],
+      "outlineVi": [
+        "Tuần tới có việc gì quan trọng.",
+        "Mỗi người sẽ đang làm gì (will be + V-ing).",
+        "Đến mốc nào việc gì sẽ xong (By …, will have + V3)."
+      ],
+      "modelAnswer": "Hi everyone, next week will be busy. On Monday and Tuesday, I will be meeting customers in Da Nang, so please email me instead of calling. Lan will be preparing the new price list. By Wednesday, she will have sent it to all our shops. By Friday, we will have finished the report for the directors. Thanks for your hard work!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "balance sheets",
+      "lemma": "balance sheet",
+      "meaningVi": "bảng cân đối kế toán",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "the balance sheets",
+      "phraseVi": "bảng cân đối"
+    },
+    {
+      "text": "auditors",
+      "lemma": "auditor",
+      "meaningVi": "kiểm toán viên",
+      "sentenceIndex": 7,
+      "pos": "noun",
+      "phrase": "And the auditors?",
+      "phraseVi": "Còn kiểm toán viên?"
+    },
+    {
+      "text": "covering for",
+      "lemma": "cover for",
+      "meaningVi": "làm thay",
+      "sentenceIndex": 21,
+      "pos": "phrase",
+      "phrase": "Duc will be covering for you",
+      "phraseVi": "Đức sẽ làm thay em"
+    },
+    {
+      "text": "stick to",
+      "lemma": "stick to",
+      "meaningVi": "bám sát",
+      "sentenceIndex": 28,
+      "pos": "phrase",
+      "phrase": "As long as we stick to the plan",
+      "phraseVi": "Miễn là mình bám sát kế hoạch"
+    }
+  ]
+}

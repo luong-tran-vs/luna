@@ -1,0 +1,606 @@
+{
+  "content": "In the boardroom of a bank's head office in Ho Chi Minh City, Khang, the leader of the digital team, is presenting his plan for the next quarter to the senior managers.\n\n\"Thank you for coming,\" Khang says. \"I'd like to show you what my department will be doing this summer and what we will have achieved by the end of September.\"\nHe shows the first slide. \"In July, we will be testing the new mobile banking app with five hundred customers. At the same time, two of my developers will be working on the security system.\"\nMs Dung, the director, raises her hand. \"Will the app be ready for everyone in August?\"\n\"Not quite. In August, we will be fixing the problems that the testers find. By the end of August, we will have solved the most serious ones.\"\n\"And September?\"\n\"In September, we will be training staff in all our branches. By the end of the quarter, every branch manager will have learned how to use the new system.\"\n\"That's a lot of work. How many people are in your team?\"\n\"Twelve. We'll be fine as long as nobody leaves. I've also asked for two extra developers in case we fall behind.\"\nMr Tam, the finance manager, frowns. \"Two more people? That will affect our budget.\"\n\"I understand. But the app will save money in the long run. By next year, customers will have stopped using paper forms for most services, so the branches will need fewer staff at the counters.\"\n\"And the launch date?\"\n\"If everything goes to plan, we will be launching the app on the first of October. By Christmas, we will have reached our first hundred thousand users.\"\nMs Dung smiles. \"Ambitious. I like it. Send me the full timeline after this meeting. We'll discuss the extra staff next week, provided that the first test results look good.\"\n\"Thank you. I'll email it this afternoon.\"",
+  "targetWords": [
+    "quarter",
+    "senior",
+    "department",
+    "achieve",
+    "security",
+    "branch",
+    "budget",
+    "counter",
+    "launch",
+    "user"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "quarter",
+        "lemma": "quarter",
+        "meaningVi": "quý (ba tháng)",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "senior",
+        "lemma": "senior",
+        "meaningVi": "cấp cao",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "department",
+        "lemma": "department",
+        "meaningVi": "phòng, ban",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "achieved",
+        "lemma": "achieve",
+        "meaningVi": "đạt được",
+        "pos": "verb",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "security",
+        "lemma": "security",
+        "meaningVi": "bảo mật, an ninh",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "branches",
+        "lemma": "branch",
+        "meaningVi": "chi nhánh",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "budget",
+        "lemma": "budget",
+        "meaningVi": "ngân sách",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "counters",
+        "lemma": "counter",
+        "meaningVi": "quầy giao dịch",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "launch",
+        "lemma": "launch",
+        "meaningVi": "sự ra mắt",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "users",
+        "lemma": "user",
+        "meaningVi": "người dùng",
+        "pos": "noun",
+        "sentenceIndex": 27
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Khang presenting?",
+        "promptVi": "Khang đang trình bày điều gì?",
+        "options": [
+          "His team's plan for the next quarter",
+          "A new bank branch",
+          "The bank's profits last year",
+          "A training course for developers"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khang trình bày kế hoạch của nhóm kỹ thuật số cho quý tới."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What will the team be doing in July?",
+        "promptVi": "Vào tháng Bảy nhóm sẽ làm gì?",
+        "options": [
+          "Testing the app with five hundred customers",
+          "Training staff in branches",
+          "Launching the app",
+          "Hiring new developers"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khang nói \"In July, we will be testing the new mobile banking app with five hundred customers.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "When will the app be launched?",
+        "promptVi": "Khi nào ứng dụng ra mắt?",
+        "options": [
+          "In July",
+          "At the end of August",
+          "On the first of October",
+          "At Christmas"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Khang nói \"we will be launching the app on the first of October.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Tam is happy about the cost of two more developers.",
+        "promptVi": "Anh Tâm vui vì chi phí thêm hai lập trình viên.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì anh Tâm cau mày và nói \"That will affect our budget.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"achieved\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"I'd like to show you what my department will be doing this summer and what we will have achieved by the end of September.\"",
+        "options": [
+          "đạt được",
+          "chi tiêu",
+          "thử nghiệm",
+          "đào tạo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Achieve = đạt được một mục tiêu."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tương lai hoàn thành và tiếp diễn",
+      "bodyVi": "Khi trình bày kế hoạch, ta dùng hai dạng tương lai. Tương lai tiếp diễn (will be + V-ing) cho việc đang diễn ra trong một khoảng thời gian tương lai: In July, we will be testing the new mobile banking app. Tương lai hoàn thành (will have + V3) cho việc sẽ xong trước một mốc, thường đi với by: By the end of August, we will have solved the most serious ones. / By Christmas, we will have reached our first hundred thousand users. Bài cũng có as long as và in case: We'll be fine as long as nobody leaves.",
+      "examples": [
+        "\"In July, we will be testing the new mobile banking app with five hundred customers.",
+        "By the end of August, we will have solved the most serious ones.\"",
+        "By the end of the quarter, every branch manager will have learned how to use the new system.\""
+      ]
+    },
+    "writingPrompt": "Write a short plan for a project at your school or work. Say what you will be doing in the next few months and what you will have finished by a certain date.",
+    "sentenceTranslations": [
+      "Trong phòng họp ban giám đốc tại trụ sở chính của một ngân hàng ở Thành phố Hồ Chí Minh, Khang, trưởng nhóm kỹ thuật số, đang trình bày kế hoạch cho quý tới trước các quản lý cấp cao.",
+      "Khang nói: \"Cảm ơn mọi người đã đến.",
+      "Tôi muốn cho mọi người thấy phòng tôi sẽ làm gì trong mùa hè này và sẽ đạt được gì trước cuối tháng Chín.\"",
+      "Anh chiếu trang trình chiếu đầu tiên.",
+      "\"Trong tháng Bảy, chúng tôi sẽ thử nghiệm ứng dụng ngân hàng di động mới với năm trăm khách hàng.",
+      "Cùng lúc đó, hai lập trình viên của tôi sẽ làm hệ thống bảo mật.\"",
+      "Chị Dung, giám đốc, giơ tay.",
+      "\"Ứng dụng có sẵn sàng cho mọi người vào tháng Tám không?\"",
+      "\"Chưa hẳn.",
+      "Trong tháng Tám, chúng tôi sẽ sửa các lỗi mà người thử nghiệm phát hiện.",
+      "Đến cuối tháng Tám, chúng tôi sẽ đã xử lý xong những lỗi nghiêm trọng nhất.\"",
+      "\"Còn tháng Chín?\"",
+      "\"Trong tháng Chín, chúng tôi sẽ đào tạo nhân viên ở tất cả chi nhánh.",
+      "Đến cuối quý, mọi quản lý chi nhánh sẽ đã biết cách dùng hệ thống mới.\"",
+      "\"Nhiều việc quá.",
+      "Nhóm anh có bao nhiêu người?\"",
+      "\"Mười hai.",
+      "Chúng tôi sẽ ổn miễn là không ai nghỉ việc.",
+      "Tôi cũng đã xin thêm hai lập trình viên phòng khi bị chậm tiến độ.\"",
+      "Anh Tâm, quản lý tài chính, cau mày.",
+      "\"Thêm hai người?",
+      "Việc đó sẽ ảnh hưởng đến ngân sách của chúng ta.\"",
+      "\"Tôi hiểu.",
+      "Nhưng về lâu dài ứng dụng sẽ tiết kiệm tiền.",
+      "Đến năm sau, khách hàng sẽ đã thôi dùng giấy tờ cho phần lớn dịch vụ, nên các chi nhánh sẽ cần ít nhân viên ở quầy hơn.\"",
+      "\"Còn ngày ra mắt?\"",
+      "\"Nếu mọi việc đúng kế hoạch, chúng tôi sẽ ra mắt ứng dụng vào ngày một tháng Mười.",
+      "Đến Giáng sinh, chúng tôi sẽ đã có một trăm nghìn người dùng đầu tiên.\"",
+      "Chị Dung mỉm cười.",
+      "\"Tham vọng đấy.",
+      "Tôi thích.",
+      "Sau buổi họp gửi tôi toàn bộ lịch trình nhé.",
+      "Tuần sau chúng ta sẽ bàn chuyện thêm người, với điều kiện kết quả thử nghiệm đầu tiên khả quan.\"",
+      "\"Cảm ơn chị.",
+      "Chiều nay tôi sẽ gửi email.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể trình bày kế hoạch công việc bằng tương lai tiếp diễn (will be + V-ing) và tương lai hoàn thành (by …, will have + V3).",
+    "examples": [
+      {
+        "lemma": "quarter",
+        "sentence": "Sales went up in the last quarter.",
+        "meaningVi": "Doanh số tăng trong quý vừa qua."
+      },
+      {
+        "lemma": "senior",
+        "sentence": "She is a senior manager at the bank.",
+        "meaningVi": "Cô ấy là quản lý cấp cao ở ngân hàng."
+      },
+      {
+        "lemma": "department",
+        "sentence": "He works in the sales department.",
+        "meaningVi": "Anh ấy làm ở phòng kinh doanh."
+      },
+      {
+        "lemma": "achieve",
+        "sentence": "We want to achieve our goals this year.",
+        "meaningVi": "Chúng tôi muốn đạt được mục tiêu trong năm nay."
+      },
+      {
+        "lemma": "security",
+        "sentence": "Security is very important for online banking.",
+        "meaningVi": "Bảo mật rất quan trọng đối với ngân hàng trực tuyến."
+      },
+      {
+        "lemma": "branch",
+        "sentence": "The bank has a branch near my house.",
+        "meaningVi": "Ngân hàng có một chi nhánh gần nhà tôi."
+      },
+      {
+        "lemma": "budget",
+        "sentence": "The project went over budget.",
+        "meaningVi": "Dự án đã vượt ngân sách."
+      },
+      {
+        "lemma": "counter",
+        "sentence": "Please wait at the counter.",
+        "meaningVi": "Vui lòng đợi ở quầy."
+      },
+      {
+        "lemma": "launch",
+        "sentence": "The launch of the new phone was a big event.",
+        "meaningVi": "Buổi ra mắt điện thoại mới là một sự kiện lớn."
+      },
+      {
+        "lemma": "user",
+        "sentence": "Every user needs a password.",
+        "meaningVi": "Mỗi người dùng cần một mật khẩu."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Tuyen",
+        "Khang"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "How did the presentation go?",
+          "meaningVi": "Buổi thuyết trình thế nào anh?"
+        },
+        {
+          "speaker": 1,
+          "text": "Well, I think. They liked the timeline.",
+          "meaningVi": "Anh nghĩ là ổn. Họ thích lịch trình."
+        },
+        {
+          "speaker": 0,
+          "text": "Did they agree to the extra developers?",
+          "meaningVi": "Họ có đồng ý thêm lập trình viên không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not yet. They'll decide next week, provided that the tests go well.",
+          "meaningVi": "Chưa. Tuần sau họ sẽ quyết định, với điều kiện thử nghiệm suôn sẻ."
+        },
+        {
+          "speaker": 0,
+          "text": "Then we'd better be careful. When will we be starting the tests?",
+          "meaningVi": "Vậy mình phải cẩn thận. Khi nào mình bắt đầu thử nghiệm ạ?"
+        },
+        {
+          "speaker": 1,
+          "text": "On the third of July. By the fifteenth, we'll have collected the first feedback.",
+          "meaningVi": "Ngày ba tháng Bảy. Đến ngày mười lăm, mình sẽ đã có phản hồi đầu tiên."
+        },
+        {
+          "speaker": 0,
+          "text": "And what will I be doing in August?",
+          "meaningVi": "Thế tháng Tám em sẽ làm gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "You'll be working on the security system with Duy.",
+          "meaningVi": "Em sẽ làm hệ thống bảo mật cùng Duy."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. By September, we'll have finished it, I promise.",
+          "meaningVi": "Vâng. Đến tháng Chín bọn em sẽ làm xong, em hứa."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. I'll remember that!",
+          "meaningVi": "Tuyệt. Anh sẽ nhớ đấy!"
+        }
+      ]
+    },
+    "grammarTipVi": "Tương lai tiếp diễn: When will we be starting the tests? / You'll be working on the security system. Tương lai hoàn thành: By the fifteenth, we'll have collected the first feedback / By September, we'll have finished it.",
+    "translations": [
+      {
+        "vi": "Phòng tôi sẽ thử nghiệm một ứng dụng mới trong mùa hè này.",
+        "en": "My department will be testing a new app this summer.",
+        "distractors": [
+          "have",
+          "tested",
+          "winter"
+        ]
+      },
+      {
+        "vi": "Đến cuối quý, mọi quản lý sẽ đã học xong.",
+        "en": "By the end of the quarter, every manager will have learned it.",
+        "distractors": [
+          "learning",
+          "be",
+          "year"
+        ]
+      },
+      {
+        "vi": "Việc đó sẽ ảnh hưởng đến ngân sách của chúng ta.",
+        "en": "That will affect our budget.",
+        "distractors": [
+          "effect",
+          "money",
+          "would"
+        ]
+      },
+      {
+        "vi": "Đến Giáng sinh, chúng tôi sẽ đã có một trăm nghìn người dùng.",
+        "en": "By Christmas, we will have reached a hundred thousand users.",
+        "distractors": [
+          "be",
+          "reaching",
+          "customers"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Tuyền và Khang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kết quả buổi thuyết trình và lịch làm việc",
+          "Kỳ nghỉ hè",
+          "Một khách hàng mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Tuyền hỏi \"How did the presentation go?\" rồi họ bàn lịch thử nghiệm.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào bắt đầu thử nghiệm?",
+        "promptVi": "",
+        "options": [
+          "Ngày ba tháng Bảy",
+          "Ngày mười lăm tháng Bảy",
+          "Tháng Chín"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khang nói \"On the third of July.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tháng Tám Tuyền sẽ làm gì?",
+        "promptVi": "",
+        "options": [
+          "Làm hệ thống bảo mật",
+          "Đào tạo nhân viên",
+          "Gặp khách hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Khang nói \"You'll be working on the security system with Duy.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The managers have already agreed to the extra developers.",
+        "promptVi": "Ban giám đốc đã đồng ý thêm lập trình viên.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Khang nói \"Not yet.\"",
+        "turnIndex": 3
+      }
+    ],
+    "readingGuideVi": "Nhóm của Khang sẽ làm gì trong từng tháng, và sẽ đạt được gì trước cuối quý?",
+    "grammarStep": {
+      "titleVi": "Tương lai hoàn thành và tiếp diễn",
+      "noticing": [
+        {
+          "sentence": "\"In July, we will be testing the new mobile banking app with five hundred customers.",
+          "highlights": [
+            "will be testing"
+          ]
+        },
+        {
+          "sentence": "By the end of August, we will have solved the most serious ones.\"",
+          "highlights": [
+            "By the end of August",
+            "will have solved"
+          ]
+        },
+        {
+          "sentence": "By the end of the quarter, every branch manager will have learned how to use the new system.\"",
+          "highlights": [
+            "will have learned"
+          ]
+        },
+        {
+          "sentence": "\"If everything goes to plan, we will be launching the app on the first of October.",
+          "highlights": [
+            "will be launching"
+          ]
+        }
+      ],
+      "questionVi": "Trước cuối tháng Tám, các lỗi nghiêm trọng nhất sẽ được xử lý xong. Khang nói thế nào?",
+      "options": [
+        "By the end of August, we will have solved the most serious problems.",
+        "By the end of August, we will be solving the most serious problems.",
+        "By the end of August, we have solved the most serious problems."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Việc sẽ xong trước một mốc tương lai (by the end of August): will have + V3.",
+      "whenVi": "Dùng khi lập kế hoạch: will be + V-ing cho việc đang làm trong một khoảng thời gian tương lai, will have + V3 cho việc sẽ hoàn thành trước một mốc.",
+      "table": [
+        {
+          "subject": "Tương lai tiếp diễn",
+          "form": "will be + V-ing: In July, we will be testing the app.",
+          "negative": "won't be + V-ing"
+        },
+        {
+          "subject": "Tương lai hoàn thành",
+          "form": "will have + V3: By the end of August, we will have solved them.",
+          "negative": "won't have + V3"
+        },
+        {
+          "subject": "Dấu hiệu",
+          "form": "Tiếp diễn: in July, at this time next week …",
+          "negative": "Hoàn thành: by + mốc (by Christmas, by the end of …)"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "In September, we will training staff in all our branches.",
+          "right": "In September, we will be training staff in all our branches."
+        },
+        {
+          "wrong": "By Christmas, we will reached a hundred thousand users.",
+          "right": "By Christmas, we will have reached a hundred thousand users."
+        }
+      ],
+      "noteVi": "Bài cũng có as long as / in case / provided that: We'll be fine as long as nobody leaves / I've asked for two extra developers in case we fall behind.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "By Christmas, we will ___ reached a hundred thousand users.",
+          "answers": [
+            "have"
+          ],
+          "explanationVi": "Tương lai hoàn thành: will have + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "In July, two developers ___ on the security system.",
+          "options": [
+            "will be working",
+            "will have worked",
+            "are worked",
+            "work"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Việc đang diễn ra trong một khoảng thời gian tương lai (in July): will be working."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "By the end of August, we will have solve the most serious problems.",
+          "sentence": "By the end of August, we will have solved the most serious problems.",
+          "explanationVi": "Sau will have phải là V3: solved."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Trong tháng Chín, chúng tôi sẽ đào tạo nhân viên.",
+          "sentence": "In September, we will be training staff.",
+          "words": [
+            "In",
+            "September,",
+            "we",
+            "will",
+            "be",
+            "training",
+            "staff.",
+            "have"
+          ],
+          "explanationVi": "will be + V-ing; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "By the end of August, we will have solved the most serious ones.\"",
+        "tipVi": "will have đọc lướt /wɪləv/; serious /ˈsɪəriəs/."
+      },
+      {
+        "text": "By Christmas, we will have reached our first hundred thousand users.\"",
+        "tipVi": "Christmas /ˈkrɪsməs/ không đọc t; reached /riːtʃt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What will you be doing at this time next week?",
+        "questionVi": "Giờ này tuần sau bạn sẽ đang làm gì?",
+        "frame": "At this time next week, I will be ___."
+      },
+      {
+        "question": "What will you have achieved by the end of this year?",
+        "questionVi": "Đến cuối năm nay bạn sẽ đạt được điều gì?",
+        "frame": "By the end of this year, I will have ___."
+      },
+      {
+        "question": "Do you prefer banking on your phone or at a branch? Why?",
+        "questionVi": "Bạn thích giao dịch ngân hàng trên điện thoại hay ở chi nhánh? Vì sao?",
+        "frame": "I prefer ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tương lai tiếp diễn hoặc hoàn thành (will be + V-ing / will have + V3)",
+      "anyOf": [
+        "will be",
+        "will have",
+        "'ll be",
+        "'ll have"
+      ],
+      "outlineVi": [
+        "Dự án là gì, bắt đầu khi nào.",
+        "Mỗi giai đoạn bạn sẽ làm gì (will be + V-ing).",
+        "Trước mốc nào bạn sẽ xong việc gì (By …, will have + V3)."
+      ],
+      "modelAnswer": "Next month our team will be starting a new English club at school. In the first two weeks, we will be designing posters and asking students to join. By the end of March, we will have found a teacher to help us. In April, we will be meeting every Friday. By the summer, we will have organised our first speaking contest."
+    }
+  },
+  "glosses": [
+    {
+      "text": "slide",
+      "lemma": "slide",
+      "meaningVi": "trang trình chiếu",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "the first slide",
+      "phraseVi": "trang trình chiếu đầu tiên"
+    },
+    {
+      "text": "developers",
+      "lemma": "developer",
+      "meaningVi": "lập trình viên",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "two of my developers",
+      "phraseVi": "hai lập trình viên của tôi"
+    },
+    {
+      "text": "fall behind",
+      "lemma": "fall behind",
+      "meaningVi": "bị chậm tiến độ",
+      "sentenceIndex": 18,
+      "pos": "phrase",
+      "phrase": "in case we fall behind",
+      "phraseVi": "phòng khi bị chậm tiến độ"
+    },
+    {
+      "text": "frowns",
+      "lemma": "frown",
+      "meaningVi": "cau mày",
+      "sentenceIndex": 19,
+      "pos": "verb",
+      "phrase": "Mr Tam frowns",
+      "phraseVi": "Anh Tâm cau mày"
+    },
+    {
+      "text": "Ambitious",
+      "lemma": "ambitious",
+      "meaningVi": "tham vọng",
+      "sentenceIndex": 29,
+      "pos": "adjective",
+      "phrase": "Ambitious.",
+      "phraseVi": "Tham vọng đấy."
+    }
+  ]
+}

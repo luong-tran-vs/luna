@@ -1,0 +1,605 @@
+{
+  "content": "In a meeting room in Hanoi, Lan Anh, a project manager at a hotel chain, is meeting Dat, a manager from a software company. Her company wants to use his company's booking software in all forty of its hotels.\n\nDat asks, \"So, are you ready to sign today?\"\n\"Almost. We'll sign this week as long as a few points are clear.\"\n\"Of course. Which points?\"\n\"First, support. Our hotels are open all night, so we need help at any time. We'll accept the price provided that your support team is available twenty-four hours a day.\"\n\"That's no problem. Our team works in three shifts.\"\n\"Good. Second, what happens if the system goes down? Last year our old software stopped working for a whole weekend. We lost hundreds of bookings.\"\n\"I understand. In case that happens, we'll add a clause to the contract. If the system is down for more than two hours, you'll get a discount on the next month's fee.\"\n\"That sounds fair. We'll also keep a paper booking form at every reception desk, just in case.\"\n\"Sensible. Is there anything else?\"\n\"Training. Are our staff allowed to join your online courses for free?\"\n\"Yes, they are. And they needn't take the courses all at once. They can watch them whenever they like.\"\n\"Great. And what about our data? We're not supposed to keep guest information outside Vietnam.\"\n\"You needn't worry about that. All our servers are in Hanoi and Ho Chi Minh City.\"\n\"Perfect. Then I think we can agree on the price, provided that it doesn't change for three years.\"\n\"I'll have to check with my boss, but I'm sure he'll accept as long as you sign for three years.\"\n\"Let's write that down. I'll send a draft of the contract by Thursday, in case your lawyer wants to read it before the weekend.\"\n\"Thank you. Shall we meet again on Monday to sign?\"\n\"Monday is perfect.\"",
+  "targetWords": [
+    "software",
+    "support",
+    "available",
+    "shift",
+    "system",
+    "clause",
+    "fee",
+    "reception",
+    "data",
+    "draft"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "software",
+        "lemma": "software",
+        "meaningVi": "phần mềm",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "support",
+        "lemma": "support",
+        "meaningVi": "hỗ trợ",
+        "pos": "noun",
+        "sentenceIndex": 7
+      },
+      {
+        "text": "available",
+        "lemma": "available",
+        "meaningVi": "sẵn sàng, có mặt",
+        "pos": "adjective",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "shifts",
+        "lemma": "shift",
+        "meaningVi": "ca làm việc",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "system",
+        "lemma": "system",
+        "meaningVi": "hệ thống",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "clause",
+        "lemma": "clause",
+        "meaningVi": "điều khoản",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "fee",
+        "lemma": "fee",
+        "meaningVi": "phí",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "reception",
+        "lemma": "reception",
+        "meaningVi": "quầy lễ tân",
+        "pos": "noun",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "data",
+        "lemma": "data",
+        "meaningVi": "dữ liệu",
+        "pos": "noun",
+        "sentenceIndex": 29
+      },
+      {
+        "text": "draft",
+        "lemma": "draft",
+        "meaningVi": "bản dự thảo, bản nháp",
+        "pos": "noun",
+        "sentenceIndex": 37
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Lan Anh and Dat discussing?",
+        "promptVi": "Lan Anh và Đạt đang bàn về điều gì?",
+        "options": [
+          "The terms of a software contract",
+          "A hotel booking for a holiday",
+          "A new job at a software company",
+          "The price of hotel rooms"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn các điều kiện trong hợp đồng mua phần mềm đặt phòng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does Lan Anh need from the support team?",
+        "promptVi": "Lan Anh cần gì ở đội hỗ trợ?",
+        "options": [
+          "Help at any time of day or night",
+          "Help only at weekends",
+          "Free computers",
+          "A new office"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị muốn đội hỗ trợ \"available twenty-four hours a day.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What will happen if the system is down for more than two hours?",
+        "promptVi": "Nếu hệ thống hỏng hơn hai tiếng thì sao?",
+        "options": [
+          "The hotels will get a discount.",
+          "The contract will end.",
+          "Dat will lose his job.",
+          "The hotels will close."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đạt nói \"you'll get a discount on the next month's fee.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The hotels may keep guest information outside Vietnam.",
+        "promptVi": "Khách sạn được lưu thông tin khách ở ngoài Việt Nam.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lan Anh nói \"We're not supposed to keep guest information outside Vietnam.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"clause\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"In case that happens, we'll add a clause to the contract.\"",
+        "options": [
+          "điều khoản",
+          "chữ ký",
+          "khoản phí",
+          "bản nháp"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Clause = một điều khoản trong hợp đồng."
+      }
+    ],
+    "grammarNote": {
+      "title": "In case / as long as / provided that",
+      "bodyVi": "Thay cho if, ta có thể dùng as long as / provided (that) để nêu điều kiện bắt buộc: We'll sign this week as long as a few points are clear. / We'll accept the price provided that your support team is available twenty-four hours a day. In case dùng khi làm một việc để phòng xa: In case that happens, we'll add a clause to the contract. / I'll send a draft by Thursday, in case your lawyer wants to read it. Sau các từ này dùng hiện tại đơn, không dùng will. Just in case = phòng khi cần.",
+      "examples": [
+        "We'll sign this week as long as a few points are clear.\"",
+        "We'll accept the price provided that your support team is available twenty-four hours a day.\"",
+        "In case that happens, we'll add a clause to the contract."
+      ]
+    },
+    "writingPrompt": "Write an email to a company you want to work with. Explain your conditions (as long as, provided that) and what you will do in case something goes wrong.",
+    "sentenceTranslations": [
+      "Trong một phòng họp ở Hà Nội, Lan Anh, quản lý dự án của một chuỗi khách sạn, đang gặp Đạt, quản lý của một công ty phần mềm.",
+      "Công ty của chị muốn dùng phần mềm đặt phòng của công ty anh cho cả bốn mươi khách sạn.",
+      "Đạt hỏi: \"Vậy hôm nay chị sẵn sàng ký chưa ạ?\"",
+      "\"Gần rồi.",
+      "Chúng tôi sẽ ký trong tuần này, miễn là vài điểm được làm rõ.\"",
+      "\"Vâng ạ.",
+      "Những điểm nào ạ?\"",
+      "\"Thứ nhất, hỗ trợ.",
+      "Khách sạn của chúng tôi mở cửa cả đêm, nên cần được hỗ trợ bất cứ lúc nào.",
+      "Chúng tôi sẽ chấp nhận mức giá với điều kiện đội hỗ trợ của anh làm việc hai mươi bốn giờ mỗi ngày.\"",
+      "\"Không vấn đề gì ạ.",
+      "Đội chúng tôi làm ba ca.\"",
+      "\"Tốt.",
+      "Thứ hai, nếu hệ thống bị sập thì sao?",
+      "Năm ngoái phần mềm cũ của chúng tôi ngừng chạy cả một cuối tuần.",
+      "Chúng tôi mất hàng trăm lượt đặt phòng.\"",
+      "\"Tôi hiểu.",
+      "Phòng trường hợp đó xảy ra, chúng tôi sẽ thêm một điều khoản vào hợp đồng.",
+      "Nếu hệ thống sập hơn hai tiếng, chị sẽ được giảm phí tháng sau.\"",
+      "\"Nghe hợp lý đấy.",
+      "Chúng tôi cũng sẽ để sẵn mẫu đặt phòng bằng giấy ở mỗi quầy lễ tân, phòng khi cần.\"",
+      "\"Chu đáo ạ.",
+      "Còn gì nữa không chị?\"",
+      "\"Đào tạo.",
+      "Nhân viên của chúng tôi có được tham gia các khoá học online miễn phí không?\"",
+      "\"Có ạ.",
+      "Và họ không cần học hết các khoá cùng một lúc.",
+      "Họ có thể xem bất cứ khi nào họ muốn.\"",
+      "\"Tuyệt.",
+      "Còn dữ liệu thì sao?",
+      "Chúng tôi không được phép lưu thông tin khách ở ngoài Việt Nam.\"",
+      "\"Chị không cần lo chuyện đó.",
+      "Tất cả máy chủ của chúng tôi đều ở Hà Nội và Thành phố Hồ Chí Minh.\"",
+      "\"Hoàn hảo.",
+      "Vậy tôi nghĩ mình có thể thống nhất mức giá, với điều kiện giá không đổi trong ba năm.\"",
+      "\"Tôi phải hỏi lại sếp, nhưng tôi chắc anh ấy sẽ đồng ý, miễn là chị ký ba năm.\"",
+      "\"Ghi lại điều đó nhé.",
+      "Tôi sẽ gửi bản dự thảo hợp đồng trước thứ Năm, phòng khi luật sư của anh muốn đọc trước cuối tuần.\"",
+      "\"Cảm ơn chị.",
+      "Thứ Hai mình gặp lại để ký nhé?\"",
+      "\"Thứ Hai là hoàn hảo.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đặt điều kiện khi đàm phán (as long as, provided that) và nói về biện pháp phòng xa (in case, just in case).",
+    "examples": [
+      {
+        "lemma": "software",
+        "sentence": "This software helps us manage bookings.",
+        "meaningVi": "Phần mềm này giúp chúng tôi quản lý đặt phòng."
+      },
+      {
+        "lemma": "support",
+        "sentence": "Call our support team if you have a problem.",
+        "meaningVi": "Hãy gọi đội hỗ trợ nếu bạn gặp sự cố."
+      },
+      {
+        "lemma": "available",
+        "sentence": "The manager is not available right now.",
+        "meaningVi": "Quản lý hiện không có mặt."
+      },
+      {
+        "lemma": "shift",
+        "sentence": "She works the night shift at the hospital.",
+        "meaningVi": "Cô ấy làm ca đêm ở bệnh viện."
+      },
+      {
+        "lemma": "system",
+        "sentence": "The new system is easy to use.",
+        "meaningVi": "Hệ thống mới dễ sử dụng."
+      },
+      {
+        "lemma": "clause",
+        "sentence": "Read this clause carefully before you sign.",
+        "meaningVi": "Hãy đọc kỹ điều khoản này trước khi ký."
+      },
+      {
+        "lemma": "fee",
+        "sentence": "There is a small fee for late payment.",
+        "meaningVi": "Thanh toán muộn sẽ mất một khoản phí nhỏ."
+      },
+      {
+        "lemma": "reception",
+        "sentence": "Please leave your key at reception.",
+        "meaningVi": "Vui lòng để chìa khoá ở quầy lễ tân."
+      },
+      {
+        "lemma": "data",
+        "sentence": "We keep all customer data safe.",
+        "meaningVi": "Chúng tôi giữ an toàn mọi dữ liệu khách hàng."
+      },
+      {
+        "lemma": "draft",
+        "sentence": "Here is the first draft of the plan.",
+        "meaningVi": "Đây là bản dự thảo đầu tiên của kế hoạch."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Long",
+        "Dat"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "How did the meeting with the hotel chain go?",
+          "meaningVi": "Buổi gặp với chuỗi khách sạn thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Very well. They'll sign as long as we keep the price for three years.",
+          "meaningVi": "Rất tốt ạ. Họ sẽ ký miễn là mình giữ giá trong ba năm."
+        },
+        {
+          "speaker": 0,
+          "text": "Three years? That's a long time.",
+          "meaningVi": "Ba năm? Lâu đấy."
+        },
+        {
+          "speaker": 1,
+          "text": "I know, but they'll take the software for forty hotels.",
+          "meaningVi": "Em biết, nhưng họ sẽ dùng phần mềm cho bốn mươi khách sạn."
+        },
+        {
+          "speaker": 0,
+          "text": "Fine, provided that they pay every six months.",
+          "meaningVi": "Được, với điều kiện họ thanh toán sáu tháng một lần."
+        },
+        {
+          "speaker": 1,
+          "text": "I'll add that. They also want a discount in case the system goes down.",
+          "meaningVi": "Em sẽ thêm vào. Họ cũng muốn được giảm giá phòng khi hệ thống bị sập."
+        },
+        {
+          "speaker": 0,
+          "text": "How long does it have to be down?",
+          "meaningVi": "Phải sập bao lâu?"
+        },
+        {
+          "speaker": 1,
+          "text": "More than two hours. It almost never happens.",
+          "meaningVi": "Hơn hai tiếng ạ. Chuyện đó gần như không bao giờ xảy ra."
+        },
+        {
+          "speaker": 0,
+          "text": "OK. Bring an extra copy of the contract on Monday, just in case.",
+          "meaningVi": "Được. Thứ Hai mang thêm một bản hợp đồng, phòng khi cần."
+        },
+        {
+          "speaker": 1,
+          "text": "Will do. Shall I book the meeting room?",
+          "meaningVi": "Vâng ạ. Em đặt phòng họp nhé?"
+        }
+      ]
+    },
+    "grammarTipVi": "Điều kiện: They'll sign as long as we keep the price … / Fine, provided that they pay every six months. Phòng xa: a discount in case the system goes down / Bring an extra copy, just in case.",
+    "translations": [
+      {
+        "vi": "Chúng tôi sẽ ký với điều kiện đội hỗ trợ làm việc cả đêm.",
+        "en": "We will sign provided that your support team works all night.",
+        "distractors": [
+          "case",
+          "unless",
+          "day"
+        ]
+      },
+      {
+        "vi": "Phòng khi hệ thống sập, chúng tôi sẽ thêm một điều khoản.",
+        "en": "In case the system goes down, we will add a clause.",
+        "distractors": [
+          "unless",
+          "went",
+          "contract"
+        ]
+      },
+      {
+        "vi": "Chị không cần lo về dữ liệu của chúng tôi.",
+        "en": "You needn't worry about our data.",
+        "distractors": [
+          "mustn't",
+          "worried",
+          "money"
+        ]
+      },
+      {
+        "vi": "Tôi sẽ gửi bản dự thảo hợp đồng trước thứ Năm.",
+        "en": "I will send a draft of the contract by Thursday.",
+        "distractors": [
+          "sent",
+          "Friday",
+          "until"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Long và Đạt nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Hợp đồng với chuỗi khách sạn",
+          "Một kỳ nghỉ",
+          "Tuyển nhân viên mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Long hỏi \"How did the meeting with the hotel chain go?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Anh Long đồng ý với điều kiện gì?",
+        "promptVi": "",
+        "options": [
+          "Khách trả tiền sáu tháng một lần",
+          "Khách mua thêm máy tính",
+          "Hợp đồng chỉ một năm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Long nói \"provided that they pay every six months.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hệ thống phải sập bao lâu thì khách được giảm giá?",
+        "promptVi": "",
+        "options": [
+          "Hơn hai tiếng",
+          "Một ngày",
+          "Mười phút"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Đạt nói \"More than two hours.\"",
+        "turnIndex": 7
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The system often goes down.",
+        "promptVi": "Hệ thống thường xuyên bị sập.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Đạt nói \"It almost never happens.\"",
+        "turnIndex": 7
+      }
+    ],
+    "readingGuideVi": "Lan Anh đặt ra những điều kiện gì trước khi ký hợp đồng? Hai bên chuẩn bị gì để phòng khi hệ thống gặp sự cố?",
+    "grammarStep": {
+      "titleVi": "In case / as long as / provided that",
+      "noticing": [
+        {
+          "sentence": "We'll sign this week as long as a few points are clear.\"",
+          "highlights": [
+            "as long as"
+          ]
+        },
+        {
+          "sentence": "We'll accept the price provided that your support team is available twenty-four hours a day.\"",
+          "highlights": [
+            "provided that"
+          ]
+        },
+        {
+          "sentence": "In case that happens, we'll add a clause to the contract.",
+          "highlights": [
+            "In case that happens"
+          ]
+        },
+        {
+          "sentence": "We'll also keep a paper booking form at every reception desk, just in case.\"",
+          "highlights": [
+            "just in case"
+          ]
+        }
+      ],
+      "questionVi": "Lan Anh để sẵn phiếu giấy để phòng khi hệ thống hỏng (chưa chắc sẽ hỏng). Câu nào đúng?",
+      "options": [
+        "We'll keep paper forms in case the system goes down.",
+        "We'll keep paper forms as long as the system goes down.",
+        "We'll keep paper forms in case the system will go down."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Làm trước để phòng xa: in case + hiện tại đơn (goes), không dùng will.",
+      "whenVi": "Dùng khi đàm phán: as long as / provided that để nêu điều kiện bắt buộc, in case để nói việc làm sẵn đề phòng.",
+      "table": [
+        {
+          "subject": "as long as / provided (that)",
+          "form": "Điều kiện bắt buộc: We'll sign as long as the points are clear.",
+          "negative": "= chỉ khi, với điều kiện là"
+        },
+        {
+          "subject": "in case",
+          "form": "Phòng xa: I'll send it early in case your lawyer wants to read it.",
+          "negative": "in case ≠ if: làm trước để đề phòng"
+        },
+        {
+          "subject": "Thì sau các từ này",
+          "form": "Hiện tại đơn: provided that it doesn't change",
+          "negative": "Không dùng will sau in case / as long as"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "We'll sign as long as the price won't change.",
+          "right": "We'll sign as long as the price doesn't change."
+        },
+        {
+          "wrong": "Bring an extra copy in case they will need it.",
+          "right": "Bring an extra copy in case they need it."
+        }
+      ],
+      "noteVi": "Bài cũng có needn't / be supposed to / be allowed to: they needn't take the courses all at once / We're not supposed to keep guest information outside Vietnam.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "I'll send the draft early in ___ your lawyer wants to read it.",
+          "answers": [
+            "case"
+          ],
+          "explanationVi": "in case = phòng khi."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "We'll accept the price ___ your team works twenty-four hours a day.",
+          "options": [
+            "provided that",
+            "in case",
+            "unless",
+            "although"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Điều kiện bắt buộc: provided that."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "We'll sign as long as the price won't change.",
+          "sentence": "We'll sign as long as the price doesn't change.",
+          "explanationVi": "Sau as long as dùng hiện tại đơn, không dùng will."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Chúng tôi sẽ ký với điều kiện giá giữ nguyên.",
+          "sentence": "We will sign provided that the price stays the same.",
+          "words": [
+            "We",
+            "will",
+            "sign",
+            "provided",
+            "that",
+            "the",
+            "price",
+            "stays",
+            "the",
+            "same.",
+            "case"
+          ],
+          "explanationVi": "provided that + hiện tại đơn; từ \"case\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "We'll sign this week as long as a few points are clear.\"",
+        "tipVi": "as long as đọc liền /əz ˈlɒŋ əz/; nhấn vào clear."
+      },
+      {
+        "text": "In case that happens, we'll add a clause to the contract.",
+        "tipVi": "Ngắt hơi sau happens; clause /klɔːz/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What do you always take with you in case something goes wrong?",
+        "questionVi": "Bạn luôn mang theo gì phòng khi có chuyện?",
+        "frame": "I always take ___ in case ___."
+      },
+      {
+        "question": "Would you lend your phone to a friend? Under what conditions?",
+        "questionVi": "Bạn có cho bạn bè mượn điện thoại không? Với điều kiện gì?",
+        "frame": "Yes, as long as ___."
+      },
+      {
+        "question": "What should you check before you sign a contract?",
+        "questionVi": "Trước khi ký hợp đồng bạn nên kiểm tra những gì?",
+        "frame": "You should check ___ in case ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu với as long as / provided that / in case",
+      "anyOf": [
+        "as long as",
+        "provided that",
+        "provided ",
+        "in case"
+      ],
+      "outlineVi": [
+        "Bạn muốn đặt hàng hoặc hợp tác việc gì.",
+        "Điều kiện của bạn (provided that / as long as …).",
+        "Bạn muốn làm gì phòng khi có sự cố (in case …)."
+      ],
+      "modelAnswer": "Dear Mr Binh, thank you for your offer. We are happy to order five hundred chairs, provided that you can deliver them by the end of March. We will pay forty percent now, as long as the rest can be paid after delivery. In case some chairs arrive damaged, we would like you to replace them within a week. Best regards, Lan."
+    }
+  },
+  "glosses": [
+    {
+      "text": "booking",
+      "lemma": "booking",
+      "meaningVi": "đặt phòng",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "booking software",
+      "phraseVi": "phần mềm đặt phòng"
+    },
+    {
+      "text": "Sensible",
+      "lemma": "sensible",
+      "meaningVi": "hợp lý, chu đáo",
+      "sentenceIndex": 21,
+      "pos": "adjective",
+      "phrase": "Sensible.",
+      "phraseVi": "Chu đáo ạ."
+    },
+    {
+      "text": "at once",
+      "lemma": "at once",
+      "meaningVi": "cùng một lúc",
+      "sentenceIndex": 26,
+      "pos": "phrase",
+      "phrase": "all at once",
+      "phraseVi": "cùng một lúc"
+    },
+    {
+      "text": "servers",
+      "lemma": "server",
+      "meaningVi": "máy chủ",
+      "sentenceIndex": 32,
+      "pos": "noun",
+      "phrase": "All our servers",
+      "phraseVi": "Tất cả máy chủ của chúng tôi"
+    }
+  ]
+}
