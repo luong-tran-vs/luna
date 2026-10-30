@@ -1,0 +1,156 @@
+:host {
+  display: grid;
+  gap: var(--space-3);
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.label {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.count {
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.check {
+  gap: var(--space-3);
+}
+
+.question {
+  font: var(--text-base) var(--font-ui);
+  font-weight: 600;
+}
+
+.question:focus {
+  outline: none;
+}
+
+.choices {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* A sentence to pick: green once known right, red when picked wrong. */
+.choice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 52px;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-base) var(--font-ui);
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: left;
+  background: var(--color-surface);
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  --icon-size: 16px;
+}
+
+.choice:hover:not([aria-disabled='true']) {
+  border-color: var(--color-primary);
+}
+
+.choice:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.choice[aria-disabled='true'] {
+  cursor: default;
+}
+
+.choice.is-right {
+  border-color: var(--color-ok);
+  background: color-mix(in srgb, var(--color-ok) 10%, var(--color-surface));
+}
+
+.choice.is-wrong {
+  border-color: var(--color-bad);
+  background: color-mix(in srgb, var(--color-bad) 9%, var(--color-surface));
+}
+
+.choice.is-wrong > span:first-child {
+  text-decoration: line-through;
+}
+
+.choice.is-faded {
+  color: var(--color-text-muted);
+}
+
+.mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 700;
+}
+
+.is-right .mark {
+  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
+}
+
+.is-wrong .mark {
+  color: color-mix(in srgb, var(--color-bad) 80%, var(--color-text));
+}
+
+.why {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  font: var(--text-sm) var(--font-ui);
+  color: color-mix(in srgb, var(--color-bad) 70%, var(--color-text));
+  background: color-mix(in srgb, var(--color-bad) 9%, var(--color-surface));
+  border-radius: var(--radius-lg);
+}
+
+.why.is-right {
+  color: color-mix(in srgb, var(--color-ok) 70%, var(--color-text));
+  background: color-mix(in srgb, var(--color-ok) 10%, var(--color-surface));
+}
+
+.why-title {
+  font-weight: 700;
+}
+
+/* Before picking, the cat nudges the learner to try. */
+.cat-says {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.cat {
+  flex: none;
+  width: 48px;
+  height: auto;
+}
+
+.bubble {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: var(--color-primary-ink);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--space-1);
+}

@@ -121,83 +121,133 @@
         <p class="bubble"><span class="visually-hidden">Mục tiêu: </span>{{ c.objective }}</p>
       </div>
 
-      <section class="soft-card" aria-labelledby="g-explain">
-        <h3 class="section-title" id="g-explain">Giải thích</h3>
-        @for (para of c.explanation; track $index) {
-          <p>{{ para }}</p>
-        }
-      </section>
-
-      <section class="soft-card" aria-labelledby="g-usage">
-        <h3 class="section-title" id="g-usage">Khi nào dùng</h3>
-        <ol class="usage">
-          @for (u of c.usage; track $index; let i = $index) {
-            <li><span class="usage-num" aria-hidden="true">{{ i + 1 }}</span> {{ u }}</li>
+      <!-- One card at a time: "Nhớ nhanh", each paragraph of the explanation, then the uses. -->
+      @if (theoryCards()[card()]; as tc) {
+        <section class="soft-card theory-card" [class.quick]="tc.kind === 'quick'" aria-labelledby="g-card">
+          @switch (tc.kind) {
+            @case ('quick') {
+              @let q = quick()!;
+              <h3 class="section-title" id="g-card" #cardTitle tabindex="-1">Nhớ nhanh</h3>
+              @if (q.rows.length > 0) {
+                <lu-pattern [rows]="q.rows" />
+              }
+              @if (q.en) {
+                <div class="example">
+                  <lu-example-lines class="example-text" [lines]="q.lines" />
+                  @if (canSpeak) {
+                    <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + q.en" [luSpeak]="q.en" (click)="listen(q.en)">
+                      <lu-icon name="volume" />
+                    </button>
+                  }
+                </div>
+              }
+              @if (theoryCards().length > 1) {
+                <button type="button" class="skip" (click)="goTo(1)">Đã quen? Bỏ qua, sang Cấu trúc &amp; ví dụ</button>
+              }
+            }
+            @case ('explain') {
+              <h3 class="section-title" id="g-card" #cardTitle tabindex="-1">
+                Giải thích <span class="card-count">· {{ tc.n }}/{{ c.explanation.length }}</span>
+              </h3>
+              <p class="explain">{{ tc.text }}</p>
+            }
+            @case ('usage') {
+              <h3 class="section-title" id="g-card" #cardTitle tabindex="-1">Khi nào dùng</h3>
+              <ol class="usage">
+                @for (u of c.usage; track $index; let i = $index) {
+                  <li><span class="usage-num" aria-hidden="true">{{ i + 1 }}</span> {{ u }}</li>
+                }
+              </ol>
+            }
           }
-        </ol>
-      </section>
+        </section>
+        @if (theoryCards().length > 1) {
+          <div class="dots" role="group" aria-label="Các thẻ lý thuyết">
+            @for (t of theoryCards(); track $index; let i = $index) {
+              <button
+                type="button"
+                class="dot"
+                [class.on]="i === card()"
+                [attr.aria-label]="'Thẻ ' + (i + 1) + '/' + theoryCards().length"
+                [attr.aria-current]="i === card() ? 'step' : null"
+                (click)="showCard(i)"
+              ></button>
+            }
+          </div>
+        }
+      }
     </div>
 
     <div class="panel" id="gstep-structure" [hidden]="stepKey() !== 'structure'">
       <h2 class="step-label" #stepTitle tabindex="-1">Bước 2 · Cấu trúc &amp; ví dụ</h2>
-      <ul class="structures" aria-label="Cấu trúc">
-        @for (s of structures(); track $index) {
-          <li class="soft-card structure">
-            <span class="kind" [class]="'is-' + s.tone">{{ s.label }}</span>
-            <p class="pattern" lang="en">
-              @for (part of s.parts; track $index; let first = $first) {
-                @if (!first) {
-                  <span class="plus">+</span>
-                }
-                <span class="piece" [class]="'tone-' + part.tone">{{ part.text }}</span>
-              }
-            </p>
-            <div class="example">
-              <p lang="en" class="en">{{ s.example }}</p>
-              @if (canSpeak) {
-                <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + s.example" [luSpeak]="s.example" (click)="listen(s.example)">
-                  <lu-icon name="volume" />
-                </button>
-              }
-            </div>
-          </li>
-        }
-      </ul>
-
-      <section class="soft-card" aria-labelledby="g-examples">
-        <h3 class="section-title" id="g-examples">Ví dụ</h3>
-        <ul class="examples">
-          @for (e of c.examples; track $index) {
-            <li class="example">
-              <div class="example-text">
-                <p lang="en" class="en">{{ e.en }}</p>
-                <p class="vi">{{ e.vi }}</p>
-              </div>
-              @if (canSpeak) {
-                <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" [luSpeak]="e.en" (click)="listen(e.en)">
-                  <lu-icon name="volume" />
-                </button>
-              }
-            </li>
+      @if (tabs().length > 0 && !onMistakes()) {
+        <!-- One tab per structure: its pattern, then its examples coloured like the pattern. -->
+        <div class="tabs" role="tablist" aria-label="Cấu trúc">
+          @for (t of tabs(); track $index; let i = $index) {
+            <button
+              type="button"
+              role="tab"
+              class="tab"
+              [class]="'is-' + t.tone"
+              [id]="'gtab-' + i"
+              [attr.aria-selected]="i === tab()"
+              aria-controls="gtab-panel"
+              [tabIndex]="i === tab() ? 0 : -1"
+              (click)="showTab(i)"
+              (keydown)="onTabKey($event)"
+            >
+              {{ t.short }}
+            </button>
           }
-        </ul>
-      </section>
-
-      @if (c.mistakes.length > 0) {
-        <section class="soft-card" aria-labelledby="g-mistakes">
-          <h3 class="section-title" id="g-mistakes">Lỗi thường gặp</h3>
-          <ul class="mistakes">
-            @for (m of c.mistakes; track $index) {
-              <li class="mistake">
-                <p class="wrong"><span class="mark">Sai</span>{{ ' ' }}<span lang="en">{{ m.wrong }}</span></p>
-                <p class="right"><span class="mark">Đúng</span>{{ ' ' }}<span lang="en">{{ m.right }}</span></p>
-                @if (m.noteVi) {
-                  <p class="muted note">{{ m.noteVi }}</p>
+        </div>
+        @let t = tabs()[tab()];
+        <section class="soft-card tab-panel" id="gtab-panel" role="tabpanel" [attr.aria-labelledby]="'gtab-' + tab()">
+          @if (t.short !== t.label) {
+            <h3 class="tab-title">{{ t.label }}</h3>
+          }
+          <lu-pattern [rows]="t.rows" />
+          <ul class="examples">
+            @for (e of t.examples; track $index) {
+              <li class="example">
+                <lu-example-lines class="example-text" [lines]="e.lines" />
+                @if (canSpeak) {
+                  <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" [luSpeak]="e.en" (click)="listen(e.en)">
+                    <lu-icon name="volume" />
+                  </button>
                 }
               </li>
             }
           </ul>
         </section>
+        @if (t.mistake; as m) {
+          <p class="tip">
+            <lu-icon name="alert" />
+            <span>Hay sai: <s lang="en">{{ m.wrong }}</s> → <span lang="en">{{ m.right }}</span></span>
+          </p>
+        }
+
+        @if (otherExamples().length > 0) {
+          <section class="soft-card" aria-labelledby="g-other-examples">
+            <h3 class="section-title" id="g-other-examples">{{ otherTitle() }}</h3>
+            <ul class="examples">
+              @for (e of otherExamples(); track $index) {
+                <li class="example">
+                  <lu-example-lines class="example-text" [lines]="e.lines" />
+                  @if (canSpeak) {
+                    <button type="button" class="icon-btn" [attr.aria-label]="'Nghe câu: ' + e.en" [luSpeak]="e.en" (click)="listen(e.en)">
+                      <lu-icon name="volume" />
+                    </button>
+                  }
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      }
+
+      <!-- The common mistakes, on their own screen after the last tab; kept while the tabs show. -->
+      @if (c.mistakes.length > 0) {
+        <lu-mistake-check [mistakes]="c.mistakes" [hidden]="!onMistakes()" />
       }
     </div>
 
@@ -232,12 +282,12 @@
 
     @if (barLabel()) {
       <div class="bottom-bar">
-        @if (step() > 0) {
-          <button type="button" class="nav-btn" aria-label="Bước trước" (click)="back()">
+        @if (canGoBack()) {
+          <button type="button" class="nav-btn" [attr.aria-label]="backLabel()" (click)="back()">
             <lu-icon name="arrow-left" />
           </button>
         }
-        <button type="button" class="btn-primary" (click)="next()">
+        <button type="button" class="btn-primary" [disabled]="barDisabled()" (click)="next()">
           {{ barLabel() }} <lu-icon name="arrow-right" />
         </button>
       </div>

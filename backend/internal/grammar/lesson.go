@@ -68,6 +68,13 @@ type Structure struct {
 type Example struct {
 	En string
 	Vi string
+	// Structure is the 1-based number of the structure the sentence shows; 0 when unknown (lessons
+	// written before 2026-10-30), and the example is then listed apart from the structures.
+	Structure int
+	// Marked is En with the words of each piece of the structure's pattern marked "{n:words}", n the
+	// 1-based piece ("{1:She} {2:is} {3:reading} a book."), so the page colours them like the pattern;
+	// empty when not marked.
+	Marked string
 }
 
 // Mistake is a common error with the fix.

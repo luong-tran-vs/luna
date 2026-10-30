@@ -1,0 +1,52 @@
+@if (current(); as m) {
+  <div class="head">
+    <h3 class="label" id="g-mistakes">Lỗi thường gặp</h3>
+    <span class="count">{{ index() + 1 }} / {{ mistakes().length }}</span>
+  </div>
+
+  <section class="soft-card check" aria-labelledby="g-question">
+    <p class="question" id="g-question" #question tabindex="-1">Câu nào đúng?</p>
+    <div class="choices">
+      @for (c of choices(); track c.text) {
+        @let isPicked = picked() === c;
+        <button
+          type="button"
+          class="choice"
+          lang="en"
+          [class.is-right]="picked() && c.right"
+          [class.is-wrong]="isPicked && !c.right"
+          [class.is-faded]="picked() && !isPicked && !c.right"
+          [attr.aria-pressed]="isPicked"
+          [attr.aria-disabled]="picked() ? true : null"
+          (click)="pick(c)"
+        >
+          <span>{{ c.text }}</span>
+          @if (picked() && c.right) {
+            <span class="mark" lang="vi"><lu-icon name="check" /> Đúng</span>
+          } @else if (isPicked) {
+            <span class="mark" lang="vi"><lu-icon name="x" /> Sai</span>
+          }
+        </button>
+      }
+    </div>
+  </section>
+
+  <div class="feedback" aria-live="polite">
+    @if (picked(); as p) {
+      <div class="why" [class.is-right]="p.right">
+        <p class="why-title">{{ p.right ? 'Chính xác!' : 'Chưa đúng rồi' }}</p>
+        @if (!p.right) {
+          <p>Câu đúng: <span lang="en">{{ m.right }}</span></p>
+        }
+        @if (m.noteVi) {
+          <p>{{ m.noteVi }}</p>
+        }
+      </div>
+    } @else {
+      <div class="cat-says">
+        <img class="cat" ngSrc="images/mascot-cat.png" width="48" height="48" alt="" />
+        <p class="bubble">Người Việt hay sai chỗ này đó, thử xem!</p>
+      </div>
+    }
+  </div>
+}

@@ -78,8 +78,10 @@ type structureJSON struct {
 }
 
 type exampleJSON struct {
-	En string `json:"en"`
-	Vi string `json:"vi"`
+	En        string `json:"en"`
+	Vi        string `json:"vi"`
+	Structure int    `json:"structure,omitempty"`
+	Marked    string `json:"marked,omitempty"`
 }
 
 type mistakeJSON struct {

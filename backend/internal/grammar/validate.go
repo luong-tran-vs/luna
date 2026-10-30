@@ -82,7 +82,9 @@ func Normalize(c Content) Content {
 		out.Structures[i] = Structure{Label: strings.TrimSpace(s.Label), Pattern: strings.TrimSpace(s.Pattern), Example: strings.TrimSpace(s.Example)}
 	}
 	for i, e := range c.Examples {
-		out.Examples[i] = Example{En: strings.TrimSpace(e.En), Vi: strings.TrimSpace(e.Vi)}
+		out.Examples[i] = Example{
+			En: strings.TrimSpace(e.En), Vi: strings.TrimSpace(e.Vi), Structure: e.Structure, Marked: strings.TrimSpace(e.Marked),
+		}
 	}
 	for i, m := range c.Mistakes {
 		out.Mistakes[i] = Mistake{Wrong: strings.TrimSpace(m.Wrong), Right: strings.TrimSpace(m.Right), NoteVi: strings.TrimSpace(m.NoteVi)}
@@ -192,6 +194,10 @@ func Validate(c Content) map[string]string {
 		k := fmt.Sprintf("content.examples[%d]", i)
 		f.text(k+".en", e.En, maxText, true)
 		f.text(k+".vi", e.Vi, maxText, true)
+		f.text(k+".marked", e.Marked, 2*maxText, false)
+		if key, msg := exampleProblem(e, c.Structures); key != "" {
+			f.add(k+"."+key, msg)
+		}
 	}
 	f.count("content.mistakes", len(c.Mistakes), 0, maxMistakes, "lỗi thường gặp")
 	for i, m := range c.Mistakes {
@@ -351,12 +357,25 @@ func FilterGenerated(c Content) Content {
 			structures = append(structures, s)
 		}
 	}
+	// The examples name structures by number: once one is dropped the numbers no longer hold.
+	renumbered := len(structures) != len(c.Structures)
 	c.Structures = keepFirst(structures, maxStructures)
 	var examples []Example
 	for _, e := range c.Examples {
-		if e.En != "" && e.Vi != "" {
-			examples = append(examples, e)
+		if e.En == "" || e.Vi == "" {
+			continue
 		}
+		if renumbered {
+			e.Structure, e.Marked = 0, ""
+		}
+		// A wrong structure or mark costs only the colours, not the sentence.
+		switch key, _ := exampleProblem(e, c.Structures); key {
+		case "structure":
+			e.Structure, e.Marked = 0, ""
+		case "marked":
+			e.Marked = ""
+		}
+		examples = append(examples, e)
 	}
 	c.Examples = keepFirst(examples, maxExamples)
 	var mistakes []Mistake

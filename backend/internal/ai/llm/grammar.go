@@ -51,10 +51,12 @@ var grammarLessonSchema = map[string]any{
 			"items": map[string]any{
 				"type": "OBJECT",
 				"properties": map[string]any{
-					"en": map[string]any{"type": "STRING"},
-					"vi": map[string]any{"type": "STRING"},
+					"en":        map[string]any{"type": "STRING"},
+					"vi":        map[string]any{"type": "STRING"},
+					"structure": map[string]any{"type": "INTEGER"},
+					"marked":    map[string]any{"type": "STRING"},
 				},
-				"required": []string{"en", "vi"},
+				"required": []string{"en", "vi", "structure", "marked"},
 			},
 		},
 		"mistakes": map[string]any{
@@ -110,8 +112,17 @@ Return a JSON object with:
    Each has a Vietnamese label, the pattern and one English example.
    When the form changes with the subject, name every subject in each pattern (for example "I am", "he / she / it is", "you / we / they are"),
    in the explanation too: never say a form goes with only one subject when it goes with several.
-5. examples: 4 to 8 English sentences that show the point, each with its Vietnamese meaning. Cover the different forms of the
-   structures (for a verb form, not only affirmative) and subjects. Take inspiration from the course examples below, but do not only copy them.
+   A Yes/No question pattern gives the short answers after "->", a "Yes" and a "No" answer for every question in it (for
+   example "Am + I ...? / Is + he / she / it ...? / Are + you / we / they ...? -> Yes, I am. / No, I'm not. / Yes, he is. /
+   No, he isn't. / Yes, we are. / No, we aren't."): never leave a question without its answers.
+5. examples: English sentences that show the point, each with its Vietnamese meaning: 2 or 3 for every structure (at least 4 and
+   at most 12 in all), with different subjects. Take inspiration from the course examples below, but do not only copy them.
+   structure is the 1-based number of the structure in the list above that the sentence shows.
+   marked is the same English sentence, character for character, with the words of each piece of that structure's pattern
+   wrapped as {n:words}, where n is the 1-based number of the piece when the pattern is cut at "+" (a pattern of several
+   questions joined by " / " counts its pieces line after line; the answers after "->" are not pieces). For the pattern
+   "S + am / is / are + V-ing", "She is reading a book." is marked "{1:She} {2:is} {3:reading} a book." Removing the marks
+   must give back en exactly. Mark only the words of the pattern, never the rest of the sentence.
 6. mistakes: 3 to 5 mistakes Vietnamese learners often make: the wrong English sentence, the right one, and noteVi, a short Vietnamese note on why.
    Start from the common mistakes listed below when there are any (you may reword the note), then add others.
 7. practice: exactly 8 exercises for practice.

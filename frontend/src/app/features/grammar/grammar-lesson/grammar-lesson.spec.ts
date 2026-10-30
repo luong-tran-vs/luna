@@ -130,7 +130,7 @@ describe('GrammarLesson', () => {
       const fresh = { status: 'new' as const, practiceAttempts: 0, lastPractice: 0, weak: [] };
       await openWith(fresh);
       expect(resume()).toBeNull();
-      button('Sang Cấu trúc & ví dụ').click();
+      button('Đã quen? Bỏ qua').click();
       await settle();
       expect(localStorage.getItem('luna.grammar.step.a1-to-be')).toBe('1');
 
@@ -163,46 +163,101 @@ describe('GrammarLesson', () => {
       await settle();
     });
 
-    it('opens on Lý thuyết with the objective said by the cat, the explanation and the uses', () => {
+    it('opens on Lý thuyết with the objective and "Nhớ nhanh", then one card per paragraph and the uses', async () => {
       expect(text(el.querySelector('h1'))).toBe('Động từ to be');
       expect(text(el.querySelector('.unit'))).toBe('A1');
       expect(shown()).toEqual(['gstep-theory']);
       expect(progress()).toBe('1');
-      const theory = text(el.querySelector('#gstep-theory'));
-      expect(theory).toContain('Bạn có thể giới thiệu bản thân.');
-      expect(theory).toContain('Đoạn hai.');
-      expect(theory).toContain('Nói về nghề nghiệp');
+      const theory = el.querySelector('#gstep-theory')!;
+      const card = () => text(theory.querySelector('.theory-card'));
+      expect(text(theory)).toContain('Bạn có thể giới thiệu bản thân.');
+      expect(card()).toContain('Nhớ nhanh');
+      expect(Array.from(theory.querySelectorAll('.piece')).map((p) => text(p))).toEqual(['S', 'am/is/are']);
+      expect(card()).toContain('I am a student.Tôi là học sinh.');
+      expect(card()).not.toContain('Đoạn một.');
+      expect(theory.querySelectorAll('.dot').length).toBe(4);
+      expect(el.querySelector('.bottom-bar .nav-btn')).toBeNull();
+
+      button('Đọc giải thích').click();
+      await settle();
+      expect(text(theory.querySelector('#g-card'))).toBe('Giải thích · 1/2');
+      expect(card()).toContain('Đoạn một.');
+      expect(document.activeElement?.id).toBe('g-card');
+      button('Thẻ tiếp').click();
+      await settle();
+      expect(card()).toContain('Đoạn hai.');
+      button('Thẻ tiếp').click();
+      await settle();
+      expect(card()).toContain('Khi nào dùng');
+      expect(card()).toContain('Nói về nghề nghiệp');
+      expect(button('Sang Cấu trúc & ví dụ')).toBeTruthy();
+
+      el.querySelector<HTMLButtonElement>('.bottom-bar [aria-label="Thẻ trước"]')!.click();
+      await settle();
+      expect(card()).toContain('Đoạn hai.');
+      theory.querySelectorAll<HTMLButtonElement>('.dot')[0].click();
+      await settle();
+      expect(card()).toContain('Nhớ nhanh');
     });
 
-    it('shows each structure as a card with its pattern in pieces, then the examples and the mistakes', () => {
+    it('places the examples of a lesson that names no structure under the tab their form shows', () => {
       const structure = el.querySelector('#gstep-structure')!;
-      expect(text(structure.querySelector('.kind'))).toBe('Khẳng định');
-      expect(structure.querySelector('.kind')?.classList).toContain('is-positive');
-      expect(Array.from(structure.querySelectorAll('.piece')).map((p) => text(p))).toEqual(['S', 'am/is/are']);
-      expect(text(structure)).toContain('Tôi là học sinh.');
-      expect(text(structure)).toContain('Sai She are a teacher.');
-      expect(text(structure)).toContain('Đúng She is a teacher.');
+      const tab = structure.querySelector('[role="tab"]')!;
+      expect(text(tab)).toBe('Khẳng định');
+      expect(tab.classList).toContain('is-positive');
+      const panel = structure.querySelector('#gtab-panel')!;
+      expect(Array.from(panel.querySelectorAll('.piece')).map((p) => text(p))).toEqual(['S', 'am/is/are']);
+      expect(text(panel)).toContain('I am a student.');
+      // Not marked: the words the pattern names are coloured from it.
+      expect(Array.from(panel.querySelectorAll('.hl')).map((h) => text(h))).toContain('am');
+      // All three are affirmative: nothing is left for a list under the tabs.
+      expect(text(panel)).toContain('They are happy.Họ vui.');
+      expect(structure.querySelector('#g-other-examples')).toBeNull();
+      // The mistake whose right sentence has this form is told under the tab; the quiz waits.
+      expect(text(structure.querySelector('.tip'))).toBe('Hay sai: She are a teacher. → She is a teacher.');
+      expect(structure.querySelector<HTMLElement>('lu-mistake-check')!.hidden).toBe(true);
     });
 
     it('reads an example aloud with the browser voice', () => {
-      // The structure's example comes first, then the examples.
+      // "Nhớ nhanh" comes first, then the examples of the tab.
       el.querySelectorAll<HTMLButtonElement>('.icon-btn')[2].click();
       expect(speech.texts()).toEqual(['She is a teacher.']);
     });
 
     it('moves through the steps with the bottom bar and back', async () => {
-      button('Sang Cấu trúc & ví dụ').click();
-      await settle();
+      for (const label of ['Đọc giải thích', 'Thẻ tiếp', 'Thẻ tiếp', 'Sang Cấu trúc & ví dụ']) {
+        button(label).click();
+        await settle();
+      }
       expect(shown()).toEqual(['gstep-structure']);
       expect(progress()).toBe('2');
       expect(document.activeElement?.textContent).toContain('Bước 2');
 
+      // Back lands on the last card of Lý thuyết.
       el.querySelector<HTMLButtonElement>('.bottom-bar [aria-label="Bước trước"]')!.click();
       await settle();
       expect(shown()).toEqual(['gstep-theory']);
+      expect(text(el.querySelector('.theory-card'))).toContain('Khi nào dùng');
 
       button('Sang Cấu trúc & ví dụ').click();
       await settle();
+      // After the last tab, the common mistakes on their own screen.
+      button('Ôn lỗi thường gặp').click();
+      await settle();
+      const check = el.querySelector<HTMLElement>('lu-mistake-check')!;
+      expect(check.hidden).toBe(false);
+      expect(el.querySelector('#gtab-panel')).toBeNull();
+      expect(text(check.querySelector('.count'))).toBe('1 / 1');
+      expect(button('Câu tiếp').disabled).toBe(true);
+      Array.from(check.querySelectorAll<HTMLButtonElement>('.choice')).find((b) => text(b) === 'She is a teacher.')!.click();
+      await settle();
+      // Back goes to the last tab; forward comes back to the mistake as it was left.
+      el.querySelector<HTMLButtonElement>('.bottom-bar [aria-label="Cấu trúc trước"]')!.click();
+      await settle();
+      expect(el.querySelector('#gtab-panel')).not.toBeNull();
+      button('Ôn lỗi thường gặp').click();
+      await settle();
+      expect(text(check.querySelector('.why'))).toContain('Chính xác!');
       button('Sang Luyện tập').click();
       await settle();
       expect(shown()).toEqual(['gstep-practice']);
@@ -283,6 +338,88 @@ describe('GrammarLesson', () => {
       await settle();
       await clickIn('practice', 'Sang Kiểm tra');
       expect(shown()).toEqual(['gstep-test']);
+    });
+  });
+
+  describe('with examples that name their structure', () => {
+    const tabbed: GrammarDetail = {
+      ...detail,
+      content: {
+        ...detail.content,
+        structures: [
+          { label: 'Khẳng định', pattern: 'S + am/is/are', example: 'I am a student.' },
+          { label: 'Phủ định', pattern: 'S + am/is/are + not', example: 'I am not tired.' },
+          { label: 'Rút gọn', pattern: "I'm", example: "I'm fine." },
+        ],
+        examples: [
+          { en: 'She is a teacher.', vi: 'Cô ấy là giáo viên.', structure: 1, marked: '{1:She} {2:is} a teacher.' },
+          { en: 'They are happy.', vi: 'Họ vui.', structure: 1 },
+          { en: 'Is she here? – Yes, she is.', vi: 'Cô ấy ở đây không? – Có.', structure: 1 },
+          { en: 'He is not here.', vi: 'Anh ấy không ở đây.', structure: 2, marked: '{1:He} {2:is} {3:not} here.' },
+          { en: 'Hello!', vi: 'Xin chào!' },
+        ],
+      },
+    };
+    const panel = () => el.querySelector<HTMLElement>('#gtab-panel')!;
+    const tabs = () => Array.from(el.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const marks = () => Array.from(panel().querySelectorAll('.hl')).map((h) => `${text(h)}:${h.className.split(' ').pop()}`);
+
+    beforeEach(async () => {
+      await setup();
+      http.expectOne('/grammar/a1-to-be').flush(tabbed);
+      await settle();
+    });
+
+    it('colours the marked words of "Nhớ nhanh" like the pattern', () => {
+      const words = Array.from(el.querySelectorAll('.theory-card .hl')).map((h) => text(h));
+      expect(words).toEqual(['She', 'is']);
+    });
+
+    it('shows one structure at a time, with its own examples coloured like its pattern', async () => {
+      await openStep('Cấu trúc');
+      expect(tabs().map((t) => text(t))).toEqual(['Khẳng định', 'Phủ định', 'Rút gọn']);
+      expect(tabs()[0].getAttribute('aria-selected')).toBe('true');
+      expect(tabs()[0].classList).toContain('is-positive');
+      expect(text(panel())).toContain('She is a teacher.Cô ấy là giáo viên.');
+      expect(text(panel())).toContain('They are happy.');
+      const qa = Array.from(panel().querySelectorAll('.example'))[2];
+      // The question with its meaning, then the answer with its own, set in under it.
+      const lines = Array.from(qa.querySelectorAll('.line')).map((l) => text(l));
+      expect(lines).toEqual(['Is she here?Cô ấy ở đây không?', 'Yes, she is.Có.']);
+      expect(qa.querySelectorAll('.line')[1].classList).toContain('answer');
+      expect(text(panel())).not.toContain('He is not here.');
+      expect(marks().slice(0, 3)).toEqual(['She:tone-0', 'is:tone-1', 'are:tone-1']);
+      expect(el.querySelector('.structures')).toBeNull();
+      expect(text(el.querySelector('#gstep-structure'))).toContain('Ví dụ khácHello!');
+
+      button('Xem Phủ định').click();
+      await settle();
+      expect(tabs()[1].getAttribute('aria-selected')).toBe('true');
+      // The pieces keep their colour across the structures: "not" gets a new one.
+      expect(marks()).toEqual(['He:tone-0', 'is:tone-1', 'not:tone-2']);
+
+      // A structure without examples of its own shows its example.
+      button('Xem Rút gọn').click();
+      await settle();
+      expect(text(panel())).toContain("I'm fine.");
+      expect(button('Ôn lỗi thường gặp')).toBeTruthy();
+
+      el.querySelector<HTMLButtonElement>('.bottom-bar [aria-label="Cấu trúc trước"]')!.click();
+      await settle();
+      expect(tabs()[1].getAttribute('aria-selected')).toBe('true');
+    });
+
+    it('moves between the tabs with the arrow keys', async () => {
+      await openStep('Cấu trúc');
+      tabs()[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+      await settle();
+      expect(tabs()[2].getAttribute('aria-selected')).toBe('true');
+      expect(document.activeElement).toBe(tabs()[2]);
+      expect(tabs()[2].tabIndex).toBe(0);
+      expect(tabs()[0].tabIndex).toBe(-1);
+      tabs()[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
+      await settle();
+      expect(tabs()[0].getAttribute('aria-selected')).toBe('true');
     });
   });
 

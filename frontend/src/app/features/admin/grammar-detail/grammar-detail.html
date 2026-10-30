@@ -136,7 +136,12 @@
             <h3 class="part-title" id="pv-examples">Ví dụ</h3>
             <ul class="plain">
               @for (e of l.content.examples; track $index) {
-                <li>{{ e.en }} <span class="muted">— {{ e.vi }}</span></li>
+                <li>
+                  {{ e.marked || e.en }} <span class="muted">— {{ e.vi }}</span>
+                  @if (e.structure) {
+                    <span class="muted"> · cấu trúc {{ e.structure }}</span>
+                  }
+                </li>
               }
             </ul>
           </section>

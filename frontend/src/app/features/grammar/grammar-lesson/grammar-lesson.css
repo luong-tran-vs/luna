@@ -145,9 +145,7 @@
 
 .info-steps,
 .usage,
-.structures,
-.examples,
-.mistakes {
+.examples {
   display: grid;
   gap: var(--space-3);
   margin: 0;
@@ -233,69 +231,76 @@
   border-radius: var(--radius-sm);
 }
 
-.structure {
-  gap: var(--space-2);
+/*
+ * One tab per structure on a single line, the chosen one raised and in the colour of its kind. More
+ * tabs than fit scroll sideways (the row bleeds to the screen edge so a cut tab shows there is more).
+ */
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  margin-inline: calc(-1 * var(--page-x));
+  padding: 3px var(--page-x);
+  overflow-x: auto;
+  scroll-padding-inline: var(--page-x);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
 }
 
-.kind {
-  justify-self: start;
-  padding: 2px var(--space-2);
-  font: var(--text-xs) var(--font-ui);
-  font-weight: 700;
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex: none;
+  min-height: 36px;
+  padding: var(--space-1) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-full);
+  cursor: pointer;
 
-  --tone: var(--color-text-muted);
-
-  color: color-mix(in srgb, var(--tone) 80%, var(--color-text));
-  background: color-mix(in srgb, var(--tone) 14%, var(--color-surface));
-}
-
-.kind.is-positive {
-  --tone: var(--color-ok);
-}
-
-.kind.is-negative {
-  --tone: var(--color-bad);
-}
-
-.kind.is-question {
   --tone: var(--color-primary);
 }
 
-/* The pattern in pieces, the same piece in the same colour across the structures. */
-.pattern {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-1);
-  font: var(--text-base) var(--font-ui);
+.tab.is-positive {
+  --tone: var(--color-ok);
+}
+
+.tab.is-negative {
+  --tone: var(--color-bad);
+}
+
+.tab[aria-selected='true'] {
   font-weight: 600;
+  color: color-mix(in srgb, var(--tone) 85%, var(--color-text));
+  background: color-mix(in srgb, var(--tone) 10%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--tone) 45%, var(--color-surface));
 }
 
-.piece {
-  padding: 1px var(--space-2);
-  border-radius: var(--radius-sm);
-
-  --tone: var(--color-skill-write);
-
-  color: color-mix(in srgb, var(--tone) 70%, var(--color-text));
-  background: color-mix(in srgb, var(--tone) 16%, var(--color-surface));
+.tab:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
 }
 
-.piece.tone-1 {
-  --tone: var(--color-skill-listen);
-}
-
-.piece.tone-2 {
-  --tone: var(--color-accent);
-}
-
-.piece.tone-3 {
-  --tone: var(--color-skill-speak);
-}
-
-.plus {
+/* The structure's full name when the tab shows a short one. */
+.tab-title {
+  font: var(--text-xs) var(--font-ui);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--color-text-muted);
+}
+
+.tab-panel {
+  gap: var(--space-3);
+}
+
+.tab-panel .example + .example {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
 }
 
 .example {
@@ -305,49 +310,90 @@
   gap: var(--space-3);
 }
 
-.en {
-  font: var(--text-base) var(--font-ui);
-  font-weight: 600;
+.example-text {
+  flex: 1;
+  min-width: 0;
 }
 
-.vi {
-  font: var(--text-sm) var(--font-ui);
+/* Lý thuyết one card at a time. */
+.theory-card {
+  gap: var(--space-3);
+  min-height: 200px;
+  align-content: start;
+}
+
+.theory-card .section-title:focus {
+  outline: none;
+}
+
+/* "Nhớ nhanh": the first pattern and example, tinted to stand apart. */
+.theory-card.quick {
+  background: linear-gradient(135deg, var(--color-primary-soft), var(--color-accent-soft));
+}
+
+.theory-card.quick .section-title {
+  color: var(--color-primary-ink);
+}
+
+.card-count {
+  font-weight: 500;
   color: var(--color-text-muted);
 }
 
-.mistake {
-  display: grid;
+.explain {
+  font: var(--text-lg) var(--font-ui);
+  line-height: 1.6;
+}
+
+.skip {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  font: var(--text-sm) var(--font-ui);
+  font-weight: 600;
+  color: var(--color-primary-ink);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Where the learner is among the cards; each dot opens its card. */
+.dots {
+  display: flex;
+  justify-content: center;
   gap: var(--space-1);
 }
 
-/* Sai / Đúng as small labels before the sentence. */
-.mark {
-  display: inline-block;
-  min-width: 3.4em;
-  margin-right: var(--space-1);
-  padding: 1px var(--space-2);
-  font: var(--text-xs) var(--font-ui);
-  font-weight: 700;
-  text-align: center;
+.dot {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--color-track);
   border-radius: var(--radius-full);
+  transition: width 0.2s;
 }
 
-.wrong .mark {
-  color: color-mix(in srgb, var(--color-bad) 80%, var(--color-text));
-  background: color-mix(in srgb, var(--color-bad) 12%, var(--color-surface));
+.dot.on::before {
+  width: 20px;
+  background: var(--color-primary);
 }
 
-.right .mark {
-  color: color-mix(in srgb, var(--color-ok) 75%, var(--color-text));
-  background: color-mix(in srgb, var(--color-ok) 14%, var(--color-surface));
-}
-
-.wrong [lang='en'] {
-  text-decoration: line-through;
-}
-
-.note {
-  font: var(--text-sm) var(--font-ui);
+.skip:focus-visible,
+.dot:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .icon-btn {
@@ -411,4 +457,22 @@
   font-weight: 500;
   text-transform: none;
   letter-spacing: 0;
+}
+
+/* "Hay sai" under a tab: the common mistake of that structure. */
+.tip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font: var(--text-sm) var(--font-ui);
+  color: color-mix(in srgb, var(--color-warn) 75%, var(--color-text));
+  background: color-mix(in srgb, var(--color-warn) 12%, var(--color-surface));
+  border-radius: var(--radius-md);
+
+  --icon-size: 16px;
+}
+
+.tip s {
+  color: var(--color-text-muted);
 }

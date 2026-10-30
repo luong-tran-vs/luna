@@ -35,8 +35,10 @@ type grammarStructureDoc struct {
 }
 
 type grammarExampleDoc struct {
-	En string `bson:"en"`
-	Vi string `bson:"vi"`
+	En        string `bson:"en"`
+	Vi        string `bson:"vi"`
+	Structure int    `bson:"structure,omitempty"`
+	Marked    string `bson:"marked,omitempty"`
 }
 
 type grammarMistakeDoc struct {

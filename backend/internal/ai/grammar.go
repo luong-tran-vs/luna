@@ -41,6 +41,10 @@ type GrammarStructure struct {
 type GrammarExample struct {
 	En string `json:"en"`
 	Vi string `json:"vi"`
+	// Structure is the 1-based number of the structure the sentence shows.
+	Structure int `json:"structure"`
+	// Marked is En with the words of each piece of that pattern marked "{n:words}".
+	Marked string `json:"marked"`
 }
 
 // GrammarMistake is a common error with the fix.

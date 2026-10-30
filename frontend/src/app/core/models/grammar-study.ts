@@ -59,6 +59,10 @@ export interface GrammarStructure {
 export interface GrammarExample {
   en: string;
   vi: string;
+  /** 1-based number of the structure the sentence shows; absent on lessons written before 2026-10-30. */
+  structure?: number;
+  /** `en` with the pieces of that pattern marked "{n:words}" ("{1:She} {2:is} {3:reading} a book."). */
+  marked?: string;
 }
 
 export interface GrammarMistake {
