@@ -1,0 +1,607 @@
+{
+  "content": "Back at the newspaper office in Can Tho, Toan drops into the chair next to his colleague Diem. He has just come back from his first big interview, with Mr Lam, a deputy chairman of the city.\n\nDiem asks, \"How was it?\"\n\"Interesting. A bit scary at first. His assistant told me to sit down and wait for twenty minutes.\"\n\"That's normal. What did you ask him?\"\n\"I asked him when the new bus routes would start. He said that the first three routes would open in January.\"\n\"Did you ask about the river buses?\"\n\"Of course. I asked whether the city was still planning to build them. He said the plan had been delayed because of the cost.\"\n\"Did he say how long the delay would be?\"\n\"I asked him that, but he refused to give me a date. He told me not to write that the project had been cancelled.\"\n\"Had it been?\"\n\"He insisted that it hadn't. Then I asked him why ticket prices were going up next year.\"\n\"Brave question. How did he react?\"\n\"He smiled and asked me if I had taken a city bus recently. When I said no, he suggested that I try one before writing about prices.\"\nDiem laughs. \"He has a point.\"\n\"I know. At the end, he told me to focus on the new routes, not on the river buses.\"\n\"And will you?\"\n\"Not completely. Our readers want to know about the river buses. I'll report what he said and let them decide.\"\n\"Good. Just make sure every quote is exact. Did you record it?\"\n\"Yes, with his permission. I asked him if I could record at the start.\"\n\"Then write it up. The editor wants it by five.\"",
+  "targetWords": [
+    "deputy",
+    "assistant",
+    "route",
+    "cost",
+    "delay",
+    "project",
+    "insist",
+    "reader",
+    "permission",
+    "record"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "deputy",
+        "lemma": "deputy",
+        "meaningVi": "phó",
+        "pos": "adjective",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "assistant",
+        "lemma": "assistant",
+        "meaningVi": "trợ lý",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "routes",
+        "lemma": "route",
+        "meaningVi": "tuyến đường",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "cost",
+        "lemma": "cost",
+        "meaningVi": "chi phí",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "delay",
+        "lemma": "delay",
+        "meaningVi": "sự trì hoãn",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "project",
+        "lemma": "project",
+        "meaningVi": "dự án",
+        "pos": "noun",
+        "sentenceIndex": 16
+      },
+      {
+        "text": "insisted",
+        "lemma": "insist",
+        "meaningVi": "khăng khăng, quả quyết",
+        "pos": "verb",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "readers",
+        "lemma": "reader",
+        "meaningVi": "độc giả",
+        "pos": "noun",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "permission",
+        "lemma": "permission",
+        "meaningVi": "sự cho phép",
+        "pos": "noun",
+        "sentenceIndex": 35
+      },
+      {
+        "text": "record",
+        "lemma": "record",
+        "meaningVi": "ghi âm",
+        "pos": "verb",
+        "sentenceIndex": 36
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Toan telling Diem about?",
+        "promptVi": "Toàn đang kể với Diễm về điều gì?",
+        "options": [
+          "His interview with a city official",
+          "A trip on a river bus",
+          "His new job at the newspaper",
+          "A problem with his recorder"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Toàn kể lại cuộc phỏng vấn ông Lâm, phó chủ tịch thành phố."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When will the first new bus routes open?",
+        "promptVi": "Khi nào các tuyến xe buýt mới đầu tiên mở?",
+        "options": [
+          "Next week",
+          "In January",
+          "Next June",
+          "They have been cancelled."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Ông Lâm nói \"the first three routes would open in January.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why had the river bus plan been delayed?",
+        "promptVi": "Vì sao kế hoạch xe buýt đường sông bị hoãn?",
+        "options": [
+          "Because of the cost",
+          "Because of the weather",
+          "Because nobody wanted it",
+          "Because of a new law"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông nói \"the plan had been delayed because of the cost.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Toan will only write about the new bus routes.",
+        "promptVi": "Toàn sẽ chỉ viết về các tuyến xe buýt mới.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Toàn nói \"Not completely. Our readers want to know about the river buses.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"permission\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Yes, with his permission.\"",
+        "options": [
+          "sự cho phép",
+          "sự giúp đỡ",
+          "chữ ký",
+          "lời hứa"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Permission = sự cho phép."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tường thuật câu hỏi và mệnh lệnh",
+      "bodyVi": "Khi kể lại một cuộc phỏng vấn, ta tường thuật câu hỏi bằng trật tự câu kể và lùi thì. Câu hỏi Wh-: I asked him when the new bus routes would start / I asked him why ticket prices were going up next year. Câu hỏi Yes / No: I asked whether the city was still planning to build them / he asked me if I had taken a city bus recently. Mệnh lệnh: told + người + (not) to + V: He told me not to write that the project had been cancelled / he told me to focus on the new routes.",
+      "examples": [
+        "\"I asked him when the new bus routes would start.",
+        "I asked whether the city was still planning to build them.",
+        "He told me not to write that the project had been cancelled.\""
+      ]
+    },
+    "writingPrompt": "Write about an interview you had or watched. Report at least three questions and one instruction.",
+    "sentenceTranslations": [
+      "Về đến toà soạn ở Cần Thơ, Toàn ngồi phịch xuống chiếc ghế cạnh đồng nghiệp Diễm.",
+      "Anh vừa trở về sau cuộc phỏng vấn lớn đầu tiên, với ông Lâm, một phó chủ tịch thành phố.",
+      "Diễm hỏi: \"Thế nào rồi?\"",
+      "\"Thú vị.",
+      "Lúc đầu hơi sợ.",
+      "Trợ lý của ông ấy bảo tôi ngồi đợi hai mươi phút.\"",
+      "\"Chuyện thường thôi.",
+      "Cậu hỏi ông ấy những gì?\"",
+      "\"Tôi hỏi khi nào các tuyến xe buýt mới bắt đầu chạy.",
+      "Ông ấy nói ba tuyến đầu tiên sẽ mở vào tháng Một.\"",
+      "\"Cậu có hỏi về xe buýt đường sông không?\"",
+      "\"Tất nhiên.",
+      "Tôi hỏi thành phố có còn định làm không.",
+      "Ông ấy nói kế hoạch đã bị hoãn vì chi phí.\"",
+      "\"Ông ấy có nói hoãn bao lâu không?\"",
+      "\"Tôi có hỏi, nhưng ông ấy từ chối đưa ra ngày cụ thể.",
+      "Ông ấy dặn tôi đừng viết là dự án đã bị huỷ.\"",
+      "\"Thế nó có bị huỷ không?\"",
+      "\"Ông ấy khăng khăng là không.",
+      "Rồi tôi hỏi tại sao năm sau giá vé lại tăng.\"",
+      "\"Câu hỏi gan đấy.",
+      "Ông ấy phản ứng thế nào?\"",
+      "\"Ông ấy cười và hỏi gần đây tôi có đi xe buýt thành phố không.",
+      "Khi tôi nói không, ông ấy gợi ý tôi nên đi thử trước khi viết về giá vé.\"",
+      "Diễm bật cười.",
+      "\"Ông ấy nói cũng có lý.\"",
+      "\"Tôi biết.",
+      "Cuối buổi, ông ấy bảo tôi tập trung vào các tuyến mới, đừng viết về xe buýt đường sông.\"",
+      "\"Thế cậu có làm vậy không?\"",
+      "\"Không hoàn toàn.",
+      "Độc giả muốn biết về xe buýt đường sông.",
+      "Tôi sẽ đưa tin những gì ông ấy nói và để họ tự quyết định.\"",
+      "\"Tốt.",
+      "Chỉ cần đảm bảo mọi câu trích dẫn đều chính xác.",
+      "Cậu có ghi âm không?\"",
+      "\"Có, được ông ấy cho phép.",
+      "Ngay từ đầu tôi đã hỏi ông ấy tôi có được ghi âm không.\"",
+      "\"Vậy viết bài đi.",
+      "Biên tập viên muốn nhận trước năm giờ.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể kể lại một cuộc phỏng vấn: tường thuật các câu hỏi (asked when / whether / if …) và lời dặn (told me (not) to …).",
+    "examples": [
+      {
+        "lemma": "deputy",
+        "sentence": "She is the deputy manager of the hotel.",
+        "meaningVi": "Cô ấy là phó quản lý khách sạn."
+      },
+      {
+        "lemma": "assistant",
+        "sentence": "My assistant will send you the details.",
+        "meaningVi": "Trợ lý của tôi sẽ gửi bạn thông tin chi tiết."
+      },
+      {
+        "lemma": "route",
+        "sentence": "This is the fastest route to the airport.",
+        "meaningVi": "Đây là đường nhanh nhất ra sân bay."
+      },
+      {
+        "lemma": "cost",
+        "sentence": "The cost of living is rising.",
+        "meaningVi": "Chi phí sinh hoạt đang tăng."
+      },
+      {
+        "lemma": "delay",
+        "sentence": "There was a two-hour delay at the airport.",
+        "meaningVi": "Ở sân bay bị trễ hai tiếng."
+      },
+      {
+        "lemma": "project",
+        "sentence": "Our class project is about clean water.",
+        "meaningVi": "Dự án của lớp chúng tôi nói về nước sạch."
+      },
+      {
+        "lemma": "insist",
+        "sentence": "They insist on paying for dinner.",
+        "meaningVi": "Họ nhất quyết đòi trả tiền bữa tối."
+      },
+      {
+        "lemma": "reader",
+        "sentence": "Every reader can send us a letter.",
+        "meaningVi": "Độc giả nào cũng có thể gửi thư cho chúng tôi."
+      },
+      {
+        "lemma": "permission",
+        "sentence": "You need permission to take photos here.",
+        "meaningVi": "Bạn cần được phép mới được chụp ảnh ở đây."
+      },
+      {
+        "lemma": "record",
+        "sentence": "Can I record our conversation?",
+        "meaningVi": "Tôi ghi âm cuộc trò chuyện của chúng ta được không?"
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ms Lieu",
+        "Toan"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Toan, I've read your article. It's good, but I have some questions.",
+          "meaningVi": "Toàn, chị đọc bài của em rồi. Bài tốt, nhưng chị có vài câu hỏi."
+        },
+        {
+          "speaker": 1,
+          "text": "Of course. What would you like to know?",
+          "meaningVi": "Vâng ạ. Chị muốn biết gì ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "You write that he refused to give a date. Did you ask him twice?",
+          "meaningVi": "Em viết là ông ấy từ chối đưa ra ngày. Em có hỏi hai lần không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. I asked him again at the end, but he still wouldn't say.",
+          "meaningVi": "Có ạ. Cuối buổi em hỏi lại, nhưng ông ấy vẫn không nói."
+        },
+        {
+          "speaker": 0,
+          "text": "And he told you not to write that it was cancelled?",
+          "meaningVi": "Và ông ấy dặn em đừng viết là nó bị huỷ à?"
+        },
+        {
+          "speaker": 1,
+          "text": "Exactly. He asked me to focus on the new bus routes.",
+          "meaningVi": "Đúng vậy. Ông ấy bảo em tập trung vào các tuyến xe buýt mới."
+        },
+        {
+          "speaker": 0,
+          "text": "Did you ask him whether the ticket prices were fair?",
+          "meaningVi": "Em có hỏi ông ấy giá vé có hợp lý không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. He asked me if I had tried the buses myself.",
+          "meaningVi": "Có ạ. Ông ấy hỏi lại em đã tự đi xe buýt chưa."
+        },
+        {
+          "speaker": 0,
+          "text": "Good. Next time, ask him what the river buses will cost.",
+          "meaningVi": "Tốt. Lần sau hỏi ông ấy xe buýt đường sông sẽ tốn bao nhiêu nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "I will. Can I call his office tomorrow?",
+          "meaningVi": "Vâng ạ. Mai em gọi cho văn phòng ông ấy được không?"
+        }
+      ]
+    },
+    "grammarTipVi": "Mệnh lệnh: he told you not to write … / He asked me to focus on … Câu hỏi: Did you ask him whether the ticket prices were fair? / He asked me if I had tried the buses myself.",
+    "translations": [
+      {
+        "vi": "Tôi hỏi ông ấy khi nào các tuyến mới bắt đầu.",
+        "en": "I asked him when the new routes would start.",
+        "distractors": [
+          "will",
+          "did",
+          "roads"
+        ]
+      },
+      {
+        "vi": "Ông ấy nói kế hoạch bị hoãn vì chi phí.",
+        "en": "He said the plan had been delayed because of the cost.",
+        "distractors": [
+          "has",
+          "price",
+          "delaying"
+        ]
+      },
+      {
+        "vi": "Ông ấy khăng khăng là dự án chưa bị huỷ.",
+        "en": "He insisted that the project hadn't been cancelled.",
+        "distractors": [
+          "hasn't",
+          "admitted",
+          "was"
+        ]
+      },
+      {
+        "vi": "Tôi hỏi ông ấy tôi có được ghi âm cuộc phỏng vấn không.",
+        "en": "I asked him if I could record the interview.",
+        "distractors": [
+          "can",
+          "recorded",
+          "whether"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chị Liễu và Toàn nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bài viết về cuộc phỏng vấn của Toàn",
+          "Giá vé xe buýt",
+          "Một chuyến đi Cần Thơ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Liễu nói \"I've read your article.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Toàn hỏi lại ông Lâm lúc nào?",
+        "promptVi": "",
+        "options": [
+          "Ở cuối buổi phỏng vấn",
+          "Ngày hôm sau",
+          "Qua điện thoại"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Toàn nói \"I asked him again at the end.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Lâm bảo Toàn tập trung vào điều gì?",
+        "promptVi": "",
+        "options": [
+          "Các tuyến xe buýt mới",
+          "Xe buýt đường sông",
+          "Giá vé"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Toàn nói \"He asked me to focus on the new bus routes.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The editor doesn't like Toan's article.",
+        "promptVi": "Biên tập viên không thích bài của Toàn.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Liễu nói \"It's good.\"",
+        "turnIndex": 0
+      }
+    ],
+    "readingGuideVi": "Toàn đã hỏi ông Lâm những câu gì? Ông Lâm đã dặn Toàn điều gì, và Toàn có làm theo không?",
+    "grammarStep": {
+      "titleVi": "Tường thuật câu hỏi và mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"I asked him when the new bus routes would start.",
+          "highlights": [
+            "asked him when the new bus routes would start"
+          ]
+        },
+        {
+          "sentence": "I asked whether the city was still planning to build them.",
+          "highlights": [
+            "asked whether the city was still planning"
+          ]
+        },
+        {
+          "sentence": "He told me not to write that the project had been cancelled.\"",
+          "highlights": [
+            "told me not to write"
+          ]
+        },
+        {
+          "sentence": "\"He smiled and asked me if I had taken a city bus recently.",
+          "highlights": [
+            "asked me if I had taken"
+          ]
+        }
+      ],
+      "questionVi": "Toàn hỏi: \"Why are ticket prices going up next year?\" Câu tường thuật nào đúng?",
+      "options": [
+        "I asked him why ticket prices were going up next year.",
+        "I asked him why were ticket prices going up next year.",
+        "I asked him why are ticket prices going up next year."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Tường thuật câu hỏi: trật tự câu kể (ticket prices were going up) và lùi thì (are → were).",
+      "whenVi": "Dùng khi thuật lại cho đồng nghiệp, bạn bè những câu hỏi và lời dặn trong một cuộc phỏng vấn, cuộc họp.",
+      "table": [
+        {
+          "subject": "Câu hỏi Wh-",
+          "form": "asked (him) + when / why / how + chủ ngữ + động từ",
+          "negative": "asked him why ticket prices were going up"
+        },
+        {
+          "subject": "Câu hỏi Yes / No",
+          "form": "asked (me) if / whether + chủ ngữ + động từ",
+          "negative": "asked me if I had taken a city bus"
+        },
+        {
+          "subject": "Mệnh lệnh",
+          "form": "told me to + V: told me to focus on the new routes",
+          "negative": "told me not to + V: told me not to write …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "I asked him when would the new routes start.",
+          "right": "I asked him when the new routes would start."
+        },
+        {
+          "wrong": "He told me to not write about the river buses.",
+          "right": "He told me not to write about the river buses."
+        }
+      ],
+      "noteVi": "Lùi thì khi tường thuật: will → would, are going → were going, have taken → had taken.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "He asked me ___ I had taken a city bus recently.",
+          "answers": [
+            "if",
+            "whether"
+          ],
+          "explanationVi": "Câu hỏi Yes / No khi tường thuật: if / whether."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "At the end, he told me ___ on the new routes.",
+          "options": [
+            "to focus",
+            "focus",
+            "focusing",
+            "that focus"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "told + người + to + V."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "I asked him why were ticket prices going up.",
+          "sentence": "I asked him why ticket prices were going up.",
+          "explanationVi": "Không đảo ngữ trong câu hỏi tường thuật: ticket prices were going up."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Ông ấy dặn tôi đừng viết về dự án đó.",
+          "sentence": "He told me not to write about the project.",
+          "words": [
+            "He",
+            "told",
+            "me",
+            "not",
+            "to",
+            "write",
+            "about",
+            "the",
+            "project.",
+            "don't"
+          ],
+          "explanationVi": "told + người + not to + V; từ \"don't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "I asked whether the city was still planning to build them.",
+        "tipVi": "whether /ˈweðə/; ngắt hơi nhẹ sau whether."
+      },
+      {
+        "text": "He told me not to write that the project had been cancelled.\"",
+        "tipVi": "Nhấn vào not; project /ˈprɒdʒekt/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Think of a time someone interviewed you for a job or a school. What did they ask you?",
+        "questionVi": "Nhớ lại một lần bạn được phỏng vấn xin việc hay vào trường. Họ đã hỏi gì?",
+        "frame": "They asked me why ___ / whether ___."
+      },
+      {
+        "question": "What would you ask the mayor of your city about transport?",
+        "questionVi": "Bạn sẽ hỏi thị trưởng thành phố mình điều gì về giao thông?",
+        "frame": "I would ask him / her ___."
+      },
+      {
+        "question": "What did your parents often tell you to do when you were a child?",
+        "questionVi": "Hồi nhỏ bố mẹ hay dặn bạn làm gì?",
+        "frame": "They often told me to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật câu hỏi hoặc mệnh lệnh (asked if / why …, told me to …)",
+      "anyOf": [
+        "asked if",
+        "asked whether",
+        "asked me",
+        "asked him",
+        "asked her",
+        "told me to",
+        "told me not to",
+        "not to"
+      ],
+      "outlineVi": [
+        "Cuộc phỏng vấn về việc gì, với ai.",
+        "Người ta đã hỏi bạn những gì (asked me why / whether …).",
+        "Cuối buổi người ta dặn bạn gì (told me to …)."
+      ],
+      "modelAnswer": "Last month I had an interview for a part-time job at a bookshop. The manager asked me why I wanted to work there. She also asked whether I could work at weekends and how far I lived from the shop. At the end, she told me to bring my identity card on my first day. I got the job!"
+    }
+  },
+  "glosses": [
+    {
+      "text": "deputy chairman",
+      "lemma": "deputy chairman",
+      "meaningVi": "phó chủ tịch",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "a deputy chairman of the city",
+      "phraseVi": "một phó chủ tịch thành phố"
+    },
+    {
+      "text": "scary",
+      "lemma": "scary",
+      "meaningVi": "đáng sợ",
+      "sentenceIndex": 4,
+      "pos": "adjective",
+      "phrase": "A bit scary at first.",
+      "phraseVi": "Lúc đầu hơi sợ."
+    },
+    {
+      "text": "Brave",
+      "lemma": "brave",
+      "meaningVi": "gan dạ",
+      "sentenceIndex": 20,
+      "pos": "adjective",
+      "phrase": "Brave question.",
+      "phraseVi": "Câu hỏi gan đấy."
+    },
+    {
+      "text": "write it up",
+      "lemma": "write up",
+      "meaningVi": "viết thành bài",
+      "sentenceIndex": 37,
+      "pos": "phrase",
+      "phrase": "Then write it up.",
+      "phraseVi": "Vậy viết bài đi."
+    }
+  ]
+}

@@ -1,0 +1,617 @@
+{
+  "content": "It's ten minutes before the evening news goes on air at a TV station in Da Nang. Mr Khiem, the news director, is showing Thoa, a junior producer, around the studio on her second day.\n\n\"Everything you see is being prepared for the live show,\" he says. \"Look at the cameras. Their angles are being adjusted for tonight's presenter.\"\n\"Why? Isn't it the same presenter every night?\"\n\"Not tonight. Our usual presenter is ill, so the show will be presented by Huong. She's shorter, so every camera has to be moved down a little.\"\nThoa watches a technician turn a camera. \"And what's happening in the control room?\"\n\"The graphics are being updated. A new story was added twenty minutes ago, so the headlines must be changed before we go on air.\"\n\"What's the new story?\"\n\"A bridge has been closed in the north of the city after a truck hit it. The pictures have just been sent by our reporter.\"\n\"Will they be shown live?\"\n\"No, they'll be shown as a short report. But the reporter will be interviewed live from the bridge at the end of the show.\"\n\"What if something goes wrong during the live part?\"\n\"Then a backup video will be played. That's why everything has been tested twice.\"\nA voice calls, \"Five minutes!\"\n\"Who decides the order of the stories?\"\n\"I do, with the editors. The order was agreed at four o'clock, but it can be changed at any time if big news happens.\"\n\"It sounds stressful.\"\n\"It is. Yesterday a new producer asked me whether he could leave the studio during the show. I told him to stay in his seat until the end.\"\n\"I'll remember that. What should I do now?\"\n\"Put on these headphones. You'll be told what to do by the floor manager.\"\n\"And if I'm not sure about something?\"\n\"Ask. Nobody will be angry if you ask a question. They'll only be angry if you guess.\"",
+  "targetWords": [
+    "producer",
+    "studio",
+    "live",
+    "angle",
+    "presenter",
+    "update",
+    "headline",
+    "interview",
+    "stressful",
+    "headphones"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "producer",
+        "lemma": "producer",
+        "meaningVi": "nhà sản xuất (chương trình)",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "studio",
+        "lemma": "studio",
+        "meaningVi": "trường quay",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "live",
+        "lemma": "live",
+        "meaningVi": "trực tiếp",
+        "pos": "adjective",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "angles",
+        "lemma": "angle",
+        "meaningVi": "góc máy",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "presenter",
+        "lemma": "presenter",
+        "meaningVi": "người dẫn chương trình",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "updated",
+        "lemma": "update",
+        "meaningVi": "cập nhật",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "headlines",
+        "lemma": "headline",
+        "meaningVi": "tin chính, tiêu đề",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "interviewed",
+        "lemma": "interview",
+        "meaningVi": "phỏng vấn",
+        "pos": "verb",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "stressful",
+        "lemma": "stressful",
+        "meaningVi": "căng thẳng",
+        "pos": "adjective",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "headphones",
+        "lemma": "headphones",
+        "meaningVi": "tai nghe",
+        "pos": "noun",
+        "sentenceIndex": 33
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Mr Khiem doing?",
+        "promptVi": "Anh Khiêm đang làm gì?",
+        "options": [
+          "Showing a new producer around the studio before a live show",
+          "Presenting the evening news",
+          "Interviewing a truck driver",
+          "Repairing a camera"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh dẫn Thoa, một nhà sản xuất mới, đi xem trường quay trước giờ lên sóng."
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why will Huong present the show tonight?",
+        "promptVi": "Vì sao tối nay Hương dẫn chương trình?",
+        "options": [
+          "The usual presenter is ill.",
+          "She asked to do it.",
+          "The usual presenter is on holiday.",
+          "Mr Khiem is ill."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Khiêm nói \"Our usual presenter is ill.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why must the headlines be changed?",
+        "promptVi": "Vì sao phải đổi các tin chính?",
+        "options": [
+          "A new story was added.",
+          "They had mistakes in them.",
+          "The presenter didn't like them.",
+          "The cameras were moved."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh nói \"A new story was added twenty minutes ago.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The pictures of the bridge will be shown live.",
+        "promptVi": "Hình ảnh cây cầu sẽ được chiếu trực tiếp.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"they'll be shown as a short report.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"stressful\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"It sounds stressful.\"",
+        "options": [
+          "căng thẳng",
+          "thú vị",
+          "dễ dàng",
+          "nhàm chán"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Stressful = gây căng thẳng, áp lực."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động ở mọi thì",
+      "bodyVi": "Trước một chương trình trực tiếp, rất nhiều việc đang được làm, đã được làm hoặc phải được làm, nên bị động xuất hiện ở mọi thì. Tiếp diễn: Their angles are being adjusted for tonight's presenter. Hoàn thành: A bridge has been closed / The pictures have just been sent. Modal: every camera has to be moved down / the headlines must be changed. Tương lai: the reporter will be interviewed live. Bài cũng có câu hỏi tường thuật: a new producer asked me whether he could leave the studio.",
+      "examples": [
+        "Their angles are being adjusted for tonight's presenter.\"",
+        "A new story was added twenty minutes ago, so the headlines must be changed before we go on air.\"",
+        "But the reporter will be interviewed live from the bridge at the end of the show.\""
+      ]
+    },
+    "writingPrompt": "Write about the preparations for an event, such as a show, a party or a wedding. Say what has been done, what is being done and what will be done.",
+    "sentenceTranslations": [
+      "Còn mười phút nữa là bản tin tối lên sóng ở một đài truyền hình tại Đà Nẵng.",
+      "Anh Khiêm, giám đốc tin tức, đang dẫn Thoa, một nhà sản xuất mới vào nghề, đi xem trường quay trong ngày làm việc thứ hai của cô.",
+      "Anh nói: \"Mọi thứ em thấy đang được chuẩn bị cho chương trình trực tiếp.",
+      "Nhìn mấy cái máy quay kìa.",
+      "Góc máy đang được chỉnh cho người dẫn chương trình tối nay.\"",
+      "\"Sao vậy ạ?",
+      "Tối nào chẳng là cùng một người dẫn?\"",
+      "\"Tối nay thì không.",
+      "Người dẫn quen thuộc bị ốm, nên chương trình sẽ do Hương dẫn.",
+      "Cô ấy thấp hơn, nên máy quay nào cũng phải hạ xuống một chút.\"",
+      "Thoa nhìn một kỹ thuật viên xoay máy quay.",
+      "\"Còn trong phòng điều khiển đang làm gì ạ?\"",
+      "\"Đồ hoạ đang được cập nhật.",
+      "Một tin mới vừa được thêm vào hai mươi phút trước, nên các tin chính phải được thay trước khi lên sóng.\"",
+      "\"Tin mới là gì ạ?\"",
+      "\"Một cây cầu ở phía bắc thành phố đã bị đóng sau khi một xe tải đâm vào.",
+      "Hình ảnh vừa được phóng viên của mình gửi về.\"",
+      "\"Hình ảnh có được chiếu trực tiếp không ạ?\"",
+      "\"Không, sẽ chiếu thành một phóng sự ngắn.",
+      "Nhưng phóng viên sẽ được phỏng vấn trực tiếp từ cây cầu ở cuối chương trình.\"",
+      "\"Nếu có gì trục trặc trong phần trực tiếp thì sao ạ?\"",
+      "\"Thì một video dự phòng sẽ được phát.",
+      "Vì thế mọi thứ đều đã được kiểm tra hai lần.\"",
+      "Có tiếng gọi: \"Còn năm phút!\"",
+      "\"Ai quyết định thứ tự các tin ạ?\"",
+      "\"Anh, cùng với các biên tập viên.",
+      "Thứ tự đã được thống nhất lúc bốn giờ, nhưng có thể thay đổi bất cứ lúc nào nếu có tin lớn.\"",
+      "\"Nghe căng thẳng quá.\"",
+      "\"Đúng vậy.",
+      "Hôm qua một nhà sản xuất mới hỏi anh có được rời trường quay trong lúc phát sóng không.",
+      "Anh bảo cậu ấy ngồi yên tại chỗ đến hết chương trình.\"",
+      "\"Em sẽ nhớ ạ.",
+      "Bây giờ em nên làm gì ạ?\"",
+      "\"Đeo tai nghe này vào.",
+      "Quản lý trường quay sẽ chỉ cho em phải làm gì.\"",
+      "\"Còn nếu em không chắc về điều gì thì sao ạ?\"",
+      "\"Cứ hỏi.",
+      "Không ai giận nếu em hỏi.",
+      "Họ chỉ giận nếu em đoán bừa thôi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mô tả công việc chuẩn bị cho một chương trình trực tiếp bằng bị động ở nhiều thì (are being / has been / must be / will be + V3).",
+    "examples": [
+      {
+        "lemma": "producer",
+        "sentence": "The producer chose the music for the film.",
+        "meaningVi": "Nhà sản xuất đã chọn nhạc cho bộ phim."
+      },
+      {
+        "lemma": "studio",
+        "sentence": "The interview was recorded in a small studio.",
+        "meaningVi": "Cuộc phỏng vấn được ghi hình trong một trường quay nhỏ."
+      },
+      {
+        "lemma": "live",
+        "sentence": "The concert will be shown live on TV.",
+        "meaningVi": "Buổi hoà nhạc sẽ được truyền hình trực tiếp."
+      },
+      {
+        "lemma": "angle",
+        "sentence": "Try taking the photo from a different angle.",
+        "meaningVi": "Thử chụp ảnh từ một góc khác xem."
+      },
+      {
+        "lemma": "presenter",
+        "sentence": "The presenter smiled at the camera.",
+        "meaningVi": "Người dẫn chương trình mỉm cười trước máy quay."
+      },
+      {
+        "lemma": "update",
+        "sentence": "Please update your phone number on the website.",
+        "meaningVi": "Vui lòng cập nhật số điện thoại trên trang web."
+      },
+      {
+        "lemma": "headline",
+        "sentence": "The fire was the main headline this morning.",
+        "meaningVi": "Vụ cháy là tin chính sáng nay."
+      },
+      {
+        "lemma": "interview",
+        "sentence": "They will interview three people for the job.",
+        "meaningVi": "Họ sẽ phỏng vấn ba người cho vị trí này."
+      },
+      {
+        "lemma": "stressful",
+        "sentence": "Moving house can be very stressful.",
+        "meaningVi": "Chuyển nhà có thể rất căng thẳng."
+      },
+      {
+        "lemma": "headphones",
+        "sentence": "I always wear headphones on the bus.",
+        "meaningVi": "Tôi luôn đeo tai nghe khi đi xe buýt."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Huong",
+        "Thoa"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "So, how was your first live show?",
+          "meaningVi": "Thế buổi phát sóng trực tiếp đầu tiên của em thế nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Exciting! But I was told to stay in my seat the whole time.",
+          "meaningVi": "Hồi hộp lắm ạ! Nhưng em được dặn phải ngồi yên suốt."
+        },
+        {
+          "speaker": 0,
+          "text": "Ha! Mr Khiem says that to everyone. Was anything changed at the last minute?",
+          "meaningVi": "Ha! Anh Khiêm nói câu đó với tất cả mọi người. Có gì bị thay đổi vào phút chót không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, the bridge story was moved to the end.",
+          "meaningVi": "Có ạ, tin cây cầu được chuyển xuống cuối."
+        },
+        {
+          "speaker": 0,
+          "text": "I know. The order is changed almost every night.",
+          "meaningVi": "Chị biết. Gần như tối nào thứ tự cũng bị thay đổi."
+        },
+        {
+          "speaker": 1,
+          "text": "Were you nervous? You were asked to present with only an hour's notice.",
+          "meaningVi": "Chị có hồi hộp không? Chị được nhờ dẫn khi chỉ được báo trước một tiếng."
+        },
+        {
+          "speaker": 0,
+          "text": "A little. But everything had been prepared by the team.",
+          "meaningVi": "Một chút. Nhưng mọi thứ đã được cả nhóm chuẩn bị sẵn."
+        },
+        {
+          "speaker": 1,
+          "text": "Will you be presenting again tomorrow?",
+          "meaningVi": "Mai chị có dẫn nữa không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Maybe. The schedule hasn't been decided yet.",
+          "meaningVi": "Có thể. Lịch vẫn chưa được quyết định."
+        },
+        {
+          "speaker": 1,
+          "text": "Well, I hope you are. You were great.",
+          "meaningVi": "Em mong là có. Chị dẫn tuyệt lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Bị động quá khứ: I was told to stay in my seat / the bridge story was moved to the end. Hiện tại: The order is changed almost every night. Hoàn thành: everything had been prepared / The schedule hasn't been decided yet.",
+    "translations": [
+      {
+        "vi": "Các góc máy đang được chỉnh cho người dẫn chương trình.",
+        "en": "The angles are being adjusted for the presenter.",
+        "distractors": [
+          "is",
+          "been",
+          "adjusting"
+        ]
+      },
+      {
+        "vi": "Các tin chính phải được thay trước khi lên sóng.",
+        "en": "The headlines must be changed before we go on air.",
+        "distractors": [
+          "changing",
+          "after",
+          "will"
+        ]
+      },
+      {
+        "vi": "Phóng viên sẽ được phỏng vấn trực tiếp.",
+        "en": "The reporter will be interviewed live.",
+        "distractors": [
+          "is",
+          "interviewing",
+          "dead"
+        ]
+      },
+      {
+        "vi": "Nghe căng thẳng quá.",
+        "en": "It sounds stressful.",
+        "distractors": [
+          "seems",
+          "relaxing",
+          "looks"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Hương và Thoa nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Buổi phát sóng trực tiếp đầu tiên của Thoa",
+          "Một cây cầu mới",
+          "Lịch nghỉ phép"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Hương hỏi \"how was your first live show?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Tin về cây cầu được chuyển đi đâu?",
+        "promptVi": "",
+        "options": [
+          "Xuống cuối chương trình",
+          "Lên đầu chương trình",
+          "Sang ngày mai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thoa nói \"the bridge story was moved to the end.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Hương được báo trước bao lâu?",
+        "promptVi": "",
+        "options": [
+          "Chỉ một tiếng",
+          "Một ngày",
+          "Một tuần"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thoa nói \"with only an hour's notice.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The schedule for tomorrow has already been decided.",
+        "promptVi": "Lịch ngày mai đã được quyết định rồi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"The schedule hasn't been decided yet.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Trước giờ lên sóng, những việc gì đang được làm trong trường quay và phòng điều khiển? Vì sao tối nay có nhiều thay đổi?",
+    "grammarStep": {
+      "titleVi": "Bị động ở mọi thì",
+      "noticing": [
+        {
+          "sentence": "Their angles are being adjusted for tonight's presenter.\"",
+          "highlights": [
+            "are being adjusted"
+          ]
+        },
+        {
+          "sentence": "A new story was added twenty minutes ago, so the headlines must be changed before we go on air.\"",
+          "highlights": [
+            "was added",
+            "must be changed"
+          ]
+        },
+        {
+          "sentence": "\"A bridge has been closed in the north of the city after a truck hit it.",
+          "highlights": [
+            "has been closed"
+          ]
+        },
+        {
+          "sentence": "But the reporter will be interviewed live from the bridge at the end of the show.\"",
+          "highlights": [
+            "will be interviewed"
+          ]
+        }
+      ],
+      "questionVi": "Đồ hoạ phải được cập nhật trước giờ lên sóng. Câu nào đúng?",
+      "options": [
+        "The graphics must be updated before we go on air.",
+        "The graphics must update before we go on air.",
+        "The graphics must being updated before we go on air."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Bị động với modal: must be + V3.",
+      "whenVi": "Dùng khi mô tả quy trình, công việc chuẩn bị, nơi việc được làm quan trọng hơn người làm.",
+      "table": [
+        {
+          "subject": "Hiện tại tiếp diễn",
+          "form": "is / are being + V3: The angles are being adjusted.",
+          "negative": "isn't / aren't being + V3"
+        },
+        {
+          "subject": "Hiện tại hoàn thành",
+          "form": "has / have been + V3: A bridge has been closed.",
+          "negative": "hasn't / haven't been + V3"
+        },
+        {
+          "subject": "Modal / tương lai",
+          "form": "must / has to / will be + V3: The headlines must be changed.",
+          "negative": "won't be / can't be + V3"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The reporter will interviewed live.",
+          "right": "The reporter will be interviewed live."
+        },
+        {
+          "wrong": "The graphics are been updated now.",
+          "right": "The graphics are being updated now."
+        }
+      ],
+      "noteVi": "Bài cũng có tường thuật câu hỏi và mệnh lệnh: a new producer asked me whether he could leave the studio. I told him to stay in his seat.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The pictures have just ___ sent by our reporter.",
+          "answers": [
+            "been"
+          ],
+          "explanationVi": "Bị động hiện tại hoàn thành: have been + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Tonight's show ___ by Huong.",
+          "options": [
+            "will be presented",
+            "will present",
+            "is presenting",
+            "has presented"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Chương trình được dẫn bởi Hương: bị động will be presented."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The headlines must changed before we go on air.",
+          "sentence": "The headlines must be changed before we go on air.",
+          "explanationVi": "Bị động với modal cần be: must be changed."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Một cây cầu ở phía bắc thành phố đã bị đóng.",
+          "sentence": "A bridge has been closed in the north of the city.",
+          "words": [
+            "A",
+            "bridge",
+            "has",
+            "been",
+            "closed",
+            "in",
+            "the",
+            "north",
+            "of",
+            "the",
+            "city.",
+            "is"
+          ],
+          "explanationVi": "has been + V3; từ \"is\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Their angles are being adjusted for tonight's presenter.\"",
+        "tipVi": "angles /ˈæŋɡəlz/; adjusted /əˈdʒʌstɪd/."
+      },
+      {
+        "text": "Then a backup video will be played.",
+        "tipVi": "will be played đọc liền; played /pleɪd/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Describe what is being done at your school or office this week.",
+        "questionVi": "Tuần này ở trường hoặc chỗ làm của bạn đang có những việc gì được làm?",
+        "frame": "___ is being ___. ___ has been ___."
+      },
+      {
+        "question": "Would you like to work in TV? Which job would you choose?",
+        "questionVi": "Bạn có muốn làm truyền hình không? Bạn sẽ chọn công việc nào?",
+        "frame": "I would like to be a ___ because ___."
+      },
+      {
+        "question": "What questions did you ask on your first day at a new school or job?",
+        "questionVi": "Ngày đầu ở trường mới hay chỗ làm mới, bạn đã hỏi những gì?",
+        "frame": "I asked whether ___. / I asked how ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is being / has been / will be / must be + V3)",
+      "anyOf": [
+        "is being",
+        "are being",
+        "has been",
+        "have been",
+        "will be",
+        "must be",
+        "has to be"
+      ],
+      "outlineVi": [
+        "Sự kiện là gì, khi nào.",
+        "Việc gì đã xong (has been …) và đang làm (is being …).",
+        "Việc gì sẽ hoặc phải được làm (will be / must be …)."
+      ],
+      "modelAnswer": "My sister's wedding is on Saturday, and everything is being prepared now. The hotel has already been booked, and the invitations were sent last month. Today the flowers are being chosen. The cake will be delivered on Friday morning. My mother asked me whether I could help, so I have been given the job of looking after the guests."
+    }
+  },
+  "glosses": [
+    {
+      "text": "goes on air",
+      "lemma": "go on air",
+      "meaningVi": "lên sóng",
+      "sentenceIndex": 0,
+      "pos": "phrase",
+      "phrase": "the evening news goes on air",
+      "phraseVi": "bản tin tối lên sóng"
+    },
+    {
+      "text": "junior",
+      "lemma": "junior",
+      "meaningVi": "mới vào nghề, cấp dưới",
+      "sentenceIndex": 1,
+      "pos": "adjective",
+      "phrase": "a junior producer",
+      "phraseVi": "một nhà sản xuất mới vào nghề"
+    },
+    {
+      "text": "technician",
+      "lemma": "technician",
+      "meaningVi": "kỹ thuật viên",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "a technician",
+      "phraseVi": "một kỹ thuật viên"
+    },
+    {
+      "text": "backup",
+      "lemma": "backup",
+      "meaningVi": "dự phòng",
+      "sentenceIndex": 21,
+      "pos": "adjective",
+      "phrase": "a backup video",
+      "phraseVi": "một video dự phòng"
+    },
+    {
+      "text": "floor manager",
+      "lemma": "floor manager",
+      "meaningVi": "quản lý trường quay",
+      "sentenceIndex": 34,
+      "pos": "noun",
+      "phrase": "by the floor manager",
+      "phraseVi": "quản lý trường quay"
+    }
+  ]
+}

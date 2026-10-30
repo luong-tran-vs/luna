@@ -1,0 +1,611 @@
+{
+  "content": "In the office of a popular entertainment magazine in Hanoi, the editor, Ms Hoai, is reading a draft by her young writer, Viet. Last week, Viet interviewed the pop singer Lily Tran for the magazine's cover story.\n\n\"This is very good,\" Hoai says. \"But I need to check a few things before it's printed.\"\n\"Of course. What's wrong?\"\n\"Nothing's wrong. I just want to be careful. You write that Lily admitted cancelling her Da Nang concert at the last minute. Did she really say that?\"\n\"Yes. She admitted making a mistake. She said she should have told her fans earlier, and she apologised to them.\"\n\"Good. And what about the rumours that she's leaving her music company?\"\n\"She denied them completely. She denied having any problems with her manager, too.\"\n\"Do you have that on the recording?\"\n\"Every word. I also asked her whether she was planning to move to Korea, and she laughed.\"\n\"So she didn't answer?\"\n\"She refused to answer that one. She just told me to wait and see.\"\n\"Hmm. Then we shouldn't suggest that she's moving. Our readers will believe whatever we print.\"\n\"Agreed. I'll take that line out.\"\n\"What's this part about a charity song?\"\n\"That's the big news. She promised to release a new song in December. All the money will go to children's hospitals.\"\n\"Has her company confirmed it?\"\n\"Her manager confirmed it by email this morning. He also asked me not to publish the title yet.\"\n\"Then we won't. Did she say anything else about the cancelled concert?\"\n\"She offered to give the fans in Da Nang free tickets for her next show there.\"\n\"That's a nice ending. Let's use it as the final paragraph.\"\n\"Great. Should I send the article to her manager before we publish it?\"\n\"No. Our policy is not to show articles to the people we interview. But you can send him the quotes to check.\"\n\"I'll do that today.\"",
+  "targetWords": [
+    "magazine",
+    "draft",
+    "concert",
+    "rumour",
+    "deny",
+    "recording",
+    "refuse",
+    "charity",
+    "release",
+    "paragraph"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "magazine",
+        "lemma": "magazine",
+        "meaningVi": "tạp chí",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "draft",
+        "lemma": "draft",
+        "meaningVi": "bản nháp",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "concert",
+        "lemma": "concert",
+        "meaningVi": "buổi biểu diễn, buổi hoà nhạc",
+        "pos": "noun",
+        "sentenceIndex": 8
+      },
+      {
+        "text": "rumours",
+        "lemma": "rumour",
+        "meaningVi": "tin đồn",
+        "pos": "noun",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "denied",
+        "lemma": "deny",
+        "meaningVi": "phủ nhận",
+        "pos": "verb",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "recording",
+        "lemma": "recording",
+        "meaningVi": "bản ghi âm",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "refused",
+        "lemma": "refuse",
+        "meaningVi": "từ chối",
+        "pos": "verb",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "charity",
+        "lemma": "charity",
+        "meaningVi": "từ thiện",
+        "pos": "noun",
+        "sentenceIndex": 28
+      },
+      {
+        "text": "release",
+        "lemma": "release",
+        "meaningVi": "phát hành",
+        "pos": "verb",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "paragraph",
+        "lemma": "paragraph",
+        "meaningVi": "đoạn văn",
+        "pos": "noun",
+        "sentenceIndex": 39
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Hoai and Viet discussing?",
+        "promptVi": "Hoài và Việt đang bàn về điều gì?",
+        "options": [
+          "Viet's interview with a famous singer",
+          "A concert they went to",
+          "A new music company",
+          "Viet's holiday in Korea"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Hoài kiểm tra bản nháp bài phỏng vấn ca sĩ Lily Trần của Việt."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did Lily deny?",
+        "promptVi": "Lily đã phủ nhận điều gì?",
+        "options": [
+          "Cancelling the concert",
+          "Having problems with her manager",
+          "Making a mistake",
+          "Writing a new song"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Việt nói \"She denied having any problems with her manager, too.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Where will the money from the new song go?",
+        "promptVi": "Tiền từ bài hát mới sẽ dành cho đâu?",
+        "options": [
+          "To her music company",
+          "To children's hospitals",
+          "To fans in Da Nang",
+          "To the magazine"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Việt nói \"All the money will go to children's hospitals.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Lily said that she was moving to Korea.",
+        "promptVi": "Lily nói cô sẽ chuyển sang Hàn Quốc.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"She refused to answer that one.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"rumours\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"And what about the rumours that she's leaving her music company?\"",
+        "options": [
+          "tin đồn",
+          "bài hát",
+          "hợp đồng",
+          "người hâm mộ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Rumour = tin đồn, chuyện người ta kể mà chưa chắc đúng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Động từ tường thuật (suggest, admit, deny, warn)",
+      "bodyVi": "Động từ tường thuật cho biết chính xác ý người nói, thay vì chỉ dùng said. Mỗi động từ đi với một cấu trúc riêng. admit / deny / suggest + V-ing: She admitted making a mistake. / She denied having any problems with her manager. promise / refuse / offer + to + V: She refused to answer that one. / She promised to release a new song in December. / She offered to give the fans free tickets. tell / ask + người + (not) to + V: She just told me to wait and see. / He also asked me not to publish the title yet.",
+      "examples": [
+        "She admitted making a mistake.",
+        "She denied having any problems with her manager, too.\"",
+        "She promised to release a new song in December."
+      ]
+    },
+    "writingPrompt": "Write a short news story about an interview with a famous person. Use at least three reporting verbs (admit, deny, promise, refuse, offer, suggest).",
+    "sentenceTranslations": [
+      "Trong văn phòng của một tạp chí giải trí nổi tiếng ở Hà Nội, biên tập viên Hoài đang đọc bản nháp của cây bút trẻ Việt.",
+      "Tuần trước, Việt phỏng vấn ca sĩ nhạc pop Lily Trần cho bài trang bìa của tạp chí.",
+      "Chị Hoài nói: \"Bài rất tốt.",
+      "Nhưng chị cần kiểm tra vài chỗ trước khi in.\"",
+      "\"Vâng ạ.",
+      "Có gì sai ạ?\"",
+      "\"Không có gì sai.",
+      "Chị chỉ muốn cẩn thận.",
+      "Em viết là Lily thừa nhận đã huỷ buổi diễn ở Đà Nẵng vào phút chót.",
+      "Cô ấy có thật sự nói vậy không?\"",
+      "\"Có ạ.",
+      "Cô ấy thừa nhận đã mắc lỗi.",
+      "Cô ấy nói lẽ ra nên báo cho người hâm mộ sớm hơn, và đã xin lỗi họ.\"",
+      "\"Tốt.",
+      "Còn tin đồn cô ấy sắp rời công ty âm nhạc thì sao?\"",
+      "\"Cô ấy phủ nhận hoàn toàn.",
+      "Cô ấy cũng phủ nhận có mâu thuẫn với quản lý.\"",
+      "\"Em có ghi âm đoạn đó không?\"",
+      "\"Từng chữ ạ.",
+      "Em còn hỏi cô ấy có định chuyển sang Hàn Quốc không, và cô ấy bật cười.\"",
+      "\"Vậy là cô ấy không trả lời?\"",
+      "\"Cô ấy từ chối trả lời câu đó.",
+      "Cô ấy chỉ bảo em cứ chờ xem.\"",
+      "\"Hừm.",
+      "Vậy mình không nên ám chỉ là cô ấy sắp chuyển đi.",
+      "Độc giả sẽ tin bất cứ điều gì mình in.\"",
+      "\"Đồng ý ạ.",
+      "Em sẽ bỏ câu đó đi.\"",
+      "\"Còn phần về bài hát từ thiện này là gì?\"",
+      "\"Đó là tin lớn.",
+      "Cô ấy hứa sẽ phát hành một bài hát mới vào tháng Mười Hai.",
+      "Toàn bộ tiền sẽ dành cho các bệnh viện nhi.\"",
+      "\"Công ty của cô ấy đã xác nhận chưa?\"",
+      "\"Quản lý của cô ấy đã xác nhận qua email sáng nay.",
+      "Anh ấy cũng nhờ em đừng đăng tên bài hát vội.\"",
+      "\"Vậy mình sẽ không đăng.",
+      "Cô ấy có nói gì thêm về buổi diễn bị huỷ không?\"",
+      "\"Cô ấy đề nghị tặng vé miễn phí cho khán giả Đà Nẵng ở buổi diễn tới tại đó.\"",
+      "\"Kết thúc hay đấy.",
+      "Mình dùng nó làm đoạn cuối nhé.\"",
+      "\"Tuyệt ạ.",
+      "Em có nên gửi bài cho quản lý của cô ấy trước khi đăng không?\"",
+      "\"Không.",
+      "Chính sách của mình là không cho người được phỏng vấn xem bài trước.",
+      "Nhưng em có thể gửi anh ấy các câu trích dẫn để kiểm tra.\"",
+      "\"Hôm nay em sẽ gửi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể thuật lại một cuộc phỏng vấn bằng các động từ tường thuật chính xác: admit / deny + V-ing, promise / refuse / offer + to + V.",
+    "examples": [
+      {
+        "lemma": "magazine",
+        "sentence": "I read this magazine every month.",
+        "meaningVi": "Tháng nào tôi cũng đọc tạp chí này."
+      },
+      {
+        "lemma": "draft",
+        "sentence": "Please send me the first draft by Friday.",
+        "meaningVi": "Vui lòng gửi tôi bản nháp đầu tiên trước thứ Sáu."
+      },
+      {
+        "lemma": "concert",
+        "sentence": "The concert starts at eight.",
+        "meaningVi": "Buổi hoà nhạc bắt đầu lúc tám giờ."
+      },
+      {
+        "lemma": "rumour",
+        "sentence": "I heard a rumour that the shop is closing.",
+        "meaningVi": "Tôi nghe đồn là cửa hàng sắp đóng cửa."
+      },
+      {
+        "lemma": "deny",
+        "sentence": "He continues to deny the story.",
+        "meaningVi": "Anh ấy tiếp tục phủ nhận câu chuyện."
+      },
+      {
+        "lemma": "recording",
+        "sentence": "The police listened to the recording.",
+        "meaningVi": "Cảnh sát đã nghe bản ghi âm."
+      },
+      {
+        "lemma": "refuse",
+        "sentence": "I refuse to believe it.",
+        "meaningVi": "Tôi không chịu tin chuyện đó."
+      },
+      {
+        "lemma": "charity",
+        "sentence": "She gives money to a children's charity.",
+        "meaningVi": "Cô ấy quyên tiền cho một tổ chức từ thiện vì trẻ em."
+      },
+      {
+        "lemma": "release",
+        "sentence": "The band will release a new album next year.",
+        "meaningVi": "Ban nhạc sẽ phát hành album mới vào năm sau."
+      },
+      {
+        "lemma": "paragraph",
+        "sentence": "Read the first paragraph again.",
+        "meaningVi": "Đọc lại đoạn đầu tiên."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Duc",
+        "Viet"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Hello, Viet. Is the article ready?",
+          "meaningVi": "Chào Việt. Bài viết xong chưa em?"
+        },
+        {
+          "speaker": 1,
+          "text": "Almost. Can I check two quotes with you?",
+          "meaningVi": "Gần xong ạ. Em kiểm tra với anh hai câu trích dẫn được không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Of course. Which ones?",
+          "meaningVi": "Tất nhiên. Câu nào?"
+        },
+        {
+          "speaker": 1,
+          "text": "Lily admitted cancelling the Da Nang concert too late. Is that correct?",
+          "meaningVi": "Lily thừa nhận đã huỷ buổi diễn ở Đà Nẵng quá muộn. Đúng không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, she said that. She also offered to give the fans free tickets.",
+          "meaningVi": "Đúng, cô ấy nói vậy. Cô ấy còn đề nghị tặng vé miễn phí cho khán giả."
+        },
+        {
+          "speaker": 1,
+          "text": "And she denied leaving your company, didn't she?",
+          "meaningVi": "Và cô ấy phủ nhận chuyện rời công ty anh, đúng không ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Exactly. Please don't suggest that she's unhappy with us.",
+          "meaningVi": "Chính xác. Em đừng ám chỉ là cô ấy không vui với công ty nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "I won't. My editor refused to print that.",
+          "meaningVi": "Em sẽ không. Biên tập viên của em cũng không chịu in chuyện đó."
+        },
+        {
+          "speaker": 0,
+          "text": "Thank you. When will the magazine come out?",
+          "meaningVi": "Cảm ơn em. Khi nào tạp chí phát hành?"
+        },
+        {
+          "speaker": 1,
+          "text": "Next Friday. I'll send you a copy.",
+          "meaningVi": "Thứ Sáu tới ạ. Em sẽ gửi anh một cuốn."
+        }
+      ]
+    },
+    "grammarTipVi": "admit / deny + V-ing: Lily admitted cancelling the concert / she denied leaving your company. offer / refuse + to + V: She offered to give the fans free tickets / My editor refused to print that.",
+    "translations": [
+      {
+        "vi": "Cô ấy thừa nhận đã huỷ buổi hoà nhạc.",
+        "en": "She admitted cancelling the concert.",
+        "distractors": [
+          "denied",
+          "refused",
+          "to"
+        ]
+      },
+      {
+        "vi": "Cô ấy phủ nhận hoàn toàn những tin đồn.",
+        "en": "She denied the rumours completely.",
+        "distractors": [
+          "admitted",
+          "news",
+          "agreed"
+        ]
+      },
+      {
+        "vi": "Cô ấy từ chối trả lời câu hỏi đó.",
+        "en": "She refused to answer that question.",
+        "distractors": [
+          "answering",
+          "refuses",
+          "offered"
+        ]
+      },
+      {
+        "vi": "Bài hát từ thiện sẽ giúp các bệnh viện nhi.",
+        "en": "The charity song will help children's hospitals.",
+        "distractors": [
+          "helps",
+          "schools",
+          "would"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Đức và Việt nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kiểm tra câu trích dẫn trước khi in",
+          "Đặt vé hoà nhạc",
+          "Một bài hát mới"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Việt hỏi \"Can I check two quotes with you?\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Lily đề nghị tặng gì cho khán giả?",
+        "promptVi": "",
+        "options": [
+          "Vé miễn phí",
+          "Áo phông",
+          "Đĩa nhạc"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Đức nói \"She also offered to give the fans free tickets.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào tạp chí phát hành?",
+        "promptVi": "",
+        "options": [
+          "Thứ Sáu tới",
+          "Thứ Hai",
+          "Tháng Mười Hai"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Việt nói \"Next Friday.\"",
+        "turnIndex": 9
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Duc says that Lily is leaving the company.",
+        "promptVi": "Anh Đức nói Lily sắp rời công ty.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Lily phủ nhận và anh Đức xác nhận \"Exactly.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Lily đã thừa nhận, phủ nhận và hứa những gì? Vì sao chị Hoài muốn kiểm tra kỹ trước khi in?",
+    "grammarStep": {
+      "titleVi": "Động từ tường thuật (suggest, admit, deny, warn)",
+      "noticing": [
+        {
+          "sentence": "She admitted making a mistake.",
+          "highlights": [
+            "admitted making"
+          ]
+        },
+        {
+          "sentence": "She denied having any problems with her manager, too.\"",
+          "highlights": [
+            "denied having"
+          ]
+        },
+        {
+          "sentence": "\"She refused to answer that one.",
+          "highlights": [
+            "refused to answer"
+          ]
+        },
+        {
+          "sentence": "She promised to release a new song in December.",
+          "highlights": [
+            "promised to release"
+          ]
+        }
+      ],
+      "questionVi": "Lily nói: \"I didn't have any problems with my manager.\" Câu tường thuật nào đúng?",
+      "options": [
+        "She denied having any problems with her manager.",
+        "She denied to have any problems with her manager.",
+        "She admitted having any problems with her manager."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Nói mình không làm / không có = deny, và deny đi với V-ing.",
+      "whenVi": "Dùng khi viết bài, kể lại cuộc phỏng vấn để cho thấy rõ thái độ của người nói: thừa nhận, phủ nhận, hứa, từ chối, đề nghị.",
+      "table": [
+        {
+          "subject": "admit / deny / suggest + V-ing",
+          "form": "She admitted making a mistake. / She denied having problems.",
+          "negative": "deny + V-ing = nói mình không làm"
+        },
+        {
+          "subject": "promise / refuse / offer + to + V",
+          "form": "She promised to release a new song. / She refused to answer.",
+          "negative": "refuse to + V = từ chối làm"
+        },
+        {
+          "subject": "tell / ask + người + (not) to + V",
+          "form": "She told me to wait and see.",
+          "negative": "He asked me not to publish the title."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "She denied to have any problems with her manager.",
+          "right": "She denied having any problems with her manager."
+        },
+        {
+          "wrong": "She promised releasing a new song.",
+          "right": "She promised to release a new song."
+        }
+      ],
+      "noteVi": "admit / deny cũng có thể đi với that + mệnh đề: She admitted that she had made a mistake.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "She refused ___ answer the question about Korea.",
+          "answers": [
+            "to"
+          ],
+          "explanationVi": "refuse + to + V."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Lily ___ cancelling the concert at the last minute.",
+          "options": [
+            "admitted",
+            "promised",
+            "refused",
+            "offered"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Sau chỗ trống là V-ing (cancelling) nên chọn admitted; promise / refuse / offer đi với to + V."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "She offered giving the fans free tickets.",
+          "sentence": "She offered to give the fans free tickets.",
+          "explanationVi": "offer + to + V: offered to give."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Cô ấy hứa sẽ phát hành một bài hát mới.",
+          "sentence": "She promised to release a new song.",
+          "words": [
+            "She",
+            "promised",
+            "to",
+            "release",
+            "a",
+            "new",
+            "song.",
+            "releasing"
+          ],
+          "explanationVi": "promise + to + V; từ \"releasing\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "She denied having any problems with her manager, too.\"",
+        "tipVi": "denied /dɪˈnaɪd/; nhấn vào denied và manager."
+      },
+      {
+        "text": "She promised to release a new song in December.",
+        "tipVi": "promised /ˈprɒmɪst/; release /rɪˈliːs/ nhấn âm sau."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Think of a famous person who apologised for something. What did he or she admit doing?",
+        "questionVi": "Nghĩ về một người nổi tiếng đã xin lỗi. Người đó thừa nhận đã làm gì?",
+        "frame": "He / She admitted ___."
+      },
+      {
+        "question": "Have you ever refused to do something? Why?",
+        "questionVi": "Bạn đã bao giờ từ chối làm điều gì chưa? Vì sao?",
+        "frame": "I once refused to ___ because ___."
+      },
+      {
+        "question": "Should magazines print rumours about famous people? Why or why not?",
+        "questionVi": "Tạp chí có nên đăng tin đồn về người nổi tiếng không? Vì sao?",
+        "frame": "I think they should / shouldn't because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 động từ tường thuật (admitted, denied, promised, refused, offered …)",
+      "anyOf": [
+        "admitted",
+        "denied",
+        "promised",
+        "refused",
+        "offered",
+        "suggested",
+        "warned",
+        "advised"
+      ],
+      "outlineVi": [
+        "Ai được phỏng vấn, khi nào.",
+        "Người đó thừa nhận / phủ nhận điều gì (admitted / denied + V-ing).",
+        "Người đó hứa hoặc từ chối làm gì (promised / refused + to + V)."
+      ],
+      "modelAnswer": "In an interview last week, the footballer Nam admitted feeling tired after the long season. He denied having any problems with the new coach. When the reporter asked about his future, he refused to answer. However, he promised to play in the national team next year and offered to visit a children's hospital in his hometown."
+    }
+  },
+  "glosses": [
+    {
+      "text": "entertainment",
+      "lemma": "entertainment",
+      "meaningVi": "giải trí",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a popular entertainment magazine",
+      "phraseVi": "một tạp chí giải trí nổi tiếng"
+    },
+    {
+      "text": "cover story",
+      "lemma": "cover story",
+      "meaningVi": "bài trang bìa",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "the magazine's cover story",
+      "phraseVi": "bài trang bìa của tạp chí"
+    },
+    {
+      "text": "at the last minute",
+      "lemma": "at the last minute",
+      "meaningVi": "vào phút chót",
+      "sentenceIndex": 8,
+      "pos": "phrase",
+      "phrase": "at the last minute",
+      "phraseVi": "vào phút chót"
+    },
+    {
+      "text": "take that line out",
+      "lemma": "take out",
+      "meaningVi": "bỏ đi",
+      "sentenceIndex": 27,
+      "pos": "phrase",
+      "phrase": "I'll take that line out.",
+      "phraseVi": "Em sẽ bỏ câu đó đi."
+    }
+  ]
+}

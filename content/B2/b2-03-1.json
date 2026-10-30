@@ -1,0 +1,607 @@
+{
+  "content": "It's half past four at a TV station in Hanoi, and the newsroom is busy. A fire broke out at a market in Long Bien this morning, and the story will lead tonight's seven o'clock news. Chau, a senior journalist, walks over to her colleague Khai's desk.\n\nChau asks, \"How is the report going?\"\n\"It's being edited right now,\" Khai says. \"The video footage has already been sent from the market, and the best shots are being chosen.\"\n\"Good. Has the fire been put out completely?\"\n\"Yes, it was put out at around eleven. Nobody was killed, but two shopkeepers were taken to hospital with burns.\"\n\"What about the cause? Has it been confirmed?\"\n\"Not yet. The police are investigating. Some traders have suggested that an old electric cable started it, but the fire service refused to comment.\"\n\"Then we mustn't say it was the cable. It can only be reported as a possibility.\"\n\"I know. The script is being checked by the legal team as we speak.\"\n\"What statements do we have?\"\n\"The market manager admitted that the fire alarms hadn't been tested for a year. And a city official promised to help the traders rebuild.\"\n\"Those quotes are strong. Will they be broadcast in full?\"\n\"The manager's will be shown in full. The official's statement will be cut to twenty seconds.\"\nChau looks at the clock. \"The graphics have to be finished by six. Have the maps been made?\"\n\"They're being made now. Lan warned me not to use the old map, because the market was redesigned last year.\"\n\"Good thinking. And the viewers' photos? Lots of people have been posting them online.\"\n\"Only two will be used. They must be checked first, to make sure they're real.\"\n\"Perfect. Send me the final version as soon as it has been approved.\"\n\"Will do. It should be ready by half past five.\"",
+  "targetWords": [
+    "journalist",
+    "edit",
+    "confirm",
+    "investigate",
+    "legal",
+    "statement",
+    "quote",
+    "broadcast",
+    "graphics",
+    "viewer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "journalist",
+        "lemma": "journalist",
+        "meaningVi": "nhà báo",
+        "pos": "noun",
+        "sentenceIndex": 2
+      },
+      {
+        "text": "edited",
+        "lemma": "edit",
+        "meaningVi": "biên tập",
+        "pos": "verb",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "confirmed",
+        "lemma": "confirm",
+        "meaningVi": "xác nhận",
+        "pos": "verb",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "investigating",
+        "lemma": "investigate",
+        "meaningVi": "điều tra",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "legal",
+        "lemma": "legal",
+        "meaningVi": "pháp lý",
+        "pos": "adjective",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "statements",
+        "lemma": "statement",
+        "meaningVi": "lời tuyên bố",
+        "pos": "noun",
+        "sentenceIndex": 19
+      },
+      {
+        "text": "quotes",
+        "lemma": "quote",
+        "meaningVi": "câu trích dẫn",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "broadcast",
+        "lemma": "broadcast",
+        "meaningVi": "phát sóng",
+        "pos": "verb",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "graphics",
+        "lemma": "graphics",
+        "meaningVi": "đồ hoạ",
+        "pos": "noun",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "viewers",
+        "lemma": "viewer",
+        "meaningVi": "khán giả (truyền hình)",
+        "pos": "noun",
+        "sentenceIndex": 32
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Chau and Khai preparing?",
+        "promptVi": "Châu và Khải đang chuẩn bị gì?",
+        "options": [
+          "A news report about a market fire",
+          "A programme about cooking",
+          "An interview with a famous singer",
+          "A weather forecast"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ chuẩn bị bản tin về vụ cháy chợ cho chương trình thời sự bảy giờ."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What happened to two shopkeepers?",
+        "promptVi": "Hai tiểu thương đã gặp chuyện gì?",
+        "options": [
+          "They were killed.",
+          "They were taken to hospital.",
+          "They were interviewed live.",
+          "They lost their jobs."
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Khải nói \"two shopkeepers were taken to hospital with burns.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why can't they say the cable started the fire?",
+        "promptVi": "Vì sao họ không được nói dây điện gây ra vụ cháy?",
+        "options": [
+          "The cause hasn't been confirmed.",
+          "The cable was new.",
+          "The police said it was a cigarette.",
+          "The manager denied it."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Nguyên nhân chưa được xác nhận: \"Not yet. The police are investigating.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "All the viewers' photos will be used in the report.",
+        "promptVi": "Tất cả ảnh của khán giả sẽ được dùng trong bản tin.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Only two will be used.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"confirmed\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"Has it been confirmed?\"",
+        "options": [
+          "xác nhận",
+          "phát sóng",
+          "điều tra",
+          "từ chối"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Confirm = xác nhận một điều là đúng."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động ở mọi thì",
+      "bodyVi": "Trong phòng tin, bị động được dùng ở mọi thì vì việc quan trọng là việc được làm, không phải ai làm. Tiếp diễn: It's being edited right now. / the best shots are being chosen. Hoàn thành: The video footage has already been sent. Câu hỏi: Has the fire been put out completely? Tương lai và modal: Will they be broadcast in full? / It can only be reported as a possibility. / They must be checked first. Bài cũng có động từ tường thuật: admitted that …, promised to help, warned me not to use …",
+      "examples": [
+        "\"It's being edited right now,\" Khai says.",
+        "\"The video footage has already been sent from the market, and the best shots are being chosen.\"",
+        "It can only be reported as a possibility.\""
+      ]
+    },
+    "writingPrompt": "Write a short news report about something that happened in your area. Use at least three passive forms (is being …, has been …, will be …).",
+    "sentenceTranslations": [
+      "Bốn rưỡi chiều tại một đài truyền hình ở Hà Nội, phòng tin tức đang rất bận rộn.",
+      "Sáng nay một vụ cháy đã xảy ra ở một khu chợ tại Long Biên, và đó sẽ là tin chính của bản tin bảy giờ tối nay.",
+      "Châu, một nhà báo kỳ cựu, đi đến bàn của đồng nghiệp Khải.",
+      "Châu hỏi: \"Phóng sự đến đâu rồi?\"",
+      "Khải nói: \"Đang được biên tập ngay bây giờ.",
+      "Đoạn phim từ chợ đã được gửi về, và những cảnh quay đẹp nhất đang được chọn.\"",
+      "\"Tốt.",
+      "Đám cháy đã được dập tắt hoàn toàn chưa?\"",
+      "\"Rồi, khoảng mười một giờ thì dập xong.",
+      "Không ai thiệt mạng, nhưng hai tiểu thương đã được đưa vào viện vì bỏng.\"",
+      "\"Còn nguyên nhân thì sao?",
+      "Đã được xác nhận chưa?\"",
+      "\"Chưa.",
+      "Cảnh sát đang điều tra.",
+      "Một số tiểu thương cho rằng một sợi dây điện cũ gây ra cháy, nhưng bên cứu hoả từ chối bình luận.\"",
+      "\"Vậy mình không được nói là do dây điện.",
+      "Chỉ có thể đưa tin như một khả năng thôi.\"",
+      "\"Em biết.",
+      "Kịch bản đang được nhóm pháp lý kiểm tra ngay lúc này.\"",
+      "\"Mình có những lời tuyên bố nào?\"",
+      "\"Quản lý chợ thừa nhận chuông báo cháy đã một năm không được kiểm tra.",
+      "Và một quan chức thành phố hứa sẽ giúp các tiểu thương xây lại.\"",
+      "\"Mấy câu trích dẫn đó mạnh đấy.",
+      "Chúng có được phát sóng đầy đủ không?\"",
+      "\"Câu của quản lý chợ sẽ được chiếu đầy đủ.",
+      "Lời tuyên bố của quan chức sẽ bị cắt còn hai mươi giây.\"",
+      "Châu nhìn đồng hồ.",
+      "\"Đồ hoạ phải xong trước sáu giờ.",
+      "Bản đồ đã làm chưa?\"",
+      "\"Đang được làm ạ.",
+      "Lan nhắc em đừng dùng bản đồ cũ, vì năm ngoái chợ đã được thiết kế lại.\"",
+      "\"Lan chu đáo thật.",
+      "Còn ảnh của khán giả?",
+      "Nhiều người đăng ảnh lên mạng lắm.\"",
+      "\"Chỉ dùng hai tấm thôi.",
+      "Phải kiểm tra trước để chắc chắn là ảnh thật.\"",
+      "\"Hoàn hảo.",
+      "Bản cuối được duyệt là gửi chị ngay nhé.\"",
+      "\"Vâng ạ.",
+      "Chắc năm rưỡi là xong.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mô tả công việc đang làm, đã làm và sẽ làm trong phòng tin bằng bị động ở nhiều thì (is being / has been / will be / must be + V3).",
+    "examples": [
+      {
+        "lemma": "journalist",
+        "sentence": "She worked as a journalist for ten years.",
+        "meaningVi": "Cô ấy làm nhà báo mười năm."
+      },
+      {
+        "lemma": "edit",
+        "sentence": "Can you edit this video before lunch?",
+        "meaningVi": "Bạn biên tập video này trước bữa trưa được không?"
+      },
+      {
+        "lemma": "confirm",
+        "sentence": "Please confirm your booking by email.",
+        "meaningVi": "Vui lòng xác nhận đặt chỗ qua email."
+      },
+      {
+        "lemma": "investigate",
+        "sentence": "The police will investigate the accident.",
+        "meaningVi": "Cảnh sát sẽ điều tra vụ tai nạn."
+      },
+      {
+        "lemma": "legal",
+        "sentence": "You should get legal advice first.",
+        "meaningVi": "Bạn nên hỏi ý kiến pháp lý trước."
+      },
+      {
+        "lemma": "statement",
+        "sentence": "The company made a statement this morning.",
+        "meaningVi": "Công ty đã ra tuyên bố sáng nay."
+      },
+      {
+        "lemma": "quote",
+        "sentence": "The article starts with a quote from the mayor.",
+        "meaningVi": "Bài báo mở đầu bằng một câu trích dẫn của thị trưởng."
+      },
+      {
+        "lemma": "broadcast",
+        "sentence": "The match will be broadcast live.",
+        "meaningVi": "Trận đấu sẽ được phát trực tiếp."
+      },
+      {
+        "lemma": "graphics",
+        "sentence": "The graphics in this game are amazing.",
+        "meaningVi": "Đồ hoạ trong trò chơi này thật tuyệt."
+      },
+      {
+        "lemma": "viewer",
+        "sentence": "Every viewer can vote by phone.",
+        "meaningVi": "Mỗi khán giả có thể bình chọn qua điện thoại."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Lan",
+        "Khai"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Khai, the new map has been finished. Do you want to see it?",
+          "meaningVi": "Anh Khải, bản đồ mới xong rồi. Anh xem không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, please. Has the new layout of the market been added?",
+          "meaningVi": "Có chứ. Sơ đồ mới của chợ đã được thêm vào chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "It has. The old entrance has been removed too.",
+          "meaningVi": "Rồi ạ. Lối vào cũ cũng đã được bỏ đi."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. When will it be sent to the editor?",
+          "meaningVi": "Tuyệt. Khi nào nó được gửi cho biên tập viên?"
+        },
+        {
+          "speaker": 0,
+          "text": "It's being sent now. It should be approved in ten minutes.",
+          "meaningVi": "Đang được gửi ạ. Chắc mười phút nữa là được duyệt."
+        },
+        {
+          "speaker": 1,
+          "text": "Thanks. Have the viewers' photos been checked?",
+          "meaningVi": "Cảm ơn em. Ảnh của khán giả đã được kiểm tra chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Two have been checked. The others are being checked now.",
+          "meaningVi": "Hai tấm đã kiểm tra xong. Những tấm còn lại đang được kiểm tra."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. Remember that nothing can be shown until it's approved.",
+          "meaningVi": "Tốt. Nhớ là chưa duyệt thì không được chiếu gì cả."
+        },
+        {
+          "speaker": 0,
+          "text": "Don't worry. I won't make that mistake again.",
+          "meaningVi": "Anh đừng lo. Em sẽ không mắc lỗi đó nữa."
+        },
+        {
+          "speaker": 1,
+          "text": "I know. You've been brilliant today.",
+          "meaningVi": "Anh biết. Hôm nay em làm tuyệt lắm."
+        }
+      ]
+    },
+    "grammarTipVi": "Hoàn thành: the new map has been finished / Have the viewers' photos been checked? Tiếp diễn: It's being sent now. Tương lai và modal: When will it be sent? / It should be approved / nothing can be shown.",
+    "translations": [
+      {
+        "vi": "Phóng sự đang được biên tập ngay bây giờ.",
+        "en": "The report is being edited right now.",
+        "distractors": [
+          "been",
+          "cut",
+          "was"
+        ]
+      },
+      {
+        "vi": "Cảnh sát đang điều tra nguyên nhân.",
+        "en": "The police are investigating the cause.",
+        "distractors": [
+          "is",
+          "investigated",
+          "reason"
+        ]
+      },
+      {
+        "vi": "Lời tuyên bố của quan chức sẽ bị cắt còn hai mươi giây.",
+        "en": "The official's statement will be cut to twenty seconds.",
+        "distractors": [
+          "is",
+          "being",
+          "minutes"
+        ]
+      },
+      {
+        "vi": "Những câu trích dẫn đó sẽ được phát sóng đầy đủ.",
+        "en": "Those quotes will be broadcast in full.",
+        "distractors": [
+          "are",
+          "broadcasting",
+          "short"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Lan và Khải nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Bản đồ và ảnh cho bản tin",
+          "Kế hoạch đi chợ",
+          "Buổi họp sáng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"the new map has been finished\" và họ bàn về ảnh của khán giả.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Trên bản đồ mới, cái gì đã được bỏ đi?",
+        "promptVi": "",
+        "options": [
+          "Lối vào cũ",
+          "Tên các tiểu thương",
+          "Con sông"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"The old entrance has been removed too.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bao lâu nữa bản đồ được duyệt?",
+        "promptVi": "",
+        "options": [
+          "Mười phút",
+          "Một tiếng",
+          "Hai mươi giây"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Lan nói \"It should be approved in ten minutes.\"",
+        "turnIndex": 4
+      },
+      {
+        "kind": "tfn",
+        "prompt": "All the viewers' photos have been checked.",
+        "promptVi": "Tất cả ảnh của khán giả đã được kiểm tra.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì mới \"Two have been checked. The others are being checked now.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Những phần nào của bản tin đã xong, đang làm và sẽ làm? Vì sao họ phải cẩn thận khi nói về nguyên nhân vụ cháy?",
+    "grammarStep": {
+      "titleVi": "Bị động ở mọi thì",
+      "noticing": [
+        {
+          "sentence": "\"It's being edited right now,\" Khai says.",
+          "highlights": [
+            "being edited"
+          ]
+        },
+        {
+          "sentence": "\"The video footage has already been sent from the market, and the best shots are being chosen.\"",
+          "highlights": [
+            "has already been sent",
+            "are being chosen"
+          ]
+        },
+        {
+          "sentence": "It can only be reported as a possibility.\"",
+          "highlights": [
+            "can only be reported"
+          ]
+        },
+        {
+          "sentence": "Will they be broadcast in full?\"",
+          "highlights": [
+            "Will they be broadcast"
+          ]
+        }
+      ],
+      "questionVi": "Lúc này phóng sự đang được biên tập. Câu nào đúng?",
+      "options": [
+        "The report is being edited right now.",
+        "The report has edited right now.",
+        "The report is editing by Khai right now."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Bị động tiếp diễn: is being + V3 (edited).",
+      "whenVi": "Dùng bị động khi việc được làm quan trọng hơn người làm, rất hay gặp trong tin tức và báo cáo công việc.",
+      "table": [
+        {
+          "subject": "Tiếp diễn",
+          "form": "am / is / are being + V3: The script is being checked.",
+          "negative": "isn't / aren't being + V3"
+        },
+        {
+          "subject": "Hoàn thành",
+          "form": "has / have been + V3: The footage has been sent.",
+          "negative": "hasn't been + V3; quá khứ: hadn't been tested"
+        },
+        {
+          "subject": "Tương lai và modal",
+          "form": "will be / must be / can be + V3: Only two will be used.",
+          "negative": "won't be / mustn't be + V3"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The script is being check by the legal team.",
+          "right": "The script is being checked by the legal team."
+        },
+        {
+          "wrong": "Has the fire put out completely?",
+          "right": "Has the fire been put out completely?"
+        }
+      ],
+      "noteVi": "Bài cũng có động từ tường thuật: suggested that …, refused to comment, admitted that …, promised to help, warned me not to use …",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The maps are ___ made now.",
+          "answers": [
+            "being"
+          ],
+          "explanationVi": "Bị động tiếp diễn: are being + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "Only two photos ___ used in tonight's report.",
+          "options": [
+            "will be",
+            "will",
+            "are using",
+            "have"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Bị động tương lai: will be + V3."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The footage has already sent from the market.",
+          "sentence": "The footage has already been sent from the market.",
+          "explanationVi": "Đoạn phim không tự gửi, nên cần bị động: has been sent."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Kịch bản đang được nhóm pháp lý kiểm tra.",
+          "sentence": "The script is being checked by the legal team.",
+          "words": [
+            "The",
+            "script",
+            "is",
+            "being",
+            "checked",
+            "by",
+            "the",
+            "legal",
+            "team.",
+            "been"
+          ],
+          "explanationVi": "is being + V3 + by …; từ \"been\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"It's being edited right now,\" Khai says.",
+        "tipVi": "being edited đọc nối /ˈbiːɪŋ ˈedɪtɪd/."
+      },
+      {
+        "text": "They must be checked first, to make sure they're real.\"",
+        "tipVi": "must be /mʌs bi/; checked /tʃekt/ đuôi -ed đọc /t/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What is happening in your town or city at the moment?",
+        "questionVi": "Hiện nay ở nơi bạn sống đang có những thay đổi gì?",
+        "frame": "A new ___ is being built. ___ has been ___."
+      },
+      {
+        "question": "How do you usually get the news? Why?",
+        "questionVi": "Bạn thường xem tin tức qua đâu? Vì sao?",
+        "frame": "I usually get the news from ___ because ___."
+      },
+      {
+        "question": "Should TV news use photos sent by viewers? Why or why not?",
+        "questionVi": "Bản tin truyền hình có nên dùng ảnh khán giả gửi không? Vì sao?",
+        "frame": "I think they should / shouldn't because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is being / has been / will be + V3)",
+      "anyOf": [
+        "is being",
+        "are being",
+        "has been",
+        "have been",
+        "will be",
+        "must be",
+        "can be"
+      ],
+      "outlineVi": [
+        "Chuyện gì đã xảy ra (was / were + V3).",
+        "Hiện giờ việc gì đang được làm (is being + V3) và đã xong (has been + V3).",
+        "Việc gì sẽ được làm tiếp theo (will be + V3)."
+      ],
+      "modelAnswer": "A new bridge is being built over the river near my house. Work started last year, and the main part has already been finished. The road to the bridge is being repaired at the moment, so traffic has been moved to a smaller street. The bridge will be opened in March. Local people have been told to use buses until then."
+    }
+  },
+  "glosses": [
+    {
+      "text": "newsroom",
+      "lemma": "newsroom",
+      "meaningVi": "phòng tin tức",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the newsroom is busy",
+      "phraseVi": "phòng tin tức đang bận rộn"
+    },
+    {
+      "text": "footage",
+      "lemma": "footage",
+      "meaningVi": "đoạn phim quay được",
+      "sentenceIndex": 5,
+      "pos": "noun",
+      "phrase": "The video footage",
+      "phraseVi": "Đoạn phim"
+    },
+    {
+      "text": "put out",
+      "lemma": "put out",
+      "meaningVi": "dập tắt",
+      "sentenceIndex": 7,
+      "pos": "phrase",
+      "phrase": "Has the fire been put out completely?",
+      "phraseVi": "Đám cháy đã được dập tắt hoàn toàn chưa?"
+    },
+    {
+      "text": "burns",
+      "lemma": "burn",
+      "meaningVi": "vết bỏng",
+      "sentenceIndex": 9,
+      "pos": "noun",
+      "phrase": "taken to hospital with burns",
+      "phraseVi": "đưa vào viện vì bỏng"
+    }
+  ]
+}

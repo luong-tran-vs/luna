@@ -1,0 +1,593 @@
+{
+  "content": "At a quiet table in the newsroom, the investigative journalist Thuy is telling her editor, Mr Phu, and the photographer, Bich, about the meeting she had last night.\n\nMr Phu asks, \"So, did the source come?\"\n\"Yes, but an hour late. We met in a small café near the bus station. He asked me not to use his name or describe his job.\"\n\"Of course. What did he tell you?\"\n\"He works for the company that's taking sand from the river at night. He said the trucks had been leaving at two in the morning for over a year.\"\n\"Can he prove it?\"\n\"He has photos and some delivery records. He asked me whether we could protect his identity if the police got involved.\"\n\"What did you say?\"\n\"I told him that we never reveal our sources. Then he asked how long it would take us to publish the story.\"\n\"Good question. What did you tell him?\"\n\"I said at least a month, because everything has to be checked. He didn't like that. He asked me why it would take so long.\"\n\"Did he give you anything?\"\n\"A memory stick with the photos. But he warned me not to go near the river alone. He said some of the workers had been threatened when they asked questions.\"\nBich looks worried. \"Then we should go together. I can take night photos from the other side of the river.\"\n\"That's what I suggested,\" Thuy says. \"He also advised us to visit on a Tuesday, when the most trucks come.\"\n\"Fine, but nobody goes without telling me first,\" Mr Phu says. \"And I want the lawyers to see everything before we write a word.\"\n\"Agreed. He told me to call him only from a new number. I've already bought one.\"\n\"Good. Let's meet again on Friday and plan the trip.\"",
+  "targetWords": [
+    "photographer",
+    "source",
+    "prove",
+    "record",
+    "identity",
+    "reveal",
+    "publish",
+    "alone",
+    "threaten",
+    "lawyer"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "photographer",
+        "lemma": "photographer",
+        "meaningVi": "nhiếp ảnh gia",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "source",
+        "lemma": "source",
+        "meaningVi": "nguồn tin",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "prove",
+        "lemma": "prove",
+        "meaningVi": "chứng minh",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "records",
+        "lemma": "record",
+        "meaningVi": "sổ sách, hồ sơ",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "identity",
+        "lemma": "identity",
+        "meaningVi": "danh tính",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "reveal",
+        "lemma": "reveal",
+        "meaningVi": "tiết lộ",
+        "pos": "verb",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "publish",
+        "lemma": "publish",
+        "meaningVi": "đăng, xuất bản",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "alone",
+        "lemma": "alone",
+        "meaningVi": "một mình",
+        "pos": "adverb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "threatened",
+        "lemma": "threaten",
+        "meaningVi": "đe doạ",
+        "pos": "verb",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "lawyers",
+        "lemma": "lawyer",
+        "meaningVi": "luật sư",
+        "pos": "noun",
+        "sentenceIndex": 30
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Thuy telling her team about?",
+        "promptVi": "Thuỷ đang kể với nhóm về điều gì?",
+        "options": [
+          "Her secret meeting with a source",
+          "A trip to the bus station",
+          "A new café in town",
+          "A problem with her phone"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thuỷ kể về cuộc gặp với một nguồn tin giấu tên tối qua."
+      },
+      {
+        "kind": "detail",
+        "prompt": "What does the source say the company is doing?",
+        "promptVi": "Nguồn tin nói công ty đang làm gì?",
+        "options": [
+          "Taking sand from the river at night",
+          "Selling fake photos",
+          "Building a new bridge",
+          "Cutting down trees"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thuỷ nói anh ấy làm cho \"the company that's taking sand from the river at night.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How long does Thuy think it will take to publish the story?",
+        "promptVi": "Thuỷ nghĩ mất bao lâu mới đăng được bài?",
+        "options": [
+          "A week",
+          "At least a month",
+          "A year",
+          "Two days"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Thuỷ nói \"I said at least a month.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The source told Thuy to go to the river alone.",
+        "promptVi": "Nguồn tin bảo Thuỷ đi ra sông một mình.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"he warned me not to go near the river alone.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"identity\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"He asked me whether we could protect his identity if the police got involved.\"",
+        "options": [
+          "danh tính",
+          "gia đình",
+          "công việc",
+          "ngôi nhà"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Identity = danh tính, cho biết một người là ai."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tường thuật câu hỏi và mệnh lệnh",
+      "bodyVi": "Khi kể lại cuộc gặp với nguồn tin, ta tường thuật câu hỏi và yêu cầu của họ. Câu hỏi Yes / No: He asked me whether we could protect his identity. Câu hỏi Wh-: he asked how long it would take us to publish the story / He asked me why it would take so long (trật tự câu kể, lùi thì will → would). Yêu cầu: asked / told + người + (not) to + V: He asked me not to use his name / He told me to call him only from a new number. Bài còn có warned me not to … và advised us to …",
+      "examples": [
+        "He asked me not to use his name or describe his job.\"",
+        "He asked me whether we could protect his identity if the police got involved.\"",
+        "Then he asked how long it would take us to publish the story.\""
+      ]
+    },
+    "writingPrompt": "Imagine you met someone with important information for a news story. Report what the person asked you and what he or she told you to do.",
+    "sentenceTranslations": [
+      "Ở một chiếc bàn yên tĩnh trong phòng tin, nhà báo điều tra Thuỷ đang kể với biên tập viên, anh Phú, và nhiếp ảnh gia Bích về cuộc gặp tối qua.",
+      "Anh Phú hỏi: \"Thế nguồn tin có đến không?\"",
+      "\"Có, nhưng muộn một tiếng.",
+      "Bọn em gặp ở một quán cà phê nhỏ gần bến xe buýt.",
+      "Anh ấy nhờ em đừng dùng tên hay mô tả công việc của anh ấy.\"",
+      "\"Tất nhiên rồi.",
+      "Anh ấy kể gì với em?\"",
+      "\"Anh ấy làm cho công ty đang hút cát dưới sông vào ban đêm.",
+      "Anh ấy nói hơn một năm nay xe tải cứ hai giờ sáng là chạy.\"",
+      "\"Anh ấy có chứng minh được không?\"",
+      "\"Anh ấy có ảnh và một số sổ sách giao hàng.",
+      "Anh ấy hỏi nếu công an vào cuộc thì mình có bảo vệ được danh tính của anh ấy không.\"",
+      "\"Em trả lời sao?\"",
+      "\"Em nói với anh ấy rằng mình không bao giờ tiết lộ nguồn tin.",
+      "Rồi anh ấy hỏi mất bao lâu thì mình đăng bài.\"",
+      "\"Câu hỏi hay.",
+      "Em trả lời thế nào?\"",
+      "\"Em nói ít nhất một tháng, vì mọi thứ đều phải được kiểm tra.",
+      "Anh ấy không thích thế.",
+      "Anh ấy hỏi em vì sao lại lâu như vậy.\"",
+      "\"Anh ấy có đưa em gì không?\"",
+      "\"Một chiếc thẻ nhớ có ảnh.",
+      "Nhưng anh ấy cảnh báo em đừng đến gần bờ sông một mình.",
+      "Anh ấy nói một số công nhân đã bị đe doạ khi đặt câu hỏi.\"",
+      "Bích có vẻ lo lắng.",
+      "\"Vậy mình nên đi cùng nhau.",
+      "Em có thể chụp ảnh đêm từ bờ bên kia.\"",
+      "Thuỷ nói: \"Chị cũng đề xuất như vậy.",
+      "Anh ấy còn khuyên mình đi vào thứ Ba, hôm có nhiều xe tải nhất.\"",
+      "Anh Phú nói: \"Được, nhưng không ai được đi mà không báo anh trước.",
+      "Và anh muốn luật sư xem hết mọi thứ trước khi mình viết một chữ nào.\"",
+      "\"Đồng ý.",
+      "Anh ấy dặn em chỉ gọi cho anh ấy bằng số mới.",
+      "Em đã mua một số rồi.\"",
+      "\"Tốt.",
+      "Thứ Sáu mình họp lại và lên kế hoạch cho chuyến đi.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể thuật lại câu hỏi, yêu cầu và lời cảnh báo của một nguồn tin (asked whether / how long …, asked me not to …, told me to …).",
+    "examples": [
+      {
+        "lemma": "photographer",
+        "sentence": "The photographer took pictures of the wedding.",
+        "meaningVi": "Nhiếp ảnh gia chụp ảnh đám cưới."
+      },
+      {
+        "lemma": "source",
+        "sentence": "The journalist never names her source.",
+        "meaningVi": "Nhà báo không bao giờ nêu tên nguồn tin của mình."
+      },
+      {
+        "lemma": "prove",
+        "sentence": "Can you prove that you were at home?",
+        "meaningVi": "Bạn có chứng minh được là bạn ở nhà không?"
+      },
+      {
+        "lemma": "record",
+        "sentence": "The doctor checked my medical record.",
+        "meaningVi": "Bác sĩ xem hồ sơ bệnh án của tôi."
+      },
+      {
+        "lemma": "identity",
+        "sentence": "Please show your identity card at the door.",
+        "meaningVi": "Vui lòng xuất trình thẻ căn cước ở cửa."
+      },
+      {
+        "lemma": "reveal",
+        "sentence": "She refused to reveal the secret.",
+        "meaningVi": "Cô ấy không chịu tiết lộ bí mật."
+      },
+      {
+        "lemma": "publish",
+        "sentence": "They will publish her first book in May.",
+        "meaningVi": "Họ sẽ xuất bản cuốn sách đầu tay của cô ấy vào tháng Năm."
+      },
+      {
+        "lemma": "alone",
+        "sentence": "My grandmother lives alone.",
+        "meaningVi": "Bà tôi sống một mình."
+      },
+      {
+        "lemma": "threaten",
+        "sentence": "The storm could threaten the harvest.",
+        "meaningVi": "Cơn bão có thể đe doạ vụ mùa."
+      },
+      {
+        "lemma": "lawyer",
+        "sentence": "Her lawyer read the contract carefully.",
+        "meaningVi": "Luật sư của cô ấy đọc kỹ hợp đồng."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Bich",
+        "Thuy"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thuy, did the source say where the trucks go?",
+          "meaningVi": "Chị Thuỷ, nguồn tin có nói xe tải đi đâu không?"
+        },
+        {
+          "speaker": 1,
+          "text": "I asked him that, but he said he didn't know.",
+          "meaningVi": "Chị có hỏi, nhưng anh ấy nói không biết."
+        },
+        {
+          "speaker": 0,
+          "text": "Did he tell you which part of the river to watch?",
+          "meaningVi": "Anh ấy có bảo mình nên theo dõi đoạn sông nào không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. He told us to go to the old ferry.",
+          "meaningVi": "Có. Anh ấy bảo mình đến bến phà cũ."
+        },
+        {
+          "speaker": 0,
+          "text": "And what time should we be there?",
+          "meaningVi": "Thế mình nên có mặt lúc mấy giờ?"
+        },
+        {
+          "speaker": 1,
+          "text": "He advised us to arrive before two.",
+          "meaningVi": "Anh ấy khuyên mình đến trước hai giờ."
+        },
+        {
+          "speaker": 0,
+          "text": "Mr Phu asked me whether I had a good camera for night photos.",
+          "meaningVi": "Anh Phú hỏi em có máy ảnh tốt để chụp đêm không."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you?",
+          "meaningVi": "Thế em có không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, but I'll need a long lens. I'll borrow one.",
+          "meaningVi": "Có, nhưng em cần ống kính dài. Em sẽ đi mượn."
+        },
+        {
+          "speaker": 1,
+          "text": "Great. Remember, he warned us not to talk to the workers.",
+          "meaningVi": "Tốt. Nhớ là anh ấy cảnh báo mình đừng nói chuyện với công nhân."
+        }
+      ]
+    },
+    "grammarTipVi": "Mệnh lệnh: He told us to go to the old ferry / he warned us not to talk to the workers. Câu hỏi: Mr Phu asked me whether I had a good camera.",
+    "translations": [
+      {
+        "vi": "Anh ấy hỏi chúng tôi có bảo vệ được danh tính của anh ấy không.",
+        "en": "He asked whether we could protect his identity.",
+        "distractors": [
+          "can",
+          "if",
+          "name"
+        ]
+      },
+      {
+        "vi": "Tôi nói với anh ấy rằng chúng tôi không bao giờ tiết lộ nguồn tin.",
+        "en": "I told him that we never reveal our sources.",
+        "distractors": [
+          "always",
+          "revealed",
+          "said"
+        ]
+      },
+      {
+        "vi": "Anh ấy hỏi mất bao lâu để đăng bài.",
+        "en": "He asked how long it would take to publish the story.",
+        "distractors": [
+          "will",
+          "did",
+          "publishing"
+        ]
+      },
+      {
+        "vi": "Một số công nhân đã bị đe doạ.",
+        "en": "Some of the workers had been threatened.",
+        "distractors": [
+          "have",
+          "threatening",
+          "was"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bích và Thuỷ nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Kế hoạch chụp ảnh ban đêm ở bờ sông",
+          "Mua máy ảnh mới",
+          "Một buổi họp báo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ bàn nên đến đoạn sông nào, lúc mấy giờ và mang máy ảnh gì.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nguồn tin bảo họ đến đâu?",
+        "promptVi": "",
+        "options": [
+          "Bến phà cũ",
+          "Bến xe buýt",
+          "Một quán cà phê"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thuỷ nói \"He told us to go to the old ferry.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Họ nên đến trước mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Hai giờ",
+          "Mười giờ",
+          "Sáu giờ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thuỷ nói \"He advised us to arrive before two.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The source told them to talk to the workers.",
+        "promptVi": "Nguồn tin bảo họ nói chuyện với công nhân.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"he warned us not to talk to the workers.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Nguồn tin đã hỏi Thuỷ những gì, và anh ấy đã dặn, cảnh báo điều gì?",
+    "grammarStep": {
+      "titleVi": "Tường thuật câu hỏi và mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "He asked me not to use his name or describe his job.\"",
+          "highlights": [
+            "asked me not to use"
+          ]
+        },
+        {
+          "sentence": "He asked me whether we could protect his identity if the police got involved.\"",
+          "highlights": [
+            "asked me whether we could protect"
+          ]
+        },
+        {
+          "sentence": "Then he asked how long it would take us to publish the story.\"",
+          "highlights": [
+            "asked how long it would take"
+          ]
+        },
+        {
+          "sentence": "He told me to call him only from a new number.",
+          "highlights": [
+            "told me to call"
+          ]
+        }
+      ],
+      "questionVi": "Nguồn tin hỏi: \"Why will it take so long?\" Câu tường thuật nào đúng?",
+      "options": [
+        "He asked me why it would take so long.",
+        "He asked me why would it take so long.",
+        "He asked me why it will take so long?"
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Trật tự câu kể (it would take), lùi thì will → would, và kết thúc bằng dấu chấm.",
+      "whenVi": "Dùng khi báo cáo lại cho đồng nghiệp những gì người khác đã hỏi và yêu cầu trong một cuộc gặp.",
+      "table": [
+        {
+          "subject": "asked + từ để hỏi",
+          "form": "He asked how long it would take us to publish the story.",
+          "negative": "Không đảo ngữ: không viết how long would it take"
+        },
+        {
+          "subject": "asked + whether / if",
+          "form": "He asked me whether we could protect his identity.",
+          "negative": "Lùi thì: can → could, will → would"
+        },
+        {
+          "subject": "asked / told + người + (not) to",
+          "form": "He told me to call him only from a new number.",
+          "negative": "He asked me not to use his name."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "He asked me how long would it take.",
+          "right": "He asked me how long it would take."
+        },
+        {
+          "wrong": "He asked me to not use his name.",
+          "right": "He asked me not to use his name."
+        }
+      ],
+      "noteVi": "Bài cũng có động từ tường thuật khác: he warned me not to go near the river alone / He also advised us to visit on a Tuesday.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "He asked me ___ we could protect his identity.",
+          "answers": [
+            "whether",
+            "if"
+          ],
+          "explanationVi": "Câu hỏi Yes / No khi tường thuật dùng whether / if."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "He told me ___ him only from a new number.",
+          "options": [
+            "to call",
+            "call",
+            "calling",
+            "that I call"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "told + người + to + V."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He asked me why would it take so long.",
+          "sentence": "He asked me why it would take so long.",
+          "explanationVi": "Câu hỏi tường thuật không đảo ngữ: why it would take."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Anh ấy nhờ tôi đừng dùng tên anh ấy.",
+          "sentence": "He asked me not to use his name.",
+          "words": [
+            "He",
+            "asked",
+            "me",
+            "not",
+            "to",
+            "use",
+            "his",
+            "name.",
+            "don't"
+          ],
+          "explanationVi": "asked + người + not to + V; từ \"don't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "He asked me not to use his name or describe his job.\"",
+        "tipVi": "Nhấn vào not; describe /dɪˈskraɪb/."
+      },
+      {
+        "text": "Then he asked how long it would take us to publish the story.\"",
+        "tipVi": "would take us đọc nối; publish /ˈpʌblɪʃ/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Have you ever kept a secret for someone? What did the person ask you to do?",
+        "questionVi": "Bạn đã bao giờ giữ bí mật cho ai chưa? Người đó nhờ bạn làm gì?",
+        "frame": "He / She asked me not to ___."
+      },
+      {
+        "question": "Why is it important for journalists to protect their sources?",
+        "questionVi": "Vì sao nhà báo cần bảo vệ nguồn tin?",
+        "frame": "It is important because ___."
+      },
+      {
+        "question": "What questions would you ask a source before writing a story?",
+        "questionVi": "Bạn sẽ hỏi nguồn tin những gì trước khi viết bài?",
+        "frame": "I would ask whether ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật câu hỏi hoặc mệnh lệnh (asked whether / how …, told me to …)",
+      "anyOf": [
+        "asked if",
+        "asked whether",
+        "asked how",
+        "asked why",
+        "asked me",
+        "told me to",
+        "not to"
+      ],
+      "outlineVi": [
+        "Bạn gặp ai, ở đâu, người đó có thông tin gì.",
+        "Người đó đã hỏi bạn những gì (asked whether / how …).",
+        "Người đó dặn bạn điều gì (asked me not to … / told me to …)."
+      ],
+      "modelAnswer": "Last night I met a nurse who works at the city hospital. She asked me not to use her name. She said that some medicine had been sold illegally. She asked me whether the newspaper would protect her, and I said yes. Then she asked how soon the story would come out. Before she left, she told me to be very careful."
+    }
+  },
+  "glosses": [
+    {
+      "text": "investigative journalist",
+      "lemma": "investigative journalist",
+      "meaningVi": "nhà báo điều tra",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the investigative journalist Thuy",
+      "phraseVi": "nhà báo điều tra Thuỷ"
+    },
+    {
+      "text": "got involved",
+      "lemma": "get involved",
+      "meaningVi": "vào cuộc",
+      "sentenceIndex": 11,
+      "pos": "phrase",
+      "phrase": "if the police got involved",
+      "phraseVi": "nếu công an vào cuộc"
+    },
+    {
+      "text": "memory stick",
+      "lemma": "memory stick",
+      "meaningVi": "thẻ nhớ, USB",
+      "sentenceIndex": 21,
+      "pos": "noun",
+      "phrase": "A memory stick with the photos",
+      "phraseVi": "Một chiếc thẻ nhớ có ảnh"
+    }
+  ]
+}

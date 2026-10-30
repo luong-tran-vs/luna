@@ -1,0 +1,603 @@
+{
+  "content": "It is almost midnight, but the printing house of a national newspaper in Hanoi is noisy and bright. The chief editor, Mr Duong, has come to check the first copies of tomorrow's paper. Mrs Thom, the printing manager, meets him at the door.\n\n\"Good evening, Mrs Thom. Has the front page been printed yet?\"\n\"The first thousand copies have just been printed. Here's one, still warm.\"\nMr Duong reads the headline carefully. \"Good. The minister's name has been spelled correctly this time.\"\n\"Your night editor warned us about that twice,\" Mrs Thom says with a smile.\n\"After last month, she refuses to take any risks. Have all the photos been checked?\"\n\"Yes. They were checked by your team at ten, and the colours have been adjusted on the machine.\"\n\"And the late football result? The match only finished at eleven.\"\n\"It's been added to the back page. The sports desk sent it at twenty past eleven.\"\n\"Excellent. How many copies will be printed tonight?\"\n\"About a hundred and twenty thousand. The machines will be running until half past three.\"\n\"And distribution?\"\n\"The routes are being finalised now. The trucks will be loaded from three o'clock, and the papers will be delivered to the northern provinces before dawn.\"\n\"What about the delay we had in Hai Phong last week?\"\n\"The driver admitted leaving late. He apologised and promised to be on time from now on. We've also added a second driver on that route.\"\n\"Good. Our readers don't want to drink their morning coffee without it.\"\n\"They'll get it. Would you like to see the machines?\"\n\"Yes, please. Every time I come here, I'm amazed that so much paper can be printed so quickly.\"\nThey walk together into the hall, where thousands of newspapers are being folded and stacked by the huge machines.",
+  "targetWords": [
+    "editor",
+    "copy",
+    "front page",
+    "spell",
+    "risk",
+    "adjust",
+    "distribution",
+    "finalise",
+    "dawn",
+    "fold"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "editor",
+        "lemma": "editor",
+        "meaningVi": "biên tập viên",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "copies",
+        "lemma": "copy",
+        "meaningVi": "bản (báo)",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "front page",
+        "lemma": "front page",
+        "meaningVi": "trang nhất",
+        "pos": "noun",
+        "sentenceIndex": 4
+      },
+      {
+        "text": "spelled",
+        "lemma": "spell",
+        "meaningVi": "đánh vần, viết (chính tả)",
+        "pos": "verb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "risks",
+        "lemma": "risk",
+        "meaningVi": "rủi ro",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "adjusted",
+        "lemma": "adjust",
+        "meaningVi": "điều chỉnh",
+        "pos": "verb",
+        "sentenceIndex": 14
+      },
+      {
+        "text": "distribution",
+        "lemma": "distribution",
+        "meaningVi": "việc phân phối",
+        "pos": "noun",
+        "sentenceIndex": 23
+      },
+      {
+        "text": "finalised",
+        "lemma": "finalise",
+        "meaningVi": "hoàn tất, chốt",
+        "pos": "verb",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "dawn",
+        "lemma": "dawn",
+        "meaningVi": "bình minh",
+        "pos": "noun",
+        "sentenceIndex": 25
+      },
+      {
+        "text": "folded",
+        "lemma": "fold",
+        "meaningVi": "gấp",
+        "pos": "verb",
+        "sentenceIndex": 36
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "Why has Mr Duong come to the printing house?",
+        "promptVi": "Vì sao ông Dương đến nhà in?",
+        "options": [
+          "To check the first copies of tomorrow's paper",
+          "To fix a machine",
+          "To deliver newspapers",
+          "To meet a new driver"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông đến \"to check the first copies of tomorrow's paper.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many copies will be printed tonight?",
+        "promptVi": "Tối nay sẽ in bao nhiêu bản?",
+        "options": [
+          "About twelve thousand",
+          "About a hundred and twenty thousand",
+          "About a million",
+          "About twenty thousand"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Bà Thơm nói \"About a hundred and twenty thousand.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What happened in Hai Phong last week?",
+        "promptVi": "Tuần trước ở Hải Phòng đã xảy ra chuyện gì?",
+        "options": [
+          "The papers arrived late.",
+          "A truck broke down.",
+          "The wrong paper was delivered.",
+          "The printing machine stopped."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà nói \"The driver admitted leaving late,\" nên báo đến muộn."
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The football result couldn't be added to the paper.",
+        "promptVi": "Không kịp đưa kết quả bóng đá vào báo.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"It's been added to the back page.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"dawn\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"The trucks will be loaded from three o'clock, and the papers will be delivered to the northern provinces before dawn.\"",
+        "options": [
+          "bình minh",
+          "nửa đêm",
+          "buổi trưa",
+          "hoàng hôn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Dawn = lúc trời vừa sáng, bình minh."
+      }
+    ],
+    "grammarNote": {
+      "title": "Bị động ở mọi thì",
+      "bodyVi": "Ở nhà in, người ta quan tâm việc đã xong, đang làm và sắp làm, nên dùng bị động ở nhiều thì. Hiện tại hoàn thành: Has the front page been printed yet? / The first thousand copies have just been printed. Tiếp diễn: The routes are being finalised now / newspapers are being folded and stacked. Tương lai và modal: The trucks will be loaded from three o'clock / so much paper can be printed so quickly. Bài cũng có động từ tường thuật: The driver admitted leaving late. He promised to be on time.",
+      "examples": [
+        "\"The first thousand copies have just been printed.",
+        "\"The routes are being finalised now.",
+        "The trucks will be loaded from three o'clock, and the papers will be delivered to the northern provinces before dawn.\""
+      ]
+    },
+    "writingPrompt": "Describe what happens at night before a newspaper reaches readers. Use passive forms in different tenses.",
+    "sentenceTranslations": [
+      "Đã gần nửa đêm, nhưng nhà in của một tờ báo quốc gia ở Hà Nội vẫn ồn ào và sáng đèn.",
+      "Tổng biên tập, ông Dương, đến kiểm tra những bản đầu tiên của số báo ngày mai.",
+      "Bà Thơm, quản lý nhà in, ra đón ông ở cửa.",
+      "\"Chào bà Thơm.",
+      "Trang nhất đã được in chưa?\"",
+      "\"Một nghìn bản đầu tiên vừa được in xong.",
+      "Đây một bản, vẫn còn ấm.\"",
+      "Ông Dương đọc kỹ tiêu đề.",
+      "\"Tốt.",
+      "Lần này tên bộ trưởng đã được viết đúng.\"",
+      "Bà Thơm mỉm cười: \"Biên tập viên ca đêm của ông đã nhắc chúng tôi hai lần.\"",
+      "\"Sau chuyện tháng trước, cô ấy không chịu để xảy ra rủi ro nào.",
+      "Tất cả ảnh đã được kiểm tra chưa?\"",
+      "\"Rồi.",
+      "Nhóm của ông kiểm tra lúc mười giờ, và màu đã được chỉnh trên máy.\"",
+      "\"Còn kết quả bóng đá muộn?",
+      "Trận đấu mười một giờ mới kết thúc.\"",
+      "\"Đã được thêm vào trang cuối.",
+      "Ban thể thao gửi lúc mười một giờ hai mươi.\"",
+      "\"Tuyệt vời.",
+      "Tối nay sẽ in bao nhiêu bản?\"",
+      "\"Khoảng một trăm hai mươi nghìn.",
+      "Máy sẽ chạy đến ba rưỡi sáng.\"",
+      "\"Còn việc phân phối?\"",
+      "\"Các tuyến đang được chốt.",
+      "Xe tải sẽ được xếp hàng từ ba giờ, và báo sẽ được giao đến các tỉnh phía bắc trước bình minh.\"",
+      "\"Thế còn vụ trễ ở Hải Phòng tuần trước?\"",
+      "\"Tài xế đã thừa nhận đi muộn.",
+      "Anh ấy xin lỗi và hứa từ nay sẽ đúng giờ.",
+      "Chúng tôi cũng đã thêm một tài xế thứ hai cho tuyến đó.\"",
+      "\"Tốt.",
+      "Độc giả không muốn uống cà phê sáng mà không có báo.\"",
+      "\"Họ sẽ có báo.",
+      "Ông có muốn xem máy không?\"",
+      "\"Có chứ.",
+      "Lần nào đến đây tôi cũng ngạc nhiên vì có thể in nhiều giấy nhanh đến vậy.\"",
+      "Họ cùng đi vào gian máy, nơi hàng nghìn tờ báo đang được những cỗ máy khổng lồ gấp và xếp chồng."
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể mô tả quy trình in và phát hành báo bằng bị động ở nhiều thì (has been / is being / will be + V3).",
+    "examples": [
+      {
+        "lemma": "editor",
+        "sentence": "The editor checked every page.",
+        "meaningVi": "Biên tập viên đã kiểm tra từng trang."
+      },
+      {
+        "lemma": "copy",
+        "sentence": "Can I have a copy of the report?",
+        "meaningVi": "Cho tôi xin một bản báo cáo được không?"
+      },
+      {
+        "lemma": "front page",
+        "sentence": "The story was on the front page.",
+        "meaningVi": "Câu chuyện được đăng trên trang nhất."
+      },
+      {
+        "lemma": "spell",
+        "sentence": "How do you spell your name?",
+        "meaningVi": "Tên bạn đánh vần thế nào?"
+      },
+      {
+        "lemma": "risk",
+        "sentence": "There is a risk of flooding tonight.",
+        "meaningVi": "Đêm nay có nguy cơ ngập lụt."
+      },
+      {
+        "lemma": "adjust",
+        "sentence": "You can adjust the seat.",
+        "meaningVi": "Bạn có thể điều chỉnh ghế."
+      },
+      {
+        "lemma": "distribution",
+        "sentence": "The company handles the distribution of books.",
+        "meaningVi": "Công ty phụ trách phân phối sách."
+      },
+      {
+        "lemma": "finalise",
+        "sentence": "We need to finalise the plan today.",
+        "meaningVi": "Hôm nay chúng ta cần chốt kế hoạch."
+      },
+      {
+        "lemma": "dawn",
+        "sentence": "The fishermen left at dawn.",
+        "meaningVi": "Ngư dân ra khơi lúc bình minh."
+      },
+      {
+        "lemma": "fold",
+        "sentence": "Please fold the letter in half.",
+        "meaningVi": "Hãy gấp lá thư làm đôi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mrs Thom",
+        "Mr Tien"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Mr Tien, your truck will be loaded first tonight.",
+          "meaningVi": "Anh Tiến, tối nay xe của anh sẽ được xếp hàng trước."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you. Have the papers for Hai Phong been packed yet?",
+          "meaningVi": "Cảm ơn chị. Báo đi Hải Phòng đã được đóng gói chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "They're being packed now. They'll be ready by three.",
+          "meaningVi": "Đang được đóng gói. Ba giờ là xong."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. I promised to be there by six this time.",
+          "meaningVi": "Tốt. Lần này tôi đã hứa sáu giờ có mặt ở đó."
+        },
+        {
+          "speaker": 0,
+          "text": "I know. Has the new driver been told about the route?",
+          "meaningVi": "Tôi biết. Tài xế mới đã được báo về tuyến đường chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes, he was shown the map yesterday.",
+          "meaningVi": "Rồi, hôm qua cậu ấy đã được xem bản đồ."
+        },
+        {
+          "speaker": 0,
+          "text": "Great. And remember, nothing must be left in the truck.",
+          "meaningVi": "Tốt. Và nhớ là không được để sót gì trên xe."
+        },
+        {
+          "speaker": 1,
+          "text": "Don't worry. Every box will be checked twice. Shall I sign the list too?",
+          "meaningVi": "Chị đừng lo. Mỗi thùng sẽ được kiểm tra hai lần. Tôi ký vào danh sách luôn nhé?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, please. Drive safely, and call me if anything goes wrong.",
+          "meaningVi": "Ừ, anh ký giúp. Lái xe cẩn thận, có gì trục trặc thì gọi tôi."
+        },
+        {
+          "speaker": 1,
+          "text": "I will. See you tomorrow night.",
+          "meaningVi": "Vâng. Hẹn tối mai."
+        }
+      ]
+    },
+    "grammarTipVi": "Tương lai: your truck will be loaded first / Every box will be checked twice. Hoàn thành: Have the papers been packed yet? / Has the new driver been told? Tiếp diễn: They're being packed now. Quá khứ: he was shown the map.",
+    "translations": [
+      {
+        "vi": "Trang nhất đã được in chưa?",
+        "en": "Has the front page been printed yet?",
+        "distractors": [
+          "have",
+          "printing",
+          "already"
+        ]
+      },
+      {
+        "vi": "Màu đã được chỉnh trên máy.",
+        "en": "The colours have been adjusted on the machine.",
+        "distractors": [
+          "has",
+          "adjusting",
+          "being"
+        ]
+      },
+      {
+        "vi": "Các tuyến phân phối đang được chốt.",
+        "en": "The distribution routes are being finalised now.",
+        "distractors": [
+          "is",
+          "been",
+          "finalising"
+        ]
+      },
+      {
+        "vi": "Báo sẽ được giao trước bình minh.",
+        "en": "The papers will be delivered before dawn.",
+        "distractors": [
+          "after",
+          "delivering",
+          "is"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Bà Thơm và anh Tiến nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Chuẩn bị giao báo đi Hải Phòng",
+          "Sửa máy in",
+          "Một tai nạn giao thông"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ nói về việc xếp hàng lên xe và giao báo đi Hải Phòng.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào báo đi Hải Phòng đóng gói xong?",
+        "promptVi": "",
+        "options": [
+          "Ba giờ",
+          "Sáu giờ",
+          "Nửa đêm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bà Thơm nói \"They'll be ready by three.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Anh Tiến hứa có mặt lúc mấy giờ?",
+        "promptVi": "",
+        "options": [
+          "Sáu giờ",
+          "Ba giờ",
+          "Tám giờ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh nói \"I promised to be there by six this time.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The new driver hasn't seen the map yet.",
+        "promptVi": "Tài xế mới chưa xem bản đồ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"he was shown the map yesterday.\"",
+        "turnIndex": 5
+      }
+    ],
+    "readingGuideVi": "Những việc gì đã xong, đang làm và sẽ làm ở nhà in đêm nay? Họ đã xử lý vụ trễ ở Hải Phòng thế nào?",
+    "grammarStep": {
+      "titleVi": "Bị động ở mọi thì",
+      "noticing": [
+        {
+          "sentence": "Has the front page been printed yet?\"",
+          "highlights": [
+            "Has the front page been printed"
+          ]
+        },
+        {
+          "sentence": "\"The first thousand copies have just been printed.",
+          "highlights": [
+            "have just been printed"
+          ]
+        },
+        {
+          "sentence": "\"The routes are being finalised now.",
+          "highlights": [
+            "are being finalised"
+          ]
+        },
+        {
+          "sentence": "The trucks will be loaded from three o'clock, and the papers will be delivered to the northern provinces before dawn.\"",
+          "highlights": [
+            "will be loaded",
+            "will be delivered"
+          ]
+        }
+      ],
+      "questionVi": "Lúc này các tuyến phân phối đang được chốt. Câu nào đúng?",
+      "options": [
+        "The routes are being finalised now.",
+        "The routes are finalising now.",
+        "The routes have being finalised now."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Bị động tiếp diễn: are being + V3.",
+      "whenVi": "Dùng khi mô tả một quy trình làm việc, nhấn mạnh sản phẩm (báo, ảnh, xe) chứ không phải người làm.",
+      "table": [
+        {
+          "subject": "Hiện tại hoàn thành",
+          "form": "has / have (just) been + V3: The copies have just been printed.",
+          "negative": "Câu hỏi: Has the front page been printed yet?"
+        },
+        {
+          "subject": "Tiếp diễn",
+          "form": "is / are being + V3: The routes are being finalised.",
+          "negative": "isn't / aren't being + V3"
+        },
+        {
+          "subject": "Tương lai / modal",
+          "form": "will be + V3: The papers will be delivered before dawn.",
+          "negative": "can be + V3: so much paper can be printed"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "Has the front page printed yet?",
+          "right": "Has the front page been printed yet?"
+        },
+        {
+          "wrong": "The papers will delivered before dawn.",
+          "right": "The papers will be delivered before dawn."
+        }
+      ],
+      "noteVi": "Bài cũng có động từ tường thuật: warned us about that / refuses to take any risks / admitted leaving late / promised to be on time.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The minister's name has ___ spelled correctly this time.",
+          "answers": [
+            "been"
+          ],
+          "explanationVi": "Bị động hiện tại hoàn thành: has been + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "How many copies ___ tonight?",
+          "options": [
+            "will be printed",
+            "will print",
+            "are printing",
+            "have printed"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Các bản báo được in: bị động will be printed."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The trucks will loaded from three o'clock.",
+          "sentence": "The trucks will be loaded from three o'clock.",
+          "explanationVi": "Bị động tương lai cần be: will be loaded."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Một nghìn bản đầu tiên vừa được in xong.",
+          "sentence": "The first thousand copies have just been printed.",
+          "words": [
+            "The",
+            "first",
+            "thousand",
+            "copies",
+            "have",
+            "just",
+            "been",
+            "printed.",
+            "being"
+          ],
+          "explanationVi": "have just been + V3; từ \"being\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"The first thousand copies have just been printed.",
+        "tipVi": "thousand /ˈθaʊzənd/; have just been đọc lướt."
+      },
+      {
+        "text": "\"The routes are being finalised now.",
+        "tipVi": "routes /ruːts/; finalised /ˈfaɪnəlaɪzd/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Do you still read printed newspapers? Why or why not?",
+        "questionVi": "Bạn còn đọc báo giấy không? Vì sao?",
+        "frame": "I read / don't read printed newspapers because ___."
+      },
+      {
+        "question": "Describe how something is made or delivered, for example bread or letters.",
+        "questionVi": "Hãy mô tả cách một thứ được làm ra hoặc được giao, ví dụ bánh mì hay thư từ.",
+        "frame": "First, ___ is ___. Then it is ___."
+      },
+      {
+        "question": "Which job at a newspaper would you like to do? Why?",
+        "questionVi": "Bạn muốn làm công việc nào ở toà báo? Vì sao?",
+        "frame": "I'd like to be ___ because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu bị động (is being / has been / will be + V3)",
+      "anyOf": [
+        "is being",
+        "are being",
+        "has been",
+        "have been",
+        "will be",
+        "are checked",
+        "is printed"
+      ],
+      "outlineVi": [
+        "Buổi tối, những việc gì được làm trong toà soạn (are checked …).",
+        "Ở nhà in, việc gì đang được làm (is being printed …).",
+        "Báo sẽ được giao thế nào (will be delivered …)."
+      ],
+      "modelAnswer": "Every night, the last stories are checked by the editors before eleven. Then the pages are sent to the printing house. While the paper is being printed, the trucks are being prepared. By three o'clock, thousands of copies have been printed and packed. The papers will be delivered to shops before most people wake up."
+    }
+  },
+  "glosses": [
+    {
+      "text": "printing house",
+      "lemma": "printing house",
+      "meaningVi": "nhà in",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "the printing house",
+      "phraseVi": "nhà in"
+    },
+    {
+      "text": "warm",
+      "lemma": "warm",
+      "meaningVi": "ấm",
+      "sentenceIndex": 6,
+      "pos": "adjective",
+      "phrase": "still warm",
+      "phraseVi": "vẫn còn ấm"
+    },
+    {
+      "text": "sports desk",
+      "lemma": "sports desk",
+      "meaningVi": "ban thể thao",
+      "sentenceIndex": 18,
+      "pos": "noun",
+      "phrase": "The sports desk",
+      "phraseVi": "Ban thể thao"
+    },
+    {
+      "text": "stacked",
+      "lemma": "stack",
+      "meaningVi": "xếp chồng",
+      "sentenceIndex": 36,
+      "pos": "verb",
+      "phrase": "folded and stacked",
+      "phraseVi": "gấp và xếp chồng"
+    }
+  ]
+}

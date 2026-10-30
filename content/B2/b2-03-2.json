@@ -1,0 +1,608 @@
+{
+  "content": "Thu Trang works in public relations for Green Valley, a food company in Ho Chi Minh City. Yesterday the company held a press conference about a problem with one of its yoghurt products. This morning she is updating her manager, Mr Quoc.\n\nMr Quoc asks, \"So how did it go?\"\n\"Better than I expected. About thirty reporters came, and most of them were polite.\"\n\"What did they want to know?\"\n\"The first reporter asked how many customers had become ill. Our spokesperson, Ms Ha, said that twelve people had felt sick, but nobody had gone to hospital.\"\n\"Good. Did anyone ask about the cause?\"\n\"Yes, several of them. A journalist from a national newspaper asked whether the problem had started in our factory or during delivery.\"\n\"And what did Ha say?\"\n\"She explained that a fridge in one of our trucks had broken down. She said the truck had been repaired and all the yoghurt from that delivery had been removed from the shops.\"\n\"Were there any difficult questions?\"\n\"One TV reporter asked why we hadn't told the public sooner. That was the hardest moment.\"\n\"How did Ha answer?\"\n\"Just as we had practised. Before the conference, I told her to stay calm and not to argue with anyone. I also asked her to apologise first and explain second.\"\n\"Smart advice. Did anyone ask what we would do next?\"\n\"A reporter asked if customers would get their money back. Ha said they would, and she told them to visit our website for details.\"\n\"Excellent. What's the coverage like this morning?\"\n\"Mostly fair. Three newspapers used the headline 'Food company apologises quickly'. Only one website called it a scandal.\"\n\"I can live with that. Please send me a list of all the articles by lunchtime.\"\n\"I'll do it now. And the journalist who asked about the truck wants an interview next week. Should I say yes?\"\n\"Yes, but ask him to send his questions first.\"",
+  "targetWords": [
+    "public relations",
+    "press conference",
+    "reporter",
+    "polite",
+    "cause",
+    "public",
+    "practise",
+    "apologise",
+    "headline",
+    "scandal"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "public relations",
+        "lemma": "public relations",
+        "meaningVi": "quan hệ công chúng",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "press conference",
+        "lemma": "press conference",
+        "meaningVi": "buổi họp báo",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "reporters",
+        "lemma": "reporter",
+        "meaningVi": "phóng viên",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "polite",
+        "lemma": "polite",
+        "meaningVi": "lịch sự",
+        "pos": "adjective",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "cause",
+        "lemma": "cause",
+        "meaningVi": "nguyên nhân",
+        "pos": "noun",
+        "sentenceIndex": 10
+      },
+      {
+        "text": "public",
+        "lemma": "public",
+        "meaningVi": "công chúng",
+        "pos": "noun",
+        "sentenceIndex": 17
+      },
+      {
+        "text": "practised",
+        "lemma": "practise",
+        "meaningVi": "luyện tập, tập trước",
+        "pos": "verb",
+        "sentenceIndex": 20
+      },
+      {
+        "text": "apologise",
+        "lemma": "apologise",
+        "meaningVi": "xin lỗi",
+        "pos": "verb",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "headline",
+        "lemma": "headline",
+        "meaningVi": "tiêu đề (báo)",
+        "pos": "noun",
+        "sentenceIndex": 30
+      },
+      {
+        "text": "scandal",
+        "lemma": "scandal",
+        "meaningVi": "vụ bê bối",
+        "pos": "noun",
+        "sentenceIndex": 31
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What is Thu Trang telling Mr Quoc about?",
+        "promptVi": "Thu Trang đang kể cho ông Quốc về điều gì?",
+        "options": [
+          "The press conference about the yoghurt problem",
+          "A new yoghurt product",
+          "Her holiday plans",
+          "A problem with her computer"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu Trang báo cáo về buổi họp báo hôm qua liên quan đến sản phẩm sữa chua."
+      },
+      {
+        "kind": "detail",
+        "prompt": "How many people had felt sick?",
+        "promptVi": "Có bao nhiêu người bị khó chịu?",
+        "options": [
+          "Two",
+          "Twelve",
+          "Thirty",
+          "A hundred"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Chị Hà nói \"twelve people had felt sick.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What was the cause of the problem?",
+        "promptVi": "Nguyên nhân của sự cố là gì?",
+        "options": [
+          "A fridge in a truck had broken down.",
+          "The factory was dirty.",
+          "The milk was too old.",
+          "A shop sold it too late."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Chị Hà giải thích \"a fridge in one of our trucks had broken down.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Most newspapers called the problem a scandal.",
+        "promptVi": "Phần lớn báo chí gọi đây là vụ bê bối.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Only one website called it a scandal.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"polite\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"About thirty reporters came, and most of them were polite.\"",
+        "options": [
+          "lịch sự",
+          "giận dữ",
+          "trẻ tuổi",
+          "im lặng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Polite = lịch sự, nói năng nhã nhặn."
+      }
+    ],
+    "grammarNote": {
+      "title": "Tường thuật câu hỏi và mệnh lệnh",
+      "bodyVi": "Khi tường thuật câu hỏi, ta đưa câu hỏi về trật tự câu kể (chủ ngữ + động từ) và lùi thì. Câu hỏi Wh-: asked how many customers had become ill / asked why we hadn't told the public sooner. Câu hỏi Yes / No dùng if hoặc whether: asked whether the problem had started in our factory / asked if customers would get their money back. Mệnh lệnh và yêu cầu: told / asked + người + (not) to + động từ: I told her to stay calm and not to argue with anyone.",
+      "examples": [
+        "\"The first reporter asked how many customers had become ill.",
+        "A journalist from a national newspaper asked whether the problem had started in our factory or during delivery.\"",
+        "Before the conference, I told her to stay calm and not to argue with anyone."
+      ]
+    },
+    "writingPrompt": "Imagine you went to a press conference. Write what the reporters asked and what the spokesperson told them to do.",
+    "sentenceTranslations": [
+      "Thu Trang làm quan hệ công chúng cho Green Valley, một công ty thực phẩm ở Thành phố Hồ Chí Minh.",
+      "Hôm qua công ty tổ chức họp báo về sự cố của một sản phẩm sữa chua.",
+      "Sáng nay cô đang báo cáo với quản lý của mình, ông Quốc.",
+      "Ông Quốc hỏi: \"Thế mọi chuyện thế nào?\"",
+      "\"Tốt hơn em nghĩ.",
+      "Khoảng ba mươi phóng viên đến, và hầu hết đều lịch sự.\"",
+      "\"Họ muốn biết những gì?\"",
+      "\"Phóng viên đầu tiên hỏi có bao nhiêu khách hàng bị ốm.",
+      "Người phát ngôn của mình là chị Hà nói mười hai người bị khó chịu, nhưng không ai phải vào viện.\"",
+      "\"Tốt.",
+      "Có ai hỏi về nguyên nhân không?\"",
+      "\"Có, vài người.",
+      "Một nhà báo của một tờ báo quốc gia hỏi sự cố bắt đầu từ nhà máy hay trong lúc vận chuyển.\"",
+      "\"Thế chị Hà trả lời sao?\"",
+      "\"Chị ấy giải thích rằng tủ lạnh trên một chiếc xe tải của mình bị hỏng.",
+      "Chị ấy nói chiếc xe đã được sửa và toàn bộ sữa chua của chuyến hàng đó đã được rút khỏi cửa hàng.\"",
+      "\"Có câu hỏi nào khó không?\"",
+      "\"Một phóng viên truyền hình hỏi tại sao mình không thông báo cho công chúng sớm hơn.",
+      "Đó là lúc khó nhất.\"",
+      "\"Chị Hà trả lời thế nào?\"",
+      "\"Đúng như mình đã tập.",
+      "Trước buổi họp báo, em dặn chị ấy giữ bình tĩnh và đừng tranh cãi với ai.",
+      "Em cũng nhờ chị ấy xin lỗi trước rồi mới giải thích.\"",
+      "\"Lời khuyên hay đấy.",
+      "Có ai hỏi tiếp theo mình sẽ làm gì không?\"",
+      "\"Một phóng viên hỏi khách hàng có được hoàn tiền không.",
+      "Chị Hà nói có, và bảo họ vào trang web của mình để xem chi tiết.\"",
+      "\"Tuyệt.",
+      "Sáng nay báo chí đưa tin thế nào?\"",
+      "\"Phần lớn là công bằng.",
+      "Ba tờ báo dùng tiêu đề 'Công ty thực phẩm xin lỗi nhanh chóng'.",
+      "Chỉ có một trang web gọi đó là vụ bê bối.\"",
+      "\"Vậy là chấp nhận được.",
+      "Trước giờ trưa em gửi anh danh sách tất cả bài báo nhé.\"",
+      "\"Em làm ngay đây.",
+      "Còn nhà báo hỏi về chiếc xe tải muốn phỏng vấn vào tuần sau.",
+      "Em có nên đồng ý không ạ?\"",
+      "\"Đồng ý, nhưng bảo anh ta gửi câu hỏi trước.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể thuật lại những câu hỏi và yêu cầu trong một buổi họp báo (asked how / whether / if …, told her to …).",
+    "examples": [
+      {
+        "lemma": "public relations",
+        "sentence": "She has worked in public relations for five years.",
+        "meaningVi": "Cô ấy làm quan hệ công chúng được năm năm."
+      },
+      {
+        "lemma": "press conference",
+        "sentence": "The team will hold a press conference after the match.",
+        "meaningVi": "Đội sẽ tổ chức họp báo sau trận đấu."
+      },
+      {
+        "lemma": "reporter",
+        "sentence": "A reporter called me about the accident.",
+        "meaningVi": "Một phóng viên gọi cho tôi về vụ tai nạn."
+      },
+      {
+        "lemma": "polite",
+        "sentence": "It's polite to say thank you.",
+        "meaningVi": "Nói cảm ơn là lịch sự."
+      },
+      {
+        "lemma": "cause",
+        "sentence": "The cause of the fire is still unknown.",
+        "meaningVi": "Nguyên nhân vụ cháy vẫn chưa rõ."
+      },
+      {
+        "lemma": "public",
+        "sentence": "The museum is open to the public on Sundays.",
+        "meaningVi": "Bảo tàng mở cửa cho công chúng vào Chủ Nhật."
+      },
+      {
+        "lemma": "practise",
+        "sentence": "You need to practise your speech.",
+        "meaningVi": "Bạn cần tập bài phát biểu của mình."
+      },
+      {
+        "lemma": "apologise",
+        "sentence": "I want to apologise for being late.",
+        "meaningVi": "Tôi muốn xin lỗi vì đến muộn."
+      },
+      {
+        "lemma": "headline",
+        "sentence": "The headline was in big red letters.",
+        "meaningVi": "Tiêu đề được in chữ đỏ thật to."
+      },
+      {
+        "lemma": "scandal",
+        "sentence": "The scandal made him leave his job.",
+        "meaningVi": "Vụ bê bối khiến ông ấy phải nghỉ việc."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Ha",
+        "Thu Trang"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Did the journalist from the national paper call you?",
+          "meaningVi": "Nhà báo của tờ báo quốc gia có gọi cho em không?"
+        },
+        {
+          "speaker": 1,
+          "text": "Yes. He asked if he could interview you next week.",
+          "meaningVi": "Có ạ. Anh ấy hỏi tuần sau có thể phỏng vấn chị không."
+        },
+        {
+          "speaker": 0,
+          "text": "What does he want to know?",
+          "meaningVi": "Anh ấy muốn biết gì?"
+        },
+        {
+          "speaker": 1,
+          "text": "He asked what had happened to the truck driver.",
+          "meaningVi": "Anh ấy hỏi chuyện gì đã xảy ra với tài xế xe tải."
+        },
+        {
+          "speaker": 0,
+          "text": "Nothing bad. Did you tell him that?",
+          "meaningVi": "Không có gì xấu cả. Em nói với anh ấy chưa?"
+        },
+        {
+          "speaker": 1,
+          "text": "Not yet. Mr Quoc told me to ask for his questions first.",
+          "meaningVi": "Chưa ạ. Anh Quốc dặn em xin câu hỏi trước."
+        },
+        {
+          "speaker": 0,
+          "text": "Good idea. Did he ask anything else?",
+          "meaningVi": "Ý hay. Anh ấy còn hỏi gì nữa không?"
+        },
+        {
+          "speaker": 1,
+          "text": "He wanted to know whether we had changed our delivery rules.",
+          "meaningVi": "Anh ấy muốn biết mình đã thay đổi quy định vận chuyển chưa."
+        },
+        {
+          "speaker": 0,
+          "text": "We have. Tell him to send everything by email, please.",
+          "meaningVi": "Mình đã đổi rồi. Em bảo anh ấy gửi mọi thứ qua email nhé."
+        },
+        {
+          "speaker": 1,
+          "text": "I will. I'll forward his questions to you tomorrow.",
+          "meaningVi": "Vâng ạ. Mai em sẽ chuyển câu hỏi của anh ấy cho chị."
+        }
+      ]
+    },
+    "grammarTipVi": "Câu hỏi Yes / No: He asked if he could interview you / whether we had changed our delivery rules. Câu hỏi Wh-: He asked what had happened to the truck driver. Yêu cầu: told me to ask … / Tell him to send …",
+    "translations": [
+      {
+        "vi": "Phóng viên hỏi có bao nhiêu khách hàng bị ốm.",
+        "en": "The reporter asked how many customers had become ill.",
+        "distractors": [
+          "did",
+          "have",
+          "few"
+        ]
+      },
+      {
+        "vi": "Tôi nhờ cô ấy giữ bình tĩnh và xin lỗi trước.",
+        "en": "I asked her to stay calm and apologise first.",
+        "distractors": [
+          "told",
+          "apologised",
+          "later"
+        ]
+      },
+      {
+        "vi": "Ba tờ báo dùng một tiêu đề tích cực.",
+        "en": "Three newspapers used a positive headline.",
+        "distractors": [
+          "two",
+          "title",
+          "uses"
+        ]
+      },
+      {
+        "vi": "Chỉ một trang web gọi đó là vụ bê bối.",
+        "en": "Only one website called it a scandal.",
+        "distractors": [
+          "two",
+          "calls",
+          "story"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Chị Hà và Thu Trang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Yêu cầu phỏng vấn của một nhà báo",
+          "Một sản phẩm mới",
+          "Lịch giao hàng"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu Trang nói nhà báo \"asked if he could interview you next week.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Nhà báo hỏi gì về tài xế xe tải?",
+        "promptVi": "",
+        "options": [
+          "Chuyện gì đã xảy ra với anh ấy",
+          "Anh ấy bao nhiêu tuổi",
+          "Anh ấy sống ở đâu"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu Trang nói \"He asked what had happened to the truck driver.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Ông Quốc dặn Thu Trang làm gì?",
+        "promptVi": "",
+        "options": [
+          "Xin câu hỏi trước",
+          "Từ chối phỏng vấn",
+          "Gọi cho tài xế"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Thu Trang nói \"Mr Quoc told me to ask for his questions first.\"",
+        "turnIndex": 5
+      },
+      {
+        "kind": "tfn",
+        "prompt": "The company hasn't changed its delivery rules.",
+        "promptVi": "Công ty chưa thay đổi quy định vận chuyển.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì chị Hà nói \"We have.\"",
+        "turnIndex": 8
+      }
+    ],
+    "readingGuideVi": "Các phóng viên đã hỏi những câu gì trong buổi họp báo? Thu Trang đã dặn người phát ngôn những gì?",
+    "grammarStep": {
+      "titleVi": "Tường thuật câu hỏi và mệnh lệnh",
+      "noticing": [
+        {
+          "sentence": "\"The first reporter asked how many customers had become ill.",
+          "highlights": [
+            "asked how many customers had become ill"
+          ]
+        },
+        {
+          "sentence": "A journalist from a national newspaper asked whether the problem had started in our factory or during delivery.\"",
+          "highlights": [
+            "asked whether the problem had started"
+          ]
+        },
+        {
+          "sentence": "Before the conference, I told her to stay calm and not to argue with anyone.",
+          "highlights": [
+            "told her to stay calm",
+            "not to argue"
+          ]
+        },
+        {
+          "sentence": "\"A reporter asked if customers would get their money back.",
+          "highlights": [
+            "asked if customers would get"
+          ]
+        }
+      ],
+      "questionVi": "Một phóng viên hỏi: \"Why didn't you tell the public sooner?\" Câu tường thuật nào đúng?",
+      "options": [
+        "He asked why we hadn't told the public sooner.",
+        "He asked why didn't we tell the public sooner.",
+        "He asked why had we not told the public sooner."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Câu hỏi tường thuật dùng trật tự câu kể (we hadn't told), không dùng did, và lùi thì (didn't tell → hadn't told).",
+      "whenVi": "Dùng khi kể lại cho người khác những câu hỏi ai đó đã hỏi và những yêu cầu đã được đưa ra.",
+      "table": [
+        {
+          "subject": "Câu hỏi Wh-",
+          "form": "asked + từ để hỏi + chủ ngữ + động từ: asked how many customers had become ill",
+          "negative": "Không đảo ngữ, không dùng do / did."
+        },
+        {
+          "subject": "Câu hỏi Yes / No",
+          "form": "asked if / whether + chủ ngữ + động từ: asked if customers would get their money back",
+          "negative": "Lùi thì: will → would, can → could."
+        },
+        {
+          "subject": "Mệnh lệnh, yêu cầu",
+          "form": "told / asked + người + to + V: told her to stay calm",
+          "negative": "not to + V: not to argue with anyone"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The reporter asked why didn't we tell the public.",
+          "right": "The reporter asked why we hadn't told the public."
+        },
+        {
+          "wrong": "I told her don't argue with anyone.",
+          "right": "I told her not to argue with anyone."
+        }
+      ],
+      "noteVi": "Câu tường thuật kết thúc bằng dấu chấm, không dùng dấu hỏi: He asked if he could interview you.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "A reporter asked ___ customers would get their money back.",
+          "answers": [
+            "if",
+            "whether"
+          ],
+          "explanationVi": "Câu hỏi Yes / No khi tường thuật dùng if hoặc whether."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "I told the spokesperson ___ calm.",
+          "options": [
+            "to stay",
+            "stay",
+            "staying",
+            "that stay"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "told + người + to + động từ."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "He asked me what will we do next.",
+          "sentence": "He asked me what we would do next.",
+          "explanationVi": "Trật tự câu kể (we would) và lùi thì will → would."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Tôi dặn cô ấy đừng tranh cãi với ai.",
+          "sentence": "I told her not to argue with anyone.",
+          "words": [
+            "I",
+            "told",
+            "her",
+            "not",
+            "to",
+            "argue",
+            "with",
+            "anyone.",
+            "don't"
+          ],
+          "explanationVi": "told + người + not to + V; từ \"don't\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "\"The first reporter asked how many customers had become ill.",
+        "tipVi": "Nhấn vào how many; customers /ˈkʌstəməz/."
+      },
+      {
+        "text": "Before the conference, I told her to stay calm and not to argue with anyone.",
+        "tipVi": "Ngắt hơi sau conference; nhấn vào not."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What questions did your teacher or boss ask you last week?",
+        "questionVi": "Tuần trước thầy cô hoặc sếp đã hỏi bạn những gì?",
+        "frame": "He / She asked me ___."
+      },
+      {
+        "question": "If a company makes a mistake, what should it tell the public?",
+        "questionVi": "Nếu một công ty mắc lỗi, họ nên nói gì với công chúng?",
+        "frame": "It should ___."
+      },
+      {
+        "question": "What advice did someone give you before an important day?",
+        "questionVi": "Trước một ngày quan trọng, ai đó đã khuyên bạn điều gì?",
+        "frame": "He / She told me to ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu tường thuật câu hỏi hoặc mệnh lệnh (asked if / what …, told … to …)",
+      "anyOf": [
+        "asked if",
+        "asked whether",
+        "asked what",
+        "asked how",
+        "asked why",
+        "asked when",
+        "told me to",
+        "told them to",
+        "told us to",
+        "not to"
+      ],
+      "outlineVi": [
+        "Buổi họp báo về chuyện gì, ở đâu.",
+        "Các phóng viên đã hỏi gì (asked if / what / why …).",
+        "Người phát ngôn trả lời và dặn mọi người gì (told us to …)."
+      ],
+      "modelAnswer": "Yesterday I went to a press conference about the new airport. A reporter asked when it would open. Another journalist asked whether the price of tickets would go up. The spokesperson said that the first flights would start in June. At the end, she told us to check the website for more information."
+    }
+  },
+  "glosses": [
+    {
+      "text": "yoghurt",
+      "lemma": "yoghurt",
+      "meaningVi": "sữa chua",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "one of its yoghurt products",
+      "phraseVi": "một sản phẩm sữa chua"
+    },
+    {
+      "text": "spokesperson",
+      "lemma": "spokesperson",
+      "meaningVi": "người phát ngôn",
+      "sentenceIndex": 8,
+      "pos": "noun",
+      "phrase": "Our spokesperson, Ms Ha",
+      "phraseVi": "Người phát ngôn của mình là chị Hà"
+    },
+    {
+      "text": "fridge",
+      "lemma": "fridge",
+      "meaningVi": "tủ lạnh",
+      "sentenceIndex": 14,
+      "pos": "noun",
+      "phrase": "a fridge in one of our trucks",
+      "phraseVi": "tủ lạnh trên một chiếc xe tải"
+    },
+    {
+      "text": "coverage",
+      "lemma": "coverage",
+      "meaningVi": "việc đưa tin",
+      "sentenceIndex": 28,
+      "pos": "noun",
+      "phrase": "What's the coverage like",
+      "phraseVi": "báo chí đưa tin thế nào"
+    }
+  ]
+}
