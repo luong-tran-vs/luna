@@ -1,0 +1,604 @@
+{
+  "content": "On Tuesday morning, a whole factory in an industrial zone in Binh Duong went dark for six hours. Now the two supervisors, Ngoc and Sang, are sitting in her office with the report from the maintenance team.\n\nNgoc asks, \"So what caused it?\"\n\"The report says the main transformer got too hot and shut down,\" Sang replies. \"Then the backup generator didn't start.\"\n\"Both at the same time? That can't have been bad luck.\"\n\"No. The transformer must have been running too hot for weeks. The temperature records show it went above the safe limit several times last month.\"\n\"Then why didn't anyone notice?\"\n\"The maintenance team might have missed the warnings. They were short of staff because two engineers had left in August.\"\n\"That's no excuse. Someone should have checked the records every week.\"\n\"I agree. And the generator should have been tested. The last test was eight months ago.\"\n\"Eight months! The rules say every month.\"\n\"I know. If they had tested it in September, they would have found the problem with the fuel pump.\"\n\"And we wouldn't have lost a whole day's production.\"\n\"Exactly. We had to throw away a lot of material because the machines stopped in the middle of a job. The customer in Japan wasn't happy either.\"\n\"Could the workers have done anything during the blackout?\"\n\"Not much. They followed the safety rules and left the building quickly. Nobody was hurt, which is the most important thing.\"\n\"Thank goodness. So what's our plan?\"\n\"First, we hire two new engineers. Second, the generator gets tested on the first Monday of every month, and I'll sign the record myself.\"\n\"Good. I'll also ask the electricity company to check the transformer. If we had asked them earlier, they might have replaced it already.\"\n\"Let's send the email now, before we forget.\"",
+  "targetWords": [
+    "industrial",
+    "supervisor",
+    "maintenance",
+    "limit",
+    "warning",
+    "staff",
+    "excuse",
+    "production",
+    "material",
+    "safety"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "industrial",
+        "lemma": "industrial",
+        "meaningVi": "công nghiệp",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "supervisors",
+        "lemma": "supervisor",
+        "meaningVi": "người giám sát",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "maintenance",
+        "lemma": "maintenance",
+        "meaningVi": "bảo trì",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "limit",
+        "lemma": "limit",
+        "meaningVi": "giới hạn",
+        "pos": "noun",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "warnings",
+        "lemma": "warning",
+        "meaningVi": "cảnh báo",
+        "pos": "noun",
+        "sentenceIndex": 11
+      },
+      {
+        "text": "staff",
+        "lemma": "staff",
+        "meaningVi": "nhân viên",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "excuse",
+        "lemma": "excuse",
+        "meaningVi": "lý do bào chữa",
+        "pos": "noun",
+        "sentenceIndex": 13
+      },
+      {
+        "text": "production",
+        "lemma": "production",
+        "meaningVi": "sản xuất",
+        "pos": "noun",
+        "sentenceIndex": 22
+      },
+      {
+        "text": "material",
+        "lemma": "material",
+        "meaningVi": "nguyên liệu",
+        "pos": "noun",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "safety",
+        "lemma": "safety",
+        "meaningVi": "an toàn",
+        "pos": "noun",
+        "sentenceIndex": 28
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Ngoc and Sang talking about?",
+        "promptVi": "Ngọc và Sang đang nói về điều gì?",
+        "options": [
+          "Why the factory lost power",
+          "A new customer in Japan",
+          "Hiring a new manager",
+          "The price of electricity"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ xem báo cáo về sự cố mất điện sáu tiếng ở nhà máy."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When was the generator last tested?",
+        "promptVi": "Lần cuối máy phát được kiểm tra là khi nào?",
+        "options": [
+          "Last week",
+          "Last month",
+          "Eight months ago",
+          "In September"
+        ],
+        "answerIndex": 2,
+        "explanationVi": "Sang nói \"The last test was eight months ago.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "Why was the maintenance team short of staff?",
+        "promptVi": "Vì sao nhóm bảo trì thiếu người?",
+        "options": [
+          "Two engineers had left.",
+          "They were ill.",
+          "They were on holiday.",
+          "They were working in Japan."
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Sang nói \"two engineers had left in August.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Some workers were hurt during the blackout.",
+        "promptVi": "Một số công nhân bị thương trong lúc mất điện.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì \"Nobody was hurt.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"excuse\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"That's no excuse.\"",
+        "options": [
+          "lý do bào chữa",
+          "lời xin lỗi",
+          "sự cố",
+          "lời cảnh báo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Excuse = lý do đưa ra để bào chữa cho lỗi của mình."
+      }
+    ],
+    "grammarNote": {
+      "title": "Modal trong quá khứ (should have, could have)",
+      "bodyVi": "Khi điều tra một sự cố, ta dùng modal + have + V3 để suy đoán và nhận xét. Suy đoán: The transformer must have been running too hot for weeks (chắc chắn); The maintenance team might have missed the warnings (có thể); That can't have been bad luck (chắc chắn không). Nhận xét lẽ ra nên làm: Someone should have checked the records every week. Dạng bị động: The generator should have been tested. Bài cũng có câu điều kiện loại 3: If they had tested it in September, they would have found the problem.",
+      "examples": [
+        "The transformer must have been running too hot for weeks.",
+        "\"The maintenance team might have missed the warnings.",
+        "Someone should have checked the records every week.\""
+      ]
+    },
+    "writingPrompt": "Write a short report about a problem at a workplace or school, real or imagined. Say what might have caused it and what people should have done.",
+    "sentenceTranslations": [
+      "Sáng thứ Ba, cả một nhà máy trong khu công nghiệp ở Bình Dương bị mất điện suốt sáu tiếng.",
+      "Giờ hai người giám sát là Ngọc và Sang đang ngồi trong văn phòng của chị Ngọc với bản báo cáo của nhóm bảo trì.",
+      "Ngọc hỏi: \"Vậy nguyên nhân là gì?\"",
+      "Sang đáp: \"Báo cáo nói máy biến áp chính bị quá nóng và tự ngắt.",
+      "Sau đó máy phát dự phòng không khởi động.\"",
+      "\"Cả hai cùng lúc?",
+      "Không thể là do xui xẻo được.\"",
+      "\"Không.",
+      "Máy biến áp chắc hẳn đã chạy quá nóng nhiều tuần rồi.",
+      "Số liệu nhiệt độ cho thấy tháng trước nó vượt ngưỡng an toàn mấy lần.\"",
+      "\"Vậy sao không ai để ý?\"",
+      "\"Nhóm bảo trì có thể đã bỏ sót cảnh báo.",
+      "Họ thiếu người vì hai kỹ sư đã nghỉ việc hồi tháng Tám.\"",
+      "\"Đó không phải là lý do.",
+      "Lẽ ra phải có người kiểm tra số liệu hằng tuần.\"",
+      "\"Tôi đồng ý.",
+      "Và lẽ ra máy phát phải được kiểm tra.",
+      "Lần kiểm tra gần nhất là tám tháng trước.\"",
+      "\"Tám tháng!",
+      "Quy định là mỗi tháng một lần.\"",
+      "\"Tôi biết.",
+      "Nếu họ kiểm tra vào tháng Chín thì đã phát hiện ra lỗi ở bơm nhiên liệu.\"",
+      "\"Và chúng ta đã không mất cả một ngày sản xuất.\"",
+      "\"Đúng vậy.",
+      "Chúng ta phải bỏ đi nhiều nguyên liệu vì máy dừng giữa chừng.",
+      "Khách hàng bên Nhật cũng không vui.\"",
+      "\"Lúc mất điện công nhân có làm được gì không?\"",
+      "\"Không nhiều.",
+      "Họ làm theo quy định an toàn và ra khỏi toà nhà nhanh chóng.",
+      "Không ai bị thương, đó là điều quan trọng nhất.\"",
+      "\"May quá.",
+      "Vậy kế hoạch của mình là gì?\"",
+      "\"Thứ nhất, tuyển thêm hai kỹ sư.",
+      "Thứ hai, máy phát sẽ được kiểm tra vào thứ Hai đầu tiên mỗi tháng, và tôi sẽ tự ký vào sổ.\"",
+      "\"Tốt.",
+      "Tôi cũng sẽ nhờ công ty điện lực kiểm tra máy biến áp.",
+      "Nếu mình nhờ họ sớm hơn thì có khi họ đã thay nó rồi.\"",
+      "\"Gửi email ngay bây giờ đi, kẻo quên.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể phân tích nguyên nhân một sự cố bằng modal quá khứ (must / might / can't have + V3) và chỉ ra điều lẽ ra nên làm (should have + V3, should have been + V3).",
+    "examples": [
+      {
+        "lemma": "industrial",
+        "sentence": "There are many factories in this industrial area.",
+        "meaningVi": "Khu công nghiệp này có nhiều nhà máy."
+      },
+      {
+        "lemma": "supervisor",
+        "sentence": "My supervisor checks my work every day.",
+        "meaningVi": "Người giám sát kiểm tra công việc của tôi mỗi ngày."
+      },
+      {
+        "lemma": "maintenance",
+        "sentence": "The lift is closed for maintenance.",
+        "meaningVi": "Thang máy tạm đóng để bảo trì."
+      },
+      {
+        "lemma": "limit",
+        "sentence": "The speed limit here is fifty.",
+        "meaningVi": "Giới hạn tốc độ ở đây là năm mươi."
+      },
+      {
+        "lemma": "warning",
+        "sentence": "The doctor gave him a warning about smoking.",
+        "meaningVi": "Bác sĩ cảnh báo anh ấy về việc hút thuốc."
+      },
+      {
+        "lemma": "staff",
+        "sentence": "The hotel staff were very helpful.",
+        "meaningVi": "Nhân viên khách sạn rất nhiệt tình."
+      },
+      {
+        "lemma": "excuse",
+        "sentence": "He always has an excuse for being late.",
+        "meaningVi": "Anh ấy lúc nào cũng có lý do để đi muộn."
+      },
+      {
+        "lemma": "production",
+        "sentence": "Production will start again next week.",
+        "meaningVi": "Việc sản xuất sẽ bắt đầu lại vào tuần sau."
+      },
+      {
+        "lemma": "material",
+        "sentence": "This material is strong and light.",
+        "meaningVi": "Vật liệu này bền và nhẹ."
+      },
+      {
+        "lemma": "safety",
+        "sentence": "Safety is our first concern.",
+        "meaningVi": "An toàn là mối quan tâm hàng đầu của chúng tôi."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Tai",
+        "Sang"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "I've read your report. I'm sorry about Tuesday.",
+          "meaningVi": "Tôi đọc báo cáo của anh rồi. Tôi xin lỗi về chuyện hôm thứ Ba."
+        },
+        {
+          "speaker": 1,
+          "text": "Thank you. Did your team see the temperature warnings?",
+          "meaningVi": "Cảm ơn anh. Nhóm của anh có thấy cảnh báo nhiệt độ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Honestly, we must have missed them. We were very busy in August.",
+          "meaningVi": "Thật lòng thì chắc chúng tôi đã bỏ sót. Tháng Tám chúng tôi bận quá."
+        },
+        {
+          "speaker": 1,
+          "text": "I understand, but someone should have checked the records.",
+          "meaningVi": "Tôi hiểu, nhưng lẽ ra phải có người kiểm tra số liệu."
+        },
+        {
+          "speaker": 0,
+          "text": "You're right. We should have tested the generator too.",
+          "meaningVi": "Anh nói đúng. Lẽ ra chúng tôi cũng nên kiểm tra máy phát."
+        },
+        {
+          "speaker": 1,
+          "text": "Why wasn't it tested in September?",
+          "meaningVi": "Sao tháng Chín không kiểm tra?"
+        },
+        {
+          "speaker": 0,
+          "text": "The engineer who did it had left. Nobody else knew the job.",
+          "meaningVi": "Người kỹ sư phụ trách đã nghỉ. Không ai khác biết làm."
+        },
+        {
+          "speaker": 1,
+          "text": "So he might not have trained anyone before he left?",
+          "meaningVi": "Vậy có thể anh ấy đã không đào tạo ai trước khi nghỉ?"
+        },
+        {
+          "speaker": 0,
+          "text": "No, he didn't. I'll write a guide so this can't happen again.",
+          "meaningVi": "Đúng là không. Tôi sẽ viết hướng dẫn để chuyện này không lặp lại."
+        },
+        {
+          "speaker": 1,
+          "text": "Good. And let's test the generator together next Monday.",
+          "meaningVi": "Tốt. Và thứ Hai tới mình cùng kiểm tra máy phát nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Suy đoán: we must have missed them / he might not have trained anyone. Nhận lỗi: someone should have checked the records / We should have tested the generator too.",
+    "translations": [
+      {
+        "vi": "Nhóm bảo trì có thể đã bỏ sót cảnh báo.",
+        "en": "The maintenance team might have missed the warnings.",
+        "distractors": [
+          "must",
+          "saw",
+          "alarms"
+        ]
+      },
+      {
+        "vi": "Họ thiếu người vì hai kỹ sư đã nghỉ việc.",
+        "en": "They were short of staff because two engineers had left.",
+        "distractors": [
+          "was",
+          "have",
+          "stayed"
+        ]
+      },
+      {
+        "vi": "Đó không phải là lý do.",
+        "en": "That's no excuse.",
+        "distractors": [
+          "reason",
+          "good",
+          "an"
+        ]
+      },
+      {
+        "vi": "Chúng ta đã mất cả một ngày sản xuất.",
+        "en": "We lost a whole day's production.",
+        "distractors": [
+          "won",
+          "week's",
+          "half"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Anh Tài và Sang nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Sự cố mất điện ở nhà máy",
+          "Một khách hàng mới",
+          "Lịch nghỉ lễ"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Tài nói \"I'm sorry about Tuesday.\" và họ bàn về cảnh báo nhiệt độ, máy phát.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Anh Tài nghĩ nhóm của mình đã làm gì?",
+        "promptVi": "",
+        "options": [
+          "Chắc đã bỏ sót cảnh báo",
+          "Đã sửa máy biến áp",
+          "Đã kiểm tra máy phát"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Tài nói \"we must have missed them.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Vì sao máy phát không được kiểm tra vào tháng Chín?",
+        "promptVi": "",
+        "options": [
+          "Người kỹ sư phụ trách đã nghỉ việc",
+          "Không có tiền",
+          "Máy bị khoá"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Anh Tài nói \"The engineer who did it had left.\"",
+        "turnIndex": 6
+      },
+      {
+        "kind": "tfn",
+        "prompt": "They will test the generator together next Friday.",
+        "promptVi": "Thứ Sáu tới họ sẽ cùng kiểm tra máy phát.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Sang nói \"next Monday.\"",
+        "turnIndex": 9
+      }
+    ],
+    "readingGuideVi": "Vì sao nhà máy mất điện? Theo Ngọc và Sang, lẽ ra nhóm bảo trì nên làm gì?",
+    "grammarStep": {
+      "titleVi": "Modal trong quá khứ (should have, could have)",
+      "noticing": [
+        {
+          "sentence": "That can't have been bad luck.\"",
+          "highlights": [
+            "can't have been"
+          ]
+        },
+        {
+          "sentence": "The transformer must have been running too hot for weeks.",
+          "highlights": [
+            "must have been running"
+          ]
+        },
+        {
+          "sentence": "\"The maintenance team might have missed the warnings.",
+          "highlights": [
+            "might have missed"
+          ]
+        },
+        {
+          "sentence": "Someone should have checked the records every week.\"",
+          "highlights": [
+            "should have checked"
+          ]
+        }
+      ],
+      "questionVi": "Sang không chắc chắn nhóm bảo trì đã bỏ sót cảnh báo, chỉ cho là có thể. Câu nào đúng?",
+      "options": [
+        "The team might have missed the warnings.",
+        "The team must miss the warnings.",
+        "The team should have missed the warnings."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Suy đoán có thể về quá khứ: might have + V3.",
+      "whenVi": "Dùng khi điều tra, giải thích một sự cố đã xảy ra: đoán nguyên nhân với mức chắc chắn khác nhau và chỉ ra điều lẽ ra nên làm.",
+      "table": [
+        {
+          "subject": "must / might / can't have + V3",
+          "form": "The transformer must have been running too hot.",
+          "negative": "That can't have been bad luck."
+        },
+        {
+          "subject": "should have + V3",
+          "form": "Someone should have checked the records.",
+          "negative": "Bị động: The generator should have been tested."
+        },
+        {
+          "subject": "could / might have + V3",
+          "form": "They might have replaced it already.",
+          "negative": "Câu hỏi: Could the workers have done anything?"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "The generator should have tested every month.",
+          "right": "The generator should have been tested every month."
+        },
+        {
+          "wrong": "That mustn't have been bad luck.",
+          "right": "That can't have been bad luck."
+        }
+      ],
+      "noteVi": "Để nói \"chắc chắn không\" về quá khứ, dùng can't have / couldn't have, không dùng mustn't have.",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "The generator should have ___ tested every month.",
+          "answers": [
+            "been"
+          ],
+          "explanationVi": "Bị động: should have been + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "The temperature was too high for weeks. Someone ___ the records.",
+          "options": [
+            "should have checked",
+            "must check",
+            "can't have checked",
+            "checks"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Lẽ ra nên làm mà không làm: should have checked."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "The team might have miss the warnings.",
+          "sentence": "The team might have missed the warnings.",
+          "explanationVi": "Sau have phải là V3: missed."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Máy biến áp chắc hẳn đã chạy quá nóng nhiều tuần.",
+          "sentence": "The transformer must have been running too hot for weeks.",
+          "words": [
+            "The",
+            "transformer",
+            "must",
+            "have",
+            "been",
+            "running",
+            "too",
+            "hot",
+            "for",
+            "weeks.",
+            "should"
+          ],
+          "explanationVi": "must have been + V-ing: suy đoán việc đã kéo dài; từ \"should\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "The transformer must have been running too hot for weeks.",
+        "tipVi": "must have been đọc lướt /mʌstəv bɪn/; transformer /trænsˈfɔːmə/."
+      },
+      {
+        "text": "Someone should have checked the records every week.\"",
+        "tipVi": "should have /ʃʊdəv/; records /ˈrekɔːdz/ nhấn âm đầu."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Think of something that went wrong at your work or school. What might have caused it?",
+        "questionVi": "Nghĩ về một sự cố ở chỗ làm hoặc trường học. Nguyên nhân có thể là gì?",
+        "frame": "It might have been because ___."
+      },
+      {
+        "question": "What should you have checked before your last trip or exam?",
+        "questionVi": "Trước chuyến đi hay kỳ thi gần nhất, lẽ ra bạn nên kiểm tra gì?",
+        "frame": "I should have checked ___."
+      },
+      {
+        "question": "Why is it important to follow safety rules at work?",
+        "questionVi": "Vì sao cần tuân thủ quy định an toàn khi làm việc?",
+        "frame": "It is important because ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu modal quá khứ (must / might / can't / should have + V3)",
+      "anyOf": [
+        "must have",
+        "might have",
+        "can't have",
+        "should have",
+        "could have",
+        "shouldn't have"
+      ],
+      "outlineVi": [
+        "Sự cố gì đã xảy ra, ở đâu, khi nào.",
+        "Nguyên nhân có thể là gì (must have / might have …).",
+        "Lẽ ra mọi người nên làm gì (should have …)."
+      ],
+      "modelAnswer": "Last week, the lift in our office building stopped between two floors for an hour. It must have been very frightening for the people inside. The lift might not have been checked for months. The building manager should have called the repair company when people first complained about strange noises. Luckily, nobody was hurt."
+    }
+  },
+  "glosses": [
+    {
+      "text": "transformer",
+      "lemma": "transformer",
+      "meaningVi": "máy biến áp",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "the main transformer",
+      "phraseVi": "máy biến áp chính"
+    },
+    {
+      "text": "backup generator",
+      "lemma": "backup generator",
+      "meaningVi": "máy phát dự phòng",
+      "sentenceIndex": 4,
+      "pos": "noun",
+      "phrase": "the backup generator",
+      "phraseVi": "máy phát dự phòng"
+    },
+    {
+      "text": "fuel pump",
+      "lemma": "fuel pump",
+      "meaningVi": "bơm nhiên liệu",
+      "sentenceIndex": 21,
+      "pos": "noun",
+      "phrase": "the problem with the fuel pump",
+      "phraseVi": "lỗi ở bơm nhiên liệu"
+    },
+    {
+      "text": "blackout",
+      "lemma": "blackout",
+      "meaningVi": "sự cố mất điện",
+      "sentenceIndex": 26,
+      "pos": "noun",
+      "phrase": "during the blackout",
+      "phraseVi": "lúc mất điện"
+    }
+  ]
+}

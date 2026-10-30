@@ -1,0 +1,611 @@
+{
+  "content": "Quynh and Long work for a small environmental group in Ho Chi Minh City. This evening they are preparing a short video about air pollution for social media.\n\n\"Let's start with the numbers,\" Long says. \"The city now has more than eight million motorbikes.\"\n\"And most people still ride them every day. If the city had invested in public transport twenty years ago, we wouldn't have so many motorbikes now.\"\n\"That's a strong opening. But is it fair? The city was much poorer then.\"\n\"True. But other cities in Asia weren't rich either, and they built metro lines. If our first metro line had opened in 2010, people would use the trains as a normal part of life today.\"\n\"Instead, it opened at the end of 2024, and many people still don't trust it.\"\n\"Right. And it's not only about trains. If planners had kept more green space, the city would be cooler now.\"\nLong looks out of his window at the traffic. \"I remember when this street had trees on both sides.\"\n\"So do I. If they hadn't cut them down to make the road wider, we would have shade and cleaner air today.\"\n\"OK. But our video shouldn't only look backwards. People get tired of blame.\"\n\"I agree. We should show what can still change. If the city had started earlier, the change would have been easier. But it's not too late.\"\n\"What examples can we use?\"\n\"The new electric buses, for one. And the metro. Last month I took it to work every day for a week.\"\n\"How was it?\"\n\"Fast and cool. If more people tried it, they would like it too.\"\n\"Great. So the message is: we can't change the past, but we can change the next twenty years.\"\n\"Perfect. Honestly, if we had made this video five years ago, nobody would have watched it. Now people really care.\"\n\"Then let's write the script tonight and film it tomorrow morning.\"",
+  "targetWords": [
+    "environmental",
+    "social media",
+    "invest",
+    "public transport",
+    "trust",
+    "shade",
+    "blame",
+    "electric",
+    "message",
+    "script"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "environmental",
+        "lemma": "environmental",
+        "meaningVi": "về môi trường",
+        "pos": "adjective",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "social media",
+        "lemma": "social media",
+        "meaningVi": "mạng xã hội",
+        "pos": "noun",
+        "sentenceIndex": 1
+      },
+      {
+        "text": "invested",
+        "lemma": "invest",
+        "meaningVi": "đầu tư",
+        "pos": "verb",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "public transport",
+        "lemma": "public transport",
+        "meaningVi": "giao thông công cộng",
+        "pos": "noun",
+        "sentenceIndex": 5
+      },
+      {
+        "text": "trust",
+        "lemma": "trust",
+        "meaningVi": "tin tưởng",
+        "pos": "verb",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "shade",
+        "lemma": "shade",
+        "meaningVi": "bóng mát",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "blame",
+        "lemma": "blame",
+        "meaningVi": "sự đổ lỗi",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "electric",
+        "lemma": "electric",
+        "meaningVi": "chạy điện",
+        "pos": "adjective",
+        "sentenceIndex": 27
+      },
+      {
+        "text": "message",
+        "lemma": "message",
+        "meaningVi": "thông điệp",
+        "pos": "noun",
+        "sentenceIndex": 34
+      },
+      {
+        "text": "script",
+        "lemma": "script",
+        "meaningVi": "kịch bản",
+        "pos": "noun",
+        "sentenceIndex": 38
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Quynh and Long preparing?",
+        "promptVi": "Quỳnh và Long đang chuẩn bị gì?",
+        "options": [
+          "A video about air pollution",
+          "A report on motorbike sales",
+          "A trip to another city",
+          "A plan for a new metro line"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ đang chuẩn bị một video ngắn về ô nhiễm không khí để đăng mạng xã hội."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When did the city's first metro line open?",
+        "promptVi": "Tuyến tàu điện đầu tiên của thành phố mở khi nào?",
+        "options": [
+          "In 2010",
+          "At the end of 2024",
+          "Twenty years ago",
+          "Last month"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Long nói \"it opened at the end of 2024.\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What was the metro like?",
+        "promptVi": "Đi tàu điện thấy thế nào?",
+        "options": [
+          "Slow and hot",
+          "Fast and cool",
+          "Too expensive",
+          "Too crowded"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Câu trả lời là \"Fast and cool.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Long thinks their video should only talk about the past.",
+        "promptVi": "Long nghĩ video chỉ nên nói về quá khứ.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Long nói \"our video shouldn't only look backwards.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"blame\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"People get tired of blame.\"",
+        "options": [
+          "sự đổ lỗi",
+          "tin xấu",
+          "tiếng ồn",
+          "quảng cáo"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Blame = sự đổ lỗi cho ai đó."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện hỗn hợp",
+      "bodyVi": "Câu điều kiện hỗn hợp nối hai mốc thời gian khác nhau. Kiểu hay gặp nhất: điều kiện trong quá khứ, kết quả ở hiện tại: If + had + V3, would + V. If the city had invested in public transport twenty years ago, we wouldn't have so many motorbikes now. If planners had kept more green space, the city would be cooler now. So sánh với loại 3, khi kết quả cũng ở quá khứ: If we had made this video five years ago, nobody would have watched it.",
+      "examples": [
+        "If the city had invested in public transport twenty years ago, we wouldn't have so many motorbikes now.\"",
+        "If our first metro line had opened in 2010, people would use the trains as a normal part of life today.\"",
+        "If planners had kept more green space, the city would be cooler now.\""
+      ]
+    },
+    "writingPrompt": "Write about a decision made in the past by your city, school or family, and how life would be different today if it had been different.",
+    "sentenceTranslations": [
+      "Quỳnh và Long làm việc cho một nhóm môi trường nhỏ ở Thành phố Hồ Chí Minh.",
+      "Tối nay họ đang chuẩn bị một video ngắn về ô nhiễm không khí cho mạng xã hội.",
+      "Long nói: \"Bắt đầu bằng con số đi.",
+      "Thành phố bây giờ có hơn tám triệu xe máy.\"",
+      "\"Và hầu hết mọi người vẫn đi xe máy hằng ngày.",
+      "Nếu hai mươi năm trước thành phố đầu tư vào giao thông công cộng, bây giờ chúng ta đã không có nhiều xe máy như vậy.\"",
+      "\"Mở đầu mạnh đấy.",
+      "Nhưng có công bằng không?",
+      "Hồi đó thành phố nghèo hơn nhiều.\"",
+      "\"Đúng.",
+      "Nhưng các thành phố khác ở châu Á cũng không giàu, mà họ vẫn xây tàu điện.",
+      "Nếu tuyến tàu điện đầu tiên của mình mở năm 2010 thì bây giờ đi tàu đã là chuyện bình thường với mọi người.\"",
+      "\"Thay vào đó, nó mở cửa cuối năm 2024, và nhiều người vẫn chưa tin tưởng nó.\"",
+      "\"Đúng.",
+      "Mà đâu chỉ chuyện tàu.",
+      "Nếu những người quy hoạch giữ lại nhiều mảng xanh hơn thì bây giờ thành phố đã mát hơn.\"",
+      "Long nhìn ra cửa sổ phía dòng xe cộ.",
+      "\"Tớ nhớ hồi con phố này còn cây hai bên.\"",
+      "\"Tớ cũng vậy. Nếu họ không chặt cây để mở rộng đường thì hôm nay mình đã có bóng mát và không khí trong lành hơn.\"",
+      "\"Ừ.",
+      "Nhưng video của mình không nên chỉ nhìn về quá khứ.",
+      "Mọi người mệt mỏi với chuyện đổ lỗi rồi.\"",
+      "\"Tớ đồng ý.",
+      "Mình nên cho thấy những gì vẫn còn thay đổi được.",
+      "Nếu thành phố bắt đầu sớm hơn thì thay đổi đã dễ hơn.",
+      "Nhưng vẫn chưa muộn.\"",
+      "\"Mình dùng ví dụ nào được?\"",
+      "\"Xe buýt điện mới chẳng hạn.",
+      "Và tàu điện.",
+      "Tháng trước tớ đi tàu đi làm mỗi ngày trong một tuần.\"",
+      "\"Thấy thế nào?\"",
+      "\"Nhanh và mát.",
+      "Nếu nhiều người thử, họ cũng sẽ thích.\"",
+      "\"Tuyệt.",
+      "Vậy thông điệp là: mình không thay đổi được quá khứ, nhưng thay đổi được hai mươi năm tới.\"",
+      "\"Hoàn hảo.",
+      "Thật ra, nếu năm năm trước mình làm video này thì chẳng ai xem đâu.",
+      "Giờ mọi người thật sự quan tâm rồi.\"",
+      "\"Vậy tối nay viết kịch bản và sáng mai quay nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể nói một quyết định trong quá khứ ảnh hưởng thế nào đến hiện tại bằng câu điều kiện hỗn hợp (If … had + V3, … would + V … now).",
+    "examples": [
+      {
+        "lemma": "environmental",
+        "sentence": "Plastic is a big environmental problem.",
+        "meaningVi": "Nhựa là một vấn đề môi trường lớn."
+      },
+      {
+        "lemma": "social media",
+        "sentence": "She shares her photos on social media.",
+        "meaningVi": "Cô ấy chia sẻ ảnh trên mạng xã hội."
+      },
+      {
+        "lemma": "invest",
+        "sentence": "The company wants to invest in new machines.",
+        "meaningVi": "Công ty muốn đầu tư vào máy móc mới."
+      },
+      {
+        "lemma": "public transport",
+        "sentence": "Public transport here is cheap and fast.",
+        "meaningVi": "Giao thông công cộng ở đây rẻ và nhanh."
+      },
+      {
+        "lemma": "trust",
+        "sentence": "I trust my best friend completely.",
+        "meaningVi": "Tôi hoàn toàn tin tưởng bạn thân của mình."
+      },
+      {
+        "lemma": "shade",
+        "sentence": "Let's sit in the shade of that tree.",
+        "meaningVi": "Mình ngồi dưới bóng cây kia đi."
+      },
+      {
+        "lemma": "blame",
+        "sentence": "He always takes the blame for others.",
+        "meaningVi": "Anh ấy luôn nhận lỗi thay người khác."
+      },
+      {
+        "lemma": "electric",
+        "sentence": "They bought an electric car last year.",
+        "meaningVi": "Năm ngoái họ mua một chiếc ô tô điện."
+      },
+      {
+        "lemma": "message",
+        "sentence": "The film has a strong message about family.",
+        "meaningVi": "Bộ phim có thông điệp mạnh mẽ về gia đình."
+      },
+      {
+        "lemma": "script",
+        "sentence": "The actors are reading the script.",
+        "meaningVi": "Các diễn viên đang đọc kịch bản."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Dad",
+        "Quynh"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "I watched your video last night. Lots of people shared it.",
+          "meaningVi": "Tối qua bố xem video của con rồi. Nhiều người chia sẻ lắm."
+        },
+        {
+          "speaker": 1,
+          "text": "Really? Did you agree with it?",
+          "meaningVi": "Thật ạ? Bố có đồng ý với nó không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Mostly. But twenty years ago, nobody talked about air pollution.",
+          "meaningVi": "Phần lớn. Nhưng hai mươi năm trước chẳng ai nói về ô nhiễm không khí."
+        },
+        {
+          "speaker": 1,
+          "text": "That's the problem. If people had talked about it then, the air would be cleaner now.",
+          "meaningVi": "Vấn đề là ở đó. Nếu hồi ấy mọi người nói về nó thì bây giờ không khí đã sạch hơn."
+        },
+        {
+          "speaker": 0,
+          "text": "Maybe. If I had known about the metro plans, I would have supported them.",
+          "meaningVi": "Có thể. Nếu bố biết về kế hoạch tàu điện thì bố đã ủng hộ rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "Have you tried the metro yet?",
+          "meaningVi": "Bố đi tàu điện chưa?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not yet. Is it easy to use?",
+          "meaningVi": "Chưa. Có dễ đi không con?"
+        },
+        {
+          "speaker": 1,
+          "text": "Very easy. If you had come with me last week, you would know that already.",
+          "meaningVi": "Dễ lắm. Nếu tuần trước bố đi với con thì giờ bố đã biết rồi."
+        },
+        {
+          "speaker": 0,
+          "text": "All right. Will you take me this Saturday?",
+          "meaningVi": "Được rồi. Thứ Bảy này con dẫn bố đi nhé?"
+        },
+        {
+          "speaker": 1,
+          "text": "Of course. Then you can leave your motorbike at home.",
+          "meaningVi": "Tất nhiên rồi. Lúc đó bố để xe máy ở nhà."
+        }
+      ]
+    },
+    "grammarTipVi": "Quá khứ → hiện tại: If people had talked about it then, the air would be cleaner now. / If you had come with me last week, you would know that already. Quá khứ → quá khứ (loại 3): If I had known about the metro plans, I would have supported them.",
+    "translations": [
+      {
+        "vi": "Nếu thành phố đầu tư sớm hơn, bây giờ sẽ ít xe máy hơn.",
+        "en": "If the city had invested earlier, there would be fewer motorbikes now.",
+        "distractors": [
+          "invests",
+          "will",
+          "more"
+        ]
+      },
+      {
+        "vi": "Nhiều người vẫn chưa tin tưởng tàu điện.",
+        "en": "Many people still don't trust the metro.",
+        "distractors": [
+          "trusts",
+          "doesn't",
+          "already"
+        ]
+      },
+      {
+        "vi": "Nếu họ không chặt cây, hôm nay chúng ta đã có bóng mát.",
+        "en": "If they hadn't cut the trees, we would have shade today.",
+        "distractors": [
+          "didn't",
+          "will",
+          "sun"
+        ]
+      },
+      {
+        "vi": "Mọi người mệt mỏi với chuyện đổ lỗi.",
+        "en": "People get tired of blame.",
+        "distractors": [
+          "gets",
+          "happy",
+          "blames"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Quỳnh và bố nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Video về ô nhiễm không khí và tàu điện",
+          "Một bộ phim mới",
+          "Một chuyến du lịch"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bố nói \"I watched your video last night.\"",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo Quỳnh, nếu hồi đó mọi người nói về ô nhiễm thì sao?",
+        "promptVi": "",
+        "options": [
+          "Bây giờ không khí đã sạch hơn",
+          "Video sẽ nổi tiếng hơn",
+          "Xe máy sẽ rẻ hơn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Quỳnh nói \"the air would be cleaner now.\"",
+        "turnIndex": 3
+      },
+      {
+        "kind": "detail",
+        "prompt": "Khi nào hai bố con đi tàu điện?",
+        "promptVi": "",
+        "options": [
+          "Thứ Bảy này",
+          "Chủ Nhật",
+          "Tối nay"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bố hỏi \"Will you take me this Saturday?\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Quynh's father has already tried the metro.",
+        "promptVi": "Bố Quỳnh đã đi tàu điện rồi.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì bố nói \"Not yet.\"",
+        "turnIndex": 6
+      }
+    ],
+    "readingGuideVi": "Theo Quỳnh và Long, những quyết định nào trong quá khứ khiến không khí thành phố bây giờ ô nhiễm? Thông điệp cuối của video là gì?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện hỗn hợp",
+      "noticing": [
+        {
+          "sentence": "If the city had invested in public transport twenty years ago, we wouldn't have so many motorbikes now.\"",
+          "highlights": [
+            "had invested",
+            "wouldn't have",
+            "now"
+          ]
+        },
+        {
+          "sentence": "If our first metro line had opened in 2010, people would use the trains as a normal part of life today.\"",
+          "highlights": [
+            "had opened",
+            "would use",
+            "today"
+          ]
+        },
+        {
+          "sentence": "If planners had kept more green space, the city would be cooler now.\"",
+          "highlights": [
+            "had kept",
+            "would be cooler now"
+          ]
+        },
+        {
+          "sentence": "Honestly, if we had made this video five years ago, nobody would have watched it.",
+          "highlights": [
+            "had made",
+            "would have watched"
+          ]
+        }
+      ],
+      "questionVi": "Thành phố đã không đầu tư sớm, và kết quả là bây giờ có quá nhiều xe máy. Câu nào đúng?",
+      "options": [
+        "If the city had invested earlier, we wouldn't have so many motorbikes now.",
+        "If the city invested earlier, we wouldn't have had so many motorbikes now.",
+        "If the city had invested earlier, we won't have so many motorbikes now."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Điều kiện ở quá khứ (had invested), kết quả ở hiện tại (wouldn't have … now).",
+      "whenVi": "Dùng khi một việc đã (không) xảy ra trong quá khứ dẫn đến tình trạng ở hiện tại, hoặc khi đặc điểm hiện tại của ai đó ảnh hưởng đến việc đã qua.",
+      "table": [
+        {
+          "subject": "Quá khứ → hiện tại",
+          "form": "If + had + V3, would + V: If they had kept the trees, we would have shade today.",
+          "negative": "If the city had invested earlier, we wouldn't have so many motorbikes now."
+        },
+        {
+          "subject": "Hiện tại → quá khứ",
+          "form": "If + quá khứ đơn, would have + V3: If I were braver, I would have said yes.",
+          "negative": "Đặc điểm hiện tại ảnh hưởng việc đã qua."
+        },
+        {
+          "subject": "So với loại 3",
+          "form": "If we had made this video five years ago, nobody would have watched it.",
+          "negative": "Cả hai vế đều ở quá khứ."
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If the city had invested earlier, we wouldn't have had so many motorbikes now.",
+          "right": "If the city had invested earlier, we wouldn't have so many motorbikes now."
+        },
+        {
+          "wrong": "If they didn't cut the trees, we would have shade today.",
+          "right": "If they hadn't cut the trees, we would have shade today."
+        }
+      ],
+      "noteVi": "Dấu hiệu nhận biết: mệnh đề If nói về quá khứ (twenty years ago, in 2010), mệnh đề chính nói về bây giờ (now, today).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "If they hadn't cut down the trees, the street ___ be cooler today.",
+          "answers": [
+            "would"
+          ],
+          "explanationVi": "Kết quả ở hiện tại (today): would + V."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If the metro had opened in 2010, more people ___ it today.",
+          "options": [
+            "would use",
+            "would have used",
+            "will use",
+            "used"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Điều kiện quá khứ, kết quả hiện tại (today): would use."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If the city had kept more green space, it would have been cooler now.",
+          "sentence": "If the city had kept more green space, it would be cooler now.",
+          "explanationVi": "Kết quả ở hiện tại (now) nên dùng would be, không dùng would have been."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu thành phố bắt đầu sớm hơn, bây giờ không khí đã sạch hơn.",
+          "sentence": "If the city had started earlier, the air would be cleaner now.",
+          "words": [
+            "If",
+            "the",
+            "city",
+            "had",
+            "started",
+            "earlier,",
+            "the",
+            "air",
+            "would",
+            "be",
+            "cleaner",
+            "now.",
+            "have"
+          ],
+          "explanationVi": "If + had + V3, would + V + now; từ \"have\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "If planners had kept more green space, the city would be cooler now.\"",
+        "tipVi": "Ngắt hơi sau space; nhấn vào cooler và now."
+      },
+      {
+        "text": "Honestly, if we had made this video five years ago, nobody would have watched it.",
+        "tipVi": "Honestly /ˈɒnɪstli/ không đọc h; would have đọc /wʊdəv/."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "What decision in your city's past still affects your life today?",
+        "questionVi": "Quyết định nào trong quá khứ của thành phố vẫn ảnh hưởng đến cuộc sống của bạn hôm nay?",
+        "frame": "If the city had ___, we would ___ now."
+      },
+      {
+        "question": "How do you usually travel around your city? Why?",
+        "questionVi": "Bạn thường đi lại trong thành phố bằng gì? Vì sao?",
+        "frame": "I usually ___ because ___."
+      },
+      {
+        "question": "What would be different in your life now if you had made a different choice?",
+        "questionVi": "Cuộc sống bây giờ của bạn sẽ khác thế nào nếu bạn đã chọn khác đi?",
+        "frame": "If I had ___, I would ___ now."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện hỗn hợp (If … had + V3, … would + V … now)",
+      "anyOf": [
+        "would be",
+        "would have",
+        "wouldn't",
+        "would "
+      ],
+      "outlineVi": [
+        "Quyết định nào đã được đưa ra trong quá khứ.",
+        "Bây giờ nó ảnh hưởng thế nào đến cuộc sống của bạn.",
+        "Nếu quyết định khác thì bây giờ ra sao (If … had …, … would … now)."
+      ],
+      "modelAnswer": "Twenty years ago, my town decided to build a big shopping centre instead of a park. If they had built the park, children would have a safe place to play today. The air would also be cleaner. My parents say they should have complained at that time. If more people had spoken up, the town would look very different now."
+    }
+  },
+  "glosses": [
+    {
+      "text": "opening",
+      "lemma": "opening",
+      "meaningVi": "phần mở đầu",
+      "sentenceIndex": 6,
+      "pos": "noun",
+      "phrase": "a strong opening",
+      "phraseVi": "mở đầu mạnh"
+    },
+    {
+      "text": "metro lines",
+      "lemma": "metro line",
+      "meaningVi": "tuyến tàu điện",
+      "sentenceIndex": 10,
+      "pos": "noun",
+      "phrase": "they built metro lines",
+      "phraseVi": "họ vẫn xây tàu điện"
+    },
+    {
+      "text": "green space",
+      "lemma": "green space",
+      "meaningVi": "mảng xanh, không gian xanh",
+      "sentenceIndex": 15,
+      "pos": "noun",
+      "phrase": "kept more green space",
+      "phraseVi": "giữ lại nhiều mảng xanh hơn"
+    },
+    {
+      "text": "backwards",
+      "lemma": "backwards",
+      "meaningVi": "về phía sau",
+      "sentenceIndex": 20,
+      "pos": "adverb",
+      "phrase": "look backwards",
+      "phraseVi": "nhìn về quá khứ"
+    }
+  ]
+}

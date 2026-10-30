@@ -1,0 +1,606 @@
+{
+  "content": "A week after a strong typhoon, two rangers, Dung and his younger colleague Phuc, are walking along a forest path in a national park in central Vietnam. Fallen branches lie everywhere, but the hills around them still look green.\n\n\"I was expecting much worse,\" Phuc says. \"In the next province, whole hillsides slid down onto the roads.\"\n\"I saw the photos. Two villages were cut off for days,\" Dung replies. \"If we hadn't stopped the logging here ten years ago, the same thing would have happened to us.\"\n\"Was there a lot of logging then?\"\n\"Too much. Companies were cutting the old trees, and some local people were selling wood illegally. When the new law came in, they were angry.\"\n\"I can imagine. They must have lost a lot of income.\"\n\"They did. The park should have offered them other jobs earlier. In the end, many of them became guides or forest guards.\"\n\"So the law worked.\"\n\"It did. The tree roots hold the soil together. Without them, the heavy rain would have washed the soil into the rivers. The villages below would have flooded too.\"\nPhuc stops beside a small stream. \"This water is quite clear, even after the storm.\"\n\"Yes. If the hills had been bare, it would have been brown with mud.\"\n\"Could we have done anything else to prepare?\"\n\"We could have cleared the paths faster. Some of the bridges were blocked for three days. And we should have checked the old trees near the road. One of them fell on a car.\"\n\"Was anyone hurt?\"\n\"Luckily, no. The driver can't have been going fast, or it would have been much worse.\"\n\"I'm glad I joined the park service. This job really matters.\"\n\"It does. Now, let's mark the trees that need to come down before the next storm.\"",
+  "targetWords": [
+    "ranger",
+    "province",
+    "logging",
+    "illegally",
+    "income",
+    "guard",
+    "soil",
+    "stream",
+    "bare",
+    "mud"
+  ],
+  "annotate": {
+    "annotations": [
+      {
+        "text": "rangers",
+        "lemma": "ranger",
+        "meaningVi": "kiểm lâm",
+        "pos": "noun",
+        "sentenceIndex": 0
+      },
+      {
+        "text": "province",
+        "lemma": "province",
+        "meaningVi": "tỉnh",
+        "pos": "noun",
+        "sentenceIndex": 3
+      },
+      {
+        "text": "logging",
+        "lemma": "logging",
+        "meaningVi": "việc khai thác gỗ",
+        "pos": "noun",
+        "sentenceIndex": 6
+      },
+      {
+        "text": "illegally",
+        "lemma": "illegally",
+        "meaningVi": "trái phép",
+        "pos": "adverb",
+        "sentenceIndex": 9
+      },
+      {
+        "text": "income",
+        "lemma": "income",
+        "meaningVi": "thu nhập",
+        "pos": "noun",
+        "sentenceIndex": 12
+      },
+      {
+        "text": "guards",
+        "lemma": "guard",
+        "meaningVi": "người bảo vệ",
+        "pos": "noun",
+        "sentenceIndex": 15
+      },
+      {
+        "text": "soil",
+        "lemma": "soil",
+        "meaningVi": "đất",
+        "pos": "noun",
+        "sentenceIndex": 18
+      },
+      {
+        "text": "stream",
+        "lemma": "stream",
+        "meaningVi": "dòng suối",
+        "pos": "noun",
+        "sentenceIndex": 21
+      },
+      {
+        "text": "bare",
+        "lemma": "bare",
+        "meaningVi": "trơ trụi",
+        "pos": "adjective",
+        "sentenceIndex": 24
+      },
+      {
+        "text": "mud",
+        "lemma": "mud",
+        "meaningVi": "bùn",
+        "pos": "noun",
+        "sentenceIndex": 24
+      }
+    ],
+    "questions": [
+      {
+        "kind": "gist",
+        "prompt": "What are Dung and Phuc talking about?",
+        "promptVi": "Dũng và Phúc đang nói về điều gì?",
+        "options": [
+          "How the forest protected the park during the typhoon",
+          "Where to go fishing",
+          "How to build a new bridge",
+          "Their holiday plans"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ nói về việc rừng được bảo vệ giúp vườn quốc gia ít bị thiệt hại sau cơn bão."
+      },
+      {
+        "kind": "detail",
+        "prompt": "When did the park stop the logging?",
+        "promptVi": "Vườn quốc gia ngừng khai thác gỗ khi nào?",
+        "options": [
+          "Last year",
+          "Ten years ago",
+          "A week ago",
+          "Twenty years ago"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Dũng nói \"If we hadn't stopped the logging here ten years ago …\""
+      },
+      {
+        "kind": "detail",
+        "prompt": "What did many of the local people become after the new law?",
+        "promptVi": "Sau luật mới, nhiều người dân địa phương làm nghề gì?",
+        "options": [
+          "Farmers",
+          "Guides or forest guards",
+          "Drivers",
+          "Teachers"
+        ],
+        "answerIndex": 1,
+        "explanationVi": "Dũng nói \"many of them became guides or forest guards.\""
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Someone was badly hurt when a tree fell on a car.",
+        "promptVi": "Có người bị thương nặng khi cây đổ vào ô tô.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì Dũng nói \"Luckily, no.\""
+      },
+      {
+        "kind": "vocab",
+        "prompt": "Trong câu này, \"bare\" nghĩa là gì?",
+        "promptVi": "",
+        "quote": "\"If the hills had been bare, it would have been brown with mud.\"",
+        "options": [
+          "trơ trụi, không có cây",
+          "cao",
+          "xanh tốt",
+          "đông người"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Bare = trơ trụi, không có gì che phủ."
+      }
+    ],
+    "grammarNote": {
+      "title": "Câu điều kiện loại 3",
+      "bodyVi": "Câu điều kiện loại 3 giúp đánh giá một quyết định trong quá khứ bằng cách tưởng tượng điều ngược lại: If we hadn't stopped the logging here ten years ago, the same thing would have happened to us. If the hills had been bare, it would have been brown with mud. Without + danh từ cũng có thể thay cho mệnh đề If: Without them, the heavy rain would have washed the soil into the rivers. Bài cũng có modal quá khứ: They must have lost a lot of income / The park should have offered them other jobs earlier.",
+      "examples": [
+        "\"If we hadn't stopped the logging here ten years ago, the same thing would have happened to us.\"",
+        "Without them, the heavy rain would have washed the soil into the rivers.",
+        "If the hills had been bare, it would have been brown with mud.\""
+      ]
+    },
+    "writingPrompt": "Write about a law or rule that protected nature in your area, or that could have protected it. Use if + had + V3 and would have + V3.",
+    "sentenceTranslations": [
+      "Một tuần sau cơn bão lớn, hai kiểm lâm là Dũng và đồng nghiệp trẻ Phúc đang đi dọc một lối mòn trong rừng ở một vườn quốc gia miền Trung.",
+      "Cành cây gãy nằm khắp nơi, nhưng những ngọn đồi xung quanh vẫn xanh.",
+      "Phúc nói: \"Em cứ tưởng sẽ tệ hơn nhiều.",
+      "Ở tỉnh bên, cả sườn đồi sạt xuống đường.\"",
+      "\"Anh thấy ảnh rồi.",
+      "Hai ngôi làng bị cô lập mấy ngày liền,\" Dũng đáp.",
+      "\"Nếu mười năm trước mình không ngừng khai thác gỗ ở đây thì chuyện tương tự đã xảy ra với mình.\"",
+      "\"Hồi đó khai thác gỗ nhiều lắm ạ?\"",
+      "\"Quá nhiều.",
+      "Các công ty chặt cây cổ thụ, và một số người dân bán gỗ trái phép.",
+      "Khi luật mới ra đời, họ rất tức giận.\"",
+      "\"Em hình dung được.",
+      "Chắc hẳn họ mất nhiều thu nhập lắm.\"",
+      "\"Đúng vậy.",
+      "Lẽ ra vườn quốc gia nên tạo việc làm khác cho họ sớm hơn.",
+      "Cuối cùng, nhiều người trở thành hướng dẫn viên hoặc người bảo vệ rừng.\"",
+      "\"Vậy là luật có tác dụng.\"",
+      "\"Có chứ.",
+      "Rễ cây giữ đất lại với nhau.",
+      "Không có chúng, mưa lớn đã cuốn đất xuống sông.",
+      "Các làng phía dưới cũng đã bị ngập.\"",
+      "Phúc dừng lại bên một dòng suối nhỏ.",
+      "\"Nước khá trong, kể cả sau bão.\"",
+      "\"Ừ.",
+      "Nếu đồi trơ trụi thì nước đã đục ngầu bùn rồi.\"",
+      "\"Mình có thể chuẩn bị gì thêm không anh?\"",
+      "\"Lẽ ra mình đã có thể dọn lối đi nhanh hơn.",
+      "Có mấy cây cầu bị chặn suốt ba ngày.",
+      "Và lẽ ra mình nên kiểm tra mấy cây già gần đường.",
+      "Một cây đã đổ vào một chiếc ô tô.\"",
+      "\"Có ai bị thương không anh?\"",
+      "\"May là không.",
+      "Người lái chắc chắn không đi nhanh, không thì đã tệ hơn nhiều.\"",
+      "\"Em mừng vì đã vào làm kiểm lâm.",
+      "Công việc này thật sự quan trọng.\"",
+      "\"Đúng vậy.",
+      "Giờ mình đánh dấu những cây cần chặt trước cơn bão tới nhé.\""
+    ]
+  },
+  "practice": {
+    "objectiveVi": "Bạn có thể đánh giá một quyết định bảo vệ môi trường trong quá khứ bằng câu điều kiện loại 3 và nhận xét bằng modal quá khứ.",
+    "examples": [
+      {
+        "lemma": "ranger",
+        "sentence": "A ranger showed us the way to the waterfall.",
+        "meaningVi": "Một kiểm lâm chỉ đường cho chúng tôi đến thác nước."
+      },
+      {
+        "lemma": "province",
+        "sentence": "Lao Cai is a province in the north.",
+        "meaningVi": "Lào Cai là một tỉnh ở miền Bắc."
+      },
+      {
+        "lemma": "logging",
+        "sentence": "Logging has destroyed many forests.",
+        "meaningVi": "Việc khai thác gỗ đã phá huỷ nhiều khu rừng."
+      },
+      {
+        "lemma": "illegally",
+        "sentence": "The car was parked illegally.",
+        "meaningVi": "Chiếc xe đỗ trái phép."
+      },
+      {
+        "lemma": "income",
+        "sentence": "Tourism is the main income of the island.",
+        "meaningVi": "Du lịch là nguồn thu nhập chính của hòn đảo."
+      },
+      {
+        "lemma": "guard",
+        "sentence": "A guard stood at the gate.",
+        "meaningVi": "Một người bảo vệ đứng ở cổng."
+      },
+      {
+        "lemma": "soil",
+        "sentence": "Rice grows well in this soil.",
+        "meaningVi": "Lúa mọc tốt trên loại đất này."
+      },
+      {
+        "lemma": "stream",
+        "sentence": "We washed our hands in the stream.",
+        "meaningVi": "Chúng tôi rửa tay ở dòng suối."
+      },
+      {
+        "lemma": "bare",
+        "sentence": "The walls of the room were bare.",
+        "meaningVi": "Tường phòng trống trơn."
+      },
+      {
+        "lemma": "mud",
+        "sentence": "My shoes were covered in mud.",
+        "meaningVi": "Giày tôi dính đầy bùn."
+      }
+    ],
+    "dialogue": {
+      "speakers": [
+        "Mr Kha",
+        "Phuc"
+      ],
+      "turns": [
+        {
+          "speaker": 0,
+          "text": "Thank you for clearing the road to our village so quickly.",
+          "meaningVi": "Cảm ơn cháu đã dọn đường vào làng nhanh như vậy."
+        },
+        {
+          "speaker": 1,
+          "text": "You're welcome. Was the village flooded?",
+          "meaningVi": "Không có gì ạ. Làng mình có bị ngập không bác?"
+        },
+        {
+          "speaker": 0,
+          "text": "Only a little. If the hills had been bare, we would have lost everything.",
+          "meaningVi": "Chỉ một chút. Nếu đồi trơ trụi thì chúng tôi đã mất hết rồi."
+        },
+        {
+          "speaker": 1,
+          "text": "That's what Dung says too. Did you agree with the logging ban ten years ago?",
+          "meaningVi": "Anh Dũng cũng nói vậy. Mười năm trước bác có đồng ý với lệnh cấm khai thác gỗ không?"
+        },
+        {
+          "speaker": 0,
+          "text": "Not at first. I must have complained a hundred times!",
+          "meaningVi": "Lúc đầu thì không. Chắc tôi phải than phiền cả trăm lần!"
+        },
+        {
+          "speaker": 1,
+          "text": "And now?",
+          "meaningVi": "Còn bây giờ ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Now I know the park was right. They should have explained it better, though.",
+          "meaningVi": "Giờ tôi biết vườn quốc gia đã đúng. Có điều lẽ ra họ nên giải thích rõ hơn."
+        },
+        {
+          "speaker": 1,
+          "text": "Do you work in the forest now?",
+          "meaningVi": "Bây giờ bác làm trong rừng ạ?"
+        },
+        {
+          "speaker": 0,
+          "text": "Yes, I'm a guide. If I hadn't changed jobs, I would have had no income.",
+          "meaningVi": "Ừ, tôi làm hướng dẫn viên. Nếu không đổi nghề thì tôi đã chẳng có thu nhập."
+        },
+        {
+          "speaker": 1,
+          "text": "Then come and help us mark the old trees tomorrow.",
+          "meaningVi": "Vậy mai bác đến giúp bọn cháu đánh dấu cây già nhé."
+        }
+      ]
+    },
+    "grammarTipVi": "Điều đã không xảy ra: If the hills had been bare, we would have lost everything. / If I hadn't changed jobs, I would have had no income. Suy đoán và phê bình: I must have complained a hundred times! / They should have explained it better.",
+    "translations": [
+      {
+        "vi": "Nếu chúng ta không ngừng khai thác gỗ, các làng đã bị ngập.",
+        "en": "If we hadn't stopped the logging, the villages would have flooded.",
+        "distractors": [
+          "didn't",
+          "will",
+          "start"
+        ]
+      },
+      {
+        "vi": "Chắc hẳn họ đã mất nhiều thu nhập.",
+        "en": "They must have lost a lot of income.",
+        "distractors": [
+          "should",
+          "lose",
+          "money"
+        ]
+      },
+      {
+        "vi": "Một số người dân bán gỗ trái phép.",
+        "en": "Some local people were selling wood illegally.",
+        "distractors": [
+          "was",
+          "openly",
+          "buying"
+        ]
+      },
+      {
+        "vi": "Đồi trơ trụi đã làm dòng suối đầy bùn.",
+        "en": "Bare hills would have filled the stream with mud.",
+        "distractors": [
+          "will",
+          "green",
+          "water"
+        ]
+      }
+    ],
+    "listeningQuestions": [
+      {
+        "kind": "gist",
+        "prompt": "Ông Kha và Phúc nói về điều gì?",
+        "promptVi": "",
+        "options": [
+          "Lệnh cấm khai thác gỗ và trận bão vừa qua",
+          "Một lễ hội ở làng",
+          "Đường lên núi"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Họ nói về việc làng ít bị ngập và lệnh cấm khai thác gỗ.",
+        "turnIndex": -1
+      },
+      {
+        "kind": "detail",
+        "prompt": "Theo ông Kha, nếu đồi trơ trụi thì sao?",
+        "promptVi": "",
+        "options": [
+          "Làng đã mất hết mọi thứ",
+          "Đường sẽ đẹp hơn",
+          "Sẽ có nhiều cá hơn"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Kha nói \"we would have lost everything.\"",
+        "turnIndex": 2
+      },
+      {
+        "kind": "detail",
+        "prompt": "Bây giờ ông Kha làm nghề gì?",
+        "promptVi": "",
+        "options": [
+          "Hướng dẫn viên",
+          "Thợ xây",
+          "Kiểm lâm"
+        ],
+        "answerIndex": 0,
+        "explanationVi": "Ông Kha nói \"I'm a guide.\"",
+        "turnIndex": 8
+      },
+      {
+        "kind": "tfn",
+        "prompt": "Mr Kha supported the ban from the beginning.",
+        "promptVi": "Ông Kha ủng hộ lệnh cấm ngay từ đầu.",
+        "options": [],
+        "answerIndex": 1,
+        "explanationVi": "Sai, vì ông nói \"Not at first.\"",
+        "turnIndex": 4
+      }
+    ],
+    "readingGuideVi": "Vì sao vườn quốc gia ít bị thiệt hại sau cơn bão? Theo Dũng, lẽ ra kiểm lâm nên làm gì tốt hơn?",
+    "grammarStep": {
+      "titleVi": "Câu điều kiện loại 3",
+      "noticing": [
+        {
+          "sentence": "\"If we hadn't stopped the logging here ten years ago, the same thing would have happened to us.\"",
+          "highlights": [
+            "If we hadn't stopped",
+            "would have happened"
+          ]
+        },
+        {
+          "sentence": "Without them, the heavy rain would have washed the soil into the rivers.",
+          "highlights": [
+            "Without them",
+            "would have washed"
+          ]
+        },
+        {
+          "sentence": "If the hills had been bare, it would have been brown with mud.\"",
+          "highlights": [
+            "If the hills had been bare",
+            "would have been"
+          ]
+        },
+        {
+          "sentence": "\"Could we have done anything else to prepare?\"",
+          "highlights": [
+            "Could we have done"
+          ]
+        }
+      ],
+      "questionVi": "Thực tế: rừng đã được bảo vệ, nên các làng không bị ngập. Câu nào đúng?",
+      "options": [
+        "If the forest hadn't been protected, the villages would have flooded.",
+        "If the forest wasn't protected, the villages would flood.",
+        "If the forest hadn't been protected, the villages flooded."
+      ],
+      "answerIndex": 0,
+      "explanationVi": "Điều trái với quá khứ: If + hadn't been + V3, would have + V3.",
+      "whenVi": "Dùng khi đánh giá một quyết định đã qua bằng cách tưởng tượng điều ngược lại đã xảy ra.",
+      "table": [
+        {
+          "subject": "If + had (not) + V3",
+          "form": "If we hadn't stopped the logging, …",
+          "negative": "If the hills had been bare, …"
+        },
+        {
+          "subject": "would have + V3",
+          "form": "… the same thing would have happened to us.",
+          "negative": "… the villages wouldn't have stayed dry."
+        },
+        {
+          "subject": "Without + danh từ",
+          "form": "Without them, the rain would have washed the soil away.",
+          "negative": "= If they hadn't been there, …"
+        }
+      ],
+      "mistakes": [
+        {
+          "wrong": "If we didn't stop the logging, the same thing would have happened.",
+          "right": "If we hadn't stopped the logging, the same thing would have happened."
+        },
+        {
+          "wrong": "If the hills had been bare, the water would been brown.",
+          "right": "If the hills had been bare, the water would have been brown."
+        }
+      ],
+      "noteVi": "Bài cũng có modal quá khứ: They must have lost a lot of income (chắc hẳn) / The park should have offered them other jobs earlier (lẽ ra nên) / The driver can't have been going fast (chắc chắn không).",
+      "exercises": [
+        {
+          "kind": "fill",
+          "promptVi": "Điền một từ vào chỗ trống.",
+          "text": "If the hills had been bare, the stream ___ have been brown with mud.",
+          "answers": [
+            "would"
+          ],
+          "explanationVi": "Mệnh đề chính loại 3: would have + V3."
+        },
+        {
+          "kind": "choice",
+          "promptVi": "Chọn đáp án đúng.",
+          "text": "If we ___ the logging, the villages would have flooded.",
+          "options": [
+            "hadn't stopped",
+            "didn't stop",
+            "haven't stopped",
+            "wouldn't stop"
+          ],
+          "answerIndex": 0,
+          "explanationVi": "Mệnh đề If loại 3: had (not) + V3."
+        },
+        {
+          "kind": "fix",
+          "promptVi": "Câu sau có một lỗi. Hãy viết lại cho đúng.",
+          "text": "If the trees had been cut, the soil would have wash away.",
+          "sentence": "If the trees had been cut, the soil would have washed away.",
+          "explanationVi": "Sau would have phải là V3: washed."
+        },
+        {
+          "kind": "reorder",
+          "promptVi": "Sắp xếp các từ thành câu đúng.",
+          "text": "Nếu đồi trơ trụi, nước đã đục ngầu bùn.",
+          "sentence": "If the hills had been bare, the water would have been muddy.",
+          "words": [
+            "If",
+            "the",
+            "hills",
+            "had",
+            "been",
+            "bare,",
+            "the",
+            "water",
+            "would",
+            "have",
+            "been",
+            "muddy.",
+            "will"
+          ],
+          "explanationVi": "If + had been + tính từ, would have been + tính từ; từ \"will\" bị thừa."
+        }
+      ]
+    },
+    "readAloud": [
+      {
+        "text": "Without them, the heavy rain would have washed the soil into the rivers.",
+        "tipVi": "Ngắt hơi sau them; washed /wɒʃt/ đuôi -ed đọc /t/."
+      },
+      {
+        "text": "If the hills had been bare, it would have been brown with mud.\"",
+        "tipVi": "had been /həd bɪn/; nhấn vào bare và mud."
+      }
+    ],
+    "speakQuestions": [
+      {
+        "question": "Think of a natural disaster. What would have happened if people had prepared better?",
+        "questionVi": "Nghĩ về một thảm hoạ thiên nhiên. Nếu người ta chuẩn bị tốt hơn thì sao?",
+        "frame": "If people had ___, ___ wouldn't have ___."
+      },
+      {
+        "question": "Should the government ban logging in all forests? Why or why not?",
+        "questionVi": "Chính phủ có nên cấm khai thác gỗ ở mọi khu rừng không? Vì sao?",
+        "frame": "I think the government should / shouldn't ___ because ___."
+      },
+      {
+        "question": "What should your town have done before the last big storm?",
+        "questionVi": "Trước cơn bão lớn gần nhất, lẽ ra nơi bạn sống nên làm gì?",
+        "frame": "My town should have ___."
+      }
+    ],
+    "writingHelp": {
+      "grammarLabelVi": "Có ít nhất 1 câu điều kiện loại 3 (If … had + V3, … would have + V3)",
+      "anyOf": [
+        "would have",
+        "wouldn't have",
+        "should have",
+        "could have"
+      ],
+      "outlineVi": [
+        "Luật hay quy định đó là gì, có từ khi nào.",
+        "Người dân phản ứng ra sao lúc đầu.",
+        "Nếu không có nó thì chuyện gì đã xảy ra (If … hadn't …, … would have …)."
+      ],
+      "modelAnswer": "Ten years ago, my hometown banned fishing in the lake during the spring. Many fishermen were angry at first. If the town hadn't made that rule, there would have been no fish left. The town should have helped the fishermen find other work during those months. Without the rule, the lake would have died."
+    }
+  },
+  "glosses": [
+    {
+      "text": "typhoon",
+      "lemma": "typhoon",
+      "meaningVi": "cơn bão lớn",
+      "sentenceIndex": 0,
+      "pos": "noun",
+      "phrase": "a strong typhoon",
+      "phraseVi": "cơn bão lớn"
+    },
+    {
+      "text": "branches",
+      "lemma": "branch",
+      "meaningVi": "cành cây",
+      "sentenceIndex": 1,
+      "pos": "noun",
+      "phrase": "Fallen branches",
+      "phraseVi": "Cành cây gãy"
+    },
+    {
+      "text": "hillsides",
+      "lemma": "hillside",
+      "meaningVi": "sườn đồi",
+      "sentenceIndex": 3,
+      "pos": "noun",
+      "phrase": "whole hillsides slid down",
+      "phraseVi": "cả sườn đồi sạt xuống"
+    },
+    {
+      "text": "cut off",
+      "lemma": "cut off",
+      "meaningVi": "bị cô lập",
+      "sentenceIndex": 5,
+      "pos": "phrase",
+      "phrase": "Two villages were cut off for days",
+      "phraseVi": "Hai ngôi làng bị cô lập mấy ngày liền"
+    }
+  ]
+}
