@@ -16,7 +16,8 @@
       { "label": "Lẽ ra nên", "pattern": "should / shouldn't have + V3", "example": "You should have called me." },
       { "label": "Đã có thể", "pattern": "could have + V3", "example": "I could have helped you." },
       { "label": "Chắc đã / có lẽ đã", "pattern": "must / might / may have + V3", "example": "It must have rained last night." },
-      { "label": "Chắc không", "pattern": "can't / couldn't have + V3", "example": "She can't have forgotten." }
+      { "label": "Chắc không", "pattern": "can't / couldn't have + V3", "example": "She can't have forgotten." },
+      { "label": "Hoá ra không cần", "pattern": "chủ ngữ + needn't have + V3", "example": "You needn't have worried so much." }
     ],
     "examples": [
       { "en": "You should have called me. I was worried.", "vi": "Lẽ ra bạn nên gọi cho tôi. Tôi lo lắm.", "structure": 1 },
@@ -25,16 +26,18 @@
       { "en": "Be careful! You could have hurt yourself.", "vi": "Cẩn thận chứ! Suýt nữa bạn bị thương rồi.", "structure": 2 },
       { "en": "The ground is wet. It must have rained last night.", "vi": "Mặt đất ướt. Chắc đêm qua trời mưa.", "structure": 3 },
       { "en": "I might have left my keys at the office.", "vi": "Có lẽ tôi đã để quên chìa khoá ở văn phòng.", "structure": 3 },
-      { "en": "She can't have forgotten. I reminded her twice.", "vi": "Cô ấy không thể quên được. Tôi đã nhắc hai lần.", "structure": 4 },
-      { "en": "He couldn't have seen us. It was too dark.", "vi": "Anh ấy không thể nào thấy chúng ta được. Trời tối quá.", "structure": 4 }
+      { "en": "She can't have forgotten. I reminded her twice.", "vi": "Chắc chắn cô ấy không quên đâu. Tôi đã nhắc hai lần.", "structure": 4 },
+      { "en": "He couldn't have seen us. It was too dark.", "vi": "Anh ấy không thể nào thấy chúng ta được. Trời tối quá.", "structure": 4 },
+      { "en": "You needn't have worried so much.", "vi": "Lẽ ra bạn không cần lo nhiều như vậy.", "structure": 5 },
+      { "en": "We needn't have taken a taxi. The station was very close.", "vi": "Lẽ ra chúng tôi không cần đi taxi. Nhà ga rất gần.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "He must have went home already.", "right": "He must have gone home already.", "noteVi": "Sau have cần V3 gone." },
       { "wrong": "You should told me earlier.", "right": "You should have told me earlier.", "noteVi": "Nói về quá khứ cần should have + V3." },
-      { "wrong": "She mustn't have forgotten.", "right": "She can't have forgotten.", "noteVi": "Suy đoán chắc chắn không dùng can't have, không dùng mustn't have." }
+      { "wrong": "She mustn't have forgotten.", "right": "She can't have forgotten.", "noteVi": "Suy đoán chắc chắn một việc đã KHÔNG xảy ra thì dùng can't have (hoặc couldn't have), không dùng mustn't have." }
     ],
     "practice": [
-      { "id": "p1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "You ___ called me. I was worried.", "options": ["should have", "must have", "can't have", "might have"], "answerIndex": 0, "explanationVi": "Lẽ ra nên gọi: should have called." },
+      { "id": "p1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "You ___ called me. I was worried.", "options": ["should have", "must have", "can't have", "mustn't have"], "answerIndex": 0, "explanationVi": "Lẽ ra nên gọi: should have called." },
       { "id": "p2", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "She ___ forgotten. I reminded her twice this morning.", "options": ["can't have", "should have", "must have", "could have"], "answerIndex": 0, "explanationVi": "Đã nhắc hai lần nên chắc chắn không quên: can't have." },
       { "id": "p3", "kind": "fill", "promptVi": "Điền must have, might have hoặc can't have.", "text": "The ground is wet. It ___ rained last night.", "answers": ["must have"], "explanationVi": "Bằng chứng rõ: must have." },
       { "id": "p4", "kind": "fill", "promptVi": "Điền must have, might have hoặc can't have.", "text": "I'm not sure where my keys are. I ___ left them at the office.", "answers": ["might have", "may have", "could have"], "explanationVi": "Không chắc: might have." },
