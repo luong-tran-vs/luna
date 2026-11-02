@@ -81,6 +81,9 @@ func TestValidateReportsEveryKindOfProblem(t *testing.T) {
 			c.Practice[2].Words = append(c.Practice[2].Words, "x", "y")
 		}, "content.practice[2].words"},
 		{"reorder tile with space", func(c *Content) { c.Practice[2].Words[0] = "a b" }, "content.practice[2].words"},
+		{"reorder other order with another word", func(c *Content) {
+			c.Practice[2].Answers = []string{"She is the teacher"}
+		}, "content.practice[2].answers"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -199,5 +202,19 @@ func TestNormalizeIDsAreByPosition(t *testing.T) {
 	c := Normalize(Content{Practice: make([]Exercise, 3), Mastery: make([]Exercise, 2)})
 	if got := fmt.Sprint(ids(c.Practice), ids(c.Mastery)); got != "[p1 p2 p3] [m1 m2]" {
 		t.Errorf("ids = %s", got)
+	}
+}
+
+// Added 2026-11-02: a reorder keeps other right orders of its words, checked against the sentence.
+func TestValidateKeepsOtherOrdersOfAReorder(t *testing.T) {
+	t.Parallel()
+	c := validContent()
+	c.Practice[2].Answers = []string{"A teacher she is."}
+	n := Normalize(c)
+	if f := Validate(n); f != nil {
+		t.Fatalf("other order rejected: %v", f)
+	}
+	if got := n.Practice[2].Answers; len(got) != 1 || got[0] != "A teacher she is." {
+		t.Errorf("answers = %q", got)
 	}
 }

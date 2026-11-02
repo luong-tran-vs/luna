@@ -159,7 +159,8 @@ func normalizeExercises(in []Exercise, idPrefix string) []Exercise {
 		case KindFill:
 			e.Options, e.AnswerIndex, e.Words, e.Sentence = nil, 0, nil, ""
 		case KindReorder:
-			e.Options, e.AnswerIndex, e.Answers = nil, 0, nil
+			// Answers of a reorder are other orders of the same words that are right too (added 2026-11-02).
+			e.Options, e.AnswerIndex = nil, 0
 		case KindFix:
 			e.Options, e.AnswerIndex, e.Words = nil, 0, nil
 		}
@@ -341,6 +342,29 @@ func checkReorder(f fieldErrors, e Exercise) {
 	case extra > maxExtraWords:
 		f.add("words", "Tối đa 2 từ gây nhiễu")
 	}
+	for _, a := range e.Answers {
+		if !sameWords(a, e.Sentence) {
+			f.add("answers", "Cách xếp khác phải dùng đúng các từ của câu đúng")
+		}
+	}
+}
+
+// sameWords says whether two sentences are the same words in any order, case and the punctuation
+// around words ignored.
+func sameWords(a, b string) bool {
+	count := map[string]int{}
+	for _, w := range strings.Fields(a) {
+		count[tileKey(w)]++
+	}
+	for _, w := range strings.Fields(b) {
+		count[tileKey(w)]--
+	}
+	for _, n := range count {
+		if n != 0 {
+			return false
+		}
+	}
+	return true
 }
 
 // FilterGenerated cleans AI content: it normalizes the strings, drops the exercises that fail

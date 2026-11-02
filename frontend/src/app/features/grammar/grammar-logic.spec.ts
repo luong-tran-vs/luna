@@ -14,6 +14,7 @@ import {
   guessStructure,
   percent,
   sentenceParts,
+  shuffleOptions,
   shuffleWords,
   splitLines,
   splitBlank,
@@ -81,6 +82,44 @@ describe('grammar logic', () => {
     // Fixed 2026-10-20: the tiles often have no full stop.
     expect(gradeReorder(e, ['She', 'is', 'a', 'teacher'])).toBe(true);
     expect(gradeReorder(ex({ kind: 'reorder', sentence: 'Is she a teacher?' }), ['is', 'she', 'a', 'teacher'])).toBe(true);
+  });
+
+  // Added 2026-11-02.
+  it('counts a contraction and its full form as the same answer', () => {
+    const fill = ex({ kind: 'fill', answers: ["don't"] });
+    expect(gradeFill(fill, 'do not')).toBe(true);
+    expect(gradeFill(ex({ kind: 'fill', answers: ['cannot'] }), "can't")).toBe(true);
+    expect(gradeFill(ex({ kind: 'fill', answers: ['will not'] }), "won't")).toBe(true);
+    expect(gradeFill(fill, 'does not')).toBe(false);
+    const fix = ex({ kind: 'fix', text: 'He are a doctor.', sentence: "He's a doctor." });
+    expect(gradeFix(fix, 'He is a doctor.')).toBe(true);
+    expect(gradeFix(fix, 'He was a doctor.')).toBe(false);
+    const would = ex({ kind: 'fix', text: 'If I knew, I will have called.', sentence: 'If I had known, I would have called.' });
+    expect(gradeFix(would, "If I'd known, I'd have called.")).toBe(true);
+    expect(gradeFix(ex({ kind: 'fix', text: 'I am agree.', sentence: 'I agree.' }), "I'm agree.")).toBe(false);
+  });
+
+  it('does not count commas in a typed sentence', () => {
+    const e = ex({ kind: 'fix', text: 'She likes cats because she does not like dogs.', sentence: 'She likes cats but she does not like dogs.' });
+    expect(gradeFix(e, "She likes cats, but she doesn't like dogs.")).toBe(true);
+    expect(gradeFix(e, 'She likes cats, because she does not like dogs.')).toBe(false);
+  });
+
+  it('grades a reorder against the other accepted orders too', () => {
+    const e = ex({ kind: 'reorder', sentence: 'Walk across the road carefully.', answers: ['Walk carefully across the road.'] });
+    expect(gradeReorder(e, ['Walk', 'carefully', 'across', 'the', 'road'])).toBe(true);
+    expect(gradeReorder(e, ['Walk', 'across', 'the', 'road', 'carefully'])).toBe(true);
+    expect(gradeReorder(e, ['Carefully', 'walk', 'across', 'the', 'road'])).toBe(false);
+  });
+
+  it('shuffles the options of a choice, each keeping its stored index', () => {
+    const options = ['is', 'am', 'are', 'be'];
+    const out = shuffleOptions(options, 3);
+    expect(out.map((o) => options[o.index])).toEqual(out.map((o) => o.text));
+    expect(out.map((o) => o.index).sort()).toEqual([0, 1, 2, 3]);
+    expect(shuffleOptions(options, 3)).toEqual(out);
+    const firsts = new Set(Array.from({ length: 20 }, (_, s) => shuffleOptions(options, s)[0].index));
+    expect(firsts.size).toBeGreaterThan(1);
   });
 
   it('shuffles words without losing any, the same way for the same seed', () => {

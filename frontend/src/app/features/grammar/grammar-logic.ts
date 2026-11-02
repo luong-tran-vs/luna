@@ -9,13 +9,57 @@ export function gradeChoice(ex: GrammarExercise, chosen: number): boolean {
   return ex.answerIndex !== undefined && chosen === ex.answerIndex;
 }
 
+/** "'s" after these words may be "is" or "has" ("he's", "there's"); after a name it is a possessive. */
+const S_AS_VERB = /\b(he|she|it|that|there|here|what|who|where|when|why|how|this)'s\b/g;
+
 /**
- * A typed answer is right when it equals one accepted answer. Both sides are normalised: curly
- * apostrophes become straight, runs of spaces become one, outer spaces go, case is ignored.
+ * The ways an answer can be read, contractions written out (added 2026-11-02): "don't" is "do not",
+ * "I'm" is "I am", "can't" is "cannot" and "can not"; "'d" may be "would" or "had", and "he's" "he is"
+ * or "he has", so each gives both readings. Commas are dropped, so "…cats, but…" is "…cats but…".
+ */
+function readings(text: string): string[] {
+  const base = normalizeAnswer(text)
+    .replace(/,/g, ' ')
+    .replace(/\bcan't\b/g, 'cannot')
+    .replace(/\bwon't\b/g, 'will not')
+    .replace(/\bshan't\b/g, 'shall not')
+    .replace(/\bcannot\b/g, 'can not')
+    .replace(/n't\b/g, ' not')
+    .replace(/'m\b/g, ' am')
+    .replace(/'re\b/g, ' are')
+    .replace(/'ve\b/g, ' have')
+    .replace(/'ll\b/g, ' will');
+  // Each "'d" or "he's" is read on its own: "If I'd known, I'd have called" is "had" then "would".
+  let out = [base];
+  for (const [pattern, choices] of AMBIGUOUS) {
+    while (out.some((s) => new RegExp(pattern.source).test(s))) {
+      out = out.flatMap((s) => {
+        const one = new RegExp(pattern.source);
+        return one.test(s) ? choices.map((c) => s.replace(one, c)) : [s];
+      });
+    }
+  }
+  return out.map((s) => s.replace(/\s+/g, ' ').trim());
+}
+
+/** Contractions with two readings, each written out in turn. */
+const AMBIGUOUS: [RegExp, string[]][] = [
+  [/'d\b/, [' would', ' had']],
+  [S_AS_VERB, ['$1 is', '$1 has']],
+];
+
+/** Whether two answers say the same: one reading of each is alike. */
+function sameAnswer(a: string, b: string): boolean {
+  const ours = readings(a);
+  return readings(b).some((r) => r !== '' && ours.includes(r));
+}
+
+/**
+ * A typed answer is right when it says the same as one accepted answer: case, spacing, curly
+ * apostrophes, commas and contractions ("don't" / "do not") are not counted.
  */
 export function gradeFill(ex: GrammarExercise, typed: string): boolean {
-  const t = normalizeAnswer(typed);
-  return t !== '' && (ex.answers ?? []).some((a) => normalizeAnswer(a) === t);
+  return normalizeAnswer(typed) !== '' && (ex.answers ?? []).some((a) => sameAnswer(a, typed));
 }
 
 /** A sentence for comparing: normalised like a typed answer, without the closing full stop, "?" or "!". */
@@ -24,12 +68,13 @@ function foldSentence(text: string): string {
 }
 
 /**
- * A corrected sentence (added 2026-10-20) is right when it is the stored correction or another
- * accepted one; case, spacing, curly apostrophes and the closing punctuation are ignored.
+ * A corrected sentence (added 2026-10-20) is right when it says the same as the stored correction or
+ * another accepted one; case, spacing, curly apostrophes, commas, contractions and the closing
+ * punctuation are not counted.
  */
 export function gradeFix(ex: GrammarExercise, typed: string): boolean {
   const t = foldSentence(typed);
-  return t !== '' && [ex.sentence ?? '', ...(ex.answers ?? [])].some((s) => s !== '' && foldSentence(s) === t);
+  return t !== '' && [ex.sentence ?? '', ...(ex.answers ?? [])].some((s) => s !== '' && sameAnswer(foldSentence(s), t));
 }
 
 /** The right answer of an exercise as text (the first accepted answer of a fill). */
@@ -50,17 +95,37 @@ function wordKey(word: string): string {
 }
 
 /**
- * A built sentence is right when its words, in order, are the words of the sentence; punctuation
- * around a word is ignored (fixed 2026-10-20: the last tile often has no full stop).
+ * A built sentence is right when its words, in order, are the words of the sentence or of another
+ * accepted order (added 2026-11-02: "Walk carefully across the road" as well); punctuation around a
+ * word is ignored (fixed 2026-10-20: the last tile often has no full stop).
  */
 export function gradeReorder(ex: GrammarExercise, built: readonly string[]): boolean {
-  const target = normalizeAnswer(ex.sentence ?? '').split(' ').map(wordKey);
-  return built.length === target.length && built.every((w, i) => wordKey(w) === target[i]);
+  return [ex.sentence ?? '', ...(ex.answers ?? [])].some((s) => {
+    const target = normalizeAnswer(s).split(' ').map(wordKey);
+    return s !== '' && built.length === target.length && built.every((w, i) => wordKey(w) === target[i]);
+  });
 }
 
 /** The word tiles of a reorder exercise in a random order; the same seed gives the same order. */
 export function shuffleWords(words: readonly string[], seed: number): string[] {
   return shuffle(words, seed);
+}
+
+/** An option of a choice as shown: its text and its place in the stored list, which grading uses. */
+export interface ShownOption {
+  text: string;
+  index: number;
+}
+
+/**
+ * The options of a choice in a random order (added 2026-11-02: most right answers are stored first,
+ * so the stored order gave them away); the same seed gives the same order.
+ */
+export function shuffleOptions(options: readonly string[], seed: number): ShownOption[] {
+  return shuffle(
+    options.map((text, index) => ({ text, index })),
+    seed,
+  );
 }
 
 /** The text of a fill exercise around its blank: [before, after]; no blank gives [text, '']. */

@@ -8,24 +8,24 @@
     @case ('choice') {
       <p class="stem" lang="en">{{ e.text }}</p>
       <ul class="options">
-        @for (o of options(); track $index; let i = $index) {
+        @for (o of options(); track o.index) {
           <li>
             <button
               type="button"
               class="option"
               lang="en"
-              [class.is-chosen]="chosen() === i"
-              [class.is-right]="isDone() && reveal() && e.answerIndex === i"
-              [class.is-wrong]="isDone() && reveal() && chosen() === i && e.answerIndex !== i"
+              [class.is-chosen]="chosen() === o.index"
+              [class.is-right]="isDone() && reveal() && e.answerIndex === o.index"
+              [class.is-wrong]="isDone() && reveal() && chosen() === o.index && e.answerIndex !== o.index"
               [disabled]="isDone()"
-              (click)="choose(i)"
+              (click)="choose(o.index)"
             >
-              <span>{{ o }}</span>
-              @if (isDone() && reveal() && e.answerIndex === i) {
+              <span>{{ o.text }}</span>
+              @if (isDone() && reveal() && e.answerIndex === o.index) {
                 <span class="tag-text" lang="vi"><lu-icon name="check" /> Đáp án đúng</span>
-              } @else if (isDone() && reveal() && chosen() === i) {
+              } @else if (isDone() && reveal() && chosen() === o.index) {
                 <span class="tag-text" lang="vi"><lu-icon name="x" /> Bạn chọn</span>
-              } @else if (isDone() && chosen() === i) {
+              } @else if (isDone() && chosen() === o.index) {
                 <span class="tag-text" lang="vi">Bạn chọn</span>
               }
             </button>

@@ -14,7 +14,16 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GrammarExercise } from '../../../core/models/grammar-study';
 import { Icon } from '../../../shared/components/icon/icon';
 import { newSeed } from '../../lesson/lesson-detail/practice-logic';
-import { correctAnswerText, gradeChoice, gradeFill, gradeFix, gradeReorder, shuffleWords, splitBlank } from '../grammar-logic';
+import {
+  correctAnswerText,
+  gradeChoice,
+  gradeFill,
+  gradeFix,
+  gradeReorder,
+  shuffleOptions,
+  shuffleWords,
+  splitBlank,
+} from '../grammar-logic';
 import { ReportExercise } from '../report-exercise/report-exercise';
 
 /**
@@ -63,7 +72,8 @@ export class GrammarExerciseView {
   protected readonly typed = new FormControl('', { nonNullable: true });
   private readonly typedValue = toSignal(this.typed.valueChanges, { initialValue: '' });
 
-  protected readonly options = computed(() => this.exercise().options ?? []);
+  /** The options in a random order; each keeps its stored index, which grading uses. */
+  protected readonly options = computed(() => shuffleOptions(this.exercise().options ?? [], this.seed()));
   protected readonly blank = computed(() => splitBlank(this.exercise().text ?? ''));
   protected readonly tiles = computed(() => shuffleWords(this.exercise().words ?? [], this.seed()));
   protected readonly built = computed(() => this.picked().map((i) => this.tiles()[i]));
@@ -104,7 +114,7 @@ export class GrammarExerciseView {
       return;
     }
     this.chosen.set(index);
-    this.given.emit(this.options()[index] ?? '');
+    this.given.emit(this.exercise().options?.[index] ?? '');
     this.finish(gradeChoice(this.exercise(), index));
   }
 
