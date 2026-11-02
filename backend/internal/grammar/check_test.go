@@ -2,6 +2,7 @@ package grammar
 
 import (
 	"errors"
+	"slices"
 	"testing"
 	"time"
 
@@ -170,7 +171,7 @@ func TestCheckReplacesOldFlags(t *testing.T) {
 	}
 }
 
-func TestSaveClearsTheFlags(t *testing.T) {
+func TestSaveClearsTheFlagsWhenAnExerciseChanges(t *testing.T) {
 	t.Parallel()
 	e := newEnv(t)
 	e.ai.solve = func(req ai.SolveRequest) ([]ai.Solution, error) {
@@ -182,6 +183,8 @@ func TestSaveClearsTheFlags(t *testing.T) {
 	if len(l.Checks) == 0 {
 		t.Fatal("no flags")
 	}
+	l.Content.Practice = slices.Clone(l.Content.Practice)
+	l.Content.Practice[0].ExplanationVi += " Sửa."
 	l, err := e.svc.Save(t.Context(), point, l.Content)
 	if err != nil {
 		t.Fatal(err)
@@ -191,6 +194,33 @@ func TestSaveClearsTheFlags(t *testing.T) {
 	}
 	if stored, _ := e.svc.AdminGet(t.Context(), point); len(stored.Checks) != 0 || !stored.CheckedAt.IsZero() {
 		t.Errorf("stored: %+v %v", stored.Checks, stored.CheckedAt)
+	}
+}
+
+func TestSaveKeepsTheFlagsWhenNoExerciseChanges(t *testing.T) {
+	t.Parallel()
+	e := newEnv(t)
+	e.ai.solve = func(req ai.SolveRequest) ([]ai.Solution, error) {
+		out := solveLikeFixtures(req)
+		out[0].Ambiguous = true
+		return out, nil
+	}
+	l, _, _ := e.svc.Generate(t.Context(), point, false)
+	if len(l.Checks) == 0 {
+		t.Fatal("no flags")
+	}
+	checks, checkedAt := l.Checks, l.CheckedAt
+	l.Content.Structures[0].Pattern += " + …"
+	l.Content.Explanation[0] += " Thêm."
+	saved, err := e.svc.Save(t.Context(), point, l.Content)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(saved.Checks) != len(checks) || !saved.CheckedAt.Equal(checkedAt) || !saved.Edited {
+		t.Errorf("after save: %+v %v edited=%v", saved.Checks, saved.CheckedAt, saved.Edited)
+	}
+	if stored, _ := e.svc.AdminGet(t.Context(), point); stored.Content.Explanation[0] != l.Content.Explanation[0] || len(stored.Checks) != len(checks) {
+		t.Errorf("stored: %+v", stored)
 	}
 }
 

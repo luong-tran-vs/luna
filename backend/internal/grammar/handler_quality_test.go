@@ -39,9 +39,19 @@ func TestAdminJSONCarriesChecksAndReports(t *testing.T) {
 		t.Errorf("row = %v", row)
 	}
 
-	// PUT clears them (checks is still an array, checkedAt null).
-	body := `{"content":` + mustJSON(t, l["content"]) + `}`
-	rec = a.do(t, http.MethodPut, adminPath, "admin", body)
+	// PUT of the same exercises keeps them.
+	content := l["content"].(map[string]any)
+	rec = a.do(t, http.MethodPut, adminPath, "admin", `{"content":`+mustJSON(t, content)+`}`)
+	if rec.Code != http.StatusOK {
+		t.Fatalf("save: %d %s", rec.Code, rec.Body)
+	}
+	if kept := decode(t, rec)["lesson"].(map[string]any); len(kept["checks"].([]any)) != 1 || kept["checkedAt"] == nil {
+		t.Errorf("after save unchanged = %v", kept)
+	}
+
+	// PUT with an exercise changed clears them (checks is still an array, checkedAt null).
+	content["practice"].([]any)[0].(map[string]any)["explanationVi"] = "Giải thích mới."
+	rec = a.do(t, http.MethodPut, adminPath, "admin", `{"content":`+mustJSON(t, content)+`}`)
 	if rec.Code != http.StatusOK {
 		t.Fatalf("save: %d %s", rec.Code, rec.Body)
 	}

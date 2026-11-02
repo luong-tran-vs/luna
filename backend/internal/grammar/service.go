@@ -160,7 +160,9 @@ func (s *Service) Generate(ctx context.Context, pointID string, force bool) (l L
 	return l, created, nil
 }
 
-// Save replaces the content of an existing lesson with the admin's version. The status stays.
+// Save replaces the content of an existing lesson with the admin's version. The status stays. The AI
+// check is about the exercises only, so it is dropped only when an exercise changed (added
+// 2026-11-02: before, any save dropped it, even for a fix in the theory).
 func (s *Service) Save(ctx context.Context, pointID string, content Content) (Lesson, error) {
 	l, err := s.AdminGet(ctx, pointID)
 	if err != nil {
@@ -170,9 +172,12 @@ func (s *Service) Save(ctx context.Context, pointID string, content Content) (Le
 	if fields := Validate(content); fields != nil {
 		return Lesson{}, &ValidationError{Fields: fields}
 	}
+	exercisesChanged := !sameExercises(l.Content.Practice, content.Practice) || !sameExercises(l.Content.Mastery, content.Mastery)
 	l.Content = content
 	l.Edited = true
-	l.Checks, l.CheckedAt, l.VerifiedAt = nil, time.Time{}, time.Time{}
+	if exercisesChanged {
+		l.Checks, l.CheckedAt, l.VerifiedAt = nil, time.Time{}, time.Time{}
+	}
 	l.UpdatedAt = s.now()
 	if err := s.lessons.Save(ctx, l); err != nil {
 		return Lesson{}, fmt.Errorf("grammar: save lesson: %w", err)
@@ -499,4 +504,14 @@ func checkAttempt(c Content, a Attempt) map[string]string {
 		return nil
 	}
 	return f
+}
+
+// sameExercises says whether two lists hold the same exercises in the same order, every field
+// alike (a missing list and an empty one count as the same).
+func sameExercises(a, b []Exercise) bool {
+	return slices.EqualFunc(a, b, func(x, y Exercise) bool {
+		return x.ID == y.ID && x.Kind == y.Kind && x.PromptVi == y.PromptVi && x.Text == y.Text &&
+			slices.Equal(x.Options, y.Options) && x.AnswerIndex == y.AnswerIndex && slices.Equal(x.Answers, y.Answers) &&
+			slices.Equal(x.Words, y.Words) && x.Sentence == y.Sentence && x.ExplanationVi == y.ExplanationVi
+	})
 }

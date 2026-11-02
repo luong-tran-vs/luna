@@ -111,12 +111,18 @@ func TestVerifyNeedsACheck(t *testing.T) {
 	}
 }
 
-func TestSaveClearsVerification(t *testing.T) {
+func TestSaveClearsVerificationOnlyWhenAnExerciseChanges(t *testing.T) {
 	t.Parallel()
 	e, l := flaggedEnv(t)
-	if _, err := e.svc.Verify(t.Context(), point); err != nil {
+	verified, err := e.svc.Verify(t.Context(), point)
+	if err != nil {
 		t.Fatal(err)
 	}
+	same, err := e.svc.Save(t.Context(), point, l.Content)
+	if err != nil || !same.VerifiedAt.Equal(verified.VerifiedAt) || same.CheckedAt.IsZero() {
+		t.Errorf("save unchanged = %+v, %v", same, err)
+	}
+	l.Content.Mastery = slices.Clone(l.Content.Mastery[:len(l.Content.Mastery)-1])
 	saved, err := e.svc.Save(t.Context(), point, l.Content)
 	if err != nil || !saved.VerifiedAt.IsZero() || !saved.CheckedAt.IsZero() || len(saved.Checks) != 0 {
 		t.Errorf("save = %+v, %v", saved, err)
