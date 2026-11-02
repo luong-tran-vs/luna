@@ -5,7 +5,7 @@
       "Câu hỏi đuôi gồm trợ động từ + đại từ, thêm vào cuối câu để hỏi lại cho chắc: You live here, don't you?",
       "Câu khẳng định đi với đuôi phủ định; câu phủ định đi với đuôi khẳng định: She isn't a teacher, is she? They went to the party, didn't they?",
       "Đuôi dùng lại trợ động từ của câu (be, have, can, will…). Nếu câu không có trợ động từ thì dùng do / does / did theo thì: Lan likes coffee, doesn't she?",
-      "Đại từ ở đuôi thay cho chủ ngữ: Nam → he, Lan → she, my parents → they. Trường hợp đặc biệt: I am … → aren't I?; Let's … → shall we?"
+      "Đại từ ở đuôi thay cho chủ ngữ: Nam → he, Lan → she, my parents → they. Trường hợp đặc biệt: I am … → aren't I?; Let's … → shall we?; There is / There are … → isn't there? / aren't there?. Câu có never, nobody, nothing coi là câu phủ định nên đuôi khẳng định: She never cooks, does she? Câu mệnh lệnh thường dùng đuôi will you: Close the door, will you?"
     ],
     "usage": [
       "Xác nhận thông tin: You can swim, can't you?",
@@ -15,7 +15,7 @@
     "structures": [
       { "label": "Khẳng định → đuôi phủ định", "pattern": "câu khẳng định, + trợ động từ + n't + đại từ?", "example": "You live here, don't you?" },
       { "label": "Phủ định → đuôi khẳng định", "pattern": "câu phủ định, + trợ động từ + đại từ?", "example": "She isn't a teacher, is she?" },
-      { "label": "Đặc biệt", "pattern": "I am …, aren't I? / Let's …, shall we?", "example": "I'm late, aren't I?" }
+      { "label": "Đặc biệt", "pattern": "I am …, aren't I? / Let's …, shall we? / There is …, isn't there? / She never …, does she?", "example": "I'm late, aren't I?" }
     ],
     "examples": [
       { "en": "You live here, don't you? – Yes, I do.", "vi": "Bạn sống ở đây, đúng không? – Đúng vậy.", "structure": 1 },
@@ -24,7 +24,9 @@
       { "en": "She isn't a teacher, is she? – No, she isn't.", "vi": "Cô ấy không phải giáo viên, phải không? – Không, cô ấy không phải.", "structure": 2 },
       { "en": "You haven't seen that film, have you? – No, I haven't.", "vi": "Bạn chưa xem phim đó, đúng không? – Chưa, tôi chưa xem.", "structure": 2 },
       { "en": "Let's go for a walk, shall we? – Yes, let's.", "vi": "Mình đi dạo đi, nhé? – Ừ, đi thôi.", "structure": 3 },
-      { "en": "I'm late, aren't I? – Yes, you are.", "vi": "Tôi đến muộn, phải không? – Ừ, muộn rồi.", "structure": 3 }
+      { "en": "I'm late, aren't I? – Yes, you are.", "vi": "Tôi đến muộn, phải không? – Ừ, muộn rồi.", "structure": 3 },
+      { "en": "There is a bank near here, isn't there? – Yes, there is.", "vi": "Gần đây có ngân hàng, phải không? – Có.", "structure": 3 },
+      { "en": "She never cooks, does she? – No, she doesn't.", "vi": "Cô ấy chẳng bao giờ nấu ăn, phải không? – Đúng, cô ấy không nấu.", "structure": 3 }
     ],
     "mistakes": [
       { "wrong": "Lan likes coffee, isn't she?", "right": "Lan likes coffee, doesn't she?", "noteVi": "Câu dùng động từ thường ở hiện tại đơn nên đuôi dùng doesn't." },
@@ -39,7 +41,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền trợ động từ cho câu hỏi đuôi.", "text": "He has finished his work, ___ he?", "answers": ["hasn't"], "explanationVi": "Câu khẳng định với has: hasn't he." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Trời đẹp quá, nhỉ?", "words": ["It's", "a", "beautiful", "day,", "isn't", "it?", "is", "doesn't"], "sentence": "It's a beautiful day, isn't it?", "explanationVi": "It's (it is) khẳng định nên đuôi là isn't it." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Lan likes coffee, isn't she?", "sentence": "Lan likes coffee, doesn't she?", "explanationVi": "Likes là động từ thường ở hiện tại đơn: doesn't she." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn câu hỏi đuôi đúng.", "text": "I'm late, ___?", "options": ["aren't I", "amn't I", "isn't I", "don't I"], "answerIndex": 0, "explanationVi": "Với I am, đuôi đặc biệt là aren't I." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn câu hỏi đuôi đúng.", "text": "I'm late, ___?", "options": ["aren't I", "amn't I", "isn't I", "don't I"], "answerIndex": 0, "explanationVi": "Với I am, đuôi đặc biệt là aren't I." },
+      { "id": "p9", "kind": "fill", "promptVi": "Điền trợ động từ cho câu hỏi đuôi.", "text": "There are some eggs in the fridge, ___ there?", "answers": ["aren't"], "explanationVi": "There are ở thể khẳng định nên đuôi là aren't there." },
+      { "id": "p10", "kind": "choice", "promptVi": "Chọn câu hỏi đuôi đúng.", "text": "Nam never drinks coffee, ___?", "options": ["does he", "doesn't he", "is he", "did he"], "answerIndex": 0, "explanationVi": "Never mang nghĩa phủ định nên đuôi khẳng định: does he." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn câu hỏi đuôi đúng.", "text": "You won't tell anyone, ___?", "options": ["will you", "won't you", "do you", "are you"], "answerIndex": 0, "explanationVi": "Câu phủ định với won't: will you." },

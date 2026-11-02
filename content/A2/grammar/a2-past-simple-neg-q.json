@@ -5,7 +5,8 @@
       "Câu phủ định ở thì quá khứ đơn dùng did not (didn't) + động từ nguyên mẫu, cho mọi chủ ngữ: I didn't watch TV. She didn't go to school.",
       "Câu hỏi Có / Không đưa Did lên đầu: Did + chủ ngữ + động từ nguyên mẫu? Câu hỏi có từ để hỏi: Where / What / When + did + chủ ngữ + động từ nguyên mẫu?",
       "Đã có did thì động từ chính trở về nguyên mẫu, không thêm -ed và không dùng dạng bất quy tắc: Did you go? (không nói Did you went?).",
-      "Riêng was / were không dùng did: I wasn't tired. Were you at home?"
+      "Riêng was / were không dùng did: I wasn't tired. Were you at home?",
+      "Khi Who hoặc What là chủ ngữ (hỏi ai, cái gì đã làm việc đó), câu hỏi không dùng did và động từ ở dạng quá khứ: Who called you? What happened? So sánh với Who did you call? (Bạn đã gọi cho ai?), ở câu này Who là tân ngữ nên vẫn cần did."
     ],
     "usage": [
       "Phủ nhận một việc trong quá khứ: I didn't watch TV last night.",
@@ -17,7 +18,8 @@
       { "label": "Phủ định", "pattern": "chủ ngữ + didn't + động từ nguyên mẫu", "example": "I didn't watch TV." },
       { "label": "Câu hỏi Có / Không", "pattern": "Did + chủ ngữ + động từ nguyên mẫu?", "example": "Did you enjoy the trip?" },
       { "label": "Trả lời ngắn", "pattern": "Yes, + chủ ngữ + did. / No, + chủ ngữ + didn't.", "example": "Yes, I did. / No, I didn't." },
-      { "label": "Câu hỏi có từ để hỏi", "pattern": "Wh-word + did + chủ ngữ + động từ nguyên mẫu?", "example": "Where did you go last weekend?" }
+      { "label": "Câu hỏi có từ để hỏi", "pattern": "Wh-word + did + chủ ngữ + động từ nguyên mẫu?", "example": "Where did you go last weekend?" },
+      { "label": "Hỏi về chủ ngữ (không dùng did)", "pattern": "Who / What + V2 + …?", "example": "Who called you last night?" }
     ],
     "examples": [
       { "en": "I didn't watch TV last night.", "vi": "Tối qua tôi không xem tivi.", "structure": 1 },
@@ -27,12 +29,15 @@
       { "en": "Did they buy a new car? – No, they didn't.", "vi": "Họ có mua xe mới không? – Không, họ không mua.", "structure": 3 },
       { "en": "Did you see the film? – No, I didn't.", "vi": "Bạn có xem bộ phim đó không? – Không, tôi không xem.", "structure": 3 },
       { "en": "Where did you go last weekend? – I went to Da Lat.", "vi": "Cuối tuần trước bạn đi đâu? – Tôi đi Đà Lạt.", "structure": 4 },
-      { "en": "What did your mother cook for dinner? – She cooked fish soup.", "vi": "Mẹ bạn nấu gì cho bữa tối? – Mẹ tôi nấu canh cá.", "structure": 4 }
+      { "en": "What did your mother cook for dinner? – She cooked fish soup.", "vi": "Mẹ bạn nấu gì cho bữa tối? – Mẹ tôi nấu canh cá.", "structure": 4 },
+      { "en": "Who called you last night? – My aunt called me.", "vi": "Tối qua ai gọi cho bạn thế? – Dì tôi gọi.", "structure": 5 },
+      { "en": "What happened to your phone? – I dropped it.", "vi": "Điện thoại của bạn bị sao thế? – Tôi làm rơi nó.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "He didn't went to work yesterday.", "right": "He didn't go to work yesterday.", "noteVi": "Sau didn't, động từ ở dạng nguyên mẫu." },
       { "wrong": "Did she visited her grandparents?", "right": "Did she visit her grandparents?", "noteVi": "Câu hỏi đã có Did nên visit không thêm -ed." },
-      { "wrong": "Where you went last night?", "right": "Where did you go last night?", "noteVi": "Câu hỏi có từ để hỏi cần did trước chủ ngữ." }
+      { "wrong": "Where you went last night?", "right": "Where did you go last night?", "noteVi": "Câu hỏi có từ để hỏi cần did trước chủ ngữ." },
+      { "wrong": "What did happen yesterday?", "right": "What happened yesterday?", "noteVi": "What là chủ ngữ của câu hỏi nên không dùng did, động từ ở dạng quá khứ." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "I ___ TV last night because I was busy.", "options": ["didn't watch", "didn't watched", "not watched", "don't watched"], "answerIndex": 0, "explanationVi": "Phủ định quá khứ: didn't + động từ nguyên mẫu watch." },
@@ -42,7 +47,8 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền một từ vào chỗ trống.", "text": "Where ___ you go last weekend?", "answers": ["did"], "explanationVi": "Câu hỏi quá khứ có từ để hỏi: Where + did + chủ ngữ + động từ nguyên mẫu." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu hỏi đúng.", "text": "Sáng nay bạn có ăn sáng không?", "words": ["Did", "you", "have", "breakfast", "this", "morning?", "had", "Were"], "sentence": "Did you have breakfast this morning?", "explanationVi": "Did + chủ ngữ + động từ nguyên mẫu have; không dùng had sau Did." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "He didn't went to work yesterday.", "sentence": "He didn't go to work yesterday.", "answers": ["He did not go to work yesterday."], "explanationVi": "Sau didn't, động từ ở dạng nguyên mẫu go." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn câu trả lời ngắn đúng.", "text": "Did Mai call you yesterday? – Yes, she ___.", "options": ["did", "called", "does", "was"], "answerIndex": 0, "explanationVi": "Câu hỏi bắt đầu bằng Did nên trả lời Yes, she did." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn câu trả lời ngắn đúng.", "text": "Did Mai call you yesterday? – Yes, she ___.", "options": ["did", "called", "does", "was"], "answerIndex": 0, "explanationVi": "Câu hỏi bắt đầu bằng Did nên trả lời Yes, she did." },
+      { "id": "p9", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Who ___ the window? – Tom did.", "options": ["broke", "did broke", "does break", "break"], "answerIndex": 0, "explanationVi": "Who là chủ ngữ (hỏi ai làm vỡ) nên không dùng did, động từ ở quá khứ: broke." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu hỏi.", "text": "What ___ your father cook for dinner last night?", "options": ["did", "does", "was", "do"], "answerIndex": 0, "explanationVi": "Last night là quá khứ, cook là động từ thường nên dùng did." },

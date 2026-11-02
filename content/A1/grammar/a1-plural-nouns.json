@@ -5,7 +5,8 @@
       "Tiếng Việt không đổi danh từ khi nói về nhiều người, nhiều vật (một con mèo, hai con mèo). Tiếng Anh thì có: một cái là số ít (a cat), từ hai trở lên là số nhiều (two cats).",
       "Phần lớn danh từ thêm -s: cat → cats, book → books. Danh từ tận cùng bằng s, sh, ch, x thêm -es: bus → buses, dish → dishes, watch → watches, box → boxes.",
       "Phụ âm + y thì đổi y thành ies: baby → babies, city → cities. Nguyên âm + y thì chỉ thêm -s: boy → boys, day → days.",
-      "Một số danh từ có dạng số nhiều riêng, phải học thuộc: man → men, woman → women, child → children, person → people, foot → feet, tooth → teeth."
+      "Một số danh từ có dạng số nhiều riêng, phải học thuộc: man → men, woman → women, child → children, person → people, foot → feet, tooth → teeth.",
+      "Một số danh từ tận cùng bằng o thêm -es: tomato → tomatoes, potato → potatoes (nhưng photo → photos, piano → pianos). Danh từ tận cùng bằng f / fe đổi thành -ves: knife → knives, leaf → leaves, wife → wives. Một vài danh từ giữ nguyên ở số nhiều: fish → fish, sheep → sheep."
     ],
     "usage": [
       "Sau số từ hai trở lên: I have two brothers.",
@@ -14,9 +15,10 @@
     ],
     "structures": [
       { "label": "Thêm -s", "pattern": "danh từ + -s", "example": "two cats, three books" },
-      { "label": "Thêm -es", "pattern": "danh từ tận cùng -s / -ss / -sh / -ch / -x + -es", "example": "boxes, buses, watches" },
+      { "label": "Thêm -es", "pattern": "danh từ tận cùng -s / -ss / -sh / -ch / -x / một số -o + -es", "example": "boxes, buses, watches" },
       { "label": "Phụ âm + y", "pattern": "phụ âm-y → bỏ y, thêm -ies (baby → babies); nguyên âm-y → chỉ thêm -s (boy → boys)", "example": "babies, cities; boys, days" },
-      { "label": "Bất quy tắc", "pattern": "dạng bất quy tắc: man → men, child → children, foot → feet", "example": "men, women, children, people, feet, teeth" }
+      { "label": "Bất quy tắc", "pattern": "dạng bất quy tắc: man → men, child → children, foot → feet", "example": "men, women, children, people, feet, teeth" },
+      { "label": "Tận cùng f / fe", "pattern": "-f / -fe → -ves (knife → knives, leaf → leaves)", "example": "two knives, three leaves" }
     ],
     "examples": [
       { "en": "I have two brothers.", "vi": "Tôi có hai anh trai.", "structure": 1 },
@@ -26,12 +28,17 @@
       { "en": "There are two babies in the photo.", "vi": "Có hai em bé trong ảnh.", "structure": 3 },
       { "en": "The boys play football after school.", "vi": "Các cậu bé đá bóng sau giờ học.", "structure": 3 },
       { "en": "The children are at school.", "vi": "Bọn trẻ đang ở trường.", "structure": 4 },
-      { "en": "Many people live in Ha Noi.", "vi": "Nhiều người sống ở Hà Nội.", "structure": 4 }
+      { "en": "Many people live in Ha Noi.", "vi": "Nhiều người sống ở Hà Nội.", "structure": 4 },
+      { "en": "We need three tomatoes for the soup.", "vi": "Chúng ta cần ba quả cà chua để nấu canh.", "structure": 2 },
+      { "en": "There are many fish in the river.", "vi": "Dưới sông có nhiều cá.", "structure": 4 },
+      { "en": "There are two knives on the table.", "vi": "Có hai con dao trên bàn.", "structure": 5 },
+      { "en": "The leaves are yellow in autumn.", "vi": "Lá cây chuyển vàng vào mùa thu.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "I have two cat.", "right": "I have two cats.", "noteVi": "Từ hai trở lên phải dùng số nhiều: cats." },
       { "wrong": "Three boies play in the park.", "right": "Three boys play in the park.", "noteVi": "Nguyên âm + y (boy) chỉ thêm s." },
-      { "wrong": "There are many childs.", "right": "There are many children.", "noteVi": "Child là bất quy tắc: children." }
+      { "wrong": "There are many childs.", "right": "There are many children.", "noteVi": "Child là bất quy tắc: children." },
+      { "wrong": "I buy two knifes.", "right": "I buy two knives.", "noteVi": "Danh từ tận cùng -fe đổi thành -ves: knife → knives." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn dạng số nhiều đúng.", "text": "I have two ___.", "options": ["books", "book", "bookes", "bookies"], "answerIndex": 0, "explanationVi": "Book thêm -s: books." },
@@ -41,7 +48,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Viết dạng số nhiều của từ trong ngoặc.", "text": "He has three ___ (toy).", "answers": ["toys"], "explanationVi": "Nguyên âm + y chỉ thêm s: toys." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Có năm người trong phòng.", "words": ["There", "are", "five", "people", "in", "the", "room.", "is", "peoples"], "sentence": "There are five people in the room.", "explanationVi": "Person là bất quy tắc: people; số nhiều đi với are." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "I have two watchs.", "sentence": "I have two watches.", "explanationVi": "Watch tận cùng bằng ch nên thêm -es." },
-      { "id": "p8", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "My feets are cold.", "sentence": "My feet are cold.", "explanationVi": "Foot là bất quy tắc: feet, không thêm s." }
+      { "id": "p8", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "My feets are cold.", "sentence": "My feet are cold.", "explanationVi": "Foot là bất quy tắc: feet, không thêm s." },
+      { "id": "p9", "kind": "fill", "promptVi": "Viết dạng số nhiều của từ trong ngoặc.", "text": "My mother buys four ___ (tomato) at the market.", "answers": ["tomatoes"], "explanationVi": "Tomato tận cùng bằng o nên thêm -es: tomatoes." },
+      { "id": "p10", "kind": "fill", "promptVi": "Viết dạng số nhiều của từ trong ngoặc.", "text": "Please put the ___ (knife) in the drawer.", "answers": ["knives"], "explanationVi": "Knife tận cùng bằng fe nên đổi thành -ves: knives." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn dạng số nhiều đúng.", "text": "We have four ___.", "options": ["boxes", "boxs", "box", "boxies"], "answerIndex": 0, "explanationVi": "Box tận cùng bằng x nên thêm -es." },

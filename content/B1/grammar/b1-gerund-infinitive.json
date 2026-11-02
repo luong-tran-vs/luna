@@ -5,7 +5,8 @@
       "Một số động từ luôn đi với V-ing: enjoy, finish, mind, avoid, practise, keep, suggest. I enjoy cooking. Would you mind closing the window? Riêng stop: stop + V-ing là thôi làm việc đó (He stopped smoking), còn stop + to V là dừng lại để làm việc khác (He stopped to buy a coffee).",
       "Một số động từ luôn đi với to + động từ: want, need, decide, hope, plan, promise, agree, learn, would like. We decided to buy a new car.",
       "Sau giới từ (in, at, of, about, for…) luôn dùng V-ing: He is good at drawing. She is interested in learning Japanese.",
-      "V-ing có thể làm chủ ngữ của câu: Swimming is good for your health. Like, love, hate, start, begin đi được với cả hai dạng mà nghĩa gần như không đổi."
+      "V-ing có thể làm chủ ngữ của câu: Swimming is good for your health. Like, love, hate, start, begin đi được với cả hai dạng mà nghĩa gần như không đổi.",
+      "Một số động từ đổi nghĩa theo dạng đi sau. Remember / forget + V-ing: nhớ / quên việc đã làm (I remember meeting her at the party). Remember / forget + to V: nhớ / quên việc cần làm (Remember to lock the door). Try + to V là cố gắng làm (I tried to open the window); try + V-ing là thử làm xem sao (Try drinking some warm water)."
     ],
     "usage": [
       "Nói sở thích: I enjoy cooking for my family.",
@@ -17,7 +18,8 @@
       { "label": "Động từ + V-ing", "pattern": "enjoy / finish / mind / avoid / keep + V-ing", "example": "Have you finished reading that book?" },
       { "label": "Động từ + to V", "pattern": "want / need / decide / hope / promise / agree + to + động từ nguyên mẫu", "example": "She hopes to visit Japan." },
       { "label": "Giới từ + V-ing", "pattern": "good at / interested in / afraid of + V-ing", "example": "He is good at drawing." },
-      { "label": "V-ing làm chủ ngữ", "pattern": "V-ing + động từ số ít", "example": "Swimming is good for your health." }
+      { "label": "V-ing làm chủ ngữ", "pattern": "V-ing + động từ số ít", "example": "Swimming is good for your health." },
+      { "label": "Đổi nghĩa", "pattern": "remember / forget + V-ing (việc đã làm); remember / forget + to + động từ nguyên mẫu (việc cần làm); stop + to + động từ nguyên mẫu (dừng lại để làm)", "example": "Remember to lock the door." }
     ],
     "examples": [
       { "en": "I enjoy cooking for my family.", "vi": "Tôi thích nấu ăn cho gia đình.", "structure": 1 },
@@ -27,12 +29,16 @@
       { "en": "He is good at drawing.", "vi": "Cậu ấy vẽ giỏi.", "structure": 3 },
       { "en": "She is interested in learning Japanese.", "vi": "Cô ấy thích học tiếng Nhật.", "structure": 3 },
       { "en": "Swimming is good for your health.", "vi": "Bơi lội tốt cho sức khoẻ.", "structure": 4 },
-      { "en": "Learning a language takes time.", "vi": "Học một ngôn ngữ cần thời gian.", "structure": 4 }
+      { "en": "Learning a language takes time.", "vi": "Học một ngôn ngữ cần thời gian.", "structure": 4 },
+      { "en": "I remember meeting her at the party last year.", "vi": "Tôi nhớ là đã gặp cô ấy ở bữa tiệc năm ngoái.", "structure": 5 },
+      { "en": "Don't forget to lock the door when you go out.", "vi": "Ra ngoài nhớ khoá cửa nhé.", "structure": 5 },
+      { "en": "He stopped to buy a coffee on the way to work.", "vi": "Trên đường đi làm, anh ấy dừng lại mua cà phê.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "Would you mind to close the window?", "right": "Would you mind closing the window?", "noteVi": "Mind đi với V-ing." },
       { "wrong": "I avoid to eat fast food.", "right": "I avoid eating fast food.", "noteVi": "Avoid đi với V-ing." },
-      { "wrong": "I want learning Korean.", "right": "I want to learn Korean.", "noteVi": "Want đi với to + động từ." }
+      { "wrong": "I want learning Korean.", "right": "I want to learn Korean.", "noteVi": "Want đi với to + động từ." },
+      { "wrong": "Don't forget locking the door.", "right": "Don't forget to lock the door.", "noteVi": "Quên / nhớ việc cần làm thì dùng to + động từ." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn dạng đúng của động từ.", "text": "I enjoy ___ for my family.", "options": ["cooking", "to cook", "cook", "cooked"], "answerIndex": 0, "explanationVi": "Enjoy đi với V-ing." },
@@ -42,7 +48,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Viết V-ing hoặc to + động từ trong ngoặc.", "text": "He is good at ___ (draw).", "answers": ["drawing"], "explanationVi": "Sau giới từ at dùng V-ing." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Tôi muốn học tiếng Hàn.", "words": ["I", "want", "to", "learn", "Korean.", "learning", "learns"], "sentence": "I want to learn Korean.", "explanationVi": "Want đi với to + động từ." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Would you mind to close the window?", "sentence": "Would you mind closing the window?", "explanationVi": "Mind đi với V-ing." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn dạng đúng của động từ.", "text": "___ is good for your health.", "options": ["Swimming", "Swim", "Swims", "Swam"], "answerIndex": 0, "explanationVi": "V-ing làm chủ ngữ: Swimming." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn dạng đúng của động từ.", "text": "___ is good for your health.", "options": ["Swimming", "Swim", "Swims", "Swam"], "answerIndex": 0, "explanationVi": "V-ing làm chủ ngữ: Swimming." },
+      { "id": "p9", "kind": "fill", "promptVi": "Viết V-ing hoặc to + động từ trong ngoặc.", "text": "Please remember ___ (buy) some milk on your way home.", "answers": ["to buy"], "explanationVi": "Nhớ việc cần làm thì dùng remember + to + động từ." },
+      { "id": "p10", "kind": "choice", "promptVi": "Chọn dạng đúng của động từ.", "text": "I'll never forget ___ the sea for the first time.", "options": ["seeing", "to see", "see", "saw"], "answerIndex": 0, "explanationVi": "Quên một việc đã xảy ra thì dùng forget + V-ing." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn dạng đúng của động từ.", "text": "My brother promised ___ me with my homework.", "options": ["to help", "helping", "help", "helped"], "answerIndex": 0, "explanationVi": "Promise đi với to + động từ." },

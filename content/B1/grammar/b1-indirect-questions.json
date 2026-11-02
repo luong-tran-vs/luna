@@ -3,7 +3,7 @@
     "objective": "Hỏi lịch sự bằng câu hỏi gián tiếp (Could you tell me / Do you know + từ để hỏi / if + chủ ngữ + động từ), giữ trật tự câu thường sau từ để hỏi.",
     "explanation": [
       "Câu hỏi gián tiếp lịch sự hơn câu hỏi trực tiếp, hay dùng khi hỏi người lạ: Where is the station? → Could you tell me where the station is?",
-      "Sau từ để hỏi (where, what, when, how…), chủ ngữ đứng trước động từ như câu thường; không đảo ngữ: where the station is (không nói where is the station).",
+      "Sau từ để hỏi (where, what, when, how…), chủ ngữ đứng trước động từ như câu thường; không đảo ngữ: where the station is (không nói where is the station). Nếu từ để hỏi chính là chủ ngữ (who, what) thì giữ nguyên trật tự và không thêm did: Who broke the window? → Do you know who broke the window?",
       "Câu hỏi có do / does / did thì bỏ trợ động từ và chia động từ chính: What time does the bank open? → Can you tell me what time the bank opens?",
       "Câu hỏi Có / Không thì dùng if hoặc whether: Is the museum open? → Do you know if the museum is open?"
     ],
@@ -24,12 +24,14 @@
       { "en": "Do you know where Nam lives? – Yes, he lives near the park.", "vi": "Bạn có biết Nam sống ở đâu không? – Có, cậu ấy sống gần công viên.", "structure": 2 },
       { "en": "Do you know what time it is? – It's half past three.", "vi": "Bạn có biết mấy giờ rồi không? – Ba giờ rưỡi rồi.", "structure": 2 },
       { "en": "Do you know if the museum is open today? – Yes, it's open until five.", "vi": "Bạn có biết hôm nay bảo tàng có mở cửa không? – Có, mở cửa đến năm giờ.", "structure": 3 },
-      { "en": "I wonder whether she will come to the party.", "vi": "Không biết cô ấy có đến dự tiệc không.", "structure": 3 }
+      { "en": "I wonder whether she will come to the party.", "vi": "Không biết cô ấy có đến dự tiệc không.", "structure": 3 },
+      { "en": "Do you know who broke the window? – I think it was Nam.", "vi": "Bạn có biết ai làm vỡ cửa sổ không? – Tôi nghĩ là Nam.", "structure": 1 }
     ],
     "mistakes": [
       { "wrong": "Could you tell me where is the post office?", "right": "Could you tell me where the post office is?", "noteVi": "Sau từ để hỏi, chủ ngữ đứng trước động từ." },
       { "wrong": "Do you know what time does the shop close?", "right": "Do you know what time the shop closes?", "noteVi": "Bỏ does và chia động từ chính: closes." },
-      { "wrong": "Do you know is the museum open?", "right": "Do you know if the museum is open?", "noteVi": "Câu hỏi Có / Không cần if hoặc whether." }
+      { "wrong": "Do you know is the museum open?", "right": "Do you know if the museum is open?", "noteVi": "Câu hỏi Có / Không cần if hoặc whether." },
+      { "wrong": "Do you know who did break the window?", "right": "Do you know who broke the window?", "noteVi": "Who làm chủ ngữ thì giữ nguyên trật tự, không thêm did." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "Could you tell me where the station ___?", "options": ["is", "are", "does", "be"], "answerIndex": 0, "explanationVi": "Trật tự câu thường: the station is." },
@@ -39,7 +41,8 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền if hoặc what.", "text": "Could you tell me ___ there is a bank near here?", "answers": ["if", "whether"], "explanationVi": "Câu hỏi Có / Không dùng if (hoặc whether)." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu hỏi đúng.", "text": "Bạn có biết mấy giờ rồi không?", "words": ["Do", "you", "know", "what", "time", "it", "is?", "does", "are"], "sentence": "Do you know what time it is?", "explanationVi": "Sau what time, chủ ngữ it đứng trước is." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Could you tell me where is the post office?", "sentence": "Could you tell me where the post office is?", "explanationVi": "Sau where, chủ ngữ đứng trước động từ is." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Do you know when ___?", "options": ["the film starts", "does the film start", "the film start", "starts the film"], "answerIndex": 0, "explanationVi": "Trật tự câu thường, động từ chia: the film starts." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Do you know when ___?", "options": ["the film starts", "does the film start", "the film start", "starts the film"], "answerIndex": 0, "explanationVi": "Trật tự câu thường, động từ chia: the film starts." },
+      { "id": "p9", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Do you know who ___ the window?", "options": ["broke", "did break", "did he break", "break"], "answerIndex": 0, "explanationVi": "Who làm chủ ngữ nên giữ trật tự câu hỏi gốc: who broke, không thêm did." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Can you tell me how ___ to the airport?", "options": ["I can get", "can I get", "I get can", "can get I"], "answerIndex": 0, "explanationVi": "Trật tự câu thường: I can get." },

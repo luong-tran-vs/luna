@@ -5,7 +5,8 @@
       "Was / were going to + động từ: dự định trong quá khứ, thường không thành hiện thực. I was going to call you, but I forgot.",
       "Was / were about to + động từ (hoặc was on the point of + V-ing): sắp sửa làm thì bị chen ngang. We were about to leave when the phone rang.",
       "Would + động từ: tương lai nhìn từ quá khứ, hay gặp trong câu tường thuật và kể chuyện. She said she would help me. I knew the trip would be difficult. Little did they know that they would never meet again.",
-      "Khi động từ chính ở quá khứ (said, thought, knew), will thường chuyển thành would: I thought you would come."
+      "Khi động từ chính ở quá khứ (said, thought, knew), will thường chuyển thành would: I thought you would come.",
+      "Văn trang trọng còn dùng was / were to + động từ để nói điều về sau đã thật sự xảy ra, như một định mệnh: He was to become president twenty years later. Was / were to have + V3 nói dự định đã không thành: She was to have married him, but he died. Ngoài ra was / were due to (theo lịch) và quá khứ tiếp diễn (đã hẹn trước) cũng chỉ tương lai trong quá khứ: The train was due to leave at six. I was meeting him at six, but he cancelled."
     ],
     "usage": [
       "Xin lỗi vì kế hoạch dang dở: I was going to tell her the truth, but I didn't have the chance.",
@@ -15,7 +16,8 @@
     "structures": [
       { "label": "Dự định cũ", "pattern": "chủ ngữ + was / were going to + động từ nguyên mẫu", "example": "I was going to call you, but I forgot." },
       { "label": "Sắp sửa", "pattern": "chủ ngữ + was / were about to + động từ nguyên mẫu; chủ ngữ + was / were on the point of + V-ing", "example": "We were about to leave when the phone rang." },
-      { "label": "Tương lai nhìn từ quá khứ", "pattern": "said / knew / thought + (that) + chủ ngữ + would + động từ nguyên mẫu", "example": "I knew the trip would be difficult." }
+      { "label": "Tương lai nhìn từ quá khứ", "pattern": "said / knew / thought + (that) + chủ ngữ + would + động từ nguyên mẫu", "example": "I knew the trip would be difficult." },
+      { "label": "Was to", "pattern": "chủ ngữ + was / were to + động từ nguyên mẫu; chủ ngữ + was / were to have + V3", "example": "He was to become president twenty years later." }
     ],
     "examples": [
       { "en": "I was going to call you, but I forgot.", "vi": "Tôi định gọi bạn nhưng lại quên mất.", "structure": 1 },
@@ -24,7 +26,9 @@
       { "en": "She was on the point of leaving when he arrived.", "vi": "Cô ấy đã sắp đi thì anh ấy tới.", "structure": 2 },
       { "en": "She said she would help me the next day.", "vi": "Cô ấy nói hôm sau sẽ giúp tôi.", "structure": 3 },
       { "en": "I knew the trip would be difficult.", "vi": "Tôi biết chuyến đi sẽ vất vả.", "structure": 3 },
-      { "en": "Little did they know that they would never see each other again.", "vi": "Họ đâu biết rằng sẽ không bao giờ gặp lại nhau.", "structure": 3 }
+      { "en": "Little did they know that they would never see each other again.", "vi": "Họ đâu biết rằng sẽ không bao giờ gặp lại nhau.", "structure": 3 },
+      { "en": "At that time he was a poor student; he was to become president twenty years later.", "vi": "Khi ấy anh ta chỉ là một sinh viên nghèo; hai mươi năm sau anh ta trở thành tổng thống.", "structure": 4 },
+      { "en": "She was to have married him, but he died in the war.", "vi": "Lẽ ra cô ấy đã cưới anh ta, nhưng anh ta mất trong chiến tranh.", "structure": 4 }
     ],
     "mistakes": [
       { "wrong": "The film was about start when we arrived.", "right": "The film was about to start when we arrived.", "noteVi": "Cần đủ about to + động từ." },
@@ -39,7 +43,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền would hoặc will.", "text": "I knew the trip ___ be difficult.", "answers": ["would"], "explanationVi": "Nhìn từ quá khứ (knew): would." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Tôi đã định gọi cho bạn.", "words": ["I", "was", "going", "to", "call", "you.", "calling", "were"], "sentence": "I was going to call you.", "explanationVi": "Dự định cũ: was going to + động từ nguyên mẫu." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "The film was about start when we arrived.", "sentence": "The film was about to start when we arrived.", "explanationVi": "Cần đủ about to + động từ." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Last year he promised that he ___ never be late again, but he was late today.", "options": ["would", "will", "was", "is"], "answerIndex": 0, "explanationVi": "Lời hứa trong quá khứ: would." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Last year he promised that he ___ never be late again, but he was late today.", "options": ["would", "will", "was", "is"], "answerIndex": 0, "explanationVi": "Lời hứa trong quá khứ: would." },
+      { "id": "p9", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "They said goodbye at the station, not knowing that they ___ meet again for thirty years.", "options": ["were not to", "are not to", "will not", "have not to"], "answerIndex": 0, "explanationVi": "Điều về sau đã xảy ra, nhìn từ quá khứ: were not to meet." },
+      { "id": "p10", "kind": "choice", "promptVi": "Chọn cách nói đúng (dự định đã không thành).", "text": "The concert ___ last night, but it was cancelled because of the storm.", "options": ["was to have taken place", "was taking place to", "is to take place", "would have take place"], "answerIndex": 0, "explanationVi": "Dự định không thành: was to have + V3 (taken place)." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "I ___ tell her the truth, but I didn't have the chance.", "options": ["was going to", "am going to", "will", "am about to"], "answerIndex": 0, "explanationVi": "Dự định không thành: was going to." },

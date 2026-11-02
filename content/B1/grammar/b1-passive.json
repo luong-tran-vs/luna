@@ -5,7 +5,8 @@
       "Câu bị động đưa đối tượng chịu tác động lên làm chủ ngữ: Someone built the bridge in 1990 → The bridge was built in 1990.",
       "Cấu trúc: be + quá khứ phân từ (V3). Hiện tại đơn: am / is / are + V3 (English is spoken here). Quá khứ đơn: was / were + V3 (These photos were taken in Sa Pa).",
       "Dùng bị động khi không biết, không cần nói hoặc ai cũng biết người làm. Muốn nói người làm thì thêm by: The letters were written by my grandfather.",
-      "Phủ định thêm not sau be (isn't grown); câu hỏi đưa be lên trước chủ ngữ (When was the Eiffel Tower built?)."
+      "Phủ định thêm not sau be (isn't grown); câu hỏi đưa be lên trước chủ ngữ (When was the Eiffel Tower built?).",
+      "Sau will, can, must, should cũng dùng được bị động: động từ khuyết thiếu + be + V3. The work will be finished tomorrow. This room can be used for meetings."
     ],
     "usage": [
       "Sự thật, quy trình: These cars are made in Japan.",
@@ -16,7 +17,8 @@
       { "label": "Hiện tại đơn", "pattern": "chủ ngữ + am / is / are + V3", "example": "English is spoken in many countries." },
       { "label": "Quá khứ đơn", "pattern": "chủ ngữ + was / were + V3", "example": "The window was broken last night." },
       { "label": "Có người làm", "pattern": "be + V3 + by + người làm", "example": "Dinner was cooked by my mother." },
-      { "label": "Câu hỏi", "pattern": "(Wh-word) + am / is / are / was / were + chủ ngữ + V3?", "example": "When was the Eiffel Tower built?" }
+      { "label": "Câu hỏi", "pattern": "(Wh-word) + am / is / are / was / were + chủ ngữ + V3?", "example": "When was the Eiffel Tower built?" },
+      { "label": "Với will / can / must", "pattern": "chủ ngữ + will / can / must + be + V3", "example": "The work will be finished tomorrow." }
     ],
     "examples": [
       { "en": "English is spoken in many countries.", "vi": "Tiếng Anh được nói ở nhiều nước.", "structure": 1 },
@@ -27,12 +29,15 @@
       { "en": "Dinner was cooked by my mother.", "vi": "Bữa tối do mẹ tôi nấu.", "structure": 3 },
       { "en": "This song was written by a famous singer.", "vi": "Bài hát này do một ca sĩ nổi tiếng sáng tác.", "structure": 3 },
       { "en": "When was this house built? – It was built in 1995.", "vi": "Ngôi nhà này được xây khi nào? – Nó được xây năm 1995.", "structure": 4 },
-      { "en": "Is English spoken in your country? – Yes, it is.", "vi": "Ở nước bạn người ta có nói tiếng Anh không? – Có.", "structure": 4 }
+      { "en": "Is English spoken in your country? – Yes, it is.", "vi": "Ở nước bạn người ta có nói tiếng Anh không? – Có.", "structure": 4 },
+      { "en": "The new bridge will be opened next year.", "vi": "Cây cầu mới sẽ được thông xe vào năm sau.", "structure": 5 },
+      { "en": "Mobile phones must be turned off in the library.", "vi": "Trong thư viện phải tắt điện thoại.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "The museum is visit by many tourists.", "right": "The museum is visited by many tourists.", "noteVi": "Sau be cần V3 visited." },
       { "wrong": "My bike was stole last week.", "right": "My bike was stolen last week.", "noteVi": "V3 của steal là stolen." },
-      { "wrong": "These photos was taken in Sa Pa.", "right": "These photos were taken in Sa Pa.", "noteVi": "These photos là số nhiều nên dùng were." }
+      { "wrong": "These photos was taken in Sa Pa.", "right": "These photos were taken in Sa Pa.", "noteVi": "These photos là số nhiều nên dùng were." },
+      { "wrong": "This room can use for meetings.", "right": "This room can be used for meetings.", "noteVi": "Bị động sau can cần be + V3." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "English ___ in many countries.", "options": ["is spoken", "speaks", "is speaking", "spoken"], "answerIndex": 0, "explanationVi": "Tiếng Anh được nói: bị động is spoken." },
@@ -42,7 +47,8 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền một từ vào chỗ trống.", "text": "The letters were written ___ my grandfather.", "answers": ["by"], "explanationVi": "Người làm đứng sau by." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Bữa tối do mẹ tôi nấu.", "words": ["Dinner", "was", "cooked", "by", "my", "mother.", "cooks", "were"], "sentence": "Dinner was cooked by my mother.", "explanationVi": "Bị động quá khứ: was cooked by." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "The museum is visit by many tourists.", "sentence": "The museum is visited by many tourists.", "explanationVi": "Sau is cần V3 visited." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để bắt đầu câu hỏi.", "text": "When ___ the Eiffel Tower built?", "options": ["was", "is", "did", "were"], "answerIndex": 0, "explanationVi": "Câu hỏi bị động quá khứ: When was … built?" }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để bắt đầu câu hỏi.", "text": "When ___ the Eiffel Tower built?", "options": ["was", "is", "did", "were"], "answerIndex": 0, "explanationVi": "Câu hỏi bị động quá khứ: When was … built?" },
+      { "id": "p9", "kind": "fill", "promptVi": "Viết dạng bị động với will của động từ trong ngoặc.", "text": "The results ___ (announce) next week.", "answers": ["will be announced"], "explanationVi": "Bị động với will: will + be + V3 (announced)." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Coffee ___ in the Central Highlands of Viet Nam.", "options": ["is grown", "grows up", "is growing", "grown"], "answerIndex": 0, "explanationVi": "Cà phê được trồng: is grown." },

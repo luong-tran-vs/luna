@@ -4,7 +4,8 @@
     "explanation": [
       "Cụm động từ gồm động từ + tiểu từ (on, off, up, down, in, out, away, back, after, for…), nghĩa thường khác động từ gốc: turn on (bật), look after (chăm sóc), run out of (hết).",
       "Cụm tách được (turn on / off, put on, take off, pick up, give back, throw away, fill in, call off): tân ngữ là danh từ đứng trước hoặc sau tiểu từ đều được (turn off the light / turn the light off). Tân ngữ là đại từ thì bắt buộc đứng giữa: turn it off (không nói turn off it).",
-      "Cụm không tách được (look after, look for, get on, run out of): tân ngữ luôn đứng sau cả cụm: I look after my sister. I'm looking for them."
+      "Cụm không tách được (look after, look for, get on, run out of): tân ngữ luôn đứng sau cả cụm: I look after my sister. I'm looking for them.",
+      "Một số cụm động từ không có tân ngữ: get up, wake up, grow up, go out, sit down, break down. I get up at six. My car broke down on the way to work."
     ],
     "usage": [
       "Sinh hoạt hằng ngày: It's cold outside. Put on your coat.",
@@ -15,7 +16,8 @@
       { "label": "Tách được + danh từ", "pattern": "động từ + tiểu từ + danh từ / động từ + danh từ + tiểu từ", "example": "Please turn off the light." },
       { "label": "Tách được + đại từ", "pattern": "động từ + đại từ + tiểu từ", "example": "Please turn it off." },
       { "label": "Không tách được", "pattern": "động từ + tiểu từ + tân ngữ", "example": "I look after my sister." },
-      { "label": "Ba thành phần", "pattern": "run out of / get on with + tân ngữ", "example": "We've run out of milk." }
+      { "label": "Ba thành phần", "pattern": "run out of / get on with + tân ngữ", "example": "We've run out of milk." },
+      { "label": "Không có tân ngữ", "pattern": "chủ ngữ + động từ + tiểu từ", "example": "My car broke down." }
     ],
     "examples": [
       { "en": "Please turn off the light.", "vi": "Làm ơn tắt đèn.", "structure": 1 },
@@ -25,7 +27,9 @@
       { "en": "I look after my sister after school.", "vi": "Tan học tôi trông em gái.", "structure": 3 },
       { "en": "I can't find my keys. I'm looking for them.", "vi": "Tôi không tìm thấy chìa khoá. Tôi đang tìm đây.", "structure": 3 },
       { "en": "We've run out of milk.", "vi": "Nhà mình hết sữa rồi.", "structure": 4 },
-      { "en": "I get on with my neighbours.", "vi": "Tôi hoà thuận với hàng xóm.", "structure": 4 }
+      { "en": "I get on with my neighbours.", "vi": "Tôi hoà thuận với hàng xóm.", "structure": 4 },
+      { "en": "My car broke down on the way to work.", "vi": "Xe tôi bị hỏng trên đường đi làm.", "structure": 5 },
+      { "en": "She grew up in a small village.", "vi": "Cô ấy lớn lên ở một ngôi làng nhỏ.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "Please fill in it.", "right": "Please fill it in.", "noteVi": "Tân ngữ là đại từ thì đứng giữa động từ và tiểu từ." },
@@ -40,7 +44,8 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền một tiểu từ.", "text": "I can't find my keys. I'm looking ___ them.", "answers": ["for"], "explanationVi": "Tìm kiếm: look for." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Làm ơn tắt nó đi.", "words": ["Please", "turn", "it", "off.", "of", "its"], "sentence": "Please turn it off.", "answers": ["Turn it off please."], "explanationVi": "Đại từ it đứng giữa turn và off." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Here is the form. Please fill in it.", "sentence": "Here is the form. Please fill it in.", "answers": ["Here is the form. Please fill it out."], "explanationVi": "Đại từ it đứng giữa fill và in." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "We've run ___ milk. Can you buy some?", "options": ["out of", "out", "off", "away"], "answerIndex": 0, "explanationVi": "Hết cái gì: run out of." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "We've run ___ milk. Can you buy some?", "options": ["out of", "out", "off", "away"], "answerIndex": 0, "explanationVi": "Hết cái gì: run out of." },
+      { "id": "p9", "kind": "fill", "promptVi": "Điền một tiểu từ.", "text": "She grew ___ in a small village near Hue.", "answers": ["up"], "explanationVi": "Grow up là lớn lên, không có tân ngữ." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Can you pick ___ at the station at six?", "options": ["me up", "up me", "me on", "on me"], "answerIndex": 0, "explanationVi": "Đón: pick up; đại từ me đứng giữa." },

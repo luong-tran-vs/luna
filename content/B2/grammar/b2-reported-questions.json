@@ -5,7 +5,8 @@
       "Câu hỏi có từ để hỏi: asked (me) + từ để hỏi + chủ ngữ + động từ đã lùi thì; không đảo ngữ, không có do / did, không có dấu hỏi. \"Where do you live?\" → She asked me where I lived.",
       "Câu hỏi Có / Không: asked + if / whether + chủ ngữ + động từ. \"Are you tired?\" → He asked me if I was tired.",
       "Mệnh lệnh, lời nhờ: told / asked + tân ngữ + to + động từ; phủ định thêm not trước to. \"Close the door, please.\" → She asked me to close the door. \"Don't wait.\" → He told me not to wait.",
-      "Thường lùi thì như câu tường thuật: am / is → was; can → could; have done → had done. Nếu điều được hỏi vẫn còn đúng ở hiện tại thì có thể giữ nguyên thì: She asked me where I live."
+      "Thường lùi thì như câu tường thuật: am / is → was; can → could; have done → had done. Nếu điều được hỏi vẫn còn đúng ở hiện tại thì có thể giữ nguyên thì: She asked me where I live.",
+      "Câu hỏi gián tiếp lịch sự cũng dùng trật tự câu thường nhưng không lùi thì: Could you tell me where the station is? Do you know what time the film starts? Câu hỏi Có / Không thì dùng if: Do you know if the shop is open? Khi tường thuật còn có thể dùng wanted to know hoặc wondered thay cho asked: He wanted to know why I was late."
     ],
     "usage": [
       "Kể lại câu hỏi: The teacher asked me why I was late.",
@@ -16,7 +17,8 @@
       { "label": "Có từ để hỏi", "pattern": "asked (me) + Wh-word + chủ ngữ + động từ (lùi thì)", "example": "She asked me where I lived." },
       { "label": "Có / Không", "pattern": "asked (me) + if / whether + chủ ngữ + động từ (lùi thì)", "example": "He asked me if I was tired." },
       { "label": "Mệnh lệnh", "pattern": "told / asked + tân ngữ + to + động từ nguyên mẫu", "example": "She asked me to close the door." },
-      { "label": "Mệnh lệnh phủ định", "pattern": "told / asked + tân ngữ + not to + động từ nguyên mẫu", "example": "He told me not to wait." }
+      { "label": "Mệnh lệnh phủ định", "pattern": "told / asked + tân ngữ + not to + động từ nguyên mẫu", "example": "He told me not to wait." },
+      { "label": "Hỏi lịch sự", "pattern": "Could you tell me / Do you know + Wh-word / if + chủ ngữ + động từ?", "example": "Could you tell me where the station is?" }
     ],
     "examples": [
       { "en": "She asked me where I lived.", "vi": "Cô ấy hỏi tôi sống ở đâu.", "structure": 1 },
@@ -26,7 +28,10 @@
       { "en": "She asked me to close the door.", "vi": "Cô ấy nhờ tôi đóng cửa.", "structure": 3 },
       { "en": "The teacher told us to open our books.", "vi": "Cô giáo bảo chúng tôi mở sách ra.", "structure": 3 },
       { "en": "He told me not to wait for him.", "vi": "Anh ấy bảo tôi đừng đợi.", "structure": 4 },
-      { "en": "My mum asked me not to come home late.", "vi": "Mẹ dặn tôi đừng về nhà muộn.", "structure": 4 }
+      { "en": "My mum asked me not to come home late.", "vi": "Mẹ dặn tôi đừng về nhà muộn.", "structure": 4 },
+      { "en": "He wanted to know why I was late.", "vi": "Anh ấy muốn biết vì sao tôi đến muộn.", "structure": 1 },
+      { "en": "Could you tell me where the station is? – It's just around the corner.", "vi": "Bạn chỉ giúp tôi nhà ga ở đâu được không? – Ở ngay góc phố thôi.", "structure": 5 },
+      { "en": "Do you know if the shop is open today? – Yes, until nine.", "vi": "Bạn có biết hôm nay cửa hàng có mở không? – Có, mở đến chín giờ.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "He asked me where was the station.", "right": "He asked me where the station was.", "noteVi": "Câu hỏi tường thuật dùng trật tự câu thường." },
@@ -41,7 +46,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền một từ vào chỗ trống.", "text": "\"Close the door, please.\" → She asked me ___ close the door.", "answers": ["to"], "explanationVi": "Lời nhờ: asked + tân ngữ + to + động từ." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Cô ấy hỏi tôi có thích cà phê không.", "words": ["She", "asked", "me", "if", "I", "liked", "coffee.", "did", "that"], "sentence": "She asked me if I liked coffee.", "explanationVi": "Câu hỏi Có / Không: asked me if + câu thường." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "He asked me where was the station.", "sentence": "He asked me where the station was.", "explanationVi": "Trật tự câu thường: the station was." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách thuật lại đúng.", "text": "\"Can you help me?\" → She asked me if I ___ help her.", "options": ["could", "can", "will", "did"], "answerIndex": 0, "explanationVi": "Can lùi thành could." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách thuật lại đúng.", "text": "\"Can you help me?\" → She asked me if I ___ help her.", "options": ["could", "can", "will", "did"], "answerIndex": 0, "explanationVi": "Can lùi thành could." },
+      { "id": "p9", "kind": "choice", "promptVi": "Chọn cách hỏi đúng.", "text": "Do you know what time ___?", "options": ["the museum opens", "does the museum open", "opens the museum", "the museum does open"], "answerIndex": 0, "explanationVi": "Câu hỏi gián tiếp dùng trật tự câu thường, không có does: the museum opens." },
+      { "id": "p10", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Bạn có thể cho tôi biết mấy giờ rồi không?", "words": ["Could", "you", "tell", "me", "what", "time", "it", "is?", "does"], "sentence": "Could you tell me what time it is?", "explanationVi": "Sau Could you tell me dùng trật tự câu thường: what time it is." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn cách thuật lại đúng.", "text": "\"Why are you late?\" → The teacher asked me why I ___ late.", "options": ["was", "am", "were", "did"], "answerIndex": 0, "explanationVi": "Am lùi thành was, trật tự câu thường." },

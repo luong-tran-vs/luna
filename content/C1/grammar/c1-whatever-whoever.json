@@ -5,7 +5,8 @@
       "Whatever (bất cứ cái gì), whoever (bất cứ ai), wherever (bất cứ đâu), whenever (bất cứ khi nào) mở đầu một mệnh đề: Whatever you decide, I will support you. You can sit wherever you like.",
       "Các từ này có thể làm chủ ngữ hoặc tân ngữ của câu: Whoever comes first will win the prize. Take whatever you want.",
       "However + tính từ / trạng từ + chủ ngữ + động từ nghĩa là dù … đến đâu: However hard he tried, he couldn't open it. However rich he is, he isn't happy. Tính từ đứng ngay sau however.",
-      "However much / many + (danh từ) nói về số lượng: However much it costs, I'll buy it. Không dùng whatever much."
+      "However much / many + (danh từ) nói về số lượng: However much it costs, I'll buy it. Không dùng whatever much.",
+      "No matter what / who / where / when / how cùng nghĩa với whatever, whoever…, hay dùng trong văn nói: No matter what you decide, I will support you. Whichever dùng khi chọn trong một số lựa chọn có hạn: Take whichever seat you like. Lưu ý no matter chỉ mở đầu mệnh đề nhượng bộ, không làm chủ ngữ: Whoever comes first wins (không nói No matter who comes first wins)."
     ],
     "usage": [
       "Ủng hộ vô điều kiện: Whatever you decide, I will support you.",
@@ -15,7 +16,8 @@
     "structures": [
       { "label": "Wh-ever + mệnh đề", "pattern": "Whatever / Whoever / Wherever / Whenever + chủ ngữ + động từ, + mệnh đề chính", "example": "Whatever you decide, I will support you." },
       { "label": "Làm chủ ngữ", "pattern": "Whoever / Whatever + động từ + … + động từ chính …", "example": "Whoever comes first will win the prize." },
-      { "label": "However + tính từ", "pattern": "However + tính từ / trạng từ + chủ ngữ + động từ, + mệnh đề chính", "example": "However hard he tried, he couldn't open it." }
+      { "label": "However + tính từ", "pattern": "However + tính từ / trạng từ + chủ ngữ + động từ, + mệnh đề chính", "example": "However hard he tried, he couldn't open it." },
+      { "label": "No matter / Whichever", "pattern": "No matter + what / who / where / how + chủ ngữ + động từ, + mệnh đề chính; Whichever + danh từ + chủ ngữ + động từ, + mệnh đề chính", "example": "No matter what you decide, I will support you." }
     ],
     "examples": [
       { "en": "Whatever you decide, I will support you.", "vi": "Dù bạn quyết định thế nào, tôi cũng ủng hộ.", "structure": 1 },
@@ -24,7 +26,9 @@
       { "en": "Whoever comes first will win the prize.", "vi": "Ai đến trước sẽ thắng giải.", "structure": 2 },
       { "en": "Whatever happened was not your fault.", "vi": "Dù chuyện gì đã xảy ra thì cũng không phải lỗi của bạn.", "structure": 2 },
       { "en": "However hard he tried, he couldn't open it.", "vi": "Dù cố đến mấy, anh ấy cũng không mở được.", "structure": 3 },
-      { "en": "However much it costs, I'll buy it.", "vi": "Dù đắt đến mấy tôi cũng sẽ mua.", "structure": 3 }
+      { "en": "However much it costs, I'll buy it.", "vi": "Dù đắt đến mấy tôi cũng sẽ mua.", "structure": 3 },
+      { "en": "No matter how hard I try, I can't remember her name.", "vi": "Dù cố thế nào tôi cũng không nhớ ra tên cô ấy.", "structure": 4 },
+      { "en": "Whichever route you take, it will take about an hour.", "vi": "Bạn đi đường nào thì cũng mất khoảng một tiếng.", "structure": 4 }
     ],
     "mistakes": [
       { "wrong": "However he is rich, he isn't happy.", "right": "However rich he is, he isn't happy.", "noteVi": "Tính từ đứng ngay sau however." },
@@ -39,7 +43,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền whenever hoặc whatever.", "text": "Call me ___ you need help.", "answers": ["whenever"], "explanationVi": "Bất cứ lúc nào: whenever." },
       { "id": "p6", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "Take ___ you want from the fridge.", "options": ["whatever", "however", "whoever", "whenever"], "answerIndex": 0, "explanationVi": "Bất cứ thứ gì: whatever." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "However he is rich, he isn't happy.", "sentence": "However rich he is, he isn't happy.", "answers": ["Although he is rich, he isn't happy.", "Even though he is rich, he isn't happy.", "Rich as he is, he isn't happy."], "explanationVi": "Tính từ đứng ngay sau however." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "___ cold it is, she always goes swimming.", "options": ["However", "Whatever", "Whenever", "Wherever"], "answerIndex": 0, "explanationVi": "Trước tính từ cold: However." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "___ cold it is, she always goes swimming.", "options": ["However", "Whatever", "Whenever", "Wherever"], "answerIndex": 0, "explanationVi": "Trước tính từ cold: However." },
+      { "id": "p9", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "There are two buses to the city centre. ___ one you take, you'll get there in 20 minutes.", "options": ["Whichever", "Whatever", "However", "Whoever"], "answerIndex": 0, "explanationVi": "Chọn một trong số lựa chọn có hạn (hai xe buýt): Whichever." },
+      { "id": "p10", "kind": "fill", "promptVi": "Điền một từ vào chỗ trống.", "text": "No ___ what happens, I'll always be your friend.", "answers": ["matter"], "explanationVi": "No matter what = whatever: dù chuyện gì xảy ra." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "___ wins the election will face many problems.", "options": ["Whoever", "Whatever", "Wherever", "However"], "answerIndex": 0, "explanationVi": "Bất cứ ai thắng: Whoever." },

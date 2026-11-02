@@ -4,7 +4,8 @@
     "explanation": [
       "Too + tính từ nghĩa là quá, nhiều hơn mức cần nên gây vấn đề: This coffee is too hot. I can't drink it.",
       "Enough nghĩa là đủ. Enough đứng sau tính từ nhưng đứng trước danh từ: warm enough, old enough; enough chairs, enough money. Phủ định: not + tính từ + enough (không đủ): He isn't old enough.",
-      "Có thể nối thêm for + người / vật hoặc to + động từ: The box is too heavy for me. She is tall enough to reach the shelf."
+      "Có thể nối thêm for + người / vật hoặc to + động từ: The box is too heavy for me. She is tall enough to reach the shelf.",
+      "Trước danh từ không dùng too một mình mà dùng too much + danh từ không đếm được (too much sugar, too much noise) và too many + danh từ số nhiều (too many people, too many cars). Trước tính từ thì chỉ dùng too: too small (không nói too much small)."
     ],
     "usage": [
       "Phàn nàn, giải thích vì sao không làm được: It's too cold to go swimming.",
@@ -15,7 +16,8 @@
       { "label": "Quá", "pattern": "too + tính từ + (for + người) + (to + động từ nguyên mẫu)", "example": "The box is too heavy for me to carry." },
       { "label": "Đủ (tính từ)", "pattern": "tính từ + enough + (to + động từ nguyên mẫu)", "example": "She is tall enough to reach the shelf." },
       { "label": "Đủ (danh từ)", "pattern": "enough + danh từ", "example": "We don't have enough chairs." },
-      { "label": "Không đủ", "pattern": "not + tính từ + enough + (to + động từ nguyên mẫu)", "example": "He isn't old enough to drive." }
+      { "label": "Không đủ", "pattern": "not + tính từ + enough + (to + động từ nguyên mẫu)", "example": "He isn't old enough to drive." },
+      { "label": "Quá nhiều (danh từ)", "pattern": "too much + danh từ không đếm được; too many + danh từ số nhiều", "example": "There are too many people here." }
     ],
     "examples": [
       { "en": "This coffee is too hot. I can't drink it.", "vi": "Cà phê này nóng quá. Tôi không uống được.", "structure": 1 },
@@ -26,12 +28,15 @@
       { "en": "We don't have enough chairs for everyone.", "vi": "Chúng ta không đủ ghế cho mọi người.", "structure": 3 },
       { "en": "Do you have enough money? – Yes, I do.", "vi": "Bạn có đủ tiền không? – Có, tôi đủ.", "structure": 3 },
       { "en": "He isn't old enough to drive a car.", "vi": "Cậu ấy chưa đủ tuổi lái ô tô.", "structure": 4 },
-      { "en": "The room isn't big enough for ten people.", "vi": "Căn phòng không đủ rộng cho mười người.", "structure": 4 }
+      { "en": "The room isn't big enough for ten people.", "vi": "Căn phòng không đủ rộng cho mười người.", "structure": 4 },
+      { "en": "There are too many people here. Let's go somewhere else.", "vi": "Ở đây đông người quá. Mình đi chỗ khác đi.", "structure": 5 },
+      { "en": "This tea has too much sugar in it.", "vi": "Trà này cho nhiều đường quá.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "She is enough tall to reach the shelf.", "right": "She is tall enough to reach the shelf.", "noteVi": "Enough đứng sau tính từ." },
       { "wrong": "This room is too much small.", "right": "This room is too small.", "noteVi": "Trước tính từ chỉ dùng too, không thêm much." },
-      { "wrong": "I don't have money enough.", "right": "I don't have enough money.", "noteVi": "Enough đứng trước danh từ." }
+      { "wrong": "I don't have money enough.", "right": "I don't have enough money.", "noteVi": "Enough đứng trước danh từ." },
+      { "wrong": "There is too many sugar in my tea.", "right": "There is too much sugar in my tea.", "noteVi": "Sugar không đếm được nên dùng too much; too many chỉ đi với danh từ số nhiều." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "This coffee is ___ hot. I can't drink it.", "options": ["too", "enough", "very much", "so much"], "answerIndex": 0, "explanationVi": "Nóng quá nên không uống được: too hot." },
@@ -41,7 +46,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền too hoặc enough.", "text": "Is the water warm ___ for swimming?", "answers": ["enough"], "explanationVi": "Enough đứng sau tính từ warm." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Đôi giày này quá nhỏ đối với tôi.", "words": ["These", "shoes", "are", "too", "small", "for", "me.", "is", "smallest"], "sentence": "These shoes are too small for me.", "explanationVi": "Quá nhỏ: too small; these shoes đi với are." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "She is enough tall to reach the shelf.", "sentence": "She is tall enough to reach the shelf.", "explanationVi": "Enough đứng sau tính từ: tall enough." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "There isn't ___ flour to make a cake.", "options": ["enough", "too", "too much", "very"], "answerIndex": 0, "explanationVi": "Không đủ bột: enough + danh từ." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "There isn't ___ flour to make a cake.", "options": ["enough", "too", "too much", "very"], "answerIndex": 0, "explanationVi": "Không đủ bột: enough + danh từ." },
+      { "id": "p9", "kind": "fill", "promptVi": "Điền much hoặc many.", "text": "There are too ___ cars in the city centre.", "answers": ["many"], "explanationVi": "Cars là danh từ số nhiều nên dùng too many." },
+      { "id": "p10", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "I can't sleep. There's ___ noise outside.", "options": ["too much", "too many", "too", "very"], "answerIndex": 0, "explanationVi": "Noise không đếm được nên dùng too much." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "The box is ___ heavy for me to carry.", "options": ["too", "enough", "very much", "much"], "answerIndex": 0, "explanationVi": "Nặng quá nên không mang được: too heavy." },

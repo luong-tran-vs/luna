@@ -5,7 +5,8 @@
       "Cách 1: It + is / was + V3 (said, believed, thought, reported, expected, known) + that + mệnh đề. It is believed that the fire started in the kitchen.",
       "Cách 2: chủ ngữ + is / was + V3 + to + động từ. He is said to be very wealthy. Dùng to + động từ khi hai việc cùng thời điểm hoặc ở tương lai; to be + V-ing cho việc đang diễn ra: He is believed to be living in France.",
       "Dùng to have + V3 khi việc được nói tới xảy ra trước thời điểm tường thuật: The painting is thought to have been stolen in 1990. The thieves are thought to have entered through the window.",
-      "Cấu trúc này giúp người viết không phải nêu ai nói, đồng thời giữ khoảng cách với thông tin."
+      "Cấu trúc này giúp người viết không phải nêu ai nói, đồng thời giữ khoảng cách với thông tin.",
+      "Với There: There is / are + said / thought / believed + to be + danh từ: There are thought to be fewer than 200 tigers left in the wild. Khi việc tường thuật ở quá khứ thì đổi is thành was: He was believed to have died in the war (hồi đó người ta tin rằng ông đã chết)."
     ],
     "usage": [
       "Tin tức: The company is reported to be losing money.",
@@ -16,7 +17,8 @@
       { "label": "It + bị động", "pattern": "It is said / believed / thought + that + mệnh đề", "example": "It is believed that the fire started in the kitchen." },
       { "label": "Cùng thời điểm", "pattern": "chủ ngữ + is / are said / believed + to + động từ nguyên mẫu", "example": "He is said to be very wealthy." },
       { "label": "Đang diễn ra", "pattern": "chủ ngữ + is / are believed + to be + V-ing", "example": "He is believed to be living in France." },
-      { "label": "Xảy ra trước", "pattern": "chủ ngữ + is / are thought + to have (been) + V3", "example": "The painting is thought to have been stolen." }
+      { "label": "Xảy ra trước", "pattern": "chủ ngữ + is / are thought + to have (been) + V3", "example": "The painting is thought to have been stolen." },
+      { "label": "There", "pattern": "There is / are + said / thought + to be + danh từ", "example": "There are thought to be 200 tigers left." }
     ],
     "examples": [
       { "en": "It is believed that the fire started in the kitchen.", "vi": "Người ta cho rằng đám cháy bắt đầu từ nhà bếp.", "structure": 1 },
@@ -27,7 +29,10 @@
       { "en": "He is believed to be living in France.", "vi": "Người ta tin rằng anh ấy đang sống ở Pháp.", "structure": 3 },
       { "en": "The company is thought to be planning a new product.", "vi": "Người ta cho rằng công ty đang lên kế hoạch cho một sản phẩm mới.", "structure": 3 },
       { "en": "The painting is thought to have been stolen in 1990.", "vi": "Người ta cho rằng bức tranh bị đánh cắp năm 1990.", "structure": 4 },
-      { "en": "The ship is believed to have sunk in a storm.", "vi": "Người ta tin rằng con tàu đã chìm trong một cơn bão.", "structure": 4 }
+      { "en": "The ship is believed to have sunk in a storm.", "vi": "Người ta tin rằng con tàu đã chìm trong một cơn bão.", "structure": 4 },
+      { "en": "There are thought to be fewer than 200 tigers left in the wild.", "vi": "Người ta cho rằng chỉ còn chưa đến 200 con hổ ngoài tự nhiên.", "structure": 5 },
+      { "en": "There is said to be a secret room in the castle.", "vi": "Người ta đồn trong lâu đài có một căn phòng bí mật.", "structure": 5 },
+      { "en": "He was believed to have died in the war, but he came home in 1980.", "vi": "Hồi đó người ta tin rằng ông đã chết trong chiến tranh, nhưng năm 1980 ông trở về.", "structure": 4 }
     ],
     "mistakes": [
       { "wrong": "She is said to has left the country.", "right": "She is said to have left the country.", "noteVi": "Sau to dùng have nguyên mẫu." },
@@ -42,7 +47,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền một từ (thì hiện tại).", "text": "It ___ reported that ten people were injured.", "answers": ["is"], "explanationVi": "It is reported that…" },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Người ta tin rằng anh ấy đang sống ở Pháp.", "words": ["He", "is", "believed", "to", "be", "living", "in", "France.", "believes", "lives"], "sentence": "He is believed to be living in France.", "explanationVi": "Đang diễn ra: is believed to be living." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "She is said to has left the country.", "sentence": "She is said to have left the country.", "explanationVi": "Sau to dùng have nguyên mẫu." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "The company ___ to be losing money.", "options": ["is reported", "reports", "is reporting", "has reported"], "answerIndex": 0, "explanationVi": "Bị động tường thuật: is reported to be." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "The company ___ to be losing money.", "options": ["is reported", "reports", "is reporting", "has reported"], "answerIndex": 0, "explanationVi": "Bị động tường thuật: is reported to be." },
+      { "id": "p9", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "There ___ to be over a million people living in the city.", "options": ["are thought", "is thought", "are thinking", "thinks"], "answerIndex": 0, "explanationVi": "There + are thought + to be; are hợp với danh từ số nhiều people." },
+      { "id": "p10", "kind": "fill", "promptVi": "Điền một từ vào chỗ trống.", "text": "___ is said to be a secret room in the castle.", "answers": ["There"], "explanationVi": "There is said to be + danh từ: người ta đồn có…" }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "The thieves are thought ___ through the window.", "options": ["to have entered", "to enter", "entering", "have entered"], "answerIndex": 0, "explanationVi": "Việc xảy ra trước: to have entered." },

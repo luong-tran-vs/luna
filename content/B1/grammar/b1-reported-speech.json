@@ -3,9 +3,10 @@
     "objective": "Thuật lại lời người khác bằng said (that) / told + người nghe, biết lùi thì và đổi đại từ cho đúng.",
     "explanation": [
       "Câu tường thuật kể lại điều người khác đã nói: \"I am tired.\" → She said (that) she was tired. That có thể bỏ.",
-      "Khi động từ thuật ở quá khứ (said, told), động từ trong lời nói thường lùi một thì: am / is → was; are → were; hiện tại đơn → quá khứ đơn; hiện tại tiếp diễn → quá khứ tiếp diễn; will → would; can → could; hiện tại hoàn thành → quá khứ hoàn thành.",
-      "Đổi đại từ và từ chỉ thời gian theo người kể: I → he / she; my → his / her; today → that day; tomorrow → the next day; here → there.",
-      "Say không cần người nghe: She said that… Tell luôn có người nghe ngay sau: She told me that… (không nói said me)."
+      "Khi động từ thuật ở quá khứ (said, told), động từ trong lời nói thường lùi một thì: am / is → was; are → were; hiện tại đơn → quá khứ đơn; hiện tại tiếp diễn → quá khứ tiếp diễn; quá khứ đơn → quá khứ hoàn thành (hoặc giữ nguyên); will → would; can → could; hiện tại hoàn thành → quá khứ hoàn thành.",
+      "Đổi đại từ và từ chỉ thời gian theo người kể: I → he / she; my → his / her; today → that day; tomorrow → the next day; yesterday → the day before; now → then; ago → before; here → there.",
+      "Say không cần người nghe: She said that… Tell luôn có người nghe ngay sau: She told me that… (không nói said me).",
+      "Câu hỏi và câu mệnh lệnh cũng tường thuật được: He asked me where I lived. She told me to wait. Phần này được học kỹ ở bài tường thuật câu hỏi và mệnh lệnh (B2)."
     ],
     "usage": [
       "Kể lại lời ai đó: Nam said that he could swim.",
@@ -15,7 +16,7 @@
     "structures": [
       { "label": "Say", "pattern": "chủ ngữ + said (that) + mệnh đề đã lùi thì", "example": "She said that she was tired." },
       { "label": "Tell", "pattern": "chủ ngữ + told + người nghe + (that) + mệnh đề", "example": "She told me that she was busy." },
-      { "label": "Lùi thì", "pattern": "am / is → was; are → were; will → would; can → could; have / has done → had done", "example": "\"I will call you.\" → He said he would call me." }
+      { "label": "Lùi thì", "pattern": "am / is → was; are → were; did → had done; will → would; can → could; have / has done → had done", "example": "\"I will call you.\" → He said he would call me." }
     ],
     "examples": [
       { "en": "\"I am tired.\" → She said that she was tired.", "vi": "\"Tôi mệt.\" → Cô ấy nói rằng cô ấy mệt.", "structure": 1 },
@@ -24,7 +25,8 @@
       { "en": "She told me that she was busy.", "vi": "Cô ấy bảo tôi là cô ấy bận.", "structure": 2 },
       { "en": "\"The shop is closed.\" → He told us that the shop was closed.", "vi": "\"Cửa hàng đóng cửa rồi.\" → Anh ấy bảo chúng tôi là cửa hàng đã đóng cửa.", "structure": 2 },
       { "en": "\"I will call you.\" → He said that he would call me.", "vi": "\"Tôi sẽ gọi cho bạn.\" → Anh ấy nói sẽ gọi cho tôi.", "structure": 3 },
-      { "en": "\"I have finished my work.\" → She said she had finished her work.", "vi": "\"Tôi làm xong việc rồi.\" → Cô ấy nói đã làm xong việc.", "structure": 3 }
+      { "en": "\"I have finished my work.\" → She said she had finished her work.", "vi": "\"Tôi làm xong việc rồi.\" → Cô ấy nói đã làm xong việc.", "structure": 3 },
+      { "en": "\"I saw him yesterday.\" → She said that she had seen him the day before.", "vi": "\"Tôi gặp anh ấy hôm qua.\" → Cô ấy nói rằng cô ấy đã gặp anh ấy hôm trước.", "structure": 3 }
     ],
     "mistakes": [
       { "wrong": "She said me that she was hungry.", "right": "She told me that she was hungry.", "noteVi": "Có người nghe ngay sau thì dùng told, không dùng said." },
@@ -39,7 +41,8 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền said hoặc told.", "text": "She ___ me that she was busy.", "answers": ["told"], "explanationVi": "Có người nghe me ngay sau nên dùng told." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Anh ấy nói rằng anh ấy thích nhạc jazz.", "words": ["He", "said", "that", "he", "liked", "jazz", "music.", "told", "likes"], "sentence": "He said that he liked jazz music.", "explanationVi": "Không có người nghe nên dùng said; like lùi thành liked." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "She said me that she was hungry.", "sentence": "She told me that she was hungry.", "answers": ["She said that she was hungry.", "She told me she was hungry."], "explanationVi": "Có người nghe me thì dùng told." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách thuật lại đúng (có lùi thì).", "text": "\"I don't like coffee.\" → Lan said that she ___ like coffee.", "options": ["didn't", "doesn't", "don't", "wasn't"], "answerIndex": 0, "explanationVi": "Don't lùi thành didn't." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách thuật lại đúng (có lùi thì).", "text": "\"I don't like coffee.\" → Lan said that she ___ like coffee.", "options": ["didn't", "doesn't", "don't", "wasn't"], "answerIndex": 0, "explanationVi": "Don't lùi thành didn't." },
+      { "id": "p9", "kind": "fill", "promptVi": "Viết động từ lose sau khi lùi thì.", "text": "\"I lost my keys yesterday.\" → He said that he ___ his keys the day before.", "answers": ["had lost", "lost"], "explanationVi": "Quá khứ đơn lùi thành quá khứ hoàn thành: had lost (giữ lost cũng được)." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn cách thuật lại đúng (có lùi thì).", "text": "\"I'm going to the market.\" → Mum said she ___ to the market.", "options": ["was going", "is going", "goes", "will go"], "answerIndex": 0, "explanationVi": "Hiện tại tiếp diễn lùi thành quá khứ tiếp diễn: was going." },

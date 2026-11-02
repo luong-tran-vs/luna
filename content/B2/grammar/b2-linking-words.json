@@ -5,7 +5,8 @@
       "Although, though, even though + mệnh đề (chủ ngữ + động từ): Although it was late, we kept working. Even though mạnh hơn although.",
       "Despite, in spite of + danh từ hoặc V-ing (không phải mệnh đề): Despite the rain, we went out. In spite of being tired, she finished the report. Muốn dùng mệnh đề thì thêm the fact that: despite the fact that it was raining.",
       "However đứng đầu câu mới (hoặc sau dấu chấm phẩy), theo sau là dấu phẩy, để nối với câu trước: The hotel was expensive. However, the rooms were small.",
-      "Không dùng despite of, không dùng although với danh từ, và không dùng although cùng but trong một câu."
+      "Không dùng despite of, không dùng although với danh từ, và không dùng although cùng but trong một câu.",
+      "Whereas và while nối hai vế để đối chiếu hai sự việc khác nhau: My brother loves sport, whereas I prefer reading. Nevertheless và even so nghĩa giống However (tuy vậy), cũng đứng đầu câu mới và theo sau là dấu phẩy: The test was hard. Nevertheless, most students passed."
     ],
     "usage": [
       "Viết luận, đoạn văn: The film got good reviews. However, I didn't like it.",
@@ -15,7 +16,8 @@
     "structures": [
       { "label": "Although", "pattern": "Although / Even though + mệnh đề, + mệnh đề", "example": "Although it was late, we kept working." },
       { "label": "Despite", "pattern": "Despite / In spite of + danh từ / V-ing, + mệnh đề", "example": "Despite the rain, we went out." },
-      { "label": "However", "pattern": "Câu 1. However, câu 2.", "example": "I studied hard. However, I failed the test." }
+      { "label": "However", "pattern": "câu 1. + However / Nevertheless, + câu 2.", "example": "I studied hard. However, I failed the test." },
+      { "label": "Đối chiếu", "pattern": "mệnh đề, + whereas / while + mệnh đề", "example": "My brother loves sport, whereas I prefer reading." }
     ],
     "examples": [
       { "en": "Although it was late, we kept working.", "vi": "Dù đã muộn, chúng tôi vẫn làm tiếp.", "structure": 1 },
@@ -24,7 +26,10 @@
       { "en": "Despite the rain, we went out.", "vi": "Mặc dù trời mưa, chúng tôi vẫn ra ngoài.", "structure": 2 },
       { "en": "In spite of being tired, she finished the report.", "vi": "Dù mệt, cô ấy vẫn hoàn thành bản báo cáo.", "structure": 2 },
       { "en": "The hotel was expensive. However, the rooms were small.", "vi": "Khách sạn đắt. Thế nhưng phòng lại nhỏ.", "structure": 3 },
-      { "en": "It was raining. However, we went for a walk.", "vi": "Trời đang mưa. Tuy vậy, chúng tôi vẫn đi dạo.", "structure": 3 }
+      { "en": "It was raining. However, we went for a walk.", "vi": "Trời đang mưa. Tuy vậy, chúng tôi vẫn đi dạo.", "structure": 3 },
+      { "en": "The test was hard. Nevertheless, most students passed.", "vi": "Bài kiểm tra khó. Tuy vậy, phần lớn học sinh vẫn đỗ.", "structure": 3 },
+      { "en": "My brother loves sport, whereas I prefer reading.", "vi": "Anh tôi mê thể thao, còn tôi lại thích đọc sách.", "structure": 4 },
+      { "en": "Some people love the city, while others prefer the countryside.", "vi": "Có người mê thành phố, trong khi người khác lại thích nông thôn.", "structure": 4 }
     ],
     "mistakes": [
       { "wrong": "Despite it was raining, they played football.", "right": "Although it was raining, they played football.", "noteVi": "Trước mệnh đề dùng although, không dùng despite." },
@@ -39,7 +44,8 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền although hoặc despite.", "text": "She went to work ___ she had a cold.", "answers": ["although", "though"], "explanationVi": "Sau là mệnh đề (she had a cold): although." },
       { "id": "p6", "kind": "choice", "promptVi": "Chọn từ nối đúng.", "text": "He didn't get the job ___ his experience.", "options": ["despite", "although", "however", "even though"], "answerIndex": 0, "explanationVi": "Sau là danh từ (his experience): despite." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Despite it was raining, they played football.", "sentence": "Although it was raining, they played football.", "answers": ["Despite the rain, they played football.", "In spite of the rain, they played football.", "Even though it was raining, they played football.", "Despite the fact that it was raining, they played football.", "In spite of the fact that it was raining, they played football.", "Though it was raining, they played football."], "explanationVi": "Trước mệnh đề dùng although." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ nối đúng.", "text": "I studied hard. ___, I failed the test.", "options": ["However", "Although", "Despite", "Even though"], "answerIndex": 0, "explanationVi": "Đầu câu mới có dấu phẩy: However." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ nối đúng.", "text": "I studied hard. ___, I failed the test.", "options": ["However", "Although", "Despite", "Even though"], "answerIndex": 0, "explanationVi": "Đầu câu mới có dấu phẩy: However." },
+      { "id": "p9", "kind": "choice", "promptVi": "Chọn từ nối đúng.", "text": "My sister is very tidy, ___ I am quite messy.", "options": ["whereas", "despite", "however", "in spite of"], "answerIndex": 0, "explanationVi": "Đối chiếu hai vế khác nhau trong cùng một câu: whereas." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn từ nối đúng.", "text": "___ having a lot of money, he is not happy.", "options": ["Despite", "Although", "However", "Even though"], "answerIndex": 0, "explanationVi": "Sau là V-ing: Despite." },

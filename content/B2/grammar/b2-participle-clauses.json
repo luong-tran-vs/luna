@@ -5,7 +5,9 @@
       "Mệnh đề phân từ thay cho một mệnh đề đầy đủ khi hai vế có cùng chủ ngữ: While I was walking home, I met an old friend → Walking home, I met an old friend.",
       "V-ing mang nghĩa chủ động, thường chỉ việc xảy ra cùng lúc hoặc lý do: Feeling tired, she went to bed early (vì thấy mệt). Phủ định: Not knowing what to do, I called my mother.",
       "V3 mang nghĩa bị động: Built in 1990, the bridge is still strong (cây cầu được xây). Written in simple English, the book is easy to read.",
-      "Having + V3 nhấn mạnh việc đã xong trước việc kia: Having finished his work, he went out. Phân từ cũng rút gọn mệnh đề quan hệ: The man sitting next to me (= who was sitting); the photos taken on our trip (= which were taken)."
+      "Having + V3 nhấn mạnh việc đã xong trước việc kia: Having finished his work, he went out. Phân từ cũng rút gọn mệnh đề quan hệ: The man sitting next to me (= who was sitting); the photos taken on our trip (= which were taken).",
+      "Chủ ngữ của mệnh đề chính phải là người (hay vật) làm hành động của phân từ. Walking home, it started to rain là sai vì trời không đi bộ; phải viết While I was walking home, it started to rain.",
+      "Có thể giữ liên từ trước phân từ cho rõ nghĩa: After finishing dinner, we watched TV. Before leaving, check that the windows are closed. While waiting for the bus, I read the news. When asked, she said she didn't know (= when she was asked)."
     ],
     "usage": [
       "Văn viết, kể chuyện: Looking out of the window, I saw a rainbow.",
@@ -16,7 +18,8 @@
       { "label": "Chủ động", "pattern": "V-ing …, + mệnh đề chính", "example": "Walking home, I met an old friend." },
       { "label": "Bị động", "pattern": "V3 …, + mệnh đề chính", "example": "Built in 1990, the bridge is still strong." },
       { "label": "Việc xảy ra trước", "pattern": "Having + V3 …, + mệnh đề chính", "example": "Having finished his work, he went out." },
-      { "label": "Rút gọn mệnh đề quan hệ", "pattern": "danh từ + V-ing / V3 …", "example": "The photos taken on our trip are on my laptop." }
+      { "label": "Rút gọn mệnh đề quan hệ", "pattern": "danh từ + V-ing / V3 …", "example": "The photos taken on our trip are on my laptop." },
+      { "label": "Liên từ + phân từ", "pattern": "After / Before / While + V-ing …, + mệnh đề chính; When + V3 …, + mệnh đề chính", "example": "After finishing dinner, we watched TV." }
     ],
     "examples": [
       { "en": "Walking home, I met an old friend.", "vi": "Trên đường đi bộ về nhà, tôi gặp một người bạn cũ.", "structure": 1 },
@@ -27,12 +30,15 @@
       { "en": "Having finished his work, he went out.", "vi": "Làm xong việc, anh ấy đi ra ngoài.", "structure": 3 },
       { "en": "Having lost his keys, he couldn't get into the house.", "vi": "Vì đã làm mất chìa khoá, anh ấy không vào nhà được.", "structure": 3 },
       { "en": "The man sitting next to me on the bus was very friendly.", "vi": "Người đàn ông ngồi cạnh tôi trên xe buýt rất thân thiện.", "structure": 4 },
-      { "en": "The photos taken on our trip are on my laptop.", "vi": "Những bức ảnh chụp trong chuyến đi đang ở trong máy tính của tôi.", "structure": 4 }
+      { "en": "The photos taken on our trip are on my laptop.", "vi": "Những bức ảnh chụp trong chuyến đi đang ở trong máy tính của tôi.", "structure": 4 },
+      { "en": "After finishing dinner, we watched TV.", "vi": "Ăn tối xong, chúng tôi xem tivi.", "structure": 5 },
+      { "en": "While waiting for the bus, I read the news on my phone.", "vi": "Trong lúc chờ xe buýt, tôi đọc tin trên điện thoại.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "Having eat lunch, we went for a walk.", "right": "Having eaten lunch, we went for a walk.", "noteVi": "Sau having cần V3 eaten." },
       { "wrong": "Opened the door, she saw a cat.", "right": "Opening the door, she saw a cat.", "noteVi": "Cô ấy tự mở cửa (chủ động) nên dùng V-ing." },
-      { "wrong": "Writing in simple English, the book is easy to read.", "right": "Written in simple English, the book is easy to read.", "noteVi": "Cuốn sách được viết (bị động) nên dùng V3." }
+      { "wrong": "Writing in simple English, the book is easy to read.", "right": "Written in simple English, the book is easy to read.", "noteVi": "Cuốn sách được viết (bị động) nên dùng V3." },
+      { "wrong": "Walking home, it started to rain.", "right": "While I was walking home, it started to rain.", "noteVi": "Chủ ngữ của mệnh đề chính phải là người làm hành động V-ing." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn phân từ đúng.", "text": "___ home, I met an old friend.", "options": ["Walking", "Walked", "To walk", "Walk"], "answerIndex": 0, "explanationVi": "Tôi đi bộ (chủ động, cùng lúc): Walking." },
@@ -42,7 +48,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Viết V-ing hoặc V3 của động từ trong ngoặc.", "text": "___ (write) in simple English, the book is easy to read.", "answers": ["Written"], "explanationVi": "Cuốn sách được viết (bị động): Written." },
       { "id": "p6", "kind": "fill", "promptVi": "Viết dạng phủ định của phân từ.", "text": "___ (not / know) what to do, I called my mother.", "answers": ["Not knowing"], "explanationVi": "Phủ định: Not + V-ing." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Having eat lunch, we went for a walk.", "sentence": "Having eaten lunch, we went for a walk.", "explanationVi": "Sau having cần V3 eaten." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn phân từ đúng.", "text": "The man ___ next to me on the bus was very friendly.", "options": ["sitting", "to sit", "sits", "was sitting"], "answerIndex": 0, "explanationVi": "Rút gọn who was sitting: sitting." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn phân từ đúng.", "text": "The man ___ next to me on the bus was very friendly.", "options": ["sitting", "to sit", "sits", "was sitting"], "answerIndex": 0, "explanationVi": "Rút gọn who was sitting: sitting." },
+      { "id": "p9", "kind": "fix", "promptVi": "Câu sau dùng sai mệnh đề phân từ (chủ ngữ không khớp). Hãy viết lại câu đúng, bắt đầu bằng While I.", "text": "Waiting for the bus, it started to rain.", "sentence": "While I was waiting for the bus, it started to rain.", "answers": ["While I waited for the bus, it started to rain."], "explanationVi": "Trời mưa không phải là người chờ xe buýt, nên phải dùng mệnh đề đầy đủ While I was waiting." },
+      { "id": "p10", "kind": "fill", "promptVi": "Viết V-ing của động từ trong ngoặc.", "text": "Before ___ (leave) the office, please turn off the lights.", "answers": ["leaving"], "explanationVi": "Sau liên từ before dùng V-ing: before leaving." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn phân từ đúng.", "text": "___ by the noise, the baby started to cry.", "options": ["Woken", "Waking", "Having woken", "Woke"], "answerIndex": 0, "explanationVi": "Em bé bị đánh thức (bị động): Woken." },

@@ -4,7 +4,8 @@
     "explanation": [
       "Danh từ đếm được có số ít và số nhiều: an apple, two apples, a chair, many chairs. Danh từ không đếm được không có số nhiều và không đi với a / an: water, milk, rice, bread, money, time, information, homework.",
       "Some dùng trong câu khẳng định và khi mời, xin: We need some eggs. I'd like some water. Any dùng trong câu phủ định và câu hỏi: There isn't any milk. Do you have any brothers?",
-      "Many đi với danh từ đếm được số nhiều, much đi với danh từ không đếm được. Hai từ này hay dùng trong câu phủ định và câu hỏi: I don't have much time. How many students are there? How much money do you have? Câu khẳng định thường dùng a lot of thay cho much / many: I have a lot of time."
+      "Many đi với danh từ đếm được số nhiều, much đi với danh từ không đếm được. Hai từ này hay dùng trong câu phủ định và câu hỏi: I don't have much time. How many students are there? How much money do you have? Câu khẳng định thường dùng a lot of thay cho much / many: I have a lot of time.",
+      "Muốn đếm danh từ không đếm được, ta dùng đơn vị + of: a glass of water, a cup of coffee, a bottle of milk, a piece of bread, a kilo of rice. Khi nhiều hơn một thì thêm -s vào đơn vị, không thêm vào danh từ: two cups of coffee, three bottles of water."
     ],
     "usage": [
       "Hỏi số lượng đếm được: How many cups of coffee do you drink a day?",
@@ -15,7 +16,8 @@
       { "label": "Khẳng định", "pattern": "some + danh từ số nhiều / không đếm được", "example": "There are some oranges on the table." },
       { "label": "Phủ định và câu hỏi", "pattern": "any + danh từ số nhiều / không đếm được", "example": "There isn't any milk in the fridge." },
       { "label": "Đếm được", "pattern": "many / How many + danh từ số nhiều", "example": "How many students are there in your class?" },
-      { "label": "Không đếm được", "pattern": "much / How much + danh từ không đếm được", "example": "How much money do you have?" }
+      { "label": "Không đếm được", "pattern": "much / How much + danh từ không đếm được", "example": "How much money do you have?" },
+      { "label": "Đơn vị đếm", "pattern": "a / two + đơn vị (glass, cup, bottle, piece, kilo) + of + danh từ không đếm được", "example": "Can I have a glass of water?" }
     ],
     "examples": [
       { "en": "There are some oranges on the table.", "vi": "Có mấy quả cam trên bàn.", "structure": 1 },
@@ -25,12 +27,15 @@
       { "en": "How many students are there in your class? – There are thirty-five.", "vi": "Lớp bạn có bao nhiêu học sinh? – Có ba mươi lăm học sinh.", "structure": 3 },
       { "en": "There aren't many cars in my village.", "vi": "Làng tôi không có nhiều ô tô.", "structure": 3 },
       { "en": "I don't have much time today.", "vi": "Hôm nay tôi không có nhiều thời gian.", "structure": 4 },
-      { "en": "How much sugar do you want? – Just a little, please.", "vi": "Bạn muốn bao nhiêu đường? – Một chút thôi.", "structure": 4 }
+      { "en": "How much sugar do you want? – Just a little, please.", "vi": "Bạn muốn bao nhiêu đường? – Một chút thôi.", "structure": 4 },
+      { "en": "Can I have a piece of bread, please? – Of course. Here you are.", "vi": "Cho tôi xin một miếng bánh mì nhé? – Được chứ. Của bạn đây.", "structure": 5 },
+      { "en": "My mother bought two kilos of rice at the market.", "vi": "Mẹ tôi mua hai cân gạo ở chợ.", "structure": 5 }
     ],
     "mistakes": [
       { "wrong": "Can you give me some informations?", "right": "Can you give me some information?", "noteVi": "Information không đếm được nên không thêm -s." },
       { "wrong": "There aren't much chairs in this room.", "right": "There aren't many chairs in this room.", "noteVi": "Chairs đếm được nên dùng many." },
-      { "wrong": "How many money do you have?", "right": "How much money do you have?", "noteVi": "Money không đếm được nên dùng How much." }
+      { "wrong": "How many money do you have?", "right": "How much money do you have?", "noteVi": "Money không đếm được nên dùng How much." },
+      { "wrong": "Can I have a bread?", "right": "Can I have a piece of bread?", "noteVi": "Bread không đếm được nên không dùng a; muốn đếm thì dùng a piece of." }
     ],
     "practice": [
       { "id": "p1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "There isn't ___ milk in the fridge.", "options": ["any", "some", "many", "a"], "answerIndex": 0, "explanationVi": "Câu phủ định dùng any; milk không đếm được." },
@@ -40,7 +45,9 @@
       { "id": "p5", "kind": "fill", "promptVi": "Điền much hoặc many.", "text": "How ___ money do you have?", "answers": ["much"], "explanationVi": "Money không đếm được nên dùng How much." },
       { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Tôi không có nhiều thời gian.", "words": ["I", "don't", "have", "much", "time.", "many", "a"], "sentence": "I don't have much time.", "explanationVi": "Time (thời gian) không đếm được nên dùng much." },
       { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Can you give me some informations?", "sentence": "Can you give me some information?", "explanationVi": "Information không đếm được, không thêm -s." },
-      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "I'd like ___ water, please.", "options": ["some", "any", "many", "a"], "answerIndex": 0, "explanationVi": "Khi xin, gọi đồ dùng some." }
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "I'd like ___ water, please.", "options": ["some", "any", "many", "a"], "answerIndex": 0, "explanationVi": "Khi xin, gọi đồ dùng some." },
+      { "id": "p9", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "Can I have a bread, please?", "sentence": "Can I have a piece of bread, please?", "answers": ["Can I have some bread, please?", "Can I have a slice of bread, please?"], "explanationVi": "Bread không đếm được nên không đi với a; dùng a piece of bread hoặc some bread." },
+      { "id": "p10", "kind": "fill", "promptVi": "Viết đúng dạng của từ trong ngoặc.", "text": "My father drinks two ___ (cup) of coffee every morning.", "answers": ["cups"], "explanationVi": "Đếm danh từ không đếm được bằng đơn vị; số nhiều thêm -s vào đơn vị: two cups of coffee." }
     ],
     "mastery": [
       { "id": "m1", "kind": "choice", "promptVi": "Chọn từ đúng để hoàn thành câu.", "text": "There are ___ oranges on the table.", "options": ["some", "any", "much", "an"], "answerIndex": 0, "explanationVi": "Câu khẳng định với danh từ số nhiều dùng some." },
