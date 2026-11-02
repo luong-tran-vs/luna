@@ -110,18 +110,27 @@ Return a JSON object with:
    adverbs, linking words, word order, style) gets its real variants instead (for example a / an / the; in / on / at; although /
    despite): never invent a negative or question form the point does not have.
    Each has a Vietnamese label, the pattern and one English example.
-   When the form changes with the subject, name every subject in each pattern (for example "I am", "he / she / it is", "you / we / they are"),
-   in the explanation too: never say a form goes with only one subject when it goes with several.
+   Write each pattern as pieces joined by " + ", and keep the subject its own piece: "chủ ngữ + am / is / are + V-ing", never
+   "I am" or "he is" in one piece. Name the placeholders in Vietnamese and alike in every pattern: "chủ ngữ", "động từ nguyên
+   mẫu", "danh từ", "tân ngữ", "mệnh đề", with "V2", "V3", "V-ing" and "Wh-word" (not S, V, Subject, verb or noun). When a pattern
+   has two clauses, the comma stays at the end of the first clause's last piece: "If + hiện tại đơn, + chủ ngữ + will + động từ
+   nguyên mẫu". Put forms that differ on separate lines: "; " between them, or " / " between whole forms that each begin with
+   their subject ("I + am / he, she, it + is / you, we, they + are + ..."). Use "->" only before the answers of a question;
+   a spelling change is written as one piece ("phụ âm-y → -ies").
+   When the form changes with the subject, name every subject in each pattern (for example "I + am", "he, she, it + is",
+   "you, we, they + are"), in the explanation too: never say a form goes with only one subject when it goes with several.
    A Yes/No question pattern gives the short answers after "->", a "Yes" and a "No" answer for every question in it (for
    example "Am + I ...? / Is + he / she / it ...? / Are + you / we / they ...? -> Yes, I am. / No, I'm not. / Yes, he is. /
    No, he isn't. / Yes, we are. / No, we aren't."): never leave a question without its answers.
 5. examples: English sentences that show the point, each with its Vietnamese meaning: 2 or 3 for every structure (at least 4 and
    at most 12 in all), with different subjects. Take inspiration from the course examples below, but do not only copy them.
+   An example that is a question carries its short answer after " – " in en and in vi alike ("Is she your sister? – Yes, she
+   is." / "Cô ấy là chị gái bạn à? – Đúng vậy."); a Wh- question gets a natural answer ("Where is he? – He's at home.").
    structure is the 1-based number of the structure in the list above that the sentence shows.
    marked is the same English sentence, character for character, with the words of each piece of that structure's pattern
    wrapped as {n:words}, where n is the 1-based number of the piece when the pattern is cut at "+" (a pattern of several
    questions joined by " / " counts its pieces line after line; the answers after "->" are not pieces). For the pattern
-   "S + am / is / are + V-ing", "She is reading a book." is marked "{1:She} {2:is} {3:reading} a book." Removing the marks
+   "chủ ngữ + am / is / are + V-ing", "She is reading a book." is marked "{1:She} {2:is} {3:reading} a book." Removing the marks
    must give back en exactly. Mark only the words of the pattern, never the rest of the sentence.
 6. mistakes: 3 to 5 mistakes Vietnamese learners often make: the wrong English sentence, the right one, and noteVi, a short Vietnamese note on why.
    Start from the common mistakes listed below when there are any (you may reword the note), then add others.
