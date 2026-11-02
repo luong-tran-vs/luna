@@ -246,6 +246,61 @@ describe('grammar logic', () => {
       expect(rows[0].parts.map((p) => p.text)).toEqual(['S', 'am / is / are', 'danh từ hoặc tính từ']);
     });
 
+    const lines = (pattern: string) =>
+      patternRows([pattern])[0].map((r) =>
+        r.answer ? `→ ${r.parts[0].text}` : r.parts.map((p) => p.text).join(' | '),
+      );
+
+    it('keeps a choice between words inside its piece, even when both sides have a "+"', () => {
+      expect(lines('động từ + into / out of + nơi chốn')).toEqual([
+        'động từ | into / out of | nơi chốn',
+      ]);
+      expect(lines('What + do / does + chủ ngữ + have...?')).toEqual([
+        'What | do / does | chủ ngữ | have...?',
+      ]);
+      expect(lines("If + don't / doesn't + động từ, …")).toEqual([
+        "If | don't / doesn't | động từ, …",
+      ]);
+    });
+
+    it('starts a line at ";" and at "/" between forms that begin alike', () => {
+      expect(lines('I / he / she / it + was; you / we / they + were')).toEqual([
+        'I / he / she / it | was',
+        'you / we / they | were',
+      ]);
+      expect(
+        lines(
+          "There is not (There isn't) + danh từ số ít / There are not (There aren't) + danh từ số nhiều",
+        ),
+      ).toEqual([
+        "There is not (There isn't) | danh từ số ít",
+        "There are not (There aren't) | danh từ số nhiều",
+      ]);
+      expect(lines('…; if anything, …')).toEqual(['…; if anything, …']);
+    });
+
+    it('takes an arrow for answers only after a question', () => {
+      expect(lines('y → ies (nguyên âm + y thì thêm s)')).toEqual([
+        'y → ies (nguyên âm + y thì thêm s)',
+      ]);
+      expect(lines('good → better; bad → worse')).toEqual(['good → better', 'bad → worse']);
+      expect(lines('Is there + danh từ số ít? -> Yes, there is.')).toEqual([
+        'Is there | danh từ số ít?',
+        '→ Yes, there is.',
+      ]);
+    });
+
+    it('does not cut at a "+" in brackets', () => {
+      expect(lines('động từ (+ tân ngữ) + trạng từ')).toEqual(['động từ (+ tân ngữ) | trạng từ']);
+    });
+
+    it('colours "Yes, chủ ngữ" and "Subject (…)" as the subject, "danh từ" and "s" not', () => {
+      const tones = (pattern: string) => patternParts([pattern])[0].map((p) => p.tone);
+      expect(tones('Yes, chủ ngữ + did.')).toEqual([0, 1]);
+      expect(tones('Subject (I am / he, she, it is) + in + noun')[0]).toBe(0);
+      expect(tones('danh từ + s')).not.toContain(0);
+    });
+
     it('numbers the pieces for the marks line after line, without the answers', () => {
       expect(patternParts(['Am + I …? / Is + he …? -> Yes, I am.'])[0].map((p) => p.text)).toEqual(['Am', 'I …?', 'Is', 'he …?']);
     });

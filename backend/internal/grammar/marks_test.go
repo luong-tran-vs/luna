@@ -25,6 +25,28 @@ func TestPatternPieces(t *testing.T) {
 	}
 }
 
+// The cases fixed on 2026-11-02, cut alike by patternRows in grammar-logic.ts.
+func TestPatternPiecesLikeTheStudyPage(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		pattern string
+		want    []string
+	}{
+		{"động từ + into / out of + nơi chốn", []string{"động từ", "into / out of", "nơi chốn"}},
+		{"What + do / does + chủ ngữ + have...?", []string{"What", "do / does", "chủ ngữ", "have...?"}},
+		{"I / he / she / it + was; you / we / they + were", []string{"I / he / she / it", "was", "you / we / they", "were"}},
+		{"There is not + danh từ số ít / There are not + danh từ số nhiều", []string{"There is not", "danh từ số ít", "There are not", "danh từ số nhiều"}},
+		{"y → ies (nguyên âm + y thì thêm s)", []string{"y → ies (nguyên âm + y thì thêm s)"}},
+		{"Is there + danh từ số ít? -> Yes, there is.", []string{"Is there", "danh từ số ít?"}},
+		{"động từ (+ tân ngữ) + trạng từ", []string{"động từ (+ tân ngữ)", "trạng từ"}},
+	}
+	for _, tt := range tests {
+		if got := PatternPieces(tt.pattern); !slices.Equal(got, tt.want) {
+			t.Errorf("PatternPieces(%q) = %q, want %q", tt.pattern, got, tt.want)
+		}
+	}
+}
+
 func TestValidateChecksTheStructureAndMarksOfExamples(t *testing.T) {
 	t.Parallel()
 	// The fixture has one structure, "S + am/is/are": two pieces.

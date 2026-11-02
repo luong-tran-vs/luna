@@ -107,46 +107,111 @@ export interface PatternRow {
   answer: boolean;
 }
 
-/** The arrow before the answers of a question pattern: "Am + I …? -> Yes, I am." */
+/**
+ * The arrow before the answers of a question pattern: "Am + I …? -> Yes, I am." After anything but a
+ * question it is part of the pattern: "y → ies", "go → went".
+ */
 const PATTERN_ARROW = /\s*(?:->|→|=>)\s*/;
 /** "/" or "hoặc" after a whole sentence starts another line: "Am + I …? / Is + he …?" */
-const PATTERN_LINE = /([.?!…])\s+(?:\/|hoặc)\s+/g;
+const PATTERN_LINE = /([.?!])\s+(?:\/|hoặc)\s+/g;
+
+/** How deep in brackets the end of `text` is. */
+function bracketDepth(text: string): number {
+  let depth = 0;
+  for (const ch of text) {
+    depth += '(['.includes(ch) ? 1 : ')]'.includes(ch) ? -1 : 0;
+  }
+  return depth;
+}
+
+/** `text` cut at `sep` (global) outside brackets: "động từ (+ tân ngữ) + trạng từ" cuts once at "+". */
+function splitOutside(text: string, sep: RegExp): string[] {
+  const out: string[] = [];
+  let from = 0;
+  for (const m of text.matchAll(sep)) {
+    if (bracketDepth(text.slice(0, m.index)) === 0) {
+      out.push(text.slice(from, m.index));
+      from = m.index + m[0].length;
+    }
+  }
+  out.push(text.slice(from));
+  return out;
+}
+
+/** The pieces of one line of a pattern: cut at "+" outside brackets. */
+function linePieces(line: string): string[] {
+  return splitOutside(line, /\+/g)
+    .map((s) => s.trim())
+    .filter((s) => s !== '');
+}
 
 /**
- * The lines of a pattern. Besides a "/" after a whole sentence, a "/" between forms that each have
- * their "+" ("I + am / he, she, it + is / you, we, they + are") starts a line, while short choices
- * inside a piece ("S + am / is / are") stay.
+ * The lines of a pattern. Besides a "/" after a whole sentence, a ";" between forms ("I + was; you +
+ * were") starts a line, and so does a "/" between forms that each have their "+" and begin alike, with
+ * a subject or with a helping verb ("I + am / he, she, it + is"; "Were + S + to … / Were it not for …").
+ * Choices inside a piece stay: "S + am / is / are", "động từ + into / out of + nơi chốn",
+ * "What + do / does + S".
  */
 function patternLines(text: string): string[] {
   return text
     .replace(PATTERN_LINE, '$1\n')
     .split('\n')
     .flatMap((line) => {
-      const forms = line.split(/\s+\/\s+/);
-      return forms.length > 1 && forms.every((f) => f.includes('+')) ? forms : [line];
+      const parts = splitOutside(line, /\s*;\s+/g);
+      return parts.length > 1 && parts.every((p) => /\p{L}/u.test(p)) ? parts : [line];
+    })
+    .flatMap((line) => {
+      const forms = splitOutside(line, /\s+\/\s+/g).map(linePieces);
+      if (forms.length < 2 || forms.some((f) => f.length < 2)) {
+        return [line];
+      }
+      const role = pieceRole(forms[0][0]);
+      const word = firstWord(forms[0][0]);
+      const alike =
+        (role !== '' && forms.every((f) => pieceRole(f[0]) === role)) ||
+        forms.every((f) => firstWord(f[0]) === word);
+      return alike ? forms.map((f) => f.join(' + ')) : [line];
     })
     .map((s) => s.trim())
     .filter((s) => s !== '');
 }
 
-/** Words that make a piece the subject: "S", "he, she, it", "chủ ngữ". */
-const SUBJECT_WORDS = new Set(
-  'i you he she it we they s sb subject chủ ngữ danh từ noun my your his her our their this that these those'.split(' '),
-);
+/** Words that make a piece the subject: "S", "he, she, it", "chủ ngữ" (the server's subjectWords). */
+const SUBJECT_WORDS = new Set('i you he she it we they subject sb this these those'.split(' '));
 /** Words that make a piece the verb "be" or a helping verb: "am / is / are", "Does", "will not". */
 const HELPER_WORDS = new Set(
-  "am is are was were be been being do does did have has had will would can could shall should may might must isn't aren't wasn't weren't don't doesn't didn't won't can't haven't hasn't".split(
+  "am is are was were be been being do does did have has had will would can could shall should may might must isn't aren't wasn't weren't don't doesn't didn't won't can't couldn't wouldn't shouldn't mustn't needn't haven't hasn't hadn't".split(
     ' ',
   ),
 );
 
-/** A piece's words, without "…", "?" and brackets: "he, she, it …?" gives he, she, it. */
+/**
+ * The words that tell what a piece is: without a note in brackets ("is not (isn't)" gives is, not),
+ * a leading "Yes," or "No," and punctuation; "S" and "chủ ngữ" give subject.
+ */
 function pieceWords(text: string): string[] {
-  return text
-    .toLowerCase()
-    .replace(/[’]/g, "'")
-    .split(/[\s,/()?.!…]+/)
-    .filter((w) => w !== '');
+  const outside = text.replace(/\([^()]*\)/g, ' ');
+  const words = (/\p{L}/u.test(outside) ? outside : text)
+    .replace(/chủ ngữ/gi, 'subject')
+    .replace(/’/g, "'")
+    .split(/[\s,/()[\]?.!…]+/)
+    .filter((w) => w !== '')
+    .map((w) => (w === 'S' ? 'subject' : w.toLowerCase()));
+  return words.length > 1 && (words[0] === 'yes' || words[0] === 'no') ? words.slice(1) : words;
+}
+
+/** The first word of a piece in lower case: "There is not" gives there. */
+function firstWord(text: string): string {
+  return text.trim().split(/\s+/)[0].toLowerCase();
+}
+
+/** What a piece is: the subject, "be" or a helping verb, or '' for anything else. */
+function pieceRole(text: string): 'subject' | 'helper' | '' {
+  const words = pieceWords(text);
+  if (words.length > 0 && words.every((w) => SUBJECT_WORDS.has(w))) {
+    return 'subject';
+  }
+  return words.length > 0 && HELPER_WORDS.has(words[0]) ? 'helper' : '';
 }
 
 /**
@@ -154,14 +219,11 @@ function pieceWords(text: string): string[] {
  * the subject 0, "be" or a helping verb 1, anything else 2 or 3 (the same text keeps its tone).
  */
 function pieceTone(text: string, others: Map<string, number>): number {
-  const words = pieceWords(text);
-  if (words.length > 0 && words.every((w) => SUBJECT_WORDS.has(w))) {
-    return 0;
+  const role = pieceRole(text);
+  if (role !== '') {
+    return role === 'subject' ? 0 : 1;
   }
-  if (words.length > 0 && HELPER_WORDS.has(words[0])) {
-    return 1;
-  }
-  const key = words.join(' ');
+  const key = pieceWords(text).join(' ');
   if (!others.has(key)) {
     others.set(key, 2 + (others.size % (PATTERN_TONES - 2)));
   }
@@ -178,19 +240,21 @@ export function patternRows(patterns: readonly string[]): PatternRow[][] {
   const others = new Map<string, number>();
   const tone = (text: string) => pieceTone(text, others);
   return patterns.map((pattern) => {
-    const [ask, ...answers] = pattern.split(PATTERN_ARROW);
+    const [ask, answers] = splitAnswers(pattern);
     const rows: PatternRow[] = patternLines(ask)
       .map((line) => ({
-        parts: line
-          .split('+')
-          .map((s) => s.trim())
-          .filter((s) => s !== '')
-          .map((text) => ({ text, tone: tone(text) })),
+        parts: linePieces(line).map((text) => ({ text, tone: tone(text) })),
         answer: false,
       }))
       .filter((r) => r.parts.length > 0);
     return withAnswers(rows, answers.flatMap(patternLines));
   });
+}
+
+/** A pattern and its sample answers: cut at the first arrow only when a question comes before it. */
+function splitAnswers(pattern: string): [string, string[]] {
+  const [ask, ...answers] = pattern.split(PATTERN_ARROW);
+  return answers.length > 0 && /\?\s*$/.test(ask) ? [ask, answers] : [pattern, []];
 }
 
 /** The words of an English line, contractions written out: "I'm not" gives i, am, not. */
