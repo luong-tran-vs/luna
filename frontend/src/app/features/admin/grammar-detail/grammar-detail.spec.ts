@@ -591,4 +591,68 @@ describe('GrammarDetail', () => {
     await settle();
     expect(el.querySelector('.preview')).not.toBeNull();
   });
+  describe('editing one section', () => {
+    const sectionButton = (aria: string) =>
+      el.querySelector<HTMLButtonElement>(`button[aria-label="${aria}"]`)!;
+    const input = async (selector: string, value: string) => {
+      const field = el.querySelector<HTMLInputElement>(selector)!;
+      field.value = value;
+      field.dispatchEvent(new Event('input'));
+      await settle();
+    };
+
+    it('saves the structures alone, the exercises sent back unchanged', async () => {
+      await setup();
+      sectionButton('Sửa phần cấu trúc').click();
+      await settle();
+      expect(el.querySelector('lu-grammar-section-editor')).not.toBeNull();
+      await input('#sec-s-pattern-0', 'chủ ngữ + am / is / are');
+      expect(text(el.querySelector('.section-editor .preview'))).toContain('chủ ngữ');
+      el.querySelector('.section-editor')!.dispatchEvent(new Event('submit'));
+      await settle();
+      const req = http.expectOne(URL);
+      expect(req.request.method).toBe('PUT');
+      const sent = (req.request.body as { content: GrammarContent }).content;
+      expect(sent.structures[0].pattern).toBe('chủ ngữ + am / is / are');
+      expect(sent.practice).toEqual(content.practice);
+      expect(sent.mastery).toEqual(content.mastery);
+      expect(sent.objective).toBe(content.objective);
+      req.flush({ lesson: lesson({ edited: true, content: sent }) });
+      await settle();
+      expect(el.querySelector('lu-grammar-section-editor')).toBeNull();
+      expect(text(el.querySelector('.banner-note'))).toBe('Đã lưu phần cấu trúc.');
+    });
+
+    it('keeps the form open with the errors of the server', async () => {
+      await setup();
+      sectionButton('Sửa phần lỗi thường gặp').click();
+      await settle();
+      el.querySelector('.section-editor')!.dispatchEvent(new Event('submit'));
+      await settle();
+      http.expectOne(URL).flush(
+        {
+          error: 'validation_failed',
+          message: 'Nội dung chưa hợp lệ.',
+          fields: { 'content.mistakes[0].right': 'Không được để trống' },
+        },
+        { status: 400, statusText: 'Bad Request' },
+      );
+      await settle();
+      expect(el.querySelector('lu-grammar-section-editor')).not.toBeNull();
+      expect(text(el.querySelector('.section-editor'))).toContain(
+        'content.mistakes[0].right: Không được để trống',
+      );
+    });
+
+    it('opens one section at a time and closes it on Huỷ', async () => {
+      await setup();
+      sectionButton('Sửa phần ví dụ').click();
+      await settle();
+      expect(sectionButton('Sửa phần cấu trúc').disabled).toBe(true);
+      button('Huỷ').click();
+      await settle();
+      expect(el.querySelector('lu-grammar-section-editor')).toBeNull();
+      expect(sectionButton('Sửa phần cấu trúc').disabled).toBe(false);
+    });
+  });
 });

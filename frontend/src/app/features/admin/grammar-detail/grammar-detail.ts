@@ -27,6 +27,10 @@ import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm
 import { Loading } from '../../../shared/components/loading/loading';
 import { AdminApiService } from '../admin-api.service';
 import { grammarFailure } from '../grammar-errors';
+import { patternRows } from '../../grammar/grammar-logic';
+import { Pattern } from '../../grammar/pattern/pattern';
+import { ExampleLines, shownExample } from '../../grammar/example-lines/example-lines';
+import { GrammarSection, GrammarSectionEditor, SECTION_LABELS } from '../grammar-section-editor/grammar-section-editor';
 
 type LoadState = 'loading' | 'ready' | 'empty' | 'error';
 type Action =
@@ -38,7 +42,8 @@ type Action =
   | 'confirm'
   | 'verify'
   | 'exercise'
-  | 'delete';
+  | 'delete'
+  | 'section';
 
 /** Fields of the exercise form that the server can complain about. */
 const EXERCISE_FIELDS = ['promptVi', 'text', 'options', 'answerIndex', 'answers', 'words', 'sentence', 'explanationVi'];
@@ -60,7 +65,17 @@ export function formatContent(content: GrammarContent): string {
  */
 @Component({
   selector: 'lu-grammar-detail',
-  imports: [Loading, ConfirmDialog, DatePipe, NgTemplateOutlet, ReactiveFormsModule, RouterLink],
+  imports: [
+    Loading,
+    ConfirmDialog,
+    DatePipe,
+    ExampleLines,
+    GrammarSectionEditor,
+    NgTemplateOutlet,
+    Pattern,
+    ReactiveFormsModule,
+    RouterLink,
+  ],
   templateUrl: './grammar-detail.html',
   styleUrl: './grammar-detail.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -75,6 +90,24 @@ export class GrammarDetail {
   protected readonly lesson = signal<GrammarLessonAdmin | null>(null);
   protected readonly point = signal<GrammarPoint | null>(null);
   protected readonly title = computed(() => this.point()?.titleVi ?? this.pointId);
+  /** The structures' patterns in coloured lines, as the study page shows them. */
+  protected readonly patternLines = computed(() =>
+    patternRows((this.lesson()?.content.structures ?? []).map((s) => s.pattern)),
+  );
+  /** The examples coloured like their structure's pattern, as the study page shows them. */
+  protected readonly shownExamples = computed(() => {
+    const parts = this.patternLines().map((rows) =>
+      rows.filter((r) => !r.answer).flatMap((r) => r.parts),
+    );
+    return (this.lesson()?.content.examples ?? []).map((e) =>
+      shownExample(e.en, e.vi, e.marked, e.structure ? (parts[e.structure - 1] ?? []) : []),
+    );
+  });
+  /** The section open in its own form (added 2026-11-02), null when none. */
+  protected readonly editingSection = signal<GrammarSection | null>(null);
+  protected readonly sectionError = signal<string | null>(null);
+  protected readonly sectionFields = signal<string[]>([]);
+
 
   protected readonly busy = signal<Action | null>(null);
   protected readonly actionError = signal<string | null>(null);
@@ -439,6 +472,29 @@ export class GrammarDetail {
     await this.run('save', () => this.api.saveGrammarLesson(this.pointId, content), 'Đã lưu nội dung.');
   }
 
+  protected startSection(section: GrammarSection): void {
+    this.sectionError.set(null);
+    this.sectionFields.set([]);
+    this.editingSection.set(section);
+  }
+
+  protected cancelSection(): void {
+    this.editingSection.set(null);
+  }
+
+  /** Saves the content with one section replaced; the exercises are unchanged, so the AI check stays. */
+  protected async saveSection(content: GrammarContent): Promise<void> {
+    const section = this.editingSection();
+    if (this.busy() || !section) {
+      return;
+    }
+    await this.run(
+      'section',
+      () => this.api.saveGrammarLesson(this.pointId, content),
+      `Đã lưu phần ${SECTION_LABELS[section].toLowerCase()}.`,
+    );
+  }
+
   private async run(action: Action, call: () => ReturnType<AdminApiService['grammarLesson']>, done: string): Promise<void> {
     this.busy.set(action);
     this.actionError.set(null);
@@ -446,6 +502,8 @@ export class GrammarDetail {
     this.serverFields.set([]);
     this.editError.set(null);
     this.editFields.set({});
+    this.sectionError.set(null);
+    this.sectionFields.set([]);
     this.note.set('');
     try {
       const lesson = await firstValueFrom(call());
@@ -454,6 +512,8 @@ export class GrammarDetail {
       this.note.set(done);
       if (action === 'exercise') {
         this.cancelEdit();
+      } else if (action === 'section') {
+        this.cancelSection();
       }
     } catch (err) {
       const fallback =
@@ -468,6 +528,9 @@ export class GrammarDetail {
         this.editFields.set(this.groupFields(failure.fields));
       } else if (action === 'delete') {
         this.actionError.set([failure.message, ...failure.fields].join(' '));
+      } else if (action === 'section') {
+        this.sectionError.set(failure.message);
+        this.sectionFields.set(failure.fields);
       } else if (action === 'save') {
         this.saveError.set(failure.message);
         this.serverFields.set(failure.fields);

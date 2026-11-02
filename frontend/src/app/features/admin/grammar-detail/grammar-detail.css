@@ -217,3 +217,29 @@
   height: 24px;
   flex: none;
 }
+
+/* A structure: its label, the pattern in coloured lines as learners see it, the example, then the
+   pattern as written in the JSON. */
+.structure {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.raw {
+  font: var(--text-xs) ui-monospace, Consolas, monospace;
+  color: var(--color-text-muted);
+}
+
+/* A preview section's title with its "Sửa" button. */
+.part-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.example {
+  display: grid;
+  gap: var(--space-1);
+}

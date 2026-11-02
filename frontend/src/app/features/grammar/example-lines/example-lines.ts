@@ -1,11 +1,52 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-import { SentencePart } from '../grammar-logic';
+import {
+  autoMark,
+  breakAnswer,
+  breakAnswerText,
+  PatternPart,
+  sentenceParts,
+  SentencePart,
+  splitLines,
+} from '../grammar-logic';
 
 /** One line of an example: the English in runs coloured like the pattern, and its meaning. */
 export interface ExampleLine {
   sentence: SentencePart[];
   vi: string;
+}
+
+/**
+ * An example as shown: one line, or a question then its answer ("Are you twenty? – No, I'm not.")
+ * each with its own meaning. `en` is the whole sentence, read aloud.
+ */
+export interface ShownExample {
+  en: string;
+  lines: ExampleLine[];
+}
+
+/**
+ * Coloured from its marks, or else from the words its structure's pattern names; without a pattern
+ * the sentence stays plain.
+ */
+export function shownExample(
+  en: string,
+  vi: string,
+  marked?: string,
+  parts: readonly PatternPart[] = [],
+): ShownExample {
+  const runs = marked ? sentenceParts(en, marked, parts) : autoMark(en, parts);
+  const english = splitLines(breakAnswer(runs));
+  const meanings = breakAnswerText(vi).split('\n');
+  // The meanings go with their lines when both split alike, else all under the last line.
+  const paired = meanings.length === english.length;
+  return {
+    en,
+    lines: english.map((sentence, i) => ({
+      sentence,
+      vi: paired ? meanings[i] : i === english.length - 1 ? meanings.join(' ') : '',
+    })),
+  };
 }
 
 /**

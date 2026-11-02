@@ -1,0 +1,230 @@
+<form class="section-editor" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <h4 class="sub-title">Sửa: {{ label() }}</h4>
+
+  @switch (section()) {
+    @case ('theory') {
+      <div class="field">
+        <label for="sec-objective">Mục tiêu</label>
+        <input id="sec-objective" type="text" autocomplete="off" formControlName="objective" />
+      </div>
+      <div class="field">
+        <label for="sec-explanation">Giải thích</label>
+        <textarea
+          id="sec-explanation"
+          rows="8"
+          formControlName="explanation"
+          aria-describedby="sec-explanation-hint"
+        ></textarea>
+        <p class="field-hint" id="sec-explanation-hint">Các đoạn cách nhau bằng một dòng trống.</p>
+      </div>
+      <div class="field">
+        <label for="sec-usage">Cách dùng</label>
+        <textarea
+          id="sec-usage"
+          rows="5"
+          formControlName="usage"
+          aria-describedby="sec-usage-hint"
+        ></textarea>
+        <p class="field-hint" id="sec-usage-hint">Mỗi dòng một ý.</p>
+      </div>
+    }
+
+    @case ('structures') {
+      <p class="field-hint">
+        Các phần nối bằng " + ", chủ ngữ là một phần riêng. Dạng khác nhau cách nhau bằng "; ". Câu
+        trả lời mẫu của câu hỏi đặt sau "->".
+      </p>
+      <div formArrayName="structures" class="rows">
+        @for (row of structures.controls; track row; let i = $index) {
+          <fieldset class="row" [formGroupName]="i">
+            <legend>Cấu trúc {{ i + 1 }}</legend>
+            <div class="field">
+              <label [for]="'sec-s-label-' + i">Tên</label>
+              <input
+                [id]="'sec-s-label-' + i"
+                type="text"
+                autocomplete="off"
+                formControlName="label"
+              />
+            </div>
+            <div class="field">
+              <label [for]="'sec-s-pattern-' + i">Công thức</label>
+              <input
+                [id]="'sec-s-pattern-' + i"
+                type="text"
+                autocomplete="off"
+                formControlName="pattern"
+              />
+            </div>
+            <div class="preview" aria-label="Người học sẽ thấy">
+              <span class="muted">Người học sẽ thấy:</span>
+              <lu-pattern [rows]="previews()[i]" />
+            </div>
+            <div class="field">
+              <label [for]="'sec-s-example-' + i">Ví dụ</label>
+              <input
+                [id]="'sec-s-example-' + i"
+                type="text"
+                autocomplete="off"
+                formControlName="example"
+              />
+            </div>
+            <div class="row-actions">
+              <button
+                type="button"
+                class="btn"
+                (click)="removeStructure(i)"
+                [attr.aria-label]="'Xoá cấu trúc ' + (i + 1)"
+              >
+                Xoá cấu trúc
+              </button>
+              @if (examplesOf(i) > 0) {
+                <span class="muted"
+                  >Xoá thì {{ examplesOf(i) }} câu ví dụ của cấu trúc này sẽ thành câu chung.</span
+                >
+              }
+            </div>
+          </fieldset>
+        }
+      </div>
+      <button type="button" class="btn" (click)="addStructure()">Thêm cấu trúc</button>
+
+      @if (warnings().length > 0) {
+        <div class="warning" role="status">
+          <p><strong>Công thức đổi số phần, màu của câu ví dụ có thể lệch:</strong></p>
+          <ul>
+            @for (w of warnings(); track w.row) {
+              <li>
+                Cấu trúc {{ w.row + 1 }}: {{ w.before }} → {{ w.after }} phần. Câu đã đánh dấu:
+                {{ w.sentences.join(' · ') }}
+              </li>
+            }
+          </ul>
+          <label class="check">
+            <input type="checkbox" formControlName="unmark" />
+            Bỏ đánh dấu màu các câu này (trang học sẽ tự tô theo công thức mới)
+          </label>
+        </div>
+      }
+    }
+
+    @case ('examples') {
+      <p class="field-hint">
+        "Đánh dấu" là câu tiếng Anh với từng phần của công thức bọc trong {{ '{' }}số:từ{{ '}' }},
+        ví dụ {{ '{' }}1:She{{ '}' }} {{ '{' }}2:is{{ '}' }} reading. Để trống thì trang học tự tô
+        màu.
+      </p>
+      <div formArrayName="examples" class="rows">
+        @for (row of examples.controls; track row; let i = $index) {
+          <fieldset class="row" [formGroupName]="i">
+            <legend>Câu {{ i + 1 }}</legend>
+            <div class="field">
+              <label [for]="'sec-e-en-' + i">Tiếng Anh</label>
+              <input [id]="'sec-e-en-' + i" type="text" autocomplete="off" formControlName="en" />
+            </div>
+            <div class="field">
+              <label [for]="'sec-e-vi-' + i">Nghĩa</label>
+              <input [id]="'sec-e-vi-' + i" type="text" autocomplete="off" formControlName="vi" />
+            </div>
+            <div class="field">
+              <label [for]="'sec-e-structure-' + i">Thuộc cấu trúc</label>
+              <select [id]="'sec-e-structure-' + i" formControlName="structure">
+                <option [ngValue]="0">Không ghi</option>
+                @for (n of structureNumbers(); track n) {
+                  <option [ngValue]="n">{{ n }}. {{ content().structures[n - 1].label }}</option>
+                }
+              </select>
+            </div>
+            <div class="field">
+              <label [for]="'sec-e-marked-' + i">Đánh dấu màu</label>
+              <input
+                [id]="'sec-e-marked-' + i"
+                type="text"
+                autocomplete="off"
+                formControlName="marked"
+              />
+            </div>
+            <div class="row-actions">
+              <button
+                type="button"
+                class="btn"
+                (click)="removeExample(i)"
+                [attr.aria-label]="'Xoá câu ' + (i + 1)"
+              >
+                Xoá câu
+              </button>
+            </div>
+          </fieldset>
+        }
+      </div>
+      <button type="button" class="btn" (click)="addExample()">Thêm câu</button>
+    }
+
+    @case ('mistakes') {
+      <div formArrayName="mistakes" class="rows">
+        @for (row of mistakes.controls; track row; let i = $index) {
+          <fieldset class="row" [formGroupName]="i">
+            <legend>Lỗi {{ i + 1 }}</legend>
+            <div class="field">
+              <label [for]="'sec-m-wrong-' + i">Câu sai</label>
+              <input
+                [id]="'sec-m-wrong-' + i"
+                type="text"
+                autocomplete="off"
+                formControlName="wrong"
+              />
+            </div>
+            <div class="field">
+              <label [for]="'sec-m-right-' + i">Câu đúng</label>
+              <input
+                [id]="'sec-m-right-' + i"
+                type="text"
+                autocomplete="off"
+                formControlName="right"
+              />
+            </div>
+            <div class="field">
+              <label [for]="'sec-m-note-' + i">Giải thích</label>
+              <input
+                [id]="'sec-m-note-' + i"
+                type="text"
+                autocomplete="off"
+                formControlName="noteVi"
+              />
+            </div>
+            <div class="row-actions">
+              <button
+                type="button"
+                class="btn"
+                (click)="removeMistake(i)"
+                [attr.aria-label]="'Xoá lỗi ' + (i + 1)"
+              >
+                Xoá lỗi
+              </button>
+            </div>
+          </fieldset>
+        }
+      </div>
+      <button type="button" class="btn" (click)="addMistake()">Thêm lỗi</button>
+    }
+  }
+
+  @if (error(); as message) {
+    <p class="field-error" role="alert">{{ message }}</p>
+  }
+  @if (fields().length > 0) {
+    <ul class="field-list" aria-label="Lỗi theo trường">
+      @for (line of fields(); track $index) {
+        <li class="field-error">{{ line }}</li>
+      }
+    </ul>
+  }
+
+  <p class="muted">Chỉ lưu phần này; bài tập không đổi nên kết quả kiểm tra AI được giữ.</p>
+  <div class="actions">
+    <button type="submit" class="btn-primary" [disabled]="busy()">
+      {{ busy() ? 'Đang lưu…' : 'Lưu phần này' }}
+    </button>
+    <button type="button" class="btn" [disabled]="busy()" (click)="cancelled.emit()">Huỷ</button>
+  </div>
+</form>

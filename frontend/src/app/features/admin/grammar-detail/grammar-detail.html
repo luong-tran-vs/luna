@@ -102,64 +102,159 @@
         <article class="preview" aria-labelledby="preview-title">
           <h2 class="section-title" id="preview-title">Xem trước</h2>
 
-          <section class="card" aria-labelledby="pv-objective">
-            <h3 class="part-title" id="pv-objective">Mục tiêu</h3>
-            <p>{{ l.content.objective }}</p>
-          </section>
+          <ng-template #sectionEditor let-section>
+            <lu-grammar-section-editor
+              [section]="section"
+              [content]="l.content"
+              [busy]="busy() === 'section'"
+              [error]="sectionError()"
+              [fields]="sectionFields()"
+              (saved)="saveSection($event)"
+              (cancelled)="cancelSection()"
+            />
+          </ng-template>
 
-          <section class="card" aria-labelledby="pv-explanation">
-            <h3 class="part-title" id="pv-explanation">Giải thích</h3>
-            @for (para of l.content.explanation; track $index) {
-              <p>{{ para }}</p>
-            }
-            <h4 class="sub-title">Cách dùng</h4>
-            <ul class="plain">
-              @for (u of l.content.usage; track $index) {
-                <li>{{ u }}</li>
+          <section class="card" aria-labelledby="pv-objective">
+            <div class="part-head">
+              <h3 class="part-title" id="pv-objective">Mục tiêu, giải thích và cách dùng</h3>
+              @if (editingSection() !== 'theory') {
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="busy() !== null || editingSection() !== null"
+                  (click)="startSection('theory')"
+                  aria-label="Sửa phần mục tiêu, giải thích và cách dùng"
+                >
+                  Sửa
+                </button>
               }
-            </ul>
+            </div>
+            @if (editingSection() === 'theory') {
+              <ng-container
+                [ngTemplateOutlet]="sectionEditor"
+                [ngTemplateOutletContext]="{ $implicit: 'theory' }"
+              />
+            } @else {
+              <p>{{ l.content.objective }}</p>
+              <h4 class="sub-title">Giải thích</h4>
+              @for (para of l.content.explanation; track $index) {
+                <p>{{ para }}</p>
+              }
+              <h4 class="sub-title">Cách dùng</h4>
+              <ul class="plain">
+                @for (u of l.content.usage; track $index) {
+                  <li>{{ u }}</li>
+                }
+              </ul>
+            }
           </section>
 
           <section class="card" aria-labelledby="pv-structures">
-            <h3 class="part-title" id="pv-structures">Cấu trúc</h3>
-            <ul class="plain">
-              @for (s of l.content.structures; track $index) {
-                <li>
-                  <strong>{{ s.label }}:</strong> <code>{{ s.pattern }}</code>
-                  <span class="muted"> Ví dụ: {{ s.example }}</span>
-                </li>
+            <div class="part-head">
+              <h3 class="part-title" id="pv-structures">Cấu trúc</h3>
+              @if (editingSection() !== 'structures') {
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="busy() !== null || editingSection() !== null"
+                  (click)="startSection('structures')"
+                  aria-label="Sửa phần cấu trúc"
+                >
+                  Sửa
+                </button>
               }
-            </ul>
+            </div>
+            @if (editingSection() === 'structures') {
+              <ng-container
+                [ngTemplateOutlet]="sectionEditor"
+                [ngTemplateOutletContext]="{ $implicit: 'structures' }"
+              />
+            } @else {
+              <ul class="plain">
+                @for (s of l.content.structures; track $index; let i = $index) {
+                  <li class="structure">
+                    <strong>{{ s.label }}</strong>
+                    <lu-pattern [rows]="patternLines()[i]" />
+                    <span class="muted">Ví dụ: {{ s.example }}</span>
+                    <code class="raw">{{ s.pattern }}</code>
+                  </li>
+                }
+              </ul>
+            }
           </section>
 
           <section class="card" aria-labelledby="pv-examples">
-            <h3 class="part-title" id="pv-examples">Ví dụ</h3>
-            <ul class="plain">
-              @for (e of l.content.examples; track $index) {
-                <li>
-                  {{ e.marked || e.en }} <span class="muted">— {{ e.vi }}</span>
-                  @if (e.structure) {
-                    <span class="muted"> · cấu trúc {{ e.structure }}</span>
-                  }
-                </li>
+            <div class="part-head">
+              <h3 class="part-title" id="pv-examples">Ví dụ</h3>
+              @if (editingSection() !== 'examples') {
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="busy() !== null || editingSection() !== null"
+                  (click)="startSection('examples')"
+                  aria-label="Sửa phần ví dụ"
+                >
+                  Sửa
+                </button>
               }
-            </ul>
+            </div>
+            @if (editingSection() === 'examples') {
+              <ng-container
+                [ngTemplateOutlet]="sectionEditor"
+                [ngTemplateOutletContext]="{ $implicit: 'examples' }"
+              />
+            } @else {
+              <ul class="plain">
+                @for (e of l.content.examples; track $index; let i = $index) {
+                  <li class="example">
+                    <lu-example-lines [lines]="shownExamples()[i].lines" />
+                    <span class="muted">{{
+                      e.structure ? 'Cấu trúc ' + e.structure : 'Không ghi cấu trúc'
+                    }}</span>
+                  </li>
+                }
+              </ul>
+            }
           </section>
 
           <section class="card" aria-labelledby="pv-mistakes">
-            <h3 class="part-title" id="pv-mistakes">Lỗi thường gặp</h3>
-            @if (l.content.mistakes.length === 0) {
-              <p class="muted">Không có.</p>
-            }
-            <ul class="plain">
-              @for (m of l.content.mistakes; track $index) {
-                <li>
-                  <span class="wrong"><span class="visually-hidden">Sai: </span>{{ m.wrong }}</span>
-                  <span class="right"><span class="visually-hidden">Đúng: </span>{{ m.right }}</span>
-                  <span class="muted">{{ m.noteVi }}</span>
-                </li>
+            <div class="part-head">
+              <h3 class="part-title" id="pv-mistakes">Lỗi thường gặp</h3>
+              @if (editingSection() !== 'mistakes') {
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="busy() !== null || editingSection() !== null"
+                  (click)="startSection('mistakes')"
+                  aria-label="Sửa phần lỗi thường gặp"
+                >
+                  Sửa
+                </button>
               }
-            </ul>
+            </div>
+            @if (editingSection() === 'mistakes') {
+              <ng-container
+                [ngTemplateOutlet]="sectionEditor"
+                [ngTemplateOutletContext]="{ $implicit: 'mistakes' }"
+              />
+            } @else {
+              @if (l.content.mistakes.length === 0) {
+                <p class="muted">Không có.</p>
+              }
+              <ul class="plain">
+                @for (m of l.content.mistakes; track $index) {
+                  <li>
+                    <span class="wrong"
+                      ><span class="visually-hidden">Sai: </span>{{ m.wrong }}</span
+                    >
+                    <span class="right"
+                      ><span class="visually-hidden">Đúng: </span>{{ m.right }}</span
+                    >
+                    <span class="muted">{{ m.noteVi }}</span>
+                  </li>
+                }
+              </ul>
+            }
           </section>
 
           <ng-template #exercises let-list>

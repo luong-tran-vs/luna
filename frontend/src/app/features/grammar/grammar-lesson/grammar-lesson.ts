@@ -22,18 +22,12 @@ import { Icon } from '../../../shared/components/icon/icon';
 import { Loading } from '../../../shared/components/loading/loading';
 import { SpeakButton } from '../../../shared/directives/speak-button';
 import {
-  autoMark,
-  breakAnswer,
-  breakAnswerText,
   guessStructure,
-  PatternPart,
   patternRows,
-  sentenceParts,
-  splitLines,
   structureTone,
   tabLabels,
 } from '../grammar-logic';
-import { ExampleLine, ExampleLines } from '../example-lines/example-lines';
+import { ExampleLines, shownExample } from '../example-lines/example-lines';
 import { GrammarQuiz } from '../grammar-quiz/grammar-quiz';
 import { MistakeCheck } from '../mistake-check/mistake-check';
 import { Pattern } from '../pattern/pattern';
@@ -45,34 +39,6 @@ interface ResumeAction {
   step: number;
   /** Starts the round over the practice exercises answered wrong last time. */
   weak?: boolean;
-}
-
-/**
- * An example as shown: one line, or a question then its answer ("Are you twenty? – No, I'm not.")
- * each with its own meaning. `en` is the whole sentence, read aloud.
- */
-interface ShownExample {
-  en: string;
-  lines: ExampleLine[];
-}
-
-/**
- * Coloured from its marks, or else from the words its structure's pattern names; without a pattern
- * the sentence stays plain.
- */
-function shownExample(en: string, vi: string, marked?: string, parts: readonly PatternPart[] = []): ShownExample {
-  const runs = marked ? sentenceParts(en, marked, parts) : autoMark(en, parts);
-  const english = splitLines(breakAnswer(runs));
-  const meanings = breakAnswerText(vi).split('\n');
-  // The meanings go with their lines when both split alike, else all under the last line.
-  const paired = meanings.length === english.length;
-  return {
-    en,
-    lines: english.map((sentence, i) => ({
-      sentence,
-      vi: paired ? meanings[i] : i === english.length - 1 ? meanings.join(' ') : '',
-    })),
-  };
 }
 
 /** One card of Lý thuyết: the quick summary, one paragraph of the explanation, or the uses. */
