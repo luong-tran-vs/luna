@@ -1,0 +1,62 @@
+{
+  "content": {
+    "objective": "Đặt tính từ đúng chỗ (trước danh từ, sau be), không thêm -s cho tính từ, và xếp đúng thứ tự khi có nhiều tính từ trước một danh từ.",
+    "explanation": [
+      "Tính từ miêu tả người, vật. Trong tiếng Anh, tính từ đứng trước danh từ, ngược với tiếng Việt: a red car (một chiếc xe đỏ), an interesting book (một quyển sách hay).",
+      "Tính từ cũng đứng sau be và sau các động từ look, feel, seem (trông, cảm thấy, có vẻ): The car is red. You look tired. Không được bỏ be: The soup is hot (không nói The soup hot).",
+      "Tính từ không có dạng số nhiều, dù danh từ là số nhiều: tall boys, two red apples (không nói talls boys, reds apples).",
+      "Hai tính từ đứng sau be thì nối bằng and: The room is small and dark. Trước tính từ có thể thêm very / really: a very old house, She is really kind.",
+      "Khi có hai, ba tính từ trước một danh từ, thứ tự thường là: ý kiến (nice, beautiful, lovely) → kích thước (big, small) → tuổi (old, new, young) → màu (red, black) → danh từ: a beautiful old house, a big black dog. Các tính từ này không cần and."
+    ],
+    "usage": [
+      "Miêu tả đồ vật: I have a new phone.",
+      "Miêu tả người: Our teacher is kind and funny.",
+      "Nói cảm giác, vẻ bề ngoài: You look happy today."
+    ],
+    "structures": [
+      { "label": "Trước danh từ", "pattern": "a / an / the + tính từ + danh từ", "example": "She has a small dog." },
+      { "label": "Sau be", "pattern": "chủ ngữ + be / look / feel + tính từ", "example": "The soup is hot." },
+      { "label": "Hai tính từ sau be", "pattern": "chủ ngữ + be + tính từ + and + tính từ", "example": "The room is small and dark." },
+      { "label": "Nhiều tính từ", "pattern": "ý kiến + kích thước + tuổi + màu + danh từ", "example": "We live in a beautiful old house." }
+    ],
+    "examples": [
+      { "en": "I have a red car.", "vi": "Tôi có một chiếc ô tô màu đỏ.", "structure": 1 },
+      { "en": "Hanoi is a big city.", "vi": "Hà Nội là một thành phố lớn.", "structure": 1 },
+      { "en": "They are tall boys.", "vi": "Họ là những cậu bé cao lớn.", "structure": 1 },
+      { "en": "My car is red.", "vi": "Xe của tôi màu đỏ.", "structure": 2 },
+      { "en": "You look tired today.", "vi": "Hôm nay trông bạn có vẻ mệt.", "structure": 2 },
+      { "en": "This book is very interesting.", "vi": "Quyển sách này rất hay.", "structure": 2 },
+      { "en": "The weather is cold and windy.", "vi": "Thời tiết lạnh và có gió.", "structure": 3 },
+      { "en": "Our teacher is kind and funny.", "vi": "Cô giáo của chúng tôi hiền và vui tính.", "structure": 3 },
+      { "en": "She lives in a beautiful old house.", "vi": "Cô ấy sống trong một ngôi nhà cổ rất đẹp.", "structure": 4 },
+      { "en": "He has a big black dog.", "vi": "Anh ấy có một con chó đen to.", "structure": 4 },
+      { "en": "I bought a nice new jacket.", "vi": "Tôi đã mua một chiếc áo khoác mới rất đẹp.", "structure": 4 }
+    ],
+    "mistakes": [
+      { "wrong": "I have a car red.", "right": "I have a red car.", "noteVi": "Tính từ đứng trước danh từ, ngược với tiếng Việt." },
+      { "wrong": "They are talls boys.", "right": "They are tall boys.", "noteVi": "Tính từ không thêm -s, dù danh từ là số nhiều." },
+      { "wrong": "The soup very hot.", "right": "The soup is very hot.", "noteVi": "Tính từ đứng sau chủ ngữ thì phải có be." },
+      { "wrong": "She has a black big dog.", "right": "She has a big black dog.", "noteVi": "Kích thước (big) đứng trước màu (black)." }
+    ],
+    "practice": [
+      { "id": "p1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Lan has ___.", "options": ["a white cat", "a cat white", "white a cat", "a whites cat"], "answerIndex": 0, "explanationVi": "Tính từ white đứng trước danh từ cat." },
+      { "id": "p2", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "These are ___.", "options": ["new shoes", "news shoes", "shoes new", "new shoe"], "answerIndex": 0, "explanationVi": "Tính từ không thêm -s; these đi với danh từ số nhiều shoes." },
+      { "id": "p3", "kind": "fill", "promptVi": "Điền is hoặc are.", "text": "My shoes ___ very old.", "answers": ["are"], "explanationVi": "My shoes là số nhiều nên dùng are trước tính từ." },
+      { "id": "p4", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Họ là những học sinh giỏi.", "words": ["They", "are", "good", "students.", "goods", "is"], "sentence": "They are good students.", "explanationVi": "Tính từ good đứng trước danh từ và không thêm -s." },
+      { "id": "p5", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Căn phòng nhỏ và tối.", "words": ["The", "room", "is", "small", "and", "dark.", "are"], "sentence": "The room is small and dark.", "answers": ["The room is dark and small."], "explanationVi": "Hai tính từ sau be nối bằng and." },
+      { "id": "p6", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "I want a bag black.", "sentence": "I want a black bag.", "explanationVi": "Tính từ black đứng trước danh từ bag." },
+      { "id": "p7", "kind": "choice", "promptVi": "Chọn thứ tự đúng.", "text": "We stayed in a ___ hotel.", "options": ["lovely small", "small lovely", "lovelys small", "small lovelys"], "answerIndex": 0, "explanationVi": "Ý kiến (lovely) đứng trước kích thước (small)." },
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn thứ tự đúng.", "text": "Look at that ___!", "options": ["big brown horse", "brown big horse", "big horse brown", "horse big brown"], "answerIndex": 0, "explanationVi": "Kích thước (big) → màu (brown) → danh từ." },
+      { "id": "p9", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "My brother is a boy tall.", "sentence": "My brother is a tall boy.", "explanationVi": "Tính từ tall đứng trước danh từ boy." },
+      { "id": "p10", "kind": "fill", "promptVi": "Viết dạng đúng của tính từ trong ngoặc.", "text": "Two ___ (young) girls are playing in the park.", "answers": ["young"], "explanationVi": "Tính từ không thêm -s: two young girls." }
+    ],
+    "mastery": [
+      { "id": "m1", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "My uncle has ___.", "options": ["a fast car", "a car fast", "fast a car", "a fasts car"], "answerIndex": 0, "explanationVi": "Tính từ fast đứng trước danh từ car." },
+      { "id": "m2", "kind": "choice", "promptVi": "Chọn thứ tự đúng.", "text": "My father drives an ___ car.", "options": ["old blue", "blue old", "olds blue", "blue olds"], "answerIndex": 0, "explanationVi": "Tuổi (old) đứng trước màu (blue)." },
+      { "id": "m3", "kind": "fill", "promptVi": "Viết dạng đúng của tính từ trong ngoặc.", "text": "We have three ___ (small) children.", "answers": ["small"], "explanationVi": "Tính từ không thêm -s: three small children." },
+      { "id": "m4", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Mẹ tôi cảm thấy rất vui.", "words": ["My", "mother", "feels", "very", "happy.", "happily", "feel"], "sentence": "My mother feels very happy.", "explanationVi": "Sau feel dùng tính từ (happy), không dùng trạng từ; my mother đi với feels." },
+      { "id": "m5", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "The film very boring.", "sentence": "The film is very boring.", "answers": ["The film was very boring."], "explanationVi": "Tính từ đứng sau chủ ngữ thì phải có be." },
+      { "id": "m6", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "My grandparents live in ___.", "options": ["a lovely old house", "an old lovely house", "a house lovely old", "a lovely house old"], "answerIndex": 0, "explanationVi": "Ý kiến (lovely) → tuổi (old) → danh từ." }
+    ]
+  }
+}

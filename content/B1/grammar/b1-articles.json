@@ -1,0 +1,65 @@
+{
+  "content": {
+    "objective": "Chọn đúng giữa the và không dùng mạo từ: nói chung hay nói cụ thể, vật duy nhất, tên riêng, và các cụm cố định như at home, go to school, by bus, have lunch.",
+    "explanation": [
+      "Nói chung về một loại người, vật: dùng danh từ số nhiều hoặc danh từ không đếm được, không có mạo từ: Dogs are friendly. I like music. Money isn't everything. Không nói The dogs are friendly khi nói về chó nói chung.",
+      "Nói về người, vật cụ thể (người nghe biết là cái nào, đã nhắc tới, hoặc có cụm từ chỉ rõ): dùng the: The dogs next door bark all night. The music in this café is too loud. Can you close the window?",
+      "Vật duy nhất, ai cũng biết: the sun, the moon, the sky, the sea, the world, the internet. Số thứ tự và so sánh nhất cũng dùng the: the first day, the best student.",
+      "Nhiều cụm cố định không có mạo từ: at home, at work, go to school / work / bed, by bus / car / train, have breakfast / lunch / dinner, next week, last year. Nhưng: go to the cinema, go to the bank, in the morning.",
+      "Tên người, thành phố, nước, hồ, núi thường không có the: Vietnam, Hanoi, Mount Fansipan. Tên nước có Republic, Kingdom, States, và tên sông, biển, đại dương thì có the: the USA, the UK, the Red River, the Pacific."
+    ],
+    "usage": [
+      "Nói ý kiến chung: I think cats are cleaner than dogs.",
+      "Nói vật cụ thể đã biết: Can you turn off the TV, please?",
+      "Thói quen hằng ngày: I go to work by bus and have lunch at home."
+    ],
+    "structures": [
+      { "label": "Nói chung", "pattern": "danh từ số nhiều / không đếm được (không có mạo từ)", "example": "Dogs are friendly animals." },
+      { "label": "Nói cụ thể", "pattern": "the + danh từ + (cụm chỉ rõ)", "example": "The dogs next door bark all night." },
+      { "label": "Vật duy nhất", "pattern": "the + sun / moon / sky / sea / world / internet", "example": "The sun rises in the east." },
+      { "label": "Cụm cố định", "pattern": "at home / at work; go to school / bed; by bus; have lunch (không có mạo từ)", "example": "I go to work by bus." },
+      { "label": "Tên riêng", "pattern": "Vietnam, Hanoi (không có the); the USA, the UK, the Red River", "example": "The Red River flows through Hanoi." }
+    ],
+    "examples": [
+      { "en": "Dogs are friendly animals.", "vi": "Chó là loài vật thân thiện.", "structure": 1 },
+      { "en": "I love music, especially jazz.", "vi": "Tôi mê âm nhạc, nhất là nhạc jazz.", "structure": 1 },
+      { "en": "Children need a lot of sleep.", "vi": "Trẻ con cần ngủ nhiều.", "structure": 1 },
+      { "en": "The dogs next door bark all night.", "vi": "Mấy con chó nhà bên sủa suốt đêm.", "structure": 2 },
+      { "en": "The music in this café is too loud.", "vi": "Nhạc trong quán cà phê này to quá.", "structure": 2 },
+      { "en": "Can you pass me the salt, please?", "vi": "Bạn đưa giúp tôi lọ muối được không?", "structure": 2 },
+      { "en": "The sun rises in the east.", "vi": "Mặt trời mọc ở hướng đông.", "structure": 3 },
+      { "en": "I found this recipe on the internet.", "vi": "Tôi tìm thấy công thức này trên mạng.", "structure": 3 },
+      { "en": "I go to work by bus.", "vi": "Tôi đi làm bằng xe buýt.", "structure": 4 },
+      { "en": "We usually have dinner at home.", "vi": "Chúng tôi thường ăn tối ở nhà.", "structure": 4 },
+      { "en": "The Red River flows through Hanoi.", "vi": "Sông Hồng chảy qua Hà Nội.", "structure": 5 },
+      { "en": "My cousin lives in the USA.", "vi": "Em họ tôi sống ở Mỹ.", "structure": 5 }
+    ],
+    "mistakes": [
+      { "wrong": "The life is beautiful.", "right": "Life is beautiful.", "noteVi": "Nói chung về cuộc sống: không dùng the." },
+      { "wrong": "I like the cats.", "right": "I like cats.", "noteVi": "Nói thích một loài nói chung: danh từ số nhiều, không có the." },
+      { "wrong": "Sun is very hot today.", "right": "The sun is very hot today.", "noteVi": "Vật duy nhất dùng the." },
+      { "wrong": "She goes to work by the bus.", "right": "She goes to work by bus.", "noteVi": "By + phương tiện không có mạo từ." },
+      { "wrong": "We visited the Vietnam last year.", "right": "We visited Vietnam last year.", "noteVi": "Tên nước thông thường không có the." }
+    ],
+    "practice": [
+      { "id": "p1", "kind": "choice", "promptVi": "Chọn cách nói đúng (nói chung).", "text": "I'm afraid of ___.", "options": ["spiders", "the spiders", "a spiders", "spider"], "answerIndex": 0, "explanationVi": "Nói chung về một loài: danh từ số nhiều, không có mạo từ." },
+      { "id": "p2", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "Look at ___! It's so bright tonight.", "options": ["the moon", "moon", "a moon", "moons"], "answerIndex": 0, "explanationVi": "Vật duy nhất: the moon." },
+      { "id": "p3", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "My father goes to ___ every day at seven.", "options": ["work", "the work", "a work", "works"], "answerIndex": 0, "explanationVi": "Cụm cố định: go to work, không có mạo từ." },
+      { "id": "p4", "kind": "fill", "promptVi": "Điền mạo từ thích hợp.", "text": "Can you close ___ door, please? It's cold.", "answers": ["the"], "explanationVi": "Cái cửa cụ thể mà cả hai người đều biết: the door." },
+      { "id": "p5", "kind": "fill", "promptVi": "Điền mạo từ thích hợp.", "text": "She is ___ best student in our class.", "answers": ["the"], "explanationVi": "So sánh nhất dùng the." },
+      { "id": "p6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Chúng tôi đến Huế bằng tàu hoả.", "words": ["We", "went", "to", "Hue", "by", "train.", "the", "a"], "sentence": "We went to Hue by train.", "explanationVi": "Tên thành phố và by + phương tiện không có mạo từ." },
+      { "id": "p7", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "The money can't buy happiness.", "sentence": "Money can't buy happiness.", "explanationVi": "Nói chung về tiền: không dùng the." },
+      { "id": "p8", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "We had ___ at a small restaurant near the beach.", "options": ["lunch", "the lunch", "a lunches", "lunches"], "answerIndex": 0, "explanationVi": "Have lunch: không có mạo từ." },
+      { "id": "p9", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "I usually stay at the home on Sundays.", "sentence": "I usually stay at home on Sundays.", "answers": ["I usually stay home on Sundays."], "explanationVi": "At home không có mạo từ." },
+      { "id": "p10", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "___ is the longest river in the world.", "options": ["The Nile", "Nile", "A Nile", "Niles"], "answerIndex": 0, "explanationVi": "Tên sông có the: the Nile." }
+    ],
+    "mastery": [
+      { "id": "m1", "kind": "choice", "promptVi": "Chọn cách nói đúng (nói chung).", "text": "___ is good for your health.", "options": ["Exercise", "The exercise", "An exercises", "Exercises is"], "answerIndex": 0, "explanationVi": "Nói chung về việc tập thể dục: không có mạo từ." },
+      { "id": "m2", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "___ in this photo are my grandparents.", "options": ["The people", "People", "A people", "Peoples"], "answerIndex": 0, "explanationVi": "Những người cụ thể trong ảnh: the people." },
+      { "id": "m3", "kind": "choice", "promptVi": "Chọn cách nói đúng.", "text": "It's late. I'm going to ___.", "options": ["bed", "the bed", "a bed", "beds"], "answerIndex": 0, "explanationVi": "Đi ngủ: go to bed, không có mạo từ." },
+      { "id": "m4", "kind": "fill", "promptVi": "Điền mạo từ thích hợp.", "text": "Light from ___ sun takes eight minutes to reach us.", "answers": ["the"], "explanationVi": "Vật duy nhất: the sun." },
+      { "id": "m5", "kind": "fix", "promptVi": "Câu sau có một lỗi. Hãy viết lại câu đúng.", "text": "I go to the school by bike.", "sentence": "I go to school by bike.", "explanationVi": "Đi học: go to school, không có mạo từ." },
+      { "id": "m6", "kind": "reorder", "promptVi": "Sắp xếp các từ thành câu đúng.", "text": "Cô ấy học tiếng Anh trên mạng.", "words": ["She", "learns", "English", "on", "the", "internet.", "a", "an"], "sentence": "She learns English on the internet.", "explanationVi": "Tên ngôn ngữ không có mạo từ; the internet có the." }
+    ]
+  }
+}
